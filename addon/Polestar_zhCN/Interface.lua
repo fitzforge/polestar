@@ -726,6 +726,10 @@ L["Click again for the next name. Shift-drag to move."] = "再次点击切换下
 L["Press again to delete"] = "再按一次删除"
 L["Bag space"] = "背包空间"
 L["Press twice to delete it."] = "按两次将其删除。"
+-- L["a new icon each press"] = ""
+-- L["Marks it with %s."] = ""
+-- L["Marks it with %s if it has no icon yet: you don't lead the party."] = ""
+-- L["Marks nothing: in a raid only the leader and assistants set icons."] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "等级 %d"
@@ -879,7 +883,6 @@ L["A new one each press"] = "每次点击轮换标记"
 L["Icon on mobs"] = "怪物标记"
 L["A new one each press skips the NPCs' icon and leaves a mob that has one as it is."] = "每次轮换标记时会避开 NPC 使用的标记，并保留怪物已有的标记。"
 L["Icon on NPCs"] = "NPC 标记"
-L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "选取目标按钮和步骤快捷键会给选中的怪物或 NPC 加上团队标记；非战斗状态下，若点击后未找到目标，则清除当前目标。队友也能看到标记；团队中只有团长和助理能设置标记。"
 L["A new one each press, so the last few NPCs keep theirs. Every press counts, even one that marks nothing."] = "每次点击都轮换标记，让最近几个 NPC 保留各自的标记。即使此次没有标记目标，也会推进轮换。"
 L["Rare button"] = "稀有怪按钮"
 L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."] = "Polestar 发现附近的稀有怪时显示选取目标按钮，直至其死亡或离开视野。可设置快捷键。"
@@ -921,6 +924,7 @@ L["At the step's NPC, picks the chat option the guide names, or opens the goods 
 L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = "自动选择无任务 NPC 的唯一选项。按住 Shift 阅读。关闭时，游戏本身仍会跳过部分对话，“选择步骤要求的选项”仍会选择步骤的选项，飞行管理员则遵循“打开飞行地图”。"
 L["Click objectives to target"] = "点击任务目标以选中"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "在战斗外点击任务目标行或 NPC 标题时，也会选中该 NPC，并使用与目标按钮相同的标记设置。这会替换你当前的目标；搜索失败时会清除目标。"
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "仅限联盟"
@@ -3132,3 +3136,4 @@ L["looted %s, which starts %s"] = "拾取了 %s，可开始任务 %s"
 
 -- UI/WhileHere.lua and UI/Options.lua
 -- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = "也包括可交付的任务：交任务的 NPC 就在旁边，而指南稍后才交。"
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "选取目标按钮和步骤快捷键会给选中的怪物或 NPC 加上团队标记；非战斗状态下，若点击后未找到目标，则清除当前目标。队友也能看到标记；团队中只有团长和助理能设置标记。"

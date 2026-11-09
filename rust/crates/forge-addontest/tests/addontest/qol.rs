@@ -824,6 +824,150 @@ fn mark_target_the_icon_for_mobs_and_for_npcs_is_a_setting_a_new_one_each_press_
 	);
 }
 
+// Mark what they target in a group. A fake group (IsInRaid, IsInGroup, UnitIsGroupLeader/Assistant; SECRET reads
+// as a secret value) and press(macro, unit), which runs the macro's /tm line the way the client's TARGET_MARKER
+// handler does (Blizzard_ChatFrameBase/Shared/SlashCommands.lua): "!n" skips a unit that has icon n, "~n" one that
+// has any icon.
+const MARK_GROUP: &str = r#"
+local B = Polestar.QoL.Buttons
+local SECRET = {}
+function issecretvalue(v) return v == SECRET end
+local group = { raid = false, party = false, lead = false, assist = false }
+function IsInRaid() return group.raid end
+function IsInGroup() return group.party or group.raid end
+function UnitIsGroupLeader(unit) assert(unit == "player") return group.lead end
+function UnitIsGroupAssistant(unit) assert(unit == "player") return group.assist end
+local function regroup(g)
+	for k, v in pairs(g) do group[k] = v end
+	stub.fire("GROUP_ROSTER_UPDATE")
+	stub.runTimers()
+end
+local function press(macro, unit)
+	local cond, marker = (macro or ""):match("\n/tm %[@target,([^%]]*)%] (%S+)$")
+	if not cond then return unit.icon end
+	if cond:find("harm") and not unit.hostile then return unit.icon end
+	if cond:find("nodead") and unit.dead then return unit.icon end
+	local n = tonumber(marker:match("%d+"))
+	if marker:find("^!") then
+		if unit.icon == n then return unit.icon end
+	elseif marker:find("^~") then
+		if unit.icon ~= nil then return unit.icon end
+	end
+	unit.icon = n ~= 0 and n or nil
+	return unit.icon
+end
+local function tm(b) return (b:GetAttribute("macrotext") or ""):match("\n(/tm [^\n]*)$") or false end
+q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 } })
+"#;
+
+fn run_group(script: &str) -> Vec<Value> {
+	run(&format!("{MARK_GROUP}{script}"))
+}
+
+const SKULL: &str = "/tm [@target,harm,nodead] !8";
+const SKULL_FREE: &str = "/tm [@target,harm,nodead] ~8";
+
+#[test]
+fn mark_target_alone_the_skull_goes_on_a_hostile_mob_a_second_press_never_takes_it_off_and_friendlies_and_corpses_are_never_marked() {
+	let out = run_group(
+		r#"
+		local t, s = PolestarTargetButton, PolestarStepButton
+		emit({ Polestar.GetDefault("qol.markTarget"), tm(t), tm(s) })
+		set("markTarget", true)
+		emit({ B.MarkRight(), tm(t), tm(s) })
+		local mob, starred = { hostile = true }, { hostile = true, icon = 1 }
+		local m = t:GetAttribute("macrotext")
+		emit({ press(m, mob), press(m, mob), press(s:GetAttribute("macrotext"), mob), press(m, starred) })
+		emit({ press(m, { hostile = false }) or false, press(m, { hostile = true, dead = true }) or false })
+	"#,
+	);
+	assert_eq!(out[0], json!([false, false, false]), "off by default");
+	assert_eq!(out[1], json!(["set", SKULL, SKULL]));
+	assert_eq!(out[2], json!([8, 8, 8, 8]), "a second press keeps the skull");
+	assert_eq!(out[3], json!([false, false]), "a friendly unit fails [harm], a corpse [nodead]");
+}
+
+#[test]
+fn mark_target_a_party_leader_marks_as_alone_another_member_only_marks_a_unit_with_no_icon_yet() {
+	let out = run_group(
+		r#"
+		local t, s = PolestarTargetButton, PolestarStepButton
+		set("markTarget", true)
+		set("guideNameTarget", true)
+		regroup({ party = true, lead = true })
+		emit({ B.MarkRight(), tm(t), tm(s) })
+		regroup({ lead = false })
+		emit({ B.MarkRight(), tm(t), tm(s), B.GuideNameMacro({ t = "kill", subject = "Kobold Vermin" }):match("[~!]%d$") })
+		local mine, theirs = { hostile = true }, { hostile = true, icon = 1 }
+		emit({ press(t:GetAttribute("macrotext"), mine), press(t:GetAttribute("macrotext"), mine), press(s:GetAttribute("macrotext"), theirs) })
+	"#,
+	);
+	assert_eq!(out[0], json!(["set", SKULL, SKULL]));
+	assert_eq!(out[1], json!(["free", SKULL_FREE, SKULL_FREE, "~8"]), "objective clicks follow too");
+	assert_eq!(out[2], json!([8, 8, 1]), "someone else's star stays");
+}
+
+#[test]
+fn mark_target_in_a_raid_only_the_leader_and_assistants_mark_and_a_secret_group_value_marks_nothing() {
+	let out = run_group(
+		r#"
+		local t = PolestarTargetButton
+		set("markTarget", true)
+		for _, g in ipairs({ { raid = true }, { assist = true }, { assist = false, lead = true },
+			{ lead = SECRET }, { raid = SECRET, party = true, lead = false } }) do
+			regroup(g)
+			emit({ B.MarkRight() or false, tm(t) })
+		end
+		regroup({ raid = false, party = false, lead = false })
+		emit({ B.MarkRight(), tm(t) })
+	"#,
+	);
+	assert_eq!(Value::Array(out), json!([[false, false], ["set", SKULL], ["set", SKULL], [false, false], [false, false], ["set", SKULL]]));
+}
+
+#[test]
+fn mark_target_a_group_change_in_combat_leaves_the_macros_alone_and_applies_once_the_fight_ends() {
+	let out = run_group(
+		r#"
+		local t, s = PolestarTargetButton, PolestarStepButton
+		set("markTarget", true)
+		q.combat(true)
+		regroup({ party = true })
+		emit({ tm(t), tm(s) })
+		q.combat(false)
+		stub.runTimers()
+		emit({ tm(t), tm(s) })
+	"#,
+	);
+	assert_eq!(out[0], json!([SKULL, SKULL]));
+	assert_eq!(out[1], json!([SKULL_FREE, SKULL_FREE]));
+}
+
+#[test]
+fn mark_target_the_target_button_tooltip_says_what_a_press_marks_while_marking_is_on() {
+	let out = run_group(
+		r#"
+		local t = PolestarTargetButton
+		local function hint()
+			stub.RunScript(t, "OnEnter")
+			for _, line in ipairs(GameTooltip.lines) do if line:find("^Marks") then return line end end
+			return false
+		end
+		emit(hint())
+		set("markTarget", true)
+		emit(hint())
+		regroup({ party = true })
+		emit(hint())
+		regroup({ party = false, raid = true })
+		emit(hint())
+	"#,
+	);
+	assert_eq!(out[0], json!(false), "nothing while marking is off");
+	assert!(text(&out[1]).starts_with("Marks it with |TInterface\\TargetingFrame\\UI-RaidTargetingIcon_8:0|t "), "{}", out[1]);
+	assert!(text(&out[2]).ends_with("if it has no icon yet: you don't lead the party."), "{}", out[2]);
+	assert_eq!(out[3], "Marks nothing: in a raid only the leader and assistants set icons.");
+}
+
 // Every CLICK binding in Bindings.xml shows its label in the key bindings window, and the step key's button is
 // there from login (the travel button is made with the route's first cast leg: tests/nav-prompts.rs).
 #[test]

@@ -726,6 +726,10 @@ L["Click again for the next name. Drag to move."] = "Haz clic otra vez para el s
 -- L["Press again to delete"] = ""
 -- L["Bag space"] = ""
 -- L["Press twice to delete it."] = ""
+-- L["a new icon each press"] = ""
+-- L["Marks it with %s."] = ""
+-- L["Marks it with %s if it has no icon yet: you don't lead the party."] = ""
+-- L["Marks nothing: in a raid only the leader and assistants set icons."] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "Nivel %d"
@@ -879,7 +883,6 @@ L["Start this session's XP per hour from zero."] = "Reinicia el cálculo de XP p
 -- L["Icon on mobs"] = ""
 -- L["A new one each press skips the NPCs' icon and leaves a mob that has one as it is."] = ""
 -- L["Icon on NPCs"] = ""
--- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = ""
 -- L["A new one each press, so the last few NPCs keep theirs. Every press counts, even one that marks nothing."] = ""
 -- L["Rare button"] = ""
 -- L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."] = ""
@@ -921,6 +924,7 @@ L["When the step sets your home and you talk to its innkeeper, binds your Hearth
 -- L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = ""
 L["Click objectives to target"] = "Clic en los objetivos para seleccionar"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Al hacer clic en una fila de objetivo o en el encabezado de un PNJ, también se selecciona a ese PNJ fuera de combate, con los mismos ajustes de marcado que el botón de objetivo. Esto reemplaza tu objetivo actual; una búsqueda fallida lo quita."
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Solo Alianza"

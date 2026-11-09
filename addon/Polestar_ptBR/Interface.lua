@@ -726,6 +726,10 @@ L["Click again for the next name. Shift-drag to move."] = "Clique de novo para o
 L["Press again to delete"] = "Aperte de novo para apagar"
 L["Bag space"] = "Espaço nas bolsas"
 L["Press twice to delete it."] = "Aperte duas vezes para apagar."
+-- L["a new icon each press"] = ""
+-- L["Marks it with %s."] = ""
+-- L["Marks it with %s if it has no icon yet: you don't lead the party."] = ""
+-- L["Marks nothing: in a raid only the leader and assistants set icons."] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "Nível %d"
@@ -879,7 +883,6 @@ L["A new one each press"] = "Um novo a cada clique"
 L["Icon on mobs"] = "Ícone nos inimigos"
 L["A new one each press skips the NPCs' icon and leaves a mob that has one as it is."] = "Um novo a cada clique pula o ícone dos PNJs e deixa como está um inimigo que já tenha um."
 L["Icon on NPCs"] = "Ícone nos PNJs"
-L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "O botão de alvo e a tecla de etapa põem um ícone de raide no inimigo e no PNJ que selecionam; fora de combate, um clique que não encontra nenhum dos dois limpa seu alvo. Seu grupo vê os ícones; em uma raide, só o líder e os assistentes podem defini-los."
 L["A new one each press, so the last few NPCs keep theirs. Every press counts, even one that marks nothing."] = "Um novo a cada clique, para que os últimos PNJs mantenham os seus. Todo clique conta, mesmo um que não marque nada."
 L["Rare button"] = "Botão de raro"
 L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."] = "Mostra um botão que seleciona um raro que o Polestar avistou por perto, até ele morrer ou sair de vista. Pode receber atalho."
@@ -921,6 +924,7 @@ L["At the step's NPC, picks the chat option the guide names, or opens the goods 
 L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = "Escolhe a única opção de PNJs sem missões. Segure Shift para ler. Desligado, o próprio jogo ainda pula algumas, Escolher o que a etapa pede ainda escolhe a opção da etapa e os mestres de voo seguem Abrir mapa de voo."
 L["Click objectives to target"] = "Clicar nos objetivos seleciona o alvo"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Clicar numa linha de objetivo ou no cabeçalho de um PNJ também seleciona esse PNJ fora de combate, com as mesmas opções de marcação do Botão de alvo. Isso substitui o seu alvo atual; uma busca sem sucesso o limpa."
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Só Aliança"
@@ -3126,3 +3130,4 @@ L["Drag: move it"] = "Arrastar: mover"
 -- L["About %d bars short of level %s by step %d"] = "Cerca de %d barras abaixo do nível %s na etapa %d"
 -- L["Objective areas"] = "Áreas de objetivos"
 -- L["Shade the area each group of mobs or objects spreads over on the world map."] = "Sombreia no mapa a área por onde cada grupo de criaturas ou objetos se espalha."
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "O botão de alvo e a tecla de etapa põem um ícone de raide no inimigo e no PNJ que selecionam; fora de combate, um clique que não encontra nenhum dos dois limpa seu alvo. Seu grupo vê os ícones; em uma raide, só o líder e os assistentes podem defini-los."

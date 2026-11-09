@@ -602,6 +602,10 @@ L["Click again for the next name. Shift-drag to move."] = "Haz clic otra vez par
 L["Press again to delete"] = "Presiona otra vez para eliminar"
 L["Bag space"] = "Espacio en las bolsas"
 L["Press twice to delete it."] = "Presiona dos veces para eliminarlo."
+-- L["a new icon each press"] = ""
+-- L["Marks it with %s."] = ""
+-- L["Marks it with %s if it has no icon yet: you don't lead the party."] = ""
+-- L["Marks nothing: in a raid only the leader and assistants set icons."] = ""
 
 -- QoL/Buy.lua
 L["Left %d %s (%s) for you to buy."] = "Quedan %d %s (%s) para que los compres tú."
@@ -715,7 +719,6 @@ L["A new one each press"] = "Uno nuevo en cada pulsación"
 L["Icon on mobs"] = "Icono en monstruos"
 L["A new one each press skips the NPCs' icon and leaves a mob that has one as it is."] = "Uno nuevo en cada pulsación omite el icono de los PNJ y deja tal cual a un monstruo que ya tiene uno."
 L["Icon on NPCs"] = "Icono en PNJ"
-L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "El botón de objetivo y la tecla del paso ponen un icono de banda en el monstruo y en el PNJ que seleccionan; fuera de combate, una pulsación que no encuentra ninguno quita tu objetivo. Tu grupo ve los iconos; en una banda solo el líder y los asistentes pueden ponerlos."
 L["A new one each press, so the last few NPCs keep theirs. Every press counts, even one that marks nothing."] = "Uno nuevo en cada pulsación, así que los últimos PNJ conservan el suyo. Cada pulsación cuenta, incluso la que no marca nada."
 L["Rare button"] = "Botón de raro"
 L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."] = "Muestra un botón que selecciona a un raro que Polestar detectó cerca, hasta que muere o se pierde de vista. Se le puede asignar una tecla."
@@ -757,6 +760,7 @@ L["At the step's NPC, picks the chat option the guide names, or opens the goods 
 L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = "Elige la única opción de los PNJ sin misiones. Mantén presionado Mayús para leerla. Desactivado, el juego aún omite algunas por sí mismo, Elegir lo que pide el paso sigue eligiendo la opción del paso y los maestros de vuelo siguen Abrir el mapa de vuelo."
 L["Click objectives to target"] = "Clic en los objetivos para seleccionar"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Al hacer clic en una fila de objetivo o en el encabezado de un PNJ, también se selecciona a ese PNJ fuera de combate, con los mismos ajustes de marcado que el botón de objetivo. Esto reemplaza tu objetivo actual; una búsqueda fallida lo quita."
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = ""
 
 -- QoL/QoL.lua
 L["%dh %02dm"] = "%dh %02dm"
@@ -3159,3 +3163,4 @@ L["looted %s, which starts %s"] = "consiguió %s, que inicia %s"
 -- L["Celebrating the supporters and contributors behind Polestar."] = "Un homenaje a quienes apoyan y contribuyen a Polestar."
 -- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = "Qué hacen la ventana, sus botones y sus alertas en calabozos, bandas, campos de batalla y arenas. /polestar o el atajo de teclado la abre allí hasta que salgas."
 -- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = "También una misión lista para entregar cuyo PNJ está justo aquí, cuando la guía la entrega más adelante."
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "El botón de objetivo y la tecla del paso ponen un icono de banda en el monstruo y en el PNJ que seleccionan; fuera de combate, una pulsación que no encuentra ninguno quita tu objetivo. Tu grupo ve los iconos; en una banda solo el líder y los asistentes pueden ponerlos."

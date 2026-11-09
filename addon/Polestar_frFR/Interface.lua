@@ -727,6 +727,10 @@ L["Click again for the next name. Shift-drag to move."] = "Cliquez à nouveau po
 L["Press again to delete"] = "Appuyez à nouveau pour supprimer"
 L["Bag space"] = "Place dans les sacs"
 L["Press twice to delete it."] = "Appuyez deux fois pour le supprimer."
+-- L["a new icon each press"] = ""
+-- L["Marks it with %s."] = ""
+-- L["Marks it with %s if it has no icon yet: you don't lead the party."] = ""
+-- L["Marks nothing: in a raid only the leader and assistants set icons."] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "Niveau %d"
@@ -880,7 +884,6 @@ L["A new one each press"] = "Une nouvelle à chaque appui"
 L["Icon on mobs"] = "Icône sur les monstres"
 L["A new one each press skips the NPCs' icon and leaves a mob that has one as it is."] = "« Une nouvelle à chaque appui » évite l'icône des PNJ et laisse tel quel un monstre qui en a déjà une."
 L["Icon on NPCs"] = "Icône sur les PNJ"
-L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "Le bouton de ciblage et la touche d'étape placent une icône de raid sur le monstre et le PNJ qu'ils ciblent ; hors combat, un appui qui ne trouve ni l'un ni l'autre efface votre cible. Votre groupe voit les icônes ; en raid, seuls le chef et les assistants peuvent les placer."
 L["A new one each press, so the last few NPCs keep theirs. Every press counts, even one that marks nothing."] = "Une nouvelle à chaque appui, pour que les derniers PNJ gardent la leur. Chaque appui compte, même s'il ne marque rien."
 L["Rare button"] = "Bouton de rare"
 L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."] = "Affiche un bouton qui cible un rare repéré à proximité par Polestar, jusqu'à sa mort ou sa disparition. Raccourci possible."
@@ -922,6 +925,7 @@ L["At the step's NPC, picks the chat option the guide names, or opens the goods 
 L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = "Choisit l'unique option des PNJ sans quête. Maintenez Maj pour la lire. Désactivé, le jeu en passe encore certaines lui-même, « Choisir ce que demande l'étape » choisit toujours l'option de l'étape, et les maîtres de vol suivent « Ouvrir la carte de vol »."
 L["Click objectives to target"] = "Cibler en cliquant sur les objectifs"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Un clic sur une ligne d'objectif ou sur le nom d'un PNJ en tête cible aussi ce PNJ hors combat, avec les mêmes réglages de marquage que le bouton de ciblage. Cela remplace votre cible actuelle ; une recherche infructueuse la retire."
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Alliance uniquement"
@@ -3167,3 +3171,4 @@ L["looted %s, which starts %s"] = "a ramassé %s, qui lance %s"
 -- L["About %d bars short of level %s by step %d"] = "Il manquera environ %d barres pour le niveau %s à l'étape %d"
 -- L["Objective areas"] = "Zones d'objectif"
 -- L["Shade the area each group of mobs or objects spreads over on the world map."] = "Ombrer sur la carte du monde la zone couverte par chaque groupe de monstres ou d'objets."
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "Le bouton de ciblage et la touche d'étape placent une icône de raid sur le monstre et le PNJ qu'ils ciblent ; hors combat, un appui qui ne trouve ni l'un ni l'autre efface votre cible. Votre groupe voit les icônes ; en raid, seuls le chef et les assistants peuvent les placer."

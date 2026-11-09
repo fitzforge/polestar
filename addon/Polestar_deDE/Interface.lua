@@ -1499,7 +1499,6 @@ L["A new one each press"] = "Eine neue bei jedem Druck"
 L["Icon on mobs"] = "Markierung auf Mobs"
 L["A new one each press skips the NPCs' icon and leaves a mob that has one as it is."] = "Eine neue bei jedem Druck überspringt die Markierung der NPCs und lässt einen Mob, der schon eine hat, unverändert."
 L["Icon on NPCs"] = "Markierung auf NPCs"
-L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "Der Zielknopf und die Schritttaste setzen eine Zielmarkierung auf den Mob und den NPC, die sie anvisieren; außerhalb des Kampfes hebt ein Druck, der keins von beiden findet, dein Ziel auf. Deine Gruppe sieht die Markierungen; in einem Schlachtzug können nur der Leiter und Assistenten sie setzen."
 L["A new one each press, so the last few NPCs keep theirs. Every press counts, even one that marks nothing."] = "Eine neue bei jedem Druck, sodass die letzten NPCs ihre behalten. Jeder Druck zählt, auch einer, der nichts markiert."
 L["Rare button"] = "Rare-Knopf"
 L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."] = "Zeigt einen Knopf, der eine in der Nähe entdeckte Rare anvisiert, bis sie stirbt oder außer Sicht ist. Kann auf eine Taste gelegt werden."
@@ -1541,6 +1540,7 @@ L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the
 L["Reset"] = "Zurücksetzen"
 L["Click objectives to target"] = "Ziele per Klick anvisieren"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Ein Klick auf eine Zielzeile oder eine NPC-Überschrift visiert außerhalb des Kampfes auch den NPC an, mit denselben Markierungseinstellungen wie der Ziel-Button. Das ersetzt dein aktuelles Ziel; eine erfolglose Suche hebt es auf."
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = ""
 
 -- Rares/View.lua, Rares/Options.lua
 L["Seen"] = "Gesehen"
@@ -2578,6 +2578,10 @@ L["Click again for the next name. Shift-drag to move."] = "Klick noch einmal fü
 L["Press again to delete"] = "Zum Löschen noch einmal drücken"
 L["Bag space"] = "Taschenplatz"
 L["Press twice to delete it."] = "Zweimal drücken, um ihn zu löschen."
+-- L["a new icon each press"] = ""
+-- L["Marks it with %s."] = ""
+-- L["Marks it with %s if it has no icon yet: you don't lead the party."] = ""
+-- L["Marks nothing: in a raid only the leader and assistants set icons."] = ""
 
 -- Core/Import.lua
 L["Imported"] = "Importiert"
@@ -3178,3 +3182,4 @@ L["looted %s, which starts %s"] = "hat %s erbeutet, damit beginnt %s"
 -- L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."] = "Das Guide-Fenster blendet sich in Dungeons und Schlachtfeldern aus. Mit /polestar zeigst du es hier an, oder ändere es unter Optionen > Guide > Fenster."
 -- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = "Was das Fenster, seine Schaltflächen und Hinweise in Dungeons, Schlachtzügen, Schlachtfeldern und Arenen tun. /polestar oder die Tastenbelegung öffnet es dort, bis du den Ort verlässt."
 -- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = "Auch eine abgabebereite Quest, deren NPC gleich hier steht, wenn der Guide sie erst später abgibt."
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "Der Zielknopf und die Schritttaste setzen eine Zielmarkierung auf den Mob und den NPC, die sie anvisieren; außerhalb des Kampfes hebt ein Druck, der keins von beiden findet, dein Ziel auf. Deine Gruppe sieht die Markierungen; in einem Schlachtzug können nur der Leiter und Assistenten sie setzen."

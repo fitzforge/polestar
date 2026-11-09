@@ -726,6 +726,10 @@ L["Click again for the next name. Shift-drag to move."] = "다시 클릭하면 �
 -- L["Press again to delete"] = ""
 -- L["Bag space"] = ""
 -- L["Press twice to delete it."] = ""
+-- L["a new icon each press"] = ""
+-- L["Marks it with %s."] = ""
+-- L["Marks it with %s if it has no icon yet: you don't lead the party."] = ""
+-- L["Marks nothing: in a raid only the leader and assistants set icons."] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "레벨 %d"
@@ -879,7 +883,6 @@ L["A new one each press"] = "누를 때마다 새 징표"
 L["Icon on mobs"] = "몬스터에 징표"
 L["A new one each press skips the NPCs' icon and leaves a mob that has one as it is."] = "누를 때마다 새 징표 옵션은 NPC의 징표를 건너뛰며, 이미 징표가 있는 몬스터는 그대로 둡니다."
 L["Icon on NPCs"] = "NPC에 징표"
-L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "대상 지정 버튼과 단계 키는 대상으로 지정한 몬스터와 NPC에 공격대 징표를 표시합니다. 전투 중이 아닐 때 둘 다 찾지 못하면 대상이 해제됩니다. 파티원도 징표를 볼 수 있으며, 공격대에서는 공격대장과 부공격대장만 징표를 설정할 수 있습니다."
 L["A new one each press, so the last few NPCs keep theirs. Every press counts, even one that marks nothing."] = "누를 때마다 새 징표를 사용하므로 최근 몇몇 NPC는 징표를 유지합니다. 아무것도 표시하지 못한 경우를 포함해 모든 누름이 계산됩니다."
 L["Rare button"] = "희귀 버튼"
 L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."] = "Polestar가 근처에서 발견한 희귀 몬스터를 대상으로 지정하는 버튼을 표시합니다. 그 몬스터가 죽거나 시야에서 벗어날 때까지 유지됩니다. 단축키 지정 가능."
@@ -921,6 +924,7 @@ L["Hides the game's tracker on the right of the screen, with its quests, achieve
 -- L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = ""
 L["Click objectives to target"] = "임무 클릭으로 대상 지정"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "임무 줄이나 NPC 제목을 클릭하면 전투 중이 아닐 때 그 NPC도 대상으로 지정합니다. 징표 설정은 대상 버튼과 같습니다. 현재 대상이 바뀌며, 찾지 못하면 대상이 해제됩니다."
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "얼라이언스 전용"
@@ -3123,3 +3127,4 @@ L["looted %s, which starts %s"] = "%s 획득, 이 아이템으로 %s 시작"
 -- L["Polestar %s is installed incompletely: %s. Close the game, delete every Polestar folder in Interface/AddOns and unzip the latest Polestar zip there (CurseForge or GitHub Releases, not \"Source code\")."] = "Polestar %s 설치가 불완전합니다: %s. 게임을 종료하고 Interface/AddOns의 Polestar 폴더를 모두 삭제한 뒤, 최신 Polestar zip을 그곳에 압축 해제하십시오(CurseForge 또는 GitHub Releases, \"Source code\" 아님)."
 -- L["Objective areas"] = "임무 지역"
 -- L["Shade the area each group of mobs or objects spreads over on the world map."] = "지도에 각 몹이나 사물 무리가 퍼져 있는 지역을 칠합니다."
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "대상 지정 버튼과 단계 키는 대상으로 지정한 몬스터와 NPC에 공격대 징표를 표시합니다. 전투 중이 아닐 때 둘 다 찾지 못하면 대상이 해제됩니다. 파티원도 징표를 볼 수 있으며, 공격대에서는 공격대장과 부공격대장만 징표를 설정할 수 있습니다."

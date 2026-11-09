@@ -726,6 +726,10 @@ L["Click again for the next name. Shift-drag to move."] = "再次點擊以切換
 -- L["Press again to delete"] = ""
 -- L["Bag space"] = ""
 -- L["Press twice to delete it."] = ""
+-- L["a new icon each press"] = ""
+-- L["Marks it with %s."] = ""
+-- L["Marks it with %s if it has no icon yet: you don't lead the party."] = ""
+-- L["Marks nothing: in a raid only the leader and assistants set icons."] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "等級 %d"
@@ -879,7 +883,6 @@ L["A new one each press"] = "每次按下換新標記"
 L["Icon on mobs"] = "怪物標記"
 L["A new one each press skips the NPCs' icon and leaves a mob that has one as it is."] = "每次按下換新標記時會略過 NPC 的標記，已有標記的怪物則維持不變。"
 L["Icon on NPCs"] = "NPC 標記"
-L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "選取按鈕與步驟按鍵會在所選取的怪物和 NPC 身上放置團隊標記；非戰鬥中，若按下時兩者都沒找到，則會清除你的目標。你的小隊成員看得到這些標記；在團隊中只有隊長和助理可以設定標記。"
 L["A new one each press, so the last few NPCs keep theirs. Every press counts, even one that marks nothing."] = "每次按下都換新標記，讓最近幾個 NPC 保留各自的標記。每次按下都會計算在內，即使沒有標記任何對象。"
 L["Rare button"] = "稀有按鈕"
 L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."] = "顯示一個按鈕，用來選取 Polestar 在附近發現的稀有怪，直到它死亡或離開視野。可設定按鍵綁定。"
@@ -921,6 +924,7 @@ L["Hides the game's tracker on the right of the screen, with its quests, achieve
 -- L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = ""
 L["Click objectives to target"] = "點擊任務目標以選取"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "在戰鬥外點擊任務目標列或 NPC 標題時，也會選取該 NPC，並使用與目標按鈕相同的標記設定。這會取代你目前的目標；搜尋失敗時會清除目標。"
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "僅限聯盟"
@@ -3123,3 +3127,4 @@ L["looted %s, which starts %s"] = "拾取了 %s，可開始任務 %s"
 -- L["Polestar %s is installed incompletely: %s. Close the game, delete every Polestar folder in Interface/AddOns and unzip the latest Polestar zip there (CurseForge or GitHub Releases, not \"Source code\")."] = "Polestar %s 安裝不完整：%s。請關閉遊戲，刪除 Interface/AddOns 中所有 Polestar 資料夾，再把最新的 Polestar 壓縮檔解壓到那裡（CurseForge 或 GitHub Releases，不是「Source code」）。"
 -- L["Objective areas"] = "目標區域"
 -- L["Shade the area each group of mobs or objects spreads over on the world map."] = "在地圖上為每群怪物或物件的分布範圍塗上陰影。"
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "選取按鈕與步驟按鍵會在所選取的怪物和 NPC 身上放置團隊標記；非戰鬥中，若按下時兩者都沒找到，則會清除你的目標。你的小隊成員看得到這些標記；在團隊中只有隊長和助理可以設定標記。"

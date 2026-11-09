@@ -602,9 +602,11 @@ guides you there instead.
   and small icons for the names after it.
 - **Mark what they target** (Options, Questing, Buttons; off by default): the
   target button and the step key put a raid icon on the mob or NPC they
-  target — a skull and a star by default, configurable — leaving icons
-  already placed alone. Either can be set to "A new one each press", so the
-  last few targets keep theirs. Your party sees the icons.
+  target — a skull and a star by default, configurable — and pressing again
+  never takes an icon off. Either can be set to "A new one each press", so the
+  last few targets keep theirs. Your party sees the icons. In a party you
+  don't lead, only a mob or NPC with no icon yet gets one, so a mark someone
+  else placed stays; in a raid it marks only when you lead or assist.
 
 ### Playing in a party
 

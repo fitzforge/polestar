@@ -195,6 +195,9 @@ ns.RegisterEvent("PLAYER_REGEN_DISABLED", function()
 end)
 ns.RegisterEvent("PLAYER_REGEN_ENABLED", NameTargets.Refresh)
 ns.On("QOL_TARGET_MARK_CHANGED", NameTargets.Refresh)
+-- Who may mark (Buttons.MarkRight) follows the group.
+ns.RegisterEvent("GROUP_ROSTER_UPDATE", NameTargets.Refresh)
+ns.RegisterEvent("PARTY_LEADER_CHANGED", NameTargets.Refresh)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "" or path == "qol" or path == "qol.guideNameTarget" or path == "qol.markTarget"
 		or path == "qol.markMob" or path == "qol.markNpc" then

@@ -726,6 +726,10 @@ L["Click again for the next name. Shift-drag to move."] = "Нажмите ещё
 L["Press again to delete"] = "Нажмите еще раз для удаления"
 L["Bag space"] = "Место в сумках"
 L["Press twice to delete it."] = "Нажмите дважды, чтобы удалить."
+-- L["a new icon each press"] = ""
+-- L["Marks it with %s."] = ""
+-- L["Marks it with %s if it has no icon yet: you don't lead the party."] = ""
+-- L["Marks nothing: in a raid only the leader and assistants set icons."] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "Уровень %d"
@@ -879,7 +883,6 @@ L["A new one each press"] = "Новая метка при каждом нажа�
 L["Icon on mobs"] = "Метка на противниках"
 L["A new one each press skips the NPCs' icon and leaves a mob that has one as it is."] = "При смене метки пропускается метка, выбранная для NPC. Уже отмеченный противник сохраняет свою метку."
 L["Icon on NPCs"] = "Метка на NPC"
-L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "Кнопка выбора цели и клавиша шага ставят рейдовую метку на выбранного противника или NPC. Вне боя нажатие без найденной цели снимает текущее выделение. Группа видит метки; в рейде их могут ставить только лидер и помощники."
 L["A new one each press, so the last few NPCs keep theirs. Every press counts, even one that marks nothing."] = "При каждом нажатии выбирается новая метка, чтобы несколько последних NPC сохранили свои. Учитывается каждое нажатие, даже если никто не был отмечен."
 L["Rare button"] = "Кнопка редкой цели"
 L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."] = "Показывает кнопку выбора замеченного рядом редкого противника, пока он не погибнет или не исчезнет из виду. Можно назначить клавишу."
@@ -921,6 +924,7 @@ L["At the step's NPC, picks the chat option the guide names, or opens the goods 
 L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = "Выбирает единственный вариант у NPC без заданий. Удерживайте Shift, чтобы прочитать. Если выключено, игра все равно пропускает некоторые сама, «Выбирать то, что требует шаг» все равно выбирает вариант шага, а распорядители полетов следуют настройке «Открывать карту полетов»."
 L["Click objectives to target"] = "Выбор цели щелчком по задачам"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Щелчок по строке задачи или заголовку NPC вне боя также выбирает этого NPC целью, с теми же настройками меток, что и у кнопки цели. Текущая цель при этом заменяется; неудачный поиск сбрасывает её."
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Только Альянс"
@@ -3132,3 +3136,4 @@ L["looted %s, which starts %s"] = "добыча %s начинает задани
 -- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = "Также задание, готовое к сдаче, если NPC для сдачи стоит прямо здесь, а гайд сдаёт его позже."
 -- L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."] = "Окно гайда скрывается в подземельях и на полях боя. Введите /polestar, чтобы показать его здесь, или измените это в меню Настройки > Гайд > Окно."
 -- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = "Как ведут себя окно, его кнопки и оповещения в подземельях, рейдах, на полях боя и аренах. /polestar или назначенная клавиша открывает окно там до вашего выхода."
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "Кнопка выбора цели и клавиша шага ставят рейдовую метку на выбранного противника или NPC. Вне боя нажатие без найденной цели снимает текущее выделение. Группа видит метки; в рейде их могут ставить только лидер и помощники."

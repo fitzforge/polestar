@@ -798,15 +798,43 @@ local function markSetting(kind)
 	return v and v >= 1 and v <= 8 and v == math.floor(v) and v or MARK_DEFAULT[kind]
 end
 
--- The /tm line for kind ("mob" or "npc"), nil while marking is off. A fixed
--- icon uses "!", so pressing again never takes it off. "cycle" puts the next
--- icon on at each press, skipping the one the other kind keeps, with "~": a
--- unit that already has an icon keeps it. In combat the macro cannot change,
--- so until the fight ends each press puts on the same icon.
+-- A client flag as true or false: false when the API is missing, nil when
+-- the value is secret (Forever hides some in combat).
+local function flag(fn, ...)
+	if not fn then return false end
+	local v = fn(...)
+	if ns.Compat.IsSecret(v) then return nil end
+	return v and true or false
+end
+
+-- Who may set an icon now. Alone, a party's leader, a raid's leader or
+-- assistant: "set". Another party member: "free" -- anyone in a party can
+-- set icons, so only a unit with none yet gets one and someone else's mark
+-- is never replaced. A raid member without lead or assist: nil, no icon.
+-- A secret value reads as the cautious answer.
+function Buttons.MarkRight()
+	local raid = flag(IsInRaid)
+	local group = raid or flag(IsInGroup)
+	if raid == false and group == false then return "set" end
+	if flag(UnitIsGroupLeader, "player") then return "set" end
+	if raid == false then return "free" end
+	return flag(UnitIsGroupAssistant, "player") and "set" or nil
+end
+
+-- The /tm line for kind ("mob" or "npc"), nil while marking is off or not
+-- allowed (Buttons.MarkRight). A fixed icon uses "!", so pressing again
+-- never takes it off; "~" instead while only an unmarked unit may get one
+-- (the client's /tm: "!n" skips a unit that has icon n, "~n" one that has
+-- any). "cycle" puts the next icon on at each press, skipping the one the
+-- other kind keeps, always with "~": a unit that already has an icon keeps
+-- it. In combat the macro cannot change, so until the fight ends each press
+-- puts on the same icon.
 function Buttons.MarkLine(kind)
 	if not kind or not QoL.On("markTarget") then return nil end
+	local right = Buttons.MarkRight()
+	if not right then return nil end
 	local icon = markSetting(kind)
-	if icon ~= "cycle" then return "/tm " .. MARK_UNIT[kind] .. " !" .. icon end
+	if icon ~= "cycle" then return "/tm " .. MARK_UNIT[kind] .. (right == "set" and " !" or " ~") .. icon end
 	local other, icons = markSetting(OTHER[kind]), {}
 	for i = 1, 8 do
 		if i ~= other then icons[#icons + 1] = i end
@@ -816,7 +844,7 @@ end
 
 -- After a press with kind's mark: true when the next press puts on a new icon.
 local function nextMark(kind)
-	if not kind or not QoL.On("markTarget") or markSetting(kind) ~= "cycle" then return false end
+	if not kind or not QoL.On("markTarget") or markSetting(kind) ~= "cycle" or not Buttons.MarkRight() then return false end
 	presses = presses + 1
 	return true
 end
@@ -1043,6 +1071,18 @@ local function targetTooltip(b, tip)
 			r, g, bl = T.Color(tone)
 		end
 		tip:AddLine(target.list[i], r, g, bl)
+	end
+	if QoL.On("markTarget") and target.list[1] then
+		local right, icon = Buttons.MarkRight(), markSetting(target.kind)
+		icon = icon == "cycle" and L["a new icon each press"]
+			or ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_" .. icon .. ":0|t " .. (_G["RAID_TARGET_" .. icon] or icon))
+		if right == "set" then
+			tip:AddLine(string.format(L["Marks it with %s."], icon), 0.6, 0.6, 0.6, true)
+		elseif right == "free" then
+			tip:AddLine(string.format(L["Marks it with %s if it has no icon yet: you don't lead the party."], icon), 0.6, 0.6, 0.6, true)
+		else
+			tip:AddLine(L["Marks nothing: in a raid only the leader and assistants set icons."], 0.6, 0.6, 0.6, true)
+		end
 	end
 	tip:AddLine(ns.Get("ui.lockHud") and L["Click again for the next name. Shift-drag to move."]
 		or L["Click again for the next name. Drag to move."], 0.6, 0.6, 0.6)
@@ -1347,8 +1387,9 @@ local function refresh()
 
 	local list, verbs, ids, marks
 	if QoL.On("targetButton") and guideShown and view then list, verbs, ids, marks = Buttons.TargetNames(view, raw, true, true) else list = {} end
-	-- The mark settings are part of both signatures, so changing one re-applies.
-	local mark = QoL.On("markTarget") and (markSetting("mob") .. " " .. markSetting("npc") .. "\n") or ""
+	-- The mark settings and who may mark (Buttons.MarkRight) are part of both
+	-- signatures, so changing one re-applies.
+	local mark = QoL.On("markTarget") and (markSetting("mob") .. " " .. markSetting("npc") .. " " .. tostring(Buttons.MarkRight()) .. "\n") or ""
 	local namesSig = concat(list, "\n")
 	local sig = mark .. namesSig
 	if sig ~= target.sig then
@@ -1508,6 +1549,9 @@ ns.RegisterEvent("BAG_UPDATE_DELAYED", function()
 end)
 ns.RegisterEvent("QUEST_LOG_UPDATE", refreshSoon)
 ns.RegisterEvent("BAG_UPDATE_COOLDOWN", repaintItems)
+-- Who may mark (Buttons.MarkRight) follows the group.
+ns.RegisterEvent("GROUP_ROSTER_UPDATE", refreshSoon)
+ns.RegisterEvent("PARTY_LEADER_CHANGED", refreshSoon)
 ns.RegisterEvent("UPDATE_BINDINGS", function()
 	if not itemButton then return end
 	refreshHotkey(itemButton)
