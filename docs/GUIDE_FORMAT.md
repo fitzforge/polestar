@@ -372,8 +372,11 @@ the other way round.
 
 Put `when group` on the quest's accept step: when it fails, the quest's
 turn-in and objective goals later in the guide go with it, as for any
-accept that does not apply. A solo way to the same objective is a step with
-`when !group`:
+accept that does not apply. Don't mark the goals of a `when group` (or
+`when dungeon`) step `optional`: only a player who chose it follows the step,
+and a step of optional goals only is done at once, so that player would get
+no arrow (lint: an error in our guides, a warning in other packs). A solo way
+to the same objective is a step with `when !group`:
 
 ```
 step Arachnophobia
