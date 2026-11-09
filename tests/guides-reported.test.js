@@ -7530,7 +7530,8 @@ test('forever/alliance/03-loch-modan.guide: final review: Night Elves hand Furth
 	const { step } = list[thomas];
 	assert.deepEqual(step.only && step.only.races, ['NightElf'], 'a Night Elf step');
 	assert.ok(step.when.some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(35)), 'only while carried');
-	const road = at(list, 'goto 65.2,69.7', (g) => g.t === 'goto' && Math.abs(g.x - 65.2) < 0.1 && Math.abs(g.y - 69.7) < 0.1);
+	// The road east (65.8,74.0 since #1509: the old 65.2,69.7 was inside the Tower of Azora).
+	const road = at(list, 'goto 65.8,74.0', (g) => g.t === 'goto' && Math.abs(g.x - 65.8) < 0.1 && Math.abs(g.y - 74.0) < 0.1);
 	const wiley = at(list, 'turnin 65', is('turnin', 65));
 	assert.ok(road < thomas && thomas < wiley, 'on the road east, before Lakeshire');
 	assert.ok(!goals('forever/alliance/04-redridge-mountains.guide').some(({ goal }) => is('turnin', 35)(goal)), 'not carried to 04-redridge-mountains');
