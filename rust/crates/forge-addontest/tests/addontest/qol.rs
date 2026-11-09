@@ -1281,6 +1281,109 @@ fn target_button_small_icons_sit_under_the_name_right_or_left_and_after_it_above
 	assert_eq!(out[3][2], 0, "one name: centred on the button");
 }
 
+// #1441 (Emil): the target button also names the mobs of the While you're here rows (Engine.GetWhileHereList,
+// nearest first; raw goals by Engine.AlongGoal) after the step's own, one from each row in turn, no name twice.
+// rows(list) puts the rows up (each a goal view, its raw goal as `raw`) and fires WHILE_HERE_CHANGED; tnames()
+// reads the names the target button's macro tries, in order.
+const TARGET_HERE_ROWS: &str = r#"
+local shown = {}
+q.Engine.GetWhileHereList = function()
+	local out = {}
+	for i, r in ipairs(shown) do out[i] = r end
+	return out
+end
+q.Engine.AlongGoal = function(s, g)
+	for _, r in ipairs(shown) do
+		if r.step == s and r.index == g then return r.raw end
+	end
+end
+local function rows(list)
+	shown = list
+	for i, r in ipairs(shown) do
+		r.step, r.index, r.status, r.raw = r.step or 40 + i, r.index or 1, r.status or "active", r.raw or {}
+	end
+	Polestar.Fire("WHILE_HERE_CHANGED")
+	stub.runTimers()
+end
+local function tnames()
+	local out = {}
+	for line in (PolestarTargetButton:GetAttribute("macrotext") or ""):gmatch("[^\n]+") do
+		local name = line:match("^/targetexact %[noexists%] (.+)$") or line:match("^/targetexact (.+)$")
+		if name then out[#out + 1] = name end
+	end
+	return table.concat(out, ", ")
+end
+"#;
+
+#[test]
+fn target_button_names_the_while_you_re_here_rows_mobs_after_the_step_s_own_nearest_row_first_1441() {
+	let out = look_run(&[TARGET_HERE_ROWS, r#"
+		q.step({ { t = "kill", target = "Mottled Screecher", npc = 1021 }, { t = "kill", target = "Mottled Raptor", status = "done" } })
+		emit(tnames())
+		rows({
+			{ t = "collect", npc = 1032, npcName = "Black Ooze", raw = { fromNpcs = { { npcName = "Cursed Ooze" } } } },
+			{ t = "kill", subject = "Mottled Screecher" },
+			{ t = "kill", subject = "Bluegill Murloc" },
+			{ t = "interact", subject = "Cart" },
+			{ t = "kill", subject = "Gnoll", status = "done" },
+		})
+		emit({ tnames(), look() })
+		-- the arrow on a row: its mob first among the rows', after the step's own
+		q.engine.waypoint = { stepIndex = 43, goalIndex = 1 }
+		Polestar.Fire("WAYPOINT_CHANGED", q.engine.waypoint)
+		stub.runTimers()
+		emit(tnames())
+		local here = {}
+		for i, n in ipairs((B.HereNames())) do here[i] = n end
+		emit(here)
+	"#].concat());
+	assert_eq!(out[0], "Mottled Screecher");
+	assert_eq!(out[1][0], "Mottled Screecher, Black Ooze, Bluegill Murloc, Cursed Ooze", "the step's own first; no name twice; each row's first before any row's second; no interact or done row");
+	assert_eq!(out[1][1]["name"], "Mottled Screecher");
+	assert_eq!(out[1][1]["minis"], json!(["icon-collect", "icon-kill", "icon-collect"]));
+	assert_eq!(out[2], "Mottled Screecher, Bluegill Murloc, Black Ooze, Cursed Ooze");
+	assert_eq!(out[3], json!(["Bluegill Murloc", "Black Ooze", "Mottled Screecher", "Cursed Ooze"]), "HereNames: the rows' mobs alone, the same way, the arrow's row first");
+}
+
+#[test]
+fn target_button_while_you_re_here_mobs_alone_on_a_step_without_mobs_an_npc_step_keeps_its_npc_1441() {
+	let out = look_run(&[TARGET_HERE_ROWS, r#"
+		q.step({ { t = "goto", map = 9000, x = 1, y = 1 } })
+		emit({ tnames(), t:IsShown() })
+		rows({ { t = "kill", subject = "Black Ooze" } })
+		emit({ tnames(), t:IsShown(), look().icon })
+		q.step({ { t = "turnin", quest = 9, npc = 240, npcName = "Marshal Dughan" } })
+		emit(tnames())
+	"#].concat());
+	assert_eq!(out[0], json!(["", false]));
+	assert_eq!(out[1], json!(["Black Ooze", true, "icon-kill"]));
+	assert_eq!(out[2], "Marshal Dughan", "an NPC step keeps its NPC");
+}
+
+#[test]
+fn target_button_while_you_re_here_mobs_go_with_the_rows_and_change_only_out_of_combat_1441() {
+	let out = look_run(&[TARGET_HERE_ROWS, r#"
+		q.step({ { t = "kill", target = "Mottled Screecher" } })
+		rows({ { t = "kill", subject = "Black Ooze" } })
+		emit(tnames())
+		q.combat(true)
+		rows({})
+		emit({ tnames(), QoL.HasQueued("target"), look().minis })
+		q.combat(false)
+		emit({ tnames(), look().minis })
+		q.combat(true)
+		rows({ { t = "kill", subject = "Bluegill Murloc" } })
+		emit(tnames())
+		q.combat(false)
+		emit(tnames())
+	"#].concat());
+	assert_eq!(out[0], "Mottled Screecher, Black Ooze");
+	assert_eq!(out[1], json!(["Mottled Screecher, Black Ooze", true, ["icon-kill"]]), "the macro and the picture wait for the fight's end");
+	assert_eq!(out[2], json!(["Mottled Screecher", {}]), "the rows hid: their mobs go");
+	assert_eq!(out[3], "Mottled Screecher");
+	assert_eq!(out[4], "Mottled Screecher, Bluegill Murloc");
+}
+
 // ---------------------------------------------------------------------------
 // XP and pace
 // ---------------------------------------------------------------------------

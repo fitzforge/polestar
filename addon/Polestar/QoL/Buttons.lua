@@ -16,7 +16,9 @@
 --     goal (`fromNpcs`), then the item's own droppers (Polestar.QuestDB when
 --     loaded), passing over corpses; on a step with no such mob, its NPC
 --     goals' NPCs (talk, accept, turn in, train...). The arrow's goal comes
---     first; every click moves the next name to the front. With
+--     first. After the step's own mobs (or with none), the mobs of the While
+--     you're here rows, nearest row first (#1441); never after the step's
+--     NPCs. Every click moves the next name to the front. With
 --     qol.targetPlate (on by default) its icon shows what you do with the
 --     name the next click targets (Buttons.TargetLook: a speech bubble, !,
 --     ?, a sword, a bag, a skull for an elite, rare or boss), the name beside
@@ -587,21 +589,96 @@ local function addDroppers(list, rg)
 	end
 end
 
--- The goal the arrow points at moves to the front (it keeps its own names'
--- order): its names come first, then the others' in guide order.
-local function arrowFirst()
+-- The goal the arrow points at, among the goals from `from` on, moves to
+-- their front (it keeps its own names' order): its names come first, then
+-- the others' in order.
+local function arrowFirst(from)
 	local E = ns.Engine
 	local wp = E and E.GetWaypoint and E.GetWaypoint()
 	if type(wp) ~= "table" or wp.goalIndex == nil then return end
-	for i = 2, goalCount do
+	for i = from + 1, goalCount do
 		if goalStep[i] == wp.stepIndex and goalIndex[i] == wp.goalIndex then
 			local n, ids, marks, verb, s, g = goalNames[i], goalIds[i], goalMarks[i], goalVerb[i], goalStep[i], goalIndex[i]
-			for j = i, 2, -1 do
+			for j = i, from + 1, -1 do
 				goalNames[j], goalIds[j], goalMarks[j] = goalNames[j - 1], goalIds[j - 1], goalMarks[j - 1]
 				goalVerb[j], goalStep[j], goalIndex[j] = goalVerb[j - 1], goalStep[j - 1], goalIndex[j - 1]
 			end
-			goalNames[1], goalIds[1], goalMarks[1], goalVerb[1], goalStep[1], goalIndex[1] = n, ids, marks, verb, s, g
+			goalNames[from], goalIds[from], goalMarks[from], goalVerb[from], goalStep[from], goalIndex[from] = n, ids, marks, verb, s, g
 			return
+		end
+	end
+end
+
+-- The mobs of one open kill or collect goal (view gv, raw rg) into the goal
+-- newGoal started last. qdb: Polestar.QuestDB when it is loaded.
+local function addGoalNames(gv, rg, qdb)
+	local N = ns.Names
+	if gv.t == "kill" then
+		-- /targetexact needs the name as the client writes it. Elite
+		-- work (compiled `group`) marks the mob.
+		local id = rg.npc or gv.npc
+		local group = rg.group or gv.party
+		addName((N and N.Npc(id)) or rg.target or gv.subject, id, type(group) == "table" and group.kind == "elite")
+		return
+	end
+	-- The mobs the arrow leads to come first: the farm spot the engine
+	-- chose (`collect … nearest`), then the guide's own sources for this
+	-- point (`fromNpcs`). The item's droppers follow, and stand alone for
+	-- a goal with neither: they are ranked by drop chance over the whole
+	-- world, so for an item many creatures drop the best of them are
+	-- mostly in other zones.
+	local npc = gv.npc or rg.npc
+	if npc then addName((N and N.Npc(npc)) or gv.npcName or rg.npcName, npc, rankedSource(rg, npc)) end
+	local src = rg.fromNpcs or gv.fromNpcs
+	for i = 1, src and #src or 0 do
+		addName((N and N.Npc(src[i].npc)) or src[i].npcName, src[i].npc, rankedSource(rg, src[i].npc))
+	end
+	if qdb then
+		if gv.quest and rg.oi and qdb.GetObjectiveMobs then
+			addDroppers(qdb.GetObjectiveMobs(gv.quest, rg.oi), rg)
+		elseif (gv.item or rg.item) and qdb.GetItemDroppers then
+			addDroppers(qdb.GetItemDroppers(gv.item or rg.item), rg)
+		end
+	end
+end
+
+local function loadedQuestDB()
+	local QDB = ns.QuestDB
+	return QDB and QDB.IsLoaded and QDB.IsLoaded() and QDB or nil
+end
+
+-- The goals from `from` on into out (with their verbs, ids and marks, by
+-- index): one name from each in order, then the next from each, up to
+-- MAX_NAMES in all, never a name in seen.
+local function interleave(from, out, verbs, ids, marks, seen)
+	local more = true
+	while more and #out < MAX_NAMES do
+		more = false
+		for i = from, goalCount do
+			local list, p = goalNames[i], goalPos[i]
+			while list[p] and seen[list[p]] do p = p + 1 end
+			if list[p] and #out < MAX_NAMES then
+				seen[list[p]] = true
+				local k = #out + 1
+				out[k], verbs[k], ids[k], marks[k] = list[p], goalVerb[i], goalIds[i][p] or nil, goalMarks[i][p]
+				p = p + 1
+				more = true
+			end
+			goalPos[i] = p
+		end
+	end
+end
+
+-- The open kill and collect rows While you're here shows now
+-- (Engine.GetWhileHereList: nearest first, none while the rows are hidden),
+-- each a goal after the ones started, with its raw goal (Engine.AlongGoal).
+local function addHereGoals(qdb)
+	local E = ns.Engine
+	if not (E and E.GetWhileHereList and E.AlongGoal) then return end
+	for _, v in ipairs(E.GetWhileHereList()) do
+		if (v.t == "kill" or v.t == "collect") and QoL.Open(v) then
+			newGoal(v.t, v.step, v.index)
+			addGoalNames(v, E.AlongGoal(v.step, v.index) or v, qdb)
 		end
 	end
 end
@@ -612,9 +689,12 @@ end
 -- Fang) cannot crowd out the goals after it. view, raw: QoL.CurrentStep()'s,
 -- when the caller has them. npcs: on a step with no mob to name, the step's
 -- own NPC goals' NPCs (the target button; the step key and its loot check
--- want mobs only). -> names, verbs, npc ids (nil: not known), marks (true:
--- elite, rare or boss by the guide's data), all by index.
-function Buttons.TargetNames(view, raw, npcs)
+-- want mobs only). here: after the step's own mobs (or with none), the mobs
+-- of the While you're here rows the same way, nearest row first (the
+-- arrow's row first); never after NPCs, who keep the button (#1441). ->
+-- names, verbs, npc ids (nil: not known), marks (true: elite, rare or boss
+-- by the guide's data), all by index.
+function Buttons.TargetNames(view, raw, npcs, here)
 	wipe(names)
 	wipe(nameVerb)
 	wipe(nameNpc)
@@ -623,8 +703,7 @@ function Buttons.TargetNames(view, raw, npcs)
 	goalCount = 0
 	if not view then view, raw = QoL.CurrentStep() end
 	if not view then return names, nameVerb, nameNpc, nameSpecial end
-	local QDB = ns.QuestDB
-	local qdb = QDB and QDB.IsLoaded and QDB.IsLoaded()
+	local qdb = loadedQuestDB()
 	local E = ns.Engine
 	local stepIndex = view.index or (E and E.GetStepIndex and E.GetStepIndex())
 	-- The step's goals, then the Along the way list's (along steps and
@@ -642,48 +721,22 @@ function Buttons.TargetNames(view, raw, npcs)
 		end
 		goals, raws = all, allRaw
 	end
-	local N = ns.Names
 	local named = false
 	for g = 1, #goals do
 		local gv = goals[g]
-		local rg = raws and raws[g] or gv
 		if QoL.Open(gv) and (gv.t == "kill" or gv.t == "collect") then
 			if g <= own then newGoal(gv.t, stepIndex, g) else newGoal(gv.t, gv.step, gv.index) end
-			if gv.t == "kill" then
-				-- /targetexact needs the name as the client writes it. Elite
-				-- work (compiled `group`) marks the mob.
-				local id = rg.npc or gv.npc
-				local group = rg.group or gv.party
-				addName((N and N.Npc(id)) or rg.target or gv.subject, id, type(group) == "table" and group.kind == "elite")
-			else
-				-- The mobs the arrow leads to come first: the farm spot the engine
-				-- chose (`collect … nearest`), then the guide's own sources for this
-				-- point (`fromNpcs`). The item's droppers follow, and stand alone for
-				-- a goal with neither: they are ranked by drop chance over the whole
-				-- world, so for an item many creatures drop the best of them are
-				-- mostly in other zones.
-				local npc = gv.npc or rg.npc
-				if npc then addName((N and N.Npc(npc)) or gv.npcName or rg.npcName, npc, rankedSource(rg, npc)) end
-				local src = rg.fromNpcs or gv.fromNpcs
-				for i = 1, src and #src or 0 do
-					addName((N and N.Npc(src[i].npc)) or src[i].npcName, src[i].npc, rankedSource(rg, src[i].npc))
-				end
-				if qdb then
-					if gv.quest and rg.oi and QDB.GetObjectiveMobs then
-						addDroppers(QDB.GetObjectiveMobs(gv.quest, rg.oi), rg)
-					elseif (gv.item or rg.item) and QDB.GetItemDroppers then
-						addDroppers(QDB.GetItemDroppers(gv.item or rg.item), rg)
-					end
-				end
-			end
+			addGoalNames(gv, raws and raws[g] or gv, qdb)
 			named = named or #goalNames[goalCount] > 0
 		end
 	end
 	-- No mob to name: the NPCs of the step's own talk, accept, turn-in...
 	-- goals, in the client's language by their ids where Polestar.Names has
 	-- them.
+	local npcNamed = false
 	if npcs and not named then
 		goalCount = 0
+		local N = ns.Names
 		for g = 1, own do
 			local gv = goals[g]
 			local rg = raws and raws[g] or gv
@@ -691,27 +744,35 @@ function Buttons.TargetNames(view, raw, npcs)
 				newGoal(gv.t, stepIndex, g)
 				local id = gv.npc or rg.npc
 				addName((id and N and N.Npc(id)) or gv.npcName or rg.npcName, id)
+				npcNamed = npcNamed or #goalNames[goalCount] > 0
 			end
 		end
 	end
-	arrowFirst()
-	local more = true
-	while more and #names < MAX_NAMES do
-		more = false
-		for i = 1, goalCount do
-			local list, p = goalNames[i], goalPos[i]
-			while list[p] and nameSeen[list[p]] do p = p + 1 end
-			if list[p] and #names < MAX_NAMES then
-				nameSeen[list[p]] = true
-				local k = #names + 1
-				names[k], nameVerb[k], nameNpc[k], nameSpecial[k] = list[p], goalVerb[i], goalIds[i][p] or nil, goalMarks[i][p]
-				p = p + 1
-				more = true
-			end
-			goalPos[i] = p
-		end
+	arrowFirst(1)
+	interleave(1, names, nameVerb, nameNpc, nameSpecial, nameSeen)
+	if here and not npcNamed then
+		local first = goalCount + 1
+		addHereGoals(qdb)
+		arrowFirst(first)
+		interleave(first, names, nameVerb, nameNpc, nameSpecial, nameSeen)
 	end
 	return names, nameVerb, nameNpc, nameSpecial
+end
+
+-- The mobs of the While you're here rows alone, the way TargetNames adds
+-- them (own reused lists): for the step key (#1316).
+local hereNames, hereVerb, hereNpc, hereSpecial, hereSeen = {}, {}, {}, {}, {}
+function Buttons.HereNames()
+	wipe(hereNames)
+	wipe(hereVerb)
+	wipe(hereNpc)
+	wipe(hereSpecial)
+	wipe(hereSeen)
+	goalCount = 0
+	addHereGoals(loadedQuestDB())
+	arrowFirst(1)
+	interleave(1, hereNames, hereVerb, hereNpc, hereSpecial, hereSeen)
+	return hereNames, hereVerb, hereNpc, hereSpecial
 end
 
 -- NPCs: "exists" out of combat, not "help": a neutral NPC (Booty Bay,
@@ -1262,7 +1323,7 @@ local function refresh()
 	applyItem(hearthButton, QoL.On("hearthButton") and guideShown and view and Buttons.WantsHearth(view) and Client.HEARTHSTONE or nil)
 
 	local list, verbs, ids, marks
-	if QoL.On("targetButton") and guideShown and view then list, verbs, ids, marks = Buttons.TargetNames(view, raw, true) else list = {} end
+	if QoL.On("targetButton") and guideShown and view then list, verbs, ids, marks = Buttons.TargetNames(view, raw, true, true) else list = {} end
 	-- The mark settings are part of both signatures, so changing one re-applies.
 	local mark = QoL.On("markTarget") and (markSetting("mob") .. " " .. markSetting("npc") .. "\n") or ""
 	local namesSig = concat(list, "\n")
