@@ -8068,3 +8068,16 @@ test(`${TELDRASSIL}: #1415: Buzzbox 827 is taken on the first Auberdine stop and
 	assert.equal(list[legs].step, list[at(list, 'the bones', (g) => g.t === 'collect' && g.item === 12242)].step, 'on the bones step');
 	assert.ok(legs < at(list, 'turnin 983', is('turnin', 983)), 'handed to the Buzzbox there');
 });
+
+// doctor-house (#1429): a Night Elf Hunter who had just trained in the Dwarven District was sent to "Go to Stormwind
+// City", a point in the Trade District, then back to the Dwarven District for the errands. The goto was a zone-entry
+// line the route had placed after the training step, when every class but the Shaman is already in the city.
+// It is gone; the Shaman's return from Ironforge ends where the tram comes out.
+test(`${WESTFALL}: doctor-house's report (#1429): no "Go to Stormwind City" after training in Stormwind`, { skip }, () => {
+	const list = goals(WESTFALL);
+	const train = list.findIndex(({ step, goal }) => goal.t === 'train' && step.title === 'Stormwind' && !(step.only && step.only.classes && step.only.classes.join() === 'SHAMAN'));
+	assert.ok(train >= 0, 'the Stormwind training step is in the guide');
+	const next = list.slice(train + 1).find(({ step }) => step !== list[train].step && !(step.only && step.only.classes && step.only.classes.includes('SHAMAN') && step.only.classes.length === 1));
+	assert.notEqual(next.goal.t, 'goto', `the step after the training is the errands, not a goto: ${next.step.title}`);
+	for (const { step, goal } of list) if (goal.t === 'goto' && goal.map === 1453 && step.only && step.only.classes && step.only.classes.join() === 'SHAMAN' && /Stormwind City/.test(goal.text || '') && goal.x < 70) assert.ok(goal.y < 15, `the Shaman's tram return ends at the tram (${goal.x},${goal.y})`);
+});

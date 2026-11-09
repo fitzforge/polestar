@@ -271,15 +271,17 @@ return {
 	["Head to {zone:1453}. It has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back for the boat."] = "Отправляйтесь в {zone:1453}. Там нет учителя шаманов: от {object:28027} сядьте на {area:2257} до {zone:1455}, обучитесь у {npc:258098}, затем вернитесь на трамвае к кораблю.",
 
 	-- Step 52: Stormwind
-	-- {zone:1453} Stormwind · {object:2100} Old Town · {object:2101} Mage Quarter
-	["Walk to {zone:1453}, or fly if you know its flight path. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the Park (Druids)."] = "Идите в город {zone:1453} или летите, если знаете туда маршрут полета. Учителя: {object:2100} (воины, разбойники), собор (паладины, жрецы), {object:2101} (маги, чернокнижники), парк (друиды).",
+	-- {zone:1453} Stormwind · {object:2100} Old Town · {object:2101} Mage Quarter · {object:28027} Dwarven District
+	["Walk to {zone:1453}, or fly if you know its flight path. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the {object:28027} (Hunters), the Park (Druids)."] = "",
 	["Level 12, 14 and 16 spells"] = "Заклинания 12, 14 и 16-го уровней",
 
 	-- Step 53: Back to Stormwind City
 	-- {area:1519} Stormwind City
 	["Back to {area:1519}"] = "Обратно: {area:1519}",
+	-- {area:1519} Stormwind City · {object:28027} Dwarven District
+	["Ride the tram back: it comes out in {area:1519}'s {object:28027}, where the errands below start."] = "",
 
-	-- Step 55: Stormwind
+	-- Step 54: Stormwind
 	-- {item:2449} Earthroot · {zone:1439} Darkshore · {npc:1313} Maria Lumere
 	["{item:2449} for Gathering the Cure (6123) in {zone:1439}: {npc:1313}, Alchemy Supplies; herbalists pick it there instead"] = "{item:2449} для задания «Сбор лекарственных ингредиентов» (6123), {zone:1439}: {npc:1313}, товары для алхимиков; травники вместо этого собирают его там сами",
 	-- {npc:7232} Borgus Steelhand · {object:28027} Dwarven District · {area:442} Auberdine
@@ -287,27 +289,27 @@ return {
 	-- {npc:5497} Jennea Cannon · {quest:1861} Mirror Lake
 	["{npc:5497}, Wizard's Sanctum: {quest:1861}"] = "{npc:5497}, Святилище волшебника: {quest:1861}",
 
-	-- Step 57: Woo Ping
+	-- Step 56: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "Раз уж вы здесь: изучите {spell:202} у NPC {npc:11867} ({object:2096}, 10 серебра); с двуручным оружием воин качается быстрее всего.",
 
-	-- Step 58: Woo Ping
+	-- Step 57: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "Раз уж вы здесь: изучите навык {spell:202} у NPC {npc:11867} ({object:2096}, 10 серебра); с двуручным оружием паладин качается быстрее всего.",
 
-	-- Step 59: Woo Ping
+	-- Step 58: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Раз уж вы здесь: изучите владение посохами у NPC {npc:11867} ({object:2096}, 10 серебра); у оружия ближнего боя охотника важнее всего характеристики, а у двуручного их больше всего.",
 
-	-- Step 60: Woo Ping
+	-- Step 59: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "Раз уж вы здесь: изучите владение мечами у NPC {npc:11867} ({object:2096}, 10 серебра); с мечом в правой руке разбойник стабильно качается.",
 
-	-- Step 61: Woo Ping
+	-- Step 60: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Раз уж вы здесь: изучите владение посохами у NPC {npc:11867} ({object:2096}, 10 серебра); при прокачке посох дает больше характеристик для заклинаний, чем одноручное оружие.",
 
-	-- Step 63: Fishin' Time
+	-- Step 62: Fishin' Time
 	-- {npc:5494} Catherine Leland · {object:2096} Trade District · {npc:267118} Gilbert Gray
 	["{npc:5494} sells fishing supplies along the canal just west of the {object:2096}; {npc:267118} fishes at the harbor, on the way to the boat."] = "{npc:5494} продает рыболовные принадлежности у канала, чуть западнее (ориентир: {object:2096}); {npc:267118} рыбачит в гавани, по пути к кораблю.",
 	-- {item:6529} Shiny Bauble · {npc:5494} Catherine Leland
@@ -346,6 +348,7 @@ return {
 	-- ["The gnoll hills"] = "Холмы гноллов",
 	-- ["The north coast"] = "Северное побережье",
 	-- ["The western farms"] = "Западные фермы",
+	-- ["Walk to {zone:1453}, or fly if you know its flight path. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the Park (Druids)."] = "Идите в город {zone:1453} или летите, если знаете туда маршрут полета. Учителя: {object:2100} (воины, разбойники), собор (паладины, жрецы), {object:2101} (маги, чернокнижники), парк (друиды).",
 	-- ["West of Molsen Farm, toward the coast. Riverpaw Miners work the quarry."] = "К западу от фермы Мольсена, в сторону побережья. В карьере работают шахтеры из стаи Речной Лапы.",
 	-- ["West of Saldean's. Harvest Watchers and Golems work the fields; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone. Keep killing Goretusks and Fleshrippers on every leg of this loop."] = "К западу от фермы Сальденов. На полях работают дозорные полей и уборочные големы; с них падают изопружины, гиростабилизаторы, {item:732}, а иногда и {item:255155}. Здесь бродит редкий противник 20-го уровня – {npc:573}: не трогайте его. На каждом отрезке этого круга продолжайте убивать жутевепрей и шкуродеров.",
 	-- ["Young Goretusks and Fleshrippers roam the fields around the farm: start on livers and the stew's meat on the way back."] = "По полям вокруг фермы бродят молодые жутевепри и шкуродеры: на обратном пути начинайте собирать печень и мясо для похлебки.",
