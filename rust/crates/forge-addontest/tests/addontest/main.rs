@@ -76,6 +76,8 @@ mod engine_enter;
 mod engine_feeders;
 #[path = "engine-flights.rs"]
 mod engine_flights;
+#[path = "engine-dwell.rs"]
+mod engine_dwell;
 #[path = "engine-focus.rs"]
 mod engine_focus;
 #[path = "engine-grind.rs"]
