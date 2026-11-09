@@ -2083,7 +2083,16 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], corrections: &V, min_
 						ov.item_entry(id, &ev.get("itemName"));
 					}
 					if let (Some(q), Some(oi)) = (qid, pos_int(&ev.get("oi"))) {
-						if db.quests.has(&q.to_string()) {
+						// A loot tied to an item objective counts only when the quest's data has no
+						// item objectives or names that item among them: recordings tied the wrong
+						// item to about a fifth of their objective ticks (a window read after fast
+						// loot had taken the quest item, so a lone other drop took its tick).
+						let item_ids: Vec<f64> = if &*e == "loot" {
+							db.quests.get(&q.to_string()).get("objectives").items().iter().filter(|o| o.get("type").as_str() == Some("item")).filter_map(|o| o.get("id").as_num()).collect()
+						} else {
+							Vec::new()
+						};
+						if db.quests.has(&q.to_string()) && (item_ids.is_empty() || item_ids.contains(&(id as f64))) {
 							let s = ov.slot(q, oi);
 							s.id.vote(V::Num(id as f64), &who);
 							s.kind.vote(V::str(if &*e == "kill" { "kill" } else { "item" }), &who);
@@ -2838,6 +2847,16 @@ mod tests {
 		let t = Tables::new(TIMES, TIMES_NPCS, "{}");
 		t.apply(&from(&[A], &request));
 		assert_eq!(j(&t.quest("93927").get("objectives")), r#"[{"type":"item","id":254871,"count":1,"text":"Bloody Note"},{"type":"kill","id":256966,"count":null,"text":"Skypriest Aanders"}]"#);
+		// Goretusk Liver Pie in French, accepted before the recording started (no `objectives`
+		// record): three players' liver ticks tied to the Boar Intestines lying beside the liver fast
+		// loot had taken. The intestines are no item of the quest: no vote, so no objective of theirs
+		// is added.
+		const PIE: &str = r#"{"22":{"id":22,"title":"Goretusk Liver Pie","races":null,"objectives":[{"type":"item","id":723,"count":8,"text":"Goretusk Liver"}],"source":["questie-forever"]}}"#;
+		let pie: Vec<String> = vec![r#"{"t":9,"e":"loot","item":3172,"q":22,"oi":1}"#.into(), r#"{"t":9,"e":"progress","q":22,"oi":1,"cur":1,"max":8,"type":"item"}"#.into()];
+		let t = Tables::new(PIE, TIMES_NPCS, "{}");
+		t.apply(&[A, B, C].iter().enumerate().map(|(i, c)| session(&format!("s{i}"), c, "frFR", &pie)).collect::<Vec<_>>());
+		let ids: Vec<String> = t.quest("22").get("objectives").items().iter().map(|o| j(&o.get("id"))).collect();
+		assert_eq!(ids, ["723"]);
 		// A trainer's lesson or a skill raised by crafting beside him is no talk, even where and as
 		// his window opened (Camping 101: Tomas's line ticks as you learn cooking in his training
 		// window, or as a craft right after talking to him raises the skill).

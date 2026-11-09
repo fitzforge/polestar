@@ -564,8 +564,17 @@ local function itemList(items)
 	return concat(out, ";")
 end
 
-ns.On("LOOT_OPENED", function()
-	if not (GetNumLootItems and GetLootSlotInfo) or not ns.Recording() then return end
+-- The window is read at LOOT_READY, before any auto-loot takes its slots:
+-- fast loot (Polestar's own, or another addon's) calls LootSlot on every slot
+-- at LOOT_READY, and by LOOT_OPENED the slots the server already cleared
+-- read as empty, so a window read then lost its first items (a boar's liver
+-- gone, its snout kept, and the liver's quest tick tied to the snout).
+-- LOOT_OPENED reads it when LOOT_READY did not; one read per window.
+local windowRead = false
+local function readLoot()
+	if windowRead or not (GetNumLootItems and GetLootSlotInfo) or not ns.Recording() then return end
+	if (GetNumLootItems() or 0) == 0 then return end
+	windowRead = true
 	local p = ns.P()
 	if IsFishingLoot and ns.Value(IsFishingLoot()) then
 		local items = {}
@@ -611,7 +620,10 @@ ns.On("LOOT_OPENED", function()
 			end
 		end
 	end
-end)
+end
+ns.On("LOOT_READY", readLoot)
+ns.On("LOOT_OPENED", readLoot)
+ns.On("LOOT_CLOSED", function() windowRead = false end)
 
 ---------------------------------------------------------------------------
 -- Instance entrances
