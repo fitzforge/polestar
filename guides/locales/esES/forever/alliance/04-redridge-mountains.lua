@@ -186,11 +186,10 @@ return {
 	["The Wanted poster on the town hall doorway"] = "",
 	["The Wanted poster beside it"] = "",
 
-	-- Step 33: Lake Everstill: kill these as you meet them
-	-- {area:68} Lake Everstill
-	["{area:68}: kill these as you meet them"] = "",
-	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula
-	["Greater Tarantulas crawl on the slopes around the mill north-east of the lake."] = "",
+	-- Step 33: Alther's Mill
+	-- {quest:98386} Alther's Mill
+	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula · Tarantula Eggs = {object:673101} Tarantula Egg
+	["Greater Tarantulas crawl on the slopes around {quest:98386}, north-east of the lake; their Tarantula Eggs lie on the ground among them: click six."] = "",
 
 	-- Step 34: Blackrock camps
 	["Blackrock camps"] = "",

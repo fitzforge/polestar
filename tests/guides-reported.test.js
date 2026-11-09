@@ -8018,3 +8018,16 @@ test(`${REDRIDGE}: #1415: Gath'Ilzogg and Incinerator Gar'im are steps the playe
 		assert.ok(!new RegExp(`collect ${item} quest ${q} optional`).test(s), `${q}'s collect holds the step`);
 	}
 });
+
+// Alther's Mill (98386) asks for 12 Greater Tarantulas AND 6 Tarantula Eggs (an object objective in the data since the
+// Forge cutover); the step listed only the spiders, so the eggs had no goal and the hand-in at Oslow waited on them
+// unannounced. Players' recordings: 32 people clicked the eggs around the mill (46-49,38-45). Sweep over every leveling
+// guide (an objective of a handed-in quest with no goal anywhere on the faction's route): no other real case (the
+// rest are bought items: buy goals).
+test(`${REDRIDGE}: #1415: Alther's Mill's Tarantula Eggs have their goal beside the spiders`, { skip }, () => {
+	const list = goals(REDRIDGE);
+	const spiders = at(list, 'kill 505 (98386)', (g) => g.t === 'kill' && g.quest === 98386);
+	const eggs = at(list, 'the Tarantula Eggs', (g) => g.t === 'interact' && g.quest === 98386 && g.object === 673101);
+	assert.equal(list[eggs].step, list[spiders].step, 'eggs and spiders in one step');
+	assert.ok(eggs < at(list, 'turnin 98386', is('turnin', 98386)), 'before the hand-in');
+});

@@ -186,11 +186,10 @@ return {
 	["The Wanted poster on the town hall doorway"] = "O cartaz de PROCURA-SE na porta da prefeitura",
 	["The Wanted poster beside it"] = "O cartaz de PROCURA-SE ao lado dele",
 
-	-- Step 33: Lake Everstill: kill these as you meet them
-	-- {area:68} Lake Everstill
-	["{area:68}: kill these as you meet them"] = "{area:68}: vá matando estes pelo caminho",
-	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula
-	["Greater Tarantulas crawl on the slopes around the mill north-east of the lake."] = "Grandes Tarântulas rastejam pelas encostas em volta do moinho a nordeste do lago.",
+	-- Step 33: Alther's Mill
+	-- {quest:98386} Alther's Mill
+	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula · Tarantula Eggs = {object:673101} Tarantula Egg
+	["Greater Tarantulas crawl on the slopes around {quest:98386}, north-east of the lake; their Tarantula Eggs lie on the ground among them: click six."] = "",
 
 	-- Step 34: Blackrock camps
 	["Blackrock camps"] = "Acampamentos Rocha Negra",
@@ -255,6 +254,7 @@ return {
 	-- ["Follow the road south from {area:1002} into {area:10}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "Siga a estrada para o sul a partir de {area:1002} até {area:10}; {area:42} fica no lado leste da floresta.\nSem {item:4371} para {quest:174}? {npc:3133} vende na casa ao lado de {npc:276}, em estoque limitado; {npc:1448}, em {area:150}, também vende.\nA casa de {npc:276} fica no extremo leste da cidade. {npc:3133} vende artigos de engenharia na casa ao lado.",
 	-- ["For {npc:3649}, on the return to {area:442} (06-ashenvale)"] = "Para {npc:3649}, na volta a {area:442} (06-ashenvale)",
 	-- ["Gnolls toward {area:1002}"] = "Gnolls rumo a {area:1002}",
+	-- ["Greater Tarantulas crawl on the slopes around the mill north-east of the lake."] = "Grandes Tarântulas rastejam pelas encostas em volta do moinho a nordeste do lago.",
 	-- ["Greater Tarantulas crawl on the slopes around the mill north-east of the lake; Blackrock Renegades hold the mill itself."] = "Grandes Tarântulas rastejam nas encostas em volta do moinho a nordeste do lago; Renegados Rocha Negra ocupam o próprio moinho.",
 	-- ["Head north out of {area:69} up the {area:95} to {area:997}. Blackrock Champions camp in the valley."] = "Saia de {area:69} rumo ao norte, subindo os {area:95} até o {area:997}. Campeões Rocha Negra acampam no vale.",
 	-- ["Lake murlocs"] = "Murlocs do lago",
@@ -265,6 +265,7 @@ return {
 	-- ["The road from Elwynn enters Redridge at {area:1002}. {npc:464} stands where the roads to Redridge and {zone:1431} meet."] = "A estrada de Elwynn entra em Cristarrubra em {area:1002}. {npc:464} fica onde se encontram as estradas para Cristarrubra e {zone:1431}.",
 	-- ["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {zone:1429}."] = "O navio de {area:442} atraca em {area:17203}. Suba até a cidade para treinar e falar com {npc:1646}, depois saia pelo portão principal e siga a estrada a leste por {zone:1429}.",
 	-- ["Train, then leave by the main gate and follow the road east through {area:12}."] = "Treine, depois saia pelo portão principal e siga a estrada para leste por {area:12}.",
+	-- ["{area:68}: kill these as you meet them"] = "{area:68}: vá matando estes pelo caminho",
 	-- ["{item:1075}: any Shadowhide gnoll"] = "{item:1075}: qualquer gnoll Umbrapele",
 	-- ["{item:280911}: Redridge Thrashers"] = "{item:280911}: Espancadores de Cristarrubra",
 	-- ["{item:3014}: any Blackrock orc"] = "{item:3014}: qualquer orc Rocha Negra",

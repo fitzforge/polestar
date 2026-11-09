@@ -186,11 +186,10 @@ return {
 	["The Wanted poster on the town hall doorway"] = "",
 	["The Wanted poster beside it"] = "",
 
-	-- Step 33: Lake Everstill: kill these as you meet them
-	-- {area:68} Lake Everstill
-	["{area:68}: kill these as you meet them"] = "{area:68} : tuez-les au passage",
-	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula
-	["Greater Tarantulas crawl on the slopes around the mill north-east of the lake."] = "",
+	-- Step 33: Alther's Mill
+	-- {quest:98386} Alther's Mill
+	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula · Tarantula Eggs = {object:673101} Tarantula Egg
+	["Greater Tarantulas crawl on the slopes around {quest:98386}, north-east of the lake; their Tarantula Eggs lie on the ground among them: click six."] = "",
 
 	-- Step 34: Blackrock camps
 	["Blackrock camps"] = "Camps Blackrock",
@@ -278,6 +277,7 @@ return {
 	-- ["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {zone:1429}."] = "Le bateau d'{area:442} accoste à {area:17203}. Montez en ville pour l'entraînement et {npc:1646}, puis sortez par la porte principale et suivez la route vers l'est à travers {zone:1429}.",
 	-- ["{area:1000}: kill these as you meet them"] = "{area:1000} : tuez-les au passage",
 	-- ["{area:1001}: kill these as you meet them"] = "{area:1001} : tuez-les au passage",
+	-- ["{area:68}: kill these as you meet them"] = "{area:68} : tuez-les au passage",
 	-- ["{item:1075}: any Shadowhide gnoll"] = "{item:1075} : tout gnoll Sombrepoil",
 	-- ["{item:1309}; underwater"] = "{item:1309} ; sous l'eau",
 	-- ["{item:1467} on the way"] = "{item:1467} en chemin",

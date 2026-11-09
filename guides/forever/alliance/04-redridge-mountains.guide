@@ -323,10 +323,11 @@ step Lakeshire
 
 # ---------------------------------------------------------------- East of the lake
 
-step Lake Everstill: kill these as you meet them
+step Alther's Mill
   zone Redridge Mountains
-  tip Greater Tarantulas crawl on the slopes around the mill north-east of the lake.
-  kill 505 quest 98386                        -- Greater Tarantula
+  tip Greater Tarantulas crawl on the slopes around Alther's Mill, north-east of the lake; their Tarantula Eggs lie on the ground among them: click six.
+  kill 505 quest 98386.1                      -- Greater Tarantula
+  interact 673101 quest 98386.2               -- Tarantula Egg
 
 step Blackrock camps
   tip South-east from the mill, west of Galardell Valley's gnolls, to the Blackrock camps east of Stonewatch Keep. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite. Weapon racks and swords lie about the camps; meat haunches, grain sacks and water barrels hold the supplies.
