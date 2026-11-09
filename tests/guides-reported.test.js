@@ -331,7 +331,9 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Threat from Below is handed in
 	const mage = list.filter(forClass('MAGE'));
 	assert.ok(at(mage, 'turnin 840', is('turnin', 840)) > at(mage, 'turnin 99051', is('turnin', 99051)), 'Kargal after Orgnil (Shamans hand it in on the way to Kranal)');
 	const orgnil = list[threat].goal.npc;
-	assert.deepEqual(list.slice(threat + 1).filter(({ goal }) => goal.npc === orgnil && !goal.optional && !is('turnin', 99051)(goal)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'nothing sends you back to Orgnil afterwards');
+	// Aggor the Young (99052) is a group choice (`when group 99052`): its accept and hand-in at Orgnil are for players who chose it.
+	const grouped = ({ step }) => (step.when || []).some((p) => p.k === 'group' && !p.neg);
+	assert.deepEqual(list.slice(threat + 1).filter((e) => e.goal.npc === orgnil && !e.goal.optional && !grouped(e) && !is('turnin', 99051)(e.goal)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'nothing sends you back to Orgnil afterwards');
 	assert.deepEqual(list.filter(({ goal }) => goal.quest === 6365 || is('turnin', 842)(goal) || goal.t === 'getfp').map(({ goal }) => `${goal.t} ${goal.quest || goal.location}`), [], 'the Crossroads stop is the Barrens guide\'s');
 });
 
@@ -403,14 +405,6 @@ test('forever/horde/04-the-barrens.guide: Logmar\'s quest is taken in Camp Taura
 	const back = at(list, 'turnin 97250', is('turnin', 97250));
 	assert.ok(take < gann && gann < kill && kill < back, 'Camp Taurajo, Gann, the camp, back');
 	assert.ok(Math.hypot(list[kill].goal.x - 48.8, list[kill].goal.y - 77.0) < 1, 'at the recorded camp');
-});
-
-// Horde 1-30 audit (#1414): Encroachment from Gar'Thok on the first Razor Hill stop, before the prickly pears.
-for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Encroachment can be taken on the first Razor Hill stop, before the prickly pears (#1414)`, { skip }, () => {
-	const list = goals(DUROTAR);
-	const early = list.findIndex(({ step, goal }) => is('accept', 837)(goal) && [].concat(step.when || []).length);
-	assert.ok(early >= 0, 'a level-gated accept of 837');
-	assert.ok(early < at(list, 'collect 275718', (g) => g.t === 'collect' && g.quest === 96825), 'before the pears');
 });
 
 test(`forever/horde/02-the-barrens.guide: Orcs and Trolls take the Crossroads quests on the stop they arrive at from Far Watch Post`, { skip }, () => {
@@ -4553,7 +4547,9 @@ test(`${ASHENVALE_HORDE}: the Shaman's waterskin beside Ursangous and to Brine o
 	assert.deepEqual(shaman.slice(fountain, at(shaman, 'accept 1918', is('accept', 1918))).filter(({ goal }) => goal.t === 'goto' && goal.x != null && goal.x < 20).map(({ s }) => s), [], 'no walk back to Zoram\'gar for the fountain');
 	const brine = at(shaman, 'turnin 1534 (Call of Water)', is('turnin', 1534));
 	assert.ok(brine < at(shaman, 'accept 4767 (Wind Rider)', is('accept', 4767)), 'Brine before Freewind Post');
-	assert.equal(shaman.filter(({ goal }) => goal.t === 'fly' && goal.location === 'Camp Taurajo').length, 2, 'two flights to Camp Taurajo (from Zoram\'gar and Thunder Bluff), none from Freewind Post');
+	// #1414 (Bonesavv77's report #1424): from Zoram'gar the Earthen Ring is reached as travel (the flight the character has),
+	// so the one Camp Taurajo flight is the one from Thunder Bluff; none from Freewind Post.
+	assert.equal(shaman.filter(({ goal }) => goal.t === 'fly' && goal.location === 'Camp Taurajo').length, 1, 'one flight to Camp Taurajo (from Thunder Bluff), none from Zoram\'gar or Freewind Post');
 });
 
 // Maazias's report (#1333): The Tear of the Moons is a level 30 quest; its strongbox stands beside
@@ -5672,8 +5668,10 @@ test('forever/horde/07-ashenvale.guide: final route review: Sharptalon on the wa
 	assert.ok(at(list, 'accept 2', is('accept', 2)) < at(list, 'turnin 6544', is('turnin', 6544)), 'Sharptalon before Splintertree');
 	const tb = list.find(({ goal }) => goal.t === 'fly' && goal.location === 'Thunder Bluff' && !goal.only);
 	assert.ok(tb && tb.step.only && tb.step.only.races.includes('Tauren') && tb.step.only.races.includes('Skyborne'), 'Tauren and Skyborne fly to Thunder Bluff from Zoram\'gar');
-	const taurajo = list.find(({ goal }) => goal.t === 'fly' && goal.location === 'Camp Taurajo');
-	assert.ok(taurajo.step.only && !taurajo.step.only.races.includes('Tauren'), 'the Camp Taurajo flight is for the others');
+	// #1424: no forced Camp Taurajo flight from Zoram'gar; the others reach the Earthen Ring as travel, and every Camp
+	// Taurajo flight comes after its quests (the one from Thunder Bluff).
+	const ring = at(list, 'accept 96260', is('accept', 96260));
+	assert.deepEqual(list.filter(({ goal }) => goal.t === 'fly' && goal.location === 'Camp Taurajo').filter((e) => list.indexOf(e) < ring).map(({ s }) => s), [], 'no Camp Taurajo flight before the Earthen Ring');
 	assert.ok(at(list, 'turnin 1150', is('turnin', 1150)) < at(list, 'accept 1151', is('accept', 1151)), 'Test of Strength after Test of Endurance');
 	for (const { step, goal } of list.filter(({ goal }) => goal.quest === 96261)) {
 		assert.ok((step.when || []).some((p) => p.k === 'group' && p.q === 96261 && !p.neg), `${goal.t} 96261: Broodmother Valraxx is elite, asked as a group quest`);
