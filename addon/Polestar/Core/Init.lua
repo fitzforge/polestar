@@ -713,3 +713,13 @@ if not gamepadUI then
 	SLASH_POLESTAR2 = "/pole"
 	SlashCmdList.POLESTAR = ns.RunCommand
 end
+if not SLASH_POLESTAR_RL1 then
+	SLASH_POLESTAR_RL1 = "/rl"
+	SlashCmdList.POLESTAR_RL = function()
+		if C_UI and C_UI.Reload then
+			C_UI.Reload()
+		elseif ReloadUI then
+			ReloadUI()
+		end
+	end
+end

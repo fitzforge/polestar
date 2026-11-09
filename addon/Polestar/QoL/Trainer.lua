@@ -114,7 +114,99 @@ local function buyNext()
 	end
 end
 
+local trainerButton
+
+local function updateTrainerButton()
+	if not trainerButton or not ClassTrainerFrame then return end
+	if not QoL.On("trainAllButton") then
+		trainerButton:Hide()
+		return
+	end
+	if ClassTrainerFrame.trainingPoints and ClassTrainerFrame.trainingPoints:IsShown() then
+		trainerButton:Hide()
+		return
+	end
+	trainerButton:Show()
+	local availableCount = 0
+	for i = 1, (GetNumTrainerServices and GetNumTrainerServices() or 0) do
+		local _, kind = GetTrainerServiceInfo(i)
+		if kind == "available" then
+			availableCount = availableCount + 1
+		end
+	end
+	trainerButton:SetEnabled(availableCount > 0)
+end
+
+local function initTrainerButton()
+	if not ClassTrainerFrame or trainerButton then return end
+	local btn = CreateFrame("Button", "PolestarTrainAllButton", ClassTrainerFrame, "UIPanelButtonTemplate")
+	btn:SetSize(80, 22)
+	if ClassTrainerTrainButton then
+		btn:SetPoint("RIGHT", ClassTrainerTrainButton, "LEFT", -2, 0)
+	else
+		btn:SetPoint("BOTTOMRIGHT", ClassTrainerFrame, "BOTTOMRIGHT", -120, 54)
+	end
+	btn:SetText(L["Train All"])
+
+	btn:SetScript("OnEnter", function(self)
+		local count, cost = 0, 0
+		for i = 1, (GetNumTrainerServices and GetNumTrainerServices() or 0) do
+			local _, kind = GetTrainerServiceInfo(i)
+			if kind == "available" then
+				count = count + 1
+				cost = cost + (GetTrainerServiceCost(i) or 0)
+			end
+		end
+		if count > 0 then
+			GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 4)
+			GameTooltip:ClearLines()
+			GameTooltip:AddLine(format(count == 1 and L["Train %d skill for %s"] or L["Train %d skills for %s"], count, QoL.Money(cost)))
+			GameTooltip:Show()
+		end
+	end)
+
+	btn:SetScript("OnLeave", function()
+		if GameTooltip then GameTooltip:Hide() end
+	end)
+
+	btn:SetScript("OnClick", function()
+		local count, cost = 0, 0
+		local short, shortCost = 0, 0
+		local playerMoney = (Client and Client.Money and Client.Money()) or (GetMoney and GetMoney()) or 0
+		for i = 1, (GetNumTrainerServices and GetNumTrainerServices() or 0) do
+			local _, kind = GetTrainerServiceInfo(i)
+			if kind == "available" then
+				local c = GetTrainerServiceCost(i) or 0
+				if c <= playerMoney then
+					BuyTrainerService(i)
+					count = count + 1
+					cost = cost + c
+					playerMoney = playerMoney - c
+				else
+					short = short + 1
+					shortCost = shortCost + c
+				end
+			end
+		end
+		if count > 0 then
+			ns.Print(format(count == 1 and L["Learned %d spell for %s."] or L["Learned %d spells for %s."], count, QoL.Money(cost)))
+		end
+		if short > 0 then
+			ns.Print(format(L["Not enough money for %d more (%s)."], short, QoL.Money(shortCost)))
+		end
+	end)
+
+	if hooksecurefunc then
+		hooksecurefunc("ClassTrainerFrame_Update", updateTrainerButton)
+	end
+
+	trainerButton = btn
+	updateTrainerButton()
+end
+
 function Trainer.OnShow()
+	initTrainerButton()
+	updateTrainerButton()
 	active, learned, spent, pending = false, 0, 0, nil
 	wipe(bought)
 	if QoL.Shift() or not QoL.On("trainAll") then return end
@@ -134,10 +226,18 @@ function Trainer.OnClosed()
 	finish()
 end
 
+ns.RegisterEvent("ADDON_LOADED", function(_, name)
+	if name == "Blizzard_TrainerUI" then
+		initTrainerButton()
+	end
+end)
 ns.RegisterEvent("TRAINER_SHOW", Trainer.OnShow)
 ns.RegisterEvent("TRAINER_UPDATE", buyNext)
 ns.RegisterEvent("TRAINER_CLOSED", Trainer.OnClosed)
 ns.RegisterEvent("PLAYER_LOGOUT", cancel)
 ns.On("SETTING_CHANGED", function(path)
 	if (path == "qol.trainAll" or path == "qol" or path == "") and not QoL.On("trainAll") then cancel() end
+	if path == "qol.trainAllButton" or path == "qol" or path == "" then updateTrainerButton() end
 end)
+
+initTrainerButton()
