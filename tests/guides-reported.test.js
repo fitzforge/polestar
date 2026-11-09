@@ -357,6 +357,24 @@ test('forever/horde/skyborne/01-zephras-isle.guide: the Al\'Aketh Cultist\'s Ear
 	assert.ok(Math.hypot(goal.x - 63.7, goal.y - 37.1) < 1, `at Vayn's camp (${goal.x},${goal.y})`);
 });
 
+// Maazias's report (#1450): "walks you to a spot to do nothing": a travel-only step labelled with just the zone's name
+// ("The Barrens", a goto south of Camp Taurajo on the way back from the Great Lift, where the hearth is bound) led a
+// player who was already in Camp Taurajo back 1,200 yd. The Horde 1-30 guides keep no travel-only step whose label is a
+// bare zone name except the class-only river crossings (sweep: ~/work/maintainer/zone-goto-sweep).
+test('Horde 1-30: no travel-only step on the shared route is labelled with just a zone name (#1450)', { skip }, () => {
+	const zones = new Set(['The Barrens', 'Silverpine Forest', 'Tirisfal Glades', 'Ashenvale', 'Hillsbrad Foothills', 'Thousand Needles', 'Thunder Bluff', 'Stonetalon Mountains', 'Durotar', 'Mulgore', 'Orgrimmar']);
+	const files = allGuides().filter((f) => /^forever\/horde\/(0[2-7]-|orc\/|troll\/|tauren\/|undead\/|skyborne\/)/.test(f));
+	const bad = [];
+	for (const f of files) {
+		for (const s of fs.readFileSync(path.join(OFFICIAL_DIR, f), 'utf8').split(/\n(?=step\b)/)) {
+			const lines = s.split('\n').filter((l) => /^\s+\S/.test(l) && !/^\s+(zone|tip|note|when|#)/.test(l));
+			const m = lines.length === 1 && lines[0].match(/^\s+goto [\d.,]+(?: map \d+)? "([^"]+)"/);
+			if (m && zones.has(m[1]) && !/^\s+only\b/m.test(s)) bad.push(`${f}: ${s.split('\n')[0]} -> "${m[1]}"`);
+		}
+	}
+	assert.deepEqual(bad, []);
+});
+
 // Horde 1-30 audit (#1414): a step gated `when group <quest>` holds only players who answered "Do it with a group",
 // but a step whose every goal is `optional` is done at once (Engine Own.holds), so those players were walked past the
 // accept, the elite and the hand-in with no arrow (WANTED: Bruuz, Aggor the Young, WANTED: Vulgara). Every Horde

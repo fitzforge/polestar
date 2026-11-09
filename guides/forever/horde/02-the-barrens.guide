@@ -897,12 +897,8 @@ step Ken'zigla
 
 # ---------------------------------------------------------------- South: Verog, Camp Taurajo, the Bristlebacks
 
-step The Barrens
-  only Orc,Troll,Undead,Warlock
-  zone The Barrens
-  goto 53.1,41.7 "The Barrens"
-
 step Regthar Deathgate
+  zone The Barrens
   turnin 851
   accept 852
 
@@ -1103,9 +1099,9 @@ step Back to the Crossroads
   fly "Crossroads"
 
 # ---------------------------------------------------------------- West: Seereth and the Webwinder Path
-step The Barrens
+step Seereth's camp
   zone The Barrens
-  goto 35.3,27.9 "The Barrens"
+  goto 35.3,27.9 "Seereth's camp"
 
 step Seereth Stonebreak
   tip Seereth and Makaba Flathoof share the camp on the road west to Stonetalon.
@@ -1124,10 +1120,6 @@ step Makaba Flathoof
   tip Back down to Makaba.
   turnin 6548
   accept 6629                         -- Grundig Darkcloud waits up the Webwinder Path
-
-step Stonetalon Mountains
-  zone Stonetalon Mountains
-  goto 73.3,95.1 "Stonetalon Mountains"
 
 step Malaka'jin
   zone Stonetalon Mountains
@@ -1173,9 +1165,9 @@ step Malaka'jin
   tip Back down the Webwinder Path: Xen'Zilla stands just outside Malaka'jin, before the village.
   turnin 6461                         -- Xen'Zilla
 
-step The Barrens
+step Seereth's camp
   zone The Barrens
-  goto 35.3,27.9 "The Barrens"
+  goto 35.3,27.9 "Seereth's camp"
 
 step Seereth Stonebreak
   zone The Barrens

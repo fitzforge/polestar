@@ -684,9 +684,9 @@ step Into The Barrens
   zone The Barrens
   goto 41.9,58.6 "Into The Barrens"
 
-step The Barrens
+step The Crossroads
   zone The Barrens
-  goto 52.2,31.0 "The Barrens"
+  goto 52.2,31.0 "The Crossroads"
 
 # ---------------------------------------------------------------- The Crossroads
 
@@ -698,4 +698,4 @@ step The Crossroads
 step To Orgrimmar
   zone Orgrimmar
   tip From the Crossroads follow the road north-east to Far Watch Post, cross the Southfury River into Durotar and keep north to Orgrimmar's main gate. The next guide starts in Orgrimmar: Thrall takes Welcome to Azeroth, and the zeppelin leaves for Tirisfal Glades and Silverpine Forest.
-  goto 55.6,72.3 "Orgrimmar"
+  goto 55.6,72.3 "Orgrimmar's main gate"

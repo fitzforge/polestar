@@ -233,7 +233,7 @@ step Class trainer
 
 step Thunder Bluff
   zone Thunder Bluff
-  goto 47.0,49.8 "Thunder Bluff"
+  goto 47.0,49.8 "Thunder Bluff's central rise"
 
 step Thunder Bluff
   zone Thunder Bluff
@@ -269,13 +269,13 @@ step Tear of the Moons
   collect 5038 quest 857 @49.1,84.3   -- General Twinbraid's Strongbox; below ground
   turnin 857
 
-step Thousand Needles
+step The Great Lift
   zone Thousand Needles
-  goto 31.9,23.9 "Thousand Needles"
+  goto 31.9,23.9 "The Great Lift, down into Thousand Needles"
 
-step Thousand Needles
+step Freewind Post's lift
   zone Thousand Needles
-  goto 44.9,48.9 "Thousand Needles"
+  goto 44.9,48.9 "Freewind Post's lift"
 
 step Freewind Post
   zone Thousand Needles
@@ -314,10 +314,6 @@ step Freewind Post
   accept 5064
   turnin 4821                         -- Hagar Lightninghoof
   accept 4865
-
-step Thousand Needles
-  zone Thousand Needles
-  goto 31.8,32.6 "Thousand Needles"
 
 # ---------------------------------------------------------------- Darkcloud Pinnacle and Whitereach Post
 

@@ -80,9 +80,9 @@ step Kadrak
   tip From Seereth's camp head north-east across the Barrens to the road north of the Crossroads. Kadrak stands on the watch tower of the Mor'shan Rampart where the road enters Ashenvale.
   turnin 6541                         -- Kadrak
 
-step Ashenvale
+step Into Ashenvale
   zone Ashenvale
-  goto 71.1,68.1 "Ashenvale"
+  goto 71.1,68.1 "The road north to Splintertree Post"
 
 step Splintertree Post
   tip Splintertree Post is just north up the road. Coming in from the south, the flight master and Senani Thunderheart's hunt board at Night Run come first, then the vendors. Kuray'bin at the lumber camp offers Ashenvale Outrunners: leave it for the way back, at 22.
@@ -249,9 +249,9 @@ step The Offering of Blood
   kill 212753 quest 95885.3 optional
   turnin 95885 optional               -- Below ground
 
-step Hillsbrad Foothills
+step Into Hillsbrad
   zone Hillsbrad Foothills
-  goto 20.8,47.4 "Hillsbrad Foothills"
+  goto 20.8,47.4 "The road east to Southpoint Tower"
 
 step Southpoint Tower
   zone Hillsbrad Foothills

@@ -50,9 +50,9 @@ step Fly to Crossroads
   fly "Crossroads"
   zone The Barrens
 
-step The Barrens
+step The road west
   zone The Barrens
-  goto 35.3,27.9 "The Barrens"
+  goto 35.3,27.9 "The road west past Seereth's camp"
 
 step Malaka'jin
   zone Stonetalon Mountains
@@ -116,10 +116,6 @@ step Malaka'jin
   turnin 1058                         -- Witch Doctor Jin'Zil, below ground
 
 # ---------------------------------------------------------------- The southern Barrens
-
-step The Barrens
-  zone The Barrens
-  goto 35.3,27.9 "The Barrens"
 
 step Camp Taurajo
   zone The Barrens
@@ -205,9 +201,9 @@ step The flying machine
 step Gann Stonespire
   turnin 849                          -- Gann Stonespire walks around Blackthorn Ridge: look inside the circle on the map
 
-step Thousand Needles
+step The Great Lift
   zone Thousand Needles
-  goto 31.9,23.9 "Thousand Needles"
+  goto 31.9,23.9 "The top of the Great Lift"
 
 step Great Lift
   zone Thousand Needles
@@ -221,10 +217,6 @@ step The Great Lift
   accept 4542 npc 10079               -- Brave Moonhorn, at the top of the lift
 
 # ---------------------------------------------------------------- Back north
-step The Barrens
-  zone The Barrens
-  goto 44.4,77.4 "The Barrens"
-
 step Camp Taurajo
   zone The Barrens
   turnin 879                          -- Mangletooth

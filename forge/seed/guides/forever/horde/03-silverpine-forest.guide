@@ -241,9 +241,9 @@ step Brill
   tip Shari Stilwell trains Paladins in Brill, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine.
   train class
 
-step Silverpine Forest
+step The Sepulcher
   zone Silverpine Forest
-  goto 44.0,40.9 "Silverpine Forest"
+  goto 44.0,40.9 "The Sepulcher"
 
 # ---------------------------------------------------------------- The Sepulcher
 
@@ -359,9 +359,9 @@ step The Ivar Patch
   collect 3621 quest 425.1            -- Inside
   turnin 425
 
-step Tirisfal Glades
+step Brill
   zone Tirisfal Glades
-  goto 61.3,50.8 "Tirisfal Glades"
+  goto 61.3,50.8 "Brill"
 
 step Magistrate Sevren
   zone Tirisfal Glades
@@ -398,7 +398,7 @@ step Zeppelin to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  goto 55.6,72.3 "Orgrimmar"
+  goto 55.6,72.3 "Orgrimmar's main gate"
 
 step Valley of Strength
   zone Orgrimmar
