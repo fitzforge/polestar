@@ -46,8 +46,11 @@ fn pack_files(name: &str) -> String {
 /// 0.3.5 shipped at 15661 KiB (kb data); raised for the 0.3.6 hotfix; bring back down in 0.3.7.
 /// 0.3.6 round 2 measured 15838/33949/23334 KiB (Westfall Alba chain for Humans, new entrance/route steps,
 /// corrections); raised for the hotfix; trim in 0.3.7.
+/// 0.3.7 stage (grind spots without alternatives, goals with the same spots sharing one list): the pack
+/// compiled from the stage reads Alliance 21,871 and Horde 21,412 (was 23,548 / 22,933 for 0.3.6 compiled the
+/// same way); read budgets lowered to those plus ~1%. Resident and peak unchanged by it.
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 15850.0), ("peak", 34000.0), ("read", 23350.0)]), ("Horde", "Orc", [("resident", 14600.0), ("peak", 31900.0), ("read", 22500.0)])];
+	[("Alliance", "Human", [("resident", 15850.0), ("peak", 34000.0), ("read", 22100.0)]), ("Horde", "Orc", [("resident", 14600.0), ("peak", 31900.0), ("read", 21650.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {
