@@ -240,6 +240,8 @@ return {
 	-- Step 46: Aamelia Windfield again
 	-- {npc:252800} Aamelia Windfield
 	["{npc:252800} again"] = "다시 {npc:252800}",
+	-- {npc:252800} Aamelia Windfield
+	["Back to {npc:252800} at the farmhouse."] = "",
 
 	-- Step 47: Bandit Highwaymen
 	["Bandit Highwaymen"] = "산적 노상강도",
@@ -247,6 +249,8 @@ return {
 
 	-- Step 48: Standing our ground
 	["Standing our ground"] = "자리를 지키며",
+	-- {npc:252800} Aamelia Windfield
+	["{npc:252800}, at the farmhouse"] = "",
 	-- {npc:252800} Aamelia Windfield
 	["Tell {npc:252800} you're ready"] = "{npc:252800}에게 준비되었다고 말하세요",
 
@@ -344,6 +348,8 @@ return {
 	["Heal the injured druids in the Nightfang Den"] = "밤송곳니 굴의 다친 드루이드를 치유하세요",
 	-- {npc:258130} Jorel Windsinger
 	["Find {npc:258130}"] = "{npc:258130}을(를) 찾으세요",
+	-- {item:258771} Al'Aketh Cultist's Ear · {npc:254151} Vayn Moongaze
+	["{item:258771}: the Stormchasers and Footsoldiers around {npc:254151}'s camp"] = "",
 
 	-- Step 69: Elegael Thornpaw, the missive
 	-- {npc:257944} Elegael Thornpaw

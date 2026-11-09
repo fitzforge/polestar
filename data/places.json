@@ -6,13 +6,29 @@
 			"quest": 275,
 			"objective": 1,
 			"faction": "Alliance",
-			"at": {
+			"path": {
 				"map": 1437,
-				"x": 24.46,
-				"y": 33.18,
-				"frame": "era"
+				"frame": "era",
+				"points": [
+					[
+						47.6,
+						32.8
+					],
+					[
+						40.6,
+						32.9
+					],
+					[
+						35.6,
+						33.4
+					],
+					[
+						25.9,
+						31.9
+					]
+				]
 			},
-			"note": "Blisters on the Land: the Fen Creepers are hunted in the Sundown Marsh waterways, not the few by Rethiel the Greenwarden. In game the reporter ran out of creepers at the spot by the giver and found enough at 24.46,33.18; 8 of the 19 Fen Creeper spawns lie within 300 yd of it (18.5-27.4, 27.7-39.2), against 6 scattered over the east of the zone.",
+			"note": "Blisters on the Land: the Fen Creepers are hunted along the Wetlands' river and the Sundown Marsh waterways, not the few by Rethiel the Greenwarden. In game the reporter ran out of creepers at the spot by the giver and found enough at 24.46,33.18 (#610). Players' recordings (2026-11-09: 9 people, 101 kills) show the creepers killed all along the river from 48 to 35 (y 25-35) as well as at 24-26: the arrow now walks the river east to west from Einar Stonegrip's road, ending at the reporter's cluster, instead of crossing the zone to 24.46,33.18 and back to Rethiel (1,067 + 1,335 yd).",
 			"source": [
 				{
 					"kind": "in-game-check",
@@ -21,6 +37,10 @@
 				{
 					"kind": "questie",
 					"ref": "npcs.json 1040 spawns on map 1437"
+				},
+				{
+					"kind": "recording",
+					"ref": "objective 275.1 ticks, 9 people, 101 kills: 48,33 42,33 41,33 40,29 38,33 37,27 36,33 35,33 ... 24,31 (rec index 2026-11-09)"
 				}
 			],
 			"issue": 610
@@ -526,13 +546,33 @@
 			"id": "385-westfall-murloc-gills",
 			"quest": 92744,
 			"objective": 1,
-			"at": {
+			"path": {
 				"map": 1436,
-				"x": 43.5,
-				"y": 9.2,
-				"frame": "live"
+				"frame": "live",
+				"points": [
+					[
+						42.5,
+						10.5
+					],
+					[
+						45.5,
+						9.2
+					],
+					[
+						49.5,
+						9.5
+					],
+					[
+						53,
+						10.5
+					],
+					[
+						56,
+						9.2
+					]
+				]
 			},
-			"note": "Murloc Gills: the murlocs of the north coast are the quest's level; the warriors and hunters further south are three or four levels above it.",
+			"note": "Murloc Gills: the murlocs of the north coast are the quest's level; the warriors and hunters further south are three or four levels above it. Players loot the gills all along the north coast, not only at its west end (43.5,9.2, the single point before): recordings 2026-11-09, 31 people, 204 ticks at 42-56,9-11 (56,9 x13, 42,11 x12, 53,11 x10, 45,9 x8), more than half of them over 120 yd from 43.5,9.2. The arrow walks the beach west to east, toward the wardrobe and the Jansen Stead that come next.",
 			"source": [
 				{
 					"kind": "in-game-check",
@@ -541,6 +581,10 @@
 				{
 					"kind": "questie",
 					"ref": "npcs.json Murloc Coastrunner/Raider spawns on the north coast"
+				},
+				{
+					"kind": "recording",
+					"ref": "objective 92744.1 ticks: 31 people, 204 ticks along 42-56,9-11 on map 1436 (rec index 2026-11-09)"
 				}
 			],
 			"issue": 385
@@ -1178,6 +1222,122 @@
 				}
 			],
 			"pr": 1355
+		},
+		{
+			"id": "zephras-aamelia-92679-ender",
+			"quest": 92679,
+			"objective": "ender",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players hand this quest in at the farmhouse; the arrow led to the other spawn, about 115 yd away.",
+			"source": { "kind": "recording", "ref": "turn-in windows of 92679 on map 2521: 12 of 12 at 46.4-47.0,81.6-82.2 (11 people)" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92682-ender",
+			"quest": 92682,
+			"objective": "ender",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players hand this quest in at the farmhouse; the arrow led to the other spawn, about 115 yd away.",
+			"source": { "kind": "recording", "ref": "turn-in windows of 92682 on map 2521: 10 of 13 at 46.4-47.0,81.6-82.2 (12 people), the rest at 47.5,78.6" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92683-ender",
+			"quest": 92683,
+			"objective": "ender",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players hand this quest in at the farmhouse; the arrow led to the other spawn, about 115 yd away.",
+			"source": { "kind": "recording", "ref": "turn-in windows of 92683 on map 2521: 11 of 14 at 46.4-47.0,81.6-82.2 (13 people), the rest at 47.5,78.6" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92684-ender",
+			"quest": 92684,
+			"objective": "ender",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players hand this quest in at the farmhouse; the arrow led to the other spawn, about 115 yd away.",
+			"source": { "kind": "recording", "ref": "turn-in windows of 92684 on map 2521: 10 of 14 at 46.4-47.0,81.6-82.2 (13 people), the rest at 47.5,78.6" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92685-ender",
+			"quest": 92685,
+			"objective": "ender",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players hand this quest in at the farmhouse; the arrow led to the other spawn, about 115 yd away.",
+			"source": { "kind": "recording", "ref": "turn-in windows of 92685 on map 2521: 11 of 14 at 46.4-47.0,81.6-82.2 (13 people), the rest at 47.5,78.6" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92698-ender",
+			"quest": 92698,
+			"objective": "ender",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players hand this quest in at the farmhouse; the arrow led to the other spawn, about 115 yd away.",
+			"source": { "kind": "recording", "ref": "turn-in windows of 92698 on map 2521: 9 of 13 at 46.4-47.0,81.6-82.2 (12 people), the rest at 47.5,78.6" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92682-giver",
+			"quest": 92682,
+			"objective": "giver",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players take this quest at the farmhouse.",
+			"source": { "kind": "recording", "ref": "accept windows of 92682 on map 2521: 12 of 12 at 46.4-47.0,81.6-82.2 (11 people)" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92683-giver",
+			"quest": 92683,
+			"objective": "giver",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players take this quest at the farmhouse.",
+			"source": { "kind": "recording", "ref": "accept windows of 92683 on map 2521: 12 of 12 at 46.4-47.0,81.6-82.2 (11 people)" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92684-giver",
+			"quest": 92684,
+			"objective": "giver",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players take this quest at the farmhouse.",
+			"source": { "kind": "recording", "ref": "accept windows of 92684 on map 2521: 12 of 12 at 46.4-47.0,81.6-82.2 (11 people)" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92685-giver",
+			"quest": 92685,
+			"objective": "giver",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players take this quest at the farmhouse.",
+			"source": { "kind": "recording", "ref": "accept windows of 92685 on map 2521: 9 of 14 at 46.4-47.0,81.6-82.2 (13 people), the rest at 47.5,78.6" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92693-giver",
+			"quest": 92693,
+			"objective": "giver",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players take Standing Our Ground at the farmhouse; its hand-in, after the fight, stays up the field with the data.",
+			"source": { "kind": "recording", "ref": "accept windows of 92693 on map 2521: 11 of 14 at 46.4-47.0,81.6-82.2 (13 people), the rest at 47.5,78.6" },
+			"pr": 1415
+		},
+		{
+			"id": "westfall-old-murk-eye",
+			"quest": 104,
+			"objective": 1,
+			"at": {
+				"map": 1436,
+				"x": 33.7,
+				"y": 83.9,
+				"frame": "live"
+			},
+			"note": "The Coastal Menace: Old Murk-Eye is killed on the beach just north-east of the lighthouse (32-35,83-86), not at his one spawn point in the data (29.27,75.95, about 240 yd north), where the arrow led.",
+			"source": {
+				"kind": "recording",
+				"ref": "kills of npc 391 on map 1436: 5 people, 19 kills at 32-35,83-86; the scale's objective ticked at 32-34,83-84 (5 people)"
+			},
+			"pr": 1415
 		}
 	]
 }

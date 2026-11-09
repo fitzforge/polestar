@@ -430,8 +430,8 @@ step Gol'Bolar Quarry
   turnin 95214                                -- Quarrymaster Thesten
 
 step Gol'Bolar Quarry
-  when onquest 95217
-  turnin 95217 optional                       -- Frast Dokner
+  when complete 95217
+  turnin 95217                                -- Frast Dokner
 
 step Earthseer Farsen
   turnin 96390

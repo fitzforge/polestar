@@ -2,6 +2,57 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), or a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "westfall-goretusk-livers-background",
+			"faction": "Alliance",
+			"at": { "quest": 22, "goal": "objective", "objective": 1 },
+			"background": {
+				"title": "Goretusk Livers as you go",
+				"tip": "Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers.",
+				"mobs": [157, 454, 547],
+				"finish": { "title": "Finish the Goretusk Livers", "tip": "Still short of eight? Young Goretusks root in the fields just west of Saldean's Farm.", "map": 1436, "x": 54.15, "y": 26.72 }
+			},
+			"note": "Goretusk Liver Pie: the livers drop from the goretusks that roam the whole north loop (items.json 723: 157, 454, 547 at about a third a kill); the old Molsen Farm step listed them with eleven other goals, and players flipped between that step and the coast step to find what came next (route review W3: the most frequent manual moves on 0.3.4, 32 people). The north loop is now one step per target in walking order, with the livers worked in the background. Young Goretusks spawn one by one all over the loop (11 points in 44-60,18-48); the finish point is the one on the way to Saldean's (54.15,26.72).",
+			"source": [
+				{ "kind": "recording", "ref": "route review 2026-11-08 (W3): manual step moves 11->12 x7, 12->11 x6 on 02-westfall, 0.3.4" },
+				{ "kind": "questie", "ref": "npcs.json 454 Young Goretusk: 11 of 24 spawns in Westfall 44-60,18-48, one at 54.15,26.72" }
+			],
+			"pr": 1415
+		},
+		{
+			"id": "westfall-vulture-meat-background",
+			"faction": "Alliance",
+			"at": { "quest": 38, "goal": "objective", "objective": 1 },
+			"background": {
+				"title": "Stringy Vulture Meat as you go",
+				"tip": "Fleshrippers circle the fields along this loop: kill the ones you pass for the stew's meat.",
+				"mobs": [199, 1109, 154],
+				"finish": { "title": "Finish the Stringy Vulture Meat", "tip": "Still short of three? Young Fleshrippers circle the fields north-west of Saldean's Farm.", "map": 1436, "x": 51.87, "y": 27.69 }
+			},
+			"note": "Westfall Stew: the meat drops from the Fleshrippers over the whole north loop (items.json 729); worked in the background of the one-target steps (route review W3), finished at a Young Fleshripper spawn on the way to Saldean's (51.87,27.69; 11 spawns in 44-60,18-48).",
+			"source": [
+				{ "kind": "recording", "ref": "route review 2026-11-08 (W3)" },
+				{ "kind": "questie", "ref": "npcs.json 199 Young Fleshripper: 11 of 24 spawns in Westfall 44-60,18-48, one at 51.87,27.69" }
+			],
+			"pr": 1415
+		},
+		{
+			"id": "westfall-red-leather-bandanas-background",
+			"faction": "Alliance",
+			"at": { "quest": 153, "goal": "objective", "objective": 1 },
+			"background": {
+				"title": "Red Leather Bandanas as you go",
+				"tip": "Every Defias on this loop can drop a Red Leather Bandana: the Trappers and Smugglers, and the guards at Furlbrow's Wardrobe.",
+				"mobs": [95, 504],
+				"finish": { "title": "Finish the Red Leather Bandanas", "tip": "Still short of fifteen? Defias Trappers camp in the fields just west of Sentinel Hill.", "map": 1436, "x": 48.53, "y": 45.24 }
+			},
+			"note": "Red Leather Bandanas: fifteen bandanas at 40% from the Trappers and Smugglers People's Militia sends you to kill anyway (items.json 829), plus the wardrobe's guards; worked in the background of the one-target steps (route review W3), finished at the Trappers' camp just west of Sentinel Hill, the hand-in (five spawns at 47.2-48.6,43.4-47.7).",
+			"source": [
+				{ "kind": "recording", "ref": "route review 2026-11-08 (W3)" },
+				{ "kind": "questie", "ref": "items.json 829 drops: 95 and 504 at 40%; npcs.json 504 Defias Trapper: 48.53,45.24 with 47.15,46.18, 47.73,43.36, 48.17,46.72, 48.56,47.7" }
+			],
+			"pr": 1415
+		},
+		{
 			"id": "dun-morogh-shimmerweed-on-shimmer-ridge",
 			"at": {
 				"quest": 315,
@@ -849,7 +900,7 @@
 			},
 			"faction": "Alliance",
 			"id": "upstairs-dendrite-starblaze-turnin-272",
-			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added. Since the 2026-11-07 Ashenvale split the step is at the start of 06-wetlands, cast from Stormwind (the old tip's boat to Auberdine went with it).",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added. Since the 2026-11-07 Ashenvale split the step is at the start of 06-wetlands, cast from Stormwind (the old tip's boat to Auberdine went with it). 2026-11-09 (#1415): the halves are joined at the Shrine of Remulos in Moonglade, not in Stormwind: players' recordings tick the pendant at Moonglade 36,41-42 (7 people), where the data's objective point is too; the tip said Stormwind.",
 			"pr": 960,
 			"source": [
 				{
@@ -859,9 +910,13 @@
 				{
 					"kind": "client",
 					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
+				},
+				{
+					"kind": "recording",
+					"ref": "objective 272.1 ticks at Moonglade 36,41-42 (7 people); turn-ins at Dendrite Starblaze 56,30-31 (7)"
 				}
 			],
-			"tip": "In Stormwind, join the two half pendants into the Pendant of the Sea Lion and cast Teleport: Moonglade: Dendrite Starblaze is in Nighthaven. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."
+			"tip": "Cast Teleport: Moonglade. With both half pendants in your bags, stand by the Shrine of Remulos on the north-west shore of the lake and use a half to join them, then go to Dendrite Starblaze in Nighthaven. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."
 		},
 		{
 			"id": "upstairs-dendrite-starblaze-turnin-5921",

@@ -3482,16 +3482,39 @@ test(`${WESTFALL}: Xaden Ryan's report (#621): the oats are gathered in the Jans
 // (watchers, okra, livers, snouts, vulture meat), the Defias by Jangolode
 // Mine, the north hills and coast, the Jansen Stead (oats and well), then
 // every Saldean's hand-in at once on the way back to the hill.
-test(`${WESTFALL}: flow audit: one north loop, the farm work in its first fields, Saldean's handed in once on the way back`, { skip }, () => {
-	const list = goals(WESTFALL);
+// Route review (2026-11-08, W3; #1415): the loop's two long "kill these as you meet them" lists (twelve goals,
+// then five) made players flip between the two steps to find what came next (the most frequent manual moves on
+// 0.3.4, 32 people). The same walk is now one target per step in walking order: the Defias fields, Molsen Farm's
+// well, its Harvest Watchers, the gnoll hills, the murloc coast, Furlbrow's Wardrobe, the Jansen Stead. The
+// livers, the vulture meat and the bandanas, which drop all over the loop, are worked in the background with a
+// finish step before their hand-in.
+test(`${WESTFALL}: flow audit: one north loop, one target per step in walking order, Saldean's handed in once on the way back`, { skip }, () => {
+	const list = working(goals(WESTFALL));
 	const collects = (item) => (g) => g.t === 'collect' && g.item === item;
 	const paws = at(list, 'the Gnoll Paws', collects(725));
-	for (const [what, item] of [['the Goretusk Livers', 723], ['the Stringy Vulture Meat', 729], ['the Goretusk Snouts', 731], ['the Okra', 732]]) {
+	for (const [what, item] of [['the Goretusk Snouts', 731], ['the Okra', 732]]) {
 		const i = at(list, what, collects(item));
 		assert.ok(i < paws, `${what} before the north hills`);
 		assert.ok(list.filter(({ goal }) => collects(item)(goal)).length === 1, `${what} listed once`);
 	}
-	const oats = at(list, 'the oats', collects(1528));
+	const order = [
+		['the Defias Trappers', (g) => g.t === 'kill' && g.quest === 12 && g.npc === 504],
+		["Molsen Farm's well", collects(254547)],
+		['the Harvest Watchers', (g) => g.t === 'kill' && g.quest === 9],
+		['the Gnoll Paws', collects(725)],
+		['the murloc gills', collects(254548)],
+		["Furlbrow's Wardrobe", collects(841)],
+		['the oats', collects(1528)],
+	].map(([what, pred]) => [what, at(list, what, pred)]);
+	order.forEach(([what, i], k) => k && assert.ok(i > order[k - 1][1] && list[i].step !== list[order[k - 1][1]].step, `${what} in its own step after ${order[k - 1][0]}`));
+	const steps = compiled(WESTFALL).steps;
+	for (const [item, quest] of [[723, 22], [729, 38], [829, 153]]) {
+		const bg = steps.find((st) => st.along && st.goals.some((g) => g.t === 'collect' && g.item === item));
+		assert.ok(bg && bg.background, `item ${item} is worked in the background`);
+		const finish = at(list, `the finish step of ${item}`, collects(item));
+		assert.ok(finish < at(list, `turnin ${quest}`, is('turnin', quest)), `item ${item} has a finish step before quest ${quest}'s hand-in`);
+	}
+	const oats = order.at(-1)[1];
 	const saldean = list[at(list, 'turnin 9', is('turnin', 9))].step;
 	for (const q of [9, 92909, 38, 22]) {
 		const i = at(list, `turnin ${q}`, is('turnin', q));
@@ -3500,7 +3523,7 @@ test(`${WESTFALL}: flow audit: one north loop, the farm work in its first fields
 	}
 	assert.ok(at(list, 'turnin 9', is('turnin', 9)) < at(list, 'turnin 12', is('turnin', 12)), 'then Sentinel Hill');
 	assert.equal(list[at(list, 'the Jansen Stead well', collects(254546))].step, list[oats].step, 'the well vial with the oats');
-	assert.deepEqual(compiled(WESTFALL).steps.filter((st) => st.along).map((st) => st.title), [], 'no along-the-way lists');
+	assert.deepEqual(steps.filter((st) => st.along && !st.background).map((st) => st.title), [], 'no along-the-way lists but the background ones');
 });
 
 // --- Thendal Grove (Alx-Ryan, #363): the guide walked you to Rorian, up the
@@ -5346,7 +5369,10 @@ test('Alliance 20-30: no town stop for one quest where the route comes back anyw
 	assert.ok(!wet.some(({ goal }) => goal.t === 'turnin' && goal.quest === 472), 'Fall of Dun Modr is handed in on 30-40/01\'s Dun Modr stop');
 	const hills = goals(HILLSBRAD_ALLIANCE);
 	assert.ok(hills.some(({ goal }) => goal.t === 'turnin' && goal.quest === 472), 'Longbraid takes it there');
-	assert.equal(wetStep('turnin', 1046), wetStep('turnin', 1035), 'one Astranaar stop at the end of the Ashenvale trip');
+	// #1415 (flow audit: passed enders at 11-22 yd): Fallen Sky Lake and the Gleaming Crescent Necklace are done before
+	// the Astranaar stop for Raene's next part (1029 -> 1030), so they go in there, not on the last stop.
+	for (const q of [1035, 98027]) assert.equal(wetStep('turnin', q), wetStep('turnin', 1029), `${q} handed in on the Astranaar stop of 1029`);
+	assert.ok(wetStep('turnin', 1029) < wetStep('accept', 1045) && wetStep('accept', 1045) < wetStep('turnin', 1046), 'two Astranaar stops: before Krolg and at the end of the Ashenvale trip');
 	const ash = goals(ASHENVALE);
 	const ashStep = (t, q) => ash[at(ash, `${t} ${q}`, is(t, q))].s;
 	assert.equal(ashStep('turnin', 1008), ashStep('turnin', 1034), 'Astranaar\'s hand-ins with The Zoram Strand');
@@ -7869,4 +7895,113 @@ test("Ash's report (#1386): a class step collects a quest-only item only with it
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
 	assert.deepEqual(stepTips('forever/horde/06-hillsbrad-foothills.guide', /^\s+turnin 30\b/), [fixes.find((f) => f.id === 'upstairs-dendrite-starblaze-turnin-30').tip], 'the hand-in step carries the record tip');
 	assert.deepEqual(stepTips('forever/horde/02-the-barrens.guide', /^\s+turnin 6129\b/), [fixes.find((f) => f.id === 'upstairs-dendrite-starblaze-turnin-6129').tip], "the Barrens' Moonglade step carries its record tip");
+});
+
+// --- Alliance 1-30 audit (#1415). Route review (2026-11-08/09) and players' recordings.
+
+const PLACES = () => JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places;
+// Every compiled point of a goal (its own and its spots), in world yards from a recorded point.
+function nearestYards(goal, map, x, y) {
+	const pts = [goal, ...(goal.spots || [])].filter((o) => o.x != null);
+	return Math.min(...pts.map((o) => yards({ map, x: o.x, y: o.y }, { map, x, y })));
+}
+
+// vW1: People's Militia part 2 and Moonbrook Espionage left 02-westfall's second half (Sentinel -> Moonbrook ->
+// Sentinel at 16) for 03-loch-modan's 19-20 Westfall walk, where the messenger and the traitor already go to Moonbrook.
+test(`${WESTFALL} / ${LOCH_MODAN}: #1415 (vW1): People's Militia part 2 and Alba's crates ride on the 19-20 Moonbrook walk`, { skip }, () => {
+	const west = goals(WESTFALL);
+	for (const q of [14, 92747, 92748]) assert.ok(!west.some(({ goal }) => goal.quest === q), `02-westfall no longer has ${q}`);
+	for (const q of [13, 92745]) assert.ok(west.some(({ goal }) => is('turnin', q)(goal)), `02-westfall still hands in ${q}`);
+	const loch = goals(LOCH_MODAN);
+	const i = (what, t, q) => at(loch, what, is(t, q));
+	assert.equal(loch[i('accept 14', 'accept', 14)].step, loch[i('turnin 132', 'turnin', 132)].step, '14 taken with Wiley\'s report at Sentinel Hill');
+	assert.equal(loch[i('accept 92747', 'accept', 92747)].step, loch[i('turnin 132', 'turnin', 132)].step, '92747 taken there too');
+	const work = at(loch, "14's Defias", (g) => g.t === 'kill' && g.quest === 14);
+	assert.ok(work < at(loch, 'the messenger', (g) => g.t === 'collect' && g.quest === 142), 'Moonbrook before the messenger');
+	assert.equal(loch[i('turnin 14', 'turnin', 14)].step, loch[i('accept 155', 'accept', 155)].step, 'handed in when the traitor is taken');
+	assert.ok(i('turnin 92748', 'turnin', 92748) > i('turnin 155', 'turnin', 155), 'Sprite Jumpsprocket on the Stormwind stop before the boat');
+});
+
+// vLM1: Crocolisk Hunting (385) with Twisting the Knife at the Farstrider Lodge (Loch Crocolisks drop its meat and
+// skins: recordings show 5 people looting skins in Loch Modan). vLM2: a player without The Defias Brotherhood (65) from
+// 02-westfall never sees Wiley's chain, so the Westfall stretch is gated on it and the fresh starter goes from
+// Goldshire to General Marcus at Stormwind's gate and flies back to Lakeshire.
+test(`${LOCH_MODAN}: #1415 (vLM1, vLM2): Crocolisk Hunting at the lodge; the Westfall stretch only with The Defias Brotherhood`, { skip }, () => {
+	const list = goals(LOCH_MODAN);
+	const take = at(list, 'accept 385', is('accept', 385));
+	assert.equal(list[take].step, list[at(list, 'accept 86758', is('accept', 86758))].step, '385 with Twisting the Knife');
+	for (const item of [2924, 2925]) assert.equal(list[at(list, `collect ${item}`, (g) => g.t === 'collect' && g.item === item)].step, list[at(list, 'Daggerfang', (g) => g.quest === 86758 && g.t === 'collect')].step, `item ${item} with Daggerfang`);
+	assert.equal(list[at(list, 'turnin 385', is('turnin', 385))].step, list[at(list, 'turnin 86758', is('turnin', 86758))].step, 'handed in with Twisting the Knife');
+	const text = fs.readFileSync(path.join(OFFICIAL_DIR, LOCH_MODAN), 'utf8').split(/\n(?=step )/);
+	const westfall = text.filter((s) => /^\s+zone Westfall/m.test(s) || /quest (14|92747|142|155)\b|accept (104|14)\b|turnin (132|141|142|155)\b/.test(s));
+	assert.ok(westfall.length >= 8, 'the Westfall stretch is there');
+	for (const s of westfall) assert.match(s, /^\s+when turnedin 65$/m, `gated on 65: ${s.split('\n')[0]}`);
+	const fresh = text.find((s) => /^\s+when !turnedin 65$/m.test(s));
+	assert.ok(fresh && /turnin 120\b/.test(fresh) && /fly "Lakeshire"/.test(fresh), 'the fresh starter hands Solomon\'s letter to Marcus and flies back');
+});
+
+// Recorded spots (2026-11-09): Old Murk-Eye is killed on the beach by the lighthouse (5 people), not at his one spawn
+// point 240 yd north; the gills come from the whole north coast (31 people), not only its west end.
+test(`${LOCH_MODAN} / ${WESTFALL}: #1415: Old Murk-Eye and the murloc gills where players get them`, { skip }, () => {
+	const loch = goals(LOCH_MODAN);
+	const scale = loch[at(loch, 'collect 3636', (g) => g.t === 'collect' && g.item === 3636)].goal;
+	assert.ok(nearestYards(scale, 1436, 33.7, 83.9) < 60, `the scale leads to the lighthouse beach (${scale.x},${scale.y})`);
+	assert.ok(PLACES().some((p) => p.id === 'westfall-old-murk-eye'), 'data/places.json keeps it');
+	const gills = PLACES().find((p) => p.quest === 92744 && p.objective === 1);
+	assert.ok(gills && gills.path && gills.path.points.length >= 4, 'the gill place walks the coast');
+	const xs = gills.path.points.map(([x]) => x);
+	assert.ok(Math.min(...xs) <= 43 && Math.max(...xs) >= 55, 'from the mine to the Jansen Stead');
+});
+
+// vWL4: Insane Druids (the Dor'Danil Barrow Den, Kayneth before and after) is left out; The Eye of Paleth goes to Glorin
+// on the Menethil stop before the boat; Trying Times with Razormaw Needling at Howin; the Fen Creepers along the river.
+test(`${WETLANDS}: #1415 (vWL4): no Insane Druids, Glorin on the last Menethil stop, Trying Times at Howin, creepers on the river`, { skip }, () => {
+	const list = goals(WETLANDS);
+	assert.ok(!list.some(({ goal }) => goal.quest === 1012), 'Insane Druids is left out');
+	const glorin = list[at(list, 'turnin 292', is('turnin', 292))];
+	assert.equal(glorin.step, list[at(list, 'turnin 98221', is('turnin', 98221))].step, 'The Eye of Paleth on the Stoutfist stop');
+	assert.equal(list[at(list, 'accept 98246', is('accept', 98246))].step, list[at(list, 'accept 98245', is('accept', 98245))].step, 'Trying Times with Razormaw Needling');
+	const creepers = PLACES().find((p) => p.id === '610-wetlands-fen-creepers');
+	assert.ok(creepers.path && creepers.path.points[0][0] > 45, 'the creeper place starts on the river by Einar');
+	const kill = list[at(list, 'kill 1040', (g) => g.t === 'kill' && g.quest === 275)];
+	assert.ok(nearestYards(kill.goal, 1437, 40.6, 32.9) < 150, `the creepers lead along the river (${kill.goal.x},${kill.goal.y})`);
+});
+
+// T1386 sweep (Plan line, 0.3.7): a Night Elf Druid loading 06-wetlands fresh without Trial of the Sea Lion (272) was
+// sent to Moonglade for a pendant they can't make. Split by quest state, as horde/06-hillsbrad-foothills does.
+test(`${WETLANDS}: #1415: the Night Elf Druid Moonglade opening only with Trial of the Sea Lion or Aquatic Form in hand`, { skip }, () => {
+	const text = fs.readFileSync(path.join(OFFICIAL_DIR, WETLANDS), 'utf8').split(/\n(?=step )/);
+	const druid = text.filter((s) => /only NightElf,Druid\n/.test(s) && /Moonglade|Darnassus/.test(s) && !/Boat to/.test(s));
+	assert.ok(druid.length >= 4);
+	for (const s of druid) assert.match(s, /^\s+when (onquest 272|turnedin 272|onquest 5061)$/m, `gated: ${s.split('\n')[0]}`);
+	const pendant = text.find((s) => /turnin 272\b/.test(s));
+	assert.ok(!/accept 5061/.test(pendant), 'the Aquatic Form accept is its own step (a when onquest 272 turns false at the hand-in)');
+	assert.match(pendant, /Shrine of Remulos/, 'the halves are joined at the shrine (recordings: Moonglade 36,41-42), not in Stormwind');
+});
+
+// Recorded spots (2026-11-09): Aamelia Windfield's quests are given and handed in at her farmhouse (12-13 people each),
+// not at her second spawn up the field; the cultist ears come from Vayn's own camp (13 people).
+test(`${ZEPHRAS_ALLIANCE}: #1415: Aamelia's quests at her farmhouse; the cultist ears at Vayn's camp`, { skip }, () => {
+	const list = goals(ZEPHRAS_ALLIANCE);
+	for (const [t, q] of [['turnin', 92679], ['turnin', 92682], ['turnin', 92683], ['turnin', 92684], ['accept', 92685], ['turnin', 92685], ['turnin', 92698], ['accept', 92693]]) {
+		const { goal } = list[at(list, `${t} ${q}`, is(t, q))];
+		assert.ok(Math.hypot(goal.x - 46.7, goal.y - 81.95) < 0.5, `${t} ${q} at the farmhouse (${goal.x},${goal.y})`);
+	}
+	const ids = new Set(PLACES().map((p) => p.id));
+	for (const id of ['zephras-aamelia-92679-ender', 'zephras-aamelia-92685-giver', 'zephras-aamelia-92693-giver']) assert.ok(ids.has(id), `data/places.json ${id}`);
+	const ears = list[at(list, 'collect 258771', (g) => g.t === 'collect' && g.quest === 93165)].goal;
+	assert.ok(Math.hypot(ears.x - 63.7, ears.y - 37.1) < 1.5, `the ears lead to Vayn's camp (${ears.x},${ears.y})`);
+});
+
+// A step gated on a quest whose goals are all optional is done at once (AuditAlliance3040's sweep): the Goaz Warders and
+// Whelgar's hand-in (the elite keystone behind `when group`, the hand-in once complete), and the Gol'Bolar smith's
+// hand-in (12 Copper Bars: gated on the quest being complete); Elwynn's and Zephras Isle's `when group` steps.
+test('#1415: no quest- or group-gated step in the Alliance 1-30 guides is made only of optional goals', { skip }, () => {
+	for (const guide of [WETLANDS, ...DUN_MOROGHS, ELWYNN, ZEPHRAS_ALLIANCE]) {
+		for (const s of fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8').split(/\n(?=step )/)) {
+			if (!/^\s+when (onquest|complete|group) \d+$/m.test(s)) continue;
+			const g = s.split('\n').filter((l) => /^\s+(accept|turnin|collect|kill|interact|complete|talk|use)\b/.test(l));
+			assert.ok(!g.length || g.some((l) => !/\boptional\b/.test(l)), `${guide}: ${s.split('\n')[0]} has a goal that holds it`);
+		}
+	}
 });
