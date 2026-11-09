@@ -7083,5 +7083,27 @@
 			}
 		],
 		"note": "The first Taming the Beast (6064, Grif Wildheart) needs no The Hunter's Path breadcrumb: those only point the way. The merged data listed the breadcrumbs as prerequisites."
+	},
+	"97287": {
+		"set": {
+			"end": {
+				"npc": [
+					269127
+				],
+				"object": []
+			},
+			"objectiveText": "Speak with the Image of Archmage Modera near Dalaran."
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 3 people took Shrewd Negotiations from Magus Wordeen Voidglare with the log line 'Speak with the Image of Archmage Modera near Dalaran.', and the 2 who finished it handed it in to her (npc 269127), all established"
+			},
+			{
+				"kind": "forevervo",
+				"ref": "seen enders of 97287 include the Image of Archmage Modera (269127)"
+			}
+		],
+		"note": "Shrewd Negotiations (Horde, Magus Wordeen Voidglare in Tarren Mill) ends at the Image of Archmage Modera outside the City of Dalaran, not at Archmage Celindra inside the city."
 	}
 }
