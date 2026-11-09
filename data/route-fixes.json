@@ -6852,6 +6852,11 @@
 				"q": 1090,
 				"size": 2,
 				"why": "#1370: Gerenzo's Orders is Piznik's five-minute defence at the bottom of the Windshear Mine (quest level 22): past the mine's kobolds (19-23), then 11-18 more in waves while he mines, and the quest fails if he dies. Both routes reach it at 20-23 (Alliance 06-ashenvale, Horde 02-the-barrens). Players' recordings: 15 people; the two who lost it were alone (23 and 25: died, failed, abandoned); grouped players finished it 4 of 4, from level 23. A group quest of 2, with the solo skip."
+			},
+			{
+				"q": 517,
+				"size": 3,
+				"why": "Horde 30-40 audit (2026-11-09): Elixir of Agony part 2 wants a Keg of Shindigger Stout (object 1727), which stands only in Dun Garok's cellar beside Captain Ironhill (2304, elite 32) and the elite dwarves (2344-2346); 2 recorded players looted it at Hillsbrad 71.6,80.7. A group quest the route offers with Battle of Hillsbrad's, not an optional solo accept."
 			}
 		]
 	},

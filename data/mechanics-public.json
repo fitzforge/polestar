@@ -304,6 +304,30 @@
 				}
 			],
 			"note": "Clam Bait: the game's data has the meat (15924) inside the Soft-shelled Clam (15874), which comes from the Giant Softshell Clam objects (177784, 100%) and the Enraged Reef Crawlers (12347); 2 recorded players collected the meat on that coast."
+		},
+		"63": {
+			"kinds": [
+				{
+					"kind": "use-item-at-place",
+					"confidence": "high"
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"item": 6637,
+					"place": {
+						"map": 1421,
+						"x": 38.5,
+						"y": 44.4,
+						"f": "e"
+					},
+					"fact": "Drink the Water Sapta (Islen Waterseer's reward for the previous part) by the standing stone south-west of the Sepulcher to see the Corrupt Minor Manifestation of Water.",
+					"confidence": "high"
+				}
+			],
+			"note": "Call of Water (63): Islen Waterseer gives the Water Sapta (6637) with Call of Water (220)'s hand-in (the game's quest reward data) and the quest requires it (requiredItems 6637); the elemental (5894) is at Silverpine 38.78,44.26 beside the Brazier of Everfount (113791)."
 		}
 	}
 }
