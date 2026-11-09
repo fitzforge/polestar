@@ -13,7 +13,8 @@ next forever/alliance/03-darkshore
 # Alexston Farmstead on the west loop, handed in on the Stormwind visit before the boat. Humans
 # take Thor's flight to Stormwind on the first Sentinel Hill visit for Continue to Stormwind (6281),
 # Dungar Longdrink (6261) and Return to Lewis (6285), and hand Elmore's Task (1097) to Grimand
-# Elmore before the boat. Business in Auberdine (97894) is taken from Borgus Steelhand on that visit.
+# Elmore before the boat, taking his Stormpike's Delivery (353) for the Algaz Station in 03-loch-modan.
+# Business in Auberdine (97894) is taken from Borgus Steelhand on that visit.
 # Added 2026-11-07 (Alliance 12-20 zone order): east Elwynn for Dwarves and Gnomes, on the walk from
 # Goldshire to Westfall at about 13.5-14.5 (Humans do it in their start guide; Night Elves and Skyborne
 # arrive at 14.5, where its level 9-10 quests turn grey before the loop ends): A Fishy Peril (40,
@@ -420,6 +421,7 @@ step Stormwind
   getfp "Stormwind"
   buy 2449 x5 npc 1313 optional only NightElf,Druid -- Earthroot for Gathering the Cure (6123) in Darkshore: Maria Lumere, Alchemy Supplies; herbalists pick it there instead
   turnin 1097 only Human                      -- Grimand Elmore, Dwarven District
+  accept 353 only Human                       -- Grimand Elmore: his package for Mountaineer Stormpike in Loch Modan, later on the route
   accept 97894                                -- Borgus Steelhand, Dwarven District: for his brother in Auberdine
   turnin 399                                  -- Baros Alexston, Cathedral Square
   turnin 1861 only Gnome,Human,Skyborne,Mage choose 9513 7508      -- Jennea Cannon, Wizard's Sanctum: Mirror Lake

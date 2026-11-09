@@ -3593,6 +3593,19 @@ test(`${WESTFALL}: Report to Gryan Stoutmantle for every race, Night Elves and S
 	}
 });
 
+// Final route review 0.3.6: Stormpike's Delivery (353, 1050 XP) follows Elmore's Task (1097) at Grimand Elmore, whom Humans
+// visit before the boat; its ender, Mountaineer Stormpike, is on 03-loch-modan's first Algaz Station stop.
+test(`${WESTFALL} / ${LOCH_MODAN}: Stormpike's Delivery taken with Elmore's Task's hand-in, handed to Stormpike at the Algaz Station`, { skip }, () => {
+	const west = goals(WESTFALL);
+	const elmore = at(west, 'turnin 1097', is('turnin', 1097));
+	const take = at(west, 'accept 353', is('accept', 353));
+	assert.ok(take > elmore && west[take].s === west[elmore].s, 'taken from Grimand Elmore right after Elmore\'s Task');
+	const loch = goals(LOCH_MODAN);
+	const hand = at(loch, 'turnin 353', is('turnin', 353));
+	assert.ok((loch[hand].step.when || []).some((p) => p.k === 'onquest' && !p.neg), 'only for a character carrying it');
+	assert.ok(hand < at(loch, 'turnin 307 (Filthy Paws)', is('turnin', 307)), 'on the first Algaz Station stop');
+});
+
 // --- Handful of Oats (Xaden Ryan, #621): the oats were the first step's last
 // goal, unplaced, so before Saldean's the arrow searched every Sack of Oats
 // in the zone, down to Moonbrook, and the far sacks were empty. They are

@@ -287,6 +287,8 @@ return {
 	-- Step 54: Stormwind
 	-- {item:2449} Earthroot · {zone:1439} Darkshore · {npc:1313} Maria Lumere
 	["{item:2449} for Gathering the Cure (6123) in {zone:1439}: {npc:1313}, Alchemy Supplies; herbalists pick it there instead"] = "{item:2449} pour Rassembler les ingrédients du remède (6123) à {zone:1439} : {npc:1313}, Fournitures d'alchimie ; les herboristes la cueillent plutôt là-bas",
+	-- {npc:1416} Grimand Elmore · {npc:1343} Mountaineer Stormpike · {zone:1432} Loch Modan
+	["{npc:1416}: his package for {npc:1343} in {zone:1432}, later on the route"] = "",
 	-- {npc:7232} Borgus Steelhand · {object:28027} Dwarven District · {area:442} Auberdine
 	["{npc:7232}, {object:28027}: for his brother in {area:442}"] = "",
 	-- {npc:5497} Jennea Cannon · {quest:1861} Mirror Lake

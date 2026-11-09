@@ -34,6 +34,8 @@ next forever/alliance/03-darkshore-return
 #
 # Crocolisk Hunting (385) rides on the lodge stops: Loch Crocolisks drop its meat and skins
 # (players' recordings: skins and meat looted in Loch Modan, hand-ins at about 17).
+# Stormpike's Delivery (353), from Grimand Elmore after Elmore's Task on 02-westfall's last Stormwind
+# stop (Humans), is handed to Mountaineer Stormpike on the first Algaz Station stop.
 # Left out:
 # A Dark Threat Looms (161) goes on to Ashlan Stonesmirk at Whelgar's dig, three levels later.
 # Mountaineer Stormpike's Task and Stormpike's Order (1339, 1338): Kadrell's breadcrumb, and
@@ -77,6 +79,10 @@ step Algaz Station
   only Human,NightElf,Skyborne
   tip Mountaineer Stormpike stands at the Algaz Station, at the south end of the pass.
   accept 307                                  -- Mountaineer Stormpike
+
+step Mountaineer Stormpike
+  when onquest 353
+  turnin 353                                  -- Mountaineer Stormpike: Grimand Elmore's package
 
 step Silver Stream Mine
   only Human,NightElf,Skyborne
