@@ -12,7 +12,7 @@
 // https://github.com/moust4ki/DingGuideWoWForever
 
 const LOCALES = {
-	deDE: { language: 'German', status: 'reviewed', translators: ['thecodingcortex'] },
+	deDE: { language: 'German', status: 'reviewed', translators: ['Cortexyn'] },
 	esES: { language: 'Spanish (Spain)', status: 'reviewed', translators: ['julen92'] },
 	esMX: { language: 'Spanish (Latin America)', status: 'reviewed', translators: ['CDVolvik'] },
 	frFR: { language: 'French', status: 'reviewed', translators: ['Yendi'] },

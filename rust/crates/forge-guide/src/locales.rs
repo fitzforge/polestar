@@ -20,7 +20,7 @@ pub struct Locale {
 
 /// LOCALES, in its key order.
 pub static LOCALES: [Locale; 9] = [
-	Locale { code: "deDE", language: "German", status: "reviewed", translators: &["thecodingcortex"] },
+	Locale { code: "deDE", language: "German", status: "reviewed", translators: &["Cortexyn"] },
 	Locale { code: "esES", language: "Spanish (Spain)", status: "reviewed", translators: &["julen92"] },
 	Locale { code: "esMX", language: "Spanish (Latin America)", status: "reviewed", translators: &["CDVolvik"] },
 	Locale { code: "frFR", language: "French", status: "reviewed", translators: &["Yendi"] },

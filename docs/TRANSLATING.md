@@ -15,7 +15,7 @@ notes). The list, with each language's status and translators, is
 `rust/crates/forge-guide/src/locales.rs` (and `tools/lib/i18n/locales.js` beside it for the JS tools).
 
 - **reviewed**: written or checked by a native speaker. The tools never fill
-  or rewrite its translations. German (`deDE`, thecodingcortex), Latin
+  or rewrite its translations. German (`deDE`, Cortexyn), Latin
   American Spanish (`esMX`, CDVolvik), French (`frFR`, Yendi).
 - **ai**: made by a machine. On that client, Options > About says so and
   links to the Discord. Spanish of Spain (`esES`), Korean (`koKR`), Brazilian
