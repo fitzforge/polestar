@@ -39,6 +39,9 @@ local function sortedLog()
 	return ids
 end
 
+-- Forever's client answers 0 (Compat.GetLogCap: its log holds 40).
+function C_QuestLog.GetMaxNumQuestsCanAccept() return 0 end
+
 function C_QuestLog.GetNumQuestLogEntries()
 	local n = #sortedLog()
 	return n + (n > 0 and 1 or 0), n -- one header line when the log is not empty

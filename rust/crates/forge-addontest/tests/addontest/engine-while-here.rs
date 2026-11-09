@@ -953,8 +953,6 @@ stub.login()
 stub.fire("QUEST_LOG_UPDATE")
 {HELPERS}
 Polestar.Set("behavior.autoAccept", {auto})
--- Forever's client answers 0 here; its log holds 40 (Compat.GetLogCap).
-C_QuestLog.GetMaxNumQuestsCanAccept = function() return 0 end
 E.SetGuide("forever/horde/02-the-barrens"); flush()
 local G = E.GetGuide()
 local cross

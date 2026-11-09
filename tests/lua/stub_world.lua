@@ -431,6 +431,9 @@ local function logIDs()
 	table.sort(ids)
 	return ids
 end
+-- Forever's client answers 0 here (its log holds 40: Compat.GetLogCap); the
+-- stub answers the same, so code that reads it raw fails in tests too.
+function C_QuestLog.GetMaxNumQuestsCanAccept() return 0 end
 function C_QuestLog.GetNumQuestLogEntries()
 	local n = #logIDs()
 	return n, n
