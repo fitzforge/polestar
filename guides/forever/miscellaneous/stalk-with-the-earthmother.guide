@@ -78,7 +78,7 @@ step Boarton Shadetotem
 step Raw Brilliant Smallfish
   tip Buy a Raw Brilliant Smallfish at the Auction House (Auctioneer Stampi, north of the pool), or fish one yourself: Kah Mistrunner trains Fishing and Sewa Mistrunner beside him sells the Fishing Pole and a Shiny Bauble; the pool on the main mesa gives smallfish at any skill. Then use the Knife Set on it, wherever you are.
   collect 6291 x1 optional @40.4,51.8          -- Raw Brilliant Smallfish: the Auction House, or the pool; the knife takes it
-  use 206344 "Knife Set" quest 76240.1         -- fillet the smallfish into Fish Chunks
+  use 206344 "Knife Set" quest 76240.1 @41.7,59.9 -- fillet the smallfish into Fish Chunks (where players did it, on the way back to Boarton)
 
 step Boarton Shadetotem
   tip Take your weapon from Boarton: the Hoof-Holstered Blade or the Valley Cosh.
