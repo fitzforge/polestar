@@ -18,8 +18,8 @@
 -- larger dark dot, spaced evenly along the walk. In the line style
 -- (view.style "line") a walk is one continuous line `view.lineWidth` px
 -- thick over a soft shadow (Media/Nav/line-soft, feathered across its
--- width), its sharper bends rounded by a disc, with small dark chevrons
--- pointing the way on the world map (view.chevrons) and the stretch already
+-- width), its sharper bends rounded by a disc, optionally with small dark
+-- chevrons pointing the way (view.chevrons; the painters leave them off) and the stretch already
 -- walked fading out behind the player; flights are dashed, rides solid.
 --
 --   Strokes.New(limit)                     a buffer of at most `limit` strokes

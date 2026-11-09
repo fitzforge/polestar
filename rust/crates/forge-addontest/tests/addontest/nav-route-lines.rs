@@ -1033,9 +1033,12 @@ fn a_new_account_draws_the_line_switching_to_dots_sparkles_and_back_reuses_the_p
 		local pin = worldPin()
 		local function look()
 			local s = R.GetStrokes("world")
-			local soft = 0
-			for i = 1, s.n do if s.soft[i] then soft = soft + 1 end end
-			return { style = R.Style(), n = s.n, shown = shown(pin), pool = #pin.lines, soft = soft, mm = R.GetStrokes("minimap").n }
+			local soft, arms = 0, 0
+			for i = 1, s.n do
+				if s.soft[i] then soft = soft + 1 end
+				if s.under[i] == 0 and not s.dot[i] then arms = arms + 1 end
+			end
+			return { style = R.Style(), n = s.n, shown = shown(pin), pool = #pin.lines, soft = soft, arms = arms, mm = R.GetStrokes("minimap").n }
 		end
 		local r = { default = Polestar.Get("nav.lineStyle"), line = look() }
 		Polestar.Set("nav.lineStyle", "dots"); stub.advance(1); r.dots = look()
@@ -1050,6 +1053,7 @@ fn a_new_account_draws_the_line_switching_to_dots_sparkles_and_back_reuses_the_p
 	assert_eq!(line["style"], "line");
 	assert!(f(&line["soft"]) >= 3.0 && line["shown"] == line["n"], "the walk's pieces over their soft shadow, all shown: {line}");
 	assert!(f(&line["mm"]) > 0.0);
+	assert_eq!(line["arms"], 0, "no chevrons on the painted line (they read as notches)");
 	let dots = &out["dots"];
 	assert!(dots["style"] == "dots" && f(&dots["soft"]) == 0.0 && f(&dots["n"]) > 0.0, "the dots: no soft line");
 	assert!(f(&dots["pool"]) >= f(&line["pool"]), "the pool only grows to the largest drawing");

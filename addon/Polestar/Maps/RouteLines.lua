@@ -692,8 +692,10 @@ local function drawWorld(pin)
 	local v = mapView
 	v.c, v.left, v.top, v.kx, v.ky = b.c, b.left, b.top, b.kx, b.ky
 	v.width, v.height, v.scale, v.small, v.colors = width, height, pin:GetEffectiveScale(), isSmall(mapID), palette
-	-- The line style: its thickness, and chevrons in the outline's colour here only.
-	v.style, v.lineWidth, v.chevrons, v.chevronColor = lineStyle == "line" and "line" or nil, lineWidth, true, under
+	-- The line style: its thickness. Chevrons (RouteStrokes' view.chevrons) stay
+	-- off: on a 4 px line they read as notches; the draw-in and the fading
+	-- tail show the way.
+	v.style, v.lineWidth, v.chevrons, v.chevronColor = lineStyle == "line" and "line" or nil, lineWidth, false, under
 	-- Polestar's pins keep their size on screen while the canvas zooms under them.
 	local vm, n = v.marks, 0
 	for i = 1, markCount * 4, 4 do

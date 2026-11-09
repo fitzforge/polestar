@@ -3052,8 +3052,10 @@ permission; `addon/Polestar_Nav/CREDITS.md`).
   over a soft shadow 3 px wider on each side (`Media/Nav/line-soft`, even
   along x and feathered across y, as a client Line stretches its texture;
   the scrim at 75%); a bend sharper than about 14 degrees gets a round joint
-  (the dot texture, the line's width across, no outline). On the world map a
-  small dark chevron every 90 px points the way (none under a stop's pin).
+  (the dot texture, the line's width across, no outline); a piece joined at a
+  bend starts half the width back along its way, so the outer side of the
+  bend has no notch. Chevrons every 90 px (`view.chevrons`) are in the code
+  but the painters leave them off: on a 4 px line they read as notches.
   The walk being walked fades out behind the player over 120 px (12 px
   pieces from 45% down). Flights are dashed (7 px on, 5 off, 2 px, carried
   across their bends), rides stay solid, and a walk drawn straight with no
