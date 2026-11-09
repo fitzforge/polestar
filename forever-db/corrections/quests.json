@@ -6523,5 +6523,25 @@
 			}
 		],
 		"note": "Shrewd Negotiations (Horde, Magus Wordeen Voidglare in Tarren Mill) ends at the Image of Archmage Modera outside the City of Dalaran, not at Archmage Celindra inside the city."
+	},
+	"870": {
+		"set": {
+			"pre": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: Tonga Runetotem offered The Forgotten Pools to 50 people (levels 11-24) who had never had The Barrens Oases (886), and refused it only to the 7 still carrying 886 (it is turned in to her first)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon: 870 PrevQuestID 0 (no prerequisite)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db quest_template: 870 PrevQuestId 0"
+			}
+		],
+		"note": "The Barrens Oases (886, Arch Druid Hamuul Runetotem in Thunder Bluff) is only a breadcrumb to The Forgotten Pools (870): Tonga gives 870 without it. The data made it a prerequisite, so the Wailing Caverns pick-up sent players to Hamuul for 886, which the game hides from them once it is grey (refused to everyone from level 16 in recordings, offered up to 14; #1436)."
 	}
 }

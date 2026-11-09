@@ -1092,6 +1092,15 @@ emit({ pre = pre, steps = steps, closedBy = closedBy, chain = chain })"#);
 	assert_eq!(crumb_done["pre"], json!([90700]), "the breadcrumb done: nothing to add");
 	drop(own);
 
+	// #1436: a breadcrumb grey for the character is hidden in the giver's window (The Barrens Oases, level 10,
+	// never shown from 16): it is left out.
+	let mut grey = c.clone();
+	grey["quests"]["90701"]["level"] = json!(10);
+	let own = pack_of(&grey, &i);
+	let low = run(&own, &script, Opts { done: vec![1098], ..Default::default() }).remove(0);
+	assert_eq!(low["pre"], json!([90700]), "level 21 and a level 10 breadcrumb: left out");
+	drop(own);
+
 	// An alternative of a `preAny` the chain did not choose is no breadcrumb, though the page lists it and it
 	// is an errand to the same giver: only one of them is needed.
 	c["quests"]["90702"]["pre"] = json!([]);

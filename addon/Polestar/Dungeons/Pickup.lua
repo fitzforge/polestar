@@ -419,6 +419,10 @@ local function withBreadcrumbs(pq, rec, pre, onPage, from, p, closedBy)
 	local before = {}
 	for _, id in ipairs(ids) do
 		local b = not (named[id] or onPage[id] or done(id) or inLog(id)) and C.Quest(id) or nil
+		-- A grey breadcrumb is left out: the game hides it from the giver's
+		-- window unless low-level quests are shown (The Barrens Oases, a
+		-- level 10 quest Arch Druid Hamuul never showed anyone from 16, #1436).
+		if b and b.level and ns.Compat.IsQuestTrivial(b.level, p.level) then b = nil end
 		if b and not Lk.QuestBlock(b, p) and preDone(b) and errand(b, from, p) then
 			for _, r in ipairs(pre) do
 				if not inLog(r.id) and startsAt(r, b["end"]) then
