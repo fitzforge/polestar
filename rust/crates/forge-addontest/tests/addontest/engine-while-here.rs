@@ -899,6 +899,109 @@ emit({{ live = live, rows = rows, row4 = row4, calls = table.concat(calls, ", ")
 	assert_eq!(out["row4"], json!({ "verb": "Turn in", "subject": "Thun'grim Firegaze", "detail": false }), "{out}");
 }
 
+// Fitz on the 0.3.6 build: an Undead Warlock at 13 on The Barrens' "Razormane camp" step, Disrupt the Attacks (871)
+// done, went to the Crossroads. While-here offered 871's hand-in to Thork (3429), auto turn-in handed it in, and the
+// window the game then opened with the follow-up The Disruption Ends (872), which the route's Crossroads step takes
+// at Thork, closed without it. Now auto-accept takes it there (the route's next steps' accept at that NPC), the live
+// step stays, and the Crossroads step's accept reads done. With auto-accept off, While-here offers it as a line
+// while the player stands at Thork. The guide as shipped (compiled with data/forever; skipped without it).
+#[test]
+fn barrens_thork_after_handing_in_disrupt_the_attacks_the_follow_up_is_taken_there() {
+	use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack};
+	use forge_addontest::run::root;
+	let data_dir = root().join("data/forever");
+	if !data_dir.join("quests.json").exists() {
+		eprintln!("skipped: no reference data at data/forever");
+		return;
+	}
+	let data = forge_guide::data::load_data(&data_dir).expect("data/forever");
+	let file = "guides/forever/horde/02-the-barrens.guide";
+	let text = std::fs::read_to_string(root().join(file)).unwrap();
+	let compiled = compile_with(&[(file, &text)], &data, None);
+	let pack = write_test_pack(&compiled.guides, &data, &our_manifest());
+	let loads: Vec<String> = pack.scripts.iter().map(|f| format!("assert(loadfile({}))(\"Polestar_Guides\", ns)", serde_json::to_string(f).unwrap())).collect();
+	let f = data.map_frames.get("forever").get("1413");
+	let run = |auto: bool| {
+		let before = format!(
+			r#"local w = stub.world
+w.addMap(1413, {{ name = "The Barrens", c = {}, left = {}, right = {}, top = {}, bottom = {} }})
+w.race, w.raceName, w.class, w.className, w.faction, w.level = "Scourge", "Undead", "WARLOCK", "WARLOCK", "Horde", 13
+w.zone, w.subzone = "The Barrens", "The Crossroads"
+w.moveTo(1413, 51.5, 30.9)
+w.complete({{ 1358 }})
+w.onQuest(844, {{ {{ text = "Plainstrider Beak: 3/7", type = "item", required = 7, fulfilled = 3 }} }})
+w.onQuest(869, {{ {{ text = "Raptor Head: 4/12", type = "item", required = 12, fulfilled = 4 }} }})
+w.onQuest(1492, {{}})
+w.onQuest(848, {{ {{ text = "Fungal Spores: 0/1", type = "item", required = 1, fulfilled = 0 }} }})
+w.onQuest(5041, {{ {{ text = "Supplies for the Crossroads: 0/1", type = "item", required = 1, fulfilled = 0 }} }})
+w.onQuest(871, {{ {{ required = 8, fulfilled = 8 }}, {{ required = 8, fulfilled = 8 }}, {{ required = 3, fulfilled = 3 }} }})
+w.onQuest(867, {{ {{ text = "Witchwing Talon: 0/8", type = "item", required = 8, fulfilled = 0 }} }})
+w.onQuest(870, {{ 1 }})
+w.bindLocation = "The Crossroads"
+"#,
+			f.get("c").to_js_string(),
+			f.get("left").to_js_string(),
+			f.get("right").to_js_string(),
+			f.get("top").to_js_string(),
+			f.get("bottom").to_js_string()
+		);
+		let script = format!(
+			r#"do local ns = {{}}
+{}
+end
+stub.login()
+stub.fire("QUEST_LOG_UPDATE")
+{HELPERS}
+Polestar.Set("behavior.autoAccept", {auto})
+-- Forever's client answers 0 here; its log holds 40 (Compat.GetLogCap).
+C_QuestLog.GetMaxNumQuestsCanAccept = function() return 0 end
+E.SetGuide("forever/horde/02-the-barrens"); flush()
+local G = E.GetGuide()
+local cross
+for s, step in ipairs(G.steps) do
+	for g, goal in ipairs(step.goals) do if goal.t == "accept" and goal.quest == 872 then cross = {{ s, g }} end end
+end
+local live = E.GetLiveStep()
+local liveTitle = G.steps[live].title
+-- At Thork (51.5, 30.9): his hand-in, then the window the game opens with the follow-up.
+w.moveTo(1413, 51.5, 30.95); stub.advance(0.6); stub.advance(0.6)
+local shown = here()
+w.calls = {{}}
+-- The server's order: the follow-up's window opens on the reward before the quest log and the completed flag
+-- catch up (QUEST_TURNED_IN, then the log, a moment later).
+function GetQuestReward(choice)
+	local f = w.frame
+	w.calls[#w.calls + 1] = {{ "GetQuestReward", f and f.questID, choice }}
+	w.questDetail(3429, 872)
+	stub.advance(0.1)
+	w.turnIn(f.questID)
+end
+w.questProgress(3429, 871); flush()
+local calls = {{}}
+for _, x in ipairs(w.calls) do calls[#calls + 1] = tostring(x[1]) .. " " .. tostring(x[2]) end
+local open = w.frame and w.frame.kind == "detail" and w.frame.questID or false
+w.close(); stub.advance(0.6); stub.advance(0.6)
+local lines = {{}}
+for _, v in ipairs(E.GetWhileHereList()) do lines[#lines + 1] = v.step .. ":" .. v.index .. " " .. v.hereText end
+emit({{ live = live, liveTitle = liveTitle, shown = shown, calls = table.concat(calls, ", "), open = open, after = E.GetLiveStep(),
+	crossDone = E.GoalDone(cross[1], cross[2]), on872 = w.log[872] ~= nil, lines = lines, cross = cross[1] }})
+"#,
+			loads.join("\n")
+		);
+		emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], script, ..Default::default() }).remove(0)
+	};
+	let on = run(true);
+	assert_eq!(on["liveTitle"], "Razormane camp", "{on}");
+	assert!(on["calls"].as_str().unwrap().contains("GetQuestReward 871"), "871 handed in: {on}");
+	assert!(on["calls"].as_str().unwrap().contains("AcceptQuest 872"), "872 taken at Thork: {on}");
+	assert_eq!(on["after"], on["live"], "the live step stays: {on}");
+	assert_eq!(on["crossDone"], true, "the Crossroads step's accept of 872 reads done: {on}");
+	let off = run(false);
+	assert_eq!(off["on872"], false, "{off}");
+	let line = format!("{}:", off["cross"]);
+	assert!(off["lines"].as_array().is_some_and(|a| a.iter().any(|l| l.as_str().is_some_and(|l| l.starts_with(&line) && l.contains("Take “The Disruption Ends” from Thork: saves a trip back")))), "the take-it-here line: {off}");
+}
+
 // The XP rule: a quest's full reward lasts until the player is 5 levels over it. When the guide's hand-in comes at a
 // level past that (a `level 8` goal on the way, the quest level 1, the player 5: 60% then), waiting costs XP, and
 // the hand-in may be twice the seconds out of the way: the 21 s detour shows at 20. Quest level 3 keeps its full

@@ -8286,7 +8286,7 @@ function Own.hereGoalsOn(map)
 		for s, step in ipairs(guide.steps) do
 			for g, goal in ipairs(step.goals) do
 				local m = goal.map
-				if m and goal.quest and goal.x and goal.y and not goal.candidates and (verbs[goal.t] or goal.t == "turnin") then
+				if m and goal.quest and goal.x and goal.y and not goal.candidates and (verbs[goal.t] or goal.t == "turnin" or goal.t == "accept") then
 					local list = idx[m]
 					if not list then
 						list = {}
@@ -8478,15 +8478,30 @@ end
 
 Own.AHEAD = 5 -- the route's next steps whose accepts are taken at their NPC
 Own.LOG_SPARE = 2 -- quest log slots an accept ahead leaves free
-Own.LOG_CAP = 20 -- the log's size where the client does not say (C_QuestLog.GetMaxNumQuestsCanAccept)
 Own.LIMIT_SHARE = 0.6 -- a timed quest taken ahead: the walk on to its hand-in within this share of its time
 Own.GOAL_SECONDS = 10 -- seconds each open goal on that walk costs besides the walking (a talk, a click)
 
 -- Quests the log may still take, keeping LOG_SPARE free.
 function Own.logRoom()
-	local C, QL = Compat(), C_QuestLog
-	local cap = QL and QL.GetMaxNumQuestsCanAccept and tonumber(QL.GetMaxNumQuestsCanAccept()) or Own.LOG_CAP
-	return cap - Own.LOG_SPARE - #C.GetLogQuests()
+	local C = Compat()
+	-- Compat.GetLogCap: Forever's client answers 0 to GetMaxNumQuestsCanAccept
+	-- (Fitz on 0.3.6: no accept ahead with 14 quests of 40 in the log).
+	return C.GetLogCap() - Own.LOG_SPARE - #C.GetLogQuests()
+end
+
+Own.READY_NONE = {} -- Own.aheadOk's `ready` when nothing is handed in first: every prerequisite must be done
+
+-- Whether step s is within the route's next AHEAD steps after `live` (for
+-- the character, not skipped).
+function Own.aheadNear(live, s)
+	local steps, k = guide.steps, 0
+	for i = live + 1, s do
+		if stepApplies(steps[i]) and not isSkipped(i) then
+			k = k + 1
+			if k > Own.AHEAD then return false end
+		end
+	end
+	return k > 0
 end
 
 -- Whether the walk from world point c, x, y along the route to timed
@@ -8708,14 +8723,22 @@ function Own.hereXpLoss(s, goal, live)
 end
 
 -- Whether goal g of later step s, one of Own.hereGoalsOn's for a quest in
--- the log, is a candidate, as what ("work" or "turnin"), how many are left
--- (see above), and for a hand-in whether the route reaches it anyway
--- (Own.hereSoon: then it shows only at its NPC). `shown`: Own.hereShown's.
+-- the log (an accept: with Own.hereTakes, one not taken), is a candidate, as
+-- what ("work", "turnin" or "take"), how many are left (see above), and for
+-- a hand-in whether the route reaches it anyway (Own.hereSoon: then it shows
+-- only at its NPC). `shown`: Own.hereShown's.
 function Own.hereFits(s, g, goal, live, shown)
 	local q, t = goal.quest, goal.t
 	local C = Compat()
 	if not (goalApplies(goal) or Own.behindGoal(goal)) or Own.goalSkipped(s, g) or unavailableFor(goal) then return nil end
 	local liveGoals = guide.steps[live].goals
+	if t == "accept" then
+		-- Auto-accept off: a quest of the route's next steps to take at its
+		-- NPC, the guards of Own.aheadWants passed (its prerequisites done).
+		if C.IsOnQuest(q) or not Own.aheadNear(live, s) or Own.hereSoon(s, goal, live)
+			or not Own.aheadOk(s, g, goal, Own.READY_NONE) or Own.logRoom() < 1 then return nil end
+		return "take", 0, false
+	end
 	if t == "turnin" then
 		if not Own.hereTurnins or not C.IsQuestReadyForTurnIn(q) or goalDone(s, g, goal) then return nil end
 		for _, other in ipairs(liveGoals) do
@@ -8758,6 +8781,9 @@ function Own.hereBuild()
 		Own.hereRadius = tonumber(ns.Get("behavior.whileHereRadius")) or 180
 		Own.hereTurnins = ns.Get("behavior.whileHereTurnins") and true or false
 		Own.hereSeconds = tonumber(ns.Get("behavior.whileHereTurninSeconds")) or 20
+		-- Auto-accept off: the next steps' quests at the NPC the player stands at
+		-- are lines of their own ("Take X from Y"); on, Automation takes them.
+		Own.hereTakes = Own.hereTurnins and not ns.Get("behavior.autoAccept")
 		local steps = guide.steps
 		for g, goal in ipairs(steps[live].goals) do
 			if goal.escort and goalApplies(goal) and not goalDone(live, g, goal) then Own.hereEscort = true end
@@ -8773,7 +8799,7 @@ function Own.hereBuild()
 				-- A quest's work an update passed behind the player (Engine.GetBehind) too.
 				local back = Own.behindGoal(goal)
 				if s > live or back then
-					if C.IsOnQuest(goal.quest) then
+					if C.IsOnQuest(goal.quest) or (goal.t == "accept" and s > live and Own.hereTakes) then
 						if s ~= at then at, ok = s, stepApplies(steps[s]) and not isSkipped(s) end
 						local kind, left, soon = nil, nil, false
 						if ok or back then kind, left, soon = Own.hereFits(s, g, goal, live, shown) end
@@ -8989,6 +9015,7 @@ end
 -- player's town or at most its seconds out of the way (0: in town only),
 -- never past HERE_FAR.
 function Own.hereIn(e, d)
+	if e.kind == "take" then return d <= Own.HERE_AT end
 	if e.kind == "turnin" then
 		if Own.hereAt(e, d) then return true end
 		return not e.soon and d <= Own.HERE_FAR and (e.town or (e.budget > 0 and e.detour <= e.budget))
@@ -9010,6 +9037,7 @@ end
 -- times its seconds and HERE_SLACK more; never further than HERE_CLEAR_MAX.
 function Own.herePast(e, d)
 	local clear, top = Own.HERE_CLEAR, Own.HERE_CLEAR_MAX
+	if e.kind == "take" then return d > Own.HERE_AT * clear end
 	if e.kind == "turnin" then
 		if Own.hereAt(e, d) then return false end
 		if e.soon then return d > Own.HERE_AT * clear end
@@ -9095,6 +9123,7 @@ end
 function Own.hereMayShow(e, d)
 	local T = ns.Transit
 	if T and T.Riding and T.Riding() then return false end
+	if e.kind == "take" then return true end
 	if e.kind == "turnin" then
 		if not Own.hereTurninOk(e, d) then return false end
 		Own.hereWalked[e.goal] = nil
@@ -9274,7 +9303,7 @@ function Own.hereTick(c, px, py)
 end
 
 -- Line e as a goal view (Engine.GetAlong's) of its later step with: `step`
--- (its step), `here` ("work" | "turnin"), `left`, `appeared` (a number new
+-- (its step), `here` ("work" | "turnin" | "take"), `left`, `appeared` (a number new
 -- for each line that appears: the minimap's ping), `yards` (to the next
 -- HERE_STEP), `hereText` (what to do: "Kill Kobold Vermin, 2 more", "Hand in
 -- X to Y"), `hereTitle` (a turn-in's quoted quest name in it: UI.HereText
@@ -9312,6 +9341,15 @@ function Own.hereViewOf(e)
 			else
 				text = npc and L["Hand in %s to %s"]:format(title, npc) or L["Hand in %s"]:format(title)
 			end
+			v.hereTitle = title
+		elseif e.kind == "take" then
+			-- Auto-accept off, at the NPC of a quest the route takes in its next
+			-- steps (Own.hereFits): take it now.
+			local _, npc = npcOf(goal)
+			local raw = questTitle(goal) or titleOfQuest(goal.quest)
+			local title = ns.Quoted(raw)
+			text = (not npc or Own.namesake(raw, npc)) and L["Take %s from them: saves a trip back"]:format(title)
+				or L["Take %s from %s: saves a trip back"]:format(title, npc)
 			v.hereTitle = title
 		else
 			text = L["%s, %d more"]:format(v.text or "", left)
@@ -9448,6 +9486,8 @@ function Engine.WhileHereState()
 			st.why = ("too far for a hand-in (over %d yd)"):format(Own.HERE_FAR)
 		elseif best and best.kind == "turnin" and best.soon and not Own.hereIn(best, bestD) then
 			st.why = ("left to the route (it goes there next; shows within %d yd)"):format(Own.HERE_AT)
+		elseif best and best.kind == "take" and not Own.hereIn(best, bestD) then
+			st.why = ("a quest to take at its NPC (shows within %d yd)"):format(Own.HERE_AT)
 		elseif best and not Own.hereIn(best, bestD) then
 			st.why = best.kind == "turnin" and ("out of the way (%d s, over %d s%s%s)"):format(math.floor(best.detour + 0.5), math.floor(best.budget + 0.5),
 				best.xp and ", doubled for XP" or "", best.visit and (", %d s of it the trip back saved"):format(math.floor(best.visit.credit + 0.5)) or "") or "out of radius"
@@ -9494,7 +9534,7 @@ for _, event in ipairs({ "ZONE_CHANGED_NEW_AREA", "PLAYER_ENTERING_WORLD" }) do
 	end)
 end
 ns.On("SETTING_CHANGED", function(path)
-	if type(path) == "string" and path:sub(1, 18) == "behavior.whileHere" then
+	if type(path) == "string" and (path:sub(1, 18) == "behavior.whileHere" or path == "behavior.autoAccept") then
 		Own.hereDirty = true
 		-- A hand-in turned away for its detour is weighed again at the new seconds.
 		if path == "behavior.whileHereTurninSeconds" then

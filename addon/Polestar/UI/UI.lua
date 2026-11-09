@@ -254,12 +254,12 @@ function UI.MarkQuestName(goal, text)
 	return paintSubject(goal, text, nil)
 end
 
--- A "While you're here" line's text (Engine's `hereText`), a turn-in's quest
--- marked after its name when Forever added it.
+-- A "While you're here" line's text (Engine's `hereText`), a turn-in's or a
+-- quest to take's name marked after it when Forever added the quest.
 function UI.HereText(v)
 	local text = v.hereText or ""
 	local NQ, title = ns.NewQuests, v.hereTitle
-	if v.here ~= "turnin" or not NQ or type(title) ~= "string" or title == "" then return text end
+	if not (v.here == "turnin" or v.here == "take") or not NQ or type(title) ~= "string" or title == "" then return text end
 	local mark = NQ.Mark(v.quest)
 	if mark == "" then return text end
 	local _, b = text:find(title, 1, true)

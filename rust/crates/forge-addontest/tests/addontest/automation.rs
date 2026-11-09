@@ -127,8 +127,8 @@ fn talking_to_the_next_steps_giver_takes_its_accepts_the_live_step_and_the_arrow
 fn a_timed_accept_whose_walk_does_not_fit_a_full_log_or_auto_accept_off_takes_nothing_ahead() {
 	let short = run("", &ahead(60), AT_DUGHAN);
 	assert_eq!(short["calls"], "AcceptQuest 7 nil", "60 s for a 38 s walk and two talks is past the 60% margin: {short}");
-	let full = run("for q = 1001, 1018 do w.onQuest(q, {}) end", &ahead(600), AT_DUGHAN);
-	assert_eq!(full["calls"], "", "18 of 20 slots taken: two stay free: {full}");
+	let full = run("for q = 1001, 1038 do w.onQuest(q, {}) end", &ahead(600), AT_DUGHAN);
+	assert_eq!(full["calls"], "", "38 of the 40 slots taken: two stay free: {full}");
 	let off = run("", &ahead(600), &format!("Polestar.Set(\"behavior.autoAccept\", false)\n{AT_DUGHAN}"));
 	assert_eq!(off["calls"], "", "{off}");
 }

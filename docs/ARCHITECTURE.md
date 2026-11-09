@@ -1445,11 +1445,19 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   group question in the step, no `optional` accept, a `group` (elite,
   dungeon) one only after the player said "do", the quest not skipped,
   closed, dropped by an `abandon` of the guide or above the character's
-  level, the log keeping `LOG_SPARE` (2) slots free (`Own.logRoom`), and a
+  level, the log keeping `LOG_SPARE` (2) slots free (`Own.logRoom`, of
+  `Compat.GetLogCap`: Forever's client answers 0 to
+  `GetMaxNumQuestsCanAccept`, and its log holds 40), and a
   timed quest (`limit`) only when the route's walk from the NPC to its
   hand-in (open goals with a place in order, `GOAL_SECONDS` (10) each)
   fits `LIMIT_SHARE` (0.6) of its time (`Own.aheadLimitOk`; no hand-in in
-  the guide or one on another continent: not taken).
+  the guide or one on another continent: not taken). The same check runs
+  on the window the game opens after a hand-in (a follow-up: Thork's The
+  Disruption Ends after Disrupt the Attacks). With auto-accept off, such a
+  quest whose prerequisites are done (`Own.READY_NONE`) is a line of its
+  own while the player stands within `HERE_AT` of its NPC (kind "take",
+  not one the route reaches next, `Own.hereSoon`): "Take X from Y: saves a
+  trip back".
   A build reads only the goals on the player's map: `Own.hereGoalsOn` indexes
   each guide's goals with a quest and a place by map once (weak per guide).
   The arrival poll measures at most `HERE_MAX` of them (`Own.hereList`): all
