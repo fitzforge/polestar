@@ -4684,6 +4684,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 30-40 audit (0.3.7, 2026-11-09): Stranglethorn first loop: Krazek's Cookery is a delivery to Krazek, handed in on the first Booty Bay stop (Krazek gives Supplies to Private Thorsen there); Favor for Krazek (627) is still taken on 30-40/04b's Booty Bay stop."
+			},
+			{
+				"a": [
+					"accept",
+					1132
+				],
+				"b": [
+					"accept",
+					659
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40 audit (0.3.7, 2026-11-09): Wetlands 30-32: Red Jack Flint stands by Menethil Keep's door, beside Captain Stoutfist where 30-40/01 hands in the Tattered Spellbook; Fiora Longears is taken there and handed in when 30-40/03's boat lands in Theramore (the route walked past him, 14 yd, and took it on 30-40/03's next Menethil stop)."
 			}
 		],
 		"notes": [
@@ -8129,6 +8141,18 @@
 				"q": 6543,
 				"faction": "Horde",
 				"reason": "Final route review (2026-11-08, Ashenvale 21): The Warsong Reports took a walk east of Night Run for the Outrider and a walk from Splintertree back to Kadrak at the Mor'shan Rampart after Thistlefur, about 3.3 km in all, for 1,800 XP. Measured with the calibrated level model: every Horde branch reaches 60 0.27-0.33 hours sooner without it (Ashenvale & Silverpine 27 minutes shorter, 8.5 more minutes of written top-up in Thousand Needles). Replaces the keep record from #278, which pinned how the bundle is opened, not that the quest is taken.",
+				"issue": "-"
+			},
+			{
+				"q": 98230,
+				"faction": "Alliance",
+				"reason": "Alliance 30-40 audit (0.3.7, 2026-11-09): Wetlands 30-32 (30-40/01), group branch of Defeat Nek'rosh: This Land Was Their Land is offered by Captain Stoutfist only after 474 (#1299) and is handed to Howin Kindfeather in the Green Belt, which sent group players from Menethil back east across the zone and west again for 240 XP. Neither benchmark route takes it; 2 recorded people took it.",
+				"issue": "-"
+			},
+			{
+				"q": 98300,
+				"faction": "Alliance",
+				"reason": "Alliance 30-40 audit (0.3.7, 2026-11-09): Word to Ironforge (Howin Kindfeather, after This Land Was Their Land): left out with 98230; 1 recorded person took it, nobody handed it in.",
 				"issue": "-"
 			}
 		],

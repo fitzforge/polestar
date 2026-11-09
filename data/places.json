@@ -1178,6 +1178,24 @@
 				}
 			],
 			"pr": 1355
+		},
+		{
+			"id": "a3040-wetlands-razormaw-eggs",
+			"quest": 98246,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1437,
+				"x": 69.2,
+				"y": 32.7,
+				"frame": "era"
+			},
+			"note": "Trying Times: the Perfect Razormaw Eggs are looted from nest objects (671892, 671931) with no spawns in our data; players' objective ticks cluster at 67.8-70.0, 27.3-36.6 (2 people, 19 ticks, around Carnage's hill) and 34.4-39.0, 12.1-25.1 (1 person). The point is the eastern cluster, on 30-40/01's raptor and whelp sweep.",
+			"source": {
+				"kind": "recording",
+				"ref": "prog:98246.1 objective ticks in players' recordings (3 people)"
+			},
+			"pr": 1421
 		}
 	]
 }
