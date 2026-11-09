@@ -26,6 +26,11 @@ their own client. What protects the data instead:
   (many /48s from one provider or tunnel broker), and 10 register requests a
   minute.
   The counts are kept in the database, so a restart does not reset them.
+  The maintainer's own test identities (smoke tests, end-to-end runs) are
+  registered with the maintainer key as the bearer on both register
+  requests: they use no network's count, and they are registered blocked, so
+  their uploads are answered as anyone's (and counted in their `/v1/me`) but
+  never exported or counted in `/v1/stats`. A wrong key is refused (401).
 - **Cohorts.** A contributor's cohort is the first 16 hex digits of an HMAC
   of its network under a key derived from `INGEST_SECRET` and the UTC month
   (`YYYY-MM`), so every registration from one network in one month shares
