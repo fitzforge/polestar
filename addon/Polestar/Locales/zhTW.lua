@@ -1342,6 +1342,7 @@ L["Click to show or hide the party panel."] = "點擊顯示或隱藏隊伍面板
 -- L["Type /polestar to show it."] = ""
 -- L["Polestar is hidden here"] = ""
 -- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = ""
+-- L["Take %s first"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"
@@ -3054,12 +3055,14 @@ L["looted %s, which starts %s"] = "拾取了 %s，可開始任務 %s"
 -- L["Open the guide list"] = ""
 -- L["What's new in Polestar %s"] = ""
 -- L["Full notes: %s"] = ""
+
 -- QoL/ClassQuests.lua
 -- L["Long chain: %d quests across %d zones on %d continents"] = ""
 -- L["Long chain: %d quests across %d zones"] = ""
 -- L["an escort"] = ""
 -- L["elite mobs at %s: bring a group"] = ""
 -- L["mobs up to level %d"] = ""
+
 -- UI/Launcher.lua
 -- L["Shift-drag: move it"] = ""
 -- L["Drag: move it"] = ""

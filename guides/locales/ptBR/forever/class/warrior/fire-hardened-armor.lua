@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Fire Hardened Armor"] = "Armadura Endurecida pelo Fogo",
-	["A hauberk at 28, a coif, leggings and gauntlets from three smiths, and a shield on the way."] = "Uma couraça no nível 28, uma touca, as perneiras e as manoplas de três ferreiros, e um escudo no caminho.",
+	["Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and gauntlets from three smiths."] = "",
 
 	-- Step 1: Yorus Barleybrew (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {quest:1698} Yorus Barleybrew
@@ -98,6 +98,7 @@ return {
 	["{item:6848}, from {quest:1708}"] = "{item:6848}, de {quest:1708}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A hauberk at 28, a coif, leggings and gauntlets from three smiths, and a shield on the way."] = "Uma couraça no nível 28, uma touca, as perneiras e as manoplas de três ferreiros, e um escudo no caminho.",
 	-- ["A hauberk at 28, a coif, leggings or gauntlets by race, and a shield on the way."] = "Uma cota no nível 28, uma coifa, perneiras ou manoplas conforme a raça, e um escudo no caminho.",
 	-- ["At 20, {npc:5479} in {object:2100}, beside the Pig and Whistle, sends you to {quest:1698} in Redridge."] = "No nível 20, {npc:5479}, em {object:2100}, ao lado da Porco e Apito, envia você a {quest:1698} nas Montanhas Cristarrubra.",
 	-- ["Back to {npc:5413} in the {object:28027}. He sends you on to a smith of your own race."] = "Volte a {npc:5413} no {object:28027}. Ele envia você a um ferreiro da sua raça.",
