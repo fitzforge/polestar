@@ -97,6 +97,24 @@ fn header_destination_and_numbered_steps_36_48_8_0k_yd_the_lift_with_its_departu
 }
 
 #[test]
+fn a_walk_that_goes_round_a_hostile_town_says_detour_around_under_its_step_only_with_the_option_on_a_hostile_town_it_enters_comes_first() {
+	let out = run(r#"
+		local T = Polestar.Nav.travel
+		T.AvoidText = function(leg) return leg.hubs and leg.hubs.avoided and ("Detour around " .. leg.hubs.avoided[1].name) or nil end
+		T.HubText = function(leg) return leg.hubs and leg.hubs[1] and ("Hostile town: " .. leg.hubs[1].name) or nil end
+		R.legs[3].hubs = { avoided = { { id = 12, name = "Southshore" } } }
+		Polestar.Fire("ROUTE_CHANGED", R.legs); emit(shot())
+		Polestar.Set("nav.detourCaption", true)
+		Polestar.Fire("ROUTE_CHANGED", R.legs); emit(shot())
+		R.legs[3].hubs = { { id = 13, name = "Tarren Mill" }, avoided = { { id = 12, name = "Southshore" } } }
+		Polestar.Fire("ROUTE_CHANGED", R.legs); emit(shot())"#);
+	assert_eq!(out[0]["rows"][2]["sub"], false, "off by default: no caption");
+	assert_eq!(out[1]["rows"][2]["sub"], "Detour around Southshore");
+	assert_eq!(out[1]["rows"][0]["sub"], false, "a walk with no detour has no line");
+	assert_eq!(out[2]["rows"][2]["sub"], "Hostile town: Tarren Mill", "the warning for a town it enters comes first");
+}
+
+#[test]
 fn times_read_0_15_11_10_1_02_03_nothing_unreadable_reaches_the_screen() {
 	let out = run(r#"emit({ JP.FormatTime(15), JP.FormatTime(670), JP.FormatTime(3723), JP.FormatTime(0), JP.FormatTime(0.2),
 		JP.FormatTime(0/0), JP.FormatTime(math.huge), JP.FormatTime(-4), JP.FormatTime(nil) })"#);

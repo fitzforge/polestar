@@ -274,6 +274,19 @@ local job                    -- its Cancel handle
 local sketchJob              -- its shape's (Path.FindCoarse) Cancel handle
 local ptsX, ptsY, ptsZ = {}, {}, {} -- the path, reused (z false where unknown)
 local hubs                   -- the other faction's towns the path enters (Find's job.hubs; nil: none)
+
+-- Find's answer as the walk's hostile-town list: job.hubs, the towns the path enters, with job.avoided, the ones it
+-- goes round, as hubs.avoided (display only; the walk's leg carries both); nil when the walk has neither.
+local function hubsOf(a)
+	if type(a) ~= "table" then return nil end
+	local h, v = a.hubs, a.avoided
+	local entered = type(h) == "table" and #h > 0
+	local avoided = type(v) == "table" and #v > 0
+	if not (entered or avoided) then return nil end
+	h = entered and h or {}
+	if avoided then h.avoided = v end
+	return h
+end
 local left = {}              -- left[i] = yards from point i to the end of the path
 local lastLeft               -- yards left along the path at the last Aim
 local count = 0              -- points in the path (0: none yet)
@@ -800,8 +813,7 @@ local function ask(P, pc, px, py, flat)
 		if got then
 			failed = false
 			took(points)
-			local h = type(answer) == "table" and answer.hubs
-			hubs = type(h) == "table" and #h > 0 and h or nil
+			hubs = hubsOf(answer)
 			if Walk.Split then Walk.Split() end
 		else
 			failed, failAt, failX, failY = true, GetTime(), px, py
@@ -1463,9 +1475,8 @@ local function searchLeg(P, mine, key, from, to, z, ghost, flat)
 			local xs, ys, n, yards = line(points)
 			if n > 1 then
 				local a = type(answer) == "table" and answer or nil
-				local h = a and a.hubs
 				if a and type(a.yards) == "number" then yards = a.yards end
-				e = { xs = xs, ys = ys, n = n, yards = yards, hubs = type(h) == "table" and #h > 0 and h or nil }
+				e = { xs = xs, ys = ys, n = n, yards = yards, hubs = hubsOf(a) }
 			end
 		end
 		keepLeg(key, e)
@@ -1579,8 +1590,7 @@ pumpShapes = function()
 				e.xs, e.ys, e.n, e.yards = line(points)
 				local a = type(answer) == "table" and answer or nil
 				if not points.coarse and e.n > 1 and not (z and offFloor(points, z)) then
-					local h = a and a.hubs
-					e.coarse, e.hubs = nil, type(h) == "table" and #h > 0 and h or nil
+					e.coarse, e.hubs = nil, hubsOf(a)
 					if a and type(a.yards) == "number" then e.yards = a.yards end
 				end
 			end
