@@ -2036,6 +2036,9 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 					if q.truthy() && q.get("level").num() > 0.0 {
 						goal.set("qlvl", q.get("level").num());
 					}
+					if q.truthy() && q.get("limit").num() > 0.0 {
+						goal.set("limit", q.get("limit").num());
+					}
 					for (k, val) in accept_gate(&q, &goal.get("quest"), data).entries() {
 						goal.set(&k, val);
 					}

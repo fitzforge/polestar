@@ -225,7 +225,7 @@ local GOAL = rec({
 	quest = N, title = S, target = S, npc = N, npcName = S, object = N, objName = S, item = N, itemName = S, count = N, oi = N, skill = S, skillLine = N,
 	rank = NS, rankMax = N, level = N, frac = N, grind = N, money = N, untilSkill = N,
 	reagents = list(rec({ item = N, itemName = S, count = N })),
-	location = S, minLevel = N, qlvl = NS, pre = LN, preAll = LN, closedBy = LN, preTitles = { idmap = S }, text = S, node = N, area = N,
+	location = S, minLevel = N, qlvl = NS, limit = N, pre = LN, preAll = LN, closedBy = LN, preTitles = { idmap = S }, text = S, node = N, area = N,
 	map = N, x = N, y = N, z = N, f = S, r = N,
 	spots = list(rec({ x = N, y = N, z = N, r = N, n = N, alt = B, lvl = N })),
 	spread = B, lvl = N, optional = B, only = ONLY, profLine = N, profName = S, profRank = N, note = S,

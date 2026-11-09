@@ -547,7 +547,7 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 
 | Verb `t` | Required | Optional |
 |---|---|---|
-| `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `pre`, `preAll`, `closedBy`, `preTitles` |
+| `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `limit`, `pre`, `preAll`, `closedBy`, `preTitles` |
 | `turnin` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `rewards = { choices = { { item, itemName, quality } }, items = { ... }, xp, money }`, `direct` |
 | `complete` | `quest`, `title` | `objs`, `startItem`, `startItemName` |
 | `abandon` | `quest`, `title` (format 5) | — |
@@ -589,6 +589,7 @@ The fields:
 | `count` | number to collect, kill or buy; on `craft`, the number of items to make |
 | `oi` | 1-based quest objective index (`C_QuestLog.GetQuestObjectives`) |
 | `minLevel` | the level an `accept` needs; `qlvl` the quest's level (number or string) |
+| `limit` | on an `accept` of a timed quest: the seconds it allows once taken (Dynamic Questing takes it early only when the walk to it still fits) |
 | `pre` | prerequisite quest ids, any one suffices; `preAll` every one needed |
 | `closedBy` | quest ids that close this one once taken or done |
 | `preTitles` | `{ [questId] = title }` for the quests those name |
