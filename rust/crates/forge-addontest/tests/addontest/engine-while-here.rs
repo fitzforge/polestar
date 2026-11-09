@@ -999,7 +999,10 @@ emit({{ live = live, liveTitle = liveTitle, shown = shown, calls = table.concat(
 	let off = run(false);
 	assert_eq!(off["on872"], false, "{off}");
 	let line = format!("{}:", off["cross"]);
-	assert!(off["lines"].as_array().is_some_and(|a| a.iter().any(|l| l.as_str().is_some_and(|l| l.starts_with(&line) && l.contains("Take “The Disruption Ends” from Thork: saves a trip back")))), "the take-it-here line: {off}");
+	assert!(
+		off["lines"].as_array().is_some_and(|a| a.iter().any(|l| l.as_str().is_some_and(|l| l.starts_with(&line) && l.contains("Take “The Disruption Ends” from Thork: saves a trip back")))),
+		"the take-it-here line: {off}"
+	);
 }
 
 // The XP rule: a quest's full reward lasts until the player is 5 levels over it. When the guide's hand-in comes at a
