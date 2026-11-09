@@ -5,4 +5,4 @@ section: players
   after learning a localized NPC name, once safe outside combat.
 - Riding reminders now resolve trainer names by NPC ID through the existing
   name resolver, keeping the English fallback when no localized name is
-  available.
+  available (thanks nepyanbin, #1447).
