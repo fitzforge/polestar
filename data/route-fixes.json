@@ -6865,6 +6865,10 @@
 			{
 				"q": 8263,
 				"why": "Never-taken check (2026-11-08, 0.3.6): Defiler's Basic Care Package needs Friendly with the Defilers (the game's quest data: RequiredMinRepFaction 510, value 3000), which the route never earns; Rutherford Twing refused it to a level 28 player. It stays at Hammerfall as optional, with a tip saying so"
+			},
+			{
+				"q": 1012,
+				"why": "Alliance 1-30 audit (#1415, route review vWL4 2026-11-08) took Insane Druids (level 32, three druids deep in the Dor'Danil Barrow Den, Kayneth Stillwind before and after, nobody took it on a recorded version) out of 06-wetlands, but #1336 and #1341 had promised its barrow-entrance step publicly. A public promise wins: it is back where it was, optional, with a tip saying why to skip it and the entrance step from #1336 (611dbaf10)."
 			}
 		],
 		"group": [
@@ -8233,12 +8237,6 @@
 			}
 		],
 		"skip": [
-			{
-				"q": 1012,
-				"faction": "Alliance",
-				"reason": "Alliance 1-30 audit (#1415, route review vWL4 2026-11-08): Insane Druids (level 32) sends players into the Dor'Danil Barrow Den (respawning, stealthed mobs; entrance hand-fixed in #1336) with Kayneth Stillwind before and after, a back-and-forth across south-east Ashenvale for 3,200 XP; nobody took it on a recorded version. Measured with The Eye of Paleth's move: 06-wetlands 173.8 -> 162.0 min, 35.8 -> 32.1 km, +0.12 h per start in written grind.",
-				"issue": "-"
-			},
 			{
 				"q": 212,
 				"faction": "Alliance",

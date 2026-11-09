@@ -8230,11 +8230,14 @@ test(`${LOCH_MODAN} / ${WESTFALL}: #1415: Old Murk-Eye and the murloc gills wher
 	assert.ok(Math.min(...xs) <= 43 && Math.max(...xs) >= 55, 'from the mine to the Jansen Stead');
 });
 
-// vWL4: Insane Druids (the Dor'Danil Barrow Den, Kayneth before and after) is left out; The Eye of Paleth goes to Glorin
-// on the Menethil stop before the boat; Trying Times with Razormaw Needling at Howin; the Fen Creepers along the river.
-test(`${WETLANDS}: #1415 (vWL4): no Insane Druids, Glorin on the last Menethil stop, Trying Times at Howin, creepers on the river`, { skip }, () => {
+// vWL4: Insane Druids (the Dor'Danil Barrow Den, Kayneth before and after) is optional (#1336 and #1341 promised its
+// barrow-entrance step publicly); The Eye of Paleth goes to Glorin on the Menethil stop before the boat; Trying Times
+// with Razormaw Needling at Howin; the Fen Creepers along the river.
+test(`${WETLANDS}: #1415 (vWL4): Insane Druids optional, Glorin on the last Menethil stop, Trying Times at Howin, creepers on the river`, { skip }, () => {
 	const list = goals(WETLANDS);
-	assert.ok(!list.some(({ goal }) => goal.quest === 1012), 'Insane Druids is left out');
+	const druids = list.filter(({ goal }) => goal.quest === 1012);
+	assert.ok(druids.length >= 5 && druids.find(({ goal }) => goal.t === 'accept').goal.optional, 'Insane Druids is there, its accept optional');
+	assert.ok(druids.filter(({ goal }) => goal.t !== 'accept').every(({ step }) => (step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(1012))), 'its steps only for those who took it');
 	const glorin = list[at(list, 'turnin 292', is('turnin', 292))];
 	assert.equal(glorin.step, list[at(list, 'turnin 98221', is('turnin', 98221))].step, 'The Eye of Paleth on the Stoutfist stop');
 	assert.equal(list[at(list, 'accept 98246', is('accept', 98246))].step, list[at(list, 'accept 98245', is('accept', 98245))].step, 'Trying Times with Razormaw Needling');
