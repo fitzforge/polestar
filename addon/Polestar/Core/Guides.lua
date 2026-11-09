@@ -1361,6 +1361,16 @@ function Guides.Get(id)
 	return nil
 end
 
+-- Puts g2 in place of registered guide `id` for the session: the Engine's
+-- copy of it with a character's feeder steps first (Engine, #1353). g2's
+-- steps are its own (never released); the header counts them.
+function Guides.Replace(id, g2)
+	if not (guides[id] and type(g2) == "table" and g2.id == id and type(g2.steps) == "table") then return false end
+	guides[id] = g2
+	if headers[id] then headers[id].stepCount = #g2.steps end
+	return true
+end
+
 function Guides.List()
 	local out = {}
 	for i = 1, #order do

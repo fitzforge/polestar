@@ -160,6 +160,22 @@ local function guideLines(d, on)
 	local line = (L["Guide: %s (%s)"]):format(on.title, plain(tostring(guide.id)))
 	if pack then line = line .. SEP .. (L["pack %s"]):format(plain(pack.title or pack.id) .. (pack.version and (" " .. plain(pack.version)) or "")) end
 	out[#out + 1] = cut(line)
+	-- The steps the Engine planned for the character (#1353), for triage only:
+	-- the guide window shows none of this.
+	if guide.fromBase then
+		out[#out + 1] = cut("[planned: " .. (guide.feeders or 0) .. " feeder steps, ~" .. floor((guide.feedCost or 0) / 60 + 0.5) .. " min]")
+		local hidden = {}
+		for q, h in pairs(guide.hidden or {}) do hidden[#hidden + 1] = { q = q, h = h } end
+		table.sort(hidden, function(a, b) return a.q < b.q end)
+		for i, e in ipairs(hidden) do
+			if i > 8 then
+				out[#out + 1] = "[hidden: " .. (#hidden - 8) .. " more]"
+				break
+			end
+			local h = e.h
+			out[#out + 1] = (plain(h.title or ("#" .. e.q)) .. " [hidden: needs " .. plain(h.needTitle or ("#" .. tostring(h.need))) .. " from " .. plain(h.from or "?") .. "]")
+		end
+	end
 	if not view then
 		out[#out + 1] = L["Step: none, the guide is complete"]
 		return
@@ -167,6 +183,11 @@ local function guideLines(d, on)
 	-- The guide's own step index too, which maintainers find the step by.
 	local step = (L["Step %d of %d (guide step %d): %s"]):format(on.number, on.total, index, plain(view.title or ""))
 	if view.skipped then step = step .. SEP .. L["skipped"] end
+	-- A feeder step the Engine put in (#1353): where it comes from, for triage only.
+	local raw = guide.steps and guide.steps[index]
+	if raw and raw.feeder then
+		step = step .. SEP .. "[feeder from " .. plain(tostring(raw.feeder)) .. " step " .. tostring(raw.feederStep) .. "]"
+	end
 	local live = E.GetLiveStep and E.GetLiveStep()
 	if live and live ~= index then
 		step = step .. SEP .. (L["the guide is at step %d"]):format(UI.StepNo(live))
