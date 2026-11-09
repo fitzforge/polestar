@@ -524,6 +524,7 @@ Guide keys (the compiler writes them in this order):
 | `group` | no | `true` (format 2): a goal of the guide's route that is not `optional` needs a group; the guide menu shows a "Group" chip |
 | `names` | no | format 3: `{ ["npc:240"] = "Marshal Dughan", ... }`, the English of every name token the guide's texts hold (a token it lacks is shown as written) |
 | `written` | no | format 3: `{ ["Back to {npc:3649}"] = "Back to Dendrite", ... }`, a text whose names its tokens' English in `names` would spell otherwise, with the author's words an English client reads |
+| `fresh` | no | written by the compiler, never by hand (0.3.7): `{ from = "<guide id>", share = 42, xp = 66351, needs = { 1104, 1105 } }`, for a leveling guide that guides chain into, when at least 10% of its quest XP (`xp`, the full rewards of its hand-ins) hinges on quests earlier guides take: `share` that percentage, `from` the earlier guide holding most of it, `needs` up to 8 of those quests (most XP first). Polestar's fresh-start note and "Suggested for you" read it ([GUIDE_FORMAT.md](GUIDE_FORMAT.md), "Compiled fields") |
 | `legsGrid`, `legs` | no | format 6 (read, no longer written): the navigation grid the legs were baked on, and `{ [<step>] = "<leg>" }`, one baked walk into each step ([Format 6](#format-6)); format 7 carries them in the race parts ([Format 7](#format-7)) |
 | `steps` | yes | list of steps, at least one |
 

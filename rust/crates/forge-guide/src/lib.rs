@@ -24,6 +24,7 @@ pub mod diag;
 pub mod emit;
 pub mod escort;
 pub mod farmspots;
+pub mod fresh;
 pub mod format;
 pub mod gathering;
 pub mod group;

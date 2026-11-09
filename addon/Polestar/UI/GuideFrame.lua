@@ -1582,6 +1582,10 @@ local function bannerNotice()
 	end
 	local en = GF.EndOffer(E, g)
 	if en then return "ended", en end
+	-- A fresh start where much of the guide follows on from an earlier one
+	-- (Engine.FreshStart): once per guide and session (notices.freshSeen).
+	local fr = g ~= nil and notices.freshSeen ~= g.id and E.FreshStart and E.FreshStart()
+	if fr then return "fresh", fr end
 	local o = notices.outlevel
 	if o and g ~= nil and g.id == o.guideId then return "outlevel", o end
 	if notices.train then return "train", notices.train end
@@ -1846,6 +1850,13 @@ function GF.LayoutBanner(width)
 		banner.Text:SetText(L["You've reached the end of this guide."])
 		placeLink(banner.Jump, n.choose and L["Choose where to go next"] or string.format(L["Start %s"], n.label), 0, -4)
 		banner.Close:Show()
+	elseif kind == "fresh" then
+		banner.Icon:SetTexture(Theme.Media("icon-level"))
+		local text = string.format(L["Fresh start: about %d%% of this guide's quest XP follows on from %s."], n.share, n.fromTitle)
+		if n.minutes then text = text .. "\n" .. string.format(L["Expect about %d minutes of extra grinding, or start there."], n.minutes) end
+		banner.Text:SetText(text)
+		placeLink(banner.Jump, string.format(L["Open %s"], n.fromTitle), 0, -4)
+		banner.Close:Show()
 	elseif kind == "outlevel" then
 		banner.Icon:SetTexture(Theme.Media("icon-level"))
 		banner.Text:SetText(L["You have outlevelled this guide."])
@@ -1995,6 +2006,9 @@ function GF.TakeBanner()
 		elseif E and E.StartNext then
 			E.StartNext(n.guideId)
 		end
+	elseif kind == "fresh" then
+		notices.freshSeen = n.guideId
+		if E and E.OpenTab then E.OpenTab(n.from, true) end
 	elseif kind == "outlevel" then
 		notices.outlevel = nil
 		-- A route choice opens the choice window, which loads the zone picked.
@@ -2076,6 +2090,8 @@ function GF.DismissBanner(later)
 		ns.QoL.Space.Dismiss()
 	elseif kind == "wear" then
 		ns.QoL.Wear.Dismiss()
+	elseif kind == "fresh" then
+		notices.freshSeen = n.guideId
 	elseif kind == "ended" then
 		notices.endSeen = n.guideId
 	elseif kind then

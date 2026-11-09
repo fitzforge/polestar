@@ -861,6 +861,41 @@ fn suggestions_lists_every_leveling_guide_for_the_level_best_first_else_the_near
 	assert_eq!(out, json!([["test/human-1", "test/alliance-5", "test/alliance-wide"], ["test/alliance-30"]]));
 }
 
+// Fresh start (0.3.7, FreshStart): b's compiled `fresh` header says 60% of its quest XP (10,000) hinges on four of
+// a's quests. A level 6 character with none of them done gets the note (60%, ~55 minutes of extra grinding: 6,000
+// XP at 75 XP a kill, 1.5 kills a minute, to 5) and "Suggested for you" ranks b last, after the zone and travel
+// bands, though its range is the narrowest. Two of the four done leave 30%: still a note. Three done (15%): none,
+// and b ranks first again.
+#[test]
+fn a_guide_that_mostly_follows_on_from_an_earlier_one_gets_a_fresh_start_note_and_ranks_lower() {
+	let guides = r#"
+		local function g(id, t) t.id = "test/" .. id; t.pack = "test"; t.title = id; t.faction = "Alliance"; t.steps = { { goals = { { t = "level", level = 60 } } } }; Polestar.RegisterGuide(t) end
+		g("a", { minLevel = 1, maxLevel = 10, next = "test/b" })
+		g("b", { minLevel = 5, maxLevel = 8, fresh = { from = "test/a", share = 60, xp = 10000, needs = { 1, 2, 3, 4 } } })
+		g("c", { minLevel = 5, maxLevel = 12 })
+	"#;
+	let out = run1(Run {
+		guides,
+		login: false,
+		script: r#"
+			local w = stub.world
+			w.race, w.class, w.faction, w.level = "Human", "MAGE", "Alliance", 6
+			local G = Polestar.Guides
+			local function f() return Polestar.Engine.FreshFor(G.Get("test/b")) or false end
+			local first = { G.Suggestions(), f() }
+			w.complete({ 1, 2 })
+			local two = f()
+			w.complete({ 3 })
+			emit({ first = first, two = two and two.share or false, three = { G.Suggestions(), f() } })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["first"][0], json!(["test/c", "test/a", "test/b"]), "{out}");
+	assert_eq!(out["first"][1], json!({ "guideId": "test/b", "from": "test/a", "fromTitle": "a", "share": 60, "minutes": 55 }), "{out}");
+	assert_eq!(out["two"], 30, "{out}");
+	assert_eq!(out["three"], json!([["test/b", "test/c", "test/a"], false]), "{out}");
+}
+
 // A quest that starts from an item the player must first get (here a rare elite's drop) reads as the quest, not
 // as "Collect" + "Accept": the view says which of the two rows stands for both, and how the item is got.
 #[test]

@@ -1486,7 +1486,12 @@ local function rank(packId, player, here, zone)
 					local cost = ns.TravelCost(here, start)
 					if cost then band = math.floor(cost / TRAVEL_TIE) end
 				end
-				fitting[#fitting + 1] = { id = g.id, key = { inZone, band, specific, hi - lo, lo, i } }
+				-- Much of it follows on from an earlier guide this character has not
+				-- done (its `fresh` header, Engine.FreshFor): after the zone and
+				-- travel bands, so it never sends anyone far.
+				local E = ns.Engine
+				local fresh = E and E.FreshFor and E.FreshFor(g) and 1 or 0
+				fitting[#fitting + 1] = { id = g.id, key = { inZone, band, fresh, specific, hi - lo, lo, i } }
 			elseif #fitting == 0 then
 				local key = lo > level and { 1, lo - level, hi - lo, i } or { 2, level - hi, hi - lo, i }
 				if not bestKey or less(key, bestKey) then best, bestKey = g.id, key end
@@ -1504,8 +1509,9 @@ end
 -- source (SuggestSource); where it has nothing for the player, ours fill in.
 -- Faction/race/class must match. Every guide whose level range contains the
 -- player's level, in this order: the player's current zone first, then the
--- nearest by travel (in 2-minute bands), then race- or class-specific (the
--- race's own chain), then the narrowest range, the lowest minLevel and
+-- nearest by travel (in 2-minute bands), then one whose quests mostly follow
+-- on from an earlier guide the character has not done last (Engine.FreshFor),
+-- then race- or class-specific (the race's own chain), then the narrowest range, the lowest minLevel and
 -- registration order. If none contains the level: the nearest upcoming
 -- guide, else the highest one below, alone. -> { id, ... }
 function Guides.Suggestions()

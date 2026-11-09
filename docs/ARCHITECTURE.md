@@ -1265,10 +1265,23 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   compared (Forever's client name is unconfirmed).
 - **Context-aware Suggest.** `Guides.Suggestions()` orders the leveling guides
   that fit faction/race/class and level: the one whose zone is the player's
-  current zone first, then the nearest by travel; ties keep the race's own
+  current zone first, then the nearest by travel, then (0.3.7) a guide whose
+  quests mostly follow on from an earlier guide this character has not done
+  last (`Engine.FreshFor`); ties keep the race's own
   chain. `Suggest()` is its first. The hub's Home lists all of them under
   "Suggested for you", open ones included (marked with their tab), then an
   open guide's follow-up once the player is within two levels of it.
+- **Fresh start (0.3.7).** A leveling guide's compiled `fresh` header
+  (`forge_guide::fresh`: `from`, `share`, `xp`, `needs`; GUIDE_FORMAT.md,
+  "What the compiler fills in") says how much of its quest XP hinges on an
+  earlier guide's quests. `Engine.FreshFor(g)` scales that share by the part
+  of `needs` the character has neither done nor in the log, and from
+  `FRESH_NOTE` (30) percent, below the guide's top level, returns `{ guideId,
+  from, fromTitle, share, minutes }` (minutes: that XP at same-level kills,
+  `FRESH_KPM` (1.5) a minute). `Engine.FreshStart()` is the active guide's
+  while its live step is in the guide's first third: the guide window's
+  "fresh" banner ("Fresh start: about N% of this guide's quest XP follows on
+  from X", "Open X" opens it in a tab; dismissed per guide for the session).
 - **Out-levelled guides.** When the player's level exceeds the active guide's
   `maxLevel` by 2 or more, the Engine fires `GUIDE_OUTLEVELED(guideId,
   suggestedId)` once per guide per session, once the guide is placed (a
