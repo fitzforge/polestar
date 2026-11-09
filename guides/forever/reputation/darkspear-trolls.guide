@@ -118,6 +118,12 @@ step Burning Blade Coven
   tip Go back into the cave and keep to the right-hand wall all the way, over a small stream, to Yarrog Baneshadow on a ledge above a pool.
   collect 4859 quest 794.1            -- Burning Blade Medallion, from Yarrog Baneshadow
   turnin 794                          -- Zureetha Fargaze, in the Den
+  accept 805                          -- Report to Sen'jin Village, +50: Forgotten Loa Idols waits on it
+
+step Sen'jin Village: Master Gadrin
+  when onquest 805
+  zone Durotar
+  turnin 805                          -- Master Gadrin
 
 step Sen'jin Village (optional hub)
   label senjin
@@ -125,7 +131,7 @@ step Sen'jin Village (optional hub)
   accept 808                          -- Master Gadrin: Minshina's Skull, +100
   accept 826                          -- Zalazane, +100
   accept 818                          -- Master Vornal: A Solvent Spirit, +100
-  accept 97225                        -- Forgotten Loa Idols, +100
+  accept 97225 optional               -- Forgotten Loa Idols, +100: needs Report to Sen'jin Village from the Den
   accept 817                          -- Vel'rin Fang: Practical Prey, +100
   accept 96821                        -- Legging It, +75
   accept 97223                        -- Xar'Ti: Bloodtalon Matriarch, +100
