@@ -8876,3 +8876,15 @@ test('Durotar (Orc, Troll) Warlocks: The Binding on the arrival in Orgrimmar at 
 		assert.ok(last.s === list[binding].s && is('turnin', 1504)(last.goal), `${guide}: the voidwalker is bound in the guide's last step`);
 	}
 });
+
+// Final route review 0.3.6, Horde 38-39: Guile of the Raptor's last two parts (702 to Gor'mul, 847 back to Tor'gan, 2,850 XP)
+// were written into the 'when group 679' step of the Stromgarde ogres, so a player who answered "Skip it" never handed
+// them in. They are solo hand-ins on the Hammerfall stop; only the elite ogre quests stay on the group step.
+test('Horde Arathi 38-39: Guile of the Raptor is handed in on the Hammerfall stop, not only on the group step', { skip }, () => {
+	const list = goals('forever/horde/30-40/05-arathi-highlands.guide');
+	for (const [t, q] of [['turnin', 702], ['accept', 847], ['turnin', 847]]) {
+		const { step } = list[at(list, `${t} ${q}`, is(t, q))];
+		assert.ok(!(step.when || []).some((p) => p.k === 'group' || p.k === 'dungeon'), `${t} ${q} is for everyone`);
+	}
+	assert.ok(at(list, 'accept 702', is('accept', 702)) < at(list, 'turnin 702', is('turnin', 702)), 'taken before it is handed in');
+});
