@@ -177,7 +177,7 @@ step Shen'dar Highlands: kill these as you meet them
 # steps (Prideclaw pelts in the highland one, judge merge and walked-past).
 step Shen'dar bounty board
   when group 93318
-  accept 93318 optional               -- the bounty board
+  accept 93318                        -- the bounty board
 
 step Shen'dar Village turn-ins
   turnin 92517                        -- Constable Aonda
@@ -192,7 +192,7 @@ step Shen'dar Village turn-ins
 step Vulgara the Insatiable
   when group 93318
   tip Vulgara lurks south of the village, among the Prideclaws. Vulgara is elite: grouping up is advised.
-  collect 257942 quest 93318.1 optional
+  collect 257942 quest 93318.1
 
 # ---------------------------------------------------------------- Falaath Village
 
@@ -219,7 +219,7 @@ step Shen'dar Highlands: kill these as you meet them
 
 step Danarii Bellowveil
   when group 93318
-  turnin 93318 optional               -- Danarii Bellowveil
+  turnin 93318                        -- Danarii Bellowveil
 
 step The West Pylon Watchtower
   tip Head south-west to the West Pylon Watchtower. Peacekeeper Vaaniel is at the top; the Bloody Note lies beside him.

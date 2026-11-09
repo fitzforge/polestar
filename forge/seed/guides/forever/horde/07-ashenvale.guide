@@ -221,10 +221,7 @@ step Broodmother Valraxx
   when group 96261
   tip Broodmother Valraxx sits at the north end of Gloomrise; her Bloody Parchment starts A Darker Truth. Broodmother Valraxx is elite: grouping up is advised.
   kill 264082 quest 96261.1
-
-step Gloomrise
-  when group 96261
-  collect 273658 @33.4,7.6 live optional -- Bloody Parchment, from Broodmother Valraxx
+  collect 273658 @33.4,7.6 live optional -- Bloody Parchment, from Broodmother Valraxx: it does not drop for everyone
   accept 96294 item 273658 optional
 
 step The Earthen Ring

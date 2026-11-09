@@ -355,6 +355,26 @@ test('forever/horde/skyborne/01-zephras-isle.guide: the Al\'Aketh Cultist\'s Ear
 	assert.ok(Math.hypot(goal.x - 63.7, goal.y - 37.1) < 1, `at Vayn's camp (${goal.x},${goal.y})`);
 });
 
+// Horde 1-30 audit (#1414): a step gated `when group <quest>` holds only players who answered "Do it with a group",
+// but a step whose every goal is `optional` is done at once (Engine Own.holds), so those players were walked past the
+// accept, the elite and the hand-in with no arrow (WANTED: Bruuz, Aggor the Young, WANTED: Vulgara). Every Horde
+// 1-30 guide: no `when group` step of optional goals only (sweep: ~/work/maintainer/group-optional-sweep).
+test('Horde 1-30: a `when group` step has a goal that holds it, so a player who chose the group way is led through it (#1414)', () => {
+	const GOAL = /^\s+(accept|turnin|kill|collect|interact|use|complete|escort|goto|talk|task|buy|fly|level|train|vendor|enter|die)\b/;
+	const files = allGuides().filter((f) => /^forever\/horde\/(0[2-7]-|orc\/|troll\/|tauren\/|undead\/|skyborne\/)/.test(f));
+	assert.ok(files.length >= 11, 'the Horde 1-30 guides are found');
+	const bad = [];
+	for (const f of files) {
+		const steps = fs.readFileSync(path.join(OFFICIAL_DIR, f), 'utf8').split(/\n(?=step\b)/);
+		for (const s of steps) {
+			const lines = s.split('\n');
+			const goalLines = lines.filter((l) => GOAL.test(l));
+			if (lines.some((l) => /^\s+when\s+group\b/.test(l)) && goalLines.length && goalLines.every((l) => /\boptional\b/.test(l.split('--')[0]))) bad.push(`${f}: ${lines[0]}`);
+		}
+	}
+	assert.deepEqual(bad, []);
+});
+
 test(`forever/horde/02-the-barrens.guide: Orcs and Trolls take the Crossroads quests on the stop they arrive at from Far Watch Post`, { skip }, () => {
 	for (const race of ['Orc', 'Troll']) {
 		const forRace = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes(race));

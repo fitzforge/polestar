@@ -197,8 +197,8 @@ step Shenthul
   only Rogue
   when complete 2478
   tip If you did Mission: Possible But Not Probable with a group, Shenthul in the Cleft of Shadow takes it now.
-  turnin 2478 optional                -- Shenthul, Cleft of Shadow
-  accept 2479 optional                -- Serge Hinott in Tarren Mill teaches Poisons: keep it
+  turnin 2478                         -- Shenthul, Cleft of Shadow
+  accept 2479                         -- Serge Hinott in Tarren Mill teaches Poisons: keep it
 
 step Durotar
   zone Durotar
