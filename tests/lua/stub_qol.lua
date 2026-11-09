@@ -23,6 +23,7 @@
 --   q.addItem(bag, slot, itemID, count)        -- q.items[id] = { quality, price, classID, spell, noValue }
 --   q.combat(true|false)                        -- PLAYER_REGEN_DISABLED / ENABLED
 --   q.click(frame, down)                        -- OnClick + PostClick (button "LeftButton")
+--   q.mouseClick(frame)                         -- the client's press and release (registered clicks, useOnKeyDown); q.ran
 --   q.gainXP(n)                                 -- UnitXP moves, PLAYER_XP_UPDATE (levels up past xpMax)
 --   q.xpBar(shown)                              -- the game's XP bar frames (StatusTrackingBarManager); returns the experience bar
 --   q.engine.levelTarget = N                    -- what Engine.LevelTarget answers above the player's level
@@ -97,6 +98,42 @@ function q.click(f, down)
 	stub.RunScript(f, "PreClick", "LeftButton", down)
 	stub.RunScript(f, "OnClick", "LeftButton", down)
 	stub.RunScript(f, "PostClick", "LeftButton", down)
+end
+
+-- The client's mouse click on a button: the press, then the release, each
+-- reaching the button only when RegisterForClicks asked for it
+-- ("AnyDown"/"AnyUp", "LeftButtonDown"/"LeftButtonUp"). On a secure action
+-- button the client runs SecureActionButton_OnClick without its mouse
+-- arguments (SecureTemplates.xml: an addon's button never has them), so it
+-- acts on the press when useOnKeyDown -- the attribute, else the
+-- ActionButtonUseKeyDown CVar (stub.cvars) -- is true, else on the release.
+-- What a secure button ran goes in q.ran ({ type, macrotext } per action);
+-- a plain button gets OnClick on each event it registered.
+q.ran = {}
+local registerForClicks = M.RegisterForClicks
+function M.RegisterForClicks(self, ...)
+	self.clicks = {}
+	for _, c in ipairs({ ... }) do self.clicks[c] = true end
+	if registerForClicks then return registerForClicks(self, ...) end
+end
+function q.mouseClick(f)
+	for _, down in ipairs({ true, false }) do
+		local c = f.clicks or { LeftButtonUp = true }
+		if c[down and "AnyDown" or "AnyUp"] or c[down and "LeftButtonDown" or "LeftButtonUp"] then
+			if f.secure then
+				local attr = f:GetAttribute("useOnKeyDown")
+				local onDown
+				if attr == nil then onDown = GetCVarBool("ActionButtonUseKeyDown") else onDown = attr and true or false end
+				if onDown == down then
+					stub.RunScript(f, "PreClick", "LeftButton", down)
+					q.ran[#q.ran + 1] = { f:GetAttribute("type") or false, f:GetAttribute("macrotext") or false }
+					stub.RunScript(f, "PostClick", "LeftButton", down)
+				end
+			elseif f:IsEnabled() ~= false then
+				q.click(f, down)
+			end
+		end
+	end
 end
 
 ---------------------------------------------------------------------------

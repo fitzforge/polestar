@@ -2218,6 +2218,7 @@ L["The Polestar founder is nearby!"] = "Le fondateur de Polestar est à proximit
 L["The card can't target during a fight. Use the rare button or its key (%s)."] = "La carte ne peut pas cibler pendant un combat. Utilisez le bouton de rare ou sa touche (%s)."
 L["The card can't target during a fight. Use the rare button."] = "La carte ne peut pas cibler pendant un combat. Utilisez le bouton de rare."
 L["Wave"] = "Saluer"
+-- L["Click Target again to target the rare, or use the rare button."] = ""
 
 -- Rares/Options.lua
 L["1 minute"] = "1 minute"

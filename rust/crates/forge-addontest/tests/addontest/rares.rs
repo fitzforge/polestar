@@ -768,6 +768,112 @@ emit({ PolestarRareToast.Target:IsShown(), PolestarRareCardTarget:IsShown() })"#
 	assert_eq!(out[1], json!([false, false]));
 }
 
+// Where a frame is on screen, from its anchors (stub frames keep them, the stub lays nothing out): offsets and
+// sizes in the frame's effective scale, UIParent at its own; two anchors span, one places by size. Then what the
+// mouse hits at a point: the shown, mouse-enabled candidate highest by strata (inherited from the parents, as
+// the client does) and frame level.
+const HIT: &str = r#"
+local STRATA = { BACKGROUND = 1, LOW = 2, MEDIUM = 3, HIGH = 4, DIALOG = 5, FULLSCREEN = 6, TOOLTIP = 8 }
+local function strata(fr) while fr do if fr.strata then return STRATA[fr.strata] end fr = fr.parent end return 3 end
+local function at(r, p)
+	local x = p:find("LEFT") and r.l or p:find("RIGHT") and r.r or (r.l + r.r) / 2
+	local y = p:find("TOP") and r.t or p:find("BOTTOM") and r.b or (r.t + r.b) / 2
+	return x, y
+end
+local function rect(fr)
+	local es = fr:GetEffectiveScale()
+	if fr == UIParent then return { l = 0, b = 0, r = 1920 * es, t = 1080 * es } end
+	local pts = fr.points or {}
+	if #pts == 0 then return nil end
+	local l, r, t, b, cx, cy
+	for _, p in ipairs(pts) do
+		local x, y = at(rect(p.rel or fr.parent or UIParent), p.relPoint)
+		x, y = x + p.x * es, y + p.y * es
+		if p.point:find("LEFT") then l = x elseif p.point:find("RIGHT") then r = x else cx = x end
+		if p.point:find("TOP") then t = y elseif p.point:find("BOTTOM") then b = y else cy = y end
+	end
+	local w, h = fr:GetWidth() * es, fr:GetHeight() * es
+	if not l and not r then l = cx - w / 2; r = l + w end
+	if not t and not b then b = cy - h / 2; t = b + h end
+	l = l or r - w; r = r or l + w; t = t or b + h; b = b or t - h
+	return { l = l, r = r, t = t, b = b }
+end
+local function hit(x, y, ...)
+	local best, bs, bl
+	for _, fr in ipairs({ ... }) do
+		local r = fr:IsVisible() and rect(fr)
+		if r and x >= r.l and x <= r.r and y >= r.b and y <= r.t then
+			local st, lv = strata(fr), fr:GetFrameLevel()
+			if not best or st > bs or (st == bs and lv > bl) then best, bs, bl = fr, st, lv end
+		end
+	end
+	return best
+end
+"#;
+
+#[test]
+fn rare_card_a_mouse_click_on_the_target_button_where_it_shows_targets_the_rare_at_any_ui_scale_and_either_key_down_setting() {
+	// Fitz, the installed 0.3.6: the card for Rocklance (in sight, out of combat) showed Target, and a click on it
+	// targeted nothing. The overlay was registered for the release only, and with ActionButtonUseKeyDown on (the
+	// client's default) SecureActionButton_OnClick acts only on the press.
+	let out = run_card(
+		"SLASH_PING1 = \"/ping\"",
+		&format!(
+			r#"{HIT}
+local out = {{}}
+for _, case in ipairs({{ {{ 1, "1" }}, {{ 0.64, "1" }}, {{ 1.15, "0" }}, {{ 0.8, "0" }} }}) do
+	UIParent:SetScale(case[1])
+	stub.cvars.ActionButtonUseKeyDown = case[2]
+	R.Toast.Hide()
+	stub.qol.ran = {{}}
+	Polestar.Fire("RARE_SPOTTED", R.AlertOf({{ source = "nameplate", kind = "rare", id = 900001, name = "Rocklance", level = 17, class = "rareelite" }}, {{ map = 1429, x = 88, y = 78 }}, true))
+	-- The slide-in runs to its end, then the card is dragged somewhere else.
+	stub.advance(1)
+	local f, s = PolestarRareToast, PolestarRareCardTarget
+	local r1 = rect(f.Target)
+	local x, y = (r1.l + r1.r) / 2, (r1.t + r1.b) / 2
+	local first = hit(x, y, f, f.Target, s)
+	stub.qol.mouseClick(first)
+	local ran1 = stub.qol.ran
+	stub.qol.ran = {{}}
+	f:ClearAllPoints()
+	f:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 40, 60)
+	local r2 = rect(f.Target)
+	local moved = hit((r2.l + r2.r) / 2, (r2.t + r2.b) / 2, f, f.Target, s)
+	stub.qol.mouseClick(moved)
+	out[#out + 1] = {{ first = first == s, moved = moved == s, ran = ran1, ranMoved = stub.qol.ran, printed = #stub.messages }}
+end
+emit(out)"#
+		),
+	);
+	let macro_ = "/cleartarget [nocombat]\n/targetexact Rocklance\n/cleartarget [dead]\n/ping [@target]";
+	for (i, case) in out[0].as_array().unwrap().iter().enumerate() {
+		assert_eq!(case["first"], true, "case {i}: the click lands on the secure overlay where the card's Target button shows");
+		assert_eq!(case["moved"], true, "case {i}: and still after the card moved");
+		assert_eq!(case["ran"], json!([["macro", macro_]]), "case {i}: one click runs the macro once");
+		assert_eq!(case["ranMoved"], json!([["macro", macro_]]), "case {i}");
+	}
+}
+
+#[test]
+fn rare_card_a_click_the_overlay_missed_lays_it_over_and_says_how_to_target() {
+	let out = run_card(
+		"SLASH_PING1 = \"/ping\"",
+		&format!(
+			r#"{SPOT_THUROS}
+s:Hide()
+s:ClearAllPoints()
+local before = #stub.messages
+stub.qol.mouseClick(f.Target)
+emit({{ card(), stub.messages[#stub.messages] or false, #stub.messages - before }})"#
+		),
+	);
+	assert_eq!(out[0][0]["secure"], true);
+	assert_eq!(out[0][0]["over"], true);
+	assert!(out[0][1].as_str().unwrap().contains("Click Target again to target the rare, or use the rare button."));
+	assert_eq!(out[0][2], 1);
+}
+
 #[test]
 fn rare_card_the_founder_s_card_waves_with_its_button_never_pings_or_marks() {
 	let out = run_card(

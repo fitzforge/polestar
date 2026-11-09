@@ -148,6 +148,7 @@ local function arm()
 		return
 	end
 	local s = T.secure
+	s:SetAttribute("useOnKeyDown", false)
 	s:SetAttribute("type", "macro")
 	s:SetAttribute("macrotext", text)
 	s:ClearAllPoints()
@@ -160,9 +161,14 @@ end
 
 local function buildSecure()
 	local s = CreateFrame("Button", "PolestarRareCardTarget", UIParent, "SecureActionButtonTemplate")
-	-- Mouse clicks only: the client runs a mouse press's action on the
-	-- release (SecureActionButton_OnClick), so the release is all it needs.
-	s:RegisterForClicks("AnyUp")
+	-- The client hands an addon's secure button its clicks without saying
+	-- they are the mouse's (SecureTemplates.xml), so SecureActionButton_OnClick
+	-- acts on the press when useOnKeyDown (nil: the ActionButtonUseKeyDown
+	-- CVar, on by default) says so, else on the release. Registered for
+	-- the release only, a press-acting button did nothing (0.3.6: Target on
+	-- the card never targeted). Both are registered, and arm() sets
+	-- useOnKeyDown false: one action, on the release, whatever the CVar.
+	s:RegisterForClicks("AnyUp", "AnyDown")
 	-- The card's button draws it: hover reaches it from here.
 	s:SetScript("OnEnter", function()
 		f.Target:LockHighlight()
@@ -296,7 +302,13 @@ local function build()
 	f.Waypoint:SetPoint("RIGHT", f, "TOPRIGHT", -PAD, -rowY)
 	f.Open = W.Button(f, L["Show rare"], showRare, { height = 28, icon = "search" })
 	-- Drawn here; the secure button over it does the click (see arm).
-	f.Target = W.Button(f, L["Target"], nil, { height = 28, icon = "qol-target" })
+	-- The plain button only gets a click the secure one missed (not laid
+	-- over it yet): lay it over now, and say so.
+	f.Target = W.Button(f, L["Target"], function()
+		if lockdown() then return end
+		arm()
+		ns.Print(L["Click Target again to target the rare, or use the rare button."])
+	end, { height = 28, icon = "qol-target" })
 	buildSecure()
 
 	f.Timer = W.ProgressLine(f, 2)

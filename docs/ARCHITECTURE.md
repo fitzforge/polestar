@@ -6403,7 +6403,9 @@ Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
   on the click and on parent maps when the player's map lacks it; a unit:
   where it was seen; else the nearest known spawn on the player's continent,
   or no waypoint), "Show rare" (the section) and, for a rare, "Target": a
-  secure button (`PolestarRareCardTarget`, on UIParent) over the card's own
+  secure button (`PolestarRareCardTarget`, on UIParent, registered for press
+  and release with `useOnKeyDown` false so it acts once, on the release,
+  whatever `ActionButtonUseKeyDown` says) over the card's own
   runs `QoL.Buttons.RareCardMacro` (`/targetexact` the name, `/ping
   [@target]` where the client has `SLASH_PING1`, always, as the rare button
   does; the Target button and step key ping mobs only with `qol.pingTarget`,
