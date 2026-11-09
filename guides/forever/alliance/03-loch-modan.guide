@@ -19,7 +19,8 @@ next forever/alliance/03-darkshore-return
 # Flow: the boat to Menethil Harbor -> the Wetlands road and Dun Algaz -> Loch Modan from the
 # north: the Algaz Station and the Silver Stream Mine, the Stonewrought Dam, the loch's
 # toolbox, Thelsamar (flight path), Ironband's Excavation, the Farstrider Lodge and its hunts,
-# Thelsamar, Ylva's banner and the tunnel post -> Dun Morogh -> Ironforge (flight path) ->
+# Thelsamar, Ylva's banner and the tunnel post -> Dun Morogh (Dwarves and Gnomes, who have the Ironforge flight path
+# from their start, fly from Thelsamar instead: #1508) -> Ironforge (flight path) ->
 # the tram -> Stormwind -> Elwynn -> Redridge: Three Corners, Lakeshire (flight path) and the
 # loop west and south of the lake -> the walk west through Goldshire (Smith Argus) to Sentinel
 # Hill -> Stormwind by gryphon (Shaw, General Marcus) and back -> Moonbrook (People's Militia
@@ -183,12 +184,22 @@ step The tunnel post
 
 # ---------------------------------------------------------------- Ironforge
 
+step Fly to Ironforge
+  only Dwarf,Gnome
+  zone Loch Modan
+  tip You have the Ironforge flight path from Dun Morogh: back north to Thelsamar's gryphons, quicker than walking through the tunnel and across Dun Morogh.
+  goto 33.9,50.8 "Thelsamar flight master"
+  fly "Ironforge"
+  zone Ironforge
+
 step Into Dun Morogh
+  only Human,NightElf,Skyborne
   zone Dun Morogh
   tip Through the South Gate tunnel and west along the road to Ironforge.
   goto 86.0,49.6 "Into Dun Morogh"
 
 step Into Ironforge
+  only Human,NightElf,Skyborne
   zone Ironforge
   goto 21.6,77.8 "Into Ironforge"
 

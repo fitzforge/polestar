@@ -9243,3 +9243,25 @@ test('forever/horde/40-50/02-feralas.guide: the Felsteed trip starts at Orgrimma
 	assert.ok(fm, 'a goto to the flight master before Strahad');
 	assert.equal(fm.goal.map, 1454, 'on the Orgrimmar map');
 });
+// #1508/#1518 (0.3.6): after the tunnel post, 03-loch-modan sent everyone through the tunnel into Dun Morogh, a
+// waypoint for players who walk to Ironforge. Dwarves and Gnomes have the Ironforge flight path from their Dun Morogh
+// guide (and Thelsamar's), so the arrow then turned them back to Thelsamar to fly. They fly from Thelsamar now; the
+// tunnel and gate waypoints are for the races who walk.
+test('forever/alliance/03-loch-modan.guide: Dwarves and Gnomes fly to Ironforge, the others walk the tunnel (#1508)', { skip }, () => {
+	const list = goals('forever/alliance/03-loch-modan.guide');
+	const post = at(list, 'turnin 86585', is('turnin', 86585));
+	const stormpike = at(list, 'turnin 301', is('turnin', 301));
+	const between = list.slice(post + 1, stormpike);
+	const forRace = (race) => ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes(race));
+	for (const race of ['Dwarf', 'Gnome']) {
+		const mine = between.filter(forRace(race)).map(({ goal }) => goal);
+		assert.ok(mine.some((g) => g.t === 'fly'), `${race}: a flight to Ironforge`);
+		assert.ok(!mine.some((g) => g.t === 'goto' && g.map === 1426), `${race}: no walk into Dun Morogh`);
+	}
+	for (const race of ['Human', 'NightElf', 'Skyborne']) {
+		const mine = between.filter(forRace(race)).map(({ goal }) => goal);
+		assert.ok(!mine.some((g) => g.t === 'fly'), `${race}: no flight (no Ironforge flight path yet)`);
+		assert.ok(mine.some((g) => g.t === 'goto' && g.map === 1426), `${race}: through the tunnel into Dun Morogh`);
+	}
+});
+
