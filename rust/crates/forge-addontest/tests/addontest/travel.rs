@@ -29,6 +29,21 @@ local function known(...)
 end
 "#;
 
+/// nav() loads no Core/Locale.lua, and Nav/Travel.lua reads its captions at load: the language folder is
+/// asked for right after Core/Init.lua, where Locale.lua (before Nav in Core.xml) would have asked.
+const ASK_FOR_THE_FOLDER: &str = r#"
+do
+	local load = loadfile
+	function loadfile(file)
+		local chunk, err = load(file)
+		if not chunk or not file:match("[/\\]Polestar[/\\]Core[/\\]Init%.lua$") then return chunk, err end
+		return function(...)
+			chunk(...)
+			C_AddOns.LoadAddOn("Polestar_" .. GetLocale())
+		end
+	end
+end"#;
+
 fn nav() -> Addon {
 	Addon::files("Polestar", &["Core/Init.lua", "Nav/Nav.xml"])
 }
@@ -77,7 +92,7 @@ fn every_leg_caption_is_in_the_client_language_flight_boat_and_tram() {
 				("Take the boat to %s", "Nimm das Schiff nach %s"),
 				("Take the tram to %s", "Nimm die Tiefenbahn nach %s"),
 			],
-		),
+		) + ASK_FOR_THE_FOLDER,
 	);
 	assert_eq!(
 		out,
