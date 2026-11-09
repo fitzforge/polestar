@@ -4578,6 +4578,20 @@ test('Alliance 40-60: travel labels name the place, bind notes do not claim an e
 	}
 });
 
+// Final route review 0.3.6 (Alliance 48-52, from the Horde 1-30 reviewer's sweep of accepts waiting on a mob's drop):
+// The Horn of the Beast (3181) starts from Margol the Rager's horn, on a step only players who chose the group quest
+// see (all-optional goals there would leave them without an arrow, lint). The Burning Steppes guide's walk to
+// Mountaineer Pebblebitty in Loch Modan waits for 3181 in the log, so a grouped player who never got the horn
+// is not sent there.
+test('Alliance 48-52: the walk to Pebblebitty only with The Horn of the Beast in the log', { skip }, () => {
+	const sg = goals('forever/alliance/40-50/06-searing-gorge.guide');
+	assert.ok((sg[at(sg, 'accept 3181', is('accept', 3181))].step.when || []).some((p) => p.k === 'group' && !p.neg), '3181 is a group quest');
+	const steps = compiled('forever/alliance/50-60/01-burning-steppes.guide').steps;
+	const hand = steps.findIndex((st) => st.goals.some(is('turnin', 3181)));
+	assert.ok(hand > 0 && steps[hand - 1].goals.every((g) => g.t === 'goto'), 'a walk leads to Pebblebitty');
+	assert.ok((steps[hand - 1].when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(3181)), 'the walk waits for 3181 in the log');
+});
+
 test("Fitz's report: Darkshore's Fine Crab Chunks are a goal at Cliffspring Falls, by the crabs that drop them, not a list along ten stops", { skip }, () => {
 	// Only Reef Crawlers and Encrusted Tide Crawlers drop the chunks, on the north coast and the far
 	// south. Listed along the way, the chunks were open for ten stops of which three had crabs; the

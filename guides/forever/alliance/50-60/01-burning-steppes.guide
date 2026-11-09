@@ -367,6 +367,7 @@ step To Stoutlager Inn
 
 step Loch Modan
   when group 3181
+  when onquest 3181
   zone Loch Modan
   goto 18.2,84.0 "Mountaineer Pebblebitty"
 
