@@ -75,7 +75,7 @@ const fn boat(id: &'static str, kind: &'static str, faction: i32, forever: bool,
 	TDef { id, kind, faction, forever, path, a, b, inside: [0, 0] }
 }
 
-const TRANSPORTS: [TDef; 13] = [
+const TRANSPORTS: [TDef; 15] = [
 	boat("boat-bootybay-ratchet", "boat", BOTH, false, 241, npc(end("Booty Bay", 35.0, 1434), "Wharfmaster Lozgil"), npc(end("Ratchet", 392.0, 1413), "Wharfmaster Dizzywig")),
 	boat("boat-menethil-theramore", "boat", A, false, 292, object(end("Menethil Harbor", 150.0, 1437), "Boat to Theramore"), end("Theramore", 513.0, 1445)),
 	boat("boat-menethil-southshore", "boat", A, true, 11167, end("Menethil Harbor", 150.0, 1437), end("Southshore", 271.0, 1424)),
@@ -104,6 +104,28 @@ const TRANSPORTS: [TDef; 13] = [
 	boat("zeppelin-orgrimmar-undercity", "zeppelin", H, false, 302, npc(end("Orgrimmar", 1637.0, 1411), "Frezza"), npc(end("Undercity", 1497.0, 1420), "Zapetta")),
 	boat("zeppelin-orgrimmar-gromgol", "zeppelin", H, false, 285, npc(end("Orgrimmar", 1637.0, 1411), "Snurk Bucksquick"), npc(end("Grom'gol", 117.0, 1434), "Nez'raz")),
 	boat("zeppelin-undercity-gromgol", "zeppelin", H, false, 301, npc(end("Undercity", 1497.0, 1420), "Hin Denburg"), npc(end("Grom'gol", 117.0, 1434), "Squibby Overspeck")),
+	// Zephras Isle's two airships (Forever): the skycutter from the Valanaar Skydocks to the Kirin Tor camp west of
+	// Dalaran (TaxiPath 11398, stops at Zephras 65.8,83.8 and Alterac 12.8,51.2; the Alliance Skyborne leave on it)
+	// and the airship to northern Mulgore (TaxiPath 11457, stops at Zephras 57.8,81.0 and Mulgore 34.3,26.1; the
+	// Horde Skyborne). The guides' "Leave Zephras Isle" gotos (players' recordings) stand at those stops.
+	boat(
+		"airship-zephras-dalaran",
+		"airship",
+		A,
+		true,
+		11398,
+		npc(end("Valanaar Skydocks", 16628.0, 2521), "High Order Dockmaster"),
+		end("Dalaran", 279.0, 1416),
+	),
+	boat(
+		"airship-zephras-mulgore",
+		"airship",
+		H,
+		true,
+		11457,
+		npc(end("Valanaar Skydocks", 16628.0, 2521), "Windshapers Dockmaster"),
+		end("Mulgore", 215.0, 1412),
+	),
 	TDef {
 		id: "tram-stormwind-ironforge",
 		kind: "tram",

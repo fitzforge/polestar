@@ -731,6 +731,9 @@ function buildWorld(data, opts = {}) {
 	const rides = [];
 	for (const t of travel.transports || []) {
 		if (!(t.faction & fbit)) continue;
+		// Zephras Isle's airships are the world's Skyborne exits (below: one way, the landings checked in game);
+		// the addon's planner rides them from travel.json.
+		if (t.kind === 'airship') continue;
 		// The dock: the deck where a ship lying off its pier is boarded (travel build's `board`), else the stop;
 		// its height is the deck's, else the stop's (the floor the router walks to).
 		const da = t.a.board || t.a;

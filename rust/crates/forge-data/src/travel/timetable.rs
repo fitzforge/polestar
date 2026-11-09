@@ -28,7 +28,7 @@ const STEP: f64 = 0.05;
 
 fn board_of(kind: &str) -> f64 {
 	match kind {
-		"boat" | "zeppelin" => 10.0,
+		"boat" | "zeppelin" | "airship" => 10.0,
 		"tram" => 5.0,
 		"lift" => 2.0,
 		_ => f64::NAN,
