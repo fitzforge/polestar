@@ -209,8 +209,8 @@ step Meilosh
 step Kernda
   when onquest 8470
   zone Felwood
-  tip Only at Neutral with the Timbermaw: Kernda waits at the tunnel mouth of Timbermaw Hold.
-  turnin 8470 optional                -- Kernda walks around here: look inside the circle on the map
+  tip The Deadwood totem from Felpaw Village, if Kernda didn't take it then: she waits at the tunnel mouth of Timbermaw Hold and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of Felwood brought you to.
+  turnin 8470                         -- Kernda walks around here: look inside the circle on the map
 
 step Winterspring
   zone Winterspring

@@ -96,8 +96,8 @@ return {
 	["With 30 {quest:6031} in your bags: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "Com 30 {quest:6031} nas bolsas: siga a estrada para o norte até {area:1769}; {npc:11557} negocia logo depois da entrada.",
 
 	-- Step 28: Kernda
-	-- {npc:11558} Kernda · {area:1769} Timbermaw Hold
-	["Only at Neutral with the Timbermaw: {npc:11558} waits at the tunnel mouth of {area:1769}."] = "Só se você estiver Neutro com os Presamatos: {npc:11558} espera na boca do túnel de {area:1769}.",
+	-- {area:1762} Felpaw Village · {npc:11558} Kernda · {area:1769} Timbermaw Hold · {zone:1448} Felwood
+	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558} anda por aqui: procure dentro do círculo no mapa",
 
@@ -149,6 +149,7 @@ return {
 	-- ["Back into the Timbermaw tunnel and take the {area:618} exit; {npc:9298} camps by the hot springs just outside."] = "Volte ao túnel dos Presamatos e pegue a saída para {area:618}; {npc:9298} acampa junto às fontes termais logo do lado de fora.",
 	-- ["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {area:361}. The {area:2479} is the druids' camp just past the border."] = "Voe para {area:431} e siga para o noroeste pela estrada que sai de {zone:1440} para {area:361}. {area:2479} é o acampamento dos druidas logo depois da fronteira.",
 	-- ["From the {zone:1458}, take the zeppelin from the tower outside the city to {zone:1454}."] = "De {zone:1458}, pegue o zepelim na torre do lado de fora da cidade para {zone:1454}.",
+	-- ["Only at Neutral with the Timbermaw: {npc:11558} waits at the tunnel mouth of {area:1769}."] = "Só se você estiver Neutro com os Presamatos: {npc:11558} espera na boca do túnel de {area:1769}.",
 	-- ["Only if you carry {quest:5087}: the runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate."] = "Só se tiver {quest:5087}: os mensageiros andam pela estrada de {area:1769} rumo a {area:2244} em pequenos grupos; espere na estrada perto de {npc:9298} e mate-os quando passarem. Cada um carrega um caixote.",
 	-- ["Only if {npc:9298} gave you {quest:5086}: ride north up the {area:361} road to {area:1767}; the {quest:5086} ooze between the trees."] = "Só se {npc:9298} deu {quest:5086} a você: siga para o norte pela estrada de {area:361} até {area:1767}; os alvos de {quest:5086} escorrem entre as árvores.",
 	-- ["Only with 30 {quest:6031}, and only at Neutral with the Timbermaw: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "Só com 30 de {quest:6031}, e só se estiver Neutro com os Presamatos: siga a estrada para o norte até {area:1769}; {npc:11557} negocia logo depois da entrada.",

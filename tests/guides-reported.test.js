@@ -8741,3 +8741,25 @@ test("Fyurie's report (#1458): Kodo Roundup uses the Kombobulator and counts at 
 		['forever/alliance/dwarf/01-dun-morogh.guide', /quest 6661\.1 @78\.0,51\.4 "Catch Deeprun Rat"/],
 	]) assert.match(src(f), re, `${f} names the action`);
 });
+
+// Quest volume, Felwood (both sides, 0.3.6 plan): the Deadwood Ritual Totem (8470, 5.65k XP) drops from the Felpaw
+// Village furbolgs (Den Watchers, Avengers, Shamans, about one kill in thirty) that Deadwood of the North (8461) and
+// the level top-up there already kill by the dozen. The Felpaw step goes on until it drops and takes the quest;
+// Kernda takes it on the next pass of Timbermaw Hold, or by the cave right away if the Timbermaw are Neutral then.
+test('Felwood, both sides: the Deadwood Ritual Totem is worked in the Felpaw Village step and handed in to Kernda on the later pass', { skip }, () => {
+	for (const [felwood, later] of [
+		['forever/alliance/50-60/02-felwood.guide', 'forever/alliance/50-60/06-silithus.guide'],
+		['forever/horde/50-60/02-felwood.guide', 'forever/horde/50-60/07-felwood.guide'],
+	]) {
+		const list = goals(felwood);
+		const totem = list[at(list, `${felwood}: collect 20741`, (g) => g.t === 'collect' && g.item === 20741)];
+		assert.ok(!totem.goal.optional, `${felwood}: the totem holds the step until it drops`);
+		const kills = list.filter(({ s, goal }) => s === totem.s && goal.t === 'kill' && goal.quest === 8461).map(({ goal }) => goal.npc);
+		assert.deepEqual(kills.sort(), [7156, 7157, 7158], `${felwood}: in the Felpaw step with Deadwood of the North's kills`);
+		const accept = list[at(list, `${felwood}: accept 8470`, is('accept', 8470))];
+		assert.ok(accept.s === totem.s && !accept.goal.optional, `${felwood}: the totem's quest is taken in the same step`);
+		const turnin = goals(later).find(({ goal }) => is('turnin', 8470)(goal));
+		assert.ok(turnin && !turnin.goal.optional, `${later}: Kernda takes the totem on the later pass`);
+		assert.ok(turnin.step.when.some((p) => p.k === 'onquest' && !p.neg), `${later}: only while the totem's quest is still in the log`);
+	}
+});

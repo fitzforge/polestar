@@ -191,8 +191,8 @@ return {
 	["The road ends at {npc:15395}, outside the {area:1769} tunnel in the far north-east."] = "La route se termine à {npc:15395}, devant le tunnel du {area:1769}, à l'extrême nord-est.",
 
 	-- Step 42: Felpaw Village
-	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold · {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
-	["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
+	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold · {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda
+	["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "",
 	-- {npc:7156} Deadwood Den Watcher
 	["grind on {npc:7156}"] = "tuez en boucle : {npc:7156}",
 
@@ -200,9 +200,11 @@ return {
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
 	["Keep {quest:8465} for {zone:1452}."] = "Gardez {quest:8465} pour {zone:1452}.",
 
-	-- Step 44: Felpaw Village
-	-- {quest:8470} Deadwood Ritual Totem
-	["{quest:8470}, a rare drop"] = "{quest:8470}, un butin rare",
+	-- Step 44: Timbermaw Hold
+	-- {npc:11558} Kernda
+	["Step into the cave: {npc:11558} stands just inside."] = "",
+	-- {npc:11558} Kernda
+	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "",
 
 	-- Step 45: Emerald Sanctuary
 	-- {zone:1448} Felwood
@@ -310,4 +312,5 @@ return {
 	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} ({zone:1456}) ; {zone:1454} n'a pas de maître des paladins",
 	-- ["{object:175894}, beside the house"] = "{object:175894}, à côté de la maison",
 	-- ["{quest:5210} goes to {area:2268}: keep it for later."] = "{quest:5210} se rend à {area:2268} : gardez-la pour plus tard.",
+	-- ["{quest:8470}, a rare drop"] = "{quest:8470}, un butin rare",
 }

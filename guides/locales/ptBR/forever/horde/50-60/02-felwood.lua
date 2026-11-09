@@ -191,8 +191,8 @@ return {
 	["The road ends at {npc:15395}, outside the {area:1769} tunnel in the far north-east."] = "A estrada termina em {npc:15395}, do lado de fora do túnel de {area:1769}, no extremo nordeste.",
 
 	-- Step 42: Felpaw Village
-	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold · {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
-	["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Cuidado: os Vigias do Covil têm nível 53-54; chamam aliados num raio de 25 m quando ficam abaixo de 50% de vida e fogem atrás de ajuda abaixo de 15%.\nAbaixo do nível 54.54, continue lutando contra os Lenha Morta aqui depois da contagem de {npc:15395}: as entregas em {area:1769} e em {area:2479} levam você ao nível 55. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1417}.",
+	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold · {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda
+	["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "",
 	-- {npc:7156} Deadwood Den Watcher
 	["grind on {npc:7156}"] = "mate {npc:7156} até subir",
 
@@ -200,9 +200,11 @@ return {
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
 	["Keep {quest:8465} for {zone:1452}."] = "Guarde {quest:8465} para {zone:1452}.",
 
-	-- Step 44: Felpaw Village
-	-- {quest:8470} Deadwood Ritual Totem
-	["{quest:8470}, a rare drop"] = "{quest:8470}, um saque raro",
+	-- Step 44: Timbermaw Hold
+	-- {npc:11558} Kernda
+	["Step into the cave: {npc:11558} stands just inside."] = "",
+	-- {npc:11558} Kernda
+	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "",
 
 	-- Step 45: Emerald Sanctuary
 	-- {zone:1448} Felwood
@@ -250,6 +252,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "De volta a {area:1762}, os furbolgs Lenha Morta (53-54) ficam perto do túnel e cada morte aumenta sua reputação com os Presamatos.",
 	-- ["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "Cuidado: os Vigias do Covil são nível 53-54; chamam aliados num raio de 25 metros quando ficam abaixo de 50% de vida e saem correndo atrás de ajuda abaixo de 15%.",
+	-- ["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Cuidado: os Vigias do Covil têm nível 53-54; chamam aliados num raio de 25 m quando ficam abaixo de 50% de vida e fogem atrás de ajuda abaixo de 15%.\nAbaixo do nível 54.54, continue lutando contra os Lenha Morta aqui depois da contagem de {npc:15395}: as entregas em {area:1769} e em {area:2479} levam você ao nível 55. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1417}.",
 	-- ["Diseased Grizzlies"] = "Ursos-cinzentos Doentes",
 	-- ["Fly to the {area:1497}"] = "Voe para {area:1497}",
 	-- ["Fly to {area:272}"] = "Voe para {area:272}",
@@ -300,4 +303,5 @@ return {
 	-- ["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}."] = "{npc:11613} fica a leste do acampamento madeireiro; {npc:11611} guarda a estrada a nordeste de {npc:11610}, rumo a {area:190}.",
 	-- ["{object:175894}, beside the house"] = "{object:175894}, ao lado da casa",
 	-- ["{quest:5210} goes to {area:2268}: keep it for later."] = "{quest:5210} vai para {area:2268}: guarde-a para depois.",
+	-- ["{quest:8470}, a rare drop"] = "{quest:8470}, um saque raro",
 }

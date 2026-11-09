@@ -96,8 +96,8 @@ return {
 	["With 30 {quest:6031} in your bags: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "",
 
 	-- Step 28: Kernda
-	-- {npc:11558} Kernda · {area:1769} Timbermaw Hold
-	["Only at Neutral with the Timbermaw: {npc:11558} waits at the tunnel mouth of {area:1769}."] = "",
+	-- {area:1762} Felpaw Village · {npc:11558} Kernda · {area:1769} Timbermaw Hold · {zone:1448} Felwood
+	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558}在附近巡逻，请在地图标示的圆圈内寻找",
 

@@ -255,9 +255,12 @@ step Nafien
 step Felpaw Village
   tip Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.
   tip Below level 54.54, keep fighting the Deadwood here after Nafien's count: the hand-ins at Timbermaw Hold and the Emerald Sanctuary take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
+  tip Keep killing them until one drops a Deadwood Ritual Totem, about one kill in thirty, then right-click it: Kernda in Timbermaw Hold takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59.
   kill 7156 quest 8461.1
   kill 7157 quest 8461.2
   kill 7158 quest 8461.3
+  collect 20741                       -- Deadwood Ritual Totem
+  accept 8470
   level 54.54 grind 7156               -- grind on Deadwood Den Watcher
 
 step Nafien
@@ -267,9 +270,9 @@ step Nafien
   turnin 8467 optional
   note Keep Speak to Salfa for Winterspring.
 
-step Felpaw Village
-  collect 20741 optional              -- Deadwood Ritual Totem, a rare drop
-  accept 8470 optional
+step Timbermaw Hold
+  tip Step into the cave: Kernda stands just inside.
+  turnin 8470 optional                -- Kernda: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map
 
 # ---------------------------------------------------------------- Back south
 
