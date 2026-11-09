@@ -1206,18 +1206,27 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			add(idn, src("container", &[("item", V::Num(c.num()))], &from));
 		}
 	}
-	// Players' recordings (data/codex/recorded.json): loot windows and merchant windows.
+	// Players' recordings (data/codex/recorded.json): loot windows and merchant windows. A loot source
+	// counts once two counted players saw it, or a chance stands on trusted evidence (the learning loop's
+	// rule, docs: learn-loop DESIGN 'Drop sources + rates': source with 2+ voters, rate with 3+).
 	let rec_from = from_v(&["recordings".to_string()]);
+	let seen_by_two = |e: &V| e.get("voters").num() >= 2.0 || !e.get("chance").is_nullish();
 	for (npc, r) in oentries(&recorded.get("drops")) {
 		if !npcs.has(&npc) {
 			continue;
 		}
 		for (item, e) in oentries(&r.get("items")) {
+			if !seen_by_two(&e) {
+				continue;
+			}
 			add(str_to_num(&item), src("drop", &[("npc", V::Num(str_to_num(&npc))), ("chance", e.get("chance").clone_nullish()), ("instance", nn_or_null(npc_instance.get(&npc)))], &rec_from));
 		}
 	}
 	for (obj, r) in oentries(&recorded.get("objects")) {
 		for (item, e) in oentries(&r.get("items")) {
+			if !seen_by_two(&e) {
+				continue;
+			}
 			add(str_to_num(&item), src("object", &[("object", V::Num(str_to_num(&obj))), ("chance", e.get("chance").clone_nullish())], &rec_from));
 		}
 	}
