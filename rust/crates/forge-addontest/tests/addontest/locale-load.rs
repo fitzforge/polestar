@@ -118,3 +118,86 @@ emit({ BINDING_NAME_POLESTAR_NEXT, early, name, L["Previous step"], logged })"#
 	});
 	assert_eq!(out[0], json!(["Next step", "Previous step", "Säuberung im Koboldlager", "Vorheriger Schritt", true]));
 }
+
+/// The chat lines at login naming a language folder, for a client in `locale` whose folder is installed
+/// (`folder`), and turned off in the AddOns list with `reason` "DISABLED".
+fn login_lines(locale: &str, folder: bool, reason: Option<&str>) -> serde_json::Value {
+	let disabled = match reason {
+		Some(r) => format!(
+			r#"
+table.insert(stub.addons, {{ name = "Polestar_{locale}", reason = {r} }})
+do
+	local load = C_AddOns.LoadAddOn
+	function C_AddOns.LoadAddOn(name)
+		if name == "Polestar_{locale}" then return false, {r} end
+		return load(name)
+	end
+	LoadAddOn = C_AddOns.LoadAddOn
+end"#,
+			r = lua_string(r)
+		),
+		None => String::new(),
+	};
+	emitted(&RunAddon {
+		stubs: vec!["stub_packs.lua"],
+		before: format!("{}\n{disabled}", client(locale, folder)),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		login: true,
+		script: r#"
+local out = {}
+for _, m in ipairs(stub.messages) do if m:find("language files", 1, true) then out[#out + 1] = m:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "") end end
+emit(table.concat(out, "\n"))"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+#[test]
+fn a_missing_or_turned_off_language_folder_is_named_in_one_english_chat_line_at_login() {
+	let line = "Polestar: the German language files (Polestar_deDE) are missing or turned off in the AddOns list, so Polestar shows in English.";
+	assert_eq!(login_lines("deDE", false, None), json!(line), "not installed");
+	assert_eq!(login_lines("deDE", true, Some("DISABLED")), json!(line), "turned off in the AddOns list");
+	assert_eq!(login_lines("deDE", true, None), json!(""), "loaded: nothing to say");
+	assert_eq!(login_lines("enUS", false, None), json!(""), "an English client has no language folder");
+	assert_eq!(login_lines("itIT", false, None), json!(""), "Polestar ships no Italian, so there is none to miss");
+	assert_eq!(login_lines("zhTW", false, None), json!("Polestar: the Traditional Chinese language files (Polestar_zhTW) are missing or turned off in the AddOns list, so Polestar shows in English."));
+}
+
+// tools/dev/!PolestarLocaleTest: on an English client, Polestar's own files (and the language folder's) read the
+// test's locale, so Core/Locale.lua loads Polestar_deDE while Polestar loads, as on a German client; anything else
+// still reads the client's language. debugstack is the client's: the caller's chunk, by its file path.
+#[test]
+fn the_locale_test_addon_loads_the_german_folder_through_core_locale_on_an_english_client() {
+	let helper = root().join("tools/dev/!PolestarLocaleTest/PolestarLocaleTest.lua");
+	let toc = std::fs::read_to_string(root().join("tools/dev/!PolestarLocaleTest/!PolestarLocaleTest.toc")).unwrap();
+	let interface = |s: &str| s.lines().find(|l| l.starts_with("## Interface:")).map(str::to_owned);
+	assert_eq!(interface(&toc), interface(&std::fs::read_to_string(root().join("addon/Polestar/Polestar.toc")).unwrap()), "the client loads it only on Polestar's interface version");
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_packs.lua"],
+		before: format!(
+			r#"{}
+function debugstack(start)
+	local info = debug.getinfo((start or 1) + 1, "Sl")
+	return info and (info.source .. ":" .. tostring(info.currentline) .. ": in function\n") or ""
+end
+dofile({})"#,
+			client("enUS", true),
+			lua_string(&helper.to_string_lossy())
+		),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		login: true,
+		script: r#"
+local L, N = Polestar.L, Polestar.Names
+local said = false
+for _, m in ipairs(stub.messages) do if m:find("language files", 1, true) then said = true end end
+emit({ BINDING_NAME_POLESTAR_NEXT, L["Previous step"], N.PackName() or false, N.Cached("quest", 7) or false, stub.packLoads.Polestar_deDE or 0, GetLocale(), said })"#
+			.into(),
+		..Default::default()
+	});
+	assert_eq!(
+		out[0],
+		json!(["Nächster Schritt", "Vorheriger Schritt", "Polestar_deDE", "Säuberung im Koboldlager", 1, "enUS", false]),
+		"the folder loaded once, early (the key binding's name is German), and code outside Polestar still reads enUS"
+	);
+}

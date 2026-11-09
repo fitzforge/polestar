@@ -388,10 +388,15 @@ is not kept, so Names and Guide texts still try the folder later) right after
 `Polestar.Names` and `GuideTexts` as it loads, and every file after it may
 read `L` at load. The files before it, Init.lua included, read `L` only when
 they print (the commands register in Core/Commands.lua). An English client
-loads nothing; a missing or disabled folder leaves the interface in English.
+loads nothing; a missing or disabled folder leaves the interface in English,
+and when the folder of a language Polestar ships is still not loaded at
+login, one English chat line says so ("the German language files
+(Polestar_deDE) are missing or turned off in the AddOns list…").
 If the early load fails and Names' or Guide texts' later one succeeds, `L`
 fills then: what was read at load (key binding names, the options' labels)
-stays English, the rest is translated.
+stays English, the rest is translated. To try this load on an English
+client, `tools/dev/!PolestarLocaleTest` makes Polestar's own files see
+another `GetLocale()` (its .lua says how).
 docs/TRANSLATING.md describes the files and `forge i18n`.
 
 A word with more than one meaning gets a key per meaning:
