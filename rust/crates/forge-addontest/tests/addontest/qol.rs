@@ -2077,6 +2077,53 @@ fn xp_mark_hidden_with_the_option_off_without_a_target_without_the_xp_bar_or_at_
 	);
 }
 
+// A whole-UI addon (ErgoBars, ElvUI's kind) hides the game's bars by parenting them to a hidden frame: the bar is
+// still IsShown, but nothing of it is on screen. No mark then, and no scan of the guide for one on every XP gain.
+#[test]
+fn xp_mark_a_bar_hidden_under_a_hidden_parent_gets_no_mark_and_no_level_target_lookup_on_xp() {
+	let out = run(&[
+		XPMARK,
+		r#"
+		local bar = q.xpBar()
+		q.engine.levelTarget = 12
+		q.step({ { t = "level", level = 12 } })
+		local before = mark(bar).shown
+		local E = Polestar.Engine
+		local asked, real = 0, E.LevelTarget
+		E.LevelTarget = function(...) asked = asked + 1 return real(...) end
+		local attic = CreateFrame("Frame")
+		attic:Hide()
+		StatusTrackingBarManager:SetParent(attic)
+		q.gainXP(10)
+		stub.runTimers()
+		emit({ before = before, onScreen = QoL.XPMark.frame:IsVisible(), asked = asked, stillShown = bar:IsShown() })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "before": true, "onScreen": false, "asked": 0, "stillShown": true }));
+}
+
+// Alt+Z hides UIParent, and the XP bar with it. A refresh then (an XP gain) mustn't hide the mark for good:
+// it comes back with the UI, as it did before the early return above.
+#[test]
+fn xp_mark_comes_back_with_the_ui_after_an_xp_gain_while_the_ui_was_hidden() {
+	let out = run(&[
+		XPMARK,
+		r#"
+		local bar = q.xpBar()
+		q.engine.levelTarget = 12
+		q.step({ { t = "level", level = 12 } })
+		UIParent:Hide()
+		q.gainXP(10)
+		stub.runTimers()
+		UIParent:Show()
+		emit({ shown = mark(bar).shown, onScreen = QoL.XPMark.frame:IsVisible() })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "shown": true, "onScreen": true }));
+}
+
 #[test]
 fn xp_mark_on_by_default_on_quality_of_life_trackers_experience() {
 	let out = run(r#"

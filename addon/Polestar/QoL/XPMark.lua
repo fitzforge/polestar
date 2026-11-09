@@ -121,6 +121,16 @@ end
 
 function Mark.Refresh()
 	local text, share
+	-- No bar: nothing to mark.
+	local shown = xpBar()
+	if not shown then
+		if frame then frame:Hide() end
+		return
+	end
+	-- A bar that is shown but not on screen (Alt+Z hides UIParent; a UI addon parents it to a hidden frame):
+	-- no step scan, and the mark is left as it is. It's the bar's child, so it can't show, and it comes
+	-- back with the bar (its label one refresh out of date at worst).
+	if not (shown.IsVisible and shown:IsVisible()) then return end
 	if QoL.On("xpTargetMark") then
 		local level = playerLevel()
 		local cap = readable(GetMaxPlayerLevel and GetMaxPlayerLevel())

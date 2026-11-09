@@ -229,6 +229,23 @@ local function lootKills(Cx, goal)
 	return ceil((goal.count or 1) / (min(best.chance, 100) / 100)), mob, elite
 end
 
+-- A span's entries depend on the guide (its table: an updated import is a new one), the span, who the character is (level, class, race, faction:
+-- the steps' `only`) and which quests are turned in; not on the XP inside a level, which moves on every
+-- kill. The guide window's pace line asks on every PLAYER_XP_UPDATE (GF.UpdateXP > Levels.Pace, up to
+-- five spans through hardQuest), and each scan walked every step left, building a table per goal: a
+-- 5-25 ms frame per kill on a long guide, then its garbage. Kept until one of those changes.
+local spans, spanCount = {}, 0
+local SPAN_MAX = 32
+function Levels.Invalidate()
+	spans, spanCount = {}, 0
+end
+for _, ev in ipairs({ "QUEST_TURNED_IN", "PLAYER_LEVEL_UP" }) do
+	if ns.RegisterEvent then ns.RegisterEvent(ev, Levels.Invalidate) end
+end
+for _, msg in ipairs({ "GUIDES_REGISTERED", "PACKS_CHANGED", "CODEX_LOADED", "GUIDE_CHANGED" }) do
+	if ns.On then ns.On(msg, Levels.Invalidate) end
+end
+
 function Levels.ForGuide(id, p, from, to)
 	local G, Cx = ns.Guides, ns.Codex
 	local g = G and G.Get and G.Get(id)
@@ -238,6 +255,9 @@ function Levels.ForGuide(id, p, from, to)
 		if not (ns.Get("lookup.enabled") and Cx.Load and Cx.Load()) then return nil end
 	end
 	p = p or Levels.Player()
+	local key = table.concat({ tostring(g), tostring(from), tostring(to), tostring(p.level), tostring(p.class), tostring(p.race), tostring(p.faction) }, "|")
+	local cached = spans[key]
+	if cached then return Levels.Run(cached, p, not from and g.minLevel or nil) end
 	local C = ns.Compat
 	local fits = G.Matches
 	local function applies(only)
@@ -277,6 +297,8 @@ function Levels.ForGuide(id, p, from, to)
 			end
 		end
 	end
+	if spanCount >= SPAN_MAX then spans, spanCount = {}, 0 end
+	spans[key], spanCount = entries, spanCount + 1
 	return Levels.Run(entries, p, not from and g.minLevel or nil)
 end
 

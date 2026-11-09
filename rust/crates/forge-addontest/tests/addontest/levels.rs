@@ -304,6 +304,39 @@ Polestar.Compat.IsQuestCompleted = function(id) return done[id] or false end
 local p = { level = 19, xp = 14550, xpMax = 19400, class = "WARRIOR", race = "Human", faction = "Alliance" }
 "#;
 
+// The guide window asks for the pace line on every PLAYER_XP_UPDATE. The route's quests and kills only change with
+// a turn-in, a level, or the guide itself: a kill's XP reruns the sums, not the scan of every step left.
+#[test]
+fn pace_a_kill_s_xp_reruns_the_sums_without_scanning_the_route_again_a_turn_in_or_a_level_does_scan() {
+	let out = lua(&[
+		RIDGE,
+		r#"local reads = 0
+local quest = Polestar.Codex.Quest
+Polestar.Codex.Quest = function(id) reads = reads + 1 return quest(id) end
+local first = Lv.Pace(p)
+local scan = reads
+p.xp = p.xp + 300
+local kill0 = reads
+local second = Lv.Pace(p)
+local kill = reads - kill0
+local before = reads
+stub.fire("QUEST_TURNED_IN", 11, 0, 0)
+Lv.Pace(p)
+local turnin = reads - before
+before = reads
+stub.fire("PLAYER_LEVEL_UP", 20)
+Lv.Pace(p)
+emit({ scan = scan, kill = kill, turnin = turnin, levelup = reads - before, moved = second.reach > first.reach })"#,
+	]
+	.join("\n"))
+	.remove(0);
+	assert!(out["scan"].as_i64().unwrap() > 0, "the first pace line reads the route's quests");
+	assert_eq!(out["kill"], 0, "a kill's XP reads none of them again");
+	assert_eq!(out["moved"], true, "and the line still moves with the XP");
+	assert!(out["turnin"].as_i64().unwrap() > 0, "a turn-in reads the route again");
+	assert!(out["levelup"].as_i64().unwrap() > 0, "so does a level");
+}
+
 /// Levels 19 to `to`, from 19,050 of 19,400 into 19: what is left of 19, then each whole level's XP.
 fn xp_from_19_050(to: usize) -> i64 {
 	(19400 - 19050) + (20..to).map(|l| LEVEL_XP[l] as i64).sum::<i64>()
