@@ -479,7 +479,7 @@ pub const KINDS: [&str; 14] = [
 	"other",
 ];
 
-const QUEST_FIELDS: [&str; 21] = [
+const QUEST_FIELDS: [&str; 22] = [
 	"title",
 	"level",
 	"minLevel",
@@ -501,6 +501,8 @@ const QUEST_FIELDS: [&str; 21] = [
 	"escort",
 	"breadcrumbFor",
 	"breadcrumbs",
+	// Seconds the quest allows once taken (the TDB's TimeAllowed; a Forever quest's from its text).
+	"limit",
 ];
 
 struct Ck<'a> {
@@ -790,7 +792,7 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 		for (k, v) in set.entries() {
 			let a = format!("{at}.set.{k}");
 			match &*k {
-				"races" | "classes" | "xp" | "level" | "minLevel" | "zone" | "skill" | "event" => {
+				"races" | "classes" | "xp" | "level" | "minLevel" | "zone" | "skill" | "event" | "limit" => {
 					if !(v.is_nullish() || v.as_num().is_some_and(|n| n >= 0.0 && n.fract() == 0.0)) {
 						ck.err(&a, format!("{} must be a whole number or null", show(&v)));
 					}
@@ -1645,6 +1647,14 @@ mod tests {
 		let src = r#""source": { "kind": "in-game-check", "ref": "issue 1" }, "note": "gone""#;
 		assert_eq!(findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "remove": true, {src} }} }} }}"#)), None, None), Vec::<String>::new());
 		let bad = findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "remove": 1, {src} }}, "11": {{ "remove": true, "set": {{ "xp": 1 }}, {src} }} }} }}"#)), None, None);
+		assert_eq!(bad.len(), 2, "{bad:?}");
+	}
+
+	#[test]
+	fn a_time_limit_is_whole_seconds() {
+		let src = r#""source": { "kind": "questie", "ref": "objective text" }, "note": "ten minutes""#;
+		assert_eq!(findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "limit": 600 }}, {src} }} }} }}"#)), None, None), Vec::<String>::new());
+		let bad = findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "limit": "10 min" }}, {src} }}, "11": {{ "set": {{ "limit": 1.5 }}, {src} }} }} }}"#)), None, None);
 		assert_eq!(bad.len(), 2, "{bad:?}");
 	}
 

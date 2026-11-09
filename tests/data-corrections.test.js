@@ -73,6 +73,22 @@ test('every prerequisite correction blocks the quest until its prerequisites are
 	assert.deepEqual(dead, [], `corrections that set prerequisites but block nothing: ${dead.join(', ')}`);
 });
 
+// A timed quest's `limit` (seconds once taken): the Forever TDB's TimeAllowed through the data build's KB step, a
+// Forever quest's from a correction. Dynamic Questing takes a timed quest early only when the walk still fits.
+test('Grace of An\'she and Mu\'sha allows ten minutes; a time limit is a whole number of seconds', () => {
+	assert.equal(corrections.quests[95805].set.limit, 600);
+	const bad = Object.entries(corrections.quests).filter(([, e]) => e.set && 'limit' in e.set && !(Number.isInteger(e.set.limit) && e.set.limit > 0));
+	assert.deepEqual(bad.map(([id]) => id), []);
+});
+
+test('the release data carries time limits: 95805 600 s, Scalding Mornbrew Delivery the TDB\'s 300 s, none on an untimed quest', (t) => {
+	const file = path.join(__dirname, '..', 'data', 'forever', 'quests.json');
+	if (!fs.existsSync(file)) return t.skip('no data/forever');
+	const quests = JSON.parse(fs.readFileSync(file, 'utf8'));
+	if (!Object.values(quests).some((q) => q.limit)) return t.skip('data/forever was built without the KB step (no time limits)');
+	assert.deepEqual([quests[95805].limit, quests[3364].limit, quests[755].limit], [600, 300, undefined]);
+});
+
 test('Highland Hides waits for Young Crocolisk Skins, not Daily Delivery (#533)', () => {
 	const { all, any } = blockingPrereqs({ id: 98815, start: { npc: [2094] }, ...corrections.quests[98815].set });
 	assert.deepEqual({ all, any }, { all: [], any: [484] });

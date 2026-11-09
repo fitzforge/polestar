@@ -6586,7 +6586,8 @@
 	},
 	"95805": {
 		"set": {
-			"xp": 360
+			"xp": 360,
+			"limit": 600
 		},
 		"source": [
 			{
@@ -6596,9 +6597,13 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 355 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB Forever quest 95805's objective text: carry the incense to the shrine before it burns to ash in ten minutes"
 			}
 		],
-		"note": "Grace of An'she and Mu'sha pays 360 XP, not 180: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+		"note": "Grace of An'she and Mu'sha pays 360 XP, not 180: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414). It allows ten minutes (600 s) from the Seer to the shrine, as its objective says; the Forever TDB has no record of it, so the data had no limit and Dynamic Questing could not tell whether taking it early still leaves time for the walk."
 	},
 	"96130": {
 		"set": {
