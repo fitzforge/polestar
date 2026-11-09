@@ -12,7 +12,7 @@ const { tmpdir } = require('./helpers/tmp');
 const { needs } = require('./helpers/data');
 const { findLua } = require('../tools/lib/lua');
 const cmd = require('../tools/commands/playtest');
-const { playtest, chainDone } = require('../tools/lib/playtest');
+const { playtest, chainDone, chainArriving } = require('../tools/lib/playtest');
 const { commandPack } = require('../tools/lib/pack/locate');
 
 const PACKS = path.join(__dirname, 'fixtures', 'packs');
@@ -58,6 +58,25 @@ test('the chain credits a turn-in behind `when group` only when the play answers
 	const who = { race: 'Human', faction: 'Alliance', cls: 'WARRIOR' };
 	assert.deepEqual(chainDone([a, b], b, who), { done: [10, 12], carried: [], open: [] }, 'skip by default');
 	assert.deepEqual(chainDone([a, b], b, who, 'do'), { done: [10, 11], carried: [], open: [] });
+});
+
+test('races arrive along the whole `next` chain: a guide without a `races` header passes on the races that reach it, to a fixed point', () => {
+	const g = [
+		{ id: 'elwynn', races: ['Human'], next: 'westfall' },
+		{ id: 'dunmorogh', races: ['Dwarf', 'Gnome'], next: 'loch' },
+		{ id: 'loch', races: ['Dwarf', 'Gnome'], next: 'westfall' },
+		{ id: 'westfall', next: 'duskwood' },
+		{ id: 'duskwood', nextChoices: ['wetlands', 'redridge'] },
+		{ id: 'wetlands', next: 'hillsbrad' },
+		{ id: 'redridge' },
+		{ id: 'hillsbrad' },
+	];
+	const arriving = new Map();
+	for (const x of g) for (const to of x.nextChoices || (x.next ? [x.next] : [])) arriving.set(to, [...(arriving.get(to) || []), ...(x.races || [])]);
+	assert.deepEqual(arriving.get('wetlands'), [], 'one hop only before the chain');
+	chainArriving(g, arriving);
+	for (const id of ['westfall', 'duskwood', 'wetlands', 'redridge', 'hillsbrad']) assert.deepEqual([...arriving.get(id)].sort(), ['Dwarf', 'Gnome', 'Human'], id);
+	assert.deepEqual(arriving.get('loch'), ['Dwarf', 'Gnome']);
 });
 
 test('--group takes do or skip; anything else is refused', async () => {

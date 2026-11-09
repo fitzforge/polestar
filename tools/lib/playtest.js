@@ -238,6 +238,27 @@ function sideOf(race) {
 	return sides.length === 1 ? sides[0] : null;
 }
 
+// The races reaching each guide along the whole `next` chain (a guide with a `races`
+// header passes those on, one without passes on the races that reach it), to a fixed point.
+function chainArriving(guides, arriving) {
+	const byId = new Map(guides.map((g) => [g.id, g]));
+	let changed = true;
+	while (changed) {
+		changed = false;
+		for (const g of byId.values()) {
+			const out = g.races && g.races.length ? g.races : arriving.get(g.id) || [];
+			for (const to of g.nextChoices || (g.next ? [g.next] : [])) {
+				const have = new Set(arriving.get(to) || []);
+				const add = out.filter((r) => !have.has(r));
+				if (add.length) {
+					arriving.set(to, [...have, ...add]);
+					changed = true;
+				}
+			}
+		}
+	}
+}
+
 // Races the guide can be played as: those it names (header or any `only`)
 // and those arriving from a previous guide (any route option: an Undead may
 // pick the Barrens, a Human Darkshore), limited to its own faction and race
@@ -563,6 +584,7 @@ async function playtest({ dir, manifest, official = false, filter = null, classe
 		for (const g of guides) {
 			for (const to of g.nextChoices || (g.next ? [g.next] : [])) arriving.set(to, [...(arriving.get(to) || []), ...(g.races || [])]);
 		}
+		chainArriving(guides, arriving);
 		let played = 0;
 		for (const g of guides) {
 			if (!play.has(g._ast && g._ast.source)) continue;
@@ -612,6 +634,7 @@ function honestRun({ guides, packs, play, data, classes, groups, kb, diag }) {
 	for (const g of all) {
 		for (const to of g.nextChoices || (g.next ? [g.next] : [])) arriving.set(to, [...(arriving.get(to) || []), ...(g.races || [])]);
 	}
+	chainArriving(all, arriving);
 	const personas = (root) => {
 		let list = personasFor(root, arriving.get(root.id));
 		list = [...list, ...classPersonas(data, root, list)];
@@ -863,4 +886,4 @@ for _ in pairs(visited) do count = count + 1 end
 emit({ done = E.GetStepIndex() == nil or E.GetGuide() ~= G, stuck = stuck, visited = count, steps = #G.steps, missing = missing, wrongPick = wrongPick, level = w.level })
 `;
 
-module.exports = { playtest, withChain, resultLines, buildSimPack, playGuide, playGuideIn, playOptions, writePackInto, chainDone, SIMULATE, HOME, CLASSES, luaValue };
+module.exports = { playtest, withChain, resultLines, buildSimPack, playGuide, playGuideIn, playOptions, writePackInto, chainDone, chainArriving, SIMULATE, HOME, CLASSES, luaValue };
