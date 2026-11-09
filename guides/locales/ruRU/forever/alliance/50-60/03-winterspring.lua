@@ -15,8 +15,6 @@ return {
 	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556} стоит прямо у выхода туннеля ({area:1769}) в край {zone:1452}, там, где вы выходите.",
 
 	-- Step 4: Everlook
-	-- {npc:11118} Innkeeper Vizzie
-	["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}: предыдущий гайд привязывает вас здесь, так что это обычно отмечается сразу",
 	-- {npc:11629} Jessica Redpath · {area:2262} Darrowshire
 	["{npc:11629}: keep it for {area:2262}; inside"] = "",
 	-- {npc:10431} Gregor Greystone
@@ -183,6 +181,7 @@ return {
 	-- ["{npc:10301}'s supplies"] = "Припасы {npc:10301}",
 	-- ["{npc:10431}: keep both for the Plaguelands"] = "{npc:10431}: сохраните оба для Чумных земель",
 	-- ["{npc:11038}: {npc:12250} is a level 54 elite"] = "{npc:11038}: {npc:12250} — элитный противник 54-го уровня",
+	-- ["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}: предыдущий гайд привязывает вас здесь, так что это обычно отмечается сразу",
 	-- ["{npc:11556} guards the mouth of {area:1769}, north-west of {npc:9298}."] = "{npc:11556} охраняет вход сюда: {area:1769}, к северо-западу от {npc:9298}.",
 	-- ["{npc:11629}: keep it for {area:2262}"] = "{npc:11629}: сохраните для места {area:2262}",
 	-- ["{npc:12250} is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "{npc:12250} — элитный: лучше собрать группу. Он ждет на самом дне {area:2261} — склепа на юго-западе зоны.",

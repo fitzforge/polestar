@@ -15,8 +15,6 @@ return {
 	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "",
 
 	-- Step 4: Everlook
-	-- {npc:11118} Innkeeper Vizzie
-	["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}：上一份指南在這裡綁定爐石，所以這一步通常會立即完成",
 	-- {npc:11629} Jessica Redpath · {area:2262} Darrowshire
 	["{npc:11629}: keep it for {area:2262}; inside"] = "",
 	-- {npc:10431} Gregor Greystone
@@ -183,6 +181,7 @@ return {
 	-- ["{npc:10301}'s supplies"] = "{npc:10301}的補給物資",
 	-- ["{npc:10431}: keep both for the Plaguelands"] = "{npc:10431}：兩個都保留給瘟疫之地",
 	-- ["{npc:11038}: {npc:12250} is a level 54 elite"] = "{npc:11038}：{npc:12250}是54級精英",
+	-- ["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}：上一份指南在這裡綁定爐石，所以這一步通常會立即完成",
 	-- ["{npc:11556} guards the mouth of {area:1769}, north-west of {npc:9298}."] = "{npc:11556}守衛著{npc:9298}西北方的{area:1769}入口。",
 	-- ["{npc:11629}: keep it for {area:2262}"] = "{npc:11629}：保留給{area:2262}",
 	-- ["{npc:12250} is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "{npc:12250}是精英：建議組隊。他在本區西南部的地穴{area:2261}最底層等著。",

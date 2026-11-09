@@ -15,8 +15,6 @@ return {
 	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "",
 
 	-- Step 4: Everlook
-	-- {npc:11118} Innkeeper Vizzie
-	["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}: 이전 가이드에서 이곳에 귀환 지점을 정하므로 보통 바로 완료됩니다",
 	-- {npc:11629} Jessica Redpath · {area:2262} Darrowshire
 	["{npc:11629}: keep it for {area:2262}; inside"] = "",
 	-- {npc:10431} Gregor Greystone
@@ -183,6 +181,7 @@ return {
 	-- ["{npc:10301}'s supplies"] = "{npc:10301}의 보급품",
 	-- ["{npc:10431}: keep both for the Plaguelands"] = "{npc:10431}: 둘 다 역병지대를 위해 보관하세요",
 	-- ["{npc:11038}: {npc:12250} is a level 54 elite"] = "{npc:11038}: {npc:12250}은(는) 54레벨 정예입니다",
+	-- ["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}: 이전 가이드에서 이곳에 귀환 지점을 정하므로 보통 바로 완료됩니다",
 	-- ["{npc:11556} guards the mouth of {area:1769}, north-west of {npc:9298}."] = "{npc:11556}은(는) {npc:9298} 북서쪽의 {area:1769} 입구를 지킵니다.",
 	-- ["{npc:11629}: keep it for {area:2262}"] = "{npc:11629}: {area:2262}을(를) 위해 보관하세요",
 	-- ["{npc:12250} is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "{npc:12250}은(는) 정예이니 파티를 권장합니다. 그는 지역 남서쪽의 지하실인 {area:2261}의 맨 아래에서 기다립니다.",
