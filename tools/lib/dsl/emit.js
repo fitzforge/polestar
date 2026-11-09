@@ -12,7 +12,7 @@ const STEP_KEYS = ['title', 'note', 'image', 'label', 'only', 'when', 'along', '
 // A step's picture: its path in the pack's addon folder (no extension) and its size in pixels.
 const IMAGE_KEYS = ['file', 'w', 'h'];
 // A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order.
-const WHEN_KEYS = ['k', 'neg', 'op', 'n', 'frac', 'q', 'item', 'spell', 'name', 'label', 'area', 'map', 'skillLine', 'minLevel', 'pre', 'preAll', 'closedBy'];
+const WHEN_KEYS = ['k', 'neg', 'op', 'n', 'frac', 'q', 'item', 'spell', 'name', 'label', 'area', 'map', 'skillLine', 'minLevel', 'pre', 'preAll', 'closedBy', 'inLog'];
 // Keys only the profession/reputation/exploration/achievement verbs use sit
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
@@ -20,7 +20,7 @@ const WHEN_KEYS = ['k', 'neg', 'op', 'n', 'frac', 'q', 'item', 'spell', 'name', 
 const GOAL_KEYS = [
 	't', 'class', 'zone', 'spell', 'spellName', 'faction', 'factionName', 'standing', 'achievement', 'achievementName', 'criteria',
 	'quest', 'title', 'target', 'npc', 'npcName', 'object', 'objName', 'item', 'itemName', 'count', 'oi', 'skill', 'skillLine', 'rank', 'rankMax', 'level', 'frac', 'grind', 'money', 'untilSkill',
-	'reagents', 'location', 'minLevel', 'qlvl', 'pre', 'preAll', 'closedBy', 'preTitles', 'text', 'node', 'area', 'map', 'x', 'y', 'z', 'f', 'r', 'spots', 'spread', 'optional', 'only', 'profLine', 'profName', 'profRank', 'note',
+	'reagents', 'location', 'minLevel', 'qlvl', 'pre', 'preAll', 'closedBy', 'inLog', 'preTitles', 'text', 'node', 'area', 'map', 'x', 'y', 'z', 'f', 'r', 'spots', 'spread', 'optional', 'only', 'profLine', 'profName', 'profRank', 'note',
 	'from', 'fromKind', 'fromRank', 'fromFaction', 'fromAlso', 'fromId', 'fromAlsoId', 'fromNpcs', 'candidates', 'rewards', 'group', 'direct', 'escort',
 ];
 const REAGENT_KEYS = ['item', 'itemName', 'count'];

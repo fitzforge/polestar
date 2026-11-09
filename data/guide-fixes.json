@@ -4815,6 +4815,22 @@
 					"ref": "quest minimum and quest levels in Forever's quest data; mob levels from npcs.json"
 				}
 			]
+		},
+		{
+			"id": "a4050-tanaris-mirage-raceway-keeping-pace",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1190,
+				"goal": "accept"
+			},
+			"tip": "The Mirage Raceway lies on the Shimmering Flats in south-east Thousand Needles: Fizzle Brassbolts is in the gnomes' camp beside the track, Pozzik and Zamek by the goblin camp. Zamek offers his errand only while you carry Pozzik's Keeping Pace: Pozzik first, then Zamek, who runs off to keep Rizzle busy; take Rizzle's plans from the gnomes' camp and bring them back to Pozzik.",
+			"note": "Parent-quest sweep (0.3.7): Zamek's Distraction (1191) has Keeping Pace (1190) as its parent in the quest data, so Zamek offers it only with Keeping Pace in the log; the Alliance step took 1191 alone. The tip names the order on the stop.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "Zamek's Distraction (1191): parent quest Keeping Pace (1190)"
+				}
+			]
 		}
 	]
 }

@@ -396,6 +396,10 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 	if rec.get("xp").num() > 0.0 {
 		parts.push(format!("x{}", num(&rec.get("xp"))?));
 	}
+	// A child quest's parent, needed in the log: l<quest>. Older readers skip the field.
+	if rec.get("inLog").num() > 0.0 {
+		parts.push(format!("l{}", num(&rec.get("inLog"))?));
+	}
 	Ok(parts.join(";"))
 }
 

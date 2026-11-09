@@ -1149,6 +1149,21 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 							diag.warn(&file, ln, format!("quest {} needs one of {} turned in first, but the chain turns in none of them", ts(&quest), open.join(", ")), None);
 						}
 					}
+					// A child quest is offered only while its parent is in the log (Valik 535 with Infiltration 533):
+					// the chain holds it here (taken, not handed in), or the step applies only with it in the log.
+					let parent = bp.get("inLog");
+					if !parent.is_undef() && takeable(&parent) {
+						let pk = key(&parent);
+						let on_parent = step.get("when").items().iter().any(|p| {
+							let pq = p.get("q");
+							!p.get("neg").truthy() && p.get("k").as_str() == Some("onquest") && if pq.is_arr() { pq.items().iter().any(|x| key(x) == pk) } else { key(&pq) == pk }
+						});
+						if !on_parent && turned_in.contains(&pk) {
+							diag.warn(&file, ln, format!("quest {} is offered only while {} is in the log, but the chain hands that quest in earlier", ts(&quest), name(&parent)), None);
+						} else if !on_parent && !accepted.contains(&pk) {
+							diag.warn(&file, ln, format!("quest {} is offered only while {} is in the log, but the chain never takes that quest before it", ts(&quest), name(&parent)), None);
+						}
+					}
 					// Exclusive quests: the game does not offer this one while one of them is in the log or done.
 					let mine = &qg[own[&key(&goal)]];
 					for e in q.get("excl").items() {

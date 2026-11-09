@@ -737,3 +737,63 @@ Polestar.RegisterGuide({ id = "test/gate", pack = "test", title = "Wetlands", fa
 	assert_eq!(out["loaded"], "29:true:Crocs of the Sky");
 	assert_eq!(out["done"], "29:true:", "Crocs of the Sky handed in: the level is left");
 }
+
+// The Valik rule (0.3.7): Henchman Valik offers Valik (535) only while Krusk's Infiltration (533), its parent, is in
+// the log (the compiled accept's `inLog`). Infiltration in the log: the accept is open. Handed in: never offered
+// again. Not in the log and the guide no longer takes it (the step that does was skipped, or the guide has none):
+// "Requires … in your quest log", with the accept's later goals, and the tooltip names it. A giver's refusal while
+// the guide still takes it marks it the same way, a mark that goes once Infiltration is taken.
+const VALIK: &str = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Hillsbrad", faction = "Horde", minLevel = 10, maxLevel = 30, steps = {
+	{ title = "Krusk", goals = { { t = "accept", quest = 533, title = "Infiltration", npc = 2229, npcName = "Krusk", map = 1413, x = 51, y = 30 } } },
+	{ title = "Valik", goals = {
+		{ t = "accept", quest = 535, title = "Valik", npc = 2333, npcName = "Henchman Valik", inLog = 533, preTitles = { [533] = "Infiltration" }, map = 1413, x = 45, y = 20 },
+		{ t = "turnin", quest = 535, title = "Valik", npc = 2333, npcName = "Henchman Valik" },
+	} },
+	{ title = "Back", goals = { { t = "turnin", quest = 533, title = "Infiltration", npc = 2229, npcName = "Krusk" } } },
+	{ goals = { { t = "level", level = 30 } } },
+} })
+"#;
+
+#[test]
+fn a_child_quest_is_open_only_while_its_parent_is_in_the_log_closed_once_the_parent_is_handed_in() {
+	let titles = "stub.world.titles[533] = \"Infiltration\"; stub.world.titles[535] = \"Valik\"\n";
+	let script = "emit({ at = E.GetStepIndex(), valik = brief(2), gate = (function() local g = E.AcceptGate(2, 1); return g and table.concat(g.needs, \" | \") or false end)() })";
+	let fresh = run(titles, VALIK, script);
+	assert_eq!(fresh["valik"], json!(["pending:nil:nil", "pending:nil:nil"]), "the guide takes Infiltration first: Valik keeps its place");
+	assert_eq!(fresh["gate"], "Infiltration in your quest log");
+	let carried = run(&format!("{titles}stub.world.onQuest(533, {{}})"), VALIK, script);
+	assert_eq!(json!([carried["at"], carried["valik"], carried["gate"]]), json!([2, ["active:nil:nil", "active:nil:nil"], false]));
+	let handed = run(&format!("{titles}stub.world.complete({{ 533 }})"), VALIK, script);
+	assert_eq!(handed["valik"], json!(["skipped:closed:No longer offered: you handed in “Infiltration”", "skipped:closed:No longer offered: you handed in “Infiltration”"]));
+	let skipped = run(titles, VALIK, "E.Skip(); flush(); emit({ at = E.GetStepIndex(), valik = brief(2) })");
+	assert_eq!(skipped["valik"], json!(["skipped:pre:Requires “Infiltration” in your quest log", "skipped:pre:Requires “Infiltration” in your quest log"]));
+	assert!(skipped["at"].as_i64().is_some_and(|s| s > 2), "Krusk's step skipped: the guide passes Valik too: {}", skipped["at"]);
+}
+
+#[test]
+fn a_giver_refusing_a_child_quest_while_its_parent_is_not_in_the_log_marks_it_until_the_parent_is_taken() {
+	// The parent's accept comes after Valik here (the route's own business): Valik keeps its place until his window
+	// leaves Valik out.
+	let guide = VALIK.replace(
+		"{ title = \"Krusk\", goals = { { t = \"accept\", quest = 533, title = \"Infiltration\", npc = 2229, npcName = \"Krusk\", map = 1413, x = 51, y = 30 } } },\n",
+		"",
+	)
+	.replace("{ title = \"Back\", goals = {", "{ title = \"Back\", goals = { { t = \"accept\", quest = 533, title = \"Infiltration\", npc = 2229, npcName = \"Krusk\" },");
+	let out = run(
+		"stub.world.titles[533] = \"Infiltration\"\n",
+		&guide,
+		r#"
+			local w = stub.world
+			local r = { before = brief(1) }
+			w.gossip(2333, { available = {} }); w.close(); flush()
+			r.refused = brief(1)
+			w.accept(533, {}); flush()
+			r.taken = brief(1)
+			emit(r)
+		"#,
+	);
+	assert_eq!(out["before"], json!(["active:nil:nil", "active:nil:nil"]));
+	assert_eq!(out["refused"], json!(["skipped:pre:Requires “Infiltration” in your quest log", "skipped:pre:Requires “Infiltration” in your quest log"]));
+	assert_eq!(out["taken"], json!(["active:nil:nil", "active:nil:nil"]));
+}

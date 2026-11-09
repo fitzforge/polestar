@@ -960,17 +960,20 @@ function checkBackground(steps, compiled, err) {
 // them suffices, `preAll` = every one is needed), the quests that close it
 // for good once taken or done (closedByOf: the quest a breadcrumb leads to,
 // also when only that quest's `breadcrumbs` name it, and its exclusive group:
-// another race's or class's version of the same chain), and their titles for
-// the engine's "needs <quest> first" / "you took <quest>" text.
+// another race's or class's version of the same chain), a child quest's
+// parent that must be in the log (`inLog`: Valik 535 with Infiltration 533),
+// and their titles for the engine's "needs <quest> first" / "you took
+// <quest>" text.
 function acceptGate(q, id, data) {
 	const out = {};
-	const { all, any } = blockingPrereqs(q, (p) => data.quest(p));
+	const { all, any, inLog } = blockingPrereqs(q, (p) => data.quest(p));
 	if (any.length) out.pre = any;
 	if (all.length) out.preAll = all;
+	if (inLog !== undefined) out.inLog = inLog;
 	const closedBy = closedByOf(id, data.quests || {});
 	if (closedBy.length) out.closedBy = closedBy;
 	const titles = {};
-	for (const p of [...all, ...any, ...closedBy]) {
+	for (const p of [...all, ...any, ...(inLog !== undefined ? [inLog] : []), ...closedBy]) {
 		const pq = data.quest(p);
 		if (pq && pq.title) titles[p] = String(pq.title);
 	}
@@ -1034,6 +1037,7 @@ function resolveWhen(list, zoneId, levels, data, warn) {
 					setIf(w, 'pre', gate.pre);
 					setIf(w, 'preAll', gate.preAll);
 					setIf(w, 'closedBy', gate.closedBy);
+					setIf(w, 'inLog', gate.inLog);
 				}
 				break;
 			}

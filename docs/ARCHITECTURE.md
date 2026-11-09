@@ -996,7 +996,7 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 
 | `t` | Required | Optional | Done when (Engine) |
 |---|---|---|---|
-| `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `limit`, `pre`, `preAll`, `closedBy`, `preTitles` | on quest **or** completed (or abandoned by the guide); a hand tick never stands for it (#739): the accept stays open with `noticeText` "<title> isn't in your quest log", and its quest's later goals stay (never orphaned by the tick) |
+| `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `limit`, `pre`, `preAll`, `closedBy`, `inLog`, `preTitles` | on quest **or** completed (or abandoned by the guide); a hand tick never stands for it (#739): the accept stays open with `noticeText` "<title> isn't in your quest log", and its quest's later goals stay (never orphaned by the tick) |
 | `turnin` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `rewards = { choices = { { item, itemName, quality } }, items = { ... }, xp, money }` (copper), `direct` | completed; `direct` (never accepted, so never orphaned): its QUEST_TURNED_IN during the step (latched) or the completed flag, not the session's turn-ins, so one hand-in of a repeatable closes one goal |
 | `complete` | `quest`, `title` | — | ready for turn-in or completed |
 | `kill` | `target` | `npc`, `count`, `quest`, `oi` | its objective finished (the quest-log line named after `target`, else line `oi`), or quest ready/completed (not while the log lists no objectives yet, right after the accept); without `quest`: manual |
@@ -1033,8 +1033,10 @@ timed quest's seconds once taken, quests.json `limit`: the Forever TDB's
 TimeAllowed, a Forever quest's from a correction), the blocking
 prerequisites `pre` (one of) and `preAll` (every one), `closedBy` (the quest
 its breadcrumb leads to and the quests exclusive with it: once any of them is
-taken or done the giver never offers it again) and `preTitles` (titles of the
-quests those name, for the reason texts). Every goal of a quest only
+taken or done the giver never offers it again), `inLog` (a child quest's
+parent, which must be in the log for the giver to offer it: Valik 535 with
+Infiltration 533) and `preTitles` (titles of the quests those name, for the
+reason texts). Every goal of a quest only
 characters with a profession can take (quests.json `skill`, `skillLevel`:
 QuestieDB's Forever `requiredSkill`; pfQuest's Classic skill is not used for
 a quest the Forever store lists)
@@ -1587,7 +1589,13 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
 - **Unavailable quests.** An `accept` whose `closedBy` names a quest that is
   in the log or done is unavailable before any visit (reason `"closed"`,
   "No longer offered: you took <quest>"): a breadcrumb whose follow-up is
-  taken, or one version of an exclusive chain when another was taken. An
+  taken, or one version of an exclusive chain when another was taken; so is
+  a child quest (`inLog`) whose parent is handed in ("No longer offered: you
+  handed in <quest>"). A child quest whose parent is not in the log and that
+  this guide does not still take (an accept of it that applies, not skipped,
+  ticked or unavailable) is unavailable as `"pre"` with the parent ("Requires
+  <quest> in your quest log"); a giver's refusal while the parent is not in
+  the log leaves the same mark, which goes once the parent is taken. An
   `accept` that lacks a prerequisite the route no longer brings is
   unavailable before any visit too (reason `"pre"`, "Requires <quest>
   first"): one of `preAll`, or of `pre` when none of those is done, that is

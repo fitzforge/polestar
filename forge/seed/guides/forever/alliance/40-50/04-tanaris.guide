@@ -9,7 +9,7 @@ next forever/alliance/40-50/05-the-hinterlands
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Sprinkle's Secret Ingredient (2641).
+# Added here: Sprinkle's Secret Ingredient (2641), Keeping Pace (1190), Rizzle's Schematics (1194).
 
 step Thousand Needles
   zone Thousand Needles
@@ -19,11 +19,15 @@ step Thousand Needles
 
 step Mirage Raceway
   zone Thousand Needles
-  tip The Mirage Raceway lies on the Shimmering Flats in south-east Thousand Needles: Fizzle Brassbolts is in the gnomes' camp beside the track, Zamek by the goblin camp.
+  tip The Mirage Raceway lies on the Shimmering Flats in south-east Thousand Needles: Fizzle Brassbolts is in the gnomes' camp beside the track, Pozzik and Zamek by the goblin camp. Zamek offers his errand only while you carry Pozzik's Keeping Pace: Pozzik first, then Zamek, who runs off to keep Rizzle busy; take Rizzle's plans from the gnomes' camp and bring them back to Pozzik.
   turnin 2769
   turnin 1137                         -- Fizzle Brassbolts: News for Fizzle, from Martek in the Badlands
+  accept 1190                         -- Pozzik
   accept 1191                         -- Zamek
   turnin 1191                         -- He runs off to keep Rizzle busy
+  turnin 1190                         -- Rizzle's Unguarded Plans
+  accept 1194
+  turnin 1194                         -- Pozzik
 
 step Tanaris
   zone Tanaris

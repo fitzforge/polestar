@@ -1,6 +1,7 @@
 //! Port of tools/lib/data/prereqs.js.
 //! The prerequisites that actually block a quest, from a quests.json record (breadcrumbs, exclusive
-//! quests, the parent and unstartable quests never block), and the quests that close a quest for good.
+//! quests, the parent and unstartable quests never block as quests to turn in; the parent comes back as
+//! `inLog`, the quest that must be in the log), and the quests that close a quest for good.
 
 use crate::js::{is_integer, str_to_num, V};
 use crate::obj;
@@ -19,7 +20,9 @@ fn startable(q: &V) -> bool {
 }
 
 /// `blockingPrereqs(quest, questOf)`: quest = the quests.json record; quest_of(id) -> another record or
-/// Null. -> { all: [ids], any: [ids] }.
+/// Null. -> { all: [ids], any: [ids], inLog?: id }: `inLog` is the quest's `parent` (Valik 535 is offered
+/// only with Infiltration 533 in the log), unless it is the quest itself, exclusive with it, or nobody can
+/// start it.
 pub fn blocking_prereqs(quest: &V, quest_of: &dyn Fn(&V) -> V) -> V {
 	if !quest.truthy() {
 		return obj! { "all" => V::arr(), "any" => V::arr() }.into();
@@ -53,6 +56,14 @@ pub fn blocking_prereqs(quest: &V, quest_of: &dyn Fn(&V) -> V) -> V {
 	let any_group = if has_split { ids(&quest.get("preAny")) } else { ids(&quest.get("pre")) };
 	let any: Vec<f64> = if any_group.iter().any(|p| is_crumb(*p)) { Vec::new() } else { any_group.into_iter().filter(|p| blocks(*p)).collect() };
 	let to_v = |v: Vec<f64>| -> V { v.into_iter().map(V::Num).collect::<Vec<V>>().into() };
+	let parent = quest.get("parent").num();
+	let in_log = (is_integer(parent) && parent > 0.0 && parent != id && !ids(&quest.get("excl")).contains(&parent)) && {
+		let pq = quest_of(&V::Num(parent));
+		!pq.truthy() || (!ids(&pq.get("excl")).contains(&id) && startable(&pq))
+	};
+	if in_log {
+		return obj! { "all" => to_v(all), "any" => to_v(any), "inLog" => V::Num(parent) }.into();
+	}
 	obj! { "all" => to_v(all), "any" => to_v(any) }.into()
 }
 

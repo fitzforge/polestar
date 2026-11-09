@@ -306,6 +306,36 @@ fn an_accept_compiles_closed_by_the_quest_its_breadcrumb_leads_to_and_its_exclus
 	assert_eq!(json!([g[3]["closedBy"], g[3]["preTitles"]]), json!([[9330], { "9330": "Quest 9330" }]));
 }
 
+// The Valik rule (0.3.7): a child quest (9340, `parent` 9341, like Valik 535 and Infiltration 533) is offered only
+// while its parent is in the log. Its accept compiles `inLog` with the parent's title, and lint warns when the chain
+// does not hold the parent there: never taken before it, or handed in before it. A step that applies only with the
+// parent in the log (`when onquest`) holds it.
+#[test]
+fn a_child_quest_s_accept_needs_its_parent_in_the_log_and_lint_says_when_the_chain_does_not_hold_it() {
+	let data = prereq_data();
+	let parent_warnings = |src: &str| only(&compile_with(src, &data).warnings, "is offered only while");
+	let held = guide_text(&["step A", "  accept 9341", "step B", "  accept 9340"]);
+	let r = compile_with(&held, &data);
+	let g = &r.steps()[1]["goals"][0];
+	assert_eq!(json!([g["inLog"], g["preTitles"]]), json!([9341, { "9341": "Quest 9341" }]), "{g}");
+	assert!(g.get("pre").is_none(), "the parent is no quest to turn in first: {g}");
+	assert!(parent_warnings(&held).is_empty());
+	let gated = guide_text(&["step B", "  when onquest 9341", "  accept 9340"]);
+	assert!(parent_warnings(&gated).is_empty());
+	let never = guide_text(&["step B", "  accept 9340"]);
+	assert_eq!(
+		parent_warnings(&never),
+		vec![format!("test.guide:{}: quest 9340 is offered only while 9341 (Quest 9341) is in the log, but the chain never takes that quest before it", line_of(&never, "  accept 9340"))]
+	);
+	let handed = guide_text(&["step A", "  accept 9341", "  turnin 9341", "step B", "  accept 9340"]);
+	assert_eq!(
+		parent_warnings(&handed),
+		vec![format!("test.guide:{}: quest 9340 is offered only while 9341 (Quest 9341) is in the log, but the chain hands that quest in earlier", line_of(&handed, "  accept 9340"))]
+	);
+	// A quest with no parent compiles no `inLog`.
+	assert!(compile_with(&guide_text(&["step S", "  accept 9331"]), &data).steps()[0]["goals"][0].get("inLog").is_none());
+}
+
 #[test]
 fn coordinates_outside_0_100_are_errors() {
 	let src = guide_text(&["step S", "  goto 101,5", "  kill 6 @-1,50", "  goto 100,0"]);

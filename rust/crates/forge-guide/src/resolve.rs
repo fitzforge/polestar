@@ -1410,7 +1410,9 @@ fn check_background(steps: &[V], gsteps: &[V], r: &mut R) {
 	}
 }
 
-/// What an accept of quest `id` (record `q`, or Null) waits on, for the engine.
+/// What an accept of quest `id` (record `q`, or Null) waits on, for the engine: `pre`/`preAll` (turned in),
+/// `inLog` (the parent quest that must be in the log: Valik 535 with Infiltration 533), `closedBy`, and their
+/// titles.
 fn accept_gate(q: &V, id: &V, data: &Data) -> V {
 	let out: V = V::obj();
 	let bp = crate::prereqs::blocking_prereqs(q, &|p: &V| data.quest(p));
@@ -1422,12 +1424,16 @@ fn accept_gate(q: &V, id: &V, data: &Data) -> V {
 	if !all.is_empty() {
 		out.set("preAll", all.clone());
 	}
+	let in_log: Vec<V> = Some(bp.get("inLog")).filter(|p| !p.is_undef()).into_iter().collect();
+	if let Some(p) = in_log.first() {
+		out.set("inLog", p.clone());
+	}
 	let closed_by: Vec<V> = crate::prereqs::closed_by_of(id, &data.quests).into_iter().map(V::from).collect();
 	if !closed_by.is_empty() {
 		out.set("closedBy", closed_by.clone());
 	}
 	let titles: V = V::obj();
-	for p in all.iter().chain(any.iter()).chain(closed_by.iter()) {
+	for p in all.iter().chain(any.iter()).chain(in_log.iter()).chain(closed_by.iter()) {
 		let pq = data.quest(p);
 		if pq.truthy() && pq.get("title").truthy() {
 			titles.set(&p.to_js_string(), pq.get("title").to_js_string());
@@ -1487,6 +1493,7 @@ fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, r: &mut R) ->
 					set_if(&w, "pre", gate.get("pre"));
 					set_if(&w, "preAll", gate.get("preAll"));
 					set_if(&w, "closedBy", gate.get("closedBy"));
+					set_if(&w, "inLog", gate.get("inLog"));
 				}
 			}
 			"has" => {

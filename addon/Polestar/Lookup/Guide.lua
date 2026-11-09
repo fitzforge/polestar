@@ -31,7 +31,8 @@
 --       an accept goal with the Codex quest's prerequisites as a compiled
 --       guide's accept carries them (all of `pre` as preAll, one of `preAny`
 --       as pre, without those of another faction, race or class while one
---       is left; their titles as preTitles), so the Engine tells "Requires X
+--       is left; a child quest's parent as inLog; their titles as
+--       preTitles), so the Engine tells "Requires X
 --       first" when the route no longer brings X, and a giver's window that
 --       does not list the quest for that reason passes it (#1406: Gryan
 --       Stoutmantle's The Defias Brotherhood after The Defias Traitor's step
@@ -383,6 +384,12 @@ function Lookup.AcceptPre(goal, q)
 		end
 		goal.pre = #own > 0 and own or any
 		for _, id in ipairs(goal.pre) do title(id) end
+	end
+	-- A child quest: its giver offers it only while the parent is in the log.
+	local parent = q and tonumber(q.inLog)
+	if parent then
+		goal.inLog = parent
+		title(parent)
 	end
 	goal.preTitles = titles
 	return goal

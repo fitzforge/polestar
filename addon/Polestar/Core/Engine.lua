@@ -451,13 +451,16 @@ end
 -- skipped (Own.questSkipped) reads as "skipped" until it is done, even in the
 -- log. Known in advance when an accept of the quest in this guide is closed
 -- for good (reason "closed"): one of its `closedBy` (the quest a breadcrumb
--- leads to, or one exclusive with it) is in the log or done, so the giver
--- never offers it again. Else the mark its giver's window left this session.
+-- leads to, or one exclusive with it) is in the log or done, or the parent a
+-- child quest needs in the log (`inLog`) is handed in, so the giver never
+-- offers it again. Else the mark its giver's window left this session.
 -- Else, also known in advance, "level": the accept's `minLevel` is above the
 -- character's level (the route passes it, "Requires level N", and comes back
 -- to it on the level-up; its objectives and turn-in wait with it). Else
 -- "pre": the accept lacks a prerequisite the route no longer brings
--- (Own.preBlocked), a mark that goes the moment that prerequisite is done.
+-- (Own.preBlocked), or its parent is not in the log and the route no longer
+-- takes it, a mark that goes the moment that prerequisite is done (the
+-- parent taken).
 -- `depth`: how far Own.coming has followed a chain of prerequisites.
 local function unavailableFor(goal, depth)
 	local q = goal.quest
@@ -481,10 +484,22 @@ local function unavailableFor(goal, depth)
 				end
 			end
 		end
+		-- A child quest (`inLog`, its parent) is offered only while the parent
+		-- is in the log: once the parent is handed in, never again.
+		local p = tonumber(a.inLog)
+		if p and not C.IsOnQuest(p) and questDone(p) then
+			local u = unavailable[q]
+			if not (u and u.reason == "closed" and u.accept == a and u.by == p) then
+				u = { reason = "closed", accept = a, by = p, parent = true }
+				unavailable[q] = u
+			end
+			return u
+		end
 	end
 	local u = unavailable[q]
-	if u and u.reason == "closed" then
-		-- Its closing quest was abandoned since (or it is another tab's mark).
+	if u and (u.reason == "closed" or (u.reason == "pre" and u.pre ~= nil and u.pre == tonumber(u.accept.inLog) and C.IsOnQuest(u.pre))) then
+		-- Its closing quest was abandoned since (or it is another tab's mark),
+		-- or the parent its giver wanted in the log is taken now.
 		unavailable[q] = nil
 		u = nil
 	end
@@ -506,7 +521,7 @@ local function unavailableFor(goal, depth)
 	if (depth or 0) > 8 then return nil end
 	for i = 1, own and 1 or #list do
 		local a = own and goal or list[i].goal
-		local pre = (a.pre or a.preAll) and Own.preBlocked(a, depth)
+		local pre = (a.pre or a.preAll or a.inLog) and Own.preBlocked(a, depth)
 		if pre then
 			local m = Own.preMarks[a]
 			if not m then
@@ -535,13 +550,14 @@ end
 -- player can still Unskip a step stored off by mistake.
 
 -- Quest `p.q` can be taken now: not in the log or done, the level reached,
--- its prerequisites done (missingPre, as an accept's) and none of the quests
--- that close it taken or done.
+-- its prerequisites done (missingPre, as an accept's), its parent (`inLog`)
+-- in the log, and none of the quests that close it taken or done.
 function Own.availableNow(p)
 	local C, q = Compat(), p.q
 	if C.IsOnQuest(q) or questDone(q) then return false end
 	if p.minLevel and (player.level or 1) < p.minLevel then return false end
 	if missingPre(p) then return false end
+	if p.inLog and not C.IsOnQuest(p.inLog) then return false end
 	for _, by in ipairs(type(p.closedBy) == "table" and p.closedBy or NONE) do
 		if C.IsOnQuest(by) or questDone(by) then return false end
 	end
@@ -1000,9 +1016,15 @@ end
 -- (against lint's order) after it, is the route's own business or a gap in
 -- the data: the accept keeps its place and its giver's window has the last
 -- word. So is one this guide has only for other characters (Own.coming).
+-- A child quest's parent (`inLog`) is missing while it is not in the log
+-- and this guide does not still take it (Own.takes): the giver offers the
+-- child only with the parent in the log (Valik, 535, with Infiltration, 533).
 -- Returns the prerequisite that blocks, or nil.
 function Own.preBlocked(a, depth)
-	if not (guide and missingPre(a)) then return nil end
+	if not guide then return nil end
+	local parent = tonumber(a.inLog)
+	if parent and not Compat().IsOnQuest(parent) and not questDone(parent) and not Own.takes(parent, depth) then return parent end
+	if not missingPre(a) then return nil end
 	if type(a.preAll) == "table" then
 		for _, p in ipairs(a.preAll) do
 			if not questDone(p) and not Own.coming(p, depth) then return p end
@@ -1016,6 +1038,23 @@ function Own.preBlocked(a, depth)
 		return any[1]
 	end
 	return nil
+end
+
+-- Whether this guide still takes quest p: an accept of it that applies to
+-- the character, in a step the player has not skipped, not skipped or
+-- ticked itself, and not unavailable down the chain of prerequisites.
+function Own.takes(p, depth)
+	local state = ns.CharState()
+	local skipped, manual = state.skipped[guide.id], state.manual[guide.id]
+	for _, t in ipairs(layoutOf(guide).accepts[p] or NONE) do
+		local tg = t.goal
+		if stepApplies(t.step) and Guides.Matches(tg.only, player) and goalApplies(tg)
+			and not (skipped and (skipped[t.s] or skipped[t.key])) and not (manual and manual[t.key])
+			and not unavailableFor(tg, (depth or 0) + 1) then
+			return true
+		end
+	end
+	return false
 end
 
 -- Whether quest p is no missing prerequisite this guide can tell of: the
@@ -3607,10 +3646,14 @@ end
 local function unavailableText(u)
 	if u.reason == "skipped" then return L["You skipped this quest"] end
 	local a = u.accept
-	if u.reason == "closed" then return L["No longer offered: you took %s"]:format(ns.Quoted(titleOfQuest(u.by, a.preTitles))) end
+	if u.reason == "closed" then
+		if u.parent then return L["No longer offered: you handed in %s"]:format(ns.Quoted(titleOfQuest(u.by, a.preTitles))) end
+		return L["No longer offered: you took %s"]:format(ns.Quoted(titleOfQuest(u.by, a.preTitles)))
+	end
 	if u.reason == "level" then return L["Requires level %d"]:format(tonumber(a.minLevel) or 0) end
 	if u.reason == "pre" then
 		local pre = u.pre or missingPre(a)
+		if pre and pre == tonumber(a.inLog) then return L["Requires %s in your quest log"]:format(ns.Quoted(titleOfQuest(pre, a.preTitles))) end
 		if pre then return L["Requires %s first"]:format(ns.Quoted(titleOfQuest(pre, a.preTitles))) end
 	end
 	local N = ns.Names
@@ -3660,10 +3703,11 @@ end
 -- What the game asks before it offers accept goal g of step s (#1247): the
 -- quest's minimum level and the prerequisites not handed in yet, for the
 -- goal's tooltip. From the compiled goal (`minLevel`, `pre`, `preAll`,
--- `preTitles`), else from the quest database when it is loaded (never loads
--- it). `needs` lists every missing `preAll` quest by name, and a `pre` list
--- none of which is done as one entry, "A or B"; it is empty once the quest is
--- in the log or done. A minimum level of 1 says nothing and is left out.
+-- `inLog`, `preTitles`), else from the quest database when it is loaded (never
+-- loads it). `needs` lists every missing `preAll` quest by name, a `pre` list
+-- none of which is done as one entry, "A or B", and a child quest's parent
+-- while it is not in the log, "X in your quest log"; it is empty once the
+-- quest is in the log or done. A minimum level of 1 says nothing and is left out.
 -- -> { level = n | nil, short = bool, needs = { text, ... } } | nil (not an
 -- accept, or nothing known). Asked on hover only: it allocates.
 function Engine.AcceptGate(s, g)
@@ -3702,6 +3746,8 @@ function Engine.AcceptGate(s, g)
 				needs[#needs + 1] = text
 			end
 		end
+		local parent = tonumber(goal.inLog)
+		if parent and not C.IsOnQuest(parent) then needs[#needs + 1] = L["%s in your quest log"]:format(title(parent)) end
 	end
 	if not level and #needs == 0 then return nil end
 	return { level = level, short = level ~= nil and (player.level or 1) < level, needs = needs }
@@ -10725,7 +10771,8 @@ end
 -- Unavailable quests. A gossip, greeting or quest-detail window from an
 -- `accept` goal's own giver (current step of any tab) that does not offer
 -- its quest marks it unavailable when the data says why (its level not
--- reached, a prerequisite missing); one that offers it clears the mark. A
+-- reached, a prerequisite missing, its parent not in the log); one that
+-- offers it clears the mark. A
 -- refusal the data does not explain is never a skip (Fitz, #741: a giver the
 -- server lacks would take the quest and its later steps out of the guide):
 -- the accept stays open, the arrow stays on the giver, and its line says
@@ -10741,9 +10788,13 @@ local LIST_WINDOW = 30 -- seconds a list or a turn-in covers the detail windows 
 local listedAt = {} -- npc -> GetTime() of its last gossip/greeting list or turn-in
 Own.notListed = {} -- questID -> the accept goal whose giver's window did not list it
 
+-- -> "level" | "pre" | nil, and for a child quest whose parent (`inLog`) is
+-- not in the log, that parent.
 local function unavailableReason(goal)
 	local lvl = tonumber(goal.minLevel)
 	if lvl and (player.level or 1) < lvl then return "level" end
+	local parent = tonumber(goal.inLog)
+	if parent and not Compat().IsOnQuest(parent) then return "pre", parent end
 	if missingPre(goal) then return "pre" end
 	return nil
 end
@@ -10791,9 +10842,10 @@ function Own.clearMarks()
 	end
 	useActive()
 	for q, u in pairs(unavailable) do
-		local now = passed[q] and unavailableReason(u.accept)
+		local now, parent
+		if passed[q] then now, parent = unavailableReason(u.accept) end
 		if now then
-			u.reason = now
+			u.reason, u.pre = now, parent
 		else
 			unavailable[q] = nil
 		end
@@ -10846,11 +10898,11 @@ local function checkOffers(source, startItem)
 				local q = goal.quest
 				if goal.t == "accept" and q and (goal.npc == npc or goal.object == npc) and goalApplies(goal)
 					and not offered[q] and not C.IsOnQuest(q) and not questDone(q) and not unavailable[q] then
-					local why = unavailableReason(goal)
+					local why, parent = unavailableReason(goal)
 					-- Offered once its prerequisite is handed in: no mark, nothing to report.
-					local waits = why == "pre" and Own.preReady(goal)
+					local waits = why == "pre" and not parent and Own.preReady(goal)
 					if why and not waits then
-						unavailable[q] = { reason = why, accept = goal }
+						unavailable[q] = { reason = why, accept = goal, pre = parent }
 					elseif not why then
 						Own.notListed[q] = goal
 					end

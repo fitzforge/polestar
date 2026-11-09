@@ -8793,3 +8793,14 @@ test("Valik's report: Valik only with Infiltration in the log, handed in at once
 	const list = goals(guide);
 	assert.ok(at(list, 'turnin 535', is('turnin', 535)) < at(list, 'collect 3601', (g) => g.t === 'collect' && g.item === 3601), 'Valik before the missive drops');
 });
+
+// Parent-quest sweep (0.3.7, the Valik rule engine-wide): Zamek's Distraction (1191) is a child of Keeping Pace (1190):
+// Zamek offers it only while Keeping Pace is in the log. The Alliance Tanaris guide took 1191 alone at the Mirage
+// Raceway; it now takes Keeping Pace from Pozzik first and finishes the chain there, as the Horde guide does.
+test('Parent-quest sweep: the Alliance Mirage Raceway takes Keeping Pace before Zamek\'s Distraction', { skip }, () => {
+	const list = goals('forever/alliance/40-50/04-tanaris.guide');
+	const keep = at(list, 'accept 1190', is('accept', 1190));
+	assert.ok(keep < at(list, 'accept 1191', is('accept', 1191)), 'Keeping Pace before Zamek');
+	assert.ok(at(list, 'turnin 1191', is('turnin', 1191)) < at(list, 'turnin 1190', is('turnin', 1190)), 'Zamek handed in while Keeping Pace is in the log');
+	assert.ok(at(list, 'turnin 1190', is('turnin', 1190)) < at(list, 'turnin 1194', is('turnin', 1194)), "Rizzle's Schematics back to Pozzik");
+});

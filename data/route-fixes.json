@@ -8256,6 +8256,24 @@
 				],
 				"reason": "Quest volume, Horde 50-60 (0.3.7): Uncle Carlin (level 56, from 50, 2900 XP) is a message from Pamela Redpath in Darrowshire to Carlin Redpath at Light's Hope Chapel: 50-60/01 hands Pamela's doll in and hearths to the chapel, where the guide hands Defenders of Darrowshire (5211) to Carlin on the same stop. It is a delivery with no fighting, so the 3+ levels over at about 52.7 do not matter.",
 				"issue": "-"
+			},
+			{
+				"q": 1190,
+				"after": [
+					"turnin",
+					1137
+				],
+				"reason": "Parent-quest sweep (0.3.7, Alliance 40-50/04): Zamek offers Zamek's Distraction (1191) only while Keeping Pace (1190) is in the log (its parent in the quest data), and the Alliance route took 1191 without it. Keeping Pace is Pozzik's, beside Zamek at the Mirage Raceway, offered once News for Fizzle (1137) is handed in on the same stop; its hand-in is Rizzle's plans in the gnomes' camp a few yards away, where Rizzle's Schematics (1194) starts, back to Pozzik. The Horde route already does the chain here. This replaces the Alliance skips of 1190 and 1194 (2026-11-07, when News for Fizzle could not be had; their later reason, a trip back across Thousand Needles, does not hold: Pozzik, Zamek and the plans are all at the Raceway, about 100 yards apart, and Keeping Pace is Zamek's diversion and the plans).",
+				"issue": "-"
+			},
+			{
+				"q": 1194,
+				"after": [
+					"turnin",
+					1190
+				],
+				"reason": "Parent-quest sweep (0.3.7, Alliance 40-50/04): Rizzle's Schematics starts at Rizzle's plans, where Keeping Pace (1190) is handed in, and goes back to Pozzik on the same Mirage Raceway stop.",
+				"issue": "-"
 			}
 		],
 		"skip": [
@@ -8433,18 +8451,6 @@
 				"q": 115,
 				"faction": "Alliance",
 				"reason": "Prerequisite order (2026-11-07, Wetlands report): Marshal Marris offers Shadow Magic only once Blackrock Menace (20) and Blackrock Blockade (98387) are handed in (the data's preAll; players' recordings: refused in every recorded window before then). The route hands them in on its way out of Redridge, after its only Stonewatch Keep visit; left out.",
-				"issue": "-"
-			},
-			{
-				"q": 1190,
-				"faction": "Alliance",
-				"reason": "Follows News for Fizzle (1137; the data's pre, TDB PrevQuestID 1137): the Horde leaves out 1137; the Alliance hands 1137 in at 45 in 40-50/04, where Keeping Pace would send it back across Thousand Needles to Rizzle for a race the route doesn't wait for. Left out.",
-				"issue": "-"
-			},
-			{
-				"q": 1194,
-				"faction": "Alliance",
-				"reason": "Follows Keeping Pace (1190), left out with Martek the Exiled (1106).",
 				"issue": "-"
 			},
 			{
@@ -11865,6 +11871,17 @@
 				],
 				"faction": "Horde",
 				"why": "Valik's report (2026-11-09, Horde 30-40/01): Henchman Valik (2333) offers Valik (535) only while Infiltration (533) is in the log (QuestieDB 1.0.10 and 1.0.13: parentQuest 533, childQuests [535]; the one recorded Valik window had 533 in the log; a level 30 player without 533 saw no offer), and its reward is the Syndicate Missive (3601) Infiltration asks for (quest reward data; 4 of 4 recorded takers handed the stout in seconds after the accept). Hand it in at once, before any missive farming."
+			},
+			{
+				"a": [
+					"accept",
+					1190
+				],
+				"b": [
+					"accept",
+					1191
+				],
+				"why": "Parent-quest sweep (0.3.7): Zamek offers Zamek's Distraction (1191) only while Keeping Pace (1190), its parent in the quest data, is in the log: take Keeping Pace from Pozzik first."
 			}
 		]
 	}
