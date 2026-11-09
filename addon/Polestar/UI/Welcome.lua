@@ -18,15 +18,14 @@
 --      cards in each scheme's own colours, and the route line's look
 --      (nav.lineStyle: Line, Dots, Sparkles) as cards each previewing it,
 --      that apply live; Skip keeps them;
---   3. route: the start zone's painting with the walk each route style takes
---      between two places of its first guide (baked by the walking router,
---      UI/WelcomeRoutes.lua): the chosen style's as the route line, drawn in
---      again when the style changes, the other two faint; its place named
---      and its yards; then the route style (nav.routeStyle, the setting
---      Options' Route style dropdown writes) as three rows, Fastest,
---      Balanced (Recommended) and Roads, each saying what it does, that apply
---      live; a line on what every style keeps you away from. Shown with
---      setup;
+--   3. route: the polestar.guide front page's route demo (Elwynn Forest,
+--      Northshire Abbey to the Westfall bridge): the chosen style's walk
+--      as the site draws it, redrawn when the style changes, the last one
+--      left as a faint dashed ghost; then the route style (nav.routeStyle,
+--      the setting Options' Route style dropdown writes) as three rows,
+--      Fastest, Balanced (Recommended) and Roads, each saying what it does,
+--      that apply live; a line on what every style keeps you away from.
+--      Shown with setup;
 --   4. start: the suggested guide on its painting (its level range, who it
 --      is for), its pitch; what Start guide does; the beta note while
 --      ns.routesBeta is true; the Discord community (its invite as a link
@@ -1172,7 +1171,7 @@ local STYLES = {
 	{ "balanced", L["Balanced"], L["Takes roads when they aren't much longer, and goes round steep hills."], true },
 	{ "roads", L["Roads"], L["Stays on roads, even when it's longer. Slower, but easy to follow."] },
 }
-local MAP_H = 150
+local MAP_H = 180
 local OPT_L, OPT_R, OPT_T, OPT_B = 12, 14, 8, 9
 local OPT_TEXT_X = OPT_L + 16 + 12
 local OPT_TEXT_W = CW - OPT_TEXT_X - OPT_R
@@ -1247,41 +1246,38 @@ local function layoutStyleRow(c)
 	return h
 end
 
--- The walks: each route style's walk between the same two places of a start
--- zone, found by the walking router at build time (UI/WelcomeRoutes.lua,
--- `polestar nav welcome`): the suggested guide's zone's while its three walks
--- show at least CLEAR_PX apart (the zone's `apart`), else the clearest
--- zone's, which the map's note names.
+-- The map: the polestar.guide front page's route demo, as the site draws it
+-- (polestar-site: components/landing/Demo.tsx, lib/route-demo.json and the
+-- route card's styles), one example for everyone: on the Elwynn Forest
+-- painting, Northshire Abbey's front steps to the Westfall border bridge,
+-- each route style's walk (the site's illustrations traced over the painted
+-- map, its yards), corners rounded by 4 of the painting's 1002 px as the
+-- site's roadPath rounds them. The chosen style's walk shows as the site's
+-- dotted road with the white trail over it; a switch leaves the last style's
+-- walk as a faint dashed ghost, fades the new road in and replays the trail
+-- from the abbey; under reduced motion all of it at once.
+local DEMO_MAP, DEMO_GOAL = 1429, 1436 -- Elwynn Forest; Westfall, where the walk goes
+local DEMO = { -- map percent, x1, y1, x2, y2, ...
+	fastest = { yards = 1359, 48.17, 42.26, 47.52, 43.81, 47.3, 44.3, 47.07, 44.79, 46.35, 46.23, 46.12, 46.72, 45.93, 47.24, 45.79, 47.67, 45.65, 48.22, 45.61, 48.8, 45.61, 49.1, 45.56, 49.68, 45.42, 50.22, 45.3, 50.52, 45.08, 51.02, 44.81, 51.44, 34.53, 64.88, 34.23, 65.26, 33.91, 65.62, 19.66, 81.05 },
+	balanced = { yards = 1519, 48.17, 42.26, 47.99, 42.61, 47.82, 42.98, 47.67, 43.36, 47.65, 43.41, 47.5, 43.85, 47.32, 44.28, 47.1, 44.75, 46.87, 45.17, 46.77, 45.35, 46.51, 45.81, 46.25, 46.26, 46.16, 46.42, 45.93, 46.88, 45.76, 47.38, 45.67, 47.91, 45.71, 48.43, 45.82, 48.95, 45.95, 49.45, 46.11, 50.0, 46.28, 50.51, 46.33, 50.66, 46.41, 51.19, 46.3, 51.71, 41.82, 62.81, 41.6, 63.3, 41.34, 63.76, 37.5, 69.78, 37.26, 70.24, 37.08, 70.77, 36.87, 71.6, 36.75, 72.16, 36.68, 72.75, 36.6, 73.34, 36.49, 73.91, 36.47, 73.99, 36.3, 74.53, 36.09, 75.04, 36.06, 75.11, 35.8, 75.56, 35.49, 75.92, 35.37, 76.03, 35.03, 76.34, 34.68, 76.64, 34.48, 76.8, 34.12, 77.06, 33.74, 77.24, 33.32, 77.4, 32.93, 77.52, 32.54, 77.59, 32.13, 77.65, 31.74, 77.69, 31.34, 77.74, 30.84, 77.8, 30.44, 77.82, 30.04, 77.78, 29.84, 77.75, 29.44, 77.69, 29.04, 77.64, 28.84, 77.6, 28.44, 77.55, 28.05, 77.49, 27.84, 77.45, 27.44, 77.41, 27.05, 77.39, 26.75, 77.39, 26.35, 77.41, 25.95, 77.45, 25.65, 77.49, 25.25, 77.55, 24.85, 77.6, 24.65, 77.64, 24.26, 77.73, 23.87, 77.88, 23.73, 77.95, 23.35, 78.14, 22.97, 78.32, 22.74, 78.42, 22.36, 78.61, 21.98, 78.82, 21.73, 78.97, 21.37, 79.22, 21.02, 79.51, 20.9, 79.62, 20.57, 79.96, 20.25, 80.32, 19.66, 81.05 },
+	roads = { yards = 1596, 48.17, 42.26, 47.99, 42.61, 47.82, 42.98, 47.67, 43.36, 47.65, 43.41, 47.5, 43.85, 47.32, 44.28, 47.1, 44.75, 46.87, 45.17, 46.77, 45.35, 46.51, 45.81, 46.25, 46.26, 46.16, 46.42, 45.93, 46.88, 45.76, 47.38, 45.67, 47.91, 45.71, 48.43, 45.82, 48.95, 45.95, 49.45, 46.11, 50.0, 46.28, 50.51, 46.33, 50.66, 46.51, 51.2, 46.69, 51.73, 46.73, 51.86, 46.89, 52.41, 47.0, 52.98, 47.08, 53.6, 47.11, 54.19, 47.07, 54.78, 46.98, 55.36, 46.93, 55.57, 46.79, 56.13, 46.63, 56.67, 46.59, 56.8, 46.39, 57.32, 46.17, 57.82, 46.14, 57.9, 45.92, 58.4, 45.73, 58.92, 45.69, 59.05, 45.49, 59.56, 45.25, 60.04, 45.17, 60.17, 44.9, 60.62, 44.63, 61.05, 44.49, 61.25, 44.21, 61.68, 43.93, 62.1, 43.8, 62.3, 43.52, 62.73, 43.25, 63.18, 43.17, 63.32, 42.92, 63.78, 42.68, 64.26, 42.65, 64.33, 42.4, 64.8, 42.13, 65.24, 42.1, 65.3, 41.79, 65.65, 41.43, 65.85, 41.31, 65.89, 40.92, 66.01, 40.53, 66.14, 40.31, 66.2, 39.92, 66.32, 39.53, 66.43, 39.31, 66.5, 38.92, 66.62, 38.53, 66.76, 38.47, 66.79, 38.14, 66.96, 37.82, 67.22, 37.55, 67.55, 37.33, 67.96, 37.14, 68.42, 36.98, 68.91, 36.85, 69.47, 36.78, 70.03, 36.77, 70.21, 36.74, 70.81, 36.73, 71.41, 36.73, 71.56, 36.71, 72.15, 36.68, 72.75, 36.6, 73.34, 36.49, 73.91, 36.47, 73.99, 36.3, 74.53, 36.09, 75.04, 36.06, 75.11, 35.8, 75.56, 35.49, 75.92, 35.37, 76.03, 35.03, 76.34, 34.68, 76.64, 34.48, 76.8, 34.12, 77.06, 33.74, 77.24, 33.32, 77.4, 32.93, 77.52, 32.54, 77.59, 32.13, 77.65, 31.74, 77.69, 31.34, 77.74, 30.84, 77.8, 30.44, 77.82, 30.04, 77.78, 29.84, 77.75, 29.44, 77.69, 29.04, 77.64, 28.84, 77.6, 28.44, 77.55, 28.05, 77.49, 27.84, 77.45, 27.44, 77.41, 27.05, 77.39, 26.75, 77.39, 26.35, 77.41, 25.95, 77.45, 25.65, 77.49, 25.25, 77.55, 24.85, 77.6, 24.65, 77.64, 24.26, 77.73, 23.87, 77.88, 23.73, 77.95, 23.35, 78.14, 22.97, 78.32, 22.74, 78.42, 22.36, 78.61, 21.98, 78.82, 21.73, 78.97, 21.37, 79.22, 21.02, 79.51, 20.9, 79.62, 20.57, 79.96, 20.25, 80.32, 19.66, 81.05 },
+}
 local ROUTE_STYLES = { "fastest", "balanced", "roads" }
-local DRAW_IN = 0.6 -- as the route line's draw-in (Maps/RouteLines.lua)
-local CLEAR_PX = 15
--- The chosen walk: a 4px core over an 11px shadow; the other two 2px in their
--- own tint over a dark 4px underlay, dimmed.
-local CORE_W, SHADOW_W, FAINT_W, FAINT_UNDER_W, FAINT_ALPHA = 4, 11, 2, 4, 0.7
-local FAINT_TINT = { fastest = "danger", balanced = "npc", roads = "success" }
--- The painting's zoom (ZoneArt's): at least MAP_ZOOM, in to MAP_ZOOM_MAX so
--- the walks take WALKS_W of the map's width or WALKS_H of its height.
-local MAP_ZOOM, MAP_ZOOM_MAX, WALKS_W, WALKS_H = 1.5, 3, 0.5, 0.75
-
--- -> zone, its walks | nil
-local function styleWalks(g)
-	local R = ns.WelcomeRoutes
-	if not R then return nil end
-	local z = g and g.zone
-	if z and R[z] and (R[z].apart or 0) >= CLEAR_PX then return z, R[z] end
-	local best
-	for k, e in pairs(R) do
-		if type(k) == "number" and (not best or e.apart > R[best].apart or (e.apart == R[best].apart and k < best)) then best = k end
-	end
-	if best then return best, R[best] end
-	return nil
-end
+local LAYER_W = 1002 -- the painting's width in its own px (the site's stroke units)
+local REPLAY, ROAD_FADE, GHOST_FADE, GHOST_ALPHA = 1.6, 0.5, 0.9, 0.55
+-- The site's strokes, in the painting's px: the trail 2.4 wide over a dark
+-- glow; the road 1.4 wide, 1 on and 3.2 off; the ghost 1.3 wide, 2.5 on and
+-- 3 off.
+local TRAIL_W, ROAD_W, ROAD_ON, ROAD_OFF, GHOST_W, GHOST_ON, GHOST_OFF = 2.4, 1.4, 1, 3.2, 1.3, 2.5, 3
+-- The painting zoomed so the walks take WALKS_H of the map's height, their
+-- middle at WALKS_X of its width.
+local WALKS_H, WALKS_X = 0.82, 0.3
 
 -- The box round every style's walk, in map percent.
-local function walkBounds(e)
+local function walkBounds()
 	local x0, y0, x1, y1 = 100, 100, 0, 0
 	for _, s in ipairs(ROUTE_STYLES) do
-		local w = e[s]
+		local w = DEMO[s]
 		for i = 1, #w, 2 do
 			x0, x1 = min(x0, w[i]), max(x1, w[i])
 			y0, y1 = min(y0, w[i + 1]), max(y1, w[i + 1])
@@ -1290,95 +1286,130 @@ local function walkBounds(e)
 	return x0, y0, x1, y1
 end
 
--- The pooled line `i` of a set, made once.
-local function mapLine(m, set, i, sub, soft, thick)
+-- The pooled line `i` of a set on `parent`, made once.
+local function poolLine(parent, set, i, sub, soft)
 	local l = set[i]
 	if not l then
-		l = m.Draw:CreateLine(nil, "ARTWORK", nil, sub)
+		l = parent:CreateLine(nil, "ARTWORK", nil, sub)
 		if soft then l:SetTexture(NAV_MEDIA .. "line-soft") else l:SetColorTexture(1, 1, 1, 1) end
-		l:SetThickness(thick)
 		set[i] = l
 	end
 	return l
 end
 
--- The map's walks: the other styles' whole and faint, the chosen one's
--- first `share` (0-1) of its length over its shadow.
-local function drawTrail(m, share)
-	m.psShare = share
-	local all = m.psPts
-	if not all then return end
-	local s = m.psStyle or routeStyle()
-	local d = m.Draw
-	local r, g, b = routeColour()
-	local s1, s2, s3 = Theme.Color("scrim")
-	local faint = 0
-	for _, o in ipairs(ROUTE_STYLES) do
-		local pts = all[o]
-		if o ~= s and m.psWalks then
-			local t1, t2, t3 = Theme.Color(FAINT_TINT[o])
-			for i = 1, #pts - 3, 2 do
-				faint = faint + 1
-				local u = mapLine(m, m.FaintUnder, faint, -1, false, FAINT_UNDER_W)
-				local l = mapLine(m, m.Faint, faint, 0, false, FAINT_W)
-				u:SetStartPoint("TOPLEFT", d, pts[i], -pts[i + 1])
-				u:SetEndPoint("TOPLEFT", d, pts[i + 2], -pts[i + 3])
-				l:SetStartPoint("TOPLEFT", d, pts[i], -pts[i + 1])
-				l:SetEndPoint("TOPLEFT", d, pts[i + 2], -pts[i + 3])
-				u:SetVertexColor(s1, s2, s3, 0.45)
-				l:SetVertexColor(t1, t2, t3, FAINT_ALPHA)
-				u:Show()
-				l:Show()
-			end
-		end
-	end
-	for i = faint + 1, #m.Faint do
-		m.Faint[i]:Hide()
-		m.FaintUnder[i]:Hide()
-	end
-	local pts, left, n = all[s], (m.psLen[s] or 0) * share, 0
+-- Calls fn(ax, ay, bx, by) for each stretch of a polyline (px, x1, y1, ...)
+-- between `from` and `to` px along it, `on` px long with `off` between them
+-- (on = nil: one stretch).
+local function stretches(pts, from, to, on, off, fn)
+	local at, k = 0, 0
+	local nextOn, nextOff = from, on and from + on or to
 	for i = 1, #pts - 3, 2 do
-		if left <= 0 then break end
 		local ax, ay, bx, by = pts[i], pts[i + 1], pts[i + 2], pts[i + 3]
 		local len = sqrt((bx - ax) ^ 2 + (by - ay) ^ 2)
-		if len > left then
-			local t = left / len
-			bx, by = ax + (bx - ax) * t, ay + (by - ay) * t
+		while len > 0 and nextOn < at + len and nextOn < to do
+			local s0 = max(nextOn, at)
+			local s1 = min(nextOff, at + len, to)
+			if s1 > s0 then
+				k = k + 1
+				local t0, t1 = (s0 - at) / len, (s1 - at) / len
+				fn(k, ax + (bx - ax) * t0, ay + (by - ay) * t0, ax + (bx - ax) * t1, ay + (by - ay) * t1)
+			end
+			if s1 < nextOff then break end
+			if not on then break end
+			nextOn = nextOff + off
+			nextOff = nextOn + on
 		end
-		left = left - len
-		n = n + 1
-		local sh = mapLine(m, m.Shadows, n, 1, true, SHADOW_W)
-		local mk = mapLine(m, m.Marks, n, 2, false, CORE_W)
-		sh:SetStartPoint("TOPLEFT", d, ax, -ay)
-		sh:SetEndPoint("TOPLEFT", d, bx, -by)
-		mk:SetStartPoint("TOPLEFT", d, ax, -ay)
-		mk:SetEndPoint("TOPLEFT", d, bx, -by)
-		sh:SetVertexColor(s1, s2, s3, 0.75)
-		mk:SetVertexColor(r, g, b, 1)
-		sh:Show()
-		mk:Show()
+		at = at + len
 	end
-	for i = n + 1, #m.Marks do
-		m.Marks[i]:Hide()
-		m.Shadows[i]:Hide()
-	end
+	return k
 end
 
--- The map's note: the zone and the chosen style's walk in yards.
+-- Shows lines 1..n of a set (as fn set them up), hides the rest.
+local function hideFrom(set, n)
+	for i = n + 1, #set do set[i]:Hide() end
+end
+
+local function lineAt(l, parent, ax, ay, bx, by)
+	l:SetStartPoint("TOPLEFT", parent, ax, -ay)
+	l:SetEndPoint("TOPLEFT", parent, bx, -by)
+	l:Show()
+end
+
+-- The trail: the chosen walk's first `share` (0-1, eased) in white over its
+-- dark glow; the goal's pin turns the accent once it is whole.
+local function drawTrail(m, share)
+	m.psShare = share
+	local pts = m.psPts and m.psPts[m.psStyle]
+	if not pts then return end
+	local u, f = m.psUnit, m.Trail
+	local r, g, b = Theme.Color("scrim")
+	local n = stretches(pts, 0, m.psLen[m.psStyle] * share, nil, nil, function(k, ax, ay, bx, by)
+		local glow = poolLine(f, m.TrailGlow, k, 0, true)
+		glow:SetThickness(max(5, TRAIL_W * u * 3))
+		glow:SetVertexColor(r, g, b, 0.8)
+		lineAt(glow, f, ax, ay, bx, by)
+		local core = poolLine(f, m.TrailCore, k, 1)
+		core:SetThickness(max(2, TRAIL_W * u))
+		core:SetVertexColor(1, 1, 1, 0.95)
+		lineAt(core, f, ax, ay, bx, by)
+	end)
+	hideFrom(m.TrailGlow, n)
+	hideFrom(m.TrailCore, n)
+	local arrived = share >= 0.995
+	if arrived then m.EndFill:SetVertexColor(Theme.Accent()) else m.EndFill:SetVertexColor(Theme.Color("sidebar")) end
+end
+
+-- The road (the chosen walk, dotted) and the ghost (the last style's, dashed).
+local function drawRoads(m)
+	local u, s, ghost = m.psUnit, m.psStyle, m.psGhost
+	local r, g, b = Theme.Color("scrim")
+	local pts = m.psPts[s]
+	local n = stretches(pts, 0, m.psLen[s], max(1, ROAD_ON * u), ROAD_OFF * u, function(k, ax, ay, bx, by)
+		local l = poolLine(m.Road, m.RoadLines, k, 0)
+		l:SetThickness(max(1.5, ROAD_W * u))
+		l:SetVertexColor(r * 0.5 + 0.02, g * 0.5 + 0.03, b * 0.5 + 0.05, 0.55)
+		lineAt(l, m.Road, ax, ay, bx, by)
+	end)
+	hideFrom(m.RoadLines, n)
+	n = 0
+	if ghost and ghost ~= s then
+		local gp = m.psPts[ghost]
+		n = stretches(gp, 0, m.psLen[ghost], GHOST_ON * u, GHOST_OFF * u, function(k, ax, ay, bx, by)
+			local sh = poolLine(m.Ghost, m.GhostShadow, k, 0, true)
+			sh:SetThickness(max(3, GHOST_W * u * 2.5))
+			sh:SetVertexColor(r, g, b, 0.6)
+			lineAt(sh, m.Ghost, ax, ay, bx, by)
+			local l = poolLine(m.Ghost, m.GhostLines, k, 1)
+			l:SetThickness(max(1.5, GHOST_W * u))
+			l:SetVertexColor(1, 1, 1, 0.75)
+			lineAt(l, m.Ghost, ax, ay, bx, by)
+		end)
+	end
+	hideFrom(m.GhostLines, n)
+	hideFrom(m.GhostShadow, n)
+end
+
+-- The note: the goal's zone, the walk's zone and its yards.
 local function noteWalk(m)
-	local e, C = m.psWalks, ns.Compat
-	local zone = C and C.MapName and C.MapName(m.psZone) or e.zone
-	m.Note:SetText(zone .. " \194\183 " .. (L["%d yd"]):format(e[m.psStyle].yards))
+	local C = ns.Compat
+	local zone = C and C.MapName and C.MapName(DEMO_MAP) or "Elwynn Forest"
+	m.Note:SetText(zone .. " \194\183 " .. (L["%d yd"]):format(DEMO[m.psStyle].yards))
 end
 
--- The map: the start zone's painting, darkened on the left for the
--- readout, the route styles' walks drawn on it.
+-- The walk's ends as the site's legs: the start in the accent, the goal in
+-- the sidebar's colour until the trail reaches it (drawTrail).
+local function legs(m)
+	m.StartFill:SetVertexColor(Theme.Accent())
+	m.StartRing:SetVertexColor(1, 0.965, 0.87, 1)
+	m.EndRing:SetVertexColor(1, 1, 1, 0.7)
+end
+
 local function routeMap(p)
 	local m = CreateFrame("Frame", nil, p)
 	m:SetSize(CW, MAP_H)
 	m.Art = UI.ZoneArt.Create(m, CW, MAP_H, "bg")
 	m.Art:SetPoint("TOPLEFT", m, "TOPLEFT", 0, 0)
-	m.Art.psZoom = MAP_ZOOM
+	m.Art.psZoom = 1
 	m.Art.psFocusY = MAP_H / 2
 	m.Art.Fade:Hide()
 	m.Art.Rule:Hide()
@@ -1386,111 +1417,98 @@ local function routeMap(p)
 	m.Draw:SetAllPoints(m)
 	m.Draw:SetFrameLevel(m.Art.Over:GetFrameLevel() + 1)
 	local d = m.Draw
-	-- The readout's ground: dark on the left, clear by 60 %.
+	-- The readout's ground: dark on the right (the walks are on the left of
+	-- the painting), clear by 60 %.
 	m.Vig1 = solid(d, "BACKGROUND", -4)
-	m.Vig1:SetPoint("TOPLEFT", d, "TOPLEFT", 0, 0)
-	m.Vig1:SetPoint("BOTTOMLEFT", d, "BOTTOMLEFT", 0, 0)
-	m.Vig1:SetWidth(floor(CW * 0.38))
+	m.Vig1:SetPoint("TOPRIGHT", d, "TOPRIGHT", 0, 0)
+	m.Vig1:SetPoint("BOTTOMRIGHT", d, "BOTTOMRIGHT", 0, 0)
+	m.Vig1:SetWidth(floor(CW * 0.34))
 	m.Vig2 = solid(d, "BACKGROUND", -4)
-	m.Vig2:SetPoint("TOPLEFT", m.Vig1, "TOPRIGHT", 0, 0)
-	m.Vig2:SetPoint("BOTTOMLEFT", m.Vig1, "BOTTOMRIGHT", 0, 0)
-	m.Vig2:SetWidth(floor(CW * 0.22))
-	-- The walks, drawn as the route line's Line look (the setup page's card):
-	-- the chosen style's over a soft shadow, the other two faint under it.
-	m.Shadows, m.Marks, m.Faint, m.FaintUnder = {}, {}, {}, {}
-	m.psOnValue = function(self, v) drawTrail(self, v) end
-	m.Start = W.Tex(d, "OVERLAY", "circle", nil, 0)
+	m.Vig2:SetPoint("TOPRIGHT", m.Vig1, "TOPLEFT", 0, 0)
+	m.Vig2:SetPoint("BOTTOMRIGHT", m.Vig1, "BOTTOMLEFT", 0, 0)
+	m.Vig2:SetWidth(floor(CW * 0.2))
+	-- The ghost, the road and the trail, each its own layer to fade.
+	for _, k in ipairs({ "Ghost", "Road", "Trail" }) do
+		m[k] = CreateFrame("Frame", nil, d)
+		m[k]:SetAllPoints(d)
+	end
+	m.GhostLines, m.GhostShadow, m.RoadLines, m.TrailCore, m.TrailGlow = {}, {}, {}, {}, {}
+	-- The trail replays eased as the site's (cubic out).
+	m.psOnValue = function(self, v) drawTrail(self, 1 - (1 - v) ^ 3) end
+	local top = CreateFrame("Frame", nil, d)
+	top:SetAllPoints(d)
+	m.Start = CreateFrame("Frame", nil, top)
 	m.Start:SetSize(9, 9)
-	m.StartHole = W.Tex(d, "OVERLAY", "circle", nil, 1)
-	m.StartHole:SetSize(7, 7)
-	m.StartHole:SetPoint("CENTER", m.Start, "CENTER", 0, 0)
-	m.End = W.Tex(d, "OVERLAY", "circle", nil, 0)
-	m.End:SetSize(13, 13)
-	m.EndDot = W.Tex(d, "OVERLAY", "circle", nil, 1)
-	m.EndDot:SetSize(10, 10)
-	m.EndDot:SetPoint("CENTER", m.End, "CENTER", 0, 0)
-	m.Place = W.Text(d, "display", "text")
-	m.Place:SetPoint("TOPLEFT", d, "TOPLEFT", 14, -12)
-	m.Place:SetWidth(floor(CW * 0.45))
-	m.Place:SetJustifyH("LEFT")
+	m.StartRing = W.Tex(m.Start, "OVERLAY", "circle", nil, 0)
+	m.StartRing:SetAllPoints(m.Start)
+	m.StartFill = W.Tex(m.Start, "OVERLAY", "circle", nil, 1)
+	m.StartFill:SetSize(7, 7)
+	m.StartFill:SetPoint("CENTER", m.Start, "CENTER", 0, 0)
+	m.End = CreateFrame("Frame", nil, top)
+	m.End:SetSize(11, 11)
+	m.EndRing = W.Tex(m.End, "OVERLAY", "circle", nil, 0)
+	m.EndRing:SetAllPoints(m.End)
+	m.EndFill = W.Tex(m.End, "OVERLAY", "circle", nil, 1)
+	m.EndFill:SetSize(9, 9)
+	m.EndFill:SetPoint("CENTER", m.End, "CENTER", 0, 0)
+	m.Place = W.Text(top, "display", "text")
+	m.Place:SetPoint("TOPRIGHT", d, "TOPRIGHT", -14, -12)
+	m.Place:SetWidth(floor(CW * 0.4))
+	m.Place:SetJustifyH("RIGHT")
 	m.Place:SetWordWrap(false)
-	m.Note = para(d, "note", "textDim", floor(CW * 0.45), 2)
-	m.Note:SetPoint("TOPLEFT", m.Place, "BOTTOMLEFT", 0, -4)
+	m.Note = para(top, "note", "textDim", floor(CW * 0.4), 2)
+	m.Note:SetJustifyH("RIGHT")
+	m.Note:SetPoint("TOPRIGHT", m.Place, "BOTTOMRIGHT", 0, -4)
 	outline(m)
 	W.Painter(m, function(self)
 		local s1, s2, s3 = Theme.Color("scrim")
-		hgrad(self.Vig1, s1, s2, s3, 0.85, s1, s2, s3, 0.35)
-		hgrad(self.Vig2, s1, s2, s3, 0.35, s1, s2, s3, 0)
-		drawTrail(self, self.psShare or 1)
-		self.Start:SetVertexColor(Theme.Color("text"))
-		self.StartHole:SetVertexColor(Theme.Color("sidebar"))
-		self.End:SetVertexColor(Theme.Color("onAccent"))
-		self.EndDot:SetVertexColor(Theme.Accent())
+		hgrad(self.Vig1, s1, s2, s3, 0.35, s1, s2, s3, 0.85)
+		hgrad(self.Vig2, s1, s2, s3, 0, s1, s2, s3, 0.35)
+		legs(self)
+		if self.psPts then
+			drawRoads(self)
+			drawTrail(self, self.psShare or 1)
+		end
 		paintOutline(self, Theme.Wash("border"))
 	end)
 	return m
 end
 
--- Where the walks show when the band stands in for the painting: their shape
--- kept, fitted into the map's right part. -> scale, x, y: a map percent's px
--- and where 0,0 lands.
-local function fitWalks(e)
-	local x0, y0, x1, y1 = walkBounds(e)
-	local dx, dy = max(1, (x1 - x0) * 1.5), max(1, y1 - y0) -- a zone map is about 3:2
-	local k = min(CW * 0.4 / dx, MAP_H * 0.7 / dy)
-	local cx, cy = CW * 0.7, MAP_H * 0.5
-	return k * 1.5, k, cx - (x0 + x1) / 2 * k * 1.5, cy - (y0 + y1) / 2 * k
-end
-
-local function paintMap(m, id, g)
-	local z, e = styleWalks(g)
-	local painted = false
-	m.Art.psZoom = MAP_ZOOM
-	if e then
-		local x0, y0, x1, y1 = walkBounds(e)
-		local fx, fy = (x0 + x1) / 2, (y0 + y1) / 2
-		painted = UI.ZoneArt.Paint(m.Art, z, fx, fy, 3) and true or false
-		local cv = painted and m.Art.psCanvas
-		if cv then
-			-- Zoomed in so the walks fill the map's right half, then their
-			-- middle a little right of centre, clear of the readout.
-			local k = min(CW * WALKS_W / max(1, (x1 - x0) * cv[3] / 100), MAP_H * WALKS_H / max(1, (y1 - y0) * cv[4] / 100))
-			m.Art.psZoom = min(MAP_ZOOM_MAX, max(MAP_ZOOM, MAP_ZOOM * k))
-			painted = UI.ZoneArt.Paint(m.Art, z, fx, fy, 3) and true or false
-			cv = painted and m.Art.psCanvas
-			if cv then
-				painted = UI.ZoneArt.Paint(m.Art, z, fx - (CW * 0.18) / cv[3] * 100, fy, 3) and true or false
-			end
-		end
-	elseif g then
-		local E = ns.Engine
-		local fx, fy
-		if E and E.GuideFocus then fx, fy = E.GuideFocus(id) end
-		UI.ZoneArt.Paint(m.Art, g.zone, fx, fy, 3)
-	else
-		UI.ZoneArt.Paint(m.Art, nil, nil, nil, 3)
-	end
+local function paintMap(m)
+	local x0, y0, x1, y1 = walkBounds()
+	local fx, fy = (x0 + x1) / 2, (y0 + y1) / 2
+	m.Art.psZoom = 1
+	local painted = UI.ZoneArt.Paint(m.Art, DEMO_MAP, fx, fy, 3) and true or false
 	local cv = painted and m.Art.psCanvas
+	if cv then
+		-- Zoomed so the walks take WALKS_H of the height, their middle as
+		-- near WALKS_X of the width as the painting's edge allows, clear of
+		-- the readout.
+		m.Art.psZoom = max(1, MAP_H * WALKS_H / max(1, (y1 - y0) * cv[4] / 100))
+		painted = UI.ZoneArt.Paint(m.Art, DEMO_MAP, fx, fy, 3) and true or false
+		cv = painted and m.Art.psCanvas
+		if cv then
+			painted = UI.ZoneArt.Paint(m.Art, DEMO_MAP, fx + (CW * (0.5 - WALKS_X)) / cv[3] * 100, fy, 3) and true or false
+			cv = painted and m.Art.psCanvas
+		end
+	end
 	local sx, sy, ox, oy
 	if cv then
 		sx, sy, ox, oy = cv[3] / 100, cv[4] / 100, cv[1], cv[2]
-	elseif e then
-		sx, sy, ox, oy = fitWalks(e)
+	else
+		-- The band stands in: the walks' shape kept (a zone map is about 3:2).
+		local k = MAP_H * WALKS_H / (y1 - y0)
+		sx, sy = k * 1.5, k
+		ox, oy = CW * WALKS_X - fx * sx, MAP_H / 2 - fy * sy
 	end
-	-- Each style's walk in px on the map, and its length.
-	m.psPts, m.psLen, m.psWalks, m.psZone = {}, {}, e, z
+	m.psUnit = sx * 100 / LAYER_W -- screen px per painting px
+	m.psPts, m.psLen = {}, {}
 	for _, s in ipairs(ROUTE_STYLES) do
-		local w, pts, len = e and e[s], {}, 0
-		if w then
-			for i = 1, #w, 2 do
-				local n = #pts
-				pts[n + 1], pts[n + 2] = ox + w[i] * sx, oy + w[i + 1] * sy
-				if n > 0 then len = len + sqrt((pts[n + 1] - pts[n - 1]) ^ 2 + (pts[n + 2] - pts[n]) ^ 2) end
-			end
-		else
-			-- No walks to show: a neutral line, the shape of a walk.
-			pts = { CW * 0.56, MAP_H * 0.85, CW * 0.91, MAP_H * 0.27 }
-			len = sqrt((pts[3] - pts[1]) ^ 2 + (pts[4] - pts[2]) ^ 2)
+		local w, pts, len = DEMO[s], {}, 0
+		for i = 1, #w, 2 do
+			local n = #pts
+			pts[n + 1], pts[n + 2] = ox + w[i] * sx, oy + w[i + 1] * sy
+			if n > 0 then len = len + sqrt((pts[n + 1] - pts[n - 1]) ^ 2 + (pts[n + 2] - pts[n]) ^ 2) end
 		end
 		m.psPts[s], m.psLen[s] = pts, len
 	end
@@ -1499,28 +1517,38 @@ local function paintMap(m, id, g)
 	m.Start:SetPoint("CENTER", m.Draw, "TOPLEFT", pts[1], -pts[2])
 	m.End:ClearAllPoints()
 	m.End:SetPoint("CENTER", m.Draw, "TOPLEFT", pts[#pts - 1], -pts[#pts])
-	m.psStyle = routeStyle()
+	m.psStyle, m.psGhost = routeStyle(), nil
 	Anim.Stop(m, "value")
+	m.Ghost:SetAlpha(GHOST_ALPHA)
+	m.Road:SetAlpha(1)
+	legs(m)
+	drawRoads(m)
 	drawTrail(m, 1)
-	m.Place:SetShown(e ~= nil)
-	m.Note:SetShown(e ~= nil)
-	if e then
-		local C = ns.Compat
-		m.Place:SetText(colored("place", C and C.GetAreaName and C.GetAreaName(e.area) or e.place))
-		noteWalk(m)
-	end
+	local C = ns.Compat
+	m.Place:SetText(colored("place", C and C.MapName and C.MapName(DEMO_GOAL) or "Westfall"))
+	noteWalk(m)
 end
 
--- The chosen style's walk draws itself in again, as the route line does for a
--- new goal (Maps/RouteLines.lua's draw-in); under reduced motion it is whole
--- at once.
+-- A new style: the last one's walk stays as the ghost, the new road fades in
+-- and the trail replays from the abbey (the site's switch); under reduced
+-- motion all at once.
 local function redrawRoute(m)
 	if not (m and m.psPts) then return end
 	local s = routeStyle()
 	if s == m.psStyle then return end
-	m.psStyle = s
-	if m.psWalks then noteWalk(m) end
-	Anim.To(m, "value", 0, 1, DRAW_IN, "out")
+	m.psGhost, m.psStyle = m.psStyle, s
+	noteWalk(m)
+	drawRoads(m)
+	if Anim.Reduced() then
+		m.Ghost:SetAlpha(GHOST_ALPHA)
+		m.Road:SetAlpha(1)
+		Anim.Stop(m, "value")
+		drawTrail(m, 1)
+		return
+	end
+	Anim.To(m.Road, "alpha", 0, 1, ROAD_FADE, "out")
+	Anim.To(m.Ghost, "alpha", 1, GHOST_ALPHA, GHOST_FADE, "out")
+	Anim.To(m, "value", 0, 1, REPLAY, "linear")
 end
 
 PAGES[#PAGES + 1] = {
@@ -1539,9 +1567,8 @@ PAGES[#PAGES + 1] = {
 	layout = function(P)
 		local heroH = layoutCompactHero(P.Hero)
 		local p = P.Body
-		local id, g = suggested()
 		place(p.Map, 0, 0)
-		paintMap(p.Map, id, g)
+		paintMap(p.Map)
 		local y = MAP_H + 10
 		for _, c in ipairs(F.Styles) do
 			place(c, 0, y)

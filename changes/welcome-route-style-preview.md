@@ -1,8 +1,8 @@
 ---
 section: players
 ---
-- The welcome's Route style page shows what each style does on the map: the
-  walk Fastest, Balanced or Roads takes between two places of your start
-  zone, as the arrow's router finds it, with its length. Picking another
-  style draws its walk in (at once with Reduce motion on) and the other two
-  stay faintly under it.
+- The welcome's Route style page shows what each style does on the map, as
+  on polestar.guide: Northshire Abbey to the Westfall bridge in Elwynn
+  Forest, Fastest, Balanced or Roads with its length. Picking another style
+  replays its walk and leaves the last one as a faint dashed line (at once
+  with Reduce motion on).

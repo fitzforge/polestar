@@ -5960,14 +5960,11 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   dart going to its first walk's place, the library's Leveling, Professions
   and Reputation counts); Set up (quest automation, the guide at login, the
   colour scheme as preview cards in each scheme's colours that apply live;
-  Skip keeps them); Route style (the start zone's painting with
-  the walk each route style takes between two places of its first guide,
-  baked by the walking router (`polestar nav welcome`, UI/WelcomeRoutes.lua):
-  the chosen style's drawn as the route line, drawn in again on a switch
-  (whole at once under reduced motion), the other two dimmer in their own
-  tints; a zone whose walks show under 15 px apart shows the clearest
-  zone's (`apart`, baked), the note naming it; the place
-  named and the walk's yards; `nav.routeStyle`, the setting Options' Route style dropdown
+  Skip keeps them); Route style (polestar.guide's route demo, the same for everyone: the
+  Elwynn Forest painting, Northshire Abbey to the Westfall bridge, the
+  chosen style's illustrated walk as the site draws it; a switch leaves the
+  last one as a faint dashed ghost and replays the trail, at once under
+  reduced motion; `nav.routeStyle`, the setting Options' Route style dropdown
   writes, as three rows, Fastest,
   Balanced with its Recommended tag and Roads, each saying what it does: a
   click sets it live and Nav/Walk.lua searches again, right-click or the
