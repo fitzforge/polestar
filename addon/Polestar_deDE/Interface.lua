@@ -152,6 +152,7 @@ L["Hand in %s to %s, then take %s: saves a trip back"] = "%s bei %s abgeben, dan
 L["Hand in %s to %s: saves a trip back"] = "%s bei %s abgeben: spart einen Rückweg"
 L["Hand in %s to them, then take %s: saves a trip back"] = "%s dort abgeben, dann %s annehmen: spart einen Rückweg"
 L["Hand in %s to them: saves a trip back"] = "%s dort abgeben: spart einen Rückweg"
+-- L["Hand in %s to them"] = ""
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."

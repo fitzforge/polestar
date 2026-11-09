@@ -150,6 +150,7 @@ L["Hand in %s to %s, then take %s: saves a trip back"] = "將 %s 繳交給 %s，
 L["Hand in %s to %s: saves a trip back"] = "將 %s 繳交給 %s：省一趟回程"
 L["Hand in %s to them, then take %s: saves a trip back"] = "就地繳交 %s，再接取 %s：省一趟回程"
 L["Hand in %s to them: saves a trip back"] = "就地繳交 %s：省一趟回程"
+-- L["Hand in %s to them"] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "接受 %s 將永久關閉 %s。"

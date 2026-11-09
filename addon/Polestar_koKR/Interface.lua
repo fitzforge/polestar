@@ -150,6 +150,7 @@ L["Hand in %s to %s, then take %s: saves a trip back"] = "%s 퀘스트를 %s에�
 L["Hand in %s to %s: saves a trip back"] = "%s 퀘스트를 %s에게 제출: 다시 돌아올 필요가 없습니다"
 L["Hand in %s to them, then take %s: saves a trip back"] = "%s 퀘스트를 그 자리에서 제출한 뒤 %s 수락: 다시 돌아올 필요가 없습니다"
 L["Hand in %s to them: saves a trip back"] = "%s 퀘스트를 그 자리에서 제출: 다시 돌아올 필요가 없습니다"
+-- L["Hand in %s to them"] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "%s 퀘스트를 받으면 %s 퀘스트는 영영 받을 수 없습니다."

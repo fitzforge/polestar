@@ -150,6 +150,7 @@ L["Hand in %s to %s, then take %s: saves a trip back"] = "Сдать %s (%s), з
 L["Hand in %s to %s: saves a trip back"] = "Сдать %s (%s) — не придётся возвращаться"
 L["Hand in %s to them, then take %s: saves a trip back"] = "Сдать %s здесь, затем взять %s — не придётся возвращаться"
 L["Hand in %s to them: saves a trip back"] = "Сдать %s здесь — не придётся возвращаться"
+-- L["Hand in %s to them"] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Взяв %s, вы навсегда закроете %s."
