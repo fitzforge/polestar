@@ -8237,6 +8237,15 @@
 				"issue": "-"
 			},
 			{
+				"q": 1180,
+				"after": [
+					"turnin",
+					1178
+				],
+				"reason": "Quest volume (Br3040, 0.3.6, Horde 30-40 to 40-50 seam): Goblin Sponsorship (level 37, from 29, 700 XP) is Gazlowe's next errand on the same 30-40/04 Ratchet stop that hands in 1178; Wharfmaster Lozgil takes it on 40-50/01's first Booty Bay stop, where Baron Revilgaz's 1181 (290 XP) follows in the same town. Giver, ender and level agree in every source (page, EG, Questie, collector XP). No walk added.",
+				"issue": "-"
+			},
+			{
 				"q": 566,
 				"after": [
 					"accept",

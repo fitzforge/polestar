@@ -9907,3 +9907,16 @@ test('Horde starts: the Priest robe quests on stops the Troll and Undead starts 
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
 	for (const q of [5648, 5649, 5650, 5651]) assert.ok(rf.include.some((e) => e.q === q), `the route fixes include ${q}`);
 });
+
+// Br3040 (0.3.6, Horde 30-40 → 40-50 seam): Gazlowe offers Goblin Sponsorship (1180, 700 XP) as soon as Pozzik's 1178 is
+// handed in on Horde 30-40/04's Ratchet stop; the guide said "leave it" although 40-50/01 stops in Booty Bay, where
+// Wharfmaster Lozgil takes it and Baron Revilgaz's 1181 follows.
+test('Horde Ratchet 37: Goblin Sponsorship (1180) taken from Gazlowe with 1178, for Booty Bay', { skip }, () => {
+	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
+	const hand = at(list, 'turnin 1178', is('turnin', 1178));
+	const take = at(list, 'accept 1180', is('accept', 1180));
+	assert.ok(list[take].s === list[hand].s && take > hand, 'on the Gazlowe step, after 1178');
+	assert.ok(!list[take].goal.optional, 'part of the route');
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
+	assert.ok(rf.include.some((e) => e.q === 1180), 'a route-fix include keeps it');
+});
