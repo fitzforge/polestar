@@ -267,7 +267,15 @@ local function create()
 	b:HookScript("PostClick", function(self, mouse, down)
 		if mouse == "RightButton" and not down then openMenu(self) end
 	end)
+	-- Press or release: the client gives an addon's secure button no mouse
+	-- arguments, so SecureActionButton_OnClick acts on the press when
+	-- useOnKeyDown (nil: the ActionButtonUseKeyDown CVar) says so, else on
+	-- the release, for mouse and key alike. As the quest buttons do
+	-- (QoL/Buttons.lua): the cursor on it (out of combat) makes it false, so a
+	-- mouse click casts once, on its release; leaving puts it back to nil, so
+	-- the binding follows the player's key-down setting.
 	b:SetScript("OnEnter", function(self)
+		if not inLockdown() then self:SetAttribute("useOnKeyDown", false) end
 		paintBorder(self, true)
 		if not GameTooltip then return end
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
@@ -280,6 +288,7 @@ local function create()
 		GameTooltip:Show()
 	end)
 	b:SetScript("OnLeave", function(self)
+		secure("press", function() self:SetAttribute("useOnKeyDown", nil) end)
 		paintBorder(self, false)
 		if GameTooltip and GameTooltip:GetOwner() == self then GameTooltip:Hide() end
 	end)

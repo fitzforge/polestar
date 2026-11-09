@@ -105,6 +105,40 @@ fn travel_button_a_hearth_leg_gets_a_secure_item_button_under_the_arrow_out_of_c
 }
 
 #[test]
+fn travel_button_a_mouse_click_casts_once_on_its_release_its_binding_once_and_a_right_click_casts_nothing_at_either_key_down_setting() {
+	let out = run_nav(
+		r#"
+		nav.items[6948] = 1
+		setRoute({ HEARTH, WALK })
+		local b = btn()
+		local out = {}
+		for _, cvar in ipairs({ "1", "0" }) do
+			stub.cvars.ActionButtonUseKeyDown = cvar
+			local ran = {}
+			stub.mouseClick(b, ran)
+			local mouse, onEnter = ran, b:GetAttribute("useOnKeyDown")
+			stub.RunScript(b, "OnLeave")
+			ran = {}
+			stub.keyClick(b, ran)
+			local key = ran
+			ran = {}
+			stub.mouseClick(b, ran, "RightButton")
+			stub.RunScript(b, "OnLeave")
+			out[#out + 1] = { mouse = mouse, hovered = onEnter, key = key, right = #ran, left = b:GetAttribute("useOnKeyDown") == nil }
+		end
+		emit(out)
+	"#,
+	);
+	for (i, row) in out[0].as_array().unwrap().iter().enumerate() {
+		assert_eq!(row["mouse"], json!([["item", "item:6948"]]), "setting {i}: one cast per mouse click");
+		assert_eq!(row["hovered"], false, "setting {i}: on its release");
+		assert_eq!(row["key"], json!([["item", "item:6948"]]), "setting {i}: one cast per key press");
+		assert_eq!(row["right"], 0, "setting {i}: a right click casts nothing");
+		assert_eq!(row["left"], true, "setting {i}");
+	}
+}
+
+#[test]
 fn travel_button_issues_6_never_changed_in_combat_the_last_request_lands_when_combat_ends() {
 	let out = run_nav(
 		r#"

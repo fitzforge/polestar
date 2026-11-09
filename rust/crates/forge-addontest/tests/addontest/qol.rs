@@ -162,6 +162,58 @@ fn quest_item_button_the_current_use_goal_item_else_a_quest_log_item_else_a_usab
 }
 
 #[test]
+fn secure_buttons_a_mouse_click_acts_once_on_its_release_a_binding_once_at_either_key_down_setting() {
+	// The client gives an addon's secure button no mouse arguments (SecureTemplates.xml): SecureActionButton_OnClick
+	// acts on the press when useOnKeyDown (nil: ActionButtonUseKeyDown) says so, else on the release. A button that
+	// hears only one of them does nothing at the other setting (0.3.6: the rare card's Target button).
+	let out = run(r#"
+		q.items[900] = { name = "Torch" }
+		q.addItem(0, 1, 900, 1)
+		local nearby = { "Fitz Polestar", "Thuros Lightfingers" }
+		Polestar.Rares = { Nearby = function() return nearby end, IsFounder = function(n) return n == "Fitz Polestar" end }
+		q.step({ { t = "use", item = 900, quest = 7 }, { t = "kill", target = "Murloc" } })
+		Polestar.Fire("RARE_NEARBY")
+		stub.runTimers()
+		local out = {}
+		for _, cvar in ipairs({ "1", "0" }) do
+			stub.cvars.ActionButtonUseKeyDown = cvar
+			local row = {}
+			for _, name in ipairs({ "PolestarQuestItemButton", "PolestarTargetButton", "PolestarRareButton" }) do
+				local b = _G[name]
+				q.ran = {}
+				q.mouseClick(b)
+				local mouse = q.ran
+				-- the cursor leaves; its binding (no hover) after
+				stub.RunScript(b, "OnLeave")
+				q.ran = {}
+				q.keyClick(b)
+				row[name] = { mouse = mouse, key = q.ran, released = b:GetAttribute("useOnKeyDown") == nil }
+			end
+			q.ran = {}
+			q.keyClick(PolestarStepButton)
+			row.step = q.ran
+			out[#out + 1] = row
+		end
+		emit(out)
+	"#);
+	let wave = "/cleartarget [nocombat]\n/targetexact Fitz Polestar\n/targetexact [noexists] Fitz\n/wave";
+	for (i, row) in out[0].as_array().unwrap().iter().enumerate() {
+		let item = json!([["item", "item:900"]]);
+		assert_eq!(row["PolestarQuestItemButton"]["mouse"], item, "setting {i}: a mouse click uses the item once");
+		assert_eq!(row["PolestarQuestItemButton"]["key"], item, "setting {i}: and its binding once");
+		let t = &row["PolestarTargetButton"];
+		assert_eq!(t["mouse"].as_array().unwrap().len(), 1, "setting {i}: the target button targets once");
+		assert_eq!(t["key"].as_array().unwrap().len(), 1, "setting {i}");
+		assert!(t["mouse"][0][1].as_str().unwrap().contains("/targetexact Murloc"));
+		let r = &row["PolestarRareButton"];
+		assert_eq!(r["mouse"], json!([["macro", wave]]), "setting {i}: the founder's wave from the rare button, once");
+		assert_eq!(r["key"].as_array().unwrap().len(), 1, "setting {i}");
+		assert_eq!(r["released"], true, "setting {i}: leaving gives the binding back to the key-down setting");
+		assert_eq!(row["step"], item, "setting {i}: the step key acts once");
+	}
+}
+
+#[test]
 fn secure_buttons_changes_during_combat_wait_for_player_regen_enabled_display_still_updates() {
 	let out = run(r#"
 		local b, t = PolestarQuestItemButton, PolestarTargetButton

@@ -1584,7 +1584,9 @@ local function create()
 		if Space then Space.Press() end
 		applyBag(self)
 	end)
-	-- The step key: a binding only, never shown.
+	-- The step key: a binding only, never shown. Press and release both
+	-- reach it and useOnKeyDown stays nil, so the player's key-down setting
+	-- (ActionButtonUseKeyDown) picks which one acts: once, either way.
 	stepButton = CreateFrame("Button", "PolestarStepButton", UIParent, "SecureActionButtonTemplate")
 	stepButton:RegisterForClicks("AnyUp", "AnyDown")
 	QoL.Secure("init:PolestarStepButton", function() stepButton:Hide() end)
