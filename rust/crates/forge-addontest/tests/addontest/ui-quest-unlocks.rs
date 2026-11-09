@@ -193,7 +193,11 @@ fn more_than_four_follow_ups_list_four_then_how_many_more() {
 		})
 		emit(unlockLines(tip(128)))"#,
 	);
-	assert_eq!(out, json!(["Leads to | “Side One”, from Scout Riell", " | “Side Two”, from Scout Riell", " | “Side Three”", " | “Side Four”", " | +2 more",]), "the Horde quest is never this character's");
+	assert_eq!(
+		out,
+		json!(["Leads to | “Side One”, from Scout Riell", " | “Side Two”, from Scout Riell", " | “Side Three”", " | “Side Four”", " | +2 more",]),
+		"the Horde quest is never this character's"
+	);
 }
 
 #[test]

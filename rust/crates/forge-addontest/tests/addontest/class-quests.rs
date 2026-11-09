@@ -198,25 +198,29 @@ end
 
 #[test]
 fn a_long_normal_chain_is_offered_when_it_opens_with_its_length_and_its_mobs_level() {
-	let out = run_qol(&(CHAINS.to_string()
-		+ r#"
+	let out = run_qol(
+		&(CHAINS.to_string()
+			+ r#"
 		levelUp(20)
 		CQ.Resolve("c/fire")
 		chain("c/storm", false)
-		emit(offeredAt(22))"#));
+		emit(offeredAt(22))"#),
+	);
 	assert_eq!(out[0], json!({ "id": "c/storm", "heads": "Long chain: 6 quests across 4 zones \u{b7} mobs up to level 29" }), "no wait, the optional level-40 kill aside");
 }
 
 #[test]
 fn an_elite_chain_waits_until_two_levels_below_its_highest_elite_and_says_bring_a_group() {
-	let out = run_qol(&(CHAINS.to_string()
-		+ r#"
+	let out = run_qol(
+		&(CHAINS.to_string()
+			+ r#"
 		levelUp(20)
 		CQ.Resolve("c/fire")
 		chain("c/storm", true)
 		emit(offeredAt(22))
 		emit(offeredAt(26))
-		emit(offeredAt(27))"#));
+		emit(offeredAt(27))"#),
+	);
 	assert_eq!(out[0], json!(false), "not at 22");
 	assert_eq!(out[1], json!(false), "not at 26");
 	assert_eq!(out[2], json!({ "id": "c/storm", "heads": "Long chain: 6 quests across 4 zones \u{b7} elite mobs at 28-29: bring a group" }));

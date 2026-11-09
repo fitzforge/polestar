@@ -43,12 +43,7 @@ local function saved() return Polestar.DB().settings.ui and Polestar.DB().settin
 "#;
 
 fn run(script: &str) -> Vec<Value> {
-	emitted(&RunAddon {
-		stubs: vec!["stub_ui.lua"],
-		addons: vec![Addon::files("Polestar", &FILES)],
-		script: format!("uistub.install()\nstub.login()\n{HELPERS}\n{script}"),
-		..Default::default()
-	})
+	emitted(&RunAddon { stubs: vec!["stub_ui.lua"], addons: vec![Addon::files("Polestar", &FILES)], script: format!("uistub.install()\nstub.login()\n{HELPERS}\n{script}"), ..Default::default() })
 }
 
 #[test]
@@ -120,10 +115,7 @@ fn folded_folders_are_kept_account_wide_by_an_id_that_holds_in_every_language_an
 		emit(r)"#);
 	let out = &out[0];
 	assert_eq!(out["saved"], json!({ "Leveling/other-starts": true }), "in the account's settings, not the character's");
-	assert_eq!(
-		out["pane"],
-		json!(["[Alliance 1\u{2013}30 3 v]", "Elwynn Forest (1\u{2013}13)", "Westfall (12\u{2013}17)", "Darkshore (16\u{2013}21)", "[Other starting zones 3 >]"])
-	);
+	assert_eq!(out["pane"], json!(["[Alliance 1\u{2013}30 3 v]", "Elwynn Forest (1\u{2013}13)", "Westfall (12\u{2013}17)", "Darkshore (16\u{2013}21)", "[Other starting zones 3 >]"]));
 	assert_eq!(out["ids"], json!(["Leveling/Alliance/1", "Leveling/other-starts"]));
 	assert_eq!(out["horde"][0], "[Alliance 1\u{2013}30 6 >]", "the other faction's list: every Alliance start in the band, folded");
 }
@@ -150,10 +142,7 @@ fn opening_the_menu_unfolds_the_folder_of_the_open_guide_and_leaves_the_others_a
 		emit(r)"#);
 	let out = &out[0];
 	assert_eq!(out["closed"], json!(["[Alliance 1\u{2013}30 3 >]", "[Other starting zones 3 >]"]));
-	assert_eq!(
-		out["open"],
-		json!(["[Alliance 1\u{2013}30 3 v]", "Elwynn Forest (1\u{2013}13)", "Westfall (12\u{2013}17)", "Darkshore (16\u{2013}21)", "[Other starting zones 3 >]"])
-	);
+	assert_eq!(out["open"], json!(["[Alliance 1\u{2013}30 3 v]", "Elwynn Forest (1\u{2013}13)", "Westfall (12\u{2013}17)", "Darkshore (16\u{2013}21)", "[Other starting zones 3 >]"]));
 	assert_eq!(out["saved"], json!({ "Leveling/other-starts": true }));
 	assert_eq!(out["refolded"], true);
 }
@@ -195,10 +184,7 @@ fn guides_of_one_title_and_level_range_say_whose_they_are_by_race_else_by_factio
 		P.SetView("recent")
 		emit({ recent = pane() })"#);
 	assert_eq!(out[0]["alliance"], json!(["Darkshore", "Darkshore", "Dun Morogh (Dwarf)", "Dun Morogh (Gnome)", "Zephras Isle"]));
-	assert_eq!(
-		out[0]["all"],
-		json!(["Dun Morogh (Dwarf)", "Dun Morogh (Gnome)", "Zephras Isle (Alliance)", "Darkshore", "Darkshore", "Zephras Isle (Horde)"])
-	);
+	assert_eq!(out[0]["all"], json!(["Dun Morogh (Dwarf)", "Dun Morogh (Gnome)", "Zephras Isle (Alliance)", "Darkshore", "Darkshore", "Zephras Isle (Horde)"]));
 	let rows = out[0]["rows"].as_array().unwrap();
 	assert!(rows.contains(&json!("Dun Morogh (Dwarf) (1\u{2013}13)")) && rows.contains(&json!("Dun Morogh (Gnome) (1\u{2013}13)")), "{rows:?}");
 	assert!(rows.contains(&json!("Darkshore (16\u{2013}21)")) && rows.contains(&json!("Darkshore (21\u{2013}23)")), "{rows:?}");

@@ -399,8 +399,18 @@ emit(r)"#
 	assert_eq!(
 		out["keys"],
 		json!([
-			"nav.dotColor", "nav.lineStyle", "nav.minimapRouteAlpha", "nav.minimapRouteSize", "nav.sparkleColor", "nav.sparkleDensity", "nav.sparkleFlow",
-			"nav.sparkleIntensity", "nav.sparkleLater", "nav.sparkleMax", "nav.sparkleSize", "nav.sparkleSubtlety"
+			"nav.dotColor",
+			"nav.lineStyle",
+			"nav.minimapRouteAlpha",
+			"nav.minimapRouteSize",
+			"nav.sparkleColor",
+			"nav.sparkleDensity",
+			"nav.sparkleFlow",
+			"nav.sparkleIntensity",
+			"nav.sparkleLater",
+			"nav.sparkleMax",
+			"nav.sparkleSize",
+			"nav.sparkleSubtlety"
 		])
 	);
 	assert_eq!(out["offWhileDots"], true);

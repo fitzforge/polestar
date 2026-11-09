@@ -34,7 +34,11 @@ pub fn is_rare(rank: &V, faction: &V, sides: &V) -> bool {
 fn top_level(n: &V) -> f64 {
 	let m = n.get("levelMax").num();
 	let l = if m > 0.0 { m } else { n.get("level").num() };
-	if l > 0.0 { l } else { 0.0 }
+	if l > 0.0 {
+		l
+	} else {
+		0.0
+	}
 }
 
 /// A `kill` of an elite, or a `collect` of an item whose every located dropper is an elite.
@@ -43,7 +47,11 @@ pub fn elite_work(goal: &V, sides: &V, data: &Data) -> V {
 	let t = goal.get("t");
 	if t.as_str() == Some("kill") && !goal.get("npc").is_undef() {
 		let n = data.npc(&goal.get("npc"));
-		return if n.truthy() && is_elite(&n.get("rank"), &n.get("faction"), sides) { obj! { "rank" => n.get("rank").num(), "names" => vec![n.get("name")], "lvl" => top_level(&n) }.into() } else { V::Null };
+		return if n.truthy() && is_elite(&n.get("rank"), &n.get("faction"), sides) {
+			obj! { "rank" => n.get("rank").num(), "names" => vec![n.get("name")], "lvl" => top_level(&n) }.into()
+		} else {
+			V::Null
+		};
 	}
 	if t.as_str() != Some("collect") || goal.get("candidates").truthy() {
 		return V::Null;
