@@ -4815,6 +4815,22 @@
 					"ref": "quest minimum and quest levels in Forever's quest data; mob levels from npcs.json"
 				}
 			]
+		},
+		{
+			"id": "h130-sepulcher-yuriv-tombstone",
+			"faction": "Horde",
+			"at": {
+				"quest": 264,
+				"goal": "turnin"
+			},
+			"tip": "Until Death Do Us Part is handed in at Yuriv's Tombstone, a grave a few steps south of the crypt entrance, not to a person.",
+			"note": "Horde final route review (0.3.6): the Sepulcher step for Tauren and Skyborne handed 264 in with no word on where; its ender is an object, Yuriv's Tombstone (24776, 44.19,42.67), a few steps south of the crypt entrance where the rest of the stop happens.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 264 ender object 24776, objects.json spawn 1421 44.19,42.67; the knowledge base's sources agree on the ender (6/6)"
+				}
+			]
 		}
 	]
 }

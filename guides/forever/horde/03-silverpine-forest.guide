@@ -261,6 +261,7 @@ step The Sepulcher
 step The Sepulcher
   zone Silverpine Forest
   when onquest 264
+  tip Until Death Do Us Part is handed in at Yuriv's Tombstone, a grave a few steps south of the crypt entrance, not to a person.
   turnin 264 only Skyborne,Tauren
 
 step Border Crossings
