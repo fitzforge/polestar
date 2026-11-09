@@ -123,7 +123,7 @@ step Northern Pylon
   collect 11830 quest 4503
 
 step A-Me 01
-  tip Ride north to Ironstone Plateau, where the robot stands among the gorillas. Stay out of the deep cave there.
+  tip Ride east to Ironstone Plateau, where the robot stands among the gorillas. Stay out of the deep cave there.
   turnin 4243                         -- Below ground
 
 step Level 49.51

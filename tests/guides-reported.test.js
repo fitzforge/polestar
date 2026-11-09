@@ -4542,6 +4542,29 @@ test('Alliance 40-60: listening and questioning are talk goals, the yeti scares 
 	}
 });
 
+// Final route review 0.3.6 (Alliance 40-60): tips that sent the player the wrong way or to the wrong place. Linken
+// stands in Marshal's Refuge (npc 8737 at 44.66,8.1), not by the tar pits west of it; the Hive'Ashi tower is in
+// Southwind Village, south-west of Layo Starstrike, not east; A-Me 01 (67.7,16.8) is east of the northern pylon.
+// Cortello's scroll (object 2554) lies inside one of the three Bloodsail ships among 42-45 crews at about level 42:
+// optional, as on the Horde side, under its own title instead of "The Bloodsail captains", who come at 48.
+test('Alliance 40-60: tips point the right way (Linken, the Hive\'Ashi tower, A-Me 01, Cortello\'s scroll)', { skip }, () => {
+	const tipOf = (guide, pred) => {
+		const list = goals(guide);
+		return [].concat(list[at(list, guide, pred)].step.note || []).join(' ');
+	};
+	const wpl = 'forever/alliance/50-60/04-western-plaguelands.guide';
+	const linken = tipOf(wpl, is('turnin', 3914));
+	assert.match(linken, /back of the refuge/);
+	assert.doesNotMatch(linken, /Tar Pits/);
+	assert.match(tipOf(wpl, (g) => g.t === 'collect' && g.item === 17346), /south-west/);
+	assert.match(tipOf('forever/alliance/40-50/07-un-goro-crater.guide', is('turnin', 4243)), /^Ride east/);
+	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const scroll = stv[at(stv, 'accept 624', is('accept', 624))];
+	assert.ok(scroll.goal.optional, '624 optional');
+	assert.doesNotMatch(scroll.step.title, /captains/);
+	assert.doesNotMatch([].concat(scroll.step.note || []).join(' '), /wreck by the shore/);
+});
+
 test("Fitz's report: Darkshore's Fine Crab Chunks are a goal at Cliffspring Falls, by the crabs that drop them, not a list along ten stops", { skip }, () => {
 	// Only Reef Crawlers and Encrusted Tide Crawlers drop the chunks, on the north coast and the far
 	// south. Listed along the way, the chunks were open for ten stops of which three had crabs; the

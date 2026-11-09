@@ -528,7 +528,7 @@ step Fly to Marshal's Refuge
 
 step Linken
   zone Un'Goro Crater
-  tip Fly from Gadgetzan to Marshal's Refuge. Linken's hut stands at the Lakkari Tar Pits, west of the refuge; J.D. Collie is up the hill behind it.
+  tip Fly from Gadgetzan to Marshal's Refuge. Linken stands at the back of the refuge; J.D. Collie is in the cave behind him.
   turnin 3914
   accept 3941
   turnin 3941                         -- J.D. Collie, below ground
@@ -606,7 +606,7 @@ step Layo Starstrike
   accept 1126
 
 step The Hive'Ashi tower
-  tip Ride east to the Hive'Ashi tower in Southwind Village; climb it and kill the ambushers that rise for the encrusted object.
+  tip Ride back south-west to the Hive'Ashi tower in Southwind Village; climb it and kill the ambushers that rise for the encrusted object.
   collect 17346 quest 1126.1          -- Encrusted Silithid Object
 
 step Layo Starstrike

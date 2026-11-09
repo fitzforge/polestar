@@ -363,10 +363,10 @@ step Booty Bay
   turnin 607                          -- "Sea Wolf" MacKinley, on the top floor
   accept 609
 
-step The Bloodsail captains
-  tip The captains stand on the ships anchored off the Wild Shore, each with a crew of 42-45 pirates: Stillwater (45) and Keelhaul (46) on the nearer decks, Fleet Master Firallon (48) on the flagship. At 42 this is a fight for a group or for the end of the guide; clear each deck first if you go. Cortello's scroll lies on the wreck by the shore.
-  collect 4056                        -- Cortello's Riddle
-  accept 624                          -- for the Swamp of Sorrows later
+step Cortello's scroll
+  tip Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of Booty Bay, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48.
+  collect 4056 optional               -- Cortello's Riddle
+  accept 624 optional                 -- for the Swamp of Sorrows later
 
 step Zanzil's village
   tip Every Zanzil follower can drop the mixture; Chucky "Ten Thumbs" walks the south of the camp.
