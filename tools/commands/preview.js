@@ -1087,7 +1087,7 @@ const SCENES = [
 	},
 	{
 		file: 'guide-transparent.svg',
-		title: 'Transparent mode over a bright world: at rest on the soft backing; with the cursor over it; the bar kept shown, While you\'re here and the tip open; the dark backing; the backing off',
+		title: 'Transparent mode over a bright world: at rest, a light shade behind each line (Soft); with the cursor over it; the bar kept shown, While you\'re here and the tip open; the Dark backing; the backing off',
 		backdrop: 'terrain',
 		panels: [
 			{ roots: GUIDE, script: `Polestar.Set("ui.style", "transparent"); ${TABS}` },

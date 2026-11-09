@@ -2185,11 +2185,11 @@ L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles t
 L["Button in the game menu"] = "Кнопка в игровом меню"
 L["A Polestar button in the game menu (Esc) that opens the guide menu."] = "Кнопка Polestar в игровом меню (Esc), открывающая меню гайда."
 L["Backing"] = "Подложка"
-L["With Transparent, a shade with no edge behind the text, so it reads over bright ground. Off: the outlined text alone on the world."] = "В прозрачном стиле — тень без краёв за текстом, чтобы его было видно на ярком фоне. Выкл.: только обведённый текст поверх мира."
 L["Soft"] = "Мягкая"
 L["Dark"] = "Тёмная"
 L["Keep the bar shown"] = "Не скрывать панель"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "В прозрачном стиле вкладки и панель шага остаются на экране, а не только под курсором."
+-- L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -3243,3 +3243,4 @@ L["Sparkles"] = "Искры"
 -- L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. Quests new in Forever carry a small ∞ mark. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = "Все гайды по прокачке заново проверены, а 40-60 переработаны для обеих фракций: больше заданий и короче гринд. Задания, новые в Forever, отмечены маленьким значком ∞. Если открытый гайд не соответствует вашему местоположению, откройте список гайдов и выберите гайд в разделе %s. Ваш журнал заданий сохраняется."
 -- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = "Папки в обзоре сворачиваются, закрытая вкладка возвращается кнопкой «Вернуть», маршрут на карте и миникарте может быть линией, точками или искрами, а в настройках можно включить кнопку у миникарты и плавающую кнопку Polestar."
 -- L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route."] = "Гайды по прокачке проводят вас через это подземелье, если в них есть шаги для него. Если выключено, они придерживаются одиночного маршрута."
+-- L["With Transparent, a shade with no edge behind the text, so it reads over bright ground. Off: the outlined text alone on the world."] = "В прозрачном стиле — тень без краёв за текстом, чтобы его было видно на ярком фоне. Выкл.: только обведённый текст поверх мира."

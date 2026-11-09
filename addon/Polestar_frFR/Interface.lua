@@ -2186,11 +2186,11 @@ L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles t
 L["Button in the game menu"] = "Bouton dans le menu du jeu"
 L["A Polestar button in the game menu (Esc) that opens the guide menu."] = "Un bouton Polestar dans le menu du jeu (Échap) qui ouvre le menu du guide."
 L["Backing"] = "Fond"
-L["With Transparent, a shade with no edge behind the text, so it reads over bright ground. Off: the outlined text alone on the world."] = "Avec Transparent, une ombre sans bord derrière le texte, pour qu'il reste lisible sur un décor clair. Désactivé : le texte détouré seul sur le monde."
 L["Soft"] = "Léger"
 L["Dark"] = "Sombre"
 L["Keep the bar shown"] = "Garder la barre affichée"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "Avec Transparent, les onglets et la barre d'étape restent à l'écran au lieu d'apparaître seulement sous le curseur."
+-- L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"
@@ -3278,3 +3278,4 @@ L["Sparkles"] = "Étincelles"
 -- L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. Quests new in Forever carry a small ∞ mark. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = "Chaque guide de montée de niveau a été revu, et le 40-60 retravaillé pour les deux factions avec plus de quêtes et moins de farm. Les quêtes nouvelles dans Forever portent une petite marque ∞. Si le guide que vous aviez ouvert ne correspond pas à l'endroit où vous êtes, ouvrez la liste des guides et choisissez le guide sous %s. Votre journal des quêtes est conservé."
 -- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = "Les dossiers de navigation se replient, un onglet fermé revient avec Rouvrir, l'itinéraire peut s'afficher en ligne, en points ou en étincelles sur la carte et la minicarte, et le bouton de la minicarte et un bouton Polestar flottant peuvent être activés dans les Options."
 -- L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route."] = "Les guides de montée en niveau vous font passer par ce donjon quand ils ont des étapes pour lui. Désactivé : ils s'en tiennent à l'itinéraire solo."
+-- L["With Transparent, a shade with no edge behind the text, so it reads over bright ground. Off: the outlined text alone on the world."] = "Avec Transparent, une ombre sans bord derrière le texte, pour qu'il reste lisible sur un décor clair. Désactivé : le texte détouré seul sur le monde."

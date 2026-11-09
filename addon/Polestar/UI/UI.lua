@@ -23,7 +23,7 @@ ns.RegisterDefaults("ui", {
 	barsBottom = false, -- with growUp: tabs and navigator at the bottom, by the pinned edge
 	compact = false,
 	style = "standard", -- "standard" | "transparent"
-	backing = "soft", -- transparent: "soft" | "dark" | "none", the shade behind the text (GuideFrame GF.VEIL)
+	backing = "soft", -- transparent: "soft" (a light shade behind each line) | "dark" (a dark backing) | "none" (GuideFrame GF.SHADE, GF.VEIL)
 	barShown = false, -- transparent: the tabs and the step bar stay shown instead of only under the cursor
 	scale = 1,
 	opacity = 1,

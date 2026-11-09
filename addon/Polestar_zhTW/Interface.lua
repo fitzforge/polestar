@@ -2185,11 +2185,11 @@ L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles t
 L["Button in the game menu"] = "遊戲選單中的按鈕"
 L["A Polestar button in the game menu (Esc) that opens the guide menu."] = "在遊戲選單（Esc）中放一個開啟指南選單的 Polestar 按鈕。"
 L["Backing"] = "底襯"
-L["With Transparent, a shade with no edge behind the text, so it reads over bright ground. Off: the outlined text alone on the world."] = "使用透明樣式時，在文字後方加上無邊框的陰影，讓文字在明亮背景上也清晰可讀。關閉：只有加外框的文字直接顯示在遊戲世界上。"
 L["Soft"] = "柔和"
 L["Dark"] = "深色"
 L["Keep the bar shown"] = "持續顯示列"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "使用透明樣式時，分頁與步驟列會持續顯示在畫面上，而不是只在滑鼠指向時顯示。"
+-- L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"
@@ -3234,3 +3234,4 @@ L["Sparkles"] = "閃光"
 -- L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. Quests new in Forever carry a small ∞ mark. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = "所有練等指南都重新檢查過一遍，40-60 級更為雙方陣營重新製作，任務更多、練等時間更短。Forever 新增的任務會帶有一個小小的 ∞ 標記。若你開啟的指南與你所在位置不符，請開啟指南清單並選擇 %s 底下的指南。你的任務日誌會沿用。"
 -- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = "瀏覽資料夾可收合，關閉的分頁可用「重新開啟」找回，路線在地圖和小地圖上可顯示為線條、圓點或閃光，小地圖按鈕和浮動的 Polestar 按鈕都可在「選項」中開啟。"
 -- L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route."] = "升級指南若有此地城的步驟，就會帶你通過此地城。關閉：維持單人路線。"
+-- L["With Transparent, a shade with no edge behind the text, so it reads over bright ground. Off: the outlined text alone on the world."] = "使用透明樣式時，在文字後方加上無邊框的陰影，讓文字在明亮背景上也清晰可讀。關閉：只有加外框的文字直接顯示在遊戲世界上。"

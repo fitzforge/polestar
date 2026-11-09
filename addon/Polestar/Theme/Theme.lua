@@ -1212,6 +1212,43 @@ function Theme.Scrim(parent, feather)
 	return s
 end
 
+-- A light shade for one string laid on the game world: nine textures on
+-- `parent` under its strings, a solid middle (s.parts[1], placed and sized to
+-- the text by the caller) and, round it, the shadow texture's rise from clear
+-- to solid over `fx` units left and right and `fy` above and below, so it
+-- shows no edge. Coloured by Theme.PaintScrim.
+function Theme.TextShade(parent, fx, fy)
+	local tex, S = Theme.Media("shadow"), SCRIM_SLICE
+	local function part(u0, u1, v0, v1)
+		local t = parent:CreateTexture(nil, "BACKGROUND", nil, -8)
+		t:SetTexture(tex)
+		t:SetTexCoord(u0, u1, v0, v1)
+		return t
+	end
+	local mid = parent:CreateTexture(nil, "BACKGROUND", nil, -8)
+	mid:SetTexture(Theme.Media("white"))
+	local tl, tr, bl, br = part(0, S, 0, S), part(1 - S, 1, 0, S), part(0, S, 1 - S, 1), part(1 - S, 1, 1 - S, 1)
+	for _, c in ipairs({ tl, tr, bl, br }) do c:SetSize(fx, fy) end
+	tl:SetPoint("BOTTOMRIGHT", mid, "TOPLEFT", 0, 0)
+	tr:SetPoint("BOTTOMLEFT", mid, "TOPRIGHT", 0, 0)
+	bl:SetPoint("TOPRIGHT", mid, "BOTTOMLEFT", 0, 0)
+	br:SetPoint("TOPLEFT", mid, "BOTTOMRIGHT", 0, 0)
+	local top, bottom, left, right = part(S, 1 - S, 0, S), part(S, 1 - S, 1 - S, 1), part(0, S, S, 1 - S), part(1 - S, 1, S, 1 - S)
+	top:SetPoint("BOTTOMLEFT", mid, "TOPLEFT", 0, 0)
+	top:SetPoint("BOTTOMRIGHT", mid, "TOPRIGHT", 0, 0)
+	top:SetHeight(fy)
+	bottom:SetPoint("TOPLEFT", mid, "BOTTOMLEFT", 0, 0)
+	bottom:SetPoint("TOPRIGHT", mid, "BOTTOMRIGHT", 0, 0)
+	bottom:SetHeight(fy)
+	left:SetPoint("TOPRIGHT", mid, "TOPLEFT", 0, 0)
+	left:SetPoint("BOTTOMRIGHT", mid, "BOTTOMLEFT", 0, 0)
+	left:SetWidth(fx)
+	right:SetPoint("TOPLEFT", mid, "TOPRIGHT", 0, 0)
+	right:SetPoint("BOTTOMLEFT", mid, "BOTTOMRIGHT", 0, 0)
+	right:SetWidth(fx)
+	return { parts = { mid, tl, tr, bl, br, top, bottom, left, right } }
+end
+
 -- The scheme's scrim colour at `alpha`.
 function Theme.PaintScrim(s, alpha)
 	local r, g, b = Theme.Color("scrim")

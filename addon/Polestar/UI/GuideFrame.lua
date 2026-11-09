@@ -32,9 +32,10 @@
 -- Styles (ui.style): "standard" draws the night ground (Theme.GroundAlpha,
 -- ui.bgOpacity, like every Polestar window), hairline border and the
 -- night-sky band behind the tabs and navigator. "transparent" draws no fills
--- or borders; every string is outlined and, unless ui.backing is "none",
--- sits on a scrim with no edge (GF.VEIL: soft or dark), one behind the body
--- and one behind the tabs and navigator that comes and goes with them; tick
+-- or borders; every string is outlined and (ui.backing) sits on a light
+-- feathered shade of its own ("soft", GF.PaintShades) or on a dark scrim with
+-- no edge ("dark", GF.VEIL), one behind the body and one behind the tabs and
+-- navigator that comes and goes with them, or on nothing ("none"); tick
 -- boxes take the scrim and an ink edge, the progress track stays as a faint
 -- ink line, and the chrome (tabs, the whole navigator: prev, "8 / 29", next,
 -- title, Skip, the bug, menu; the grip) shows only while the cursor is over
@@ -2422,6 +2423,7 @@ function GF.Layout()
 	if showStrip then GF.RenderTabs() end
 	GF.PaintProgress(false)
 	if UI.NameTargets then UI.NameTargets.Refresh() end
+	GF.PaintShades()
 end
 
 ---------------------------------------------------------------------------
@@ -3605,19 +3607,105 @@ local function paintTrack(t)
 	t:SetVertexColor(r, g, b, transparent() and 0.15 or a)
 end
 
--- The transparent style's backing (ui.backing): a scrim with no edge behind
--- the body (GF.veil) and one behind the tabs and the navigator (band.Veil)
--- that comes and goes with them, at GF.VEIL's strength; "none" leaves the
--- outlined text alone on the world. Both feather over GF.VEIL_FEATHER and
--- cross-fade where they meet (placeBars), so the shown bar never leaves a
--- seam. (On GF: the main chunk is at Lua's 200 locals.)
-GF.VEIL = { soft = 0.42, dark = 0.68 }
+-- The transparent style's backing (ui.backing). "dark": a scrim with no edge
+-- behind the body (GF.veil) and one behind the tabs and the navigator
+-- (band.Veil) that comes and goes with them, at GF.VEIL; both feather over
+-- GF.VEIL_FEATHER and cross-fade where they meet (placeBars), so the shown
+-- bar never leaves a seam. "soft" (the default): no box, only a light shade
+-- behind each string on screen (GF.PaintShades), the world showing between
+-- and around the lines. "none": the outlined text alone on the world. (On
+-- GF: the main chunk is at Lua's 200 locals.)
+GF.VEIL = { dark = 0.68 }
 GF.VEIL_FEATHER = 20
 function GF.Backing()
 	return transparent() and GF.VEIL[ns.Get("ui.backing")] or nil
 end
 function GF.PaintVeil(s)
 	Theme.PaintScrim(s, GF.Backing() or 0)
+end
+
+-- The soft backing: Theme.TextShade behind each string (on its parent, under
+-- it), its solid middle the text's own size at GF.SHADE and feathering out
+-- over GF.SHADE_FEATHER: wide to the sides, short above and below (inside
+-- the gap to the next line, clear of the scrolling goals' clipped edges).
+-- Sized again on a layout and, a frame
+-- later (GF.QueueShades: one OnUpdate, then none), when a string's text,
+-- width or shown state changes; a string's own alpha (the chrome's fade, a
+-- dimmed label) carries to its shade. GF.shades: string -> its shade.
+GF.SHADE = 0.2
+GF.SHADE_FEATHER = { x = 30, y = 12 }
+GF.SHADE_INSET = { x = 10, y = 6 }
+GF.shades, GF.shadeHooked = {}, {}
+GF.shadeFrame = CreateFrame("Frame")
+function GF.SoftShade() return transparent() and ns.Get("ui.backing") == "soft" end
+
+function GF.ShadeText(fs, on)
+	local s = GF.shades[fs]
+	local text = fs:GetText()
+	if not (on and fs:IsShown() and text and text ~= "") then
+		if s and s.shown then
+			s.shown = false
+			for _, p in ipairs(s.parts) do p:Hide() end
+		end
+		return
+	end
+	if not s then
+		s = Theme.TextShade(fs:GetParent(), GF.SHADE_FEATHER.x, GF.SHADE_FEATHER.y)
+		GF.shades[fs] = s
+	end
+	-- The solid middle is the text less GF.SHADE_INSET on each side: the rise
+	-- begins inside the text, so no edge of the shade shows as a line.
+	local w, fw = fs:GetStringWidth(), fs:GetWidth()
+	if fw and fw > 0 then w = min(w, fw) end
+	local ix, iy = GF.SHADE_INSET.x, GF.SHADE_INSET.y
+	local m = s.parts[1]
+	m:ClearAllPoints()
+	m:SetSize(max(1, w - 2 * ix), max(1, fs:GetStringHeight() - 2 * iy))
+	local jh = fs.GetJustifyH and fs:GetJustifyH()
+	local jv = fs.GetJustifyV and fs:GetJustifyV()
+	local x = (jh == "RIGHT" and "RIGHT") or (jh == "CENTER" and "") or "LEFT"
+	local y = (jv == "TOP" and "TOP") or (jv == "BOTTOM" and "BOTTOM") or ""
+	local point = (y .. x ~= "") and (y .. x) or "CENTER"
+	m:SetPoint(point, fs, point, x == "LEFT" and ix or x == "RIGHT" and -ix or 0, y == "TOP" and -iy or y == "BOTTOM" and iy or 0)
+	Theme.PaintScrim(s, GF.SHADE)
+	local a = fs:GetAlpha() or 1
+	s.shown = true
+	for _, p in ipairs(s.parts) do
+		p:SetAlpha(a)
+		p:Show()
+	end
+end
+
+function GF.QueueShades()
+	if GF.shadesQueued or not (GF.shadesOn or GF.SoftShade()) then return end
+	GF.shadesQueued = true
+	GF.shadeFrame:SetScript("OnUpdate", function(self)
+		self:SetScript("OnUpdate", nil)
+		GF.shadesQueued = nil
+		GF.PaintShades()
+	end)
+end
+
+function GF.ShadeAlpha(fs, a)
+	local s = GF.shades[fs]
+	if s and s.shown then for _, p in ipairs(s.parts) do p:SetAlpha(a or 1) end end
+end
+
+function GF.PaintShades()
+	local on = GF.SoftShade()
+	if not (on or GF.shadesOn) then return end
+	GF.shadesOn = on
+	for i = 1, #texts do
+		local fs = texts[i]
+		if on and not GF.shadeHooked[fs] then
+			GF.shadeHooked[fs] = true
+			for _, m in ipairs({ "SetText", "SetFormattedText", "SetWidth", "Show", "Hide", "SetShown" }) do
+				if fs[m] then hooksecurefunc(fs, m, GF.QueueShades) end
+			end
+			hooksecurefunc(fs, "SetAlpha", GF.ShadeAlpha)
+		end
+		GF.ShadeText(fs, on)
+	end
 end
 
 -- The ground's opacity is Theme.GroundAlpha (ui.bgOpacity), read by the

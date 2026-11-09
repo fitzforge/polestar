@@ -43,8 +43,13 @@ local function core(s)
 	return { l = q.l + k, r = q.r - k, t = q.t - k, b = q.b + k }
 end
 local function alphaOf(s) return select(4, s.parts[1]:GetVertexColor()) end
+local function shownShades()
+	local n = 0
+	for _, s in pairs(GF.shades) do if s.shown then n = n + 1 end end
+	return n
+end
 local function backing()
-	return { body = GF.veil:IsShown(), bar = P.band.Veil:IsShown(), alpha = alphaOf(GF.veil), barAlpha = alphaOf(P.band.Veil) }
+	return { body = GF.veil:IsShown(), bar = P.band.Veil:IsShown(), alpha = alphaOf(GF.veil), barAlpha = alphaOf(P.band.Veil), shades = shownShades() }
 end
 local function state()
 	return { title = P.nav.Title:GetAlpha(), steps = P.nav.Steps:GetAlpha(), strip = P.strip:GetAlpha(), grip = GF.grip:GetAlpha(),
@@ -82,7 +87,7 @@ fn run(script: &str) -> Vec<Value> {
 }
 
 #[test]
-fn the_transparent_style_lays_a_soft_backing_behind_the_text_dark_on_request_and_none_when_turned_off() {
+fn soft_by_default_shades_each_line_with_no_box_dark_is_the_boxed_backing_and_off_is_the_outlined_text_alone() {
 	let out = run(r#"
 		uistub.openTabs(TABS, 1)
 		local standard = backing()
@@ -100,12 +105,16 @@ fn the_transparent_style_lays_a_soft_backing_behind_the_text_dark_on_request_and
 	assert_eq!(out["defaultBacking"], "soft", "new and existing players get the soft backing");
 	assert_eq!(out["standard"]["body"], false, "the Standard style has its own ground");
 	assert_eq!(out["standard"]["bar"], false);
-	assert_eq!(out["soft"], json!({ "body": true, "bar": true, "alpha": 0.42, "barAlpha": 0.42 }));
-	assert_eq!(out["dark"], json!({ "body": true, "bar": true, "alpha": 0.68, "barAlpha": 0.68 }));
+	assert_eq!(out["soft"]["body"], false, "soft: no box behind the window");
+	assert_eq!(out["soft"]["bar"], false);
+	assert!(out["soft"]["shades"].as_u64().unwrap() >= 5, "soft: a shade behind each line: {}", out["soft"]);
+	assert_eq!(out["dark"], json!({ "body": true, "bar": true, "alpha": 0.68, "barAlpha": 0.68, "shades": 0 }));
 	assert_eq!(out["off"]["body"], false, "off: the outlined text alone on the world, as before");
 	assert_eq!(out["off"]["bar"], false);
+	assert_eq!(out["off"]["shades"], 0);
 	assert_eq!(out["back"]["body"], false, "back to Standard, the backing goes");
 	assert_eq!(out["back"]["bar"], false);
+	assert_eq!(out["back"]["shades"], 0);
 	let scrim = out["scrim"].as_array().unwrap();
 	let colour = out["colour"].as_array().unwrap();
 	for i in 0..3 {
@@ -114,10 +123,11 @@ fn the_transparent_style_lays_a_soft_backing_behind_the_text_dark_on_request_and
 }
 
 #[test]
-fn every_string_of_the_step_lies_on_the_backings_solid_middle_and_the_step_bar_on_its_own() {
+fn the_dark_backing_holds_every_string_of_the_step_on_its_solid_middle_and_the_step_bar_on_its_own() {
 	let out = run(r#"
 		uistub.openTabs(TABS, 1)
 		Polestar.Set("ui.style", "transparent")
+		Polestar.Set("ui.backing", "dark")
 		Polestar.Set("ui.barShown", true)
 		local function check()
 			local bar = outside(P.strip, P.band.Veil)
@@ -158,6 +168,7 @@ fn where_the_two_backings_meet_one_rises_as_the_other_falls_over_the_same_band_i
 	let out = run(r#"
 		uistub.openTabs(TABS, 1)
 		Polestar.Set("ui.style", "transparent")
+		Polestar.Set("ui.backing", "dark")
 		local function seam(flip)
 			local v, b, k, c = rectOf(GF.veil), rectOf(P.band.Veil), GF.VEIL_FEATHER, GF.veil.psClear
 			local edge = flip and rectOf(P.nav).t or rectOf(P.nav).b
@@ -182,10 +193,11 @@ fn where_the_two_backings_meet_one_rises_as_the_other_falls_over_the_same_band_i
 }
 
 #[test]
-fn off_by_default_a_transparent_window_away_from_the_cursor_hides_its_bar_and_the_bar_backing_fades_with_it() {
+fn off_by_default_a_transparent_window_away_from_the_cursor_hides_its_bar_and_the_dark_bar_backing_fades_with_it() {
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 3)
 		Polestar.Set("ui.style", "transparent")
+		Polestar.Set("ui.backing", "dark")
 		local rest = state()
 		F.IsMouseOver = function() return true end
 		stub.RunScript(F, "OnEnter")
@@ -206,6 +218,7 @@ fn keep_the_bar_shown_holds_the_tabs_the_step_bar_and_their_backing_on_screen_th
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 3)
 		Polestar.Set("ui.style", "transparent")
+		Polestar.Set("ui.backing", "dark")
 		Polestar.Set("ui.barShown", true)
 		local on = state()
 		F.IsMouseOver = function() return true end
@@ -256,19 +269,24 @@ fn tick_boxes_on_the_world_get_the_scrim_inside_and_an_ink_edge_and_the_standard
 #[test]
 fn the_standard_style_draws_exactly_as_before_after_a_round_trip_through_transparent_with_every_option_set() {
 	let out = run(r#"
-		-- Every region under the window, in creation order: shown, alpha, colour, anchors, size, text and its font.
+		-- Every region the window draws (shown, under shown frames), in creation order: alpha, colour, anchors,
+		-- size, text and its font. Hidden regions draw nothing (the soft shades made on the way stay hidden).
 		local function snapshot()
 			local out = {}
 			local function walk(f)
 				for _, r in ipairs(f.regions or {}) do
-					local e = { k = r:GetObjectType(), shown = r:IsShown(), a = r:GetAlpha(), w = r:GetWidth(), h = r:GetHeight(), rect = rectOf(r) }
-					if r.GetVertexColor then e.c = { r:GetVertexColor() } end
-					if r.GetText then e.text = r:GetText(); e.font = { r:GetFont() }; e.tc = { r:GetTextColor() } end
-					out[#out + 1] = e
+					if r:IsShown() then
+						local e = { k = r:GetObjectType(), a = r:GetAlpha(), w = r:GetWidth(), h = r:GetHeight(), rect = rectOf(r) }
+						if r.GetVertexColor then e.c = { r:GetVertexColor() } end
+						if r.GetText then e.text = r:GetText(); e.font = { r:GetFont() }; e.tc = { r:GetTextColor() } end
+						out[#out + 1] = e
+					end
 				end
 				for _, c in ipairs(f.children or {}) do
-					out[#out + 1] = { k = c:GetObjectType(), shown = c:IsShown(), a = c:GetAlpha(), rect = rectOf(c) }
-					walk(c)
+					if c:IsShown() then
+						out[#out + 1] = { k = c:GetObjectType(), a = c:GetAlpha(), rect = rectOf(c) }
+						walk(c)
+					end
 				end
 			end
 			walk(F)
@@ -308,10 +326,11 @@ fn the_standard_style_draws_exactly_as_before_after_a_round_trip_through_transpa
 }
 
 #[test]
-fn the_backing_follows_the_scheme() {
+fn the_dark_backing_follows_the_scheme() {
 	let out = run(r#"
 		uistub.openTabs(TABS, 1)
 		Polestar.Set("ui.style", "transparent")
+		Polestar.Set("ui.backing", "dark")
 		Polestar.Set("ui.scheme", "graphite")
 		emit({ veil = { GF.veil.parts[1]:GetVertexColor() }, bar = { P.band.Veil.parts[9]:GetVertexColor() }, scrim = { Polestar.Theme.Color("scrim") } })"#)
 	.remove(0);
@@ -319,6 +338,78 @@ fn the_backing_follows_the_scheme() {
 		for i in 0..3 {
 			assert_eq!(out[part][i], out["scrim"][i], "{part}: the scheme's scrim colour");
 		}
-		assert_eq!(out[part][3], 0.42);
+		assert_eq!(out[part][3], 0.68);
 	}
+}
+
+#[test]
+fn soft_shades_follow_each_string_its_size_its_text_shown_state_and_alpha_and_never_cover_empty_room() {
+	let out = run(r#"
+		uistub.openTabs(TABS, 1)
+		Polestar.Set("ui.style", "transparent")
+		local IX, IY = GF.SHADE_INSET.x, GF.SHADE_INSET.y
+		-- Every string on screen has its shade, sized to its own text (not its box) and anchored to it;
+		-- no shade is shown for a string that is not.
+		local function check()
+			local miss, wrong, stray, n = {}, {}, {}, 0
+			local onScreen = {}
+			for _, x in ipairs(shownTexts(F)) do
+				local fs, s = x.fs, GF.shades[x.fs]
+				onScreen[fs] = true
+				n = n + 1
+				if not (s and s.shown) then
+					miss[#miss + 1] = fs:GetText()
+				else
+					local m = s.parts[1]
+					local w = math.min(fs:GetStringWidth(), fs:GetWidth() > 0 and fs:GetWidth() or math.huge)
+					local ok = m.points[1].rel == fs and math.abs(m:GetWidth() - math.max(1, w - 2 * IX)) < 0.01
+						and math.abs(m:GetHeight() - math.max(1, fs:GetStringHeight() - 2 * IY)) < 0.01
+						and math.abs(select(4, m:GetVertexColor()) - GF.SHADE) < 1e-6
+					if not ok then wrong[#wrong + 1] = fs:GetText() end
+				end
+			end
+			for fs, s in pairs(GF.shades) do
+				if s.shown and not (onScreen[fs] or not fs:GetParent():IsVisible()) then stray[#stray + 1] = tostring(fs:GetText()) end
+			end
+			return { n = n, miss = table.concat(miss, " | "), wrong = table.concat(wrong, " | "), stray = table.concat(stray, " | ") }
+		end
+		local first = check()
+		uistub.setStep(4)
+		stub.advance(0.1)
+		local hub = check()
+		-- A string emptied or hidden without a layout loses its shade on the next frame.
+		local fs = shownTexts(P.body)[1].fs
+		fs:SetText("")
+		stub.advance(0.1)
+		local emptied = GF.shades[fs].shown
+		fs:SetText("Back again")
+		stub.advance(0.1)
+		local back = GF.shades[fs].shown
+		fs:Hide()
+		stub.advance(0.1)
+		local hidden = GF.shades[fs].shown
+		fs:Show()
+		stub.advance(0.1)
+		fs:SetAlpha(0.3)
+		local faded = GF.shades[fs].parts[5]:GetAlpha()
+		fs:SetAlpha(1)
+		Polestar.Set("ui.backing", "dark")
+		local dark = shownShades()
+		Polestar.Set("ui.backing", "soft")
+		Polestar.Set("ui.style", "standard")
+		emit({ first = first, hub = hub, emptied = emptied, back = back, hidden = hidden, faded = faded, dark = dark, standard = shownShades() })"#)
+	.remove(0);
+	for case in ["first", "hub"] {
+		let c = &out[case];
+		assert!(c["n"].as_u64().unwrap() >= 8, "{case}: strings on screen");
+		assert_eq!(c["miss"], "", "{case}: every string on screen has its shade");
+		assert_eq!(c["wrong"], "", "{case}: each shade is its text's size, on it, at the soft strength");
+		assert_eq!(c["stray"], "", "{case}: no shade behind a string that is not on screen");
+	}
+	assert_eq!(out["emptied"], false, "an emptied string's shade goes");
+	assert_eq!(out["back"], true, "and comes back with its text");
+	assert_eq!(out["hidden"], false, "a hidden string's shade goes");
+	assert_eq!(out["faded"], 0.3, "a string's alpha carries to its shade");
+	assert_eq!(out["dark"], 0, "Dark: the box, no line shades");
+	assert_eq!(out["standard"], 0, "Standard: no shades");
 }

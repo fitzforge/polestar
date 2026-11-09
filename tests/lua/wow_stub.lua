@@ -252,6 +252,10 @@ end
 -- is half the font size wide, a UTF-8 one (“, ·, «) counting once.
 local function chars(s) return #s - select(2, s:gsub("[\128-\191]", "")) end
 function Methods.SetWordWrap(self, on) self.wordWrap = not not on end
+function Methods.SetJustifyH(self, j) self.justifyH = j end
+function Methods.GetJustifyH(self) return self.justifyH or "CENTER" end
+function Methods.SetJustifyV(self, j) self.justifyV = j end
+function Methods.GetJustifyV(self) return self.justifyV or "MIDDLE" end
 function Methods.GetWordWrap(self) return self.wordWrap ~= false end
 function Methods.GetUnboundedStringWidth(self)
 	local size = (self.font and self.font[2]) or 12

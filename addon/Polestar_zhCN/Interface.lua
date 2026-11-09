@@ -2185,11 +2185,11 @@ L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles t
 L["Button in the game menu"] = "游戏菜单中的按钮"
 L["A Polestar button in the game menu (Esc) that opens the guide menu."] = "在游戏菜单（Esc）中放一个打开指南菜单的 Polestar 按钮。"
 L["Backing"] = "背景"
-L["With Transparent, a shade with no edge behind the text, so it reads over bright ground. Off: the outlined text alone on the world."] = "透明样式下，在文字后方加一层无边框的底色，在明亮背景上也易于阅读。关闭：只显示带描边的文字。"
 L["Soft"] = "柔和"
 L["Dark"] = "深色"
 L["Keep the bar shown"] = "始终显示栏"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "透明样式下，标签页和步骤栏始终显示在屏幕上，而不是仅在鼠标悬停时显示。"
+-- L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
@@ -3243,3 +3243,4 @@ L["Sparkles"] = "闪光"
 -- L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. Quests new in Forever carry a small ∞ mark. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = "所有升级指南都重新检查了一遍，双方阵营的 40-60 级已重做，任务更多、练级更短。无限新增的任务带有一个小小的 ∞ 标记。如果你打开的指南与所在位置不符，请打开指南列表，选择%s下的指南。你的任务日志会保留。"
 -- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = "浏览文件夹可折叠，关闭的标签页可用“重新打开”找回，路线在地图和微缩地图上可显示为线条、圆点或闪光，微缩地图按钮和浮动的 Polestar 按钮都可在选项中开启。"
 -- L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route."] = "升级指南在包含此地下城步骤时会带你完成该地下城。关闭：指南将保持单人路线。"
+-- L["With Transparent, a shade with no edge behind the text, so it reads over bright ground. Off: the outlined text alone on the world."] = "透明样式下，在文字后方加一层无边框的底色，在明亮背景上也易于阅读。关闭：只显示带描边的文字。"

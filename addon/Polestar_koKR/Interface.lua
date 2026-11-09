@@ -2185,11 +2185,11 @@ L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles t
 L["Button in the game menu"] = "게임 메뉴 버튼"
 L["A Polestar button in the game menu (Esc) that opens the guide menu."] = "게임 메뉴(Esc)에 가이드 메뉴를 여는 Polestar 버튼을 둡니다."
 L["Backing"] = "배경"
-L["With Transparent, a shade with no edge behind the text, so it reads over bright ground. Off: the outlined text alone on the world."] = "투명 스타일에서 글자 뒤에 테두리 없는 음영을 깔아 밝은 바닥 위에서도 읽기 쉽게 합니다. 끄면: 외곽선 글자만 화면 위에 표시됩니다."
 L["Soft"] = "옅게"
 L["Dark"] = "진하게"
 L["Keep the bar shown"] = "바 항상 표시"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "투명 스타일에서 탭과 단계 바가 커서를 올렸을 때만이 아니라 항상 화면에 표시됩니다."
+-- L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -3234,3 +3234,4 @@ L["Sparkles"] = "반짝임"
 -- L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. Quests new in Forever carry a small ∞ mark. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = "모든 레벨업 가이드를 다시 점검했고, 40-60은 양 진영 모두 퀘스트를 늘리고 사냥을 줄여 새로 짰습니다. Forever에서 새로 추가된 퀘스트에는 작은 ∞ 표시가 붙습니다. 열어 둔 가이드가 지금 위치와 맞지 않으면 가이드 목록을 열고 %s 아래의 가이드를 고르십시오. 퀘스트 목록은 그대로 이어집니다."
 -- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = "탐색 폴더를 접을 수 있고, 닫은 탭은 다시 열기로 되살릴 수 있으며, 경로는 지도와 미니맵에 선, 점 또는 반짝임으로 표시할 수 있고, 미니맵 버튼과 떠 있는 Polestar 버튼을 설정에서 켤 수 있습니다."
 -- L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route."] = "레벨업 가이드에 이 던전 단계가 있으면 이 던전을 거쳐 안내합니다. 끄면: 솔로 경로만 따릅니다."
+-- L["With Transparent, a shade with no edge behind the text, so it reads over bright ground. Off: the outlined text alone on the world."] = "투명 스타일에서 글자 뒤에 테두리 없는 음영을 깔아 밝은 바닥 위에서도 읽기 쉽게 합니다. 끄면: 외곽선 글자만 화면 위에 표시됩니다."
