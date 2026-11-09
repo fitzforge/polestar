@@ -113,3 +113,33 @@ w.onQuest(7734, { { required = 10, fulfilled = 0 } })"#;
 		assert_eq!(out["live"], "Zeppelin to Undercity", "reload {reload}: {out}");
 	}
 }
+
+// ReleaseFinal036b's upgrade harness (Barrens 2u1uxgal3p): a group quest still waiting for the player's answer
+// (`when group`, Grunt Logmar's Wrongly Blamed) is no work the travel before it leads to: the sethome before it,
+// behind the player's progress, passes (before: live at "Camp").
+const GROUP_GUIDE: &str = r#"
+Polestar.RegisterGuide({ id = "test/grp", pack = "test", title = "Group", faction = "Horde", minLevel = 1, maxLevel = 30, steps = {
+	{ title = "Camp", goals = { { t = "sethome", location = "Camp Taurajo", npc = 7714, map = 1413, x = 46, y = 58 } } },
+	{ title = "Logmar", when = { { k = "group", q = 97250 } }, goals = { { t = "accept", quest = 97250, title = "Wrongly Blamed", map = 1413, x = 46, y = 58 } } },
+	{ title = "Gann", goals = { { t = "accept", quest = 843, title = "Gann's Reclamation", map = 1413, x = 46, y = 58 } } },
+	{ title = "Bael Modan", goals = { { t = "kill", target = "Bael'dun Excavator", count = 12, quest = 843, oi = 1, map = 1413, x = 47, y = 85 } } },
+	{ title = "Back", goals = { { t = "turnin", quest = 843, title = "Gann's Reclamation", map = 1413, x = 46, y = 58 } } },
+} })"#;
+
+#[test]
+fn a_group_quest_waiting_for_its_answer_holds_no_travel_before_it() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: "local w = stub.world\nw.race, w.faction, w.level = \"Scourge\", \"Horde\", 27\nw.addMap(1413, { name = \"The Barrens\", c = 1, left = 1000, right = -3000, top = 1000, bottom = -4000 })\nw.moveTo(1413, 46, 58)\nw.onQuest(843, { { required = 12, fulfilled = 12 } })".to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		script: format!(
+			"{}\n{}\n{GROUP_GUIDE}\nE = Polestar.Engine\nstub.login(); stub.advance(0.25)\nE.SetGuide(\"test/grp\"); stub.advance(0.25)\nstub.fire(\"QUEST_LOG_UPDATE\"); stub.advance(11)\nemit({{ live = E.GetGuide().steps[E.GetLiveStep()].title }})",
+			forge_addontest::TEST_PACK,
+			forge_addontest::TEST_SOURCE
+		),
+		..Default::default()
+	})
+	.remove(0);
+	// The sethome passes; the group quest's step asks its question (as everywhere), then Back.
+	assert_eq!(out["live"], "Logmar", "{out}");
+}

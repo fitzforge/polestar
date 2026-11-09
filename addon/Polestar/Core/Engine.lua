@@ -3310,12 +3310,16 @@ local function place()
 	-- flight to Darkshire, Feralas' zeppelin, Darkshore's boat).
 	local function leadsToDone(s)
 		for t = s + 1, #steps do
-			if stepApplies(steps[t]) and not (sk and sk[t]) then
+			-- A group quest waiting for the player's answer (Own.groupPending) is
+			-- no work they owe the route; nor is what an update added (Own.passAdded
+			-- passes it behind the player: Barrens' Wrongly Blamed, 0.3.6).
+			if stepApplies(steps[t]) and not (sk and sk[t]) and not Own.groupPending(steps[t]) then
 				for g, goal in ipairs(steps[t].goals) do
 					local q = goal.quest
+					if added and Own.goalAdded(added, t, goal) then goal = nil end
 					-- Leads to a quest the catch-up left out: the way passes with it.
-					if blocks(goal) and isQuestGoal(goal) and q and out and out[q] then return true end
-					if blocks(goal) and isQuestGoal(goal) and goalApplies(goal) then
+					if goal and blocks(goal) and isQuestGoal(goal) and q and out and out[q] then return true end
+					if goal and blocks(goal) and isQuestGoal(goal) and goalApplies(goal) then
 						if (goal.t == "accept" or goal.direct) and greyNeed(goal) == false then return true end
 						if not gated(goal) and not unavailableFor(goal) then
 							return goalDone(t, g, goal) and true or (q ~= nil and (C.IsOnQuest(q) or questDone(q))) or false

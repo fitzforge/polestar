@@ -1403,7 +1403,8 @@ impl<'a> Sim<'a> {
 	fn leads_to_done(&mut self, s: usize) -> bool {
 		let gd = self.gd();
 		for t in s + 1..=gd.steps.len() {
-			if !self.step_applies(t) || self.is_skipped(t) {
+			// A group quest waiting for the player's answer is no work they owe the route.
+			if !self.step_applies(t) || self.is_skipped(t) || self.group_pending(t) {
 				continue;
 			}
 			for g in 1..=gd.step(t).goals.len() {
