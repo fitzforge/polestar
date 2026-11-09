@@ -6835,7 +6835,7 @@ do
 			zoneName = "Westfall",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:1057"] = "Thoradin's Wall", ["area:146"] = "Stonewrought Dam", ["area:1702"] = "Honor's Stand", ["area:287"] = "Hillsbrad", ["area:460"] = "Sun Rock Retreat", ["item:211527"] = "Cozy Sleeping Bag", ["item:221498"] = "Old Toolbox", ["object:424005"] = "Pocket Litter", ["object:424012"] = "Mound of Dirt", ["zone:1413"] = "Barrens", ["zone:1432"] = "Loch Modan", ["zone:1436"] = "Westfall", ["zone:1442"] = "Stonetalon Mountains" },
+			names = { ["area:1057"] = "Thoradin's Wall", ["area:146"] = "Stonewrought Dam", ["area:1702"] = "Honor's Stand", ["area:287"] = "Hillsbrad", ["area:460"] = "Sun Rock Retreat", ["area:880"] = "Thandol Span", ["item:211527"] = "Cozy Sleeping Bag", ["item:221498"] = "Old Toolbox", ["object:424005"] = "Pocket Litter", ["object:424012"] = "Mound of Dirt", ["zone:1413"] = "Barrens", ["zone:1432"] = "Loch Modan", ["zone:1436"] = "Westfall", ["zone:1437"] = "Wetlands", ["zone:1442"] = "Stonetalon Mountains" },
 			steps = {
 				{
 					title = "The note in {zone:1436}",
@@ -6901,7 +6901,7 @@ do
 				},
 				{
 					title = "{area:1057}",
-					note = "At the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through.",
+					note = "Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.\nAt the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through.",
 					goals = {
 						{ t = "goto", text = "Fallen cart", map = 1424, x = 87.5, y = 47.7, f = "e" },
 					},

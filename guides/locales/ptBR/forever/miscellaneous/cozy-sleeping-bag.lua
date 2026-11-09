@@ -60,6 +60,4 @@ return {
 
 	-- Step 9: The hidden camp
 	["The hidden camp"] = "O acampamento escondido",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
 }
