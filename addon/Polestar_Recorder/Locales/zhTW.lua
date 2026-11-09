@@ -28,6 +28,7 @@ L["usage: /psrec trail on [label] | trail off"] = "用法：/psrec trail on [名
 -- L["mark not recorded (not in the world yet)"] = ""
 -- L["every recording not yet uploaded was deleted"] = ""
 -- L["this deletes every recording not yet uploaded. Type |cffffd100/psrec clear confirm|r within %d seconds to proceed."] = ""
+-- L["/reload or log out to send what's recorded"] = ""
 
 -- Trail.lua
 L["trail stopped after %d min: %s, %d points"] = "軌跡在 %d 分鐘後停止：%s，%d 個點"

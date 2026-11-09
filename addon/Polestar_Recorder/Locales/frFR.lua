@@ -28,6 +28,7 @@ L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off |
 L["mark not recorded (not in the world yet)"] = "repère non enregistré (pas encore en jeu)"
 L["every recording not yet uploaded was deleted"] = "tous les enregistrements pas encore envoyés ont été supprimés"
 L["this deletes every recording not yet uploaded. Type |cffffd100/psrec clear confirm|r within %d seconds to proceed."] = "cela supprime tous les enregistrements pas encore envoyés. Tapez |cffffd100/psrec clear confirm|r dans les %d secondes pour continuer."
+-- L["/reload or log out to send what's recorded"] = ""
 
 -- Trail.lua
 L["trail stopped after %d min: %s, %d points"] = "trace arrêtée après %d min : %s, %d points"
