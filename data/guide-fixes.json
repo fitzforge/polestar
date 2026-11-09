@@ -2826,10 +2826,10 @@
 				"mention": "Sunscale raptors here count toward the heads.",
 				"finish": {
 					"title": "Finish the Raptor Heads",
-					"tip": "Still short of twelve? The Sunscale Screechers are thickest on the plains around Echeyakee's lair, north of the Razormane camp.",
+					"tip": "Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from Echeyakee's lair.",
 					"map": 1413,
-					"x": 56,
-					"y": 15
+					"x": 55.0,
+					"y": 23.5
 				}
 			},
 			"faction": "Horde",
@@ -2842,6 +2842,10 @@
 				{
 					"kind": "tdb",
 					"ref": "creature: the spawns of 3254, 3255 and 3256 in the Barrens"
+				},
+				{
+					"kind": "recording",
+					"ref": "Horde 1-30 audit (#1414): the old finish point 56,15 lay more than 50 yd from every raptor spawn (lint); 170 of the recorded 869.1 ticks near Echeyakee's lair cluster at 51-55,20-24 on the way back to the Crossroads; 55.0,23.5 is 47 yd from the nearest Lashtail/Screecher spawn"
 				}
 			],
 			"issue": 1135
