@@ -9667,6 +9667,24 @@ test('Horde Stranglethorn 40: Locating the Lost City after the legend, the reef 
 	assert.equal(stv[tin].s, stv[at(stv, 'turnin 598', is('turnin', 598))].s, 'handed in with the trophy skulls');
 });
 
+// PlayersHorde (0.3.6, players' recordings): Horde 30-40 Hillsbrad's travel step into the Dalaran crater pointed at
+// Ricter's own spot, in the middle of the linked guard pairs. Of 6 people on 0.3.5+, 3 worked the camp for 12-35
+// minutes with only that travel step showing (the goals, NPCs and the linked-pairs warning are on the next step), 2
+// died there, and one person in the whole archive ever stood on Ricter's spot. The step now ends at the
+// crater's eastern rim, on the path players walk in from the Flame of Uzel, outside the guards' reach.
+test('Horde Hillsbrad 30: the walk to the Dalaran crater ends at its rim, not on Ricter', { skip }, () => {
+	const steps = compiled('forever/horde/30-40/01-hillsbrad-foothills.guide').steps;
+	const crater = steps.findIndex((st) => st.goals.some((g) => g.t === 'collect' && g.quest === 544));
+	assert.ok(crater > 0, 'the crater step');
+	const walk = steps[crater - 1].goals.find((g) => g.t === 'goto');
+	assert.ok(walk && walk.map === 1416, 'the step before is the walk there');
+	const yd = (x, y) => Math.hypot((walk.x - x) / 100 * 2800, (walk.y - y) / 100 * 1866.667);
+	for (const [who, x, y] of [['Ricter', 20.16, 84.28], ['Alina', 20.34, 86.4], ['Dermot', 19.91, 85.97]]) {
+		assert.ok(yd(x, y) >= 60, `${who} is ${Math.round(yd(x, y))} yd from the walk's end`);
+	}
+	assert.ok(yd(20.16, 84.28) <= 200, 'still at the crater');
+});
+
 // PlayersHorde (0.3.6, players' recordings): Darkcloud Pinnacle's Document Chests were listed north-west first, so the
 // arrow led from Freewind past the two southern Grimtotem camps to the north-west one and back south (8 of 9 people
 // on 0.3.5+ walked it so). From Freewind the chests go south-east, south-west, north-west, and the top-up and the climb

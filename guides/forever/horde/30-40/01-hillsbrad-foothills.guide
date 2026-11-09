@@ -254,7 +254,7 @@ step Flame of Uzel
 
 step Alterac Mountains
   zone Alterac Mountains
-  goto 20.2,84.3 "The Dalaran crater"
+  goto 24.5,82.8 "The Dalaran crater's eastern rim"
 
 step The Dalaran crater
   zone Alterac Mountains
