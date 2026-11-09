@@ -8,9 +8,9 @@
 -- flat dart.
 --
 -- What this example shows, beyond Moonlit (addon/Polestar_Skin_Example):
---   * a skin with NO painters: tokens alone turn the house frames into
---     black-outlined flat panels (the `border`, `divider` and `windowBorder`
---     tokens are the outline; `shade` the wells);
+--   * tokens doing most of the frame: `border` black at full is the
+--     outline, `shade` the wells, `divider` the faint inner rules; one small
+--     painter adds the lighter inset line the flat suites draw inside it;
 --   * a font of the skin's own: three weights given as files under the
 --     addon's folder;
 --   * a layout preset that asks for the class colour as the accent
@@ -45,6 +45,42 @@ local TOKENS = {
 	accent = "#58a6ff",
 }
 
+-- The lighter inset: one white hairline just inside the black outline, on
+-- windows, menus, buttons, dropdowns and fields (the flat suites' second
+-- line, which gives a black-edged panel its depth without a shadow).
+local EDGES = {
+	{ "TOPLEFT", "TOPRIGHT", 1, -1 }, { "BOTTOMLEFT", "BOTTOMRIGHT", 1, 1 },
+	{ "TOPLEFT", "BOTTOMLEFT", 1, -1 }, { "TOPRIGHT", "BOTTOMRIGHT", -1, -1 },
+}
+local function inset(frame, kit, alpha)
+	local own = kit.store(frame)
+	if not own.inset then
+		own.inset = {}
+		for i, e in ipairs(EDGES) do
+			local t = frame:CreateTexture(nil, "BORDER", nil, 2)
+			t:SetTexture(Theme.Media("white"))
+			t:SetPoint(e[1], frame, e[1], e[3], e[4])
+			t:SetPoint(e[2], frame, e[2], i <= 2 and -e[3] or e[3], i <= 2 and e[4] or -e[4])
+			if i <= 2 then t:SetHeight(1) else t:SetWidth(1) end
+			own.inset[i] = t
+		end
+	end
+	for i = 1, 4 do
+		own.inset[i]:SetVertexColor(1, 1, 1, alpha)
+		own.inset[i]:Show()
+	end
+end
+
+local function lined(alpha)
+	return function(frame, base, kit)
+		base(frame)
+		if frame.psBare then return kit.bare(frame) end
+		inset(frame, kit, alpha)
+	end
+end
+
+local PAINT = { window = lined(0.07), panel = lined(0.07), button = lined(0.05), dropdown = lined(0.05), editbox = lined(0.04) }
+
 local PRESET = {
 	["ui.style"] = "standard", ["ui.bgOpacity"] = 0.85, ["ui.band"] = false, ["ui.shadow"] = false,
 	["ui.border"] = true, ["ui.borderSize"] = 1, ["ui.borderAccent"] = false,
@@ -69,6 +105,7 @@ local spec = {
 	textShadow = { 1, -1, 1 },
 	arrow = "flat",
 	mapIcons = "polestar",
+	paint = PAINT,
 }
 if Theme.HasCapability("preset") then spec.preset = PRESET end
 
