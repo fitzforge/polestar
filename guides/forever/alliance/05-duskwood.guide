@@ -49,9 +49,10 @@ next forever/alliance/06-wetlands
 #   95999, Shadow Magic's Blackrock Shadowcasters 115) and Lieutenant Fangore
 #   (180, 26) are on 04-redridge-mountains' loop at about 25, where those
 #   quests fit: players finished them solo at 21-23 in the recordings, so they
-#   are in the route's steps with a tip to group up if you can; the four elite
-#   quests' goals are optional (the leveling rule for elite-only drops),
-#   Fangore's (not elite) is not.
+#   are in the route's steps with a tip to group up if you can; the elite
+#   Wanted posters' work (169, 95999) is on steps the player opts into
+#   (`when group`, #1415: an all-optional step was passed at once, so nobody
+#   was led there), Fangore's (not elite) is a plain goal.
 # - Worgen in the Woods (173) needs level 23: the step before it says so.
 #
 # Class quests: Rogues finish Mathias and the Defias with Klaven's Tower

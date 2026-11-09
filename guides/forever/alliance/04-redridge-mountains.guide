@@ -97,8 +97,9 @@ next forever/alliance/05-duskwood
 # three dungeons and an escort, the Class guide
 # forever/class/paladin/verigans-fist.
 #
-# Wanted: Gath'Ilzogg and WANTED: Incinerator Gar'im (169, 95999: elites,
-# optional with a tip to group up) are on the loop through the Blackrock camps
+# Wanted: Gath'Ilzogg and WANTED: Incinerator Gar'im (169, 95999: elites;
+# optional accepts, then steps the player opts into with "Do it with a group",
+# #1415; players' recordings: 14-15 people handed each in, most at 22-23) are on the loop through the Blackrock camps
 # and Stonewatch Keep at about 25. Not taken: Tharil'zun and Shadow Magic (19,
 # 115: Marshal Marris offers them only once Blackrock Menace and Blackrock
 # Blockade, 20 and 98387, are handed in, after the keep), Morganth (249), the
@@ -334,8 +335,10 @@ step Blackrock camps
   collect 280839 quest 98387 @67.4,78.9 map 1433 live -- Blackrock Supplies: meat haunches, grain sacks, water barrels
 
 step Incinerator Gar'im
+  when group 95999
+  when onquest 95999
   tip Gar'im keeps to the cave at the camps' south end with his imp and two orcs. Elite: group up if you can; solo, pull the orcs at the mouth first and interrupt his fire cast.
-  collect 271872 quest 95999 optional         -- Broken Staff of Incinerator Gar'im
+  collect 271872 quest 95999                  -- Broken Staff of Incinerator Gar'im
 
 step Galardell Valley
   zone Redridge Mountains
@@ -353,8 +356,10 @@ step Looking Further
   turnin 248
 
 step Stonewatch Keep
+  when group 169
+  when onquest 169
   tip The keep stands beside the tower. Gath'Ilzogg (elite) waits in the keep's top room with two guards and a dragon; Blackrock Shadowcasters (elite) and Sentries stand on its west side, so pull one at a time on the way in, and hug the right wall as you enter his room so you don't pull him at once. Elite: group up if you can.
-  collect 3633 quest 169 optional             -- Head of Gath'Ilzogg
+  collect 3633 quest 169                      -- Head of Gath'Ilzogg
 
 # ---------------------------------------------------------------- Render's Valley
 
