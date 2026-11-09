@@ -30,7 +30,7 @@ return {
 
 	-- Step 3: Lotheluum Starbreeze
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar
-	["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Come early: in Classic a quest pays less once you are 6 levels above it, a fifth at most from 9 levels up, and these are level 11 to 13 quests."] = "{npc:252359} se tient à {area:16638}, la ville des Éolides au sud de l'île, et n'a aucune nouvelle des druides du nord. Sa course lance l'histoire de la Noctegriffe (niveau 8 et plus, toutes races). Chacune de ses quêtes rapporte de la réputation auprès de la Noctegriffe : 4100 en tout, assez pour Amical. Venez tôt : dans Classic, une quête rapporte moins une fois que vous la dépassez de 6 niveaux, un cinquième au plus à partir de 9 niveaux, et ce sont des quêtes de niveau 11 à 13.",
+	["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Players' turn-ins paid their full reputation well above these quests' level."] = "",
 
 	-- Step 4: Elegael Thornpaw
 	-- {area:16631} Shadowgale Forest · {npc:257944} Elegael Thornpaw
@@ -108,4 +108,7 @@ return {
 	["The {item:280363}"] = "Le {item:280363}",
 	-- {item:280363} Nightclaw Mantle
 	["Exalted opens the {item:280363}, green cloth shoulders for level 15, for 8s 16c."] = "Exalté ouvre le {item:280363}, des épaulières vertes en tissu de niveau 15, pour 8 pa 16 pc.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Come early: in Classic a quest pays less once you are 6 levels above it, a fifth at most from 9 levels up, and these are level 11 to 13 quests."] = "{npc:252359} se tient à {area:16638}, la ville des Éolides au sud de l'île, et n'a aucune nouvelle des druides du nord. Sa course lance l'histoire de la Noctegriffe (niveau 8 et plus, toutes races). Chacune de ses quêtes rapporte de la réputation auprès de la Noctegriffe : 4100 en tout, assez pour Amical. Venez tôt : dans Classic, une quête rapporte moins une fois que vous la dépassez de 6 niveaux, un cinquième au plus à partir de 9 niveaux, et ce sont des quêtes de niveau 11 à 13.",
 }

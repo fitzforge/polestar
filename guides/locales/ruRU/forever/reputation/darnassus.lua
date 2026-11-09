@@ -15,7 +15,7 @@ return {
 	-- {quest:3803} Morrowgrain to Darnassus · {item:11040} Morrowgrain
 	["{quest:3803}: 50 reputation for every 10 {item:11040}, as often as you like"] = "{quest:3803}: 50 репутации за каждые 10 шт. ({item:11040}), сколько угодно раз",
 	-- {faction:69} Darnassus · {zone:1438} Teldrassil · {zone:1439} Darkshore
-	["About 3,700 {faction:69} reputation from low-level quests in {zone:1438} and {zone:1439} (in Classic, a fifth of it at 60)"] = "Около 3700 репутации ({faction:69}) за задания низкого уровня (зоны: {zone:1438} и {zone:1439}) (в Classic на 60 уровне – пятая часть)",
+	["About 3,700 {faction:69} reputation from low-level quests in {zone:1438} and {zone:1439}"] = "",
 
 	-- Step 1: Raedon Duskstriker, the cloth quartermaster
 	-- {npc:14725} Raedon Duskstriker
@@ -50,7 +50,7 @@ return {
 	-- {item:11040} Morrowgrain
 	["{item:11040} (optional)"] = "",
 	-- {quest:3803} Morrowgrain to Darnassus · {item:11040} Morrowgrain · {npc:6735} Innkeeper Saelienne · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:3764} Un'Goro Soil · {zone:1453} Stormwind · {zone:1455} Ironforge
-	["{quest:3803} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60. The chain before it is level 50 (in Classic a fifth at 60): 220 at full. {npc:6735} sends you to {npc:3516} in the {area:1658}; he wants 20 {quest:3764}. (The innkeepers of {zone:1453} and {zone:1455} give the same start.)"] = "",
+	["{quest:3803} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60. The chain before it is level 50: 220. {npc:6735} sends you to {npc:3516} in the {area:1658}; he wants 20 {quest:3764}. (The innkeepers of {zone:1453} and {zone:1455} give the same start.)"] = "",
 
 	-- Step 10: Un'Goro Crater: Un'Goro Soil
 	-- {quest:3764} Un'Goro Soil · {item:11040} Morrowgrain
@@ -70,7 +70,7 @@ return {
 
 	-- Step 17: Shadowglen
 	-- {zone:1438} Teldrassil · {area:256} Aldrassil
-	["Optional: the Night Elf start glade in north-east {zone:1438}, about 1,050 reputation (210 at a fifth) in 30 minutes at 60. The givers stand around {area:256}, the great tree. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub."] = "",
+	["Optional: the Night Elf start glade in north-east {zone:1438}, about 1,050 reputation in 30 minutes at 60. The givers stand around {area:256}, the great tree. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
 
 	-- Step 18: Shadowglen: the glade and the spider den
 	-- {area:188} Shadowglen
@@ -97,7 +97,7 @@ return {
 
 	-- Step 22: Dolanaar
 	-- {faction:69} Darnassus
-	["Optional: the village on the road to {faction:69}, about 1,250 reputation (250 at a fifth) in 45 minutes at 60. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub."] = "",
+	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
 
 	-- Step 23: Dolanaar: Denalan and the lake
 	-- {area:186} Dolanaar · {npc:2080} Denalan
@@ -135,7 +135,7 @@ return {
 
 	-- Step 29: Auberdine
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {area:702} Rut'theran Village
-	["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation (280 at a fifth) in an hour at 60. The givers stand along the town's street and pier. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub."] = "",
+	["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation in an hour at 60. The givers stand along the town's street and pier. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
 
 	-- Step 30: Auberdine: the coast and the woods
 	-- {area:442} Auberdine
@@ -172,7 +172,7 @@ return {
 	-- {quest:7801} Additional Runecloth
 	["{quest:7801} to Honored"] = "{quest:7801} до уровня «Уважение»",
 	-- {quest:7801} Additional Runecloth · {item:14047} Runecloth · {quest:4183} The True Masters · {item:11040} Morrowgrain · {faction:69} Darnassus · {zone:1439} Darkshore · {area:415} Astranaar · {zone:1440} Ashenvale · {zone:1444} Feralas
-	["{quest:7801}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Night Elves start 900 higher: 88 turn-ins; Skyborne start at Neutral 500, so 7,900 away: 158, two fewer after Exploring the Alliance). {quest:4183} and the {item:11040} chain above take 8 turn-ins off, and every 10 {item:11040} you hand in counts as one more; each hub you did takes 20 to 28 more off if it paid in full. More quests pay {faction:69}, in full while they are no more than 5 levels below you: the rest of {zone:1439} (about 3,400 more), {area:415} in {zone:1440} (about 3,900) and Feathermoon in {zone:1444} (about 1,700). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "",
+	["{quest:7801}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Night Elves start 900 higher: 88 turn-ins; Skyborne start at Neutral 500, so 7,900 away: 158, two fewer after Exploring the Alliance). {quest:4183} and the {item:11040} chain above take 8 turn-ins off, and every 10 {item:11040} you hand in counts as one more; each hub you did takes 20 to 28 more off. More quests pay {faction:69}, in full while they are no more than 5 levels below you: the rest of {zone:1439} (about 3,400 more), {area:415} in {zone:1440} (about 3,900) and Feathermoon in {zone:1444} (about 1,700). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "",
 
 	-- Step 36: Additional Runecloth to Revered
 	-- {quest:7801} Additional Runecloth
@@ -187,6 +187,7 @@ return {
 	["Revered to Exalted is 21,000 reputation: 420 turn-ins, 8,400 {item:14047}. At Exalted, Lelanai at the {area:1658} in {faction:69} sells her nightsabers to other races in Classic; the Saber and Swift Saber guides cover them."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["About 3,700 {faction:69} reputation from low-level quests in {zone:1438} and {zone:1439} (in Classic, a fifth of it at 60)"] = "Около 3700 репутации ({faction:69}) за задания низкого уровня (зоны: {zone:1438} и {zone:1439}) (в Classic на 60 уровне – пятая часть)",
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the {object:92525} (see that guide). The Auction House works too."] = "Добыча здесь: адепты Тьмы ({npc:8546}) и темные маги (уровень 58-60); каждое убийство Плети здесь также дает репутацию ({object:92525}, см. тот гайд). Подойдет и аукцион.",
 	-- ["Dunemaul ogres (level 45-48) drop it here. The Auction House works too."] = "Добыча здесь: огры из клана Песчаного Молота (уровень 45-48). Подойдет и аукцион.",
 	-- ["Keep handing in {quest:7801} until {faction:69} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Сдавайте задание {quest:7801}, пока репутация ({faction:69}) не дойдет до превознесения. {item:14047}: Адепты Тьмы и темные маги (уровень 58-60) – зона {zone:1423}, или аукцион.",

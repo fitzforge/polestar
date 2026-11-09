@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	["Thunder Bluff Reputation"] = "雷霆崖聲望",
-	-- {zone:1452} Winterspring · {item:11040} Morrowgrain · {item:14047} Runecloth · {zone:1412} Mulgore
-	["{zone:1452}'s level 56-60 quests, {item:11040} and {item:14047} to Exalted, with {zone:1412}'s old quests as an optional extra."] = "",
+	-- {zone:1412} Mulgore · {zone:1452} Winterspring · {item:11040} Morrowgrain · {item:14047} Runecloth
+	["{zone:1412} quests while you level, {zone:1452} quests and {item:11040} from 55, then {item:14047} to Exalted."] = "",
 	-- {faction:81} Thunder Bluff
 	["Exalted with {faction:81}"] = "",
 
@@ -49,7 +49,7 @@ return {
 	-- {item:11040} Morrowgrain
 	["{item:11040} (optional)"] = "",
 	-- {quest:3804} Morrowgrain to Thunder Bluff · {item:11040} Morrowgrain · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {npc:6746} Innkeeper Pala · {npc:5769} Arch Druid Hamuul Runetotem · {area:1639} Elder Rise
-	["{quest:3804} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60, but it is slow: the {item:11020} grows one casing every 10 minutes and a casing holds about one {item:11040} on average, so each hand-in takes about 90 minutes of waiting, 18 {quest:3761} and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50 (in Classic a fifth at 60). {npc:6746} sends you to {npc:5769} on {area:1639}; he wants 20 {quest:3761}."] = "",
+	["{quest:3804} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60, but it is slow: the {item:11020} grows one casing every 10 minutes and a casing holds about one {item:11040} on average, so each hand-in takes about 90 minutes of waiting, 18 {quest:3761} and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50. {npc:6746} sends you to {npc:5769} on {area:1639}; he wants 20 {quest:3761}."] = "",
 
 	-- Step 7: Un'Goro Crater: Un'Goro Soil
 	-- {quest:3761} Un'Goro Soil · {item:11040} Morrowgrain
@@ -73,7 +73,7 @@ return {
 	-- {area:17044} Gloomrise
 	["{area:17044} (optional hub)"] = "",
 	-- {area:17045} Skywatcher Plateau · {faction:81} Thunder Bluff · {zone:1454} Orgrimmar · {npc:259118} Muln Earthfury · {npc:264074} Mazu'kon · {npc:264072} Yorn Grimtotem
-	["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. The Earthen Ring camp on the {area:17045}, north-west of {faction:81}: 300 {faction:81} reputation in 20 minutes (60 at a fifth), plus 100 each for {zone:1454} and the Darkspear Trolls and 450 Earthen Ring. {npc:259118}, {npc:264074} and {npc:264072} stand in the camp."] = "",
+	["Forever pays these old quests in full at any level. The Earthen Ring camp on the {area:17045}, north-west of {faction:81}: 300 {faction:81} reputation in 20 minutes, plus 100 each for {zone:1454} and the Darkspear Trolls and 450 Earthen Ring. {npc:259118}, {npc:264074} and {npc:264072} stand in the camp."] = "",
 	-- {npc:259118} Muln Earthfury · {quest:96259} Defending the Dead · {quest:96261} The Broodmother
 	["{npc:259118}: {quest:96259}, +100 ({quest:96261} comes once it is handed in)"] = "",
 	-- {npc:264074} Mazu'kon · {quest:96241} Talkin' bout Toxins, Mon
@@ -100,7 +100,7 @@ return {
 	-- {area:221} Camp Narache
 	["{area:221} (optional hub)"] = "",
 	-- {area:221} Camp Narache · {zone:1412} Mulgore · {faction:81} Thunder Bluff · {npc:2980} Grull Hawkwind · {npc:2981} Chief Hawkwind · {npc:3209} Brave Windfeather
-	["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. {area:221}, at the south end of {zone:1412}: about 1,100 {faction:81} reputation in 25 minutes (220 at a fifth). Starting-zone quests give the other cities no share. {npc:2980} and {npc:2981} stand in the camp, {npc:3209} at its edge."] = "",
+	["Forever pays these old quests in full at any level. {area:221}, at the south end of {zone:1412}: about 1,100 {faction:81} reputation in 25 minutes. Starting-zone quests give the other cities no share. {npc:2980} and {npc:2981} stand in the camp, {npc:3209} at its edge."] = "",
 
 	-- Step 16: Greatmother Hawkwind and the plains
 	-- {npc:2991} Greatmother Hawkwind
@@ -138,13 +138,13 @@ return {
 	-- {area:222} Bloodhoof Village
 	["{area:222} (optional hub)"] = "",
 	-- {area:222} Bloodhoof Village · {zone:1412} Mulgore · {faction:81} Thunder Bluff · {npc:2993} Baine Bloodhoof · {npc:2947} Harken Windtotem · {npc:2985} Ruul Eagletalon · {npc:3222} Brave Wildrunner · {npc:2988} Morin Cloudstalker
-	["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. {area:222} and eastern {zone:1412}: about 1,000 {faction:81} reputation in 45 minutes (200 at a fifth). {npc:2993} stands in the middle of the village; {npc:2947}, {npc:2985} and {npc:3222} close by; {npc:2988} waits east of the village by the road."] = "",
+	["Forever pays these old quests in full at any level. {area:222} and eastern {zone:1412}: about 1,000 {faction:81} reputation in 45 minutes. {npc:2993} stands in the middle of the village; {npc:2947}, {npc:2985} and {npc:3222} close by; {npc:2988} waits east of the village by the road."] = "",
 
 	-- Step 24: Eastern Mulgore
 	-- {zone:1412} Mulgore
 	["Eastern {zone:1412}"] = "",
-	-- {quest:99079} Longwalker Malah · {object:2908} Sealed Supply Crate · {quest:764} The Venture Co.
-	["{quest:99079} waits by the eastern border. The {object:2908} of the ravaged caravan lies north-east of the village: open it to start the next quest. {quest:764} mine is further north-east; the elite shredder Venture Co. Clearcutter works deep inside."] = "",
+	-- {quest:99079} Longwalker Malah · {object:2908} Sealed Supply Crate
+	["{quest:99079} waits by the eastern border. The {object:2908} of the ravaged caravan lies north-east of the village: open it to start the next quest."] = "",
 	-- {object:2908} Sealed Supply Crate
 	["the {object:2908}"] = "",
 
@@ -154,45 +154,59 @@ return {
 
 	-- Step 26: The mine, the centaurs and the plains
 	["The mine, the centaurs and the plains"] = "",
-	-- {quest:765} Supervisor Fizsprocket · {npc:275767} Herak the Pillager · {zone:1412} Mulgore
+	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes · {npc:275767} Herak the Pillager · {zone:1412} Mulgore
 	-- plural, as words: Swoops = {npc:2970} Swoop
-	["Back to the mine for the workers, supervisors and {quest:765}. The Galak centaurs and {npc:275767} camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "",
+	["Back to the mine for the workers, supervisors and {quest:765} in the back: his {item:281031} start {quest:98424}, and its other pages lie inside the mine. The Galak centaurs and {npc:275767} camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "",
+	-- {item:281031} Mulgore Expansion Plans · {quest:765} Supervisor Fizsprocket
+	["{item:281031}, from {quest:765}"] = "",
+	-- {item:281035} Shredder Operation Instructions
+	["{item:281035}, inside the mine"] = "",
 
-	-- Step 27: Bloodhoof Village: last hand-in
+	-- Step 27: Morin Cloudstalker
+	-- {quest:98427} Ceasing Operations · {quest:98424} Fizsprocket's Notes
+	["{quest:98427}, +150: needs {quest:98424}"] = "",
+
+	-- Step 28: The Venture Co. Mine: the Clearcutter
+	-- {area:360} The Venture Co. Mine
+	["{area:360}: the Clearcutter"] = "",
+	-- {quest:98427} Ceasing Operations
+	["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "",
+
+	-- Step 29: Bloodhoof Village: last hand-in
 	-- {area:222} Bloodhoof Village
 	["{area:222}: last hand-in"] = "",
 	-- {quest:99082} The High Chieftain · {npc:3057} Cairne Bloodhoof · {faction:81} Thunder Bluff
 	["{quest:99082}, +10: to {npc:3057} in {faction:81}"] = "",
 
-	-- Step 29: Bashana Runetotem: Morrowgrain Research
+	-- Step 31: Bashana Runetotem: Morrowgrain Research
 	-- {npc:9087} Bashana Runetotem · {area:1639} Elder Rise · {item:11040} Morrowgrain
 	["{npc:9087} stands on {area:1639}. If your 10 {item:11040} are not ready yet, skip this step and go on with the cloth: the cloth steps below list the {item:11040} hand-in too."] = "",
 
-	-- Step 30: Rumstag Proudstrider: A Donation of Wool
+	-- Step 32: Rumstag Proudstrider: A Donation of Wool
 	-- {npc:14728} Rumstag Proudstrider · {item:14047} Runecloth · {quest:7825} Additional Runecloth
 	["From here it is cloth. Wool, Silk and Mageweave must all be handed in before {npc:14728} offers the {item:14047} donation, and {quest:7825} needs the {item:14047} donation. Buy cloth at the Auction House, or farm it: humanoids drop it, Wool from level 15 to 25, Silk 25 to 40, Mageweave 40 to 50, {item:14047} 50 and up. At 60 farm mobs of level 52 or more: lower ones are grey."] = "",
 	-- {item:2592} Wool Cloth
 	["{item:2592}: the Thistlefur furbolgs drop it about one kill in four"] = "",
 
-	-- Step 31: A Donation of Silk
+	-- Step 33: A Donation of Silk
 	-- {area:287} Hillsbrad
 	["Silk: the Syndicate in {area:287} and Alterac drop it about one kill in three, or buy it."] = "",
 	-- {item:4306} Silk Cloth
 	["{item:4306}: the Syndicate"] = "",
 
-	-- Step 32: A Donation of Mageweave
+	-- Step 34: A Donation of Mageweave
 	-- {zone:1448} Felwood · {zone:1446} Tanaris
 	["Mageweave: the Jadefire satyrs in southern {zone:1448} and the Dunemaul ogres in {zone:1446} drop it about one kill in three, or buy it."] = "",
 	-- {item:4338} Mageweave Cloth
 	["{item:4338}: the Jadefire satyrs"] = "",
 
-	-- Step 33: A Donation of Runecloth
+	-- Step 35: A Donation of Runecloth
 	-- {item:14047} Runecloth · {area:2266} Tyr's Hand · {zone:1423} Eastern Plaguelands · {area:2577} Dire Maul · {zone:1444} Feralas · {zone:1451} Silithus
 	["{item:14047}: the Scarlet at {area:2266} in the {zone:1423}, the Gordok ogres outside {area:2577} in {zone:1444} and the Twilight camps of {zone:1451} drop it about one kill in three. The Auction House is faster if you have gold."] = "",
 	-- {item:14047} Runecloth · {area:2266} Tyr's Hand
 	["{item:14047}: the Scarlet outside {area:2266}"] = "",
 
-	-- Step 34: Additional Runecloth to Honored
+	-- Step 36: Additional Runecloth to Honored
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Honored"] = "{quest:7825}到尊敬",
 	-- {quest:7825} Additional Runecloth · {item:14047} Runecloth
@@ -200,7 +214,7 @@ return {
 	-- {item:11040} Morrowgrain · {npc:9087} Bashana Runetotem
 	["{item:11040}, if you grow it: {npc:9087} takes it"] = "",
 
-	-- Step 35: Additional Runecloth to Revered
+	-- Step 37: Additional Runecloth to Revered
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Revered"] = "{quest:7825}到崇敬",
 	-- {item:14047} Runecloth · {item:11040} Morrowgrain · {area:1584} Blackrock Depths · {area:340} Kargath · {npc:9017} Lord Incendius
@@ -208,7 +222,7 @@ return {
 	-- {item:11040} Morrowgrain
 	["{item:11040}, if you grow it"] = "",
 
-	-- Step 36: Additional Runecloth to Exalted
+	-- Step 38: Additional Runecloth to Exalted
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Exalted"] = "{quest:7825}到崇拜",
 	-- {item:14047} Runecloth · {npc:3685} Harb Clawhoof · {area:222} Bloodhoof Village
