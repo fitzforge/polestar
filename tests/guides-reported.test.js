@@ -7493,7 +7493,8 @@ test('Horde 40-60 accept levels: quests are taken where the route reaches their 
 test('Alliance quest volume follow-up: the added quests ride on walks the route already makes', { skip }, () => {
 	const first = (list, pred) => list.findIndex(({ goal }) => pred(goal));
 	const tel = goals('forever/alliance/nightelf/01-teldrassil.guide');
-	assert.ok(first(tel, is('turnin', 490)) < first(tel, is('accept', 937)), 'Teldrassil: the fang bounty is handed to Shayla on the way to the Oracle Glade');
+	const shayla = first(tel, is('turnin', 490));
+	assert.ok(shayla > first(tel, is('turnin', 98398)) && shayla < first(tel, (g) => g.t === 'kill' && g.quest === 486), 'Teldrassil: the fang bounty is handed to Shayla on the walk south from the Oracle Glade to Ursal');
 	assert.ok(first(tel, is('accept', 931)) < first(tel, (g) => g.t === 'collect' && g.quest === 2518), 'Teldrassil: the Strange Fronded Plant is taken on the walk north to Lady Sathrah');
 	const owl = first(tel, (g) => g.t === 'use' && g.quest === 98067 && g.oi === 1);
 	assert.ok(owl > first(tel, is('accept', 98046)) && owl < first(tel, is('turnin', 923)), 'Darnassus: the tunnel-mouth owl is placed on the walk south from the Enclave');
@@ -9695,4 +9696,23 @@ test('Horde Thousand Needles: Darkcloud chests south-east, south-west, north-wes
 	assert.ok(chest(190484) < chest(190483) && chest(190483) < chest(176344), 'south-east, south-west, north-west');
 	const spot = list.find(({ step, goal }) => step.title === 'Level 28.9' && goal.t === 'goto').goal;
 	assert.ok(spot.y < 35, `the top-up is in the northern camps (${spot.x},${spot.y}), not back at the south-west chest`);
+});
+
+// Players' route (GuideHealth036, 0.3.6): Twisted Hatred (98403, 900 XP), Tallonkai's Forever follow-up to Twisted Hatred
+// (932), is a group quest (Xethorr the Wicked is a level 12 elite): offered on the jewel's hand-in to Tallonkai, its
+// Befouled Webwoods and Xethorr sit north-west of Dolanaar on the way to the Oracle Glade once Shayla's hand-in moved to the
+// walk south from the glade to Ursal (shorter for everyone), and it goes back to Tallonkai on the Dolanaar stop after Ursal.
+test(`${TELDRASSIL}: Twisted Hatred's webwoods on the way to the Oracle Glade, handed in after Ursal`, { skip }, () => {
+	const list = goals(TELDRASSIL);
+	const take = at(list, 'accept 98403', is('accept', 98403));
+	const jewel = at(list, 'turnin 2459', is('turnin', 2459));
+	assert.ok(list[take].s === list[jewel].s && list[take].goal.optional, "offered with the jewel's hand-in, optional");
+	const webs = at(list, 'kill 272096', (g) => g.t === 'kill' && g.quest === 98403);
+	const moss = at(list, 'collect 281023', (g) => g.t === 'collect' && g.quest === 98403);
+	const glade = at(list, 'accept 937', is('accept', 937));
+	assert.ok(jewel < webs && webs < glade && list[moss].s === list[webs].s, 'between the jewel hand-in at Dolanaar and the glade');
+	assert.ok((list[webs].step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(98403) && !p.neg), 'Xethorr is elite: under when group 98403');
+	const hand = at(list, 'turnin 98403', is('turnin', 98403));
+	assert.ok(hand > at(list, 'kill 486 (Ursal)', (g) => g.t === 'kill' && g.quest === 486), 'handed to Tallonkai on the Dolanaar stop after Ursal');
+	assert.ok((list[hand].step.when || []).some((p) => p.k === 'complete' && !p.neg), 'only once the quest is done');
 });

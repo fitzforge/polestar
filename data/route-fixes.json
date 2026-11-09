@@ -7007,6 +7007,11 @@
 		],
 		"group": [
 			{
+				"q": 98403,
+				"size": 2,
+				"why": "Twisted Hatred (Teldrassil, level 12): Xethorr the Wicked is rank 1 at 12 in our creature data and players' recordings ('elite'), met at 9-11 on the walk to the Oracle Glade; recorded kills: 6 with no group, 3 grouped. A group of 2 is advised; the webwoods are soloable but the quest only completes with his moss (GuideHealth036 PlayersAlliance)."
+			},
+			{
 				"q": 1173,
 				"size": 3,
 				"why": "Challenge Overlord Mok'Morokk is a fight with Overlord Mok'Morokk (level 45, rank 1 in Forever's creature data) the quest's event objective starts, so the world does not mark it elite; a rank-1 fight at 46-48 for a solo player, so a group of 3. Was optional (Rev15H2); now a group quest the route may take, with its solo fallback"
@@ -7164,6 +7169,15 @@
 				"after": [
 					"accept",
 					1011
+				]
+			},
+			{
+				"q": 98403,
+				"reason": "Players' route (GuideHealth036, 0.3.6): Twisted Hatred (level 12, from 4, 900 XP) is Tallonkai Swiftroot's Forever follow-up to Twisted Hatred (932): 8 Befouled Webwoods (data and 128 recorded kills at 49-51,38-50) and Xethorr the Wicked's Mature Fel Moss (rank 1, level 12; data and 10 recorded kills at 51.1-51.4,43-46, 6 of them with no group, 3 in a group, at levels 9-13), north-west of Dolanaar on the walk to the Oracle Glade. Offered as an optional group quest on the jewel's (2459) hand-in to Tallonkai, done under `when group 98403`, handed back to Tallonkai on the Dolanaar stop after Ursal (`when complete`). Players' recordings: 22 people took it, 9 handed it in, median 6 minutes from the first tick to complete.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					2459
 				]
 			},
 			{
@@ -8786,6 +8800,19 @@
 			}
 		],
 		"pairs": [
+			{
+				"a": [
+					"turnin",
+					98398
+				],
+				"b": [
+					"turnin",
+					490
+				],
+				"faction": "Alliance",
+				"why": "Players' route (GuideHealth036, 0.3.6): Sentinel Shayla (40.5,50.7) stands on the walk south from the Oracle Glade to Ursal, so the fang bounty goes in there; the walk from Dolanaar to the glade then crosses Twisted Hatred's (98403) Befouled Webwoods and Xethorr north-west of Dolanaar. Dolanaar to the glade and the glade to Ursal: 2907 yd, against 3036 yd with Shayla on the way up and no webwoods.",
+				"source": "GuideHealth036 PlayersAlliance"
+			},
 			{
 				"a": [
 					"turnin",
