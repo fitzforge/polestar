@@ -4966,8 +4966,12 @@ other givers and chain turn-ins), or its cheapest insertion on the way from any
 of those stops to its target, min T(A, giver) + T(giver, target) - T(A, target),
 over 300 seconds (Castpipe's Task in Stonetalon and Klockmort's Essentials in
 Darnassus for a Stormwind player's Gnomeregan quests; the sweep's taken
-breadcrumbs cost at most 185 s, its detours at least 479 s). `plan.breadcrumbs`
-says how each was judged (`detour`, `far`, `taken`). The giver
+breadcrumbs cost at most 185 s, its detours at least 479 s), or over 150
+seconds when it is a delivery across the sea (its giver on another continent
+than every one of its targets): from Stonetalon Peak, Castpipe's Task costs
+200 s and is left out (#1402); Tabetha's Task at the Undercity's mage trainer,
+100 s for a player in the Undercity, stays. `plan.breadcrumbs` says how each
+was judged (`detour`, `far`, `sea`, `taken`). The giver
 is `Dungeons.Giver(pq, from)`: the page keeps one (the Codex's first), so a
 quest several NPCs give goes to the one of the character's side nearest the
 player (`Lookup.QuestEnd`, which takes an NPC of the other side only when no

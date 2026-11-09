@@ -7,7 +7,7 @@
 --   Dungeons.PickupPlan(key) -> plan | nil, reason
 --       plan = { dungeon, take = { { quest, rec, giver, pre = { rec, ... } } }, carried = { quest, ... },
 --         done = n, later = n, closedBy = { [questId] = { questId } },
---         breadcrumbs = { { id, targets = { questId }, detour = seconds | nil, far, taken } } | nil }
+--         breadcrumbs = { { id, targets = { questId }, detour = seconds | nil, far, sea, taken } } | nil }
 --       take: quests that apply (faction, race, class), not done, not in the log,
 --       not closed for good (one of the page's `closedBy` done or in the log:
 --       a breadcrumb whose quest is taken, as Klockmort's Essentials once
@@ -451,17 +451,30 @@ end
 -- from where the player stands, the entrance, or any other stop of the plan
 -- (another giver, a chain quest's giver or turn-in), breadcrumbs left out:
 -- min over A of T(A, giver) + T(giver, target) - T(A, target). It is left out
--- when its giver is on a continent no other stop is on, or when the detour is
--- over DETOUR seconds. Kept: one on the way (Tinkmaster Overspark in
--- Stormwind for a player there, The Greenwarden in Menethil Harbor, #1226),
--- and any the plan cannot place.
+-- when its giver is on a continent no other stop is on, when the detour is
+-- over DETOUR seconds, or when it is a delivery across the sea (its giver on
+-- another continent than every one of its targets) and the detour is over
+-- NEAR seconds. Kept: one on the way (Tinkmaster Overspark in Stormwind for
+-- a player there, The Greenwarden in Menethil Harbor, #1226), one across the
+-- sea from a giver beside the player (Tabetha's Task at a city's mage
+-- trainer), and any the plan cannot place.
 -- DETOUR: over every dungeon page, both sides, the breadcrumbs players take
 -- on the way cost at most 185 s (Speak with Ruga from Orgrimmar, A Troubled
 -- Spirit), the real detours at least 479 s (Tran'rek in Stranglethorn for
 -- Zul'Farrak's Scarab Shells in Tanaris); 300 s (about one zone crossed and
 -- back) leaves a clear margin on both sides, and is many times what a
 -- breadcrumb's few hundred XP takes to earn at these levels.
+-- NEAR: a breadcrumb that crosses the sea is worth its few hundred XP only
+-- when its giver is in the town the player is in (#1402, Geekmandem: from
+-- Stonetalon Peak, Castpipe's Task at Windshear Crag cost 200 s of the
+-- route, a walk of 394 s, for 230 XP and a quest Ironforge gives anyway).
+-- Kept: Tabetha's Task at the Undercity's mage trainer for a player in the
+-- Undercity (100 s), at Stormwind's (4 s). Left out
+-- besides Castpipe's Task: A Troubled Spirit (Orgrimmar to Stonard, 185 s),
+-- Tran'rek from the Undercity (Booty Bay to Gadgetzan, 243 s). 150 s sits
+-- between.
 local DETOUR = 300
+local NEAR = 150
 
 local function continentOf(pt)
 	return pt and pt.map and (ns.Compat.MapToWorld(pt.map, pt.x, pt.y, pt.f)) or nil
@@ -469,7 +482,7 @@ end
 
 -- plan, from -> plan without its detours; plan.breadcrumbs lists every
 -- breadcrumb it judged, by id: { id, targets = { ids }, detour = seconds |
--- nil, far = another continent, taken }.
+-- nil, far = another continent, sea = a delivery across the sea, taken }.
 local function dropDetours(plan, from, p)
 	local Lk, C = LK(), ns.Codex
 	local T = Lk.Travel
@@ -526,6 +539,12 @@ local function dropDetours(plan, from, p)
 		if targets then
 			local g = at[id]
 			local c, near = continentOf(g), false
+			-- A delivery across the sea: no target given on its giver's continent.
+			local sea = c ~= nil
+			for _, tid in ipairs(targets) do
+				local tc = continentOf(at[tid])
+				if tc == nil or tc == c then sea = false end
+			end
 			local best
 			for _, a in ipairs(stops) do
 				near = near or continentOf(a) == c
@@ -535,8 +554,8 @@ local function dropDetours(plan, from, p)
 				end
 			end
 			local far = c ~= nil and not near
-			drop[id] = far or (best ~= nil and best > DETOUR)
-			plan.breadcrumbs[#plan.breadcrumbs + 1] = { id = id, targets = targets, detour = best, far = far, taken = not drop[id] }
+			drop[id] = far or (best ~= nil and (best > DETOUR or (sea and best > NEAR)))
+			plan.breadcrumbs[#plan.breadcrumbs + 1] = { id = id, targets = targets, detour = best, far = far, sea = sea, taken = not drop[id] }
 		end
 	end
 	if not next(drop) then return plan end

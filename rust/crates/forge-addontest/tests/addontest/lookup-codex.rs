@@ -664,3 +664,24 @@ fn a_stormwind_character_s_gnomeregan_and_excavation_site_pick_up_guides_skip_th
 		assert!(accepts.contains(&kept), "{kept} is still picked up: {}", js_string(&wetlands["accepts"]));
 	}
 }
+
+// #1402 (Geekmandem, Human Warlock 32 at Stonetalon Peak, 0.3.5): Gnomeregan's pick-up guide opened with Gaxim
+// Rustfizzle in Stonetalon for Castpipe's Task (2931) and Mathiel in Darnassus for Klockmort's Essentials (2925),
+// breadcrumbs to Ironforge quests that are given without them. From Stonetalon, Castpipe's Task is 200 s out of
+// the way (a 394 s walk to Windshear Crag) for 230 XP: a breadcrumb across the sea is taken only from beside its
+// giver, so neither is; Tinkmaster Overspark and The Day After, on the way, stay.
+#[test]
+fn geekmandem_s_report_from_stonetalon_peak_gnomeregan_s_pick_up_guide_takes_neither_kalimdor_breadcrumb() {
+	if skip() {
+		return;
+	}
+	let who = Dq { race: "Human", faction: "Alliance", cls: "WARLOCK", level: 32, at: [1442.0, 37.27, 8.25], ready: vec![] };
+	let gnomer = dungeon_quests("gnomeregan", &who);
+	let accepts = nums(&gnomer["accepts"]);
+	for far in [2931, 2925] {
+		assert!(!accepts.contains(&far), "no Kalimdor breadcrumb {far}: {}", js_string(&gnomer["accepts"]));
+	}
+	for kept in [2930, 2924, 2922, 2923, 2926, 2927] {
+		assert!(accepts.contains(&kept), "{kept} is still picked up: {}", js_string(&gnomer["accepts"]));
+	}
+}
