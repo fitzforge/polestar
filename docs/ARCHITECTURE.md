@@ -919,7 +919,7 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 
 | `t` | Required | Optional | Done when (Engine) |
 |---|---|---|---|
-| `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `pre`, `preAll`, `closedBy`, `preTitles` | on quest **or** completed (or abandoned by the guide); a hand tick never stands for it (#739): the accept stays open with `noticeText` "<title> isn't in your quest log", and its quest's later goals stay (never orphaned by the tick) |
+| `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `limit`, `pre`, `preAll`, `closedBy`, `preTitles` | on quest **or** completed (or abandoned by the guide); a hand tick never stands for it (#739): the accept stays open with `noticeText` "<title> isn't in your quest log", and its quest's later goals stay (never orphaned by the tick) |
 | `turnin` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `rewards = { choices = { { item, itemName, quality } }, items = { ... }, xp, money }` (copper), `direct` | completed; `direct` (never accepted, so never orphaned): its QUEST_TURNED_IN during the step (latched) or the completed flag, not the session's turn-ins, so one hand-in of a repeatable closes one goal |
 | `complete` | `quest`, `title` | — | ready for turn-in or completed |
 | `kill` | `target` | `npc`, `count`, `quest`, `oi` | its objective finished (the quest-log line named after `target`, else line `oi`), or quest ready/completed (not while the log lists no objectives yet, right after the accept); without `quest`: manual |
@@ -951,7 +951,9 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 Objective index `oi` is 1-based, matching `C_QuestLog.GetQuestObjectives`.
 Field names `npc`, `object`, `item`, `quest` always hold numeric IDs.
 Objective goals also carry the quest's `title`; `accept` carries `minLevel`
-from the data when the author gave none, `qlvl` (quest level), the blocking
+from the data when the author gave none, `qlvl` (quest level), `limit` (a
+timed quest's seconds once taken, quests.json `limit`: the Forever TDB's
+TimeAllowed, a Forever quest's from a correction), the blocking
 prerequisites `pre` (one of) and `preAll` (every one), `closedBy` (the quest
 its breadcrumb leads to and the quests exclusive with it: once any of them is
 taken or done the giver never offers it again) and `preTitles` (titles of the
@@ -1375,15 +1377,45 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   `HERE_REPICK` yards moved, at another waypoint or a new setting, never
   quiet for the zone. It goes once out of town with its detour past
   `HERE_CLEAR` times the seconds and `HERE_SLACK` (10) more, or past
-  `HERE_CLEAR` times `HERE_FAR`. Never one the route reaches anyway in its
-  next `HERE_SOON` (2) steps for the character (`Own.hereSoon`: the hand-in's
-  own step, or an open goal at the same NPC or object): the guide sends the
-  player there in a moment. When waiting costs XP (`Own.hereXpLoss`: at the
+  `HERE_CLEAR` times `HERE_FAR`. One the route reaches anyway in its next
+  `HERE_SOON` (2) steps for the character without leading away first
+  (`Own.hereSoon`: the hand-in's own step, or an open goal at the same NPC
+  or object, and no open goal with a place of the live step or a step
+  before it past `HERE_FAR` from the NPC, `Own.hereAway`) is left to the
+  guide, which sends the player there in a moment, unless the player stands
+  at the NPC: within `HERE_AT` (30) yards a hand-in shows whatever its step
+  or detour (0.3.5's reach; with the seconds above 0 or in town), and stays
+  while there (`Own.hereAt`); a "soon" one goes past `HERE_CLEAR` times
+  `HERE_AT`. Fitz on 0.3.6 walked past Seer Graytongue with Rites of the
+  Earthmother ready while the guide sent him 411 yd north to Grull and
+  then back to the Seer: the route led away, so the hand-in is no "soon"
+  one. A hand-in whose NPC the route comes back to in its next `AHEAD` (5)
+  steps is the whole visit there when every open goal of that step is a
+  hand-in ready now or an accept there that may be taken now
+  (`Own.hereVisit`, `Own.aheadOk`, below): one line "Hand in X to Y, then
+  take A, B: saves a trip back", its seconds raised by the trip back it
+  saves (`visit.credit`: the route's walk from its last place before that
+  step to the NPC and on to the first place after it, less the walk that
+  skips the NPC; straight lines `HERE_WINDING` longer at `HERE_SPEED`; not
+  with the seconds at 0). When waiting costs XP (`Own.hereXpLoss`: at the
   guide's hand-in the character will be more levels over the quest than now,
   past the 5 that keep its full reward, `Levels.Share`; that level from the
   guide's `level` goals on the way and, with the Codex, `Levels.ForGuide`
   of the steps between, `Own.herePlanned`), it may be `HERE_XP` (2) times
   the seconds out of the way.
+  Accepts ahead (`Own.aheadWants`, Automation): at an NPC's window,
+  auto-accept also takes an accept of that NPC (`npc`) in the route's next
+  `AHEAD` steps for the character, so the route need not come back; the goal
+  then reads done, the live step and the arrow stay. Only when
+  `Own.aheadOk`: the step and goal apply and are not skipped, no unanswered
+  group question in the step, no `optional` accept, a `group` (elite,
+  dungeon) one only after the player said "do", the quest not skipped,
+  closed, dropped by an `abandon` of the guide or above the character's
+  level, the log keeping `LOG_SPARE` (2) slots free (`Own.logRoom`), and a
+  timed quest (`limit`) only when the route's walk from the NPC to its
+  hand-in (open goals with a place in order, `GOAL_SECONDS` (10) each)
+  fits `LIMIT_SHARE` (0.6) of its time (`Own.aheadLimitOk`; no hand-in in
+  the guide or one on another continent: not taken).
   A build reads only the goals on the player's map: `Own.hereGoalsOn` indexes
   each guide's goals with a quest and a place by map once (weak per guide).
   The arrival poll measures at most `HERE_MAX` of them (`Own.hereList`): all
@@ -2235,16 +2267,17 @@ several open field goals (the same poll re-picks the nearest).
 
 Automation (setting `behavior.autoAccept`, `behavior.autoTurnin`, default
 on; holding Shift suppresses): accept only quests that are `accept` goals, and
-turn in only quests that are `turnin` goals, of the live step only (Fitz:
-never a step ahead, never a step the player is only looking at with
+turn in only quests that are `turnin` goals, of the live step (Fitz:
+never a step the player is only looking at with
 Prev/Next/Goto; `Engine.WantsQuest` evaluates first when a change is
 pending, so a hand-in that finished the step counts the next one as live;
 a `direct` one is picked from the gossip or greeting list of offered
 quests, and only while its goal is not done: the giver of a repeatable keeps
-offering it); and a While-you're-here hand-in line up in the active tab
+offering it); a While-you're-here hand-in line up in the active tab
 (`Own.hereWants`, #1408: the guide shows it to be handed in now; never one
 held, of a group quest not answered for, of a quest the group waits on or
-one left out; While-here never suggests accepts); never choose among
+one left out); and an accept of the next steps at the NPC whose window is
+open (`Own.aheadWants`, "While you're here" above, with its guards); never choose among
 multiple rewards; with `behavior.warnClosing` on,
 never accept a quest that closes another for good (Missable quests).
 
