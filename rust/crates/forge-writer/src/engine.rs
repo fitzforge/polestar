@@ -551,12 +551,26 @@ fn with_word(line: &str, word: &str) -> String {
 	format!("{} {word}{rest}", c.trim_end())
 }
 
+/// `line` without its `optional` word, its comment where it was (`accept 790 optional   -- x` ->
+/// `accept 790            -- x`).
+fn required(line: &str) -> String {
+	let (code, rest) = split_comment(line);
+	let Some(m) = re!(r"\s+optional\b").find(code) else { return line.to_string() };
+	let out = format!("{}{}", &code[..m.start()], &code[m.end()..]);
+	if rest.is_empty() {
+		return trim_end(&out).to_string();
+	}
+	format!("{out:<w$}{rest}", w = code.chars().count())
+}
+
 /// Asked group work (R5, the route's group families): every non-along step holding a goal of a family
 /// (`fam`: quest -> the root quest asked about) gets `when group <root>`: in place when the step holds
 /// only that family's goals and no `when`, else the family's goals move to a copy of the step right
 /// after it, headed `when group <root>` (with the step's `only`). `tips`: the lines a family's step
 /// gains after its `when`, by step. `gq`: a goal's quest (a bag collect of the item that starts a family
-/// quest is that quest's: Croaky's Head, #977).
+/// quest is that quest's: Croaky's Head, #977). The family's goals lose `optional`: only a player who
+/// chose the group way follows the step, and a step of optional goals only is done at once, so that
+/// player got no arrow to the accept, the elite or the hand-in (the Monogrammed Sash, Margol's Horn).
 #[allow(clippy::too_many_arguments)]
 fn ask_group(
 	ch: &Chain,
@@ -586,6 +600,14 @@ fn ask_group(
 		let tip = |r: u32| tips.get(&(gi, si)).into_iter().flatten().filter(move |t| t.0 == r).map(|t| t.1.clone());
 		let all: Vec<usize> = idx.iter().copied().filter(|&i| gq(&seq[i]).is_some()).collect();
 		if roots.len() == 1 && !meta.when && !touched.contains(&(gi, si)) && all.iter().all(|&i| gq(&seq[i]).and_then(fam) == Some(roots[0])) {
+			for &i in &all {
+				let l = seq[i].line as usize - 1;
+				let s = edits[gi].replaced.get(&l).unwrap_or(&texts[gi][l]);
+				let r = required(s);
+				if r != *s {
+					edits[gi].replaced.insert(l, r);
+				}
+			}
 			let at = edits[gi].after.entry(meta.line as usize - 1).or_default();
 			at.push(format!("  when group {}", roots[0]));
 			at.extend(tip(roots[0]));
@@ -609,7 +631,7 @@ fn ask_group(
 			for &i in all.iter().filter(|&&i| gq(&seq[i]).and_then(fam) == Some(r)) {
 				let l = seq[i].line as usize - 1;
 				if edits[gi].removed.insert(l) {
-					b.push(edits[gi].line(&texts[gi], l));
+					b.push(required(&edits[gi].line(&texts[gi], l)));
 				}
 			}
 			// Before the along steps that follow the step (their goals come after the accept).

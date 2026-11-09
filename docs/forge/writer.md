@@ -1000,7 +1000,10 @@ they matter to the player. They are not the judge's honest rules.
   placement; several families, in the step's order: Sprogger's hand-in of
   8553 before his accept of 8554). A bag collect of the item that starts a family's quest is
   that quest's line (Croaky's Head, a level 11 elite's drop, sat in Elwynn's step for
-  everyone: 12 recorded deaths at 8-9, #977). The family's work is never listed along the way. Its first step
+  everyone: 12 recorded deaths at 8-9, #977). The family's lines in those steps lose `optional`:
+  only a player who chose the group way follows them, and a step of optional goals only is done at
+  once, which left that player with no arrow to the item, the accept or the hand-in (the Monogrammed
+  Sash, Margol's Horn). The family's work is never listed along the way. Its first step
   that does the root's work (else its accept step) gets one tip: "These are
   elite mobs: grouping up is encouraged, look for people to do it with." then
   how hard (size 1: "Sarkoth is a level 10 elite: most classes solo it at
