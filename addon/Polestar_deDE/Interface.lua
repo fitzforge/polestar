@@ -2601,6 +2601,7 @@ L["Entrance in Alliance territory (in Ironforge)"] = "Eingang im Allianz-Gebiet 
 L["Entrance in Horde territory (in Orgrimmar)"] = "Eingang im Horde-Gebiet (in Orgrimmar)"
 L["Entrance in Alliance territory (in Stormwind)"] = "Eingang im Allianz-Gebiet (in Sturmwind)"
 L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."] = "Leveling-Guides führen dich durch diesen Dungeon, wo sie Schritte dafür haben. Aus: Sie bleiben auf der Solo-Route. Weitere Dungeons kommen auf diese Liste, sobald sie in die Route der Guides aufgenommen werden."
+L["Speak with %s"] = "Sprich mit %s"
 
 -- Dungeons/Attune.lua
 L["Lets Lothos Riftwaker in Blackrock Mountain send you to the Molten Core; without it, walk in through Blackrock Depths."] = "Lässt dich Lothos Riftwaker im Blackrock zum Geschmolzenen Kern schicken; ohne ihn läufst du durch die Blackrocktiefen hinein."

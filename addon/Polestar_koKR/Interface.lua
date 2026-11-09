@@ -1047,6 +1047,7 @@ L["Entrance in Alliance territory (in Ironforge)"] = "얼라이언스 영토의 
 L["Entrance in Horde territory (in Orgrimmar)"] = "호드 영토의 입구 (오그리마 안)"
 L["Entrance in Alliance territory (in Stormwind)"] = "얼라이언스 영토의 입구 (스톰윈드 안)"
 L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."] = "레벨업 가이드에 이 던전 단계가 있으면 이 던전을 거쳐 안내합니다. 끄면: 솔로 경로만 따릅니다. 가이드 경로에 던전이 추가되면 이 목록에도 추가됩니다."
+L["Speak with %s"] = "%s에게 말 걸기"
 
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "퀘스트 제공자"

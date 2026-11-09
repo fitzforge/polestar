@@ -1047,6 +1047,7 @@ L["Entrance in Alliance territory (in Ironforge)"] = "Entrada em território da 
 L["Entrance in Horde territory (in Orgrimmar)"] = "Entrada em território da Horda (em Orgrimmar)"
 L["Entrance in Alliance territory (in Stormwind)"] = "Entrada em território da Aliança (em Ventobravo)"
 L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."] = "Os guias de evolução levam você por esta masmorra onde têm etapas para ela. Desativado: eles seguem a rota solo. Mais masmorras entram nesta lista conforme são adicionadas à rota dos guias."
+L["Speak with %s"] = "Falar com %s"
 
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "Recrutador de missões"

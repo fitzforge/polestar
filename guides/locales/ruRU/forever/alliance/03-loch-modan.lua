@@ -10,7 +10,7 @@ return {
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "Корабль: {area:150}",
 	-- {area:442} Auberdine
-	["Sell and repair in {area:442} first: the next stretch is a long one."] = "",
+	["Sell and repair in {area:442} first: the next stretch is a long one."] = "Сначала продайте добычу и почините снаряжение ({area:442}): дальше долгий путь.",
 
 	-- Step 2: Menethil Harbor
 	-- {zone:1437} Wetlands

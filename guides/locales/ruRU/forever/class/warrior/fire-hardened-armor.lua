@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Fire Hardened Armor"] = "Закаленный огнем доспех",
-	["Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and gauntlets from three smiths."] = "",
+	["Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and gauntlets from three smiths."] = "Начинается с 20 уровня со щита; на 28 уровне – кольчуга, затем капюшон, поножи и рукавицы у трех кузнецов.",
 
 	-- Step 1: Yorus Barleybrew (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {quest:1698} Yorus Barleybrew

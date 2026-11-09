@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Undercity Reputation"] = "Репутация: Подгород",
 	-- {item:14047} Runecloth
-	["Tirisfal quests while you level, the Plaguelands quests from 55, then {item:14047} to Exalted."] = "",
+	["Tirisfal quests while you level, the Plaguelands quests from 55, then {item:14047} to Exalted."] = "Задания в Тирисфальских лесах во время прокачки, задания в Чумных землях с 55 уровня, затем {item:14047} до превознесения.",
 	-- {faction:68} Undercity
 	["Exalted with the {faction:68}"] = "Превознесение: {faction:68}",
 

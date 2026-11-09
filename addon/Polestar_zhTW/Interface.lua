@@ -1047,6 +1047,7 @@ L["Entrance in Alliance territory (in Ironforge)"] = "入口位於聯盟領地�
 L["Entrance in Horde territory (in Orgrimmar)"] = "入口位於部落領地（奧格瑪內）"
 L["Entrance in Alliance territory (in Stormwind)"] = "入口位於聯盟領地（暴風城內）"
 L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."] = "升級指南若有此地城的步驟，就會帶你通過此地城。關閉：維持單人路線。更多地城加入指南路線後會出現在此清單中。"
+L["Speak with %s"] = "與%s交談"
 
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "任務給予者"

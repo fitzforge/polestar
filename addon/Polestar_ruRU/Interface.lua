@@ -1047,6 +1047,7 @@ L["Entrance in Alliance territory (in Ironforge)"] = "Вход на террит
 L["Entrance in Horde territory (in Orgrimmar)"] = "Вход на территории Орды (в Оргриммаре)"
 L["Entrance in Alliance territory (in Stormwind)"] = "Вход на территории Альянса (в Штормграде)"
 L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."] = "Гайды по прокачке проводят вас через это подземелье, если в них есть шаги для него. Если выключено, они придерживаются одиночного маршрута. Новые подземелья появятся в этом списке, когда их добавят в маршрут гайдов."
+L["Speak with %s"] = "Поговорить: %s"
 
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "Дающий задание"

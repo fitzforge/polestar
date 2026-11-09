@@ -99,7 +99,7 @@ return {
 	-- {area:108} Sentinel Hill · {npc:523} Thor
 	["{area:108}'s tower and {npc:523}"] = "Башня на {area:108} и {npc:523}",
 	-- {npc:234} Gryan Stoutmantle · {npc:821} Captain Danuvin · {npc:491} Quartermaster Lewis · {npc:523} Thor · {npc:878} Scout Galiaan · {npc:1323} Osric Strang · {zone:1453} Stormwind · {npc:279} Morgan Pestle · {object:2096} Trade District · {object:2156} Limited Immunity (no name in this language: may be words) · {object:2100} Old Town · {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {npc:352} Dungar Longdrink
-	["{npc:234} and {npc:821} stand at the top of the stone tower, {npc:491} inside it, {npc:523} the gryphon master on the south side of the hill with {npc:878} beside him. {npc:523} gives you Lewis' note for {npc:1323} with a free flight to {zone:1453}: take it now. In {zone:1453}, {npc:279}'s shop is in the {object:2096} by the gryphons, {npc:1323}'s shop, {object:2156}, in {object:2100}; {npc:1646} stands in {object:2098} on the way back to {npc:352}, the gryphon master."] = "{npc:234} и {npc:821} стоят на вершине каменной башни, {npc:491} – внутри нее, {npc:523}, распорядитель грифонов, – на южной стороне холма, рядом с ним {npc:878}. {npc:523} отдает вам записку Льюиса для {npc:1323} и бесплатный полет в {zone:1453}: летите сейчас. В {zone:1453} лавка {npc:279} находится в {object:2096} у грифонов, лавка {npc:1323}, {object:2156}, – в {object:2100}; {npc:1646} стоит на {object:2098}, по пути обратно к {npc:352}, распорядителю грифонов.",
+	["{npc:234} and {npc:821} stand at the top of the stone tower, {npc:491} inside it, {npc:523} the gryphon master on the south side of the hill with {npc:878} beside him. {npc:523} gives you Lewis' note for {npc:1323} with a free flight to {zone:1453}: take it now. In {zone:1453}, {npc:279}'s shop is in the {object:2096} by the gryphons, {npc:1323}'s shop, {object:2156}, in {object:2100}; {npc:1646} stands in {object:2098} on the way back to {npc:352}, the gryphon master."] = "{npc:234} и {npc:821} стоят на вершине каменной башни, {npc:491} – внутри нее, {npc:523}, распорядитель грифонов, – на южной стороне холма, рядом с ним {npc:878}. {npc:523} отдает вам записку Льюиса для {npc:1323} и бесплатный полет в {zone:1453}: летите сейчас. В {zone:1453} лавка {npc:279} находится в {object:2096} у грифонов, лавка {npc:1323}, лавка «Ограниченный иммунитет», – в {object:2100}; {npc:1646} стоит на {object:2098}, по пути обратно к {npc:352}, распорядителю грифонов.",
 	-- {npc:491} Quartermaster Lewis
 	["{npc:491}, inside"] = "{npc:491} – внутри",
 	-- {npc:878} Scout Galiaan · {npc:523} Thor
@@ -111,7 +111,7 @@ return {
 	-- {npc:279} Morgan Pestle · {object:2096} Trade District
 	["{npc:279}, {object:2096}, by the gryphons"] = "{npc:279}, {object:2096}, у грифонов",
 	-- {npc:1323} Osric Strang · {object:2156} Limited Immunity (no name in this language: may be words) · {object:2100} Old Town
-	["{npc:1323}, {object:2156} in {object:2100}"] = "{npc:1323}, {object:2156} в {object:2100}",
+	["{npc:1323}, {object:2156} in {object:2100}"] = "{npc:1323}, лавка «Ограниченный иммунитет» в {object:2100}",
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {zone:1436} Westfall
 	["{npc:1646}, {object:2098}: his compass is in his old house in {zone:1436}"] = "{npc:1646}, {object:2098}: его компас – в его старом доме в {zone:1436}",
 	-- {npc:352} Dungar Longdrink

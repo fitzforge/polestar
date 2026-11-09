@@ -1048,6 +1048,7 @@ L["Entrance in Alliance territory (in Ironforge)"] = "Entrée en territoire de l
 L["Entrance in Horde territory (in Orgrimmar)"] = "Entrée en territoire de la Horde (à Orgrimmar)"
 L["Entrance in Alliance territory (in Stormwind)"] = "Entrée en territoire de l'Alliance (à Hurlevent)"
 L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."] = "Les guides de montée en niveau vous font passer par ce donjon quand ils ont des étapes pour lui. Désactivé : ils s'en tiennent à l'itinéraire solo. D'autres donjons rejoignent cette liste à mesure qu'ils sont ajoutés à l'itinéraire des guides."
+L["Speak with %s"] = "Parler à %s"
 
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "Donneur de quête"

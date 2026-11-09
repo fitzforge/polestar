@@ -248,7 +248,7 @@ return {
 	-- {npc:1748} Highlord Bolvar Fordragon · {object:2117} Stormwind Keep · {npc:1749} Lady Katrana Prestor
 	["{npc:1748} holds court in {object:2117} with {npc:1749} at his side: speak with her for the second of his quests."] = "",
 	-- {npc:1749} Lady Katrana Prestor
-	["Speak with {npc:1749}"] = "",
+	["Speak with {npc:1749}"] = "Поговорить: {npc:1749}",
 
 	-- Step 43: Lakeshire: Solomon again
 	-- {area:69} Lakeshire

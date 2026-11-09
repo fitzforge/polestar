@@ -15,7 +15,7 @@ return {
 	-- {quest:3803} Morrowgrain to Darnassus · {item:11040} Morrowgrain
 	["{quest:3803}: 50 reputation for every 10 {item:11040}, as often as you like"] = "{quest:3803}: 50 репутации за каждые 10 шт. ({item:11040}), сколько угодно раз",
 	-- {faction:69} Darnassus · {zone:1438} Teldrassil · {zone:1439} Darkshore
-	["About 3,700 {faction:69} reputation from low-level quests in {zone:1438} and {zone:1439}"] = "",
+	["About 3,700 {faction:69} reputation from low-level quests in {zone:1438} and {zone:1439}"] = "Около 3700 репутации ({faction:69}) за задания низкого уровня (зоны: {zone:1438} и {zone:1439})",
 
 	-- Step 1: Raedon Duskstriker, the cloth quartermaster
 	-- {npc:14725} Raedon Duskstriker

@@ -335,6 +335,7 @@ local OBJECTIVE = {
 	kill = { L["Kill %s"], L["Kill %d %s"], "npc" },
 	item = { L["Collect %s"], L["Collect %d %s"], "item" },
 	object = { L["Use %s"], nil, "object" },
+	talk = { L["Speak with %s"], nil, "npc" },
 }
 
 -- The quest text tokens a summary keeps: $B a line break (a space here),

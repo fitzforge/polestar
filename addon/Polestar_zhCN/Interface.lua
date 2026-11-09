@@ -1047,6 +1047,7 @@ L["Entrance in Alliance territory (in Ironforge)"] = "入口位于联盟领地�
 L["Entrance in Horde territory (in Orgrimmar)"] = "入口位于部落领地（奥格瑞玛内）"
 L["Entrance in Alliance territory (in Stormwind)"] = "入口位于联盟领地（暴风城内）"
 L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."] = "升级指南在包含此地下城步骤时会带你完成该地下城。关闭：指南将保持单人路线。更多地下城加入指南路线后会出现在此列表中。"
+L["Speak with %s"] = "与%s交谈"
 
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "任务给予者"

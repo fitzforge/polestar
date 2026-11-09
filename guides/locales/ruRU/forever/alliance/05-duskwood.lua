@@ -109,7 +109,7 @@ return {
 
 	-- Step 22: Stormwind
 	-- {zone:1453} Stormwind · {object:28027} Dwarven District
-	["{zone:1453}'s {object:28027}"] = "",
+	["{zone:1453}'s {object:28027}"] = "{zone:1453}: {object:28027}",
 
 	-- Step 23: Tram to Ironforge
 	-- {zone:1455} Ironforge
