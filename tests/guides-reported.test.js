@@ -9215,3 +9215,20 @@ test('Horde 45-50 Orgrimmar: Zilzibin in the Drag, and the ready reports handed 
 		assert.ok(first.step.when.some((p) => p.k === 'onquest' && !p.neg && p.q.includes(q)), `${q}: only while carried`);
 	}
 });
+
+// GuideHealth036 (0.3.6): the `when group` steps at Nesingwary's camp were titled after the wrong hunter (Panther
+// Mastery is Sir S. J. Erlgadin's, Raptor Mastery and Big Game Hunter are Hemet Nesingwary's). Class guard over every
+// leveling guide: a step of only accepts and hand-ins, titled with an NPC's name, talks to that NPC.
+test('Leveling guides: a step titled with an NPC\'s name takes or hands in at least one quest at that NPC', { skip }, () => {
+	const bad = [];
+	for (const f of allGuides().filter((g) => /^forever\/(alliance|horde)\//.test(g))) {
+		const names = new Map();
+		for (const step of compiled(f).steps) {
+			const qs = step.goals.filter((g) => g.t === 'accept' || g.t === 'turnin');
+			if (!qs.length || qs.length !== step.goals.length || !qs.every((g) => g.npc)) continue;
+			if (!names.has(step.title)) names.set(step.title, Object.values(data.npcs).some((n) => n.name === step.title));
+			if (names.get(step.title) && !qs.some((g) => data.npcs[g.npc] && data.npcs[g.npc].name === step.title)) bad.push(`${f}: ${step.title}`);
+		}
+	}
+	assert.deepEqual(bad, []);
+});

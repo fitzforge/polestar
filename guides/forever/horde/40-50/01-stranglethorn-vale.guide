@@ -348,11 +348,11 @@ step Sir S. J. Erlgadin
   when group 193
   turnin 193
 
-step Sir S. J. Erlgadin
+step Hemet Nesingwary
   when group 197
   turnin 197
 
-step Sir S. J. Erlgadin
+step Hemet Nesingwary
   when group 208
   accept 208
 
