@@ -50,7 +50,7 @@ local NOTES = {
 				return L["Grinding steps point at where the mob is found, and on a step with several camps the arrow moves on from one you've emptied. The Target button shows who it targets, the While you're here mobs included."]
 			end },
 			{ glyph = "layers", color = "accent", head = L["Guide menu and minimap"], text = function()
-				return L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."]
+				return L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."]
 			end },
 			{ glyph = "check", color = "success", head = L["Fixes from your reports"], text = function()
 				return L["Quests asked for before the game offers them, wrong spots, dungeon pick-ups, guides opened part-way, the arrow while you're a ghost, and lots more."]

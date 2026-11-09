@@ -146,6 +146,8 @@ L["%s changed in this update and holds other quests now. Its tab moved to %s, wh
 L["This %s isn't in your quest log yet: the one you have is another quest of that name"] = "A missão %s ainda não está no seu registro de missões: a que você tem é outra missão com o mesmo nome"
 L["%s is no longer in your quest log: the guide skips it and what follows."] = "%s não está mais no seu registro de missões: o guia a pula, e o que vem depois."
 L["%s is no longer in your quest log: the guide goes back for it."] = "%s não está mais no seu registro de missões: o guia volta para buscá-la."
+-- L["Hand in %s to %s, then take %s: saves a trip back"] = ""
+-- L["Hand in %s to %s: saves a trip back"] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Pegar %s fecha %s para sempre."
@@ -3124,7 +3126,7 @@ L["Guide menu and minimap"] = "Menu do guia e minimapa"
 L["Quests asked for before the game offers them, wrong spots, dungeon pick-ups, guides opened part-way, the arrow while you're a ghost, and lots more."] = "Missões pedidas antes de o jogo oferecê-las, locais errados, missões de masmorra, guias abertos no meio, a seta enquanto você é fantasma, e muito mais."
 L["Grinding steps point at where the mob is found, and on a step with several camps the arrow moves on from one you've emptied. The Target button shows who it targets, the While you're here mobs included."] = "As etapas de matar monstros apontam para onde a criatura é encontrada, e numa etapa com vários acampamentos a seta passa adiante quando você esvazia um. O botão de alvo mostra quem ele seleciona, inclusive as criaturas de Já que está aqui."
 L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. Quests new in Forever carry a small ∞ mark. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = "Todos os guias de evolução foram revistos, e os de 40-60 foram refeitos para as duas facções, com mais missões e menos tempo matando monstros. Missões novas no Forever trazem uma pequena marca ∞. Se o guia que você tinha aberto não combina com onde você está, abra a lista de guias e escolha o guia em %s. Seu registro de missões é mantido."
-L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."] = "As pastas de navegação se recolhem, uma aba fechada volta com Reabrir, a rota pode ser uma linha, pontos ou brilhos no mapa e no minimapa, e um botão flutuante do Polestar pode ser ativado nas Opções."
+-- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = ""
 
 -- QoL/ClassQuests.lua
 L["Long chain: %d quests across %d zones on %d continents"] = "Cadeia longa: %d missões em %d zonas de %d continentes"
@@ -3211,3 +3213,4 @@ L["Sparkles"] = "Brilhos"
 -- L["Browse folders fold away, a route line runs on the minimap, and a floating Polestar button can be turned on in Options."] = "As pastas de navegação se recolhem, uma linha de rota corre no minimapa, e um botão flutuante do Polestar pode ser ativado nas Opções."
 -- L["The first walk of %s"] = "A primeira caminhada de %s"
 -- L["With Transparent, the tabs and the step bar stay on screen on a dark strip, so they read over any scenery, instead of only under the cursor."] = "No Transparente, as abas e a barra da etapa ficam na tela sobre uma faixa escura, para serem lidas sobre qualquer cenário, em vez de só aparecerem com o mouse em cima."
+-- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."] = "As pastas de navegação se recolhem, uma aba fechada volta com Reabrir, a rota pode ser uma linha, pontos ou brilhos no mapa e no minimapa, e um botão flutuante do Polestar pode ser ativado nas Opções."

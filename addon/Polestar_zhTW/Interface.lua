@@ -146,6 +146,8 @@ L["%s changed in this update and holds other quests now. Its tab moved to %s, wh
 L["This %s isn't in your quest log yet: the one you have is another quest of that name"] = "這個 %s 還不在你的任務日誌中：你身上那個是另一個同名任務"
 L["%s is no longer in your quest log: the guide skips it and what follows."] = "%s 已不在你的任務日誌中：指南會跳過它及其後續任務。"
 L["%s is no longer in your quest log: the guide goes back for it."] = "%s 已不在你的任務日誌中：指南會回頭去接它。"
+-- L["Hand in %s to %s, then take %s: saves a trip back"] = ""
+-- L["Hand in %s to %s: saves a trip back"] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "接受 %s 將永久關閉 %s。"
@@ -3124,7 +3126,7 @@ L["Guide menu and minimap"] = "指南選單與小地圖"
 L["Quests asked for before the game offers them, wrong spots, dungeon pick-ups, guides opened part-way, the arrow while you're a ghost, and lots more."] = "在遊戲提供前就要求接的任務、錯誤的地點、地城任務接取、從中途開啟的指南、鬼魂狀態下的箭頭，以及更多問題。"
 L["Grinding steps point at where the mob is found, and on a step with several camps the arrow moves on from one you've emptied. The Target button shows who it targets, the While you're here mobs included."] = "練等步驟會指向怪物出沒的地方；在有多個營地的步驟中，你清空一處後箭頭會移往下一處。目標按鈕會顯示它選取的對象，包括「順道完成」的怪物。"
 L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. Quests new in Forever carry a small ∞ mark. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = "所有練等指南都重新檢查過一遍，40-60 級更為雙方陣營重新製作，任務更多、練等時間更短。Forever 新增的任務會帶有一個小小的 ∞ 標記。若你開啟的指南與你所在位置不符，請開啟指南清單並選擇 %s 底下的指南。你的任務日誌會沿用。"
-L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."] = "瀏覽資料夾可收合，關閉的分頁可用「重新開啟」找回，路線在地圖和小地圖上可顯示為線條、圓點或閃光，並可在「選項」中開啟浮動的 Polestar 按鈕。"
+-- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = ""
 
 -- QoL/ClassQuests.lua
 L["Long chain: %d quests across %d zones on %d continents"] = "長任務鏈：%d 個任務，橫跨 %d 個地區、%d 塊大陸"
@@ -3201,3 +3203,4 @@ L["Sparkles"] = "閃光"
 -- L["The way to the goal on the world map and the minimap: dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "在地圖與小地圖上顯示通往目標的路：步行處為點，飛行、航行或搭乘處為線，之後的路段較淡。繪法與 Cillian Berragan 的 Shortest Path Forever 相同。"
 -- L["How the route lines are drawn: Polestar's dots, or sparkles that drift along the way to the goal."] = "路線的繪製方式：Polestar 的圓點，或沿著前往目標的路上飄動的閃光。"
 -- L["The first walk of %s"] = "%s 的第一段路"
+-- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."] = "瀏覽資料夾可收合，關閉的分頁可用「重新開啟」找回，路線在地圖和小地圖上可顯示為線條、圓點或閃光，並可在「選項」中開啟浮動的 Polestar 按鈕。"

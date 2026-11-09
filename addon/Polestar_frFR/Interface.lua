@@ -147,6 +147,8 @@ L["%s changed in this update and holds other quests now. Its tab moved to %s, wh
 L["This %s isn't in your quest log yet: the one you have is another quest of that name"] = "Ce %s n'est pas encore dans votre journal des quêtes : celle que vous avez est une autre quête du même nom"
 L["%s is no longer in your quest log: the guide skips it and what follows."] = "%s n'est plus dans votre journal des quêtes : le guide la passe, ainsi que la suite."
 L["%s is no longer in your quest log: the guide goes back for it."] = "%s n'est plus dans votre journal des quêtes : le guide y retourne."
+-- L["Hand in %s to %s, then take %s: saves a trip back"] = ""
+-- L["Hand in %s to %s: saves a trip back"] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Prendre %s ferme %s pour de bon."
@@ -3125,7 +3127,7 @@ L["Guide menu and minimap"] = "Menu des guides et minicarte"
 L["Quests asked for before the game offers them, wrong spots, dungeon pick-ups, guides opened part-way, the arrow while you're a ghost, and lots more."] = "Quêtes demandées avant que le jeu ne les propose, mauvais emplacements, quêtes de donjon à prendre, guides ouverts en cours de route, la flèche quand vous êtes un fantôme, et bien plus."
 L["Grinding steps point at where the mob is found, and on a step with several camps the arrow moves on from one you've emptied. The Target button shows who it targets, the While you're here mobs included."] = "Les étapes de farm pointent vers l'endroit où se trouve le monstre, et sur une étape à plusieurs camps la flèche quitte celui que vous avez vidé. Le bouton de ciblage montre qui il cible, monstres de « Tant que vous êtes là » compris."
 L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. Quests new in Forever carry a small ∞ mark. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = "Chaque guide de montée de niveau a été revu, et le 40-60 retravaillé pour les deux factions avec plus de quêtes et moins de farm. Les quêtes nouvelles dans Forever portent une petite marque ∞. Si le guide que vous aviez ouvert ne correspond pas à l'endroit où vous êtes, ouvrez la liste des guides et choisissez le guide sous %s. Votre journal des quêtes est conservé."
-L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."] = "Les dossiers de navigation se replient, un onglet fermé revient avec Rouvrir, l'itinéraire peut s'afficher en ligne, en points ou en étincelles sur la carte et la minicarte, et un bouton Polestar flottant peut être activé dans les Options."
+-- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = ""
 
 -- QoL/ClassQuests.lua
 L["Long chain: %d quests across %d zones on %d continents"] = "Longue chaîne : %d quêtes dans %d zones sur %d continents"
@@ -3245,3 +3247,4 @@ L["Sparkles"] = "Étincelles"
 -- L["The way to the goal on the world map and the minimap: dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "Le chemin vers l'objectif sur la carte et la minicarte : des points là où vous marchez, des lignes là où vous volez, naviguez ou voyagez, les tronçons suivants plus pâles. Dessiné comme le fait Shortest Path Forever par Cillian Berragan."
 -- L["How the route lines are drawn: Polestar's dots, or sparkles that drift along the way to the goal."] = "Comment les lignes d'itinéraire sont tracées : les points de Polestar, ou des étincelles qui dérivent le long du chemin vers l'objectif."
 -- L["The first walk of %s"] = "Le premier trajet de %s"
+-- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."] = "Les dossiers de navigation se replient, un onglet fermé revient avec Rouvrir, l'itinéraire peut s'afficher en ligne, en points ou en étincelles sur la carte et la minicarte, et un bouton Polestar flottant peut être activé dans les Options."

@@ -148,6 +148,8 @@ L["%s changed in this update and holds other quests now. Its tab moved to %s, wh
 L["This %s isn't in your quest log yet: the one you have is another quest of that name"] = "%s ist noch nicht in deinem Questlog: Die Quest, die du hast, ist eine andere mit demselben Namen"
 L["%s is no longer in your quest log: the guide skips it and what follows."] = "%s ist nicht mehr in deinem Questlog: Der Guide überspringt sie und alles, was darauf folgt."
 L["%s is no longer in your quest log: the guide goes back for it."] = "%s ist nicht mehr in deinem Questlog: Der Guide geht dafür zurück."
+-- L["Hand in %s to %s, then take %s: saves a trip back"] = ""
+-- L["Hand in %s to %s: saves a trip back"] = ""
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."
@@ -3100,7 +3102,7 @@ L["Guide menu and minimap"] = "Guide-Menü und Minikarte"
 L["Quests asked for before the game offers them, wrong spots, dungeon pick-ups, guides opened part-way, the arrow while you're a ghost, and lots more."] = "Quests, die verlangt wurden, bevor das Spiel sie anbietet, falsche Orte, Dungeon-Quests zum Abholen, mittendrin geöffnete Guides, der Pfeil als Geist und vieles mehr."
 L["Grinding steps point at where the mob is found, and on a step with several camps the arrow moves on from one you've emptied. The Target button shows who it targets, the While you're here mobs included."] = "Grind-Schritte zeigen dorthin, wo der Mob zu finden ist, und bei einem Schritt mit mehreren Lagern zieht der Pfeil von einem geleerten weiter. Der Ziel-Button zeigt, wen er anvisiert, auch die Mobs von „Wenn du schon hier bist“."
 L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. Quests new in Forever carry a small ∞ mark. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = "Jeder Level-Guide wurde noch einmal durchgesehen, und 40-60 wurde für beide Fraktionen überarbeitet, mit mehr Quests und kürzerem Grinden. Quests, die in Forever neu sind, tragen ein kleines ∞-Zeichen. Passt der Guide, den du offen hattest, nicht mehr zu deinem Standort, öffne die Guide-Liste und wähle den Guide unter %s. Dein Questlog bleibt erhalten."
-L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."] = "Die Ordner der Guide-Liste lassen sich zuklappen, ein geschlossener Tab kommt mit „Wieder öffnen“ zurück, die Routenlinie kann auf Karte und Minikarte eine Linie, Punkte oder Funken sein, und ein schwebender Polestar-Button lässt sich in den Optionen einschalten."
+-- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = ""
 
 -- QoL/ClassQuests.lua
 L["Long chain: %d quests across %d zones on %d continents"] = "Lange Kette: %d Quests in %d Gebieten auf %d Kontinenten"
@@ -3258,3 +3260,4 @@ L["Sparkles"] = "Funken"
 -- L["The way to the goal on the world map and the minimap: dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "Der Weg zum Ziel auf der Weltkarte und der Minikarte: Punkte, wo du läufst, Linien, wo du fliegst, segelst oder fährst, die Etappen nach dieser blasser. Gezeichnet, wie Shortest Path Forever von Cillian Berragan sie zeichnet."
 -- L["How the route lines are drawn: Polestar's dots, or sparkles that drift along the way to the goal."] = "Wie die Routenlinien gezeichnet werden: als Punkte von Polestar oder als Funken, die auf dem Weg zum Ziel treiben."
 -- L["The first walk of %s"] = "Der erste Weg in %s"
+-- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."] = "Die Ordner der Guide-Liste lassen sich zuklappen, ein geschlossener Tab kommt mit „Wieder öffnen“ zurück, die Routenlinie kann auf Karte und Minikarte eine Linie, Punkte oder Funken sein, und ein schwebender Polestar-Button lässt sich in den Optionen einschalten."

@@ -146,6 +146,8 @@ L["%s changed in this update and holds other quests now. Its tab moved to %s, wh
 L["This %s isn't in your quest log yet: the one you have is another quest of that name"] = "Este %s aún no está en tu registro de misiones: el que tienes es otra misión con ese nombre"
 L["%s is no longer in your quest log: the guide skips it and what follows."] = "%s ya no está en tu registro de misiones: la guía la salta junto con lo que sigue."
 L["%s is no longer in your quest log: the guide goes back for it."] = "%s ya no está en tu registro de misiones: la guía vuelve a por ella."
+-- L["Hand in %s to %s, then take %s: saves a trip back"] = ""
+-- L["Hand in %s to %s: saves a trip back"] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Aceptar %s bloquea %s para siempre."
@@ -3124,7 +3126,7 @@ L["Guide menu and minimap"] = "Menú de guías y minimapa"
 L["Quests asked for before the game offers them, wrong spots, dungeon pick-ups, guides opened part-way, the arrow while you're a ghost, and lots more."] = "Misiones pedidas antes de que el juego las ofrezca, puntos equivocados, recogidas en mazmorras, guías abiertas a medias, la flecha mientras eres un fantasma y mucho más."
 L["Grinding steps point at where the mob is found, and on a step with several camps the arrow moves on from one you've emptied. The Target button shows who it targets, the While you're here mobs included."] = "Los pasos de farmeo apuntan a donde se encuentra el monstruo, y en un paso con varios campamentos la flecha pasa al siguiente cuando vacías uno. El botón de objetivo muestra a quién selecciona, incluidos los monstruos de «Mientras estás aquí»."
 L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. Quests new in Forever carry a small ∞ mark. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = "Se han vuelto a revisar todas las guías de subida de nivel, y la 40-60 se ha rehecho para ambas facciones con más misiones y menos farmeo. Las misiones nuevas en Forever llevan una pequeña marca ∞. Si la guía que tenías abierta no coincide con donde estás, abre la lista de guías y elige la guía bajo %s. Tu registro de misiones se conserva."
-L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."] = "Las carpetas del explorador se pliegan, una pestaña cerrada vuelve con Reabrir, la ruta puede verse como línea, puntos o destellos en el mapa y el minimapa, y se puede activar un botón flotante de Polestar en Opciones."
+-- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = ""
 
 -- QoL/ClassQuests.lua
 L["Long chain: %d quests across %d zones on %d continents"] = "Cadena larga: %d misiones en %d zonas de %d continentes"
@@ -3198,3 +3200,4 @@ L["Sparkles"] = "Destellos"
 -- L["Three choices to start with. Everything else is in %s."] = "Tres opciones para empezar. Todo lo demás está en %s."
 -- L["The way to the goal on the world map and the minimap: dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "El camino al objetivo en el mapa del mundo y el minimapa: puntos donde caminas, líneas donde vuelas, navegas o viajas, y los tramos siguientes más tenues. Dibujado como lo dibuja Shortest Path Forever de Cillian Berragan."
 -- L["The first walk of %s"] = "El primer paseo de %s"
+-- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."] = "Las carpetas del explorador se pliegan, una pestaña cerrada vuelve con Reabrir, la ruta puede verse como línea, puntos o destellos en el mapa y el minimapa, y se puede activar un botón flotante de Polestar en Opciones."

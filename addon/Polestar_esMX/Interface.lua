@@ -157,6 +157,8 @@ L["%s changed in this update and holds other quests now. Its tab moved to %s, wh
 L["This %s isn't in your quest log yet: the one you have is another quest of that name"] = "Este %s aún no está en tu registro de misiones: la que tienes es otra misión con ese nombre"
 L["%s is no longer in your quest log: the guide skips it and what follows."] = "%s ya no está en tu registro de misiones: la guía la omite junto con lo que sigue."
 L["%s is no longer in your quest log: the guide goes back for it."] = "%s ya no está en tu registro de misiones: la guía vuelve por ella."
+-- L["Hand in %s to %s, then take %s: saves a trip back"] = ""
+-- L["Hand in %s to %s: saves a trip back"] = ""
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Requiere Polestar %s o posterior."
@@ -3123,7 +3125,7 @@ L["Guide menu and minimap"] = "Menú de guías y minimapa"
 L["Quests asked for before the game offers them, wrong spots, dungeon pick-ups, guides opened part-way, the arrow while you're a ghost, and lots more."] = "Misiones pedidas antes de que el juego las ofrezca, lugares equivocados, misiones de calabozo, guías abiertas a medias, la flecha mientras eres fantasma, y mucho más."
 L["Grinding steps point at where the mob is found, and on a step with several camps the arrow moves on from one you've emptied. The Target button shows who it targets, the While you're here mobs included."] = "Los pasos de farmeo apuntan a donde se encuentra el monstruo, y en un paso con varios campamentos la flecha pasa al siguiente cuando vacías uno. El botón de objetivo muestra a quién selecciona, incluidos los monstruos de Mientras estás aquí."
 L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. Quests new in Forever carry a small ∞ mark. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = "Se volvieron a revisar todas las guías de subida de nivel, y la 40-60 se rehízo para ambas facciones con más misiones y menos farmeo. Las misiones nuevas en Forever llevan una pequeña marca ∞. Si la guía que tenías abierta no coincide con dónde estás, abre la lista de guías y elige la guía bajo %s. Tu registro de misiones se conserva."
-L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."] = "Las carpetas del explorador se pliegan, una pestaña cerrada vuelve con Reabrir, la ruta puede verse como línea, puntos o destellos en el mapa y el minimapa, y se puede activar un botón flotante de Polestar en Opciones."
+-- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = ""
 
 -- QoL/ClassQuests.lua
 L["Long chain: %d quests across %d zones on %d continents"] = "Cadena larga: %d misiones en %d zonas de %d continentes"
@@ -3237,3 +3239,4 @@ L["Sparkles"] = "Destellos"
 -- L["Three choices to start with. Everything else is in %s."] = "Tres opciones para empezar. Todo lo demás está en %s."
 -- L["How the route lines are drawn: Polestar's dots, or sparkles that drift along the way to the goal."] = "Cómo se dibujan las líneas de ruta: con los puntos de Polestar o con destellos que se desplazan por el camino hacia el objetivo."
 -- L["The first walk of %s"] = "La primera caminata de %s"
+-- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."] = "Las carpetas del explorador se pliegan, una pestaña cerrada vuelve con Reabrir, la ruta puede verse como línea, puntos o destellos en el mapa y el minimapa, y se puede activar un botón flotante de Polestar en Opciones."

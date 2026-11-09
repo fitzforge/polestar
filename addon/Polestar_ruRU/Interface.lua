@@ -146,6 +146,8 @@ L["%s changed in this update and holds other quests now. Its tab moved to %s, wh
 L["This %s isn't in your quest log yet: the one you have is another quest of that name"] = "Этого задания «%s» еще нет в вашем журнале заданий: у вас другое задание с тем же названием"
 L["%s is no longer in your quest log: the guide skips it and what follows."] = "Задания «%s» больше нет в вашем журнале заданий: гайд пропускает его и все, что из него следует."
 L["%s is no longer in your quest log: the guide goes back for it."] = "Задания «%s» больше нет в вашем журнале заданий: гайд возвращается за ним."
+-- L["Hand in %s to %s, then take %s: saves a trip back"] = ""
+-- L["Hand in %s to %s: saves a trip back"] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Взяв %s, вы навсегда закроете %s."
@@ -3124,7 +3126,7 @@ L["Guide menu and minimap"] = "Меню гайдов и миникарта"
 L["Quests asked for before the game offers them, wrong spots, dungeon pick-ups, guides opened part-way, the arrow while you're a ghost, and lots more."] = "Задания, которые требовались до того, как игра их предлагала, неверные места, взятие заданий в подземельях, гайды, открытые с середины, стрелка в облике призрака и многое другое."
 L["Grinding steps point at where the mob is found, and on a step with several camps the arrow moves on from one you've emptied. The Target button shows who it targets, the While you're here mobs included."] = "Шаги гринда указывают, где встречается противник, а на шаге с несколькими лагерями стрелка переходит дальше от зачищенного. Кнопка цели показывает, кого выбирает, включая противников из «Пока вы здесь»."
 L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. Quests new in Forever carry a small ∞ mark. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = "Все гайды по прокачке заново проверены, а 40-60 переработаны для обеих фракций: больше заданий и короче гринд. Задания, новые в Forever, отмечены маленьким значком ∞. Если открытый гайд не соответствует вашему местоположению, откройте список гайдов и выберите гайд в разделе %s. Ваш журнал заданий сохраняется."
-L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."] = "Папки в обзоре сворачиваются, закрытая вкладка возвращается кнопкой «Вернуть», маршрут на карте и миникарте может быть линией, точками или искрами, а в настройках можно включить плавающую кнопку Polestar."
+-- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = ""
 
 -- QoL/ClassQuests.lua
 L["Long chain: %d quests across %d zones on %d continents"] = "Длинная цепочка: заданий — %d, зон — %d, континентов — %d"
@@ -3210,3 +3212,4 @@ L["Sparkles"] = "Искры"
 -- L["The way to the goal on the world map and the minimap: dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "Путь к цели на карте и мини-карте: точки — где идти пешком, линии — где лететь, плыть или ехать; последующие участки бледнее. Рисуются так же, как в Shortest Path Forever от Cillian Berragan."
 -- L["How the route lines are drawn: Polestar's dots, or sparkles that drift along the way to the goal."] = "Как рисуются линии маршрута: точки Polestar или искры, плывущие по пути к цели."
 -- L["The first walk of %s"] = "Первый путь гайда %s"
+-- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."] = "Папки в обзоре сворачиваются, закрытая вкладка возвращается кнопкой «Вернуть», маршрут на карте и миникарте может быть линией, точками или искрами, а в настройках можно включить плавающую кнопку Polestar."

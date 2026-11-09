@@ -146,6 +146,8 @@ L["%s changed in this update and holds other quests now. Its tab moved to %s, wh
 L["This %s isn't in your quest log yet: the one you have is another quest of that name"] = "이 %s 퀘스트는 아직 퀘스트 목록에 없습니다: 가지고 있는 것은 같은 이름의 다른 퀘스트입니다"
 L["%s is no longer in your quest log: the guide skips it and what follows."] = "%s이(가) 더 이상 퀘스트 목록에 없습니다: 가이드가 이 퀘스트와 이어지는 단계를 건너뜁니다."
 L["%s is no longer in your quest log: the guide goes back for it."] = "%s이(가) 더 이상 퀘스트 목록에 없습니다: 가이드가 다시 받으러 돌아갑니다."
+-- L["Hand in %s to %s, then take %s: saves a trip back"] = ""
+-- L["Hand in %s to %s: saves a trip back"] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "%s 퀘스트를 받으면 %s 퀘스트는 영영 받을 수 없습니다."
@@ -3124,7 +3126,7 @@ L["Guide menu and minimap"] = "가이드 메뉴와 미니맵"
 L["Quests asked for before the game offers them, wrong spots, dungeon pick-ups, guides opened part-way, the arrow while you're a ghost, and lots more."] = "게임이 제공하기 전에 요구하던 퀘스트, 잘못된 위치, 던전 퀘스트 수락, 중간부터 연 가이드, 유령 상태의 화살표 등 많은 문제를 고쳤습니다."
 L["Grinding steps point at where the mob is found, and on a step with several camps the arrow moves on from one you've emptied. The Target button shows who it targets, the While you're here mobs included."] = "사냥 단계는 몹이 있는 곳을 가리키고, 사냥터가 여럿인 단계에서는 비운 곳에서 다음 곳으로 화살표가 옮겨갑니다. 대상 버튼은 누구를 대상으로 하는지 보여 주며, 이곳에 온 김에 몹도 포함됩니다."
 L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. Quests new in Forever carry a small ∞ mark. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = "모든 레벨업 가이드를 다시 점검했고, 40-60은 양 진영 모두 퀘스트를 늘리고 사냥을 줄여 새로 짰습니다. Forever에서 새로 추가된 퀘스트에는 작은 ∞ 표시가 붙습니다. 열어 둔 가이드가 지금 위치와 맞지 않으면 가이드 목록을 열고 %s 아래의 가이드를 고르십시오. 퀘스트 목록은 그대로 이어집니다."
-L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."] = "탐색 폴더를 접을 수 있고, 닫은 탭은 다시 열기로 되살릴 수 있으며, 경로는 지도와 미니맵에 선, 점 또는 반짝임으로 표시할 수 있고, 설정에서 떠 있는 Polestar 버튼을 켤 수 있습니다."
+-- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = ""
 
 -- QoL/ClassQuests.lua
 L["Long chain: %d quests across %d zones on %d continents"] = "긴 연계: %d개 퀘스트, %d개 지역, %d개 대륙"
@@ -3201,3 +3203,4 @@ L["Sparkles"] = "반짝임"
 -- L["The way to the goal on the world map and the minimap: dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "지도와 미니맵에 목표까지의 길: 걷는 곳은 점, 비행·항해·탑승은 선, 이후 구간은 흐리게. Cillian Berragan의 Shortest Path Forever 방식으로 그립니다."
 -- L["How the route lines are drawn: Polestar's dots, or sparkles that drift along the way to the goal."] = "경로 선을 그리는 방식: Polestar 점, 또는 목표를 향해 흘러가는 반짝임."
 -- L["The first walk of %s"] = "%s의 첫 걸음"
+-- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."] = "탐색 폴더를 접을 수 있고, 닫은 탭은 다시 열기로 되살릴 수 있으며, 경로는 지도와 미니맵에 선, 점 또는 반짝임으로 표시할 수 있고, 설정에서 떠 있는 Polestar 버튼을 켤 수 있습니다."
