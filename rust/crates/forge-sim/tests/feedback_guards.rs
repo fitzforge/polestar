@@ -60,6 +60,46 @@ fn grind_waits_for_the_trips_hand_ins() {
 	assert!(found, "a grind before a ready hand-in on the trip is caught; after it, not");
 }
 
+/// GrindVsHandin (Fix 2): the town is farther than GRIND_TRIP_YD from the camp before it (Brackenwall
+/// from the Mirefin coast): a grind at the camp while the town's next hand-in waits is still on its trip.
+#[test]
+fn grind_waits_for_the_next_towns_hand_ins_beyond_the_camps_yards() {
+	use forge_sim::guards::GRIND_TRIP_YD;
+	let o = common::orc();
+	let m = o.model(&[]);
+	let seed = o.seed();
+	let run = &m.run;
+	let base = grind_before_handin(run, &seed.steps, &levels(&m, &o, &seed.steps));
+	let mut tried = 0;
+	for j in 1..seed.len() {
+		let t = seed.steps[j];
+		let prev = seed.steps[j - 1];
+		let d = run.straight(prev.pt, t.pt);
+		if t.kind != K_TURNIN || prev.kind != K_TASK || prev.q == t.q || run.p_map[prev.pt as usize] != run.p_map[t.pt as usize] || d <= GRIND_TRIP_YD || d > 2500.0 {
+			continue;
+		}
+		// (No hand-in of the old guard's reach: none within its yards of the camp in the window.)
+		if seed.steps[j..(j + 15).min(seed.len())].iter().any(|s| s.kind == K_TURNIN && run.straight(prev.pt, s.pt) <= GRIND_TRIP_YD) {
+			continue;
+		}
+		let q = t.q as usize;
+		if run.q_task0[q] == run.q_task1[q] || !seed.steps[..j].iter().any(|s| s.kind == K_TASK && s.q == t.q) {
+			continue;
+		}
+		let lv = levels(&m, &o, &seed.steps[..j]);
+		let l = lv.last().copied().unwrap_or(1.0);
+		if l >= 59.0 {
+			break;
+		}
+		tried += 1;
+		let mut bad = seed.steps.clone();
+		bad.insert(j, Step::grind(l.floor() as u32 + 1, 0));
+		assert!(grind_before_handin(run, &bad, &levels(&m, &o, &bad)) > base, "a grind at the camp {d:.0} yd before the town's waiting hand-in (step {j}) is caught");
+		return;
+	}
+	panic!("no camp before a town farther than {GRIND_TRIP_YD} yd ({tried} tried)");
+}
+
 #[test]
 fn training_is_on_the_way() {
 	let o = common::orc();

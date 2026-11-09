@@ -8004,11 +8004,36 @@ fn level_targets(order: &[Order], data: &Data) -> FxHashMap<Key, f64> {
 
 /// A grind top-up the route inserts (a `level` item with no v1 line, at its fractional `target`): a step
 /// of its own at the route's point for it, the camp of the work before it, skipped by a player already
-/// there (`when level<N`). Its tip says what it is for: the hand-ins after it, which finish the next
-/// level. None for a grind v1 has a line for (written there) or one with no target.
+/// there (`when level<N`). Its tip says what it is for: the hand-ins after it, and the level they take
+/// the player to, reckoned from their XP. None for a grind v1 has a line for (written there) or one with
+/// no target.
+///
+/// The target is the level the route needs after the hand-ins that follow it, before anything needs
+/// the level (an accept with a level the player is not yet at, or the next grind): their XP is taken off
+/// it, and a grind they cover whole is not written (GrindVsHandin: "3,233 XP to go" at the camp before
+/// Brackenwall, with 7,600 XP of Brackenwall hand-ins in the log, #1431).
 fn level_ins(cx: &Ctx, order: &[Order], oi: usize) -> Option<Ins> {
 	let o = &order[oi];
-	let lvl = o.target.filter(|_| o.key.is_none())?;
+	let need = o.target.filter(|_| o.key.is_none())?;
+	let at = o.lvl.filter(|&l| l < need).unwrap_or(need);
+	// (A quest's reward at the player's level: its XP, else the estimate from its level.)
+	let xp_of = |q: Option<u32>, player: f64| -> f64 {
+		let Some(r) = q.and_then(|q| cx.data.quests.get(&q)) else { return 0.0 };
+		let Some(ql) = r.level.or(r.min_level) else { return 0.0 };
+		let full = r.xp.filter(|&x| x > 0.0).unwrap_or_else(|| forge_guide::xp::base_quest_xp(ql));
+		forge_guide::xp::quest_xp_at(full, player.floor(), ql)
+	};
+	// The hand-ins before the level is needed: up to the next grind, or an accept the player at the
+	// grind's start is too low for.
+	let ahead = order[oi + 1..].iter().take_while(|x| x.t != OrderT::Level);
+	let needed_by = |x: &Order| x.t == OrderT::Accept && x.q.and_then(|q| cx.data.quests.get(&q)).and_then(|r| r.min_level).is_some_and(|m| m > at.floor());
+	// (A route with no level before the grind, or an old one's `lvl` that is the target: as it is.)
+	let before: f64 = if o.lvl.is_some_and(|l| l < need) { ahead.clone().take_while(|x| !needed_by(x)).filter(|x| x.t == OrderT::Turnin).map(|x| xp_of(x.q, at)).sum() } else { 0.0 };
+	let lvl = crate::level_fit::level_of((crate::level_fit::total_xp(need) - before).max(0.0));
+	if before > 0.0 && lvl <= at {
+		return None;
+	}
+	let lvl = if before > 0.0 { lvl } else { need };
 	let n = level_str(lvl);
 	let (target, pt, _, spot) = grind_camp(cx, order, oi, oi + 1, o.pt, false);
 	let mut lines = vec![format!("  when level<{n}")];
@@ -8018,7 +8043,10 @@ fn level_ins(cx: &Ctx, order: &[Order], oi: usize) -> Option<Ins> {
 		.find(|x| x.t == OrderT::Turnin)
 		.and_then(|t| cx.w(t.pt))
 		.and_then(|p| cx.area_at.and_then(|a| a.at(p.c, p.wx, p.wy)).map(|a| a.name).filter(|s| !s.is_empty() && !s.starts_with("area ")).or_else(|| cx.zone_name(Some(p.map))));
-	let next = lvl.floor() as i64 + 1;
+	// (The level the hand-ins up to the next grind take a player at the target to, from their XP.)
+	let all: f64 = ahead.filter(|x| x.t == OrderT::Turnin).map(|x| xp_of(x.q, lvl)).sum();
+	let reached = crate::level_fit::level_of(crate::level_fit::total_xp(lvl) + all).floor() as i64;
+	let next = (reached > lvl.floor() as i64).then_some(reached);
 	// (An accept this top-up is for, before any hand-in: named, Rev15OrcTroll B3.)
 	let area_of = |pt: Option<u32>| {
 		cx.w(pt).and_then(|p| cx.area_at.and_then(|a| a.at(p.c, p.wx, p.wy)).map(|a| a.name).filter(|s| !s.is_empty() && !s.starts_with("area ")).or_else(|| cx.zone_name(Some(p.map))))
@@ -8028,11 +8056,13 @@ fn level_ins(cx: &Ctx, order: &[Order], oi: usize) -> Option<Ins> {
 		let min = r.min_level.filter(|&m| m > o.lvl.unwrap_or(0.0) && m <= lvl)?;
 		Some((r.title.clone()?, min, area_of(x.pt)))
 	});
-	let mut tip = match (gate, &hub) {
-		(Some((title, min, Some(h))), _) => format!("  tip Top up here to level {n}: {title}, at {h}, needs level {}.", level_str(min)),
-		(Some((title, min, None)), _) => format!("  tip Top up here to level {n}: {title} needs level {}.", level_str(min)),
-		(None, Some(h)) => format!("  tip Top up here to level {n} before the hand-ins at {h}: they take you to level {next}."),
-		(None, None) => format!("  tip Top up here to level {n} before the hand-ins that follow: they take you to level {next}."),
+	let mut tip = match (gate, &hub, next) {
+		(Some((title, min, Some(h))), _, _) => format!("  tip Top up here to level {n}: {title}, at {h}, needs level {}.", level_str(min)),
+		(Some((title, min, None)), _, _) => format!("  tip Top up here to level {n}: {title} needs level {}.", level_str(min)),
+		(None, Some(h), Some(next)) => format!("  tip Top up here to level {n} before the hand-ins at {h}: they take you to level {next}."),
+		(None, Some(h), None) => format!("  tip Top up here to level {n} before the hand-ins at {h}."),
+		(None, None, Some(next)) => format!("  tip Top up here to level {n} before the hand-ins that follow: they take you to level {next}."),
+		(None, None, None) => format!("  tip Top up here to level {n} before the hand-ins that follow."),
 	};
 	if let Some(d) = grind_dungeon_tip(cx.fac, lvl) {
 		tip = format!("{tip} {d}");
