@@ -14,7 +14,8 @@ use crate::record::{Chunk, Kind, Record};
 pub const SCHEMA: u32 = 2;
 /// A gap this long (seconds) between chunks starts a new session.
 pub const SESSION_GAP: f64 = 1800.0;
-/// A loot window this close (seconds) before an objective's progress is that objective's loot.
+/// A loot window this close (seconds) before an objective's progress may be that objective's loot
+/// ([`loot_of`]).
 const LOOT_PROGRESS: f64 = 3.0;
 
 /// Everything read from one install of one contributor.
@@ -115,6 +116,8 @@ struct Drop {
 	pos: Option<(u32, f64, f64)>,
 	/// The `drop` event's index in the session's events.
 	index: usize,
+	/// Its item was tied to an objective already.
+	used: bool,
 }
 
 #[derive(Default)]
@@ -130,6 +133,10 @@ struct State {
 	next_index: usize,
 	/// (drop event index, quest, objective): its item ticked that objective.
 	tags: Vec<(usize, i64, i64)>,
+	/// (quest, objective) -> its count at the last `progress` (0 from the accept).
+	cur: BTreeMap<(i64, i64), i64>,
+	/// Quests accepted in this session: their objectives' counts start at 0.
+	accepted: BTreeSet<i64>,
 	/// The last `group` record: (size, raid).
 	group: Option<(i64, bool)>,
 }
@@ -216,6 +223,24 @@ fn ids(r: &Record, field: &str) -> Value {
 
 fn flag(r: &Record, field: &str) -> bool {
 	r.get(field) == "1"
+}
+
+/// The loot window an item objective's progress at `t` came from, marked used, or None when the
+/// recording cannot tell. Every window of the last [`LOOT_PROGRESS`] seconds that held an item and
+/// had the objective open could be the source, unless it held exactly one item in another amount
+/// than the objective rose by (`delta`, None when the count before is unknown: then any amount up
+/// to `cur`). The progress is that window's only when exactly one window could be and it held one
+/// item: never a window already tied to an objective, nor a lone item beside another window that
+/// could hold the objective's item too.
+fn loot_of(drops: &mut [Drop], t: f64, q: i64, oi: i64, cur: i64, delta: Option<i64>) -> Option<&Drop> {
+	let fits = |n: i64| delta.map_or(n <= cur, |d| n == d);
+	let mut possible = drops.iter_mut().filter(|d| !d.used && !d.items.is_empty() && t - d.t <= LOOT_PROGRESS && d.wanted.contains(&(q, oi)) && (d.items.len() > 1 || fits(d.items[0].1)));
+	let d = possible.next()?;
+	if possible.next().is_some() || d.items.len() != 1 {
+		return None;
+	}
+	d.used = true;
+	Some(d)
 }
 
 /// One record -> its events (most records give one; `map` gives none).
@@ -333,6 +358,11 @@ fn events_of(r: &Record, t: f64, st: &mut State, known: &Known) -> Vec<Ev> {
 		}
 		Kind::Accept => {
 			let q = r.int("q");
+			if let Some(q) = q {
+				// Its objectives count from 0.
+				st.cur.retain(|(cq, _), _| *cq != q);
+				st.accepted.insert(q);
+			}
 			e.int("q", r, "q").opt("title", q.and_then(|q| known.titles.get(&q).cloned())).who(r, "npcKind", "npcId", "").pos(r);
 			if let Some(l) = r.int("level").filter(|l| *l > 0) {
 				st.lvl = Some(l);
@@ -366,9 +396,9 @@ fn events_of(r: &Record, t: f64, st: &mut State, known: &Known) -> Vec<Ev> {
 				}
 			}
 			let mut out = vec![e];
-			// The loot window just before, when it held one item and this objective was open.
-			if let (Some(q), Some(oi)) = (q, oi) {
-				if let Some(d) = st.drops.iter().rev().find(|d| r.t - d.t <= LOOT_PROGRESS && d.items.len() == 1 && d.wanted.contains(&(q, oi))) {
+			if let (Some(q), Some(oi), Some(cur)) = (q, oi, cur) {
+				let prev = st.cur.insert((q, oi), cur).or_else(|| st.accepted.contains(&q).then_some(0));
+				if let Some(d) = loot_of(&mut st.drops, r.t, q, oi, cur, prev.map(|p| cur - p)) {
 					let (item, count) = d.items[0];
 					let mut l = Ev::new(t, "loot");
 					l.set("item", item).set("count", count).set("q", q).set("oi", oi);
@@ -428,7 +458,7 @@ fn events_of(r: &Record, t: f64, st: &mut State, known: &Known) -> Vec<Ev> {
 			e.inst(st);
 			e.m.insert("e".into(), json!("drop"));
 			st.drops.retain(|d| r.t - d.t <= LOOT_PROGRESS);
-			st.drops.push(Drop { t: r.t, items, wanted, pos: r.pos().map(|p| (p.map, p.percent().0, p.percent().1)), index: st.next_index });
+			st.drops.push(Drop { t: r.t, items, wanted, pos: r.pos().map(|p| (p.map, p.percent().0, p.percent().1)), index: st.next_index, used: false });
 		}
 		Kind::Unit => {
 			let react = match r.get("react") {
@@ -818,5 +848,37 @@ mod tests {
 		assert_eq!(objective_name("Kobold Vermin slain  0/8"), "Kobold Vermin slain");
 		assert_eq!(objective_name("Find the camp"), "Find the camp");
 		assert_eq!(objective_name("Ratio: a/b"), "Ratio: a/b");
+	}
+
+	#[test]
+	fn an_item_objective_tick_is_tied_only_to_the_one_window_its_item_can_have_come_from() {
+		// Goretusk Liver Pie (22): boars drop the liver, intestines, snouts and cloth.
+		let session = "session\t0\tabcdefghij\tHuman\tWARRIOR\tAlliance\t2\t10\tenUS\t62345\t11508\t3\th\t2.0.0\t1.4.0\t\n";
+		let body = [
+			"objectives\t5\t22\titem:8:Goretusk Liver",
+			"accept\t5\t22\tc\t233\t1436\t5000\t5000\t10\t\t\t\t",
+			// the liver in a window with cloth, then a lone intestine: either could be the source
+			"loot\t1000\tc\t454\t1436\t5000\t5000\t\t723:1;2589:1\t22:1",
+			"loot\t1010\tc\t454\t1436\t5000\t5000\t\t3172:1\t22:1",
+			"progress\t1015\t22\t1\t1\t8\t1436\t5000\t5000",
+			// one lone liver: tied
+			"loot\t3000\tc\t454\t1436\t5000\t5000\t\t723:1\t22:1",
+			"progress\t3002\t22\t1\t2\t8\t1436\t5000\t5000",
+			// the count rose by 2, the window held 1: not its source
+			"loot\t5000\tc\t454\t1436\t5000\t5000\t\t723:1\t22:1",
+			"progress\t5002\t22\t1\t4\t8\t1436\t5000\t5000",
+			// a window ties one tick only
+			"loot\t7000\tc\t454\t1436\t5000\t5000\t\t723:1\t22:1",
+			"progress\t7001\t22\t1\t5\t8\t1436\t5000\t5000",
+			"progress\t7002\t22\t1\t6\t8\t1436\t5000\t5000",
+		]
+		.join("\n");
+		let src = Source { contributor: "local".into(), install: "k3j9x0q2m7ab".into(), chunks: vec![chunk(1, 1700000000, &format!("{session}{body}\n"))], maps: BTreeMap::new() };
+		let out = sessions(&[src]);
+		let ev = out[0]["events"].as_array().unwrap();
+		let links: Vec<(f64, u64)> = ev.iter().filter(|e| e["e"] == "loot").map(|e| (e["t"].as_f64().unwrap(), e["item"].as_u64().unwrap())).collect();
+		assert_eq!(links, [(300.2, 723), (700.1, 723)]);
+		let tagged: Vec<&Value> = ev.iter().filter(|e| e["e"] == "drop").flat_map(|e| e["items"].as_array().unwrap()).filter(|i| i.get("q").is_some()).collect();
+		assert_eq!(tagged.len(), 2);
 	}
 }
