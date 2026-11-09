@@ -8918,3 +8918,18 @@ test('Alliance Desolace south loop: the Flesh Picker is only for players on My L
 	assert.equal(pick.length, 1, 'one Flesh Picker Specimen goal');
 	assert.ok((pick[0].step.when || []).some((p) => p.k === 'onquest' && !p.neg), 'only while My Little Friends is in the log');
 });
+
+// Final route review 0.3.6, Alliance 38-39 Desolace: the Book of the Ancients (6027) was a bare collect with a tip calling
+// Lord Kragaru "a centaur chieftain" who "camps" on the coast. He is the naga lord the Gem of the Serpent (15766, the
+// quest's source item) summons at the Serpent Statue on Ranazjar Isle; the Horde guide already uses the gem there.
+test('Desolace, both sides: the Book of the Ancients uses the Gem of the Serpent at the statue first', { skip }, () => {
+	for (const guide of ['forever/alliance/30-40/06-badlands.guide', 'forever/horde/30-40/02-thousand-needles.guide']) {
+		const list = goals(guide);
+		const use = at(list, `${guide}: use 15766`, (g) => g.t === 'use' && g.item === 15766 && g.quest === 6027);
+		const book = at(list, `${guide}: collect 15803`, (g) => g.t === 'collect' && g.item === 15803);
+		assert.ok(use <= book, `${guide}: the gem before the book`);
+		const g = list[use].goal;
+		assert.ok(g.map === 1443 && Math.abs(g.x - 28.2) < 1 && Math.abs(g.y - 6.7) < 1, `${guide}: at the Serpent Statue (${g.x},${g.y})`);
+	}
+	assert.doesNotMatch(fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/alliance/30-40/06-badlands.guide'), 'utf8'), /Kragaru, a centaur/, 'Kragaru is no centaur');
+});

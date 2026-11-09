@@ -236,8 +236,9 @@ step Nijel's Point
 
 step Sar'theris Strand: kill these as you meet them
   zone Desolace
-  tip Lord Kragaru, a centaur chieftain, camps on the north-west coast, north of Azore's tower.
+  tip The Slitherblade naga hold the north-west coast north of Azore's tower; Karnitol's satchel lies on the sea floor off it. Swim out to Ranazjar Isle off the far northern tip and use the Gem of the Serpent on the Serpent Statue: Lord Kragaru (38) rises; kill him for the Book of the Ancients.
   collect 6245 quest 1456.1 @33.2,10.5 map 1443 -- Underwater
+  use 15766 quest 6027.1 @28.2,6.7 map 1443 -- Gem of the Serpent, on the Serpent Statue
   collect 15803 quest 6027            -- Book of the Ancients
 
 step Claim Rackmore's Treasure!
