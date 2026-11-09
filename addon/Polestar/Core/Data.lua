@@ -165,13 +165,15 @@ local function retiredLocales()
 end
 
 -- Not ours to compare: the Recorder ships in a zip of its own and is updated
--- on its own.
+-- on its own, and so does a skin addon (Polestar_Skin_*, docs/SKINS-API.md:
+-- the repository's example and any skin named after it).
 local SEPARATE = { Polestar_Recorder = true }
 
 -- Every other Polestar_* folder in the AddOns list, loaded or not: the parts
 -- for the other races and faction, the other languages, the walking maps'
 -- continents. Community addons are never named Polestar_* (pack.json refuses
--- the prefix); the old language folders have a line of their own.
+-- the prefix) but a skin may be; the old language folders have a line of
+-- their own.
 local function listed()
 	local out = {}
 	local A = C_AddOns or {}
@@ -187,7 +189,7 @@ local function listed()
 	for i = 1, n do
 		local got, name = pcall(info, i)
 		name = got and readable(name) or nil
-		if type(name) == "string" and name:find("^Polestar_") and not SEPARATE[name] and not retired[name] then out[#out + 1] = name end
+		if type(name) == "string" and name:find("^Polestar_") and not name:find("^Polestar_Skin_") and not SEPARATE[name] and not retired[name] then out[#out + 1] = name end
 	end
 	return out
 end

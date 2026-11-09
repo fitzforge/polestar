@@ -1,0 +1,261 @@
+//! The settings window's Buttons page (addon/Polestar/QoL/ButtonsOptions.lua) and the looks it sets: the
+//! action buttons' sizes, spacing, layout, backing, border, text, opacity and glow (QoL/Buttons.lua), the
+//! floating button (UI/Launcher.lua) and the minimap button (Maps/MinimapButton.lua). The secure buttons
+//! move and size only out of combat; the previews draw the same faces on plain frames, never a secure one.
+
+use forge_addontest::{emitted, Addon, RunAddon};
+use serde_json::{json, Value};
+
+const QOL_FILES: [&str; 4] = ["Core/Init.lua", "Core/Compat.lua", "Theme/Theme.xml", "QoL/QoL.xml"];
+
+const MODS: [&str; 10] =
+	["Core/Core.xml", "Theme/Theme.xml", "Quests/Quests.xml", "Gear/Gear.xml", "Maps/Maps.xml", "QoL/QoL.xml", "Lookup/Lookup.xml", "Dungeons/Dungeons.xml", "UI/UI.xml", "Rares/Rares.xml"];
+
+const QOL_PRELUDE: &str = r#"
+local q = stub.qol
+local QoL = Polestar.QoL
+local B = QoL.Buttons
+local item, hearth, target, rare = PolestarQuestItemButton, PolestarHearthButton, PolestarTargetButton, PolestarRareButton
+local function pt(b) local _, _, _, x, y = b:GetPoint(1); return { x, y } end
+local function rgba(t) local r, g, b, a = t:GetVertexColor(); return { r, g, b, a } end
+"#;
+
+/// The live action buttons, with the QoL stubs (secure frames refuse protected calls in combat).
+fn run_qol(script: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_qol.lua"],
+		addons: vec![Addon::files("Polestar", &QOL_FILES)],
+		login: true,
+		script: format!("{QOL_PRELUDE}{script}"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+/// Every module with a button on the page, and the options window.
+fn run_ui(script: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", &MODS)],
+		script: format!("uistub.install()\nstub.login()\nlocal UI, O, B = Polestar.UI, Polestar.UI.Options, Polestar.QoL.Buttons\n{script}"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+fn n(v: &Value) -> f64 {
+	v.as_f64().unwrap()
+}
+
+/// An empty Lua list (it emits as `{}`).
+fn empty(v: &Value) -> bool {
+	v.as_array().is_some_and(|a| a.is_empty()) || v.as_object().is_some_and(|o| o.is_empty())
+}
+
+// Sizes, spacing and the row layout move the live buttons out of combat; backing, border, texts, font size and
+// outline, small icons, opacity in and out of combat and the glow repaint them.
+#[test]
+fn buttons_look_settings_apply_to_the_live_action_buttons_out_of_combat() {
+	let out = run_qol(
+		r#"
+		local r = {}
+		r.before = { item:GetWidth(), pt(hearth), pt(target) }
+		Polestar.Set("buttons.itemSize", 48)
+		Polestar.Set("buttons.spacing", 4)
+		Polestar.Set("buttons.layout", "row")
+		r.row = { item:GetWidth(), target:GetWidth(), pt(hearth), pt(target), pt(rare) }
+		Polestar.Set("buttons.layout", "rowReverse")
+		r.reverse = { pt(hearth), pt(target) }
+
+		Polestar.Set("buttons.backing", "none")
+		r.bgNone = item.Bg:IsShown()
+		Polestar.Set("buttons.backing", "panel")
+		Polestar.Set("buttons.backingColor", { 0.2, 0.4, 0.6, 0.5 })
+		r.bg = rgba(item.Bg)
+		Polestar.Set("buttons.borderColor", { 1, 0, 0 })
+		r.border = rgba(item.psBorder[1])
+		Polestar.Set("buttons.border", false)
+		r.borderOff = rgba(item.psBorder[1])[4]
+		Polestar.Set("buttons.hotkey", false)
+		Polestar.Set("buttons.count", false)
+		Polestar.Set("buttons.cooldownText", false)
+		r.texts = { item.Hotkey:IsShown(), item.Count:IsShown(), item.Cooldown.noCooldownCount or false }
+
+		q.step({ { t = "kill", target = "Murloc" }, { t = "kill", target = "Gnoll" } })
+		local _, s0 = target.Label:GetFont()
+		Polestar.Set("buttons.labelScale", 1.5)
+		local _, s1 = target.Label:GetFont()
+		Polestar.Set("buttons.labelOutline", "thick")
+		local _, _, flags = target.Label:GetFont()
+		Polestar.Set("buttons.miniSize", 20)
+		r.text = { s1 / s0, flags, target.Label:GetText(), target.Minis[1]:GetWidth() }
+
+		Polestar.Set("buttons.idleAlpha", 0.4)
+		Polestar.Set("buttons.alpha", 0.8)
+		r.alpha = { item:GetAlpha() }
+		q.combat(true)
+		r.alpha[2] = item:GetAlpha()
+		q.combat(false)
+		r.alpha[3] = item:GetAlpha()
+		item:GetScript("OnEnter")(item)
+		r.alpha[4] = item:GetAlpha()
+		item:GetScript("OnLeave")(item)
+
+		q.items[900] = { name = "Torch" }
+		q.addItem(0, 1, 900, 2)
+		q.step({ { t = "use", item = 900, quest = 7 } })
+		r.glowOff = item.psGlow ~= nil and item.psGlow:IsShown()
+		Polestar.Set("buttons.glow", true)
+		r.glowOn = item.psGlow ~= nil and item.psGlow:IsShown()
+		emit(r)"#,
+	);
+	assert_eq!(out["before"], json!([36, [0, 44], [0, -44]]), "the 0.3.6 column out of the box");
+	// 48/2 + 4 + 36/2 = 46 from the quest item button; the rare 36/2 + 4 + 36/2 further.
+	assert_eq!(out["row"], json!([48, 36, [-46, 0], [46, 0], [86, 0]]));
+	assert_eq!(out["reverse"], json!([[46, 0], [-46, 0]]));
+	assert_eq!(out["bgNone"], false, "no backing: the icon alone");
+	assert_eq!(out["bg"], json!([0.2, 0.4, 0.6, 0.5]));
+	assert_eq!(out["border"], json!([1, 0, 0, 1]));
+	assert_eq!(out["borderOff"], 0);
+	assert_eq!(out["texts"], json!([false, false, true]), "key, count and cooldown numbers off");
+	let text = &out["text"];
+	assert!((n(&text[0]) - 1.5).abs() < 0.1, "the name at 150%: {}", text[0]);
+	assert_eq!(text[1], "THICKOUTLINE");
+	assert_eq!(text[2], "Murloc");
+	assert_eq!(text[3], 20, "the small icons at their size");
+	assert_eq!(out["alpha"], json!([0.4, 0.8, 0.4, 1]), "out of combat, in combat, after, under the mouse");
+	assert_eq!(out["glowOff"], false);
+	assert_eq!(out["glowOn"], true, "the quest item in the bags and in range glows");
+}
+
+// In a fight the size, layout and scale wait for PLAYER_REGEN_ENABLED (no protected call: SetSize is refused
+// on a secure frame then, as SetPoint and SetScale are), while the backing repaints at once.
+#[test]
+fn buttons_sizes_and_layout_wait_out_combat_the_look_changes_at_once() {
+	let out = run_qol(
+		r#"
+		local M = stub.Methods
+		local setSize = M.SetSize
+		M.SetSize = function(self, ...)
+			if self.secure and stub.inCombat then error("protected call in combat: " .. tostring(self.name) .. ":SetSize", 2) end
+			return setSize(self, ...)
+		end
+		q.step({ { t = "kill", target = "Murloc" } })
+		q.combat(true)
+		Polestar.Set("buttons.targetSize", 50)
+		Polestar.Set("buttons.layout", "row")
+		Polestar.Set("qol.buttonScale", 1.2)
+		Polestar.Set("buttons.backing", "dark")
+		local scrim = { Polestar.Theme.Color("scrim") }
+		local r = { fight = { target:GetWidth(), pt(target), target:GetScale(), QoL.HasQueued("place") } }
+		local bg = rgba(target.Bg)
+		r.darkAtOnce = bg[1] == scrim[1] and bg[2] == scrim[2] and bg[3] == scrim[3]
+		q.combat(false)
+		r.after = { target:GetWidth(), pt(target), target:GetScale(), QoL.HasQueued("place") }
+		emit(r)"#,
+	);
+	assert_eq!(out["fight"], json!([36, [0, -44], 1, true]), "nothing protected moved in the fight");
+	assert_eq!(out["darkAtOnce"], true);
+	// 36/2 + 8 + 50/2 = 51 to the right of the quest item button.
+	assert_eq!(out["after"], json!([50, [51, 0], 1.2, false]));
+}
+
+// The page: key "buttons", order 25 in the look group; the old button looks moved here from Questing, which
+// keeps the toggles and a way to the page; every new row is marked new, has search words and help, and every
+// key has a default (else the window would leave the row out).
+#[test]
+fn buttons_page_registers_every_button_look_with_defaults_new_badges_search_and_help() {
+	let out = run_ui(
+		r#"
+		local r = { keys = {}, missing = {}, bare = {}, questing = {} }
+		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
+			if spec.page == "Buttons" then
+				if spec.key then r.head = { spec.key, spec.order, spec.group } end
+				for _, c in ipairs(spec.controls) do
+					if c.key then
+						r.keys[#r.keys + 1] = c.key
+						if Polestar.GetDefault(c.key) == nil then r.missing[#r.missing + 1] = c.key end
+						local fresh = c.key:find("^buttons%.") or c.key:find("^ui%.launcher.") or c.key:find("^maps%.minimapButton.")
+						if fresh and not (c.new == "0.3.7" and c.search and c.search ~= "" and c.help and c.help ~= "") then r.bare[#r.bare + 1] = c.key end
+					end
+				end
+			elseif spec.page == "Questing" and spec.tab == "Buttons" then
+				for _, c in ipairs(spec.controls) do r.questing[#r.questing + 1] = c.key or c.label end
+			end
+		end
+		UI.ShowOptions("buttons")
+		O.Select("buttons", "Action buttons")
+		local shown = O.Controls("buttons", "Action buttons")
+		r.shown = { shown["qol.buttonScale"] ~= nil, shown["buttons.targetSize"] ~= nil, shown["buttons.backingColor"] ~= nil, shown["buttons.glow"] ~= nil }
+		O.Select("buttons", "Launcher & minimap")
+		local other = O.Controls("buttons", "Launcher & minimap")
+		r.other = { other["ui.launcherSize"] ~= nil, other["maps.minimapButtonIcon"] ~= nil }
+		emit(r)"#,
+	);
+	assert_eq!(out["head"], json!(["buttons", 25, "look"]));
+	assert!(empty(&out["missing"]), "every key has a default: {}", out["missing"]);
+	assert!(empty(&out["bare"]), "every new row: new badge, search words, help: {}", out["bare"]);
+	let keys: Vec<&str> = out["keys"].as_array().unwrap().iter().map(|k| k.as_str().unwrap()).collect();
+	for k in [
+		"qol.buttonScale", "qol.buttonTextSide", "qol.targetPlate", "ui.launcher", "maps.minimapButton", "buttons.itemSize", "buttons.hearthSize",
+		"buttons.targetSize", "buttons.rareSize", "buttons.spacing", "buttons.layout", "buttons.backing", "buttons.backingColor", "buttons.border",
+		"buttons.borderColor", "buttons.labelScale", "buttons.labelOutline", "buttons.hotkey", "buttons.cooldownText", "buttons.idleAlpha",
+		"buttons.alpha", "buttons.glow", "ui.launcherSize", "ui.launcherAlpha", "ui.launcherIcon", "maps.minimapButtonIcon",
+	] {
+		assert!(keys.contains(&k), "{k} on the Buttons page");
+	}
+	let questing = out["questing"].as_array().unwrap();
+	assert!(!questing.contains(&json!("qol.buttonScale")) && !questing.contains(&json!("qol.buttonTextSide")), "looks left Questing: {questing:?}");
+	assert!(questing.contains(&json!("qol.targetButton")) && questing.contains(&json!("Button look")), "{questing:?}");
+	assert_eq!(out["shown"], json!([true, true, true, true]));
+	assert_eq!(out["other"], json!([true, true]));
+}
+
+// The previews draw the real faces with the current values on plain frames: no secure template is ever made,
+// they follow the settings as they change, and the live buttons are none of theirs (no floating button exists
+// for them).
+#[test]
+fn buttons_previews_draw_the_real_faces_on_plain_frames_and_make_no_secure_frame() {
+	let out = run_ui(
+		r#"
+		local made, create = {}, CreateFrame
+		CreateFrame = function(kind, name, parent, template, ...)
+			made[#made + 1] = template or "none"
+			return create(kind, name, parent, template, ...)
+		end
+		local f = B.ActionPreview(UIParent)
+		local height = f:Layout(640)
+		local faces, combat = f.Faces()
+		local l = B.LauncherPreview(UIParent)
+		l:Layout(640)
+		local launcher, minimap = l.Faces()
+		local r = { height = height, secure = {} }
+		for _, t in ipairs(made) do if tostring(t):find("Secure") then r.secure[#r.secure + 1] = t end end
+		r.made = #made
+		r.faces = { faces.hearth.psKind, faces.item.psKind, faces.target.psKind, combat.psKind, faces.item.psLive or false, faces.item:GetName() or "plain" }
+		r.target = { faces.target.Label:GetText(), faces.target.Minis[1]:IsShown() }
+		Polestar.Set("buttons.itemSize", 50)
+		Polestar.Set("buttons.backing", "none")
+		Polestar.Set("buttons.idleAlpha", 0.5)
+		Polestar.Set("buttons.alpha", 0.3)
+		r.follow = { faces.item:GetWidth(), faces.item.Bg:IsShown(), faces.item:GetParent():GetAlpha(), combat:GetParent():GetAlpha() }
+		Polestar.Set("ui.launcherSize", 48)
+		Polestar.Set("ui.launcherIcon", "white")
+		Polestar.Set("maps.minimapButtonIcon", "accent")
+		Polestar.Set("maps.minimapButtonSize", 40)
+		r.launcher = { launcher:GetWidth(), launcher.Icon:GetTexture(), minimap.Icon:GetTexture(), minimap:GetWidth(), PolestarLauncher == nil }
+		CreateFrame = create
+		emit(r)"#,
+	);
+	assert!(empty(&out["secure"]), "no secure template in a preview: {}", out["secure"]);
+	assert!(n(&out["height"]) > 0.0);
+	assert!(n(&out["made"]) >= 6.0, "the previews made their own frames: {}", out["made"]);
+	assert_eq!(out["faces"], json!(["hearth", "item", "target", "item", false, "plain"]));
+	assert_eq!(out["target"], json!(["Rot Hide Mongrel", true]), "the target face with its name and the next names' icons");
+	assert_eq!(out["follow"], json!([50, false, 0.5, 0.3]), "size, backing and both opacities follow");
+	let l = &out["launcher"];
+	assert_eq!(l[0], 48);
+	assert!(l[1].as_str().unwrap().ends_with("emblem") && l[2].as_str().unwrap().ends_with("emblem"), "{l}");
+	assert_eq!(l[3], 40);
+	assert_eq!(l[4], true, "the preview never builds the live floating button");
+}

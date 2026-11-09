@@ -62,8 +62,8 @@ fn after_an_update_it_shows_once_a_few_seconds_after_login_and_got_it_closes_it_
 	);
 	assert_eq!(
 		out,
-		json!({ "atLogin": false, "after": true, "title": "What's new in Polestar 0.3.6", "flag": "0.3.6", "closed": true,
-			"latest": "0.3.6", "welcome": false }),
+		json!({ "atLogin": false, "after": true, "title": "What's new in Polestar 0.3.7", "flag": "0.3.7", "closed": true,
+			"latest": "0.3.7", "welcome": false }),
 		"opening it marks the account, so a reload or logout with it up does not repeat it"
 	);
 	// The next login, with what the first one saved.
@@ -78,7 +78,7 @@ fn after_an_update_it_shows_once_a_few_seconds_after_login_and_got_it_closes_it_
 #[test]
 fn an_account_from_before_the_window_has_updated_so_it_shows() {
 	let out = run_with("stub.advance(4)\nemit({ shown = shown(), flag = PolestarDB.whatsNewSeen })", Some(format!("{OLD_ACCOUNT}\n{CHAR_SEEN}")), "");
-	assert_eq!(out, json!({ "shown": true, "flag": "0.3.6" }));
+	assert_eq!(out, json!({ "shown": true, "flag": "0.3.7" }));
 }
 
 #[test]
@@ -93,7 +93,7 @@ fn a_fresh_install_gets_the_welcome_not_whats_new_even_after_the_welcome_closes(
 		None,
 		"",
 	);
-	assert_eq!(out, json!({ "during": { "welcome": true, "shown": false }, "after": false, "flag": "0.3.6" }));
+	assert_eq!(out, json!({ "during": { "welcome": true, "shown": false }, "after": false, "flag": "0.3.7" }));
 }
 
 #[test]
@@ -108,7 +108,7 @@ fn in_combat_it_waits_for_the_fight_to_end() {
 		updated(),
 		"stub.inCombat = true",
 	);
-	assert_eq!(out, json!({ "during": { "shown": false, "flag": "0.3.5" }, "after": true, "flag": "0.3.6" }));
+	assert_eq!(out, json!({ "during": { "shown": false, "flag": "0.3.5" }, "after": true, "flag": "0.3.7" }));
 }
 
 #[test]
@@ -154,7 +154,7 @@ fn polestar_whatsnew_and_about_reopen_it_once_seen() {
 		PolestarWhatsNew:Hide()
 		Polestar.Fire("SHOW_WHATSNEW")
 		emit({ atLogin = atLogin, slash = slash, event = shown() })"#,
-		Some(format!("PolestarDB = {{ schema = 1, settings = {{}}, welcomeSeen = 1, whatsNewSeen = \"0.3.6\" }}\n{CHAR_SEEN}")),
+		Some(format!("PolestarDB = {{ schema = 1, settings = {{}}, welcomeSeen = 1, whatsNewSeen = \"0.3.7\" }}\n{CHAR_SEEN}")),
 		"",
 	);
 	assert_eq!(out, json!({ "atLogin": false, "slash": true, "event": true }));
@@ -177,7 +177,7 @@ fn open_the_guide_list_closes_it_and_opens_the_guide_list_on_its_home_view_with_
 }
 
 #[test]
-fn it_says_what_changed_in_ten_notes_in_order_and_scrolls_them_within_one_screen() {
+fn it_says_what_changed_in_five_notes_in_order_and_scrolls_them_within_one_screen() {
 	let out = run_with(
 		r#"
 		WN.Show()
@@ -201,16 +201,11 @@ fn it_says_what_changed_in_ten_notes_in_order_and_scrolls_them_within_one_screen
 	assert_eq!(
 		out["notes"],
 		json!([
-			{ "head": "Every route reviewed", "text": "More quests and shorter grinds at 40-60, fewer walk-backs, no pointless travel steps." },
-			{ "head": "Dynamic Questing saves trips", "text": "Hand in and pick up at NPCs on your way; auto-accept takes the next steps' quests." },
-			{ "head": "The arrow finds your targets", "text": "Grinds go to the nearest spawns, past emptied camps; Target shows who, pings, marks." },
-			{ "head": "Route lines your way", "text": "Line, Dots or Sparkles on map and minimap: set on the Welcome page or in Options." },
-			{ "head": "New in Forever", "text": "Quests only Forever has carry a small ∞ mark." },
-			{ "head": "Tabs and windows", "text": "Closed tabs reopen where you were; Transparent backing; floating button; Esc menu." },
-			{ "head": "Groups and dungeons", "text": "Sync to my guide in a party; Dungeons shows what fits your level, when more unlock." },
-			{ "head": "Rares", "text": "Target and ping a rare right from its card." },
-			{ "head": "Fully translated", "text": "In 9 languages, with thanks to our translators." },
-			{ "head": "Fixes from your reports", "text": "Gear spec, trainers, map spots and more. Found something off? Type /polestar report." },
+			{ "head": "A bigger settings window", "text": "Groups in the sidebar, a live preview over each look, and a corner to drag it to any size." },
+			{ "head": "Make every part yours", "text": "Size, colours, opacity, fonts and borders of the guide window, arrow, map pins, routes and alerts." },
+			{ "head": "Bigger map pins", "text": "The numbered step pins and their numbers take a size of their own (thanks Silverina)." },
+			{ "head": "Find any setting", "text": "Search knows what you mean, \"bigger pins\" finds the pin size, and takes you to it." },
+			{ "head": "Profiles and moving frames", "text": "Keep looks to switch between; Move frames lets you drag every Polestar frame into place." },
 		])
 	);
 	assert_eq!(out["site"], "Full notes: polestar.guide");
@@ -218,9 +213,9 @@ fn it_says_what_changed_in_ten_notes_in_order_and_scrolls_them_within_one_screen
 	assert_eq!(out["list"], "Open the guide list");
 	assert_eq!(out["escape"], true, "Escape closes it");
 	let h = out["height"].as_f64().unwrap();
-	assert!(h > 300.0 && h <= 440.0, "the window keeps its size with five notes; the list scrolls instead: {h}");
+	assert!(h > 300.0 && h <= 440.0, "the window keeps its size at most; the list scrolls instead: {h}");
 	let (view, content) = (out["view"].as_f64().unwrap(), out["content"].as_f64().unwrap());
-	assert!(content > view, "ten notes are more than the window holds, so the list scrolls: {content} in {view}");
+	assert!(content > view, "five notes are more than the window holds, so the list scrolls: {content} in {view}");
 	assert_eq!(out["bar"], true, "the scroll bar shows");
 	assert_eq!(out["top"], 0.0, "it opens at the first note");
 	assert_eq!(out["bottom"].as_f64().unwrap(), content - view, "the wheel reaches the last note and stops there");

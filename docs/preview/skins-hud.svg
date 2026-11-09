@@ -31,7 +31,7 @@
 <path id="gFiraSans-Mediumttf-398" d="M522 -741L522 0L409 0L400 -67Q375 -29 336.5 -7Q298 15 249 15Q152 15 100 -60Q48 -135 48 -264Q48 -345 74 -408.5Q100 -472 148.5 -508Q197 -544 261 -544Q337 -544 394 -487L394 -755ZM394 -150L394 -392Q371 -420 347.5 -434Q324 -448 293 -448Q242 -448 212.5 -402.5Q183 -357 183 -265Q183 -167 209 -124.5Q235 -82 285 -82Q319 -82 345 -98.5Q371 -115 394 -150Z"/>
 
 
-<linearGradient id="p2g228" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="rgb(9,7,4)" stop-opacity="0.95"/><stop offset="1" stop-color="rgb(30,23,13)" stop-opacity="0.95"/></linearGradient>
+<linearGradient id="p2g253" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="rgb(9,7,4)" stop-opacity="0.95"/><stop offset="1" stop-color="rgb(30,23,13)" stop-opacity="0.95"/></linearGradient>
 </defs>
 <defs>
 <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fb7c9"/><stop offset="0.3" stop-color="#c9b48a"/><stop offset="0.55" stop-color="#8d7a46"/><stop offset="1" stop-color="#4f4a2a"/></linearGradient>
@@ -82,7 +82,7 @@
 <rect x="29" y="59" width="0.01" height="2" fill="rgb(255,209,0)" fill-opacity="1"/>
 </g>
 <g transform="translate(568 0)">
-<rect x="28" y="28" width="220" height="34" fill="url(#p2g228)" opacity="1"/>
+<rect x="28" y="28" width="220" height="34" fill="url(#p2g253)" opacity="1"/>
 <rect x="28" y="28" width="220" height="1" fill="rgb(92,69,24)" fill-opacity="1"/>
 <rect x="28" y="61" width="220" height="1" fill="rgb(92,69,24)" fill-opacity="1"/>
 <rect x="28" y="29" width="1" height="32" fill="rgb(92,69,24)" fill-opacity="1"/>

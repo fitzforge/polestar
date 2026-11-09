@@ -17,7 +17,9 @@
 --   filled softly with a rim in the pin's colour, drawn like area), areaOnly (true: only the
 --   area or hull draws, no pin), backdrop (true: icon pins sit on a dark
 --   Theme "scrim" disc), ring ({ r, g, b, a }: a thin circle around the pin), minimapSize
---   (size on the minimap instead of size).
+--   (size on the minimap instead of size), pulse (with glow: the glow breathes),
+--   grow (a size the player set: the pin's cap on screen grows with it), rimColor
+--   ({ r, g, b }: the Polestar pin's rim), textScale and textColor (its text).
 --   Map marks (icon "map:<name>", Media/Map/icon-<name>, tools/media/map.js): the glyph
 --   sits in the skin's medallion (medal = false: bare, for the target's other spots and
 --   dots); ring2 ({ r, g, b, a }: a dashed circle further out), badge (a number or text in
@@ -28,7 +30,9 @@
 --   Sizes (size, minimapSize, times the layer's scale) are drawn smaller as the view
 --   widens (PIN_ZOOM below), so a medallion matches the game's own marks at the
 --   default zoom; a pin's hit area stays at least its medallion and PIN_ZOOM's hit
---   across.
+--   across. The player's Map pins settings (`look` below) scale, tint and fade
+--   them on each surface; Pins.BuildLook, Pins.ApplyLook and the size functions
+--   (Pins.WorldPinSize, WorldScale, MinimapPinSize) also draw the options' preview.
 --   Pins.SetTrail(runs, opts)          the travel route's dots; runs = { { live = true, point, ... }, ... },
 --                                      point = { c, wx, wy }; opts = { world = true, minimap = true, color }
 --   Pins.ClearTrail()
@@ -130,6 +134,62 @@ local TRAIL_ALPHA = 0.85
 local MM_SPACING, MM_DOT, MM_CAP = 40, 5, 40 -- minimap: yards apart, px, most dots
 local WORLD_DIVS, WORLD_MIN_SPACING = 60, 15  -- world map: spacing = map width in yards / 60, at least 15 yd
 local WORLD_DOT, WORLD_CAP = 6, 300
+
+-- The player's look for the marks (Options > Map pins, Nav/PinsOptions.lua),
+-- read into `look` at init and as one of these settings changes
+-- (Pins.ReadLook); a change restyles every pin and the trail (Pins.Restyle):
+--   nav.worldIconSize     every mark on the world map, its cap on screen with it (1)
+--   nav.worldPinAlpha     the world map marks' opacity (1)
+--   nav.minimapPinAlpha   the minimap marks' opacity (1)
+--   nav.minimapArrowFade  a minimap mark over the player's arrow fades (on; ARROW_R)
+--   nav.areaAlpha         an area disc's opacity (AREA_ALPHA); a hull's fill and rim in proportion
+--   nav.areaColor         every area and hull in one colour (false: each in its pin's)
+--   nav.medalColor        a tint over the medallions and the numbered pins' rims (false: none)
+--   nav.pinBacking        the dark disc under icon pins (false: the scheme's scrim)
+--   nav.trailDotSize, nav.trailDotAlpha   the trail's dots (1, TRAIL_ALPHA)
+--   nav.badgeSize         a map mark's count capsule and its text (1: BADGE_H)
+--   nav.pulseSeconds      one breath of a pulsing glow (0.9 s; the target's, nav.targetPulse)
+local look = { worldSize = 1, worldAlpha = 1, mmAlpha = 1, arrowFade = true, areaAlpha = AREA_ALPHA, areaK = 1, dotSize = 1, dotAlpha = TRAIL_ALPHA,
+	badge = 1, pulse = 0.9 }
+Pins.look = look
+ns.RegisterDefaults("nav", { worldIconSize = 1, worldPinAlpha = 1, minimapPinAlpha = 1, minimapArrowFade = true,
+	areaAlpha = AREA_ALPHA, areaColor = false, medalColor = false, pinBacking = false, trailDotSize = 1, trailDotAlpha = TRAIL_ALPHA,
+	badgeSize = 1, pulseSeconds = 0.9 })
+Pins.LOOK_KEYS = {
+	["nav.worldIconSize"] = true, ["nav.worldPinAlpha"] = true, ["nav.minimapPinAlpha"] = true, ["nav.minimapArrowFade"] = true,
+	["nav.areaAlpha"] = true, ["nav.areaColor"] = true, ["nav.medalColor"] = true, ["nav.pinBacking"] = true,
+	["nav.trailDotSize"] = true, ["nav.trailDotAlpha"] = true, ["nav.badgeSize"] = true, ["nav.pulseSeconds"] = true,
+}
+function Pins.ReadLook()
+	local get = ns.Get
+	look.worldSize = tonumber(get("nav.worldIconSize")) or 1
+	look.worldAlpha = tonumber(get("nav.worldPinAlpha")) or 1
+	look.mmAlpha = tonumber(get("nav.minimapPinAlpha")) or 1
+	look.arrowFade = get("nav.minimapArrowFade") ~= false
+	look.areaAlpha = tonumber(get("nav.areaAlpha")) or AREA_ALPHA
+	look.areaK = look.areaAlpha / AREA_ALPHA
+	local c = get("nav.areaColor")
+	look.areaColor = type(c) == "table" and c or nil
+	c = get("nav.medalColor")
+	look.medal = type(c) == "table" and c or nil
+	c = get("nav.pinBacking")
+	look.backing = type(c) == "table" and c or nil
+	look.dotSize = tonumber(get("nav.trailDotSize")) or 1
+	look.dotAlpha = tonumber(get("nav.trailDotAlpha")) or TRAIL_ALPHA
+	look.badge = tonumber(get("nav.badgeSize")) or 1
+	look.pulse = tonumber(get("nav.pulseSeconds")) or 0.9
+end
+
+-- An area's colour for pin p: its pin's (or nav.areaColor) at the area's
+-- opacity; a hull's (hull = true) at its pin's alpha times nav.areaAlpha's
+-- share of the default, which HULL_FILL and HULL_RIM then take.
+function Pins.AreaColor(p, hull)
+	local r, g, b, a = Pins.PinColor(p)
+	local own = look.areaColor
+	if own then r, g, b = own[1] or 1, own[2] or 1, own[3] or 1 end
+	if hull then return r, g, b, a * look.areaK end
+	return r, g, b, a * look.areaAlpha
+end
 
 ---------------------------------------------------------------------------
 -- Layers
@@ -291,6 +351,7 @@ local function pinColor(p)
 	end
 	return 0.902, 0.729, 0.4, 1 -- Dusk gold, when Theme is absent
 end
+Pins.PinColor = pinColor
 
 -- Textures of a pin frame: either the Polestar pin (fill tinted + ring) or
 -- one tinted icon, optionally on a dark disc (`backdrop`, Theme scrim) and
@@ -299,6 +360,8 @@ end
 local BACKDROP_ALPHA, BACKDROP_SCALE = 0.55, 1.2
 
 local function backdropColor()
+	local own = look.backing
+	if own then return own[1] or 0, own[2] or 0, own[3] or 0 end
 	local T = ns.Theme
 	if type(T) == "table" and type(T.Color) == "function" then
 		local ok, r, g, b = pcall(T.Color, "scrim")
@@ -382,6 +445,39 @@ local function buildLook(f)
 	if f.badge.text.SetDrawLayer then f.badge.text:SetDrawLayer("OVERLAY", 4) end
 	showBadge(f, false)
 end
+Pins.BuildLook = buildLook
+Pins.IconPath = iconPath
+
+-- A pin's `pulse` (with its glow): the glow breathes, a looping alpha bounce
+-- the client runs (no Lua per frame; nothing runs while the pin is hidden),
+-- stopped under ui.reduceMotion and when the frame shows another pin.
+Pins.PULSE = { from = 1, to = 0.25 }
+function Pins.Pulse(f, on)
+	local ag = f.pulse
+	local A = ns.Anim
+	if on and not (A and A.Reduced and A.Reduced()) then
+		if not ag then
+			if not f.glow.CreateAnimationGroup then return end
+			ag = f.glow:CreateAnimationGroup()
+			ag:SetLooping("BOUNCE")
+			local a = ag:CreateAnimation("Alpha")
+			a:SetFromAlpha(Pins.PULSE.from)
+			a:SetToAlpha(Pins.PULSE.to)
+			f.pulse, f.pulseAnim = ag, a
+		end
+		-- One breath: nav.pulseSeconds (the change restarts it at the new pace).
+		if f.pulseSeconds ~= look.pulse then
+			f.pulseSeconds = look.pulse
+			f.pulseAnim:SetDuration(look.pulse)
+			if ag:IsPlaying() then ag:Stop() end
+		end
+		if not ag:IsPlaying() then ag:Play() end
+		f.pulsing = true
+	elseif ag then
+		if ag:IsPlaying() then ag:Stop() end
+		f.pulsing = nil
+	end
+end
 
 -- The icon pack (nav.mapIcons): the medallion under every map mark
 -- (Media/Map/medallion-<pack>), or "bare" for the glyphs alone. "skin", the
@@ -395,8 +491,20 @@ function Pins.IconPack(v)
 	if v == nil then v = ns.Get and ns.Get("nav.mapIcons") end
 	if MEDALS[v] or v == "bare" then return v end
 	local T = ns.Theme
+	-- A registered skin's own pick first (Theme.SkinMapIcons: "polestar" | "halo" | "hearth" | nil).
+	local own = type(T) == "table" and T.SkinMapIcons and T.SkinMapIcons()
+	if own and MEDALS[own] then return own end
 	local key = type(T) == "table" and type(T.SkinKey) == "function" and T.SkinKey() or "polestar"
 	return MEDALS[key] and key or "hearth"
+end
+-- The medallion texture of an icon pack (the options' picture cards); nil
+-- for "bare". The skin's pack may bring its own art (Theme.SkinMedia).
+function Pins.MedalPath(pack)
+	local resolved = Pins.IconPack(pack)
+	if resolved == "bare" then return nil end
+	local T = ns.Theme
+	local art = not MEDALS[pack] and T and T.SkinMedia and T.SkinMedia("medallion") or nil
+	return type(art) == "string" and art or MEDALS[resolved]
 end
 
 local function themeColor(name, r, g, b)
@@ -426,21 +534,22 @@ local function applyBadge(f, text, medal, a)
 		b.fill[i]:SetVertexColor(r, g, bl, a)
 		b.rim[i]:SetVertexColor(0, 0, 0, a)
 	end
-	local T = ns.Theme
+	local T, k = ns.Theme, look.badge
+	local h = BADGE_H * k
 	if T and T.SetFace then
-		T.SetFace(b.text, (T.FontSpec("body")), 9, "")
+		T.SetFace(b.text, (T.FontSpec("body")), 9 * k, "")
 	elseif not b.text:GetFont() then
 		b.text:SetFontObject("GameFontNormalSmall")
 	end
 	b.text:SetText(tostring(text))
 	b.text:SetTextColor(themeColor("onAccent", 0.04, 0.05, 0.08))
 	b.text:SetAlpha(a)
-	local w = max(BADGE_H, ceil((b.text:GetStringWidth() or 0) + 7))
-	local x, y = medal * 0.22 - BADGE_H / 2, medal / 2 + 2
-	placeSlices(f, b.fill, x, y, w, BADGE_H)
-	placeSlices(f, b.rim, x - 1.5, y + 1.5, w + 3, BADGE_H + 3)
+	local w = max(h, ceil((b.text:GetStringWidth() or 0) + 7 * k))
+	local x, y = medal * 0.22 - h / 2, medal / 2 + 2
+	placeSlices(f, b.fill, x, y, w, h)
+	placeSlices(f, b.rim, x - 1.5, y + 1.5, w + 3, h + 3)
 	b.text:ClearAllPoints()
-	b.text:SetPoint("CENTER", f, "CENTER", x + w / 2, y - BADGE_H / 2 + 0.5)
+	b.text:SetPoint("CENTER", f, "CENTER", x + w / 2, y - h / 2 + 0.5)
 	showBadge(f, true)
 end
 
@@ -466,6 +575,8 @@ local function showParts(f, p, clamped)
 		f.glow:SetShown(not clamped and p.glow and true or false)
 		showBadge(f, not clamped and p.badge ~= nil)
 		f.edge:SetShown(clamped and true or false)
+		f.text:Hide()
+		if p.pulse or f.pulsing then Pins.Pulse(f, not clamped and p.glow and p.pulse) end
 		return
 	end
 	local icon = f.hasIcon
@@ -477,6 +588,7 @@ local function showParts(f, p, clamped)
 	f.glow:SetShown(not clamped and p.glow and true or false)
 	f.edge:SetShown(clamped and true or false)
 	f.text:SetShown(not clamped and p.text ~= nil)
+	if p.pulse or f.pulsing then Pins.Pulse(f, not clamped and p.glow and p.pulse) end
 end
 
 -- A map mark (see the header): the glyph, tinted, in the skin's medallion,
@@ -497,9 +609,13 @@ local function applyMark(f, p, size, path)
 	f.bare = p.medal == false or pack == "bare"
 	if p.medal == false then medal = size end
 	f.medalPx, f.sizePx, f.footPx = medal, size, medal
-	f.medal:SetTexture(MEDALS[pack] or MEDALS.polestar)
+	-- The skin's own medallion art, when the pack is the skin's (Theme.SkinMedia).
+	local T = ns.Theme
+	local skinArt = not MEDALS[ns.Get("nav.mapIcons")] and T and T.SkinMedia and T.SkinMedia("medallion") or nil
+	f.medal:SetTexture(type(skinArt) == "string" and skinArt or MEDALS[pack] or MEDALS.polestar)
 	f.medal:SetSize(medal, medal)
-	f.medal:SetVertexColor(1, 1, 1, a)
+	local tint = look.medal
+	if tint then f.medal:SetVertexColor(tint[1] or 1, tint[2] or 1, tint[3] or 1, a) else f.medal:SetVertexColor(1, 1, 1, a) end
 	local ring = type(p.ring) == "table" and p.ring or nil
 	if p.state == "focus" and not ring then ring = { themeColor("accent", 0.902, 0.729, 0.4) } end
 	f.ringOn = ring ~= nil
@@ -528,9 +644,14 @@ local function applyMark(f, p, size, path)
 	f.edgeReach = medal / 2 + medal * EDGE_H / 2 - 0.5
 	f.clamped = nil
 	showParts(f, p, false)
+	if T and T.SkinHook then T.SkinHook("pin", f) end
 end
 
+-- Pin fields for its own look (Nav/Upcoming.lua's numbered pins): grow (its
+-- size setting: the cap on screen grows with it), rimColor (the Polestar pin's
+-- rim, else nav.medalColor, else white), textScale and textColor (its number).
 local function applyLook(f, p, size)
+	f.grow = tonumber(p.grow) or 1
 	local path, mark = iconPath(p.icon)
 	if mark then return applyMark(f, p, size, path) end
 	if f.mapMark then
@@ -557,7 +678,8 @@ local function applyLook(f, p, size)
 		f.hasIcon = true
 	else
 		f.fill:SetVertexColor(r, g, b, a)
-		f.ring:SetVertexColor(1, 1, 1, a)
+		local rim = type(p.rimColor) == "table" and p.rimColor or look.medal
+		if rim then f.ring:SetVertexColor(rim[1] or 1, rim[2] or 1, rim[3] or 1, a) else f.ring:SetVertexColor(1, 1, 1, a) end
 		f.hasIcon = false
 	end
 	local disc = size * BACKDROP_SCALE
@@ -580,17 +702,22 @@ local function applyLook(f, p, size)
 	f.edge:SetVertexColor(r, g, b, a)
 	f.clamped = nil
 	if p.text then
-		local T, height = ns.Theme, math.max(8, size * 0.6)
+		local T, height = ns.Theme, math.max(8, size * 0.6) * (tonumber(p.textScale) or 1)
+		local outline = p.textOutline or "OUTLINE"
 		if T and T.SetFace then
-			T.SetFace(f.text, (T.FontSpec("number")), height, "OUTLINE")
+			T.SetFace(f.text, (T.FontSpec("number")), height, outline)
 		else
-			f.text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", height, "OUTLINE")
+			f.text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", height, outline)
 		end
 		f.text:SetText(p.text)
-		f.text:SetTextColor(1, 1, 1, a)
+		local tc = p.textColor
+		if type(tc) == "table" then f.text:SetTextColor(tc[1] or 1, tc[2] or 1, tc[3] or 1, a) else f.text:SetTextColor(1, 1, 1, a) end
 	end
 	showParts(f, p, false)
+	local T = ns.Theme
+	if T and T.SkinHook then T.SkinHook("pin", f) end
 end
+Pins.ApplyLook = applyLook
 
 -- The mouse takes f over its medallion (its footprint) and at least `hit`
 -- across, in f's own units: SetHitRectInsets past its edges where it is smaller.
@@ -601,6 +728,35 @@ local function setHit(f, hit)
 		f.hitInset = inset
 		f:SetHitRectInsets(inset, inset, inset, inset)
 	end
+end
+
+-- Sizes, shared by the surfaces and the options' preview (Nav/PinsOptions.lua).
+-- A pin's size on the world map (before its frame's scale): its own, times
+-- its layer's scale and nav.worldIconSize.
+function Pins.WorldPinSize(p, layerScale)
+	return (tonumber(p.size) or WORLD_SIZE) * (layerScale or 1) * look.worldSize
+end
+
+-- A world map pin frame's scale at zoom (0..1, PIN_ZOOM.world): `wide`
+-- zoomed out to `close` zoomed in, its medallion held to the max on screen
+-- (times nav.worldIconSize and the pin's own `grow`).
+function Pins.WorldScale(f, zoom)
+	local z = PIN_ZOOM.world
+	local k = z.wide + (z.close - z.wide) * (zoom or 0)
+	local most = z.max * look.worldSize * (f.grow or 1)
+	if f.footPx * k > most then k = most / f.footPx end
+	return k
+end
+
+-- A pin's size on the minimap at zoom factor zoomK and nav.minimapIconSize
+-- sizeK, its medallion held to PIN_ZOOM.minimap.max (times sizeK and `grow`).
+function Pins.MinimapPinSize(p, layerScale, zoomK, sizeK)
+	local scale = (layerScale or 1) * zoomK * sizeK
+	local size = (tonumber(p.minimapSize) or tonumber(p.size) or MINIMAP_SIZE) * scale
+	local cap = PIN_ZOOM.minimap.max / MEDAL_SCALE * sizeK * (tonumber(p.grow) or 1)
+	if p.state == "focus" then cap = cap / FOCUS_SCALE end
+	if size > cap then size = cap end
+	return size
 end
 
 local function showTooltip(owner, p)
@@ -981,14 +1137,11 @@ do
 		f:SetPoint("CENTER", v.canvas, "TOPLEFT", v.width * x / 100 / s, -v.height * y / 100 / s)
 	end
 
-	-- Place pin frame f for view v at its scale on screen (PIN_ZOOM.world:
-	-- from the zoom, its medallion held to the max), the mouse taking it over
-	-- the hit size at least.
+	-- Place pin frame f for view v at its scale on screen (Pins.WorldScale),
+	-- the mouse taking it over the hit size at least.
 	local function placePin(f, v)
-		local z = PIN_ZOOM.world
-		local k = z.wide + (z.close - z.wide) * (v.zoom or 0)
-		if f.footPx * k > z.max then k = z.max / f.footPx end
-		setHit(f, z.hit / k)
+		local k = Pins.WorldScale(f, v.zoom)
+		setHit(f, PIN_ZOOM.world.hit / k)
 		local d = f.data
 		placeAt(f, d.x, d.y, v:PinScale(k, k))
 	end
@@ -1117,7 +1270,7 @@ do
 		local xs, ys, x, y = d.xs, d.ys, d.x, d.y
 		for i = 1, d.n do hx[i], hy[i] = (xs[i] - x) / 100 * w, (y - ys[i]) / 100 * h end
 		f.rim = rimWidth()
-		local r, g, b, a = pinColor(d.pin)
+		local r, g, b, a = Pins.AreaColor(d.pin, true)
 		local used, hw, hh, n = layHull(d.n, f.rim, f.get, r, g, b, a)
 		for k = used + 1, f.used do f.texs[k]:Hide() end
 		f.used = used
@@ -1131,6 +1284,7 @@ do
 		for i = from, list.n do
 			local f = list[i]
 			f:Hide()
+			if f.pulsing then Pins.Pulse(f, false) end
 			f.data.pin, f.data.layer = nil, nil
 		end
 	end
@@ -1258,8 +1412,7 @@ do
 										local f = worldArea(areas)
 										local d = f.data
 										d.pin, d.layer, d.x, d.y, d.dx = p, layer, x, y, dx
-										local r, g, b, a = pinColor(p)
-										f.tex:SetVertexColor(r, g, b, a * AREA_ALPHA)
+										f.tex:SetVertexColor(Pins.AreaColor(p))
 										f:SetFrameLevel(blobLevel)
 										layoutArea(f)
 										f:Show()
@@ -1288,10 +1441,14 @@ do
 				local f = worldPin(k)
 				local d = f.data
 				d.pin, d.layer, d.x, d.y = qPin[i], qLayer[i], qX[i], qY[i]
-				applyLook(f, d.pin, (tonumber(d.pin.size) or WORLD_SIZE) * d.layer.scale)
+				applyLook(f, d.pin, Pins.WorldPinSize(d.pin, d.layer.scale))
 				stackLook(f, d.pin)
 				f:SetFrameLevel(pinLevel)
 				placePin(f, v)
+				if f.alphaK ~= look.worldAlpha then
+					f.alphaK = look.worldAlpha
+					f:SetAlpha(look.worldAlpha)
+				end
 				f:Show()
 			end
 			for i = 1, n do qPin[i], qLayer[i] = nil, nil end
@@ -1318,7 +1475,7 @@ do
 			if not f.rim or rim > f.rim * 1.25 or rim < f.rim * 0.8 then layoutHull(f) end
 		end
 		local t = wTrail
-		local size = WORLD_DOT * scale
+		local size = WORLD_DOT * look.dotSize * scale
 		if t and t.size ~= size then
 			t.size = size
 			local dots = t.dots
@@ -1665,7 +1822,7 @@ do
 		if count > 0 then
 			t = trailHost()
 			t.host:SetFrameLevel(v:Level(BLOB_LEVEL))
-			local size = WORLD_DOT * v:PinScale(1, PIN_ZOOMED)
+			local size = WORLD_DOT * look.dotSize * v:PinScale(1, PIN_ZOOMED)
 			local restyle = t.size ~= size or t.version ~= trail.version
 			t.size, t.version = size, trail.version
 			local w, h, dots = v.width, v.height, t.dots
@@ -1678,7 +1835,7 @@ do
 				end
 				if restyle or not dot.styled then
 					dot:SetSize(size, size)
-					dot:SetVertexColor(trail.r, trail.g, trail.b, TRAIL_ALPHA)
+					dot:SetVertexColor(trail.r, trail.g, trail.b, look.dotAlpha)
 					dot.styled = true
 				end
 				if i > t.n then dot:Show() end
@@ -1820,6 +1977,7 @@ local function releaseAt(i)
 	mmActive[i] = mmActive[n]
 	mmActive[n] = nil
 	Pins.StopPing(f)
+	if f.pulsing then Pins.Pulse(f, false) end
 	if f.pin then assigned[f.pin] = nil end
 	f.pin, f.layer = nil, nil
 	f:Hide()
@@ -1966,7 +2124,7 @@ local function drawTrailMinimap(frac)
 	local shown = 0
 	if trail and trail.minimap and sPc then
 		local half, radius, square = sHalf, sRadius, sSquare
-		local lim = half - MM_DOT / 2
+		local lim = half - MM_DOT * look.dotSize / 2
 		ua, ub, uc, va, vb, vc = 1, 0, -sPx, 0, 1, -sPy
 		cr2 = radius * radius * (square and 2 or 1) -- a square's corners reach radius * sqrt(2)
 		local count = 0
@@ -1984,7 +2142,8 @@ local function drawTrailMinimap(frac)
 				shown = shown + 1
 				local t = mmDots[shown] or minimapDot(shown)
 				if t.trailVersion ~= version then
-					t:SetVertexColor(trail.r, trail.g, trail.b, TRAIL_ALPHA)
+					t:SetVertexColor(trail.r, trail.g, trail.b, look.dotAlpha)
+					t:SetSize(MM_DOT * look.dotSize, MM_DOT * look.dotSize)
 					t.trailVersion = version
 				end
 				t:ClearAllPoints()
@@ -2051,8 +2210,7 @@ local function placeArea(count, p, layer, dn, dw, area)
 	count = count + 1
 	local t = mmAreas[count] or minimapArea(count)
 	if t.pin ~= p or t.version ~= layer.version then
-		local r, g, b, a = pinColor(p)
-		t:SetVertexColor(r, g, b, a * AREA_ALPHA)
+		t:SetVertexColor(Pins.AreaColor(p))
 		t.pin, t.layer, t.version = p, layer, layer.version
 	end
 	local d = 2 * area * half / radius
@@ -2111,7 +2269,7 @@ local function placeHull(count, p, layer, i, dn, dw)
 			n = n + 1
 			hx[n], hy[n] = project(hull[k] - cx, hull[k + 1] - cy, sFacing, sRadius, sHalf, sRotate, sSquare, nil)
 		end
-		local r, g, b, a = pinColor(p)
+		local r, g, b, a = Pins.AreaColor(p, true)
 		local used, hw, hh
 		used, hw, hh, n = layHull(n, HULL_RIM_WIDTH, rec.get, r, g, b, a)
 		for k = used + 1, rec.used do rec.texs[k]:Hide() end
@@ -2149,6 +2307,7 @@ local function arrowFade(x, y, foot)
 	if covered >= 1 then return ARROW_FADE end
 	return 1 - (1 - ARROW_FADE) * covered
 end
+Pins.ArrowFade = arrowFade
 
 -- Place every visible pin for the current state (sPc, sPx, ...).
 local function drawMinimap()
@@ -2170,8 +2329,8 @@ local function drawMinimap()
 				if not layer.resolved then resolveLayer(layer) end
 				local pins, lx, ly = layer.pins, layer.wx, layer.wy
 				local edge = layer.edge
-				-- A pin's size at this zoom and the player's size, its medallion held to the max.
-				local scale, most = layer.scale * sZoomK * sSizeK, PIN_ZOOM.minimap.max / MEDAL_SCALE * sSizeK
+				-- A pin's size at this zoom and the player's size, its medallion held to the max (Pins.MinimapPinSize).
+				local layerScale = layer.scale
 				local maxArea = layer.maxArea or 0
 				local list, n = nearPins(layer, maxArea > 0 and max(reach, view + maxArea) or reach)
 				stats.visited = stats.visited + n
@@ -2192,9 +2351,7 @@ local function drawMinimap()
 					end
 					if not p.areaOnly and (edge or d2 <= reach2) then
 						local f = assigned[p]
-						local size = (tonumber(p.minimapSize) or tonumber(p.size) or MINIMAP_SIZE) * scale
-						local cap = p.state == "focus" and most / FOCUS_SCALE or most
-						if size > cap then size = cap end
+						local size = Pins.MinimapPinSize(p, layerScale, sZoomK, sSizeK)
 						if not f or f.layer ~= layer or f.version ~= layer.version or f.zoomK ~= sZoomK or f.sizeK ~= sSizeK then
 							if not f then
 								f = acquireMinimap()
@@ -2214,7 +2371,9 @@ local function drawMinimap()
 							edge and (half - inset) or nil)
 						f:ClearAllPoints()
 						f:SetPoint("CENTER", Minimap, "CENTER", x, y)
-						local fade = clamped and 1 or arrowFade(x, y, f.footPx)
+						-- A mark over the player's arrow fades (nav.minimapArrowFade), all at nav.minimapPinAlpha.
+						local fade = (clamped or not look.arrowFade) and 1 or arrowFade(x, y, f.footPx)
+						fade = fade * look.mmAlpha
 						if fade ~= f.fade then
 							f.fade = fade
 							f:SetAlpha(fade)
@@ -2519,6 +2678,33 @@ ns.On("SETTING_CHANGED", function(path)
 	updateTrailDriver()
 end)
 
+-- Every pin and the trail drawn again in the current look (a theme or a
+-- Map pins setting changed): their layers' versions move on, so the
+-- minimap's frames take their look again.
+function Pins.Restyle()
+	for _, name in ipairs(order) do
+		local layer = layers[name]
+		if layer then layer.version = layer.version + 1 end
+	end
+	if trail then
+		trailVersion = trailVersion + 1
+		trail.version = trailVersion
+	end
+	refreshWorld()
+	refreshMinimap(true)
+end
+
+-- The Map pins settings (Pins.LOOK_KEYS) restyle every pin; so does
+-- ui.reduceMotion (a pulse stops or starts).
+ns.On("SETTING_CHANGED", function(path)
+	if path == "" or path == "nav" or Pins.LOOK_KEYS[path] then
+		Pins.ReadLook()
+		Pins.Restyle()
+	elseif path == "ui" or path == "ui.reduceMotion" then
+		Pins.Restyle()
+	end
+end)
+
 local function moved()
 	if hasMinimapPins() then wake() end
 end
@@ -2538,7 +2724,10 @@ local function reresolve()
 	refreshWorld()
 	refreshMinimap(true)
 end
-ns.OnInit(reresolve)
+ns.OnInit(function()
+	Pins.ReadLook()
+	reresolve()
+end)
 
 ns.OnLogin(function()
 	reresolve()
@@ -2550,12 +2739,5 @@ ns.OnLogin(function()
 end)
 
 if type(ns.Theme) == "table" and type(ns.Theme.OnChanged) == "function" then
-	ns.Theme.OnChanged(function()
-		for _, name in ipairs(order) do
-			local layer = layers[name]
-			if layer then layer.version = layer.version + 1 end
-		end
-		refreshWorld()
-		refreshMinimap(true)
-	end)
+	ns.Theme.OnChanged(Pins.Restyle)
 end

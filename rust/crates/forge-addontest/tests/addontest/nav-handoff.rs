@@ -905,9 +905,14 @@ local O, W = Polestar.UI.Options, Polestar.Widgets
 local function controls()
 	local out = {}
 	Polestar.UI.ShowOptions("guide")
-	for _, at in ipairs({ { "guide", "Arrow & routes" }, { "appearance", "Arrow" }, { "map", "Guide & quests" }, { "integrations" } }) do
-		O.Select(at[1], at[2])
-		for key, w in pairs(O.Controls(at[1], at[2])) do out[key] = w end
+	local at = { { "guide", "Arrow & routes" }, { "map", "Guide & quests" }, { "integrations" } }
+	-- The Arrow page (Look group): every tab.
+	for _, p in ipairs(O.Pages()) do
+		if p.key == "arrow" then for _, t in ipairs(p.tabs) do at[#at + 1] = { "arrow", t } end end
+	end
+	for _, a in ipairs(at) do
+		O.Select(a[1], a[2])
+		for key, w in pairs(O.Controls(a[1], a[2])) do out[key] = w end
 	end
 	return out
 end

@@ -578,6 +578,8 @@ emit({ Polestar.Get("party.chatEcho"), Polestar.Get("party.chatHideOthers"), Pol
 	assert_eq!(
 		out[0],
 		json!([
+			// The panel's switch also heads its look tab (Options > Trackers > Party panel, UI/Looks/Trackers.lua).
+			"Trackers/Party panel/party.panel",
 			"Questing/Group/party.share",
 			"Questing/Group/party.show",
 			"Questing/Group/party.waitForGroup",

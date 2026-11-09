@@ -51,6 +51,20 @@ local function goalOf(target)
 	return step and step.goals and step.goals[target.goalIndex] or nil
 end
 
+-- The target's look (Options > Map pins): nav.targetPinSize scales it (its
+-- cap on screen with it), nav.targetGlow its halo, nav.targetPulse makes the
+-- halo breathe (Pins' `pulse`).
+ns.RegisterDefaults("nav", { targetPinSize = 1, targetGlow = true, targetPulse = false })
+Layers.TARGET_SCALE = 1.4
+
+-- The target pin's look: glow, pulse, its size setting (grow) and its layer's scale.
+-- Shared with the options' preview (Nav/PinsOptions.lua).
+function Layers.TargetLook()
+	local k = tonumber(ns.Get("nav.targetPinSize")) or 1
+	local glow = ns.Get("nav.targetGlow") ~= false
+	return glow, glow and ns.Get("nav.targetPulse") and true or nil, k, Layers.TARGET_SCALE * k
+end
+
 local function updateTarget(world, minimap)
 	local target = Nav.GetTarget()
 	if not target then
@@ -61,12 +75,13 @@ local function updateTarget(world, minimap)
 	-- spot the target sits in; any other area target shows its own disc.
 	local goal = target.area and goalOf(target)
 	local area = not (goal and goal.spots) and target.area or nil
+	local glow, pulse, grow, scale = Layers.TargetLook()
 	-- The target wears the arrow's colour (Theme "arrow": the accent unless
 	-- the player picked their own), so map and arrow agree.
 	Pins.SetLayer(TARGET, {
-		{ map = target.map, x = target.x, y = target.y, f = target.f, color = color("arrow"), glow = true, icon = "map:target",
-			area = area, tooltip = targetTooltip, priority = 100 },
-	}, { world = world, minimap = minimap, edge = true, scale = 1.4, minimapAreas = true })
+		{ map = target.map, x = target.x, y = target.y, f = target.f, color = color("arrow"), glow = glow, icon = "map:target",
+			pulse = pulse, grow = grow, area = area, tooltip = targetTooltip, priority = 100 },
+	}, { world = world, minimap = minimap, edge = true, scale = scale, minimapAreas = true })
 end
 
 -- Every other spot of the target's spawn places, so the player sees where
