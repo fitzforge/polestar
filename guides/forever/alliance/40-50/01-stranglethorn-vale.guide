@@ -249,7 +249,7 @@ step The Barrens
   only Gnome,Warlock
   zone The Barrens
   getfp "Ratchet"
-  goto 63.4,38.5 "The Barrens"
+  goto 63.4,38.5 "Ratchet"
 
 step Boat to Booty Bay
   only Gnome,Warlock

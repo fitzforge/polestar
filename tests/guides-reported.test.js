@@ -4565,6 +4565,19 @@ test('Alliance 40-60: tips point the right way (Linken, the Hive\'Ashi tower, A-
 	assert.doesNotMatch([].concat(scroll.step.note || []).join(' '), /wreck by the shore/);
 });
 
+// Final route review 0.3.6 (Alliance 40-60): two travel labels still read a bare zone name (#1450 gave the rest the
+// place they lead to), and a bind's note said "the last guide binds here" where the last guide binds in Stormwind.
+test('Alliance 40-60: travel labels name the place, bind notes do not claim an earlier bind', () => {
+	const dir = path.join(OFFICIAL_DIR, 'forever', 'alliance');
+	const files = ['40-50', '50-60'].flatMap((band) => fs.readdirSync(path.join(dir, band)).filter((f) => f.endsWith('.guide')).map((f) => path.join(dir, band, f)));
+	const zones = new Set(files.flatMap((f) => [...fs.readFileSync(f, 'utf8').matchAll(/^\s*zone (.+)$/gm)].map((m) => m[1].trim())));
+	for (const file of files) {
+		const text = fs.readFileSync(file, 'utf8');
+		for (const m of text.matchAll(/^\s*goto [\d.,]+(?: map \d+)? "([^"]+)"/gm)) assert.ok(!zones.has(m[1]), `${path.basename(file)}: goto labelled "${m[1]}", a zone`);
+		assert.doesNotMatch(text, /the last guide binds here/, `${path.basename(file)}: no "the last guide binds here"`);
+	}
+});
+
 test("Fitz's report: Darkshore's Fine Crab Chunks are a goal at Cliffspring Falls, by the crabs that drop them, not a list along ten stops", { skip }, () => {
 	// Only Reef Crawlers and Encrusted Tide Crawlers drop the chunks, on the north coast and the far
 	// south. Listed along the way, the chunks were open for ten stops of which three had crabs; the

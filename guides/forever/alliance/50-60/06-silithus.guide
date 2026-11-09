@@ -568,7 +568,7 @@ step The Marris Stead
 step Artist Renfray
   when onquest 5846
   zone Western Plaguelands
-  goto 65.8,75.4 "Western Plaguelands"
+  goto 65.8,75.4 "Artist Renfray"
   turnin 5846                         -- Inside
 
 step Scholomance (optional)
