@@ -23,6 +23,7 @@ pub mod maps;
 pub mod merge;
 pub mod names;
 pub mod names_sources;
+pub mod newquests;
 pub mod normalize;
 pub mod objectives;
 pub mod pfquest;

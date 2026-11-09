@@ -1548,6 +1548,7 @@ L["Click to see where to get it."] = "클릭하면 획득처를 봅니다."
 L["Look up everything for %s"] = "%s 전체 찾아보기"
 L["Opens Lookup with this search."] = "이 검색어로 찾아보기를 엽니다."
 -- L["No guide to this mount yet: the sources above say where it comes from and what it takes. Guide on one leads you there."] = ""
+-- L["Origin"] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "제출 가능"
@@ -2132,6 +2133,8 @@ L["Did you mean:"] = "찾으시는 항목:"
 -- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = ""
 -- L["Step key targets their mobs"] = ""
 -- L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."] = ""
+-- L["Mark quests new in Forever"] = ""
+-- L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -3081,6 +3084,9 @@ L["looted %s, which starts %s"] = "%s 획득, 이 아이템으로 %s 시작"
 -- UI/Launcher.lua
 -- L["Shift-drag: move it"] = ""
 -- L["Drag: move it"] = ""
+
+-- Quests/NewQuests.lua
+-- L["New in Forever"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."

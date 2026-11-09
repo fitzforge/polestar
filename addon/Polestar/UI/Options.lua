@@ -207,6 +207,9 @@ local BUILTIN = {
 			child = true, disabled = function() return not ns.Get("ui.showNotes") end },
 		{ kind = "slider", key = "ui.upcoming", label = L["Upcoming steps"], min = 0, max = 6, step = 1, format = "%d", help = L["How many steps the Up next list holds; 0 turns it off."] },
 		{ kind = "toggle", key = "ui.upcomingOpen", label = L["Expand Up next"], help = L["Start with the upcoming steps listed instead of collapsed."] },
+		{ kind = "toggle", key = "ui.newInForever", label = L["Mark quests new in Forever"],
+			help = L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."],
+			search = "new in forever, infinity, new quest, forever quest, mark, badge" },
 	} },
 	-- Core/Engine.lua, Dynamic Questing (Own.hereBuild): quick objectives of later steps close by, in the guide
 	-- window's "While you're here" panel. The setting keys keep their behavior.whileHere* names.

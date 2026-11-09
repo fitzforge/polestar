@@ -8155,7 +8155,8 @@ end
 -- (its step), `here` ("work" | "turnin"), `left`, `appeared` (a number new
 -- for each line that appears: the minimap's ping), `yards` (to the next
 -- HERE_STEP), `hereText` (what to do: "Kill Kobold Vermin, 2 more", "Hand in
--- X to Y"). Kept on the line until its count changes.
+-- X to Y"), `hereTitle` (a turn-in's quoted quest name in it: UI.HereText
+-- marks it). Kept on the line until its count changes.
 function Own.hereViewOf(e)
 	local v = e.view
 	if not v then
@@ -8167,6 +8168,7 @@ function Own.hereViewOf(e)
 			local _, npc = npcOf(goal)
 			local title = ns.Quoted(questTitle(goal) or titleOfQuest(goal.quest))
 			text = npc and L["Hand in %s to %s"]:format(title, npc) or L["Hand in %s"]:format(title)
+			v.hereTitle = title
 		else
 			text = L["%s, %d more"]:format(v.text or "", left)
 		end

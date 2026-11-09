@@ -1246,6 +1246,8 @@ L["A soft chime for each new suggestion (once when several come together), at th
 -- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = ""
 -- L["Step key targets their mobs"] = ""
 -- L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."] = ""
+-- L["Mark quests new in Forever"] = ""
+-- L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"
@@ -1436,6 +1438,7 @@ L["Click to see where to get it."] = "Klicken, um zu sehen, wo du es bekommst."
 L["Look up everything for %s"] = "Alles zu %s nachschlagen"
 L["Opens Lookup with this search."] = "Öffnet Nachschlagen mit dieser Suche."
 L["No guide to this mount yet: the sources above say where it comes from and what it takes. Guide on one leads you there."] = "Für dieses Reittier gibt es noch keinen Guide: Die Quellen oben sagen, woher es kommt und was dazu nötig ist. Ein Guide dazu führt dich hin."
+-- L["Origin"] = ""
 
 -- QoL/Options.lua
 L["Off by default: %s does this too."] = "Standardmäßig aus: %s macht das auch."
@@ -3064,6 +3067,9 @@ L["looted %s, which starts %s"] = "hat %s erbeutet, damit beginnt %s"
 -- UI/Launcher.lua
 -- L["Shift-drag: move it"] = ""
 -- L["Drag: move it"] = ""
+
+-- Quests/NewQuests.lua
+-- L["New in Forever"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."

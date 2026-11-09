@@ -1548,6 +1548,7 @@ L["Click to see where to get it."] = "点击查看获取途径。"
 L["Look up everything for %s"] = "查询%s的所有内容"
 L["Opens Lookup with this search."] = "用此搜索打开查询。"
 L["No guide to this mount yet: the sources above say where it comes from and what it takes. Guide on one leads you there."] = "暂无此坐骑的指南：上面的来源说明了它从哪里获得以及需要什么。对其中一个点击“指引”即可带你前往。"
+-- L["Origin"] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "可交还"
@@ -2132,6 +2133,8 @@ L["A soft chime for each new suggestion (once when several come together), at th
 -- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = ""
 -- L["Step key targets their mobs"] = ""
 -- L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."] = ""
+-- L["Mark quests new in Forever"] = ""
+-- L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
@@ -3081,6 +3084,9 @@ L["looted %s, which starts %s"] = "拾取了 %s，可开始任务 %s"
 -- UI/Launcher.lua
 -- L["Shift-drag: move it"] = ""
 -- L["Drag: move it"] = ""
+
+-- Quests/NewQuests.lua
+-- L["New in Forever"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"

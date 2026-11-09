@@ -1489,6 +1489,7 @@ L["No known source"] = "Sin fuente conocida"
 L["Not obtainable any more; shown for reference."] = "Ya no se puede conseguir; se muestra como referencia."
 L["No source is known for this; shown for reference."] = "No se conoce ninguna fuente para esto; se muestra como referencia."
 L["No guide to this mount yet: the sources above say where it comes from and what it takes. Guide on one leads you there."] = "Aún no hay una guía para esta montura: las fuentes de arriba dicen de dónde sale y qué hace falta. Usa Guía en una de ellas y te lleva hasta allí."
+-- L["Origin"] = ""
 
 -- UI/Options.lua
 L["Recorder"] = "Recorder"
@@ -1799,6 +1800,8 @@ L["A soft chime for each new suggestion (once when several come together), at th
 -- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = ""
 -- L["Step key targets their mobs"] = ""
 -- L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."] = ""
+-- L["Mark quests new in Forever"] = ""
+-- L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desactivado en la lista de AddOns"
@@ -3080,6 +3083,9 @@ L["looted %s, which starts %s"] = "consiguió %s, que inicia %s"
 -- UI/Launcher.lua
 -- L["Shift-drag: move it"] = ""
 -- L["Drag: move it"] = ""
+
+-- Quests/NewQuests.lua
+-- L["New in Forever"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "El objetivo de la flecha, las paradas de su ruta de viaje, los demás objetivos del paso y las zonas donde aparecen sus monstruos y objetos."

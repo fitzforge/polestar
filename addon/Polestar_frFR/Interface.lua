@@ -1549,6 +1549,7 @@ L["Click to see where to get it."] = "Cliquez pour voir où l'obtenir."
 L["Look up everything for %s"] = "Tout rechercher pour %s"
 L["Opens Lookup with this search."] = "Ouvre la recherche avec ces termes."
 L["No guide to this mount yet: the sources above say where it comes from and what it takes. Guide on one leads you there."] = "Pas encore de guide pour cette monture : les sources ci-dessus disent d'où elle vient et ce qu'il faut. Le guidage vers l'une d'elles vous y mène."
+-- L["Origin"] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Prête à rendre"
@@ -2133,6 +2134,8 @@ L["Did you mean:"] = "Vouliez-vous dire :"
 -- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = ""
 -- L["Step key targets their mobs"] = ""
 -- L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."] = ""
+-- L["Mark quests new in Forever"] = ""
+-- L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"
@@ -3082,6 +3085,9 @@ L["looted %s, which starts %s"] = "a ramassé %s, qui lance %s"
 -- UI/Launcher.lua
 -- L["Shift-drag: move it"] = ""
 -- L["Drag: move it"] = ""
+
+-- Quests/NewQuests.lua
+-- L["New in Forever"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"

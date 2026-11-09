@@ -296,8 +296,9 @@ first.
 | `forge data talents build` | `addon/Polestar/Talents/Builds.lua`; `check` fails when it is out of date or a plan breaks a rule | the plans in `talents/forever/*.json` and the Forever client's trait tables at a pinned build |
 | `forge data maps build` | `addon/Polestar/Maps/ZoneLevels.lua` | `data/forever` (npcs, zones, map frames) |
 | `forge data maps overlays` | `addon/Polestar/UI/ZoneArtOverlays.lua` | the Forever client's map-art tables at a pinned build |
+| `forge data newquests` | `addon/Polestar/Quests/NewQuestIds.lua` (the "New in Forever" mark's ids; `--check` fails when it is out of date) | `data/forever/quests.json` and the QuestV2 tables of a pinned Classic Era and Forever build: a quest neither pfQuest nor the Era client holds is new |
 
-`itemdb`, `talents` and `maps overlays` fetch a missing table into `data/sources` unless `--offline`;
+`itemdb`, `talents`, `maps overlays` and `newquests` fetch a missing table into `data/sources` unless `--offline`;
 `codex`, `professions` and `travel` read the cache only: `forge data sources --only builders` fills it.
 
 Codex and gear are addon side products. They are not route inputs.

@@ -1548,6 +1548,7 @@ L["Click to see where to get it."] = "Haz clic para ver dónde conseguirlo."
 L["Look up everything for %s"] = "Buscar todo para %s"
 L["Opens Lookup with this search."] = "Abre el Buscador con esta búsqueda."
 -- L["No guide to this mount yet: the sources above say where it comes from and what it takes. Guide on one leads you there."] = ""
+-- L["Origin"] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Lista para entregar"
@@ -2132,6 +2133,8 @@ L["Did you mean:"] = "Quizá buscabas:"
 -- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = ""
 -- L["Step key targets their mobs"] = ""
 -- L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."] = ""
+-- L["Mark quests new in Forever"] = ""
+-- L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso de la banda"
@@ -3081,6 +3084,9 @@ L["looted %s, which starts %s"] = "ha conseguido %s, que inicia %s"
 -- UI/Launcher.lua
 -- L["Shift-drag: move it"] = ""
 -- L["Drag: move it"] = ""
+
+-- Quests/NewQuests.lua
+-- L["New in Forever"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desactiva \"Guiar con Shortest Path Forever si está instalado\" (Opciones, Flecha y rutas) para usar la flecha de Polestar."

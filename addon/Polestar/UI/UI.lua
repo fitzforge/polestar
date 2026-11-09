@@ -215,12 +215,63 @@ local function objectiveText(goal, counters)
 	return text
 end
 
+-- The quote mark closing a quest name in running text (ns.Quoted, in any
+-- client language), with the space some languages put before it.
+local CLOSE_QUOTES = { '"', "\226\128\157", "\226\128\156", "\194\187", "\194\171", "\227\128\141", "\227\128\143" }
+local QUOTE_GAPS = { "", " ", "\194\160", "\226\128\175" }
+local function pastQuote(text, b)
+	for _, gap in ipairs(QUOTE_GAPS) do
+		for _, q in ipairs(CLOSE_QUOTES) do
+			local s = gap .. q
+			if text:sub(b + 1, b + #s) == s then return b + #s end
+		end
+	end
+	return b
+end
+
+-- The goal's quest name in `text` coloured `hex` (nil: left as it is) and
+-- the "New in Forever" mark after it, past its closing quote mark
+-- (NewQuests.Mark: a quest Forever added, while ui.newInForever is on).
+local function paintSubject(goal, text, hex)
+	local subject = goal.subject
+	if type(subject) ~= "string" or subject == "" then return text end
+	local NQ = ns.NewQuests
+	local mark = goal.subjectKind == "quest" and goal.quest and NQ and NQ.Mark(goal.quest) or ""
+	if not hex and mark == "" then return text end
+	local a, b = text:find(subject, 1, true)
+	if not a then return text end
+	local name = hex and ("|c" .. hex .. subject .. "|r") or subject
+	if mark == "" then return text:sub(1, a - 1) .. name .. text:sub(b + 1) end
+	local e = pastQuote(text, b)
+	return text:sub(1, a - 1) .. name .. text:sub(b + 1, e) .. mark .. text:sub(e + 1)
+end
+
+-- `text` (a goal's line without colours) with the "New in Forever" mark
+-- after its quest's name, when it has one.
+function UI.MarkQuestName(goal, text)
+	return paintSubject(goal, text, nil)
+end
+
+-- A "While you're here" line's text (Engine's `hereText`), a turn-in's quest
+-- marked after its name when Forever added it.
+function UI.HereText(v)
+	local text = v.hereText or ""
+	local NQ, title = ns.NewQuests, v.hereTitle
+	if v.here ~= "turnin" or not NQ or type(title) ~= "string" or title == "" then return text end
+	local mark = NQ.Mark(v.quest)
+	if mark == "" then return text end
+	local _, b = text:find(title, 1, true)
+	if not b then return text end
+	return text:sub(1, b) .. mark .. text:sub(b + 1)
+end
+
 -- The goal's main line. The Engine's `text` is the truth (it carries author
 -- overrides and counts such as "Kill 5 Young Wolf"); the subject is coloured
 -- by its kind wherever it appears in that text (a quest's in `questHex`, an
--- "ffrrggbb", when given: the class-quest card's class colour). Done goals
--- render plain (the row colours them muted). A `complete` goal: its
--- objectives (objectiveText).
+-- "ffrrggbb", when given: the class-quest card's class colour), a quest
+-- Forever added marked after its name (paintSubject). Done goals render
+-- plain (the row colours them muted). A `complete` goal: its objectives
+-- (objectiveText).
 function UI.GoalText(goal, questHex)
 	local objectives = objectiveText(goal, false)
 	if objectives then return objectives end
@@ -233,13 +284,9 @@ function UI.GoalText(goal, questHex)
 			text = (subject ~= "" and subject) or verb or ""
 		end
 	end
-	if goal.status == "done" then return text end
-	local kind = KIND_COLOR[goal.subjectKind]
-	if not kind or type(subject) ~= "string" or subject == "" then return text end
-	local a, b = text:find(subject, 1, true)
-	if not a then return text end
-	local hex = (kind == "quest" and questHex) or Theme.Hex(kind)
-	return text:sub(1, a - 1) .. "|c" .. hex .. subject .. "|r" .. text:sub(b + 1)
+	local kind = goal.status ~= "done" and KIND_COLOR[goal.subjectKind]
+	if not kind then return paintSubject(goal, text, nil) end
+	return paintSubject(goal, text, (kind == "quest" and questHex) or Theme.Hex(kind))
 end
 
 -- The goal's main line without colour codes (skipped goals).
@@ -566,7 +613,7 @@ function UI.GoalLine(goal, questHex)
 	local plain = goal.status == "done" or goal.status == "skipped"
 	local text = objectiveText(goal, goal.status ~= "skipped")
 	if not text then
-		text = plain and UI.PlainGoalText(goal) or UI.GoalText(goal, questHex)
+		text = plain and UI.MarkQuestName(goal, UI.PlainGoalText(goal)) or UI.GoalText(goal, questHex)
 		local count = UI.GoalProgress(goal)
 		if count and goal.status ~= "skipped" then
 			local p = goal.progress

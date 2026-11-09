@@ -173,6 +173,8 @@ local function goalTooltip(row)
 	if goal.quest then
 		local title = UI.QuestTitle(goal.quest) or (goal.subjectKind == "quest" and goal.subject) or nil
 		lines[#lines + 1] = { left = L["Quest"], right = title and (title .. id .. goal.quest .. "|r") or ("#" .. goal.quest) }
+		local new = ns.NewQuests and ns.NewQuests.TooltipText(goal.quest)
+		if new then lines[#lines + 1] = { new, Theme.Accent() } end
 	end
 	if goal.npc then
 		local name = goal.subjectKind == "npc" and goal.subject or goal.npcName
@@ -2792,7 +2794,7 @@ function GF.FillHere(E)
 		r.psView = v
 		keys[i] = v.step .. ":" .. v.index
 		r.Icon:SetTexture(Theme.VerbIcon(v.here == "turnin" and "turnin" or v.t))
-		r.Text:SetText(v.here == "turnin" and (v.hereText or "") or UI.GoalLine(v))
+		r.Text:SetText(v.here == "turnin" and UI.HereText(v) or UI.GoalLine(v))
 		r.Sub:SetText(string.format(L["Step %d"], UI.StepNo(v.step)))
 		r.Sub:SetShown(not tight)
 		r.Dist:SetText(v.yards and ns.FormatDistance(v.yards, GF.HERE_DIST) or "")
@@ -3700,6 +3702,7 @@ local APPLY = {
 	["ui.upcomingOpen"] = function() GF.Render() end,
 	["ui.showNotes"] = function() GF.Render() end,
 	["ui.notesOpen"] = function() tipOpen = ns.Get("ui.notesOpen") and true or false; GF.Render() end,
+	["ui.newInForever"] = function() GF.Render() end,
 	["ui.maxHeight"] = function() GF.Layout() end,
 	-- Another way of reading the card: nothing kept from the one before.
 	["ui.wholeStep"] = function() resetModel(); GF.Render() end,
@@ -4199,11 +4202,14 @@ function GF.HereRow(i)
 	r:SetScript("OnEnter", function(self)
 		local v = self.psView
 		if not v then return end
-		W.Tooltip(self, tooltipAnchor(), L["While you're here:"] .. " " .. (v.hereText or ""), {
+		local lines = {
 			string.format(L["Step %d does this later; done now, that step is shorter or skipped when you get there."], UI.StepNo(v.step)),
-			{ L["Click to point the arrow here"], Theme.Accent() },
-			{ L["Right-click: not now, around here (twice: for the rest of this zone)."], Theme.Color("textDim") },
-		})
+		}
+		local new = v.here == "turnin" and ns.NewQuests and ns.NewQuests.TooltipText(v.quest)
+		if new then lines[#lines + 1] = { new, Theme.Accent() } end
+		lines[#lines + 1] = { L["Click to point the arrow here"], Theme.Accent() }
+		lines[#lines + 1] = { L["Right-click: not now, around here (twice: for the rest of this zone)."], Theme.Color("textDim") }
+		W.Tooltip(self, tooltipAnchor(), L["While you're here:"] .. " " .. UI.HereText(v), lines)
 		GF.HoverIn()
 	end)
 	r:SetScript("OnLeave", function(self) W.HideTooltip(self) end)

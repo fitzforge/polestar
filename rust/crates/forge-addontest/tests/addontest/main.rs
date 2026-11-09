@@ -246,6 +246,8 @@ mod nav_spf;
 mod nav_trail;
 #[path = "nav-transit.rs"]
 mod nav_transit;
+#[path = "new-in-forever.rs"]
+mod new_in_forever;
 #[path = "pack-race-parts.rs"]
 mod pack_race_parts;
 #[path = "packs-parity.rs"]

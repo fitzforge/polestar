@@ -1548,6 +1548,7 @@ L["Click to see where to get it."] = "Clique para ver onde conseguir."
 L["Look up everything for %s"] = "Consultar tudo sobre %s"
 L["Opens Lookup with this search."] = "Abre a Consulta com esta busca."
 L["No guide to this mount yet: the sources above say where it comes from and what it takes. Guide on one leads you there."] = "Ainda não há guia para esta montaria: as fontes acima dizem de onde ela vem e o que exige. O botão Guia de uma delas leva você até lá."
+-- L["Origin"] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Pronta para entregar"
@@ -2132,6 +2133,8 @@ L["Floating button"] = "Botão flutuante"
 L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = "Um pequeno botão do Polestar que você pode pôr em qualquer lugar da tela. Clique para mostrar ou ocultar o guia, clique com o botão direito para um menu, arraste para mover. Ele some com a janela em combate e em masmorras quando estas estão em Ocultar."
 L["Step key targets their mobs"] = "Tecla de etapa seleciona criaturas das sugestões"
 L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."] = "A tecla de etapa também seleciona as criaturas das sugestões, da mais próxima para a mais distante, depois das da própria etapa atual. Só muda fora de combate."
+-- L["Mark quests new in Forever"] = ""
+-- L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso do raide"
@@ -3081,6 +3084,9 @@ L["mobs up to level %d"] = "criaturas até o nível %d"
 -- UI/Launcher.lua
 L["Shift-drag: move it"] = "Shift + arrastar: mover"
 L["Drag: move it"] = "Arrastar: mover"
+
+-- Quests/NewQuests.lua
+-- L["New in Forever"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Seta e rotas) para usar a seta do Polestar."

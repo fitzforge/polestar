@@ -63,7 +63,7 @@ local function windowShows()
 end
 
 local function text(v)
-	local s = v.hereText or ""
+	local s = UI.HereText(v)
 	if v.yards then s = s .. "  \194\183  " .. ns.FormatDistance(v.yards, DIST) end
 	return s
 end
