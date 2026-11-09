@@ -119,13 +119,13 @@ return {
 	-- {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep
 	["{npc:2104} stands on the top floor of {area:2103}: go up inside, the arrow cannot tell the floors apart."] = "{npc:2104}站在{area:2103}的顶层：从里面上楼，箭头无法区分楼层。",
 	-- {npc:2104} Captain Stoutfist · {npc:270637} Howin Kindfeather
-	["{npc:2104}: for {npc:270637}, back east along the road"] = "",
+	["{npc:2104}: for {npc:270637}, back east along the road"] = "{npc:2104}：交给{npc:270637}，沿路向东返回",
 
 	-- Step 26: Howin Kindfeather
 	-- {area:1025} The Green Belt · {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
-	["Back east along the road to the {area:1025}: {npc:270637} camps among the Fenrunners, just west of {npc:1244}. Then west again to Menethil for the boat."] = "",
+	["Back east along the road to the {area:1025}: {npc:270637} camps among the Fenrunners, just west of {npc:1244}. Then west again to Menethil for the boat."] = "沿路向东返回{area:1025}：{npc:270637}的营地在{npc:1244}西边不远，周围是藓皮沼泽行者。然后再向西返回米奈希尔坐船。",
 	-- {zone:1455} Ironforge
-	["For King Magni in {zone:1455}, at the end of this guide"] = "",
+	["For King Magni in {zone:1455}, at the end of this guide"] = "交给{zone:1455}的国王麦格尼·铜须，在本指南结尾",
 
 	-- Step 27: Level 30.8
 	["Level 30.8"] = "30.8级",
@@ -226,7 +226,7 @@ return {
 
 	-- Step 52: King Magni Bronzebeard
 	-- {npc:2784} King Magni Bronzebeard · {object:171709} High Seat
-	["{npc:2784}, the {object:171709}"] = "",
+	["{npc:2784}, the {object:171709}"] = "{npc:2784}，{object:171709}",
 
 	-- Step 53: Fly to Stormwind
 	-- {zone:1453} Stormwind

@@ -125,7 +125,7 @@ return {
 	-- {area:1025} The Green Belt · {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
 	["Back east along the road to the {area:1025}: {npc:270637} camps among the Fenrunners, just west of {npc:1244}. Then west again to Menethil for the boat."] = "",
 	-- {zone:1455} Ironforge
-	["For King Magni in {zone:1455}, at the end of this guide"] = "",
+	["For King Magni in {zone:1455}, at the end of this guide"] = "{zone:1455}의 국왕 마그니 브론즈비어드에게, 이 가이드 마지막에",
 
 	-- Step 27: Level 30.8
 	["Level 30.8"] = "",
@@ -226,7 +226,7 @@ return {
 
 	-- Step 52: King Magni Bronzebeard
 	-- {npc:2784} King Magni Bronzebeard · {object:171709} High Seat
-	["{npc:2784}, the {object:171709}"] = "",
+	["{npc:2784}, the {object:171709}"] = "{npc:2784}, {object:171709}",
 
 	-- Step 53: Fly to Stormwind
 	-- {zone:1453} Stormwind
