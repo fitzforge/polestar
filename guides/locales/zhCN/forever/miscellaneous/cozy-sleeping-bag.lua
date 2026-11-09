@@ -54,8 +54,8 @@ return {
 	["The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "雕像位于{area:146}北侧、接近坝顶的岩台上。慢慢挪下边缘，倒退走可以避免冲过头。",
 
 	-- Step 8: Thoradin's Wall
-	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad
-	["At the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "在阿拉希与{area:287}之间的{area:1057}关口转向北，沿{area:287}这一侧的城墙走，找到倚在墙边的翻倒货车。跳上货车，再沿梯子登上城墙，越过岩石到达隐蔽营地。部分角色的体型无法穿过营地的货网；其他种族或较小的形态可以通过。",
+	-- {zone:1437} Wetlands · {area:880} Thandol Span · {area:1057} Thoradin's Wall · {area:287} Hillsbrad
+	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.\nAt the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "小心：从大坝的岩架下来会落进下方的河里，位于{zone:1437}。务必在约65,77的瀑布之前从西岸上岸：坠落会致命。然后向西北走到大路，沿路向北经过{area:880}进入阿拉希。\n在阿拉希与{area:287}之间的{area:1057}关口转向北，沿{area:287}这一侧的城墙走，找到倚在墙边的翻倒货车。跳上货车，再沿梯子登上城墙，越过岩石到达隐蔽营地。部分角色的体型无法穿过营地的货网；其他种族或较小的形态可以通过。",
 	["Fallen cart"] = "翻倒的货车",
 
 	-- Step 9: The hidden camp

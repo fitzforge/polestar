@@ -8790,3 +8790,19 @@ test("Valik's report: Valik only with Infiltration in the log, handed in at once
 	const list = goals(guide);
 	assert.ok(at(list, 'turnin 535', is('turnin', 535)) < at(list, 'collect 3601', (g) => g.t === 'collect' && g.item === 3601), 'Valik before the missive drops');
 });
+
+// Players' recordings (2026-11-09 pull): after Eagle's Fist (79975) on the Stonewrought Dam's ledge, most players drop
+// into the river below it and follow the arrow north; 22 contributors died at its waterfall (Wetlands about 65.0,77.4),
+// while those who left the river on its west bank lived and took the road over Thandol Span. The step that is live
+// on the way, the next note's, says so.
+test("forever/miscellaneous/cozy-sleeping-bag.guide: the step after the dam's note warns of the waterfall below it and gives the way out", { skip }, () => {
+	const guide = 'forever/miscellaneous/cozy-sleeping-bag.guide';
+	const list = goals(guide);
+	const dam = at(list, 'accept 79975', is('accept', 79975));
+	const next = list.find(({ s }) => s === list[dam].s + 1);
+	assert.ok(next, 'a step follows the dam');
+	const tip = [].concat(next.step.note || []).join(' ');
+	assert.match(tip, /waterfall/, tip);
+	assert.match(tip, /west bank/, tip);
+	assert.match(tip, /Thandol Span/, tip);
+});

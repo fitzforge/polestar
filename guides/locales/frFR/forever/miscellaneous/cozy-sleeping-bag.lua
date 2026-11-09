@@ -54,10 +54,12 @@ return {
 	["The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "La figurine se trouve sur une corniche juste sous le sommet de {area:146}, sur sa face nord. Descendez lentement ; marcher à reculons évite de dépasser la corniche.",
 
 	-- Step 8: Thoradin's Wall
-	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad
-	["At the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "À la porte de {area:1057}, entre Arathi et {area:287}, tournez vers le nord et suivez le mur côté {area:287} jusqu'à une charrette renversée appuyée contre lui. Sautez sur la charrette et son échelle pour monter sur le mur, puis passez par les rochers jusqu'au camp caché. Certains personnages ne passent pas sous le filet de chargement du camp ; une autre race ou une forme plus petite passe.",
+	-- {zone:1437} Wetlands · {area:880} Thandol Span · {area:1057} Thoradin's Wall · {area:287} Hillsbrad
+	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.\nAt the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "Attention : depuis la corniche du barrage, vous tombez dans la rivière en contrebas, dans les {zone:1437}. Sortez-en par la rive ouest bien avant la cascade, vers 65,77 : la chute est mortelle. Partez ensuite vers le nord-ouest jusqu'à la route et suivez-la vers le nord par {area:880} jusqu'en Arathi.\nÀ la porte de {area:1057}, entre Arathi et {area:287}, tournez vers le nord et suivez le mur côté {area:287} jusqu'à une charrette renversée appuyée contre lui. Sautez sur la charrette et son échelle pour monter sur le mur, puis passez par les rochers jusqu'au camp caché. Certains personnages ne passent pas sous le filet de chargement du camp ; une autre race ou une forme plus petite passe.",
 	["Fallen cart"] = "Charrette renversée",
 
 	-- Step 9: The hidden camp
 	["The hidden camp"] = "Le camp caché",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
 }

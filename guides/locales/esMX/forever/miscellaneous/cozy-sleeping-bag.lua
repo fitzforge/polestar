@@ -54,8 +54,8 @@ return {
 	["The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "",
 
 	-- Step 8: Thoradin's Wall
-	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad
-	["At the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "",
+	-- {zone:1437} Wetlands · {area:880} Thandol Span · {area:1057} Thoradin's Wall · {area:287} Hillsbrad
+	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.\nAt the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "",
 	["Fallen cart"] = "",
 
 	-- Step 9: The hidden camp
