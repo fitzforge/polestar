@@ -9121,3 +9121,15 @@ test('Horde 50-60: no stale travel text on steps the player has already travelle
 	// Everlook: no earlier guide binds there (the last bind is Light's Hope Chapel), and no Harlo quest is taken.
 	assert.doesNotMatch(src('forever/horde/50-60/03-winterspring.guide'), /the last guide binds here|Gregor's and Harlo's/);
 });
+
+// Final route review, Horde 40-60 (0.3.6): a bare walk to a stop that only some players have work at. The walk to
+// the Musty Scroll (Cortello's Riddle, optional) and the walk to Orgrimmar's flight master ahead of the Runecloth
+// hand-ins sent everyone there; each now holds only for the players the stop is for.
+test('Horde 40-60: walks to an optional stop are gated like the stop', { skip }, () => {
+	const fer = compiled('forever/horde/40-50/03-feralas.guide').steps;
+	const scroll = fer.find((st) => st.goals.some((g) => g.t === 'goto' && g.x === 31.1 && g.y === 66.1));
+	assert.ok(scroll && (scroll.when || []).some((p) => p.k === 'onquest' && !p.neg), 'the Musty Scroll walk only with Cortello\'s Riddle in the log');
+	const fw = compiled('forever/horde/50-60/07-felwood.guide').steps;
+	const walk = fw.findIndex((st) => st.goals.length === 1 && st.goals[0].t === 'goto' && st.goals[0].x === 45.3 && st.goals[0].y === 63.7);
+	assert.ok(walk >= 0 && (fw[walk].when || []).filter((p) => p.k === 'complete' && p.neg).length === 2, 'the walk to the flight master is skipped when a Runecloth hand-in is ready');
+});

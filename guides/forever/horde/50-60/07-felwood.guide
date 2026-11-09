@@ -20,6 +20,8 @@ step Zeppelin to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
+  when !complete 7836
+  when !complete 7824
   goto 45.3,63.7 "Orgrimmar flight master"
 # Built from the simulator's consensus route (Horde, visits 102-116) and
 # machine-checked with lint; not play-tested on Forever yet. The end of the

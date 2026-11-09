@@ -143,6 +143,7 @@ step Brackenwall Village
 
 step Dustwallow Marsh
   zone Dustwallow Marsh
+  when onquest 625
   goto 31.1,66.1 "The Musty Scroll"
 
 step The Musty Scroll
