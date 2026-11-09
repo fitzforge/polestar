@@ -3281,6 +3281,10 @@ player's own estimates leave out the Hearthstone and the class teleports: a
 player's teleport reset Trial of the Lake (#1327), and a hearth leaves an
 escort behind. `QUEST_LOG_UPDATE` marks the state to read again on the next
 `Refresh`, which plans again when it changed.
+A class teleport whose landing lies in the zone the player stands in
+(its point's `map` equals the plan's `map`, the player's zone) is never
+planned: a Mage in Stormwind is not sent to Teleport: Stormwind to cross the
+city (#1515).
 A transport end is its ship's stop; where the ship lies in the water off
 its pier, the end carries a board point on the deck (TravelData's `board`,
 below), and the dock vertex is there: the walk to the boat ends on the
