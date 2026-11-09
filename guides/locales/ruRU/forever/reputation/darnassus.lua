@@ -25,102 +25,59 @@ return {
 	-- {item:2592} Wool Cloth · {zone:1439} Darkshore · {zone:1440} Ashenvale
 	["{item:2592}: furbolgs, satyrs and naga in {zone:1439} and {zone:1440}"] = "",
 
-	-- Step 2: A Donation of Silk
-	-- {item:4306} Silk Cloth · {zone:1440} Ashenvale
-	["{item:4306} drops from humanoids level 23 to 40: the satyrs and furbolgs of {zone:1440}, the Thistlefur and Foulweald camps, the Grimtotem of Stonetalon."] = "",
-
-	-- Step 3: A Donation of Mageweave
-	-- {item:4338} Mageweave Cloth · {zone:1444} Feralas · {zone:1446} Tanaris
-	["{item:4338} drops from humanoids level 35 to 50: the Hatecrest naga and Gordunni ogres of {zone:1444}, the Dunemaul ogres of {zone:1446}."] = "",
-
-	-- Step 4: A Donation of Runecloth
-	-- {item:14047} Runecloth · {zone:1448} Felwood · {zone:1452} Winterspring · {quest:7801} Additional Runecloth
-	["{item:14047} drops from humanoids level 50 and up: the Deadwood furbolgs of {zone:1448}, the Winterfall furbolgs of {zone:1452}, the Scourge cultists of the Plaguelands. Keep any {item:14047} past the first 60 for {quest:7801}."] = "",
-
-	-- Step 5: Morgan's Vigil: Dragonkin Menace
-	-- {npc:9562} Helendis Riverhorn · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {quest:4183} The True Masters · {faction:69} Darnassus · {object:2117} Stormwind Keep · {zone:1453} Stormwind · {npc:7044} Black Drake · {npc:7040} Black Dragonspawn · {npc:7041} Black Wyrmkin
-	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: 175 {faction:69} reputation for two quests (level 54: in Classic 140 at 60), and the chain goes on to {object:2117} for 175 {zone:1453}. The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "",
-
-	-- Step 6: Lakeshire: Magistrate Solomon
-	-- {npc:344} Magistrate Solomon · {area:69} Lakeshire · {object:2117} Stormwind Keep · {zone:1453} Stormwind · {faction:69} Darnassus · {npc:7916} Erelas Ambersky · {area:702} Rut'theran Village · {zone:1452} Winterspring · {zone:1448} Felwood · {area:2479} Emerald Sanctuary · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1422} Western Plaguelands · {item:12663} Glyphed Oaken Branch
-	["{npc:344} waits in the town hall of {area:69}; his next quest takes you to {object:2117} (the {zone:1453} guide follows it). Other {faction:69} quests at this level, for when you pass by: {npc:7916} in {area:702} has a wildkin chain into {zone:1452} (325 in all, with Ranshalla's escort), Arei's escort in {zone:1448} pays 150 after the {area:2479}'s chain, {npc:10739} at the {area:202} in the {zone:1422} 100 for the {item:12663}, and Put Her Down in Upper Blackrock Spire 100 with a group."] = "",
-
-	-- Step 7: Morrowgrain (optional)
-	-- {item:11040} Morrowgrain
-	["{item:11040} (optional)"] = "",
-	-- {quest:3803} Morrowgrain to Darnassus · {item:11040} Morrowgrain · {npc:6735} Innkeeper Saelienne · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:3764} Un'Goro Soil · {zone:1453} Stormwind · {zone:1455} Ironforge
-	["{quest:3803} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60. The chain before it is level 50: 220. {npc:6735} sends you to {npc:3516} in the {area:1658}; he wants 20 {quest:3764}. (The innkeepers of {zone:1453} and {zone:1455} give the same start.)"] = "",
-
-	-- Step 10: Un'Goro Crater: Un'Goro Soil
-	-- {quest:3764} Un'Goro Soil · {item:11040} Morrowgrain
-	["Dig {quest:3764} from the dirt mounds all over the crater; most of the crater's beasts and the Gorishi silithids drop it too, about one kill in three. Take far more than 20: every pouch use takes 2, about 18 for each 10 {item:11040}."] = "",
-
-	-- Step 11: Darnassus: Morrowgrain Research
-	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave · {npc:4217} Mathrengyl Bearwalker · {item:11020} Evergreen Pouch · {quest:3764} Un'Goro Soil · {item:11024} Evergreen Herb Casing · {item:11040} Morrowgrain
-	["{npc:9047}, beside Fandral in the {area:1658}, takes the soil. {npc:4217} sells the {item:11020} and Packets of Tharlendris Seeds. With a seed packet and 2 {quest:3764} in your bags, use the pouch to grow an {item:11024} and open it: about one casing in three holds {item:11040} (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things."] = "",
-
-	-- Step 15: Darnassus: Morrowgrain Research
-	-- {item:11040} Morrowgrain
-	["{item:11040}: grow it here and open the casings"] = "",
-
-	-- Step 16: Morrowgrain to Darnassus
-	-- {item:11040} Morrowgrain · {npc:4217} Mathrengyl Bearwalker · {quest:3764} Un'Goro Soil · {item:14047} Runecloth · {npc:7879} Quintis Jonespyre · {area:1116} Feathermoon Stronghold · {zone:1444} Feralas
-	["Every 10 {item:11040}: 50 reputation at {npc:4217}. Keep the pouch and buy seeds as you go. It is slow: about 9 casings, 90 minutes of pouch waits, 18 {quest:3764} and 9 seed packets for each hand-in, a little over 30 reputation an hour, so run it beside the {item:14047}. {npc:7879} at {area:1116} in {zone:1444} takes {item:11040} at the same rate, 25 for 5, after his own quest."] = "",
-
-	-- Step 17: Shadowglen
+	-- Step 2: Shadowglen
 	-- {zone:1438} Teldrassil · {area:256} Aldrassil
 	["Optional: the Night Elf start glade in north-east {zone:1438}, about 1,050 reputation in 30 minutes at 60. The givers stand around {area:256}, the great tree. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
 
-	-- Step 18: Shadowglen: the glade and the spider den
+	-- Step 3: Shadowglen: the glade and the spider den
 	-- {area:188} Shadowglen
 	["{area:188}: the glade and the spider den"] = "",
 	-- {area:256} Aldrassil · {item:3297} Fel Moss · {npc:8584} Iverron
 	["The nightsabers and boars roam the glade; the grells around {area:256} drop the {item:3297}; the totems stand in the furbolg camp north-west of the tree; the Webwood spiders live in the cave north of the glade. {npc:8584} waits outside that cave."] = "",
 
-	-- Step 19: Shadowglen: first hand-in
+	-- Step 4: Shadowglen: first hand-in
 	-- {area:188} Shadowglen
 	["{area:188}: first hand-in"] = "",
 
-	-- Step 20: Shadowglen: the egg and the antidote
+	-- Step 5: Shadowglen: the egg and the antidote
 	-- {area:188} Shadowglen
 	["{area:188}: the egg and the antidote"] = "",
 	-- {quest:917} Webwood Egg · {item:10640} Webwood Ichor
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker
 	["The {quest:917} lies at the back of the spider cave; the mushrooms grow by the trees, the lilies by the pools, and the {item:10640} drops from the Webwood Lurkers."] = "",
 
-	-- Step 21: Shadowglen: last hand-in
+	-- Step 6: Shadowglen: last hand-in
 	-- {area:188} Shadowglen
 	["{area:188}: last hand-in"] = "",
 	-- {npc:8584} Iverron
 	["{npc:8584}, outside the spider cave"] = "",
 
-	-- Step 22: Dolanaar
+	-- Step 7: Dolanaar
 	-- {faction:69} Darnassus
 	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
 
-	-- Step 23: Dolanaar: Denalan and the lake
+	-- Step 8: Dolanaar: Denalan and the lake
 	-- {area:186} Dolanaar · {npc:2080} Denalan
 	["{area:186}: {npc:2080} and the lake"] = "",
 	-- {npc:2080} Denalan · {area:259} Lake Al'Ameth · {npc:2107} Gaerolas Talvethren · {area:260} Starbreeze Village · {area:186} Dolanaar
 	["{npc:2080} tends his garden on the south-east shore of {area:259}; {npc:2107} stands upstairs in a house in {area:260}, east of {area:186}: go up inside, the arrow cannot tell the floors apart."] = "{npc:2080} ухаживает за своим садом на юго-восточном берегу (место: {area:259}); {npc:2107} стоит на верхнем этаже дома (место: {area:260}, к востоку от {area:186}): поднимитесь внутри дома, Стрелка не различает этажи.",
 
-	-- Step 24: Dolanaar: the woods around the village
+	-- Step 9: Dolanaar: the woods around the village
 	-- {area:186} Dolanaar
 	["{area:186}: the woods around the village"] = "",
 	-- {faction:69} Darnassus · {npc:2038} Lord Melenas · {area:258} Fel Rock · {npc:2107} Gaerolas Talvethren
 	-- plural, as words: Gnarlpine Ambushers = {npc:2152} Gnarlpine Ambusher
 	["The timberlings by the lake drop seeds and sprouts; the Gnarlpine Ambushers lurk on the road west to {faction:69}; {npc:2038} waits deep in {area:258}, north-west of the village; the dreamcatcher lies in the furbolg camp east of the village, by {npc:2107}; the Nightsabers west of the village carry the pelts."] = "",
 
-	-- Step 25: Dolanaar: first hand-in
+	-- Step 10: Dolanaar: first hand-in
 	-- {area:186} Dolanaar
 	["{area:186}: first hand-in"] = "",
 
-	-- Step 26: Dolanaar: the Ban'ethil Barrow Den's entrance
+	-- Step 11: Dolanaar: the Ban'ethil Barrow Den's entrance
 	-- {area:186} Dolanaar · {area:262} Ban'ethil Barrow Den
 	["{area:186}: the {area:262}'s entrance"] = "",
 
-	-- Step 27: Dolanaar: the relics and Ferocitas
+	-- Step 12: Dolanaar: the relics and Ferocitas
 	-- {area:186} Dolanaar
 	["{area:186}: the relics and Ferocitas"] = "",
 	-- {area:262} Ban'ethil Barrow Den · {area:186} Dolanaar
@@ -129,15 +86,15 @@ return {
 	-- {item:8050} Tallonkai's Jewel · {quest:2459} Ferocitas the Dream Eater
 	["{item:8050}, from {quest:2459}"] = "",
 
-	-- Step 28: Dolanaar: Ursal the Mauler
+	-- Step 13: Dolanaar: Ursal the Mauler
 	-- {quest:486} Ursal the Mauler · {area:478} Pools of Arlithrien · {zone:1438} Teldrassil
 	["{quest:486}, a big bear, roams the {area:478} in south-west {zone:1438}."] = "",
 
-	-- Step 29: Auberdine
+	-- Step 14: Auberdine
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {area:702} Rut'theran Village
 	["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation in an hour at 60. The givers stand along the town's street and pier. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
 
-	-- Step 30: Auberdine: the coast and the woods
+	-- Step 15: Auberdine: the coast and the woods
 	-- {area:442} Auberdine
 	["{area:442}: the coast and the woods"] = "",
 	-- {area:445} Cliffspring Falls
@@ -146,27 +103,70 @@ return {
 	-- {quest:954} Bashal'Aran
 	["the blue aura in the ruins of {quest:954}"] = "",
 
-	-- Step 31: Auberdine: first hand-in
+	-- Step 16: Auberdine: first hand-in
 	-- {area:442} Auberdine
 	["{area:442}: first hand-in"] = "",
 
-	-- Step 32: Auberdine: the furbolgs, the bears and the grells
+	-- Step 17: Auberdine: the furbolgs, the bears and the grells
 	-- {area:442} Auberdine
 	["{area:442}: the furbolgs, the bears and the grells"] = "",
 	-- {quest:955} Bashal'Aran
 	["The Blackwood furbolgs camp south of town; the grells of {quest:955}, east of town, drop the earrings; the sea turtle remains lie on the beach west of town."] = "",
 
-	-- Step 33: Auberdine: second hand-in
+	-- Step 18: Auberdine: second hand-in
 	-- {area:442} Auberdine
 	["{area:442}: second hand-in"] = "",
 
-	-- Step 34: Auberdine: the seal, the Den Mother and the pelts
+	-- Step 19: Auberdine: the seal, the Den Mother and the pelts
 	-- {area:442} Auberdine · {npc:6788} Den Mother
 	["{area:442}: the seal, the {npc:6788} and the pelts"] = "",
 	-- {item:5338} Ancient Moonstone Seal · {quest:956} Bashal'Aran · {npc:6788} Den Mother · {zone:1439} Darkshore
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
 	["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "",
 	["the seal at the ancient flame"] = "",
+
+	-- Step 20: A Donation of Silk
+	-- {item:4306} Silk Cloth · {zone:1440} Ashenvale
+	["{item:4306} drops from humanoids level 23 to 40: the satyrs and furbolgs of {zone:1440}, the Thistlefur and Foulweald camps, the Grimtotem of Stonetalon."] = "",
+
+	-- Step 21: A Donation of Mageweave
+	-- {item:4338} Mageweave Cloth · {zone:1444} Feralas · {zone:1446} Tanaris
+	["{item:4338} drops from humanoids level 35 to 50: the Hatecrest naga and Gordunni ogres of {zone:1444}, the Dunemaul ogres of {zone:1446}."] = "",
+
+	-- Step 22: A Donation of Runecloth
+	-- {item:14047} Runecloth · {zone:1448} Felwood · {zone:1452} Winterspring · {quest:7801} Additional Runecloth
+	["{item:14047} drops from humanoids level 50 and up: the Deadwood furbolgs of {zone:1448}, the Winterfall furbolgs of {zone:1452}, the Scourge cultists of the Plaguelands. Keep any {item:14047} past the first 60 for {quest:7801}."] = "",
+
+	-- Step 23: Morgan's Vigil: Dragonkin Menace
+	-- {npc:9562} Helendis Riverhorn · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {quest:4183} The True Masters · {faction:69} Darnassus · {object:2117} Stormwind Keep · {zone:1453} Stormwind · {npc:7044} Black Drake · {npc:7040} Black Dragonspawn · {npc:7041} Black Wyrmkin
+	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
+	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: 175 {faction:69} reputation for two quests (level 54: in Classic 140 at 60), and the chain goes on to {object:2117} for 175 {zone:1453}. The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "",
+
+	-- Step 24: Lakeshire: Magistrate Solomon
+	-- {npc:344} Magistrate Solomon · {area:69} Lakeshire · {object:2117} Stormwind Keep · {zone:1453} Stormwind · {faction:69} Darnassus · {npc:7916} Erelas Ambersky · {area:702} Rut'theran Village · {zone:1452} Winterspring · {zone:1448} Felwood · {area:2479} Emerald Sanctuary · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1422} Western Plaguelands · {item:12663} Glyphed Oaken Branch
+	["{npc:344} waits in the town hall of {area:69}; his next quest takes you to {object:2117} (the {zone:1453} guide follows it). Other {faction:69} quests at this level, for when you pass by: {npc:7916} in {area:702} has a wildkin chain into {zone:1452} (325 in all, with Ranshalla's escort), Arei's escort in {zone:1448} pays 150 after the {area:2479}'s chain, {npc:10739} at the {area:202} in the {zone:1422} 100 for the {item:12663}, and Put Her Down in Upper Blackrock Spire 100 with a group."] = "",
+
+	-- Step 25: Morrowgrain (optional)
+	-- {item:11040} Morrowgrain
+	["{item:11040} (optional)"] = "",
+	-- {quest:3803} Morrowgrain to Darnassus · {item:11040} Morrowgrain · {npc:6735} Innkeeper Saelienne · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:3764} Un'Goro Soil · {zone:1453} Stormwind · {zone:1455} Ironforge
+	["{quest:3803} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60. The chain before it is level 50: 220. {npc:6735} sends you to {npc:3516} in the {area:1658}; he wants 20 {quest:3764}. (The innkeepers of {zone:1453} and {zone:1455} give the same start.)"] = "",
+
+	-- Step 28: Un'Goro Crater: Un'Goro Soil
+	-- {quest:3764} Un'Goro Soil · {item:11040} Morrowgrain
+	["Dig {quest:3764} from the dirt mounds all over the crater; most of the crater's beasts and the Gorishi silithids drop it too, about one kill in three. Take far more than 20: every pouch use takes 2, about 18 for each 10 {item:11040}."] = "",
+
+	-- Step 29: Darnassus: Morrowgrain Research
+	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave · {npc:4217} Mathrengyl Bearwalker · {item:11020} Evergreen Pouch · {quest:3764} Un'Goro Soil · {item:11024} Evergreen Herb Casing · {item:11040} Morrowgrain
+	["{npc:9047}, beside Fandral in the {area:1658}, takes the soil. {npc:4217} sells the {item:11020} and Packets of Tharlendris Seeds. With a seed packet and 2 {quest:3764} in your bags, use the pouch to grow an {item:11024} and open it: about one casing in three holds {item:11040} (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things."] = "",
+
+	-- Step 33: Darnassus: Morrowgrain Research
+	-- {item:11040} Morrowgrain
+	["{item:11040}: grow it here and open the casings"] = "",
+
+	-- Step 34: Morrowgrain to Darnassus
+	-- {item:11040} Morrowgrain · {npc:4217} Mathrengyl Bearwalker · {quest:3764} Un'Goro Soil · {item:14047} Runecloth · {npc:7879} Quintis Jonespyre · {area:1116} Feathermoon Stronghold · {zone:1444} Feralas
+	["Every 10 {item:11040}: 50 reputation at {npc:4217}. Keep the pouch and buy seeds as you go. It is slow: about 9 casings, 90 minutes of pouch waits, 18 {quest:3764} and 9 seed packets for each hand-in, a little over 30 reputation an hour, so run it beside the {item:14047}. {npc:7879} at {area:1116} in {zone:1444} takes {item:11040} at the same rate, 25 for 5, after his own quest."] = "",
 
 	-- Step 35: Additional Runecloth to Honored
 	-- {quest:7801} Additional Runecloth

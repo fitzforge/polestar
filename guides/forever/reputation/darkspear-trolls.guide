@@ -45,21 +45,6 @@ step Vehena: how it works
   tip Darkspear reputation comes from quests and cloth. Vehena, the Darkspear cloth quartermaster, stands in Orgrimmar's Valley of Spirits. She takes four one-time donations of 60 cloth (150 each) and then Additional Runecloth, 20 Runecloth for 50, as often as you like. Every point you earn with the Darkspear Trolls also gives a quarter as much to Orgrimmar, Thunder Bluff and the Undercity. While you level, do the Darkspear quests within 5 levels of them: Durotar at 5 to 12, Zoram Strand in Ashenvale at 19 to 27, Grom'gol in Stranglethorn at 34 to 46. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored the Darkspear merchants sell to you for 10% less (the Classic rule), the raptor vendor included; at Exalted other races can buy the raptors: 20 gold for a level 40 raptor, 200 gold for a swift raptor at level 60, once you have mount training. The Darkspear Trolls have no tabard or other reward.
   accept 7833                         -- Vehena: A Donation of Wool, +150
 
-step Everlook: A Little Luck
-  zone Winterspring
-  tip Luck Be With You is level 60, so it pays in full. Harlo Wigglesworth in Everlook sends you to Witch Doctor Mau'ari, who stands in the same town. The Frostmaul Shards lie on the ground in Frostwhisper Gorge, the canyon at the south end of Winterspring, and the Frostmaul Giants there drop them too (about one in five). The giants are elite level 59 and 60 and stand close together: pick the shards at the edges, pull one giant at a time, or bring a friend.
-  level 55
-  accept 6606                         -- Harlo Wigglesworth: A Little Luck
-  turnin 6606                         -- Witch Doctor Mau'ari
-  accept 969                          -- Luck Be With You, +100
-  collect 12334 x4 quest 969.1        -- Frostmaul Shards
-  turnin 969
-
-step Blackrock Mountain, with a group
-  zone Badlands
-  tip For The Horde! (Rend's head, Blackrock Spire) and The Lord of Blackrock (Nefarian's head) pay 200 to every Horde city, the Darkspear Trolls included. Kargath in the Badlands starts the Rend chain: Warlord's Command, Eitrigg's Wisdom, then For The Horde!. Take them when your group goes. The Spider God chain of the Undercity guide (Zul'Farrak and the Hinterlands) pays 225 Darkspear on the way.
-  accept 4903 optional                -- Warlord Goretooth: Warlord's Command, a group of five
-
 step Valley of Trials (optional hub)
   label valley
   zone Durotar
@@ -312,6 +297,21 @@ step A Donation of Runecloth
   zone Eastern Plaguelands
   collect 14047 x60 quest 7836.1 live @68,69.5 -- Runecloth: the Scarlet outside Tyr's Hand
   turnin 7836
+
+step Everlook: A Little Luck
+  zone Winterspring
+  tip Luck Be With You is level 60, so it pays in full. Harlo Wigglesworth in Everlook sends you to Witch Doctor Mau'ari, who stands in the same town. The Frostmaul Shards lie on the ground in Frostwhisper Gorge, the canyon at the south end of Winterspring, and the Frostmaul Giants there drop them too (about one in five). The giants are elite level 59 and 60 and stand close together: pick the shards at the edges, pull one giant at a time, or bring a friend.
+  level 55
+  accept 6606                         -- Harlo Wigglesworth: A Little Luck
+  turnin 6606                         -- Witch Doctor Mau'ari
+  accept 969                          -- Luck Be With You, +100
+  collect 12334 x4 quest 969.1        -- Frostmaul Shards
+  turnin 969
+
+step Blackrock Mountain, with a group
+  zone Badlands
+  tip For The Horde! (Rend's head, Blackrock Spire) and The Lord of Blackrock (Nefarian's head) pay 200 to every Horde city, the Darkspear Trolls included. Kargath in the Badlands starts the Rend chain: Warlord's Command, Eitrigg's Wisdom, then For The Horde!. Take them when your group goes. The Spider God chain of the Undercity guide (Zul'Farrak and the Hinterlands) pays 225 Darkspear on the way.
+  accept 4903 optional                -- Warlord Goretooth: Warlord's Command, a group of five
 
 step Additional Runecloth to Honored
   zone Eastern Plaguelands

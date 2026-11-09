@@ -44,8 +44,8 @@ return {
 	["Buy a {item:6291} at the Auction House ({npc:8674}, north of the pool), or fish one yourself: {npc:3028} trains {skill:356} and {npc:3029} beside him sells the {item:6256} and a {item:6529}; the pool on the main mesa gives smallfish at any skill. Then use the {item:206344} on it, wherever you are."] = "",
 	-- {item:6291} Raw Brilliant Smallfish
 	["{item:6291}: the Auction House, or the pool; the knife takes it"] = "",
-	-- {item:206345} Fish Chunks
-	["fillet the smallfish into {item:206345}"] = "",
+	-- {item:206345} Fish Chunks · {npc:205729} Boarton Shadetotem
+	["fillet the smallfish into {item:206345} (where players did it, on the way back to {npc:205729})"] = "",
 
 	-- Step 7: Boarton Shadetotem
 	-- {npc:205729} Boarton Shadetotem · {item:277988} Hoof-Holstered Blade · {item:278002} Valley Cosh

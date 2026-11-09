@@ -22,7 +22,8 @@ why Cloth, the Western Plaguelands' cauldron quests and the Elwynn hubs: the que
 # The quest hubs below are optional: each hub's first step carries a label,
 # the steps after it run only when it was done (`when done`), so skipping the
 # first step skips the hub.
-# Level 52-58 quests first (they pay in full at 60): Chillwind
+# Order: the Elwynn hubs, the cloth donations, then the level 52-58 quests
+# (their first step waits for 55), then Additional Runecloth. The late quests: Chillwind
 # Camp's cauldron chain (5092-5226, 5097: 820, and 600 Argent Dawn), Janice
 # Felstone's parcel (5021-5048: 150) and The True Masters up to Stormwind
 # Keep (4182-4186: 175, and 175 Darnassus). Left to a tip: the Blackrock
@@ -49,126 +50,6 @@ step Clavicus Knavingham, the cloth quartermaster
   accept 7791
   turnin 7791
 
-step A Donation of Silk
-  tip Silk Cloth drops from humanoids level 23 to 40: Syndicate in Alterac and Arathi, the Defias of Duskwood's Raven Hill, Stranglethorn's trolls.
-  level 26
-  collect 4306 x60 nearest
-  accept 7793
-  turnin 7793
-
-step A Donation of Mageweave
-  tip Mageweave Cloth drops from humanoids level 35 to 50: the Dunemaul ogres of Tanaris, the Hatecrest naga of Feralas, the Shadowforge dwarves of the Badlands.
-  level 40
-  collect 4338 x60 nearest
-  accept 7794
-  turnin 7794
-
-step A Donation of Runecloth
-  tip Runecloth drops from humanoids level 50 and up: the Scourge cultists and Scarlet Crusade in the Plaguelands, the Deadwood furbolgs of Felwood, the Winterfall furbolgs of Winterspring. Keep any Runecloth past the first 60: it all goes to Additional Runecloth later.
-  level 50
-  collect 14047 x60 nearest
-  accept 7795
-  turnin 7795
-
-step Chillwind Camp: Clear the Way
-  zone Western Plaguelands
-  tip These quests are level 52 to 58, so they pay in full at 60. Commander Ashlam Valorfist and High Priestess MacDonnell at Chillwind Camp, in the south of the Western Plaguelands, send you against the four Scourge cauldrons: 820 Stormwind reputation in all and 600 Argent Dawn on the side. The Skeletal Flayers and Slavering Ghouls roam the fields north of the camp.
-  level 55
-  accept 5092                         -- Clear the Way, +100
-  kill 1783 x10 quest 5092.1          -- Skeletal Flayer
-  kill 1791 x10 quest 5092.2          -- Slavering Ghoul
-  turnin 5092
-  accept 5097                         -- All Along the Watchtowers, +100
-  accept 5215                         -- The Scourge Cauldrons, +10
-  turnin 5215                         -- High Priestess MacDonnell
-  accept 5216                         -- Target: Felstone Field, +100
-
-step Andorhal and Felstone Field
-  tip Mark the four watchtowers around Andorhal, north of the camp, with the Beacon Torch at each door. Cauldron Lord Bilemaw guards the cauldron at Felstone Field, west of Andorhal; his key opens it. Janice Felstone's ghost wanders by the Felstone farmhouse, and her parcel lies inside: it goes to Stormwind for 150 more.
-  kill 10902 quest 5097.1 "Mark Andorhal Tower One with the Beacon Torch"
-  kill 10903 quest 5097.2 "Mark Andorhal Tower Two with the Beacon Torch"
-  kill 10904 quest 5097.3 "Mark Andorhal Tower Three with the Beacon Torch"
-  kill 10905 quest 5097.4 "Mark Andorhal Tower Four with the Beacon Torch"
-  collect 13194 quest 5216.1          -- Felstone Field Cauldron Key, from Cauldron Lord Bilemaw
-  turnin 5216                         -- the Scourge Cauldron
-  accept 5217                         -- Return to Chillwind Camp, +50
-  accept 5021                         -- Janice Felstone
-  turnin 5021                         -- Janice's Parcel, in the farmhouse
-  accept 5022                         -- Better Late Than Never, +50
-
-step Chillwind Camp: Dalson's Tears
-  turnin 5097
-  turnin 5217
-  accept 5219                         -- Target: Dalson's Tears, +100
-
-step Dalson's Tears
-  tip Cauldron Lord Malvinious guards the cauldron at Dalson's Tears, north-east of Felstone Field.
-  collect 13195 quest 5219.1          -- Dalson's Tears Cauldron Key
-  turnin 5219                         -- the Scourge Cauldron
-  accept 5220                         -- Return to Chillwind Camp, +50
-
-step Chillwind Camp: the Writhing Haunt
-  turnin 5220
-  accept 5222                         -- Target: Writhing Haunt, +100
-
-step The Writhing Haunt
-  tip Cauldron Lord Razarch guards the cauldron at the Writhing Haunt, the farm east of Dalson's Tears.
-  collect 13197 quest 5222.1          -- Writhing Haunt Cauldron Key
-  turnin 5222                         -- the Scourge Cauldron
-  accept 5223                         -- Return to Chillwind Camp, +50
-
-step Chillwind Camp: Gahrron's Withering
-  turnin 5223
-  accept 5225                         -- Target: Gahrron's Withering, +100
-
-step Gahrron's Withering
-  tip Cauldron Lord Soulwrath guards the cauldron at Gahrron's Withering, in the east of the zone.
-  collect 13196 quest 5225.1          -- Gahrron's Withering Cauldron Key
-  turnin 5225                         -- the Scourge Cauldron
-  accept 5226                         -- Return to Chillwind Camp, +50
-
-step Chillwind Camp: done
-  tip Alchemist Arbington in the camp also ends The Key to Scholomance (200), after a longer chain that needs a Scholomance group.
-  turnin 5226
-
-step Stormwind: Janice's parcel
-  zone Stormwind City
-  tip Royal Factor Bathrilor stands in the city hall on Cathedral Square, beside Baros Alexston; Ol' Emma walks the canals.
-  turnin 5022                         -- Royal Factor Bathrilor
-  accept 5048                         -- Good Natured Emma, +100
-  turnin 5048                         -- Ol' Emma
-
-step Morgan's Vigil: Dragonkin Menace
-  zone Burning Steppes
-  tip Helendis Riverhorn at Morgan's Vigil, in the south-east of the Burning Steppes, starts The True Masters: a chain to Lakeshire and Stormwind Keep, 175 Stormwind and 175 Darnassus reputation (level 54). The Black Broodlings and the Black Drake live on the slopes north of the Vigil; the Black Dragonspawn and Black Wyrmkin west of it, in the middle of the zone.
-  accept 4182                         -- Dragonkin Menace, +100 Darnassus
-  kill 7047 x15 quest 4182.1          -- Black Broodling
-  kill 7040 x10 quest 4182.2          -- Black Dragonspawn
-  kill 7044 quest 4182.3              -- Black Drake
-  kill 7041 x4 quest 4182.4           -- Black Wyrmkin
-  turnin 4182
-  accept 4183                         -- The True Masters, +75 Darnassus
-
-step Lakeshire: Magistrate Solomon
-  zone Redridge Mountains
-  tip Magistrate Solomon waits in the town hall of Lakeshire.
-  turnin 4183
-  accept 4184                         -- The True Masters, +75
-
-step Stormwind Keep
-  zone Stormwind City
-  tip Highlord Bolvar Fordragon holds court in Stormwind Keep with Lady Katrana Prestor at his side: speak with her for the second of his quests.
-  turnin 4184                         -- Highlord Bolvar Fordragon
-  accept 4185
-  kill 1749 quest 4185.1 "Speak with Lady Katrana Prestor"
-  turnin 4185
-  accept 4186                         -- The True Masters, +100
-
-step Lakeshire: Solomon again
-  zone Redridge Mountains
-  tip With a group the chain goes on into Blackrock Depths: Marshal Windsor, Jail Break! and The Great Masquerade back in Stormwind pay about 750 Stormwind more, Maxwell's Mission (Lower Blackrock Spire) 250, Delivery to Ridgewell 135. Order Must Be Restored (Nathanos Blightcaller in the Eastern Plaguelands) pays 200, The Key to Scholomance 200; Onyxia's head 400 and Nefarian's 200 when the raids open.
-  turnin 4186                         -- Magistrate Solomon
-
 step Stormwind errands
   label sw-city
   zone Stormwind City
@@ -179,25 +60,6 @@ step Stormwind errands
   accept 334
   turnin 334
   turnin 332
-
-step The Stockade: two quests
-  label sw-stockade
-  tip Optional: the Stockade is Stormwind's prison, a dungeon in the canals of the Mage Quarter. At 60 you clear it alone in ten minutes: 300 reputation. Warden Thelwater stands at the gate, Nikova Raskol in Old Town. Two more Stockade quests start outside the city, 100 each, if you pass by: What Comes Around... (Targorr the Dread) from Guard Berton in Lakeshire and Crime and Punishment (Dextren Ward) from Councilman Millstipe in Darkshire. (The Stockade Riots, 100 more, needs the Unsent Letter from Edwin VanCleef in the Deadmines first.) Forever pays these old quests in full at any level. Skip this step to skip the hub.
-  accept 387
-  accept 388
-
-step Inside the Stockade
-  when done sw-stockade
-  tip Kill the prisoners, convicts and insurgents in the cells; the Red Wool Bandanas drop from the Defias inside. Bazil Thredd waits in the far end.
-  kill 1706 x10 quest 387.1 @52.4,70.0 live -- Defias Prisoner
-  kill 1711 x8 quest 387.2 @52.4,70.0 live -- Defias Convict
-  kill 1715 x8 quest 387.3 @52.4,70.0 live -- Defias Insurgent
-  collect 2909 x10 quest 388.1 @52.4,70.0 live -- Red Wool Bandana
-
-step The Stockade: hand in
-  when done sw-stockade
-  turnin 387
-  turnin 388
 
 step Northshire Valley
   label sw-northshire
@@ -421,6 +283,146 @@ step Eastvale: Defias Rogue Wizards
   turnin 59                           -- Sara Timberlain, Eastvale Logging Camp
   collect 780 x8 quest 46.1           -- Torn Murloc Fin, from the murlocs south of the bridge
   turnin 46
+
+step The Stockade: two quests
+  label sw-stockade
+  tip Optional: the Stockade is Stormwind's prison, a dungeon in the canals of the Mage Quarter. At 60 you clear it alone in ten minutes: 300 reputation. Warden Thelwater stands at the gate, Nikova Raskol in Old Town. Two more Stockade quests start outside the city, 100 each, if you pass by: What Comes Around... (Targorr the Dread) from Guard Berton in Lakeshire and Crime and Punishment (Dextren Ward) from Councilman Millstipe in Darkshire. (The Stockade Riots, 100 more, needs the Unsent Letter from Edwin VanCleef in the Deadmines first.) Forever pays these old quests in full at any level. Skip this step to skip the hub.
+  level 22
+  accept 387
+  accept 388
+
+step Inside the Stockade
+  when done sw-stockade
+  tip Kill the prisoners, convicts and insurgents in the cells; the Red Wool Bandanas drop from the Defias inside. Bazil Thredd waits in the far end.
+  kill 1706 x10 quest 387.1 @52.4,70.0 live -- Defias Prisoner
+  kill 1711 x8 quest 387.2 @52.4,70.0 live -- Defias Convict
+  kill 1715 x8 quest 387.3 @52.4,70.0 live -- Defias Insurgent
+  collect 2909 x10 quest 388.1 @52.4,70.0 live -- Red Wool Bandana
+
+step The Stockade: hand in
+  when done sw-stockade
+  turnin 387
+  turnin 388
+
+step A Donation of Silk
+  tip Silk Cloth drops from humanoids level 23 to 40: Syndicate in Alterac and Arathi, the Defias of Duskwood's Raven Hill, Stranglethorn's trolls.
+  level 26
+  collect 4306 x60 nearest
+  accept 7793
+  turnin 7793
+
+step A Donation of Mageweave
+  tip Mageweave Cloth drops from humanoids level 35 to 50: the Dunemaul ogres of Tanaris, the Hatecrest naga of Feralas, the Shadowforge dwarves of the Badlands.
+  level 40
+  collect 4338 x60 nearest
+  accept 7794
+  turnin 7794
+
+step A Donation of Runecloth
+  tip Runecloth drops from humanoids level 50 and up: the Scourge cultists and Scarlet Crusade in the Plaguelands, the Deadwood furbolgs of Felwood, the Winterfall furbolgs of Winterspring. Keep any Runecloth past the first 60: it all goes to Additional Runecloth later.
+  level 50
+  collect 14047 x60 nearest
+  accept 7795
+  turnin 7795
+
+step Chillwind Camp: Clear the Way
+  zone Western Plaguelands
+  tip These quests are level 52 to 58, so they pay in full at 60. Commander Ashlam Valorfist and High Priestess MacDonnell at Chillwind Camp, in the south of the Western Plaguelands, send you against the four Scourge cauldrons: 820 Stormwind reputation in all and 600 Argent Dawn on the side. The Skeletal Flayers and Slavering Ghouls roam the fields north of the camp.
+  level 55
+  accept 5092                         -- Clear the Way, +100
+  kill 1783 x10 quest 5092.1          -- Skeletal Flayer
+  kill 1791 x10 quest 5092.2          -- Slavering Ghoul
+  turnin 5092
+  accept 5097                         -- All Along the Watchtowers, +100
+  accept 5215                         -- The Scourge Cauldrons, +10
+  turnin 5215                         -- High Priestess MacDonnell
+  accept 5216                         -- Target: Felstone Field, +100
+
+step Andorhal and Felstone Field
+  tip Mark the four watchtowers around Andorhal, north of the camp, with the Beacon Torch at each door. Cauldron Lord Bilemaw guards the cauldron at Felstone Field, west of Andorhal; his key opens it. Janice Felstone's ghost wanders by the Felstone farmhouse, and her parcel lies inside: it goes to Stormwind for 150 more.
+  kill 10902 quest 5097.1 "Mark Andorhal Tower One with the Beacon Torch"
+  kill 10903 quest 5097.2 "Mark Andorhal Tower Two with the Beacon Torch"
+  kill 10904 quest 5097.3 "Mark Andorhal Tower Three with the Beacon Torch"
+  kill 10905 quest 5097.4 "Mark Andorhal Tower Four with the Beacon Torch"
+  collect 13194 quest 5216.1          -- Felstone Field Cauldron Key, from Cauldron Lord Bilemaw
+  turnin 5216                         -- the Scourge Cauldron
+  accept 5217                         -- Return to Chillwind Camp, +50
+  accept 5021                         -- Janice Felstone
+  turnin 5021                         -- Janice's Parcel, in the farmhouse
+  accept 5022                         -- Better Late Than Never, +50
+
+step Chillwind Camp: Dalson's Tears
+  turnin 5097
+  turnin 5217
+  accept 5219                         -- Target: Dalson's Tears, +100
+
+step Dalson's Tears
+  tip Cauldron Lord Malvinious guards the cauldron at Dalson's Tears, north-east of Felstone Field.
+  collect 13195 quest 5219.1          -- Dalson's Tears Cauldron Key
+  turnin 5219                         -- the Scourge Cauldron
+  accept 5220                         -- Return to Chillwind Camp, +50
+
+step Chillwind Camp: the Writhing Haunt
+  turnin 5220
+  accept 5222                         -- Target: Writhing Haunt, +100
+
+step The Writhing Haunt
+  tip Cauldron Lord Razarch guards the cauldron at the Writhing Haunt, the farm east of Dalson's Tears.
+  collect 13197 quest 5222.1          -- Writhing Haunt Cauldron Key
+  turnin 5222                         -- the Scourge Cauldron
+  accept 5223                         -- Return to Chillwind Camp, +50
+
+step Chillwind Camp: Gahrron's Withering
+  turnin 5223
+  accept 5225                         -- Target: Gahrron's Withering, +100
+
+step Gahrron's Withering
+  tip Cauldron Lord Soulwrath guards the cauldron at Gahrron's Withering, in the east of the zone.
+  collect 13196 quest 5225.1          -- Gahrron's Withering Cauldron Key
+  turnin 5225                         -- the Scourge Cauldron
+  accept 5226                         -- Return to Chillwind Camp, +50
+
+step Chillwind Camp: done
+  tip Alchemist Arbington in the camp also ends The Key to Scholomance (200), after a longer chain that needs a Scholomance group.
+  turnin 5226
+
+step Stormwind: Janice's parcel
+  zone Stormwind City
+  tip Royal Factor Bathrilor stands in the city hall on Cathedral Square, beside Baros Alexston; Ol' Emma walks the canals.
+  turnin 5022                         -- Royal Factor Bathrilor
+  accept 5048                         -- Good Natured Emma, +100
+  turnin 5048                         -- Ol' Emma
+
+step Morgan's Vigil: Dragonkin Menace
+  zone Burning Steppes
+  tip Helendis Riverhorn at Morgan's Vigil, in the south-east of the Burning Steppes, starts The True Masters: a chain to Lakeshire and Stormwind Keep, 175 Stormwind and 175 Darnassus reputation (level 54). The Black Broodlings and the Black Drake live on the slopes north of the Vigil; the Black Dragonspawn and Black Wyrmkin west of it, in the middle of the zone.
+  accept 4182                         -- Dragonkin Menace, +100 Darnassus
+  kill 7047 x15 quest 4182.1          -- Black Broodling
+  kill 7040 x10 quest 4182.2          -- Black Dragonspawn
+  kill 7044 quest 4182.3              -- Black Drake
+  kill 7041 x4 quest 4182.4           -- Black Wyrmkin
+  turnin 4182
+  accept 4183                         -- The True Masters, +75 Darnassus
+
+step Lakeshire: Magistrate Solomon
+  zone Redridge Mountains
+  tip Magistrate Solomon waits in the town hall of Lakeshire.
+  turnin 4183
+  accept 4184                         -- The True Masters, +75
+
+step Stormwind Keep
+  zone Stormwind City
+  tip Highlord Bolvar Fordragon holds court in Stormwind Keep with Lady Katrana Prestor at his side: speak with her for the second of his quests.
+  turnin 4184                         -- Highlord Bolvar Fordragon
+  accept 4185
+  kill 1749 quest 4185.1 "Speak with Lady Katrana Prestor"
+  turnin 4185
+  accept 4186                         -- The True Masters, +100
+
+step Lakeshire: Solomon again
+  zone Redridge Mountains
+  tip With a group the chain goes on into Blackrock Depths: Marshal Windsor, Jail Break! and The Great Masquerade back in Stormwind pay about 750 Stormwind more, Maxwell's Mission (Lower Blackrock Spire) 250, Delivery to Ridgewell 135. Order Must Be Restored (Nathanos Blightcaller in the Eastern Plaguelands) pays 200, The Key to Scholomance 200; Onyxia's head 400 and Nefarian's 200 when the raids open.
+  turnin 4186                         -- Magistrate Solomon
 
 step Additional Runecloth to Honored
   zone Stormwind City

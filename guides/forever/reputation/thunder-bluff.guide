@@ -28,9 +28,11 @@ why Mulgore quests while you level, Winterspring quests and Morrowgrain from 55,
 # The Legacy perk Diplomat adds 2% a rank, 10% at 5/5: the numbers here leave
 # it out. City reputation also gives a quarter to the other Horde cities
 # (Faction table: parent Horde, 0.25), except starting-zone quests.
-# The Winterspring chain comes first, then the old hubs as optional steps (the
+# Order: the old hubs as optional steps (the
 # first step of each carries a label; skipping it skips the hub), ranked by
-# reputation per minute.
+# reputation per minute. Then the cloth
+# donations, then the level 55-60 quests (their first step waits for 55), then
+# Additional Runecloth to Exalted.
 # Low-level quests pay their full reputation in Forever at any level: in players' recordings every
 # quest turn-in 10 to 29 levels above the quest paid all of it (72 turn-ins, over 40 people, 2026-11-09),
 # as one beta report said (quest 456 at level 30). Classic cut it to a fifth.
@@ -50,103 +52,6 @@ why Mulgore quests while you level, Winterspring quests and Morrowgrain from 55,
 step Thunder Bluff: how it works
   tip Thunder Bluff reputation comes from quests, Morrowgrain and cloth. Rumstag Proudstrider, the cloth quartermaster, stands on the central rise among the leatherworkers' and tailors' tents. He takes four one-time donations of 60 cloth (150 each) and then Additional Runecloth, 20 Runecloth for 50, as often as you like. Every point you earn with Thunder Bluff also gives a quarter as much to Orgrimmar, the Undercity and the Darkspear Trolls. While you level, do Thunder Bluff's quests within 5 levels of them: Mulgore at 1 to 12, Camp Taurajo and the Crossroads at 13 to 22, Thousand Needles at 25 to 30. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Thunder Bluff's merchants sell to you for 10% less (the Classic rule), the kodo vendor included; at Exalted other races can buy the kodos: 20 gold for a level 40 kodo, 200 gold for a great kodo at level 60, once you have mount training. Thunder Bluff has no tabard or other reward.
   accept 7820                         -- Rumstag Proudstrider: A Donation of Wool, +150
-
-step Everlook: Storm Shadowhoof
-  zone Winterspring
-  tip Storm Shadowhoof's four quests are level 56 to 60, so they pay in full: 400 Thunder Bluff reputation. Ursius, an elite bear, walks a loop over the four hills north of Everlook: wait on a hilltop for him.
-  level 55
-  accept 5054                         -- Ursius of the Shardtooth, +100
-  kill 10806 quest 5054.1             -- Ursius, elite
-  turnin 5054
-  accept 5055                         -- Brumeran of the Chillwind, +100
-
-step Brumeran and Shy-Rotam
-  tip Brumeran, an elite chimera, spawns south of Everlook. For Shy-Rotam, kill frostsabers north of Everlook until one drops Sacred Frostsaber Meat (about one in ten), then use the meat at the Stone of Shy-Rotam, far to the north, and kill the great cat that comes. If you have done Trull Failbane's Wild Guardians quests (the Orgrimmar guide), the Crazed, Moontouched and Berserk owlbeasts around Everlook sometimes drop a Blue-feathered Necklace: it starts Guarding Secrets, 50 Orgrimmar and then 100 Thunder Bluff reputation in full.
-  kill 10807 quest 5055.1             -- Brumeran, elite
-  turnin 5055                         -- Storm Shadowhoof
-  accept 5056                         -- Shy-Rotam, +150
-  collect 12733 optional              -- Sacred Frostsaber Meat, from the frostsabers
-  kill 10737 quest 5056.1             -- Shy-Rotam
-  turnin 5056                         -- Storm Shadowhoof
-  accept 5057                         -- Past Endeavors, +50
-  turnin 5057
-
-step Bloodvenom Post: Trull Failbane
-  when onquest 4882
-  zone Felwood
-  tip Trull Failbane stands at Bloodvenom Post, through the Timbermaw tunnel south of Winterspring.
-  turnin 4882                         -- Trull Failbane
-  accept 4883                         -- Guarding Secrets, +100: to Nara Wildmane in Thunder Bluff
-
-step Thunder Bluff: Nara Wildmane
-  when onquest 4883
-  zone Thunder Bluff
-  tip Nara Wildmane stands on Elder Rise, beside Arch Druid Hamuul Runetotem.
-  turnin 4883                         -- Nara Wildmane
-
-step Morrowgrain (optional)
-  label morrowgrain
-  zone Thunder Bluff
-  tip Morrowgrain to Thunder Bluff takes 10 Morrowgrain for 50, as often as you like, and pays in full at 60, but it is slow: the Evergreen Pouch grows one casing every 10 minutes and a casing holds about one Morrowgrain on average, so each hand-in takes about 90 minutes of waiting, 18 Un'Goro Soil and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50. Innkeeper Pala sends you to Arch Druid Hamuul Runetotem on Elder Rise; he wants 20 Un'Goro Soil.
-  accept 3762                         -- Innkeeper Pala: Assisting Arch Druid Runetotem
-  turnin 3762                         -- Arch Druid Hamuul Runetotem
-  accept 3761                         -- Un'Goro Soil, +100
-
-step Un'Goro Crater: Un'Goro Soil
-  when done morrowgrain
-  zone Un'Goro Crater
-  tip Nearly every beast, plant and silithid in the crater drops Un'Goro Soil, about one kill in three (the Bloodpetals and the Gorishi wasps about one in two), and the dirt mounds give it too. Take far more than 20: every casing uses 2, about 18 for each Morrowgrain hand-in.
-  collect 11018 x20 quest 3761.1      -- Un'Goro Soil
-
-step Thunder Bluff: Morrowgrain Research
-  when done morrowgrain
-  zone Thunder Bluff
-  tip Ghede takes the soil. Bashana Runetotem sells the Evergreen Pouch (1 gold) and Packets of Tharlendris Seeds (10 silver each). With a seed packet and 2 Un'Goro Soil in your bags, use the pouch: it grows an Evergreen Herb Casing, once every 10 minutes. Open each casing: about one in three holds 1 to 5 Morrowgrain, the rest common herbs. Use the pouch whenever it is ready while you follow the rest of this guide.
-  turnin 3761                         -- Ghede
-  accept 3782                         -- Arch Druid Hamuul Runetotem: Morrowgrain Research
-  turnin 3782                         -- Bashana Runetotem
-  accept 3786                         -- Morrowgrain Research, +100
-  buy 11020 npc 9087                  -- Evergreen Pouch, 1 gold
-  buy 11022 x10 npc 9087              -- Packet of Tharlendris Seeds, 10 silver each
-
-step Morrowgrain as you go
-  when done morrowgrain
-  along until morrowgrain-in
-  collect 11040 x10 quest 3786.1 @71.1,34.2 -- Morrowgrain: use the pouch every 10 minutes and open the casings; Bashana takes it
-
-step Gloomrise (optional hub)
-  label gloomrise
-  zone Mulgore
-  tip Forever pays these old quests in full at any level. The Earthen Ring camp on the Skywatcher Plateau, north-west of Thunder Bluff: 300 Thunder Bluff reputation in 20 minutes, plus 100 each for Orgrimmar and the Darkspear Trolls and 450 Earthen Ring. Muln Earthfury, Mazu'kon and Yorn Grimtotem stand in the camp.
-  accept 96259                        -- Muln Earthfury: Defending the Dead, +100 (The Broodmother comes once it is handed in)
-  accept 96241                        -- Mazu'kon: Talkin' bout Toxins, Mon (Darkspear +100)
-  accept 96260                        -- Yorn Grimtotem: Stronger than Steel, +100
-
-step Gloomrise
-  when done gloomrise
-  tip Gloomrise is the tauren burial ground north of Thunder Bluff. Use the Toxin Extractor on the Gnawed Corpses. Broodmother Valraxx waits at the heart of it; her body carries a Bloody Parchment: read it to start A Darker Truth.
-  kill 264079 x10 quest 96259.1       -- Gloomrise Hatchling
-  kill 264083 x5 quest 96259.2        -- Gloomrise Soldier
-  collect 273181 x3 quest 96260.1     -- Crystalline Silk, from Gloomrise Spinners
-  collect 273001 x5 quest 96241.1     -- Gloomrise Toxin Sample
-
-step The Skywatcher camp: hand in
-  when done gloomrise
-  tip Muln Earthfury offers The Broodmother only once Defending the Dead is handed in.
-  turnin 96259
-  accept 96261                        -- Muln Earthfury: The Broodmother
-  turnin 96241
-  turnin 96260
-
-step Broodmother Valraxx
-  when done gloomrise
-  kill 264082 quest 96261.1           -- Broodmother Valraxx, at the heart of Gloomrise
-  accept 96294 item 273658            -- Bloody Parchment: A Darker Truth, +100 (Orgrimmar +100)
-
-step The Skywatcher camp: hand in
-  when done gloomrise
-  turnin 96261
-  turnin 96294                        -- Muln Earthfury
 
 step Camp Narache (optional hub)
   label narache
@@ -277,14 +182,40 @@ step Thunder Bluff: Cairne
   zone Thunder Bluff
   turnin 99082                        -- Cairne Bloodhoof
 
-step Bashana Runetotem: Morrowgrain Research
-  label morrowgrain-in
-  when done morrowgrain
-  zone Thunder Bluff
-  tip Bashana Runetotem stands on Elder Rise. If your 10 Morrowgrain are not ready yet, skip this step and go on with the cloth: the cloth steps below list the Morrowgrain hand-in too.
-  turnin 3786                         -- Bashana Runetotem
-  collect 11040 x10 optional @71.1,34.2 -- Morrowgrain
-  turnin 3804 direct optional         -- Morrowgrain to Thunder Bluff, +50
+step Gloomrise (optional hub)
+  label gloomrise
+  zone Mulgore
+  tip Forever pays these old quests in full at any level. The Earthen Ring camp on the Skywatcher Plateau, north-west of Thunder Bluff: 300 Thunder Bluff reputation in 20 minutes, plus 100 each for Orgrimmar and the Darkspear Trolls and 450 Earthen Ring. Muln Earthfury, Mazu'kon and Yorn Grimtotem stand in the camp.
+  level 23
+  accept 96259                        -- Muln Earthfury: Defending the Dead, +100 (The Broodmother comes once it is handed in)
+  accept 96241                        -- Mazu'kon: Talkin' bout Toxins, Mon (Darkspear +100)
+  accept 96260                        -- Yorn Grimtotem: Stronger than Steel, +100
+
+step Gloomrise
+  when done gloomrise
+  tip Gloomrise is the tauren burial ground north of Thunder Bluff. Use the Toxin Extractor on the Gnawed Corpses. Broodmother Valraxx waits at the heart of it; her body carries a Bloody Parchment: read it to start A Darker Truth.
+  kill 264079 x10 quest 96259.1       -- Gloomrise Hatchling
+  kill 264083 x5 quest 96259.2        -- Gloomrise Soldier
+  collect 273181 x3 quest 96260.1     -- Crystalline Silk, from Gloomrise Spinners
+  collect 273001 x5 quest 96241.1     -- Gloomrise Toxin Sample
+
+step The Skywatcher camp: hand in
+  when done gloomrise
+  tip Muln Earthfury offers The Broodmother only once Defending the Dead is handed in.
+  turnin 96259
+  accept 96261                        -- Muln Earthfury: The Broodmother
+  turnin 96241
+  turnin 96260
+
+step Broodmother Valraxx
+  when done gloomrise
+  kill 264082 quest 96261.1           -- Broodmother Valraxx, at the heart of Gloomrise
+  accept 96294 item 273658            -- Bloody Parchment: A Darker Truth, +100 (Orgrimmar +100)
+
+step The Skywatcher camp: hand in
+  when done gloomrise
+  turnin 96261
+  turnin 96294                        -- Muln Earthfury
 
 step Rumstag Proudstrider: A Donation of Wool
   zone Thunder Bluff
@@ -316,6 +247,78 @@ step A Donation of Runecloth
   zone Eastern Plaguelands
   collect 14047 x60 quest 7823.1 live @68,69.5 -- Runecloth: the Scarlet outside Tyr's Hand
   turnin 7823
+
+step Everlook: Storm Shadowhoof
+  zone Winterspring
+  tip Storm Shadowhoof's four quests are level 56 to 60, so they pay in full: 400 Thunder Bluff reputation. Ursius, an elite bear, walks a loop over the four hills north of Everlook: wait on a hilltop for him.
+  level 55
+  accept 5054                         -- Ursius of the Shardtooth, +100
+  kill 10806 quest 5054.1             -- Ursius, elite
+  turnin 5054
+  accept 5055                         -- Brumeran of the Chillwind, +100
+
+step Brumeran and Shy-Rotam
+  tip Brumeran, an elite chimera, spawns south of Everlook. For Shy-Rotam, kill frostsabers north of Everlook until one drops Sacred Frostsaber Meat (about one in ten), then use the meat at the Stone of Shy-Rotam, far to the north, and kill the great cat that comes. If you have done Trull Failbane's Wild Guardians quests (the Orgrimmar guide), the Crazed, Moontouched and Berserk owlbeasts around Everlook sometimes drop a Blue-feathered Necklace: it starts Guarding Secrets, 50 Orgrimmar and then 100 Thunder Bluff reputation in full.
+  kill 10807 quest 5055.1             -- Brumeran, elite
+  turnin 5055                         -- Storm Shadowhoof
+  accept 5056                         -- Shy-Rotam, +150
+  collect 12733 optional              -- Sacred Frostsaber Meat, from the frostsabers
+  kill 10737 quest 5056.1             -- Shy-Rotam
+  turnin 5056                         -- Storm Shadowhoof
+  accept 5057                         -- Past Endeavors, +50
+  turnin 5057
+
+step Bloodvenom Post: Trull Failbane
+  when onquest 4882
+  zone Felwood
+  tip Trull Failbane stands at Bloodvenom Post, through the Timbermaw tunnel south of Winterspring.
+  turnin 4882                         -- Trull Failbane
+  accept 4883                         -- Guarding Secrets, +100: to Nara Wildmane in Thunder Bluff
+
+step Thunder Bluff: Nara Wildmane
+  when onquest 4883
+  zone Thunder Bluff
+  tip Nara Wildmane stands on Elder Rise, beside Arch Druid Hamuul Runetotem.
+  turnin 4883                         -- Nara Wildmane
+
+step Morrowgrain (optional)
+  label morrowgrain
+  zone Thunder Bluff
+  tip Morrowgrain to Thunder Bluff takes 10 Morrowgrain for 50, as often as you like, and pays in full at 60, but it is slow: the Evergreen Pouch grows one casing every 10 minutes and a casing holds about one Morrowgrain on average, so each hand-in takes about 90 minutes of waiting, 18 Un'Goro Soil and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50. Innkeeper Pala sends you to Arch Druid Hamuul Runetotem on Elder Rise; he wants 20 Un'Goro Soil.
+  accept 3762                         -- Innkeeper Pala: Assisting Arch Druid Runetotem
+  turnin 3762                         -- Arch Druid Hamuul Runetotem
+  accept 3761                         -- Un'Goro Soil, +100
+
+step Un'Goro Crater: Un'Goro Soil
+  when done morrowgrain
+  zone Un'Goro Crater
+  tip Nearly every beast, plant and silithid in the crater drops Un'Goro Soil, about one kill in three (the Bloodpetals and the Gorishi wasps about one in two), and the dirt mounds give it too. Take far more than 20: every casing uses 2, about 18 for each Morrowgrain hand-in.
+  collect 11018 x20 quest 3761.1      -- Un'Goro Soil
+
+step Thunder Bluff: Morrowgrain Research
+  when done morrowgrain
+  zone Thunder Bluff
+  tip Ghede takes the soil. Bashana Runetotem sells the Evergreen Pouch (1 gold) and Packets of Tharlendris Seeds (10 silver each). With a seed packet and 2 Un'Goro Soil in your bags, use the pouch: it grows an Evergreen Herb Casing, once every 10 minutes. Open each casing: about one in three holds 1 to 5 Morrowgrain, the rest common herbs. Use the pouch whenever it is ready while you follow the rest of this guide.
+  turnin 3761                         -- Ghede
+  accept 3782                         -- Arch Druid Hamuul Runetotem: Morrowgrain Research
+  turnin 3782                         -- Bashana Runetotem
+  accept 3786                         -- Morrowgrain Research, +100
+  buy 11020 npc 9087                  -- Evergreen Pouch, 1 gold
+  buy 11022 x10 npc 9087              -- Packet of Tharlendris Seeds, 10 silver each
+
+step Morrowgrain as you go
+  when done morrowgrain
+  along until morrowgrain-in
+  collect 11040 x10 quest 3786.1 @71.1,34.2 -- Morrowgrain: use the pouch every 10 minutes and open the casings; Bashana takes it
+
+step Bashana Runetotem: Morrowgrain Research
+  label morrowgrain-in
+  when done morrowgrain
+  zone Thunder Bluff
+  tip Bashana Runetotem stands on Elder Rise. If your 10 Morrowgrain are not ready yet, skip this step and go on with the cloth: the cloth steps below list the Morrowgrain hand-in too.
+  turnin 3786                         -- Bashana Runetotem
+  collect 11040 x10 optional @71.1,34.2 -- Morrowgrain
+  turnin 3804 direct optional         -- Morrowgrain to Thunder Bluff, +50
 
 step Additional Runecloth to Honored
   zone Eastern Plaguelands
