@@ -8763,3 +8763,16 @@ test('Felwood, both sides: the Deadwood Ritual Totem is worked in the Felpaw Vil
 		assert.ok(turnin.step.when.some((p) => p.k === 'onquest' && !p.neg), `${later}: only while the totem's quest is still in the log`);
 	}
 });
+
+// Valik's report (2026-11-09, Discord): at level 30 Henchman Valik showed no quest. Valik (535) is a child of Infiltration
+// (533): offered only while 533 is in the log, and its reward is the Syndicate Missive 533 asks for. The step is shown
+// only with Infiltration in the log, and the stout is handed in at once, before any missive farming.
+test("Valik's report: Valik only with Infiltration in the log, handed in at once", { skip }, () => {
+	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
+	const steps = compiled(guide).steps;
+	const s = steps.find((st) => st.goals.some((g) => g.t === 'accept' && g.quest === 535));
+	assert.ok(s && (s.when || []).some((p) => p.k === 'onquest'), 'the Valik step is gated on Infiltration in the log');
+	assert.ok(s.goals.some((g) => g.t === 'turnin' && g.quest === 535), 'the stout is handed in on the same step');
+	const list = goals(guide);
+	assert.ok(at(list, 'turnin 535', is('turnin', 535)) < at(list, 'collect 3601', (g) => g.t === 'collect' && g.item === 3601), 'Valik before the missive drops');
+});
