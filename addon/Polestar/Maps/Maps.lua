@@ -21,10 +21,12 @@ ns.RegisterDefaults("maps", {
 	zoneLevels = true,      -- level ranges on the continent and zone maps
 	coords = true,          -- player and cursor coordinates on the world map
 	minimapCoords = false,  -- a small player coordinate readout on the minimap
-	-- A Polestar button on the minimap's edge, on by default: players look
-	-- for one to show and hide the guide, and the gamepad interface has no
-	-- slash commands (Core/Init.lua, ns.GamepadUI). Turning it off stores
-	-- false (a value equal to the default is never stored), so it stays off.
+	-- A Polestar button on the minimap's edge, on by default for a new
+	-- account: players look for one to show and hide the guide, and the
+	-- gamepad interface has no slash commands (Core/Init.lua, ns.GamepadUI).
+	-- Turning it off stores false (a value equal to the default is never
+	-- stored), so it stays off. Accounts from before 0.3.6 keep the button
+	-- as they had it (keepMinimapButton below).
 	minimapButton = true,
 	minimapButtonAngle = 225, -- where on the edge, degrees (0 = east, counter-clockwise)
 	reveal = "tint",        -- unexplored areas: "off" | "on" (revealed) | "tint" (revealed, tinted)
@@ -41,6 +43,23 @@ ns.RegisterDefaults("maps", {
 	timerPos = false,       -- { point, x, y } once dragged
 	trackerPos = false,
 })
+
+-- Players from before 0.3.6 keep their minimap button as it was: the
+-- default was off then (on with the gamepad interface) and an off equal to
+-- it was never stored, so an account Polestar knew before (ns.IsNewAccount
+-- false) with no value of its own gets false written once, at its first
+-- load of this version; with the gamepad interface the old default was on,
+-- so nothing is written. A new account starts on the default, on.
+-- PolestarDB.minimapButtonKept marks it done either way.
+local function keepMinimapButton()
+	local db = ns.DB()
+	if db.minimapButtonKept then return end
+	db.minimapButtonKept = true
+	if ns.IsNewAccount() or ns.GamepadUI() then return end
+	if type(db.settings.maps) ~= "table" then db.settings.maps = {} end
+	if db.settings.maps.minimapButton == nil then db.settings.maps.minimapButton = false end
+end
+ns.OnInit(keepMinimapButton)
 
 ---------------------------------------------------------------------------
 -- Shared helpers

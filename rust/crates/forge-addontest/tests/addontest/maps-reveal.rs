@@ -292,6 +292,38 @@ fn a_minimap_button_turned_off_stays_off_after_a_reload() {
 	assert_eq!(out, json!({ "exists": false, "on": false }));
 }
 
+// 0.3.5's default was off (on with the gamepad interface) and an off equal to it was never stored: an account from
+// before keeps the button as it had it, written once (PolestarDB.minimapButtonKept); a new account starts with it on.
+#[test]
+fn an_account_from_before_0_3_6_keeps_its_minimap_button_off_and_a_new_one_starts_with_it_on() {
+	let state = r#"emit({ exists = stub.frame("PolestarMinimapButton") ~= nil, on = Polestar.Get("maps.minimapButton"),
+		stored = PolestarDB.settings.maps and PolestarDB.settings.maps.minimapButton, kept = PolestarDB.minimapButtonKept or false })"#;
+	let load = |saved: Option<&str>, gamepad: bool| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_world.lua", "stub_maps.lua"],
+			before: String::from("stub.maps.useWorld(); stub.maps.withMapCanvas(); stub.maps.place(0, 800)\n")
+				+ if gamepad { "Enum.InputDeviceInterfaceType = { Mkb = 0, Gamepad = 1 }\nC_InputInterfaceStyle = { GetCurrentStyle = function() return 1 end }\n" } else { "" },
+			addons: vec![Addon::files("Polestar", FILES)],
+			saved: saved.map(|s| ("Polestar".to_string(), s.to_string())).into_iter().collect(),
+			login: true,
+			script: state.into(),
+		})
+		.remove(0)
+	};
+	// Fitz's 0.3.5 account: settings of its own, none for the button (a dragged angle shows it was once on).
+	let old = "PolestarDB = { schema = 1, settings = { ui = { scale = 1.1 }, maps = { minimapButtonAngle = 140 } } }";
+	assert_eq!(load(Some(old), false), json!({ "exists": false, "on": false, "stored": false, "kept": true }), "kept off, stored once");
+	assert_eq!(load(None, false), json!({ "exists": true, "on": true, "kept": true }), "a new account: on, nothing stored");
+	assert_eq!(load(Some(old), true), json!({ "exists": true, "on": true, "kept": true }), "0.3.5 had it on with the gamepad interface");
+	assert_eq!(
+		load(Some("PolestarDB = { schema = 1, settings = { maps = { minimapButton = false } } }"), true),
+		json!({ "exists": false, "on": false, "stored": false, "kept": true }),
+		"a gamepad player who turned it off"
+	);
+	// Once kept, turning it on stores nothing (on is the default) and the next load leaves it on.
+	assert_eq!(load(Some("PolestarDB = { schema = 1, settings = { maps = {} }, minimapButtonKept = true }"), false), json!({ "exists": true, "on": true, "kept": true }), "turned on after the update");
+}
+
 // Minimap button collectors gather the minimap's named Button children: a flyout reparents them into its own
 // panel, a row re-anchors them on the minimap. Once moved, the button is theirs: a drag, a resized minimap or a
 // changed angle leaves it where they put it, and its clicks still work.
