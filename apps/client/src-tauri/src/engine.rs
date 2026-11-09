@@ -248,8 +248,14 @@ impl Engine {
 		let mut last_addon_check: Option<Instant> = None;
 		loop {
 			if last_process_check.is_none_or(|t| t.elapsed() >= PROCESS_CHECK) {
-				let running = game_running(&mut processes);
-				self.lock().game_running = running;
+				let game = game_process(&mut processes);
+				let mut state = self.lock();
+				if game.is_some() != state.game_running {
+					// Which process was taken for the game, for a player who says it isn't running.
+					eprintln!("game: {}", game.as_deref().map_or("not running".to_owned(), |name| format!("running ({name})")));
+				}
+				state.game_running = game.is_some();
+				drop(state);
 				last_process_check = Some(Instant::now());
 			}
 			let force = std::mem::take(&mut self.lock().rescan);
@@ -1086,16 +1092,21 @@ fn old_recorder(installed: Option<&str>, latest: Option<&str>) -> (&'static str,
 /// whose name starts with "wow", such as WowUp-CF.exe, is not the game.
 const GAME_EXES: &[&str] = &["wow.exe", "wowt.exe", "wowb.exe", "wowclassic.exe", "wowclassict.exe", "wowclassicb.exe"];
 
-/// Is World of Warcraft running? (Under Wine the game shows up as its .exe.)
-fn game_running(system: &mut sysinfo::System) -> bool {
+/// The name of the game's process when World of Warcraft is running, else `None`. (Under Wine
+/// the game shows up as its .exe.)
+fn game_process(system: &mut sysinfo::System) -> Option<String> {
 	use sysinfo::{ProcessRefreshKind, ProcessesToUpdate};
 	system.refresh_processes_specifics(ProcessesToUpdate::All, true, ProcessRefreshKind::nothing());
-	system.processes().values().any(|p| is_game_process(&p.name().to_string_lossy()))
+	system.processes().values().map(|p| p.name().to_string_lossy().into_owned()).find(|name| is_game_process(name))
 }
 
+/// On Windows and under Wine the game is one of [`GAME_EXES`]; on a Mac it is the app's binary,
+/// "World of Warcraft" (or "World of Warcraft Classic", ...). "World of Warcraft Launcher.exe"
+/// in the game folder only hands over to Battle.net and is not the game (#1484), nor is the Mac
+/// launcher.
 fn is_game_process(name: &str) -> bool {
 	let name = name.to_ascii_lowercase();
-	GAME_EXES.contains(&name.as_str()) || name.starts_with("world of warcraft")
+	GAME_EXES.contains(&name.as_str()) || (name.starts_with("world of warcraft") && !name.ends_with(".exe") && !name.contains("launcher"))
 }
 
 fn status(state: &State, game: &GameView, pending: u64, now: i64) -> StatusView {
@@ -1388,6 +1399,12 @@ mod tests {
 			assert!(is_game_process(name), "{name}");
 		}
 		// Addon managers and other tools named after the game are not the game.
+		assert!(is_game_process("World of Warcraft Classic"));
+		// The launcher in the game folder (Windows and Mac) and Battle.net's own processes only
+		// hand over to Battle.net (#1484: "always says WoW is running").
+		for name in ["World of Warcraft Launcher.exe", "World of Warcraft Launcher", "World of Warcraft.exe", "Battle.net Helper.exe", "Agent.exe"] {
+			assert!(!is_game_process(name), "{name}");
+		}
 		for name in ["WowUp-CF.exe", "WowUp.exe", "wowup.exe", "Battle.net.exe", "polestar-client.exe"] {
 			assert!(!is_game_process(name), "{name}");
 		}
