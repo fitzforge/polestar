@@ -1230,10 +1230,7 @@ fn the_dots_style_draws_as_0_3_5_did_on_the_world_map_exactly_on_the_minimap_but
 	assert!(world.iter().zip(arr(&world_old)).all(|(a, b)| same(a, b)), "the world map: 0.3.5's strokes");
 	let mm_old: Value = serde_json::from_str(DOTS_035_MINIMAP).unwrap();
 	let reach = PLAYER_GAP + STOP_GAP + DOT / 2.0 + RIM;
-	let kept: Vec<&Value> = arr(&mm_old)
-		.iter()
-		.filter(|s| (((f(&s[0]) + f(&s[2])) / 2.0 - 70.0).powi(2) + ((f(&s[1]) + f(&s[3])) / 2.0 + 70.0).powi(2)).sqrt() >= reach)
-		.collect();
+	let kept: Vec<&Value> = arr(&mm_old).iter().filter(|s| (((f(&s[0]) + f(&s[2])) / 2.0 - 70.0).powi(2) + ((f(&s[1]) + f(&s[3])) / 2.0 + 70.0).powi(2)).sqrt() >= reach).collect();
 	assert!(kept.len() + 1 < arr(&mm_old).len() + 1 && !kept.is_empty());
 	let mm = arr(&out["mm"]);
 	assert_eq!(mm.len(), kept.len(), "the minimap: 0.3.5's dots less those on the arrow");
