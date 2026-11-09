@@ -9099,6 +9099,8 @@ test('Horde Winterspring guide: the Videre Elixir comes from the Evoroot, and Ga
 	const root = at(ws, 'collect 11242', (g) => g.t === 'collect' && g.item === 11242 && g.quest === 4041);
 	const tin = at(ws, 'turnin 4041', is('turnin', 4041));
 	assert.ok(acc < root && root < tin, 'Gregan, the Evoroot, then Gregan again for the elixir');
+	const got = at(ws, 'collect 11243', (g) => g.t === 'collect' && g.item === 11243 && g.quest === 3909);
+	assert.equal(ws[got].s, ws[tin].s, 'the elixir is Gregan\'s reward on the same step');
 	const g = ws[root].goal;
 	assert.ok(g.map === 1444 && Math.abs(g.x - 44.5) < 1 && Math.abs(g.y - 10.2) < 1, `the Evoroot in northern Feralas (${g.x},${g.y})`);
 	const epl = goals('forever/horde/50-60/05-eastern-plaguelands.guide');

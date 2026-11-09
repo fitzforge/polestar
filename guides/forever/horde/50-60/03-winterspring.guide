@@ -185,6 +185,7 @@ step Evoroot
 step The Videre Elixir
   tip Back south to Gregan. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by Gadgetzan later.
   turnin 4041                           -- Gregan Brewspewer
+  collect 11243 quest 3909.1            -- Videre Elixir, Gregan's reward
 
 step Desolace
   zone Desolace
