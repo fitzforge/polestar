@@ -1184,10 +1184,13 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   and moving on never picks it again), the place is left (`Spots.left`, for
   `Spots.FORGET`; work inside it later brings it back): the arrow moves on to the nearest place not left, never
   back to one left while another is open (all left: the one left longest
-  ago), and a goal whose places are all left measures no distance, so the
-  step's nearest other open field goal takes over (`Own.nearestField`). A
+  ago). Among a step's several field goals (the tour, see "Current goal and
+  waypoint"), a place of the tour that is left has the tour planned again
+  without it, and a goal whose places are all left measures no distance and
+  leaves the tour, so one of the step's other open field goals takes over
+  (`Own.nearestField`). A
   spot picked by hand is not counted until reached. The automatic picks (a
-  goal's spot, the step's nearest field goal) hold while the player fights
+  goal's spot, the tour's stop) hold while the player fights
   and 5 s after a fight or progress (`Spots.busy`, `Spots.SETTLE`): the arrow
   never moves under a fight or right after a kill. Spots with `alt` are never
   picked by these rules; they are reached by hand and, once picked, hold like
@@ -1200,9 +1203,10 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   (`Spots.ABOVE`) and one above that, these rules leave the higher spots as
   they leave alternatives (a current one above is left at once); with none at
   the player's level every spot counts. A step with several open field goals
-  likewise leads to the nearest such spot of any of them (a spot without
-  `lvl`, or a goal without spots, counts as at the player's level), and only
-  with none to the nearest of all; a level up re-picks. `Engine.CycleSpot(stepIndex,
+  likewise tours only the goals that have such a spot, by those spots (a spot
+  without `lvl`, or a goal without spots, counts as at the player's level),
+  and only with none all of them by every spot; a level up plans the tour
+  again. `Engine.CycleSpot(stepIndex,
   goalIndex[, index])` moves on by hand to the nearest spot not visited lately,
   alternatives included (the current spot counts as visited), or to spot
   `index`; a spot picked that way holds until the player reaches it. It returns
@@ -1935,14 +1939,73 @@ the same person never splits that person's group.
   goal, else the first open optional one (not skipped); a "Go to" naming the
   step (the group's header, an area) only when nothing else is open. Where
   that first blocking goal is a field goal (`kill`, `collect`, `interact`
-  with a place, no candidates; `Own.isField`) and the group holds two or more
-  open, the nearest of them takes its place (`Own.nearestField`: the
-  player's distance to each one's nearest spawn area, alternatives left out,
-  else its point). Sticky per step (`Own.nearPick`): another takes over only
-  once it is at most 75% of the current one's distance and 40 yd nearer
-  (`Own.NEAR_SHARE`, `Own.NEAR_YARDS`), or the current one is done; never
-  while `UnitAffectingCombat("player")`. No position or nothing measurable:
-  written order. The goal list keeps written order either way, and a `loop`
+  with a place, no candidates; `Own.isField`) and two or more are open, the
+  first stop of a tour through them takes its place (`Own.nearestField`,
+  `Own.routedField`; the tour is `Core/FieldRoute.lua`, plain geometry with
+  no game calls):
+  - *Which goals.* The group's open blocking field goals in written order up
+    to its next open blocking goal of another kind (a talk, a wait, a goto:
+    the barrier, `Own.currentGoal`). Work after the barrier waits for it, so
+    a tour never crosses a required interaction; a goto that gives way to a
+    grind (`Own.grindAfter`) is no barrier. With a place at the player's
+    level (`Spots.ABOVE`, see "Spawn areas") only the goals that have one.
+  - *Their places.* One per goal, taken when the tour is planned and kept
+    for its life (`Own.fieldPoint`): the eligible camp nearest the player
+    (alternatives, camps left after a dwell and, with a place at the
+    player's level, higher camps left out), since the arrow re-picks a
+    goal's camp from where the player stands when its turn comes; the chosen
+    camp for the current stop and for a camp picked by hand; a goal without
+    spots, its point. A camp chosen only for a row of the window does not
+    count: it was picked where the player stood when the step was first
+    shown.
+  - *The order.* The shortest open walk from the player through every place
+    (straight lines; it does not return), ending towards the finish hint
+    when there is one, plus the level delay. Up to 8 goals
+    (`FieldRoute.EXACT`) it is the best order there is (Held-Karp); up to 32
+    (`FieldRoute.LIMIT`) a 2-opt improvement of nearest-first, written order
+    and four other starts, never worse than nearest-first. A goal with no
+    place to measure (every place left after a dwell, another continent) is
+    left out until it has one; with fewer than two goals to tour, or more
+    than 32, the nearest-goal rule below.
+  - *The finish hint* (`Own.fieldExit`): the place of the first goal still
+    blocking after the tour's (later in its group, else in the groups after
+    it, else in the next step when that step applies; notes, optional and
+    done goals are passed over), a cost for the last leg only, never a stop.
+    None when that goal is a flight, a hearth or an entrance, has no place,
+    has candidates or spots with none chosen yet, or is on another
+    continent.
+  - *The level delay* (`Own.fieldDelay`): a goal whose quest is more than
+    one level (`Spots.ABOVE`) above the player costs 40 yd
+    (`Own.DELAY_YARDS`) times the levels above that, squared, capped at 10
+    levels (`Own.DELAY_LEVELS`), for every stop made after it: 40 at two
+    levels above, 160 at three, 360 at four. So a hard quest moves one place
+    later whenever that costs fewer extra yards than its delay, and is never
+    excluded. The quest's level is the client's (`Compat.GetQuestLevel`),
+    else the goal's `qlvl`, else its accept's; with none, no delay. An
+    estimate, not tuned on recordings.
+  - *When the stop changes.* The tour is kept per step (`Own.fieldTours`)
+    and the arrival poll only checks it; it is planned again when a goal in
+    it is done, skipped or has no place left to measure (or has one again),
+    when the player's level or a quest's changes, when a goal's place in it
+    is left after a dwell, on another continent, and on a detour: 80 yd
+    walked (`Own.DETOUR`) with less than half of it made good towards the
+    current stop, unless the player is at the stop (within its arrival
+    radius and 40 yd, `Spots.SWITCH`, of one of its camps). Walking to the
+    stop, or between its camps, plans nothing. A new plan moves the arrow
+    off an open current stop (`Own.nearPick`) only when the whole trip from
+    where the player stands then scores under 75% of the trip that keeps it
+    and 40 yd less (`Own.NEAR_SHARE`, `Own.NEAR_YARDS`; yards plus delay);
+    the stop is never changed while the player fights or for 5 s after a
+    fight or progress (`Spots.busy`).
+  - *The nearest-goal rule*, where no tour can be planned: the nearest of
+    them takes its place (the player's distance to each one's nearest spawn
+    area, alternatives left out, else its point), at the player's level
+    first. Sticky per step: another takes over only once it is at most 75%
+    of the current one's distance and 40 yd nearer, or the current one is
+    done; never in a fight. No position or nothing measurable: written
+    order.
+
+  The goal list keeps written order either way, and a `loop`
   step's spots still form the circuit, its first pick the spot nearest the
   player. A grind (`level N grind <npc>`, `Own.isGrind`: the compiler placed
   it at the mob's spawn areas) is a field goal too, and a goto before it in
@@ -2380,13 +2443,14 @@ Waypoint:
 
 = the goal of the current step the player aimed at (`AimGoal`) while it is
 open and its quest is not waiting for its accept in the step; else the current goal (the focus group's first open blocking goal, or
-the nearest of its open field goals when it has two or more, else its first
+the first stop of the tour through its open field goals when it has two or more, else its first
 open optional one, else its header); else the focus group's first open goal
 with coordinates (blocking, then optional, then notes). A done step has none.
 Re-evaluation is event-driven and coalesced (≤ 10 per second); `goto` and
 `explore` arrival is polled only while some tab's current step has one open,
 while the waypoint's goal has spots, or while the active step picks among
-several open field goals (the same poll re-picks the nearest).
+several open field goals (the same poll checks their tour, and plans it
+again only on the events under "Current goal and waypoint").
 
 Automation (setting `behavior.autoAccept`, `behavior.autoTurnin`, default
 on; holding Shift suppresses): accept only quests that are `accept` goals, and
