@@ -44,7 +44,7 @@ ns.RegisterDefaults("behavior", {
 	lostQuests = "ask", -- "ask" | "back" | "skip": a quest the route had passed that leaves the log (abandoned, failed): the window asks, or the guide goes back for it or skips it at once (Own.holdLost)
 	suggestFrom = "guides", -- pack id the suggestions come from (Guides.SuggestSource); ours fill in
 	whileHere = true, -- "While you're here": a quick objective of a later step close by, as one line under the step (Own.hereBuild)
-	whileHereRadius = 180, -- yards from its spawn area's edge at which it shows (60-400); it goes past 100/60 of that, at most Own.HERE_CLEAR_MAX
+	whileHereRadius = 180, -- yards from the centre of a place its target spawns (Spots.dist, never the area's edge) at which it shows (60-400); it goes past 100/60 of that, at most Own.HERE_CLEAR_MAX
 	whileHereTurnins = true, -- also a quest ready to hand in whose NPC is little out of the way (Own.hereDetour)
 	whileHereTurninSeconds = 20, -- seconds of extra walking a hand-in may cost (0-60); an NPC in the town the player rests in counts whatever it costs
 	whileHereSound = true, -- a soft chime for each line that appears, at least 5 s apart (UI/WhileHere.lua)
@@ -8182,9 +8182,9 @@ end
 -- that, HERE_XP, when waiting for the guide's hand-in costs XP:
 -- Own.hereXpLoss), or any detour for an NPC within HERE_TOWN yards while the
 -- player rests in a town; never past HERE_FAR yards, never on another floor
--- or a long way round (Own.hereMayShow). One the route reaches anyway in
--- its next HERE_SOON steps, without leading away first, is left to it
--- (Own.hereSoon), unless the player stands at its NPC: within HERE_AT
+-- or a long way round (Own.hereMayShow). One the route walks to about now,
+-- staying near its NPC on the way (Own.hereSoon: HERE_SOON_NEAR yards,
+-- HERE_SOON_SECONDS of walking), is left to it, unless the player stands at its NPC: within HERE_AT
 -- yards a hand-in shows whatever its step (0.3.5's reach, which 0.3.6
 -- must never fall short of: Fitz walked past Seer Graytongue with the
 -- guide's hand-in one step on, after a trip 530 yd north to Grull).
@@ -8233,7 +8233,14 @@ Own.HERE_ABOVE = 2 -- levels a candidate's mobs may be above the player
 Own.HERE_TOWN = 100
 Own.HERE_FAR = 250
 Own.HERE_AT = 30 -- yards: at the NPC, a hand-in shows whatever else (0.3.5's reach)
-Own.HERE_SOON = 2 -- the route's next steps: a hand-in there, or anything at its NPC, waits for them (Own.hereSoon)
+-- A hand-in the route walks to about now waits for it (Own.hereSoon): every
+-- place on the way within HERE_SOON_NEAR yards of its NPC, at most
+-- HERE_SOON_SECONDS of walking, HERE_SOON_STEPS steps; HERE_SOON_AWAY goals
+-- (no place, time spent anywhere) lead away.
+Own.HERE_SOON_NEAR = 100
+Own.HERE_SOON_SECONDS = 60
+Own.HERE_SOON_STEPS = 8
+Own.HERE_SOON_AWAY = { level = true, fly = true, hearth = true, wait = true, die = true }
 Own.HERE_XP = 2 -- a hand-in's seconds times this when the guide's hand-in comes at a level that cuts its XP
 Own.HERE_SLACK = 10 -- seconds: a shown hand-in goes once its detour is past HERE_CLEAR times its seconds and this
 Own.HERE_RECHECK = 15 -- seconds before a hand-in the walk check turned away is checked again (or HERE_REPICK yards moved)
@@ -8318,6 +8325,101 @@ function Own.hereGoalsOn(map)
 		Own.hereIndex[guide] = idx
 	end
 	return idx[map]
+end
+
+-- One guide ahead (0.3.7, DynamicModel: 14 audit findings were quests the
+-- player carried into the next guide, which While-here, reading only the
+-- loaded guide, never offered): a quest in the log that the loaded guide
+-- never hands in and the next guide of the route (Engine.NextGuide) does
+-- not take itself is the next guide's. Its open objectives and its hand-in
+-- there (the next guide's goals with a place, for the character: `only`,
+-- no `when`, no feeder step) are candidates like a later step's, under the
+-- pseudo step NEXT_STEP (no guide step has that index; Own.alongGoal reads
+-- them), never "soon" (the loaded guide never goes there) and with no visit
+-- credit. A quest whose objectives the loaded guide asks for anywhere keeps
+-- those goals instead. Indexed once per loaded guide and next guide
+-- (Own.hereNext); the next guide's deferred steps are read for it and given
+-- back unless a tab shows it.
+Own.NEXT_STEP = -1
+Own.hereNext = nil -- { guide, id, title, goals = { goal, ... }, byMap = { [map] = { k, ... } }, turnins = { [quest] = true } }
+
+-- The next guide's index for the loaded guide, or nil (no next guide, or a
+-- route choice still to make).
+function Own.hereNextIndex()
+	if not guide then return nil end
+	local id = Engine.NextGuide(guide.id)
+	local cur = Own.hereNext
+	if cur and cur.guide == guide and cur.id == id then return cur.goals and cur or nil end
+	cur = { guide = guide, id = id }
+	Own.hereNext = cur
+	local ng = id and id ~= guide.id and Guides.Get(id)
+	if not ng then return nil end
+	local l, verbs = layoutOf(guide), Own.HERE_VERBS
+	local worked = {} -- quests the loaded guide asks objectives of
+	for _, step in ipairs(guide.steps) do
+		for _, goal in ipairs(step.goals) do
+			if goal.quest and verbs[goal.t] then worked[goal.quest] = true end
+		end
+	end
+	local takes = {} -- quests the next guide takes itself
+	for _, step in ipairs(ng.steps) do
+		for _, goal in ipairs(step.goals) do
+			if goal.t == "accept" and goal.quest then takes[goal.quest] = true end
+		end
+	end
+	local goals, byMap, turnins = {}, {}, {}
+	for _, step in ipairs(ng.steps) do
+		if not step.feeder and Guides.Matches(step.only, player) then
+			for _, goal in ipairs(step.goals) do
+				local q, t = goal.quest, goal.t
+				if q and Guides.Matches(goal.only, player) then
+					if t == "turnin" then turnins[q] = true end
+					if step.when == nil and not takes[q] and not l.turnins[q] and goal.map and goal.x and goal.y and not goal.candidates
+						and (t == "turnin" or (verbs[t] and not worked[q])) then
+						goals[#goals + 1] = goal
+						local list = byMap[goal.map]
+						if not list then
+							list = {}
+							byMap[goal.map] = list
+						end
+						list[#list + 1] = #goals
+					end
+				end
+			end
+		end
+	end
+	cur.title, cur.goals, cur.byMap, cur.turnins = ng.title, goals, byMap, turnins
+	if not Engine.TabIds()[id] then Guides.Release(id) end
+	return cur
+end
+
+-- Whether the next guide of the route hands quest q in, for the character
+-- (Own.hereNextIndex; stranded quests ask it too).
+function Own.nextHandsIn(q)
+	local nx = Own.hereNextIndex()
+	return nx ~= nil and nx.turnins[q] == true
+end
+
+-- Whether goal k of the next guide (Own.hereNextIndex) is a candidate now,
+-- as Own.hereFits: "work" with how many are left, or "turnin".
+function Own.hereFitsNext(k, goal, shown)
+	local q, t = goal.quest, goal.t
+	local C = Compat()
+	if not C.IsOnQuest(q) or Own.questSkipped(q) or not goalApplies(goal) then return nil end
+	if t == "turnin" then
+		if not Own.hereTurnins or not C.IsQuestReadyForTurnIn(q) then return nil end
+		return "turnin", 0
+	end
+	if C.IsQuestReadyForTurnIn(q) or ns.CharState().pinnedQuests[q] then return nil end
+	local sh = shown[q]
+	if sh and (sh == true or goal.oi == nil or sh[goal.oi]) then return nil end
+	local done, cur, max = goalDone(Own.NEXT_STEP, k, goal)
+	if done then return nil end
+	if t == "use" and goal.item and C.GetItemCount(goal.item) < 1 then return nil end
+	if not Own.hereLevelOk(goal, Own.hereTop) then return nil end
+	local left = (max or goal.count or 1) - (cur or 0)
+	if left < 1 then return nil end
+	return "work", left
 end
 
 -- The objectives the Along the way list shows now (listed along steps' open
@@ -8430,40 +8532,48 @@ function Own.hereLevelOk(goal, top)
 	return not (lvl and lvl > top)
 end
 
--- Whether the route reaches turn-in goal `goal` of step s anyway in its next
--- HERE_SOON steps after the live one (for the character, not skipped): s is
--- one of them, or one has an open goal at the same NPC or object, and
--- neither the live step nor a step before that one leads away first (an
--- open goal with a place on another continent or past HERE_FAR yards from
--- the NPC: the guide's trip to Grull and back past Seer Graytongue). Then
--- the guide sends the player there in a moment; a line would say it twice.
+-- Whether the route reaches turn-in goal `goal` of step s anyway, about
+-- now (#1393, measured by walking since 0.3.7; DynamicModel: 27 hand-ins
+-- waited for "the next 2 steps" while the route walked 150 yd and more
+-- away first and came back): following the route's open goals with a place
+-- from the live step on (for the character, not skipped), in order, it
+-- gets to the NPC or object (s itself, or an open goal there) with every
+-- place on the way within HERE_SOON_NEAR yards of it and at most
+-- HERE_SOON_SECONDS of walking between them (straight lines HERE_WINDING
+-- longer at HERE_SPEED), in at most HERE_SOON_STEPS steps. A place further
+-- out, on another continent, or a goal that takes time anywhere (a level to
+-- reach, a flight, a hearth) leads away first: the hand-in is weighed by its
+-- detour then. Then the guide sends the player there in a moment; a line
+-- would say it twice.
 function Own.hereSoon(s, goal, live)
 	local steps, k = guide.steps, 0
 	local npc, obj = goal.npc, goal.object
 	local nc, nx, ny = goalWorld(goal)
-	if not nc or Own.hereAway(live, nc, nx, ny) then return false end
-	for i = live + 1, #steps do
+	if not nc then return false end
+	local near = Own.HERE_SOON_NEAR * Own.HERE_SOON_NEAR
+	local budget = Own.HERE_SOON_SECONDS * Own.HERE_SPEED / Own.HERE_WINDING
+	local yards, px, py = 0, nil, nil
+	for i = live, #steps do
 		local step = steps[i]
 		if stepApplies(step) and not isSkipped(i) then
 			if i == s then return true end
 			for j, other in ipairs(step.goals) do
-				if ((npc and other.npc == npc) or (obj and other.object == obj)) and goalApplies(other) and not goalDone(i, j, other) then return true end
+				local t = other.t
+				if t ~= "note" and goalApplies(other) and not Own.goalSkipped(i, j) and not goalDone(i, j, other) then
+					if i > live and ((npc and other.npc == npc) or (obj and other.object == obj)) then return true end
+					if other.map and other.x and other.y then
+						local oc, ox, oy = goalWorld(other)
+						if not oc or oc ~= nc or (ox - nx) ^ 2 + (oy - ny) ^ 2 > near then return false end
+						if px then yards = yards + ((ox - px) ^ 2 + (oy - py) ^ 2) ^ 0.5 end
+						if yards > budget then return false end
+						px, py = ox, oy
+					elseif Own.HERE_SOON_AWAY[t] then
+						return false
+					end
+				end
 			end
 			k = k + 1
-			if k >= Own.HERE_SOON or Own.hereAway(i, nc, nx, ny) then return false end
-		end
-	end
-	return false
-end
-
--- Whether step i leads away from world point c, x, y: an open goal of it
--- with a place on another continent or past HERE_FAR yards from there.
-function Own.hereAway(i, c, x, y)
-	local far = Own.HERE_FAR * Own.HERE_FAR
-	for j, other in ipairs(guide.steps[i].goals) do
-		if other.map and other.x and other.y and goalApplies(other) and not goalDone(i, j, other) then
-			local oc, ox, oy = goalWorld(other)
-			if oc and (oc ~= c or (ox - x) ^ 2 + (oy - y) ^ 2 > far) then return true end
+			if k > Own.HERE_SOON_STEPS then return false end
 		end
 	end
 	return false
@@ -8520,6 +8630,30 @@ function Own.aheadNear(live, s)
 		end
 	end
 	return k > 0
+end
+
+-- Whether accept a follows on from a quest the player handed in ahead of
+-- the route (0.3.7, DynamicModel: 77% of players take the follow-up within
+-- 2 minutes of an early hand-in; without it the route sends them back): one
+-- of its prerequisites is done, and this guide's hand-in of it, for the
+-- character, at a's NPC, is still to come after the live step. Then the
+-- route would come back to that NPC for a alone, however many steps on.
+-- `offered`: at the NPC's window, whose offer says the prerequisites are met
+-- (the game opens the follow-up before the completed flag catches up).
+function Own.aheadFollowUp(a, live, offered)
+	local npc = a.npc
+	if not (npc and live) then return false end
+	local l = layoutOf(guide)
+	for _, list in ipairs({ a.preAll or NONE, a.pre or NONE }) do
+		for _, p in ipairs(list) do
+			if offered or questDone(p) then
+				for _, t in ipairs(l.turnins[p] or NONE) do
+					if t.s > live and t.goal.npc == npc and stepApplies(t.step) and not isSkipped(t.s) and goalApplies(t.goal) then return true end
+				end
+			end
+		end
+	end
+	return false
 end
 
 -- Whether the walk from world point c, x, y along the route to timed
@@ -8590,7 +8724,9 @@ end
 
 -- Whether auto-accept takes quest q at the NPC whose window is open: an
 -- accept of it at that NPC in the route's next AHEAD steps for the
--- character (Own.aheadOk), with room in the log.
+-- character, or further on when it follows on from a quest handed in there
+-- ahead of the route (Own.aheadFollowUp), with Own.aheadOk and room in the
+-- log.
 function Own.aheadWants(q)
 	if guide == nil or not computed then return false end
 	if ns.Party and ns.Party.HoldsQuest(q) then return false end
@@ -8602,9 +8738,9 @@ function Own.aheadWants(q)
 		local step = steps[i]
 		if stepApplies(step) and not isSkipped(i) then
 			k = k + 1
-			if k > Own.AHEAD then return false end
 			for j, a in ipairs(step.goals) do
 				if a.t == "accept" and a.quest == q and a.npc == npc then
+					if k > Own.AHEAD and not Own.aheadFollowUp(a, computed, true) then return false end
 					return Own.aheadOk(i, j, a, nil) and Own.logRoom() >= 1
 				end
 			end
@@ -8741,20 +8877,23 @@ function Own.hereXpLoss(s, goal, live)
 end
 
 -- Whether goal g of later step s, one of Own.hereGoalsOn's for a quest in
--- the log (an accept: with Own.hereTakes, one not taken), is a candidate, as
--- what ("work", "turnin" or "take"), how many are left (see above), and for
--- a hand-in whether the route reaches it anyway (Own.hereSoon: then it shows
--- only at its NPC). `shown`: Own.hereShown's.
+-- the log (an accept: one not taken), is a candidate, as what ("work",
+-- "turnin" or "take"), how many are left (see above), and for a hand-in
+-- whether the route reaches it anyway (Own.hereSoon: then it shows only at
+-- its NPC). `shown`: Own.hereShown's.
 function Own.hereFits(s, g, goal, live, shown)
 	local q, t = goal.quest, goal.t
 	local C = Compat()
 	if not (goalApplies(goal) or Own.behindGoal(goal)) or Own.goalSkipped(s, g) or unavailableFor(goal) then return nil end
 	local liveGoals = guide.steps[live].goals
 	if t == "accept" then
-		-- Auto-accept off: a quest of the route's next steps to take at its
-		-- NPC, the guards of Own.aheadWants passed (its prerequisites done).
-		if C.IsOnQuest(q) or not Own.aheadNear(live, s) or Own.hereSoon(s, goal, live)
-			or not Own.aheadOk(s, g, goal, Own.READY_NONE) or Own.logRoom() < 1 then return nil end
+		-- A quest to take at its NPC, the guards of Own.aheadWants passed (its
+		-- prerequisites done): with auto-accept off, one of the route's next
+		-- steps; whatever the setting, the follow-up of a quest handed in
+		-- there ahead of the route, however far on (Own.aheadFollowUp: with
+		-- auto-accept on, talking to the NPC takes it).
+		if C.IsOnQuest(q) or not ((Own.hereTakes and Own.aheadNear(live, s)) or Own.aheadFollowUp(goal, live))
+			or not Own.aheadOk(s, g, goal, Own.READY_NONE) or Own.logRoom() < 1 or Own.hereSoon(s, goal, live) then return nil end
 		return "take", 0, false
 	end
 	if t == "turnin" then
@@ -8801,14 +8940,18 @@ function Own.hereBuild()
 		Own.hereSeconds = tonumber(ns.Get("behavior.whileHereTurninSeconds")) or 20
 		-- Auto-accept off: the next steps' quests at the NPC the player stands at
 		-- are lines of their own ("Take X from Y"); on, Automation takes them.
+		-- A follow-up of an early hand-in is one either way (Own.hereFits).
 		Own.hereTakes = Own.hereTurnins and not ns.Get("behavior.autoAccept")
 		local steps = guide.steps
 		for g, goal in ipairs(steps[live].goals) do
 			if goal.escort and goalApplies(goal) and not goalDone(live, g, goal) then Own.hereEscort = true end
 		end
-		local idx = Own.hereGoalsOn(Compat().GetPlayerMapPosition())
+		local map = Compat().GetPlayerMapPosition()
+		local idx = Own.hereGoalsOn(map)
+		local nx = Own.hereNextIndex()
+		local nidx = nx and map and nx.byMap[map]
+		local C, shown = Compat(), (idx or nidx) and Own.hereShown()
 		if idx then
-			local C, shown = Compat(), Own.hereShown()
 			local at, ok = nil, false -- the step last checked, and whether it applies
 			for i = 1, #idx, 2 do
 				local s = idx[i]
@@ -8817,7 +8960,7 @@ function Own.hereBuild()
 				-- A quest's work an update passed behind the player (Engine.GetBehind) too.
 				local back = Own.behindGoal(goal)
 				if s > live or back then
-					if C.IsOnQuest(goal.quest) or (goal.t == "accept" and s > live and Own.hereTakes) then
+					if C.IsOnQuest(goal.quest) or (goal.t == "accept" and s > live) then
 						if s ~= at then at, ok = s, stepApplies(steps[s]) and not isSkipped(s) end
 						local kind, left, soon = nil, nil, false
 						if ok or back then kind, left, soon = Own.hereFits(s, g, goal, live, shown) end
@@ -8843,6 +8986,19 @@ function Own.hereBuild()
 						end
 					end
 				end
+			end
+		end
+		-- One guide ahead: quests carried into the next guide (Own.hereNextIndex).
+		for _, k in ipairs(nidx or NONE) do
+			local goal = nx.goals[k]
+			local kind, left = Own.hereFitsNext(k, goal, shown)
+			if kind then
+				n = n + 1
+				local spots = kind == "work" and goal.spots
+				list[n] = { s = Own.NEXT_STEP, g = k, goal = goal, kind = kind, left = left, places = spots and #spots or 1,
+					npcs = kind == "work" and Own.hereNpcsOf(goal), seen = false, spot = false, d = false, pick = 0,
+					budget = Own.hereSeconds, xp = false, soon = false, visit = false, detour = 0, town = false,
+					on = false, since = 0, yards = 0, serial = 0, view = false }
 			end
 		end
 	end
@@ -9332,6 +9488,8 @@ function Own.hereViewOf(e)
 		local goal, left = e.goal, e.left
 		v = goalView(e.s, e.g, goal, "current", nil)
 		v.step, v.here, v.left, v.appeared = e.s, e.kind, left, e.serial
+		-- One guide ahead: the next guide's title, which the row names instead of a step.
+		if e.s == Own.NEXT_STEP then v.nextGuide = Own.hereNext and Own.hereNext.title or true end
 		local text
 		if e.kind == "turnin" then
 			local _, npc = npcOf(goal)
@@ -9706,13 +9864,18 @@ function Own.pinBuild(q, line, o)
 end
 
 -- The goal at `s`, `g` of an Along the way row (Engine.GetAlong's goal view
--- `step` and `index`): a guide goal, or a pinned quest's built one.
+-- `step` and `index`) or a While-you're-here line: a guide goal, a pinned
+-- quest's built one, or the next guide's (Own.NEXT_STEP).
 function Own.alongGoal(s, g)
 	if not guide then return nil end
 	if s == Own.PIN_STEP then
 		local q = math.floor(g / 100)
 		local built = Own.pinBuilt[q]
 		return built and built[g - q * 100] or nil
+	end
+	if s == Own.NEXT_STEP then
+		local nx = Own.hereNext
+		return nx and nx.guide == guide and nx.goals and nx.goals[g] or nil
 	end
 	local step = guide.steps[s]
 	return step and step.goals[g] or nil
@@ -10961,7 +11124,7 @@ function Own.hereWants(questID)
 		or (ns.Party and ns.Party.HoldsQuest(questID)) then return false end
 	for i = 1, Own.hereOnN do
 		local e = Own.hereOn[i]
-		if e.kind == "turnin" and e.goal.quest == questID and Own.groupPending(guide.steps[e.s]) ~= questID then return true end
+		if e.kind == "turnin" and e.goal.quest == questID and (e.s < 1 or Own.groupPending(guide.steps[e.s]) ~= questID) then return true end
 	end
 	return false
 end

@@ -239,7 +239,7 @@ local BUILTIN = {
 			search = "while you're here, nearby objective, grab it now, on the way, later step, opportunistic, detour" },
 		{ kind = "slider", key = "behavior.whileHereRadius", label = L["How close"], min = 60, max = 400, step = 10,
 			format = function(v) return ns.FormatDistance(v) end,
-			help = L["How near its spawn area must be for a suggestion to show. It goes again a little further out."],
+			help = L["How near the middle of its spawn area you must be for a suggestion to show. It goes again a little further out."],
 			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
 		{ kind = "toggle", key = "behavior.whileHereTurnins", label = L["Include nearby hand-ins"],
 			help = L["Also a quest ready to hand in whose NPC is a little out of your way, when the guide hands it in later."],

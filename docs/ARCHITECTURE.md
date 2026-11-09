@@ -1454,12 +1454,17 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   `HERE_REPICK` yards moved, at another waypoint or a new setting, never
   quiet for the zone. It goes once out of town with its detour past
   `HERE_CLEAR` times the seconds and `HERE_SLACK` (10) more, or past
-  `HERE_CLEAR` times `HERE_FAR`. One the route reaches anyway in its next
-  `HERE_SOON` (2) steps for the character without leading away first
-  (`Own.hereSoon`: the hand-in's own step, or an open goal at the same NPC
-  or object, and no open goal with a place of the live step or a step
-  before it past `HERE_FAR` from the NPC, `Own.hereAway`) is left to the
-  guide, which sends the player there in a moment, unless the player stands
+  `HERE_CLEAR` times `HERE_FAR`. One the route walks to about now is left
+  to the guide (`Own.hereSoon`, by walking since 0.3.7, no longer "the next
+  2 steps": DynamicModel counted 27 hand-ins held back while the route
+  walked 150 yd and more away first): following the open goals with a
+  place from the live step on, in order, the route gets to the hand-in's
+  own step or an open goal at the same NPC or object with every place on
+  the way within `HERE_SOON_NEAR` (100) yards of the NPC, at most
+  `HERE_SOON_SECONDS` (60) of walking between them, within
+  `HERE_SOON_STEPS` (8) steps; a place further out or on another continent,
+  or an open `level`, `fly`, `hearth`, `wait` or `die` goal with no place,
+  leads away first. The guide sends the player there in a moment, unless the player stands
   at the NPC: within `HERE_AT` (30) yards a hand-in shows whatever its step
   or detour (0.3.5's reach; with the seconds above 0 or in town), and stays
   while there (`Own.hereAt`); a "soon" one goes past `HERE_CLEAR` times
@@ -1501,6 +1506,22 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   own while the player stands within `HERE_AT` of its NPC (kind "take",
   not one the route reaches next, `Own.hereSoon`): "Take X from Y: saves a
   trip back".
+  Follow-ups of an early hand-in (0.3.7, `Own.aheadFollowUp`): an accept
+  whose prerequisite is done and whose hand-in this guide makes at the same
+  NPC after the live step counts however many steps on: auto-accept takes it
+  at the window (the game's offer stands for the prerequisite, which the
+  completed flag may not show yet), and whatever the setting it is a "take"
+  line at its NPC.
+  One guide ahead (0.3.7, `Own.hereNextIndex`): a quest in the log that the
+  loaded guide never hands in and the next guide (`Engine.NextGuide`) does not
+  take itself is the next guide's; its goals with a place (work, unless the
+  loaded guide asks that quest's objectives anywhere; the hand-in), for the
+  character (`only`, no `when`, no feeder step), are candidates under the
+  pseudo step `NEXT_STEP` (-1; `Engine.AlongGoal(-1, k)` reads them), never
+  "soon", no visit, the view's `nextGuide` its title ("Next guide: X",
+  `UI.HereStep`). Indexed once per loaded and next guide; the next guide's
+  deferred steps are given back unless a tab shows it. `Own.nextHandsIn(q)`:
+  whether that guide hands q in.
   A build reads only the goals on the player's map: `Own.hereGoalsOn` indexes
   each guide's goals with a quest and a place by map once (weak per guide).
   The arrival poll measures at most `HERE_MAX` of them (`Own.hereList`): all

@@ -697,11 +697,12 @@ fn never_a_hand_in_on_another_floor() {
 	assert_eq!(out, vec![json!(["none", "turned away (another floor; checked again in 15 s or 25 yd)"]), json!("4:1 Hand in “A Fishy Peril” to Marshal Dughan 10")]);
 }
 
-// A hand-in the route reaches anyway in its next two steps, without leading away first, is left to it: the arrow
-// leads east to the wolves at 44 (60 yd past Dughan, on the way), and his hand-in is the next step, or the step after
-// next is at Dughan (an accept). Standing at him (10 yd, within 0.3.5's 30) it shows all the same. A step that leads
-// away first (a walk 900 yd south) or a live step that does (the wolves 660 yd west, Fitz walking past Seer
-// Graytongue with Grull 530 yd north) leaves it to the detour rule; a step at him three steps on does not count.
+// A hand-in the route walks to about now, without leading away first, is left to it: the arrow leads east to the
+// wolves at 44 (60 yd past Dughan, on the way), and his hand-in is the next step, or the step after next is at Dughan
+// (an accept), or a step at him comes after two with nothing for this character (88 is not in the log: the route
+// passes them; 0.3.7 counts the walk, not the steps). Standing at him (10 yd, within 0.3.5's 30) it shows all the
+// same. A step that leads away first (a walk 900 yd south) or a live step that does (the wolves 660 yd west, Fitz
+// walking past Seer Graytongue with Grull 530 yd north) leaves it to the detour rule.
 #[test]
 fn a_hand_in_the_route_reaches_next_without_leading_away_shows_only_at_its_npc() {
 	let script = r#"
@@ -718,10 +719,113 @@ fn a_hand_in_the_route_reaches_next_without_leading_away_shows_only_at_its_npc()
 	assert_eq!(errand, vec![json!(["4:1:turnin:0", "none", left]), json!("4:1 Hand in “A Fishy Peril” to Marshal Dughan 10")], "the step after next is at Dughan");
 	assert_eq!(away[0], json!(["4:1:turnin:0", "4:1 Hand in “A Fishy Peril” to Marshal Dughan 60"]), "the walk south first");
 	assert_eq!(behind, vec![json!(["2:1:turnin:0", "none", "out of the way (21 s, over 20 s)"]), json!("2:1 Hand in “A Fishy Peril” to Marshal Dughan 10")], "the wolves 660 yd west first");
-	assert_eq!(later[0], json!(["5:1:turnin:0", "5:1 Hand in “A Fishy Peril” to Marshal Dughan 60"]), "three steps on");
+	assert_eq!(later[0], json!(["5:1:turnin:0", "none", left]), "two steps with nothing to do, then a step at him");
 	// A quest named after its NPC: the plain line does not name him twice.
 	let namesake = run_turnins(&turnins(44.0, &[], r#", title = "Marshal Dughan""#), script);
 	assert_eq!(namesake[1], json!("2:1 Hand in “Marshal Dughan” to them 10"), "{namesake:?}");
+}
+
+// 0.3.7 (DynamicModel): "soon" is measured by walking, not by "the next 2 steps" (27 hand-ins in the audits waited
+// while the route walked 150 yd and more away first and came back). The wolves at 47 are 150 yd east of Dughan: the
+// route walks there and then back to his hand-in (the very next step), so from 60 yd west of him, on the way east,
+// the hand-in shows now. Three errands 30 yd from him (another NPC's accepts) before his hand-in keep the route by him:
+// it is left to the guide, three steps on or not.
+const NEAR_ERRAND: &str = r#"{ title = "Errand", goals = { { t = "accept", quest = 107, title = "Errand", npc = 241, npcName = "Errand Giver", map = 1429, x = 43.0, y = 35.1 } } }"#;
+
+#[test]
+fn a_hand_in_waits_for_the_route_by_its_walk_not_by_its_steps() {
+	let script = r#"
+		at(40.0, 35.1)
+		local soon = "none"
+		for _, c in ipairs(E.GetWhileHereCandidates()) do if c.kind == "turnin" then soon = c.soon end end
+		emit({ soon, here() })
+	"#;
+	let away = run_turnins(&turnins(47.0, &[], ""), script);
+	assert_eq!(away, vec![json!([false, "2:1 Hand in “A Fishy Peril” to Marshal Dughan 60"])], "the route walks 150 yd away first");
+	let town = run_turnins(&turnins(44.0, &[NEAR_ERRAND, NEAR_ERRAND, NEAR_ERRAND], ""), script);
+	assert_eq!(town, vec![json!([true, "none"])], "the route stays by him for three steps");
+}
+
+// 0.3.7 (DynamicModel): after a hand-in ahead of the route, its follow-up at the same NPC is taken there, however far
+// on the route takes it (players take it within 2 minutes 77% of the time; without it the route sends them back).
+// Dughan's step (8) hands in A Fishy Peril (40) and takes its follow-up (41), seven steps after the live one, past
+// the 5 steps accepts ahead look at. With auto-accept off, While-here offers "Take" at him once 40 is handed in; with
+// it on, the window the game opens after the hand-in is accepted.
+fn follow_up_guide() -> String {
+	turnins(20.0, &[ELSEWHERE; 6], "").replace(
+		r#"{ t = "turnin", quest = 7,"#,
+		r#"{ t = "accept", quest = 41, title = "The Fishy Peril II", npc = 240, npcName = "Marshal Dughan", map = 1429, x = 42.0, y = 35.1, pre = { 40 } }, { t = "turnin", quest = 7,"#,
+	)
+}
+
+#[test]
+fn the_follow_up_of_an_early_hand_in_is_offered_however_far_on_the_route_takes_it() {
+	let off = run_turnins(
+		&follow_up_guide(),
+		r#"
+		Polestar.Set("behavior.autoAccept", false); flush()
+		at(42.0, 35.3)
+		w.turnIn(40); flush(); at(42.0, 35.3)
+		local v = E.GetWhileHere()
+		emit({ cands(), v and (v.step .. ":" .. v.index .. " " .. v.hereText) or "none" })
+	"#,
+	);
+	assert_eq!(off, vec![json!(["8:2:take:0", "8:2 Take “The Fishy Peril II” from Marshal Dughan: saves a trip back"])], "{off:?}");
+	let on = run_turnins(
+		&follow_up_guide(),
+		r#"
+		at(42.0, 35.3)
+		w.calls = {}
+		w.turnIn(40); w.questDetail(240, 41); flush()
+		local calls = {}
+		for i, x in ipairs(w.calls) do calls[i] = tostring(x[1]) .. " " .. tostring(x[2]) end
+		emit({ table.concat(calls, ", "), E.GetLiveStep(), E.GoalDone(8, 2) })
+	"#,
+	);
+	assert!(on[0][0].as_str().unwrap().contains("AcceptQuest 41"), "{on:?}");
+	assert_eq!(on[0][1], 1, "the live step stays: {on:?}");
+	assert_eq!(on[0][2], true, "Dughan's accept reads done: {on:?}");
+}
+
+// 0.3.7 (DynamicModel: 14 findings): While-here looks one guide ahead for quests carried over. The loaded guide
+// (test/now) asks for none of Spiders (52) and never hands in A Fishy Peril (40); its next guide (test/next) does
+// both, without taking either itself: they are lines under the pseudo step -1 (Engine's NEXT_STEP), naming the next
+// guide, and the arrow can lead to one. Murlocs (50) the next guide takes itself: not one. The vermin (7) stay the
+// loaded guide's.
+const NOW_AND_NEXT: &str = r#"
+Polestar.RegisterGuide({ id = "test/now", pack = "test", title = "Now", minLevel = 1, maxLevel = 10, next = "test/next", steps = {
+	{ title = "Wolves", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 60 } } },
+	{ title = "Vermin", goals = { { t = "kill", target = "Kobold Vermin", npc = 6, count = 10, quest = 7, oi = 1, map = 1429, x = 47.6, y = 35.1 } } },
+} })
+Polestar.RegisterGuide({ id = "test/next", pack = "test", title = "Next Up", minLevel = 5, maxLevel = 12, steps = {
+	{ title = "Spiders", goals = { { t = "kill", target = "Spider", npc = 42, count = 1, quest = 52, oi = 1, map = 1429, x = 47.6, y = 36.0 } } },
+	{ title = "Dughan", goals = { { t = "turnin", quest = 40, title = "A Fishy Peril", npc = 240, npcName = "Marshal Dughan", map = 1429, x = 47.0, y = 35.1 } } },
+	{ title = "Murlocs", goals = { { t = "accept", quest = 50, title = "Murlocs", npc = 243, map = 1429, x = 40.0, y = 50.0 },
+		{ t = "kill", target = "Murloc", npc = 40, count = 1, quest = 50, oi = 1, map = 1429, x = 47.7, y = 35.1 } } },
+} })
+"#;
+
+#[test]
+fn quests_carried_into_the_next_guide_are_lines_too() {
+	let out = run_guide(
+		NOW_AND_NEXT,
+		"test/now",
+		r#"
+		at(47.6, 35.5)
+		emit(cands())
+		local rows, spider = {}, nil
+		for i, v in ipairs(E.GetWhileHereList()) do
+			rows[#rows + 1] = v.step .. ":" .. v.index .. " " .. tostring(v.nextGuide)
+			if v.step == -1 and v.t == "kill" then spider = i end
+		end
+		table.sort(rows)
+		emit(rows)
+		emit({ E.AlongGoal(-1, 1).quest, E.AimWhileHere(spider), wp() })
+	"#,
+	);
+	assert_eq!(out[0], json!("2:1:work:2 -1:1:work:1 -1:2:turnin:0"), "{out:?}");
+	assert_eq!(out[1], json!(["-1:1 Next Up", "-1:2 Next Up", "2:1 nil"]), "{out:?}");
+	assert_eq!(out[2], json!([52, true, "-1:1"]), "{out:?}");
 }
 
 // Fitz on 0.3.6 (build f5fbd242a), his /polestar report: a level 3 Tauren Warrior on Mulgore's step 6 of 51 (Grull

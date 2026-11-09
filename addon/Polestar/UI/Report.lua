@@ -266,7 +266,10 @@ local function whileHereLine()
 	local E = ns.Engine
 	local st = E and E.WhileHereState and E.WhileHereState()
 	if not st then return nil end
-	local function step(s) return ("step %s (guide %d)"):format(tostring((E.StepNumber(s))), s) end
+	local function step(s)
+		if s == -1 then return "next guide" end -- Engine's NEXT_STEP: a quest carried into the next guide
+		return ("step %s (guide %d)"):format(tostring((E.StepNumber(s))), s)
+	end
 	if not st.on then return cut((L["While here: %s"]):format("off")) end
 	local parts = {}
 	if st.shown then

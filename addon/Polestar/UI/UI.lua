@@ -267,6 +267,22 @@ function UI.HereText(v)
 	return text:sub(1, b) .. mark .. text:sub(b + 1)
 end
 
+-- A "While you're here" line's step under it ("Step 14"): the Engine's own
+-- words when it gives them (`hereSub`; tooltip `hereTip`), for a quest the
+-- next guide does (`nextGuide`: its title) "Next guide: X", else the step.
+-- `tip`: the tooltip's sentence on why doing it now pays.
+function UI.HereStep(v, tip)
+	if tip and v.hereTip then return v.hereTip end
+	if not tip and v.hereSub then return v.hereSub end
+	if v.nextGuide then
+		local title = type(v.nextGuide) == "string" and v.nextGuide or L["the next guide"]
+		if tip then return format(L["%s does this later; done now, you won't come back for it there."], title) end
+		return format(L["Next guide: %s"], title)
+	end
+	if tip then return format(L["Step %d does this later; done now, that step is shorter or skipped when you get there."], UI.StepNo(v.step)) end
+	return format(L["Step %d"], UI.StepNo(v.step))
+end
+
 -- The goal's main line. The Engine's `text` is the truth (it carries author
 -- overrides and counts such as "Kill 5 Young Wolf"); the subject is coloured
 -- by its kind wherever it appears in that text (a quest's in `questHex`, an
