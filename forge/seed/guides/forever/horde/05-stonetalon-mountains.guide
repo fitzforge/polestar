@@ -217,7 +217,7 @@ step Strange Lockbox
 
 step The Sepulcher
   zone Silverpine Forest
-  tip From the zeppelin towers, run south through Tirisfal into Silverpine and down the road to the Sepulcher. Shadow Priest Allister and Apothecary Renferrel stand by the crypt entrance.
+  tip Down the road through Silverpine to the Sepulcher: from the zeppelin towers, south through Tirisfal; from the Strange Lockbox, south-east from the coast to the road. Shadow Priest Allister and Apothecary Renferrel stand by the crypt entrance.
   accept 493                          -- Apothecary Renferrel: Lydon in Tarren Mill, next guide
   accept 95981                        -- Shadow Priest Allister
   accept 516                          -- Shadow Priest Allister: Beren's Peril, south-east of Ambermill

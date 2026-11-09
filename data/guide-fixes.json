@@ -4873,6 +4873,22 @@
 					"ref": "quest 264 ender object 24776, objects.json spawn 1421 44.19,42.67; the knowledge base's sources agree on the ender (6/6)"
 				}
 			]
+		},
+		{
+			"id": "h130-sepulcher-from-road-or-lockbox",
+			"faction": "Horde",
+			"at": {
+				"quest": 493,
+				"goal": "accept"
+			},
+			"tip": "Down the road through Silverpine to the Sepulcher: from the zeppelin towers, south through Tirisfal; from the Strange Lockbox, south-east from the coast to the road. Shadow Priest Allister and Apothecary Renferrel stand by the crypt entrance.",
+			"note": "Horde final route review (0.3.6 leftovers): forever/horde/05-stonetalon-mountains' Sepulcher step said 'From the zeppelin towers' to everyone, also to the Tauren Druids who come from the Strange Lockbox (object 177844, Silverpine 29.56,29.2) on the coast west of the Dead Field, the step right before it.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "objects.json 177844 Strange Lockbox, map 1421 29.56,29.2; the guide's own Strange Lockbox step (only Tauren,Druid, when onquest 30)"
+				}
+			]
 		}
 	]
 }

@@ -9315,3 +9315,15 @@ test('forever/horde/orc/01-durotar.guide: the Echo Isles tips walk one way, nort
 	assert.equal(isles.length, 2);
 	assert.ok(isles[0].goals.some((g) => g.t === 'collect' && g.item === 4892), 'tiger furs on the first isles step');
 });
+
+// Final route review, Horde 1-30 (0.3.6 leftovers): the Sepulcher step after the Strange Lockbox (Tauren Druids with
+// Trial of the Sea Lion) began "From the zeppelin towers" for everyone; the Druids come from the coast.
+test('forever/horde/05-stonetalon-mountains.guide: the Sepulcher tip reads right for Druids coming from the Strange Lockbox', { skip }, () => {
+	const steps = compiled('forever/horde/05-stonetalon-mountains.guide').steps;
+	const box = steps.findIndex((st) => st.title === 'Strange Lockbox');
+	const sep = steps.findIndex((st) => st.goals.some(is('accept', 493)));
+	assert.ok(box >= 0 && sep === box + 1, 'the Sepulcher step comes right after the lockbox');
+	const tip = [].concat(steps[sep].tip || steps[sep].tips || []).join(' ');
+	assert.match(tip, /Strange Lockbox/);
+	assert.doesNotMatch(tip, /^From the zeppelin towers/);
+});
