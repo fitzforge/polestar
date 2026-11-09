@@ -34,30 +34,34 @@ return {
 	-- {zone:1436} Westfall
 	["The note's \"twin land\" is {zone:1436}: the same burned-out campfire stands in western {zone:1436}."] = "La \"terre jumelle\" de la note, c'est {zone:1436} : le même feu de camp éteint se trouve dans l'ouest de {zone:1436}.",
 
-	-- Step 5: Stonetalon Mountains
-	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter
-	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "La cachette suivante est un petit camp dans les collines au nord-ouest de {area:460}, au milieu de {zone:1442}. Quittez la route là où un sentier monte vers l'ouest dans les collines et suivez-le jusqu'au camp ; {object:424005} est posé sur une caisse à côté de la tente.",
+	-- Step 5: Round Honor's Stand
+	-- {area:1702} Honor's Stand
+	["Round {area:1702}"] = "Contourner {area:1702}",
 	-- {area:1702} Honor's Stand
 	["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "La route vers l'ouest traverse {area:1702}, un poste de la Horde ; ce chemin le contourne.",
 	["North of Honor's Stand"] = "Au nord d'Honor's Stand",
+
+	-- Step 6: Stonetalon Mountains
+	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter
+	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "La cachette suivante est un petit camp dans les collines au nord-ouest de {area:460}, au milieu de {zone:1442}. Quittez la route là où un sentier monte vers l'ouest dans les collines et suivez-le jusqu'au camp ; {object:424005} est posé sur une caisse à côté de la tente.",
 	["Path into the hills"] = "Sentier vers les collines",
 
-	-- Step 6: A hundred paces north
+	-- Step 7: A hundred paces north
 	["A hundred paces north"] = "Cent pas vers le nord",
 	-- {object:424012} Mound of Dirt
 	["Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "Traversez le camp vers le nord et descendez prudemment la pente raide jusqu'au {object:424012} sur la corniche en contrebas. Un saut raté vous fait seulement glisser : longez la falaise et remontez à pied.",
 
-	-- Step 7: The dam in Loch Modan
+	-- Step 8: The dam in Loch Modan
 	-- {zone:1432} Loch Modan
 	["The dam in {zone:1432}"] = "Le barrage du {zone:1432}",
 	-- {area:146} Stonewrought Dam
 	["The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "La figurine se trouve sur une corniche juste sous le sommet de {area:146}, sur sa face nord. Descendez lentement ; marcher à reculons évite de dépasser la corniche.",
 
-	-- Step 8: Thoradin's Wall
+	-- Step 9: Thoradin's Wall
 	-- {zone:1437} Wetlands · {area:880} Thandol Span · {area:1057} Thoradin's Wall · {area:287} Hillsbrad
 	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.\nAt the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "Attention : depuis la corniche du barrage, vous tombez dans la rivière en contrebas, dans les {zone:1437}. Sortez-en par la rive ouest bien avant la cascade, vers 65,77 : la chute est mortelle. Partez ensuite vers le nord-ouest jusqu'à la route et suivez-la vers le nord par {area:880} jusqu'en Arathi.\nÀ la porte de {area:1057}, entre Arathi et {area:287}, tournez vers le nord et suivez le mur côté {area:287} jusqu'à une charrette renversée appuyée contre lui. Sautez sur la charrette et son échelle pour monter sur le mur, puis passez par les rochers jusqu'au camp caché. Certains personnages ne passent pas sous le filet de chargement du camp ; une autre race ou une forme plus petite passe.",
 	["Fallen cart"] = "Charrette renversée",
 
-	-- Step 9: The hidden camp
+	-- Step 10: The hidden camp
 	["The hidden camp"] = "Le camp caché",
 }

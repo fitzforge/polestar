@@ -211,11 +211,11 @@ return {
 	-- plural, as words: Document Chests = {object:176344} Document Chest
 	["West of Freewind, the Grimtotem camps below {area:2097}. The Secret Notes are in Document Chests at the south-east, south-west and north-west camps."] = "К западу от заставы Вольного Ветра, под местом {area:2097}, – лагеря Зловещего Тотема. Тайные записки лежат в сундучках для бумаг ({object:176344}) в юго-восточном, юго-западном и северо-западном лагерях.",
 	-- {object:176344} Document Chest
-	["{object:176344}, north-west camp"] = "{object:176344}, северо-западный лагерь",
+	["{object:176344}, south-east camp"] = "{object:176344}, юго-восточный лагерь",
 	-- {object:176344} Document Chest
 	["{object:176344}, south-west camp"] = "{object:176344}, юго-западный лагерь",
 	-- {object:176344} Document Chest
-	["{object:176344}, south-east camp"] = "{object:176344}, юго-восточный лагерь",
+	["{object:176344}, north-west camp"] = "{object:176344}, северо-западный лагерь",
 
 	-- Step 49: Level 28.9
 	["Level 28.9"] = "",

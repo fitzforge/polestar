@@ -145,9 +145,11 @@ return {
 
 	-- Step 29: Alterac Mountains
 	-- {area:279} Dalaran
-	["The {area:279} crater"] = "A cratera de {area:279}",
+	["The {area:279} crater's eastern rim"] = "A borda leste da cratera de {area:279}",
 
 	-- Step 30: The Dalaran crater
+	-- {area:279} Dalaran
+	["The {area:279} crater"] = "A cratera de {area:279}",
 	-- {area:279} Dalaran · {npc:2411} Ricter · {npc:2412} Alina · {npc:2413} Dermot · {npc:2414} Kegan Darkmar
 	-- plural, as words: Worn Stone Tokens = {item:3714} Worn Stone Token
 	["Head west along the foot of the mountains to the violet dome of {area:279}. {npc:2411}, {npc:2412} and {npc:2413} (33-34) stand together inside the crater's eastern rim, {npc:2414} (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens. Careful: Many guards stand in linked pairs and others patrol alone around the camp."] = "Siga para oeste pelo pé das montanhas até a cúpula violeta de {area:279}. {npc:2411}, {npc:2412} e {npc:2413} (33-34) ficam juntos na borda leste da cratera, {npc:2414} (35) um pouco a oeste deles; cada um carrega uma peça de Pedra-sangrenta. Os Escudeiros e Teurgos (31-33) em volta deles deixam cair as Fichas de Pedra Gastas. Cuidado: muitos guardas andam em duplas ligadas, e outros patrulham sozinhos em volta do acampamento.",
