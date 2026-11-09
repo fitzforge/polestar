@@ -4889,6 +4889,22 @@
 					"ref": "objects.json 177844 Strange Lockbox, map 1421 29.56,29.2; the guide's own Strange Lockbox step (only Tauren,Druid, when onquest 30)"
 				}
 			]
+		},
+		{
+			"id": "h130-kadrak-rogues-from-fizzule",
+			"faction": "Horde",
+			"at": {
+				"quest": 6541,
+				"goal": "turnin"
+			},
+			"tip": "From Seereth's camp head north-east across the Barrens to the road north of the Crossroads; Rogues coming from Fizzule's tower ride west to it. Kadrak stands on the watch tower of the Mor'shan Rampart where the road enters Ashenvale.",
+			"note": "Horde final route review (0.3.6 leftovers), detour-from-tip sweep: forever/horde/05-stonetalon-mountains' Kadrak step said 'From Seereth's camp head north-east' to everyone, but Rogues come from Taskmaster Fizzule (7233, Barrens 55.44,5.56), the step right before it, just east of Kadrak (8582, 48.12,5.42).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 7233 and 8582 on map 1413; the guide's own Taskmaster Fizzule step (only Rogue)"
+				}
+			]
 		}
 	]
 }

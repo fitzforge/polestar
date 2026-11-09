@@ -9327,3 +9327,13 @@ test('forever/horde/05-stonetalon-mountains.guide: the Sepulcher tip reads right
 	assert.match(tip, /Strange Lockbox/);
 	assert.doesNotMatch(tip, /^From the zeppelin towers/);
 });
+
+// Detour-from-tip sweep (0.3.6 leftovers): Kadrak's step, right after the Rogues' Taskmaster Fizzule (55.44,5.56,
+// just east of Kadrak at 48.12,5.42), said "From Seereth's camp head north-east" to everyone.
+test('forever/horde/05-stonetalon-mountains.guide: the Kadrak tip gives Rogues coming from Fizzule their way', { skip }, () => {
+	const steps = compiled('forever/horde/05-stonetalon-mountains.guide').steps;
+	const fiz = steps.findIndex((st) => st.goals.some(is('turnin', 2458)));
+	const kad = steps.findIndex((st) => st.goals.some(is('turnin', 6541)));
+	assert.ok(fiz >= 0 && kad === fiz + 1, 'Kadrak right after Fizzule');
+	assert.match([].concat(steps[kad].tip || []).join(' '), /Rogues coming from Fizzule's tower ride west/);
+});
