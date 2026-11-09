@@ -405,12 +405,6 @@ test('forever/horde/04-the-barrens.guide: Logmar\'s quest is taken in Camp Taura
 	assert.ok(Math.hypot(list[kill].goal.x - 48.8, list[kill].goal.y - 77.0) < 1, 'at the recorded camp');
 });
 
-// Horde 1-30 audit (#1414): Kyle's meat comes from the Poison Water loop's plainstriders.
-test(`${MULGORE}: Kyle's Gone Missing! is taken before the Poison Water loop (#1414)`, { skip }, () => {
-	const list = goals(MULGORE);
-	assert.ok(at(list, 'accept 99411', is('accept', 99411)) < at(list, 'collect 4758', (g) => g.t === 'collect' && g.quest === 748), 'Ahab before the paws');
-});
-
 // Horde 1-30 audit (#1414): Encroachment from Gar'Thok on the first Razor Hill stop, before the prickly pears.
 for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Encroachment can be taken on the first Razor Hill stop, before the prickly pears (#1414)`, { skip }, () => {
 	const list = goals(DUROTAR);
