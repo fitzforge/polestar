@@ -20,7 +20,7 @@ return {
 
 	-- Step 2: An Alarming Request
 	-- {npc:247264} Emissary Jacques · {faction:2740} Kirin Tor · {area:271} Southshore · {npc:246748} Archmage Modera · {area:1338} Lordamere Lake · {area:279} Dalaran
-	["{npc:247264} of the {faction:2740} waits in {area:271}. He sends you to {npc:246748}'s image by the shore of {area:1338}, outside {area:279}'s walls. The {faction:2740} quests start at level 24 to 30 and pay full reputation while they are at most 5 levels below you; in Classic a quest 6+ levels below you pays less (a fifth at 60)."] = "{npc:247264} de {faction:2740} espera em {area:271}. Ele manda você até a imagem de {npc:246748}, na margem de {area:1338}, fora das muralhas de {area:279}. As missões de {faction:2740} começam entre os níveis 24 e 30 e pagam a reputação inteira enquanto estiverem no máximo 5 níveis abaixo de você; no Classic, uma missão 6 ou mais níveis abaixo de você paga menos (um quinto no 60).",
+	["{npc:247264} of the {faction:2740} waits in {area:271}. He sends you to {npc:246748}'s image by the shore of {area:1338}, outside {area:279}'s walls. The {faction:2740} quests start at level 24 to 30 and pay full reputation at any level in Forever."] = "",
 
 	-- Step 3: Archmage Modera's image
 	-- {npc:246748} Archmage Modera
@@ -75,4 +75,7 @@ return {
 	["The {item:285327}"] = "O {item:285327}",
 	-- {npc:32287} Archmage Alvareaux · {npc:28776} Elizabeth Ross · {area:279} Dalaran · {item:285327} Kirin Tor Tabard
 	["{npc:32287} and {npc:28776}, the tabard vendor in {area:279}, sell the {item:285327} at Exalted for 25g."] = "{npc:32287} e {npc:28776}, o vendedor de tabardos em {area:279}, vendem o {item:285327} em Exaltado por 25g.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:247264} of the {faction:2740} waits in {area:271}. He sends you to {npc:246748}'s image by the shore of {area:1338}, outside {area:279}'s walls. The {faction:2740} quests start at level 24 to 30 and pay full reputation while they are at most 5 levels below you; in Classic a quest 6+ levels below you pays less (a fifth at 60)."] = "{npc:247264} de {faction:2740} espera em {area:271}. Ele manda você até a imagem de {npc:246748}, na margem de {area:1338}, fora das muralhas de {area:279}. As missões de {faction:2740} começam entre os níveis 24 e 30 e pagam a reputação inteira enquanto estiverem no máximo 5 níveis abaixo de você; no Classic, uma missão 6 ou mais níveis abaixo de você paga menos (um quinto no 60).",
 }

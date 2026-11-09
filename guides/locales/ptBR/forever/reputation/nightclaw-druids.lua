@@ -30,7 +30,7 @@ return {
 
 	-- Step 3: Lotheluum Starbreeze
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar
-	["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Come early: in Classic a quest pays less once you are 6 levels above it, a fifth at most from 9 levels up, and these are level 11 to 13 quests."] = "{npc:252359} fica em {area:16638}, a cidade dos Celonatos no sul da ilha, e não ouviu nada dos druidas do norte. A missão dele é o começo da história dos Noctigarra (nível 8 em diante, qualquer raça). Toda missão dela rende reputação com os Noctigarra: 4100 no total, o bastante para Amigável. Venha cedo: no Classic uma missão paga menos quando você está 6 níveis acima dela e no máximo um quinto a partir de 9 níveis, e estas são missões de nível 11 a 13.",
+	["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Players' turn-ins paid their full reputation well above these quests' level."] = "",
 
 	-- Step 4: Elegael Thornpaw
 	-- {area:16631} Shadowgale Forest · {npc:257944} Elegael Thornpaw
@@ -108,4 +108,7 @@ return {
 	["The {item:280363}"] = "O {item:280363}",
 	-- {item:280363} Nightclaw Mantle
 	["Exalted opens the {item:280363}, green cloth shoulders for level 15, for 8s 16c."] = "Exaltado abre o {item:280363}, ombreiras de tecido verdes para o nível 15, por 8s 16c.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Come early: in Classic a quest pays less once you are 6 levels above it, a fifth at most from 9 levels up, and these are level 11 to 13 quests."] = "{npc:252359} fica em {area:16638}, a cidade dos Celonatos no sul da ilha, e não ouviu nada dos druidas do norte. A missão dele é o começo da história dos Noctigarra (nível 8 em diante, qualquer raça). Toda missão dela rende reputação com os Noctigarra: 4100 no total, o bastante para Amigável. Venha cedo: no Classic uma missão paga menos quando você está 6 níveis acima dela e no máximo um quinto a partir de 9 níveis, e estas são missões de nível 11 a 13.",
 }

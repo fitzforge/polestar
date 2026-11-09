@@ -17,11 +17,9 @@ return {
 
 	-- Step 2: The Venture Co. Mine
 	-- {zone:1412} Mulgore · {area:360} The Venture Co. Mine · {object:403041} Blasting Supplies (no name in this language: may be words)
-	["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside its far side; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "",
-	["Venture Co. Mine"] = "",
-	-- {object:403041} Blasting Supplies (no name in this language: may be words)
-	-- plural, as words: Seaforium Mining Charges = {item:206157} Seaforium Mining Charge
-	["Loot 5 Seaforium Mining Charges from the {object:403041}"] = "",
+	["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside it; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "",
+	-- {item:206157} Seaforium Mining Charge · {object:403041} Blasting Supplies (no name in this language: may be words)
+	["{item:206157}, from the {object:403041}"] = "",
 
 	-- Step 3: Boarton Shadetotem
 	-- {npc:205729} Boarton Shadetotem · {zone:1456} Thunder Bluff · {item:206176} Mortar and Pestle
@@ -33,21 +31,23 @@ return {
 	-- {area:819} Windfury Ridge · {zone:1456} Thunder Bluff · {item:206176} Mortar and Pestle
 	-- plural, as words: Windfury Cones = {item:206170} Windfury Cone
 	["Windfury Cones lie on the ground under the harpies' nest trees on {area:819}, north-west of {zone:1456}; the harpies do not drop them. The Windfury Sorceresses (level 9-10) and Matriarchs (10-11) there stand close together: pick the cones from the edges. Once you have eight, use the {item:206176} to grind them."] = "",
-	["grind the eight cones"] = "",
+	["the mortar takes all eight"] = "",
+	-- {item:206175} Pine Salve
+	["grind the eight cones into the {item:206175}"] = "",
 
 	-- Step 5: Boarton Shadetotem
 	-- {npc:205729} Boarton Shadetotem · {item:206344} Knife Set
-	["Back to {npc:205729}. He hands you the {item:206344}: the fish must be filleted in front of him."] = "",
+	["Back to {npc:205729}. He hands you the {item:206344} for the last test."] = "",
 
 	-- Step 6: Raw Brilliant Smallfish
-	-- {item:6291} Raw Brilliant Smallfish · {npc:8674} Auctioneer Stampi · {npc:3028} Kah Mistrunner · {skill:356} Fishing · {npc:3029} Sewa Mistrunner · {item:6256} Fishing Pole · {item:6529} Shiny Bauble
-	["Buy a {item:6291} at the Auction House ({npc:8674}, north of the pool), or fish one yourself: {npc:3028} trains {skill:356} and {npc:3029} beside him sells the {item:6256} and a {item:6529}; the pool on the main mesa gives smallfish at any skill."] = "",
+	-- {item:6291} Raw Brilliant Smallfish · {npc:8674} Auctioneer Stampi · {npc:3028} Kah Mistrunner · {skill:356} Fishing · {npc:3029} Sewa Mistrunner · {item:6256} Fishing Pole · {item:6529} Shiny Bauble · {item:206344} Knife Set
+	["Buy a {item:6291} at the Auction House ({npc:8674}, north of the pool), or fish one yourself: {npc:3028} trains {skill:356} and {npc:3029} beside him sells the {item:6256} and a {item:6529}; the pool on the main mesa gives smallfish at any skill. Then use the {item:206344} on it, wherever you are."] = "",
 	-- {item:6291} Raw Brilliant Smallfish
-	["{item:6291}: the Auction House, or the pool"] = "",
+	["{item:6291}: the Auction House, or the pool; the knife takes it"] = "",
+	-- {item:206345} Fish Chunks
+	["fillet the smallfish into {item:206345}"] = "",
 
-	-- Step 7: Fish Chunks
-	-- {npc:205729} Boarton Shadetotem · {item:206344} Knife Set · {item:277988} Hoof-Holstered Blade · {item:278002} Valley Cosh
-	["Stand beside {npc:205729} and use the {item:206344} on the smallfish: it only counts next to him. Then take your weapon: the {item:277988} or the {item:278002}."] = "",
-	-- {npc:205729} Boarton Shadetotem
-	["in front of {npc:205729}"] = "",
+	-- Step 7: Boarton Shadetotem
+	-- {npc:205729} Boarton Shadetotem · {item:277988} Hoof-Holstered Blade · {item:278002} Valley Cosh
+	["Take your weapon from {npc:205729}: the {item:277988} or the {item:278002}."] = "",
 }
