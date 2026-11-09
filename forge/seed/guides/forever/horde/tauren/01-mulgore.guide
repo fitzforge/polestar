@@ -140,7 +140,6 @@ step Bloodhoof Village
   accept 771
   accept 96130                        -- Yaw Sharpmane
   accept 766                          -- Maur Raincaller
-  accept 99411                        -- Ahab Wheathoof, at the north end of the village: Kyle wants Tender Strider Meat
 
 step Bloodhoof Village
   train Cooking npc 3067              -- Pyall Silentstride: Camping 101 asks you to learn it
@@ -155,7 +154,6 @@ step Poison Water
   collect 4807 quest 766.4
   collect 4759 quest 748.2            -- Plainstrider Talon
   collect 4806 quest 766.3            -- Plainstrider Scale
-  collect 287505 optional             -- Tender Strider Meat for Kyle: Adult Plainstriders drop it
   collect 4804 quest 766.1
   collect 4809 quest 771.2
   collect 4808 quest 771.1                    -- Well Stone, 170 yd east
@@ -198,9 +196,11 @@ step Bloodhoof Village
   accept 758
   turnin 766                          -- Maur Raincaller
   turnin 96130                        -- Yaw Sharpmane
+  tip Ahab stands at the north edge of the village. Kyle wants Tender Strider Meat from plainstriders.
+  accept 99411
 
 step Thunderhorn Water Well
-  tip The well lies north of the village. Adult Plainstriders graze around it: they drop the Tender Strider Meat for Kyle, if you have none yet.
+  tip The well lies north of the village. Adult Plainstriders graze around it: they drop the Tender Strider Meat for Kyle.
   use 5415 quest 758.1 @44.6,45.4     -- Thunderhorn Cleansing Totem
   collect 287505                      -- Tender Strider Meat
 
