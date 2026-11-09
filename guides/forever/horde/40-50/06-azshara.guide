@@ -357,7 +357,14 @@ step Fly to Gadgetzan
 step Gadgetzan
   zone Tanaris
   turnin 4494                         -- Alchemist Pestlezugg, inside
-  accept 4496
+
+step Alchemist Pestlezugg
+  zone Tanaris
+  when available 4496
+  accept 4496                         -- Alchemist Pestlezugg, inside
+
+step Gadgetzan
+  zone Tanaris
   turnin 2641                         -- Sprinkle
   accept 2661
   accept 4504                         -- Tran'rek, beside the wind rider master

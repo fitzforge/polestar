@@ -9416,3 +9416,18 @@ test('Loch Modan (Dwarf, Gnome): Mountaineer Kadrell\'s goals point at his walk 
 		}
 	}
 });
+
+// GuideHealth036 fresh-start sweep (0.3.6, every guide stands on its own): a Horde player loading 40-50/06 Azshara or
+// 50-60/04 Azshara fresh, without March of the Silithid (4494, from the Feralas guides' Rise of the Silithid) or
+// Better Late Than Never (5023, from 50-60/01), was shown "Requires ..." on Bungle in the Jungle (4496) and on
+// Good Luck Charm and Two Halves Become One (5050, 5051). Each accept now waits for its quest to be available, and
+// the hand-ins and the charm's work for it to be in the log, as 50-60/02 Felwood does for Arko'narin.
+test('Horde Azshara guides: chain accepts from an earlier guide wait until the quest is available', { skip }, () => {
+	const holds = (steps, q, k) => steps.some((st) => st.goals.some((g) => g.quest === q && g.t === 'accept') && (st.when || []).some((p) => p.k === k && !p.neg && [].concat(p.q).includes(q)));
+	const az = compiled('forever/horde/40-50/06-azshara.guide').steps;
+	assert.ok(holds(az, 4496, 'available'), 'Bungle in the Jungle only when available');
+	const az2 = compiled('forever/horde/50-60/04-azshara.guide').steps;
+	for (const q of [5049, 5050, 5051]) assert.ok(holds(az2, q, 'available'), `${q} only when available`);
+	const work = az2.find((st) => st.goals.some((g) => g.t === 'turnin' && g.quest === 5051));
+	assert.ok((work.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(5051)), 'the charm\'s work only with 5051 in the log');
+});
