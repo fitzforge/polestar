@@ -582,7 +582,7 @@ step Ratchet
 
 # ---------------------------------------------------------------- South-west: the Raptor Grounds, then Northwatch Hold
 step Raptor nests
-  tip South-west from Ratchet across the plains to the Raptor Grounds: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them.
+  tip South-west from Ratchet across the plains to the Raptor Grounds: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a Sunscale Feather: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest.
   interact 6907 quest 905.1
   interact 6908 quest 905.2
   interact 6906 quest 905.3

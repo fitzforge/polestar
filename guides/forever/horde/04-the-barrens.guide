@@ -200,7 +200,7 @@ step Gann Stonespire
   accept 849
 
 step The flying machine
-  tip The dwarves' flying machine sits on its platform inside the dig site.
+  tip The dwarves' flying machine sits on its platform inside the dig site. Use the Explosive Stick of Gann that Gann gave you on it.
   interact 3644 quest 849.1
 
 step Gann Stonespire

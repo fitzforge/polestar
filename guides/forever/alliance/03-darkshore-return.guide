@@ -55,7 +55,7 @@ step The Grove of the Ancients
   turnin 1003                                 -- Buzzbox 525
 
 step The Master's Glaive
-  tip Moonstalker Sires prowl the woods around the glaive. The Scrying Bowl and the Twilight Tome sit at the bottom of the crater; Therylune stands on its north side.
+  tip Moonstalker Sires prowl the woods around the glaive. The Twilight Tome sits at the bottom of the crater; Therylune stands on its north side. For Onu's quest, use the Phial of Scrying at the bottom of the crater: it makes the Scrying Bowl, and you hand the quest in to the bowl.
   collect 5386 quest 986                      -- Fine Moonstalker Pelts
   accept 945                                  -- Therylune
   complete 945                                -- Escort her out of the glaive; Therysil takes the turn-in in Ashenvale

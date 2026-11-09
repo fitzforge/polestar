@@ -9542,3 +9542,15 @@ test('leveling guides: no unused bind that displaces the one the route hearths t
 	}
 	assert.ok(goals('forever/alliance/04-redridge-mountains.guide').some(({ goal }) => goal.t === 'sethome' && goal.location === 'Darkshire'), 'Darkshire is still bound');
 });
+
+// GuideHealth036 (0.3.6), class "a required action never named" (after GuideReview036's Videre Elixir and Book of
+// the Ancients): steps whose objective needs an item the step never mentioned. Durnholde's locks need the jailors'
+// keys (The Rescue 498), the Scytheclaw nests need Sunscale Feathers (905), the flying machine needs Gann's
+// Explosive Stick (849), and the Scrying Bowl only appears once the Phial of Scrying is used (944).
+test('Steps name the item their objective needs (jailor keys, feathers, explosive stick, phial)', { skip }, () => {
+	const src = (f) => fs.readFileSync(path.join(OFFICIAL_DIR, f), 'utf8');
+	assert.match(src('forever/horde/06-hillsbrad-foothills.guide'), /Jailor Eston carries the Dull Iron Key and Jailor Marlgen the Burnished Gold Key/);
+	assert.match(src('forever/horde/02-the-barrens.guide'), /step Raptor nests\n  tip [^\n]*Sunscale Feather/);
+	assert.match(src('forever/horde/04-the-barrens.guide'), /step The flying machine\n  tip [^\n]*Explosive Stick of Gann/);
+	assert.match(src('forever/alliance/03-darkshore-return.guide'), /step The Master's Glaive\n  tip [^\n]*Phial of Scrying/);
+});

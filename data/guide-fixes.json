@@ -5048,6 +5048,65 @@
 					"ref": "creature 2417's waypoint walk, 114 yd (data/forever/moves.json)"
 				}
 			]
+		},
+		{
+			"id": "gh036-hillsbrad-rescue-jailor-keys",
+			"faction": "Horde",
+			"at": {
+				"quest": 498,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Drull and Tog'thar are chained inside Durnholde Keep's courtyard buildings. Their locks need keys: Jailor Eston carries the Dull Iron Key and Jailor Marlgen the Burnished Gold Key, both in the keep. Kill them, then open both locks.",
+			"note": "GuideHealth036 Steps (0.3.6): the step said 'open both locks' without the keys; items.json: Dull Iron Key 3467 drops from Jailor Eston 2427 (100%), Burnished Gold Key 3499 from Jailor Marlgen 2428 (100%), both at Durnholde (1424 ~79.5,41); the knowledge base's steps for 498 use both keys.",
+			"source": {
+				"kind": "client",
+				"ref": "items.json 3467/3499 drops; quest-steps.json 498"
+			}
+		},
+		{
+			"id": "gh036-barrens-scytheclaw-nests-feathers",
+			"faction": "Horde",
+			"at": {
+				"quest": 905,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "South-west from Ratchet across the plains to the Raptor Grounds: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a Sunscale Feather: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest.",
+			"note": "GuideHealth036 Steps (0.3.6): the nest step never named the feathers. Quest text 905: 'Kill Sunscale raptors and collect their feathers. Use the feathers on the 3 Scytheclaw nests'; items.json 5165 drops from Sunscale raptors 3254-3256 at 80%.",
+			"source": {
+				"kind": "client",
+				"ref": "quests.json 905 objectiveText; items.json 5165"
+			}
+		},
+		{
+			"id": "gh036-barrens-gann-explosive-stick",
+			"faction": "Horde",
+			"at": {
+				"quest": 849,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The dwarves' flying machine sits on its platform inside the dig site. Use the Explosive Stick of Gann that Gann gave you on it.",
+			"note": "GuideHealth036 Steps (0.3.6): the step pointed at the flying machine without the item that destroys it (Explosive Stick of Gann 5021, from Gann; the knowledge base's steps for 849).",
+			"source": {
+				"kind": "client",
+				"ref": "quest-steps.json 849; items.json 5021"
+			}
+		},
+		{
+			"id": "gh036-darkshore-masters-glaive-phial",
+			"faction": "Alliance",
+			"at": {
+				"quest": 944,
+				"goal": "complete"
+			},
+			"tip": "Moonstalker Sires prowl the woods around the glaive. The Twilight Tome sits at the bottom of the crater; Therylune stands on its north side. For Onu's quest, use the Phial of Scrying at the bottom of the crater: it makes the Scrying Bowl, and you hand the quest in to the bowl.",
+			"note": "GuideHealth036 Steps (0.3.6): the tip said the Scrying Bowl 'sits' in the crater; it only appears once the Phial of Scrying (5251) is used. Quest text 944: 'use the Phial of Scrying to create a Scrying Bowl'; ender object 10076.",
+			"source": {
+				"kind": "client",
+				"ref": "quests.json 944 objectiveText, end object 10076"
+			}
 		}
 	]
 }

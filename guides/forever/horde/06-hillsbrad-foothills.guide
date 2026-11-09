@@ -112,7 +112,7 @@ step Tarren Mill
 # ---------------------------------------------------------------- East: Durnholde
 step Durnholde Keep: kill these as you meet them
   zone Hillsbrad Foothills
-  tip Drull and Tog'thar are chained inside Durnholde Keep's courtyard buildings; open both locks.
+  tip Drull and Tog'thar are chained inside Durnholde Keep's courtyard buildings. Their locks need keys: Jailor Eston carries the Dull Iron Key and Jailor Marlgen the Burnished Gold Key, both in the keep. Kill them, then open both locks.
   tip From Tarren Mill go south-east into the hills on the way to Durnholde Keep. Rogues and Watchmen hold the camps along the way.
   kill 2260 quest 549.1
   kill 2261 quest 549.2               -- Syndicate Watchman walks around here: look inside the circle on the map
