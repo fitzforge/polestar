@@ -514,6 +514,7 @@ step Auberdine
   tip The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street.
   accept 3524                                 -- Gwennyth Bly'Leggonde
   accept 98025                                -- The WANTED poster outside the inn
+  accept 983                                  -- Wizbang Cranktoggle, upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart
   getfp "Auberdine"
 # ---------------------------------------------------------------- Auberdine
 
@@ -531,6 +532,8 @@ step The Long Wash
   zone Darkshore
   tip Tide Crawlers scuttle along the shore below the village; Buzzbox 827 stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The Beached Sea Creature lies on the shore just south of the village.
   collect 12242 quest 3524 @36.4,50.9 map 1439 -- Sea Creature Bones
+  collect 5385 quest 983 @35.6,47.1           -- Crawler Legs: the Tide Crawlers
+  turnin 983                                  -- Buzzbox 827
 
 step Auberdine
   zone Darkshore

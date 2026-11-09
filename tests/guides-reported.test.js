@@ -8054,3 +8054,16 @@ test(`${LOCH_MODAN} / ${DARKSHORE_RETURN}: #1415: Expanding Horizons goes to Bar
 	const ash = goals(ASHENVALE);
 	assert.ok(ash[at(ash, 'turnin 97914', is('turnin', 97914))].goal.optional, '06-ashenvale keeps only an optional fallback');
 });
+
+// Night Elves landed in Auberdine at the end of Teldrassil and killed Tide Crawlers on the Long Wash for Gwennyth's
+// bones, but Buzzbox 827 (983, Crawler Legs) was taken from Wizbang in the next guide and its legs gathered on the same
+// beach in 03-darkshore at 15 (flow audit: Wizbang passed at 5 yd, a missed merge on the crawlers). Taken and done on
+// that first beach walk now (#1415).
+test(`${TELDRASSIL}: #1415: Buzzbox 827 is taken on the first Auberdine stop and its crawler legs gathered on the Long Wash`, { skip }, () => {
+	const list = goals(TELDRASSIL);
+	const take = at(list, 'accept 983', is('accept', 983));
+	assert.equal(list[take].step, list[at(list, 'accept 3524', is('accept', 3524))].step, 'with Gwennyth\'s quest');
+	const legs = at(list, 'collect 5385', (g) => g.t === 'collect' && g.item === 5385);
+	assert.equal(list[legs].step, list[at(list, 'the bones', (g) => g.t === 'collect' && g.item === 12242)].step, 'on the bones step');
+	assert.ok(legs < at(list, 'turnin 983', is('turnin', 983)), 'handed to the Buzzbox there');
+});

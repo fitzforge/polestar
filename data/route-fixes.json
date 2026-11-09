@@ -8211,6 +8211,19 @@
 			{
 				"a": [
 					"turnin",
+					983
+				],
+				"b": [
+					"turnin",
+					3524
+				],
+				"faction": "Alliance",
+				"why": "Alliance 1-30 audit (#1415): Night Elves take Buzzbox 827 from Wizbang on Teldrassil's first Auberdine stop and hand in the crawler legs on the Long Wash walk for Gwennyth's bones, instead of carrying it to 03-darkshore's beach at 15 (flow audit: Wizbang passed at 5 yd, a missed merge on the crawlers).",
+				"source": "flow audit 2026-11-09"
+			},
+			{
+				"a": [
+					"turnin",
 					1108
 				],
 				"b": [
