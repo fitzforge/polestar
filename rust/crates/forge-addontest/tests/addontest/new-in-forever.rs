@@ -57,9 +57,12 @@ fn run(script: &str) -> Vec<Value> {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.into(),
 		addons: vec![Addon::name("Polestar")],
-		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/new" }
+		saved: vec![(
+			"Polestar".into(),
+			r#"PolestarCharDB = { schema = 1, guide = "test/new" }
 PolestarDB = { schema = 1, settings = { ui = { wholeStep = true } } }"#
-			.into())],
+				.into(),
+		)],
 		script: [TEST_PACK, TEST_SOURCE, GUIDE, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, HELPERS, script].join("\n"),
 		..Default::default()
 	})

@@ -1188,10 +1188,6 @@ fn an_account_from_before_the_line_keeps_its_dots_a_style_it_chose_stays_a_new_a
 	};
 	assert_eq!(run(None), json!({ "style": "line", "kept": true, "drawn": "line" }), "a new account");
 	assert_eq!(run(Some("PolestarDB = { schema = 1, settings = {} }")), json!({ "style": "dots", "kept": true, "drawn": "dots" }), "an account from before");
-	assert_eq!(
-		run(Some(r#"PolestarDB = { schema = 1, settings = { nav = { lineStyle = "sparkle" } } }"#)),
-		json!({ "style": "sparkle", "kept": true, "drawn": "sparkle" }),
-		"a style it chose"
-	);
+	assert_eq!(run(Some(r#"PolestarDB = { schema = 1, settings = { nav = { lineStyle = "sparkle" } } }"#)), json!({ "style": "sparkle", "kept": true, "drawn": "sparkle" }), "a style it chose");
 	assert_eq!(run(Some("PolestarDB = { schema = 1, settings = {}, lineStyleKept = true }")), json!({ "style": "line", "kept": true, "drawn": "line" }), "the line picked after the change stays");
 }
