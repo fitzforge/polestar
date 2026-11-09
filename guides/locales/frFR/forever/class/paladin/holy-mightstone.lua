@@ -22,12 +22,12 @@ return {
 	["{area:3197} is the Alliance camp at the south end of the {zone:1422}, north of the Alterac foothills. {npc:10838} commands it; {npc:10840} stands in the same camp."] = "Le {area:3197} est le camp de l'Alliance à l'extrémité sud des {zone:1422}, au nord des contreforts d'Alterac. {npc:10838} le commande ; {npc:10840} se tient dans le même camp.",
 
 	-- Step 4: The Argent Dawn Commission
-	-- {item:12846} Argent Dawn Commission
-	["The {item:12846}"] = "La {item:12846}",
-	-- {item:12846} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:2268} Light's Hope Chapel
-	["The Scourge drop no Scourgestones unless you wear an {item:12846}. {npc:10840} gives you one through her quest, {item:12846}, which you hand in straight away (if you already have one from {area:2268}, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones."] = "Le Fléau ne laisse tomber aucune pierre du Fléau si vous ne portez pas une {item:12846}. {npc:10840} vous en donne une via sa quête, {item:12846}, que vous rendez aussitôt (si vous en avez déjà une de la {area:2268}, portez-la). Équipez-la dans un emplacement de bijou : elle apparaît comme une amélioration qui n'expire jamais. Gardez-la sur vous jusqu'à avoir 20 pierres.",
-	-- {item:12846} Argent Dawn Commission
-	["{item:12846}: equip it"] = "{item:12846} : équipez-la",
+	-- {quest:5401} Argent Dawn Commission
+	["The {quest:5401}"] = "",
+	-- {quest:5401} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:2268} Light's Hope Chapel
+	["The Scourge drop no Scourgestones unless you wear an {quest:5401}. {npc:10840} gives you one through her quest, {quest:5401}, which you hand in straight away (if you already have one from {area:2268}, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones."] = "",
+	-- {quest:5401} Argent Dawn Commission
+	["the {quest:5401} trinket: equip it"] = "",
 
 	-- Step 5: Minion's Scourgestones
 	-- plural, as words: Minion's Scourgestones = {item:12840} Minion's Scourgestone
@@ -65,8 +65,11 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A one-use stone that makes you much stronger against undead for 10 minutes; the old choice rewards are gone."] = "Une pierre à usage unique qui vous rend bien plus fort contre les morts-vivants pendant 10 minutes ; les anciennes récompenses au choix ont disparu.",
+	-- ["The Scourge drop no Scourgestones unless you wear an {item:12846}. {npc:10840} gives you one through her quest, {item:12846}, which you hand in straight away (if you already have one from {area:2268}, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones."] = "Le Fléau ne laisse tomber aucune pierre du Fléau si vous ne portez pas une {item:12846}. {npc:10840} vous en donne une via sa quête, {item:12846}, que vous rendez aussitôt (si vous en avez déjà une de la {area:2268}, portez-la). Équipez-la dans un emplacement de bijou : elle apparaît comme une amélioration qui n'expire jamais. Gardez-la sur vous jusqu'à avoir 20 pierres.",
 	-- ["The Scourge throughout the {zone:1422} drop Minion's Scourgestones."] = "Les membres du Fléau dans toutes les {zone:1422} laissent tomber des Pierres du Fléau des serviteurs.",
+	-- ["The {item:12846}"] = "La {item:12846}",
 	-- ["{area:1477} lies in the {area:74} in eastern {zone:1435}. Inside, Gasher and {npc:5716} drop the {item:20606}, Hukku and Mijan the Blue, Zolo and Loro the Green."] = "{area:1477} se trouve dans le {area:74}, dans l'est du {zone:1435}. À l'intérieur, Balafreur et {npc:5716} laissent tomber la {item:20606}, Hukku et Mijan la bleue, Zolo et Loro la verte.",
+	-- ["{item:12846}: equip it"] = "{item:12846} : équipez-la",
 	-- ["{item:20606}, inside"] = "{item:20606}, à l'intérieur",
 	-- ["{item:20607}, inside"] = "{item:20607}, à l'intérieur",
 	-- ["{item:20608}, inside"] = "{item:20608}, à l'intérieur",

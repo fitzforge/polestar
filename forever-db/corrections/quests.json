@@ -6850,5 +6850,26 @@
 			}
 		],
 		"note": "The Gurubashi Legends of Old (Forever, Horde): Kin'weelay at Grom'gol gives it and takes the Third Troll Legend back. The merged data had no giver or ender, so the arrow had nowhere to point."
+	},
+	"91209": {
+		"set": {
+			"pre": [
+				90902
+			],
+			"preAny": [
+				90902
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 10 people (5 established) took Continue Your Training (91209) from Aramis Hammerhand within two seconds of Coming to Terms (91208), each before handing 91208 in"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 91208"
+			}
+		],
+		"note": "The Forsaken Paladin's Continue Your Training (91209) comes with Coming to Terms (91208) from Aramis Hammerhand in Deathknell: it is offered once Rediscovering the Light (90902) is handed in, alongside 91208, not after it. The merged data read the world database's link to 91208 as a hand-in first, which every player's accept contradicts."
 	}
 }

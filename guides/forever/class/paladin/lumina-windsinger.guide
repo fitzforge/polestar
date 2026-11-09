@@ -81,6 +81,7 @@ step Back to the Sepulcher
   tip Lumina waits beside Trevan Rol in the Sepulcher (a different Lumina from the one you escorted). For The Debt, click through every line of her story.
   turnin 96204                        -- Lumina Windsinger, the Sepulcher
   accept 95034
+  talk 259620 quest 95034.1           -- Lumina Windsinger: hear her story to the end
   turnin 95034
 
 # ---------------------------------------------------------------- A Moon-Kissed Blade
@@ -98,13 +99,13 @@ step The Enchanted Silver Ingot
 
 step Whitestone Oak Lumber
   zone Westfall
-  tip The Deadmines lies under Moonbrook in Westfall, Alliance land: a group of five at about 17-24. The way in is the Moonbrook mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time.
+  tip The Deadmines lies under Moonbrook in Westfall, Alliance land: a group of five at about 17-24. From the Undercity take the zeppelin to Grom'gol in Stranglethorn Vale and go north through Duskwood into Westfall. The way in is the Moonbrook mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time.
   goto 42.5,71.7 live "The Deadmines, in the Moonbrook mine"
   collect 6994 quest 95036.2 @42.5,71.7 live -- Goblin Woodcarvers, inside
 
 step Ulric Frostveil
   zone Ashenvale
-  tip Ulric Frostveil waits at Zoram'gar Outpost on Ashenvale's west coast: from the Undercity take the zeppelin to Orgrimmar, then go north through the Barrens into Ashenvale and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take Ulric's quest before you hunt the naga: the Kor Gem only drops while you have it.
+  tip Ulric Frostveil waits at Zoram'gar Outpost on Ashenvale's west coast: take the zeppelin from Grom'gol (or the Undercity) to Orgrimmar, then go north through the Barrens into Ashenvale and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take Ulric's quest before you hunt the naga: the Kor Gem only drops while you have it.
   accept 95042                        -- Ulric Frostveil, Zoram'gar Outpost
 
 step The Corrupted Kor Gem
@@ -130,6 +131,7 @@ step Ott
   tip Ott, the weaponsmith, stands just south of Tarren Mill in Hillsbrad Foothills. Accepting Ott's Masterwork starts the forging: step back and wait near him until he is done.
   turnin 95111                        -- Ott, Tarren Mill
   accept 95125
+  complete 95125                      -- Watch Ott forge the blade
   turnin 95125
   accept 95126                        -- Ott gives you Ott's Masterwork
 
