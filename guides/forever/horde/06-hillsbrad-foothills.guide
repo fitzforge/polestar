@@ -25,6 +25,10 @@ next forever/horde/04-the-barrens
 # Orgrimmar to the Crossroads. Tauren and Skyborne Druids with Trial of the Sea Lion go from the Undercity to
 # Moonglade, Thunder Bluff and the Crossroads instead.
 #
+# The Ruins of Lordaeron's hand-ins (Morbin Lightbane's Light's Justice, 92421; the Abominable Head's
+# Unending Torment, 97288; the Crest of Lordaeron, 95204) come on the Undercity stop (`when complete`/`when
+# onquest`): the run is in forever/horde/05-stonetalon-mountains, where the zeppelin lands beside the ruins.
+#
 # Class quests: Shamans fill the Empty Red Waterskin at the Spring Well beside the inn (Call of Water,
 # 1536); Undead Priests hand Dark Sacrifice (5646) to Aelthalyste in the Undercity; Rogues learn
 # Poisons from Serge Hinott (2479, 2480, optional, after Mission: Possible But Not Probable). Tauren
@@ -192,6 +196,24 @@ step Master Apothecary Faranell
   accept 515 optional                 -- Keep it: the Hillsbrad coast, later on the route
   train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
   vendor nearest
+
+step Master Apothecary Faranell
+  when onquest 97288
+  zone Undercity
+  tip The Abominable Head from the Ruins of Lordaeron: Faranell takes it here.
+  turnin 97288                        -- Master Apothecary Faranell, in the Apothecarium
+
+step Morbin Lightbane
+  when complete 92421
+  zone Undercity
+  tip Your Ruins of Lordaeron limbs: Morbin Lightbane stands in the Royal Quarter, just past the Apothecarium.
+  turnin 92421                        -- Morbin Lightbane
+
+step Oran Snakewrithe
+  when onquest 95204
+  zone Undercity
+  tip The Crest of Lordaeron from your Ruins of Lordaeron run: Oran Snakewrithe takes it.
+  turnin 95204                        -- Oran Snakewrithe
 
 step Archibald
   only Warrior
