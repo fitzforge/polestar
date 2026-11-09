@@ -62,7 +62,7 @@ return {
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {area:919} Stendel's Pond · {object:619896} Forgotten Shrine · {item:6637} Water Sapta · {npc:5894} Corrupt Minor Manifestation of Water · {spell:8056} Frost Shock · {spell:122} Frost Nova · {item:7811} Remaining Drops of Purest Water · {npc:258043} Norric Lochthane · {npc:5895} Minor Manifestation of Water · {item:7813} Shard of Water
 	["Fly to {area:108} and head south to {area:20}: {area:919} and the {object:619896} lie just north of it. Drink the {item:6637} by the shrine to see the {npc:5894} (level 22, {spell:8056} and {spell:122}; one spawn, back three minutes after a kill), defeat it for its bracers (always dropped), then place them and the {item:7811} on the {object:619896} (this, not {npc:258043}, ends the quest). Click the shrine again: the {npc:5895} rises beside it; speak to it before you walk off (if it is gone, abandon and take the quest again at the shrine). It gives you the {item:7813}."] = "",
 	-- {npc:5895} Minor Manifestation of Water
-	["{npc:5895}, at the shrine"] = "{npc:5895}, у святилища",
+	["{npc:5895}, beside the shrine"] = "",
 
 	-- Step 13: Norric Lochthane
 	-- {npc:258043} Norric Lochthane · {item:7813} Shard of Water · {item:5177} Water Totem
@@ -78,4 +78,5 @@ return {
 	-- ["{npc:258043}'s burrow hut stands on the north-western edge of the loch, south of {area:146}."] = "Землянка {npc:258043} стоит на северо-западном берегу озера, к югу от места {area:146}.",
 	-- ["{npc:258203}'s family lives in a cave beneath the southern falls of the {zone:1437}."] = "Семья {npc:258203} живет в пещере под южными водопадами зоны {zone:1437}.",
 	-- ["{npc:258203}: take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then go south to {area:415}. Fill the {item:265772} in the lake around the town."] = "{npc:258203}: плывите на корабле: {area:150} → {area:442} (по пути он заходит сюда: {area:271}), затем идите на юг: {area:415}. Наполните {item:265772} в озере вокруг городка.",
+	-- ["{npc:5895}, at the shrine"] = "{npc:5895}, у святилища",
 }
