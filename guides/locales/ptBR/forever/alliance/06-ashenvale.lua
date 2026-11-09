@@ -27,8 +27,8 @@ return {
 	["The road from {area:413} comes in by the flight master: {npc:3845} and {npc:4079} stand there, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "A estrada vinda de {area:413} chega junto ao mestre de voo: {npc:3845} e {npc:4079} ficam lá, {npc:3691} na estalagem, {npc:3894} dentro do prédio depois dela.",
 	-- {npc:3691} Raene Wolfrunner
 	["{npc:3691}, in the inn"] = "{npc:3691}, na estalagem",
-	-- {npc:3691} Raene Wolfrunner · {quest:990} Trek to Ashenvale · {area:442} Auberdine · {area:331} Ashenvale
-	["{npc:3691}: {quest:990}, from {area:442} (others take it on the next {area:331} visit)"] = "{npc:3691}: {quest:990}, de {area:442} (os outros pegam na próxima visita a {area:331})",
+	-- {npc:3691} Raene Wolfrunner · {quest:990} Trek to Ashenvale · {area:442} Auberdine
+	["{npc:3691}: {quest:990}, from {area:442}"] = "",
 	-- {npc:3894} Pelturas Whitemoon
 	["{npc:3894}, inside"] = "{npc:3894}, lá dentro",
 
@@ -347,6 +347,7 @@ return {
 	-- ["{npc:2104} stands in {area:2103}, a short walk from {npc:1242}."] = "{npc:2104} fica na {area:2103}, a uma curta caminhada de {npc:1242}.",
 	-- ["{npc:3649}: Alexston's reply"] = "{npc:3649}: a resposta de Alexston",
 	-- ["{npc:3664} and his voidwalkers hold the {area:412} south of the shrine. Pull his guards first."] = "{npc:3664} e seus emissários do caos ocupam as {area:412} ao sul do santuário. Atraia os guardas dele primeiro.",
+	-- ["{npc:3691}: {quest:990}, from {area:442} (others take it on the next {area:331} visit)"] = "{npc:3691}: {quest:990}, de {area:442} (os outros pegam na próxima visita a {area:331})",
 	-- ["{npc:3987} (25) leads the Thistlefur gnolls at the camp north of {area:415}. Clear his guards first, one at a time."] = "{npc:3987} (25) lidera os gnolls Pelocardo no acampamento ao norte de {area:415}. Elimine os guardas dele primeiro, um de cada vez.",
 	-- ["{npc:4201}, in the hut north of them"] = "{npc:4201}, na cabana ao norte deles",
 	-- ["{npc:4276} mines in the {area:2160} at the east end of the crag. Talk to him and fend off the Venture Co. raiders while he mines."] = "{npc:4276} minera na {area:2160}, no extremo leste do penhasco. Fale com ele e afaste os atacantes da Empreendimentos S.A. enquanto ele minera.",

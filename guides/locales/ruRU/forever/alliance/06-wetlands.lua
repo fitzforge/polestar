@@ -186,12 +186,10 @@ return {
 	["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "",
 
 	-- Step 34: Auberdine
-	-- {npc:3693} Terenthis · {npc:3694} Sentinel Selarin
-	["{npc:3693} stands by the flight master, {npc:3694} beside him. If she isn't there, she has been killed and respawns shortly: wait a moment."] = "",
+	-- {npc:3693} Terenthis
+	["{npc:3693} stands by the flight master."] = "",
 	-- {npc:3693} Terenthis · {zone:1439} Darkshore
 	["{npc:3693}: Volcor's escort from the end of {zone:1439}"] = "",
-	-- {npc:3694} Sentinel Selarin · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
-	["{npc:3694}: for {npc:3691} in {area:415}"] = "",
 
 	-- Step 35: Fly to Astranaar
 	-- {area:415} Astranaar
@@ -204,8 +202,6 @@ return {
 	["For {quest:4581} at {area:2358}"] = "",
 
 	-- Step 37: Astranaar
-	-- {npc:3691} Raene Wolfrunner
-	["{npc:3691}, in the inn"] = "{npc:3691}, в таверне",
 	-- {npc:3894} Pelturas Whitemoon
 	["{npc:3894}, inside"] = "",
 
@@ -351,4 +347,5 @@ return {
 	-- ["Inside"] = "Внутри",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it."] = "Реликвии лежат прямо на раскопках. {npc:1353}, крупный острозуб, рыщет в долине ящеров сразу к западу от них.",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}: соедините две половинки",
+	-- ["{npc:3691}, in the inn"] = "{npc:3691}, в таверне",
 }

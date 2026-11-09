@@ -68,7 +68,7 @@ step Astranaar
   accept 1070                             -- Sentinel Thenysil
   sethome "Astranaar"
   accept 991                              -- Raene Wolfrunner, in the inn
-  turnin 990 only Druid                   -- Raene Wolfrunner: Trek to Ashenvale, from Auberdine (others take it on the next Ashenvale visit)
+  turnin 990                              -- Raene Wolfrunner: Trek to Ashenvale, from Auberdine
   accept 1054
   turnin 1020                             -- Pelturas Whitemoon, inside
   accept 1033

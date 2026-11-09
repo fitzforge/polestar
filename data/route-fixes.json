@@ -5889,15 +5889,15 @@
 			},
 			{
 				"a": [
-					"turnin",
-					994
-				],
-				"b": [
 					"accept",
 					990
 				],
+				"b": [
+					"accept",
+					944
+				],
 				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 20-30): Sentinel Selarin's Trek to Ashenvale is offered once Volcor's escort is handed in to Terenthis beside her, on 06-wetlands' Auberdine stop; Raene takes it on the Astranaar stop that follows."
+				"why": "Flow (2026-11-07, Alliance 20-30; edited 2026-11-09, #1415): Sentinel Selarin's Trek to Ashenvale is taken on 03-darkshore-return's first Auberdine stop (before Onu's next quest at the Grove) and handed to Raene on 06-ashenvale's first Astranaar stop at ~23, for its full XP. The pair used to wait for Volcor's escort (994): players' recordings show Selarin offering it to 17 people at 15-22 with no escort done (forever-db correction 990)."
 			},
 			{
 				"a": [

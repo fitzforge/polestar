@@ -23,13 +23,14 @@ next forever/alliance/06-ashenvale
 
 step Auberdine
   zone Darkshore
-  tip From the dock, up to the north end of the village first (Thundris Windweaver, Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south.
+  tip From the dock, up to the north end of the village first (Thundris Windweaver, Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south. Sentinel Selarin stands beside Terenthis by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment.
   turnin 97926 optional                       -- Thundris Windweaver, north end of the village: Baros Alexston's reply
   accept 6123 only NightElf,Druid             -- Alanndarian Nightsong
   accept 729                                  -- Archaeologist Hollee
   vendor nearest optional
   accept 4740                                 -- The WANTED poster
   accept 986                                  -- Terenthis
+  accept 990                                  -- Sentinel Selarin, beside Terenthis: for Raene Wolfrunner in Astranaar, in the next guide
 
 step Onu
   when onquest 952
@@ -162,9 +163,7 @@ step Volcor
 
 step Auberdine
   only Druid
-  tip Terenthis stands by the flight master, Sentinel Selarin beside him. If she isn't there, she has been killed and respawns shortly: wait a moment.
   turnin 994                                  -- Terenthis
-  accept 990                                  -- Sentinel Selarin: for Raene Wolfrunner in Astranaar, in the next guide
 
 step Auberdine flight master
   only Druid

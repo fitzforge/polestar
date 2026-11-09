@@ -17,6 +17,7 @@ section: players
   - Redridge: Alther's Mill's Tarantula Eggs are now a goal beside the spiders (the hand-in waited on them unannounced).
   - Teldrassil: Night Elves take Buzzbox 827 in Auberdine and finish it on the first beach walk.
   - Dun Morogh's level range reads 1-14, where the route really leaves it.
+  - Trek to Ashenvale is taken in Auberdine at 21 and handed to Raene at 23 (it was held back until 28, after Volcor's escort, which it doesn't need).
   - Auberdine: if Sentinel Selarin isn't beside Terenthis, the step says she respawns shortly (thanks to the #1089 reporter).
   - Steps the arrow pointed slightly wrong: Old Murk-Eye by the lighthouse, the murloc gills along the whole Westfall
     coast, Aamelia Windfield's farmhouse and the cultist ears at Vayn's camp on Zephras Isle.

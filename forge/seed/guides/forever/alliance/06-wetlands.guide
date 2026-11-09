@@ -269,9 +269,8 @@ step Thundris Windweaver
 
 step Auberdine
   zone Darkshore
-  tip Terenthis stands by the flight master, Sentinel Selarin beside him. If she isn't there, she has been killed and respawns shortly: wait a moment.
+  tip Terenthis stands by the flight master.
   turnin 994                              -- Terenthis: Volcor's escort from the end of Darkshore
-  accept 990                              -- Sentinel Selarin: for Raene Wolfrunner in Astranaar
 
 step Fly to Astranaar
   zone Darkshore
@@ -287,7 +286,6 @@ step Shindrell Swiftfire
 
 step Astranaar
   sethome "Astranaar"
-  turnin 990                              -- Raene Wolfrunner, in the inn
   accept 1035                         -- Pelturas Whitemoon, inside
 
 step Melyria and Illiyana
