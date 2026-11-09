@@ -94,12 +94,18 @@ class TextureCache {
 		const t = this.load(name);
 		if (!t) return null;
 		let [l, r, top, bottom] = tc ? (tc.length >= 8 ? [tc[0], tc[6], tc[1], tc[7]] : tc) : [0, 1, 0, 1];
+		// Coordinates running backwards mirror the piece (the game's
+		// NineSliceUtil mirrorLayout draws one corner four ways).
+		const flipX = l > r, flipY = top > bottom;
+		if (flipX) [l, r] = [r, l];
+		if (flipY) [top, bottom] = [bottom, top];
 		const x0 = Math.round(l * t.w), x1 = Math.round(r * t.w), y0 = Math.round(top * t.h), y1 = Math.round(bottom * t.h);
 		const w = Math.max(1, x1 - x0), h = Math.max(1, y1 - y0);
 		const out = Buffer.alloc(w * h * 4);
 		for (let y = 0; y < h; y++) {
 			for (let x = 0; x < w; x++) {
-				const s = ((y0 + y) * t.w + (x0 + x)) * 4, d = (y * w + x) * 4;
+				const sx = flipX ? w - 1 - x : x, sy = flipY ? h - 1 - y : y;
+				const s = ((y0 + sy) * t.w + (x0 + sx)) * 4, d = (y * w + x) * 4;
 				let cr = t.px[s], cg = t.px[s + 1], cb = t.px[s + 2];
 				if (desat > 0) {
 					const lum = 0.299 * cr + 0.587 * cg + 0.114 * cb;
@@ -245,6 +251,16 @@ function resolve(objects, fonts) {
 		const lo = o.minValue ?? 0, hi = o.maxValue ?? 1;
 		const frac = hi > lo ? Math.min(1, Math.max(0, ((o.value ?? lo) - lo) / (hi - lo))) : 0;
 		rects.set(t.id, { x: sr.x + frac * (sr.w - tw), y: sr.y + (sr.h - th) / 2, w: tw, h: th });
+	}
+	// A status bar's fill texture runs from its left edge to its value.
+	for (const o of objects) {
+		if (!o.barTexture) continue;
+		const t = byId.get(o.barTexture);
+		const sr = rects.get(o.id);
+		if (!t || !sr) continue;
+		const lo = o.minValue ?? 0, hi = o.maxValue ?? 1;
+		const frac = hi > lo ? Math.min(1, Math.max(0, ((o.value ?? lo) - lo) / (hi - lo))) : 0;
+		rects.set(t.id, { x: sr.x, y: sr.y, w: sr.w * frac, h: sr.h });
 	}
 	return { byId, rects, scaleOf };
 }

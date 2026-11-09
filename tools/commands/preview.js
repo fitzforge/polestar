@@ -667,14 +667,17 @@ C_Texture.GetAtlasInfo = function(n)
 	if a then return { file = a[1], width = a[2], height = a[3], leftTexCoord = a[4], rightTexCoord = a[5], topTexCoord = a[6], bottomTexCoord = a[7] } end
 end
 local M = stub.Methods
-local setTexture = M.SetTexture
-M.SetTexture = function(self, p, ...)
+local function fileOf(p)
 	if type(p) == "string" then
 		local fid = FILES[(p:lower():gsub("/", "\\\\"):gsub("%.blp$", ""))]
-		if fid then p = fid end
+		if fid then return fid end
 	end
-	return setTexture(self, p, ...)
+	return p
 end
+local setTexture = M.SetTexture
+M.SetTexture = function(self, p, ...) return setTexture(self, fileOf(p), ...) end
+local setBar = M.SetStatusBarTexture
+M.SetStatusBarTexture = function(self, p, ...) return setBar(self, fileOf(p), ...) end
 M.SetAtlas = function(self, n, useSize)
 	local a = type(n) == "string" and ATLAS[n:lower()]
 	self.atlas = n

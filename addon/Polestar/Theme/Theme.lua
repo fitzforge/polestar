@@ -225,10 +225,13 @@ SKIN_PALETTES.forever = gamePalette({
 	separator = hex("AE9D81", 0.35), divider = hex("AE9D81", 0.35), accentLine = hex("AE9D81", 0.5),
 	border = hex("5C4A30"), windowEdge = hex("5C4A30"), hover = hex("FFD100", 0.1), selected = hex("FFD100", 0.14),
 })
+-- Blizzard Style: the meter header's and the tracker header's own gold lines
+-- draw the window's rules, so the hairlines stay faint and white; resting
+-- tabs in the Settings panel's tan, the active one gold on its lit row.
 SKIN_PALETTES.blizzard = gamePalette({
 	bg = hex("000000", 0.96), bgBottom = hex("000000", 0.96), sidebar = hex("000000", 0.25),
-	icon = hex("E8E8E8"), iconHover = hex("FFFFFF"), tabRest = hex("FFD100"), rowLabel = hex("FFD100"), navRest = hex("FFD100"),
-	separator = hex("FFD100", 0.35), divider = hex("FFFFFF", 0.15), accentLine = hex("FFD100", 0.45),
+	icon = hex("E8E8E8"), iconHover = hex("FFFFFF"), tabRest = hex("C9B37A"), rowLabel = hex("FFD100"), navRest = hex("FFD100"),
+	separator = hex("FFFFFF", 0.1), divider = hex("FFFFFF", 0.1), accentLine = hex("FFD100", 0.45),
 	border = hex("404040"), windowEdge = hex("404040"), hover = hex("FFFFFF", 0.08), selected = hex("FFD100", 0.14),
 })
 SKIN_PALETTES.classic = gamePalette({
