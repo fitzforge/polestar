@@ -223,7 +223,7 @@ local REWARD_ITEM = rec({ item = N, itemName = S, quality = N })
 local GOAL = rec({
 	t = S, class = B, zone = N, spell = N, spellName = S, faction = N, factionName = S, standing = N, achievement = N, achievementName = S, criteria = N,
 	quest = N, title = S, target = S, npc = N, npcName = S, object = N, objName = S, item = N, itemName = S, count = N, oi = N, skill = S, skillLine = N,
-	rank = NS, rankMax = N, level = N, frac = N, money = N, untilSkill = N,
+	rank = NS, rankMax = N, level = N, frac = N, grind = N, money = N, untilSkill = N,
 	reagents = list(rec({ item = N, itemName = S, count = N })),
 	location = S, minLevel = N, qlvl = NS, pre = LN, preAll = LN, closedBy = LN, preTitles = { idmap = S }, text = S, node = N, area = N,
 	map = N, x = N, y = N, z = N, f = S, r = N,
@@ -234,7 +234,7 @@ local GOAL = rec({
 	candidates = list(rec({ npc = N, npcName = S, map = N, x = N, y = N, z = N, f = S, faction = S, races = LS, classes = LS,
 		lvl = rec({ min = N, max = N }), rate = N, spawns = N })),
 	rewards = rec({ choices = list(REWARD_ITEM), items = list(REWARD_ITEM), xp = N, money = N }),
-	group = rec({ kind = S, rank = N, name = S, size = N, map = N }),
+	group = rec({ kind = S, rank = N, name = S, size = N, map = N, lvl = N }),
 	direct = B, escort = B, gossip = N, seconds = N,
 	objs = list(rec({ text = S, count = N })), startItem = N, startItemName = S,
 })
