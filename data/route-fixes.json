@@ -11151,6 +11151,66 @@
 				],
 				"faction": "Horde",
 				"why": "Quest volume, Horde 40-60 (2026-11-08): Yuka Screwspigot (level 53, from 48, 2650 XP): Yorba Screwspigot stands by the Steamwheedle Port dock where 50-60/01 takes the boat to Powderfuse Port, and Yuka is at Flame Crest, the guide's Burning Steppes hub a little later; a delivery. Its follow-up, Ribbly Screwspigot, is in Blackrock Depths and is left out."
+			},
+			{
+				"a": [
+					"turnin",
+					586
+				],
+				"b": [
+					"accept",
+					588
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 flow pass (0.3.7): The Fate of Yenniku (level 45, from 30; needs 585 and 586) is taken and handed in at the Bubbling Cauldron on 40-50/01's Grom'gol stop that hands 586 and 585 in, instead of on 40-50/06's Grom'gol stop at 50, where the route used to walk past the cauldron first (flow audit: walked-past giver, 4 yd). Only The Singing Crystals (589) stays in 06."
+			},
+			{
+				"a": [
+					"turnin",
+					580
+				],
+				"b": [
+					"accept",
+					608
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 flow pass (0.3.7): Whiskey Slim's Lost Grog is handed in on 40-50/06's first Booty Bay stop, which walks past his inn table (8 yd), not after the Bloodsail ships."
+			},
+			{
+				"a": [
+					"accept",
+					3520
+				],
+				"b": [
+					"task",
+					8366
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 flow pass (0.3.7): Screecher Spirits (no prerequisite) is taken from Yeh'kinya on the first Steamwheedle Port stop, where the route used to walk past her (11 yd) and take it 50 minutes later on the second."
+			},
+			{
+				"a": [
+					"accept",
+					4501
+				],
+				"b": [
+					"turnin",
+					1124
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 flow pass (0.3.7): Beware of Pterrordax and Lost! are taken at Marshal's Refuge when 50-60/06's flight lands there (2-5 yd from the flight master), not on the way back from Silithus; their work stays in Un'Goro on that way back."
+			},
+			{
+				"a": [
+					"accept",
+					4492
+				],
+				"b": [
+					"turnin",
+					1124
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 flow pass (0.3.7): see 4501 before 1124."
 			}
 		]
 	}

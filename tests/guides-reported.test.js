@@ -6238,6 +6238,25 @@ test('Horde 40-60: grind steps sit on mobs an open quest needs', { skip }, () =>
 	assert.ok(top.s > end[at(end, 'Darkwhisper Gorge', (g) => g.t === 'complete' && g.quest === 4842)].s, 'after the strange source, before the ride back to Donova');
 });
 
+// --- Horde 40-60 flow pass (0.3.7, Fitz: "none of this running past quest givers"): a giver or ender the route walks
+// past (the flow audit's walked-past list) is visited then, not on a later trip.
+test('Horde 40-60 flow pass: givers and enders are visited when the route passes them', { skip }, () => {
+	const H = (g) => `forever/horde/${g}.guide`;
+	const before = (g, a, b, why) => {
+		const list = goals(H(g));
+		assert.ok(at(list, `${a[0]} ${a[1]}`, is(a[0], a[1])) < at(list, `${b[0]} ${b[1]}`, (x) => x.t === b[0] && (x.quest === b[1] || x.item === b[1])), `${g}: ${a.join(' ')} before ${b.join(' ')} (${why})`);
+	};
+	const stv = goals(H('40-50/01-stranglethorn-vale'));
+	assert.equal(stv[at(stv, 'accept 588', is('accept', 588))].s, stv[at(stv, 'turnin 586', is('turnin', 586))].s, "The Fate of Yenniku at the cauldron with 586's hand-in");
+	assert.ok(stv.some(({ goal }) => goal.t === 'turnin' && goal.quest === 588), '588 handed in in Stranglethorn');
+	assert.ok(!goals(H('40-50/06-azshara')).some(({ goal }) => goal.quest === 588), 'no Fate of Yenniku stop left in 06');
+	const az = goals(H('40-50/06-azshara'));
+	assert.equal(az[at(az, 'turnin 580', is('turnin', 580))].s, az[at(az, 'turnin 2874', is('turnin', 2874))].s, "Whiskey Slim on the first Booty Bay stop");
+	const sil = goals(H('50-60/06-silithus'));
+	assert.ok(at(sil, 'accept 4501', is('accept', 4501)) < at(sil, 'turnin 1124', is('turnin', 1124)), "the sign and Spraggle when the flight lands at Marshal's Refuge");
+	assert.ok(at(sil, 'accept 4492', is('accept', 4492)) < at(sil, 'turnin 1124', is('turnin', 1124)), 'Lost! too');
+});
+
 test('Horde quest volume: every added quest has its include record in the route fixes', () => {
 	const ov = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
 	// A quest the Alliance route skips can't be included for both sides (include has no faction): its Horde
@@ -7561,10 +7580,12 @@ test('Horde 43-47 follow-up: the Steamwheedle Port hand-ins on the first Tanaris
 	const fer = goals('forever/horde/40-50/02-feralas.guide');
 	const cove = at(fer, 'collect 9246 quest 2875', (g) => g.t === 'collect' && g.item === 9246);
 	const gadgetzan = at(fer, 'turnin 1691', is('turnin', 1691));
-	for (const [t, q] of [['turnin', 8365], ['turnin', 2873], ['turnin', 2875], ['turnin', 8366], ['accept', 3520]]) {
+	for (const [t, q] of [['turnin', 8365], ['turnin', 2873], ['turnin', 2875], ['turnin', 8366]]) {
 		const i = at(fer, `${t} ${q}`, is(t, q));
 		assert.ok(i > cove && i < gadgetzan, `${t} ${q} between Lost Rigger Cove and Gadgetzan`);
 	}
+	// 0.3.7 flow pass: Yeh'kinya's Screecher Spirits is taken on the first port stop, where the route passes her
+	assert.ok(at(fer, 'accept 3520', is('accept', 3520)) < cove, 'accept 3520 on the first Steamwheedle Port stop');
 	const sw = goals('forever/horde/40-50/03-feralas.guide');
 	assert.ok(!sw.some(({ goal }) => goal.map === 1446), 'no Tanaris stop in the 45-47 guide');
 	const fly = sw.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location);
