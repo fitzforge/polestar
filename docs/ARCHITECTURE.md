@@ -5896,7 +5896,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   the walk each route style takes between two places of its first guide,
   baked by the walking router (`polestar nav welcome`, UI/WelcomeRoutes.lua):
   the chosen style's drawn as the route line, drawn in again on a switch
-  (whole at once under reduced motion), the other two faint, the place
+  (whole at once under reduced motion), the other two dimmer in their own
+  tints; a zone whose walks show under 15 px apart shows the clearest
+  zone's (`apart`, baked), the note naming it; the place
   named and the walk's yards; `nav.routeStyle`, the setting Options' Route style dropdown
   writes, as three rows, Fastest,
   Balanced with its Recommended tag and Roads, each saying what it does: a

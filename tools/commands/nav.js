@@ -400,16 +400,15 @@ async function prepareCmd(argv) {
 // between which Fastest, Balanced and Roads walk visibly apart (found with the walking router over the guide's
 // located goals; the guide's own first walk is too short for the styles to part in most zones). `to` is a
 // named place (its AreaTable id, which the client names in its language; `place` the English kept for none);
-// both ends in the zone map's percent, the live frame. default: the zone shown when the suggested guide's has none.
+// both ends in the zone map's percent, the live frame.
 const WELCOME_WALKS = {
-	default: 1426,
 	zones: [
-		{ map: 1426, zone: 'Dun Morogh', profile: 'Alliance', from: [76.91, 59.95], to: [42.57, 54.68], area: 136, place: 'Grizzled Den' },
-		{ map: 1429, zone: 'Elwynn Forest', profile: 'Alliance', from: [69.66, 79.25], to: [39.5, 82.4], area: 57, place: 'Fargodeep Mine' },
+		{ map: 1426, zone: 'Dun Morogh', profile: 'Alliance', from: [59.9, 50.1], to: [42.57, 54.68], area: 136, place: 'Grizzled Den' },
+		{ map: 1429, zone: 'Elwynn Forest', profile: 'Alliance', from: [24.23, 74.45], to: [39.5, 82.4], area: 57, place: 'Fargodeep Mine' },
 		{ map: 1438, zone: 'Teldrassil', profile: 'Alliance', from: [68.27, 52.18], to: [54.59, 52.12], area: 258, place: 'Fel Rock' },
-		{ map: 1411, zone: 'Durotar', profile: 'Horde', from: [57.79, 53.79], to: [42.4, 68.6], area: 364, place: 'The Den' },
-		{ map: 1412, zone: 'Mulgore', profile: 'Horde', from: [33.5, 46.82], to: [61.19, 49.31], area: 360, place: 'The Venture Co. Mine' },
-		{ map: 1420, zone: 'Tirisfal Glades', profile: 'Horde', from: [45.79, 29.39], to: [60.6, 52], area: 159, place: 'Brill' },
+		{ map: 1411, zone: 'Durotar', profile: 'Horde', from: [59.72, 58.27], to: [42.4, 68.6], area: 364, place: 'The Den' },
+		{ map: 1412, zone: 'Mulgore', profile: 'Horde', from: [33.13, 65.92], to: [61.19, 49.31], area: 360, place: 'The Venture Co. Mine' },
+		{ map: 1420, zone: 'Tirisfal Glades', profile: 'Horde', from: [32, 46.3], to: [26, 60], area: 155, place: "Night Web's Hollow" },
 	],
 };
 const WELCOME_STYLES = ['fastest', 'balanced', 'roads'];
@@ -440,6 +439,53 @@ function thin(pts, tol) {
 		}
 	}
 	return pts.filter((_, k) => keep[k]);
+}
+
+// How far apart the three walks show on the welcome's map (536 x 150, the painting's layer about 3:2, zoomed 1.5 to 3
+// so the walks fill half its width or three quarters of its height, as UI/Welcome.lua paints it): per pair of styles,
+// the distance in px that a stretch of WELCOME_STRETCH px of one walk keeps from the other; the zone's score is its
+// closest pair's. The welcome shows the clearest zone's walks for a zone scoring under its CLEAR_PX.
+// Each zone's pair is its clearest by this score among its first guide's places (`apart` 9-19 px: Fastest and
+// Balanced keep close in every start zone).
+const WELCOME_MAP = { w: 536, h: 150, zoom: [1.5, 3], fill: [0.5, 0.75] };
+const WELCOME_STRETCH = 40;
+function welcomeApart(walks) {
+	const all = WELCOME_STYLES.flatMap((st) => walks[st].pts);
+	const xs = all.map((p) => p[0]);
+	const ys = all.map((p) => p[1]);
+	const dx = Math.max(1, Math.max(...xs) - Math.min(...xs));
+	const dy = Math.max(1, Math.max(...ys) - Math.min(...ys));
+	// px per map percent at zoom 1 (the layer's width over the map's width, at 3:2).
+	const sx0 = (WELCOME_MAP.w / 100);
+	const sy0 = (WELCOME_MAP.w / 1.5 / 100);
+	const k = Math.min((WELCOME_MAP.w * WELCOME_MAP.fill[0]) / (dx * sx0), (WELCOME_MAP.h * WELCOME_MAP.fill[1]) / (dy * sy0));
+	const zoom = Math.min(WELCOME_MAP.zoom[1], Math.max(WELCOME_MAP.zoom[0], k));
+	const px = (pts) => pts.map(([x, y]) => [x * sx0 * zoom, y * sy0 * zoom]);
+	const segd = (p, a, b) => {
+		const ux = b[0] - a[0];
+		const uy = b[1] - a[1];
+		const l2 = ux * ux + uy * uy;
+		const t = l2 ? Math.max(0, Math.min(1, ((p[0] - a[0]) * ux + (p[1] - a[1]) * uy) / l2)) : 0;
+		return Math.hypot(p[0] - a[0] - t * ux, p[1] - a[1] - t * uy);
+	};
+	// Samples every px along A, each its distance from B; the WELCOME_STRETCH-th farthest.
+	const from = (A, B) => {
+		const d = [];
+		for (let i = 0; i + 1 < A.length; i++) {
+			const n = Math.max(1, Math.ceil(Math.hypot(A[i + 1][0] - A[i][0], A[i + 1][1] - A[i][1])));
+			for (let j = 0; j < n; j++) {
+				const p = [A[i][0] + ((A[i + 1][0] - A[i][0]) * j) / n, A[i][1] + ((A[i + 1][1] - A[i][1]) * j) / n];
+				let best = Infinity;
+				for (let q = 0; q + 1 < B.length; q++) best = Math.min(best, segd(p, B[q], B[q + 1]));
+				d.push(best);
+			}
+		}
+		d.sort((a, b) => b - a);
+		return d[Math.min(d.length - 1, WELCOME_STRETCH - 1)];
+	};
+	const P = Object.fromEntries(WELCOME_STYLES.map((st) => [st, px(walks[st].pts)]));
+	const pair = (a, b) => Math.max(from(P[a], P[b]), from(P[b], P[a]));
+	return Math.round(Math.min(pair('fastest', 'balanced'), pair('balanced', 'roads'), pair('fastest', 'roads')));
 }
 
 // The walks routed by the addon's walking router (addon/Polestar_Nav, run standalone as `nav eval` runs it), each
@@ -475,16 +521,15 @@ async function welcomeCmd(argv) {
 		header('lua', 'nav welcome', 'the walking router (addon/Polestar_Nav) and data/forever/map-frames.json'),
 		"-- The welcome's Route style map (UI/Welcome.lua): per start zone, the walk each route style takes between two",
 		'-- places of its first guide, as the arrow routes it: [uiMapID] = { zone, place, area, <style> = { yards = n,',
-		'-- x1, y1, x2, y2, ... } } (zone map percent; area: the place\'s AreaTable id). default: the zone shown',
-		"-- when the suggested guide's zone has none.",
+		'-- x1, y1, x2, y2, ... } } (zone map percent; area: the place\'s AreaTable id); apart: how far apart the',
+		'-- three walks show on the map, in px (the closest pair of styles, over a 40 px stretch).',
 		'',
 		'local _, ns = ...',
 		'',
 		'ns.WelcomeRoutes = {',
-		`\tdefault = ${WELCOME_WALKS.default},`,
 	];
 	for (const w of WELCOME_WALKS.zones) {
-		lines.push(`\t[${w.map}] = { zone = ${JSON.stringify(w.zone)}, place = ${JSON.stringify(w.place)}, area = ${w.area},`);
+		lines.push(`\t[${w.map}] = { zone = ${JSON.stringify(w.zone)}, apart = ${welcomeApart(walks[w.map])}, place = ${JSON.stringify(w.place)}, area = ${w.area},`);
 		for (const style of WELCOME_STYLES) {
 			const s = walks[w.map][style];
 			lines.push(`\t\t${style} = { yards = ${s.yards}, ${s.pts.map(([x, y]) => `${num(x)}, ${num(y)}`).join(', ')} },`);
@@ -493,7 +538,7 @@ async function welcomeCmd(argv) {
 	}
 	lines.push('}', '');
 	fs.writeFileSync(out, lines.join('\n'));
-	for (const w of WELCOME_WALKS.zones) console.log(`${w.zone}: ${WELCOME_STYLES.map((s) => `${s} ${walks[w.map][s].yards} yd (${walks[w.map][s].pts.length} points)`).join(', ')}`);
+	for (const w of WELCOME_WALKS.zones) console.log(`${w.zone} (${welcomeApart(walks[w.map])} px apart): ${WELCOME_STYLES.map((s) => `${s} ${walks[w.map][s].yards} yd (${walks[w.map][s].pts.length} points)`).join(', ')}`);
 	console.log(`wrote ${path.relative(process.cwd(), out)}`);
 	return 0;
 }

@@ -524,7 +524,7 @@ fn every_start_zones_baked_walks_three_styles_between_the_same_two_places_each_i
 		local zones = {}
 		for z, e in pairs(R) do
 			if type(z) == "number" then
-				local o = { place = e.place, area = e.area }
+				local o = { place = e.place, area = e.area, apart = e.apart }
 				for _, s in ipairs({ "fastest", "balanced", "roads" }) do
 					local w = e[s]
 					o[s] = { yards = w.yards, n = #w / 2, from = w[1] .. "," .. w[2], to = w[#w - 1] .. "," .. w[#w],
@@ -533,12 +533,13 @@ fn every_start_zones_baked_walks_three_styles_between_the_same_two_places_each_i
 				zones[tostring(z)] = o
 			end
 		end
-		emit({ default = R.default, zones = zones })"#);
+		emit({ zones = zones })"#);
 	let zones = out["zones"].as_object().unwrap();
 	for z in ["1411", "1412", "1420", "1426", "1429", "1438"] {
 		assert!(zones.contains_key(z), "start zone {z} has its walks");
 	}
-	assert!(zones.contains_key(&out["default"].to_string()), "the default zone is one of them");
+	let clearest = zones.values().map(|e| e["apart"].as_u64().unwrap()).max().unwrap();
+	assert!(clearest >= 15, "some zone's three walks show 15 px apart or more on the map: {clearest}");
 	for (z, e) in zones {
 		assert!(truthy(&e["place"]) && e["area"].as_u64().is_some(), "{z}: the place it walks to, by area");
 		let (f, b, r) = (&e["fastest"], &e["balanced"], &e["roads"]);
@@ -550,6 +551,36 @@ fn every_start_zones_baked_walks_three_styles_between_the_same_two_places_each_i
 		assert_eq!(keys.len(), 3, "{z}: each style its own walk");
 		let y = |s: &Value| s["yards"].as_u64().unwrap();
 		assert!(y(f) <= y(b) && y(b) <= y(r), "{z}: Fastest the shortest, Roads the longest: {} {} {}", y(f), y(b), y(r));
+	}
+}
+
+#[test]
+fn a_start_zone_whose_walks_hardly_part_shows_the_clearest_zones_walks_named_in_the_note() {
+	let out = run(r#"
+		local R = Polestar.WelcomeRoutes
+		local g = uistub.guides[uistub.suggest]
+		local out = {}
+		for z, e in pairs(R) do
+			if type(z) == "number" then
+				g.zone = z
+				if PolestarWelcome then PolestarWelcome:Hide() end
+				Wel.Show("route")
+				local m = PolestarWelcome.RouteMap
+				out[tostring(z)] = { apart = e.apart, shown = m.psZone, shownApart = R[m.psZone].apart,
+					shownName = R[m.psZone].zone, note = plain(m.Note:GetText()) }
+			end
+		end
+		emit(out)"#);
+	let all = out.as_object().unwrap();
+	let best = all.values().map(|o| o["apart"].as_u64().unwrap()).max().unwrap();
+	for (z, o) in all {
+		if o["apart"].as_u64().unwrap() >= 15 {
+			assert_eq!(o["shown"].to_string(), *z, "{z}: walks clear enough show as they are");
+		} else {
+			assert_eq!(o["shownApart"].as_u64().unwrap(), best, "{z}: too close together, the clearest zone's instead: {o}");
+		}
+		let name = o["shownName"].as_str().unwrap();
+		assert!(o["note"].as_str().unwrap().starts_with(name), "{z}: the note names the zone shown: {o}");
 	}
 }
 

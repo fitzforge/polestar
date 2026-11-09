@@ -1249,10 +1249,16 @@ end
 
 -- The walks: each route style's walk between the same two places of a start
 -- zone, found by the walking router at build time (UI/WelcomeRoutes.lua,
--- `polestar nav welcome`): the suggested guide's zone's, else the default's.
+-- `polestar nav welcome`): the suggested guide's zone's while its three walks
+-- show at least CLEAR_PX apart (the zone's `apart`), else the clearest
+-- zone's, which the map's note names.
 local ROUTE_STYLES = { "fastest", "balanced", "roads" }
 local DRAW_IN = 0.6 -- as the route line's draw-in (Maps/RouteLines.lua)
-local FAINT_ALPHA = 0.4
+local CLEAR_PX = 15
+-- The chosen walk: a 4px core over an 11px shadow; the other two 2px in their
+-- own tint over a dark 4px underlay, dimmed.
+local CORE_W, SHADOW_W, FAINT_W, FAINT_UNDER_W, FAINT_ALPHA = 4, 11, 2, 4, 0.7
+local FAINT_TINT = { fastest = "danger", balanced = "npc", roads = "success" }
 -- The painting's zoom (ZoneArt's): at least MAP_ZOOM, in to MAP_ZOOM_MAX so
 -- the walks take WALKS_W of the map's width or WALKS_H of its height.
 local MAP_ZOOM, MAP_ZOOM_MAX, WALKS_W, WALKS_H = 1.5, 3, 0.5, 0.75
@@ -1262,8 +1268,12 @@ local function styleWalks(g)
 	local R = ns.WelcomeRoutes
 	if not R then return nil end
 	local z = g and g.zone
-	if not (z and R[z]) then z = R.default end
-	if z and R[z] then return z, R[z] end
+	if z and R[z] and (R[z].apart or 0) >= CLEAR_PX then return z, R[z] end
+	local best
+	for k, e in pairs(R) do
+		if type(k) == "number" and (not best or e.apart > R[best].apart or (e.apart == R[best].apart and k < best)) then best = k end
+	end
+	if best then return best, R[best] end
 	return nil
 end
 
@@ -1302,22 +1312,30 @@ local function drawTrail(m, share)
 	local d = m.Draw
 	local r, g, b = routeColour()
 	local s1, s2, s3 = Theme.Color("scrim")
-	local t1, t2, t3 = Theme.Color("text")
 	local faint = 0
 	for _, o in ipairs(ROUTE_STYLES) do
 		local pts = all[o]
 		if o ~= s and m.psWalks then
+			local t1, t2, t3 = Theme.Color(FAINT_TINT[o])
 			for i = 1, #pts - 3, 2 do
 				faint = faint + 1
-				local l = mapLine(m, m.Faint, faint, 0, false, 1.5)
+				local u = mapLine(m, m.FaintUnder, faint, -1, false, FAINT_UNDER_W)
+				local l = mapLine(m, m.Faint, faint, 0, false, FAINT_W)
+				u:SetStartPoint("TOPLEFT", d, pts[i], -pts[i + 1])
+				u:SetEndPoint("TOPLEFT", d, pts[i + 2], -pts[i + 3])
 				l:SetStartPoint("TOPLEFT", d, pts[i], -pts[i + 1])
 				l:SetEndPoint("TOPLEFT", d, pts[i + 2], -pts[i + 3])
+				u:SetVertexColor(s1, s2, s3, 0.45)
 				l:SetVertexColor(t1, t2, t3, FAINT_ALPHA)
+				u:Show()
 				l:Show()
 			end
 		end
 	end
-	for i = faint + 1, #m.Faint do m.Faint[i]:Hide() end
+	for i = faint + 1, #m.Faint do
+		m.Faint[i]:Hide()
+		m.FaintUnder[i]:Hide()
+	end
 	local pts, left, n = all[s], (m.psLen[s] or 0) * share, 0
 	for i = 1, #pts - 3, 2 do
 		if left <= 0 then break end
@@ -1329,8 +1347,8 @@ local function drawTrail(m, share)
 		end
 		left = left - len
 		n = n + 1
-		local sh = mapLine(m, m.Shadows, n, 1, true, 9)
-		local mk = mapLine(m, m.Marks, n, 2, false, 3)
+		local sh = mapLine(m, m.Shadows, n, 1, true, SHADOW_W)
+		local mk = mapLine(m, m.Marks, n, 2, false, CORE_W)
 		sh:SetStartPoint("TOPLEFT", d, ax, -ay)
 		sh:SetEndPoint("TOPLEFT", d, bx, -by)
 		mk:SetStartPoint("TOPLEFT", d, ax, -ay)
@@ -1379,7 +1397,7 @@ local function routeMap(p)
 	m.Vig2:SetWidth(floor(CW * 0.22))
 	-- The walks, drawn as the route line's Line look (the setup page's card):
 	-- the chosen style's over a soft shadow, the other two faint under it.
-	m.Shadows, m.Marks, m.Faint = {}, {}, {}
+	m.Shadows, m.Marks, m.Faint, m.FaintUnder = {}, {}, {}, {}
 	m.psOnValue = function(self, v) drawTrail(self, v) end
 	m.Start = W.Tex(d, "OVERLAY", "circle", nil, 0)
 	m.Start:SetSize(9, 9)
