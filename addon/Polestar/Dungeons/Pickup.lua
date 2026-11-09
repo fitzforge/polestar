@@ -6,14 +6,15 @@
 --
 --   Dungeons.PickupPlan(key) -> plan | nil, reason
 --       plan = { dungeon, take = { { quest, rec, giver, pre = { rec, ... } } }, carried = { quest, ... },
---         done = n, later = n, closedBy = { [questId] = { questId } },
+--         done = n, later = n, waiting = { { quest, level, needs = rec | nil } }, closedBy = { [questId] = { questId } },
 --         breadcrumbs = { { id, targets = { questId }, detour = seconds | nil, far, sea, taken } } | nil }
 --       take: quests that apply (faction, race, class), not done, not in the log,
 --       not closed for good (one of the page's `closedBy` done or in the log:
 --       a breadcrumb whose quest is taken, as Klockmort's Essentials once
 --       Essential Artificials is; counted in `done`),
 --       open now or by the dungeon's lowest level (its prerequisites too:
---       one above that level puts it off as `later`, #1076),
+--       one above that level puts it off as `later`, #1076; `waiting` lists
+--       those, with the level each opens at and the prerequisite it waits on),
 --       picked up outside from a
 --       giver (not inside), or from an item that drops outside from a mob or
 --       object with a known place, at MIN_DROP percent or more, once the
@@ -51,6 +52,14 @@
 --       Engine passes it once taken on the way.
 --   Dungeons.PickupGuide(key) -> def | nil, reason   -- "nothing" when there is nothing to take
 --   Dungeons.PickUp(key) -> guideId | nil, reason    -- builds, registers and opens it in a new tab
+--   Dungeons.PickupLabel(plan) -> text   -- the button: "Pick up the quests", with the quests that
+--       wait "(3 now · 2 at level 16)", none open now "Pick up the quests from level 16"
+--   Dungeons.WaitingLines(plan) -> { text }   -- one per waiting quest: why it waits (its level,
+--       the prerequisite it needs first)
+--   The guide lists the waiting quests at the entrance, "Comes back at level N" in the accent. When
+--   the character reaches one's level while that pick-up guide is the open tab, a chat line says
+--   so and its giver (the first open prerequisite's) gets a pin on the map and minimap; the arrow
+--   is left alone. The pins go when the tab changes or the quest is taken.
 --   Dungeons.GiverTarget(key, questId) -> point, label, firstTitle, turnIn | nil
 --       where to go for the quest: the giver of its first open prerequisite
 --       (its turn-in, turnIn true, when that one is in the log), firstTitle
@@ -593,7 +602,11 @@ function Dungeons.PickupPlan(key)
 	local quests = Dungeons.Quests(key)
 	local onPage = {}
 	for _, q in ipairs(quests) do onPage[q.id] = true end
-	local plan = { dungeon = d, take = {}, carried = {}, done = 0, later = 0, closedBy = {} }
+	local plan = { dungeon = d, take = {}, carried = {}, done = 0, later = 0, waiting = {}, closedBy = {} }
+	local function wait(pq, level, needs)
+		plan.later = plan.later + 1
+		plan.waiting[#plan.waiting + 1] = { quest = pq, level = level, needs = needs }
+	end
 	-- One alternative per exclusive group: a quest of this page or its chains
 	-- clashes with one the plan already takes (or the log holds) when each
 	-- closes the other (Ahn'Qiraj's The Path of the Protector, Invoker and
@@ -625,12 +638,14 @@ function Dungeons.PickupPlan(key)
 			elseif closed(pq) then
 				plan.done = plan.done + 1
 			elseif ((rec and rec.minLevel) or pq.minLevel or 1) > reach then
-				plan.later = plan.later + 1
+				-- One that starts inside (no giver out here, no drop outside)
+				-- never comes to the pick-up guide: it does not wait for it.
+				if Dungeons.Giver(pq, from, rec) or Dungeons.DropPoint(key, pq, from, rec) then wait(pq, (rec and rec.minLevel) or pq.minLevel) end
 			else
 				-- No giver: an item that drops outside starts it, once its
 				-- own prerequisites are done (no trip for those, #1380).
 				local giver = Dungeons.Giver(pq, from, rec) or (rec and preDone(rec) and Dungeons.DropPoint(key, pq, from, rec)) or nil
-				local pre, ok, wait = {}, giver ~= nil, false
+				local pre, ok, waitOn = {}, giver ~= nil, nil
 				if ok and rec then
 					local chain = Lk.QuestChain(pq.id, p, clashes)
 					for i = 1, #chain - 1 do
@@ -643,7 +658,7 @@ function Dungeons.PickupPlan(key)
 						-- One it is too low for, now and by the dungeon's
 						-- lowest level, puts it off as its own level would: Fury
 						-- in the Depths (22) waits on The Dark Iron War (25), #1076.
-						if (r.minLevel or 1) > reach then wait = true end
+						if (r.minLevel or 1) > reach and (not waitOn or r.minLevel > waitOn.minLevel) then waitOn = r end
 						-- One the guide cannot start out here (an item the
 						-- character lacks that drops nowhere outside, no placed
 						-- giver or turn-in) leaves it for after that one: Bazil
@@ -660,8 +675,8 @@ function Dungeons.PickupPlan(key)
 				for _, r in ipairs(ok and pre or {}) do
 					if clashes(r.id) then ok = false; break end
 				end
-				if ok and wait then
-					plan.later = plan.later + 1
+				if ok and waitOn then
+					wait(pq, max(waitOn.minLevel, (rec and rec.minLevel) or pq.minLevel or 1), waitOn)
 				elseif ok then
 					pre = withBreadcrumbs(pq, rec, pre, onPage, from, p, plan.closedBy)
 					plan.take[#plan.take + 1] = { quest = pq, rec = rec, giver = giver, pre = pre }
@@ -690,6 +705,39 @@ function Dungeons.PickupPlan(key)
 		plan.carried = carried
 	end
 	return dropDetours(plan, from, p)
+end
+
+-- The lowest level a waiting quest opens at; same: all open at that level.
+local function firstLevel(plan)
+	local lo, same = nil, true
+	for _, w in ipairs(plan and plan.waiting or {}) do
+		if type(w.level) == "number" then
+			if lo and w.level ~= lo then same = false end
+			if not lo or w.level < lo then lo = w.level end
+		end
+	end
+	return lo, same
+end
+
+function Dungeons.PickupLabel(plan)
+	local take, n = plan and #plan.take or 0, plan and #plan.waiting or 0
+	local lo, same = firstLevel(plan)
+	if n == 0 or not lo then return L["Pick up the quests"] end
+	if take == 0 then return format(L["Pick up the quests from level %d"], lo) end
+	return format(same and L["Pick up the quests (%d now · %d at level %d)"] or L["Pick up the quests (%d now · %d from level %d)"], take, n, lo)
+end
+
+function Dungeons.WaitingLines(plan)
+	local out = {}
+	for _, w in ipairs(plan and plan.waiting or {}) do
+		local title = ns.Quoted(w.quest.title) or ""
+		if w.needs then
+			out[#out + 1] = format(L["%s: level %d, needs %s first"], title, w.level, ns.Quoted(w.needs.title) or "")
+		else
+			out[#out + 1] = format(L["%s: level %d"], title, w.level)
+		end
+	end
+	return out
 end
 
 ---------------------------------------------------------------------------
@@ -1016,6 +1064,17 @@ function Dungeons.PickupGuide(key)
 	for _, pq in ipairs(plan.carried) do
 		last.goals[#last.goals + 1] = { t = "note", text = format(L["In your log already: %s"], ns.Quoted(pq.title) or "") }
 	end
+	-- The quests that wait for a level, in the accent: they come back then
+	-- (a chat line and a map pin say so, below).
+	local Theme = ns.Theme
+	local accent = Theme and Theme.Hex and Theme.Hex("accent")
+	local watched = {}
+	for _, w in ipairs(plan.waiting) do
+		local text = format(L["Comes back at level %d: %s"], w.level, ns.Quoted(w.quest.title) or "")
+		last.goals[#last.goals + 1] = { t = "note", text = accent and ("|c" .. accent .. text .. "|r") or text }
+		watched[#watched + 1] = { id = w.quest.id, title = w.quest.title, level = w.level }
+	end
+	Dungeons.watch[key] = watched
 	local e = d.entrance
 	if located(e) then
 		-- A way in through the other faction's land says so on the step.
@@ -1036,6 +1095,65 @@ function Dungeons.PickUp(key)
 	if not (Lk and Lk.Guide) then return nil, "missing" end
 	return Lk.Guide(KIND, key)
 end
+
+---------------------------------------------------------------------------
+-- The waiting quests at their level
+---------------------------------------------------------------------------
+
+-- [key] = { { id, title, level, told } }: the open pick-up guides' waiting
+-- quests (PickupGuide fills it; a rebuild after /reload too).
+Dungeons.watch = {}
+local PINS = "dungeonPickupLater"
+local marked = {} -- quest id -> pin
+
+-- The key of the pick-up guide in the active tab, or nil.
+local function openKey()
+	local E = ns.Engine
+	local g = E and E.GetGuide and E.GetGuide()
+	local id = g and g.id
+	return type(id) == "string" and id:match("^lookup/" .. KIND .. "/(.+)$") or nil
+end
+
+local function showPins()
+	local P = ns.Pins
+	if not (P and P.SetLayer) then return end
+	local pins = {}
+	for id, pin in pairs(marked) do
+		if inLog(id) or done(id) then marked[id] = nil else pins[#pins + 1] = pin end
+	end
+	if #pins > 0 then P.SetLayer(PINS, pins, { world = true, minimap = true }) else P.ClearLayer(PINS) end
+end
+
+function Dungeons.LevelReached(level)
+	local key = openKey()
+	local list = key and Dungeons.watch[key]
+	if type(level) ~= "number" or not list then return end
+	local Theme, changed = ns.Theme, false
+	for _, w in ipairs(list) do
+		if not w.told and w.level <= level and not done(w.id) and not inLog(w.id) then
+			w.told = true
+			ns.Print(format(L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."], level, ns.Quoted(w.title) or ""))
+			local pt = Dungeons.GiverTarget(key, w.id)
+			if pt and located(pt) then
+				local r, g, b = 1, 0.82, 0
+				if Theme and Theme.Accent then r, g, b = Theme.Accent() end
+				marked[w.id] = { map = pt.map, x = pt.x, y = pt.y, f = pt.f == "e" and "e" or nil, icon = "map:quest-available", size = 22,
+					color = { r, g, b, 1 }, ring = { r, g, b, 1 }, tooltip = w.title }
+				changed = true
+			end
+		end
+	end
+	if changed then showPins() end
+end
+
+ns.RegisterEvent("PLAYER_LEVEL_UP", function(_, level) Dungeons.LevelReached(level) end)
+ns.RegisterEvent("QUEST_ACCEPTED", function() if next(marked) then showPins() end end)
+ns.On("GUIDE_CHANGED", function()
+	if next(marked) and not openKey() then
+		marked = {}
+		showPins()
+	end
+end)
 
 -- The pickup kind builds only while Dungeons is on.
 if ns.Lookup and ns.Lookup.RegisterPlanner then

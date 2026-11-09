@@ -1234,6 +1234,82 @@ emit({ take = take, pre = pre, later = plan.later, chain = chain })"#);
 	assert_eq!(required["later"], json!(1));
 }
 
+// Fitz, 2026-11-08 (the honest count): the plan lists the quests that wait and why (their own level, or a
+// prerequisite's: "needs X first"); the button says "N now · 2 at level 25"; the guide's last step says
+// "Comes back at level 25" for each, in the accent; reaching 25 with that guide open prints a chat line per
+// quest and pins its giver on the map and minimap (the arrow is not moved), once.
+#[test]
+fn quests_that_wait_for_a_level_are_counted_named_in_the_guide_and_announced_with_a_map_pin_when_the_level_comes() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["90610"] = json!({
+		"id": 90610, "name": "Motley Garmason", "level": 30, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false,
+		"instance": null, "roles": [], "spawns": [{ "map": 1421, "x": 40, "y": 40, "f": "e" }],
+	});
+	let quest = |id: i32, min: i32, pre_any: &[i32]| {
+		json!({
+			"id": id, "title": format!("Quest {id}"), "level": min + 3, "minLevel": min, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [90610], "object": [], "item": [] }, "end": { "npc": [90610], "object": [] },
+			"objectives": [{ "type": "kill", "id": 90611, "count": 1, "text": "Dark Iron Dwarf" }],
+			"pre": [], "zone": 1421, "rewards": [], "choices": [], "preAny": pre_any,
+		})
+	};
+	c["quests"]["90603"] = quest(90603, 25, &[]);
+	c["quests"]["90678"] = quest(90678, 18, &[90603]);
+	c["quests"]["90680"] = quest(90680, 25, &[]);
+	i["forever"]["quests"]["90678"] = json!({ "area": 209 });
+	i["forever"]["quests"]["90680"] = json!({ "area": 209 });
+	let pack = pack_of(&c, &i);
+	let out = run(
+		&pack,
+		&k(r#"
+local plan = D.PickupPlan("{KEY}")
+local waiting = {}
+for _, w in ipairs(plan.waiting) do waiting[#waiting + 1] = { w.quest.id, w.level, w.needs and w.needs.id or false } end
+table.sort(waiting, function(a, b) return a[1] < b[1] end)
+local lines = D.WaitingLines(plan)
+table.sort(lines)
+D.PickUp("{KEY}")
+local g = Polestar.Engine.GetGuide()
+local last = g.steps[#g.steps]
+local notes = {}
+for _, goal in ipairs(last.goals) do
+	if goal.t == "note" and goal.text:find("Comes back", 1, true) then notes[#notes + 1] = goal.text:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "") end
+end
+table.sort(notes)
+local printed, layers = {}, {}
+Polestar.Print = function(...) printed[#printed + 1] = table.concat({ ... }, " ") end
+Polestar.Pins = {
+	SetLayer = function(name, pins) local o = {} for n, p in ipairs(pins) do o[n] = { p.map, p.x, p.y, p.icon } end layers[#layers + 1] = { name, o } end,
+	ClearLayer = function(name) layers[#layers + 1] = { name, "clear" } end,
+}
+local guide = g.id
+stub.world.setLevel(24)
+local at24 = #printed
+stub.world.setLevel(25)
+local at25 = #printed
+stub.world.setLevel(26)
+emit({ waiting = waiting, lines = lines, take = #plan.take, label = D.PickupLabel(plan), notes = notes, guide = guide,
+	at24 = at24, at25 = at25, at26 = #printed, printed = printed, layers = layers, still = Polestar.Engine.GetGuide().id })"#),
+		Opts::default(),
+	)
+	.remove(0);
+	assert_eq!(out["waiting"], json!([[90678, 25, 90603], [90680, 25, false]]));
+	assert_eq!(out["lines"], json!(["\u{201c}Quest 90678\u{201d}: level 25, needs \u{201c}Quest 90603\u{201d} first", "\u{201c}Quest 90680\u{201d}: level 25"]));
+	let take = out["take"].as_i64().unwrap();
+	assert!(take > 0);
+	assert_eq!(out["label"], format!("Pick up the quests ({take} now \u{b7} 2 at level 25)"));
+	assert_eq!(out["notes"], json!(["Comes back at level 25: \u{201c}Quest 90678\u{201d}", "Comes back at level 25: \u{201c}Quest 90680\u{201d}"]));
+	assert_eq!(out["guide"], GID);
+	assert_eq!(out["at24"], 0, "nothing below the level");
+	assert_eq!(out["at25"], 2, "one line per quest at 25");
+	assert_eq!(out["at26"], 2, "told once");
+	assert!(out["printed"][0].as_str().unwrap().starts_with("Level 25: you can take \u{201c}Quest 90678\u{201d} now."), "{}", out["printed"]);
+	assert_eq!(out["layers"], json!([["dungeonPickupLater", [[1421, 40, 40, "map:quest-available"], [1421, 40, 40, "map:quest-available"]]]]), "a pin at each giver (Quest 90603's for Quest 90678)");
+	assert_eq!(out["still"], GID, "the guide is not changed");
+}
+
 // The dungeon sweep (2026-11-08): the Stockade pick-up guide of an Alliance character who had not run the
 // Deadmines sent them to "accept" The Unsent Letter (373), which only Edwin VanCleef's drop starts, before Bazil
 // Thredd (389); Scholomance's and Stratholme's left bare "First do the quest Finkle Einhorn, At Your Service!"

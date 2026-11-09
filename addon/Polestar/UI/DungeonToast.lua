@@ -96,7 +96,8 @@ function DT.Candidates(level, mode, questId)
 			local plan = Dg.PickupPlan(d.key)
 			local take = plan and #plan.take or 0
 			if take > 0 and (plan.later == 0 or take >= MIN_OPEN) then
-				out[#out + 1] = { key = d.key, name = d.name, zoneName = d.zoneName, minLevel = min, maxLevel = max, take = take, level = level }
+				out[#out + 1] = { key = d.key, name = d.name, zoneName = d.zoneName, minLevel = min, maxLevel = max, take = take, level = level,
+					pickLabel = Dg.PickupLabel and Dg.PickupLabel(plan) or nil }
 			end
 		end
 	end
@@ -129,7 +130,7 @@ function DT.Model(c)
 	local LT = UI.LevelTip
 	local xs = Dg.QuestXP and Dg.QuestXP(c.key)
 	if xs and not xs.maxed and (xs.levels or 0) > 0 and LT and LT.Text then m.badge = LT.Text(xs.levels):upper() end
-	local pick = { label = L["Pick up the quests"], run = function() return DT.PickUp(c.key) end }
+	local pick = { label = c.pickLabel or L["Pick up the quests"], run = function() return DT.PickUp(c.key) end }
 	local page = { label = L["Open in Dungeons"], run = function() return DT.SeePage(c.key) end }
 	if enemy then m.act, m.more = page, pick else m.act, m.more = pick, page end
 	m.off = { label = L["Turn these off"], run = DT.TurnOff }

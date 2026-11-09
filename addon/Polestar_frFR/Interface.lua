@@ -1031,6 +1031,13 @@ L["Quest giver"] = "Donneur de quête"
 L["In your log already: %s"] = "Déjà dans votre journal : %s"
 L["After the run: open this dungeon's page (/polestar dungeons %s) and choose Hand in the quests."] = "Après le donjon : ouvrez sa page (/polestar dungeons %s) et choisissez Rendre les quêtes."
 L["%s: pick up the quests"] = "%s : prendre les quêtes"
+-- L["Pick up the quests from level %d"] = ""
+-- L["Pick up the quests (%d now · %d at level %d)"] = ""
+-- L["Pick up the quests (%d now · %d from level %d)"] = ""
+-- L["%s: level %d, needs %s first"] = ""
+-- L["%s: level %d"] = ""
+-- L["Comes back at level %d: %s"] = ""
+-- L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = ""
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "Pas encore terminée : %s"
@@ -1676,6 +1683,7 @@ L["%s XP at your level"] = "%s XP à votre niveau"
 L["If you finish this quest and the chain before it"] = "Si vous terminez cette quête et la chaîne qui la précède"
 L["You are level %d. Level %d is recommended for the first quest in this chain; from there:"] = "Vous êtes niveau %d. Le niveau %d est recommandé pour la première quête de cette chaîne ; à partir de là :"
 L["%s XP with its chain"] = "%s XP avec sa chaîne"
+-- L["Waiting:"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Ici même"
@@ -2142,6 +2150,8 @@ L["Mark quests new in Forever"] = "Marquer les quêtes nouvelles dans Forever"
 L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = "Un petit symbole infini à côté du nom d'une quête ajoutée par Forever, dans le guide, « Tant que vous êtes là », le Codex et les infobulles de quête."
 L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "Le chemin vers l'objectif sur la carte du monde et la minicarte : une ligne ou des points là où vous marchez, des lignes là où vous volez, naviguez ou voyagez, les tronçons suivants plus pâles. Dessiné comme le fait Shortest Path Forever par Cillian Berragan."
 L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."] = "Comment les lignes d'itinéraire sont tracées : une ligne continue, les points de Polestar, ou des étincelles qui dérivent le long du chemin vers l'objectif (des points quand Réduire les animations est activé)."
+-- L["Button in the game menu"] = ""
+-- L["A Polestar button in the game menu (Esc) that opens the guide menu."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"

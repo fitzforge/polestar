@@ -22,6 +22,9 @@
 --   Dungeons.EnemyEntrance(key[, side]) -> text | nil   -- side "A" | "H" (nil: this character's): the
 --       way in lies in the other faction's land (Ruins of Lordaeron outside the Undercity, The Hall of
 --       Thanes in Ironforge, Ragefire Chasm, the Stockade): "Entrance in Horde territory (...)"
+--   Dungeons.EnemyCapital(key, side) -> true | nil   -- side "A" | "H": the way in lies inside the
+--       other faction's capital (The Hall of Thanes, Ragefire Chasm, the Stockade), so the hub's
+--       "For your level" leaves it out under that side's filter
 --   Dungeons.Quests(key, faction) -> { quest, ... }   -- faction "A" | "H" | nil (all); level order
 --   Dungeons.Quest(key, id) -> quest | nil           -- page and chain quests
 --       quest = { id, title, level, minLevel, faction, classes, inside, shareable,
@@ -228,12 +231,15 @@ end
 
 -- Instances whose way in lies in one faction's land (Fitz, 2026-11-07): the
 -- other faction can do them, but has to get through that land. side: whose
--- land it is; text: what the other faction is told.
+-- land it is; text: what the other faction is told; capital: the way in is
+-- inside that faction's capital, not merely its land (Fitz, 2026-11-08: The
+-- Hall of Thanes is no Horde dungeon "for your level"; the Ruins of
+-- Lordaeron, outside the Undercity, can be reached).
 local TERRITORY = {
 	["ruins-of-lordaeron"] = { side = "H", text = L["Entrance in Horde territory (outside the Undercity)"] },
-	["the-hall-of-thanes"] = { side = "A", text = L["Entrance in Alliance territory (in Ironforge)"] },
-	["ragefire-chasm"] = { side = "H", text = L["Entrance in Horde territory (in Orgrimmar)"] },
-	["stormwind-stockade"] = { side = "A", text = L["Entrance in Alliance territory (in Stormwind)"] },
+	["the-hall-of-thanes"] = { side = "A", capital = true, text = L["Entrance in Alliance territory (in Ironforge)"] },
+	["ragefire-chasm"] = { side = "H", capital = true, text = L["Entrance in Horde territory (in Orgrimmar)"] },
+	["stormwind-stockade"] = { side = "A", capital = true, text = L["Entrance in Alliance territory (in Stormwind)"] },
 }
 
 -- The warning for side `side` ("A" | "H"; nil: this character's) when the
@@ -247,6 +253,12 @@ function Dungeons.EnemyEntrance(key, side)
 	end
 	if side == nil or side == t.side then return nil end
 	return t.text
+end
+
+function Dungeons.EnemyCapital(key, side)
+	local t = key and TERRITORY[key]
+	if t and t.capital and (side == "A" or side == "H") and side ~= t.side then return true end
+	return nil
 end
 
 local function summary(key, s)

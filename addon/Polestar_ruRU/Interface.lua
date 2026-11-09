@@ -1030,6 +1030,13 @@ L["Quest giver"] = "Дающий задание"
 L["In your log already: %s"] = "Уже в журнале: %s"
 L["After the run: open this dungeon's page (/polestar dungeons %s) and choose Hand in the quests."] = "После прохождения: откройте страницу подземелья (/polestar dungeons %s) и выберите «Сдать задания»."
 L["%s: pick up the quests"] = "%s: взять задания"
+-- L["Pick up the quests from level %d"] = ""
+-- L["Pick up the quests (%d now · %d at level %d)"] = ""
+-- L["Pick up the quests (%d now · %d from level %d)"] = ""
+-- L["%s: level %d, needs %s first"] = ""
+-- L["%s: level %d"] = ""
+-- L["Comes back at level %d: %s"] = ""
+-- L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = ""
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "Еще не выполнено: %s"
@@ -1675,6 +1682,7 @@ L["%s XP at your level"] = "%s опыта на вашем уровне"
 L["If you finish this quest and the chain before it"] = "Если вы выполните это задание и предшествующую ему цепочку"
 L["You are level %d. Level %d is recommended for the first quest in this chain; from there:"] = "Ваш уровень: %d. Для первого задания этой цепочки рекомендуется уровень %d; начиная с него:"
 L["%s XP with its chain"] = "%s опыта вместе с цепочкой"
+-- L["Waiting:"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Прямо здесь"
@@ -2141,6 +2149,8 @@ L["Mark quests new in Forever"] = "Отмечать задания, новые �
 L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = "Маленький значок бесконечности рядом с названием задания, добавленного Forever, — в гайде, «Пока вы здесь», Codex и подсказках заданий."
 L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "Путь к цели на карте мира и миникарте: линия или точки — где идти пешком, линии — где лететь, плыть или ехать; последующие участки бледнее. Рисуются так же, как в Shortest Path Forever от Cillian Berragan."
 L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."] = "Как рисуются линии маршрута: сплошная линия, точки Polestar или искры, плывущие по пути к цели (точки при включенном «Меньше анимации»)."
+-- L["Button in the game menu"] = ""
+-- L["A Polestar button in the game menu (Esc) that opens the guide menu."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"

@@ -1030,6 +1030,13 @@ L["Quest giver"] = "NPC de misiones"
 L["In your log already: %s"] = "Ya está en tu registro: %s"
 L["After the run: open this dungeon's page (/polestar dungeons %s) and choose Hand in the quests."] = "Al terminar la mazmorra: abre su página (/polestar dungeons %s) y elige Entregar las misiones."
 L["%s: pick up the quests"] = "%s: acepta las misiones"
+-- L["Pick up the quests from level %d"] = ""
+-- L["Pick up the quests (%d now · %d at level %d)"] = ""
+-- L["Pick up the quests (%d now · %d from level %d)"] = ""
+-- L["%s: level %d, needs %s first"] = ""
+-- L["%s: level %d"] = ""
+-- L["Comes back at level %d: %s"] = ""
+-- L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = ""
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "Aún sin terminar: %s"
@@ -1675,6 +1682,7 @@ L["%s XP at your level"] = "%s de XP a tu nivel"
 L["If you finish this quest and the chain before it"] = "Si terminas esta misión y la cadena anterior"
 L["You are level %d. Level %d is recommended for the first quest in this chain; from there:"] = "Eres de nivel %d. Se recomienda el nivel %d para la primera misión de esta cadena; desde ahí:"
 L["%s XP with its chain"] = "%s de XP con su cadena"
+-- L["Waiting:"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Justo aquí"
@@ -2141,6 +2149,8 @@ L["Mark quests new in Forever"] = "Marcar misiones nuevas en Forever"
 L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = "Una pequeña marca de infinito junto al nombre de una misión que añadió Forever, en la guía, «Mientras estás aquí», el Codex y las descripciones emergentes de misiones."
 L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "El camino al objetivo en el mapa del mundo y el minimapa: una línea o puntos donde caminas, líneas donde vuelas, navegas o viajas, y los tramos siguientes más tenues. Dibujado como lo dibuja Shortest Path Forever de Cillian Berragan."
 L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."] = "Cómo se dibujan las líneas de ruta: una línea continua, los puntos de Polestar, o destellos que flotan por el camino hacia el objetivo (puntos mientras Reducir movimiento está activado)."
+-- L["Button in the game menu"] = ""
+-- L["A Polestar button in the game menu (Esc) that opens the guide menu."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso de la banda"

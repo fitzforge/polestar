@@ -210,3 +210,49 @@ fn horde_characters_dungeon_pick_up_and_hand_in_guides_hold_no_alliance_quest_or
 fn alliance_characters_dungeon_pick_up_and_hand_in_guides_hold_no_horde_quest_or_npc() {
 	sweep(&ALLIANCE);
 }
+
+const RAGEFIRE: &str = r#"
+stub.login()
+local D, Q = Polestar.Dungeons, Polestar.QuestDB
+if Q and Q.Load then Q.Load() end
+local plan = D.PickupPlan("ragefire-chasm")
+local take, waiting = {}, {}
+for _, t in ipairs(plan and plan.take or {}) do take[#take + 1] = t.quest.title end
+for _, w in ipairs(plan and plan.waiting or {}) do waiting[#waiting + 1] = { w.quest.title, w.level, w.needs and w.needs.title or false } end
+table.sort(take)
+table.sort(waiting, function(a, b) return a[1] < b[1] end)
+emit({ take = take, waiting = waiting, later = plan and plan.later or 0, label = plan and D.PickupLabel(plan) or false, lines = plan and D.WaitingLines(plan) or {} })
+"#;
+
+/// Ragefire Chasm's pick-up plan for a character of `race`, `faction` at `level` in Orgrimmar or Stormwind.
+fn ragefire(race: &str, cls: &str, faction: &str, level: i32) -> Value {
+	let (map, x, y) = if faction == "Horde" { (1454, 50, 70) } else { (1453, 60, 70) };
+	let before = format!(
+		"{}\nlocal w = stub.world\n{}\nw.level, w.race, w.raceName, w.faction = {level}, {race:?}, {race:?}, {faction:?}\nw.class, w.className = {cls:?}, {cls:?}\nw.moveTo({map}, {x}, {y})",
+		packs_lua(),
+		maps_lua()
+	);
+	emitted(&RunAddon { stubs: vec!["stub_world.lua", "stub_quests.lua"], before, addons: vec![Addon::name("Polestar")], login: false, script: RAGEFIRE.into(), ..Default::default() }).remove(0)
+}
+
+// Fitz, 2026-11-08 (a level 13 Horde character was offered "the 5 quests here you can take" in Ragefire Chasm,
+// thinking two of them need level 16): on the real Codex, the plan at 13, 15 and 16 for each faction. Every
+// Horde quest there requires level 9 (Searching for the Lost Satchel and Hidden Enemies are level 16 quests,
+// open from 9: Codex, quest database and page agree), so all five are taken from 13 and the label is the
+// plain one, with nothing counted as waiting; nothing in Ragefire Chasm is the Alliance's to pick up.
+#[test]
+fn ragefire_chasm_pick_up_at_13_15_and_16_for_both_factions_takes_the_five_horde_quests_and_none_for_the_alliance() {
+	if skip() {
+		return;
+	}
+	let five = json!(["Hidden Enemies", "Searching for the Lost Satchel", "Slaying the Beast", "Testing an Enemy's Strength", "The Power to Destroy..."]);
+	for level in [13, 15, 16] {
+		let h = ragefire("Orc", "WARRIOR", "Horde", level);
+		let a = ragefire("Human", "PALADIN", "Alliance", level);
+		assert_eq!(h["take"], five, "Horde {level}: {h}");
+		assert_eq!(h["later"], json!(0), "Horde {level}: none waits: {h}");
+		assert_eq!(h["label"], "Pick up the quests", "Horde {level}: all open, the plain label");
+		assert_eq!(a["take"], json!({}), "Alliance {level}: no Horde quest to pick up: {a}");
+		assert_eq!(a["later"], json!(0), "Alliance {level}: none waiting either: {a}");
+	}
+}

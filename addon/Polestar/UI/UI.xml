@@ -6,6 +6,7 @@
 	<Script file="NameTargets.lua"/>
 	<Script file="GuideFrame.lua"/>
 	<Script file="Launcher.lua"/>
+	<Script file="GameMenu.lua"/>
 	<Script file="WhileHere.lua"/>
 	<Script file="PartyPanel.lua"/>
 	<Script file="PartyLoot.lua"/>

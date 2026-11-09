@@ -1030,6 +1030,13 @@ L["Quest giver"] = "퀘스트 제공자"
 L["In your log already: %s"] = "이미 퀘스트 목록에 있음: %s"
 L["After the run: open this dungeon's page (/polestar dungeons %s) and choose Hand in the quests."] = "공략 후: 이 던전의 페이지(/polestar dungeons %s)를 열고 '퀘스트 제출'을 선택하십시오."
 L["%s: pick up the quests"] = "%s: 퀘스트 수락"
+-- L["Pick up the quests from level %d"] = ""
+-- L["Pick up the quests (%d now · %d at level %d)"] = ""
+-- L["Pick up the quests (%d now · %d from level %d)"] = ""
+-- L["%s: level %d, needs %s first"] = ""
+-- L["%s: level %d"] = ""
+-- L["Comes back at level %d: %s"] = ""
+-- L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = ""
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "아직 미완료: %s"
@@ -1675,6 +1682,7 @@ L["%s XP at your level"] = "현재 레벨 기준 경험치 %s"
 L["If you finish this quest and the chain before it"] = "이 퀘스트와 선행 연계 퀘스트를 마치면"
 L["You are level %d. Level %d is recommended for the first quest in this chain; from there:"] = "현재 레벨 %d입니다. 이 연계의 첫 퀘스트 권장 레벨은 %d이며, 그 레벨부터:"
 L["%s XP with its chain"] = "연계 포함 경험치 %s"
+-- L["Waiting:"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "바로 여기"
@@ -2141,6 +2149,8 @@ L["Mark quests new in Forever"] = "Forever 신규 퀘스트 표시"
 L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = "Forever가 추가한 퀘스트의 이름 옆에 작은 무한대 표시를 붙입니다. 가이드, 이곳에 온 김에, Codex, 퀘스트 툴팁에 표시됩니다."
 L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "지도와 미니맵에 목표까지의 길: 걷는 곳은 선 또는 점, 비행·항해·탑승은 선, 이후 구간은 흐리게. Cillian Berragan의 Shortest Path Forever 방식으로 그립니다."
 L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."] = "경로선을 그리는 방식: 하나의 실선, Polestar 점, 또는 목표를 향해 흘러가는 반짝임 (움직임 줄이기가 켜져 있으면 점)."
+-- L["Button in the game menu"] = ""
+-- L["A Polestar button in the game menu (Esc) that opens the guide menu."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"

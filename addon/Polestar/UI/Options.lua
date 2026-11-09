@@ -438,6 +438,9 @@ local BUILTIN = {
 	{ page = LOOK, tab = L["Windows"], section = L["Menus"], controls = {
 		{ kind = "slider", key = "ui.menuScale", label = L["Menu scale"], min = 0.7, max = 1.4, step = 0.05, format = percent, release = true,
 			help = L["The guide menu and this window; applies when you let go. Right-click to reset."] },
+		{ kind = "toggle", key = "ui.gameMenuButton", label = L["Button in the game menu"],
+			help = L["A Polestar button in the game menu (Esc) that opens the guide menu."],
+			search = "game menu, escape, esc, main menu, button, open polestar" },
 	} },
 	{ page = LOOK, tab = L["Arrow"], section = L["Arrow"], controls = {
 		H({ kind = "dropdown", key = "nav.arrowStyle", label = L["Arrow style"], choices = { { value = "skin", label = L["The skin's arrow"] }, { value = "3d", label = L["3D"] }, { value = "flat", label = L["Flat"] },

@@ -1030,6 +1030,13 @@ L["Quest giver"] = "任務給予者"
 L["In your log already: %s"] = "已在任務日誌中：%s"
 L["After the run: open this dungeon's page (/polestar dungeons %s) and choose Hand in the quests."] = "打完後：開啟此地城的頁面（/polestar dungeons %s）並選擇「繳交任務」。"
 L["%s: pick up the quests"] = "%s：接取任務"
+-- L["Pick up the quests from level %d"] = ""
+-- L["Pick up the quests (%d now · %d at level %d)"] = ""
+-- L["Pick up the quests (%d now · %d from level %d)"] = ""
+-- L["%s: level %d, needs %s first"] = ""
+-- L["%s: level %d"] = ""
+-- L["Comes back at level %d: %s"] = ""
+-- L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = ""
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "尚未完成：%s"
@@ -1675,6 +1682,7 @@ L["%s XP at your level"] = "以你的等級可得 %s 經驗值"
 L["If you finish this quest and the chain before it"] = "如果你完成此任務及其之前的任務鏈"
 L["You are level %d. Level %d is recommended for the first quest in this chain; from there:"] = "你目前等級 %d。此任務鏈的第一個任務建議等級為 %d；從該等級起："
 L["%s XP with its chain"] = "連同任務鏈共 %s 經驗值"
+-- L["Waiting:"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "就在這裡"
@@ -2141,6 +2149,8 @@ L["Mark quests new in Forever"] = "標記 Forever 新增的任務"
 L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = "在 Forever 新增的任務名稱旁顯示小小的無限符號，適用於指南、順道完成、Codex 與任務滑鼠提示。"
 L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "在地圖與小地圖上顯示通往目標的路：步行處為線條或圓點，飛行、航行或搭乘處為線，之後的路段較淡。繪法與 Cillian Berragan 的 Shortest Path Forever 相同。"
 L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."] = "路線的繪製方式：一條實線、Polestar 的圓點，或沿著前往目標的路上飄動的閃光（開啟「減少動態效果」時為圓點）。"
+-- L["Button in the game menu"] = ""
+-- L["A Polestar button in the game menu (Esc) that opens the guide menu."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"

@@ -273,9 +273,12 @@ local function bandLabel(key)
 	return key
 end
 
+-- For your level: from one level below the dungeon's recommended start to its
+-- top (Fitz, 2026-11-08: the Ruins of Lordaeron, 15-22, is not for a level
+-- 13; an overlap with a wide window let it in from 13).
 local function forYou(d, plevel)
 	if d.kind == "raid" or not d.minLevel then return false end
-	return plevel >= d.minLevel - 2 and plevel <= (d.maxLevel or d.minLevel)
+	return plevel >= d.minLevel - 1 and plevel <= (d.maxLevel or d.minLevel)
 end
 
 -- Quests on a page for the filter ("All": both factions).
@@ -286,10 +289,12 @@ local function questCount(d, f)
 end
 
 -- For your level under the filter: a dungeon whose quests are all the other
--- faction's is theirs, not yours.
+-- faction's is theirs, not yours; so is one whose way in lies inside their
+-- capital (Dungeons.EnemyCapital: The Hall of Thanes is not a Horde dungeon).
 local function forYouAs(d, plevel, f)
 	if not forYou(d, plevel) then return false end
 	if f == "All" then return true end
+	if D().EnemyCapital and D().EnemyCapital(d.key, SIDE[f]) then return false end
 	local q = d.quests or {}
 	return (q[SIDE[f]] or 0) > 0 or ((q.A or 0) == 0 and (q.H or 0) == 0)
 end
@@ -1232,15 +1237,32 @@ local function pageHeader(d)
 	local lead = hand > 0 and "handin" or take > 0 and "pickup" or "go"
 	local side = SIDE[UI.PlayerFaction() or ""]
 	local none = plan ~= nil and take == 0 and #Dg.Quests(d.key, side) > 0 and lead == "go"
+	-- The quests that wait for a level say so on the button and in its tip
+	-- (Dungeons.PickupLabel, WaitingLines: "3 now · 2 at level 16").
+	local waiting = plan and Dg.WaitingLines and Dg.WaitingLines(plan) or {}
+	local label = plan and Dg.PickupLabel and Dg.PickupLabel(plan) or L["Pick up the quests"]
+	local function withWaiting(lines)
+		if #waiting > 0 then
+			lines[#lines + 1] = L["Waiting:"]
+			for _, w in ipairs(waiting) do lines[#lines + 1] = w end
+		end
+		return lines
+	end
 	if take > 0 then
 		local lines = { format(take == 1 and L["A guide to the 1 quest here you can take, with what comes before it, ending at the entrance."]
 			or L["A guide to the %d quests here you can take, with what comes before them, ending at the entrance."], take) }
 		local carried = #plan.carried
 		if carried > 0 then lines[#lines + 1] = carried == 1 and L["1 more is in your log already."] or format(L["%d more are in your log already."], carried) end
+		withWaiting(lines)
 		lines[#lines + 1] = L["It opens in a new tab."]
-		for _, b in ipairs({ pg.Pickup, pg.PickupQuiet }) do b.psTip, b.psTipLines = L["Pick up the quests"], lines end
+		for _, b in ipairs({ pg.Pickup, pg.PickupQuiet }) do
+			W.SetButtonText(b, label)
+			b.psTip, b.psTipLines = label, lines
+		end
 	elseif none then
-		pg.PickupNone.psTip, pg.PickupNone.psTipLines = L["Nothing to pick up"], { DS.NothingText(plan) }
+		local text = #waiting > 0 and label or L["Nothing to pick up"]
+		W.SetButtonText(pg.PickupNone, text)
+		pg.PickupNone.psTip, pg.PickupNone.psTipLines = text, withWaiting({ DS.NothingText(plan) })
 	end
 	if logged > 0 then
 		local lines

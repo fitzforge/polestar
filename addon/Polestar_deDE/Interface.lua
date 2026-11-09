@@ -1258,6 +1258,8 @@ L["Mark quests new in Forever"] = "In Forever neue Quests markieren"
 L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = "Ein kleines Unendlichkeitszeichen neben dem Namen einer Quest, die Forever hinzugefügt hat, im Guide, bei „Wenn du schon hier bist“, im Codex und in Quest-Tooltips."
 L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "Der Weg zum Ziel auf der Weltkarte und der Minikarte: eine Linie oder Punkte, wo du läufst, Linien, wo du fliegst, segelst oder reitest, die Etappen nach dieser blasser. Gezeichnet, wie Shortest Path Forever von Cillian Berragan sie zeichnet."
 L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."] = "Wie die Routenlinien gezeichnet werden: als durchgehende Linie, als Punkte von Polestar oder als Funken, die auf dem Weg zum Ziel treiben (Punkte, solange Bewegung reduzieren an ist)."
+-- L["Button in the game menu"] = ""
+-- L["A Polestar button in the game menu (Esc) that opens the guide menu."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"
@@ -1356,6 +1358,7 @@ L["%s XP at your level"] = "%s EP auf deiner Stufe"
 L["If you finish this quest and the chain before it"] = "Wenn du diese Quest und die Questreihe davor abschließt"
 L["You are level %d. Level %d is recommended for the first quest in this chain; from there:"] = "Du bist Stufe %d. Für die erste Quest dieser Questreihe wird Stufe %d empfohlen; ab dort:"
 L["%s XP with its chain"] = "%s EP mit ihrer Questreihe"
+-- L["Waiting:"] = ""
 
 -- UI/Lookup.lua
 L["Mount"] = "Reittier"
@@ -3090,6 +3093,15 @@ L["New in Forever"] = "Neu in Forever"
 -- Maps/RouteLines.lua
 L["Line"] = "Linie"
 L["Sparkles"] = "Funken"
+
+-- Dungeons/Pickup.lua
+-- L["Pick up the quests from level %d"] = ""
+-- L["Pick up the quests (%d now · %d at level %d)"] = ""
+-- L["Pick up the quests (%d now · %d from level %d)"] = ""
+-- L["%s: level %d, needs %s first"] = ""
+-- L["%s: level %d"] = ""
+-- L["Comes back at level %d: %s"] = ""
+-- L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."

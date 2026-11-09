@@ -308,6 +308,8 @@ mod ui_along;
 mod ui_card;
 #[path = "ui-dungeons.rs"]
 mod ui_dungeons;
+#[path = "ui-game-menu.rs"]
+mod ui_game_menu;
 #[path = "ui-guide-end.rs"]
 mod ui_guide_end;
 #[path = "ui-import.rs"]
