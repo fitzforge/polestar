@@ -9515,3 +9515,12 @@ test('forever/alliance/50-60/03-winterspring.guide: the Thelsamar bind is kept a
 	assert.ok(flights.some(({ step }) => has(step, false)) && flights.some(({ step }) => has(step, true)), 'one per bind');
 	assert.ok(!list.some(({ goal }) => goal.t === 'fly' && goal.location === 'Southshore'), 'no flight to Southshore');
 });
+
+// #1508 follow-up (0.3.6): about half of the Humans, Night Elves and Skyborne recorded on 03-loch-modan (0.3.5) also
+// had the Ironforge flight path and flew Thelsamar -> Ironforge from the tunnel waypoints; landing in the Great
+// Forge, "Into Ironforge" (the city gate) then led them back out. The two walking waypoints drop in Ironforge.
+test('forever/alliance/03-loch-modan.guide: the tunnel and gate waypoints drop once the player is in Ironforge (#1508)', { skip }, () => {
+	const steps = compiled('forever/alliance/03-loch-modan.guide').steps.filter((st) => st.goals.some((g) => g.t === 'goto' && (g.map === 1426 || (g.map === 1455 && g.x === 21.6))));
+	assert.equal(steps.length, 2, 'Into Dun Morogh and Into Ironforge');
+	for (const st of steps) assert.ok((st.when || []).some((p) => p.k === 'zone' && p.neg && /Ironforge/.test(p.name)), `${st.title}: when !zone "Ironforge"`);
+});

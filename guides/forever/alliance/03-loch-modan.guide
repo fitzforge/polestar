@@ -194,12 +194,14 @@ step Fly to Ironforge
 
 step Into Dun Morogh
   only Human,NightElf,Skyborne
+  when !zone "Ironforge"
   zone Dun Morogh
-  tip Through the South Gate tunnel and west along the road to Ironforge.
+  tip Through the South Gate tunnel and west along the road to Ironforge. Know the Ironforge flight path already? Fly from Thelsamar instead: these two waypoints drop once you are in the city.
   goto 86.0,49.6 "Into Dun Morogh"
 
 step Into Ironforge
   only Human,NightElf,Skyborne
+  when !zone "Ironforge"
   zone Ironforge
   goto 21.6,77.8 "Into Ironforge"
 
