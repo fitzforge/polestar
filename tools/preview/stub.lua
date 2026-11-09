@@ -97,10 +97,11 @@ local function codepoints(s)
 	return out
 end
 
--- Visible text: colour codes out, "||" -> "|".
+-- Visible text: colour codes out, inline textures (|Tpath:h:w:x:y|t, which the
+-- preview cannot draw) out, "||" -> "|".
 function preview.plain(s)
 	s = tostring(s or "")
-	s = s:gsub("||", "\1"):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("\1", "|")
+	s = s:gsub("||", "\1"):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|T[^|]*|t", ""):gsub("\1", "|")
 	return s
 end
 

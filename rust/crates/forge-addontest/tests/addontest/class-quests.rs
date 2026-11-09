@@ -308,9 +308,18 @@ fn the_house_look_s_class_card_is_one_tight_row_with_the_explainer_in_its_toolti
 		local _, asize = f.Accept.Text:GetFont()
 		emit({ card = card(), h = f:GetHeight(), tsize = tsize, asize = asize, ring = f.Ring:IsShown(), trip = f.Trip:IsShown(), only = f.Only:IsShown(),
 			kind = f.Kind:IsShown(), badge = f.Badge:IsShown(), fill = f.Badge.Fill:IsShown(), stripe = f.Stripe:IsShown(), tip = f:GetScript("OnEnter") ~= nil, learn = f.Learn:IsShown(),
-			check = f.Accept.Check:GetWidth() })"#,
+			check = f.Accept.Check:GetWidth(), mouse = f:IsMouseEnabled() })
+		-- The other looks have no tooltip: the card takes no mouse and a drag reaches the window.
+		local looks = {}
+		for _, skin in ipairs({ "halo", "hearth", "polestar" }) do
+			Polestar.Set("ui.skin", skin); stub.advance(0.3)
+			looks[skin] = f:IsMouseEnabled()
+		end
+		emit(looks)"#,
 	);
 	let o = &out[0];
+	assert_eq!(o["mouse"], true, "the house look's row takes the mouse for its tooltip");
+	assert_eq!(out[1], json!({ "halo": false, "hearth": false, "polestar": true }), "only the house look's row takes the mouse");
 	assert_eq!(o["card"]["head"], "Druid · Lv 20");
 	assert_eq!((o["ring"].clone(), o["trip"].clone(), o["only"].clone(), o["stripe"].clone()), (json!(false), json!(false), json!(false), json!(false)), "{o}");
 	assert_eq!((o["kind"].clone(), o["badge"].clone(), o["fill"].clone(), o["learn"].clone()), (json!(true), json!(true), json!(false), json!(true)), "{o}");

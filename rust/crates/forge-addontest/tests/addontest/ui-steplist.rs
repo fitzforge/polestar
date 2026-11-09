@@ -188,8 +188,8 @@ fn the_step_list_swaps_the_card_for_every_step_marks_the_live_one_and_a_click_lo
 	assert_eq!(tabs, vec![json!("1 \u{b7} Deputy Willem"), json!("2 \u{b7} Marshal McBride"), json!("3 \u{b7} Kobold camp"), json!("4 \u{b7} Back to the abbey")]);
 	// Each card: its people ("Talk to …", the name in the NPC colour) and a line per goal as the card words it.
 	let lines: Vec<_> = open["cards"].as_array().unwrap().iter().map(|c| c["lines"].clone()).collect();
-	assert_eq!(lines[0], json!(["Talk to Deputy Willem", "Accept A Threat Within"]));
-	assert_eq!(lines[1], json!(["Talk to Marshal McBride", "Turn in A Threat Within", "Accept Kobold Camp Cleanup"]));
+	assert_eq!(lines[0], json!(["Talk to Deputy Willem", "Accept “A Threat Within”"]));
+	assert_eq!(lines[1], json!(["Talk to Marshal McBride", "Turn in “A Threat Within”", "Accept “Kobold Camp Cleanup”"]));
 	assert_eq!(open["cards"][0]["coloured"], true);
 	// Past six lines the rest is one "+N more"; a long line wraps and its card grows to fit.
 	let camp = &open["cards"][2];
@@ -251,4 +251,36 @@ fn the_step_list_swaps_the_card_for_every_step_marks_the_live_one_and_a_click_lo
 
 fn f_len(v: &serde_json::Value) -> usize {
 	v.as_array().map_or_else(|| v.as_object().map_or(0, |o| o.len()), |a| a.len())
+}
+
+/// Only the player's own close turns the list off. When the window hides (Alt-Z, combat, the setting), the client
+/// runs the list's OnHide while the list itself stays shown: the setting stays on and the list comes back with it.
+#[test]
+fn the_step_list_comes_back_with_the_window_a_hide_of_the_window_is_not_a_close() {
+	let pack = compile_pack();
+	let lines: Vec<String> = pack.scripts.iter().map(|f| format!("assert(loadfile({}))(\"Polestar_Guides\", ns)", serde_json::to_string(f).unwrap())).collect();
+	let loads = format!("do local ns = {{}}\n{}\nend", lines.join("\n"));
+	let script = r#"
+				stub.login()
+				stub.advance(0.5)
+				local GF = Polestar.UI.GuideFrame
+				local SL = GF.stepList
+				Polestar.Set("ui.stepList", true)
+				stub.advance(0.3)
+				local open = SL.frame:IsShown()
+				-- The window hides: the client runs the shown list's OnHide with it (the stub's Hide does not cascade).
+				GF.frame:Hide()
+				SL.frame:GetScript("OnHide")(SL.frame)
+				local hidden = Polestar.Get("ui.stepList")
+				GF.frame:Show()
+				stub.advance(0.3)
+				emit({ open = open, hidden = hidden, back = SL.frame:IsShown() and SL.frame:IsVisible() })"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: BEFORE.into(),
+		addons: vec![Addon::name("Polestar")],
+		script: "\n\t\t\t\t".to_string() + &loads + script,
+		..Default::default()
+	});
+	assert_eq!(out[0], json!({ "open": true, "hidden": true, "back": true }), "{}", out[0]);
 }

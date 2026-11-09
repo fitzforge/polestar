@@ -130,7 +130,7 @@ function measure(fonts, font, text) {
 }
 
 function plain(s) {
-	return String(s ?? '').replace(/\|\|/g, '\u0001').replace(/\|c[0-9a-fA-F]{8}/g, '').replace(/\|r/g, '').replace(/\u0001/g, '|');
+	return String(s ?? '').replace(/\|\|/g, '\u0001').replace(/\|c[0-9a-fA-F]{8}/g, '').replace(/\|r/g, '').replace(/\|T[^|]*\|t/g, '').replace(/\u0001/g, '|');
 }
 
 // Greedy wrap, same rule as stub.lua: at spaces, and between any two CJK
@@ -290,6 +290,9 @@ function runs(line, base) {
 			buf = '';
 			color = stack.pop() || base;
 			i += 2;
+		} else if (s[i] === '|' && s[i + 1] === 'T' && s.indexOf('|t', i + 2) > 0) {
+			// An inline texture the preview cannot draw: no text.
+			i = s.indexOf('|t', i + 2) + 2;
 		} else {
 			buf += s[i] === '\u0001' ? '|' : s[i];
 			i += 1;

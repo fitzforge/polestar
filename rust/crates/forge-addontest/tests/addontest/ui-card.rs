@@ -110,6 +110,29 @@ fn strings(v: &Value) -> Vec<String> {
 	v.as_array().unwrap().iter().map(|x| text(x).to_string()).collect()
 }
 
+/// The arrow's selection bar sits just left of the icon it marks, inside the card, not at the window's outer edge.
+#[test]
+fn the_live_bar_of_a_goal_row_and_of_the_person_sits_just_left_of_its_icon() {
+	let out = run_hearth(
+		r#"
+		uistub.setGuide(uistub.elwynn, brewnall())
+		stub.advance(1)
+		local P = GF.parts
+		local r = visibleRows()[1]
+		local function x(tex) local _, _, _, px = tex:GetPoint(1) return px end
+		emit({
+			row = { mark = x(r.Mark), icon = x(r.Icon) - r.Icon:GetWidth() / 2 },
+			person = { mark = x(P.person.Mark), icon = x(P.person.Icon) },
+		})"#,
+	)
+	.remove(0);
+	for k in ["row", "person"] {
+		let (mark, icon) = (f(&out[k]["mark"]), f(&out[k]["icon"]));
+		assert!(mark >= 0.0, "{k}: the bar stays inside its frame ({mark})");
+		assert!(icon - (mark + 2.0) >= 1.0 && icon - (mark + 2.0) <= 6.0, "{k}: the bar is a few pixels left of the icon: bar {mark}, icon {icon}");
+	}
+}
+
 #[test]
 fn a_brewnall_hub_shows_the_first_person_s_goal_and_one_line_for_each_other_person_and_the_field_work() {
 	let out = run_hearth(r#"
@@ -849,4 +872,39 @@ fn along_the_way_up_next_and_the_next_step_s_line_wrap_to_two_lines() {
 	assert_eq!(out["afterShown"], true);
 	assert_eq!(out["after"]["text"], "Then: Echo Ridge Mine, the kobold tunnels past the Northshire vineyards");
 	assert!(f(&out["after"]["h"]) > 28.0, "the line grows by its second line: {}", out["after"]);
+}
+
+/// A skin change re-fonts the summary lines even when their quiet flag stays as it was: a plain line (the "1 done"
+/// line) takes the house look's goal font there and the label font in the game's looks, whichever look made it.
+#[test]
+fn a_skin_change_gives_every_summary_line_the_new_look_s_font() {
+	let out = run(
+		r#"
+		local T = Polestar.Theme
+		local function fonts(role)
+			local _, want = T.FontSpec(role)
+			local plain, wrong = 0, 0
+			for _, l in ipairs(GF.lines) do
+				if l:IsShown() and not l.psQuiet then
+					plain = plain + 1
+					local _, size = l.Text:GetFont()
+					if size ~= want then wrong = wrong + 1 end
+				end
+			end
+			return { plain = plain, wrong = wrong }
+		end
+		Polestar.Set("ui.skin", "hearth")
+		uistub.setGuide(uistub.elwynn, 3)
+		stub.advance(1)
+		local hearth = fonts("label")
+		Polestar.Set("ui.skin", "polestar"); stub.advance(1)
+		local house = fonts("cardGoal")
+		Polestar.Set("ui.skin", "hearth"); stub.advance(1)
+		emit({ hearth = hearth, house = house, back = fonts("label") })"#,
+	)
+	.remove(0);
+	for k in ["hearth", "house", "back"] {
+		assert!(f(&out[k]["plain"]) > 0.0, "{k}: {out}");
+		assert_eq!(out[k]["wrong"], 0, "{k}: {out}");
+	}
 }

@@ -125,6 +125,7 @@ local function readMetrics()
 	SL.HEAD, SL.HEADB = c and 6 or 10, c and 5 or 8 -- the person header's top and bottom padding
 	SL.TIP = c and 4 or 6 -- the tip's padding above and below its text
 	SL.CARDTOP = Theme.Metric("guideCardTop", c and 3 or 0) -- the gap from the navigator (or the notice) to the card
+	SL.MARK_GAP = 2 -- the live bar's gap to the icon it marks
 	SL.IND = c and 10 or 0 -- goal rows sit one step in under the step's title
 	SL.XPH = c and 16 or 28 -- the XP row's height: the progress bar sits right under it
 	SL.XPTOP = c and 3 or 0 -- the XP text's top padding (it sits a pixel lower in its row)
@@ -501,8 +502,10 @@ local function goalRow(i)
 	r.Mark = r:CreateTexture(nil, "ARTWORK")
 	r.Mark:SetTexture(Theme.Media("white"))
 	r.Mark:SetWidth(2)
-	r.Mark:SetPoint("TOPLEFT", r, "TOPLEFT", 0, -3)
-	r.Mark:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", 0, 3)
+	-- Just left of the icon column (MARK_GAP), inside the row.
+	local markX = max(0, PAD + SL.IND - 2 - SL.MARK_GAP)
+	r.Mark:SetPoint("TOPLEFT", r, "TOPLEFT", markX, -3)
+	r.Mark:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", markX, 3)
 	W.Painter(r.Mark, GF.PaintMark)
 	r.Mark:Hide()
 	r.Icon = r:CreateTexture(nil, "ARTWORK")
@@ -758,6 +761,10 @@ end
 
 -- Measure a row at a width; returns its height.
 local function measureRow(r, width)
+	-- The live bar follows the icon column, which a skin or compact moves (SL.IND).
+	local markX = max(0, PAD + SL.IND - 2 - SL.MARK_GAP)
+	r.Mark:SetPoint("TOPLEFT", r, "TOPLEFT", markX, -3)
+	r.Mark:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", markX, 3)
 	-- Right edge, outside in: the tick, an optional goal's Skip, "Other".
 	local right = PAD
 	if r.Check:IsShown() then right = right + CHECK + 4 + CHECK_IN end
@@ -1681,6 +1688,19 @@ end
 -- Size and place the cards.
 -- The stack's height (SL.out.h) is what the window's grow-upward room and the
 -- screen clamp leave out above it.
+-- A While-you're-here row's detail at the right and its line in the room left
+-- (SL.LayoutOut, and GF.HereMoved when the distance changes its width).
+function SL.WHFit(r, width)
+	local pad = SL.OUT_PAD
+	local right = pad - 3 + 16 + 6
+	r.Meta:ClearAllPoints()
+	r.Meta:SetPoint("RIGHT", r, "RIGHT", -right, 0)
+	right = right + floor(r.Meta:GetStringWidth() + 0.5) + 6
+	r.Text:ClearAllPoints()
+	r.Text:SetPoint("LEFT", r.Icon, "RIGHT", 6, 0)
+	r.Text:SetWidth(max(40, width - (pad - 1 + ICON + 6) - right - 2))
+end
+
 function SL.LayoutOut(width)
 	local out = SL.out
 	if not out then return end
@@ -1767,13 +1787,7 @@ function SL.LayoutOut(width)
 			r.Icon:SetPoint("LEFT", r, "LEFT", pad - 1, 0)
 			r.Close:ClearAllPoints()
 			r.Close:SetPoint("RIGHT", r, "RIGHT", -(pad - 3), 0)
-			local right = pad - 3 + 16 + 6
-			r.Meta:ClearAllPoints()
-			r.Meta:SetPoint("RIGHT", r, "RIGHT", -right, 0)
-			right = right + floor(r.Meta:GetStringWidth() + 0.5) + 6
-			r.Text:ClearAllPoints()
-			r.Text:SetPoint("LEFT", r.Icon, "RIGHT", 6, 0)
-			r.Text:SetWidth(max(40, width - (pad - 1 + ICON + 6) - right - 2))
+			SL.WHFit(r, width)
 			y = y + SL.OPT_ROW
 		end
 		local wl = y + 5
@@ -1791,9 +1805,10 @@ function SL.LayoutOut(width)
 		hint:SetPoint("BOTTOMRIGHT", below, "TOPRIGHT", 0, gap)
 		h = h + gap + hintH
 	end
-	out.h = h
-	-- The game keeps the window on the screen with its cards.
-	if F.SetClampRectInsets then F:SetClampRectInsets(0, 0, -h, 0) end
+	out.h, out.width = h, width
+	-- The game keeps the window on the screen with its cards: a positive top
+	-- inset grows the clamp rect upward over them.
+	if F.SetClampRectInsets then F:SetClampRectInsets(0, 0, h, 0) end
 end
 
 -- The item's icon, where the client knows it. -> texture | nil
@@ -1917,8 +1932,10 @@ end)
 -- tall. Its chevron still lists the goals under it.
 function SL.Quiet(l, on)
 	on = on and true or false
-	if l.psQuiet ~= on then
-		l.psQuiet = on
+	-- The house look's card changes the plain line's font too (a skin change).
+	local dense = SL.card and true or false
+	if l.psQuiet ~= on or l.psQuietCard ~= dense then
+		l.psQuiet, l.psQuietCard = on, dense
 		Theme.Font(l.Text, on and "cardNote" or (SL.card and "cardGoal" or "label"))
 		l.Text:SetWordWrap(not on)
 		l.Text:SetMaxLines(on and 1 or 2)
@@ -2968,7 +2985,10 @@ function GF.LayoutBanner(width)
 		placeLink(banner.Later, L["Not this one"], w + 10, -4)
 		banner.Close:Show()
 	end
-	local h = floor(9 + banner.Text:GetStringHeight() + 4 + 18 + 9 + 0.5)
+	-- The link row's room only when a link is shown: a notice with none (no
+	-- junk to offer) ends at its text, with the same inset above and below.
+	local linkH = banner.Jump:IsShown() and 4 + 18 or 0
+	local h = floor(9 + banner.Text:GetStringHeight() + linkH + 9 + 0.5)
 	banner:SetHeight(h)
 	return h
 end
@@ -3883,7 +3903,8 @@ local function navigatorFor(guide, index)
 		nav.Title:SetPoint("LEFT", nav, "LEFT", PAD, 0)
 	end
 	if GF.catchingUp == "guides" then return end
-	local cw = max(floor(nav.Steps.Count:GetStringWidth() + 0.5), 40)
+	-- Rounded up with 2px to spare: a width under the text cuts it to "27 /…".
+	local cw = max(floor(nav.Steps.Count:GetStringWidth() + 0.5) + 2, 40)
 	nav.Steps.Count:SetWidth(cw)
 	nav.Steps:SetWidth(24 + cw + 24)
 end
@@ -4093,7 +4114,11 @@ end
 function GF.HereMoved(yards, i)
 	if SL.card and SL.out then
 		local wr = SL.out.wh.Rows[i or 1]
-		if wr and wr.psView and type(yards) == "number" then SL.WHMeta(wr, yards) end
+		if wr and wr.psView and type(yards) == "number" then
+			SL.WHMeta(wr, yards)
+			-- The line gives way to a wider distance ("40 yd" to "1.2k yd").
+			if SL.out.width then SL.WHFit(wr, SL.out.width) end
+		end
 		return
 	end
 	local here = GF.here
@@ -4765,14 +4790,20 @@ function GF.UpdateTargets()
 	if not F or state ~= "steps" or not focusGroup then return end
 	local t = targetOf()
 	person.Mark:SetShown(personMarked(t))
+	local moved = false
 	for i = 1, #rows do
 		local r = rows[i]
 		if r:IsShown() and r.psGoal then
+			local was = r.Mark:IsShown()
 			r.Mark:SetShown(r.psGoal.status ~= "done" and r.psGoal.status ~= "skipped" and isTarget(r.psGoal, t) and not person.Mark:IsShown())
 			SL.Meta(r)
+			-- The arrow's row keeps room for its distance (measureRow): a row it
+			-- reached or left is laid out again so its text does not run into it.
+			if was ~= r.Mark:IsShown() then moved = true end
 		end
 	end
 	SL.MarkOut(t)
+	if moved then GF.Layout() end
 end
 
 function GF.TabsOf(E) return tabsOf(E) end
@@ -4973,6 +5004,7 @@ function GF.ApplyStyle()
 	for _, part in ipairs({ after, along, upnext.Toggle, GF.xp, GF.party, banner }) do part.Rule:SetAlpha(rules and 1 or 0) end
 	W.Painter(foot.Line.Track, paintTrack)
 	if GF.here then W.Painter(GF.here.Panel, GF.PaintHerePanel) end
+	if banner and banner.PaintFill then W.Painter(banner.Fill, banner.PaintFill) end
 	local outline = clear and GF.Outline()
 	for i = 1, #texts do Theme.SetOutline(texts[i], outline) end
 	-- Tick boxes on the world: a scrim inside and an ink edge.
@@ -5330,6 +5362,8 @@ function GF.ApplySkin()
 	-- The focus parts at the skin's paddings.
 	person.Icon:SetSize(ICON + 1, ICON + 1)
 	person.Icon:SetPoint("TOPLEFT", person, "TOPLEFT", PAD - 1, -GF.PersonIconY())
+	person.Mark:SetPoint("TOPLEFT", person, "TOPLEFT", max(0, PAD - 3 - SL.MARK_GAP), -6)
+	person.Mark:SetPoint("BOTTOMLEFT", person, "BOTTOMLEFT", max(0, PAD - 3 - SL.MARK_GAP), 4)
 	person.Name:SetPoint("TOPLEFT", person, "TOPLEFT", TEXT_X, -SL.HEAD)
 	person.Dist:SetPoint("TOPRIGHT", person, "TOPRIGHT", -PAD, -SL.HEAD - 1)
 	card.Tip.Text:SetPoint("TOPLEFT", card.Tip, "TOPLEFT", TEXT_X, -SL.TIP)
@@ -5952,8 +5986,10 @@ local function build()
 	-- hide the layout did not ask for turns the setting off.
 	_G.PolestarStepList = SL.frame
 	ns.CloseOnEscape("PolestarStepList")
-	SL.frame:SetScript("OnHide", function()
-		if SL.wantShown then
+	-- A parent's hide (Alt-Z, combat, the window hidden) runs this too, with the
+	-- list itself still shown: the list comes back with the window.
+	SL.frame:SetScript("OnHide", function(self)
+		if SL.wantShown and not self:IsShown() then
 			SL.wantShown = false
 			ns.Set("ui.stepList", false)
 		end
@@ -5988,8 +6024,10 @@ local function build()
 	-- The arrow on this person: the accent selection bar (GF.PaintMark).
 	person.Mark = person:CreateTexture(nil, "ARTWORK")
 	person.Mark:SetTexture(Theme.Media("white"))
-	person.Mark:SetPoint("TOPLEFT", person, "TOPLEFT", 0, -6)
-	person.Mark:SetPoint("BOTTOMLEFT", person, "BOTTOMLEFT", 0, 4)
+	person.Mark:SetWidth(2)
+	-- Just left of the person's glyph (SL.MARK_GAP), inside the card.
+	person.Mark:SetPoint("TOPLEFT", person, "TOPLEFT", max(0, PAD - 3 - SL.MARK_GAP), -6)
+	person.Mark:SetPoint("BOTTOMLEFT", person, "BOTTOMLEFT", max(0, PAD - 3 - SL.MARK_GAP), 4)
 	W.Painter(person.Mark, GF.PaintMark)
 	person.Mark:Hide()
 	person.Icon = person:CreateTexture(nil, "ARTWORK")
@@ -6155,12 +6193,17 @@ local function build()
 	banner.Fill = banner:CreateTexture(nil, "BACKGROUND")
 	banner.Fill:SetTexture(Theme.Media("white"))
 	banner.Fill:SetAllPoints(banner)
-	W.Painter(banner.Fill, function(t)
+	banner.PaintFill = function(t)
 		-- The house look's cards: the card's own ground, not a gold tint.
-		if SL.card then t:SetVertexColor(Theme.Wash("chip")) return end
+		if SL.card then
+			-- The transparent window draws no ground (the notice included).
+			if transparent() then t:SetVertexColor(0, 0, 0, 0) else t:SetVertexColor(Theme.Wash("chip")) end
+			return
+		end
 		local r, g, b = Theme.Accent()
 		t:SetVertexColor(r, g, b, 0.1)
-	end)
+	end
+	W.Painter(banner.Fill, banner.PaintFill)
 	banner.Rule = W.Divider(banner)
 	banner.Rule:SetPoint("BOTTOMLEFT", banner, "BOTTOMLEFT", 0, 0)
 	banner.Rule:SetPoint("BOTTOMRIGHT", banner, "BOTTOMRIGHT", 0, 0)

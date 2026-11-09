@@ -639,3 +639,33 @@ fn in_the_house_look_while_you_re_here_is_an_outside_card_with_a_row_per_suggest
 	assert!(out[1]["left"].as_u64().unwrap() < a["rows"].as_array().unwrap().len() as u64, "the dismiss works: {}", out[1]);
 	assert_eq!(out[2]["listed"], false, "not over the step list");
 }
+
+// The outside cards sit above the window: the screen clamp grows upward by their height (a positive top inset, as
+// the chat frame's tabs), so neither the window nor the cards leave the screen at the top. A move that widens a
+// row's distance gives its line less room, without a whole layout.
+#[test]
+fn the_outside_cards_stay_on_screen_with_the_window_and_a_wider_distance_narrows_its_row_s_line() {
+	let out = run_in(
+		"polestar",
+		"Polestar.Set(\"behavior.whileHereRadius\", 60)",
+		r#"Polestar.Set("behavior.whileHereRadius", 150)
+		local F = Polestar.UI.GuideFrame.frame
+		F.SetClampRectInsets = function(self, l, r, t, b) self.psClamp = { l, r, t, b } end"#,
+		r#"
+		w.moveTo(1429, 49.8, 36.0); stub.advance(1.1)
+		local SL = GF.stepList
+		local wh, F = SL.out.wh, GF.frame
+		local r = wh.Rows[1]
+		GF.HereMoved(40, 1)
+		local near = { meta = r.Meta:GetText(), text = r.Text:GetWidth() }
+		GF.HereMoved(1200, 1)
+		emit({ shown = wh:IsShown(), outH = SL.out.h, clamp = F.psClamp, near = near, far = { meta = r.Meta:GetText(), text = r.Text:GetWidth() } })"#,
+	);
+	let a = &out[0];
+	assert_eq!(a["shown"], true, "{a}");
+	let h = a["outH"].as_u64().unwrap();
+	assert!(h > 0, "{a}");
+	assert_eq!(a["clamp"], json!([0, 0, h, 0]), "the clamp rect reaches over the cards: {a}");
+	assert_ne!(a["near"]["meta"], a["far"]["meta"], "{a}");
+	assert!(a["far"]["text"].as_f64().unwrap() < a["near"]["text"].as_f64().unwrap(), "the line gives way to the wider distance: {a}");
+}

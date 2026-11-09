@@ -453,6 +453,31 @@ fn ellesmereui_font_a_refresh_sets_the_text_again_a_frame_later_so_a_string_draw
 	assert_eq!(out["text"], "Innkeeper Heather");
 }
 
+// The hand-over leaves an edit box's text blank too (the report's box): it is set again a frame later with the strings.
+// A new face without EllesmereUI's font sets only the strings again.
+#[test]
+fn ellesmereui_font_the_later_pass_sets_an_edit_box_s_text_again_too() {
+	let out = run_with(
+		r#"
+		local box = CreateFrame("EditBox", nil, UIParent)
+		T.Font(box, "small")
+		box:SetText("Step 12: the giver is not here")
+		local sets = 0
+		local set = box.SetText
+		box.SetText = function(self, ...) sets = sets + 1 return set(self, ...) end
+		Polestar.Set("ui.matchFont", true)
+		stub.advance(0.1)
+		sets = 0
+		T.Refresh()
+		local sameFrame = sets
+		stub.advance(0.1)
+		emit({ later = sets - sameFrame, text = box:GetText() })"#,
+		"stub.withEllesmere()",
+	);
+	assert_eq!(out["later"], 2, "the edit box is set again a frame later: {out}");
+	assert_eq!(out["text"], "Step 12: the giver is not here");
+}
+
 // The class colour as the accent: it follows the player's class, lifted until it reads as text (shaman blue is
 // too dark on the night grounds as it is), and it is one source among three: your own colour, your class's,
 // EllesmereUI's; choosing one turns the others off.

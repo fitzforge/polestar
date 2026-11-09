@@ -651,6 +651,10 @@ end
 function JP.Layout(width)
 	if not F then return 0 end
 	local list = F.List
+	-- Under the header at its current height (build() ran before the skin's metrics).
+	list:ClearAllPoints()
+	list:SetPoint("TOPLEFT", F, "TOPLEFT", 0, -HEAD_H)
+	list:SetPoint("TOPRIGHT", F, "TOPRIGHT", 0, -HEAD_H)
 	local isOpen = open()
 	list:SetShown(isOpen)
 	if not isOpen then
@@ -676,7 +680,8 @@ function JP.Layout(width)
 				r.Text:SetWidth(tw)
 				r.Sub:ClearAllPoints()
 				r.Sub:SetPoint("LEFT", r.Text, "RIGHT", 5, 0)
-				r.Sub:SetWidth(math.max(0, textW - tw - 5))
+				-- At least 1: a width of 0 is no limit, and the line would run under the time.
+				r.Sub:SetWidth(math.max(1, textW - tw - 5))
 			else
 				r.Text:SetWidth(textW)
 				r.Sub:SetWidth(textW + TIME_W)

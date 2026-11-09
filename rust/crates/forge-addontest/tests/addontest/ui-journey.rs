@@ -398,3 +398,42 @@ fn the_dense_journey_is_as_tall_as_what_it_holds() {
 		assert!(num(&b["frame"]) >= num(&b["head"]) + num(&b["low"]), "{tag}: the frame holds the list: {b}");
 	}
 }
+
+/// The list sits right under the header at the skin's header height (build() runs before the skin's sizes are
+/// read, so a stale offset drops the last line below the frame, onto the row beneath the panel).
+#[test]
+fn the_dense_journey_list_starts_right_under_its_header_and_its_last_line_stays_inside_the_frame() {
+	let out = run_dense(
+		r#"
+		local function geometry()
+			local f = JP.frame
+			local _, _, _, _, y = f.List:GetPoint(1)
+			local last = JP.more:IsShown() and JP.more or nil
+			local _, _, _, _, my = (last or JP.rows[1]):GetPoint(1)
+			emit({ offset = -y, head = JP.head:GetHeight(), frame = f:GetHeight(), lowest = -my + (last and last:GetHeight() / 2 or 0) })
+		end
+		geometry()
+		JP.head:GetScript("OnClick")(JP.head)
+		geometry()"#,
+	);
+	for (i, tag) in ["summary", "expanded"].iter().enumerate() {
+		let g = &out[i];
+		assert_eq!(num(&g["offset"]), num(&g["head"]), "{tag}: the list is anchored under the header: {g}");
+		assert!(num(&g["head"]) + num(&g["lowest"]) <= num(&g["frame"]) + 0.5, "{tag}: the last line is inside the frame: {g}");
+	}
+}
+
+/// A step whose text fills its column leaves its wait and ride no room: their width stays at least 1 (0 is no limit
+/// in the client, and the line would run under the time column).
+#[test]
+fn a_dense_step_that_fills_its_column_never_frees_its_second_line_from_the_width_limit() {
+	let out = run_dense(
+		r#"
+		JP.head:GetScript("OnClick")(JP.head)
+		local r = JP.rows[1]
+		r.Text:SetText(string.rep("Ride the elevator down to the lower city ", 4))
+		JP.Layout(260)
+		emit({ text = r.Text:GetWidth(), sub = r.Sub:GetWidth() })"#,
+	);
+	assert!(num(&out[0]["sub"]) >= 1.0, "{}", out[0]);
+}

@@ -2160,8 +2160,11 @@ function Theme.Refresh()
 		retextQueued = true
 		ns.After(0, function()
 			retextQueued = false
+			-- EllesmereUI's hand-over blanks edit boxes too (the report's box); a
+			-- new face alone sets only the strings again.
+			local boxes = Theme.FollowsEllesmereFont()
 			for fs in pairs(fonted) do
-				if fs:GetObjectType() == "FontString" then textAgain(fs) end
+				if boxes or fs:GetObjectType() == "FontString" then textAgain(fs) end
 			end
 		end)
 	end

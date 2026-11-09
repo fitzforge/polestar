@@ -2945,3 +2945,75 @@ fn floating_button_hover_is_a_quarter_strong_accent_disc_even_with_its_regions_a
 		assert!((r[k].as_f64().unwrap() - 0.25).abs() < 1e-6, "{k}: {}", r[k]);
 	}
 }
+
+/// A notice with no link to offer (the bags banner with no junk to delete) ends at its text with the same inset
+/// above and below, instead of keeping the link row's room.
+#[test]
+fn a_notice_without_a_link_is_no_taller_than_its_text_and_its_insets() {
+	let out = run(r#"
+		local B = GF.parts.banner
+		Polestar.QoL = Polestar.QoL or {}
+		Polestar.QoL.Space = { Banner = function() return { free = 0 } end }
+		uistub.setGuide(uistub.elwynn, 2)
+		GF.Render()
+		emit({ shown = B:IsShown(), link = B.Jump:IsShown(), height = B:GetHeight(), text = B.Text:GetStringHeight() })"#)
+	.remove(0);
+	assert_eq!(out["shown"], true, "{out}");
+	assert_eq!(out["link"], false, "{out}");
+	let (h, t) = (out["height"].as_f64().unwrap(), out["text"].as_f64().unwrap());
+	assert!((h - (t + 18.0)).abs() <= 1.0, "9 above, 9 below the text, no link row: height {h}, text {t}");
+}
+
+/// The transparent window draws no ground, the notice's included; the standard window keeps the card's.
+#[test]
+fn the_notice_draws_no_ground_in_the_transparent_window() {
+	let out = run(r#"
+		local B = GF.parts.banner
+		local function alpha() local _, _, _, a = B.Fill:GetVertexColor() return a end
+		local standard = alpha()
+		Polestar.Set("ui.style", "transparent")
+		local clear = alpha()
+		Polestar.Set("ui.style", "standard")
+		emit({ standard = standard, clear = clear, back = alpha() })"#)
+	.remove(0);
+	assert!(out["standard"].as_f64().unwrap() > 0.0, "{out}");
+	assert_eq!(out["clear"].as_f64().unwrap(), 0.0, "{out}");
+	assert_eq!(out["back"], out["standard"], "{out}");
+}
+
+/// The step number ("27 / 90") is as wide as its text: a width under it cuts the text to "27 /…". The measured
+/// width is held at 40.4 here, as Inter measures "27 / 90" at the 12px size, where rounding to 40 cut it.
+#[test]
+fn the_step_number_is_never_narrower_than_its_text() {
+	let out = run(r#"
+		local C = GF.parts.nav.Steps.Count
+		C.GetStringWidth = function() return 40.4 end
+		uistub.setGuide(uistub.elwynn, 2)
+		emit({ width = C:GetWidth(), string = C:GetStringWidth() })"#)
+	.remove(0);
+	assert!(out["width"].as_f64().unwrap() >= out["string"].as_f64().unwrap(), "{out}");
+}
+
+/// The row the arrow leads to keeps room for its distance beside the text; once the arrow moves on, the row is laid
+/// out again and its text takes the room back (and the other way round when it arrives).
+#[test]
+fn a_row_the_arrow_reaches_or_leaves_is_laid_out_again_so_its_text_keeps_clear_of_the_distance() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		local function marked()
+			for _, r in ipairs(visibleRows()) do if r.Mark:IsShown() then return r end end
+		end
+		local r = marked()
+		local with = r.Text:GetWidth()
+		local goal = r.psGoal
+		Polestar.Nav.GetTarget = function() return nil end
+		Polestar.Fire("WAYPOINT_CHANGED", nil)
+		local without = r.Text:GetWidth()
+		Polestar.Nav.GetTarget = nil
+		Polestar.Fire("WAYPOINT_CHANGED", Polestar.Engine.GetWaypoint())
+		emit({ with = with, without = without, again = r.Text:GetWidth(), marked = r.Mark:IsShown() })"#)
+	.remove(0);
+	let (with, without, again) = (f(&out["with"]), f(&out["without"]), f(&out["again"]));
+	assert!(without > with, "the unmarked row's text is wider: {out}");
+	assert_eq!(again, with, "and narrows again when the arrow returns: {out}");
+}
