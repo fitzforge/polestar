@@ -1009,5 +1009,29 @@
 			}
 		],
 		"note": "Mountaineer Kadrell walks the road through Thelsamar. The merged data put him at 32.63,49.74, the south end of his walk, 55 yd from his spawn; the compiler draws a walker's circle only for a point within 15 yd of the spawn, so his goals showed one point at the end of the road where few players met him (IngestCheck036, position sweep). His spawn is the game's own."
+	},
+	"2155": {
+		"addSpawns": {
+			"1438": {
+				"f": "e",
+				"pts": [
+					[
+						42.22,
+						51.27
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "creature spawn of entry 2155 at world 10091.4,1664.9 (Teldrassil 42.22,51.27), with a waypoint walk of 161 yd around 39.38,52.62 (data/forever/moves.json)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings, all addon versions: 22 people met her on the road west of Dolanaar, 38-43,50-55; her bounty (490) taken by 10 and handed in by 13 people along the road from 41.3,50.8 to 38.2,54.4"
+			}
+		],
+		"note": "Sentinel Shayla Nightbreeze walks the road west of Dolanaar. The merged data had her at 40.46,50.73, on her walk but 91 yd from her spawn, so the compiler drew no walk circle (it needs the point within 15 yd of the spawn) and half the players met her 70-130 yd from the arrow (position sweep). Her spawn is the game's own."
 	}
 }

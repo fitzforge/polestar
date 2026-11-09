@@ -9431,3 +9431,15 @@ test('Horde Azshara guides: chain accepts from an earlier guide wait until the q
 	const work = az2.find((st) => st.goals.some((g) => g.t === 'turnin' && g.quest === 5051));
 	assert.ok((work.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(5051)), 'the charm\'s work only with 5051 in the log');
 });
+
+// Position sweep (0.3.6, IngestCheck036's patrol item): Sentinel Shayla Nightbreeze walks the road west of Dolanaar
+// (10 people took her bounty and 13 handed it in along the road from 41.3,50.8 to 38.2,54.4, half of them 70-130 yd
+// from the arrow); the steps said she stands beside the gate.
+test('Teldrassil: Shayla\'s steps say she walks the road', { skip }, () => {
+	const g = goals('forever/alliance/nightelf/01-teldrassil.guide');
+	for (const [what, pred] of [['accept 490', is('accept', 490)], ['turnin 490', is('turnin', 490)]]) {
+		const step = g[at(g, what, pred)].step;
+		assert.match(step.note || '', /walks (?:this stretch of )?(?:the )?road/, `${what}: the tip says she walks`);
+		assert.doesNotMatch(step.note || '', /stands beside/, `${what}: not "stands beside"`);
+	}
+});

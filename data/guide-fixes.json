@@ -4905,6 +4905,46 @@
 					"ref": "npcs.json 7233 and 8582 on map 1413; the guide's own Taskmaster Fizzule step (only Rogue)"
 				}
 			]
+		},
+		{
+			"id": "teldrassil-shayla-walks-490-accept",
+			"faction": "Alliance",
+			"at": {
+				"quest": 490,
+				"goal": "accept"
+			},
+			"tip": "West along the road toward the city. Shayla walks this stretch of road, from the arrow south-west to the bend at about 38,54 and back: if she isn't at the arrow, follow the road south-west. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and Gnarlpine Hold's all count.",
+			"note": "Bounty: Gnarlpine Furbolg (490): Sentinel Shayla Nightbreeze walks the road west of Dolanaar (the game's spawn 42.22,51.27, a 161 yd walk around 39.4,52.6). The tip said she stands beside the gate. Players' recordings: 10 people took the bounty along the road from 41.3,51.0 to 38.2,54.4, half of them 70-130 yd south-west of the arrow (40.46,50.73). Tip only for 0.3.6: the data's point is 91 yd from her spawn, so the walk circle needs the npcs correction (2155) applied by a data build.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "accept 490 at npc 2155: 10 people, 38.2-41.3,50.7-54.4; 22 people met her, most at 39-41,51-54"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature spawn and waypoint walk of entry 2155 (data/forever/moves.json)"
+				}
+			]
+		},
+		{
+			"id": "teldrassil-shayla-walks-490-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 490,
+				"goal": "turnin"
+			},
+			"tip": "West along the road from Dolanaar, before the turn north to the glade: Shayla walks the road from the arrow south-west to the bend at about 38,54 and back.",
+			"note": "Bounty: Gnarlpine Furbolg (490): the hand-in; 13 people handed it in along the road from 41.2,50.8 to 38.8,53.6, 8 of them 60-120 yd from the arrow. See teldrassil-shayla-walks-490-accept.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 490 at npc 2155: 13 people, 38.8-41.2,50.8-53.6"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "entry 2155's walk (moves.json)"
+				}
+			]
 		}
 	]
 }
