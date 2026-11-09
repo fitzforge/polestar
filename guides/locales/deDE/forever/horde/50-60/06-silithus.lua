@@ -202,7 +202,7 @@ return {
 
 	-- Step 47: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "Zeppelin nach {zone:1458}",
 
 	-- Step 50: Radley and Durgen
 	["Radley and Durgen"] = "Radley und Durgen",

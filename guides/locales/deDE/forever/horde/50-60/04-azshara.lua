@@ -84,7 +84,7 @@ return {
 
 	-- Step 17: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "Zeppelin nach {zone:1458}",
 
 	-- Step 18: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong

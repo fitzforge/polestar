@@ -110,7 +110,7 @@ return {
 
 	-- Step 21: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "Zeppelin nach {zone:1458}",
 
 	-- Step 22: Brill
 	-- {npc:246152} Shari Stilwell · {area:159} Brill
@@ -120,7 +120,7 @@ return {
 	-- {area:240} Dead Field · {object:177790} Strange Lockbox · {item:15882} Half Pendant of Aquatic Endurance · {area:228} Sepulcher
 	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177790} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
-	["{item:15882}, from the {object:177790}"] = "",
+	["{item:15882}, from the {object:177790}"] = "{item:15882}, aus {object:177790}",
 
 	-- Step 24: Sepulcher
 	-- {area:228} Sepulcher · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel

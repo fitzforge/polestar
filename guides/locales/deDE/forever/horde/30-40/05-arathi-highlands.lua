@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "Zeppelin nach {zone:1458}",
 
 	-- Step 2: Undercity trainers
 	-- {zone:1458} Undercity

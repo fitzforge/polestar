@@ -58,7 +58,7 @@ return {
 
 	-- Step 12: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "Zeppelin nach {zone:1458}",
 
 	-- Step 13: The Undercity
 	-- {quest:515} Elixir of Agony · {item:3388} Lesser Troll's Blood Elixir · {skill:171} Alchemy · {area:287} Hillsbrad
