@@ -1967,6 +1967,28 @@
 			},
 			{
 				"a": [
+					"accept",
+					92471
+				],
+				"b": [
+					"turnin",
+					92483
+				],
+				"why": "Follow-up rule (tests/guides-patterns.test.js, #310): Aetheen of the Gales (92471) is taken from Rorian the Dayseeker right after his Harmony hand-in (92469), before the Rogue's letter to Akeri Duskblade in the watchtower, not after a walk to the watchtower and back to Rorian."
+			},
+			{
+				"a": [
+					"accept",
+					92471
+				],
+				"b": [
+					"turnin",
+					92532
+				],
+				"why": "Follow-up rule (tests/guides-patterns.test.js, #310): Aetheen of the Gales (92471) is taken from Rorian the Dayseeker right after his Harmony hand-in (92469), before the Warrior's letter to Blademaster Ren in the watchtower, not after a walk to the watchtower and back to Rorian."
+			},
+			{
+				"a": [
 					"turnin",
 					98512
 				],
