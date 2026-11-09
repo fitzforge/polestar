@@ -75,9 +75,8 @@ return {
 	-- {npc:3514} Tenaron Stormgrip
 	["{npc:3514}, at the top of the tree"] = "{npc:3514}，在巨树顶端",
 
-	-- Step 10: The moonwell and Iverron
-	-- {npc:8584} Iverron
-	["The moonwell and {npc:8584}"] = "月亮井和{npc:8584}",
+	-- Step 10: The moonwell
+	["The moonwell"] = "",
 	-- {area:256} Aldrassil
 	["The moonwell sits north of {area:256}."] = "月亮井位于{area:256}北侧。",
 	-- {item:5185} Crystal Phial
@@ -480,6 +479,7 @@ return {
 	-- ["Tame Beast"] = "驯服野兽",
 	-- ["The Bloodfeather harpies nest on the slopes west and north of the glade."] = "血羽鹰身人在林地西边和北边的山坡上筑巢。",
 	-- ["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms."] = "兽穴在道路南边。{npc:275744}被关在里面，{npc:7317}在深处沉睡，四个圣物箱在下层房间里。",
+	-- ["The moonwell and {npc:8584}"] = "月亮井和{npc:8584}",
 	-- ["The moonwell sits north of {area:256}; {npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "月亮井在{area:256}北边；{npc:8584}在稍远的西北方。{quest:3522}只有五分钟：装满药瓶后直接去找他。",
 	-- ["The {area:264}"] = "{area:264}",
 	-- ["Tide Crawlers scuttle along the shore below the village; {object:17182} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "潮行蟹在村庄下方海岸活动，{object:17182}位于码头南侧海滩。黑海岸蛇颈龙在浅水区游动，{object:175207}位于村庄南侧海岸。",

@@ -75,9 +75,8 @@ return {
 	-- {npc:3514} Tenaron Stormgrip
 	["{npc:3514}, at the top of the tree"] = "{npc:3514} – на вершине древа",
 
-	-- Step 10: The moonwell and Iverron
-	-- {npc:8584} Iverron
-	["The moonwell and {npc:8584}"] = "Лунный колодец и {npc:8584}",
+	-- Step 10: The moonwell
+	["The moonwell"] = "",
 	-- {area:256} Aldrassil
 	["The moonwell sits north of {area:256}."] = "",
 	-- {item:5185} Crystal Phial
@@ -474,6 +473,7 @@ return {
 	-- ["Take the road north-west from {area:186} towards the {area:264}; she lies hurt beside it."] = "Идите по дороге на северо-запад ({area:186} → {area:264}); она лежит раненая у дороги.",
 	-- ["The Bloodfeather harpies nest on the slopes west and north of the glade."] = "Гарпии из стаи Кровавого Пера гнездятся на склонах к западу и северу от поляны.",
 	-- ["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms."] = "Обитель – к югу от дороги. Внутри держат в плену: {npc:275744}; в глубине спит {npc:7317}, а четыре сундука с реликвиями стоят в нижних залах.",
+	-- ["The moonwell and {npc:8584}"] = "Лунный колодец и {npc:8584}",
 	-- ["The moonwell sits north of {area:256}; {npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "Лунный колодец – к северу от древа ({area:256}); {npc:8584} – чуть дальше на северо-запад. Задание «{quest:3522}» длится пять минут: наполните флакон и сразу идите к нему.",
 	-- ["The {area:264}"] = "{area:264}",
 	-- ["Walk south along the west side of the island. Ursal prowls the far south, below the {area:478}."] = "Идите на юг вдоль западной стороны острова. Урсал рыщет на дальнем юге, ниже места {area:478}.",

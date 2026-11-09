@@ -75,9 +75,8 @@ return {
 	-- {npc:3514} Tenaron Stormgrip
 	["{npc:3514}, at the top of the tree"] = "{npc:3514}, en lo alto del árbol",
 
-	-- Step 10: The moonwell and Iverron
-	-- {npc:8584} Iverron
-	["The moonwell and {npc:8584}"] = "El pozo de la luna y {npc:8584}",
+	-- Step 10: The moonwell
+	["The moonwell"] = "",
 	-- {area:256} Aldrassil
 	["The moonwell sits north of {area:256}."] = "",
 	-- {item:5185} Crystal Phial
@@ -474,6 +473,7 @@ return {
 	-- ["Take the road north-west from {area:186} towards the {area:264}; she lies hurt beside it."] = "Toma el camino al noroeste desde {area:186} hacia {area:264}; ella yace herida a su lado.",
 	-- ["The Bloodfeather harpies nest on the slopes west and north of the glade."] = "Las arpías Sangrepluma anidan en las laderas al oeste y al norte del claro.",
 	-- ["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms."] = "El túmulo está al sur del camino. {npc:275744} está retenida dentro, {npc:7317} duerme en sus profundidades y los cuatro cofres de reliquias están en las salas inferiores.",
+	-- ["The moonwell and {npc:8584}"] = "El pozo de la luna y {npc:8584}",
 	-- ["The moonwell sits north of {area:256}; {npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "El pozo de la luna está al norte de {area:256}; {npc:8584} está un poco más al noroeste. {quest:3522} dura cinco minutos: llena el vial y ve directo con él.",
 	-- ["The {area:264}"] = "{area:264}",
 	-- ["Walk south along the west side of the island. Ursal prowls the far south, below the {area:478}."] = "Camina al sur por el lado oeste de la isla. Ursal merodea por el extremo sur, bajo {area:478}.",

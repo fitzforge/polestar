@@ -75,9 +75,8 @@ return {
 	-- {npc:3514} Tenaron Stormgrip
 	["{npc:3514}, at the top of the tree"] = "나무 꼭대기의 {npc:3514}",
 
-	-- Step 10: The moonwell and Iverron
-	-- {npc:8584} Iverron
-	["The moonwell and {npc:8584}"] = "달샘과 {npc:8584}",
+	-- Step 10: The moonwell
+	["The moonwell"] = "",
 	-- {area:256} Aldrassil
 	["The moonwell sits north of {area:256}."] = "",
 	-- {item:5185} Crystal Phial
@@ -474,6 +473,7 @@ return {
 	-- ["Take the road north-west from {area:186} towards the {area:264}; she lies hurt beside it."] = "{area:186}에서 북서쪽 길을 따라 {area:264}(으)로 가세요. 그녀가 다친 채 길가에 누워 있습니다.",
 	-- ["The Bloodfeather harpies nest on the slopes west and north of the glade."] = "붉은깃털일족 하피는 숲 서쪽과 북쪽 비탈에 둥지를 틀고 있습니다.",
 	-- ["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms."] = "지하굴은 길 남쪽에 있습니다. {npc:275744}이(가) 안에 갇혀 있고, {npc:7317}은(는) 가장 깊은 곳에서 잠들어 있으며, 유물 상자 4개는 아래층 방에 있습니다.",
+	-- ["The moonwell and {npc:8584}"] = "달샘과 {npc:8584}",
 	-- ["The moonwell sits north of {area:256}; {npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "달샘은 {area:256} 북쪽에 있고, {npc:8584}은(는) 조금 더 북서쪽에 있습니다. {quest:3522}은(는) 5분 동안만 유지되니 약병을 채우고 곧장 그에게 가세요.",
 	-- ["The {area:264}"] = "{area:264}",
 	-- ["Walk south along the west side of the island. Ursal prowls the far south, below the {area:478}."] = "섬 서쪽을 따라 남쪽으로 가세요. 투사 우르살은 {area:478} 아래, 남쪽 끝을 배회합니다.",

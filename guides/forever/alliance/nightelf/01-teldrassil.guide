@@ -96,7 +96,7 @@ step Aldrassil
   turnin 920                                  -- Tenaron Stormgrip, at the top of the tree
   accept 921
 
-step The moonwell and Iverron
+step The moonwell
   tip The moonwell sits north of Aldrassil.
   use 5185 quest 921.1 @60.0,33.0 map 1438
   collect 5184 quest 921.1 @60.0,33.0         -- Use the Crystal Phial at the moonwell

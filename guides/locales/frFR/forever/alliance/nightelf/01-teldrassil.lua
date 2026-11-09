@@ -75,9 +75,8 @@ return {
 	-- {npc:3514} Tenaron Stormgrip
 	["{npc:3514}, at the top of the tree"] = "{npc:3514}, au sommet de l'arbre",
 
-	-- Step 10: The moonwell and Iverron
-	-- {npc:8584} Iverron
-	["The moonwell and {npc:8584}"] = "Le puits de lune et {npc:8584}",
+	-- Step 10: The moonwell
+	["The moonwell"] = "",
 	-- {area:256} Aldrassil
 	["The moonwell sits north of {area:256}."] = "Le puits de lune se trouve au nord d'{area:256}.",
 	-- {item:5185} Crystal Phial
@@ -483,6 +482,7 @@ return {
 	-- ["The Bloodfeather harpies nest on the slopes west and north of the glade."] = "Les harpies Plumesang nichent sur les pentes à l'ouest et au nord de la clairière.",
 	-- ["The Bloodfeather harpies nest on the slopes west and north of the glade.\nCareful: The harpies stand packed together, so extra ones often join a fight. Casters are mixed in among them."] = "Les harpies Plumesang nichent sur les pentes à l'ouest et au nord de la clairière.\nAttention : les harpies se tiennent serrées, alors d'autres se joignent souvent au combat. Des lanceuses de sorts sont mêlées à elles.",
 	-- ["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms."] = "Le refuge se trouve au sud de la route. {npc:275744} y est retenue, {npc:7317} dort dans ses profondeurs, et les quatre coffres à reliques se trouvent dans les salles inférieures.",
+	-- ["The moonwell and {npc:8584}"] = "Le puits de lune et {npc:8584}",
 	-- ["The moonwell sits north of {area:256}; {npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "Le puits de lune se trouve au nord d'{area:256} ; {npc:8584} est un peu plus au nord-ouest. {quest:3522} dure cinq minutes : remplissez la fiole et allez directement le voir.",
 	-- ["The {area:264}"] = "{area:264}",
 	-- ["Tide Crawlers scuttle along the shore below the village; {object:17182} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "Des Clampants des marées courent le long du rivage sous le village ; {object:17182} se dresse sur la plage juste au sud des quais. Des Batteurs de Sombrivage nagent dans les hauts-fonds. La {object:175207} repose sur le rivage juste au sud du village.",

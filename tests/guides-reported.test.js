@@ -503,6 +503,9 @@ test(`${TELDRASSIL}: Iverron's Antidote is taken after the last Tenaron visit an
 	assert.ok(at(list, 'turnin 921 (Crown of the Earth)', is('turnin', 921)) < take, 'the antidote is taken after the last climb to Tenaron');
 	assert.equal(list[take].s, list[hand].s, 'taken in the step that hands it in');
 	assert.deepEqual(list.slice(take + 1, hand).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'nothing between the accept and the hand-in');
+	// Final route review 0.3.6: the moonwell step before Tenaron no longer meets Iverron, and its title says so.
+	const phial = fs.readFileSync(path.join(OFFICIAL_DIR, TELDRASSIL), 'utf8').split(/\n(?=step )/).find((s) => /use 5185 /.test(s));
+	assert.ok(!/^step .*Iverron/.test(phial), `the moonwell step's title doesn't name Iverron (${phial.split('\n')[0]})`);
 });
 
 test(`${TELDRASSIL}: Pynte's report (#647): Teldrassil is taken from the Oracle Tree Bark on The Oracle Tree's turn-in and handed to Fandral with Crown of the Earth`, { skip }, () => {

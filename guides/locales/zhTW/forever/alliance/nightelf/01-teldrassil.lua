@@ -75,9 +75,8 @@ return {
 	-- {npc:3514} Tenaron Stormgrip
 	["{npc:3514}, at the top of the tree"] = "{npc:3514}，在樹頂",
 
-	-- Step 10: The moonwell and Iverron
-	-- {npc:8584} Iverron
-	["The moonwell and {npc:8584}"] = "月井與{npc:8584}",
+	-- Step 10: The moonwell
+	["The moonwell"] = "",
 	-- {area:256} Aldrassil
 	["The moonwell sits north of {area:256}."] = "",
 	-- {item:5185} Crystal Phial
@@ -474,6 +473,7 @@ return {
 	-- ["Take the road north-west from {area:186} towards the {area:264}; she lies hurt beside it."] = "沿著道路從{area:186}向西北前往{area:264}；她受傷躺在路旁。",
 	-- ["The Bloodfeather harpies nest on the slopes west and north of the glade."] = "血羽鷹身人在林地西邊和北邊的山坡上築巢。",
 	-- ["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms."] = "古墓在道路南邊。{npc:275744}被關在裡面，{npc:7317}在深處沉睡，四個聖物箱在下層的房間裡。",
+	-- ["The moonwell and {npc:8584}"] = "月井與{npc:8584}",
 	-- ["The moonwell sits north of {area:256}; {npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "月井在{area:256}北邊；{npc:8584}在更西北一點。{quest:3522}只有五分鐘：裝滿藥瓶後直接去找他。",
 	-- ["The {area:264}"] = "{area:264}",
 	-- ["Walk south along the west side of the island. Ursal prowls the far south, below the {area:478}."] = "沿著島的西側向南走。大槌烏薩爾在最南邊、{area:478}下方徘徊。",

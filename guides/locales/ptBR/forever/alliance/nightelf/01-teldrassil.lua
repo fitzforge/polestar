@@ -75,9 +75,8 @@ return {
 	-- {npc:3514} Tenaron Stormgrip
 	["{npc:3514}, at the top of the tree"] = "{npc:3514}, no topo da árvore",
 
-	-- Step 10: The moonwell and Iverron
-	-- {npc:8584} Iverron
-	["The moonwell and {npc:8584}"] = "O poço lunar e {npc:8584}",
+	-- Step 10: The moonwell
+	["The moonwell"] = "",
 	-- {area:256} Aldrassil
 	["The moonwell sits north of {area:256}."] = "O poço lunar fica ao norte de {area:256}.",
 	-- {item:5185} Crystal Phial
@@ -471,6 +470,7 @@ return {
 	-- ["Take the road north-west from {area:186} towards the {area:264}; she lies hurt beside it."] = "Pegue a estrada para o noroeste a partir de {area:186}, em direção a {area:264}; ela está ferida à beira da estrada.",
 	-- ["The Bloodfeather harpies nest on the slopes west and north of the glade."] = "As Harpias Plumassangue fazem ninho nas encostas a oeste e ao norte da clareira.",
 	-- ["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms."] = "O túmulo fica ao sul da estrada. {npc:275744} está presa lá dentro, {npc:7317} dorme nas profundezas, e os quatro baús de relíquias ficam nas salas inferiores.",
+	-- ["The moonwell and {npc:8584}"] = "O poço lunar e {npc:8584}",
 	-- ["The moonwell sits north of {area:256}; {npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "O poço lunar fica ao norte de {area:256}; {npc:8584} está um pouco mais a noroeste. {quest:3522} dura cinco minutos: encha o frasco e vá direto até ele.",
 	-- ["The {area:264}"] = "{area:264}",
 	-- ["Tide Crawlers scuttle along the shore below the village; {object:17182} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "Maretiscos correm pela praia abaixo da vila; a {object:17182} fica na praia logo ao sul do cais. Manguais da Costa Negra nadam na água rasa. A {object:175207} está na praia logo ao sul da vila.",
