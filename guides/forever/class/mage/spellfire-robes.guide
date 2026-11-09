@@ -27,8 +27,11 @@ why A robe at 15 for Horde mages, from the Undercity and Silverpine Forest.
 # the 5 minute table respawn and the Dalaran mobs' levels and spells.
 # Forever's quest data lists Orc, Undead and Troll mages for 1959-1961;
 # corrections.json adds Orcs to 1959 and 1960, which the merged data left out.
-# Spellfire Robes (1962) is Undead and Troll in quests.json; Forever's quest
-# page names Orcs too (check.py quest 1962: page=Orc/Undead/Troll;
+# Spellfire Robes (1962) is offered by Josef Gregorian right after Gathering
+# Materials: players' recordings (2 people) and EG Link live both show him
+# offering it; the merged data named only Rhiannon Davis, who never did
+# (forever-db/corrections/quests.json). It is Undead and Troll in
+# quests.json; Forever's quest page names Orcs too (check.py quest 1962: page=Orc/Undead/Troll;
 # corrections-private sets it).
 # Investigate the Alchemist Shop needs Report
 # to Anastasia first (quests.json): Cain Firesong in Brill, Uthel'nay in
@@ -77,7 +80,7 @@ step Ambermill
 
 step Josef Gregorian
   zone Undercity
-  tip Back to the Undercity. Josef Gregorian, Victor Ward and Rhiannon Davis keep the tailor's shop in the Magic Quarter. Hand the gems and cloth to Josef and let the three of them talk for a moment; then take Spellfire Robes (Forever's quest data has Rhiannon offering it; if the "!" shows over Josef instead, take it from him) and hand it to Josef for the robe.
+  tip Back to the Undercity. Josef Gregorian, Victor Ward and Rhiannon Davis keep the tailor's shop in the Magic Quarter. Hand the gems and cloth to Josef and let the three of them talk for a moment; then Josef offers Spellfire Robes: take it and hand it straight back to him for the robe.
   turnin 1961                                 -- Josef Gregorian
-  accept 1962 npc 11049                       -- Rhiannon Davis
+  accept 1962 npc 4576                        -- Josef Gregorian
   turnin 1962                                 -- Lesser Spellfire Robes

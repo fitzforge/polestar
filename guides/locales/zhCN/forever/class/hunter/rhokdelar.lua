@@ -32,19 +32,19 @@ return {
 	-- {spell:19878} Track Demons
 	["Learn {spell:19878} and get demon-slaying potions"] = "学习 {spell:19878}，并准备屠魔药剂。",
 
-	-- Step 4: Simone the Seductress
+	-- Step 4: Simone the Inconspicuous
 	-- {npc:14527} Simone the Inconspicuous · {spell:19878} Track Demons · {npc:14533} Simone the Seductress · {spell:421} Chain Lightning · {spell:3034} Viper Sting · {spell:23205} Temptress' Kiss
 	["{npc:14527}, a troll with a wolf, walks a long path that starts at the lake in western Un'Goro and can reach the south of the crater; use {spell:19878}. Talk to her and she becomes {npc:14533}, and her wolf Precious a Felstalker. The hardest of the four: Freezing Trap Precious and pull Simone well away from it, or kite Precious away and kill it first, let Simone reset and come back for her alone. Her {spell:421} hits hard, so drain her mana with {spell:3034} (a 15-second cooldown on Forever) and keep her busy; her {spell:23205} cuts your ranged attack power, so finish her in melee. Loot her head before Precious breaks free."] = "{npc:14527}是带着狼的巨魔，她的巡逻路线很长，从安戈洛西部的湖泊出发，最远可到环形山南部；使用{spell:19878}追踪。与她交谈后，她会变成{npc:14533}，她的狼普莱瑟斯则变成地狱猎犬。这是四场挑战中最难的一场：用冰冻陷阱困住普莱瑟斯，把平凡的西蒙妮引到远处；或者将普莱瑟斯风筝拉远后先击杀，再让平凡的西蒙妮脱战重置，回来单独对付她。她的{spell:421}伤害很高，用{spell:3034}耗光她的法力值（无限中冷却时间为15秒），持续牵制她；她的{spell:23205}会降低你的远程攻击强度，因此最后用近战解决她。在普莱瑟斯挣脱前拾取她的头颅。",
 
-	-- Step 5: Klinfran the Crazed
+	-- Step 5: Franklin the Friendly
 	-- {npc:14529} Franklin the Friendly · {zone:1428} Burning Steppes · {area:254} Blackrock Mountain · {npc:14534} Klinfran the Crazed · {spell:3043} Scorpid Sting · {spell:23257} Demonic Frenzy · {spell:19801} Tranquilizing Shot · {spell:2974} Wing Clip · {spell:2973} Raptor Strike
 	["{npc:14529}, a human, wanders the western {zone:1428} south of {area:254}. Talk to him and he becomes {npc:14534}, the easiest of the four. Keep {spell:3043} on him the whole fight: while it lasts he barely hurts you. When he goes into {spell:23257}, remove it with {spell:19801} and never stand in melee while it is up; between frenzies you can fight him in melee with {spell:2974} and {spell:2973}. He cannot leave the {zone:1428}, so kite him around the trees if needed."] = "{npc:14529} 是一名人类，在 {zone:1428} 西部、{area:254} 南侧游荡。与他交谈后，他会变成 {npc:14534}，是四只恶魔中最容易的一只。全程保持他身上的 {spell:3043}：效果持续期间，他对你的伤害很低。他进入 {spell:23257} 状态时，用 {spell:19801} 驱散；该状态仍在时绝不要进入近战范围。两次狂暴之间可以用 {spell:2974} 和 {spell:2973} 与他近战。他无法离开 {zone:1428}，必要时可绕着树木风筝他。",
 
-	-- Step 6: Solenor the Slayer
+	-- Step 6: Nelson the Nice
 	-- {npc:14536} Nelson the Nice · {area:3428} Ahn'Qiraj · {zone:1451} Silithus · {npc:14530} Solenor the Slayer · {spell:23272} Soul Flame · {object:164639} Frost Trap (no name in this language: may be words) · {spell:5384} Feign Death · {spell:2974} Wing Clip · {npc:14761} Creeping Doom · {spell:2643} Multi-Shot
 	["{npc:14536}, a gnome, walks around the gates of {area:3428} in the far south-west of {zone:1451}. Talk to him and he becomes {npc:14530}. He enrages with {spell:23272} as he turns: drop a {object:164639}, {spell:5384}, and he resets without the enrage. {spell:2974} roots him for a long time; while rooted he fears you and sends beetles ({npc:14761}): kill them fast with traps and {spell:2643} before they wear you down."] = "{npc:14536} 是个侏儒，在 {zone:1451} 最西南方的 {area:3428} 大门附近走动。与他交谈，他会变成 {npc:14530}。变身时他会施放 {spell:23272} 进入狂暴：放下一个 {object:164639}，再用 {spell:5384}，即可让他重置并消除狂暴。{spell:2974} 能长时间将他定身；被定身时，他会恐惧你并召来甲虫（{npc:14761}）：用陷阱和 {spell:2643} 迅速消灭它们，以免被持续消耗。",
 
-	-- Step 7: Artorius the Doombringer
+	-- Step 7: Artorius the Amiable
 	-- {npc:14531} Artorius the Amiable · {zone:1452} Winterspring · {area:2255} Everlook · {npc:14535} Artorius the Doombringer · {spell:23298} Demonic Doom · {spell:5118} Aspect of the Cheetah · {spell:1978} Serpent Sting · {spell:23299} Stinging Trauma · {spell:23257} Demonic Frenzy · {spell:19801} Tranquilizing Shot
 	["{npc:14531}, a tauren, walks a loop in the rocks of northern {zone:1452}, north of {area:2255}. Talk to him and he becomes {npc:14535}. Within 30 yards of him {spell:23298} hits hard: keep your distance and kite him the whole fight, {spell:5118} on, south down the road. {spell:1978} on him adds {spell:23299}, extra Nature damage, so keep it ticking while you run; his {spell:23257} can be removed with {spell:19801}, but distance matters more. It is a long fight: bring mana potions and plan your kiting path."] = "{npc:14531} 是一名牛头人，在 {zone:1452} 北部、{area:2255} 以北的岩石间循环巡逻。与他交谈后，他会变成 {npc:14535}。在他 30 码以内，{spell:23298} 会造成很高的伤害：全程拉开距离，开启 {spell:5118}，沿道路向南风筝。他身上的 {spell:1978} 会附加 {spell:23299}，造成额外自然伤害，因此跑动时要保持它持续生效；可以用 {spell:19801} 驱除他的 {spell:23257}，但保持距离更重要。这场战斗很漫长：带上法力药水，并提前规划风筝路线。",
 
