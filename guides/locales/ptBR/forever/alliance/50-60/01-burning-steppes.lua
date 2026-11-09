@@ -35,18 +35,18 @@ return {
 
 	-- Step 10: Sanath Lim-yo
 	-- {npc:8395} Sanath Lim-yo · {npc:8379} Archmage Xylem
-	["Get off your mount before you talk to {npc:8395}: he teleports you up to {npc:8379}'s tower on the cliff above his camp."] = "",
+	["Get off your mount before you talk to {npc:8395}: he teleports you up to {npc:8379}'s tower on the cliff above his camp."] = "Desmonte antes de falar com {npc:8395}: ele teletransporta você até a torre de {npc:8379}, no penhasco acima do acampamento dele.",
 
 	-- Step 11: Archmage Xylem
-	["The apprentice at the top of the tower sends you back down."] = "",
+	["The apprentice at the top of the tower sends you back down."] = "O aprendiz no alto da torre manda você de volta para baixo.",
 	-- {area:1220} Thalassian Base Camp · {npc:8420} Kim'jael
-	["The blood elves are at the {area:1220}, on the way to {npc:8420}"] = "",
+	["The blood elves are at the {area:1220}, on the way to {npc:8420}"] = "Os elfos sangrentos estão em {area:1220}, no caminho para {npc:8420}",
 
 	-- Step 12: Kim'jael
 	-- {npc:8420} Kim'jael · {area:1219} Legashi Encampment · {area:1220} Thalassian Base Camp
 	["{npc:8420} camps at the {area:1219} in the north; his equipment lies all over the {area:1220} just south-east of him."] = "{npc:8420} acampa em {area:1219}, no norte; o equipamento dele está espalhado por {area:1220}, logo a sudeste dele.",
 	-- {item:20028} Glittering Dust
-	["{item:20028}, from the blood elf surveyors and reclaimers"] = "",
+	["{item:20028}, from the blood elf surveyors and reclaimers"] = "{item:20028}, dos agrimensores e recuperadores elfos sangrentos",
 	-- {npc:6196} Spitelash Myrmidon
 	["grind on {npc:6196}"] = "mate {npc:6196} até subir",
 
@@ -62,20 +62,20 @@ return {
 
 	-- Step 18: Sanath Lim-yo
 	-- {npc:8395} Sanath Lim-yo
-	["Ride back west to {npc:8395}'s camp and get off your mount: he teleports you up to Xylem again."] = "",
+	["Ride back west to {npc:8395}'s camp and get off your mount: he teleports you up to Xylem again."] = "Cavalgue de volta para oeste até o acampamento de {npc:8395} e desmonte: ele teletransporta você de novo até Tauriel.",
 
 	-- Step 20: The Temple of Zin-Malor
 	-- {area:1223} Temple of Zin-Malor
-	["The {area:1223}"] = "",
+	["The {area:1223}"] = "{area:1223}",
 	-- {area:1223} Temple of Zin-Malor · {npc:8395} Sanath Lim-yo
 	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren
-	["The Spitelash Sirens wander the ruins and the beach around the {area:1223}, just south of {npc:8395}. Only the Sirens carry the coral, not the Screamers."] = "",
+	["The Spitelash Sirens wander the ruins and the beach around the {area:1223}, just south of {npc:8395}. Only the Sirens carry the coral, not the Screamers."] = "As Sirenas Iralisca vagam pelas ruínas e pela praia ao redor de {area:1223}, logo ao sul de {npc:8395}. Só as Sirenas carregam o coral, não os Urradores.",
 
 	-- Step 21: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo
-	["Back up through {npc:8395}'s teleport."] = "",
+	["Back up through {npc:8395}'s teleport."] = "De volta ao alto pelo teletransporte de {npc:8395}.",
 	-- {area:1417} Sunken Temple
-	["Xylem's last task, Destroy Morphaz, is in the {area:1417}: skip it."] = "",
+	["Xylem's last task, Destroy Morphaz, is in the {area:1417}: skip it."] = "A última tarefa de Tauriel, A destruição de Morphaz, fica em {area:1417}: pule-a.",
 
 	-- Step 23: Ravencrest Monument
 	-- {area:16} Azshara · {npc:8392} Pilot Xiggs Fuselighter

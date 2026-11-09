@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Darkspear Trolls Reputation"] = "Reputação: Trolls Lançanegra",
 	-- {item:14047} Runecloth · {zone:1411} Durotar · {zone:1454} Orgrimmar
-	["{item:14047} to Exalted, with the old {zone:1411} quests as a fast extra that pays {zone:1454} too."] = "",
+	["{item:14047} to Exalted, with the old {zone:1411} quests as a fast extra that pays {zone:1454} too."] = "{item:14047} até Exaltado, com as velhas missões de {zone:1411} como um extra rápido que também paga {zone:1454}.",
 	-- {faction:530} Darkspear Trolls
 	["Exalted with the {faction:530}"] = "Exaltado com os {faction:530}",
 
@@ -23,7 +23,7 @@ return {
 	-- {area:363} Valley of Trials
 	["{area:363} (optional hub)"] = "{area:363} (hub opcional)",
 	-- {area:363} Valley of Trials · {zone:1454} Orgrimmar · {npc:3143} Gornek · {npc:10176} Kaltunk
-	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {zone:1454} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "",
+	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {zone:1454} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "O Forever paga estas missões antigas por inteiro em qualquer nível. A melhor delas é {area:363}: cerca de 1.400 de reputação com {zone:1454} e 1.400 com os Lançanegra em 25 minutos. {npc:3143} espera no Covil, a cabana grande; {npc:10176} fica do lado de fora.",
 	-- {npc:3144} Eitrigg · {zone:1454} Orgrimmar · {quest:787} The New Horde
 	["{npc:3144}, in {zone:1454}: {quest:787}, +50"] = "{npc:3144}, em {zone:1454}: {quest:787}, +50",
 	-- {npc:5765} Ruzan · {quest:792} Vile Familiars
@@ -59,15 +59,15 @@ return {
 	-- {npc:3145} Zureetha Fargaze
 	["{npc:3145}, in the Den"] = "{npc:3145}, no Covil",
 	-- {quest:805} Report to Sen'jin Village · {quest:97225} Forgotten Loa Idols
-	["{quest:805}, +50: {quest:97225} waits on it"] = "",
+	["{quest:805}, +50: {quest:97225} waits on it"] = "{quest:805}, +50: {quest:97225} vem depois",
 
 	-- Step 9: Sen'jin Village (optional hub)
 	-- {area:367} Sen'jin Village
 	["{area:367} (optional hub)"] = "{area:367} (hub opcional)",
 	-- {area:367} Sen'jin Village · {area:368} Echo Isles · {zone:1454} Orgrimmar · {npc:3188} Master Gadrin · {npc:3304} Master Vornal · {npc:3194} Vel'rin Fang · {npc:7953} Xar'Ti
-	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 625 {zone:1454} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "",
+	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 625 {zone:1454} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "O Forever paga estas missões antigas por inteiro em qualquer nível. {area:367} e {area:368}: cerca de 625 de reputação com {zone:1454} e 650 com os Lançanegra em 25 minutos. {npc:3188} e {npc:3304} ficam junto às cabanas, {npc:3194} perto da água, {npc:7953} ao sul da vila.",
 	-- {quest:97225} Forgotten Loa Idols · {quest:805} Report to Sen'jin Village
-	["{quest:97225}, +100: needs {quest:805} from the Den"] = "",
+	["{quest:97225}, +100: needs {quest:805} from the Den"] = "{quest:97225}, +100: precisa de {quest:805}, do Covil",
 
 	-- Step 10: The Echo Isles
 	-- {area:368} Echo Isles
@@ -81,7 +81,7 @@ return {
 	-- Step 11: The coast and the road
 	["The coast and the road"] = "A costa e a estrada",
 	-- {quest:97223} Bloodtalon Matriarch
-	["Makrura and surf crawlers walk the beaches east and south of Sen'jin. The {quest:97223} is east of the village."] = "",
+	["Makrura and surf crawlers walk the beaches east and south of Sen'jin. The {quest:97223} is east of the village."] = "Makrura e surfatiscos andam pelas praias a leste e ao sul de Sen'jin. {quest:97223} fica a leste da vila.",
 
 	-- Step 12: Sen'jin Village: hand in
 	-- {area:367} Sen'jin Village
@@ -95,19 +95,19 @@ return {
 	-- {area:362} Razor Hill
 	["{area:362} (optional hub)"] = "{area:362} (hub opcional)",
 	-- {area:362} Razor Hill · {zone:1411} Durotar · {zone:1454} Orgrimmar · {npc:3142} Orgnil Soulscar · {npc:3139} Gar'Thok · {npc:3191} Cook Torka · {npc:3147} Furl Scornbrow
-	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,650 {zone:1454} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and Turroc at the edges."] = "",
+	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,650 {zone:1454} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and Turroc at the edges."] = "O Forever paga estas missões antigas por inteiro em qualquer nível. {area:362} e o norte de {zone:1411}: cerca de 1.650 de reputação com {zone:1454} e 1.650 com os Lançanegra em 80 minutos. {npc:3142} e {npc:3139} ficam no meio da cidade, {npc:3191} junto ao quartel, {npc:3147} e Turroc nas pontas.",
 	-- {quest:806} Dark Storms · {quest:823} Report to Orgnil
 	["{quest:806}, +100: needs {quest:823} from Sen'jin"] = "{quest:806}, +100: exige {quest:823} de Sen'jin",
 
 	-- Step 15: Tiragarde Keep
 	-- {area:362} Razor Hill · {npc:3192} Lieutenant Benedict · {object:3239} Benedict's Chest · {item:4881} Aged Envelope · {quest:830} The Admiral's Orders · {item:4870} Canvas Scraps
-	["The keep is south of {area:362} on the coast. {npc:3192} is in the keep's only building; his key opens {object:3239} on the roof, and the {item:4881} inside starts {quest:830}. The sailors and marines drop the {item:4870}."] = "",
+	["The keep is south of {area:362} on the coast. {npc:3192} is in the keep's only building; his key opens {object:3239} on the roof, and the {item:4881} inside starts {quest:830}. The sailors and marines drop the {item:4870}."] = "A fortaleza fica ao sul de {area:362}, na costa. {npc:3192} está no único prédio da fortaleza; a chave dele abre {object:3239} no telhado, e {item:4881} lá dentro inicia {quest:830}. Os marujos e fuzileiros soltam {item:4870}.",
 
 	-- Step 16: Razormane Grounds and the Echo Isles
 	-- {area:816} Razormane Grounds · {area:368} Echo Isles
 	["{area:816} and the {area:368}"] = "{area:816} e {area:368}",
 	-- {area:362} Razor Hill · {area:368} Echo Isles · {object:3240} Taillasher Eggs
-	["The Razormane camps are south-west and west of {area:362}. Then head to the {area:368} for the {object:3240}: each nest gives an egg every time."] = "",
+	["The Razormane camps are south-west and west of {area:362}. Then head to the {area:368} for the {object:3240}: each nest gives an egg every time."] = "Os acampamentos Crinavalha ficam a sudoeste e a oeste de {area:362}. Depois vá para {area:368}, para {object:3240}: cada ninho dá um ovo toda vez.",
 
 	-- Step 17: Razor Hill: hand in
 	-- {area:362} Razor Hill
@@ -195,7 +195,7 @@ return {
 	-- Step 33: Blackrock Mountain, with a group
 	["Blackrock Mountain, with a group"] = "Montanha Rocha Negra, com um grupo",
 	-- {area:1583} Blackrock Spire · {faction:530} Darkspear Trolls · {area:340} Kargath · {zone:1418} Badlands · {quest:4903} Warlord's Command · {npc:3144} Eitrigg · {zone:1458} Undercity · {area:978} Zul'Farrak · {zone:1425} Hinterlands
-	["For The Horde! (Rend's head, {area:1583}) and The Lord of Blackrock (Nefarian's head) pay 200 to every Horde city, the {faction:530} included. {area:340} in the {zone:1418} starts the Rend chain: {quest:4903}, {npc:3144}'s Wisdom, then For The Horde!. Take them when your group goes. The Spider God chain of the {zone:1458} guide ({area:978} and the {zone:1425}) pays 225 Darkspear on the way."] = "",
+	["For The Horde! (Rend's head, {area:1583}) and The Lord of Blackrock (Nefarian's head) pay 200 to every Horde city, the {faction:530} included. {area:340} in the {zone:1418} starts the Rend chain: {quest:4903}, {npc:3144}'s Wisdom, then For The Horde!. Take them when your group goes. The Spider God chain of the {zone:1458} guide ({area:978} and the {zone:1425}) pays 225 Darkspear on the way."] = "Pela Horda! (a cabeça de Rend, {area:1583}) e O Senhor dos Rocha Negra (a cabeça de Nefarian) pagam 200 a toda cidade da Horda, inclusive os {faction:530}. {area:340} em {zone:1418} inicia a cadeia de Rend: {quest:4903}, a Sabedoria de {npc:3144}, depois Pela Horda!. Pegue-as quando o seu grupo for. A cadeia da Deusa Aranha do guia de {zone:1458} ({area:978} e {zone:1425}) paga 225 Lançanegra pelo caminho.",
 	-- {npc:9077} Warlord Goretooth · {quest:4903} Warlord's Command
 	["{npc:9077}: {quest:4903}, a group of five"] = "{npc:9077}: {quest:4903}, um grupo de cinco",
 
@@ -222,7 +222,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the {object:92525} (see that guide). The Auction House works too."] = "Adeptos das Trevas e Umbramantes (nível 58-60) deixam cair aqui; cada Flagelo morto aqui também conta para {object:92525} (veja esse guia). A Casa de Leilões também serve.",
 	-- ["Dunemaul ogres (level 45-48) drop it here. The Auction House works too."] = "Ogros Dunamalho (nível 45-48) deixam cair aqui. A Casa de Leilões também serve.",
-	-- ["For The Horde! (Rend's head, {area:1583}) and The Lord of Blackrock (Nefarian's head) pay 200 to every Horde city, the {faction:530} included. {area:340} in the {zone:1418} starts the Rend chain: {quest:4903}, {npc:3144}'s Wisdom, then For The Horde!. Take them when your group goes. The Spider God chain of the {zone:1458} guide ({area:978} and the {zone:1425}) pays 225 Darkspear on the way (a fifth at 60 in Classic)."] = "Pela Horda! (a cabeça de Rend, {area:1583}) e O Senhor dos Rocha Negra (a cabeça de Nefarian) pagam 200 a toda cidade da Horda, inclusive os {faction:530}. {area:340} em {zone:1418} inicia a cadeia de Rend: {quest:4903}, a Sabedoria de {npc:3144}, depois Pela Horda!. Pegue-as quando o seu grupo for. A cadeia da Deusa Aranha do guia de {zone:1458} ({area:978} e {zone:1425}) paga 225 Lançanegra pelo caminho (um quinto no 60 no Classic).",
 	-- ["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. The {area:363} is the best of them: about 1,400 {zone:1454} and 1,400 Darkspear reputation in 25 minutes (about 280 each at a fifth). {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "No Classic, missões 6 ou mais níveis abaixo de você pagam menos (um quinto no 60); um relato da beta do Forever diz que pagaram por inteiro. Sua primeira entrega mostra qual vale: se pagar um quinto, pule estes hubs. {area:363} é o melhor deles: cerca de 1.400 de {zone:1454} e 1.400 de reputação Lançanegra em 25 minutos (cerca de 280 cada, com um quinto). {npc:3143} espera no Covil, a cabana grande; {npc:10176} fica do lado de fora.",
 	-- ["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. {area:362} and north {zone:1411}: about 1,800 {zone:1454} and 1,650 Darkspear reputation in 80 minutes (360 and 330 at a fifth). {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and {npc:266940} at the edges."] = "No Classic, missões 6 ou mais níveis abaixo de você pagam menos (um quinto no 60); um relato da beta do Forever diz que pagaram por inteiro. Sua primeira entrega mostra qual vale: se pagar um quinto, pule estes hubs. {area:362} e o norte de {zone:1411}: cerca de 1.800 de {zone:1454} e 1.650 de reputação Lançanegra em 80 minutos (360 e 330, com um quinto). {npc:3142} e {npc:3139} ficam no meio da cidade, {npc:3191} perto do quartel, {npc:3147} e {npc:266940} nas bordas.",
 	-- ["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. {area:367} and the {area:368}: about 700 {zone:1454} and 650 Darkspear reputation in 25 minutes (140 and 130 at a fifth). {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "No Classic, missões 6 ou mais níveis abaixo de você pagam menos (um quinto no 60); um relato da beta do Forever diz que pagaram por inteiro. Sua primeira entrega mostra qual vale: se pagar um quinto, pule estes hubs. {area:367} e {area:368}: cerca de 700 de {zone:1454} e 650 de reputação Lançanegra em 25 minutos (140 e 130, com um quinto). {npc:3188} e {npc:3304} ficam perto das cabanas, {npc:3194} perto da água, {npc:7953} ao sul da vila.",
@@ -230,10 +229,7 @@ return {
 	-- ["Keep handing in {quest:7837}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Continue entregando {quest:7837}, 20 {item:14047} por vez. {item:14047}: Adeptos das Trevas e Umbramantes (nível 58-60) em {zone:1423}, ou a Casa de Leilões.",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "Centauros Kolkar (nível 30-33) deixam cair aqui. A Casa de Leilões também serve.",
 	-- ["Makrura and surf crawlers walk the beaches east and south of Sen'jin. The {quest:97223} is east of the village. The Ridgeshade spiders are along the road south of {area:362} and north-east of the Den."] = "Makrura e surfatiscos andam pelas praias a leste e ao sul de Sen'jin. {quest:97223} fica a leste da vila. As aranhas Ridgeshade ficam ao longo da estrada ao sul de {area:362} e a nordeste do Covil.",
-	-- ["The Razormane camps are south-west and west of {area:362}; the Prickly Pear cacti grow among them. Then head to the {area:368} for the {object:3240}: each nest gives an egg every time."] = "Os acampamentos Crinavalha ficam a sudoeste e a oeste de {area:362}; os cactos de figo-da-índia crescem entre eles. Depois vá para {area:368}, para {object:3240}: cada ninho dá um ovo toda vez.",
-	-- ["The keep is south of {area:362} on the coast. {npc:3192} is in the keep's only building; his key opens {object:3239} on the roof, and the {item:4881} inside starts {quest:830}. The sailors and marines drop the {item:4870}; the {item:275713}, Battleaxe and Shield lie outside the keep."] = "A fortaleza fica ao sul de {area:362}, na costa. {npc:3192} está no único prédio da fortaleza; a chave dele abre {object:3239} no telhado, e {item:4881} lá dentro inicia {quest:830}. Os marujos e fuzileiros soltam {item:4870}; {item:275713}, o Machado de Batalha e o Escudo ficam do lado de fora da fortaleza.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "Seguranças da Empreendimentos S.A. em {area:381} (nível 16-17) deixam cair aqui. A Casa de Leilões também serve.",
-	-- ["{item:14047} to Exalted, with the old {zone:1411} quests as a fast extra that pays {zone:1454} too if they still pay in full."] = "{item:14047} até Exaltado, com as velhas missões de {zone:1411} como um extra rápido que também paga {zone:1454}, se ainda pagarem por inteiro.",
 	-- ["{npc:14727} takes cloth for {faction:530} in the {object:172961}, {zone:1454}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7837} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14727} recebe tecido para {faction:530} em {object:172961}, {zone:1454}. As primeiras doações de Lã, Seda, Magitrama e {item:14047} (60 tecidos cada) são feitas uma vez só e dão mais reputação por tecido; depois delas, {quest:7837} se repete até Exaltado. Exaltado com a cidade de outra raça permite comprar as montarias dessa raça. A vantagem de Legado Diplomata do Forever aumenta os ganhos de reputação.",
 	-- ["{npc:14727}: {item:14047} delivered"] = "{npc:14727}: {item:14047} entregue",
 	-- ["{quest:7837} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7837} pede 20 {item:14047} por entrega e se repete quantas vezes quiser. Traga {item:14047} em múltiplos de 20 e entregue tudo de uma vez, uma entrega após a outra. {item:14047}: Adeptos das Trevas e Umbramantes (nível 58-60) em {zone:1423}, ou a Casa de Leilões.",

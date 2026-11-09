@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Collin Mauren
 	-- {object:2164} Slaughtered Lamb
-	["In the {object:2164}, if you still carry it"] = "",
+	["In the {object:2164}, if you still carry it"] = "Em {object:2164}, se você ainda estiver com isso",
 
 	-- Step 2: Fly to Darkshire
 	-- {area:42} Darkshire

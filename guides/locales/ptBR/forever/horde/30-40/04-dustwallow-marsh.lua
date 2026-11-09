@@ -90,10 +90,10 @@ return {
 	-- Step 20: Level 37.5
 	["Level 37.5"] = "Nível 37.5",
 	-- {zone:1443} Desolace · {area:1316} Razorfen Downs · {area:796} Scarlet Monastery
-	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "",
-	["Darkmist cavern"] = "",
+	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "As últimas missões de {zone:1443} e Alterac são de nível 38-41. Ainda abaixo de 37.5 depois das entregas de Muralha Verde? As aranhas e Tocaieiras Névoa Negra (35-38) perto da caverna a noroeste da aldeia são as mais próximas: mate-as até o nível 37.5. Ou, em grupo, faça a masmorra {area:1316} ou a masmorra {area:796} (Armaria).",
+	["Darkmist cavern"] = "Caverna Névoa Negra",
 	-- {npc:4377} Darkmist Lurker
-	["grind on {npc:4377}"] = "",
+	["grind on {npc:4377}"] = "mate {npc:4377} até subir",
 
 	-- Step 21: Fly to Ratchet
 	-- {area:392} Ratchet
@@ -107,9 +107,9 @@ return {
 	-- {npc:3391} Gazlowe · {area:35} Booty Bay
 	["{npc:3391}'s next errand takes you to {area:35}, off this part of the route: leave it."] = "A próxima tarefa de {npc:3391} leva você a {area:35}, fora desta parte da rota: deixe de lado.",
 	-- {quest:1111} Wharfmaster Dizzywig
-	["{quest:1111}, on the docks"] = "",
+	["{quest:1111}, on the docks"] = "{quest:1111}, nas docas",
 	-- {area:439} Shimmering Flats
-	["Dizzywig's parts go back to Kravel in the {area:439}, off the route: leave them."] = "",
+	["Dizzywig's parts go back to Kravel in the {area:439}, off the route: leave them."] = "As peças de Caruncho voltam para Kravel em {area:439}, fora da rota: deixe-as.",
 
 	-- Step 23: The Affray
 	-- {area:392} Ratchet · {area:720} Fray Island · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
@@ -128,7 +128,7 @@ return {
 	-- Step 26: Portals of the Legion
 	-- {area:602} Mannoroc Coven · {quest:5381} Hand of Iruxos · {npc:11624} Taiga Wisemane · {npc:11937} Demon Portal Guardian
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
-	["Head east to {area:602}. With the {quest:5381} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "",
+	["Head east to {area:602}. With the {quest:5381} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "Siga para leste até {area:602}. Com {quest:5381}, de {npc:11624}, nas bolsas, abra o anel de um portal demoníaco: sai um {npc:11937} (38-39); mate-o para fechar esse portal. São seis portais. Cuidado: Infernais, Demonarcas e Evocadores da Lâmina Ardente andam perto de muitos portais e podem entrar na briga; mate os mobs próximos primeiro ou arraste o guardião para longe, por exemplo em direção ao lago central do covil.",
 
 	-- Step 27: Ghost Walker Post
 	-- {npc:5412} Gurda Wildmane · {npc:5395} Felgur Twocuts
@@ -183,7 +183,7 @@ return {
 
 	-- Step 39: Nogg
 	-- {npc:3412} Nogg · {object:172958} Valley of Honor (no name in this language: may be words) · {npc:4485} Belgrom Rockmaul · {quest:2841} Rig Wars · {area:133} Gnomeregan
-	["{npc:3412}'s workshop is in the {object:172958} beside {npc:4485}: hand in {quest:2841} if you ran {area:133}."] = "",
+	["{npc:3412}'s workshop is in the {object:172958} beside {npc:4485}: hand in {quest:2841} if you ran {area:133}."] = "A oficina de {npc:3412} fica em {object:172958}, ao lado de {npc:4485}: entregue {quest:2841} se você fez {area:133}.",
 
 	-- Step 40: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar

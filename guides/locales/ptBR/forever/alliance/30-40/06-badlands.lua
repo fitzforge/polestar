@@ -90,11 +90,11 @@ return {
 
 	-- Step 18: Bracers of Rock Binding
 	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["South-west into the gulches: only the Greater Rock Elementals there drop the bracers."] = "",
+	["South-west into the gulches: only the Greater Rock Elementals there drop the bracers."] = "Ao sudoeste, nas ravinas: só os Elementais Maiores da Rocha de lá soltam os braceletes.",
 
 	-- Step 20: Lucien Tosselwrench
 	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus · {item:2868} Patterned Bronze Bracers
-	["{npc:2920}, beside {npc:2921}, trades for {item:2868}, a blacksmith's craft: this step shows only when you carry a pair."] = "",
+	["{npc:2920}, beside {npc:2921}, trades for {item:2868}, a blacksmith's craft: this step shows only when you carry a pair."] = "{npc:2920}, ao lado de {npc:2921}, troca por {item:2868}, uma criação de ferreiro: este passo só aparece quando você leva um par.",
 	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus
 	["{npc:2920}, beside {npc:2921}"] = "{npc:2920}, ao lado de {npc:2921}",
 

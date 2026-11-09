@@ -30,11 +30,11 @@ return {
 
 	-- Step 7: Into Loch Modan
 	-- {area:38} Loch Modan
-	["Into {area:38}"] = "",
+	["Into {area:38}"] = "Rumo a {area:38}",
 
 	-- Step 8: Ironband's Excavation Site
 	-- {area:38} Loch Modan
-	["Ride north through the pass into {area:38} and east along the south shore to Ironband's camp."] = "",
+	["Ride north through the pass into {area:38} and east along the south shore to Ironband's camp."] = "Cavalgue para o norte pelo desfiladeiro até {area:38} e para leste pela margem sul até o acampamento de Bandaferro.",
 
 	-- Step 9: Into Badlands
 	-- {area:3} Badlands
@@ -44,7 +44,7 @@ return {
 	-- {area:1517} Uldaman
 	["The {area:1517} dig"] = "A escavação de {area:1517}",
 	-- {area:1517} Uldaman · {area:3} Badlands
-	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {area:3}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "",
+	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {area:3}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "De volta pelo desfiladeiro: os Troggs da Abóbada de Pedra escavam fora de {area:1517}, na borda norte de {area:3}. As urnas entalhadas e os aglomerados de cogumelos magenta ficam nas cavernas e túneis deles, fora da masmorra.",
 	-- {item:8047} Magenta Fungus Cap
 	["{item:8047}; below ground"] = "{item:8047}; no subterrâneo",
 	-- {object:2743} Carved Stone Urn
@@ -59,7 +59,7 @@ return {
 
 	-- Step 14: Thelsamar
 	-- {area:144} Thelsamar
-	["Ride west along the loch to {area:144}."] = "",
+	["Ride west along the loch to {area:144}."] = "Cavalgue para oeste ao longo do lago até {area:144}.",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}, no subterrâneo",
 

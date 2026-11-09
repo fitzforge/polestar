@@ -129,42 +129,42 @@ return {
 
 	-- Step 24: Goretusk Livers as you go
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
-	["Goretusk Livers as you go"] = "",
+	["Goretusk Livers as you go"] = "Fígados de Goretusco pelo caminho",
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
-	["Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers."] = "",
+	["Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers."] = "Goretuscos e Goretuscos Jovens fuçam em todos os trechos deste circuito: mate os que encontrar pelo caminho para pegar os fígados do empadão.",
 
 	-- Step 25: Stringy Vulture Meat as you go
 	-- {item:729} Stringy Vulture Meat
-	["{item:729} as you go"] = "",
-	["Fleshrippers circle the fields along this loop: kill the ones you pass for the stew's meat."] = "",
+	["{item:729} as you go"] = "{item:729} pelo caminho",
+	["Fleshrippers circle the fields along this loop: kill the ones you pass for the stew's meat."] = "Ripa-carnes rondam os campos ao longo deste circuito: mate os que encontrar pelo caminho para pegar a carne do ensopado.",
 	-- {item:729} Stringy Vulture Meat
 	["{item:729}: Fleshrippers"] = "{item:729}: Ripa-carnes",
 
 	-- Step 26: Red Leather Bandanas as you go
 	-- {quest:153} Red Leather Bandanas
-	["{quest:153} as you go"] = "",
+	["{quest:153} as you go"] = "{quest:153} pelo caminho",
 	-- {item:829} Red Leather Bandana · {object:290} Furlbrow's Wardrobe
-	["Every Defias on this loop can drop a {item:829}: the Trappers and Smugglers, and the guards at {object:290}."] = "",
+	["Every Defias on this loop can drop a {item:829}: the Trappers and Smugglers, and the guards at {object:290}."] = "Todo Défias deste circuito pode soltar {item:829}: os Coureadores e Contrabandistas, e os guardas em {object:290}.",
 
 	-- Step 27: Defias Trappers and Smugglers
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper
-	["Defias Trappers and Smugglers"] = "",
+	["Defias Trappers and Smugglers"] = "Coureadores e Contrabandistas Défias",
 	-- {area:108} Sentinel Hill · {area:918} Molsen Farm
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper
-	["North-west from {area:108} toward {area:918}: Defias Trappers and Smugglers camp in the fields between them."] = "",
+	["North-west from {area:108} toward {area:918}: Defias Trappers and Smugglers camp in the fields between them."] = "Ao noroeste de {area:108}, rumo a {area:918}: Coureadores e Contrabandistas Défias acampam nos campos entre os dois.",
 
 	-- Step 28: Molsen Farm's well
 	-- {area:918} Molsen Farm
-	["{area:918}'s well"] = "",
+	["{area:918}'s well"] = "o poço de {area:918}",
 	["Fill the vial at the farm's well"] = "Encha o frasco no poço da fazenda",
 
 	-- Step 29: Molsen Farm's Harvest Watchers
 	-- {area:918} Molsen Farm
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["{area:918}'s Harvest Watchers"] = "",
+	["{area:918}'s Harvest Watchers"] = "Guarda-colheitas de {area:918}",
 	-- {area:918} Molsen Farm · {item:732} Okra · {item:255155} Precessive Autocognition Assembly · {npc:573} Foe Reaper 4000
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "",
+	["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "Guarda-colheitas e Golens trabalham nos campos ao redor de {area:918}; eles soltam as isomolas, os giroestabilizadores, {item:732} e, às vezes, {item:255155}. {npc:573}, um raro de nível 20, anda por aqui: deixe-o em paz.",
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
 	["Harvest Watchers"] = "Guarda-colheitas",
 
@@ -172,22 +172,22 @@ return {
 	["The gnoll hills"] = "As colinas dos gnolls",
 	-- {area:111} Jangolode Mine · {area:916} The Jansen Stead
 	-- plural, as words: Riverpaw Gnolls = {npc:117} Riverpaw Gnoll
-	["North to the hills above {area:111}: Riverpaw Gnolls and Scouts (level 11-13) roam there, east toward the {area:916}. The gnolls further south and west are 13-19: stay in the north hills.\nCareful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer."] = "",
+	["North to the hills above {area:111}: Riverpaw Gnolls and Scouts (level 11-13) roam there, east toward the {area:916}. The gnolls further south and west are 13-19: stay in the north hills.\nCareful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer."] = "Ao norte, até as colinas acima de {area:111}: Gnolls Pata Molhada e Batedores Pata Molhada (nível 11-13) rondam ali, a leste rumo a {area:916}. Os gnolls mais ao sul e a oeste são de nível 13-19: fique nas colinas do norte.\nCuidado: gnolls que ficam juntos tendem a entrar na luta em grupo. Puxar um de cada vez é mais seguro.",
 	-- plural, as words: Gnoll Paws = {item:725} Gnoll Paw
 	["Gnoll Paws"] = "Patas de Gnoll",
 
 	-- Step 31: The Longshore murlocs
 	-- {area:2} Longshore
-	["The {area:2} murlocs"] = "",
+	["The {area:2} murlocs"] = "Os murlocs de {area:2}",
 	-- {area:916} The Jansen Stead
 	-- plural, as words: Murloc Coastrunners = {npc:126} Murloc Coastrunner
-	["Murloc Coastrunners and Raiders line the north coast from above the mine east toward the {area:916}: work along the beach eastward. They flee at low health: pull one at a time."] = "",
+	["Murloc Coastrunners and Raiders line the north coast from above the mine east toward the {area:916}: work along the beach eastward. They flee at low health: pull one at a time."] = "Murlocs Correcosta e Saqueadores ocupam a costa norte, de cima da mina rumo a leste até {area:916}: siga pela praia para leste. Eles fogem com pouca vida: puxe um de cada vez.",
 	-- plural, as words: Longshore Murloc Gills = {item:254548} Longshore Murloc Gill
 	["Longshore Murloc Gills"] = "Barbatanas de Murloc da Praia Grande",
 
 	-- Step 32: Furlbrow's Wardrobe
 	-- {object:290} Furlbrow's Wardrobe · {area:916} The Jansen Stead · {npc:502} Benny Blaanco
-	["{object:290} stands in the ruined house east of the mine, on the way to the {area:916}.\nCareful: Two Defias stand guard inside, one of them the level 15 named {npc:502}. They are linked, so attacking either one brings both."] = "",
+	["{object:290} stands in the ruined house east of the mine, on the way to the {area:916}.\nCareful: Two Defias stand guard inside, one of them the level 15 named {npc:502}. They are linked, so attacking either one brings both."] = "{object:290} fica na casa em ruínas a leste da mina, no caminho para {area:916}.\nCuidado: dois Défias montam guarda lá dentro, um deles o chamado {npc:502}, de nível 15. Eles estão ligados: atacar qualquer um dos dois chama os dois.",
 	-- {object:290} Furlbrow's Wardrobe
 	["{object:290}; inside"] = "{object:290}; lá dentro",
 
@@ -197,24 +197,24 @@ return {
 
 	-- Step 34: Finish the Goretusk Livers
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
-	["Finish the Goretusk Livers"] = "",
+	["Finish the Goretusk Livers"] = "Termine os Fígados de Goretusco",
 	-- {area:107} Saldean's Farm
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
-	["Still short of eight? Young Goretusks root in the fields just west of {area:107}."] = "",
+	["Still short of eight? Young Goretusks root in the fields just west of {area:107}."] = "Ainda não chegou a oito? Goretuscos Jovens fuçam nos campos logo a oeste de {area:107}.",
 
 	-- Step 35: Finish the Stringy Vulture Meat
 	-- {item:729} Stringy Vulture Meat
-	["Finish the {item:729}"] = "",
+	["Finish the {item:729}"] = "Termine {item:729}",
 	-- {area:107} Saldean's Farm
 	-- plural, as words: Young Fleshrippers = {npc:199} Young Fleshripper
-	["Still short of three? Young Fleshrippers circle the fields north-west of {area:107}."] = "",
+	["Still short of three? Young Fleshrippers circle the fields north-west of {area:107}."] = "Ainda não chegou a três? Ripa-carnes Jovens rondam os campos a noroeste de {area:107}.",
 
 	-- Step 37: Finish the Red Leather Bandanas
 	-- {quest:153} Red Leather Bandanas
-	["Finish the {quest:153}"] = "",
+	["Finish the {quest:153}"] = "Termine {quest:153}",
 	-- {area:108} Sentinel Hill
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper
-	["Still short of fifteen? Defias Trappers camp in the fields just west of {area:108}."] = "",
+	["Still short of fifteen? Defias Trappers camp in the fields just west of {area:108}."] = "Ainda não chegou a quinze? Coureadores Défias acampam nos campos logo a oeste de {area:108}.",
 
 	-- Step 38: Sentinel Hill
 	-- {npc:266} Wiley the Black · {area:69} Lakeshire
@@ -271,17 +271,17 @@ return {
 	["Head to {zone:1453}. It has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back for the boat."] = "Vá até {zone:1453}. Não tem treinador de xamã: pegue o {area:2257} do {object:28027} até {zone:1455}, treine com {npc:258098}, depois pegue o bonde de volta para o barco.",
 
 	-- Step 52: Stormwind
-	["Stormwind"] = "",
+	["Stormwind"] = "Ventobravo",
 	-- {area:1519} Stormwind City · {object:2100} Old Town · {object:2101} Mage Quarter · {object:28027} Dwarven District
-	["Walk to {area:1519}, or fly if you know its flight path. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the {object:28027} (Hunters), the Park (Druids)."] = "",
-	["In through the main gate (already done if you are in the city)"] = "",
+	["Walk to {area:1519}, or fly if you know its flight path. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the {object:28027} (Hunters), the Park (Druids)."] = "Caminhe até {area:1519}, ou voe, se você já conhece a rota de voo. Instrutores: {object:2100} (Guerreiros, Ladinos), a Catedral (Paladinos, Sacerdotes), {object:2101} (Magos, Bruxos), {object:28027} (Caçadores), o Parque (Druidas).",
+	["In through the main gate (already done if you are in the city)"] = "Entre pelo portão principal (você já fez isso se estiver na cidade)",
 	["Level 12, 14 and 16 spells"] = "Feitiços de nível 12, 14 e 16",
 
 	-- Step 53: Back to Stormwind City
 	-- {area:1519} Stormwind City
 	["Back to {area:1519}"] = "De volta a {area:1519}",
 	-- {area:1519} Stormwind City · {object:28027} Dwarven District
-	["Ride the tram back: it comes out in {area:1519}'s {object:28027}, where the errands below start."] = "",
+	["Ride the tram back: it comes out in {area:1519}'s {object:28027}, where the errands below start."] = "Volte de metrô: ele sai em {object:28027}, de {area:1519}, onde começam as tarefas abaixo.",
 
 	-- Step 54: Stormwind
 	-- {item:2449} Earthroot · {zone:1439} Darkshore · {npc:1313} Maria Lumere
@@ -348,7 +348,6 @@ return {
 	-- ["The gnoll hills"] = "As colinas dos gnolls",
 	-- ["The north coast"] = "O litoral norte",
 	-- ["The western farms"] = "As fazendas do oeste",
-	-- ["Walk to {zone:1453}, or fly if you know its flight path. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the Park (Druids)."] = "Caminhe até {zone:1453}, ou voe, se você já conhece a rota de voo. Instrutores: {object:2100} (Guerreiros, Ladinos), a Catedral (Paladinos, Sacerdotes), {object:2101} (Magos, Bruxos), o Parque (Druidas).",
 	-- ["West of Molsen Farm, toward the coast. Riverpaw Miners work the quarry."] = "A oeste da Fazenda dos Peçanha, rumo ao litoral. Mineradores Pata Molhada trabalham na pedreira.",
 	-- ["West of Saldean's. Harvest Watchers and Golems work the fields; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone. Keep killing Goretusks and Fleshrippers on every leg of this loop."] = "A oeste da fazenda Saldanha. Guarda-colheitas e Golens Colheiteiros trabalham nos campos; eles soltam as isomolas, os giroestabilizadores, {item:732} e às vezes um {item:255155}. {npc:573}, um raro de nível 20, anda por aqui: deixe-o em paz. Continue matando Goretuscos e Ripa-carnes em cada trecho deste circuito.",
 	-- ["Young Goretusks and Fleshrippers roam the fields around the farm: start on livers and the stew's meat on the way back."] = "Goretuscos Jovens e Ripa-carnes vagam pelos campos ao redor da fazenda: comece a juntar fígados e a carne do ensopado na volta.",

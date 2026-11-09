@@ -261,7 +261,7 @@ return {
 	-- {npc:258113} Ingrid Dunwald · {npc:257597} Bruegs Kindleborn
 	["{npc:258113}: {npc:257597} by the South Gate takes it"] = "{npc:258113}: {npc:257597}, perto do Portão Sul, a recebe",
 	-- {npc:1226} Maxan Anvol · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
-	["{npc:1226}: {npc:11406} in {zone:1455} takes it"] = "",
+	["{npc:1226}: {npc:11406} in {zone:1455} takes it"] = "{npc:1226}: quem recebe é {npc:11406}, em {zone:1455}",
 
 	-- Step 41: Steelgrill's Depot
 	-- {area:131} Kharanos · {area:1} Dun Morogh

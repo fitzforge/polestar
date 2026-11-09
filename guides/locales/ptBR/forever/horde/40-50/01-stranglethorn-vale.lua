@@ -14,7 +14,7 @@ return {
 
 	-- Step 2: Grom'gol Base Camp
 	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah
-	["{npc:2519}: the legend lies in Zul'Kunda, where this guide goes for {npc:1061}"] = "",
+	["{npc:2519}: the legend lies in Zul'Kunda, where this guide goes for {npc:1061}"] = "{npc:2519}: a lenda está em Zul'Kanda, onde este guia vai atrás de {npc:1061}",
 
 	-- Step 3: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
@@ -86,7 +86,7 @@ return {
 	-- {npc:1061} Gan'zulah · {npc:1062} Nezzliok the Dire · {quest:586} Speaking with Gan'zulah · {area:1517} Uldaman
 	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43. Or, with a group, run the {area:1517} dungeon instead."] = "A oeste da expedição, os chefes Sanguescalpo {npc:1061} e {npc:1062} ficam juntos nas ruínas de Zul'Kunda. Limpe os guardas primeiro, depois puxe-os. Continue com os Sanguescalpo aqui até o nível 41: {quest:586}, no caldeirão, a seguir, manda você aos Rachacrânio de nível 41-43. Ou, em grupo, faça a masmorra {area:1517}.",
 	-- {object:52} Fall of Gurubashi
-	["from the {object:52}, in the ruins"] = "",
+	["from the {object:52}, in the ruins"] = "de {object:52}, nas ruínas",
 	-- {quest:586} Speaking with Gan'zulah
 	["grind on the Bloodscalps here: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43"] = "mate os Sanguescalpos daqui até subir: {quest:586}, no caldeirão logo adiante, manda você para os Rachacrânios de nível 41-43",
 
@@ -96,7 +96,7 @@ return {
 	-- {npc:2497} Nimboya · {zone:1425} Hinterlands
 	["{npc:2497}: for the {zone:1425}, around level 48"] = "{npc:2497}: para {zone:1425}, por volta do nível 48",
 	-- {npc:2519} Kin'weelay
-	["{npc:2519}: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "",
+	["{npc:2519}: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "{npc:2519}: os crânios troféu ficam nas ruínas dos Rachacrânio, mais adiante neste circuito",
 
 	-- Step 22: Jungle stalkers
 	["Jungle stalkers"] = "Espreitadores da selva",
@@ -115,9 +115,9 @@ return {
 	-- {npc:6807} Innkeeper Skindle
 	["{npc:6807}, upstairs"] = "{npc:6807}, no andar de cima",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
-	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
+	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}, na estalagem: as garrafas dele dão na costa de {zone:1425}, por volta do nível 48",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "",
+	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "{npc:737}, no andar de cima: as presas vêm dos Rachacrânio, mais adiante neste circuito",
 	-- {zone:1446} Tanaris
 	["MacKinley, on the top floor: for Stoley in {zone:1446}"] = "MacKinley, no último andar: para Esmirno, em {zone:1446}",
 
@@ -151,9 +151,9 @@ return {
 	-- {object:2076} Bubbling Cauldron
 	["the {object:2076}"] = "o {object:2076}",
 	-- {object:2076} Bubbling Cauldron
-	["the {object:2076} again: Yenniku's fate"] = "",
+	["the {object:2076} again: Yenniku's fate"] = "{object:2076} de novo: o destino de Yennikan",
 	-- {npc:2519} Kin'weelay · {area:35} Booty Bay
-	["{npc:2519}: the basilisks graze beside the road back from {area:35}"] = "",
+	["{npc:2519}: the basilisks graze beside the road back from {area:35}"] = "{npc:2519}: os basiliscos pastam ao lado da estrada na volta de {area:35}",
 
 	-- Step 31: Booty Bay
 	-- {npc:2498} Crank Fizzlebub
@@ -167,11 +167,11 @@ return {
 	-- plural, as words: Ironjaw Basilisks = {npc:1551} Ironjaw Basilisk
 	["Ironjaw Basilisks"] = "Basiliscos Ferroqueixo",
 	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words)
-	["Ride north out of {area:35} along the road; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to {object:3202}. Their shards drop often."] = "",
+	["Ride north out of {area:35} along the road; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to {object:3202}. Their shards drop often."] = "Siga a cavalo para o norte, saindo de {area:35}, pela estrada; os basiliscos tomam sol nas rochas a leste dela, no meio da selva, no caminho de volta a {object:3202}. Os estilhaços deles caem com frequência.",
 
 	-- Step 33: Grom'gol Base Camp
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["Ride on north to {object:3202}."] = "",
+	["Ride on north to {object:3202}."] = "Siga a cavalo para o norte até {object:3202}.",
 
 	-- Step 35: Nesingwary's Expedition
 	["Head north up the road to the hunters' camp."] = "Siga a estrada para o norte até o acampamento dos caçadores.",

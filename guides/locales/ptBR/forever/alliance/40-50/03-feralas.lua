@@ -66,7 +66,7 @@ return {
 
 	-- Step 16: Feathermoon Stronghold
 	-- {npc:7877} Latronicus Moonspear · {npc:7878} Vestia Moonspear · {npc:7900} Angelas Moonbreeze · {npc:7880} Ginro Hearthkindle · {npc:7852} Pratt McGrubben
-	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "",
+	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "Vindo do sul: primeiro {npc:7877} e {npc:7878}, depois {npc:7900}, ao lado do prédio de {npc:7880}, e então a escada. {npc:7880} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares. {npc:7852} fica junto ao mestre de voo, na saída.",
 	-- {npc:7879} Quintis Jonespyre
 	["{npc:7879}, upstairs"] = "{npc:7879}, no andar de cima",
 
@@ -100,13 +100,13 @@ return {
 	-- {area:1136} High Wilderness
 	["{area:1136}: kill these as you meet them"] = "{area:1136}: vá matando estes pelo caminho",
 	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak
-	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\n{npc:14637}'s quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring {npc:7852}'s hides. Or, with a group, run the {area:978} dungeon instead."] = "",
+	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\n{npc:14637}'s quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring {npc:7852}'s hides. Or, with a group, run the {area:978} dungeon instead."] = "Cavalgue de volta para oeste pela estrada e depois para o norte, pelas colinas Cortifúria. Todo yeti daqui pode soltar um pelego, e cerca de um em trinta, {quest:7735}, que {npc:7852} também paga.\nAs missões de {npc:14637} na costa exigem nível 45: mate os yetis daqui até o nível 44.5, para que as mortes também rendam os pelegos de {npc:7852}. Ou, com um grupo, faça a masmorra {area:978}.",
 	-- {npc:5296} Rage Scar Yeti
-	["grind on {npc:5296}"] = "",
+	["grind on {npc:5296}"] = "mate {npc:5296} até subir",
 
 	-- Step 24: Rage Scar Hold
 	-- {quest:7735} Pristine Yeti Hide
-	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "",
+	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "Ainda sem {quest:7735}? Continue matando os yetis Cortifúria até um soltar, depois clique nele com o botão direito.",
 
 	-- Step 25: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle

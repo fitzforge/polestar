@@ -15,7 +15,7 @@ return {
 
 	-- Step 1: Thorium Point
 	-- {area:1446} Thorium Point · {npc:14624} Master Smith Burninate · {quest:7722} What the Flux? · {item:18942} Fiery Flux
-	["{area:1446} is the scaffolded camp on the north-west rim of the Cauldron, with a flight point. Everyone starts Neutral with the Brotherhood. These seven quests (level 48 to 50) pay 100 reputation each: 700 in all, 800 with the pillow below. Forever pays them in full at any level. {npc:14624}'s {quest:7722} also opens his {item:18942} turn-ins, so it is needed at any level. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%."] = "",
+	["{area:1446} is the scaffolded camp on the north-west rim of the Cauldron, with a flight point. Everyone starts Neutral with the Brotherhood. These seven quests (level 48 to 50) pay 100 reputation each: 700 in all, 800 with the pillow below. Forever pays them in full at any level. {npc:14624}'s {quest:7722} also opens his {item:18942} turn-ins, so it is needed at any level. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%."] = "{area:1446} é o acampamento de andaimes na borda noroeste do Caldeirão, com um ponto de voo. Todos começam Neutros com a Irmandade. Estas sete missões (nível 48 a 50) pagam 100 de reputação cada: 700 no total, 800 com o travesseiro abaixo. O Forever paga todas por inteiro em qualquer nível. A {quest:7722} de {npc:14624} também libera as entregas de {item:18942}, então ela é necessária em qualquer nível. Os números deste guia não incluem a vantagem do Legado Diplomata, que soma até 10%.",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "O quadro {object:179827}",
 	-- {npc:14621} Overseer Maltorius

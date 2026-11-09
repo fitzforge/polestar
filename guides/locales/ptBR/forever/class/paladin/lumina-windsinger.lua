@@ -48,7 +48,7 @@ return {
 	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
 	["{npc:259620}, the {area:228}"] = "{npc:259620}, {area:228}",
 	-- {npc:259620} Lumina Windsinger
-	["{npc:259620}: hear her story to the end"] = "",
+	["{npc:259620}: hear her story to the end"] = "{npc:259620}: ouça a história dela até o fim",
 
 	-- Step 7: A Moon-Kissed Blade
 	-- {npc:259620} Lumina Windsinger · {quest:95140} Old Fire-Eye · {npc:248840} Trevan Rol
@@ -67,7 +67,7 @@ return {
 	-- Step 9: Whitestone Oak Lumber
 	-- {area:1581} The Deadmines · {area:20} Moonbrook · {zone:1436} Westfall · {zone:1458} Undercity · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1434} Stranglethorn Vale · {zone:1431} Duskwood
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
-	["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. From the {zone:1458} take the zeppelin to {object:3202} in {zone:1434} and go north through {zone:1431} into {zone:1436}. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "",
+	["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. From the {zone:1458} take the zeppelin to {object:3202} in {zone:1434} and go north through {zone:1431} into {zone:1436}. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "{area:1581} fica embaixo de {area:20}, em {zone:1436}, terra da Aliança: grupo de cinco por volta do nível 17-24. De {zone:1458}, pegue o zepelim até {object:3202}, em {zone:1434}, e siga para o norte por {zone:1431} até {zone:1436}. A entrada é a mina de {area:20}. Os Goblins Entalhadores (elite, nível 18-19) na sala do mastro do Sneed sempre deixam cair a madeira.",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
 	["{area:1581}, in the {area:20} mine"] = "{area:1581}, na mina de {area:20}",
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
@@ -75,7 +75,7 @@ return {
 
 	-- Step 10: Ulric Frostveil
 	-- {npc:259649} Ulric Frostveil · {area:2897} Zoram'gar Outpost · {zone:1440} Ashenvale · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1458} Undercity · {zone:1454} Orgrimmar · {zone:1413} Barrens
-	["{npc:259649} waits at {area:2897} on {zone:1440}'s west coast: take the zeppelin from {object:3202} (or the {zone:1458}) to {zone:1454}, then go north through the {zone:1413} into {zone:1440} and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take {npc:259649}'s quest before you hunt the naga: the Kor Gem only drops while you have it."] = "",
+	["{npc:259649} waits at {area:2897} on {zone:1440}'s west coast: take the zeppelin from {object:3202} (or the {zone:1458}) to {zone:1454}, then go north through the {zone:1413} into {zone:1440} and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take {npc:259649}'s quest before you hunt the naga: the Kor Gem only drops while you have it."] = "{npc:259649} espera em {area:2897}, na costa oeste de {zone:1440}: pegue o zepelim de {object:3202} (ou de {zone:1458}) para {zone:1454}, depois siga para o norte por {zone:1413} até {zone:1440} e para oeste pela estrada. O Andruk, mestre de mantícoras do posto, poupa a caminhada da próxima vez. Pegue a missão de {npc:259649} antes de caçar os nagas: a Gema Kor só cai enquanto você estiver com ela.",
 
 	-- Step 11: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem
@@ -97,7 +97,7 @@ return {
 	-- {npc:3539} Ott · {area:272} Tarren Mill · {zone:1424} Hillsbrad Foothills · {quest:95125} Ott's Masterwork
 	["{npc:3539}, the weaponsmith, stands just south of {area:272} in {zone:1424}. Accepting {quest:95125} starts the forging: step back and wait near him until he is done."] = "{npc:3539}, o armeiro, fica logo ao sul de {area:272}, em {zone:1424}. Aceitar {quest:95125} começa a forja: dê um passo para trás e espere perto dele até ele terminar.",
 	-- {npc:3539} Ott
-	["Watch {npc:3539} forge the blade"] = "",
+	["Watch {npc:3539} forge the blade"] = "Assista a {npc:3539} forjar a lâmina",
 	-- {npc:3539} Ott · {quest:95125} Ott's Masterwork
 	["{npc:3539} gives you {quest:95125}"] = "{npc:3539} dá {quest:95125}",
 
@@ -128,7 +128,6 @@ return {
 	-- ["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "{area:1581} fica embaixo de {area:20}, em {zone:1436}, terra da Aliança: grupo de cinco por volta do nível 17-24. A entrada é a mina de {area:20}. Os Goblins Entalhadores (elite, nível 18-19) na sala do mastro do Sneed sempre deixam cair a madeira.",
 	-- ["{area:172} lies in the lake east of the {area:228}. The charred remains are on its shore."] = "{area:172} fica no lago a leste do {area:228}. Os restos carbonizados estão na margem.",
 	-- ["{npc:246378} leads the Paladins of Tyr's Watch from inside {area:16602}, on the bluffs north-west of the {area:156}."] = "{npc:246378} lidera os Paladinos da Vigília de Tyr de dentro de {area:16602}, nos penhascos a noroeste de {area:156}.",
-	-- ["{npc:259649} waits at {area:2897} on {zone:1440}'s west coast: from the {zone:1458} take the zeppelin to {zone:1454}, then go north through the {zone:1413} into {zone:1440} and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take {npc:259649}'s quest before you hunt the naga: the Kor Gem only drops while you have it."] = "{npc:259649} espera em {area:2897}, na costa oeste de {zone:1440}: de {zone:1458}, pegue o zepelim para {zone:1454}, depois siga para o norte por {zone:1413} até {zone:1440} e para oeste pela estrada. O Andruk, mestre de mantícoras do posto, poupa a caminhada da próxima vez. Pegue a missão de {npc:259649} antes de caçar os nagas: a Gema Kor só cai enquanto você estiver com ela.",
 	-- ["{quest:91862} is caged inside {area:235}, at the north end of the isle. The Rot Hide gnolls around her carry the key."] = "{quest:91862} está presa numa jaula dentro de {area:235}, no extremo norte da ilha. Os Gnolls Putricouro em volta dela carregam a chave.",
 	-- ["{zone:1458} and Earthen Ring reputation"] = "Reputação com {zone:1458} e Harmonia Telúrica",
 }

@@ -35,7 +35,7 @@ return {
 
 	-- Step 5: Swamplight Manor
 	-- {quest:1218} Soothing Spices · {npc:4897} Helenia Olden
-	["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house. Jarl wants three {quest:1218}: if you passed {npc:4897}, buy them from her in Theramore first."] = "",
+	["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house. Jarl wants three {quest:1218}: if you passed {npc:4897}, buy them from her in Theramore first."] = "Siga a estrada para o norte até a mansão em ruínas; Zé mora no casebre ao lado dela e a terra solta fica no canto da casa. Zé quer três {quest:1218}: se você passou por {npc:4897}, compre-as dela em Theramore antes.",
 	["with the spices from Theramore"] = "com os temperos de Theramore",
 
 	-- Step 6: "Stinky" Ignatz
@@ -92,7 +92,7 @@ return {
 
 	-- Step 19: Foothold Citadel
 	-- {npc:4944} Captain Garran Vimes · {area:514} Foothold Citadel
-	["The boat leaves from Theramore: report to {npc:4944} on the top floor of {area:514} on the way to the docks."] = "",
+	["The boat leaves from Theramore: report to {npc:4944} on the top floor of {area:514} on the way to the docks."] = "O barco sai de Theramore: apresente-se a {npc:4944} no último andar de {area:514}, no caminho até as docas.",
 	-- {npc:4944} Captain Garran Vimes
 	["{npc:4944}, on the top floor"] = "{npc:4944}, no último andar",
 
@@ -163,7 +163,7 @@ return {
 
 	-- Step 51: Booty Bay
 	-- {quest:604} The Bloodsail Buccaneers
-	["Seahorn now offers {quest:604}: leave it. Its three captains are level 45-48 with crews around them, and the route brings you back to Seahorn at 48 for it."] = "",
+	["Seahorn now offers {quest:604}: leave it. Its three captains are level 45-48 with crews around them, and the route brings you back to Seahorn at 48 for it."] = "Chifre do Mar agora oferece {quest:604}: deixe-a. Os três capitães dela são de nível 45-48, com tripulações ao redor, e a rota traz você de volta a Chifre do Mar no nível 48 para ela.",
 
 	-- Step 52: Gorilla hills
 	["Gorilla hills"] = "Colinas dos gorilas",
@@ -225,19 +225,19 @@ return {
 
 	-- Step 63: Arbor Tarantula
 	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "",
+	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "{npc:217588} rasteja na selva a sudeste do acampamento de Rosarães, a caminho de {area:99}: pegue um exemplar com a ferramenta do kit de entomologia de {npc:217412}.",
 
 	-- Step 64: Rebel Camp
-	["Ride north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "",
+	["Ride north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "Cavalgue para nordeste, passando pelo acampamento de Rosarães, e siga a estrada para o norte até o acampamento no alto do vale.",
 
 	-- Step 66: Panther Mastery
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:728} é elite de nível 40: a maioria das classes encara sozinha no nível 42, mas talvez você precise de ajuda. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
 
 	-- Step 67: Level 42.16 at Zul'Mamwe
-	["Level 42.16 at Zul'Mamwe"] = "",
+	["Level 42.16 at Zul'Mamwe"] = "Nível 42.16 em Zul'Mamwe",
 	-- {npc:737} Kebok · {area:1517} Uldaman
-	["Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for {npc:737}'s tusks. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for {npc:737}'s tusks. Or, with a group, run the {area:1517} dungeon instead."] = "Sozinho, você pula as três caçadas de elite de Rosarães: tire a experiência dos trolls Rachacrânio de Zul'Mamwe, logo a leste da mina, de modo que cada morte também conte para as presas de {npc:737}. Ou, com um grupo, faça a masmorra {area:1517}.",
 	-- {npc:667} Skullsplitter Warrior
 	["grind on {npc:667}"] = "mate {npc:667} até subir",
 
@@ -260,7 +260,7 @@ return {
 	["Level 42.16"] = "Nível 42.16",
 	-- {area:310} Crystalvein Mine · {area:35} Booty Bay · {area:1517} Uldaman
 	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
-	["Still short of level 42.16 after the hunts you did? Make up the rest on the Cold Eye Basilisks by the {area:310}, on your way south to {area:35}. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["Still short of level 42.16 after the hunts you did? Make up the rest on the Cold Eye Basilisks by the {area:310}, on your way south to {area:35}. Or, with a group, run the {area:1517} dungeon instead."] = "Ainda abaixo do nível 42.16 depois das caçadas que fez? Complete o resto nos Basiliscos Olho Frio perto de {area:310}, no caminho para o sul até {area:35}. Ou, com um grupo, faça a masmorra {area:1517}.",
 	-- {npc:690} Cold Eye Basilisk
 	["grind on {npc:690}"] = "mate {npc:690} até subir",
 
@@ -404,11 +404,11 @@ return {
 
 	-- Step 115: Loch Modan
 	-- {area:1} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
-	["Ride east out of {area:1} through the tunnel into {zone:1432} and on along the road to {area:144}."] = "",
+	["Ride east out of {area:1} through the tunnel into {zone:1432} and on along the road to {area:144}."] = "Cavalgue para leste, saindo de {area:1}, pelo túnel até {zone:1432} e siga a estrada até {area:144}.",
 
 	-- Step 116: Thelsamar
 	-- {npc:1470} Ghak Healtouch · {area:144} Thelsamar · {area:1517} Uldaman · {area:3} Badlands
-	["{npc:1470} is below ground in {area:144}, by the inn. His mushrooms grow in the {area:1517} dig in the {area:3}; the next guide takes you there and back through {area:144}."] = "",
+	["{npc:1470} is below ground in {area:144}, by the inn. His mushrooms grow in the {area:1517} dig in the {area:3}; the next guide takes you there and back through {area:144}."] = "{npc:1470} fica no subterrâneo em {area:144}, junto à estalagem. Os cogumelos dele crescem na escavação de {area:1517}, em {area:3}; o próximo guia leva você até lá e de volta por {area:144}.",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}, no subterrâneo",
 

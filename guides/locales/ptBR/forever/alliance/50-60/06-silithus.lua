@@ -34,7 +34,7 @@ return {
 	["{area:1770} braziers"] = "Braseiros de {area:1770}",
 	-- {area:1770} Shadow Hold · {area:1763} Jaedenar · {item:12906} Purified Moonwell Water · {item:11172} Silvery Claws · {item:13140} Blood Red Key · {npc:11018} Arko'narin
 	-- plural, as words: Jaedenar Darkweavers = {npc:7118} Jaedenar Darkweaver
-	["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside. Kill the Angerclaw bears and Felpaw wolves you pass for the {item:11172}.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave."] = "",
+	["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside. Kill the Angerclaw bears and Felpaw wolves you pass for the {item:11172}.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave."] = "{area:1770} é a caverna no fundo de {area:1763}, a oeste da estrada. Use {item:12906} nos quatro braseiros lá dentro. Mate os ursos Garraivosos e os lobos Patavil que encontrar pelo caminho para pegar {item:11172}.\nCuidado: monstros do Conselho das Sombras de nível 53-55 enchem a caverna e costumam vir em grandes grupos ligados, muitos com atordoamentos. Recomenda-se um grupo de 2-3 jogadores.\nOs Tecetrevas, Bruxos e Impositores de Jaedenar daqui soltam {item:13140}, cerca de uma morte em trinta: continue matando-os até soltar. Ela abre a cela de {npc:11018}, o elfo da noite preso na caverna.",
 	["Angerclaw bears and Felpaw wolves"] = "Ursos Garraivosos e Lobos Patavil",
 	-- {object:176159} Brazier of Malice
 	["{object:176159}, below ground"] = "{object:176159}, no subterrâneo",
@@ -45,11 +45,11 @@ return {
 	-- {object:176161} Brazier of Hatred
 	["{object:176161}, below ground"] = "{object:176161}, no subterrâneo",
 	-- {npc:11016} Captured Arko'narin
-	["{npc:11016}, in her cell; below ground"] = "",
+	["{npc:11016}, in her cell; below ground"] = "{npc:11016}, na cela dela; no subterrâneo",
 
 	-- Step 6: Arko'narin
 	-- {area:1770} Shadow Hold
-	["Lead her out of {area:1770} and keep her alive until she is outside the cave: clear the way back first."] = "",
+	["Lead her out of {area:1770} and keep her alive until she is outside the cave: clear the way back first."] = "Leve-a para fora de {area:1770} e mantenha-a viva até ela estar fora da caverna: limpe antes o caminho de volta.",
 
 	-- Step 8: Irontree Woods
 	-- {area:1767} Irontree Woods
@@ -70,7 +70,7 @@ return {
 
 	-- Step 11: A Final Blow
 	-- {area:1770} Shadow Hold · {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {npc:9518} Rakaiah
-	["Back into {area:1770}: {npc:9861} and {npc:9860} guard {npc:9517} in its deepest chamber. The succubus {npc:9518} waits on the way, with Trey Lightforge's remains beside her.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "",
+	["Back into {area:1770}: {npc:9861} and {npc:9860} guard {npc:9517} in its deepest chamber. The succubus {npc:9518} waits on the way, with Trey Lightforge's remains beside her.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "De volta a {area:1770}: {npc:9861} e {npc:9860} guardam {npc:9517} na câmara mais funda. A súcubo {npc:9518} espera no caminho, com os restos mortais de Trey Forjaleve ao lado dela.\nCuidado: os três chefes lutam juntos. Mate os monstros por perto antes para não puxar inimigo a mais.",
 	-- {npc:9518} Rakaiah
 	["{npc:9518}, below ground"] = "{npc:9518}, no subterrâneo",
 	-- {npc:11020} Remains of Trey Lightforge
@@ -246,21 +246,21 @@ return {
 
 	-- Step 52: Kernda
 	-- {npc:11558} Kernda · {area:1769} Timbermaw Hold · {area:618} Winterspring
-	["{npc:11558} stands just inside the {area:1769} cave: she speaks to you from Neutral with the Timbermaw, which the Winterfall furbolgs you ground in {area:618} brought you to."] = "",
+	["{npc:11558} stands just inside the {area:1769} cave: she speaks to you from Neutral with the Timbermaw, which the Winterfall furbolgs you ground in {area:618} brought you to."] = "{npc:11558} fica logo dentro da caverna de {area:1769}: ela fala com você a partir de Neutro com os Presamatos, nível que os furbolgs Invernosos que você matou em {area:618} deram a você.",
 	-- {npc:11558} Kernda
-	["{npc:11558}, just inside the cave: walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}, just inside the cave: walks around here: look inside the circle on the map"] = "{npc:11558}, logo dentro da caverna: anda por aqui: procure dentro do círculo no mapa",
 
 	-- Step 53: Kernda
 	-- {area:1762} Felpaw Village · {npc:11558} Kernda
-	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then."] = "",
+	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then."] = "O totem de Lenha Morta de {area:1762}, se {npc:11558} não o aceitou antes.",
 	-- {npc:11558} Kernda
-	["{npc:11558}: walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}: walks around here: look inside the circle on the map"] = "{npc:11558}: anda por aqui: procure dentro do círculo no mapa",
 
 	-- Step 54: Meilosh
 	-- {npc:11557} Meilosh · {npc:11558} Kernda · {quest:6031} Runecloth · {area:618} Winterspring
-	["{npc:11557}, just inside the cave beside {npc:11558}, takes thirty {quest:6031} from Friendly with the Timbermaw: the {area:618} top-up on the Winterfall furbolgs gets you both."] = "",
+	["{npc:11557}, just inside the cave beside {npc:11558}, takes thirty {quest:6031} from Friendly with the Timbermaw: the {area:618} top-up on the Winterfall furbolgs gets you both."] = "{npc:11557}, logo dentro da caverna, ao lado de {npc:11558}, recebe trinta {quest:6031} a partir de Amigável com os Presamatos: a rodada para completar o nível em {area:618}, nos furbolgs Invernosos, rende as duas coisas.",
 	-- {npc:11557} Meilosh
-	["{npc:11557}; below ground"] = "",
+	["{npc:11557}; below ground"] = "{npc:11557}; no subterrâneo",
 
 	-- Step 58: Winterspring: kill these as you meet them
 	-- {area:618} Winterspring
@@ -356,7 +356,7 @@ return {
 	-- {npc:1852} Araj the Summoner
 	["{npc:1852} is a level 61 elite"] = "{npc:1852} é um elite de nível 61",
 	-- {quest:6184} Flint Shadowmore · {area:2260} Marris Stead · {area:139} Eastern Plaguelands
-	["{quest:6184}: the agents' remains lie at the {area:2260} in the {area:139}"] = "",
+	["{quest:6184}: the agents' remains lie at the {area:2260} in the {area:139}"] = "{quest:6184}: os restos dos agentes ficam em {area:2260}, em {area:139}",
 
 	-- Step 84: Andorhal
 	["Andorhal"] = "Ruínas de Andorhal",
@@ -390,7 +390,7 @@ return {
 
 	-- Step 92: Marris Stead
 	-- {area:2260} Marris Stead · {area:2262} Darrowshire · {npc:11878} Nathanos Blightcaller
-	["Ride south to the {area:2260}, the farm north-west of {area:2262}. The three agents' remains are bone outlines on the ground: one by the road south of the farm, one on the hill east of the house, one on the mound in front of it. Coming close enough to see the Blightcaller in front of the house completes the scouting.\nCareful: {npc:11878} (level 62 elite) and his elite hounds stand in front of the house: take the remains on the mound from the side and do not pull him. You don't have to fight him."] = "",
+	["Ride south to the {area:2260}, the farm north-west of {area:2262}. The three agents' remains are bone outlines on the ground: one by the road south of the farm, one on the hill east of the house, one on the mound in front of it. Coming close enough to see the Blightcaller in front of the house completes the scouting.\nCareful: {npc:11878} (level 62 elite) and his elite hounds stand in front of the house: take the remains on the mound from the side and do not pull him. You don't have to fight him."] = "Cavalgue para o sul até {area:2260}, a fazenda a noroeste de {area:2262}. Os restos dos três agentes são contornos de ossos no chão: um junto à estrada ao sul da fazenda, um na colina a leste da casa, um no montículo na frente dela. Chegar perto o bastante para ver o Arauto da Praga na frente da casa completa o reconhecimento.\nCuidado: {npc:11878} (elite de nível 62) e seus cães de elite ficam na frente da casa: pegue os restos do montículo pelo lado e não o puxe. Você não precisa lutar contra ele.",
 
 	-- Step 94: Scholomance (optional)
 	-- {area:2057} Scholomance
@@ -401,10 +401,10 @@ return {
 	["{area:2057} fits levels 58 to 60; {quest:5505} is handed in at {area:3197} below."] = "{area:2057} é para os níveis 58 a 60; {quest:5505} é entregue em {area:3197}, abaixo.",
 
 	-- Step 95: Level 59.93
-	["Level 59.93"] = "",
+	["Level 59.93"] = "Nível 59.93",
 	-- {npc:1855} Tirion Fordring · {area:2627} Terrordale · {area:3197} Chillwind Camp · {area:2057} Scholomance · {area:2279} Stratholme
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
-	["Cross the river east of {npc:1855} into {area:2627}. The Terrordale Spirits haunt the woods there. Top up here to level 59.93 before the hand-ins at {area:3197}: they take you to level 60. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
+	["Cross the river east of {npc:1855} into {area:2627}. The Terrordale Spirits haunt the woods there. Top up here to level 59.93 before the hand-ins at {area:3197}: they take you to level 60. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "Atravesse o rio a leste de {npc:1855} até {area:2627}. Os Espíritos da Várzea do Medo assombram a mata ali. Complete aqui até o nível 59.93 antes das entregas em {area:3197}: elas levam você ao nível 60. Ou, com um grupo, faça a masmorra {area:2057} ou a masmorra {area:2279}.",
 	-- {npc:14564} Terrordale Spirit · {area:2627} Terrordale · {area:139} Eastern Plaguelands
 	["grind on {npc:14564} at {area:2627}, {area:139}"] = "farme {npc:14564} em {area:2627}, {area:139}",
 
@@ -412,11 +412,10 @@ return {
 	-- {area:3197} Chillwind Camp
 	["Ride back south-west to {area:3197}."] = "Volte para o sudoeste até {area:3197}.",
 	-- {zone:1453} Stormwind
-	["Flint's next task goes to {zone:1453}: you are level 60 now, skip it."] = "",
+	["Flint's next task goes to {zone:1453}: you are level 60 now, skip it."] = "A próxima tarefa de Flint vai para {zone:1453}: você já está no nível 60, pule-a.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back into {area:1770}: {npc:9861} and {npc:9860} guard {npc:9517} in its deepest chamber."] = "De volta a {area:1770}: {npc:9861} e {npc:9860} protegem {npc:9517} na câmara mais profunda.",
-	-- ["Back into {area:1770}: {npc:9861} and {npc:9860} guard {npc:9517} in its deepest chamber.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "De volta a {area:1770}: {npc:9861} e {npc:9860} guardam {npc:9517} na câmara mais funda.\nCuidado: os três chefes lutam juntos. Mate os monstros por perto antes para não puxar inimigo a mais.",
 	-- ["Cross the river east of {npc:1855} into {area:2627}. The Terrordale Spirits haunt the woods there."] = "Atravesse o rio a leste de {npc:1855} até {area:2627}. Os Espíritos da Várzea do Medo assombram o bosque ali.",
 	-- ["Cross the river east of {npc:1855} into {area:2627}. The Terrordale Spirits haunt the woods there. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "Atravesse o rio a leste de {npc:1855} até {area:2627}. Os Espíritos da Várzea do Medo assombram os bosques de lá. Ou, com um grupo, faça a masmorra {area:2057} ou a masmorra {area:2279}.",
 	-- ["Dredge Crushers roam the dunes between {area:2743} and {area:3425}, on your way back. {npc:15181} only offers {quest:8304} from level 58."] = "Os Dragasmagas vagueiam pelas dunas entre {area:2743} e {area:3425}, no caminho de volta. {npc:15181} só oferece {quest:8304} a partir do nível 58.",

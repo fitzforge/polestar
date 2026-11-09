@@ -43,7 +43,7 @@ return {
 
 	-- Step 7: Josef Gregorian
 	-- {zone:1458} Undercity · {npc:4576} Josef Gregorian · {npc:11048} Victor Ward · {npc:11049} Rhiannon Davis · {object:36082} Magic Quarter (no name in this language: may be words) · {quest:1962} Spellfire Robes
-	["Back to the {zone:1458}. {npc:4576}, {npc:11048} and {npc:11049} keep the tailor's shop in the {object:36082}. Hand the gems and cloth to {npc:4576} and let the three of them talk for a moment; then {npc:4576} offers {quest:1962}: take it and hand it straight back to him for the robe."] = "",
+	["Back to the {zone:1458}. {npc:4576}, {npc:11048} and {npc:11049} keep the tailor's shop in the {object:36082}. Hand the gems and cloth to {npc:4576} and let the three of them talk for a moment; then {npc:4576} offers {quest:1962}: take it and hand it straight back to him for the robe."] = "De volta a {zone:1458}. {npc:4576}, {npc:11048} e {npc:11049} cuidam da alfaiataria no {object:36082}. Entregue as gemas e o tecido a {npc:4576} e deixe os três conversarem um pouco; depois {npc:4576} oferece {quest:1962}: aceite e entregue de volta a ele na hora para receber as vestes.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Algernon's alchemist shop is in the Apothecarium. Use the {item:7308} there to make the {npc:6492} visible, subdue one with your spells, then use the {item:7247} to throw down a coffer and capture it."] = "A loja de alquimia de Algernon fica no Apothecarium. Use a {item:7308} lá para tornar o {npc:6492} visível, subjugue um com seus feitiços e depois use o {item:7247} para lançar um cofre e capturá-lo.",

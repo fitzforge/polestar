@@ -407,7 +407,7 @@ return {
 	["Learn the flight path from {npc:3841} where you land. {npc:4200}'s fish stall is just north of her, by the docks.\nThe boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "Aprenda a rota de voo com {npc:3841} onde você pousar. A barraca de peixe de {npc:4200} fica logo ao norte dela, junto ao cais.\nO barco atraca a oeste da vila. O mestre de voo fica no morro ao sul da estalagem; quem dá missões está espalhado pela rua principal.",
 	["The WANTED poster outside the inn"] = "O cartaz de PROCURA-SE em frente à estalagem",
 	-- {npc:3666} Wizbang Cranktoggle
-	["{npc:3666}, upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart"] = "",
+	["{npc:3666}, upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart"] = "{npc:3666}, no andar de cima da estalagem: pegue a escada lá dentro, a seta não diferencia os andares",
 
 	-- Step 68: Return to Nessa
 	-- {area:702} Rut'theran Village · {npc:3841} Caylais Moonfeather · {item:16263} Laird's Response · {npc:10118} Nessa Shadowsong · {area:442} Auberdine
@@ -418,7 +418,7 @@ return {
 	-- plural, as words: Tide Crawlers = {npc:2232} Tide Crawler · Darkshore Threshers = {npc:2185} Darkshore Thresher
 	["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "Maretiscos correm pela costa abaixo do vilarejo; {quest:983} fica na praia logo ao sul das docas. Manguais da Costa Negra nadam nas águas rasas. A {object:175207} está na costa logo ao sul do vilarejo.",
 	-- plural, as words: Crawler Legs = {item:5385} Crawler Leg · Tide Crawlers = {npc:2232} Tide Crawler
-	["Crawler Legs: the Tide Crawlers"] = "",
+	["Crawler Legs: the Tide Crawlers"] = "Patas de Rastejante: os Maretiscos",
 
 	-- Step 70: Auberdine
 	-- {npc:3649} Thundris Windweaver

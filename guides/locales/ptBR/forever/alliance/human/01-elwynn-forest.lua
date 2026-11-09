@@ -259,7 +259,7 @@ return {
 
 	-- Step 50: Croaky
 	-- {npc:248278} Croaky · {quest:91740} Croaky's Head
-	["{npc:248278} is a level 11 elite on the murloc shore south of the bridge: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back. Right-click the head for its quest."] = "",
+	["{npc:248278} is a level 11 elite on the murloc shore south of the bridge: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back. Right-click the head for its quest."] = "{npc:248278} é um elite de nível 11 na margem dos murlocs ao sul da ponte: recomenda-se formar grupo, procure gente para fazer junto. {quest:91740} exige um grupo de 2. Pule se estiver sozinho: a rota faz você recuperar a experiência matando monstros. Clique com o botão direito na cabeça para pegar a missão.",
 
 	-- Step 52: Level 8.85
 	["Level 8.85"] = "Nível 8.85",

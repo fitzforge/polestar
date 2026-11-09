@@ -24,7 +24,7 @@ return {
 	-- {spell:1846} Detect Traps
 	["Rite of Cunning: {spell:1846} beside the tunnel chest"] = "Rito da Astúcia: {spell:1846} ao lado do baú do túnel",
 	-- {npc:6766} Ravenholdt Guard · {quest:6701} Syndicate Emblems
-	["{npc:6766}: {quest:6701}, repeatable; take it now, the emblems are quest items"] = "",
+	["{npc:6766}: {quest:6701}, repeatable; take it now, the emblems are quest items"] = "{npc:6766}: {quest:6701}, repetível; pegue agora, os emblemas são itens de missão",
 
 	-- Step 3: Lord Tomas
 	-- {npc:266216} Lord Tomas · {area:275} Durnholde Keep · {npc:13085} Myrokos Silentform · {quest:6701} Syndicate Emblems
@@ -35,7 +35,7 @@ return {
 
 	-- Step 4: Myrokos Silentform
 	-- {npc:6766} Ravenholdt Guard
-	["{npc:6766}: one emblem each time, 100 reputation"] = "",
+	["{npc:6766}: one emblem each time, 100 reputation"] = "{npc:6766}: um emblema por vez, 100 de reputação",
 
 	-- Step 5: What's the Big Idea?
 	-- {npc:13085} Myrokos Silentform · {area:280} Strahnbrad · {zone:1416} Alterac Mountains · {spell:921} Pick Pocket
@@ -84,7 +84,6 @@ return {
 	-- ["Horde fly to {area:272}, Alliance to {area:271}. The manor hides in the hills east of {area:272}, up a path into the {zone:1416}; the Rite of Cunning is passing its way in."] = "A Horda voa para {area:272}, a Aliança para {area:271}. O solar se esconde nas colinas a leste de {area:272}, subindo uma trilha para as {zone:1416}; o Rito da Astúcia passa pelo caminho.",
 	-- ["Opens {area:3486}, the hidden rogue house in the Alterac hills, and its first jobs."] = "Abre {area:3486}, a casa secreta dos ladinos nas colinas de Alterac, e seus primeiros trabalhos.",
 	-- ["Rite of Cunning"] = "Rito da Astúcia",
-	-- ["one emblem each time, 100 reputation"] = "um emblema por vez, 100 de reputação",
 	-- ["{item:275482}: pickpocket Barton"] = "{item:275482}: bata a carteira de Barton",
 	-- ["{npc:266216} is inside {area:275}, the Syndicate fortress in eastern {area:287}, south of the manor. Quick and quiet, says {npc:13085}."] = "{npc:266216} está dentro de {area:275}, a fortaleza da Camarilha no leste de {area:287}, ao sul do solar. Rápido e silencioso, diz {npc:13085}.",
 	-- ["{npc:6766}: {quest:6701}, repeatable"] = "{npc:6766}: {quest:6701}, repetível",

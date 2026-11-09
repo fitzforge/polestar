@@ -14,9 +14,9 @@ return {
 
 	-- Step 2: Red Jack Flint
 	-- {npc:4455} Red Jack Flint
-	["{npc:4455} stands on the dock just north of the flight master."] = "",
+	["{npc:4455} stands on the dock just north of the flight master."] = "{npc:4455} fica no cais, logo ao norte do mestre de voo.",
 	-- {quest:1132} Fiora Longears
-	["For {quest:1132} on Theramore's docks, where this guide's boat lands"] = "",
+	["For {quest:1132} on Theramore's docks, where this guide's boat lands"] = "Para {quest:1132} nas docas de Theramore, onde o barco deste guia atraca",
 
 	-- Step 3: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow
@@ -25,7 +25,7 @@ return {
 
 	-- Step 4: Deepwater Tavern
 	-- {quest:1248} The Missing Diplomat · {npc:4963} Mikhail
-	["Tapoke Jahn (34) slips out of the tavern once you take {quest:1248}: stay close behind him. He turns on you outside, a friend joins him, and he gives up once badly hurt. If you lose him the quest fails: abandon it and take it again from {npc:4963}."] = "",
+	["Tapoke Jahn (34) slips out of the tavern once you take {quest:1248}: stay close behind him. He turns on you outside, a friend joins him, and he gives up once badly hurt. If you lose him the quest fails: abandon it and take it again from {npc:4963}."] = "Tapoke Jahn (34) sai furtivamente da taverna assim que você aceita {quest:1248}: fique bem atrás dele. Ele se vira contra você do lado de fora, um amigo se junta a ele, e ele desiste quando está muito ferido. Se você o perder, a missão falha: abandone-a e pegue de novo com {npc:4963}.",
 
 	-- Step 5: Waterlogged Chest
 	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "O navio naufragado está nas águas rasas ao sul da fortaleza.",
@@ -48,11 +48,11 @@ return {
 	-- {npc:4964} Commander Samaul
 	["{npc:4964}, on the top floor"] = "{npc:4964}, no último andar",
 	-- {quest:1132} Fiora Longears
-	["{quest:1132}, on the docks"] = "",
+	["{quest:1132}, on the docks"] = "{quest:1132}, nas docas",
 	-- {npc:4456} Fiora Longears · {area:415} Astranaar
-	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "",
+	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "A próxima tarefa de {npc:4456} vai para {area:415}, fora desta rota: deixe-a.",
 	-- {quest:1132} Fiora Longears · {area:400} Thousand Needles
-	["{quest:1132}: the wyverns are in {area:400}, later in this guide"] = "",
+	["{quest:1132}: the wyverns are in {area:400}, later in this guide"] = "{quest:1132}: as serpes ficam em {area:400}, mais adiante neste guia",
 
 	-- Step 10: The Shady Rest Inn
 	-- {zone:1413} Barrens
@@ -88,7 +88,7 @@ return {
 	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "Os {object:19868} estão espalhados pela planície. Aniquiladores Escorpídeos e Catadores da Planície Salgada andam pela metade norte; Tartaliscas Quelobrilho (tartarugas), pela planície toda. Basiliscos Sal-gema e Cristaldermes Sal-gema dominam o meio; os Observadores (34-35) ficam só no extremo sul.",
 	-- {npc:4078} Collin Mauren · {zone:1453} Stormwind
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk
-	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "",
+	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "Escamas Cristalizadas, dos Basiliscos Sal-gema: oito para {npc:4078} em {zone:1453}",
 
 	-- Step 18: Mirage Raceway
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
@@ -96,13 +96,13 @@ return {
 
 	-- Step 19: Into Tanaris
 	-- {zone:1446} Tanaris
-	["Into {zone:1446}"] = "",
+	["Into {zone:1446}"] = "Rumo a {zone:1446}",
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris
-	["From the raceway follow the road south out of the {area:439} into {zone:1446}."] = "",
+	["From the raceway follow the road south out of the {area:439} into {zone:1446}."] = "Da pista de corrida, siga a estrada para o sul, saindo de {area:439}, até {zone:1446}.",
 
 	-- Step 20: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:7823} Bera Stonehammer
-	["{area:976} is a short walk down the road; keep to it. {npc:7823}, the Alliance flight master, stands inside the walls."] = "",
+	["{area:976} is a short walk down the road; keep to it. {npc:7823}, the Alliance flight master, stands inside the walls."] = "{area:976} fica a uma curta caminhada pela estrada; mantenha-se nela. {npc:7823}, o mestre de voo da Aliança, fica dentro das muralhas.",
 
 	-- Step 21: Fly to Theramore
 	["Fly to Theramore"] = "Voe para a Ilha Theramore",
@@ -148,7 +148,6 @@ return {
 	-- ["{npc:3696} and his guards camp just east of {npc:3897}."] = "{npc:3696} e seus guardas acampam logo a leste de {npc:3897}.",
 	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "{npc:3897}, um furbolg intocado pela corrupção, fica ao sul da estrada abaixo de {area:421}.",
 	-- ["{npc:3970}: for {npc:1480} in Menethil, at the end of this guide"] = "{npc:3970}: para {npc:1480} em Menethil, no fim deste guia",
-	-- ["{npc:4456}: the wyverns are in {area:400}, later in this guide"] = "{npc:4456}: as serpes ficam em {area:400}, mais adiante neste guia",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619} lidera os sátiros de {area:429}; ele carrega o galho.",
 	-- ["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}, {npc:4963} e {npc:4962} estão todos na estalagem de Menethil; Tapoke luta com você quando você fala com {npc:4963}, mas desiste quando derrotado. {npc:1480} fica a uma curta caminhada a nordeste da estalagem.",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: para {npc:3961} em {area:415}",

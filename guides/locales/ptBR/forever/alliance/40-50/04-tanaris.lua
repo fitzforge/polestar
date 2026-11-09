@@ -59,7 +59,7 @@ return {
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}, lá dentro",
 	-- {area:35} Booty Bay · {area:47} Hinterlands
-	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {area:47} guide, keep it"] = "",
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {area:47} guide, keep it"] = "MacKinley “Lobo do Mar” em {area:35}: a rota leva você até ele no fim do guia de {area:47}; mantenha a missão",
 
 	-- Step 11: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "Cuidado: os Ladrões desarmam você. Os Ladinos ficam escondidos, furtivos. Os Assassinos usam Executar quando sua vida está em 20% ou menos.",
@@ -108,7 +108,7 @@ return {
 
 	-- Step 21: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
-	["Ride back west to {area:976}: {npc:11758} stands on the east side of town, where you come in."] = "",
+	["Ride back west to {area:976}: {npc:11758} stands on the east side of town, where you come in."] = "Cavalgue de volta para oeste até {area:976}: {npc:11758} fica no lado leste da cidade, por onde você entra.",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, lá dentro",
 

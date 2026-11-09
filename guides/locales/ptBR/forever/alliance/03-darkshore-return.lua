@@ -8,12 +8,12 @@
 return {
 	-- Step 1: Auberdine
 	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin
-	["From the dock, up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "",
+	["From the dock, up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "Do cais, suba primeiro até a ponta norte da vila ({npc:3649}, {npc:3702} junto ao poço lunar, {npc:2913}) e depois desça a rua principal: o cartaz de PROCURA-SE do lado de fora da estalagem e {npc:3693} na ponta leste dela, onde a estrada sai para o sul. {npc:3694} fica ao lado de {npc:3693}, junto ao mestre de voo; se ela não estiver lá, foi morta e reaparece em breve: espere um momento.",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston
-	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "",
+	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "{npc:3649}, ponta norte da vila: a resposta de {npc:1646}",
 	["The WANTED poster"] = "O cartaz de PROCURA-SE",
 	-- {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
-	["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "",
+	["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}, ao lado de {npc:3693}: para {npc:3691} em {area:415}, no próximo guia",
 
 	-- Step 3: Onu
 	-- {quest:948} Onu · {npc:270269} Arbal · {npc:11218} Kerlonian Evershade
@@ -50,7 +50,7 @@ return {
 	-- {object:12666} Twilight Tome
 	["The {object:12666}"] = "{object:12666}",
 	-- {object:12666} Twilight Tome · {quest:949} The Twilight Camp
-	["The {object:12666}, once it has {quest:949}"] = "",
+	["The {object:12666}, once it has {quest:949}"] = "{object:12666}, quando você já tiver {quest:949}",
 	-- {item:279279} Peerless Eye
 	-- plural, as words: Twilight Disciples = {npc:2338} Twilight Disciple
 	["{item:279279}: Twilight Disciples and Thugs"] = "{item:279279}: Discipulos do Crepúsculo e Capangas do Crepúsculo",
@@ -155,5 +155,4 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["From the dock, up to the north end of the village first ({npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south."] = "Do cais, suba primeiro até a ponta norte da vila ({npc:3702}, junto ao poço lunar, e {npc:2913}) e depois desça a rua principal: o cartaz de PROCURA-SE do lado de fora da estalagem e {npc:3693} na ponta leste dela, onde a estrada sai para o sul.",
-	-- ["{npc:3694}: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}: para {npc:3691} em {area:415}, no próximo guia",
 }

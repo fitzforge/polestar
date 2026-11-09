@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Thunder Bluff Reputation"] = "Reputação: Penhasco do Trovão",
 	-- {zone:1412} Mulgore · {zone:1452} Winterspring · {item:11040} Morrowgrain · {item:14047} Runecloth
-	["{zone:1412} quests while you level, {zone:1452} quests and {item:11040} from 55, then {item:14047} to Exalted."] = "",
+	["{zone:1412} quests while you level, {zone:1452} quests and {item:11040} from 55, then {item:14047} to Exalted."] = "Missões de {zone:1412} enquanto você sobe de nível, missões de {zone:1452} e {item:11040} a partir do 55, depois {item:14047} até Exaltado.",
 	-- {faction:81} Thunder Bluff
 	["Exalted with {faction:81}"] = "Exaltado com {faction:81}",
 
@@ -23,7 +23,7 @@ return {
 	-- {area:221} Camp Narache
 	["{area:221} (optional hub)"] = "{area:221} (centro opcional)",
 	-- {area:221} Camp Narache · {zone:1412} Mulgore · {faction:81} Thunder Bluff · {npc:2980} Grull Hawkwind · {npc:2981} Chief Hawkwind · {npc:3209} Brave Windfeather
-	["Forever pays these old quests in full at any level. {area:221}, at the south end of {zone:1412}: about 1,100 {faction:81} reputation in 25 minutes. Starting-zone quests give the other cities no share. {npc:2980} and {npc:2981} stand in the camp, {npc:3209} at its edge."] = "",
+	["Forever pays these old quests in full at any level. {area:221}, at the south end of {zone:1412}: about 1,100 {faction:81} reputation in 25 minutes. Starting-zone quests give the other cities no share. {npc:2980} and {npc:2981} stand in the camp, {npc:3209} at its edge."] = "O Forever paga estas missões antigas por inteiro em qualquer nível. {area:221}, no extremo sul de {zone:1412}: cerca de 1.100 de reputação com {faction:81} em 25 minutos. Missões de zona inicial não dão parte às outras cidades. {npc:2980} e {npc:2981} ficam no acampamento, {npc:3209} na beirada dele.",
 
 	-- Step 3: Greatmother Hawkwind and the plains
 	-- {npc:2991} Greatmother Hawkwind
@@ -61,13 +61,13 @@ return {
 	-- {area:222} Bloodhoof Village
 	["{area:222} (optional hub)"] = "{area:222} (centro opcional)",
 	-- {area:222} Bloodhoof Village · {zone:1412} Mulgore · {faction:81} Thunder Bluff · {npc:2993} Baine Bloodhoof · {npc:2947} Harken Windtotem · {npc:2985} Ruul Eagletalon · {npc:3222} Brave Wildrunner · {npc:2988} Morin Cloudstalker
-	["Forever pays these old quests in full at any level. {area:222} and eastern {zone:1412}: about 1,000 {faction:81} reputation in 45 minutes. {npc:2993} stands in the middle of the village; {npc:2947}, {npc:2985} and {npc:3222} close by; {npc:2988} waits east of the village by the road."] = "",
+	["Forever pays these old quests in full at any level. {area:222} and eastern {zone:1412}: about 1,000 {faction:81} reputation in 45 minutes. {npc:2993} stands in the middle of the village; {npc:2947}, {npc:2985} and {npc:3222} close by; {npc:2988} waits east of the village by the road."] = "O Forever paga estas missões antigas por inteiro em qualquer nível. {area:222} e o leste de {zone:1412}: cerca de 1.000 de reputação com {faction:81} em 45 minutos. {npc:2993} fica no meio da vila; {npc:2947}, {npc:2985} e {npc:3222} ficam por perto; {npc:2988} espera a leste da vila, junto à estrada.",
 
 	-- Step 11: Eastern Mulgore
 	-- {zone:1412} Mulgore
 	["Eastern {zone:1412}"] = "Leste de {zone:1412}",
 	-- {quest:99079} Longwalker Malah · {object:2908} Sealed Supply Crate
-	["{quest:99079} waits by the eastern border. The {object:2908} of the ravaged caravan lies north-east of the village: open it to start the next quest."] = "",
+	["{quest:99079} waits by the eastern border. The {object:2908} of the ravaged caravan lies north-east of the village: open it to start the next quest."] = "{quest:99079} espera junto à fronteira leste. A nordeste da vila fica a caravana devastada, com {object:2908}: abra para iniciar a próxima missão.",
 	-- {object:2908} Sealed Supply Crate
 	["the {object:2908}"] = "o {object:2908}",
 
@@ -79,21 +79,21 @@ return {
 	["The mine, the centaurs and the plains"] = "A mina, os centauros e as planícies",
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes · {zone:1412} Mulgore
 	-- plural, as words: Swoops = {npc:2970} Swoop
-	["Back to the mine for the workers, supervisors and {quest:765} in the back: his {item:281031} start {quest:98424}, and its other pages lie inside the mine. The Galak centaurs and Herak camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "",
+	["Back to the mine for the workers, supervisors and {quest:765} in the back: his {item:281031} start {quest:98424}, and its other pages lie inside the mine. The Galak centaurs and Herak camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "De volta à mina para os operários, os supervisores e {quest:765}, nos fundos: o que ele carrega, {item:281031}, inicia {quest:98424}, e as outras páginas ficam dentro da mina. Os centauros Galath e Herak acampam a leste da vila. Rapineiros voam por todo {zone:1412}; as harpias Ventofúria pousam a sudeste da vila; os gnolls Jubalba acampam a oeste dela.",
 	-- {item:281031} Mulgore Expansion Plans · {quest:765} Supervisor Fizsprocket
-	["{item:281031}, from {quest:765}"] = "",
+	["{item:281031}, from {quest:765}"] = "{item:281031}, de {quest:765}",
 	-- {item:281035} Shredder Operation Instructions
-	["{item:281035}, inside the mine"] = "",
+	["{item:281035}, inside the mine"] = "{item:281035}, dentro da mina",
 
 	-- Step 14: Morin Cloudstalker
 	-- {quest:98427} Ceasing Operations · {quest:98424} Fizsprocket's Notes
-	["{quest:98427}, +150: needs {quest:98424}"] = "",
+	["{quest:98427}, +150: needs {quest:98424}"] = "{quest:98427}, +150: precisa de {quest:98424}",
 
 	-- Step 15: The Venture Co. Mine: the Clearcutter
 	-- {area:360} The Venture Co. Mine
-	["{area:360}: the Clearcutter"] = "",
+	["{area:360}: the Clearcutter"] = "{area:360}: o Fio-afiado",
 	-- {quest:98427} Ceasing Operations
-	["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "",
+	["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "O retalhador de elite Fio-afiado da Empreendimentos S.A. trabalha bem no fundo da mina, depois de onde o Geringonça ficava: a chave dele serve para {quest:98427}.",
 
 	-- Step 16: Bloodhoof Village: last hand-in
 	-- {area:222} Bloodhoof Village
@@ -105,7 +105,7 @@ return {
 	-- {area:17044} Gloomrise
 	["{area:17044} (optional hub)"] = "{area:17044} (centro opcional)",
 	-- {area:17045} Skywatcher Plateau · {faction:81} Thunder Bluff · {zone:1454} Orgrimmar · {npc:259118} Muln Earthfury · {npc:264074} Mazu'kon · {npc:264072} Yorn Grimtotem
-	["Forever pays these old quests in full at any level. The Earthen Ring camp on the {area:17045}, north-west of {faction:81}: 300 {faction:81} reputation in 20 minutes, plus 100 each for {zone:1454} and the Darkspear Trolls and 450 Earthen Ring. {npc:259118}, {npc:264074} and {npc:264072} stand in the camp."] = "",
+	["Forever pays these old quests in full at any level. The Earthen Ring camp on the {area:17045}, north-west of {faction:81}: 300 {faction:81} reputation in 20 minutes, plus 100 each for {zone:1454} and the Darkspear Trolls and 450 Earthen Ring. {npc:259118}, {npc:264074} and {npc:264072} stand in the camp."] = "O Forever paga estas missões antigas por inteiro em qualquer nível. O acampamento da Harmonia Telúrica em {area:17045}, a noroeste de {faction:81}: 300 de reputação com {faction:81} em 20 minutos, mais 100 cada com {zone:1454} e os Trolls Lançanegra e 450 com a Harmonia Telúrica. {npc:259118}, {npc:264074} e {npc:264072} ficam no acampamento.",
 	-- {npc:259118} Muln Earthfury · {quest:96259} Defending the Dead · {quest:96261} The Broodmother
 	["{npc:259118}: {quest:96259}, +100 ({quest:96261} comes once it is handed in)"] = "{npc:259118}: {quest:96259}, +100 ({quest:96261} vem depois da entrega)",
 	-- {npc:264074} Mazu'kon · {quest:96241} Talkin' bout Toxins, Mon
@@ -182,7 +182,7 @@ return {
 	-- {item:11040} Morrowgrain
 	["{item:11040} (optional)"] = "{item:11040} (opcional)",
 	-- {quest:3804} Morrowgrain to Thunder Bluff · {item:11040} Morrowgrain · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {npc:6746} Innkeeper Pala · {npc:5769} Arch Druid Hamuul Runetotem · {area:1639} Elder Rise
-	["{quest:3804} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60, but it is slow: the {item:11020} grows one casing every 10 minutes and a casing holds about one {item:11040} on average, so each hand-in takes about 90 minutes of waiting, 18 {quest:3761} and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50. {npc:6746} sends you to {npc:5769} on {area:1639}; he wants 20 {quest:3761}."] = "",
+	["{quest:3804} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60, but it is slow: the {item:11020} grows one casing every 10 minutes and a casing holds about one {item:11040} on average, so each hand-in takes about 90 minutes of waiting, 18 {quest:3761} and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50. {npc:6746} sends you to {npc:5769} on {area:1639}; he wants 20 {quest:3761}."] = "A {quest:3804} pede 10 {item:11040} por 50, quantas vezes quiser, e paga por inteiro no 60, mas é lenta: o {item:11020} cultiva um casulo a cada 10 minutos e um casulo tem em média cerca de uma {item:11040}, então cada entrega leva cerca de 90 minutos de espera, 18 {quest:3761} e 9 pacotes de sementes (90 pratas). Ela corre em paralelo com o que mais você fizer: pouco mais de 30 de reputação por hora. A cadeia antes dela é de nível 50. {npc:6746} manda você a {npc:5769} em {area:1639}; ele quer 20 {quest:3761}.",
 
 	-- Step 32: Un'Goro Crater: Un'Goro Soil
 	-- {quest:3761} Un'Goro Soil · {item:11040} Morrowgrain
@@ -243,7 +243,6 @@ return {
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "Seguranças da Empreendimentos S.A. em {area:381} (nível 16-17) deixam cair aqui. A Casa de Leilões também serve.",
 	-- ["{npc:14728} takes cloth for {faction:81} in {faction:81}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7825} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14728} recebe tecido para {faction:81} em {faction:81}. As primeiras doações de Lã, Seda, Magitrama e {item:14047} (60 tecidos cada) são feitas uma só vez e dão mais reputação por tecido; depois delas, {quest:7825} se repete até Exaltado. Exaltado com a cidade de outra raça permite comprar as montarias dessa raça. A vantagem de Legado Diplomata do Forever aumenta os ganhos de reputação.",
 	-- ["{npc:14728}: {item:14047} delivered"] = "{npc:14728}: {item:14047} entregue",
-	-- ["{quest:3804} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60, but it is slow: the {item:11020} grows one casing every 10 minutes and a casing holds about one {item:11040} on average, so each hand-in takes about 90 minutes of waiting, 18 {quest:3761} and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50 (in Classic a fifth at 60). {npc:6746} sends you to {npc:5769} on {area:1639}; he wants 20 {quest:3761}."] = "A {quest:3804} pede 10 {item:11040} por 50, quantas vezes quiser, e paga por inteiro no 60, mas é lenta: o {item:11020} cultiva um casulo a cada 10 minutos e um casulo tem em média cerca de uma {item:11040}, então cada entrega leva cerca de 90 minutos de espera, 18 {quest:3761} e 9 pacotes de sementes (90 pratas). Ela corre em paralelo com o que mais você fizer: pouco mais de 30 de reputação por hora. A cadeia antes dela é de nível 50 (no Classic um quinto no 60). {npc:6746} manda você a {npc:5769} em {area:1639}; ele quer 20 {quest:3761}.",
 	-- ["{quest:7825} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7825} pede 20 {item:14047} por entrega e se repete quantas vezes você quiser. Traga {item:14047} em múltiplos de 20 e entregue tudo de uma vez, uma entrega após a outra. {item:14047}: Adeptos das Trevas e Umbramantes (nível 58-60) em {zone:1423}, ou a Casa de Leilões.",
 	-- ["{quest:99079} waits by the eastern border. The {object:2908} of the ravaged caravan lies north-east of the village: open it to start the next quest. {quest:764} mine is further north-east; the elite shredder Venture Co. Clearcutter works deep inside."] = "{quest:99079} espera junto à fronteira leste. O {object:2908} da caravana devastada fica a nordeste da vila: abra-o para começar a próxima missão. A mina {quest:764} fica mais a nordeste; o Cortador Clearcutter da Empreendimentos S.A., um triturador elite, trabalha lá no fundo.",
 	-- ["{zone:1452}'s level 56-60 quests, {item:11040} and {item:14047} to Exalted, with {zone:1412}'s old quests as an optional extra."] = "As missões de nível 56-60 de {zone:1452}, {item:11040} e {item:14047} até Exaltado, com as missões antigas de {zone:1412} como extra opcional.",

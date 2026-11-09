@@ -31,15 +31,15 @@ return {
 	["{npc:7406}, inside"] = "{npc:7406}, lá dentro",
 	["Only once all three robots are home"] = "Só depois que os três robôs estiverem em casa",
 	-- {npc:2491} Whiskey Slim
-	["{npc:2491}, in the inn"] = "",
+	["{npc:2491}, in the inn"] = "{npc:2491}, na estalagem",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley \"Lobo do Mar\", no último andar",
 	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, on the balcony of the same building"] = "",
+	["{npc:2487}, on the balcony of the same building"] = "{npc:2487}, na varanda do mesmo prédio",
 
 	-- Step 7: The Bloodsail ships
 	["The Bloodsail ships"] = "Os navios da Vela Sangrenta",
 	-- {area:43} Wild Shore · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
-	["South of Booty Bay, three Bloodsail ships lie off the {area:43}: {npc:2550}, {npc:2548} and {npc:2546} each stand on a deck with their crews. Swim out and work from ship to ship."] = "",
+	["South of Booty Bay, three Bloodsail ships lie off the {area:43}: {npc:2550}, {npc:2548} and {npc:2546} each stand on a deck with their crews. Swim out and work from ship to ship."] = "Ao sul de Angra do Butim, três navios da Vela Sangrenta ficam ao largo de {area:43}: {npc:2550}, {npc:2548} e {npc:2546} ficam cada um num convés, com suas tripulações. Nade até lá e vá de navio em navio.",
 
 	-- Step 9: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash

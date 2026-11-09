@@ -237,13 +237,13 @@ return {
 
 	-- Step 57: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3142} Orgnil Soulscar
-	["Back to {area:362}: {npc:3139}, then {npc:3142}."] = "",
+	["Back to {area:362}: {npc:3139}, then {npc:3142}."] = "De volta a {area:362}: {npc:3139} e depois {npc:3142}.",
 
 	-- Step 58: Spitelash naga
 	["Spitelash naga"] = "Nagas Iralisca",
 	-- {area:370} Drygulch Ravine · {npc:275657} Heglan Shadeeye · {npc:3107} Surf Crawler
 	-- plural, as words: Spitelash Scouts = {npc:275662} Spitelash Scout
-	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "",
+	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "A nordeste, até a praia abaixo de {area:370}, ao norte de {npc:275657}: Batedores Iralisca e Serviçais Iralisca a ocupam. Caçadores: domestiquem um {npc:3107} na praia.",
 
 	-- Step 59: Margoz
 	-- {quest:828} Margoz · {quest:827} Skull Rock
@@ -327,7 +327,6 @@ return {
 	["Follow the road north from {area:379} to {area:1637}'s main gate. The next guide starts in {area:1637}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {area:17} come after Silverpine."] = "Siga a estrada para o norte de {area:379} até o portão principal de {area:1637}. O próximo guia começa em {area:1637}: em {quest:829} você pega a missão dos sectários, os instrutores ensinam suas novas habilidades, e o zepelim parte das torres fora do portão para {zone:1420} e {zone:1421}. {area:17} vem depois de Pinhaprata.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back east to the shore north of {npc:275657}. Spitelash Scouts and Attendants hold the beach below {area:370}. Hunters: tame a {npc:3107} on the beach."] = "Volte para leste até a praia ao norte de {npc:275657}. Batedores Iralisca e Serviçais Iralisca ocupam a praia abaixo da {area:370}. Caçadores: domestiquem um {npc:3107} na praia.",
 	-- ["Back south to {area:362}."] = "Volte para o sul até {area:362}.",
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369} across the bridge; any of them can drop a {item:6486}."] = "Lagartos Trovejantes e Pelegos de Relâmpago pastam no {area:369}, do outro lado da ponte; qualquer um deles pode derrubar uma {item:6486}.",
 	-- ["Thunder lizards across the river"] = "Lagartos trovejantes do outro lado do rio",

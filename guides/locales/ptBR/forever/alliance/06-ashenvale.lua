@@ -8,11 +8,11 @@
 return {
 	-- Step 1: Kerlonian Evershade
 	-- {area:442} Auberdine · {area:448} Grove of the Ancients · {npc:11218} Kerlonian Evershade · {item:13536} Horn of Awakening · {zone:1439} Darkshore · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post
-	["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest, open his chest for the {item:13536}, use it to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow the horn again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "",
+	["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest, open his chest for the {item:13536}, use it to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow the horn again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "De volta ao norte, a partir da glaive (Druidas: ao sul pela estrada, a partir de {area:442}) até {area:448}, onde {npc:11218} dorme ao lado de Arbal. Pegue a missão dele, abra o baú dele para pegar {item:13536}, use-o para acordá-lo e leve-o ao sul pela estrada até a bolsa dele, no extremo sul de {zone:1439}; toque o chifre de novo sempre que ele adormecer. Depois siga para {npc:11219}, em {area:413}.\nCuidado: emboscadas programadas de três monstros cada atacam ao longo da estrada.",
 	-- {object:176634} Kerlonian's Chest
 	["{object:176634}, beside him"] = "{object:176634}, ao lado dele",
 	-- {npc:11218} Kerlonian Evershade · {zone:1439} Darkshore · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post
-	["Escort {npc:11218} south along the road to his bag at the southern edge of {zone:1439}, then go on to {npc:11219} at {area:413}."] = "",
+	["Escort {npc:11218} south along the road to his bag at the southern edge of {zone:1439}, then go on to {npc:11219} at {area:413}."] = "Escolte {npc:11218} para o sul pela estrada até a bolsa dele, no extremo sul de {zone:1439}, e depois siga para {npc:11219}, em {area:413}.",
 
 	-- Step 4: Bathran's Haunt: kill these as you meet them
 	-- {area:411} Bathran's Haunt
@@ -28,7 +28,7 @@ return {
 	-- {npc:3691} Raene Wolfrunner
 	["{npc:3691}, in the inn"] = "{npc:3691}, na estalagem",
 	-- {npc:3691} Raene Wolfrunner · {quest:990} Trek to Ashenvale · {area:442} Auberdine
-	["{npc:3691}: {quest:990}, from {area:442}"] = "",
+	["{npc:3691}: {quest:990}, from {area:442}"] = "{npc:3691}: {quest:990}, de {area:442}",
 	-- {npc:3894} Pelturas Whitemoon
 	["{npc:3894}, inside"] = "{npc:3894}, lá dentro",
 
@@ -46,14 +46,14 @@ return {
 
 	-- Step 11: Stonetalon Mountains
 	-- {area:421} Mystral Lake · {area:1276} Talondeep Path · {area:461} Windshear Crag · {area:2160} Windshear Mine
-	["Head south past {area:421} into the {area:1276} tunnel; it comes out in Stonetalon's {area:461}, north of the {area:2160}."] = "",
+	["Head south past {area:421} into the {area:1276} tunnel; it comes out in Stonetalon's {area:461}, north of the {area:2160}."] = "Siga para o sul, passando por {area:421}, até o túnel de {area:1276}; ele sai em {area:461}, na Cordilheira das Torres de Pedra, ao norte de {area:2160}.",
 
 	-- Step 12: Piznik
 	-- {npc:4276} Piznik · {area:2160} Windshear Mine
-	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} at the east end of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "",
+	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} at the east end of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "A defesa de {npc:4276} é difícil sozinho neste nível: recomenda-se formar grupo, procure gente para fazer junto. Pule se estiver sozinho.\n{npc:4276} minera no fundo de {area:2160}, no extremo leste do penhasco, depois dos kobolds dali (níveis 19-23). Fale com ele e depois mantenha-o vivo por cinco minutos enquanto ele minera: uma dúzia ou mais de kobolds vêm para cima dele em ondas, primeiro os combatentes corpo a corpo, depois os conjuradores, e os próprios kobolds da mina reaparecem na luta. Se ele morrer, a missão falha.",
 	["Below ground"] = "No subterrâneo",
 	-- {npc:4276} Piznik
-	["Keep {npc:4276} alive while he mines, below ground"] = "",
+	["Keep {npc:4276} alive while he mines, below ground"] = "Mantenha {npc:4276} vivo enquanto ele minera, no subterrâneo",
 
 	-- Step 13: Windshear Crag
 	-- {npc:4080} Kaela Shadowspear · {npc:4077} Gaxim Rustfizzle · {area:1076} Webwinder Path
@@ -256,15 +256,15 @@ return {
 
 	-- Step 53: Baros Alexston
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston
-	["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "",
+	["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "O metrô chega no {object:28027}; siga para oeste até {object:2098}: {npc:1646} fica no lado leste dela. (A rota entrega a carta dele no fim de 03-loch-modan; isto é para um personagem que ainda a leva.)",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
 	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}: a carta de Trovejius de {area:442}",
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["For {npc:3649}, back in {area:442} (06-wetlands)"] = "",
+	["For {npc:3649}, back in {area:442} (06-wetlands)"] = "Para {npc:3649}, de volta em {area:442} (06-wetlands)",
 
 	-- Step 54: Cathedral Square
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:376} High Priestess Laurena
-	["The tram comes in at the {object:28027}; walk west to the {object:2098}. {npc:376} is in the Cathedral of Light."] = "",
+	["The tram comes in at the {object:28027}; walk west to the {object:2098}. {npc:376} is in the Cathedral of Light."] = "O metrô chega no {object:28027}; siga para oeste até {object:2098}. {npc:376} está na Catedral da Luz.",
 	-- {npc:376} High Priestess Laurena · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
 	["{npc:376}: {npc:11406} in {zone:1455} takes it, later"] = "{npc:376}: {npc:11406} em {zone:1455} a recebe, mais tarde",
 	-- {npc:376} High Priestess Laurena · {npc:258785} High Priestess Mims · {zone:1455} Ironforge
@@ -289,13 +289,11 @@ return {
 	["Next: training in {zone:1453}, then the road east through Elwynn and south to {zone:1431}."] = "A seguir: treino em {zone:1453}, depois a estrada para leste por Elwynn e para o sul até {zone:1431}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest, open his chest for the {item:13536}, use it to wake him and lead him south along the road into {area:331} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep.\nCareful: Scripted ambushes of three mobs each attack along the road: furbolgs on the {zone:1439} stretch and undead nearer {area:413}."] = "De volta ao norte, a partir da glaive (Druidas: ao sul pela estrada, a partir de {area:442}) até {area:448}, onde {npc:11218} dorme ao lado de Arbal. Pegue a missão dele, abra o baú dele para pegar {item:13536}, use-o para acordá-lo e leve-o ao sul pela estrada, por {area:331}, até {npc:11219}, em {area:413}; toque o chifre de novo sempre que ele adormecer.\nCuidado: emboscadas programadas de três monstros cada atacam ao longo da estrada: furbolgs no trecho de {zone:1439} e mortos-vivos mais perto de {area:413}.",
 	-- ["Back to the Cathedral of Light: {npc:928} stands inside."] = "De volta à Catedral da Luz: {npc:928} fica lá dentro.",
 	-- ["Black Oozes"] = "Gosmas Pretas",
 	-- ["Black Oozes creep through the marsh north of the {area:1025} road, west of {npc:2093}'s camp. Any ooze may hold {npc:2111}'s bag."] = "Gosmas Pretas rastejam pelo pântano ao norte da estrada da {area:1025}, a oeste do acampamento de {npc:2093}. Qualquer gosma pode ter a bolsa de {npc:2111}.",
 	-- ["Cathedral of Light"] = "Catedral da Luz",
 	-- ["Dragonmaw camp"] = "Acampamento Presa do Dragão",
-	-- ["Escort Kerlonian to {area:413} in {zone:1440}."] = "Escolte Kerlonian até {area:413} em {zone:1440}.",
 	-- ["Escort {npc:11218} to {area:413} in {area:331}."] = "Escolte {npc:11218} até {area:413}, em {area:331}.",
 	-- ["Fen Creepers"] = "Rastejantes do Pântano",
 	-- ["Fen Creepers hide in the marsh pools north-west of the {area:1025}."] = "Rastejantes do Pântano se escondem nas poças do pântano a noroeste da {area:1025}.",
@@ -306,10 +304,8 @@ return {
 	-- ["For the giant crocolisks of the north coast, on your next visit"] = "Para os crocoliscos gigantes da costa norte, na sua próxima visita",
 	-- ["For {npc:2228} in {area:271}: keep it"] = "Para {npc:2228} em {area:271}: guarde-o",
 	-- ["From {area:17203} take the boat to {area:442}; {npc:3649} stands at the north end of the village. Then ride south along the road through {zone:1439}."] = "De {area:17203}, pegue o navio até {area:442}; {npc:3649} fica no extremo norte da vila. Depois cavalgue para o sul pela estrada através de {zone:1439}.",
-	-- ["Head south past {area:421} into the {area:1276} tunnel; it comes out in Stonetalon's {area:461}, by the {area:2160}."] = "Siga para o sul, passando por {area:421}, até o túnel de {area:1276}; ele sai em {area:461}, na Cordilheira das Torres de Pedra, junto a {area:2160}.",
 	-- ["Hearth to Menethil"] = "Regressar para Menethil",
 	-- ["Hearthstone on cooldown? Ride back north through the {area:1276}."] = "Pedra de Regresso em recarga? Volte para o norte pela {area:1276}.",
-	-- ["Kerlonian sleeps at the {area:448} in southern {zone:1439}. Use the {item:13536} to wake him and lead him south along the road into {zone:1440} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep."] = "Kerlonian dorme no {area:448}, no sul de {zone:1439}. Use a {item:13536} para acordá-lo e leve-o para o sul pela estrada até {zone:1440}, até {npc:11219} em {area:413}; toque a trombeta de novo sempre que ele adormecer.",
 	-- ["Mosshide Fenrunners and Mistweavers roam the riverbanks just west and south of {npc:1244}; almost every one drops flint."] = "Corre-charcos Pelemusgo e Tecebrumas vagam pelas margens do rio logo a oeste e ao sul de {npc:1244}; quase todos deixam cair pederneira.",
 	-- ["Mottled Raptors and Screechers roam the hills west of the excavation site."] = "Raptores Mosqueados e Guinchadores vagam pelas colinas a oeste do sítio de escavação.",
 	-- ["Next: fly to {area:42}."] = "Próximo: voe até {area:42}.",

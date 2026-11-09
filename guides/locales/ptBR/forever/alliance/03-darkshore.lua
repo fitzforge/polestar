@@ -19,7 +19,7 @@ return {
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn"] = "{npc:3666}, no andar de cima da estalagem",
 	-- {npc:10219} Gwennyth Bly'Leggonde · {zone:1438} Teldrassil
-	["{npc:10219} (Night Elves have it from {zone:1438})"] = "",
+	["{npc:10219} (Night Elves have it from {zone:1438})"] = "{npc:10219} (os Elfos da Noite pegam isso em {zone:1438})",
 	-- {npc:10216} Gubber Blump
 	["{npc:10216}, on the pier"] = "{npc:10216}, no cais",
 
@@ -40,7 +40,7 @@ return {
 	-- Step 5: Auberdine
 	-- {quest:3524} Washed Ashore
 	-- plural, as words: Beached Sea Turtles = {quest:4722} Beached Sea Turtle
-	["{quest:3524}: the Beached Sea Turtles up the coast offer their quests only once it is handed in"] = "",
+	["{quest:3524}: the Beached Sea Turtles up the coast offer their quests only once it is handed in"] = "{quest:3524}: as Tartarugas Marinhas Encalhadas na costa só oferecem as missões delas depois que ela é entregue",
 
 	-- Step 6: The skeletal turtle
 	["The skeletal turtle"] = "A tartaruga esquelética",

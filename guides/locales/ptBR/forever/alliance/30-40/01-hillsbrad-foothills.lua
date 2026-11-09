@@ -39,10 +39,10 @@ return {
 	["The whelps nest in the hills north-east of the {area:1036}; {quest:98283} prowls further north, and the Razormaw raptors hunt the highlands on the way north to {area:205}.\n{quest:98283} is elite: grouping up is advised."] = "Os dragonetes fazem ninho nas colinas a nordeste de {area:1036}; {quest:98283} ronda mais ao norte, e os raptores Rasgaqueixo caçam nas terras altas no caminho para o norte, até {area:205}.\n{quest:98283} é elite: recomenda-se ir em grupo.",
 
 	-- Step 9: Razormaw nests
-	["Razormaw nests"] = "",
+	["Razormaw nests"] = "Ninhos de Rasgaqueixo",
 	-- {quest:98246} Trying Times · {quest:98283} Carnage
 	-- plural, as words: Perfect Razormaw Eggs = {item:280132} Perfect Razormaw Egg
-	["The Perfect Razormaw Eggs for {quest:98246} lie in the raptors' nests in the hills around {quest:98283}."] = "",
+	["The Perfect Razormaw Eggs for {quest:98246} lie in the raptors' nests in the hills around {quest:98283}."] = "Os Ovos de Rasgaqueixo Perfeitos para {quest:98246} ficam nos ninhos dos raptores nas colinas ao redor de {quest:98283}.",
 
 	-- Step 10: Neru
 	-- {npc:271458} Neru · {area:1038} Dragonmaw Gates · {area:205} Dun Modr · {item:279996} Goaz Stone
@@ -51,11 +51,11 @@ return {
 	-- Step 11: The Green Belt
 	-- {area:1025} The Green Belt · {npc:1244} Rethiel the Greenwarden · {quest:98283} Carnage
 	-- plural, as words: Maddened Rotclaws = {npc:271334} Maddened Rotclaw
-	["Maddened Rotclaws roam the {area:1025} around {npc:1244}; one of them drops the flesh. {npc:1244} takes the quest only with {quest:98283}'s head too."] = "",
+	["Maddened Rotclaws roam the {area:1025} around {npc:1244}; one of them drops the flesh. {npc:1244} takes the quest only with {quest:98283}'s head too."] = "Patapodres Enlouquecidos rondam {area:1025}, ao redor de {npc:1244}; um deles solta a carne. {npc:1244} só aceita a missão com a cabeça de {quest:98283} também.",
 
 	-- Step 12: Rethiel the Greenwarden
 	-- {quest:98283} Carnage
-	["With {quest:98283}'s head and the flesh"] = "",
+	["With {quest:98283}'s head and the flesh"] = "Com a cabeça de {quest:98283} e a carne",
 
 	-- Step 13: Dun Modr
 	-- {area:205} Dun Modr · {npc:1071} Longbraid the Grim · {npc:1075} Rhag Garmason · {object:147516} Dark Iron (no name in this language: may be words)
@@ -102,7 +102,7 @@ return {
 
 	-- Step 22: Howin Kindfeather
 	-- {quest:98246} Trying Times
-	["{quest:98246}: the eggs"] = "",
+	["{quest:98246}: the eggs"] = "{quest:98246}: os ovos",
 
 	-- Step 23: Prospector Whelgar
 	["Below ground"] = "No subterrâneo",
@@ -113,7 +113,7 @@ return {
 	["West along the road to Menethil."] = "Para o oeste pela estrada até o Porto de Menethil.",
 	["On the top floor"] = "No último andar",
 	-- {npc:4455} Red Jack Flint · {quest:1132} Fiora Longears
-	["{npc:4455}, by the keep's door: for {quest:1132} in Theramore, in the next guide"] = "",
+	["{npc:4455}, by the keep's door: for {quest:1132} in Theramore, in the next guide"] = "{npc:4455}, junto à porta da fortaleza: para {quest:1132} em Theramore, no próximo guia",
 
 	-- Step 25: Menethil Harbor
 	-- {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep
@@ -158,9 +158,9 @@ return {
 
 	-- Step 31: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {skill:165} Leatherworking · {item:2997} Bolt of Woolen Cloth · {skill:197} Tailoring
-	["{npc:2438} makes a yeti fur cloak for anyone who brings a {item:3719} ({skill:165}) and a {item:2997} ({skill:197}); no vendor sells either, so this step shows only when you carry both."] = "",
+	["{npc:2438} makes a yeti fur cloak for anyone who brings a {item:3719} ({skill:165}) and a {item:2997} ({skill:197}); no vendor sells either, so this step shows only when you carry both."] = "{npc:2438} faz uma capa de pelo de yeti para quem levar {item:3719} ({skill:165}) e {item:2997} ({skill:197}); nenhum vendedor vende nenhum dos dois, então este passo só aparece quando você leva os dois.",
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {item:2997} Bolt of Woolen Cloth
-	["{npc:2438}, between the flight master and the inn: he wants a {item:3719} and a {item:2997} too"] = "",
+	["{npc:2438}, between the flight master and the inn: he wants a {item:3719} and a {item:2997} too"] = "{npc:2438}, entre o mestre de voo e a estalagem: ele quer {item:3719} e {item:2997} também",
 
 	-- Step 32: Torn Fin murlocs
 	["Torn Fin murlocs"] = "Murlocs Rancapina",
@@ -200,13 +200,13 @@ return {
 
 	-- Step 43: Hillsbrad Fields
 	-- {area:286} Hillsbrad Fields
-	["South-west from the Syndicate camp to the {area:286} farms."] = "",
+	["South-west from the Syndicate camp to the {area:286} farms."] = "Ao sudoeste do acampamento da Camarilha, até as fazendas de {area:286}.",
 
 	-- Step 44: Hillsbrad council
 	-- {area:287} Hillsbrad
 	["{area:287} council"] = "Conselho de {area:287}",
 	-- {item:279386} Sealed Company Request · {area:287} Hillsbrad
-	["Use the {item:279386} at the {area:287} council."] = "",
+	["Use the {item:279386} at the {area:287} council."] = "Use {item:279386} no conselho de {area:287}.",
 
 	-- Step 45: Snapjaws
 	["Snapjaws"] = "Mordeliscas",
@@ -242,7 +242,7 @@ return {
 	-- {npc:4961} Dashel Stonefist · {object:2100} Old Town
 	["{npc:4961} waits in the Pig and Whistle tavern in {object:2100}; he and his two thugs fight you, but stop once beaten."] = "{npc:4961} espera na Taberna do Javatusco Saltitante, em {object:2100}; ele e seus dois capangas lutam com você, mas param quando derrotados.",
 	-- {npc:4961} Dashel Stonefist
-	["Beat {npc:4961} and his thugs: they give up"] = "",
+	["Beat {npc:4961} and his thugs: they give up"] = "Derrote {npc:4961} e os capangas dele: eles desistem",
 
 	-- Step 56: The Islander
 	-- {npc:5479} Wu Shen · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens · {area:392} Ratchet

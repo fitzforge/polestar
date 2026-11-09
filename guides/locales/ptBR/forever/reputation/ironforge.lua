@@ -15,7 +15,7 @@ return {
 	-- {faction:47} Ironforge · {zone:1428} Burning Steppes · {zone:1452} Winterspring · {zone:1459} Alterac Valley
 	["About 600 {faction:47} reputation from level 52-59 quests in the {zone:1428} and {zone:1452}; {zone:1459}'s quests pay {faction:47} too"] = "Cerca de 600 de reputação de {faction:47} com missões de nível 52-59 em {zone:1428} e {zone:1452}; as missões de {zone:1459} também rendem para {faction:47}",
 	-- {faction:47} Ironforge · {zone:1426} Dun Morogh · {area:133} Gnomeregan
-	["About 2,900 {faction:47} reputation from low-level quests in {zone:1426}, most of it paid to {area:133} too"] = "",
+	["About 2,900 {faction:47} reputation from low-level quests in {zone:1426}, most of it paid to {area:133} too"] = "Cerca de 2.900 de reputação de {faction:47} com missões de nível baixo em {zone:1426}, a maior parte rendendo também para {area:133}",
 
 	-- Step 1: Mistina Steelshield, the cloth quartermaster
 	-- {npc:14723} Mistina Steelshield
@@ -27,7 +27,7 @@ return {
 
 	-- Step 2: Coldridge Valley
 	-- {area:131} Kharanos · {npc:658} Sten Stoutarm · {npc:713} Balir Frosthammer · {area:77} Anvilmar
-	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,100 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,100 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Opcional: o vale inicial dos anões e gnomos, a sudoeste de {area:131}, cerca de 1.100 de reputação em 30 minutos no 60. {npc:658} e {npc:713} ficam em {area:77}. O Forever paga estas missões antigas por inteiro em qualquer nível. Pule este passo para pular o polo.",
 
 	-- Step 3: Coldridge: wolves, troggs and Felix Whindlebolt's things
 	-- {npc:8416} Felix Whindlebolt
@@ -60,7 +60,7 @@ return {
 
 	-- Step 8: Kharanos
 	-- {area:131} Kharanos · {area:133} Gnomeregan · {area:2102} Thunderbrew Distillery · {area:189} Steelgrill's Depot
-	["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Opcional: {area:131} e as estradas de Brewnall e de {area:133} ao redor, cerca de 1.300 de reputação em 50 minutos no 60. A maioria de quem dá as missões fica dentro e ao redor de {area:2102} e em {area:189}, a leste de lá. O Forever paga estas missões antigas por inteiro em qualquer nível. Pule este passo para pular o polo.",
 
 	-- Step 9: Kharanos: the hills and the depot
 	-- {area:131} Kharanos
@@ -87,7 +87,7 @@ return {
 	-- {area:803} Amberstill Ranch
 	["The quarry and {area:803}"] = "A pedreira e {area:803}",
 	-- {zone:1426} Dun Morogh · {npc:264936} Earthseer Farsen · {area:134} Gol'Bolar Quarry · {area:803} Amberstill Ranch
-	["Optional: eastern {zone:1426}, from {npc:264936}'s camp to the {area:134} and {area:803}, about 500 reputation in 30 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: eastern {zone:1426}, from {npc:264936}'s camp to the {area:134} and {area:803}, about 500 reputation in 30 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Opcional: o leste de {zone:1426}, do acampamento de {npc:264936} até {area:134} e {area:803}, cerca de 500 de reputação em 30 minutos no 60. O Forever paga estas missões antigas por inteiro em qualquer nível. Pule este passo para pular o polo.",
 
 	-- Step 14: The quarry: troggs, spies and Vagash
 	-- {npc:1388} Vagash
@@ -113,7 +113,7 @@ return {
 
 	-- Step 19: Ironforge: Royal Historian Archesonus
 	-- {faction:47} Ironforge · {npc:8879} Royal Historian Archesonus · {object:171709} High Seat · {zone:1428} Burning Steppes
-	["These quests are level 52 to 59, so they pay in full at 60: about 600 {faction:47} reputation. {npc:8879} stands beside King Magni in the {object:171709}; he sends you to the ruins of Thaurissan in the {zone:1428}."] = "",
+	["These quests are level 52 to 59, so they pay in full at 60: about 600 {faction:47} reputation. {npc:8879} stands beside King Magni in the {object:171709}; he sends you to the ruins of Thaurissan in the {zone:1428}."] = "Estas missões são de nível 52 a 59, então pagam por inteiro no 60: cerca de 600 de reputação com {faction:47}. {npc:8879} fica ao lado do Rei Magni em {object:171709}; ele manda você às ruínas de Thaurissan em {zone:1428}.",
 	-- {npc:8879} Royal Historian Archesonus
 	["Hear {npc:8879} out"] = "Ouça {npc:8879} até o fim",
 
@@ -148,7 +148,7 @@ return {
 	-- {quest:7806} Additional Runecloth
 	["{quest:7806} to Honored"] = "{quest:7806} até Honrado",
 	-- {quest:7806} Additional Runecloth · {item:14047} Runecloth · {zone:1426} Dun Morogh · {faction:47} Ironforge · {area:144} Thelsamar · {zone:1432} Loch Modan · {area:150} Menethil Harbor · {zone:1437} Wetlands · {zone:1459} Alterac Valley
-	["{quest:7806}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Night Elf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Dwarves start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). The level 52-59 quests above take 12 turn-ins off; each {zone:1426} hub you did takes 10 to 26 more off. More hubs pay {faction:47}, in full while they are no more than 5 levels below you: {area:144} in {zone:1432} (about 3,500 in all) and {area:150} in the {zone:1437} (about 2,500). From level 51 {zone:1459}'s one-time quests add about 1,900. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "",
+	["{quest:7806}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Night Elf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Dwarves start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). The level 52-59 quests above take 12 turn-ins off; each {zone:1426} hub you did takes 10 to 26 more off. More hubs pay {faction:47}, in full while they are no more than 5 levels below you: {area:144} in {zone:1432} (about 3,500 in all) and {area:150} in the {zone:1437} (about 2,500). From level 51 {zone:1459}'s one-time quests add about 1,900. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7806}: 50 de reputação por 20 {item:14047}, quantas vezes você quiser. Depois das quatro primeiras doações, um Humano, Elfo da Noite ou Gnomo fica em Amigável 700 de 6.000, então Honrado está a 5.300 de distância: 106 entregas, 2.120 {item:14047} (os Anões começam 900 acima: 88 entregas; os Celonatos começam em Neutro 2.000, a 6.400 de distância: 128, duas a menos depois de Explorando a Aliança). As missões de nível 52-59 acima tiram 12 entregas; cada polo de {zone:1426} que você fez tira de 10 a 26 a mais. Mais polos rendem para {faction:47}, inteiros enquanto estiverem no máximo 5 níveis abaixo de você: {area:144} em {zone:1432} (cerca de 3.500 no total) e {area:150} em {zone:1437} (cerca de 2.500). A partir do nível 51, as missões únicas de {zone:1459} somam cerca de 1.900. Todo ganho de cidade também rende um quarto disso para as outras três cidades da Aliança (não contado aqui). Entregue todo o seu {item:14047} de uma vez.",
 
 	-- Step 26: Additional Runecloth to Revered
 	-- {quest:7806} Additional Runecloth
@@ -163,7 +163,6 @@ return {
 	["Revered to Exalted is 21,000 reputation: 420 turn-ins, 8,400 {item:14047}. At Exalted, {npc:1261} at {area:803} in eastern {zone:1426} sells his rams to other races in Classic; the Ram and Swift Ram guides cover them."] = "De Reverenciado a Exaltado são 21.000 de reputação: 420 entregas, 8.400 {item:14047}. Em Exaltado, no Classic, {npc:1261} em {area:803}, no leste de {zone:1426}, vende os carneiros dele para outras raças; os guias de Carneiro e Carneiro Veloz tratam deles.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["About 2,900 {faction:47} reputation from low-level quests in {zone:1426}, most of it paid to {area:133} too (in Classic, a fifth of it at 60)"] = "Cerca de 2.900 de reputação de {faction:47} com missões de nível baixo em {zone:1426}, a maior parte rendendo também para {area:133} (no Classic, um quinto disso no 60)",
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the {object:92525} (see that guide). The Auction House works too."] = "Adeptos das Trevas e Umbramantes (nível 58-60) deixam cair aqui; cada Flagelo morto aqui também conta para {object:92525} (veja esse guia). A Casa de Leilões também serve.",
 	-- ["Dunemaul ogres (level 45-48) drop it here. The Auction House works too."] = "Ogros Dunamalho (nível 45-48) deixam cair aqui. A Casa de Leilões também serve.",
 	-- ["Keep handing in {quest:7806} until {faction:47} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Continue entregando {quest:7806} até ficar Exaltado com {faction:47}. {item:14047}: Adeptos das Trevas e Umbramantes (nível 58-60) em {zone:1423}, ou a Casa de Leilões.",
@@ -177,5 +176,4 @@ return {
 	-- ["{npc:14723} takes cloth for {faction:47} in {faction:47}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7806} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14723} recebe tecido para {faction:47} em {faction:47}. As primeiras doações de Lã, Seda, Magitrama e {item:14047} (60 tecidos cada) são feitas uma vez só e dão mais reputação por tecido; depois delas, {quest:7806} se repete até Exaltado. Exaltado com a cidade de outra raça permite comprar as montarias dessa raça. A vantagem de Legado Diplomata do Forever aumenta os ganhos de reputação.",
 	-- ["{npc:14723}: {item:14047} delivered"] = "{npc:14723}: {item:14047} entregue",
 	-- ["{quest:7806} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7806} pede 20 {item:14047} por entrega e se repete quantas vezes quiser. Traga {item:14047} em múltiplos de 20 e entregue tudo de uma vez, uma entrega após a outra. {item:14047}: Adeptos das Trevas e Umbramantes (nível 58-60) em {zone:1423}, ou a Casa de Leilões.",
-	-- ["{quest:7806}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Night Elf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Dwarves start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). The level 52-59 quests above take 12 turn-ins off; each {zone:1426} hub you did takes 10 to 26 more off if it paid in full. More hubs pay {faction:47}, in full while they are no more than 5 levels below you: {area:144} in {zone:1432} (about 3,500 in all) and {area:150} in the {zone:1437} (about 2,500). From level 51 {zone:1459}'s one-time quests add about 1,900. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7806}: 50 de reputação por 20 {item:14047}, quantas vezes você quiser. Depois das quatro primeiras doações, um Humano, Elfo da Noite ou Gnomo fica em Amigável 700 de 6.000, então Honrado está a 5.300 de distância: 106 entregas, 2.120 {item:14047} (os Anões começam 900 acima: 88 entregas; os Celonatos começam em Neutro 2.000, a 6.400 de distância: 128, duas a menos depois de Explorando a Aliança). As missões de nível 52-59 acima tiram 12 entregas; cada polo de {zone:1426} que você fez tira de 10 a 26 a mais, se pagou inteiro. Mais polos rendem para {faction:47}, inteiros enquanto estiverem no máximo 5 níveis abaixo de você: {area:144} em {zone:1432} (cerca de 3.500 no total) e {area:150} em {zone:1437} (cerca de 2.500). A partir do nível 51, as missões únicas de {zone:1459} somam cerca de 1.900. Todo ganho de cidade também rende um quarto disso para as outras três cidades da Aliança (não contado aqui). Entregue todo o seu {item:14047} de uma vez.",
 }
