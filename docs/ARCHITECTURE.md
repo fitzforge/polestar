@@ -1129,18 +1129,9 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   stays while the player is within `r` + 4 yd of it, then the nearest spot not
   visited in the last 300 s (`Spots.FORGET`) takes over (the one the player
   stands in counts as not visited; all visited: the one visited longest ago),
-  so the spots form a circuit. Dwell (Fitz, 2026-11-09): when the player has
-  stood within the arrival radius of the waypoint's place (a camp, a searched
-  spot, a field goal's point) for 7 s (`Spots.DWELL`), out of combat, with no
-  progress on the goal (`Own.workSign`: its count, a level goal's XP; a change
-  or a fight starts the count again), the place is left (`Spots.left`, for
-  `Spots.FORGET`): the arrow moves on to the nearest place not left, never
-  back to one left while another is open (all left: the one left longest
-  ago), and a goal whose places are all left measures no distance, so the
-  step's nearest other open field goal takes over (`Own.nearestField`). A
-  spot picked by hand is not counted until reached. Spots with `alt` are never
-  picked by these rules; they are reached by hand and, once picked, hold like
-  any current spot (camps: until another spot is 40 yd nearer). Levels (#827): a kill or
+  so the spots form a circuit. Spots with `alt` are never picked by these
+  rules; they are reached by hand and, once picked, hold like any current spot
+  (camps: until another spot is 40 yd nearer). Levels (#827): a kill or
   collect goal's spot carries `lvl`, the highest level of the mobs spawning in
   it (compiled from the data; with a level for every spot, the goal's own `lvl`
   is the one most share and a spot carries `lvl` only when it differs; a
