@@ -27,7 +27,7 @@ step Winterspring
 
 step Everlook
   getfp "Everlook"
-  sethome "Everlook" npc 11118        -- Innkeeper Vizzie: the last guide binds here, so this usually ticks at once
+  sethome "Everlook" npc 11118        -- Innkeeper Vizzie
   accept 5601                         -- Jessica Redpath: keep it for Darrowshire; inside
   accept 6028                         -- Gregor Greystone: keep both for the Plaguelands; inside
   accept 6030
