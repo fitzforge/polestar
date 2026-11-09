@@ -1597,6 +1597,23 @@
 				"kind": "pfquest",
 				"ref": "npcs.json 92 spawns on map 1418; items.json 4627 drops from 92 (100%)"
 			}
+		},
+		{
+			"id": "horde-3040-stv-shadowmaw-panthers",
+			"quest": 192,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1434,
+				"x": 41.3,
+				"y": 34.8,
+				"frame": "era"
+			},
+			"note": "Panther Mastery (192): the Shadowmaw Panthers (684) spawn at Stranglethorn 35-51,20-45, median 41.2,34.8, east of the Mosh'Ogg hills by Grom'gol; the Horde guide kills them with the claws and fangs of Mok'thardin's Enchantment, one sweep (Horde 30-40 audit, 2026-11-09).",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 684 spawns on map 1434 (spawn at 41.3,34.76)"
+			}
 		}
 	]
 }
