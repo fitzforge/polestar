@@ -549,7 +549,6 @@ step Tirion Fordring
 step Egan
   zone Eastern Plaguelands
   tip Cross the river east of Tirion's hut into Terrordale: Egan stands by Augustus' ruined hut.
-  goto 11.4,26.6 "Egan" live
   turnin 5281
 
 step The Marris Stead
