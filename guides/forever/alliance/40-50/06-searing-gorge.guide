@@ -173,7 +173,7 @@ step Margol's Horn
 
 step The Grimesilt outhouse
   when onquest 4451
-  turnin 4451 optional
+  turnin 4451
 
 step Thorium Point
   zone Searing Gorge

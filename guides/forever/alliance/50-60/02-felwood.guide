@@ -130,8 +130,8 @@ step Nafien
   accept 8467 optional
 
 step Nafien
-  when onquest 8467
-  turnin 8467 optional
+  when complete 8467
+  turnin 8467
 
 step Timbermaw Hold
   tip Step into the cave: Kernda stands just inside.
