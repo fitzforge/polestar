@@ -65,8 +65,8 @@ return {
 	["{item:9248}; below ground"] = "{item:9248}; no subterrâneo",
 
 	-- Step 16: Feathermoon Stronghold
-	-- {npc:7880} Ginro Hearthkindle
-	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
+	-- {npc:7877} Latronicus Moonspear · {npc:7878} Vestia Moonspear · {npc:7900} Angelas Moonbreeze · {npc:7880} Ginro Hearthkindle · {npc:7852} Pratt McGrubben
+	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "",
 	-- {npc:7879} Quintis Jonespyre
 	["{npc:7879}, upstairs"] = "{npc:7879}, no andar de cima",
 
@@ -107,6 +107,10 @@ return {
 	-- Step 24: Rage Scar Hold
 	-- {quest:7735} Pristine Yeti Hide
 	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "",
+
+	-- Step 25: Feathermoon Stronghold
+	-- {npc:7880} Ginro Hearthkindle
+	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 
 	-- Step 26: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan

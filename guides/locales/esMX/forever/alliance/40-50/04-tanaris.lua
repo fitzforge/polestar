@@ -107,12 +107,10 @@ return {
 	["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "La pequeña tortuga {npc:5955} se esconde en el extremo norte del valle. Llévalo a casa con su esposa {npc:6015}, junto al agua justo al este de {area:977}: camina despacio y las bestias del desierto lo atacan, así que mantenlo con vida.",
 
 	-- Step 21: Gadgetzan
-	-- {area:976} Gadgetzan
-	["Ride back west to {area:976}."] = "Cabalga de vuelta al oeste hasta {area:976}.",
+	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
+	["Ride back west to {area:976}: {npc:11758} stands on the east side of town, where you come in."] = "",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
-	-- {npc:11758} Andi Lynn
-	["{npc:11758}, on the east side of town"] = "{npc:11758}, en el lado este del pueblo",
 
 	-- Step 22: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
@@ -159,6 +157,7 @@ return {
 	-- ["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp."] = "Sigue la costa al sur hasta la cala pirata. Los piratas de los Mares del Sur llenan la playa y los barcos: avanza por el borde y atráelos de uno en uno. {npc:7883} está en el otro extremo; la carga robada de {npc:7881} está en el campamento.",
 	-- ["From the {area:1108} dock, boat to Feathermoon and fly to {area:489}, then ride east through {zone:1441} to the {area:2240} on the {area:439}. {npc:4454} and {npc:4630} are in the camps beside the track; {npc:4709} stands by the goblin camp."] = "Desde el muelle de {area:1108}, toma el barco a Plumaluna y vuela a {area:489}; luego cabalga al este por {zone:1441} hasta {area:2240}, en {area:439}. {npc:4454} y {npc:4630} están en los campamentos junto a la pista; {npc:4709} está junto al campamento goblin.",
 	-- ["Hearth to {area:976}."] = "Usa la Piedra de hogar para volver a {area:976}.",
+	-- ["Ride back west to {area:976}."] = "Cabalga de vuelta al oeste hasta {area:976}.",
 	-- ["Ride back west toward {area:976}. The Wastewander bandits and thieves hold the dunes on the way; any of them can carry a water pouch."] = "Cabalga de vuelta al oeste hacia {area:976}. Los bandidos y ladrones Vagayermo ocupan las dunas en el camino; cualquiera puede llevar una bolsa de agua.",
 	-- ["Ride north-west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts."] = "Cabalga al noroeste hasta la colmena Centipaar en las dunas. Cualquier Centipaar puede soltar partes de insecto.",
 	-- ["Ride south into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley. The Thistleshrubs are 48-50, above you: pull one at a time."] = "Cabalga al sur hacia {quest:3362}. Los colectores de rocío Cardizal sueltan las glándulas; solo algunas están llenas, así que guarda la cargada. Los cardizales nudosos y enraizadores Cardizal comparten el valle. Los Cardizal son de nivel 48-50, por encima del tuyo: atráelos de uno en uno.",
@@ -169,6 +168,7 @@ return {
 	-- ["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later."] = "Los pícaros, magos oscuros y asesinos Vagayermo, más duros, acampan al sureste de {area:976}, al sur de los bandidos. Deja a {npc:7847}, en el centro del campamento del sur, para más tarde.",
 	-- ["Wastewander bandits"] = "Bandidos Vagayermo",
 	-- ["While {npc:4709} keeps Rizzle talking, his plans lie unguarded in the gnome camp across the track."] = "Mientras {npc:4709} distrae a Rizzle Pernolatón, sus planos quedan sin vigilancia en el campamento gnomo al otro lado de la pista.",
+	-- ["{npc:11758}, on the east side of town"] = "{npc:11758}, en el lado este del pueblo",
 	-- ["{npc:7583}'s next ingredient grows in the {zone:1425}, and the route never brings it back: skip it."] = "El siguiente ingrediente de {npc:7583} crece en {zone:1425} y la ruta nunca te trae de vuelta: omítelo.",
 	-- ["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "La siguiente entrega de {npc:7881} vuelve a {area:35}: omítela.",
 	-- ["{npc:7881}, in the port's tavern"] = "{npc:7881}, en la taberna del puerto",
