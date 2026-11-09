@@ -1,0 +1,111 @@
+name: Public reference data
+description: >-
+  Builds <root>/data/forever from public sources only: pfQuest, the CMaNGOS dump, the client tables
+  wago.tools serves (from the Actions cache wago-cache.yml fills), QuestieDB's Forever store (its
+  public GitHub release, pinned below by version and SHA-256) and the checkout's committed
+  corrections. No web sources, no recordings, no private corrections: close to the release data, not
+  equal to it. The sources are cached in the workspace's data/sources, shared by every checkout the
+  job builds data for; QuestieDB is unpacked under $RUNNER_TEMP and nothing of it enters the
+  repository or an artifact.
+
+inputs:
+  forge:
+    description: The forge binary to build with (an absolute path)
+    required: true
+  root:
+    description: The Polestar checkout's folder in the workspace (empty = the workspace itself)
+    default: ""
+  questie:
+    description: >-
+      QuestieDB release to build with (a version listed in the step below; the release data's is in
+      its data/forever/meta.json), or none for the data without Forever's quest store
+    default: "1.0.10"
+
+runs:
+  using: composite
+  steps:
+    # The cache key's prefix for this code, as wago-cache.yml makes it (the same files, in the checkout).
+    - name: Client tables key
+      id: key
+      shell: bash
+      run: >-
+        echo "prefix=wago-${{ hashFiles(
+        format('{0}tools/lib/data/wago.js', inputs.root && format('{0}/', inputs.root) || ''),
+        format('{0}tools/media/game-art.js', inputs.root && format('{0}/', inputs.root) || ''),
+        format('{0}rust/crates/forge-data/src/sources.rs', inputs.root && format('{0}/', inputs.root) || ''),
+        format('{0}rust/crates/forge-data/src/tables.rs', inputs.root && format('{0}/', inputs.root) || '')
+        ) }}-" >> "$GITHUB_OUTPUT"
+
+    # Restore only: wago-cache.yml (on next) is the one writer. The newest copy made by this code; else
+    # the newest of any, which `forge data sources` starts from. The path is the one wago-cache.yml
+    # saves (a cache restores only to the path it was saved from).
+    - name: Client tables (cache)
+      id: wago
+      uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: data/sources/wago
+        key: ${{ steps.key.outputs.prefix }}
+        restore-keys: |
+          ${{ steps.key.outputs.prefix }}
+          wago-
+
+    # The release's zip, checked against its SHA-256 before it is unpacked. A new version gets its
+    # line here (asset name and digest), in its own commit.
+    - name: QuestieDB
+      id: questie
+      if: inputs.questie != 'none'
+      shell: bash
+      env:
+        VERSION: ${{ inputs.questie }}
+      run: |
+        case "$VERSION" in
+          1.0.6) asset=QuestieDB-Forever.zip sha=d78b066c362eaf28258d9e2d041c0a7b03d6943a2dfc741dec70c6bfd8e1fc27 ;;
+          1.0.10) asset=QuestieDB-Forever.zip sha=7bd476d25e1f20f9716b9fc6f6415ba366c4600b6297a93f0e116f239136df83 ;;
+          *) echo "::error::QuestieDB $VERSION has no pinned digest in .github/actions/public-data"; exit 1 ;;
+        esac
+        dir="$RUNNER_TEMP/questiedb-$VERSION"
+        if [ ! -f "$dir/QuestieDB/QuestieDB_Forever.toc" ]; then
+          curl -sSfL --retry 3 -o "$RUNNER_TEMP/questiedb-$VERSION.zip" \
+            "https://github.com/Questie/QuestieDB/releases/download/v$VERSION/$asset"
+          echo "$sha  $RUNNER_TEMP/questiedb-$VERSION.zip" | sha256sum -c -
+          mkdir -p "$dir" && unzip -q "$RUNNER_TEMP/questiedb-$VERSION.zip" -d "$dir"
+        fi
+        echo "dir=$dir/QuestieDB" >> "$GITHUB_OUTPUT"
+
+    # pfQuest, the CMaNGOS dump and the builders' client tables (professions.json's), and the data's
+    # client tables only when the cache has none from this code. A cached file is never fetched again.
+    - name: Source cache
+      shell: bash
+      working-directory: ${{ inputs.root || '.' }}
+      env:
+        FORGE: ${{ inputs.forge }}
+        PREFIX: ${{ steps.key.outputs.prefix }}
+        MATCHED: ${{ steps.wago.outputs.cache-matched-key }}
+      run: |
+        parts=pfquest,cmangos,builders
+        case "$MATCHED" in
+          "$PREFIX"*) ;;
+          *) parts="$parts,wago" ;;
+        esac
+        "$FORGE" data sources --root . --sources "$GITHUB_WORKSPACE/data/sources" --only "$parts"
+
+    - name: Public data build
+      shell: bash
+      working-directory: ${{ inputs.root || '.' }}
+      env:
+        FORGE: ${{ inputs.forge }}
+        QUESTIE: ${{ steps.questie.outputs.dir }}
+        SIDE: ${{ inputs.root || '.' }}
+      # professions.json from the same data and client tables: the guides' craft, learn and
+      # profession train goals resolve through it. Without the Forever TrinityCore extract (not public)
+      # a forge that requires its trainer lists refuses to build it: then the profession guides' lines
+      # do not resolve here, on the base as on the head.
+      run: |
+        if [ -n "$QUESTIE" ]; then questie=(--questie "$QUESTIE"); else questie=(--no-questie); fi
+        "$FORGE" data build --root . --sources "$GITHUB_WORKSPACE/data/sources" --out data/forever --offline \
+          "${questie[@]}" --no-web-zones --no-web-xp --forever-tables wago
+        if ! "$FORGE" data professions --root . --data data/forever --sources "$GITHUB_WORKSPACE/data/sources" \
+          --out data/forever/professions.json; then
+          echo "::warning::$SIDE: no professions.json (see the step's log): profession lines do not resolve"
+        fi
+        ls data/forever

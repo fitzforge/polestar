@@ -81,6 +81,73 @@ Run `regen` once per merge or batch, then push the regenerated files on
 `next`. You do not need to run it before every commit, only before pushing
 a batch to `next` or starting the release steps below.
 
+## On-demand runs on GitHub
+
+A batch of work (an integration branch, a triage round) gets its full
+suites, guide compile and playtests, and gates once, on GitHub's runners,
+before it goes to `next`: the on-demand workflows, described in
+[CI.md](CI.md). Start one run per batch, not per item, on the pushed
+branch:
+
+```sh
+git push origin <branch>
+gh workflow run ondemand-batch.yml --ref <branch> -f base=next   # everything, compared with next
+gh workflow run ondemand-guides.yml --ref <branch> -f base=next -f groups=horde/30-40 -f classes=Warrior,Mage
+gh workflow run ondemand-suites.yml --ref <branch>               # suites only (-f addontest=false ...)
+gh workflow run ondemand-gates.yml --ref <branch> -f base=next   # gates only
+gh run list --workflow ondemand-batch.yml --branch <branch> -L 3
+gh run watch <id>; gh run view <id> --log-failed; gh run download <id> -p 'logs-*'
+```
+
+`--ref` is the branch whose code (and whose copy of the workflow) runs; it
+must hold the workflow files, which every branch made from `next` does.
+`workflow_dispatch` only offers workflows that are on the default branch
+(`next`); until they are there, or to test a branch that predates them,
+push the branch as `ci/<name>` instead: a push to `ci/**` runs the whole
+batch on it, compared with `next` (`git push origin <branch>:ci/<name>`,
+then delete `ci/<name>` when done). The `ref` input tests another branch or
+tag of this repository with the workflow of the branch the run started
+on.
+
+Read the summary of each job first (findings new against the base), then
+the `logs-*` artifacts for the full output. A finding that also shows on the
+base is not the batch's. What the public reference data lacks, and what
+stays local, is in [CI.md](CI.md#what-stays-local): the release data's gates,
+the skip-ahead sweep and the upgrade harness still run locally before a
+release.
+
+### Security rules for the on-demand workflows
+
+The repository is public and these workflows run code from branches, so
+every one of them keeps these rules (a change to them is reviewed against
+this list):
+
+- Started only by `workflow_dispatch` (people with write access), by
+  `workflow_call` from `ondemand-batch.yml`, and by a push to `ci/**` (also
+  write access only). Never `pull_request_target`, never a fork's code: the
+  code under test must be a branch or tag of this repository
+  (`.github/actions/ondemand-ref` refuses pull request refs and bare
+  commits) and is pinned to its commit once per run.
+- `permissions: {}` at the top of each workflow and `contents: read` on
+  each job, the minimum a checkout needs; no job asks for more.
+- No secrets: none is read, and every checkout sets
+  `persist-credentials: false`, so the code under test never holds the
+  run's token.
+- GitHub-hosted runners only (`ubuntu-latest`), never self-hosted.
+- Every third-party action is pinned to a full commit SHA (the tag in a
+  comment). The QuestieDB download is pinned by version and SHA-256.
+- Caches: the Rust caches are written only by these runs (on branches of
+  this repository, so a fork's pull request can neither write nor read them
+  where these runs restore them); the client tables cache is restore-only
+  (`wago-cache.yml` on `next` writes it); the forge binary and the public
+  data pass from a run's first job to its others through one entry keyed by
+  the run's id and attempt, read back by that exact key and never by a
+  prefix.
+- Artifacts hold logs only (test, compile, playtest and gate output), kept
+  14 days: no data, no tokens, no environment dumps.
+- Concurrency groups per workflow and branch: a new start waits for the
+  running one (and replaces an older waiting one), so runs cannot pile up.
+
 ## Steps
 
 These are the steps of a feature release. Replace `0.2.0` with the new
