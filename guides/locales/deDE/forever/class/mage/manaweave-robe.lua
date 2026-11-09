@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Zaldimar Wefhellt (Goldshire)
 	-- {npc:328} Zaldimar Wefhellt · {area:87} Goldshire
-	["{npc:328} is the {area:87} mage trainer, upstairs in the Lion's Pride Inn."] = "",
+	["{npc:328} is the {area:87} mage trainer, upstairs in the Lion's Pride Inn."] = "{npc:328} ist der Magierlehrer von {area:87}, oben im Lion's Pride Inn.",
 
 	-- Step 2: Dink (Ironforge)
 	-- {npc:7312} Dink · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind
@@ -20,16 +20,16 @@ return {
 
 	-- Step 3: Jennea Cannon
 	-- {npc:5497} Jennea Cannon · {object:2101} Mage Quarter · {item:7247} Chest of Containment Coffers · {item:7308} Cantation of Manifestation
-	["{npc:5497} stands at the top of the Wizard's Sanctum, the violet tower of the {object:2101}: climb the spiral ramp and take the portal near the top. The {item:7247} and the {item:7308} lie on the table behind her (both come back 5 minutes after someone takes them). You hand both in at the end, so keep them."] = "",
+	["{npc:5497} stands at the top of the Wizard's Sanctum, the violet tower of the {object:2101}: climb the spiral ramp and take the portal near the top. The {item:7247} and the {item:7308} lie on the table behind her (both come back 5 minutes after someone takes them). You hand both in at the end, so keep them."] = "{npc:5497} steht oben im Wizard's Sanctum, dem violetten Turm des {object:2101}: Steig die Spiralrampe hinauf und nimm das Portal nahe dem oberen Ende. {item:7247} und {item:7308} liegen auf dem Tisch hinter ihr (beide kommen 5 Minuten nach dem Mitnehmen wieder). Du gibst beide am Ende ab, also behalte sie.",
 
 	-- Step 4: The Blue Recluse
 	-- {object:2169} The Blue Recluse · {object:2101} Mage Quarter · {item:7308} Cantation of Manifestation · {spell:122} Frost Nova · {item:7247} Chest of Containment Coffers · {item:7292} Filled Containment Coffer
 	-- plural, as words: Rift Spawns = {npc:6492} Rift Spawn
-	["{object:2169} is the tavern in the {object:2101}. Read the {item:7308} inside to make the invisible Rift Spawns (level 16-17) show: in the basement it brings out one, on the balcony or in the kitchen two, in the main room or by the door three, so read it downstairs. They hit hard and break out of {spell:122} fast. Beat one down: it does not die but sits stunned with a spiral over its head; use the {item:7247} on it while it is stunned, then click the {item:7292} it leaves on the floor (clicking before it appears wastes a charge). You need three, and the cantation works only once every 5 minutes (logging out does not reset it), so plan on three rounds."] = "",
+	["{object:2169} is the tavern in the {object:2101}. Read the {item:7308} inside to make the invisible Rift Spawns (level 16-17) show: in the basement it brings out one, on the balcony or in the kitchen two, in the main room or by the door three, so read it downstairs. They hit hard and break out of {spell:122} fast. Beat one down: it does not die but sits stunned with a spiral over its head; use the {item:7247} on it while it is stunned, then click the {item:7292} it leaves on the floor (clicking before it appears wastes a charge). You need three, and the cantation works only once every 5 minutes (logging out does not reset it), so plan on three rounds."] = "{object:2169} ist die Taverne im {object:2101}. Lies darin {item:7308}, damit die unsichtbaren Rift Spawns (Stufe 16-17) sichtbar werden: Im Keller bringt es einen hervor, auf dem Balkon oder in der Küche zwei, im Hauptraum oder an der Tür drei, lies ihn also unten. Sie schlagen hart zu und brechen schnell aus {spell:122} aus. Prügle einen nieder: Er stirbt nicht, sondern sitzt betäubt mit einer Spirale über dem Kopf da; benutze {item:7247} an ihm, solange er betäubt ist, und klick dann {item:7292} an, den er auf dem Boden hinterlässt (ein Klick, bevor er erscheint, verschwendet eine Ladung). Du brauchst drei, und die Beschwörung wirkt nur alle 5 Minuten (Ausloggen setzt sie nicht zurück), plane also drei Runden ein.",
 	-- {npc:6492} Rift Spawn
-	["{npc:6492}, down to the stun"] = "",
+	["{npc:6492}, down to the stun"] = "{npc:6492}, bis zur Betäubung",
 	-- {item:7247} Chest of Containment Coffers · {npc:6492} Rift Spawn
-	["{item:7247}, on the stunned {npc:6492}"] = "",
+	["{item:7247}, on the stunned {npc:6492}"] = "{item:7247}, am betäubten {npc:6492}",
 
 	-- Step 5: Back to Jennea Cannon
 	-- {npc:5497} Jennea Cannon
@@ -37,13 +37,13 @@ return {
 
 	-- Step 6: Linen Cloth
 	-- {item:2589} Linen Cloth · {area:149} Silver Stream Mine · {object:2096} Trade District
-	["Any humanoid drops {item:2589}, and the Tunnel Rats in the {area:149} drop it while you gather the gems; the Auction House in the {object:2096} sells it. You hand in ten."] = "",
+	["Any humanoid drops {item:2589}, and the Tunnel Rats in the {area:149} drop it while you gather the gems; the Auction House in the {object:2096} sells it. You hand in ten."] = "Jeder Humanoide lässt {item:2589} fallen, und die Tunnel Rats in der {area:149} lassen es fallen, während du die Edelsteine sammelst; das Auktionshaus im {object:2096} verkauft es. Du gibst zehn ab.",
 
 	-- Step 7: The Silver Stream Mine
 	-- {area:149} Silver Stream Mine
 	["The {area:149}"] = "{area:149}",
 	-- {area:2257} Deeprun Tram · {zone:1455} Ironforge · {zone:1432} Loch Modan · {area:149} Silver Stream Mine · {area:144} Thelsamar · {object:271} Miners' League Crates
-	["Take the {area:2257} to {zone:1455}, then the road east through the South Gate tunnel into {zone:1432}. The {area:149} is at the north end of the loch, north of {area:144}; Tunnel Rat kobolds hold it. The gems come only from the tall stacked {object:271} (the cursor shows a cog over them; single boxes hold nothing): every crate gives one, there are fourteen and they come back after 3 to 5 minutes. You may have to go as deep as the end chamber for six. The same crates serve the dwarves' Filthy Paws quest."] = "",
+	["Take the {area:2257} to {zone:1455}, then the road east through the South Gate tunnel into {zone:1432}. The {area:149} is at the north end of the loch, north of {area:144}; Tunnel Rat kobolds hold it. The gems come only from the tall stacked {object:271} (the cursor shows a cog over them; single boxes hold nothing): every crate gives one, there are fourteen and they come back after 3 to 5 minutes. You may have to go as deep as the end chamber for six. The same crates serve the dwarves' Filthy Paws quest."] = "Nimm die {area:2257} nach {zone:1455}, dann die Straße nach Osten durch den Südtor-Tunnel nach {zone:1432}. Die {area:149} liegt am Nordende des Sees, nördlich von {area:144}; Tunnel-Rat-Kobolde halten sie. Die Edelsteine kommen nur aus den hohen gestapelten {object:271} (der Cursor zeigt ein Zahnrad über ihnen; einzelne Kisten enthalten nichts): Jede Kiste gibt einen, es gibt vierzehn, und sie kommen nach 3 bis 5 Minuten wieder. Für sechs musst du womöglich bis in die Endkammer. Dieselben Kisten dienen der Zwergenquest Filthy Paws.",
 
 	-- Step 8: Wynne Larson
 	-- {zone:1453} Stormwind · {npc:1309} Wynne Larson · {object:23296} Larson Clothiers · {object:2101} Mage Quarter
