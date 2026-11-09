@@ -6,9 +6,12 @@
 const { FORMAT, NEEDS, TOC_MARKER, TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX } = require('../pack/format');
 const { header } = require('../generated');
 
-const GUIDE_KEYS = ['id', 'pack', 'title', 'faction', 'races', 'classes', 'minLevel', 'maxLevel', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'zone', 'zoneName', 'next', 'nextChoices', 'nextWhen', 'pitch', 'pros', 'cons', 'author', 'version', 'group', 'names', 'written', 'steps'];
+// `credits` and `forkedFrom` (format 5) follow version: a guide without them is emitted as before.
+const GUIDE_KEYS = ['id', 'pack', 'title', 'faction', 'races', 'classes', 'minLevel', 'maxLevel', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'zone', 'zoneName', 'next', 'nextChoices', 'nextWhen', 'pitch', 'pros', 'cons', 'author', 'version', 'credits', 'forkedFrom', 'group', 'names', 'written', 'steps'];
+// A guide's `forkedFrom = { id, version }`: the guide it started from.
+const FORKED_FROM_KEYS = ['id', 'version'];
 // `image` follows note, so a step without one is emitted as before.
-const STEP_KEYS = ['title', 'note', 'image', 'label', 'only', 'when', 'along', 'skipto', 'goals'];
+const STEP_KEYS = ['id', 'title', 'note', 'image', 'label', 'only', 'when', 'along', 'skipto', 'goals'];
 // A step's picture: its path in the pack's addon folder (no extension) and its size in pixels.
 const IMAGE_KEYS = ['file', 'w', 'h'];
 // A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order.
@@ -16,11 +19,11 @@ const WHEN_KEYS = ['k', 'neg', 'op', 'n', 'frac', 'q', 'item', 'spell', 'name', 
 // Keys only the profession/reputation/exploration/achievement verbs use sit
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
-// goal without them is emitted as before.
+// goal without them is emitted as before. A `path`'s points and `cycle` follow r.
 const GOAL_KEYS = [
 	't', 'class', 'zone', 'spell', 'spellName', 'faction', 'factionName', 'standing', 'achievement', 'achievementName', 'criteria',
-	'quest', 'title', 'target', 'npc', 'npcName', 'object', 'objName', 'item', 'itemName', 'count', 'oi', 'skill', 'skillLine', 'rank', 'rankMax', 'level', 'frac', 'grind', 'money', 'untilSkill',
-	'reagents', 'location', 'minLevel', 'qlvl', 'pre', 'preAll', 'closedBy', 'preTitles', 'text', 'node', 'area', 'map', 'x', 'y', 'z', 'f', 'r', 'spots', 'spread', 'optional', 'only', 'profLine', 'profName', 'profRank', 'note',
+	'quest', 'title', 'target', 'npc', 'npcName', 'instance', 'icon', 'object', 'objName', 'item', 'itemName', 'count', 'oi', 'skill', 'skillLine', 'rank', 'rankMax', 'level', 'frac', 'grind', 'money', 'untilSkill',
+	'reagents', 'location', 'minLevel', 'qlvl', 'pre', 'preAll', 'closedBy', 'preTitles', 'text', 'node', 'area', 'map', 'x', 'y', 'z', 'f', 'r', 'pts', 'cycle', 'spots', 'spread', 'optional', 'only', 'profLine', 'profName', 'profRank', 'note',
 	'from', 'fromKind', 'fromRank', 'fromFaction', 'fromAlso', 'fromId', 'fromAlsoId', 'fromNpcs', 'candidates', 'rewards', 'group', 'direct', 'escort',
 ];
 const REAGENT_KEYS = ['item', 'itemName', 'count'];
@@ -32,13 +35,15 @@ const SOURCE_NPC_KEYS = ['npc', 'npcName'];
 // radius in yards, spawn count, and `alt` for a place the arrow reaches only
 // when moved on to it.
 const SPOT_KEYS = ['x', 'y', 'z', 'r', 'n', 'alt'];
+// A `path`'s points: map percent in the goal's map and frame.
+const PATH_POINT_KEYS = ['x', 'y'];
 // A turn-in's `rewards = { choices, items, money, xp }`: item lists in this order.
 const REWARD_KEYS = ['item', 'itemName', 'quality'];
 // A guide's `reward = { ... }`: an item (`choice` when one of several), a spell or words.
 const GUIDE_REWARD_KEYS = ['item', 'itemName', 'quality', 'choice', 'spell', 'spellName', 'text'];
 // Farm-spot rates (items per kill) need three decimals; coordinates are already rounded to two.
 const LIST_DECIMALS = { candidates: 3 };
-const LIST_KEYS = { reagents: REAGENT_KEYS, candidates: CANDIDATE_KEYS, fromNpcs: SOURCE_NPC_KEYS, spots: SPOT_KEYS, items: REWARD_KEYS, choices: REWARD_KEYS, reward: GUIDE_REWARD_KEYS };
+const LIST_KEYS = { reagents: REAGENT_KEYS, candidates: CANDIDATE_KEYS, fromNpcs: SOURCE_NPC_KEYS, spots: SPOT_KEYS, pts: PATH_POINT_KEYS, items: REWARD_KEYS, choices: REWARD_KEYS, reward: GUIDE_REWARD_KEYS };
 const ONLY_KEYS = ['classes', 'races', 'factions'];
 // RegisterPack's keys in order (`addon` and `format` are written by the compiler).
 const PACK_KEYS = ['id', 'title', 'author', 'version', 'license', 'website', 'source', 'notes'];
@@ -244,7 +249,8 @@ function emitGuide(guide, sourceRel, { deferred = false } = {}) {
 			// The English of the texts' name tokens (tools/lib/dsl/tokens.js), "kind:id" -> name;
 			// written: the author's words of a text that spells a name otherwise, tokenised text -> words.
 			out.push(`\t\t\t${k} = { ${Object.keys(v).sort().map((t) => `[${luaString(t)}] = ${luaString(v[t])}`).join(', ')} },`);
-		} else if (Array.isArray(v)) out.push(`\t\t\t${k} = ${list(v, LIST_KEYS[k] || null)},`);
+		} else if (k === 'forkedFrom') out.push(`\t\t\tforkedFrom = ${inline(v, FORKED_FROM_KEYS)},`);
+		else if (Array.isArray(v)) out.push(`\t\t\t${k} = ${list(v, LIST_KEYS[k] || null)},`);
 		else out.push(`\t\t\t${k} = ${scalar(v)},`);
 	}
 	const classes = deferred && Array.isArray(guide.classes) && guide.classes.length ? guide.classes : null;
@@ -311,7 +317,8 @@ function guideData(guide) {
 			const m = {};
 			for (const t of Object.keys(v).sort()) m[t] = String(v[t]);
 			out[k] = m;
-		} else if (Array.isArray(v)) out[k] = dataList(v, LIST_KEYS[k] || null);
+		} else if (k === 'forkedFrom') out[k] = dataInline(v, FORKED_FROM_KEYS);
+		else if (Array.isArray(v)) out[k] = dataList(v, LIST_KEYS[k] || null);
 		else out[k] = dataScalar(v);
 	}
 	return out;
@@ -583,4 +590,4 @@ function emitLicense(meta, legs = false) {
 	return `${out.join('\n').trimEnd()}\n`;
 }
 
-module.exports = { emitGuides, emitPack, emitToc, emitTextsToc, emitPartToc, emitLegs, emitRetired, emitTexts, emitMapFrames, emitClassTrainers, emitLicense, luaString, luaNumber, luaKey, inline, idMap, guideData, framesData, GUIDE_KEYS, STEP_KEYS, IMAGE_KEYS, WHEN_KEYS, GOAL_KEYS, ONLY_KEYS, LIST_KEYS, FRAME_KEYS };
+module.exports = { emitGuides, emitPack, emitToc, emitTextsToc, emitPartToc, emitLegs, emitRetired, emitTexts, emitMapFrames, emitClassTrainers, emitLicense, luaString, luaNumber, luaKey, inline, idMap, guideData, framesData, GUIDE_KEYS, STEP_KEYS, IMAGE_KEYS, WHEN_KEYS, GOAL_KEYS, ONLY_KEYS, LIST_KEYS, FRAME_KEYS, FORKED_FROM_KEYS };

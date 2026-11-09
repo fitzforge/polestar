@@ -660,7 +660,7 @@ fn check_redundant_gotos(g: &V, data: &Data, diag: &mut Diagnostics) {
 			if t_of(goto) != "goto" || goto.get("x").is_undef() {
 				continue;
 			}
-			let Some(next) = goals[i + 1..].iter().find(|goal| t_of(goal) != "note") else { continue };
+			let Some(next) = goals[i + 1..].iter().find(|goal| !matches!(t_of(goal).as_str(), "note" | "mark" | "area")) else { continue };
 			// (A grind's goto is where the arrow leads when its mob has no spawns: the Engine's fallback, kept.)
 			if t_of(next) == "goto"
 				|| t_of(next) == "level"
@@ -1047,6 +1047,18 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 		check_bare_completes(g, data, diag);
 		check_bare_uses(g, diag);
 		check_chosen_all_optional(g, diag);
+		// A step id (format 10) used twice in the guide.
+		let mut step_ids: FxHashMap<String, f64> = FxHashMap::default();
+		for s in g.get("steps").items() {
+			let Some(id) = s.get("id").as_str().map(str::to_string) else { continue };
+			let line = s.hidden("idLine").num();
+			match step_ids.get(&id) {
+				Some(first) => diag.error(&file, line, format!("step id \"{id}\" used twice (first at line {first})"), None),
+				None => {
+					step_ids.insert(id, line);
+				}
+			}
+		}
 		let mut accepted: FxHashSet<Key> = FxHashSet::default();
 		let mut turned_in: FxHashSet<Key> = FxHashSet::default();
 		let mut when_only: FxHashSet<Key> = FxHashSet::default();

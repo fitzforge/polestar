@@ -350,8 +350,9 @@ Share the line in `cozy.txt` on Discord, GitHub, a forum or your listing.
   author is the guide's `author`, else the pack's.
 - `export` lints the pack first and refuses a guide with errors. It prints
   only the string on stdout.
-- Limits: 60 steps, 100 goals per step, 128 candidates per goal, 50,000
-  characters for the string. A bigger guide, or a set of guides, is a
+- Limits: 250 steps, 100 goals per step, 128 candidates per goal, 300,000
+  characters for the string (`export --v1`, for Polestar before 0.3.7: 60
+  steps and 50,000 characters). A bigger guide, or a set of guides, is a
   community addon.
 - A `next` or route choice may lead only to one of Polestar's guides or a
   guide the player has already imported; `export` names the guides to import

@@ -10,13 +10,17 @@ const { header } = require('../generated');
 // `when` (`nextWhen`); format 5 adds the `money`, `task`, `enter`, `cast`, `abandon`, `destroy` and `die` goals, the
 // `money`, `dungeon`, `upgrade`, `done`, `skill`, `cooldown`, `group` and `knows` when predicates and a step's `skipto`; a pack is written in the first format its guides
 // need (formatFor): a pack without any stays readable by Polestar 0.2.5.
+// Format 10 adds an author's tools (Polestar Studio): a step's stable `id`,
+// the `boss`, `mark`, `path` and `area` goals, and a guide's `credits` and
+// `forkedFrom`.
 const FORMAT = 3;
 const WHEN_FORMAT = 4;
 const MONEY_TASK_FORMAT = 5;
 // Format 6 (read, no longer written): a guide's baked legs inline (`legs`). Format 7: baked
 // legs in the race parts' Legs.lua (Polestar.RegisterLegs; legs.json, forge guide bake).
 const LEGS_FORMAT = 7;
-const NEEDS = { 1: '0.1.0', 2: '0.2.4', 3: '0.2.5', 4: '0.2.6', 5: '0.3.0', 6: '0.3.0', 7: '0.3.0' };
+const STUDIO_FORMAT = 10;
+const NEEDS = { 1: '0.1.0', 2: '0.2.4', 3: '0.2.5', 4: '0.2.6', 5: '0.3.0', 6: '0.3.0', 7: '0.3.0', 10: '0.3.7' };
 
 // A step with `label` or `along` (an older Polestar would stop at an along step).
 const usesAlong = (s) => s.label !== undefined || s.along !== undefined;
@@ -37,13 +41,21 @@ const usesMoneyTask = (g) => (g.steps || []).some((s) =>
 	(s.goals || []).some((goal) => MONEY_TASK_VERBS.has(goal.t)) || needs5(s.when) || (Array.isArray(s.skipto) && s.skipto.length)) ||
 	Object.values(g.nextWhen || {}).some(needs5);
 
-// The format a pack's compiled guides need: MONEY_TASK_FORMAT when a guide
+// A step's stable `id`, the `boss`, `mark`, `path` and `area` goals, or a
+// guide's `credits` or `forkedFrom` need format 10 (Polestar 0.3.7).
+const STUDIO_VERBS = new Set(['boss', 'mark', 'path', 'area']);
+const usesStudio = (g) => g.credits !== undefined || g.forkedFrom !== undefined
+	|| (g.steps || []).some((s) => s.id !== undefined || (s.goals || []).some((goal) => STUDIO_VERBS.has(goal.t)));
+
+// The format a pack's compiled guides need: STUDIO_FORMAT when a guide uses
+// an author's tools (above), MONEY_TASK_FORMAT when a guide
 // uses money/task/enter/cast/abandon/destroy/die goals, a money, dungeon, upgrade, done, skill, cooldown, group or knows when predicate or a
 // `skipto`, WHEN_FORMAT when a step
 // has `when`, `label` or `along`, a level goal has `frac`, or a `next`
 // option has `when` (`nextWhen`), else FORMAT. A pack with baked legs is
 // LEGS_FORMAT (project.js buildPackFiles).
 function formatFor(guides) {
+	if ((guides || []).some(usesStudio)) return STUDIO_FORMAT;
 	if ((guides || []).some(usesMoneyTask)) return MONEY_TASK_FORMAT;
 	const uses = (guides || []).some((g) => (g.steps || []).some((s) => (Array.isArray(s.when) && s.when.length) || usesAlong(s)));
 	if (uses || (guides || []).some(usesLevelFrac)) return WHEN_FORMAT;
@@ -54,7 +66,7 @@ function formatFor(guides) {
 
 const PACK_ID_RE = /^[a-z0-9][a-z0-9-]{1,31}$/;
 const FOLDER_RE = /^[A-Za-z0-9_-]{1,64}$/;
-const RESERVED_IDS = new Set(['guides', 'forever', 'lookup', 'draft', 'polestar', 'imported']);
+const RESERVED_IDS = new Set(['guides', 'forever', 'lookup', 'draft', 'polestar', 'imported', 'studio']);
 
 // A folder we generated says so in its TOC (and the old layout in Pack.xml):
 // only such a folder is ever replaced by compile, install or dev.
@@ -100,4 +112,4 @@ function placeholderLicense(license) {
 	return `Licensed under ${license}: ${LICENSE_PLACEHOLDER}.\n`;
 }
 
-module.exports = { FORMAT, WHEN_FORMAT, MONEY_TASK_FORMAT, LEGS_FORMAT, NEEDS, formatFor, PACK_ID_RE, FOLDER_RE, RESERVED_IDS, GENERATED_MARKER, LEGACY_GENERATED_MARKER, isGenerated, TOC_MARKER, TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX, LICENSE_PLACEHOLDER, ownsGuideId, defaultFolder, placeholderLicense };
+module.exports = { FORMAT, WHEN_FORMAT, MONEY_TASK_FORMAT, LEGS_FORMAT, STUDIO_FORMAT, NEEDS, formatFor, PACK_ID_RE, FOLDER_RE, RESERVED_IDS, GENERATED_MARKER, LEGACY_GENERATED_MARKER, isGenerated, TOC_MARKER, TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX, LICENSE_PLACEHOLDER, ownsGuideId, defaultFolder, placeholderLicense };

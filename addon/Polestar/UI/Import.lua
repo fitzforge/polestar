@@ -64,7 +64,8 @@ end
 
 local function count(n, one, many) return n == 1 and one or many:format(n) end
 
--- "Title · by Author · 14 steps · levels 30–40 · Alliance and Horde · CC-BY-4.0"
+-- "Title · by Author · 14 steps · levels 30–40 · Alliance and Horde · CC-BY-4.0",
+-- then its provenance a line each: "Credits: …", "Based on <title or id> v<version>".
 function IV.PreviewText(info)
 	local out = { info.title }
 	if info.author then out[#out + 1] = format(L["by %s"], info.author) end
@@ -74,16 +75,28 @@ function IV.PreviewText(info)
 	end
 	out[#out + 1] = info.faction and ns.FactionName(info.faction) or L["Alliance and Horde"]
 	out[#out + 1] = info.license
-	return table.concat(out, DOT)
+	local lines = UI.Picker.Provenance(info.credits, info.forkedFrom)
+	table.insert(lines, 1, table.concat(out, DOT))
+	return table.concat(lines, "\n")
+end
+
+-- Is guide `id` open in a tab?
+local function openInTab(id)
+	return ns.Engine and ns.Engine.TabIds and ns.Engine.TabIds()[id] and true or false
 end
 
 -- What the pasted guide is to the player: new, a newer version of one
--- imported, the same, or older. -> the line under the preview, or nil
+-- imported (with what it changes, and whether the player's place is kept),
+-- the same, or older. -> the line under the preview, or nil
 local function stateNote(info)
 	if info.state == "update" then
 		local note = format(L["You have version %s of this guide. Update replaces it and keeps your progress where its steps are unchanged."], tostring(info.have))
 		if info.authorChanged then note = note .. " " .. L["The author differs from the stored guide's."] end
 		if info.licenseChanged then note = note .. " " .. L["The licence differs from the stored guide's."] end
+		if info.diff then
+			note = note .. "\n" .. format(L["%d steps added, %d removed, %d changed"], info.diff.added, info.diff.removed, info.diff.changed)
+			if openInTab(info.id) then note = note .. DOT .. L["Your progress is kept."] end
+		end
 		return note
 	elseif info.state == "same" then
 		return L["This guide is already imported, at this version."]
@@ -111,6 +124,17 @@ function IV.Clear()
 	preview, refusal = nil, nil
 	if parts.Box then parts.Box:SetText("") end
 	relayout()
+end
+
+-- A string from elsewhere (a chat link, Core/Share.lua): shown in the box as
+-- a paste is, its start and size, and read once.
+function IV.Paste(value)
+	local box = parts.Box
+	if box then
+		box:SetText(format("%s\226\128\166 (%d KB)", value:gsub("%s", ""):sub(1, 40), math.ceil(#value / 1024)))
+		box:ClearFocus()
+	end
+	IV.Check(value)
 end
 
 -- Import or Update what the preview shows.
@@ -231,7 +255,7 @@ function IV.Build(parent, shell)
 			L["One small guide: a quest chain, an item, a mount, an errand."],
 			L["Its author shares it as text, anywhere. Paste it below."],
 			L["Updates: paste the newer string, then Update."],
-			(L["One guide of up to %d steps."]):format(ns.Import and ns.Import.LIMITS.steps or 60),
+			(L["One guide of up to %d steps."]):format(ns.Import and ns.Import.LIMITS_V2.steps or 250),
 		} },
 		{ L["Community addon"], {
 			L["A whole route or a set of guides: a leveling route, every profession."],

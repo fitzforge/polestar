@@ -9,6 +9,8 @@
 --               map + minimap)
 --   nav.goalAreas  the regions the step's other open goals spawn in, fainter, in the
 --               goals' colour (world map)
+--   guide-area  the current step's `area` goals (guide format 10): each its compiled hull,
+--               in the arrow's colour, until the step changes (world map + minimap)
 -- and the trail (Pins.SetTrail): dots from the player along the travel route's lines (each
 -- leg's start where the mode changes, and its end), broken at a Hearthstone (a jump, not a
 -- path) and across continents; without a route, straight to the target (both surfaces).
@@ -29,6 +31,7 @@ Nav.layers = Layers
 local TARGET, ROUTE, GOALS, SPOTS = "nav.target", "nav.route", "nav.goals", "nav.spots"
 local AREAS, GOAL_AREAS = "nav.areas", "nav.goalAreas"
 local HERE, HERE_AREAS = "nav.here", "nav.hereAreas"
+local GUIDE_AREA = "guide-area"
 
 local function color(name)
 	local r, g, b = Nav.RGB(name)
@@ -426,6 +429,73 @@ local function updateTrail(world, minimap)
 	Pins.SetTrail(runs, { world = world, minimap = minimap, color = color("arrow") })
 end
 
+-- An `area` goal's hull in world yards: { c, wx, wy (its centre), hull =
+-- { wx1, wy1, ... } }, from its compiled points (map percent, a convex hull
+-- in its map's frame), worked out once per goal; nil while the map does not
+-- resolve yet, false when the points straddle continents.
+local areaHulls = setmetatable({}, { __mode = "k" })
+
+local function areaHullOf(goal)
+	local cached = areaHulls[goal]
+	if cached ~= nil then return cached or nil end
+	local C = ns.Compat
+	if not (C and C.MapToWorld and type(goal.pts) == "table" and goal.map) then return nil end
+	local hull, c, sx, sy = {}, nil, 0, 0
+	for i, p in ipairs(goal.pts) do
+		local pc, wx, wy = C.MapToWorld(goal.map, p.x, p.y, goal.f)
+		if not pc then return nil end -- not resolvable yet: try again later
+		if c ~= nil and pc ~= c then
+			areaHulls[goal] = false
+			return nil
+		end
+		c = pc
+		hull[2 * i - 1], hull[2 * i] = wx, wy
+		sx, sy = sx + wx, sy + wy
+	end
+	local n = #goal.pts
+	if n < 3 then return nil end
+	local h = { c = c, wx = sx / n, wy = sy / n, hull = hull }
+	areaHulls[goal] = h
+	return h
+end
+
+-- The current step's `area` goals for this character (`only`, as Engine.lua's
+-- goalApplies reads it), shaded in the arrow's colour. Set again only when
+-- what it shows changed: another guide or step, a hull that resolved,
+-- colours or surfaces.
+local areaSig = {}
+
+local function updateGuideArea(world, minimap)
+	local Engine = ns.Engine
+	local guide = (world or minimap) and Engine and Engine.GetGuide and Engine.GetGuide()
+	local step = guide and guide.steps and guide.steps[Engine.GetStepIndex() or 0]
+	local player = step and ns.Compat.GetPlayerInfo()
+	local r, g, b = Nav.RGB("arrow")
+	local sig, hulls = { world, minimap, r, g, b }, {}
+	for _, goal in ipairs(step and step.goals or {}) do
+		local h = goal.t == "area" and ns.Guides.Matches(goal.only, player) and areaHullOf(goal)
+		if h then
+			hulls[#hulls + 1] = h
+			sig[#sig + 1] = h
+		end
+	end
+	local same = #sig == #areaSig
+	for i = 1, #sig do
+		if sig[i] ~= areaSig[i] then same = false end
+	end
+	if same then return end
+	areaSig = sig
+	if #hulls == 0 then
+		Pins.ClearLayer(GUIDE_AREA)
+		return
+	end
+	local pins = {}
+	for i, h in ipairs(hulls) do
+		pins[i] = { c = h.c, wx = h.wx, wy = h.wy, hull = h.hull, areaOnly = true, color = { r, g, b, 1 } }
+	end
+	Pins.SetLayer(GUIDE_AREA, pins, { world = world, minimap = minimap, minimapAreas = true })
+end
+
 local function surfaces()
 	return ns.Get("nav.worldPins") and true or false, ns.Get("nav.minimapPins") and true or false
 end
@@ -443,6 +513,7 @@ function Layers.Update()
 	updateSpots(world)
 	updateAreas(world, minimap, index, view)
 	updateHere(world, minimap)
+	updateGuideArea(world, minimap)
 	updateTrail(world, minimap)
 end
 
@@ -461,6 +532,13 @@ ns.On("STEP_UPDATED", Layers.Update)
 ns.On("ROUTE_CHANGED", Layers.Update)
 ns.On("WHILE_HERE_CHANGED", Layers.Update)
 ns.On("ROUTE_ADVANCED", onAdvanced)
+-- A new step or guide: its areas replace the last one's.
+local function onStep()
+	local world, minimap = surfaces()
+	updateGuideArea(world, minimap)
+end
+ns.On("STEP_CHANGED", onStep)
+ns.On("GUIDE_CHANGED", onStep)
 ns.On("NAV_ROUTE_GEOMETRY", function()
 	local world, minimap = surfaces()
 	updateTrail(world, minimap)

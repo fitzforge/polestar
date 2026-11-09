@@ -117,9 +117,22 @@ pub fn group_of(goal: &V, explicit: &V, sides: &V, data: &Data) -> V {
 	}
 	let inst = &data.instances;
 	if inst.truthy() {
+		// A boss goal's instance (format 10, a Map.csv map id): the dungeon or raid whose `map` it is.
+		let mut by_instance = V::Bool(false);
+		if !goal.get("instance").is_undef() {
+			'find: for table in [inst.get("areas"), inst.get("maps")] {
+				for k in table.keys() {
+					let rec = table.get(&k);
+					if rec.get("map").strict_eq(&goal.get("instance")) && is_run(&rec.get("kind")) {
+						by_instance = rec;
+						break 'find;
+					}
+				}
+			}
+		}
 		let by_quest =
 			if !goal.get("quest").is_undef() { crate::solo::instance_quest(&data.quest(&goal.get("quest")), &inst.get("areas"), &|kind, id| placed(data, kind, id)) } else { V::Bool(false) };
-		let mut run = if by_quest.truthy() && is_run(&by_quest.get("kind")) { by_quest } else { V::Bool(false) };
+		let mut run = if by_instance.truthy() { by_instance } else if by_quest.truthy() && is_run(&by_quest.get("kind")) { by_quest } else { V::Bool(false) };
 		if !run.truthy() {
 			run = if !goal.get("map").is_undef() { inst.get("maps").get(&goal.get("map").to_js_string()) } else { V::Bool(false) };
 		}

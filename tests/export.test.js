@@ -109,13 +109,23 @@ test('export prints the string of the guide in the file on stdout, and nothing e
 	assert.equal(r.status, 0, r.stderr);
 	const lines = r.stdout.trim().split('\n');
 	assert.equal(lines.length, 1);
+	assert.match(lines[0], /^!PS2!/, 'a v2 string by default');
 	const p = decodeImport(lines[0]);
 	assert.equal(p.guide.id, 'yendi/northshire');
 	assert.equal(p.license, 'CC-BY-4.0');
 	assert.equal(p.guide.author, 'Yendi');
 	assert.equal(p.guide.steps.length, 4);
+	assert.equal(p.source.header.guide, 'yendi/northshire', 'it carries the guide as written');
+	assert.equal(p.source.steps.length, 4);
 	assert.match(r.stderr, /exported yendi\/northshire: 4 steps/);
 	assert.match(r.stderr, /leads on to yendi\/goldshire: players import that guide first/);
+	// --v1: the compiled guide alone, as Polestar before 0.3.7 reads.
+	const v1 = exportGuide(dir, 'guides/northshire.guide', ['--v1']);
+	assert.equal(v1.status, 0, v1.stderr);
+	assert.match(v1.stdout.trim(), /^!PS1!/);
+	const p1 = decodeImport(v1.stdout);
+	assert.equal(p1.source, undefined);
+	assert.deepEqual(p1.guide, p.guide);
 });
 
 test('export refuses a guide with lint errors, but not for another guide\'s', () => {

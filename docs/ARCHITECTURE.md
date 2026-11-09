@@ -34,6 +34,7 @@ one into the other. The addons:
 | `Polestar_Nav_EK`, `Polestar_Nav_Kalimdor` (`addon/Polestar_Nav_EK/`, `addon/Polestar_Nav_Kalimdor/`) | The map parts of each continent's walking maps when they are Leffe's (maps format 5; their metadata stays in Polestar_Nav); loaded on demand by Polestar_Nav's router the first time it searches that continent (Polestar searches only the player's continent and those already loaded), never in combat ("Leffe's navigation maps in game") | `forge nav pack --leffe` | yes | yes, when written |
 | `Polestar_Travel` (`addon/Polestar_Travel/`) | Zone crossings for the travel planner, from an optional local crossings file; loaded with Polestar | `travel build` | no (local, gitignored) | no, never packaged (Nav, "Travel planner and zone crossings") |
 | `Polestar_Recorder` (`addon/Polestar_Recorder/`) | The optional standalone recorder of play sessions, for authoring | hand-written | yes | yes, as its own zip |
+| `Polestar_Studio` (`addon/Polestar_Studio/`) | Polestar Studio, the optional in-game guide editor (`/studio`): one window docked to the screen's right edge (steps on the left, the picked step on the right, its tools on one toolbar, the quest log, targets, nearby objects and position as tabs), plays its draft through `Polestar.Studio` and exports v2 import strings | hand-written | yes | no (not packaged yet) |
 
 A guide goes from a `.guide` file to the game in four steps. An author
 writes it in a pack (`guides/` for Polestar's own). `lint` and
@@ -153,6 +154,7 @@ Messages:
 | `SHOW_IMPORT` | — | `/polestar import` (Core/Import.lua) → UI/Import.lua: the hub at Import |
 | `TOGGLE_PICKER` / `TOGGLE_OPTIONS` | — | key bindings and gamepad chords (`POLESTAR_MENU`, `POLESTAR_OPTIONS`) → UI: open, or close when open |
 | `TOGGLE_FOCUS` | — | `POLESTAR_FOCUS` → UI/GamepadGuide.lua (focus mode) |
+| `SLAIN` | npcId | Core/Slain.lua, a creature's death in the combat log while a boss goal is open → Engine (latches the boss goal) |
 
 Modules fire their own (`TABS_CHANGED`, `ROUTE_*`, `TRAIN_DUE`,
 `CLASS_TRAINED`, `GUIDE_OUTLEVELED`, `QUESTDB_*`, `CODEX_LOADED`,
@@ -717,7 +719,11 @@ icons, names and cooldowns (`C_Item.GetItemIconByID`, `GetItemIcon`,
 `GetSpellTexture`, `C_Container.GetItemCooldown`, `GetItemCooldown`) and
 `IsPlayerSpell` when Compat has no `IsSpellKnown` (`Nav/Prompts.lua`), the
 transport alerts' game sound and taskbar flash (`PlaySoundFile` on the Master
-channel, `FlashClientIcon`; `Nav/Alerts.lua`), and the flight map's node
+channel, `FlashClientIcon`; `Nav/Alerts.lua`), the mark goals' raid icons on
+nameplates and their tooltip line (plates through `Compat.GetNamePlateForUnit`,
+`NAME_PLATE_UNIT_ADDED`, `NAME_PLATE_UNIT_REMOVED`, the `RAID_TARGET_1`-`8`
+names, unit GUIDs through `Compat.GetNpcID`, lines through `Polestar.Hooks`;
+never `SetRaidTarget`; `Nav/Marks.lua`), and the flight map's node
 slots and hop lines (`GetTaxiMapID`, `C_TaxiMap.GetAllTaxiNodes`,
 `TaxiNodeGetType`, `GetNumRoutes`, `TaxiGetNodeSlot`, `DrawLine` on
 `TaxiRouteMap`; the step key's flight: `TaxiNodeCost`, `TakeTaxiNode`;
@@ -807,6 +813,7 @@ Compat.GetBindLocation()               -> string | nil
 Compat.IsOnTaxi()                      -> bool
 Compat.GetCurrentTaxiNode()            -> name of the open taxi map's node | nil
 Compat.GetNpcID(unit)                  -> number | nil   (from UnitGUID)
+Compat.GetNamePlateForUnit(unit)       -> frame | nil    (C_NamePlate; nil when forbidden)
 Compat.InCombat()                      -> bool
 Compat.IsInInstance()                  -> bool, instanceType ("party" | "raid" | "pvp" | ... inside)
 Compat.IsIndoors()                     -> bool | nil (the client's indoor state; nil without IsIndoors or when secret)
@@ -1121,14 +1128,56 @@ place is taken by its open tab where it stands (Engine, `PACKS_CHANGED`:
 `restoredTab`, so ticks and skips follow the steps it kept).
 
 ```lua
-Polestar.Import.Decode(text) -> entry | nil, reason   -- entry = { format, license, guide, frames }
-Polestar.Import.Preview(text) -> info | nil, reason   -- info: entry, id, title, author, version, steps, minLevel, maxLevel, faction, license, state ("new"|"update"|"same"|"older"), have
+Polestar.Import.Decode(text) -> entry | nil, reason   -- entry = { format, license, guide, source?, frames }; !PS1! under LIMITS, !PS2! under LIMITS_V2
+Polestar.Import.Preview(text) -> info | nil, reason   -- info: entry, id, title, author, version, steps, minLevel, maxLevel, faction, license, state ("new"|"update"|"same"|"older"), have, credits (escaped list), forkedFrom ({ id escaped, version }), diff (an update: Engine.DiffSteps of the stored guide and this one)
 Polestar.Import.Save(entry) -> ok, reason             -- checks again, registers, stores
+Polestar.Import.Entry(id) -> entry | nil              -- an imported guide's stored entry (Share re-encodes it)
 Polestar.Import.Delete(id) -> bool
 Polestar.Import.List() -> { { id, title, author, version, license, steps, problem }, ... }  -- by title
 Polestar.Import.Load()                                -- at login
-Polestar.Import.LIMITS                                -- { length = 50000, steps = 60, payload = 262144, text = 4096 }
+Polestar.Import.Build(tree) -> entry | nil, reason    -- a parsed payload in the schema's shape (Studio's drafts too)
+Polestar.Import.Check(entry, { caps?, draft? }) -> nil | reason  -- the import checks; draft: a `studio/<slug>` id
+Polestar.Import.Encode(entry) -> text | nil, reason   -- a !PS2! string of an entry (Share, Polestar Studio's Export)
+Polestar.Import.LIMITS, LIMITS_V2, CAPS               -- v1 { length = 50000, steps = 60, payload = 262144, text = 4096, … }; v2 300000 / 250 / 1048576; CAPS[version]
 ```
+
+**Polestar Studio's door** (`Core/Studio.lua`, `Polestar.Studio`). Polestar
+Studio (`addon/Polestar_Studio/`, its own addon) edits a guide in game and
+plays it in Polestar while it is written: its draft, a payload as a v2
+string's (`{ format, license, guide, source? }`), shaped and checked as an
+import (`Import.Build`, `Import.Check` with `draft`). The draft plays under
+`studio/<slug>` (the guide id after its author's handle) in the reserved pack
+`studio` (Core/Guides.lua: registered only once Studio enables it, never
+stored, never listed under Imported nor offered as a suggestion source);
+`Studio.Entry` keeps the author's own id for Export and Share.
+
+```lua
+Polestar.Studio.Enable()                                   -- register the `studio` pack (SetDraft does it too)
+Polestar.Studio.SetDraft(payload) -> true | false, { problems }  -- register or replace the draft; never in combat
+Polestar.Studio.ClearDraft()                               -- drop the draft (Guides.DropDraft); its tab goes absent
+Polestar.Studio.PinStep(guideId, stepId) -> bool           -- open the guide and look at the step with that `id`
+Polestar.Studio.Checks(payload) -> { { step?, goal?, message }, ... }  -- every problem the import checks find
+Polestar.Studio.DraftId(guideId) -> "studio/<slug>"
+Polestar.Studio.Entry(draftId) -> entry | nil              -- a copy of the draft's entry, under the author's id
+```
+
+**Share** (`Core/Share.lua`): `Polestar.Share.Link(guideId)` puts a chat link
+to an imported guide or the draft into the open chat box
+(`|Hgarrmission:polestar:<sender>:<guideId>|h[Polestar: <title>]|h`, a link
+type the server passes to other players). A click whispers `REQ <guideId>` to
+the sender on the addon prefix `PolestarShare`; the sender answers only links
+it made in the last 5 minutes, with the entry re-encoded (`Import.Encode`) in
+240-byte chunks (`BIG` over 64 KB, `NO` for an unknown or expired link). The
+receiver takes chunks only from a sender it asked and opens the Import page
+on the joined string (`UI/Import.lua`, `IV.Paste`); nothing is saved before
+the player presses Import.
+
+**Boss deaths** (`Core/Slain.lua`): `boss` goals (format 10) are done when
+the boss dies. `Polestar.Slain.Watch(on)` reads `COMBAT_LOG_EVENT_UNFILTERED`
+only while the step in play has an open boss goal (the Engine's evaluation
+turns it on and off, `Own.syncStep`); a creature's `UNIT_DIED` (or `PARTY_KILL`) fires
+`SLAIN(npcId)`, and the Engine latches the matching boss goal of the step in
+play as checked off, so a reload keeps it done.
 
 Only guides of shown packs (`on`, plus the internal `lookup`) are visible to
 `Get`, `List`, `Suggestions`, `Suggest`, `OfferedBy`, search and
@@ -2702,6 +2751,16 @@ the world map and the minimap (`nav.worldPins`, `nav.minimapPins`);
 every goal's regions in `nav.goalAreas`. The layers are set again only when
 what they show changed (step, open goals, the arrow's goal, colours,
 surfaces), so route and progress updates redraw nothing.
+
+A step's `area` goals (guide format 10) are shaded by `Layers.lua` too, in the
+`guide-area` layer: each goal's compiled `pts` (the corners of a convex hull,
+map percent in its `map` and frame `f`) converted to world yards once per
+goal (cached by the compiled goal table; a map that does not resolve yet is
+tried again) and drawn as one `hull` pin (`areaOnly`) in the arrow's colour,
+on the world map and the minimap (`minimapAreas`), for the areas whose `only`
+matches the character. The layer is set again on `STEP_CHANGED` and
+`GUIDE_CHANGED` (cleared when the new step has none) and with the other
+layers, only when what it shows changed.
 
 While a `SetTarget` override is active the Engine keeps announcing its own
 waypoint; `Nav.GetTarget()` is the point actually being guided to. Nav fires
@@ -6085,7 +6144,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   into Polestar side by side (an import string for one small guide, a
   community addon for a route or a set), then a single-line box: what is
   pasted is read at once (`Import.Preview`) and shown before anything is
-  saved ("Title · by Author · N steps · levels a–b · faction · licence"),
+  saved ("Title · by Author · N steps · levels a–b · faction · licence",
+  then a line each for a guide's provenance, format 10: "Credits: …" and
+  "Based on <title or id> v<version>", `UI.Picker.Provenance`),
   with Import (Update when an older version is imported; nothing for the
   same or a newer one, with a line saying so) and Cancel, or the reason it
   is refused. Enter imports. Below, "Your imported guides" (title, "By
@@ -6260,7 +6321,10 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   pack (`pack:<id>`, "<title> · <author>"), its guides grouped as ours are.
   Pack guides carry their pack's title in rows and results; the details pane
   has a credits line for every guide ("By <author> · <pack title> <version> ·
-  <licence>", plus the pack's `source`; ours "By Polestar"). The empty states
+  <licence>", plus the pack's `source`; ours "By Polestar"), followed by the
+  guide's provenance (format 10) a line each: `P.Provenance(credits,
+  forkedFrom)` -> "Credits: a, b" and "Based on <registered title, else the
+  id> v<version>" (the texts arrive escaped). The empty states
   name both Polestar Guides and community addons.
 - **Community guides page** (`UI/Packs.lua`, Options order 70, `/polestar
   packs`): one row per `Guides.Packs()` record: title, credits, guide count,
@@ -6937,7 +7001,8 @@ What `compile` writes into a pack's folder: Core, "Guide data (compiled Lua)".
 |---|---|
 | `new [dir]` | writes a pack from `tools/templates/pack/` (the CI workflow and devcontainer only when the clone has an `origin`) |
 | `lint`, `compile` | checks with our guides as context; writes `<pack>/dist/<folder>/`; `--format text\|json\|github` |
-| `export <file.guide>` | lints the file's pack (the nearest `pack.json` above it) and prints its one guide as an import string (`tools/lib/pack/importstring.js`; PACK_FORMAT.md, "Import strings"); refuses a file with errors, of several guides, of Polestar's own, over 60 steps or 50,000 characters. `play` and `dev --play` give the same string (`POST /api/import`, the page's Copy import string) |
+| `export <file.guide>` | lints the file's pack (the nearest `pack.json` above it) and prints its one guide as an import string (`tools/lib/pack/importstring.js`; PACK_FORMAT.md, "Import strings"); refuses a file with errors, of several guides, of Polestar's own, over 250 steps or 300,000 characters (a v2 string, `!PS2!`, carrying the source tree; `--v1`: the compiled guide alone, 60 steps or 50,000 characters). `play` and `dev --play` give the same string (`POST /api/import`, the page's Copy import string) |
+| `decode <string-or-file>` | writes the guide source an import string carries (or its JSON payload) back as a pack, `pack.json` and `guides/<name>.guide`, into `--out <dir>` (new or empty) or a temp folder (`tools/lib/pack/sourcetree.js` `toText`; PACK_FORMAT.md, "Source tree"); a v1 string has no source and is refused |
 | `doctor` | Node, Lua, reference data, AddOns folder, `pack.json` |
 | `find` | quests, NPCs, objects, items, inns, flight points and our guides as guide lines (`--json`); `--kind inn\|flight` without a text lists every inn or flight point (from `travel.json`) |
 | `playtest` | every guide to the end per class (`tools/lib/playtest.js`, also behind `tests/guides.test.js`); a guide starts with the prerequisites of its accepts that the guides chaining into it turn in already done, and those they leave for it only to hand in in the log, as for a player arriving on the route. Plays run on a pool of long-lived lua5.1 processes (`tools/lib/luapool.js`, `tests/lua/pool.lua`; `POLESTAR_PLAY_WORKERS`, default 8): each play in a fresh environment, the addon's and the pack's files parsed once per process. `--honest` (`tools/lib/playtest-honest.js`, no Lua) plays each `next` chain (the main route; a catch-up alone) from the compiled lines and the data only, carrying the log, bags, flight paths and hearth, with nothing free: R1 travel (continent and zone changes, flight paths, hearth), R2 accept (giver at the place, item starts), R3 items (a source near the goal, quest-only drops), R4 NPCs (giver or ender, step titles, several givers), R5 turn-in (objectives credited, the required steps of `data/local/kb/forever-kb.sqlite` when present); `--format json` for agents; exit 1 on any fail |

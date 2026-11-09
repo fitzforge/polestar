@@ -39,7 +39,8 @@ pub fn header(lang: &str, command: &str, sources: &str) -> String {
 
 // ------------------------------------------------------------ emit.js
 
-pub const GUIDE_KEYS: [&str; 28] = [
+/// `credits` and `forkedFrom` (format 10) follow version: a guide without them is emitted as before.
+pub const GUIDE_KEYS: [&str; 30] = [
 	"id",
 	"pack",
 	"title",
@@ -64,13 +65,17 @@ pub const GUIDE_KEYS: [&str; 28] = [
 	"cons",
 	"author",
 	"version",
+	"credits",
+	"forkedFrom",
 	"group",
 	"names",
 	"written",
 	"steps",
 ];
-/// `image` follows note, so a step without one is emitted as before.
-pub const STEP_KEYS: [&str; 9] = ["title", "note", "image", "label", "only", "when", "along", "skipto", "goals"];
+/// `image` follows note, so a step without one is emitted as before; `id` (format 10) leads.
+pub const STEP_KEYS: [&str; 10] = ["id", "title", "note", "image", "label", "only", "when", "along", "skipto", "goals"];
+/// A guide's `forkedFrom = { id, version }`: the guide it started from.
+pub const FORKED_FROM_KEYS: [&str; 2] = ["id", "version"];
 /// A step's picture: its path in the pack's addon folder (no extension) and its size in pixels.
 pub const IMAGE_KEYS: [&str; 3] = ["file", "w", "h"];
 /// A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order.
@@ -79,7 +84,9 @@ pub const WHEN_KEYS: [&str; 17] = ["k", "neg", "op", "n", "frac", "q", "item", "
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 76] = [
+// A boss's `instance` and a mark's `icon` follow npcName; a `path`'s or an `area`'s points and a
+// path's `cycle` follow r (format 10).
+pub const GOAL_KEYS: [&str; 80] = [
 	"t",
 	"class",
 	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
@@ -97,6 +104,8 @@ pub const GOAL_KEYS: [&str; 76] = [
 	"target",
 	"npc",
 	"npcName",
+	"instance",
+	"icon",
 	"object",
 	"objName",
 	"item",
@@ -133,6 +142,8 @@ pub const GOAL_KEYS: [&str; 76] = [
 	"z",
 	"f",
 	"r",
+	"pts",
+	"cycle",
 	"spots",
 	"spread",
 	// A kill or collect's spawn areas' level, the one most share (an area of another level carries its own `lvl`).
@@ -176,6 +187,8 @@ const SOURCE_NPC_KEYS: [&str; 2] = ["npc", "npcName"];
 /// when moved on to it, and `lvl`, the highest level of the mobs spawning in
 /// it (a kill or collect goal's).
 const SPOT_KEYS: [&str; 7] = ["x", "y", "z", "r", "n", "alt", "lvl"];
+/// A `path`'s or an `area`'s points: map percent in the goal's map and frame.
+const POINT_KEYS: [&str; 2] = ["x", "y"];
 /// A turn-in's `rewards = { choices, items, money, xp }`: item lists in this order.
 const REWARD_KEYS: [&str; 3] = ["item", "itemName", "quality"];
 /// A guide's `reward = { ... }`: an item (`choice` when one of several), a spell or words.
@@ -198,6 +211,7 @@ pub fn list_keys(k: &str) -> Option<&'static [&'static str]> {
 		"candidates" => &CANDIDATE_KEYS,
 		"fromNpcs" => &SOURCE_NPC_KEYS,
 		"spots" => &SPOT_KEYS,
+		"pts" => &POINT_KEYS,
 		"items" => &REWARD_KEYS,
 		"choices" => &REWARD_KEYS,
 		"reward" => &GUIDE_REWARD_KEYS,
@@ -649,6 +663,8 @@ fn emit_guide(guide: &V, source_rel: &V, deferred: bool, packed: bool) -> String
 			// written: the author's words of a text that spells a name otherwise, tokenised text -> words.
 			let parts: Vec<String> = sorted_keys(&v).iter().map(|t| format!("[{}] = {}", lua_string(t), lua_str_v(&v.get(t)))).collect();
 			out.push(format!("\t\t\t{k} = {{ {} }},", parts.join(", ")));
+		} else if k == "forkedFrom" {
+			out.push(format!("\t\t\tforkedFrom = {},", inline(&v, &Keys::Fixed(&FORKED_FROM_KEYS), 2)));
 		} else if v.is_arr() {
 			out.push(format!("\t\t\t{k} = {},", list(&v, list_keys(k), 2)));
 		} else {
@@ -756,6 +772,8 @@ pub fn guide_data(guide: &V) -> V {
 				m.set(&t, v.get(&t).to_js_string());
 			}
 			out.set(k, m);
+		} else if k == "forkedFrom" {
+			out.set(k, data_inline(&v, &Keys::Fixed(&FORKED_FROM_KEYS), 2));
 		} else if v.is_arr() {
 			out.set(k, data_list(&v, list_keys(k), 2));
 		} else {

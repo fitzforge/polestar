@@ -625,7 +625,7 @@ function UI.GoalLine(goal, questHex)
 	end
 	if goal.dismissed then
 		text = text .. "  |c" .. Theme.Hex("textMuted") .. L["skipped"] .. "|r"
-	elseif goal.optional and not plain and goal.t ~= "note" then
+	elseif goal.optional and not plain and goal.t ~= "note" and goal.t ~= "mark" and goal.t ~= "area" then
 		text = text .. "  |c" .. Theme.Hex("warning") .. L["optional"] .. "|r"
 	end
 	return text

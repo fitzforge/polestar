@@ -13,8 +13,11 @@
 	<Script file="LegacySteps.lua"/>
 	<Script file="Levels.lua"/>
 	<Script file="Import.lua"/>
+	<Script file="Studio.lua"/>
+	<Script file="Share.lua"/>
 	<Script file="Search.lua"/>
 	<Script file="Engine.lua"/>
+	<Script file="Slain.lua"/>
 	<Script file="RoutePlan.lua"/>
 	<Script file="ClassTrainers.lua"/>
 	<Script file="Closes.lua"/>

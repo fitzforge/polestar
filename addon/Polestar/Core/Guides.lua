@@ -184,6 +184,14 @@ local REQUIRED = {
 	explore = { map = isNum, x = isNum, y = isNum },
 	achieve = { achievement = isNum, achievementName = isStr },
 	wait = { seconds = isNum },
+	-- Format 10 (an author's tools, Polestar Studio): a boss's death, a raid
+	-- icon over a mob's nameplate, a drawn way the arrow follows, a shaded
+	-- hunting area. A path has two points at least, an area three (a convex
+	-- hull); checkGoal caps them and checks each.
+	boss = { npc = isNum, npcName = isStr },
+	mark = { npc = isNum, icon = isNum },
+	path = { map = isNum, pts = function(v) return type(v) == "table" and #v >= 2 end },
+	area = { map = isNum, pts = function(v) return type(v) == "table" and #v >= 3 end },
 }
 Guides.VERBS = REQUIRED
 
@@ -208,6 +216,11 @@ local KEYS = {
 	rewardLists = { "items", "choices" },
 	guideMaps = { "names", "written" },
 	guideLists = { "races", "classes", "nextChoices", "pros", "cons", "keywords" },
+	-- The most points a goal of these verbs carries (format 10).
+	points = { path = 200, area = 64 },
+	-- A guide's `credits` (format 10): at most `max`, each one line of at
+	-- most `text` bytes (Core/Import.lua's LIMITS.text; the compilers' too).
+	credits = { max = 32, text = 4096 },
 }
 
 local function checkOnly(only)
@@ -427,6 +440,21 @@ local function checkGoal(goal)
 	if goal.count ~= nil and not isNum(goal.count) then return "bad count" end
 	if goal.text ~= nil and type(goal.text) ~= "string" then return "bad text" end
 	if goal.t == "rep" and (goal.standing < 1 or goal.standing > 8) then return "standing outside 1-8" end
+	if goal.t == "mark" and (goal.icon < 1 or goal.icon > 8 or goal.icon % 1 ~= 0) then return "icon outside 1-8" end
+	-- A path's or an area's points: at most KEYS.points[t], each in map percent.
+	local most = KEYS.points[goal.t]
+	if most then
+		local pts, what = goal.pts, goal.t
+		if #pts > most then return "more than " .. most .. " " .. what .. " points" end
+		for i = 1, #pts do
+			local p = pts[i]
+			if type(p) ~= "table" or not (isNum(p.x) and isNum(p.y)) then return "bad " .. what .. " point " .. i end
+			if p.x < 0 or p.x > 100 or p.y < 0 or p.y > 100 then return what .. " point outside 0-100" end
+		end
+	end
+	if goal.cycle ~= nil and goal.cycle ~= true then return "bad cycle" end
+	if goal.icon ~= nil and goal.t ~= "mark" then return "bad icon" end
+	if goal.instance ~= nil and not isNum(goal.instance) then return "bad instance" end
 	if goal.t == "level" and goal.frac ~= nil and not isFrac(goal.frac) then return "bad frac" end
 	for _, key in ipairs(KEYS.goalNumbers) do
 		if goal[key] ~= nil and not isNum(goal[key]) then return "bad " .. key end
@@ -533,6 +561,22 @@ local function validate(def)
 		end
 	end
 	if def.why ~= nil and not isStr(def.why) then return "bad why" end
+	-- Provenance (format 10): credits = { text, ... }, forkedFrom = { id,
+	-- version }. Each one line: a control character could forge another line
+	-- under the guide's credits.
+	if def.credits ~= nil then
+		if type(def.credits) ~= "table" then return "bad credits" end
+		if #def.credits > KEYS.credits.max then return "more than " .. KEYS.credits.max .. " credits" end
+		for i = 1, #def.credits do
+			local c = def.credits[i]
+			if not isStr(c) or string.find(c, "%c") then return "bad credits" end
+			if #c > KEYS.credits.text then return "credit " .. i .. " is too long" end
+		end
+	end
+	local fork = def.forkedFrom
+	if fork ~= nil and not (type(fork) == "table" and isStr(fork.id) and not string.find(fork.id, "%c") and isNum(fork.version)) then
+		return "bad forkedFrom"
+	end
 	for _, key in ipairs(KEYS.guideMaps) do
 		local map = def[key]
 		if map ~= nil then
@@ -575,8 +619,9 @@ end
 -- A guide's steps checked (validate, or a deferred guide's on first read).
 function Own.validateSteps(steps)
 	-- A step's `label` (format 4) names it, once per guide; `along` is true or
-	-- the label of a later step (docs/PACK_FORMAT.md, "Format 4").
-	local labelAt = {}
+	-- the label of a later step (docs/PACK_FORMAT.md, "Format 4"). A step's
+	-- `id` (format 10) is 4-8 lowercase letters and digits, once per guide.
+	local labelAt, idAt = {}, {}
 	for s, step in ipairs(steps) do
 		if type(step) ~= "table" then return ("step %d is not a table"):format(s) end
 		if type(step.goals) ~= "table" or #step.goals == 0 then return ("step %d has no goals"):format(s) end
@@ -586,6 +631,11 @@ function Own.validateSteps(steps)
 			if not isStr(step.label) then return ("step %d: bad label"):format(s) end
 			if labelAt[step.label] then return ("step %d: duplicate label %s"):format(s, step.label) end
 			labelAt[step.label] = s
+		end
+		if step.id ~= nil then
+			if not (isStr(step.id) and #step.id >= 4 and #step.id <= 8 and not string.find(step.id, "[^a-z0-9]")) then return ("step %d: bad id"):format(s) end
+			if idAt[step.id] then return ("step %d: duplicate step id %s"):format(s, step.id) end
+			idAt[step.id] = s
 		end
 		if not checkImage(step.image) then return ("step %d: bad image"):format(s) end
 		for g, goal in ipairs(step.goals) do
@@ -619,6 +669,8 @@ function Own.validateSteps(steps)
 	return nil
 end
 Guides.Validate = validate
+-- One goal's shape -> nil or why it is refused (Polestar.Studio.Checks).
+Guides.CheckGoal = checkGoal
 
 ---------------------------------------------------------------------------
 -- Packs (rules: docs/PACK_FORMAT.md, "Rules Polestar enforces"; API:
@@ -628,8 +680,8 @@ Guides.Validate = validate
 ---------------------------------------------------------------------------
 
 -- Every format Polestar has shipped (docs/PACK_FORMAT.md, "Versioning").
-Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true }
-Guides.RESERVED = { guides = true, forever = true, lookup = true, draft = true, polestar = true, imported = true }
+Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true, [10] = true }
+Guides.RESERVED = { guides = true, forever = true, lookup = true, draft = true, polestar = true, imported = true, studio = true }
 local OFFICIAL_ADDON = "Polestar_Guides"
 local REQUIRED_META = { "addon", "title", "author", "version", "license" }
 local OPTIONAL_META = { "website", "source", "notes" }
@@ -637,12 +689,14 @@ local OPTIONAL_META = { "website", "source", "notes" }
 local find = string.find
 
 -- Does pack `packId` own guide id `guideId`? Ours (`guides`) owns forever/
--- and draft/, the internal `lookup` pack lookup/, the `imported` pack (guides
+-- and draft/, the internal `lookup` pack lookup/, the `studio` pack (Polestar
+-- Studio's live draft, Core/Studio.lua) studio/, the `imported` pack (guides
 -- pasted on the Import page, Core/Import.lua) every `<author>/` that is a
 -- valid pack id no one reserved, every other pack `<id>/`.
 function Guides.OwnsId(packId, guideId)
 	if type(packId) ~= "string" or type(guideId) ~= "string" then return false end
 	if packId == "guides" then return guideId:sub(1, 8) == "forever/" or guideId:sub(1, 6) == "draft/" end
+	if packId == "studio" then return guideId:sub(1, 7) == "studio/" end
 	if packId == "lookup" then return guideId:sub(1, 7) == "lookup/" end
 	if packId == "imported" then
 		local prefix = guideId:match("^([a-z0-9][a-z0-9%-]*)/.")
@@ -654,6 +708,7 @@ local ownsId = Guides.OwnsId
 
 local function prefixOf(packId)
 	if packId == "guides" then return "forever/, draft/" end
+	if packId == "studio" then return "studio/" end
 	if packId == "imported" then return "<author>/" end
 	return packId .. "/"
 end
@@ -769,6 +824,15 @@ function ns.RegisterPack(meta)
 	if id == "imported" and meta.imported and not packs[id] then
 		local r = newRecord(meta, nil)
 		r.imported = true
+		packs[id] = r
+		r.status = "on"
+		return true
+	end
+	-- Polestar Studio's live draft (Core/Studio.lua, Studio.Enable): like the
+	-- imported guides, never on the Community guides page, never suggested.
+	if id == "studio" and meta.draft and not packs[id] then
+		local r = newRecord(meta, nil)
+		r.draft = true
 		packs[id] = r
 		r.status = "on"
 		return true
@@ -1095,7 +1159,7 @@ end
 function Guides.Packs()
 	local out = {}
 	for i = 1, #records do
-		if not (records[i].internal or records[i].imported) then out[#out + 1] = syncStatus(records[i]) end
+		if not (records[i].internal or records[i].imported or records[i].draft) then out[#out + 1] = syncStatus(records[i]) end
 	end
 	table.sort(out, function(a, b)
 		if a.official ~= b.official then return a.official end
@@ -1434,7 +1498,7 @@ end
 local function canSuggest(id)
 	if id == "guides" then return true end
 	local r = type(id) == "string" and packs[id]
-	return r and not r.internal and not r.imported and packVisible(r) and hasLeveling(r) or false
+	return r and not r.internal and not r.imported and not r.draft and packVisible(r) and hasLeveling(r) or false
 end
 
 -- The packs suggestions can come from, ours ("guides") first, then the
@@ -1528,22 +1592,28 @@ function Guides.Suggest()
 	return Guides.Suggestions()[1]
 end
 
--- Drops an imported guide from the registry (Import.Delete); a guide of any
--- other pack stays. Fire PACKS_CHANGED("imported") after. -> bool
-function Guides.DropImported(id)
+-- Drops a guide of pack `packId` ("imported" or "studio") from the
+-- registry; a guide of any other pack stays. -> bool
+local function dropFrom(packId, id)
 	local g = type(id) == "string" and guides[id]
-	if not (g and g.pack == "imported") then return false end
+	if not (g and g.pack == packId and packs[packId]) then return false end
 	guides[id], headers[id] = nil, nil
 	for i = #order, 1, -1 do
 		if order[i] == id then table.remove(order, i) end
 	end
-	local r = packs.imported
+	local r = packs[packId]
 	for i = #r.guides, 1, -1 do
 		if r.guides[i] == id then table.remove(r.guides, i) end
 	end
 	r.guideCount = #r.guides
 	return true
 end
+
+-- Drops an imported guide (Import.Delete). Fire PACKS_CHANGED("imported") after. -> bool
+function Guides.DropImported(id) return dropFrom("imported", id) end
+
+-- Drops Polestar Studio's draft (Studio.ClearDraft). Fire PACKS_CHANGED("studio") after. -> bool
+function Guides.DropDraft(id) return dropFrom("studio", id) end
 
 -- Guide ids a cutover retired (Polestar.RetireGuides(packId, ids), from a
 -- pack's retired.json): a saved tab of one opens its successor, that pack's

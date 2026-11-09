@@ -15,7 +15,7 @@ The handbook is [PACKS.md](PACKS.md).
 **On this page:** [`pack.json`](#packjson) ·
 [The addon](#the-addon) · [TOC fields](#toc-fields) ·
 [Rules Polestar enforces](#rules-polestar-enforces) ·
-[Format 3](#format-3) · [Format 4](#format-4) · [Format 5](#format-5) · [Format 6](#format-6) · [Format 7](#format-7) · [Format 8](#format-8) · [Import strings](#import-strings) · [Versioning](#versioning)
+[Format 3](#format-3) · [Format 4](#format-4) · [Format 5](#format-5) · [Format 6](#format-6) · [Format 7](#format-7) · [Format 8](#format-8) · [Format 10](#format-10) · [Import strings](#import-strings) · [Source tree](#source-tree) · [Versioning](#versioning)
 
 A community addon is an addon for World of Warcraft: Forever that depends
 on Polestar and registers guides with it. It is built from a pack: a folder
@@ -521,13 +521,15 @@ Guide keys (the compiler writes them in this order):
 | `pros`, `cons` | no | lists of short lines under the pitch |
 | `author` | no | string; the compiler writes the pack's author when the guide names none |
 | `version` | no | number |
+| `credits` | no | format 10: list of strings, who else helped (at most 32, each at most 4,096 bytes; [Format 10](#format-10)) |
+| `forkedFrom` | no | format 10: `{ id = "<guide id>", version = <number> }`, the guide this one started from |
 | `group` | no | `true` (format 2): a goal of the guide's route that is not `optional` needs a group; the guide menu shows a "Group" chip |
 | `names` | no | format 3: `{ ["npc:240"] = "Marshal Dughan", ... }`, the English of every name token the guide's texts hold (a token it lacks is shown as written) |
 | `written` | no | format 3: `{ ["Back to {npc:3649}"] = "Back to Dendrite", ... }`, a text whose names its tokens' English in `names` would spell otherwise, with the author's words an English client reads |
 | `legsGrid`, `legs` | no | format 6 (read, no longer written): the navigation grid the legs were baked on, and `{ [<step>] = "<leg>" }`, one baked walk into each step ([Format 6](#format-6)); format 7 carries them in the race parts ([Format 7](#format-7)) |
 | `steps` | yes | list of steps, at least one |
 
-Step keys: `title` (optional), `note` (optional, player-facing), `image`
+Step keys: `id` (optional, format 10: a 4–8 character stable step identifier, lowercase letters and digits; Polestar maps progress to the new position when a pack update moves the step; two steps sharing an id refuse the guide), `title` (optional), `note` (optional, player-facing), `image`
 (optional: `{ file = "media\\cave", w = 512, h = 256 }`, the step's picture:
 `file` its path in the pack's addon folder without the extension, `\`
 between folders, `w` and `h` its size in pixels; Polestar shows it under the
@@ -572,6 +574,10 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 | `money` | `money`: copper (format 5) | — |
 | `wait` | `seconds` | `text` |
 | `task` | `text` (format 5) | — |
+| `boss` | `npc`, `npcName` (format 10) | `instance` (Map.csv map id) |
+| `mark` | `npc`, `icon` (1-8: star, circle, diamond, triangle, moon, square, cross, skull) (format 10) | `npcName`, `note` |
+| `path` | `map`, `pts` (2 to 200 points) (format 10) | `text`, `f`, `cycle` |
+| `area` | `map`, `pts` (3 to 64 points) (format 10) | `text`, `f`, `npc`, `npcName` |
 | `note` | `text` | — |
 | `skill` | `skill`, `level` | `skillLine` |
 | `learn` | `spell`, `spellName` | `skillLine`, `npc`/`npcName`, `item`/`itemName`, `candidates` |
@@ -732,21 +738,52 @@ changes, read by Polestar 0.3.0 and later:
   no loaded part has (`Polestar.Guides.LoadFaction`). A character holds its
   own faction's guides and the factionless ones, not the other side's.
 
+## Format 10
+
+Format 9 with an author's tools, the ones Polestar Studio writes, read by
+Polestar 0.3.7 and later. The compiler writes a pack in format 10 only when
+its guides use one of them:
+
+- A step's stable **`id`** (4–8 lowercase letters and digits, once per guide):
+  a pack update maps a player's check-offs, skips and view to the step with
+  the same id wherever it moved; a step that kept its id but changed its goals
+  keeps its skips and view, not its goals' check-offs. A save from before the
+  guide had ids maps once by the steps' goals, as before.
+- **`boss`** goals, done once the boss dies in the combat log while the step
+  is in play (latched, so a reload keeps them; Polestar reads the combat log
+  only while such a goal is open).
+- **`mark`** goals, a raid icon over that mob's nameplates while the step is
+  current, for this player only (Polestar never sets a raid target), the note
+  on its tooltip; **`area`** goals, a region shaded on the maps while the step
+  is current. Neither ever holds a step, as a `note`.
+- **`path`** goals: the arrow leads to the points in turn, moving on within 10
+  yards of the one ahead; the maps draw the way under the route.
+- A guide's **`credits`**: a list of strings, who else helped, as the author
+  wrote them (never translated); at most 32, each non-empty, one line (no
+  newline or other control character) and at most 4,096 bytes. And its
+  **`forkedFrom`**: `{ id = "<guide id>", version = <number> }` (the id
+  non-empty, one line), the guide this one started from. The guide menu's
+  credits and the Import page's preview show them, a line each: "Credits:
+  Yendi, Joe: dungeon paths" and "Based on <that guide's title, or its id
+  when this Polestar does not have it> v<version>". Anything else refuses the
+  guide ("bad credits", "more than 32 credits", "credit N is too long", "bad
+  forkedFrom").
+
 ## Import strings
 
 One compiled guide as one line of text, for a player to paste on Polestar's
 Import page instead of installing an addon (GUIDE_PACKS.md, "Import
 strings"). `polestar export <file.guide>` writes it
 (`tools/lib/pack/importstring.js`); `addon/Polestar/Core/Import.lua` reads
-it.
+it, and writes one too (`Import.Encode`, for Polestar Studio).
 
 ```text
-!PS1!<checksum>!<body>
+!PS2!<checksum>!<body>
 ```
 
 | Part | Value |
 |---|---|
-| `!PS1!` | the string format, version 1. A later format gets another number; Polestar refuses one it does not know with "This import string needs a newer Polestar." |
+| `!PS2!` | the string format: `!PS2!` (version 2, Polestar 0.3.7 and later; `export` writes it) carries the guide's source too and holds a bigger guide; `!PS1!` (version 1, `export --v1`) the compiled guide alone, read by every Polestar that reads strings. A later format gets another number; Polestar refuses one it does not know with "This import string needs a newer Polestar." |
 | `<checksum>` | the Adler-32 of the payload (the JSON below, as UTF-8 bytes), 8 hex digits |
 | `<body>` | the payload, compressed with zlib (RFC 1950) and written in base64 (`A`–`Z`, `a`–`z`, `0`–`9`, `+`, `/`, `=` padding) |
 
@@ -754,14 +791,15 @@ Whitespace anywhere in a pasted string is dropped first (a chat window may
 wrap it). The payload is JSON:
 
 ```json
-{ "format": 3, "license": "CC-BY-4.0", "guide": { "id": "yendi/cozy-sleeping-bag", "title": "Cozy Sleeping Bag", "...": "...", "steps": [ ... ] }, "frames": { "1429": { "c": 0, "left": 1535.417, "right": -1935.417, "top": -7939.583, "bottom": -10254.166 } } }
+{ "format": 3, "license": "CC-BY-4.0", "guide": { "id": "yendi/cozy-sleeping-bag", "title": "Cozy Sleeping Bag", "...": "...", "steps": [ ... ] }, "source": { "v": 1, "header": { ... }, "steps": [ ... ] }, "frames": { "1429": { "c": 0, "left": 1535.417, "right": -1935.417, "top": -7939.583, "bottom": -10254.166 } } }
 ```
 
 | Key | Required | Value |
 |---|---|---|
-| `format` | yes | the guide data's format (above): 5 when the guide uses `money`/`task`/`enter`/`cast`/`abandon`/`destroy` goals or a `money` when predicate, 4 when a step has `when`, `along` or `label` or a `level` goal has `frac`, else 3; Polestar refuses a format it does not read |
+| `format` | yes | the guide data's format (above): 10 when the guide uses a step `id`, `boss`, `mark`, `path` or `area` goals, `credits` or `forkedFrom`, else 9 with a `wait` goal, else 5 when it uses `money`/`task`/`enter`/`cast`/`abandon`/`destroy` goals or a `money` when predicate, 4 when a step has `when`, `along` or `label` or a `level` goal has `frac`, else 3; Polestar refuses a format it does not read |
 | `license` | yes | the licence of the guide, from the pack's `pack.json` |
-| `guide` | yes | one guide exactly as `RegisterGuide(def)` takes it, without `pack`: the keys above, numbers rounded as `Guides.lua` writes them, `preTitles` with the quest ids as the object's keys |
+| `guide` | yes | one guide exactly as `RegisterGuide(def)` takes it, without `pack`: the keys above, numbers rounded as `Guides.lua` writes them, `preTitles` with the quest ids as the object's keys. Its `credits` and `forkedFrom` (format 10) say who else wrote it and what it was forked from |
+| `source` | no (v2) | the guide as written, its [source tree](#source-tree): what Polestar Studio edits and `polestar decode` writes back as a `.guide` file. Polestar plays `guide`, never `source`, and keeps `source` as it came |
 | `frames` | no | `RegisterMapFrames`'s `era` table for the maps its goals use, by uiMapID. Polestar takes a frame only for a map the guide's goals or their smart targets stand on, and only where no one (Polestar, a community addon, an earlier import) has registered one |
 
 Polestar reads it as data only. The client's own decoders
@@ -776,9 +814,11 @@ Nothing in a string is ever run: the reader never hands its text to
 
 Then the guide meets the rules above, as a community addon's would, plus:
 
-- at most 50,000 characters in the string, 256 KB of payload, 60 steps,
-  and 4,096 bytes in any one text or key (a longer one is refused, naming
-  it, before any text is filled in; `export` refuses it too);
+- at most 300,000 characters in the string, 1 MiB of payload and 250 steps
+  for a `!PS2!` string (50,000 characters, 256 KiB and 60 steps for a
+  `!PS1!` one), 100 goals in a step, 128 candidates in a goal, and 4,096
+  bytes in any one text or key (a longer one is refused, naming it, before
+  any text is filled in; `export` refuses it too);
 - its id is `<author>/<name>`, under no reserved id and no id of a
   community addon the player has installed (registered or only listed);
 - `next` and every `nextChoices` entry name one of Polestar's guides
@@ -787,12 +827,57 @@ Then the guide meets the rules above, as a community addon's would, plus:
   "Guide <id> was refused: <reason>.").
 
 A refused string saves nothing. An accepted one is kept account-wide in
-`PolestarDB.imports[<guide id>]` as its payload, and registered at every
-login through the same checks under the reserved pack `imported`. A guide's
-`version` (a number) against the stored one's decides Import, Update (higher)
-or nothing (equal or lower). Imported guides are listed in the guide menu as
-**Imported** under Community guides, credited "By <author> · Imported ·
-<licence>", never on the Community guides page, and never suggested.
+`PolestarDB.imports[<guide id>]` as its payload (its `source` too), and
+registered at every login through the same checks under the reserved pack
+`imported`. A guide's `version` (a number) against the stored one's decides
+Import, Update (higher) or nothing (equal or lower). Imported guides are
+listed in the guide menu as **Imported** under Community guides, credited
+"By <author> · Imported · <licence>", never on the Community guides page, and
+never suggested.
+
+## Source tree
+
+A guide's source as data, for Polestar Studio to edit and for
+`polestar decode` to write back as a `.guide` file
+(`tools/lib/pack/sourcetree.js`: `toTree` from a parsed guide, `toText` back
+to text). The text it writes compiles to the same guide as the file it came
+from; comments and blank lines are not kept.
+
+```json
+{ "v": 1,
+  "header": { "guide": "joe-routes/elwynn", "title": "Elwynn Forest", "levels": "1-10", "zone": "Elwynn Forest", "pro": ["Fast"] },
+  "steps": [ { "title": "Deputy Willem", "id": "k3x9qa", "only": "Human, Dwarf", "tip": "First line.\nSecond line.",
+               "goals": [ { "verb": "accept", "args": ["783", "\"A Threat Within\""], "mods": [["npc", "823"], ["at", "@47.6,35.1"]], "note": "Deputy Willem" } ] } ] }
+```
+
+| Key | Value |
+|---|---|
+| `v` | the tree's version, 1 |
+| `header` | each header key (GUIDE_FORMAT.md) the guide writes, its value the text after the key; `next`, `reward`, `credits`, `pro` and `con` are lists, one entry per line |
+| `steps[]` | `title` ('' for a bare `step`), and each step line the step writes: `id`, `label`, `along` ('' or `until <label>`), `background` (''), `zone`, `only`, `when` (list), `skipto` (list), `image`, `loop` (''), `tip` (its lines joined with a line break), then `goals`, then `zoneEnd` |
+| `goals[]` | `verb`; `args`, its positional tokens; `mods`, each modifier as `[name, ...tokens]`; `note`, the ` -- ` note; `zone`, a `zone` line written between the step's goals, before this one |
+
+A header or step value is the text as written without its comment; one
+quoted string is kept unquoted, except a zone name that would read as
+`map <uiMapID>` bare, which keeps its quotes (`"\"Map 5\""` is a name,
+`"map 1429"` the map). A goal's tokens are kept as written, quotes
+and escapes included; the free text of an unquoted `note` or `task` is one
+token. A modifier's name is the one GUIDE_FORMAT.md gives it: `at`, `count`,
+`text` and `frame` hold their tokens alone (`@x,y`, `xN`, `"text"`,
+`era`/`live`), the others the tokens after their keyword (`["npc", "823"]`,
+`["optional"]`). A step's `zone` is its last `zone` line before its first
+goal, and its `zoneEnd` a `zone` line after its last goal (the zone the steps
+after it start in), written after its goals. Writing a tree
+as text checks the text: it must parse without errors and read back as the
+same tree, else the tree is refused, naming the first step or goal that
+differs (a `#` or ` -- ` inside a token, an unquoted name of several words,
+several tokens in one value, an empty note or tip line).
+
+`polestar decode <string-or-file> [--out <dir>]` writes the guide of a string
+that carries its source as a pack: `pack.json` (id the guide id's first
+segment; title, author, version and license from the string) and
+`guides/<name>.guide`. A v1 string (`!PS1!`) holds the compiled guide
+alone: decode says "no source in a v1 string" and exits 1.
 
 ## Versioning
 
@@ -810,8 +895,10 @@ or nothing (equal or lower). Imported guides are listed in the guide menu as
   `upgrade`, `done`, `skill`, `cooldown`, `group` and `knows` when predicates, a step's
   `skipto`) by 0.3.0 and later, format 6 (a guide's `legs`), format 7
   (baked legs in the race parts) and format 8 (packed spawn spots and
-  faction parts, Polestar's own pack only) by 0.3.0 and later, and format 9
-  (the `wait` goal) by 0.3.0 and later.
+  faction parts, Polestar's own pack only) by 0.3.0 and later, format 9
+  (the `wait` goal) by 0.3.0 and later, and format 10 (a step's `id`, the
+  `boss`, `mark`, `path` and `area` goals, a guide's `credits` and
+  `forkedFrom`) by 0.3.7 and later.
 - A pack in a format this Polestar does not read registers nothing; the
   Community guides page shows it as `too-new` with "Needs Polestar <version> or
   newer." (rule 5).

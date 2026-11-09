@@ -1234,10 +1234,28 @@ local function setPrimary(b, on)
 	W.RepaintButton(b)
 end
 
+-- A guide's provenance (format 5), one short line each: "Credits: <names>"
+-- and "Based on <title or id> v<version>". Both arrive escaped and are shown
+-- as given: every credit and forkedFrom.id (a registered guide's are, by
+-- Core/Guides.lua escapeTree; Import.Preview escapes its own). -> list of
+-- lines (empty without either)
+function P.Provenance(credits, forkedFrom)
+	local lines = {}
+	if type(credits) == "table" and #credits > 0 then lines[1] = string.format(L["Credits: %s"], table.concat(credits, ", ")) end
+	if type(forkedFrom) == "table" and type(forkedFrom.id) == "string" then
+		local G = ns.Guides
+		local from = G and G.Get and G.Get(forkedFrom.id)
+		local name = from and from.title or forkedFrom.id
+		lines[#lines + 1] = string.format(L["Based on %s v%s"], name, tostring(forkedFrom.version))
+	end
+	return lines
+end
+
 -- A guide's credits: "By <author>" for ours; for a pack's guide "By
 -- <author> · <pack title> <version> · <licence>" (an imported guide: "By
 -- <author> · Imported · <its own licence>"). The author is the guide's
--- own, else its pack's. -> text or nil, the pack's source or nil
+-- own, else its pack's. Its provenance follows, a line each (P.Provenance).
+-- -> text or nil, the pack's source or nil
 function P.Credits(g)
 	if not g then return nil end
 	local G = ns.Guides
@@ -1251,8 +1269,10 @@ function P.Credits(g)
 		local license = pack.license or (pack.imported and type(g.license) == "string" and g.license or nil)
 		if license then parts[#parts + 1] = license end
 	end
-	if #parts == 0 then return nil end
-	return table.concat(parts, DOT), pack and pack.source or nil
+	local lines = P.Provenance(g.credits, g.forkedFrom)
+	if #parts > 0 then table.insert(lines, 1, table.concat(parts, DOT)) end
+	if #lines == 0 then return nil end
+	return table.concat(lines, "\n"), pack and pack.source or nil
 end
 
 local function renderDetails(byId, tabs, active)

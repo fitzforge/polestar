@@ -75,6 +75,15 @@ local function act(i, g, r)
 		w.addItem(g.item, (g.progress and g.progress.max) or 1)
 	elseif t == "goto" then
 		w.moveTo(g.map, g.x, g.y)
+	elseif t == "path" then
+		-- Walk to each point in turn, as to a goto's (the engine counts them in order).
+		for k = 1, #r.pts do
+			w.moveTo(r.map, r.pts[k].x, r.pts[k].y)
+			stub.advance(0.6)
+		end
+	elseif t == "boss" then
+		-- The boss dies in the combat log.
+		w.combatLog("UNIT_DIED", ("Creature-0-0-0-0-%d-0"):format(r.npc))
 	elseif t == "talk" then
 		w.gossip(g.npc); w.close()
 	elseif t == "train" then
@@ -159,12 +168,22 @@ while guard < 4000 do
 	for _, g in ipairs(view.goals) do
 		if g.unavailable == "level" then need = math.max(need, tonumber((g.unavailableText or ""):match("(%d+)")) or w.level + 1) end
 	end
-	local open
+	local open, cycle
 	-- A vendor check-off beside other work (g.side) is left alone, as by a
-	-- player with nothing to sell: it must never hold the step.
+	-- player with nothing to sell: it must never hold the step. A note, a mark
+	-- or an area never holds one; a cycle path is done by its step's other
+	-- goals: those come first.
 	for _, g in ipairs(view.goals) do
-		if g.status ~= "done" and g.status ~= "na" and not g.optional and not g.side and g.t ~= "note" then open = g; break end
+		if g.status ~= "done" and g.status ~= "na" and not g.optional and not g.side and g.t ~= "note" and g.t ~= "mark" and g.t ~= "area" then
+			if g.t == "path" and G.steps[i].goals[g.index].cycle then
+				cycle = cycle or g
+			else
+				open = g
+				break
+			end
+		end
 	end
+	open = open or cycle
 	if need > w.level then
 		w.setLevel(need)
 		stub.advance(0.6)

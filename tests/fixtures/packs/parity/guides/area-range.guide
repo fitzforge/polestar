@@ -1,0 +1,10 @@
+# Fixture: tests/packs-parity.test.js. Lint rejects it; the runtime refuses its compiled twin.
+guide parity/area-range
+title Parity area-range
+faction Alliance
+levels 1-10
+zone Elwynn Forest
+
+step S
+  level 2
+  area @40,40 @150,40 @45,45

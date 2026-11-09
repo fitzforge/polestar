@@ -174,7 +174,7 @@ end
 -- The pen: one drawing at a time.
 ---------------------------------------------------------------------------
 
-local out, limit
+local out, limit, full
 local scale, width, height, dot, spacing, walked
 local fade
 -- The line style: on, the walk's thickness (px), chevrons and their colour.
@@ -194,7 +194,8 @@ local function within(v, range, default)
 end
 
 local function Begin(buffer, view, small)
-	out, scale, limit = buffer, view.scale, buffer.limit or LIMIT
+	full = buffer.limit or LIMIT
+	out, scale, limit = buffer, view.scale, full
 	out.n = 0
 	-- The dots' size and spacing (view.dot, view.spacing, px); continent maps
 	-- show them smaller and closer in the same proportion as the defaults.
@@ -210,6 +211,12 @@ local function Begin(buffer, view, small)
 	laterAlpha = within(view.laterAlpha, UNIT, LATER_ALPHA)
 	tailOn, dashFlights = view.tail ~= false, view.dash ~= false
 	jointX = nil
+end
+
+-- Paths 1 to view.under are drawn under the route (author paths): they may
+-- fill at most half the buffer, so the route after them always has room.
+local function Under(p, view)
+	limit = p <= (view.under or 0) and (full - full % 2) / 2 or full
 end
 
 -- One stroke: its ends, how far its outline reaches past them, the core's and
@@ -486,6 +493,10 @@ end
 --            marks, markCount       stop marks, flat { fx, fy, radius (units), ... }
 --            colors = { [kind] = { r, g, b } },
 --            from, fromIndex        the live start (see Strokes.Live): nil = from the first point
+--            fromPath               the path the live start is on (default 1: paths drawn
+--                                   under the route come before it)
+--            under                  how many paths come first, under the route: at most
+--                                   half the buffer is theirs (default 0)
 --            style, lineWidth       "line": the line style, its walk lineWidth px thick; nil: dots
 --            chevrons, chevronColor the line style's chevrons, in this colour
 --            dot, spacing           the dots' size and spacing in px (nil: DOT, SPACING)
@@ -518,6 +529,7 @@ function Strokes.Map(buffer, paths, view)
 	end
 	local colors = view.colors
 	for p = 1, #paths do
+		Under(p, view)
 		local path = paths[p]
 		local kind = path.kind
 		local color = colors[kind]
@@ -528,7 +540,7 @@ function Strokes.Map(buffer, paths, view)
 			local strength = fade
 			local first = 1
 			local px, py, pc
-			if p == 1 and view.from then
+			if p == (view.fromPath or 1) and view.from then
 				first, pc, px, py = view.fromIndex, view.fromC, position(view.fromC, view.fromX, view.fromY)
 				if mode == "line" and px and tailOn then
 					Tail(path, first, px, py, mapPoint, width * scale, height * scale, Line, color)
@@ -559,6 +571,7 @@ function Strokes.Map(buffer, paths, view)
 			end
 		end
 	end
+	limit = full
 	fade = 1
 end
 
@@ -568,7 +581,7 @@ end
 --            radius, facing   view radius in yards, turned by facing (radians; 0 north-up)
 --            width, height, scale, square,
 --            goalC, goalX, goalY, goalRadius   the guide pin (radius in units), or goalC nil
---            colors, from, fromIndex           as the world map's
+--            colors, from, fromIndex, fromPath, under   as the world map's
 --            style, lineWidth, dot, spacing,
 --            laterAlpha, tail, dash            as the world map's (no chevrons here) }
 ---------------------------------------------------------------------------
@@ -664,7 +677,10 @@ function Strokes.Minimap(buffer, paths, view)
 		end
 	end
 	local colors = view.colors
+	local under, routeStart = view.under or 0, nil
 	for p = 1, #paths do
+		Under(p, view)
+		if p == under + 1 then routeStart = out.n end
 		local path = paths[p]
 		local kind = path.kind
 		local color = colors[kind]
@@ -681,7 +697,7 @@ function Strokes.Minimap(buffer, paths, view)
 				end
 			else
 				local first, pc, px, py = 2, cs[1], nil, nil
-				if p == 1 and view.from then
+				if p == (view.fromPath or 1) and view.from then
 					first, pc = view.fromIndex, view.fromC
 					if pc == c then px, py = Project(view.fromX, view.fromY, x, y, radius, cosine, sine) end
 					if mode == "line" and px and tailOn then
@@ -694,7 +710,7 @@ function Strokes.Minimap(buffer, paths, view)
 				if mode == "dots" then
 					-- Counted back from the walk's end, flowing by the phase.
 					local left, ax, ay = 0, nil, nil
-					if p == 1 and view.from and pc == c then ax, ay = view.fromX, view.fromY end
+					if p == (view.fromPath or 1) and view.from and pc == c then ax, ay = view.fromX, view.fromY end
 					for i = ax and first or first - 1, path.n do
 						if i >= 1 and cs[i] == c then
 							if ax then left = left + sqrt((xs[i] - ax) ^ 2 + (ys[i] - ay) ^ 2) end
@@ -719,9 +735,10 @@ function Strokes.Minimap(buffer, paths, view)
 			end
 		end
 	end
+	limit = full
 	fade = 1
 	-- Keep the last few yards in sight when the guide pin covers every breadcrumb.
-	if markX and out.n == 0 then
+	if markX and out.n == (routeStart or out.n) then
 		local distance = markX * markX + markY * markY
 		if distance > mmGap * mmGap and distance < 0.25 and colors.walk then
 			local k = mmGap / sqrt(distance)

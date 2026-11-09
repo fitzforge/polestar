@@ -52,18 +52,26 @@ fn is_num(s: &str) -> bool {
 	}
 }
 
-pub const HEADER_KEYS: [&str; 20] =
-	["guide", "title", "levels", "zone", "faction", "race", "class", "next", "category", "folder", "keywords", "collects", "reward", "why", "author", "version", "coords", "pitch", "pro", "con"];
+/// `credits` (format 10, repeatable: someone else who helped) and `forked-from <guideId> <version>`
+/// (the guide this one started from).
+pub const HEADER_KEYS: [&str; 22] = [
+	"guide", "title", "levels", "zone", "faction", "race", "class", "next", "category", "folder", "keywords", "collects", "reward", "why", "author", "credits", "forked-from", "version", "coords", "pitch", "pro", "con",
+];
+/// `credits`: at most this many lines, each at most the import text cap in bytes (importstring.rs
+/// LIMITS.text; the addon's Guides.Validate holds the same two).
+pub const CREDITS_MAX: usize = 32;
+pub const CREDIT_BYTES: usize = 4096;
 /// Lines inside a step that are not goals.
 /// `loop`: the step's `goto` points are the spawn areas of its kill, collect
 /// and interact goals (resolve.rs, applyLoop).
 /// `skipto <label> when <predicate>`: when the route reaches the step and the
 /// predicate holds, it jumps to the labelled step (resolve.rs, checkLabels).
-pub const STEP_KEYS: [&str; 10] = ["zone", "only", "tip", "image", "when", "label", "along", "background", "skipto", "loop"];
+/// `id <x>` (format 10): the step's stable id, 4-8 lowercase letters and digits.
+pub const STEP_KEYS: [&str; 11] = ["zone", "only", "tip", "image", "when", "label", "along", "background", "skipto", "loop", "id"];
 
 // COMMON = text optional only group; COORDS = at map r frame (`frame` = the `era` / `live` modifiers).
 /// The modifiers each verb takes, in the JS object's order (VERBS is the verbs in this order).
-pub const MODS: [(&str, &[&str]); 32] = [
+pub const MODS: [(&str, &[&str]); 36] = [
 	("accept", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "object", "item", "lvl"]),
 	// `reward`/`choose`/`xp`/`money`: what the turn-in pays, shown on the goal.
 	// `direct`: handed in straight from the NPC's window, with no accept.
@@ -104,12 +112,28 @@ pub const MODS: [(&str, &[&str]); 32] = [
 	("achieve", &["text", "optional", "only", "group", "at", "map", "r", "frame", "criteria"]),
 	// `wait <seconds> ["text"]`: done that long after the goals before it in the step are.
 	("wait", &["text", "optional", "only"]),
+	// `boss <npcId> ["Name"]` (format 10): defeat a dungeon or raid boss; done by its death.
+	("boss", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc"]),
+	// `mark <npcId> <icon> ["note"]`: a raid icon over the mob's nameplate; never holds the step.
+	("mark", &["only"]),
+	// `path @x,y @x,y … ["label"] [cycle]`: an author-drawn way the arrow follows point by point;
+	// `cycle` (not `loop`: a step's `loop` is something else) starts over after the last point.
+	("path", &["text", "optional", "only", "group", "map", "frame", "cycle"]),
+	// `area <npcId> ["label"]` or `area @x,y @x,y @x,y … ["label"]`: the region to hunt in, shaded
+	// on the maps (the hull of the npc's spawns or of the points); never holds the step.
+	("area", &["only", "map", "frame"]),
 ];
 /// Object.keys(MODS).
-pub const VERBS: [&str; 32] = [
+pub const VERBS: [&str; 36] = [
 	"accept", "turnin", "complete", "abandon", "destroy", "kill", "collect", "goto", "talk", "interact", "use", "sethome", "hearth", "die", "getfp", "fly", "enter", "train", "buy", "vendor", "level",
-	"money", "task", "note", "skill", "learn", "cast", "craft", "rep", "explore", "achieve", "wait",
+	"money", "task", "note", "skill", "learn", "cast", "craft", "rep", "explore", "achieve", "wait", "boss", "mark", "path", "area",
 ];
+/// A `path`'s points: at least two, at most PATH_MAX; an `area`'s AREA_MIN to AREA_MAX.
+pub const PATH_MAX: usize = 200;
+pub const AREA_MIN: usize = 3;
+pub const AREA_MAX: usize = 64;
+/// Raid target icons, numbered as the client numbers them (1 star ... 8 skull).
+pub const MARK_ICONS: [(&str, f64); 8] = [("star", 1.0), ("circle", 2.0), ("diamond", 3.0), ("triangle", 4.0), ("moon", 5.0), ("square", 6.0), ("cross", 7.0), ("skull", 8.0)];
 
 /// `MODS[verb]` (own properties only).
 pub fn mods(verb: &str) -> Option<&'static [&'static str]> {
@@ -131,8 +155,9 @@ fn mod_label(m: &str) -> &str {
 		_ => m,
 	}
 }
-pub const MOD_WORDS: [&str; 22] =
-	["map", "npc", "object", "item", "quest", "r", "lvl", "optional", "only", "until", "criteria", "era", "live", "nearest", "reward", "choose", "xp", "money", "group", "direct", "gossip", "grind"];
+pub const MOD_WORDS: [&str; 23] = [
+	"map", "npc", "object", "item", "quest", "r", "lvl", "optional", "only", "until", "criteria", "era", "live", "nearest", "reward", "choose", "xp", "money", "group", "direct", "gossip", "grind", "cycle",
+];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN: f64 = 2.0;
 const GROUP_MAX: f64 = 40.0;
@@ -439,7 +464,7 @@ pub fn parse_guide(text: &str, file: &str, diag: &mut Diagnostics) -> V {
 				cx.err(ln, format!("unknown header key \"{}\"", toks[0].text), Some(&format!("header keys: {}", HEADER_KEYS.join(", "))));
 				continue;
 			}
-			let repeatable = matches!(kw_s, "pro" | "con" | "reward" | "next");
+			let repeatable = matches!(kw_s, "pro" | "con" | "reward" | "next" | "credits");
 			let lines_o = guide.get("lines");
 			if lines_o.get(kw_s).truthy() && !repeatable {
 				cx.err(ln, format!("duplicate header key `{kw_s}` (first on line {})", lines_o.get(kw_s).to_js_string()), None);
@@ -513,6 +538,20 @@ pub fn parse_guide(text: &str, file: &str, diag: &mut Diagnostics) -> V {
 					}
 					step.set("label", toks[1].text.as_str());
 					step.set("labelLine", ln);
+				}
+				"id" => {
+					if !step.get("id").is_undef() {
+						cx.err(ln, "duplicate `id` in step", None);
+						continue;
+					}
+					let ok = toks.len() == 2 && !toks[1].quoted && (4..=8).contains(&toks[1].text.len()) && toks[1].text.bytes().all(|b| b.is_ascii_lowercase() || b.is_ascii_digit());
+					if !ok {
+						let shown = toks.get(1).map(|t| format!(" \"{}\"", t.text)).unwrap_or_default();
+						cx.err(ln, format!("malformed step id{shown} (4-8 lowercase letters and digits)"), None);
+						continue;
+					}
+					step.set("id", toks[1].text.as_str());
+					step.set("idLine", ln);
 				}
 				"along" => {
 					if !step.get("along").is_undef() {
@@ -752,6 +791,33 @@ fn parse_header(guide: &V, kw: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut 
 			let key = if kw == "pro" { "pros" } else { "cons" };
 			push_to(&h, key, rest.as_str());
 			push_to(&guide.get("lines"), key, ln);
+		}
+		"credits" => {
+			// `credits <text>` (format 10): someone else who helped, as written (author text, never
+			// translated); repeats, one name per line.
+			if h.get("credits").items().len() >= CREDITS_MAX {
+				cx.err(ln, format!("more than {CREDITS_MAX} `credits` lines"), None);
+				return;
+			}
+			if rest.len() > CREDIT_BYTES {
+				cx.err(ln, format!("`credits` is longer than {CREDIT_BYTES} bytes"), None);
+				return;
+			}
+			// One line each (Guides.Validate refuses a control character: it could forge a line).
+			if rest.chars().any(|c| (c as u32) < 0x20 || c as u32 == 0x7f) {
+				cx.err(ln, "`credits` holds a control character (a tab?)", None);
+				return;
+			}
+			push_to(&h, "credits", rest.as_str());
+			push_to(&guide.get("lines"), "creditLines", ln);
+		}
+		"forked-from" => {
+			// `forked-from <guideId> <version>` (format 10): the guide this one started from.
+			if toks.len() != 3 || toks[1].quoted || !is_id(&toks[1].text) || toks[2].quoted || !is_int(&toks[2].text) {
+				cx.err(ln, "malformed `forked-from` (expected forked-from <guideId> <version>)", None);
+				return;
+			}
+			h.set("forkedFrom", obj! { "id" => toks[1].text.as_str(), "version" => str_to_num(&toks[2].text) });
 		}
 		"levels" => {
 			let m = re!(r"^([0-9]+){RE_WS}*-{RE_WS}*([0-9]+)$").captures(&rest);
@@ -1155,6 +1221,92 @@ fn parse_positional(verb: &str, goal: &V, toks: &[Tok], line: &[u16], lex: &Lex,
 			}
 			Some(i)
 		}
+		"boss" => {
+			if t.is_none() {
+				fail!("`boss` needs an npc id");
+			}
+			goal.set("npc", parse_id(t, "npc", ln, cx)?);
+			i += 1;
+			if quoted_at(toks, i) {
+				goal.set("npcName", toks[i].text.as_str());
+				i += 1;
+			}
+			Some(i)
+		}
+		"mark" => {
+			let usage = "`mark` needs an npc id and an icon: mark <npcId> <skull|cross|square|moon|triangle|diamond|circle|star|1-8> [\"note\"]";
+			if t.is_none() {
+				fail!(usage);
+			}
+			goal.set("npc", parse_id(t, "npc", ln, cx)?);
+			i += 1;
+			let Some(ic) = toks.get(i).filter(|tk| !tk.quoted) else { fail!(usage) };
+			let word = ic.text.to_lowercase();
+			let icon = MARK_ICONS.iter().find(|(n, _)| *n == word).map(|(_, v)| *v).or_else(|| {
+				let b = word.as_bytes();
+				(b.len() == 1 && (b'1'..=b'8').contains(&b[0])).then(|| f64::from(b[0] - b'0'))
+			});
+			let Some(icon) = icon else { fail!(format!("unknown mark icon \"{}\" (skull, cross, square, moon, triangle, diamond, circle, star or 1-8)", ic.text)) };
+			goal.set("icon", icon);
+			i += 1;
+			if quoted_at(toks, i) {
+				if !goal.get("note").is_undef() {
+					fail!("`mark` takes its note quoted or after ` -- `, not both");
+				}
+				goal.set("note", toks[i].text.as_str());
+				i += 1;
+			}
+			Some(i)
+		}
+		"path" | "area" => {
+			let area = verb == "area";
+			let usage = if area {
+				"`area` needs an npc id or at least 3 points: area <npcId> [\"label\"] or area @x,y @x,y @x,y … [\"label\"]"
+			} else {
+				"`path` needs at least 2 points: path @x,y @x,y … [\"label\"] [cycle]"
+			};
+			if area {
+				let Some(tt) = t.filter(|tt| !tt.quoted) else { fail!(usage) };
+				if !tt.text.starts_with('@') {
+					goal.set("npc", parse_id(t, "npc", ln, cx)?);
+					i += 1;
+					if quoted_at(toks, i) {
+						goal.set("text", toks[i].text.as_str());
+						i += 1;
+					}
+					return Some(i);
+				}
+			}
+			// `@x,y` points, as many as written, then an optional quoted label.
+			let pts = V::arr();
+			let mut n = 0usize;
+			while let Some(tk) = toks.get(i).filter(|tk| !tk.quoted && tk.text.starts_with('@')) {
+				match read_coords(toks, i, &tk.text[1..]) {
+					Err(e) => fail!(e),
+					Ok((x, y, next)) => {
+						pts.push(obj! { "x" => x, "y" => y });
+						n += 1;
+						i = next;
+					}
+				}
+			}
+			let (least, most) = if area { (AREA_MIN, AREA_MAX) } else { (2, PATH_MAX) };
+			if n < least {
+				fail!(usage);
+			}
+			if n > most {
+				let hint = if area { "trace the region with fewer points" } else { "split the way into two `path` goals" };
+				cx.err(ln, format!("`{verb}` takes at most {most} points, not {n}"), Some(hint));
+				return None;
+			}
+			goal.set("pts", pts);
+			spans.set("coords", num_arr(toks[1].start, toks[i - 1].end));
+			if quoted_at(toks, i) {
+				goal.set("text", toks[i].text.as_str());
+				i += 1;
+			}
+			Some(i)
+		}
 		_ => Some(i),
 	}
 }
@@ -1405,6 +1557,12 @@ fn parse_goal(verb: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut Cx) -> Opti
 			"direct" => {
 				use_!("direct");
 				goal.set("direct", true);
+				i += 1;
+				continue;
+			}
+			"cycle" => {
+				use_!("cycle");
+				goal.set("cycle", true);
 				i += 1;
 				continue;
 			}

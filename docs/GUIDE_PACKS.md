@@ -349,7 +349,7 @@ a community addon.
 | **You run** | `polestar export <file.guide>` | `forge release pack` |
 | **Players** | paste it on the Import page | install it, then restart the game |
 | **Updates** | raise the guide's `version` and share the new string: players press Update | raise `version` in `pack.json` and upload the new zip |
-| **Size** | one guide of at most 60 steps (and 50,000 characters) | no limit |
+| **Size** | one guide of at most 250 steps (and 300,000 characters) | no limit |
 
 ```sh
 forge guide lint && polestar playtest       # the same checks as for an addon
@@ -366,6 +366,11 @@ polestar export guides/cozy-sleeping-bag.guide > cozy.txt
   `> file.txt` keeps just that line.
 - A guide's `version` decides between Import and Update in the game: raise
   it when you share a new string.
+- The string carries the guide as you wrote it too, so Polestar Studio can
+  open it and `polestar decode` can write it back as a `.guide` file. It
+  needs Polestar 0.3.7 or later; `export --v1` writes the older kind (the
+  compiled guide alone, 60 steps and 50,000 characters at most) that earlier
+  versions read.
 - A `next` or route choice may lead only to one of Polestar's guides or to a
   guide the player imported before; `export` names the guides to import
   first. Polestar refuses a string whose guide leads anywhere else.

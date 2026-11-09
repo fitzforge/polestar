@@ -196,7 +196,8 @@ test("the Goals table's last column lists exactly the modifiers each verb takes"
 		// Beyond the common ones: the verb's own modifiers, as written.
 		const own = allowed.filter((m) => !COMMON.includes(m) && !PLACE.includes(m)).map(label);
 		const placeNamed = named.filter((n) => ['@x,y', 'map', 'r', 'era', 'live'].includes(n));
-		const ownNamed = named.filter((n) => !placeNamed.includes(n) && n !== '"text"' && n !== 'group');
+		// The common ones a row may list too (`path`'s does) are not the verb's own.
+		const ownNamed = named.filter((n) => !placeNamed.includes(n) && !COMMON.map(label).includes(n));
 		assert.deepEqual(ownNamed.sort(), own.sort(), `${verb}: ${col}`);
 		const place = allowed.filter((m) => PLACE.includes(m));
 		if (/no place modifiers/.test(col)) assert.deepEqual(place, [], verb);

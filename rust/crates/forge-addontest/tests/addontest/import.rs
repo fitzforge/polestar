@@ -7,8 +7,8 @@
 use forge_addontest::dsl::{fixture_data, plain};
 use forge_addontest::{emitted, is_match, lua_value, text, Addon, RunAddon};
 use forge_guide::diag::Diagnostics;
-use forge_guide::emit::{emit_guides, guide_data, list_keys, GOAL_KEYS, GUIDE_KEYS, IMAGE_KEYS, ONLY_KEYS, STEP_KEYS, WHEN_KEYS};
-use forge_guide::importstring::{adler32, encode_import, import_string, LIMITS};
+use forge_guide::emit::{emit_guides, guide_data, list_keys, FORKED_FROM_KEYS, GOAL_KEYS, GUIDE_KEYS, IMAGE_KEYS, ONLY_KEYS, STEP_KEYS, WHEN_KEYS};
+use forge_guide::importstring::{adler32, encode_import, import_string, source_keys, Limits, LIMITS, LIMITS_V2};
 use forge_guide::js::{parse_json, V};
 use forge_guide::project::{compile_sources, CompileOpts, Source};
 use serde_json::{json, Value};
@@ -211,27 +211,29 @@ fn sorted(a: &[&str]) -> Value {
 
 #[test]
 fn the_caps_the_checksum_and_the_key_lists_are_the_writer_s() {
-	let out = run(r#"emit({ limits = I.LIMITS, sum = I.Adler32("Wikipedia"), keys = I.KEYS })"#).remove(0);
-	assert_eq!(
-		out["limits"],
+	let out = run(r#"emit({ limits = I.LIMITS, limitsV2 = I.LIMITS_V2, caps = { I.CAPS[1] == I.LIMITS, I.CAPS[2] == I.LIMITS_V2 }, sum = I.Adler32("Wikipedia"), keys = I.KEYS })"#).remove(0);
+	let caps = |l: &Limits| {
 		json!({
-			"length": LIMITS.length,
-			"steps": LIMITS.steps,
-			"payload": LIMITS.payload,
-			"text": LIMITS.text,
-			"names": LIMITS.names,
-			"goals": LIMITS.goals,
-			"candidates": LIMITS.candidates,
-			"spots": LIMITS.spots,
-			"when": LIMITS.when,
-			"skipto": LIMITS.skipto,
-			"reagents": LIMITS.reagents,
-			"fromNpcs": LIMITS.from_npcs,
-			"pre": LIMITS.pre,
-			"tokens": LIMITS.tokens,
-			"nextWhen": LIMITS.next_when,
+			"length": l.length,
+			"steps": l.steps,
+			"payload": l.payload,
+			"text": l.text,
+			"names": l.names,
+			"goals": l.goals,
+			"candidates": l.candidates,
+			"spots": l.spots,
+			"when": l.when,
+			"skipto": l.skipto,
+			"reagents": l.reagents,
+			"fromNpcs": l.from_npcs,
+			"pre": l.pre,
+			"tokens": l.tokens,
+			"nextWhen": l.next_when,
 		})
-	);
+	};
+	assert_eq!(out["limits"], caps(&LIMITS));
+	assert_eq!(out["limitsV2"], caps(&LIMITS_V2));
+	assert_eq!(out["caps"], json!([true, true]));
 	assert_eq!(out["sum"], format!("{:08x}", adler32(b"Wikipedia")).as_str());
 	let guide_keys: Vec<&str> = GUIDE_KEYS.iter().copied().filter(|k| *k != "pack").collect();
 	assert_eq!(out["keys"]["guide"], sorted(&guide_keys));
@@ -240,9 +242,18 @@ fn the_caps_the_checksum_and_the_key_lists_are_the_writer_s() {
 	assert_eq!(out["keys"]["goal"], sorted(&GOAL_KEYS));
 	assert_eq!(out["keys"]["only"], sorted(&ONLY_KEYS));
 	assert_eq!(out["keys"]["image"], sorted(&IMAGE_KEYS));
-	for k in ["reagents", "candidates", "fromNpcs", "spots", "items", "reward"] {
+	assert_eq!(out["keys"]["forkedFrom"], sorted(&FORKED_FROM_KEYS));
+	for k in ["reagents", "candidates", "fromNpcs", "spots", "pts", "items", "reward"] {
 		assert_eq!(out["keys"][k], sorted(list_keys(k).unwrap()), "{k}");
 	}
+	// A v2 string's source: exactly the source tree's keys, lists where it writes lists.
+	let source = &out["keys"]["source"];
+	assert_eq!(source["tree"], sorted(&source_keys::TREE));
+	assert_eq!(source["header"], sorted(&source_keys::HEADER));
+	assert_eq!(source["headerLists"], sorted(&source_keys::HEADER_LISTS));
+	assert_eq!(source["step"], sorted(&source_keys::STEP));
+	assert_eq!(source["stepLists"], sorted(&source_keys::STEP_LISTS));
+	assert_eq!(source["goal"], sorted(&source_keys::GOAL));
 }
 
 // The keys 0.3.7's compiler adds: a grind step's mob (`level N grind <npc>`: `grind`, its `npcName` and the mob's
@@ -382,7 +393,7 @@ fn a_damaged_truncated_oversized_foreign_or_code_carrying_string_is_refused_with
 		"checksum": format!("!PS1!00000000!{body}"),
 		"oversized": format!("!PS1!00000000!{}", "A".repeat(LIMITS.length)),
 		"notOurs": "hello there",
-		"newer": format!("!PS2!{}", &good[5..]),
+		"newer": format!("!PS3!{}", &good[5..]),
 		"luaChunk": envelope(r#"return { format = 3, license = "MIT", guide = { id = "yendi/x" } }"#),
 		"unknownField": encode(&p),
 		"newerFormat": encode(&newer_format),

@@ -1,0 +1,176 @@
+<Bindings>
+	<Binding name="POLESTARSTUDIO_TOGGLE" header="POLESTARSTUDIO" category="ADDONS">
+		PolestarStudio_Binding("TOGGLE")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_UNDO" category="ADDONS">
+		PolestarStudio_Binding("UNDO")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_REDO" category="ADDONS">
+		PolestarStudio_Binding("REDO")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_WAYPOINT" category="ADDONS">
+		PolestarStudio_Binding("WAYPOINT")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_WAYPOINTMAP" category="ADDONS">
+		PolestarStudio_Binding("WAYPOINTMAP")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_PLACE" category="ADDONS">
+		PolestarStudio_Binding("PLACE")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_PATH" category="ADDONS">
+		PolestarStudio_Binding("PATH")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_PATHMAP" category="ADDONS">
+		PolestarStudio_Binding("PATHMAP")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_AREA" category="ADDONS">
+		PolestarStudio_Binding("AREA")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_AREAMAP" category="ADDONS">
+		PolestarStudio_Binding("AREAMAP")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_KILL" category="ADDONS">
+		PolestarStudio_Binding("KILL")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_COLLECT" category="ADDONS">
+		PolestarStudio_Binding("COLLECT")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_ACCEPT" category="ADDONS">
+		PolestarStudio_Binding("ACCEPT")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_COMPLETE" category="ADDONS">
+		PolestarStudio_Binding("COMPLETE")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_TURNIN" category="ADDONS">
+		PolestarStudio_Binding("TURNIN")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_TALK" category="ADDONS">
+		PolestarStudio_Binding("TALK")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_INTERACT" category="ADDONS">
+		PolestarStudio_Binding("INTERACT")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_USE" category="ADDONS">
+		PolestarStudio_Binding("USE")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_MARK" category="ADDONS">
+		PolestarStudio_Binding("MARK")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_NOTE" category="ADDONS">
+		PolestarStudio_Binding("NOTE")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_TIP" category="ADDONS">
+		PolestarStudio_Binding("TIP")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_TASK" category="ADDONS">
+		PolestarStudio_Binding("TASK")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_SETHOME" category="ADDONS">
+		PolestarStudio_Binding("SETHOME")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_HEARTH" category="ADDONS">
+		PolestarStudio_Binding("HEARTH")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_GETFP" category="ADDONS">
+		PolestarStudio_Binding("GETFP")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_FLY" category="ADDONS">
+		PolestarStudio_Binding("FLY")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_ONLY" category="ADDONS">
+		PolestarStudio_Binding("ONLY")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_WHEN" category="ADDONS">
+		PolestarStudio_Binding("WHEN")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_OPTIONAL" category="ADDONS">
+		PolestarStudio_Binding("OPTIONAL")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_GROUP" category="ADDONS">
+		PolestarStudio_Binding("GROUP")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_NEXT" category="ADDONS">
+		PolestarStudio_Binding("NEXT")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_LEVEL" category="ADDONS">
+		PolestarStudio_Binding("LEVEL")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_BRANCH" category="ADDONS">
+		PolestarStudio_Binding("BRANCH")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_QUESTLOG" category="ADDONS">
+		PolestarStudio_Binding("QUESTLOG")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_CAPTURE" category="ADDONS">
+		PolestarStudio_Binding("CAPTURE")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_BREADCRUMBS" category="ADDONS">
+		PolestarStudio_Binding("BREADCRUMBS")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_BOSS" category="ADDONS">
+		PolestarStudio_Binding("BOSS")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_BOSSLIST" category="ADDONS">
+		PolestarStudio_Binding("BOSSLIST")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_ENTRANCE" category="ADDONS">
+		PolestarStudio_Binding("ENTRANCE")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_TRAIN" category="ADDONS">
+		PolestarStudio_Binding("TRAIN")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_TRAINCLASS" category="ADDONS">
+		PolestarStudio_Binding("TRAINCLASS")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_SKILL" category="ADDONS">
+		PolestarStudio_Binding("SKILL")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_LEARN" category="ADDONS">
+		PolestarStudio_Binding("LEARN")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_CRAFT" category="ADDONS">
+		PolestarStudio_Binding("CRAFT")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_BUYNEAREST" category="ADDONS">
+		PolestarStudio_Binding("BUYNEAREST")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_SOURCES" category="ADDONS">
+		PolestarStudio_Binding("SOURCES")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_DROPFARM" category="ADDONS">
+		PolestarStudio_Binding("DROPFARM")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_CHAIN" category="ADDONS">
+		PolestarStudio_Binding("CHAIN")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_FOLLOWUPS" category="ADDONS">
+		PolestarStudio_Binding("FOLLOWUPS")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_LOOPPATH" category="ADDONS">
+		PolestarStudio_Binding("LOOPPATH")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_MAKELOOP" category="ADDONS">
+		PolestarStudio_Binding("MAKELOOP")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_FARMCOLLECT" category="ADDONS">
+		PolestarStudio_Binding("FARMCOLLECT")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_VENDORNEAREST" category="ADDONS">
+		PolestarStudio_Binding("VENDORNEAREST")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_VENDORHERE" category="ADDONS">
+		PolestarStudio_Binding("VENDORHERE")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_LAP" category="ADDONS">
+		PolestarStudio_Binding("LAP")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_REP" category="ADDONS">
+		PolestarStudio_Binding("REP")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_ACHIEVE" category="ADDONS">
+		PolestarStudio_Binding("ACHIEVE")
+	</Binding>
+	<Binding name="POLESTARSTUDIO_EXPLORE" category="ADDONS">
+		PolestarStudio_Binding("EXPLORE")
+	</Binding>
+</Bindings>

@@ -1,33 +1,40 @@
 -- Import strings: a small guide shared as one line of text, pasted on the
 -- Import page (UI/Import.lua, `/polestar import`) instead of installed as a
 -- community addon. Contract: docs/PACK_FORMAT.md, "Import strings"; the
--- writer is tools/lib/pack/importstring.js (`polestar export`).
+-- writer is `forge guide export` (and tools/lib/pack/importstring.js).
 --
 --   !PS1!<Adler-32 of the payload, 8 hex digits>!<base64 of zlib of the payload>
+--   !PS2!...  the same, bigger caps (LIMITS_V2), and the payload may carry `source`
 --
--- The payload is JSON: { format, license, guide, frames? }, the guide as the
--- compiler writes it into a community addon's Guides.lua. A string is data,
--- never code: the client's own decoders (C_EncodingUtil, as Polestar_Nav's
--- walking maps use them) unpack it, the JSON is read here by hand, and the
--- guide is built field by field from a fixed set of keys (SCHEMA below, the
--- compiler's own key lists: a test holds them equal) before the registry's
--- checks (Guides.Validate) see it. Nothing in a string is ever run.
+-- The payload is JSON: { format, license, guide, source?, frames? }, the
+-- guide as the compiler writes it into a community addon's Guides.lua; a v2
+-- string's `source` is the guide as written (docs/PACK_FORMAT.md, "Source
+-- tree"), kept for Polestar Studio. A string is data, never code: the
+-- client's own decoders (C_EncodingUtil, as Polestar_Nav's walking maps use
+-- them) unpack it, the JSON is read here by hand, and the guide is built
+-- field by field from a fixed set of keys (SCHEMA below, the compiler's own
+-- key lists: a test holds them equal) before the registry's checks
+-- (Guides.Validate) see it. Nothing in a string is ever run.
 --
 -- Imported guides belong to the pack `imported` (Core/Guides.lua: reserved,
 -- registered here as this file loads; its guides keep their authors' ids,
 -- `yendi/cozy-sleeping-bag`) and are kept account-wide, as decoded, in
--- PolestarDB.imports[guideId] = { format, license, guide, frames }. They
--- register at login (Import.Load, from Guides.lua's login handler) through
--- the same checks as a pasted string, so a store edited by hand cannot carry
--- anything a string could not.
+-- PolestarDB.imports[guideId] = { format, license, guide, source, frames }.
+-- They register at login (Import.Load, from Guides.lua's login handler)
+-- through the same checks as a pasted string, so a store edited by hand
+-- cannot carry anything a string could not.
 --
 --   Import.Decode(text) -> entry | nil, reason
+--   Import.Encode(entry) -> text | nil, reason   -- a v2 string (Polestar Studio, Share)
+--   Import.Build(tree) -> entry | nil, reason     -- the shape alone (Decode's; Studio's drafts)
+--   Import.Check(entry, { caps?, draft? }) -> nil | reason  -- the checks (draft: id studio/<slug>)
 --   Import.Preview(text) -> info | nil, reason   -- info: what the page shows, state "new"|"update"|"same"|"older"
 --   Import.Save(entry) -> ok, reason              -- import or update; fires PACKS_CHANGED("imported")
+--   Import.Entry(id) -> entry | nil               -- an imported guide's stored entry (Share)
 --   Import.Delete(id) -> bool                     -- fires PACKS_CHANGED("imported")
 --   Import.List() -> { { id, title, author, version, license, steps, problem }, ... }  -- by title
 --   Import.Load()                                 -- at login: register the store
---   Import.LIMITS, Import.KEYS                    -- the caps and the key lists, for the tests
+--   Import.LIMITS, LIMITS_V2, CAPS, KEYS          -- the caps (by string format) and the key lists, for the tests
 
 local ADDON, ns = ...
 local L = ns.L
@@ -58,7 +65,14 @@ local LIMITS = {
 	length = 50000, steps = 60, payload = 262144, text = 4096, names = 128, goals = 100, candidates = 128,
 	spots = 1024, when = 16, skipto = 16, reagents = 32, fromNpcs = 32, pre = 64, tokens = 1024, nextWhen = 16,
 }
-Import.LIMITS = LIMITS
+-- A v2 string (`!PS2!`) holds a bigger guide and its source: more
+-- characters, payload and steps; every other cap is v1's.
+local LIMITS_V2 = {}
+for k, v in pairs(LIMITS) do LIMITS_V2[k] = v end
+LIMITS_V2.length, LIMITS_V2.steps, LIMITS_V2.payload = 300000, 250, 1048576
+-- The string formats this Polestar reads (`!PS<n>!`), each with its caps.
+local CAPS = { [1] = LIMITS, [2] = LIMITS_V2 }
+Import.LIMITS, Import.LIMITS_V2, Import.CAPS = LIMITS, LIMITS_V2, CAPS
 
 ns.RegisterPack({ id = PACK, imported = true, title = L["Imported"] })
 
@@ -222,11 +236,12 @@ local ONLY = rec({ classes = LS, races = LS, factions = LS })
 local REWARD_ITEM = rec({ item = N, itemName = S, quality = N })
 local GOAL = rec({
 	t = S, class = B, zone = N, spell = N, spellName = S, faction = N, factionName = S, standing = N, achievement = N, achievementName = S, criteria = N,
-	quest = N, title = S, target = S, npc = N, npcName = S, object = N, objName = S, item = N, itemName = S, count = N, oi = N, skill = S, skillLine = N,
+	quest = N, title = S, target = S, npc = N, npcName = S, instance = N, icon = N, object = N, objName = S, item = N, itemName = S, count = N, oi = N, skill = S, skillLine = N,
 	rank = NS, rankMax = N, level = N, frac = N, grind = N, money = N, untilSkill = N,
 	reagents = list(rec({ item = N, itemName = S, count = N })),
 	location = S, minLevel = N, qlvl = NS, limit = N, pre = LN, preAll = LN, closedBy = LN, preTitles = { idmap = S }, text = S, node = N, area = N,
 	map = N, x = N, y = N, z = N, f = S, r = N,
+	pts = list(rec({ x = N, y = N })), cycle = B,
 	spots = list(rec({ x = N, y = N, z = N, r = N, n = N, alt = B, lvl = N })),
 	spread = B, lvl = N, optional = B, only = ONLY, profLine = N, profName = S, profRank = N, note = S,
 	from = S, fromKind = S, fromRank = N, fromFaction = S, fromAlso = S, fromId = N, fromAlsoId = N,
@@ -243,14 +258,25 @@ local WHEN = rec({ k = S, neg = B, op = S, n = N, frac = N, q = NL, item = N, sp
 -- A step's picture: read so a string carries the guide as its addon does, but
 -- an imported guide has no addon folder holding the file, so it shows none.
 local IMAGE = rec({ file = S, w = N, h = N })
-local STEP = rec({ title = S, note = S, image = IMAGE, label = S, only = ONLY, when = list(WHEN), along = BS, skipto = list(rec({ to = S, when = WHEN })), goals = list(GOAL) })
+local STEP = rec({ id = S, title = S, note = S, image = IMAGE, label = S, only = ONLY, when = list(WHEN), along = BS, skipto = list(rec({ to = S, when = WHEN })), goals = list(GOAL) })
 local GUIDE = rec({
 	id = S, title = S, faction = S, races = LS, classes = LS, minLevel = N, maxLevel = N, category = S, folder = S, keywords = LS,
 	collects = LN, reward = list(rec({ item = N, itemName = S, quality = N, choice = B, spell = N, spellName = S, text = S })),
-	why = S, zone = N, zoneName = S, next = S, nextChoices = LS, nextWhen = { map = list(WHEN) }, pitch = S, pros = LS, cons = LS, author = S, version = N, group = B,
+	why = S, zone = N, zoneName = S, next = S, nextChoices = LS, nextWhen = { map = list(WHEN) }, pitch = S, pros = LS, cons = LS, author = S, version = N,
+	credits = LS, forkedFrom = rec({ id = S, version = N }), group = B,
 	names = { map = SM }, written = { map = SM }, steps = list(STEP),
 })
-local PAYLOAD = rec({ format = N, license = S, guide = GUIDE, frames = { idmap = rec({ c = N, left = N, right = N, top = N, bottom = N }) } })
+-- `source` (v2): the guide as written, its source tree (docs/PACK_FORMAT.md,
+-- "Source tree"; forge-guide's sourcetree TREE_KEYS: a test holds them
+-- equal). Stored as it came, for Polestar Studio; Polestar plays `guide`.
+local SOURCE_GOAL = rec({ verb = S, args = LS, mods = list(LS), note = S, zone = S })
+local SOURCE_STEP = rec({ title = S, id = S, label = S, along = S, background = S, zone = S, only = S, when = LS, skipto = LS, image = S, loop = S, tip = S, goals = list(SOURCE_GOAL), zoneEnd = S })
+local SOURCE_HEADER = rec({
+	guide = S, title = S, levels = S, zone = S, faction = S, race = S, class = S, next = LS, category = S, folder = S, keywords = S,
+	collects = S, reward = LS, why = S, author = S, credits = LS, ["forked-from"] = S, version = S, coords = S, pitch = S, pro = LS, con = LS,
+})
+local SOURCE = rec({ v = N, header = SOURCE_HEADER, steps = list(SOURCE_STEP) })
+local PAYLOAD = rec({ format = N, license = S, guide = GUIDE, source = SOURCE, frames = { idmap = rec({ c = N, left = N, right = N, top = N, bottom = N }) } })
 
 -- The key lists, for the test that holds them to the compiler's.
 local function keysOf(spec)
@@ -259,11 +285,25 @@ local function keysOf(spec)
 	table.sort(out)
 	return out
 end
+-- The keys of spec holding a list of strings.
+local function listKeysOf(spec)
+	local out = {}
+	for k, v in pairs(spec.rec) do
+		if v == LS then out[#out + 1] = k end
+	end
+	table.sort(out)
+	return out
+end
 Import.KEYS = {
 	guide = keysOf(GUIDE), step = keysOf(STEP), goal = keysOf(GOAL), only = keysOf(ONLY),
 	reagents = keysOf(GOAL.rec.reagents.list), candidates = keysOf(GOAL.rec.candidates.list), spots = keysOf(GOAL.rec.spots.list),
+	pts = keysOf(GOAL.rec.pts.list), forkedFrom = keysOf(GUIDE.rec.forkedFrom),
 	fromNpcs = keysOf(GOAL.rec.fromNpcs.list),
 	items = keysOf(REWARD_ITEM), reward = keysOf(GUIDE.rec.reward.list), when = keysOf(WHEN), image = keysOf(IMAGE),
+	source = {
+		tree = keysOf(SOURCE), header = keysOf(SOURCE_HEADER), headerLists = listKeysOf(SOURCE_HEADER),
+		step = keysOf(SOURCE_STEP), stepLists = listKeysOf(SOURCE_STEP), goal = keysOf(SOURCE_GOAL),
+	},
 }
 
 local function finite(v) return type(v) == "number" and v == v and v ~= huge and v ~= -huge end
@@ -440,26 +480,34 @@ local function placed(c)
 end
 
 -- Can entry be imported? -> nil, or why not. Every reason a pasted string
--- and a stored guide are refused for, after the shape (build).
-local function check(entry)
+-- and a stored guide are refused for, after the shape (build); caps: the
+-- string format's (CAPS). draft: Polestar Studio's live draft
+-- (Core/Studio.lua), whose id is `studio/<slug>` instead of an author's.
+local function check(entry, caps, draft)
 	local g = entry.guide
 	if not Guides.FORMATS[entry.format] then return L["This import string needs a newer Polestar."] end
 	if type(entry.license) ~= "string" or entry.license == "" or type(g) ~= "table" then return L["This import string holds no guide."] end
 	local id = g.id
-	if type(id) ~= "string" or not Guides.OwnsId(PACK, id) then
-		return (L["Its guide id %s must start with its author's own id, as in yendi/cozy-sleeping-bag."]):format(escape(tostring(id)))
+	if draft then
+		if type(id) ~= "string" or not id:match("^studio/[a-z0-9][a-z0-9%-]*$") then
+			return (L["Its guide id %s must start with its author's own id, as in yendi/cozy-sleeping-bag."]):format(escape(tostring(id)))
+		end
+	else
+		if type(id) ~= "string" or not Guides.OwnsId(PACK, id) then
+			return (L["Its guide id %s must start with its author's own id, as in yendi/cozy-sleeping-bag."]):format(escape(tostring(id)))
+		end
+		-- Require the full id to be pack-id/guide-slug, both segments safe pack ids.
+		if not id:match("^[a-z0-9][a-z0-9%-]*/[a-z0-9][a-z0-9%-]*$") then
+			return (L["Its guide id %s must start with its author's own id, as in yendi/cozy-sleeping-bag."]):format(escape(id))
+		end
+		local prefix = id:match("^([^/]+)/")
+		local holder = Guides.Pack(prefix)
+		if holder and not holder.imported then
+			return (L["Guides under %s/ come from the community addon %s, which is installed."]):format(prefix, holder.title or escape(tostring(holder.id)))
+		end
 	end
-	-- Require the full id to be pack-id/guide-slug, both segments safe pack ids.
-	if not id:match("^[a-z0-9][a-z0-9%-]*/[a-z0-9][a-z0-9%-]*$") then
-		return (L["Its guide id %s must start with its author's own id, as in yendi/cozy-sleeping-bag."]):format(escape(id))
-	end
-	local prefix = id:match("^([^/]+)/")
-	local holder = Guides.Pack(prefix)
-	if holder and not holder.imported then
-		return (L["Guides under %s/ come from the community addon %s, which is installed."]):format(prefix, holder.title or escape(tostring(holder.id)))
-	end
-	if type(g.steps) == "table" and #g.steps > LIMITS.steps then
-		return (L["Its guide has %d steps; an import string holds %d at most. A bigger guide comes as a community addon."]):format(#g.steps, LIMITS.steps)
+	if type(g.steps) == "table" and #g.steps > caps.steps then
+		return (L["Its guide has %d steps; an import string holds %d at most. A bigger guide comes as a community addon."]):format(#g.steps, caps.steps)
 	end
 	local where, count, cap = crowded(g)
 	if where then
@@ -522,22 +570,43 @@ local function check(entry)
 	return nil
 end
 
--- A parsed payload (or a stored entry) -> entry | nil, reason.
-local function fromTree(tree)
+-- What build raised -> why the string is refused.
+local function shapeReason(err)
+	if type(err) == "table" and err.long then
+		return (L["This import string holds a text longer than Polestar reads (%s): %d characters at most."]):format(escape(err.field), LIMITS.text)
+	end
+	if type(err) == "table" and err.field then
+		return (L["This import string holds a field Polestar does not read (%s). It may need a newer Polestar."]):format(escape(err.field))
+	end
+	return damaged()
+end
+
+-- A parsed payload (or a stored entry) -> a fresh entry in the shape
+-- PAYLOAD reads | nil, reason. Shared with Polestar Studio's drafts
+-- (Core/Studio.lua).
+function Import.Build(tree)
 	if type(tree) ~= "table" then return nil, L["This import string holds no guide."] end
 	-- A newer format is expected to hold keys this Polestar does not know.
 	if finite(tree.format) and not Guides.FORMATS[tree.format] then return nil, L["This import string needs a newer Polestar."] end
 	local ok, entry = pcall(build, tree, PAYLOAD, "")
-	if not ok then
-		if type(entry) == "table" and entry.long then
-			return nil, (L["This import string holds a text longer than Polestar reads (%s): %d characters at most."]):format(escape(entry.field), LIMITS.text)
-		end
-		if type(entry) == "table" and entry.field then
-			return nil, (L["This import string holds a field Polestar does not read (%s). It may need a newer Polestar."]):format(escape(entry.field))
-		end
-		return nil, damaged()
-	end
-	local reason = check(entry)
+	if not ok then return nil, shapeReason(entry) end
+	return entry
+end
+
+-- A built entry -> nil, or why it cannot be imported. opts: { caps =
+-- LIMITS | LIMITS_V2 (default v2's, the most a stored entry holds), draft =
+-- true for a Studio draft (id `studio/<slug>`) }.
+function Import.Check(entry, opts)
+	opts = opts or {}
+	return check(entry, opts.caps or LIMITS_V2, opts.draft and true or false)
+end
+
+-- A parsed payload (or a stored entry) -> entry | nil, reason. caps: the
+-- string format's (default v2's).
+local function fromTree(tree, caps)
+	local entry, reason = Import.Build(tree)
+	if not entry then return nil, reason end
+	reason = check(entry, caps or LIMITS_V2, false)
 	if reason then return nil, reason end
 	return entry
 end
@@ -546,11 +615,12 @@ function Import.Decode(text)
 	if type(text) ~= "string" then return nil, L["Paste an import string."] end
 	local s = gsub(text, "%s+", "")
 	if s == "" then return nil, L["Paste an import string."] end
-	if #s > LIMITS.length then return nil, (L["This import string is too long: Polestar reads up to %d characters."]):format(LIMITS.length) end
-	local version = s:match("^!PS(%d+)!")
+	local version = tonumber(s:match("^!PS(%d+)!"))
 	if not version then return nil, L["This is not a Polestar import string."] end
-	if version ~= "1" then return nil, L["This import string needs a newer Polestar."] end
-	local sum, body = s:match("^!PS1!(%x%x%x%x%x%x%x%x)!([A-Za-z0-9+/]+=?=?)$")
+	local caps = CAPS[version]
+	if not caps then return nil, L["This import string needs a newer Polestar."] end
+	if #s > caps.length then return nil, (L["This import string is too long: Polestar reads up to %d characters."]):format(caps.length) end
+	local sum, body = s:match("^!PS%d+!(%x%x%x%x%x%x%x%x)!([A-Za-z0-9+/]+=?=?)$")
 	if not sum or #body % 4 ~= 0 then return nil, damaged() end
 	local enc = C_EncodingUtil
 	if not (type(enc) == "table" and type(enc.DecodeBase64) == "function" and type(enc.DecompressString) == "function") then
@@ -562,11 +632,88 @@ function Import.Decode(text)
 	local raw
 	ok, raw = pcall(enc.DecompressString, packed, method)
 	if not ok or type(raw) ~= "string" then return nil, damaged() end
-	if #raw > LIMITS.payload then return nil, (L["This import string holds too much: Polestar reads up to %d KB of guide data."]):format(LIMITS.payload / 1024) end
+	if #raw > caps.payload then return nil, (L["This import string holds too much: Polestar reads up to %d KB of guide data."]):format(caps.payload / 1024) end
 	if adler32(raw) ~= lower(sum) then return nil, damaged() end
 	local tree = parseJSON(raw)
 	if tree == nil then return nil, damaged() end
-	return fromTree(tree)
+	return fromTree(tree, caps)
+end
+
+---------------------------------------------------------------------------
+-- Writing a string (v2), for Polestar Studio and Share: the JSON of exactly
+-- the keys PAYLOAD reads, each object's keys sorted.
+---------------------------------------------------------------------------
+
+local JSON_ESCAPES = { ['"'] = '\\"', ["\\"] = "\\\\", ["\n"] = "\\n", ["\t"] = "\\t" }
+
+local function jsonString(s)
+	return '"' .. gsub(s, '[%c"\\]', function(c) return JSON_ESCAPES[c] or format("\\u%04x", byte(c)) end) .. '"'
+end
+
+-- The shortest of %.14g-%.17g that reads back as v.
+local function jsonNumber(v)
+	if v % 1 == 0 and v > -2 ^ 53 and v < 2 ^ 53 then return format("%d", v) end
+	for digits = 14, 17 do
+		local s = format("%." .. digits .. "g", v)
+		if tonumber(s) == v or digits == 17 then return s end
+	end
+end
+
+-- v (built, so shaped by spec) -> JSON, its parts appended to out.
+local function writeJSON(v, spec, out)
+	local t = type(v)
+	if t == "string" then
+		out[#out + 1] = jsonString(v)
+	elseif t == "number" then
+		out[#out + 1] = jsonNumber(v)
+	elseif t == "boolean" then
+		out[#out + 1] = v and "true" or "false"
+	elseif spec.list or spec == NL then
+		local of = spec == NL and N or spec.list
+		out[#out + 1] = "["
+		for i = 1, #v do
+			if i > 1 then out[#out + 1] = "," end
+			writeJSON(v[i], of, out)
+		end
+		out[#out + 1] = "]"
+	else
+		local keys = {}
+		for k in pairs(v) do keys[#keys + 1] = k end
+		if spec.idmap then table.sort(keys) else table.sort(keys, function(a, b) return tostring(a) < tostring(b) end) end
+		out[#out + 1] = "{"
+		for i, k in ipairs(keys) do
+			if i > 1 then out[#out + 1] = "," end
+			out[#out + 1] = jsonString(tostring(k)) .. ":"
+			writeJSON(v[k], spec.rec and spec.rec[k] or spec.map or spec.idmap, out)
+		end
+		out[#out + 1] = "}"
+	end
+end
+
+-- entry ({ format, license, guide, source?, frames? }) -> a `!PS2!` string |
+-- nil, reason. The entry's shape is Decode's (a key it does not read refuses
+-- it), and so are the v2 caps on the payload and the string; the checks a
+-- pasted string meets (Decode, Save) are the caller's.
+function Import.Encode(entry)
+	local ok, clean = pcall(build, entry, PAYLOAD, "")
+	if not ok then return nil, shapeReason(clean) end
+	local out = {}
+	writeJSON(clean, PAYLOAD, out)
+	local raw = concat(out)
+	if #raw > LIMITS_V2.payload then return nil, (L["This import string holds too much: Polestar reads up to %d KB of guide data."]):format(LIMITS_V2.payload / 1024) end
+	local enc = C_EncodingUtil
+	if not (type(enc) == "table" and type(enc.EncodeBase64) == "function" and type(enc.CompressString) == "function") then
+		return nil, L["This game client cannot read import strings."]
+	end
+	local method = Enum and Enum.CompressionMethod and Enum.CompressionMethod.Zlib
+	local level = Enum and Enum.CompressionLevel and Enum.CompressionLevel.OptimizeForSize
+	local packed, body
+	ok, packed = pcall(enc.CompressString, raw, method, level)
+	if ok and type(packed) == "string" then ok, body = pcall(enc.EncodeBase64, packed) end
+	if not ok or type(body) ~= "string" then return nil, L["This game client cannot read import strings."] end
+	local text = "!PS2!" .. adler32(raw) .. "!" .. body
+	if #text > LIMITS_V2.length then return nil, (L["This import string is too long: Polestar reads up to %d characters."]):format(LIMITS_V2.length) end
+	return text
 end
 
 -- A copy of guide g with its texts in the client's language, for display
@@ -585,7 +732,7 @@ function Import.Preview(text)
 	local g = entry.guide
 	local have = stored(g.id)
 	local state = "new"
-	local authorChanged, licenseChanged = false, false
+	local authorChanged, licenseChanged, diff = false, false, nil
 	if have then
 		local v, h = versionOf(g), versionOf(have.guide)
 		state = v > h and "update" or v == h and "same" or "older"
@@ -594,14 +741,28 @@ function Import.Preview(text)
 		if state == "update" then
 			authorChanged = g.author ~= (type(have.guide) == "table" and have.guide.author)
 			licenseChanged = entry.license ~= (type(have) == "table" and have.license)
+			-- What the update changes, steps matched as the Engine maps the
+			-- player's progress over (by step id where both carry them).
+			local E = ns.Engine
+			if E and E.DiffSteps and type(have.guide) == "table" and type(have.guide.steps) == "table" then
+				local ok, d = pcall(E.DiffSteps, have.guide, g)
+				if ok then diff = d end
+			end
 		end
 	end
 	local c = shown(g)
+	-- Provenance (format 10): author text, escaped as the author is; never translated.
+	local credits
+	if type(g.credits) == "table" and #g.credits > 0 then
+		credits = {}
+		for i, v in ipairs(g.credits) do credits[i] = escape(v) end
+	end
 	return {
 		entry = entry, id = g.id, title = escape(c.title or g.id), author = g.author and escape(g.author) or nil,
 		version = g.version, steps = #g.steps, minLevel = g.minLevel, maxLevel = g.maxLevel, faction = g.faction,
 		license = escape(entry.license), state = state, have = have and versionOf(have.guide) or nil,
-		authorChanged = authorChanged or nil, licenseChanged = licenseChanged or nil,
+		authorChanged = authorChanged or nil, licenseChanged = licenseChanged or nil, diff = diff,
+		credits = credits, forkedFrom = g.forkedFrom and { id = escape(g.forkedFrom.id), version = g.forkedFrom.version } or nil,
 	}
 end
 
@@ -660,6 +821,9 @@ function Import.Save(entry)
 	ns.Fire("PACKS_CHANGED", PACK)
 	return true
 end
+
+-- The stored entry of imported guide `id`, as decoded (Share re-encodes it) | nil.
+function Import.Entry(id) return stored(id) end
 
 function Import.Delete(id)
 	local t = store(false)

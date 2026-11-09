@@ -39,6 +39,8 @@ is installed. The contract the tools write to is in
 | `new` | Starts a pack (the source of a community addon) in a new folder from `tools/templates/pack` |
 | `lint`, `compile` | Moved to forge: `forge guide lint` checks a pack's `.guide` files without writing anything, `forge guide compile` compiles a pack into its addon folder (ours into `addon/Polestar_Guides`); the old commands print the forge command and exit 2 |
 | `export` | Prints one community guide as an import string (lints its pack first) |
+| `decode` | Writes the guide source an import string carries back as a pack (`pack.json` and the `.guide`) |
+| `ids` | Gives every step of a pack's guides that lacks one a stable `id` (format 10), so players' progress follows the step when it moves |
 | `dev` | Rebuilds a pack into the game, and optionally the playground, on every save |
 | `playtest` | Plays a pack's guides to the end for every class they branch on; `--honest` plays them from their lines and the data only, with nothing free |
 | `guidecheck` | Moved to forge: `forge guide check <dir>` reads written guides as a player would and gives a repair for each line that lacks what it needs (`--fix` writes them); `polestar guidecheck` prints the forge command and exits 2 |

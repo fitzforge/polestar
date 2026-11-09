@@ -1166,5 +1166,16 @@
     ]
    }
   }
+ },
+ "639": {
+  "faction": null,
+  "id": 639,
+  "instances": [
+   36
+  ],
+  "level": 24,
+  "name": "Edwin VanCleef",
+  "rank": 3,
+  "spawns": {}
  }
 }

@@ -1,0 +1,50 @@
+## Interface: 16001
+## Title: Polestar Studio
+## Notes: Build, test and share Polestar guides in game. /studio
+## Author: Polestar
+## X-License: GPL-3.0-only
+## Version: 0.3.5
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+## SavedVariables: PolestarStudioDB, PolestarStudioBackup
+
+Studio.lua
+Model.lua
+Resolve.lua
+Checks.lua
+Serialize.lua
+Sync.lua
+Backup.lua
+Capture.lua
+UI\Kit.lua
+UI\Popup.lua
+UI\MapPlace.lua
+UI\Panel.lua
+UI\Home.lua
+UI\Export.lua
+UI\TargetCard.lua
+UI\QuestPanel.lua
+UI\PositionHUD.lua
+UI\Nearby.lua
+UI\ChecksPanel.lua
+UI\Session.lua
+Tools\Waypoint.lua
+Tools\Path.lua
+Tools\Area.lua
+Tools\Kill.lua
+Tools\Collect.lua
+Tools\Quest.lua
+Tools\Interact.lua
+Tools\Mark.lua
+Tools\Note.lua
+Tools\Travel.lua
+Tools\Conditions.lua
+Tools\Next.lua
+Tools\Leveling.lua
+Tools\Boss.lua
+Tools\Profession.lua
+Tools\Collectible.lua
+Tools\Chain.lua
+Tools\Farm.lua
+Tools\Reputation.lua

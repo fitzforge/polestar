@@ -461,6 +461,46 @@ function spawnPointsOf(data, sources, map, f) {
 	return pts;
 }
 
+// An `area` carries 3 to AREA_MAX points (Core/Guides.lua checks the same cap).
+const AREA_MAX = 64;
+
+// An `area`'s points: the convex hull of `pts` ([x, y] map percent, rounded
+// to two decimals first so the stored points are the hull's), counter-
+// clockwise from the lowest x (Andrew's monotone chain), without points on
+// an edge. Above `max` points the corner that adds the least area goes until
+// `max` remain: the hull stays convex and covers nearly all of it.
+function areaHull(pts, max) {
+	const key = (p) => `${p[0]},${p[1]}`;
+	const seen = new Map();
+	for (const [x, y] of pts) {
+		const p = [round2(x), round2(y)];
+		seen.set(key(p), p);
+	}
+	const sorted = [...seen.values()].sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+	if (sorted.length < 3) return sorted;
+	const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+	const half = (list) => {
+		const out = [];
+		for (const p of list) {
+			while (out.length >= 2 && cross(out[out.length - 2], out[out.length - 1], p) <= 0) out.pop();
+			out.push(p);
+		}
+		out.pop();
+		return out;
+	};
+	const hull = [...half(sorted), ...half([...sorted].reverse())];
+	while (hull.length > max) {
+		let least = 0;
+		let leastArea = Infinity;
+		hull.forEach((p, i) => {
+			const a = Math.abs(cross(hull[(i + hull.length - 1) % hull.length], p, hull[(i + 1) % hull.length]));
+			if (a < leastArea) [least, leastArea] = [i, a];
+		});
+		hull.splice(least, 1);
+	}
+	return hull;
+}
+
 // A gathering node (mine, herb or fishing object): the real source of what
 // it yields at any chance.
 const GATHER_ROLES = ['mine', 'herb', 'fishing'];
@@ -720,6 +760,9 @@ function resolveGuide(ast, data, diag, opts = {}) {
 	// pack.json); ours when no pack author is given.
 	guide.author = h.author || opts.author || 'Polestar';
 	guide.version = h.version !== undefined ? h.version : 1;
+	// Provenance (format 5): who else helped, and the guide this one started from.
+	setIf(guide, 'credits', h.credits);
+	if (h.forkedFrom) guide.forkedFrom = { id: h.forkedFrom.id, version: h.forkedFrom.version };
 	guide.steps = [];
 	hidden(guide, '_ast', ast);
 
@@ -784,6 +827,8 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		setIf(step, 'when', resolveWhen(s.when, stepZone ? stepZone.id : null, h.levels ? [h.levels.min, h.levels.max] : null, data, warn));
 		setIf(step, 'label', s.label);
 		setIf(step, 'along', s.along);
+		setIf(step, 'id', s.id);
+		if (s.idLine !== undefined) step.idLine = s.idLine;
 		// `skipto <label> when <predicate>`: { to, when } in the step's order, `when` one predicate.
 		if (s.skipto) step.skipto = s.skipto.map((k) => ({ to: k.to, when: resolveWhen([k.when], stepZone ? stepZone.id : null, null, data, warn)[0] }));
 		step.goals = [];
@@ -802,6 +847,8 @@ function resolveGuide(ast, data, diag, opts = {}) {
 				loop: !!s.loop,
 			};
 			const goal = resolveGoal(g, zoneId, prev, data, err, warn, ctx);
+			// An npc's area with no spawns to shade (warned) is left out.
+			if (goal.t === 'area' && goal.pts === undefined) continue;
 			hidden(goal, '_line', g.line);
 			hidden(goal, '_only', g.only || null);
 			step.goals.push(goal);
@@ -842,6 +889,11 @@ function resolveGuide(ast, data, diag, opts = {}) {
 			if (zoneId !== null) use(zoneId);
 			if (goal.x !== undefined) {
 				prev = { map: goal.map, x: goal.x, y: goal.y };
+				use(goal.map);
+			} else if (goal.t === 'path' && goal.pts) {
+				// A path ends at its last point: where the next goal starts from.
+				const end = goal.pts[goal.pts.length - 1];
+				prev = { map: goal.map, x: end.x, y: end.y };
 				use(goal.map);
 			}
 		}
@@ -1220,6 +1272,20 @@ function sidesFor(lists) {
 	let sides = ['Alliance', 'Horde'];
 	for (const l of lists) if (l) sides = sides.filter((s) => l.includes(s));
 	return sides;
+}
+
+// The frame of hand-typed coordinates on `map`: 'e' (Era) unless the guide or
+// goal says `live` (ctx.frame), else undefined (live). A map with no Era bounds
+// has no Era frame to be in (new Forever zones).
+function eraFrameOf(data, map, ctx, ln, warn) {
+	const frame = ctx.frame || { frame: 'era', explicit: false };
+	const hasEra = !!data.eraFrame(map);
+	const anyFrames = nonEmpty(data.mapFrames.era);
+	if (frame.frame === 'era' && (hasEra || !anyFrames)) return 'e';
+	if (frame.frame === 'era' && frame.explicit) {
+		warn(ln, `\`era\` coordinates on map ${map}, but map-frames.json has no Era bounds for it; compiling them as live-frame`);
+	}
+	return undefined;
 }
 
 function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Alliance', 'Horde'] }) {
@@ -1730,6 +1796,95 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			goal.achievementName = g.achievementName;
 			if (g.criteria !== undefined) goal.criteria = g.criteria;
 			break;
+		case 'boss': {
+			// Positional npc id; name from data or explicit.
+			goal.npc = g.npc;
+			const bossName = requireName('npc', g.npc, g.npcName, 'Boss name') || undefined;
+			setIf(goal, 'npcName', bossName);
+			// instance from npc.instances[0] when present.
+			const bossRec = data.npc(g.npc);
+			if (bossRec && Array.isArray(bossRec.instances) && bossRec.instances.length) {
+				goal.instance = bossRec.instances[0];
+			}
+			break;
+		}
+		case 'mark':
+			// The quoted text is the mark's note (set below); the name comes from
+			// the data only (Polestar names the mob in the client's language).
+			goal.npc = g.npc;
+			goal.icon = g.icon;
+			setIf(goal, 'npcName', optionalName('npc', g.npc));
+			break;
+		case 'path': {
+			// The points are in the zone map (or `map`), in the frame a goto's are.
+			const map = g.coordMap !== undefined ? g.coordMap : zoneMap;
+			const out = g.pts.find((p) => p.x < 0 || p.x > 100 || p.y < 0 || p.y > 100);
+			if (out) err(ln, `path point ${out.x},${out.y} is outside 0-100`);
+			else if (map == null) err(ln, 'coordinates need a zone (`zone` in the header or step, or `map <uiMapID>`)');
+			else {
+				goal.map = map;
+				setIf(goal, 'f', eraFrameOf(data, map, ctx, ln, warn));
+				goal.pts = g.pts.map((p) => ({ x: round2(p.x), y: round2(p.y) }));
+				if (g.cycle) goal.cycle = true;
+			}
+			break;
+		}
+		case 'area': {
+			// Shaded on the zone map (or `map`): the hull of the npc's spawns
+			// there, in the frame its spawns are in, or of the author's points,
+			// in the frame a goto's are. An npc with no area there is left out
+			// (the call site drops a goal without points).
+			const map = g.coordMap !== undefined ? g.coordMap : zoneMap;
+			const zone = map != null ? data.zone(map) : null;
+			const where = zone && zone.name ? `${zone.name} (map ${map})` : `map ${map}`;
+			let hull;
+			let f;
+			if (g.npc !== undefined) {
+				goal.npc = g.npc;
+				setIf(goal, 'npcName', optionalName('npc', g.npc));
+				if (map == null) {
+					err(ln, '`area <npcId>` needs a zone (`zone` in the header or step, or `map <uiMapID>`)');
+					break;
+				}
+				const who = `npc ${g.npc}${goal.npcName ? ` (${goal.npcName})` : ''}`;
+				const spawns = data.spawns('npc', g.npc).find((s) => s.map === map);
+				const pts = spawns ? [...spawns.pts, ...spawns.more] : [];
+				if (!pts.length) {
+					warn(ln, `${who} has no spawns on ${where}; the area is left out`, 'draw it instead: area @x,y @x,y @x,y');
+					break;
+				}
+				hull = areaHull(pts, AREA_MAX);
+				if (hull.length < 3) {
+					warn(ln, `${who} has too few spawns on ${where} to shade an area (${pts.length}); the area is left out`, 'draw it instead: area @x,y @x,y @x,y');
+					break;
+				}
+				if (spawns.f === 'e') {
+					const anyFrames = nonEmpty(data.mapFrames.era);
+					if (data.eraFrame(map) || !anyFrames) f = 'e';
+					else warn(ln, `Era-frame spawns on map ${map}, but map-frames.json has no Era bounds for it; compiled as live-frame`);
+				}
+			} else {
+				const out = g.pts.find((p) => p.x < 0 || p.x > 100 || p.y < 0 || p.y > 100);
+				if (out) {
+					err(ln, `area point ${out.x},${out.y} is outside 0-100`);
+					break;
+				}
+				if (map == null) {
+					err(ln, 'coordinates need a zone (`zone` in the header or step, or `map <uiMapID>`)');
+					break;
+				}
+				hull = areaHull(g.pts.map((p) => [p.x, p.y]), AREA_MAX);
+				if (hull.length < 3) {
+					err(ln, '`area` points lie on one line: they shade no region', 'add a point off the line');
+					break;
+				}
+				f = eraFrameOf(data, map, ctx, ln, warn);
+			}
+			goal.map = map;
+			setIf(goal, 'f', f);
+			goal.pts = hull.map(([x, y]) => ({ x, y }));
+			break;
+		}
 	}
 
 	if (questFields && g.quest !== undefined) {
@@ -1830,18 +1985,11 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			goal.x = round2(g.x);
 			goal.y = round2(g.y);
 			// Hand-typed coordinates are Era-frame unless the guide or goal says `live`.
-			// A map with no Era bounds has no Era frame to be in (new Forever zones).
-			const frame = ctx.frame || { frame: 'era', explicit: false };
-			const hasEra = !!data.eraFrame(map);
-			const anyFrames = nonEmpty(data.mapFrames.era);
-			if (frame.frame === 'era' && (hasEra || !anyFrames)) goal.f = 'e';
-			else if (frame.frame === 'era' && frame.explicit) {
-				warn(ln, `\`era\` coordinates on map ${map}, but map-frames.json has no Era bounds for it; compiling them as live-frame`);
-			}
+			setIf(goal, 'f', eraFrameOf(data, map, ctx, ln, warn));
 			if (checkKinds && checkKinds.length) checkNear(data, checkKinds, map, goal.x, goal.y, goal.f === 'e' ? 'e' : 'l', ln, warn);
 		}
 	}
-	if (g.frame && !g.explicitCoords) err(ln, `\`${g.frame}\` only applies to explicit coordinates (@x,y)`);
+	if (g.frame && !g.explicitCoords && v !== 'path' && !(v === 'area' && g.pts)) err(ln, `\`${g.frame}\` only applies to explicit coordinates (@x,y)`);
 	if (g.explicitCoords && (g.nearest || g.classTrain || (g.profession !== undefined && g.npc === undefined))) {
 		err(ln, 'smart targets pick their NPC and position at runtime; drop the coordinates, or name an npc id');
 	}
@@ -1989,4 +2137,4 @@ function checkNear(data, kinds, map, x, y, frame, ln, warn) {
 	else warn(ln, `explicit coordinates ${x},${y} are more than ${SPAWN_CHECK_YARDS} yards from every known spawn of ${what}`, hint);
 }
 
-module.exports = { resolveGuide, pickSpawn, round2 };
+module.exports = { resolveGuide, pickSpawn, round2, areaHull };

@@ -835,6 +835,68 @@ struct Ctx<'a> {
 	loop_: bool,
 }
 
+/// The frame of hand-typed coordinates on `map`: "e" (Era) unless the guide or goal says `live`
+/// (ctx.frame), else Undef (live). A map with no Era bounds has no Era frame to be in (new Forever
+/// zones).
+fn era_frame_of(data: &Data, map: &V, ctx: &Ctx, ln: &V, r: &mut R) -> V {
+	let (frame, explicit) = (&ctx.frame.0, ctx.frame.1);
+	let has_era = data.era_frame(map).truthy();
+	let any_frames = non_empty(&data.map_frames.get("era"));
+	if frame == "era" && (has_era || !any_frames) {
+		return "e".into();
+	}
+	if frame == "era" && explicit {
+		r.warn(ln, format!("`era` coordinates on map {map}, but map-frames.json has no Era bounds for it; compiling them as live-frame"), None);
+	}
+	V::Undef
+}
+
+/// An `area`'s points: the convex hull of `pts` (map percent, rounded to two decimals first so the
+/// stored points are the hull's), counter-clockwise from the lowest x (Andrew's monotone chain),
+/// without points on an edge. Above `max` points the corner that adds the least area goes until
+/// `max` remain: the hull stays convex and covers nearly all of it.
+pub fn area_hull(pts: &[(f64, f64)], max: usize) -> Vec<(f64, f64)> {
+	let mut sorted: Vec<(f64, f64)> = Vec::new();
+	for &(x, y) in pts {
+		let p = (round2(x), round2(y));
+		if !sorted.contains(&p) {
+			sorted.push(p);
+		}
+	}
+	sorted.sort_by(|a, b| a.0.total_cmp(&b.0).then(a.1.total_cmp(&b.1)));
+	if sorted.len() < 3 {
+		return sorted;
+	}
+	let cross = |o: (f64, f64), a: (f64, f64), b: (f64, f64)| (a.0 - o.0) * (b.1 - o.1) - (a.1 - o.1) * (b.0 - o.0);
+	let half = |list: &mut dyn Iterator<Item = (f64, f64)>| {
+		let mut out: Vec<(f64, f64)> = Vec::new();
+		for p in list {
+			while out.len() >= 2 && cross(out[out.len() - 2], out[out.len() - 1], p) <= 0.0 {
+				out.pop();
+			}
+			out.push(p);
+		}
+		out.pop();
+		out
+	};
+	let mut hull = half(&mut sorted.iter().copied());
+	hull.extend(half(&mut sorted.iter().rev().copied()));
+	while hull.len() > max {
+		let n = hull.len();
+		let mut least = 0;
+		let mut least_area = f64::INFINITY;
+		for i in 0..n {
+			let a = cross(hull[(i + n - 1) % n], hull[i], hull[(i + 1) % n]).abs();
+			if a < least_area {
+				least = i;
+				least_area = a;
+			}
+		}
+		hull.remove(least);
+	}
+	hull
+}
+
 fn only_of(c: &V) -> V {
 	if !c.truthy() {
 		return V::Undef;
@@ -1076,6 +1138,11 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 	};
 	guide.set("author", author_v);
 	guide.set("version", if !h.get("version").is_undef() { h.get("version") } else { 1.into() });
+	// Provenance (format 10): who else helped, and the guide this one started from.
+	set_if(&guide, "credits", h.get("credits"));
+	if h.get("forkedFrom").truthy() {
+		guide.set("forkedFrom", obj! { "id" => h.get("forkedFrom").get("id"), "version" => h.get("forkedFrom").get("version") });
+	}
 	let gsteps: V = V::arr();
 	guide.set("steps", gsteps.clone());
 	guide.set_hidden("_ast", ast.clone());
@@ -1175,6 +1242,10 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		set_if(&step, "when", resolve_when(&s.get("when"), &szid, levels, r));
 		set_if(&step, "label", s.get("label"));
 		set_if(&step, "along", s.get("along"));
+		set_if(&step, "id", s.get("id"));
+		if !s.get("idLine").is_undef() {
+			step.set_hidden("idLine", s.get("idLine"));
+		}
 		if s.get("skipto").truthy() {
 			let mut list = Vec::new();
 			for k in s.get("skipto").items() {
@@ -1204,6 +1275,10 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				loop_: s.get("loop").truthy(),
 			};
 			let goal = resolve_goal(g, &zone_id, &prev, r, &ctx);
+			// An npc's area with no spawns to shade (warned) is left out.
+			if goal.get("t").as_str() == Some("area") && goal.get("pts").is_undef() {
+				continue;
+			}
 			goal.set_hidden("_line", g.get("line"));
 			goal.set_hidden("_only", if gonly.truthy() { gonly.clone() } else { V::Null });
 			step_goals.push(goal.clone());
@@ -1268,6 +1343,12 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 			}
 			if !goal.get("x").is_undef() {
 				prev = obj! { "map" => goal.get("map"), "x" => goal.get("x"), "y" => goal.get("y") }.into();
+				use_map(&mut used_maps, goal.get("map"));
+			} else if goal.get("t").as_str() == Some("path") && goal.get("pts").truthy() {
+				// A path ends at its last point: where the next goal starts from.
+				let pts = goal.get("pts").items();
+				let end = pts.last().cloned().unwrap_or(V::Undef);
+				prev = obj! { "map" => goal.get("map"), "x" => end.get("x"), "y" => end.get("y") }.into();
 				use_map(&mut used_maps, goal.get("map"));
 			}
 		}
@@ -2571,6 +2652,104 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 					goal.set("criteria", g.get("criteria"));
 				}
 			}
+			"boss" => {
+				goal.set("npc", g.get("npc"));
+				let name = require_name(r, "npc", &g.get("npc"), &g.get("npcName"), "Boss name");
+				set_if(&goal, "npcName", if name.truthy() { name } else { V::Undef });
+				// The instance it is fought in: the npc's first (Map.csv map id).
+				let rec = data.npc(&g.get("npc"));
+				if rec.truthy() && rec.get("instances").is_arr() && !rec.get("instances").is_empty() {
+					goal.set("instance", rec.get("instances").at(0));
+				}
+			}
+			"mark" => {
+				// The note is the mark's (as written); the name comes from the data only (Polestar
+				// names the mob in the client's language).
+				goal.set("npc", g.get("npc"));
+				goal.set("icon", g.get("icon"));
+				let name = optional_name(r, "npc", &g.get("npc"));
+				set_if(&goal, "npcName", if name.truthy() { name } else { V::Undef });
+			}
+			"path" => {
+				// The points are in the zone map (or `map`), in the frame a goto's are.
+				let map = if !g.get("coordMap").is_undef() { g.get("coordMap") } else { zone_map.clone() };
+				let pts = g.get("pts").items();
+				if let Some(out) = pts.iter().find(|p| !(0.0..=100.0).contains(&p.get("x").num()) || !(0.0..=100.0).contains(&p.get("y").num())) {
+					r.err(&ln, format!("path point {},{} is outside 0-100", out.get("x"), out.get("y")), None);
+				} else if map.is_nullish() {
+					r.err(&ln, "coordinates need a zone (`zone` in the header or step, or `map <uiMapID>`)", None);
+				} else {
+					goal.set("map", map.clone());
+					set_if(&goal, "f", era_frame_of(data, &map, ctx, &ln, r));
+					let list: Vec<V> = pts.iter().map(|p| obj! { "x" => round2(p.get("x").num()), "y" => round2(p.get("y").num()) }.into()).collect();
+					goal.set("pts", list);
+					if g.get("cycle").truthy() {
+						goal.set("cycle", true);
+					}
+				}
+			}
+			"area" => {
+				// Shaded on the zone map (or `map`): the hull of the npc's spawns there, in the frame
+				// its spawns are in, or of the author's points, in the frame a goto's are. An npc with
+				// no area there is left out (resolve_guide drops a goal without points).
+				let map = if !g.get("coordMap").is_undef() { g.get("coordMap") } else { zone_map.clone() };
+				let zone = if map.is_nullish() { V::Null } else { data.zone(&map) };
+				let where_ = if zone.truthy() && zone.get("name").truthy() { format!("{} (map {})", zone.get("name"), map) } else { format!("map {map}") };
+				let hull: Vec<(f64, f64)>;
+				let mut f = V::Undef;
+				if !g.get("npc").is_undef() {
+					goal.set("npc", g.get("npc"));
+					let name = optional_name(r, "npc", &g.get("npc"));
+					set_if(&goal, "npcName", if name.truthy() { name } else { V::Undef });
+					if map.is_nullish() {
+						r.err(&ln, "`area <npcId>` needs a zone (`zone` in the header or step, or `map <uiMapID>`)", None);
+						break 'sw;
+					}
+					let who = if goal.get("npcName").truthy() { format!("npc {} ({})", g.get("npc"), goal.get("npcName")) } else { format!("npc {}", g.get("npc")) };
+					let spawns = data.spawns("npc", &g.get("npc")).into_iter().find(|s| s.get("map").strict_eq(&map));
+					let pts: Vec<(f64, f64)> = spawns
+						.as_ref()
+						.map(|s| s.get("pts").items().into_iter().chain(s.get("more").items()).map(|p| (p.at(0).num(), p.at(1).num())).collect())
+						.unwrap_or_default();
+					if pts.is_empty() {
+						r.warn(&ln, format!("{who} has no spawns on {where_}; the area is left out"), Some("draw it instead: area @x,y @x,y @x,y"));
+						break 'sw;
+					}
+					hull = area_hull(&pts, crate::parse::AREA_MAX);
+					if hull.len() < 3 {
+						r.warn(&ln, format!("{who} has too few spawns on {where_} to shade an area ({}); the area is left out", pts.len()), Some("draw it instead: area @x,y @x,y @x,y"));
+						break 'sw;
+					}
+					if spawns.as_ref().is_some_and(|s| s.get("f").as_str() == Some("e")) {
+						if data.era_frame(&map).truthy() || !non_empty(&data.map_frames.get("era")) {
+							f = "e".into();
+						} else {
+							r.warn(&ln, format!("Era-frame spawns on map {map}, but map-frames.json has no Era bounds for it; compiled as live-frame"), None);
+						}
+					}
+				} else {
+					let pts = g.get("pts").items();
+					if let Some(out) = pts.iter().find(|p| !(0.0..=100.0).contains(&p.get("x").num()) || !(0.0..=100.0).contains(&p.get("y").num())) {
+						r.err(&ln, format!("area point {},{} is outside 0-100", out.get("x"), out.get("y")), None);
+						break 'sw;
+					}
+					if map.is_nullish() {
+						r.err(&ln, "coordinates need a zone (`zone` in the header or step, or `map <uiMapID>`)", None);
+						break 'sw;
+					}
+					let raw: Vec<(f64, f64)> = pts.iter().map(|p| (p.get("x").num(), p.get("y").num())).collect();
+					hull = area_hull(&raw, crate::parse::AREA_MAX);
+					if hull.len() < 3 {
+						r.err(&ln, "`area` points lie on one line: they shade no region", Some("add a point off the line"));
+						break 'sw;
+					}
+					f = era_frame_of(data, &map, ctx, &ln, r);
+				}
+				goal.set("map", map.clone());
+				set_if(&goal, "f", f);
+				let list: Vec<V> = hull.iter().map(|&(x, y)| obj! { "x" => x, "y" => y }.into()).collect();
+				goal.set("pts", list);
+			}
 			_ => {}
 		}
 	}
@@ -2736,7 +2915,7 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			}
 		}
 	}
-	if g.get("frame").truthy() && !explicit {
+	if g.get("frame").truthy() && !explicit && v != "path" && !(v == "area" && g.get("pts").truthy()) {
 		r.err(&ln, format!("`{}` only applies to explicit coordinates (@x,y)", g.get("frame")), None);
 	}
 	if explicit && (g.get("nearest").truthy() || g.get("classTrain").truthy() || (!g.get("profession").is_undef() && g.get("npc").is_undef())) {

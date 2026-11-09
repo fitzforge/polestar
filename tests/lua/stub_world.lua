@@ -723,4 +723,27 @@ function GetAchievementCriteriaInfo(id, i)
 	return c.text, 0, c.completed, c.cur, c.max, "Testchar", 0, 0, ("%d/%d"):format(c.cur, c.max)
 end
 
+---------------------------------------------------------------------------
+-- Combat log stub: fires COMBAT_LOG_EVENT_UNFILTERED with a mock event.
+-- CombatLogGetCurrentEventInfo returns (timestamp, subevent, hideCaster,
+-- sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, ...)
+---------------------------------------------------------------------------
+
+local clei = {}  -- current combat log event info
+
+function CombatLogGetCurrentEventInfo()
+	return clei.timestamp or 0, clei.subevent or "", false,
+		"0x0000000000000000", "", 0, 0,
+		clei.destGUID or "", "", 0, 0
+end
+
+-- Fire a synthetic combat log event.
+-- subevent: e.g. "UNIT_DIED" or "PARTY_KILL"
+-- destGUID: e.g. "Creature-0-0-0-0-639-000000639"
+function world.combatLog(subevent, destGUID)
+	clei = { timestamp = GetTime and GetTime() or 0, subevent = subevent, destGUID = destGUID }
+	fire("COMBAT_LOG_EVENT_UNFILTERED")
+end
+
+
 return world

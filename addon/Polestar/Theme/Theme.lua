@@ -956,6 +956,11 @@ end
 VERB_ICON.enter = VERB_ICON.goto
 VERB_ICON.cast = VERB_ICON.use
 VERB_ICON.wait = MEDIA .. "UI\\hourglass"
+-- Format 10: a drawn path is a way to walk, as a goto is; a boss is killed;
+-- an area is where to hunt.
+VERB_ICON.path = VERB_ICON.goto
+VERB_ICON.boss = VERB_ICON.kill
+VERB_ICON.area = VERB_ICON.kill
 
 function Theme.VerbIcon(t)
 	return VERB_ICON[t] or VERB_ICON.note

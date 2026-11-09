@@ -35,6 +35,8 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `reward item <item> ...` / `reward spell <id> "Name"` / `reward text <words>` | Repeatable: what the guide's goal gives, first in the guide menu's details (several items on one line: a choice of one). Lint warns on a `Class` guide without it |
 | `why <text>` | One short line in the guide menu's details: why the goal is worth doing (lint warns on a `Class` guide without it) |
 | `author <name>` | Default: `pack.json`'s author |
+| `credits <text>` | Repeatable: someone else who helped, at most 32 (Polestar 0.3.7) |
+| `forked-from <guideId> <version>` | The guide this one started from (Polestar 0.3.7) |
 | `version <N>` | A whole number, raised when the guide changes (default 1) |
 | `coords era` / `coords live` | The map frame of typed coordinates (default `era`) |
 | `pitch <text>` | On a guide offered by a `next` choice: one line on its card (lint warns when missing) |
@@ -56,6 +58,7 @@ every goal in it that is not `optional` is; its goals are open together.
 | `along [until <label>]` | The route never stops at the step: its goals (quest objectives, bag counts) are done along the way, listed under the next steps until done, or until the step with that label |
 | `background` | On an `along until` step: its goals are slow, zone-wide collections (a low drop rate, the mobs all along the route) worked over the whole stay; each quest objective needs a finish step, a plain step working it, before the step that hands its quest in |
 | `label <name>` | Names the step for an `along until` or `skipto` before it, or a `when done` (letters, digits, `-`, `_`; once per guide) |
+| `id <x>` | A stable id for the step, 4–8 lowercase letters and digits, once per guide: a pack update carries players' progress to the step wherever it moved; `polestar ids` adds one to every step without (Polestar 0.3.7) |
 | `skipto <label> when <predicate>` | If the predicate (as for `when`) holds when the route reaches the step, this step and the ones up to the labelled later step are skipped for good; several lines, the first that holds decides |
 | `loop` | The step's `goto` points, in order, are the places to search for its kill, collect and interact goals without `@x,y` (at least two, one map) |
 
@@ -73,6 +76,8 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `abandon <quest> ["Title"]` | Drop a quest from the log; done once it is out, the quest's `accept` stays done (Polestar 0.3.0) | no place modifiers, no `group` |
 | `destroy <item> ["Name"]` | Delete an item from the bags; done once the bags hold none (Polestar 0.3.0) | no place modifiers, no `group` |
 | `kill <npc>` / `kill "<Name>"` | Kill a mob; with `quest Q.O` the quest log counts it, without it the player ticks it | `npc`, `quest`, `xN` |
+| `boss <npc> ["Boss name"]` | Defeat a dungeon or raid boss; done when it dies (the combat log), and stays done (Polestar 0.3.7) | `npc` |
+| `mark <npc> <icon> ["note"]` | A raid icon (`skull`, `cross`, `square`, `moon`, `triangle`, `diamond`, `circle`, `star` or 1-8) over that mob's nameplates while the step is current; never holds the step (Polestar 0.3.7) | `only`; no `optional`, no `"text"`, no `group`, no place modifiers |
 | `collect <item> ["Name"]` | Loot or gather items; without `quest`, counted in the bags | `npc`, `quest`, `xN`, `nearest` |
 | `goto <x>,<y> ["Label"]` | Walk there; for travel and places the data has no target for | `map`, `r`, `era` / `live` only |
 | `talk <npc>` | Speak to an NPC; with `quest Q.O` it is that quest objective ("Speak with …"), counted by the quest log | `gossip`, `quest` |
@@ -97,6 +102,8 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `craft <spell> ["Name"]` | Craft a recipe | `xN`, `until` |
 | `rep <Faction> <Standing>` | Reach a standing, `Hated` to `Exalted`, with a faction by name or id | |
 | `explore <x>,<y> ["Area"]` | Discover the map area there | `map`, `r`, `era` / `live` only |
+| `path @<x>,<y> @<x>,<y> … ["Label"]` | A way you draw, 2 to 200 points: the arrow leads to each in turn, the map draws it; done at the last point (Polestar 0.3.7) | `cycle`, `optional`, `only`, `"text"`, `group`, and of the place modifiers `map`, `era` / `live` only |
+| `area <npc> ["Label"]` / `area @<x>,<y> @<x>,<y> @<x>,<y> … ["Label"]` | Shade where to hunt on the maps while the step is current: the hull of that mob's spawns in the step's zone, or of 3 to 64 points you draw; never holds the step (Polestar 0.3.7) | `only`; no `optional`, no `"text"`, no `group`; of the place modifiers `map`, `era` / `live` only |
 | `achieve <id> "Name"` | Complete an achievement or Legacy Challenge; the name is required | `criteria` |
 | `wait <seconds> ["text"]` | A countdown (1 to 3600 seconds) that starts once the goals before it in the step are done: a boat, an event or a speech to sit through (Polestar 0.3.0) | no place modifiers, no `group` |
 
@@ -131,6 +138,7 @@ After the arguments, in any order.
 | `xp <N>` / `money <amount>` | On `turnin`: what it pays (`money 1g50s`) |
 | `direct` | On `turnin`: handed in from the giver's window with no `accept`, so it needs none. The quest never enters the log: get what it asks for with a plain `buy` or `collect` |
 | `gossip <id>` | On `talk`, `vendor` and `train`: the gossip option (the client's `gossipOptionID`) Polestar picks at that NPC on this step |
+| `cycle` | On `path`: a loop that starts over at its first point, done once a later goal of its step is done |
 
 ## Conditions
 
@@ -162,7 +170,9 @@ spell; `!knows` for the step that trains it); `!` in front of any but
 outcome stays. A pack with `when` (on a step or a `next` line), `along` or
 `label` needs Polestar 0.2.6; with `money`, `task`, `enter`, `cast`, `abandon`, `destroy` or `die` goals, a `when money`,
 `when dungeon`, `when upgrade`, `when done`, `when skill`, `when cooldown`,
-`when group` or `when knows` predicate, or `skipto`, needs Polestar 0.3.0.
+`when group` or `when knows` predicate, or `skipto`, needs Polestar 0.3.0; a
+step `id`, `boss`, `mark`, `path` or `area` goals, `credits` or `forked-from`
+need Polestar 0.3.7.
 
 ## Lint errors that come up most
 

@@ -126,6 +126,8 @@ mod engine_skipquest;
 mod engine_skipto;
 #[path = "engine-smart.rs"]
 mod engine_smart;
+#[path = "engine-studio.rs"]
+mod engine_studio;
 #[path = "engine-tab-restore.rs"]
 mod engine_tab_restore;
 #[path = "engine-tabs.rs"]
@@ -308,6 +310,10 @@ mod riding;
 mod route_plan;
 #[path = "skins-sweep.rs"]
 mod skins_sweep;
+#[path = "studio-format.rs"]
+mod studio_format;
+#[path = "studio-smoke.rs"]
+mod studio_smoke;
 mod syntax;
 mod talents;
 mod theme;

@@ -32,6 +32,8 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `reward text <words>` | A reward without an id | `reward text Shen'dralar reputation` |
 | `why <text>` | One short line in the guide menu: why the goal is worth doing (Class guides need it and `reward`) | `why Your own mount at 40.` |
 | `author <name>` | Credits a guide to someone other than the pack's author | `author Joe` |
+| `credits <text>` | Someone else who helped; repeatable, shown as "Credits: …" (needs Polestar 0.3.7) | `credits Joe: dungeon paths` |
+| `forked-from <id> <version>` | The guide this one started from, shown as "Based on <title> v<version>" (needs Polestar 0.3.7) | `forked-from joe-routes/elwynn 3` |
 | `version <N>` | A whole number you raise when the guide changes (default 1) | `version 2` |
 | `coords era` / `coords live` | The map frame of the coordinates you type (default `era`; `record draft` writes `live`) | `coords live` |
 
@@ -49,6 +51,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `background` | Inside an `along until` step: its goals are slow, zone-wide collections worked over the whole stay; each needs a finish step before its hand-in (GUIDE_FORMAT, "Background goals") | `background` |
 | `skipto <label> when <predicate>` | Inside a step: if the predicate holds when the route gets there, this step and the ones up to the labelled step are skipped, for good (GUIDE_FORMAT, "Jumps"; needs Polestar 0.3.0) | `skipto camp when turnedin 783` |
 | `label <name>` | Inside a step: names it for an `along until` or `skipto` before it, or a `when done` | `label camp` |
+| `id <x>` | Inside a step: stable 4–8 char id (lowercase letters/digits); Polestar maps progress when steps move; `polestar ids` adds them. Two steps with the same id are an error (needs Polestar 0.3.7) | `id k3f9` |
 | `loop` | Inside a step: its `goto` points are the places to search, in order, for the step's kill, collect and interact goals without `@x,y` | `loop` |
 | `note <text>` | A line of information; never holds the player up | `note The camp is busy at night.` |
 | `level <N>` | Reach level N, grinding if need be | `level 2` |
@@ -67,6 +70,8 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `map <uiMapID>` | The map this goal's `@` coordinates are on | `kill 69 map 1429 @45,40` |
 | `era` / `live` | The map frame of this goal's coordinates, overriding `coords` | `goto 40,60 live` |
 | `explore <x>,<y> ["Area"]` | Discover the map area at these coordinates | `explore 41,65 "Goldshire"` |
+| `path @<x>,<y> @<x>,<y> … ["Label"]` | Walk a way you draw, 2 to 200 points: the arrow leads to each in turn and the map draws it; done at the last point (needs Polestar 0.3.7) | `path @47.6,35.1 @48.2,36.4 @49,38 "Along the stream"` |
+| `cycle` | On `path`: a loop that starts over at its first point, done once a later goal of its step is done | `path @40,60 @44,62 @42,66 cycle` |
 | `sethome "<Location>"` | Bind the hearthstone at an inn, named as the game reports it | `sethome "Goldshire"` |
 | `sethome nearest` | Bind at the nearest inn of the player's faction | `sethome nearest` |
 | `hearth "<Location>"` | Use the hearthstone; done on landing there | `hearth "Goldshire"` |
@@ -99,6 +104,9 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | Line | What it does | Example |
 |---|---|---|
 | `kill <npc>` / `kill "<Name>"` | Kill a mob; `quest Q.O` ties it to a quest objective | `kill 6 x10 quest 7.1` |
+| `boss <npc>` | Defeat a dungeon or raid boss; done when the boss dies (needs Polestar 0.3.7) | `boss 639` |
+| `mark <npc> <icon> ["note"]` | Put a raid icon (`skull`, `cross`, `square`, `moon`, `triangle`, `diamond`, `circle`, `star` or 1-8) over that mob's nameplates while the step is current; never holds the step (needs Polestar 0.3.7) | `mark 6 skull "Pull first"` |
+| `area <npc> ["Label"]` / `area @<x>,<y> @<x>,<y> @<x>,<y> … ["Label"]` | Shade where to hunt on the maps while the step is current: the hull of that mob's spawns in the zone, or of 3 to 64 points you draw; never holds the step (needs Polestar 0.3.7) | `area 6 "Kobold camp"` |
 | `x<N>` | How many (kills, items, purchases, crafts) | `kill "Cloth Kobold" x5 @65,75` |
 | `quest <quest>.<objective>` | Counts the goal by that quest objective, numbered as the quest log lists them (`quest <quest>` alone lets the data find it) | `interact 1617 quest 9400.1` |
 | `collect <item> ["Name"]` | Gather or loot items; without `quest`, counted in the bags | `collect 750 x8` |

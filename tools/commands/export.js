@@ -9,7 +9,7 @@ const { parseArgs, resolvePath, printDiagnostics, plural } = require('../lib/cli
 const { ROOT } = require('../lib/paths');
 const { commandPack, findPackDir } = require('../lib/pack/locate');
 const { buildPack, noReferenceData } = require('../lib/pack/build');
-const { importString, LIMITS } = require('../lib/pack/importstring');
+const { importString, LIMITS, LIMITS_V2 } = require('../lib/pack/importstring');
 
 const usage = `usage: node tools/polestar.js export <file.guide> [options]
 
@@ -19,21 +19,27 @@ guide without installing anything (docs/GUIDE_PACKS.md, "Import strings").
 The guide belongs to a community pack: the nearest folder above the file
 holding a pack.json, whose id is the guide id's prefix and whose license the
 string carries. The pack is linted first, with our guides as context, and a
-guide with errors is refused. A string holds one guide of at most
-${LIMITS.steps} steps and ${LIMITS.length} characters; anything bigger, or a
-set of guides, is a community addon (\`forge release pack\`).
+guide with errors is refused. The string is a v2 string (!PS2!): it carries
+the guide as written too, so Polestar Studio can open it and
+\`node tools/polestar.js decode\` can write it back, and holds one guide of
+at most ${LIMITS_V2.steps} steps and ${LIMITS_V2.length} characters. --v1
+writes a v1 string (!PS1!, the compiled guide alone, at most
+${LIMITS.steps} steps and ${LIMITS.length} characters), which Polestar
+before 0.3.7 reads too. Anything bigger, or a set of guides, is a community
+addon (\`forge release pack\`).
 
 The string goes to stdout, everything else to stderr, so
 \`polestar export my.guide > my.txt\` keeps only the string.
 
 options:
+  --v1                  write a v1 string (no source, smaller caps)
   --data <dir>          reference data (default data/forever/)
   --context <dir>       our guides, read as context (default guides/)
   --context-data <dir>  reference data for the context (default data/forever/)
   --quiet               print errors only`;
 
 async function run(argv) {
-	const { opts, positional, error } = parseArgs(argv, { flags: ['--quiet'], options: ['--data', '--context', '--context-data'] });
+	const { opts, positional, error } = parseArgs(argv, { flags: ['--quiet', '--v1'], options: ['--data', '--context', '--context-data'] });
 	if (opts.help) {
 		console.log(usage);
 		return 0;
@@ -95,7 +101,7 @@ async function run(argv) {
 		return 1;
 	}
 	const guide = mine[0];
-	const r = importString(guide, { manifest: pack.manifest, data });
+	const r = opts.v1 ? importString(guide, { manifest: pack.manifest, data }) : importString(guide, { manifest: pack.manifest, data, source: guide._ast, v2: true });
 	if (r.error) {
 		console.error(`export failed: ${r.error}`);
 		return 1;

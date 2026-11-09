@@ -73,6 +73,8 @@ Every line before the first `step`.
 | `reward` | no (a warning on a `Class` guide without it) | what the guide's goal gives, shown first in the guide menu's details with its icon and the game's tooltip. Repeatable, one entry per line: `reward item <item> ["Name"] [quality] ...` (entries as in `choose`; several on one line are a choice of one), `reward spell <spellId> "Spell name"` (a mount, a form, a demon, an ability; the name is required; the id is the spell the player ends up with, as the Forever client's `SpellName` table has it: `reward spell 691 "Summon Felhunter"`, not the quest's "Teach" spell) or `reward text <words>` (anything without an id: reputation, experience). A spell written as `reward text` shows a glyph instead of its icon and no tooltip, and tests/guides-class.test.js fails on one for the guide's class. The details list the entries given outright under "Reward", then the choices under "Choose one", each group in header order. An item's name defaults to `items.json`; an id missing there needs its name. Compiled as `reward = { { item, itemName, quality, choice }, { spell, spellName }, { text } }`. |
 | `why` | no (a warning on a `Class` guide without it) | one short line in the guide menu's details: why the goal is worth doing, in the author's words |
 | `author` | no | default: the pack's author (`pack.json`) |
+| `credits` | no | someone else who helped, in your words (never translated): `credits Yendi`, `credits Joe: dungeon paths`. Repeatable, one per line, at most 32, each at most 4,096 bytes. The guide menu and the Import page show them on one line, "Credits: Yendi, Joe: dungeon paths". Needs Polestar 0.3.7 (pack format 10) |
+| `forked-from` | no | `forked-from <guideId> <version>`: the guide (and its version) this one started from. The guide menu and the Import page show "Based on <its title> v<version>" (its id when the player does not have it). Needs Polestar 0.3.7 (pack format 10) |
 | `version` | no | integer, default `1` |
 | `coords` | no | `era` (default) or `live`: the map frame of coordinates typed in this guide (`@x,y`, `goto`, `explore`). Era-frame ones compile with `f = "e"`; on a map without Era bounds they compile live. `record draft` writes `coords live`. |
 | `pitch` | no | one line selling the zone, shown on its card in the route choice window (required, as a warning, when the guide is a route option) |
@@ -113,6 +115,7 @@ Step directives:
 | `along [until <label>]` | The route never stops at the step: its goals are done along the way, listed under the steps after it. See "Along the way". |
 | `background` | On an `along until` step: its goals are zone-wide, slow collections worked over the whole stay, each with a finish step before its hand-in. See "Background goals". |
 | `label <name>` | Names the step, for an `along until` or `skipto` before it, or a `when done` anywhere in the guide. |
+| `id <x>` | Stable 4–8 character id for the step (lowercase letters and digits). Survives `polestar compile` unchanged; `polestar ids` adds one to every step that lacks one. Polestar uses it to carry progress over to the new position when a pack update moves or reorders steps. Two steps with the same id in a guide are an error. Needs Polestar 0.3.7 (pack format 10). |
 | `skipto <label> when <predicate>` | When the route reaches the step and the predicate holds, it skips this step and the ones after it up to the labelled step; several lines may follow one another, and the first that holds decides. See "Jumps". |
 | `tip <text>` | Player-facing step note (compiled to `step.note`). |
 | `image <path> [<w>x<h>]` | A picture shown in the guide window under the step's tip, while the tip is open, scaled to the window's width (at most 160 high): a screenshot of a spot that is hard to find, such as a cave mouth. `<path>` is the file's place in the pack folder, `/` between folders (`media/fargodeep-mine.tga`), a `.tga` or `.blp` file; without the extension the `.tga`, else the `.blp`. The file ships in the pack's addon folder at that path. `<w>x<h>` is the size it is drawn at (only the ratio counts: `512x256` is twice as wide as high); without it the compiler reads the file's own. One per step; a step with no `tip` reads "Picture of this spot" above it. See "Pictures" in the Cookbook. |
@@ -160,6 +163,10 @@ A step must contain at least one goal.
 | `rep` | `<Faction> <Standing>` | Reach a standing (`Neutral`, `Friendly`, `Honored`, `Revered`, `Exalted`) with a faction named in `factions.json`, or `rep <factionId> <Standing>`. |
 | `explore` | `<x>,<y> ["Area"]` | Discover the map area at those coordinates (current zone). |
 | `achieve` | `<achievementId> ["Name"]` | Complete an achievement / Legacy Challenge; `criteria <n>` targets one criterion. |
+| `boss` | `<npcId> ["Boss name"]` | Defeat a dungeon or raid boss. Done once the boss dies (combat log). Stays done after a reload. The guide window reads "Defeat Edwin VanCleef". Pack format 10. |
+| `mark` | `<npcId> <icon> ["note"]` | Draw a raid icon over that mob's nameplates while the step is current, with the note on its tooltip. Never holds the step. Icons: `star`, `circle`, `diamond`, `triangle`, `moon`, `square`, `cross`, `skull`, or 1-8. Pack format 10. |
+| `path` | `@<x>,<y> @<x>,<y> … ["Label"]` | A way you draw, 2 to 200 points in the current zone (or `map`): the arrow leads to each point in turn and the map draws the way. Done at the last point; with `cycle`, a loop done once a later goal of its step is done (see "Places"). Pack format 10. |
+| `area` | `<npcId> ["Label"]` or `@<x>,<y> @<x>,<y> @<x>,<y> … ["Label"]` | Shade where to hunt on the world map and the minimap while the step is current: the hull of that mob's spawns in the current zone (or `map`), or of 3 to 64 points you draw. Never holds the step (see "Places"). Pack format 10. |
 
 **Quests the route leaves out.** Quest automation accepts and hands in only
 the `accept` and `turnin` goals of the step the guide is at (the live step:
@@ -200,6 +207,7 @@ Modifiers, in any order after the positional arguments:
 | `x<N>` | Count. |
 | `"text"` | Display text override (for `goto`: the label). A quoted token directly after the entity id of `kill`, `talk`, `interact`, `train` or `vendor` (like `collect`/`use`/`buy`) names that entity instead, for new Forever content missing from the data. |
 | `r <yards>` | Arrival radius (`goto`, default 8). |
+| `cycle` | `path` only: the way is a loop; after its last point the arrow leads back to the first. |
 | `lvl <N>` | Minimum level shown on an `accept`. |
 | `grind <npcId>` | On `level`: the mob the level is reached on; the arrow leads to its nearest spawn area. |
 | `optional` | Never blocks the step. |
@@ -888,6 +896,7 @@ Errors:
 - a step label used twice in a guide, an `along until` or `skipto` naming no
   label, or a label on its own step or an earlier one; a `when done` naming no
   label of the guide, or `done` on a `next` line
+- a step `id` that is not 4–8 lowercase letters and digits, or used twice in a guide
 - a `skipto` line without a label, `when` and one predicate
 - `background` on a step without `along until <label>`, or a quest objective
   in a `background` step with no finish step (a later step, not an along one,
@@ -1004,7 +1013,7 @@ Warnings:
   points come from `data/forever/travel.json`; without it (or without the
   inns or the flight points in it) those goals are not checked
 - a `|` in text the player sees (`title`, `folder`, `pitch`, `pro`, `con`,
-  `author`, step titles and tips, goal texts and notes, quoted names): it
+  `author`, `credits`, step titles and tips, goal texts and notes, quoted names): it
   prints literally in game
 - another pack's Era frame for a map Polestar's guides also use, with other
   bounds: in game Polestar's wins, so coordinates on that map may be off
@@ -1112,6 +1121,65 @@ quest goal (training, a level, travel), is for some classes or races only
 when the quest goal done is itself `only`, and when `optional` goals follow
 the goto in its own step: that is where they are done.
 
+### Places: `path`
+
+```
+step Along the stream to the camp
+  path @47.6,35.1 @48.2,36.4 @49.0,38.0 @50.5,38.4 "Along the stream"
+  talk 197
+
+step Gather Linen Cloth
+  path @40,60 @44,62 @42,66 @38,64 cycle
+  collect 2589 x10
+```
+
+A `path` is a way you draw for the arrow: its points, 2 to 200, as `@x,y` in
+the step's zone (or `map <id>`), in the frame a `goto`'s are in (`era` /
+`live`). When the step comes up the arrow leads to the point nearest the
+player (the next one when they stand within 10 yards of it: on a fresh step,
+usually the first), and on to the next once the player is within 10 yards of
+the one ahead, in order only: walking past a point further on does not count
+before the one ahead does. Progress is not stored: after a reload, or a pack
+update, the path picks up again from the point nearest the player. The world
+map and the minimap draw the way under the route, in the route's line style,
+the points behind the player receding. The goal is done at the last point;
+the guide window reads the label, or "Follow the path", with the points
+reached so far. Without a readable position (inside an instance), the arrow
+leads to the first point, nothing counts and the goal stays open.
+
+With `cycle` the way is a loop, a farming round: after its last point the
+arrow leads back to the first. A cycle is done as a `goto` is, once a later
+goal of its step is done (the `collect` above), so put the goals it is for
+after it. `cycle` is not `loop`: a step's `loop` line makes its gotos the
+places to search for its kills (see "Spawn areas"). Pack format 10 (Polestar
+0.3.7+).
+
+### Places: `area`
+
+```
+step Kobolds in the mine
+  area 6 "Kobold camp"
+  kill 6 x10 quest 7.1
+
+step The clearing
+  area @40,40 @50,40 @52,48 @45,52 "The clearing"
+  collect 2589 x10
+```
+
+An `area` shades a region on the world map and the minimap, in the arrow's
+colour, while its step is the current one: where to hunt. `area <npcId>` is
+the convex hull of that mob's spawns in the step's zone (or `map <id>`), in
+the frame its spawns are in; `area @x,y …` the convex hull of the points you
+draw, 3 to 64, in the frame a `goto`'s are in (`era` / `live`). The compiler
+works the hull out and keeps its corners only: a point inside it or on an
+edge is dropped, and points all on one line are an error. A mob with no
+spawns in that zone, or too few to make a region, is a warning and the area
+is left out. A mob's hull of more than 64 corners keeps the 64 that cover the
+most. An area never holds a step: like a `note`, it is not done or open,
+and the guide window reads the label, or "Hunt Kobold Vermin" ("Hunt in the
+shaded area" for drawn points). With `only`, only those characters see it.
+Pack format 10 (Polestar 0.3.7+).
+
 ### Pictures: `image`
 
 ```
@@ -1214,6 +1282,38 @@ step First Aid
 ```
 
 `achieve` always needs the achievement's quoted name.
+
+### Dungeons: `boss`
+
+```
+step Defeat Edwin VanCleef
+  boss 639
+```
+
+A `boss` goal is done once the boss dies (Polestar watches the combat log for
+their death). The goal counts a kill the player's client sees while that step
+is current. The guide window reads "Defeat Edwin VanCleef". The guide's
+compiler fills in the name from the data. With an `id` on the step, progress
+carries forward when the pack updates. Pack format 10 (Polestar 0.3.7+).
+
+### Pulls: `mark`
+
+```
+step Clear the camp
+  mark 6 skull "Pull first: it runs for help"
+  mark 69 moon
+  kill 6 x10 quest 7.1
+```
+
+A `mark` draws a raid icon over the nameplates of every mob with that npc id
+while its step is the current one, and adds a line to the mob's tooltip:
+"Polestar: " and the note, or the icon's name without one. The icon is a word
+(`star`, `circle`, `diamond`, `triangle`, `moon`, `square`, `cross`, `skull`)
+or its number, 1 to 8. A mark never holds a step: like a `note`, it is not
+done or open, and the step moves on once its other goals are done. Only the
+player sees the icon: Polestar never sets a raid target. Players turn the
+icons off under Guide > Arrow & routes > Along the route ("Marks on
+nameplates"). Pack format 10 (Polestar 0.3.7+).
 
 ### Class- and race-only steps
 

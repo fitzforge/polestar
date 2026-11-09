@@ -20,6 +20,8 @@
 // `coords`: the goto/explore positional coordinates or the whole `@x,y`
 // modifier; `mods` names each modifier as MODS does (`text` on `only`: its
 // condition list as written); `note` runs from the ` -- ` dashes.
+// The guide carries its source lines (BOM dropped) as the non-enumerable
+// `rawLines`, which line numbers and spans index (tools/lib/pack/sourcetree.js).
 
 const { lexLine } = require('./lexer');
 const { parseConditions, FACTIONS } = require('./conditions');
@@ -36,13 +38,19 @@ const COORD_RE = /^(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)$/;
 // A step label (`label camp`, `along until camp`): letters, digits, `-` and `_`, as written.
 const LABEL_RE = /^[A-Za-z0-9_-]+$/;
 
-const HEADER_KEYS = ['guide', 'title', 'levels', 'zone', 'faction', 'race', 'class', 'next', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'author', 'version', 'coords', 'pitch', 'pro', 'con'];
+const HEADER_KEYS = ['guide', 'title', 'levels', 'zone', 'faction', 'race', 'class', 'next', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'author', 'credits', 'forked-from', 'version', 'coords', 'pitch', 'pro', 'con'];
+// `credits` (format 5): at most this many lines, each at most the import
+// text cap in bytes (tools/lib/pack/importstring.js LIMITS.text; the addon's
+// Guides.Validate holds the same two).
+const CREDITS_MAX = 32;
+const CREDIT_BYTES = 4096;
 // Lines inside a step that are not goals.
 // `loop`: the step's `goto` points are the spawn areas of its kill, collect
 // and interact goals (resolve.js, applyLoop).
 // `skipto <label> when <predicate>`: when the route reaches the step and the
 // predicate holds, it jumps to the labelled step (resolve.js, checkLabels).
-const STEP_KEYS = ['zone', 'only', 'tip', 'image', 'when', 'label', 'along', 'background', 'skipto', 'loop'];
+// `id <x>` (format 10): the step's stable id, 4-8 lowercase letters and digits.
+const STEP_KEYS = ['zone', 'only', 'tip', 'image', 'when', 'label', 'along', 'background', 'skipto', 'loop', 'id'];
 
 // `group [N]`: the goal needs a group (of N players), shown in the guide window.
 const COMMON = ['text', 'optional', 'only', 'group'];
@@ -89,13 +97,32 @@ const MODS = {
 	achieve: [...COMMON, ...COORDS, 'criteria'],
 	// `wait <seconds> ["text"]`: done that long after the goals before it in the step are.
 	wait: ['text', 'optional', 'only'],
+	// `boss <npcId> ["Name"]` (format 10): defeat a dungeon or raid boss; done by its death.
+	boss: [...COMMON, ...COORDS, 'npc'],
+	// `mark <npcId> <icon> ["note"]`: a raid icon over the mob's nameplate; never holds the step.
+	mark: ['only'],
+	// `path @x,y @x,y … ["label"] [cycle]`: an author-drawn way the arrow follows
+	// point by point; `cycle` (not `loop`: a step's `loop` is something else)
+	// starts over after the last point, done by the step's other goals.
+	path: [...COMMON, 'map', 'frame', 'cycle'],
+	// `area <npcId> ["label"]` or `area @x,y @x,y @x,y … ["label"]`: the region
+	// to hunt in, shaded on the maps (the hull of the npc's spawns or of the
+	// points); never holds the step.
+	area: ['only', 'map', 'frame'],
 };
 const VERBS = Object.keys(MODS);
 const MOD_LABEL = { at: '@x,y', count: 'xN', text: '"text"', until: 'until <N>', criteria: 'criteria <n>', frame: 'era`/`live', xp: 'xp <N>', money: 'money <amount>', group: 'group [N]', grind: 'grind <npcId>' };
-const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'reward', 'choose', 'xp', 'money', 'group', 'direct', 'gossip', 'grind'];
+const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'reward', 'choose', 'xp', 'money', 'group', 'direct', 'gossip', 'grind', 'cycle'];
+// A `path`'s points: at least two, at most PATH_MAX.
+const PATH_MAX = 200;
+// An `area`'s points: AREA_MIN to AREA_MAX.
+const AREA_MIN = 3;
+const AREA_MAX = 64;
 // A party or raid: 2 to 40 players.
 const GROUP_MIN = 2;
 const GROUP_MAX = 40;
+// Raid target icons, numbered as the client numbers them (1 star ... 8 skull).
+const MARK_ICONS = { star: 1, circle: 2, diamond: 3, triangle: 4, moon: 5, square: 6, cross: 7, skull: 8 };
 
 // Item qualities as the client numbers them (Enum.ItemQuality).
 const QUALITIES = ['poor', 'common', 'uncommon', 'rare', 'epic', 'legendary', 'artifact', 'heirloom'];
@@ -211,6 +238,7 @@ function readCoords(tokens, i, first) {
 function parseGuide(text, file, diag) {
 	const lines = text.replace(/^\uFEFF/, '').split(/\r?\n/);
 	const guide = { file, id: null, line: 0, header: {}, lines: {}, steps: [] };
+	Object.defineProperty(guide, 'rawLines', { value: lines, enumerable: false, writable: true, configurable: true });
 	let zone = null; // zone spec in effect
 	let step = null;
 	let sawContent = false;
@@ -263,7 +291,7 @@ function parseGuide(text, file, diag) {
 				err(ln, `unknown header key "${toks[0].text}"`, `header keys: ${HEADER_KEYS.join(', ')}`);
 				continue;
 			}
-			const repeatable = kw === 'pro' || kw === 'con' || kw === 'reward' || kw === 'next';
+			const repeatable = kw === 'pro' || kw === 'con' || kw === 'reward' || kw === 'next' || kw === 'credits';
 			if (guide.lines[kw] && !repeatable) {
 				err(ln, `duplicate header key \`${kw}\` (first on line ${guide.lines[kw]})`);
 				continue;
@@ -317,6 +345,14 @@ function parseGuide(text, file, diag) {
 				}
 				step.label = toks[1].text;
 				step.labelLine = ln;
+			} else if (kw === 'id') {
+				if (step.id !== undefined) { err(ln, 'duplicate `id` in step'); continue; }
+				if (toks.length !== 2 || toks[1].quoted || !/^[a-z0-9]{4,8}$/.test(toks[1].text)) {
+					err(ln, `malformed step id${toks[1] ? ` "${toks[1].text}"` : ''} (4-8 lowercase letters and digits)`);
+					continue;
+				}
+				step.id = toks[1].text;
+				step.idLine = ln;
 			} else if (kw === 'along') {
 				if (step.along !== undefined) {
 					err(ln, 'duplicate `along` in step');
@@ -504,6 +540,26 @@ function parseHeader(guide, kw, line, lex, ln, err, warn) {
 			const key = kw === 'pro' ? 'pros' : 'cons';
 			(h[key] = h[key] || []).push(rest);
 			(guide.lines[key] = guide.lines[key] || []).push(ln);
+			return;
+		}
+		case 'credits': {
+			// `credits <text>` (format 5): someone else who helped, as written
+			// (author text, never translated); repeats, one name per line.
+			const list = (h.credits = h.credits || []);
+			if (list.length >= CREDITS_MAX) return err(ln, `more than ${CREDITS_MAX} \`credits\` lines`);
+			if (Buffer.byteLength(rest) > CREDIT_BYTES) return err(ln, `\`credits\` is longer than ${CREDIT_BYTES} bytes`);
+			// One line each (Guides.Validate refuses a control character: it could forge a line).
+			if (/[\x00-\x1f\x7f]/.test(rest)) return err(ln, '`credits` holds a control character (a tab?)');
+			list.push(rest);
+			(guide.lines.creditLines = guide.lines.creditLines || []).push(ln);
+			return;
+		}
+		case 'forked-from': {
+			// `forked-from <guideId> <version>` (format 5): the guide this one started from.
+			if (toks.length !== 3 || toks[1].quoted || !ID_RE.test(toks[1].text) || toks[2].quoted || !INT_RE.test(toks[2].text)) {
+				return err(ln, 'malformed `forked-from` (expected forked-from <guideId> <version>)');
+			}
+			h.forkedFrom = { id: toks[1].text, version: Number(toks[2].text) };
 			return;
 		}
 		case 'levels': {
@@ -831,6 +887,71 @@ function parsePositional(verb, goal, toks, line, lex, ln, err, spans) {
 			if (quotedAt(i)) goal.achievementName = toks[i++].text;
 			return i;
 		}
+		case 'boss': {
+			if (!t) return err(ln, '`boss` needs an npc id'), -1;
+			goal.npc = parseId(t, 'npc', ln, err);
+			if (goal.npc === null) return -1;
+			i++;
+			if (quotedAt(i)) goal.npcName = toks[i++].text;
+			return i;
+		}
+		case 'mark': {
+			const usage = '`mark` needs an npc id and an icon: mark <npcId> <skull|cross|square|moon|triangle|diamond|circle|star|1-8> ["note"]';
+			if (!t) return err(ln, usage), -1;
+			goal.npc = parseId(t, 'npc', ln, err);
+			if (goal.npc === null) return -1;
+			const ic = toks[++i];
+			if (!ic || ic.quoted) return err(ln, usage), -1;
+			const word = ic.text.toLowerCase();
+			const icon = MARK_ICONS[word] || (/^[1-8]$/.test(word) ? Number(word) : null);
+			if (!icon) return err(ln, `unknown mark icon "${ic.text}" (skull, cross, square, moon, triangle, diamond, circle, star or 1-8)`), -1;
+			goal.icon = icon;
+			i++;
+			if (quotedAt(i)) {
+				if (goal.note !== undefined) return err(ln, '`mark` takes its note quoted or after ` -- `, not both'), -1;
+				goal.note = toks[i++].text;
+			}
+			return i;
+		}
+		case 'path': {
+			// `@x,y` points, as many as written, then an optional quoted label.
+			const pts = [];
+			while (toks[i] && !toks[i].quoted && toks[i].text.startsWith('@')) {
+				const c = readCoords(toks, i, toks[i].text.slice(1));
+				if (c.error) return err(ln, c.error), -1;
+				pts.push({ x: c.x, y: c.y });
+				i = c.next;
+			}
+			if (pts.length < 2) return err(ln, '`path` needs at least 2 points: path @x,y @x,y … ["label"] [cycle]'), -1;
+			if (pts.length > PATH_MAX) return err(ln, `\`path\` takes at most ${PATH_MAX} points, not ${pts.length}`, 'split the way into two `path` goals'), -1;
+			goal.pts = pts;
+			spans.coords = [toks[1].start, toks[i - 1].end];
+			if (quotedAt(i)) goal.text = toks[i++].text;
+			return i;
+		}
+		case 'area': {
+			const usage = '`area` needs an npc id or at least 3 points: area <npcId> ["label"] or area @x,y @x,y @x,y … ["label"]';
+			if (!t || t.quoted) return err(ln, usage), -1;
+			if (!t.text.startsWith('@')) {
+				goal.npc = parseId(t, 'npc', ln, err);
+				if (goal.npc === null) return -1;
+				i++;
+			} else {
+				const pts = [];
+				while (toks[i] && !toks[i].quoted && toks[i].text.startsWith('@')) {
+					const c = readCoords(toks, i, toks[i].text.slice(1));
+					if (c.error) return err(ln, c.error), -1;
+					pts.push({ x: c.x, y: c.y });
+					i = c.next;
+				}
+				if (pts.length < AREA_MIN) return err(ln, usage), -1;
+				if (pts.length > AREA_MAX) return err(ln, `\`area\` takes at most ${AREA_MAX} points, not ${pts.length}`, 'trace the region with fewer points'), -1;
+				goal.pts = pts;
+				spans.coords = [toks[1].start, toks[i - 1].end];
+			}
+			if (quotedAt(i)) goal.text = toks[i++].text;
+			return i;
+		}
 	}
 	return i;
 }
@@ -1044,6 +1165,11 @@ function parseGoal(verb, line, lex, ln, err, warn) {
 				i += 2;
 				continue;
 			}
+			case 'cycle':
+				if (!use('cycle')) return null;
+				goal.cycle = true;
+				i++;
+				continue;
 			case 'group': {
 				if (!use('group')) return null;
 				// The size is optional: a next token that starts like a number is one.

@@ -81,8 +81,18 @@ function groupOf(goal, explicit, sides, data) {
 	if (explicit) return explicit.size !== undefined ? { kind: 'group', size: explicit.size } : { kind: 'group' };
 	const inst = data.instances;
 	if (inst) {
+		// goal.instance is a Map.csv map id; search areas and maps for the entry
+		// whose .map field matches (areas are keyed by AreaTable id, maps by UiMap id).
+		let byInstance = null;
+		if (goal.instance !== undefined) {
+			for (const table of [inst.areas, inst.maps]) {
+				if (!table) continue;
+				const found = Object.values(table).find((r) => r.map === goal.instance && RUN.has(r.kind));
+				if (found) { byInstance = found; break; }
+			}
+		}
 		const byQuest = goal.quest !== undefined && SOLO.instanceQuest(data.quest(goal.quest), inst.areas, (kind, id) => placed(data, kind, id));
-		const run = (byQuest && RUN.has(byQuest.kind) && byQuest) || (goal.map !== undefined && (inst.maps || {})[goal.map]);
+		const run = byInstance || (byQuest && RUN.has(byQuest.kind) && byQuest) || (goal.map !== undefined && (inst.maps || {})[goal.map]);
 		if (run && RUN.has(run.kind)) return run.map ? { kind: run.kind, name: run.name, map: run.map } : { kind: run.kind, name: run.name };
 	}
 	const elite = eliteWork(goal, sides, data);

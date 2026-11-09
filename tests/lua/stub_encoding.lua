@@ -1,7 +1,9 @@
 -- C_EncodingUtil for tests: DecodeBase64 and DecompressString (zlib), in plain
 -- Lua 5.1 (no bit library), so Polestar_Nav's walking maps decode the way the
 -- client decodes them. Inflate follows RFC 1950/1951 (puff's canonical
--- Huffman decoding); the Adler-32 trailer is not checked.
+-- Huffman decoding); the Adler-32 trailer is not checked. EncodeBase64 and
+-- CompressString write the other way (Import.Encode): CompressString writes
+-- valid zlib in stored blocks (no compression; the client compresses).
 
 local byte, char, concat, floor, min, unpack = string.byte, string.char, table.concat, math.floor, math.min, unpack
 
@@ -185,10 +187,53 @@ local function inflate(data)
 	return concat(parts)
 end
 
+local ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+
+local function encodeBase64(s)
+	local out, n = {}, 0
+	for i = 1, #s, 3 do
+		local a, b, c = byte(s, i, i + 2)
+		local v = a * 65536 + (b or 0) * 256 + (c or 0)
+		local d1, d2, d3, d4 = floor(v / 262144), floor(v / 4096) % 64, floor(v / 64) % 64, v % 64
+		n = n + 1
+		out[n] = ALPHABET:sub(d1 + 1, d1 + 1) .. ALPHABET:sub(d2 + 1, d2 + 1)
+			.. (b and ALPHABET:sub(d3 + 1, d3 + 1) or "=") .. (c and ALPHABET:sub(d4 + 1, d4 + 1) or "=")
+	end
+	return concat(out)
+end
+
+-- s -> zlib (RFC 1950) of stored deflate blocks (RFC 1951 BTYPE 00).
+local function deflateStored(s)
+	local out = { char(0x78, 0x01) }
+	local len = #s
+	local i = 1
+	repeat
+		local size = min(65535, len - i + 1)
+		local last = i + size > len and 1 or 0
+		local nsize = 65535 - size
+		out[#out + 1] = char(last, size % 256, floor(size / 256), nsize % 256, floor(nsize / 256))
+		out[#out + 1] = s:sub(i, i + size - 1)
+		i = i + size
+	until i > len
+	local a, b = 1, 0
+	for j = 1, len, 4096 do
+		local bytes = { byte(s, j, min(j + 4095, len)) }
+		for k = 1, #bytes do
+			a = a + bytes[k]
+			b = b + a
+		end
+		a, b = a % 65521, b % 65521
+	end
+	out[#out + 1] = char(floor(b / 256), b % 256, floor(a / 256), a % 256)
+	return concat(out)
+end
+
 stub.decompressed = 0 -- DecompressString calls, for tests that count decoding
 
 C_EncodingUtil = C_EncodingUtil or {}
 C_EncodingUtil.DecodeBase64 = decodeBase64
+C_EncodingUtil.EncodeBase64 = encodeBase64
+function C_EncodingUtil.CompressString(s) return deflateStored(s) end
 function C_EncodingUtil.DecompressString(s)
 	stub.decompressed = stub.decompressed + 1
 	local ok, raw = pcall(inflate, s)

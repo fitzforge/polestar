@@ -281,6 +281,19 @@ function Compat.GetNpcID(unit)
 	return nil
 end
 
+-- The base nameplate frame of a unit token, or nil (no plate, the call
+-- failed, or the plate is forbidden: a protected plate cannot be decorated).
+function Compat.GetNamePlateForUnit(unit)
+	if not (C_NamePlate and C_NamePlate.GetNamePlateForUnit) then return nil end
+	local ok, plate = pcall(C_NamePlate.GetNamePlateForUnit, unit)
+	if not ok or type(plate) ~= "table" then return nil end
+	if plate.IsForbidden then
+		local fine, forbidden = pcall(plate.IsForbidden, plate)
+		if not fine or forbidden then return nil end
+	end
+	return plate
+end
+
 -- Name of the flight master node the open taxi map is at.
 function Compat.GetCurrentTaxiNode()
 	if NumTaxiNodes and TaxiNodeGetType and TaxiNodeName then

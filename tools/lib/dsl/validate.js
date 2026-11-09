@@ -110,14 +110,16 @@ function hasPipe(s) {
 	return typeof s === 'string' && s.includes('|');
 }
 
-// Header keys (as parsed) and the keyword the author writes them with.
+// Header keys (as parsed), the keyword the author writes them with and, for
+// a list, where parse.js keeps each entry's line.
 const PIPE_HEADER = [
 	['title', 'title'],
 	['folder', 'folder'],
 	['pitch', 'pitch'],
-	['pros', 'pro'],
-	['cons', 'con'],
+	['pros', 'pro', 'pros'],
+	['cons', 'con', 'cons'],
 	['author', 'author'],
+	['credits', 'credits', 'creditLines'],
 ];
 // Names a goal line may give in quotes (parsed key -> what it is).
 const PIPE_NAMES = [
@@ -133,7 +135,7 @@ const PIPE_NAMES = [
 
 // Player-facing text exactly as the author wrote it (the parsed guide, so
 // names filled in from data and defaults such as the pack's author are not
-// reported): header title, folder, pitch, pros, cons and author; step titles
+// reported): header title, folder, pitch, pros, cons, author and credits; step titles
 // and tips; goal texts, notes and quoted names (rewards included). Polestar
 // shows it as written (every `|` is escaped when a guide registers), so a `|`
 // prints literally.
@@ -141,11 +143,11 @@ function checkPipes(g, diag) {
 	const ast = g._ast;
 	const warn = (line, what) => diag.warn(ast.file, line, `${what} contains "|", which prints literally in game`, PIPE_HINT);
 	const h = ast.header || {};
-	for (const [key, keyword] of PIPE_HEADER) {
+	for (const [key, keyword, linesKey] of PIPE_HEADER) {
 		const v = h[key];
 		if (Array.isArray(v)) {
-			// pro and con repeat: each entry at its own line.
-			const at = ast.lines[key] || [];
+			// pro, con and credits repeat: each entry at its own line.
+			const at = ast.lines[linesKey] || [];
 			v.forEach((x, i) => hasPipe(x) && warn(at[i] || ast.lines[keyword] || ast.line, `\`${keyword}\``));
 		} else if (hasPipe(v)) warn(ast.lines[keyword] || ast.line, `\`${keyword}\``);
 	}
@@ -336,7 +338,7 @@ function checkRedundantGotos(g, data, diag) {
 		if (step.goals.some((goal) => TRAVEL_VERBS.has(goal.t))) continue;
 		step.goals.forEach((goto, i) => {
 			if (goto.t !== 'goto' || goto.x === undefined) return;
-			const next = step.goals.slice(i + 1).find((goal) => goal.t !== 'note');
+			const next = step.goals.slice(i + 1).find((goal) => goal.t !== 'note' && goal.t !== 'mark' && goal.t !== 'area');
 			// (A grind's goto is where the arrow leads when its mob has no spawns: the Engine's fallback, kept.)
 			if (!next || next.t === 'goto' || next.t === 'level' || next.x === undefined || next.optional || next.map !== goto.map || unspawnedTarget(data, next)) return;
 			if (JSON.stringify(next.only || null) !== JSON.stringify(goto.only || null)) return;
@@ -597,6 +599,13 @@ function validateGuides(guides, data, diag) {
 		checkBareCompletes(g, data, diag);
 		checkBareUses(g, diag);
 		checkChosenAllOptional(g, diag);
+		// Duplicate step ids within the guide.
+		const stepIds = new Map(); // id -> line
+		for (const s of g.steps) {
+			if (s.id === undefined) continue;
+			if (stepIds.has(s.id)) diag.error(file, s.idLine, `step id "${s.id}" used twice (first at line ${stepIds.get(s.id)})`);
+			else stepIds.set(s.id, s.idLine);
+		}
 		const accepted = new Set();
 		const turnedIn = new Set();
 		const whenOnly = new Set();

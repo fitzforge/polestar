@@ -6,9 +6,10 @@
 //! as one line of text a player pastes into Polestar's Import page, no addon
 //! to install.
 //!
-//!   !PS1!<checksum>!<body>
+//!   !PS1!<checksum>!<body>      a compiled guide
+//!   !PS2!<checksum>!<body>      a compiled guide and its source (sourcetree.rs), bigger caps
 //!
-//! `PS1` is the string format; a later one gets another number so old strings
+//! `PS1`/`PS2` is the string format; a later one gets another number so old strings
 //! keep their meaning. <checksum> is the Adler-32 of the payload as 8
 //! lower-case hex digits. <body> is the payload compressed with zlib and
 //! written in base64 (A-Z a-z 0-9 + / and = padding). The payload is JSON:
@@ -32,6 +33,7 @@ use crate::js::{stringify, Obj, V};
 use std::io::Write;
 
 pub const PREFIX: &str = "!PS1!";
+pub const PREFIX_V2: &str = "!PS2!";
 
 /// The caps the addon applies too (Core/Import.lua, Import.LIMITS; a test
 /// holds the two equal): the whole string, the steps of its guide, the
@@ -73,6 +75,22 @@ pub const LIMITS: Limits = Limits {
 	tokens: 1024,
 	next_when: 16,
 };
+
+/// A v2 string holds a bigger guide and its source (Core/Import.lua, Import.LIMITS_V2): more
+/// characters, payload and steps; every other cap is v1's.
+pub const LIMITS_V2: Limits = Limits { length: 300000, steps: 250, payload: 1048576, ..LIMITS };
+
+/// A v2 payload's `source`: the guide as written (docs/PACK_FORMAT.md, "Source tree"; the writer and
+/// reader are tools/lib/pack/sourcetree.js, and Polestar Studio's Serialize.lua), its keys in order.
+/// Core/Import.lua reads exactly these (a test holds them equal).
+pub mod source_keys {
+	pub const TREE: [&str; 3] = ["v", "header", "steps"];
+	pub const HEADER: [&str; 22] = crate::parse::HEADER_KEYS;
+	pub const HEADER_LISTS: [&str; 5] = ["next", "reward", "credits", "pro", "con"];
+	pub const STEP: [&str; 14] = ["title", "id", "label", "along", "background", "zone", "only", "when", "skipto", "image", "loop", "tip", "goals", "zoneEnd"];
+	pub const STEP_LISTS: [&str; 2] = ["when", "skipto"];
+	pub const GOAL: [&str; 5] = ["verb", "args", "mods", "note", "zone"];
+}
 
 /// The first text or key in v longer than LIMITS.text, as the addon names it
 /// (`guide.steps[2].note`), or None.
@@ -236,22 +254,35 @@ fn inflate(input: &[u8], max: usize) -> Option<Vec<u8>> {
 	}
 }
 
-/// payload: { format, license, guide, frames? } -> the string.
+/// payload: { format, license, guide, frames? } -> the string (v1).
 pub fn encode_import(payload: &V) -> String {
-	let json = stringify(payload, None);
-	let bytes = json.as_bytes();
-	format!("{PREFIX}{}!{}", hex8(adler32(bytes)), base64_encode(&deflate(bytes)))
+	encode_with(PREFIX, payload)
 }
 
-/// The string -> its payload; Err says what is wrong. For the tools and
+/// payload: { format, license, guide, source, frames? } -> the v2 string.
+pub fn encode_import_v2(payload: &V) -> String {
+	encode_with(PREFIX_V2, payload)
+}
+
+fn encode_with(prefix: &str, payload: &V) -> String {
+	let json = stringify(payload, None);
+	let bytes = json.as_bytes();
+	format!("{prefix}{}!{}", hex8(adler32(bytes)), base64_encode(&deflate(bytes)))
+}
+
+/// The string (v1 or v2) -> its payload; Err says what is wrong. For the tools and
 /// tests; the addon has its own reader. (A payload that is not JSON gives
 /// this crate's JSON parser message, not V8's SyntaxError.)
 pub fn decode_import(text: &str) -> Result<V, String> {
 	let s: String = text.chars().filter(|c| !is_js_space(*c)).collect();
-	if !s.starts_with(PREFIX) {
-		return Err(format!("not a Polestar import string: it starts with {PREFIX}"));
-	}
-	// /^!PS1!([0-9a-f]{8})!([A-Za-z0-9+/]+={0,2})$/
+	let caps = if s.starts_with(PREFIX) {
+		&LIMITS
+	} else if s.starts_with(PREFIX_V2) {
+		&LIMITS_V2
+	} else {
+		return Err(format!("not a Polestar import string: it starts with {PREFIX} or {PREFIX_V2}"));
+	};
+	// /^!PS[12]!([0-9a-f]{8})!([A-Za-z0-9+/]+={0,2})$/
 	let rest = &s[PREFIX.len()..];
 	let damaged = || "the string is damaged".to_string();
 	let (sum, body) = rest.split_once('!').ok_or_else(damaged)?;
@@ -262,7 +293,7 @@ pub fn decode_import(text: &str) -> Result<V, String> {
 	if core.is_empty() || body.len() - core.len() > 2 || !core.bytes().all(|c| c.is_ascii_alphanumeric() || c == b'+' || c == b'/') {
 		return Err(damaged());
 	}
-	let bytes = inflate(&base64_decode(body), LIMITS.payload).ok_or_else(|| "the string is damaged or incomplete".to_string())?;
+	let bytes = inflate(&base64_decode(body), caps.payload).ok_or_else(|| "the string is damaged or incomplete".to_string())?;
 	if hex8(adler32(&bytes)) != sum {
 		return Err("the string is damaged: its checksum does not match".into());
 	}
@@ -275,21 +306,35 @@ pub fn decode_import(text: &str) -> Result<V, String> {
 /// too many steps, a text longer than the addon reads, or a string or payload
 /// bigger than it reads. `manifest`: Undef/Null for none.
 pub fn import_string(guide: &V, manifest: &V, data: Option<&Data>) -> Result<(String, usize), String> {
+	import_string_with(guide, manifest, data, None)
+}
+
+/// The same as a v2 string (`!PS2!`, LIMITS_V2) whose payload carries `source`, the guide's source
+/// tree (sourcetree.rs to_tree of its parsed guide).
+pub fn import_string_v2(guide: &V, manifest: &V, data: Option<&Data>, source: &V) -> Result<(String, usize), String> {
+	import_string_with(guide, manifest, data, Some(source))
+}
+
+fn import_string_with(guide: &V, manifest: &V, data: Option<&Data>, source: Option<&V>) -> Result<(String, usize), String> {
+	let caps = if source.is_some() { &LIMITS_V2 } else { &LIMITS };
 	let id = guide.get("id").to_js_string();
 	let prefix = id.split('/').next().unwrap_or("");
 	if !manifest.truthy() || manifest.get("id").as_str() == Some("guides") || RESERVED_IDS.contains(&prefix) {
 		return Err(format!("{id} is one of Polestar's own guides; an import string carries a community guide, under its pack's id"));
 	}
 	let steps = guide.get("steps").len();
-	if steps > LIMITS.steps {
-		return Err(format!("{id} has {steps} steps; an import string holds a guide of {} steps at most (a longer guide goes in a community addon: forge release pack)", LIMITS.steps));
+	if steps > caps.steps {
+		return Err(format!("{id} has {steps} steps; an import string holds a guide of {} steps at most (a longer guide goes in a community addon: forge release pack)", caps.steps));
 	}
 	let localised = guide.hidden("_localised");
-	let source = if localised.truthy() { localised } else { guide.clone() };
+	let compiled = if localised.truthy() { localised } else { guide.clone() };
 	let payload = Obj::new();
 	payload.set("format", format_for(std::slice::from_ref(guide)));
 	payload.set("license", manifest.get("license"));
-	payload.set("guide", guide_data(&source));
+	payload.set("guide", guide_data(&compiled));
+	if let Some(tree) = source {
+		payload.set("source", tree.clone());
+	}
 	let frames = match data {
 		Some(d) => frames_data(&crate::project::referenced_frames(std::slice::from_ref(guide), d)),
 		None => V::obj(),
@@ -305,12 +350,12 @@ pub fn import_string(guide: &V, manifest: &V, data: Option<&Data>) -> Result<(St
 		return Err(format!("{id}: {at} has {n} entries; an import string holds {cap} there at most (a guide this big goes in a community addon: forge release pack)"));
 	}
 	let bytes = stringify(&payload, None).len();
-	if bytes > LIMITS.payload {
-		return Err(format!("{id} holds {bytes} bytes of guide data; Polestar reads {} at most (a guide this big goes in a community addon: forge release pack)", LIMITS.payload));
+	if bytes > caps.payload {
+		return Err(format!("{id} holds {bytes} bytes of guide data; Polestar reads {} at most (a guide this big goes in a community addon: forge release pack)", caps.payload));
 	}
-	let text = encode_import(&payload);
-	if text.len() > LIMITS.length {
-		return Err(format!("{id} makes a string of {} characters; Polestar reads {} at most (a guide this big goes in a community addon: forge release pack)", text.len(), LIMITS.length));
+	let text = if source.is_some() { encode_import_v2(&payload) } else { encode_import(&payload) };
+	if text.len() > caps.length {
+		return Err(format!("{id} makes a string of {} characters; Polestar reads {} at most (a guide this big goes in a community addon: forge release pack)", text.len(), caps.length));
 	}
 	Ok((text, steps))
 }

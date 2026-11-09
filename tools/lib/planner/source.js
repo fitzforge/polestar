@@ -25,6 +25,9 @@
 // Text values written into a line (titles, tips, zones, conditions, header
 // values, goal fields and notes) must be one line: \r, \n, U+2028 and U+2029
 // are refused (a tip given as several lines becomes one `tip` line each).
+// valueOf(line, lex) -> the text after the line's keyword (one quoted string
+//   unquoted); safeText(s) -> s as a line writes it back (bare, else quoted).
+//   Shared with tools/lib/pack/sourcetree.js.
 
 const { parseGuide, MODS, HEADER_KEYS, STEP_KEYS } = require('../dsl/parse');
 const { lexLine } = require('../dsl/lexer');
@@ -698,4 +701,4 @@ function apply(text, op, file = 'guide', track = []) {
 	};
 }
 
-module.exports = { model, apply, zoneAt, EditError };
+module.exports = { model, apply, zoneAt, EditError, valueOf, safeText };

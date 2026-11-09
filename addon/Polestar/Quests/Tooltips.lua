@@ -232,10 +232,7 @@ local function countText(npcID)
 end
 
 local function plateFor(unit)
-	if not (C_NamePlate and C_NamePlate.GetNamePlateForUnit) then return nil end
-	local ok, plate = pcall(C_NamePlate.GetNamePlateForUnit, unit)
-	if ok and type(plate) == "table" then return plate end
-	return nil
+	return ns.Compat.GetNamePlateForUnit(unit)
 end
 
 -- Where the icon goes. Replacement nameplate addons hide or restyle Blizzard's

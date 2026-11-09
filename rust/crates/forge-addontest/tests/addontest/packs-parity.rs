@@ -26,6 +26,8 @@ enum Twin {
 	Goal(&'static str),
 	Def(&'static str),
 	Id(&'static str),
+	/// A `path` or `area` goal with that many points, one over its cap.
+	Pts(&'static str, usize),
 }
 
 struct Case {
@@ -45,6 +47,10 @@ const fn def(file: &'static str, reason: &'static str, lint: &'static str, def: 
 
 const fn id(file: &'static str, reason: &'static str, lint: &'static str, id: &'static str) -> Case {
 	Case { file, reason, lint, twin: Twin::Id(id) }
+}
+
+const fn pts(file: &'static str, reason: &'static str, lint: &'static str, verb: &'static str, n: usize) -> Case {
+	Case { file, reason, lint, twin: Twin::Pts(verb, n) }
 }
 
 // The runtime's refusal reasons this test covers: { file (under guides/), reason (RegisterGuide's error,
@@ -105,9 +111,22 @@ const CASES: &[Case] = &[
 	goal("explore-y", "explore needs y", r#"malformed coordinates "50,""#, r#"{ t = "explore", map = 1429, x = 50 }"#),
 	goal("achieve-achievement", "achieve needs achievement", r"`achieve` needs an achievement id", r#"{ t = "achieve", achievementName = "Level 10" }"#),
 	goal("achieve-achievementname", "achieve needs achievementName", r"achievement 999999 has no reference data", r#"{ t = "achieve", achievement = 999999 }"#),
+	goal("boss-npc", "boss needs npc", r"`boss` needs an npc id", r#"{ t = "boss", npcName = "Edwin VanCleef" }"#),
+	goal("boss-npcname", "boss needs npcName", r"npc 999999 is not in data", r#"{ t = "boss", npc = 999999 }"#),
+	goal("mark-npc", "mark needs npc", r"`mark` needs an npc id and an icon", r#"{ t = "mark", icon = 8 }"#),
+	goal("mark-icon", "mark needs icon", r"`mark` needs an npc id and an icon", r#"{ t = "mark", npc = 6 }"#),
+	goal("path-map", "path needs map", r"coordinates need a zone", r#"{ t = "path", pts = { { x = 40, y = 40 }, { x = 45, y = 40 } } }"#),
+	goal("path-pts", "path needs pts", r"`path` needs at least 2 points", r#"{ t = "path", map = 1429, pts = { { x = 40, y = 40 } } }"#),
+	goal("area-map", "area needs map", r"coordinates need a zone", r#"{ t = "area", pts = { { x = 40, y = 40 }, { x = 45, y = 40 }, { x = 45, y = 45 } } }"#),
+	goal("area-pts", "area needs pts", r"`area` needs an npc id or at least 3 points", r#"{ t = "area", map = 1429, pts = { { x = 40, y = 40 }, { x = 45, y = 40 } } }"#),
 	// Not derived from the verb table: the rest of the runtime's rules.
 	goal("unknown-verb", "unknown verb fish", r#"unknown verb "fish""#, r#"{ t = "fish" }"#),
 	goal("coords-range", "coordinates outside 0-100", r"coordinates 150,50 are outside 0-100", r#"{ t = "goto", map = 1429, x = 150, y = 50 }"#),
+	goal("mark-icon-range", "icon outside 1-8", r#"unknown mark icon "9""#, r#"{ t = "mark", npc = 6, icon = 9 }"#),
+	goal("path-range", "path point outside 0-100", r"path point 150,40 is outside 0-100", r#"{ t = "path", map = 1429, pts = { { x = 40, y = 40 }, { x = 150, y = 40 } } }"#),
+	pts("path-count", "more than 200 path points", r"`path` takes at most 200 points, not 201", "path", 201),
+	goal("area-range", "area point outside 0-100", r"area point 150,40 is outside 0-100", r#"{ t = "area", map = 1429, pts = { { x = 40, y = 40 }, { x = 150, y = 40 }, { x = 45, y = 45 } } }"#),
+	pts("area-count", "more than 64 area points", r"`area` takes at most 64 points, not 65", "area", 65),
 	def("step-no-goals", "step 1 has no goals", r"step has no goals", r#"{ steps = { { goals = {} }, { goals = { { t = "level", level = 2 } } } } }"#),
 	def(
 		"step-image",
@@ -121,7 +140,19 @@ const CASES: &[Case] = &[
 
 // Generic reasons the runtime gives whatever the verb table holds; every other goal-level reason is derived
 // from Guides.VERBS below.
-const GENERIC: [&str; 6] = ["unknown verb fish", "coordinates outside 0-100", "step 1 has no goals", "step 1: bad image", "no steps", OUTSIDE];
+const GENERIC: [&str; 11] = [
+	"unknown verb fish",
+	"coordinates outside 0-100",
+	"icon outside 1-8",
+	"path point outside 0-100",
+	"more than 200 path points",
+	"area point outside 0-100",
+	"more than 64 area points",
+	"step 1 has no goals",
+	"step 1: bad image",
+	"no steps",
+	OUTSIDE,
+];
 
 // Lua: the runtime's verb reasons, derived from Guides.VERBS: for each verb a goal with every required field
 // filled (its own checker picks a number or a string), then that goal without each field in turn; a filled
@@ -170,6 +201,10 @@ fn compiled_def(c: &Case) -> String {
 		Twin::Id(i) => ID_DEF.replace("@ID@", i),
 		Twin::Def(d) => DEF_DEF.replace("@ID@", &id).replace("@DEF@", d),
 		Twin::Goal(g) => GOAL_DEF.replace("@ID@", &id).replace("@GOAL@", g),
+		Twin::Pts(verb, n) => {
+			let g = format!(r#"{{ t = "{verb}", map = 1429, pts = {{ {} }} }}"#, vec!["{ x = 50, y = 50 }"; n].join(", "));
+			GOAL_DEF.replace("@ID@", &id).replace("@GOAL@", &g)
+		}
 	}
 }
 

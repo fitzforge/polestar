@@ -1,0 +1,9 @@
+# Fixture: tests/packs-parity.test.js. Lint rejects it; the runtime refuses its compiled twin.
+guide parity/area-map
+title Parity area-map
+faction Alliance
+levels 1-10
+
+step S
+  level 2
+  area @40,40 @45,40 @45,45

@@ -196,6 +196,14 @@ local markCount = 0
 local goalC, goalX, goalY -- the route's end
 local live, liveC, liveX, liveY = nil, nil, nil, nil -- the walk's live start: index ahead, player
 local revision = 0        -- bumps on every change the painters must redraw for
+-- Author paths (guide format 10 `path` goals: Maps.SetAuthorPath, which the
+-- Engine calls for the active step's): specs[key] = { spec = { map, f, pts,
+-- cycle, at }, world (its points' world places, false where none) }; their
+-- draw paths; `drawn`, what the painters draw: the author paths first, so
+-- under the route (at most half of each stroke buffer: RouteStrokes'
+-- view.under), then the route's own; `runs`, how many sparkle runs are the
+-- route's (the author paths' follow).
+local author = { specs = {}, paths = {}, drawn = {}, runs = 0 }
 
 -- The sparkle style: on or off, its look (Sparkle.Style), the paths as
 -- measured runs, and where each run's sparkles start (yards in: the walk
@@ -258,6 +266,49 @@ local function rebuild()
 	if markCount > 0 then marks[markCount * 4] = GOAL_MARK end
 end
 
+-- An author path's points as world points { c, wx, wy } (as Nav's own:
+-- Compat.MapToWorld), false for one with no place; worked out once per
+-- point list (RouteLines.SetAuthorPath), not on every refresh.
+local function authorWorld(spec)
+	local C, out = ns.Compat, {}
+	for k, p in ipairs(spec.pts) do
+		local c, wx, wy = C.MapToWorld(spec.map, p.x, p.y, spec.f)
+		out[k] = c and { c, wx, wy } or false
+	end
+	return out
+end
+
+-- Each author path as walks, in key order: the points before the one ahead
+-- (`at`) receding, then the way on from the last point passed (round to the
+-- first again, for a cycle), past any point with no place; then the draw
+-- list.
+local function rebuildAuthors()
+	local list = author.paths
+	for i = #list, 1, -1 do list[i] = nil end
+	local keys = {}
+	for key in pairs(author.specs) do keys[#keys + 1] = key end
+	table.sort(keys)
+	local function placed(world, i, j, out)
+		for k = i, j do
+			if world[k] then out[#out + 1] = world[k] end
+		end
+		return out
+	end
+	for _, key in ipairs(keys) do
+		local spec, world = author.specs[key].spec, author.specs[key].world
+		local n, at = #world, spec.at or 1
+		local behind = placed(world, 1, math.min(at - 1, n), {})
+		if #behind >= 2 then list[#list + 1] = Strokes.Path("walk", behind, true) end
+		local ahead = placed(world, math.max(at - 1, 1), n, {})
+		if spec.cycle then placed(world, 1, 1, ahead) end
+		if #ahead >= 2 then list[#list + 1] = Strokes.Path("walk", ahead, false) end
+	end
+	local drawn = author.drawn
+	for i = #drawn, 1, -1 do drawn[i] = nil end
+	for i = 1, #list do drawn[i] = list[i] end
+	for i = 1, #paths do drawn[#drawn + 1] = paths[i] end
+end
+
 -- The player's world position, or nil when unknown or unreadable (secret:
 -- NAV_QA C5).
 local function playerPosition()
@@ -295,7 +346,7 @@ end
 -- arrow (Fitz, 0.3.6).
 local function sparkleProgress()
 	for i = 1, #runs do runFrom[i] = 0 end
-	local first = runs[1]
+	local first = author.runs > 0 and runs[1]
 	if not (first and not first.later) then return end
 	local pc, px, py = playerPosition()
 	if not pc then return end
@@ -346,10 +397,15 @@ local function restyle()
 	sparkleStyle = Sparkle.Style(function(key) return ns.Get("nav." .. key) end)
 end
 
+-- The route's runs first (the sparkle budget goes to the route), then the
+-- author paths'.
 local function rebuildRuns()
 	for i = #runs, 1, -1 do runs[i], runFrom[i] = nil, nil end
+	author.runs = 0
 	if not sparkling then return end
 	for i, run in ipairs(Sparkle.Paths(paths, sparkleStyle.later)) do runs[i] = run end
+	author.runs = #runs
+	for _, run in ipairs(Sparkle.Paths(author.paths, sparkleStyle.later)) do runs[#runs + 1] = run end
 	sparkleProgress()
 end
 
@@ -820,7 +876,8 @@ local function drawWorld(pin)
 	advance(pc, px, py)
 	pin.drawnX, pin.drawnY = px, py
 	v.from, v.fromIndex, v.fromC, v.fromX, v.fromY = live ~= nil, live, liveC, liveX, liveY
-	Strokes.Map(worldStrokes, paths, v)
+	v.fromPath, v.under = #author.paths + 1, #author.paths
+	Strokes.Map(worldStrokes, author.drawn, v)
 	paint(pin, worldStrokes)
 	pin.revision = revision
 end
@@ -874,7 +931,7 @@ end
 local function refreshWorld()
 	if not (view and view.shown) then return end
 	local world = surfaces()
-	if world and #paths > 0 then
+	if world and #author.drawn > 0 then
 		local pin = ensureWorldPin()
 		pin:SetFrameLevel(view:Level("PIN_FRAME_LEVEL_QUEST_BLOB"))
 		pin:Show()
@@ -1029,7 +1086,8 @@ local function drawMinimap(force)
 	v.goalC, v.goalX, v.goalY, v.goalRadius = goalC, goalX, goalY, MINIMAP_GOAL
 	v.phase = phase
 	v.from, v.fromIndex, v.fromC, v.fromX, v.fromY = live ~= nil, live, liveC, liveX, liveY
-	Strokes.Minimap(minimapStrokes, paths, v)
+	v.fromPath, v.under = #author.paths + 1, #author.paths
+	Strokes.Minimap(minimapStrokes, author.drawn, v)
 	paint(mm, minimapStrokes)
 end
 
@@ -1063,7 +1121,7 @@ end
 
 local function refreshMinimap()
 	local _, minimap = surfaces()
-	if not (minimap and #paths > 0) then
+	if not (minimap and #author.drawn > 0) then
 		if mm then
 			minimapStrokes.n = 0
 			paint(mm, minimapStrokes)
@@ -1100,12 +1158,53 @@ end
 function RouteLines.Refresh()
 	restyle()
 	rebuild()
+	rebuildAuthors()
 	startDrawIn()
 	rebuildRuns()
 	revision = revision + 1
 	installWorld()
 	refreshWorld()
 	refreshMinimap()
+end
+
+-- The author paths changed: their draw paths and runs again (not the
+-- route's), then the surfaces.
+local function refreshAuthors()
+	if not ns.IsLoggedIn() then return end
+	rebuildAuthors()
+	rebuildRuns()
+	revision = revision + 1
+	installWorld()
+	refreshWorld()
+	refreshMinimap()
+end
+
+-- An author path to draw under the route (Maps.SetAuthorPath; the Engine
+-- sets the active step's `path` goals): spec = { map, f, pts = { { x, y },
+-- ... } (map percent in map's frame f), cycle, at (the point ahead; those
+-- before it recede) }. A key set again replaces its path; its world points
+-- are worked out again only for another point list, map or frame.
+function RouteLines.SetAuthorPath(key, spec)
+	if key == nil or type(spec) ~= "table" or type(spec.pts) ~= "table" then return end
+	local old = author.specs[key]
+	local same = old and old.spec.pts == spec.pts and old.spec.map == spec.map and old.spec.f == spec.f
+	author.specs[key] = { spec = spec, world = same and old.world or authorWorld(spec) }
+	refreshAuthors()
+end
+
+function RouteLines.ClearAuthorPath(key)
+	if key == nil or author.specs[key] == nil then return end
+	author.specs[key] = nil
+	refreshAuthors()
+end
+
+-- The author paths drawn under the route (tests and diagnostics).
+function RouteLines.GetAuthorPaths()
+	return author.paths
+end
+
+if ns.Maps then
+	ns.Maps.SetAuthorPath, ns.Maps.ClearAuthorPath = RouteLines.SetAuthorPath, RouteLines.ClearAuthorPath
 end
 
 -- The world map frame the strokes are painted on (hidden while there is
