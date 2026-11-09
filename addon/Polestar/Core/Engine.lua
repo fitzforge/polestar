@@ -1991,7 +1991,7 @@ local function farmSeconds(goal, c)
 		kpm = 2.0 -- green, not yet grey
 	end
 	kpm = kpm * math.min(1, (tonumber(c.spawns) or 8) / 8)
-	local need = (goal.count or 1) - (goal.item and Compat().GetItemCount(goal.item) or 0)
+	local need = Own.needOf(goal) - (goal.item and Compat().GetItemCount(goal.item) or 0)
 	if need < 1 then need = 1 end
 	local rate = tonumber(c.rate) or 1
 	if rate <= 0 or kpm <= 0 then return UNMEASURED, gap end
@@ -2634,9 +2634,155 @@ function Own.useItemName(goal)
 end
 
 local function countState(goal)
-	local need = goal.count or 1
+	local need = Own.needOf(goal)
 	local have = Compat().GetItemCount(goal.item)
 	return have >= need, have < need and have or need, need
+end
+
+---------------------------------------------------------------------------
+-- Sections (`section <Profession> <from>-<to>`, docs/GUIDE_FORMAT.md
+-- "Sections"): a profession guide's skill ranges as headings over their
+-- steps. The guide starts where the player's skill is: the steps of a
+-- section the skill has passed are done (a profession rank one of them
+-- trains and the player lacks still holds it), and a section's bag counts
+-- (its materials to collect or buy) shrink by what the crafts already made
+-- would have used, so only what is still needed to the section's end is
+-- asked for. Recomputed on every update (skill-ups, trainer ranks: the
+-- SKILL_LINES_CHANGED and CHAT_MSG_SKILL events). (On Own: the main chunk is
+-- at 200 locals.)
+---------------------------------------------------------------------------
+
+function Own.sectionOf(s)
+	local step = guide and guide.steps[s]
+	local n = step and step.section
+	return n and guide.sections and guide.sections[n] or nil, n
+end
+
+-- Whether step s is under a section the player's skill has passed.
+function Own.sectionPassed(s)
+	local sec = Own.sectionOf(s)
+	if not sec then return false end
+	local rank = skillRank(sec)
+	if not rank or rank < sec.to then return false end
+	for g, goal in ipairs(guide.steps[s].goals) do
+		if goal.t == "train" and isProfessionTrain(goal) and goalApplies(goal) and not goalDone(s, g, goal) then return false end
+	end
+	return true
+end
+
+-- Per guide: each section's craft goals with their steps, in order, and the
+-- section of each counted collect/buy goal (its materials).
+Own.sectionPlans = setmetatable({}, { __mode = "k" })
+function Own.sectionPlan()
+	local plan = Own.sectionPlans[guide]
+	if plan then return plan end
+	plan = { crafts = {}, goals = {}, memo = {} }
+	for s, step in ipairs(guide.steps) do
+		local n = step.section
+		if n and guide.sections and guide.sections[n] then
+			for _, goal in ipairs(step.goals) do
+				if goal.t == "craft" then
+					plan.crafts[n] = plan.crafts[n] or {}
+					local list = plan.crafts[n]
+					list[#list + 1] = { s = s, goal = goal }
+				elseif (goal.t == "collect" or goal.t == "buy") and goal.item and not goal.quest and (goal.count or 1) > 1 then
+					plan.goals[goal] = n
+				end
+			end
+		end
+	end
+	Own.sectionPlans[guide] = plan
+	return plan
+end
+
+-- Expected crafts of a `craft … until` goal from skill k, the goal taking
+-- over at `start` (Classic chance: 1 below yellow, then (grey - k) / (grey -
+-- yellow)); 0 without its colours.
+function Own.craftsFrom(goal, start, k)
+	local y, grey = goal.yellow, goal.grey
+	if not (goal.untilSkill and y and grey and grey > y) then return 0 end
+	local n = 0
+	for x = math.max(start, k), goal.untilSkill - 1 do
+		local p = x < y and 1 or (grey - x) / (grey - y)
+		if p > 0 then n = n + 1 / p end
+	end
+	return n
+end
+
+-- Section n's materials (item -> count) its crafts for the character still
+-- use from skill k: the `until` crafts' reagents, and those of a counted
+-- craft whose item an `until` craft uses (a bolt of cloth), in the share of
+-- that item still needed.
+function Own.sectionDemand(n, k, untilOnly)
+	local plan = Own.sectionPlan()
+	local key = (untilOnly and "u" or "") .. n .. ":" .. k
+	local memo = plan.memo[key]
+	if memo then return memo end
+	local d, start = {}, guide.sections[n].from
+	local counted = {}
+	for _, c in ipairs(plan.crafts[n] or {}) do
+		local goal = c.goal
+		if stepApplies(guide.steps[c.s]) and goalApplies(goal) then
+			if goal.untilSkill then
+				local crafts = Own.craftsFrom(goal, start, k)
+				for _, r in ipairs(goal.reagents or {}) do d[r.item] = (d[r.item] or 0) + crafts * (r.count or 1) end
+				start = math.max(start, goal.untilSkill)
+			elseif goal.count and goal.item then
+				counted[#counted + 1] = goal
+			end
+		end
+	end
+	if not untilOnly then
+		local now, full = Own.sectionDemand(n, k, true), Own.sectionDemand(n, guide.sections[n].from, true)
+		for _, goal in ipairs(counted) do
+			local share = 1
+			if (full[goal.item] or 0) > 0 then share = math.min(1, (now[goal.item] or 0) / full[goal.item]) end
+			for _, r in ipairs(goal.reagents or {}) do d[r.item] = (d[r.item] or 0) + goal.count * (r.count or 1) * share end
+		end
+	end
+	plan.memo[key] = d
+	return d
+end
+
+-- How many of a bag-count goal's item to have: its count, less what the
+-- crafts of its section already made would have used (the player's skill
+-- past the section's start).
+function Own.needOf(goal)
+	local count = goal.count or 1
+	if not guide or not guide.sections or (goal.t ~= "collect" and goal.t ~= "buy") then return count end
+	if not player then refreshPlayer() end
+	local n = Own.sectionPlan().goals[goal]
+	local sec = n and guide.sections[n]
+	local rank = sec and skillRank(sec)
+	if not rank or rank <= sec.from then return count end
+	local k = math.min(rank, sec.to)
+	local used = (Own.sectionDemand(n, sec.from)[goal.item] or 0) - (Own.sectionDemand(n, k)[goal.item] or 0)
+	return math.max(0, count - math.ceil(used - 0.001))
+end
+
+-- The section heading over step i for the window: { title ("First Aid
+-- 1-40"), skill, skillLine, from, to, rank, state }; state "done" (the skill
+-- has passed it), "current" (the first section it has not) or "ahead"; nil
+-- for a step under no section.
+function Engine.GetSection(i)
+	local sec, n = Own.sectionOf(i)
+	if not sec then return nil end
+	local rank = skillRank(sec) or 0
+	local state = "ahead"
+	if rank >= sec.to then
+		state = "done"
+	else
+		state = "current"
+		for m = 1, n - 1 do
+			local o = guide.sections[m]
+			if (o.skillLine or o.skill) == (sec.skillLine or sec.skill) and rank < o.to then state = "ahead" end
+		end
+	end
+	local name = skillName(sec) or sec.skill or ""
+	return {
+		index = n, title = ("%s %d-%d"):format(name, sec.from, sec.to), skill = sec.skill, skillLine = sec.skillLine,
+		from = sec.from, to = sec.to, rank = rank, state = state,
+	}
 end
 
 -- done, cur, max, label, kind of a skill-rank target.
@@ -2989,9 +3135,10 @@ end
 
 local function stepDone(s)
 	-- The route passes over an along step (Own.alongListed), a hearth-only
-	-- one (Own.hearthOnly: the arrow's route hearths when it pays) and a
-	-- travel step the route flies past (Own.flightPassed).
-	if guide.steps[s].along or Own.hearthOnly(guide.steps[s]) then return true end
+	-- one (Own.hearthOnly: the arrow's route hearths when it pays), a
+	-- travel step the route flies past (Own.flightPassed) and a step under a
+	-- section the player's skill has passed (Own.sectionPassed).
+	if guide.steps[s].along or Own.hearthOnly(guide.steps[s]) or Own.sectionPassed(s) then return true end
 	if Own.groupPending(guide.steps[s]) then return false end -- waits for the player's answer
 	return Own.goalsDone(s) or Own.flightPassed(s)
 end
@@ -4018,13 +4165,14 @@ local function goalText(goal, verb, subject, detail, kind)
 	if kind == "quest" then subject = ns.Quoted(subject) end
 	if verb == "" then return subject, src end
 	if goal.t == "skill" then return verb .. " " .. tostring(subject) .. " " .. detail, src end
-	local counted = goal.count and goal.count > 1 and not tracksProgress(goal)
+	local count = goal.count and Own.needOf(goal)
+	local counted = count and count > 1 and not tracksProgress(goal)
 	-- "Kill Grell or Grellkin for Fel Moss", "Collect Oats from Sack of Oats":
 	-- a collect whose source is known says where the item comes from (the
 	-- game's objective only names the item); not an object named as the item
 	-- (the item lying there).
 	if goal.t == "collect" and subject and src and goal.from ~= goal.itemName then
-		local item = counted and (goal.count .. " " .. subject) or subject
+		local item = counted and (count .. " " .. subject) or subject
 		local who = src.name
 		local rank = src.rank and ({ L["elite"], L["rare elite"], L["boss"], L["rare"] })[src.rank]
 		if rank then who = who .. " (" .. rank .. ")" end
@@ -4034,7 +4182,7 @@ local function goalText(goal, verb, subject, detail, kind)
 		return L["Collect %s from %s"]:format(item, who), src
 	end
 	if counted then
-		return verb .. " " .. goal.count .. " " .. tostring(subject), src
+		return verb .. " " .. count .. " " .. tostring(subject), src
 	end
 	return verb .. " " .. tostring(subject), src
 end
@@ -8290,7 +8438,8 @@ function Engine.GetStepView(i)
 	-- current step only); `skipped`: the player skipped this step (Unskip);
 	-- `image`: the step's picture ({ file, w, h, texture }, Guides.lua);
 	-- `why`: why the step holds nothing for this character now, one line
-	-- (Own.stepWhy).
+	-- (Own.stepWhy); `section`: the skill-range heading it is under
+	-- (Engine.GetSection).
 	return {
 		index = i, title = step.title, note = step.note, image = step.image, status = status, goals = goals,
 		groups = outGroups, focus = focus,
@@ -8298,6 +8447,7 @@ function Engine.GetStepView(i)
 		skipped = isSkipped(i), live = computed,
 		along = step.along, label = step.label,
 		why = Own.stepWhy(step, goals),
+		section = Engine.GetSection(i),
 	}
 end
 

@@ -76,6 +76,7 @@ zone Azeroth
 # In-game check: what each rank costs.
 
 # ---------------------------------------------------------------- Apprentice (1-75)
+section Engineering 1-75
 
 step Learn Engineering
   tip Apprentice Engineering lets you craft up to 75 for 10c, at any character level. Any Engineering trainer of your faction teaches it; the arrow picks the nearest. Buy a Blacksmith Hammer and pair it with Mining: Rough Stone and Copper Ore are the first parts. 1-75 takes about 4s 15c of recipes and 18s 18c of vendor goods, plus 46 Rough Stone and 75 Copper Bar to gather or buy.
@@ -155,6 +156,7 @@ step Copper Tube to 75
   skill Engineering 75
 
 # ---------------------------------------------------------------- Journeyman (75-150)
+section Engineering 75-150
 
 step Journeyman Engineering
   tip Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs Engineering 50 and character level 10, so you can take it on any visit from 50. Not every Engineering trainer teaches it: Alliance Buzzek Bracketswing (Tanaris), Finbus Geargrind (Duskwood), Lilliam Sparkspindle (Stormwind City), Springspindle Fizzlegear (Ironforge) and Trixie Quikswitch (Ironforge); Horde Buzzek Bracketswing (Tanaris), Franklin Lloyd (Undercity), Nogg (Orgrimmar) and Roxxik (Orgrimmar). The arrow picks the nearest of your faction. Learn now: Coarse Blasting Powder (from 75, 2s 50c) and Crafted Heavy Shot (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 Coarse Stone, 27 Heavy Stone, 72 Copper Bar, 61 Bronze Bar and 2 Silver Bar to gather or buy.
@@ -260,6 +262,7 @@ step Big Bronze Bomb to 150
   skill Engineering 150
 
 # ---------------------------------------------------------------- Expert (150-225)
+section Engineering 150-225
 
 step Expert Engineering
   tip Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs Engineering 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Buzzek Bracketswing (Tanaris) and Springspindle Fizzlegear (Ironforge); Horde Buzzek Bracketswing (Tanaris) and Roxxik (Orgrimmar). The arrow picks the nearest of your faction. Learn now: Aquadynamic Fish Attractor (from 150) and Bronze Framework (from 145). 150-225 takes about 31s of vendor goods, plus 19 Medium Leather, 19 Wool Cloth, 31 Coarse Stone, 74 Heavy Stone, 100 Bronze Bar, 6 Silver Bar, 81 Iron Bar, 19 Mithril Bar and 62 Solid Stone to gather or buy.
@@ -363,6 +366,7 @@ step Hi-Impact Mithril Slugs to 225
   skill Engineering 225
 
 # ---------------------------------------------------------------- Artisan (225-300)
+section Engineering 225-300
 
 step Artisan Engineering
   tip Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs Engineering 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance Buzzek Bracketswing (Tanaris); Horde Buzzek Bracketswing (Tanaris). The arrow picks the nearest of your faction. 225-300 takes about 2g 80s of recipes, plus 118 Mithril Bar, 212 Solid Stone, 156 Thorium Bar and 24 Runecloth to gather or buy.

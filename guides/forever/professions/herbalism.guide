@@ -33,6 +33,7 @@ zone Ironforge
 # changed a map frame, and a map without an Era frame (Zephras Isle) compiles live.
 
 # ---------------------------------------------------------------- Apprentice
+section Herbalism 1-50
 
 step Learn Herbalism
   tip Any Herbalism trainer of your faction teaches Apprentice Herbalism at any level (10c), and so does the Junior Herbalism Trainer in each starting area; the arrow picks the nearest. Turn on Find Herbs (spellbook, General tab) so herbs show on the minimap. Forever's starting areas also have Wilted Peacebloom and Stunted Silverleaf (skill 1). The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's Cactus Apple Surprise, A Humble Task, Marla's Last Wish) offers Wild Harvest as a reward: reading it gives 2 skill, up to 15. Trade goods vendors sell the Apprentice's Herb Pouch, a four-slot bag for herbs (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: Herbalism: hand it in to the herbalism trainer it names once you reach skill 20, for the Incense Candle recipe.
@@ -172,6 +173,7 @@ step Journeyman Herbalism
   learn 1229705
 
 # ---------------------------------------------------------------- Herbalism 50-100
+section Herbalism 50-100
 
 step Mageroyal & Briarthorn: Westfall (50-100)
   only Human,Skyborne,Alliance
@@ -264,6 +266,7 @@ step Mageroyal & Briarthorn: Silverpine Forest (50-100)
   skill Herbalism 100
 
 # ---------------------------------------------------------------- Herbalism 100-125
+section Herbalism 100-125
 
 step Briarthorn & Bruiseweed: Redridge Mountains (100-125)
   only Human,Dwarf,Gnome,Skyborne,Alliance
@@ -342,6 +345,7 @@ step Expert Herbalism
   train Herbalism Expert
 
 # ---------------------------------------------------------------- Herbalism 125-160
+section Herbalism 125-160
 
 step Stranglekelp & Kingsblood: Stranglethorn Vale (125-160)
   zone Stranglethorn Vale
@@ -361,6 +365,7 @@ step Stranglekelp & Kingsblood: Stranglethorn Vale (125-160)
   skill Herbalism 160
 
 # ---------------------------------------------------------------- Herbalism 160-185
+section Herbalism 160-185
 
 step Liferoot & Fadeleaf: Dustwallow Marsh (160-185)
   zone Dustwallow Marsh
@@ -380,6 +385,7 @@ step Liferoot & Fadeleaf: Dustwallow Marsh (160-185)
   skill Herbalism 185
 
 # ---------------------------------------------------------------- Herbalism 185-210
+section Herbalism 185-210
 
 step Liferoot & Khadgar's Whisker: Dustwallow Marsh (185-200)
   zone Dustwallow Marsh
@@ -420,6 +426,7 @@ step Fadeleaf & Khadgar's Whisker: Dustwallow Marsh (200-210) cont.
   skill Herbalism 210
 
 # ---------------------------------------------------------------- Herbalism 210-230
+section Herbalism 210-230
 
 step Purple Lotus: The Hinterlands (210-230)
   zone The Hinterlands
@@ -439,6 +446,7 @@ step Purple Lotus: The Hinterlands (210-230)
   skill Herbalism 230
 
 # ---------------------------------------------------------------- Herbalism 230-260
+section Herbalism 230-260
 
 step Purple Lotus & Sungrass: The Hinterlands (230-260)
   zone The Hinterlands
@@ -458,6 +466,7 @@ step Purple Lotus & Sungrass: The Hinterlands (230-260)
   skill Herbalism 260
 
 # ---------------------------------------------------------------- Herbalism 260-285
+section Herbalism 260-285
 
 step Sungrass & Golden Sansam: The Hinterlands (260-285)
   zone The Hinterlands
@@ -477,6 +486,7 @@ step Sungrass & Golden Sansam: The Hinterlands (260-285)
   skill Herbalism 285
 
 # ---------------------------------------------------------------- Herbalism 285-300
+section Herbalism 285-300
 
 step Dreamfoil & Plaguebloom: Western Plaguelands (285-300)
   zone Western Plaguelands

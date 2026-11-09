@@ -20,6 +20,7 @@ const R = require('./route');
 const { RACE_GROUPS, REGIONS, raceCondition } = require('./groups');
 const { dist } = require('../../route/geo');
 const { FACTIONS, GUIDE_HEADER, fmt, liveMark, money, zoneName, npcSpawn, rankInfo, flightMaster } = require('./common');
+const { byBanners } = require('../sections');
 const { ERA_NOTE } = require('./notes');
 
 const POLE = 6256;
@@ -231,7 +232,7 @@ function render(ctx) {
 		`buy ${POLE} x1 nearest`,
 	]);
 
-	section('Fishing 1-75');
+	section('Fishing 1-50');
 	const journeyman = rankInfo(ctx, 'Fishing', 'Journeyman');
 	for (const faction of FACTIONS)
 		spotSteps(RACE_GROUPS[faction], START_SPOTS, faction, 1, 50, `Fish here until skill 50, ${about(catches(1, 50))} catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients.`);
@@ -320,7 +321,8 @@ function render(ctx) {
 	);
 	step(`Fishing: ${zoneName(ctx, LATE_SPOT.zone)} (225-300)`, late.lines);
 
-	return `${L.join('\n')}\n`;
+	// Each band's range is a section (the guide window's heading; the guide starts at the player's skill).
+	return `${byBanners(L.join('\n'), 'Fishing')}\n`;
 }
 
 module.exports = { file: 'fishing', skill: 'Fishing', render, PAGLE_FISH, catches };

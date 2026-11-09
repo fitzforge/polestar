@@ -72,6 +72,7 @@ zone Azeroth
 # sniffed lists price only Apprentice, 10c as in Classic). In-game check: what each rank costs.
 
 # ---------------------------------------------------------------- Apprentice (1-75)
+section Enchanting 1-75
 
 step Learn Enchanting
   tip Apprentice Enchanting lets you craft up to 75 for 10c, at any character level. Not every Enchanting trainer teaches it: Alliance Alanna Raveneye (Teldrassil), Betty Quin (Stormwind City), Eaysaa Brightgust (Zephras Isle), Gimble Thistlefuzz (Ironforge), Kitta Firewind (Elwynn Forest), Lalina Summermoon (Darnassus), Lucan Cordell (Stormwind City), Nasalanna Windsinger (Zephras Isle), Taladan (Darnassus), Thonys Pillarstone (Ironforge), Tilli Thistlefuzz (Ironforge) and Xylinnia Starshine (Feralas); Horde Eaysaa Brightgust (Zephras Isle), Godan (Orgrimmar), Hgarth (Stonetalon Mountains), Jhag (Orgrimmar), Lavinia Crowe (Undercity), Malcomb Wynn (Undercity), Mot Dawnstrider (Thunder Bluff), Nasalanna Windsinger (Zephras Isle), Teg Dawnstrider (Thunder Bluff) and Vance Undergloom (Tirisfal Glades). The arrow picks the nearest of your faction. Buy a Copper Rod and Mote of Magic from an enchanting supplies vendor (in the capitals and on Zephras Isle; the starting-area trainers have none beside them, and the next step's arrow picks the nearest). From now on, disenchant every green you do not wear: that is where the dust and essences come from. Two starter quests teach Disenchant on a quest item: An Enchanting Lesson from Kitta Firewind (Tower of Azora, Elwynn Forest) and A Pain in the Neck from Pa'zula (Sen'jin Village, Durotar). 1-75 takes about 50c of recipes and 4s 44c of vendor goods, plus 51 Strange Dust to gather or buy.
@@ -99,6 +100,7 @@ step Enchant Chest - Inferior Stamina to 75
   skill Enchanting 75
 
 # ---------------------------------------------------------------- Journeyman (75-150)
+section Enchanting 75-150
 
 step Journeyman Enchanting
   tip Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs Enchanting 50 and character level 10, so you can take it on any visit from 50. Not every Enchanting trainer teaches it: Alliance Gimble Thistlefuzz (Ironforge), Kitta Firewind (Elwynn Forest), Lucan Cordell (Stormwind City), Taladan (Darnassus) and Xylinnia Starshine (Feralas); Horde Godan (Orgrimmar), Hgarth (Stonetalon Mountains), Lavinia Crowe (Undercity) and Teg Dawnstrider (Thunder Bluff). The arrow picks the nearest of your faction. Learn now: Enchant Cloak - Minor Protection (from 70, 2s). 75-150 takes about 2s of recipes, plus 1 Shadowgem, 1 Silver Rod, 4 Lesser Magic Essence, 121 Strange Dust and 20 Soul Dust to gather or buy.
@@ -126,6 +128,7 @@ step Enchant Bracer - Lesser Stamina to 150
   skill Enchanting 150
 
 # ---------------------------------------------------------------- Expert (150-225)
+section Enchanting 150-225
 
 step Iridescent Pearl (Alliance)
   only Alliance
@@ -171,6 +174,7 @@ step Enchant Cloak - Greater Defense to 225
   skill Enchanting 225
 
 # ---------------------------------------------------------------- Artisan (225-300)
+section Enchanting 225-300
 
 step Artisan Enchanting
   tip Artisan raises the cap from 225 to 300 for 5g (Classic's price; Forever's is not in the data); it needs Enchanting 200 and character level 35, so you can take it on any visit from 200. Annora teaches Artisan Enchanting inside the Uldaman dungeon (Badlands); bring a group. Learn now: Enchant Gloves - Agility (from 210). 225-300 takes about 2g 20s of recipes and 1g 70s of vendor goods, plus 34 Purple Lotus, 39 Vision Dust and 208 Dream Dust to gather or buy.

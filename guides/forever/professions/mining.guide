@@ -29,6 +29,7 @@ zone Ironforge
 # changed a map frame, and a map without an Era frame (Zephras Isle) compiles live.
 
 # ---------------------------------------------------------------- Apprentice
+section Mining 1-65
 
 step Learn Mining
   tip Any Mining trainer of your faction teaches Apprentice Mining at any level (10c), and so does the Junior Mining Trainer in each starting area; the arrow picks the nearest. Buy a Mining Pick from a trade goods or general vendor: keep it in your bags, you cannot mine without it. Turn on Find Minerals (spellbook, General tab) so veins show on the minimap. Forever's starting areas also have Poor Copper Veins (Copper Ore and Rough Stone, from skill 1). The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's Cactus Apple Surprise, A Humble Task, Marla's Last Wish) offers Mining for Dummies as a reward: reading it gives 2 skill, up to 15. Trade goods vendors and the junior trainers sell the Apprentice's Mining Pack, a four-slot bag for ore and stone (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: Mining: hand it in to the mining trainer it names once you reach skill 20, for the Lodestone recipe.
@@ -300,6 +301,7 @@ step Smelt Bronze & Smelt Tin
   learn 3304
 
 # ---------------------------------------------------------------- Mining 65-125
+section Mining 65-125
 
 step Incendicite & Tin: Wetlands (65-125)
   only Human,Dwarf,Gnome,Skyborne,Alliance
@@ -379,6 +381,7 @@ step Expert Mining
   learn 3307
 
 # ---------------------------------------------------------------- Mining 125-155
+section Mining 125-155
 
 step Iron: Arathi Highlands (125-155)
   zone Arathi Highlands
@@ -398,6 +401,7 @@ step Iron: Arathi Highlands (125-155)
   skill Mining 155
 
 # ---------------------------------------------------------------- Mining 155-175
+section Mining 155-175
 
 step Iron: Arathi Highlands (155-175)
   zone Arathi Highlands
@@ -417,6 +421,7 @@ step Iron: Arathi Highlands (155-175)
   skill Mining 175
 
 # ---------------------------------------------------------------- Mining 175-230
+section Mining 175-230
 
 step Mithril: Badlands (175-200)
   zone Badlands
@@ -457,6 +462,7 @@ step Mithril: Badlands (200-230) cont.
   skill Mining 230
 
 # ---------------------------------------------------------------- Mining 230-245
+section Mining 230-245
 
 step Mithril & Dark Iron: Searing Gorge (230-245)
   zone Searing Gorge
@@ -476,6 +482,7 @@ step Mithril & Dark Iron: Searing Gorge (230-245)
   skill Mining 245
 
 # ---------------------------------------------------------------- Mining 245-275
+section Mining 245-275
 
 step Small Thorium: Felwood (245-275)
   zone Felwood
@@ -493,6 +500,7 @@ step Small Thorium: Felwood (245-275)
   skill Mining 275
 
 # ---------------------------------------------------------------- Mining 275-300
+section Mining 275-300
 
 step Small Thorium & Rich Thorium: Winterspring (275-300)
   zone Winterspring

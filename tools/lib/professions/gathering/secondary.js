@@ -18,6 +18,7 @@ const R = require('./route');
 const { RACE_GROUPS, TWO_SIDED, raceCondition } = require('./groups');
 const { FACTIONS, GUIDE_HEADER, fmt, money, zoneName, rankInfo, vendorSpawns } = require('./common');
 const { ERA_NOTE } = require('./notes');
+const SECTIONS = require('../sections');
 
 const SIDE_OF_RACE = {};
 for (const f of FACTIONS) for (const g of RACE_GROUPS[f]) for (const r of g.races) if (!TWO_SIDED.has(r)) SIDE_OF_RACE[r] = f;
@@ -242,7 +243,9 @@ function renderGuide(ctx, P) {
 		else if (e.raw) step(L, e.title, e.raw);
 		else renderSegment(ctx, P, e, L);
 	}
-	return `${L.join('\n')}\n`;
+	// The skill ranges as sections (the guide window's headings; the guide starts at the player's skill):
+	// per bandage band for First Aid, whose every band gathers its own cloth; per banner for Cooking.
+	return `${SECTIONS[P.sections || 'byBanners'](L.join('\n'), P.skill)}\n`;
 }
 
 // ------------------------------------------------------------------ First Aid
@@ -280,6 +283,7 @@ const firstAid = {
 	file: 'first-aid',
 	skill: 'First Aid',
 	title: 'First Aid 1-300',
+	sections: 'byBands',
 	levels: '5-60',
 	craftTip: 'Bandages need no fire: craft them anywhere.',
 	header: [

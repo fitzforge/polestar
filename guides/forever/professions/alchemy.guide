@@ -72,6 +72,7 @@ zone Azeroth
 # costs.
 
 # ---------------------------------------------------------------- Apprentice (1-75)
+section Alchemy 1-75
 
 step Learn Alchemy
   tip Apprentice Alchemy lets you craft up to 75 for 10c, at any character level. Any Alchemy trainer of your faction teaches it; the arrow picks the nearest. Pair it with Herbalism: Peacebloom and Silverleaf grow in every starting zone, and Empty Vials cost 4c at any alchemy or trade supplies vendor. 1-75 takes about 3s 28c of vendor goods, plus 82 Silverleaf and 110 Peacebloom to gather or buy.
@@ -173,6 +174,7 @@ step Elixir of Minor Defense to 75
   skill Alchemy 75
 
 # ---------------------------------------------------------------- Journeyman (75-150)
+section Alchemy 75-150
 
 step Journeyman Alchemy
   tip Journeyman raises the cap from 75 to 150 for 4s 50c (Classic's price; Forever's is not in the data); it needs Alchemy 50 and character level 10, so you can take it on any visit from 50. Not every Alchemy trainer teaches it: Alliance Ainethil (Darnassus), Alchemist Narett (Dustwallow Marsh), Jaxin Chong (Stranglethorn Vale), Kylanna (Ashenvale), Kylanna Windwhisper (Feralas), Lilyssia Nightbreeze (Stormwind City), Sylvanna Forestmoon (Darnassus) and Tally Berryfizz (Ironforge); Horde Bena Winterhoof (Thunder Bluff), Doctor Herbert Halsey (Undercity), Doctor Marsh (Undercity), Jaxin Chong (Stranglethorn Vale), Rogvar (Swamp of Sorrows), Serge Hinott (Hillsbrad Foothills) and Yelmak (Orgrimmar). The arrow picks the nearest of your faction. Learn now: Minor Mana Potion (from 25, 1s). Also learn Mana Well (1s): Forever's Alchemy camp item, 1 Peacebloom and 1 Empty Vial, placed at a campsite beside a campfire for its buff. The Camping 101: Alchemy quest from your starting area's camping guide (after The Great Outdoors) sends you to an alchemy trainer who teaches it free. 75-150 takes about 1s of recipes and 9s 8c of vendor goods, plus 77 Mageroyal, 152 Briarthorn and 54 Bruiseweed to gather or buy.
@@ -305,6 +307,7 @@ step Lesser Troll's Blood Elixir to 150
   skill Alchemy 150
 
 # ---------------------------------------------------------------- Expert (150-225)
+section Alchemy 150-225
 
 step Alchemy 150-225: vendor goods
   tip Buy the whole bracket's share in one go: 83 Leaded Vial (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction (Stormwind City: Edna Mullby, Eldraeith and Jasper Fel; Orgrimmar: Felika, Kor'geld and Rekkul).
@@ -386,6 +389,7 @@ step Elixir of Defense to 225
   skill Alchemy 225
 
 # ---------------------------------------------------------------- Artisan (225-300)
+section Alchemy 225-300
 
 step Alchemy 225-300: vendor goods
   tip Buy the whole bracket's share in one go: 51 Leaded Vial (20s 40c) and 86 Crystal Vial (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction (Stormwind City: Edna Mullby, Eldraeith and Jasper Fel; Orgrimmar: Felika, Kor'geld and Rekkul).

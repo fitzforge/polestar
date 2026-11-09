@@ -84,6 +84,29 @@ test('loop: clusters ordered as a tour starting near the entry point', () => {
 	assert.ok(score.gain === 14 && score.score > 0);
 });
 
+test('a loop is made of the zone\'s common kinds: a rare one (under a twentieth of the nodes) never names or places a waypoint', () => {
+	const { commonPoints } = require('../tools/lib/professions/gathering/build');
+	const project = makeProjector({ era: { 1: { c: 0, left: 0, right: -1000, top: 0, bottom: -1000 } } });
+	const pts = [];
+	const at = (name, x, y, n, up) => {
+		for (let i = 0; i < n; i++) pts.push({ name, up, w: up, pt: project.point(1, x + i * 0.5, y, 'e') });
+	};
+	at('Peacebloom', 10, 10, 10, 0.1);
+	at('Silverleaf', 80, 10, 10, 0.1);
+	at('Peacebloom', 80, 80, 10, 0.1);
+	// Mulgore's case: a Forever node a few spots carry, beside one common herb far from the rest.
+	at('Stunted Silverleaf', 40, 60, 3, 0.05);
+	at('Silverleaf', 41, 60, 1, 0.1);
+	const named = (loop) => loop.some((c) => c.counts['Stunted Silverleaf']);
+	assert.ok(named(R.loop(pts, project, { radius: 40, cover: 1 })), 'every point: the rare kind names a waypoint');
+	const common = commonPoints(pts);
+	assert.equal(common.filter((p) => p.name === 'Stunted Silverleaf').length, 0);
+	assert.ok(!named(R.loop(common, project, { radius: 40, cover: 1 })));
+	// With fewer than three common points every point counts.
+	const few = [{ ...pts[0], up: 1 }, { ...pts[10], up: 1 }, { ...pts[30], up: 0.01 }];
+	assert.equal(commonPoints(few).length, 3);
+});
+
 test('live-frame spawns come out in the Era frame, so loops on redrawn maps match `coords era`', () => {
 	// A map Forever redrew: its live frame is offset from the Era frame and
 	// covers 800 yards instead of 1000.

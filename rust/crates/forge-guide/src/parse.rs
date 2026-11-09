@@ -259,6 +259,41 @@ fn unquote_rest(line: &[u16], lex: &Lex, from: usize) -> String {
 	js_trim(&sl(line, toks[0].start, lex.end)).to_string()
 }
 
+/// "<from>-<to>", both whole numbers.
+fn skill_range(text: &str) -> Option<(f64, f64)> {
+	let (a, b) = text.split_once('-')?;
+	(is_int(a) && is_int(b)).then(|| (str_to_num(a), str_to_num(b)))
+}
+
+/// `section <Profession> <from>-<to>` (a profession guide's skill range as a heading over the steps after
+/// it): { line, skill, skillQuoted?, from, to }, or None.
+fn parse_section(toks: &[Tok], ln: f64, cx: &mut Cx) -> Option<V> {
+	let usage = "`section` needs a profession and a skill range: section <Profession> <from>-<to>";
+	let sec = V::Obj(obj! { "line" => ln });
+	let mut i = 1;
+	if toks.get(i).is_some_and(|t| t.quoted) {
+		sec.set("skill", toks[i].text.as_str());
+		sec.set("skillQuoted", true);
+		i += 1;
+	} else {
+		let (text, next) = words_until(toks, i, |tk| skill_range(&tk.text).is_some());
+		sec.set("skill", text);
+		i = next;
+	}
+	let range = toks.get(i).filter(|r| !r.quoted).and_then(|r| skill_range(&r.text));
+	let Some((from, to)) = range.filter(|_| sec.get("skill").truthy() && i + 1 == toks.len()) else {
+		cx.err(ln, usage, None);
+		return None;
+	};
+	if from >= to {
+		cx.err(ln, format!("malformed skill range \"{}\" (from below to)", toks[i].text), None);
+		return None;
+	}
+	sec.set("from", from);
+	sec.set("to", to);
+	Some(sec)
+}
+
 /// `image <path> [<w>x<h>]`: the step's picture, at most one per step.
 fn parse_image(step: &V, toks: &[Tok], ln: f64, cx: &mut Cx) {
 	let usage = Some("image media/<name>.tga [<width>x<height>]");
@@ -428,10 +463,24 @@ pub fn parse_guide(text: &str, file: &str, diag: &mut Diagnostics) -> V {
 			if kw.is_some() && kw_s == "step" {
 				let title = unquote_rest(&line, &lex, 1);
 				step = V::Obj(obj! { "line" => ln, "title" => if title.is_empty() { V::Null } else { V::str(&title) }, "only" => V::Null, "tip" => V::Null, "goals" => V::arr() });
+				let secs = guide.get("sections");
+				if !secs.is_undef() {
+					step.set("section", secs.len() as f64);
+				}
 				guide.get("steps").push(step.clone());
 				continue;
 			}
-			if step.truthy() {
+			if kw.is_some() && kw_s == "section" {
+				if let Some(sec) = parse_section(toks, ln, &mut cx) {
+					sec.set("first", guide.get("steps").len() as f64);
+					if guide.get("sections").is_undef() {
+						guide.set("sections", V::arr());
+					}
+					guide.get("sections").push(sec);
+				}
+				continue;
+			}
+			if step.truthy() || !guide.get("sections").is_undef() {
 				cx.err(ln, format!("unexpected `{}` in column 0 after the first step (indent step lines; header keys belong before the first step)", toks[0].text), None);
 				continue;
 			}
@@ -612,6 +661,14 @@ pub fn parse_guide(text: &str, file: &str, diag: &mut Diagnostics) -> V {
 	for s in &steps {
 		if s.get("goals").items().is_empty() {
 			cx.err(s.get("line").num(), "step has no goals", None);
+		}
+	}
+	// A section heads at least one step.
+	let secs = guide.get("sections").items();
+	for (i, sec) in secs.iter().enumerate() {
+		let end = secs.get(i + 1).map(|n| n.get("first").num()).unwrap_or(steps.len() as f64);
+		if sec.get("first").num() >= end {
+			cx.err(sec.get("line").num(), "`section` has no steps under it", None);
 		}
 	}
 	guide

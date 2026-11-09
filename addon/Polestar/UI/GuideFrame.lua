@@ -1563,14 +1563,25 @@ function GF.ShowOverview(anchor)
 	local at = E and E.GetStepIndex and E.GetStepIndex()
 	if not at then return end
 	scrubAt = nil
-	local live, count, items = E.GetLiveStep(), E.GetStepCount(), {}
+	local live, count, items, lastSec = E.GetLiveStep(), E.GetStepCount(), {}, nil
 	for i = math.max(1, at - OVERVIEW_BEFORE), math.min(count, at + OVERVIEW_AFTER) do
 		local v = not UI.StepHidden(i) and E.GetStepView(i)
 		if v and v.status ~= "na" then
+			-- A profession guide's skill range heads its steps ("First Aid 1-40"),
+			-- the player's current range in the accent colour.
+			local sec = v.section
+			if sec and sec.index ~= lastSec then
+				items[#items + 1] = {
+					text = sec.title,
+					color = sec.state == "current" and "accent" or "textMuted",
+					onClick = function() GF.LookAt(i) end,
+				}
+			end
+			lastSec = sec and sec.index or nil
 			local no = UI.StepNo(i)
 			local title = (v.title and v.title ~= "") and v.title or string.format(L["Step %d"], no)
 			items[#items + 1] = {
-				text = no .. "  " .. title,
+				text = (sec and "    " or "") .. no .. "  " .. title,
 				icon = i == live and "chevron-right" or nil,
 				checked = v.status == "done" or nil,
 				color = (v.status == "done" or v.status == "skipped") and "textMuted" or (i == at and "accent" or nil),
@@ -1996,6 +2007,14 @@ local function layoutCard(width)
 	-- The class-quest card (UI/ClassCard.lua) above the person and the goals.
 	local CC = UI.ClassCard
 	if CC then y = CC.Layout(width) end
+	-- A profession guide's skill-range heading over the step (fillCard).
+	local sec = card.Section
+	if sec:IsShown() then
+		sec:SetWidth(cw)
+		sec:ClearAllPoints()
+		sec:SetPoint("TOPLEFT", card, "TOPLEFT", PAD, -(y + 8))
+		y = y + 8 + sec:GetStringHeight()
+	end
 	if person:IsShown() then
 		local nameW = cw - ICON - 10
 		person.Name:SetWidth(nameW)
@@ -3119,6 +3138,13 @@ local function fillCard(sameFocus)
 		W.Color(person.Level, "textDim")
 	end
 	person.Level:SetShown(hint ~= nil)
+	-- A profession guide's section: its skill range as the heading over the
+	-- step ("First Aid 1-40"), in the accent colour while the player's skill
+	-- is in it (Engine.GetSection).
+	local sv = view.section
+	card.Section:SetText(sv and sv.title or "")
+	if sv then W.Color(card.Section, sv.state == "current" and "accent" or "textDim") end
+	card.Section:SetShown(sv ~= nil)
 	person:Show()
 	-- A class quest's step: the class card, its colour on the step's quest names.
 	local CC, E = UI.ClassCard, Engine()
@@ -4663,6 +4689,11 @@ local function build()
 	person.Level:SetJustifyH("LEFT")
 	person.Level:SetWordWrap(true)
 	person.Level:Hide()
+	-- A profession guide's skill-range heading over the person (fillCard).
+	card.Section = T(card, "label", "accent")
+	card.Section:SetJustifyH("LEFT")
+	card.Section:SetWordWrap(false)
+	card.Section:Hide()
 	-- Blizzard: a gold separator under the person, above the goals.
 	person.Rule = person:CreateTexture(nil, "ARTWORK")
 	person.Rule:SetTexture(Theme.Media("white"))
