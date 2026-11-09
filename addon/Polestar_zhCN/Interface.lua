@@ -2226,7 +2226,7 @@ L["The Polestar founder is nearby!"] = "Polestar 的创始人就在附近！"
 L["The card can't target during a fight. Use the rare button or its key (%s)."] = "战斗中卡片无法选中目标。请使用稀有怪按钮或其快捷键（%s）。"
 L["The card can't target during a fight. Use the rare button."] = "战斗中卡片无法选中目标。请使用稀有怪按钮。"
 L["Wave"] = "挥手"
--- L["Click Target again to target the rare, or use the rare button."] = ""
+L["Click Target again to target the rare, or use the rare button."] = "再次点击“目标”以选中稀有怪，或使用稀有怪按钮。"
 
 -- Rares/Options.lua
 L["1 minute"] = "1分钟"

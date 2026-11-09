@@ -312,7 +312,7 @@ L["The Polestar founder is nearby!"] = "Der Gründer von Polestar ist in der Nä
 L["The card can't target during a fight. Use the rare button or its key (%s)."] = "Die Karte kann im Kampf kein Ziel anvisieren. Nimm den Rare-Knopf oder seine Taste (%s)."
 L["The card can't target during a fight. Use the rare button."] = "Die Karte kann im Kampf kein Ziel anvisieren. Nimm den Rare-Knopf."
 L["Wave"] = "Winken"
--- L["Click Target again to target the rare, or use the rare button."] = ""
+L["Click Target again to target the rare, or use the rare button."] = "Klick noch mal auf Ziel, um das Rare anzuvisieren, oder nimm den Rare-Knopf."
 
 -- Rares/View.lua
 L["Search"] = "Suchen"

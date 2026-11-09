@@ -2226,7 +2226,7 @@ L["The Polestar founder is nearby!"] = "¡El fundador de Polestar está cerca!"
 L["The card can't target during a fight. Use the rare button or its key (%s)."] = "La tarjeta no puede seleccionar durante un combate. Usa el botón de raros o su tecla (%s)."
 L["The card can't target during a fight. Use the rare button."] = "La tarjeta no puede seleccionar durante un combate. Usa el botón de raros."
 L["Wave"] = "Saludar"
--- L["Click Target again to target the rare, or use the rare button."] = ""
+L["Click Target again to target the rare, or use the rare button."] = "Haz clic otra vez en Objetivo para seleccionar al raro, o usa el botón de raros."
 
 -- Rares/Options.lua
 L["1 minute"] = "1 minuto"

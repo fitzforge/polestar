@@ -2226,7 +2226,7 @@ L["The Polestar founder is nearby!"] = "Polestar 창립자가 근처에 있습�
 L["The card can't target during a fight. Use the rare button or its key (%s)."] = "카드는 전투 중에 대상을 지정할 수 없습니다. 희귀 버튼이나 그 키(%s)를 사용하십시오."
 L["The card can't target during a fight. Use the rare button."] = "카드는 전투 중에 대상을 지정할 수 없습니다. 희귀 버튼을 사용하십시오."
 L["Wave"] = "손 흔들기"
--- L["Click Target again to target the rare, or use the rare button."] = ""
+L["Click Target again to target the rare, or use the rare button."] = "희귀 몬스터를 대상으로 잡으려면 대상을 다시 클릭하거나 희귀 버튼을 사용하세요."
 
 -- Rares/Options.lua
 L["1 minute"] = "1분"
