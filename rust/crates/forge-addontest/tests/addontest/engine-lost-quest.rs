@@ -147,29 +147,21 @@ fn run_work(setting: Option<&str>, script: &str) -> Vec<Value> {
 		before: world,
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/lostwork" }"#.into())],
-		script: [
-			TEST_PACK,
-			TEST_SOURCE,
-			WORK_GUIDE,
-			HELPERS,
-			WORK_HELPERS,
-			"stub.login()",
-			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
-			&set,
-			script,
-		]
-		.join("\n"),
+		script: [TEST_PACK, TEST_SOURCE, WORK_GUIDE, HELPERS, WORK_HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, &set, script].join("\n"),
 		..Default::default()
 	})
 }
 
 #[test]
 fn while_asked_the_lost_quests_goals_are_greyed_and_the_arrow_leads_to_its_giver() {
-	let out = run_work(None, r#"
+	let out = run_work(
+		None,
+		r#"
 		emit(work())
 		stub.world.abandon(7); flush()
 		emit(work())
-	"#);
+	"#,
+	);
 	assert_eq!(
 		out[0],
 		json!({ "live": 3, "lost": false, "skipped": false, "kill": "active", "killLost": false, "killNotice": false,
@@ -186,11 +178,14 @@ fn while_asked_the_lost_quests_goals_are_greyed_and_the_arrow_leads_to_its_giver
 
 #[test]
 fn taking_the_lost_quest_again_brings_its_goals_and_the_arrow_back() {
-	let out = run_work(None, r#"
+	let out = run_work(
+		None,
+		r#"
 		stub.world.abandon(7); flush()
 		stub.world.accept(7, { { required = 10, fulfilled = 0 } }); flush()
 		emit(work())
-	"#);
+	"#,
+	);
 	assert_eq!(
 		out[0],
 		json!({ "live": 3, "lost": false, "skipped": false, "kill": "active", "killLost": false, "killNotice": false,
@@ -200,11 +195,14 @@ fn taking_the_lost_quest_again_brings_its_goals_and_the_arrow_back() {
 
 #[test]
 fn skip_it_and_what_follows_still_works_while_the_goals_are_greyed() {
-	let out = run_work(None, r#"
+	let out = run_work(
+		None,
+		r#"
 		stub.world.abandon(7); flush()
 		E.AnswerLost(7, "skip"); flush()
 		emit(work())
-	"#);
+	"#,
+	);
 	assert_eq!(out[0]["live"], 5);
 	assert_eq!(out[0]["lost"], false);
 	assert_eq!(out[0]["skipped"], true);
@@ -219,11 +217,14 @@ fn the_ask_setting_is_the_default() {
 
 #[test]
 fn always_go_back_for_it_returns_to_the_giver_without_asking_and_says_so() {
-	let out = run_work(Some("back"), r#"
+	let out = run_work(
+		Some("back"),
+		r#"
 		stub.world.abandon(7); flush()
 		emit(work())
 		emit(PolestarCharDB.lostQuests == nil)
-	"#);
+	"#,
+	);
 	assert_eq!(
 		out[0],
 		json!({ "live": 2, "lost": false, "skipped": false, "kill": "pending", "killLost": false, "killNotice": false,
@@ -235,11 +236,14 @@ fn always_go_back_for_it_returns_to_the_giver_without_asking_and_says_so() {
 
 #[test]
 fn always_skip_it_skips_the_quest_and_what_follows_without_asking_and_says_so() {
-	let out = run_work(Some("skip"), r#"
+	let out = run_work(
+		Some("skip"),
+		r#"
 		stub.world.abandon(7); flush()
 		emit(work())
 		emit(PolestarCharDB.lostQuests == nil)
-	"#);
+	"#,
+	);
 	assert_eq!(out[0]["live"], 5);
 	assert_eq!(out[0]["lost"], false);
 	assert_eq!(out[0]["skipped"], true);
@@ -251,11 +255,14 @@ fn always_skip_it_skips_the_quest_and_what_follows_without_asking_and_says_so() 
 
 #[test]
 fn choosing_an_always_answer_answers_the_question_already_up() {
-	let out = run_work(None, r#"
+	let out = run_work(
+		None,
+		r#"
 		stub.world.abandon(7); flush()
 		Polestar.Set("behavior.lostQuests", "back"); flush()
 		emit(work())
-	"#);
+	"#,
+	);
 	assert_eq!(out[0]["live"], 2);
 	assert_eq!(out[0]["lost"], false);
 	assert_eq!(out[0]["arrow"]["kind"], "accept");
