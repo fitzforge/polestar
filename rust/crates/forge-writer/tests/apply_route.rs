@@ -102,6 +102,7 @@ fn run(c: &Case, area_at: Option<&dyn SubzoneOf>) -> Run {
 		solo_fallback: true,
 		walks: None,
 		borders: borders.as_ref(),
+		fresh_openers: forge_writer::post::FreshOpeners::Flag,
 	})
 	.unwrap();
 	Run { out, guides }

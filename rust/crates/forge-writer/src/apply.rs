@@ -123,6 +123,10 @@ pub struct Inputs<'a> {
 	pub walks: Option<&'a dyn forge_sim::walks::Walks>,
 	/// The world's zone crossings: a written walk from one zone into another goes over them.
 	pub borders: Option<&'a crate::borders::Borders>,
+	/// "Every guide stands on its own": a guide's opening accepts that need a quest only an earlier
+	/// guide hands in are listed (`Flag`), moved to a later visit to their giver (`Move`), or not
+	/// checked (`Off`).
+	pub fresh_openers: post::FreshOpeners,
 }
 
 /// What apply_route wrote: the chain's guides (relative path, text), in chain order.
@@ -1478,6 +1482,19 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 	for &k in &by_median {
 		if !chain.contains(&pos_of[k].0) {
 			chain.push(pos_of[k].0.clone());
+		}
+	}
+	// (Then all of them in the route's order, by the median route position of their lines: v1's
+	// `next` links put the guides they do not reach after every guide they do, and each pass that
+	// compares a step's file and line with another's reads this order as the route's. Silverpine
+	// (12-15) after the Barrens (15-21) it leads into left Silverpine's Strange Lockbox step at 12-15,
+	// before the Barrens' accept of Trial of the Sea Lion it is for, #1386.)
+	{
+		let ord = crate::post::play_order(&chain, &|f| pos_idx.get(f).map(|&k| median(&pos_of[k].1)));
+		if ord.iter().enumerate().any(|(i, &k)| i != k) {
+			let sorted: Vec<String> = ord.iter().map(|&k| chain[k].clone()).collect();
+			log.push(format!("apply-route: the chain in the route's order: {}", sorted.join(", ")));
+			chain = sorted;
 		}
 	}
 	// (A shared guide the start plays in its own part, before the faction's join, comes before the join
@@ -5458,6 +5475,22 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		log.push(format!("after its prerequisite: {} {q}", chain[fi]));
 	}
 	post::source_item_uses(&mut texts, data, &may);
+	// "Every guide stands on its own": an accept in a guide's opening that needs a quest only an earlier
+	// guide hands in (the start's own starting zone aside) is listed, or moved to a later visit to its
+	// giver in the guide (`--fresh-openers move`).
+	if inp.fresh_openers != post::FreshOpeners::Off {
+		let starter = texts.first().filter(|t| re!(r"(?m)^levels\s+1\s*-").is_match(t)).map(|_| 0);
+		let found = post::fresh_openers(&texts, data, post::FRESH_STEPS, starter);
+		let n = found.len();
+		let left = if inp.fresh_openers == post::FreshOpeners::Move { post::fresh_openers_later(&mut texts, &found, post::FRESH_STEPS, &quest_place, crate::hub::HUB_YD) } else { found };
+		if inp.fresh_openers == post::FreshOpeners::Move {
+			log.push(format!("fresh openers: {} moved after the opening, {} left", n - left.len(), left.len()));
+		}
+		for o in &left {
+			let needs: Vec<String> = o.needs.iter().map(|(p, fs)| format!("{p} ({})", fs.iter().map(|&f| chain[f].as_str()).collect::<Vec<_>>().join(", "))).collect();
+			log.push(format!("fresh opener: {} step {}: accept {} needs {}", chain[o.file], o.step + 1, o.quest, needs.join(", ")));
+		}
+	}
 	if cx.route_travel {
 		for t in texts.iter_mut() {
 			*t = stale_skip_notes(&cx, t.split('\n').map(str::to_string).collect(), &route_q).join("\n");

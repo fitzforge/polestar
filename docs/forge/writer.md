@@ -355,7 +355,15 @@ be compared byte for byte with the old JavaScript writer.
   flight master before the flight to Southshore, with A Plague Upon Thee's second part, c19). The
   log names each moved event (`hub tour: ...`).
 - **The chain** is v1's: from the guide holding the route's first line, through
-  each guide's `next`.
+  each guide's `next`; the guides those links do not reach join it, and then
+  the whole chain is put in the route's order, by the median route position of
+  each guide's lines (`post::play_order`, #1386). The fix-ups below compare a
+  step's guide and line with another's as "before" and "after", so the files'
+  order must be the order the route plays them: Silverpine (12-15), which v1's
+  links did not reach, sat after the Barrens (15-21) it leads into, and its
+  Strange Lockbox step stayed at 12-15, before the Barrens' accept of Trial of
+  the Sea Lion it is for. The log lists a reordered chain (`apply-route: the
+  chain in the route's order: …`).
 - **Steps split.** v1's goal lines go in the route's order. Consecutive lines
   of one v1 step stay one step. A goal line the route does not name goes with
   the next line of its step that the route names (NPC lines between two named
@@ -437,6 +445,25 @@ be compared byte for byte with the old JavaScript writer.
   not written, nor the rest of its quest: next to the accept it made a trip of
   its own (c17 Horde: the OOX-17/TN and OOX-09/HL rewards flown to Booty Bay
   from Tanaris and the Hinterlands, the escort after the hand-in).
+- A step whose every goal collects an item that drops only for a quest not yet
+  taken (or a step `when onquest Q`) moves after Q's accept, next to its place
+  (`post::steps_after_their_quest`). When Q's accept is only in guides the
+  step's players do not play, the step stays, gated `when onquest Q`.
+- **Every guide stands on its own** (Fitz, 2026-11-08; `post::fresh_openers`):
+  a player may load any leveling guide fresh at its level, having done their
+  starting zone and none of our other guides. An accept in a guide's first 10
+  steps whose quest needs one (the data's `pre`/`preAny`) that the guide has
+  not handed in before it, and that only an earlier guide of the chain hands
+  in, is one that player cannot take (the addon hides it). `forge writer
+  apply-route --fresh-openers` sets what the writer does with them: `flag`
+  (default) lists each in the log (`fresh opener: <guide> step N: accept Q
+  needs P (<earlier guide>)`); `move` takes each to the end of the guide's
+  first step after the opening that stands by its giver (a step for everyone,
+  with no line of the quest before it), so the route's player takes it on that
+  later visit and the opening asks nothing of a fresh player
+  (`post::fresh_openers_later`), and lists the rest; `off` skips the check. The
+  release gate measuring the shipped guides the same way, both as written and
+  as the addon shows them, is the maintainers' fresh-start gate.
 - A quest started by an item that only drops, rarely or at an unknown chance,
   is optional: its collect and its accept, and the accepts of the quests
   after it in its chain (Nibbled-On Book, then Book Inventory); their
