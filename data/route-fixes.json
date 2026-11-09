@@ -8228,7 +8228,7 @@
 				"issue": "-"
 			},
 			{
-								"q": 1111,
+				"q": 1111,
 				"after": [
 					"turnin",
 					1110
@@ -8631,6 +8631,16 @@
 					"turnin",
 					6322
 				]
+			},
+			{
+				"q": 1181,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					1180
+				],
+				"reason": "Horde 30-40/40-50 seam (0.3.6, BrHorde4060 with Br3040): Goblin Sponsorship parts 2 and 3 (1180 from Gazlowe in Ratchet, 1181 from Wharfmaster Lozgil to Baron Revilgaz, level 37, 710 + 285 XP) end in Booty Bay: Lozgil is on the docks (26.4,73.6) and Revilgaz on the balcony beside \"Sea Wolf\" MacKinley (27.2,76.9), both on 40-50/01's first Booty Bay stop. Quest data and the open quest database agree on givers, enders and the 1178-1182 chain; players' recordings have the hand-ins. Part 4 (1182, Cozzle's footlocker at Lake Nazferiti) stays off the loop.",
+				"issue": "-"
 			}
 		],
 		"skip": [
@@ -12308,6 +12318,19 @@
 				],
 				"faction": "Alliance",
 				"why": "Quest volume, Alliance 50-60 (0.3.6 audit #11, 2026-11-09; Volume5060A's draft, landed by GRLeftovers): Un'Goro Soil (4700 XP, soil from 40-50/07) is handed in to Jenal in Darnassus on 50-60/01's Rut'theran stop (about 52.5; the druids already go up there to train), not on 04's Darnassus visit at 56.7: the XP comes before Felwood's and Winterspring's top-ups."
+			},
+			{
+				"a": [
+					"turnin",
+					1181
+				],
+				"b": [
+					"turnin",
+					669
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40/40-50 seam (0.3.6): Gazlowe's letter (1180) goes to Wharfmaster Lozgil and his note (1181) to Baron Revilgaz on 40-50/01's first Booty Bay stop, beside MacKinley's accept; see the include for 1181.",
+				"source": "BrHorde4060"
 			}
 		]
 	}

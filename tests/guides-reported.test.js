@@ -9934,3 +9934,17 @@ test('Alliance 30-40: the Balloo letters and MacKreel\'s Moonshine for every All
 	const ara = goals('forever/alliance/30-40/05-arathi-highlands.guide');
 	for (const t of ['accept', 'turnin']) assert.ok(everyone(ara[at(ara, `${t} 647`, is(t, 647))]), `${t} 647 has no race filter`);
 });
+
+// Seam Horde 30-40/40-50 (0.3.6, with the 30-40 owner): Gazlowe in Ratchet gives Goblin Sponsorship part 2 (1180) on
+// 30-40/04's stop; its ender Wharfmaster Lozgil and part 3's ender Baron Revilgaz (1181) stand in Booty Bay, so both go
+// in on 40-50/01's first Booty Bay stop, beside MacKinley. Part 4 (1182) stays off the loop.
+test('Horde Stranglethorn 40: Goblin Sponsorship parts 2 and 3 handed in on the first Booty Bay stop', { skip }, () => {
+	const stv = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
+	const lozgil = at(stv, 'turnin 1180', is('turnin', 1180));
+	const take = at(stv, 'accept 1181', is('accept', 1181));
+	const baron = at(stv, 'turnin 1181', is('turnin', 1181));
+	const mack = at(stv, 'accept 606', is('accept', 606));
+	assert.ok(lozgil < take && take < baron, 'Lozgil, then Revilgaz');
+	for (const i of [lozgil, take, baron]) assert.equal(stv[i].s, stv[mack].s, "on MacKinley's Booty Bay stop");
+	assert.ok(!stv.some(({ goal }) => is('accept', 1182)(goal)), 'part 4 is not routed');
+});

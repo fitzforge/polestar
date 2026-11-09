@@ -42,7 +42,10 @@ step Booty Bay
   turnin 577                          -- Drizzlik: the Snapjaw skins gathered earlier; inside
   tip Gringer, the flight master, waits on Booty Bay's upper deck. The quest givers stand on the boardwalks around the harbour and in the inn.
   turnin 213                          -- Kebok
+  turnin 1180                         -- Wharfmaster Lozgil, on the docks: Gazlowe's letter, if you carry it
+  accept 1181
   accept 606                            -- "Sea Wolf" MacKinley, on the top floor
+  turnin 1181                         -- Baron Revilgaz, on the balcony beside MacKinley
   turnin 669
   accept 621                          -- Inside
   accept 600                            -- Crank Fizzlebub
@@ -119,9 +122,9 @@ step Booty Bay
 #
 # Left out: Sunken Treasure part 6 (670: Seahorn sends you back to Shakes
 # O'Breen in Arathi, and the route never returns there); Goblin Sponsorship
-# (1182: its chain 1178-1181 starts at Pozzik in Thousand Needles and runs
-# through Gazlowe in Ratchet, none of it on the route, and Cozzle's
-# footlocker sits in the Venture Co. camp at Lake Nazferiti, off this loop).
+# part 4 (1182: Cozzle's footlocker sits in the Venture Co. camp at Lake
+# Nazferiti, off this loop). Parts 2 and 3 (1180, 1181: Gazlowe's letter from
+# 30-40/04) are handed in on the first Booty Bay stop.
 # Left out from the refreshed export:
 # - Ancient Gurubashi Idol (96774, new in Forever, 8,800 XP): a dungeon quest
 #   in the Drowned City ("gather some friends", the Forever client's
