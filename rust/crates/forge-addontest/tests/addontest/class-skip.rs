@@ -143,10 +143,7 @@ fn skipping_the_step_the_rest_follows_from_says_so_and_offers_the_undo_instead_o
 	let skipped = &out[0];
 	assert_eq!(skipped["live"], false, "{skipped}");
 	assert_eq!(skipped["empty"], "The rest of this guide follows from a skipped step", "{skipped}");
-	assert_eq!(
-		skipped["text"],
-		"You skipped Brine, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."
-	);
+	assert_eq!(skipped["text"], "You skipped Brine, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there.");
 	assert_eq!(skipped["primary"], "Undo the skip");
 	// Not a completion: no GUIDE_COMPLETED (no hand-off), and the guide list keeps it started.
 	assert_eq!(skipped["completed"], 0, "{skipped}");
