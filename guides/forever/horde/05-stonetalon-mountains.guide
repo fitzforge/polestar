@@ -53,6 +53,10 @@ next forever/horde/06-hillsbrad-foothills
 #
 # Carried on, finished: Beren's Peril and Watching the Roads (Allister, next guide).
 #
+# Shadowfang Keep (`when dungeon "Shadowfang Keep"`): High Executor Hadrec's Deathstalkers in Shadowfang
+# (1098, level 25) is taken on the Sepulcher stop here, at about 22.8; the run is at the end of
+# forever/horde/06-hillsbrad-foothills.
+#
 # Ruins of Lordaeron (`when dungeon "Ruins of Lordaeron"`, dungeons in the route): for a character who
 # chose it, the zeppelin from Orgrimmar lands beside the ruins at about 22.5: Morbin Lightbane's Light's
 # Justice (92421) is taken in the Undercity below, the run follows in the ruins, and Morbin takes the
@@ -248,6 +252,12 @@ step The Sepulcher
   accept 493                          -- Apothecary Renferrel: Lydon in Tarren Mill, next guide
   accept 95981                        -- Shadow Priest Allister
   accept 516                          -- Shadow Priest Allister: Beren's Peril, south-east of Ambermill
+
+step High Executor Hadrec
+  when dungeon "Shadowfang Keep"
+  zone Silverpine Forest
+  tip For your Shadowfang Keep run, at the end of the Hillsbrad guide: High Executor Hadrec stands below ground in the crypt.
+  accept 1098                         -- High Executor Hadrec, below ground
 
 step Silverpine Forest: kill these as you meet them
   zone Silverpine Forest

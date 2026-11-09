@@ -25,6 +25,15 @@ next forever/horde/04-the-barrens
 # Orgrimmar to the Crossroads. Tauren Druids with Trial of the Sea Lion go from the Undercity to
 # Moonglade, Thunder Bluff and the Crossroads instead.
 #
+# Shadowfang Keep (`when dungeon "Shadowfang Keep"`, dungeons in the route): for a character who chose it,
+# Dalar Dawnweaver's Arugal Must Die (1014) is taken on the Sepulcher stop at the end, at about 25 (level
+# 27: 3+ levels over on the Sepulcher stop of forever/horde/05-stonetalon-mountains, where High Executor
+# Hadrec's Deathstalkers in Shadowfang, 1098, is taken; he offers it again here), the run follows from
+# there, down the road south to the keep, and Dalar takes Arugal's head back at the Sepulcher before the
+# flight to the Undercity. Deathstalkers in Shadowfang is handed in
+# inside, to Deathstalker Vincent in the courtyard (the run tip names him). Left out: The Book of Ur
+# (1013: Keeper Bel'dugur in the Undercity, on the stop after the run) and the Warlock's Orb of
+# Soran'ruk (1740, class guide).
 # The Ruins of Lordaeron's hand-ins (Morbin Lightbane's Light's Justice, 92421, and the Abominable Head's
 # Unending Torment, 97288) come on the Undercity stop (`when complete`/`when onquest`): the run is in
 # forever/horde/05-stonetalon-mountains, where the zeppelin lands beside the ruins.
@@ -177,6 +186,28 @@ step The Sepulcher
   fly "The Sepulcher"
   turnin 516                          -- Shadow Priest Allister
   turnin 95981                        -- Shadow Priest Allister
+
+step Hadrec and Dalar
+  when dungeon "Shadowfang Keep"
+  zone Silverpine Forest
+  tip For your Shadowfang Keep run: High Executor Hadrec stands below ground in the crypt, Dalar Dawnweaver just north of Allister.
+  accept 1098                         -- High Executor Hadrec, below ground
+  accept 1014                         -- Dalar Dawnweaver
+
+step Shadowfang Keep
+  when dungeon "Shadowfang Keep"
+  when onquest 1098,1014
+  zone Silverpine Forest
+  tip Shadowfang Keep is a dungeon for a group of five, about levels 20 to 30, and a full run takes about an hour. Follow the road south from the Sepulcher: the keep stands on the hill above Pyrewood Village, its gate at the top of the path.
+  tip Inside: Rethilgore first; the Deathstalker freed from the cells after him opens the courtyard door, and Deathstalker Vincent lies just inside the courtyard, to the right: hand Deathstalkers in Shadowfang in to him there. Then Razorclaw the Butcher, Baron Silverlaine, Commander Springvale, Odo the Blindwatcher, Fenrus the Devourer and Wolf Master Nandos; Archmage Arugal at the top drops his head for Dalar.
+  enter "Shadowfang Keep" @44.8,67.8
+  complete 1014                       -- Arugal Must Die: the Head of Arugal
+
+step Dalar Dawnweaver
+  when complete 1014
+  zone Silverpine Forest
+  tip Back north up the road to the Sepulcher: Dalar stands just north of Allister.
+  turnin 1014                         -- Dalar Dawnweaver
 
 step Fly to the Undercity
   zone Silverpine Forest
