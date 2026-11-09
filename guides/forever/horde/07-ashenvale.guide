@@ -28,6 +28,14 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # opens with 216's hand-in and is taken here from Karang.
 # Ashenvale Outrunners (6503, level 24) is taken here at the Warsong lumber camp, between Torek's assault and
 # Sharptalon in the same woods (0.3.7): on the first visit at 21-23 the model's players were 1-1.5 levels under it.
+#
+# Blackfathom Deeps (`when dungeon "Blackfathom Deeps"`, dungeons in the route): for a character who
+# chose it, Je'neu's Amongst the Ruins (6921) is taken on the second Zoram'gar stop, the run is on the
+# third, at about 28, before the flight east; the Strange Water Globe (6922) and the Damp Note (6564) start
+# inside, and Je'neu takes all three at once (`when complete`/`when onquest`). Left out: Blackfathom
+# Villainy (6561: Argent Guard Thaelrid gives it inside, a giver our data has no place for, and Bashana
+# Runetotem takes it on the Elder Rise, off this guide's Thunder Bluff stop; the run tip names it),
+# Allegiance to the Old Gods part 2 (6565, a second run) and the Warlock's Orb of Soran'ruk (1740, class guide).
 
 step Fly to Zoram'gar Outpost
   zone The Barrens
@@ -66,6 +74,11 @@ step Zoram'gar Outpost
   tip Back to Zoram'gar from the ruins before heading east for good.
   turnin 6563                         -- Je'neu Sancrea
   accept 6621                         -- Karang Amakkar
+
+step Je'neu Sancrea
+  when dungeon "Blackfathom Deeps"
+  tip For your Blackfathom Deeps run, when you are back at Zoram'gar later in this guide: Je'neu's ruins errand. Look for a group as you quest.
+  accept 6921                         -- Je'neu Sancrea
 
 # ---------------------------------------------------------------- East along the road
 
@@ -216,6 +229,31 @@ step Zoram'gar Outpost
 step Zoram'gar Outpost
   when onquest 824
   turnin 824                          -- Je'neu Sancrea
+
+step Blackfathom Deeps
+  when dungeon "Blackfathom Deeps"
+  zone Ashenvale
+  tip Blackfathom Deeps is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. Its portal is at the end of the flooded tunnels under the ruins north of Zoram'gar, past the Sapphires.
+  tip Inside: the Fathom Stone lies under the water of the Moonshrine Ruins' pool, beneath the walkway (clear the crabs first): open it for the Fathom Core, and Baron Aquanis comes; open the Strange Water Globe he drops for a quest for Je'neu. The Tide Priestesses sometimes drop a Damp Note: open it for another quest for Je'neu. Argent Guard Thaelrid, by a campfire in an underwater side room off Ghamoo-ra's room, offers Blackfathom Villainy (Twilight Lord Kelris' head, for Bashana Runetotem on Thunder Bluff's Elder Rise).
+  enter "Blackfathom Deeps" @14.5,14.2
+  complete 6921                       -- Amongst the Ruins: the Fathom Core, from the Fathom Stone
+
+step Je'neu Sancrea
+  when complete 6921
+  zone Ashenvale
+  tip Back out of the tunnels and south to Zoram'gar Outpost.
+  turnin 6921                         -- Je'neu Sancrea
+
+step Je'neu Sancrea
+  when onquest 6922
+  zone Ashenvale
+  turnin 6922                         -- Je'neu Sancrea
+
+step Je'neu Sancrea
+  when onquest 6564
+  zone Ashenvale
+  tip Je'neu then offers the next part, Allegiance to the Old Gods: it is for a second run, so leave it.
+  turnin 6564                         -- Je'neu Sancrea
 
 step Fly to Thunder Bluff
   zone Ashenvale
