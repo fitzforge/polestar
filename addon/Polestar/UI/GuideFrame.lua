@@ -1166,6 +1166,20 @@ local function alongRow(i)
 	r.Text:SetMaxLines(2)
 	r:SetScript("OnClick", function(self, button)
 		local E = Engine()
+		-- A quest an update left behind the player (Engine.GetBehind): the
+		-- arrow on a click, Skip or Abandon on a right-click.
+		local q = self.psBehind
+		if q and E then
+			if button ~= "RightButton" then
+				if E.AimBehind then E.AimBehind(q) end
+				return
+			end
+			W.ShowMenu(self, {
+				{ text = L["Skip this quest"], icon = "skip", onClick = function() E.SkipBehind(q) end },
+				{ text = L["Abandon"], icon = "close", onClick = function() ns.Compat.AskAbandonQuest(q) end },
+			})
+			return
+		end
 		-- A pinned quest's row unpins it on a right-click (#644).
 		if button == "RightButton" then
 			if self.psPin and E and E.PinQuest then E.PinQuest(self.psPin, false) end
@@ -1177,6 +1191,10 @@ local function alongRow(i)
 		local lines = {}
 		if self.psPlace then lines[#lines + 1] = { L["Click to point the arrow here"], Theme.Accent() } end
 		if self.psPin then lines[#lines + 1] = { L["Pinned by you. Right-click to unpin."], Theme.Color("textDim") } end
+		if self.psBehind then
+			lines[#lines + 1] = { L["You carry this quest; the update moved what is left of it before your place in the guide."], Theme.Color("textDim") }
+			lines[#lines + 1] = { L["Right-click to skip or abandon it."], Theme.Color("textDim") }
+		end
 		W.Tooltip(self, tooltipAnchor(), self.psTitle or "", lines)
 		GF.HoverIn()
 	end)
@@ -2773,6 +2791,22 @@ local function fillAlong(E)
 		end
 	end
 	local n, untilStep, mixed = 0, nil, false
+	-- First the quests an update left behind the player (Engine.GetBehind):
+	-- "Still to do: <quest>, back in <zone>, 240 yd".
+	local back = 0
+	for _, b in ipairs(E.GetBehind and E.GetBehind() or {}) do
+		if n < ALONG_MAX then
+			n, back = n + 1, back + 1
+			local r = alongRow(n)
+			local where = b.zone and (b.yards and string.format(L["back in %s, %s"], b.zone, ns.FormatDistance(b.yards)) or string.format(L["back in %s"], b.zone)) or nil
+			local quest = ns.Quoted(b.title or (L["Quest"] .. " " .. b.quest))
+			r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = nil, nil, b.title, nil, b.quest
+			r.psPlace = true
+			r.Icon:SetTexture(Theme.VerbIcon("turnin"))
+			r.Text:SetText(where and string.format(L["Still to do: %s, %s"], quest, where) or string.format(L["Still to do: %s"], quest))
+			r:Show()
+		end
+	end
 	for _, s in ipairs(E.GetAlong()) do
 		for _, gv in ipairs(s.goals) do
 			local a, b = alongKeys(gv)
@@ -2781,7 +2815,7 @@ local function fillAlong(E)
 				if not s.untilStep or (untilStep and untilStep ~= s.untilStep) then mixed = true end
 				untilStep = untilStep or s.untilStep
 				local r = alongRow(n)
-				r.psStep, r.psGoal, r.psTitle, r.psPin = gv.step or s.index, gv.index, s.title or UI.GoalLine(gv), s.pin
+				r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = gv.step or s.index, gv.index, s.title or UI.GoalLine(gv), s.pin, nil
 				r.psPlace = gv.map and gv.x and gv.y and true or nil
 				r.Icon:SetTexture(Theme.VerbIcon(gv.t))
 				r.Text:SetText(UI.GoalLine(gv))
@@ -2789,7 +2823,7 @@ local function fillAlong(E)
 			end
 		end
 	end
-	along.Label:SetText((untilStep and not mixed) and string.format(L["Along the way, until step %d"], UI.StepNo(untilStep)) or L["Along the way"])
+	along.Label:SetText(back == n and L["Still to do"] or (untilStep and not mixed) and string.format(L["Along the way, until step %d"], UI.StepNo(untilStep)) or L["Along the way"])
 	along:SetShown(n > 0)
 end
 

@@ -3310,7 +3310,7 @@ local function place()
 		end
 	end
 	-- After an update: its steps behind the player's place pass (Own.passAdded).
-	Own.passAdded()
+	Own.safely("pass", guide.id, Own.passAdded)
 end
 
 -- `skipto` jumps (format 5; docs/GUIDE_FORMAT.md, "Jumps"): the route has
@@ -4886,14 +4886,30 @@ end
 
 -- An old step's goals as the Engine names them (Own.stepParts), from the save's
 -- step key: a step of the new guide (kept) or one an earlier release had
--- (ns.LegacySteps, tools/legacy-steps.js). -> { "turnin:783", ... } | nil
+-- (Own.legacy, tools/legacy-steps.js). -> { "turnin:783", ... } | nil
 function Own.legacyGoals(id, key)
-	local L = ns.LegacySteps
+	local L = Own.legacy()
 	local p = L and L[id] and L[id][key]
 	if type(p) ~= "string" then return nil end
 	local out = {}
 	for x in (p .. ","):gmatch("([^,]*),") do out[#out + 1] = x end
 	return out
+end
+
+-- The earlier releases' steps (Core/LegacySteps.lua), built on first use: only
+-- an update that changed a saved guide asks (checkShape). Own.legacyDrop lets
+-- them go once the saved tabs are mapped (the first QUEST_LOG_UPDATE); a guide
+-- opened later maps by its kept steps alone.
+function Own.legacy()
+	if Own.legacyTable == nil then
+		local load = ns.LegacyStepsLoad
+		Own.legacyTable = load and load() or false
+	end
+	return Own.legacyTable or nil
+end
+
+function Own.legacyDrop()
+	ns.LegacyStepsLoad, Own.legacyTable = nil, false
 end
 
 -- Old step -> new step, and old goal (step, index) -> new (step, index), for
@@ -5030,6 +5046,28 @@ function Own.legacyMaps(id, map, old, g)
 	return stepTo, goalTo
 end
 
+-- What Own.remap rewrites for guide id, copied (Own.snapRestore puts it back).
+Own.SNAP_FIELDS = { "manual", "skipped", "when", "skipStored", "pins", "lostQuests" }
+function Own.deepCopy(v)
+	if type(v) ~= "table" then return v end
+	local out = {}
+	for k, x in pairs(v) do out[k] = Own.deepCopy(x) end
+	return out
+end
+function Own.snapState(id)
+	local s, snap = ns.CharState(), {}
+	for _, f in ipairs(Own.SNAP_FIELDS) do
+		snap[f] = type(s[f]) == "table" and Own.deepCopy(s[f][id]) or nil
+	end
+	return snap
+end
+function Own.snapRestore(id, snap)
+	local s = ns.CharState()
+	for _, f in ipairs(Own.SNAP_FIELDS) do
+		if type(s[f]) == "table" then s[f][id] = snap[f] end
+	end
+end
+
 local function checkShape(g)
 	local s = ns.CharState()
 	if type(s.shapes) ~= "table" then s.shapes = {} end
@@ -5043,9 +5081,18 @@ local function checkShape(g)
 		-- Saved before step keys existed: nothing to match them by, all dropped.
 		local map = type(old) == "table" and Own.matchSteps(old, Own.stepKeys(g)) or {}
 		-- An update of the pack (the save's shape came from another version):
-		-- its new steps behind the player pass for them (Own.passAdded).
-		if s.shapeVersions[g.id] ~= ver and type(old) == "table" then Own.noteAdded(g, map, old) end
-		Own.remap(g.id, map, type(old) == "table" and old or nil, g)
+		-- its new steps behind the player pass for them (Own.passAdded). Once:
+		-- the save is stamped with this version below. Any error in that
+		-- mapping puts the save back and restores it by kept steps alone.
+		local upgrade = s.shapeVersions[g.id] ~= ver and type(old) == "table"
+		local snap = upgrade and Own.snapState(g.id)
+		if not upgrade or not Own.safely("mapping", g.id, function()
+			Own.noteAdded(g, map, old)
+			Own.remap(g.id, map, old, g)
+		end) then
+			if snap then Own.snapRestore(g.id, snap) end
+			Own.remap(g.id, map, nil, g)
+		end
 		-- Its end reached is the old guide's (0.3.5 reused ids for new
 		-- content): the new one says so again when the player gets there.
 		if type(s.guideEnds) == "table" then s.guideEnds[g.id] = nil end
@@ -5124,9 +5171,28 @@ function Own.noteAdded(g, map, old)
 	if type(s.added) ~= "table" then s.added = {} end
 	local mine = s.added[g.id] or {}
 	local keys = Own.stepKeys(g)
+	-- Quest goals an earlier release had optional only that block now
+	-- (tools/legacy-steps.js `required`): a player may have passed them, so in
+	-- a kept step too they count as added (Wetlands 98216, Hillsbrad 98283).
+	local L = Own.legacy()
+	local req = L and L[g.id] and L[g.id].required
+	local became = {}
+	for x in ((type(req) == "string" and req or "") .. ","):gmatch("([^,]+),") do became[x] = true end
 	for j, step in ipairs(g.steps) do
+		if kept[j] and not step.feeder and next(became) then
+			local ids = {}
+			for _, goal in ipairs(step.goals) do
+				local x = Own.goalId(goal)
+				if goal.quest and not goal.optional and became[x] then ids[x] = "req" end
+			end
+			if next(ids) then
+				mine[keys[j]] = ids
+				local bk = Own.baseKey(g, j)
+				if bk then mine[bk] = ids end
+			end
+		end
 		if not kept[j] and not step.feeder then
-			local quests, fresh, ids, soft = 0, 0, {}, true
+			local quests, fresh, ids, soft, moved = 0, 0, {}, true, false
 			for _, goal in ipairs(step.goals) do
 				local x = Own.goalId(goal)
 				local new = not had[x] or j < had[x]
@@ -5134,7 +5200,12 @@ function Own.noteAdded(g, map, old)
 					quests = quests + 1
 					if new then
 						fresh = fresh + 1
-						ids[x] = true
+						-- Moved back: its old place, in the new guide's numbers
+						-- (Own.passAdded keeps it when the player's place is past it).
+						ids[x] = had[x] or true
+						if had[x] then moved = true end
+					elseif became[x] and not goal.optional then
+						ids[x] = "req"
 					elseif j > upTo[x] then
 						-- Moved on past a step it came before: no sign of how far
 						-- the player got (Own.goalMoved), though not added.
@@ -5146,7 +5217,7 @@ function Own.noteAdded(g, map, old)
 			end
 			-- A step of quest goals all new, or of travel and errands all new.
 			local whole = (quests > 0 and fresh == quests) or (quests == 0 and soft and #step.goals > 0)
-			local entry = whole or (next(ids) and ids) or nil
+			local entry = (whole and not moved) or (next(ids) and ids) or nil
 			if entry then
 				mine[keys[j]] = entry
 				local bk = Own.baseKey(g, j)
@@ -5189,7 +5260,15 @@ function Own.goalAdded(added, j, goal)
 	if guide.steps[j].feeder then return true end
 	local e = Own.stepIn(added, j)
 	if e == true then return true end
-	return type(e) == "table" and e[Own.goalId(goal)] == true
+	local v = type(e) == "table" and e[Own.goalId(goal)]
+	return v == true or type(v) == "number" or (v == "req" and Own.carried(goal))
+end
+
+-- A goal of a quest the player carries, other than its accept: what an
+-- earlier release had optional (Own.noteAdded's "req") counts as added only
+-- then (Wetlands 98216); an optional accept the player never took stays.
+function Own.carried(goal)
+	return goal.t ~= "accept" and goal.quest ~= nil and Compat().IsOnQuest(goal.quest) or false
 end
 
 -- Whether goal `goal` of step j is something an update added, or moved on
@@ -5210,14 +5289,24 @@ end
 -- goalApplies), as another class's, so its accepts are not offered and its
 -- quests' later goals go with them (orphaned). Nothing shows as skipped. Work
 -- of a quest the player carries that the guide has nowhere from their place
--- on stays (their own quest says so). The update's note is then spent; what
--- it added ahead of the player stays.
+-- on passes too, and the quest is noted behind (CharState().behind[id]): a
+-- "Still to do" row (Engine.GetBehind) and While-here offer it; the place
+-- stays. With the quest log in, the update's note is spent; what it added
+-- ahead of the player stays.
 Own.goneGen = 0
 Own.goneCache = setmetatable({}, { __mode = "k" })
 function Own.passAdded()
 	local s = ns.CharState()
 	local added = type(s.added) == "table" and s.added[guide.id]
 	if not added then return end
+	-- Worked out afresh while the note lasts: before the quest log is in,
+	-- quests carried and travel done are not known yet (a pass then is
+	-- provisional; the one with the log in decides).
+	if type(s.gone) == "table" and s.gone[guide.id] then
+		s.gone[guide.id] = nil
+		Own.goneGen = Own.goneGen + 1
+	end
+	if type(s.behind) == "table" then s.behind[guide.id] = nil end
 	local C, steps = Compat(), guide.steps
 	local sk = skippedFor(guide.id)
 	local P = #steps + 1
@@ -5227,6 +5316,26 @@ function Own.passAdded()
 			for g, goal in ipairs(steps[j].goals) do
 				if blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(j, g, goal)
 					and not Own.goalAdded(added, j, goal) then
+					holds = true
+					break
+				end
+			end
+			if holds then
+				P = j
+				break
+			end
+		end
+	end
+	-- A goal the update moved back from a place at or before that one was
+	-- there in the old guide too: the player's place is still that step
+	-- (Western Plaguelands' Layo Starstrike, moved before Cenarion Hold).
+	for j = 1, P - 1 do
+		local e = not steps[j].feeder and Own.stepIn(added, j)
+		if type(e) == "table" and stepApplies(steps[j]) and not (sk and sk[j]) and not stepDone(j) then
+			local holds = false
+			for g, goal in ipairs(steps[j].goals) do
+				local h = e[Own.goalId(goal)]
+				if type(h) == "number" and h <= P and blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(j, g, goal) then
 					holds = true
 					break
 				end
@@ -5247,7 +5356,7 @@ function Own.passAdded()
 	local function held(j, g, goal)
 		return goal.t ~= "accept" and isQuestGoal(goal) and C.IsOnQuest(goal.quest) and not later[goal.quest] and not goalDone(j, g, goal)
 	end
-	local gone = type(s.gone) == "table" and s.gone[guide.id] or {}
+	local gone, behind = {}, {}
 	local keys = Own.stepKeys(guide)
 	local function note(j, entry)
 		gone[keys[j]] = entry
@@ -5259,18 +5368,23 @@ function Own.passAdded()
 		if Guides.Matches(step.only, player) then
 			local e = (step.feeder and true) or Own.stepIn(added, j)
 			if e == true then
-				local mine = false
 				for g, goal in ipairs(step.goals) do
-					if held(j, g, goal) then mine = true break end
+					if held(j, g, goal) then behind[goal.quest] = true end
 				end
-				if not mine then note(j, true) end
+				note(j, true)
 			elseif type(e) == "table" then
-				local ids = {}
+				local ids, all = {}, true
 				for g, goal in ipairs(step.goals) do
 					local x = Own.goalId(goal)
-					if e[x] == true and not (goal.quest and held(j, g, goal)) then ids[x] = true end
+					if e[x] == true or type(e[x]) == "number" or (e[x] == "req" and Own.carried(goal)) then
+						ids[x] = true
+						if goal.quest and held(j, g, goal) then behind[goal.quest] = true end
+					elseif goal.t ~= "note" then
+						all = false
+					end
 				end
-				if next(ids) then note(j, ids) end
+				-- Every goal passed: the step itself (nothing left to hold it).
+				if next(ids) then note(j, all or ids) end
 			end
 		end
 	end
@@ -5279,14 +5393,82 @@ function Own.passAdded()
 		s.gone[guide.id] = gone
 		Own.goneGen = Own.goneGen + 1
 	end
+	if next(behind) then
+		if type(s.behind) ~= "table" then s.behind = {} end
+		s.behind[guide.id] = behind
+	end
 	if logReady then
 		s.added[guide.id] = nil
 		-- A quest ahead that needed what passed: planned again (Own.replan).
 		if next(gone) then
 			local id = guide.id
-			ns.After(0, function() Own.replan(id) end)
+			ns.After(0, function() Own.safely("replan", id, Own.replan, id) end)
 		end
 	end
+end
+
+-- Runs f(...) for the update's mapping of guide `id`; an error drops what the
+-- update noted for it (the plain restore: kept steps only), says one line in
+-- the debug log (/polestar report) and shows none. -> true when f ran clean.
+function Own.safely(what, id, f, ...)
+	local ok, err = pcall(f, ...)
+	if ok then return true end
+	ns.Log("upgrade " .. what .. " failed, plain restore: " .. tostring(err):match("^[^\n]*"))
+	local s = ns.CharState()
+	for _, field in ipairs({ "added", "gone", "behind" }) do
+		if id and type(s[field]) == "table" then s[field][id] = nil end
+	end
+	Own.goneGen = Own.goneGen + 1
+	return false
+end
+
+-- The quests of the active guide whose work an update passed behind the
+-- player while they carry them (Own.passAdded), still in the log: one entry
+-- each, { quest, title, step, goal (the first open goal of it, for the
+-- arrow), zone, yards (nil off the player's continent) }, in guide order.
+function Engine.GetBehind()
+	local ok, out = pcall(Own.behindList)
+	if ok then return out end
+	Own.safely("behind", guide and guide.id, error, out)
+	return {}
+end
+
+function Own.behindList()
+	local s = ns.CharState()
+	local mine = guide and type(s.behind) == "table" and s.behind[guide.id]
+	if not mine then return {} end
+	local C, out, seen = Compat(), {}, {}
+	for q in pairs(mine) do
+		if not C.IsOnQuest(q) or (ns.CharState().skippedQuests or {})[q] then mine[q] = nil end
+	end
+	if not next(mine) then s.behind[guide.id] = nil return out end
+	if not player then refreshPlayer() end
+	local c, px, py = C.GetPlayerWorldPosition()
+	for j, step in ipairs(guide.steps) do
+		for g, goal in ipairs(step.goals) do
+			local q = goal.quest
+			if q and mine[q] and not seen[q] and goal.t ~= "accept" and goal.map and not goalDone(j, g, goal) then
+				seen[q] = true
+				local gc, gx, gy = goalWorld(goal)
+				local yards = c and gc == c and math.floor(math.sqrt((gx - px) ^ 2 + (gy - py) ^ 2) + 0.5) or nil
+				out[#out + 1] = { quest = q, title = titleOfQuest(q), step = j, goal = g, zone = C.MapName(goal.map), yards = yards }
+			end
+		end
+	end
+	return out
+end
+
+-- Whether goal is work of a quest Engine.GetBehind lists (While-here offers it).
+function Own.behindGoal(goal)
+	local b = guide and goal.quest and ns.CharState().behind
+	return b and type(b) == "table" and b[guide.id] and b[guide.id][goal.quest] and true or false
+end
+
+-- The row's Skip: the quest is skipped (Engine.SkipQuest) and the row goes.
+function Engine.SkipBehind(q)
+	local b = guide and ns.CharState().behind
+	if type(b) == "table" and b[guide.id] then b[guide.id][q] = nil end
+	return Engine.SkipQuest(q, true)
 end
 
 -- The loaded guide's steps and goals an update passed (Own.passAdded): step
@@ -5795,6 +5977,11 @@ local function signature()
 					sigParts[n] = "a" .. s .. ":" .. g .. ":" .. status .. ":" .. (cur and (cur .. "/" .. (max or "")) or "-")
 				end
 			end
+		end
+		-- The quests an update left behind the player (Engine.GetBehind).
+		for _, b in ipairs(Engine.GetBehind()) do
+			n = n + 1
+			sigParts[n] = "b" .. b.quest .. ":" .. b.step .. ":" .. b.goal
 		end
 		-- The pinned quests' (Own.pinGoals): which lines are open, and their counts.
 		for _, q in ipairs(Own.pinList()) do
@@ -8527,7 +8714,7 @@ end
 function Own.hereFits(s, g, goal, live, shown)
 	local q, t = goal.quest, goal.t
 	local C = Compat()
-	if not goalApplies(goal) or Own.goalSkipped(s, g) or unavailableFor(goal) then return nil end
+	if not (goalApplies(goal) or Own.behindGoal(goal)) or Own.goalSkipped(s, g) or unavailableFor(goal) then return nil end
 	local liveGoals = guide.steps[live].goals
 	if t == "turnin" then
 		if not Own.hereTurnins or not C.IsQuestReadyForTurnIn(q) or goalDone(s, g, goal) then return nil end
@@ -8581,13 +8768,15 @@ function Own.hereBuild()
 			local at, ok = nil, false -- the step last checked, and whether it applies
 			for i = 1, #idx, 2 do
 				local s = idx[i]
-				if s > live then
-					local g = idx[i + 1]
-					local goal = steps[s].goals[g]
+				local g = idx[i + 1]
+				local goal = steps[s].goals[g]
+				-- A quest's work an update passed behind the player (Engine.GetBehind) too.
+				local back = Own.behindGoal(goal)
+				if s > live or back then
 					if C.IsOnQuest(goal.quest) then
 						if s ~= at then at, ok = s, stepApplies(steps[s]) and not isSkipped(s) end
 						local kind, left, soon = nil, nil, false
-						if ok then kind, left, soon = Own.hereFits(s, g, goal, live, shown) end
+						if ok or back then kind, left, soon = Own.hereFits(s, g, goal, live, shown) end
 						if kind then
 							n = n + 1
 							-- places: where the target spawns on the map (Own.hereTick
@@ -10128,6 +10317,20 @@ function Engine.AimAlong(stepIndex, goalIndex)
 	return true
 end
 
+-- Point the arrow at a behind quest's open goal (its "Still to do" row).
+function Engine.AimBehind(q)
+	for _, e in ipairs(Engine.GetBehind()) do
+		if e.quest == q then
+			local goal = guide.steps[e.step].goals[e.goal]
+			if not waypointOf(e.goal, goal, nil, e.step) then return false end
+			aim = goal
+			evaluate()
+			return true
+		end
+	end
+	return false
+end
+
 -- Move a candidate goal to its next-best candidate (wrapping); in the current
 -- step the arrow follows it there. Returns the new candidate's position in
 -- the ranking, or nil.
@@ -10208,6 +10411,11 @@ function Engine.ResetProgress()
 	state.skipped[guide.id] = nil
 	state.when[guide.id] = nil
 	if type(state.skipStored) == "table" then state.skipStored[guide.id] = nil end
+	-- What an update passed or left behind (Own.passAdded) comes back too.
+	for _, f in ipairs({ "added", "gone", "behind" }) do
+		if type(state[f]) == "table" then state[f][guide.id] = nil end
+	end
+	Own.goneGen = Own.goneGen + 1
 	state.guideEnds[guide.id] = nil
 	Own.endOpen[guide.id], Own.lastOpen[guide.id] = nil, nil
 	pin, pinDone, aim, passedUpTo, placing = nil, nil, nil, 0, GetTime() + PLACE_SECONDS
@@ -10833,6 +11041,9 @@ ns.RegisterEvent("QUEST_LOG_UPDATE", function()
 	if not Own.feedSwept then
 		Own.feedSwept = true
 		Own.feedTabs()
+		-- The saved tabs are mapped (checkShape at login): the earlier
+		-- releases' steps go (Own.legacy).
+		Own.legacyDrop()
 	end
 end)
 

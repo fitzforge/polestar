@@ -3,7 +3,9 @@
 //! (CharState().shapes and stepKeys, no shapeVersions) loads the new one: what the update added behind the
 //! player passes for them (Own.noteAdded, Own.passAdded), what it added ahead stays, a quest they carry keeps
 //! its work, and check-offs, skips and the saved view of changed steps go to the step that has the same goal
-//! now (Own.remap with ns.LegacySteps). A save with no older shape (a fresh load) keeps today's placement.
+//! now (Own.remap with Core/LegacySteps.lua). A save with no older shape (a fresh load) keeps today's placement.
+//! Safety: the mapping runs once (the save is stamped with the pack's version), an error in it falls back to
+//! the plain restore by kept steps with one debug-log line, and Reset progress undoes what it passed.
 
 use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
@@ -56,7 +58,7 @@ const SCRIPT: &str = r#"
 E = Polestar.Engine
 -- The changed step's goals as the earlier release had them (tools/legacy-steps.js).
 local function h(s) local x = 5381 for i = 1, #s do x = (x * 33 + s:byte(i)) % 4294967296 end return x end
-Polestar.LegacySteps = { ["test/up"] = { [h("accept:102")] = "accept:102" } }
+Polestar.LegacyStepsLoad = function() return { ["test/up"] = { [h("accept:102")] = "accept:102" } } end
 stub.login(); stub.advance(0.25)
 stub.fire("QUEST_LOG_UPDATE"); stub.advance(11)
 local g = E.GetGuide()
@@ -115,25 +117,108 @@ fn check_offs_skips_and_the_view_of_a_changed_step_go_to_the_step_with_the_same_
 	assert_eq!(out["live"], 8, "the view kept, the player still at 103's hand-in: {out}");
 }
 
+// The 6 states UpgradeMid036 still saw sent back (Wetlands 98216, Hillsbrad 98283, Stranglethorn 1287, Silithus
+// 6390): a quest the player carries whose work the update moved behind them. 108 is in the log; its kill and
+// hand-in are only in the step the update added behind the player.
+const BEHIND_GUIDE_FROM: &str = r#"{ title = "New behind", goals = { a(108, 40) } },"#;
+const BEHIND_GUIDE_TO: &str = r#"{ title = "New behind", goals = { a(108, 40), { t = "kill", target = "Wolf", npc = 299, count = 5, quest = 108, oi = 1, map = M, x = 49, y = 50 }, t(108, 40) } },"#;
+
 #[test]
-fn a_quest_the_player_carries_keeps_its_work_even_where_the_update_put_it_behind_them() {
-	// The update moved 103's hand-in before the walk (here: the player carries 109, the changed step's new
-	// accept... taken already): a goal of a quest in the log is the player's own, never passed.
+fn a_quest_the_player_carries_whose_work_the_update_put_behind_them_is_still_to_do_and_the_place_stays() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
-		before: format!("{WORLD}\nstub.world.onQuest(108, {{ {{ required = 1, fulfilled = 0 }} }}, \"Quest 108\")"),
+		before: format!("{WORLD}\nstub.world.onQuest(108, {{ {{ required = 5, fulfilled = 1 }} }}, \"Quest 108\")"),
+		addons: vec![Addon::name("Polestar")],
+		saved: vec![("Polestar".to_string(), saved(""))],
+		login: false,
+		script: format!(
+			r#"{TEST_PACK}
+{TEST_SOURCE}
+{}
+{SCRIPT}
+local GF = Polestar.UI.GuideFrame
+GF.Update()
+local function plain(s) return (s or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "") end
+local rows = {{}}
+for _, r in ipairs(GF.alongRows) do if r:IsShown() then rows[#rows + 1] = plain(r.Text:GetText()) end end
+local b = E.GetBehind()[1]
+local cands = {{}}
+for _, c in ipairs(E.GetWhileHereCandidates()) do cands[#cands + 1] = c.step .. ":" .. c.index end
+local row = GF.alongRows[1]
+row:GetScript("OnClick")(row, "LeftButton")
+local wp = E.GetWaypoint()
+emit({{ behind = b and {{ quest = b.quest, zone = b.zone, yards = b.yards }} or false, rows = rows,
+	header = plain(GF.parts.along.Label:GetText()), cands = cands, wp = wp and (wp.stepIndex .. ":" .. wp.goalIndex) or false }})
+E.SkipBehind(108)
+emit({{ left = #E.GetBehind(), live = E.GetLiveStep() }})"#,
+			GUIDE.replace(BEHIND_GUIDE_FROM, BEHIND_GUIDE_TO)
+		),
+		..Default::default()
+	});
+	let (at, ui, skipped) = (&out[0], &out[1], &out[2]);
+	// The player stays at 103's hand-in; the step behind passes.
+	assert_eq!(at["live"], 8, "{at}");
+	assert_eq!(at["status"][1], "na", "{at}");
+	// 108 is still to do, back in Elwynn Forest, 30 yd off (49,50 vs 50,50 on a 3000-yard-wide map).
+	assert_eq!(ui["behind"], json!({ "quest": 108, "zone": "Elwynn Forest", "yards": 30 }), "{ui}");
+	assert_eq!(ui["header"], "Still to do", "{ui}");
+	assert_eq!(ui["rows"], json!(["Still to do: “Quest 108”, back in Elwynn Forest, 30 yd"]), "{ui}");
+	// While-here offers its kill near; a click on the row points the arrow at it.
+	assert!(ui["cands"].as_array().unwrap().contains(&json!("2:2")), "{ui}");
+	assert_eq!(ui["wp"], "2:2", "{ui}");
+	// Skip: the row goes, the place stays.
+	assert_eq!(skipped["left"], 0);
+	assert_eq!(skipped["live"], 8);
+}
+
+#[test]
+fn an_error_in_the_update_s_mapping_falls_back_to_the_plain_restore_with_one_debug_line_and_runs_once() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved(r#"manual = { ["test/up"] = { ["4:1"] = true } }"#))],
+		login: false,
+		script: format!(
+			"{TEST_PACK}\n{TEST_SOURCE}\n{GUIDE}\n{}\nlocal log = table.concat(Polestar.DebugLog(), \"\\n\")\nemit({{ log = log, ver = PolestarCharDB.shapeVersions[\"test/up\"], added = PolestarCharDB.added and PolestarCharDB.added[\"test/up\"] or false, gone = PolestarCharDB.gone and PolestarCharDB.gone[\"test/up\"] or false, legacy = Polestar.LegacyStepsLoad == nil }})",
+			// The earlier releases' steps, broken: the mapping errors.
+			SCRIPT.replace(
+				r#"Polestar.LegacyStepsLoad = function() return { ["test/up"] = { [h("accept:102")] = "accept:102" } } end"#,
+				r#"Polestar.LegacyStepsLoad = function() error("broken") end"#
+			)
+		),
+		..Default::default()
+	});
+	let (at, after) = (&out[0], &out[1]);
+	// No Lua error reached the player (the run would fail), one line in the log for /polestar report.
+	let log = after["log"].as_str().unwrap();
+	assert_eq!(log.matches("upgrade mapping failed, plain restore").count(), 1, "{log}");
+	// The plain restore: the kept walk keeps its tick at its new number; nothing passed or noted.
+	assert_eq!(at["manual"]["5:1"], true, "{at}");
+	assert_eq!(after["added"], false);
+	assert_eq!(after["gone"], false);
+	// Stamped with this version: it never runs again on this save. The earlier releases' steps are let go.
+	assert!(after["ver"].is_string(), "{after}");
+	assert_eq!(after["legacy"], true);
+}
+
+#[test]
+fn reset_progress_brings_back_what_an_update_passed() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: vec![("Polestar".to_string(), saved(""))],
 		login: false,
 		script: format!(
-			"{TEST_PACK}\n{TEST_SOURCE}\n{}\n{SCRIPT}",
-			GUIDE.replace(r#"{ title = "New behind", goals = { a(108, 40) } },"#, r#"{ title = "New behind", goals = { a(108, 40), t(108, 40) } },"#)
+			"{TEST_PACK}\n{TEST_SOURCE}\n{GUIDE}\n{SCRIPT}\nE.ResetProgress()\nstub.advance(11)\nemit({{ live = E.GetLiveStep(), behind = E.GetStepView(2).goals[1].status, gone = PolestarCharDB.gone and PolestarCharDB.gone[\"test/up\"] or false }})"
 		),
 		..Default::default()
-	})
-	.remove(0);
-	// 108 is in the log and its hand-in is only in the step the update added behind: the step stays.
-	assert_eq!(out["status"][1], "current", "{out}");
+	});
+	assert_eq!(out[0]["status"][1], "na", "{}", out[0]);
+	// The player's own correction: Reset progress places the guide as if just opened, 108's accept included.
+	assert_eq!(out[1]["gone"], false, "{}", out[1]);
+	assert_eq!(out[1]["live"], 2, "{}", out[1]);
 }
 
 // Fitz: a step an update passed behind the player may hold a prerequisite for a quest ahead. Here the update

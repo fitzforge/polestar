@@ -225,14 +225,25 @@ guide's shape was saved with.
 An update never moves a player back (#1353 upgrade): when a guide's shape
 came from another version of its pack, `Own.noteAdded` notes what the update
 added (steps none of whose quest goals the old guide had there, goals it did
-not have or had only further on), and the first placement with the quest
-log in passes what of it lies behind the player's place (`Own.passAdded`:
-the first step that holds for content the old guide had), as `gone` steps and
-goals that no longer apply; nothing shows as skipped, and work of a quest the
-player carries that the guide has nowhere later stays. A quest ahead that
-needed something passed is planned again (`Own.replan`, `Own.goneSource`):
-the passed step comes back just before it when it is on the way (the
-catch-up's local rule), else the quest drops out with what follows.
+not have or had only further on, and goals of a carried quest an earlier
+release had optional only: `required` in LegacySteps.lua), and the first
+placement with the quest log in passes what of it lies behind the player's
+place (`Own.passAdded`: the first step that holds for content the old guide
+had), as `gone` steps and goals that no longer apply; nothing shows as
+skipped. A quest the player carries whose remaining work is among them is
+noted `behind`: the guide window lists it under the step as "Still to do"
+(`Engine.GetBehind`; a click points the arrow, a right-click skips or
+abandons it) and While-here offers its objectives nearby; the place stays. A
+quest ahead that needed something passed is planned again (`Own.replan`,
+`Own.goneSource`): the passed step comes back just before it when it is on
+the way (the catch-up's local rule), else the quest drops out with what
+follows. Safety: the mapping runs once per saved guide (the save is stamped
+with the pack version, `shapeVersions`); it runs under `Own.safely`, so an
+error puts the save back, restores it by kept steps alone, and writes one
+line to the debug log (`/polestar report`) instead of a Lua error;
+LegacySteps.lua is a function whose table is built only for that mapping and
+dropped at the first `QUEST_LOG_UPDATE`; Reset progress clears `gone` and
+`behind`, and none of them binds the step arrows, Skip or the guide list.
 A saved tab of a leveling guide that kept fewer than half of those steps
 (`Own.reworked`: an update reused the id for another part of the route, as
 0.3.5 did for Horde 04-06, #1328) moves, at the first `QUEST_LOG_UPDATE`

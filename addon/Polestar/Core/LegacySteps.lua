@@ -2,9 +2,12 @@
 -- Per guide, the steps those releases had that these guides no longer have: the hash a
 -- save stores for a step (CharState().stepKeys) -> its goals as the Engine names them
 -- (Own.stepParts). Own.remap carries a changed step's check-offs, skips and saved view
--- to the step that now has the same goal.
+-- to the step that now has the same goal. `required`: quest goals an earlier release had
+-- as optional only that block now (Own.noteAdded passes them behind the player). A function: its table is built only when an
+-- update changed a saved guide (Own.legacy), and the Engine drops it once the saved tabs
+-- are mapped, so a session without an update keeps none of it.
 local _, ns = ...
-ns.LegacySteps = {
+ns.LegacyStepsLoad = function() return {
 	["forever/alliance/02-westfall"] = {
 		[81443876] = "getfp:352,buy:1313,turnin:92748,turnin:1097,accept:97894,turnin:399,turnin:1861",
 		[258831148] = "kill:12,kill:12,kill:9,collect:92909,collect:38,collect:92909,collect:255155,accept:92910,collect:38",
@@ -73,6 +76,7 @@ ns.LegacySteps = {
 		[4010032036] = "turnin:132,accept:135",
 	},
 	["forever/alliance/04-redridge-mountains"] = {
+		required = "collect:169,collect:95999,turnin:169,turnin:95999",
 		[71690535] = "turnin:35",
 		[691979433] = "goto:1439",
 		[699000083] = "collect:127,collect:150,collect:92,collect:92,kill:98386",
@@ -170,6 +174,7 @@ ns.LegacySteps = {
 		[4032422283] = "accept:1007,collect:1007",
 	},
 	["forever/alliance/06-wetlands"] = {
+		required = "collect:98216,turnin:97926,turnin:98216",
 		[108966736] = "turnin:292,accept:293",
 		[1115132231] = "turnin:464,turnin:98221,accept:465,turnin:469",
 		[1328524680] = "complete:98221,collect:464",
@@ -208,6 +213,7 @@ ns.LegacySteps = {
 		[4011912990] = "turnin:1244,accept:1245,turnin:58,turnin:160,accept:251,turnin:251,turnin:225,accept:227,turnin:227,turnin:96138,accept:401,turnin:401,accept:252,turnin:252",
 	},
 	["forever/alliance/30-40/01-hillsbrad-foothills"] = {
+		required = "collect:565,collect:98283,turnin:98283",
 		[7438901] = "collect:1078",
 		[100633148] = "accept:1246",
 		[139137335] = "goto:1439,fly:Astranaar",
@@ -326,6 +332,7 @@ ns.LegacySteps = {
 		[1713217159] = "fly:Darkshire",
 	},
 	["forever/alliance/30-40/05-arathi-highlands"] = {
+		required = "turnin:1392,turnin:523,turnin:551,turnin:565",
 		[34502359] = "getfp:2835,accept:681,turnin:690,accept:691",
 		[515593469] = "train:",
 		[909967757] = "kill:681,kill:681,kill:217589",
@@ -338,6 +345,7 @@ ns.LegacySteps = {
 		[2780471278] = "turnin:537,buy:2381,turnin:512,turnin:523,turnin:500,turnin:661,turnin:565,turnin:540,accept:542,turnin:551,accept:554,turnin:564",
 	},
 	["forever/alliance/30-40/06-badlands"] = {
+		required = "accept:716,collect:712,turnin:716",
 		[7439759] = "collect:1108",
 		[26133811] = "fly:Nijel's Point,sethome:11103,turnin:6141,accept:261,accept:1466,accept:93224",
 		[268722261] = "note:",
@@ -383,6 +391,7 @@ ns.LegacySteps = {
 		[3773435049] = "turnin:2880,accept:2881,turnin:2988,note:,accept:2989",
 	},
 	["forever/alliance/40-50/03-feralas"] = {
+		required = "accept:7735,turnin:7735",
 		[7483378] = "collect:2821",
 		[571958569] = "collect:1452,collect:1452,collect:7733",
 		[613210609] = "collect:1452,collect:7733",
@@ -398,6 +407,7 @@ ns.LegacySteps = {
 		[2842190270] = "turnin:2605,accept:2606,turnin:82,accept:10,turnin:2606,accept:2641,turnin:3362,turnin:5863",
 	},
 	["forever/alliance/40-50/05-the-hinterlands"] = {
+		required = "accept:8552,turnin:8553",
 		[71690471] = "turnin:17",
 		[131349158] = "sethome:6734,accept:17",
 		[142289300] = "collect:17,collect:704",
@@ -411,6 +421,7 @@ ns.LegacySteps = {
 		[2838314035] = "turnin:739,accept:704",
 	},
 	["forever/alliance/40-50/06-searing-gorge"] = {
+		required = "accept:3181,turnin:4451",
 		[7515027] = "collect:3443",
 		[47567040] = "kill:4449",
 		[47678050] = "kill:7727",
@@ -451,6 +462,7 @@ ns.LegacySteps = {
 		[3638588619] = "goto:1447,level:50",
 	},
 	["forever/alliance/50-60/02-felwood"] = {
+		required = "accept:8470,turnin:8467,turnin:939",
 		[6398521] = "kill:5155,kill:5155,kill:5155,kill:5155,collect:13140,accept:5202,turnin:5202,accept:5203,level:52",
 		[7551953] = "collect:4512",
 		[871390674] = "goto:1448,complete:5203",
@@ -465,6 +477,7 @@ ns.LegacySteps = {
 		[4078846706] = "kill:5204,turnin:5204,accept:5385",
 	},
 	["forever/alliance/50-60/03-winterspring"] = {
+		required = "accept:5083,accept:5084,accept:8471,turnin:5083",
 		[47600692] = "kill:5211",
 		[100777023] = "accept:5281",
 		[268722261] = "note:",
@@ -516,6 +529,7 @@ ns.LegacySteps = {
 		[1742352982] = "turnin:5168,accept:5206",
 	},
 	["forever/alliance/50-60/06-silithus"] = {
+		required = "accept:5085,turnin:4441,turnin:5084,turnin:5085,turnin:5086,turnin:6031,turnin:8471",
 		[236529600] = "sethome:15174,accept:8282",
 		[292838689] = "turnin:8318,accept:8304,turnin:8284,accept:8285",
 		[628159947] = "train:,collect:7793,collect:7794,turnin:7793,turnin:7794",
@@ -539,6 +553,7 @@ ns.LegacySteps = {
 		[4225204490] = "goto:1453,fly:Southshore",
 	},
 	["forever/alliance/dwarf/01-dun-morogh"] = {
+		required = "turnin:95217",
 		[34636652] = "level:10,accept:6064,level:10,accept:94449,accept:5637",
 		[144342699] = "accept:97263,turnin:97263",
 		[253818349] = "train:,turnin:291,goto:1455",
@@ -573,6 +588,7 @@ ns.LegacySteps = {
 		[4156163523] = "turnin:313,accept:412",
 	},
 	["forever/alliance/gnome/01-dun-morogh"] = {
+		required = "turnin:95217",
 		[144342699] = "accept:97263,turnin:97263",
 		[253818349] = "train:,turnin:291,goto:1455",
 		[255145162] = "collect:95214",
@@ -606,6 +622,7 @@ ns.LegacySteps = {
 		[4156163523] = "turnin:313,accept:412",
 	},
 	["forever/alliance/human/01-elwynn-forest"] = {
+		required = "accept:91752,accept:91758,accept:91772,accept:91775,collect:91752,collect:91775,turnin:91752,turnin:91758,turnin:91772,turnin:91775",
 		[255287883] = "collect:99130",
 		[317755789] = "accept:91738,turnin:91738",
 		[590999073] = "accept:109,accept:11",
@@ -667,6 +684,7 @@ ns.LegacySteps = {
 		[3405839476] = "goto:1439,complete:2118",
 	},
 	["forever/alliance/skyborne/01-zephras-isle"] = {
+		required = "accept:93318,collect:93318,turnin:93318",
 		[255040619] = "collect:92515",
 		[280045928] = "collect:93319,kill:92517",
 		[361438170] = "turnin:93461,accept:92517,accept:92515,accept:92516,accept:93319,accept:92553",
@@ -684,6 +702,7 @@ ns.LegacySteps = {
 		[3477280888] = "collect:92473,kill:92470,collect:92470",
 	},
 	["forever/horde/02-the-barrens"] = {
+		required = "accept:92706,collect:92706,turnin:92706",
 		[18232191] = "turnin:848,turnin:872,turnin:867,accept:875,turnin:881,accept:905,accept:4921,accept:899,sethome:3934,turnin:870,accept:877",
 		[100636347] = "accept:1524",
 		[150804306] = "sethome:7714,turnin:882,accept:907,accept:6382,turnin:1823,accept:1824,turnin:1511,accept:1515,turnin:5052,turnin:883",
@@ -827,6 +846,7 @@ ns.LegacySteps = {
 		[4235356292] = "turnin:95494,turnin:95507,accept:95495",
 	},
 	["forever/horde/05-stonetalon-mountains"] = {
+		required = "accept:2479,accept:494,accept:95884,turnin:2478",
 		[7621615] = "collect:6301",
 		[7623927] = "collect:6543",
 		[100815007] = "accept:6442",
@@ -860,6 +880,7 @@ ns.LegacySteps = {
 		[3664524402] = "turnin:95885",
 	},
 	["forever/horde/06-hillsbrad-foothills"] = {
+		required = "turnin:494",
 		[161779555] = "getfp:4551,turnin:441",
 		[177610954] = "turnin:496,accept:499,turnin:499",
 		[643393005] = "kill:567,kill:527,kill:527,kill:527,kill:527",
@@ -916,6 +937,7 @@ ns.LegacySteps = {
 		[4222208538] = "kill:98070,kill:98070,kill:98070,collect:1150",
 	},
 	["forever/horde/30-40/01-hillsbrad-foothills"] = {
+		required = "accept:517,accept:524,collect:517,turnin:517,turnin:524",
 		[45386892] = "turnin:539,turnin:567,turnin:556,turnin:544,accept:557,accept:545,note:,turnin:515,accept:517",
 		[1266384509] = "fly:The Sepulcher,collect:63,turnin:63,accept:100,turnin:100,accept:96",
 		[2177411496] = "turnin:532,accept:539,turnin:533,turnin:552,accept:553,accept:544,accept:556,accept:676",
@@ -979,6 +1001,7 @@ ns.LegacySteps = {
 		[2534509276] = "collect:712,collect:2258",
 	},
 	["forever/horde/40-50/01-stranglethorn-vale"] = {
+		required = "turnin:1392",
 		[93694782] = "turnin:609,turnin:621,turnin:209",
 		[422828836] = "turnin:698,accept:699",
 		[433802274] = "turnin:597,accept:599,accept:576,accept:606,turnin:599,accept:604,accept:587",
@@ -1005,6 +1028,7 @@ ns.LegacySteps = {
 		[4058980472] = "collect:604,collect:604,collect:587,collect:576,kill:604,collect:571",
 	},
 	["forever/horde/40-50/02-feralas"] = {
+		required = "turnin:2978,turnin:2979",
 		[585614886] = "fly:Ratchet,turnin:3631,accept:4490,turnin:4490",
 		[630813196] = "goto:1454,fly:Gadgetzan",
 		[687750771] = "turnin:8365,turnin:2873,accept:2874,turnin:2875,turnin:8366,accept:3520",
@@ -1025,6 +1049,7 @@ ns.LegacySteps = {
 		[4138606977] = "goto:1446,fly:Thunder Bluff",
 	},
 	["forever/horde/40-50/03-feralas"] = {
+		required = "accept:1173,complete:1173,turnin:1173",
 		[7443117] = "collect:1430",
 		[7511699] = "collect:3128",
 		[691979429] = "goto:1435",
@@ -1064,6 +1089,7 @@ ns.LegacySteps = {
 		[3723094025] = "accept:7839,accept:7845,sethome:14731,accept:7840,accept:7850,getfp:4314,accept:7815,accept:7849,accept:7830,accept:7829,accept:7828,accept:7841,accept:7844",
 	},
 	["forever/horde/40-50/06-azshara"] = {
+		required = "accept:8552,turnin:3381",
 		[774770350] = "turnin:32,turnin:7732,accept:4494,turnin:3541,accept:3563,accept:4300,turnin:81",
 		[1008980469] = "turnin:2767,turnin:836,turnin:648,accept:3721,turnin:3721,turnin:2874",
 		[1562036331] = "collect:589",
@@ -1089,6 +1115,7 @@ ns.LegacySteps = {
 		[4275445581] = "accept:5094,accept:3568,train:,turnin:3542,accept:3564",
 	},
 	["forever/horde/50-60/02-felwood"] = {
+		required = "accept:8470,complete:5203,kill:5204,turnin:5202,turnin:5203,turnin:5204,turnin:5385",
 		[7583668] = "collect:5154",
 		[47572613] = "kill:4985",
 		[195198317] = "kill:6004,kill:6004,kill:6004",
@@ -1111,6 +1138,7 @@ ns.LegacySteps = {
 		[4257453392] = "accept:5202,turnin:5202,accept:5203,complete:5203",
 	},
 	["forever/horde/50-60/03-winterspring"] = {
+		required = "accept:5083,accept:5084,turnin:5083",
 		[47710849] = "kill:8464",
 		[1201587906] = "getfp:11139,accept:6603,note:,accept:3783,sethome:11118,accept:6029,accept:6030,turnin:4808,accept:4809",
 		[1855168829] = "accept:7833,accept:7834,accept:7835",
@@ -1126,6 +1154,7 @@ ns.LegacySteps = {
 		[4210399643] = "turnin:7833,turnin:7834,turnin:7835,accept:7836",
 	},
 	["forever/horde/50-60/05-eastern-plaguelands"] = {
+		required = "accept:5085,accept:5086,turnin:5084,turnin:5085",
 		[7587991] = "collect:5544",
 		[47604060] = "kill:5543",
 		[691979393] = "goto:1422",
@@ -1160,6 +1189,7 @@ ns.LegacySteps = {
 		[4266178208] = "turnin:3914,accept:3941,accept:4501,accept:4492",
 	},
 	["forever/horde/50-60/07-felwood"] = {
+		required = "accept:5087,collect:5086,collect:5087,turnin:5086,turnin:5087,turnin:6031,turnin:7824,turnin:7836,turnin:8470",
 		[450088866] = "turnin:6031,turnin:8470",
 		[683365860] = "collect:5086,level:59",
 		[1934353864] = "turnin:980,accept:4842",
@@ -1167,6 +1197,7 @@ ns.LegacySteps = {
 		[3458144018] = "turnin:7836,turnin:7824",
 	},
 	["forever/horde/orc/01-durotar"] = {
+		required = "accept:99052,collect:99052,turnin:99052",
 		[204709703] = "accept:96873,accept:817,accept:96821,accept:818,turnin:805,accept:97225,train:,accept:808,accept:826,accept:823,accept:97223,kill:96821,kill:96821",
 		[255217068] = "collect:97223",
 		[761551605] = "turnin:2983",
@@ -1184,6 +1215,7 @@ ns.LegacySteps = {
 		[3533335603] = "turnin:1498,accept:1502",
 	},
 	["forever/horde/skyborne/01-zephras-isle"] = {
+		required = "accept:93318,collect:93318,turnin:93318",
 		[213667392] = "turnin:96638,accept:96101,turnin:92472,accept:92514,accept:92595,talk:92595,turnin:92595,accept:94411",
 		[255072360] = "collect:93160",
 		[898338749] = "collect:93160,turnin:93160,turnin:93172",
@@ -1226,6 +1258,7 @@ ns.LegacySteps = {
 		[4256571897] = "collect:766,collect:759",
 	},
 	["forever/horde/troll/01-durotar"] = {
+		required = "accept:99052,collect:99052,turnin:99052",
 		[7550831] = "collect:4402",
 		[100810782] = "accept:6081",
 		[255217068] = "collect:97223",
@@ -1248,6 +1281,7 @@ ns.LegacySteps = {
 		[3816440796] = "turnin:99051,turnin:6083,accept:6082,kill:6082,turnin:6082",
 	},
 	["forever/horde/undead/01-tirisfal-glades"] = {
+		required = "accept:99152,accept:99153,turnin:99152,turnin:99153",
 		[255220439] = "collect:97558",
 		[295721737] = "collect:404,collect:367",
 		[299592160] = "accept:1819,kill:1819,turnin:1819",
@@ -1276,4 +1310,4 @@ ns.LegacySteps = {
 		[4171940788] = "turnin:376,turnin:90902,turnin:1470,accept:6395,turnin:3901,accept:98389,accept:91208,accept:91209,train:,accept:3902,accept:380",
 		[4219479640] = "accept:358,sethome:5688,turnin:8,accept:99134,accept:99141,turnin:383,accept:427",
 	},
-}
+} end

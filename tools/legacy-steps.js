@@ -76,9 +76,32 @@ function hash(str) {
 	return h;
 }
 
+// A quest goal's id as Own.goalId names it, and the ids a guide has as
+// optional only and as blocking.
+const goalId = (goal) => part({ goals: [goal] });
+function optionality(g) {
+	const opt = new Set();
+	const req = new Set();
+	for (const st of g.steps) {
+		for (const goal of st.goals) {
+			if (goal.quest == null) continue;
+			(goal.optional ? opt : req).add(goalId(goal));
+		}
+	}
+	for (const x of req) opt.delete(x);
+	return { opt, req };
+}
+
 const now = new Map();
-for (const g of leveling(current)) now.set(g.id, new Set(g.steps.map(part)));
+const nowReq = new Map();
+for (const g of leveling(current)) {
+	now.set(g.id, new Set(g.steps.map(part)));
+	nowReq.set(g.id, optionality(g).req);
+}
 const legacy = new Map(); // id -> Map(hash -> part)
+// id -> the quest goals an earlier release had as optional only that block now:
+// a player could have passed them, so an update must not send them back there.
+const required = new Map();
 for (const dir of olds) {
 	for (const g of leveling(dir)) {
 		const keep = now.get(g.id);
@@ -88,6 +111,8 @@ for (const dir of olds) {
 			const p = part(st);
 			if (p && !keep.has(p)) m.set(hash(p), p);
 		}
+		const r = required.get(g.id) || required.set(g.id, new Set()).get(g.id);
+		for (const x of optionality(g).opt) if (nowReq.get(g.id).has(x)) r.add(x);
 	}
 }
 
@@ -97,21 +122,26 @@ const lines = [
 	'-- Per guide, the steps those releases had that these guides no longer have: the hash a',
 	'-- save stores for a step (CharState().stepKeys) -> its goals as the Engine names them',
 	'-- (Own.stepParts). Own.remap carries a changed step\'s check-offs, skips and saved view',
-	'-- to the step that now has the same goal.',
+	'-- to the step that now has the same goal. `required`: quest goals an earlier release had',
+	'-- as optional only that block now (Own.noteAdded passes them behind the player). A function: its table is built only when an',
+	'-- update changed a saved guide (Own.legacy), and the Engine drops it once the saved tabs',
+	'-- are mapped, so a session without an update keeps none of it.',
 	'local _, ns = ...',
-	'ns.LegacySteps = {',
+	'ns.LegacyStepsLoad = function() return {',
 ];
 let n = 0;
-for (const id of [...legacy.keys()].sort()) {
-	const m = legacy.get(id);
-	if (!m.size) continue;
+for (const id of [...new Set([...legacy.keys(), ...required.keys()])].sort()) {
+	const m = legacy.get(id) || new Map();
+	const r = [...(required.get(id) || [])].sort();
+	if (!m.size && !r.length) continue;
 	lines.push(`\t[${lua(id)}] = {`);
+	if (r.length) lines.push(`\t\trequired = ${lua(r.join(','))},`);
 	for (const h of [...m.keys()].sort((a, b) => a - b)) {
 		lines.push(`\t\t[${h}] = ${lua(m.get(h))},`);
 		n++;
 	}
 	lines.push('\t},');
 }
-lines.push('}', '');
+lines.push('} end', '');
 fs.writeFileSync(out, lines.join('\n'));
 console.log(`wrote ${path.relative(process.cwd(), out)}: ${n} steps of ${legacy.size} guides`);
