@@ -80,7 +80,7 @@ fn a_goal_picked_before_its_quest_is_taken_leaves_the_arrow_on_the_accept_and_th
 	assert_eq!(out["afterKey"], 1);
 	assert_eq!(
 		out["report"],
-		json!(["[>] Accept The Tear of the Moons", "[ ] Collect Tear of the Moons from General Twinbraid's Strongbox", "[ ] Turn in The Tear of the Moons"]),
+		json!(["[>] Accept “The Tear of the Moons”", "[ ] Collect Tear of the Moons from General Twinbraid's Strongbox", "[ ] Turn in “The Tear of the Moons”"]),
 		"the window's current goal and the arrow's are one"
 	);
 }
@@ -102,7 +102,7 @@ fn once_the_quest_is_taken_a_pick_holds_and_the_report_marks_the_current_goal_an
 	let report: Vec<&str> = out["report"].as_array().unwrap().iter().map(text).collect();
 	assert_eq!(
 		report,
-		["[x] Accept The Tear of the Moons", "[>] Collect Tear of the Moons from General Twinbraid's Strongbox 0/1", "[\u{2192}] Turn in The Tear of the Moons"],
+		["[x] Accept “The Tear of the Moons”", "[>] Collect Tear of the Moons from General Twinbraid's Strongbox 0/1", "[\u{2192}] Turn in “The Tear of the Moons”"],
 		"[>] the window's current goal, [→] the arrow's"
 	);
 }

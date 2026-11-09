@@ -113,5 +113,5 @@ fn a_ghost_s_arrow_once_alive_after_a_step_change_is_the_new_step_s_not_a_point_
 		ghost, corpseAt = false, nil; stub.fire("PLAYER_UNGHOST"); flush()
 		emit(look().target)
 	"#);
-	assert_eq!(out, vec![json!("Your corpse"), json!("Your corpse"), json!("Accept Q2")]);
+	assert_eq!(out, vec![json!("Your corpse"), json!("Your corpse"), json!("Accept “Q2”")]);
 }
