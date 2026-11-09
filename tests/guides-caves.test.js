@@ -56,6 +56,7 @@ const CASES = [
 	},
 	...[3940, 3941, 3942].map((npc) => ({
 		// Bennistrov (#1336): Insane Druids' arrow led over the hill above The Dor'Danil Barrow Den, not into it.
+		// (Optional since #1415's vWL4; the entrance step stays, as #1336 and #1341 promised.)
 		guide: 'forever/alliance/06-wetlands.guide',
 		target: (g) => g.t === 'kill' && g.quest === 1012 && g.npc === npc, // Taneel Darkwood, Uthil Mooncall, Mavoris Cloudsbreak
 		mouth: { map: 1440, x: 75.95, y: 75.45 }, // players' recordings: where 2 people walked in and out of the barrow; the reporter stood there
