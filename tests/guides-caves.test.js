@@ -54,13 +54,8 @@ const CASES = [
 		mouth: { map: 1420, x: 12.9, y: 65.7 }, // players' notes on quest 99152: "entrance is in a burned house at 13,65", "these NPCs can be found underground"
 		tip: /basement under the ruined house/,
 	},
-	...[3940, 3941, 3942].map((npc) => ({
-		// Bennistrov (#1336): Insane Druids' arrow led over the hill above The Dor'Danil Barrow Den, not into it.
-		guide: 'forever/alliance/06-wetlands.guide',
-		target: (g) => g.t === 'kill' && g.quest === 1012 && g.npc === npc, // Taneel Darkwood, Uthil Mooncall, Mavoris Cloudsbreak
-		mouth: { map: 1440, x: 75.95, y: 75.45 }, // players' recordings: where 2 people walked in and out of the barrow; the reporter stood there
-		tip: /inside The Dor'Danil Barrow Den[^.]*go in at its mouth/,
-	})),
+	// (#1336's Insane Druids case in 06-wetlands went with the quest: the Alliance 1-30 audit, #1415 vWL4, leaves
+	// Insane Druids out, three druids deep in the barrow at 32 for a 26-28 route.)
 	...[
 		(g) => g.t === 'collect' && g.item === 3405, // Raven Claw Talisman, the first relic chest
 		(g) => g.t === 'accept' && g.quest === 2541, // The Sleeping Druid, from Oben Rageclaw in its depths
