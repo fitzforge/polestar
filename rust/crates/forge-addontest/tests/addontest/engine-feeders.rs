@@ -134,7 +134,7 @@ fn t_1353_local_feeders_go_in_beside_the_guide_s_nearest_step_in_its_own_zone() 
 		])
 	);
 	// After the Detour waits on a quest only a guide off the route gives: a gap of the route, left as it is.
-	assert_eq!(out["requires"], json!(["Requires Off the Route first"]));
+	assert_eq!(out["requires"], json!(["Requires “Off the Route” first"]));
 	assert_eq!(out["hidden"].as_array().map_or(0, |a| a.len()), 0);
 	assert_eq!(out["at"], 1);
 }
@@ -155,7 +155,7 @@ fn far_or_other_zone_feeders_stay_out_and_their_quests_and_empty_steps_go() {
 		])
 	);
 	assert_eq!(far["hidden"], json!([6621]));
-	assert_eq!(far["requires"], json!(["Requires Off the Route first"]));
+	assert_eq!(far["requires"], json!(["Requires “Off the Route” first"]));
 	// In another zone: the same.
 	let other = run("", ELSEWHERE, &format!("{OPEN}\nemit(r)"));
 	assert_eq!(other["hidden"], json!([6621]));
@@ -551,7 +551,7 @@ emit({{ goals = out, hidden = hidden }})"#
 #[test]
 fn t_1442_a_prerequisite_the_guide_has_only_for_other_races_is_missing_for_a_character_who_can_take_it() {
 	let ne = darkshore("NightElf", "nil", "");
-	assert_eq!(ne["goals"], json!(["4727:skipped:Requires Washed Ashore first", "999:active:nil"]), "{ne}");
+	assert_eq!(ne["goals"], json!(["4727:skipped:Requires “Washed Ashore” first", "999:active:nil"]), "{ne}");
 	// A Human has Washed Ashore in the guide: Beached Sea Turtle waits on the route, not passed.
 	let human = darkshore("Human", "nil", "");
 	assert_eq!(human["goals"][0], "4727:pending:nil", "{human}");

@@ -723,8 +723,8 @@ fn a_hand_in_whose_xp_waiting_would_cut_may_be_twice_as_far_out_of_the_way() {
 }
 
 // #1408 (Emil): a hand-in the panel shows is handed in at its NPC's window as the live step's are, by the same rules:
-// behavior.autoTurnin, the only reward taken, several rewards left to the player. One the panel does not show (60 yd
-// away) is the player's, as is everything with the setting off.
+// behavior.autoTurnin, the only reward taken, several rewards left to the player. One the panel does not show (too far
+// out of the way) is the player's, as is everything with the setting off.
 #[test]
 fn a_shown_hand_in_is_handed_in_at_its_npc_as_the_guide_steps_are() {
 	let calls = r#"
@@ -744,7 +744,8 @@ fn a_shown_hand_in_is_handed_in_at_its_npc_as_the_guide_steps_are() {
 	assert_eq!(one, vec![json!("CompleteQuest 40 nil, GetQuestReward 40 1")], "the only reward is taken");
 	let off = run(&format!(r#"{calls}Polestar.Set("behavior.autoTurnin", false); at(42.0, 36.1); {talk}; emit(calls())"#));
 	assert_eq!(off, vec![json!("")], "auto turn-in off: the player hands it in");
-	let away = run(&format!("{calls}at(42.0, 38.1); emit(here()); {talk}; emit(calls())"));
+	// Far enough out of the way that #1393's detour rule leaves it out (the start, ~200 yd south-east).
+	let away = run(&format!("{calls}at(47.6, 45.1); emit(here()); {talk}; emit(calls())"));
 	assert_eq!(away, vec![json!("none"), json!("")], "not shown: the player's");
 }
 
