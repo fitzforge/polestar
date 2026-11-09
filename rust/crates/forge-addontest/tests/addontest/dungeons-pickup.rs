@@ -943,13 +943,41 @@ emit({ take = take, pre = pre, steps = steps, target = pt and { pt.map, pt.x, pt
 	assert_eq!(alone["steps"], json!(["collect:90520@Tide Priestess accept:90501"]));
 	drop(later);
 
-	// A note that drops one time in ten is no errand before the run: both are left for after it, as before.
+	// A note that drops one time in ten, which a mob inside the dungeon drops too, is no errand before the run:
+	// both are left for after it, as before.
 	let mut rare = c.clone();
-	rare["items"]["90520"] = note(10.0);
+	rare["npcs"]["90512"] = json!({
+		"id": 90512, "name": "Inside Naga", "level": 22, "levelMax": null, "faction": null, "rare": false, "elite": false, "boss": false,
+		"instance": KEY, "roles": [], "spawns": [],
+	});
+	rare["items"]["90520"] = json!({ "id": 90520, "name": "Damp Note", "quality": 1, "kind": "item", "spell": null, "reqLevel": null,
+		"sources": [{ "type": "drop", "npc": 90511, "chance": 10.0 }, { "type": "drop", "npc": 90512, "chance": 10.0 }] });
 	let rare = pack_of(&rare, &i);
 	let none = run(&rare, &script, opts()).remove(0);
 	assert_eq!(none["take"], json!({}), "{none}");
 	drop(rare);
+
+	// #1478: nothing inside drops it (the Hall of Thanes' Dark Iron Map, only from Dun Morogh's Dark Iron Spies):
+	// the mob outside is the only way, rare or of no known chance, so the note is collected there.
+	for chance in [json!(10.0), Value::Null] {
+		let mut only = c.clone();
+		only["items"]["90520"] = json!({ "id": 90520, "name": "Damp Note", "quality": 1, "kind": "item", "spell": null, "reqLevel": null,
+			"sources": [{ "type": "drop", "npc": 90511, "chance": chance }] });
+		let only = pack_of(&only, &i);
+		let out = run(&only, &script, opts()).remove(0);
+		assert_eq!(out["take"], json!([90502]), "chance {chance}: {out}");
+		assert_eq!(out["steps"][0], json!("collect:90520@Tide Priestess accept:90501 turnin:90501@Giver J"), "chance {chance}");
+		drop(only);
+	}
+	// A friendly NPC named as the only source (Highlord Demitrian's Vessel of Rebirth) is not a mob to farm.
+	let mut friendly = c.clone();
+	friendly["npcs"]["90511"]["faction"] = json!("H");
+	friendly["items"]["90520"] = json!({ "id": 90520, "name": "Damp Note", "quality": 1, "kind": "item", "spell": null, "reqLevel": null,
+		"sources": [{ "type": "drop", "npc": 90511, "chance": null }] });
+	let friendly = pack_of(&friendly, &i);
+	let out = run(&friendly, &script, opts()).remove(0);
+	assert_eq!(out["take"], json!({}), "{out}");
+	drop(friendly);
 
 	// A's own prerequisite still open (as Trouble in the Deeps from Stonetalon before the Damp Note): no trip
 	// is added for it, and both wait.
