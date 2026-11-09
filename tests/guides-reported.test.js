@@ -8810,6 +8810,10 @@ test('Level sweep: accepts below their minimum level are moved or gated', { skip
 	const ungoro = goals('forever/alliance/40-50/07-un-goro-crater.guide');
 	const gate = ungoro.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 50 && /priest/i.test(JSON.stringify(goal.only)));
 	assert.ok(gate >= 0 && gate < at(ungoro, 'accept 8254', is('accept', 8254)), "Priests reach 50 in Un'Goro before Cenarion Aid");
+	// #1485's class-chain sweep: Magecraft (8250, Dink, Mages only, minimum 50) is on the same Ironforge stop, reached
+	// at 49.79 by Human, Gnome and Skyborne Mages; the level-up in Azshara would have sent them back to Ironforge.
+	const mages = ungoro.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 50 && /mage/i.test(JSON.stringify(goal.only)));
+	assert.ok(mages >= 0 && mages < at(ungoro, 'accept 8250', is('accept', 8250)), "Mages reach 50 in Un'Goro before Magecraft");
 	gated('forever/alliance/dwarf/01-dun-morogh.guide', 5637, 10, 'Priest');
 	gated('forever/alliance/gnome/01-dun-morogh.guide', 94824, 10, 'Priest');
 	for (const side of ['alliance', 'horde']) {
