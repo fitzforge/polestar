@@ -738,7 +738,7 @@ fn a_shown_hand_in_is_handed_in_at_its_npc_as_the_guide_steps_are() {
 	let talk = r#"w.calls = {}; w.questProgress(240, 40); flush()"#;
 	let guide = turnins(20.0, &[ELSEWHERE, ELSEWHERE], "");
 	let shown = run_turnins(&guide, &format!("{calls}at(42.0, 35.6); emit(here()); {talk}; emit({{ calls(), w.log[40] == nil }})"));
-	assert_eq!(shown, vec![json!("4:1 Hand in A Fishy Peril to Marshal Dughan 10"), json!(["CompleteQuest 40 nil, GetQuestReward 40 0", true])]);
+	assert_eq!(shown, vec![json!("4:1 Hand in “A Fishy Peril” to Marshal Dughan 10"), json!(["CompleteQuest 40 nil, GetQuestReward 40 0", true])]);
 	let choose = run_turnins(&guide, &format!("{calls}w.choices[40] = 3; at(42.0, 35.6); {talk}; emit({{ calls(), w.log[40] ~= nil }})"));
 	assert_eq!(choose, vec![json!(["CompleteQuest 40 nil", true])], "several rewards: the player chooses");
 	let one = run_turnins(&guide, &format!("{calls}w.choices[40] = 1; at(42.0, 35.6); {talk}; emit(calls())"));
