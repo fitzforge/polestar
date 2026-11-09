@@ -6965,5 +6965,43 @@
 			}
 		],
 		"note": "Chief Engineer Scooty is offered while Rig Wars is in the log, not after it is handed in: both world databases give the prerequisite as in the log, and players took it that way. The merged data read it as a hand-in; the corrections cannot name a quest that must be in the log, so the prerequisite is dropped."
+	},
+	"79362": {
+		"set": {
+			"races": 4294967373,
+			"classes": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 4 people (2 established) took Grant's Shield (79362) from Grant's Mace: a Night Elf Priest, a Dwarf Shaman, a Gnome Priest and a Human Paladin; 3 handed it in to Sirra Von'Indi in Darkshire"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide web row: classes any, side both"
+			}
+		],
+		"note": "Grant's Shield is a Duskwood quest started by an item (Grant's Mace) for any Alliance class and race, not a Dwarf Shaman quest: the merged data had the Shaman class and the Dwarf race from one source, which kept it out of every guide."
+	},
+	"79363": {
+		"set": {
+			"races": 4294967373,
+			"classes": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 2 people took or handed in Silvia's Sword (79363), a Gnome Priest and a Dwarf Paladin, at Sirra Von'Indi in Darkshire"
+			},
+			{
+				"kind": "recording",
+				"ref": "its pair Grant's Shield (79362): 4 people of four classes and races (correction 79362)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide web row: classes any, side both"
+			}
+		],
+		"note": "Silvia's Sword, the Duskwood pair of Grant's Shield (both from items, both handed in to Sirra Von'Indi), is open to any Alliance class and race; the merged data had the Shaman class and the Dwarf race."
 	}
 }
