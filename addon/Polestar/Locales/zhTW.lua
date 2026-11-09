@@ -1329,6 +1329,7 @@ L["Click to show or hide the party panel."] = "點擊顯示或隱藏隊伍面板
 -- L["The rest of this guide follows from a skipped step"] = ""
 -- L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."] = ""
 -- L["Undo the skip"] = ""
+-- L["Take %s first"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"

@@ -530,6 +530,7 @@ L["Click to show or hide the party panel."] = "Klicken, um das Gruppenfenster ei
 -- L["The rest of this guide follows from a skipped step"] = ""
 -- L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."] = ""
 -- L["Undo the skip"] = ""
+-- L["Take %s first"] = ""
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"
