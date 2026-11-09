@@ -17,6 +17,7 @@ step Orgrimmar
   turnin 4300                         -- Jes'rimon, the Cleft of Shadow
   sethome "Orgrimmar"
   accept 8276                         -- Cenarion Emissary Blackhoof, Valley of Wisdom: keep it for Silithus
+  accept 3504                         -- Belgrom Rockmaul, Valley of Honor: carried from the first Azshara visit, else take it here for Ag'tor in Valormok
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 step Fly to Ratchet
@@ -139,3 +140,29 @@ step Royal Quarter
   note Good Luck Charm goes back to Janice Felstone in the Western Plaguelands: keep it.
   accept 79095 optional               -- Only with The Apothecary's Metaphysical Primer from Brill's alchemy shop in your bags (the Library Books guide)
   turnin 79095 optional
+
+step Tirisfal Glades
+  zone Tirisfal Glades
+  goto 83.0,71.9 "Tirisfal Glades"
+
+step The Bulwark
+  zone Tirisfal Glades
+  tip Ride east out of the Undercity along the road; the Bulwark guards the way into the Western Plaguelands.
+  turnin 6029                         -- Argent Officer Garush
+
+step Western Plaguelands
+  zone Western Plaguelands
+  goto 36.9,57.4 "Western Plaguelands"
+
+step Felstone Field
+  zone Western Plaguelands
+  tip Janice Felstone's farm is the first one east of the Bulwark. Jabbering Ghouls on the farm carry the other half of her charm; Cauldron Lord Bilemaw guards the cauldron in the field.
+  tip Careful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron.
+  collect 13194 quest 5229.1 @36.9,57.4 map 1422
+  turnin 5229                         -- Scourge Cauldron
+  accept 5230
+  turnin 5050                         -- Upstairs
+  accept 5051
+  collect 12722 x1 "Good Luck Other-Half-Charm"
+  complete 5051
+  turnin 5051

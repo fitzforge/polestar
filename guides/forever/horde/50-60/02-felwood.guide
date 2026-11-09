@@ -11,47 +11,10 @@ next forever/horde/50-60/03-winterspring
 # into this file.
 # Left out: Little Pamela (5142).
 
-step Fly to Tarren Mill
-  zone Eastern Plaguelands
-  goto 80.1,57.0 "Light's Hope Chapel flight master"
-  fly "Tarren Mill"
-  zone Hillsbrad Foothills
-
-step Western Plaguelands
-  zone Western Plaguelands
-  goto 43.0,83.5 "Western Plaguelands"
-
-step Sorrow Hill
-  tip Argent Officer Pureheart stands at the south end of the Sorrow Hill graveyard, where the road from Tarren Mill comes in.
-  accept 5402 optional                -- Argent Officer Pureheart, at the graveyard's south end
-  accept 5403 optional
-
-step Sorrow Hill
-  tip Marlene's house stands by the road, and Joseph Redpath's monument is in the graveyard behind it.
-  turnin 5152                         -- Marlene Redpath, upstairs
-  accept 5153
-  collect 12894 quest 5153 @49.7,76.8
-  turnin 5403 optional
-  note Keep Little Pamela: Pamela is in Darrowshire, visited again later.
-  turnin 5402 optional
-
 step Mulgris Deepriver
+  zone Western Plaguelands
   tip He camps by the Writhing Haunt, south-east of Dalson's Tears.
   accept 4984                         -- Inside
-
-step Chromie
-  tip Ride north-west into Andorhal. Chromie waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges.
-  turnin 5153                         -- Upstairs
-  accept 5154
-
-step The Annals of Darrowshire
-  tip The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one.
-  collect 12900 quest 5154 @43.4,69.5
-
-step Chromie
-  turnin 5154                         -- Upstairs
-  accept 5210
-  note Brother Carlin goes to Light's Hope Chapel: keep it for later.
 
 step Tirion Fordring
   zone Eastern Plaguelands
@@ -203,15 +166,33 @@ step Southern Jaedenar
   kill 7112 quest 5155.4
 
 step A Strange Red Key
-  tip Only if a Blood Red Key dropped: use it to start the quest, then free Arko'narin in her cage in Shadow Hold, the cave at the north end of Jaedenar, and escort her out.
+  when has 13140
+  tip A Blood Red Key dropped: use it to start the quest, then free Arko'narin from her cage in Shadow Hold, the cave at the north end of Jaedenar.
   accept 5202 optional
-  turnin 5202 optional                -- Captured Arko'narin, below ground
-  accept 5203 optional
-  complete 5203 optional
+
+step Captured Arko'narin
+  when onquest 5202
+  turnin 5202                         -- Captured Arko'narin, below ground
+
+step Rescue From Jaedenar
+  when available 5203
+  accept 5203 optional                -- Captured Arko'narin, below ground
+
+step Rescue From Jaedenar
+  when onquest 5203
+  tip Walk Arko'narin out of Shadow Hold and keep her alive until she is out of the cave.
+  complete 5203 @36.2,55.5 map 1448   -- Arko'narin, below ground
+
+step Jessir Moonbow
+  when onquest 5203
+  tip Back at the Emerald Sanctuary.
+  turnin 5203                         -- Jessir Moonbow
+
+step Jessir Moonbow
+  when available 5204
+  accept 5204 optional
 
 step Emerald Sanctuary
-  turnin 5203 optional                -- Jessir Moonbow
-  accept 5204 optional
   turnin 5155                         -- Greta Mosshoof
   accept 5157
   turnin 8460
@@ -227,10 +208,14 @@ step The Jaedenar moonwell
   collect 12907 quest 5157 @35.2,59.8
 
 step Rakaiah
-  tip Only if you rescued Arko'narin: the succubus Rakaiah waits in the middle of Jaedenar, beside the Remains of Trey Lightforge.
-  kill 9518 quest 5204 optional       -- Below ground
-  turnin 5204 optional                -- Remains of Trey Lightforge, below ground
-  accept 5385 optional
+  when onquest 5204
+  tip The succubus Rakaiah waits in the middle of Jaedenar, beside the Remains of Trey Lightforge.
+  kill 9518 quest 5204                -- Below ground
+  turnin 5204                         -- Remains of Trey Lightforge, below ground
+
+step The Remains of Trey Lightforge
+  when available 5385
+  accept 5385 optional                -- Remains of Trey Lightforge, below ground
 
 step Bloodvenom Post
   tip The Horde camp just north of Jaedenar.
@@ -291,9 +276,12 @@ step Felpaw Village
 step Emerald Sanctuary
   tip Ride the road south through Felwood to the Sanctuary.
   turnin 5156                         -- Taronn Redfeather
-  turnin 5385 optional                -- Jessir Moonbow
   turnin 5157                         -- Greta Mosshoof
   accept 5158
+
+step Jessir Moonbow
+  when onquest 5385
+  turnin 5385                         -- Jessir Moonbow
 
 step Overlord Ror
   tip Ror stands at the far south end of Deadwood Village.
@@ -335,6 +323,6 @@ step Winna Hazzard
 
 step Level 54.87
   when level<54.87
-  tip Top up here to level 54.87 before the hand-ins at Everlook: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
+  tip Top up here to level 54.87 before the hand-ins in Winterspring: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
   goto 38.3,61.7 map 1448 "Jaedenar Hound"
   level 54.87 grind 7125               -- grind on Jaedenar Hound

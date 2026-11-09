@@ -61,6 +61,8 @@ return {
 	-- Step 11: Valley of Fangs
 	-- {area:1517} Uldaman · {area:1877} Valley of Fangs · {npc:2817} Rigglefuzz · {npc:4618} Martek the Exiled
 	["The road north to {area:1517} runs through the {area:1877}: {npc:2817} and {npc:4618} take the wings and the flakes on the way."] = "A estrada ao norte para {area:1517} atravessa {area:1877}: {npc:2817} e {npc:4618} recebem as asas e as lascas no caminho.",
+	-- {area:2240} Mirage Raceway · {area:484} Freewind Post · {zone:1446} Tanaris
+	["for Fizzle at the {area:2240}, on the way from {area:484} to {zone:1446} around level 43"] = "",
 
 	-- Step 12: Ancient Chest
 	-- {area:1517} Uldaman

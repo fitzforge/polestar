@@ -38,8 +38,10 @@ return {
 	-- Step 9: The Overlook Cliffs: kill these as you meet them
 	-- {area:307} The Overlook Cliffs
 	["{area:307}: kill these as you meet them"] = "{area:307}: vá matando estes pelo caminho",
-	-- {npc:2491} Whiskey Slim
-	["The big turtles crawl along the beaches north of the village. {npc:2491}'s port bottles lie on these beaches too, but his quest is not on this route. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "As tartarugas grandes rastejam pelas praias ao norte da aldeia. As garrafas de vinho do Porto de {npc:2491} também ficam nessas praias, mas a missão dele não está nesta rota. Uma mordelisca pode derrubar, raramente, o sinalizador de socorro do OOX-09/HL: guarde-o.",
+	-- {npc:2491} Whiskey Slim · {area:307} The Overlook Cliffs
+	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "",
+	-- {object:2068} Pupellyverbos Port
+	["{object:2068}, on the beaches"] = "",
 	-- {item:8704} OOX-09/HL Distress Beacon
 	["{item:8704}, a rare drop"] = "{item:8704}, item raro",
 
@@ -140,21 +142,35 @@ return {
 	-- Step 32: Fel'zerul
 	["On the top floor"] = "No último andar",
 
-	-- Step 33: The bloodmages
+	-- Step 33: Fallen Hero of the Horde
+	-- {zone:1419} Blasted Lands
+	["The ghostly orc stands by the road where the swamp meets the canyon into the {zone:1419}. Listen to his story."] = "",
+
+	-- Step 35: Fallen Hero of the Horde
+	-- {npc:7623} Dispatch Commander Ruag · {area:75} Stonard · {zone:1419} Blasted Lands
+	["for {npc:7623} in {area:75}, after the {zone:1419}"] = "",
+
+	-- Step 36: The bloodmages
 	["The bloodmages"] = "Os magos de sangue",
 	-- {area:75} Stonard · {zone:1419} Blasted Lands
 	["Ride west out of {area:75} and south through the canyon into the {zone:1419}; the two bloodmages stand by the road just inside."] = "Siga para oeste saindo de {area:75} e para o sul pelo cânion até as {zone:1419}; os dois magos de sangue ficam junto à estrada, logo na entrada.",
 
-	-- Step 34: Serpent's Coil: kill these as you meet them
+	-- Step 37: Serpent's Coil: kill these as you meet them
 	-- {area:1440} Serpent's Coil
 	["{area:1440}: kill these as you meet them"] = "{area:1440}: vá matando estes pelo caminho",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger
 	["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "As cinco missões usam as mesmas partes: junte tudo numa passada só. A oeste da estrada, os abutres {npc:5982}, as Rasgarrindos Famintas, os Aguilhantes Escorpóde e os basiliscos Olho da Morte dividem as colinas.\nA leste da estrada, os javalis Jubacinza e o Grunhido fuçam as encostas ao lado dos basiliscos Itarrubra. Fique longe dos Javiltuscos de nível 52 mais ao sul.\nCuidado: os Aguilhantes Escorpóde usam {spell:5416}; {npc:8301} ainda derruba você.",
 
-	-- Step 35: The bloodmages
+	-- Step 38: The bloodmages
 	["Ride back north to the bloodmages."] = "Volte para o norte até os magos de sangue.",
 	["Their follow-ups ask for the same parts again for a buff item and pay no experience: leave them."] = "As continuações pedem as mesmas partes de novo por um item de bônus e não dão experiência: ignore-as.",
+
+	-- Step 39: Stonard
+	-- {area:75} Stonard
+	["Ride back north through the canyon to {area:75}."] = "",
+	-- {npc:7643} Bengor · {npc:950} Swamp Talker
+	["{npc:7643}'s The {npc:950} is a level 55 quest: leave it."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["East of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south."] = "A leste da estrada, os javalis Jubacinza e os Grunhidos fuçam as encostas ao lado dos basiliscos Itarrubra. Fique longe dos Javiltuscos de nível 52 mais ao sul.",
@@ -171,6 +187,7 @@ return {
 	-- ["The Highvale elves camp around {area:350}. Burn the report, the notes and the records in their camps. {npc:7780} is held inside the lodge: lead him out and fight off the ambush on the way."] = "Os elfos do Altovale acampam em volta do {area:350}. Queime o relatório, as anotações e os registros nos acampamentos deles. {npc:7780} está preso dentro do pavilhão: leve-o para fora e enfrente a emboscada no caminho.",
 	-- ["The Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message."] = "Os Espreitadores Jubaprata, as Ferujas Selvagens e os Senhores Celestes Bicavalha dividem as colinas entre os templos e {area:351}. Use o {item:9618} nas ferujas que matar. Os Senhores Celestes também derrubam Penas Longas Elegantes: guarde dez para a segunda mensagem de {npc:14738}.",
 	-- ["The Vilebranch temples"] = "Os templos Ramatorpe",
+	-- ["The big turtles crawl along the beaches north of the village. {npc:2491}'s port bottles lie on these beaches too, but his quest is not on this route. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "As tartarugas grandes rastejam pelas praias ao norte da aldeia. As garrafas de vinho do Porto de {npc:2491} também ficam nessas praias, mas a missão dele não está nesta rota. Uma mordelisca pode derrubar, raramente, o sinalizador de socorro do OOX-09/HL: guarde-o.",
 	-- ["The central hills"] = "As colinas centrais",
 	-- ["The eastern slopes"] = "As encostas do leste",
 	-- ["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills."] = "As cinco missões pedem as mesmas partes: junte tudo de uma vez. A oeste da estrada, os abutres {npc:5982}, as Rasgarrindas Famintas, os Aguilhantes Escorpódes e os basiliscos Olho da Morte dividem as colinas.",

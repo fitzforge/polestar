@@ -20,7 +20,6 @@ step Fly to Grom'gol
 
 step Grom'gol Base Camp
   turnin 1240                           -- Kin'weelay
-  accept 598                            -- Kin'weelay
   accept 95748 npc 2519                 -- Kin'weelay: the legend lies in Zul'Kunda, where this guide goes for Gan'zulah
 
 step Jungle Stalkers
@@ -40,7 +39,6 @@ step Booty Bay
   zone Stranglethorn Vale
   turnin 577                          -- Drizzlik: the Snapjaw skins gathered earlier; inside
   tip Gringer, the flight master, waits on Booty Bay's upper deck. The quest givers stand on the boardwalks around the harbour and in the inn.
-  accept 209                            -- Kebok, upstairs
   turnin 213                          -- Kebok
   accept 606                            -- "Sea Wolf" MacKinley, on the top floor
   turnin 669
@@ -231,6 +229,7 @@ step Grom'gol
   accept 586
   accept 585
   accept 2932                           -- Nimboya: for the Hinterlands, around level 48
+  accept 598                            -- Kin'weelay: the trophy skulls stand in the Skullsplitter ruins, later on this loop
 
 # ---------------------------------------------------------------- South to Booty Bay
 
@@ -253,6 +252,7 @@ step Booty Bay
   accept 580                            -- Whiskey Slim, in the inn: his bottles wash up on the Hinterlands coast, around level 48
   turnin 617                            -- Privateer Bloads
   turnin 600                          -- Inside
+  accept 209                            -- Kebok, upstairs: the tusks come from the Skullsplitters, later on this loop
   turnin 607                            -- "Sea Wolf" MacKinley, on the top floor
   accept 2872                           -- MacKinley, on the top floor: for Stoley in Tanaris
   accept 609
@@ -299,6 +299,7 @@ step Grom'gol Base Camp
   turnin 585
   accept 588                            -- the Bubbling Cauldron again: Yenniku's fate
   turnin 588
+  accept 589                            -- Kin'weelay: the basilisks graze beside the road back from Booty Bay
   turnin 573                            -- Far Seer Mok'thardin
 
 step Fly to Booty Bay
@@ -312,10 +313,14 @@ step Booty Bay
   turnin 209                            -- Kebok, upstairs
   accept 2864                           -- Krazek, upstairs: for Tran'rek in Gadgetzan
 
-step Fly to Grom'gol
+step Ironjaw Basilisks
   zone Stranglethorn Vale
-  goto 26.8,77.0 "Booty Bay flight master"
-  fly "Grom'gol"
+  tip Ride north out of Booty Bay along the road; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to Grom'gol. Their shards drop often.
+  collect 3911 quest 589              -- Below ground
+
+step Grom'gol Base Camp
+  tip Ride on north to Grom'gol.
+  turnin 589                          -- Kin'weelay
 
 step Stranglethorn Vale
   zone Stranglethorn Vale

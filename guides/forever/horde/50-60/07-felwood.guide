@@ -76,11 +76,15 @@ step Orgrimmar
 # ---------------------------------------------------------------- Orgrimmar
 
 step Zeppelin to Orgrimmar
-  when onquest 7836,7824
+  when complete 7836
   zone Orgrimmar
   tip From the Undercity, take the zeppelin from the tower outside the city to Orgrimmar.
-  turnin 7836 optional                -- sixty Runecloth, if you carry them
-  turnin 7824 optional
+  turnin 7836                         -- sixty Runecloth
+
+step Rashona Straglash
+  when complete 7824
+  zone Orgrimmar
+  turnin 7824                         -- sixty Runecloth
 
 step Fly to Splintertree Post
   zone Orgrimmar
@@ -197,11 +201,16 @@ step Salfa
   turnin 8469
 
 step Meilosh
-  when onquest 6031,8470
+  when complete 6031
   zone Felwood
-  tip Only with 30 Runecloth, and only at Neutral with the Timbermaw: follow the road north to Timbermaw Hold; Meilosh trades just inside the entrance.
-  turnin 6031 optional                -- Below ground
-  turnin 8470 optional                -- Kernda, at the tunnel mouth; walks around here: look inside the circle on the map
+  tip With 30 Runecloth in your bags: follow the road north to Timbermaw Hold; Meilosh trades just inside the entrance.
+  turnin 6031                         -- Below ground
+
+step Kernda
+  when onquest 8470
+  zone Felwood
+  tip Only at Neutral with the Timbermaw: Kernda waits at the tunnel mouth of Timbermaw Hold.
+  turnin 8470 optional                -- Kernda walks around here: look inside the circle on the map
 
 step Winterspring
   zone Winterspring

@@ -20,11 +20,49 @@ step Salfa
   turnin 8465
   accept 8464
 
+step Donova Snowden
+  tip Ride south from the tunnel: Donova camps among the steaming pools of Frostfire Hot Springs, in the west of the valley.
+  turnin 3908                         -- Linken's letter
+  accept 3909
+  accept 5082
+  note The Videre Elixir comes from Gregan Brewspewer in Feralas, later in this guide.
+
+step Frostfire Hot Springs: kill these as you meet them
+  zone Winterspring
+  tip Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every Runecloth you loot for Meilosh.
+  kill 7442 quest 5082.1
+  kill 7441 quest 5082.3
+  kill 7440 quest 5082.2
+  kill 7440 quest 8464.2
+  kill 7450 quest 4521.2
+  collect 12771                       -- Empty Firewater Flask: about one Winterfall furbolg in ten carries one; keep killing them until it drops
+  accept 5083
+  collect 20742 optional              -- Winterfall Ritual Totem, a rare drop from the Winterfall furbolgs
+  accept 8471 optional
+
+step Donova Snowden
+  turnin 5082
+  turnin 5083
+  accept 5084
+  note Falling to Corruption is turned in at the Deadwood Cauldron in Felwood, on a later trip.
+
+# ---------------------------------------------------------------- Frostfire Hot Springs
+
+step Raging Owlbeasts
+  tip Raging Owlbeasts roam the hills north of Lake Kel'Theril, by the road between Frostfire Hot Springs and Everlook.
+  kill 7451 quest 4521.1
+
 step Winterspring
   zone Winterspring
   goto 60.7,38.2 "Winterspring"
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 74-79) and machine-checked with lint; not play-tested on Forever yet.
+#
+# 0.3.7 (Horde 40-60 flow pass): west to east. Salfa -> Donova and the
+# Frostfire Hot Springs camps -> Raging Owlbeasts on the road east ->
+# Everlook (Umi's yetis, Felnok's chimaeras) -> Winterfall Village -> fly.
+# Meggi's Trouble in Winterspring! (6603), a pointer to Donova, is left out.
+# The older notes below describe the export's order.
 #
 # Flow: Everlook (Gregor, Felnok, Harlo, Umi, Meggi) -> Ice Thistle yetis ->
 # Chillwind chimaeras -> Everlook -> ride west (Raging Owlbeasts) -> Donova
@@ -81,9 +119,8 @@ step Winterspring
 # ---------------------------------------------------------------- Everlook
 
 step Everlook
-  tip Everlook is the goblin town on the east side of the valley.
+  tip Everlook is the goblin town on the east side of the valley, past the owlbeast hills.
   getfp "Everlook"
-  accept 6603                         -- Meggi Peppinrocker walks around Everlook: look inside the circle on the map
   note Gregor's and Harlo's quests lead to other zones: keep them.
   accept 3783                         -- Umi Rumplesnicker
   sethome "Everlook" npc 11118        -- Innkeeper Vizzie: the last guide binds here, so this usually ticks at once
@@ -119,39 +156,6 @@ step Umi Rumplesnicker
   accept 5163
   note Umi's third prank targets goblins in Gadgetzan and Un'Goro: keep it for later.
   turnin 4809
-
-step Donova Snowden
-  tip Donova camps among the steaming pools of Frostfire Hot Springs, in the west of the valley.
-  turnin 3908                         -- Linken's letter
-  turnin 6603
-  accept 3909
-  accept 5082
-  note The Videre Elixir comes from Gregan Brewspewer in Feralas, later in this guide.
-
-step Frostfire Hot Springs: kill these as you meet them
-  zone Winterspring
-  tip Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every Runecloth you loot for Meilosh.
-  kill 7442 quest 5082.1
-  kill 7441 quest 5082.3
-  kill 7440 quest 5082.2
-  kill 7440 quest 8464.2
-  kill 7450 quest 4521.2
-  collect 12771                       -- Empty Firewater Flask: about one Winterfall furbolg in ten carries one; keep killing them until it drops
-  accept 5083
-  collect 20742 optional              -- Winterfall Ritual Totem, a rare drop from the Winterfall furbolgs
-  accept 8471 optional
-
-step Donova Snowden
-  turnin 5082
-  turnin 5083
-  accept 5084
-  note Falling to Corruption is turned in at the Deadwood Cauldron in Felwood, on a later trip.
-
-# ---------------------------------------------------------------- Frostfire Hot Springs
-
-step Raging Owlbeasts
-  tip Raging Owlbeasts roam the hills north of Lake Kel'Theril, by the road between Frostfire Hot Springs and Everlook.
-  kill 7451 quest 4521.1
 
 step Winterfall Village
   tip The furbolg village fills the valley north-east of Everlook. Kill Shamans first; they heal. High Chief Winterfall in the cave at the back is elite: stay out.

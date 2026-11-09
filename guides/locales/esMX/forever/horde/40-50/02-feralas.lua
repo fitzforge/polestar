@@ -69,11 +69,17 @@ return {
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "",
 
-	-- Step 21: Gadgetzan
+	-- Step 20: Mirage Raceway
+	-- {area:484} Freewind Post · {area:440} Tanaris · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
+	["The road from {area:484} to {area:440} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "",
+	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
+	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
+
+	-- Step 22: Gadgetzan
 	-- {area:976} Gadgetzan · {area:440} Tanaris
 	["{area:976} is the walled goblin town just past the {area:440} border."] = "{area:976} es el pueblo goblin amurallado justo después de la frontera de {area:440}.",
 
-	-- Step 22: Noonshade Ruins: kill these as you meet them
+	-- Step 23: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
 	["{area:1937}: kill these as you meet them"] = "",
 	-- {area:976} Gadgetzan
@@ -81,40 +87,40 @@ return {
 	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: keep ten, five for each of Luglunket's bounties.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "",
 	["water pouches in your bags"] = "faltriqueras de agua en tus bolsas",
 
-	-- Step 24: Steamwheedle Port
+	-- Step 25: Steamwheedle Port
 	["Ride north-east to the goblin harbour on the coast."] = "Cabalga al noreste hasta el puerto goblin de la costa.",
 	-- {npc:7882} Security Chief Bilgewhizzle
 	["{npc:7882}, inside"] = "",
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "",
+	-- {npc:8579} Yeh'kinya · {area:357} Feralas
+	["{npc:8579}: the screechers live in {area:357}, on the next {area:357} visit"] = "",
 
-	-- Step 25: Lost Rigger Cove: kill these as you meet them
+	-- Step 26: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
 	["{area:1336}: kill these as you meet them"] = "",
 	-- {npc:7883} Andre Firebeard
 	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "",
 	["Upstairs"] = "",
 
-	-- Step 26: Waterspring Field: kill these as you meet them
+	-- Step 27: Waterspring Field: kill these as you meet them
 	-- {area:985} Waterspring Field
 	["{area:985}: kill these as you meet them"] = "",
 	-- {area:976} Gadgetzan · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["The shadow mages, rogues and assassins camp south-east of {area:976}.\nSouth-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
 
-	-- Step 27: Steamwheedle Port
+	-- Step 28: Steamwheedle Port
 	-- {npc:7881} Stoley · {npc:15165} Haughty Modiste · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
 	["Ride north-east back to the port: {npc:7881}, the {npc:15165} and the Security Chief take what {area:1336} gave you. {area:976} is west of it."] = "",
 	-- {area:35} Booty Bay
 	["for {area:35}, around level 50"] = "para {area:35}, alrededor del nivel 50",
-	-- {npc:8579} Yeh'kinya · {area:357} Feralas
-	["{npc:8579}: the screechers live in {area:357}, on the next {area:357} visit"] = "",
 
-	-- Step 29: Fly to Freewind Post
+	-- Step 30: Fly to Freewind Post
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "",
 
-	-- Step 31: Camp Mojache
+	-- Step 32: Camp Mojache
 	-- {npc:7777} Rok Orhan · {area:1099} Camp Mojache
 	["{npc:7777} walks around {area:1099}: look inside the circle on the map"] = "",
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
@@ -122,39 +128,39 @@ return {
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "",
 
-	-- Step 32: Gordunni Outpost
+	-- Step 33: Gordunni Outpost
 	["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it."] = "Al norte de los gnolls, los ogros ocupan una avanzada en una colina; atrae a los ogros magos hacia ti. El cobalto está en los montículos de tierra alrededor de la avanzada y el pergamino está en el suelo, adentro.",
 
-	-- Step 33: Woodpaw north camp
+	-- Step 34: Woodpaw north camp
 	["Woodpaw north camp"] = "Campamento norte Zarpaleña",
 	["The Woodpaw gnolls camp in the hills just north-west of Mojache; any of them can drop a mane.\nCareful: Every Woodpaw gnoll except the Alpha runs off for help at 15% health, which can pull more gnolls into the fight."] = "",
 
-	-- Step 34: Camp Mojache
+	-- Step 35: Camp Mojache
 	-- {quest:2863} Alpha Strike
 	["{quest:2863}: one hour from now"] = "{quest:2863}: una hora a partir de ahora",
 
-	-- Step 35: Feralas: kill these as you meet them
+	-- Step 36: Feralas: kill these as you meet them
 	-- {area:357} Feralas
 	["{area:357}: kill these as you meet them"] = "",
 	["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour.\nCareful: Most Alphas sit in small tent camps with 2-4 other gnolls that join the fight, and other gnolls patrol between the camps."] = "",
 
-	-- Step 37: Grimtotem camp
+	-- Step 38: Grimtotem camp
 	["Grimtotem camp"] = "Campamento Tótem Siniestro",
 	["The Grimtotem tauren camp beside the sprite darters' grove; raiders, naturalists and shamans all carry horns."] = "El campamento tauren Tótem Siniestro, junto a la arboleda de los duendes dardo; los asaltantes, naturalistas y chamanes llevan cuernos.",
 
-	-- Step 38: Woodpaw battle map
+	-- Step 39: Woodpaw battle map
 	["Woodpaw battle map"] = "Mapa de batalla Zarpaleña",
 	["The battle map lies in the Woodpaw camp south of Mojache."] = "El mapa de batalla está en el campamento Zarpaleña al sur de Mojache.",
 
-	-- Step 39: Camp Mojache
+	-- Step 40: Camp Mojache
 	-- {zone:1454} Orgrimmar
 	["for {zone:1454}, around level 45"] = "para {zone:1454}, alrededor del nivel 45",
 
-	-- Step 40: The Writhing Deep
+	-- Step 41: The Writhing Deep
 	-- {quest:7731} Stinglasher
 	["The Zukk'ash hive burrows into the hills south-east of the camp; {quest:7731} waits in its deepest chamber."] = "La colmena Zukk'ash se adentra en las colinas al sureste del campamento; {quest:7731} espera en su cámara más profunda.",
 
-	-- Step 41: Ruins of Isildien: kill these as you meet them
+	-- Step 42: Ruins of Isildien: kill these as you meet them
 	-- {area:2522} Ruins of Isildien
 	["{area:2522}: kill these as you meet them"] = "",
 	-- {area:1105} Feral Scar Vale
@@ -162,29 +168,29 @@ return {
 	-- {npc:5234} Gordunni Mauler · {area:2522} Ruins of Isildien
 	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "",
 
-	-- Step 42: Feral Scar Vale yetis
+	-- Step 43: Feral Scar Vale yetis
 	-- {area:1105} Feral Scar Vale
 	["{area:1105} yetis"] = "",
 	-- {area:1105} Feral Scar Vale
 	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "",
 
-	-- Step 43: Homing Robot OOX-22/FE
+	-- Step 44: Homing Robot OOX-22/FE
 	-- {area:357} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
 	["Only with the distress beacon: any beast, gnoll or ogre in {area:357} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "",
 
-	-- Step 44: Camp Mojache
+	-- Step 45: Camp Mojache
 	-- {area:357} Feralas
 	["the Rage Scar yetis, on the next visit to {area:357}"] = "",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "",
 
-	-- Step 45: Fly to Orgrimmar
+	-- Step 46: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Vuela a {area:1637}",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "",
 
-	-- Step 46: Orgrimmar
+	-- Step 47: Orgrimmar
 	-- {zone:1454} Orgrimmar · {object:172958} Valley of Honor · {object:172960} Cleft of Shadow · {object:172961} Valley of Spirits
 	["Fly to {zone:1454}. The Droffers brothers run their shop in the Drag.\n{object:172958}, then the {object:172960} and the {object:172961}."] = "",
 	-- {zone:1425} Hinterlands

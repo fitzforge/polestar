@@ -50,11 +50,21 @@ step Fly to Stonard
   fly "Stonard"
   zone Swamp of Sorrows
 
+step Stonard
+  tip Coming from Stranglethorn, you carry these already. Starting here: Dar stands inside Stonard's great hall and Fel'zerul on its top floor.
+  accept 698                            -- Dar, inside
+  accept 1430                           -- Dar, inside
+  accept 1424                           -- Fel'zerul, on the top floor
+
 step A Soggy Scroll
   when onquest 624
   tip Ride west along the road; the scroll lies at the water's edge in the swamp's far west.
   turnin 624
   accept 625 optional                   -- for the Musty Scroll in Dustwallow Marsh, later in this guide
+
+step Sawtooth crocolisks
+  tip The crocolisks wallow in the pools around Galen's old camp, just north of Stonard, on the way back east; about one in four drops a flank.
+  collect 6169 quest 698.1
 
 # ---------------------------------------------------------------- Pool of Tears and the coast
 
@@ -177,9 +187,9 @@ step Challenge Overlord Mok'Morokk
   when group 1173
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Challenge Overlord Mok'Morokk needs a group of 3. Skip it if you are alone: the route has you grind the XP back.
   tip Overlord Mok'Morokk is elite: grouping up is advised. Beat him down until he gives up, then report to Draz'Zilb.
-  accept 1173 optional                  -- Overlord Mok'Morokk
-  complete 1173 optional
-  turnin 1173 optional                  -- Draz'Zilb, below ground
+  accept 1173                           -- Overlord Mok'Morokk
+  complete 1173
+  turnin 1173                           -- Draz'Zilb, below ground
 
 step Level 45.41
   when !group 1173
