@@ -94,13 +94,13 @@ return {
 
 	-- Step 19: The Undercity
 	-- {zone:1454} Orgrimmar · {area:85} Tirisfal Glades · {zone:1458} Undercity · {object:36126} Royal Quarter
-	["Take the zeppelin from the tower outside {zone:1454} to {area:85} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "",
+	["Take the zeppelin from the tower outside {zone:1454} to {area:85} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "Prenez le zeppelin à la tour devant {zone:1454} jusqu'à {area:85}, puis chevauchez jusqu'à {zone:1458}. Dame Sylvanas règne sur {object:36126}.",
 
 	-- Step 20: Royal Quarter
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "{npc:8403}, tout près",
 	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {area:28} Western Plaguelands
-	["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "",
+	["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050} se rend à {npc:10778}, dans {area:28} : gardez-la.",
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "Seulement avec {quest:79095} de la boutique d'alchimie de {area:159} dans vos sacs (le guide des Livres de la bibliothèque)",
@@ -127,12 +127,10 @@ return {
 	-- ["In the {object:172961}. Have the Wool, Silk and Mageweave in your bags."] = "Dans {object:172961}. Ayez l'Etoffe de laine, l'Etoffe de soie et l'Etoffe de tisse-mage dans vos sacs.",
 	-- ["Open {object:149036} for the {item:10556}"] = "Ouvrez le {object:149036} pour obtenir le {item:10556}",
 	-- ["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus."] = "Le camp de Rimtori se trouve à l'extrémité est du camp de base. Lisez-y le {object:151286}, puis tuez le magus.",
-	-- ["Take the zeppelin from the tower outside {zone:1454} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "Prenez le zeppelin à la tour devant {zone:1454} jusqu'à {zone:1420}, puis chevauchez jusqu'à {zone:1458}. Dame Sylvanas règne sur {object:36126}.",
 	-- ["The zeppelin tower stands just north-east of {zone:1454}'s main gate; take the {zone:1458} zeppelin."] = "La tour des zeppelins se trouve juste au nord-est de la grande porte de {zone:1454} ; prenez le zeppelin pour {zone:1458}.",
 	-- ["Zeppelin to the {zone:1458}"] = "Zeppelin pour {zone:1458}",
 	-- ["Zeppelin tower"] = "Tour des zeppelins",
 	-- ["{npc:11044}, in the Apothecarium"] = "{npc:11044}, dans l'Apothicarium",
 	-- ["{npc:11044}, in the {object:36072}"] = "{npc:11044}, dans {object:36072}",
 	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386} se tient à {area:380}. Ouvrez chaque caisse qu'elle vous remet et rapportez-lui ce qu'elle contient.",
-	-- ["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050} se rend à {npc:10778}, dans {zone:1422} : gardez-la.",
 }

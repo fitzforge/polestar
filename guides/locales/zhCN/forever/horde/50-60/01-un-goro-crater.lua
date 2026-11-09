@@ -247,7 +247,7 @@ return {
 
 	-- Step 50: Janice Felstone
 	-- {area:152} The Bulwark · {area:28} Western Plaguelands · {npc:10778} Janice Felstone
-	["From the {area:152}, follow the road east into the {area:28}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "",
+	["From the {area:152}, follow the road east into the {area:28}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "从{area:152}沿路向东进入{area:28}。费尔斯通农场是沿途第一座农场，{npc:10778}在房子里等候。",
 	["Upstairs"] = "在楼上",
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, beside the house; inside"] = "{object:175894}，在房屋旁；位于内部",
@@ -261,7 +261,7 @@ return {
 
 	-- Step 53: Augustus the Touched
 	-- {area:28} Western Plaguelands · {area:139} Eastern Plaguelands · {area:2627} Terrordale · {npc:12384} Augustus the Touched
-	["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "",
+	["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "沿道路向东穿过{area:28}，过河进入{area:139}；然后离开道路向北前往西北的废墟城镇{area:2627}。{npc:12384}坐在城镇边缘的一间小屋里。",
 
 	-- Step 54: Terrordale: kill these as you meet them
 	-- {area:2627} Terrordale
@@ -342,8 +342,6 @@ return {
 	-- ["Fly to {area:1637}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {zone:1418}' west edge."] = "飞往{area:1637}，乘飞艇前往{object:3202}，再从那里飞往{zone:1418}西缘依悬崖而建的{area:340}。",
 	-- ["Fly to {area:1638} and train with {npc:3033} on {area:1639}, then fly to {area:1637} for the {object:3202} zeppelin."] = "飞往{area:1638}，在{area:1639}找{npc:3033}训练，然后飞往{area:1637}乘坐前往{object:3202}的飞艇。",
 	-- ["Fly to {area:340}"] = "飞往{area:340}",
-	-- ["Follow the road east through the {zone:1422} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "沿道路向东穿过{zone:1422}，过河进入{area:139}；然后离开道路向北前往西北的废墟城镇{area:2627}。{npc:12384}坐在城镇边缘的一间小屋里。",
-	-- ["From the {area:152}, follow the road east into the {zone:1422}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "从{area:152}沿路向东进入{zone:1422}。费尔斯通农场是沿途第一座农场，{npc:10778}在房子里等候。",
 	-- ["Gorillas"] = "猩猩",
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "留着诱饵：{npc:9684}是56级，第二圈会经过它的巢穴。",
 	-- ["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "留着{quest:5152}：玛莱恩住在{zone:1422}的{area:197}。",

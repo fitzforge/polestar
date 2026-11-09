@@ -261,7 +261,7 @@ return {
 
 	-- Step 53: Augustus the Touched
 	-- {area:28} Western Plaguelands · {area:139} Eastern Plaguelands · {area:2627} Terrordale · {npc:12384} Augustus the Touched
-	["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "",
+	["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Езжайте по дороге на восток через край {area:28} и за реку в край {area:139}; сверните на север сюда: {area:2627} – разрушенный город на северо-западе. {npc:12384} сидит в хижине на его краю.",
 
 	-- Step 54: Terrordale: kill these as you meet them
 	-- {area:2627} Terrordale
@@ -341,7 +341,6 @@ return {
 	-- ["Fly to {area:1637}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {zone:1418}' west edge."] = "Летите сюда: {area:1637}, садитесь на дирижабль ({object:3202}) и оттуда летите сюда: {area:340} – крепость в скалах у западного края ({zone:1418}).",
 	-- ["Fly to {area:1638} and train with {npc:3033} on {area:1639}, then fly to {area:1637} for the {object:3202} zeppelin."] = "Летите сюда: {area:1638}, учитель: {npc:3033} ({area:1639}), затем летите сюда: {area:1637} к дирижаблю ({object:3202}).",
 	-- ["Fly to {area:340}"] = "Летите сюда: {area:340}",
-	-- ["Follow the road east through the {zone:1422} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Езжайте по дороге на восток через край {zone:1422} и за реку в край {area:139}; сверните на север сюда: {area:2627} – разрушенный город на северо-западе. {npc:12384} сидит в хижине на его краю.",
 	-- ["Gorillas"] = "Гориллы",
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "Сохраните приманку: {npc:9684} – 56-го уровня, а второй круг проходит мимо его логова.",
 	-- ["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "Сохраните задание {quest:5152}: Марлен живет здесь: {area:197}, {zone:1422}.",

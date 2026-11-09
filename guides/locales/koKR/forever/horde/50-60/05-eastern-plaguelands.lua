@@ -154,7 +154,7 @@ return {
 
 	-- Step 37: Gaeriyan
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
-	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "",
+	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914}은(는) 운고로 분화구의 {npc:8737}에게 돌아갑니다. 보관하세요.",
 
 	-- Step 38: Marvon Rivetseeker
 	-- {npc:7771} Marvon Rivetseeker · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
@@ -219,6 +219,5 @@ return {
 	-- ["{item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once."] = "{item:15447}은(는) 10분 안에 상합니다. 마을의 스컬지를 빨리 처치하고, 일곱 조각을 바로 {item:15454}(으)로 빻으세요.",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse."] = "{npc:15193}의 용사가 {area:2260} 농가를 차지하고 있습니다.",
 	-- ["{object:1661}'s flight master is in the {object:36078}'s west tower, outside the walls."] = "{object:1661}의 비행 조련사는 성벽 밖, {object:36078}의 서쪽 탑에 있습니다.",
-	-- ["{quest:3914} goes back to Linken in Un'Goro: keep it."] = "{quest:3914}은(는) 운고로 분화구의 링쿠에게 돌아갑니다. 보관하세요.",
 	-- ["{quest:5086} are in {zone:1448}, on a later trip: keep it if you have it."] = "{quest:5086}은(는) 나중에 {zone:1448}에 갈 때 처리합니다. 가지고 있다면 보관하세요.",
 }

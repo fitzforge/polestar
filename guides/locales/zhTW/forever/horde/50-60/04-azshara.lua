@@ -100,7 +100,7 @@ return {
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "{npc:8403}，在附近",
 	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {area:28} Western Plaguelands
-	["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "",
+	["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050}要交回給{area:28}的{npc:10778}：保留此任務。",
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "",
@@ -127,5 +127,4 @@ return {
 	-- ["Zeppelin tower"] = "飛艇塔",
 	-- ["{npc:11044}, in the Apothecarium"] = "{npc:11044}，在 Apothecarium",
 	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386}站在{area:380}。打開她交給你的每個箱子，把裡面的東西帶回來。",
-	-- ["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050}要交回給{zone:1422}的{npc:10778}：保留此任務。",
 }

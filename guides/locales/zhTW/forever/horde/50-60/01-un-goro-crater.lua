@@ -261,7 +261,7 @@ return {
 
 	-- Step 53: Augustus the Touched
 	-- {area:28} Western Plaguelands · {area:139} Eastern Plaguelands · {area:2627} Terrordale · {npc:12384} Augustus the Touched
-	["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "",
+	["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "沿著道路向東穿過{area:28}，過河進入{area:139}；離開道路往北前往西北方的廢墟城鎮{area:2627}。{npc:12384}坐在城鎮邊緣的小屋裡。",
 
 	-- Step 54: Terrordale: kill these as you meet them
 	-- {area:2627} Terrordale
@@ -341,7 +341,6 @@ return {
 	-- ["Fly to {area:1637}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {zone:1418}' west edge."] = "飛往{area:1637}，搭飛艇前往{object:3202}，再從那裡飛往{area:340}，它建在{zone:1418}西緣的懸崖中。",
 	-- ["Fly to {area:1638} and train with {npc:3033} on {area:1639}, then fly to {area:1637} for the {object:3202} zeppelin."] = "飛往{area:1638}，在{area:1639}向{npc:3033}訓練，然後飛往{area:1637}搭乘前往{object:3202}的飛艇。",
 	-- ["Fly to {area:340}"] = "飛往{area:340}",
-	-- ["Follow the road east through the {zone:1422} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "沿著道路向東穿過{zone:1422}，過河進入{area:139}；離開道路往北前往西北方的廢墟城鎮{area:2627}。{npc:12384}坐在城鎮邊緣的小屋裡。",
 	-- ["Gorillas"] = "猩猩",
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "保留誘餌：{npc:9684}是56級，第二圈路線會經過牠的巢穴。",
 	-- ["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "保留{quest:5152}：瑪萊恩住在{zone:1422}的{area:197}。",

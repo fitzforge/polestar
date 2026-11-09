@@ -26,7 +26,7 @@ return {
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside the inn"] = "",
 	-- {object:1763} WANTED
-	["The {object:1763} poster by the inn"] = "",
+	["The {object:1763} poster by the inn"] = "여관 옆의 {object:1763} 게시판",
 
 	-- Step 6: Gol'dir
 	-- {area:280} Strahnbrad · {npc:2431} Jailor Borhuin · {item:3704} Rusted Iron Key · {quest:503} Gol'dir

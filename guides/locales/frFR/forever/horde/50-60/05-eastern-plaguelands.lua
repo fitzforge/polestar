@@ -154,7 +154,7 @@ return {
 
 	-- Step 37: Gaeriyan
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
-	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "",
+	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914} se rend à {npc:8737}, dans le Cratère d'Un'Goro : gardez-la.",
 
 	-- Step 38: Marvon Rivetseeker
 	-- {npc:7771} Marvon Rivetseeker · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
@@ -233,6 +233,5 @@ return {
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse."] = "Le champion de {npc:15193} occupe la ferme de {area:2260}.",
 	-- ["{npc:8600} on the way"] = "{npc:8600} en chemin",
 	-- ["{object:1661}'s flight master is in the {object:36078}'s west tower, outside the walls."] = "Le maître de vol de {object:1661} se trouve dans la tour ouest de {object:36078}, hors des murs.",
-	-- ["{quest:3914} goes back to Linken in Un'Goro: keep it."] = "{quest:3914} se rend à Linken, dans le Cratère d'Un'Goro : gardez-la.",
 	-- ["{quest:5086} are in {zone:1448}, on a later trip: keep it if you have it."] = "Les cibles de {quest:5086} sont à {zone:1448}, lors d'un passage ultérieur : gardez la quête si vous l'avez.",
 }

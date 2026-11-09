@@ -154,7 +154,7 @@ return {
 
 	-- Step 37: Gaeriyan
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
-	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "",
+	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914} geht zurück zu {npc:8737} in Un'Goro: Behalte sie.",
 
 	-- Step 38: Marvon Rivetseeker
 	-- {npc:7771} Marvon Rivetseeker · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
@@ -219,6 +219,5 @@ return {
 	-- ["{item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once."] = "{item:15447} verdirbt binnen zehn Minuten: Töte die Geißel des Orts zügig und zerreibe die sieben Stücke sofort mit {item:15454}.",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse."] = "Der Champion von {npc:15193} hält das Bauernhaus von {area:2260}.",
 	-- ["{object:1661}'s flight master is in the {object:36078}'s west tower, outside the walls."] = "Der Flugmeister von {object:1661} ist im Westturm des {object:36078}, außerhalb der Mauern.",
-	-- ["{quest:3914} goes back to Linken in Un'Goro: keep it."] = "{quest:3914} geht zurück zu Linken in Un'Goro: Behalte sie.",
 	-- ["{quest:5086} are in {zone:1448}, on a later trip: keep it if you have it."] = "{quest:5086} sind im {zone:1448}, auf einer späteren Reise: Behalte sie, falls du sie hast.",
 }

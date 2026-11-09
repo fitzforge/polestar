@@ -261,7 +261,7 @@ return {
 
 	-- Step 53: Augustus the Touched
 	-- {area:28} Western Plaguelands · {area:139} Eastern Plaguelands · {area:2627} Terrordale · {npc:12384} Augustus the Touched
-	["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "",
+	["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "길을 따라 동쪽으로 {area:28}을(를) 지나 강을 건너 {area:139}(으)로 가세요. 북서쪽의 폐허 마을 {area:2627}(으)로 가려면 길에서 북쪽으로 벗어나세요. {npc:12384}은(는) 마을 가장자리의 오두막에 있습니다.",
 
 	-- Step 54: Terrordale: kill these as you meet them
 	-- {area:2627} Terrordale
@@ -341,7 +341,6 @@ return {
 	-- ["Fly to {area:1637}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {zone:1418}' west edge."] = "{area:1637}(으)로 날아가 {object:3202}행 비행선을 탄 뒤, 그곳에서 {zone:1418} 서쪽 끝 절벽에 지어진 {area:340}(으)로 날아가세요.",
 	-- ["Fly to {area:1638} and train with {npc:3033} on {area:1639}, then fly to {area:1637} for the {object:3202} zeppelin."] = "{area:1638}(으)로 날아가 {area:1639}의 {npc:3033}에게 기술을 배운 뒤, {area:1637}(으)로 날아가 {object:3202}행 비행선을 타세요.",
 	-- ["Fly to {area:340}"] = "{area:340}(으)로 비행",
-	-- ["Follow the road east through the {zone:1422} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "길을 따라 동쪽으로 {zone:1422}을(를) 지나 강을 건너 {area:139}(으)로 가세요. 북서쪽의 폐허 마을 {area:2627}(으)로 가려면 길에서 북쪽으로 벗어나세요. {npc:12384}은(는) 마을 가장자리의 오두막에 있습니다.",
 	-- ["Gorillas"] = "고릴라",
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "미끼는 보관하세요. {npc:9684}은(는) 레벨 56이며, 두 번째 순회 때 그 소굴을 지납니다.",
 	-- ["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "{quest:5152}은(는) 보관하세요. 말레네는 {zone:1422}의 {area:197}에 삽니다.",

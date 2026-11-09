@@ -52,7 +52,7 @@ return {
 	-- {npc:4456} Fiora Longears · {area:415} Astranaar
 	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "",
 	-- {quest:1132} Fiora Longears · {area:400} Thousand Needles
-	["{quest:1132}: the wyverns are in {area:400}, later in this guide"] = "",
+	["{quest:1132}: the wyverns are in {area:400}, later in this guide"] = "{quest:1132}：双足飞龙在{area:400}，本指南稍后会去",
 
 	-- Step 10: The Shady Rest Inn
 	-- {zone:1413} Barrens
@@ -148,7 +148,6 @@ return {
 	-- ["{npc:3696} and his guards camp just east of {npc:3897}."] = "{npc:3696}和他的卫兵在{npc:3897}东边不远处扎营。",
 	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "{npc:3897}是一个未受腐蚀的熊怪，坐在{area:421}下方道路的南边。",
 	-- ["{npc:3970}: for {npc:1480} in Menethil, at the end of this guide"] = "{npc:3970}：交给米奈希尔港的{npc:1480}，在本指南结尾",
-	-- ["{npc:4456}: the wyverns are in {area:400}, later in this guide"] = "{npc:4456}：双足飞龙在{area:400}，本指南稍后会去",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619}率领{area:429}的萨特；树枝在他身上。",
 	-- ["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}、{npc:4963}和{npc:4962} Jahn都在米奈希尔港的旅店里；你和{npc:4963}交谈时Tapoke会和你打，但被打败后就会放弃。{npc:1480}在旅店东北方不远处。",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}：交给{area:415}的{npc:3961}",

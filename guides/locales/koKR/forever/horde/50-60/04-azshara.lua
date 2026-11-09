@@ -100,7 +100,7 @@ return {
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "근처의 {npc:8403}",
 	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {area:28} Western Plaguelands
-	["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "",
+	["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050}은(는) {area:28}의 {npc:10778}에게 돌아갑니다. 보관하세요.",
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "",
@@ -127,5 +127,4 @@ return {
 	-- ["Zeppelin tower"] = "비행선 탑",
 	-- ["{npc:11044}, in the Apothecarium"] = "연금술 실험실의 {npc:11044}",
 	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386}은(는) {area:380}에 서 있습니다. 그녀가 건네는 상자를 하나씩 열어 안에 든 것을 가져가세요.",
-	-- ["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050}은(는) {zone:1422}의 {npc:10778}에게 돌아갑니다. 보관하세요.",
 }

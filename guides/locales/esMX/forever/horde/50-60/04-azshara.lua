@@ -100,7 +100,7 @@ return {
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "{npc:8403}, cerca",
 	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {area:28} Western Plaguelands
-	["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "",
+	["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050} regresa con {npc:10778} en {area:28}: guárdala.",
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "",
@@ -127,5 +127,4 @@ return {
 	-- ["Zeppelin tower"] = "Torre del zepelín",
 	-- ["{npc:11044}, in the Apothecarium"] = "{npc:11044}, en la botica real",
 	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386} está en {area:380}. Abre cada caja que te dé y llévale lo que hay adentro.",
-	-- ["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050} regresa con {npc:10778} en {zone:1422}: guárdala.",
 }
