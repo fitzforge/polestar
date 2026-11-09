@@ -1280,7 +1280,7 @@ L["Soft"] = "Weich"
 L["Dark"] = "Dunkel"
 L["Keep the bar shown"] = "Leiste immer anzeigen"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "Bei Transparent bleiben die Tabs und die Schrittleiste sichtbar, statt nur unter dem Mauszeiger zu erscheinen."
--- L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = ""
+L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = "Bei Transparent: Weich legt einen leichten Schatten hinter jede Textzeile, Dunkel eine dunkle Unterlegung hinter das ganze Fenster. Aus: nur der umrandete Text über der Welt."
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"

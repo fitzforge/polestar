@@ -2189,7 +2189,7 @@ L["Soft"] = "柔和"
 L["Dark"] = "深色"
 L["Keep the bar shown"] = "始终显示栏"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "透明样式下，标签页和步骤栏始终显示在屏幕上，而不是仅在鼠标悬停时显示。"
--- L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = ""
+L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = "透明样式下：柔和会在每行文字后加一层浅色阴影，深色会在整个窗口后加深色背景。关闭：只有带描边的文字显示在游戏画面上。"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"

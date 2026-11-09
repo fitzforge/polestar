@@ -2189,7 +2189,7 @@ L["Soft"] = "Мягкая"
 L["Dark"] = "Тёмная"
 L["Keep the bar shown"] = "Не скрывать панель"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "В прозрачном стиле вкладки и панель шага остаются на экране, а не только под курсором."
--- L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = ""
+L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = "В стиле «Прозрачный»: «Мягкая» кладет легкую тень под каждую строку текста, «Тёмная» – темную подложку под все окно. «Выкл.»: только текст с обводкой поверх мира."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"

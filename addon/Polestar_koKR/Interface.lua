@@ -2189,7 +2189,7 @@ L["Soft"] = "옅게"
 L["Dark"] = "진하게"
 L["Keep the bar shown"] = "바 항상 표시"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "투명 스타일에서 탭과 단계 바가 커서를 올렸을 때만이 아니라 항상 화면에 표시됩니다."
--- L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = ""
+L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = "투명 스타일에서: 옅게는 각 텍스트 줄 뒤에 옅은 그림자를, 진하게는 창 전체 뒤에 어두운 배경을 깝니다. 끔: 외곽선 있는 텍스트만 게임 화면 위에 표시됩니다."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"

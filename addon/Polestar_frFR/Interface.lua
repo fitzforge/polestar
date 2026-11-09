@@ -2190,7 +2190,7 @@ L["Soft"] = "Léger"
 L["Dark"] = "Sombre"
 L["Keep the bar shown"] = "Garder la barre affichée"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "Avec Transparent, les onglets et la barre d'étape restent à l'écran au lieu d'apparaître seulement sous le curseur."
--- L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = ""
+L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = "En Transparent : Léger place une ombre légère derrière chaque ligne de texte, Sombre un fond sombre derrière toute la fenêtre. Désactivé : le texte détouré seul sur le monde."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"

@@ -2189,7 +2189,7 @@ L["Backing"] = "Fundo do texto"
 L["Soft"] = "Suave"
 L["Dark"] = "Escuro"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "Com Transparente, as abas e a barra de etapa ficam na tela, e não só sob o cursor."
--- L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = ""
+L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = "Com Transparente: Suave põe uma sombra leve atrás de cada linha de texto, Escuro um fundo escuro atrás da janela inteira. Desativado: só o texto contornado sobre o mundo."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso do raide"

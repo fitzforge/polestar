@@ -1847,7 +1847,7 @@ L["Soft"] = "Suave"
 L["Dark"] = "Oscuro"
 L["Keep the bar shown"] = "Mantener la barra visible"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "Con Transparente, las pestañas y la barra de pasos quedan en pantalla en lugar de aparecer solo bajo el cursor."
--- L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = ""
+L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = "Con Transparente: Suave pone una sombra ligera detrás de cada línea de texto, Oscuro un fondo oscuro detrás de toda la ventana. Desactivado: solo el texto con contorno sobre el mundo."
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desactivado en la lista de AddOns"
