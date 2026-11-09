@@ -8300,6 +8300,22 @@ test("Fyurie's report (#1425): Private Thorsen is looked for at the top of the R
 // of Agony's second part is a group choice and its steps lead players who took it (a gated step whose goals were all
 // optional was done at once); the Shaman's Water Sapta is used at the brazier; Desolace's Demon Pick, Gem of the
 // Serpent and clams are lines of their own; Portals of the Legion uses the Hand of Iruxos, not a "Rod of Banishing".
+test('Horde 30-40 audit: Hillsbrad\'s Shindigger keg is a group choice, in Dun Garok, and its steps lead', { skip }, () => {
+	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
+	const steps = compiled(guide).steps;
+	const take = steps.find((st) => st.goals.some((g) => g.t === 'accept' && g.quest === 517));
+	assert.ok(take && (take.when || []).some((p) => p.k === 'group'), 'Elixir of Agony 517 is accepted on a `when group` step');
+	for (const st of steps.filter((s) => (s.when || []).some((p) => p.k === 'onquest') && s.goals.some((g) => g.quest === 517 || g.quest === 524))) {
+		assert.ok(st.goals.some((g) => !g.optional), `"${st.title}" has a goal that holds it`);
+	}
+	const [tip] = stepTips(guide, /^\s+collect 3517 quest 517\b/);
+	assert.match(tip, /Dun Garok/);
+	assert.doesNotMatch(tip, /Syndicate camp/);
+	const sham = goals(guide).filter(forClass('SHAMAN'));
+	const use = at(sham, 'use 6637', (g) => g.t === 'use' && g.item === 6637);
+	assert.ok(use < at(sham, 'collect 7812', (g) => g.t === 'collect' && g.item === 7812), 'the Water Sapta is drunk before the bracers');
+});
+
 test('Horde 30-40 audit: Desolace\'s quest items are used where the game needs them', { skip }, () => {
 	const list = goals('forever/horde/30-40/02-thousand-needles.guide');
 	for (const [item, quest, what] of [[14523, 5381, 'the Demon Pick'], [15766, 6027, 'the Gem of the Serpent'], [15874, 6142, 'the Soft-shelled Clams']]) {

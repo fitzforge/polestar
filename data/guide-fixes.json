@@ -4622,6 +4622,120 @@
 					"ref": "npcs.json 2561 spawns on map 1417"
 				}
 			]
+		},
+		{
+			"id": "horde-3040-hillsbrad-syndicate-levels",
+			"faction": "Horde",
+			"at": {
+				"quest": 533,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Syndicate Footpads and Thieves (32-34) around the camps west of the road carry the missives; about one in three drops one.",
+			"note": "Horde 30-40 audit (2026-11-09): the tip gave the Syndicate Footpads and Thieves as 32-33; the data has Footpad 2240 at 32-33 and Thief 2241 at 33-34.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 2240 level 32-33, 2241 level 33-34"
+				},
+				{
+					"kind": "eg",
+					"ref": "EG Link live creature records 2240, 2241"
+				}
+			]
+		},
+		{
+			"id": "horde-3040-hillsbrad-yeti-levels",
+			"faction": "Horde",
+			"at": {
+				"quest": 552,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "South-west, the Cave and Ferocious Yetis (30-32) fill the Foothill Caverns in the hills west of Tarren Mill; about one in sixteen carries the rod.",
+			"note": "Horde 30-40 audit (2026-11-09): Cave Yeti 2248 is 30-31 and Ferocious Yeti 2249 31-32; the tip said 30-31 for both.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 2248 level 30-31, 2249 level 31-32"
+			}
+		},
+		{
+			"id": "horde-3040-dalaran-guard-levels",
+			"faction": "Horde",
+			"at": {
+				"quest": 544,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Head west along the foot of the mountains to the violet dome of Dalaran. Ricter, Alina and Dermot (33-34) stand together inside the crater's eastern rim, Kegan Darkmar (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens. Careful: Many guards stand in linked pairs and others patrol alone around the camp.",
+			"note": "Horde 30-40 audit (2026-11-09): Dalaran Shield Guard 2271 is 31-32 and Theurgist 2272 32-33 (the tip said 31-32); the step's own warning about linked guards is kept in the same tip.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 2271 level 31-32, 2272 level 32-33"
+			}
+		},
+		{
+			"id": "horde-3040-shindigger-kegs-dun-garok",
+			"faction": "Horde",
+			"at": {
+				"quest": 517,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Kegs of Shindigger Stout stand in the cellar of Dun Garok, the dwarven keep south-east of Southshore, beside Captain Ironhill (32); every dwarf there is elite (28-32).",
+			"note": "Horde 30-40 audit (2026-11-09): the tip put the Kegs of Shindigger Stout at 'the Syndicate camp on the south-east coast'. The keg object 1727 spawns at Hillsbrad 71.5-72.7,79.8-81.2, inside Dun Garok, where Captain Ironhill (2304, elite 32) and the elite Mountaineers, Riflemen and Priests (2344-2346, 28-30) stand; the two recorded loots of the keg were at 71.6,80.7.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "objects.json 1727 spawns; npcs.json 2304, 2344-2346 rank 1 at Hillsbrad 68-73,75-81"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-09: 2 people looted the keg (3517) at Hillsbrad 71.6,80.7"
+				}
+			]
+		},
+		{
+			"id": "horde-3040-boulderfist-camp-south",
+			"faction": "Horde",
+			"at": {
+				"quest": 676,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Head east out of Tarren Mill through Thoradin's Wall and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south of Northfold Manor; the Enforcers stay in the cave there.",
+			"note": "Horde 30-40 audit (2026-11-09): the Boulderfist Ogres (2562) spawn at Arathi 31-38,40-50 and the Enforcers (2564) at 31-35,43-47, south of Northfold Manor (32,28), not south-east of it; the Enforcers are in the cave (the guide already marks them below ground).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 2562, 2564 spawns on map 1417"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings: The Hammer May Fall (676) ticks at Arathi 30-37,44-48 (7 people)"
+				}
+			]
+		},
+		{
+			"id": "horde-3040-witherbark-south",
+			"faction": "Horde",
+			"at": {
+				"quest": 677,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "South of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village. Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps.",
+			"note": "Horde 30-40 audit (2026-11-09): Witherbark Village is south of Hammerfall (73,33): Axe Throwers 2554 median 66,66, Headhunters 2556 median 69,72; players' ticks at 68-74,60-76. The tip said south-east. The step's warning about trolls fleeing is kept in the same tip.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 2554, 2555, 2556 spawns on map 1417"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings: Call to Arms (677) ticks at Arathi 68-74,60-76 (3 people)"
+				}
+			]
 		}
 	]
 }

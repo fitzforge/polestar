@@ -2,7 +2,7 @@
 guide forever/horde/30-40/01-hillsbrad-foothills
 title Hillsbrad Foothills & Arathi Highlands
 faction Horde
-levels 30-32
+levels 29-32
 zone Hillsbrad Foothills
 next forever/horde/30-40/02-thousand-needles
 
@@ -74,7 +74,7 @@ step Ratchet
   zone The Barrens
   tip Fly from Freewind Post to Ratchet. Islen Waterseer camps on the coast a short walk south of the town; fly on to the Crossroads from Ratchet.
   fly "Ratchet"
-  turnin 220                          -- Islen Waterseer
+  turnin 220 reward 6637              -- Islen Waterseer: your Water Sapta, for the brazier
   accept 63
 
 step Fly to the Crossroads
@@ -154,6 +154,7 @@ step Brazier of Everfount
   zone Silverpine Forest
   tip Fly to the Sepulcher. The Brazier of Everfount stands on the hill just south-west of it: beat the Corrupt Manifestation of Water beside it, place its bracers in the brazier, speak to the Minor Manifestation of Water and keep the Shard of Water for Islen. Fly on to Tarren Mill from the Sepulcher.
   fly "The Sepulcher"
+  use 6637 quest 63.1 @38.5,44.4 map 1421 -- Water Sapta: drink it by the standing stone to see the elemental
   collect 7812 quest 63.1
   turnin 63                           -- Brazier of Everfount
   accept 100
@@ -193,7 +194,7 @@ step Henchman Valik
 
 step Syndicate missives
   zone Alterac Mountains
-  tip The Syndicate Footpads and Thieves (32-33) around the camps west of the road carry the missives; about one in three drops one.
+  tip The Syndicate Footpads and Thieves (32-34) around the camps west of the road carry the missives; about one in three drops one.
   collect 3601 quest 533
 
 step Henchman Valik
@@ -208,7 +209,7 @@ step Hillsbrad Foothills
 
 step Helcular's Rod
   zone Hillsbrad Foothills
-  tip South-west, the Cave and Ferocious Yetis (30-31) fill the Foothill Caverns in the hills west of Tarren Mill; about one in sixteen carries the rod.
+  tip South-west, the Cave and Ferocious Yetis (30-32) fill the Foothill Caverns in the hills west of Tarren Mill; about one in sixteen carries the rod.
   collect 3708 quest 552
 
 step Level 30
@@ -259,8 +260,7 @@ step Alterac Mountains
 
 step The Dalaran crater
   zone Alterac Mountains
-  tip Head west along the foot of the mountains to the violet dome of Dalaran. Ricter, Alina and Dermot (33-34) stand together inside the crater's eastern rim, Kegan Darkmar (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-32) around them drop the Worn Stone Tokens.
-  tip Careful: Many guards stand in linked pairs and others patrol alone around the camp.
+  tip Head west along the foot of the mountains to the violet dome of Dalaran. Ricter, Alina and Dermot (33-34) stand together inside the crater's eastern rim, Kegan Darkmar (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens. Careful: Many guards stand in linked pairs and others patrol alone around the camp.
   collect 3691 quest 544.1            -- Dermot
   collect 3689 quest 544.2            -- Ricter
   collect 3690 quest 544.3            -- Alina
@@ -310,7 +310,13 @@ step Tarren Mill
   accept 545                          -- Magus Wordeen Voidglare: for the 38-39 visit to Alterac
   note Krusk now offers Gol'dir (level 36): leave it for the 38-39 visit.
   turnin 515 optional                 -- Apothecary Lydon, inside
-  accept 517 optional
+
+step Elixir of Agony with a group
+  when group 517
+  when turnedin 515
+  zone Hillsbrad Foothills
+  tip Lydon's next errand is a keg of Shindigger Stout from the cellar of Dun Garok, the elite dwarven keep south-east of Southshore: take it only if you go there with a group.
+  accept 517                          -- Apothecary Lydon, inside
 
 step Battle of Hillsbrad with a group
   when group 541
@@ -347,15 +353,17 @@ step Deathguard Humbert
 
 step Shindigger keg
   when onquest 517
-  tip The keg stands with a few others at the Syndicate camp on the south-east coast of Hillsbrad.
-  collect 3517 quest 517 optional @72.0,80.5 -- Below ground
+  zone Hillsbrad Foothills
+  tip The Kegs of Shindigger Stout stand in the cellar of Dun Garok, the dwarven keep south-east of Southshore, beside Captain Ironhill (32); every dwarf there is elite (28-32).
+  collect 3517 quest 517 @72.0,80.5  -- Below ground
 
 step Back to Tarren Mill
   when onquest 517
+  zone Hillsbrad Foothills
   tip Head back north to Tarren Mill.
-  turnin 517 optional                 -- Apothecary Lydon, inside
-  accept 524 optional
-  turnin 524 optional                 -- Place the Tainted Keg on the Dusty Rug beside the inn; upstairs
+  turnin 517                          -- Apothecary Lydon, inside
+  accept 524
+  turnin 524                          -- Place the Tainted Keg on the Dusty Rug beside the inn; upstairs
 
 # ---------------------------------------------------------------- Into Arathi
 
@@ -365,7 +373,7 @@ step Arathi Highlands
 
 step Boulderfist camp
   zone Arathi Highlands
-  tip Head east out of Tarren Mill through Thoradin's Wall and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south-east of Northfold Manor.
+  tip Head east out of Tarren Mill through Thoradin's Wall and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south of Northfold Manor; the Enforcers stay in the cave there.
   kill 2562 quest 676.1
   kill 2564 quest 676.2               -- Below ground
 
@@ -395,8 +403,7 @@ step Hammerfall
 
 step Witherbark Village
   zone Arathi Highlands
-  tip South-east of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village.
-  tip Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps.
+  tip South of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village. Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps.
   kill 2556 quest 677.2
   kill 2554 quest 677.1
   kill 2555 quest 677.3
