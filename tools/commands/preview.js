@@ -18,6 +18,8 @@ const ADDON = path.join(ROOT, 'addon', 'Polestar');
 const OUT = path.join(ROOT, 'docs', 'preview');
 const PREVIEW_HEADER = header('svg', 'preview', "the addon's Lua and the client stubs in tests/lua");
 const FILES = ['Core/Core.xml', 'Theme/Theme.xml', 'Gear/Gear.xml', 'Lookup/Lookup.xml', 'Dungeons/Dungeons.xml', 'UI/UI.xml'];
+// The welcome's setup page with the route lines loaded before the UI (its route line cards).
+const WELCOME_ROUTE_FILES = ['Core/Core.xml', 'Theme/Theme.xml', 'Nav/Nav.xml', 'Maps/FlightPaths.lua', 'Maps/RouteStrokes.lua', 'Maps/RouteSparkle.lua', 'Maps/RouteLines.lua', ...FILES.slice(2)];
 // The reward panel scenes also run QoL, which owns the marks.
 const REWARD_FILES = [...FILES, 'QoL/QoL.xml'];
 
@@ -850,6 +852,26 @@ stub.advance(0.5)`;
 function minimapRouteScene(script) {
 	return questScene(['Minimap'], script, undefined, ROUTE_FILES);
 }
+// The route line's three looks (nav.lineStyle) on one route: a walk bending
+// along its path to the guide pin, then a flight on (its own colour, dashed
+// in the line style). The geometry stands in for Nav's (Nav.GetRouteGeometry)
+// so the walk has a path to follow, as on the real walking maps.
+const ROUTE_STYLES = `Polestar.Set("nav.travel", false)
+Polestar.Set("nav.trailDots", false)
+Polestar.Nav.SetTarget(1429, 70, 68, "Peacebloom")
+stub.advance(0.5)
+local pc, px, py = Polestar.Compat.GetPlayerWorldPosition()
+local tc, tx, ty = Polestar.Nav.GetTargetWorld()
+local pts = {}
+for i = 0, 16 do
+	local t = i / 16
+	pts[#pts + 1] = { pc, px + (tx - px) * t + math.sin(t * math.pi * 2) * 90, py + (ty - py) * t + math.sin(t * math.pi) * 80 }
+end
+local geom = { legs = { { kind = "walk", pts = pts, current = true }, { kind = "flight", pts = { { tc, tx, ty }, { tc, tx - 450, ty - 800 } } } } }
+Polestar.Nav.GetRouteGeometry = function() return geom end`;
+function routeStyleScene(root, style) {
+	return questScene([root], `${ROUTE_STYLES}\nPolestar.Set("nav.lineStyle", "${style}")\nPolestar.Fire("NAV_ROUTE_GEOMETRY")\nstub.advance(1.5)`, undefined, ROUTE_FILES);
+}
 // Group content (the compiled `group`, the goal view's `party`): a class
 // guide whose route needs a group, its Felwood step (elites; the author's
 // "group 3" on the boss) and its Dire Maul step (two goals of one run, said
@@ -1086,7 +1108,8 @@ const SCENES = [
 		title: 'The welcome, once per new character after login: Hello, Make it yours and Route style (on the account\'s first), Your first guide',
 		panels: [
 			{ roots: ['PolestarWelcome'], script: 'Polestar.UI.Welcome.Show("welcome")' },
-			{ roots: ['PolestarWelcome'], script: 'Polestar.UI.Welcome.Show("setup")' },
+			// With the route lines, for the route line's cards.
+			{ roots: ['PolestarWelcome'], files: WELCOME_ROUTE_FILES, script: 'Polestar.UI.Welcome.Show("setup")' },
 			{ roots: ['PolestarWelcome'], script: 'Polestar.UI.Welcome.Show("route")' },
 			{ roots: ['PolestarWelcome'], get script() { return `${clientArtLua()}Polestar.UI.Welcome.Show("start")`; } },
 		],
@@ -1699,6 +1722,16 @@ Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/h
 			minimapRouteScene(MINIMAP_ROUTE),
 			minimapRouteScene(`${MINIMAP_ROUTE}\nPolestar.Set("nav.dotColor", "cyan"); Polestar.Set("nav.minimapRouteAlpha", 0.8); Polestar.Set("nav.minimapRouteSize", 0.8)\nstub.advance(0.3)`),
 			minimapRouteScene(`${MINIMAP_ROUTE}\nPolestar.Set("nav.minimapRoute", false)\nstub.advance(0.3)`),
+		],
+	},
+	{
+		file: 'route-styles.svg',
+		title: 'The route line\'s looks on one route, a walk along its path then a flight: the line (the default for new players: a soft shadow, chevrons, the flight dashed in its own colour) and the dots on the world map; then the line and the dots on the minimap, clear of the player\'s arrow',
+		panels: [
+			routeStyleScene('WorldMapFrame', 'line'),
+			routeStyleScene('WorldMapFrame', 'dots'),
+			routeStyleScene('Minimap', 'line'),
+			routeStyleScene('Minimap', 'dots'),
 		],
 	},
 	{

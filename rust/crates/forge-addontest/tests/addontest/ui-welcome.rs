@@ -570,3 +570,54 @@ fn about_and_polestar_welcome_reopen_it_on_its_first_page() {
 		emit({ about = about, command = shown(), title = title() })"#);
 	assert_eq!(out, json!({ "about": { "shown": true, "title": "Hello, Testchar", "step": "1 of 4" }, "command": true, "title": "Hello, Testchar" }));
 }
+
+// The route line's look on the setup page (with the route lines: Maps/RouteLines.lua, stood in for here by its
+// choices and default): a card per style with its preview, the one in use marked, a click applying it,
+// right-click the default; the sparkles' preview drifts while it shows and holds still under reduced motion.
+#[test]
+fn the_setup_page_offers_the_route_line_as_line_dots_or_sparkles_each_previewed_a_click_applies_it() {
+	let out = run(r#"
+		Polestar.RegisterDefaults("nav", { lineStyle = "line" })
+		Polestar.RouteLines = { DOT_COLORS = {}, STYLE_CHOICES = {
+			{ value = "line", label = "Line" }, { value = "dots", label = "Dots" }, { value = "sparkle", label = "Sparkles" } } }
+		Wel.Show("setup")
+		local F = PolestarWelcome
+		local function names()
+			local out, on = {}, nil
+			for _, c in ipairs(F.Looks) do
+				out[#out + 1] = c.Name:GetText()
+				if c.psSelected then on = c.Name:GetText() end
+			end
+			return out, on
+		end
+		local cards, selected = names()
+		local spark = F.Looks[3]
+		local function at() local _, _, _, x, y = spark.Marks[1]:GetPoint(1); return x .. "," .. y end
+		local a = at()
+		stub.advance(0.3)
+		local moved = at() ~= a
+		Polestar.Set("ui.reduceMotion", true)
+		stub.advance(0.1)
+		local b = at()
+		stub.advance(0.3)
+		local still = at() == b
+		F.Looks[2]:Click()
+		local _, now = names()
+		local set = Polestar.Get("nav.lineStyle")
+		F.Looks[2]:Click("RightButton")
+		local _, reset = names()
+		emit({ cards = cards, selected = selected, lines = #F.Looks[1].Marks, dots = #F.Looks[2].Marks > 10, moved = moved, still = still,
+			now = now, set = set, reset = reset, note = uistub.findText(F, "easiest to follow") ~= nil,
+			fits = F.pages.route:GetHeight() <= F.pages.setup:GetHeight() })"#);
+	assert_eq!(out["cards"], json!(["Line", "Dots", "Sparkles"]));
+	assert_eq!(out["selected"], "Line", "the default marked");
+	assert_eq!(out["lines"], 6, "the line's preview: one piece a stretch of its path");
+	assert_eq!(out["dots"], true);
+	assert_eq!(out["moved"], true, "the sparkles drift toward the goal");
+	assert_eq!(out["still"], true, "and hold still under reduced motion");
+	assert_eq!(out["now"], "Dots");
+	assert_eq!(out["set"], "dots");
+	assert_eq!(out["reset"], "Line", "right-click: the default again");
+	assert_eq!(out["note"], true);
+	assert_eq!(out["fits"], true, "the route page still fits the window setup sizes");
+}

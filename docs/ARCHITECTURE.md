@@ -3020,21 +3020,52 @@ permission; `addon/Polestar_Nav/CREDITS.md`).
   "Route line on the minimap") takes the line, and the trail that stands in
   for it, off the minimap and keeps the guide pin (`surfaces()` here,
   `updateTrail` in `Nav/Layers.lua`).
-- `nav.dotColor` (default `"route"`, the colours above) paints every leg of
-  the dots style one of `RouteLines.DOT_COLORS` (cyan, magenta, white: apart
-  from the minimap's yellow herb and ore blips and gold quest marks) on both
-  maps. `nav.minimapRouteAlpha` (20-100%) fades the minimap's line, either
+- `nav.dotColor` (default `"route"`, the colours above) paints the walks one
+  of `RouteLines.DOT_COLORS` (cyan, magenta, white: apart from the minimap's
+  yellow herb and ore blips and gold quest marks) on both maps; flights,
+  boats and the rest keep their own colours, so a walk and a flight never
+  read as one line. `nav.minimapRouteAlpha` (20-100%) fades the minimap's line, either
   style; `nav.minimapRouteSize` (50-150%) scales it, dots, spacing and the gap
   at the pin together (the strokes are laid out at the frame's scale divided
   by it). Both in the line style window, the world map keeping its own. The
   minimap frame sits at the minimap's level + 3, under Polestar's trail and
   pins: the client draws its tracking blips and quest marks into the
   minimap's own picture, under every frame on it, so no frame level puts the
-  line beneath them.
-- Line style (`Maps/RouteSparkle.lua`, `UI/LineStyle.lua`): `nav.lineStyle`
-  `"dots"` (the default, the above) or `"sparkle"`, set in the window the
-  gear beside "Route lines" opens (Options, Guide, Arrow & routes; the gear
-  is `W.Toggle`'s `opts.gear`). Sparkles (ported from Forever Sparkle Trail)
+  line beneath them. The player's arrow is drawn there too, so nothing is
+  drawn within 9 px of the minimap's centre (`Strokes.PLAYER_GAP`: lines and
+  strokes are cut there, the dots keep clear of it as of a stop's pin), and
+  the minimap's dots are half as long again as they are wide, along the way:
+  a route dot never reads as the player or a round blip.
+- Line style (`nav.lineStyle`, `RouteLines.STYLE_CHOICES`): `"line"`,
+  `"dots"` (the above) or `"sparkle"`, chosen on the welcome's setup page
+  (`UI/Welcome.lua`, three cards each previewing its style), in Options
+  (Guide, Arrow & routes, under "Route lines") and in the window the gear
+  beside "Route lines" opens (`UI/LineStyle.lua`; the gear is `W.Toggle`'s
+  `opts.gear`). The default is the line; an account Polestar knew before the
+  line (`ns.IsNewAccount` false: a saved `PolestarDB` at load) with no style
+  of its own gets `"dots"` written once (`PolestarDB.lineStyleKept`), so
+  nobody's map changes unasked. Under `ui.reduceMotion` sparkles are drawn as
+  dots (`RouteLines.Style()` is the style drawn).
+- The line (`RouteStrokes`, `view.style "line"`): the walk's path in pieces
+  at least 8 px long (points nearer the last one kept are passed over), each
+  one line `nav.lineWidth` px thick (2-8, default 4; one less on continent maps)
+  over a soft shadow 3 px wider on each side (`Media/Nav/line-soft`, even
+  along x and feathered across y, as a client Line stretches its texture;
+  the scrim at 75%); a bend sharper than about 14 degrees gets a round joint
+  (the dot texture, the line's width across, no outline). On the world map a
+  small dark chevron every 90 px points the way (none under a stop's pin).
+  The walk being walked fades out behind the player over 120 px (12 px
+  pieces from 45% down). Flights are dashed (7 px on, 5 off, 2 px, carried
+  across their bends), rides stay solid, and a walk drawn straight with no
+  walking path known (the geometry's `straight`, set by `Nav/Walk.lua` for
+  its straight fallback; display only) is dashed as thick as the line at
+  55%. A route to a new goal draws in from the player over 0.6 s (each
+  paint shows that share of the strokes, both surfaces repainting 30 times
+  a second meanwhile; not under `ui.reduceMotion`, not for sparkles, not for
+  the same goal drawn again). Drawing only: no style, thickness or switch
+  changes the route, the target or the arrow (tested).
+- Sparkles (`Maps/RouteSparkle.lua`, `nav.lineStyle "sparkle"`), set in the
+  same window. Sparkles (ported from Forever Sparkle Trail)
   sit along the same draw paths, measured in yards and split by continent:
   evenly spaced on screen at any zoom (`nav.sparkleDensity`, 36 px at 1 to
   9 px at 10), each a `Media/Nav/sparkle` star over `Media/Nav/glow`,

@@ -1,11 +1,12 @@
 -- The route lines' style: a small window the gear beside Options > Guide >
--- Arrow & routes > "Route lines" opens. The style (nav.lineStyle: Polestar's
--- dots, or sparkles drifting toward the goal, Maps/RouteSparkle.lua), the
--- dots' colour (nav.dotColor), the sparkles' own settings, and the minimap
--- line's opacity and size (nav.minimapRouteAlpha, nav.minimapRouteSize),
--- made by the options window's own controls (Options.Control) in one column,
--- with three sparkle presets. Every change shows on the maps at once. The ✕
--- and Escape close it.
+-- Arrow & routes > "Route lines" opens. The style (nav.lineStyle: a solid
+-- line, Polestar's dots, or sparkles drifting toward the goal,
+-- Maps/RouteSparkle.lua), the line's thickness (nav.lineWidth), the line's
+-- and dots' colour (nav.dotColor), the sparkles' own settings, and the
+-- minimap line's opacity and size (nav.minimapRouteAlpha,
+-- nav.minimapRouteSize), made by the options window's own controls
+-- (Options.Control) in one column, with three sparkle presets. Every change
+-- shows on the maps at once. The ✕ and Escape close it.
 -- UI.ShowLineStyle(), or SHOW_LINE_STYLE.
 --
 -- Built on first use; colours are Theme tokens only.
@@ -23,22 +24,25 @@ local function percent(v) return floor(v * 100 + 0.5) .. "%" end
 local function px(v) return string.format(L["%d px"], floor(v + 0.5)) end
 local function plain() return ns.Get("nav.lineStyle") ~= "sparkle" end
 local function sparkles() return not plain() end
+local function notLine() return ns.Get("nav.lineStyle") ~= "line" end
 
 local SECTIONS = {
 	{ name = L["Style"], controls = {
 		{ kind = "dropdown", key = "nav.lineStyle", label = L["Line style"],
-			help = L["How the route lines are drawn: Polestar's dots, or sparkles that drift along the way to the goal."],
-			choices = { { value = "dots", label = L["Dots"] }, { value = "sparkle", label = L["Sparkle"] } } },
-		{ kind = "dropdown", key = "nav.dotColor", label = L["Dot colour"], disabled = sparkles,
+			help = L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."],
+			choices = ns.RouteLines and ns.RouteLines.STYLE_CHOICES or {} },
+		{ kind = "slider", key = "nav.lineWidth", label = L["Line thickness"], min = 2, max = 8, step = 1, format = px, disabled = notLine,
+			help = L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] },
+		{ kind = "dropdown", key = "nav.dotColor", label = L["Route colour"], disabled = sparkles,
 			help = L["Route colours tint each leg by how you travel it. Cyan, magenta and white stand apart from the minimap's yellow herb and ore dots and its gold quest marks. Right-click to reset."],
 			choices = {
 				{ value = "route", label = L["Route colours"] }, { value = "cyan", label = L["Cyan"] },
 				{ value = "magenta", label = L["Magenta"] }, { value = "white", label = L["White"] },
 			} },
 		{ kind = "slider", key = "nav.minimapRouteAlpha", label = L["Minimap opacity"], min = 0.2, max = 1, step = 0.05, format = percent,
-			help = L["How strongly the route line shows on the minimap, dots or sparkles; the world map keeps its own. Right-click to reset."] },
+			help = L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] },
 		{ kind = "slider", key = "nav.minimapRouteSize", label = L["Minimap size"], min = 0.5, max = 1.5, step = 0.05, format = percent,
-			help = L["The route line's dots or sparkles on the minimap, and the gaps between them; the world map keeps its own. Right-click to reset."] },
+			help = L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] },
 	} },
 	{ name = L["Sparkle"], presets = true, controls = {
 		{ kind = "slider", key = "nav.sparkleIntensity", label = L["Intensity"], min = 0, max = 1, step = 0.05, format = percent,
