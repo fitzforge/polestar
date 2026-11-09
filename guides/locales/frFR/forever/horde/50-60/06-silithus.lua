@@ -165,6 +165,8 @@ return {
 	["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the next guide's way through {zone:1448}."] = "Gardez {quest:3942} : {npc:9116} se trouve au {area:2479}, sur le chemin du guide suivant à travers {zone:1448}.",
 	-- {npc:10980} Umi's Mechanical Yeti · {npc:10977} Quixxil
 	["Use {npc:10980} on {npc:10977}"] = "Utilisez {npc:10980} sur {npc:10977}",
+	-- {npc:10977} Quixxil · {npc:10980} Umi's Mechanical Yeti
+	["Scare {npc:10977} with {npc:10980}"] = "",
 
 	-- Step 36: Ringo
 	-- {npc:9999} Ringo

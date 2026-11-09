@@ -237,7 +237,7 @@ step Donova Snowden
   note Donova next sends you after High Chief Winterfall, an elite in his cave. Skip it.
 
 step Are We There, Yeti?
-  kill 10978 quest 5163.1 @61.5,38.6 map 1452
+  kill 10978 quest 5163.1 @61.5,38.6 map 1452 "Scare Legacki with Umi's Mechanical Yeti"
 
 step Everlook
   tip Ride east along the road to Everlook.

@@ -383,6 +383,8 @@ return {
 	["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads."] = "{npc:3395}在十字路口东南方{area:388}的科卡尔中游荡。",
 	-- {npc:12296} Sickly Gazelle · {item:15826} Curative Animal Salve
 	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "{npc:12296}：对它们使用{item:15826}；它们在十字路口四周的平原上游荡",
+	-- {npc:12296} Sickly Gazelle
+	["Cure {npc:12296}"] = "",
 
 	-- Step 98: Bristleback camps
 	["Bristleback camps"] = "刺背野猪人营地",

@@ -115,6 +115,8 @@ return {
 	["His walk ends at the road, where Grimclaw waits"] = "",
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
 	["{npc:12298}: use the {item:15826} on them; they roam all of {zone:1439}"] = "{npc:12298}: примените на них {item:15826}; они бродят по всей зоне {zone:1439}",
+	-- {npc:12298} Sickly Deer
+	["Cure {npc:12298}"] = "",
 
 	-- Step 21: Auberdine flight master
 	-- {area:442} Auberdine

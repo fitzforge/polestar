@@ -119,6 +119,10 @@ return {
 	-- {npc:9298} Donova Snowden · {npc:10738} High Chief Winterfall
 	["{npc:9298} next sends you after {npc:10738}, an elite in his cave. Skip it."] = "{npc:9298} vous envoie ensuite contre {npc:10738}, un élite dans sa grotte. Passez-la.",
 
+	-- Step 33: Are We There, Yeti?
+	-- {npc:10978} Legacki · {npc:10980} Umi's Mechanical Yeti
+	["Scare {npc:10978} with {npc:10980}"] = "",
+
 	-- Step 34: Everlook
 	-- {area:2255} Everlook
 	["Ride east along the road to {area:2255}."] = "Suivez la route vers l'est jusqu'à {area:2255}.",

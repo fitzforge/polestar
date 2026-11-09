@@ -31,6 +31,8 @@ return {
 	["Any {npc:6498} counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "Qualquer {npc:6498} conta, inclusive os Demossauros Couroférreo e Tirano. São elite (nível 54-55), batem com {spell:14099} e correm mais que a forma de viagem. Vale ir em grupo, mas um druida consegue sozinho: Hiberne ou use {spell:339} nele de longe, espete a {item:22432} (a farpa não quebra o {spell:2637}) e saia. Conta na hora em que a farpa acerta, mesmo que você morra depois. A seta aponta para os Demossauros comuns do oeste e do norte; um {npc:6499} vaga pelo meio do sul da cratera, mais perto de {npc:9619}.",
 	-- {npc:6498} Devilsaur · {item:22432} Devilsaur Barb
 	["{npc:6498}: stab it with the {item:22432}"] = "{npc:6498}: espete-o com a {item:22432}",
+	-- {npc:6498} Devilsaur · {item:22432} Devilsaur Barb
+	["Stab a {npc:6498} with the {item:22432}"] = "",
 
 	-- Step 7: The Sunken Temple
 	-- {area:1417} Sunken Temple

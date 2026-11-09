@@ -3635,10 +3635,11 @@
 			"faction": "Horde",
 			"at": {
 				"quest": 5561,
-				"goal": "complete"
+				"goal": "objective",
+				"objective": 1
 			},
 			"tip": "Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo in the graveyard and walk the tamed kodo back to Smeed. At his camp, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time.",
-			"note": "Kodo Roundup: each tamed kodo counts once you talk to it at Smeed's camp; until then the Kombobulator can't tame another (a 5 minute debuff), so the five are one at a time. The tip said only 'five times'.",
+			"note": "Kodo Roundup: each tamed kodo counts once you talk to it at Smeed's camp; until then the Kombobulator can't tame another (a 5 minute debuff), so the five are one at a time. The tip said only 'five times'. #1458 (Fyurie): the objective is written as the Kombobulator use plus a talk to the tamed kodo at Smeed's camp (5561.1), not a kill, and the tip sits on that goal.",
 			"source": [
 				{
 					"kind": "in-game-check",
@@ -3659,8 +3660,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Use Smeed's Kodo Kombobulator on an Aged Kodo and walk the tamed kodo back to his camp. There, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom.",
-			"note": "Kodo Roundup: each tamed kodo counts once you talk to it at Smeed's camp; until then the Kombobulator can't tame another (a 5 minute debuff), so the five are one at a time. The tip said only 'five times'.",
+			"tip": "Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo: it becomes a tamed kodo that follows you. Walk it back to Smeed's camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom.",
+			"note": "Kodo Roundup: each tamed kodo counts once you talk to it at Smeed's camp; until then the Kombobulator can't tame another (a 5 minute debuff), so the five are one at a time. The tip said only 'five times'. #1458 (Fyurie): the objective is written as the Kombobulator use plus a talk to the tamed kodo at Smeed's camp (5561.1), not a kill, and the tip sits on that goal.",
 			"source": [
 				{
 					"kind": "in-game-check",

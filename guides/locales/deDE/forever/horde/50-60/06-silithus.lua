@@ -165,6 +165,8 @@ return {
 	["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the next guide's way through {zone:1448}."] = "Behalte {quest:3942}: {npc:9116} ist im Refugium ({area:2479}), auf dem Weg des nächsten Guides durch den {zone:1448}.",
 	-- {npc:10980} Umi's Mechanical Yeti · {npc:10977} Quixxil
 	["Use {npc:10980} on {npc:10977}"] = "Benutze {npc:10980} an {npc:10977}",
+	-- {npc:10977} Quixxil · {npc:10980} Umi's Mechanical Yeti
+	["Scare {npc:10977} with {npc:10980}"] = "",
 
 	-- Step 36: Ringo
 	-- {npc:9999} Ringo

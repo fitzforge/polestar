@@ -35,6 +35,8 @@ return {
 	["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "",
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "",
+	-- {npc:10556} Lazy Peon
+	["Wake {npc:10556}"] = "",
 
 	-- Step 4: The Den: hand in
 	-- {area:364} The Den

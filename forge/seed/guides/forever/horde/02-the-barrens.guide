@@ -737,7 +737,7 @@ step Verog the Dervish
   zone The Barrens
   tip Verog walks among the Kolkar at the Stagnant Oasis south-east of the Crossroads.
   collect 5023 quest 851.1
-  kill 12296 quest 6129.1 only Tauren,Druid -- Sickly Gazelle: use the Curative Animal Salve on them; they roam the plains all around the Crossroads
+  kill 12296 quest 6129.1 "Cure Sickly Gazelle" only Tauren,Druid -- Sickly Gazelle: use the Curative Animal Salve on them; they roam the plains all around the Crossroads
 
 step Bristleback camps
   tip The Bristleback quilboar camps spread over the plains north of Camp Taurajo, either side of the Gold Road. Mankrik's wife lies at their north edge, on your way south. Leave the quilboar for now: Mangletooth in Camp Taurajo wants the same camps cleared. Lakota'mani, a grey kodo, sometimes wanders here: his hoof starts a quest.

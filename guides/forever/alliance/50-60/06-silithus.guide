@@ -143,7 +143,7 @@ step Marshal's Refuge
   turnin 4005                         -- J.D. Collie, below ground
   accept 3961
   turnin 3961                         -- Linken, at the back of the refuge
-  kill 10977 quest 5163.3             -- Quixxil
+  kill 10977 quest 5163.3 "Scare Quixxil with Umi's Mechanical Yeti" -- Quixxil
 
 step Fly to Cenarion Hold
   zone Un'Goro Crater

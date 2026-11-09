@@ -159,7 +159,7 @@ step Volcor
   turnin 993                                  -- Volcor, inside Blackwood Den
   accept 994
   complete 994 @41.7,81.5                     -- His walk ends at the road, where Grimclaw waits
-  kill 12298 quest 6124.1 only NightElf,Druid -- Sickly Deer: use the Curative Animal Salve on them; they roam all of Darkshore
+  kill 12298 quest 6124.1 "Cure Sickly Deer" only NightElf,Druid -- Sickly Deer: use the Curative Animal Salve on them; they roam all of Darkshore
 
 step Auberdine
   only Druid

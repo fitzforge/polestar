@@ -147,6 +147,8 @@ return {
 	-- Step 35: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
 	["Use {item:12928} on {npc:7583}, the goblin girl in {area:976}. {npc:10977} and {npc:10978} are scared later in the route."] = "{area:976}의 고블린 소녀 {npc:7583}에게 {item:12928}을(를) 사용하세요. {npc:10977}와(과) {npc:10978}은(는) 나중에 경로 중 놀래 줍니다.",
+	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
+	["Scare {npc:7583} with {item:12928}"] = "",
 
 	-- Step 36: Gadgetzan
 	-- {object:142071} Egg-O-Matic

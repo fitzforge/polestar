@@ -165,6 +165,8 @@ return {
 	["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the next guide's way through {zone:1448}."] = "{quest:3942}을(를) 보관하세요: {npc:9116}은(는) 다음 가이드에서 {zone:1448}을(를) 지나는 길의 {area:2479}에 있습니다.",
 	-- {npc:10980} Umi's Mechanical Yeti · {npc:10977} Quixxil
 	["Use {npc:10980} on {npc:10977}"] = "{npc:10977}에게 {npc:10980} 사용",
+	-- {npc:10977} Quixxil · {npc:10980} Umi's Mechanical Yeti
+	["Scare {npc:10977} with {npc:10980}"] = "",
 
 	-- Step 36: Ringo
 	-- {npc:9999} Ringo

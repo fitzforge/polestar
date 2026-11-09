@@ -100,6 +100,10 @@ return {
 	-- {area:445} Cliffspring Falls
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "镇子南边的熊怪营地可完成 熊怪的威胁；狂暴蓟熊在镇子南边的森林中游荡；镇子东南方亚米萨兰废墟中的上层精灵幽灵带着遗物，安娜雅的幽灵也在那里走动；骸骨在镇子南边的海滩上；蘑菇长在东北方 {area:445} 的洞穴里。",
+	-- {npc:2164} Rabid Thistle Bear · {quest:2139} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
+	["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "",
+	-- {npc:2164} Rabid Thistle Bear
+	["Capture a {npc:2164}"] = "",
 	-- {quest:954} Bashal'Aran
 	["the blue aura in the ruins of {quest:954}"] = "{quest:954} 废墟中的蓝色光环",
 
