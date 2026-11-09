@@ -284,7 +284,7 @@ return {
 	-- {zone:1453} Stormwind
 	["Back to {zone:1453}"] = "返回{zone:1453}",
 	-- {zone:1453} Stormwind · {object:28027} Dwarven District
-	["Ride the tram back: it comes out in {zone:1453}'s {object:28027}, where the errands below start."] = "乘地铁返回{zone:1453}：出口在{zone:1453}的{object:28027}，接下来的任务从那里开始。",
+	["Ride the tram back: it comes out in {zone:1453}'s {object:28027}, where the errands below start."] = "乘地铁返回：出口在{zone:1453}的{object:28027}，接下来的任务从那里开始。",
 
 	-- Step 54: Stormwind
 	-- {item:2449} Earthroot · {zone:1439} Darkshore · {npc:1313} Maria Lumere
