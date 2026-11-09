@@ -106,17 +106,7 @@ return {
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver
 	["{quest:1104}, from the Scorpid Reavers of the north half"] = "",
 
-	-- Step 21: Level 32.5
-	["Level 32.5"] = "",
-	-- {zone:1443} Desolace · {area:796} Scarlet Monastery
-	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer
-	["{zone:1443}'s quests are 33-38. Below 32.5? Keep killing the Sparkleshell Snappers near the silithid dig and the Saltstone Gazers south of it until level 32.5. Or, with a group, run the {area:796} dungeon (Graveyard or Library) instead."] = "",
-	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper
-	["Sparkleshell Snappers"] = "",
-	-- {npc:4143} Sparkleshell Snapper
-	["grind on {npc:4143}"] = "",
-
-	-- Step 22: Mirage Raceway
+	-- Step 21: Mirage Raceway
 	["South-west back to the raceway."] = "",
 	-- {npc:4452} Kravel Koalbeard · {quest:1111} Wharfmaster Dizzywig · {area:392} Ratchet
 	["{npc:4452}: his parts order goes to {quest:1111} in {area:392}, later on the route"] = "",
@@ -124,6 +114,16 @@ return {
 	["{npc:4454}: his letter goes to Martek in the {zone:1418}, at 39"] = "",
 	-- {npc:4630} Pozzik · {area:392} Ratchet
 	["{npc:4630}: for Gazlowe in {area:392}, later on the route"] = "",
+
+	-- Step 22: Level 32.5
+	["Level 32.5"] = "",
+	-- {zone:1443} Desolace · {area:796} Scarlet Monastery
+	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper
+	["{zone:1443}'s quests are 33-38. Still below 32.5 after the raceway's hand-ins? Keep killing the Sparkleshell Snappers on the flats just north of the raceway until level 32.5. Or, with a group, run the {area:796} dungeon (Graveyard or Library) instead."] = "",
+	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper
+	["Sparkleshell Snappers"] = "",
+	-- {npc:4143} Sparkleshell Snapper
+	["grind on {npc:4143}"] = "",
 
 	-- Step 23: Freewind Post
 	-- {area:484} Freewind Post · {npc:10537} Cliffwatcher Longhorn

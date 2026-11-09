@@ -8348,3 +8348,21 @@ test('Horde 30-40 audit: Badlands slabs beside Agmond\'s End, Lotwil on the way 
 	const [kargath] = stepTips('forever/horde/30-40/06-badlands.guide', /^\s+turnin 1419\b/);
 	assert.match(kargath, /west back to Kargath/);
 });
+
+// Mokii's report (#1431): Dustwallow's level 37.5 grind on the far Mirefin coast came before the Brackenwall hand-ins
+// the player already had ready. A written grind comes after the ready hand-ins it would otherwise hold back (the same
+// in Thousand Needles' raceway and Stranglethorn's two Grom'gol stops).
+test("Mokii's report (#1431): Horde 30-40 grinds come after the ready hand-ins", { skip }, () => {
+	for (const [guide, level, after] of [
+		['forever/horde/30-40/04-dustwallow-marsh.guide', 37.5, [1177, 1202, 1239]],
+		['forever/horde/30-40/02-thousand-needles.guide', 32.5, [1110, 1104, 1105, 1176, 1175]],
+		['forever/horde/30-40/03-stranglethorn-vale.guide', 35, [568]],
+		['forever/horde/30-40/03-stranglethorn-vale.guide', 36, [569, 570]],
+	]) {
+		const list = goals(guide);
+		const grind = at(list, `${guide}: level ${level}`, (g) => g.t === 'level' && g.level + (g.frac || 0) === level);
+		for (const q of after) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) < grind, `${guide}: turnin ${q} before the level ${level} grind`);
+	}
+	const g = goals('forever/horde/30-40/04-dustwallow-marsh.guide').find(({ goal }) => goal.t === 'level').goal;
+	assert.ok(g.grind !== 4362 && g.y < 30, 'the 37.5 grind is by Brackenwall, not on the Mirefin murlocs of the north-east coast');
+});

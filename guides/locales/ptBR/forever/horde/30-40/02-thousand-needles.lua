@@ -106,17 +106,7 @@ return {
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver
 	["{quest:1104}, from the Scorpid Reavers of the north half"] = "{quest:1104}, dos Aniquiladores Escorpídeos da metade norte",
 
-	-- Step 21: Level 32.5
-	["Level 32.5"] = "Nível 32.5",
-	-- {zone:1443} Desolace · {area:796} Scarlet Monastery
-	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer
-	["{zone:1443}'s quests are 33-38. Below 32.5? Keep killing the Sparkleshell Snappers near the silithid dig and the Saltstone Gazers south of it until level 32.5. Or, with a group, run the {area:796} dungeon (Graveyard or Library) instead."] = "As missões de {zone:1443} são de nível 33-38. Abaixo de 32.5? Continue matando as Tartaliscas Quelobrilho perto da escavação dos silitídeos e os Observadores Sal-gema ao sul dela até o nível 32.5. Ou, em grupo, faça a masmorra {area:796} (Cemitério ou Biblioteca).",
-	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper
-	["Sparkleshell Snappers"] = "Tartaliscas Quelobrilho",
-	-- {npc:4143} Sparkleshell Snapper
-	["grind on {npc:4143}"] = "mate {npc:4143} até subir",
-
-	-- Step 22: Mirage Raceway
+	-- Step 21: Mirage Raceway
 	["South-west back to the raceway."] = "De volta ao sudoeste, até o circuito.",
 	-- {npc:4452} Kravel Koalbeard · {quest:1111} Wharfmaster Dizzywig · {area:392} Ratchet
 	["{npc:4452}: his parts order goes to {quest:1111} in {area:392}, later on the route"] = "",
@@ -124,6 +114,16 @@ return {
 	["{npc:4454}: his letter goes to Martek in the {zone:1418}, at 39"] = "{npc:4454}: a carta dele vai para Martek, em {zone:1418}, no nível 39",
 	-- {npc:4630} Pozzik · {area:392} Ratchet
 	["{npc:4630}: for Gazlowe in {area:392}, later on the route"] = "{npc:4630}: para Gazlowe em {area:392}, mais adiante na rota",
+
+	-- Step 22: Level 32.5
+	["Level 32.5"] = "Nível 32.5",
+	-- {zone:1443} Desolace · {area:796} Scarlet Monastery
+	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper
+	["{zone:1443}'s quests are 33-38. Still below 32.5 after the raceway's hand-ins? Keep killing the Sparkleshell Snappers on the flats just north of the raceway until level 32.5. Or, with a group, run the {area:796} dungeon (Graveyard or Library) instead."] = "",
+	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper
+	["Sparkleshell Snappers"] = "Tartaliscas Quelobrilho",
+	-- {npc:4143} Sparkleshell Snapper
+	["grind on {npc:4143}"] = "mate {npc:4143} até subir",
 
 	-- Step 23: Freewind Post
 	-- {area:484} Freewind Post · {npc:10537} Cliffwatcher Longhorn
@@ -242,4 +242,5 @@ return {
 	-- ["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre; use the {item:14523} on the {npc:11876} for the {item:13542}. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it."] = "Siga para leste até {area:599}. Derrube um sectário da Lâmina Ardente e use {item:6436} nele antes que morra, para obter {item:6435}. {npc:13019} fica no último andar da fortaleza com o Cetro; use {item:14523} em {npc:11876} para obter {item:13542}. Os sectários também deixam cair {item:20310} de vez em quando (1-5%); quando cair, leia.",
 	-- ["Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach; open each clam in your bags for its meat."] = "Suba a costa para o norte. Os Mariscos de Casca Mole Gigantes ficam na água rasa e os Tiscorais Enfurecidos andam pela praia; abra cada marisco nas bolsas para pegar a carne.",
 	-- ["The Slitherblade naga hold the coast north of {area:2405}; {npc:12369} guards the {quest:6027} at the far northern tip."] = "Os nagas Sibilâmina ocupam a costa ao norte de {area:2405}. {npc:12369} guarda o {quest:6027} na ponta extrema do norte.",
+	-- ["{zone:1443}'s quests are 33-38. Below 32.5? Keep killing the Sparkleshell Snappers near the silithid dig and the Saltstone Gazers south of it until level 32.5. Or, with a group, run the {area:796} dungeon (Graveyard or Library) instead."] = "As missões de {zone:1443} são de nível 33-38. Abaixo de 32.5? Continue matando as Tartaliscas Quelobrilho perto da escavação dos silitídeos e os Observadores Sal-gema ao sul dela até o nível 32.5. Ou, em grupo, faça a masmorra {area:796} (Cemitério ou Biblioteca).",
 }

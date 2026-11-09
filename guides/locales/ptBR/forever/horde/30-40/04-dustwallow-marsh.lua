@@ -81,18 +81,19 @@ return {
 	-- Step 18: The Theramore Docks
 	["Underwater"] = "Debaixo d'água",
 
-	-- Step 19: Level 37.5
-	["Level 37.5"] = "Nível 37.5",
-	-- {zone:1443} Desolace · {area:502} Witch Hill · {area:1316} Razorfen Downs · {area:796} Scarlet Monastery
-	["{zone:1443}'s last quests and Alterac are 38-41. Below 37.5? Keep killing the Mirefin murlocs along the north-east coast, past {area:502}, until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "As últimas missões de {zone:1443} e Alterac são de nível 38-41. Abaixo de 37.5? Continue matando os murlocs Lamapina na costa nordeste, passando por {area:502}, até o nível 37.5. Ou, em grupo, faça a masmorra {area:1316} ou a masmorra {area:796} (Arsenal).",
-	-- {npc:4362} Mirefin Coastrunner
-	["grind on {npc:4362}"] = "mate {npc:4362} até subir",
-
-	-- Step 20: Brackenwall Village
+	-- Step 19: Brackenwall Village
 	-- {npc:4503} Mudcrush Durtfeet · {npc:4791} Nazeer Bloodpike
 	["Head back west to Brackenwall with the head: {npc:4503} stands at the south edge of the village where the road comes in, {npc:4791} in the village."] = "Volte para o oeste, até a Aldeia Muralha Verde, com a cabeça: {npc:4503} fica na borda sul da aldeia, onde a estrada chega, e {npc:4791}, na aldeia.",
 	-- {npc:2519} Kin'weelay · {object:3202} Grom'gol (no name in this language: may be words)
 	["For {npc:2519} at {object:3202}, in forever/horde/40-50/01-stranglethorn-vale"] = "Para {npc:2519} em {object:3202}, em forever/horde/40-50/01-stranglethorn-vale",
+
+	-- Step 20: Level 37.5
+	["Level 37.5"] = "Nível 37.5",
+	-- {zone:1443} Desolace · {area:1316} Razorfen Downs · {area:796} Scarlet Monastery
+	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "",
+	["Darkmist cavern"] = "",
+	-- {npc:4377} Darkmist Lurker
+	["grind on {npc:4377}"] = "",
 
 	-- Step 21: Fly to Ratchet
 	-- {area:392} Ratchet
@@ -219,8 +220,10 @@ return {
 	-- ["The Slitherblade naga hold the coast north of {area:2405}, up to {area:598}. {npc:12369} guards the {quest:6027} at the far northern tip."] = "Os nagas Sibilâmina ocupam a costa ao norte de {area:2405}, até a {area:598}. {npc:12369} guarda o {quest:6027} na ponta norte.",
 	-- ["The caravan ends at {npc:11596}'s camp on the east side of the {area:596}."] = "A caravana termina no acampamento de {npc:11596}, no lado leste do {area:596}.",
 	-- ["The next guide takes you back to {zone:1434}."] = "O próximo guia leva você de volta à {zone:1434}.",
+	-- ["grind on {npc:4362}"] = "mate {npc:4362} até subir",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "A caravana de {npc:11626} para na estrada na borda do {area:602}. Escolte-a para leste passando o conciliábulo; demônios a atacam duas vezes.",
 	-- ["{npc:3412}, in the {object:172958} beside {npc:4485}: {quest:2841}, if you ran {area:133}"] = "{npc:3412}, em {object:172958}, ao lado de {npc:4485}: {quest:2841}, se você fez {area:133}",
 	-- ["{npc:5395} and {npc:5412} stand in the post just west of {npc:11596}'s camp."] = "{npc:5395} e {npc:5412} ficam no posto logo a oeste do acampamento de {npc:11596}.",
 	-- ["{npc:6791}: the last guide binds here, so this usually ticks at once"] = "{npc:6791}: o guia anterior vincula você aqui, então isto costuma ser marcado na hora",
+	-- ["{zone:1443}'s last quests and Alterac are 38-41. Below 37.5? Keep killing the Mirefin murlocs along the north-east coast, past {area:502}, until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "As últimas missões de {zone:1443} e Alterac são de nível 38-41. Abaixo de 37.5? Continue matando os murlocs Lamapina na costa nordeste, passando por {area:502}, até o nível 37.5. Ou, em grupo, faça a masmorra {area:1316} ou a masmorra {area:796} (Arsenal).",
 }
