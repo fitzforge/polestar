@@ -8861,3 +8861,18 @@ test('Hillsbrad (Horde 22-24): Masoj before the Mudsnout Blossoms, the southern 
 	const peak = at(list, 'the southern peak', (g) => g.t === 'use' && g.quest === 98095 && g.oi === 3);
 	assert.ok(masoj < blossoms && blossoms < peak, 'Masoj, the blossoms, then the southern peak');
 });
+
+// Final route review (0.3.6): Durotar Warlocks walked from Skull Rock into Orgrimmar for The Binding and back out to
+// Margoz, then came back to Orgrimmar at the end of the guide anyway. Gan'rul takes the Tablet of Verga and the
+// voidwalker is bound on that last arrival, in the Cleft of Shadow with Neeru Fireblade.
+test('Durotar (Orc, Troll) Warlocks: The Binding on the arrival in Orgrimmar at the end, not on a trip from Skull Rock', { skip }, () => {
+	for (const guide of ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']) {
+		const list = goals(guide);
+		const binding = at(list, `${guide}: turnin 1501`, is('turnin', 1501));
+		for (const [what, pred] of [['Margoz', is('turnin', 827)], ['Orgnil', is('turnin', 99051)]]) {
+			assert.ok(at(list, `${guide}: ${what}`, pred) < binding, `${guide}: ${what} before Gan'rul`);
+		}
+		const last = list[list.length - 1];
+		assert.ok(last.s === list[binding].s && is('turnin', 1504)(last.goal), `${guide}: the voidwalker is bound in the guide's last step`);
+	}
+});
