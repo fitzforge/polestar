@@ -2766,7 +2766,11 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			let elites: Vec<V> = if area { picked.get("elites").items() } else { Vec::new() };
 			let sp = spawn_spots(data, &srcs, &picked.get("map"), &picked.get("f"), picked.get("x").num(), picked.get("y").num(), &elites);
 			if let Some(sp) = sp {
-				goal.set("spots", sp.spots);
+				// A grind keeps its mob's places the arrow picks, not the alternatives (other places it spawns, walked
+				// by hand for a quest target): any of the mob will do, and a grind's spots cost memory (#1392).
+				let grind = !goal.get("grind").is_undef();
+				let kept: Vec<V> = sp.spots.iter().filter(|s| !(grind && s.get("alt").truthy())).cloned().collect();
+				goal.set("spots", if kept.is_empty() { sp.spots } else { kept });
 				if v == "kill" || v == "collect" || !goal.get("grind").is_undef() {
 					spot_levels(data, &goal, &srcs, &picked.get("map"), &picked.get("f"));
 				}

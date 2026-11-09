@@ -568,7 +568,7 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 | `train` | — | `npc`, `npcName`, `class`, `zone`, `skill`, `skillLine`, `rank`, `rankMax`, `candidates`, `gossip` |
 | `buy` | `item`, `itemName` | `count`, `npc`, `npcName`, `candidates` |
 | `vendor` | — | `npc`, `npcName`, `candidates`, `gossip` |
-| `level` | `level` | `frac` (format 4), `grind`, `npcName`, `spots` |
+| `level` | `level` | `frac` (format 4), `grind` with `npcName`, `map`, `x`, `y`, `f`, `spots`, `spread`, `lvl` |
 | `money` | `money`: copper (format 5) | — |
 | `wait` | `seconds` | `text` |
 | `task` | `text` (format 5) | — |
@@ -600,7 +600,7 @@ The fields:
 | `rank`, `rankMax` | on `train`: the profession rank (1 Apprentice to 4 Artisan; Polestar also reads a rank name or a skill cap) and its skill cap (written by the compiler, not read by Polestar) |
 | `level` | on `level`: the level to reach; on `skill`: the skill to reach |
 | `frac` | on `level` (format 4): the share of the level's XP to reach, 0 < frac < 1 (above) |
-| `grind` | on `level`: the NPC id of the mob the level is reached on (`level N grind <npc>`), with its `npcName`; its spawn areas are the goal's `spots` and `map`, so Polestar 0.3.7 and later point the arrow at the nearest of them; older Polestar ignores it and keeps the step's goto |
+| `grind` | on `level`: the npc id of the mob the level is reached on (`level N grind <npc>`, GUIDE_FORMAT.md). The compiler places the goal at that mob's spawn areas, as a `kill`'s, leaving out the alternatives; Polestar 0.3.7 and later lead the arrow there rather than to a `goto` before it in the step. Older Polestar ignores it and leads to the goto, so it does not change the format |
 | `untilSkill` | on `craft`: craft until the profession reaches this skill |
 | `reagents` | `{ { item, itemName, count } }` |
 | `standing` | 1 Hated to 8 Exalted |
@@ -715,8 +715,10 @@ changes, read by Polestar 0.3.0 and later:
   left out (`"57.6,62.1,,33,4"`, `"43.5,9.2,-12.5,110,19,1"`,
   `"51.1,47,,40,2,,12"`; `lvl` from Polestar 0.3.2). Polestar
   checks the string when the guide registers and builds the spot tables when
-  the goal's `spots` is first read; they stay on the goal for the session. A
-  table per spot costs about 250 bytes in the game, its text about 16.
+  the goal's `spots` is first read; they stay on the goal for the session.
+  Goals with the same string on the same map and frame share one list (from
+  Polestar 0.3.7). A table per spot costs about 250 bytes in the game, its
+  text about 16.
 - **Faction parts.** The pack's guides of one faction that no race part
   holds ship in `Polestar_Guides_Alliance` and `Polestar_Guides_Horde` beside
   it. Their TOC carries `## LoadOnDemand: 1`, `## Dependencies: Polestar,

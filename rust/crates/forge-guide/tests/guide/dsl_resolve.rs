@@ -491,7 +491,9 @@ fn a_grind_level_goal_takes_its_mobs_spawn_areas_as_a_kill_would_and_warns_witho
 	let (level, kill) = (&g[1], &g[2]);
 	assert_eq!(json!([level["t"], level["level"], level["grind"], level["npcName"], level["note"]]), json!(["level", 12, 6, "Kobold Vermin", "grind on Kobold Vermin"]));
 	assert_eq!(json!([level["map"], level["x"], level["y"], level["f"]]), json!([1429, 49, 32.4, "e"]), "the spawn nearest the goto, as `kill 6`'s");
-	assert_eq!(get(level, "spots"), get(kill, "spots"));
+	// The kill's spots without its alternatives: a grind keeps the places the arrow picks.
+	let picks: Vec<Value> = kill["spots"].as_array().unwrap().iter().filter(|s| s.get("alt").is_none()).cloned().collect();
+	assert_eq!(get(level, "spots"), json!(picks));
 	assert!(level["spots"].as_array().is_some_and(|s| !s.is_empty()));
 	let text = guide_text(&["step One", "  goto 47.6,35.1", "  level 12 grind 99999"]);
 	let r = compile(&text);
