@@ -28,7 +28,7 @@ L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off |
 L["mark not recorded (not in the world yet)"] = "标记未记录（尚未进入游戏世界）"
 L["every recording not yet uploaded was deleted"] = "所有尚未上传的记录已删除"
 L["this deletes every recording not yet uploaded. Type |cffffd100/psrec clear confirm|r within %d seconds to proceed."] = "此操作将删除所有尚未上传的记录。请在 %d 秒内输入 |cffffd100/psrec clear confirm|r 以继续。"
--- L["/reload or log out to send what's recorded"] = ""
+L["/reload or log out to send what's recorded"] = "/reload 或登出以发送已记录的内容"
 
 -- Trail.lua
 L["trail stopped after %d min: %s, %d points"] = "轨迹在 %d 分钟后停止：%s，%d 个点"
