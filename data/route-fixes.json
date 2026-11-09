@@ -8500,6 +8500,31 @@
 				"q": 3381,
 				"reason": "Quest volume, Alliance 50-60 (0.3.6 audit #11, 2026-11-09; Volume5060A's draft, landed by GRLeftovers): A Meeting with the Master (48, 2200 XP; the data had no reward when the seed was cut, so it was written optional) is taken and handed in at Sanath Lim-yo's camp in Azshara (50-60/01), where the route tops up on the Thunderhead Hippogryphs that drop the two Undamaged Hippogryph Feathers (30% each): no walk of its own, and the XP comes before Burning Steppes' level-51 gate.",
 				"issue": "-"
+			},
+			{
+				"q": 3453,
+				"reason": "Our comparison, Alliance 40-60 (0.3.6): Velarok Windblade's chain after The Flame's Casing (3452, a group quest in 40-50/06-searing-gorge): The Torch of Retribution (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: Sentry Braziers 149025/149030/149031/149032 on the Cauldron's southern rim) and Trinkets... (3481), 13,710 XP, all given and taken at Velarok's spot (NPCs 8479, 8509, objects 149047, 149502; quest data and both comparison guides agree on the chain and its places). Done only by the group that hands 3452 in, straight after it; 3463 handed in on the way back to Thorium Point.",
+				"issue": "-"
+			},
+			{
+				"q": 3454,
+				"reason": "Our comparison, Alliance 40-60 (0.3.6): Velarok Windblade's chain after The Flame's Casing (3452, a group quest in 40-50/06-searing-gorge): The Torch of Retribution (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: Sentry Braziers 149025/149030/149031/149032 on the Cauldron's southern rim) and Trinkets... (3481), 13,710 XP, all given and taken at Velarok's spot (NPCs 8479, 8509, objects 149047, 149502; quest data and both comparison guides agree on the chain and its places). Done only by the group that hands 3452 in, straight after it; 3463 handed in on the way back to Thorium Point.",
+				"issue": "-"
+			},
+			{
+				"q": 3462,
+				"reason": "Our comparison, Alliance 40-60 (0.3.6): Velarok Windblade's chain after The Flame's Casing (3452, a group quest in 40-50/06-searing-gorge): The Torch of Retribution (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: Sentry Braziers 149025/149030/149031/149032 on the Cauldron's southern rim) and Trinkets... (3481), 13,710 XP, all given and taken at Velarok's spot (NPCs 8479, 8509, objects 149047, 149502; quest data and both comparison guides agree on the chain and its places). Done only by the group that hands 3452 in, straight after it; 3463 handed in on the way back to Thorium Point.",
+				"issue": "-"
+			},
+			{
+				"q": 3463,
+				"reason": "Our comparison, Alliance 40-60 (0.3.6): Velarok Windblade's chain after The Flame's Casing (3452, a group quest in 40-50/06-searing-gorge): The Torch of Retribution (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: Sentry Braziers 149025/149030/149031/149032 on the Cauldron's southern rim) and Trinkets... (3481), 13,710 XP, all given and taken at Velarok's spot (NPCs 8479, 8509, objects 149047, 149502; quest data and both comparison guides agree on the chain and its places). Done only by the group that hands 3452 in, straight after it; 3463 handed in on the way back to Thorium Point.",
+				"issue": "-"
+			},
+			{
+				"q": 3481,
+				"reason": "Our comparison, Alliance 40-60 (0.3.6): Velarok Windblade's chain after The Flame's Casing (3452, a group quest in 40-50/06-searing-gorge): The Torch of Retribution (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: Sentry Braziers 149025/149030/149031/149032 on the Cauldron's southern rim) and Trinkets... (3481), 13,710 XP, all given and taken at Velarok's spot (NPCs 8479, 8509, objects 149047, 149502; quest data and both comparison guides agree on the chain and its places). Done only by the group that hands 3452 in, straight after it; 3463 handed in on the way back to Thorium Point.",
+				"issue": "-"
 			}
 		],
 		"skip": [

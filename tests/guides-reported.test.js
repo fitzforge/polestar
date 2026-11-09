@@ -9770,3 +9770,26 @@ test('Alliance 50-53: A Meeting with the Master on the hippogryph top-up, the re
 	assert.ok(rf.include.some((e) => e.q === 3381), 'the route fixes include A Meeting with the Master');
 	for (const q of [3701, 3764]) assert.ok(rf.pairs.some((p) => p.a[0] === 'turnin' && p.a[1] === q && p.faction === 'Alliance'), `a route-fix pair keeps the ${q} hand-in early`);
 });
+
+// Our comparison, Alliance 40-60 (0.3.6): a group that hands in The Flame's Casing (3452) stood next to the rest of
+// Velarok Windblade's chain and walked away from it: The Torch of Retribution (3453, 3454), Squire Maltrake (3462),
+// Set Them Ablaze! (3463, the four Sentry Braziers on the Cauldron's southern rim) and Trinkets... (3481), 13,710 XP,
+// all given and taken at Velarok's spot. The chain now follows the hand-in, the braziers on the way south to the
+// horn and the outhouse, Set Them Ablaze! handed in on the way back to Thorium Point.
+test('Searing Gorge (Alliance 48-49): The Flame\'s Casing group carries on with the Torch of Retribution chain', { skip }, () => {
+	const sg = goals('forever/alliance/40-50/06-searing-gorge.guide');
+	const casing = at(sg, 'turnin 3452', is('turnin', 3452));
+	const gated = (i) => (sg[i].step.when || []).some((p) => !p.neg && ((p.k === 'group' && [p.q].flat().includes(3452)) || (p.k === 'onquest' && [].concat(p.q).some((q) => [3453, 3463].includes(q)))));
+	let prev = casing;
+	for (const [t, q] of [['accept', 3453], ['turnin', 3453], ['accept', 3454], ['turnin', 3454], ['accept', 3462], ['turnin', 3462], ['accept', 3463]]) {
+		const i = at(sg, `${t} ${q}`, is(t, q));
+		assert.ok(i > prev - (t === 'accept' && q === 3453 ? 1 : 0) && gated(i), `${t} ${q} follows the casing, only for its group`);
+		prev = i;
+	}
+	const braziers = sg.filter(({ goal }) => goal.t === 'interact' && goal.quest === 3463);
+	assert.equal(braziers.length, 4, 'all four Sentry Braziers');
+	const done = at(sg, 'turnin 3463', is('turnin', 3463));
+	assert.ok(gated(done) && done > at(sg, 'turnin 4451', is('turnin', 4451)), 'Set Them Ablaze! handed in after the outhouse');
+	assert.ok(done < at(sg, 'turnin 7722', is('turnin', 7722)), 'before Thorium Point');
+	assert.ok(at(sg, 'turnin 3481', is('turnin', 3481)) > done, 'Trinkets... at the hoard beside the squire');
+});

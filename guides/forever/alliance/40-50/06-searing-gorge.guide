@@ -10,6 +10,9 @@ next forever/alliance/40-50/07-un-goro-crater
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: WANTED: Overseer Maltorius (7701), The Flame's Casing (3452), The Horn of the Beast (3181).
+# A group that hands in The Flame's Casing carries on with Velarok's chain on the spot: The Torch of Retribution
+# (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: the four Sentry Braziers on the southern rim, handed
+# in on the way back to Thorium Point) and Trinkets... (3481), 13,710 XP.
 
 step To Stoutlager Inn
   zone Loch Modan
@@ -157,6 +160,30 @@ step The Flame's Casing
 step Velarok Windblade
   when group 3452
   turnin 3452
+  accept 3453
+
+step The Torch of Retribution
+  when onquest 3453
+  tip Listen to Velarok's story once more.
+  talk 8479 quest 3453.1 @39.1,39.0 map 1427
+
+step Velarok Windblade
+  when onquest 3453
+  tip The Torch of Retribution lies on the ground at Velarok's feet; Squire Maltrake stands beside him.
+  turnin 3453
+  accept 3454
+  turnin 3454 object 149047
+  accept 3462
+  turnin 3462                         -- Squire Maltrake
+  accept 3463                         -- Squire Maltrake: hand it in on the way back to Thorium Point
+
+step Sentry Braziers
+  when onquest 3463
+  tip Carry the Torch of Retribution south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east.
+  interact 149032 quest 3463.4 @33.3,54.5 map 1427
+  interact 149025 quest 3463.1 @35.7,60.7 map 1427
+  interact 149030 quest 3463.2 @44.0,60.9 map 1427
+  interact 149031 quest 3463.3 @50.1,54.8 map 1427
 
 step Level 48.98
   when !group 3452
@@ -174,6 +201,13 @@ step Margol's Horn
 step The Grimesilt outhouse
   when onquest 4451
   turnin 4451
+
+step Squire Maltrake
+  when onquest 3463
+  tip Squire Maltrake and the dragonflight's hoard are beside Velarok, on the rim south of Thorium Point.
+  turnin 3463
+  accept 3481 object 149502
+  turnin 3481 object 149502
 
 step Thorium Point
   zone Searing Gorge
