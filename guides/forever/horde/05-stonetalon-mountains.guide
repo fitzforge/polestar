@@ -53,6 +53,18 @@ next forever/horde/06-hillsbrad-foothills
 #
 # Carried on, finished: Beren's Peril and Watching the Roads (Allister, next guide).
 #
+# Ruins of Lordaeron (`when dungeon "Ruins of Lordaeron"`, dungeons in the route): for a character who
+# chose it, the zeppelin from Orgrimmar lands beside the ruins at about 22.5: Morbin Lightbane's Light's
+# Justice (92421) is taken in the Undercity below, the run follows in the ruins, and Morbin takes the
+# limbs on the Undercity stop at the end of forever/horde/06-hillsbrad-foothills (`when complete`), with
+# the Abominable Head's Unending Torment (97288, from The Baron inside) for Faranell. Left out: A
+# Frightened Request (92401: Tabitha Heartweaver at the Sepulcher, after the ruins, and the route is not
+# back there with the quest done), The Wrath of Rath'mael (92422: Deathguard Kristof offers it after
+# Rear Guard Patrol, 99156, which the route does not take), The New Plague (95216: Theodore Griffs offers
+# it after A Recipe For Death, 451, left out of the Silverpine guide), the rest of Unending Torment
+# (97289-97292) and Crest of Lordaeron (95204: Oran Snakewrithe, off the Apothecarium stop; named in the
+# run tip).
+#
 # Class quests: Rogues take Deep Cover (2458, from Shenthul in Orgrimmar at 20) to Taskmaster Fizzule
 # by the Venture Co. tower north of the Sludge Fen on the way north, a short walk east of the road to
 # Kadrak, and hand Mission: Possible But Not Probable (2478, optional: Gallywix is elite) to Shenthul on
@@ -205,6 +217,21 @@ step Brill
   zone Tirisfal Glades
   tip Shari Stilwell trains Paladins in Brill, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine.
   train class
+
+step Morbin Lightbane
+  when dungeon "Ruins of Lordaeron"
+  zone Undercity
+  tip For your Ruins of Lordaeron run: the zeppelin lands beside the ruins. Walk into the Undercity through them and down to the Royal Quarter: Morbin Lightbane stands there, near Lady Sylvanas Windrunner.
+  accept 92421                        -- Morbin Lightbane
+
+step Ruins of Lordaeron
+  when dungeon "Ruins of Lordaeron"
+  when onquest 92421
+  zone Tirisfal Glades
+  tip The Ruins of Lordaeron is a dungeon for a group of five, about levels 15 to 22, in the ruined city above the Undercity: its portal is in the ruins you walked through.
+  tip Inside: every undead can drop Intact Limbs for Morbin, so clear as you go. The Baron drops an Abominable Head: open it for a quest for Master Apothecary Faranell. A Crest of Lordaeron lies in one of a few spots: it starts a quest for Oran Snakewrithe in the Undercity, which this route leaves to the Dungeons page.
+  enter "Ruins of Lordaeron" @63.4,67.4
+  complete 92421                      -- Light's Justice: Intact Limbs
 
 # ---------------------------------------------------------------- Silverpine Forest
 

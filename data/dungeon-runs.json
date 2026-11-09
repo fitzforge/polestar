@@ -395,6 +395,71 @@
 			"budget": {
 				"flow": "off -> on (flow audit, Warrior every start, dynamic 037, straight lines): 03-silverpine-forest +0.2 km (Orgrimmar: the Cleft of Shadow), +2.8 min, hub visits +0; passed givers hub +0.2 (Neeru at 12 on the first Orgrimmar stop: level 16 is 3+ over there, the level rule wins); other guides only level-lead effects; solo route identical (65/65)"
 			}
+		},
+		{
+			"dungeon": "Ruins of Lordaeron",
+			"faction": "Horde",
+			"pickups": [],
+			"runStop": [
+				92421
+			],
+			"run": {
+				"guide": "forever/horde/05-stonetalon-mountains",
+				"after": {
+					"step": "Zeppelin to Undercity",
+					"note": "the zeppelin lands beside the ruins; Morbin in the Royal Quarter below is the run's own stop"
+				},
+				"entrance": {
+					"map": 1420,
+					"x": 63.4,
+					"y": 67.4
+				},
+				"objectives": [
+					92421
+				],
+				"itemStarts": [
+					{
+						"quest": 97288,
+						"item": 280438
+					},
+					{
+						"quest": 95204,
+						"item": 275521
+					}
+				],
+				"guard": "onquest 92421"
+			},
+			"handins": [
+				{
+					"quest": 92421,
+					"guide": "forever/horde/06-hillsbrad-foothills",
+					"after": {
+						"guide": "forever/horde/06-hillsbrad-foothills",
+						"quest": 513,
+						"goal": "turnin"
+					}
+				},
+				{
+					"quest": 97288,
+					"guide": "forever/horde/06-hillsbrad-foothills",
+					"after": {
+						"guide": "forever/horde/06-hillsbrad-foothills",
+						"quest": 513,
+						"goal": "turnin"
+					},
+					"when": "onquest"
+				}
+			],
+			"leftOut": {
+				"92401": "A Frightened Request: Tabitha Heartweaver at the Sepulcher, after the ruins; the route is not back there with it done",
+				"92422": "The Wrath of Rath'mael: Deathguard Kristof offers it after Rear Guard Patrol (99156), which the route does not take",
+				"95216": "The New Plague: Theodore Griffs offers it after A Recipe For Death (451), left out of 03-silverpine-forest",
+				"97289": "Unending Torment parts 2-5 (97289-97292): Faranell's chain in the Undercity after the Head, not on the route",
+				"95204": "Crest of Lordaeron: Oran Snakewrithe, off the Apothecarium stop; named in the run tip"
+			},
+			"budget": {
+				"flow": "05-stonetalon-mountains +2.5 km, +8.0 min, hub visits +1 (the Undercity), all of it the run's own trip (landing -> Morbin in the Royal Quarter -> the ruins -> on to the Sepulcher); 06-hillsbrad-foothills +0.3 km (Morbin's hand-in); no avoidable backtracks or hub revisits"
+			}
 		}
 	]
 }
