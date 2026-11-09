@@ -1,5 +1,6 @@
 //! The forge-guide integration tests, one binary: one module per test file (they used to be one
 //! test binary each, which cost a link per file).
+mod class_spell_tokens;
 mod common;
 mod compile_pack;
 mod dsl_abandon_destroy;

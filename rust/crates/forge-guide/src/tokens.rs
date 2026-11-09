@@ -9,7 +9,7 @@
 //! a matcher ([`token_at`], [`replace_tokens`]). Texts are scanned as UTF-16 code units like JS strings.
 //! The JS per-data caches (WeakMaps) are rebuilt per [`tokenise_guides`] call, except the client's spell
 //! names, cached in `data.memo` under `tokens.spellNames` (a host without a file system may fill that slot with
-//! [[name, id], ...] itself).
+//! [[name, id, classMask], ...] itself, as [`read_spell_names`] gives them; [name, id] reads as classMask 0).
 
 use std::rc::Rc;
 use std::sync::LazyLock;
@@ -861,6 +861,27 @@ fn world_index(data: &Data, common: &Rc<FxHashSet<String>>) -> (NameIndex, NameI
 	(idx, abilities)
 }
 
+/// The JS `classIndex`: the spells of the classes of `mask` that another thing of the game is called
+/// ([`client_spells`]), filed as [`world_index`] files spells: (idx, abilities).
+fn class_index(data: &Data, common: &Rc<FxHashSet<String>>, mask: i64) -> (NameIndex, NameIndex) {
+	let mut idx = NameIndex::new(common.clone());
+	let mut abilities = NameIndex::new(common.clone());
+	for (name, id, class_mask) in client_spells(data) {
+		if class_mask & mask != 0 {
+			let target = if name.contains(' ') || name.chars().any(|c| c == '\'' || c == '’' || c == ':') { &mut idx } else { &mut abilities };
+			target.add("spell", &V::Num(id), Some(&name), WORLD_SPELL);
+		}
+	}
+	idx.finish();
+	abilities.finish();
+	(idx, abilities)
+}
+
+/// The class bits of a guide's `classes` header (0: none).
+fn class_mask(guide: &V) -> i64 {
+	guide.get("classes").items().iter().filter_map(|c| crate::races::class_by_file(&c.to_js_string())).fold(0, |m, c| m | c.bit as i64)
+}
+
 /// The number a JS relational comparison reads (`z.type >= 2`).
 fn js_num(v: &V) -> f64 {
 	match v {
@@ -872,32 +893,47 @@ fn js_num(v: &V) -> f64 {
 	}
 }
 
-/// Spell names the client gives by id: [(name, id)], each name once (its lowest id), cached in `data.memo`.
-fn spell_names(data: &Data) -> Vec<(String, f64)> {
+/// The client's spells: [(name, id, class mask)], each name once (its lowest id), cached in `data.memo`.
+fn client_spells(data: &Data) -> Vec<(String, f64, i64)> {
 	let cached = data.memo.borrow().get(MEMO_SPELLS).cloned();
 	let v = match cached {
 		Some(v) => v,
 		None => {
-			let v: V = read_spell_names(data).into_iter().map(|(n, id)| arr![V::from(n), V::Num(id)]).collect::<Vec<V>>().into();
+			let v: V = read_spell_names(data).into_iter().map(|(n, id, mask)| arr![V::from(n), V::Num(id), V::Num(mask as f64)]).collect::<Vec<V>>().into();
 			data.memo.borrow_mut().insert(MEMO_SPELLS, v.clone());
 			v
 		}
 	};
-	v.items().iter().map(|p| (p.at(0).to_js_string(), p.at(1).num())).collect()
+	v.items().iter().map(|p| (p.at(0).to_js_string(), p.at(1).num(), p.at(2).as_num().unwrap_or(0.0) as i64)).collect()
 }
 
-/// `readSpellNames(data)`: from the Forever SpellName table of the data's own client build.
+/// Spell names every guide's texts may use: [(name, id)].
+fn spell_names(data: &Data) -> Vec<(String, f64)> {
+	client_spells(data).into_iter().filter(|s| s.2 == 0).map(|(n, id, _)| (n, id)).collect()
+}
+
+/// `readSpellNames(data)`: from the Forever SpellName table of the data's own client build, [(name, id, class
+/// mask)]: the mask 0 for a name every guide's texts may use; a name another thing of the game is called is
+/// only a class's spell (SkillLineAbility ClassMask; its lowest id of those rows), for the guides of that
+/// class, and never a place's.
 #[cfg(feature = "native")]
-pub fn read_spell_names(data: &Data) -> Vec<(String, f64)> {
+pub fn read_spell_names(data: &Data) -> Vec<(String, f64, i64)> {
 	use std::fs;
 	let Some(dir) = data.dir.as_ref().and_then(|_| pinned_build_dir(data, &["SpellName.csv", "SkillLineAbility.csv"])) else { return Vec::new() };
 	let csv = |file: &std::path::Path| -> Vec<V> {
 		let text = fs::read_to_string(file).unwrap_or_else(|e| panic!("{}: {e}", file.display()));
 		crate::areas::parse_csv(&text).unwrap_or_else(|e| panic!("{e}"))
 	};
-	let abilities: FxHashSet<i64> = csv(&dir.join("SkillLineAbility.csv")).iter().map(|r| r.get("Spell").num()).filter(|n| is_integer(*n)).map(|n| n as i64).collect();
+	// Each ability with the classes it is a spell of.
+	let mut abilities: FxHashMap<i64, i64> = FxHashMap::default();
+	for r in csv(&dir.join("SkillLineAbility.csv")) {
+		let spell = r.get("Spell").num();
+		if is_integer(spell) {
+			*abilities.entry(spell as i64).or_default() |= r.get("ClassMask").num() as i64;
+		}
+	}
 	let mut taken: FxHashSet<String> = FxHashSet::default();
-	for t in [&data.npcs, &data.objects, &data.items, &data.zones] {
+	for t in [&data.npcs, &data.objects, &data.items] {
 		if !t.truthy() {
 			continue;
 		}
@@ -933,12 +969,22 @@ pub fn read_spell_names(data: &Data) -> Vec<(String, f64)> {
 			}
 		}
 	}
-	if data.areas.truthy() {
-		for key in data.areas.get("byName").keys() {
-			taken.insert(key.to_string());
+	let mut places: FxHashSet<String> = FxHashSet::default();
+	if data.zones.truthy() {
+		for z in data.zones.values() {
+			if z.truthy() {
+				if let Some(n) = str_(&z.get("name")) {
+					places.insert(js_trim(n).to_lowercase());
+				}
+			}
 		}
 	}
-	let mut best: Vec<(String, f64)> = Vec::new();
+	if data.areas.truthy() {
+		for key in data.areas.get("byName").keys() {
+			places.insert(key.to_string());
+		}
+	}
+	let mut best: Vec<(String, f64, i64)> = Vec::new();
 	let mut pos: FxHashMap<String, usize> = FxHashMap::default();
 	for r in csv(&dir.join("SpellName.csv")) {
 		let id = r.get("ID").num();
@@ -948,21 +994,26 @@ pub fn read_spell_names(data: &Data) -> Vec<(String, f64)> {
 		if !is_integer(id) || name.is_empty() || junk_spell(&name) {
 			continue;
 		}
-		if ["Apprentice ", "Journeyman ", "Expert ", "Artisan ", "Master "].iter().any(|p| name.starts_with(p)) || name.ends_with(" Reputation") || taken.contains(&name.to_lowercase()) {
+		if ["Apprentice ", "Journeyman ", "Expert ", "Artisan ", "Master "].iter().any(|p| name.starts_with(p)) || name.ends_with(" Reputation") || places.contains(&name.to_lowercase()) {
 			continue;
 		}
-		if !name.chars().any(|c| c == ' ' || c == '\'' || c == '’' || c == ':') && !abilities.contains(&(id as i64)) {
+		let is_taken = taken.contains(&name.to_lowercase());
+		let class_mask = if is_taken { abilities.get(&(id as i64)).copied().unwrap_or(0) } else { 0 };
+		if is_taken && class_mask == 0 {
+			continue;
+		}
+		if !name.chars().any(|c| c == ' ' || c == '\'' || c == '’' || c == ':') && !abilities.contains_key(&(id as i64)) {
 			continue;
 		}
 		match pos.get(&name) {
 			Some(&p) => {
 				if id < best[p].1 {
-					best[p].1 = id;
+					best[p] = (name, id, class_mask);
 				}
 			}
 			None => {
 				pos.insert(name.clone(), best.len());
-				best.push((name, id));
+				best.push((name, id, class_mask));
 			}
 		}
 	}
@@ -970,7 +1021,7 @@ pub fn read_spell_names(data: &Data) -> Vec<(String, f64)> {
 }
 
 #[cfg(not(feature = "native"))]
-pub fn read_spell_names(_data: &Data) -> Vec<(String, f64)> {
+pub fn read_spell_names(_data: &Data) -> Vec<(String, f64, i64)> {
 	Vec::new()
 }
 
@@ -1328,6 +1379,14 @@ fn key_of(kind: &str, id: f64) -> String {
 pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 	let common = Rc::new(common_words(guides));
 	let (world, abilities) = world_index(data, &common);
+	// class mask -> class_index, for each mask the guides' headers name (built before the guides borrow them)
+	let mut classes: FxHashMap<i64, (NameIndex, NameIndex)> = FxHashMap::default();
+	for guide in guides {
+		let mask = class_mask(guide);
+		if mask != 0 && !classes.contains_key(&mask) {
+			classes.insert(mask, class_index(data, &common, mask));
+		}
+	}
 	let mut ctx = Ctx { first_words: first_words(data), other_names: other_names(data), zone_areas: FxHashMap::default() };
 	let replaced = Obj::new();
 	for k in KINDS {
@@ -1345,8 +1404,13 @@ pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 	for guide in guides {
 		let base = guide_index(guide, data, &common, &mut ctx);
 		let cat = guide.get("category");
-		let ab = if matches!(cat.as_str(), Some("Class" | "Professions")) { Ix::Plain(&abilities) } else { Ix::Cast(&abilities) };
-		let worlds = [Ix::Plain(&world), ab];
+		let plain = matches!(cat.as_str(), Some("Class" | "Professions"));
+		let ab = |x| if plain { Ix::Plain(x) } else { Ix::Cast(x) };
+		let mut worlds = vec![Ix::Plain(&world), ab(&abilities)];
+		// The guide's classes' own spells, ahead of the NPCs, objects and items of their name.
+		if let Some((idx, abs)) = classes.get(&class_mask(guide)) {
+			worlds.splice(0..0, [Ix::Plain(idx), ab(abs)]);
+		}
 		let copy = guide.as_obj().unwrap().spread();
 		let steps_copy: Vec<V> = guide
 			.get("steps")
@@ -1459,7 +1523,7 @@ pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 		};
 		let line_or = |v: V, d: f64| if v.truthy() { v.num() } else { d };
 		{
-			let gi: Vec<Ix> = std::iter::once(Ix::Plain(&base)).chain(worlds).collect();
+			let gi: Vec<Ix> = std::iter::once(Ix::Plain(&base)).chain(worlds.iter().copied()).collect();
 			let mut texts: Vec<(String, V, TextKey)> = Vec::new();
 			// forEachText reads each field when it reaches it; replace writes only the field it was given.
 			for_each_text(&copy, false, &mut |text, holder, key, _, _| texts.push((text.to_string(), holder.clone(), key.clone())));
@@ -1471,7 +1535,7 @@ pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 		for (si, step) in copy.get("steps").items().iter().enumerate() {
 			let orig = &orig_steps[si];
 			let sidx = step_index(orig, data, &common, &ctx);
-			let indexes: Vec<Ix> = [Ix::Plain(&sidx), Ix::Plain(&base)].into_iter().chain(worlds).collect();
+			let indexes: Vec<Ix> = [Ix::Plain(&sidx), Ix::Plain(&base)].into_iter().chain(worlds.iter().copied()).collect();
 			let step_line = line_or(orig.hidden("_line"), guide_line);
 			for f in STEP_FIELDS {
 				let v = step.get(f);
