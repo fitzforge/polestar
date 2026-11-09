@@ -51,7 +51,7 @@ emit({
 fn run(locale: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
-		before: WORLD.replace("__LOCALE__", locale),
+		before: format!("{}\n{}", WORLD.replace("__LOCALE__", locale), forge_addontest::shipped_strings(locale)),
 		addons: vec![addon()],
 		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/quoted" }"#.into())],
 		script: [TEST_PACK, TEST_SOURCE, GUIDE, SCRIPT].join("\n"),
@@ -105,7 +105,7 @@ fn t_1368_each_client_language_has_its_own_quote_marks_and_names_with_marks_of_t
 	for (locale, want) in cases {
 		let out = emitted(&RunAddon {
 			stubs: vec!["stub_world.lua"],
-			before: format!("function GetLocale() return \"{locale}\" end"),
+			before: format!("function GetLocale() return \"{locale}\" end\n{}", forge_addontest::shipped_strings(locale)),
 			addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 			script: r#"emit({ Polestar.Quoted("X"), Polestar.Quoted('Sie nennen mich "den Schleifer"'), Polestar.Quoted("\194\171Vieux\194\187"), Polestar.Quoted("100%"), Polestar.Quoted(""), Polestar.Quoted(nil) == nil })"#.into(),
 			..Default::default()
