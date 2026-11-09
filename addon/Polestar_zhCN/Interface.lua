@@ -151,6 +151,8 @@ L["Hand in %s to %s: saves a trip back"] = "交付%s给%s：省一趟回程"
 L["Hand in %s to them, then take %s: saves a trip back"] = "就地交付%s，再接取%s：省一趟回程"
 L["Hand in %s to them: saves a trip back"] = "就地交付%s：省一趟回程"
 L["Hand in %s to them"] = "就地交付%s"
+L["Take %s from them: saves a trip back"] = "就地接取%s：省一趟回程"
+L["Take %s from %s: saves a trip back"] = "从%2$s处接取%1$s：省一趟回程"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "接受 %s 会永久关闭 %s。"
@@ -1387,6 +1389,13 @@ L["The guide window hides in dungeons and battlegrounds. %s Change it in Options
 L["Closed %s"] = "已关闭%s"
 L["Reopen"] = "重新打开"
 L["Needs"] = "尚缺"
+L["You carry this quest; the update moved what is left of it before your place in the guide."] = "你身上有这个任务；更新把它剩下的部分移到了你在指南中的位置之前。"
+L["Right-click to skip or abandon it."] = "右键点击可跳过或放弃。"
+L["back in %s, %s"] = "返回%s，%s"
+L["back in %s"] = "返回%s"
+L["Still to do: %s, %s"] = "尚未完成：%s，%s"
+L["Still to do: %s"] = "尚未完成：%s"
+L["Still to do"] = "尚未完成"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "乘升降梯前往%s"

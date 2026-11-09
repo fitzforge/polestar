@@ -153,6 +153,8 @@ L["Hand in %s to %s: saves a trip back"] = "%s bei %s abgeben: spart einen Rück
 L["Hand in %s to them, then take %s: saves a trip back"] = "%s dort abgeben, dann %s annehmen: spart einen Rückweg"
 L["Hand in %s to them: saves a trip back"] = "%s dort abgeben: spart einen Rückweg"
 L["Hand in %s to them"] = "%s dort abgeben"
+L["Take %s from them: saves a trip back"] = "%s dort annehmen: spart einen Rückweg"
+L["Take %s from %s: saves a trip back"] = "%s bei %s annehmen: spart einen Rückweg"
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."
@@ -558,6 +560,13 @@ L["The guide window hides in dungeons and battlegrounds. %s Change it in Options
 L["Closed %s"] = "%s geschlossen"
 L["Reopen"] = "Wieder öffnen"
 L["Needs"] = "Fehlt"
+L["You carry this quest; the update moved what is left of it before your place in the guide."] = "Du hast diese Quest; das Update hat ihren Rest vor deine Stelle im Guide verschoben."
+L["Right-click to skip or abandon it."] = "Rechtsklick zum Überspringen oder Abbrechen."
+L["back in %s, %s"] = "zurück in %s, %s"
+L["back in %s"] = "zurück in %s"
+L["Still to do: %s, %s"] = "Noch offen: %s, %s"
+L["Still to do: %s"] = "Noch offen: %s"
+L["Still to do"] = "Noch offen"
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"

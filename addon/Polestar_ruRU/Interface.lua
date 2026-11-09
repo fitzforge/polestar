@@ -151,6 +151,8 @@ L["Hand in %s to %s: saves a trip back"] = "Сдать %s (%s) — не прид
 L["Hand in %s to them, then take %s: saves a trip back"] = "Сдать %s здесь, затем взять %s — не придётся возвращаться"
 L["Hand in %s to them: saves a trip back"] = "Сдать %s здесь — не придётся возвращаться"
 L["Hand in %s to them"] = "Сдать %s здесь"
+L["Take %s from them: saves a trip back"] = "Взять %s здесь — не придётся возвращаться"
+L["Take %s from %s: saves a trip back"] = "Взять %s (%s) — не придётся возвращаться"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Взяв %s, вы навсегда закроете %s."
@@ -1387,6 +1389,13 @@ L["The guide window hides in dungeons and battlegrounds. %s Change it in Options
 L["Closed %s"] = "Закрыто: %s"
 L["Reopen"] = "Вернуть"
 L["Needs"] = "Не хватает"
+L["You carry this quest; the update moved what is left of it before your place in the guide."] = "У вас есть это задание; обновление перенесло его оставшуюся часть до вашего места в гайде."
+L["Right-click to skip or abandon it."] = "Щелкните правой кнопкой, чтобы пропустить его или отказаться."
+L["back in %s, %s"] = "обратно: %s, %s"
+L["back in %s"] = "обратно: %s"
+L["Still to do: %s, %s"] = "Осталось сделать: %s, %s"
+L["Still to do: %s"] = "Осталось сделать: %s"
+L["Still to do"] = "Осталось сделать"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"

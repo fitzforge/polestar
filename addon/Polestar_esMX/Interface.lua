@@ -162,6 +162,8 @@ L["Hand in %s to %s: saves a trip back"] = "Entrega %s a %s: te ahorras regresar
 L["Hand in %s to them, then take %s: saves a trip back"] = "Entrega %s ahí y luego toma %s: te ahorras regresar"
 L["Hand in %s to them: saves a trip back"] = "Entrega %s ahí: te ahorras regresar"
 L["Hand in %s to them"] = "Entrega %s ahí"
+L["Take %s from them: saves a trip back"] = "Toma %s ahí: te ahorras regresar"
+L["Take %s from %s: saves a trip back"] = "Toma %s de %s: te ahorras regresar"
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Requiere Polestar %s o posterior."
@@ -1424,6 +1426,13 @@ L["The guide window hides in dungeons and battlegrounds. %s Change it in Options
 L["Closed %s"] = "Se cerró %s"
 L["Reopen"] = "Reabrir"
 L["Needs"] = "Falta"
+L["You carry this quest; the update moved what is left of it before your place in the guide."] = "Llevas esta misión; la actualización movió lo que queda de ella antes de tu punto en la guía."
+L["Right-click to skip or abandon it."] = "Clic derecho para omitirla o abandonarla."
+L["back in %s, %s"] = "de regreso en %s, %s"
+L["back in %s"] = "de regreso en %s"
+L["Still to do: %s, %s"] = "Pendiente: %s, %s"
+L["Still to do: %s"] = "Pendiente: %s"
+L["Still to do"] = "Pendiente"
 
 -- UI/Lookup.lua
 L["Loading the Codex\226\128\166"] = "Cargando el Codex…"

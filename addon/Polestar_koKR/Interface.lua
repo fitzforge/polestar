@@ -151,6 +151,8 @@ L["Hand in %s to %s: saves a trip back"] = "%s 퀘스트를 %s에게 제출: 다
 L["Hand in %s to them, then take %s: saves a trip back"] = "%s 퀘스트를 그 자리에서 제출한 뒤 %s 수락: 다시 돌아올 필요가 없습니다"
 L["Hand in %s to them: saves a trip back"] = "%s 퀘스트를 그 자리에서 제출: 다시 돌아올 필요가 없습니다"
 L["Hand in %s to them"] = "%s 퀘스트를 그 자리에서 제출"
+L["Take %s from them: saves a trip back"] = "%s 퀘스트를 그 자리에서 수락: 다시 돌아올 필요가 없습니다"
+L["Take %s from %s: saves a trip back"] = "%s 퀘스트를 %s에게서 수락: 다시 돌아올 필요가 없습니다"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "%s 퀘스트를 받으면 %s 퀘스트는 영영 받을 수 없습니다."
@@ -1387,6 +1389,13 @@ L["The guide window hides in dungeons and battlegrounds. %s Change it in Options
 L["Closed %s"] = "%s 닫음"
 L["Reopen"] = "다시 열기"
 L["Needs"] = "부족"
+L["You carry this quest; the update moved what is left of it before your place in the guide."] = "이 퀘스트를 가지고 있습니다. 업데이트로 남은 부분이 가이드의 현재 위치보다 앞으로 옮겨졌습니다."
+L["Right-click to skip or abandon it."] = "오른쪽 클릭으로 건너뛰거나 포기합니다."
+L["back in %s, %s"] = "%s(으)로 돌아가서, %s"
+L["back in %s"] = "%s(으)로 돌아가서"
+L["Still to do: %s, %s"] = "아직 남은 일: %s, %s"
+L["Still to do: %s"] = "아직 남은 일: %s"
+L["Still to do"] = "아직 남은 일"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"

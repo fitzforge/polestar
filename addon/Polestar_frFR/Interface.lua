@@ -152,6 +152,8 @@ L["Hand in %s to %s: saves a trip back"] = "Rendre %s à %s : un retour en moins
 L["Hand in %s to them, then take %s: saves a trip back"] = "Rendre %s sur place, puis prendre %s : un retour en moins"
 L["Hand in %s to them: saves a trip back"] = "Rendre %s sur place : un retour en moins"
 L["Hand in %s to them"] = "Rendre %s sur place"
+L["Take %s from them: saves a trip back"] = "Prendre %s sur place : un retour en moins"
+L["Take %s from %s: saves a trip back"] = "Prendre %s auprès de %s : un retour en moins"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Prendre %s ferme %s pour de bon."
@@ -1388,6 +1390,13 @@ L["The guide window hides in dungeons and battlegrounds. %s Change it in Options
 L["Closed %s"] = "Fermé : %s"
 L["Reopen"] = "Rouvrir"
 L["Needs"] = "Manque"
+L["You carry this quest; the update moved what is left of it before your place in the guide."] = "Vous avez cette quête ; la mise à jour a placé ce qu'il en reste avant votre position dans le guide."
+L["Right-click to skip or abandon it."] = "Clic droit pour la passer ou l'abandonner."
+L["back in %s, %s"] = "de retour à %s, %s"
+L["back in %s"] = "de retour à %s"
+L["Still to do: %s, %s"] = "Encore à faire : %s, %s"
+L["Still to do: %s"] = "Encore à faire : %s"
+L["Still to do"] = "Encore à faire"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascenseur vers %s"
