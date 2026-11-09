@@ -47,5 +47,8 @@
 		"tor": "Tor",
 		"defect": "bigdefect",
 		"Deadshot": "Deadshot0330"
-	}
+	},
+	"ideas": [
+		{ "name": "CDVolvik", "ref": 1012 }
+	]
 }

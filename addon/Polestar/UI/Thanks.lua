@@ -1,12 +1,15 @@
 -- Guiding Stars: the people behind Polestar. An options page (Options.lua
 -- adds it, key "thanks") with the top supporter, the top contributor and the
--- top bug reporter on podiums, then the three lists; and the "Special thanks
--- to: <name>" line in the hub's and the options' headers, a name drawn anew
--- each time the window opens, that leads to the page.
+-- top bug reporter on podiums, then the three lists, then the translators and
+-- the ideas side by side; and the "Special thanks to: <name>" line in the
+-- hub's and the options' headers, a name drawn anew each time the window
+-- opens, that leads to the page.
 --
 -- The names come from Core/Credits.lua (`forge release credits`): supporters in
--- rank order, GitHub contributors by merged pull requests, and the top bug
--- reporters by confirmed or fixed reports.
+-- rank order, GitHub contributors by merged pull requests, the top bug
+-- reporters by confirmed or fixed reports, the translators by language (the
+-- locales' own list), and the people whose idea shipped without their pull
+-- request merging, each with its pull request or issue.
 
 local ADDON, ns = ...
 local UI, Theme, W = ns.UI, ns.Theme, ns.Widgets
@@ -28,17 +31,19 @@ UI.Thanks = T
 -- Only the repository: Blizzard's add-on policy keeps donation links out of the game.
 ns.RepoURL = "https://github.com/fitzforge/polestar"
 
-local function credits() return ns.Credits or { supporters = {}, contributors = {}, bugReporters = {} } end
+local function credits() return ns.Credits or { supporters = {}, contributors = {}, bugReporters = {}, translators = {}, ideas = {} } end
 
--- -> the supporters', the contributors' and the bug reporters' names (each in
--- rank order)
+-- -> the supporters', the contributors', the bug reporters', the translators'
+-- and the ideas' names (each in its list's order)
 function T.Names()
 	local c = credits()
-	local sup, con, rep = {}, {}, {}
+	local sup, con, rep, tra, idea = {}, {}, {}, {}, {}
 	for i, n in ipairs(c.supporters or {}) do sup[i] = n end
 	for i, e in ipairs(c.contributors or {}) do con[i] = e.name end
 	for i, e in ipairs(c.bugReporters or {}) do rep[i] = e.name end
-	return sup, con, rep
+	for i, e in ipairs(c.translators or {}) do tra[i] = e.name end
+	for i, e in ipairs(c.ideas or {}) do idea[i] = e.name end
+	return sup, con, rep, tra, idea
 end
 
 local function esc(s) return ns.EscapeText and ns.EscapeText(s) or s end
@@ -55,10 +60,10 @@ end
 -- A name from any list, a new one each time it can be.
 local last
 function T.PickName(rand)
-	local sup, con, rep = T.Names()
+	local sup, con, rep, tra, idea = T.Names()
 	-- Each name once: someone on two lists, or one name alone, never loops.
 	local all, seen = {}, {}
-	for _, list in ipairs({ sup, con, rep }) do
+	for _, list in ipairs({ sup, con, rep, tra, idea }) do
 		for _, n in ipairs(list) do
 			if not seen[n] then seen[n] = true; all[#all + 1] = n end
 		end
@@ -244,8 +249,9 @@ local function fillPodium(p, names, empty)
 end
 
 -- A list panel: an accent line on top, its heading over a note saying what
--- the counts are, then numbered rows.
-local function panel(parent, title, note)
+-- the counts are, then numbered rows. `unranked`: rows without a rank, the
+-- right-hand text in `side`'s role (a language, a #number) instead of a count.
+local function panel(parent, title, note, unranked, side)
 	local p = CreateFrame("Frame", nil, parent)
 	Theme.Skin(p, "panel")
 	p.Top = W.Tex(p, "OVERLAY", nil, "accent")
@@ -266,6 +272,7 @@ local function panel(parent, title, note)
 	p.Empty:SetJustifyH("LEFT")
 	p.Empty:SetPoint("TOPLEFT", p, "TOPLEFT", PANEL_PAD, -(PANEL_HEAD + 6))
 	p.rows = {}
+	p.unranked, p.side = unranked, side or "number"
 	return p
 end
 
@@ -280,13 +287,18 @@ local function panelRow(p, i)
 	r.Rank:SetJustifyH("RIGHT")
 	r.Rank:SetWidth(22)
 	r.Rank:SetPoint("LEFT", r, "LEFT", 0, 0)
-	r.Count = W.Text(r, "number", "textMuted")
+	r.Rank:SetShown(not p.unranked)
+	r.Count = W.Text(r, p.side, "textMuted")
 	r.Count:SetJustifyH("RIGHT")
 	r.Count:SetPoint("RIGHT", r, "RIGHT", 0, 0)
 	r.Name = W.Text(r, "body", "text")
 	r.Name:SetWordWrap(false)
 	r.Name:SetJustifyH("LEFT")
-	r.Name:SetPoint("LEFT", r.Rank, "RIGHT", 10, 0)
+	if p.unranked then
+		r.Name:SetPoint("LEFT", r, "LEFT", 0, 0)
+	else
+		r.Name:SetPoint("LEFT", r.Rank, "RIGHT", 10, 0)
+	end
 	p.rows[i] = r
 	return r
 end
@@ -296,17 +308,18 @@ end
 -- what its count leaves, so a long one ends in an ellipsis.
 local function fillPanel(p, rows, empty, width)
 	local inner = width - PANEL_PAD * 2
+	local lead = p.unranked and 0 or 22 + 10
 	p.Title:SetWidth(inner)
 	p.Note:SetWidth(inner)
 	for i, e in ipairs(rows) do
 		local r = panelRow(p, i)
-		r.Rank:SetText(i .. ".")
+		r.Rank:SetText(p.unranked and "" or i .. ".")
 		W.Color(r.Rank, i <= 3 and "accent" or "textMuted")
 		r.Count:SetText(e[2] and tostring(e[2]) or "")
 		r.Count:SetWidth(e[2] and W.TextWidth(r.Count) or 0)
 		r.Name:SetText(esc(e[1]))
-		r.Name:SetWidth(inner - 22 - 10 - (e[2] and r.Count:GetWidth() + 8 or 0))
-		W.Color(r.Name, i == 1 and "accent" or "text")
+		r.Name:SetWidth(inner - lead - (e[2] and r.Count:GetWidth() + 8 or 0))
+		W.Color(r.Name, (i == 1 and not p.unranked) and "accent" or "text")
 		r:SetWidth(inner)
 		r:Show()
 	end
@@ -337,6 +350,10 @@ function T.Build(view)
 	local supPanel = panel(view, L["Supporters"], "")
 	local conPanel = panel(view, L["Contributors"], L["Pull requests on GitHub"])
 	local repPanel = panel(view, L["Bug reporters"], L["Confirmed reports"])
+	-- Under the three columns, two halves: who translated Polestar (their
+	-- language beside each) and whose idea shipped (its pull request or issue).
+	local traPanel = panel(view, L["Translators"], L["Language"], true, "small")
+	local ideaPanel = panel(view, L["Ideas"], L["Pull request or issue"], true)
 
 	local closing = W.Text(view, "small", "textMuted")
 	closing:SetJustifyH("CENTER")
@@ -344,6 +361,7 @@ function T.Build(view)
 
 	view.Podiums = { topSup, topCon, topRep }
 	view.Supporters, view.Contributors, view.BugReporters = supPanel, conPanel, repPanel
+	view.Translators, view.Ideas = traPanel, ideaPanel
 	view.Refresh = function()
 		local width = bodyWidth()
 		local cw = floor((width - GAP * (COLS - 1)) / COLS)
@@ -400,6 +418,19 @@ function T.Build(view)
 			p:SetSize(cw, h)
 		end
 		y = y + h + 18
+
+		local hw = floor((width - GAP) / 2)
+		local traRows, ideaRows = {}, {}
+		for i, e in ipairs(credits().translators or {}) do traRows[i] = { e.name, e.language and L[e.language] or nil } end
+		for i, e in ipairs(credits().ideas or {}) do ideaRows[i] = { e.name, e.ref and ("#" .. e.ref) or nil } end
+		local h2 = max(fillPanel(traPanel, traRows, L["No names here yet."], hw),
+			fillPanel(ideaPanel, ideaRows, L["No names here yet."], hw))
+		for i, p in ipairs({ traPanel, ideaPanel }) do
+			p:ClearAllPoints()
+			p:SetPoint("TOPLEFT", view, "TOPLEFT", x0 + (i - 1) * (hw + GAP), -y)
+			p:SetSize(hw, h2)
+		end
+		y = y + h2 + 18
 
 		closing:ClearAllPoints()
 		closing:SetPoint("TOPLEFT", view, "TOPLEFT", x0, -y)
