@@ -79,7 +79,8 @@ step Valley of Trials: kill these as you meet them
   kill 3101 quest 792.1 only !Warlock
   collect 6487 quest 1485.1 only Warlock
 
-step Back to the Den
+step Galgar
+  tip Galgar stands just outside the Den's entrance.
   turnin 4402                         -- Galgar
 
 step Class trainer

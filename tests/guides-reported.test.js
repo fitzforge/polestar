@@ -9294,3 +9294,13 @@ test('forever/horde/50-60/01-un-goro-crater.guide: the walk to Sorrow Hill keeps
 	assert.ok(walk, 'a travel line into the Western Plaguelands');
 	assert.ok(!(Math.abs(walk.goal.x - 43) < 2 && Math.abs(walk.goal.y - 84) < 2), 'not at Chillwind Camp');
 });
+
+// Final route review, Horde 1-30 (0.3.6 leftovers): Troll Durotar read "Back to the Den" twice in a row (Galgar's
+// hand-in alone outside the Den, the class trainers, then Gornek inside). Galgar's step is his own; one "Back to the Den".
+test('forever/horde/troll/01-durotar.guide: one "Back to the Den" step after the valley loop, Galgar on his own step', { skip }, () => {
+	const steps = compiled('forever/horde/troll/01-durotar.guide').steps;
+	const dens = steps.filter((st) => st.title === 'Back to the Den');
+	assert.ok(dens.length >= 1 && dens[0].goals.some(is('turnin', 804)), 'the first "Back to the Den" is Gornek\'s');
+	const list = goals('forever/horde/troll/01-durotar.guide');
+	assert.equal(list[at(list, 'turnin 4402', is('turnin', 4402))].step.title, 'Galgar');
+});
