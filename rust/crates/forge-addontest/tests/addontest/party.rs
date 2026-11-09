@@ -952,18 +952,26 @@ emit({ P.StepLine() })"#
 
 #[test]
 fn party_a_member_on_a_newer_polestar_or_guide_pack_is_said_once_a_session() {
-	let out = live(&sent(&format!(
-		"{ON_GUIDE}{}",
-		r#"
+	// The Polestar line is Quests/VersionCheck.lua's notice (version-check.rs has its rules).
+	let files = ["Core/Core.xml", "Quests/Party.lua", "Quests/VersionCheck.lua"];
+	let out = run_with(
+		&sent(&format!(
+			"{ON_GUIDE}{}",
+			r#"
 stub.messages = {}
 Polestar.version = "0.3.0"
 p.join("Ana")
-p.receive("Ana-TestRealm", "1P|8|999.0|test|4|test/g")
-p.receive("Ana-TestRealm", "1P|9|999.0|test|4|test/g")
+p.receive("Ana-TestRealm", "1P|8|0.9.0|test|4|test/g")
+p.receive("Ana-TestRealm", "1P|9|0.9.0|test|4|test/g")
 local n = 0
-for _, m in ipairs(stub.messages) do if m:find("999.0", 1, true) or m:find("(4;", 1, true) then n = n + 1 end end
+for _, m in ipairs(stub.messages) do if m:find("A newer Polestar (0.9.0) is out", 1, true) or m:find("(4;", 1, true) then n = n + 1 end end
 emit(n)"#
-	)));
+		)),
+		LIVE_STUBS,
+		&files,
+		true,
+		Some(ON),
+	);
 	assert_eq!(out[0], 2, "one line for Polestar, one for the pack, each once");
 }
 

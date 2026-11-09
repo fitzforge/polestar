@@ -30,7 +30,8 @@
 -- version>|<guide id>" (step 0: none), sent with sharing on when the live
 -- step or guide changes (debounced) and with every snapshot. Clients that
 -- predate it drop it as malformed. It gives a once-a-session notice when a
--- member runs a newer Polestar or guide pack. Right after it goes
+-- member runs a newer Polestar (Quests/VersionCheck.lua, which reads the
+-- hello's version too) or guide pack. Right after it goes
 -- "2P|<step key>|<guide id>" (Party.StepKey: the step by what it holds, not
 -- its number), which version-1 decoders drop: the "N steps ahead/behind"
 -- line matches the step in your own copy of the guide and counts only the
@@ -741,15 +742,13 @@ local function apply(m, entries, snap)
 	end
 end
 
--- Once a session each: a member runs a newer Polestar, or a newer version of
--- a guide pack you have.
+-- A member runs a newer Polestar (Quests/VersionCheck.lua says so, once a
+-- session), or a newer version of a guide pack you have (once a session
+-- each).
 local toldNewer = {}
 local function noticeNewer(name, pos)
 	local L = ns.L
-	if not toldNewer[""] and Party.Newer(pos.addon, ns.version) then
-		toldNewer[""] = true
-		ns.Print(L["%s has Polestar %s; you have %s. A newer version is out."]:format(name, pos.addon, tostring(ns.version)))
-	end
+	if ns.VersionCheck then ns.VersionCheck.Heard(pos.addon) end
 	local G = ns.Guides
 	local mine = pos.pack ~= "" and G and G.Pack and G.Pack(pos.pack)
 	if mine and not toldNewer[pos.pack] and Party.Newer(pos.packVersion, tostring(mine.version or "")) then

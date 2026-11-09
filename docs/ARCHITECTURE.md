@@ -4700,8 +4700,8 @@ Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sen
   yours are not (the item's log line from the active guide's collect goals,
   else the quest database's objectives when they number as the member's
   counts), under the loot window.
-- A member on a newer Polestar, or a newer version of a guide pack you have,
-  is said once a session each in chat.
+- A member on a newer Polestar (`VersionCheck.Heard`, below) or a newer
+  version of a guide pack you have is said once a session each in chat.
 
 ### Party chat: quest progress said in the party — Quests/PartyChat.lua
 
@@ -4777,6 +4777,35 @@ asks Party.lua only whether every member runs Polestar.
   (`Media/UI/logo`, `|T…:0|t`) in place of the token. Your own lines are
   dropped unless `party.chatEcho` is on; with `party.chatHideOthers` on,
   other players' are dropped too. Every other line passes untouched.
+
+### Version check: a newer Polestar in your guild or group — Quests/VersionCheck.lua
+
+```lua
+Polestar.VersionCheck.IsRelease(v) -> bool  -- "0.3.7"; never "dev", "0.3.0-rc.1", "0.2.5-test.1", "1.0"
+Polestar.VersionCheck.Heard(v) -> bool      -- a player runs v: the notice when it is a newer release, once a session
+```
+
+- Messages: Party.lua's hello under its prefix "Polestar", on the GUILD and
+  RAID channels. "1H|<version>" announces: 15 s after login (the announce
+  looks then whether the client knows the guild; `PLAYER_GUILD_UPDATE`
+  catches a later answer) and 5 s after joining a guild or a raid, once per
+  channel until the player leaves it; a refused one is tried again 30 s
+  later, up to 3 tries. "1Y|<version>" answers an announce older than ours
+  after a random 2-12 s, skipped when another player's message on that
+  channel carried our version or a newer one meanwhile, at most once per
+  5 minutes a channel. No raid messages in a battleground or arena. The
+  version is all that goes out. Party.lua reads the PARTY channel only, so
+  older clients drop these.
+- Only release versions count (`IsRelease`: three dotted numbers of at most
+  4 digits): a dev, test or candidate build announces nothing, answers
+  nothing and is never told; anything else heard is dropped, as are secret
+  values, other prefixes and channels, and the player's own echo.
+- The notice: one chat line a session, "A newer Polestar (<version>) is
+  out: update with the Polestar Client, the CurseForge app or the zip.",
+  with no name. Fed by guild and raid announces and answers, the party's
+  hello and answer (read here, answered by Party.lua) and Party.lua's "1P|"
+  position. Setting `version.notice` (on; Questing → Quests → Group) turns
+  it off; the announces and answers go out either way.
 
 ## Gear — item stats, stat weights, upgrade tooltips, reward picks
 

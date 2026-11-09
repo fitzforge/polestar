@@ -11,6 +11,7 @@
 --                                     -- clients give the realm
 --   p.leave("Ana"); p.disband()       -- GROUP_ROSTER_UPDATE (and GROUP_LEFT when empty)
 --   p.raid(true)                      -- the group is a raid
+--   p.guild(true)                     -- the player is in a guild (IsInGuild), PLAYER_GUILD_UPDATE
 --   p.receive("Ana-TestRealm", "1|33:5/8"[, channel[, prefix]])  -- CHAT_MSG_ADDON
 --   p.sent                            -- { { prefix, text, chatType }, ... } every send attempt
 --   p.result = 3                      -- what SendAddonMessage returns (0 = Success)
@@ -33,7 +34,7 @@
 --                                     -- filters: the text the chat frame shows, or nil when dropped
 --   p.loot(itemID, name[, count])     -- CHAT_MSG_LOOT for your loot (LOOT_ITEM_SELF[_MULTIPLE] with p.itemLink(id, name))
 
-local party = { members = {}, sent = {}, result = 0, onQuest = {}, inRaid = false, prefixes = {}, shared = {}, pushable = {}, chat = {}, lockdown = false, instance = false }
+local party = { members = {}, sent = {}, result = 0, onQuest = {}, inRaid = false, inGuild = false, prefixes = {}, shared = {}, pushable = {}, chat = {}, lockdown = false, instance = false }
 stub.party = party
 
 local function memberOf(unit)
@@ -65,6 +66,13 @@ function party.raid(on)
 	party.inRaid = on and true or false
 	stub.fire("GROUP_ROSTER_UPDATE")
 end
+
+-- PLAYER_GUILD_UPDATE(unit) as the client fires it when the player's guild changes.
+function party.guild(on)
+	party.inGuild = on and true or false
+	stub.fire("PLAYER_GUILD_UPDATE", "player")
+end
+function IsInGuild() return party.inGuild end
 
 function party.receive(sender, text, channel, prefix)
 	stub.fire("CHAT_MSG_ADDON", prefix or "Polestar", text, channel or "PARTY", sender, "", 0, 0, "", 0)

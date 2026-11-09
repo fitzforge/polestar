@@ -377,5 +377,7 @@ mod ui_whatsnew;
 mod ui_while_here;
 #[path = "ui-zoneart.rs"]
 mod ui_zoneart;
+#[path = "version-check.rs"]
+mod version_check;
 #[path = "where.rs"]
 mod where_;
