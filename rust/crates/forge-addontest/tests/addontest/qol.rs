@@ -1301,11 +1301,32 @@ fn xp_mark_a_bar_hidden_under_a_hidden_parent_gets_no_mark_and_no_level_target_l
 		StatusTrackingBarManager:SetParent(attic)
 		q.gainXP(10)
 		stub.runTimers()
-		emit({ before = before, after = mark(bar).shown, asked = asked, stillShown = bar:IsShown() })
+		emit({ before = before, onScreen = QoL.XPMark.frame:IsVisible(), asked = asked, stillShown = bar:IsShown() })
 	"#,
 	]
 	.concat());
-	assert_eq!(out[0], json!({ "before": true, "after": false, "asked": 0, "stillShown": true }));
+	assert_eq!(out[0], json!({ "before": true, "onScreen": false, "asked": 0, "stillShown": true }));
+}
+
+// Alt+Z hides UIParent, and the XP bar with it. A refresh then (an XP gain) mustn't hide the mark for good:
+// it comes back with the UI, as it did before the early return above.
+#[test]
+fn xp_mark_comes_back_with_the_ui_after_an_xp_gain_while_the_ui_was_hidden() {
+	let out = run(&[
+		XPMARK,
+		r#"
+		local bar = q.xpBar()
+		q.engine.levelTarget = 12
+		q.step({ { t = "level", level = 12 } })
+		UIParent:Hide()
+		q.gainXP(10)
+		stub.runTimers()
+		UIParent:Show()
+		emit({ shown = mark(bar).shown, onScreen = QoL.XPMark.frame:IsVisible() })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "shown": true, "onScreen": true }));
 }
 
 #[test]
