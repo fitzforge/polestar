@@ -5901,7 +5901,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   pitch; what Start guide does; the beta note while `ns.routesBeta`; the
   Discord invite as a link to the copy window; community guides with a
   Browse guides link to the guide menu; then Start guide, or Choose a guide
-  without one). The window takes its tallest page's height. Once
+  without one). The window takes its tallest page's height; a shorter page's body is centred in the room under its hero. Once
   per new character (`PolestarCharDB.welcomeSeen`: 0 for a character with no
   saved `PolestarCharDB` as Polestar loaded, `ns.IsNewCharacter()`; set seen
   silently for one with saved data and no flag), 2 s after login, never in

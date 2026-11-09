@@ -60,7 +60,8 @@
 -- /polestar welcome (SHOW_WELCOME) open it with every page.
 --
 -- The window takes the height of its tallest page, laid out in the current
--- language and font, so it never jumps. Motion: the window fades in and the
+-- language and font, so it never jumps; a shorter page's body sits in the
+-- middle of the room under its hero. Motion: the window fades in and the
 -- hero settles 8px up as it fades in (180ms); a page change fades the old
 -- page out (120ms) and the new one in, rising 6px (180ms). Reduced motion
 -- (Anim) snaps the movement. The night's extras (gradient, haze, engraving,
@@ -819,7 +820,7 @@ end
 -- accent outline. The scheme's own colours come from Theme.SCHEMES;
 -- EllesmereUI derives its grounds from its panel, shown as they are while
 -- it is in use.
-local SCHEME_GAP, PREVIEW_H, SCHEME_NAME_H = 12, 54, 28
+local SCHEME_GAP, PREVIEW_H, SCHEME_NAME_H = 12, 44, 24
 
 local function schemeColours(key)
 	if key == "ellesmere" then
@@ -1133,7 +1134,7 @@ PAGES[#PAGES + 1] = {
 			c:Show()
 		end
 		for i = n + 1, #F.Schemes do F.Schemes[i]:Hide() end
-		y = y + 5 + PREVIEW_H + SCHEME_NAME_H + 14
+		y = y + 5 + PREVIEW_H + SCHEME_NAME_H + 12
 		if #F.Looks > 0 then
 			place(p.LookTitle, 0, y)
 			y = y + p.LookTitle:GetStringHeight() + 4
@@ -1153,7 +1154,7 @@ PAGES[#PAGES + 1] = {
 					paintLook(c)
 				end
 			end
-			y = y + 5 + PREVIEW_H + SCHEME_NAME_H + 14
+			y = y + 5 + PREVIEW_H + SCHEME_NAME_H + 12
 		end
 		place(p.Keep, 0, y)
 		return heroH, y + p.Keep:GetStringHeight()
@@ -1941,8 +1942,10 @@ local function paintDots(at, n, animate)
 	end
 end
 
--- Lays every page shown out (the window takes the tallest) and shows the
--- current one; `from`: the page left, faded out.
+-- Lays every page shown out (the window takes the tallest; a shorter page's
+-- body sits in the middle of what is left under its hero, so no blank band
+-- gathers over the footer) and shows the current one; `from`: the page
+-- left, faded out.
 function render(from)
 	local list = pageList()
 	local at
@@ -1952,17 +1955,24 @@ function render(from)
 		current = list[1].key
 	end
 	local tallest = 0
+	local heights = {}
 	for _, pg in ipairs(list) do
 		local P = F.pages[pg.key]
 		local heroH, bodyH = pg.layout(P)
 		P.Hero:SetHeight(heroH)
-		P.Body:ClearAllPoints()
-		P.Body:SetPoint("TOPLEFT", P, "TOPLEFT", EDGE, -heroH)
 		P.Body:SetHeight(max(1, bodyH))
+		heights[pg.key] = heroH
 		tallest = max(tallest, heroH + bodyH + BOTTOM)
 	end
 	tallest = math.ceil(tallest)
-	for _, pg in ipairs(list) do F.pages[pg.key]:SetHeight(tallest) end
+	for _, pg in ipairs(list) do
+		local P = F.pages[pg.key]
+		local heroH = heights[pg.key]
+		local spare = tallest - (heroH + P.Body:GetHeight() + BOTTOM)
+		P.Body:ClearAllPoints()
+		P.Body:SetPoint("TOPLEFT", P, "TOPLEFT", EDGE, -(heroH + floor(max(0, spare) / 2)))
+		P:SetHeight(tallest)
+	end
 	F:SetHeight(1 + tallest + FOOT_H + 1)
 	if F.Rim and W.LayoutRim then W.LayoutRim(F) end
 
