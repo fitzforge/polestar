@@ -79,6 +79,14 @@ const CASES = [
 		mouth: { map: 1438, x: 44.3, y: 57.9 },
 		tip: /relics of Wakening lie in the Ban'ethil Barrow Den/,
 	},
+	{
+		// #1506: the walking maps have no way into Algaz Station, Captain Rugelfuss's bunker at the tunnel post,
+		// from anywhere in Loch Modan, so the arrow drew a straight line from the trogg site.
+		guide: 'forever/alliance/03-loch-modan.guide',
+		target: (g) => g.t === 'turnin' && g.quest === 86585, // Banner of the Fallen, to Captain Rugelfuss
+		mouth: { map: 1432, x: 23.5, y: 75.6 }, // players' recordings: 16 people walked in at 23.33,75.75 -> 23.33,74.55
+		tip: /inside the bunker at the tunnel post: go in by its door/,
+	},
 ];
 
 let data;

@@ -4815,6 +4815,27 @@
 					"ref": "quest minimum and quest levels in Forever's quest data; mob levels from npcs.json"
 				}
 			]
+		},
+		{
+			"id": "1506-rugelfuss-bunker-door",
+			"faction": "Alliance",
+			"at": {
+				"quest": 86585,
+				"goal": "turnin"
+			},
+			"tip": "Captain Rugelfuss is inside the bunker at the tunnel post: go in by its door on the south-east side.",
+			"note": "Banner of the Fallen (86585): Captain Rugelfuss (1092, 23.23,73.68) stands inside Algaz Station, the dwarven bunker by the tunnel. The walking maps have no way into it from anywhere in Loch Modan, so the arrow drew a straight line from the trogg site; the guide's goto at the bunker's door (23.5,75.6, forge/seed) leads in.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1506: the reporter's arrow at Stonesplinter Valley (31.69,71.84) drew a straight line to Rugelfuss instead of routing out of the trogg site"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-08: 16 people walked into the bunker 45 times, outside at 23.33,75.75 -> inside at 23.33,74.55 (median), subzone Algaz Station / South Gate Pass"
+				}
+			],
+			"issue": 1506
 		}
 	]
 }
