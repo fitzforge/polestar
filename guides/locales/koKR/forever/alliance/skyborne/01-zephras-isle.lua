@@ -97,7 +97,7 @@ return {
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
 	["Prideclaws and Galestriders"] = "무리발톱과 돌풍타조",
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
-	["Prideclaws and Galestriders roam the grasslands south of the village. Galestriders drop both the eggs and the meat."] = "무리발톱과 돌풍타조가 마을 남쪽 초원을 돌아다닙니다. 돌풍타조는 알과 고기를 모두 떨어뜨립니다.",
+	["Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village."] = "",
 
 	-- Step 17: Village quests
 	["The bounty board"] = "현상금 게시판",
@@ -465,6 +465,7 @@ return {
 	-- ["Lorthuna waits on the eastern shore of the isle, east of the {area:16629}."] = "로르투나는 {area:16629} 동쪽, 섬의 동쪽 해안에서 기다립니다.",
 	-- ["Meet Valennia at the gate"] = "성문에서 발레니아를 만나세요",
 	-- ["North-west of Valanaar along the road: {npc:273017} watches the {quest:98512}; the dead cultist lies just north of him."] = "발라나르 북서쪽 길가: {npc:273017}이(가) {quest:98512}을(를) 감시하고 있고, 죽은 광신도는 그 바로 북쪽에 쓰러져 있습니다.",
+	-- ["Prideclaws and Galestriders roam the grasslands south of the village. Galestriders drop both the eggs and the meat."] = "무리발톱과 돌풍타조가 마을 남쪽 초원을 돌아다닙니다. 돌풍타조는 알과 고기를 모두 떨어뜨립니다.",
 	-- ["Rally Valennia, {npc:251968} (west of town) and {npc:252475}"] = "발레니아, {npc:251968}(마을 서쪽), {npc:252475}을(를) 모으세요",
 	-- ["Rorian: {quest:92485}"] = "로리안: {quest:92485}",
 	-- ["Skycutter to {area:279}"] = "비행정으로 {area:279}에 가기",

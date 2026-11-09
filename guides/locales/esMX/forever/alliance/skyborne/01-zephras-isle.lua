@@ -97,7 +97,7 @@ return {
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
 	["Prideclaws and Galestriders"] = "Leozarpas y zancavientos",
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
-	["Prideclaws and Galestriders roam the grasslands south of the village. Galestriders drop both the eggs and the meat."] = "Leozarpas y Zancavientos rondan los pastizales al sur del pueblo. Los Zancavientos sueltan tanto los huevos como la carne.",
+	["Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village."] = "",
 
 	-- Step 17: Village quests
 	["The bounty board"] = "El tablón de recompensas",
@@ -465,6 +465,7 @@ return {
 	-- ["Lorthuna waits on the eastern shore of the isle, east of the {area:16629}."] = "Lorthuna espera en la costa este de la isla, al este de {area:16629}.",
 	-- ["Meet Valennia at the gate"] = "Reúnete con Valennia en la puerta",
 	-- ["North-west of Valanaar along the road: {npc:273017} watches the {quest:98512}; the dead cultist lies just north of him."] = "Al noroeste de Valanaar, por el camino: {npc:273017} vigila a {quest:98512}; el cultista muerto yace justo al norte de él.",
+	-- ["Prideclaws and Galestriders roam the grasslands south of the village. Galestriders drop both the eggs and the meat."] = "Leozarpas y Zancavientos rondan los pastizales al sur del pueblo. Los Zancavientos sueltan tanto los huevos como la carne.",
 	-- ["Rally Valennia, {npc:251968} (west of town) and {npc:252475}"] = "Reúne a Valennia, {npc:251968} (al oeste del pueblo) y {npc:252475}",
 	-- ["Rorian: {quest:92485}"] = "Rorian: {quest:92485}",
 	-- ["Skycutter to {area:279}"] = "Aerocorte a {area:279}",

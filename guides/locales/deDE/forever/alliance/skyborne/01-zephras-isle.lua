@@ -97,7 +97,7 @@ return {
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
 	["Prideclaws and Galestriders"] = "Rudelkrallen und Windschreiter",
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
-	["Prideclaws and Galestriders roam the grasslands south of the village. Galestriders drop both the eggs and the meat."] = "Rudelkrallen und Windschreiter streifen durch das Grasland südlich des Dorfes. Windschreiter lassen sowohl die Eier als auch das Fleisch fallen.",
+	["Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village."] = "",
 
 	-- Step 17: Village quests
 	["The bounty board"] = "Das Kopfgeldbrett",
@@ -465,6 +465,7 @@ return {
 	-- ["Lorthuna waits on the eastern shore of the isle, east of the {area:16629}."] = "Lorthuna wartet am Ostufer der Insel, östlich des {area:16629}.",
 	-- ["Meet Valennia at the gate"] = "Triff Valennia am Tor",
 	-- ["North-west of Valanaar along the road: {npc:273017} watches the {quest:98512}; the dead cultist lies just north of him."] = "Nordwestlich von Valanaar an der Straße: {npc:273017} beobachtet die {quest:98512}; der tote Kultist liegt direkt nördlich von ihm.",
+	-- ["Prideclaws and Galestriders roam the grasslands south of the village. Galestriders drop both the eggs and the meat."] = "Rudelkrallen und Windschreiter streifen durch das Grasland südlich des Dorfes. Windschreiter lassen sowohl die Eier als auch das Fleisch fallen.",
 	-- ["Rally Valennia, {npc:251968} (west of town) and {npc:252475}"] = "Sammle Valennia, {npc:251968} (westlich der Stadt) und {npc:252475}",
 	-- ["Rorian: {quest:92485}"] = "Rorian: {quest:92485}",
 	-- ["Skycutter to {area:279}"] = "Himmelssegler nach {area:279}",

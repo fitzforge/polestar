@@ -97,7 +97,7 @@ return {
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
 	["Prideclaws and Galestriders"] = "群爪與逐風者",
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
-	["Prideclaws and Galestriders roam the grasslands south of the village. Galestriders drop both the eggs and the meat."] = "群爪和逐風者在村子南邊的草原上遊蕩。逐風者會掉落蛋和肉。",
+	["Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village."] = "",
 
 	-- Step 17: Village quests
 	["The bounty board"] = "懸賞告示板",
@@ -465,6 +465,7 @@ return {
 	-- ["Lorthuna waits on the eastern shore of the isle, east of the {area:16629}."] = "洛舒娜在島嶼東岸、{area:16629}東邊等候。",
 	-- ["Meet Valennia at the gate"] = "在大門與維菈妮雅會合",
 	-- ["North-west of Valanaar along the road: {npc:273017} watches the {quest:98512}; the dead cultist lies just north of him."] = "沿著道路前往瓦拉納爾西北方：{npc:273017}監視著{quest:98512}；死去的教徒就躺在他北邊。",
+	-- ["Prideclaws and Galestriders roam the grasslands south of the village. Galestriders drop both the eggs and the meat."] = "群爪和逐風者在村子南邊的草原上遊蕩。逐風者會掉落蛋和肉。",
 	-- ["Rally Valennia, {npc:251968} (west of town) and {npc:252475}"] = "召集維菈妮雅、{npc:251968}（城鎮西邊）和{npc:252475}",
 	-- ["Rorian: {quest:92485}"] = "羅里安：{quest:92485}",
 	-- ["Skycutter to {area:279}"] = "搭天空快艇前往{area:279}",
