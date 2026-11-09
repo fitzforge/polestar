@@ -5405,10 +5405,10 @@ local function evaluate()
 		Own.lostSaid = {}
 		for _, e in ipairs(list) do
 			if e[3] == "skip" then
-				ns.Print(L["%s is no longer in your quest log: the guide skips it and what follows."]:format(e[2]))
+				ns.Print(L["%s is no longer in your quest log: the guide skips it and what follows."]:format(ns.Quoted(e[2])))
 				ns.Fire("PLAYER_SKIPPED_QUEST", e[1], e[2])
 			else
-				ns.Print(L["%s is no longer in your quest log: the guide goes back for it."]:format(e[2]))
+				ns.Print(L["%s is no longer in your quest log: the guide goes back for it."]:format(ns.Quoted(e[2])))
 			end
 		end
 	end

@@ -636,10 +636,10 @@ fn the_setting_sets_how_far_out_of_the_way_a_hand_in_may_be() {
 		vec![
 			json!(20),
 			json!("none"),
-			json!("4:1 Hand in A Fishy Peril to Marshal Dughan 60"),
+			json!("4:1 Hand in “A Fishy Peril” to Marshal Dughan 60"),
 			json!("none"),
 			json!("none"),
-			json!("4:1 Hand in A Fishy Peril to Marshal Dughan 10"),
+			json!("4:1 Hand in “A Fishy Peril” to Marshal Dughan 10"),
 			json!(["", "none"])
 		]
 	);
@@ -674,7 +674,7 @@ fn an_npc_across_a_river_with_a_two_minute_walk_does_not_show() {
 	"#
 		),
 	);
-	assert_eq!(out, vec![json!(["none", "turned away (the walk is too far out of the way; checked again in 15 s or 25 yd)"]), json!(true), json!("4:1 Hand in A Fishy Peril to Marshal Dughan 15")]);
+	assert_eq!(out, vec![json!(["none", "turned away (the walk is too far out of the way; checked again in 15 s or 25 yd)"]), json!(true), json!("4:1 Hand in “A Fishy Peril” to Marshal Dughan 15")]);
 }
 
 // Never on another floor: the NPC's height (`z`, 40) against the player's floor (Nav's walking engine) more than 8 yd
@@ -690,7 +690,7 @@ fn never_a_hand_in_on_another_floor() {
 		FLOOR = 38; stub.advance(15); at(42.0, 35.6); emit(here())
 	"#,
 	);
-	assert_eq!(out, vec![json!(["none", "turned away (another floor; checked again in 15 s or 25 yd)"]), json!("4:1 Hand in A Fishy Peril to Marshal Dughan 10")]);
+	assert_eq!(out, vec![json!(["none", "turned away (another floor; checked again in 15 s or 25 yd)"]), json!("4:1 Hand in “A Fishy Peril” to Marshal Dughan 10")]);
 }
 
 // Never a hand-in the route reaches anyway in its next two steps: the guide's own hand-in right after the live step,
@@ -703,7 +703,7 @@ fn a_hand_in_the_route_reaches_in_its_next_two_steps_is_left_to_it() {
 	let later = run_turnins(&turnins(20.0, &[ELSEWHERE, ELSEWHERE, AT_DUGHAN], ""), script);
 	assert_eq!(next, vec![json!(["", "none"])], "his hand-in is the next step");
 	assert_eq!(errand, vec![json!(["", "none"])], "the step after next is at Dughan");
-	assert_eq!(later, vec![json!(["5:1:turnin:0", "5:1 Hand in A Fishy Peril to Marshal Dughan 10"])], "three steps on");
+	assert_eq!(later, vec![json!(["5:1:turnin:0", "5:1 Hand in “A Fishy Peril” to Marshal Dughan 10"])], "three steps on");
 }
 
 // The XP rule: a quest's full reward lasts until the player is 5 levels over it. When the guide's hand-in comes at a
@@ -717,7 +717,7 @@ fn a_hand_in_whose_xp_waiting_would_cut_may_be_twice_as_far_out_of_the_way() {
 	let cut = run_turnins(&turnins(20.0, &[ELSEWHERE, level8], ", qlvl = 1"), script);
 	let full = run_turnins(&turnins(20.0, &[ELSEWHERE, level8], ", qlvl = 3"), script);
 	let none = run_turnins(&turnins(20.0, &[ELSEWHERE, ELSEWHERE], ", qlvl = 1"), script);
-	assert_eq!(cut, vec![json!("4:1 Hand in A Fishy Peril to Marshal Dughan 60")]);
+	assert_eq!(cut, vec![json!("4:1 Hand in “A Fishy Peril” to Marshal Dughan 60")]);
 	assert_eq!(full, vec![json!("none")]);
 	assert_eq!(none, vec![json!("none")]);
 }

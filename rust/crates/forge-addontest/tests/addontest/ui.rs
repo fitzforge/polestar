@@ -489,7 +489,7 @@ fn left_click_on_a_goal_whose_quest_is_not_taken_yet_says_take_it_first_and_sets
 		emit({ calls = after, said = table.concat(said, " | ") })"#)
 	.remove(0);
 	assert_eq!(out["calls"], json!(["AimGoal", "ReleaseTarget"]), "the Engine keeps the arrow; no SetTarget");
-	assert_eq!(out["said"], "Take Wolves Across the Border first", "said once, where the game says what can't be done");
+	assert_eq!(out["said"], "Take “Wolves Across the Border” first", "said once, where the game says what can't be done");
 }
 
 // Skip this quest (Engine.SkipQuest): a quest's line, right-clicked, offers its tick and the quest's skip. The

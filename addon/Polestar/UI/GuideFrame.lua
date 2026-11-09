@@ -303,7 +303,7 @@ local function rowClick(row, button)
 		if nav and nav.ReleaseTarget then nav.ReleaseTarget() end
 		GF.UpdateTargets()
 		if why == "accept" then
-			local message = string.format(L["Take %s first"], title or "")
+			local message = string.format(L["Take %s first"], ns.Quoted(title) or "")
 			if UIErrorsFrame and UIErrorsFrame.AddMessage then
 				UIErrorsFrame:AddMessage(message, 1, 0.82, 0)
 			else

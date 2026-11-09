@@ -178,7 +178,7 @@ fn while_asked_the_lost_quests_goals_are_greyed_and_the_arrow_leads_to_its_giver
 	assert_eq!(
 		out[1],
 		json!({ "live": 3, "lost": 7, "skipped": false, "kill": "skipped", "killLost": true,
-			"killNotice": "Kobold Camp Cleanup isn't in your quest log", "turnin": "skipped",
+			"killNotice": "“Kobold Camp Cleanup” isn't in your quest log", "turnin": "skipped",
 			"arrow": { "step": 2, "goal": 1, "kind": "accept", "x": 48.9, "y": 41.6 }, "said": "" }),
 		"the step and the notice stay; its kills and turn-in are greyed, the arrow is on the giver"
 	);
@@ -228,7 +228,7 @@ fn always_go_back_for_it_returns_to_the_giver_without_asking_and_says_so() {
 		out[0],
 		json!({ "live": 2, "lost": false, "skipped": false, "kill": "pending", "killLost": false, "killNotice": false,
 			"turnin": "pending", "arrow": { "step": 2, "goal": 1, "kind": "accept", "x": 48.9, "y": 41.6 },
-			"said": "Kobold Camp Cleanup is no longer in your quest log: the guide goes back for it." })
+			"said": "“Kobold Camp Cleanup” is no longer in your quest log: the guide goes back for it." })
 	);
 	assert_eq!(out[1], true, "nothing is held");
 }
@@ -245,7 +245,7 @@ fn always_skip_it_skips_the_quest_and_what_follows_without_asking_and_says_so() 
 	assert_eq!(out[0]["skipped"], true);
 	assert_eq!(out[0]["kill"], "skipped");
 	assert_eq!(out[0]["arrow"]["kind"], "train");
-	assert_eq!(out[0]["said"], "Kobold Camp Cleanup is no longer in your quest log: the guide skips it and what follows.");
+	assert_eq!(out[0]["said"], "“Kobold Camp Cleanup” is no longer in your quest log: the guide skips it and what follows.");
 	assert_eq!(out[1], true, "nothing is held");
 }
 

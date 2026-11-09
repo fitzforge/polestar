@@ -121,9 +121,9 @@ fn a_hand_tick_on_the_next_call_of_water_says_the_one_in_the_log_is_another_ques
 		emit(snap())
 		w.turnIn(1530); flush()
 		emit(snap())"#);
-	assert_eq!(out[0]["notices"][1], "This Call of Water isn't in your quest log yet: the one you have is another quest of that name", "{}", out[0]);
+	assert_eq!(out[0]["notices"][1], "This “Call of Water” isn't in your quest log yet: the one you have is another quest of that name", "{}", out[0]);
 	// No namesake in the log any more: the plain notice.
-	assert_eq!(out[1]["notices"][1], "Call of Water isn't in your quest log", "{}", out[1]);
+	assert_eq!(out[1]["notices"][1], "“Call of Water” isn't in your quest log", "{}", out[1]);
 }
 
 #[test]
