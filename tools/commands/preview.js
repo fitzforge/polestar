@@ -1726,12 +1726,13 @@ Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/h
 	},
 	{
 		file: 'route-styles.svg',
-		title: 'The route line\'s looks on one route, a walk along its path then a flight: the line (the default for new players: a soft shadow, chevrons, the flight dashed in its own colour) and the dots on the world map; then the line and the dots on the minimap, clear of the player\'s arrow',
+		title: 'The route line\'s looks on one route, a walk along its path then a flight: the line (the default for new players: a soft shadow, the flight dashed in its own colour) and the dots on the world map; then the line, the dots and the sparkles on the minimap, clear of the player\'s arrow',
 		panels: [
 			routeStyleScene('WorldMapFrame', 'line'),
 			routeStyleScene('WorldMapFrame', 'dots'),
 			routeStyleScene('Minimap', 'line'),
 			routeStyleScene('Minimap', 'dots'),
+			routeStyleScene('Minimap', 'sparkle'),
 		],
 	},
 	{

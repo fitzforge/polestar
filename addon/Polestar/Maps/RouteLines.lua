@@ -213,15 +213,20 @@ local function playerPosition()
 end
 
 -- Where the walk being walked is joined from the player: the nearest point to
--- them, or, beside it in open ground where the arrow aims ahead at a point on
--- it in sight (Nav/Walk.lua Walk.SightAim, Nav/Follow.lua), that point, so the
--- line runs on from the player the way the arrow points instead of straight
--- across to the walk.
+-- them, or, beside it in open ground (more than JOIN_BESIDE yards off it)
+-- where the arrow aims ahead at a point on it in sight (Nav/Walk.lua
+-- Walk.SightAim, Nav/Follow.lua), that point, so the line runs on from the
+-- player the way the arrow points instead of straight across to the walk.
+-- On the path the route starts at the player, whatever the arrow aims at:
+-- since 0.3.6 the arrow holds a point in sight until the player is within 10
+-- yards of the path (Follow.lua SIGHT_NEAR), and taken from there every style
+-- started at that far point, the stretch between left out.
+local JOIN_BESIDE = 15 -- Follow.lua's BODY: beside the path, not on it
 local function joinPoint(pc, px, py)
 	local W = Nav.walk
 	local ac, ax, ay
 	if W and W.SightAim then ac, ax, ay = W.SightAim() end
-	if ac == pc and ax then return ax, ay end
+	if ac == pc and ax and not Strokes.Live(paths[1], pc, px, py, nil, JOIN_BESIDE) then return ax, ay end
 	return px, py
 end
 

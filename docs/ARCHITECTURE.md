@@ -3034,9 +3034,11 @@ permission; `addon/Polestar_Nav/CREDITS.md`).
   minimap's own picture, under every frame on it, so no frame level puts the
   line beneath them. The player's arrow is drawn there too, so nothing is
   drawn within 9 px of the minimap's centre (`Strokes.PLAYER_GAP`: lines and
-  strokes are cut there, the dots keep clear of it as of a stop's pin), and
-  the minimap's dots are half as long again as they are wide, along the way:
-  a route dot never reads as the player or a round blip.
+  strokes are cut there, the dots keep clear of it as of a stop's pin); the
+  dots are otherwise 0.3.5's (tested against its recorded strokes). Every
+  style joins the walk at the player while the player is on it (within 15
+  yd, Follow.lua's BODY); only beside it does it start at the point the
+  arrow holds in sight (`joinPoint`).
 - Line style (`nav.lineStyle`, `RouteLines.STYLE_CHOICES`): `"line"`,
   `"dots"` (the above) or `"sparkle"`, chosen on the welcome's setup page
   (`UI/Welcome.lua`, three cards each previewing its style), in Options

@@ -10,7 +10,7 @@ section: players
   the gear beside Route lines sets the line's thickness. New players start
   on the line; if you already play, your dots stay until you switch.
   Sparkles show as dots while Reduce motion is on.
-- Minimap: route dots and lines no longer sit on your own arrow, and the
-  minimap's route dots are drawn longer than wide, so they never look like
-  you or a party member. Dot colour now tints only your walks, so a walk and
-  a flight never look like one line.
+- Minimap: route dots, lines and sparkles no longer sit on your own arrow,
+  and start beside it while you walk the path, not far ahead where the arrow
+  aims. Dot colour now tints only your walks, so a walk and a flight never
+  look like one line.

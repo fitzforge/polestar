@@ -69,10 +69,9 @@ local WALKED_ALPHA, TAIL, TAIL_STEP = 0.45, 120, 12
 local LINE_WIDTH, LINE_WIDTHS = 4, { 2, 8 }
 -- The minimap: nothing is drawn within PLAYER_GAP px of its centre, where the
 -- game draws the player's arrow under every frame on the minimap (a route dot
--- there read as the player); its dots are MINIMAP_STRETCH times as long as
--- they are wide, along the way, so a route dot is never the round blip of a
--- party member, a herb or the player.
-local PLAYER_GAP, MINIMAP_STRETCH = 9, 1.5
+-- there read as the player). Its dots are otherwise 0.3.5's: round, the same
+-- size and spacing.
+local PLAYER_GAP = 9
 -- In the line style a walk drawn straight, no walking path known for it (the
 -- geometry's `straight`), is dashed and GUESS_ALPHA as strong. The dots keep
 -- their look: the players who keep them see what they saw.
@@ -83,7 +82,7 @@ Strokes.SMALL_DOT, Strokes.SMALL_SPACING, Strokes.STOP_GAP = SMALL_DOT, SMALL_SP
 Strokes.LATER_ALPHA, Strokes.DOT_ART, Strokes.LIMIT = LATER_ALPHA, DOT_ART, LIMIT
 Strokes.SHADOW, Strokes.CHEVRON_SPACING, Strokes.DASH, Strokes.DASH_GAP = SHADOW, CHEVRON_SPACING, DASH, DASH_GAP
 Strokes.WALKED_ALPHA, Strokes.TAIL, Strokes.LINE_WIDTH, Strokes.LINE_WIDTHS = WALKED_ALPHA, TAIL, LINE_WIDTH, LINE_WIDTHS
-Strokes.PLAYER_GAP, Strokes.MINIMAP_STRETCH = PLAYER_GAP, MINIMAP_STRETCH
+Strokes.PLAYER_GAP = PLAYER_GAP
 Strokes.GUESS_ALPHA = GUESS_ALPHA
 
 -- Strokes in drawing order, as parallel arrays 1..n, in the view's own units
@@ -169,8 +168,6 @@ end
 local out, limit
 local scale, width, height, dot, spacing, walked
 local fade
--- A dot's length over its width: 1, or MINIMAP_STRETCH on the minimap.
-local stretch
 -- The line style: on, the walk's thickness (px), chevrons and their colour.
 local lined, lineWidth, chevrons, chevronColor
 -- The line's last piece drawn to its own end: that end and its direction,
@@ -183,7 +180,7 @@ local function Begin(buffer, view, small)
 	out, scale, limit = buffer, view.scale, buffer.limit or LIMIT
 	out.n = 0
 	dot, spacing = small and SMALL_DOT or DOT, small and SMALL_SPACING or SPACING
-	walked, fade, circleCount, stretch = 0, 1, 0, 1
+	walked, fade, circleCount = 0, 1, 0
 	lined = view.style == "line"
 	local w = tonumber(view.lineWidth) or LINE_WIDTH
 	lineWidth = w < LINE_WIDTHS[1] and LINE_WIDTHS[1] or w > LINE_WIDTHS[2] and LINE_WIDTHS[2] or w
@@ -374,7 +371,7 @@ local function Segment(x1, y1, x2, y2, low, high, color, mode)
 	-- The caller clipped a walk a dot's reach inside its frame, so every rim
 	-- fits. A dot on a joint belongs to the later segment: both ends share a
 	-- tolerance, so rounding in the running total cannot push it out of both.
-	local half = dot * DOT_ART * stretch / 2 / length
+	local half = dot * DOT_ART / 2 / length
 	local first = ceil((start + low * length - 0.001) / spacing) * spacing - start
 	local count = Near(x1, y1, x2, y2)
 	for distance = first, high * length - 0.001, spacing do
@@ -629,7 +626,6 @@ function Strokes.Minimap(buffer, paths, view)
 	mmWithin = mmInset - (dot + RIM * 2) * DOT_ART / scale / min(width, height)
 	mmLine = 1 - (lineWidth + SHADOW * 2) / scale / min(width, height)
 	mmGap = PLAYER_GAP / scale / (min(width, height) / 2)
-	stretch = MINIMAP_STRETCH
 	Circle(width / 2, -height / 2, PLAYER_GAP / scale)
 	local markX, markY
 	if view.goalC == c then
