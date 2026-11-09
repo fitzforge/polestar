@@ -890,6 +890,9 @@ Polestar.Fire("NAV_ROUTE_GEOMETRY")
 stub.advance(1.5)`, undefined, ROUTE_FILES);
 }
 const BARRENS = [0.71, 0.62, 0.42], NIGHT = [0.1, 0.13, 0.1];
+// A build before the sizes were per style (0.3.6's first) takes the size as
+// its one minimap size; this one keeps each style's own default.
+const styleSize = (v) => `if not Polestar.RouteLines.SIZE_KEYS then Polestar.Set("nav.minimapRouteSize", ${v}) end`;
 // Group content (the compiled `group`, the goal view's `party`): a class
 // guide whose route needs a group, its Felwood step (elites; the author's
 // "group 3" on the boss) and its Dire Maul step (two goals of one run, said
@@ -1768,19 +1771,17 @@ Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/h
 	},
 	{
 		file: 'minimap-route-look.svg',
-		title: 'The route on the minimap, light ground (the Barrens) then dark: the line at the default thickness and at the most (8), thin over its soft shadow with round ends; the dots, 0.3.4\'s small trail dots, at zoom 0 and zoom 4 (the same size and spacing); then the dots crawling toward the goal, three moments 0.4 s apart',
+		title: 'The route on the minimap at each style\'s default size, light ground (the Barrens) then dark: the line at 50 %, the dots at 80 %, the sparkles at 150 %; then the dots flowing toward the goal, three moments 0.4 s apart',
 		panels: [
-			minimapLookScene('line', BARRENS),
-			minimapLookScene('line', BARRENS, 'Polestar.Set("nav.lineWidth", 8)'),
-			minimapLookScene('line', NIGHT),
-			minimapLookScene('line', NIGHT, 'Polestar.Set("nav.lineWidth", 8)'),
-			minimapLookScene('dots', BARRENS),
-			minimapLookScene('dots', BARRENS, 'stub.minimapZoom = 4'),
-			minimapLookScene('dots', NIGHT),
-			minimapLookScene('dots', NIGHT, 'stub.minimapZoom = 4'),
-			minimapLookScene('dots', BARRENS, 'Polestar.Set("ui.reduceMotion", nil)'),
-			minimapLookScene('dots', BARRENS, 'Polestar.Set("ui.reduceMotion", nil)\nstub.advance(0.4)'),
-			minimapLookScene('dots', BARRENS, 'Polestar.Set("ui.reduceMotion", nil)\nstub.advance(0.8)'),
+			minimapLookScene('line', BARRENS, styleSize(0.5)),
+			minimapLookScene('line', NIGHT, styleSize(0.5)),
+			minimapLookScene('dots', BARRENS, styleSize(0.8)),
+			minimapLookScene('dots', NIGHT, styleSize(0.8)),
+			minimapLookScene('sparkle', BARRENS, `${styleSize(1.5)}\nPolestar.Set("ui.reduceMotion", nil)`),
+			minimapLookScene('sparkle', NIGHT, `${styleSize(1.5)}\nPolestar.Set("ui.reduceMotion", nil)`),
+			minimapLookScene('dots', BARRENS, `${styleSize(0.8)}\nPolestar.Set("ui.reduceMotion", nil)`),
+			minimapLookScene('dots', BARRENS, `${styleSize(0.8)}\nPolestar.Set("ui.reduceMotion", nil)\nstub.advance(0.4)`),
+			minimapLookScene('dots', BARRENS, `${styleSize(0.8)}\nPolestar.Set("ui.reduceMotion", nil)\nstub.advance(0.8)`),
 		],
 	},
 	{

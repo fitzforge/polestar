@@ -2760,7 +2760,7 @@ L["Line thickness"] = "Linienstärke"
 L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] = "Wie dick die durchgehende Linie auf der Weltkarte ist; die der Minikarte folgt ihrer Größe. Rechtsklick zum Zurücksetzen."
 L["Route colour"] = "Routenfarbe"
 L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] = "Wie stark die Route auf der Minikarte erscheint, als Linie, Punkte oder Funken; die Weltkarte behält ihre eigene. Rechtsklick zum Zurücksetzen."
-L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] = "Die Linie, Punkte oder Funken der Route auf der Minikarte und die Abstände zwischen den Punkten; die Weltkarte behält ihre eigenen. Rechtsklick zum Zurücksetzen."
+-- L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] = ""
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "Guide: %d"
@@ -3292,3 +3292,4 @@ L["Level %d: you can take %s now. Its giver is marked on your map; pick up the q
 -- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = "Ordner beim Durchsuchen lassen sich einklappen, ein geschlossener Tab kommt mit „Wieder öffnen“ zurück, die Route kann auf Karte und Minikarte als Linie, Punkte oder Funken erscheinen, und der Minikarten-Button und ein schwebender Polestar-Button lassen sich in den Optionen einschalten."
 -- L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route."] = "Leveling-Guides führen dich durch diesen Dungeon, wo sie Schritte dafür haben. Aus: Sie bleiben auf der Solo-Route."
 -- L["With Transparent, a shade with no edge behind the text, so it reads over bright ground. Off: the outlined text alone on the world."] = "Bei Transparent ein Schatten ohne Rand hinter dem Text, damit er auch vor hellem Hintergrund lesbar bleibt. Aus: nur der umrandete Text über der Welt."
+-- L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] = "Die Linie, Punkte oder Funken der Route auf der Minikarte und die Abstände zwischen den Punkten; die Weltkarte behält ihre eigenen. Rechtsklick zum Zurücksetzen."

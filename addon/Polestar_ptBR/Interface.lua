@@ -2804,7 +2804,7 @@ L["Line thickness"] = "Espessura da linha"
 L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] = "A espessura da linha contínua no mapa-múndi; a do minimapa acompanha o tamanho dele. Botão direito para redefinir."
 L["Route colour"] = "Cor da rota"
 L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] = "Quão forte a rota aparece no minimapa, em linha, pontos ou brilhos; o mapa-múndi mantém a sua. Botão direito para redefinir."
-L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] = "A linha, os pontos ou os brilhos da rota no minimapa, e os espaços entre os pontos; o mapa-múndi mantém o seu. Botão direito para redefinir."
+-- L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] = ""
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "Guia: %d"
@@ -3245,3 +3245,4 @@ L["Sparkles"] = "Brilhos"
 -- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = "As pastas de navegação se recolhem, uma aba fechada volta com Reabrir, a rota pode ser uma linha, pontos ou brilhos no mapa e no minimapa, e o botão do minimapa e um botão flutuante do Polestar podem ser ativados nas Opções."
 -- L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route."] = "Os guias de evolução levam você por esta masmorra onde têm etapas para ela. Desativado: eles seguem a rota solo."
 -- L["With Transparent, a shade with no edge behind the text, so it reads over bright ground. Off: the outlined text alone on the world."] = "Com Transparente, uma sombra sem borda atrás do texto, para ele ficar legível sobre fundos claros. Desativado: só o texto com contorno sobre o mundo."
+-- L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] = "A linha, os pontos ou os brilhos da rota no minimapa, e os espaços entre os pontos; o mapa-múndi mantém o seu. Botão direito para redefinir."

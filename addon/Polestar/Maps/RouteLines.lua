@@ -34,8 +34,10 @@
 -- stand in while the lines are off.
 --
 -- nav.dotColor tints the walks one colour (RouteLines.DOT_COLORS) in place of
--- the route colour; the other legs keep theirs. nav.minimapRouteAlpha and
--- nav.minimapRouteSize fade and scale the minimap's line, either style. The
+-- the route colour; the other legs keep theirs. nav.minimapRouteAlpha fades
+-- the minimap's line, and each style's own size scales it there
+-- (nav.minimapLineSize, nav.minimapDotsSize, nav.minimapSparkleSize: SIZE_KEYS;
+-- the window's "Minimap size" slider sets the size of the style in use). The
 -- minimap's frame sits just above the minimap itself: the game draws its
 -- tracking blips and quest marks into the minimap's own picture, under every
 -- frame laid over it, so no frame level puts the line under them.
@@ -68,7 +70,13 @@ local type, ipairs, pairs, abs, cos, sin, floor, pcall = type, ipairs, pairs, ma
 local RouteLines = {}
 ns.RouteLines = RouteLines
 
-ns.RegisterDefaults("nav", { routeLines = true, lineStyle = "line", lineWidth = Strokes.LINE_WIDTH, dotColor = "route", minimapRouteAlpha = 1, minimapRouteSize = 1 })
+-- Fitz's tuning of each style (0.3.6): the line at half size on the minimap,
+-- the dots at 80 %, the sparkles at 150 %; all at full opacity.
+ns.RegisterDefaults("nav", { routeLines = true, lineStyle = "line", lineWidth = Strokes.LINE_WIDTH, dotColor = "route", minimapRouteAlpha = 1,
+	minimapLineSize = 0.5, minimapDotsSize = 0.8, minimapSparkleSize = 1.5,
+	-- The window's slider's key; it reads and writes the size of the style in
+	-- use. A size saved here before the sizes were per style is moved to all three.
+	minimapRouteSize = 1 })
 if Sparkle then ns.RegisterDefaults("nav", Sparkle.DEFAULTS) end
 
 -- The styles, in the order the welcome and Options offer them.
@@ -80,10 +88,25 @@ RouteLines.STYLE_CHOICES = {
 -- One colour for the whole line, instead of each leg's ("route"): bright and
 -- cool, apart from the minimap's yellow herb and ore dots and gold quest marks.
 RouteLines.DOT_COLORS = { cyan = { 0.2, 0.9, 1 }, magenta = { 1, 0.3, 0.85 }, white = { 1, 1, 1 } }
--- The line style's strength on the minimap, before nav.minimapRouteAlpha.
-RouteLines.MINIMAP_LINE_ALPHA = 0.85
--- The minimap line's opacity and size (nav.minimapRouteAlpha, nav.minimapRouteSize).
-RouteLines.MINIMAP_LIMITS = { minimapRouteAlpha = { 0.2, 1 }, minimapRouteSize = { 0.5, 1.5 } }
+-- The minimap line's opacity and each style's size there, in range.
+RouteLines.MINIMAP_LIMITS = {
+	minimapRouteAlpha = { 0.2, 1 }, minimapLineSize = { 0.5, 1.5 }, minimapDotsSize = { 0.5, 1.5 }, minimapSparkleSize = { 0.5, 1.5 },
+}
+-- Each style's minimap size setting (the style drawn: dots stand in for
+-- sparkles under ui.reduceMotion, at the dots' size).
+RouteLines.SIZE_KEYS = { line = "minimapLineSize", dots = "minimapDotsSize", sparkle = "minimapSparkleSize" }
+
+-- The minimap size saved before the sizes were per style becomes each
+-- style's, where the style has none of its own; then it is gone.
+local function splitSize()
+	local nav = ns.DB().settings.nav
+	if type(nav) ~= "table" or nav.minimapRouteSize == nil then return end
+	for _, key in pairs(RouteLines.SIZE_KEYS) do
+		if nav[key] == nil then nav[key] = nav.minimapRouteSize end
+	end
+	nav.minimapRouteSize = nil
+end
+ns.OnInit(splitSize)
 
 local MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\Nav\\"
 local DOT_TEXTURE = MEDIA .. "pin-fill"
@@ -255,7 +278,7 @@ local function limited(key)
 end
 
 local function restyle()
-	mmAlpha, mmSize = limited("minimapRouteAlpha"), limited("minimapRouteSize")
+	mmAlpha = limited("minimapRouteAlpha")
 	local tint = RouteLines.DOT_COLORS[ns.Get("nav.dotColor")]
 	if tint then
 		-- The walks only: flights, boats and the rest keep their own colours, so a
@@ -270,6 +293,7 @@ local function restyle()
 	if style == "sparkle" and (Sparkle == nil or ns.Get("ui.reduceMotion")) then style = "dots" end
 	if style ~= "line" and style ~= "sparkle" then style = "dots" end
 	lineStyle = style
+	mmSize = limited(RouteLines.SIZE_KEYS[style])
 	local w, range = tonumber(ns.Get("nav.lineWidth")) or Strokes.LINE_WIDTH, Strokes.LINE_WIDTHS
 	lineWidth = w < range[1] and range[1] or w > range[2] and range[2] or w
 	sparkling = style == "sparkle"
@@ -860,10 +884,10 @@ local function drawMinimapSparkles(pc, px, py, radius, facing, square, width, he
 	finishSparkles(mm, d.used)
 end
 
--- The minimap's dots crawl toward the goal (RouteStrokes' trail) at the
--- sparkles' default pace: the distance a sparkle drifts a second, in trail
+-- The minimap's dots flow toward the goal (RouteStrokes' view.phase) at the
+-- sparkles' default pace: the distance a sparkle drifts a second, in dot
 -- spacings; under ui.reduceMotion they hold still at half a spacing.
-local TRAIL_INTERVAL = 1 / 20 -- trail redraws a second, at most
+local TRAIL_INTERVAL = 1 / 20 -- flowing dots' redraws a second, at most
 local trailRate
 local function crawling()
 	return lineStyle == "dots" and not ns.Get("ui.reduceMotion")
@@ -873,7 +897,7 @@ local function trailPhase()
 	if not crawling() then return 0.5 end
 	if not trailRate then
 		local st = Sparkle and Sparkle.Style(function(key) return Sparkle.DEFAULTS[key] end)
-		trailRate = st and st.flow * st.spacing / Strokes.TRAIL_SPACING or 1 / 1.5
+		trailRate = st and st.flow * st.spacing / Strokes.SPACING or 1 / 1.5
 	end
 	return (sparkleClock() * trailRate) % 1
 end
@@ -917,14 +941,14 @@ local function drawMinimap(force)
 	if advance(pc, px, py) and worldPin and worldPin:IsShown() and view and view.shown then drawWorld(worldPin) end
 	local v = minimapView
 	v.c, v.x, v.y, v.radius, v.facing, v.square = pc, px, py, radius, facing, square
-	-- nav.minimapRouteSize: the dots, their spacing and the gaps around the pin
+	-- The style's minimap size (SIZE_KEYS): the dots, their spacing and the gaps around the pin
 	-- grow together, as at a larger UI scale; nav.minimapRouteAlpha fades them.
 	v.width, v.height, v.scale, v.colors = width, height, scale / mmSize, palette
 	v.style, v.lineWidth = lineStyle == "line" and "line" or nil, lineWidth
 	-- The line at 85 % on the minimap, so its terrain shows through it.
-	mm.opacity = mmAlpha * (lineStyle == "line" and RouteLines.MINIMAP_LINE_ALPHA or 1)
+	mm.opacity = mmAlpha
 	v.goalC, v.goalX, v.goalY, v.goalRadius = goalC, goalX, goalY, MINIMAP_GOAL
-	v.phase, v.trailSize = phase, mmSize
+	v.phase = phase
 	v.from, v.fromIndex, v.fromC, v.fromX, v.fromY = live ~= nil, live, liveC, liveX, liveY
 	Strokes.Minimap(minimapStrokes, paths, v)
 	paint(mm, minimapStrokes)
@@ -1014,6 +1038,11 @@ function RouteLines.GetStrokes(surface)
 	return surface == "minimap" and minimapStrokes or worldStrokes
 end
 
+-- The minimap size drawn: the drawn style's own, in range (tests and diagnostics).
+function RouteLines.MinimapSize()
+	return mmSize
+end
+
 -- The style drawn: "line", "dots" or "sparkle" (nav.lineStyle, the dots for
 -- sparkles under ui.reduceMotion) (tests, the welcome's previews).
 function RouteLines.Style()
@@ -1047,7 +1076,10 @@ local WATCH = {
 	["ui"] = true, ["ui.reduceMotion"] = true,
 }
 -- Settings that change only how the line looks: redrawn as for a theme change.
-local LOOK = { ["nav.dotColor"] = true, ["nav.minimapRouteAlpha"] = true, ["nav.minimapRouteSize"] = true, ["nav.lineWidth"] = true }
+local LOOK = {
+	["nav.dotColor"] = true, ["nav.minimapRouteAlpha"] = true, ["nav.lineWidth"] = true,
+	["nav.minimapLineSize"] = true, ["nav.minimapDotsSize"] = true, ["nav.minimapSparkleSize"] = true,
+}
 ns.On("SETTING_CHANGED", function(path)
 	if not ns.IsLoggedIn() then return end
 	if WATCH[path] then

@@ -2804,7 +2804,7 @@ L["Line thickness"] = "Толщина линии"
 L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] = "Толщина сплошной линии на карте мира; на миникарте она следует размеру. ПКМ — сброс."
 L["Route colour"] = "Цвет маршрута"
 L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] = "Насколько заметен маршрут на миникарте — линия, точки или искры; у карты мира своя настройка. ПКМ — сброс."
-L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] = "Линия, точки или искры маршрута на миникарте и промежутки между точками; у карты мира своя настройка. ПКМ — сброс."
+-- L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] = ""
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "Гайд: %d"
@@ -3244,3 +3244,4 @@ L["Sparkles"] = "Искры"
 -- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = "Папки в обзоре сворачиваются, закрытая вкладка возвращается кнопкой «Вернуть», маршрут на карте и миникарте может быть линией, точками или искрами, а в настройках можно включить кнопку у миникарты и плавающую кнопку Polestar."
 -- L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route."] = "Гайды по прокачке проводят вас через это подземелье, если в них есть шаги для него. Если выключено, они придерживаются одиночного маршрута."
 -- L["With Transparent, a shade with no edge behind the text, so it reads over bright ground. Off: the outlined text alone on the world."] = "В прозрачном стиле — тень без краёв за текстом, чтобы его было видно на ярком фоне. Выкл.: только обведённый текст поверх мира."
+-- L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] = "Линия, точки или искры маршрута на миникарте и промежутки между точками; у карты мира своя настройка. ПКМ — сброс."

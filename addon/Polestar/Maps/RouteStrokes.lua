@@ -67,21 +67,11 @@ local DASH, DASH_GAP = 7, 5
 local LINE_MIN = 8
 local WALKED_ALPHA, TAIL, TAIL_STEP = 0.45, 120, 12
 local LINE_WIDTH, LINE_WIDTHS = 4, { 2, 8 }
--- On the minimap the line is MINIMAP_LINE of the setting's thickness, kept
--- within MINIMAP_LINES (2.2 px at the default 4, 3 px at most), over a
--- MINIMAP_SHADOW px shadow each side: the world map's thickness was a fat bar
--- on the minimap's small face.
-local MINIMAP_LINE, MINIMAP_LINES, MINIMAP_SHADOW = 0.55, { 1.5, 3 }, 2
--- The dots style on the minimap is 0.3.4's trail (Nav/Pins.lua's minimap
--- dots, which players knew): small Media/Nav/pin-fill dots TRAIL_DOT minimap
--- units wide at TRAIL_ALPHA, no rim of ours, TRAIL_SPACING units apart at
--- every zoom (0.3.4's 40 yd at the default zoom), counted back from the
--- walk's end so they keep their place as the player walks, crawling toward
--- the goal by view.phase (spacings; the painter moves it at the sparkles'
--- pace, and holds it under ui.reduceMotion), at most TRAIL_CAP, no drawn dot
--- within TRAIL_GAP of the player's arrow. Units, not screen pixels: they
--- follow the minimap's own size and scale, as the trail's did.
-local TRAIL_DOT, TRAIL_SPACING, TRAIL_ALPHA, TRAIL_CAP, TRAIL_GAP = 5, 12, 0.85, 40, 9
+-- The dots style's minimap dots flow toward the goal: the walk's dots are
+-- counted back from its end (so they keep their place as the player walks)
+-- and moved on by view.phase, in spacings (the painter turns it at the
+-- sparkles' pace; still under ui.reduceMotion). Their size, rim and spacing
+-- are the dots' own, in screen pixels at every zoom.
 -- The minimap: nothing is drawn within PLAYER_GAP px of its centre, where the
 -- game draws the player's arrow under every frame on the minimap (a route dot
 -- there read as the player). Its dots are otherwise 0.3.5's: round, the same
@@ -97,9 +87,6 @@ Strokes.SMALL_DOT, Strokes.SMALL_SPACING, Strokes.STOP_GAP = SMALL_DOT, SMALL_SP
 Strokes.LATER_ALPHA, Strokes.DOT_ART, Strokes.LIMIT = LATER_ALPHA, DOT_ART, LIMIT
 Strokes.SHADOW, Strokes.CHEVRON_SPACING, Strokes.DASH, Strokes.DASH_GAP = SHADOW, CHEVRON_SPACING, DASH, DASH_GAP
 Strokes.WALKED_ALPHA, Strokes.TAIL, Strokes.LINE_WIDTH, Strokes.LINE_WIDTHS = WALKED_ALPHA, TAIL, LINE_WIDTH, LINE_WIDTHS
-Strokes.MINIMAP_LINE, Strokes.MINIMAP_LINES, Strokes.MINIMAP_SHADOW = MINIMAP_LINE, MINIMAP_LINES, MINIMAP_SHADOW
-Strokes.TRAIL_DOT, Strokes.TRAIL_SPACING, Strokes.TRAIL_ALPHA, Strokes.TRAIL_CAP, Strokes.TRAIL_GAP =
-	TRAIL_DOT, TRAIL_SPACING, TRAIL_ALPHA, TRAIL_CAP, TRAIL_GAP
 Strokes.PLAYER_GAP = PLAYER_GAP
 Strokes.GUESS_ALPHA = GUESS_ALPHA
 
@@ -191,10 +178,6 @@ local lined, lineWidth, chevrons, chevronColor
 -- The line's last piece drawn to its own end: that end and its direction,
 -- for the joint at the next piece (jointX nil: none to join).
 local jointX, jointY, jointDx, jointDy
--- The line's shadow, px past it on each side: SHADOW, MINIMAP_SHADOW on the minimap.
-local shadow
--- The minimap's trail dots: their size and spacing (units) and how many are drawn.
-local trailDot, trailSpacing, trailCount = TRAIL_DOT, TRAIL_SPACING, 0
 -- Stop marks as x, y and reach, flat; near holds those the segment in hand passes.
 local circles, circleCount, near = {}, 0, {}
 
@@ -208,8 +191,6 @@ local function Begin(buffer, view, small)
 	lineWidth = w < LINE_WIDTHS[1] and LINE_WIDTHS[1] or w > LINE_WIDTHS[2] and LINE_WIDTHS[2] or w
 	-- Continent maps show a whole route small, as their dots are.
 	if small then lineWidth = max(LINE_WIDTHS[1], lineWidth - 1) end
-	shadow = SHADOW
-	trailCount = 0
 	chevronColor = view.chevronColor
 	chevrons = lined and view.chevrons and chevronColor ~= nil or false
 	jointX = nil
@@ -240,7 +221,7 @@ end
 
 -- A piece of the line style's walk: the line over its soft shadow.
 local function Wide(x1, y1, x2, y2, color)
-	Put(x1, y1, x2, y2, 0, 0, lineWidth / scale, (lineWidth + shadow * 2) / scale, fade, color, false, true)
+	Put(x1, y1, x2, y2, 0, 0, lineWidth / scale, (lineWidth + SHADOW * 2) / scale, fade, color, false, true)
 end
 
 -- A bend's round joint: a disc the line's width across at (x, y), turned
@@ -329,16 +310,12 @@ local function LineSegment(x1, y1, dx, dy, length, start, low, high, color)
 		local turn = (jointDx * dx + jointDy * dy) / sqrt((jointDx * jointDx + jointDy * jointDy) * (dx * dx + dy * dy))
 		if turn < STRAIGHT_COS then back = lineWidth / 2 / length end
 		if fade == 1 and turn < JOINT_COS then Joint(x1, y1, dx, dy, color) end
-	elseif fade == 1 then
-		-- A free end (the line's start, or where clipping cut it): rounded.
-		Joint(x1 + low * dx, y1 + low * dy, dx, dy, color)
 	end
 	Wide(x1 + (low - back) * dx, y1 + (low - back) * dy, x1 + high * dx, y1 + high * dy, color)
 	if high == 1 then
 		jointX, jointY, jointDx, jointDy = x1 + dx, y1 + dy, dx, dy
 	else
 		jointX = nil
-		if fade == 1 then Joint(x1 + high * dx, y1 + high * dy, dx, dy, color) end
 	end
 	if not chevrons or fade < 1 then return end
 	local half = CHEVRON_SPACING / 2
@@ -352,32 +329,6 @@ local function LineSegment(x1, y1, dx, dy, length, start, low, high, color)
 		local x, y = x1 + t * dx, y1 + t * dy
 		if count == 0 or Clear(count, x, y) then Chevron(x, y, ux, uy) end
 	end
-end
-
--- The minimap's trail: a dot wherever the walk's running length is a whole
--- number of spacings (the caller set where that count starts: the walk's
--- end and the crawl), clear of the player's arrow and the goal's pin.
-local function TrailSegment(x1, y1, dx, dy, length, start, low, high, color)
-	if not low then return end
-	local spacingPx = trailSpacing * scale
-	local first = ceil((start + low * length - 0.001) / spacingPx) * spacingPx - start
-	local count = Near(x1, y1, x1 + dx, y1 + dy)
-	local half = trailDot / 2 / (length / scale)
-	for distance = first, high * length - 0.001, spacingPx do
-		if trailCount >= TRAIL_CAP then return end
-		local t = distance / length
-		if count == 0 or Clear(count, x1 + t * dx, y1 + t * dy) then
-			trailCount = trailCount + 1
-			Put(x1 + (t - half) * dx, y1 + (t - half) * dy, x1 + (t + half) * dx, y1 + (t + half) * dy, 0, 0, trailDot, 0,
-				fade * TRAIL_ALPHA, color, true, false)
-		end
-	end
-end
-
--- The line's last end, rounded as its start is (a path's end, at full strength).
-local function EndCap(mode, color)
-	if mode == "line" and jointX and fade == 1 then Joint(jointX, jointY, jointDx, jointDy, color) end
-	jointX = nil
 end
 
 -- A flight in the line style: DASH on and DASH_GAP off, carried across its
@@ -412,7 +363,7 @@ local function Segment(x1, y1, x2, y2, low, high, color, mode)
 	local dx, dy = x2 - x1, y2 - y1
 	local length = sqrt(dx * dx + dy * dy) * scale
 	if length == 0 then return end
-	if mode ~= "dots" and mode ~= "trail" and mode ~= "line" and mode ~= "dash" and mode ~= "guess" then
+	if mode ~= "dots" and mode ~= "line" and mode ~= "dash" and mode ~= "guess" then
 		walked = 0
 		if low then Stroke(x1 + low * dx, y1 + low * dy, x1 + high * dx, y1 + high * dy, color) end
 		return
@@ -421,7 +372,6 @@ local function Segment(x1, y1, x2, y2, low, high, color, mode)
 	walked = start + length
 	if mode == "line" then return LineSegment(x1, y1, dx, dy, length, start, low, high, color) end
 	if mode == "dash" or mode == "guess" then return DashSegment(x1, y1, dx, dy, length, start, low, high, color, mode == "guess") end
-	if mode == "trail" then return TrailSegment(x1, y1, dx, dy, length, start, low, high, color) end
 	if not low then return end
 	-- The caller clipped a walk a dot's reach inside its frame, so every rim
 	-- fits. A dot on a joint belongs to the later segment: both ends share a
@@ -584,7 +534,6 @@ function Strokes.Map(buffer, paths, view)
 						pc, px, py = c, x, y
 					end
 				end
-				EndCap(mode, color)
 			end
 		end
 	end
@@ -625,21 +574,19 @@ function Strokes.Project(wx, wy, x, y, radius, cosine, sine)
 end
 local Project = Strokes.Project
 
-local mmSquare, mmInset, mmWithin, mmLine, mmGap, mmTrail
+local mmSquare, mmInset, mmWithin, mmLine, mmGap
 local mmC, mmX, mmY, mmRadius, mmCos, mmSin
 
 -- Lines and strokes leave out what lies within mmGap of the centre (the
 -- player's arrow); the dots keep clear of it as of a stop's mark. A segment
 -- through it is drawn as two pieces, its length counted once.
 local function MinimapSegment(ax, ay, bx, by, color, mode)
-	local inset = mode == "dots" and mmWithin or mode == "trail" and mmTrail or mode == "line" and mmLine or mmInset
+	local inset = mode == "dots" and mmWithin or mode == "line" and mmLine or mmInset
 	local dx, dy = bx - ax, by - ay
 	local low, high = ClipMinimap(ax, ay, dx, dy, inset, mmSquare)
 	local x1, y1, x2, y2 = (ax + 1) * width / 2, (ay - 1) * height / 2, (bx + 1) * width / 2, (by - 1) * height / 2
-	if low and mode ~= "dots" and mode ~= "trail" then
-		-- The line stops a round cap's radius further out, so the cap's edge is at the gap.
-		local gap = mode == "line" and mmGap + lineWidth / 2 / scale / (min(width, height) / 2) or mmGap
-		local a, b, c = dx * dx + dy * dy, ax * dx + ay * dy, ax * ax + ay * ay - gap * gap
+	if low and mode ~= "dots" then
+		local a, b, c = dx * dx + dy * dy, ax * dx + ay * dy, ax * ax + ay * ay - mmGap * mmGap
 		local discriminant = b * b - a * c
 		if a > 0 and discriminant > 0 then
 			local root = sqrt(discriminant)
@@ -682,23 +629,9 @@ function Strokes.Minimap(buffer, paths, view)
 	mmSquare = view.square
 	mmInset = 1 - border / min(width, height)
 	mmWithin = mmInset - (dot + RIM * 2) * DOT_ART / scale / min(width, height)
-	-- The minimap's own line: thinner, over a narrower shadow.
-	local w = lineWidth * MINIMAP_LINE
-	lineWidth = w < MINIMAP_LINES[1] and MINIMAP_LINES[1] or w > MINIMAP_LINES[2] and MINIMAP_LINES[2] or w
-	shadow = MINIMAP_SHADOW
-	mmLine = 1 - (lineWidth + shadow * 2) / scale / min(width, height)
+	mmLine = 1 - (lineWidth + SHADOW * 2) / scale / min(width, height)
 	mmGap = PLAYER_GAP / scale / (min(width, height) / 2)
-	local size = tonumber(view.trailSize) or 1
-	trailDot, trailSpacing = TRAIL_DOT * size, TRAIL_SPACING * size
-	mmTrail = 1 - trailDot / min(width, height)
-	if lined then
-		Circle(width / 2, -height / 2, PLAYER_GAP / scale)
-	else
-		-- The trail keeps clear of the arrow: no drawn dot within TRAIL_GAP units
-		-- (pin-fill's disc is 42 of the quad's 64 pixels).
-		circles[circleCount + 1], circles[circleCount + 2], circles[circleCount + 3] = width / 2, -height / 2, TRAIL_GAP + trailDot / DOT_ART / 2
-		circleCount = circleCount + 3
-	end
+	Circle(width / 2, -height / 2, PLAYER_GAP / scale)
 	local markX, markY
 	if view.goalC == c then
 		local gx, gy = Project(view.goalX, view.goalY, x, y, radius, cosine, sine)
@@ -715,7 +648,6 @@ function Strokes.Minimap(buffer, paths, view)
 		if color and kind ~= "hearth" then
 			walked, jointX = 0, nil
 			local mode = modeOf(path)
-			if mode == "dots" then mode = "trail" end
 			local strength = fade
 			local cs, xs, ys = path.c, path.x, path.y
 			if bows(path) then
@@ -736,8 +668,8 @@ function Strokes.Minimap(buffer, paths, view)
 				elseif pc == c then
 					px, py = Project(xs[1], ys[1], x, y, radius, cosine, sine)
 				end
-				if mode == "trail" then
-					-- Counted back from the walk's end, crawling by the phase.
+				if mode == "dots" then
+					-- Counted back from the walk's end, flowing by the phase.
 					local left, ax, ay = 0, nil, nil
 					if p == 1 and view.from and pc == c then ax, ay = view.fromX, view.fromY end
 					for i = ax and first or first - 1, path.n do
@@ -746,8 +678,7 @@ function Strokes.Minimap(buffer, paths, view)
 							ax, ay = xs[i], ys[i]
 						end
 					end
-					local spacingPx = trailSpacing * scale
-					walked = (-(left * (width / 2) / radius * scale) - (view.phase or 0) * spacingPx) % spacingPx
+					walked = (-(left * (width / 2) / radius * scale) - (view.phase or 0) * spacing) % spacing
 				end
 				-- The line's pieces at least LINE_MIN long, as on the world map.
 				local merges, n = mode == "line" or mode == "guess", path.n
@@ -762,7 +693,6 @@ function Strokes.Minimap(buffer, paths, view)
 						pc, px, py = ci, bx, by
 					end
 				end
-				EndCap(mode, color)
 			end
 		end
 	end

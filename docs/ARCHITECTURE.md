@@ -3103,23 +3103,26 @@ permission; `addon/Polestar_Nav/CREDITS.md`).
   yellow herb and ore blips and gold quest marks) on both maps; flights,
   boats and the rest keep their own colours, so a walk and a flight never
   read as one line. `nav.minimapRouteAlpha` (20-100%) fades the minimap's line, either
-  style; `nav.minimapRouteSize` (50-150%) scales it, dots, spacing and the gap
-  at the pin together (the strokes are laid out at the frame's scale divided
-  by it). Both in the line style window, the world map keeping its own. The
+  style; each style's own size (`RouteLines.SIZE_KEYS`: `nav.minimapLineSize`
+  50 %, `nav.minimapDotsSize` 80 %, `nav.minimapSparkleSize` 150 %, Fitz's
+  tuning for 0.3.6; 50-150 %) scales it, dots, spacing and the gap at the pin
+  together (the strokes are laid out at the frame's scale divided by it).
+  The line style window's "Minimap size" slider (key `nav.minimapRouteSize`)
+  reads and sets the chosen style's; a size saved there before the sizes
+  were per style became each style's own (`splitSize`). Both in the line
+  style window, the world map keeping its own. The
   minimap frame sits at the minimap's level + 3, under Polestar's trail and
   pins: the client draws its tracking blips and quest marks into the
   minimap's own picture, under every frame on it, so no frame level puts the
   line beneath them. The player's arrow is drawn there too, so nothing is
   drawn within 9 px of the minimap's centre (`Strokes.PLAYER_GAP`: lines and
   strokes are cut there, the dots keep clear of it as of a stop's pin). On
-  the minimap the dots style is 0.3.4's trail (`Strokes.TRAIL_*`): 5-unit
-  pin-fill dots at 85 %, no rim, 12 minimap units apart at every zoom,
-  counted back from the walk's end and crawling toward the goal at the
-  sparkles' default pace (`view.phase`, the painter's 20 Hz driver; still
-  under `ui.reduceMotion`); the world map keeps 0.3.5's dots (tested against
-  their recorded strokes). The line there is `MINIMAP_LINE` of the setting
-  (1.5-3 px) over a 2 px shadow, with round ends, painted at 85 %. Dots and
-  the line join the walk at the player while the player is on it (within 15
+  the minimap the dots keep their size, rim and 9 px spacing (screen pixels,
+  so the same at every zoom, scaled by the minimap size) and flow: counted
+  back from the walk's end and moved toward the goal at the sparkles' default
+  pace (`view.phase`, the painter's 20 Hz driver; still under
+  `ui.reduceMotion`); the world map's dots are 0.3.5's (tested against their
+  recorded strokes). Dots and the line join the walk at the player while the player is on it (within 15
   yd, Follow.lua's BODY); only beside it do they run straight from the player
   to the point the arrow holds in sight (`joinPoint`). Sparkles always start
   abreast of the player.

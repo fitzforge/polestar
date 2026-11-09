@@ -767,17 +767,17 @@ fn the_dot_colour_tints_the_walk_on_both_maps_the_minimap_opacity_and_size_chang
 			return { mm = { r, g, b }, world = { wr, wg, wb }, alpha = mm:GetAlpha(), worldAlpha = world:GetAlpha(),
 				width = mm:GetThickness(), worldWidth = world:GetThickness(), n = R.GetStrokes("minimap").n }
 		end
-		local r = { defaults = { Polestar.Get("nav.dotColor"), Polestar.Get("nav.minimapRouteAlpha"), Polestar.Get("nav.minimapRouteSize") } }
+		local r = { defaults = { Polestar.Get("nav.dotColor"), Polestar.Get("nav.minimapRouteAlpha"), Polestar.Get("nav.minimapDotsSize") } }
 		r.route = look()
 		Polestar.Set("nav.dotColor", "magenta")
 		stub.advance(0.3)
 		r.magenta = look()
 		Polestar.Set("nav.minimapRouteAlpha", 0.5)
-		Polestar.Set("nav.minimapRouteSize", 1.5)
+		Polestar.Set("nav.minimapDotsSize", 1.2)
 		stub.advance(0.3)
 		r.styled = look()
 		Polestar.Set("nav.minimapRouteAlpha", 0)
-		Polestar.Set("nav.minimapRouteSize", 9)
+		Polestar.Set("nav.minimapDotsSize", 9)
 		stub.advance(0.3)
 		r.clamped = look()
 		Polestar.Set("nav.dotColor", "route")
@@ -786,7 +786,7 @@ fn the_dot_colour_tints_the_walk_on_both_maps_the_minimap_opacity_and_size_chang
 		r.colors = R.DOT_COLORS
 		emit(r)"#,
 	);
-	assert_eq!(out["defaults"], json!(["route", 1, 1]));
+	assert_eq!(out["defaults"], json!(["route", 1, 0.8]), "the dots at 80 % on the minimap by default (Fitz, 0.3.6)");
 	let route = &out["route"];
 	assert_eq!(route["mm"], route["world"], "the route colours on both maps");
 	assert_ne!(route["mm"], json!([1, 0.3, 0.85]));
@@ -794,16 +794,15 @@ fn the_dot_colour_tints_the_walk_on_both_maps_the_minimap_opacity_and_size_chang
 	assert_eq!(out["colors"]["magenta"], magenta);
 	assert_eq!(out["magenta"]["mm"], magenta, "the minimap's dots in the chosen colour");
 	assert_eq!(out["magenta"]["world"], magenta, "and the world map's");
-	// The minimap's dots are the trail's, at 85 % (TRAIL_ALPHA) before the minimap opacity.
-	assert!(near(f(&out["route"]["alpha"]), 0.85));
+	assert_eq!(out["route"]["alpha"], 1);
 	let styled = &out["styled"];
-	assert!(near(f(&styled["alpha"]), 0.5 * 0.85), "minimap opacity 50%: {}", styled["alpha"]);
-	assert!(near(f(&styled["width"]), f(&route["width"]) * 1.5), "minimap size 150%: {} from {}", styled["width"], route["width"]);
+	assert!(near(f(&styled["alpha"]), 0.5), "minimap opacity 50%: {}", styled["alpha"]);
+	assert!(near(f(&styled["width"]), f(&route["width"]) * 1.2 / 0.8), "minimap size 120%: {} from {}", styled["width"], route["width"]);
 	assert!(f(&styled["n"]) < f(&route["n"]), "larger dots sit further apart: {} from {}", styled["n"], route["n"]);
 	assert_eq!(styled["worldAlpha"], route["worldAlpha"], "the world map keeps its own opacity");
 	assert_eq!(styled["worldWidth"], route["worldWidth"], "and its own size");
-	assert!(near(f(&out["clamped"]["alpha"]), 0.2 * 0.85), "opacity no lower than 20%: {}", out["clamped"]["alpha"]);
-	assert!(near(f(&out["clamped"]["width"]), f(&route["width"]) * 1.5), "size no larger than 150%");
+	assert!(near(f(&out["clamped"]["alpha"]), 0.2), "opacity no lower than 20%: {}", out["clamped"]["alpha"]);
+	assert!(near(f(&out["clamped"]["width"]), f(&route["width"]) * 1.5 / 0.8), "size no larger than 150%");
 	assert_eq!(out["back"]["mm"], route["mm"], "Route colours again");
 }
 
@@ -854,15 +853,11 @@ fn line_style_a_walk_is_one_piece_a_segment_end_to_end_over_a_soft_shadow_a_roun
 		assert!(near(((ax - ex).powi(2) + (ay - ey).powi(2)).sqrt(), LINE_W / 2.0), "overlaps by half the width");
 		assert!((ex - ax) * (bx - ax) + (ey - ay) * (by - ay) > 0.0, "back along its own way");
 	}
-	let discs: Vec<_> = plain.iter().filter(|s| truthy(&s["dot"])).collect();
-	assert_eq!(discs.len(), 3, "a joint at the right angle, none at the 5 degree turn, and a round cap at each end");
-	let at = |x: f64, y: f64| discs.iter().filter(|s| (f(&s["x"]) - x).abs() < 1e-6 && (f(&s["y"]) - y).abs() < 1e-6).count();
-	assert_eq!(at(400.0, 200.0), 1, "the joint");
-	assert_eq!(at(100.0, 200.0), 1, "the start's cap");
-	let last = lines.last().unwrap();
-	assert_eq!(at(f(&last["bx"]), f(&last["by"])), 1, "the end's cap");
-	assert!(discs.iter().all(|s| near(f(&s["width"]), LINE_W * DOT_ART) && f(&s["under"]) == 0.0), "the line's width across, no outline of its own");
-	assert_eq!(plain.len(), 6, "nothing else without chevrons");
+	let joints: Vec<_> = plain.iter().filter(|s| truthy(&s["dot"])).collect();
+	assert_eq!(joints.len(), 1, "a joint at the right angle, none at the 5 degree turn");
+	assert!(near(f(&joints[0]["x"]), 400.0) && near(f(&joints[0]["y"]), 200.0));
+	assert!(near(f(&joints[0]["width"]), LINE_W * DOT_ART) && f(&joints[0]["under"]) == 0.0, "the line's width across, no outline of its own");
+	assert_eq!(plain.len(), 4, "nothing else without chevrons");
 	// Chevrons: 900 px of walk, one every 90 px from 45 px in: 10, two arms each, no outline, dark, 60 %.
 	let arms: Vec<_> = arr(&out["marked"]).iter().filter(|s| s["color"] == "?").collect();
 	assert_eq!(arms.len(), 20);
@@ -1324,77 +1319,121 @@ fn the_minimap_dots_are_laid_out_again_from_the_player_at_every_step_along_the_w
 	assert!(moved[0] != out["a"] && moved[1] != moved[0] && moved[2] != moved[1], "each step redraws them: {moved:?}");
 }
 
-// Fitz in game (0.3.6): the line on the minimap was a fat flat bar. There it is MINIMAP_LINE of the thickness
-// setting within 1.5-3 px (2.2 at the default 4), over a 2 px soft shadow each side, with round ends, at 85 %
-// strength, in the walk's own colour as on the world map.
+// Fitz tuned each style on the 0.3.6 build: the minimap's size is each style's own (the line 50 %, the dots 80 %,
+// the sparkles 150 %, all at full opacity), drawn as the installed build drew them at those values; the window's
+// slider shows and sets the chosen style's size, right-click its default.
 #[test]
-fn the_minimap_line_is_thin_follows_the_thickness_setting_up_to_3_px_over_a_soft_shadow_with_round_ends() {
-	let out = strokes(
-		r#"
-		local walk = S.Path("walk", { { 0, 0, 0 }, { 0, 0, -60 }, { 0, -60, -120 } })
-		local r = {}
-		for _, w in ipairs({ 2, 4, 8 }) do
-			local b = S.New(600)
-			S.Minimap(b, { walk }, { c = 0, x = 0, y = 0, radius = 100, facing = 0, width = 140, height = 140, scale = 1, colors = COLORS, style = "line", lineWidth = w })
-			r[#r + 1] = list(b)
-		end
-		emit(r)"#,
-	);
-	let want = [(2.0, 1.5), (4.0, 2.2), (8.0, 3.0)];
-	for (i, (setting, px)) in want.iter().enumerate() {
-		let all = arr(&out[i]);
-		let pieces: Vec<_> = all.iter().filter(|s| truthy(&s["soft"])).collect();
-		assert!(!pieces.is_empty());
-		for p in &pieces {
-			assert!(near(f(&p["width"]), *px), "setting {setting}: {} px", p["width"]);
-			assert!(near(f(&p["under"]), px + 4.0), "a 2 px shadow each side: {}", p["under"]);
-			assert_eq!(p["color"], "walk");
-		}
-		let caps = all.iter().filter(|s| truthy(&s["dot"])).count();
-		assert!(caps >= 2, "setting {setting}: round ends ({caps} discs)");
-	}
-}
-
-#[test]
-fn the_minimap_line_is_painted_at_85_percent_in_the_world_map_s_walk_colour_over_its_soft_shadow() {
+fn each_style_keeps_its_own_minimap_size_the_line_half_the_dots_80_percent_the_sparkles_150_at_full_opacity() {
 	let out = painted_line(
 		r#"
 		Polestar.Set("nav.travel", false)
-		Polestar.Set("ui.reduceMotion", true)
 		nav.viewRadius = 300
 		nav.place(0, 0)
 		target(60, -700)
 		Polestar.Fire("NAV_ROUTE_GEOMETRY")
-		nav.showWorldMap(9000)
+		stub.advance(1)
+		local function look()
+			local s = R.GetStrokes("minimap")
+			for i = 1, s.n do
+				if s.soft[i] or s.dot[i] then return { width = s.width[i], alpha = R.GetMinimapFrame().lines[i]:GetAlpha() } end
+			end
+			return false
+		end
+		local r = { defaults = { Polestar.Get("nav.minimapLineSize"), Polestar.Get("nav.minimapDotsSize"), Polestar.Get("nav.minimapSparkleSize"),
+			Polestar.Get("nav.minimapRouteAlpha"), Polestar.Get("nav.lineWidth") } }
+		r.line = look()
+		Polestar.Set("nav.lineStyle", "dots")
 		stub.advance(0.5)
-		local mm, world = R.GetMinimapFrame(), worldPin()
-		local s = R.GetStrokes("minimap")
-		local piece
-		for i = 1, s.n do if s.soft[i] then piece = i break end end
-		local line, outline = mm.lines[piece], mm.outlines[piece]
-		local wl
-		local ws = R.GetStrokes("world")
-		for i = 1, ws.n do if ws.soft[i] then wl = world.lines[i] break end end
-		emit({ alpha = line:GetAlpha(), shadow = outline:GetAlpha(), shadowTex = outline:GetTexture(), shadowShown = outline:IsShown(),
-			color = { line:GetVertexColor() }, worldColor = { wl:GetVertexColor() }, worldAlpha = wl:GetAlpha() })"#,
+		r.dots = look()
+		Polestar.Set("nav.lineStyle", "sparkle")
+		stub.advance(0.5)
+		r.sparkle = R.MinimapSize()
+		Polestar.Set("nav.minimapSparkleSize", 1)
+		stub.advance(0.5)
+		r.sparkleAt1 = R.MinimapSize()
+		r.others = { Polestar.Get("nav.minimapLineSize"), Polestar.Get("nav.minimapDotsSize") }
+		emit(r)"#,
 	);
-	assert!(near(f(&out["alpha"]), 0.85), "85 %: {}", out["alpha"]);
-	assert!(near(f(&out["shadow"]), 0.85 * 0.75), "its shadow too: {}", out["shadow"]);
-	assert_eq!(out["shadowShown"], true);
-	assert!(out["shadowTex"].as_str().unwrap().ends_with("Media\\Nav\\line-soft"), "{}", out["shadowTex"]);
-	assert_eq!(out["color"], out["worldColor"], "the world map's walk colour");
-	assert_eq!(out["worldAlpha"], 1, "the world map keeps full strength");
+	assert_eq!(out["defaults"], json!([0.5, 0.8, 1.5, 1, 4]));
+	// The installed build's look at those values: the 4 px line laid out at half the frame's scale, the 4 px dots at
+	// 80 %, all at full opacity.
+	assert!(near(f(&out["line"]["width"]), 4.0 * 0.5), "the line at 50 %: {}", out["line"]["width"]);
+	assert_eq!(out["line"]["alpha"], 1);
+	assert!(near(f(&out["dots"]["width"]), DOT * DOT_ART * 0.8), "the dots at 80 %: {}", out["dots"]["width"]);
+	assert_eq!(out["dots"]["alpha"], 1);
+	assert_eq!(out["sparkle"], 1.5, "the sparkles at 150 %");
+	assert_eq!(out["sparkleAt1"], 1);
+	assert_eq!(out["others"], json!([0.5, 0.8]), "each style's size its own");
 }
 
-// Fitz in game (0.3.6): the minimap dots were "stiff and huge" (the world map's 4 px dots with their rim, in
-// screen pixels); the ones players knew were 0.3.4's trail (Nav/Pins.lua): small pin-fill dots, 5 minimap units,
-// 85 %, no rim, flowing toward the goal. The dots style on the minimap is that trail now: the same size and
-// spacing in the minimap's units at every zoom, counted back from the walk's end, crawling with the phase.
+// The window's "Minimap size" slider shows and sets the chosen style's size; right-click puts that style's default
+// back.
 #[test]
-fn minimap_dots_are_0_3_4_s_trail_small_the_same_size_and_spacing_at_every_zoom_crawling_toward_the_goal() {
+fn the_minimap_size_slider_follows_the_chosen_style() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Maps/RouteSparkle.lua", "UI/UI.xml"])],
+		script: r#"
+Polestar.RegisterDefaults("nav", { routeLines = true, lineStyle = "line", lineWidth = 4, dotColor = "route", minimapRouteAlpha = 1, minimapRouteSize = 1,
+	minimapLineSize = 0.5, minimapDotsSize = 0.8, minimapSparkleSize = 1.5 })
+Polestar.RegisterDefaults("nav", Polestar.RouteSparkle.DEFAULTS)
+Polestar.RouteLines = { SIZE_KEYS = { line = "minimapLineSize", dots = "minimapDotsSize", sparkle = "minimapSparkleSize" },
+	STYLE_CHOICES = { { value = "line", label = "Line" }, { value = "dots", label = "Dots" }, { value = "sparkle", label = "Sparkles" } } }
+uistub.install()
+stub.login()
+Polestar.UI.ShowLineStyle()
+local slider = Polestar.UI.LineStyleControls()["nav.minimapRouteSize"]
+local function shows() return slider.Slider:GetValue() end
+local r = { line = shows() }
+Polestar.Set("nav.lineStyle", "dots")
+r.dots = shows()
+Polestar.Set("nav.lineStyle", "sparkle")
+r.sparkle = shows()
+stub.RunScript(slider.Slider, "OnValueChanged", 1.0, true)
+r.after = { Polestar.Get("nav.minimapLineSize"), Polestar.Get("nav.minimapDotsSize"), Polestar.Get("nav.minimapSparkleSize") }
+slider:Click("RightButton")
+r.reset = Polestar.Get("nav.minimapSparkleSize")
+r.max = select(2, slider.Slider:GetMinMaxValues())
+emit(r)"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!([&out["line"], &out["dots"], &out["sparkle"]], [&json!(0.5), &json!(0.8), &json!(1.5)], "the slider follows the style");
+	assert_eq!(out["after"], json!([0.5, 0.8, 1]), "only the sparkles' size changed");
+	assert_eq!(out["reset"], 1.5);
+	assert_eq!(out["max"], 1.5, "the size stops at 150 %");
+}
+
+// A size saved before the sizes were per style is kept, as every style's own; with none saved the defaults apply.
+#[test]
+fn a_minimap_size_saved_before_becomes_every_style_s_own_with_none_the_defaults() {
+	let run = |saved: &str| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_nav.lua"],
+			addons: vec![lines()],
+			saved: vec![("Polestar".to_string(), saved.to_string())],
+			login: true,
+			script: r#"emit({ Polestar.Get("nav.minimapLineSize"), Polestar.Get("nav.minimapDotsSize"), Polestar.Get("nav.minimapSparkleSize"),
+				PolestarDB.settings.nav.minimapRouteSize == nil })"#
+				.into(),
+			..Default::default()
+		})
+		.remove(0)
+	};
+	assert_eq!(run("PolestarDB = { schema = 1, settings = { nav = { minimapRouteSize = 1.2 } } }"), json!([1.2, 1.2, 1.2, true]));
+	assert_eq!(run("PolestarDB = { schema = 1, settings = { nav = { minimapRouteSize = 1.2, minimapDotsSize = 0.6 } } }"), json!([1.2, 0.6, 1.2, true]));
+	assert_eq!(run("PolestarDB = { schema = 1, settings = { nav = {} } }"), json!([0.5, 0.8, 1.5, true]));
+}
+
+// Fitz in game (0.3.6): the minimap dots should flow toward the goal as they used to, at the size the installed
+// 0.3.6 build draws them (4 px with a 1 px rim, 9 px apart, in screen pixels, so the same at every zoom), starting
+// just past the gap at the player's arrow. Counted back from the walk's end, moved on by the phase.
+#[test]
+fn minimap_dots_keep_their_size_and_spacing_at_every_zoom_and_flow_toward_the_goal() {
 	let out = strokes(
 		r#"
-		-- A straight walk 600 yd east from the player.
+		-- A straight walk 600 yd east from the player, at a UI scale of 1.5.
 		local walk = S.Path("walk", { { 0, 0, 0 }, { 0, 0, -600 } })
 		local function draw(radius, phase)
 			local b = S.New(600)
@@ -1408,24 +1447,26 @@ fn minimap_dots_are_0_3_4_s_trail_small_the_same_size_and_spacing_at_every_zoom_
 		r.later = draw(166, 0.25)
 		emit(r)"#,
 	);
+	let px = 1.0 / 1.5; // units per screen pixel
 	for (z, dots) in arr(&out["zooms"]).iter().enumerate() {
 		let dots = arr(dots);
 		assert!(dots.len() >= 3, "zoom {z}: {} dots", dots.len());
 		for d in dots {
-			assert!(truthy(&d["dot"]) && near(f(&d["width"]), 5.0) && near(f(&d["len"]), 5.0), "zoom {z}: 5 units: {d}");
-			assert!(f(&d["under"]) == 0.0 && near(f(&d["alpha"]), 0.85), "no rim of ours, 85 %: {d}");
+			assert!(truthy(&d["dot"]) && near(f(&d["width"]), DOT * DOT_ART * px) && near(f(&d["len"]), DOT * DOT_ART * px), "zoom {z}: 4 px: {d}");
+			assert!(near(f(&d["under"]), (DOT + 2.0 * RIM) * DOT_ART * px) && f(&d["alpha"]) == 1.0, "zoom {z}: its rim, full strength: {d}");
 		}
 		for w in dots.windows(2) {
-			assert!(near(f(&w[1]["x"]) - f(&w[0]["x"]), 12.0), "zoom {z}: 12 units apart: {} then {}", w[0]["x"], w[1]["x"]);
+			assert!(near(f(&w[1]["x"]) - f(&w[0]["x"]), SPACING * px), "zoom {z}: 9 px apart: {} then {}", w[0]["x"], w[1]["x"]);
 		}
-		let first = f(&dots[0]["x"]) - 70.0;
-		assert!(first - 5.0 / DOT_ART / 2.0 >= PLAYER_GAP - 1e-6 && first <= PLAYER_GAP + 5.0 / DOT_ART / 2.0 + 12.0 + 1e-6, "zoom {z}: the first dot just past the arrow's gap ({first})");
+		let first = (f(&dots[0]["x"]) - 70.0) / px;
+		let reach = PLAYER_GAP + STOP_GAP + DOT / 2.0 + RIM;
+		assert!(first >= reach - 1e-6 && first <= reach + SPACING + 1e-6, "zoom {z}: the first dot just past the arrow's gap ({first} px)");
 	}
-	// A quarter of a spacing later every dot sits 3 units further toward the goal.
+	// A quarter of a spacing later every dot sits a quarter of 9 px further toward the goal.
 	let a = arr(&out["zooms"][2]);
 	let b = arr(&out["later"]);
-	let shift = (f(&b[0]["x"]) - f(&a[0]["x"])).rem_euclid(12.0);
-	assert!(near(shift, 3.0), "the crawl: {shift}");
+	let shift = ((f(&b[0]["x"]) - f(&a[0]["x"])) / px).rem_euclid(SPACING);
+	assert!(near(shift, SPACING / 4.0), "the flow: {shift} px");
 }
 
 // The painter moves the crawl with time (at the sparkles' pace) while the dots style shows; under reduced motion

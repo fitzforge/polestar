@@ -2804,7 +2804,7 @@ L["Line thickness"] = "線條粗細"
 L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] = "實線在世界地圖上的粗細；小地圖上的則依其大小設定。右鍵點擊重置。"
 L["Route colour"] = "路線顏色"
 L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] = "路線在小地圖上的顯示強度，線條、圓點或閃光皆適用；世界地圖另有設定。右鍵點擊重置。"
-L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] = "小地圖上路線的線條、圓點或閃光，以及圓點間的間距；世界地圖另有設定。右鍵點擊重置。"
+-- L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] = ""
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "指南：%d"
@@ -3235,3 +3235,4 @@ L["Sparkles"] = "閃光"
 -- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = "瀏覽資料夾可收合，關閉的分頁可用「重新開啟」找回，路線在地圖和小地圖上可顯示為線條、圓點或閃光，小地圖按鈕和浮動的 Polestar 按鈕都可在「選項」中開啟。"
 -- L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route."] = "升級指南若有此地城的步驟，就會帶你通過此地城。關閉：維持單人路線。"
 -- L["With Transparent, a shade with no edge behind the text, so it reads over bright ground. Off: the outlined text alone on the world."] = "使用透明樣式時，在文字後方加上無邊框的陰影，讓文字在明亮背景上也清晰可讀。關閉：只有加外框的文字直接顯示在遊戲世界上。"
+-- L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] = "小地圖上路線的線條、圓點或閃光，以及圓點間的間距；世界地圖另有設定。右鍵點擊重置。"

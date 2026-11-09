@@ -2804,7 +2804,7 @@ L["Line thickness"] = "선 굵기"
 L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] = "지도에서 실선의 굵기입니다. 미니맵의 선은 미니맵 크기를 따릅니다. 오른쪽 클릭하면 초기화."
 L["Route colour"] = "경로 색"
 L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] = "미니맵에서 경로(선, 점 또는 반짝임)가 얼마나 진하게 보이는지. 지도는 따로 설정합니다. 오른쪽 클릭하면 초기화."
-L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] = "미니맵의 경로 선, 점 또는 반짝임과 점 사이 간격. 지도는 따로 설정합니다. 오른쪽 클릭하면 초기화."
+-- L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] = ""
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "가이드: %d"
@@ -3235,3 +3235,4 @@ L["Sparkles"] = "반짝임"
 -- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = "탐색 폴더를 접을 수 있고, 닫은 탭은 다시 열기로 되살릴 수 있으며, 경로는 지도와 미니맵에 선, 점 또는 반짝임으로 표시할 수 있고, 미니맵 버튼과 떠 있는 Polestar 버튼을 설정에서 켤 수 있습니다."
 -- L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route."] = "레벨업 가이드에 이 던전 단계가 있으면 이 던전을 거쳐 안내합니다. 끄면: 솔로 경로만 따릅니다."
 -- L["With Transparent, a shade with no edge behind the text, so it reads over bright ground. Off: the outlined text alone on the world."] = "투명 스타일에서 글자 뒤에 테두리 없는 음영을 깔아 밝은 바닥 위에서도 읽기 쉽게 합니다. 끄면: 외곽선 글자만 화면 위에 표시됩니다."
+-- L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] = "미니맵의 경로 선, 점 또는 반짝임과 점 사이 간격. 지도는 따로 설정합니다. 오른쪽 클릭하면 초기화."

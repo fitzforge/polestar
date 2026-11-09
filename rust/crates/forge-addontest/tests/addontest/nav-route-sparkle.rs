@@ -426,7 +426,7 @@ fn the_line_style_window_holds_the_dot_colour_and_the_minimap_look_and_the_map_p
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Maps/RouteSparkle.lua", "UI/UI.xml"])],
 		script: r#"
-Polestar.RegisterDefaults("nav", { routeLines = true, lineStyle = "dots", dotColor = "route", minimapRouteAlpha = 1, minimapRouteSize = 1 })
+Polestar.RegisterDefaults("nav", { routeLines = true, lineStyle = "dots", dotColor = "route", minimapRouteAlpha = 1, minimapRouteSize = 1, minimapDotsSize = 0.8 })
 Polestar.RegisterDefaults("nav", { worldPins = true, minimapPins = true, minimapRoute = true, upcomingPins = false, trailDots = true })
 Polestar.RegisterDefaults("nav", Polestar.RouteSparkle.DEFAULTS)
 uistub.install()
@@ -443,10 +443,10 @@ r.alphaWithSparkle, r.sizeWithSparkle = W.Enabled(c["nav.minimapRouteAlpha"]), W
 Polestar.Set("nav.lineStyle", "dots")
 Polestar.Set("nav.dotColor", "cyan")
 Polestar.Set("nav.minimapRouteAlpha", 0.4)
-Polestar.Set("nav.minimapRouteSize", 0.6)
-r.set = { Polestar.Get("nav.dotColor"), Polestar.Get("nav.minimapRouteAlpha"), Polestar.Get("nav.minimapRouteSize") }
+Polestar.Set("nav.minimapDotsSize", 0.6)
+r.set = { Polestar.Get("nav.dotColor"), Polestar.Get("nav.minimapRouteAlpha"), Polestar.Get("nav.minimapDotsSize") }
 for _, k in ipairs({ "nav.dotColor", "nav.minimapRouteAlpha", "nav.minimapRouteSize" }) do c[k]:Click("RightButton") end
-r.reset = { Polestar.Get("nav.dotColor"), Polestar.Get("nav.minimapRouteAlpha"), Polestar.Get("nav.minimapRouteSize") }
+r.reset = { Polestar.Get("nav.dotColor"), Polestar.Get("nav.minimapRouteAlpha"), Polestar.Get("nav.minimapDotsSize") }
 UI.ShowOptions("map")
 O.Select("map", "Guide & quests")
 local toggle = O.Controls("map", "Guide & quests")["nav.minimapRoute"]
@@ -469,7 +469,7 @@ emit(r)"#
 	assert_eq!(out["colourWithSparkle"], false, "the dot colour waits for the dots");
 	assert_eq!(json!([out["alphaWithDots"], out["sizeWithDots"], out["alphaWithSparkle"], out["sizeWithSparkle"]]), json!([true, true, true, true]), "the minimap look holds for either style");
 	assert_eq!(out["set"], json!(["cyan", 0.4, 0.6]));
-	assert_eq!(out["reset"], json!(["route", 1, 1]), "right-click restores each default");
+	assert_eq!(out["reset"], json!(["route", 1, 0.8]), "right-click restores each default");
 	assert_eq!(out["toggle"], true, "the switch is on Map > Guide & quests");
 	assert_eq!(out["toggleOn"], true);
 	assert_eq!(out["toggleWithoutPin"], false, "it waits for the minimap pin, which hides the line too");

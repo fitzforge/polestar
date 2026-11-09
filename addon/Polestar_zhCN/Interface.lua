@@ -2804,7 +2804,7 @@ L["Line thickness"] = "线条粗细"
 L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] = "地图上实线的粗细；微缩地图上的跟随其大小设置。右键点击重置。"
 L["Route colour"] = "路线颜色"
 L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] = "路线（线条、圆点或闪光）在微缩地图上的显示强度；地图上的不受影响。右键点击重置。"
-L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] = "微缩地图上路线的线条、圆点或闪光，以及圆点间距；地图上的不受影响。右键点击重置。"
+-- L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] = ""
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "指南：%d"
@@ -3244,3 +3244,4 @@ L["Sparkles"] = "闪光"
 -- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = "浏览文件夹可折叠，关闭的标签页可用“重新打开”找回，路线在地图和微缩地图上可显示为线条、圆点或闪光，微缩地图按钮和浮动的 Polestar 按钮都可在选项中开启。"
 -- L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route."] = "升级指南在包含此地下城步骤时会带你完成该地下城。关闭：指南将保持单人路线。"
 -- L["With Transparent, a shade with no edge behind the text, so it reads over bright ground. Off: the outlined text alone on the world."] = "透明样式下，在文字后方加一层无边框的底色，在明亮背景上也易于阅读。关闭：只显示带描边的文字。"
+-- L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] = "微缩地图上路线的线条、圆点或闪光，以及圆点间距；地图上的不受影响。右键点击重置。"

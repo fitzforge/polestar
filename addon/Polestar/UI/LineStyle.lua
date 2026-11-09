@@ -3,8 +3,9 @@
 -- line, Polestar's dots, or sparkles drifting toward the goal,
 -- Maps/RouteSparkle.lua), the line's thickness (nav.lineWidth), the line's
 -- and dots' colour (nav.dotColor), the sparkles' own settings, and the
--- minimap line's opacity and size (nav.minimapRouteAlpha,
--- nav.minimapRouteSize), made by the options window's own controls
+-- minimap line's opacity (nav.minimapRouteAlpha) and the minimap size of the
+-- style chosen (its own setting, RouteLines.SIZE_KEYS: the slider follows the
+-- style), made by the options window's own controls
 -- (Options.Control) in one column, with three sparkle presets. Every change
 -- shows on the maps at once. The ✕ and Escape close it. Never taller than
 -- the screen less MARGIN: the rows scroll under the header.
@@ -26,6 +27,11 @@ local function px(v) return string.format(L["%d px"], floor(v + 0.5)) end
 local function plain() return ns.Get("nav.lineStyle") ~= "sparkle" end
 local function sparkles() return not plain() end
 local function notLine() return ns.Get("nav.lineStyle") ~= "line" end
+-- The minimap size setting of the style chosen.
+local function sizeKey()
+	local keys = ns.RouteLines and ns.RouteLines.SIZE_KEYS or {}
+	return "nav." .. (keys[ns.Get("nav.lineStyle")] or keys.dots or "minimapDotsSize")
+end
 
 local SECTIONS = {
 	{ name = L["Style"], controls = {
@@ -43,7 +49,8 @@ local SECTIONS = {
 		{ kind = "slider", key = "nav.minimapRouteAlpha", label = L["Minimap opacity"], min = 0.2, max = 1, step = 0.05, format = percent,
 			help = L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] },
 		{ kind = "slider", key = "nav.minimapRouteSize", label = L["Minimap size"], min = 0.5, max = 1.5, step = 0.05, format = percent,
-			help = L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] },
+			get = function() return ns.Get(sizeKey()) end, set = function(v) ns.Set(sizeKey(), v) end,
+			help = L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] },
 	} },
 	{ name = L["Sparkle"], presets = true, controls = {
 		{ kind = "slider", key = "nav.sparkleIntensity", label = L["Intensity"], min = 0, max = 1, step = 0.05, format = percent,
@@ -211,7 +218,12 @@ end
 
 ns.On("SHOW_LINE_STYLE", function() UI.ShowLineStyle() end)
 ns.On("SETTING_CHANGED", function(path)
-	if F and (path == "nav.lineStyle" or path == "nav" or path == "" or path == nil) then refreshPresets() end
+	if F and (path == "nav.lineStyle" or path == "nav" or path == "" or path == nil) then
+		refreshPresets()
+		-- The size slider shows the chosen style's own size.
+		local size = F.controls["nav.minimapRouteSize"]
+		if size and size.Refresh then size:Refresh() end
+	end
 end)
 W.OnFontChanged(function()
 	if F and F:IsShown() then layout() end
