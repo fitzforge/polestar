@@ -11016,6 +11016,18 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 30-40 audit (2026-11-09): Lotwil's Large Stone Slabs come from the Rock Elementals (92) beside Agmond's End (35-46,74-88), where the route goes for Theldurin; Lotwil (26,45) takes them on the walk back to Kargath instead of a walk back to his camp from the basin and out again."
+			},
+			{
+				"a": [
+					"turnin",
+					535
+				],
+				"b": [
+					"task",
+					533
+				],
+				"faction": "Horde",
+				"why": "Valik's report (2026-11-09, Horde 30-40/01): Henchman Valik (2333) offers Valik (535) only while Infiltration (533) is in the log (QuestieDB 1.0.10 and 1.0.13: parentQuest 533, childQuests [535]; the one recorded Valik window had 533 in the log; a level 30 player without 533 saw no offer), and its reward is the Syndicate Missive (3601) Infiltration asks for (quest reward data; 4 of 4 recorded takers handed the stout in seconds after the accept). Hand it in at once, before any missive farming."
 			}
 		]
 	}
