@@ -180,10 +180,6 @@ step Cenarion Hold
 
 # ---------------------------------------------------------------- Silithus
 
-step Cenarion Hold
-  zone Silithus
-  sethome "Cenarion Hold"
-
 step Southwind Village
   tip Ride east to the ruins of Southwind Village. The Dusty Reliquary lies among the ruined buildings, watched by Tortured Sentinels.
   collect 22201 quest 5527.1          -- Dusty Reliquary; inside

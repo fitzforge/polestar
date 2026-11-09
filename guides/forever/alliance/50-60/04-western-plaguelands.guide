@@ -561,7 +561,6 @@ step Cenarion Hold
   getfp "Cenarion Hold"
   accept 9415                         -- Rifleman Torrig, at the Alliance tents
   accept 8277                         -- Beetix Ficklespragg
-  sethome "Cenarion Hold"
   accept 8280                         -- Windcaller Proudhorn
   accept 8284                         -- Geologist Larksbane
 

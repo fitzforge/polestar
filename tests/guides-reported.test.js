@@ -9524,3 +9524,20 @@ test('forever/alliance/03-loch-modan.guide: the tunnel and gate waypoints drop o
 	assert.equal(steps.length, 2, 'Into Dun Morogh and Into Ironforge');
 	for (const st of steps) assert.ok((st.when || []).some((p) => p.k === 'zone' && p.neg && /Ironforge/.test(p.name)), `${st.title}: when !zone "Ironforge"`);
 });
+
+// Travel sweep (0.3.6, displaced binds): four binds the route never hearthed to replaced one it would have used next
+// (addon planner over the Warrior/Mage/Druid walks, sweep-travel/displaced_binds.py): Alliance 50-60/04's Cenarion
+// Hold (Ratchet's hearth at 05's start, 5.8 min), 50-60/06's Cenarion Hold (Ratchet's hearth to Talrendis Point,
+// 3.8 min), 04-redridge's Lakeshire (Darkshire's hearth in 05-duskwood, 2.9 min) and Horde 03-silverpine's Sepulcher
+// (Razor Hill's hearth to Orgrimmar for Orcs and Trolls, 2.3 min). They are gone.
+test('leveling guides: no unused bind that displaces the one the route hearths to next', { skip }, () => {
+	for (const [guide, place] of [
+		['forever/alliance/50-60/04-western-plaguelands.guide', 'Cenarion Hold'],
+		['forever/alliance/50-60/06-silithus.guide', 'Cenarion Hold'],
+		['forever/alliance/04-redridge-mountains.guide', 'Lakeshire'],
+		['forever/horde/03-silverpine-forest.guide', 'The Sepulcher'],
+	]) {
+		assert.ok(!goals(guide).some(({ goal }) => goal.t === 'sethome' && goal.location === place), `${guide}: no bind at ${place}`);
+	}
+	assert.ok(goals('forever/alliance/04-redridge-mountains.guide').some(({ goal }) => goal.t === 'sethome' && goal.location === 'Darkshire'), 'Darkshire is still bound');
+});
