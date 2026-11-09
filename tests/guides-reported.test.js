@@ -5371,7 +5371,14 @@ test('Alliance 20-30: no town stop for one quest where the route comes back anyw
 	assert.ok(!dark.filter(forClass('WARRIOR')).some(({ goal }) => goal.t === 'turnin' && goal.quest === 994), 'Volcor\'s escort is not taken back to Auberdine from Darkshore (Druids excepted)');
 	const wet = goals(WETLANDS);
 	const wetStep = (t, q) => wet[at(wet, `${t} ${q}`, is(t, q))].s;
-	assert.equal(wetStep('turnin', 994), wetStep('accept', 990), 'Volcor\'s escort to Terenthis on the Auberdine stop, with Selarin\'s Trek to Ashenvale');
+	assert.ok(wet.some(({ goal }) => is('turnin', 994)(goal)), 'Volcor\'s escort to Terenthis on the Auberdine stop');
+	// #1415: Selarin offers Trek to Ashenvale with no escort done (recordings: 17 people at 15-22), so it is taken on
+	// 03-darkshore-return's first Auberdine stop and handed to Raene on 06-ashenvale's first Astranaar stop.
+	assert.ok(!wet.some(({ goal }) => goal.quest === 990), 'Trek to Ashenvale is no longer carried to 28');
+	const dret = goals(DARKSHORE_RETURN);
+	assert.equal(dret[at(dret, 'accept 990', is('accept', 990))].s, 1, 'taken on the first Auberdine stop of 03-darkshore-return');
+	const ash0 = goals(ASHENVALE);
+	assert.ok(!ash0[at(ash0, 'turnin 990', is('turnin', 990))].goal.only, 'handed to Raene by everyone on 06-ashenvale');
 	assert.ok(!wet.some(({ goal }) => goal.t === 'turnin' && goal.quest === 472), 'Fall of Dun Modr is handed in on 30-40/01\'s Dun Modr stop');
 	const hills = goals(HILLSBRAD_ALLIANCE);
 	assert.ok(hills.some(({ goal }) => goal.t === 'turnin' && goal.quest === 472), 'Longbraid takes it there');

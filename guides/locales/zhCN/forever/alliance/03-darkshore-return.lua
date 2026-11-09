@@ -7,11 +7,13 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Auberdine
-	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis
-	["From the dock, up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south."] = "",
+	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin
+	["From the dock, up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston
 	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "",
 	["The WANTED poster"] = "通缉布告",
+	-- {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
+	["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "",
 
 	-- Step 3: Onu
 	-- {quest:948} Onu · {npc:270269} Arbal · {npc:11218} Kerlonian Evershade
@@ -113,12 +115,6 @@ return {
 	["His walk ends at the road, where Grimclaw waits"] = "",
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
 	["{npc:12298}: use the {item:15826} on them; they roam all of {zone:1439}"] = "{npc:12298}：对它们使用{item:15826}；它们在整个{zone:1439}游荡",
-
-	-- Step 20: Auberdine
-	-- {npc:3693} Terenthis · {npc:3694} Sentinel Selarin
-	["{npc:3693} stands by the flight master, {npc:3694} beside him. If she isn't there, she has been killed and respawns shortly: wait a moment."] = "",
-	-- {npc:3694} Sentinel Selarin · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
-	["{npc:3694}: for {npc:3691} in {area:415}, in the next guide"] = "",
 
 	-- Step 21: Auberdine flight master
 	-- {area:442} Auberdine

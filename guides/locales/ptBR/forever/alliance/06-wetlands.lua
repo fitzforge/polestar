@@ -186,12 +186,10 @@ return {
 	["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "",
 
 	-- Step 34: Auberdine
-	-- {npc:3693} Terenthis · {npc:3694} Sentinel Selarin
-	["{npc:3693} stands by the flight master, {npc:3694} beside him. If she isn't there, she has been killed and respawns shortly: wait a moment."] = "",
+	-- {npc:3693} Terenthis
+	["{npc:3693} stands by the flight master."] = "",
 	-- {npc:3693} Terenthis · {zone:1439} Darkshore
 	["{npc:3693}: Volcor's escort from the end of {zone:1439}"] = "{npc:3693}: a escolta de Volcor, do fim de {zone:1439}",
-	-- {npc:3694} Sentinel Selarin · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
-	["{npc:3694}: for {npc:3691} in {area:415}"] = "{npc:3694}: para {npc:3691} em {area:415}",
 
 	-- Step 35: Fly to Astranaar
 	-- {area:415} Astranaar
@@ -204,8 +202,6 @@ return {
 	["For {quest:4581} at {area:2358}"] = "Para {quest:4581} em {area:2358}",
 
 	-- Step 37: Astranaar
-	-- {npc:3691} Raene Wolfrunner
-	["{npc:3691}, in the inn"] = "{npc:3691}, na estalagem",
 	-- {npc:3894} Pelturas Whitemoon
 	["{npc:3894}, inside"] = "{npc:3894}, lá dentro",
 
@@ -361,6 +357,8 @@ return {
 	-- ["{item:15885}: join the two halves"] = "{item:15885}: junte as duas metades",
 	-- ["{npc:3649} stands at the north end of {area:442}, {npc:3693} and {npc:3694} by the flight master."] = "{npc:3649} fica no extremo norte de {area:442}, {npc:3693} e {npc:3694}, junto ao mestre de voo.",
 	-- ["{npc:3649}: Alexston's reply, if you took it in {zone:1453}"] = "{npc:3649}: a resposta do Aleixo, se você a pegou em {zone:1453}",
+	-- ["{npc:3691}, in the inn"] = "{npc:3691}, na estalagem",
+	-- ["{npc:3694}: for {npc:3691} in {area:415}"] = "{npc:3694}: para {npc:3691} em {area:415}",
 	-- ["{npc:3940}, inside {area:432}"] = "{npc:3940}, dentro de {area:432}",
 	-- ["{npc:3941}, inside {area:432}"] = "{npc:3941}, dentro de {area:432}",
 	-- ["{npc:3942}, inside {area:432}"] = "{npc:3942}, dentro de {area:432}",

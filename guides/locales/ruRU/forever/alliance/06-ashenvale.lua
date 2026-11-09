@@ -27,8 +27,8 @@ return {
 	["The road from {area:413} comes in by the flight master: {npc:3845} and {npc:4079} stand there, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "",
 	-- {npc:3691} Raene Wolfrunner
 	["{npc:3691}, in the inn"] = "{npc:3691}, в таверне",
-	-- {npc:3691} Raene Wolfrunner · {quest:990} Trek to Ashenvale · {area:442} Auberdine · {area:331} Ashenvale
-	["{npc:3691}: {quest:990}, from {area:442} (others take it on the next {area:331} visit)"] = "",
+	-- {npc:3691} Raene Wolfrunner · {quest:990} Trek to Ashenvale · {area:442} Auberdine
+	["{npc:3691}: {quest:990}, from {area:442}"] = "",
 	-- {npc:3894} Pelturas Whitemoon
 	["{npc:3894}, inside"] = "",
 

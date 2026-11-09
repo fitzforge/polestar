@@ -5,7 +5,7 @@
 			"id": "1089-auberdine-selarin-respawns",
 			"faction": "Alliance",
 			"at": { "quest": 990, "goal": "accept" },
-			"tip": "Terenthis stands by the flight master, Sentinel Selarin beside him. If she isn't there, she has been killed and respawns shortly: wait a moment.",
+			"tip": "From the dock, up to the north end of the village first (Thundris Windweaver, Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south. Sentinel Selarin stands beside Terenthis by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment.",
 			"note": "Trek to Ashenvale: Sentinel Selarin (npc 3694) stands beside Terenthis by Auberdine's flight master; the reporter found her missing, then she respawned (#1089). Her spot is right (players' recordings: 29 people opened her window at 38-40,43-45, Terenthis's spot), so the tip says to wait instead of moving the point.",
 			"source": [
 				{ "kind": "in-game-check", "ref": "#1089: missing, then respawned" },

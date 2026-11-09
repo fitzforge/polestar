@@ -375,6 +375,19 @@
 		],
 		"note": "Serpentbloom (Wailing Caverns) rewards 3,300 XP on Forever; the merged data had 1,350, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
 	},
+	"990": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-09): Sentinel Selarin (3694) offered Trek to Ashenvale in 25 windows to 17 people (5 established), levels 15-22, none with Escape Through Force (994) or Through Stealth (995) in the log or handed in (e.g. a level-15 Human Hunter and a level-15 Dwarf Shaman)"
+			}
+		],
+		"note": "Trek to Ashenvale has no prerequisite on Forever: Sentinel Selarin offers it from level 15 to anyone. The merged data made it follow Volcor's escorts (994/995, pfQuest and QuestieDB), so the route took it only after the escort, at 28."
+	},
 	"994": {
 		"set": {
 			"escort": true
