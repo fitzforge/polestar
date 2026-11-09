@@ -36,7 +36,7 @@ step Kerlonian Evershade
 
 step Ashenvale
   zone Ashenvale
-  goto 26.2,38.7 "Ashenvale"
+  goto 26.2,38.7 "Maestra's Post"
 
 # ---------------------------------------------------------------- Maestra's Post
 

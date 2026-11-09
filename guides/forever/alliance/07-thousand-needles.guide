@@ -15,7 +15,7 @@ next forever/alliance/30-40/01-hillsbrad-foothills
 
 step Duskwood
   zone Duskwood
-  goto 74.8,44.2 "Duskwood"
+  goto 74.8,44.2 "Darkshire"
 
 step Darkshire
   zone Duskwood

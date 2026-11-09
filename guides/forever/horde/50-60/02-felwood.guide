@@ -78,7 +78,7 @@ step Scarlet Crusade
 
 step Tirisfal Glades
   zone Tirisfal Glades
-  goto 83.2,68.5 "Tirisfal Glades"
+  goto 83.2,68.5 "The Bulwark"
 
 step The Bulwark
   zone Tirisfal Glades
@@ -103,7 +103,7 @@ step Level 53.34
 
 step Tirisfal Glades
   zone Tirisfal Glades
-  goto 61.8,59.2 "Tirisfal Glades"
+  goto 61.8,59.2 "Brill"
 
 step Paladin trainer
   only Paladin
@@ -116,7 +116,7 @@ step Zeppelin to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  goto 51.5,45.6 "Orgrimmar"
+  goto 51.5,45.6 "The middle of Orgrimmar"
 
 step Class trainer
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
@@ -136,7 +136,7 @@ step Fly to Splintertree Post
 
 step Felwood
   zone Felwood
-  goto 50.9,81.6 "Felwood"
+  goto 50.9,81.6 "Emerald Sanctuary"
 
 # ---------------------------------------------------------------- Emerald Sanctuary and Jaedenar
 

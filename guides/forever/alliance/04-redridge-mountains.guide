@@ -163,11 +163,11 @@ step Half Pendant of Aquatic Endurance
 step Back to Elwynn Forest
   only Shaman
   zone Elwynn Forest
-  goto 65.2,69.7 "Elwynn Forest"
+  goto 65.2,69.7 "The road into Elwynn Forest"
 
 step Elwynn Forest
   zone Elwynn Forest
-  goto 65.2,69.7 "Elwynn Forest"
+  goto 65.2,69.7 "The Tower of Azora"
 
 step Theocritus
   accept 94                           -- On the top floor
@@ -188,7 +188,7 @@ step Three Corners
 
 step Duskwood
   zone Duskwood
-  goto 75.8,45.3 "Duskwood"
+  goto 75.8,45.3 "Darkshire"
 
 # ---------------------------------------------------------------- Darkshire
 
@@ -286,7 +286,7 @@ step Madame Eva
 step Redridge Mountains
   zone Redridge Mountains
   tip Back north along the road from Darkshire to Three Corners.
-  goto 15.3,71.5 "Redridge Mountains"
+  goto 15.3,71.5 "Lakeridge Highway"
 
 step Lakeridge Highway
   tip Follow the road along the south shore of Lake Everstill to the gryphon master. Guard Howe stands by the road next to her.

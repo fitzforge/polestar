@@ -355,7 +355,7 @@ step Father Gavin
 step Dun Morogh
   only Hunter
   zone Dun Morogh
-  goto 45.8,53.0 "Dun Morogh"
+  goto 45.8,53.0 "Kharanos"
 
 step Taming the Beast
   zone Dun Morogh
@@ -466,7 +466,7 @@ step Bruegs Kindleborn
 step Loch Modan
   only Shaman
   zone Loch Modan
-  goto 32.2,66.0 "Loch Modan"
+  goto 32.2,66.0 "Braldir Ashmantle"
 
 step Braldir Ashmantle
   only Shaman

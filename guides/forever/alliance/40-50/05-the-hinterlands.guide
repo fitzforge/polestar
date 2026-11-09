@@ -84,7 +84,7 @@ step Boat to Auberdine
 
 step Teldrassil
   zone Teldrassil
-  goto 55.4,92.2 "Teldrassil"
+  goto 55.4,92.2 "Rut'theran Village"
 
 # ---------------------------------------------------------------- Rut'theran Village and Darnassus
 
@@ -162,7 +162,7 @@ step Darkshire
 
 step Blasted Lands
   zone Blasted Lands
-  goto 50.6,14.2 "Blasted Lands"
+  goto 50.6,14.2 "Bloodmage Drazial"
 
 # ---------------------------------------------------------------- The Blasted Lands
 

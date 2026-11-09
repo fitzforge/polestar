@@ -630,7 +630,7 @@ step Woo Ping
 step Stormwind City
   only Druid
   zone Stormwind City
-  goto 20.9,55.5 "Stormwind City"
+  goto 20.9,55.5 "Sheldras Moontree"
 
 step Sheldras Moontree
   only Druid
@@ -642,7 +642,7 @@ step Sheldras Moontree
 step Stormwind City
   only Mage
   zone Stormwind City
-  goto 38.6,79.3 "Stormwind City"
+  goto 38.6,79.3 "Jennea Cannon"
 
 step Jennea Cannon
   only Mage
@@ -658,4 +658,4 @@ step Mirror Lake
 
 step Westfall
   zone Westfall
-  goto 59.9,19.4 "Westfall"
+  goto 59.9,19.4 "The Jansen Stead"

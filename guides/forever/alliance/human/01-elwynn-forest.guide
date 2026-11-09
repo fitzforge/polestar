@@ -446,7 +446,7 @@ step Goldshire
 step Stormwind City
   only Mage
   zone Stormwind City
-  goto 38.6,79.3 "Stormwind City"
+  goto 38.6,79.3 "Jennea Cannon"
 
 step Jennea Cannon
   only Mage
@@ -458,7 +458,7 @@ step Jennea Cannon
 step Stormwind City
   only Warlock
   zone Stormwind City
-  goto 25.3,78.6 "Stormwind City"
+  goto 25.3,78.6 "Gakin the Darkbinder"
 
 # ---------------------------------------------------------------- Warlocks: Stormwind and east Elwynn
 
@@ -501,7 +501,7 @@ step The Binding
 step Back to Elwynn Forest
   only Mage,Warlock
   zone Elwynn Forest
-  goto 42.2,70.5 "Elwynn Forest"
+  goto 42.2,70.5 "Goldshire"
 
 step Taming the Beast
   zone Elwynn Forest

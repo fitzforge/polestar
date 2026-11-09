@@ -12,7 +12,7 @@ next forever/horde/40-50/05-the-hinterlands
 
 step Feralas
   zone Feralas
-  goto 75.4,44.3 "Feralas"
+  goto 75.4,44.3 "Camp Mojache"
 
 step Fly to Gadgetzan
   zone Feralas
@@ -32,7 +32,7 @@ step Gadgetzan
 
 step Tanaris
   zone Tanaris
-  goto 39.0,29.0 "Tanaris"
+  goto 39.0,29.0 "Sandsorrow Watch"
 
 step Sandsorrow Watch
   tip West of Gadgetzan, use the Untapped Dowsing Widget beside the water hole in the troll camp.
@@ -190,7 +190,7 @@ step Into Searing Gorge
 
 step Searing Gorge
   zone Searing Gorge
-  goto 65.6,62.2 "Searing Gorge"
+  goto 65.6,62.2 "The Grimesilt Dig Site"
 
 # ---------------------------------------------------------------- To the Searing Gorge
 
@@ -204,7 +204,7 @@ step The Grimesilt Dig Site
 
 step Searing Gorge
   zone Searing Gorge
-  goto 37.7,26.5 "Searing Gorge"
+  goto 37.7,26.5 "Thorium Point"
 
 # ---------------------------------------------------------------- Thorium Point and Velarok
 

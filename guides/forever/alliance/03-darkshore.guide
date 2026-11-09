@@ -238,7 +238,7 @@ step A Lesson to Learn
 step Darnassus
   only NightElf,Druid
   zone Darnassus
-  goto 35.8,11.6 "Darnassus"
+  goto 35.8,11.6 "Mathrengyl Bearwalker"
 
 step A Lesson to Learn
   only NightElf,Druid

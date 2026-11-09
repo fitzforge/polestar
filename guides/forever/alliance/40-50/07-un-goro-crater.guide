@@ -47,7 +47,7 @@ step Sprinkle
 
 step Un'Goro Crater
   zone Un'Goro Crater
-  goto 71.6,76.0 "Un'Goro Crater"
+  goto 71.6,76.0 "Torwa Pathfinder"
 
 step Torwa Pathfinder
   zone Un'Goro Crater

@@ -15,7 +15,7 @@ next forever/horde/50-60/02-felwood
 
 step Un'Goro Crater
   zone Un'Goro Crater
-  goto 41.9,2.7 "Un'Goro Crater"
+  goto 41.9,2.7 "Marshal's Refuge"
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 65-69) and machine-checked with lint; not play-tested on Forever yet.
 #
@@ -290,7 +290,7 @@ step Boat to Powderfuse Port
 step Badlands
   zone Badlands
   tip Leave Riverglades on foot to the north-west, north of Twilight's Shroud, into the Badlands.
-  goto 3.4,48.1 "Badlands"
+  goto 3.4,48.1 "Kargath"
 
 # ---------------------------------------------------------------- Kargath
 
@@ -386,7 +386,7 @@ step Undercity
 
 step Tirisfal Glades
   zone Tirisfal Glades
-  goto 83.3,72.3 "Tirisfal Glades"
+  goto 83.3,72.3 "The Bulwark"
 
 step The Bulwark
   zone Tirisfal Glades
@@ -417,7 +417,7 @@ step Scarlet forward camp
 
 step Eastern Plaguelands
   zone Eastern Plaguelands
-  goto 14.5,33.5 "Eastern Plaguelands"
+  goto 14.5,33.5 "Augustus the Touched"
 
 # ---------------------------------------------------------------- Eastern Plaguelands
 
@@ -485,9 +485,9 @@ step Fly to Tarren Mill
   fly "Tarren Mill"
   zone Hillsbrad Foothills
 
-step Western Plaguelands
+step The road north
   zone Western Plaguelands
-  goto 43.0,83.5 "Western Plaguelands"
+  goto 43.0,83.5 "The road north to Sorrow Hill"
 
 step Sorrow Hill
   tip Ride north up the road from Tarren Mill. Marlene's house stands by the road at Sorrow Hill, and Joseph Redpath's monument is in the graveyard behind it.

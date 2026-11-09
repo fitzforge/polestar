@@ -324,7 +324,7 @@ step Grom'gol Base Camp
 
 step Stranglethorn Vale
   zone Stranglethorn Vale
-  goto 35.7,10.8 "Stranglethorn Vale"
+  goto 35.7,10.8 "Nesingwary's Expedition"
 
 step Nesingwary's Expedition
   tip Head north up the road to the hunters' camp.
@@ -381,7 +381,7 @@ step Level 42.74
 
 step Duskwood
   zone Duskwood
-  goto 87.8,35.6 "Duskwood"
+  goto 87.8,35.6 "Deathstalker Zraedus"
 
 step Deathstalker Zraedus
   accept 1372
@@ -389,7 +389,7 @@ step Deathstalker Zraedus
 
 step Swamp of Sorrows
   zone Swamp of Sorrows
-  goto 26.0,31.4 "Swamp of Sorrows"
+  goto 26.0,31.4 "Magtoor"
 
 # ---------------------------------------------------------------- Swamp of Sorrows
 

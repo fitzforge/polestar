@@ -59,7 +59,7 @@ step Tarren Mill
 
 step Alterac Mountains
   zone Alterac Mountains
-  goto 61.8,43.0 "Alterac Mountains"
+  goto 61.8,43.0 "Gol'dir"
 
 step Gol'dir
   zone Alterac Mountains
@@ -118,9 +118,9 @@ step Tarren Mill
 
 # ---------------------------------------------------------------- Into Arathi
 
-step Arathi Highlands
+step Thoradin's Wall
   zone Arathi Highlands
-  goto 32.6,40.4 "Arathi Highlands"
+  goto 32.6,40.4 "The road east through Thoradin's Wall"
 
 step Northfold Manor
   zone Arathi Highlands

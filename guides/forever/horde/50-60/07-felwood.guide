@@ -12,7 +12,7 @@ zone Felwood
 
 step Tirisfal Glades
   zone Tirisfal Glades
-  goto 63.0,74.4 "Tirisfal Glades"
+  goto 63.0,74.4 "The zeppelin towers"
 
 step Zeppelin to Orgrimmar
   zone Tirisfal Glades
@@ -20,7 +20,7 @@ step Zeppelin to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  goto 45.3,63.7 "Orgrimmar"
+  goto 45.3,63.7 "Orgrimmar flight master"
 # Built from the simulator's consensus route (Horde, visits 102-116) and
 # machine-checked with lint; not play-tested on Forever yet. The end of the
 # Horde leveling chain.
@@ -94,7 +94,7 @@ step Fly to Splintertree Post
 
 step Felwood
   zone Felwood
-  goto 51.2,82.1 "Felwood"
+  goto 51.2,82.1 "The Emerald Sanctuary"
 
 # ---------------------------------------------------------------- Southern Felwood
 
@@ -144,7 +144,7 @@ step Toxic Horrors
 
 step Moonglade
   zone Moonglade
-  goto 44.9,35.6 "Moonglade"
+  goto 44.9,35.6 "Umber"
 
 # ---------------------------------------------------------------- Moonglade
 
@@ -171,7 +171,7 @@ step Umber
 
 step Winterspring
   zone Winterspring
-  goto 31.3,45.2 "Winterspring"
+  goto 31.3,45.2 "Donova Snowden"
 
 step Donova Snowden
   zone Winterspring
@@ -214,7 +214,7 @@ step Kernda
 
 step Winterspring
   zone Winterspring
-  goto 59.8,74.3 "Winterspring"
+  goto 59.8,74.3 "Darkwhisper Gorge"
 
 # ---------------------------------------------------------------- Darkwhisper Gorge and Winterfall Village
 

@@ -19,7 +19,7 @@ step Fly to Astranaar
 
 step Felwood
   zone Felwood
-  goto 54.2,86.8 "Felwood"
+  goto 54.2,86.8 "The Emerald Sanctuary"
 
 step The Emerald Sanctuary
   tip Ride north out of Astranaar into Felwood to the Emerald Sanctuary, the druids' camp by the road.

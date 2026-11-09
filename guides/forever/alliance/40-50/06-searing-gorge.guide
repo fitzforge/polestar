@@ -21,7 +21,7 @@ step Into Searing Gorge
 
 step Searing Gorge
   zone Searing Gorge
-  goto 65.6,62.2 "Searing Gorge"
+  goto 65.6,62.2 "The Grimesilt outhouse"
 
 # ---------------------------------------------------------------- The east
 

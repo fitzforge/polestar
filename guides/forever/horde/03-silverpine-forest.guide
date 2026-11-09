@@ -398,7 +398,7 @@ step Zeppelin to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  goto 55.6,72.3 "Orgrimmar's main gate"
+  goto 55.6,72.3 "Orgrimmar's Valley of Strength"
 
 step Valley of Strength
   zone Orgrimmar

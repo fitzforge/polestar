@@ -305,7 +305,7 @@ step Far Watch Post
 step The Barrens
   only Shaman
   zone The Barrens
-  goto 56.0,19.9 "The Barrens"
+  goto 56.0,19.9 "Kranal Fiss"
 
 # Turn in a carried alternative here before starting the shared ritual;
 # do not add a trip to a different trainer for an uncarried breadcrumb.
@@ -444,7 +444,7 @@ step Margoz
 step Orgrimmar
   only Warlock
   zone Orgrimmar
-  goto 48.3,45.3 "Orgrimmar"
+  goto 48.3,45.3 "Gan'rul Bloodeye"
 
 step Gan'rul Bloodeye
   only Warlock
@@ -464,7 +464,7 @@ step Hanashi
 step Back to Durotar
   only Warlock
   zone Durotar
-  goto 53.1,9.4 "Durotar"
+  goto 53.1,9.4 "Skull Rock"
 
 # Skull Rock's mouth: players report the entrance near 55,10 (quest 827); Gazz'uz
 # stands at its back (52.6,8.8).
@@ -491,7 +491,7 @@ step Into Orgrimmar
 step Orgrimmar
   only Warlock
   zone Orgrimmar
-  goto 48.3,45.3 "Orgrimmar"
+  goto 48.3,45.3 "Gan'rul Bloodeye"
 
 step The Binding
   only Warlock
@@ -506,7 +506,7 @@ step The Binding
 step Back to Durotar
   only Warlock
   zone Durotar
-  goto 56.4,20.0 "Durotar"
+  goto 56.4,20.0 "Margoz"
 
 step Margoz
   zone Durotar
@@ -553,7 +553,7 @@ step Thunder lizards on the way north
 step Orgrimmar
   only Hunter
   zone Orgrimmar
-  goto 66.0,18.5 "Orgrimmar"
+  goto 66.0,18.5 "Ormak Grimshot"
 
 step Ormak Grimshot
   only Hunter
@@ -572,4 +572,4 @@ step Hanashi
 step To Orgrimmar
   zone Orgrimmar
   tip Follow the road north from Far Watch Post to Orgrimmar's main gate. The next guide starts in Orgrimmar: Neeru Fireblade takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for Tirisfal Glades and Silverpine Forest. The Barrens come after Silverpine.
-  goto 55.6,72.3 "Orgrimmar's main gate"
+  goto 55.6,72.3 "Orgrimmar's Valley of Strength"

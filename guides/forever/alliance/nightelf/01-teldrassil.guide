@@ -407,7 +407,7 @@ step Into Darnassus
 step Darnassus
   only Warrior
   zone Darnassus
-  goto 57.3,34.6 "Darnassus"
+  goto 57.3,34.6 "Elanaria"
 
 # ---------------------------------------------------------------- Darnassus and Rut'theran
 
@@ -427,7 +427,7 @@ step Vorlus Vilehoof
 step Back to Darnassus
   only Warrior
   zone Darnassus
-  goto 70.7,45.4 "Darnassus"
+  goto 70.7,45.4 "Elanaria"
 
 step Darnassus
   zone Darnassus

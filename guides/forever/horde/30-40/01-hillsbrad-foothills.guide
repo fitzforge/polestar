@@ -205,7 +205,7 @@ step Henchman Valik
 
 step Hillsbrad Foothills
   zone Hillsbrad Foothills
-  goto 61.5,20.9 "Hillsbrad Foothills"
+  goto 61.5,20.9 "Tarren Mill"
 
 step Helcular's Rod
   zone Hillsbrad Foothills
@@ -256,7 +256,7 @@ step Flame of Uzel
 
 step Alterac Mountains
   zone Alterac Mountains
-  goto 20.2,84.3 "Alterac Mountains"
+  goto 20.2,84.3 "The Dalaran crater"
 
 step The Dalaran crater
   zone Alterac Mountains
@@ -369,7 +369,7 @@ step Back to Tarren Mill
 
 step Arathi Highlands
   zone Arathi Highlands
-  goto 32.6,40.4 "Arathi Highlands"
+  goto 32.6,40.4 "Boulderfist camp"
 
 step Boulderfist camp
   zone Arathi Highlands

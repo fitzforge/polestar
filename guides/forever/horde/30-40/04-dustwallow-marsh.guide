@@ -38,7 +38,7 @@ step Zeppelin to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  goto 51.5,45.6 "Orgrimmar"
+  goto 51.5,45.6 "The middle of Orgrimmar"
 
 step Orgrimmar
   zone Orgrimmar
@@ -64,7 +64,7 @@ step Fly to Camp Taurajo
 
 step Dustwallow Marsh
   zone Dustwallow Marsh
-  goto 29.7,47.6 "Dustwallow Marsh"
+  goto 29.7,47.6 "Shady Rest Inn"
 
 # ---------------------------------------------------------------- The Shady Rest Inn
 
@@ -79,7 +79,7 @@ step Shady Rest Inn
 
 step Dustwallow Marsh
   zone Dustwallow Marsh
-  goto 35.1,38.3 "Dustwallow Marsh"
+  goto 35.1,38.3 "Brackenwall Village"
 
 step Brackenwall Village
   zone Dustwallow Marsh

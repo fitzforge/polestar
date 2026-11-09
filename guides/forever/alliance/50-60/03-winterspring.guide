@@ -21,7 +21,7 @@ step Salfa
 
 step Winterspring
   zone Winterspring
-  goto 61.3,39.0 "Winterspring"
+  goto 61.3,39.0 "Everlook"
 
 # ---------------------------------------------------------------- Everlook
 
@@ -119,7 +119,7 @@ step Everlook
 
 step Winterspring
   zone Winterspring
-  goto 62.3,36.6 "Winterspring"
+  goto 62.3,36.6 "Everlook"
 
 step Fly to Theramore
   zone Winterspring
@@ -139,7 +139,7 @@ step Fly to Southshore
 
 step Western Plaguelands
   zone Western Plaguelands
-  goto 42.9,85.0 "Western Plaguelands"
+  goto 42.9,85.0 "Chillwind Camp"
 
 # ---------------------------------------------------------------- To the Plaguelands
 
@@ -163,7 +163,7 @@ step Into Eastern Plaguelands
 
 step Eastern Plaguelands
   zone Eastern Plaguelands
-  goto 36.4,90.8 "Eastern Plaguelands"
+  goto 36.4,90.8 "Pamela Redpath"
 
 step Pamela Redpath
   zone Eastern Plaguelands

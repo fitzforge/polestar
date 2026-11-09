@@ -203,7 +203,7 @@ step Tram to Stormwind
 step Elwynn Forest
   zone Elwynn Forest
   tip From the tram, leave Stormwind by the main gate and follow the road through Goldshire and east through Elwynn to Redridge.
-  goto 65.2,69.7 "Elwynn Forest"
+  goto 65.2,69.7 "The road east to Redridge"
 
 step Guard Thomas
   only NightElf
@@ -310,7 +310,7 @@ step Westfall
   when turnedin 65
   zone Westfall
   tip West through Westbrook into Westfall.
-  goto 59.9,19.4 "Westfall"
+  goto 59.9,19.4 "Sentinel Hill"
 
 step Sentinel Hill
   when turnedin 65

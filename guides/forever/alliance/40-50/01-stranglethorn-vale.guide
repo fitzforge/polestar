@@ -115,7 +115,7 @@ step Balos Jacken
 step The Barrens
   only Warrior
   zone The Barrens
-  goto 68.6,49.2 "The Barrens"
+  goto 68.6,49.2 "Klannoc Macleod"
 
 # ---------------------------------------------------------------- Booty Bay
 
@@ -128,12 +128,6 @@ step The Affray
   complete 1719                           -- Defeat the challengers and Big Will
   turnin 1719                             -- Klannoc Macleod: Berserker Stance
   note Klannoc offers The Windwatcher next (1791): the Whirlwind weapon chain, with an elite at the end, is in the Warrior class guide Whirlwind Weapon.
-
-step Dustwallow Marsh
-  only Human
-  zone Dustwallow Marsh
-  when level>=40
-  goto 67.5,51.2 "Dustwallow Marsh"
 
 step Foothold Citadel
   only Human
@@ -162,7 +156,7 @@ step Elwynn Forest
   only Human
   zone Elwynn Forest
   when level>=40
-  goto 84.6,64.5 "Elwynn Forest"
+  goto 84.6,64.5 "Eastvale Logging Camp"
 
 step Riding at 40
   only Human
@@ -188,7 +182,7 @@ step Boat to Booty Bay
 step The Barrens
   only Dwarf,Paladin
   zone The Barrens
-  goto 63.4,38.5 "The Barrens"
+  goto 63.4,38.5 "Ratchet"
 
 step Boat to Booty Bay
   only Dwarf,Paladin
@@ -198,7 +192,7 @@ step Boat to Booty Bay
 step The Barrens
   only Dwarf,NightElf,Skyborne,Hunter
   zone The Barrens
-  goto 63.4,38.5 "The Barrens"
+  goto 63.4,38.5 "Ratchet"
 
 step Boat to Booty Bay
   only Dwarf,NightElf,Skyborne,Hunter
@@ -208,7 +202,7 @@ step Boat to Booty Bay
 step The Barrens
   only Dwarf,Gnome,NightElf,Skyborne,Rogue
   zone The Barrens
-  goto 63.4,38.5 "The Barrens"
+  goto 63.4,38.5 "Ratchet"
 
 step Boat to Booty Bay
   only Dwarf,Gnome,NightElf,Skyborne,Rogue
@@ -218,7 +212,7 @@ step Boat to Booty Bay
 step The Barrens
   only Dwarf,Gnome,NightElf,Priest
   zone The Barrens
-  goto 63.4,38.5 "The Barrens"
+  goto 63.4,38.5 "Ratchet"
 
 step Boat to Booty Bay
   only Dwarf,Gnome,NightElf,Priest
@@ -228,7 +222,7 @@ step Boat to Booty Bay
 step The Barrens
   only Dwarf,Shaman
   zone The Barrens
-  goto 63.4,38.5 "The Barrens"
+  goto 63.4,38.5 "Ratchet"
 
 step Boat to Booty Bay
   only Dwarf,Shaman
@@ -243,7 +237,7 @@ step Boat to Booty Bay
 step The Barrens
   only Gnome,Skyborne,Mage
   zone The Barrens
-  goto 63.4,38.5 "The Barrens"
+  goto 63.4,38.5 "Ratchet"
 
 step Boat to Booty Bay
   only Gnome,Skyborne,Mage
@@ -269,7 +263,7 @@ step Boat to Booty Bay
 step The Barrens
   only NightElf,Skyborne,Druid
   zone The Barrens
-  goto 63.4,38.5 "The Barrens"
+  goto 63.4,38.5 "Ratchet"
 
 step Boat to Booty Bay
   only NightElf,Skyborne,Druid
@@ -284,7 +278,7 @@ step Boat to Booty Bay
 step Duskwood
   only Human
   zone Duskwood
-  goto 77.6,44.4 "Duskwood"
+  goto 77.6,44.4 "Darkshire"
 
 step Fly to Booty Bay
   only Human
@@ -519,7 +513,7 @@ step Paladin: The Tome of Nobility
 step Stormwind City
   only Warlock
   zone Stormwind City
-  goto 25.3,78.2 "Stormwind City"
+  goto 25.3,78.2 "Demisette Cloyce"
 
 step Warlock: Summon Felsteed
   zone Stormwind City
@@ -549,7 +543,7 @@ step Darnassus
   only NightElf
   zone Darnassus
   when level>=40
-  goto 38.7,15.8 "Darnassus"
+  goto 38.7,15.8 "Jartsam"
 
 step Riding at 40
   only NightElf
@@ -563,7 +557,7 @@ step Teldrassil
   only NightElf
   zone Teldrassil
   when level>=40
-  goto 58.4,93.9 "Teldrassil"
+  goto 58.4,93.9 "Rut'theran Village"
 
 step Fly to Auberdine
   only NightElf
@@ -590,7 +584,7 @@ step Darkshire
 
 step Swamp of Sorrows
   zone Swamp of Sorrows
-  goto 5.5,31.4 "Swamp of Sorrows"
+  goto 5.5,31.4 "Misty Valley"
 
 step Misty Valley
   tip The scroll lies in the marsh north of Biggs. The Swampwalkers north of it can drop Khadgar's essays.
@@ -635,7 +629,7 @@ step Watcher Biggs
 
 step Duskwood
   zone Duskwood
-  goto 77.6,44.4 "Duskwood"
+  goto 77.6,44.4 "Darkshire"
 
 step Fly to Stormwind
   zone Duskwood
@@ -672,7 +666,7 @@ step Dun Morogh
   only Dwarf
   zone Dun Morogh
   when level>=40
-  goto 63.8,50.1 "Dun Morogh"
+  goto 63.8,50.1 "Amberstill Ranch"
 
 step Riding at 40
   only Dwarf
@@ -686,7 +680,7 @@ step Dun Morogh
   only Gnome
   zone Dun Morogh
   when level>=40
-  goto 49.2,48.1 "Dun Morogh"
+  goto 49.2,48.1 "Steelgrill's Depot"
 
 step Riding at 40
   only Gnome
@@ -716,7 +710,7 @@ step Thelsamar
 
 step Badlands
   zone Badlands
-  goto 53.8,43.3 "Badlands"
+  goto 53.8,43.3 "Hammertoe's Digsite"
 
 # ---------------------------------------------------------------- The Badlands
 

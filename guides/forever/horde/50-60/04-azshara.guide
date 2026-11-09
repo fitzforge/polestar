@@ -143,7 +143,7 @@ step Royal Quarter
 
 step Tirisfal Glades
   zone Tirisfal Glades
-  goto 83.0,71.9 "Tirisfal Glades"
+  goto 83.0,71.9 "The Bulwark"
 
 step The Bulwark
   zone Tirisfal Glades
@@ -152,7 +152,7 @@ step The Bulwark
 
 step Western Plaguelands
   zone Western Plaguelands
-  goto 36.9,57.4 "Western Plaguelands"
+  goto 36.9,57.4 "Felstone Field"
 
 step Felstone Field
   zone Western Plaguelands

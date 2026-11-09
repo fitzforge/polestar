@@ -285,7 +285,7 @@ step Redpath's Shield
 
 step Eastern Plaguelands
   zone Eastern Plaguelands
-  goto 27.3,85.2 "Eastern Plaguelands"
+  goto 27.3,85.2 "The Undercroft"
 
 step The Undercroft
   zone Eastern Plaguelands
@@ -294,7 +294,7 @@ step The Undercroft
 
 step The Hinterlands
   zone The Hinterlands
-  goto 11.1,46.1 "The Hinterlands"
+  goto 11.1,46.1 "Aerie Peak"
 
 step Fly to Southshore
   zone The Hinterlands
@@ -428,7 +428,7 @@ step Wandering Shay
 
 step Feralas
   zone Feralas
-  goto 89.5,45.9 "Feralas"
+  goto 89.5,45.9 "Thalanaar"
 
 step Fly to Theramore
   zone Feralas
@@ -438,7 +438,7 @@ step Fly to Theramore
 
 step The Barrens
   zone The Barrens
-  goto 65.8,43.8 "The Barrens"
+  goto 65.8,43.8 "Ratchet"
 
 # ---------------------------------------------------------------- Ratchet and Azshara
 
@@ -459,7 +459,7 @@ step Fly to Everlook
 
 step Winterspring
   zone Winterspring
-  goto 31.3,45.2 "Winterspring"
+  goto 31.3,45.2 "Donova Snowden"
 
 step Donova Snowden
   tip Ride west along the road to the hot springs.
@@ -468,7 +468,7 @@ step Donova Snowden
 
 step Moonglade
   zone Moonglade
-  goto 51.7,45.1 "Moonglade"
+  goto 51.7,45.1 "Rabine Saturna"
 
 step Rabine Saturna
   zone Moonglade
@@ -507,7 +507,7 @@ step Broken Pillar
 
 step Tanaris
   zone Tanaris
-  goto 51.0,29.3 "Tanaris"
+  goto 51.0,29.3 "Gadgetzan"
 
 step Fly to Marshal's Refuge
   zone Tanaris
@@ -542,7 +542,7 @@ step Layo Starstrike
 
 step Silithus
   zone Silithus
-  goto 51.6,38.6 "Silithus"
+  goto 51.6,38.6 "Cenarion Hold"
 
 # ---------------------------------------------------------------- Silithus
 
@@ -606,7 +606,7 @@ step Layo Starstrike
 
 step Un'Goro Crater
   zone Un'Goro Crater
-  goto 33.2,48.4 "Un'Goro Crater"
+  goto 33.2,48.4 "Krakle"
 
 step Krakle
   tip Coming in from Silithus, Golakka Hot Springs is just inside the crater: Krakle the goblin sits by the water.

@@ -24,7 +24,7 @@ step Fly to Darkshire
 
 step Stranglethorn Vale
   zone Stranglethorn Vale
-  goto 35.7,10.5 "Stranglethorn Vale"
+  goto 35.7,10.5 "Nesingwary's Expedition"
 
 # ---------------------------------------------------------------- Nesingwary's Expedition
 
@@ -165,7 +165,7 @@ step Fly to Sentinel Hill
 
 step Stranglethorn Vale
   zone Stranglethorn Vale
-  goto 24.4,17.5 "Stranglethorn Vale"
+  goto 24.4,17.5 "The Savage Coast"
 
 # ---------------------------------------------------------------- The jungle loop
 
@@ -243,5 +243,5 @@ step Heartswood
 
 step Stonetalon Mountains
   zone Stonetalon Mountains
-  goto 33.7,72.8 "Stonetalon Mountains"
+  goto 33.7,72.8 "The road to Nijel's Point"
 

@@ -54,7 +54,7 @@ step Raging Owlbeasts
 
 step Winterspring
   zone Winterspring
-  goto 60.7,38.2 "Winterspring"
+  goto 60.7,38.2 "Everlook"
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 74-79) and machine-checked with lint; not play-tested on Forever yet.
 #
@@ -181,7 +181,7 @@ step The Videre Elixir
 
 step Desolace
   zone Desolace
-  goto 21.6,74.0 "Desolace"
+  goto 21.6,74.0 "Shadowprey Village"
 
 step Fly to Thunder Bluff
   zone Desolace

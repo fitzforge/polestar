@@ -13,7 +13,7 @@ next forever/alliance/40-50/05-the-hinterlands
 
 step Thousand Needles
   zone Thousand Needles
-  goto 78.1,77.1 "Thousand Needles"
+  goto 78.1,77.1 "Mirage Raceway"
 
 # ---------------------------------------------------------------- The Shimmering Flats
 
@@ -27,7 +27,7 @@ step Mirage Raceway
 
 step Tanaris
   zone Tanaris
-  goto 51.6,26.8 "Tanaris"
+  goto 51.6,26.8 "Gadgetzan"
 
 # ---------------------------------------------------------------- Gadgetzan
 
@@ -205,7 +205,7 @@ step Aerie Peak
 
 step The Hinterlands
   zone The Hinterlands
-  goto 26.9,48.6 "The Hinterlands"
+  goto 26.9,48.6 "Rhapsody Shindigger"
 
 step Rhapsody Shindigger
   turnin 1452

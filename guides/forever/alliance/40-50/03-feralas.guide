@@ -16,10 +16,6 @@ step Into The Barrens
   zone The Barrens
   goto 49.5,78.4 "Into The Barrens"
 
-step The Barrens
-  zone The Barrens
-  goto 44.0,93.0 "The Barrens"
-
 step Thalanaar flight master
   zone Feralas
   goto 89.5,45.9 "Thalanaar flight master"
@@ -69,7 +65,7 @@ step Boat to The Forgotten Coast
 
 step Feralas
   zone Feralas
-  goto 45.4,65.0 "Feralas"
+  goto 45.4,65.0 "The courier's boat"
 
 # ---------------------------------------------------------------- The southern mainland
 
@@ -115,7 +111,7 @@ step Fly to Thalanaar
 
 step Feralas
   zone Feralas
-  goto 65.9,45.7 "Feralas"
+  goto 65.9,45.7 "Grimtotem camp"
 
 # ---------------------------------------------------------------- The eastern loop
 

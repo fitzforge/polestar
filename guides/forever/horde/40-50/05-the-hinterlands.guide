@@ -21,7 +21,7 @@ step Fly to Tarren Mill
 
 step The Hinterlands
   zone The Hinterlands
-  goto 26.7,48.6 "The Hinterlands"
+  goto 26.7,48.6 "Gilveradin's camp"
 
 # ---------------------------------------------------------------- Into the Hinterlands
 

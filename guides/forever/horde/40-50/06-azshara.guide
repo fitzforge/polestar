@@ -14,7 +14,7 @@ next forever/horde/50-60/01-un-goro-crater
 
 step Swamp of Sorrows
   zone Swamp of Sorrows
-  goto 46.1,54.7 "Swamp of Sorrows"
+  goto 46.1,54.7 "Stonard"
 
 step Fly to Grom'gol
   zone Swamp of Sorrows
@@ -117,7 +117,7 @@ step Zeppelin to Orgrimmar
 
 step Azshara
   zone Azshara
-  goto 11.4,78.2 "Azshara"
+  goto 11.4,78.2 "Loh'atu"
 
 step Ride into Azshara
   zone Azshara

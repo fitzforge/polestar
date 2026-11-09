@@ -216,7 +216,7 @@ step Kernda
 
 step Moonglade
   zone Moonglade
-  goto 51.7,45.1 "Moonglade"
+  goto 51.7,45.1 "Rabine Saturna"
 
 step Rabine Saturna
   zone Moonglade
@@ -235,7 +235,7 @@ step Rabine Saturna
 
 step Winterspring
   zone Winterspring
-  goto 31.3,45.2 "Winterspring"
+  goto 31.3,45.2 "Donova Snowden"
 
 # ---------------------------------------------------------------- Winterspring
 
@@ -254,7 +254,7 @@ step Moontouched Owlbeasts
 
 step Winterspring
   zone Winterspring
-  goto 60.5,36.3 "Winterspring"
+  goto 60.5,36.3 "Everlook"
 
 step Fly to Gadgetzan
   zone Winterspring

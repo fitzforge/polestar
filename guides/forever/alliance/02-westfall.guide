@@ -142,7 +142,7 @@ step The Jansen Stead
 step Westfall
   only Dwarf,Gnome,Skyborne
   zone Westfall
-  goto 59.9,19.4 "Westfall"
+  goto 59.9,19.4 "The Jansen Stead"
 
 step The Jansen Stead
   zone Westfall
@@ -336,7 +336,7 @@ step Sentinel Hill
 step Stormwind City
   only Human,Warrior
   zone Stormwind City
-  goto 80.4,59.8 "Stormwind City" live
+  goto 80.4,59.8 "Ilsa Corbin" live
 
 step Defensive Stance
   only Human,Warrior
@@ -355,7 +355,7 @@ step Defensive Stance
 step Stormwind City
   only Human,Priest
   zone Stormwind City
-  goto 49.5,44.6 "Stormwind City" live
+  goto 49.5,44.6 "High Priestess Laurena" live
 
 step High Priestess Laurena
   only Human,Priest
@@ -366,7 +366,7 @@ step High Priestess Laurena
 step Stormwind City
   only Human,Paladin
   zone Stormwind City
-  goto 50.5,47.5 "Stormwind City" live
+  goto 50.5,47.5 "Duthorian Rall" live
 
 step The Tome of Divinity
   only Human,Paladin
@@ -389,7 +389,7 @@ step The Tome of Divinity
 step Stormwind City
   only Shaman
   zone Stormwind City
-  goto 64.5,7.5 "Stormwind City"
+  goto 64.5,7.5 "Stormwind's Dwarven District"
 
 step Tram to Ironforge
   only Shaman
@@ -413,7 +413,7 @@ step Back to Stormwind City
   only Shaman
   zone Stormwind City
   tip Ride the tram back: it comes out in Stormwind's Dwarven District, where the errands below start.
-  goto 64.5,7.5 "Stormwind City"
+  goto 64.5,7.5 "Stormwind's Dwarven District"
 
 step Stormwind
   zone Stormwind City

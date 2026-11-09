@@ -184,7 +184,7 @@ step Druid trainer
 step Elwynn Forest
   only NightElf
   zone Elwynn Forest
-  goto 43.5,65.3 "Elwynn Forest"
+  goto 43.5,65.3 "Goldshire"
 
 step Class trainer
   only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock

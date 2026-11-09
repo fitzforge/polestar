@@ -102,11 +102,11 @@ step Highperch
 
 step Thousand Needles
   zone Thousand Needles
-  goto 46.9,48.5 "Thousand Needles"
+  goto 46.9,48.5 "The canyons east of Highperch"
 
 step Thousand Needles
   zone Thousand Needles
-  goto 77.8,77.3 "Thousand Needles"
+  goto 77.8,77.3 "Mirage Raceway"
 
 step Mirage Raceway
   tip Follow the canyons east to the salt flats. The goblins and gnomes of the Mirage Raceway are neutral and give quests to both factions.

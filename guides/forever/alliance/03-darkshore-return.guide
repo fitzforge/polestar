@@ -185,7 +185,7 @@ step The Great Cat Spirit
 step Darnassus
   only NightElf,Skyborne,Druid
   zone Darnassus
-  goto 35.8,11.6 "Darnassus"
+  goto 35.8,11.6 "Mathrengyl Bearwalker"
 
 step The Great Cat Spirit
   only Druid
@@ -252,7 +252,7 @@ step Back to Dendrite
 step Darnassus
   only NightElf,Skyborne,Druid
   zone Darnassus
-  goto 35.8,11.6 "Darnassus"
+  goto 35.8,11.6 "Mathrengyl Bearwalker"
 
 step To Darnassus
   only Druid

@@ -14,7 +14,7 @@ next forever/horde/40-50/03-feralas
 
 step Swamp of Sorrows
   zone Swamp of Sorrows
-  goto 46.1,54.7 "Swamp of Sorrows"
+  goto 46.1,54.7 "Stonard"
 
 step Fly to Grom'gol
   zone Swamp of Sorrows
@@ -28,7 +28,7 @@ step Zeppelin to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  goto 51.5,45.6 "Orgrimmar"
+  goto 51.5,45.6 "The middle of Orgrimmar"
 # Route from the Polestar route simulator's Horde consensus (Tauren export),
 # visits 33-38, levels 42.5-44: Tanaris, Feralas, then the way back east.
 # Checked by lint, not play-tested on Forever yet. Era + known Forever quests
@@ -144,7 +144,7 @@ step Mulgore
   only Tauren
   zone Mulgore
   when level>=40
-  goto 46.8,62.0 "Mulgore" live
+  goto 46.8,62.0 "Bloodhoof Village" live
 
 step Riding at 40
   only Tauren
@@ -212,9 +212,9 @@ step Mirage Raceway
   accept 1194
   turnin 1194                           -- Pozzik
 
-step Tanaris
+step To Gadgetzan
   zone Tanaris
-  goto 50.2,27.5 "Tanaris"
+  goto 50.2,27.5 "Gadgetzan"
 
 step Gadgetzan
   zone Tanaris
@@ -300,7 +300,7 @@ step Fly to Freewind Post
 
 step Feralas
   zone Feralas
-  goto 75.7,44.3 "Feralas"
+  goto 75.7,44.3 "Camp Mojache"
 
 step Camp Mojache
   zone Feralas

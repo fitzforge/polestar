@@ -19,7 +19,7 @@ step Into Badlands
 
 step Badlands
   zone Badlands
-  goto 53.4,43.4 "Badlands"
+  goto 53.4,43.4 "Hammertoe's Digsite"
 
 # ---------------------------------------------------------------- Hammertoe's Digsite
 

@@ -442,7 +442,7 @@ step Ur'endra
 step Zephras Isle
   only Shaman
   zone Zephras Isle
-  goto 51.2,86.2 "Zephras Isle" live
+  goto 51.2,86.2 "Olariaan Swiftburn" live
 
 step Olariaan Swiftburn
   zone Zephras Isle
@@ -455,7 +455,7 @@ step Olariaan Swiftburn
 step Zephras Isle
   only Shaman
   zone Zephras Isle
-  goto 51.2,86.2 "Zephras Isle" live
+  goto 51.2,86.2 "The Eternal Flame" live
 
 step The Eternal Flame
   zone Zephras Isle
@@ -698,4 +698,4 @@ step The Crossroads
 step To Orgrimmar
   zone Orgrimmar
   tip From the Crossroads follow the road north-east to Far Watch Post, cross the Southfury River into Durotar and keep north to Orgrimmar's main gate. The next guide starts in Orgrimmar: Thrall takes Welcome to Azeroth, and the zeppelin leaves for Tirisfal Glades and Silverpine Forest.
-  goto 55.6,72.3 "Orgrimmar's main gate"
+  goto 55.6,72.3 "Orgrimmar's Valley of Strength"

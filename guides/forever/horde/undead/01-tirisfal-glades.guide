@@ -392,7 +392,7 @@ step Anastasia Hartwell
 step Back to Tirisfal Glades
   only Warlock,Mage
   zone Tirisfal Glades
-  goto 51.7,67.6 "Tirisfal Glades"
+  goto 51.7,67.6 "The Scarlet camp"
 
 # ---------------------------------------------------------------- The Scarlet camp
 
@@ -538,7 +538,7 @@ step The Undercity
 step Back to Tirisfal Glades
   only Warlock,Priest,Mage
   zone Tirisfal Glades
-  goto 59.4,52.2 "Tirisfal Glades"
+  goto 59.4,52.2 "Brill"
 
 step Brill
   zone Tirisfal Glades

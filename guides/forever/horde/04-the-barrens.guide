@@ -117,6 +117,10 @@ step Malaka'jin
 
 # ---------------------------------------------------------------- The southern Barrens
 
+step To Camp Taurajo
+  zone The Barrens
+  goto 45.6,59.0 "Camp Taurajo"
+
 step Camp Taurajo
   zone The Barrens
   tip From Malaka'jin follow the road east to Seereth's camp, then south-east across the plains to Camp Taurajo.
@@ -133,7 +137,7 @@ step Grunt Logmar
 step The Barrens
   only Shaman
   zone The Barrens
-  goto 43.4,77.4 "The Barrens"
+  goto 43.4,77.4 "Brine"
 
 step Brine
   zone The Barrens
@@ -217,6 +221,10 @@ step The Great Lift
   accept 4542 npc 10079               -- Brave Moonhorn, at the top of the lift
 
 # ---------------------------------------------------------------- Back north
+step To Camp Taurajo
+  zone The Barrens
+  goto 45.6,59.0 "Camp Taurajo"
+
 step Camp Taurajo
   zone The Barrens
   turnin 879                          -- Mangletooth

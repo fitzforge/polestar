@@ -57,7 +57,7 @@ step Darnassus
   only NightElf,Druid
   zone Darnassus
   when onquest 5061
-  goto 35.8,11.6 "Darnassus"
+  goto 35.8,11.6 "Mathrengyl Bearwalker"
 
 step Mathrengyl Bearwalker
   only NightElf,Druid
@@ -90,7 +90,7 @@ step Darnassus
   only NightElf,Priest
   when onquest 5673
   zone Darnassus
-  goto 39.5,81.2 "Darnassus"
+  goto 39.5,81.2 "Priestess Alathea"
 
 step Elune's Grace
   only NightElf,Priest

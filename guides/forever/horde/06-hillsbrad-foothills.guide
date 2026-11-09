@@ -272,7 +272,7 @@ step Zeppelin to Orgrimmar
 step Orgrimmar
   zone Orgrimmar
   when !turnedin 31
-  goto 51.5,45.6 "Orgrimmar, the Valley of Strength"
+  goto 51.5,45.6 "The middle of Orgrimmar"
 
 step Orgrimmar
   only Hunter,Shaman

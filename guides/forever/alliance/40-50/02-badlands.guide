@@ -54,7 +54,7 @@ step Into Badlands
 
 step Badlands
   zone Badlands
-  goto 37.4,14.9 "Badlands"
+  goto 37.4,14.9 "The Uldaman dig"
 
 step The Uldaman dig
   zone Badlands
@@ -64,7 +64,7 @@ step The Uldaman dig
 
 step Back to Loch Modan
   zone Badlands
-  goto 49.4,8.0 "Loch Modan"
+  goto 49.4,8.0 "Ironband's Excavation Site"
 
 step Ironband's Excavation Site
   zone Loch Modan
@@ -92,7 +92,7 @@ step Southshore
 
 step The Hinterlands
   zone The Hinterlands
-  goto 11.8,46.8 "The Hinterlands"
+  goto 11.8,46.8 "Aerie Peak"
 
 step Aerie Peak
   zone The Hinterlands

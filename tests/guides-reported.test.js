@@ -359,17 +359,26 @@ test('forever/horde/skyborne/01-zephras-isle.guide: the Al\'Aketh Cultist\'s Ear
 
 // Maazias's report (#1450): "walks you to a spot to do nothing": a travel-only step labelled with just the zone's name
 // ("The Barrens", a goto south of Camp Taurajo on the way back from the Great Lift, where the hearth is bound) led a
-// player who was already in Camp Taurajo back 1,200 yd. The Horde 1-30 guides keep no travel-only step whose label is a
-// bare zone name except the class-only river crossings (sweep: ~/work/maintainer/zone-goto-sweep).
-test('Horde 1-30: no travel-only step on the shared route is labelled with just a zone name (#1450)', { skip }, () => {
-	const zones = new Set(['The Barrens', 'Silverpine Forest', 'Tirisfal Glades', 'Ashenvale', 'Hillsbrad Foothills', 'Thousand Needles', 'Thunder Bluff', 'Stonetalon Mountains', 'Durotar', 'Mulgore', 'Orgrimmar']);
-	const files = allGuides().filter((f) => /^forever\/horde\/(0[2-7]-|orc\/|troll\/|tauren\/|undead\/|skyborne\/)/.test(f));
+// player who was already in Camp Taurajo back 1,200 yd. Guard over every leveling guide: a step whose only goal is a
+// `goto` says where the walk leads (a town, an NPC, a camp), never just the zone's name (or "Back to"/"To" + the name).
+// "Into <zone>" labels name a border crossing and stay. Exceptions go in ZONE_GOTO_ALLOW, "file|label" -> the reason.
+// The same check for the release: ~/work/maintainer/zone-goto-sweep/srcsteps.py.
+const ZONE_GOTO_ALLOW = {};
+test('every leveling guide: no travel-only step is labelled with just a zone name (#1450)', { skip: skip || needs('zones.json') }, () => {
+	const zones = new Set(['Orgrimmar', 'Thunder Bluff', 'Undercity', 'Stormwind City', 'Ironforge', 'Darnassus']);
+	for (const z of Object.values(JSON.parse(fs.readFileSync(path.join(DATA, 'zones.json'), 'utf8')))) if (z && z.type === 3 && z.name) zones.add(z.name);
+	const GOAL = /^\s+(accept|turnin|kill|collect|interact|use|complete|escort|goto|talk|task|buy|fly|getfp|sethome|hearth|level|train|vendor|explore|enter|cast|money|rep|skill|achieve|die|abandon|destroy|learn)\b/;
+	const files = allGuides().filter((f) => /^forever\/(horde|alliance)\//.test(f));
+	assert.ok(files.length > 50, `the leveling guides (${files.length})`);
 	const bad = [];
 	for (const f of files) {
 		for (const s of fs.readFileSync(path.join(OFFICIAL_DIR, f), 'utf8').split(/\n(?=step\b)/)) {
-			const lines = s.split('\n').filter((l) => /^\s+\S/.test(l) && !/^\s+(zone|tip|note|when|#)/.test(l));
-			const m = lines.length === 1 && lines[0].match(/^\s+goto [\d.,]+(?: map \d+)? "([^"]+)"/);
-			if (m && zones.has(m[1]) && !/^\s+only\b/m.test(s)) bad.push(`${f}: ${s.split('\n')[0]} -> "${m[1]}"`);
+			if (!s.startsWith('step')) continue;
+			const goals = s.split('\n').filter((l) => GOAL.test(l));
+			const m = goals.length === 1 && goals[0].match(/^\s+goto [\d.]+,[\d.]+(?: map \d+)?(?: "([^"]*)")?/);
+			if (!m) continue;
+			const label = m[1] || s.split('\n')[0].slice(4).trim();
+			if (zones.has(label.replace(/^(Back to|To) /, '')) && !ZONE_GOTO_ALLOW[`${f}|${label}`]) bad.push(`${f}: ${s.split('\n')[0]} -> "${label}"`);
 		}
 	}
 	assert.deepEqual(bad, []);

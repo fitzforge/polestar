@@ -173,7 +173,7 @@ step Sven's Camp
 step Westfall
   only Rogue
   zone Westfall
-  goto 68.5,70.1 "Westfall"
+  goto 68.5,70.1 "Agent Kearnen"
 
 # ---------------------------------------------------------------- Rogues: Klaven's Tower
 
@@ -207,7 +207,7 @@ step Elwynn Forest
   only !Rogue
   zone Elwynn Forest
   tip North from Raven Hill through Elwynn: Goldshire is on the road to Stormwind.
-  goto 43.5,65.3 "Elwynn Forest"
+  goto 43.5,65.3 "Goldshire"
 
 step Class trainer
   only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid
@@ -225,7 +225,7 @@ step Gazin Tenorm
 step Stormwind City
   only Shaman
   zone Stormwind City
-  goto 64.5,7.5 "Stormwind City"
+  goto 64.5,7.5 "Stormwind's Dwarven District"
 
 step Tram to Ironforge
   only Shaman

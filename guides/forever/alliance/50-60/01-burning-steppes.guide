@@ -37,7 +37,7 @@ step Shadowsong Shrine
 step Azshara
   only Priest
   zone Azshara
-  goto 42.4,42.6 "Azshara"
+  goto 42.4,42.6 "Ogtinc"
 
 step Ogtinc
   zone Azshara
@@ -55,7 +55,7 @@ step Mosshoof Coursers
 step Azshara
   only Priest
   zone Azshara
-  goto 42.4,42.6 "Azshara"
+  goto 42.4,42.6 "Ogtinc"
 
 step Ogtinc
   zone Azshara
@@ -195,7 +195,7 @@ step The Super Snapper FX
 
 step The Hinterlands
   zone The Hinterlands
-  goto 11.1,46.1 "The Hinterlands"
+  goto 11.1,46.1 "Aerie Peak"
 
 step Fly to Southshore
   zone The Hinterlands
@@ -206,7 +206,7 @@ step Fly to Southshore
 step Western Plaguelands
   zone Western Plaguelands
   tip Ride north from Southshore up the road through Alterac to Chillwind Camp.
-  goto 42.9,85.0 "Western Plaguelands"
+  goto 42.9,85.0 "Chillwind Camp"
 
 step Chillwind Camp
   zone Western Plaguelands
@@ -365,7 +365,7 @@ step To Stoutlager Inn
 step Loch Modan
   when group 3181
   zone Loch Modan
-  goto 18.2,84.0 "Loch Modan"
+  goto 18.2,84.0 "Mountaineer Pebblebitty"
 
 step Mountaineer Pebblebitty
   when group 3181
@@ -374,7 +374,7 @@ step Mountaineer Pebblebitty
 
 step Loch Modan
   zone Loch Modan
-  goto 33.9,50.8 "Loch Modan"
+  goto 33.9,50.8 "Thelsamar"
 
 step Fly to Ironforge
   zone Loch Modan
@@ -421,7 +421,7 @@ step Druid training
 step Back to Teldrassil
   only Druid
   zone Teldrassil
-  goto 55.4,92.2 "Teldrassil"
+  goto 55.4,92.2 "Daryn Lightwind"
 
 step Daryn Lightwind
   tip Daryn Lightwind stands upstairs, above Erelas Ambersky: go up inside, the arrow cannot tell the floors apart.

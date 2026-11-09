@@ -23,7 +23,7 @@ step Fly to Talrendis Point
 
 step Felwood
   zone Felwood
-  goto 51.2,82.1 "Felwood"
+  goto 51.2,82.1 "The Emerald Sanctuary"
 
 step The Emerald Sanctuary
   zone Felwood
@@ -97,7 +97,7 @@ step The Emerald Sanctuary
 
 step Azshara
   zone Azshara
-  goto 11.9,77.5 "Azshara"
+  goto 11.9,77.5 "Talrendis Point"
 
 step Fly to Gadgetzan
   zone Azshara
@@ -124,7 +124,7 @@ step Broken Pillar
 
 step Un'Goro Crater
   zone Un'Goro Crater
-  goto 43.8,81.4 "Un'Goro Crater"
+  goto 43.8,81.4 "The Slithering Scar"
 
 step The Slithering Scar
   zone Un'Goro Crater
@@ -312,7 +312,7 @@ step Dire Maul (optional)
 
 step Felwood
   zone Felwood
-  goto 50.0,26.9 "Felwood"
+  goto 50.0,26.9 "The Toxic Horrors"
 
 step Toxic Horrors
   collect 12822 quest 5086.1 @49.8,27.4 map 1448
@@ -335,7 +335,7 @@ step Meilosh
 
 step Winterspring
   zone Winterspring
-  goto 31.3,45.2 "Winterspring"
+  goto 31.3,45.2 "Donova Snowden"
 
 step Donova Snowden
   turnin 5086
@@ -361,7 +361,7 @@ step Donova Snowden
 
 step Moonglade
   zone Moonglade
-  goto 44.9,35.6 "Moonglade"
+  goto 44.9,35.6 "Umber"
 
 # ---------------------------------------------------------------- Moonglade
 
@@ -492,7 +492,7 @@ step Fly to Southshore
 
 step Alterac Mountains
   zone Alterac Mountains
-  goto 39.5,81.2 "Alterac Mountains"
+  goto 39.5,81.2 "Lieutenant Haggerdin"
 
 step Lieutenant Haggerdin
   zone Alterac Mountains
@@ -500,7 +500,7 @@ step Lieutenant Haggerdin
 
 step Western Plaguelands
   zone Western Plaguelands
-  goto 42.7,83.8 "Western Plaguelands"
+  goto 42.7,83.8 "Chillwind Camp"
 
 # ---------------------------------------------------------------- Western Plaguelands
 
@@ -539,7 +539,7 @@ step Tirion Fordring (optional)
 
 step Eastern Plaguelands
   zone Eastern Plaguelands
-  goto 71.3,34.0 "Eastern Plaguelands"
+  goto 71.3,34.0 "The lake for Of Lost Honor"
 
 step Of Lost Honor
   collect 14625 quest 5845.1 @62.5,26.8 map 1423 live -- Underwater
@@ -582,7 +582,7 @@ step Level 59.93
 
 step Western Plaguelands
   zone Western Plaguelands
-  goto 43.4,84.8 "Western Plaguelands"
+  goto 43.4,84.8 "Chillwind Camp"
 
 step Chillwind Camp
   zone Western Plaguelands

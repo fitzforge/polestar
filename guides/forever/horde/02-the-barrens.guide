@@ -146,7 +146,7 @@ step Razormane camp: Thork's quilboar
 step Durotar
   only Orc,Troll,Shaman
   zone Durotar
-  goto 38.5,59.0 "Durotar"
+  goto 38.5,59.0 "Telf Joolam"
 
 step Telf Joolam
   only Orc,Troll,Shaman
@@ -161,7 +161,7 @@ step Telf Joolam
 step The Barrens
   only Orc,Troll,Shaman
   zone The Barrens
-  goto 61.4,21.1 "The Barrens"
+  goto 61.4,21.1 "Kranal Fiss"
 
 step Kranal Fiss
   only Orc,Troll,Shaman
@@ -265,7 +265,7 @@ step Far Watch Post
 step Durotar
   only Tauren,Warrior
   zone Durotar
-  goto 39.7,29.2 "Durotar"
+  goto 39.7,29.2 "The thunder lizards across the river"
 
 step Thunder lizards across the river
   only Tauren,Warrior
@@ -276,7 +276,7 @@ step Thunder lizards across the river
 step Durotar
   only Tauren,Shaman
   zone Durotar
-  goto 38.5,59.0 "Durotar"
+  goto 38.5,59.0 "Telf Joolam"
 
 step Telf Joolam
   only Tauren,Shaman
@@ -294,7 +294,7 @@ step Dustwind Gulch cultists
 step The Barrens
   only Tauren,Warrior
   zone The Barrens
-  goto 61.4,21.1 "The Barrens"
+  goto 61.4,21.1 "Uzzek"
 
 step Uzzek
   only Tauren,Warrior
@@ -316,7 +316,7 @@ step Thun'grim Firegaze
 step The Barrens
   only Tauren,Shaman
   zone The Barrens
-  goto 62.7,36.2 "The Barrens"
+  goto 62.7,36.2 "Ratchet"
 
 step Ratchet
   zone The Barrens
@@ -408,7 +408,7 @@ step The Disruption Ends
 step Durotar
   only Tauren,Shaman
   zone Durotar
-  goto 38.5,59.0 "Durotar"
+  goto 38.5,59.0 "Telf Joolam"
 
 step Telf Joolam
   only Tauren,Shaman
@@ -424,7 +424,7 @@ step The Barrens
   only Tauren,Shaman
   zone The Barrens
   tip Sunscale raptors here count toward the heads.
-  goto 56.0,19.9 "The Barrens"
+  goto 56.0,19.9 "Kranal Fiss"
 
 step Kranal Fiss
   only Tauren,Shaman
@@ -880,7 +880,7 @@ step Gazrog
 step Stonetalon Mountains
   only Orc,Troll,Undead,Warlock
   zone Stonetalon Mountains
-  goto 73.3,95.1 "Stonetalon Mountains"
+  goto 73.3,95.1 "Ken'zigla"
 
 step Ken'zigla
   only Warlock
@@ -896,6 +896,11 @@ step Ken'zigla
   accept 1511
 
 # ---------------------------------------------------------------- South: Verog, Camp Taurajo, the Bristlebacks
+
+step To Regthar Deathgate
+  only Orc,Troll,Undead,Warlock
+  zone The Barrens
+  goto 45.3,28.4 "Regthar Deathgate"
 
 step Regthar Deathgate
   zone The Barrens
@@ -927,7 +932,7 @@ step Camp Taurajo
 step The Barrens
   only Warlock
   zone The Barrens
-  goto 43.3,47.9 "The Barrens"
+  goto 43.3,47.9 "Grunt Dogran"
 
 step Grunt Dogran
   zone The Barrens
@@ -1120,6 +1125,10 @@ step Makaba Flathoof
   tip Back down to Makaba.
   turnin 6548
   accept 6629                         -- Grundig Darkcloud waits up the Webwinder Path
+
+step To Malaka'jin
+  zone Stonetalon Mountains
+  goto 73.3,95.1 "Malaka'jin"
 
 step Malaka'jin
   zone Stonetalon Mountains

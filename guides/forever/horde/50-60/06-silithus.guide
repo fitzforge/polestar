@@ -154,7 +154,7 @@ step Layo Starstrike
 
 step Un'Goro Crater
   zone Un'Goro Crater
-  goto 44.7,8.1 "Un'Goro Crater"
+  goto 44.7,8.1 "Marshal's Refuge"
 
 # ---------------------------------------------------------------- Marshal's Refuge and Gadgetzan
 
@@ -226,7 +226,7 @@ step Torwa Pathfinder
 
 step Tanaris
   zone Tanaris
-  goto 52.4,27.0 "Tanaris"
+  goto 52.4,27.0 "Gadgetzan"
 
 step Gadgetzan
   zone Tanaris
@@ -262,7 +262,7 @@ step Zeppelin to Undercity
 
 step Western Plaguelands
   zone Western Plaguelands
-  goto 51.9,28.1 "Western Plaguelands"
+  goto 51.9,28.1 "Kirsta Deepshadow"
 
 step Kirsta Deepshadow
   turnin 6004
@@ -320,7 +320,7 @@ step Chromie
 
 step Tirisfal Glades
   zone Tirisfal Glades
-  goto 83.0,71.9 "Tirisfal Glades"
+  goto 83.0,71.9 "The Bulwark"
 
 step The Bulwark
   zone Tirisfal Glades
@@ -366,7 +366,7 @@ step Tirion Fordring
 
 step Eastern Plaguelands
   zone Eastern Plaguelands
-  goto 81.5,59.8 "Eastern Plaguelands"
+  goto 81.5,59.8 "Light's Hope Chapel"
 
 step Light's Hope Chapel
   zone Eastern Plaguelands
@@ -404,7 +404,7 @@ step Tirion Fordring
 
 step Western Plaguelands
   zone Western Plaguelands
-  goto 45.3,69.2 "Western Plaguelands"
+  goto 45.3,69.2 "Alas, Andorhal"
 
 step Alas, Andorhal
   zone Western Plaguelands
@@ -437,7 +437,7 @@ step Into Eastern Plaguelands
 
 step Eastern Plaguelands
   zone Eastern Plaguelands
-  goto 71.3,34.0 "Eastern Plaguelands"
+  goto 71.3,34.0 "The lake for Of Lost Honor"
 
 step Of Lost Honor
   collect 14625 quest 5845.1 @62.5,26.8 map 1423 live -- Underwater
@@ -462,7 +462,7 @@ step Into Western Plaguelands
 
 step Western Plaguelands
   zone Western Plaguelands
-  goto 65.8,75.4 "Western Plaguelands"
+  goto 65.8,75.4 "Artist Renfray"
 
 step Artist Renfray
   turnin 5846                         -- Inside
