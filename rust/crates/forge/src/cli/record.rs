@@ -1143,6 +1143,25 @@ mod tests {
 	}
 
 	#[test]
+	fn explorer_records_reach_the_session_files() {
+		let out = scratch("explorer-kinds");
+		let text = format!(
+			"{}{}",
+			chunk(1, 1_799_990_000, 1),
+			"unitx\t5\t261306\t000043F59F\t2521\t4512\t6633\nwhere\t6\tc\t261306\tThe Drowned Chapel\t1\npoi\t7\t90012\t0\t2521\t4400\t6100\nopen\t8\t3365\t2521\t4520\t6640\to\t500123\nimap\t9\t2943\t2681\t512\t1\nengage\t10\t3301\t1\t5\n"
+		);
+		pull_page(&out, &line(1, VICTIM, "", 1, &text));
+		let s = sessions(&out);
+		let ev = s[0]["events"].as_array().unwrap();
+		let kinds: Vec<&str> = ev.iter().filter_map(|e| e["e"].as_str()).filter(|e| ["unitx", "where", "poi", "open", "imap", "engage"].contains(e)).collect();
+		assert_eq!(kinds, ["unitx", "where", "poi", "open", "imap", "engage"]);
+		let unitx = ev.iter().find(|e| e["e"] == "unitx").unwrap();
+		assert_eq!((&unitx["npc"], &unitx["uid"], &unitx["map"]), (&serde_json::json!(261306), &serde_json::json!("000043F59F"), &serde_json::json!(2521)));
+		assert_eq!(ev.iter().find(|e| e["e"] == "engage").unwrap()["inst"], 2943);
+		std::fs::remove_dir_all(&out).unwrap();
+	}
+
+	#[test]
 	fn resession_brings_back_what_an_older_forge_left_out_of_the_session_files() {
 		let out = scratch("resession");
 		let text = format!("{}{}", chunk(1, 1_799_990_000, 1), "group\t5\t2\t0\nrefuse\t9\t1429\t5020\t5000\tc\t1568\tERR_QUEST_NEED_PREREQS\n");

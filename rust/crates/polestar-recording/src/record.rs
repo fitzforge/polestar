@@ -45,6 +45,8 @@ enum F {
 	Hex,
 	/// A game constant's name (`ERR_QUEST_NEED_PREREQS`): 1 to 64 of `A-Z`, `0-9`, `_`, required.
 	Const,
+	/// A uiMapID: a whole number from 1 to below [`MAX_MAP_ID`], required.
+	Map,
 	/// Three fields: map x y (all empty, or uiMapID > 0 and coordinates 0..=10000).
 	P,
 	/// `;`-separated items of `:`-separated parts; empty = no items.
@@ -143,10 +145,20 @@ kinds! {
 	Loot "loot" ["srcKind": NK, "srcId": F::OU, "P": F::P, "gather": F::Tok(&["h", "m", "s", "f", ""]), "items": ITEMS, "wanted": ITEMS],
 	Gather "gather" ["objectId": F::U, "P": F::P, "how": F::Tok(&["h", "m", "f", "l"]), "skillLineId": F::OU, "rank": F::OU],
 	Unit "unit" ["npcId": F::U, "level": F::OI, "cls": CLS, "react": F::Tok(&["h", "n", "f", ""]), "P": F::P, "src": F::Tok(&["p", "t", "m", ""])],
+	// Explorer mode (`/psrec explore`): a creature's spawn seen, without a kill.
+	Unitx "unitx" ["npcId": F::U, "spawnUid": F::Hex, "P": F::P],
 	Rare "rare" ["npcId": F::U, "level": F::OI, "cls": CLS, "P": F::P, "src": F::Word],
 	Treasure "treasure" ["objectId": F::OU, "P": F::P],
 	Enter "enter" ["instanceId": F::U, "instanceType": F::Word, "difficulty": F::OU, "P": F::P],
 	Encounter "encounter" ["encounterId": F::U, "ok": BOOL, "difficulty": F::OU, "size": F::OU],
+	// Explorer mode: the inside of an instance (its uiMapID and floor), an encounter's start, the
+	// quest log's map points (`P` is the quest's point, not the player's), the subzone an NPC's
+	// window opened in, and a world object opened.
+	Imap "imap" ["instanceId": F::U, "uiMapId": F::Map, "groupId": F::OU, "floor": F::OU],
+	Engage "engage" ["encounterId": F::U, "difficulty": F::OU, "size": F::OU],
+	Poi "poi" ["q": F::U, "done": BOOL, "P": F::P],
+	Where "where" ["npcKind": NK, "npcId": F::OU, "subzoneText": F::Name(MAX_PLACE), "indoors": BOOL],
+	Open "open" ["spellId": F::U, "P": F::P, "targetKind": NK, "targetId": F::OU],
 	Trainer "trainer" ["npcId": F::OU, "P": F::P, "services": F::L(&[Part::U, Part::U, Part::U, Part::Tok(&["a", "u", "k"]), Part::T])],
 	Vendor "vendor" ["npcId": F::OU, "P": F::P, "items": F::L(&[Part::U, Part::U, Part::U, Part::I])],
 	Flightmaster "flightmaster" ["npcId": F::OU, "P": F::P, "node": F::OU, "known": IDS],
@@ -478,7 +490,7 @@ fn check_list(s: &str, parts: &[Part]) -> Result<(), String> {
 
 fn optional(ty: F) -> bool {
 	match ty {
-		F::U | F::Id | F::Hex | F::Const => false,
+		F::U | F::Id | F::Hex | F::Const | F::Map => false,
 		F::Tok(list) => list.contains(&""),
 		_ => true,
 	}
@@ -498,6 +510,7 @@ fn check_field(v: &str, ty: F) -> Result<(), String> {
 		F::Flags(set) => v.chars().all(|c| set.contains(c)) && v.len() <= set.len(),
 		F::Hex => (1..=16).contains(&v.len()) && v.bytes().all(|b| b.is_ascii_digit() || (b'A'..=b'F').contains(&b)),
 		F::Const => (1..=64).contains(&v.len()) && v.bytes().all(|b| b.is_ascii_uppercase() || b.is_ascii_digit() || b == b'_'),
+		F::Map => is_uint(v) && v.parse::<u64>().is_ok_and(|m| m > 0 && m < MAX_MAP_ID),
 		F::L(parts) => return check_list(v, parts),
 		F::P => unreachable!(),
 	};
@@ -680,6 +693,39 @@ mod tests {
 	}
 
 	#[test]
+	fn decodes_the_explorer_kinds() {
+		// What `/psrec explore` adds (docs/RECORDING.md "Explorer mode"); each a kind of its own, so an
+		// older reader skips them and keeps the chunk.
+		let c = chunk(concat!(
+			"unitx\t1\t261306\t000043F59F\t2521\t4512\t6633\n",
+			"imap\t2\t2943\t2681\t512\t1\n",
+			"engage\t3\t3301\t1\t5\n",
+			"poi\t4\t90012\t0\t2521\t4400\t6100\n",
+			"where\t5\tc\t261306\tThe Drowned Chapel\t1\n",
+			"open\t6\t3365\t2521\t4520\t6640\to\t500123\n",
+			"open\t7\t3365\t2521\t4520\t6640\t\t\n",
+		))
+		.unwrap();
+		assert_eq!(c.skipped_unknown, 0);
+		let k: Vec<Kind> = c.records.iter().map(|r| r.kind).collect();
+		assert_eq!(k, [Kind::Unitx, Kind::Imap, Kind::Engage, Kind::Poi, Kind::Where, Kind::Open, Kind::Open]);
+		let r = &c.records;
+		assert_eq!((r[0].int("npcId"), r[0].get("spawnUid"), r[0].pos()), (Some(261306), "000043F59F", Some(Pos { map: 2521, x: 4512, y: 6633 })));
+		assert_eq!((r[1].int("instanceId"), r[1].int("uiMapId"), r[1].int("groupId"), r[1].int("floor")), (Some(2943), Some(2681), Some(512), Some(1)));
+		assert_eq!((r[2].int("encounterId"), r[2].int("difficulty"), r[2].int("size")), (Some(3301), Some(1), Some(5)));
+		assert_eq!((r[3].int("q"), r[3].get("done"), r[3].pos()), (Some(90012), "0", Some(Pos { map: 2521, x: 4400, y: 6100 })));
+		assert_eq!((r[4].get("npcKind"), r[4].int("npcId"), r[4].get("subzoneText"), r[4].get("indoors")), ("c", Some(261306), "The Drowned Chapel", "1"));
+		assert_eq!((r[5].int("spellId"), r[5].get("targetKind"), r[5].int("targetId")), (Some(3365), "o", Some(500123)));
+		assert_eq!(r[6].int("targetId"), None);
+		// A subzone name the data build could not ship is emptied, the record kept.
+		assert_eq!(chunk("where\t0\tc\t1\tThe |cffff0000Chapel|r\t0").unwrap().records[0].get("subzoneText"), "");
+		// uiMapIDs below 100,000, as in `P`.
+		assert!(chunk("imap\t0\t2943\t99999").is_ok());
+		assert!(chunk("imap\t0\t2943\t100000").is_err());
+		assert!(chunk("imap\t0\t2943\t0").is_err());
+	}
+
+	#[test]
 	fn rejects_each_malformed_kind() {
 		// One malformed example per kind: the whole chunk is rejected.
 		let bad = [
@@ -734,6 +780,12 @@ mod tests {
 			"craft\t0\t",
 			"achieve\t0\t1.5",
 			"step\t0\tg\t1\tjump",
+			"unitx\t0\t1501\t43f59f",
+			"imap\t0\t2943",
+			"engage\t0\t",
+			"poi\t0\t364\t2",
+			"where\t0\tq\t1",
+			"open\t0\t3365\t1420\t1\t1\tz",
 		];
 		let mut kinds: Vec<&str> = Vec::new();
 		for b in bad {
