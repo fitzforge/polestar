@@ -11621,6 +11621,19 @@
 			{
 				"a": [
 					"turnin",
+					93318
+				],
+				"b": [
+					"accept",
+					98512
+				],
+				"faction": "Alliance",
+				"why": "Final route review 0.3.6 (Zephras Isle, group branch): WANTED: Vulgara the Insatiable is handed to Danarii Bellowveil in Shen'dar Village (45.2,45.3) on the Shen'dar stop after the hippogryph loop, where the route already hands her Danarii's own quest (92551), before the road south-east to Fendaal Windstone and Valanaar. The guide had the hand-in after Valanaar's inn, so a grouped player walked back north-west to Shen'dar and south-east again for one hand-in.",
+				"source": "quest 93318 ender npc 252172 (Danarii Bellowveil; TDB, ForeverDB, page snapshot agree), spawn 2521:45.2,45.3 (players' spots, page snapshot); Horde's Zephras Isle hands it in on its Shen'dar stop"
+			},
+			{
+				"a": [
+					"turnin",
 					96259
 				],
 				"b": [

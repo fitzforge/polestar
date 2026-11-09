@@ -164,15 +164,15 @@ return {
 	-- {area:16624} Shen'dar Village
 	["{area:16624} again"] = "Снова здесь: {area:16624}",
 
-	-- Step 33: Fendaal Windstone
+	-- Step 34: Fendaal Windstone
 	-- {area:16638} Valanaar · {npc:273017} Fendaal Windstone · {quest:98512} Al'Aketh Assassins
 	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "На дороге на юго-восток к месту {area:16638}: {npc:273017} следит за врагами ({quest:98512}) чуть севернее него.",
 
-	-- Step 34: Valanaar, the turncoat
+	-- Step 35: Valanaar, the turncoat
 	-- {area:16638} Valanaar
 	["{area:16638}, the turncoat"] = "{area:16638}: предатель",
 
-	-- Step 35: Valanaar
+	-- Step 36: Valanaar
 	-- {npc:252383} Valennia Stormfist · {npc:252476} Talaanis Shadowsong · {area:16638} Valanaar · {npc:252475} Elaadrin Evengale · {npc:253204} Dondallion Whisperwind
 	["{npc:252383} and {npc:252476} stand at the north end of {area:16638}, {npc:252475} and {npc:253204} at the south end."] = "{npc:252383} и {npc:252476} стоят в северной части города ({area:16638}), {npc:252475} и {npc:253204} – в южной.",
 	-- {npc:252476} Talaanis Shadowsong
@@ -180,7 +180,7 @@ return {
 	-- {npc:252383} Valennia Stormfist
 	["{npc:252383}, upstairs"] = "",
 
-	-- Step 37: Skyhoppers
+	-- Step 38: Skyhoppers
 	-- plural, as words: Skyhoppers = {npc:251727} Skyhopper
 	["Skyhoppers"] = "Небопрыги",
 	-- {area:16638} Valanaar
@@ -189,7 +189,7 @@ return {
 	-- {npc:260628} Valennia Stormfist
 	["{npc:260628}, upstairs"] = "",
 
-	-- Step 38: The road to Valanaar
+	-- Step 39: The road to Valanaar
 	-- {area:16638} Valanaar
 	["The road to {area:16638}"] = "Дорога: {area:16638}",
 	-- {npc:257006} Nyalah Brightfire · {npc:252448} Alvarion Windfield · {area:16638} Valanaar · {npc:252377} Seena Skybreaker · {npc:252389} Quel'ana Quickgale

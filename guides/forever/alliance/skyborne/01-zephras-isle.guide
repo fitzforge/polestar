@@ -246,6 +246,10 @@ step Shen'dar Village again
   turnin 94413                                -- Rathiril Sunlance
   train class
 
+step Shen'dar Village again
+  when group 93318
+  turnin 93318                                -- Danarii Bellowveil
+
 step Fendaal Windstone
   tip On the road south-east to Valanaar, Fendaal Windstone watches the Al'Aketh Assassins just north of him.
   accept 98512                                -- Fendaal Windstone
@@ -293,10 +297,6 @@ step The road to Valanaar
 step Class trainer
   only Warrior,Hunter,Rogue,Mage,Druid
   train class only Warrior,Hunter,Rogue,Mage,Druid
-
-step Shen'dar Village again
-  when group 93318
-  turnin 93318
 
 step The missing scholar
   tip The Bloodstained Satchel lies by the path west of Valanaar.

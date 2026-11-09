@@ -8433,6 +8433,17 @@ test(`${ZEPHRAS_ALLIANCE}: #1415: Aamelia's quests at her farmhouse; the cultist
 	assert.ok(Math.hypot(eggs.x - 42.1, eggs.y - 39.4) < 1.5, `the Small Eggs lead to the Galestriders by the village (${eggs.x},${eggs.y})`);
 });
 
+// Final route review 0.3.6: the group branch's WANTED: Vulgara the Insatiable (93318) was handed to Danarii Bellowveil
+// after Valanaar's inn, a walk back north-west to Shen'dar and south-east again. It goes to her on the Shen'dar stop
+// after the hippogryph loop, where her own quest (92551) is handed in, before the road to Fendaal and Valanaar.
+test(`${ZEPHRAS_ALLIANCE}: the Vulgara bounty is handed in on the Shen'dar stop, before the road to Valanaar`, { skip }, () => {
+	const list = goals(ZEPHRAS_ALLIANCE);
+	const hand = at(list, 'turnin 93318', is('turnin', 93318));
+	assert.ok((list[hand].step.when || []).some((p) => p.k === 'group' && !p.neg), 'on the group branch');
+	assert.ok(list[at(list, 'turnin 92551 (Danarii Bellowveil)', is('turnin', 92551))].s < list[hand].s, 'after the hippogryph loop brings you back to Shen\'dar');
+	assert.ok(hand < at(list, 'accept 98512 (Fendaal Windstone)', is('accept', 98512)), 'before the road south-east to Valanaar');
+});
+
 // A step gated on a quest whose goals are all optional is done at once (AuditAlliance3040's sweep): the Goaz Warders and
 // Whelgar's hand-in (the elite keystone behind `when group`, the hand-in once complete), and the Gol'Bolar smith's
 // hand-in (12 Copper Bars: gated on the quest being complete); Elwynn's and Zephras Isle's `when group` steps.
