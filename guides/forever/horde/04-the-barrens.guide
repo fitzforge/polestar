@@ -9,6 +9,8 @@ next forever/horde/07-ashenvale
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
+# Added here: Wrongly Blamed, Justly Corrected (97250, Grunt Logmar in Camp Taurajo; its camp is a
+# few steps east of Gann Stonespire).
 # Left out: The Harvester (897).
 
 # Horde 12-30 in the order the quest levels fit (2026-11-07): back from Hillsbrad at 24 for the
@@ -126,6 +128,7 @@ step Camp Taurajo
   accept 893                          -- Tatternack Steelforge, at the north edge of the camp
   accept 874                          -- Jorn Skyseer
   accept 879                          -- Mangletooth, in the cage
+  accept 97250                        -- Grunt Logmar: the soldiers and pillagers camp just east of Gann Stonespire, on the way south
   sethome "Camp Taurajo"
 
 step The Barrens
@@ -141,9 +144,14 @@ step Brine
   accept 1534                         -- Brine: the blue waterskin is filled in Ashenvale, next guide
 
 step Gann Stonespire
-  tip Gann waits in a small camp further south, on the road toward Bael Modan; Sulhasa sits up in the tree just east of him.
+  tip Gann walks the road south toward Bael Modan, between about 46,75 and 46,81: if he isn't at the arrow, follow the road until you meet him. Sulhasa sits up in the tree just east of the road at 47.9,77.5.
   accept 843                          -- Gann Stonespire walks around Blackthorn Ridge: look inside the circle on the map
   accept 98093 @47.8,77.6             -- Sulhasa, up in the tree just east of Gann
+
+step Wrongly Blamed, Justly Corrected
+  tip A few steps east of Sulhasa's tree, a small camp of Encroaching Soldiers and Outraged Pillagers: two soldiers and one pillager for Logmar.
+  kill 268622 quest 97250.1 @48.8,77.0
+  kill 268623 quest 97250.2 @48.8,77.0
 
 step Bael Modan
   tip South of Gann, the Bael'dun dwarves dig at Bael Modan. Excavators and Foremen work the pit; Prospector Khazgorm (26) carries the journal: pull him alone.
@@ -220,6 +228,7 @@ step Camp Taurajo
   turnin 885 optional                 -- Jorn Skyseer
   vendor nearest
   turnin 893                          -- Tatternack Steelforge
+  turnin 97250                        -- Grunt Logmar, beside the flight master
 
 step Fly to Crossroads
   zone The Barrens

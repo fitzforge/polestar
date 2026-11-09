@@ -3297,12 +3297,16 @@
 				"goal": "accept"
 			},
 			"faction": "Horde",
-			"tip": "Gann waits in a small camp further south, on the road toward Bael Modan; Sulhasa sits up in the tree just east of him.",
+			"tip": "Gann walks the road south toward Bael Modan, between about 46,75 and 46,81: if he isn't at the arrow, follow the road until you meet him. Sulhasa sits up in the tree just east of the road at 47.9,77.5.",
 			"note": "Gann's Reclamation: Sulhasa (Field to Clear) sits 130 yd east of Gann, and both are taken on the first visit (final route review).",
 			"source": [
 				{
 					"kind": "client",
 					"ref": "Gann Stonespire (npc 3341) at 45.9,77.0, Sulhasa at 47.8,77.6 on map 1413"
+				},
+				{
+					"kind": "recording",
+					"ref": "Horde 1-30 audit (#1414): Gann Stonespire's (3341) windows: 181 by players, from 46.1,75.4 to 46.1,81.3 along the road (22 at 46.1,81.3, 14 at 46.2,75.4); Sulhasa's accepts and hand-ins at 47.9,77.5"
 				}
 			],
 			"pr": 1175

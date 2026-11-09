@@ -7749,6 +7749,42 @@
 				],
 				"reason": "Hand-in-first check (2026-11-08): all 6 people (4 established) who took Dalaran Patrols (545) had just handed in Key to the City (93680) to Magus Wordeen Voidglare, and nobody took 545 without it; the route left 93680 out. It comes with Prison Break In (544): the Grimy Key is looted from an object (670427) at Alterac 16.4,89.3, beside 544's traitors (players' recordings: all 6 people got it within 0.15 of that point; one recording names the object).",
 				"issue": "-"
+			},
+			{
+				"q": 97250,
+				"after": [
+					"accept",
+					879
+				],
+				"reason": "Horde 1-30 audit (#1414): Wrongly Blamed, Justly Corrected (level 23, from 18, 2,300 XP) from Grunt Logmar in Camp Taurajo was in no Horde guide, though its Encroaching Soldiers and Outraged Pillager camp at 48.8,77.0, a few steps east of Gann Stonespire, which the Barrens & Stonetalon guide (24-26) visits from Camp Taurajo and comes back from. Players' recordings: offered to 20 people by Logmar, 15 people did it, every tick at 48-49,77, taken and handed in at Logmar (44.6,59.3). Both benchmark routes do it.",
+				"issue": "-"
+			},
+			{
+				"q": 96895,
+				"after": [
+					"accept",
+					97246
+				],
+				"reason": "Horde 1-30 audit (#1414): Orcs, Trolls, Tauren and Skyborne take the zeppelin to Tirisfal Glades at 12-13 and walk past Brill and Deathguard Linnea's camp to Silverpine; The Argent Emissary (Deathguard Terrence, Brill) and Hadric Harlson's The Cult of the Damned and Remnants of War (96897, 96898; level 12, from 10, 900 XP each), on the cultists a short walk south-east of Hadric, and Delivery to Silverpine Forest (445, Johaan in Brill, to Renferrel at the Sepulcher) were left to the Undead guide. Players' recordings: Terrence's window at 61.5,53.4 (69 windows), Hadric's at 65.9,61.0, the objective ticks at 66-70,62-67. Calibrated level model: Silverpine exit +0.25 level, 0.2-0.35 h sooner to 60 for those starts. Both benchmark routes take them on the way down.",
+				"issue": "-"
+			},
+			{
+				"q": 96897,
+				"after": [
+					"accept",
+					96895
+				],
+				"reason": "With The Argent Emissary (96895), above.",
+				"issue": "-"
+			},
+			{
+				"q": 96898,
+				"after": [
+					"accept",
+					96895
+				],
+				"reason": "With The Argent Emissary (96895), above.",
+				"issue": "-"
 			}
 		],
 		"skip": [
