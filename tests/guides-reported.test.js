@@ -1846,9 +1846,7 @@ test(`Bennistrov's report: This Land Was Their Land is taken only after Defeat N
 		assert.ok(at(list, 'turnin 474', is('turnin', 474)) < take, `${guide}: Defeat Nek'rosh is handed in before 98230 is taken`);
 		assert.ok(take < at(list, 'turnin 98230', is('turnin', 98230)), `${guide}: handed in to Howin after it is taken`);
 	}
-	// Alliance 30-40 audit (0.3.7): the quest sent group players from Menethil back east to Howin and west again for
-	// 240 XP; it is left out (route-fixes skip), so nothing takes it, on any branch.
-	assert.equal(seen, 0, 'left out of the route');
+	assert.equal(seen, 2, 'one accept and one hand-in');
 });
 
 // --- Alliance 12-21 level ranges (Discord, 2026-11-08: a Human "usually gets cut off in Westfall around 15 and a
@@ -8385,14 +8383,20 @@ test('Alliance 30-40 audit: Arathi hands in at Refuge Pointe on the way west, th
 	assert.ok(whenOn(weevil.step, 'onquest', 93176), 'the Hay Weevil only for players on My Little Friends');
 });
 
-test('Alliance 30-40 audit: Wetlands 30-32 has no Howin round trip, Trying Times and Carnage are handed in only when done', { skip }, () => {
+// The Howin round trip (98230, 98300) stays on the Defeat Nek'rosh group branch only (0.3.6's #1299 fix, kept: Main,
+// 2026-11-09): a solo player never sees it.
+test('Alliance 30-40 audit: Wetlands 30-32 sends only group players to Howin, Trying Times and Carnage are handed in only when done', { skip }, () => {
 	const list = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
-	for (const q of [98230, 98300]) assert.ok(!list.some(({ goal }) => goal.quest === q), `${q} left out`);
+	for (const q of [98230, 98300]) {
+		const mine = list.filter(({ goal }) => goal.quest === q);
+		assert.ok(mine.length > 0, `${q} is on the group branch`);
+		for (const { step } of mine) assert.ok(whenOn(step, 'group', 474) || whenOn(step, 'onquest', 98300), `${q}: only for group players (or carried to Ironforge)`);
+	}
 	const eggs = list[at(list, 'collect 280132 quest 98246.1', (g) => g.t === 'collect' && g.quest === 98246)];
 	assert.ok(whenOn(eggs.step, 'onquest', 98246), 'the eggs only for players on Trying Times');
 	for (const q of [98246, 98283]) assert.ok(whenOn(list[at(list, `turnin ${q}`, is('turnin', q))].step, 'complete', q), `${q} handed in only when complete`);
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
-	for (const q of [98230, 98300]) assert.ok(rf.overrides.skip.some((e) => e.q === q && e.faction === 'Alliance'), `skip ${q} is recorded`);
+	for (const q of [98230, 98300]) assert.ok(!rf.overrides.skip.some((e) => e.q === q && e.faction === 'Alliance'), `no skip for ${q}`);
 });
 
 test('Alliance 30-40 audit: Lucien and Lotwil\'s bracers only for players who can do them', { skip }, () => {

@@ -118,19 +118,27 @@ return {
 	-- Step 25: Menethil Harbor
 	-- {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep
 	["{npc:2104} stands on the top floor of {area:2103}: go up inside, the arrow cannot tell the floors apart."] = "{npc:2104}站在{area:2103}的顶层：从里面上楼，箭头无法区分楼层。",
+	-- {npc:2104} Captain Stoutfist · {npc:270637} Howin Kindfeather
+	["{npc:2104}: for {npc:270637}, back east along the road"] = "",
 
-	-- Step 26: Level 30.8
+	-- Step 26: Howin Kindfeather
+	-- {area:1025} The Green Belt · {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
+	["Back east along the road to the {area:1025}: {npc:270637} camps among the Fenrunners, just west of {npc:1244}. Then west again to Menethil for the boat."] = "",
+	-- {zone:1455} Ironforge
+	["For King Magni in {zone:1455}, at the end of this guide"] = "",
+
+	-- Step 27: Level 30.8
 	["Level 30.8"] = "30.8级",
 	-- {quest:474} Defeat Nek'rosh · {area:133} Gnomeregan · {area:796} Scarlet Monastery
 	["Skipped {quest:474} and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. Or, with a group, run the {area:133} dungeon or the {area:796} dungeon (Graveyard) instead."] = "跳过了{quest:474}，还没到30.8级？在米奈希尔以南的海岸刷蓝腮鱼人，直到30.8级。也可以组队去{area:133}副本或{area:796}副本（墓地）。",
 	-- {npc:1418} Bluegill Raider
 	["grind on {npc:1418}"] = "反复击杀{npc:1418}补足经验",
 
-	-- Step 28: Boat to Southshore
+	-- Step 29: Boat to Southshore
 	-- {area:271} Southshore
 	["Boat to {area:271}"] = "乘船前往{area:271}",
 
-	-- Step 29: Southshore
+	-- Step 30: Southshore
 	-- {npc:2711} Phin Odelic · {npc:2430} Chef Jessen · {npc:2382} Darren Malvew · {npc:2381} Micha Yance · {npc:2438} Bartolo Ginsetti · {npc:2366} Barkeep Kelly · {quest:98463} Talk of the Town
 	["Off the boat, walk up the pier into town: {npc:2711} and Lieutenant Farren stand by the inn, {npc:2430} upstairs, {npc:2382} east of it; the flight master is at the north end, {npc:2381} and {npc:2438} between her and the inn, Maleb in the town hall at the west side.\n{npc:2366} may not offer {quest:98463} on Forever: if she doesn't, skip it."] = "",
 	-- {npc:2711} Phin Odelic
@@ -148,102 +156,106 @@ return {
 	-- {npc:2276} Magistrate Henry Maleb
 	["{npc:2276}, inside"] = "{npc:2276}：在屋内",
 
-	-- Step 30: Bartolo Ginsetti
+	-- Step 31: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {skill:165} Leatherworking · {item:2997} Bolt of Woolen Cloth · {skill:197} Tailoring
 	["{npc:2438} makes a yeti fur cloak for anyone who brings a {item:3719} ({skill:165}) and a {item:2997} ({skill:197}); no vendor sells either, so this step shows only when you carry both."] = "",
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {item:2997} Bolt of Woolen Cloth
 	["{npc:2438}, between the flight master and the inn: he wants a {item:3719} and a {item:2997} too"] = "",
 
-	-- Step 31: Torn Fin murlocs
+	-- Step 32: Torn Fin murlocs
 	["Torn Fin murlocs"] = "碎鳍鱼人",
 	-- {area:295} Western Strand · {area:271} Southshore
 	["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}.\nCareful: One camp holds a tight cluster of Oracles that all aggro together."] = "碎鳍鱼人密集分布于{area:271}西南侧的{area:295}。\n注意：其中一个营地有一群紧挨着的神谕者，拉怪时会全部参战。",
 
-	-- Step 32: Farren
+	-- Step 33: Farren
 	["Farren"] = "法尔林·奥里涅尔中尉",
 	["Inside"] = "在里面",
 
-	-- Step 33: Murloc heads
+	-- Step 34: Murloc heads
 	["Murloc heads"] = "鱼人头",
 	["Back to the same murlocs; not every one drops a head."] = "回到同一群鱼人那里；不是每只都掉头。",
 
-	-- Step 35: Daggerspine naga
+	-- Step 36: Daggerspine naga
 	["Daggerspine naga"] = "刺脊纳迦",
 	-- {area:271} Southshore
 	["The naga hold the shore south-east of {area:271}."] = "纳迦占据着{area:271}东南方的海岸。",
 
-	-- Step 36: Farren
+	-- Step 37: Farren
 	-- {object:2117} Stormwind Keep
 	["A report for {object:2117}; inside"] = "给{object:2117}的报告，进入屋内交付",
 
-	-- Step 38: Southshore
+	-- Step 39: Southshore
 	-- {npc:251493} Captain McManus · {quest:98059} Hillsbrad's Hoard · {item:279386} Sealed Company Request · {area:287} Hillsbrad · {area:271} Southshore
 	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{quest:98059}: {npc:251493} hands you a {item:279386} for the {area:287} council, in the farms west of {area:271}; you deliver it after the Syndicate camp."] = "",
 
-	-- Step 39: Yeti cave
+	-- Step 40: Yeti cave
 	["Yeti cave"] = "雪人洞穴",
 	-- {area:271} Southshore
 	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp."] = "雪人住在{area:271}北边山丘上的洞穴里，就在向北去辛迪加营地的路上。",
 
-	-- Step 41: Syndicate camp
+	-- Step 42: Syndicate camp
 	["Syndicate camp"] = "辛迪加营地",
 	-- {area:287} Hillsbrad · {area:272} Tarren Mill
 	["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants."] = "辛迪加营地在{area:287}北部、奥特兰克边境上，{area:272}（部落）西边；文件在营地里，营地里的辛迪加潜行者和盗贼就是马雷布要找的辛迪加。",
 
-	-- Step 42: Hillsbrad Fields
+	-- Step 43: Hillsbrad Fields
 	-- {area:286} Hillsbrad Fields
 	["South-west from the Syndicate camp to the {area:286} farms."] = "",
 
-	-- Step 43: Hillsbrad council
+	-- Step 44: Hillsbrad council
 	-- {area:287} Hillsbrad
 	["{area:287} council"] = "",
 	-- {item:279386} Sealed Company Request · {area:287} Hillsbrad
 	["Use the {item:279386} at the {area:287} council."] = "",
 
-	-- Step 44: Snapjaws
+	-- Step 45: Snapjaws
 	["Snapjaws"] = "钳嘴龟",
 	-- {area:271} Southshore · {area:272} Tarren Mill
 	["The Snapjaw turtles bask along the river east of {area:271}, south of {area:272} (Horde)."] = "钳嘴龟在{area:271}东边、{area:272}（部落）南边的河边晒太阳。",
 
-	-- Step 46: Fly to Ironforge
+	-- Step 47: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "飞往{area:1537}",
 	-- {area:271} Southshore
 	["{area:271} flight master"] = "{area:271}的飞行管理员",
 
-	-- Step 47: Hall of Explorers
+	-- Step 48: Hall of Explorers
 	-- {npc:1356} Prospector Stormpike · {npc:2916} Historian Karnik · {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers
 	["{npc:1356}, {npc:2916} and {npc:5637} stand in the {object:32356}, north-east of the flight master."] = "{npc:1356}、{npc:2916}和{npc:5637}位于飞行管理员东北侧的{object:32356}。",
 	["Level 30 and 32 spells"] = "30级和32级法术",
 
-	-- Step 51: Fly to Stormwind
+	-- Step 52: King Magni Bronzebeard
+	-- {npc:2784} King Magni Bronzebeard · {object:171709} High Seat
+	["{npc:2784}, the {object:171709}"] = "",
+
+	-- Step 53: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "飞往{zone:1453}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "{zone:1455}飞行管理员",
 
-	-- Step 52: Elling Trias
+	-- Step 54: Elling Trias
 	-- {object:2096} Trade District
 	["The cheese shop in the {object:2096}."] = "{object:2096}的奶酪店。",
 
-	-- Step 53: Dashel Stonefist
+	-- Step 55: Dashel Stonefist
 	-- {npc:4961} Dashel Stonefist · {object:2100} Old Town
 	["{npc:4961} waits in the Pig and Whistle tavern in {object:2100}; he and his two thugs fight you, but stop once beaten."] = "{npc:4961}在{object:2100}的酒馆里等候；他和两个打手会和你打，但被打败后就会住手。",
 	-- {npc:4961} Dashel Stonefist
 	["Beat {npc:4961} and his thugs: they give up"] = "",
 
-	-- Step 54: The Islander
+	-- Step 56: The Islander
 	-- {npc:5479} Wu Shen · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens · {area:392} Ratchet
 	["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (40-50/01)."] = "{npc:5479}在{object:2100}的酒馆旁训练战士。{npc:6236}在{zone:1413}的{area:720}等候，在很久之后去{area:392}的路上（40-50/01）。",
 
-	-- Step 56: Cathedral of Light
+	-- Step 58: Cathedral of Light
 	["Cathedral of Light"] = "光明大教堂",
 
-	-- Step 58: Mage Quarter
+	-- Step 60: Mage Quarter
 	-- {npc:2708} Archmage Malin · {object:2164} Slaughtered Lamb · {npc:5081} Connor Rivers · {object:2101} Mage Quarter
 	["{npc:2708} is in the {object:2164}; {npc:5081} south of the {object:2101}."] = "{npc:2708}在{object:2164}内；{npc:5081}在{object:2101}南面。",
 
-	-- Step 59: Druid training
+	-- Step 61: Druid training
 	["Druid training"] = "德鲁伊训练",
 	-- {zone:1455} Ironforge · {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {object:2101} Mage Quarter
 	["{zone:1455} has no druid trainer: {npc:5504} stands in {zone:1453}, north-west of the {object:2101}."] = "{zone:1455}没有德鲁伊训练师：{npc:5504}在{zone:1453}，位于{object:2101}西北。",

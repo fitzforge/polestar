@@ -118,19 +118,27 @@ return {
 	-- Step 25: Menethil Harbor
 	-- {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep
 	["{npc:2104} stands on the top floor of {area:2103}: go up inside, the arrow cannot tell the floors apart."] = "{npc:2104} fica no último andar de {area:2103}: suba por dentro, a seta não diferencia os andares.",
+	-- {npc:2104} Captain Stoutfist · {npc:270637} Howin Kindfeather
+	["{npc:2104}: for {npc:270637}, back east along the road"] = "",
 
-	-- Step 26: Level 30.8
+	-- Step 26: Howin Kindfeather
+	-- {area:1025} The Green Belt · {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
+	["Back east along the road to the {area:1025}: {npc:270637} camps among the Fenrunners, just west of {npc:1244}. Then west again to Menethil for the boat."] = "",
+	-- {zone:1455} Ironforge
+	["For King Magni in {zone:1455}, at the end of this guide"] = "",
+
+	-- Step 27: Level 30.8
 	["Level 30.8"] = "Nível 30.8",
 	-- {quest:474} Defeat Nek'rosh · {area:133} Gnomeregan · {area:796} Scarlet Monastery
 	["Skipped {quest:474} and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. Or, with a group, run the {area:133} dungeon or the {area:796} dungeon (Graveyard) instead."] = "Pulou {quest:474} e está abaixo do nível 30.8? Mate os murlocs Guelrazul na costa ao sul de Menethil até o nível 30.8. Ou, com um grupo, faça a masmorra {area:133} ou a masmorra {area:796} (Cemitério).",
 	-- {npc:1418} Bluegill Raider
 	["grind on {npc:1418}"] = "mate {npc:1418} até subir",
 
-	-- Step 28: Boat to Southshore
+	-- Step 29: Boat to Southshore
 	-- {area:271} Southshore
 	["Boat to {area:271}"] = "Barco para {area:271}",
 
-	-- Step 29: Southshore
+	-- Step 30: Southshore
 	-- {npc:2711} Phin Odelic · {npc:2430} Chef Jessen · {npc:2382} Darren Malvew · {npc:2381} Micha Yance · {npc:2438} Bartolo Ginsetti · {npc:2366} Barkeep Kelly · {quest:98463} Talk of the Town
 	["Off the boat, walk up the pier into town: {npc:2711} and Lieutenant Farren stand by the inn, {npc:2430} upstairs, {npc:2382} east of it; the flight master is at the north end, {npc:2381} and {npc:2438} between her and the inn, Maleb in the town hall at the west side.\n{npc:2366} may not offer {quest:98463} on Forever: if she doesn't, skip it."] = "Ao descer do barco, suba o cais até a cidade: {npc:2711} e o Tenente Fárrio ficam junto à estalagem, {npc:2430} no andar de cima, {npc:2382} a leste dela; o mestre de voo fica na ponta norte, {npc:2381} e {npc:2438} entre ela e a estalagem, e Maleb na prefeitura, no lado oeste.\n{npc:2366} pode não oferecer {quest:98463} no Forever: se ela não oferecer, pule.",
 	-- {npc:2711} Phin Odelic
@@ -148,102 +156,106 @@ return {
 	-- {npc:2276} Magistrate Henry Maleb
 	["{npc:2276}, inside"] = "{npc:2276}, lá dentro",
 
-	-- Step 30: Bartolo Ginsetti
+	-- Step 31: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {skill:165} Leatherworking · {item:2997} Bolt of Woolen Cloth · {skill:197} Tailoring
 	["{npc:2438} makes a yeti fur cloak for anyone who brings a {item:3719} ({skill:165}) and a {item:2997} ({skill:197}); no vendor sells either, so this step shows only when you carry both."] = "",
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {item:2997} Bolt of Woolen Cloth
 	["{npc:2438}, between the flight master and the inn: he wants a {item:3719} and a {item:2997} too"] = "",
 
-	-- Step 31: Torn Fin murlocs
+	-- Step 32: Torn Fin murlocs
 	["Torn Fin murlocs"] = "Murlocs Rancapina",
 	-- {area:295} Western Strand · {area:271} Southshore
 	["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}.\nCareful: One camp holds a tight cluster of Oracles that all aggro together."] = "Os murlocs Rancapina lotam {area:295}, a sudoeste de {area:271}.\nCuidado: um dos acampamentos tem um bolo de Oráculos bem juntos que vêm todos de uma vez.",
 
-	-- Step 32: Farren
+	-- Step 33: Farren
 	["Farren"] = "Fárrio",
 	["Inside"] = "Lá dentro",
 
-	-- Step 33: Murloc heads
+	-- Step 34: Murloc heads
 	["Murloc heads"] = "Cabeças de murloc",
 	["Back to the same murlocs; not every one drops a head."] = "Volte aos mesmos murlocs; nem todos soltam uma cabeça.",
 
-	-- Step 35: Daggerspine naga
+	-- Step 36: Daggerspine naga
 	["Daggerspine naga"] = "Nagas Espinhadaga",
 	-- {area:271} Southshore
 	["The naga hold the shore south-east of {area:271}."] = "As nagas ocupam a costa a sudeste de {area:271}.",
 
-	-- Step 36: Farren
+	-- Step 37: Farren
 	-- {object:2117} Stormwind Keep
 	["A report for {object:2117}; inside"] = "Um relatório para {object:2117}; lá dentro",
 
-	-- Step 38: Southshore
+	-- Step 39: Southshore
 	-- {npc:251493} Captain McManus · {quest:98059} Hillsbrad's Hoard · {item:279386} Sealed Company Request · {area:287} Hillsbrad · {area:271} Southshore
 	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{quest:98059}: {npc:251493} hands you a {item:279386} for the {area:287} council, in the farms west of {area:271}; you deliver it after the Syndicate camp."] = "{npc:251493} fica a noroeste do mestre de voo, no caminho para o norte até a caverna dos yetis.\n{quest:98059}: {npc:251493} entrega {item:279386} para o conselho de {area:287}, nas fazendas a oeste de {area:271}; você entrega depois do acampamento da Camarilha.",
 
-	-- Step 39: Yeti cave
+	-- Step 40: Yeti cave
 	["Yeti cave"] = "Caverna dos yetis",
 	-- {area:271} Southshore
 	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp."] = "Os yetis vivem na caverna nas colinas ao norte de {area:271}, no caminho para o norte até o acampamento da Camarilha.",
 
-	-- Step 41: Syndicate camp
+	-- Step 42: Syndicate camp
 	["Syndicate camp"] = "Acampamento da Camarilha",
 	-- {area:287} Hillsbrad · {area:272} Tarren Mill
 	["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants."] = "O acampamento da Camarilha fica na divisa com as Montanhas de Alterac, no norte de {area:287}, a oeste de {area:272} (Horda); os documentos estão no acampamento, e seus Gatunos e Ladrões são a Camarilha que Maleb quer.",
 
-	-- Step 42: Hillsbrad Fields
+	-- Step 43: Hillsbrad Fields
 	-- {area:286} Hillsbrad Fields
 	["South-west from the Syndicate camp to the {area:286} farms."] = "",
 
-	-- Step 43: Hillsbrad council
+	-- Step 44: Hillsbrad council
 	-- {area:287} Hillsbrad
 	["{area:287} council"] = "Conselho de {area:287}",
 	-- {item:279386} Sealed Company Request · {area:287} Hillsbrad
 	["Use the {item:279386} at the {area:287} council."] = "",
 
-	-- Step 44: Snapjaws
+	-- Step 45: Snapjaws
 	["Snapjaws"] = "Mordeliscas",
 	-- {area:271} Southshore · {area:272} Tarren Mill
 	["The Snapjaw turtles bask along the river east of {area:271}, south of {area:272} (Horde)."] = "As tartarugas Mordeliscas tomam sol ao longo do rio a leste de {area:271}, ao sul de {area:272} (Horda).",
 
-	-- Step 46: Fly to Ironforge
+	-- Step 47: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Voe para {area:1537}",
 	-- {area:271} Southshore
 	["{area:271} flight master"] = "Mestre de voo de {area:271}",
 
-	-- Step 47: Hall of Explorers
+	-- Step 48: Hall of Explorers
 	-- {npc:1356} Prospector Stormpike · {npc:2916} Historian Karnik · {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers (no name in this language: may be words)
 	["{npc:1356}, {npc:2916} and {npc:5637} stand in the {object:32356}, north-east of the flight master."] = "{npc:1356}, {npc:2916} e {npc:5637} ficam no {object:32356}, a nordeste do mestre de voo.",
 	["Level 30 and 32 spells"] = "Feitiços de nível 30 e 32",
 
-	-- Step 51: Fly to Stormwind
+	-- Step 52: King Magni Bronzebeard
+	-- {npc:2784} King Magni Bronzebeard · {object:171709} High Seat
+	["{npc:2784}, the {object:171709}"] = "",
+
+	-- Step 53: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "Voe para {zone:1453}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "Mestre de voo de {zone:1455}",
 
-	-- Step 52: Elling Trias
+	-- Step 54: Elling Trias
 	-- {object:2096} Trade District
 	["The cheese shop in the {object:2096}."] = "A loja de queijos em {object:2096}.",
 
-	-- Step 53: Dashel Stonefist
+	-- Step 55: Dashel Stonefist
 	-- {npc:4961} Dashel Stonefist · {object:2100} Old Town
 	["{npc:4961} waits in the Pig and Whistle tavern in {object:2100}; he and his two thugs fight you, but stop once beaten."] = "{npc:4961} espera na Taberna do Javatusco Saltitante, em {object:2100}; ele e seus dois capangas lutam com você, mas param quando derrotados.",
 	-- {npc:4961} Dashel Stonefist
 	["Beat {npc:4961} and his thugs: they give up"] = "",
 
-	-- Step 54: The Islander
+	-- Step 56: The Islander
 	-- {npc:5479} Wu Shen · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens · {area:392} Ratchet
 	["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (40-50/01)."] = "{npc:5479} treina guerreiros em {object:2100}, ao lado da Taberna do Javatusco Saltitante. {npc:6236} espera em {area:720}, em {zone:1413}, no caminho para {area:392}, bem mais tarde (40-50/01).",
 
-	-- Step 56: Cathedral of Light
+	-- Step 58: Cathedral of Light
 	["Cathedral of Light"] = "Catedral da Luz",
 
-	-- Step 58: Mage Quarter
+	-- Step 60: Mage Quarter
 	-- {npc:2708} Archmage Malin · {object:2164} Slaughtered Lamb · {npc:5081} Connor Rivers · {object:2101} Mage Quarter
 	["{npc:2708} is in the {object:2164}; {npc:5081} south of the {object:2101}."] = "{npc:2708} fica em {object:2164}; {npc:5081}, ao sul do {object:2101}.",
 
-	-- Step 59: Druid training
+	-- Step 61: Druid training
 	["Druid training"] = "Treinamento de druida",
 	-- {zone:1455} Ironforge · {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {object:2101} Mage Quarter
 	["{zone:1455} has no druid trainer: {npc:5504} stands in {zone:1453}, north-west of the {object:2101}."] = "{zone:1455} não tem instrutor de druida: {npc:5504} fica em {zone:1453}, a noroeste do {object:2101}.",
