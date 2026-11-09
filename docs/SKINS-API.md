@@ -29,6 +29,7 @@ commented example, [`addon/Polestar_Skin_Example`](../addon/Polestar_Skin_Exampl
 - [Saved choices, load order, late registration](#saved-choices-load-order-late-registration)
 - [Versions and capabilities](#versions-and-capabilities)
 - [Walkthrough: Moonlit](#walkthrough-moonlit)
+- [Four more to read: the showcase skins](#four-more-to-read-the-showcase-skins)
 - [Rationale, compared with Details!](#rationale-compared-with-details)
 
 ## Quick start
@@ -455,6 +456,27 @@ To make your own: copy the folder, rename the folder and its `.toc`, change
 the ids (`moonlit`), names and colours, and register what you need. Start
 with a scheme; add a skin when you want fonts, painters or another look as
 the base.
+
+## Four more to read: the showcase skins
+
+Beside Moonlit, the repository carries four complete skins, each an addon of
+its own (`addon/Polestar_Skin_<Name>`, in the repository only, never in a
+release), each written to show one more thing the API can do. Copy them into
+`Interface/AddOns/` next to Polestar to try them; their renders and the
+reasoning behind each are in the design notes they were built with.
+
+| Skin | What it is | What it shows |
+|---|---|---|
+| **Vellum** (`Polestar_Skin_Vellum`) | A page of the quest log: dark ink on mottled parchment, a sealing-wax accent, the game's font | A **light** skin: every token given (grounds, ladder, all sixteen subject colours as inks) and still held to the legibility floors; a texture of the skin's own (`Media/paper.tga`) tinted at paint time; painters for window, panel, sidebar, inset and editbox; a layout preset that turns the arrow's words paper-coloured on a plate |
+| **Lumen** (`Polestar_Skin_Lumen`) | Head-up: no frame, a cyan line and a tick at each corner, Fira Sans a size down, the flat arrow | A skin that is mostly a **frame treatment** from Polestar's white texture; a `guide` painter beside `window` (the ticks stay while the window is transparent); `fontSizes` for the whole ladder; a preset that turns the house chrome off |
+| **Beacon** (`Polestar_Skin_Beacon`) | High contrast: black grounds, white Open Sans a size up, a yellow accent, strong edges | A **scheme and a skin from one addon**; washes raised through tokens; a 2-unit focus ring on fields; a preset that reaches the arrow, pins and route line |
+| **Aurora** (`Polestar_Skin_Aurora`) | Polestar's night a step further: a teal-over-violet aurora in the band, grounds that deepen toward the foot, champagne gold | A skin that **extends** the house style: `kit.gradient` for the ground, the `haze` token for the band's light, nothing else changed |
+
+A `preset` (where this Polestar has the `preset` capability) is a table of
+Look settings the skin recommends; Polestar offers it on the Theme page
+("Apply <skin>'s layout") and never applies it on its own. The four skins
+guard it with `Theme.HasCapability("preset")`, so they load on a Polestar
+without it.
 
 ## Rationale, compared with Details!
 

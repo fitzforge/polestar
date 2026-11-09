@@ -1,0 +1,30 @@
+## Interface: 16001
+## Title: Polestar Skin: Aurora
+## Notes: Polestar's night sky with an aurora in the band: deep indigo grounds that fall away toward the foot of each window, a teal and violet glow under the stars, champagne gold. Not part of Polestar's release.
+## Title-deDE: Polestar-Design: Aurora
+## Notes-deDE: Polestars Nachthimmel mit einem Polarlicht im Band: tiefes Indigo, das zum Fuß jedes Fensters dunkler wird, ein türkis-violettes Leuchten unter den Sternen, Champagnergold. Nicht Teil von Polestars Veröffentlichung.
+## Title-esES: Polestar, tema: Aurora
+## Notes-esES: El cielo nocturno de Polestar con una aurora en la franja: índigo profundo que se oscurece hacia el pie de cada ventana, un brillo turquesa y violeta bajo las estrellas, oro champán. No forma parte de la versión de Polestar.
+## Title-esMX: Polestar, tema: Aurora
+## Notes-esMX: El cielo nocturno de Polestar con una aurora en la franja: índigo profundo que se oscurece hacia el pie de cada ventana, un brillo turquesa y violeta bajo las estrellas, oro champán. No forma parte de la versión de Polestar.
+## Title-frFR: Polestar, habillage : Aurora
+## Notes-frFR: Le ciel nocturne de Polestar avec une aurore dans le bandeau : un indigo profond qui s'assombrit vers le bas de chaque fenêtre, une lueur turquoise et violette sous les étoiles, un or champagne. Ne fait pas partie de la version publiée de Polestar.
+## Title-koKR: Polestar 스킨: Aurora
+## Notes-koKR: 띠에 오로라가 드리운 Polestar의 밤하늘: 창 아래로 갈수록 짙어지는 깊은 남색, 별 아래의 청록빛과 보랏빛, 샴페인 골드. Polestar 배포판에는 포함되지 않습니다.
+## Title-ptBR: Polestar, tema: Aurora
+## Notes-ptBR: O céu noturno do Polestar com uma aurora na faixa: índigo profundo que escurece em direção ao pé de cada janela, um brilho turquesa e violeta sob as estrelas, dourado champanhe. Não faz parte da versão do Polestar.
+## Title-ruRU: Polestar, оформление: Aurora
+## Notes-ruRU: Ночное небо Polestar с сиянием в полосе: глубокий индиго, темнеющий к низу каждого окна, бирюзово-фиолетовое свечение под звёздами, золото шампань. Не входит в выпуск Polestar.
+## Title-zhCN: Polestar 皮肤：Aurora
+## Notes-zhCN: 带有极光的 Polestar 夜空：向窗底渐深的靛蓝底面，星空下的青紫光辉，香槟金。不属于 Polestar 的发行版。
+## Title-zhTW: Polestar 皮膚：Aurora
+## Notes-zhTW: 帶有極光的 Polestar 夜空：向窗底漸深的靛藍底面，星空下的青紫光輝，香檳金。不屬於 Polestar 的發行版本。
+## Author: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+## Version: 1.0
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+
+Aurora.lua

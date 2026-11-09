@@ -81,7 +81,11 @@ class TextureCache {
 			// "Nav/<name>", "Map/<name>": Polestar's Media/Nav textures (pins,
 			// glow, arrow) and Media/Map ones (medallions, map glyphs).
 			const sub = /^(Nav|Map)\/([\w-]+)$/.exec(name);
+			// "addon:<Folder>/<path>": another addon's texture (a skin addon's
+			// Media, docs/SKINS-API.md), under the addon folder beside Polestar's.
+			const other = /^addon:([\w-]+)\/(.+)$/.exec(name);
 			const file = fid ? (this.clientArt ? path.join(this.clientArt, `${fid[1]}.tga`) : null)
+				: other ? path.join(this.dir, '..', '..', '..', other[1], other[2] + '.tga')
 				: sub ? path.join(this.dir, '..', sub[1], sub[2] + '.tga') : path.join(this.dir, name + '.tga');
 			this.src.set(name, file && fs.existsSync(file) ? readTGA(file) : null);
 		}
@@ -266,6 +270,10 @@ function textureName(p) {
 	if (m) return m[1];
 	const sub = /Polestar\\Media\\(Nav|Map)\\([\w-]+)$/.exec(p);
 	if (sub) return `${sub[1]}/${sub[2]}`;
+	// Another addon's own texture (a skin addon's, docs/SKINS-API.md):
+	// "Interface\AddOns\<Folder>\<path>" -> "addon:<Folder>/<path>".
+	const own = /AddOns\\((?!Polestar\\)[\w-]+)\\([\w\\-]+)$/.exec(p);
+	if (own) return `addon:${own[1]}/${own[2].replace(/\\/g, '/')}`;
 	if (/WHITE8X8/i.test(p)) return 'white';
 	return null;
 }
