@@ -1178,6 +1178,45 @@
 				}
 			],
 			"pr": 1355
+		},
+		{
+			"id": "1414-durotar-spitelash-beach",
+			"quest": 99051,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1411,
+				"x": 58.9,
+				"y": 27.0,
+				"frame": "era"
+			},
+			"note": "Threat from Below: the Naga Spinefins drop from the Spitelash Scouts and Attendants on the beach below Drygulch Ravine. The goal's nearest spawn from Razor Hill was a lone Attendant point at 53.8,34.6, inland by the road, where no recorded player ever saw, killed or looted a naga, so the arrow led there first.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-09: 161 ticks of 99051.1 by 17 people at 57.0-60.2,22.2-29.7 (map 1411), their middle at 58.9,27.0; 393 Attendant and 400 Scout kills, none within 200 yd of 53.8,34.6"
+				}
+			],
+			"pr": 1414
+		},
+		{
+			"id": "1414-zephras-alaketh-ears",
+			"quest": 93165,
+			"objective": 1,
+			"at": {
+				"map": 2521,
+				"x": 63.7,
+				"y": 37.1,
+				"frame": "live"
+			},
+			"note": "Mercy Falls on Deaf Ears: the Al'Aketh Cultist's Ears come from the Al'Aketh Stormchasers and Footsoldiers of the camp beside Vayn Moongaze. The item's drop list rates the cult's other members higher (Guardians, Skypriests, Brawlers, Pillagers, Spiritcallers), and those stand only in the cult's southern camps, so every spot the goal offered was 200 yd or more from where players loot the ears.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-09: 70 ticks of 93165.1 by 13 people at 62.1-65.7,35.7-39.1 (map 2521), their middle at 63.7,37.1; loot windows on the quest: Stormchaser 252664 35 of 128 held an ear, Footsoldier 252665 7 of 37; no other Al'Aketh was looted on the quest"
+				}
+			],
+			"pr": 1414
 		}
 	]
 }

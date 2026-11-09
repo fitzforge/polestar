@@ -528,7 +528,7 @@ step The Al'Aketh camp
   collect 265475 quest 94488.1
   kill 258134 quest 94489.1 "Heal the injured druids in the Nightfang Den" -- Below ground
   talk 258130 quest 94489.2 "Find Jorel Windsinger" -- Below ground
-  collect 258771 quest 93165.1
+  collect 258771 quest 93165.1 @63.7,37.1
   turnin 93165
   collect 265476 optional
   accept 94490 optional
