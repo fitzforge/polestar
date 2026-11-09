@@ -125,7 +125,7 @@ return {
 	-- {npc:2410} Magus Wordeen Voidglare
 	["{npc:2410}, inside: offered from level 30"] = "{npc:2410}, lá dentro: oferecida a partir do nível 30",
 	-- {npc:2410} Magus Wordeen Voidglare · {quest:93680} Key to the City · {item:279469} Grimy Key
-	["{npc:2410}: {quest:93680}, the {item:279469} from the same traitors"] = "",
+	["{npc:2410}: {quest:93680}, the {item:279469} is by the traitors"] = "",
 	-- {npc:2437} Keeper Bel'varil
 	["{npc:2437}, inside: offered from level 30"] = "{npc:2437}, lá dentro: oferecida a partir do nível 30",
 	-- {npc:2770} Tallow · {npc:2771} Drum Fel · {area:321} Hammerfall
@@ -144,8 +144,8 @@ return {
 	-- {area:279} Dalaran · {npc:2411} Ricter · {npc:2412} Alina · {npc:2413} Dermot · {npc:2414} Kegan Darkmar
 	-- plural, as words: Worn Stone Tokens = {item:3714} Worn Stone Token
 	["Head west along the foot of the mountains to the violet dome of {area:279}. {npc:2411}, {npc:2412} and {npc:2413} (33-34) stand together inside the crater's eastern rim, {npc:2414} (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-32) around them drop the Worn Stone Tokens.\nCareful: Many guards stand in linked pairs and others patrol alone around the camp."] = "Siga para oeste pelo pé das montanhas até a cúpula violeta de {area:279}. {npc:2411}, {npc:2412} e {npc:2413} (33-34) ficam juntos na borda leste da cratera, {npc:2414} (35) um pouco a oeste deles; cada um carrega uma peça de Pedra-sangrenta. Os Escudeiros e Teurgos (31-32) em volta deles deixam cair as Fichas de Pedra Gastas.\nCuidado: muitos guardas andam em duplas ligadas, e outros patrulham sozinhos em volta do acampamento.",
-	-- {item:279469} Grimy Key · {npc:2415} Warden Belamoore · {npc:2414} Kegan Darkmar
-	["{item:279469}: {npc:2415} or {npc:2414} drops it, by the traitors"] = "",
+	-- {item:279469} Grimy Key
+	["{item:279469}: an object to loot, by the traitors"] = "",
 
 	-- Step 33: Azurelode Mine
 	-- {area:287} Hillsbrad · {area:288} Azurelode Mine · {npc:2305} Foreman Bonds · {npc:2450} Miner Hackett
