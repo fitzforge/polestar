@@ -399,7 +399,7 @@ step Astranaar
 # ---------------------------------------------------------------- Krolg
 
 step Krolg
-  tip Krolg, a furbolg untouched by the corruption, sits south of the road below Mystral Lake.
+  tip Krolg, a furbolg untouched by the corruption, sits south of the road below Mystral Lake. Use Dartol's Rod of Transformation near him first: he only speaks to you in furbolg form.
   turnin 1030
   accept 1045
 

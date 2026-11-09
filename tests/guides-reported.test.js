@@ -9554,3 +9554,11 @@ test('Steps name the item their objective needs (jailor keys, feathers, explosiv
 	assert.match(src('forever/horde/04-the-barrens.guide'), /step The flying machine\n  tip [^\n]*Explosive Stick of Gann/);
 	assert.match(src('forever/alliance/03-darkshore-return.guide'), /step The Master's Glaive\n  tip [^\n]*Phial of Scrying/);
 });
+
+// GuideHealth036 (0.3.6): Krolg (Raene's Cleansing 1030) only speaks to a furbolg; the step names Dartol's Rod. Pilot
+// Xiggs (Arcane Runes 3449) comes on the flare gun; the step names it.
+test('Ashenvale and Azshara: the Krolg and Ravencrest steps name the rod and the flare gun', { skip }, () => {
+	const src = fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/alliance/06-wetlands.guide'), 'utf8');
+	assert.match(src, /step Krolg\n  tip [^\n]*Dartol's Rod of Transformation/);
+	assert.match(fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/alliance/50-60/01-burning-steppes.guide'), 'utf8'), /step Ravencrest Monument\n  tip [^\n]*Standard Issue Flare Gun/);
+});

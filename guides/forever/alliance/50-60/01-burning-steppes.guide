@@ -149,7 +149,7 @@ step Ogtinc
   turnin 8256 only Priest -- Ogtinc
 
 step Ravencrest Monument
-  tip Swim to the small island off the southern tip of Azshara: Pilot Xiggs Fuselighter waits by the monument.
+  tip Swim to the small island off the southern tip of Azshara. If Pilot Xiggs Fuselighter isn't there, fire your Standard Issue Flare Gun to signal him, and wait for him to land.
   turnin 3449
   accept 3461
 

@@ -5107,6 +5107,38 @@
 				"kind": "client",
 				"ref": "quests.json 944 objectiveText, end object 10076"
 			}
+		},
+		{
+			"id": "gh036-ashenvale-krolg-dartols-rod",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1030,
+				"goal": "turnin"
+			},
+			"tip": "Krolg, a furbolg untouched by the corruption, sits south of the road below Mystral Lake. Use Dartol's Rod of Transformation near him first: he only speaks to you in furbolg form.",
+			"note": "GuideHealth036 Steps (0.3.6): the Krolg step never named the rod. Quest text 1030: 'using the power of Dartol's Rod of Transformation, speak to him'; the knowledge base's steps for 1030 use the rod (5462) before the hand-in.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests.json 1030 objectiveText; quest-steps.json 1030"
+				}
+			]
+		},
+		{
+			"id": "gh036-azshara-ravencrest-flare-gun",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3449,
+				"goal": "turnin"
+			},
+			"tip": "Swim to the small island off the southern tip of Azshara. If Pilot Xiggs Fuselighter isn't there, fire your Standard Issue Flare Gun to signal him, and wait for him to land.",
+			"note": "GuideHealth036 Steps (0.3.6): the tip said Xiggs 'waits by the monument'. Quest text 3449 ('signaling Pilot Xiggs Fuselighter to pick them up'; completion: 'toss the flare gun') and the knowledge base (step 5: fire the Standard Issue Flare Gun 10444 on the island, wait for the pilot) say he comes on the flare; no recording has met him. Worded so it holds either way: verify in game whether he stands there.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests.json 3449 objectiveText; page snapshot 3449; quest-steps.json 3449"
+				}
+			]
 		}
 	]
 }
