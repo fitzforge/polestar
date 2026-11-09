@@ -1511,10 +1511,14 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 		// Quests the player may not have picked up: an `optional` or item-started accept, one listed along
 		// the way, and the quests that need one of them first.
 		let mut maybe: FxHashSet<u32> = FxHashSet::default();
+		let mut from_item_q: FxHashSet<u32> = FxHashSet::default();
 		for g in seq.iter().filter(|g| g.verb == "accept") {
 			let Some(q) = g.quest else { continue };
 			let start = quest_v(data, q).get("start");
 			let from_item = re!(r"\bitem\s+\d").is_match(code(g)) || (!start.get("item").items().is_empty() && start.get("npc").items().is_empty() && start.get("object").items().is_empty());
+			if from_item {
+				from_item_q.insert(q);
+			}
 			if from_item || re!(r"\boptional\b").is_match(code(g)) || ch.steps[g.gi][g.si].along {
 				maybe.insert(q);
 			}
@@ -1634,14 +1638,15 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 			if !hand.is_empty() && hand.iter().all(|&i| at_npc(i)) {
 				// (Not one the guide takes only `optional` before it: the addon holds that hand-in only for a
 				// player who took the quest, and `optional` let one who did walk past its NPC, Harvesting the
-				// Harvesters at Ozwin, #298.)
+				// Harvesters at Ozwin, #298. Nor an item-started one: the same, and its player carried it
+				// grey, Sharptalon's Claw at Senani, The Admiral's Orders at Gar'Thok, OrphanQuests.)
 				let opt_taken = |i: usize| {
 					let mut acc = seq[..i].iter().filter(|a| a.gi == gi && a.verb == "accept" && a.quest == seq[i].quest).peekable();
 					acc.peek().is_some() && acc.all(|a| re!(r"\boptional\b").is_match(code(a)))
 				};
 				for &i in &hand {
 					let l = seq[i].line as usize - 1;
-					if edits[gi].replaced.contains_key(&l) || edits[gi].removed.contains(&l) || opt_taken(i) {
+					if edits[gi].replaced.contains_key(&l) || edits[gi].removed.contains(&l) || opt_taken(i) || seq[i].quest.is_some_and(|q| from_item_q.contains(&q)) {
 						continue;
 					}
 					let (c, rest) = crate::jsre::split_comment(&texts[gi][l]);

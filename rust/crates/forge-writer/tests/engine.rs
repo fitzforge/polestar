@@ -671,6 +671,28 @@ impl Floors for Den {
 
 #[test]
 #[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
+fn r3_hand_in_of_an_item_started_quest_at_an_npc_with_other_work_stays_required() {
+	// Stranded (D), OrphanQuests: Sharptalon's Claw (2), Shadumbra's Head (24), Assassination Plot (4881),
+	// The Admiral's Orders (830), Attack on Camp Narache (781) were item-started, and their hand-in beside
+	// other work at the same NPC was made `optional`: the addon never holds an optional goal, so a player
+	// who had the quest walked past its NPC and carried it grey. The addon already hides a hand-in for a
+	// quest the character never took (`orphaned`), so the hand-in stays as written.
+	let g = guide(
+		"a",
+		"Orc",
+		"Horde",
+		"Durotar",
+		None,
+		&["step Boars", "  accept 788 item 4905", "  kill 3098 quest 788.1", "", "step Gornek", "  train class", "  turnin 788", "  accept 789", ""],
+	);
+	let after = run(&[("a", g)], "Orc", "Horde", &Opts { when: true, ..off() }, &FxHashMap::default());
+	let a = &after["a"];
+	let s = idx(a, "step Gornek");
+	assert_eq!(a[s..s + 4], ["step Gornek", "  train class", "  turnin 788", "  accept 789"], "{}", a.join("\n"));
+}
+
+#[test]
+#[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
 fn r9_a_goal_below_ground_says_so_and_one_at_a_walking_npc_says_where_he_walks() {
 	let g = guide("a", "Orc", "Horde", "Durotar", None, &["step Gornek", "  accept 788", "", "step Boars", "  kill 3098 quest 788.1"]);
 	let before = run_on(&reference(), &[("a", g.clone())], "Orc", "Horde", &off(), &FxHashMap::default(), Some(&Den), None);
