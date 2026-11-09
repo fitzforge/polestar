@@ -4815,6 +4815,26 @@
 					"ref": "quest minimum and quest levels in Forever's quest data; mob levels from npcs.json"
 				}
 			]
+		},
+		{
+			"id": "horde-1485-accept-devourer-of-souls-20",
+			"faction": "Horde",
+			"at": {
+				"quest": 1507,
+				"goal": "accept"
+			},
+			"level": 20,
+			"note": "Devourer of Souls (the Warlock's Gan'rul Bloodeye, and the chain behind it) needs level 20 (its minimum level in Forever's quest data). A Warlock reaching the Orgrimmar stop at 19 (18%) was sent there with nothing to level on (#1485); the gate tells a player below 20 to level first.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 1507 minimum level 20"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1485"
+				}
+			]
 		}
 	]
 }
