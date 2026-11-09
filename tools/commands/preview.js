@@ -1550,6 +1550,17 @@ end`,
 			{ files: MODULE_FILES, roots: ['PolestarFlightTimer'], script: `Polestar.Set("ui.skin", "${k}"); local f = PolestarFlightTimer; f.Dest:SetText("Stormwind"); f.Time:SetText("1:42"); Polestar.Widgets.SetProgress(f.Progress, 0.4); f:Show()` }
 		)),
 	},
+	{
+		file: 'skins-hearth.svg',
+		title: 'Hearth: a class quest\'s card, the class and dungeon heads-ups on the guide window and the rare alert, all in Polestar\'s own art (a walnut board lit from above, parchment text, copper hairlines, an ember accent)',
+		backdrop: 'terrain',
+		panels: [
+			{ roots: GUIDE, script: `Polestar.Set("ui.skin", "hearth"); ${DRUID_CARD}` },
+			{ roots: [...GUIDE, 'PolestarClassToast'], script: `Polestar.Set("ui.skin", "hearth"); ${ORC_TOAST}` },
+			{ dungeons: true, roots: [...GUIDE, 'PolestarClassToast'], script: `Polestar.Set("ui.skin", "hearth"); ${DUNGEON_TOAST}` },
+			{ rares: true, files: RARES_FILES, roots: TOAST, script: raresScene('Polestar.Set("ui.skin", "hearth"); Polestar.Fire("RARE_SPOTTED", Polestar.Rares.AlertOf({ source = "nameplate", kind = "rare", id = 471, name = "Mother Fang", level = 10, classification = "rareelite" }, nil, false)); stub.advance(12)') },
+		],
+	},
 	// The game's looks draw the client's own art: rendered only with
 	// POLESTAR_CLIENT_ART (local: true), so it never lands in docs/preview.
 	...['forever', 'blizzard', 'classic'].map((k) => ({

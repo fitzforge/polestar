@@ -1165,7 +1165,6 @@ L["None of the addons Polestar works with is installed."] = "Keines der Addons, 
 L["The skin's font (the default: the game's own, Fira Sans in Halo), or a font of your choice."] = "Die Schrift des Designs (Standard: die des Spiels, Fira Sans in Halo) oder eine Schrift deiner Wahl."
 L["The skin's font"] = "Die Schrift des Designs"
 L["Skin"] = "Design"
-L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (warm game colours), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."] = "Polestars eigenes Aussehen (Standard), Halo (ohne Rahmen, ein weicher dunkler Schleier, Fira Sans), Herd (warme Farben des Spiels) oder die Grafik des Spiels selbst: WoW Forever, Blizzard und Classic. Stil, Kompaktmodus und die Farben, die du wählst, wirken in jedem Design."
 L["The skin's arrow"] = "Der Pfeil des Designs"
 L["Lock arrow and buttons"] = "Pfeil und Knöpfe sperren"
 L["Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them."] = "Verhindert versehentliches Ziehen des Pfeils, der Aktionsknöpfe und der Flug- und Instanz-Timer. Mit Umschalt lassen sie sich weiterhin verschieben."
@@ -3568,6 +3567,7 @@ L["Level %d: you can take %s now. Its giver is marked on your map; pick up the q
 -- L["Motion"] = ""
 -- L["Animation speed"] = ""
 -- L["How fast Polestar's windows slide, fade and pop: 2x takes half the time. Right-click to reset."] = ""
+-- L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (an inn by the fire: warm wood, ember light, parchment text), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."] = ""
 
 -- UI/Looks/GuideWindow.lua
 -- L["Kobold Vermin"] = ""
@@ -3973,3 +3973,4 @@ L["Level %d: you can take %s now. Its giver is marked on your map; pick up the q
 -- L["Route line style"] = "Stil der Routenlinie"
 -- L["Route colours tint each leg by how you travel it. Cyan, magenta and white stand apart from the minimap's yellow herb and ore dots and its gold quest marks. Right-click to reset."] = "Routenfarben tönen jede Etappe danach, wie du sie zurücklegst. Cyan, Magenta und Weiß heben sich von den gelben Kräuter- und Erzpunkten der Minikarte und ihren goldenen Quest-Markierungen ab. Rechtsklick zum Zurücksetzen."
 -- L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] = "Wie dick die durchgehende Linie auf der Weltkarte ist; die der Minikarte folgt ihrer Größe. Rechtsklick zum Zurücksetzen."
+-- L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (warm game colours), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."] = "Polestars eigenes Aussehen (Standard), Halo (ohne Rahmen, ein weicher dunkler Schleier, Fira Sans), Herd (warme Farben des Spiels) oder die Grafik des Spiels selbst: WoW Forever, Blizzard und Classic. Stil, Kompaktmodus und die Farben, die du wählst, wirken in jedem Design."

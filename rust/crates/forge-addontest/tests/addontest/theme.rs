@@ -664,8 +664,9 @@ fn skins_polestar_by_default_halo_and_hearth_bring_their_tokens_fonts_sizes_and_
 		out.haloInter = (T.FontSpec("body"))
 		Polestar.Set("ui.font", nil)
 		Polestar.Set("ui.skin", "hearth")
-		out.bliz = { key = T.SkinKey(), title = c("title"), text = c("text"), success = c("success"), arrive = c("arrive"),
-			selected = c("selected"), row = T.Metric("row", 40), font = (T.FontSpec("body")), menuRow = T.Metric("menuRow", 26) }
+		out.hearth = { key = T.SkinKey(), title = c("title"), text = c("text"), textMuted = c("textMuted"), accent = c("accent"), ember = c("ember"),
+			success = c("success"), selected = c("selected"), windowEdge = c("windowEdge"), npc = c("npc"), game = T.GameSkin(),
+			row = T.Metric("row", 40), font = (T.FontSpec("body")), menuRow = T.Metric("menuRow", 26), foot = T.Metric("guideFoot", 26) }
 		Polestar.Set("ui.skin", "nonsense")
 		out.unknown = T.SkinKey()
 		Polestar.Set("ui.skin", "forever")
@@ -694,29 +695,37 @@ fn skins_polestar_by_default_halo_and_hearth_bring_their_tokens_fonts_sizes_and_
 	assert_eq!(h["icon"], "flag", "the report flag");
 	assert_eq!(round(&out["ownAccent"])[..3], [0.2, 0.6, 1.0], "your own accent wins in a skin");
 	assert_eq!(out["haloInter"], "Interface\\AddOns\\Polestar\\Media\\Fonts\\Inter-Medium.ttf", "a font picked by hand wins");
-	let b = &out["bliz"];
+	let b = &out["hearth"];
 	assert_eq!(b["key"], "hearth");
-	assert_eq!(round(&b["title"]), vec![1.0, 0.82, 0.0, 1.0], "NORMAL_FONT_COLOR");
-	assert_eq!(round(&b["text"]), vec![1.0, 1.0, 1.0, 1.0], "HIGHLIGHT_FONT_COLOR");
-	assert_eq!(round(&b["success"]), vec![0.118, 1.0, 0.0, 1.0], "#1EFF00");
-	assert_eq!(round(&b["arrive"]), vec![0.345, 0.753, 0.29, 1.0], "#58C04A");
-	assert_eq!(round(&b["selected"]), vec![0.431, 0.588, 1.0, 0.28], "the options list's blue selection");
-	assert_eq!(b["row"], 28);
-	assert_eq!(b["menuRow"], 22);
+	assert_eq!(round(&b["title"]), vec![1.0, 0.851, 0.627, 1.0], "the firelit gold, #FFD9A0");
+	assert_eq!(round(&b["text"]), vec![0.961, 0.914, 0.827, 1.0], "parchment, #F5E9D3, not white");
+	assert_eq!(round(&b["textMuted"]), vec![0.702, 0.616, 0.475, 1.0], "#B39D79");
+	assert_eq!(round(&b["accent"]), vec![1.0, 0.58, 0.251, 1.0], "the ember accent, #FF9440");
+	assert_eq!(round(&b["ember"]), vec![1.0, 0.478, 0.18, 1.0], "the ember light, #FF7A2E");
+	assert_eq!(round(&b["success"]), vec![0.561, 0.839, 0.431, 1.0], "a leaf green, #8FD66E");
+	assert_eq!(round(&b["selected"]), vec![1.0, 0.58, 0.251, 0.12], "an ember wash marks the selected row");
+	assert_eq!(round(&b["windowEdge"]), vec![0.478, 0.29, 0.133, 1.0], "a copper hairline, #7A4A22");
+	assert_eq!(round(&b["npc"]), vec![0.58, 0.79, 1.0, 1.0], "the shared subject colours stay");
+	assert_eq!(b["game"], false, "Hearth draws Polestar's own controls");
+	assert_eq!(b["row"], 32);
+	assert_eq!(b["menuRow"], 24);
+	assert_eq!(b["foot"], 20, "the house's slim footer, not the game's 14-high status bar");
 	assert_eq!(b["font"], "Fonts\\FRIZQT__.TTF", "the game's font");
 	assert_eq!(out["unknown"], "polestar", "an unknown skin is the house style");
 	assert_eq!(out["savedForever"], "forever", "a saved \"forever\" choice draws the WoW Forever skin again (#306)");
 }
 
 #[test]
-fn skins_a_window_repaints_from_the_house_style_to_halo_veil_no_fill_to_hearth_gradient_and_back_live() {
+fn skins_a_window_repaints_from_the_house_style_to_halo_veil_no_fill_to_hearth_board_ember_light_and_back_live() {
 	let out = run(r#"
 		-- A window of Polestar's own (frames a test makes stand for the game's).
 		Polestar.UI.ShowOptions()
 		local f = PolestarOptions
 		local function state()
 			local d = f.psSkin
+			local k = d.kit or {}
 			return { bg = d.bg ~= nil and d.bg:IsShown(), veil = d.veil ~= nil and d.veil:IsShown(),
+				board = k.board ~= nil and k.board:IsShown(), ember = k.ember ~= nil and k.ember:IsShown(),
 				border = f.psBorder ~= nil and f.psBorder[1]:IsShown(), shadow = f.psShadow ~= nil and f.psShadow:IsShown() }
 		end
 		local out = { house = state() }
@@ -726,15 +735,30 @@ fn skins_a_window_repaints_from_the_house_style_to_halo_veil_no_fill_to_hearth_g
 		local _, _, _, a = v.parts[5]:GetVertexColor()
 		out.veilAlpha = a
 		Polestar.Set("ui.skin", "hearth")
-		out.bliz = state()
+		out.hearth = state()
+		local k = f.psSkin.kit
+		out.emberColor = { k.ember:GetVertexColor() }
+		out.emberBlend = k.ember.blend
+		out.emberCoords = k.ember.texCoord
+		out.emberHeight = k.ember:GetHeight()
+		out.borderColor = { f.psBorder[1]:GetVertexColor() }
 		Polestar.Set("ui.skin", "polestar")
 		out.back = state()
 		emit(out)"#);
-	assert_eq!(out["house"], json!({ "bg": true, "veil": false, "border": true, "shadow": true }));
-	assert_eq!(out["halo"], json!({ "bg": false, "veil": true, "border": false, "shadow": false }), "Halo: the soft veil alone");
+	let house = json!({ "bg": true, "veil": false, "board": false, "ember": false, "border": true, "shadow": true });
+	assert_eq!(out["house"], house);
+	assert_eq!(out["halo"], json!({ "bg": false, "veil": true, "board": false, "ember": false, "border": false, "shadow": false }), "Halo: the soft veil alone");
 	assert_eq!((out["veilAlpha"].as_f64().unwrap() * 100.0).round() / 100.0, 0.84, "the big windows' veil");
-	assert_eq!(json!({ "bg": out["bliz"]["bg"].clone(), "veil": out["bliz"]["veil"].clone() }), json!({ "bg": true, "veil": false }));
-	assert_eq!(out["back"], out["house"], "back to the house style, as it was");
+	assert_eq!(out["hearth"], json!({ "bg": false, "veil": false, "board": true, "ember": true, "border": true, "shadow": true }),
+		"Hearth: its own gradient board (the house fill stays flat and hidden), the ember light, the copper hairline and the house shadow");
+	let ember = round(&out["emberColor"]);
+	assert_eq!(&ember[..3], &[1.0, 0.478, 0.18], "the light is the ember token");
+	assert!((0.1..=0.2).contains(&ember[3]), "a big window glows softly ({})", ember[3]);
+	assert_eq!(out["emberBlend"], "ADD");
+	assert_eq!(round(&out["emberCoords"]), vec![0.0, 1.0, 0.5, 1.0], "the lower half of the glow: brightest at the top edge, fading down");
+	assert_eq!(out["emberHeight"], 120);
+	assert_eq!(round(&out["borderColor"])[..3], [0.478, 0.29, 0.133], "the copper hairline by default");
+	assert_eq!(out["back"], house, "back to the house style, as it was");
 }
 
 // #353: Polestar's faces have no Chinese or Hangul; text with them takes the client's font for that script,
@@ -1000,9 +1024,10 @@ fn skins_forever_s_progress_bar_draws_its_own_fill_to_the_bar_s_value_the_frame_
 			local p, _, rp, _, y = row.Check:GetPoint(1)
 			out.tickAnchor = { p, rp, y }
 		end
-		-- back to the house style: the bar's own fill again
+		-- to Hearth: the game's bar put away, the house's slim line in its place, Hearth's own sizes
 		Polestar.Set("ui.skin", "hearth")
-		out.hearth = { own = b:GetStatusBarTexture():GetAlpha(), fill = k.statusFill:IsShown(), pad = T.Metric("guidePad", 14), lit = T.Metric("guideLitInset", 4) }
+		out.hearth = { bar = b:IsShown(), line = GF.parts.foot.Line:IsShown(), lineH = GF.parts.foot.Line:GetHeight(),
+			pad = T.Metric("guidePad", 14), lit = T.Metric("guideLitInset", 4) }
 		emit(out)"#,
 		r#"C_Texture = { GetAtlasInfo = function(name)
 			local size = { ["Legacy-Progressbar-Frame"] = { 262, 52 }, ["Legacy-Progressbar-Fill"] = { 234, 24 }, ["Legacy-Progressbar-BG"] = { 234, 24 } }
@@ -1025,7 +1050,7 @@ fn skins_forever_s_progress_bar_draws_its_own_fill_to_the_bar_s_value_the_frame_
 	assert!(out["tickRight"].as_f64().unwrap() <= -(10.0 + 10.0), "the tick box's art ends 10 or more inside the lit goal's outline ({})", out["tickRight"]);
 	assert_eq!(out["tickAnchor"], json!(["RIGHT", "RIGHT", 0]), "the tick box on the row's middle");
 	assert_eq!(out["textTop"], -8, "the lit goal's lines start 8 below its top, not 4");
-	assert_eq!(out["hearth"], json!({ "own": 1, "fill": false, "pad": 12, "lit": 4 }), "Hearth: the bar's own fill back, its own sizes");
+	assert_eq!(out["hearth"], json!({ "bar": false, "line": true, "lineH": 3, "pad": 12, "lit": 4 }), "Hearth: the game's bar put away, the house's slim line, its own sizes");
 }
 
 #[test]

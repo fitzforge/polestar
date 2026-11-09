@@ -308,6 +308,8 @@ mod riding;
 mod route_plan;
 #[path = "skins-sweep.rs"]
 mod skins_sweep;
+#[path = "skins-hearth.rs"]
+mod skins_hearth;
 mod syntax;
 mod talents;
 mod theme;

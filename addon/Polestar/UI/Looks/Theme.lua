@@ -278,8 +278,8 @@ local SPECS = {
 		preview = buildPreview,
 		subtitle = L["The look every Polestar window shares: skin, colours, type, frames and motion. Everything repaints as you change it; right-click a setting to reset it."],
 		controls = {
-		{ kind = skinCards and "cards" or "dropdown", key = "ui.skin", label = L["Skin"], search = "theme, look, style, frame, skin, halo, hearth, blizzard, classic, forever",
-			help = L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (warm game colours), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."],
+		{ kind = skinCards and "cards" or "dropdown", key = "ui.skin", label = L["Skin"], search = "theme, look, style, frame, skin, halo, hearth, blizzard, classic, forever, inn, wood, ember, parchment",
+			help = L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (an inn by the fire: warm wood, ember light, parchment text), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."],
 			-- The skin drawn (a saved skin whose addon is gone draws Polestar;
 			-- the saved choice is kept for when it returns).
 			get = Theme.SkinId and function() return Theme.SkinId() end or nil,

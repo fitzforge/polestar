@@ -252,13 +252,14 @@ W.Hover = hoverTexture
 
 -- A glyph-only button: the glyph sits in the dim text colour and brightens
 -- under the cursor; a press nudges it down a pixel, like a key going in.
--- The framed square a Blizzard icon button sits in, on the buttons that ask
--- for it (b.psFramed; DIRECTION_A_BLIZZARD.md §3): "icon" #3A2C14 to #1A1309
--- with a #8A6A2A edge, "red" (the small square buttons, ‹ ›) #8A1C10 to
--- #420B05 with a #C79C3E edge. Hidden in the other skins.
+-- Hearth frames the buttons that ask for it (b.psFramed) as small planks:
+-- "icon" the control ground #3B2616 shading to #2A1A0F with a dark copper
+-- edge, "red" (the step buttons, ‹ ›) the same plank lit by the fire, #5A3016
+-- to #3B2616, edged in copper. Hidden in the other skins (the game's looks
+-- draw their own plates).
 local FRAMES = {
-	icon = { top = { 0.227, 0.173, 0.078 }, bottom = { 0.102, 0.075, 0.035 }, edge = { 0.541, 0.416, 0.165 } },
-	red = { top = { 0.541, 0.11, 0.063 }, bottom = { 0.259, 0.043, 0.02 }, edge = { 0.78, 0.612, 0.243 } },
+	icon = { top = { 0.231, 0.149, 0.086 }, bottom = { 0.165, 0.102, 0.059 }, edge = { 0.353, 0.212, 0.094 } },
+	red = { top = { 0.353, 0.188, 0.086 }, bottom = { 0.231, 0.149, 0.086 }, edge = { 0.69, 0.478, 0.235 } },
 }
 local function iconFrame(b)
 	-- The game's looks draw their own plates, page arrows and close button.
@@ -989,31 +990,12 @@ local function toggleValue(self)
 	return ns.Get(self.psPath) and true or false
 end
 
-local CHECK_UP, CHECK_ON = "Interface\\Buttons\\UI-CheckBox-Up", "Interface\\Buttons\\UI-CheckBox-Check"
-
--- The game's check box in place of the switch: true when it drew one
--- (Hearth the vanilla box, the game's looks their kit's).
+-- The game's looks' check box in place of the switch (their kit's art,
+-- Theme.KitCheck): true when one was drawn.
 local function gameCheck(self, on)
 	local game, kit = Theme.GameSkin(), Theme.Kit()
-	local bliz = game and not kit
-	local box = rawget(self, "psGameBox")
-	if bliz and not box then
-		box = self.Track:GetParent():CreateTexture(nil, "ARTWORK")
-		box:SetTexture(CHECK_UP)
-		box:SetSize(24, 24)
-		box:SetPoint("CENTER", self.Track, "CENTER", 0, 0)
-		local check = self.Track:GetParent():CreateTexture(nil, "OVERLAY")
-		check:SetTexture(CHECK_ON)
-		check:SetAllPoints(box)
-		box.Check = check
-		self.psGameBox = box
-	end
 	for i = 1, #self.Track.parts do self.Track.parts[i]:SetShown(not game) end
 	self.Knob:SetShown(not game)
-	if box then
-		box:SetShown(bliz)
-		box.Check:SetShown(bliz and on)
-	end
 	if kit then
 		Theme.KitCheck(self, self.Track:GetParent(), self.Track, on)
 	else
@@ -1134,8 +1116,6 @@ local function sliderText(self, v)
 	return string.format(fmt or "%.2f", v)
 end
 
-local SLIDER_THUMB = "Interface\\Buttons\\UI-SliderBar-Button-Horizontal"
-
 local function sliderPaint(self, value)
 	local s = self.Slider
 	local lo, hi = s:GetMinMaxValues()
@@ -1173,7 +1153,7 @@ end
 
 -- A slider's parts in the skin in use (rows and the guide window's own).
 function W.SkinSlider(self)
-	local bliz = Theme.SkinKey() == "hearth"
+	local hearth = Theme.SkinKey() == "hearth"
 	local s = self.Slider
 	if self.psRow then
 		self:SetHeight(max(W.RowH(), self.psDetails and self.psLaidH or 0))
@@ -1195,26 +1175,19 @@ function W.SkinSlider(self)
 		return
 	end
 	self.Track:Show()
-	if bliz then
-		self.Track:SetHeight(8)
-		self.Track:SetVertexColor(0, 0, 0, 1)
-		Theme.Border(s, 0.42, 0.42, 0.42, 1)
-		self.Fill:Hide()
-		self.Thumb:SetTexture(SLIDER_THUMB)
-		self.Thumb:SetSize(32, 32)
-		self.Thumb:SetVertexColor(1, 1, 1, 1)
-		if self.Value then W.Color(self.Value, "accent") end
-	else
-		self.Track:SetHeight(2)
-		self.Track:SetVertexColor(Theme.Wash("track"))
-		if s.psBorder then for i = 1, 4 do s.psBorder[i]:Hide() end end
-		self.Fill:Show()
-		self.Fill:SetVertexColor(Theme.Accent())
-		self.Thumb:SetTexture(Theme.Media("circle"))
-		self.Thumb:SetSize(12, 12)
-		self.Thumb:SetVertexColor(Theme.Color("text"))
-		if self.Value then W.Color(self.Value, "textDim") end
-	end
+	-- The house slider: a hairline track, the accent fill, a round thumb.
+	-- Hearth cuts a deeper groove (3) and lights the thumb in its firelit
+	-- gold.
+	self.Track:SetHeight(hearth and 3 or 2)
+	self.Track:SetVertexColor(Theme.Wash("track"))
+	if s.psBorder then for i = 1, 4 do s.psBorder[i]:Hide() end end
+	self.Fill:Show()
+	self.Fill:SetHeight(hearth and 3 or 2)
+	self.Fill:SetVertexColor(Theme.Accent())
+	self.Thumb:SetTexture(Theme.Media("circle"))
+	self.Thumb:SetSize(12, 12)
+	self.Thumb:SetVertexColor(Theme.Color(hearth and "title" or "text"))
+	if self.Value then W.Color(self.Value, "textDim") end
 end
 
 -- The track, fill and thumb of a slider, on `owner`.
