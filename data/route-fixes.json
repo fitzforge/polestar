@@ -7774,7 +7774,7 @@
 					"accept",
 					879
 				],
-				"reason": "Horde 1-30 audit (#1414): Wrongly Blamed, Justly Corrected (level 23, from 18, 2,300 XP) from Grunt Logmar in Camp Taurajo was in no Horde guide, though its Encroaching Soldiers and Outraged Pillager camp at 48.8,77.0, a few steps east of Gann Stonespire, which the Barrens & Stonetalon guide (24-26) visits from Camp Taurajo and comes back from. Players' recordings: offered to 20 people by Logmar, 15 people did it, every tick at 48-49,77, taken and handed in at Logmar (44.6,59.3). Both benchmark routes do it.",
+				"reason": "Horde 1-30 audit (#1414): Wrongly Blamed, Justly Corrected (level 23, from 18, 2,300 XP) from Grunt Logmar in Camp Taurajo was in no Horde guide, though its Encroaching Soldiers and Outraged Pillager camp at 48.8,77.0, a few steps east of Gann Stonespire, which the Barrens & Stonetalon guide (24-26) visits from Camp Taurajo and comes back from. Players' recordings: offered to 20 people by Logmar, 15 people did it, every tick at 48-49,77, taken and handed in at Logmar (44.6,59.3). Both benchmark routes do it. Its Outraged Pillager (23) is elite (26 recorded sightings, all elite), so the guide's steps for it are `when group 97250`: the player chooses it (the class-chain heads-up rule); 7 of the 9 recorded runs at 22-26 were finished, the two abandons at 20.",
 				"issue": "-"
 			},
 			{

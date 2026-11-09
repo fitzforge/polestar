@@ -10,7 +10,7 @@ next forever/horde/07-ashenvale
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Wrongly Blamed, Justly Corrected (97250, Grunt Logmar in Camp Taurajo; its camp is a
-# few steps east of Gann Stonespire).
+# few steps east of Gann Stonespire; `when group 97250`: its Outraged Pillager is a level 23 elite).
 # Left out: The Harvester (897).
 
 # Horde 12-30 in the order the quest levels fit (2026-11-07): back from Hillsbrad at 24 for the
@@ -127,8 +127,12 @@ step Camp Taurajo
   accept 893                          -- Tatternack Steelforge, at the north edge of the camp
   accept 874                          -- Jorn Skyseer
   accept 879                          -- Mangletooth, in the cage
-  accept 97250                        -- Grunt Logmar: the soldiers and pillagers camp just east of Gann Stonespire, on the way south
   sethome "Camp Taurajo"
+
+step Grunt Logmar
+  when group 97250
+  tip Grunt Logmar stands by the flight master. His Outraged Pillager (23) is elite: grouping up is advised; the two Encroaching Soldiers are not.
+  accept 97250                        -- Grunt Logmar: the soldiers and the pillager camp just east of Gann Stonespire, on the way south
 
 step The Barrens
   only Shaman
@@ -148,7 +152,8 @@ step Gann Stonespire
   accept 98093 @47.8,77.6             -- Sulhasa, up in the tree just east of Gann
 
 step Wrongly Blamed, Justly Corrected
-  tip A few steps east of Sulhasa's tree, a small camp of Encroaching Soldiers and Outraged Pillagers: two soldiers and one pillager for Logmar.
+  when group 97250
+  tip A few steps east of Sulhasa's tree, a small camp: two Encroaching Soldiers and the Outraged Pillager for Logmar. The Outraged Pillager is elite: grouping up is advised.
   kill 268622 quest 97250.1 @48.8,77.0
   kill 268623 quest 97250.2 @48.8,77.0
 
@@ -227,6 +232,9 @@ step Camp Taurajo
   turnin 885 optional                 -- Jorn Skyseer
   vendor nearest
   turnin 893                          -- Tatternack Steelforge
+
+step Grunt Logmar
+  when group 97250
   turnin 97250                        -- Grunt Logmar, beside the flight master
 
 step Fly to Crossroads
