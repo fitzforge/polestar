@@ -79,7 +79,9 @@ next forever/horde/02-the-barrens
 # (forever/horde/05-stonetalon-mountains).
 #
 # Class training: Orgrimmar on arrival at 12 and at the end at 15 for everyone but Druids and
-# Paladins (no trainer of theirs there). Paladins train in Brill on the way through Tirisfal Glades.
+# Paladins (no trainer of theirs there). Paladins train in Brill on the way through Tirisfal Glades
+# and with Garen Largo on the Undercity stop at the end; Druids train in Thunder Bluff on the next
+# guide's Moonglade trip at 16, not by a trip from Orgrimmar to Thunder Bluff at 15.
 # Undead Paladins from 18: Danitha Morr at Bandarion Keep (Tirisfal) starts their Silverpine chain
 # (91858-91862, 96204, 95034: the Sepulcher, Fenris Isle, Lumina Windsinger), the Class guide
 # forever/class/paladin/lumina-windsinger.
@@ -382,6 +384,7 @@ step The Undercity
   turnin 97891                        -- Doctor Martin Felben, in the Apothecarium
   turnin 1359                         -- Apothecary Zinge, in the Apothecarium
   accept 1358                         -- Apothecary Zinge: Helbrim at the Crossroads, in the next guide
+  train class only Paladin            -- Garen Largo, the Undercity's paladin trainer
 
 step Lady Sylvanas Windrunner
   only Skyborne
@@ -415,14 +418,6 @@ step Valley of Strength
 step Class trainer
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-
-step Paladin trainer
-  only Paladin
-  train class only Paladin -- Alodan the Hopeful in Thunder Bluff; Orgrimmar has no paladin trainer
-
-step Druid trainer
-  only Druid
-  train class only Druid -- Sheal Runetotem in Mulgore; Orgrimmar has no druid trainer
 
 step The Drag
   tip Kor'geld and Yelmak run the alchemy shop in the Drag; Whuut is next door.

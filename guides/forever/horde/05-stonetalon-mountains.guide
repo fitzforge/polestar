@@ -168,10 +168,6 @@ step Fly to Orgrimmar
   fly "Orgrimmar"
   zone Orgrimmar
 
-step Paladin trainer
-  only Paladin
-  train class only Paladin -- Alodan the Hopeful in Thunder Bluff; Orgrimmar has no paladin trainer
-
 step Druid trainer
   only Druid
   train class only Druid -- Sheal Runetotem in Mulgore; Orgrimmar has no druid trainer
@@ -200,13 +196,15 @@ step Shenthul
   turnin 2478                         -- Shenthul, Cleft of Shadow
   accept 2479                         -- Serge Hinott in Tarren Mill teaches Poisons: keep it
 
-step Durotar
-  zone Durotar
-  goto 50.7,12.9 "Durotar"
-
 step Zeppelin to Undercity
   zone Durotar
   goto 50.8,13.5 "Zeppelin to Undercity"
+
+step Brill
+  only Paladin
+  zone Tirisfal Glades
+  tip Shari Stilwell trains Paladins in Brill, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine.
+  train class
 
 # ---------------------------------------------------------------- Silverpine Forest
 
@@ -234,7 +232,7 @@ step Silverpine Forest: kill these as you meet them
 
 step Beren's Peril
   zone Silverpine Forest
-  tip In the ruins of Beren's Peril: The Ravenclaw undead haunt the ruins of Beren's Peril east of the road in the south-east of the forest; a Ravenclaw Guardian drops the Note Scrap that leads to the Offering Stone.
+  tip The Ravenclaw undead haunt the ruins of Beren's Peril, east of the road in the south-east of the forest; a Ravenclaw Guardian drops the Note Scrap that leads to the Offering Stone.
   tip An elite spirit (20) often stands beside the Offering Stone: pull the Ravenclaws away from the stone before you fight them.
   accept 95884 item 271343            -- Note Scrap, from a Ravenclaw Guardian
   turnin 95884 @58.1,69.8             -- Offering Stone
