@@ -14,8 +14,8 @@ return {
 	["{npc:2817}'s next quest pays no experience: skip it."] = "A próxima missão de {npc:2817} não dá experiência: pule.",
 
 	-- Step 3: Boss Tho'grun
-	-- {zone:1418} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
-	["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Cavalgue para o oeste por {zone:1418} até o acampamento Arrota-pó em {area:342}. {npc:2944} fica no meio, cercado de Caçadores de Serpes e Espancadores.",
+	-- {npc:2944} Boss Tho'grun · {area:342} Camp Boff · {zone:1418} Badlands
+	["{npc:2944} does not stay at {area:342}: he walks a long loop around the {zone:1418} with his guards, from the camp in the west along the south of the zone to about 61,69, north to about 49,49 and back west to the camp. The arrow follows his loop west from here until you meet him."] = "",
 
 	-- Step 4: Garek
 	-- {area:1898} Dustwind Gulch
@@ -146,6 +146,7 @@ return {
 	-- ["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Saia de {area:271} para o nordeste pela estrada até as {area:47}; {area:348} fica logo depois da divisa. {npc:5635} recebe a corte no alto, {quest:1450} cuida do aviário e {npc:7884} fica junto à estalagem.",
 	-- ["Ride south out of {zone:1432} through the pass into the {zone:1418}; {npc:2860} camps at the dig."] = "Cavalgue para o sul, saindo de {zone:1432} pelo desfiladeiro até {zone:1418}; {npc:2860} acampa na escavação.",
 	-- ["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Cavalgue para o oeste por {area:3} até o acampamento Arrota-pó em {area:342}. {npc:2944} fica no meio, cercado de Caçadores de Serpes e Espancadores.",
+	-- ["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Cavalgue para o oeste por {zone:1418} até o acampamento Arrota-pó em {area:342}. {npc:2944} fica no meio, cercado de Caçadores de Serpes e Espancadores.",
 	-- ["Ride west to the {area:1877} in the middle of the {zone:1418}; {npc:2817} camps beside Martek."] = "Cavalgue para o oeste até {area:1877}, no meio de {zone:1418}; {npc:2817} acampa ao lado de Martek.",
 	-- ["Take the boat to Theramore from the far pier."] = "Pegue o barco para a Ilha Theramore no píer mais distante.",
 	-- ["Talonaxe's next task waits for a later {area:47} guide."] = "A próxima tarefa de Garra-de-acha fica para um guia posterior das {area:47}.",

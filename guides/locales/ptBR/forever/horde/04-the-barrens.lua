@@ -138,7 +138,8 @@ return {
 
 	-- Step 24: The flying machine
 	["The flying machine"] = "A máquina voadora",
-	["The dwarves' flying machine sits on its platform inside the dig site."] = "A máquina voadora dos anões fica na plataforma dentro do sítio de escavação.",
+	-- {item:5021} Explosive Stick of Gann · {npc:3341} Gann Stonespire
+	["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "",
 
 	-- Step 26: Great Lift
 	-- {area:1718} Great Lift
@@ -173,11 +174,17 @@ return {
 	["Fly to {area:392}"] = "Voe para {area:392}",
 	["Crossroads flight master"] = "Mestre de voo da Encruzilhada",
 
-	-- Step 35: Merchant Coast
+	-- Step 35: Sputtervalve
+	-- {npc:3442} Sputtervalve
+	["{npc:3442} stands beside the flight master you land at."] = "",
+	-- {npc:3442} Sputtervalve · {quest:1094} Further Instructions · {npc:4201} Ziz Fizziks
+	["{npc:3442}: {quest:1094}, from {npc:4201}"] = "",
+
+	-- Step 36: Merchant Coast
 	-- {quest:874} Mahren Skyseer · {area:392} Ratchet
 	["{quest:874} camps on the shore just north of {area:392}'s flight master."] = "{quest:874} acampa na praia logo ao norte do mestre de voo de {area:392}.",
 
-	-- Step 36: Isha Awak
+	-- Step 37: Isha Awak
 	-- {quest:873} Isha Awak · {area:391} Merchant Coast · {npc:3388} Mahren Skyseer
 	["{quest:873}, a big threshadon, swims in the shallows off the {area:391}, east of {npc:3388}."] = "{quest:873}, um grande manguadonte, nada nas águas rasas da {area:391}, a leste de {npc:3388}.",
 
@@ -220,6 +227,7 @@ return {
 	-- ["The Bristleback quilboar camps spread over the plains north of {area:378}, either side of the {area:458}. Every Bristleback drops a tusk; {npc:3432}'s wife lies at the north edge. Keep one {item:5075}. {quest:883}, a grey kodo, sometimes wanders here: his hoof starts a quest."] = "Os acampamentos dos javatuscos Costagulha se espalham pelas planícies ao norte de {area:378}, dos dois lados de {area:458}. Todo Costagulha deixa cair uma presa; a esposa de {npc:3432} jaz na borda norte. Guarde um {item:5075}. {quest:883}, um kodo cinza, às vezes passa por aqui: o casco dele inicia uma missão.",
 	-- ["The Venture Co. Overseers and Enforcers at the mine in the north-east corner of the zone drop the {item:5097}."] = "Os Feitores e Seguranças da Empreendimentos S.A. na mina do canto nordeste da zona deixam cair {item:5097}.",
 	-- ["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then hearth to {area:378} straight away."] = "As antenas somem quinze minutos depois de cair, então colete-as agora, na volta para o norte: mate Enxameadores e Rastejantes Silitídeos nos montes de {area:390} até ter cinco, depois regresse para {area:378} imediatamente.",
+	-- ["The dwarves' flying machine sits on its platform inside the dig site."] = "A máquina voadora dos anões fica na plataforma dentro do sítio de escavação.",
 	-- ["The level-20 class quests in {zone:1454} ({npc:3354}, {npc:5892}, the Warlock and Rogue trainers) are only offered from level 20, so finish the level here before you fly. The Thunderhawk Hatchlings (18) on the plains south-west of the {area:380} and the Kolkar (14-15) at the {area:388} are the nearest mobs worth killing; you need well under a level."] = "As missões de classe de nível 20 em {zone:1454} ({npc:3354}, {npc:5892}, os instrutores de Bruxo e Ladino) só são oferecidas a partir do nível 20, então complete o nível aqui antes de voar. Os Filhotes de Falcotrom (18) nas planícies a sudoeste de {area:380} e os Kolkar (14-15) em {area:388} são as criaturas mais próximas que valem a pena; falta bem menos de um nível.",
 	-- ["The pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "Os piratas acampam na praia ao sul de {area:392}; {npc:3467} fica na ponta sul.",
 	-- ["The {area:2363}"] = "{area:2363}",

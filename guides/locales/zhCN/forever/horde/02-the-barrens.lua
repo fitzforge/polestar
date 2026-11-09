@@ -280,9 +280,9 @@ return {
 
 	-- Step 70: Raptor nests
 	["Raptor nests"] = "迅猛龙巢穴",
-	-- {area:392} Ratchet · {area:1697} Raptor Grounds
+	-- {area:392} Ratchet · {area:1697} Raptor Grounds · {item:5165} Sunscale Feather
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
-	["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them."] = "从{area:392}向西南穿过平原，到达{area:1697}：三个巢穴聚在绿洲西南方，由赤鳞镰爪龙看守。",
+	["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "",
 
 	-- Step 71: Raptor Grounds: kill these as you meet them
 	-- {area:1697} Raptor Grounds
@@ -650,6 +650,10 @@ return {
 	-- {npc:4201} Ziz Fizziks
 	["{npc:4201}, inside"] = "{npc:4201}：在屋内",
 
+	-- Step 162: Ziz Fizziks
+	-- {npc:4201} Ziz Fizziks · {npc:3442} Sputtervalve · {area:392} Ratchet · {zone:1413} The Barrens
+	["{npc:4201}: for {npc:3442}, beside {area:392}'s flight master at the end of the {zone:1413} & Stonetalon guide"] = "",
+
 	-- Step 163: Malaka'jin
 	-- {area:1076} Webwinder Path · {npc:12816} Xen'Zilla · {area:2539} Malaka'jin
 	["Back down the {area:1076}: {npc:12816} stands just outside {area:2539}, before the village."] = "沿{area:1076}返回下方：{npc:12816}就在{area:2539}外、进村之前。",
@@ -681,6 +685,7 @@ return {
 	-- ["South to {npc:3389}'s watch post on the Kolkar border."] = "向南前往{npc:3389}在科卡尔边界的哨站。",
 	-- ["South-east of the {area:380}. Test the seeds at the bubbling fissure on the oasis' east bank."] = "在{area:380}东南方。在绿洲东岸冒泡的裂缝处测试种子。",
 	-- ["South-east on the way back to the {area:380}: {quest:881}, a white lion, prowls the plains north of the Razormane camp.\nCareful: Savannah Huntresses roam around the lair. They respawn quickly and often join the fight alongside {quest:881}, so clear them out before you blow the horn.\nSunscale raptors here count toward the heads."] = "返回{area:380}时向东南走：{quest:881}是一头白狮，在钢鬃营地北边的平原上徘徊。\n注意：草原女猎手在巢穴周围游荡。她们刷新很快，经常和{quest:881}一起加入战斗，所以吹号角前先清掉她们。\n这里的赤鳞迅猛龙也算在头的数量里。",
+	-- ["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them."] = "从{area:392}向西南穿过平原，到达{area:1697}：三个巢穴聚在绿洲西南方，由赤鳞镰爪龙看守。",
 	-- ["Southsea beach"] = "南海海滩",
 	-- ["Still short of seven? Plainstriders are thickest on the plains north of the {area:380}, along the road north."] = "还不够七个？{area:380}北边沿北向道路的平原上陆行鸟最多。",
 	-- ["Still short of twelve? The Sunscale Screechers are thickest on the plains around {quest:881}'s lair, north of the Razormane camp."] = "还不够十二个？钢鬃营地北边、{quest:881}巢穴周围的平原上赤鳞尖啸龙最多。",

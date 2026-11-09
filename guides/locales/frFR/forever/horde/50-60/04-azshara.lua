@@ -96,23 +96,29 @@ return {
 	-- {object:36126} Royal Quarter
 	["Lady Sylvanas holds the {object:36126}."] = "Dame Sylvanas se tient dans {object:36126}.",
 
-	-- Step 20: Royal Quarter
+	-- Step 22: Jeremiah Payson
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "{npc:8403}, tout près",
+
+	-- Step 23: Jeremiah Payson
 	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
 	["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050} se rend à {npc:10778}, dans {zone:1422} : gardez-la.",
+
+	-- Step 24: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "Seulement avec {quest:79095} de la boutique d'alchimie de {area:159} dans vos sacs (le guide des Livres de la bibliothèque)",
 
-	-- Step 22: The Bulwark
+	-- Step 26: The Bulwark
 	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
 	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "",
 
-	-- Step 24: Felstone Field
+	-- Step 28: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
 	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "La ferme de {npc:10778} est la première à l'est de {area:152}. Les Goules jacassantes de la ferme portent l'autre moitié de son porte-bonheur ; {npc:11075} garde le chaudron dans le champ.\nAttention : un ou deux morts-vivants combattent généralement à ses côtés, et d'autres seigneurs du chaudron peuvent attaquer après que vous avez utilisé le chaudron.",
+
+	-- Step 29: Janice Felstone
 	["Upstairs"] = "À l'étage",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

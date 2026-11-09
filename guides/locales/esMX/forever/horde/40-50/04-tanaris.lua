@@ -88,6 +88,8 @@ return {
 	["for {npc:5204} in the {zone:1458}, around level 52"] = "",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "para {npc:7010} en {zone:1454}, alrededor del nivel 50",
+	-- {object:142071} Egg-O-Matic · {zone:1444} Feralas
+	["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "",
 
 	-- Step 21: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port

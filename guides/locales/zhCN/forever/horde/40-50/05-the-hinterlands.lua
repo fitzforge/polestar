@@ -48,8 +48,8 @@ return {
 	["{item:8704}, a rare drop"] = "{item:8704}，稀有掉落",
 
 	-- Step 10: The Overlook Cliffs: kill these as you meet them
-	-- {npc:7977} Gammerita
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} is a level 48 elite: most classes solo it at level 50, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "这些都是精英怪：建议组队，找其他玩家一起完成。{npc:7977} 是48级精英：大多数职业50级时可以单杀，但你可能需要帮忙。如果只有自己，就跳过；路线会安排你刷怪补回经验。",
+	-- {npc:7977} Gammerita · {area:307} The Overlook Cliffs
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} is a level 48 elite: most classes solo it at level 50, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "",
 
 	-- Step 11: Rin'ji's Secret
 	-- {area:307} The Overlook Cliffs
@@ -200,6 +200,7 @@ return {
 	-- ["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills."] = "这五个任务需要的是同样的部件：一趟全部收集齐。在道路西边，{npc:5982}秃鹫、饥饿的弯牙土狼、厚甲毒刺蝎和死眼蜥蜴共处于山丘上。",
 	-- ["The next guide starts here, at {area:3317}."] = "下一个指南从这里开始，在{area:3317}。",
 	-- ["The northern beasts"] = "北部的野兽",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} is a level 48 elite: most classes solo it at level 50, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "这些都是精英怪：建议组队，找其他玩家一起完成。{npc:7977} 是48级精英：大多数职业50级时可以单杀，但你可能需要帮忙。如果只有自己，就跳过；路线会安排你刷怪补回经验。",
 	-- ["Vilebranch soothsayers"] = "邪枝占卜者",
 	-- ["Vulture hills"] = "秃鹫山丘",
 	-- ["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples."] = "在小岛西边，邪枝割颅者占据着{area:1884}和{area:1917}的神殿。斯拉提的工具在其中一座神殿里。",

@@ -41,8 +41,9 @@ return {
 	-- plural, as words: Scorpid Workers = {npc:3124} Scorpid Worker · Cactus Apples = {item:11583} Cactus Apple
 	["{quest:790}, a large scorpid, prowls the slope south of {npc:3287} among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side."] = "{quest:790}是一只大型蝎子，在{npc:3287}南方的山坡上、蝎子群中游荡；沿途捡起仙人掌旁的仙人掌果。\n{quest:792}聚集在山谷北侧洞穴{area:365}下方的山坡上。",
 
-	-- Step 6: Back to the Den
-	["Back to the Den"] = "返回洞穴",
+	-- Step 6: Galgar
+	-- {npc:9796} Galgar
+	["{npc:9796} stands just outside the Den's entrance."] = "",
 
 	-- Step 7: Class trainer
 	["Class trainer"] = "职业训练师",
@@ -58,6 +59,7 @@ return {
 	["{npc:3034} in {zone:1412}; {area:363} has no druid trainer"] = "{npc:3034}在{zone:1412}；{area:363}没有德鲁伊训练师",
 
 	-- Step 10: Back to the Den
+	["Back to the Den"] = "返回洞穴",
 	-- {npc:11378} Foreman Thazz'ril
 	["{npc:11378}, at the lumber pile east of the Den"] = "{npc:11378}，在大兽穴东侧的木材堆旁",
 

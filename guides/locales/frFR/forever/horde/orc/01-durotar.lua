@@ -154,7 +154,7 @@ return {
 	-- {area:368} Echo Isles
 	["{area:368}: kill these as you meet them"] = "{area:368} : tuez-les au passage",
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger
-	["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.\nWade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach."] = "Traversez à gué jusqu'à l'île de l'Écho la plus au nord. La Matriarche rôde parmi les raptors.\nRevenez à gué vers l'ouest jusqu'au rivage au sud de Sen'jin. Des Tigres de Durotar y rôdent et les œufs de Fouette-queue reposent dans des nids le long de la plage.",
+	["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.\nDurotar Tigers roam the isle as well as the shore south of Sen'jin, and the Taillasher eggs sit in nests on the isles and along the beach."] = "",
 
 	-- Step 29: Echo Isles: kill these as you meet them
 	-- {quest:826} Zalazane
@@ -348,6 +348,7 @@ return {
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369} across the bridge; any of them can drop a {item:6486}."] = "Les Lézards-tonnerre et les Foudroyants paissent sur {area:369}, de l'autre côté du pont ; chacun d'eux peut laisser tomber une {item:6486}.",
 	-- ["Thunder lizards across the river"] = "Lézards-tonnerre de l'autre côté du fleuve",
 	-- ["To {area:1637}"] = "Vers {area:1637}",
+	-- ["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.\nWade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach."] = "Traversez à gué jusqu'à l'île de l'Écho la plus au nord. La Matriarche rôde parmi les raptors.\nRevenez à gué vers l'ouest jusqu'au rivage au sud de Sen'jin. Des Tigres de Durotar y rôdent et les œufs de Fouette-queue reposent dans des nids le long de la plage.",
 	-- ["{item:4862} on the way"] = "{item:4862} en chemin",
 	-- ["{item:4890} on the way"] = "{item:4890} en chemin",
 	-- ["{item:4892} along the way to {area:367}"] = "{item:4892} sur le chemin de {area:367}",

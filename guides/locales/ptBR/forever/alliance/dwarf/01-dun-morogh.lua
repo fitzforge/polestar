@@ -437,8 +437,8 @@ return {
 	["Back to the {area:925}"] = "De volta a {area:925}",
 
 	-- Step 83: Thelsamar
-	-- {area:144} Thelsamar
-	["South down the road to {area:144}, finishing the ears, meat and ichor on the way."] = "Ao sul pela estrada até {area:144}, terminando as orelhas, a carne e o icor no caminho.",
+	-- {area:144} Thelsamar · {npc:1340} Mountaineer Kadrell
+	["South down the road to {area:144}, finishing the ears, meat and ichor on the way. {npc:1340} walks the road through town."] = "",
 
 	-- Step 84: Golnir Bouldertoe
 	-- {object:32372} Great Forge (no name in this language: may be words) · {npc:4256} Golnir Bouldertoe · {npc:1573} Gryth Thurden
@@ -587,6 +587,7 @@ return {
 	-- ["Crag Boars and Young Black Bears roam the fields around {area:131} and the depot."] = "Rochetuscos e Ursos Pretos Jovens vagam pelos campos em volta de {area:131} e da garagem.",
 	-- ["Follow the road up to {zone:1455} and train with your class trainer. The {area:2257} leaves from {object:171524}, in the east of the city. Ride it to {zone:1453}."] = "Siga a estrada até {zone:1455} e treine com seu instrutor de classe. O {area:2257} sai da {object:171524}, no leste da cidade. Vá nele até {zone:1453}.",
 	-- ["Rockjaw Skullthumpers fill the quarry; Rockjaw Ambushers by {area:212} drop the {item:268548}."] = "Batecrânios Pedraqueixo enchem a pedreira; Emboscadores Pedraqueixo junto ao {area:212} deixam cair o {item:268548}.",
+	-- ["South down the road to {area:144}, finishing the ears, meat and ichor on the way."] = "Ao sul pela estrada até {area:144}, terminando as orelhas, a carne e o icor no caminho.",
 	-- ["The tram arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "O metrô chega no {object:28027}. {npc:5480} treina guerreiros em {object:2100}; {npc:6089} e {npc:6090} ficam juntos perto da {object:2152} de lá. {npc:6090} luta com você pela caneca dele.",
 	-- ["{npc:1226}: {npc:376} in {zone:1453} takes it"] = "{npc:1226}: {npc:376} em {zone:1453} a recebe",
 	-- ["{npc:1377}, at the depot"] = "{npc:1377}, na garagem",

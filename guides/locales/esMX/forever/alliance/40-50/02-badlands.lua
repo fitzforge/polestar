@@ -14,8 +14,8 @@ return {
 	["{npc:2817}'s next quest pays no experience: skip it."] = "La siguiente misión de {npc:2817} no da experiencia: omítela.",
 
 	-- Step 3: Boss Tho'grun
-	-- {zone:1418} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
-	["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Cabalga hacia el oeste a través de {zone:1418} hasta el campamento Rotapolvo de {area:342}. {npc:2944} está en el centro, rodeado de Cazavermis y Aplastadores.",
+	-- {npc:2944} Boss Tho'grun · {area:342} Camp Boff · {zone:1418} Badlands
+	["{npc:2944} does not stay at {area:342}: he walks a long loop around the {zone:1418} with his guards, from the camp in the west along the south of the zone to about 61,69, north to about 49,49 and back west to the camp. The arrow follows his loop west from here until you meet him."] = "",
 
 	-- Step 4: Garek
 	-- {area:1898} Dustwind Gulch
@@ -146,6 +146,7 @@ return {
 	-- ["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. Falstad holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Cabalga hacia el noreste fuera de {area:271} por el camino hacia {zone:1425}; {area:348} está justo pasando la frontera. Falstad recibe en la cima, {quest:1450} cuida el aviario y {npc:7884} está junto a la posada.",
 	-- ["Ride south out of {zone:1432} through the pass into the {zone:1418}; {npc:2860} camps at the dig."] = "Cabalga hacia el sur, fuera de {zone:1432}, por el paso hasta {zone:1418}; {npc:2860} acampa en la excavación.",
 	-- ["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Cabalga hacia el oeste a través de {area:3} hasta el campamento Rotapolvo de {area:342}. {npc:2944} está en el centro, rodeado de Cazavermis y Aplastadores.",
+	-- ["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Cabalga hacia el oeste a través de {zone:1418} hasta el campamento Rotapolvo de {area:342}. {npc:2944} está en el centro, rodeado de Cazavermis y Aplastadores.",
 	-- ["Ride west to the {area:1877} in the middle of the {zone:1418}; {npc:2817} camps beside Martek."] = "Cabalga hacia el oeste hasta {area:1877}, en el centro de {zone:1418}; {npc:2817} acampa junto a Martek.",
 	-- ["Take the boat to Theramore from the far pier."] = "Toma el barco a Isla Theramore desde el muelle más lejano.",
 	-- ["Talonaxe's next task waits for a later {area:47} guide."] = "La siguiente tarea de Talonaxe espera a una guía posterior de {area:47}.",

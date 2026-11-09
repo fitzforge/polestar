@@ -14,8 +14,8 @@ return {
 	["{npc:2817}'s next quest pays no experience: skip it."] = "{npc:2817}的下一個任務不給經驗值：跳過它。",
 
 	-- Step 3: Boss Tho'grun
-	-- {zone:1418} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
-	["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "向西騎過{zone:1418}，前往{area:342}的火煙巨魔營地。{npc:2944}站在營地中央，周圍有火煙獵龍者和火煙虐待者。",
+	-- {npc:2944} Boss Tho'grun · {area:342} Camp Boff · {zone:1418} Badlands
+	["{npc:2944} does not stay at {area:342}: he walks a long loop around the {zone:1418} with his guards, from the camp in the west along the south of the zone to about 61,69, north to about 49,49 and back west to the camp. The arrow follows his loop west from here until you meet him."] = "",
 
 	-- Step 4: Garek
 	-- {area:1898} Dustwind Gulch
@@ -146,6 +146,7 @@ return {
 	-- ["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. Falstad holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "沿道路從{area:271}往東北騎進{zone:1425}；{area:348}就在邊界後方。弗斯塔德·蠻錘在頂層主持，{quest:1450}照料獅鷲棲所，{npc:7884}站在旅店旁。",
 	-- ["Ride south out of {zone:1432} through the pass into the {zone:1418}; {npc:2860} camps at the dig."] = "從{zone:1432}向南騎，穿過山口進入{zone:1418}；{npc:2860}在挖掘場紮營。",
 	-- ["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "向西騎過{area:3}，前往{area:342}的火煙巨魔營地。{npc:2944}站在營地中央，周圍有火煙獵龍者和火煙虐待者。",
+	-- ["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "向西騎過{zone:1418}，前往{area:342}的火煙巨魔營地。{npc:2944}站在營地中央，周圍有火煙獵龍者和火煙虐待者。",
 	-- ["Ride west to the {area:1877} in the middle of the {zone:1418}; {npc:2817} camps beside Martek."] = "向西騎到{zone:1418}中部的{area:1877}；{npc:2817}在流放者馬特克旁邊紮營。",
 	-- ["Take the boat to Theramore from the far pier."] = "從最遠的碼頭搭船前往塞拉摩島。",
 	-- ["Talonaxe's next task waits for a later {area:47} guide."] = "沙拉克·鷹斧的下一個任務留到之後的{area:47}指南。",

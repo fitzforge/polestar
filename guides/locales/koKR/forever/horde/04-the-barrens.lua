@@ -138,7 +138,8 @@ return {
 
 	-- Step 24: The flying machine
 	["The flying machine"] = "비행 기계",
-	["The dwarves' flying machine sits on its platform inside the dig site."] = "드워프의 비행 기계는 발굴 현장 안 발판 위에 있습니다.",
+	-- {item:5021} Explosive Stick of Gann · {npc:3341} Gann Stonespire
+	["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "",
 
 	-- Step 26: Great Lift
 	-- {area:1718} Great Lift
@@ -173,11 +174,17 @@ return {
 	["Fly to {area:392}"] = "{area:392}(으)로 비행",
 	["Crossroads flight master"] = "",
 
-	-- Step 35: Merchant Coast
+	-- Step 35: Sputtervalve
+	-- {npc:3442} Sputtervalve
+	["{npc:3442} stands beside the flight master you land at."] = "",
+	-- {npc:3442} Sputtervalve · {quest:1094} Further Instructions · {npc:4201} Ziz Fizziks
+	["{npc:3442}: {quest:1094}, from {npc:4201}"] = "",
+
+	-- Step 36: Merchant Coast
 	-- {quest:874} Mahren Skyseer · {area:392} Ratchet
 	["{quest:874} camps on the shore just north of {area:392}'s flight master."] = "",
 
-	-- Step 36: Isha Awak
+	-- Step 37: Isha Awak
 	-- {quest:873} Isha Awak · {area:391} Merchant Coast · {npc:3388} Mahren Skyseer
 	["{quest:873}, a big threshadon, swims in the shallows off the {area:391}, east of {npc:3388}."] = "큰 쓰레샤돈인 {quest:873}은(는) {npc:3388} 동쪽, {area:391} 앞바다 얕은 곳에서 헤엄칩니다.",
 
@@ -220,6 +227,7 @@ return {
 	-- ["The Bristleback quilboar camps spread over the plains north of {area:378}, either side of the {area:458}. Every Bristleback drops a tusk; {npc:3432}'s wife lies at the north edge. Keep one {item:5075}. {quest:883}, a grey kodo, sometimes wanders here: his hoof starts a quest."] = "뾰족털일족 가시멧돼지 야영지가 {area:378} 북쪽 평원, {area:458} 양쪽에 퍼져 있습니다. 모든 뾰족털일족이 엄니를 떨어뜨리며, {npc:3432}의 아내는 북쪽 가장자리에 쓰러져 있습니다. {item:5075} 하나를 보관하십시오. 회색 코도 {quest:883}이(가) 가끔 이곳을 돌아다니며, 그 발굽으로 퀘스트가 시작됩니다.",
 	-- ["The Venture Co. Overseers and Enforcers at the mine in the north-east corner of the zone drop the {item:5097}."] = "지역 북동쪽 구석 광산의 투자개발회사 감독과 투자개발회사 집행자가 {item:5097}을(를) 떨어뜨립니다.",
 	-- ["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then hearth to {area:378} straight away."] = "더듬이는 떨어진 지 15분 후에 사라지니 북쪽으로 돌아가는 길에 지금 모으십시오. {area:390} 흙더미의 우두머리 실리시드와 독침 실리시드를 다섯 개가 될 때까지 처치한 뒤 곧바로 {area:378}(으)로 귀환하십시오.",
+	-- ["The dwarves' flying machine sits on its platform inside the dig site."] = "드워프의 비행 기계는 발굴 현장 안 발판 위에 있습니다.",
 	-- ["The level-20 class quests in {zone:1454} ({npc:3354}, {npc:5892}, the Warlock and Rogue trainers) are only offered from level 20, so finish the level here before you fly. The Thunderhawk Hatchlings (18) on the plains south-west of the {area:380} and the Kolkar (14-15) at the {area:388} are the nearest mobs worth killing; you need well under a level."] = "{zone:1454}의 20레벨 직업 퀘스트({npc:3354}, {npc:5892}, 흑마법사와 도적 상급자)는 20레벨부터만 제공되니 비행하기 전에 여기서 레벨을 마치십시오. {area:380} 남서쪽 평원의 새끼 천둥매(18)와 {area:388}의 콜카르일족(14-15)이 가장 가까운 사냥감입니다. 필요한 경험치는 한 레벨보다 훨씬 적습니다.",
 	-- ["The pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "해적들은 {area:392} 남쪽 해변에 야영하며, {npc:3467}은(는) 남쪽 끝에 있습니다.",
 	-- ["The {area:2363}"] = "{area:2363}",

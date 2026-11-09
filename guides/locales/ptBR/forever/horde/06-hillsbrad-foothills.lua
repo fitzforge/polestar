@@ -67,8 +67,8 @@ return {
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
 	["{area:275}: kill these as you meet them"] = "{area:275}: vá matando estes pelo caminho",
-	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {area:272} Tarren Mill
-	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "Drull e {npc:2238} estão acorrentados nas construções do pátio de {area:275}; abra os dois cadeados.\nDe {area:272}, siga para sudeste pelas colinas rumo a {area:275}. Ladinos e Vigias da Camarilha ocupam os acampamentos pelo caminho.",
+	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key · {area:272} Tarren Mill
+	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "",
 	-- {npc:2261} Syndicate Watchman
 	["{npc:2261} walks around here: look inside the circle on the map"] = "{npc:2261} anda por aqui: procure dentro do círculo no mapa",
 	["Drull's ball and chain"] = "Bola e corrente de Drull",
@@ -192,6 +192,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "Drull e {npc:2238} estão acorrentados nos prédios do pátio de {area:275}; abra as duas trancas.",
+	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "Drull e {npc:2238} estão acorrentados nas construções do pátio de {area:275}; abra os dois cadeados.\nDe {area:272}, siga para sudeste pelas colinas rumo a {area:275}. Ladinos e Vigias da Camarilha ocupam os acampamentos pelo caminho.",
 	-- ["Follow the road south to the dwarf dig site at {area:359}. {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "Siga a estrada para o sul até a escavação anã em {area:359}. {npc:3421} se esconde na borda sul da escavação; {object:3646} fica no fundo da escavação.",
 	-- ["From {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "De {area:272}, vá para sudeste pelas colinas no caminho até {area:275}. Ladinos e Vigias ocupam os acampamentos pelo caminho.",
 	-- ["From {area:287} town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border."] = "Da vila de {area:287}, siga para o norte pelo sopé de Alterac: a ampola do oeste vai no topo do morro logo depois da fronteira.",

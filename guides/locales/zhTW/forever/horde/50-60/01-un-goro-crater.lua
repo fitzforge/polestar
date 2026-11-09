@@ -274,65 +274,58 @@ return {
 	-- {area:2268} Light's Hope Chapel
 	["Ride south back to the road and follow it east across the whole zone to {area:2268}."] = "向南騎回道路，沿路向東穿越整個地區前往{area:2268}。",
 
-	-- Step 56: Eastern Plaguelands: kill these as you meet them
-	-- {zone:1423} Eastern Plaguelands
-	["{zone:1423}: kill these as you meet them"] = "",
-	-- {npc:11063} Carlin Redpath · {npc:11064} Darrowshire Spirit · {area:2262} Darrowshire
-	["With {npc:11063}'s quest in your log, slain Scourge sometimes leave a {npc:11064}; talk to it to free it. Kill undead on the ride south-west to {area:2262}."] = "任務日誌中有{npc:11063}的任務時，被殺死的天譴軍有時會留下{npc:11064}；和它交談來釋放它。在向西南騎往{area:2262}的路上擊殺不死生物。",
-	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
-	["Free Darrowshire Spirits: talk to them"] = "釋放達隆郡居民的靈魂：和它們交談",
-
-	-- Step 57: Pamela Redpath
+	-- Step 56: Pamela Redpath
 	-- {npc:10926} Pamela Redpath · {area:2262} Darrowshire
 	["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "{npc:10926}的鬼魂站在西南方的{area:2262}廢墟中。",
 
-	-- Step 58: Pamela's Doll
+	-- Step 57: Pamela's Doll
 	-- {npc:10926} Pamela Redpath
 	["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "洋娃娃的腦袋和左右兩側散落在{npc:10926}周圍的房子裡；在背包中將它們組合起來。",
 
-	-- Step 59: Pamela Redpath
+	-- Step 58: Pamela Redpath
 	-- {npc:11063} Carlin Redpath · {area:2268} Light's Hope Chapel
 	["a message for {npc:11063} at {area:2268}, where this guide ends"] = "",
 	-- {quest:5152} Auntie Marlene · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {zone:1422} Western Plaguelands
 	["Keep {quest:5152}: {npc:10927} lives at {area:197} in the {zone:1422}."] = "",
 
-	-- Step 60: Zaeldarr the Outcast
+	-- Step 59: Zaeldarr the Outcast
 	-- {area:2262} Darrowshire
 	["Zaeldarr lurks just west of {area:2262}."] = "",
 
-	-- Step 61: Pestilent Scar
+	-- Step 60: Pestilent Scar
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "",
 
-	-- Step 62: Back to Light's Hope Chapel
+	-- Step 61: Back to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Back to {area:2268}"] = "回到{area:2268}",
+	-- {quest:5211} Defenders of Darrowshire · {zone:1423} Eastern Plaguelands · {area:2264} Corin's Crossing
+	["{quest:5211}'s spirits come with the {zone:1423} guide's {area:2264} stop: keep it."] = "",
 
-	-- Step 63: Fly to Tarren Mill
+	-- Step 62: Fly to Tarren Mill
 	-- {area:2268} Light's Hope Chapel
 	["{area:2268} flight master"] = "",
 
-	-- Step 64: The road north
-	["The road north"] = "",
+	-- Step 63: To Sorrow Hill
 	-- {area:197} Sorrow Hill
-	["The road north to {area:197}"] = "",
+	["To {area:197}"] = "",
 
-	-- Step 65: Sorrow Hill
+	-- Step 64: Sorrow Hill
 	-- {area:272} Tarren Mill · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {npc:10936} Joseph Redpath
 	["Ride north up the road from {area:272}. {npc:10927}'s house stands by the road at {area:197}, and {npc:10936}'s monument is in the graveyard behind it."] = "",
 	-- {npc:10927} Marlene Redpath
 	["{npc:10927}, upstairs"] = "",
 
-	-- Step 66: Chromie
+	-- Step 65: Chromie
 	-- {npc:10667} Chromie
 	["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "向西北騎進安多哈爾。{npc:10667}在城鎮西側的廢墟旅店裡等候；裡面的骷髏是54-57級，所以沿著邊緣走。",
 
-	-- Step 67: The Annals of Darrowshire
+	-- Step 66: The Annals of Darrowshire
 	-- plural, as words: Musty Tomes = {object:176150} Musty Tome
 	["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "歷史書在安多哈爾市政廳的發黴的書籍之中；逐一打開直到找到正確的那本。",
 
-	-- Step 68: Chromie
+	-- Step 67: Chromie
 	-- {quest:5210} Brother Carlin · {area:2268} Light's Hope Chapel · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
 	["{quest:5210} goes to {area:2268}: keep it for later. The next guide starts with {npc:10739} by the {area:202}, east of Andorhal."] = "",
 
@@ -347,6 +340,7 @@ return {
 	-- ["Fly to {area:1638} and train with {npc:3033} on {area:1639}, then fly to {area:1637} for the {object:3202} zeppelin."] = "飛往{area:1638}，在{area:1639}向{npc:3033}訓練，然後飛往{area:1637}搭乘前往{object:3202}的飛艇。",
 	-- ["Fly to {area:340}"] = "飛往{area:340}",
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "沿著道路向東穿過{area:28}，過河進入{area:139}；離開道路往北前往西北方的廢墟城鎮{area:2627}。{npc:12384}坐在城鎮邊緣的小屋裡。",
+	-- ["Free Darrowshire Spirits: talk to them"] = "釋放達隆郡居民的靈魂：和它們交談",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "從{area:1938}向西騎到蜿蜒而下進入{area:490}的長坡道，然後沿著環形山北壁前往{area:541}，一個位於懸崖洞穴中的營地。這裡的所有人都是中立的。",
 	-- ["Gorillas"] = "猩猩",
 	-- ["Into {area:490}"] = "進入{area:490}",
@@ -376,6 +370,7 @@ return {
 	-- ["The wooden sign beside {npc:9997}"] = "{npc:9997}旁邊的木牌",
 	-- ["Theodora's quest in {area:340} needs level 52. The Tar Lurkers and Tar Lords just south of the refuge are the closest camp."] = "塞朵拉在{area:340}的任務需要等級52。避難營南邊的焦油潛伏者和焦油領主是最近的營地。",
 	-- ["Western jungle"] = "西部叢林",
+	-- ["With {npc:11063}'s quest in your log, slain Scourge sometimes leave a {npc:11064}; talk to it to free it. Kill undead on the ride south-west to {area:2262}."] = "任務日誌中有{npc:11063}的任務時，被殺死的天譴軍有時會留下{npc:11064}；和它交談來釋放它。在向西南騎往{area:2262}的路上擊殺不死生物。",
 	-- ["grind on Tar Lurkers at {area:538}, {zone:1449}"] = "在{zone:1449}的{area:538}擊殺焦油潛伏者練等",
 	-- ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302}要你去找{zone:1452}的{npc:9298}：保留此任務。",
 	-- ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "哥布林{npc:10302}坐在{area:543}，就在水晶塔東邊。",

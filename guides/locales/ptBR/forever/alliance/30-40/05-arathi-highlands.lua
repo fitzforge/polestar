@@ -146,7 +146,7 @@ return {
 
 	-- Step 34: Forsaken Courier
 	-- {area:314} Go'Shek Farm
-	["The courier walks the road west of {area:314} with two guards; pull them off the road."] = "A mensageira anda pela estrada a oeste da {area:314} com dois guardas; atraia-os para fora da estrada.",
+	["The courier walks the road from {area:314} west across the Highlands, as far as about 24,45, and back, with two guards: the arrow follows the road west until you meet him. Pull them off the road."] = "",
 
 	-- Step 36: Quae and Kinelory
 	-- {npc:2712} Quae · {npc:2713} Kinelory
@@ -235,7 +235,7 @@ return {
 
 	-- Step 54: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:2417} é elite de nível 40: a maioria das classes encara sozinha no nível 42, mas talvez você precise de ajuda. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:2417} walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path."] = "",
 
 	-- Step 55: Strahnbrad: kill these as you meet them
 	-- {area:280} Strahnbrad
@@ -306,10 +306,12 @@ return {
 	-- ["The Syndicate hold the farm north-west of {area:320}. A {npc:217589} crawls about the farm: catch one with {npc:217412}'s Entomology Starter Kit, then tick it off."] = "A Camarilha ocupa a fazenda a noroeste do {area:320}. Um {npc:217589} rasteja pela fazenda: capture um com o kit de entomologia de {npc:217412} e depois marque-o.",
 	-- ["The Syndicate hold the farm north-west of {area:320}. A {npc:217589} crawls about the farm: catch one with {npc:217412}'s Entomology Starter Kit, then tick it off.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "A Camarilha ocupa a fazenda a noroeste de {area:320}. Um {npc:217589} rasteja pela fazenda: pegue um com o kit de entomologia de {npc:217412} e marque.\nCuidado: os Bandoleiros da Camarilha são nível 30-31 e ficam furtivos fora de combate, então costumam estar escondidos e difíceis de ver.",
 	-- ["The Witherbark trolls live in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley."] = "Os trolls Cascasseca vivem nas colinas ao sul da {area:314}; os Mandingueiros ficam na aldeia, os Caçadores Sombrios guardam o fundo do vale.",
+	-- ["The courier walks the road west of {area:314} with two guards; pull them off the road."] = "A mensageira anda pela estrada a oeste da {area:314} com dois guardas; atraia-os para fora da estrada.",
 	-- ["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins."] = "Os tomos estão na fortaleza em ruínas a oeste de {area:280}; Magos das Sombras Argus ocupam as ruínas.",
 	-- ["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins.\nCareful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health."] = "Os tomos estão na fortaleza em ruínas a oeste de {area:280}; Magos das Sombras Argus ocupam as ruínas.\nCuidado: os Fomentadores da Guerra Massacrista chamam aliados num raio de 15 m quando ficam abaixo de metade da vida.",
 	-- ["The wrecked caravan lies off the road near Biggs."] = "A caravana destruída fica fora da estrada, perto de Biggs.",
 	-- ["The wrecks"] = "Os naufrágios",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:2417} é elite de nível 40: a maioria das classes encara sozinha no nível 42, mas talvez você precise de ajuda. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
 	-- ["Walk back onto the span: Ebenezer lies under its Arathi end."] = "Volte para a ponte: Ebenezer está embaixo da ponta do lado de Arathi.",
 	-- ["West along the coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "Para oeste pela costa até a enseada dos goblins; Lolo vigia das pedras acima dela.",
 	-- ["{item:2321} for {npc:2438}'s cloak, from {npc:2381}, if you have none"] = "{item:2321} para o manto de {npc:2438}, de {npc:2381}, se você não tiver",

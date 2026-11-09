@@ -183,8 +183,8 @@ return {
 	["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "{npc:9619}現在要{npc:9622}的毛皮，在東北方的洞穴裡：跳過。",
 
 	-- Step 41: Gadgetzan
-	-- {area:976} Gadgetzan · {object:142071} Egg-O-Matic
-	["Fly to {area:976}. The {object:142071} stands in the middle of town."] = "飛往{area:976}。{object:142071}就在鎮中央。",
+	-- {area:976} Gadgetzan · {quest:2741} The Super Egg-O-Matic
+	["Fly to {area:976}. Still carrying {quest:2741}? The machine stands in the middle of town."] = "",
 
 	-- Step 42: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -336,6 +336,7 @@ return {
 	-- ["Dredge Strikers, Stonelash Scorpids and Sand Skitterers share the sands just north of the hold."] = "掘泥打擊者、石鞭蠍和掠沙蜘蛛都在城堡北邊不遠的沙地上。",
 	-- ["Dredge and scorpids"] = "掘泥者與蠍子",
 	-- ["Fly to {area:1637} and train."] = "飛往{area:1637}並訓練。",
+	-- ["Fly to {area:976}. The {object:142071} stands in the middle of town."] = "飛往{area:976}。{object:142071}就在鎮中央。",
 	-- ["Mar'alith's Dearest Natalia needs level 58 and leads into {area:2744} among elites. Skip it."] = "瑪爾利斯的「親愛的娜塔莉雅」需要等級 58，而且要深入精英環伺的{area:2744}。跳過。",
 	-- ["North to the lumber camp; set the termite barrel down in the middle of the mill."] = "往北到伐木場；把白蟻桶放在鋸木廠中央。",
 	-- ["Ride east across the plaguelands to the chapel."] = "往東穿過瘟疫之地到禮拜堂。",

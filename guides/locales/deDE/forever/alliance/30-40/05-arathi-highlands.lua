@@ -146,7 +146,7 @@ return {
 
 	-- Step 34: Forsaken Courier
 	-- {area:314} Go'Shek Farm
-	["The courier walks the road west of {area:314} with two guards; pull them off the road."] = "Der Kurier geht mit zwei Wachen die Straße westlich von {area:314} entlang; lock sie von der Straße weg.",
+	["The courier walks the road from {area:314} west across the Highlands, as far as about 24,45, and back, with two guards: the arrow follows the road west until you meet him. Pull them off the road."] = "",
 
 	-- Step 36: Quae and Kinelory
 	-- {npc:2712} Quae · {npc:2713} Kinelory
@@ -235,7 +235,7 @@ return {
 
 	-- Step 54: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:2417} walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path."] = "",
 
 	-- Step 55: Strahnbrad: kill these as you meet them
 	-- {area:280} Strahnbrad
@@ -304,6 +304,7 @@ return {
 	-- ["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop both the motes and Krazek's ore."] = "Die Kobolde der Trockenstoppel graben in der Schlucht östlich von {area:321} (Horde); umgeh den Ort im Norden. Sie lassen sowohl die Partikel als auch Krazeks Erz fallen.",
 	-- ["The Syndicate hold the farm north-west of {area:320}. A {npc:217589} crawls about the farm: catch one with {npc:217412}'s Entomology Starter Kit, then tick it off."] = "Das Syndikat hält den Hof nordwestlich von {area:320}. Ein {npc:217589} krabbelt auf dem Hof herum: Fang einen mit dem Einsteigerpaket für Entomologen von {npc:217412} und hak ihn dann ab.",
 	-- ["The Witherbark trolls live in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley."] = "Die Trolle der Witherbark leben in den Hügeln südlich von {area:314}; Hexendoktoren der Witherbark stehen im Dorf, Schattenjäger der Witherbark bewachen das hintere Ende des Tals.",
+	-- ["The courier walks the road west of {area:314} with two guards; pull them off the road."] = "Der Kurier geht mit zwei Wachen die Straße westlich von {area:314} entlang; lock sie von der Straße weg.",
 	-- ["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins."] = "Die Folianten liegen in der zerstörten Burg westlich von {area:280}; Schattenmagier der Arguswacht halten die Ruinen.",
 	-- ["The wrecked caravan lies off the road near Biggs."] = "Die zerstörte Karawane liegt abseits der Straße nahe Biggs.",
 	-- ["The wrecks"] = "Die Wracks",

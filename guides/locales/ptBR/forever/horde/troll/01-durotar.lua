@@ -41,8 +41,9 @@ return {
 	-- plural, as words: Scorpid Workers = {npc:3124} Scorpid Worker · Cactus Apples = {item:11583} Cactus Apple
 	["{quest:790}, a large scorpid, prowls the slope south of {npc:3287} among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side."] = "{quest:790}, um escorpídeo graúdo, ronda a encosta ao sul de {npc:3287} no meio dos Escorpídeos Operários; colha as Sabras nos cactos pelo caminho.\nOs {quest:792} infestam a encosta abaixo de {area:365}, a caverna no lado norte do vale.",
 
-	-- Step 6: Back to the Den
-	["Back to the Den"] = "De volta ao Covil",
+	-- Step 6: Galgar
+	-- {npc:9796} Galgar
+	["{npc:9796} stands just outside the Den's entrance."] = "",
 
 	-- Step 7: Class trainer
 	["Class trainer"] = "Instrutor de classe",
@@ -58,6 +59,7 @@ return {
 	["{npc:3034} in {zone:1412}; {area:363} has no druid trainer"] = "{npc:3034} em {zone:1412}; {area:363} não tem instrutor de druida",
 
 	-- Step 10: Back to the Den
+	["Back to the Den"] = "De volta ao Covil",
 	-- {npc:11378} Foreman Thazz'ril
 	["{npc:11378}, at the lumber pile east of the Den"] = "{npc:11378}, na pilha de madeira a leste do Covil",
 

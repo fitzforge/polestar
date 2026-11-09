@@ -54,9 +54,11 @@ return {
 	["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "{npc:8565}在{area:2276}附近巡逻，请在地图标出的圆圈内寻找",
 
 	-- Step 10: Corin's Crossing
-	-- {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {spell:10228} Greater Invisibility
-	-- plural, as words: Unseen Servants = {npc:8538} Unseen Servant
-	["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk."] = "从小屋沿道路向南骑往{area:2264}。{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。\n小心：隐形仆从血量降到40%时会呼叫25码内的同伴求援。脱离战斗时它们还会用{spell:10228}隐形。如果在镇子里触发求援，大量怪物可能加入战斗。在镇子外围战斗可以降低这种风险。",
+	-- {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {spell:10228} Greater Invisibility · {quest:5211} Defenders of Darrowshire · {npc:11063} Carlin Redpath
+	-- plural, as words: Unseen Servants = {npc:8538} Unseen Servant · Darrowshire Spirits = {npc:11064} Darrowshire Spirit
+	["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the end of the Un'Goro guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "",
+	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
+	["Free Darrowshire Spirits: talk to them"] = "",
 
 	-- Step 11: Nathanos Blightcaller
 	-- {area:2260} Marris Stead
@@ -77,8 +79,10 @@ return {
 	["Zeppelin to {zone:1454}"] = "乘飞艇前往{zone:1454}",
 
 	-- Step 17: Orgrimmar
+	-- {npc:10880} Warcaller Gorlach · {object:172982} Valley of Strength
+	["{npc:10880} walks the {object:172982} and the streets off it: look for him on the way to the flight master's tower; the circle on the map is his walk."] = "",
 	-- {npc:10880} Warcaller Gorlach · {npc:7776} Talo Thornhoof · {quest:7492} Camp Mojache
-	["{npc:10880}, outside the front gate on the way in: for {npc:7776} at {quest:7492}, at the end of this guide"] = "",
+	["{npc:10880}: for {npc:7776} at {quest:7492}, at the end of this guide"] = "",
 
 	-- Step 18: Fly to Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
@@ -150,51 +154,47 @@ return {
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:7583} with {item:12928}"] = "用{item:12928}吓唬{npc:7583}",
 
-	-- Step 36: Gadgetzan
-	-- {object:142071} Egg-O-Matic
-	["The {object:142071} machine"] = "{object:142071}机器",
-
-	-- Step 37: Gaeriyan
+	-- Step 36: Gaeriyan
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
 	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914}要交还给安戈洛的{npc:8737}：留着它。",
 
-	-- Step 38: Marvon Rivetseeker
+	-- Step 37: Marvon Rivetseeker
 	-- {npc:7771} Marvon Rivetseeker · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
 	["{npc:7771} camps by the {area:1336} road, south of {area:976}."] = "{npc:7771}在{area:976}南边通往{area:1336}的路旁扎营。",
 
-	-- Step 39: Fly to Camp Mojache
+	-- Step 38: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "飞往{area:1099}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976}的飞行管理员",
 
-	-- Step 40: Camp Mojache
+	-- Step 39: Camp Mojache
 	-- {npc:7776} Talo Thornhoof
 	["{npc:7776}, a few steps from the flight master"] = "",
 	-- {area:2577} Dire Maul
 	["His next task is for the {area:2577} dungeon: leave it."] = "",
 
-	-- Step 41: Ruins of Isildien
-	-- {area:1099} Camp Mojache · {zone:1444} Feralas · {object:142071} Egg-O-Matic
-	["Ride south from {area:1099}: the hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "从{area:1099}向南骑行：角鹰兽的巢在{zone:1444}南部；每个巢里都有一个蛋，用于{object:142071}。",
+	-- Step 40: Ruins of Isildien
+	-- {quest:2741} The Super Egg-O-Matic · {area:1099} Camp Mojache · {zone:1444} Feralas
+	["Only if you still carry {quest:2741}: ride south from {area:1099}; the hippogryph nests are in the south of {zone:1444}, each holds an egg for the Egg-O-Matic."] = "",
 
-	-- Step 42: Fly to Marshal's Refuge
+	-- Step 41: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
 	["Fly to {area:541}"] = "飞往{area:541}",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "{area:1099}的飞行管理员",
 
-	-- Step 43: Marshal's Refuge
+	-- Step 42: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:8737} Linken
 	["The flight lands at {area:541}: {npc:9997} stands beside the flight master, and {npc:8737} by the cave a few steps away. {npc:9997}'s work is in Un'Goro on the next guide's way back north."] = "",
 	-- {quest:3941} A Gnome's Assistance · {npc:9117} J.D. Collie · {area:541} Marshal's Refuge
 	["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "",
 
-	-- Step 44: Layo Starstrike
+	-- Step 43: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus · {npc:13220} Layo Starstrike
 	["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "从安戈洛环形山出来的山口通往{area:3077}，那是{zone:1451}东北部的墓地。{npc:13220}站在坟墓之间。",
 
-	-- Step 45: The Spirits of Southwind
+	-- Step 44: The Spirits of Southwind
 	-- {area:2738} Southwind Village · {object:179565} Dusty Reliquary · {quest:1123} Rabine Saturna
 	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {quest:1123} sits inside one of the ruined houses."] = "",
 
@@ -215,6 +215,8 @@ return {
 	-- ["Only if you found a {item:12820} flask in {area:618}: ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "仅当你在{area:618}找到了一瓶{item:12820}时：沿道路向北骑行。大锅在{area:1769}西南不远的{area:1762}；那里的死木熊怪是敌对的。",
 	-- ["Plaguehounds and their runts roam the shores of the lake south-west of the chapel."] = "瘟疫犬和瘟疫幼犬在教堂西南的湖岸上游荡。",
 	-- ["Ride east out of the {area:1497} along the road; the {area:152} guards the way into the {area:28}."] = "沿道路向东骑出{area:1497}；{area:152}守卫着进入{area:28}的通道。",
+	-- ["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk."] = "从小屋沿道路向南骑往{area:2264}。{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。\n小心：隐形仆从血量降到40%时会呼叫25码内的同伴求援。脱离战斗时它们还会用{spell:10228}隐形。如果在镇子里触发求援，大量怪物可能加入战斗。在镇子外围战斗可以降低这种风险。",
+	-- ["Ride south from {area:1099}: the hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "从{area:1099}向南骑行：角鹰兽的巢在{zone:1444}南部；每个巢里都有一个蛋，用于{object:142071}。",
 	-- ["Sword of Marduk"] = "马杜克的破碎之剑",
 	-- ["The flight from {area:1997} lands in {zone:1456}: {npc:3033} (Druids) trains on {area:1639}, {npc:246344} (Paladins) in the city too."] = "从{area:1997}起飞的航班降落在{zone:1456}：{npc:3033}（德鲁伊）在{area:1639}训练，{npc:246344}（圣骑士）也在城里。",
 	-- ["The high elf Rangers, Pathstriders and Woodsmen guard the lodge by {area:2275}; the Registry lies inside. Rangers reach 60: pull one at a time. Noxious Plaguebats fly over the fields on the way."] = "高等精灵游侠、巡路者和护林者守卫着{area:2275}旁的奎尔林斯小屋；奎尔萨拉斯名册就在小屋里。游侠最高60级：一次引一个。路上的田野上空有毒性瘟疫蝙蝠飞过。",
@@ -222,6 +224,7 @@ return {
 	-- ["The skull sits in the {area:2622}, among Blighted Horrors and Plague Monstrosities."] = "头骨就在{area:2622}里，周围是荒芜水元素和瘟疫水元素。",
 	-- ["The western hills"] = "西部山丘",
 	-- ["The {area:2622}"] = "{area:2622}",
+	-- ["The {object:142071} machine"] = "{object:142071}机器",
 	-- ["The {object:177675} is just behind the {area:2261}."] = "{object:177675}就在{area:2261}后面。",
 	-- ["Upstairs"] = "在楼上",
 	-- ["{item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once."] = "{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。",

@@ -244,11 +244,12 @@ return {
 	-- Step 53: Winna Hazzard's kitten
 	-- {npc:9996} Winna Hazzard
 	["{npc:9996}'s kitten"] = "{npc:9996}의 새끼 고양이",
-	-- {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
-	["Take the kitten to the same moonwell and release it there; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "새끼 고양이를 같은 달샘에 데려가 풀어 주세요. {npc:10042}(으)로 변하면 {npc:9996}에게 데려가 클릭해서 건네세요.",
-	["Jadefire moonwell"] = "비취불꽃 달샘",
+	-- {item:12565} Winna's Kitten Carrier · {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
+	["Take the kitten to the same moonwell and release it there with {item:12565}; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "",
+	-- {item:12565} Winna's Kitten Carrier
+	["{item:12565}, at the Jadefire moonwell"] = "",
 
-	-- Step 56: Level 54.87
+	-- Step 55: Level 54.87
 	["Level 54.87"] = "",
 	-- {zone:1452} Winterspring · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
 	["Top up here to level 54.87 before the hand-ins in {zone:1452}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
@@ -262,6 +263,7 @@ return {
 	-- ["Fly to {area:272}"] = "{area:272}(으)로 날아가기",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo."] = "길을 따라 북동쪽의 {area:1767}(으)로 가세요. 숲 동쪽의 굽이나무 이끼늪괴물과 갈퀴늪괴물은 각각 {item:11503}을(를) 지니고 있습니다. 같은 숲에서 탈로를 위해 성난발톱불곰과 갈퀴발톱 악령발늑대를 처치하세요.",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "{area:2268}의 비행 조련사에게서 {area:1497}(으)로 날아가세요.",
+	-- ["Jadefire moonwell"] = "비취불꽃 달샘",
 	-- ["Keep Little Pamela: Pamela is in {area:2262}, visited again later."] = "꼬마 파멜라을(를) 보관하세요: 파멜라는 나중에 다시 들르는 {area:2262}에 있습니다.",
 	-- ["Keep the parcel: {npc:10781} is in the {area:1497}."] = "꾸러미를 보관하세요: {npc:10781}은(는) {area:1497}에 있습니다.",
 	-- ["Leave the {area:1497} and ride east along the road through {zone:1420}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "{area:1497}을(를) 나와 길을 따라 동쪽으로 {zone:1420}을(를) 지나 {area:152}을(를) 지나가세요. 펠스톤 농장은 길을 따라 처음 나오는 농장이며, {npc:10778}은(는) 집 안에서 기다립니다.",
@@ -274,6 +276,7 @@ return {
 	-- ["Ride south past the {area:202} to {area:197}; {npc:10927}'s house stands by the road, and {npc:10936}'s monument is in the graveyard behind it. Kill the Diseased Wolves you meet in the fields on the way."] = "남쪽으로 {area:202}을(를) 지나 {area:197}(으)로 가세요. {npc:10927}의 집은 길가에 있고, {npc:10936}의 기념비는 그 뒤 묘지에 있습니다. 가는 길에 들판에서 만나는 역병에 걸린 늑대를 처치하세요.",
 	-- ["Ride the road south through {area:361} to the Sanctuary."] = "길을 따라 남쪽으로 {area:361}을(를) 지나 성소로 가세요.",
 	-- ["Scarlet forward camp"] = "붉은십자군 전진 야영지",
+	-- ["Take the kitten to the same moonwell and release it there; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "새끼 고양이를 같은 달샘에 데려가 풀어 주세요. {npc:10042}(으)로 변하면 {npc:9996}에게 데려가 클릭해서 건네세요.",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "연대기는 안돌할 시청의 곰팡이 슨 고서 사이에 있습니다. 맞는 것을 찾을 때까지 열어 보세요.",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "마른가지일족 털보숭이 마을은 성소 바로 남쪽에 있습니다. 마른가지일족을 처치할 때마다 {area:1769} 평판도 오릅니다. 깃털 머리장식은 보관하세요.",
 	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "붉은십자군의 천막은 {area:199}와(과) {area:200} 사이에 있습니다. {object:176092}(으)로 지휘 천막을 불태우고 스컬지 깃발을 꽂으세요.",

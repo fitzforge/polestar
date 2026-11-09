@@ -193,43 +193,52 @@ return {
 	["Frayfeather Hippogryphs"] = "Hipogrifos Plumavieja",
 	["The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body."] = "Los hipogrifos anidan en las colinas al suroeste del campamento. Mata uno y usa la Vasija de muisek hipogrifo sobre su cuerpo.",
 
-	-- Step 52: Sprite Darters
+	-- Step 51: Hippogryph nests
+	["Hippogryph nests"] = "",
+	-- {area:2522} Ruins of Isildien · {object:142071} Egg-O-Matic
+	["The hippogryph nests are on the hills to the south, around the {area:2522}; each holds an egg for the {object:142071}."] = "",
+
+	-- Step 53: Sprite Darters
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
 	["Sprite Darters"] = "Duendes dardo",
 	["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill."] = "Los dragones feéricos revolotean por el bosque justo al oeste del campamento. Usa la vasija sobre cada uno que mates.",
 
-	-- Step 54: Wandering Forest Walkers
+	-- Step 55: Wandering Forest Walkers
 	-- plural, as words: Wandering Forest Walkers = {npc:7584} Wandering Forest Walker
 	["Wandering Forest Walkers"] = "Caminabosques deambulantes",
 	-- {zone:1444} Feralas
 	["The treants wander the forest roads between the camp and the middle of {zone:1444}; there are only a few, so look along the paths."] = "Los antárboles deambulan por los caminos del bosque entre el campamento y el centro de {zone:1444}; hay pocos, así que búscalos por los senderos.",
 
-	-- Step 57: The Forgotten Coast: kill these as you meet them
+	-- Step 58: The Forgotten Coast: kill these as you meet them
 	-- {area:1108} The Forgotten Coast
 	["{area:1108}: kill these as you meet them"] = "",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray · Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
 	["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "",
 
-	-- Step 59: Back to Camp Mojache
+	-- Step 60: Back to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Back to {area:1099}"] = "De vuelta a {area:1099}",
 
-	-- Step 60: Fly to Gadgetzan
+	-- Step 61: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "Vuela a {area:976}",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "",
 
-	-- Step 61: Gadgetzan
+	-- Step 62: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
+
+	-- Step 64: Gadgetzan
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}, junto al maestro de jinetes del viento",
+	-- {object:142071} Egg-O-Matic
+	["The {object:142071}, in the middle of town"] = "",
 	-- {npc:7876} Tran'rek · {zone:1449} Un'Goro Crater
 	["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "El alquitrán de {npc:7876} y las muestras del Alquimista Morterozugg vienen de {zone:1449}.",
 
-	-- Step 62: Marvon Rivetseeker
+	-- Step 65: Marvon Rivetseeker
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {zone:1449} Un'Goro Crater
 	["Ride south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "Cabalga hacia el sur por el camino hasta {area:1938}; {npc:7771} acampa al lado. Desde aquí, el camino hacia el oeste baja a {zone:1449}, donde empieza la siguiente guía.",
 	-- {quest:3444} The Stone Circle · {npc:7771} Marvon Rivetseeker

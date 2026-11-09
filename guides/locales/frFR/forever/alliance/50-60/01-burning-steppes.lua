@@ -78,8 +78,8 @@ return {
 	["Xylem's last task, Destroy Morphaz, is in the {area:1417}: skip it."] = "",
 
 	-- Step 23: Ravencrest Monument
-	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter
-	["Swim to the small island off the southern tip of {zone:1447}: {npc:8392} waits by the monument."] = "Nagez jusqu'au petit îlot au large de la pointe sud d'{zone:1447} : {npc:8392} attend près du Colosse de Ravencrest.",
+	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter · {item:10444} Standard Issue Flare Gun
+	["Swim to the small island off the southern tip of {zone:1447}. If {npc:8392} isn't there, fire your {item:10444} to signal him, and wait for him to land."] = "",
 
 	-- Step 24: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
@@ -110,8 +110,8 @@ return {
 	["The Wildkin Feathers lie on the ground across the {zone:1425}, south and east of {area:348}, where the owlbeasts roam; the mobs here are well below you now."] = "Les Plumes d'Indomptable jonchent le sol des {zone:1425}, au sud et à l'est du {area:348}, là où rôdent les chouettards ; les monstres d'ici sont désormais bien en dessous de votre niveau.",
 
 	-- Step 30: The Super Snapper FX
-	-- {npc:7977} Gammerita
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:7977} (élite de niveau 48) demande un groupe de 2. Passez-la si vous êtes seul : l'itinéraire vous fait regagner l'expérience en tuant des monstres.",
+	-- {npc:7977} Gammerita · {zone:1425} Hinterlands · {area:307} Overlook Cliffs
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "",
 
 	-- Step 32: Fly to Southshore
 	-- {area:271} Southshore
@@ -279,10 +279,12 @@ return {
 	-- ["Ride east along the road out of {zone:1440} into {zone:1447} to the Sentinels' camp at {area:3137}."] = "Chevauchez vers l'est par la route hors de {zone:1440} jusqu'en {zone:1447}, au camp des Sentinelles de {area:3137}.",
 	-- ["Ride north out of {area:69} through the pass into the {zone:1428}; {area:2418} sits at the top, in the south-east of the Steppes."] = "Chevauchez vers le nord hors de {area:69} par le col jusqu'à {zone:1428} ; {area:2418} se trouve en haut, dans le sud-est des Steppes.",
 	-- ["Swim to the small island off the southern tip of {area:16}: {npc:8392} waits by the monument."] = "Nagez jusqu'au petit îlot au large de la pointe sud d'{area:16} : {npc:8392} attend près du monument.",
+	-- ["Swim to the small island off the southern tip of {zone:1447}: {npc:8392} waits by the monument."] = "Nagez jusqu'au petit îlot au large de la pointe sud d'{zone:1447} : {npc:8392} attend près du Colosse de Ravencrest.",
 	-- ["Thaurissan Relics"] = "Reliques de Thaurissan",
 	-- ["The relics are the carved stones scattered through the {area:250} around {area:251}: click them until the information is recovered."] = "Les reliques sont les pierres sculptées éparpillées dans {area:250} autour de {area:251} : cliquez dessus jusqu'à ce que l'information soit récupérée.",
 	-- ["The shrine lies in the south-west corner of {area:16}, south of {area:3137}."] = "Le sanctuaire se trouve dans le coin sud-ouest d'{area:16}, au sud de {area:3137}.",
 	-- ["The {quest:4296}"] = "{quest:4296}",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:7977} (élite de niveau 48) demande un groupe de 2. Passez-la si vous êtes seul : l'itinéraire vous fait regagner l'expérience en tuant des monstres.",
 	-- ["Top up here to level 50.89 before the hand-ins at {zone:1426}: they take you to level 51."] = "Complétez ici jusqu'au niveau 50.89 avant les rendus de quêtes à {zone:1426} : ils vous font passer au niveau 51.",
 	-- ["Top up here to level 51.39 before the hand-ins at {area:251}: they take you to level 52."] = "Complétez ici jusqu'au niveau 51.39 avant les rendus de quêtes à {area:251} : ils vous font passer au niveau 52.",
 	-- ["Top up here to level 52 before the hand-ins at {area:251}: they take you to level 53."] = "Complétez ici jusqu'au niveau 52 avant les rendus de quêtes à {area:251} : ils vous font passer au niveau 53.",

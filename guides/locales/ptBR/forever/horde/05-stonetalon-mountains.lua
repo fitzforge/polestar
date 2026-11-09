@@ -14,7 +14,7 @@ return {
 
 	-- Step 2: Kadrak
 	-- {zone:1413} Barrens · {npc:8582} Kadrak · {area:1703} Mor'shan Rampart · {zone:1440} Ashenvale
-	["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}."] = "Do acampamento de Seereth, siga para nordeste por {zone:1413} até a estrada ao norte da Encruzilhada. {npc:8582} fica na torre de vigia de {area:1703}, onde a estrada entra em {zone:1440}.",
+	["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads; Rogues coming from Fizzule's tower head west to it. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}."] = "",
 
 	-- Step 3: Into Ashenvale
 	-- {zone:1440} Ashenvale
@@ -123,8 +123,8 @@ return {
 	["{item:15882}, from the {object:177790}"] = "{item:15882}, do {object:177790}",
 
 	-- Step 24: Sepulcher
-	-- {area:228} Sepulcher · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
-	["From the zeppelin towers, run south through Tirisfal into Silverpine and down the road to the {area:228}. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "Das torres dos zepelins, corra para o sul por Tirisfal até Pinhaprata e desça a estrada até {area:228}. {npc:2121} e {npc:1937} ficam na entrada da cripta.",
+	-- {area:228} Sepulcher · {object:177790} Strange Lockbox · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
+	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177790}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "",
 	-- {npc:1937} Apothecary Renferrel · {area:272} Tarren Mill
 	["{npc:1937}: Lydon in {area:272}, next guide"] = "{npc:1937}: Lydon em {area:272}, no próximo guia",
 	-- {npc:2121} Shadow Priest Allister · {quest:516} Beren's Peril · {area:233} Ambermill
@@ -174,6 +174,8 @@ return {
 	-- ["Follow the road east along the river, then north-east up into the hills to {area:272}."] = "Siga a estrada para leste ao longo do rio e depois para nordeste, subindo as colinas até {area:272}.",
 	-- ["Follow the road north toward {area:467}. Antlered Coursers graze along the way; the Sap Beasts, Twilight Runners and Fey Dragons roam the woods below the Peak, and the Cenarion druids hold the grove there."] = "Siga a estrada para o norte rumo a {area:467}. Ginetes Galhados pastam pelo caminho; as Feras de Seiva, os Corredores do Crepúsculo e os Dragões Encantados vagam pela mata abaixo do pico, e os druidas cenarianos ocupam o bosque de lá.",
 	-- ["Follow the road west to {area:460}."] = "Siga a estrada para oeste até {area:460}.",
+	-- ["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}."] = "Do acampamento de Seereth, siga para nordeste por {zone:1413} até a estrada ao norte da Encruzilhada. {npc:8582} fica na torre de vigia de {area:1703}, onde a estrada entra em {zone:1440}.",
+	-- ["From the zeppelin towers, run south through Tirisfal into Silverpine and down the road to the {area:228}. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "Das torres dos zepelins, corra para o sul por Tirisfal até Pinhaprata e desça a estrada até {area:228}. {npc:2121} e {npc:1937} ficam na entrada da cripta.",
 	-- ["From the {area:380} follow the road north. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}. Open the {item:16783} he gives you."] = "De {area:380}, siga a estrada para o norte. {npc:8582} fica na torre de vigia de {area:1703}, onde a estrada entra em {zone:1440}. Abra o {item:16783} que ele lhe der.",
 	-- ["Gaea Dirt Mounds"] = "Montes de Terra de Gaia",
 	-- ["Gaea Seeds"] = "Sementes de Gaia",

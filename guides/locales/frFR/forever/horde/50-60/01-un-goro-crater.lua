@@ -274,65 +274,58 @@ return {
 	-- {area:2268} Light's Hope Chapel
 	["Ride south back to the road and follow it east across the whole zone to {area:2268}."] = "Revenez au sud jusqu'à la route et suivez-la vers l'est à travers toute la zone jusqu'à la {area:2268}.",
 
-	-- Step 56: Eastern Plaguelands: kill these as you meet them
-	-- {zone:1423} Eastern Plaguelands
-	["{zone:1423}: kill these as you meet them"] = "{zone:1423} : tuez-les au passage",
-	-- {npc:11063} Carlin Redpath · {npc:11064} Darrowshire Spirit · {area:2262} Darrowshire
-	["With {npc:11063}'s quest in your log, slain Scourge sometimes leave a {npc:11064}; talk to it to free it. Kill undead on the ride south-west to {area:2262}."] = "Avec la quête de {npc:11063} dans votre journal, le Fléau tué laisse parfois un {npc:11064} ; parlez-lui pour le libérer. Tuez des morts-vivants en chevauchant vers le sud-ouest jusqu'à {area:2262}.",
-	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
-	["Free Darrowshire Spirits: talk to them"] = "Libérez des Esprits de Darrowshire ({npc:11064}) : parlez-leur",
-
-	-- Step 57: Pamela Redpath
+	-- Step 56: Pamela Redpath
 	-- {npc:10926} Pamela Redpath · {area:2262} Darrowshire
 	["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "Le fantôme de {npc:10926} se tient dans les ruines de {area:2262}, au sud-ouest.",
 
-	-- Step 58: Pamela's Doll
+	-- Step 57: Pamela's Doll
 	-- {npc:10926} Pamela Redpath
 	["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "La tête de la poupée et ses deux côtés sont dans les maisons autour de {npc:10926} ; assemblez-les depuis vos sacs.",
 
-	-- Step 59: Pamela Redpath
+	-- Step 58: Pamela Redpath
 	-- {npc:11063} Carlin Redpath · {area:2268} Light's Hope Chapel
 	["a message for {npc:11063} at {area:2268}, where this guide ends"] = "",
 	-- {quest:5152} Auntie Marlene · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {zone:1422} Western Plaguelands
 	["Keep {quest:5152}: {npc:10927} lives at {area:197} in the {zone:1422}."] = "",
 
-	-- Step 60: Zaeldarr the Outcast
+	-- Step 59: Zaeldarr the Outcast
 	-- {area:2262} Darrowshire
 	["Zaeldarr lurks just west of {area:2262}."] = "Zaeldarr rôde juste à l'ouest de {area:2262}.",
 
-	-- Step 61: Pestilent Scar
+	-- Step 60: Pestilent Scar
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "Attention : l'{npc:10411} devient invisible hors combat et appelle des Gargouilles Aile-de-roc dès qu'un combat commence. Il n'en existe que 3, et elles réapparaissent toutes les 15 minutes.",
 
-	-- Step 62: Back to Light's Hope Chapel
+	-- Step 61: Back to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Back to {area:2268}"] = "Retour à la {area:2268}",
+	-- {quest:5211} Defenders of Darrowshire · {zone:1423} Eastern Plaguelands · {area:2264} Corin's Crossing
+	["{quest:5211}'s spirits come with the {zone:1423} guide's {area:2264} stop: keep it."] = "",
 
-	-- Step 63: Fly to Tarren Mill
+	-- Step 62: Fly to Tarren Mill
 	-- {area:2268} Light's Hope Chapel
 	["{area:2268} flight master"] = "Maître de vol de {area:2268}",
 
-	-- Step 64: The road north
-	["The road north"] = "",
+	-- Step 63: To Sorrow Hill
 	-- {area:197} Sorrow Hill
-	["The road north to {area:197}"] = "",
+	["To {area:197}"] = "",
 
-	-- Step 65: Sorrow Hill
+	-- Step 64: Sorrow Hill
 	-- {area:272} Tarren Mill · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {npc:10936} Joseph Redpath
 	["Ride north up the road from {area:272}. {npc:10927}'s house stands by the road at {area:197}, and {npc:10936}'s monument is in the graveyard behind it."] = "",
 	-- {npc:10927} Marlene Redpath
 	["{npc:10927}, upstairs"] = "{npc:10927}, à l'étage",
 
-	-- Step 66: Chromie
+	-- Step 65: Chromie
 	-- {npc:10667} Chromie
 	["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "Chevauchez vers le nord-ouest jusqu'à Andorhal. {npc:10667} attend dans l'auberge en ruine à l'ouest de la ville ; les squelettes à l'intérieur sont de niveau 54-57, restez donc sur les bords.",
 
-	-- Step 67: The Annals of Darrowshire
+	-- Step 66: The Annals of Darrowshire
 	-- plural, as words: Musty Tomes = {object:176150} Musty Tome
 	["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Les annales se trouvent parmi les Tomes moisis ({object:176150}) de l'hôtel de ville d'Andorhal ; ouvrez-les jusqu'à trouver le bon.",
 
-	-- Step 68: Chromie
+	-- Step 67: Chromie
 	-- {quest:5210} Brother Carlin · {area:2268} Light's Hope Chapel · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
 	["{quest:5210} goes to {area:2268}: keep it for later. The next guide starts with {npc:10739} by the {area:202}, east of Andorhal."] = "",
 
@@ -349,6 +342,7 @@ return {
 	-- ["Fly to {area:340}"] = "Voler jusqu'à {area:340}",
 	-- ["Fly to {zone:1454}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {area:3}' west edge."] = "Volez jusqu'à {zone:1454}, prenez le zeppelin pour Grom'gol et volez de là jusqu'à {area:340}, bâtie dans les falaises du bord ouest des {area:3}.",
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Suivez la route vers l'est à travers les {area:28} et traversez la rivière pour entrer dans les {area:139} ; quittez-les vers le nord pour {area:2627}, la ville en ruine au nord-ouest. {npc:12384} est assis dans une hutte à sa lisière.",
+	-- ["Free Darrowshire Spirits: talk to them"] = "Libérez des Esprits de Darrowshire ({npc:11064}) : parlez-leur",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "Depuis le {area:1938}, allez vers l'ouest jusqu'à la longue rampe qui descend en serpentant dans le {area:490}, puis suivez la paroi nord du cratère jusqu'à {area:541}, un camp dans les grottes de la falaise. Tout le monde ici est neutre.",
 	-- ["Gorillas"] = "Gorilles",
 	-- ["Hearth to {area:2268}"] = "Pierre de foyer vers la {area:2268}",
@@ -385,6 +379,7 @@ return {
 	-- ["Theodora's quest in {area:340} needs level 52. The Tar Lurkers and Tar Lords just south of the refuge are the closest camp."] = "La quête de Theodora à {area:340} demande le niveau 52. Les Rôdeurs du goudron et Seigneurs du goudron juste au sud du refuge sont le camp le plus proche.",
 	-- ["Top up here to level 51.81 before the hand-ins at {area:16985}: they take you to level 52."] = "Montez ici jusqu'au niveau 51.81 avant de rendre les quêtes ({area:16985}) : elles vous font passer au niveau 52.",
 	-- ["Western jungle"] = "Jungle de l'ouest",
+	-- ["With {npc:11063}'s quest in your log, slain Scourge sometimes leave a {npc:11064}; talk to it to free it. Kill undead on the ride south-west to {area:2262}."] = "Avec la quête de {npc:11063} dans votre journal, le Fléau tué laisse parfois un {npc:11064} ; parlez-lui pour le libérer. Tuez des morts-vivants en chevauchant vers le sud-ouest jusqu'à {area:2262}.",
 	-- ["grind on Tar Lurkers at {area:538}, {zone:1449}"] = "tuez des Rôdeurs du goudron aux {area:538}, {zone:1449}",
 	-- ["grind on {npc:6509}"] = "tuez en boucle : {npc:6509}",
 	-- ["{area:139}: kill these as you meet them"] = "{area:139} : tuez-les au passage",
@@ -399,4 +394,5 @@ return {
 	-- ["{npc:9623}, the robot on the plateau"] = "{npc:9623}, le robot sur le plateau",
 	-- ["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "Le repaire de {npc:9684} est juste au sud du pylône. Utilisez-y l'appât de {npc:9619} ; {npc:9684} est de niveau 56 et frappe fort : commencez avec toute votre vie.",
 	-- ["{npc:9999} sits on the ridge, lost and exhausted."] = "{npc:9999} est assis sur la crête, perdu et épuisé.",
+	-- ["{zone:1423}: kill these as you meet them"] = "{zone:1423} : tuez-les au passage",
 }

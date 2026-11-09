@@ -96,23 +96,29 @@ return {
 	-- {object:36126} Royal Quarter (no name in this language: may be words)
 	["Lady Sylvanas holds the {object:36126}."] = "Lady Sylvanas fica no {object:36126}.",
 
-	-- Step 20: Royal Quarter
+	-- Step 22: Jeremiah Payson
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "{npc:8403}, por perto",
+
+	-- Step 23: Jeremiah Payson
 	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
 	["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050} volta para {npc:10778} nas {zone:1422}: guarde-a.",
+
+	-- Step 24: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "Só com {quest:79095}, da loja de alquimia de {area:159}, nas bolsas (o guia dos Livros da Biblioteca)",
 
-	-- Step 22: The Bulwark
+	-- Step 26: The Bulwark
 	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
 	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "Siga a cavalo para leste, saindo da {zone:1458}, pela estrada; {area:152} guarda o caminho para {zone:1422}.",
 
-	-- Step 24: Felstone Field
+	-- Step 28: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
 	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "A fazenda de {npc:10778} é a primeira a leste de {area:152}. Os Carniçais Grasnantes da fazenda carregam a outra metade do pingente dela; {npc:11075} guarda o caldeirão no campo.\nCuidado: um ou dois mortos-vivos costumam lutar ao lado dele, e mais mestres da caldeira podem atacar depois que você usar o caldeirão.",
+
+	-- Step 29: Janice Felstone
 	["Upstairs"] = "No andar de cima",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

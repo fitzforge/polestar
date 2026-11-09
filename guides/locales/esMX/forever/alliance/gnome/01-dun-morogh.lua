@@ -412,8 +412,8 @@ return {
 	["Back to the {area:925}"] = "",
 
 	-- Step 81: Thelsamar
-	-- {area:144} Thelsamar
-	["South down the road to {area:144}, finishing the ears, meat and ichor on the way."] = "",
+	-- {area:144} Thelsamar · {npc:1340} Mountaineer Kadrell
+	["South down the road to {area:144}, finishing the ears, meat and ichor on the way. {npc:1340} walks the road through town."] = "",
 
 	-- Step 82: Golnir Bouldertoe
 	-- {object:32372} Great Forge (no name in this language: may be words) · {npc:4256} Golnir Bouldertoe · {npc:1573} Gryth Thurden

@@ -14,7 +14,13 @@ return {
 	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
 	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "",
 
-	-- Step 4: Everlook
+	-- Step 4: Everlook's inn
+	-- {area:2255} Everlook
+	["{area:2255}'s inn"] = "",
+	-- {area:144} Thelsamar · {zone:1425} Hinterlands · {zone:1452} Winterspring · {area:2255} Everlook
+	["Your Hearthstone is not set at {area:144} (the {zone:1425} guide binds there at 47, and this guide leaves {zone:1452} through it): bind at {area:2255} instead, for the trips back to town."] = "",
+
+	-- Step 5: Everlook
 	-- {npc:11629} Jessica Redpath · {area:2262} Darrowshire
 	["{npc:11629}: keep it for {area:2262}; inside"] = "",
 	-- {npc:10431} Gregor Greystone
@@ -24,25 +30,25 @@ return {
 	-- {item:12383} Moontouched Feather
 	["{item:12383}, 110 yd north"] = "",
 
-	-- Step 6: Ice Thistle Hills: kill these as you meet them
+	-- Step 7: Ice Thistle Hills: kill these as you meet them
 	-- {area:2247} Ice Thistle Hills
 	["{area:2247}: kill these as you meet them"] = "",
 	-- {area:2244} Winterfall Village · {area:2255} Everlook
 	-- plural, as words: Chillwind Chimaeras = {npc:7448} Chillwind Chimaera
 	["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}."] = "얼음엉겅퀴설인은 {area:2244} 남쪽 언덕에, 서리바람 키메라는 {area:2255} 쪽 계곡에 삽니다.",
 
-	-- Step 7: The Ruins of Kel'Theril
+	-- Step 8: The Ruins of Kel'Theril
 	-- {area:2253} Starfall Village
 	-- plural, as words: Moontouched Feathers = {item:12383} Moontouched Feather
 	["The ruins lie around the frozen lake south of {area:2253}. Pick up the four relic fragments lying in the ruins and the Moontouched Feathers on the ground where the wildkin roam."] = "폐허는 {area:2253} 남쪽의 얼어붙은 호수 주변에 있습니다. 폐허에 놓인 유물 조각 네 개를 줍고, 올빼미야수가 돌아다니는 땅에서 달빛 깃든 깃털을 주우세요.",
 
-	-- Step 8: Donova Snowden
+	-- Step 9: Donova Snowden
 	-- {npc:9298} Donova Snowden
 	["Follow the road west to {npc:9298}'s camp beside the hot springs."] = "길을 따라 서쪽으로 온천 옆 {npc:9298}의 야영지까지 가세요.",
 	-- {zone:1444} Feralas
 	["Keep it: Gregan in {zone:1444} brews the elixir later"] = "보관하세요: 나중에 {zone:1444}의 그레간이 비약을 만듭니다",
 
-	-- Step 9: Frostfire Hot Springs: kill these as you meet them
+	-- Step 10: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
 	["{area:2246}: kill these as you meet them"] = "",
 	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth · {zone:1452} Winterspring · {area:1584} Blackrock Depths
@@ -50,31 +56,31 @@ return {
 	-- {npc:7442} Winterfall Pathfinder
 	["grind on {npc:7442}"] = "",
 
-	-- Step 10: Donova Snowden
+	-- Step 11: Donova Snowden
 	-- {zone:1448} Felwood
 	["The Deadwood cauldron in {zone:1448}: keep it"] = "{zone:1448}의 마른가지일족 가마솥: 보관하세요",
 
-	-- Step 11: Level 55.05
+	-- Step 12: Level 55.05
 	["Level 55.05"] = "",
 	-- {area:2255} Everlook · {area:2246} Frostfire Hot Springs · {area:1769} Timbermaw Hold · {quest:8471} Winterfall Ritual Totem · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
 	["Top up here to level 55.05 before the hand-ins at {area:2255}: they take you to level 56. Grind the Winterfall furbolgs camped by {area:2246} (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through {area:1769} need, one of them drops the {quest:8471}, and they fill your bags with the thirty Runecloth Meilosh asks for. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
 
-	-- Step 12: Winterfall Ritual Totem
+	-- Step 13: Winterfall Ritual Totem
 	["Any Winterfall furbolg can drop the totem, about one kill in thirty: if the top-up did not bring one, keep killing them here until it drops, then right-click it."] = "",
 	-- {area:1769} Timbermaw Hold
 	["For Kernda in {area:1769}: keep it"] = "{area:1769}의 케른다에게: 보관하세요",
 
-	-- Step 14: Winterfall Village
+	-- Step 15: Winterfall Village
 	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
 	["The Winterfall furbolg village lies east of {area:2255}: Shaman (56-57), Den Watchers (55-56) and Ursa (57-58), all above you. Kill the Shaman first, they heal, and pull from the edge. {npc:10738} in the cave at the back is elite: stay out."] = "눈사태일족 펄볼그 마을은 {area:2255} 동쪽에 있습니다. 주술사(56-57), 보초(55-56), 펄볼그(57-58) 모두 당신보다 높습니다. 치유하는 주술사를 먼저 처치하고, 가장자리부터 끌어오세요. 뒤쪽 동굴의 {npc:10738}은(는) 정예이니 들어가지 마세요.",
 
-	-- Step 15: Pristine Yeti Horns
+	-- Step 16: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "온전한 설인 뿔",
 	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
 	["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns."] = "",
 
-	-- Step 16: Everlook
+	-- Step 17: Everlook
 	-- {npc:10978} Legacki
 	["On {npc:10978}, by the inn"] = "{npc:10978}에게, 여관 옆",
 	-- {npc:10978} Legacki · {npc:7583} Sprinkle · {npc:10977} Quixxil
@@ -82,24 +88,33 @@ return {
 	-- {npc:10978} Legacki · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:10978} with {item:12928}"] = "{item:12928}(으)로 {npc:10978} 겁주기",
 
-	-- Step 18: Fly to Theramore
+	-- Step 18: To Stoutlager Inn
+	-- {area:2101} Stoutlager Inn
+	["To {area:2101}"] = "",
+	-- {area:144} Thelsamar · {area:3197} Chillwind Camp · {area:2255} Everlook
+	["Your Hearthstone is still set at {area:144}: from there the gryphon to {area:3197} is about ten minutes quicker than {area:2255}'s flight to Theramore and the boat."] = "",
+
+	-- Step 19: Fly to Chillwind Camp
+	-- {area:3197} Chillwind Camp
+	["Fly to {area:3197}"] = "",
+	-- {area:144} Thelsamar
+	["{area:144} flight master"] = "",
+
+	-- Step 20: Fly to Theramore
 	["Fly to Theramore"] = "테라모어 섬으로 비행",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "",
 
-	-- Step 19: Boat to Menethil Harbor
+	-- Step 21: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "배를 타고 {area:150}(으)로",
 
-	-- Step 20: Fly to Southshore
-	-- {area:271} Southshore
-	["Fly to {area:271}"] = "{area:271}(으)로 날아가세요",
+	-- Step 22: Fly to Chillwind Camp
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
-	-- Step 22: Chillwind Camp
-	-- {area:271} Southshore · {area:3197} Chillwind Camp
-	["From {area:271}, ride north up the road through Alterac to {area:3197}."] = "",
+	-- Step 23: Chillwind Camp
+	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "",
 	-- {npc:11616} Nathaniel Dumah · {area:2627} Terrordale
 	["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}: 흰개미는 나중에 {area:2627}에서 모읍니다",
 	-- {npc:10838} Commander Ashlam Valorfist
@@ -107,20 +122,20 @@ return {
 	-- {npc:11053} High Priestess MacDonnell · {area:200} Dalson's Tears
 	["{npc:11053}: the cauldron is at {area:200}, keep it"] = "",
 
-	-- Step 23: Mulgris Deepriver
+	-- Step 24: Mulgris Deepriver
 	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1423} Eastern Plaguelands
 	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {zone:1423}."] = "",
 	["Inside"] = "",
 
-	-- Step 24: Into Eastern Plaguelands
+	-- Step 25: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
 	["Into {zone:1423}"] = "",
 
-	-- Step 26: Pamela Redpath
+	-- Step 27: Pamela Redpath
 	-- {zone:1423} Eastern Plaguelands · {area:2262} Darrowshire · {npc:10926} Pamela Redpath
 	["Follow the southern road east into the {zone:1423}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "남쪽 길을 따라 동쪽으로 {zone:1423}에 들어가세요. {area:2262}의 폐허는 그 남쪽에 있습니다. {npc:10926}의 유령은 남쪽 끝의 무너진 집 옆에서 놀고 있습니다.",
 
-	-- Step 27: Pamela Redpath's doll
+	-- Step 28: Pamela Redpath's doll
 	-- {npc:10926} Pamela Redpath
 	["{npc:10926}'s doll"] = "{npc:10926}의 인형",
 	-- {area:2262} Darrowshire
@@ -130,34 +145,35 @@ return {
 	-- {item:12888} Pamela's Doll's Right Side
 	["{item:12888}; inside"] = "",
 
-	-- Step 28: Pamela Redpath
+	-- Step 29: Pamela Redpath
 	-- {quest:5152} Auntie Marlene · {zone:1422} Western Plaguelands
 	["{quest:5152}, in the {zone:1422}: keep it"] = "{quest:5152}, {zone:1422}에서: 보관하세요",
 
-	-- Step 29: Light's Hope Chapel
+	-- Step 30: Light's Hope Chapel
 	["Follow the road east across the zone to the chapel."] = "길을 따라 동쪽으로 지역을 가로질러 예배당까지 가세요.",
 	-- {npc:11038} Caretaker Alen
 	["{npc:11038}: Zaeldarr is a level 54 elite"] = "",
 
-	-- Step 30: Corin's Crossing
+	-- Step 31: Corin's Crossing
 	-- {area:2264} Corin's Crossing · {npc:10411} Eye of Naxxramas
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["The Scourge around {area:2264}, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it.\nCareful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "{npc:11064} 해방: 대화하기",
 
-	-- Step 31: The Undercroft
+	-- Step 32: The Undercroft
 	-- {area:2261} The Undercroft
 	["Zaeldarr is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "잴다르는 정예이니 파티를 권장합니다. 그는 지역 남서쪽의 지하실인 {area:2261}의 맨 아래에서 기다립니다.",
 	-- {item:15785} Zaeldarr's Head
 	["{item:15785}; below ground"] = "",
 
-	-- Step 32: Light's Hope Chapel
+	-- Step 33: Light's Hope Chapel
 	-- {area:3197} Chillwind Camp
 	["The next guide starts here and flies to {area:3197}."] = "다음 가이드는 여기서 시작해 {area:3197}(으)로 날아갑니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns. Keep killing yetis until level 54: Harlo's wildkin quests are red before that."] = "언덕으로 돌아가세요. 맹렬한 얼음엉겅퀴설인과 덩치큰 얼음엉겅퀴설인만 뿔을 지니고 있습니다. 54레벨이 될 때까지 설인을 계속 처치하세요. 그 전에는 하를로의 올빼미야수 퀘스트가 빨간색입니다.",
+	-- ["Fly to {area:271}"] = "{area:271}(으)로 날아가세요",
 	-- ["Follow the southern road east into the {area:139}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "남쪽 길을 따라 동쪽으로 {area:139}에 들어가세요. {area:2262}의 폐허는 그 남쪽에 있습니다. {npc:10926}의 유령은 남쪽 끝의 무너진 집 옆에서 놀고 있습니다.",
 	-- ["Follow {npc:9298}'s directions to the mouth of {area:2256}, past the Frostmaul giants: pass them one at a time."] = "{npc:9298}의 안내를 따라 서리망치거인들을 지나 {area:2256} 입구로 가세요. 거인은 하나씩 지나가세요.",
 	-- ["Optional: {area:1417}"] = "선택: {area:1417}",

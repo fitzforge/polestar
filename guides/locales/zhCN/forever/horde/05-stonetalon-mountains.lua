@@ -14,7 +14,7 @@ return {
 
 	-- Step 2: Kadrak
 	-- {zone:1413} Barrens · {npc:8582} Kadrak · {area:1703} Mor'shan Rampart · {zone:1440} Ashenvale
-	["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}."] = "从希雷斯的营地向东北穿过{zone:1413}，到达十字路口北边的道路。道路进入{zone:1440}处有{area:1703}，{npc:8582}就站在那里的瞭望塔上。",
+	["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads; Rogues coming from Fizzule's tower head west to it. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}."] = "",
 
 	-- Step 3: Into Ashenvale
 	-- {zone:1440} Ashenvale
@@ -123,8 +123,8 @@ return {
 	["{item:15882}, from the {object:177790}"] = "{item:15882}，来自{object:177790}",
 
 	-- Step 24: Sepulcher
-	-- {area:228} Sepulcher · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
-	["From the zeppelin towers, run south through Tirisfal into Silverpine and down the road to the {area:228}. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "从飞艇塔出发，向南穿过提瑞斯法，进入银松森林，沿路到{area:228}。{npc:2121}和{npc:1937}站在墓穴入口旁。",
+	-- {area:228} Sepulcher · {object:177790} Strange Lockbox · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
+	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177790}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "",
 	-- {npc:1937} Apothecary Renferrel · {area:272} Tarren Mill
 	["{npc:1937}: Lydon in {area:272}, next guide"] = "{npc:1937}：{area:272}的林度恩，下一份指南再做",
 	-- {npc:2121} Shadow Priest Allister · {quest:516} Beren's Peril · {area:233} Ambermill
@@ -174,7 +174,9 @@ return {
 	-- ["Follow the road east along the river, then north-east up into the hills to {area:272}."] = "沿河边道路向东，然后向东北爬进山丘到{area:272}。",
 	-- ["Follow the road north toward {area:467}. Antlered Coursers graze along the way; the Sap Beasts, Twilight Runners and Fey Dragons roam the woods below the Peak, and the Cenarion druids hold the grove there."] = "沿道路向北朝{area:467}前进。巨角鹿沿途吃草；腐蚀兽、夜行虎和灵龙在山峰下方的树林中游荡，塞纳里奥德鲁伊占据那里的树林。",
 	-- ["Follow the road west to {area:460}."] = "沿道路向西前往{area:460}。",
+	-- ["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}."] = "从希雷斯的营地向东北穿过{zone:1413}，到达十字路口北边的道路。道路进入{zone:1440}处有{area:1703}，{npc:8582}就站在那里的瞭望塔上。",
 	-- ["From the zeppelin towers, run south through Tirisfal into Silverpine and down the road past the {area:228} and Pyrewood. The Ravenclaw undead haunt the ruins of {area:231} east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}."] = "从飞艇塔出发，向南跑过提瑞斯法进入银松森林，沿道路向南经过{area:228}和焚木村。鸦爪亡灵在森林东南部、道路东边的{area:231}废墟中游荡；{npc:1973}掉落{item:271343}，指引你找到{object:645153}。",
+	-- ["From the zeppelin towers, run south through Tirisfal into Silverpine and down the road to the {area:228}. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "从飞艇塔出发，向南穿过提瑞斯法，进入银松森林，沿路到{area:228}。{npc:2121}和{npc:1937}站在墓穴入口旁。",
 	-- ["From the {area:380} follow the road north. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}. Open the {item:16783} he gives you."] = "从{area:380}沿道路向北。{npc:8582}站在道路进入{zone:1440}处{area:1703}的瞭望塔上。打开他给你的{item:16783}。",
 	-- ["Gaea Dirt Mounds"] = "盖亚土堆",
 	-- ["Gaea Seeds"] = "盖亚之种",

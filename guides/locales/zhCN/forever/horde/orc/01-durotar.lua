@@ -154,7 +154,7 @@ return {
 	-- {area:368} Echo Isles
 	["{area:368}: kill these as you meet them"] = "{area:368}：沿途遇到就击杀",
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger
-	["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.\nWade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach."] = "涉水前往北侧的回音岛。血爪族母 在那里的迅猛龙之间徘徊。\n再向西涉水返回森金村南侧的海岸。杜隆塔尔猛虎在那里游荡，鞭尾龙的卵则在海滩沿线的巢中。",
+	["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.\nDurotar Tigers roam the isle as well as the shore south of Sen'jin, and the Taillasher eggs sit in nests on the isles and along the beach."] = "",
 
 	-- Step 29: Echo Isles: kill these as you meet them
 	-- {quest:826} Zalazane
@@ -342,5 +342,6 @@ return {
 	-- ["Into {zone:1454}"] = "进入{zone:1454}",
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369} across the bridge; any of them can drop a {item:6486}."] = "{npc:3130}和{npc:3131}在桥对面的{area:369}上吃草；任何一只都可能掉落{item:6486}。",
 	-- ["Thunder lizards across the river"] = "河对岸的雷霆蜥蜴",
+	-- ["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.\nWade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach."] = "涉水前往北侧的回音岛。血爪族母 在那里的迅猛龙之间徘徊。\n再向西涉水返回森金村南侧的海岸。杜隆塔尔猛虎在那里游荡，鞭尾龙的卵则在海滩沿线的巢中。",
 	-- ["{npc:3337}, beside {npc:5810}"] = "{npc:3337}，在{npc:5810}旁边",
 }

@@ -437,8 +437,8 @@ return {
 	["Back to the {area:925}"] = "返回 {area:925}",
 
 	-- Step 83: Thelsamar
-	-- {area:144} Thelsamar
-	["South down the road to {area:144}, finishing the ears, meat and ichor on the way."] = "沿路向南前往 {area:144}，途中收齐耳朵、肉和毒液。",
+	-- {area:144} Thelsamar · {npc:1340} Mountaineer Kadrell
+	["South down the road to {area:144}, finishing the ears, meat and ichor on the way. {npc:1340} walks the road through town."] = "",
 
 	-- Step 84: Golnir Bouldertoe
 	-- {object:32372} Great Forge · {npc:4256} Golnir Bouldertoe · {npc:1573} Gryth Thurden
@@ -588,6 +588,7 @@ return {
 	-- ["Defensive Stance"] = "防御姿态",
 	-- ["Follow the road up to {zone:1455} and train with your class trainer. The {area:2257} leaves from {object:171524}, in the east of the city. Ride it to {zone:1453}."] = "沿道路上到{zone:1455}，找你的职业训练师学习。{area:2257}从城市东部的{object:171524}出发。乘它前往{zone:1453}。",
 	-- ["Rockjaw Skullthumpers fill the quarry; Rockjaw Ambushers by {area:212} drop the {item:268548}."] = "{npc:1115}遍布采掘场；{area:212}旁的{npc:1116}掉落{item:268548}。",
+	-- ["South down the road to {area:144}, finishing the ears, meat and ichor on the way."] = "沿路向南前往 {area:144}，途中收齐耳朵、肉和毒液。",
 	-- ["Tame Beast"] = "驯服野兽",
 	-- ["The tram arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "地铁到达{object:28027}。{npc:5480}在{object:2100}训练战士；{npc:6089}和{npc:6090}一起站在那里的{object:2152}旁。{npc:6090}会为了他的杯子和你打一架。",
 	-- ["{npc:1127}, on the way"] = "{npc:1127}，沿途击杀",

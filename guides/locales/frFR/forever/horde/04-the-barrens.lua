@@ -138,7 +138,8 @@ return {
 
 	-- Step 24: The flying machine
 	["The flying machine"] = "La machine volante",
-	["The dwarves' flying machine sits on its platform inside the dig site."] = "La machine volante des nains repose sur sa plateforme dans le site de fouilles.",
+	-- {item:5021} Explosive Stick of Gann · {npc:3341} Gann Stonespire
+	["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "",
 
 	-- Step 26: Great Lift
 	-- {area:1718} Great Lift
@@ -173,11 +174,17 @@ return {
 	["Fly to {area:392}"] = "Voler jusqu'à {area:392}",
 	["Crossroads flight master"] = "",
 
-	-- Step 35: Merchant Coast
+	-- Step 35: Sputtervalve
+	-- {npc:3442} Sputtervalve
+	["{npc:3442} stands beside the flight master you land at."] = "",
+	-- {npc:3442} Sputtervalve · {quest:1094} Further Instructions · {npc:4201} Ziz Fizziks
+	["{npc:3442}: {quest:1094}, from {npc:4201}"] = "",
+
+	-- Step 36: Merchant Coast
 	-- {quest:874} Mahren Skyseer · {area:392} Ratchet
 	["{quest:874} camps on the shore just north of {area:392}'s flight master."] = "",
 
-	-- Step 36: Isha Awak
+	-- Step 37: Isha Awak
 	-- {quest:873} Isha Awak · {area:391} Merchant Coast · {npc:3388} Mahren Skyseer
 	["{quest:873}, a big threshadon, swims in the shallows off the {area:391}, east of {npc:3388}."] = "{quest:873}, un grand battrodon, nage dans les hauts-fonds au large de {area:391}, à l'est de {npc:3388}.",
 
@@ -238,6 +245,7 @@ return {
 	-- ["The Venture Co. Overseers and Enforcers at the mine in the north-east corner of the zone drop the {item:5097}."] = "Les Surveillants de la KapitalRisk et Massacreurs de la KapitalRisk de la mine au nord-est de la zone laissent l'{item:5097}.",
 	-- ["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then hearth to {area:378} straight away."] = "Les antennes disparaissent quinze minutes après leur butin : ramassez-les maintenant, en remontant vers le nord. Tuez les Grouillants silithides et Rampants silithides près des antres du {area:390} jusqu'à en avoir cinq, puis utilisez tout de suite la Pierre de foyer vers le {area:378}.",
 	-- ["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then hearth to {area:378} straight away.\nCareful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds."] = "Les antennes disparaissent quinze minutes après être tombées : ramassez-les maintenant, sur le chemin du retour vers le nord. Tuez les Grouillants et les Rampants silithides près des antres du {area:390} jusqu'à en avoir cinq, puis utilisez aussitôt votre pierre de foyer vers le {area:378}.\nAttention : les Grouillants silithides (niveau 21-22) lancent {npc:4196} en combat comme hors combat, ce qui fait venir plusieurs petits monstres. Les Rampants silithides (niveau 20-21) lancent régulièrement {npc:5781} en combat, ce qui fait apparaître des monstres en plus.",
+	-- ["The dwarves' flying machine sits on its platform inside the dig site."] = "La machine volante des nains repose sur sa plateforme dans le site de fouilles.",
 	-- ["The level-20 class quests in {zone:1454} ({npc:3354}, {npc:5892}, the Warlock and Rogue trainers) are only offered from level 20, so finish the level here before you fly. The Thunderhawk Hatchlings (18) on the plains south-west of the {area:380} and the Kolkar (14-15) at the {area:388} are the nearest mobs worth killing; you need well under a level."] = "Les quêtes de classe de niveau 20 à {zone:1454} ({npc:3354}, {npc:5892}, les maîtres démonistes et voleurs) ne sont proposées qu'à partir du niveau 20 : finissez le niveau ici avant de voler. Les Jeunes faucons-tonnerre (18) dans les plaines au sud-ouest de {area:380} et les kolkars (14-15) à l'{area:388} sont les monstres valables les plus proches ; il vous faut bien moins d'un niveau.",
 	-- ["The pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "Les pirates campent sur la plage au sud de {area:392} ; {npc:3467} se tient à son extrémité sud.",
 	-- ["The three nests sit together in the {area:1697} south-west of the oasis; Sunscale Scytheclaws guard them."] = "Les trois nids sont regroupés dans {area:1697}, au sud-ouest de l'oasis ; des Faucheurs solécaille les gardent.",

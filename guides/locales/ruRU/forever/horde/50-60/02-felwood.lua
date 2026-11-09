@@ -244,11 +244,12 @@ return {
 	-- Step 53: Winna Hazzard's kitten
 	-- {npc:9996} Winna Hazzard
 	["{npc:9996}'s kitten"] = "Котенок {npc:9996}",
-	-- {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
-	["Take the kitten to the same moonwell and release it there; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "Отнесите котенка к тому же лунному колодцу и выпустите его; когда он превратится в монстра {npc:10042}, приведите его к {npc:9996} и щелкните по нему, чтобы передать.",
-	["Jadefire moonwell"] = "Лунный колодец Нефритового Пламени",
+	-- {item:12565} Winna's Kitten Carrier · {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
+	["Take the kitten to the same moonwell and release it there with {item:12565}; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "",
+	-- {item:12565} Winna's Kitten Carrier
+	["{item:12565}, at the Jadefire moonwell"] = "",
 
-	-- Step 56: Level 54.87
+	-- Step 55: Level 54.87
 	["Level 54.87"] = "",
 	-- {zone:1452} Winterspring · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
 	["Top up here to level 54.87 before the hand-ins in {zone:1452}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
@@ -262,6 +263,7 @@ return {
 	-- ["Fly to {area:272}"] = "Летите сюда: {area:272}",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo."] = "Езжайте по дороге на северо-восток сюда: {area:1767}. У криводревов ({npc:7100}) и криводревов-живорезов в восточной части леса – {item:11503}; в том же лесу бродят гризли злобных когтей и разорители ({npc:8961}) для Тало.",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "От распорядителя полетов ({area:2268}) летите сюда: {area:1497}.",
+	-- ["Jadefire moonwell"] = "Лунный колодец Нефритового Пламени",
 	-- ["Keep Little Pamela: Pamela is in {area:2262}, visited again later."] = "Сохраните задание Малышка Памела: Памела – здесь: {area:2262}, вы вернетесь туда позже.",
 	-- ["Keep the parcel: {npc:10781} is in the {area:1497}."] = "Сохраните посылку: {npc:10781} – здесь: {area:1497}.",
 	-- ["Leave the {area:1497} and ride east along the road through {zone:1420}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "Покиньте город {area:1497} и езжайте на восток по дороге через край {zone:1420}, мимо места {area:152}. Ферма Фелстоунов – первая ферма у дороги; {npc:10778} ждет в доме.",
@@ -274,6 +276,7 @@ return {
 	-- ["Ride south past the {area:202} to {area:197}; {npc:10927}'s house stands by the road, and {npc:10936}'s monument is in the graveyard behind it. Kill the Diseased Wolves you meet in the fields on the way."] = "Езжайте на юг мимо места {area:202} сюда: {area:197}; дом {npc:10927} стоит у дороги, а памятник ({npc:10936}) – на кладбище за ним. По пути убивайте больных волков в полях.",
 	-- ["Ride the road south through {area:361} to the Sanctuary."] = "Езжайте по дороге на юг через край {area:361} к святилищу.",
 	-- ["Scarlet forward camp"] = "Передовой лагерь Алого ордена",
+	-- ["Take the kitten to the same moonwell and release it there; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "Отнесите котенка к тому же лунному колодцу и выпустите его; когда он превратится в монстра {npc:10042}, приведите его к {npc:9996} и щелкните по нему, чтобы передать.",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Летопись лежит среди затхлых фолиантов ({object:176150}) в ратуше Андорала; открывайте их, пока не найдете нужный.",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "Деревня фурболгов племени Мертвого Леса – чуть к югу от святилища. Каждое убийство фурболга Мертвого Леса повышает репутацию ({area:1769}); сохраняйте перья из головных уборов.",
 	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Палатки Алого ордена стоят между местами {area:199} и {area:200}. Подожгите командную палатку ({object:176092}) и установите знамя Плети.",

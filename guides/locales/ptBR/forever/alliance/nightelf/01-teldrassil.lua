@@ -175,7 +175,7 @@ return {
 
 	-- Step 27: Sentinel Shayla Nightbreeze
 	-- {area:261} Gnarlpine Hold
-	["West along the road to the city gate: Shayla stands beside it. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and {area:261}'s all count."] = "A oeste pela estrada até o portão da cidade: Shayla fica ao lado dele. Todo furbolg Masca-pinho solta presas: os emboscadores desta estrada, os da toca e os de {area:261} contam todos.",
+	["West along the road toward the city. Shayla walks this stretch of road, from the arrow south-west to the bend at about 38,54 and back: if she isn't at the arrow, follow the road south-west. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and {area:261}'s all count."] = "",
 
 	-- Step 28: Darnassus
 	-- {quest:922} Rellian Greenspyre · {area:1658} Cenarion Enclave · {npc:7316} Sister Aquinne · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade · {item:279378} Lunar Pendant
@@ -240,7 +240,7 @@ return {
 
 	-- Step 38: Sentinel Shayla Nightbreeze
 	-- {area:186} Dolanaar
-	["West along the road from {area:186}: Shayla still stands beside it, before the turn north to the glade."] = "A oeste pela estrada, a partir de {area:186}: Shayla ainda fica ao lado dela, antes da curva para o norte, rumo à clareira.",
+	["West along the road from {area:186}, before the turn north to the glade: Shayla walks the road from the arrow south-west to the bend at about 38,54 and back."] = "",
 
 	-- Step 39: The Wellspring River
 	-- {area:265} Wellspring River
@@ -477,6 +477,8 @@ return {
 	-- ["Use the {item:5623} at the moonwell"] = "Use o {item:5623} no poço lunar",
 	-- ["Walk south along the west side of the island. Ursal prowls the far south, below the {area:478}."] = "Ande para o sul pelo lado oeste da ilha. Ursal, o Espancador, ronda o extremo sul, abaixo de {area:478}.",
 	-- ["Webwood Spiders"] = "Aranhas Lenhateia",
+	-- ["West along the road from {area:186}: Shayla still stands beside it, before the turn north to the glade."] = "A oeste pela estrada, a partir de {area:186}: Shayla ainda fica ao lado dela, antes da curva para o norte, rumo à clareira.",
+	-- ["West along the road to the city gate: Shayla stands beside it. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and {area:261}'s all count."] = "A oeste pela estrada até o portão da cidade: Shayla fica ao lado dele. Todo furbolg Masca-pinho solta presas: os emboscadores desta estrada, os da toca e os de {area:261} contam todos.",
 	-- ["{area:186} quests"] = "Missões de {area:186}",
 	-- ["{npc:2150} sits by the road just east of {area:186}, on the way to {area:260}."] = "{npc:2150} fica junto à estrada, logo a leste de {area:186}, a caminho de {area:260}.",
 	-- ["{npc:2150}, on the way back"] = "{npc:2150}, no caminho de volta",

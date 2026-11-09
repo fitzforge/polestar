@@ -138,7 +138,8 @@ return {
 
 	-- Step 24: The flying machine
 	["The flying machine"] = "飛行器",
-	["The dwarves' flying machine sits on its platform inside the dig site."] = "矮人的飛行器停在挖掘場內的平台上。",
+	-- {item:5021} Explosive Stick of Gann · {npc:3341} Gann Stonespire
+	["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "",
 
 	-- Step 26: Great Lift
 	-- {area:1718} Great Lift
@@ -173,11 +174,17 @@ return {
 	["Fly to {area:392}"] = "飛往{area:392}",
 	["Crossroads flight master"] = "",
 
-	-- Step 35: Merchant Coast
+	-- Step 35: Sputtervalve
+	-- {npc:3442} Sputtervalve
+	["{npc:3442} stands beside the flight master you land at."] = "",
+	-- {npc:3442} Sputtervalve · {quest:1094} Further Instructions · {npc:4201} Ziz Fizziks
+	["{npc:3442}: {quest:1094}, from {npc:4201}"] = "",
+
+	-- Step 36: Merchant Coast
 	-- {quest:874} Mahren Skyseer · {area:392} Ratchet
 	["{quest:874} camps on the shore just north of {area:392}'s flight master."] = "",
 
-	-- Step 36: Isha Awak
+	-- Step 37: Isha Awak
 	-- {quest:873} Isha Awak · {area:391} Merchant Coast · {npc:3388} Mahren Skyseer
 	["{quest:873}, a big threshadon, swims in the shallows off the {area:391}, east of {npc:3388}."] = "{quest:873}是一隻巨大的長頸龍，在{area:391}外的淺水中游動，位於{npc:3388}東邊。",
 
@@ -220,6 +227,7 @@ return {
 	-- ["The Bristleback quilboar camps spread over the plains north of {area:378}, either side of the {area:458}. Every Bristleback drops a tusk; {npc:3432}'s wife lies at the north edge. Keep one {item:5075}. {quest:883}, a grey kodo, sometimes wanders here: his hoof starts a quest."] = "刺背野豬人的營地散布在{area:378}北邊的平原，{area:458}兩側都有。每個刺背野豬人都會掉落獠牙；{npc:3432}的妻子躺在北緣。留一個{item:5075}。灰色科多獸{quest:883}有時在這裡遊蕩：牠的蹄子會開啟任務。",
 	-- ["The Venture Co. Overseers and Enforcers at the mine in the north-east corner of the zone drop the {item:5097}."] = "地區東北角礦坑的風險投資公司監工和風險投資公司執行者會掉落{item:5097}。",
 	-- ["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then hearth to {area:378} straight away."] = "觸鬚掉落十五分鐘後就會消失，所以現在在往北的回程路上收集：在{area:390}的土丘擊殺異種群居蠍和異種爬行者直到收集五個，然後立刻用爐石回到{area:378}。",
+	-- ["The dwarves' flying machine sits on its platform inside the dig site."] = "矮人的飛行器停在挖掘場內的平台上。",
 	-- ["The level-20 class quests in {zone:1454} ({npc:3354}, {npc:5892}, the Warlock and Rogue trainers) are only offered from level 20, so finish the level here before you fly. The Thunderhawk Hatchlings (18) on the plains south-west of the {area:380} and the Kolkar (14-15) at the {area:388} are the nearest mobs worth killing; you need well under a level."] = "{zone:1454}的20級職業任務（{npc:3354}、{npc:5892}、術士和盜賊訓練師）只在20級後才提供，所以飛之前先在這裡升到20級。{area:380}西南方平原上的雷鷹雛鳥（18級）和{area:388}的科卡爾半人馬（14-15級）是最近值得打的怪；你需要的經驗遠不到一級。",
 	-- ["The pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "海盜在{area:392}南邊的海灘上紮營；{npc:3467}站在營地南端。",
 	-- ["The {area:2363}"] = "{area:2363}",

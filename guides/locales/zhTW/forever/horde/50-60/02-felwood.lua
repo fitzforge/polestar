@@ -244,11 +244,12 @@ return {
 	-- Step 53: Winna Hazzard's kitten
 	-- {npc:9996} Winna Hazzard
 	["{npc:9996}'s kitten"] = "{npc:9996}的小貓",
-	-- {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
-	["Take the kitten to the same moonwell and release it there; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "把小貓帶到同一個月井並在那裡放出牠；牠變成{npc:10042}後，把牠帶回給{npc:9996}，點擊牠來交給她。",
-	["Jadefire moonwell"] = "碧火月井",
+	-- {item:12565} Winna's Kitten Carrier · {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
+	["Take the kitten to the same moonwell and release it there with {item:12565}; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "",
+	-- {item:12565} Winna's Kitten Carrier
+	["{item:12565}, at the Jadefire moonwell"] = "",
 
-	-- Step 56: Level 54.87
+	-- Step 55: Level 54.87
 	["Level 54.87"] = "",
 	-- {zone:1452} Winterspring · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
 	["Top up here to level 54.87 before the hand-ins in {zone:1452}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
@@ -262,6 +263,7 @@ return {
 	-- ["Fly to {area:272}"] = "飛往{area:272}",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo."] = "沿著道路向東北前往{area:1767}。樹林東側的曲木食苔者和曲木撕裂者各帶有一個{item:11503}；怒爪灰熊和魔爪掠奪者在同一片樹林遊蕩，是塔羅的任務目標。",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "從{area:2268}的飛行管理員處飛往{area:1497}。",
+	-- ["Jadefire moonwell"] = "碧火月井",
 	-- ["Keep Little Pamela: Pamela is in {area:2262}, visited again later."] = "保留小潘蜜拉：帕米拉在{area:2262}，之後會再去。",
 	-- ["Keep the parcel: {npc:10781} is in the {area:1497}."] = "保留包裹：{npc:10781}在{area:1497}。",
 	-- ["Leave the {area:1497} and ride east along the road through {zone:1420}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "離開{area:1497}，沿著道路向東穿過{zone:1420}，經過{area:152}。費爾斯通農場是道路旁的第一座農場；{npc:10778}在屋裡等候。",
@@ -274,6 +276,7 @@ return {
 	-- ["Ride south past the {area:202} to {area:197}; {npc:10927}'s house stands by the road, and {npc:10936}'s monument is in the graveyard behind it. Kill the Diseased Wolves you meet in the fields on the way."] = "向南騎過{area:202}前往{area:197}；{npc:10927}的房子在路旁，{npc:10936}的紀念碑在房子後面的墓地裡。沿途擊殺田野中遇到的生病的狼。",
 	-- ["Ride the road south through {area:361} to the Sanctuary."] = "沿著道路向南穿過{area:361}前往聖地。",
 	-- ["Scarlet forward camp"] = "血色十字軍前進營地",
+	-- ["Take the kitten to the same moonwell and release it there; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "把小貓帶到同一個月井並在那裡放出牠；牠變成{npc:10042}後，把牠帶回給{npc:9996}，點擊牠來交給她。",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "歷史書在安多哈爾市政廳的發黴的書籍之中；逐一打開直到找到正確的那本。",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "死木熊怪村莊就在聖地南邊。每擊殺一個死木熊怪也會提升你的{area:1769}聲望；保留頭飾羽毛。",
 	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "血色十字軍的帳篷位於{area:199}和{area:200}之間。用{object:176092}燒掉指揮帳篷，並插上天災戰旗。",

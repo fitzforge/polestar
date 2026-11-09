@@ -14,8 +14,8 @@ return {
 	["{npc:2817}'s next quest pays no experience: skip it."] = "La quête suivante de {npc:2817} ne rapporte pas d'expérience : passez-la.",
 
 	-- Step 3: Boss Tho'grun
-	-- {zone:1418} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
-	["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Traversez les {zone:1418} vers l'ouest jusqu'au camp Crache-poussières de {area:342}. {npc:2944} se tient au centre, entouré de Chasseurs Wyrm et de Marteleurs Crache-poussières.",
+	-- {npc:2944} Boss Tho'grun · {area:342} Camp Boff · {zone:1418} Badlands
+	["{npc:2944} does not stay at {area:342}: he walks a long loop around the {zone:1418} with his guards, from the camp in the west along the south of the zone to about 61,69, north to about 49,49 and back west to the camp. The arrow follows his loop west from here until you meet him."] = "",
 
 	-- Step 4: Garek
 	-- {area:1898} Dustwind Gulch
@@ -148,6 +148,7 @@ return {
 	-- ["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. Falstad holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Partez au nord-est hors d'{area:271} par la route des {zone:1425} ; {area:348} se trouve juste après la frontière. Falstad tient sa cour au sommet, {quest:1450} s'occupe de la volière et {npc:7884} se tient près de l'auberge.",
 	-- ["Ride south out of {zone:1432} through the pass into the {zone:1418}; {npc:2860} camps at the dig."] = "Partez au sud hors du {zone:1432}, par le col, jusqu'aux {zone:1418} ; {npc:2860} campe sur le site de fouilles.",
 	-- ["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Chevauchez vers l'ouest à travers les {area:3} jusqu'au camp Crache-poussières du {area:342}. {npc:2944} se tient au milieu, entouré de Chasseurs Wyrm et de Marteleurs.",
+	-- ["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Traversez les {zone:1418} vers l'ouest jusqu'au camp Crache-poussières de {area:342}. {npc:2944} se tient au centre, entouré de Chasseurs Wyrm et de Marteleurs Crache-poussières.",
 	-- ["Ride west to the {area:1877} in the middle of the {zone:1418}; {npc:2817} camps beside Martek."] = "Partez à l'ouest vers {area:1877}, au milieu des {zone:1418} ; {npc:2817} campe à côté de Martek.",
 	-- ["Take the boat to Theramore from the far pier."] = "Prenez le bateau pour Theramore au quai le plus éloigné.",
 	-- ["Talonaxe's next task waits for a later {area:47} guide."] = "La tâche suivante de Talonaxe attend un guide des {area:47} ultérieur.",

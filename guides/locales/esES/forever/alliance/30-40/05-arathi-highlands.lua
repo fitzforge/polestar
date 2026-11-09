@@ -146,7 +146,7 @@ return {
 
 	-- Step 34: Forsaken Courier
 	-- {area:314} Go'Shek Farm
-	["The courier walks the road west of {area:314} with two guards; pull them off the road."] = "El mensajero recorre el camino al oeste de {area:314} con dos guardias; atráelos fuera del camino.",
+	["The courier walks the road from {area:314} west across the Highlands, as far as about 24,45, and back, with two guards: the arrow follows the road west until you meet him. Pull them off the road."] = "",
 
 	-- Step 36: Quae and Kinelory
 	-- {npc:2712} Quae · {npc:2713} Kinelory
@@ -235,7 +235,7 @@ return {
 
 	-- Step 54: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:2417} walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path."] = "",
 
 	-- Step 55: Strahnbrad: kill these as you meet them
 	-- {area:280} Strahnbrad
@@ -304,6 +304,7 @@ return {
 	-- ["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop both the motes and Krazek's ore."] = "Los kóbolds Mostacho Seco excavan en la garganta al este de {area:321} (Horda); rodea el pueblo por el norte. Sueltan tanto las motas como el mineral de Krazek.",
 	-- ["The Syndicate hold the farm north-west of {area:320}. A {npc:217589} crawls about the farm: catch one with {npc:217412}'s Entomology Starter Kit, then tick it off."] = "El Sindicato ocupa la granja al noroeste de {area:320}. Un {npc:217589} corretea por la granja: atrapa uno con el kit de iniciación a la entomología de {npc:217412} y márcalo.",
 	-- ["The Witherbark trolls live in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley."] = "Los trols Secacorteza viven en las colinas al sur de {area:314}; los médicos brujos están en el poblado y los cazadores de las Sombras guardan el fondo del valle.",
+	-- ["The courier walks the road west of {area:314} with two guards; pull them off the road."] = "El mensajero recorre el camino al oeste de {area:314} con dos guardias; atráelos fuera del camino.",
 	-- ["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins."] = "Los tomos están en el castillo en ruinas al oeste de {area:280}; los Magos oscuros Artus ocupan las ruinas.",
 	-- ["The wrecked caravan lies off the road near Biggs."] = "La caravana destrozada está fuera del camino, cerca de Biggs.",
 	-- ["The wrecks"] = "Los naufragios",

@@ -193,43 +193,52 @@ return {
 	["Frayfeather Hippogryphs"] = "亂羽角鷹獸",
 	["The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body."] = "角鷹獸在營地西南方的山丘上築巢。殺一隻，然後對牠的屍體使用靈魂精華容器。",
 
-	-- Step 52: Sprite Darters
+	-- Step 51: Hippogryph nests
+	["Hippogryph nests"] = "",
+	-- {area:2522} Ruins of Isildien · {object:142071} Egg-O-Matic
+	["The hippogryph nests are on the hills to the south, around the {area:2522}; each holds an egg for the {object:142071}."] = "",
+
+	-- Step 53: Sprite Darters
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
 	["Sprite Darters"] = "小精龍",
 	["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill."] = "精靈龍在營地西邊的樹林中飛舞。對你殺死的每一隻使用容器。",
 
-	-- Step 54: Wandering Forest Walkers
+	-- Step 55: Wandering Forest Walkers
 	-- plural, as words: Wandering Forest Walkers = {npc:7584} Wandering Forest Walker
 	["Wandering Forest Walkers"] = "森林漫遊者",
 	-- {zone:1444} Feralas
 	["The treants wander the forest roads between the camp and the middle of {zone:1444}; there are only a few, so look along the paths."] = "樹人在營地和{zone:1444}中部之間的林間道路上遊蕩；數量不多，沿著小路找找。",
 
-	-- Step 57: The Forgotten Coast: kill these as you meet them
+	-- Step 58: The Forgotten Coast: kill these as you meet them
 	-- {area:1108} The Forgotten Coast
 	["{area:1108}: kill these as you meet them"] = "",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray · Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
 	["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "",
 
-	-- Step 59: Back to Camp Mojache
+	-- Step 60: Back to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Back to {area:1099}"] = "返回{area:1099}",
 
-	-- Step 60: Fly to Gadgetzan
+	-- Step 61: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "飛往{area:976}",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "",
 
-	-- Step 61: Gadgetzan
+	-- Step 62: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
+
+	-- Step 64: Gadgetzan
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}，在雙足飛龍管理員旁",
+	-- {object:142071} Egg-O-Matic
+	["The {object:142071}, in the middle of town"] = "",
 	-- {npc:7876} Tran'rek · {zone:1449} Un'Goro Crater
 	["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "{npc:7876}的焦油和匹斯特蘇格的樣本都來自{zone:1449}。",
 
-	-- Step 62: Marvon Rivetseeker
+	-- Step 65: Marvon Rivetseeker
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {zone:1449} Un'Goro Crater
 	["Ride south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "沿著道路向南前往{area:1938}；{npc:7771}在旁邊紮營。從這裡往西的道路會下到{zone:1449}，下一份指南從那裡開始。",
 	-- {quest:3444} The Stone Circle · {npc:7771} Marvon Rivetseeker

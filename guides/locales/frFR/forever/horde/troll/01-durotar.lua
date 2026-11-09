@@ -41,8 +41,9 @@ return {
 	-- plural, as words: Scorpid Workers = {npc:3124} Scorpid Worker · Cactus Apples = {item:11583} Cactus Apple
 	["{quest:790}, a large scorpid, prowls the slope south of {npc:3287} among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side."] = "",
 
-	-- Step 6: Back to the Den
-	["Back to the Den"] = "Retour à l'Antre",
+	-- Step 6: Galgar
+	-- {npc:9796} Galgar
+	["{npc:9796} stands just outside the Den's entrance."] = "",
 
 	-- Step 7: Class trainer
 	["Class trainer"] = "Maître de classe",
@@ -58,6 +59,7 @@ return {
 	["{npc:3034} in {zone:1412}; {area:363} has no druid trainer"] = "{npc:3034} ({zone:1412}) ; {area:363} n'a pas de maître des druides",
 
 	-- Step 10: Back to the Den
+	["Back to the Den"] = "Retour à l'Antre",
 	-- {npc:11378} Foreman Thazz'ril
 	["{npc:11378}, at the lumber pile east of the Den"] = "{npc:11378}, près du tas de bois à l'est de l'Antre",
 

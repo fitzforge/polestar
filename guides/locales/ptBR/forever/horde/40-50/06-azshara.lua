@@ -193,43 +193,52 @@ return {
 	["Frayfeather Hippogryphs"] = "Hipogrifos Esfiapluma",
 	["The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body."] = "Os hipogrifos fazem ninho nas colinas a sudoeste do acampamento. Mate um e use o Recipiente de Muisec no corpo.",
 
-	-- Step 52: Sprite Darters
+	-- Step 51: Hippogryph nests
+	["Hippogryph nests"] = "",
+	-- {area:2522} Ruins of Isildien · {object:142071} Egg-O-Matic
+	["The hippogryph nests are on the hills to the south, around the {area:2522}; each holds an egg for the {object:142071}."] = "",
+
+	-- Step 53: Sprite Darters
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
 	["Sprite Darters"] = "Dardejantes",
 	["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill."] = "As dragoletas voam pelo bosque logo a oeste do acampamento. Use o recipiente em cada uma que matar.",
 
-	-- Step 54: Wandering Forest Walkers
+	-- Step 55: Wandering Forest Walkers
 	-- plural, as words: Wandering Forest Walkers = {npc:7584} Wandering Forest Walker
 	["Wandering Forest Walkers"] = "Andarilhos Errantes da Floresta",
 	-- {zone:1444} Feralas
 	["The treants wander the forest roads between the camp and the middle of {zone:1444}; there are only a few, so look along the paths."] = "Os arvorosos vagam pelas estradas da floresta entre o acampamento e o meio de {zone:1444}; são poucos, então procure ao longo das trilhas.",
 
-	-- Step 57: The Forgotten Coast: kill these as you meet them
+	-- Step 58: The Forgotten Coast: kill these as you meet them
 	-- {area:1108} The Forgotten Coast
 	["{area:1108}: kill these as you meet them"] = "{area:1108}: vá matando estes pelo caminho",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray · Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
 	["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "Os Elementais do Mar e os Borrifos do Mar vão e vêm pela praia em volta do cais.\nOs Terrâmbulos e os Gigantes do Penhasco andam pelas colinas ao norte do cais. Dê uma zapeada em cada um com o {item:18904} antes: encolhidos, deixam de ser elite. Todo gigante zapeado deixa cair resíduo; use também o Recipiente de Muisec no corpo dele.",
 
-	-- Step 59: Back to Camp Mojache
+	-- Step 60: Back to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Back to {area:1099}"] = "Volte para {area:1099}",
 
-	-- Step 60: Fly to Gadgetzan
+	-- Step 61: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "Voar para {area:976}",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "Mestre de voo de {area:1099}",
 
-	-- Step 61: Gadgetzan
+	-- Step 62: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, lá dentro",
+
+	-- Step 64: Gadgetzan
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}, ao lado do mestre de voo",
+	-- {object:142071} Egg-O-Matic
+	["The {object:142071}, in the middle of town"] = "",
 	-- {npc:7876} Tran'rek · {zone:1449} Un'Goro Crater
 	["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "O piche de {npc:7876} e as amostras de Almofarrista vêm de {zone:1449}.",
 
-	-- Step 62: Marvon Rivetseeker
+	-- Step 65: Marvon Rivetseeker
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {zone:1449} Un'Goro Crater
 	["Ride south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "Siga a estrada para o sul até {area:1938}; {npc:7771} acampa ao lado. Daqui a estrada para o oeste desce até {zone:1449}, onde começa o próximo guia.",
 	-- {quest:3444} The Stone Circle · {npc:7771} Marvon Rivetseeker

@@ -244,11 +244,12 @@ return {
 	-- Step 53: Winna Hazzard's kitten
 	-- {npc:9996} Winna Hazzard
 	["{npc:9996}'s kitten"] = "O gatinho da {npc:9996}",
-	-- {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
-	["Take the kitten to the same moonwell and release it there; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "Leve o gatinho ao mesmo poço lunar e solte-o ali; quando ele virar um {npc:10042}, leve-o de volta a {npc:9996} e clique nele para entregá-lo.",
-	["Jadefire moonwell"] = "Poço lunar Flamejade",
+	-- {item:12565} Winna's Kitten Carrier · {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
+	["Take the kitten to the same moonwell and release it there with {item:12565}; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "",
+	-- {item:12565} Winna's Kitten Carrier
+	["{item:12565}, at the Jadefire moonwell"] = "",
 
-	-- Step 56: Level 54.87
+	-- Step 55: Level 54.87
 	["Level 54.87"] = "Nível 54.87",
 	-- {zone:1452} Winterspring · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
 	["Top up here to level 54.87 before the hand-ins in {zone:1452}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Complete aqui até o nível 54.87 antes das entregas em {zone:1452}: elas levam você ao nível 55. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1417}.",
@@ -264,6 +265,7 @@ return {
 	-- ["Fly to {area:272}"] = "Voe para {area:272}",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo."] = "Siga a estrada para nordeste até {area:1767}. Os Rasgamusgos e Retalhadores Lenhatorta do lado leste da mata levam cada um um {item:11503}; Ursos-cinzentos Garraivosos e Assoladores Patavil vagam pela mesma mata para Talo.",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "Do mestre de voo de {area:2268}, voe para {area:1497}.",
+	-- ["Jadefire moonwell"] = "Poço lunar Flamejade",
 	-- ["Keep Little Pamela: Pamela is in {area:2262}, visited again later."] = "Guarde A pequena Pâmela: a Pâmela fica em {area:2262}, que você visita de novo mais tarde.",
 	-- ["Keep the parcel: {npc:10781} is in the {area:1497}."] = "Guarde o embrulho: {npc:10781} está em {area:1497}.",
 	-- ["Keep {quest:5142}: Pamela is in {area:2262}, visited again later."] = "Guarde {quest:5142}: Pâmela está em {area:2262}, visitada de novo mais tarde.",
@@ -280,6 +282,7 @@ return {
 	-- ["Ride south past the {area:202} to {area:197}; {npc:10927}'s house stands by the road, and {npc:10936}'s monument is in the graveyard behind it. Kill the Diseased Wolves you meet in the fields on the way."] = "Cavalgue para o sul, passando por {area:202}, até {area:197}; a casa de {npc:10927} fica junto à estrada, e o monumento de {npc:10936} está no cemitério atrás dela. Mate os Lobos Doentes que encontrar nos campos pelo caminho.",
 	-- ["Ride the road south through {area:361} to the Sanctuary."] = "Siga a estrada para o sul através de {area:361} até o Santuário.",
 	-- ["Scarlet forward camp"] = "Acampamento avançado Escarlate",
+	-- ["Take the kitten to the same moonwell and release it there; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "Leve o gatinho ao mesmo poço lunar e solte-o ali; quando ele virar um {npc:10042}, leve-o de volta a {npc:9996} e clique nele para entregá-lo.",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Os Anais estão entre os Tomos Mofados na prefeitura de Andorhal; abra-os até achar o certo.",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "A aldeia dos furbolgs Lenha Morta fica logo ao sul do Santuário. Cada morte de Lenha Morta também aumenta sua reputação com {area:1769}; guarde as penas de cocar.",
 	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "As barracas da Cruzada Escarlate ficam entre {area:199} e {area:200}. Incendeie a barraca de comando com a {object:176092} e finque o estandarte do Flagelo.",

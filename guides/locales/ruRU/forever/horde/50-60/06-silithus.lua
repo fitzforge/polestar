@@ -183,8 +183,8 @@ return {
 	["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "Теперь {npc:9619} просит шкуру ({npc:9622}) из северо-восточной пещеры: пропустите.",
 
 	-- Step 41: Gadgetzan
-	-- {area:976} Gadgetzan · {object:142071} Egg-O-Matic
-	["Fly to {area:976}. The {object:142071} stands in the middle of town."] = "Летите сюда: {area:976}. {object:142071} стоит в центре города.",
+	-- {area:976} Gadgetzan · {quest:2741} The Super Egg-O-Matic
+	["Fly to {area:976}. Still carrying {quest:2741}? The machine stands in the middle of town."] = "",
 
 	-- Step 42: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -336,6 +336,7 @@ return {
 	-- ["Dredge Strikers, Stonelash Scorpids and Sand Skitterers share the sands just north of the hold."] = "Землечерпы, камнехвостые скорпиды и песчаные пауки-быстроноги бродят по пескам чуть к северу от крепости.",
 	-- ["Dredge and scorpids"] = "Землечерпы и скорпиды",
 	-- ["Fly to {area:1637} and train."] = "Летите сюда: {area:1637} и обучитесь.",
+	-- ["Fly to {area:976}. The {object:142071} stands in the middle of town."] = "Летите сюда: {area:976}. {object:142071} стоит в центре города.",
 	-- ["Mar'alith's Dearest Natalia needs level 58 and leads into {area:2744} among elites. Skip it."] = "Задание Мар'алита о Наталии требует 58-го уровня и ведет сюда: {area:2744}, к элите. Пропустите.",
 	-- ["North to the lumber camp; set the termite barrel down in the middle of the mill."] = "На север к лесопилке; поставьте бочку с термитами в центре лесопилки.",
 	-- ["Ride east across the plaguelands to the chapel."] = "Езжайте на восток через Чумные земли к часовне.",
