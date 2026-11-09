@@ -12,12 +12,14 @@ next forever/alliance/30-40/05-arathi-highlands
 # Since 2026-11-07 Stranglethorn's second loop, after Desolace (the first loop is 30-40/04, which takes its Booty Bay
 # quests). In from Duskwood at the north, down through the jungle, out at Booty Bay.
 
-step Stormwind
+step Collin Mauren
+  when complete 1078
   zone Stormwind City
-  turnin 1078                         -- Mauren, from Stonetalon
+  turnin 1078                         -- In the Slaughtered Lamb, if you still carry it
 
 step Fly to Darkshire
   zone Stormwind City
+  goto 66.3,62.7 "Stormwind flight master"
   fly "Darkshire"
   zone Duskwood
 

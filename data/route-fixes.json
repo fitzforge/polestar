@@ -4600,6 +4600,90 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 30-40 audit (0.3.7, 2026-11-09): Swamp of Sorrows: from Galen's strongbox the road runs west past the Harborage, then south to Watcher Biggs on the way out to Deadwind Pass: Magtoor's hand-ins first, Biggs last (the route went Biggs, north to the Harborage, and back south past Biggs)."
+			},
+			{
+				"a": [
+					"task",
+					1078
+				],
+				"b": [
+					"turnin",
+					1175
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40 audit (0.3.7, 2026-11-09): Retrieval for Mauren (1078, level 26): its Crystalized Scales also drop from the Saltstone Basilisks (Forever's item data, 20%) that 30-40/03's Mirage Raceway step kills for A Bump in the Road at 32; the route farmed them on gray basilisks (23-27) in Stonetalon at 35 instead."
+			},
+			{
+				"a": [
+					"turnin",
+					1078
+				],
+				"b": [
+					"turnin",
+					1453
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40 audit (0.3.7, 2026-11-09): Retrieval for Mauren is handed to Collin Mauren on 30-40/04's Stormwind stop (34.7), before Desolace; it was handed in at 35.5 on 04b's, a level-26 quest at 20% XP."
+			},
+			{
+				"a": [
+					"turnin",
+					191
+				],
+				"b": [
+					"accept",
+					215
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40 audit (0.3.7, 2026-11-09): Stranglethorn first loop: Panther Mastery is handed to Sir S. J. Erlgadin on the walk back past Nesingwary's camp to the Rebel Camp; the route walked past him (31 yd) and came back after Kurzen's Compound (flow audit, passed ender, 28/28 branches)."
+			},
+			{
+				"a": [
+					"turnin",
+					200
+				],
+				"b": [
+					"accept",
+					198
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40 audit (0.3.7, 2026-11-09): Stranglethorn first loop: Bookie Herod's Records lie in the hut on Kurzen's Compound's west edge, which the first loop works for The Second Rebellion; the records are handed in and The Hidden Key taken there (the route walked past them at 14 yd and came back two guides later; the primary benchmark route does the same split: records on the first visit, the strongbox on the second)."
+			},
+			{
+				"a": [
+					"accept",
+					328
+				],
+				"b": [
+					"accept",
+					198
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40 audit (0.3.7, 2026-11-09): Stranglethorn first loop: The Hidden Key comes from Bookie Herod's Records on the same Kurzen stop (see the turnin 200 pair); its strongbox stays on the northern loop (30-40/04b)."
+			},
+			{
+				"a": [
+					"accept",
+					210
+				],
+				"b": [
+					"accept",
+					198
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40 audit (0.3.7, 2026-11-09): Stranglethorn first loop: Corporal Kaleb (Rebel Camp) gives Krazek's Cookery on the first Rebel Camp stop; the route walked past him (12 yd) and took it two guides later."
+			},
+			{
+				"a": [
+					"turnin",
+					210
+				],
+				"b": [
+					"accept",
+					601
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40 audit (0.3.7, 2026-11-09): Stranglethorn first loop: Krazek's Cookery is a delivery to Krazek, handed in on the first Booty Bay stop (Krazek gives Supplies to Private Thorsen there); Favor for Krazek (627) is still taken on 30-40/04b's Booty Bay stop."
 			}
 		],
 		"notes": [
@@ -7830,7 +7914,6 @@
 			},
 			{
 				"q": 1132,
-				"faction": "Alliance",
 				"reason": "Quest volume (2026-11-08, Alliance 30-40): Fiora Longears (level 30, from 30, 1200 XP) is a delivery: Red Jack Flint stands on Menethil's dock beside the flight master where 30-40/03 lands, and Fiora Longears waits on Theramore's docks where that guide's boat lands, the same NPC who gives Highperch Venom (1135) on that stop. No walk added.",
 				"issue": "-"
 			}
