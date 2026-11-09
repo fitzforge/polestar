@@ -66,8 +66,8 @@ step Boarton Shadetotem
 step Windfury Cones
   zone Mulgore
   tip Windfury Cones lie on the ground under the harpies' nest trees on Windfury Ridge, north-west of Thunder Bluff; the harpies do not drop them. The Windfury Sorceresses (level 9-10) and Matriarchs (10-11) there stand close together: pick the cones from the edges. Once you have eight, use the Mortar and Pestle to grind them.
-  collect 206170 "Windfury Cone" x8 optional @31.9,32.0 -- the mortar takes all eight
-  use 206176 "Mortar and Pestle" quest 76160.1 @31.9,32.0 -- grind the eight cones into the Pine Salve
+  collect 206170 "Windfury Cone" x8 optional @31.9,32.0 live -- the mortar takes all eight
+  use 206176 "Mortar and Pestle" quest 76160.1 @31.9,32.0 live -- grind the eight cones into the Pine Salve
 
 step Boarton Shadetotem
   zone Thunder Bluff
