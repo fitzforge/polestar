@@ -26,7 +26,8 @@ why Cloth, Laris's ooze quests and the Dun Morogh hubs, which pay Ironforge too:
 # The quest hubs are optional: each hub's first step carries a label, the
 # steps after it run only when it was done (`when done`), so skipping the
 # first step skips the hub.
-# Level 52-54 quests first (in Classic they pay a little less at 60): Laris
+# Order: the Dun Morogh hubs, the cloth donations, then the level 52-54 quests
+# (their first step waits for 55), then Additional Runecloth. The late quests: Laris
 # Geardawdle's two ooze quests (4512, 4513: 300) and Overmaster Pyron (4262:
 # 100). Left to a tip: Incendius! in Blackrock Depths (4263: 100, a group)
 # and Nefarian's head (200 to every Alliance city).
@@ -46,67 +47,6 @@ step Bubulo Acerbus, the cloth quartermaster
   collect 2592 x60 nearest            -- Wool Cloth: troggs, gnolls and kobolds in Loch Modan and the Wetlands
   accept 7807
   turnin 7807
-
-step A Donation of Silk
-  tip Silk Cloth drops from humanoids level 23 to 40: the Dragonmaw of the Wetlands, the Syndicate of Alterac and Arathi, Stranglethorn's trolls.
-  level 26
-  collect 4306 x60 nearest
-  accept 7808
-  turnin 7808
-
-step A Donation of Mageweave
-  tip Mageweave Cloth drops from humanoids level 35 to 50: the Shadowforge and Dark Iron dwarves of the Badlands and Searing Gorge, the Dunemaul ogres of Tanaris, the Hatecrest naga of Feralas.
-  level 40
-  collect 4338 x60 nearest
-  accept 7809
-  turnin 7809
-
-step A Donation of Runecloth
-  tip Runecloth drops from humanoids level 50 and up: the Scourge cultists and Scarlet Crusade in the Plaguelands, the Deadwood furbolgs of Felwood, the Winterfall furbolgs of Winterspring. Keep any Runecloth past the first 60 for Additional Runecloth.
-  level 50
-  collect 14047 x60 nearest
-  accept 7811
-  turnin 7811
-
-step Tinker Town: Laris Geardawdle
-  zone Ironforge
-  tip Laris Geardawdle in Tinker Town wants ooze samples for her research: 150 Gnomeregan reputation for each of her two quests (level 52 and 54: in Classic 60 and 120 of it at 60). She hands you the empty jars.
-  level 55
-  accept 4512                         -- A Little Slime Goes a Long Way, +150
-
-step Felwood: Cursed and Tainted Oozes
-  zone Felwood
-  tip The Cursed and Tainted Oozes slide about the streams and fel pools around Jaedenar and Bloodvenom Falls: kill one and use an empty jar on its remains.
-  collect 11947 x6 quest 4512.1       -- Filled Cursed Ooze Jar
-  collect 11949 x6 quest 4512.2       -- Filled Tainted Ooze Jar
-
-step Tinker Town: the second jars
-  zone Ironforge
-  turnin 4512
-  accept 4513                         -- A Little Slime Goes a Long Way, +150
-
-step Un'Goro Crater: Primal Oozes
-  zone Un'Goro Crater
-  tip The Primal Oozes live in the pools around Fire Plume Ridge in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains.
-  collect 11954 x10 quest 4513.1      -- Filled Pure Sample Jar
-
-step Tinker Town: hand in
-  zone Ironforge
-  turnin 4513
-
-step Morgan's Vigil: Jalinda Sprig
-  zone Burning Steppes
-  tip Jalinda Sprig at Morgan's Vigil, in the south-east of the Burning Steppes, wants Overmaster Pyron dead: 100 Gnomeregan reputation (level 52: in Classic 40 at 60). Her next quest, Incendius!, needs a Blackrock Depths group: 100 more, in full.
-  accept 4262                         -- Overmaster Pyron, +100
-
-step Blackrock Mountain: Overmaster Pyron
-  zone map 1415
-  tip Blackrock Mountain stands in the west of the Burning Steppes. Overmaster Pyron, a fire elemental, walks the lava paths inside it, near the door of Blackrock Depths but outside the dungeon: at 60 you take him alone.
-  kill 9026 quest 4262.1              -- Overmaster Pyron
-
-step Morgan's Vigil: hand in
-  zone Burning Steppes
-  turnin 4262                         -- Jalinda Sprig
 
 step Coldridge Valley
   label ge-coldridge
@@ -258,6 +198,67 @@ step The Reports
   when onquest 291
   zone Ironforge
   turnin 291                          -- Senator Barin Redstone, in the throne room
+
+step A Donation of Silk
+  tip Silk Cloth drops from humanoids level 23 to 40: the Dragonmaw of the Wetlands, the Syndicate of Alterac and Arathi, Stranglethorn's trolls.
+  level 26
+  collect 4306 x60 nearest
+  accept 7808
+  turnin 7808
+
+step A Donation of Mageweave
+  tip Mageweave Cloth drops from humanoids level 35 to 50: the Shadowforge and Dark Iron dwarves of the Badlands and Searing Gorge, the Dunemaul ogres of Tanaris, the Hatecrest naga of Feralas.
+  level 40
+  collect 4338 x60 nearest
+  accept 7809
+  turnin 7809
+
+step A Donation of Runecloth
+  tip Runecloth drops from humanoids level 50 and up: the Scourge cultists and Scarlet Crusade in the Plaguelands, the Deadwood furbolgs of Felwood, the Winterfall furbolgs of Winterspring. Keep any Runecloth past the first 60 for Additional Runecloth.
+  level 50
+  collect 14047 x60 nearest
+  accept 7811
+  turnin 7811
+
+step Tinker Town: Laris Geardawdle
+  zone Ironforge
+  tip Laris Geardawdle in Tinker Town wants ooze samples for her research: 150 Gnomeregan reputation for each of her two quests (level 52 and 54: in Classic 60 and 120 of it at 60). She hands you the empty jars.
+  level 55
+  accept 4512                         -- A Little Slime Goes a Long Way, +150
+
+step Felwood: Cursed and Tainted Oozes
+  zone Felwood
+  tip The Cursed and Tainted Oozes slide about the streams and fel pools around Jaedenar and Bloodvenom Falls: kill one and use an empty jar on its remains.
+  collect 11947 x6 quest 4512.1       -- Filled Cursed Ooze Jar
+  collect 11949 x6 quest 4512.2       -- Filled Tainted Ooze Jar
+
+step Tinker Town: the second jars
+  zone Ironforge
+  turnin 4512
+  accept 4513                         -- A Little Slime Goes a Long Way, +150
+
+step Un'Goro Crater: Primal Oozes
+  zone Un'Goro Crater
+  tip The Primal Oozes live in the pools around Fire Plume Ridge in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains.
+  collect 11954 x10 quest 4513.1      -- Filled Pure Sample Jar
+
+step Tinker Town: hand in
+  zone Ironforge
+  turnin 4513
+
+step Morgan's Vigil: Jalinda Sprig
+  zone Burning Steppes
+  tip Jalinda Sprig at Morgan's Vigil, in the south-east of the Burning Steppes, wants Overmaster Pyron dead: 100 Gnomeregan reputation (level 52: in Classic 40 at 60). Her next quest, Incendius!, needs a Blackrock Depths group: 100 more, in full.
+  accept 4262                         -- Overmaster Pyron, +100
+
+step Blackrock Mountain: Overmaster Pyron
+  zone map 1415
+  tip Blackrock Mountain stands in the west of the Burning Steppes. Overmaster Pyron, a fire elemental, walks the lava paths inside it, near the door of Blackrock Depths but outside the dungeon: at 60 you take him alone.
+  kill 9026 quest 4262.1              -- Overmaster Pyron
+
+step Morgan's Vigil: hand in
+  zone Burning Steppes
+  turnin 4262                         -- Jalinda Sprig
 
 step Additional Runecloth to Honored
   zone Ironforge

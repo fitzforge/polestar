@@ -25,24 +25,163 @@ return {
 	-- {item:2592} Wool Cloth · {zone:1436} Westfall
 	["{item:2592}: Defias, gnolls and kobolds in {zone:1436} and Redridge"] = "{item:2592} : Défias, gnolls et kobolds de {zone:1436} et des Carmines",
 
-	-- Step 2: A Donation of Silk
+	-- Step 2: Stormwind errands
+	-- {faction:72} Stormwind
+	["{faction:72} errands"] = "Courses à {faction:72}",
+	-- {faction:72} Stormwind
+	["Optional: four quick deliveries inside {faction:72} for 200 reputation in about five minutes. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+
+	-- Step 3: Northshire Valley
+	-- {area:87} Goldshire · {npc:823} Deputy Willem · {npc:197} Marshal McBride · {area:24} Northshire Abbey
+	["Optional: the Human start valley north of {area:87}: about 1,600 reputation in 40 minutes at 60, the best rate of the hubs. {npc:823} and {npc:197} stand at {area:24}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+
+	-- Step 4: Northshire: kobolds, wolves and bandanas
+	["Northshire: kobolds, wolves and bandanas"] = "Comté-du-Nord : kobolds, loups et foulards",
+	-- {npc:6} Kobold Vermin · {item:247834} Nibbled-On Book
+	["The {npc:6} dig at the camp north of the abbey; the wolves roam the valley; the Defias at the vineyard east of the abbey drop the bandanas. Keep any {item:247834} a kobold drops: it starts Forever's book chain."] = "La {npc:6} creuse au camp au nord de l'abbaye ; les loups rôdent dans la vallée ; les Défias du vignoble à l'est de l'abbaye laissent les foulards. Gardez tout {item:247834} qu'un kobold laisse : il lance la suite des livres de Forever.",
+	-- {item:247834} Nibbled-On Book
+	["{item:247834}, from the kobolds"] = "{item:247834}, sur les kobolds",
+
+	-- Step 5: Northshire: back at the abbey
+	["Northshire: back at the abbey"] = "Comté-du-Nord : retour à l'abbaye",
+
+	-- Step 6: Northshire: Echo Ridge, Garrick Padfoot and the vineyard
+	-- {npc:103} Garrick Padfoot
+	["Northshire: Echo Ridge, {npc:103} and the vineyard"] = "Comté-du-Nord : la crête aux échos, {npc:103} et le vignoble",
+	-- {area:34} Echo Ridge Mine · {npc:103} Garrick Padfoot · {quest:3904} Milly's Harvest · {object:83763} Stolen Books
+	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
+	["The Kobold Workers are in {area:34} north of the abbey; {npc:103} stands in the Defias camp east of the vineyard; {quest:3904} crates lie in the vineyard; the rats carrying the {object:83763} run about the abbey grounds."] = "Les Ouvriers kobolds sont dans la {area:34} au nord de l'abbaye ; {npc:103} se tient dans le camp défias à l'est du vignoble ; les caisses ({quest:3904}) sont dans le vignoble ; les rats qui portent les {object:83763} courent autour de l'abbaye.",
+
+	-- Step 7: Northshire: second hand-in
+	["Northshire: second hand-in"] = "Comté-du-Nord : deuxième remise",
+
+	-- Step 8: Northshire: the mine and the books
+	["Northshire: the mine and the books"] = "Comté-du-Nord : la mine et les livres",
+	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
+	["{npc:80}, deep in {area:34}"] = "{npc:80}, au fond de la {area:34}",
+
+	-- Step 9: Northshire: last hand-in
+	["Northshire: last hand-in"] = "Comté-du-Nord : dernière remise",
+	-- {object:563442} Kobold Tracks
+	["{object:563442}, east of the abbey"] = "{object:563442}, à l'est de l'abbaye",
+
+	-- Step 10: Northshire: the books end in Goldshire
+	-- {area:87} Goldshire
+	["Northshire: the books end in {area:87}"] = "Comté-du-Nord : les livres finissent à {area:87}",
+	-- {npc:240} Marshal Dughan · {area:87} Goldshire · {area:57} Fargodeep Mine
+	-- plural, as words: Lost Books = {item:248001} Lost Book
+	["{npc:240} stands in front of the Lion's Pride Inn in {area:87}. The Lost Books drop from the kobolds of {area:57} south of {area:87}; the picture book and the two rare books from the named kobolds there."] = "{npc:240} se tient devant l'auberge de la Fierté du lion à {area:87}. Les livres perdus tombent sur les kobolds de la {area:57} au sud de {area:87} ; le livre d'images et les deux livres rares sur les kobolds nommés qui s'y trouvent.",
+	["Arcane Explainer"] = "Arcane Explainer",
+	-- {npc:951} Brother Paxton
+	["{npc:951}, back at the abbey"] = "{npc:951}, de retour à l'abbaye",
+
+	-- Step 11: Goldshire
+	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:253} William Pestle
+	["Optional: {area:87}, Westbrook and the farms south of {area:87}: about 1,450 reputation in an hour at 60. {npc:240}, {npc:241} and {npc:253} stand around the Lion's Pride Inn. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+
+	-- Step 12: Goldshire: the mines
+	-- {area:87} Goldshire
+	["{area:87}: the mines"] = "{area:87} : les mines",
+	-- {area:57} Fargodeep Mine · {area:87} Goldshire · {area:54} Jasperlode Mine · {item:773} Gold Dust
+	["{area:57} is south of {area:87}, {area:54} north-east of it. The kobolds in both drop the candles and the {item:773}; the wolves around {area:87} the pelts."] = "La {area:57} est au sud de {area:87}, la {area:54} au nord-est. Les kobolds des deux mines laissent les bougies et la {item:773} ; les loups autour de {area:87}, les peaux.",
+
+	-- Step 13: Goldshire: back at the inn
+	-- {area:87} Goldshire
+	["{area:87}: back at the inn"] = "{area:87} : retour à l'auberge",
+
+	-- Step 14: Goldshire: Jasperlode Mine
+	["walk into the mine"] = "entrez dans la mine",
+
+	-- Step 15: Goldshire: Westbrook and Hogger
+	-- {area:87} Goldshire · {npc:448} Hogger
+	["{area:87}: Westbrook and {npc:448}"] = "{area:87} : le ruisseau de l'Ouest et {npc:448}",
+	-- {npc:448} Hogger · {area:120} Westbrook Garrison
+	["{npc:448} is an elite gnoll west of {area:120}; at 60 he is no trouble. The Wanted poster hangs on the garrison."] = "{npc:448} est un gnoll élite à l'ouest de la {area:120} ; au niveau 60, il ne pose aucun problème. L'avis de recherche est affiché sur la garnison.",
+	-- {item:782} Painted Gnoll Armband
+	["{item:782}, from the Riverpaw gnolls"] = "{item:782}, sur les gnolls Rivepatte",
+	-- {item:1931} Huge Gnoll Claw · {npc:448} Hogger
+	["{item:1931}, from {npc:448}"] = "{item:1931}, sur {npc:448}",
+
+	-- Step 16: The farms south of Goldshire
+	-- {area:87} Goldshire
+	["The farms south of {area:87}"] = "Les fermes au sud de {area:87}",
+	-- {area:87} Goldshire · {quest:87} Goldtooth · {area:57} Fargodeep Mine · {npc:330} Princess · {area:62} Brackwell Pumpkin Patch
+	["The Stonefields' farm and the Maclures' farm lie on either side of the road south of {area:87}. {quest:87} guards the back of {area:57}; {npc:330} the boar roams the {area:62}."] = "La ferme des Stonefield et celle des Maclure se trouvent de part et d'autre de la route au sud de {area:87}. {quest:87} garde le fond de la {area:57} ; {npc:330}, la laie, erre dans le {area:62}.",
+	-- {item:1006} Brass Collar · {npc:330} Princess
+	["{item:1006}, from {npc:330}"] = "{item:1006}, sur {npc:330}",
+
+	-- Step 17: Goldtooth and the kelp
+	-- {quest:87} Goldtooth
+	["{quest:87} and the kelp"] = "{quest:87} et le varech",
+	-- {item:981} Bernice's Necklace · {quest:87} Goldtooth
+	["{item:981}, from {quest:87}"] = "{item:981}, sur {quest:87}",
+	-- {item:1256} Crystal Kelp Frond · {area:18} Crystal Lake
+	["{item:1256}, from the murlocs of {area:18}"] = "{item:1256}, sur les murlocs du {area:18}",
+
+	-- Step 18: Goldshire: last hand-in
+	-- {area:87} Goldshire
+	["{area:87}: last hand-in"] = "{area:87} : dernière remise",
+
+	-- Step 19: Shipment to Stormwind
+	-- {npc:279} Morgan Pestle · {object:2096} Trade District
+	["{npc:279}, in the {object:2096}"] = "{npc:279}, dans le {object:2096}",
+
+	-- Step 20: Eastvale
+	["Eastvale"] = "Val d'Est",
+	-- {npc:261} Guard Thomas · {area:91} Tower of Azora
+	["Optional: eastern Elwynn, around {npc:261} on the bridge and the {area:91}, about 1,000 reputation in 40 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+
+	-- Step 21: Eastvale: the work
+	["Eastvale: the work"] = "Val d'Est : le travail",
+	-- {area:91} Tower of Azora · {area:54} Jasperlode Mine
+	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear · Kobold Geomancers = {npc:476} Kobold Geomancer
+	["The murlocs along the river south of the bridge drop the fins; Prowlers and Young Forest Bears roam the woods; the Defias around the Brackwell farm and the {area:91} carry the bandanas; the enchanting supplies lie in their camps north of the tower; the Kobold Geomancers dig at {area:54}; the tools and the river finds lie along the river north of the logging camp."] = "Les murlocs le long de la rivière au sud du pont laissent les nageoires ; Rôdeurs et Jeunes ours des forêts parcourent les bois ; les Défias autour de la ferme des Brackwell et de la {area:91} portent les foulards ; les fournitures d'enchantement sont dans leurs camps au nord de la tour ; les Géomanciens kobolds creusent à la {area:54} ; les outils et les trouvailles de la rivière sont le long de la rivière au nord du camp de bûcherons.",
+
+	-- Step 22: Eastvale: hand in
+	["Eastvale: hand in"] = "Val d'Est : rendre les quêtes",
+
+	-- Step 23: Eastvale: Defias Rogue Wizards
+	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
+	["Eastvale: Defias Rogue Wizards"] = "Val d'Est : Sorciers-voleurs défias",
+	["opens with Thomas' report"] = "débloquée par le rapport de Thomas",
+	-- {item:780} Torn Murloc Fin
+	["{item:780}, from the murlocs south of the bridge"] = "{item:780}, sur les murlocs au sud du pont",
+
+	-- Step 24: Stockade: two quests
+	-- {area:717} Stockade
+	["{area:717}: two quests"] = "{area:717} : deux quêtes",
+	-- {area:717} Stockade · {faction:72} Stormwind · {object:2101} Mage Quarter · {npc:1719} Warden Thelwater · {npc:1721} Nikova Raskol · {object:2100} Old Town · {npc:1696} Targorr the Dread · {npc:859} Guard Berton · {area:69} Lakeshire · {npc:1663} Dextren Ward · {npc:270} Councilman Millstipe · {area:42} Darkshire · {npc:639} Edwin VanCleef · {area:1581} Deadmines
+	["Optional: the {area:717} is {faction:72}'s prison, a dungeon in the canals of the {object:2101}. At 60 you clear it alone in ten minutes: 300 reputation. {npc:1719} stands at the gate, {npc:1721} in {object:2100}. Two more {area:717} quests start outside the city, 100 each, if you pass by: What Comes Around... ({npc:1696}) from {npc:859} in {area:69} and Crime and Punishment ({npc:1663}) from {npc:270} in {area:42}. (The Stockade Riots, 100 more, needs the Unsent Letter from {npc:639} in the {area:1581} first.) Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+
+	-- Step 25: Inside the Stockade
+	-- {area:717} Stockade
+	["Inside the {area:717}"] = "Dans la {area:717}",
+	-- {npc:1716} Bazil Thredd
+	-- plural, as words: Red Wool Bandanas = {item:2909} Red Wool Bandana
+	["Kill the prisoners, convicts and insurgents in the cells; the Red Wool Bandanas drop from the Defias inside. {npc:1716} waits in the far end."] = "Tuez les prisonniers, détenus et insurgés dans les cellules ; les foulards en laine rouge tombent sur les Défias à l'intérieur. {npc:1716} attend tout au fond.",
+
+	-- Step 26: Stockade: hand in
+	-- {area:717} Stockade
+	["{area:717}: hand in"] = "{area:717} : rendez les quêtes",
+
+	-- Step 27: A Donation of Silk
 	-- {item:4306} Silk Cloth · {area:94} Raven Hill
 	["{item:4306} drops from humanoids level 23 to 40: Syndicate in Alterac and Arathi, the Defias of Duskwood's {area:94}, Stranglethorn's trolls."] = "L'{item:4306} tombe sur les humanoïdes de niveau 23 à 40 : le Syndicat en Alterac et en Arathi, les Défias de la {area:94} au bois de la Pénombre, les trolls de Strangleronce.",
 
-	-- Step 3: A Donation of Mageweave
+	-- Step 28: A Donation of Mageweave
 	-- {item:4338} Mageweave Cloth · {zone:1446} Tanaris · {zone:1444} Feralas · {zone:1418} Badlands
 	["{item:4338} drops from humanoids level 35 to 50: the Dunemaul ogres of {zone:1446}, the Hatecrest naga of {zone:1444}, the Shadowforge dwarves of the {zone:1418}."] = "L'{item:4338} tombe sur les humanoïdes de niveau 35 à 50 : les ogres Cognedune de {zone:1446}, les nagas Hainecrête de {zone:1444}, les nains Ombreforge des {zone:1418}.",
 
-	-- Step 4: A Donation of Runecloth
+	-- Step 29: A Donation of Runecloth
 	-- {item:14047} Runecloth · {zone:1448} Felwood · {zone:1452} Winterspring · {quest:7796} Additional Runecloth
 	["{item:14047} drops from humanoids level 50 and up: the Scourge cultists and Scarlet Crusade in the Plaguelands, the Deadwood furbolgs of {zone:1448}, the Winterfall furbolgs of {zone:1452}. Keep any {item:14047} past the first 60: it all goes to {quest:7796} later."] = "L'{item:14047} tombe sur les humanoïdes de niveau 50 et plus : les cultistes du Fléau et la Croisade écarlate dans les Maleterres, les furbolgs Mort-bois de {zone:1448}, les furbolgs Tombe-hiver du {zone:1452}. Gardez toute l'{item:14047} au-delà des 60 premières : tout ira à {quest:7796} plus tard.",
 
-	-- Step 5: Chillwind Camp: Clear the Way
+	-- Step 30: Chillwind Camp: Clear the Way
 	-- {npc:10838} Commander Ashlam Valorfist · {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp · {zone:1422} Western Plaguelands · {faction:72} Stormwind · {object:92525} Argent Dawn
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul
 	["These quests are level 52 to 58, so they pay in full at 60. {npc:10838} and {npc:11053} at {area:3197}, in the south of the {zone:1422}, send you against the four Scourge cauldrons: 820 {faction:72} reputation in all and 600 {object:92525} on the side. The Skeletal Flayers and Slavering Ghouls roam the fields north of the camp."] = "",
 
-	-- Step 6: Andorhal and Felstone Field
+	-- Step 31: Andorhal and Felstone Field
 	-- {area:199} Felstone Field
 	["Andorhal and {area:199}"] = "Andorhal et {area:199}",
 	-- {item:12815} Beacon Torch · {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field · {npc:10778} Janice Felstone · {faction:72} Stormwind
@@ -62,199 +201,60 @@ return {
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, in the farmhouse"] = "{object:175894}, dans la ferme",
 
-	-- Step 8: Dalson's Tears
+	-- Step 33: Dalson's Tears
 	-- {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears · {area:199} Felstone Field
 	["{npc:11077} guards the cauldron at {area:200}, north-east of {area:199}."] = "{npc:11077} garde le chaudron des {area:200}, au nord-est du {area:199}.",
 	-- {object:177289} Scourge Cauldron
 	["the {object:177289}"] = "le {object:177289}",
 
-	-- Step 9: Chillwind Camp: the Writhing Haunt
+	-- Step 34: Chillwind Camp: the Writhing Haunt
 	-- {area:3197} Chillwind Camp · {area:202} Writhing Haunt
 	["{area:3197}: the {area:202}"] = "{area:3197} : le {area:202}",
 
-	-- Step 10: Writhing Haunt
+	-- Step 35: Writhing Haunt
 	-- {npc:11076} Cauldron Lord Razarch · {area:202} Writhing Haunt · {area:200} Dalson's Tears
 	["{npc:11076} guards the cauldron at the {area:202}, the farm east of {area:200}."] = "{npc:11076} garde le chaudron du {area:202}, la ferme à l'est des {area:200}.",
 	-- {object:176393} Scourge Cauldron
 	["the {object:176393}"] = "le {object:176393}",
 
-	-- Step 12: Gahrron's Withering
+	-- Step 37: Gahrron's Withering
 	-- {npc:11078} Cauldron Lord Soulwrath · {area:201} Gahrron's Withering
 	["{npc:11078} guards the cauldron at {area:201}, in the east of the zone."] = "{npc:11078} garde le chaudron de {area:201}, dans l'est de la zone.",
 	-- {object:176392} Scourge Cauldron
 	["the {object:176392}"] = "le {object:176392}",
 
-	-- Step 13: Chillwind Camp: done
+	-- Step 38: Chillwind Camp: done
 	-- {area:3197} Chillwind Camp
 	["{area:3197}: done"] = "{area:3197} : terminé",
 	-- {npc:11056} Alchemist Arbington · {area:2057} Scholomance
 	["{npc:11056} in the camp also ends The Key to {area:2057} (200), after a longer chain that needs a {area:2057} group."] = "{npc:11056}, au camp, termine aussi La clé de {area:2057} (200), après une plus longue suite de quêtes qui demande un groupe pour {area:2057}.",
 
-	-- Step 14: Stormwind: Janice Felstone's parcel
+	-- Step 39: Stormwind: Janice Felstone's parcel
 	-- {faction:72} Stormwind · {npc:10778} Janice Felstone
 	["{faction:72}: {npc:10778}'s parcel"] = "{faction:72} : le colis de {npc:10778}",
 	-- {npc:10782} Royal Factor Bathrilor · {object:2098} Cathedral Square · {npc:1646} Baros Alexston · {npc:3520} Ol' Emma
 	["{npc:10782} stands in the city hall on {object:2098}, beside {npc:1646}; {npc:3520} walks the canals."] = "{npc:10782} se tient dans l'hôtel de ville de la {object:2098}, à côté de {npc:1646} ; {npc:3520} se promène le long des canaux.",
 
-	-- Step 15: Morgan's Vigil: Dragonkin Menace
+	-- Step 40: Morgan's Vigil: Dragonkin Menace
 	-- {npc:9562} Helendis Riverhorn · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {quest:4183} The True Masters · {area:69} Lakeshire · {object:2117} Stormwind Keep · {faction:72} Stormwind · {zone:1457} Darnassus · {npc:7044} Black Drake · {npc:7040} Black Dragonspawn · {npc:7041} Black Wyrmkin
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
 	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: a chain to {area:69} and {object:2117}, 175 {faction:72} and 175 {zone:1457} reputation (level 54). The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "",
 
-	-- Step 16: Lakeshire: Magistrate Solomon
+	-- Step 41: Lakeshire: Magistrate Solomon
 	-- {npc:344} Magistrate Solomon · {area:69} Lakeshire
 	["{npc:344} waits in the town hall of {area:69}."] = "{npc:344} attend dans l'hôtel de ville de {area:69}.",
 
-	-- Step 17: Stormwind Keep
+	-- Step 42: Stormwind Keep
 	-- {npc:1748} Highlord Bolvar Fordragon · {object:2117} Stormwind Keep · {npc:1749} Lady Katrana Prestor
 	["{npc:1748} holds court in {object:2117} with {npc:1749} at his side: speak with her for the second of his quests."] = "{npc:1748} tient sa cour dans le {object:2117} avec {npc:1749} à ses côtés : parlez-lui pour la deuxième de ses quêtes.",
 	-- {npc:1749} Lady Katrana Prestor
 	["Speak with {npc:1749}"] = "Parlez à {npc:1749}",
 
-	-- Step 18: Lakeshire: Solomon again
+	-- Step 43: Lakeshire: Solomon again
 	-- {area:69} Lakeshire
 	["{area:69}: Solomon again"] = "{area:69} : de nouveau Solomon",
 	-- {area:1584} Blackrock Depths · {npc:9023} Marshal Windsor · {faction:72} Stormwind · {area:1583} Blackrock Spire · {npc:11878} Nathanos Blightcaller · {zone:1423} Eastern Plaguelands · {area:2057} Scholomance
 	["With a group the chain goes on into {area:1584}: {npc:9023}, Jail Break! and The Great Masquerade back in {faction:72} pay about 750 {faction:72} more, Maxwell's Mission (Lower {area:1583}) 250, Delivery to Ridgewell 135. Order Must Be Restored ({npc:11878} in the {zone:1423}) pays 200, The Key to {area:2057} 200; Onyxia's head 400 and Nefarian's 200 when the raids open."] = "En groupe, la suite continue dans les {area:1584} : {npc:9023}, Evasion ! et La grande mascarade, de retour à {faction:72}, rapportent environ 750 de {faction:72} de plus, Mission de Maxwell (bas du {area:1583}) 250, La livraison à Ridgewell 135. L'ordre doit être rétabli ({npc:11878} dans les {zone:1423}) rapporte 200, La clé de {area:2057} 200 ; la tête d'Onyxia 400 et celle de Nefarian 200 à l'ouverture des raids.",
-
-	-- Step 19: Stormwind errands
-	-- {faction:72} Stormwind
-	["{faction:72} errands"] = "Courses à {faction:72}",
-	-- {faction:72} Stormwind
-	["Optional: four quick deliveries inside {faction:72} for 200 reputation in about five minutes. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
-
-	-- Step 20: Stockade: two quests
-	-- {area:717} Stockade
-	["{area:717}: two quests"] = "{area:717} : deux quêtes",
-	-- {area:717} Stockade · {faction:72} Stormwind · {object:2101} Mage Quarter · {npc:1719} Warden Thelwater · {npc:1721} Nikova Raskol · {object:2100} Old Town · {npc:1696} Targorr the Dread · {npc:859} Guard Berton · {area:69} Lakeshire · {npc:1663} Dextren Ward · {npc:270} Councilman Millstipe · {area:42} Darkshire · {npc:639} Edwin VanCleef · {area:1581} Deadmines
-	["Optional: the {area:717} is {faction:72}'s prison, a dungeon in the canals of the {object:2101}. At 60 you clear it alone in ten minutes: 300 reputation. {npc:1719} stands at the gate, {npc:1721} in {object:2100}. Two more {area:717} quests start outside the city, 100 each, if you pass by: What Comes Around... ({npc:1696}) from {npc:859} in {area:69} and Crime and Punishment ({npc:1663}) from {npc:270} in {area:42}. (The Stockade Riots, 100 more, needs the Unsent Letter from {npc:639} in the {area:1581} first.) Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
-
-	-- Step 21: Inside the Stockade
-	-- {area:717} Stockade
-	["Inside the {area:717}"] = "Dans la {area:717}",
-	-- {npc:1716} Bazil Thredd
-	-- plural, as words: Red Wool Bandanas = {item:2909} Red Wool Bandana
-	["Kill the prisoners, convicts and insurgents in the cells; the Red Wool Bandanas drop from the Defias inside. {npc:1716} waits in the far end."] = "Tuez les prisonniers, détenus et insurgés dans les cellules ; les foulards en laine rouge tombent sur les Défias à l'intérieur. {npc:1716} attend tout au fond.",
-
-	-- Step 22: Stockade: hand in
-	-- {area:717} Stockade
-	["{area:717}: hand in"] = "{area:717} : rendez les quêtes",
-
-	-- Step 23: Northshire Valley
-	-- {area:87} Goldshire · {npc:823} Deputy Willem · {npc:197} Marshal McBride · {area:24} Northshire Abbey
-	["Optional: the Human start valley north of {area:87}: about 1,600 reputation in 40 minutes at 60, the best rate of the hubs. {npc:823} and {npc:197} stand at {area:24}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
-
-	-- Step 24: Northshire: kobolds, wolves and bandanas
-	["Northshire: kobolds, wolves and bandanas"] = "Comté-du-Nord : kobolds, loups et foulards",
-	-- {npc:6} Kobold Vermin · {item:247834} Nibbled-On Book
-	["The {npc:6} dig at the camp north of the abbey; the wolves roam the valley; the Defias at the vineyard east of the abbey drop the bandanas. Keep any {item:247834} a kobold drops: it starts Forever's book chain."] = "La {npc:6} creuse au camp au nord de l'abbaye ; les loups rôdent dans la vallée ; les Défias du vignoble à l'est de l'abbaye laissent les foulards. Gardez tout {item:247834} qu'un kobold laisse : il lance la suite des livres de Forever.",
-	-- {item:247834} Nibbled-On Book
-	["{item:247834}, from the kobolds"] = "{item:247834}, sur les kobolds",
-
-	-- Step 25: Northshire: back at the abbey
-	["Northshire: back at the abbey"] = "Comté-du-Nord : retour à l'abbaye",
-
-	-- Step 26: Northshire: Echo Ridge, Garrick Padfoot and the vineyard
-	-- {npc:103} Garrick Padfoot
-	["Northshire: Echo Ridge, {npc:103} and the vineyard"] = "Comté-du-Nord : la crête aux échos, {npc:103} et le vignoble",
-	-- {area:34} Echo Ridge Mine · {npc:103} Garrick Padfoot · {quest:3904} Milly's Harvest · {object:83763} Stolen Books
-	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
-	["The Kobold Workers are in {area:34} north of the abbey; {npc:103} stands in the Defias camp east of the vineyard; {quest:3904} crates lie in the vineyard; the rats carrying the {object:83763} run about the abbey grounds."] = "Les Ouvriers kobolds sont dans la {area:34} au nord de l'abbaye ; {npc:103} se tient dans le camp défias à l'est du vignoble ; les caisses ({quest:3904}) sont dans le vignoble ; les rats qui portent les {object:83763} courent autour de l'abbaye.",
-
-	-- Step 27: Northshire: second hand-in
-	["Northshire: second hand-in"] = "Comté-du-Nord : deuxième remise",
-
-	-- Step 28: Northshire: the mine and the books
-	["Northshire: the mine and the books"] = "Comté-du-Nord : la mine et les livres",
-	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
-	["{npc:80}, deep in {area:34}"] = "{npc:80}, au fond de la {area:34}",
-
-	-- Step 29: Northshire: last hand-in
-	["Northshire: last hand-in"] = "Comté-du-Nord : dernière remise",
-	-- {object:563442} Kobold Tracks
-	["{object:563442}, east of the abbey"] = "{object:563442}, à l'est de l'abbaye",
-
-	-- Step 30: Northshire: the books end in Goldshire
-	-- {area:87} Goldshire
-	["Northshire: the books end in {area:87}"] = "Comté-du-Nord : les livres finissent à {area:87}",
-	-- {npc:240} Marshal Dughan · {area:87} Goldshire · {area:57} Fargodeep Mine
-	-- plural, as words: Lost Books = {item:248001} Lost Book
-	["{npc:240} stands in front of the Lion's Pride Inn in {area:87}. The Lost Books drop from the kobolds of {area:57} south of {area:87}; the picture book and the two rare books from the named kobolds there."] = "{npc:240} se tient devant l'auberge de la Fierté du lion à {area:87}. Les livres perdus tombent sur les kobolds de la {area:57} au sud de {area:87} ; le livre d'images et les deux livres rares sur les kobolds nommés qui s'y trouvent.",
-	["Arcane Explainer"] = "Arcane Explainer",
-	-- {npc:951} Brother Paxton
-	["{npc:951}, back at the abbey"] = "{npc:951}, de retour à l'abbaye",
-
-	-- Step 31: Goldshire
-	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:253} William Pestle
-	["Optional: {area:87}, Westbrook and the farms south of {area:87}: about 1,450 reputation in an hour at 60. {npc:240}, {npc:241} and {npc:253} stand around the Lion's Pride Inn. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
-
-	-- Step 32: Goldshire: the mines
-	-- {area:87} Goldshire
-	["{area:87}: the mines"] = "{area:87} : les mines",
-	-- {area:57} Fargodeep Mine · {area:87} Goldshire · {area:54} Jasperlode Mine · {item:773} Gold Dust
-	["{area:57} is south of {area:87}, {area:54} north-east of it. The kobolds in both drop the candles and the {item:773}; the wolves around {area:87} the pelts."] = "La {area:57} est au sud de {area:87}, la {area:54} au nord-est. Les kobolds des deux mines laissent les bougies et la {item:773} ; les loups autour de {area:87}, les peaux.",
-
-	-- Step 33: Goldshire: back at the inn
-	-- {area:87} Goldshire
-	["{area:87}: back at the inn"] = "{area:87} : retour à l'auberge",
-
-	-- Step 34: Goldshire: Jasperlode Mine
-	["walk into the mine"] = "entrez dans la mine",
-
-	-- Step 35: Goldshire: Westbrook and Hogger
-	-- {area:87} Goldshire · {npc:448} Hogger
-	["{area:87}: Westbrook and {npc:448}"] = "{area:87} : le ruisseau de l'Ouest et {npc:448}",
-	-- {npc:448} Hogger · {area:120} Westbrook Garrison
-	["{npc:448} is an elite gnoll west of {area:120}; at 60 he is no trouble. The Wanted poster hangs on the garrison."] = "{npc:448} est un gnoll élite à l'ouest de la {area:120} ; au niveau 60, il ne pose aucun problème. L'avis de recherche est affiché sur la garnison.",
-	-- {item:782} Painted Gnoll Armband
-	["{item:782}, from the Riverpaw gnolls"] = "{item:782}, sur les gnolls Rivepatte",
-	-- {item:1931} Huge Gnoll Claw · {npc:448} Hogger
-	["{item:1931}, from {npc:448}"] = "{item:1931}, sur {npc:448}",
-
-	-- Step 36: The farms south of Goldshire
-	-- {area:87} Goldshire
-	["The farms south of {area:87}"] = "Les fermes au sud de {area:87}",
-	-- {area:87} Goldshire · {quest:87} Goldtooth · {area:57} Fargodeep Mine · {npc:330} Princess · {area:62} Brackwell Pumpkin Patch
-	["The Stonefields' farm and the Maclures' farm lie on either side of the road south of {area:87}. {quest:87} guards the back of {area:57}; {npc:330} the boar roams the {area:62}."] = "La ferme des Stonefield et celle des Maclure se trouvent de part et d'autre de la route au sud de {area:87}. {quest:87} garde le fond de la {area:57} ; {npc:330}, la laie, erre dans le {area:62}.",
-	-- {item:1006} Brass Collar · {npc:330} Princess
-	["{item:1006}, from {npc:330}"] = "{item:1006}, sur {npc:330}",
-
-	-- Step 37: Goldtooth and the kelp
-	-- {quest:87} Goldtooth
-	["{quest:87} and the kelp"] = "{quest:87} et le varech",
-	-- {item:981} Bernice's Necklace · {quest:87} Goldtooth
-	["{item:981}, from {quest:87}"] = "{item:981}, sur {quest:87}",
-	-- {item:1256} Crystal Kelp Frond · {area:18} Crystal Lake
-	["{item:1256}, from the murlocs of {area:18}"] = "{item:1256}, sur les murlocs du {area:18}",
-
-	-- Step 38: Goldshire: last hand-in
-	-- {area:87} Goldshire
-	["{area:87}: last hand-in"] = "{area:87} : dernière remise",
-
-	-- Step 39: Shipment to Stormwind
-	-- {npc:279} Morgan Pestle · {object:2096} Trade District
-	["{npc:279}, in the {object:2096}"] = "{npc:279}, dans le {object:2096}",
-
-	-- Step 40: Eastvale
-	["Eastvale"] = "Val d'Est",
-	-- {npc:261} Guard Thomas · {area:91} Tower of Azora
-	["Optional: eastern Elwynn, around {npc:261} on the bridge and the {area:91}, about 1,000 reputation in 40 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
-
-	-- Step 41: Eastvale: the work
-	["Eastvale: the work"] = "Val d'Est : le travail",
-	-- {area:91} Tower of Azora · {area:54} Jasperlode Mine
-	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear · Kobold Geomancers = {npc:476} Kobold Geomancer
-	["The murlocs along the river south of the bridge drop the fins; Prowlers and Young Forest Bears roam the woods; the Defias around the Brackwell farm and the {area:91} carry the bandanas; the enchanting supplies lie in their camps north of the tower; the Kobold Geomancers dig at {area:54}; the tools and the river finds lie along the river north of the logging camp."] = "Les murlocs le long de la rivière au sud du pont laissent les nageoires ; Rôdeurs et Jeunes ours des forêts parcourent les bois ; les Défias autour de la ferme des Brackwell et de la {area:91} portent les foulards ; les fournitures d'enchantement sont dans leurs camps au nord de la tour ; les Géomanciens kobolds creusent à la {area:54} ; les outils et les trouvailles de la rivière sont le long de la rivière au nord du camp de bûcherons.",
-
-	-- Step 42: Eastvale: hand in
-	["Eastvale: hand in"] = "Val d'Est : rendre les quêtes",
-
-	-- Step 43: Eastvale: Defias Rogue Wizards
-	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["Eastvale: Defias Rogue Wizards"] = "Val d'Est : Sorciers-voleurs défias",
-	["opens with Thomas' report"] = "débloquée par le rapport de Thomas",
-	-- {item:780} Torn Murloc Fin
-	["{item:780}, from the murlocs south of the bridge"] = "{item:780}, sur les murlocs au sud du pont",
 
 	-- Step 44: Additional Runecloth to Honored
 	-- {quest:7796} Additional Runecloth

@@ -25,84 +25,32 @@ return {
 	-- {item:2592} Wool Cloth · {zone:1432} Loch Modan · {zone:1437} Wetlands
 	["{item:2592}: troggs, gnolls and kobolds in {zone:1432} and the {zone:1437}"] = "{item:2592}: troggs, gnolls e kobolds em {zone:1432} e em {zone:1437}",
 
-	-- Step 2: A Donation of Silk
-	-- {item:4306} Silk Cloth · {zone:1437} Wetlands
-	["{item:4306} drops from humanoids level 23 to 40: the Dragonmaw of the {zone:1437}, the Syndicate of Alterac and Arathi, Stranglethorn's trolls."] = "{item:4306} cai de humanoides de nível 23 a 40: os Presa do Dragão de {zone:1437}, a Camarilha de Alterac e de Arathi, os trolls da Selva do Espinhaço.",
-
-	-- Step 3: A Donation of Mageweave
-	-- {item:4338} Mageweave Cloth · {object:147516} Dark Iron (no name in this language: may be words) · {zone:1418} Badlands · {zone:1427} Searing Gorge · {zone:1446} Tanaris · {zone:1444} Feralas
-	["{item:4338} drops from humanoids level 35 to 50: the Shadowforge and {object:147516} dwarves of the {zone:1418} and {zone:1427}, the Dunemaul ogres of {zone:1446}, the Hatecrest naga of {zone:1444}."] = "{item:4338} cai de humanoides de nível 35 a 50: os anões Umbraforja e {object:147516} de {zone:1418} e {zone:1427}, os ogros Dunamalho de {zone:1446}, os nagas Cristafúria de {zone:1444}.",
-
-	-- Step 4: A Donation of Runecloth
-	-- {item:14047} Runecloth · {zone:1448} Felwood · {zone:1452} Winterspring · {quest:7812} Additional Runecloth
-	["{item:14047} drops from humanoids level 50 and up: the Scourge cultists and Scarlet Crusade in the Plaguelands, the Deadwood furbolgs of {zone:1448}, the Winterfall furbolgs of {zone:1452}. Keep any {item:14047} past the first 60 for {quest:7812}."] = "{item:14047} cai de humanoides de nível 50 ou mais: os cultistas do Flagelo e a Cruzada Escarlate nas Terras Pestilentas, os furbolgs Lenha Morta de {zone:1448}, os furbolgs Invernosos de {zone:1452}. Guarde todo {item:14047} além dos 60 primeiros para {quest:7812}.",
-
-	-- Step 5: Tinker Town: Laris Geardawdle
-	-- {npc:9616} Laris Geardawdle · {object:171524} Tinker Town · {area:133} Gnomeregan
-	["{npc:9616} in {object:171524} wants ooze samples for her research: 150 {area:133} reputation for each of her two quests (level 52 and 54: in Classic 60 and 120 of it at 60). She hands you the empty jars."] = "{npc:9616} em {object:171524} quer amostras de gosma para a pesquisa dela: 150 de reputação de {area:133} por missão, são duas (níveis 52 e 54: no Classic, 60 e 120 no 60). Ela entrega as jarras vazias.",
-
-	-- Step 6: Felwood: Cursed and Tainted Oozes
-	-- {zone:1448} Felwood
-	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["{zone:1448}: Cursed and Tainted Oozes"] = "{zone:1448}: Gosmas Amaldiçoadas e Maculadas",
-	-- {area:1763} Jaedenar · {area:1765} Bloodvenom Falls
-	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill one and use an empty jar on its remains."] = "As Gosmas Amaldiçoadas e Maculadas deslizam pelos riachos e pelas poças vis perto de {area:1763} e {area:1765}: mate uma e use uma jarra vazia nos restos dela.",
-
-	-- Step 7: Tinker Town: the second jars
-	-- {object:171524} Tinker Town
-	["{object:171524}: the second jars"] = "{object:171524}: as segundas jarras",
-
-	-- Step 8: Un'Goro Crater: Primal Oozes
-	-- {zone:1449} Un'Goro Crater
-	-- plural, as words: Primal Oozes = {npc:6557} Primal Ooze
-	["{zone:1449}: Primal Oozes"] = "{zone:1449}: Gosmas Primevas",
-	-- {area:537} Fire Plume Ridge
-	-- plural, as words: Primal Oozes = {npc:6557} Primal Ooze · Glutinous Oozes = {npc:6559} Glutinous Ooze
-	["The Primal Oozes live in the pools around {area:537} in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains."] = "As Gosmas Primevas vivem nas poças perto de {area:537}, no meio da cratera; as Gosmas Muculentas e Pegajosas também enchem as jarras. Mate uma e use uma jarra nos restos dela.",
-
-	-- Step 9: Tinker Town: hand in
-	-- {object:171524} Tinker Town
-	["{object:171524}: hand in"] = "{object:171524}: entregar",
-
-	-- Step 10: Morgan's Vigil: Jalinda Sprig
-	-- {npc:9561} Jalinda Sprig · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {quest:4262} Overmaster Pyron · {area:133} Gnomeregan · {area:1584} Blackrock Depths
-	["{npc:9561} at {area:2418}, in the south-east of the {zone:1428}, wants {quest:4262} dead: 100 {area:133} reputation (level 52: in Classic 40 at 60). Her next quest, Incendius!, needs a {area:1584} group: 100 more, in full."] = "{npc:9561} em {area:2418}, no sudeste de {zone:1428}, quer {quest:4262} morto: 100 de reputação de {area:133} (nível 52: no Classic, 40 no 60). A missão seguinte dela, Incendius!, exige um grupo de {area:1584}: mais 100, inteiros.",
-
-	-- Step 11: Blackrock Mountain: Overmaster Pyron
-	-- {area:254} Blackrock Mountain · {zone:1428} Burning Steppes · {quest:4262} Overmaster Pyron · {area:1584} Blackrock Depths
-	["{area:254} stands in the west of the {zone:1428}. {quest:4262}, a fire elemental, walks the lava paths inside it, near the door of {area:1584} but outside the dungeon: at 60 you take him alone."] = "{area:254} fica no oeste de {zone:1428}. {quest:4262}, um elemental de fogo, anda pelas trilhas de lava lá dentro, perto da porta de {area:1584}, mas fora da masmorra: no 60 você o mata sozinho.",
-
-	-- Step 12: Morgan's Vigil: hand in
-	-- {area:2418} Morgan's Vigil
-	["{area:2418}: hand in"] = "{area:2418}: entregar",
-
-	-- Step 13: Coldridge Valley
+	-- Step 2: Coldridge Valley
 	-- {area:131} Kharanos · {npc:658} Sten Stoutarm · {npc:713} Balir Frosthammer · {area:77} Anvilmar
 	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,150 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
 
-	-- Step 14: Coldridge: wolves, troggs and Felix Whindlebolt's things
+	-- Step 3: Coldridge: wolves, troggs and Felix Whindlebolt's things
 	-- {npc:8416} Felix Whindlebolt
 	["Coldridge: wolves, troggs and {npc:8416}'s things"] = "Cristálgida: lobos, troggs e as coisas de {npc:8416}",
 	-- {area:77} Anvilmar · {npc:8416} Felix Whindlebolt
 	["The wolves roam the valley floor; the troggs dig in the camps east of {area:77}; {npc:8416}'s box, chest and bucket lie in the trogg camps."] = "Os lobos vagam pelo fundo do vale; os troggs cavam nos acampamentos a leste de {area:77}; a caixa, o baú e o balde de {npc:8416} estão nos acampamentos de troggs.",
 
-	-- Step 15: Coldridge: Anvilmar and Talin Keeneye
+	-- Step 4: Coldridge: Anvilmar and Talin Keeneye
 	-- {area:77} Anvilmar · {npc:714} Talin Keeneye
 	["Coldridge: {area:77} and {npc:714}"] = "Cristálgida: {area:77} e {npc:714}",
 
-	-- Step 16: Coldridge: Grelin Whitebeard and the troll cave
+	-- Step 5: Coldridge: Grelin Whitebeard and the troll cave
 	-- {npc:786} Grelin Whitebeard
 	["Coldridge: {npc:786} and the troll cave"] = "Cristálgida: {npc:786} e a caverna dos trolls",
 	-- {npc:786} Grelin Whitebeard · {area:77} Anvilmar
 	["{npc:786} camps south of {area:77}, at the mouth of the troll cave; the journal lies at the back of the cave."] = "{npc:786} acampa ao sul de {area:77}, na boca da caverna dos trolls; o diário está no fundo da caverna.",
 
-	-- Step 17: Coldridge: the hot Mornbrew
+	-- Step 6: Coldridge: the hot Mornbrew
 	["Coldridge: the hot Mornbrew"] = "Cristálgida: o rabo-de-galo quente",
 	-- {npc:836} Durnan Furcutter · {area:77} Anvilmar
 	["The Scalding Mornbrew cools in five minutes: run straight to {npc:836} at {area:77}."] = "O Rabo-de-galo Escaldante esfria em cinco minutos: corra direto até {npc:836} em {area:77}.",
 
-	-- Step 18: Coldridge: on to Kharanos
+	-- Step 7: Coldridge: on to Kharanos
 	-- {area:131} Kharanos
 	["Coldridge: on to {area:131}"] = "Cristálgida: seguindo para {area:131}",
 	-- {npc:1252} Senir Whitebeard · {area:131} Kharanos
@@ -110,46 +58,98 @@ return {
 	-- {npc:6806} Tannok Frosthammer
 	["{npc:6806}, in the inn"] = "{npc:6806}, na estalagem",
 
-	-- Step 19: Kharanos
+	-- Step 8: Kharanos
 	-- {area:131} Kharanos · {area:133} Gnomeregan · {area:2102} Thunderbrew Distillery · {area:189} Steelgrill's Depot
 	["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
 
-	-- Step 20: Kharanos: the hills and the depot
+	-- Step 9: Kharanos: the hills and the depot
 	-- {area:131} Kharanos
 	["{area:131}: the hills and the depot"] = "{area:131}: as colinas e o depósito",
 	-- {area:131} Kharanos · {area:136} Grizzled Den · {area:133} Gnomeregan
 	["The boars and bears roam around {area:131}; the wendigos live in the {area:136} south-west of town; the leper gnomes at the {area:133} road carry the cogs and gears; Rumbleshot's ammo lies at his camp west of town."] = "Os javalis e os ursos vagam em volta de {area:131}; os wendigos vivem em {area:136}, a sudoeste da cidade; os gnomos leprosos da estrada de {area:133} carregam as engrenagens; a munição de Estremetiro está no acampamento dele, a oeste da cidade.",
 
-	-- Step 21: Kharanos: back in town
+	-- Step 10: Kharanos: back in town
 	-- {area:131} Kharanos
 	["{area:131}: back in town"] = "{area:131}: de volta à cidade",
 
-	-- Step 22: Kharanos: Brewnall and Frostmane Hold
+	-- Step 11: Kharanos: Brewnall and Frostmane Hold
 	-- {area:131} Kharanos · {quest:287} Frostmane Hold
 	["{area:131}: Brewnall and {quest:287}"] = "{area:131}: Brewnall e {quest:287}",
 	-- {npc:1374} Rejold Barleybrew · {area:137} Brewnall Village · {area:131} Kharanos · {quest:287} Frostmane Hold
 	["{npc:1374} stands by {area:137} on the lake north-west of {area:131}; {quest:287} is the troll cave west of it."] = "{npc:1374} fica perto de {area:137}, no lago a noroeste de {area:131}; {quest:287} é a caverna dos trolls a oeste dele.",
 	["walk to the back of the cave"] = "siga até o fundo da caverna",
 
-	-- Step 23: Kharanos: last hand-in
+	-- Step 12: Kharanos: last hand-in
 	-- {area:131} Kharanos
 	["{area:131}: last hand-in"] = "{area:131}: última entrega",
 
-	-- Step 24: The quarry and Amberstill Ranch
+	-- Step 13: The quarry and Amberstill Ranch
 	-- {area:803} Amberstill Ranch
 	["The quarry and {area:803}"] = "A pedreira e {area:803}",
 	-- {zone:1426} Dun Morogh · {npc:264936} Earthseer Farsen · {area:134} Gol'Bolar Quarry · {area:803} Amberstill Ranch
 	["Optional: eastern {zone:1426}, from {npc:264936}'s camp to the {area:134} and {area:803}, about 500 reputation in 30 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
 
-	-- Step 25: The quarry: troggs, spies and Vagash
+	-- Step 14: The quarry: troggs, spies and Vagash
 	-- {npc:1388} Vagash
 	["The quarry: troggs, spies and {npc:1388}"] = "A pedreira: troggs, espiões e {npc:1388}",
 	-- {area:134} Gol'Bolar Quarry · {npc:1388} Vagash · {area:803} Amberstill Ranch
 	["The Dark Iron Spies lurk around Farsen's camp; the troggs dig in the {area:134}; {npc:1388}, a big snow leopard, prowls the hills above {area:803}."] = "Os Espiões Ferro Negro rondam o acampamento de Farsen; os troggs cavam em {area:134}; {npc:1388}, um grande leopardo-da-neve, percorre as colinas acima de {area:803}.",
 
-	-- Step 26: The Reports
+	-- Step 15: The Reports
 	-- {npc:1274} Senator Barin Redstone
 	["{npc:1274}, in the throne room"] = "{npc:1274}, na sala do trono",
+
+	-- Step 16: A Donation of Silk
+	-- {item:4306} Silk Cloth · {zone:1437} Wetlands
+	["{item:4306} drops from humanoids level 23 to 40: the Dragonmaw of the {zone:1437}, the Syndicate of Alterac and Arathi, Stranglethorn's trolls."] = "{item:4306} cai de humanoides de nível 23 a 40: os Presa do Dragão de {zone:1437}, a Camarilha de Alterac e de Arathi, os trolls da Selva do Espinhaço.",
+
+	-- Step 17: A Donation of Mageweave
+	-- {item:4338} Mageweave Cloth · {object:147516} Dark Iron (no name in this language: may be words) · {zone:1418} Badlands · {zone:1427} Searing Gorge · {zone:1446} Tanaris · {zone:1444} Feralas
+	["{item:4338} drops from humanoids level 35 to 50: the Shadowforge and {object:147516} dwarves of the {zone:1418} and {zone:1427}, the Dunemaul ogres of {zone:1446}, the Hatecrest naga of {zone:1444}."] = "{item:4338} cai de humanoides de nível 35 a 50: os anões Umbraforja e {object:147516} de {zone:1418} e {zone:1427}, os ogros Dunamalho de {zone:1446}, os nagas Cristafúria de {zone:1444}.",
+
+	-- Step 18: A Donation of Runecloth
+	-- {item:14047} Runecloth · {zone:1448} Felwood · {zone:1452} Winterspring · {quest:7812} Additional Runecloth
+	["{item:14047} drops from humanoids level 50 and up: the Scourge cultists and Scarlet Crusade in the Plaguelands, the Deadwood furbolgs of {zone:1448}, the Winterfall furbolgs of {zone:1452}. Keep any {item:14047} past the first 60 for {quest:7812}."] = "{item:14047} cai de humanoides de nível 50 ou mais: os cultistas do Flagelo e a Cruzada Escarlate nas Terras Pestilentas, os furbolgs Lenha Morta de {zone:1448}, os furbolgs Invernosos de {zone:1452}. Guarde todo {item:14047} além dos 60 primeiros para {quest:7812}.",
+
+	-- Step 19: Tinker Town: Laris Geardawdle
+	-- {npc:9616} Laris Geardawdle · {object:171524} Tinker Town · {area:133} Gnomeregan
+	["{npc:9616} in {object:171524} wants ooze samples for her research: 150 {area:133} reputation for each of her two quests (level 52 and 54: in Classic 60 and 120 of it at 60). She hands you the empty jars."] = "{npc:9616} em {object:171524} quer amostras de gosma para a pesquisa dela: 150 de reputação de {area:133} por missão, são duas (níveis 52 e 54: no Classic, 60 e 120 no 60). Ela entrega as jarras vazias.",
+
+	-- Step 20: Felwood: Cursed and Tainted Oozes
+	-- {zone:1448} Felwood
+	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
+	["{zone:1448}: Cursed and Tainted Oozes"] = "{zone:1448}: Gosmas Amaldiçoadas e Maculadas",
+	-- {area:1763} Jaedenar · {area:1765} Bloodvenom Falls
+	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
+	["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill one and use an empty jar on its remains."] = "As Gosmas Amaldiçoadas e Maculadas deslizam pelos riachos e pelas poças vis perto de {area:1763} e {area:1765}: mate uma e use uma jarra vazia nos restos dela.",
+
+	-- Step 21: Tinker Town: the second jars
+	-- {object:171524} Tinker Town
+	["{object:171524}: the second jars"] = "{object:171524}: as segundas jarras",
+
+	-- Step 22: Un'Goro Crater: Primal Oozes
+	-- {zone:1449} Un'Goro Crater
+	-- plural, as words: Primal Oozes = {npc:6557} Primal Ooze
+	["{zone:1449}: Primal Oozes"] = "{zone:1449}: Gosmas Primevas",
+	-- {area:537} Fire Plume Ridge
+	-- plural, as words: Primal Oozes = {npc:6557} Primal Ooze · Glutinous Oozes = {npc:6559} Glutinous Ooze
+	["The Primal Oozes live in the pools around {area:537} in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains."] = "As Gosmas Primevas vivem nas poças perto de {area:537}, no meio da cratera; as Gosmas Muculentas e Pegajosas também enchem as jarras. Mate uma e use uma jarra nos restos dela.",
+
+	-- Step 23: Tinker Town: hand in
+	-- {object:171524} Tinker Town
+	["{object:171524}: hand in"] = "{object:171524}: entregar",
+
+	-- Step 24: Morgan's Vigil: Jalinda Sprig
+	-- {npc:9561} Jalinda Sprig · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {quest:4262} Overmaster Pyron · {area:133} Gnomeregan · {area:1584} Blackrock Depths
+	["{npc:9561} at {area:2418}, in the south-east of the {zone:1428}, wants {quest:4262} dead: 100 {area:133} reputation (level 52: in Classic 40 at 60). Her next quest, Incendius!, needs a {area:1584} group: 100 more, in full."] = "{npc:9561} em {area:2418}, no sudeste de {zone:1428}, quer {quest:4262} morto: 100 de reputação de {area:133} (nível 52: no Classic, 40 no 60). A missão seguinte dela, Incendius!, exige um grupo de {area:1584}: mais 100, inteiros.",
+
+	-- Step 25: Blackrock Mountain: Overmaster Pyron
+	-- {area:254} Blackrock Mountain · {zone:1428} Burning Steppes · {quest:4262} Overmaster Pyron · {area:1584} Blackrock Depths
+	["{area:254} stands in the west of the {zone:1428}. {quest:4262}, a fire elemental, walks the lava paths inside it, near the door of {area:1584} but outside the dungeon: at 60 you take him alone."] = "{area:254} fica no oeste de {zone:1428}. {quest:4262}, um elemental de fogo, anda pelas trilhas de lava lá dentro, perto da porta de {area:1584}, mas fora da masmorra: no 60 você o mata sozinho.",
+
+	-- Step 26: Morgan's Vigil: hand in
+	-- {area:2418} Morgan's Vigil
+	["{area:2418}: hand in"] = "{area:2418}: entregar",
 
 	-- Step 27: Additional Runecloth to Honored
 	-- {quest:7812} Additional Runecloth

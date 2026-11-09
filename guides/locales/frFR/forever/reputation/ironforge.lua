@@ -25,77 +25,32 @@ return {
 	-- {item:2592} Wool Cloth · {zone:1432} Loch Modan · {zone:1437} Wetlands
 	["{item:2592}: troggs, gnolls and kobolds in {zone:1432} and the {zone:1437}"] = "{item:2592} : troggs, gnolls et kobolds du {zone:1432} et des {zone:1437}",
 
-	-- Step 2: A Donation of Silk
-	-- {item:4306} Silk Cloth · {zone:1437} Wetlands
-	["{item:4306} drops from humanoids level 23 to 40: the Dragonmaw of the {zone:1437}, the Syndicate of Alterac and Arathi, Stranglethorn's trolls."] = "L'{item:4306} tombe des humanoïdes de niveau 23 à 40 : les Gueule-de-dragon des {zone:1437}, le Syndicat d'Alterac et d'Arathi, les trolls de Strangleronce.",
-
-	-- Step 3: A Donation of Mageweave
-	-- {item:4338} Mageweave Cloth · {object:147516} Dark Iron · {zone:1418} Badlands · {zone:1427} Searing Gorge · {zone:1446} Tanaris · {zone:1444} Feralas
-	["{item:4338} drops from humanoids level 35 to 50: the Shadowforge and {object:147516} dwarves of the {zone:1418} and {zone:1427}, the Dunemaul ogres of {zone:1446}, the Hatecrest naga of {zone:1444}."] = "L'{item:4338} tombe des humanoïdes de niveau 35 à 50 : les nains Forgombre et {object:147516} des {zone:1418} et de la {zone:1427}, les ogres Cognedune de {zone:1446}, les nagas Hainecrête de {zone:1444}.",
-
-	-- Step 4: A Donation of Runecloth
-	-- {item:14047} Runecloth · {zone:1448} Felwood · {zone:1452} Winterspring · {quest:7806} Additional Runecloth
-	["{item:14047} drops from humanoids level 50 and up: the Scourge cultists and Scarlet Crusade in the Plaguelands, the Deadwood furbolgs of {zone:1448}, the Winterfall furbolgs of {zone:1452}. Keep any {item:14047} past the first 60 for {quest:7806}."] = "L'{item:14047} tombe des humanoïdes de niveau 50 et plus : les sectateurs du Fléau et la Croisade écarlate dans les Maleterres, les furbolgs Mort-bois de {zone:1448}, les furbolgs Tombe-hiver de {zone:1452}. Gardez l'{item:14047} au-delà des 60 premières pour {quest:7806}.",
-
-	-- Step 5: Ironforge: Royal Historian Archesonus
-	-- {faction:47} Ironforge · {npc:8879} Royal Historian Archesonus · {object:171709} High Seat · {zone:1428} Burning Steppes
-	["These quests are level 52 to 59, so they pay in full at 60: about 600 {faction:47} reputation. {npc:8879} stands beside King Magni in the {object:171709}; he sends you to the ruins of Thaurissan in the {zone:1428}."] = "",
-	-- {npc:8879} Royal Historian Archesonus
-	["Hear {npc:8879} out"] = "Écoutez l'{npc:8879} jusqu'au bout",
-
-	-- Step 6: Morgan's Vigil: Oralius
-	-- {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {npc:9177} Oralius · {area:249} Dreadmaul Rock
-	["{area:2418} sits in the south-east of the {zone:1428}, at the top of the pass up from Redridge. {npc:9177} wants the Firegut ogres of {area:249}, north of the Vigil, thinned out; the Brutes keep to the rock's east side."] = "Le {area:2418} se trouve dans le sud-est des {zone:1428}, en haut du col qui monte des Carmines. {npc:9177} veut qu'on éclaircisse les rangs des ogres Brûlentrailles du {area:249}, au nord du camp ; les Brutes restent sur le côté est du rocher.",
-
-	-- Step 7: Thaurissan and Blackrock Stronghold
-	-- {area:252} Blackrock Stronghold
-	["Thaurissan and {area:252}"] = "Thaurissan et le {area:252}",
-	-- {area:251} Flame Crest · {npc:9176} Gor'tesh · {area:254} Blackrock Mountain · {item:11467} Blackrock Medallion · {npc:9177} Oralius · {item:14047} Runecloth · {quest:7806} Additional Runecloth
-	["The Thaurissan relics are the carved stones in the ruins around {area:251}, west along the road: click twelve of them. {npc:9176} and the Blackrock orcs and worgs hold the camps at the foot of {area:254}, further west; each may drop a {item:11467} (about one kill in three), and {npc:9177} wants fifty. The orcs are level 50 and up, so they drop {item:14047} too: keep it for {quest:7806}."] = "Les reliques de Thaurissan sont les pierres sculptées dans les ruines autour de la {area:251}, à l'ouest le long de la route : cliquez sur douze d'entre elles. {npc:9176} et les orcs et worgs Rochenoire tiennent les camps au pied du {area:254}, plus à l'ouest ; chacun peut laisser un {item:11467} (environ une victime sur trois), et {npc:9177} en veut cinquante. Les orcs sont de niveau 50 et plus, ils laissent donc aussi de l'{item:14047} : gardez-la pour {quest:7806}.",
-
-	-- Step 8: Morgan's Vigil: hand in
-	-- {area:2418} Morgan's Vigil
-	["{area:2418}: hand in"] = "{area:2418} : rendez les quêtes",
-	-- {npc:9176} Gor'tesh · {area:249} Dreadmaul Rock
-	["Plant {npc:9176}'s head on the soft dirt mound at the top of {area:249}."] = "Plantez la tête de {npc:9176} sur le monticule de terre meuble au sommet du {area:249}.",
-
-	-- Step 9: Ironforge: Archesonus again
-	-- {faction:47} Ironforge
-	["{faction:47}: Archesonus again"] = "{faction:47} : de nouveau Archesonus",
-	-- {area:1584} Blackrock Depths · {npc:9021} Kharan Mighthammer · {npc:9177} Oralius · {zone:1459} Alterac Valley · {faction:47} Ironforge · {item:17542} Coldtooth Supplies
-	-- plural, as words: Dark Iron Fanny Packs = {item:11468} Dark Iron Fanny Pack · Storm Crystals = {item:17423} Storm Crystal
-	["With a group, {area:1584} pays more: Archesonus's chain goes on with {npc:9021} (100) and The Fate of the Kingdom (Emperor Thaurissan, 150), and {npc:9177} takes 20 Dark Iron Fanny Packs from the dwarves inside (The Good Stuff, 100). {zone:1459}, from level 51, pays {faction:47} too: its one-time quests about 1,900 as your Stormpike standing grows (the {zone:1459} guide walks them), and inside the battle 25 for every 10 Irondeep or {item:17542} and 50 for 5 Storm Crystals, as often as you like."] = "En groupe, les {area:1584} rapportent davantage : la suite d'Archesonus continue avec {npc:9021} (100) et Le destin du Royaume (l'empereur Thaurissan, 150), et {npc:9177} prend 20 sacoches sombrefer sur les nains de l'intérieur (The Good Stuff, 100). La {zone:1459}, dès le niveau 51, rapporte aussi auprès de {faction:47} : ses quêtes uniques environ 1 900 à mesure que votre réputation Foudrepique grandit (le guide de la {zone:1459} les détaille), et dans la bataille 25 pour chaque lot de 10 Gouffrefer ou {item:17542} et 50 pour 5 cristaux de tempête, aussi souvent que vous le voulez.",
-
-	-- Step 10: Winterspring: Enraged Wildkin
-	-- {npc:11755} Harlo Wigglesworth · {area:2255} Everlook · {npc:10301} Jaron Stoneshaper · {area:2253} Starfall Village · {area:2245} Mazthoril · {faction:47} Ironforge
-	["{npc:11755} in {area:2255} sends you west to {npc:10301} at {area:2253}. {npc:10301}'s damaged crate and wrecked wagon lie at {area:2245}, down the valley to the south-east; his supplies lie around the wagon and the owlbeasts nearby carry his amulet. The last quest is level 59: 100 {faction:47} in full."] = "{npc:11755}, à {area:2255}, vous envoie à l'ouest auprès de {npc:10301}, au {area:2253}. La caisse abîmée et le chariot détruit de {npc:10301} se trouvent à {area:2245}, en descendant la vallée vers le sud-est ; ses fournitures sont autour du chariot et les chouettards voisins portent son amulette. La dernière quête est de niveau 59 : 100 auprès de {faction:47}, en entier.",
-
-	-- Step 11: Coldridge Valley
+	-- Step 2: Coldridge Valley
 	-- {area:131} Kharanos · {npc:658} Sten Stoutarm · {npc:713} Balir Frosthammer · {area:77} Anvilmar
 	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,100 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
 
-	-- Step 12: Coldridge: wolves, troggs and Felix Whindlebolt's things
+	-- Step 3: Coldridge: wolves, troggs and Felix Whindlebolt's things
 	-- {npc:8416} Felix Whindlebolt
 	["Coldridge: wolves, troggs and {npc:8416}'s things"] = "Coldridge : loups, troggs et affaires de {npc:8416}",
 	-- {area:77} Anvilmar · {npc:8416} Felix Whindlebolt
 	["The wolves roam the valley floor; the troggs dig in the camps east of {area:77}; {npc:8416}'s box, chest and bucket lie in the trogg camps."] = "Les loups errent au fond de la vallée ; les troggs creusent dans les camps à l'est d'{area:77} ; la boîte, le coffre et le seau de {npc:8416} se trouvent dans les camps de troggs.",
 
-	-- Step 13: Coldridge: Anvilmar and Talin Keeneye
+	-- Step 4: Coldridge: Anvilmar and Talin Keeneye
 	-- {area:77} Anvilmar · {npc:714} Talin Keeneye
 	["Coldridge: {area:77} and {npc:714}"] = "Coldridge : {area:77} et {npc:714}",
 
-	-- Step 14: Coldridge: Grelin Whitebeard and the troll cave
+	-- Step 5: Coldridge: Grelin Whitebeard and the troll cave
 	-- {npc:786} Grelin Whitebeard
 	["Coldridge: {npc:786} and the troll cave"] = "Coldridge : {npc:786} et la grotte des trolls",
 	-- {npc:786} Grelin Whitebeard · {area:77} Anvilmar
 	["{npc:786} camps south of {area:77}, at the mouth of the troll cave; the journal lies at the back of the cave."] = "{npc:786} campe au sud d'{area:77}, à l'entrée de la grotte des trolls ; le journal se trouve au fond de la grotte.",
 
-	-- Step 15: Coldridge: the hot Mornbrew
+	-- Step 6: Coldridge: the hot Mornbrew
 	["Coldridge: the hot Mornbrew"] = "Coldridge : la Mornbrew brûlante",
 	-- {npc:836} Durnan Furcutter · {area:77} Anvilmar
 	["The Scalding Mornbrew cools in five minutes: run straight to {npc:836} at {area:77}."] = "La Mornbrew brûlante refroidit en cinq minutes : courez directement auprès de {npc:836} à {area:77}.",
 
-	-- Step 16: Coldridge: on to Kharanos
+	-- Step 7: Coldridge: on to Kharanos
 	-- {area:131} Kharanos
 	["Coldridge: on to {area:131}"] = "Coldridge : en route pour {area:131}",
 	-- {npc:1252} Senir Whitebeard · {area:131} Kharanos
@@ -103,46 +58,91 @@ return {
 	-- {npc:6806} Tannok Frosthammer
 	["{npc:6806}, in the inn"] = "{npc:6806}, à l'auberge",
 
-	-- Step 17: Kharanos
+	-- Step 8: Kharanos
 	-- {area:131} Kharanos · {area:133} Gnomeregan · {area:2102} Thunderbrew Distillery · {area:189} Steelgrill's Depot
 	["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
 
-	-- Step 18: Kharanos: the hills and the depot
+	-- Step 9: Kharanos: the hills and the depot
 	-- {area:131} Kharanos
 	["{area:131}: the hills and the depot"] = "{area:131} : les collines et le dépôt",
 	-- {area:131} Kharanos · {area:136} Grizzled Den · {area:133} Gnomeregan
 	["The boars and bears roam around {area:131}; the wendigos live in the {area:136} south-west of town; the leper gnomes at the {area:133} road carry the cogs and gears; Rumbleshot's ammo lies at his camp west of town."] = "Les sangliers et les ours errent autour de {area:131} ; les wendigos vivent dans la {area:136}, au sud-ouest de la ville ; les gnomes lépreux sur la route de {area:133} portent les rouages et engrenages ; les munitions de Rumbleshot sont à son camp, à l'ouest de la ville.",
 
-	-- Step 19: Kharanos: back in town
+	-- Step 10: Kharanos: back in town
 	-- {area:131} Kharanos
 	["{area:131}: back in town"] = "{area:131} : de retour en ville",
 
-	-- Step 20: Kharanos: Brewnall and Frostmane Hold
+	-- Step 11: Kharanos: Brewnall and Frostmane Hold
 	-- {area:131} Kharanos · {quest:287} Frostmane Hold
 	["{area:131}: Brewnall and {quest:287}"] = "{area:131} : Brewnall et {quest:287}",
 	-- {npc:1374} Rejold Barleybrew · {area:137} Brewnall Village · {area:131} Kharanos · {quest:287} Frostmane Hold
 	["{npc:1374} stands by {area:137} on the lake north-west of {area:131}; {quest:287} is the troll cave west of it."] = "{npc:1374} se tient près du {area:137}, au bord du lac au nord-ouest de {area:131} ; {quest:287} est la grotte des trolls à l'ouest.",
 	["walk to the back of the cave"] = "allez au fond de la grotte",
 
-	-- Step 21: Kharanos: last hand-in
+	-- Step 12: Kharanos: last hand-in
 	-- {area:131} Kharanos
 	["{area:131}: last hand-in"] = "{area:131} : dernière remise",
 
-	-- Step 22: The quarry and Amberstill Ranch
+	-- Step 13: The quarry and Amberstill Ranch
 	-- {area:803} Amberstill Ranch
 	["The quarry and {area:803}"] = "La carrière et le {area:803}",
 	-- {zone:1426} Dun Morogh · {npc:264936} Earthseer Farsen · {area:134} Gol'Bolar Quarry · {area:803} Amberstill Ranch
 	["Optional: eastern {zone:1426}, from {npc:264936}'s camp to the {area:134} and {area:803}, about 500 reputation in 30 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
 
-	-- Step 23: The quarry: troggs, spies and Vagash
+	-- Step 14: The quarry: troggs, spies and Vagash
 	-- {npc:1388} Vagash
 	["The quarry: troggs, spies and {npc:1388}"] = "La carrière : troggs, espions et {npc:1388}",
 	-- {area:134} Gol'Bolar Quarry · {npc:1388} Vagash · {area:803} Amberstill Ranch
 	["The Dark Iron Spies lurk around Farsen's camp; the troggs dig in the {area:134}; {npc:1388}, a big snow leopard, prowls the hills above {area:803}."] = "Les espions Sombrefer rôdent autour du camp de Farsen ; les troggs creusent dans la {area:134} ; {npc:1388}, un grand léopard des neiges, rôde dans les collines au-dessus du {area:803}.",
 
-	-- Step 24: The Reports
+	-- Step 15: The Reports
 	-- {npc:1274} Senator Barin Redstone
 	["{npc:1274}, in the throne room"] = "{npc:1274}, dans la salle du trône",
+
+	-- Step 16: A Donation of Silk
+	-- {item:4306} Silk Cloth · {zone:1437} Wetlands
+	["{item:4306} drops from humanoids level 23 to 40: the Dragonmaw of the {zone:1437}, the Syndicate of Alterac and Arathi, Stranglethorn's trolls."] = "L'{item:4306} tombe des humanoïdes de niveau 23 à 40 : les Gueule-de-dragon des {zone:1437}, le Syndicat d'Alterac et d'Arathi, les trolls de Strangleronce.",
+
+	-- Step 17: A Donation of Mageweave
+	-- {item:4338} Mageweave Cloth · {object:147516} Dark Iron · {zone:1418} Badlands · {zone:1427} Searing Gorge · {zone:1446} Tanaris · {zone:1444} Feralas
+	["{item:4338} drops from humanoids level 35 to 50: the Shadowforge and {object:147516} dwarves of the {zone:1418} and {zone:1427}, the Dunemaul ogres of {zone:1446}, the Hatecrest naga of {zone:1444}."] = "L'{item:4338} tombe des humanoïdes de niveau 35 à 50 : les nains Forgombre et {object:147516} des {zone:1418} et de la {zone:1427}, les ogres Cognedune de {zone:1446}, les nagas Hainecrête de {zone:1444}.",
+
+	-- Step 18: A Donation of Runecloth
+	-- {item:14047} Runecloth · {zone:1448} Felwood · {zone:1452} Winterspring · {quest:7806} Additional Runecloth
+	["{item:14047} drops from humanoids level 50 and up: the Scourge cultists and Scarlet Crusade in the Plaguelands, the Deadwood furbolgs of {zone:1448}, the Winterfall furbolgs of {zone:1452}. Keep any {item:14047} past the first 60 for {quest:7806}."] = "L'{item:14047} tombe des humanoïdes de niveau 50 et plus : les sectateurs du Fléau et la Croisade écarlate dans les Maleterres, les furbolgs Mort-bois de {zone:1448}, les furbolgs Tombe-hiver de {zone:1452}. Gardez l'{item:14047} au-delà des 60 premières pour {quest:7806}.",
+
+	-- Step 19: Ironforge: Royal Historian Archesonus
+	-- {faction:47} Ironforge · {npc:8879} Royal Historian Archesonus · {object:171709} High Seat · {zone:1428} Burning Steppes
+	["These quests are level 52 to 59, so they pay in full at 60: about 600 {faction:47} reputation. {npc:8879} stands beside King Magni in the {object:171709}; he sends you to the ruins of Thaurissan in the {zone:1428}."] = "",
+	-- {npc:8879} Royal Historian Archesonus
+	["Hear {npc:8879} out"] = "Écoutez l'{npc:8879} jusqu'au bout",
+
+	-- Step 20: Morgan's Vigil: Oralius
+	-- {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {npc:9177} Oralius · {area:249} Dreadmaul Rock
+	["{area:2418} sits in the south-east of the {zone:1428}, at the top of the pass up from Redridge. {npc:9177} wants the Firegut ogres of {area:249}, north of the Vigil, thinned out; the Brutes keep to the rock's east side."] = "Le {area:2418} se trouve dans le sud-est des {zone:1428}, en haut du col qui monte des Carmines. {npc:9177} veut qu'on éclaircisse les rangs des ogres Brûlentrailles du {area:249}, au nord du camp ; les Brutes restent sur le côté est du rocher.",
+
+	-- Step 21: Thaurissan and Blackrock Stronghold
+	-- {area:252} Blackrock Stronghold
+	["Thaurissan and {area:252}"] = "Thaurissan et le {area:252}",
+	-- {area:251} Flame Crest · {npc:9176} Gor'tesh · {area:254} Blackrock Mountain · {item:11467} Blackrock Medallion · {npc:9177} Oralius · {item:14047} Runecloth · {quest:7806} Additional Runecloth
+	["The Thaurissan relics are the carved stones in the ruins around {area:251}, west along the road: click twelve of them. {npc:9176} and the Blackrock orcs and worgs hold the camps at the foot of {area:254}, further west; each may drop a {item:11467} (about one kill in three), and {npc:9177} wants fifty. The orcs are level 50 and up, so they drop {item:14047} too: keep it for {quest:7806}."] = "Les reliques de Thaurissan sont les pierres sculptées dans les ruines autour de la {area:251}, à l'ouest le long de la route : cliquez sur douze d'entre elles. {npc:9176} et les orcs et worgs Rochenoire tiennent les camps au pied du {area:254}, plus à l'ouest ; chacun peut laisser un {item:11467} (environ une victime sur trois), et {npc:9177} en veut cinquante. Les orcs sont de niveau 50 et plus, ils laissent donc aussi de l'{item:14047} : gardez-la pour {quest:7806}.",
+
+	-- Step 22: Morgan's Vigil: hand in
+	-- {area:2418} Morgan's Vigil
+	["{area:2418}: hand in"] = "{area:2418} : rendez les quêtes",
+	-- {npc:9176} Gor'tesh · {area:249} Dreadmaul Rock
+	["Plant {npc:9176}'s head on the soft dirt mound at the top of {area:249}."] = "Plantez la tête de {npc:9176} sur le monticule de terre meuble au sommet du {area:249}.",
+
+	-- Step 23: Ironforge: Archesonus again
+	-- {faction:47} Ironforge
+	["{faction:47}: Archesonus again"] = "{faction:47} : de nouveau Archesonus",
+	-- {area:1584} Blackrock Depths · {npc:9021} Kharan Mighthammer · {npc:9177} Oralius · {zone:1459} Alterac Valley · {faction:47} Ironforge · {item:17542} Coldtooth Supplies
+	-- plural, as words: Dark Iron Fanny Packs = {item:11468} Dark Iron Fanny Pack · Storm Crystals = {item:17423} Storm Crystal
+	["With a group, {area:1584} pays more: Archesonus's chain goes on with {npc:9021} (100) and The Fate of the Kingdom (Emperor Thaurissan, 150), and {npc:9177} takes 20 Dark Iron Fanny Packs from the dwarves inside (The Good Stuff, 100). {zone:1459}, from level 51, pays {faction:47} too: its one-time quests about 1,900 as your Stormpike standing grows (the {zone:1459} guide walks them), and inside the battle 25 for every 10 Irondeep or {item:17542} and 50 for 5 Storm Crystals, as often as you like."] = "En groupe, les {area:1584} rapportent davantage : la suite d'Archesonus continue avec {npc:9021} (100) et Le destin du Royaume (l'empereur Thaurissan, 150), et {npc:9177} prend 20 sacoches sombrefer sur les nains de l'intérieur (The Good Stuff, 100). La {zone:1459}, dès le niveau 51, rapporte aussi auprès de {faction:47} : ses quêtes uniques environ 1 900 à mesure que votre réputation Foudrepique grandit (le guide de la {zone:1459} les détaille), et dans la bataille 25 pour chaque lot de 10 Gouffrefer ou {item:17542} et 50 pour 5 cristaux de tempête, aussi souvent que vous le voulez.",
+
+	-- Step 24: Winterspring: Enraged Wildkin
+	-- {npc:11755} Harlo Wigglesworth · {area:2255} Everlook · {npc:10301} Jaron Stoneshaper · {area:2253} Starfall Village · {area:2245} Mazthoril · {faction:47} Ironforge
+	["{npc:11755} in {area:2255} sends you west to {npc:10301} at {area:2253}. {npc:10301}'s damaged crate and wrecked wagon lie at {area:2245}, down the valley to the south-east; his supplies lie around the wagon and the owlbeasts nearby carry his amulet. The last quest is level 59: 100 {faction:47} in full."] = "{npc:11755}, à {area:2255}, vous envoie à l'ouest auprès de {npc:10301}, au {area:2253}. La caisse abîmée et le chariot détruit de {npc:10301} se trouvent à {area:2245}, en descendant la vallée vers le sud-est ; ses fournitures sont autour du chariot et les chouettards voisins portent son amulette. La dernière quête est de niveau 59 : 100 auprès de {faction:47}, en entier.",
 
 	-- Step 25: Additional Runecloth to Honored
 	-- {quest:7806} Additional Runecloth
