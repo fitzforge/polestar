@@ -731,5 +731,27 @@
 			"ref": "creature_template Classification"
 		},
 		"note": "Decrepit Harvester is Rare on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"738": {
+		"addSpawns": {
+			"1434": {
+				"f": "e",
+				"pts": [
+					[
+						38.0,
+						3.4
+					],
+					[
+						40.34,
+						8.44
+					]
+				]
+			}
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature 20002243 (entry 738) waypoint_path 800022430: about 28 minutes at node 1 (38.0,3.4), 3 minutes at node 24 (40.3,8.4)"
+		},
+		"note": "Private Thorsen (Jungle Secrets, Supplies to Private Thorsen) stands most of the time at the top of the Rebel Camp's path and walks down to the road end now and then; the data had only the road end (#1425). Both ends of his walk."
 	}
 }

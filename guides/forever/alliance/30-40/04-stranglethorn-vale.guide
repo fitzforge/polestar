@@ -174,7 +174,7 @@ step The Savage Coast: kill these as you meet them
   tip From Sentinel Hill the way leads south out of Westfall into Stranglethorn's north-west, to the Crystalvein Mine near the coast; the Crystal Spine Basilisks around it drop the shards.
   tip The haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins on the coast to the north.
   collect 3918 quest 605 @24.2,17.7 map 1434 -- Singing Crystal Shard
-  complete 578 @20.8,23.2             -- The haunted island
+  complete 578 @21.9,22.4             -- The haunted island
   collect 1519 quest 189              -- Bloodscalp Ear
   collect 3879 quest 188              -- Paw of Sin'Dall
 

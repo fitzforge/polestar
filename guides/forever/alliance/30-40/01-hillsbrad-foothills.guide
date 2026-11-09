@@ -264,10 +264,6 @@ step Snapjaws
   tip The Snapjaw turtles bask along the river east of Southshore, south of Tarren Mill (Horde).
   collect 3712 quest 555              -- Turtle Meat
 
-step Hillsbrad Foothills
-  zone Hillsbrad Foothills
-  goto 48.9,55.0 "Hillsbrad Foothills"
-
 step Southshore
   buy 3713 x1 npc 2381                -- Soothing Spices, from Micha Yance
   turnin 511                          -- Loremaster Dibbs

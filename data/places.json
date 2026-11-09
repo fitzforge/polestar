@@ -1232,6 +1232,24 @@
 				"ref": "creature 20002243 (entry 738) waypoint_path 800022430"
 			},
 			"issue": 1425
+		},
+		{
+			"id": "a3040-stv-stone-of-the-tides",
+			"quest": 578,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1434,
+				"x": 21.9,
+				"y": 22.4,
+				"frame": "era"
+			},
+			"note": "The Stone of the Tides: the objective ticks when the player reaches the haunted island; players' ticks land at 21.9,22.4 (2 people), 78 yd from the old point 20.8,23.2 (out at sea); the arrow now leads to where it ticked.",
+			"source": {
+				"kind": "recording",
+				"ref": "quest 578 objective ticks in players' recordings: 2 people, nearest at 21.9,22.4"
+			},
+			"pr": 1421
 		}
 	]
 }
