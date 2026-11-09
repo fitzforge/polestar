@@ -2,6 +2,18 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), or a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "1089-auberdine-selarin-respawns",
+			"faction": "Alliance",
+			"at": { "quest": 990, "goal": "accept" },
+			"tip": "Terenthis stands by the flight master, Sentinel Selarin beside him. If she isn't there, she has been killed and respawns shortly: wait a moment.",
+			"note": "Trek to Ashenvale: Sentinel Selarin (npc 3694) stands beside Terenthis by Auberdine's flight master; the reporter found her missing, then she respawned (#1089). Her spot is right (players' recordings: 29 people opened her window at 38-40,43-45, Terenthis's spot), so the tip says to wait instead of moving the point.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#1089: missing, then respawned" },
+				{ "kind": "recording", "ref": "npc 3694 windows: 29 people at Darkshore 38-40,43-45" }
+			],
+			"issue": 1089
+		},
+		{
 			"id": "westfall-goretusk-livers-background",
 			"faction": "Alliance",
 			"at": { "quest": 22, "goal": "objective", "objective": 1 },

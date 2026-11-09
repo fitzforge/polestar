@@ -269,7 +269,7 @@ step Thundris Windweaver
 
 step Auberdine
   zone Darkshore
-  tip Terenthis and Sentinel Selarin stand by the flight master.
+  tip Terenthis stands by the flight master, Sentinel Selarin beside him. If she isn't there, she has been killed and respawns shortly: wait a moment.
   turnin 994                              -- Terenthis: Volcor's escort from the end of Darkshore
   accept 990                              -- Sentinel Selarin: for Raene Wolfrunner in Astranaar
 
