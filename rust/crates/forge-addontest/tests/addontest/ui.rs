@@ -2534,3 +2534,25 @@ fn floating_button_hides_in_combat_and_instances_as_the_window_does_and_stays_wh
 			"dungeon": false, "openedThere": true, "left": true, "keepVisible": true })
 	);
 }
+
+// RegressVisual (0.3.6): the floating button's hover is the minimap button's, its 25 % in its colour, so nothing
+// that sets its regions back to full alpha turns it into an opaque disc over the logo.
+#[test]
+fn floating_button_hover_is_a_quarter_strong_accent_disc_even_with_its_regions_at_full_alpha() {
+	let out = run(r#"
+		Polestar.Set("ui.launcher", true)
+		local b = PolestarLauncher
+		local function strength() local _, _, _, a = b.Hover:GetVertexColor(); return (a or 1) * b.Hover:GetAlpha() end
+		local r = { file = b.Hover:GetTexture(), layer = b.Hover:GetDrawLayer(), rest = strength() }
+		for _, region in ipairs({ b:GetRegions() }) do region:SetAlpha(1) end
+		r.full = strength()
+		Polestar.Theme.Refresh()
+		r.repainted = strength()
+		emit(r)"#);
+	let r = &out[0];
+	assert!(r["file"].as_str().unwrap().ends_with("Polestar\\Media\\UI\\circle"));
+	assert_eq!(r["layer"], "HIGHLIGHT");
+	for k in ["rest", "full", "repainted"] {
+		assert!((r[k].as_f64().unwrap() - 0.25).abs() < 1e-6, "{k}: {}", r[k]);
+	}
+}

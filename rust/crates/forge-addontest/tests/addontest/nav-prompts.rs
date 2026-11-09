@@ -324,7 +324,7 @@ fn alerts_a_notice_wraps_its_line_grows_the_banner_and_goes_on_hide_a_transport_
 		local b = PolestarAlert
 		local notice = { shown = b:IsShown(), title = b.Title:GetText(), line = b.When:GetText(), wraps = b.When:GetWordWrap(),
 			multi = b.When:GetNumLines() >= 2, grown = b:GetHeight() == 56 + (b.When:GetNumLines() - 1) * b.When:GetLineHeight(),
-			glyph = b.Glyph:GetTexture():match("logo$") ~= nil }
+			glyph = b.Glyph:GetTexture():match("logo$") ~= nil, tint = { b.Glyph:GetVertexColor() } }
 		stub.advance(5)
 		local still = b:IsShown() and b.When:GetText() == line
 		stub.advance(8)
@@ -341,7 +341,8 @@ fn alerts_a_notice_wraps_its_line_grows_the_banner_and_goes_on_hide_a_transport_
 	assert_eq!(
 		out[0]["notice"],
 		json!({ "shown": true, "title": "Polestar is hidden here", "line": "Click the minimap button or press Ctrl-Shift-P to show it. It comes back when you leave.",
-			"wraps": true, "multi": true, "grown": true, "glyph": true })
+			"wraps": true, "multi": true, "grown": true, "glyph": true, "tint": [1, 1, 1, 1] }),
+		"the emblem in its own colours, not the boat glyph's tint (RegressVisual V2)"
 	);
 	assert_eq!(out[0]["still"], true, "a fixed line, no countdown");
 	assert_eq!(out[0]["gone"], true, "gone after its time, without the transport's linger");

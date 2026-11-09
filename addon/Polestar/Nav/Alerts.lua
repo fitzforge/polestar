@@ -105,7 +105,9 @@ local function paintRing(f)
 		if skin == "halo" then W.Color(f.Ring, "accent") else W.Uncolor(f.Ring); f.Ring:SetVertexColor(0.78, 0.612, 0.243, 1) end
 	end
 	if f.psNotice then
+		-- The emblem in its own colours: W.Uncolor only stops the theme following it.
 		W.Uncolor(f.Glyph)
+		f.Glyph:SetVertexColor(1, 1, 1, 1)
 	else
 		W.Color(f.Glyph, skin == "polestar" and "place" or "accent")
 	end

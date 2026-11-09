@@ -6,7 +6,8 @@
 -- minimap line's opacity and size (nav.minimapRouteAlpha,
 -- nav.minimapRouteSize), made by the options window's own controls
 -- (Options.Control) in one column, with three sparkle presets. Every change
--- shows on the maps at once. The ✕ and Escape close it.
+-- shows on the maps at once. The ✕ and Escape close it. Never taller than
+-- the screen less MARGIN: the rows scroll under the header.
 -- UI.ShowLineStyle(), or SHOW_LINE_STYLE.
 --
 -- Built on first use; colours are Theme tokens only.
@@ -14,7 +15,7 @@
 local ADDON, ns = ...
 local UI, Theme, W, Anim = ns.UI, ns.Theme, ns.Widgets, ns.Anim
 local L = ns.L
-local floor = math.floor
+local floor, min, max = math.floor, math.min, math.max
 
 local WIDTH = 420
 local PAD = 24
@@ -77,17 +78,22 @@ local PRESETS = {
 
 local F
 
+-- The window is never taller than the screen less MARGIN: its rows scroll
+-- under the header (a 768-high UI with the sparkle settings is 748 tall).
+local MARGIN = 80
+
 local function layout()
 	local inner = WIDTH - PAD * 2
-	local y = HEAD_H + 4
+	local body = F.Body.Child
+	local y = 4
 	for _, s in ipairs(F.sections) do
 		s.header:ClearAllPoints()
-		s.header:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -y)
+		s.header:SetPoint("TOPLEFT", body, "TOPLEFT", PAD, -y)
 		s.header:SetWidth(inner)
 		y = y + 44
 		for _, w in ipairs(s.rows) do
 			w:ClearAllPoints()
-			w:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -y)
+			w:SetPoint("TOPLEFT", body, "TOPLEFT", PAD, -y)
 			y = y + W.LayoutRow(w, inner)
 		end
 		if s.presets then
@@ -95,14 +101,19 @@ local function layout()
 			local bw = (inner - 16) / #s.presets
 			for i, b in ipairs(s.presets) do
 				b:ClearAllPoints()
-				b:SetPoint("TOPLEFT", F, "TOPLEFT", PAD + (i - 1) * (bw + 8), -y)
+				b:SetPoint("TOPLEFT", body, "TOPLEFT", PAD + (i - 1) * (bw + 8), -y)
 				b:SetWidth(bw)
 			end
 			y = y + s.presets[1]:GetHeight()
 		end
 		y = y + 8
 	end
-	F:SetHeight(y + PAD)
+	local content = y + PAD
+	local room = max(200, (UIParent:GetHeight() or 768) - MARGIN - HEAD_H - 1)
+	local view = min(content, room)
+	body:SetWidth(WIDTH - 2)
+	F:SetHeight(HEAD_H + 1 + view)
+	W.SetScrollContent(F.Body, content, view)
 end
 
 local function refreshPresets()
@@ -148,13 +159,18 @@ local function build()
 	F.Title:SetWordWrap(false)
 	F.Title:SetText(L["Route line style"])
 
+	F.Body = W.Scroll(F)
+	F.Body:SetPoint("TOPLEFT", head, "BOTTOMLEFT", 0, 0)
+	F.Body:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", -1, 1)
+	local body = F.Body.Child
+
 	F.sections, F.controls = {}, {}
 	for _, spec in ipairs(SECTIONS) do
-		local s = { header = W.SectionHeader(F), rows = {} }
+		local s = { header = W.SectionHeader(body), rows = {} }
 		W.SetSection(s.header, spec.name)
 		for _, c in ipairs(spec.controls) do
 			if ns.GetDefault(c.key) ~= nil then
-				local w = UI.Options.Control(F, c)
+				local w = UI.Options.Control(body, c)
 				s.rows[#s.rows + 1] = w
 				F.controls[c.key] = w
 			end
@@ -162,7 +178,7 @@ local function build()
 		if spec.presets and ns.RouteLines and ns.RouteLines.ApplySparklePreset then
 			s.presets = {}
 			for i, p in ipairs(PRESETS) do
-				s.presets[i] = W.Button(F, p.label, function() ns.RouteLines.ApplySparklePreset(p.key) end)
+				s.presets[i] = W.Button(body, p.label, function() ns.RouteLines.ApplySparklePreset(p.key) end)
 			end
 		end
 		F.sections[#F.sections + 1] = s

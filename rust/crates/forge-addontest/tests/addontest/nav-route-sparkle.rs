@@ -476,3 +476,40 @@ emit(r)"#
 	assert_eq!(out["off"], false);
 	assert_eq!(out["toggleReset"], true);
 }
+
+// RegressVisual V3: with the sparkle settings the window is 748 tall in game (612 of rows here); on a short UI
+// (768 high, or less at a larger UI scale) it stays inside the screen less a margin and its rows scroll; on a tall
+// screen it shows everything, no scroll.
+#[test]
+fn the_line_style_window_fits_a_short_screen_its_rows_scroll_on_a_tall_one_it_shows_all() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Maps/RouteSparkle.lua", "UI/UI.xml"])],
+		script: r#"
+Polestar.RegisterDefaults("nav", { routeLines = true, lineStyle = "dots", dotColor = "route", minimapRouteAlpha = 1, minimapRouteSize = 1 })
+Polestar.RegisterDefaults("nav", Polestar.RouteSparkle.DEFAULTS)
+uistub.install()
+stub.login()
+local function look()
+	local F = _G.PolestarLineStyle
+	return { height = F:GetHeight(), content = F.Body.psContent, view = F.Body.psView, bar = F.Body.Bar:IsShown() }
+end
+UIParent:SetSize(1066, 600)
+Polestar.UI.ShowLineStyle()
+local r = { small = look() }
+Polestar.UI.ShowLineStyle()
+UIParent:SetSize(2560, 1440)
+Polestar.UI.ShowLineStyle()
+r.tall = look()
+emit(r)"#
+			.into(),
+		..Default::default()
+	});
+	let out = &out[0];
+	let small = &out["small"];
+	assert!(small["height"].as_f64().unwrap() <= 600.0 - 80.0 + 1e-6, "inside a 600-high screen: {small}");
+	assert!(small["content"].as_f64().unwrap() > small["view"].as_f64().unwrap(), "its rows scroll: {small}");
+	let tall = &out["tall"];
+	assert!((tall["content"].as_f64().unwrap() - tall["view"].as_f64().unwrap()).abs() < 1e-6, "all shown: {tall}");
+	assert_eq!(tall["bar"], false);
+}

@@ -191,7 +191,8 @@ local function podium(parent, title)
 	p.Title = flanked(p, title)
 	p.Title:SetPoint("TOPLEFT", p, "TOPLEFT", 0, -44)
 	p.Title:SetPoint("TOPRIGHT", p, "TOPRIGHT", 0, -44)
-	-- Every line spans the column, so a long name ends in an ellipsis.
+	-- Every line spans the column, so a long name ends in an ellipsis; then
+	-- hovering the podium shows its names in full.
 	p.Name = W.Text(p, "hero", "text")
 	p.Name:SetPoint("TOPLEFT", p, "TOPLEFT", 0, -68)
 	p.Name:SetPoint("TOPRIGHT", p, "TOPRIGHT", 0, -68)
@@ -206,6 +207,13 @@ local function podium(parent, title)
 		fs:SetWordWrap(false)
 		p.Rest[i] = fs
 	end
+	p:EnableMouse(true)
+	p:SetScript("OnEnter", function(self)
+		local cut = self.Name:IsTruncated()
+		for _, fs in ipairs(self.Rest) do cut = cut or fs:IsTruncated() end
+		if cut and self.psNames then W.Tooltip(self, "ANCHOR_TOP", self.psNames[1], { self.psNames[2], self.psNames[3] }) end
+	end)
+	p:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
 	return p
 end
 
@@ -213,6 +221,8 @@ end
 -- two lines.
 local function fillPodium(p, names, empty)
 	local none = #names == 0
+	-- The full names, for the tooltip while a line is cut short.
+	p.psNames = not none and { esc(names[1]), names[2] and esc(names[2]), names[3] and esc(names[3]) } or nil
 	local first = p.Rest[1]
 	first:SetWordWrap(none)
 	first:SetMaxLines(none and 2 or 0)

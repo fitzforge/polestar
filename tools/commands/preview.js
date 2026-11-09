@@ -1423,6 +1423,13 @@ end`,
 		],
 	},
 	{
+		file: 'line-style.svg',
+		title: 'The route line style window (the gear beside Route lines) on a short screen (768 high at a larger UI scale): its rows scroll under the header',
+		panels: [
+			{ roots: ['PolestarLineStyle'], files: WELCOME_ROUTE_FILES, script: 'UIParent:SetSize(1066, 600)\nPolestar.Set("nav.lineStyle", "sparkle")\nPolestar.UI.ShowLineStyle()' },
+		],
+	},
+	{
 		file: 'options-integrations.svg',
 		title: 'Options: Integrations: Questie\'s section while Questie is loaded; with no supported addon, one line says so',
 		panels: [

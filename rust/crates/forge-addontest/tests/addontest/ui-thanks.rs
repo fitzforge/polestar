@@ -144,3 +144,31 @@ fn every_label_fits_its_column_in_every_locale_with_names_and_with_none() {
 		}
 	}
 }
+
+// RegressVisual V4: a long top name ends in an ellipsis in its column; hovering the podium then shows its names
+// in full. A name that fits shows no tooltip.
+#[test]
+fn a_podium_cut_short_shows_its_names_in_full_on_hover() {
+	let out = run(
+		"",
+		r#"
+		local long = "Sample Supporter With A Very Long Name Indeed"
+		Polestar.Credits = { supporters = { long, "Bo" }, contributors = { { name = "dev1", prs = 4 } }, bugReporters = {} }
+		local v = open()
+		local p1, p2 = v.Podiums[1], v.Podiums[2]
+		local function tip(p)
+			GameTooltip:Hide()
+			GameTooltip.owner, GameTooltip.lines = nil, {}
+			stub.RunScript(p, "OnEnter")
+			local shown = GameTooltip:IsShown() and GameTooltip:GetOwner() == p
+			local text = shown and GameTooltip.lines[1] or false
+			stub.RunScript(p, "OnLeave")
+			return { shown = shown and true or false, text = text }
+		end
+		emit({ cut = p1.Name:IsTruncated(), long = tip(p1), short = tip(p2) })"#,
+	);
+	assert_eq!(out["cut"], true, "the long name is cut short in its column");
+	assert_eq!(out["long"]["shown"], true);
+	assert_eq!(out["long"]["text"], "Sample Supporter With A Very Long Name Indeed");
+	assert_eq!(out["short"]["shown"], false, "a name that fits: no tooltip");
+}

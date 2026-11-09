@@ -446,7 +446,7 @@ fn a_dungeon_pin_opens_its_dungeon_page_without_the_dungeons_module_or_with_shif
 #[test]
 fn the_minimap_button_s_logo_and_hover_are_polestar_s_files_the_hover_a_quarter_strong_even_shown_at_full_alpha() {
 	let out = run(
-		r#"
+		r##"
 		local b = stub.frame("PolestarMinimapButton")
 		local function look()
 			local r, g, bl, a = b.Hover:GetVertexColor()
@@ -463,9 +463,33 @@ fn the_minimap_button_s_logo_and_hover_are_polestar_s_files_the_hover_a_quarter_
 		r.bar = look()
 		Polestar.Theme.Refresh()
 		r.repainted = look()
-		emit(r)"#,
+		-- Leatrix Plus's Enhance minimap stands a proxy in for the button, its icon _G[name .. "Icon"]'s texture, else
+		-- the last region under 30 wide (CreateBadButton): before the logo was named, that was the hover's circle.
+		local function leatrixIcon(name)
+			local finalTex = "Interface\\HELPFRAME\\HelpIcon-KnowledgeBase"
+			if _G[name .. "Icon"] then
+				if _G[name .. "Icon"]:GetObjectType() == "Texture" then
+					local gTex = _G[name .. "Icon"]:GetTexture()
+					if gTex then finalTex = gTex end
+				end
+			else
+				for i = 1, select("#", _G[name]:GetRegions()) do
+					local region = select(i, _G[name]:GetRegions())
+					if region.GetTexture then
+						local x = region:GetSize()
+						if x and x < 30 then finalTex = region:GetTexture() end
+					end
+				end
+			end
+			return finalTex
+		end
+		r.proxy = leatrixIcon("PolestarMinimapButton")
+		r.named = _G.PolestarMinimapButtonIcon == b.Icon
+		emit(r)"##,
 		None,
 	);
+	assert!(out["proxy"].as_str().unwrap().ends_with("Polestar\\Media\\UI\\logo"), "a proxy shows the logo: {}", out["proxy"]);
+	assert_eq!(out["named"], true);
 	let rest = &out["rest"];
 	assert!(rest["icon"].as_str().unwrap().ends_with("Polestar\\Media\\UI\\logo"), "{rest}");
 	assert!(rest["hover"].as_str().unwrap().ends_with("Polestar\\Media\\UI\\circle"));
