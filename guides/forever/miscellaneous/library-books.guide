@@ -49,10 +49,13 @@ zone Stormwind City
 #   Library 79536 and 82208) are offered by the librarian once enough books are
 #   handed in. Forever's quest pages and players' caches give 82208 "Requires
 #   level 35" where data/forever still has 30; the step waits for 35.
-# ASSUMED: Friend of the Library comes with the 10th different book, the first
-#   Greater Friend with the 20th, the second with the 25th (books handed in
-#   earlier count towards each; three beta write-ups agree on 10 and 20, one
-#   gives 25). Forever's data has no count. In-game check: the librarian.
+# Friend of the Library comes with the 10th different book: a player's
+#   recording shows Garion Wendell offering it right after their 10th book
+#   (2026-11-09), as three beta write-ups say.
+# ASSUMED: the first Greater Friend comes with the 20th book, the second with
+#   the 25th (books handed in earlier count towards each; three beta write-ups
+#   agree on 20, one gives 25). Forever's data has no count. In-game check:
+#   the librarian.
 # INGAME: does Owen Thadd offer the two Greater Friend of the Library quests to
 #   the Horde? Forever's quest pages list them for both sides (ending at Owen
 #   Thadd too), and the knowledge base saw 82208 handed in to him;
