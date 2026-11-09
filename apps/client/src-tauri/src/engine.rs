@@ -80,8 +80,9 @@ impl Account {
 
 #[derive(Clone, Debug)]
 enum Failure {
-	/// No answer, or a server error: try again with backoff.
-	Offline { message: String, attempts: u32, retry_at: i64 },
+	/// No answer, or a server error or 429: try again with backoff. `answered`: the server
+	/// answered (it asked to wait), so this is no connection problem.
+	Offline { message: String, attempts: u32, retry_at: i64, answered: bool },
 	/// The server answered and refused the request as a whole.
 	Refused { message: String, retry_at: i64 },
 }
@@ -528,7 +529,7 @@ impl Engine {
 	/// Records a failed request (see [`Engine::fail_status`]); None, for the caller to return.
 	fn record<T>(&self, failed: Failed) -> Option<T> {
 		match failed {
-			Failed::Offline(message) => self.fail_offline(message, None),
+			Failed::Offline(message) => self.fail_offline(message, None, false),
 			Failed::Status(status, retry_after, message) => {
 				self.fail_status(status, retry_after, message);
 			}
@@ -555,7 +556,7 @@ impl Engine {
 		let response = match result {
 			Ok(r) => r,
 			Err(e) => {
-				self.fail_offline(describe_reqwest(&e), None);
+				self.fail_offline(describe_reqwest(&e), None, false);
 				return false;
 			}
 		};
@@ -589,7 +590,7 @@ impl Engine {
 		let answer: api::UploadResponse = match read_answer(response).await {
 			Ok(a) => a,
 			Err(e) => {
-				self.fail_offline(e, None);
+				self.fail_offline(e, None, false);
 				return false;
 			}
 		};
@@ -640,7 +641,7 @@ impl Engine {
 		true
 	}
 
-	fn fail_offline(&self, message: String, retry_after: Option<u64>) {
+	fn fail_offline(&self, message: String, retry_after: Option<u64>, answered: bool) {
 		// Also on stderr: a player running the client from a terminal can quote it.
 		eprintln!("upload: {message}");
 		let mut state = self.lock();
@@ -649,14 +650,14 @@ impl Engine {
 			_ => 0,
 		};
 		let backoff = backoff_secs(attempts, retry_after);
-		state.failure = Some(Failure::Offline { message, attempts, retry_at: now_ms().saturating_add(backoff as i64 * 1000) });
+		state.failure = Some(Failure::Offline { message, attempts, retry_at: now_ms().saturating_add(backoff as i64 * 1000), answered });
 	}
 
 	/// Records a non-success answer: a server error or 429 is retried with backoff, anything
 	/// else is refused. Returns whether it was refused.
 	fn fail_status(&self, status: reqwest::StatusCode, retry_after: Option<u64>, message: String) -> bool {
 		if is_temporary(status) {
-			self.fail_offline(message, retry_after);
+			self.fail_offline(message, retry_after, true);
 			false
 		} else {
 			self.refuse(message);
@@ -1131,8 +1132,9 @@ fn status(state: &State, game: &GameView, pending: u64, now: i64) -> StatusView 
 	if let Some(n) = state.uploading {
 		return make("uploading", "Sending", format!("Sending your latest play ({n} {}).", plural(n as u64, "part", "parts")), None);
 	}
-	if let Some(Failure::Offline { message, retry_at, .. }) = &state.failure {
-		let mut view = make("offline", "Can't reach the server", message.clone(), Some("retry"));
+	if let Some(Failure::Offline { message, retry_at, answered, .. }) = &state.failure {
+		let (title, detail) = if *answered { server_waits(message) } else { ("Can't reach the server", message.clone()) };
+		let mut view = make("offline", title, detail, Some("retry"));
 		view.next_retry = Some(*retry_at);
 		return view;
 	}
@@ -1164,6 +1166,17 @@ fn status(state: &State, game: &GameView, pending: u64, now: i64) -> StatusView 
 		return make("waiting", "Waiting for the game to save", "WoW writes the recording only when you log out or type /reload. It is sent a few seconds after that.".into(), None);
 	}
 	make("watching", "Sharing on", "New play is sent a few seconds after you log out or type /reload.".into(), None)
+}
+
+/// The status of an answer that asks to wait (a 429 or 5xx): the server was reached, so it is no
+/// connection problem. The daily registration cap per network (several new installs, or tests,
+/// from one network in a day) says what happens to the play meanwhile.
+fn server_waits(message: &str) -> (&'static str, String) {
+	if message.contains("registration limit") {
+		("Too many new registrations today", "Too many new registrations from your network today. Your play is kept on this PC and sent tomorrow.".to_owned())
+	} else {
+		("The server asked to wait", format!("{}. Your play is kept on this PC and sent when it's ready.", message.trim_end_matches('.')))
+	}
 }
 
 fn plural<'a>(n: u64, one: &'a str, many: &'a str) -> &'a str {
@@ -1450,6 +1463,17 @@ mod tests {
 		];
 		let text = lines.join("\n");
 		assert_eq!(prepare_chunk(&text, &["Testchar".to_owned()]).unwrap(), text);
+	}
+
+	#[test]
+	fn an_answer_that_asks_to_wait_is_no_connection_problem() {
+		// The server's 429 at registration (#1453's smoke: the fourth registration from one network
+		// in a day) showed as "Can't reach the server".
+		let (title, detail) = server_waits("registration limit for today reached, try again tomorrow");
+		assert_eq!(title, "Too many new registrations today");
+		assert_eq!(detail, "Too many new registrations from your network today. Your play is kept on this PC and sent tomorrow.");
+		let (title, detail) = server_waits("too many requests, try again in a minute");
+		assert_eq!((title, detail.as_str()), ("The server asked to wait", "too many requests, try again in a minute. Your play is kept on this PC and sent when it's ready."));
 	}
 
 	#[test]
