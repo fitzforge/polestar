@@ -4500,6 +4500,25 @@ test('Alliance 40-60: a class walk to a carried class quest waits for that quest
 	}
 });
 
+// Final route review 0.3.6 (Alliance 55-57, found with the Horde reviewer): Gregan Brewspewer gives the Videre
+// Elixir only as the reward of his own errand, The Videre Elixir (4041: an Evoroot from a ruined building north of
+// Rockbiter); he sells none. The Feralas stop collected the elixir for Donova's quest (3909) without the errand, so
+// the step could never complete. Gaeriyan (3912) is a ghost seen only after drinking one: the step says so.
+test('Alliance 55-57: the Videre Elixir comes from Gregan\'s Evoroot errand, and Gaeriyan\'s step says to drink one', { skip }, () => {
+	const guide = 'forever/alliance/50-60/04-western-plaguelands.guide';
+	const list = goals(guide);
+	const take = at(list, `${guide}: accept 4041`, is('accept', 4041));
+	const root = at(list, `${guide}: collect 11242`, (g) => g.t === 'collect' && g.item === 11242);
+	const hand = at(list, `${guide}: turnin 4041`, is('turnin', 4041));
+	const elixir = at(list, `${guide}: collect 11243`, (g) => g.t === 'collect' && g.item === 11243);
+	assert.ok(take < root && root < hand && hand < elixir, `${guide}: errand, Evoroot, hand-in, then the elixir`);
+	assert.ok(located(list[root]), `${guide}: the Evoroot has a place`);
+	const shay = at(list, `${guide}: Shay's escort`, is('complete', 2845));
+	assert.ok(root < at(list, `${guide}: accept 2845`, is('accept', 2845)) || root > shay, `${guide}: the Evoroot is not picked up during Shay's timed escort`);
+	const gaeriyan = list[at(list, `${guide}: turnin 3912`, is('turnin', 3912))];
+	assert.match([].concat(gaeriyan.step.note || []).join(' '), /Videre Elixir/, `${guide}: "${gaeriyan.step.title}" says to drink the elixir`);
+});
+
 test("Fitz's report: Darkshore's Fine Crab Chunks are a goal at Cliffspring Falls, by the crabs that drop them, not a list along ten stops", { skip }, () => {
 	// Only Reef Crawlers and Encrusted Tide Crawlers drop the chunks, on the north coast and the far
 	// south. Listed along the way, the chunks were open for ten stops of which three had crabs; the

@@ -407,16 +407,20 @@ step Zorbin Fandazzle
   turnin 7726
 
 step Gregan Brewspewer
-  tip Gregan's camp lies north of the Twin Colossals. He sells the Videre Elixir once he has his bait.
+  tip Gregan's camp lies north of the Twin Colossals. He brews the Videre Elixir from an Evoroot: take his errand for one.
   turnin 4142
-  collect 11243 quest 3909.1          -- Videre Elixir
+  accept 4041
 
 step Rockbiter
   tip The giant Rockbiter sits just north-west of Gregan's camp.
   accept 2844
 
+step Evoroot
+  tip The Evoroot grows inside a ruined building north of Rockbiter: climb in through the break in its wall from the ledge beside it.
+  collect 11242 quest 4041.1 @44.5,10.2 map 1444 -- Evoroot
+
 step Shay Leafrunner
-  tip Ride north into the Ravenwind Ruins: Shay hides in the small round building at the back. Open the chest beside her for Shay's Bell: it lasts 15 minutes, like the quest.
+  tip Ride west into the Ravenwind Ruins: Shay hides in the small round building at the back. Open the chest beside her for Shay's Bell: it lasts 15 minutes, like the quest.
   turnin 2844
   accept 2845
   collect 9189 quest 2845.1           -- Shay's Bell
@@ -425,6 +429,11 @@ step Wandering Shay
   tip Lead Shay back to Rockbiter at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them.
   complete 2845 @42.3,21.9
   turnin 2845                         -- Rockbiter
+
+step Gregan Brewspewer
+  tip Back to Gregan's camp, just south-east of Rockbiter: the Evoroot buys three Videre Elixirs. Keep them: Donova takes one, and Gaeriyan in Gadgetzan shows himself only to someone who has drunk one.
+  turnin 4041
+  collect 11243 quest 3909.1          -- Videre Elixir
 
 step Feralas
   zone Feralas
@@ -494,7 +503,7 @@ step Gadgetzan
   accept 4504                         -- Tran'rek, north side of town: the tar is in Un'Goro, keep it
 
 step Gaeriyan
-  tip Gaeriyan waits at the graveyard just east of town; the gravestone stands nearby.
+  tip Gaeriyan is a ghost at the graveyard just east of town: drink a Videre Elixir there, which kills you, release your spirit and talk to him as a ghost. Then run back to your body to come back to life: the gravestone stands nearby.
   turnin 3912
   accept 3913
   turnin 3913                         -- A Conspicuous Gravestone

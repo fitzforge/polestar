@@ -8071,6 +8071,11 @@
 				"issue": "-"
 			},
 			{
+				"q": 4041,
+				"reason": "Final route review 0.3.6 (Alliance 40-60, both sides): The Videre Elixir (4041, Gregan Brewspewer, child of Donova's 3909) is the only way to the Videre Elixir: it rewards three for an Evoroot (object 164798, Feralas 44.52,10.22, north of Rockbiter). Quest data (reward 11243 x3, no vendor) and the knowledge base (vendor-buy refuted on the Forever server; object-click kept) agree. Without it a guide's collect of the elixir for 3909 can never complete. Alliance 50-60/04: taken at Gregan on the way in (after A Visit to Gregan), the Evoroot picked up before Shay's timed escort, handed in on the way out.",
+				"issue": "-"
+			},
+			{
 				"q": 8471,
 				"reason": "Quest volume, Alliance 40-60 (0.3.7, 2026-11-09): Winterfall Ritual Totem: the Winterspring top-up (03) kills hundreds of Winterfall furbolgs (totem 3-4% from each kind), so the totem is certain; Kernda takes it when the 58-60 guide passes Timbermaw Hold, by then Neutral (the same kills).",
 				"issue": "-"
