@@ -4586,6 +4586,42 @@
 					"ref": "EG Link live quest 5581"
 				}
 			]
+		},
+		{
+			"id": "horde-3040-boulderfist-hall-southwest",
+			"faction": "Horde",
+			"at": {
+				"quest": 678,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Boulderfist Brutes camp outside the ogres' hall, far south-west of Hammerfall; the Magus stand among them. Pull them one at a time.",
+			"note": "Horde 30-40 audit (2026-11-09): the Boulderfist Brutes (2566) and Magus (2567) camp at Arathi 49-55,71-81, far south-west of Hammerfall (73,33); the tip said south.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 2566, 2567 spawns on map 1417"
+			}
+		},
+		{
+			"id": "horde-3040-goshek-northeast",
+			"faction": "Horde",
+			"at": {
+				"quest": 92519,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Apothecary Jorell's lab shack stands at Go'shek Farm, north-east of the raptors' plain on the way back to Hammerfall; the case of Packaged Tonics is inside.",
+			"note": "Horde 30-40 audit (2026-11-09): Go'shek Farm (the Packaged Tonics, looted at 60.2,58.5 by 2 recorded players) lies north-east of the Highland Fleshstalkers' plain (2561, median 50,69), on the way back to Hammerfall; the tip said south-west.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-09: Ward Restocking (92519) ticked at Arathi 60.2,58.5 (2 people)"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 2561 spawns on map 1417"
+				}
+			]
 		}
 	]
 }

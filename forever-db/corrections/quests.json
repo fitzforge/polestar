@@ -6807,5 +6807,24 @@
 			}
 		],
 		"note": "Sparring Match pays 270 XP, not 550: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"503": {
+		"set": {
+			"objectives": [
+				{ "type": "item", "id": 3704, "count": 1, "text": "Rusted Iron Key" },
+				{ "type": "event", "id": 178, "count": null, "text": "Find where Gol'dir is being held", "map": 1416, "f": "e", "x": 60.6, "y": 43.8 }
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: two objectives, Rusted Iron Key (3704) x1 and area trigger 178"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09: 4 people accepted Gol'dir from Krusk; every accept listed two lines, the key and 'Find where Gol'dir is being held'. The one recorded run ticked the key at Alterac 61.65,40.42 and the find line at 60.67,43.86, then handed in to Gol'dir (2316) at 60.01,43.83"
+			}
+		],
+		"note": "Gol'dir (Alterac Mountains): two objectives, the Rusted Iron Key and finding where Gol'dir is held. The merged data also asked to kill Gol'dir (2316), the prisoner who takes the hand-in, so the hand-in looked impossible."
 	}
 }

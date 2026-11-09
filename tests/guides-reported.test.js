@@ -8312,3 +8312,11 @@ test('Horde 30-40 audit: Desolace\'s quest items are used where the game needs t
 	assert.doesNotMatch(portals, /Rod of Banishing/);
 	assert.match(portals, /Hand of Iruxos/);
 });
+// Gol'dir (503): the data asked to kill Gol'dir, who takes the hand-in; the game's record and every recorded accept list
+// the key and "Find where Gol'dir is being held" only (correction 503).
+test('Horde 30-40 audit: Gol\'dir is found, not killed', { skip }, () => {
+	const list = goals('forever/horde/30-40/05-arathi-highlands.guide');
+	assert.ok(!list.some(({ goal }) => goal.t === 'kill' && goal.npc === 2316), 'no kill of Gol\'dir');
+	const find = at(list, 'complete 503', is('complete', 503));
+	assert.ok(find < at(list, 'turnin 503', is('turnin', 503)));
+});
