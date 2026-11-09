@@ -137,6 +137,13 @@ fn a_known_required_visit_scores_the_end_of_the_route() {
 }
 
 #[test]
+fn a_note_after_the_field_goals_does_not_hide_the_next_required_visit() {
+	// The exit 100 yd west is the next step's; the note closing this step's group is passed over.
+	let goals = format!("{}, {{ t = \"note\", text = \"Mind the patrol\" }}", fields(&[(49, 50), (55, 50)], ""));
+	check(&goals, "", r#"{ t = "talk", npc = 90, npcName = "Exit", map = 1429, x = 40, y = 50 }"#, "assert(E.GetWaypoint().goalIndex == 2)");
+}
+
+#[test]
 fn the_finish_hint_uses_the_actual_camp_and_never_crosses_an_internal_wait() {
 	let next = r#"{ t = "kill", target = "Next camp", count = 1, npc = 80, map = 1429, x = 10, y = 50,
 		spots = { { x = 10, y = 50, r = 0, n = 1 }, { x = 60, y = 50, r = 0, n = 1 } } }"#;

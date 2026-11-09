@@ -4669,47 +4669,51 @@ function Own.fieldPoint(goal, c, px, py, top, led)
 end
 
 -- The next required place is only an exit cost, never a task promoted ahead
--- of the current group. Stop at an unlocated requirement or a transport:
--- coordinates beyond those barriers are not a walking destination.
+-- of the current group: the first goal still blocking after the tour's, in
+-- its group, else in the groups after it, else in the next step (a note, an
+-- optional or a done goal in between is passed over). Stop at an unlocated
+-- requirement or a transport: coordinates beyond those barriers are not a
+-- walking destination.
 function Own.fieldExit(s, list, c)
 	local groups, _, groupOf = stepGroups(s)
-	local group = groupOf[list[1]]
-	local after = groups[(group or #groups) + 1]
-	local goals, index = guide.steps[s].goals, s
-	local entries = {}
-	for _, g in ipairs(group and groups[group].goals or NONE) do
-		if g > list[#list] then entries[#entries + 1] = g end
+	local group, last = groupOf[list[1]], list[#list]
+	local goals, goal = guide.steps[s].goals, nil
+	for i = group or #groups + 1, #groups do
+		for _, g in ipairs(groups[i].goals) do
+			if (i > group or g > last) and stillBlocks(s, g, goals[g]) and not Own.goalSkipped(s, g) then
+				goal = goals[g]
+				break
+			end
+		end
+		if goal then break end
 	end
-	if #entries == 0 then entries = after and after.goals end
-	if not entries then
+	if not goal then
 		local nextStep = guide.steps[s + 1]
 		if not nextStep or isSkipped(s + 1) or not Guides.Matches(nextStep.only, player)
 			or not Own.whenHolds(nextStep) then return nil end
-		goals, index, entries = nextStep.goals, s + 1, {}
-		for g = 1, #goals do entries[#entries + 1] = g end
-	end
-	for _, g in ipairs(entries) do
-		local goal = goals[g]
-		if blocks(goal) and goalApplies(goal) and not unavailableFor(goal)
-			and not Own.goalSkipped(index, g) and not Own.lostGoal(goal) and not goalDone(index, g, goal) then
-			if goal.t == "fly" or goal.t == "hearth" or goal.t == "enter" then return nil end
-			local destination = goal
-			if goal.candidates then
-				local p = picks[goal]
-				-- An unselected candidate is not a known next destination.
-				destination = p and p.gen == contextGen and p.list[p.i]
-				if not destination then return nil end
-			elseif goal.spots then
-				local spot = Spots.chosen[goal]
-				if not spot then return nil end
-				destination = { map = goal.map, x = spot.x, y = spot.y, f = goal.f }
+		for g, other in ipairs(nextStep.goals) do
+			if stillBlocks(s + 1, g, other) and not Own.goalSkipped(s + 1, g) then
+				goal = other
+				break
 			end
-			if not (destination.map and destination.x and destination.y) then return nil end
-			local gc, x, y = goalWorld(destination)
-			if gc == c then return { x = x, y = y } end
-			return nil
 		end
+		if not goal then return nil end
 	end
+	if goal.t == "fly" or goal.t == "hearth" or goal.t == "enter" then return nil end
+	local destination = goal
+	if goal.candidates then
+		local p = picks[goal]
+		-- An unselected candidate is not a known next destination.
+		destination = p and p.gen == contextGen and p.list[p.i]
+		if not destination then return nil end
+	elseif goal.spots then
+		local spot = Spots.chosen[goal]
+		if not spot then return nil end
+		destination = { map = goal.map, x = spot.x, y = spot.y, f = goal.f }
+	end
+	if not (destination.map and destination.x and destination.y) then return nil end
+	local gc, x, y = goalWorld(destination)
+	if gc == c then return { x = x, y = y } end
 	return nil
 end
 
