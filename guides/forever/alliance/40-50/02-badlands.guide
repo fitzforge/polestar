@@ -154,11 +154,13 @@ step Cortello's Riddle
 step Theramore flight master
   only Warlock
   zone Dustwallow Marsh
+  when onquest 4488
   goto 67.5,51.2 "Theramore flight master"
 
 step Ratchet
   only Human,Warlock
   zone The Barrens
+  when onquest 4488
   goto 63.1,37.1 "Ratchet"
 
 step Warlock: Summon Felsteed

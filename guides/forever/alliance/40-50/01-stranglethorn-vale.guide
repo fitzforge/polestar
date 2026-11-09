@@ -115,6 +115,7 @@ step Balos Jacken
 step The Barrens
   only Warrior
   zone The Barrens
+  when onquest 1718
   goto 68.6,49.2 "Klannoc Macleod"
 
 # ---------------------------------------------------------------- Booty Bay

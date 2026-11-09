@@ -4477,6 +4477,29 @@ test('Alliance 58-60: the walk to the lake for Of Lost Honor is only for players
 	assert.ok((walk.step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(5845)), `${guide}: "${walk.step.title}" waits for nobody without Of Lost Honor`);
 });
 
+// Final route review 0.3.6 (Alliance 40-60): a class's walk to a hand-in of a class quest carried from an earlier
+// guide sent every player of that class there, with or without the quest (a Warrior without The Islander to Fray
+// Island, a Warlock without Summon Felsteed to Ratchet, Priests and Mages across Azshara). Each such walk waits
+// for the quest in the log.
+test('Alliance 40-60: a class walk to a carried class quest waits for that quest in the log', { skip }, () => {
+	for (const [guide, quest] of [
+		['forever/alliance/40-50/01-stranglethorn-vale.guide', 1718],
+		['forever/alliance/40-50/02-badlands.guide', 4488],
+		['forever/alliance/50-60/01-burning-steppes.guide', 8254],
+		['forever/alliance/50-60/01-burning-steppes.guide', 8255],
+		['forever/alliance/50-60/01-burning-steppes.guide', 8251],
+	]) {
+		const steps = compiled(guide).steps;
+		const hand = steps.findIndex((st) => st.goals.some(is('turnin', quest)));
+		assert.ok(hand > 0, `${guide}: turnin ${quest} is in the guide`);
+		let k = hand - 1;
+		const walks = [];
+		while (k >= 0 && steps[k].only && steps[k].goals.length && steps[k].goals.every((g) => g.t === 'goto')) walks.push(steps[k--]);
+		assert.ok(walks.length > 0, `${guide}: a class walk leads to turnin ${quest}`);
+		for (const st of walks) assert.ok((st.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(quest)), `${guide}: "${st.title}" waits for ${quest} in the log`);
+	}
+});
+
 test("Fitz's report: Darkshore's Fine Crab Chunks are a goal at Cliffspring Falls, by the crabs that drop them, not a list along ten stops", { skip }, () => {
 	// Only Reef Crawlers and Encrusted Tide Crawlers drop the chunks, on the north coast and the far
 	// south. Listed along the way, the chunks were open for ten stops of which three had crabs; the

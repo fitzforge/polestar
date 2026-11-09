@@ -37,6 +37,7 @@ step Shadowsong Shrine
 step Azshara
   only Priest
   zone Azshara
+  when onquest 8254
   goto 42.4,42.6 "Ogtinc"
 
 step Ogtinc
@@ -55,6 +56,7 @@ step Mosshoof Coursers
 step Azshara
   only Priest
   zone Azshara
+  when onquest 8255
   goto 42.4,42.6 "Ogtinc"
 
 step Ogtinc
@@ -119,6 +121,7 @@ step Rubbing: Rune of Sael'hai
 step Sanath Lim-yo
   zone Azshara
   only Mage
+  when onquest 8251
   tip Ride back west to Sanath's camp and get off your mount: he teleports you up to Xylem again.
   goto 28.1,50.1 "Sanath Lim-yo"
 
