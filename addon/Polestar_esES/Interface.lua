@@ -212,6 +212,9 @@ L["Open the Gamepad page: button names and bindings"] = "Abrir la página Mando:
 -- L["List the quests in your log the route never hands in"] = ""
 -- L["Show what's new in this version"] = ""
 -- L["Nothing to skip: the guide has no step open."] = ""
+-- L["Reopen closed tab"] = ""
+-- L["No closed tab to reopen."] = ""
+-- L["Reopen the last guide tab you closed"] = ""
 
 -- Theme/Theme.lua
 L["Dusk"] = "Crepúsculo"
@@ -1347,6 +1350,8 @@ L["Click to show or hide the party panel."] = "Haz clic para mostrar u ocultar e
 -- L["Type /polestar to show it."] = ""
 -- L["Polestar is hidden here"] = ""
 -- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = ""
+-- L["Closed %s"] = ""
+-- L["Reopen"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascensor a %s"
@@ -1415,7 +1420,6 @@ L["%d guides"] = "%d guías"
 L["%d open"] = "%d abiertas"
 L["Pick up where you left off, or start something new."] = "Retoma donde lo dejaste, o empieza algo nuevo."
 L["The guides open in your tabs."] = "Las guías abiertas en tus pestañas."
-L["The last guides you loaded."] = "Las últimas guías que has cargado."
 L["Pick a guide to open in a new tab."] = "Elige una guía para abrirla en una pestaña nueva."
 L["Tab %d  ·  %d%%"] = "Pestaña %d  ·  %d%%"
 L["%s  ·  %d in the Codex for “%s”"] = "%s  ·  %d en el Codex para “%s”"
@@ -1447,6 +1451,8 @@ L["Miscellaneous"] = "Miscelánea"
 -- L["Heads-up"] = ""
 L["Expand"] = "Desplegar"
 L["Collapse"] = "Plegar"
+-- L["The tabs you closed and the last guides you loaded."] = ""
+-- L["Recently closed"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "Mascota"
@@ -3126,3 +3132,4 @@ L["looted %s, which starts %s"] = "ha conseguido %s, que inicia %s"
 -- L["Polestar %s is installed incompletely: %s. Close the game, delete every Polestar folder in Interface/AddOns and unzip the latest Polestar zip there (CurseForge or GitHub Releases, not \"Source code\")."] = "Polestar %s está instalado de forma incompleta: %s. Cierra el juego, borra todas las carpetas de Polestar en Interface/AddOns y descomprime ahí el zip más reciente de Polestar (CurseForge o GitHub Releases, no \"Source code\")."
 -- L["Objective areas"] = "Áreas de objetivos"
 -- L["Shade the area each group of mobs or objects spreads over on the world map."] = "Sombrea en el mapa del mundo el área que ocupa cada grupo de monstruos u objetos."
+-- L["The last guides you loaded."] = "Las últimas guías que has cargado."

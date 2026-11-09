@@ -212,6 +212,9 @@ L["Target rare"] = "選取稀有"
 -- L["List the quests in your log the route never hands in"] = ""
 -- L["Show what's new in this version"] = ""
 -- L["Nothing to skip: the guide has no step open."] = ""
+-- L["Reopen closed tab"] = ""
+-- L["No closed tab to reopen."] = ""
+-- L["Reopen the last guide tab you closed"] = ""
 
 -- Theme/Theme.lua
 L["Dusk"] = "黃昏"
@@ -1347,6 +1350,8 @@ L["Click to show or hide the party panel."] = "點擊顯示或隱藏隊伍面板
 -- L["Type /polestar to show it."] = ""
 -- L["Polestar is hidden here"] = ""
 -- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = ""
+-- L["Closed %s"] = ""
+-- L["Reopen"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"
@@ -1415,7 +1420,6 @@ L["%d guides"] = "%d 份指南"
 L["%d open"] = "已開啟 %d 個"
 L["Pick up where you left off, or start something new."] = "從上次中斷處繼續，或開始新的。"
 L["The guides open in your tabs."] = "在你分頁中開啟的指南。"
-L["The last guides you loaded."] = "你最近載入的指南。"
 L["Pick a guide to open in a new tab."] = "選擇一份指南在新分頁開啟。"
 L["Tab %d  ·  %d%%"] = "分頁 %d · %d%%"
 L["%s  ·  %d in the Codex for “%s”"] = "%1$s · Codex 中「%3$s」有 %2$d 筆"
@@ -1447,6 +1451,8 @@ L["No guides shown: Polestar's own guides are switched off. Turn them on under O
 -- L["Heads-up"] = ""
 L["Expand"] = "展開"
 L["Collapse"] = "摺疊"
+-- L["The tabs you closed and the last guides you loaded."] = ""
+-- L["Recently closed"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "小寵物"
@@ -3128,3 +3134,4 @@ L["looted %s, which starts %s"] = "拾取了 %s，可開始任務 %s"
 -- L["Objective areas"] = "目標區域"
 -- L["Shade the area each group of mobs or objects spreads over on the world map."] = "在地圖上為每群怪物或物件的分布範圍塗上陰影。"
 -- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "選取按鈕與步驟按鍵會在所選取的怪物和 NPC 身上放置團隊標記；非戰鬥中，若按下時兩者都沒找到，則會清除你的目標。你的小隊成員看得到這些標記；在團隊中只有隊長和助理可以設定標記。"
+-- L["The last guides you loaded."] = "你最近載入的指南。"

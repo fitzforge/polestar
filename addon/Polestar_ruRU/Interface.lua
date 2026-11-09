@@ -212,6 +212,9 @@ L["Previous waypoint"] = "Предыдущая путевая точка"
 L["List the quests in your log the route never hands in"] = "Показать задания из журнала, которые маршрут никогда не сдает"
 -- L["Show what's new in this version"] = ""
 -- L["Nothing to skip: the guide has no step open."] = ""
+-- L["Reopen closed tab"] = ""
+-- L["No closed tab to reopen."] = ""
+-- L["Reopen the last guide tab you closed"] = ""
 
 -- Theme/Theme.lua
 L["Dusk"] = "Сумерки"
@@ -1347,6 +1350,8 @@ L["Step %d does this later; done now, that step is shorter or skipped when you g
 -- L["Type /polestar to show it."] = ""
 -- L["Polestar is hidden here"] = ""
 -- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = ""
+-- L["Closed %s"] = ""
+-- L["Reopen"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -1415,7 +1420,6 @@ L["%d guides"] = "Гайдов: %d"
 L["%d open"] = "Открыто: %d"
 L["Pick up where you left off, or start something new."] = "Продолжите с того места, где остановились, или начните что-то новое."
 L["The guides open in your tabs."] = "Гайды, открытые во вкладках."
-L["The last guides you loaded."] = "Последние загруженные гайды."
 L["Pick a guide to open in a new tab."] = "Выберите гайд, чтобы открыть его в новой вкладке."
 L["Tab %d  ·  %d%%"] = "Вкладка %d  ·  %d%%"
 L["%s  ·  %d in the Codex for “%s”"] = "%s  ·  %d в Codex для «%s»"
@@ -1447,6 +1451,8 @@ L["Other starting zones"] = "Другие стартовые зоны"
 -- L["Heads-up"] = ""
 L["Expand"] = "Развернуть"
 L["Collapse"] = "Свернуть"
+-- L["The tabs you closed and the last guides you loaded."] = ""
+-- L["Recently closed"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "Питомец"
@@ -3137,3 +3143,4 @@ L["looted %s, which starts %s"] = "добыча %s начинает задани
 -- L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."] = "Окно гайда скрывается в подземельях и на полях боя. Введите /polestar, чтобы показать его здесь, или измените это в меню Настройки > Гайд > Окно."
 -- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = "Как ведут себя окно, его кнопки и оповещения в подземельях, рейдах, на полях боя и аренах. /polestar или назначенная клавиша открывает окно там до вашего выхода."
 -- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "Кнопка выбора цели и клавиша шага ставят рейдовую метку на выбранного противника или NPC. Вне боя нажатие без найденной цели снимает текущее выделение. Группа видит метки; в рейде их могут ставить только лидер и помощники."
+-- L["The last guides you loaded."] = "Последние загруженные гайды."

@@ -212,6 +212,9 @@ L["Target rare"] = "희귀 대상 지정"
 -- L["List the quests in your log the route never hands in"] = ""
 -- L["Show what's new in this version"] = ""
 -- L["Nothing to skip: the guide has no step open."] = ""
+-- L["Reopen closed tab"] = ""
+-- L["No closed tab to reopen."] = ""
+-- L["Reopen the last guide tab you closed"] = ""
 
 -- Theme/Theme.lua
 L["Dusk"] = "황혼"
@@ -1347,6 +1350,8 @@ L["Click to show or hide the party panel."] = "클릭하여 파티 창을 표시
 -- L["Type /polestar to show it."] = ""
 -- L["Polestar is hidden here"] = ""
 -- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = ""
+-- L["Closed %s"] = ""
+-- L["Reopen"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -1415,7 +1420,6 @@ L["%d guides"] = "가이드 %d개"
 L["%d open"] = "%d개 열림"
 L["Pick up where you left off, or start something new."] = "하던 곳에서 이어가거나 새로 시작하십시오."
 L["The guides open in your tabs."] = "탭에 열린 가이드."
-L["The last guides you loaded."] = "최근 불러온 가이드."
 L["Pick a guide to open in a new tab."] = "새 탭에서 열 가이드를 고르십시오."
 L["Tab %d  ·  %d%%"] = "탭 %d  ·  %d%%"
 L["%s  ·  %d in the Codex for “%s”"] = "%1$s  ·  Codex에서 “%3$s” %2$d개"
@@ -1447,6 +1451,8 @@ L["No guides shown: Polestar's own guides are switched off. Turn them on under O
 -- L["Heads-up"] = ""
 L["Expand"] = "펼치기"
 L["Collapse"] = "접기"
+-- L["The tabs you closed and the last guides you loaded."] = ""
+-- L["Recently closed"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "애완동물"
@@ -3128,3 +3134,4 @@ L["looted %s, which starts %s"] = "%s 획득, 이 아이템으로 %s 시작"
 -- L["Objective areas"] = "임무 지역"
 -- L["Shade the area each group of mobs or objects spreads over on the world map."] = "지도에 각 몹이나 사물 무리가 퍼져 있는 지역을 칠합니다."
 -- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "대상 지정 버튼과 단계 키는 대상으로 지정한 몬스터와 NPC에 공격대 징표를 표시합니다. 전투 중이 아닐 때 둘 다 찾지 못하면 대상이 해제됩니다. 파티원도 징표를 볼 수 있으며, 공격대에서는 공격대장과 부공격대장만 징표를 설정할 수 있습니다."
+-- L["The last guides you loaded."] = "최근 불러온 가이드."

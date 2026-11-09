@@ -212,6 +212,9 @@ L["Previous waypoint"] = "上一个路径点"
 L["List the quests in your log the route never hands in"] = "列出任务日志中路线永远不会交还的任务"
 -- L["Show what's new in this version"] = ""
 -- L["Nothing to skip: the guide has no step open."] = ""
+-- L["Reopen closed tab"] = ""
+-- L["No closed tab to reopen."] = ""
+-- L["Reopen the last guide tab you closed"] = ""
 
 -- Theme/Theme.lua
 L["Dusk"] = "黄昏"
@@ -1347,6 +1350,8 @@ L["Right-click: not now, around here (twice: for the rest of this zone)."] = "�
 -- L["Type /polestar to show it."] = ""
 -- L["Polestar is hidden here"] = ""
 -- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = ""
+-- L["Closed %s"] = ""
+-- L["Reopen"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "乘升降梯前往%s"
@@ -1415,7 +1420,6 @@ L["%d guides"] = "%d 个指南"
 L["%d open"] = "%d 个已打开"
 L["Pick up where you left off, or start something new."] = "继续上次的进度，或开始新的指南。"
 L["The guides open in your tabs."] = "标签页中打开的指南。"
-L["The last guides you loaded."] = "最近加载的指南。"
 L["Pick a guide to open in a new tab."] = "选择一个指南在新标签页中打开。"
 L["Tab %d  ·  %d%%"] = "标签页 %d  ·  %d%%"
 L["%s  ·  %d in the Codex for “%s”"] = "%1$s  ·  Codex 中“%3$s”有 %2$d 个"
@@ -1447,6 +1451,8 @@ L["Other starting zones"] = "其他起始地区"
 -- L["Heads-up"] = ""
 L["Expand"] = "展开"
 L["Collapse"] = "折叠"
+-- L["The tabs you closed and the last guides you loaded."] = ""
+-- L["Recently closed"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "小伙伴"
@@ -3137,3 +3143,4 @@ L["looted %s, which starts %s"] = "拾取了 %s，可开始任务 %s"
 -- UI/WhileHere.lua and UI/Options.lua
 -- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = "也包括可交付的任务：交任务的 NPC 就在旁边，而指南稍后才交。"
 -- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "选取目标按钮和步骤快捷键会给选中的怪物或 NPC 加上团队标记；非战斗状态下，若点击后未找到目标，则清除当前目标。队友也能看到标记；团队中只有团长和助理能设置标记。"
+-- L["The last guides you loaded."] = "最近加载的指南。"
