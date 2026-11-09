@@ -9466,3 +9466,14 @@ test('Orgrimmar (Horde 30): Craven Drok\'s step says he walks the Drag', { skip 
 	assert.match(src, /tip [^\n]*Craven Drok walks the Drag/);
 	assert.doesNotMatch(src, /Craven Drok waits in the Drag/);
 });
+
+// Position sweep (0.3.6, class B2: a walking NPC shown at one point): the Forsaken Courier walks the road from Go'Shek
+// Farm west across Arathi (CMaNGOS: a 1,426 yd waypoint walk; 10 people met him anywhere from 61,59 to 24,43), and the
+// step pointed only at his spawn. The arrow now searches his road, from the farm west.
+test('Arathi Highlands (Alliance 36): the Forsaken Courier is searched for along his road', { skip }, () => {
+	const list = goals('forever/alliance/30-40/05-arathi-highlands.guide');
+	const { goal } = list[at(list, 'collect 4482', (g) => g.t === 'collect' && g.item === 4482)];
+	const spots = (goal.spots || []).filter((s) => !s.alt);
+	assert.ok(spots.length >= 6, `the arrow searches his road: ${JSON.stringify(goal.spots)}`);
+	assert.ok(spots[0].x > 55 && spots[spots.length - 1].x < 30, 'from Go\'Shek Farm west');
+});

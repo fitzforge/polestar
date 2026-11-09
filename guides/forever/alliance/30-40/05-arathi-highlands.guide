@@ -211,7 +211,17 @@ step Quae
   accept 658
 
 step Forsaken Courier
-  tip The courier walks the road west of Go'Shek Farm with two guards; pull them off the road.
+  tip The courier walks the road from Go'Shek Farm west across the Highlands, as far as about 24,45, and back, with two guards: the arrow follows the road west until you meet him. Pull them off the road.
+  loop
+  goto 61.3,59.4
+  goto 57.8,62.5
+  goto 52.5,61.5
+  goto 45.4,58.6
+  goto 40.3,54.8
+  goto 35.6,52.5
+  goto 32.0,51.9
+  goto 27.8,49.3
+  goto 24.4,44.7
   collect 4482 quest 658              -- Sealed Folder
 
 step Circle of Outer Binding

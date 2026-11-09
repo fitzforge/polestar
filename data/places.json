@@ -1842,6 +1842,65 @@
 					"ref": "npc 10880 met by 71 people in Orgrimmar, most in the Valley of Strength"
 				}
 			]
+		},
+		{
+			"id": "arathi-forsaken-courier-road",
+			"quest": 658,
+			"objective": 1,
+			"faction": "Alliance",
+			"path": {
+				"map": 1417,
+				"frame": "era",
+				"points": [
+					[
+						61.3,
+						59.4
+					],
+					[
+						57.8,
+						62.5
+					],
+					[
+						52.5,
+						61.5
+					],
+					[
+						45.4,
+						58.6
+					],
+					[
+						40.3,
+						54.8
+					],
+					[
+						35.6,
+						52.5
+					],
+					[
+						32.0,
+						51.9
+					],
+					[
+						27.8,
+						49.3
+					],
+					[
+						24.4,
+						44.7
+					]
+				]
+			},
+			"note": "Hints of a New Plague? (658): the Forsaken Courier (2714) who carries the Sealed Folder walks the road from Go'Shek Farm west across the Highlands and back with two guards. The data has one spawn (52.47,61.53) and the step pointed there; players met him anywhere along the road. The arrow searches the road from the farm, where the route comes from (Quae), west to the far end of his walk. Points from where players met him.",
+			"source": [
+				{
+					"kind": "cmangos",
+					"ref": "creature 2714's waypoint walk, 1,426 yd around world -831.7,-1889.4 (data/forever/moves.json); Forever TDB guid 20014772 MovementType 2"
+				},
+				{
+					"kind": "recording",
+					"ref": "npc 2714 met by 10 people at 61.3,59.4, 57.8,62.5, 56.5,63.0, 45.4,58.6, 43.5,51.8, 40.3,54.8, 39.7,54.6, 35.6,52.5, 32.0,51.9, 27.8,49.3, 25.2,46.4 and 23.6,43.0; the folder looted at 61.4,61.0 and 60.5,59.0"
+				}
+			]
 		}
 	]
 }
