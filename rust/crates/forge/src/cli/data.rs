@@ -330,7 +330,27 @@ fn run() -> Result<(), Fail> {
 		let guides = guides.or_else(|| root.as_ref().map(|r| r.join("guides")));
 		let recs = recs.or_else(|| root.as_ref().map(|r| r.join("data/recordings"))).ok_or_else(|| usage("--recordings <dir> is required (no checkout above here)"))?;
 		let t = Instant::now();
+		forge_data::trainers::check_inputs(guides.as_deref(), &recs)?;
 		let (json, text, rep) = forge_data::trainers::run(&data, guides.as_deref(), &recs)?;
+		// A regenerated Core/ClassTrainers.lua may not lose a trainer the committed one names, unless
+		// data/trainers-dropped.json lists it: nothing is written then.
+		if let Some(r) = root.as_ref() {
+			let committed = r.join("addon/Polestar/Core/ClassTrainers.lua");
+			if let Ok(old) = std::fs::read_to_string(&committed) {
+				let listed = forge_data::trainers::listed_drops(&r.join("data/trainers-dropped.json"))?;
+				let lost = forge_data::trainers::lost_trainers(&old, &text, &listed);
+				if !lost.is_empty() {
+					let lines: Vec<String> = lost.iter().map(|(id, what)| format!("  {id} ({})", what.join(", "))).collect();
+					return Err(format!(
+						"trainers: the regenerated list loses {} trainer(s) {} names; nothing written. Fix the inputs, or list the drop in data/trainers-dropped.json ({{ \"<npc id>\": \"why\" }}):\n{}",
+						lost.len(),
+						committed.display(),
+						lines.join("\n")
+					)
+					.into());
+				}
+			}
+		}
 		let out = out.unwrap_or_else(|| data.join("trainers.json"));
 		std::fs::write(&out, json).map_err(|e| e.to_string())?;
 		for (c, n, m) in &rep.unverified {

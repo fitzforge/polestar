@@ -282,7 +282,7 @@ first.
 
 | Command | Writes | Reads |
 |---|---|---|
-| `forge data trainers` | `data/forever/trainers.json`, `addon/Polestar/Core/ClassTrainers.lua` | a curated list of class trainers, every `train <npc> only <Class>` step in `guides/`, and recorded trainer visits |
+| `forge data trainers` | `data/forever/trainers.json`, `addon/Polestar/Core/ClassTrainers.lua` | a curated list of class trainers, every `train <npc> only <Class>` step in `guides/`, and recorded trainer visits (a guide's or a recording's trainer only when its title names that class: no portal trainers, weapon masters or riding instructors). It stops, writing nothing, without a guide folder or recordings (`--recordings`), and when the new `ClassTrainers.lua` would lose a trainer the committed one names (by npc id) that `data/trainers-dropped.json` (`{ "<npc id>": "why" }`) does not list |
 | `forge data travel` | `data/forever/travel.json`, `addon/Polestar/Nav/TravelData.lua`, `addon/Polestar/Maps/FlightPaths.lua`; the local `Polestar_Travel` addon when `data/local/crossings.json` exists | flight paths, boats and zeppelins with their timetables, inns, zone crossings (`data/crossings.json`), recorded paths, and the walking grid (`--grid DIR`, or `--grid none`) |
 | `forge data professions` | `data/forever/professions.json` (or `--out FILE`) | the game's profession tables, items, NPCs and vendor stock |
 | `forge data dungeons` | `data/forever/dungeons.json` (or `--out FILE`) | a dungeon journal addon installed in your client (`--source DIR`); only facts (ids, names, levels, places, rewards, chains), none of its text |

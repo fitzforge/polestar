@@ -248,6 +248,13 @@ fn add(entries: &mut IndexMap<i64, Entry>, id: i64, name: V, cls: &str, source: 
 	e.sources.insert(source);
 }
 
+/// A guide's or a recording's trainer counts for `cls` only when its title names that class ("Mage
+/// Trainer"; none given: kept): a portal trainer ("Portal Trainer") a mage visits, a weapon master or
+/// a riding instructor is no class trainer.
+fn titled_for(n: &V, cls: &str) -> bool {
+	let sub = n.get("subName");
+	!sub.truthy() || sub.to_js_string().to_lowercase().contains(&cls.to_lowercase())
+}
 fn name_key(s: &str) -> String {
 	s.trim_matches(|c: char| c.is_whitespace() || c == '\u{feff}').to_lowercase()
 }
@@ -337,6 +344,9 @@ pub fn build_trainers(data: &Data, guides: Option<&Path>, recordings: &Recording
 						continue;
 					}
 					let n = data.npc(&g.get("npc"));
+					if !titled_for(&n, &classes.at(0).to_js_string()) {
+						continue;
+					}
 					let name = if n.truthy() && n.get("name").truthy() { n.get("name") } else { g.get("npcName") };
 					add(&mut entries, g.get("npc").num() as i64, name, &classes.at(0).to_js_string(), "guide");
 					guide += 1;
@@ -384,7 +394,7 @@ pub fn build_trainers(data: &Data, guides: Option<&Path>, recordings: &Recording
 		let (classes, is_trusted) = if !trusted.is_empty() { (trusted, true) } else { (pick(&|_| true), false) };
 		let n = data.npc(&V::Num(id as f64));
 		let known = n.truthy();
-		if classes.len() != 1 || profession.contains(&id) || (entries.contains_key(&id) && !is_trusted) || (!known && !by_class.values().flatten().any(|w| recordings::vouched(w))) {
+		if classes.len() != 1 || profession.contains(&id) || !titled_for(&n, classes[0]) || (entries.contains_key(&id) && !is_trusted) || (!known && !by_class.values().flatten().any(|w| recordings::vouched(w))) {
 			continue;
 		}
 		let nm = if n.truthy() && n.get("name").truthy() { n.get("name") } else { name.clone() };
@@ -473,4 +483,115 @@ pub fn run(data_dir: &Path, guides: Option<&Path>, recordings: &Path) -> Result<
 	let (t, report) = build_trainers(&data, guides, &recs);
 	let (lua, _, _) = class_trainers_lua(&data, &t);
 	Ok((trainers_json(&t), lua, report))
+}
+
+/// `forge data trainers` refuses missing inputs rather than writing fewer trainers: no guide folder
+/// (the trainers our guides' train steps name would go), or no recordings (the trainers only
+/// players' visits name would go).
+pub fn check_inputs(guides: Option<&Path>, recordings: &Path) -> Result<(), String> {
+	match guides {
+		Some(g) if g.is_dir() => {}
+		g => return Err(format!("trainers: no guide folder{} (--guides): the trainers our guides' train steps name would be dropped", g.map(|g| format!(" at {}", g.display())).unwrap_or_default())),
+	}
+	if recordings::read_recordings(recordings)?.list.is_empty() {
+		return Err(format!("trainers: no recordings in {} (--recordings): the trainers only players' visits name would be dropped", recordings.display()));
+	}
+	Ok(())
+}
+
+/// Every trainer a Core/ClassTrainers.lua names, by npc id: the classes of its id lists
+/// (RegisterClassTrainerIds) and "town" for a nearest-trainer entry (RegisterClassTrainers).
+pub fn trainer_ids(lua: &str) -> IndexMap<i64, IndexSet<String>> {
+	let mut out: IndexMap<i64, IndexSet<String>> = IndexMap::new();
+	let town = regex::Regex::new(r"\{\s*npc\s*=\s*(\d+)").unwrap();
+	let ids = regex::Regex::new(r"(?m)^\s*([A-Z]+)\s*=\s*\{([\d,\s]*)\}").unwrap();
+	if let Some(at) = lua.find("RegisterClassTrainers(") {
+		let body = &lua[at..lua[at..].find("\n})").map_or(lua.len(), |e| at + e)];
+		for c in town.captures_iter(body) {
+			out.entry(c[1].parse().unwrap()).or_default().insert("town".into());
+		}
+	}
+	if let Some(at) = lua.find("RegisterClassTrainerIds(") {
+		for c in ids.captures_iter(&lua[at..]) {
+			for id in c[2].split(',').filter_map(|s| s.trim().parse::<i64>().ok()) {
+				out.entry(id).or_default().insert(c[1].to_string());
+			}
+		}
+	}
+	out.sort_keys();
+	out
+}
+
+/// The trainers (npc id, what it loses) the committed Core/ClassTrainers.lua names that a
+/// regenerated one would lose, leaving out the npc ids `listed` (data/trainers-dropped.json).
+pub fn lost_trainers(committed: &str, regenerated: &str, listed: &IndexSet<i64>) -> Vec<(i64, Vec<String>)> {
+	let new = trainer_ids(regenerated);
+	trainer_ids(committed)
+		.into_iter()
+		.filter(|(id, _)| !listed.contains(id))
+		.filter_map(|(id, had)| {
+			let gone: Vec<String> = had.into_iter().filter(|c| !new.get(&id).is_some_and(|n| n.contains(c))).collect();
+			(!gone.is_empty()).then_some((id, gone))
+		})
+		.collect()
+}
+
+/// The npc ids data/trainers-dropped.json lists (`{ "<npc id>": "why" }`): drops a regenerated
+/// Core/ClassTrainers.lua may make. No file: none.
+pub fn listed_drops(file: &Path) -> Result<IndexSet<i64>, String> {
+	let Ok(text) = std::fs::read_to_string(file) else { return Ok(IndexSet::new()) };
+	let v = forge_guide::js::parse_json(&text).map_err(|e| format!("{}: {e}", file.display()))?;
+	v.keys().iter().map(|k| k.parse::<i64>().map_err(|_| format!("{}: {k} is not an npc id", file.display()))).collect()
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	const COMMITTED: &str = "ns.RegisterClassTrainers({\n\t{ npc = 198, npcName = \"Khelden Bremen\", map = 1429, classes = { \"MAGE\" } },\n\t{ npc = 1411, npcName = \"Ian Strom\", map = 1497, classes = { \"ROGUE\" } },\n})\n\nns.RegisterClassTrainerIds({\n\tMAGE = { 198, 331 },\n\tROGUE = { 1411, 6707 },\n})\n";
+
+	#[test]
+	fn portal_trainers_weapon_masters_and_riding_instructors_are_no_class_trainers() {
+		let npc = |sub: &str| forge_guide::js::parse_json(&format!(r#"{{"id": 1, "subName": {sub}}}"#)).unwrap();
+		// Larimaine Purdue (2485), a mage teleports guide's `train`: the 48-line drift of 0.3.6.
+		assert!(!titled_for(&npc("\"Portal Trainer\""), "MAGE"));
+		assert!(!titled_for(&npc("\"Weapon Master\""), "WARRIOR"));
+		assert!(titled_for(&npc("\"Mage Trainer\""), "MAGE"));
+		assert!(titled_for(&npc("null"), "WARLOCK"), "Strahad Farsan has no title");
+		assert!(titled_for(&V::Undef, "MAGE"), "an npc the data lacks");
+	}
+
+	#[test]
+	fn reads_both_lists_of_a_class_trainers_file() {
+		let ids = trainer_ids(COMMITTED);
+		assert_eq!(ids.keys().copied().collect::<Vec<_>>(), [198, 331, 1411, 6707]);
+		assert_eq!(ids[&198].iter().cloned().collect::<Vec<_>>(), ["town", "MAGE"]);
+		assert_eq!(ids[&6707].iter().cloned().collect::<Vec<_>>(), ["ROGUE"]);
+	}
+
+	#[test]
+	fn a_regenerated_file_may_not_lose_a_committed_trainer_unless_listed() {
+		// 6707 gone, Ian Strom's town entry gone, a new trainer (Larimaine Purdue) added: only the losses count.
+		let regen = "ns.RegisterClassTrainers({\n\t{ npc = 198, map = 1429, classes = { \"MAGE\" } },\n\t{ npc = 2485, map = 1453, classes = { \"MAGE\" } },\n})\n\nns.RegisterClassTrainerIds({\n\tMAGE = { 198, 331, 2485 },\n\tROGUE = { 1411 },\n})\n";
+		assert_eq!(lost_trainers(COMMITTED, regen, &IndexSet::new()), vec![(1411, vec!["town".to_string()]), (6707, vec!["ROGUE".to_string()])]);
+		assert_eq!(lost_trainers(COMMITTED, regen, &[1411, 6707].into_iter().collect()), vec![]);
+		assert!(lost_trainers(COMMITTED, COMMITTED, &IndexSet::new()).is_empty());
+	}
+
+	#[test]
+	fn missing_inputs_fail_instead_of_dropping_trainers() {
+		let tmp = std::env::temp_dir().join(format!("forge-trainers-{}", std::process::id()));
+		let (guides, recs) = (tmp.join("guides"), tmp.join("recs"));
+		std::fs::create_dir_all(&recs).unwrap();
+		let e = check_inputs(None, &recs).err().unwrap_or_default();
+		assert!(e.contains("no guide folder (--guides)"), "{e}");
+		let e = check_inputs(Some(guides.as_path()), &recs).err().unwrap_or_default();
+		assert!(e.contains("no guide folder at"), "{e}");
+		std::fs::create_dir_all(&guides).unwrap();
+		let e = check_inputs(Some(guides.as_path()), &recs).err().unwrap_or_default();
+		assert!(e.contains("no recordings in"), "{e}");
+		std::fs::write(recs.join("a.json"), r#"{"schema":1,"events":[]}"#).unwrap();
+		assert_eq!(check_inputs(Some(guides.as_path()), &recs), Ok(()));
+		std::fs::remove_dir_all(&tmp).ok();
+	}
 }
