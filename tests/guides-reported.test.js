@@ -9629,7 +9629,10 @@ test('Horde 40-50: The Super Egg-O-Matic is taken in Tanaris at 47 and finished 
 	assert.ok(fray < egg && egg < uzeri, 'the nests right after the hippogryphs, before Camp Mojache');
 	assert.ok((az[egg].step.when || []).some((p) => p.k === 'onquest' && !p.neg), 'the nests only with the quest in the log');
 	const tin = az[at(az, 'turnin 2741', is('turnin', 2741))];
-	assert.ok(tin.step.goals.some(is('turnin', 4494)), 'on the Gadgetzan stop');
+	// The Gadgetzan stop is split in steps (Pestlezugg's `when available` accept is its own step since the E1 sweep):
+	// the hand-in is on the stop that hands March of the Silithid to Pestlezugg, at most two steps after it.
+	const march = az[at(az, 'turnin 4494', is('turnin', 4494))];
+	assert.ok(tin.s >= march.s && tin.s - march.s <= 2, 'on the Gadgetzan stop');
 	const epl = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
 	assert.ok(!epl.some(({ goal }) => is('accept', 2741)(goal)), '50-60/05 no longer takes it');
 	const late = epl.find(({ goal }) => goal.t === 'collect' && goal.quest === 2741);
