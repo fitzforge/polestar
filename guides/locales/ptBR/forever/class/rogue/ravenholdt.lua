@@ -23,6 +23,8 @@ return {
 	["Horde fly to {area:272}, Alliance to {area:271}. The trail to the manor is hard to see: it starts behind the plateau north of {area:275}, east of {area:272}, climbs into the hills and bends twice to a small tunnel. A chest sits in the tunnel: do not open it. Cast {spell:1846} near it and walk up close; that is the Rite of Cunning (it comes back after 5 minutes). Opening the chest calls Milton, an elite rogue of about level 32. Through the tunnel lies {area:3486}: {npc:6707} is upstairs inside. Do not attack anyone at the manor: it costs {npc:13936} reputation."] = "A Horda voa para {area:272}, a Aliança para {area:271}. A trilha até a mansão é difícil de ver: começa atrás do planalto ao norte de {area:275}, a leste de {area:272}, sobe pelas colinas e faz duas curvas até um túnel pequeno. Há um baú no túnel: não abra. Lance {spell:1846} perto dele e chegue bem perto; isso é o Rito da Astúcia (volta depois de 5 minutos). Abrir o baú chama Milton, um ladino elite de uns nível 32. Depois do túnel fica {area:3486}: {npc:6707} está lá dentro, no andar de cima. Não ataque ninguém na mansão: isso custa reputação com {npc:13936}.",
 	-- {spell:1846} Detect Traps
 	["Rite of Cunning: {spell:1846} beside the tunnel chest"] = "Rito da Astúcia: {spell:1846} ao lado do baú do túnel",
+	-- {npc:6766} Ravenholdt Guard · {quest:6701} Syndicate Emblems
+	["{npc:6766}: {quest:6701}, repeatable; take it now, the emblems are quest items"] = "",
 
 	-- Step 3: Lord Tomas
 	-- {npc:266216} Lord Tomas · {area:275} Durnholde Keep · {npc:13085} Myrokos Silentform · {quest:6701} Syndicate Emblems
@@ -32,9 +34,8 @@ return {
 	["Pick Pocket Syndicate members for {quest:6701}"] = "{quest:6701}: bata a carteira de membros da Camarilha",
 
 	-- Step 4: Myrokos Silentform
-	-- {npc:6766} Ravenholdt Guard · {quest:6701} Syndicate Emblems
-	["{npc:6766}: {quest:6701}, repeatable"] = "{npc:6766}: {quest:6701}, repetível",
-	["one emblem each time, 100 reputation"] = "um emblema por vez, 100 de reputação",
+	-- {npc:6766} Ravenholdt Guard
+	["{npc:6766}: one emblem each time, 100 reputation"] = "",
 
 	-- Step 5: What's the Big Idea?
 	-- {npc:13085} Myrokos Silentform · {area:280} Strahnbrad · {zone:1416} Alterac Mountains · {spell:921} Pick Pocket
@@ -83,6 +84,8 @@ return {
 	-- ["Horde fly to {area:272}, Alliance to {area:271}. The manor hides in the hills east of {area:272}, up a path into the {zone:1416}; the Rite of Cunning is passing its way in."] = "A Horda voa para {area:272}, a Aliança para {area:271}. O solar se esconde nas colinas a leste de {area:272}, subindo uma trilha para as {zone:1416}; o Rito da Astúcia passa pelo caminho.",
 	-- ["Opens {area:3486}, the hidden rogue house in the Alterac hills, and its first jobs."] = "Abre {area:3486}, a casa secreta dos ladinos nas colinas de Alterac, e seus primeiros trabalhos.",
 	-- ["Rite of Cunning"] = "Rito da Astúcia",
+	-- ["one emblem each time, 100 reputation"] = "um emblema por vez, 100 de reputação",
 	-- ["{item:275482}: pickpocket Barton"] = "{item:275482}: bata a carteira de Barton",
 	-- ["{npc:266216} is inside {area:275}, the Syndicate fortress in eastern {area:287}, south of the manor. Quick and quiet, says {npc:13085}."] = "{npc:266216} está dentro de {area:275}, a fortaleza da Camarilha no leste de {area:287}, ao sul do solar. Rápido e silencioso, diz {npc:13085}.",
+	-- ["{npc:6766}: {quest:6701}, repeatable"] = "{npc:6766}: {quest:6701}, repetível",
 }

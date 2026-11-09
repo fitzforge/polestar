@@ -66,18 +66,18 @@ step Ravenholdt Manor
   zone Alterac Mountains
   turnin 6681                                 -- Fahrad
   accept 96779                                -- Myrokos Silentform
+  accept 6701 optional                        -- Ravenholdt Guard: Syndicate Emblems, repeatable; take it now, the emblems are quest items
 
 step Lord Tomas
   zone Hillsbrad Foothills
   tip Lord Tomas is inside Durnholde Keep, the Syndicate fortress south of the manor; he can stand in any of fifteen spots in the keep, so search. Quick and quiet, says Myrokos. Pick the pockets of the level 20-21 Syndicate Rogues, Shadow Mages and Watchmen on your way: they carry Syndicate Emblems for the guards' repeatable reputation quest.
   kill 266216 quest 96779.1                   -- Lord Tomas
-  collect 17124 optional "Pick Pocket Syndicate members for Syndicate Emblems"
+  collect 17124 quest 6701.1 optional "Pick Pocket Syndicate members for Syndicate Emblems"
 
 step Myrokos Silentform
   zone Alterac Mountains
   turnin 96779                                -- Myrokos Silentform
-  accept 6701 optional                        -- Ravenholdt Guard: Syndicate Emblems, repeatable
-  turnin 6701 optional                        -- one emblem each time, 100 reputation
+  turnin 6701 optional                        -- Ravenholdt Guard: one emblem each time, 100 reputation
 
 # ---------------------------------------------------------------- Myrokos's mid-30s jobs
 
