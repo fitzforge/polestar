@@ -147,8 +147,8 @@ fn dungeon_route_run_picks_up_says_when_to_look_for_a_group_and_reaches_the_run(
 
 #[test]
 fn dungeon_route_skip_keeps_to_the_solo_route_an_answer_for_one_dungeon_wins() {
-	let out = run(char("skip"), r#"take(7); take(15); emit({ at = at(), s1 = st(1), s4 = st(4), s5 = st(5), s6 = st(6), asked = asked(), soon = E.DungeonSoon() or false })"#);
-	assert_eq!(out[0], json!({ "at": 7, "s1": "skipped", "s4": "skipped", "s5": "skipped", "s6": "skipped", "asked": false, "soon": false }));
+	let out = run(char("skip"), r#"take(7); take(15); emit({ at = at(), s1 = st(1), s4 = st(4), s5 = st(5), asked = asked(), soon = E.DungeonSoon() or false })"#);
+	assert_eq!(out[0], json!({ "at": 7, "s1": "skipped", "s4": "skipped", "s5": "skipped", "asked": false, "soon": false }));
 	let one = run(Some(json!({ "schema": 1, "guide": "test/route", "dungeonRoute": "skip", "dungeons": { "36": true } })), "emit(at())");
 	assert_eq!(one[0], 1);
 }

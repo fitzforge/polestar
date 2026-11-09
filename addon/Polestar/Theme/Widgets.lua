@@ -3920,8 +3920,8 @@ function ns.RegisterOptions(spec)
 		if type(c) ~= "table" or not CONTROL_KINDS[c.kind] then
 			return false, ("RegisterOptions(%s): control %d has unknown kind %s"):format(spec.page, i, tostring(c and c.kind))
 		end
-		-- A toggle or slider may hold state that is no setting: get/set and no key.
-		local state = (c.kind == "toggle" or c.kind == "slider") and c.key == nil and type(c.get) == "function" and type(c.set) == "function"
+		-- A toggle, slider or dropdown may hold state that is no setting: get/set and no key.
+		local state = (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown") and c.key == nil and type(c.get) == "function" and type(c.set) == "function"
 		if c.kind ~= "button" and c.kind ~= "binding" and not state and type(c.key) ~= "string" then
 			return false, ("RegisterOptions(%s): control %d needs a settings key"):format(spec.page, i)
 		end
