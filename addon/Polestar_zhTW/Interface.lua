@@ -148,6 +148,8 @@ L["%s is no longer in your quest log: the guide skips it and what follows."] = "
 L["%s is no longer in your quest log: the guide goes back for it."] = "%s 已不在你的任務日誌中：指南會回頭去接它。"
 L["Hand in %s to %s, then take %s: saves a trip back"] = "將 %s 繳交給 %s，再接取 %s：省一趟回程"
 L["Hand in %s to %s: saves a trip back"] = "將 %s 繳交給 %s：省一趟回程"
+-- L["Hand in %s to them, then take %s: saves a trip back"] = ""
+-- L["Hand in %s to them: saves a trip back"] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "接受 %s 將永久關閉 %s。"

@@ -149,6 +149,8 @@ L["%s is no longer in your quest log: the guide skips it and what follows."] = "
 L["%s is no longer in your quest log: the guide goes back for it."] = "%s n'est plus dans votre journal des quêtes : le guide y retourne."
 L["Hand in %s to %s, then take %s: saves a trip back"] = "Rendre %s à %s, puis prendre %s : un retour en moins"
 L["Hand in %s to %s: saves a trip back"] = "Rendre %s à %s : un retour en moins"
+-- L["Hand in %s to them, then take %s: saves a trip back"] = ""
+-- L["Hand in %s to them: saves a trip back"] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Prendre %s ferme %s pour de bon."

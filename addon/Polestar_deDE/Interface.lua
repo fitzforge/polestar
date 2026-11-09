@@ -150,6 +150,8 @@ L["%s is no longer in your quest log: the guide skips it and what follows."] = "
 L["%s is no longer in your quest log: the guide goes back for it."] = "%s ist nicht mehr in deinem Questlog: Der Guide geht dafür zurück."
 L["Hand in %s to %s, then take %s: saves a trip back"] = "%s bei %s abgeben, dann %s annehmen: spart einen Rückweg"
 L["Hand in %s to %s: saves a trip back"] = "%s bei %s abgeben: spart einen Rückweg"
+-- L["Hand in %s to them, then take %s: saves a trip back"] = ""
+-- L["Hand in %s to them: saves a trip back"] = ""
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."

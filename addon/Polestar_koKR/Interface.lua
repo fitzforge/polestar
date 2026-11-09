@@ -148,6 +148,8 @@ L["%s is no longer in your quest log: the guide skips it and what follows."] = "
 L["%s is no longer in your quest log: the guide goes back for it."] = "%s이(가) 더 이상 퀘스트 목록에 없습니다: 가이드가 다시 받으러 돌아갑니다."
 L["Hand in %s to %s, then take %s: saves a trip back"] = "%s 퀘스트를 %s에게 제출한 뒤 %s 수락: 다시 돌아올 필요가 없습니다"
 L["Hand in %s to %s: saves a trip back"] = "%s 퀘스트를 %s에게 제출: 다시 돌아올 필요가 없습니다"
+-- L["Hand in %s to them, then take %s: saves a trip back"] = ""
+-- L["Hand in %s to them: saves a trip back"] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "%s 퀘스트를 받으면 %s 퀘스트는 영영 받을 수 없습니다."

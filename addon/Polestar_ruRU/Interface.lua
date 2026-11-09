@@ -148,6 +148,8 @@ L["%s is no longer in your quest log: the guide skips it and what follows."] = "
 L["%s is no longer in your quest log: the guide goes back for it."] = "Задания «%s» больше нет в вашем журнале заданий: гайд возвращается за ним."
 L["Hand in %s to %s, then take %s: saves a trip back"] = "Сдать «%s»: %s, затем взять %s — не придётся возвращаться"
 L["Hand in %s to %s: saves a trip back"] = "Сдать «%s»: %s — не придётся возвращаться"
+-- L["Hand in %s to them, then take %s: saves a trip back"] = ""
+-- L["Hand in %s to them: saves a trip back"] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Взяв %s, вы навсегда закроете %s."
