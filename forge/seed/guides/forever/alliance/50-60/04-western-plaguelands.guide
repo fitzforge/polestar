@@ -555,7 +555,6 @@ step Cenarion Hold
   sethome "Cenarion Hold"
   accept 8280                         -- Windcaller Proudhorn
   accept 8284                         -- Geologist Larksbane
-  accept 8318                         -- Bor Wildmane
 
 step Silithus: kill these as you meet them
   zone Silithus
@@ -578,6 +577,7 @@ step Cenarion Hold
   accept 8278
   turnin 8280
   accept 8281
+  accept 8318                         -- Bor Wildmane
 
 step Silithus: kill these as you meet them
   zone Silithus
