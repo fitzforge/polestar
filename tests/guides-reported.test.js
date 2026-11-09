@@ -10592,3 +10592,15 @@ test('Horde Plaguelands: Darrowshire at 56 in the Eastern Plaguelands guide, not
 	assert.ok(!flyBack, 'no flight to Light\'s Hope before its flight path is learnt');
 	assert.ok(at(ep, 'turnin 6164', is('turnin', 6164)) > villains, 'Augustus takes the book back on the Terrordale stop');
 });
+
+// Roaming-NPC sweep (0.3.7, with #1542's Shadowy Assassin): the Alliance 'Fallow Sanctuary' step
+// waited for Noboru the Cudgel (5477), who walks a 56-node path through the ruins: his cudgel and Noboru the Cudgel
+// (1392) are optional; the hand-in at Magtoor stays a plain goal for whoever carries it.
+test('forever/alliance/30-40/05-arathi-highlands.guide: Noboru\'s cudgel and quest are optional, the hand-in is not', { skip }, () => {
+	const list = goals('forever/alliance/30-40/05-arathi-highlands.guide');
+	assert.ok(list[at(list, 'collect 6196', (g) => g.t === 'collect' && g.item === 6196)].goal.optional, 'the cudgel never holds the step');
+	assert.ok(list[at(list, 'accept 1392', is('accept', 1392))].goal.optional, 'nor its accept');
+	assert.ok(!list[at(list, 'turnin 1392', is('turnin', 1392))].goal.optional, 'Magtoor takes it from whoever carries it');
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.optional;
+	assert.ok(rf.some((e) => e.q === 1392), 'route-fixes deliberate.optional 1392');
+});

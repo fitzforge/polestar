@@ -5360,6 +5360,23 @@
 					"ref": "data/forever/npcs.json Rebel Camp NPCs"
 				}
 			]
+		},
+		{
+			"id": "alliance-swamp-of-sorrows-noboru-roams",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1389,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "East along the road to the Fallow Sanctuary. The Lost One mobs drop the crystals. Noboru the Cudgel walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for Magtoor. Don't wait for him.",
+			"note": "Roaming-NPC sweep (0.3.7, with #1542): the step waited on Noboru the Cudgel (5477), who walks a waypoint path through the ruins; his cudgel (6196) and Noboru the Cudgel (1392) are optional now (route-fixes deliberate.optional 1392, Alliance), so the tip says not to wait for him.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 5477: MovementType 2, waypoint path 810054770 (56 nodes, 221 x 544 yd)"
+				}
+			]
 		}
 	]
 }
