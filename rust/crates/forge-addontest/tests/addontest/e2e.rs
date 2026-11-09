@@ -329,6 +329,7 @@ fn the_map_page_gathers_every_map_setting_from_its_modules_into_the_declared_tab
 		json!([
 			"maps.minimapButton",
 			"nav.minimapPins",
+			"nav.minimapRoute",
 			"nav.trailDots",
 			"nav.upcomingPins",
 			"nav.worldPins",

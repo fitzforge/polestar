@@ -568,7 +568,7 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 | `train` | — | `npc`, `npcName`, `class`, `zone`, `skill`, `skillLine`, `rank`, `rankMax`, `candidates`, `gossip` |
 | `buy` | `item`, `itemName` | `count`, `npc`, `npcName`, `candidates` |
 | `vendor` | — | `npc`, `npcName`, `candidates`, `gossip` |
-| `level` | `level` | `frac` (format 4) |
+| `level` | `level` | `frac` (format 4), `grind`, `npcName`, `spots` |
 | `money` | `money`: copper (format 5) | — |
 | `wait` | `seconds` | `text` |
 | `task` | `text` (format 5) | — |
@@ -600,6 +600,7 @@ The fields:
 | `rank`, `rankMax` | on `train`: the profession rank (1 Apprentice to 4 Artisan; Polestar also reads a rank name or a skill cap) and its skill cap (written by the compiler, not read by Polestar) |
 | `level` | on `level`: the level to reach; on `skill`: the skill to reach |
 | `frac` | on `level` (format 4): the share of the level's XP to reach, 0 < frac < 1 (above) |
+| `grind` | on `level`: the NPC id of the mob the level is reached on (`level N grind <npc>`), with its `npcName`; its spawn areas are the goal's `spots` and `map`, so Polestar 0.3.7 and later point the arrow at the nearest of them; older Polestar ignores it and keeps the step's goto |
 | `untilSkill` | on `craft`: craft until the profession reaches this skill |
 | `reagents` | `{ { item, itemName, count } }` |
 | `standing` | 1 Hated to 8 Exalted |
