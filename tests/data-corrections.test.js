@@ -210,3 +210,21 @@ test('class quests the data left open are locked to their class, and Magma or La
 	assert.ok('races' in lava && lava.races === null, 'Magma or Lava?: no race limit');
 	assert.deepEqual(lava.end, { npc: [5497, 7825], object: [] }, 'its enders stay');
 });
+
+// #1490: The Great Outdoors' corrections gave it The Adventurer as its prerequisite, but the quest data also names The
+// Adventurer as its breadcrumb (The Great Outdoors' `breadcrumbs`, The Adventurer's `breadcrumbFor`), and a breadcrumb
+// never blocks, so the Codex had no prerequisite. Players' recordings: every Great Outdoors giver refuses it until The
+// Adventurer is handed in. The corrections clear both breadcrumb links, so the prerequisite stands over the data's.
+test('The Great Outdoors waits for The Adventurer, whatever breadcrumb links the data has (#1490)', () => {
+	const pairs = { 95998: 96627, 96101: 96638, 96604: 96652, 96605: 96659, 96606: 96630, 96607: 96656, 96608: 96628 };
+	for (const [g, a] of Object.entries(pairs).map(([g, a]) => [Number(g), a])) {
+		const ge = corrections.quests[g];
+		const ae = corrections.quests[a];
+		assert.ok(ge && ae, `corrections for ${g} and ${a}`);
+		// The records as the merged data has them (questie: breadcrumb links both ways), with the corrections applied.
+		const quest = { id: g, start: { npc: [1] }, breadcrumbs: [a], ...ge.set };
+		const adventurer = { id: a, start: { npc: [2] }, breadcrumbFor: g, ...ae.set };
+		const { all, any } = blockingPrereqs(quest, (id) => (id === a ? adventurer : null));
+		assert.deepEqual({ all, any }, { all: [], any: [a] }, `${g} after ${a}`);
+	}
+});
