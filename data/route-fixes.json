@@ -7130,6 +7130,15 @@
 				]
 			},
 			{
+				"q": 98417,
+				"reason": "Players' route (GuideHealth036, 0.3.6): Vengeful Trail (level 28, from 23, 1700 XP) from Maseara Autumnmoon at Forest Song, a few steps from Kayneth Stillwind: the Vine-Wrapped Scroll comes from Kurothel's Knapsack by Satyrnaar's Circle of Imprisonment (recorded pick-up 81.69,49.2, 2 minutes after the accept), which 06-wetlands visits anyway; Satyrnaar is walked between Fallen Sky Lake and Kayneth's hand-in (about 16 yd more than after it), so the scroll goes in on that stop. Its follow-up Shared Fury (98418) is left out: twenty Xavian satyrs back west, five of them Betrayers with two spawns, and a second walk to Forest Song.",
+				"issue": "-",
+				"after": [
+					"accept",
+					1011
+				]
+			},
+			{
 				"q": 353,
 				"reason": "Final route review 0.3.6 (Alliance 1-30): Stormpike's Delivery (level 15, from 9, 1050 XP) is Grimand Elmore's follow-up to Elmore's Task (1097), which Humans hand him on 02-westfall's last Stormwind stop; its ender, Mountaineer Stormpike, stands at the Algaz Station, which 03-loch-modan visits at about 18 for Filthy Paws (307). A provided package, nothing to fight: 1050 XP at full rate for an accept and a hand-in on stops the route already makes (giver, ender, level and XP agree across our data, the page snapshot and players' captures).",
 				"issue": "-",

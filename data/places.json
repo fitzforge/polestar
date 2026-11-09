@@ -69,6 +69,29 @@
 			]
 		},
 		{
+			"id": "gh036-ashenvale-kurothels-knapsack",
+			"quest": 98417,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1440,
+				"x": 81.7,
+				"y": 49.2,
+				"frame": "era"
+			},
+			"note": "Vengeful Trail: the Vine-Wrapped Scroll comes from Kurothel's Knapsack by Satyrnaar's Circle of Imprisonment (the quest: 'amongst the Satyrnaar demons'). Its ground object has no spawn in our data, so the point is the recorded pick-up; check in game that it stays there.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "objective 98417.1 tick, 1 person, at 81.69,49.2 on map 1440 (2026-11-09 archive)"
+				},
+				{
+					"kind": "questie",
+					"ref": "items.json 281014: dropped by object 673431; quests.json 98417 objective text (Satyrnaar)"
+				}
+			]
+		},
+		{
 			"id": "646-azshara-rimtori-camp",
 			"quest": 3505,
 			"objective": 3,

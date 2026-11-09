@@ -9597,3 +9597,20 @@ test(`${WETLANDS}: Bloom of the Heavens rides on the Menethil stops and the boat
 	assert.ok(thundris < at(list, 'turnin 994', is('turnin', 994)), 'on the Auberdine stop, before Terenthis and the flight to Astranaar');
 	assert.ok((list[thundris].step.when || []).some((p) => p.k === 'onquest' && !p.neg), 'only for a character carrying it');
 });
+
+// Players' route (GuideHealth036, 0.3.6): Vengeful Trail (98417, 1700 XP) is taken from Maseara Autumnmoon on the first
+// Forest Song stop; Satyrnaar (the Circle of Imprisonment, Kurothel's Knapsack beside it) is walked between Fallen Sky
+// Lake and Kayneth Stillwind's hand-in, where the scroll goes to Maseara. Shared Fury (98418) is not taken.
+test(`${WETLANDS}: Vengeful Trail's scroll is picked up at Satyrnaar on the way back to Forest Song`, { skip }, () => {
+	const list = goals(WETLANDS);
+	const take = at(list, 'accept 98417', is('accept', 98417));
+	assert.equal(list[take].s, list[at(list, 'turnin 4581', is('turnin', 4581))].s, 'taken on the first Forest Song stop');
+	const lake = at(list, 'collect 5508 (Fallen Moonstone)', (g) => g.t === 'collect' && g.quest === 1035);
+	const scroll = at(list, 'collect Vine-Wrapped Scroll', (g) => g.t === 'collect' && g.quest === 98417);
+	const circle = at(list, "Satyrnaar's circle", (g) => g.t === 'interact' && g.quest === 1140 && g.oi === 2);
+	const kayneth = at(list, 'turnin 1011', is('turnin', 1011));
+	assert.ok(lake < circle && circle < kayneth && list[scroll].s === list[circle].s, 'Satyrnaar between Fallen Sky Lake and Kayneth, the scroll with the circle');
+	assert.ok(located(list[scroll]) && yards(list[scroll].goal, { map: 1440, x: 81.7, y: 49.2 }) < 30, 'the arrow leads to the recorded knapsack');
+	assert.equal(list[at(list, 'turnin 98417', is('turnin', 98417))].s, list[kayneth].s, "handed to Maseara on Kayneth's stop");
+	assert.ok(!list.some(({ goal }) => goal.quest === 98418), 'Shared Fury is left out');
+});

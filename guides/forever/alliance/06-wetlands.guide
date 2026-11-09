@@ -13,6 +13,9 @@ next forever/alliance/07-thousand-needles
 # Also left out: This Land Was Their Land (98230), which Captain Stoutfist offers only after Defeat Nek'rosh (474) is handed in (#1299): it is on the group branch of 30-40/01-hillsbrad-foothills.
 # Bloom of the Heavens (98208, 98209: 1750 + 1200 XP) from Sylessa Duskwhisper by Menethil's docks: Nord'el lies on the
 # shore just south of the town, and the follow-up goes to Thundris Windweaver in Auberdine on this guide's boat trip.
+# Vengeful Trail (98417, 1700 XP) from Maseara Autumnmoon at Forest Song: Kurothel's Knapsack lies by Satyrnaar's Circle of
+# Imprisonment, visited between Fallen Sky Lake and Kayneth's hand-in. Left out: its follow-up Shared Fury (98418), twenty
+# Xavian satyrs back west (five Betrayers, who have two spawns) and a second walk back to Forest Song.
 # Insane Druids (1012, level 32) is optional: three druids deep in the Dor'Danil Barrow Den, a
 # respawning cave of stealthed mobs, with Kayneth Stillwind before and after (a back-and-forth across
 # south-east Ashenvale for one quest). Players' recordings: nobody took it on a recorded version.
@@ -338,9 +341,10 @@ step Geltharis
   collect 5461 quest 1031             -- Branch of Cenarius
 
 step Forest Song
-  tip Forest Song, the Night Elf outpost at the eastern end of the road: Kayneth Stillwind stands there.
+  tip Forest Song, the Night Elf outpost at the eastern end of the road: Kayneth Stillwind stands there, Maseara Autumnmoon a few steps east of her.
   turnin 4581                         -- Kayneth Stillwind
   accept 1011
+  accept 98417                        -- Maseara Autumnmoon: her husband's trail in Satyrnaar, on the way back from the lake
 
 # ---------------------------------------------------------------- The south-east
 
@@ -358,8 +362,15 @@ step Fallen Sky Lake
   collect 5508 quest 1035             -- Fallen Moonstone
   accept 98027 object 669176          -- Gleaming Crescent Pendant: for Maliynn in Astranaar
 
+step Satyrnaar
+  tip North from the lake to the satyr camp of Satyrnaar, just west of Forest Song: the Circle of Imprisonment stands in it, and Kurothel's Knapsack lies beside it with the Vine-Wrapped Scroll.
+  tip Careful: The Felmusk Rogues in Night Run often go stealthed, and Satyrnaar has satyr casters.
+  interact 20352 quest 1140.2         -- Circle of Imprisonment
+  collect 281014 quest 98417 @81.7,49.2 -- Vine-Wrapped Scroll, from Kurothel's Knapsack
+
 step Kayneth Stillwind
   turnin 1011
+  turnin 98417                        -- Maseara Autumnmoon, a few steps east
   tip Optional: Kayneth also offers Insane Druids, three level 32 druids deep in The Dor'Danil Barrow Den, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it.
   accept 1012 optional
 
@@ -376,11 +387,6 @@ step Insane druids
   kill 3940 quest 1012.1              -- Taneel Darkwood, inside The Dor'Danil Barrow Den
   kill 3941 quest 1012.2              -- Uthil Mooncall, inside The Dor'Danil Barrow Den
   kill 3942 quest 1012.3              -- Mavoris Cloudsbreak, inside The Dor'Danil Barrow Den
-
-step Satyrnaar
-  tip The Circle of Imprisonment stands in the satyr camp of Satyrnaar, further east along the road.
-  tip Careful: The Felmusk Rogues in Night Run often go stealthed, and Satyrnaar has satyr casters.
-  interact 20352 quest 1140.2         -- Circle of Imprisonment
 
 step Forest Song
   when onquest 1012
