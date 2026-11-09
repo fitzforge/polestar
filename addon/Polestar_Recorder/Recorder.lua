@@ -232,11 +232,14 @@ local enabled = false
 -- /psrec off was typed (and not undone by /psrec on): it wins over the
 -- client's share flag.
 local optout = false
--- Explorer mode (Explore.lua): the player's /psrec explore, or Polestar
--- Client's explorer flag; exploreOff after /psrec explore off, which wins
--- over the client's flag as optout does over its share flag.
-local explore = false
+-- Explorer mode (Explore.lua) works by itself in Forever's new zones while
+-- recording. exploreOff: the player typed /psrec explore off (kept until
+-- /psrec explore on); explore: whether it may work now, false also while
+-- Polestar Client's explorer flag (PolestarRecorderExplore) says false.
+-- exploreSaid: the one-time chat note was shown (per account).
+local explore = true
 local exploreOff = false
+local exploreSaid = false
 
 -- The live state, mirrored into PolestarRecorderDB by DB().
 local live -- the table PolestarRecorderDB was at the last DB()
@@ -271,8 +274,8 @@ local function DB()
 		db.chunks, db.maps = state.chunks, state.maps
 		db.enabled = enabled
 		db.optout = optout or nil
-		db.explore = explore or nil
 		db.exploreOff = exploreOff or nil
+		db.exploreSaid = exploreSaid or nil
 	end
 	return db
 end
@@ -304,7 +307,8 @@ function ns.TextSeen() return CharDB().textSeen end
 -- client's share flag (Ack.lua, loaded before the SavedVariables): true turns
 -- recording on unless the player typed /psrec off, false turns it off, nil
 -- (no Polestar Client) leaves the player's own choice. The client's explorer
--- flag (PolestarRecorderExplore) works the same way on explorer mode.
+-- flag (PolestarRecorderExplore) false keeps explorer mode off, as /psrec
+-- explore off does.
 local function adopt()
 	local db = PolestarRecorderDB
 	if type(db) ~= "table" then db = {} end
@@ -321,15 +325,9 @@ local function adopt()
 		enabled = false
 	end
 	db.enabled = enabled
-	explore = db.explore == true
 	exploreOff = db.exploreOff == true
-	local flag = PolestarRecorderExplore
-	if flag == true and not exploreOff then
-		explore = true
-	elseif flag == false then
-		explore = false
-	end
-	db.explore = explore or nil
+	exploreSaid = db.exploreSaid == true
+	explore = not exploreOff and PolestarRecorderExplore ~= false
 	state.install = validId(db.install, 12) and db.install or randomId(12)
 	state.seq = type(db.seq) == "number" and db.seq >= 0 and floor(db.seq) or 0
 	state.acked = type(db.acked) == "number" and db.acked >= 0 and floor(db.acked) or 0
@@ -370,16 +368,22 @@ end
 
 function ns.IsEnabled() return enabled end
 
--- Explorer mode is on (whether or not recording is).
-function ns.IsExploring() return explore end
+-- Explorer mode may work (it does in Forever's new zones while recording).
+function ns.ExploreAllowed() return explore end
 
--- Explorer mode on or off by the player (/psrec explore): off is kept as an
--- opt-out the client's explorer flag does not undo; on clears it.
+-- /psrec explore on | off: off is kept as an opt-out until on, which also
+-- overrides the client's explorer flag for this session.
 function ns.SetExplore(on)
 	explore = on and true or false
 	exploreOff = not explore
-	local db = DB()
-	db.explore, db.exploreOff = explore or nil, exploreOff or nil
+	DB().exploreOff = exploreOff or nil
+end
+
+-- The one-time chat note about explorer mode was shown.
+function ns.ExploreSaid() return exploreSaid end
+function ns.SetExploreSaid()
+	exploreSaid = true
+	DB().exploreSaid = true
 end
 
 ---------------------------------------------------------------------------

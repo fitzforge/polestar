@@ -32,7 +32,7 @@ L["/reload or log out to send what's recorded"] = "/reload ou saia do jogo para 
 L["explorer mode: %s (/psrec explore on | off)"] = "modo explorador: %s (/psrec explore on | off)"
 L["usage: /psrec explore on | off"] = "uso: /psrec explore on | off"
 L["explorer mode %s"] = "modo explorador %s"
-L["In Forever's new zones and near their new dungeons the Recorder notes creatures and positions in more detail. Everywhere it also notes quest map points, dungeon floors, boss pulls, the area each quest giver stands in and the objects you open. Nothing new about you."] = "Nas zonas novas do Forever e perto das suas masmorras novas, o Recorder registra criaturas e posições com mais detalhe. Em todo lugar ele também registra os pontos de missão do mapa, os andares das masmorras, os pulls de chefes, a área onde cada PNJ que dá missões fica e os objetos que você abre. Nada novo sobre você."
+-- L["In Forever's new zones and dungeons the Recorder notes the creatures, your path, quest map points, dungeon floors, boss pulls, where quest givers stand and the objects you open in more detail. Nothing new about you."] = ""
 
 -- Trail.lua
 L["trail stopped after %d min: %s, %d points"] = "trilha parada após %d min: %s, %d pontos"
@@ -71,6 +71,9 @@ L["Recorder: show or hide the window"] = "Gravador: mostrar ou ocultar a janela"
 L["recordings from the previous Recorder (schema 1) were removed; recording now uses schema 2"] = "as gravações do Recorder anterior (esquema 1) foram removidas; agora a gravação usa o esquema 2"
 L["on, because sharing is on in Polestar Client. /psrec off to stop."] = "ligado, porque o compartilhamento está ativo no Polestar Client. /psrec off para parar."
 
+-- Explore.lua
+-- L["recording more detail here to map this new zone (/psrec explore off to stop)"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["this client exposes no talent tree API"] = "este cliente não expõe API de árvore de talentos"
 -- L["no active talent configuration (too low level?)"] = "nenhuma configuração de talentos ativa (nível baixo demais?)"
@@ -99,3 +102,4 @@ L["on, because sharing is on in Polestar Client. /psrec off to stop."] = "ligado
 -- L["legacy"] = "legado"
 -- L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off | maps | talents | legacy | factions | skills | clear"] = "comandos: /psrec on | off | ui | mark <texto> | trail on [nome] | trail off | maps | talents | legacy | factions | skills | clear"
 -- L["trail stopped: the session's trail cap is reached (%s, %d points)"] = "trilha parada: o limite de trilha da sessão foi atingido (%s, %d pontos)"
+-- L["In Forever's new zones and near their new dungeons the Recorder notes creatures and positions in more detail. Everywhere it also notes quest map points, dungeon floors, boss pulls, the area each quest giver stands in and the objects you open. Nothing new about you."] = "Nas zonas novas do Forever e perto das suas masmorras novas, o Recorder registra criaturas e posições com mais detalhe. Em todo lugar ele também registra os pontos de missão do mapa, os andares das masmorras, os pulls de chefes, a área onde cada PNJ que dá missões fica e os objetos que você abre. Nada novo sobre você."

@@ -21,7 +21,7 @@ local function status()
 		ns.Print(L["the uploader has not confirmed a chunk yet (newest: %d)"]:format(st.seq))
 	end
 	ns.Print(L["install id: %s"]:format(tostring(st.install)))
-	ns.Print(L["explorer mode: %s (/psrec explore on | off)"]:format(ns.IsExploring() and "|cff4fd18f" .. L["on"] .. "|r" or "|cffd14f4f" .. L["off"] .. "|r"))
+	ns.Print(L["explorer mode: %s (/psrec explore on | off)"]:format(ns.ExploreAllowed() and "|cff4fd18f" .. L["on"] .. "|r" or "|cffd14f4f" .. L["off"] .. "|r"))
 	ns.Print(L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off | clear"])
 	-- The game writes the recording (and the on/off state Polestar Client shows) to disk only at
 	-- a logout or /reload: until then the uploader sees neither.
@@ -51,7 +51,8 @@ commands.off = function()
 	if ns.RefreshPanel then ns.RefreshPanel() end
 end
 
--- /psrec explore on | off: explorer mode (Explore.lua). Bare, it toggles.
+-- /psrec explore on | off: explorer mode (Explore.lua), which works by
+-- itself in Forever's new places unless turned off. Bare, it toggles.
 commands.explore = function(rest)
 	local sub = rest:lower()
 	local on
@@ -60,7 +61,7 @@ commands.explore = function(rest)
 	elseif sub == "off" then
 		on = false
 	elseif sub == "" then
-		on = not ns.IsExploring()
+		on = not ns.ExploreAllowed()
 	else
 		ns.Print(L["usage: /psrec explore on | off"])
 		return
@@ -71,7 +72,7 @@ commands.explore = function(rest)
 		return
 	end
 	ns.Print(L["explorer mode %s"]:format("|cff4fd18f" .. L["on"] .. "|r"))
-	ns.Print(L["In Forever's new zones and near their new dungeons the Recorder notes creatures and positions in more detail. Everywhere it also notes quest map points, dungeon floors, boss pulls, the area each quest giver stands in and the objects you open. Nothing new about you."])
+	ns.Print(L["In Forever's new zones and dungeons the Recorder notes the creatures, your path, quest map points, dungeon floors, boss pulls, where quest givers stand and the objects you open in more detail. Nothing new about you."])
 	if not ns.IsEnabled() then ns.Print(L["recording is off; /psrec on first"]) end
 end
 

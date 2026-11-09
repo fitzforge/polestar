@@ -32,7 +32,7 @@ L["/reload or log out to send what's recorded"] = "기록된 내용을 보내려
 L["explorer mode: %s (/psrec explore on | off)"] = "탐험 모드: %s (/psrec explore on | off)"
 L["usage: /psrec explore on | off"] = "사용법: /psrec explore on | off"
 L["explorer mode %s"] = "탐험 모드 %s"
-L["In Forever's new zones and near their new dungeons the Recorder notes creatures and positions in more detail. Everywhere it also notes quest map points, dungeon floors, boss pulls, the area each quest giver stands in and the objects you open. Nothing new about you."] = "Forever의 새 지역과 새 던전 근처에서는 Recorder가 생물과 위치를 더 자세히 기록합니다. 어디서든 지도의 퀘스트 지점, 던전 층, 우두머리 전투 시작, 각 퀘스트 제공자가 서 있는 지역, 당신이 연 물체도 기록합니다. 당신에 관한 새로운 정보는 없습니다."
+-- L["In Forever's new zones and dungeons the Recorder notes the creatures, your path, quest map points, dungeon floors, boss pulls, where quest givers stand and the objects you open in more detail. Nothing new about you."] = ""
 
 -- Trail.lua
 L["trail stopped after %d min: %s, %d points"] = "%d분 후 경로 기록 멈춤: %s, %d개 지점"
@@ -71,6 +71,9 @@ L["Recorder: show or hide the window"] = "기록기: 창 표시/숨기기"
 L["recordings from the previous Recorder (schema 1) were removed; recording now uses schema 2"] = "이전 기록기(스키마 1)의 기록을 삭제했습니다. 이제 스키마 2로 기록합니다"
 L["on, because sharing is on in Polestar Client. /psrec off to stop."] = "켜짐: Polestar Client에서 공유가 켜져 있습니다. 중지하려면 /psrec off."
 
+-- Explore.lua
+-- L["recording more detail here to map this new zone (/psrec explore off to stop)"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["this client exposes no talent tree API"] = "이 클라이언트는 특성 트리 API를 제공하지 않습니다"
 -- L["no active talent configuration (too low level?)"] = "활성화된 특성 구성이 없습니다(레벨이 너무 낮습니까?)"
@@ -99,3 +102,4 @@ L["on, because sharing is on in Polestar Client. /psrec off to stop."] = "켜짐
 -- L["legacy"] = "레거시"
 -- L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off | maps | talents | legacy | factions | skills | clear"] = "명령어: /psrec on | off | ui | mark <텍스트> | trail on [이름] | trail off | maps | talents | legacy | factions | skills | clear"
 -- L["trail stopped: the session's trail cap is reached (%s, %d points)"] = "경로 기록 멈춤: 세션의 경로 한도에 도달했습니다 (%s, %d개 지점)"
+-- L["In Forever's new zones and near their new dungeons the Recorder notes creatures and positions in more detail. Everywhere it also notes quest map points, dungeon floors, boss pulls, the area each quest giver stands in and the objects you open. Nothing new about you."] = "Forever의 새 지역과 새 던전 근처에서는 Recorder가 생물과 위치를 더 자세히 기록합니다. 어디서든 지도의 퀘스트 지점, 던전 층, 우두머리 전투 시작, 각 퀘스트 제공자가 서 있는 지역, 당신이 연 물체도 기록합니다. 당신에 관한 새로운 정보는 없습니다."

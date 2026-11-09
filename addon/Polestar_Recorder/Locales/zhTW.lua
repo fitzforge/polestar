@@ -32,7 +32,7 @@ L["/reload or log out to send what's recorded"] = "/reload 或登出即可傳送
 L["explorer mode: %s (/psrec explore on | off)"] = "探索模式：%s（/psrec explore on | off）"
 L["usage: /psrec explore on | off"] = "用法：/psrec explore on | off"
 L["explorer mode %s"] = "探索模式%s"
-L["In Forever's new zones and near their new dungeons the Recorder notes creatures and positions in more detail. Everywhere it also notes quest map points, dungeon floors, boss pulls, the area each quest giver stands in and the objects you open. Nothing new about you."] = "在 Forever 的新區域和新副本附近，Recorder 會更詳細地記錄生物和位置。在所有地方，它也會記錄地圖上的任務點、副本樓層、首領開戰、每位任務給予者所在的區域以及你打開的物件。不會記錄關於你的任何新資訊。"
+-- L["In Forever's new zones and dungeons the Recorder notes the creatures, your path, quest map points, dungeon floors, boss pulls, where quest givers stand and the objects you open in more detail. Nothing new about you."] = ""
 
 -- Trail.lua
 L["trail stopped after %d min: %s, %d points"] = "軌跡在 %d 分鐘後停止：%s，%d 個點"
@@ -71,6 +71,9 @@ L["Recorder: show or hide the window"] = "記錄器：顯示或隱藏視窗"
 L["recordings from the previous Recorder (schema 1) were removed; recording now uses schema 2"] = "舊版 Recorder（schema 1）的記錄已移除；記錄現在使用 schema 2"
 L["on, because sharing is on in Polestar Client. /psrec off to stop."] = "開啟，因為 Polestar Client 中的分享已開啟。輸入 /psrec off 可停止。"
 
+-- Explore.lua
+-- L["recording more detail here to map this new zone (/psrec explore off to stop)"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["this client exposes no talent tree API"] = "此用戶端未提供天賦樹 API"
 -- L["no active talent configuration (too low level?)"] = "沒有啟用的天賦配置（等級太低？）"
@@ -99,3 +102,4 @@ L["on, because sharing is on in Polestar Client. /psrec off to stop."] = "開啟
 -- L["legacy"] = "Legacy"
 -- L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off | maps | talents | legacy | factions | skills | clear"] = "指令：/psrec on | off | ui | mark <文字> | trail on [名稱] | trail off | maps | talents | legacy | factions | skills | clear"
 -- L["trail stopped: the session's trail cap is reached (%s, %d points)"] = "軌跡已停止：已達到本次工作階段的軌跡上限（%s，%d 個點）"
+-- L["In Forever's new zones and near their new dungeons the Recorder notes creatures and positions in more detail. Everywhere it also notes quest map points, dungeon floors, boss pulls, the area each quest giver stands in and the objects you open. Nothing new about you."] = "在 Forever 的新區域和新副本附近，Recorder 會更詳細地記錄生物和位置。在所有地方，它也會記錄地圖上的任務點、副本樓層、首領開戰、每位任務給予者所在的區域以及你打開的物件。不會記錄關於你的任何新資訊。"
