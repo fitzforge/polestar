@@ -7232,9 +7232,12 @@ test('Horde Stranglethorn: the Grom\'gol landing, the tigers and the Venture Co.
 	assert.ok(rec, 'the tigers\' tip is a record');
 	assert.deepEqual(stepTips(guide, /kill 682 quest 186\b/), [rec.tip]);
 	assert.doesNotMatch(rec.tip, /hills east of the camp|along the lake shore/);
-	const [venture] = stepTips(guide, /^step Venture Co\. camp/);
-	assert.doesNotMatch(venture, /past Nesingwary/);
-	assert.match(venture, /Lake Nazferiti/);
+	// Since the Horde 30-40 audit (2026-11-09) the Tumbled Crystals are only gathered on that loop, by Lake
+	// Nazferiti, and handed to Kebok on the next Booty Bay stop: no second Venture Co. trip after it.
+	assert.match(rec.tip, /Lake Nazferiti/);
+	const crystals = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 4106);
+	assert.equal(crystals.length, 1, 'the crystals are gathered once');
+	assert.ok(list.findIndex(({ goal }) => goal === crystals[0].goal) < at(list, 'turnin 213', is('turnin', 213)), 'Hostile Takeover is handed in in this guide, after the crystals');
 });
 
 // Final route review for 0.3.5 (Alliance Badlands 38-39): Lotwil's level 42 bracers were listed at his
