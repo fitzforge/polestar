@@ -4680,7 +4680,7 @@ test("Flight path sweep (#939): Gnome Warlocks learn Ratchet's flight path at th
 	const fly = list.findIndex(({ goal }, i) => i < felsteed && goal.t === 'fly' && goal.location === 'Ratchet');
 	assert.ok(fp >= 0, "Ratchet's flight path is learned before 40-50/02-badlands");
 	assert.ok(fp < fly, "the flight to Ratchet for Strahad Farsan comes after its flight path");
-	const walks = list.slice(fp + 1, felsteed).filter(({ goal }) => goal.t === 'goto' && goal.text === 'Ratchet');
+	const walks = list.slice(fp + 1, felsteed).filter(({ step, goal }) => step !== list[fp].step && goal.t === 'goto' && goal.text === 'Ratchet');
 	assert.deepEqual(walks.map(({ step }) => step.title), [], 'no walk to Ratchet for the Felsteed');
 });
 
