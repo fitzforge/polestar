@@ -217,6 +217,14 @@ pub fn set_paused(engine: Engine_, paused: bool) -> Result<(), String> {
 	Ok(())
 }
 
+/// Settings' explorer toggle: written to Ack.lua from then on, read by the Recorder at login.
+#[tauri::command]
+pub fn set_explore(engine: Engine_, enabled: bool) -> Result<(), String> {
+	engine.save_settings(|s| s.explore = Some(enabled))?;
+	engine.publish();
+	Ok(())
+}
+
 #[tauri::command]
 pub fn get_autostart(app: AppHandle) -> bool {
 	app.autolaunch().is_enabled().unwrap_or(false)
