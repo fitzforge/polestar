@@ -9488,3 +9488,12 @@ test('Badlands (Alliance 40): Boss Tho\'grun is searched for along his loop', { 
 	assert.ok(spots.length >= 8, `the arrow searches his loop: ${JSON.stringify(goal.spots)}`);
 	assert.ok(spots.some((s) => s.x > 55) && spots.some((s) => s.x < 15), 'from the east of the zone to Camp Boff');
 });
+
+// Position sweep (0.3.6, class B2): elites that walk a path from the step's point (Forever TDB waypoint paths):
+// Gammerita walks the Hinterlands shore up to 319 yd away, Grel'borg the Ruins of Alterac up to 217 yd. Their
+// group steps say so.
+test('Walking elites: Gammerita\'s and Grel\'borg\'s steps say where they walk', { skip }, () => {
+	const src = (f) => fs.readFileSync(path.join(OFFICIAL_DIR, f), 'utf8');
+	for (const f of ['forever/alliance/50-60/01-burning-steppes.guide', 'forever/horde/40-50/05-the-hinterlands.guide']) assert.match(src(f), /tip Gammerita walks the [^\n]*shore below the Overlook Cliffs/, f);
+	assert.match(src('forever/alliance/30-40/05-arathi-highlands.guide'), /tip Grel'borg walks from the arrow north-east/);
+});

@@ -4985,6 +4985,69 @@
 					"ref": "npc 5639 met by 46 people in the Drag; accept 1431 by 3 people at 51.8,45.1 / 47.8,49.7 / 44.5,52.4"
 				}
 			]
+		},
+		{
+			"id": "hinterlands-gammerita-walks-2944",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2944,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Gammerita walks the Hinterlands shore below the Overlook Cliffs, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore.",
+			"note": "The Super Snapper FX (2944): Gammerita (7977) walks the shore below the Overlook Cliffs, 319 yd from her spawn (80.4,58.2, the step's point) at the far end: the Forever TDB path runs 80.4,58.3 south to 75.6,66.6 and north to 81.6,52.0. The step said nothing about it.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature guid 20093683 (entry 7977) MovementType 2, waypoint_path 800936830, 50 nodes"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature 7977's waypoint walk, 243 yd (data/forever/moves.json)"
+				}
+			]
+		},
+		{
+			"id": "hinterlands-gammerita-walks-7816",
+			"faction": "Horde",
+			"at": {
+				"quest": 7816,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Gammerita walks the shore below the Overlook Cliffs, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore.",
+			"note": "Gammerita, Mon! (7816): see hinterlands-gammerita-walks-2944; the Horde step at the same spot.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature guid 20093683 (entry 7977) MovementType 2, waypoint_path 800936830, 50 nodes"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature 7977's waypoint walk, 243 yd (data/forever/moves.json)"
+				}
+			]
+		},
+		{
+			"id": "alterac-grelborg-walks-543",
+			"faction": "Alliance",
+			"at": {
+				"quest": 543,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Grel'borg walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path.",
+			"note": "The Perenolde Tiara (543): Grel'borg the Miser (2417) walks from his spawn (35.2,54.2, the step's point) north-east through the Ruins of Alterac to 40.1,47.2 and back, up to 217 yd away (Forever TDB path). The step said nothing about it.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature guid 20017040 (entry 2417) MovementType 2, waypoint_path 810024170, 27 nodes"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature 2417's waypoint walk, 114 yd (data/forever/moves.json)"
+				}
+			]
 		}
 	]
 }

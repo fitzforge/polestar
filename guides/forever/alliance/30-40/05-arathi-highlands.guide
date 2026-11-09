@@ -338,6 +338,7 @@ step Ruins of Alterac: kill these as you meet them
 step Ruins of Alterac: kill these as you meet them
   when group 543
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Grel'borg the Miser is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.
+  tip Grel'borg walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path.
   collect 3684 quest 543.1 @35.6,54.4 map 1416
 
 step Strahnbrad: kill these as you meet them

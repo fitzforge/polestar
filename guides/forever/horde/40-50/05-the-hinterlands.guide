@@ -83,6 +83,7 @@ step The Overlook Cliffs: kill these as you meet them
 step The Overlook Cliffs: kill these as you meet them
   when group 7816
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Gammerita is a level 48 elite: most classes solo it at level 50, but you may need help. Skip it if you are alone: the route has you grind the XP back.
+  tip Gammerita walks the shore below the Overlook Cliffs, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore.
   collect 19023 quest 7816.1 @80.4,58.2 map 1425
 
 step Rin'ji's Secret

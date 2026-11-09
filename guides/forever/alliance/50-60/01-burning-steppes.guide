@@ -193,6 +193,7 @@ step Wildkin feathers
 step The Super Snapper FX
   when group 2944
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Gammerita (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
+  tip Gammerita walks the Hinterlands shore below the Overlook Cliffs, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore.
   collect 9330 quest 2944.1 @80.4,58.2 map 1425 group 2
   use 9328 quest 2944.1 @80.4,58.2 map 1425
 
