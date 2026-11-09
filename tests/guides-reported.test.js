@@ -395,6 +395,18 @@ test('forever/alliance/03-loch-modan.guide: the road east to Redridge points at 
 	assert.ok(Math.hypot(goal.x - 65.8, goal.y - 74.0) < 0.5, `on the road (${goal.x},${goal.y})`);
 });
 
+// Bennistrov's report (#1521): "FP horde town when playing alliance character". Alliance 30-40's walk east from
+// Highperch to the Mirage Raceway pointed at 46.9,48.5, the foot of Freewind Post's lift (the Horde camp on the
+// mesa), though the step's tip says to keep clear of it. The point is in the canyon north of the mesa (46.3,40.9,
+// on the walking route from Highperch; ~300 yd from the camp), and no Thousand Needles goal of the guide is near it.
+test('forever/alliance/30-40/03-ashenvale.guide: the walk east from Highperch keeps away from Freewind Post (#1521)', { skip }, () => {
+	const list = goals('forever/alliance/30-40/03-ashenvale.guide');
+	const near = list.filter(({ goal }) => goal.map === 1441 && Math.hypot(goal.x - 46.9, goal.y - 48.5) < 4);
+	assert.deepEqual(near.map(({ goal }) => `${goal.t} ${goal.x},${goal.y}`), [], 'nothing at the Freewind Post lift');
+	const { goal } = list.find(({ goal }) => goal.t === 'goto' && goal.map === 1441 && /canyons east of/.test(goal.text));
+	assert.ok(Math.hypot(goal.x - 46.3, goal.y - 40.9) < 0.5, `in the canyon north of the mesa (${goal.x},${goal.y})`);
+});
+
 // Horde 1-30 audit (#1414): a step gated `when group <quest>` holds only players who answered "Do it with a group",
 // but a step whose every goal is `optional` is done at once (Engine Own.holds), so those players were walked past the
 // accept, the elite and the hand-in with no arrow (WANTED: Bruuz, Aggor the Young, WANTED: Vulgara). Every Horde

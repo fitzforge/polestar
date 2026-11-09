@@ -103,7 +103,7 @@ step Highperch
 step Thousand Needles
   zone Thousand Needles
   tip East through the canyons. Freewind Post, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth.
-  goto 46.9,48.5 "The canyons east of Highperch"
+  goto 46.3,40.9 "The canyons east of Highperch"
 
 step Thousand Needles
   zone Thousand Needles

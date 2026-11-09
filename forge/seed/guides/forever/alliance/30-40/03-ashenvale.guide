@@ -101,7 +101,7 @@ step Highperch
 
 step Thousand Needles
   zone Thousand Needles
-  goto 46.9,48.5 "Thousand Needles"
+  goto 46.3,40.9 "The canyons east of Highperch"
 
 step Thousand Needles
   zone Thousand Needles
