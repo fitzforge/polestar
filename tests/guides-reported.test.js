@@ -5705,14 +5705,17 @@ test('forever/alliance/40-50/03-feralas.guide: final review: the boat to the coa
 });
 
 // Final route review, Alliance 40-60: Loch Modan once each way (Ghak's quest from Thelsamar where the flight lands, the
-// seed's order); the Booty Bay flight after Nethergarde only for The Monogrammed Sash's group.
-test('forever/alliance/40-50/05-the-hinterlands.guide: final review: Loch Modan once each way, Booty Bay only for the group', { skip }, () => {
+// seed's order). The Booty Bay flight after Nethergarde was only for The Monogrammed Sash's group; since 0.3.7 it is
+// for everyone (MacKinley and the Bloodsail captains), and the Sash and Negolash steps stay group-only.
+test('forever/alliance/40-50/05-the-hinterlands.guide: final review: Loch Modan once each way, the Sash and Negolash only for the group', { skip }, () => {
 	const list = goals('forever/alliance/40-50/05-the-hinterlands.guide');
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
 	assert.ok(stepOf('accept 17', is('accept', 17)) < stepOf('turnin 739', is('turnin', 739)), 'Ghak before Ironband');
 	assert.ok(stepOf('turnin 704', is('turnin', 704)) < stepOf('turnin 17', is('turnin', 17)), 'Ironband on the way back, then Ghak');
-	const bb = list[at(list, 'fly Booty Bay', (g) => g.t === 'fly' && /Booty Bay/.test(g.location || ''))];
-	assert.ok((bb.step.when || []).some((w) => w.k === 'group' && [w.q].flat().includes(8552)), 'only for the Sash group');
+	for (const q of [8552, 8554]) {
+		const e = list[at(list, `accept ${q}`, is('accept', q))];
+		assert.ok((e.step.when || []).some((w) => w.k === 'group'), `${q} only for the group`);
+	}
 });
 
 // Final route review, Alliance 40-60: Suntara Stones is an escort that starts on accept; it was taken at the first
@@ -7370,7 +7373,8 @@ test('forever/alliance/50-60/04-western-plaguelands.guide: final review: the tit
 
 // Final route review before 0.3.5, Alliance 40-60: after the last Booty Bay stop, Stranglethorn rode back north for the
 // Nesingwary hunts (Tethis, King Bangalash) or, solo, for top-ups on the Cold Eye Basilisks, then south again to fly.
-// They come before that stop now, after the Crystalvein Mine, with the top-ups lowered by the Booty Bay experience.
+// They come before that stop now, after the Crystalvein Mine. Since 0.3.7 the solo top-up is one step on the
+// Skullsplitter trolls (tusks), with one fallback after the hunts.
 test('forever/alliance/40-50/01-stranglethorn-vale.guide: final review: the northern hunts and solo top-ups before the last Booty Bay stop', { skip }, () => {
 	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
 	const last = at(list, 'turnin 611', is('turnin', 611));
@@ -7378,7 +7382,7 @@ test('forever/alliance/40-50/01-stranglethorn-vale.guide: final review: the nort
 	assert.ok(at(list, 'turnin 208', is('turnin', 208)) < last, 'Big Game Hunter before Booty Bay');
 	assert.ok(at(list, 'collect 3877', (g) => g.t === 'collect' && g.quest === 197) < last, 'Tethis before Booty Bay');
 	const ups = list.filter(({ goal, step }) => goal.t === 'level' && (step.when || []).some((w) => w.k === 'group' && [w.q].flat().some((q) => [193, 197, 208].includes(q))));
-	assert.equal(ups.length, 3, 'three solo top-ups for the Nesingwary hunts');
+	assert.equal(ups.length, 1, 'one solo top-up for the Nesingwary hunts');
 	for (const e of ups) assert.ok(list.indexOf(e) < last, `top-up to ${e.goal.level} before Booty Bay`);
 	assert.ok(!list.slice(last, fly).some(({ goal }) => goal.t === 'level'), 'no grind between Booty Bay and the flight');
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;

@@ -88,6 +88,8 @@ step Marshal's Refuge
   accept 3881
   getfp "Marshal's Refuge"            -- Gryfe
   turnin 3884 optional                -- Williden Marshal
+  turnin 3845                         -- Linken, at the back of the refuge
+  accept 3908                         -- Ends with Donova Snowden in Winterspring: keep it
   accept 4284                         -- J.D. Collie, at the back of the cave; below ground
 
 # ---------------------------------------------------------------- Loop 1: the middle and the east
@@ -108,8 +110,6 @@ step Marshal's Refuge
   accept 4285
   accept 4287
   accept 4288
-  turnin 3845                         -- Linken
-  accept 3908                         -- Ends with Donova Snowden in Winterspring: keep it
   turnin 4141                         -- Muigin
   accept 4142                         -- For Gregan Brewspewer in Feralas: keep it
 
