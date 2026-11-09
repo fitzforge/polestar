@@ -75,7 +75,7 @@ return {
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats
 	["Follow the road from Elwynn into {zone:1436}: the Furlbrows sit by their burned farm, the first one on the road. Pick up oats from any {object:2724} you pass on the loop: the rest are gathered in the fields here on the way back."] = "",
 	-- {npc:237} Farmer Furlbrow · {npc:963} Deputy Rainer
-	["{npc:237}; Humans took it from {npc:963} in Elwynn"] = "{npc:237}; los Humanos se lo quitaron a {npc:963} en Elwynn",
+	["{npc:237}: Humans may have it already from {npc:963} in Elwynn"] = "",
 
 	-- Step 17: The Jansen Stead
 	-- {item:1972} Westfall Deed
@@ -120,8 +120,6 @@ return {
 	-- Step 22: Sentinel Hill
 	-- {npc:234} Gryan Stoutmantle · {npc:821} Captain Danuvin · {npc:491} Quartermaster Lewis · {npc:878} Scout Galiaan · {npc:523} Thor
 	["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234} y {npc:821} están en lo alto de la torre de piedra. {npc:491} está dentro de la torre; {npc:878}, en la ladera sur de la colina, junto a la posada y a {npc:523}, el maestro de grifos.",
-	-- {npc:234} Gryan Stoutmantle · {npc:963} Deputy Rainer
-	["{npc:234}: from {npc:963} at Westbrook"] = "",
 	-- {npc:491} Quartermaster Lewis · {zone:1453} Stormwind
 	["{npc:491}, inside: back from {zone:1453}"] = "",
 	-- {npc:253092} Alba Fairmoon · {npc:878} Scout Galiaan
@@ -357,6 +355,7 @@ return {
 	-- ["{item:2449} for Gathering the Cure (6123) in {zone:1439}: {npc:1313}, {skill:171} Supplies; herbalists pick it there instead"] = "{item:2449} para Reunir los ingredientes del remedio (6123) en {zone:1439}: {npc:1313}, suministros de {skill:171}; los herboristas la recogen allí",
 	-- ["{item:254676}, from the crates around {area:20}"] = "{item:254676}, de las cajas alrededor de {area:20}",
 	-- ["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} and {npc:253092} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234} y {npc:821} están en lo alto de la torre de piedra. {npc:491} está dentro de la torre; {npc:878} y {npc:253092}, en la ladera sur de la colina, junto a la posada y a {npc:523}, el maestro de grifos.",
+	-- ["{npc:237}; Humans took it from {npc:963} in Elwynn"] = "{npc:237}; los Humanos se lo quitaron a {npc:963} en Elwynn",
 	-- ["{npc:523}; skip the free flight it offers"] = "{npc:523}; omite el vuelo gratis que te ofrece",
 	-- ["{npc:6089}: Defensive Stance"] = "{npc:6089}: Actitud defensiva",
 	-- ["{quest:153}: every Defias drops them"] = "{quest:153}: los suelta cualquier Defias",

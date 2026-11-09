@@ -75,7 +75,7 @@ return {
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats
 	["Follow the road from Elwynn into {zone:1436}: the Furlbrows sit by their burned farm, the first one on the road. Pick up oats from any {object:2724} you pass on the loop: the rest are gathered in the fields here on the way back."] = "Siga a estrada de Elwynn até {zone:1436}: os Taturana estão sentados junto à fazenda queimada deles, a primeira da estrada. Pegue aveia de qualquer {object:2724} que encontrar na volta: o resto você junta nos campos daqui na volta.",
 	-- {npc:237} Farmer Furlbrow · {npc:963} Deputy Rainer
-	["{npc:237}; Humans took it from {npc:963} in Elwynn"] = "{npc:237}; Humanos tomaram de {npc:963} em Elwynn",
+	["{npc:237}: Humans may have it already from {npc:963} in Elwynn"] = "",
 
 	-- Step 17: The Jansen Stead
 	-- {item:1972} Westfall Deed
@@ -120,8 +120,6 @@ return {
 	-- Step 22: Sentinel Hill
 	-- {npc:234} Gryan Stoutmantle · {npc:821} Captain Danuvin · {npc:491} Quartermaster Lewis · {npc:878} Scout Galiaan · {npc:523} Thor
 	["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234} e {npc:821} ficam no alto da torre de pedra. {npc:491} está na torre; {npc:878}, no lado sul do morro, junto à estalagem e a {npc:523}, o mestre de grifos.",
-	-- {npc:234} Gryan Stoutmantle · {npc:963} Deputy Rainer
-	["{npc:234}: from {npc:963} at Westbrook"] = "{npc:234}: de {npc:963}, na Ribeira d'Oeste",
 	-- {npc:491} Quartermaster Lewis · {zone:1453} Stormwind
 	["{npc:491}, inside: back from {zone:1453}"] = "{npc:491}, lá dentro: de volta de {zone:1453}",
 	-- {npc:253092} Alba Fairmoon · {npc:878} Scout Galiaan
@@ -361,6 +359,8 @@ return {
 	-- ["{area:918}: kill these as you meet them"] = "{area:918}: vá matando estes pelo caminho",
 	-- ["{item:254676}, from the crates around {area:20}"] = "{item:254676}, dos caixotes ao redor de {area:20}",
 	-- ["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} and {npc:253092} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234} e {npc:821} ficam no alto da torre de pedra. {npc:491} está na torre; {npc:878} e {npc:253092}, no lado sul do morro, junto à estalagem e a {npc:523}, o mestre de grifos.",
+	-- ["{npc:234}: from {npc:963} at Westbrook"] = "{npc:234}: de {npc:963}, na Ribeira d'Oeste",
+	-- ["{npc:237}; Humans took it from {npc:963} in Elwynn"] = "{npc:237}; Humanos tomaram de {npc:963} em Elwynn",
 	-- ["{npc:523}; skip the free flight it offers"] = "{npc:523}; pule o voo grátis que ele oferece",
 	-- ["{quest:153}: every Defias drops them"] = "{quest:153}: todos os Défias as soltam",
 	-- ["{quest:153}: every Defias drops them, from {area:111} to the {area:916}"] = "{quest:153}: todo Défias solta, de {area:111} até {area:916}",

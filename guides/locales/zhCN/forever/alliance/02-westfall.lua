@@ -75,7 +75,7 @@ return {
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats
 	["Follow the road from Elwynn into {zone:1436}: the Furlbrows sit by their burned farm, the first one on the road. Pick up oats from any {object:2724} you pass on the loop: the rest are gathered in the fields here on the way back."] = "沿着大路从艾尔文森林进入{zone:1436}：法布隆一家就在路边第一座被烧毁的农场旁。这一圈路上碰到的{object:2724}都捡上，剩下的回程时在这边的田里收集。",
 	-- {npc:237} Farmer Furlbrow · {npc:963} Deputy Rainer
-	["{npc:237}; Humans took it from {npc:963} in Elwynn"] = "{npc:237}；人类角色已在艾尔文森林从{npc:963}处接取此任务",
+	["{npc:237}: Humans may have it already from {npc:963} in Elwynn"] = "",
 
 	-- Step 17: The Jansen Stead
 	-- {item:1972} Westfall Deed
@@ -120,8 +120,6 @@ return {
 	-- Step 22: Sentinel Hill
 	-- {npc:234} Gryan Stoutmantle · {npc:821} Captain Danuvin · {npc:491} Quartermaster Lewis · {npc:878} Scout Galiaan · {npc:523} Thor
 	["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234}和{npc:821}站在石塔顶上。{npc:491}在塔内，{npc:878}在山丘南侧，旅店和狮鹫管理员{npc:523}旁边。",
-	-- {npc:234} Gryan Stoutmantle · {npc:963} Deputy Rainer
-	["{npc:234}: from {npc:963} at Westbrook"] = "{npc:234}：从西泉要塞的{npc:963}处接取",
 	-- {npc:491} Quartermaster Lewis · {zone:1453} Stormwind
 	["{npc:491}, inside: back from {zone:1453}"] = "{npc:491}，在里面：从{zone:1453}回来后找他",
 	-- {npc:253092} Alba Fairmoon · {npc:878} Scout Galiaan
@@ -384,6 +382,8 @@ return {
 	-- ["{area:918}: kill these as you meet them"] = "{area:918}：下面这些，遇到了就顺手杀",
 	-- ["{item:254676}, from the crates around {area:20}"] = "{item:254676}，来自{area:20}周围的箱子",
 	-- ["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} and {npc:253092} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234}和{npc:821}站在石塔顶上。{npc:491}在塔内，{npc:878}和{npc:253092}在山丘南侧，旅店和狮鹫管理员{npc:523}旁边。",
+	-- ["{npc:234}: from {npc:963} at Westbrook"] = "{npc:234}：从西泉要塞的{npc:963}处接取",
+	-- ["{npc:237}; Humans took it from {npc:963} in Elwynn"] = "{npc:237}；人类角色已在艾尔文森林从{npc:963}处接取此任务",
 	-- ["{npc:240}: for {npc:234} at {object:81}"] = "{npc:240}：交给哨兵岭的{npc:234}",
 	-- ["{npc:476} walks around Jasperlode Mine: look inside the circle on the map"] = "{npc:476}在詹戈洛德矿洞里四处走动：看地图上圆圈里面",
 	-- ["{npc:523}; skip the free flight it offers"] = "{npc:523}；不要乘坐它提供的免费飞行",

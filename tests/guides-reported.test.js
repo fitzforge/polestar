@@ -3578,6 +3578,21 @@ test(`${WESTFALL}: Pynte's report (#416): the farm quests and Report to Gryan St
 	assert.ok(!elwynn.some(({ goal }) => goal.t === 'getfp' && goal.node === hill.step.goals.find((g) => g.t === 'getfp').node), 'Elwynn leaves the Sentinel Hill flight path to Westfall');
 });
 
+// Final route review 0.3.6: Report to Gryan Stoutmantle (109) is for every Alliance race, and Farmer Furlbrow gives it on the
+// road in; Night Elves and Skyborne passed him without it (Humans have it from Deputy Rainer, Dwarves and Gnomes from Marshal
+// Dughan). Every race takes it before its first Sentinel Hill stop and hands it to Gryan there.
+test(`${WESTFALL}: Report to Gryan Stoutmantle for every race, Night Elves and Skyborne from Farmer Furlbrow`, { skip }, () => {
+	for (const race of ['Human', 'Dwarf', 'Gnome', 'NightElf', 'Skyborne']) {
+		const mine = goals(WESTFALL).filter(({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes(race)));
+		const take = mine.findIndex(({ goal }) => is('accept', 109)(goal));
+		const hand = mine.findIndex(({ goal }) => is('turnin', 109)(goal));
+		assert.ok(take >= 0 && hand > take, `${race}: takes it, then hands it in`);
+		assert.equal(mine[hand].goal.npc, 234, `${race}: to Gryan Stoutmantle`);
+		assert.ok(mine.slice(0, hand).every(({ goal }) => goal.npc !== 234), `${race}: on the first Sentinel Hill stop`);
+		if (race === 'NightElf' || race === 'Skyborne') assert.equal(mine[take].goal.npc, 237, `${race}: from Farmer Furlbrow`);
+	}
+});
+
 // --- Handful of Oats (Xaden Ryan, #621): the oats were the first step's last
 // goal, unplaced, so before Saldean's the arrow searched every Sack of Oats
 // in the zone, down to Moonbrook, and the far sacks were empty. They are

@@ -137,7 +137,7 @@ step Goldshire
 step The Jansen Stead
   zone Westfall
   tip Follow the road from Elwynn into Westfall: the Furlbrows sit by their burned farm, the first one on the road. Pick up oats from any Sack of Oats you pass on the loop: the rest are gathered in the fields here on the way back.
-  accept 109 npc 237 only Human -- Farmer Furlbrow; Humans took it from Deputy Rainer in Elwynn
+  accept 109 npc 237 only Human,NightElf,Skyborne -- Farmer Furlbrow: Humans may have it already from Deputy Rainer in Elwynn
 
 step Westfall
   only Dwarf,Gnome,Skyborne
@@ -194,7 +194,7 @@ step Osric Strang
 step Sentinel Hill
   zone Westfall
   tip Gryan Stoutmantle and Captain Danuvin stand at the top of the stone tower. Quartermaster Lewis is in the tower, Scout Galiaan on the south side of the hill, next to the inn and Thor the gryphon master.
-  turnin 109 only Dwarf,Gnome                 -- Gryan Stoutmantle: from Deputy Rainer at Westbrook
+  turnin 109 only Dwarf,Gnome,NightElf,Skyborne -- Gryan Stoutmantle
   accept 12
   accept 102                                  -- Captain Danuvin
   turnin 6285 only Human                      -- Quartermaster Lewis, inside: back from Stormwind
