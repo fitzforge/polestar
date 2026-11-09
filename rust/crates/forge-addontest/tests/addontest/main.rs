@@ -58,6 +58,8 @@ mod dungeons_runtime;
 mod dungeons_sides;
 mod e2e;
 mod engine;
+#[path = "engine-field-route.rs"]
+mod engine_field_route;
 #[path = "engine-abandon-destroy.rs"]
 mod engine_abandon_destroy;
 #[path = "engine-aim-accept-first.rs"]
@@ -368,3 +370,4 @@ mod ui_while_here;
 mod ui_zoneart;
 #[path = "where.rs"]
 mod where_;
+

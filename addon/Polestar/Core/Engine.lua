@@ -4331,9 +4331,10 @@ end
 -- to: in the focus group, the first open blocking goal, else the first open
 -- optional one; the group's header only when nothing else is open. When that
 -- first blocking goal is a field goal (kill, collect, interact with a place)
--- and the group has two or more such goals open, the nearest of them to the
--- player takes its place (Own.nearestField: sticky, never switched in a
--- fight). A goto before a grind (Own.grindAfter) gives way to it: the arrow
+-- and the group has two or more such goals open before its next mandatory
+-- interaction, their routed first stop takes its place (Own.nearestField:
+-- level-aware and sticky, never switched in a fight). A goto before a grind
+-- (Own.grindAfter) gives way to it: the arrow
 -- leads to the grind mob's nearest spawn area, the goto only where the mob
 -- has none. A flight step the arrow leads to the flight's end (Own.flyAim)
 -- marks its flight, not the walk to the flight master it names. Returns its
@@ -4348,7 +4349,7 @@ function Own.currentGoal(s, groups, focus)
 			if g == flown then return g, nil end
 		end
 	end
-	local header, optional, first, fields
+	local header, optional, first, fields, barrier
 	for _, g in ipairs(grp.goals) do
 		local goal = step.goals[g]
 		if goal.t ~= "note" and goalApplies(goal) and not unavailableFor(goal) and not Own.goalSkipped(s, g) and not Own.lostGoal(goal)
@@ -4357,9 +4358,11 @@ function Own.currentGoal(s, groups, focus)
 				header = header or g
 			elseif not goal.optional then
 				first = first or g
-				if Own.isField(goal) then
+				if Own.isField(goal) and not barrier then
 					fields = fields or {}
 					fields[#fields + 1] = g
+				elseif not Own.isField(goal) and not (g == first and goal.t == "goto" and Own.grindAfter(s, grp, g)) then
+					barrier = true
 				end
 			else
 				optional = optional or g
@@ -4553,17 +4556,19 @@ end
 
 -- Field goals: work done out at a place, where a step can hold several
 -- (Garren's Haunt: the Graverobbers, the Mongrels, the Doom Weed). With two
--- or more open, the arrow leads to the nearest (Own.currentGoal); written
--- order still orders the window's list. Mobs at the player's level first
+-- or more open, the arrow plans the remaining independent work instead of
+-- repeatedly taking the nearest (Own.currentGoal); written order still
+-- orders the window's list. Mobs at the player's level first
 -- (#827): the nearest place whose mobs are at most Spots.ABOVE levels above
 -- the player (a spot's `lvl`, else its goal's; a place with neither counts),
--- of any open goal; only with no such place the nearest of all. Sticky: another goal
--- takes over only once it is NEAR_SHARE of the current one's distance and
--- NEAR_YARDS nearer, or the current one is done or has no place at the
--- player's level while another has; never while the player is in a fight.
+-- of any open goal; only with no such place the harder camps enter the tour.
+-- Quest difficulty adds a soft delay cost. Unmeasurable or oversized groups
+-- keep the previous nearest-goal fallback. An unfinished stop holds unless
+-- the complete route improves materially, and while Spots.busy holds.
 Own.FIELD = { kill = true, collect = true, interact = true }
 Own.NEAR_SHARE, Own.NEAR_YARDS = 0.75, 40
 Own.nearPick = setmetatable({}, { __mode = "k" }) -- step -> goal index the arrow is on
+Own.fieldTours = setmetatable({}, { __mode = "k" }) -- step -> remaining independent work
 
 -- A grind: `level N grind <npc>`, placed by the compiler at the mob's spawn
 -- areas (spots); a field goal like a kill. Without spawn data it has no place,
@@ -4621,6 +4626,145 @@ function Own.fieldDistance(goal, c, px, py, top)
 	if gc ~= c then return nil end
 	local d = ((gx - px) ^ 2 + (gy - py) ^ 2) ^ 0.5
 	return d, top and not (lvl and lvl > top) and d or nil
+end
+
+-- A representative of the goal's actual eligible camp, in world yards.
+-- Alternatives and higher-level camps never enter an easier-goal tour.
+-- Reading this must not change a camp the player pinned or its visit state.
+function Own.fieldPoint(goal, c, px, py, top)
+	local now = GetTime()
+	if not goal.spots then
+		if Spots.isLeft(goal, goal, now) then return nil end
+		local gc, x, y = goalWorld(goal)
+		if gc == c and not (top and goal.lvl and goal.lvl > top) then return { x = x, y = y } end
+		return nil
+	end
+	local best, bestD
+	local chosen = Spots.chosen[goal]
+	for _, spot in ipairs(goal.spots) do
+		if not spot.alt and not Spots.isLeft(goal, spot, now) and not (top and (spot.lvl or goal.lvl or 0) > top) then
+			local d = Spots.edge(goal, spot, c, px, py)
+			if d and (not bestD or d < bestD) then best, bestD = spot, d end
+			if spot == chosen and d then best, bestD = spot, -1 end
+		end
+	end
+	local world = best and Spots.world[best]
+	if world then return { x = world[2], y = world[3] } end
+	return nil
+end
+
+-- The next required place is only an exit cost, never a task promoted ahead
+-- of the current group. Stop at an unlocated requirement or a transport:
+-- coordinates beyond those barriers are not a walking destination.
+function Own.fieldExit(s, list, c)
+	local groups, _, groupOf = stepGroups(s)
+	local group = groupOf[list[1]]
+	local after = groups[(group or #groups) + 1]
+	local goals, index = guide.steps[s].goals, s
+	local entries = {}
+	for _, g in ipairs(group and groups[group].goals or NONE) do
+		if g > list[#list] then entries[#entries + 1] = g end
+	end
+	if #entries == 0 then entries = after and after.goals end
+	if not entries then
+		local nextStep = guide.steps[s + 1]
+		if not nextStep or isSkipped(s + 1) or not Guides.Matches(nextStep.only, player)
+			or not Own.whenHolds(nextStep) then return nil end
+		goals, index, entries = nextStep.goals, s + 1, {}
+		for g = 1, #goals do entries[#entries + 1] = g end
+	end
+	for _, g in ipairs(entries) do
+		local goal = goals[g]
+		if blocks(goal) and goalApplies(goal) and not unavailableFor(goal)
+			and not Own.goalSkipped(index, g) and not Own.lostGoal(goal) and not goalDone(index, g, goal) then
+			if goal.t == "fly" or goal.t == "hearth" or goal.t == "enter" then return nil end
+			local destination = goal
+			if goal.candidates then
+				local p = picks[goal]
+				-- An unselected candidate is not a known next destination.
+				destination = p and p.gen == contextGen and p.list[p.i]
+				if not destination then return nil end
+			elseif goal.spots then
+				local spot = Spots.chosen[goal]
+				if not spot then return nil end
+				destination = { map = goal.map, x = spot.x, y = spot.y, f = goal.f }
+			end
+			if not (destination.map and destination.x and destination.y) then return nil end
+			local gc, x, y = goalWorld(destination)
+			if gc == c then return { x = x, y = y } end
+			return nil
+		end
+	end
+	return nil
+end
+
+-- A soft delay bias for quests above the player's comfortable range. Live
+-- client difficulty wins; compiled objective/accept levels fill missing log
+-- data. Unknown or dynamic levels never become an artificial hard quest.
+function Own.fieldDelay(goal)
+	local level = player and player.level
+	if not level then return 0 end
+	local C = Compat()
+	local qlvl = goal.quest and C.GetQuestLevel and C.GetQuestLevel(goal.quest)
+	qlvl = qlvl or tonumber(goal.qlvl)
+	if not qlvl and goal.quest then
+		for _, a in ipairs(layoutOf(guide).accepts[goal.quest] or NONE) do
+			if goalApplies(a.goal) then qlvl = tonumber(a.goal.qlvl); if qlvl then break end end
+		end
+	end
+	if not qlvl or qlvl <= 0 then return 0 end
+	local above = math.max(0, qlvl - level - 1)
+	return 40 * math.min(above, 10) ^ 2
+end
+
+-- Plan the complete remaining eligible field group, ending towards the next
+-- required visit when known. Cache while walking. A completed/skipped goal,
+-- changed camp or level tier invalidates it; a substantial player detour may
+-- change the first stop only when it saves both 25% and 40 yard-equivalent
+-- points overall (walking distance plus quest-level delay cost).
+function Own.routedField(s, list, c, px, py, top, cur, low)
+	local R = ns.FieldRoute
+	if not R then return nil end
+	local step, points, ids = guide.steps[s], {}, {}
+	local fixed
+	for _, g in ipairs(list) do
+		local goal = step.goals[g]
+		local _, dl = Own.fieldDistance(goal, c, px, py, top)
+		if not low or dl then
+			local p = Own.fieldPoint(goal, c, px, py, low and top or nil)
+			if not p then return nil end
+			p.delay = Own.fieldDelay(goal)
+			points[#points + 1], ids[#ids + 1] = p, g
+			if g == cur then fixed = #points end
+		end
+	end
+	if #points < 2 then return nil end
+	local finish = Own.fieldExit(s, list, c)
+	local tour = Own.fieldTours[step]
+	local same = tour and tour.c == c and tour.top == top and #ids == #tour.ids
+	if same then
+		for i, id in ipairs(ids) do
+			local a, b = points[i], tour.points[i]
+			if id ~= tour.ids[i] or a.x ~= b.x or a.y ~= b.y or a.delay ~= b.delay then same = false; break end
+		end
+		local old = tour.finish
+		if (finish and not old) or (old and not finish)
+			or (finish and (finish.x ~= old.x or finish.y ~= old.y)) then same = false end
+	end
+	local start = { x = px, y = py }
+	if same and ids[tour.order[1]] == cur
+		and (px - tour.x) ^ 2 + (py - tour.y) ^ 2 < 80 ^ 2 then return cur end
+	local order, yards, cost = R.Plan(points, start, finish)
+	if not order then return nil end
+	-- Keep the current stop unless changing the whole trip is clearly better.
+	-- On completion it is no longer eligible, so the next leg is unrestricted.
+	if fixed and ids[order[1]] ~= cur then
+		local held, heldYards, heldCost = R.Plan(points, start, finish, fixed)
+		if held and not (cost < heldCost * Own.NEAR_SHARE and cost < heldCost - Own.NEAR_YARDS) then order = held end
+	end
+	Own.fieldTours[step] = { c = c, top = top, ids = ids, points = points, finish = finish,
+		order = order, x = px, y = py }
+	return ids[order[1]]
 end
 
 -- What changes while the player works on goal g of step s: its count (an
@@ -4719,9 +4863,9 @@ function Own.dwelt(s, g, goal, c, px, py)
 end
 
 -- Of step s's open field goals `list` (indexes, written order), the one the
--- arrow is on: the one it was on while it is open and nothing is clearly
--- nearer, or the player fights; else the nearest, at the player's level
--- first (Own.FIELD). Where nothing is measurable (no position, another
+-- arrow is on: a stable first stop of the level-aware remaining route, held
+-- during combat and settling; the previous nearest selector when no route
+-- can be planned (Own.FIELD). Where nothing is measurable (no position, another
 -- continent), the first. Sets Own.nearMoved when the pick changes (the
 -- arrival poll re-evaluates then).
 function Own.nearestField(s, list)
@@ -4747,7 +4891,12 @@ function Own.nearestField(s, list)
 		end
 		-- A place at the player's level: measured to those places only.
 		if low then best, bestD, curD = low, lowD, curLow end
-		if best and (not cur or not curD or (bestD < curD * Own.NEAR_SHARE and bestD < curD - Own.NEAR_YARDS)) then pick = best end
+		local routed = Own.routedField(s, list, c, px, py, top, cur, low ~= nil)
+		if routed then
+			pick = routed
+		elseif best and (not cur or not curD or (bestD < curD * Own.NEAR_SHARE and bestD < curD - Own.NEAR_YARDS)) then
+			pick = best
+		end
 	end
 	pick = pick or list[1]
 	if pick ~= Own.nearPick[step] then
@@ -11715,3 +11864,4 @@ ns.On("PACKS_CHANGED", function()
 	if not activeTab then announceActive() end
 	evaluate()
 end)
+
