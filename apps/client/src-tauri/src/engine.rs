@@ -515,7 +515,7 @@ impl Engine {
 	/// POSTs `body` as JSON and reads the JSON answer.
 	async fn post_json<T: serde::de::DeserializeOwned>(&self, url: &str, body: &impl Serialize) -> Result<T, Failed> {
 		let body = bytes::Bytes::from(serde_json::to_vec(body).map_err(|e| Failed::Offline(e.to_string()))?);
-		let response = self.net.send(Family::Api, |c| c.post(url).header("Content-Type", "application/json").body(body.clone())).await.map_err(|e| Failed::Offline(describe_reqwest(&e)))?;
+		let response = self.net.send(|c| c.post(url).header("Content-Type", "application/json").body(body.clone())).await.map_err(|e| Failed::Offline(describe_reqwest(&e)))?;
 		let status = response.status();
 		if !status.is_success() {
 			let retry_after = retry_after(&response);
@@ -550,7 +550,7 @@ impl Engine {
 		let records = request.chunks.iter().map(|c| c.text.lines().count().saturating_sub(1) as u32).sum();
 		let max_seq = request.chunks.iter().map(|c| c.seq).max().unwrap_or(0);
 		let url = format!("{server}/v1/upload");
-		let result = self.net.send(Family::Api, |c| c.post(&url).bearer_auth(token).header("Content-Type", "application/json").body(body.clone())).await;
+		let result = self.net.send(|c| c.post(&url).bearer_auth(token).header("Content-Type", "application/json").body(body.clone())).await;
 		let now = now_ms();
 		let response = match result {
 			Ok(r) => r,

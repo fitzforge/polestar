@@ -1,10 +1,13 @@
 ---
 section: players
 ---
-- Polestar Client: when it can't connect the normal way, it tries other ways
-  before giving up: IPv4 only, its own list of certificate authorities beside
-  your system's, its own DNS lookup (DNS over HTTPS), and without your proxy.
-  The first that works is used until the next start, and Status says which
-  ("Connected using IPv4 only", for example). Certificates are always
-  checked. A wrong clock on your PC (which makes every certificate look
-  expired) is named as such, with the time it says.
+- Polestar Client: when it can't reach the Polestar recording server the
+  normal way, it tries other ways before giving up: IPv4 only, its own list
+  of certificate authorities added to your system's (only when your system
+  doesn't know the one that signed the server's certificate; your system
+  still checks it), and its own DNS lookup of the Polestar server by DNS
+  over HTTPS to Cloudflare and Google. The first that works is used until
+  the next start, and Status says which. If your proxy itself can't be
+  reached, that one upload goes without it. A wrong clock on your PC is
+  named as such, with the time it says. Uploads never follow redirects and
+  use HTTPS only.

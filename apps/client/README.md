@@ -34,6 +34,19 @@ the upload API, and the public list of what is never collected.
   (its opt-out is unknown). With sharing off, the Recording section's "Help
   improve Polestar's guides" page (what is shared, what never is) offers
   "Start sharing" again.
+- **Connecting** (`net.rs`). Requests go out the normal way: the system's
+  DNS, certificate checks and proxy. Only requests to the recording server
+  fall back when that can't connect: IPv4 only; the bundled Mozilla
+  certificate authorities added to the system's verifier (only after a
+  certificate from an authority the system doesn't know, or where it has
+  none; the system still checks revocation and distrust); a DNS-over-HTTPS
+  lookup of `data.polestar.guide` / `polestar.guide` (never another name) at
+  Cloudflare (1.1.1.1, 1.0.0.1) and Google (8.8.8.8), which then see the
+  lookup and the PC's IP address. The first that connects is kept for the
+  recording server until the next start, and Status names it. When the
+  environment's proxy itself can't be reached, that one request goes without
+  it (never kept). The recording server's client follows no redirects and is
+  https only; GitHub's is https only. Certificates are always checked.
 - **Client updates** are looked for at launch and every 6 hours (Settings >
   About also has "Check for client updates"). One waiting shows as a banner
   in the title strip at the top of every page, "A new Polestar Client is

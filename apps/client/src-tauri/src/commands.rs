@@ -262,7 +262,7 @@ pub async fn delete_server_data(engine: Engine_<'_>) -> Result<(), String> {
 	let server = engine.server();
 	if let Some(token) = engine.store.token(&server) {
 		let url = format!("{server}/v1/me");
-		let response = engine.net.send(crate::net::Family::Api, |c| c.delete(&url).bearer_auth(&token)).await.map_err(|e| format!("Nothing was deleted yet. {}", crate::engine::describe_reqwest(&e)))?;
+		let response = engine.net.send(|c| c.delete(&url).bearer_auth(&token)).await.map_err(|e| format!("Nothing was deleted yet. {}", crate::engine::describe_reqwest(&e)))?;
 		let status = response.status();
 		if !status.is_success() {
 			let message = crate::engine::server_message(response).await;

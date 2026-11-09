@@ -34,9 +34,8 @@ serde_json = "1"
 reqwest = { version = "0.13", default-features = false, features = ["rustls-no-provider", "json", "http2", "system-proxy"] }
 rustls = { version = "0.23", default-features = false, features = ["ring"] }
 tokio = { version = "1", features = ["time", "sync", "net"] }
-# The connection fallback ladder (net.rs): the system's and the bundled Mozilla certificate
-# authorities, and request bodies sent again on another rung without a copy.
-rustls-native-certs = "0.8"
+# The connection fallback ladder (net.rs): the bundled Mozilla certificate authorities added to
+# the system verifier, and request bodies sent again on another rung without a copy.
 webpki-root-certs = "1"
 bytes = "1"
 sha2 = "0.10"
