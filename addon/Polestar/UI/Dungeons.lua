@@ -273,12 +273,12 @@ local function bandLabel(key)
 	return key
 end
 
--- For your level: from one level below the dungeon's recommended start to its
--- top (Fitz, 2026-11-08: the Ruins of Lordaeron, 15-22, is not for a level
+-- For your level: from the dungeon's recommended start to its top (Fitz,
+-- 2026-11-08: the Ruins of Lordaeron, 15-22, is not for a level
 -- 13; an overlap with a wide window let it in from 13).
 local function forYou(d, plevel)
 	if d.kind == "raid" or not d.minLevel then return false end
-	return plevel >= d.minLevel - 1 and plevel <= (d.maxLevel or d.minLevel)
+	return plevel >= d.minLevel and plevel <= (d.maxLevel or d.minLevel)
 end
 
 -- Quests on a page for the filter ("All": both factions).

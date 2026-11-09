@@ -238,7 +238,9 @@ fn ragefire(race: &str, cls: &str, faction: &str, level: i32) -> Value {
 // Fitz, 2026-11-08 (a level 13 Horde character was offered "the 5 quests here you can take" in Ragefire Chasm,
 // thinking two of them need level 16): on the real Codex, the plan at 13, 15 and 16 for each faction. Every
 // Horde quest there requires level 9 (Searching for the Lost Satchel and Hidden Enemies are level 16 quests,
-// open from 9: Codex, quest database and page agree), so all five are taken from 13 and the label is the
+// open from 9: Codex, quest database, page and EG Link (wowf 1.60.1.70450, minLevel 9) agree; recordings to
+// 2026-11-09: 46 characters accepted the Satchel and 42-44 each Hidden Enemies step, lowest at 10-11, 10th
+// percentile 11-12), so all five are taken from 13 and the label is the
 // plain one, with nothing counted as waiting; nothing in Ragefire Chasm is the Alliance's to pick up.
 #[test]
 fn ragefire_chasm_pick_up_at_13_15_and_16_for_both_factions_takes_the_five_horde_quests_and_none_for_the_alliance() {

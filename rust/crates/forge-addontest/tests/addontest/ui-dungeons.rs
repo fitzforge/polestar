@@ -182,11 +182,11 @@ fn show_dungeon_nil_opens_the_hub_at_home_level_bands_in_the_sidebar_the_dungeon
 }
 
 // Fitz, 2026-11-08 (a level 13 Horde Warlock saw the Ruins of Lordaeron, 15-22, and The Hall of Thanes, in
-// Ironforge, under "For your level"): a dungeon is for your level from one below its recommended start, and
+// Ironforge, under "For your level"): a dungeon is for your level from its recommended start, and
 // one whose way in lies inside the other faction's capital is not under that faction's filter. The Ruins,
 // outside the Undercity, can be reached by both.
 #[test]
-fn for_your_level_starts_one_below_the_recommended_level_and_leaves_out_dungeons_inside_the_other_factions_capital() {
+fn for_your_level_starts_at_the_recommended_level_and_leaves_out_dungeons_inside_the_other_factions_capital() {
 	let f = fixture("dungeons.json");
 	let mut codex = f["codex"].clone();
 	let forever = |key: &str, name: &str, levels: [i64; 3]| {
@@ -213,9 +213,9 @@ fn for_your_level_starts_one_below_the_recommended_level_and_leaves_out_dungeons
 		Some(pack_of(&codex, &f["inputs"])),
 	);
 	let out = &out[0];
-	assert_eq!(out["h12"], json!(["Ragefire Chasm"]), "one below the recommended start");
+	assert_eq!(out["h12"], json!({}), "not below the recommended start");
 	assert_eq!(out["h13"], json!(["Ragefire Chasm"]), "not the Ruins (15-22) at 13; not The Hall of Thanes (Ironforge) for the Horde");
-	assert_eq!(out["h14"], json!(["Ragefire Chasm", "Ruins of Lordaeron"]));
+	assert_eq!(out["h14"], json!(["Ragefire Chasm"]), "the Ruins from 15, not 14");
 	assert_eq!(out["h15"], json!(["Ragefire Chasm", "Ruins of Lordaeron"]));
 	assert_eq!(out["h22"], json!(["Ruins of Lordaeron"]));
 	assert_eq!(out["a13"], json!(["The Hall of Thanes"]), "not Ragefire Chasm (Orgrimmar) for the Alliance");
