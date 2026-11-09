@@ -783,9 +783,11 @@ emit({ Q.IsItemNeeded(4536), sq.hoverItem(4536), deleteText() })
 "#,
 		"",
 	);
+	// Applejack Still (91736) is a quest Forever added: its tooltip line carries the "New in Forever" mark.
+	let mark = " |TInterface\\AddOns\\Polestar\\Media\\UI\\icon-forever:8:16:0:0|t";
 	assert_eq!(
 		out[0],
-		json!([true, ["?", "Applejack Still: | 1/1 (not accepted)"], "Do you want to destroy Shiny Red Apple?//Needed for: “Applejack Still”"]),
+		json!([true, ["?", format!("Applejack Still{mark}: | 1/1 (not accepted)")], "Do you want to destroy Shiny Red Apple?//Needed for: “Applejack Still”"]),
 		"bought at the Stonefield Farm: the still ahead needs them"
 	);
 	assert_eq!(out[1], json!([true]), "at the still");
