@@ -75,10 +75,10 @@ step Orgrimmar
 
 # ---------------------------------------------------------------- Orgrimmar
 
-step Zeppelin to Orgrimmar
+step Vehena
   when complete 7836
   zone Orgrimmar
-  tip From the Undercity, take the zeppelin from the tower outside the city to Orgrimmar.
+  tip In the Valley of Spirits.
   turnin 7836                         -- sixty Runecloth
 
 step Rashona Straglash

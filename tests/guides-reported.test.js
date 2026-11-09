@@ -9106,3 +9106,18 @@ test('Horde Winterspring guide: the Videre Elixir comes from the Evoroot, and Ga
 	const meet = at(epl, 'turnin 3912', is('turnin', 3912));
 	assert.ok(drink < meet && epl[drink].s === epl[meet].s, 'the elixir is drunk on the step that meets Gaeriyan');
 });
+
+// Travel sweep (0.3.6 plan) and final route review, Horde 50-60: travel text written for a leg the player has
+// already made. Vehena's Runecloth hand-in was titled "Zeppelin to Orgrimmar" with a zeppelin tip after the zeppelin
+// had landed; the Undercity's Sylvanas step and the Egg-O-Matic nests told the player to travel to where they stood, and
+// Everlook's bind claimed the previous guide had bound there.
+test('Horde 50-60: no stale travel text on steps the player has already travelled to', { skip }, () => {
+	const src = (f) => fs.readFileSync(path.join(OFFICIAL_DIR, f), 'utf8');
+	assert.doesNotMatch(src('forever/horde/50-60/07-felwood.guide'), /step Zeppelin to Orgrimmar\n  when complete 7836/);
+	const fw = goals('forever/horde/50-60/07-felwood.guide');
+	assert.equal(fw[at(fw, 'turnin 7836', is('turnin', 7836))].step.title, 'Vehena');
+	assert.doesNotMatch(src('forever/horde/50-60/04-azshara.guide'), /Take the zeppelin from the tower outside Orgrimmar to Tirisfal Glades and ride into the Undercity\. Lady Sylvanas/);
+	assert.doesNotMatch(src('forever/horde/50-60/05-eastern-plaguelands.guide'), /tip Fly to Camp Mojache\. The hippogryph nests/);
+	// Everlook: no earlier guide binds there (the last bind is Light's Hope Chapel), and no Harlo quest is taken.
+	assert.doesNotMatch(src('forever/horde/50-60/03-winterspring.guide'), /the last guide binds here|Gregor's and Harlo's/);
+});

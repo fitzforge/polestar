@@ -129,7 +129,7 @@ step Chemist Cuely
 
 step The Undercity
   zone Undercity
-  tip Take the zeppelin from the tower outside Orgrimmar to Tirisfal Glades and ride into the Undercity. Lady Sylvanas holds the Royal Quarter.
+  tip Lady Sylvanas holds the Royal Quarter.
   accept 5961
 
 step Royal Quarter

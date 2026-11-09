@@ -121,9 +121,9 @@ step Winterspring
 step Everlook
   tip Everlook is the goblin town on the east side of the valley, past the owlbeast hills.
   getfp "Everlook"
-  note Gregor's and Harlo's quests lead to other zones: keep them.
+  note Gregor's quests lead to other zones: keep them.
   accept 3783                         -- Umi Rumplesnicker
-  sethome "Everlook" npc 11118        -- Innkeeper Vizzie: the last guide binds here, so this usually ticks at once
+  sethome "Everlook" npc 11118        -- Innkeeper Vizzie
   accept 6029                         -- Gregor Greystone, inside
   accept 6030
   turnin 4808                         -- Felnok Steelspring
