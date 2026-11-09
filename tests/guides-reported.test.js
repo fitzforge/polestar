@@ -9365,3 +9365,20 @@ test('Horde Darrowshire: Defenders of Darrowshire after Uncle Carlin', { skip },
 	assert.ok(spirits < at(ep, 'turnin 5211', is('turnin', 5211)), 'spirits before the hand-in');
 	assert.equal(ep[at(ep, 'turnin 5211', is('turnin', 5211))].s, ep[at(ep, 'turnin 5181', is('turnin', 5181))].s, 'with Villains of Darrowshire');
 });
+
+// GuideHealth036 quest-gated loot sweep (0.3.6, every guide stands on its own): four `use` lines for an item a quest
+// from an earlier guide gives (the Beacon Torch, Umi's Mechanical Yeti, Yeh'kinya's Bramble) named no quest, so a
+// player who loads the guide fresh without that quest was shown "Use <item>" to tick by hand. Each is bound to its
+// objective now and goes with its quest.
+test('use lines for an earlier guide\'s quest item are bound to the objective', { skip }, () => {
+	for (const [guide, item, quest] of [
+		['forever/alliance/50-60/04-western-plaguelands.guide', 12815, 5097],
+		['forever/alliance/50-60/04-western-plaguelands.guide', 12928, 5163],
+		['forever/horde/40-50/03-feralas.guide', 10699, 3520],
+		['forever/horde/50-60/06-silithus.guide', 12815, 5098],
+	]) {
+		const uses = goals(guide).filter(({ goal }) => goal.t === 'use' && goal.item === item);
+		assert.ok(uses.length > 0, `${guide}: use ${item}`);
+		for (const { goal } of uses) assert.equal(goal.quest, quest, `${guide}: use ${item} goes with quest ${quest}`);
+	}
+});

@@ -299,7 +299,7 @@ step Kirsta Deepshadow
 step Andorhal watchtowers and silos
   tip Ride south into Andorhal. Chromie waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the Beacon Torch to mark it; keep to the edges of town. Use the Temporal Displacer by the silos in the middle of town to bring out Temporal Parasites.
   accept 4971                         -- Chromie, upstairs
-  use 12815 @42.3,66.2 map 1422
+  use 12815 quest 5098.2 @42.3,66.2 map 1422
   kill 10903 quest 5098.2 "Mark Andorhal Tower Two with the Beacon Torch"
   use 12627 @45.2,62.8 map 1422
   kill 10717 quest 4971.1

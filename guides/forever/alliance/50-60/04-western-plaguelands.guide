@@ -67,7 +67,7 @@ step Chillwind Camp
 
 step The Andorhal watchtowers
   tip Use the Beacon Torch at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp.
-  use 12815 @40.0,71.6 map 1422
+  use 12815 quest 5097.1 @40.0,71.6 map 1422
   kill 10902 quest 5097.1 "Mark Andorhal Tower One with the Beacon Torch"
   kill 10903 quest 5097.2 "Mark Andorhal Tower Two with the Beacon Torch"
 
@@ -496,7 +496,7 @@ step Gadgetzan
   zone Tanaris
   turnin 4493                         -- Alchemist Pestlezugg, inside
   accept 4496
-  use 12928 @51.1,26.9 "Umi's Mechanical Yeti" -- On Sprinkle
+  use 12928 "Umi's Mechanical Yeti" quest 5163.2 @51.1,26.9 -- On Sprinkle
   kill 7583 quest 5163.2 @51.1,26.9 map 1446 "Scare Sprinkle with Umi's Mechanical Yeti" -- Sprinkle
   turnin 5538                         -- Krinkle Goodsteel
   accept 5801                         -- For Chillwind Camp: keep it
