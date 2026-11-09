@@ -648,6 +648,126 @@ emit({ label = PolestarRareToast.Open.Label:GetText() })"#);
 	assert_eq!(out[0]["label"], "Show treasure");
 }
 
+// The card's Target button needs QoL's macro (QoL/Buttons.lua): these runs add QoL and stub_qol.lua, whose
+// secure frames refuse SetAttribute, Show, Hide, SetPoint and ClearAllPoints while stub.inCombat is true.
+fn run_card(before: &str, script: &str) -> Vec<Value> {
+	let codex = sample_codex();
+	let pack = pack();
+	let mut files: Vec<&str> = FILES.to_vec();
+	files.push("QoL/QoL.xml");
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_rares.lua", "stub_qol.lua"],
+		before: format!("{}\nlocal w = stub.world\n{}\nw.moveTo(1429, 88, 78)\nw.setLevel(10)\n{before}\n", pack.stub_lua, maps(&codex)),
+		addons: vec![Addon::files("Polestar", &files)],
+		saved: vec![],
+		login: true,
+		script: format!("{PRELUDE}{script}"),
+	})
+}
+
+const SPOT_THUROS: &str = r#"
+Polestar.Codex.Load()
+-- stub_qol.lua answers UnitName for its own units, so the alert comes as the nameplate path builds it.
+Polestar.Fire("RARE_SPOTTED", R.AlertOf({ source = "nameplate", kind = "rare", id = 61, name = "Thuros Lightfingers" }, { map = 1429, x = 88, y = 78 }, true))
+local f, s = PolestarRareToast, PolestarRareCardTarget
+local function card()
+	local p = s and { s:GetPoint(1) } or {}
+	return { shown = f.Target:IsShown(), enabled = f.Target:IsEnabled() and true or false, secure = s and s:IsShown() or false,
+		over = p[2] == f.Target, macro = s and s:GetAttribute("macrotext") or false, tip = f.Target.psTipLines and f.Target.psTipLines[1][1] or false }
+end
+"#;
+
+#[test]
+fn rare_card_target_button_targets_the_rare_by_its_full_name_and_pings_it_where_the_client_has_ping() {
+	let plain = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]";
+	let out = run_card("SLASH_PING1 = \"/ping\"", &format!("{SPOT_THUROS}emit(card())\nemit(R.Toast.TargetMacro({{ kind = \"rare\", name = \"Bad\\n/run X()\" }}) or false)"));
+	assert_eq!(out[0], json!({ "shown": true, "enabled": true, "secure": true, "over": true, "tip": false, "macro": format!("{plain}\n/ping [@target]") }));
+	assert_eq!(out[1], json!(false), "a name with a line break never becomes a macro");
+	// A client without the command: no ping line.
+	let out = run_card("SLASH_PING1 = nil", &format!("{SPOT_THUROS}emit(card().macro)"));
+	assert_eq!(out[0], json!(plain));
+}
+
+#[test]
+fn rare_card_target_button_marks_the_rare_only_with_mark_what_they_target_on_and_its_group_etiquette() {
+	let out = run_card(
+		"SLASH_PING1 = \"/ping\"",
+		&format!(
+			r#"{SPOT_THUROS}
+emit(card().macro)
+R.Toast.Hide()
+Polestar.Set("qol.markTarget", true)
+R.Toast.Show(R.AlertOf({{ source = "nameplate", kind = "rare", id = 61, name = "Thuros Lightfingers" }}, {{ map = 1429, x = 88, y = 78 }}, true))
+emit(card().macro)
+-- A party member who doesn't lead: only a unit with no icon gets one.
+function IsInGroup() return true end
+function IsInRaid() return false end
+function UnitIsGroupLeader() return false end
+R.Toast.Show(R.AlertOf({{ source = "nameplate", kind = "rare", id = 61, name = "Thuros Lightfingers" }}, {{ map = 1429, x = 88, y = 78 }}, true))
+emit(card().macro)
+-- A raid member without lead or assist: no icon.
+function IsInRaid() return true end
+function UnitIsGroupAssistant() return false end
+R.Toast.Show(R.AlertOf({{ source = "nameplate", kind = "rare", id = 61, name = "Thuros Lightfingers" }}, {{ map = 1429, x = 88, y = 78 }}, true))
+emit(card().macro)"#
+		),
+	);
+	let ping = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]\n/ping [@target]";
+	assert_eq!(out[0], json!(ping), "marking is off by default");
+	assert_eq!(out[1], json!(format!("{ping}\n/tm [@target,harm,nodead] !8")));
+	assert_eq!(out[2], json!(format!("{ping}\n/tm [@target,harm,nodead] ~8")));
+	assert_eq!(out[3], json!(ping));
+}
+
+#[test]
+fn rare_card_target_button_lets_go_before_a_fight_shows_disabled_with_the_rare_button_s_key_and_comes_back_after() {
+	let out = run_card(
+		"SLASH_PING1 = \"/ping\"\nstub.qol.bindings[\"CLICK PolestarRareButton:LeftButton\"] = { \"SHIFT-T\" }",
+		&format!(
+			r#"{SPOT_THUROS}
+-- PLAYER_REGEN_DISABLED fires before the lockdown starts.
+stub.fire("PLAYER_REGEN_DISABLED")
+stub.inCombat = true
+local c = card()
+c.points = s:GetNumPoints()
+emit(c)
+-- The card still closes and comes back in the fight: nothing secure is touched.
+R.Toast.Hide()
+R.Toast.Show(R.AlertOf({{ source = "nameplate", kind = "rare", id = 79, name = "Narg the Taskmaster" }}, {{ map = 1429, x = 88, y = 78 }}, true))
+emit(card())
+stub.inCombat = false
+stub.fire("PLAYER_REGEN_ENABLED")
+emit(card())
+stub.qol.bindings["CLICK PolestarRareButton:LeftButton"] = nil
+stub.fire("PLAYER_REGEN_DISABLED")
+stub.inCombat = true
+emit(card().tip)"#
+		),
+	);
+	let thuros = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]\n/ping [@target]";
+	let narg = "/cleartarget [nocombat]\n/targetexact Narg the Taskmaster\n/cleartarget [dead]\n/ping [@target]";
+	let keyed = "The card can't target during a fight. Use the rare button or its key (s-T).";
+	assert_eq!(out[0], json!({ "shown": true, "enabled": false, "secure": false, "over": false, "points": 0, "macro": thuros, "tip": keyed }));
+	assert_eq!(out[1], json!({ "shown": true, "enabled": false, "secure": false, "over": false, "macro": thuros, "tip": keyed }), "a card that appears in a fight keeps the old macro, unarmed");
+	assert_eq!(out[2], json!({ "shown": true, "enabled": true, "secure": true, "over": true, "macro": narg, "tip": false }));
+	assert_eq!(out[3], json!("The card can't target during a fight. Use the rare button."));
+}
+
+#[test]
+fn rare_card_a_treasure_or_the_options_sample_without_a_rare_has_no_target_button() {
+	let out = run_card(
+		"",
+		r#"
+Polestar.Codex.Load()
+Polestar.Fire("RARE_SPOTTED", R.AlertOf({ source = "vignette", kind = "treasure", id = 2843, name = "Battered Chest" }, { map = 1429, x = 79.6, y = 55.7 }, true))
+emit({ PolestarRareToast.Target:IsShown(), PolestarRareCardTarget:IsShown() })
+Polestar.Fire("RARE_SPOTTED", { kind = "rare", name = "A rare", source = "sample", inSight = true })
+emit({ PolestarRareToast.Target:IsShown(), PolestarRareCardTarget:IsShown() })"#,
+	);
+	assert_eq!(out[0], json!([false, false]));
+	assert_eq!(out[1], json!([false, false]));
+}
+
 // ------------------------------------------------------------ the section
 
 #[test]

@@ -787,6 +787,42 @@ fn mark_target_off_by_default_on_the_target_button_and_step_key_put_a_skull_on_a
 }
 
 #[test]
+fn ping_where_the_client_has_ping_the_target_button_and_step_key_ping_a_mob_after_targeting_it_never_an_npc_and_the_mark_stays_last() {
+	let script = r#"
+		local t, s, r = PolestarTargetButton, PolestarStepButton, PolestarRareButton
+		local nearby = { "Thuros Lightfingers" }
+		Polestar.Rares = { Nearby = function() return nearby end }
+		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 } })
+		Polestar.Fire("RARE_NEARBY")
+		stub.runTimers()
+		emit({ t:GetAttribute("macrotext"), s:GetAttribute("macrotext"), r:GetAttribute("macrotext") })
+		set("markTarget", true)
+		emit({ t:GetAttribute("macrotext"), s:GetAttribute("macrotext") })
+		q.step({ { t = "turnin", quest = 9, npc = 240, npcName = "Marshal Dughan" } })
+		emit({ t:GetAttribute("macrotext"), s:GetAttribute("macrotext") })
+		local long = {}
+		for i = 1, 5 do long[i] = string.rep("N", 50) .. i end
+		emit(Polestar.QoL.Buttons.TargetMacro(long, 1, "/tm [@target,harm,nodead] !8", Polestar.QoL.Buttons.PingLine()))
+	"#;
+	let plain = |name: &str| format!("/cleartarget [nocombat]\n/targetexact {name}\n/cleartarget [dead]");
+	let out = run_with(script, "SLASH_PING1 = \"/ping\"", None);
+	let ping = |name: &str| plain(name) + "\n/ping [@target]";
+	assert_eq!(out[0], json!([ping("Kobold Vermin"), ping("Kobold Vermin"), ping("Thuros Lightfingers")]));
+	let marked = ping("Kobold Vermin") + "\n/tm [@target,harm,nodead] !8";
+	assert_eq!(out[1], json!([marked, marked]), "the ping right after the target, the mark last");
+	let star = plain("Marshal Dughan") + "\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
+	assert_eq!(out[2], json!([star, star]), "an NPC goal's NPC is not pinged");
+	let long = text(&out[3]);
+	assert!(long.len() <= 255, "fits a macro");
+	assert!(long.ends_with("\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8"), "names are dropped, never the ping or the mark");
+	// A localized command word is used as the client gives it; without the command, no ping line at all.
+	let out = run_with(script, "SLASH_PING1 = \"/пинг\"", None);
+	assert_eq!(out[0][0], json!(plain("Kobold Vermin") + "\n/пинг [@target]"));
+	let out = run_with(script, "SLASH_PING1 = nil", None);
+	assert_eq!(out[0], json!([plain("Kobold Vermin"), plain("Kobold Vermin"), plain("Thuros Lightfingers")]));
+}
+
+#[test]
 fn mark_target_the_icon_for_mobs_and_for_npcs_is_a_setting_a_new_one_each_press_skips_the_other_s_and_leaves_a_marked_npc_as_it_is() {
 	let out = run(r#"
 		local t, s = PolestarTargetButton, PolestarStepButton

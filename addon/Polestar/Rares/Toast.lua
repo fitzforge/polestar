@@ -5,24 +5,38 @@
 -- glyph in a ring in its kind's colour, its name in Title and one line of
 -- what it is (level and kind, zone). Under a hairline, how far: the
 -- distance in Heading after the dart ("85 yd", "In sight" or "Known spawn
--- 120 yd"), then what to do, on the right: "Show rare" or "Show treasure"
--- (the Rares section at it: its drop, places and history) and "Set waypoint"
--- (primary; Nav to the vignette's live position, else where it was seen,
--- else its nearest known spawn). It slides in from above, drains a hairline
--- while it waits, holds while the cursor is on it, and closes itself after
--- rares.toastSeconds. Drag to move (saved in rares.toastPoint). One alert at
--- a time: a newer one replaces it.
+-- 120 yd"), then what to do, on the right: "Target" (a rare, not a
+-- treasure: see below), "Show rare" or "Show treasure" (the Rares section at
+-- it: its drop, places and history) and "Set waypoint" (primary; Nav to the
+-- vignette's live position, else where it was seen, else its nearest known
+-- spawn). It slides in from above, drains a hairline while it waits, holds
+-- while the cursor is on it, and closes itself after rares.toastSeconds.
+-- Drag to move (saved in rares.toastPoint). One alert at a time: a newer one
+-- replaces it.
+--
+-- Target: the card's own buttons cannot target (a protected action), so a
+-- secure button (PolestarRareCardTarget, parented to UIParent) lies over the
+-- card's Target button and runs QoL.Buttons.RareCardMacro: /targetexact the
+-- rare, /ping it for the group, and its mark while "Mark what they target"
+-- is on. Its macro is set, and it is anchored to the card, only out of
+-- combat, when the card appears: a protected frame anchored to the card
+-- would stop the card moving or closing in a fight, so PLAYER_REGEN_DISABLED
+-- (before the lockdown starts) lets go of it. In a fight, or when the card
+-- appeared in one, the Target button is disabled, its tooltip pointing at
+-- the rare button and its key; the fight's end arms it again.
 --
 -- The founder's alert (alert.kind "founder", Rares.FounderSighting) has the
 -- same card: a gold star, "The Polestar founder is nearby!", his name and the
--- zone, and in the row a nudge to wave (the rare button does it; the card's
--- own buttons are not secure and stay hidden).
+-- zone, and in the row a nudge to wave; its Target button targets him and
+-- waves (QoL.Buttons.FounderMacro, as the rare button does).
 --
 --   Rares.Toast.Show(alert)   alert as Rares.AlertOf builds it
 --   Rares.Toast.Hide()
 --   Rares.Toast.Facts(alert)  "Level 11 Rare  ·  Elwynn Forest"
 --   Rares.Toast.Distance(alert) "85 yd" | "In sight" | "Known spawn 120 yd" | the founder's nudge | nil
+--   Rares.Toast.TargetMacro(alert) the Target button's macro, nil: no button
 --   Rares.Toast.frame         the frame, once shown
+--   Rares.Toast.secure        PolestarRareCardTarget, once shown
 
 local ADDON, ns = ...
 local Rares, Theme, W, Anim = ns.Rares, ns.Theme, ns.Widgets, ns.Anim
@@ -72,6 +86,97 @@ local function showRare()
 	if not a then return end
 	Rares.Show(a.kind, a.id)
 	T.Hide()
+end
+
+local function lockdown()
+	return InCombatLockdown and InCombatLockdown() and true or false
+end
+
+-- The Target button's macro for alert a: the founder's wave
+-- (Buttons.FounderMacro), else a rare's (not a treasure, nor the options'
+-- placeholder sample), by its name; nil without QoL's buttons or for a name
+-- that cannot be a macro line.
+function T.TargetMacro(a)
+	local B = ns.QoL and ns.QoL.Buttons
+	if type(a) ~= "table" or a.kind == "treasure" or (a.source == "sample" and not a.id) then return nil end
+	if a.kind == "founder" then return B and B.FounderMacro and B.FounderMacro(a.name) or nil end
+	if not (B and B.RareCardMacro) then return nil end
+	return B.RareCardMacro(a.name)
+end
+
+-- Let go of the secure button: hidden and anchored nowhere. Out of combat
+-- only (PLAYER_REGEN_DISABLED runs before the lockdown).
+local function disarm()
+	local s = T.secure
+	if not s or lockdown() then return end
+	s:Hide()
+	s:ClearAllPoints()
+end
+
+-- The card's Target button: shown for an alert with a macro; enabled once
+-- the secure button over it has that macro, else disabled, with a tooltip
+-- naming the rare button and its key.
+local function paintTarget(shown, armed)
+	local b = f.Target
+	b:SetShown(shown)
+	b:SetEnabled(armed)
+	b:SetAlpha(armed and 1 or 0.5)
+	if armed or not shown then
+		b.psTip, b.psTipLines = nil, nil
+		return
+	end
+	local B = ns.QoL and ns.QoL.Buttons
+	local key = GetBindingKey and GetBindingKey("CLICK PolestarRareButton:LeftButton")
+	key = key and (B and B.KeyText and B.KeyText(key) or key)
+	local r, g, bl = Theme.Color("textDim")
+	b.psTip = b.Label:GetText()
+	b.psTipLines = { { key and format(L["The card can't target during a fight. Use the rare button or its key (%s)."], key)
+		or L["The card can't target during a fight. Use the rare button."], r, g, bl } }
+end
+
+-- Give the secure button the current alert's macro and lay it over the
+-- card's Target button, out of combat; in combat the button shows disabled.
+local function arm()
+	local text = current and T.TargetMacro(current)
+	if not text then
+		disarm()
+		paintTarget(false, false)
+		return
+	end
+	if lockdown() then
+		paintTarget(true, false)
+		return
+	end
+	local s = T.secure
+	s:SetAttribute("type", "macro")
+	s:SetAttribute("macrotext", text)
+	s:ClearAllPoints()
+	s:SetAllPoints(f.Target)
+	s:SetFrameStrata(f:GetFrameStrata())
+	s:SetFrameLevel(f.Target:GetFrameLevel() + 2)
+	s:Show()
+	paintTarget(true, true)
+end
+
+local function buildSecure()
+	local s = CreateFrame("Button", "PolestarRareCardTarget", UIParent, "SecureActionButtonTemplate")
+	-- Mouse clicks only: the client runs a mouse press's action on the
+	-- release (SecureActionButton_OnClick), so the release is all it needs.
+	s:RegisterForClicks("AnyUp")
+	-- The card's button draws it: hover reaches it from here.
+	s:SetScript("OnEnter", function()
+		f.Target:LockHighlight()
+		local h = f.Target:GetScript("OnEnter")
+		if h then h(f.Target) end
+	end)
+	s:SetScript("OnLeave", function()
+		f.Target:UnlockHighlight()
+		local h = f.Target:GetScript("OnLeave")
+		if h then h(f.Target) end
+	end)
+	T.secure = s
+	-- Made in a fight (a /reload): shown but anchored nowhere until it ends.
+	if not lockdown() then s:Hide() end
 end
 
 -- What it is: "Level 11 Rare  ·  Elwynn Forest".
@@ -190,6 +295,9 @@ local function build()
 	f.Waypoint = W.Button(f, L["Set waypoint"], waypoint, { primary = true, height = 28, icon = "icon-goto" })
 	f.Waypoint:SetPoint("RIGHT", f, "TOPRIGHT", -PAD, -rowY)
 	f.Open = W.Button(f, L["Show rare"], showRare, { height = 28, icon = "search" })
+	-- Drawn here; the secure button over it does the click (see arm).
+	f.Target = W.Button(f, L["Target"], nil, { height = 28, icon = "qol-target" })
+	buildSecure()
 
 	f.Timer = W.ProgressLine(f, 2)
 	f.Timer:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 1, 1)
@@ -232,17 +340,23 @@ function T.Show(a)
 	-- The button names what it opens; its width follows the label.
 	W.SetButtonText(f.Open, a.kind == "treasure" and L["Show treasure"] or L["Show rare"])
 	f.Open:SetShown(a.id ~= nil)
-	f.Open:ClearAllPoints()
-	if f.Waypoint:IsShown() then
-		f.Open:SetPoint("RIGHT", f.Waypoint, "LEFT", -8, 0)
-	else
-		f.Open:SetPoint("RIGHT", f, "TOPRIGHT", -PAD, -(BAND_H + 1 + ROW_H / 2))
+	f.Target:SetShown(T.TargetMacro(a) ~= nil)
+	W.SetButtonText(f.Target, founder and L["Wave"] or L["Target"])
+	-- The shown buttons right to left, the primary rightmost, 8px apart.
+	local buttons, last = 0, nil
+	for _, b in ipairs({ f.Waypoint, f.Open, f.Target }) do
+		if b:IsShown() then
+			b:ClearAllPoints()
+			if last then
+				b:SetPoint("RIGHT", last, "LEFT", -8, 0)
+				buttons = buttons + 8
+			else
+				b:SetPoint("RIGHT", f, "TOPRIGHT", -PAD, -(BAND_H + 1 + ROW_H / 2))
+			end
+			buttons = buttons + b:GetWidth()
+			last = b
+		end
 	end
-	-- As wide as the name, the facts, and the distance with the buttons
-	-- need; the band keeps its proportions (cropped, never stretched).
-	local buttons = (f.Waypoint:IsShown() and f.Waypoint:GetWidth() or 0)
-		+ (f.Open:IsShown() and f.Open:GetWidth() or 0)
-		+ ((f.Waypoint:IsShown() and f.Open:IsShown()) and 8 or 0)
 	local distW = dist and (14 + 8 + ceil(W.TextWidth(f.Distance)) + 16) or 0
 	local need = max(WIDTH,
 		TEXT_X + ceil(W.TextWidth(f.Name)) + 40,
@@ -259,6 +373,7 @@ function T.Show(a)
 	local wasShown = f:IsShown()
 	place()
 	f:Show()
+	arm()
 	if not wasShown then
 		-- One authored moment: it settles in from above while it fades up.
 		local p = f.psAnchor
@@ -269,8 +384,22 @@ end
 
 function T.Hide()
 	current = nil
+	disarm()
 	if f then f:Hide() end
 end
+
+-- A fight starts: before the lockdown, let go of the secure button so the
+-- card may still move and close; the Target button shows disabled. The
+-- fight's end arms it again for the card still showing.
+ns.RegisterEvent("PLAYER_REGEN_DISABLED", function()
+	if not (f and current) then return end
+	disarm()
+	paintTarget(T.TargetMacro(current) ~= nil, false)
+end)
+
+ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
+	if f and current and f:IsShown() then arm() else disarm() end
+end)
 
 function T.Current() return current end
 

@@ -47,7 +47,11 @@
 --   Mark target (off by default): the target button and the step key clear
 --     the target first (out of combat) and end their macro with /tm, an icon
 --     on a live hostile target (skull unless set) or an NPC (star), or a new
---     one each press (Buttons.MarkLine).
+--     one each press (Buttons.MarkLine). The rare card's Target button
+--     (Rares/Toast.lua, Buttons.RareCardMacro) marks its rare the same way.
+--   Ping: the target button and step key on mobs, the rare button and the
+--     rare card's Target button follow /targetexact with /ping [@target]
+--     (Buttons.PingLine), where the client has the command.
 --
 -- All of them go with the guide window (ns.GuideShown); the step key stays.
 --
@@ -851,6 +855,16 @@ local function nextMark(kind)
 	return true
 end
 
+-- The /ping line after a mob's /targetexact, so the group sees where it is
+-- (behind rocks or a building): the client's own command word (SLASH_PING1;
+-- a localized client has its own) on the target. With no target the client
+-- sends nothing for "[@target]". nil on a client without the command.
+function Buttons.PingLine()
+	local cmd = SLASH_PING1
+	if type(cmd) ~= "string" or not cmd:find("^/[^%s%c]+$") then return nil end
+	return cmd .. " [@target]"
+end
+
 -- The macro for names, tried from names[preferred] on in click order. Out of
 -- combat it starts from nothing ("/cleartarget [nocombat]"), so a target that
 -- is none of the names -- a mob clicked by hand, the quest giver just turned
@@ -860,9 +874,10 @@ end
 -- corpse or not, so each line is followed by "/cleartarget [dead]", and every
 -- later name is tried only while nothing is targeted ("[noexists]"): the
 -- first living match is kept. A name that is not MacroSafeName never becomes
--- a line. mark: a /tm line (Buttons.MarkLine) for the end. Names past
--- MACRO_LIMIT are dropped from the end; the preferred name and the mark stay.
-function Buttons.TargetMacro(list, preferred, mark)
+-- a line. ping: a /ping line (Buttons.PingLine) after the names; mark: a /tm
+-- line (Buttons.MarkLine) for the end. Names past MACRO_LIMIT are dropped
+-- from the end; the preferred name, the ping and the mark stay.
+function Buttons.TargetMacro(list, preferred, mark, ping)
 	local n = #list
 	if n == 0 then return nil end
 	local order = {}
@@ -872,7 +887,7 @@ function Buttons.TargetMacro(list, preferred, mark)
 	end
 	local count = #order
 	if count == 0 then return nil end
-	local tail = mark and ("\n" .. mark) or ""
+	local tail = (ping and ("\n" .. ping) or "") .. (mark and ("\n" .. mark) or "")
 	local text
 	repeat
 		local lines = { "/cleartarget [nocombat]" }
@@ -883,6 +898,17 @@ function Buttons.TargetMacro(list, preferred, mark)
 		text = concat(lines, "\n") .. tail
 		count = count - 1
 	until #text <= MACRO_LIMIT or count == 0
+	return text
+end
+
+-- The rare alert card's Target button (Rares/Toast.lua): the one rare, the
+-- ping, and the mob's mark while "Mark what they target" is on (and allowed:
+-- Buttons.MarkRight). nil for a name that cannot be a macro line or does not
+-- fit.
+function Buttons.RareCardMacro(name)
+	if not Buttons.MacroSafeName(name) then return nil end
+	local text = Buttons.TargetMacro({ name }, 1, Buttons.MarkLine("mob"), Buttons.PingLine())
+	if not text or #text > MACRO_LIMIT then return nil end
 	return text
 end
 
@@ -1004,7 +1030,8 @@ end
 local function applyTarget(b)
 	QoL.Secure("target", function()
 		local list = target.list
-		local text = Buttons.TargetMacro(list, target.cycle, Buttons.MarkLine(target.kind))
+		-- A mob is pinged for the group; an NPC goal's NPC stays where it is.
+		local text = Buttons.TargetMacro(list, target.cycle, Buttons.MarkLine(target.kind), target.kind == "mob" and Buttons.PingLine() or nil)
 		b:SetAttribute("type", text and "macro" or nil)
 		b:SetAttribute("macrotext", text)
 		b.applied = list[target.cycle]
@@ -1127,7 +1154,7 @@ local function rareMacro(list, cycle)
 			if i == cycle then preferred = #rares end
 		end
 	end
-	return Buttons.TargetMacro(rares, preferred)
+	return Buttons.TargetMacro(rares, preferred, nil, Buttons.PingLine())
 end
 
 local function applyRare(b)
@@ -1294,7 +1321,7 @@ local function applyStep(b)
 	QoL.Secure("step", function()
 		local text, item
 		if step.kind == "target" then
-			text = Buttons.TargetMacro(step.list, step.cycle, Buttons.MarkLine("mob"))
+			text = Buttons.TargetMacro(step.list, step.cycle, Buttons.MarkLine("mob"), Buttons.PingLine())
 		elseif step.kind == "npc" then
 			text = Buttons.TargetMacro({ step.value }, 1, Buttons.MarkLine("npc"))
 		elseif step.kind == "item" then

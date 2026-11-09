@@ -6278,9 +6278,16 @@ Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
   "known spawn 120 yd"), "Set waypoint" (the vignette's position, asked again
   on the click and on parent maps when the player's map lacks it; a unit:
   where it was seen; else the nearest known spawn on the player's continent,
-  or no waypoint) and "Show rare" (the section),
-  `rares.toastSeconds` with a drain line, held under the cursor, draggable
-  (`rares.toastPoint`).
+  or no waypoint), "Show rare" (the section) and, for a rare, "Target": a
+  secure button (`PolestarRareCardTarget`, on UIParent) over the card's own
+  runs `QoL.Buttons.RareCardMacro` (`/targetexact` the name, `/ping
+  [@target]` where the client has `SLASH_PING1`, the mob's `/tm` with
+  `qol.markTarget`); for the founder it runs `Buttons.FounderMacro`. Its
+  macro and its anchor to the card are set only out of combat;
+  `PLAYER_REGEN_DISABLED` (before the lockdown) lets go of it, so the card
+  can still move and close in a fight, where Target shows disabled with a
+  tooltip naming the rare button and its key. `rares.toastSeconds` with a
+  drain line, held under the cursor, draggable (`rares.toastPoint`).
 - **The founder** (`rares.founder`, on; Discovery → Rares → When a rare
   shows up): a player unit on the nameplate, target or mouseover path goes
   to `FounderSighting`, which matches `Compat.UnitFullName(unit)` (Forever's
@@ -6293,8 +6300,9 @@ Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
   only, `GetTime`). The alert is `RARE_SPOTTED` with `kind = "founder"`
   (`enemy` when his faction differs; both factions get it): the toast shows
   a gold star, "The Polestar founder is nearby!", his name and zone, a
-  nudge to wave (another line for the other faction) and no waypoint or
-  section button. Nothing enters the history. He is listed in `Nearby()`
+  nudge to wave (another line for the other faction), the card's Target
+  button (it waves) and no waypoint or section button. Nothing enters the
+  history. He is listed in `Nearby()`
   for the rare button while shown (looked at every 45 s), and the button's
   macro for him is `Buttons.FounderMacro`: `/cleartarget [nocombat]`,
   `/targetexact Fitz Polestar`, `/targetexact [noexists] Fitz` (Forever's
