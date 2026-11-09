@@ -12,6 +12,8 @@ next forever/alliance/30-40/06-badlands
 # Added here: The Perenolde Tiara (543); Plea to the Alliance (634) handed in at Refuge Pointe; MacKreel's Moonshine (647),
 # moved from 01-hillsbrad-foothills for its 15-minute limit: taken after Kor'gresh, handed in straight off the Refuge Pointe flight (#1319).
 # My Little Friends (93176) is optional (#1314): nobody has been recorded taking it, and Amaryllis Webb was never seen.
+# Since the 0.3.7 audit: Refuge Pointe's hand-ins come on the walk from Go'Shek Farm to the Stone of West Binding, and the
+# Swamp of Sorrows ends Harborage, then Watcher Biggs, on the road out.
 # Left out: A Meal Served Cold (212): its 30-minute limit can't last from Stormwind to the Cold Eye Basilisks in Stranglethorn and back.
 
 # ---------------------------------------------------------------- Swamp of Sorrows
@@ -64,12 +66,14 @@ step Galen Goodward
   complete 1393
   turnin 1393                         -- Galen's Strongbox
 
-step Watcher Biggs
-  turnin 1421
-
 step The Harborage
-  turnin 1392 optional -- Magtoor
+  tip West along the road from Galen's strongbox to the Harborage.
+  turnin 1392                         -- Magtoor: Noboru's cudgel
   turnin 1389
+
+step Watcher Biggs
+  tip South down the road to Watcher Biggs, on the way west out of the swamp.
+  turnin 1421
 
 step Duskwood
   zone Duskwood
@@ -91,7 +95,7 @@ step The Binding
   tip Gakin the Darkbinder waits in the Slaughtered Lamb's cellar, in the Mage Quarter. Use the Heartswood Core at the summoning circle there and defeat the succubus it calls. If you took What Is Love?, hand him the Wooden Figurine too, place it at the same circle and defeat the incubus.
   turnin 1738                         -- Gakin the Darkbinder
   accept 1739
-  complete 1739                       -- Subdue the succubus
+  kill 5677 quest 1739.1 @39.2,84.4 live -- Summoned Succubus, at the summoning circle
   turnin 1739                         -- Summon Succubus
   turnin 65602 optional               -- What Is Love?, if you took it
   accept 65603 optional
@@ -159,14 +163,18 @@ step Refuge Pointe
   accept 691                          -- Apprentice Kryten
 
 step Northfold Manor
-  tip The Syndicate hold the farm north-west of Refuge Pointe. A Hay Weevil crawls about the farm: catch one with Amaryllis Webb's Entomology Starter Kit, then tick it off.
+  tip The Syndicate hold the farm north-west of Refuge Pointe.
   tip Careful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot.
   kill 2586 quest 681.1               -- Syndicate Highwayman
   kill 2589 quest 681.2               -- Syndicate Mercenary
-  kill 217589                         -- Hay Weevil: catch it, for My Little Friends
+
+step Hay Weevil
+  when onquest 93176
+  tip Hay Weevils crawl about the north end of Northfold Manor's farm: catch one with the tool from Amaryllis Webb's Entomology Starter Kit.
+  collect 213568 "Hay Weevil Specimen" @31.3,27.2
 
 step Witherbark Village
-  tip South-east from Northfold to the Witherbark trolls in the hills south of Go'Shek Farm; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley. Every troll here can drop a tusk.
+  tip A few Witherbark trolls camp south of Northfold, on the way; the main village lies in the hills south of Go'Shek Farm in the south-east, where the Witch Doctors stand and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk.
   collect 4503 quest 691.1            -- Witherbark Tusk
   collect 4522 quest 691.2            -- Witherbark Medicine Pouch
   collect 5040 quest 691.3            -- Shadow Hunter Knife; below ground
@@ -225,6 +233,13 @@ step Quae
   turnin 660
   accept 661                          -- For Phin Odelic in Southshore
 
+step Refuge Pointe
+  tip West along the road to Refuge Pointe, on the way to the Stone of West Binding.
+  turnin 681                          -- Captain Nials
+  turnin 691                          -- Apprentice Kryten
+  accept 693                          -- Skuerto: Kor'gresh's cave comes after Faldir's Cove
+  vendor nearest
+
 step Circle of West Binding
   collect 4483 quest 651.1            -- Burning Key: Stone of West Binding
   turnin 651                          -- Stone of Inner Binding
@@ -267,14 +282,8 @@ step Faldir's Cove
   turnin 668                          -- Shakes O'Breen
   accept 669                          -- For Fleet Master Seahorn in Booty Bay: keep it
 
-step Refuge Pointe
-  turnin 681                          -- Captain Nials
-  turnin 691                          -- Apprentice Kryten
-  accept 693                          -- Skuerto
-  vendor nearest
-
 step Kor'gresh Coldrage
-  tip Kor'gresh, an ogre mage, holds the cave at the southern end of the Witherbark valley.
+  tip East from Faldir's Cove through the southern hills: Kor'gresh, an ogre mage, holds the cave at the southern end of the Witherbark valley.
   collect 4525 quest 693              -- Trelane's Wand of Invocation; below ground
 
 step Foggy MacKreel
@@ -358,17 +367,21 @@ step Hillsbrad Foothills
 step Southshore
   zone Hillsbrad Foothills
   turnin 537                          -- Magistrate Henry Maleb, inside
-  buy 2321 x1 npc 2381 optional       -- Fine Thread for Bartolo's cloak, from Micha Yance, if you have none
   turnin 512
-  turnin 523 optional
+  turnin 523
   turnin 500                          -- Marshal Redpath
   turnin 661                          -- Phin Odelic
-  turnin 565 optional                 -- Bartolo Ginsetti, if you took his cloak quest
   turnin 540 optional -- Loremaster Dibbs
   accept 542 optional -- For Milton Sheaf in Stormwind: keep it
-  turnin 551 optional
+  turnin 551                          -- Loremaster Dibbs: the parchment
   accept 554
   turnin 564                          -- Darren Malvew
+
+step Bartolo Ginsetti
+  when complete 565
+  tip Bartolo stands between the flight master and the inn; Micha Yance beside him sells Fine Thread if you have none.
+  buy 2321 x1 npc 2381 optional       -- Fine Thread, from Micha Yance
+  turnin 565
 
 # ---------------------------------------------------------------- Loch Modan
 
