@@ -8038,7 +8038,7 @@
 			},
 			{
 				"q": 1132,
-				"reason": "Quest volume (2026-11-08, Alliance 30-40): Fiora Longears (level 30, from 30, 1200 XP) is a delivery: Red Jack Flint stands on Menethil's dock beside the flight master where 30-40/03 lands, and Fiora Longears waits on Theramore's docks where that guide's boat lands, the same NPC who gives Highperch Venom (1135) on that stop. No walk added.",
+				"reason": "Quest volume (2026-11-08, Alliance 30-40): Fiora Longears (level 30, from 30, 1200 XP) is a delivery: Red Jack Flint stands by Menethil Keep's door (9.96,57.96), beside Captain Stoutfist, and Fiora Longears waits inside Theramore's inn (66.46,45.15), a walk from the boat's pier, the same NPC who gives Highperch Venom (1135) on that stop. No walk added. (Spots corrected 2026-11-09: neither stands on the docks.)",
 				"issue": "-"
 			},
 			{
