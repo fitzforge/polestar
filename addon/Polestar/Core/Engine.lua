@@ -1078,6 +1078,491 @@ function Own.skipRoot(p, depth)
 	return nil
 end
 
+-- Every guide stands on its own (#1353; Fitz 2026-11-08, AGENTS.md). A
+-- character who opens a leveling guide without the guides before it (a fresh
+-- start at the guide's level, a skipped guide, or 0.3.5's new route order
+-- for a 0.3.4 character) has accepts here whose prerequisites an EARLIER
+-- guide of the route gives; the guide would pass them ("Requires X first",
+-- Own.preBlocked). When a tab opens the guide (a route handoff, a reworked
+-- tab following the log, and the saved tabs once the quest log is in), its
+-- steps are planned for the character (Own.feederPlan): a feeder chain that
+-- stays in the guide's own zones and costs little goes in, next to the
+-- guide's own steps nearest it; every other accept that waits on an earlier
+-- guide's quest is left out, with its goals, and a step left with no quest
+-- goal goes too. Nothing marks either in the guide window; the report names
+-- them (step.feeder, guide.hidden).
+Own.FEED_BACK = 8 -- guides back along the route
+Own.FEED_LOCAL = 300 -- seconds a feeder chain may add to the guide's route
+Own.FEED_OBJECTIVE = 90 -- seconds counted per objective goal (kill, collect, ...)
+Own.feedTried = {} -- guide id -> true: planned this session
+
+-- The guides leading to g (their `next` or route choice names it, back
+-- FEED_BACK guides, the pack's leveling guides for the character) and their
+-- goals for this character: { first = quest -> its nearest accept { id,
+-- guide (title), title, d, s, pre, preAll }, goals = quest -> { { id, d, s,
+-- step, goal }, ... } }, d the distance back (1: the guide just before).
+-- Steps put in by an earlier plan are left out. -> index, the guide ids read.
+function Own.feederIndex(g)
+	local idx, read = { first = {}, goals = {} }, {}
+	local into = {}
+	for _, h in ipairs(Guides.List()) do
+		if h.pack == g.pack and (h.category == nil or h.category == "Leveling") and Guides.GuideMatches(h, player) then
+			for _, to in ipairs(h.nextChoices or (h.next and { h.next }) or NONE) do
+				into[to] = into[to] or {}
+				into[to][#into[to] + 1] = h.id
+			end
+		end
+	end
+	local seen, frontier = { [g.id] = true }, { g.id }
+	for d = 1, Own.FEED_BACK do
+		local further = {}
+		for _, id in ipairs(frontier) do
+			for _, from in ipairs(into[id] or NONE) do
+				local fg = not seen[from] and Guides.Get(from)
+				if fg then
+					seen[from] = true
+					further[#further + 1] = from
+					read[#read + 1] = from
+					for s, step in ipairs(fg.steps) do
+						if not step.feeder and Guides.Matches(step.only, player) then
+							for _, goal in ipairs(step.goals) do
+								local q = goal.quest
+								if q and Guides.Matches(goal.only, player) then
+									local list = idx.goals[q]
+									if not list then
+										list = {}
+										idx.goals[q] = list
+									end
+									list[#list + 1] = { id = from, d = d, s = s, step = step, goal = goal }
+									if goal.t == "accept" and not idx.first[q] then
+										idx.first[q] = { id = from, guide = fg.title, title = goal.title, d = d, s = s, pre = goal.pre, preAll = goal.preAll }
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+		if #further == 0 then break end
+		frontier = further
+	end
+	return idx, read
+end
+
+-- The chain that brings missing quest p: p's accept in a guide leading here,
+-- and down its own missing prerequisites while such a guide takes them. A
+-- prerequisite in the log is only handed in on the way ("turnin"). nil when
+-- no guide leading here takes p (a gap of the route itself: the guide keeps
+-- such an accept, "Requires X first"). `ok` false when the chain cannot be
+-- done from the route (a quest further down no such guide takes) or the
+-- player skipped one of its quests (Engine.SkipQuest, or a feeder step:
+-- CharState().feedSkips; then `skipped`, and its accepts stay, "skipped"). -> { p, from = idx.first[p], ok, quests = { [q] = true | "turnin" }, deps = {} }
+function Own.feederChain(p, idx)
+	local from = idx.first[p]
+	if not from then return nil end
+	local C, skips = Compat(), ns.CharState().feedSkips
+	local ch = { p = p, from = from, ok = true, quests = {}, deps = {} }
+	local cur = p
+	for _ = 1, 8 do
+		if Own.questSkipped(cur) or (type(skips) == "table" and skips[cur]) then
+			ch.ok, ch.skipped = false, true
+			break
+		end
+		if C.IsOnQuest(cur) then
+			ch.quests[cur] = "turnin"
+			break
+		end
+		local e = idx.first[cur]
+		if not e then
+			ch.ok = false
+			break
+		end
+		ch.quests[cur] = true
+		local m = missingPre(e)
+		if not m then break end
+		cur = m
+	end
+	return ch
+end
+
+-- The first located goal of a step (a travel point), or nil.
+function Own.feedPoint(goals)
+	for _, goal in ipairs(goals) do
+		if goal.map and goal.x and goal.y then return { map = goal.map, x = goal.x, y = goal.y, f = goal.f } end
+	end
+	return nil
+end
+
+-- The extra route of `steps` ({ goals }, in order) for a guide whose own
+-- steps stand at `own` (travel points), in seconds: each step's point is a
+-- detour there and back from the nearest place the guide or the steps before
+-- it already go (ns.DirectTravelCost: a straight run, never the route
+-- planner; another continent costs an hour), plus FEED_OBJECTIVE per goal
+-- other than an accept or a hand-in.
+function Own.feedCost(own, steps)
+	local near = {}
+	for i, p in ipairs(own) do near[i] = p end
+	local t = 0
+	for _, st in ipairs(steps) do
+		local pt = Own.feedPoint(st.goals)
+		if pt then
+			local best
+			for _, q in ipairs(near) do
+				local c = ns.DirectTravelCost(pt, q)
+				if c and (not best or c < best) then best = c end
+			end
+			t = t + 2 * (best or 0)
+			near[#near + 1] = pt
+		end
+		for _, goal in ipairs(st.goals) do
+			if goal.t ~= "accept" and goal.t ~= "turnin" then t = t + Own.FEED_OBJECTIVE end
+		end
+	end
+	return t
+end
+
+-- Guide g's steps for the character, or nil when they are g's own. Each
+-- accept of g that would be passed for a missing prerequisite (not taken,
+-- not done, not skipped) is followed to the quest it lacks that g does not
+-- bring itself (a prerequisite g takes but passes too is followed to the one
+-- it lacks), then to that quest's chain in the guides leading here
+-- (Own.feederChain; none: a gap of the route, left as it is). A chain goes
+-- in when it opens an accept here that is not grey for the character, every
+-- goal of its steps with a place is in one of g's own zones (the maps of its
+-- steps), and done before the first accept it opens it adds at most
+-- FEED_LOCAL to the route from where g and the feeder steps already in go
+-- before that accept (Own.feedCost; the feeder quests themselves may be
+-- grey); chains opening the most go first. Its steps (those of the guides
+-- leading here holding its goals, with those goals only, in route order,
+-- each titled as in its guide, with `feeder` = that guide's id and
+-- `feederStep` = its step there) go after the step of g before that accept
+-- nearest each, in order. The accepts of every other chain are left out,
+-- with all of their quest's goals; a step that loses a goal that way and has
+-- no quest goal left goes.
+-- -> { steps, feeders (steps put in), hidden = { [quest] = { title, need,
+-- needTitle, from (guide title) } }, cost, fromBase (g's step -> new step),
+-- legs (g's step -> true where its baked leg still leads in) }
+function Own.feederPlan(g)
+	local C = Compat()
+	local level = player.level or 1
+	local l = layoutOf(g)
+	local function mine(t) return Guides.Matches(t.step.only, player) and Guides.Matches(t.goal.only, player) end
+	local function acceptOf(p)
+		for _, t in ipairs(l.accepts[p] or NONE) do
+			if mine(t) then return t end
+		end
+		return nil
+	end
+	local function turnsIn(p)
+		for _, t in ipairs(l.turnins[p] or NONE) do
+			if mine(t) and not t.goal.optional then return true end
+		end
+		return false
+	end
+	-- As Own.preBlocked, for g whether or not a tab shows it.
+	local blocker
+	-- As Own.coming: p held (not skipped) counts as coming (#1372); else a
+	-- turn-in here brings p when g takes p itself and that accept is open (a
+	-- turn-in of a quest neither held nor taken here is orphaned).
+	local function coming(p, depth)
+		if C.IsOnQuest(p) and not Own.questSkipped(p) then return true end
+		if not turnsIn(p) then return false end
+		local a = acceptOf(p)
+		if not a then return false end
+		if depth > 8 then return true end
+		return blocker(a.goal, depth + 1) == nil
+	end
+	blocker = function(a, depth)
+		if type(a.preAll) == "table" then
+			for _, p in ipairs(a.preAll) do
+				if not questDone(p) and not coming(p, depth) then return p end
+			end
+		end
+		if type(a.pre) == "table" and #a.pre > 0 then
+			for _, p in ipairs(a.pre) do
+				if questDone(p) or coming(p, depth) then return nil end
+			end
+			return a.pre[1]
+		end
+		return nil
+	end
+	local idx, read
+	local chains, list, seen = {}, {}, {}
+	for s, step in ipairs(g.steps) do
+		if Guides.Matches(step.only, player) then
+			for _, goal in ipairs(step.goals) do
+				local q = goal.quest
+				if goal.t == "accept" and q and not seen[q] and (goal.pre or goal.preAll) and Guides.Matches(goal.only, player) then
+					seen[q] = true
+					local p = not (C.IsOnQuest(q) or questDone(q) or Own.questSkipped(q)) and blocker(goal, 0) or nil
+					for _ = 1, 8 do
+						local a = p and acceptOf(p)
+						if not a then break end
+						p = blocker(a.goal, 0)
+					end
+					if p then
+						if not idx then idx, read = Own.feederIndex(g) end
+						local ch = chains[p]
+						if ch == nil then
+							ch = Own.feederChain(p, idx) or false
+							chains[p] = ch
+							if ch then
+								ch.order = #list + 1
+								list[#list + 1] = ch
+							end
+						end
+						if ch then
+							ch.deps[#ch.deps + 1] = { q = q, s = s, title = goal.title,
+								worth = not (goal.qlvl and C.IsQuestTrivial(tonumber(goal.qlvl), level)) }
+						end
+					end
+				end
+			end
+		end
+	end
+	if #list == 0 then
+		for _, id in ipairs(read or NONE) do
+			if not Engine.TabIds()[id] then Guides.Release(id) end
+		end
+		return nil
+	end
+	-- g's own places: each step's point (the last one before it for a step
+	-- without one), and its zones.
+	local zones, pointAt, ptOf, at = {}, {}, {}, nil
+	for s, step in ipairs(g.steps) do
+		if Guides.Matches(step.only, player) then
+			ptOf[s] = Own.feedPoint(step.goals)
+			at = ptOf[s] or at
+			for _, goal in ipairs(step.goals) do
+				if goal.map then zones[goal.map] = true end
+			end
+		end
+		pointAt[s] = at
+	end
+	-- The source steps holding goals of the quests in `set` (quest -> true |
+	-- "turnin"), in route order, each with those goals in its own order.
+	local function stepsOf(set)
+		local byKey, out = {}, {}
+		for q, how in pairs(set) do
+			-- The quest's goals in the guide of its accept (another guide's copy
+			-- of the accept left out), and its work and hand-in in the guides after.
+			local first = idx.first[q]
+			for _, e in ipairs(idx.goals[q] or NONE) do
+				local fits = not first or e.id == first.id or (e.d < first.d and e.goal.t ~= "accept")
+				if fits and (how == true or e.goal.t ~= "accept") then
+					local k = e.id .. ":" .. e.s
+					local st = byKey[k]
+					if not st then
+						st = { key = k, d = e.d, s = e.s, id = e.id, step = e.step, has = {} }
+						byKey[k] = st
+						out[#out + 1] = st
+					end
+					st.has[e.goal] = true
+				end
+			end
+		end
+		table.sort(out, function(a, b)
+			if a.d ~= b.d then return a.d > b.d end
+			return a.s < b.s
+		end)
+		for _, st in ipairs(out) do
+			st.goals = {}
+			for _, goal in ipairs(st.step.goals) do
+				if st.has[goal] then st.goals[#st.goals + 1] = goal end
+			end
+		end
+		return out
+	end
+	local function local_(steps)
+		for _, st in ipairs(steps) do
+			for _, goal in ipairs(st.goals) do
+				if goal.map and not zones[goal.map] then return false end
+			end
+		end
+		return true
+	end
+	local function opens(ch)
+		local n = 0
+		for _, d in ipairs(ch.deps) do
+			if d.worth then n = n + 1 end
+		end
+		return n
+	end
+	table.sort(list, function(a, b)
+		local na, nb = opens(a), opens(b)
+		if na ~= nb then return na > nb end
+		return a.order < b.order
+	end)
+	-- Chain by chain: its steps go in when they are local and, done before
+	-- the first accept they open (U), cost at most FEED_LOCAL from where the
+	-- guide and the steps already put in go before that (Own.feedCost). Each
+	-- goes after the step of g before U nearest it, in order; a source step
+	-- another chain put in already takes this chain's goals too.
+	local gaps, placed, placedAt, cost = {}, {}, {}, 0
+	for _, ch in ipairs(list) do
+		local mine = ch.ok and opens(ch) > 0 and stepsOf(ch.quests)
+		if mine and local_(mine) then
+			local U = #g.steps + 1
+			for _, d in ipairs(ch.deps) do
+				if d.s < U then U = d.s end
+			end
+			local near, fresh = {}, {}
+			for s = 1, U - 1 do
+				if ptOf[s] then near[#near + 1] = ptOf[s] end
+			end
+			for _, st in pairs(placed) do
+				local pt = Own.feedPoint(st.goals)
+				if pt then near[#near + 1] = pt end
+			end
+			-- Nothing placed before it: the guide's own place at that accept.
+			if #near == 0 and pointAt[U] then near[1] = pointAt[U] end
+			for _, st in ipairs(mine) do
+				if not placed[st.key] then fresh[#fresh + 1] = st end
+			end
+			local c = Own.feedCost(near, fresh)
+			if c <= Own.FEED_LOCAL then
+				cost, ch.inserted = cost + c, true
+				local last = 0
+				for _, st in ipairs(mine) do
+					local p = placed[st.key]
+					if p then
+						for _, goal in ipairs(st.goals) do p.has[goal] = true end
+						p.goals = {}
+						for _, goal in ipairs(p.step.goals) do
+							if p.has[goal] then p.goals[#p.goals + 1] = goal end
+						end
+						if placedAt[st.key] > last then last = placedAt[st.key] end
+					else
+						local pt = Own.feedPoint(st.goals)
+						local best, bestJ = nil, last
+						for j = last, U - 1 do
+							local q = pointAt[j > 0 and j or 1]
+							local d = pt and q and ns.DirectTravelCost(pt, q)
+							if d and (not best or d < best) then best, bestJ = d, j end
+						end
+						placed[st.key], placedAt[st.key] = st, bestJ
+						gaps[bestJ] = gaps[bestJ] or {}
+						table.insert(gaps[bestJ], st)
+						last = bestJ
+					end
+				end
+			end
+		end
+	end
+	-- Left out: the accepts of the chains not put in, with their quests' goals.
+	local hidden, drop = {}, {}
+	-- A chain the player skipped is theirs: its accepts stay, passed as
+	-- "skipped" (Engine.SkipQuest), not left out.
+	for _, ch in ipairs(list) do
+		if not ch.inserted and not ch.skipped then
+			for _, d in ipairs(ch.deps) do
+				hidden[d.q] = { title = d.title, need = ch.p, needTitle = ch.from.title, from = ch.from.guide }
+				drop[d.q] = true
+			end
+		end
+	end
+	if next(placed) == nil and next(hidden) == nil then
+		for _, id in ipairs(read or NONE) do
+			if not Engine.TabIds()[id] then Guides.Release(id) end
+		end
+		return nil
+	end
+	local function feederStep(st)
+		local goals = {}
+		for i, goal in ipairs(st.goals) do
+			local c = {}
+			for k, v in pairs(goal) do c[k] = v end
+			goals[i] = c
+		end
+		local src = st.step
+		return { title = src.title, note = src.note, image = src.image, label = src.label, only = src.only,
+			goals = goals, feeder = st.id, feederStep = st.s }
+	end
+	local steps, fromBase, legs, feeders = {}, {}, {}, 0
+	local prevOwn = 0 -- g's step just before, when nothing came in between
+	local function add(list2)
+		for _, st in ipairs(list2 or NONE) do
+			steps[#steps + 1] = feederStep(st)
+			feeders = feeders + 1
+			prevOwn = nil
+		end
+	end
+	add(gaps[0])
+	for s, step in ipairs(g.steps) do
+		local kept, lost, quests = {}, false, false
+		for _, goal in ipairs(step.goals) do
+			if goal.quest and drop[goal.quest] then
+				lost = true
+			else
+				kept[#kept + 1] = goal
+				if goal.quest then quests = true end
+			end
+		end
+		if not (lost and not quests) then
+			local st = step
+			if lost then
+				st = {}
+				for k, v in pairs(step) do st[k] = v end
+				st.goals = kept
+			end
+			steps[#steps + 1] = st
+			fromBase[s] = #steps
+			if prevOwn == s - 1 then legs[s] = true end
+			prevOwn = s
+		else
+			prevOwn = nil
+		end
+		add(gaps[s])
+	end
+	for _, id in ipairs(read or NONE) do
+		if not Engine.TabIds()[id] then Guides.Release(id) end
+	end
+	return { steps = steps, feeders = feeders, hidden = hidden, cost = cost, fromBase = fromBase, legs = legs }
+end
+
+-- Guide g with the plan's steps: a new guide table with g's fields (a fresh
+-- table, so every per-guide cache starts over), `feeders` (steps put in),
+-- `hidden`, `feedCost`, `fromBase`, `base` = g, and g's baked legs into the
+-- steps whose way in is unchanged.
+function Own.rebuilt(g, plan)
+	local g2 = {}
+	for key, v in pairs(g) do
+		if key ~= "steps" and key ~= "stepsSrc" and key ~= "legs" then g2[key] = v end
+	end
+	g2.steps, g2.feeders, g2.hidden, g2.feedCost, g2.fromBase, g2.base = plan.steps, plan.feeders, plan.hidden, plan.cost, plan.fromBase, g
+	local legs = rawget(g, "legs")
+	if type(legs) ~= "table" then legs = Guides.Legs(g.id) end
+	if type(legs) == "table" then
+		local moved = {}
+		for s, leg in pairs(legs) do
+			if type(s) == "number" and plan.legs[s] and plan.fromBase[s] then moved[plan.fromBase[s]] = leg end
+		end
+		g2.legs = moved
+	end
+	return g2
+end
+
+-- Plan guide `id`'s steps for the character (Guides.Replace), once the quest
+-- log can be read: once per session for a saved tab, and again (`again`)
+-- each time a tab opens the guide afresh, so a quest done or skipped since
+-- counts. Leveling guides only; always planned from the guide as registered
+-- (`base`), which comes back when the plan changes nothing.
+function Own.withFeeders(id, again)
+	if (Own.feedTried[id] and not again) or not logReady or not ns.IsLoggedIn() then return end
+	local g = Guides.Get(id)
+	if not g or not (g.category == nil or g.category == "Leveling") then return end
+	g = g.base or g
+	Own.feedTried[id] = true
+	if not player then refreshPlayer() end
+	local plan = Own.feederPlan(g)
+	if plan then
+		Guides.Replace(id, Own.rebuilt(g, plan))
+	elseif Guides.Get(id) ~= g then
+		Guides.Replace(id, g)
+	end
+end
+
 -- "s:g", built once per step and goal: check-offs and goal skips are looked
 -- up for every goal on every evaluation.
 Own.keys = {}
@@ -4799,6 +5284,7 @@ local function resetLoaded(id, auto)
 	-- Opened by the player: finished or passed whole earlier this session, it
 	-- may finish and chain again.
 	if not auto then completedFired[id] = nil end
+	if not Engine.TabIds()[id] then Own.withFeeders(id, true) end
 	guide = Guides.Get(id)
 	current, computed, pin, pinDone, aim, lastSig, passedUpTo = nil, nil, nil, nil, nil, nil, 0
 	Own.skipQueue[id] = nil
@@ -5349,6 +5835,7 @@ end
 -- the catch-up passes whole chains on to the next, as the login's pick does,
 -- instead of staying open, finished.
 function Engine.OpenTab(id, activate, auto)
+	if id and not Engine.TabIds()[id] then Own.withFeeders(id, true) end
 	local g = id and Guides.Get(id)
 	if not g or not ns.IsLoggedIn() then return nil end
 	local open = tabIndexOf(id)
@@ -7512,6 +7999,14 @@ function Engine.Skip()
 	placing = nil
 	local s, id = current, guide.id
 	skippedFor(id, true)[s] = true
+	-- A feeder step skipped stays out of the guide's next prefix (Own.feederChain).
+	if guide.steps[s].feeder then
+		local st = ns.CharState()
+		if type(st.feedSkips) ~= "table" then st.feedSkips = {} end
+		for _, goal in ipairs(guide.steps[s].goals) do
+			if goal.quest then st.feedSkips[goal.quest] = true end
+		end
+	end
 	if pin then Own.view(nextApplicable(pin)) end
 	evaluate()
 	ns.Fire("PLAYER_SKIPPED_STEP", id, s)
@@ -8342,6 +8837,8 @@ Own.reworkedTabs = {}
 -- update carries it to the step's new place first).
 local function restoredTab(g)
 	if (g.category == nil or g.category == "Leveling") and Own.reworked(g) then Own.reworkedTabs[g.id] = true end
+	Own.withFeeders(g.id)
+	g = Guides.Get(g.id) or g
 	checkShape(g)
 	local pins = ns.CharState().pins
 	local p = type(pins) == "table" and pins[g.id]
@@ -8379,8 +8876,44 @@ function Own.followReworked()
 	evaluate()
 end
 
+-- The saved tabs came back before the quest log could be read: once it is,
+-- each gets its steps planned (Own.withFeeders) and is placed afresh from the
+-- log, as at login; its saved view follows its step, and checkShape carries
+-- its saved check-offs and skips over.
+function Own.feedTabs()
+	sync()
+	local changed = false
+	for _, t in ipairs(tabs) do
+		local id = t.guide.id
+		if not Own.feedTried[id] then
+			Own.withFeeders(id)
+			local g2 = Guides.Get(id)
+			if g2 and g2 ~= t.guide and g2.fromBase then
+				t.guide = g2
+				t.current, t.computed, t.lastSig, t.passedUpTo = nil, nil, nil, 0
+				t.pin = t.pin and g2.fromBase[t.pin] or nil
+				t.placing = GetTime() + PLACE_SECONDS
+				changed = true
+			end
+		end
+	end
+	if not changed then return end
+	loaded = nil
+	useActive()
+	tabsDirty = true
+	persist()
+	announceActive()
+	evaluate()
+end
+
 ns.RegisterEvent("QUEST_LOG_UPDATE", function()
-	if next(Own.reworkedTabs) ~= nil and ns.IsLoggedIn() then Own.followReworked() end
+	if not ns.IsLoggedIn() then return end
+	logReady = true
+	if next(Own.reworkedTabs) ~= nil then Own.followReworked() end
+	if not Own.feedSwept then
+		Own.feedSwept = true
+		Own.feedTabs()
+	end
 end)
 
 local function byPlace(list)

@@ -66,6 +66,8 @@ mod engine_cast;
 mod engine_catchup;
 #[path = "engine-die.rs"]
 mod engine_die;
+#[path = "engine-feeders.rs"]
+mod engine_feeders;
 #[path = "engine-enter.rs"]
 mod engine_enter;
 #[path = "engine-flights.rs"]

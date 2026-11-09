@@ -1410,7 +1410,32 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   mark nothing in advance; the giver's window covers them. The mark is live:
   it does not hold the step, the focus or the arrow, and it goes the moment
   the prerequisite is done (the guide then goes back to it), not
-  on an unrelated turn-in. A giver's window that offers the quest (this
+  on an unrelated turn-in. Every guide stands on its own (#1353): where
+  the missing quest is given by an earlier guide of the route (a fresh start
+  at the guide's level, a skipped guide, an older route order), the guide's
+  steps are planned for the character (`Own.withFeeders`: each time a tab
+  opens it afresh, a route hands over to it or a reworked tab follows the
+  log, and once for the saved tabs at the first `QUEST_LOG_UPDATE`; planned
+  from the guide as registered). `Own.feederPlan` follows each such accept
+  to the quest it lacks that the guide does not bring, then down that
+  quest's chain in the guides leading here (`next` or a route choice, back
+  8 guides; a quest in the log only handed in). A chain goes in when it
+  opens an accept that is not grey, all its places are in the guide's own
+  zones, and, done before the first accept it opens, it costs at most 5
+  minutes (`Own.feedCost`: a straight-run detour there and back from the
+  nearest place the guide and the feeder steps already in go before that
+  accept, plus 90 s per objective); its source steps, with its goals only,
+  go after the guide's nearest step before that accept. Every other such
+  accept is left out with all of its quest's goals, and a step left with no
+  quest goal goes (`Own.rebuilt`: a new guide table in the registry,
+  `Guides.Replace`, with `feeders`, `hidden`, `fromBase`, baked legs kept
+  where the way in is unchanged). A missing quest no guide leading here
+  gives is a gap of the route and keeps its "Requires" line. Nothing shows in
+  the guide window; the report names the planned steps (`[feeder from <id>
+  step N]`) and the quests left out (`[hidden: needs <quest> from <guide>]`).
+  `checkShape` carries saved check-offs and skips to the new step numbers; a
+  feeder step the player skips keeps its quests out of later plans
+  (`CharState().feedSkips`). A giver's window that offers the quest (this
   session) beats the data: no mark in advance after that. Beyond
   that, when a gossip/greeting/detail window opens on an `accept` goal's NPC
   (any tab's current step) and the quest is neither offered, listed as active
