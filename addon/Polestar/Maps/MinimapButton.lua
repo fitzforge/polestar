@@ -130,9 +130,14 @@ local function build()
 	logo:SetSize(SIZE - 10, SIZE - 10)
 	logo:SetPoint("CENTER", button, "CENTER", 0, 0)
 	button.Icon = logo
-	local hover = W.Tex(button, "HIGHLIGHT", "circle", "accent")
+	-- The hover: the accent at 25 %, the strength in its colour (W.Color's
+	-- alpha, kept through theme repaints), not in the region's own alpha, so a
+	-- button bar that shows our regions again at full alpha cannot turn it into
+	-- an opaque disc over the logo.
+	local hover = W.Tex(button, "HIGHLIGHT", "circle")
+	W.Color(hover, "accent", 0.25)
 	hover:SetAllPoints(button)
-	hover:SetAlpha(0.25)
+	button.Hover = hover
 	button:SetScript("OnClick", function(self, which)
 		if which == "RightButton" then
 			W.HideTooltip(self)

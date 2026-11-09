@@ -439,3 +439,40 @@ fn a_dungeon_pin_opens_its_dungeon_page_without_the_dungeons_module_or_with_shif
 	assert_eq!(out["targets"], json!(["The Deadmines@9000:42.5,71.7", "The Deadmines@9000:42.5,71.7"]));
 	assert_eq!(out["tip"], json!(["The Deadmines", "Dungeon · Levels 17–26", " ", "Click to open its page", "Shift-click to set a waypoint"]));
 }
+
+// Fitz in game (0.3.6, the button in EllesmereUIMinimap's button bar): on hover the button showed a flat accent
+// disc where its logo was. The logo and the hover resolve to Polestar's own files, and the hover's 25 % is in its
+// colour, so a bar that sets our regions back to full alpha cannot turn it into an opaque disc.
+#[test]
+fn the_minimap_button_s_logo_and_hover_are_polestar_s_files_the_hover_a_quarter_strong_even_shown_at_full_alpha() {
+	let out = run(
+		r#"
+		local b = stub.frame("PolestarMinimapButton")
+		local function look()
+			local r, g, bl, a = b.Hover:GetVertexColor()
+			return { icon = b.Icon:GetTexture(), hover = b.Hover:GetTexture(), layer = b.Hover:GetDrawLayer(),
+				strength = (a or 1) * b.Hover:GetAlpha(), iconAlpha = b.Icon:GetAlpha() }
+		end
+		local r = { rest = look() }
+		stub.RunScript(b, "OnEnter")
+		r.enter = look()
+		stub.RunScript(b, "OnLeave")
+		r.leave = look()
+		-- A bar showing every region of the button at full alpha.
+		for _, region in ipairs({ b:GetRegions() }) do region:SetAlpha(1) end
+		r.bar = look()
+		Polestar.Theme.Refresh()
+		r.repainted = look()
+		emit(r)"#,
+		None,
+	);
+	let rest = &out["rest"];
+	assert!(rest["icon"].as_str().unwrap().ends_with("Polestar\\Media\\UI\\logo"), "{rest}");
+	assert!(rest["hover"].as_str().unwrap().ends_with("Polestar\\Media\\UI\\circle"));
+	assert_eq!(rest["layer"], "HIGHLIGHT");
+	for k in ["rest", "enter", "leave", "bar", "repainted"] {
+		assert!((f64::from(out[k]["strength"].as_f64().unwrap()) - 0.25).abs() < 1e-6, "{k}: the hover at 25 %: {}", out[k]);
+		assert_eq!(out[k]["iconAlpha"], 1, "{k}: the logo shows");
+		assert_eq!(out[k]["icon"], rest["icon"]);
+	}
+}
