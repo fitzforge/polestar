@@ -9337,3 +9337,16 @@ test('forever/horde/05-stonetalon-mountains.guide: the Kadrak tip gives Rogues c
 	assert.ok(fiz >= 0 && kad === fiz + 1, 'Kadrak right after Fizzule');
 	assert.match([].concat(steps[kad].tip || []).join(' '), /Rogues coming from Fizzule's tower ride west/);
 });
+
+// Final route review, Horde 40-60 (0.3.6 leftovers): Winna's kitten (Corrupted Sabers, 4506). The moonwell step held
+// `complete 4506` with the Kitten Carrier's use on the NEXT step, so no item button showed at the moonwell and the use
+// line was dead once the cat reached Winna. The use is now on the moonwell step, before the completion.
+test('forever/horde/50-60/02-felwood.guide: the Kitten Carrier is used on the moonwell step', { skip }, () => {
+	const list = goals('forever/horde/50-60/02-felwood.guide');
+	const use = list.filter(({ goal }) => goal.t === 'use' && goal.item === 12565);
+	assert.equal(use.length, 1, 'one use of the Kitten Carrier');
+	const done = list[at(list, 'complete 4506', is('complete', 4506))];
+	assert.equal(use[0].s, done.s, 'on the step that completes Corrupted Sabers');
+	assert.ok(list.indexOf(use[0]) < list.indexOf(done));
+	assert.ok(done.step.goals.some((g) => g.t === 'goto' && g.x === 32.3 && g.y === 66.6), 'the step walks to the Jadefire moonwell');
+});
