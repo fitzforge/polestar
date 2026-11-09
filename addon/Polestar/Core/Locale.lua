@@ -5,10 +5,12 @@
 -- loads. Contract: docs/ARCHITECTURE.md, "Localisation".
 --
 -- An English client loads nothing. A folder that is missing or disabled
--- leaves the interface in English (a missing key renders as itself), and
--- Names and GuideTexts try it again later through Data.Pack. Not through
--- Data.Pack here: it refuses in combat, which would leave a /reload in
--- combat in English for the session, and keeps a failure for the session.
+-- leaves the interface in English (a missing key renders as itself). Names
+-- and GuideTexts ask for the folder again later through Data.Pack: if that
+-- load succeeds where this one failed, L fills then, and only what was read
+-- at load (key binding names, the options' labels) stays English. Not
+-- through Data.Pack here: it refuses in combat, which would leave a /reload
+-- in combat in English for the session, and keeps a failure for the session.
 
 local _, ns = ...
 

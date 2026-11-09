@@ -80,3 +80,41 @@ fn an_english_client_opens_no_language_folder_and_a_missing_one_leaves_the_inter
 	let out = run("deDE", false);
 	assert_eq!(out[0], json!(["Next step", "Previous step", false, "Polestar Guides", 0, ""]), "a German client without Polestar_deDE");
 }
+
+#[test]
+fn a_failed_early_load_that_a_later_one_makes_up_leaves_only_what_was_read_at_load_in_english() {
+	// The first ask for the folder (Core/Locale.lua's) fails, the next one (Names, through Data.Pack)
+	// loads it: L fills then, so a string read at load (the key binding's name) stays English and one
+	// looked up later is German. The report log names the failure.
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_packs.lua"],
+		before: format!(
+			r#"{}
+do
+	local load, failed = C_AddOns.LoadAddOn, false
+	function C_AddOns.LoadAddOn(name)
+		if name == "Polestar_deDE" and not failed then
+			failed = true
+			return false, "DEMAND_LOADED"
+		end
+		return load(name)
+	end
+	LoadAddOn = C_AddOns.LoadAddOn
+end"#,
+			client("deDE", true)
+		),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		script: r#"
+local L, N = Polestar.L, Polestar.Names
+local early = L["Previous step"]
+local name = N.Cached("quest", 7) or false
+local logged = false
+for _, line in ipairs(Polestar.DebugLog()) do
+	if line:find("Locale: Polestar_deDE not loaded: DEMAND_LOADED", 1, true) then logged = true end
+end
+emit({ BINDING_NAME_POLESTAR_NEXT, early, name, L["Previous step"], logged })"#
+			.into(),
+		..Default::default()
+	});
+	assert_eq!(out[0], json!(["Next step", "Previous step", "Säuberung im Koboldlager", "Vorheriger Schritt", true]));
+}
