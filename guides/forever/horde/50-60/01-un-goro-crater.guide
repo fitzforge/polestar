@@ -11,6 +11,8 @@ next forever/horde/50-60/02-felwood
 # into this file.
 # Added here: Pawn Captures Queen (4507), Yuka Screwspigot (4324).
 # Added here (0.3.7): Uncle Carlin (5241), a message to Carlin on the closing Light's Hope Chapel stop.
+# Defenders of Darrowshire (5211) is taken from Carlin after Uncle Carlin is handed in (the server's quest data names
+# 5241 as its prerequisite); its spirits are freed on the Eastern Plaguelands guide's Corin's Crossing stop.
 # Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): Invader's Scourgestones (5509).
 
 step Un'Goro Crater
@@ -437,14 +439,8 @@ step Light's Hope Chapel
   tip Ride south back to the road and follow it east across the whole zone to Light's Hope Chapel.
   getfp "Light's Hope Chapel"
   sethome "Light's Hope Chapel"
-  accept 5211                         -- Carlin Redpath
   accept 5510 optional
   accept 6021                         -- Caretaker Alen
-
-step Eastern Plaguelands: kill these as you meet them
-  zone Eastern Plaguelands
-  tip With Carlin's quest in your log, slain Scourge sometimes leave a Darrowshire Spirit; talk to it to free it. Kill undead on the ride south-west to Darrowshire.
-  kill 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
 
 step Pamela Redpath
   tip Pamela's ghost stands in the ruins of Darrowshire, in the south-west.
@@ -473,8 +469,9 @@ step Pestilent Scar
 
 step Back to Light's Hope Chapel
   turnin 6021                         -- Caretaker Alen
-  turnin 5211
   turnin 5241                         -- Carlin Redpath
+  accept 5211
+  note Defenders of Darrowshire's spirits come with the Eastern Plaguelands guide's Corin's Crossing stop: keep it.
   turnin 5510 optional
 
 # ---------------------------------------------------------------- Western Plaguelands: Marlene and Chromie

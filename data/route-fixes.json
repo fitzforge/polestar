@@ -4790,6 +4790,18 @@
 				],
 				"faction": "Horde",
 				"why": "Horde final route review (0.3.6, 2026-11-09): Durotar (Orc, Troll) Warlocks: Creature of the Void's Tablet of Verga (Skull Rock) goes to Gan'rul Bloodeye, and The Binding is done, on the guide's last arrival in Orgrimmar (the Cleft of Shadow, beside Neeru Fireblade for the next guide), after the last Razor Hill stop; the route walked from Skull Rock into Orgrimmar and back out to Margoz in the middle of the guide, then came back to the city at the end (the benchmark order binds the voidwalker with Neeru's hand-in at the end)."
+			},
+			{
+				"a": [
+					"turnin",
+					5241
+				],
+				"b": [
+					"accept",
+					5211
+				],
+				"faction": "Horde",
+				"why": "GuideHealth036 (0.3.6, 2026-11-09, breadcrumb sweep): Defenders of Darrowshire (5211) after Uncle Carlin (5241) is handed to Carlin Redpath: the Forever server data (PrevQuestID 5241) and the quest data's pre name 5241 as its prerequisite, and the Alliance route already takes them in that order. Horde 50-60/01 took 5211 on its first Light's Hope stop and Uncle Carlin later at Pamela, so Carlin would not offer it; 5211 is now taken on 01's last Light's Hope stop and its spirits freed at Corin's Crossing in 50-60/05, handed in with Villains of Darrowshire."
 			}
 		],
 		"notes": [

@@ -9350,3 +9350,18 @@ test('forever/horde/50-60/02-felwood.guide: the Kitten Carrier is used on the mo
 	assert.ok(list.indexOf(use[0]) < list.indexOf(done));
 	assert.ok(done.step.goals.some((g) => g.t === 'goto' && g.x === 32.3 && g.y === 66.6), 'the step walks to the Jadefire moonwell');
 });
+
+// GuideHealth036 breadcrumb sweep (0.3.6): Horde 50-60/01 took Defenders of Darrowshire (5211) from Carlin Redpath on
+// its first Light's Hope stop and Uncle Carlin (5241) later at Pamela. The server data and the quest data name 5241 as
+// 5211's prerequisite (the Alliance route takes them in that order): 5211 now comes after 5241 is handed in, on 01's last
+// Light's Hope stop, and its spirits are freed at Corin's Crossing in 50-60/05, handed in with Villains of Darrowshire.
+test('Horde Darrowshire: Defenders of Darrowshire after Uncle Carlin', { skip }, () => {
+	const un = goals('forever/horde/50-60/01-un-goro-crater.guide');
+	const acc = at(un, 'accept 5211', is('accept', 5211));
+	assert.ok(at(un, 'turnin 5241', is('turnin', 5241)) < acc, 'Uncle Carlin handed in before Defenders of Darrowshire is taken');
+	assert.ok(!un.some(({ goal }) => goal.quest === 5211 && goal.t !== 'accept'), 'no spirits or hand-in in the Un\'Goro guide');
+	const ep = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const spirits = at(ep, 'the spirits', (g) => g.t === 'kill' && g.quest === 5211);
+	assert.ok(spirits < at(ep, 'turnin 5211', is('turnin', 5211)), 'spirits before the hand-in');
+	assert.equal(ep[at(ep, 'turnin 5211', is('turnin', 5211))].s, ep[at(ep, 'turnin 5181', is('turnin', 5181))].s, 'with Villains of Darrowshire');
+});
