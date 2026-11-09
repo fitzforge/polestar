@@ -239,7 +239,7 @@ step Scuttle Coast: kill these as you meet them
 step Echo Isles: kill these as you meet them
   zone Durotar
   tip Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.
-  tip Wade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach.
+  tip Durotar Tigers roam the isle as well as the shore south of Sen'jin, and the Taillasher eggs sit in nests on the isles and along the beach.
   collect 277128 quest 97223.1
   collect 4892 quest 817.1            -- Durotar Tiger Fur
 

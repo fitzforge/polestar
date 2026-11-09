@@ -9304,3 +9304,14 @@ test('forever/horde/troll/01-durotar.guide: one "Back to the Den" step after the
 	const list = goals('forever/horde/troll/01-durotar.guide');
 	assert.equal(list[at(list, 'turnin 4402', is('turnin', 4402))].step.title, 'Galgar');
 });
+
+// Final route review, Horde 1-30 (0.3.6 leftovers): Orc Durotar's first Echo Isles step told the player to wade back
+// west to the shore, and the next one to head south through the isles: a bounce in words. Durotar Tigers (3121) roam
+// the northern isle too (67-70,70-74 on Durotar's map), so the tigers and the eggs are taken on the isles' way south.
+test('forever/horde/orc/01-durotar.guide: the Echo Isles tips walk one way, north isle then south through the isles', { skip }, () => {
+	const src = fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/horde/orc/01-durotar.guide'), 'utf8');
+	assert.doesNotMatch(src, /tip Wade back west to the shore south of Sen'jin\. Durotar Tigers/);
+	const isles = compiled('forever/horde/orc/01-durotar.guide').steps.filter((st) => st.title === 'Echo Isles: kill these as you meet them');
+	assert.equal(isles.length, 2);
+	assert.ok(isles[0].goals.some((g) => g.t === 'collect' && g.item === 4892), 'tiger furs on the first isles step');
+});
