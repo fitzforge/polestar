@@ -753,5 +753,43 @@
 			"ref": "creature 20002243 (entry 738) waypoint_path 800022430: about 28 minutes at node 1 (38.0,3.4), 3 minutes at node 24 (40.3,8.4)"
 		},
 		"note": "Private Thorsen (Jungle Secrets, Supplies to Private Thorsen) stands most of the time at the top of the Rebel Camp's path and walks down to the road end now and then; the data had only the road end (#1425). Both ends of his walk."
+	},
+	"5895": {
+		"addSpawns": {
+			"1436": {
+				"f": "l",
+				"pts": [
+					[
+						46.4,
+						59.2
+					]
+				]
+			}
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-08): 3 people handed Call of Water (94503) in to the Minor Manifestation of Water at Westfall 46.4,59.2 and took 94505 from it there; 4 people saw it there"
+		},
+		"note": "Alliance shaman Call of Water: the Minor Manifestation of Water (npc 5895) rises beside the Forgotten Shrine by Stendel's Pond in Westfall, as well as at its Silverpine spot (kept). The merged data had only Silverpine, so the arrow had no Westfall point for it."
+	},
+	"5894": {
+		"addSpawns": {
+			"1436": {
+				"f": "l",
+				"pts": [
+					[
+						45.7,
+						60.1
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08): the Corrupt Minor Manifestation of Water dropped its loot at Westfall 45.7,60.1; 3 people handed Call of Water (94502) in at the Forgotten Shrine beside it (45.6,60.0)"
+			}
+		],
+		"note": "Alliance shaman Call of Water: drinking the Water Sapta at the Forgotten Shrine by Stendel's Pond in Westfall calls the Corrupt Minor Manifestation of Water (npc 5894) there, as well as at its Silverpine spot (kept). The merged data had only Silverpine."
 	}
 }

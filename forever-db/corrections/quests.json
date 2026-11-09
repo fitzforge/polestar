@@ -6893,5 +6893,77 @@
 			}
 		],
 		"note": "Spellfire Robes, the Horde mage robe, comes from Josef Gregorian in the Undercity's tailor shop once he has the materials. The merged data named Rhiannon Davis beside him as its only giver."
+	},
+	"1462": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID -1520 (taken while 1520 is in the log)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db quest_template PrevQuestId -1520"
+			}
+		],
+		"note": "The replacement sapta (1462) is offered while quest 1520 is in the log, not after it is handed in: both world databases give the prerequisite as in the log. The merged data read it as a hand-in first, and the guide linter flagged the class guides' replacement steps; the corrections cannot name a quest that must be in the log, so the prerequisite is dropped and the guides' steps wait for the quest in the log themselves."
+	},
+	"1463": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID -1517 (taken while 1517 is in the log)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db quest_template PrevQuestId -1517"
+			}
+		],
+		"note": "The replacement sapta (1463) is offered while quest 1517 is in the log, not after it is handed in: both world databases give the prerequisite as in the log. The merged data read it as a hand-in first, and the guide linter flagged the class guides' replacement steps; the corrections cannot name a quest that must be in the log, so the prerequisite is dropped and the guides' steps wait for the quest in the log themselves."
+	},
+	"1464": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID -1526 (taken while 1526 is in the log)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db quest_template PrevQuestId -1526"
+			}
+		],
+		"note": "The replacement sapta (1464) is offered while quest 1526 is in the log, not after it is handed in: both world databases give the prerequisite as in the log. The merged data read it as a hand-in first, and the guide linter flagged the class guides' replacement steps; the corrections cannot name a quest that must be in the log, so the prerequisite is dropped and the guides' steps wait for the quest in the log themselves."
+	},
+	"2842": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID -2841 (taken while Rig Wars is in the log)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db quest_template PrevQuestId -2841"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08): 2 people took Chief Engineer Scooty (2842) with Rig Wars (2841) still in the log, none after handing it in"
+			}
+		],
+		"note": "Chief Engineer Scooty is offered while Rig Wars is in the log, not after it is handed in: both world databases give the prerequisite as in the log, and players took it that way. The merged data read it as a hand-in; the corrections cannot name a quest that must be in the log, so the prerequisite is dropped."
 	}
 }

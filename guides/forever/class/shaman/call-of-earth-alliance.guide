@@ -17,7 +17,8 @@ why Your Earth Totem: without it no earth totem can be cast. Stoneskin Totem com
 # Iceclaw Bear Pendants from the Frostmane) -> the Spirit Stone on the ridge
 # north-west of Anvilmar (94374) -> Teo (94375: the Earth Totem).
 # The Archaic Rune is the level 1 letter the leveling guide takes with
-# Dwarven Outfitters (179) before it; this guide starts at Teo.
+# Dwarven Outfitters (179) before it; this guide takes it first only for a
+# shaman who has not handed it in (Call of Earth needs it, quests.json pre).
 # Call of Earth 96243 (level 10, Eldrun Stormbreaker in Ironforge or Ingrid
 # Dunwald in Kharanos) only sends a shaman who skipped the chain back to Teo;
 # Earth Sapta 94472 replaces a lost sapta from Teo while 94374 is open.
@@ -29,6 +30,13 @@ why Your Earth Totem: without it no earth totem can be cast. Stoneskin Totem com
 # and a `when level>=10` step with it could not be played through.
 # The leveling guide forever/alliance/dwarf-gnome/01-dun-morogh carries the
 # chain inline; this guide is for shamans off the route.
+
+step Archaic Rune
+  when !turnedin 98581
+  zone Dun Morogh
+  tip Teo's Call of Earth needs the Archaic Rune handed in first: Sten Stoutarm, where you entered Coldridge Valley, gives it to Dwarf shamans after his Dwarven Outfitters. Bring it up the road to Teo Hammerstorm inside Anvilmar.
+  accept 98581                                -- Sten Stoutarm
+  turnin 98581                                -- Teo Hammerstorm
 
 step Teo Hammerstorm
   zone Dun Morogh
