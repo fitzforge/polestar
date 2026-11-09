@@ -34,7 +34,8 @@ return {
 	["{npc:4794}: the crawlers are on the {area:8} shore, keep it"] = "",
 
 	-- Step 5: Swamplight Manor
-	["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house."] = "Идите по дороге на север к разрушенной усадьбе; Ярл живет в лачуге рядом с ней, а рыхлая земля – у угла дома.",
+	-- {quest:1218} Soothing Spices · {npc:4897} Helenia Olden
+	["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house. Jarl wants three {quest:1218}: if you passed {npc:4897}, buy them from her in Theramore first."] = "",
 	["with the spices from Theramore"] = "со специями из Терамора",
 
 	-- Step 6: "Stinky" Ignatz
@@ -400,17 +401,21 @@ return {
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
-	-- Step 114: Thelsamar
+	-- Step 114: Loch Modan
+	-- {area:1} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
+	["Ride east out of {area:1} through the tunnel into {zone:1432} and on along the road to {area:144}."] = "",
+
+	-- Step 115: Thelsamar
 	-- {npc:1470} Ghak Healtouch · {area:144} Thelsamar · {area:1517} Uldaman · {area:3} Badlands
 	["{npc:1470} is below ground in {area:144}, by the inn. His mushrooms grow in the {area:1517} dig in the {area:3}; the next guide takes you there and back through {area:144}."] = "",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "",
 
-	-- Step 116: Hammertoe's Digsite
+	-- Step 117: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {area:3} Badlands · {npc:2860} Sigrun Ironhew
 	["Ride south out of {zone:1432} through the pass into the {area:3}; {npc:2860} camps at the dig."] = "Езжайте на юг из зоны {zone:1432} через перевал в зону {area:3}; {npc:2860} стоит лагерем у раскопок.",
 
-	-- Step 117: Garek
+	-- Step 118: Garek
 	-- {npc:2888} Garek · {area:1898} Dustwind Gulch
 	["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888} стоит лагерем в одиночестве ({area:1898}), к юго-востоку от раскопок.",
 
@@ -426,6 +431,7 @@ return {
 	-- ["Ride back west along the road; {npc:217412} stands a short way north of Biggs."] = "Езжайте по дороге назад на запад; {npc:217412} стоит немного к северу от Биггса.",
 	-- ["Ride from Theramore west along the Dustwallow road into the {zone:1413} and north to {area:392} on the coast. Learn the flight path from {npc:16227}, then take the boat to {area:35} from the dock."] = "Езжайте из Терамора на запад по дороге через Пылевые топи в зону {zone:1413} и на север к побережью: {area:392}. Получите маршрут полета у NPC {npc:16227}, затем сядьте на корабль у причала: {area:35}.",
 	-- ["Skullsplitter ruins"] = "Руины Дробителей Черепов",
+	-- ["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house."] = "Идите по дороге на север к разрушенной усадьбе; Ярл живет в лачуге рядом с ней, а рыхлая земля – у угла дома.",
 	-- ["Take the {area:2257} from the {object:28027}. {npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:1356} in the hall itself, {npc:2786} in the {object:32383}. The next guide flies on to {area:144}."] = "В районе {object:28027} сядьте на поезд ({area:2257}). {npc:5637} – в зале Поисковой корпорации у здания {object:32356}, {npc:1356} – в самом зале, {npc:2786} – {object:32383}. Следующий гайд летит дальше: {area:144}.",
 	-- ["The Cold Eye Basilisks lie on the rocks west of the mine."] = "Ледоглазые василиски лежат на скалах к западу от шахты.",
 	-- ["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes."] = "Пауки Мглистой пещеры гнездятся вокруг пещеры на северо-западе болота; глаза падают с каждого паука.",

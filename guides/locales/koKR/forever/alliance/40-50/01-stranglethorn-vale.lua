@@ -34,7 +34,8 @@ return {
 	["{npc:4794}: the crawlers are on the {area:8} shore, keep it"] = "",
 
 	-- Step 5: Swamplight Manor
-	["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house."] = "길을 따라 북쪽의 폐허가 된 오두막으로 가세요. 자를은 그 옆 판잣집에 살고, 흐트러진 흙은 집 모퉁이에 있습니다.",
+	-- {quest:1218} Soothing Spices · {npc:4897} Helenia Olden
+	["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house. Jarl wants three {quest:1218}: if you passed {npc:4897}, buy them from her in Theramore first."] = "",
 	["with the spices from Theramore"] = "테라모어에서 산 향신료를 가지고",
 
 	-- Step 6: "Stinky" Ignatz
@@ -400,17 +401,21 @@ return {
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
-	-- Step 114: Thelsamar
+	-- Step 114: Loch Modan
+	-- {area:1} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
+	["Ride east out of {area:1} through the tunnel into {zone:1432} and on along the road to {area:144}."] = "",
+
+	-- Step 115: Thelsamar
 	-- {npc:1470} Ghak Healtouch · {area:144} Thelsamar · {area:1517} Uldaman · {area:3} Badlands
 	["{npc:1470} is below ground in {area:144}, by the inn. His mushrooms grow in the {area:1517} dig in the {area:3}; the next guide takes you there and back through {area:144}."] = "",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "",
 
-	-- Step 116: Hammertoe's Digsite
+	-- Step 117: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {area:3} Badlands · {npc:2860} Sigrun Ironhew
 	["Ride south out of {zone:1432} through the pass into the {area:3}; {npc:2860} camps at the dig."] = "남쪽 고개를 지나 {zone:1432}에서 {area:3}(으)로 가십시오. {npc:2860}은(는) 발굴 현장에 야영하고 있습니다.",
 
-	-- Step 117: Garek
+	-- Step 118: Garek
 	-- {npc:2888} Garek · {area:1898} Dustwind Gulch
 	["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888}은(는) 발굴 현장 남동쪽 {area:1898}에 홀로 야영하고 있습니다.",
 
@@ -426,6 +431,7 @@ return {
 	-- ["Ride back west along the road; {npc:217412} stands a short way north of Biggs."] = "길을 따라 서쪽으로 돌아가세요. {npc:217412}은(는) 빅스 조금 북쪽에 서 있습니다.",
 	-- ["Ride from Theramore west along the Dustwallow road into the {zone:1413} and north to {area:392} on the coast. Learn the flight path from {npc:16227}, then take the boat to {area:35} from the dock."] = "테라모어에서 먼지진흙 습지대 길을 따라 서쪽으로 {zone:1413}에 들어간 뒤, 북쪽으로 해안의 {area:392}까지 가세요. {npc:16227}에게서 비행 경로를 배운 뒤 부두에서 배를 타고 {area:35}(으)로 가세요.",
 	-- ["Skullsplitter ruins"] = "백골가루부족 폐허",
+	-- ["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house."] = "길을 따라 북쪽의 폐허가 된 오두막으로 가세요. 자를은 그 옆 판잣집에 살고, 흐트러진 흙은 집 모퉁이에 있습니다.",
 	-- ["Take the {area:2257} from the {object:28027}. {npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:1356} in the hall itself, {npc:2786} in the {object:32383}. The next guide flies on to {area:144}."] = "{object:28027}에서 {area:2257}을(를) 타세요. {npc:5637}은(는) {object:32356} 옆 개척자 연맹 전당에, {npc:1356}은(는) 전당 안에, {npc:2786}은(는) {object:32383}에 있습니다. 다음 가이드에서 {area:144}(으)로 날아갑니다.",
 	-- ["The Cold Eye Basilisks lie on the rocks west of the mine."] = "{npc:690}은(는) 광산 서쪽 바위 위에 엎드려 있습니다.",
 	-- ["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes."] = "암흑안개 거미는 습지 북서쪽 거미굴 주변에 둥지를 틀고 있습니다. 거미는 모두 눈알을 떨어뜨립니다.",

@@ -34,7 +34,8 @@ return {
 	["{npc:4794}: the crawlers are on the {area:8} shore, keep it"] = "{npc:4794}: os caranguejos ficam na costa de {area:8}, guarde-o",
 
 	-- Step 5: Swamplight Manor
-	["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house."] = "Pegue a estrada para o norte até o casarão em ruínas; Zé mora no barraco ao lado, e a terra solta fica no canto da casa.",
+	-- {quest:1218} Soothing Spices · {npc:4897} Helenia Olden
+	["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house. Jarl wants three {quest:1218}: if you passed {npc:4897}, buy them from her in Theramore first."] = "",
 	["with the spices from Theramore"] = "com os temperos de Theramore",
 
 	-- Step 6: "Stinky" Ignatz
@@ -400,17 +401,21 @@ return {
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "Mestre de voo de {zone:1455}",
 
-	-- Step 114: Thelsamar
+	-- Step 114: Loch Modan
+	-- {area:1} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
+	["Ride east out of {area:1} through the tunnel into {zone:1432} and on along the road to {area:144}."] = "",
+
+	-- Step 115: Thelsamar
 	-- {npc:1470} Ghak Healtouch · {area:144} Thelsamar · {area:1517} Uldaman · {area:3} Badlands
 	["{npc:1470} is below ground in {area:144}, by the inn. His mushrooms grow in the {area:1517} dig in the {area:3}; the next guide takes you there and back through {area:144}."] = "",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}, no subterrâneo",
 
-	-- Step 116: Hammertoe's Digsite
+	-- Step 117: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {area:3} Badlands · {npc:2860} Sigrun Ironhew
 	["Ride south out of {zone:1432} through the pass into the {area:3}; {npc:2860} camps at the dig."] = "Cavalgue para o sul, saindo de {zone:1432} pelo desfiladeiro até {area:3}; {npc:2860} acampa na escavação.",
 
-	-- Step 117: Garek
+	-- Step 118: Garek
 	-- {npc:2888} Garek · {area:1898} Dustwind Gulch
 	["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888} acampa sozinho em {area:1898}, a sudeste da escavação.",
 
@@ -430,6 +435,7 @@ return {
 	-- ["Ride back west along the road; {npc:217412} stands a short way north of Biggs."] = "Volte para o oeste pela estrada; {npc:217412} fica um pouco ao norte de Biggs.",
 	-- ["Ride from Theramore west along the Dustwallow road into the {zone:1413} and north to {area:392} on the coast. Learn the flight path from {npc:16227}, then take the boat to {area:35} from the dock."] = "Siga de Theramore para o oeste pela estrada do Pântano Vadeoso até {zone:1413} e depois para o norte até {area:392}, na costa. Aprenda a rota de voo com {npc:16227} e pegue o barco para {area:35} no cais.",
 	-- ["Skullsplitter ruins"] = "Ruínas Rachacrânio",
+	-- ["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house."] = "Pegue a estrada para o norte até o casarão em ruínas; Zé mora no barraco ao lado, e a terra solta fica no canto da casa.",
 	-- ["Take the {area:2257} from the {object:28027}. {npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:1356} in the hall itself, {npc:2786} in the {object:32383}. The next guide flies on to {area:144}."] = "Pegue o {area:2257} no {object:28027}. {npc:5637} fica no salão da Recuperação Ilimitada, junto a {object:32356}; {npc:1356}, no próprio salão; {npc:2786}, em {object:32383}. O próximo guia voa até {area:144}.",
 	-- ["The Cold Eye Basilisks lie on the rocks west of the mine."] = "Os Basiliscos Olho Frio ficam nas rochas a oeste da mina.",
 	-- ["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes."] = "As aranhas Névoa Negra fazem ninho ao redor da caverna no noroeste do pântano; toda aranha deixa cair olhos.",
