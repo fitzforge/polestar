@@ -95,7 +95,7 @@ step Arathi Highlands writ customers
   tip Muggol Breezebeard is about 250 yards south of Refuge Pointe, Alyce about 700 yards north-west of it. Customers show no quest mark: right-click them anyway.
   turnin 94212 npc 257296                     -- Elixir of Wisdom, 75 reputation
   turnin 94221 npc 257296                     -- Golden Rod, 75 reputation
-  collect 4384 quest 94230.2 @34,23.2         -- bring it: engineers make it, or buy it at the Auction House (no vendor sells it)
+  collect 4384 quest 94230.2 @34,23.2         -- bring it: engineers make it; Kimberly Hiett in Lakeshire lists it (not yet seen in her window up to level 30), or the Auction House
   turnin 94230 npc 257304                     -- Explosive Sheep, 75 reputation
   turnin 94239 npc 257304                     -- Fine Leather Pants, 75 reputation
   turnin 94248 npc 257304                     -- Blue Overalls, 75 reputation
@@ -204,7 +204,7 @@ step Arathi Highlands writ customers again
   tip Muggol Breezebeard is about 250 yards south of Refuge Pointe, Alyce about 700 yards north-west of it. Customers show no quest mark: right-click them anyway.
   turnin 94212 npc 257296                     -- Elixir of Wisdom, 75 reputation
   turnin 94221 npc 257296                     -- Golden Rod, 75 reputation
-  collect 4384 quest 94230.2 @34,23.2         -- bring it: engineers make it, or buy it at the Auction House (no vendor sells it)
+  collect 4384 quest 94230.2 @34,23.2         -- bring it: engineers make it; Kimberly Hiett in Lakeshire lists it (not yet seen in her window up to level 30), or the Auction House
   turnin 94230 npc 257304                     -- Explosive Sheep, 75 reputation
   turnin 94239 npc 257304                     -- Fine Leather Pants, 75 reputation
   turnin 94248 npc 257304                     -- Blue Overalls, 75 reputation
