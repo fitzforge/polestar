@@ -2172,6 +2172,9 @@ L["Show treasure"] = "Ver tesoro"
 -- L["Say hi with the rare button"] = ""
 -- L["Go say hi"] = ""
 -- L["The Polestar founder is nearby!"] = ""
+-- L["The card can't target during a fight. Use the rare button or its key (%s)."] = ""
+-- L["The card can't target during a fight. Use the rare button."] = ""
+-- L["Wave"] = ""
 
 -- Rares/Options.lua
 L["1 minute"] = "1 minuto"

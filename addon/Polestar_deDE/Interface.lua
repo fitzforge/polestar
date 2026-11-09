@@ -302,6 +302,9 @@ L["known spawn %s"] = "bekannter Spawn %s"
 -- L["Say hi with the rare button"] = ""
 -- L["Go say hi"] = ""
 -- L["The Polestar founder is nearby!"] = ""
+-- L["The card can't target during a fight. Use the rare button or its key (%s)."] = ""
+-- L["The card can't target during a fight. Use the rare button."] = ""
+-- L["Wave"] = ""
 
 -- Rares/View.lua
 L["Search"] = "Suchen"

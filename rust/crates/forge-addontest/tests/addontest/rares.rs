@@ -746,7 +746,7 @@ emit(card().tip)"#
 	);
 	let thuros = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]\n/ping [@target]";
 	let narg = "/cleartarget [nocombat]\n/targetexact Narg the Taskmaster\n/cleartarget [dead]\n/ping [@target]";
-	let keyed = "The card can't target during a fight. Use the rare button or its key (s-T).";
+	let keyed = "The card can't target during a fight. Use the rare button or its key (sT).";
 	assert_eq!(out[0], json!({ "shown": true, "enabled": false, "secure": false, "over": false, "points": 0, "macro": thuros, "tip": keyed }));
 	assert_eq!(out[1], json!({ "shown": true, "enabled": false, "secure": false, "over": false, "macro": thuros, "tip": keyed }), "a card that appears in a fight keeps the old macro, unarmed");
 	assert_eq!(out[2], json!({ "shown": true, "enabled": true, "secure": true, "over": true, "macro": narg, "tip": false }));
@@ -766,6 +766,22 @@ emit({ PolestarRareToast.Target:IsShown(), PolestarRareCardTarget:IsShown() })"#
 	);
 	assert_eq!(out[0], json!([false, false]));
 	assert_eq!(out[1], json!([false, false]));
+}
+
+#[test]
+fn rare_card_the_founder_s_card_waves_with_its_button_never_pings_or_marks() {
+	let out = run_card(
+		"SLASH_PING1 = \"/ping\"",
+		r#"
+Polestar.Set("qol.markTarget", true)
+Polestar.Fire("RARE_SPOTTED", { kind = "founder", name = "Fitz Polestar", zone = "Elwynn Forest", button = true })
+local f, s = PolestarRareToast, PolestarRareCardTarget
+emit({ f.Target:IsShown(), f.Target.Label:GetText(), s:IsShown(), s:GetAttribute("macrotext") })"#,
+	);
+	assert_eq!(
+		out[0],
+		json!([true, "Wave", true, "/cleartarget [nocombat]\n/targetexact Fitz Polestar\n/targetexact [noexists] Fitz\n/wave"])
+	);
 }
 
 // ------------------------------------------------------------ the section
