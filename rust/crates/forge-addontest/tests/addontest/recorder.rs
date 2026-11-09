@@ -359,6 +359,8 @@ PolestarRecorderCharDB = { id = "k3j9x0q2m7" }"#,
 	assert!(status[1].ends_with("4 chunks waiting for the uploader (about 3072 KiB of 4096 KiB)"), "{status:?}");
 	assert!(status[2].ends_with("the uploader has not confirmed a chunk yet (newest: 6)"), "{status:?}");
 	assert!(status[3].ends_with("install id: k3j9x0q2m7ab"), "{status:?}");
+	// Chunks still in memory reach the uploader only once the game writes them (#1453).
+	assert!(status.last().unwrap().ends_with("/reload or log out to send what's recorded"), "{status:?}");
 }
 
 #[test]
@@ -403,7 +405,9 @@ emit(stub.messages)"#,
 		None,
 	);
 	assert!(truthy(&lines[0]) && text(&lines[0]).contains("запись: |cff4fd18fвкл|r"), "{}", lines[0]);
-	assert!(truthy(&lines[1]) && text(&lines[1]).contains("usage: /psrec mark <text>"), "{}", lines[1]);
+	// /psrec on says the game shows it to Polestar Client only after a /reload or logout (#1453).
+	assert!(truthy(&lines[1]) && text(&lines[1]).contains("/reload or log out to send what's recorded"), "{}", lines[1]);
+	assert!(truthy(&lines[2]) && text(&lines[2]).contains("usage: /psrec mark <text>"), "{}", lines[2]);
 }
 
 // Polestar's quest database: NPC 197 starts 18, 33, 54, 60 and 70; object 1593 starts 61.

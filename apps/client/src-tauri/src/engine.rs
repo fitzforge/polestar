@@ -1104,7 +1104,14 @@ fn status(state: &State, game: &GameView, pending: u64, now: i64) -> StatusView 
 		return make("waiting", "Waiting for the first recording", "Log in to the game: the Recorder records while sharing is on. The game saves the recording when you log out or type /reload.".into(), None);
 	}
 	if files.iter().all(|f| !f.enabled) && pending == 0 {
-		return make("attention", "Recording is off in the game", "It turns on at your next login (or /reload) while sharing is on, unless you turned it off with /psrec off: then type /psrec on.".into(), None);
+		// The game writes the Recorder's on/off state only at a logout or /reload, so this is the
+		// state then: a /psrec on since shows only after the next one (#1453).
+		let detail = if state.game_running {
+			"The game tells Polestar Client only when you log out or type /reload. Turned it on since (/psrec on)? Type /reload in the game and what's recorded is sent."
+		} else {
+			"It turns on at your next login (or /reload) while sharing is on, unless you turned it off with /psrec off: then type /psrec on, and /reload to send what's recorded."
+		};
+		return make("attention", "Off in the game as of your last logout or /reload", detail.into(), None);
 	}
 	if let Some((at, rejected)) = &state.rejected {
 		if now - at < REJECTED_SHOWN_MS {
