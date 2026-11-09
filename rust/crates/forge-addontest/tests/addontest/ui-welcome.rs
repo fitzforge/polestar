@@ -559,8 +559,8 @@ fn the_route_page_map_is_the_websites_demo_each_style_its_own_walk_a_switch_leav
 		local reduced = { running = Polestar.Anim.IsRunning(m, "value"), share = m.psShare, trail = drawn(m.TrailCore),
 			ghost = m.psGhost, ghostAlpha = m.Ghost:GetAlpha(), roadAlpha = m.Road:GetAlpha() }
 		emit({ first = first, seen = seen, reduced = reduced })"#);
-	assert_eq!(out["first"]["place"], "Westfall", "the site's walk to Westfall, whatever the character's zone");
-	assert!(out["first"]["note"].as_str().unwrap().starts_with("Elwynn Forest"), "on Elwynn Forest: {}", out["first"]["note"]);
+	assert_eq!(out["first"]["place"], "Elwynn Forest", "the site's zone, whatever the character's");
+	assert_eq!(out["first"]["note"], "Go to Westfall \u{b7} 1519 yd", "where the walk goes, and Balanced's yards");
 	assert_eq!(out["first"]["trail"], out["seen"]["balanced"]["trail"], "a fresh account sees Balanced's walk");
 	assert_eq!(out["first"]["ghost"], 0, "no ghost before a switch");
 	assert!(out["first"]["road"].as_u64().unwrap() > 0, "the dotted road under the trail");

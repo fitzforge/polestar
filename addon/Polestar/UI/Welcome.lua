@@ -1389,11 +1389,12 @@ local function drawRoads(m)
 	hideFrom(m.GhostShadow, n)
 end
 
--- The note: the goal's zone, the walk's zone and its yards.
+-- The note: where the walk goes and its yards, as the site's "Go to
+-- Westfall" (the arrow card's words).
 local function noteWalk(m)
 	local C = ns.Compat
-	local zone = C and C.MapName and C.MapName(DEMO_MAP) or "Elwynn Forest"
-	m.Note:SetText(zone .. " \194\183 " .. (L["%d yd"]):format(DEMO[m.psStyle].yards))
+	local goal = C and C.MapName and C.MapName(DEMO_GOAL) or "Westfall"
+	m.Note:SetText(L["Go to"] .. " " .. colored("place", goal) .. " \194\183 " .. (L["%d yd"]):format(DEMO[m.psStyle].yards))
 end
 
 -- The walk's ends as the site's legs: the start in the accent, the goal in
@@ -1417,7 +1418,8 @@ local function routeMap(p)
 	m.Draw:SetAllPoints(m)
 	m.Draw:SetFrameLevel(m.Art.Over:GetFrameLevel() + 1)
 	local d = m.Draw
-	-- The readout's ground: dark on the right (the walks are on the left of
+	-- The readout (the zone, then where the walk goes and its yards) on its
+	-- ground: dark on the right (the walks are on the left of
 	-- the painting), clear by 60 %.
 	m.Vig1 = solid(d, "BACKGROUND", -4)
 	m.Vig1:SetPoint("TOPRIGHT", d, "TOPRIGHT", 0, 0)
@@ -1525,7 +1527,7 @@ local function paintMap(m)
 	drawRoads(m)
 	drawTrail(m, 1)
 	local C = ns.Compat
-	m.Place:SetText(colored("place", C and C.MapName and C.MapName(DEMO_GOAL) or "Westfall"))
+	m.Place:SetText(C and C.MapName and C.MapName(DEMO_MAP) or "Elwynn Forest")
 	noteWalk(m)
 end
 
