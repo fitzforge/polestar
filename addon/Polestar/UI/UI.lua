@@ -259,12 +259,14 @@ end
 function UI.HereText(v)
 	local text = v.hereText or ""
 	local NQ, title = ns.NewQuests, v.hereTitle
-	if not (v.here == "turnin" or v.here == "take") or not NQ or type(title) ~= "string" or title == "" then return text end
-	local mark = NQ.Mark(v.quest)
-	if mark == "" then return text end
-	local _, b = text:find(title, 1, true)
-	if not b then return text end
-	return text:sub(1, b) .. mark .. text:sub(b + 1)
+	if (v.here == "turnin" or v.here == "take") and NQ and type(title) == "string" and title ~= "" then
+		local mark = NQ.Mark(v.quest)
+		local _, b = mark ~= "" and text:find(title, 1, true)
+		if b then text = text:sub(1, b) .. mark .. text:sub(b + 1) end
+	end
+	-- A timed quest's hand-in: its time left (Quests/Timed.lua).
+	local timer = ns.Timed and ns.Timed.Badge(v)
+	return timer and (text .. "  " .. timer) or text
 end
 
 -- The goal's main line. The Engine's `text` is the truth (it carries author
@@ -563,6 +565,12 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort)
 	-- An accept the game does not confirm says so first (not in the quest
 	-- log; not offered by its giver: report it).
 	if goal.noticeText then parts[#parts + 1] = goal.noticeText end
+	-- A timed quest: before it is taken, how long it allows; while its clock
+	-- runs, when the way to its hand-in takes longer than the time left
+	-- (Quests/Timed.lua).
+	local T = ns.Timed
+	local timed = T and (T.LimitText(goal) or T.Hint(goal))
+	if timed then parts[#parts + 1] = timed end
 	local party = not noParty and UI.GroupLine(goal)
 	if party then parts[#parts + 1] = party end
 	local escort = not noEscort and UI.EscortLine(goal)
@@ -623,6 +631,9 @@ function UI.GoalLine(goal, questHex)
 			text = text .. "  |c" .. Theme.Hex(full and "success" or "text") .. count .. "|r"
 		end
 	end
+	-- A timed quest's open goal: its time left (Quests/Timed.lua).
+	local timer = not plain and ns.Timed and ns.Timed.Badge(goal)
+	if timer then text = text .. "  " .. timer end
 	if goal.dismissed then
 		text = text .. "  |c" .. Theme.Hex("textMuted") .. L["skipped"] .. "|r"
 	elseif goal.optional and not plain and goal.t ~= "note" then

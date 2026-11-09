@@ -1543,11 +1543,18 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   rest of it (`Own.hereStrikes`, `Own.hereQuiet`; all emptied when
   `GetRealZoneText` changes). An expired one comes again once in reach,
   `HERE_AGAIN` s on at the earliest (`Own.hereAgain`). Never in an instance, on a taxi,
-  while a Hearthstone or Astral Recall is cast, with a quest timer running,
-  or while the live step escorts (`Own.hereBlocked`): there the lines shown
+  while a Hearthstone or Astral Recall is cast, or while the live step
+  escorts (`Own.hereBlocked`): there the lines shown
   hide and wait (`Own.hereHeld`; nothing new, nothing goes or counts as
   left), and back they show as they were, their time starting anew, with no
-  chime or ping (their `appeared` unchanged). The line never takes
+  chime or ping (their `appeared` unchanged). With a quest timer running
+  (not ready, not failed) only the timed quest's own lines come; the others
+  wait parked as they were (`Own.herePark`) and show again, in their places
+  by distance, once the clock stops (`Own.hereUnpark`). A timed quest's line
+  (`Own.hereTimed`: `Compat.QuestTimers`, or Quests/Timed.lua's clock for a
+  delivery the client does not report) ranks before every other
+  (`Own.hereBefore`).
+  The line never takes
   the arrow: `Engine.AimWhileHere` sets `aim` to its goal (`findWaypoint`
   leads there while it shows, a step change keeps it), and when the line
   goes `aim` is cleared and the arrow returns to the guide. Messages:
@@ -1573,6 +1580,22 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   first line's item that `ChooseQuestItem` falls back to (its `use` item or
   its quest's log item). Done early, the later step is done or shorter
   when the route gets there, as any objective done ahead.
+- **Timed quests** (Quests/Timed.lua, 0.3.7). While a timer runs, its quest's
+  open goals in the window (card, full and compact, and the While-here
+  rows: `UI.GoalLine`, `UI.HereText`) end in "M:SS left" after an hourglass,
+  warning colour under `Timed.WARN` (120 s), danger under `Timed.DANGER`
+  (60); `QUEST_TIMER` each second repaints them (`GF.TimerTick`). The clock
+  is `Compat.QuestTimers` (the old `GetQuestTimers` with
+  `GetQuestIndexForTimer`, else `C_QuestLog.GetTimeAllowed` total less
+  elapsed, ready quests included: the hand-in is timed too), else the
+  accept's server time plus the guide accept's `limit`
+  (`CharState().timedAccepts`); each deadline only moves earlier. A chat line
+  and a Master-channel sound at 5 and 1 minutes left and when the quest
+  fails (`qol.questTimerAlerts`); the shown step's turn-in of the quest (else
+  its last goal of it) carries "The way to X takes about N min, longer than
+  the time left" when `Nav.EstimateTravel` to the route's hand-in says so
+  (every `Timed.READ_EVERY` s). An open accept with a `limit` says "Timed:
+  N min once accepted" (`UI.GoalSubline`).
 - **Jumps.** A step with `skipto` (format 5; GUIDE_FORMAT, "Jumps") is
   checked when `computeCurrent` reaches it as the first open step, once the
   quest log can be read (`logReady`): `Own.jump` takes the first jump whose

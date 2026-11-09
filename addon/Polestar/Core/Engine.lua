@@ -4004,6 +4004,9 @@ local function goalView(s, g, goal, stepStatus, group)
 		party = type(goal.group) == "table" and type(goal.group.kind) == "string" and goal.group or nil,
 		-- An escort quest's accept or objective (compiled `escort`).
 		escort = goal.escort == true or nil,
+		-- A timed quest's accept: the seconds it allows (compiled `limit`,
+		-- quests.json; Quests/Timed.lua says so before it is taken).
+		limit = goal.t == "accept" and goal.limit or nil,
 		-- A collect's source (compiled `from`); `inText`: the goal's text
 		-- already names it.
 		source = src,
@@ -8213,7 +8216,8 @@ end
 -- once in reach, HERE_AGAIN s on at the earliest (Own.hereAgain).
 -- Never in an
 -- instance, on a taxi, boat or zeppelin, while a Hearthstone is cast, or
--- while a timed quest or the live step's escort runs. Messages:
+-- while the live step's escort runs; while a timed quest's clock runs, only
+-- that quest's lines, first (Own.herePark). Messages:
 -- WHILE_HERE_CHANGED when a line appears, its count changes or it goes;
 -- WHILE_HERE_MOVED(yards, i) when line i's distance moves to the next HERE_STEP.
 ---------------------------------------------------------------------------
@@ -8911,12 +8915,15 @@ function Own.hereRemove(i, dismissed)
 	return aimed
 end
 
--- End every line. True when the player had clicked one.
+-- End every line, and forget the parked ones (Own.herePark). True when the
+-- player had clicked one.
 function Own.hereClear()
 	local aimed = false
 	while Own.hereOnN > 0 do
 		if Own.hereRemove(Own.hereOnN, false) then aimed = true end
 	end
+	for k = Own.hereParkedN, 1, -1 do Own.hereParked[k] = nil end
+	Own.hereParkedN = 0
 	return aimed
 end
 
@@ -9183,11 +9190,99 @@ function Own.herePick(c, px, py)
 	Own.hereN, Own.herePickC, Own.herePickX, Own.herePickY = k, c, px, py
 end
 
--- Whether candidate e at d yards ranks before `other` at otherD: the one
--- whose target spawns in the fewest places on the map (a camp or a pool
--- before mobs found all over the zone), then the nearest.
+-- Whether candidate e at d yards ranks before `other` at otherD: a quest's
+-- whose timer runs first (Own.hereTimed), then the one whose target spawns
+-- in the fewest places on the map (a camp or a pool before mobs found all
+-- over the zone), then the nearest.
 function Own.hereBefore(e, d, other, otherD)
-	return not other or e.places < other.places or (e.places == other.places and d < otherD)
+	if not other then return true end
+	local timed = Own.hereTimed(e)
+	if timed ~= Own.hereTimed(other) then return timed end
+	return e.places < other.places or (e.places == other.places and d < otherD)
+end
+
+-- A timed quest's clock runs (Own.hereBlocked's "timed quest"): its own lines
+-- still come, before any other (Own.hereBefore), so its objectives and its
+-- hand-in show on the way; every other line waits here as it was
+-- (Own.herePark) and shows again once the clock stops (Own.hereUnpark), as
+-- after a flight. Own.hereTimers: Compat.QuestTimers' reading, each poll
+-- that ranks or parks.
+Own.hereParked, Own.hereParkedN, Own.hereTimers = {}, 0, {}
+
+-- Whether line e is a quest's whose timer runs: the client's reading, or
+-- Quests/Timed.lua's clock (a delivery the client may not report: Timed.Left).
+function Own.hereTimed(e)
+	local q = e.goal.quest
+	return Own.hereTimers[q] ~= nil or (ns.Timed ~= nil and ns.Timed.Left(q) ~= nil)
+end
+
+-- Park every shown line of a quest without a running timer. True when the
+-- player had clicked one (the arrow goes back to the guide).
+function Own.herePark()
+	local on, aimed, moved = Own.hereOn, false, false
+	local i = 1
+	while i <= Own.hereOnN do
+		local e = on[i]
+		if Own.hereTimed(e) then
+			i = i + 1
+		else
+			for j = i, Own.hereOnN - 1 do on[j] = on[j + 1] end
+			on[Own.hereOnN] = nil
+			Own.hereOnN = Own.hereOnN - 1
+			Own.hereParkedN = Own.hereParkedN + 1
+			Own.hereParked[Own.hereParkedN] = e
+			e.on = false
+			if aim == e.goal then aim, aimed = nil, true end
+			moved = true
+		end
+	end
+	if moved then
+		Own.here = on[1]
+		ns.Fire("WHILE_HERE_CHANGED")
+	end
+	return aimed
+end
+
+-- The clock stopped: each parked line whose goal is still a candidate shows
+-- again (the candidate Own.hereBuild made for it since takes its row, and
+-- its text while its count is the same), its time starting anew, in its
+-- place by the distance it showed, while fewer than HERE_SHOW show; the
+-- rest come again in reach like any other.
+function Own.hereUnpark()
+	local all, on, now, back = Own.hereAll, Own.hereOn, GetTime(), false
+	for k = 1, Own.hereParkedN do
+		local p = Own.hereParked[k]
+		Own.hereParked[k] = nil
+		local e = nil
+		for j = 1, Own.hereAllN do
+			if all[j].goal == p.goal then
+				e = all[j]
+				break
+			end
+		end
+		if e and not e.on and Own.hereOnN < Own.HERE_SHOW then
+			if e ~= p then
+				e.yards, e.serial, e.spot, e.seen = p.yards, p.serial, p.spot, p.seen
+				e.view = e.left == p.left and p.view or false
+			end
+			e.on, e.since, e.d = true, now, p.yards
+			local n, at = Own.hereOnN, Own.hereOnN + 1
+			for j = 1, n do
+				if e.d < (on[j].d or math.huge) then
+					at = j
+					break
+				end
+			end
+			for j = n, at, -1 do on[j + 1] = on[j] end
+			on[at], Own.hereOnN = e, n + 1
+			back = true
+		end
+	end
+	Own.hereParkedN = 0
+	if back then
+		Own.here = on[1]
+		ns.Fire("WHILE_HERE_CHANGED")
+	end
 end
 
 -- The arrival poll (c nil: no position). Keeps or ends the lines shown
@@ -9200,12 +9295,15 @@ end
 -- (the arrow goes back to the guide).
 function Own.hereTick(c, px, py)
 	if Own.hereOnN == 0 and Own.hereAllN == 0 then return false end
-	-- On a taxi, boat or zeppelin, in an instance, hearthing, a timed quest or
-	-- the live step's escort: the lines shown hide and wait (Own.hereHeld), no
-	-- new one comes, nothing goes by distance or time, nothing counts as left.
-	-- Back, they show again as they were (no chime, no ping), their time
-	-- starting anew; then the usual rules apply from where the player is.
-	local held = not c or Own.hereBlocked() or (ns.Transit and ns.Transit.Riding and ns.Transit.Riding()) or false
+	-- On a taxi, boat or zeppelin, in an instance, hearthing or the live
+	-- step's escort: the lines shown hide and wait (Own.hereHeld), no new one
+	-- comes, nothing goes by distance or time, nothing counts as left. Back,
+	-- they show again as they were (no chime, no ping), their time starting
+	-- anew; then the usual rules apply from where the player is. A timed
+	-- quest's clock holds only the other quests' lines (Own.herePark).
+	local blocked = c and Own.hereBlocked() or false
+	local timedOnly = blocked == "timed quest"
+	local held = not c or (blocked and not timedOnly) or (ns.Transit and ns.Transit.Riding and ns.Transit.Riding()) or false
 	if held then
 		if not Own.hereHeld then
 			Own.hereHeld = true
@@ -9219,8 +9317,15 @@ function Own.hereTick(c, px, py)
 		for j = 1, Own.hereOnN do Own.hereOn[j].since = now end
 		if Own.hereOnN > 0 then ns.Fire("WHILE_HERE_CHANGED") end
 	end
-	if UnitAffectingCombat and UnitAffectingCombat("player") then return false end
-	local step, on, aimed, now = Own.HERE_STEP, Own.hereOn, false, GetTime()
+	local C, parked = Compat(), false
+	if timedOnly then
+		Own.hereTimers = C.QuestTimers and C.QuestTimers(Own.hereTimers) or Own.hereTimers
+		parked = Own.herePark()
+	elseif Own.hereParkedN > 0 then
+		Own.hereUnpark()
+	end
+	if UnitAffectingCombat and UnitAffectingCombat("player") then return parked end
+	local step, on, aimed, now = Own.HERE_STEP, Own.hereOn, parked, GetTime()
 	local i = 1
 	while i <= Own.hereOnN do
 		local cur = on[i]
@@ -9271,12 +9376,14 @@ function Own.hereTick(c, px, py)
 		local pc, dx, dy = Own.herePickC, px - (Own.herePickX or 0), py - (Own.herePickY or 0)
 		if pc ~= c or dx * dx + dy * dy > Own.HERE_REPICK * Own.HERE_REPICK then Own.herePick(c, px, py) end
 	end
-	-- The candidates in reach not shown (e.d: their distance, else false).
+	-- The candidates in reach not shown (e.d: their distance, else false);
+	-- while a timed quest's clock runs, only its own.
+	if not timedOnly then Own.hereTimers = C.QuestTimers and C.QuestTimers(Own.hereTimers) or Own.hereTimers end
 	local quiet, list, open = Own.hereQuiet, Own.hereList, 0
 	for j = 1, Own.hereN do
 		local e = list[j]
 		if not e.on then
-			local d = not quiet[e.goal] and Own.hereDistance(e, c, px, py)
+			local d = not quiet[e.goal] and (not timedOnly or Own.hereTimed(e)) and Own.hereDistance(e, c, px, py)
 			if d and Own.hereIn(e, d) and Own.hereAgain(e) and not Own.hereMuted(e) and not (e.kind == "turnin" and Own.hereWalkWait(e, c, px, py, d)) then
 				e.d, open = d, open + 1
 			else
