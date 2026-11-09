@@ -12,4 +12,4 @@ section: players
   turn in to...), and the arrow's goal comes first. "Show who it targets"
   under Options > Questing > Buttons turns it off; "Name new targets in chat"
   (off by default) adds a "Targeting: ..." line when the names change
-  (thanks Mokii, #1387).
+  (thanks Mokii, #1387; portrait idea first proposed by CDVolvik, #1012).
