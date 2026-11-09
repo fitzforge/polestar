@@ -868,11 +868,14 @@ fn skins_wow_forever_draws_the_client_s_atlas_blizzard_the_retail_sheet_classic_
 	assert_eq!(out["houseGame"], false);
 }
 
-// #312: Forever's tab art is an outline. On the guide window's strip its top and left run along the window's
-// edge, which left the active tab's right side as a lone line; there the active tab is the Settings list's
-// selected row, the resting tabs keep their art, and the Options tabs keep theirs.
+// #312: Forever's tab art is an outline. On the guide window's strip its top and left ran along the window's
+// edge, which left the active tab's right side as a lone line. The strip is 30 high there and every tab's
+// outline stops 6 under the window's edge (the frame's 3-unit line, then air) and 5 in from the tab's sides,
+// so it rises from the strip's foot and closes as a tab does: the active one in the active outline, the rest
+// 3 lower in theirs; the Settings divider runs along the strip's foot; the Options tabs keep the client's own
+// sizes.
 #[test]
-fn skins_on_forever_the_guide_strip_marks_the_active_tab_with_the_selected_row_art_not_a_half_drawn_outline_312() {
+fn skins_on_forever_the_guide_strip_s_tabs_keep_their_outline_clear_of_the_window_s_edge_312() {
 	let out = run_with(
 		r#"
 		T._testShowHidden = true
@@ -881,13 +884,18 @@ fn skins_on_forever_the_guide_strip_marks_the_active_tab_with_the_selected_row_a
 		uistub.openTabs({ { uistub.elwynn, 3 }, { uistub.tailoring, 2 } }, 1)
 		local function art(b)
 			local k = b.psSkin and b.psSkin.kit or {}
-			local lit, three = k.tabLit, k.tabArt
+			local lit, three, host = k.tabLit, k.tabArt, k.tab
+			local _, _, _, x = host:GetPoint(1)
 			return { lit = lit ~= nil and lit:IsShown() and lit.atlas or lit and lit:IsShown() and lit.texture or false,
-				outline = three ~= nil and three[2]:IsShown() and three[2].texture or false }
+				outline = three ~= nil and three[2]:IsShown() and three[2].texture or false,
+				h = host:GetHeight(), clear = b:GetHeight() - host:GetHeight(), inset = x }
 		end
-		local out = { active = art(GF.tabs[1]), rest = art(GF.tabs[2]) }
+		local out = { active = art(GF.tabs[1]), rest = art(GF.tabs[2]), strip = GF.parts.strip:GetHeight() }
+		local line = GF.parts.strip.psSkin.kit.stripLine
+		local p, _, rp, x = line:GetPoint(1)
+		out.line = { line:IsShown() and line.texture, p, rp, x, line:GetHeight() }
 		uistub.openTabs({ { uistub.elwynn, 3 }, { uistub.tailoring, 2 } }, 2)
-		out.moved = { first = art(GF.tabs[1]), second = art(GF.tabs[2]) }
+		out.moved = { first = art(GF.tabs[1]).outline, second = art(GF.tabs[2]).outline }
 		-- the Options tabs are not on the window's edge: the tab outline as the client draws it
 		Polestar.UI.ShowOptions("guide")
 		out.options = {}
@@ -899,13 +907,16 @@ fn skins_on_forever_the_guide_strip_marks_the_active_tab_with_the_selected_row_a
 			return { file = "atlas:" .. name, leftTexCoord = 0, rightTexCoord = 1, topTexCoord = 0, bottomTexCoord = 1, width = 7, height = 26 }
 		end }"#,
 	);
-	assert_eq!(out["active"], json!({ "lit": "atlas:Options_List_Active", "outline": false }));
-	assert_eq!(out["rest"], json!({ "lit": false, "outline": "atlas:Options_Tab_Middle" }));
-	assert_eq!(out["moved"], json!({ "first": { "lit": false, "outline": "atlas:Options_Tab_Middle" }, "second": { "lit": "atlas:Options_List_Active", "outline": false } }));
+	assert_eq!(out["strip"], 30, "Forever's strip is 30 high");
+	assert_eq!(out["active"], json!({ "lit": false, "outline": "atlas:Options_Tab_Active_Middle", "h": 24, "clear": 6, "inset": 5 }), "the active outline 6 under the edge, 5 in");
+	assert_eq!(out["rest"], json!({ "lit": false, "outline": "atlas:Options_Tab_Middle", "h": 21, "clear": 9, "inset": 5 }), "a resting tab 3 lower");
+	assert_eq!(out["line"], json!(["atlas:Options_HorizontalDivider", "BOTTOMLEFT", "BOTTOMLEFT", 4, 1]), "the Settings divider along the strip's foot");
+	assert_eq!(out["moved"], json!({ "first": "atlas:Options_Tab_Middle", "second": "atlas:Options_Tab_Active_Middle" }));
 	let options = out["options"].as_array().unwrap();
 	assert!(options.len() > 1);
-	assert!(options.iter().all(|t| t["lit"] == false && truthy(&t["outline"])), "outline tabs");
-	assert!(options.iter().any(|t| t["outline"] == "atlas:Options_Tab_Active_Middle"), "the active one in the active outline");
+	assert!(options.iter().all(|t| t["lit"] == false && truthy(&t["outline"]) && t["inset"] == 0), "outline tabs at the client's own place");
+	assert!(options.iter().any(|t| t["outline"] == "atlas:Options_Tab_Active_Middle" && t["h"] == 26), "the active one in the active outline, 26 high");
+	assert!(options.iter().any(|t| t["outline"] == "atlas:Options_Tab_Middle" && t["h"] == 23), "a resting one 23 high");
 }
 
 // #306: three Forever-skin guide-window bugs confirmed in game by Fitz (rc1).
@@ -982,7 +993,7 @@ fn skins_forever_s_progress_bar_draws_its_own_fill_to_the_bar_s_value_the_frame_
 		out.edgeLevel = F.psSkin.kit.edge:GetFrameLevel() - F:GetFrameLevel()
 		do
 			local p, rel, rp = F.psSkin.kit.edge:GetPoint(1)
-			out.edgeTop = { p, rel == F.psStrip, rp }
+			out.edgeTop = { p, rel == F, rp }
 		end
 		out.pad = { T.Metric("guidePad", 14), T.Metric("guideLitInset", 4) }
 		local lit, row
@@ -1019,7 +1030,7 @@ fn skins_forever_s_progress_bar_draws_its_own_fill_to_the_bar_s_value_the_frame_
 	assert_eq!(out["tick"]["big"], 26, "the Settings panel box as before");
 	assert!((out["tick"]["small"].as_f64().unwrap() - 15.0 * 26.0 / 18.0).abs() < 1e-9, "a 15 box: the art in the same proportion");
 	assert_eq!(out["edgeLevel"], 0, "the border's frame at the window's level: the content draws over its inner shade");
-	assert_eq!(out["edgeTop"], json!(["TOPLEFT", true, "BOTTOMLEFT"]), "the border hangs from the tab strip's foot, so it follows the strip into and out of compact mode");
+	assert_eq!(out["edgeTop"], json!(["TOPLEFT", true, "TOPLEFT"]), "the border runs round the whole window, tab strip included (#312)");
 	assert_eq!(out["pad"], json!([18, 10]), "Forever pads its rows and the lit goal clear of the border");
 	assert_eq!(out["lit"], 10, "the current goal lit 10 in");
 	assert!(out["tickRight"].as_f64().unwrap() <= -(10.0 + 10.0), "the tick box's art ends 10 or more inside the lit goal's outline ({})", out["tickRight"]);
