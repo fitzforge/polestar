@@ -722,6 +722,33 @@ fn a_hand_in_whose_xp_waiting_would_cut_may_be_twice_as_far_out_of_the_way() {
 	assert_eq!(none, vec![json!("none")]);
 }
 
+// #1408 (Emil): a hand-in the panel shows is handed in at its NPC's window as the live step's are, by the same rules:
+// behavior.autoTurnin, the only reward taken, several rewards left to the player. One the panel does not show (21 s
+// out of the way) is the player's, as is everything with the setting off.
+#[test]
+fn a_shown_hand_in_is_handed_in_at_its_npc_as_the_guide_steps_are() {
+	let calls = r#"
+		function calls()
+			local c = {}
+			for i, x in ipairs(w.calls) do c[i] = table.concat({ tostring(x[1]), tostring(x[2]), tostring(x[3]) }, " ") end
+			return table.concat(c, ", ")
+		end
+	"#;
+	// The progress window; Polestar's CompleteQuest opens the reward window (the stub's), where it takes the reward.
+	let talk = r#"w.calls = {}; w.questProgress(240, 40); flush()"#;
+	let guide = turnins(20.0, &[ELSEWHERE, ELSEWHERE], "");
+	let shown = run_turnins(&guide, &format!("{calls}at(42.0, 35.6); emit(here()); {talk}; emit({{ calls(), w.log[40] == nil }})"));
+	assert_eq!(shown, vec![json!("4:1 Hand in A Fishy Peril to Marshal Dughan 10"), json!(["CompleteQuest 40 nil, GetQuestReward 40 0", true])]);
+	let choose = run_turnins(&guide, &format!("{calls}w.choices[40] = 3; at(42.0, 35.6); {talk}; emit({{ calls(), w.log[40] ~= nil }})"));
+	assert_eq!(choose, vec![json!(["CompleteQuest 40 nil", true])], "several rewards: the player chooses");
+	let one = run_turnins(&guide, &format!("{calls}w.choices[40] = 1; at(42.0, 35.6); {talk}; emit(calls())"));
+	assert_eq!(one, vec![json!("CompleteQuest 40 nil, GetQuestReward 40 1")], "the only reward is taken");
+	let off = run_turnins(&guide, &format!(r#"{calls}Polestar.Set("behavior.autoTurnin", false); at(42.0, 35.6); {talk}; emit(calls())"#));
+	assert_eq!(off, vec![json!("")], "auto turn-in off: the player hands it in");
+	let away = run_turnins(&guide, &format!("{calls}at(40.0, 35.1); emit(here()); {talk}; emit(calls())"));
+	assert_eq!(away, vec![json!("none"), json!("")], "not shown: the player's");
+}
+
 #[test]
 fn never_in_an_instance_on_a_taxi_while_hearthing_or_during_a_timed_or_escort_quest() {
 	let out = run(r#"
