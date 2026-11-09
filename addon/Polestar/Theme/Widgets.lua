@@ -1679,7 +1679,8 @@ local function openChoices(self)
 	for i = 1, #list do
 		local c = list[i]
 		items[i] = { text = c.text, checked = c.value == cur, font = row.psFaces and c.font or nil, onClick = function()
-			if row.psSet then row.psSet(c.value) else ns.Set(row.psPath, c.value) end
+			-- State that is no setting (get/set) refreshes its own row: no SETTING_CHANGED for it.
+			if row.psSet then row.psSet(c.value); row:Refresh() else ns.Set(row.psPath, c.value) end
 		end }
 	end
 	W.ShowMenu(self, items, { minWidth = self:GetWidth() })
@@ -1743,7 +1744,7 @@ function W.Dropdown(parent, label, path, choices, desc, depends, opts)
 	row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	row:SetScript("OnClick", function(_, button)
 		if button == "RightButton" then
-			if W.Enabled(row) then W.HideMenu(); ns.Set(path, nil) end
+			if W.Enabled(row) and path then W.HideMenu(); ns.Set(path, nil) end
 			return
 		end
 		openChoices(b)

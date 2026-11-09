@@ -189,8 +189,12 @@ seen: in `PolestarDB`, the account has had its welcome (later characters skip
 its Set up and Route style pages); in `PolestarCharDB`, this character has (0 while due).
 `whatsNewSeen` (`PolestarDB`, UI/WhatsNew.lua) is the version of the release notes last shown; a fresh
 install (`ns.IsNewAccount()`: no saved `PolestarDB` as Polestar loaded) is set to the newest without them.
-`dungeons` (per character) holds the dungeons this character runs in leveling
-guides, by the instance's Map id (`Engine.ChooseDungeon`, `when dungeon`).
+`dungeons` (per character) holds this character's answer per dungeon in leveling
+guides, by the instance's Map id: true runs it, false skips it (`Engine.ChooseDungeon`, `when dungeon`);
+`dungeonRoute` (per character, "ask" | "run" | "skip") answers the rest ("Dungeons in my route",
+`Engine.SetDungeonRoute`), set when the addon loads: "ask" for a character Polestar had never seen, "skip"
+for one it had. Unanswered with "ask", the first `when dungeon` step with work now holds the route and
+the guide window asks (`Engine.DungeonQuestion`); at the run, "No group? Skip it" is `Engine.SkipDungeon`.
 `behavior.suggestFrom` (default `"guides"`) is the pack suggestions come from.
 Modules keep their own keys beside these (`rares`, `instances`, `names`, `alts` account-wide;
 `ui`, `routes`, `classTrainLevel`, `classTrainVisit`, `qol`, `flightTimes`,
@@ -5629,12 +5633,13 @@ Polestar.RegisterOptions({
 Controls read and write `Polestar.Get/Set`; `disabled = function() return bool end` is optional;
 registered labels and help are searchable (below, "Settings search"). A `label` may be a function, asked
 when the control is drawn or searched (a name in the client's language that
-is not loaded at registration, `Names.Instance`). A toggle with `get()` and
-`set(on)` and no `key` holds state that is no setting (per character): it
-reads and writes through them, right-click and Reset page call `set(nil)`.
-Discovery → Dungeons → "Dungeons in leveling guides" is one: a toggle per
-Classic dungeon (`Dungeons.ROUTE`, Map id and English name, from the Codex's
-instances), all off, writing `Engine.ChooseDungeon`. Registered toggles are
+is not loaded at registration, `Names.Instance`). A toggle, slider or dropdown with `get()` and
+`set(v)` and no `key` holds state that is no setting (per character): it
+reads and writes through them; right-click and Reset page call a toggle's or slider's `set(nil)`, and leave a
+dropdown's. Discovery → Dungeons → "Dungeons in leveling guides" is one: a dropdown per
+dungeon (`Dungeons.ROUTE`, Map id and English name, from the Codex's
+instances and Forever's new ones), As for all dungeons / Run it / Skip it, writing `Engine.ChooseDungeon`;
+Guide → Automation → "Dungeons in my route" another (`Engine.SetDungeonRoute`). Registered toggles are
 fixed, so the list is not built from the dungeons the loaded guides name. Pages sort by `order`; Recorder and
 About always close the list. A page or tab with no available control is left
 out of the sidebar and tab row. Every row resets to its default on right-click;

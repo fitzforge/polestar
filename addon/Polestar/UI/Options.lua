@@ -339,6 +339,15 @@ local BUILTIN = {
 			help = L["Elite and escort quests the guides mark for a group. Ask at each, or answer them all: with a group (a party levelling together) or skip them (solo). Discovery, Group quests changes one."],
 			choices = { { value = "ask", label = L["Ask me at each"] }, { value = "do", label = L["Do them with a group"] }, { value = "skip", label = L["Skip them"] } },
 			needs = function() local E = ns.Engine; return E and E.GroupQuests and #E.GroupQuests() > 0 end },
+		-- Dungeons in the route (`when dungeon`), per character (Engine.SetDungeonRoute;
+		-- Discovery > Dungeons answers one dungeon); the welcome's "Make it yours" sets it too.
+		{ kind = "dropdown", label = L["Dungeons in my route"], new = "0.3.7",
+			help = L["Leveling guides can take you through the dungeons on your way: they pick up the quests on stops they make anyway, send you to the door at the right level and hand the quests in after. Ask me: the guide asks at each dungeon. For this character."],
+			choices = { { value = "ask", label = L["Ask me"] }, { value = "run", label = L["Run them"] }, { value = "skip", label = L["Skip them"] } },
+			get = function() local E = ns.Engine; return E and E.DungeonRoute and E.DungeonRoute() or "skip" end,
+			set = function(v) local E = ns.Engine; if E and E.SetDungeonRoute then E.SetDungeonRoute(v) end end,
+			search = "dungeon, dungeons, group, instance, run, deadmines, wailing caverns",
+			needs = function() local E = ns.Engine; return E and E.GuideDungeons and next(E.GuideDungeons()) ~= nil end },
 		-- A quest the route had passed that leaves the log (Engine Own.holdLost,
 		-- #1365): the guide window asks, or the answer is always the same.
 		{ kind = "dropdown", key = "behavior.lostQuests", label = L["When you abandon a guide quest"],
@@ -744,8 +753,8 @@ local function available(c)
 	if c.needs and not c.needs() then return false end
 	if c.kind == "button" then return true end
 	if c.kind == "binding" then return ns.Gamepad ~= nil and ns.Gamepad.BindingRow ~= nil end
-	-- A toggle or slider with get/set and no key holds state that is no setting (per character).
-	if (c.kind == "toggle" or c.kind == "slider") and not c.key and c.get and c.set then return true end
+	-- A toggle, slider or dropdown with get/set and no key holds state that is no setting (per character).
+	if (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown") and not c.key and c.get and c.set then return true end
 	return ns.GetDefault and ns.GetDefault(c.key) ~= nil
 end
 

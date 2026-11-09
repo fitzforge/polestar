@@ -172,7 +172,7 @@ the outcome stays.
 | `when upgrade <item>` | Polestar's gear advice rates the item an upgrade now (an item it cannot judge counts as one; needs Polestar 0.3.0) | `when upgrade 2488` |
 | `when zone "<Name>"` / `when subzone "<Name>"` | the player is there | `when subzone "Goldshire"` |
 | `when bound "<Location>"` | the hearthstone is bound there | `when !bound "Goldshire"` |
-| `when dungeon "<Name>"` | the player chose to run that dungeon (Options, Discovery, Dungeons; all off at first); `!dungeon` is the route without it (needs Polestar 0.3.0) | `when dungeon "Ragefire Chasm"` |
+| `when dungeon "<Name>"` | the player runs that dungeon (Dungeons in my route: Skip / Ask me / Run them; one dungeon in Options, Discovery, Dungeons); `!dungeon` is the route without it (needs Polestar 0.3.0) | `when dungeon "Ragefire Chasm"` |
 | `when done <label>` | the labelled step of this guide was completed, not skipped or jumped over; not on a `next` line (needs Polestar 0.3.0) | `when done camp` |
 | `when skill <Profession> <N>` | the profession's rank is N or more; not learned counts as 0 (needs Polestar 0.3.0) | `when !skill Cooking 50` |
 | `when cooldown item <item>` / `when cooldown spell <spell>` | the item or spell is on cooldown, the global cooldown aside (needs Polestar 0.3.0) | `when !cooldown item 6948` |

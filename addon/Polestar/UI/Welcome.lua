@@ -1075,6 +1075,15 @@ PAGES[#PAGES + 1] = {
 			{ get = autoQuestGet, set = autoQuestSet })
 		F.AutoGuide = toggleRow(p, L["Load a guide for me when I log in"], "behavior.autoSelectGuide",
 			L["Opens the suggested guide when no tab is open."])
+		-- Dungeons in the route, for this character (Engine.SetDungeonRoute; Options, Guide, Automation).
+		F.Dungeons = W.Dropdown(p, L["Dungeons in my route"], nil,
+			{ { value = "ask", text = L["Ask me"] }, { value = "run", text = L["Run them"] }, { value = "skip", text = L["Skip them"] } },
+			L["Leveling guides can take you through the dungeons on your way, for a group of five. Ask me: the guide asks at each one."],
+			nil, {
+				get = function() local E = ns.Engine; return E and E.DungeonRoute and E.DungeonRoute() or "skip" end,
+				set = function(v) local E = ns.Engine; if E and E.SetDungeonRoute then E.SetDungeonRoute(v) end end,
+			})
+		W.RowDetails(F.Dungeons, { inset = 12, marks = false })
 		p.SchemeTitle = para(p, "body", "text", CW, 2)
 		p.SchemeTitle:SetText(L["Colour scheme"])
 		p.SchemeNote = para(p, "note", "textMuted", CW, 3)
@@ -1108,6 +1117,9 @@ PAGES[#PAGES + 1] = {
 			row:SetHeight(rh)
 			y = y + rh
 		end
+		place(F.Dungeons, -12, y)
+		F.Dungeons:Refresh()
+		y = y + W.LayoutRow(F.Dungeons, CW + 24)
 		y = y + 16
 		place(p.SchemeTitle, 0, y)
 		y = y + p.SchemeTitle:GetStringHeight() + 4

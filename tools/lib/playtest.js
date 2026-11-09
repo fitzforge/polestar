@@ -156,6 +156,7 @@ function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', scr
 			stub.fire("QUEST_LOG_UPDATE") -- the client fills the quest log right after login
 			Polestar.Set("behavior.guideEnd", ${handOver ? '"continue"' : '"ask"'})
 			Polestar.Set("behavior.groupQuests", ${luaValue(groups)})
+			Polestar.Engine.SetDungeonRoute("skip") -- a new character asks (Dungeons in my route); the play is the solo route
 			${dungeonMaps.map((m) => `Polestar.Engine.ChooseDungeon(${Number(m)}, true)`).join('\n')}
 			${handOver ? 'Polestar.Set("behavior.routeChoice", "recommended")' : ''}
 			Polestar.Engine.SetGuide(${luaValue(g.id)})

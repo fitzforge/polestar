@@ -258,7 +258,7 @@ step Back to Gornek
 | `zone "<Name>"` | the zone text reads so (the zone as the game names it) |
 | `subzone "<Name>"` | the subzone text reads so |
 | `bound "<Location>"` | the hearthstone is bound there (a bind location, as for `sethome`) |
-| `dungeon "<Name>"` | the character chose to run that dungeon (see "Dungeon steps" below) |
+| `dungeon "<Name>"` | the character runs that dungeon: its answer, else "Dungeons in my route" (see "Dungeon steps" below) |
 | `done <label>` | the step carrying `label <label>` in this guide was completed: it applies, its goals are done, and it was not skipped by the player, a failed `when` or a `skipto` jump (see "Jumps"); not on a `next` line |
 | `skill <Profession> <N>` | the character's rank in that profession is N (1 or more) or higher, the profession named as for the `skill` goal (`when skill Cooking 50`, `when skill "First Aid" 1`); one not learned counts as rank 0, so `!skill Herbalism 1` holds while the character has no Herbalism. A weapon skill works the same, by its skill name or its trainer spell's (`when !skill "Two-Handed Axes" 1` while the character has not learned it; `Swords` or `"One-Handed Swords"`) |
 | `cooldown item <item>`, `cooldown spell <spell>` | the item or spell is on cooldown, the global cooldown aside: `when !cooldown item 6948` while the Hearthstone is ready. Polestar looks again when the cooldown runs out |
@@ -293,12 +293,18 @@ ID"), and Polestar compares the game's own name for it, then the name you
 wrote.
 
 **Dungeon steps.** `when dungeon "<Name>"` is for the steps of a dungeon
-run: they apply only to characters who chose to run that dungeon, and `when
-!dungeon "<Name>"` is the route for those who did not. Each character picks
-the dungeons in Options, Discovery, Dungeons ("Dungeons in leveling guides",
-one switch per Classic dungeon); every one is off at first, so the solo route
-is the default. A choice changes only the steps still ahead: like any `when`,
-a step the route has passed keeps its outcome.
+run: they apply only to characters who run that dungeon, and `when
+!dungeon "<Name>"` is the route for those who do not. Each character answers
+"Dungeons in my route" (Skip them / Ask me / Run them: the welcome and Options,
+Guide, Automation; Ask for a new character, Skip for one Polestar had seen) and
+may answer one dungeon (Options, Discovery, Dungeons, or the guide window's
+question). With Ask me, the first `when dungeon` step with something to do now
+(an accept the character can take, or for a step with no accept, its other
+predicates holding) holds the route until the player answers; one with nothing
+to do now is passed. A step with `enter` is the run: the guide window says to
+start looking for a group a few steps before it and offers "No group? Skip it"
+on it. An answer changes only the steps still ahead: like any `when`, a step
+the route has passed keeps its outcome.
 
 A run is three parts. Its quests are picked up in `when dungeon` steps on
 stops the route makes anyway; the run itself is one `when dungeon` step, also

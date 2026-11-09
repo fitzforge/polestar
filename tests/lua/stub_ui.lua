@@ -615,11 +615,44 @@ function Engine.GetProgress()
 	return done, total
 end
 function Engine.ResetProgress() record("ResetProgress") end
--- The dungeons run in leveling guides, per character (CharState().dungeons).
-function Engine.DungeonChosen(map) return Polestar.CharState().dungeons[map] == true end
-function Engine.ChooseDungeon(map, on)
-	record("ChooseDungeon", map, on)
-	Polestar.CharState().dungeons[map] = on and true or nil
+-- Dungeons in the route, per character: the answer for one dungeon
+-- (CharState().dungeons[map]: true run, false skip), else the answer for
+-- every dungeon (CharState().dungeonRoute: "ask" | "run" | "skip").
+-- uistub.dungeonQuestion / dungeonRun / dungeonSoon: what the live step asks
+-- or is ({ map, name, quests, runIn, steps }, Engine.DungeonQuestion,
+-- DungeonRun, DungeonSoon); uistub.dungeonKept: SkipDungeon's titles.
+function Engine.DungeonAnswer(map)
+	local s = Polestar.CharState()
+	if s.dungeons[map] ~= nil then return s.dungeons[map] end
+	if s.dungeonRoute == "run" then return true elseif s.dungeonRoute == "ask" then return nil end
+	return false
+end
+function Engine.DungeonChosen(map) return Engine.DungeonAnswer(map) == true end
+function Engine.ChooseDungeon(map, answer)
+	record("ChooseDungeon", map, answer)
+	Polestar.CharState().dungeons[map] = answer
+end
+function Engine.DungeonRoute() local v = Polestar.CharState().dungeonRoute; return (v == "ask" or v == "run") and v or "skip" end
+function Engine.SetDungeonRoute(v)
+	record("SetDungeonRoute", v)
+	Polestar.CharState().dungeonRoute = v
+end
+uistub.dungeonQuestion, uistub.dungeonRun, uistub.dungeonSoon, uistub.dungeonKept = nil, nil, nil, {}
+function Engine.DungeonQuestion()
+	local d = uistub.dungeonQuestion
+	if not d or Polestar.CharState().dungeons[d.map] ~= nil then return nil end
+	return d
+end
+function Engine.DungeonRun()
+	local d = uistub.dungeonRun
+	if not d or Polestar.CharState().dungeons[d.map] == false then return nil end
+	return d
+end
+function Engine.DungeonSoon() return uistub.dungeonSoon end
+function Engine.SkipDungeon(map)
+	record("SkipDungeon", map)
+	Polestar.CharState().dungeons[map] = false
+	return uistub.dungeonKept
 end
 -- uistub.guideDungeons: the maps the character's guides have `when dungeon`
 -- steps for ({ [map] = true }, Engine.GuideDungeons).

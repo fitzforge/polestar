@@ -1568,12 +1568,21 @@ local function bannerNotice()
 	local gq, gtitle
 	if E and E.GroupQuestion then gq, gtitle = E.GroupQuestion() end
 	if gq then return "group", { quest = gq, title = gtitle } end
+	-- A dungeon in the route not answered yet (Engine.DungeonQuestion): the guide waits and asks.
+	local dq = E and E.DungeonQuestion and E.DungeonQuestion()
+	if dq then return "dungeon", dq end
+	if notices.dungeonKept then return "dungeonKept", notices.dungeonKept end
 	local k = notices.stepSkip
 	if k and g ~= nil and g.id == k.guideId and (not view or view.index ~= k.step) then return "stepSkip", k end
 	local s = notices.skipped
 	if s and g ~= nil and g.id == s.guideId and E.GetStepIndex() == s.to then return "skipped", s end
 	local a = E and awayNotice(E, g)
 	if a then return "away", a end
+	-- At a dungeon's run: "No group? Skip it"; a few steps before it: start looking for a group.
+	local dr = E and E.DungeonRun and E.DungeonRun()
+	if dr then return "dungeonRun", dr end
+	local ds = E and E.DungeonSoon and E.DungeonSoon()
+	if ds and notices.soonSeen ~= ds.map then return "dungeonSoon", ds end
 	-- The live step's accepts would not fit in the quest log (Core/RoutePlan.lua).
 	local lo = g ~= nil and view and E.GetLiveStep and view.index == E.GetLiveStep() and ns.RoutePlan and ns.RoutePlan.LogOverflow()
 	if lo and notices.logSeen ~= g.id .. ":" .. view.index then
@@ -1760,7 +1769,7 @@ end
 function GF.LayoutBanner(width)
 	local kind, n = bannerNotice()
 	banner.psKind = kind
-	banner.Jump.psDefault = (kind == "group" or kind == "lost") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
+	banner.Jump.psDefault = (kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
 	banner.Text:SetWidth(width - PAD * 2 - 21 - 24)
 	banner.Later:Hide()
 	if kind == "skipped" then
@@ -1770,6 +1779,18 @@ function GF.LayoutBanner(width)
 			lines[i] = string.format(L["Skipped %s"], ns.Quoted(k.title) or "") .. (k.text and ("  \194\183  " .. k.text) or "")
 		end
 		banner.Text:SetText(table.concat(lines, "\n"))
+		banner.Jump:Hide()
+		banner.Close:Show()
+		local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
+		banner:SetHeight(h)
+		return h
+	elseif kind == "dungeonKept" then
+		-- After "No group? Skip it": the dungeon's quests stay in the log; their hand-ins pass unless done.
+		banner.Icon:SetTexture(Theme.Media("icon-dungeon"))
+		local names = {}
+		for i, t in ipairs(n.titles) do names[i] = ns.Quoted(t) or t end
+		banner.Text:SetText(string.format(L["Kept in your log: %s"], table.concat(names, ", ")) .. "\n"
+			.. L["If you run it later, the dungeon's page has a hand-in guide for them."])
 		banner.Jump:Hide()
 		banner.Close:Show()
 		local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
@@ -1816,6 +1837,31 @@ function GF.LayoutBanner(width)
 		local w = placeLink(banner.Jump, L["Skip it"], 0, -4)
 		placeLink(banner.Later, L["Do it with a group"], w + 10, -4)
 		banner.Close:Hide()
+	elseif kind == "dungeon" then
+		banner.Icon:SetTexture(Theme.Media("icon-dungeon"))
+		local text = string.format(L["Dungeon on your way: %s, for a group of five."], n.name or "")
+		if n.quests and n.quests > 0 and n.runIn then
+			text = text .. "\n" .. (n.quests == 1 and string.format(L["The guide picks up 1 quest for it and runs it in about %d steps."], n.runIn)
+				or string.format(L["The guide picks up %d quests for it and runs it in about %d steps."], n.quests, n.runIn))
+		end
+		banner.Text:SetText(text .. "\n" .. L["Skip it and the guide keeps to the solo route."])
+		local w = placeLink(banner.Jump, L["Run it"], 0, -4)
+		placeLink(banner.Later, L["Skip it"], w + 10, -4)
+		banner.Close:Hide()
+	elseif kind == "dungeonRun" then
+		banner.Icon:SetTexture(Theme.Media("icon-dungeon"))
+		banner.Text:SetText(string.format(L["%s: a group of five runs it in about an hour."], n.name or "") .. "\n"
+			.. L["No group? Skip it: the guide goes on with the solo route, and its quests stay in your log."])
+		placeLink(banner.Jump, L["No group? Skip it"], 0, -4)
+		banner.Close:Hide()
+	elseif kind == "dungeonSoon" then
+		banner.Icon:SetTexture(Theme.Media("icon-dungeon"))
+		banner.Text:SetText(string.format(n.steps == 1 and L["%s next: start looking for a group."] or L["%s in %d steps: start looking for a group."], n.name or "", n.steps))
+		banner.Jump:Hide()
+		banner.Close:Show()
+		local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
+		banner:SetHeight(h)
+		return h
 	elseif kind == "stepSkip" then
 		banner.Icon:SetTexture(Theme.Media("skip"))
 		local what = string.format(L["Step %d"], UI.StepNo(n.step))
@@ -1980,6 +2026,11 @@ function GF.TakeBanner()
 		if UI.ShowQuestRoom then UI.ShowQuestRoom() end
 	elseif kind == "group" then
 		if E and E.AnswerGroup then E.AnswerGroup(n.quest, "skip") end
+	elseif kind == "dungeon" then
+		if E and E.ChooseDungeon then E.ChooseDungeon(n.map, true) end
+	elseif kind == "dungeonRun" then
+		local kept = E and E.SkipDungeon and E.SkipDungeon(n.map)
+		if kept and #kept > 0 then notices.dungeonKept = { map = n.map, titles = kept } end
 	elseif kind == "stepSkip" then
 		notices.stepSkip = nil
 		if E and E.Unskip then E.Unskip(n.step) end
@@ -2038,6 +2089,9 @@ function GF.LaterBanner()
 	if kind == "group" then
 		if E and E.AnswerGroup then E.AnswerGroup(n.quest, "do") end
 		GF.Layout()
+	elseif kind == "dungeon" then
+		if E and E.ChooseDungeon then E.ChooseDungeon(n.map, false) end
+		GF.Layout()
 	elseif kind == "lost" then
 		if E and E.AnswerLost then E.AnswerLost(n.quest, "skip") end
 		GF.Layout()
@@ -2060,8 +2114,10 @@ function GF.DismissBanner(later)
 	elseif kind == "away" then
 		-- Looking ahead or back: closed for this step (awayNotice), another step has its own
 		notices.away = n.guideId .. ":" .. n.index
-	elseif kind == "group" or kind == "lost" then
-		-- a group quest or a lost one is answered, never dismissed
+	elseif kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun" then
+		-- a group quest, a lost one or a dungeon is answered, never dismissed
+	elseif kind == "dungeonSoon" then
+		notices.soonSeen = n.map
 	elseif kind == "log" then
 		notices.logSeen = n.key
 	elseif kind == "riding" then

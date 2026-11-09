@@ -455,6 +455,27 @@ fn the_setup_page_writes_its_settings_quest_automation_both_ways_the_login_guide
 	assert_eq!(out["stillShown"], true);
 }
 
+// "Make it yours": Dungeons in my route, for this character (Engine.SetDungeonRoute): Ask me for a character
+// Polestar had never seen; the pick is the character's, never an account setting.
+#[test]
+fn the_setup_page_asks_about_dungeons_in_my_route_ask_me_for_a_new_character() {
+	let out = run(r#"
+		Wel.Show("setup")
+		local F = PolestarWelcome
+		local row = F.Dungeons
+		local before = { row:IsShown(), row.Label:GetText(), row.Button.Label:GetText(), uistub.findText(F, "for a group of five") ~= nil }
+		row.Button:Click()
+		local choices = {}
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then choices[#choices + 1] = r.Text:GetText() end end
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Skip them" then r:Click() end end
+		emit({ before = before, choices = choices, after = row.Button.Label:GetText(), route = PolestarCharDB.dungeonRoute,
+			account = PolestarDB.settings.behavior and PolestarDB.settings.behavior.dungeons or false })"#);
+	assert_eq!(
+		out,
+		json!({ "before": [true, "Dungeons in my route", "Ask me", true], "choices": ["Ask me", "Run them", "Skip them"], "after": "Skip them", "route": "skip", "account": false })
+	);
+}
+
 #[test]
 fn right_clicking_the_quest_automation_switch_puts_accepting_and_turning_in_back_to_their_defaults() {
 	let out = run(r#"

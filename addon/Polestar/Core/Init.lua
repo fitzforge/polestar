@@ -568,8 +568,10 @@ function ns.CharState()
 	if type(s.skipped) ~= "table" then s.skipped = {} end
 	-- Per guide, per step: true when its `when` held as the route passed it, or it was unskipped (Engine.lua, Own.latchWhen, Own.keep; a failed one is stored in `skipped`); an unskipped step's `skipto` takes no jump.
 	if type(s.when) ~= "table" then s.when = {} end
-	-- Map id -> true: the dungeons the player chose to run in leveling guides (`when dungeon`; Engine.ChooseDungeon).
+	-- Map id -> true (run it) | false (skip it): the player's answer for a dungeon in leveling guides (`when dungeon`; Engine.ChooseDungeon); none: dungeonRoute answers.
 	if type(s.dungeons) ~= "table" then s.dungeons = {} end
+	-- "ask" | "run" | "skip": the answer for every dungeon the player has not answered one by one ("Dungeons in my route"; Engine.SetDungeonRoute). Set once when the addon loads (onAddonLoaded): Ask for a character Polestar had never seen, Skip for one it had (no surprise stop in a route it is part-way through).
+	if s.dungeonRoute ~= nil and s.dungeonRoute ~= "ask" and s.dungeonRoute ~= "run" and s.dungeonRoute ~= "skip" then s.dungeonRoute = nil end
 	-- Quest id -> "do" | "skip": the player's answer at a group quest in leveling guides (`when group`; Engine.AnswerGroup).
 	if type(s.groupQuests) ~= "table" then s.groupQuests = {} end
 	if type(s.flags) ~= "table" then s.flags = {} end
@@ -621,7 +623,8 @@ local function onAddonLoaded(_, name)
 	newAccount = type(PolestarDB) ~= "table" or PolestarDB == madeDB
 	DB()
 	newCharacter = type(PolestarCharDB) ~= "table"
-	ns.CharState()
+	local char = ns.CharState()
+	if char.dungeonRoute == nil then char.dungeonRoute = newCharacter and "ask" or "skip" end
 	-- The character's settings profile into PolestarDB.settings and the
 	-- settings migrations, before anything reads a setting (Core/Profiles.lua).
 	if ns.Profiles and ns.Profiles.Load then call(ns.Profiles.Load) end
