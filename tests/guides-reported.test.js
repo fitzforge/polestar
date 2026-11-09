@@ -9666,3 +9666,15 @@ test('Horde Stranglethorn 40: Locating the Lost City after the legend, the reef 
 	const tin = at(stv, 'turnin 95770', is('turnin', 95770));
 	assert.equal(stv[tin].s, stv[at(stv, 'turnin 598', is('turnin', 598))].s, 'handed in with the trophy skulls');
 });
+
+// PlayersHorde (0.3.6, players' recordings): Darkcloud Pinnacle's Document Chests were listed north-west first, so the
+// arrow led from Freewind past the two southern Grimtotem camps to the north-west one and back south (8 of 9 people
+// on 0.3.5+ walked it so). From Freewind the chests go south-east, south-west, north-west, and the top-up and the climb
+// to Lakota start from the north.
+test('Horde Thousand Needles: Darkcloud chests south-east, south-west, north-west from Freewind', { skip }, () => {
+	const list = goals('forever/horde/07-ashenvale.guide');
+	const chest = (o) => at(list, `interact ${o}`, (g) => g.t === 'interact' && g.object === o);
+	assert.ok(chest(190484) < chest(190483) && chest(190483) < chest(176344), 'south-east, south-west, north-west');
+	const spot = list.find(({ step, goal }) => step.title === 'Level 28.9' && goal.t === 'goto').goal;
+	assert.ok(spot.y < 35, `the top-up is in the northern camps (${spot.x},${spot.y}), not back at the south-west chest`);
+});

@@ -4802,6 +4802,34 @@
 				],
 				"faction": "Horde",
 				"why": "GuideHealth036 (0.3.6, 2026-11-09, breadcrumb sweep): Defenders of Darrowshire (5211) after Uncle Carlin (5241) is handed to Carlin Redpath: the Forever server data (PrevQuestID 5241) and the quest data's pre name 5241 as its prerequisite, and the Alliance route already takes them in that order. Horde 50-60/01 took 5211 on its first Light's Hope stop and Uncle Carlin later at Pamela, so Carlin would not offer it; 5211 is now taken on 01's last Light's Hope stop and its spirits freed at Corin's Crossing in 50-60/05, handed in with Villains of Darrowshire."
+			},
+			{
+				"a": [
+					"task",
+					5064,
+					2
+				],
+				"b": [
+					"task",
+					5064,
+					1
+				],
+				"faction": "Horde",
+				"why": "PlayersHorde 0.3.6 (players' recordings): Darkcloud Pinnacle's Document Chests from Freewind: the south-east camp (39.3,41.5), then the south-west (33.8,40.0), then the north-west (31.8,32.6), the closest to Lakota. The step pointed at the north-west chest first, past the two southern camps, then back south and east (0.3.5+: 8 of 9 people walked north to the north-west camp and back south through the south-west one; Lakota's climb started from the south-east chest for 6 of 8): about 530 yd more walking (780 with the top-up)."
+			},
+			{
+				"a": [
+					"task",
+					5064,
+					1
+				],
+				"b": [
+					"task",
+					5064,
+					0
+				],
+				"faction": "Horde",
+				"why": "PlayersHorde 0.3.6: see the pair before (Darkcloud chests south-east, south-west, north-west)."
 			}
 		],
 		"notes": [

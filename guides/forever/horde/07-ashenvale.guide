@@ -319,14 +319,14 @@ step Freewind Post
 
 step Darkcloud Pinnacle
   tip West of Freewind, the Grimtotem camps below Darkcloud Pinnacle. The Secret Notes are in Document Chests at the south-east, south-west and north-west camps.
-  interact 176344 quest 5064.1 @31.8,32.6 map 1441 -- Document Chest, north-west camp
+  interact 190484 quest 5064.3 @39.3,41.5 map 1441 -- Document Chest, south-east camp
   interact 190483 quest 5064.2 @33.8,40.0 map 1441 -- Document Chest, south-west camp
-  interact 190484 quest 5064.3        -- Document Chest, south-east camp
+  interact 176344 quest 5064.1 @31.8,32.6 map 1441 -- Document Chest, north-west camp
 
 step Level 28.9
   when level<28.9
   tip Short of 28.9? The Grimtotem around these camps (25-28) are the right level: kill a few more before the climb to Lakota. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon or the Razorfen Kraul dungeon instead.
-  goto 33.8,40.0 map 1441 "Grimtotem camps below Darkcloud Pinnacle"
+  goto 35.0,31.5 map 1441 "Grimtotem camps below Darkcloud Pinnacle"
   level 28.9 grind 10759              -- grind on Grimtotem Stomper
 
 step Lakota Windsong
