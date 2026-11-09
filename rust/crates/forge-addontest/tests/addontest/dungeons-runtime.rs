@@ -383,6 +383,46 @@ fn buildjournal_a_quest_an_unplaced_object_of_the_instance_starts_is_picked_up_i
 	assert_eq!(json!([wanted["inside"], wanted["start"]["inside"]]), json!([false, false]), "placed outside: {wanted}");
 }
 
+// SweepDungeons' 'handin-missed' / 'quest-dropped' findings: turn-ins at NPCs and objects that stand only inside
+// an instance (Commander Gor'shak in Blackrock Depths, the Altar of Hakkar in the Sunken Temple) and a giver
+// inside (the Hall of Thanes' Ghostly Attendant) carried no `inside`, so the hand-in guide filed them as turned
+// in nowhere known. An unplaced NPC the Codex puts in this instance, or an unplaced object listing its map,
+// marks the start or the finish inside; an NPC of another instance does not.
+#[test]
+fn buildjournal_a_giver_or_turn_in_npc_or_object_that_stands_inside_the_instance_is_marked_inside() {
+	let (mut c, mut i) = (codex(), inputs());
+	c["npcs"]["90030"] = json!({ "id": 90030, "name": "Ghostly Attendant", "level": 20, "faction": null, "instance": "wailing-caverns", "roles": [], "spawns": [] });
+	c["npcs"]["90031"] = json!({ "id": 90031, "name": "Gor'shak", "level": 20, "faction": null, "instance": "wailing-caverns", "roles": [], "spawns": [] });
+	c["npcs"]["90032"] = json!({ "id": 90032, "name": "Elsewhere", "level": 20, "faction": null, "instance": "deadmines", "roles": [], "spawns": [] });
+	c["npcs"]["90033"] = json!({ "id": 90033, "name": "Outside Giver", "level": 20, "faction": null, "instance": null, "roles": [], "spawns": [{ "map": 1413, "x": 46, "y": 36, "f": "e" }] });
+	c["objects"]["90034"] = json!({ "id": 90034, "name": "Altar", "spawns": [] });
+	let quest = |id: i64, title: &str, start: Value, end: Value| {
+		json!({
+			"id": id, "title": title, "level": 20, "minLevel": 15, "faction": null, "races": null, "classes": null,
+			"start": start, "end": end, "objectives": [], "pre": [], "preAny": [], "rewards": [], "choices": [],
+		})
+	};
+	let npc = |n: i64| json!({ "npc": [n], "object": [], "item": [] });
+	c["quests"]["90035"] = quest(90035, "An Ancient Grudge", npc(90030), json!({ "npc": [90030], "object": [] }));
+	c["quests"]["90036"] = quest(90036, "Gor'shak", npc(90033), json!({ "npc": [90031], "object": [] }));
+	c["quests"]["90037"] = quest(90037, "Into the Depths", npc(90033), json!({ "npc": [], "object": [90034] }));
+	c["quests"]["90038"] = quest(90038, "Elsewhere", npc(90033), json!({ "npc": [90032], "object": [] }));
+	for id in [90035, 90036, 90037, 90038] {
+		i["forever"]["quests"][id.to_string()] = json!({ "area": 718 });
+	}
+	i["forever"]["objects"] = json!({ "90034": { "instances": [43] } });
+	let j = journal_json(&i, &c);
+	let wc = &j["dungeons"]["wailing-caverns"];
+	let at = |id: i64| {
+		let q = page_quest(wc, id);
+		json!([q["inside"], q["start"]["inside"], q["finish"]["inside"]])
+	};
+	assert_eq!(at(90035), json!([true, true, true]), "given and turned in inside");
+	assert_eq!(at(90036), json!([false, false, true]), "turned in inside");
+	assert_eq!(at(90037), json!([false, false, true]), "an object of the instance's map");
+	assert_eq!(at(90038), json!([false, false, false]), "an NPC of another instance");
+}
+
 #[test]
 fn buildjournal_tolerates_missing_inputs_emitjournal_writes_one_file_of_summaries_and_page_sources() {
 	assert_eq!(journal_json(&json!({}), &json!({}))["dungeons"], json!({}));

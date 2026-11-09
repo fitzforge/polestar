@@ -791,5 +791,109 @@
 			}
 		],
 		"note": "Alliance shaman Call of Water: drinking the Water Sapta at the Forgotten Shrine by Stendel's Pond in Westfall calls the Corrupt Minor Manifestation of Water (npc 5894) there, as well as at its Silverpine spot (kept). The merged data had only Silverpine."
+	},
+	"9020": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "Commander Gor'shak stands inside Blackrock Depths (instance map 230): the dungeon hand-in guide lists his turn-in as inside, not nowhere."
+	},
+	"9021": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "Kharan Mighthammer stands inside Blackrock Depths (instance map 230)."
+	},
+	"9023": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "Marshal Windsor stands inside Blackrock Depths (instance map 230)."
+	},
+	"10257": {
+		"set": {
+			"instances": [
+				229
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 229 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 229"
+			}
+		],
+		"note": "Bijou stands inside Blackrock Spire (instance map 229)."
+	},
+	"10299": {
+		"set": {
+			"instances": [
+				229
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 229 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 229"
+			}
+		],
+		"note": "The Scarshield Infiltrator stands inside Blackrock Spire (instance map 229)."
+	},
+	"265002": {
+		"set": {
+			"instances": [
+				3065
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature spawn on map 3065 only"
+			}
+		],
+		"note": "The Ghostly Attendant, An Ancient Grudge's giver and ender, stands inside the Hall of Thanes (instance map 3065, Forever's)."
 	}
 }
