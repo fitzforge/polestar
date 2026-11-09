@@ -1800,7 +1800,7 @@ do
 					title = "{zone:1429}",
 					note = "From the tram, leave {zone:1453} by the main gate and follow the road through {area:87} and east through Elwynn to Redridge.",
 					goals = {
-						{ t = "goto", text = "The road east to Redridge", map = 1429, x = 65.2, y = 69.7, f = "e" },
+						{ t = "goto", text = "The road east to Redridge", map = 1429, x = 65.8, y = 74, f = "e" },
 					},
 				},
 				{
