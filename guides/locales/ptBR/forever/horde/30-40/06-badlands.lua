@@ -9,8 +9,8 @@ return {
 	-- Step 1: Into the Badlands
 	-- {zone:1418} Badlands
 	["Into the {zone:1418}"] = "Rumo a {zone:1418}",
-	-- {object:2673} Thandol Span (no name in this language: may be words) · {zone:1437} Wetlands · {area:150} Menethil Harbor · {zone:1432} Loch Modan · {zone:1418} Badlands · {area:1877} Valley of Fangs
-	["Head for the {object:2673}, the great bridge at Arathi's southern edge, cross it and go south through the {zone:1437} (keep clear of {area:150}) and east into {zone:1432}; the road leaves {zone:1432} to the south into the {zone:1418}. Follow it south to the goblin camp in the {area:1877}."] = "Siga para {object:2673}, a grande ponte no extremo sul de Arathi, atravesse-a e vá para o sul por {zone:1437} (fique longe de {area:150}) e depois para leste até {zone:1432}; a estrada sai de {zone:1432} para o sul, rumo a {zone:1418}. Siga-a para o sul até o acampamento goblin em {area:1877}.",
+	-- {object:2673} Thandol Span (no name in this language: may be words) · {zone:1437} Wetlands · {object:1668} Dun Algaz (no name in this language: may be words) · {zone:1432} Loch Modan · {area:144} Thelsamar · {zone:1418} Badlands · {area:1877} Valley of Fangs
+	["Head for the {object:2673}, the great bridge at Arathi's southern edge, cross it and follow the road south through the {zone:1437} to the {object:1668} tunnel into {zone:1432}. {area:144}, the dwarf town on the road in the middle of {zone:1432}, has guards who attack the Horde: leave the road before it and pass the town on the hills to its west. The road leaves {zone:1432} to the south into the {zone:1418}; follow it to the goblin camp in the {area:1877}."] = "",
 
 	-- Step 2: Valley of Fangs
 	-- {quest:1106} Martek the Exiled · {area:439} Shimmering Flats
@@ -38,18 +38,25 @@ return {
 	-- Step 7: Badlands: kill these as you meet them
 	-- {zone:1418} Badlands
 	["{zone:1418}: kill these as you meet them"] = "{zone:1418}: vá matando estes pelo caminho",
-	-- {area:1878} The Dustbowl · {npc:6868} Jarkal Mossmeld
-	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Rock Elementals = {npc:92} Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard
-	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards.\nThe bigger Rock Elementals stand on the slopes north-west of the {area:1878}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards."] = "Os Coiotes Anciões do Rochedo e Urubus Gigantes vagam pela bacia ao sul de {area:1878}. Os coiotes deixam cair tanto as mandíbulas quanto as presas; os Urubus Gigantes deixam cair as moelas.\nOs Elementais da Rocha maiores ficam nas encostas a noroeste de {area:1878}; cada um deixa cair uma laje. Todo elemental de rocha pode deixar cair os Estilhaços de Elemental da Rocha de {npc:6868}.",
+	-- {area:1878} The Dustbowl
+	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard
+	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards."] = "",
+
+	-- Step 8: Rock Elementals
+	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental
+	["Rock Elementals"] = "",
+	-- {area:345} Agmond's End · {npc:6868} Jarkal Mossmeld
+	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard
+	["South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of {area:345}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards."] = "",
 
 	-- Step 9: Agmond's End
-	-- {area:345} Agmond's End · {area:1877} Valley of Fangs
-	["Theldurin sits among the dwarven ruins at {area:345}, south of the {area:1877}."] = "Theldurin fica entre as ruínas anãs em {area:345}, ao sul de {area:1877}.",
+	-- {area:345} Agmond's End
+	["Theldurin sits among the dwarven ruins at {area:345}, just east of the elementals."] = "",
 
 	-- Step 10: Stonevault troggs
 	["Stonevault troggs"] = "Troggs da Abóbada de Pedra",
 	-- {area:1877} Valley of Fangs · {area:345} Agmond's End · {npc:2817} Rigglefuzz
-	["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way to {area:345}; the Bonesnappers and Shamans drop the flakes. The Buzzards for {npc:2817}'s wings circle the hills between the {area:1877} and {area:345}."] = "Os troggs da Abóbada de Pedra cavam em volta das bocas das cavernas ao sul de {area:1877}, no caminho para {area:345}; os Quebraossos e Xamãs deixam cair as lascas. Os Urubus para as asas de {npc:2817} sobrevoam as colinas entre {area:1877} e {area:345}.",
+	["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way north from {area:345}; the Bonesnappers and Shamans drop the flakes. The Buzzards for {npc:2817}'s wings circle the hills between the {area:1877} and {area:345}."] = "",
 
 	-- Step 11: Valley of Fangs
 	-- {area:1517} Uldaman · {area:1877} Valley of Fangs · {npc:2817} Rigglefuzz · {npc:4618} Martek the Exiled
@@ -64,20 +71,28 @@ return {
 	-- {area:1877} Valley of Fangs
 	["Head back south down the road, past the {area:1877}."] = "Volte para o sul pela estrada, passando por {area:1877}.",
 
-	-- Step 14: The Dustbowl: kill these as you meet them
-	-- {area:1878} The Dustbowl
-	["{area:1878}: kill these as you meet them"] = "{area:1878}: vá matando estes pelo caminho",
-	-- {zone:1418} Badlands · {npc:6868} Jarkal Mossmeld · {npc:2921} Lotwil Veriatus
-	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["Every rock elemental in the {zone:1418} drops {npc:6868}'s shards: the Lesser Rock Elementals (37) on the flats west of {npc:2921}'s camp are the safe ones, about one kill in five. Only the Greater Rock Elementals (42-44, well above you) in the south-western gulches drop {npc:2921}'s bracers, also about one kill in five: pull one at a time and rest between fights, or leave them. Keep killing coyotes and buzzards you still need on the way."] = "Todo elemental da rocha de {zone:1418} deixa cair os estilhaços para {npc:6868}: os Elementais Inferiores da Rocha (37) na planície a oeste do acampamento de {npc:2921} são os tranquilos, mais ou menos um a cada cinco. Só os Elementais Maiores da Rocha (42-44, bem acima de você) nos barrancos do sudoeste deixam cair as braçadeiras para {npc:2921}, também uns um a cada cinco: puxe um de cada vez e descanse entre as lutas, ou deixe para lá. Pelo caminho, continue matando os coiotes e urubus que ainda faltam.",
+	-- Step 14: The Dustbowl
+	-- {npc:2921} Lotwil Veriatus
+	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
+	["North-west across the basin to {npc:2921}'s camp. Short of Jarkal's shards? The Lesser Rock Elementals (37) on the flats west of the camp drop them about one kill in five."] = "",
+	-- {npc:2921} Lotwil Veriatus
+	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
+	["{npc:2921}'s next study wants bracers from the Greater Rock Elementals (42-44) in the south-western gulches, well above you: leave it."] = "",
 
-	-- Step 15: The Dustbowl
-	-- {npc:2920} Lucien Tosselwrench · {item:2868} Patterned Bronze Bracers · {skill:164} Blacksmithing
-	["{npc:2920}: only if you carry {item:2868} ({skill:164} or the Auction House)"] = "{npc:2920}: só se você tiver {item:2868} ({skill:164} ou a Casa de Leilões)",
-
-	-- Step 16: Kargath
+	-- Step 15: Kargath
 	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar
-	["Head north back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "Siga ao norte, de volta a {area:340}. {npc:5394} fica no andar de cima de {area:340}, bem acima do mestre de voo: suba pelas rampas, a seta não distingue os andares.",
-	-- {area:340} Kargath · {area:35} Booty Bay
-	["The next guide flies from {area:340} to {area:35}."] = "O próximo guia voa de {area:340} para {area:35}.",
+	["Head west back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "",
+	-- {area:340} Kargath · {object:3202} Grom'gol (no name in this language: may be words)
+	["The next guide flies from {area:340} to {object:3202}."] = "",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Every rock elemental in the {zone:1418} drops {npc:6868}'s shards: the Lesser Rock Elementals (37) on the flats west of {npc:2921}'s camp are the safe ones, about one kill in five. Only the Greater Rock Elementals (42-44, well above you) in the south-western gulches drop {npc:2921}'s bracers, also about one kill in five: pull one at a time and rest between fights, or leave them. Keep killing coyotes and buzzards you still need on the way."] = "Todo elemental da rocha de {zone:1418} deixa cair os estilhaços para {npc:6868}: os Elementais Inferiores da Rocha (37) na planície a oeste do acampamento de {npc:2921} são os tranquilos, mais ou menos um a cada cinco. Só os Elementais Maiores da Rocha (42-44, bem acima de você) nos barrancos do sudoeste deixam cair as braçadeiras para {npc:2921}, também uns um a cada cinco: puxe um de cada vez e descanse entre as lutas, ou deixe para lá. Pelo caminho, continue matando os coiotes e urubus que ainda faltam.",
+	-- ["Head for the {object:2673}, the great bridge at Arathi's southern edge, cross it and go south through the {zone:1437} (keep clear of {area:150}) and east into {zone:1432}; the road leaves {zone:1432} to the south into the {zone:1418}. Follow it south to the goblin camp in the {area:1877}."] = "Siga para {object:2673}, a grande ponte no extremo sul de Arathi, atravesse-a e vá para o sul por {zone:1437} (fique longe de {area:150}) e depois para leste até {zone:1432}; a estrada sai de {zone:1432} para o sul, rumo a {zone:1418}. Siga-a para o sul até o acampamento goblin em {area:1877}.",
+	-- ["Head north back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "Siga ao norte, de volta a {area:340}. {npc:5394} fica no andar de cima de {area:340}, bem acima do mestre de voo: suba pelas rampas, a seta não distingue os andares.",
+	-- ["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards.\nThe bigger Rock Elementals stand on the slopes north-west of the {area:1878}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards."] = "Os Coiotes Anciões do Rochedo e Urubus Gigantes vagam pela bacia ao sul de {area:1878}. Os coiotes deixam cair tanto as mandíbulas quanto as presas; os Urubus Gigantes deixam cair as moelas.\nOs Elementais da Rocha maiores ficam nas encostas a noroeste de {area:1878}; cada um deixa cair uma laje. Todo elemental de rocha pode deixar cair os Estilhaços de Elemental da Rocha de {npc:6868}.",
+	-- ["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way to {area:345}; the Bonesnappers and Shamans drop the flakes. The Buzzards for {npc:2817}'s wings circle the hills between the {area:1877} and {area:345}."] = "Os troggs da Abóbada de Pedra cavam em volta das bocas das cavernas ao sul de {area:1877}, no caminho para {area:345}; os Quebraossos e Xamãs deixam cair as lascas. Os Urubus para as asas de {npc:2817} sobrevoam as colinas entre {area:1877} e {area:345}.",
+	-- ["The next guide flies from {area:340} to {area:35}."] = "O próximo guia voa de {area:340} para {area:35}.",
+	-- ["Theldurin sits among the dwarven ruins at {area:345}, south of the {area:1877}."] = "Theldurin fica entre as ruínas anãs em {area:345}, ao sul de {area:1877}.",
+	-- ["{area:1878}: kill these as you meet them"] = "{area:1878}: vá matando estes pelo caminho",
+	-- ["{npc:2920}: only if you carry {item:2868} ({skill:164} or the Auction House)"] = "{npc:2920}: só se você tiver {item:2868} ({skill:164} ou a Casa de Leilões)",
 }
