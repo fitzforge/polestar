@@ -205,45 +205,45 @@ return {
 	-- {area:271} Southshore · {area:272} Tarren Mill
 	["The Snapjaw turtles bask along the river east of {area:271}, south of {area:272} (Horde)."] = "Las tortugas Quijaforte toman el sol a lo largo del río al este de {area:271}, al sur de {area:272} (Horda).",
 
-	-- Step 47: Fly to Ironforge
+	-- Step 46: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "",
 	-- {area:271} Southshore
 	["{area:271} flight master"] = "",
 
-	-- Step 48: Hall of Explorers
+	-- Step 47: Hall of Explorers
 	-- {npc:1356} Prospector Stormpike · {npc:2916} Historian Karnik · {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers (no name in this language: may be words)
 	["{npc:1356}, {npc:2916} and {npc:5637} stand in the {object:32356}, north-east of the flight master."] = "",
 	["Level 30 and 32 spells"] = "Hechizos de nivel 30 y 32",
 
-	-- Step 52: Fly to Stormwind
+	-- Step 51: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "Vuela a {zone:1453}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
-	-- Step 53: Elling Trias
+	-- Step 52: Elling Trias
 	-- {object:2096} Trade District
 	["The cheese shop in the {object:2096}."] = "La quesería de {object:2096}.",
 
-	-- Step 54: Dashel Stonefist
+	-- Step 53: Dashel Stonefist
 	-- {npc:4961} Dashel Stonefist · {object:2100} Old Town
 	["{npc:4961} waits in the Pig and Whistle tavern in {object:2100}; he and his two thugs fight you, but stop once beaten."] = "{npc:4961} espera en la taberna El Cerdo Borracho, en {object:2100}; él y sus dos matones pelean contigo, pero se detienen al ser derrotados.",
 	-- {npc:4961} Dashel Stonefist
 	["Beat {npc:4961} and his thugs: they give up"] = "",
 
-	-- Step 55: The Islander
+	-- Step 54: The Islander
 	-- {npc:5479} Wu Shen · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens · {area:392} Ratchet
 	["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (40-50/01)."] = "{npc:5479} instruye a los guerreros en {object:2100}, junto a El Cerdo Borracho. {npc:6236} espera en {area:720}, en {zone:1413}, de camino a {area:392} mucho más tarde (40-50/01).",
 
-	-- Step 57: Cathedral of Light
+	-- Step 56: Cathedral of Light
 	["Cathedral of Light"] = "Cathedral of Light",
 
-	-- Step 59: Mage Quarter
+	-- Step 58: Mage Quarter
 	-- {npc:2708} Archmage Malin · {object:2164} Slaughtered Lamb · {npc:5081} Connor Rivers · {object:2101} Mage Quarter
 	["{npc:2708} is in the {object:2164}; {npc:5081} south of the {object:2101}."] = "",
 
-	-- Step 60: Druid training
+	-- Step 59: Druid training
 	["Druid training"] = "Instrucción de druida",
 	-- {zone:1455} Ironforge · {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {object:2101} Mage Quarter
 	["{zone:1455} has no druid trainer: {npc:5504} stands in {zone:1453}, north-west of the {object:2101}."] = "",

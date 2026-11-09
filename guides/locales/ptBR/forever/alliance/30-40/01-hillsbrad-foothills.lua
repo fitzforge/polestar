@@ -205,45 +205,45 @@ return {
 	-- {area:271} Southshore · {area:272} Tarren Mill
 	["The Snapjaw turtles bask along the river east of {area:271}, south of {area:272} (Horde)."] = "As tartarugas Mordeliscas tomam sol ao longo do rio a leste de {area:271}, ao sul de {area:272} (Horda).",
 
-	-- Step 47: Fly to Ironforge
+	-- Step 46: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Voe para {area:1537}",
 	-- {area:271} Southshore
 	["{area:271} flight master"] = "Mestre de voo de {area:271}",
 
-	-- Step 48: Hall of Explorers
+	-- Step 47: Hall of Explorers
 	-- {npc:1356} Prospector Stormpike · {npc:2916} Historian Karnik · {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers (no name in this language: may be words)
 	["{npc:1356}, {npc:2916} and {npc:5637} stand in the {object:32356}, north-east of the flight master."] = "{npc:1356}, {npc:2916} e {npc:5637} ficam no {object:32356}, a nordeste do mestre de voo.",
 	["Level 30 and 32 spells"] = "Feitiços de nível 30 e 32",
 
-	-- Step 52: Fly to Stormwind
+	-- Step 51: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "Voe para {zone:1453}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "Mestre de voo de {zone:1455}",
 
-	-- Step 53: Elling Trias
+	-- Step 52: Elling Trias
 	-- {object:2096} Trade District
 	["The cheese shop in the {object:2096}."] = "A loja de queijos em {object:2096}.",
 
-	-- Step 54: Dashel Stonefist
+	-- Step 53: Dashel Stonefist
 	-- {npc:4961} Dashel Stonefist · {object:2100} Old Town
 	["{npc:4961} waits in the Pig and Whistle tavern in {object:2100}; he and his two thugs fight you, but stop once beaten."] = "{npc:4961} espera na Taberna do Javatusco Saltitante, em {object:2100}; ele e seus dois capangas lutam com você, mas param quando derrotados.",
 	-- {npc:4961} Dashel Stonefist
 	["Beat {npc:4961} and his thugs: they give up"] = "",
 
-	-- Step 55: The Islander
+	-- Step 54: The Islander
 	-- {npc:5479} Wu Shen · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens · {area:392} Ratchet
 	["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (40-50/01)."] = "{npc:5479} treina guerreiros em {object:2100}, ao lado da Taberna do Javatusco Saltitante. {npc:6236} espera em {area:720}, em {zone:1413}, no caminho para {area:392}, bem mais tarde (40-50/01).",
 
-	-- Step 57: Cathedral of Light
+	-- Step 56: Cathedral of Light
 	["Cathedral of Light"] = "Catedral da Luz",
 
-	-- Step 59: Mage Quarter
+	-- Step 58: Mage Quarter
 	-- {npc:2708} Archmage Malin · {object:2164} Slaughtered Lamb · {npc:5081} Connor Rivers · {object:2101} Mage Quarter
 	["{npc:2708} is in the {object:2164}; {npc:5081} south of the {object:2101}."] = "{npc:2708} fica em {object:2164}; {npc:5081}, ao sul do {object:2101}.",
 
-	-- Step 60: Druid training
+	-- Step 59: Druid training
 	["Druid training"] = "Treinamento de druida",
 	-- {zone:1455} Ironforge · {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {object:2101} Mage Quarter
 	["{zone:1455} has no druid trainer: {npc:5504} stands in {zone:1453}, north-west of the {object:2101}."] = "{zone:1455} não tem instrutor de druida: {npc:5504} fica em {zone:1453}, a noroeste do {object:2101}.",
