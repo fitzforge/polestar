@@ -130,7 +130,7 @@ step Deathstalker Masoj
 
 step The southern peak
   tip Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above Dun Garok, just south of him: use a vial at the top.
-  use 279395 quest 98095.3 @73.8,72.7 live
+  use 279395 quest 98095.3 @74.1,73.4 live
 
 # ---------------------------------------------------------------- Hillsbrad
 
@@ -143,8 +143,8 @@ step The smithy
 
 step The western peak
   zone Alterac Mountains
-  tip From Hillsbrad town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border.
-  use 279395 quest 98095.1 @38.4,87.2 map 1416 live
+  tip From Hillsbrad town climb the mountain to the north, right up to its top on the Alterac border: the western vial goes there, not on the lower slope.
+  use 279395 quest 98095.1 @38.6,94.8 map 1416 live
 
 step Back to Tarren Mill
   zone Hillsbrad Foothills
@@ -160,7 +160,7 @@ step Tarren Mill
 
 step The northern peak
   tip The northern peak rises south-east of Tarren Mill, on the way down towards Durnholde.
-  use 279395 quest 98095.2 @72.3,31.2 live
+  use 279395 quest 98095.2 @71.6,30.2 live
 
 step Deathstalker Masoj
   tip Back down to Masoj on the hillside above Dun Garok.

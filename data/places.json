@@ -1217,6 +1217,74 @@
 				}
 			],
 			"pr": 1414
+		},
+		{
+			"id": "1414-hillsbrad-vial-west",
+			"quest": 98095,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1416,
+				"x": 38.6,
+				"y": 94.8,
+				"frame": "live"
+			},
+			"note": "Valuable Vantages, the western peak: the vial is placed at the top of the mountain north of Hillsbrad town, on the Alterac border, about 160 yd further up than the old point 38.4,87.2 (issue #1432: 'further up the mountain is correct', at 38.60,94.82).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-09: 9 ticks of 98095.1 by 9 people on map 1416, their middle at 38.60,94.78; 8 of 9 within 0.3 of it"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "issue #1432 (Pilk): the right spot 38.60,94.82 live"
+				}
+			],
+			"issue": 1432
+		},
+		{
+			"id": "1414-hillsbrad-vial-north",
+			"quest": 98095,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1424,
+				"x": 71.6,
+				"y": 30.2,
+				"frame": "live"
+			},
+			"note": "Valuable Vantages, the northern peak: the vial is placed at 71.6,30.2, about 30 yd from the old point 72.3,31.2 (issue #1433: 'the mark is 28 m away').",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-09: 10 ticks of 98095.2 by 10 people, their middle at 71.64,30.18"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "issue #1433 (Pilk): the right spot 71.62,30.18 live"
+				}
+			],
+			"issue": 1433
+		},
+		{
+			"id": "1414-hillsbrad-vial-south",
+			"quest": 98095,
+			"objective": 3,
+			"faction": "Horde",
+			"at": {
+				"map": 1424,
+				"x": 74.1,
+				"y": 73.4,
+				"frame": "live"
+			},
+			"note": "Valuable Vantages, the southern peak: swept with #1432/#1433; the recorded placements sit at 74.1,73.4, about 18 yd from the old point 73.8,72.7.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-09: 10 ticks of 98095.3 by 10 people, their middle at 74.11,73.38"
+				}
+			],
+			"issue": 1433
 		}
 	]
 }
