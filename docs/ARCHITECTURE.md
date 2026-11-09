@@ -379,6 +379,9 @@ is not kept, so Names and Guide texts still try the folder later) right after
 read `L` at load. The files before it, Init.lua included, read `L` only when
 they print (the commands register in Core/Commands.lua). An English client
 loads nothing; a missing or disabled folder leaves the interface in English.
+If the early load fails and Names' or Guide texts' later one succeeds, `L`
+fills then: what was read at load (key binding names, the options' labels)
+stays English, the rest is translated.
 docs/TRANSLATING.md describes the files and `forge i18n`.
 
 A word with more than one meaning gets a key per meaning:
