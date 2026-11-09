@@ -6844,10 +6844,13 @@ function Engine.GetStepCount() return guide and #guide.steps or 0 end
 -- hearthing is no step of its own. The arrow's route to the next step's work
 -- takes the Hearthstone when it clearly pays (Nav/Travel.lua, HEARTH_MARGIN
 -- and HEARTH_MIN_TRIP), wherever it is bound. `sethome` stays a step.
-function Own.hearthOnly(step)
+-- `who`: another character's class, race and faction (Engine.StepHiddenFor),
+-- the player's by default.
+function Own.hearthOnly(step, who)
+	who = who or player
 	local any = false
 	for _, goal in ipairs(step.goals) do
-		if Guides.Matches(goal.only, player) then
+		if Guides.Matches(goal.only, who) then
 			if goal.t ~= "hearth" then return false end
 			any = true
 		end
@@ -7094,15 +7097,24 @@ end
 -- leads to it, and nothing explains it. A step that depends on what the
 -- player does (`when`) can apply later: it keeps its number and says why it
 -- does not apply now (Own.stepWhy).
-function Own.hiddenStep(step)
-	if step.along or not Guides.Matches(step.only, player) then return true end
+function Own.hiddenStep(step, who)
+	who = who or player
+	if step.along or not Guides.Matches(step.only, who) then return true end
 	local goals = step.goals
 	if #goals == 0 then return false end
-	if Own.hearthOnly(step) then return true end
+	if Own.hearthOnly(step, who) then return true end
 	for _, goal in ipairs(goals) do
-		if Guides.Matches(goal.only, player) then return false end
+		if Guides.Matches(goal.only, who) then return false end
 	end
 	return true
+end
+
+-- Whether `step` (of any guide) is no step of its own (Own.hiddenStep) for
+-- `who` = { class, race, faction } (Party: a member's; nil: the player's).
+function Engine.StepHiddenFor(step, who)
+	if type(step) ~= "table" or type(step.goals) ~= "table" then return true end
+	if not player then refreshPlayer() end
+	return Own.hiddenStep(step, who) and true or false
 end
 
 -- The numbers the player sees for guide g's steps (Own.hiddenStep left out):
@@ -8770,26 +8782,66 @@ function Engine.Skip()
 	refreshPlayer()
 	placing = nil
 	local s, id = current, guide.id
-	local st = ns.CharState()
 	local before = Own.skipState(id)
 	skippedFor(id, true)[s] = true
-	-- A feeder step skipped stays out of the guide's next prefix (Own.feederChain).
 	local feed = {}
-	if guide.steps[s].feeder then
-		if type(st.feedSkips) ~= "table" then st.feedSkips = {} end
-		for _, goal in ipairs(guide.steps[s].goals) do
-			local q = goal.quest
-			if q and not st.feedSkips[q] then
-				st.feedSkips[q] = true
-				feed[#feed + 1] = q
-			end
-		end
-	end
+	Own.feedSkip(s, feed)
 	if pin then Own.view(nextApplicable(pin)) end
 	evaluate()
 	Own.skipStore(id, s, before, feed)
 	ns.Fire("PLAYER_SKIPPED_STEP", id, s)
 	return s
+end
+
+-- A feeder step skipped stays out of the guide's next prefix
+-- (Own.feederChain): its quests join CharState().feedSkips, and those new
+-- there are added to `feed` (what the skip's undo gives back).
+function Own.feedSkip(s, feed)
+	if not guide.steps[s].feeder then return end
+	local st = ns.CharState()
+	if type(st.feedSkips) ~= "table" then st.feedSkips = {} end
+	for _, goal in ipairs(guide.steps[s].goals) do
+		local q = goal.quest
+		if q and not st.feedSkips[q] then
+			st.feedSkips[q] = true
+			feed[#feed + 1] = q
+		end
+	end
+end
+
+-- Party "sync to my guide", accepted (Party.AcceptSync): skip every step
+-- from the live step up to step t of the loaded guide that applies, is open,
+-- is not skipped yet and that keep(step) does not keep (the steps the
+-- member who asked does not have: your class's own steps stay yours), so
+-- the live step reaches t or a kept step before it. The player's ticks and
+-- earlier skips stay as they are; nothing moves back (a live step at or past
+-- t stays). The skips are stored with the first one's (Own.skipStore), so
+-- the window's undo of it (PLAYER_SKIPPED_STEP) brings them all back.
+-- Returns how many steps it skipped.
+function Engine.SkipUpTo(t, keep)
+	if not (guide and computed) or type(t) ~= "number" or not guide.steps[t] or t <= computed then return 0 end
+	refreshPlayer()
+	placing = nil
+	local id = guide.id
+	local before = Own.skipState(id)
+	local sk = skippedFor(id, true)
+	local first, n, feed = nil, 0, {}
+	for s = computed, t - 1 do
+		if not sk[s] and stepApplies(guide.steps[s]) and not stepDone(s) and not (keep and keep(guide.steps[s])) then
+			sk[s] = true
+			first, n = first or s, n + 1
+			Own.feedSkip(s, feed)
+		end
+	end
+	if not first then
+		if not next(sk) then ns.CharState().skipped[id] = nil end
+		return 0
+	end
+	Own.view(nil)
+	evaluate()
+	Own.skipStore(id, first, before, feed)
+	ns.Fire("PLAYER_SKIPPED_STEP", id, first)
+	return n
 end
 
 -- The steps of guide id with a stored `when` outcome or skip: { when = { [s]

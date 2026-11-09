@@ -1072,6 +1072,7 @@ Polestar.Engine.GetStepView(i) -> view | nil
 Polestar.Engine.Next() / Prev() / Goto(i)    -- look at another step; changes nothing (Goto un-skips its target)
 Polestar.Engine.Skip() -> stepIndex         -- skip the step shown, saved; fires PLAYER_SKIPPED_STEP
 Polestar.Engine.Unskip(i) -> bool           -- undo a skip
+Polestar.Engine.SkipUpTo(i) -> n             -- party sync accepted: skip the open steps from the live one up to i (ticks, skips kept); one undo of the first takes all back
 Polestar.Engine.GetLiveStep() -> i | nil    -- the first open step, whatever step is shown
 Polestar.Engine.LevelTarget(level?) -> N, stepIndex, frac | nil   -- the first `level N` goal from the step shown for this character (step `only`/`when`, goal `only`; skips left out) with N above `level` (default: the character's), or a point inside that level (`frac`) not reached yet; QoL's XP bar mark
 Polestar.Engine.KeptItems() -> { [itemID] = stepIndex }   -- items the active guide still needs in the bags (see "Items kept for later"); built once per evaluation, read only
@@ -1095,6 +1096,7 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
 Polestar.Engine.StepNumber(i) -> number, hidden     -- step i of the active guide as the player counts it (see "Steps the character has")
 Polestar.Engine.StepTotal() -> number               -- the steps the player sees
 Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTotalOf(guide) -> number  -- the same for any guide
+Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who = { class, race, faction } (default: the player); party sync counts the steps both have
 ```
 
 #### Smart logic
@@ -4313,10 +4315,17 @@ Polestar.Party.EncodeHello(reply) / DecodeHello(text)  -- "1H|<version>" hello, 
 Polestar.Party.Spoke(key) -> bool                  -- the member has spoken Polestar
 Polestar.Party.EncodePos(pos) / DecodePos(text)  -- "1P|<live step>|<Polestar version>|<pack id>|<pack version>|<guide id>"
 Polestar.Party.EncodeUnit(u) / DecodeUnit(text)  -- "2U|<level>|<XP %>|<class id>|<race id>"; later fields ignored
-Polestar.Party.MyPos() -> { step, addon, pack, packVersion, guide } | nil
+Polestar.Party.EncodeAt(pos, request) / DecodeAt(text)  -- "2P|<step key>|<guide id>" (where you are), "2G|" (sync request) -> at, request
+Polestar.Party.EncodeAnswer(code) / DecodeAnswer(text)  -- "2A|<y|n|x|=>": accepted, declined, cannot, already there
+Polestar.Party.StepKey(g, i) / StepAt(g, key)      -- a step's identity: the hash of its goals' kinds and ids, ".<n>" for the nth alike
+Polestar.Party.SharedSteps(g, a, b, who) -> n       -- b's place minus a's, counting steps both you and `who` have (Engine.StepHiddenFor)
+Polestar.Party.MyPos() -> { step, key, addon, pack, packVersion, guide } | nil
 Polestar.Party.MyUnit() -> { level, xp, class, race }
 Polestar.Party.Newer(a, b) -> bool                 -- dotted versions; a dev build compares as neither
 Polestar.Party.StepLine() -> text, holding | nil   -- the guide window's party row; holding: the group waits on the step
+Polestar.Party.RequestSync() -> bool               -- "Sync to my guide": the party panel's button, /polestar party sync
+Polestar.Party.SyncOffer(at) -> offer | nil; SyncPrompt(name, offer) -> text  -- what accepting would do here
+Polestar.Party.AcceptSync(req) / DeclineSync(req) -> bool  -- the prompt's buttons
 Polestar.Party.Waiting(goal) -> { { name, cur, max }, ... } | nil  -- members the group waits for short of goal's line
 Polestar.Party.HoldsQuest(q) -> bool                -- a member the group waits for has q unfinished
 Polestar.Party.StepWait() -> names, ready | nil     -- the live step's wait
@@ -4372,17 +4381,43 @@ Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sen
   off. The options carry `search`, more words the settings search reads.
 - With `party.share`, the position goes out with every snapshot and, two
   seconds after `STEP_CHANGED`/`STEP_UPDATED`/`GUIDE_CHANGED`, only when it
-  changed. Older clients drop "1P|" as malformed. "2U|" goes out with every
+  changed: "1P|", then "2P|" with the live step's key (`Party.StepKey`: a
+  hash of its goals' kinds and ids, never text, so every client language
+  agrees; a goto by its map and whole coordinates). Older clients drop
+  "1P|" as malformed, and 0.3.5 every "2P|"/"2G|"/"2A|". "2U|" goes out with every
   snapshot and, two seconds after `PLAYER_XP_UPDATE`/`PLAYER_LEVEL_UP`, when
   its text changed (a whole percent); version 1 decoders drop it.
 - With `party.show`, a member's position and unit are kept beside their
   counts. The guide window's party row (`GF.party`, over the XP row, not in
   compact mode) reads `StepLine`: "Ana: 3 steps ahead", "Ben: 1 step
-  behind", "Cy: on this step" for members on the same guide and pack
-  version, "Dee: other guide" on another; then the wait ("Waiting on Ana",
+  behind", "Cy: on this step" for members on your guide whose step key is in
+  your copy of it (any pack version) or, from a member who sends no "2P|"
+  (0.3.5), whose step number is on the same pack version; the count takes
+  only steps both of you have (`Party.SharedSteps`: neither a class, race or
+  hearth-only step of one of you, `Engine.StepHiddenFor` with the member's
+  class and race), so a Warrior on his Warrior-only step and a Mage on the
+  next step are on the same step. "Dee: other guide" on another; then the
+  wait ("Waiting on Ana",
   "Everyone's ready"), or with nobody holding the step "Still at it: Ana" (a
   hint). A click toggles the party panel; while the step is held, "Go on
   without them" sits at its end.
+- Sync to my guide (`Party.RequestSync`: the party panel's header button,
+  `/polestar party sync`): "2G|<step key>|<guide id>" to the party, once per
+  30 s; answers ("2A|") from the members asked count for 5 minutes and are
+  said in chat. A member's request, once per 30 s per member and never
+  accepted for the player, opens a StaticPopup (`POLESTAR_PARTY_SYNC`) from
+  `Party.SyncOffer`: the guide to switch to when it is not the active one,
+  their step, the turn-ins the move passes that you have not done ("Ana is
+  past these"), and those you did already that the guide passes there. One
+  you cannot follow (no such guide, not for your character, a copy without
+  the step) answers "x" and says so in chat; one you are on already answers
+  "=" with no prompt. Accept (`Party.AcceptSync`) opens the guide
+  (`Engine.OpenTab`) and calls `Engine.SkipUpTo(step)`: every open,
+  applicable, unskipped step from the live step up to it skipped, ticks and
+  earlier skips untouched, stored with the first one's skip so the window's
+  undo (`PLAYER_SKIPPED_STEP`) takes the whole sync back; nothing moves
+  back when you are past their step. Decline answers "n" and changes
+  nothing.
 - The wait (`party.waitForGroup`): the members the group waits for are
   those in your zone (`Compat.GetUnitZone`; unknown counts as here) and
   those offline under 2 minutes (kept apart from `Members`). The Engine asks

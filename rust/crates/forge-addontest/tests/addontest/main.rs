@@ -263,6 +263,8 @@ mod party_chat;
 mod party_group;
 #[path = "party-pair.rs"]
 mod party_pair;
+#[path = "party-sync.rs"]
+mod party_sync;
 mod qol;
 #[path = "qol-bagglow.rs"]
 mod qol_bagglow;

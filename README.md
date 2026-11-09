@@ -645,6 +645,13 @@ runs solo or in a raid.
   closed; a click on the guide window's party line or `/polestar party`
   brings it back (and says why when nothing can show yet). Without a
   Polestar member in the party it stays hidden.
+- **Sync to my guide**: the party panel's "Sync to my guide" (or
+  `/polestar party sync`) asks your party to move to your step. Each member
+  who runs Polestar gets a prompt, never an automatic move, that names the
+  quests the move passes they haven't done and the ones they did already.
+  Accepting opens your guide (in a new tab when needed) and moves them to
+  your step by the step itself, not its number; their ticks and skips stay,
+  and Undo takes it back. Declining changes nothing. Once every 30 seconds.
 - **Loot a friend needs**: "Ana still needs 2 Scalding Mornbrew" under a
   collect goal, and on a loot window or roll with a quest item a member still
   needs and you don't, "For Ana: she still needs 2". Nothing is passed,

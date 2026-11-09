@@ -560,6 +560,24 @@ L["Hide other players' Polestar lines"] = "Ocultar las líneas de Polestar de ot
 L["Party members' Polestar lines leave your chat. Shown, they carry Polestar's star."] = "Las líneas de Polestar de los miembros del grupo desaparecen de tu chat. Visibles, llevan la estrella de Polestar."
 L["Only when someone in the party doesn't have Polestar"] = "Solo si alguien del grupo no tiene Polestar"
 L["Nothing goes to chat while everyone in your party runs Polestar: they see your progress in their guide."] = "No se envía nada al chat mientras todo tu grupo use Polestar: ya ven tu progreso en su guía."
+-- L["%s asks you to sync to their guide."] = ""
+-- L["You'll switch to %s."] = ""
+-- L["Their step: %s"] = ""
+-- L["You're past their step: your guide stays where you are."] = ""
+-- L["%s is past these, which you haven't done: %s"] = ""
+-- L["You've done these already, so your guide passes them: %s"] = ""
+-- L["%s asked you to sync to their guide, but it isn't for your character or your copy lacks their step."] = ""
+-- L["No room for another guide tab: close one, then ask %s again."] = ""
+-- L["%s synced to your guide."] = ""
+-- L["%s declined to sync."] = ""
+-- L["%s can't sync: your guide isn't for their character, or their copy lacks your step."] = ""
+-- L["%s is already on your step."] = ""
+-- L["No one else in your party has been heard running Polestar yet."] = ""
+-- L["You have no step to sync to: open a guide you haven't finished."] = ""
+-- L["You asked a moment ago: wait %d seconds."] = ""
+-- L["The game didn't send it: try again in a moment."] = ""
+-- L["Asked your party to sync to your step. Each of them chooses."] = ""
+-- L["%s asked you to sync to their guide; that prompt can't show with the gamepad interface."] = ""
 
 -- Gear/Gear.lua
 L["big upgrade"] = "gran mejora"
@@ -3067,6 +3085,8 @@ L["The party panel shows in a party (not a raid)."] = "El panel de grupo se mues
 L["The party panel shows with the guide window."] = "El panel de grupo se muestra con la ventana de la guía."
 L["No one else in your party has been heard running Polestar yet. The panel opens by itself as soon as someone is."] = "Todavía no se ha detectado a nadie más de tu grupo usando Polestar. El panel se abre solo en cuanto alguien lo use."
 L["The party panel comes back after combat."] = "El panel de grupo vuelve después del combate."
+-- L["Sync to my guide"] = ""
+-- L["Asks your party to move to your step. Each of them gets a prompt; nothing changes for anyone who declines."] = ""
 
 -- UI/DungeonToast.lua
 L["LEVEL %d · DUNGEON"] = "NIVEL %d · MAZMORRA"

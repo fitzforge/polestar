@@ -143,6 +143,7 @@ const ALLOWED: &[(&str, usize, &str)] = &[
 	("Polestar/QoL/QoL.lua", 2, "dialogs closed for the player (QoL.ClosePopup), never with the gamepad interface (its focus owns them)"),
 	("Polestar/Quests/DeleteWarning.lua", 2, "a line added to the delete dialog, never with the gamepad interface (its focus owns the dialogs)"),
 	("Polestar/Quests/SellWarning.lua", 4, "the buyback question, never with the gamepad interface (its focus owns the dialogs)"),
+	("Polestar/Quests/Party.lua", 4, "the party's sync-to-my-guide prompt, never with the gamepad interface (its focus owns the dialogs; chat says so instead)"),
 	("Polestar/QoL/Toggles.lua", 3, "the error-message setting, which does nothing with the gamepad interface"),
 	("Polestar/UI/Options.lua", 2, "closing the game's Settings panel, never with the gamepad interface or in combat"),
 	("Polestar/UI/Gamepad.lua", 3, "a window's override bindings, only with the keyboard and mouse interface; the gamepad interface's focused window only read (a field, never a call)"),

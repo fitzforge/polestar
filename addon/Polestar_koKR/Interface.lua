@@ -560,6 +560,24 @@ L["Hide other players' Polestar lines"] = "다른 플레이어의 Polestar 메�
 L["Party members' Polestar lines leave your chat. Shown, they carry Polestar's star."] = "파티원의 Polestar 메시지가 채팅에서 사라집니다. 표시될 때는 Polestar 별이 붙습니다."
 L["Only when someone in the party doesn't have Polestar"] = "파티에 Polestar가 없는 사람이 있을 때만"
 L["Nothing goes to chat while everyone in your party runs Polestar: they see your progress in their guide."] = "파티 모두가 Polestar를 쓰는 동안에는 채팅에 아무것도 보내지 않습니다. 그들은 가이드에서 내 진행 상황을 봅니다."
+-- L["%s asks you to sync to their guide."] = ""
+-- L["You'll switch to %s."] = ""
+-- L["Their step: %s"] = ""
+-- L["You're past their step: your guide stays where you are."] = ""
+-- L["%s is past these, which you haven't done: %s"] = ""
+-- L["You've done these already, so your guide passes them: %s"] = ""
+-- L["%s asked you to sync to their guide, but it isn't for your character or your copy lacks their step."] = ""
+-- L["No room for another guide tab: close one, then ask %s again."] = ""
+-- L["%s synced to your guide."] = ""
+-- L["%s declined to sync."] = ""
+-- L["%s can't sync: your guide isn't for their character, or their copy lacks your step."] = ""
+-- L["%s is already on your step."] = ""
+-- L["No one else in your party has been heard running Polestar yet."] = ""
+-- L["You have no step to sync to: open a guide you haven't finished."] = ""
+-- L["You asked a moment ago: wait %d seconds."] = ""
+-- L["The game didn't send it: try again in a moment."] = ""
+-- L["Asked your party to sync to your step. Each of them chooses."] = ""
+-- L["%s asked you to sync to their guide; that prompt can't show with the gamepad interface."] = ""
 
 -- Gear/Gear.lua
 L["big upgrade"] = "큰 향상"
@@ -3067,6 +3085,8 @@ L["The party panel shows in a party (not a raid)."] = "파티 창은 파티에�
 L["The party panel shows with the guide window."] = "파티 창은 가이드 창과 함께 표시됩니다."
 L["No one else in your party has been heard running Polestar yet. The panel opens by itself as soon as someone is."] = "파티에서 아직 Polestar를 쓰는 사람이 확인되지 않았습니다. 누군가 쓰면 창이 자동으로 열립니다."
 L["The party panel comes back after combat."] = "파티 창은 전투 후에 다시 나타납니다."
+-- L["Sync to my guide"] = ""
+-- L["Asks your party to move to your step. Each of them gets a prompt; nothing changes for anyone who declines."] = ""
 
 -- UI/DungeonToast.lua
 L["LEVEL %d · DUNGEON"] = "레벨 %d · 던전"

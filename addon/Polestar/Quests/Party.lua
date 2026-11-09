@@ -29,9 +29,21 @@
 -- Where you are: "1P|<live step>|<Polestar version>|<pack id>|<pack
 -- version>|<guide id>" (step 0: none), sent with sharing on when the live
 -- step or guide changes (debounced) and with every snapshot. Clients that
--- predate it drop it as malformed. It gives the "N steps ahead/behind" line
--- on the same guide and pack version, and a once-a-session notice when a
--- member runs a newer Polestar or guide pack.
+-- predate it drop it as malformed. It gives a once-a-session notice when a
+-- member runs a newer Polestar or guide pack. Right after it goes
+-- "2P|<step key>|<guide id>" (Party.StepKey: the step by what it holds, not
+-- its number), which version-1 decoders drop: the "N steps ahead/behind"
+-- line matches the step in your own copy of the guide and counts only the
+-- steps you and the member both have (a Warrior-only step between a
+-- Warrior and a Mage does not count). A member who sends only "1P|"
+-- (0.3.5) is compared by its number, on the same guide and pack version.
+--
+-- Sync to my guide: "2G|<step key>|<guide id>" asks the party
+-- to move to your step; each member gets an accept/decline prompt, never
+-- an automatic move, and answers "2A|<y|n|x|=>" (accepted, declined, cannot:
+-- no such guide or step for them, already there). Accepting opens the guide
+-- (another tab when needed) and skips the steps up to it (Engine.SkipUpTo);
+-- ticks and skips the member had stay. Once per SYNC_GAP seconds each way.
 --
 -- Who you are: "2U|<level>|<XP %>|<class id>|<race id>", version 2, which
 -- every version-1 decoder (Decode, DecodePos) drops as malformed; sent with
@@ -212,6 +224,123 @@ function Party.DecodeUnit(text)
 	return { level = level, xp = xp, class = count(class), race = count(race) }
 end
 
+-- pos = { key, guide } (Party.MyPos) -> "2P|<step key>|<guide id>", where
+-- you are by step identity; `request`: "2G|" instead, asking the party to
+-- sync to that step. nil without a key or guide.
+function Party.EncodeAt(pos, request)
+	if type(pos) ~= "table" or type(pos.guide) ~= "string" or pos.guide == "" then return nil end
+	if type(pos.key) ~= "string" or not pos.key:match("^[%w%.]+$") then return nil end
+	local text = UNIT_VERSION .. (request and "G|" or "P|") .. pos.key .. "|" .. pos.guide
+	return #text <= Party.MAX_BYTES and text or nil
+end
+
+-- "2P|"/"2G|" -> { key, guide }, and whether it is a sync request; nil for
+-- anything else.
+function Party.DecodeAt(text)
+	if type(text) ~= "string" then return nil end
+	local mark, key, guide = text:match("^" .. UNIT_VERSION .. "([PG])|([%w%.]+)|(.+)$")
+	if not mark then return nil end
+	return { key = key, guide = guide }, mark == "G"
+end
+
+-- The answer to a sync request: "y" accepted, "n" declined, "x" cannot (no
+-- such guide or step for them), "=" already on that step.
+local ANSWERS = { y = true, n = true, x = true, ["="] = true }
+function Party.EncodeAnswer(code)
+	return ANSWERS[code] and (UNIT_VERSION .. "A|" .. code) or nil
+end
+function Party.DecodeAnswer(text)
+	if type(text) ~= "string" then return nil end
+	local code = text:match("^" .. UNIT_VERSION .. "A|(.)$")
+	return code and ANSWERS[code] and code or nil
+end
+
+---------------------------------------------------------------------------
+-- Step identity: a step by what it holds, the same on every client with
+-- the same guide whatever its class, race or language
+---------------------------------------------------------------------------
+
+-- A goal's part of its step's signature: its kind and ids (quest, line,
+-- NPC, object, item, spell, level); a goal of none of those (a goto) by its
+-- map and whole coordinates. Never text, which the client's language
+-- changes.
+local function scalar(v)
+	local t = type(v)
+	return (t == "number" or t == "string") and v or nil
+end
+local function goalSig(goal)
+	if type(goal) ~= "table" then return "" end
+	local q = scalar(goal.quest)
+	local id = scalar(goal.npc) or scalar(goal.object) or scalar(goal.item) or scalar(goal.spell) or scalar(goal.level)
+	local s = (scalar(goal.t) or "") .. ":" .. (q or "") .. "." .. (scalar(goal.oi) or "") .. ":" .. (id or "")
+	if not (q or id) then
+		s = s .. ":" .. (scalar(goal.map) or "") .. "@" .. math.floor(tonumber(goal.x) or 0) .. "," .. math.floor(tonumber(goal.y) or 0)
+	end
+	return s
+end
+
+-- A 31-bit string hash (djb2), in hex: well inside a double and a 32-bit
+-- client's %x.
+local function hash(s)
+	local h = 5381
+	for i = 1, #s do h = (h * 33 + s:byte(i)) % 2147483648 end
+	return ("%x"):format(h)
+end
+
+-- steps table -> { of = { [index] = key }, at = { [key] = index } }; a key
+-- is the hash of the step's goals, with ".<n>" for the nth step of the guide
+-- that hashes the same (two identical gotos).
+local stepKeys = setmetatable({}, { __mode = "k" })
+local function keysOf(g)
+	local steps = type(g) == "table" and g.steps
+	if type(steps) ~= "table" then return nil end
+	local k = stepKeys[steps]
+	if k then return k end
+	k = { of = {}, at = {} }
+	local seen = {}
+	for i, step in ipairs(steps) do
+		local parts = {}
+		for j, goal in ipairs(type(step.goals) == "table" and step.goals or {}) do parts[j] = goalSig(goal) end
+		local h = hash(concat(parts, ";"))
+		local n = (seen[h] or 0) + 1
+		seen[h] = n
+		local key = n > 1 and (h .. "." .. n) or h
+		k.of[i], k.at[key] = key, i
+	end
+	stepKeys[steps] = k
+	return k
+end
+
+-- Step i of guide g -> its key; nil when g has no step i.
+function Party.StepKey(g, i)
+	local k = keysOf(g)
+	return k and k.of[i] or nil
+end
+
+-- The step of guide g with key `key`, or nil (another version of the guide
+-- that lacks it).
+function Party.StepAt(g, key)
+	local k = keysOf(g)
+	return k and type(key) == "string" and k.at[key] or nil
+end
+
+-- Steps from step a to step b of guide g that are steps of their own for
+-- both you and `who` (a member's { class, race, faction }; Engine.
+-- StepHiddenFor): b's place minus a's, counting only those. Steps one of
+-- you does not have never put either ahead.
+function Party.SharedSteps(g, a, b, who)
+	local hidden = ns.Engine and ns.Engine.StepHiddenFor
+	if not (hidden and type(g) == "table" and type(g.steps) == "table") then return b - a end
+	local lo, hi, sign = a, b, 1
+	if b < a then lo, hi, sign = b, a, -1 end
+	local n = 0
+	for s = lo, hi - 1 do
+		local step = g.steps[s]
+		if step and not hidden(step) and not hidden(step, who) then n = n + 1 end
+	end
+	return n * sign
+end
+
 ---------------------------------------------------------------------------
 -- Your quest log
 ---------------------------------------------------------------------------
@@ -326,29 +455,36 @@ local function sendQuests(ids, now, snapshot, asks)
 	return true
 end
 
--- Where you are: the active guide, its live step and the versions (pos as
--- Party.EncodePos takes it), or nil without a guide.
+-- Where you are: the active guide, its live step, the step's key
+-- (Party.StepKey) and the versions (pos as Party.EncodePos and EncodeAt
+-- take it), or nil without a guide.
 function Party.MyPos()
 	local E = ns.Engine
 	local g = E and E.GetGuide and E.GetGuide()
 	if not g then return nil end
 	local G = ns.Guides
 	local pack = g.pack and G and G.Pack and G.Pack(g.pack)
-	return { step = E.GetLiveStep and E.GetLiveStep() or nil, addon = ns.version, pack = g.pack or "",
+	local step = E.GetLiveStep and E.GetLiveStep() or nil
+	return { step = step, key = step and Party.StepKey(g, step) or nil, addon = ns.version, pack = g.pack or "",
 		packVersion = pack and pack.version and tostring(pack.version) or "", guide = g.id }
 end
 
-local posSent -- the "1P|" text the party last got from us
+local posSent -- the "1P|" and "2P|" texts the party last got from us
 local posPending = false
 
 -- Our position to the party, unless it already has this one (`force`: with
--- a snapshot, which a member who just joined needs).
+-- a snapshot, which a member who just joined needs): "1P|", then "2P|" when
+-- the live step has a key.
 local function sendPos(force)
 	posPending = false
 	if not sharing() then return end
-	local text = Party.EncodePos(Party.MyPos())
-	if not text or (text == posSent and not force) then return end
-	if send({ text }) == 1 then posSent = text end
+	local pos = Party.MyPos()
+	local text = Party.EncodePos(pos)
+	if not text then return end
+	local msgs = { text, Party.EncodeAt(pos) }
+	local all = concat(msgs, "\n")
+	if all == posSent and not force then return end
+	if send(msgs) == #msgs then posSent = all end
 end
 
 local function onStep()
@@ -491,10 +627,21 @@ local function progressChanged()
 	end)
 end
 
+-- Sync to my guide: when we last asked and whom (answers count from them
+-- for ANSWER_WINDOW seconds), when each member last asked us, and the
+-- request on our prompt ({ key, name, at }).
+local sync = { asked = {}, heardAt = {} }
+local SYNC_POPUP = "POLESTAR_PARTY_SYNC"
+
 local function forgetAll()
 	local had = next(members) ~= nil or next(roster) ~= nil or next(gone) ~= nil
 	roster, lastSent, members, owed, shared, askOwed, posSent, unitSent = {}, {}, {}, nil, false, false, nil, nil
 	gone, units, released, spoken, helloOwed, helloTries = {}, {}, {}, {}, false, 0
+	sync.asked, sync.heardAt = {}, {}
+	if sync.pending then
+		sync.pending = nil
+		if StaticPopup_Hide then StaticPopup_Hide(SYNC_POPUP) end
+	end
 	if wantLive then wantLive() end
 	if had then progressChanged() end
 end
@@ -614,7 +761,7 @@ end
 local function memberFor(key, short)
 	local m = members[key]
 	if not m then
-		m = { name = short, quests = {}, n = 0 }
+		m = { name = short, key = key, quests = {}, n = 0 }
 		members[key] = m
 	end
 	return m
@@ -638,6 +785,265 @@ local function heard(key, asks)
 	tellOnce()
 	progressChanged()
 	if not asks and ns.Get("party.share") then scheduleSnapshot(false) end
+	return true
+end
+
+---------------------------------------------------------------------------
+-- Sync to my guide
+---------------------------------------------------------------------------
+
+local SYNC_GAP = 30 -- seconds between our requests, and between a member's to us
+local ANSWER_WINDOW = 300 -- seconds an answer to our request counts
+local NOTE_MAX = 6 -- quests a prompt's note names, then "and N more"
+
+local function answer(code)
+	if grouped() then send({ Party.EncodeAnswer(code) }) end
+end
+
+-- The member under roster key `key` as Engine.StepHiddenFor takes them:
+-- their class and race (the client's, else their "2U|"), else yours, and
+-- your faction.
+local function memberWho(key)
+	local me = ns.Compat.GetPlayerInfo()
+	local info = Party.UnitInfo(units[key], key)
+	return { class = info.class or me.class, race = info.race or me.race, faction = me.faction }
+end
+
+-- Goals' quests as a prompt names them, NOTE_MAX at most.
+local function questList(goals)
+	local L, N = ns.L, ns.Names
+	local names = {}
+	for i = 1, math.min(#goals, NOTE_MAX) do
+		local goal = goals[i]
+		names[i] = ns.Quoted(N and N.Quest and N.Quest(goal.quest) or goal.title or tostring(goal.quest))
+	end
+	local text = concat(names, ", ")
+	if #goals > NOTE_MAX then text = L["%s and %d more"]:format(text, #goals - NOTE_MAX) end
+	return text
+end
+
+-- What accepting a sync to `at` ({ key, guide }, Party.DecodeAt) from a
+-- member `who` ({ class, race, faction }; nil: as you) would do for you, or
+-- nil when you cannot follow it (no such guide, not one for your
+-- character, or your copy lacks the step): { guide, step (its index in your
+-- copy), who, switch (another tab: the guide is not the active one), same
+-- (on that step already: no step you both have between), ahead (your live
+-- step is past it: nothing moves), passed (quests the move leaves behind:
+-- an accept you have not taken, work or a turn-in you have not done, on the
+-- steps it skips; the sender is past them), done (the quests you did
+-- already that your guide passes there) }; passed and done are lists of
+-- goals, one per quest. The steps the member does not have (your class's,
+-- your race's) are never skipped (Engine.SkipUpTo's keep).
+function Party.SyncOffer(at, who)
+	local G, E, C = ns.Guides, ns.Engine, ns.Compat
+	local g = type(at) == "table" and G and G.Get and G.Get(at.guide)
+	if not g then return nil end
+	local me = C.GetPlayerInfo()
+	if not (G.GuideMatches(g, me) or G.OtherStart(g, me)) then return nil end
+	local t = Party.StepAt(g, at.key)
+	if not t then return nil end
+	local cur = E.GetGuide()
+	local active = cur ~= nil and cur.id == g.id
+	local live = active and E.GetLiveStep() or nil
+	local offer = { guide = g, step = t, who = who, switch = not active, passed = {}, done = {} }
+	if live and Party.SharedSteps(g, live, t, who) == 0 then
+		offer.same = true
+		return offer
+	end
+	local seen = {}
+	-- Step s's goals for you with a quest that want(goal) takes, once per
+	-- quest, onto `list`; `shared`: only on a step the member has too.
+	local function quests(s, list, want, shared)
+		local step = g.steps[s]
+		if not step or E.StepHiddenFor(step) or (shared and E.StepHiddenFor(step, who)) then return end
+		for _, goal in ipairs(step.goals) do
+			local q = goal.quest
+			if q and not seen[q] and G.Matches(goal.only, me) and want(goal) then
+				seen[q] = true
+				list[#list + 1] = goal
+			end
+		end
+	end
+	local function did(q) return C.IsQuestCompleted(q) and true or false end
+	local function done(goal) return did(goal.quest) end
+	if active and (not live or live > t) then
+		offer.ahead = true
+		for s = t, (live or #g.steps + 1) - 1 do quests(s, offer.done, done) end
+		return offer
+	end
+	local skipped = E.IsQuestSkipped
+	local function owed(goal)
+		local q = goal.quest
+		if did(q) or (active and skipped and skipped(q)) then return false end
+		if goal.t == "accept" then return not C.IsOnQuest(q) end
+		if goal.t == "turnin" then return true end
+		return not (C.IsOnQuest(q) and C.IsQuestReadyForTurnIn(q))
+	end
+	for s = live or 1, t - 1 do quests(s, offer.passed, owed, true) end
+	-- From their step on, the steps whose quests you have all done: the guide
+	-- passes them on arrival.
+	for s = t, #g.steps do
+		local step = g.steps[s]
+		if not E.StepHiddenFor(step) then
+			local any = false
+			for _, goal in ipairs(step.goals) do
+				if goal.quest and G.Matches(goal.only, me) then
+					if not did(goal.quest) then
+						any = false
+						break
+					end
+					any = true
+				end
+			end
+			if not any then break end
+			quests(s, offer.done, done)
+		end
+	end
+	return offer
+end
+
+-- The prompt's text for a request from `name` (Party.SyncOffer's offer).
+function Party.SyncPrompt(name, offer)
+	local L, E = ns.L, ns.Engine
+	local lines = { L["%s asks you to sync to their guide."]:format(name) }
+	if offer.switch then lines[#lines + 1] = L["You'll switch to %s."]:format(offer.guide.title or offer.guide.id) end
+	local step = offer.guide.steps[offer.step]
+	local title = step and step.title
+	if type(title) ~= "string" or title == "" then title = L["Step %d"]:format((E.StepNumberOf(offer.guide, offer.step))) end
+	lines[#lines + 1] = L["Their step: %s"]:format(title)
+	if offer.ahead then lines[#lines + 1] = L["You're past their step: your guide stays where you are."] end
+	if #offer.passed > 0 then
+		lines[#lines + 1] = L["%s is past these, which you haven't done: %s"]:format(name, questList(offer.passed))
+	end
+	if #offer.done > 0 then lines[#lines + 1] = L["You've done these already, so your guide passes them: %s"]:format(questList(offer.done)) end
+	return concat(lines, "\n\n")
+end
+
+local function showPrompt(text, req)
+	if ns.GamepadUI() or not (StaticPopupDialogs and StaticPopup_Show) then return false end
+	StaticPopupDialogs[SYNC_POPUP] = StaticPopupDialogs[SYNC_POPUP] or {
+		text = "%s",
+		button1 = ACCEPT or YES,
+		button2 = DECLINE or NO,
+		OnAccept = function(_, data) Party.AcceptSync(data) end,
+		-- "override": a newer request took the prompt; that one is still open.
+		OnCancel = function(_, data, reason) if reason ~= "override" then Party.DeclineSync(data) end end,
+		timeout = 0,
+		whileDead = true,
+		hideOnEscape = true,
+		preferredIndex = 3,
+	}
+	StaticPopup_Show(SYNC_POPUP, text, nil, req)
+	return true
+end
+
+-- A member's "2G|": once per SYNC_GAP from each, a prompt (never an
+-- automatic move); "x" back when you cannot follow it, "=" when you are on
+-- that step already. A newer request takes the prompt over. With the
+-- gamepad interface (its focus owns the game's dialogs) no prompt shows:
+-- chat says so and the answer is "n".
+local function onSyncRequest(key, name, at)
+	local now = GetTime()
+	local last = sync.heardAt[key]
+	if last and now - last < SYNC_GAP then return end
+	sync.heardAt[key] = now
+	local who = memberWho(key)
+	local offer = Party.SyncOffer(at, who)
+	if not offer then
+		answer("x")
+		ns.Print(ns.L["%s asked you to sync to their guide, but it isn't for your character or your copy lacks their step."]:format(name))
+		return
+	end
+	if offer.same then return answer("=") end
+	local req = { key = key, name = name, at = at, who = who }
+	sync.pending = req
+	if not showPrompt(Party.SyncPrompt(name, offer), req) then
+		sync.pending = nil
+		answer("n")
+		ns.Print(ns.L["%s asked you to sync to their guide; that prompt can't show with the gamepad interface."]:format(name))
+	end
+end
+
+-- The request on the prompt (or `req`, the prompt's own), accepted: its
+-- guide active (opened in another tab when needed), then the steps up to
+-- theirs skipped (Engine.SkipUpTo; your ticks and skips stay). Answers
+-- "y" (or "n" with every tab taken, "x" when the guide is gone). True when
+-- it synced.
+function Party.AcceptSync(req)
+	req = req or sync.pending
+	if not req or req ~= sync.pending then return false end
+	sync.pending = nil
+	local E = ns.Engine
+	local offer = Party.SyncOffer(req.at, req.who)
+	if not offer then
+		answer("x")
+		return false
+	end
+	local cur = E.GetGuide()
+	if not (cur and cur.id == offer.guide.id) and not E.OpenTab(offer.guide.id) then
+		ns.Print(ns.L["No room for another guide tab: close one, then ask %s again."]:format(req.name))
+		answer("n")
+		return false
+	end
+	local t = Party.StepAt(E.GetGuide(), req.at.key)
+	-- The steps they do not have (your class's own) stay yours.
+	if t then E.SkipUpTo(t, function(step) return E.StepHiddenFor(step, req.who) end) end
+	answer("y")
+	return true
+end
+
+-- The request on the prompt (or `req`), declined: nothing changes; "n".
+function Party.DeclineSync(req)
+	req = req or sync.pending
+	if not req or req ~= sync.pending then return false end
+	sync.pending = nil
+	answer("n")
+	return true
+end
+
+-- An answer to our request, from a member we asked within ANSWER_WINDOW.
+local function onSyncAnswer(key, name, code)
+	local at = sync.asked[key]
+	if not at or GetTime() - at > ANSWER_WINDOW then return end
+	sync.asked[key] = nil
+	local L = ns.L
+	if code == "y" then
+		ns.Print(L["%s synced to your guide."]:format(name))
+	elseif code == "n" then
+		ns.Print(L["%s declined to sync."]:format(name))
+	elseif code == "x" then
+		ns.Print(L["%s can't sync: your guide isn't for their character, or their copy lacks your step."]:format(name))
+	else
+		ns.Print(L["%s is already on your step."]:format(name))
+	end
+end
+
+-- "Sync to my guide" (the party panel's button, /polestar party sync): asks
+-- every member who runs Polestar to move to your live step. Once per
+-- SYNC_GAP; says in chat what happened. True when it went out.
+function Party.RequestSync()
+	local L = ns.L
+	if not grouped() or next(spoken) == nil then
+		ns.Print(L["No one else in your party has been heard running Polestar yet."])
+		return false
+	end
+	local text = Party.EncodeAt(Party.MyPos(), true)
+	if not text then
+		ns.Print(L["You have no step to sync to: open a guide you haven't finished."])
+		return false
+	end
+	local now = GetTime()
+	if sync.askedAt and now - sync.askedAt < SYNC_GAP then
+		ns.Print(L["You asked a moment ago: wait %d seconds."]:format(math.ceil(SYNC_GAP - (now - sync.askedAt))))
+		return false
+	end
+	if send({ text }) ~= 1 then
+		ns.Print(L["The game didn't send it: try again in a moment."])
+		return false
+	end
+	sync.askedAt = now
+	for key in pairs(spoken) do sync.asked[key] = now end
+	ns.Print(L["Asked your party to sync to your step. Each of them chooses."])
 	return true
 end
 
@@ -683,10 +1089,26 @@ local function onAddonMessage(_, prefix, text, channel, sender)
 	if pos then
 		heard(key, false)
 		if not ns.Get("party.show") then return end
-		memberFor(key, short).pos = pos
+		-- Its "2P|" follows (a 0.3.5 member sends none): until then, the number.
+		local m = memberFor(key, short)
+		m.pos, m.at = pos, nil
 		noticeNewer(short, pos)
 		progressChanged()
 		return
+	end
+	local at, request = Party.DecodeAt(text)
+	if at then
+		heard(key, false)
+		if request then return onSyncRequest(key, short, at) end
+		if not ns.Get("party.show") then return end
+		memberFor(key, short).at = at
+		progressChanged()
+		return
+	end
+	local code = Party.DecodeAnswer(text)
+	if code then
+		heard(key, false)
+		return onSyncAnswer(key, short, code)
 	end
 	local u = Party.DecodeUnit(text)
 	if u then
@@ -1245,20 +1667,42 @@ function Party.Line(goal, noMissing)
 	return concat(parts, DOT)
 end
 
+-- Member m's step in guide g (your active one; `mine`: Party.MyPos): their
+-- "2P|" key found in your copy, else, from a member who sends only "1P|"
+-- (0.3.5), its number on the same pack version. nil when neither.
+local function theirStep(m, g, mine)
+	local at = m.at
+	if at and at.guide == g.id then
+		local i = Party.StepAt(g, at.key)
+		if i then return i end
+	end
+	local p = m.pos
+	if p and p.step and p.guide == g.id and p.packVersion == mine.packVersion then return p.step end
+	return nil
+end
+
+-- Member m as Engine.StepHiddenFor takes them (memberWho).
+local function whoOf(m) return memberWho(m.key) end
+
 -- The guide window's party line for the live step, and whether the group
 -- waits on it (the line then offers "Go on without them"), or nil. Where
--- members are: "Ana: 3 steps ahead" on the same guide and pack version, "Ben:
--- other guide" on another; then the wait ("Waiting on Ana", "Everyone's
--- ready"), or with nobody holding the step, a soft hint when you are done
--- with its objectives and a member is not ("Still at it: Ben").
+-- members are on your guide: "Ana: 3 steps ahead", "Ben: 1 step behind",
+-- "Cy: on this step", counting only the steps you both have (a step for one
+-- of you alone never puts either ahead); "Dee: other guide" on another;
+-- then the wait ("Waiting on Ana", "Everyone's ready"), or with nobody
+-- holding the step, a soft hint when you are done with its objectives and
+-- a member is not ("Still at it: Ben").
 function Party.StepLine()
 	if not ns.Get("party.show") or not grouped() then return nil end
 	local mine = Party.MyPos()
+	local E = ns.Engine
+	local g = mine and mine.step and E.GetGuide and E.GetGuide()
 	local parts, list = {}, Party.Members()
 	for _, m in ipairs(list) do
 		local p = m.pos
-		if p and p.step and mine and mine.step and p.guide == mine.guide and p.packVersion == mine.packVersion then
-			local d = p.step - mine.step
+		local theirs = g and theirStep(m, g, mine)
+		if theirs then
+			local d = Party.SharedSteps(g, mine.step, theirs, whoOf(m))
 			if d == 1 then parts[#parts + 1] = L["%s: 1 step ahead"]:format(m.name)
 			elseif d > 1 then parts[#parts + 1] = L["%s: %d steps ahead"]:format(m.name, d)
 			elseif d == -1 then parts[#parts + 1] = L["%s: 1 step behind"]:format(m.name)
@@ -1324,6 +1768,7 @@ function Party.Roster()
 	local g = E and E.GetGuide and E.GetGuide()
 	local live = E and E.GetLiveStep and E.GetLiveStep()
 	local view = live and E.GetStepView(live)
+	local mine = Party.MyPos() or {}
 	local n = GetNumSubgroupMembers and GetNumSubgroupMembers() or 0
 	for i = 1, n do
 		local unit = "party" .. i
@@ -1340,8 +1785,9 @@ function Party.Roster()
 			if m then
 				local p = m.pos
 				if p and g and p.guide == g.id then
-					local st = p.step and g.steps and g.steps[p.step]
-					row.step = st and st.title or (p.step and L["Step %d"]:format(p.step)) or nil
+					local s = theirStep(m, g, mine) or (not m.at and p.step) or nil
+					local st = s and g.steps and g.steps[s]
+					row.step = st and st.title or (s and L["Step %d"]:format(E.StepNumberOf and (E.StepNumberOf(g, s)) or s)) or nil
 				elseif p then
 					row.otherGuide = true
 				end
