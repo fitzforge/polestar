@@ -406,7 +406,7 @@ local function buildPreview(view)
 			foot.Pct:SetShown(pct)
 			foot.Pct:SetPoint("RIGHT", foot, "RIGHT", -pad, 0)
 			local lw = w - pad * 2 - (pct and 44 or 0)
-			foot.Line:SetHeight(G.Num("progressHeight"))
+			foot.Line:SetHeight(G.ProgressHeight())
 			foot.Line:SetWidth(max(1, lw))
 			foot.Line:SetPoint("LEFT", foot, "LEFT", pad, 0)
 			local tr, tg, tb, ta = Theme.Wash("progress")
@@ -645,7 +645,8 @@ local SPECS = {
 			help = L["The guide's progress at the bottom of the window."], search = "progress, bar, percent, footer, completion" },
 		{ kind = "slider", key = "guideWindow.progressHeight", label = L["Progress bar thickness"], min = 1, max = 12, step = 1, format = px, new = NEW, child = true,
 			disabled = off("progress"), help = L["How thick the progress line is. The game's looks keep their own bar."],
-			search = "thickness, height, thicker, thinner, progress line" },
+			search = "thickness, height, thicker, thinner, progress line",
+			get = function() return GF().ProgressHeight() end },
 		{ kind = "color", key = "guideWindow.progressColor", label = L["Progress colour"], new = NEW, child = true, disabled = off("progress"),
 			help = L["Click to pick your own, right-click to go back to the accent."],
 			search = "progress colour, fill colour, bar colour", shown = accentNow, source = accentSource },

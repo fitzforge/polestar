@@ -2,7 +2,7 @@
 //! is hidden (UI/WhileHere.lua), the maps (Nav/Layers.lua), and its options (UI/Options.lua), end to end: the real
 //! addon in the stub world with a guide registered in Lua. The engine side is in engine-while-here.rs.
 
-use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
+use forge_addontest::{emitted, is_match, text, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
 
 const WORLD: &str = r#"
@@ -54,13 +54,18 @@ fn run(before_login: &str, script: &str) -> Vec<Value> {
 	run_with(&format!("{before_login}\nPolestar.Set(\"behavior.whileHereRadius\", 60)"), "", script)
 }
 
+/// The block in the window, as the game's looks keep it; the house look has the outside card (`run_in`).
 fn run_with(before_login: &str, setup: &str, script: &str) -> Vec<Value> {
+	run_in("hearth", before_login, setup, script)
+}
+
+fn run_in(skin: &str, before_login: &str, setup: &str, script: &str) -> Vec<Value> {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.into(),
 		addons: vec![Addon::name("Polestar")],
 		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/here" }"#.into())],
-		script: [TEST_PACK, TEST_SOURCE, GUIDE, before_login, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, setup, HELPERS, script].join("\n"),
+		script: [TEST_PACK, TEST_SOURCE, GUIDE, before_login, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, &format!("Polestar.Set(\"ui.skin\", \"{skin}\")\n{setup}"), HELPERS, script].join("\n"),
 		..Default::default()
 	})
 }
@@ -593,4 +598,44 @@ fn on_a_flight_nothing_shows_and_a_line_from_before_takeoff_comes_back_quietly()
 	assert_eq!(out[1], json!({ "rows": "2:1", "chimes": 1 }), "landed in reach: once, with a chime");
 	assert_eq!(out[2], json!({ "rows": "", "marks": 0 }), "flying again: hidden");
 	assert_eq!(out[3], json!({ "rows": "2:1", "chimes": 1, "pinging": false }), "landed after five minutes: back, quietly");
+}
+
+// The house look: "While you're here" is an outside card above the Optional card, one 18px row per suggestion
+// (the line on one line, its step, count and distance muted at the right, a small dismiss square), not the block in
+// the window; the dismiss and a click work as before.
+#[test]
+fn in_the_house_look_while_you_re_here_is_an_outside_card_with_a_row_per_suggestion() {
+	let out = run_in(
+		"polestar",
+		"Polestar.Set(\"behavior.whileHereRadius\", 60)",
+		r#"Polestar.Set("behavior.whileHereRadius", 150)"#,
+		r#"
+		w.moveTo(1429, 49.8, 36.0); stub.advance(1.1)
+		local SL = GF.stepList
+		local wh = SL.out.wh
+		local rows = {}
+		for i = 1, wh.psN or 0 do
+			local r = wh.Rows[i]
+			rows[#rows + 1] = { text = plain(r.Text:GetText()), meta = r.Meta:GetText(), h = r:GetHeight(), close = r.Close:IsShown() }
+		end
+		local p, rel, rp, _, y = wh:GetPoint(1)
+		emit({ shown = wh:IsShown(), rows = rows, old = H:IsShown(), y = y, label = wh.Label:GetText(), outH = SL.out.h })
+		local first = wh.Rows[1]
+		first:GetScript("OnClick")(first, "RightButton"); stub.advance(0.6)
+		emit({ left = wh.psN or 0 })
+		Polestar.Set("ui.stepList", true); stub.advance(0.3)
+		emit({ listed = wh:IsShown() })"#,
+	);
+	let a = &out[0];
+	assert_eq!(a["shown"], true, "{a}");
+	assert_eq!(a["old"], false, "no block in the window");
+	assert_eq!(a["label"], "WHILE YOU'RE HERE");
+	assert!(a["rows"].as_array().unwrap().len() >= 2, "a row each: {a}");
+	for r in a["rows"].as_array().unwrap() {
+		assert_eq!(r["h"], 18, "{r}");
+		assert_eq!(r["close"], true);
+		assert!(is_match(text(&r["meta"]), r"Step \d+"), "the step it is needed: {r}");
+	}
+	assert!(out[1]["left"].as_u64().unwrap() < a["rows"].as_array().unwrap().len() as u64, "the dismiss works: {}", out[1]);
+	assert_eq!(out[2]["listed"], false, "not over the step list");
 }

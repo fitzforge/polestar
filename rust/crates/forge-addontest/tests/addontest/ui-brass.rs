@@ -190,3 +190,76 @@ fn brass_window_has_the_bronze_frame_and_no_shadow_the_title_bar_and_close_squar
 	assert_eq!(out["guideHalo"], json!({ "title": false, "close": false }));
 	assert_eq!(out["shown"], false, "the red square hides the window as the menu's Hide window does");
 }
+
+// Every colour token the menu and options builders read (Widgets.lua, Options.lua: rows, rail, sidebar, tabs,
+// footer, search, dropdowns, sliders, toggles) is a value brass names itself, never the text-colour fallback that
+// Theme.Color gives an unknown name, and the labels read on the grounds those windows use.
+#[test]
+fn brass_names_every_token_the_menu_and_options_read_and_their_labels_read_on_the_menu_grounds() {
+	let tokens = [
+		"accent", "arrow", "arrowNear", "bg", "border", "buttonText", "chip", "danger", "divider", "footer", "hover", "icon", "iconHover",
+		"navRest", "npc", "onAccent", "place", "progress", "rowLabel", "scrim", "selected", "sky", "success", "swatch", "tabRest", "text",
+		"textDim", "textMuted", "title", "toggle", "track", "warning", "watermark", "windowBorder", "panel", "panelAlt", "sidebar", "shade",
+		"ink", "inputBg", "control", "box", "thumb", "separator", "accentLine", "padSelect", "chipAccent", "textOff", "menuBg", "mover",
+	];
+	let list = tokens.iter().map(|t| format!("\"{t}\"")).collect::<Vec<_>>().join(", ");
+	let out = run(&format!(
+		r#"
+		Polestar.Set("ui.skin", "brass")
+		local P = T.Palette()
+		local out = {{ missing = {{}}, pal = {{}} }}
+		for _, k in ipairs({{ {list} }}) do
+			if P[k] == nil then out.missing[#out.missing + 1] = k else out.pal[k] = {{ P[k][1], P[k][2], P[k][3], P[k][4] }} end
+		end
+		out.lightest = T.LightestGround()
+		-- The options window's ground at the default and a low ground opacity, brass and the house style.
+		Polestar.UI.ShowOptions()
+		local f = PolestarOptions
+		local function alpha() local _, _, _, a = f.psSkin.bg:GetVertexColor() return a end
+		out.alpha = {{ brass = alpha() }}
+		Polestar.Set("ui.bgOpacity", 0.4)
+		out.alpha.brassLow = alpha()
+		Polestar.Set("ui.skin", "polestar")
+		out.alpha.houseLow = alpha()
+		emit(out)"#
+	));
+	let missing = out["missing"].as_array().map(|a| a.len()).or_else(|| out["missing"].as_object().map(|o| o.len()));
+	assert_eq!(missing, Some(0), "tokens brass leaves to the fallback: {}", out["missing"]);
+	assert_eq!(out["alpha"]["brass"], 1, "the options window's content ground is solid");
+	assert_eq!(out["alpha"]["brassLow"], 1, "and stays solid at a low ground opacity");
+	assert!((out["alpha"]["houseLow"].as_f64().unwrap() - 0.4).abs() < 0.001, "the house style still follows the ground opacity");
+	let pal = &out["pal"];
+	for role in ["rowLabel", "navRest", "tabRest", "buttonText", "icon", "iconHover", "title", "text", "textDim", "textMuted"] {
+		for ground in ["panel", "sidebar", "bg", "footer", "panelAlt", "control", "menuBg", "inputBg"] {
+			let c = contrast(&pal[role], &pal[ground]);
+			assert!(c >= 4.5, "{role} on {ground} is {c:.2}:1");
+		}
+		let c = contrast(&pal[role], &out["lightest"]);
+		assert!(c >= 4.5, "{role} on the selected row is {c:.2}:1");
+	}
+}
+
+// Forever leaves a string blank after a new font until its text changes (the labels blank on the options window
+// after Brass's Inter replaced the game font): a face change sets every string's text again a frame later.
+#[test]
+fn brass_sets_every_label_again_a_frame_after_the_skin_brings_its_font() {
+	let out = run(r#"
+		Polestar.UI.ShowOptions("appearance")
+		local label
+		local function walk(fr)
+			for _, r in ipairs({ fr:GetRegions() }) do
+				if r.GetObjectType and r:GetObjectType() == "FontString" and r:GetText() == "Map" then label = r end
+			end
+			for _, c in ipairs({ fr:GetChildren() }) do walk(c) end
+		end
+		walk(PolestarOptions)
+		local sets = 0
+		hooksecurefunc(label, "SetText", function() sets = sets + 1 end)
+		Polestar.Set("ui.skin", "brass")
+		local now = sets
+		stub.advance(1)
+		emit({ found = label ~= nil, now = now, later = sets - now, font = (label:GetFont()):gsub(".*\\", "") })"#);
+	assert_eq!(out["found"], true);
+	assert_eq!(out["font"], "Inter-Medium.ttf");
+	assert!(out["later"].as_i64().unwrap() >= 2, "set again a frame later: {out}");
+}

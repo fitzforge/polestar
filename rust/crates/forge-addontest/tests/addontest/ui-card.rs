@@ -780,7 +780,7 @@ fn the_dense_compact_window_is_the_live_goals_and_one_quiet_then_line() {
 	let c = &out["compact"];
 	assert_eq!(strings(&c["items"]).len(), 2, "the live goal and one line: {c}");
 	assert!(strings(&c["items"])[1].starts_with("[Then"), "{c}");
-	assert_eq!((c["foot"].clone(), c["tip"].clone(), c["list"].clone()), (json!(false), json!(false), json!(true)), "no progress bar, no tip, the list button stays: {c}");
+	assert_eq!((c["foot"].clone(), c["tip"].clone(), c["list"].clone()), (json!(false), json!(false), json!(false)), "no progress bar, no tip, no list button (the step number opens the list): {c}");
 }
 
 // A player on Discord (0.3.3): "there's some duplication with this way". Opened, a look-ahead line repeated

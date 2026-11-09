@@ -533,7 +533,8 @@ function CC.Dress(on, goal)
 		F.Kind:SetTexture(Theme.VerbIcon(goal and goal.t or "accept"))
 		W.Color(F.Kind, "textDim")
 		W.Color(F.Title, "quest")
-		W.Color(F.Head, "textMuted")
+		local G = GF()
+		W.Color(F.Head, G and G.stepList and G.stepList.Muted and G.stepList.Muted() or "textMuted")
 		W.Color(F.Learn, "textDim")
 	end
 end

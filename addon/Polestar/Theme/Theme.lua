@@ -1991,7 +1991,11 @@ local SKIN_PAINT = {
 		window = function(f)
 			if f.psBare then return bare(f) end
 			local r, g, b = Theme.Color("bg")
-			fill(f):SetVertexColor(r, g, b, f.psBgAlpha or Theme.GroundAlpha())
+			-- The options and hub windows (a shell: f.psSidebar) carry settings text
+			-- over the game world, so their content ground is solid whatever the
+			-- ground opacity the guide window is set to.
+			local alpha = f.psSidebar and 1 or f.psBgAlpha or Theme.GroundAlpha()
+			fill(f):SetVertexColor(r, g, b, alpha)
 			local shown, size = Theme.WindowBorder()
 			if shown then
 				local br, bg, bb, ba = Theme.Color("windowBorder")
@@ -2128,6 +2132,8 @@ local function switchSkin()
 	end
 end
 
+local lastFace -- the body face of the last Refresh
+
 -- Repaint everything we skinned or fonted, then tell the listeners.
 function Theme.Refresh()
 	P = nil
@@ -2142,14 +2148,21 @@ function Theme.Refresh()
 		refreshAgain = false
 		return Theme.Refresh()
 	end
+	-- A new face (a skin with its own font, such as Brass's Inter, or the
+	-- player's pick) leaves strings blank in Forever the same way.
+	local face = Theme.FontSpec("body")
+	local faceChanged = face ~= lastFace
+	lastFace = face
 	-- EllesmereUI's font is handed over at login, in the frame the window is
 	-- first drawn: a string set again in that frame can stay blank, so once more
 	-- a frame later.
-	if Theme.FollowsEllesmereFont() and C_Timer and C_Timer.After and not retextQueued then
+	if (Theme.FollowsEllesmereFont() or faceChanged) and C_Timer and C_Timer.After and not retextQueued then
 		retextQueued = true
 		ns.After(0, function()
 			retextQueued = false
-			for fs in pairs(fonted) do textAgain(fs) end
+			for fs in pairs(fonted) do
+				if fs:GetObjectType() == "FontString" then textAgain(fs) end
+			end
 		end)
 	end
 	for i = 1, #handlers do

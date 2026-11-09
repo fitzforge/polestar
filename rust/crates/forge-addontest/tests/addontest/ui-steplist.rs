@@ -104,7 +104,8 @@ const SCRIPT: &str = r#"
 					})
 				end
 				snap("closed")
-				GF.listButton:GetScript("OnClick")(GF.listButton)
+				local counter = GF.parts.nav.Steps.Hit
+				counter:GetScript("OnMouseUp")(counter, "LeftButton")
 				stub.advance(0.3)
 				snap("open")
 				-- Progress while it is open: the first step done, the second half done.
@@ -134,6 +135,28 @@ const SCRIPT: &str = r#"
 				Polestar.Set("ui.compact", true)
 				stub.advance(0.3)
 				local function compactSnap() return { button = GF.listButton:IsShown(), list = SL.frame:IsShown(), card = GF.parts.card:IsShown(), n = SL.n, first = SL.n > 0 and SL.rows[1]:IsShown() and plain(SL.rows[1].Tab:GetText()) or false, h = SL.frame:GetHeight() } end
+				-- The counter opens and closes the same list; the live card is tagged; Escape closes it.
+				local function listed() return SL.frame:IsShown() end
+				Polestar.Set("ui.compact", false)
+				Polestar.Set("ui.stepList", false)
+				stub.advance(0.3)
+				local hit = GF.parts.nav.Steps.Hit
+				hit:GetScript("OnMouseUp")(hit, "LeftButton")
+				stub.advance(0.3)
+				local viaCounter = { on = listed(), setting = Polestar.Get("ui.stepList"), live = {} }
+				for i = 1, SL.n do viaCounter.live[#viaCounter.live + 1] = SL.rows[i].Live:IsShown() end
+				SL.frame:Hide()
+				stub.advance(0.3)
+				viaCounter.escape = { on = listed(), setting = Polestar.Get("ui.stepList") }
+				Polestar.Set("ui.stepList", true)
+				stub.advance(0.3)
+				hit:GetScript("OnMouseUp")(hit, "LeftButton")
+				stub.advance(0.3)
+				viaCounter.closed = { on = listed(), setting = Polestar.Get("ui.stepList") }
+				emit({ counter = viaCounter })
+				Polestar.Set("ui.compact", true)
+				Polestar.Set("ui.stepList", true)
+				stub.advance(0.3)
 				local open = compactSnap()
 				local c = SL.rows[1]
 				c:GetScript("OnClick")(c)
@@ -149,10 +172,10 @@ fn the_step_list_swaps_the_card_for_every_step_marks_the_live_one_and_a_click_lo
 		emitted(&RunAddon { stubs: vec!["stub_world.lua"], before: BEFORE.into(), addons: vec![Addon::name("Polestar")], script: "\n\t\t\t\t".to_string() + &loads + SCRIPT, ..Default::default() });
 	let (closed, open, progress, clicked) = (&out[0], &out[1], &out[2], &out[3]);
 
-	// Closed: the card, the button there, no cards read.
+	// Closed: the card, no layers button (the step number opens the list), no cards read.
 	assert_eq!(closed["card"], true);
 	assert_eq!(closed["list"], false);
-	assert_eq!(closed["button"], true);
+	assert_eq!(closed["button"], false);
 	assert_eq!(closed["setting"], false);
 
 	// Open: every step but the along one (no number), in order, tabbed with its number; the live step marked.
@@ -162,7 +185,7 @@ fn the_step_list_swaps_the_card_for_every_step_marks_the_live_one_and_a_click_lo
 	let steps: Vec<_> = open["cards"].as_array().unwrap().iter().map(|c| c["step"].clone()).collect();
 	assert_eq!(steps, vec![json!(1), json!(2), json!(4), json!(5)]);
 	let tabs: Vec<_> = open["cards"].as_array().unwrap().iter().map(|c| c["tab"].clone()).collect();
-	assert_eq!(tabs, vec![json!("Step 1"), json!("Step 2"), json!("Step 3"), json!("Step 4")]);
+	assert_eq!(tabs, vec![json!("1 \u{b7} Deputy Willem"), json!("2 \u{b7} Marshal McBride"), json!("3 \u{b7} Kobold camp"), json!("4 \u{b7} Back to the abbey")]);
 	// Each card: its people ("Talk to …", the name in the NPC colour) and a line per goal as the card words it.
 	let lines: Vec<_> = open["cards"].as_array().unwrap().iter().map(|c| c["lines"].clone()).collect();
 	assert_eq!(lines[0], json!(["Talk to Deputy Willem", "Accept A Threat Within"]));
@@ -180,7 +203,10 @@ fn the_step_list_swaps_the_card_for_every_step_marks_the_live_one_and_a_click_lo
 
 	// Progress while open: the done step ticked and plain; in the live one, the done goal ticked.
 	let (first, second) = (&progress["cards"][0], &progress["cards"][1]);
-	assert_eq!((first["done"].clone(), first["icons"].clone(), first["coloured"].clone()), (json!(true), json!(["tick", "tick"]), json!(false)));
+	// A finished step (not the one looked at) is one muted line: its number, title and tick, no goals.
+	assert_eq!((first["done"].clone(), first["coloured"].clone(), first["h"].clone()), (json!(true), json!(false), json!(20)), "{first}");
+	assert_eq!(first["tab"], "1 \u{b7} Deputy Willem");
+	assert!(f_len(&first["lines"]) == 0, "{first}");
 	assert_eq!((second["done"].clone(), second["icons"].clone()), (json!(false), json!(["verb", "tick", "verb"])));
 	assert_eq!(progress["marked"], json!([2]));
 	assert_eq!(open["marked"], json!([1]));
@@ -208,12 +234,21 @@ fn the_step_list_swaps_the_card_for_every_step_marks_the_live_one_and_a_click_lo
 	// Transparent: the grounds go.
 	assert_eq!(out[9]["dress"]["ground"], false);
 
-	// The compact window keeps the button and the list: every step, a click looks at one and closes it.
-	let compact = &out[10];
+	// The compact window keeps the list (from the step number): every step, a click looks at one and closes it.
+	let counter = &out[10]["counter"];
+	assert_eq!((counter["on"].clone(), counter["setting"].clone()), (json!(true), json!(true)), "the counter opens the list: {counter}");
+	assert_eq!(counter["live"], json!([false, true, false, false]), "only the live step (the second, after the hand-in) is tagged: {counter}");
+	assert_eq!((counter["escape"]["on"].clone(), counter["escape"]["setting"].clone()), (json!(false), json!(false)), "Escape closes it: {counter}");
+	assert_eq!((counter["closed"]["on"].clone(), counter["closed"]["setting"].clone()), (json!(false), json!(false)), "and the counter closes it: {counter}");
+	let compact = &out[11];
 	let (copen, cclicked) = (&compact["open"], &compact["clicked"]);
-	assert_eq!((copen["button"].clone(), copen["list"].clone(), copen["card"].clone()), (json!(true), json!(true), json!(false)), "{copen}");
-	assert_eq!((copen["n"].clone(), copen["first"].clone()), (json!(4), json!("Step 1")), "{copen}");
+	assert_eq!((copen["button"].clone(), copen["list"].clone(), copen["card"].clone()), (json!(false), json!(true), json!(false)), "{copen}");
+	assert_eq!((copen["n"].clone(), copen["first"].clone()), (json!(4), json!("1 \u{b7} Deputy Willem")), "{copen}");
 	assert!(copen["h"].as_f64().unwrap() >= 120.0, "{copen}");
 	assert_eq!(compact["step"], 1);
-	assert_eq!((cclicked["button"].clone(), cclicked["list"].clone(), cclicked["card"].clone()), (json!(true), json!(false), json!(true)), "{cclicked}");
+	assert_eq!((cclicked["button"].clone(), cclicked["list"].clone(), cclicked["card"].clone()), (json!(false), json!(false), json!(true)), "{cclicked}");
+}
+
+fn f_len(v: &serde_json::Value) -> usize {
+	v.as_array().map_or_else(|| v.as_object().map_or(0, |o| o.len()), |a| a.len())
 }

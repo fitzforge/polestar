@@ -366,3 +366,35 @@ fn the_dense_card_s_journey_is_a_summary_until_the_header_is_clicked() {
 	assert_eq!(rows(again).len(), 1, "a second click folds them again");
 	assert_eq!(out[3]["open"], true, "the setting stays open");
 }
+
+// The dense journey holds everything it draws: the frame is at least as tall as the lowest thing in it (the last step,
+// or the "then …" line), summary and expanded, so the divider under it never crosses a line.
+#[test]
+fn the_dense_journey_is_as_tall_as_what_it_holds() {
+	let out = run_dense(
+		r#"
+		local function bottom()
+			local f = JP.frame
+			local low = 0
+			for _, r in ipairs(JP.rows) do
+				if r:IsShown() then
+					local _, _, _, _, y = r:GetPoint(1)
+					low = math.max(low, -y + r:GetHeight())
+				end
+			end
+			if JP.more:IsShown() then
+				local _, _, _, _, y = JP.more:GetPoint(1)
+				low = math.max(low, -y + JP.more:GetHeight() / 2 + 7)
+			end
+			return { low = low, list = f.List:GetHeight(), frame = f:GetHeight(), head = JP.head:GetHeight(), more = JP.more:IsShown() }
+		end
+		emit(bottom())
+		JP.head:GetScript("OnClick")(JP.head)
+		emit(bottom())"#,
+	);
+	for (i, tag) in ["summary", "expanded"].iter().enumerate() {
+		let b = &out[i];
+		assert!(num(&b["list"]) >= num(&b["low"]), "{tag}: the list holds its last line: {b}");
+		assert!(num(&b["frame"]) >= num(&b["head"]) + num(&b["low"]), "{tag}: the frame holds the list: {b}");
+	}
+}

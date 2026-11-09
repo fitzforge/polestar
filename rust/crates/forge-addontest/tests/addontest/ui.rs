@@ -312,6 +312,61 @@ fn the_house_look_s_card_is_dense_with_the_count_and_distance_at_the_right() {
 	assert!(is_match(text(&arrow["dist"]), r"^\d+ yd$"), "{arrow}");
 }
 
+// The XP row and the progress bar are one tight pair: the XP row 16px with 3px above its text, the bar's row 14px,
+// from the XP text's bottom to the bar's top 6px at most. And compact is one surface: no inner card ground or border.
+#[test]
+fn the_xp_row_and_the_progress_bar_sit_close_and_compact_has_no_inner_card() {
+	let out = run(r#"
+		local P = GF.parts
+		uistub.setGuide(uistub.elwynn, 3)
+		stub.advance(1)
+		local xp, foot = GF.xp, P.foot
+		xp.psHas = true
+		xp.Text:SetText("2316 XP/h")
+		xp:Show()
+		GF.Layout()
+		local function pair(tag)
+			local xt, xb = xp:GetTop(), xp:GetBottom()
+			local ft, fh = foot:GetTop(), foot:GetHeight()
+			local barTop = ft - (fh - P.line:GetHeight()) / 2
+			return { tag = tag, xpH = xp:GetHeight(), footH = fh, bar = P.line:GetHeight(), textBottom = xt - (xp:GetHeight() + 12) / 2 - 1, barTop = barTop, ground = P.card.Ground:IsShown() }
+		end
+		local standard = pair("standard")
+		Polestar.Set("ui.compact", true)
+		stub.advance(0.3)
+		emit({ standard = standard, compact = { ground = P.card.Ground:IsShown(), lines = P.card.Lines[1]:IsShown() } })"#)
+	.remove(0);
+	let s = &out["standard"];
+	assert_eq!((f(&s["xpH"]), f(&s["footH"]), f(&s["bar"])), (16.0, 14.0, 4.0), "{s}");
+	assert!(f(&s["textBottom"]) - f(&s["barTop"]) <= 6.0, "the XP text's bottom to the bar's top: {s}");
+	assert_eq!(s["ground"], true);
+	assert_eq!((out["compact"]["ground"].clone(), out["compact"]["lines"].clone()), (json!(false), json!(false)), "one surface in compact: {out}");
+}
+
+// Option B of the step's title: the pin and the title on one row with the zone muted at its right, and the goal rows
+// one step (10px) in under it, glyph and words, their sublines too; "Then" lines stay flush left with the title.
+#[test]
+fn the_title_row_holds_the_zone_at_its_right_and_the_goal_rows_sit_ten_pixels_in() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		stub.advance(1)
+		local P = GF.parts
+		local function x(f) return select(4, f:GetPoint(1)) end
+		local row = visibleRows()[1]
+		local line = GF.lines[1]
+		local hs = {}
+		for _, r in ipairs(visibleRows()) do hs[#hs + 1] = r.Sub:IsShown() and (x(r.Sub) or 0) or false end
+		local wp, _, wrp = P.person.Where:GetPoint(1)
+		emit({ nameX = x(P.person.Name), rowTextX = x(row.Text), rowIconX = x(row.Icon), iconX = x(P.person.Icon), whereAnchor = { wp, wrp }, whereJustify = P.person.Where:GetJustifyH(),
+			lineX = line and line:IsShown() and x(line.Text) or false, zone = P.person.Where:GetText(), nameY = select(5, P.person.Name:GetPoint(1)), whereY = select(5, P.person.Where:GetPoint(1)) })"#)
+	.remove(0);
+	assert_eq!(f(&out["rowTextX"]) - f(&out["nameX"]), 10.0, "words one step in under the title: {out}");
+	assert_eq!(f(&out["rowIconX"]), 12.0 + 10.0 + 13.0 / 2.0, "the glyph one step in too (card padding 12, 10 in, centre of 13): {out}");
+	assert_eq!(f(&out["lineX"]), f(&out["nameX"]), "the Then lines stay flush left with the title: {out}");
+	assert_eq!(out["whereAnchor"], json!(["TOPRIGHT", "TOPRIGHT"]), "the zone at the title row's right: {out}");
+	assert!((f(&out["whereY"]) - f(&out["nameY"])).abs() <= 2.0, "on the same row: {out}");
+}
+
 // A tip of two lines (its own line break) sits fully inside the card, folded (one line, cut with an ellipsis) and
 // opened (both), at every scale, with the "Then:" rows below it.
 #[test]
@@ -368,7 +423,7 @@ fn the_outside_cards_hold_the_optional_goals_and_the_hint_above_the_window() {
 			local lines = {}
 			for i = 1, o.opt.psN or 0 do
 				local r = o.opt.Rows[i]
-				lines[#lines + 1] = { text = r.Text:GetText():gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""), meta = r.Meta:GetText(), skip = r.Skip.Label:GetText(), skipShown = r.Skip:IsShown() }
+				lines[#lines + 1] = { text = r.Text:GetText():gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""), meta = r.Meta:GetText(), skip = r.Skip.Label:GetText(), skipShown = r.Skip:IsShown(), alt = r.Alt:IsShown() }
 			end
 			return { rows = rows, opt = pt(o.opt), hint = pt(o.hint), lines = lines, tipIn = GF.parts.tip:GetParent() == o.hint, tipShown = GF.parts.tip:IsShown(), outH = o.h, notes = o.hint.psNotes or 0,
 				ground = o.hint.Ground:IsShown() }
@@ -417,7 +472,8 @@ fn the_outside_cards_hold_the_optional_goals_and_the_hint_above_the_window() {
 	assert!(!strings_of(&both["rows"]).contains(&"Tough Wolf Meat".to_string()), "the optional goal left the card: {both}");
 	assert_eq!(both["lines"][0]["skipShown"], true);
 	assert!(text(&both["lines"][0]["text"]).contains("Tough Wolf Meat"), "{both}");
-	assert!(text(&both["lines"][0]["meta"]).contains("37 spots"), "{both}");
+	assert_eq!(both["lines"][0]["meta"], "3/8", "the count, not the spots: {both}");
+	assert_eq!(both["lines"][0]["alt"], false, "no next-spot icon");
 	assert_eq!(out["skipped"][0], "SkipGoal", "Skip is the goal's own skip action: {}", out["skipped"]);
 	// Order and gaps: the Optional card 10 above the window, the hint card 5 above it.
 	assert_eq!((both["opt"]["rel"].clone(), f(&both["opt"]["y"])), (json!("window"), 10.0), "{both}");
@@ -439,6 +495,76 @@ fn the_outside_cards_hold_the_optional_goals_and_the_hint_above_the_window() {
 	let hearth = &out["hearth"];
 	assert_eq!((hearth["opt"]["shown"].clone(), hearth["hint"]["shown"].clone(), hearth["tipIn"].clone()), (json!(false), json!(false), json!(false)), "{hearth}");
 	assert!(strings_of(&hearth["rows"]).contains(&"Tough Wolf Meat".to_string()), "{hearth}");
+}
+
+// The outside cards carry the palette's own dark window ground, not the chip wash (a light ink at a few percent):
+// under every look that has them, and the transparent window draws none.
+#[test]
+fn the_outside_cards_ground_is_dark_in_every_look_and_gone_in_the_transparent_window() {
+	let out = run(r#"
+		local function lum(r, g, b) return 0.2126 * r + 0.7152 * g + 0.0722 * b end
+		local out = {}
+		local function ground(tag)
+			stub.advance(0.3)
+			local o = GF.stepList.out
+			local r, g, b, a = o.opt.Base:GetVertexColor()
+			out[#out + 1] = { tag = tag, lum = lum(r, g, b), a = a, shown = o.opt.Base:IsShown(), opt = o.opt:IsShown() }
+		end
+		uistub.setGuide(uistub.elwynn, 3)
+		uistub.goal(3, 4).optional = true
+		uistub.update()
+		for _, skin in ipairs({ "polestar", "halo", "hearth", "brass" }) do
+			Polestar.Set("ui.skin", skin)
+			uistub.update()
+			ground(skin)
+		end
+		Polestar.Set("ui.skin", "polestar")
+		Polestar.Set("ui.style", "transparent")
+		uistub.update()
+		ground("transparent")
+		emit(out)"#)
+	.remove(0);
+	for r in out.as_array().unwrap() {
+		if r["tag"] == "transparent" {
+			assert_eq!(r["shown"], false, "no ground over the world: {r}");
+		} else if r["opt"] == true {
+			assert!(f(&r["lum"]) < 0.3, "a dark ground, not the wash's light ink: {r}");
+			assert!(f(&r["a"]) >= 0.94, "opaque enough for its text: {r}");
+		}
+	}
+}
+
+// All three outside cards at once, each with its own data and label, stacked hint, While you're here, Optional, then
+// the window: the Optional card shows the optional goals of the step on screen, the While-you're-here card the
+// Engine's suggestions (a later step's goals), never one in the other's place.
+#[test]
+fn the_while_you_re_here_card_and_the_optional_card_stand_together_each_with_its_own_rows() {
+	let out = run(r#"
+		local function plain(t) return (t:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
+		uistub.setGuide(uistub.elwynn, 3)
+		local g = uistub.goal(3, 4)
+		g.optional = true
+		local goals = uistub.guides[uistub.elwynn].steps[3].goals
+		goals[#goals + 1] = { t = "note", verb = "", subject = "Mind the patrols", subjectKind = "text", text = "Mind the patrols", status = "pending", tickable = false }
+		uistub.update()
+		local SL = GF.stepList
+		SL.FillWH({ { step = 14, index = 1, t = "kill", verb = "Kill", subject = "Kobold Worker", subjectKind = "npc", progress = { cur = 0, max = 8 }, yards = 120, status = "active" } })
+		GF.Layout()
+		stub.advance(0.3)
+		local o = SL.out
+		local function texts(card, key) local t = {} for i = 1, card.psN or 0 do t[#t + 1] = plain(card[key][i].Text:GetText()) end return t end
+		local function rel(c) local _, r = c:GetPoint(1) return r == F and "window" or (r == o.opt and "optional" or (r == o.wh and "while" or "other")) end
+		emit({ opt = texts(o.opt, "Rows"), wh = texts(o.wh, "Rows"), optShown = o.opt:IsShown(), whShown = o.wh:IsShown(), hintShown = o.hint:IsShown(),
+			optLabel = o.opt.Label:GetText(), whLabel = o.wh.Label:GetText(), optRel = rel(o.opt), whRel = rel(o.wh), hintRel = rel(o.hint),
+			optAbove = o.opt:GetTop() < F:GetTop(), whAboveOpt = o.wh:GetBottom() >= o.opt:GetTop(), distinct = o.wh ~= o.opt })"#)
+	.remove(0);
+	assert_eq!((out["optShown"].clone(), out["whShown"].clone(), out["hintShown"].clone()), (json!(true), json!(true), json!(true)), "{out}");
+	assert_eq!(out["opt"].as_array().unwrap().len(), 1, "{out}");
+	assert!(text(&out["opt"][0]).contains("Tough Wolf Meat"), "the Optional card holds the optional goal: {out}");
+	assert_eq!(out["wh"].as_array().unwrap().len(), 1, "{out}");
+	assert!(text(&out["wh"][0]).contains("Kobold Worker"), "the While card holds the suggestion: {out}");
+	assert_eq!((out["optLabel"].clone(), out["whLabel"].clone()), (json!("OPTIONAL"), json!("WHILE YOU'RE HERE")));
+	assert_eq!((out["optRel"].clone(), out["whRel"].clone(), out["hintRel"].clone()), (json!("window"), json!("optional"), json!("while")), "the stack: {out}");
 }
 
 // Grow upward: the window stops short of the screen top by the cards' stack, so the cards stay on the screen.
@@ -1520,7 +1646,7 @@ fn the_header_carries_nearby_services_between_skip_and_the_bug_its_menu_points_t
 		local function relOf(f) local _, rel = f:GetPoint(1) return rel end
 		local noGuide = { shown = B:IsShown(), rel = relOf(B) == nav.Menu }
 		uistub.setGuide(uistub.elwynn, 3)
-		local order = { skip = relOf(nav.Skip) == nav.List, list = relOf(nav.List) == B, nearby = relOf(B) == nav.Report, report = relOf(nav.Report) == nav.Menu }
+		local order = { skip = relOf(nav.Skip) == B, list = relOf(nav.List) == B, nearby = relOf(B) == nav.Report, report = relOf(nav.Report) == nav.Menu }
 		B:Click()
 		local items = texts()
 		for _, r in ipairs(rows()) do if r.Text:GetText() == "Mining trainer" then r:Click() end end
@@ -1537,15 +1663,15 @@ fn the_header_carries_nearby_services_between_skip_and_the_bug_its_menu_points_t
 		Polestar.Set("nav.nearbyButton", false)
 		local off = B:IsShown()
 		-- Off, Skip moves up to the bug, and stays there on the next step.
-		local skipOff = { now = relOf(nav.List) == nav.Report }
+		local skipOff = { now = relOf(nav.Skip) == nav.Report }
 		uistub.setGuide(uistub.elwynn, 4)
-		skipOff.nextStep = relOf(nav.List) == nav.Report
+		skipOff.nextStep = relOf(nav.Skip) == nav.Report
 		Polestar.Set("nav.nearbyButton", true)
-		skipOff.backOn = relOf(nav.List) == B and relOf(nav.Skip) == nav.List
+		skipOff.backOn = relOf(nav.Skip) == B
 		emit({ noGuide = noGuide, order = order, items = items, mining = mining, inn = inn, enabledInCombat = disabled, off = off, skipOff = skipOff })"#)
 	.remove(0);
 	assert_eq!(out["noGuide"], json!({ "shown": true, "rel": true }), "without a guide it sits by the menu");
-	assert_eq!(out["order"], json!({ "skip": true, "list": true, "nearby": true, "report": true }), "Skip, the step list, Nearby, the bug, the menu");
+	assert_eq!(out["order"], json!({ "skip": true, "list": true, "nearby": true, "report": true }), "Skip, Nearby, the bug, the menu (the step list has no button: the step number opens it)");
 	assert_eq!(out["items"], json!(["Vendor  \u{203a}", "Innkeeper", "Mining trainer", "Weapon master  \u{203a}", "Bank"]));
 	assert_eq!(out["mining"], json!(["NearbyGo", "trainer", 186]));
 	assert_eq!(out["inn"], json!(["NearbyGo", "innkeeper"]));
@@ -2662,7 +2788,7 @@ fn guide_complete_up_next_names_where_the_hand_off_goes_now_and_asks_for_a_guide
 
 #[test]
 fn the_wheel_over_the_step_number_scrubs_through_the_steps_shift_by_ten_back_on_the_live_step_after_a_pause_and_a_click_lists_the_steps_around() {
-	let out = run(r#"
+	let out = run_hearth(r#"
 		uistub.setGuide(uistub.elwynn, 3)
 		uistub.live = 3
 		local hit = GF.parts.nav.Steps.Hit

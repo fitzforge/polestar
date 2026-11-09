@@ -43,7 +43,7 @@ local UI, Theme, W = ns.UI, ns.Theme, ns.Widgets
 local L = ns.L
 
 local type, pcall = type, pcall
-local floor, ceil, huge = math.floor, math.ceil, math.huge
+local floor, ceil, huge, max = math.floor, math.ceil, math.huge, math.max
 local format = string.format
 
 local JP = {}
@@ -681,18 +681,23 @@ function JP.Layout(width)
 				r.Text:SetWidth(textW)
 				r.Sub:SetWidth(textW + TIME_W)
 			end
+			-- A step is as tall as what it holds (a taller font than the slot grows it).
+			local rh = max(r:GetHeight(), floor(r.Text:GetStringHeight() + 0.5) + 3)
+			r:SetHeight(rh)
 			r:ClearAllPoints()
 			r:SetPoint("TOPLEFT", list, "TOPLEFT", 0, -y)
 			r:SetPoint("TOPRIGHT", list, "TOPRIGHT", 0, -y)
-			y = y + r:GetHeight()
+			y = y + rh
 		end
 	end
 	if more:IsShown() then
 		more:ClearAllPoints()
-		more:SetPoint("LEFT", list, "TOPLEFT", textStart, -(y + MORE_H / 2))
-		y = y + MORE_H
+		-- Its slot holds the line's own height, so the divider under the panel clears it.
+		local mh = max(MORE_H, floor(more:GetStringHeight() + 0.5) + 2)
+		more:SetPoint("LEFT", list, "TOPLEFT", textStart, -(y + mh / 2))
+		y = y + mh
 	end
-	y = y + (dense() and 3 or 6)
+	y = y + (dense() and 5 or 6)
 	list:SetHeight(y)
 	F:SetHeight(HEAD_H + y)
 	return HEAD_H + y

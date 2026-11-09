@@ -114,7 +114,7 @@ local function readMetrics()
 	PAD = max(4, Theme.Metric("guidePad", c and 12 or 14) + px("padding"))
 	TAB_H = floor(Theme.Metric("guideTabs", 28) * k("tabHeight") + 0.5)
 	NAV_H = floor(Theme.Metric("guideNav", 34) * k("navHeight") + 0.5)
-	PROG_H = Theme.Metric("guideFoot", 26)
+	PROG_H = Theme.Metric("guideFoot", c and 14 or 26)
 	ICON = floor((c and 13 or 15) * k("glyphSize") + 0.5)
 	TEXT_X = PAD + ICON + Theme.Metric("guideIconGap", c and 7 or 10)
 	ROW_MIN = Theme.Metric("guideRow", c and 18 or 24)
@@ -125,6 +125,10 @@ local function readMetrics()
 	SL.HEAD, SL.HEADB = c and 6 or 10, c and 5 or 8 -- the person header's top and bottom padding
 	SL.TIP = c and 4 or 6 -- the tip's padding above and below its text
 	SL.CARDTOP = Theme.Metric("guideCardTop", c and 3 or 0) -- the gap from the navigator (or the notice) to the card
+	SL.IND = c and 10 or 0 -- goal rows sit one step in under the step's title
+	SL.XPH = c and 16 or 28 -- the XP row's height: the progress bar sits right under it
+	SL.XPTOP = c and 3 or 0 -- the XP text's top padding (it sits a pixel lower in its row)
+	SL.XPOFF = c and 1 or 0
 	SL.DY = SL.IC - 12 -- the Skip, Share and Other buttons ride the glyph's line
 	if SL.ReadCard then SL.ReadCard(c) end
 	CHECK_IN = Theme.Metric("guideCheckIn", 0)
@@ -179,7 +183,7 @@ GF.LOOK = {
 	barTextSize = 1, titleSize = 1, goalSize = 1, detailSize = 1, noteSize = 1, upSize = 1,
 	outline = "outline", padding = 0, rowSpacing = 0, lineSpacing = 0, glyphSize = 1, checkSize = 1,
 	targetBar = true, targetBarColor = false, targetBarWidth = 2,
-	progress = true, progressPct = true, progressHeight = 3, progressColor = false,
+	progress = true, progressPct = true, progressHeight = false, progressColor = false,
 	bgColor = false, bgOpacity = false, border = true, idleAlpha = 1, combatAlpha = 0.35, veil = 0.68, shade = 0.2,
 	stepAnim = true, animSpeed = 1, foldAnim = true, rules = true, hideTaxi = false,
 }
@@ -244,6 +248,12 @@ function GF.PaintMark(t)
 	if r then t:SetVertexColor(r, g, b, 1) else t:SetVertexColor(Theme.Color("accent")) end
 	t:SetWidth(GF.Num("targetBarWidth"))
 	t:SetAlpha(GF.On("targetBar") and 1 or 0)
+end
+
+-- The progress line's thickness: the player's (guideWindow.progressHeight),
+-- else the skin's (guideProgress; the house look's dense card 4).
+function GF.ProgressHeight()
+	return tonumber(ns.Get("guideWindow.progressHeight")) or Theme.Metric("guideProgress", 4)
 end
 
 -- The guide's progress fill: the accent, or the player's colour.
@@ -497,11 +507,11 @@ local function goalRow(i)
 	r.Mark:Hide()
 	r.Icon = r:CreateTexture(nil, "ARTWORK")
 	r.Icon:SetSize(ICON, ICON)
-	r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + ICON / 2, -GF.GlyphY())
+	r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + SL.IND + ICON / 2, -GF.GlyphY())
 	r.Text = GF.SizeAs(T(r, SL.card and "cardGoal" or "goal", "text"), "goal", 0)
 	r.Text:SetWordWrap(true)
 	r.Text:SetJustifyV("TOP")
-	r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X, -SL.TOP - ROW_PAD)
+	r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X + SL.IND, -SL.TOP - ROW_PAD)
 	r.Sub = GF.SizeAs(T(r, SL.card and "cardNote" or "small", "textMuted"), "detail", 0)
 	r.Sub:SetWordWrap(true)
 	r.Sub:SetJustifyV("TOP")
@@ -666,7 +676,7 @@ local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noE
 	-- ticked by hand (#1135) or worked along the way (#853): the warning
 	-- colour, and its line says so.
 	local warn = goal.pinOpen and not done and not skipped
-	W.Color(r.Text, (done or skipped) and "textMuted" or (warn and "warning" or (aside and "textDim" or "text")))
+	W.Color(r.Text, (done or skipped) and SL.Muted() or (warn and "warning" or (aside and "textDim" or "text")))
 	local sub = UI.GoalSubline(goal, person.Where:IsShown() and person.psPlace and person.psPlace.map or nil, noParty, noMissing, noEscort)
 	if warn then
 		local open = goal.pinOpen == "along" and L["Its objectives are still open."]
@@ -773,7 +783,7 @@ local function measureRow(r, width)
 		r.Meta:SetPoint("RIGHT", r, "TOPRIGHT", -right, -SL.IC - ROW_PAD)
 		right = right + w + 8
 	end
-	local tw = max(40, width - TEXT_X - right)
+	local tw = max(40, width - TEXT_X - SL.IND - right)
 	r.Text:SetWidth(tw)
 	local h = SL.TOP + r.Text:GetStringHeight()
 	local above = r.Text
@@ -1330,6 +1340,7 @@ SL.GAP = 4 -- between cards
 SL.PX, SL.PT, SL.PB = 8, 6, 7 -- a card's padding: sides, top, bottom
 SL.TABH = 14 -- the "Step N" line
 SL.MINV = 120 -- the list's least height
+SL.ONEH = 20 -- a finished step's one line
 
 function SL.Enabled() return SL.card end
 function SL.On() return SL.Enabled() and ns.Get("ui.stepList") and true or false end
@@ -1338,7 +1349,7 @@ function SL.On() return SL.Enabled() and ns.Get("ui.stepList") and true or false
 -- inset from the window's edges.
 SL.EDGE = 6 -- the card's inset from the window's sides
 
-function SL.Dress(c, edge, bottom)
+function SL.Dress(c, edge, bottom, solid)
 	edge, bottom = edge or SL.EDGE, bottom or 3
 	local function tex(frame, sub)
 		local t = frame:CreateTexture(nil, "BACKGROUND", nil, sub)
@@ -1349,6 +1360,18 @@ function SL.Dress(c, edge, bottom)
 	c.Ground:SetPoint("TOPLEFT", c, "TOPLEFT", edge, 0)
 	c.Ground:SetPoint("BOTTOMRIGHT", c, "BOTTOMRIGHT", -edge, bottom)
 	W.Painter(c.Ground, function(t) t:SetVertexColor(Theme.Wash("chip")) end)
+	-- `solid`: the outside cards stand over the game world, so under the chip wash (a
+	-- light ink at a few percent, not a ground) they carry the palette's own window
+	-- ground at least 94% opaque: the Floor Rule for their text.
+	if solid then
+		c.Base = tex(c, -3)
+		c.Base:SetPoint("TOPLEFT", c, "TOPLEFT", edge, 0)
+		c.Base:SetPoint("BOTTOMRIGHT", c, "BOTTOMRIGHT", -edge, bottom)
+		W.Painter(c.Base, function(t)
+			local bg = Theme.Palette().bg
+			t:SetVertexColor(bg[1], bg[2], bg[3], max(bg[4] or 1, 0.94))
+		end)
+	end
 	c.Lines = {}
 	for i = 1, 4 do
 		local l = tex(c, -1)
@@ -1371,7 +1394,7 @@ function SL.Dress(c, edge, bottom)
 end
 
 -- Show or hide the dress: not in the transparent window (no grounds or lines).
-function SL.Dressed(on)
+function SL.Dressed(on, outside)
 	local c = card
 	if not (c and c.Ground) then return end
 	c.Ground:SetShown(on)
@@ -1379,9 +1402,10 @@ function SL.Dressed(on)
 	-- The outside cards (SL.BuildOut) wear the same dress.
 	local out = SL.out
 	if out then
-		for _, oc in ipairs({ out.hint, out.opt }) do
-			oc.Ground:SetShown(on)
-			for i = 1, 4 do oc.Lines[i]:SetShown(on) end
+		for _, oc in ipairs({ out.hint, out.opt, out.wh }) do
+			oc.Ground:SetShown(outside)
+			oc.Base:SetShown(outside)
+			for i = 1, 4 do oc.Lines[i]:SetShown(outside) end
 		end
 	end
 end
@@ -1402,16 +1426,21 @@ function SL.BuildOut()
 	if SL.out then return end
 	local function cardFrame()
 		local c = CreateFrame("Frame", nil, F)
-		SL.Dress(c, 0, 0)
+		SL.Dress(c, 0, 0, true)
 		c:Hide()
 		return c
 	end
-	local hint, opt = cardFrame(), cardFrame()
+	local hint, opt, wh = cardFrame(), cardFrame(), cardFrame()
 	hint.Notes = {}
 	opt.Rows = {}
 	opt.Label = T(opt, "cardNote", "textMuted")
 	opt.Label:SetText(string.upper(L["Optional"]))
-	SL.out = { hint = hint, opt = opt, h = 0 }
+	-- While you're here: the Engine's nearby objectives of later steps, in a card
+	-- between the notes and the Optional card (SL.FillWH).
+	wh.Rows = {}
+	wh.Label = T(wh, "cardNote", "textMuted")
+	wh.Label:SetText(string.upper(L["While you're here"]))
+	SL.out = { hint = hint, opt = opt, wh = wh, h = 0 }
 end
 
 -- The goals that live outside the card: authored notes (hint card) and
@@ -1446,7 +1475,6 @@ function SL.OptRow(i)
 	r.Meta = T(r, "cardNote", "textMuted")
 	r.Meta:SetJustifyH("RIGHT")
 	r.Skip = CreateFrame("Button", nil, r)
-	SL.Dress(r.Skip, 0, 0)
 	W.Hover(r.Skip, 0.7)
 	r.Skip.Label = T(r.Skip, "cardNote", "textDim")
 	r.Skip.Label:SetPoint("CENTER", r.Skip, "CENTER", 0, 0)
@@ -1484,6 +1512,100 @@ function SL.OptRow(i)
 	return r
 end
 
+-- A "While you're here" row of the outside card: the glyph, the line, the count
+-- and the distance at the right, the small dismiss square; a click points the
+-- arrow there, a right-click is "not now".
+function SL.WHRow(i)
+	local wh = SL.out.wh
+	local r = wh.Rows[i]
+	if r then return r end
+	r = CreateFrame("Button", nil, wh)
+	r.psAt = i
+	r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	r.Hover = r:CreateTexture(nil, "BACKGROUND")
+	r.Hover:SetTexture(Theme.Media("white"))
+	r.Hover:SetAllPoints(r)
+	W.Painter(r.Hover, function(t) t:SetVertexColor(Theme.Wash("hover")) end)
+	r.Hover:Hide()
+	r.Mark = r:CreateTexture(nil, "ARTWORK")
+	r.Mark:SetTexture(Theme.Media("white"))
+	r.Mark:SetWidth(2)
+	r.Mark:SetPoint("TOPLEFT", r, "TOPLEFT", 0, -3)
+	r.Mark:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", 0, 3)
+	W.Color(r.Mark, "accent")
+	r.Mark:Hide()
+	r.Icon = r:CreateTexture(nil, "ARTWORK")
+	r.Text = T(r, "cardGoal", "text")
+	r.Text:SetWordWrap(false)
+	r.Text:SetMaxLines(1)
+	r.Meta = T(r, "cardNote", "textMuted")
+	r.Meta:SetJustifyH("RIGHT")
+	r.Close = W.IconButton(r, "close", 16, L["Not now (right-click)"], function()
+		local E = Engine()
+		if E then E.DismissWhileHere(r.psAt) end
+	end, 9)
+	r:SetScript("OnClick", function(self, button)
+		local E = Engine()
+		if not E then return end
+		if button == "RightButton" then E.DismissWhileHere(self.psAt) else E.AimWhileHere(self.psAt) end
+	end)
+	r:SetScript("OnEnter", function(self)
+		local v = self.psView
+		if not v then return end
+		self.Hover:Show()
+		W.Tooltip(self, tooltipAnchor(), L["While you're here:"] .. " " .. (v.hereText or ""), {
+			string.format(L["Step %d does this later; done now, that step is shorter or skipped when you get there."], UI.StepNo(v.step)),
+			{ L["Click to point the arrow here"], Theme.Accent() },
+			{ L["Right-click: not now, around here (twice: for the rest of this zone)."], Theme.Color("textDim") },
+		})
+		GF.HoverIn()
+	end)
+	r:SetScript("OnLeave", function(self)
+		self.Hover:Hide()
+		W.HideTooltip(self)
+	end)
+	wh.Rows[i] = r
+	return r
+end
+
+-- The detail of a While-you're-here row: its count and, when known, how far.
+function SL.WHMeta(r, yards)
+	local v = r.psView
+	local p = v and v.progress
+	local count = type(p) == "table" and type(p.max) == "number" and p.max > 0 and string.format("%d/%d", p.cur or 0, p.max) or nil
+	local dist = type(yards) == "number" and ns.FormatDistance(yards, GF.HERE_DIST) or nil
+	r.psYards = yards
+	-- Where it pays off: the step that needs it ("Step 33"), then the count and the distance.
+	local parts = {}
+	if v and v.step then parts[#parts + 1] = string.format(L["Step %d"], UI.StepNo(v.step)) end
+	if count then parts[#parts + 1] = count end
+	if dist then parts[#parts + 1] = dist end
+	r.Meta:SetText(table.concat(parts, "  "))
+	W.Color(r.Meta, SL.Muted())
+end
+
+-- Fill the card from the Engine's list (`list`: nil or empty hides it).
+function SL.FillWH(list)
+	if not SL.out then return end
+	local wh = SL.out.wh
+	local n = 0
+	for i, v in ipairs(list or {}) do
+		n = i
+		local r = SL.WHRow(i)
+		r.psView = v
+		r.Icon:SetTexture(Theme.VerbIcon(v.here == "turnin" and "turnin" or v.t))
+		W.Color(r.Icon, "textDim")
+		r.Text:SetText(v.here == "turnin" and (v.hereText or "") or UI.GoalLine(v, nil, true))
+		SL.WHMeta(r, v.yards)
+		r:Show()
+	end
+	for i = n + 1, #wh.Rows do
+		wh.Rows[i].psView = nil
+		wh.Rows[i]:Hide()
+	end
+	wh.psN = n
+end
+
 -- Fill both cards from `v` (the step on screen): the optional goals and the
 -- notes. Heights come with the layout (SL.LayoutOut).
 function SL.FillOut(v)
@@ -1511,19 +1633,15 @@ function SL.FillOut(v)
 				r.Icon:SetTexture(done and Theme.Media("check") or (dismissed and Theme.Media("skip")) or Theme.VerbIcon(goal.t))
 				W.Color(r.Icon, done and "success" or "textDim")
 				r.Text:SetText((done or dismissed) and UI.PlainGoalText(goal) or UI.GoalText(goal))
-				W.Color(r.Text, (done or dismissed) and "textMuted" or "text")
-				local parts = {}
-				local count = UI.GoalProgress(goal)
-				if count then parts[#parts + 1] = count end
-				if type(goal.spots) == "number" and goal.spots > 0 and not done and not dismissed then
-					parts[#parts + 1] = string.format(L["%d spots"], goal.spots)
-				end
-				r.Meta:SetText(table.concat(parts, "  "))
+				W.Color(r.Text, (done or dismissed) and SL.Muted() or "text")
+				-- How many: the goal's count ("0/8"), nothing when it has none.
+				local p = goal.progress
+				local count = type(p) == "table" and type(p.max) == "number" and p.max > 0 and string.format("%d/%d", p.cur or 0, p.max) or nil
+				r.Meta:SetText(count or "")
+				W.Color(r.Meta, (done or (count and (p.cur or 0) >= p.max)) and "success" or SL.Muted())
 				r.Skip.Label:SetText(dismissed and L["Undo"] or L["Skip"])
 				r.Skip:SetShown(not done and Engine() ~= nil and Engine().SkipGoal ~= nil)
-				local alts = type(goal.alternatives) == "number" and goal.alternatives > 0
-				local spots = type(goal.spots) == "number" and goal.spots > 1
-				r.Alt:SetShown((alts or spots) and not done and not dismissed and true or false)
+				r.Alt:Hide()
 				r:Show()
 			end
 		end
@@ -1539,6 +1657,10 @@ function SL.MarkOut(t)
 	local out = SL.out
 	if not out then return end
 	t = t or targetOf()
+	for i = 1, out.wh.psN or 0 do
+		local r = out.wh.Rows[i]
+		r.Mark:SetShown(r.psView ~= nil and isTarget(r.psView, t) and not person.Mark:IsShown() and true or false)
+	end
 	for i = 1, out.opt.psN or 0 do
 		local r = out.opt.Rows[i]
 		local g = r.psGoal
@@ -1551,6 +1673,7 @@ function SL.HideOut()
 	if not out then return end
 	out.hint:Hide()
 	out.opt:Hide()
+	out.wh:Hide()
 	out.h = 0
 	if F.SetClampRectInsets then F:SetClampRectInsets(0, 0, 0, 0) end
 end
@@ -1581,6 +1704,7 @@ function SL.LayoutOut(width)
 	local below = F
 	local gap = SL.OUT_NEAR
 	if showOpt then
+		W.Color(opt.Label, SL.Muted())
 		opt.Label:ClearAllPoints()
 		opt.Label:SetPoint("TOPLEFT", opt, "TOPLEFT", pad, -5)
 		local y = 5 + 12
@@ -1595,7 +1719,7 @@ function SL.LayoutOut(width)
 			r.Icon:SetPoint("LEFT", r, "LEFT", pad - 1, 0)
 			local right = pad - 1
 			if r.Skip:IsShown() then
-				r.Skip:SetSize(floor(r.Skip.Label:GetStringWidth() + 14 + 0.5), 14)
+				r.Skip:SetSize(floor(r.Skip.Label:GetStringWidth() + 8 + 0.5), 14)
 				r.Skip:ClearAllPoints()
 				r.Skip:SetPoint("RIGHT", r, "RIGHT", -right, 0)
 				right = right + r.Skip:GetWidth() + 6
@@ -1624,6 +1748,42 @@ function SL.LayoutOut(width)
 		h = h + gap + oh
 		below, gap = opt, SL.OUT_GAP
 	end
+	local showWH = (out.wh.psN or 0) > 0
+	local wh = out.wh
+	wh:SetShown(showWH)
+	if showWH then
+		W.Color(wh.Label, SL.Muted())
+		wh.Label:ClearAllPoints()
+		wh.Label:SetPoint("TOPLEFT", wh, "TOPLEFT", pad, -5)
+		local y = 5 + 12
+		for i = 1, wh.psN do
+			local r = wh.Rows[i]
+			r:ClearAllPoints()
+			r:SetPoint("TOPLEFT", wh, "TOPLEFT", 1, -y)
+			r:SetPoint("TOPRIGHT", wh, "TOPRIGHT", -1, -y)
+			r:SetHeight(SL.OPT_ROW)
+			r.Icon:SetSize(ICON, ICON)
+			r.Icon:ClearAllPoints()
+			r.Icon:SetPoint("LEFT", r, "LEFT", pad - 1, 0)
+			r.Close:ClearAllPoints()
+			r.Close:SetPoint("RIGHT", r, "RIGHT", -(pad - 3), 0)
+			local right = pad - 3 + 16 + 6
+			r.Meta:ClearAllPoints()
+			r.Meta:SetPoint("RIGHT", r, "RIGHT", -right, 0)
+			right = right + floor(r.Meta:GetStringWidth() + 0.5) + 6
+			r.Text:ClearAllPoints()
+			r.Text:SetPoint("LEFT", r.Icon, "RIGHT", 6, 0)
+			r.Text:SetWidth(max(40, width - (pad - 1 + ICON + 6) - right - 2))
+			y = y + SL.OPT_ROW
+		end
+		local wl = y + 5
+		wh:SetHeight(wl)
+		wh:ClearAllPoints()
+		wh:SetPoint("BOTTOMLEFT", below, "TOPLEFT", 0, gap)
+		wh:SetPoint("BOTTOMRIGHT", below, "TOPRIGHT", 0, gap)
+		h = h + gap + wl
+		below, gap = wh, SL.OUT_GAP
+	end
 	if showHint then
 		hint:SetHeight(hintH)
 		hint:ClearAllPoints()
@@ -1642,6 +1802,13 @@ function SL.ItemIcon(id)
 	if C_Item and C_Item.GetItemIconByID then t = C_Item.GetItemIconByID(id) end
 	if not t and GetItemIcon then t = GetItemIcon(id) end
 	return t
+end
+
+-- The muted ink of the card's quiet text, glyphs and chevrons: textMuted, and
+-- textDim in the transparent window, where they sit on the game world and the
+-- floor is the outline plus a brighter token (DESIGN.md, Text on the world).
+function SL.Muted()
+	return (SL.card and transparent()) and "textDim" or "textMuted"
 end
 
 -- A goal row's detail at the right (the house look): the count of a kill or
@@ -1667,7 +1834,7 @@ function SL.PaintMeta(r, goal, done, skipped)
 		end
 	end
 	r.psMeta = detail
-	r.psMetaColor = color or "textMuted"
+	r.psMetaColor = color or SL.Muted()
 	SL.Meta(r)
 end
 
@@ -1721,6 +1888,7 @@ function SL.Fonts()
 	Theme.Font(person.Dist, c and "cardNote" or "small")
 	Theme.Font(card.Tip.Text, c and "cardNote" or "note")
 	Theme.Font(after.Text, c and "cardNote" or "label")
+	if GF.xp then Theme.Font(GF.xp.Text, c and "cardNote" or "small") end
 	-- Along the way and Up next: their rows read like the goals, their headings like the notes.
 	for _, pool in ipairs({ alongRows, upRows }) do
 		for _, r in ipairs(pool) do Theme.Font(r.Text, c and "cardGoal" or "label") end
@@ -1754,7 +1922,7 @@ function SL.Quiet(l, on)
 		Theme.Font(l.Text, on and "cardNote" or (SL.card and "cardGoal" or "label"))
 		l.Text:SetWordWrap(not on)
 		l.Text:SetMaxLines(on and 1 or 2)
-		local s = on and 10 or (SL.card and 12 or 13)
+		local s = on and 10 or (SL.card and ICON or 13)
 		l.Icon:SetSize(s, s)
 	end
 	local lh = on and CARD.quietH or CARD.lineH
@@ -1791,6 +1959,13 @@ function SL.Row(i)
 	r.Tab = T(r, "caption", "textMuted")
 	r.Tab:SetJustifyH("LEFT")
 	r.Tab:SetPoint("TOPLEFT", r, "TOPLEFT", SL.PX, -SL.PT)
+	r.Tab:SetWordWrap(false)
+	r.Tab:SetMaxLines(1)
+	-- "live": the step the guide is on, at the card's right.
+	r.Live = T(r, "cardNote", "accent")
+	r.Live:SetText(L["live"])
+	r.Live:SetPoint("TOPRIGHT", r, "TOPRIGHT", -SL.PX, -SL.PT)
+	r.Live:Hide()
 	r.G = {} -- the goal lines (SL.Line), made as a step needs them
 	r.More = T(r, "small", "textMuted")
 	r.More:SetJustifyH("LEFT")
@@ -1837,7 +2012,15 @@ function SL.FillRow(r, v, i, live, at)
 	local gone = v.status == "done" or v.status == "skipped" or v.skipped == true
 	r.psIndex = i
 	r.psSummary = UI.StepSummary(v)
-	r.Tab:SetText(string.format(L["Step %d"], UI.StepNo(i)))
+	-- "31 · Brewnall Village": its number and title; a finished step (not the one on
+	-- screen) is one muted line, the rest are cards, the live one tagged.
+	local one = gone and i ~= at
+	r.psOne = one
+	local no = UI.StepNo(i)
+	local title = (v.title and v.title ~= "") and v.title or string.format(L["Step %d"], no)
+	r.Tab:SetText(no .. " \194\183 " .. title)
+	W.Color(r.Tab, gone and SL.Muted() or (i == live and "accent" or "textMuted"))
+	r.Live:SetShown(i == live and not one)
 	local n, more, key = 0, 0, {}
 	-- Its people in turn ("Talk to Marshal McBride", the name in its kind's
 	-- colour, ticked once their goals are), each followed by their goals.
@@ -1903,6 +2086,7 @@ function SL.FillRow(r, v, i, live, at)
 		W.Color(g.Text, gone and "textMuted" or "text")
 		key[1] = r.psSummary
 	end
+	if one then n, more, key = 0, 0, { "one" } end
 	for j = 1, #r.G do
 		r.G[j].Icon:SetShown(j <= n)
 		r.G[j].Text:SetShown(j <= n)
@@ -1916,6 +2100,7 @@ function SL.FillRow(r, v, i, live, at)
 	r.psDone = gone
 	r:Show()
 	key[#key + 1] = more
+	key[#key + 1] = r.Tab:GetText() .. (i == live and "|live" or "")
 	return table.concat(key, "\n")
 end
 
@@ -1975,6 +2160,9 @@ function SL.Layout(width, room)
 			r:ClearAllPoints()
 			r:SetPoint("TOPLEFT", sc.Child, "TOPLEFT", SL.IN, -y)
 			r:SetPoint("TOPRIGHT", sc.Child, "TOPRIGHT", -SL.IN, -y)
+			r.Tab:SetWidth(max(40, width - SL.IN * 2 - SL.PX * 2 - 34))
+			r.Tab:ClearAllPoints()
+			r.Tab:SetPoint("TOPLEFT", r, "TOPLEFT", SL.PX, -(r.psOne and SL.PT - 3 or SL.PT))
 			local ly = SL.PT + SL.TABH + 3
 			for j = 1, r.psN do
 				local g = r.G[j]
@@ -1991,7 +2179,7 @@ function SL.Layout(width, room)
 				r.More:SetPoint("TOPLEFT", r, "TOPLEFT", textX, -ly)
 				ly = ly + floor(r.More:GetStringHeight() + 0.5) + SL.LGAP
 			end
-			local h = ly - SL.LGAP + SL.PB
+			local h = r.psOne and SL.ONEH or (ly - SL.LGAP + SL.PB)
 			r:SetHeight(h)
 			r.Card:SetShown(not transparent())
 			top[r.psIndex] = y
@@ -2007,8 +2195,22 @@ function SL.Layout(width, room)
 	if SL.opened then
 		local top = SL.top or {}
 		local want = top[SL.at or 0] or top[SL.live or 0]
-		if want then W.ScrollTo(sc, max(0, min(y - view, want - SL.GAP - 28))) end
-		SL.opened = false
+		if want then
+			-- The step looked at first, the ones before it above, reached by scrolling up.
+			SL.wantScroll, SL.scrollTries = max(0, min(y - view, want - SL.GAP)), 0
+			SL.opened = false
+		end
+	end
+	-- The scroll frame learns its new size a frame later and clamps to the old range
+	-- until then: try again until it holds (a few times at most).
+	if SL.wantScroll then
+		W.ScrollTo(sc, SL.wantScroll)
+		SL.scrollTries = SL.scrollTries + 1
+		if sc:GetVerticalScroll() >= SL.wantScroll - 1 or SL.scrollTries > 8 then
+			SL.wantScroll = nil
+		else
+			ns.After(0.05, function() if SL.frame:IsShown() then GF.Layout() end end)
+		end
 	end
 	return view
 end
@@ -2524,13 +2726,14 @@ end
 -- far right (`quiet` off: the banner's own sizes, which every other notice and
 -- look keeps).
 function SL.BannerSizes(quiet)
+	if quiet then W.Color(banner.Text, SL.Muted()) end
 	if banner.psQuiet == quiet then return end
 	banner.psQuiet = quiet
 	Theme.Font(banner.Text, quiet and "cardNote" or "label")
 	Theme.Font(banner.Jump.Label, quiet and "cardNote" or "label")
 	banner.Text:SetWordWrap(not quiet)
 	banner.Text:SetJustifyV(quiet and "MIDDLE" or "TOP")
-	W.Color(banner.Text, quiet and "textMuted" or "text")
+	W.Color(banner.Text, quiet and SL.Muted() or "text")
 	banner.Icon:SetSize(quiet and 10 or 13, quiet and 10 or 13)
 	banner.Icon:ClearAllPoints()
 	if quiet then
@@ -2922,13 +3125,33 @@ local function layoutCard(width)
 			distW = person.Dist:GetStringWidth() + 8
 			SL.PersonDist()
 		end
-		person.Name:SetWidth(nameW - distW)
-		person.Where:SetWidth(nameW)
+		-- The house look: the title row is the pin and the title, the zone muted at its
+		-- right on the same line (distance, when the arrow leads here, before it).
+		local whereW = 0
+		person.Where:ClearAllPoints()
+		if SL.card then
+			if person.Where:IsShown() then
+				whereW = floor(person.Where:GetStringWidth() + 0.5) + 2
+				person.Where:SetWidth(whereW)
+			end
+			person.Where:SetPoint("TOPRIGHT", person, "TOPRIGHT", -PAD, -SL.HEAD - 1)
+			person.Where:SetJustifyH("RIGHT")
+			person.Dist:ClearAllPoints()
+			person.Dist:SetPoint("TOPRIGHT", person, "TOPRIGHT", -(PAD + (whereW > 0 and whereW + 8 or 0)), -SL.HEAD - 1)
+			distW = distW + (whereW > 0 and whereW + 8 or 0)
+		else
+			person.Where:SetPoint("TOPLEFT", person.Name, "BOTTOMLEFT", 0, -SL.SUBGAP)
+			person.Where:SetJustifyH("LEFT")
+			person.Where:SetWidth(nameW)
+			person.Dist:ClearAllPoints()
+			person.Dist:SetPoint("TOPRIGHT", person, "TOPRIGHT", -PAD, -SL.HEAD - 1)
+		end
+		person.Name:SetWidth(max(40, nameW - distW))
 		person.Why:SetWidth(nameW)
 		person.Level:SetWidth(nameW)
 		local h = SL.HEAD + person.Name:GetStringHeight()
-		local above = person.Where:IsShown() and person.Where or person.Name
-		if person.Where:IsShown() then h = h + SL.SUBGAP + 1 + person.Where:GetStringHeight() end
+		local above = (person.Where:IsShown() and not SL.card) and person.Where or person.Name
+		if person.Where:IsShown() and not SL.card then h = h + SL.SUBGAP + 1 + person.Where:GetStringHeight() end
 		if person.Why:IsShown() then
 			person.Why:ClearAllPoints()
 			person.Why:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, -3)
@@ -3296,8 +3519,10 @@ function GF.Layout()
 	-- The step list in place of the card (SL.Layout): the card, its journey,
 	-- "Then:" and the rest stay filled, hidden.
 	local listOn = state == "steps" and SL.On()
+	SL.wantShown = listOn
 	SL.frame:SetShown(listOn)
-	SL.Dressed(SL.card and not transparent())
+	-- Compact is one surface with the navigator: no inner card ground or border.
+	SL.Dressed(SL.card and not transparent() and not compact(), SL.card and not transparent())
 	if listOn then
 		card:Hide()
 		after:Hide()
@@ -3311,7 +3536,7 @@ function GF.Layout()
 		y = stack(SL.frame, y, SL.Layout(width, room))
 		SL.HideOut()
 	elseif state == "steps" then
-		y = y + SL.CARDTOP
+		y = y + (isCompact and 0 or SL.CARDTOP)
 		fit.fixed = layoutCard(width)
 		SL.LayoutOut(width)
 		fit.top = y
@@ -3342,6 +3567,7 @@ function GF.Layout()
 		GF.party:Hide()
 	end
 	if GF.xp.psHas and not isCompact and state == "steps" and not listOn then
+		GF.xp:SetHeight(SL.XPH)
 		GF.xp:Show()
 		y = stack(GF.xp, y, GF.xp:GetHeight())
 	else
@@ -3642,7 +3868,8 @@ local function navigatorFor(guide, index)
 	W.SetIconState(nav.Next, false, guide ~= nil and index ~= nil)
 	GF.PaintSkip(guide ~= nil, guide ~= nil and index ~= nil)
 	nav.Report:SetShown(guide ~= nil and GF.On("reportButton"))
-	nav.List:SetShown(guide ~= nil and SL.Enabled())
+	-- The step list opens from the step number (countHit); the layers button is gone.
+	nav.List:SetShown(false)
 	W.SetIconState(nav.List, SL.On(), true)
 	nav.Nearby:ClearAllPoints()
 	nav.Nearby:SetPoint("RIGHT", nav.Report:IsShown() and nav.Report or nav.Menu, "LEFT", 0, 0)
@@ -3798,6 +4025,16 @@ function GF.FillHere(E)
 	local tight = compact()
 	local here = GF.here
 	local body = here.Body
+	-- The house look: an outside card (SL.FillWH), not the block in the window.
+	if SL.card then
+		here.psKey = nil
+		here:Hide()
+		SL.FillWH(list)
+		SL.MarkOut()
+		GF.Layout()
+		return
+	end
+	if SL.out then SL.FillWH(nil) end
 	if not (list and list[1]) then
 		local was = here.psKey
 		here.psKey = nil
@@ -3854,6 +4091,11 @@ end
 
 -- WHILE_HERE_MOVED (yards, i): only row i's distance changed.
 function GF.HereMoved(yards, i)
+	if SL.card and SL.out then
+		local wr = SL.out.wh.Rows[i or 1]
+		if wr and wr.psView and type(yards) == "number" then SL.WHMeta(wr, yards) end
+		return
+	end
 	local here = GF.here
 	local r = here and here.Rows[i or 1]
 	if not (F and r and r.psView and type(yards) == "number") then return end
@@ -4029,9 +4271,10 @@ local function paintLine(l, key, icon, iconColor, text, list, title, open, quiet
 	SL.Quiet(l, quiet and SL.card)
 	l.Icon:Show()
 	l.Icon:SetTexture(icon == "check" and Theme.Media("check") or Theme.VerbIcon(icon))
-	W.Color(l.Icon, (l.psQuiet and iconColor == "textDim") and "textMuted" or iconColor)
+	W.Color(l.Icon, (l.psQuiet and iconColor == "textDim") and SL.Muted() or iconColor)
 	l.Text:SetText(text)
-	if l ~= fold.glow then W.Color(l.Text, l.psQuiet and "textMuted" or "textDim") end
+	if l ~= fold.glow then W.Color(l.Text, l.psQuiet and SL.Muted() or "textDim") end
+	W.Color(l.Chevron, SL.Muted())
 	l.Chevron:SetTexture(Theme.Media(open and "chevron-up" or "chevron-down"))
 	l.psK = nil
 	l:SetAlpha(1)
@@ -4401,7 +4644,10 @@ local function showSteps(show)
 	along:SetShown(show and along:IsShown())
 	GF.here:SetShown(show and GF.here:IsShown())
 	upnext:SetShown(show and upnext:IsShown())
-	if not show and SL.frame then SL.frame:Hide() end
+	if not show and SL.frame then
+		SL.wantShown = false
+		SL.frame:Hide()
+	end
 	empty:SetShown(not show)
 end
 
@@ -4734,6 +4980,8 @@ function GF.ApplyStyle()
 		r.Check.psOnWorld = clear
 		Theme.Repaint(r.Check)
 	end
+	-- The card's quiet ink changes with the style (SL.Muted): paint it again.
+	if SL.card and GF.Render then GF.Render() end
 	if not clear and GF.Num("idleAlpha") >= 1 then
 		watcher:SetScript("OnUpdate", nil)
 		hovering = false
@@ -5096,7 +5344,12 @@ function GF.ApplySkin()
 	upnext.Toggle:SetHeight(UP_TOGGLE)
 	upnext.Toggle.Label:SetPoint("LEFT", upnext.Toggle, "LEFT", PAD, 0)
 	upnext.Toggle.Icon:SetPoint("RIGHT", upnext.Toggle, "RIGHT", -PAD, 0)
-	GF.xp.Icon:SetPoint("LEFT", GF.xp, "LEFT", PAD, -1)
+	-- The XP text sits a pixel lower in its row (3px of padding above it in the house look).
+	GF.xp.Icon:ClearAllPoints()
+	GF.xp.Icon:SetPoint("LEFT", GF.xp, "LEFT", PAD, -1 - SL.XPOFF)
+	GF.xp.Text:ClearAllPoints()
+	GF.xp.Text:SetPoint("LEFT", GF.xp.Icon, "RIGHT", 7, 0)
+	GF.xp.Text:SetPoint("RIGHT", GF.xp, "RIGHT", -PAD, -SL.XPOFF)
 	GF.party.Icon:SetPoint("LEFT", GF.party, "LEFT", PAD, -1)
 	banner.Icon:SetPoint("TOPLEFT", banner, "TOPLEFT", PAD, -10)
 	banner.Text:SetPoint("TOPLEFT", banner, "TOPLEFT", PAD + 21, -9)
@@ -5109,15 +5362,15 @@ function GF.ApplySkin()
 	end
 	for _, r in ipairs(rows) do
 		r.Icon:SetSize(ICON, ICON)
-		r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + ICON / 2, -GF.GlyphY())
-		r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X, -SL.TOP - ROW_PAD)
+		r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + SL.IND + ICON / 2, -GF.GlyphY())
+		r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X + SL.IND, -SL.TOP - ROW_PAD)
 		r.Check:SetSize(CHECK, CHECK)
 		placeCheck(r)
 		Theme.Repaint(r.Check)
 	end
 	-- The progress bar: the game's status bar in Hearth and the game's looks.
 	local bliz = Theme.GameSkin()
-	foot.Line:SetHeight(GF.Num("progressHeight"))
+	foot.Line:SetHeight(GF.ProgressHeight())
 	foot.Line:SetPoint("LEFT", foot, "LEFT", PAD, 0)
 	foot.Pct:SetPoint("RIGHT", foot, "RIGHT", -PAD, 0)
 	foot.Line:SetShown(not bliz)
@@ -5663,7 +5916,15 @@ local function build()
 	countHit:EnableMouseWheel(true)
 	countHit:SetScript("OnMouseWheel", function(_, delta) GF.Scrub(delta) end)
 	countHit:SetScript("OnMouseUp", function(self, button)
-		if button == "LeftButton" then GF.ShowOverview(self) end
+		if button ~= "LeftButton" then return end
+		-- The house look has one list of the steps (the layers button's): the
+		-- counter opens and closes it too; the other looks keep the overview menu.
+		if SL.Enabled() then
+			scrubAt = nil
+			ns.Set("ui.stepList", not ns.Get("ui.stepList"))
+		else
+			GF.ShowOverview(self)
+		end
 	end)
 	for _, b in ipairs({ nav.Menu, nav.Report, nav.Nearby, nav.List, nav.Next, nav.Prev, nav.Skip }) do hoverable(b) end
 	-- Transparent chrome: the step number fades with its chevrons (nav.Steps
@@ -5687,6 +5948,16 @@ local function build()
 	SL.frame = CreateFrame("Frame", nil, body)
 	SL.frame:SetHeight(SL.MINV)
 	SL.frame:Hide()
+	-- Escape closes it, as it closed the overview: the game hides the frame, and a
+	-- hide the layout did not ask for turns the setting off.
+	_G.PolestarStepList = SL.frame
+	ns.CloseOnEscape("PolestarStepList")
+	SL.frame:SetScript("OnHide", function()
+		if SL.wantShown then
+			SL.wantShown = false
+			ns.Set("ui.stepList", false)
+		end
+	end)
 	SL.scroll = W.Scroll(SL.frame)
 	SL.scroll:SetAllPoints(SL.frame)
 
