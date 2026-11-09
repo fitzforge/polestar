@@ -2529,10 +2529,12 @@ test('Sato\'s report: the Scrawny Ursera step leads to the slope west of Thendal
 // that holds the rest, drew the point and the arrow away from the camp the step is about.
 
 test('Phear\'s report: a kill or collect leads to the camp that holds its mobs, not a stray one or two far from it', { skip }, () => {
-	// [guide, the goal, the camp's x and y range (map percent)]
+	// [guide, the goal, the camp's x and y range (map percent), its strays are another dropper's]
+	// The Grizzled Scalp's far place is the Den Mother (6788), a different dropper alone at 51.5,38.3:
+	// the step pins the bears' camp, so she is not marked at all (#273), rather than kept as an alternative.
 	const cases = [
 		...DUN_MOROGHS.map((guide) => [guide, 'Frostmane Headhunter (Frostmane Hold)', (g) => g.t === 'kill' && g.npc === 1123 && g.quest === 287, [20, 27, 49, 56]]),
-		['forever/alliance/03-darkshore-return.guide', 'Grizzled Scalp', (g) => g.t === 'collect' && g.item === 5414, [37, 46, 69, 83]],
+		['forever/alliance/03-darkshore-return.guide', 'Grizzled Scalp', (g) => g.t === 'collect' && g.item === 5414, [37, 46, 69, 83], true],
 		['forever/alliance/50-60/02-felwood.guide', 'Jadefire Hellcaller (Jadefire Run)', (g) => g.t === 'kill' && g.npc === 7111, [38, 44, 13, 23]],
 		['forever/horde/04-the-barrens.guide', 'Stonetalon Sap', (g) => g.t === 'collect' && g.item === 5582, [32, 41, 9, 21]],
 		['forever/horde/50-60/01-un-goro-crater.guide', 'Bloodpetal Lasher (east side)', (g) => g.t === 'kill' && g.npc === 6509, [55, 77, 20, 50]],
@@ -2540,12 +2542,13 @@ test('Phear\'s report: a kill or collect leads to the camp that holds its mobs, 
 		['forever/horde/40-50/03-feralas.guide', 'Marsh Flesheater (huts on the western shore)', (g) => g.t === 'kill' && g.npc === 751, [60, 75, 75, 100]],
 	];
 	const inCamp = ([x0, x1, y0, y1]) => (p) => p.x >= x0 && p.x <= x1 && p.y >= y0 && p.y <= y1;
-	for (const [guide, what, pred, camp] of cases) {
+	for (const [guide, what, pred, camp, otherDropper] of cases) {
 		for (const { goal } of goals(guide).filter(({ goal }) => pred(goal))) {
 			assert.ok(inCamp(camp)(goal), `${guide}: ${what}: the point ${goal.x},${goal.y} is at the camp`);
 			const arrow = goal.spots.filter((s) => !s.alt);
 			assert.ok(arrow.length && arrow.every(inCamp(camp)), `${guide}: ${what}: the arrow picks only the camp: ${JSON.stringify(goal.spots)}`);
-			assert.ok(goal.spots.some((s) => s.alt && !inCamp(camp)(s)), `${guide}: ${what}: the strays stay alternatives`);
+			if (otherDropper) assert.ok(!goal.spots.some((s) => !inCamp(camp)(s)), `${guide}: ${what}: the other dropper's place is not marked`);
+			else assert.ok(goal.spots.some((s) => s.alt && !inCamp(camp)(s)), `${guide}: ${what}: the strays stay alternatives`);
 		}
 		assert.ok(goals(guide).some(({ goal }) => pred(goal)), `${guide}: ${what} is in the guide`);
 	}
