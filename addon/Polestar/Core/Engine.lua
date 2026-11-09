@@ -4638,10 +4638,14 @@ end
 -- The goal's place in a tour, and its world yards: one of its eligible camps
 -- (the spot), or the goal itself at its point; nil with none on continent c.
 -- Alternatives, camps left after a dwell and (with top) higher-level camps
--- never enter a tour. The camp is the chosen one, else the one nearest the
--- player.
+-- never enter a tour. The camp is the one nearest the player, as the arrow
+-- takes it when the goal's turn comes (Own.nearestField re-picks it then);
+-- the chosen camp only where the arrow is on it (`led`: the goal is the
+-- current stop) or the player picked it by hand (Spots.pinned). A camp chosen
+-- for a row of the window alone was picked from wherever the player stood
+-- when the step was first shown, and says nothing about the walk.
 -- Reading this must not change a camp the player pinned or its visit state.
-function Own.fieldPoint(goal, c, px, py, top)
+function Own.fieldPoint(goal, c, px, py, top, led)
 	local now = GetTime()
 	if not goal.spots then
 		if Spots.isLeft(goal, goal, now) then return nil end
@@ -4651,6 +4655,7 @@ function Own.fieldPoint(goal, c, px, py, top)
 	end
 	local best, bestD
 	local chosen = Spots.chosen[goal]
+	if not (led or Spots.pinned[goal] == chosen) then chosen = nil end
 	for _, spot in ipairs(goal.spots) do
 		if not spot.alt and not Spots.isLeft(goal, spot, now) and not (top and (spot.lvl or goal.lvl or 0) > top) then
 			local d = Spots.edge(goal, spot, c, px, py)
@@ -4796,7 +4801,7 @@ function Own.routedField(s, list, c, px, py, top, cur, low, curD)
 	for i, g in ipairs(list) do
 		if not low or eligible[i] then
 			local goal = goals[g]
-			local place, x, y = Own.fieldPoint(goal, c, px, py, low and top or nil)
+			local place, x, y = Own.fieldPoint(goal, c, px, py, low and top or nil, g == cur)
 			if not place then return nil end
 			points[#points + 1] = { x = x, y = y, delay = Own.fieldDelay(goal), place = place }
 			ids[#ids + 1] = g

@@ -268,6 +268,35 @@ assert(plans == 4, plans); assert(E.GetWaypoint().goalIndex == 3)
 	);
 }
 
+#[test]
+fn a_camp_chosen_for_a_row_from_afar_does_not_bend_the_tour() {
+	// The window picks every row's camp where the player stands when the step is first shown: the Stags'
+	// camp back at the road's start. By the time the Gate is done the player is in the field, 50 yd from
+	// the Stags' other camp, and the tour is planned over that one: the Den 50 yd west first, not the
+	// Cave 90 yd east as if the Stags were still 430 yd behind.
+	let goals = r#"
+{ t = "kill", target = "Gate", npc = 1, count = 1, map = 1429, x = 11, y = 50 },
+{ t = "kill", target = "Stags", npc = 2, count = 4, map = 1429, x = 12, y = 56,
+	spots = { { x = 12, y = 56, r = 0, n = 2 }, { x = 60, y = 50, r = 0, n = 2 } } },
+{ t = "kill", target = "Cave", npc = 3, count = 1, map = 1429, x = 64, y = 50 },
+{ t = "kill", target = "Den", npc = 4, count = 1, map = 1429, x = 50, y = 50 }
+"#;
+	check(
+		goals,
+		"w.moveTo(1429, 10, 50)",
+		END,
+		r#"
+assert(E.GetWaypoint().goalIndex == 1)
+assert(E.GetStepView(1).goals[2].x == 12)
+w.moveTo(1429, 55, 50); E.ToggleGoal(1, 1); flush()
+assert(E.GetWaypoint().goalIndex == 4, E.GetWaypoint().goalIndex)
+E.ToggleGoal(1, 4); flush()
+local wp = E.GetWaypoint()
+assert(wp.goalIndex == 2 and wp.x == 60, wp.goalIndex .. " at " .. wp.x)
+"#,
+	);
+}
+
 fn leveled_goals() -> String {
 	[fields(&[(70, 50)], ", quest = 900001, oi = 1"), fields(&[(51, 50)], ", quest = 900002, oi = 1"), fields(&[(80, 50)], ", quest = 900003, oi = 1")].join(",")
 }
