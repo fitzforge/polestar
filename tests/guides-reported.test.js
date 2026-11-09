@@ -7997,6 +7997,8 @@ test(`${ZEPHRAS_ALLIANCE}: #1415: Aamelia's quests at her farmhouse; the cultist
 	for (const id of ['zephras-aamelia-92679-ender', 'zephras-aamelia-92685-giver', 'zephras-aamelia-92693-giver']) assert.ok(ids.has(id), `data/places.json ${id}`);
 	const ears = list[at(list, 'collect 258771', (g) => g.t === 'collect' && g.quest === 93165)].goal;
 	assert.ok(Math.hypot(ears.x - 63.7, ears.y - 37.1) < 1.5, `the ears lead to Vayn's camp (${ears.x},${ears.y})`);
+	const eggs = list[at(list, 'collect 6889', (g) => g.t === 'collect' && g.quest === 92553 && g.item === 6889)].goal;
+	assert.ok(Math.hypot(eggs.x - 42.1, eggs.y - 39.4) < 1.5, `the Small Eggs lead to the Galestriders by the village (${eggs.x},${eggs.y})`);
 });
 
 // A step gated on a quest whose goals are all optional is done at once (AuditAlliance3040's sweep): the Goaz Warders and

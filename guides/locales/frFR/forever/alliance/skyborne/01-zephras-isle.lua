@@ -97,7 +97,7 @@ return {
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
 	["Prideclaws and Galestriders"] = "Fièregriffes et trotteurs des trombes",
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
-	["Prideclaws and Galestriders roam the grasslands south of the village. Galestriders drop both the eggs and the meat."] = "Les Fièregriffes et les Trotteurs des trombes errent dans les prairies au sud du village. Les Trotteurs des trombes lâchent les œufs et la viande.",
+	["Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village."] = "",
 
 	-- Step 17: Village quests
 	["The bounty board"] = "Le tableau des primes",
@@ -470,6 +470,7 @@ return {
 	-- ["Lorthuna waits on the eastern shore of the isle, east of the {area:16629}."] = "Lorthuna attend sur la rive est de l'île, à l'est de {area:16629}.",
 	-- ["Meet Valennia at the gate"] = "Rejoindre Valennia à la porte",
 	-- ["North-west of Valanaar along the road: {npc:273017} watches the {quest:98512}; the dead cultist lies just north of him."] = "Au nord-ouest de Valanaar, le long de la route : {npc:273017} surveille {quest:98512} ; le cultiste mort gît juste au nord.",
+	-- ["Prideclaws and Galestriders roam the grasslands south of the village. Galestriders drop both the eggs and the meat."] = "Les Fièregriffes et les Trotteurs des trombes errent dans les prairies au sud du village. Les Trotteurs des trombes lâchent les œufs et la viande.",
 	-- ["Rally Valennia, {npc:251968} (west of town) and {npc:252475}"] = "Rallier Valennia, {npc:251968} (à l'ouest de la ville) et {npc:252475}",
 	-- ["Rorian: {quest:92485}"] = "Rorian : {quest:92485}",
 	-- ["Skycutter to {area:279}"] = "Fend-ciel pour {area:279}",

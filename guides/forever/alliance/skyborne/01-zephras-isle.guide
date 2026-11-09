@@ -143,8 +143,8 @@ step Village quests
   accept 92553                                -- Zerril Softbreeze
 
 step Prideclaws and Galestriders
-  tip Prideclaws and Galestriders roam the grasslands south of the village. Galestriders drop both the eggs and the meat.
-  collect 6889 quest 92553.1
+  tip Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village.
+  collect 6889 quest 92553.1 @42.1,39.4
   collect 5469 quest 92553.2
   collect 252670 quest 92515.1
 

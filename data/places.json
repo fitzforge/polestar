@@ -1338,6 +1338,29 @@
 				"ref": "kills of npc 391 on map 1436: 5 people, 19 kills at 32-35,83-86; the scale's objective ticked at 32-34,83-84 (5 people)"
 			},
 			"pr": 1415
+		},
+		{
+			"id": "zephras-small-eggs-meadow",
+			"quest": 92553,
+			"objective": 1,
+			"at": {
+				"map": 2521,
+				"x": 42.1,
+				"y": 39.4,
+				"frame": "live"
+			},
+			"note": "Restocking the Larders: players loot most Small Eggs from the Galestriders in the grass just west of Shen'dar Village (19 of 35 ticks, 9 of 12 people, median 42.1,39.4), where the meat comes from too; the arrow led to the hippogryph nests west of Falaath (the higher drop rate, but a walk of its own). Both steps' tips already name the Galestriders.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "objective 92553.1 ticks on map 2521: 35 by 12 people; 19 (9 people) at 39-47,36-46, median 42.1,39.4; 6 at 35-37,51-53 (hippogryphs)"
+				},
+				{
+					"kind": "questie",
+					"ref": "items.json 6889 drops: Galestrider 251661 (16.9%), spawns at 40.9,36.7 and 42.8,41.35 beside the median"
+				}
+			],
+			"pr": 1415
 		}
 	]
 }
