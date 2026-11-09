@@ -3601,6 +3601,12 @@ function Own.onThroughZone(s, goal)
 	return nil
 end
 
+-- Whether quest title `title` is the name of its NPC or object `who` (case
+-- aside): then the NPC goes unsaid ("to them"), as the title says it.
+function Own.namesake(title, who)
+	return type(title) == "string" and type(who) == "string" and title:lower() == who:lower()
+end
+
 -- verb, subject, subjectKind, detail. An accept above the character's level
 -- says from which level (an attunement's quests stay in its guide until then).
 -- Quests, NPCs, objects and items are named in the client's language where
@@ -3613,14 +3619,20 @@ local function describe(goal, s)
 	-- A place goal's area (`area`) as the client names it, in its language.
 	local place = C.GetAreaName and C.GetAreaName(goal.area) or nil
 	if t == "accept" then
-		local detail = fmt(L["from %s"], N.Npc(goal.npc) or goal.npcName or N.Object(goal.object) or goal.objName or N.Item(goal.item) or goal.itemName)
+		-- A quest named after its NPC (a breadcrumb: "Thun'grim Firegaze" at
+		-- Thun'grim Firegaze) is not named twice: no "from"/"at" detail.
+		local title = questTitle(goal)
+		local who = N.Npc(goal.npc) or goal.npcName or N.Object(goal.object) or goal.objName or N.Item(goal.item) or goal.itemName
+		local detail = not Own.namesake(title, who) and fmt(L["from %s"], who) or nil
 		local lvl = tonumber(goal.minLevel)
 		if lvl and player and (player.level or 1) < lvl then
 			detail = detail and L["%s, from level %d"]:format(detail, lvl) or L["From level %d"]:format(lvl)
 		end
-		return L["Accept"], questTitle(goal), "quest", detail
+		return L["Accept"], title, "quest", detail
 	elseif t == "turnin" then
-		return L["Turn in"], questTitle(goal), "quest", fmt(L["at %s"], N.Npc(goal.npc) or goal.npcName or N.Object(goal.object) or goal.objName)
+		local title = questTitle(goal)
+		local who = N.Npc(goal.npc) or goal.npcName or N.Object(goal.object) or goal.objName
+		return L["Turn in"], title, "quest", not Own.namesake(title, who) and fmt(L["at %s"], who) or nil
 	elseif t == "complete" then
 		return L["Complete"], questTitle(goal), "quest", nil
 	elseif t == "abandon" then
@@ -8490,13 +8502,14 @@ function Own.hereViewOf(e)
 			local raw = questTitle(goal) or titleOfQuest(goal.quest)
 			local title = ns.Quoted(raw)
 			local visit = e.visit
+			-- A quest named after its NPC (a breadcrumb: "Thun'grim Firegaze" to
+			-- Thun'grim Firegaze) gets strings of its own that do not repeat it
+			-- (Own.namesake).
+			local same = npc and Own.namesake(raw, npc)
 			if visit and npc then
 				-- The whole visit (Own.hereVisit): its accepts by name, and why now.
-				-- A quest named after its NPC (a breadcrumb: "Thun'grim Firegaze" to
-				-- Thun'grim Firegaze) gets strings of its own that do not repeat it.
 				local names = {}
 				for i, a in ipairs(visit.accepts) do names[i] = ns.Quoted(questTitle(a) or titleOfQuest(a.quest)) end
-				local same = type(raw) == "string" and raw:lower() == npc:lower()
 				if #names > 0 then
 					local list = table.concat(names, ", ")
 					text = same and L["Hand in %s to them, then take %s: saves a trip back"]:format(title, list)
@@ -8505,6 +8518,8 @@ function Own.hereViewOf(e)
 					text = same and L["Hand in %s to them: saves a trip back"]:format(title)
 						or L["Hand in %s to %s: saves a trip back"]:format(title, npc)
 				end
+			elseif same then
+				text = L["Hand in %s to them"]:format(title)
 			else
 				text = npc and L["Hand in %s to %s"]:format(title, npc) or L["Hand in %s"]:format(title)
 			end

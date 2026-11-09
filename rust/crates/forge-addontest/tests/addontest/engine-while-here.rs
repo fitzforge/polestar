@@ -719,6 +719,9 @@ fn a_hand_in_the_route_reaches_next_without_leading_away_shows_only_at_its_npc()
 	assert_eq!(away[0], json!(["4:1:turnin:0", "4:1 Hand in “A Fishy Peril” to Marshal Dughan 60"]), "the walk south first");
 	assert_eq!(behind, vec![json!(["2:1:turnin:0", "none", "out of the way (21 s, over 20 s)"]), json!("2:1 Hand in “A Fishy Peril” to Marshal Dughan 10")], "the wolves 660 yd west first");
 	assert_eq!(later[0], json!(["5:1:turnin:0", "5:1 Hand in “A Fishy Peril” to Marshal Dughan 60"]), "three steps on");
+	// A quest named after its NPC: the plain line does not name him twice.
+	let namesake = run_turnins(&turnins(44.0, &[], r#", title = "Marshal Dughan""#), script);
+	assert_eq!(namesake[1], json!("2:1 Hand in “Marshal Dughan” to them 10"), "{namesake:?}");
 }
 
 // Fitz on 0.3.6 (build f5fbd242a), his /polestar report: a level 3 Tauren Warrior on Mulgore's step 6 of 51 (Grull
@@ -873,13 +876,16 @@ w.moveTo(1413, 56.64, 30.42); stub.advance(0.6); stub.advance(0.6)
 local rows = {{}}
 for _, v in ipairs(E.GetWhileHereList()) do rows[#rows + 1] = v.step .. ":" .. v.index .. " " .. v.hereText end
 local live = E.GetLiveStep()
+-- The guide window's row for step 4's hand-in: the quest, no "at Thun'grim Firegaze" after it.
+local g4 = E.GetStepView(4).goals[1]
+local row4 = {{ verb = g4.verb, subject = g4.subject, detail = g4.detail or false }}
 w.moveTo(1413, 57.2, 30.35); stub.advance(0.6); stub.advance(0.6)
 w.calls = {{}}
 w.questProgress(5878, 1502); flush()
 w.questDetail(5878, 1503); flush()
 local calls = {{}}
 for _, x in ipairs(w.calls) do if x[1] == "AcceptQuest" or x[1] == "GetQuestReward" then calls[#calls + 1] = x[1] .. " " .. tostring(x[2]) end end
-emit({{ live = live, rows = rows, calls = table.concat(calls, ", "), after = E.GetLiveStep(), done = {{ E.GoalDone(4, 1), E.GoalDone(4, 2) }} }})
+emit({{ live = live, rows = rows, row4 = row4, calls = table.concat(calls, ", "), after = E.GetLiveStep(), done = {{ E.GoalDone(4, 1), E.GoalDone(4, 2) }} }})
 "#,
 		loads.join("\n")
 	);
@@ -890,6 +896,7 @@ emit({{ live = live, rows = rows, calls = table.concat(calls, ", "), after = E.G
 	assert_eq!(out["calls"], "GetQuestReward 1502, AcceptQuest 1503", "{out}");
 	assert_eq!(out["after"], 3, "{out}");
 	assert_eq!(out["done"], json!([true, true]), "{out}");
+	assert_eq!(out["row4"], json!({ "verb": "Turn in", "subject": "Thun'grim Firegaze", "detail": false }), "{out}");
 }
 
 // The XP rule: a quest's full reward lasts until the player is 5 levels over it. When the guide's hand-in comes at a
