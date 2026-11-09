@@ -161,6 +161,7 @@ test('Follow-ups wait for the quest before them, so a skipped one takes its foll
 		[98397, 11802, [98731, 98738], 'Dendrite Starblaze: either blessing'],
 		[78089, 3663, [78088], 'Delgren the Purifier (Paladin cloak)'],
 		[78090, 5492, [78089], 'Katherine the Pure'],
+		[78091, 5495, [78090], 'Ursula Deline: Earning Your Salt'],
 		[78092, 5495, [78091], 'Ursula Deline'],
 		[91859, 248840, [91858], 'Trevan Rol (Lumina Windsinger chain)'],
 		[91860, 259611, [91859], 'Deathguard Baldren'],

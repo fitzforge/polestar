@@ -2398,6 +2398,27 @@
 		],
 		"note": "The Paladin Cloak of the Divine Storm chain: Katherine the Pure's A Second Opinion (78090) follows Advice From Stormwind (78089), handed in to her. The merged data had no prerequisite."
 	},
+	"78091": {
+		"set": {
+			"pre": [
+				78090
+			],
+			"preAny": [
+				78090
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (IngestCheck036, 2026-11-09 pull, people counted per IngestAudit): Ursula Deline did not offer Earning Your Salt (78091) to 3 people (1 established) who could take it while A Second Opinion (78090) was still in their log, and all 3 took it right after handing 78090 in to her"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 78090"
+			}
+		],
+		"note": "The Paladin Cloak of the Divine Storm chain: Ursula Deline's Earning Your Salt (78091) follows A Second Opinion (78090), handed in to her. The merged data had no prerequisite; the rest of the chain (78089, 78090, 78092) already had theirs."
+	},
 	"78092": {
 		"set": {
 			"pre": [
