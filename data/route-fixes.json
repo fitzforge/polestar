@@ -7112,6 +7112,24 @@
 				]
 			},
 			{
+				"q": 98208,
+				"reason": "Players' route (GuideHealth036, 0.3.6): Bloom of the Heavens (level 29, from 22, 1750 XP) from Sylessa Duskwhisper beside James Halloran by Menethil's docks. Nord'el lies on the shore just south of the town (recorded pick-ups 12.1-12.3, 63.6-63.9, 10 people; the item's source is a ground object our data has no spawn for). Players' recordings: 17 people took it at Menethil, 11 handed it in, median 2 minutes from the first tick to complete; on 06-wetlands' first Menethil stop it costs about a minute of walking.",
+				"issue": "-",
+				"after": [
+					"accept",
+					471
+				]
+			},
+			{
+				"q": 98209,
+				"reason": "Players' route (GuideHealth036, 0.3.6): Bloom of the Heavens part 2 (1200 XP) is a delivery from Sylessa Duskwhisper in Menethil to Thundris Windweaver in Auberdine, where 06-wetlands' boat lands on the way to Ashenvale (ender npc 3649 in our data, the page snapshot and 3 recorded hand-ins).",
+				"issue": "-",
+				"after": [
+					"turnin",
+					98208
+				]
+			},
+			{
 				"q": 353,
 				"reason": "Final route review 0.3.6 (Alliance 1-30): Stormpike's Delivery (level 15, from 9, 1050 XP) is Grimand Elmore's follow-up to Elmore's Task (1097), which Humans hand him on 02-westfall's last Stormwind stop; its ender, Mountaineer Stormpike, stands at the Algaz Station, which 03-loch-modan visits at about 18 for Filthy Paws (307). A provided package, nothing to fight: 1050 XP at full rate for an accept and a hand-in on stops the route already makes (giver, ender, level and XP agree across our data, the page snapshot and players' captures).",
 				"issue": "-",

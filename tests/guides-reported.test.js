@@ -9577,3 +9577,23 @@ test('Horde Barrens: Further Instructions from Ziz, handed to Sputtervalve on th
 	assert.ok(fly < tin && tin < at(b4, 'turnin 874', is('turnin', 874)), 'on landing in Ratchet, before Mahren');
 	assert.ok(b4[tin].step.when.some((p) => p.k === 'onquest' && !p.neg && p.q.includes(1094)), 'only while carried: a fresh loader never sees it');
 });
+
+// Players' route (GuideHealth036, 0.3.6): Bloom of the Heavens (98208, 98209; 2950 XP) is taken from Sylessa
+// Duskwhisper by Menethil's docks on 06-wetlands' first Menethil stop, Nord'el picked up on the shore just south of
+// the town (players' recorded spot), handed in on the next Menethil stop, and the follow-up handed to Thundris
+// Windweaver in Auberdine when the boat lands there.
+test(`${WETLANDS}: Bloom of the Heavens rides on the Menethil stops and the boat to Auberdine`, { skip }, () => {
+	const list = goals(WETLANDS);
+	const take = at(list, 'accept 98208', is('accept', 98208));
+	assert.equal(list[take].s, list[at(list, 'accept 471', is('accept', 471))].s, 'taken on the first Menethil stop, beside James Halloran');
+	const nordel = at(list, "collect Nord'el", (g) => g.t === 'collect' && g.quest === 98208);
+	assert.ok(take < nordel && nordel < at(list, 'turnin 281', is('turnin', 281)), "Nord'el before the walk north to the hovels");
+	assert.ok(located(list[nordel]) && yards(list[nordel].goal, { map: 1437, x: 12.2, y: 63.8 }) < 30, "the arrow leads to the recorded spot");
+	const back = at(list, 'turnin 98208', is('turnin', 98208));
+	const next = at(list, 'accept 98209', is('accept', 98209));
+	assert.ok(back < next && list[back].s === list[at(list, 'turnin 471', is('turnin', 471))].s, 'handed in on the next Menethil stop, then the follow-up taken');
+	const thundris = at(list, 'turnin 98209', is('turnin', 98209));
+	assert.ok(thundris > at(list, 'goto Boat to Auberdine', (g) => g.t === 'goto' && g.x === 4.5 && g.y === 56.7), 'in Auberdine, after the boat');
+	assert.ok(thundris < at(list, 'turnin 994', is('turnin', 994)), 'on the Auberdine stop, before Terenthis and the flight to Astranaar');
+	assert.ok((list[thundris].step.when || []).some((p) => p.k === 'onquest' && !p.neg), 'only for a character carrying it');
+});

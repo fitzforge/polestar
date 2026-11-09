@@ -46,6 +46,29 @@
 			"issue": 610
 		},
 		{
+			"id": "gh036-wetlands-nordel",
+			"quest": 98208,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1437,
+				"x": 12.2,
+				"y": 63.8,
+				"frame": "era"
+			},
+			"note": "Bloom of the Heavens: Nord'el lies on the shore just south of Menethil Harbor. The item comes from a ground object (questie-forever: object 670962) that our data has no spawn for, so the point is the players' recorded pick-up spot.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "objective 98208.1 ticks, 10 people, all at 12.1-12.3,63.6-63.9 on map 1437 (2026-11-09 archive)"
+				},
+				{
+					"kind": "questie",
+					"ref": "items.json 279915: dropped by object 670962"
+				}
+			]
+		},
+		{
 			"id": "646-azshara-rimtori-camp",
 			"quest": 3505,
 			"objective": 3,
