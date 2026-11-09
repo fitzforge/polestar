@@ -1,6 +1,6 @@
 [package]
 name = "polestar-client"
-version = "0.1.4"
+version = "0.1.5"
 description = "Polestar Client: sends the Polestar Recorder's data to the Polestar project"
 authors = ["Polestar contributors"]
 license = "GPL-3.0-only"
@@ -33,7 +33,11 @@ serde_json = "1"
 # rustls with ring, as tauri-plugin-updater uses (no aws-lc-rs build on Windows/macOS).
 reqwest = { version = "0.13", default-features = false, features = ["rustls-no-provider", "json", "http2", "system-proxy"] }
 rustls = { version = "0.23", default-features = false, features = ["ring"] }
-tokio = { version = "1", features = ["time", "sync"] }
+tokio = { version = "1", features = ["time", "sync", "net"] }
+# The connection fallback ladder (net.rs): the bundled Mozilla certificate authorities added to
+# the system verifier, and request bodies sent again on another rung without a copy.
+webpki-root-certs = "1"
+bytes = "1"
 sha2 = "0.10"
 # The community pack index's ed25519 signature (ring is already here for rustls).
 ring = "0.17"

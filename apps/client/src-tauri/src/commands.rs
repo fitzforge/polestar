@@ -261,12 +261,13 @@ pub fn set_server_url(engine: Engine_, url: String) -> Result<String, String> {
 pub async fn delete_server_data(engine: Engine_<'_>) -> Result<(), String> {
 	let server = engine.server();
 	if let Some(token) = engine.store.token(&server) {
-		let response = engine.http.delete(format!("{server}/v1/me")).bearer_auth(token).send().await.map_err(|e| format!("Could not reach the server, nothing was deleted: {e}"))?;
+		let url = format!("{server}/v1/me");
+		let response = engine.net.send(|c| c.delete(&url).bearer_auth(&token)).await.map_err(|e| format!("Nothing was deleted yet. {}", crate::engine::describe_reqwest(&e)))?;
 		let status = response.status();
 		if !status.is_success() {
 			let message = crate::engine::server_message(response).await;
 			if !(status == reqwest::StatusCode::UNAUTHORIZED && message.as_deref() == Some(UNKNOWN_TOKEN)) {
-				return Err(format!("The server did not delete your data ({}).", message.unwrap_or_else(|| status.to_string())));
+				return Err(format!("Nothing was deleted yet. {}", message.unwrap_or_else(|| crate::engine::not_from_server(status))));
 			}
 		}
 	}
@@ -320,7 +321,7 @@ pub fn open_link(app: AppHandle, url: String) -> Result<(), String> {
 
 #[tauri::command]
 pub async fn check_update(app: AppHandle, engine: Engine_<'_>) -> Result<Option<String>, String> {
-	let available = crate::update::check(&app, &engine.http).await?;
+	let available = crate::update::check(&app, &engine.http()).await?;
 	let version = available.as_ref().map(|a| a.version.clone());
 	engine.lock().update = available;
 	engine.publish();
