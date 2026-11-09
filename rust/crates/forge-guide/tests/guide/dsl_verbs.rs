@@ -165,23 +165,27 @@ fn learn_craft_unknown_spells_need_a_quoted_name_with_one_they_warn() {
 }
 
 /// Rows of the 1.60.1.70862 client tables: Frostbolt, Fireball (133, and 143 a later rank), Comprehend Scroll
-/// (Forever's) and Chains of Ice, which no skill line teaches.
+/// (Forever's, on Comprehension, a secondary skill line), Heavy Linen Bandage (a First Aid recipe) and Chains of
+/// Ice, which no skill line teaches.
 const SKILL_LINE_ABILITY: &str = "AbilityVerb_lang,AbilityAllVerb_lang,ID,SkillLine,Spell,MinSkillLineRank,ClassMask,SupercedesSpell,AcquireMethod,TrivialSkillLineRankHigh,TrivialSkillLineRankLow,Flags,NumSkillUps,UniqueBit,TradeSkillCategoryID,SkillupSkillLineID,Field_5_5_4_67090_014_0,Field_5_5_4_67090_014_1,RaceMasks_0,RaceMasks_1
 ,,69,6,116,1,128,0,0,0,0,0,1,0,0,0,0,0,0,0
 ,,455,8,133,1,128,0,2,0,0,0,1,0,0,0,0,0,0,0
 ,,460,8,143,1,128,0,0,0,0,0,1,0,0,0,0,0,0,0
 ,,58472,3012,1296017,1,128,0,0,0,0,0,0,0,0,0,0,0,-1,-1
+,,1839,129,3276,1,0,0,0,100,50,0,1,0,2530,2942,0,0,0,0
 ";
-const SPELL_NAME: &str = "ID,Name_lang\n113,\"Chains of Ice\"\n116,Frostbolt\n133,Fireball\n143,Fireball\n1296017,\"Comprehend Scroll\"\n";
+const SPELL_NAME: &str = "ID,Name_lang\n113,\"Chains of Ice\"\n116,Frostbolt\n133,Fireball\n143,Fireball\n3276,\"Heavy Linen Bandage\"\n1296017,\"Comprehend Scroll\"\n";
 
-/// The fixture data in <root>/forever, its meta naming client build 1.60.1.1, whose tables are cached in
-/// <root>/sources/wago/1.60.1.1.
-fn pinned_data() -> Data {
-	let root = scratch("verbs-pinned");
+/// The fixture data, but for the files `drop` names, in <root>/forever, its meta naming client build 1.60.1.1,
+/// whose tables are cached in <root>/sources/wago/1.60.1.1.
+fn pinned_data(name: &str, drop: &[&str]) -> Data {
+	let root = scratch(name);
 	let dir = root.join("forever");
 	std::fs::create_dir_all(&dir).unwrap();
 	for e in std::fs::read_dir(data_dir()).unwrap().flatten() {
-		std::fs::copy(e.path(), dir.join(e.file_name())).unwrap();
+		if !drop.iter().any(|d| e.file_name() == *d) {
+			std::fs::copy(e.path(), dir.join(e.file_name())).unwrap();
+		}
 	}
 	let mut meta: Value = serde_json::from_slice(&std::fs::read(dir.join("meta.json")).unwrap()).unwrap();
 	meta["sources"].as_array_mut().unwrap().push(json!({ "name": "World of Warcraft: Forever client tables (SpellName, SkillLineAbility) via wago.tools", "revision": "wow_classic_beta 1.60.1.1" }));
@@ -197,7 +201,7 @@ fn learn_of_a_spell_a_skill_line_teaches_in_the_client_build_takes_its_client_na
 	let at = |line: &str, message: String| format!("test.guide:{}: {message}", line_of(&src, line));
 	let unknown = |line: &str, spell: u32| at(line, format!("spell {spell} is not in data; using the explicit name (new Forever content?)"));
 	let nameless = |line: &str, spell: u32| at(line, format!("spell {spell} is not in data; give its name: `learn {spell} \"Name\"`"));
-	let r = compile_with(&src, &pinned_data());
+	let r = compile_with(&src, &pinned_data("verbs-pinned", &[]));
 	assert_eq!(r.errors, vec![nameless("  learn 113", 113)]);
 	assert_eq!(r.warnings, vec![unknown("  craft 116 \"Frostbolt\"", 116), unknown("  learn 113 \"Chains of Ice\"", 113)]);
 	assert_eq!(
@@ -214,6 +218,18 @@ fn learn_of_a_spell_a_skill_line_teaches_in_the_client_build_takes_its_client_na
 	let r = compile(&src);
 	assert_eq!(r.errors, vec![nameless("  learn 143", 143), nameless("  learn 1296017", 1296017), nameless("  learn 113", 113)]);
 	assert_eq!(r.warnings, vec![unknown("  learn 116 \"Frostbolt\"", 116), unknown("  craft 116 \"Frostbolt\"", 116), unknown("  learn 113 \"Chains of Ice\"", 113)]);
+}
+
+#[test]
+fn without_professions_json_a_recipe_learn_still_errors_while_a_class_spell_or_comprehend_scroll_stays_quiet() {
+	let src = guide_text(&["step Trainer", "  learn 3276", "  learn 116 \"Frostbolt\"", "  learn 1296017"]);
+	let r = compile_with(&src, &pinned_data("verbs-pinned-no-professions", &["professions.json"]));
+	assert_eq!(r.errors, vec![format!("test.guide:{}: spell 3276 is not in data (professions.json missing); give its name: `learn 3276 \"Name\"`", line_of(&src, "  learn 3276"))]);
+	assert_eq!(r.warnings, Vec::<String>::new());
+	assert_eq!(
+		r.steps()[0]["goals"].as_array().unwrap()[1..],
+		[json!({ "t": "learn", "spell": 116, "spellName": "Frostbolt" }), json!({ "t": "learn", "spell": 1296017, "spellName": "Comprehend Scroll" })]
+	);
 }
 
 #[test]

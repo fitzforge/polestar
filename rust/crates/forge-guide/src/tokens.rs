@@ -1070,7 +1070,9 @@ fn read_taught_spells(data: &Data) -> V {
 		let text = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{}: {e}", path.display()));
 		crate::areas::parse_csv(&text).unwrap_or_else(|e| panic!("{e}"))
 	};
-	let taught: FxHashSet<i64> = csv("SkillLineAbility.csv").iter().map(|r| r.get("Spell").num()).filter(|n| is_integer(*n)).map(|n| n as i64).collect();
+	// A profession's recipes stay professions.json's, as for `craft`: their skill lines are left out.
+	let taught: FxHashSet<i64> =
+		csv("SkillLineAbility.csv").iter().filter(|r| !recipe_line(r.get("SkillLine").num())).map(|r| r.get("Spell").num()).filter(|n| is_integer(*n)).map(|n| n as i64).collect();
 	for r in csv("SpellName.csv") {
 		let id = r.get("ID").num();
 		let nl = r.get("Name_lang");
@@ -1080,6 +1082,13 @@ fn read_taught_spells(data: &Data) -> V {
 		}
 	}
 	out
+}
+
+/// A profession's skill line ([`crate::data::BUILTIN_PROFESSIONS`]; Riding teaches no recipe): its spells are
+/// recipes. Not SkillLine's CategoryID: its secondary skills (9) also hold Comprehension, Poisons and Riding.
+#[cfg(feature = "native")]
+fn recipe_line(line: f64) -> bool {
+	crate::data::BUILTIN_PROFESSIONS.iter().any(|&(id, name)| f64::from(id) == line && name != "Riding")
 }
 
 #[cfg(not(feature = "native"))]

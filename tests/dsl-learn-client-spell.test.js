@@ -15,23 +15,27 @@ const { tmpdir } = require('./helpers/tmp');
 const { loadData } = require('../tools/lib/dsl/data');
 
 // Rows of the 1.60.1.70862 client tables: Frostbolt, Fireball (133, and 143 a
-// later rank), Comprehend Scroll (Forever's) and Chains of Ice, which no skill
-// line teaches.
+// later rank), Comprehend Scroll (Forever's, on Comprehension, a secondary
+// skill line), Heavy Linen Bandage (a First Aid recipe) and Chains of Ice,
+// which no skill line teaches.
 const SKILL_LINE_ABILITY = [
 	'AbilityVerb_lang,AbilityAllVerb_lang,ID,SkillLine,Spell,MinSkillLineRank,ClassMask,SupercedesSpell,AcquireMethod,TrivialSkillLineRankHigh,TrivialSkillLineRankLow,Flags,NumSkillUps,UniqueBit,TradeSkillCategoryID,SkillupSkillLineID,Field_5_5_4_67090_014_0,Field_5_5_4_67090_014_1,RaceMasks_0,RaceMasks_1',
 	',,69,6,116,1,128,0,0,0,0,0,1,0,0,0,0,0,0,0',
 	',,455,8,133,1,128,0,2,0,0,0,1,0,0,0,0,0,0,0',
 	',,460,8,143,1,128,0,0,0,0,0,1,0,0,0,0,0,0,0',
 	',,58472,3012,1296017,1,128,0,0,0,0,0,0,0,0,0,0,0,-1,-1',
+	',,1839,129,3276,1,0,0,0,100,50,0,1,0,2530,2942,0,0,0,0',
 ].join('\n');
-const SPELL_NAME = ['ID,Name_lang', '113,"Chains of Ice"', '116,Frostbolt', '133,Fireball', '143,Fireball', '1296017,"Comprehend Scroll"'].join('\n');
+const SPELL_NAME = ['ID,Name_lang', '113,"Chains of Ice"', '116,Frostbolt', '133,Fireball', '143,Fireball', '3276,"Heavy Linen Bandage"', '1296017,"Comprehend Scroll"'].join('\n');
 
-// The fixture data in <root>/forever, its meta naming client build 1.60.1.1,
-// whose tables are cached in <root>/sources/wago/1.60.1.1.
-function pinnedData() {
+// The fixture data, but for the files `drop` names, in <root>/forever, its
+// meta naming client build 1.60.1.1, whose tables are cached in
+// <root>/sources/wago/1.60.1.1.
+function pinnedData(drop = []) {
 	const root = tmpdir('polestar-learn-');
 	const dir = path.join(root, 'forever');
 	fs.cpSync(DATA_DIR, dir, { recursive: true });
+	for (const file of drop) fs.rmSync(path.join(dir, file));
 	const meta = JSON.parse(fs.readFileSync(path.join(dir, 'meta.json'), 'utf8'));
 	meta.sources.push({ name: 'World of Warcraft: Forever client tables (SpellName, SkillLineAbility) via wago.tools', revision: 'wow_classic_beta 1.60.1.1' });
 	fs.writeFileSync(path.join(dir, 'meta.json'), JSON.stringify(meta));
@@ -65,4 +69,15 @@ test('without the client build a learn of a class spell still needs its name and
 	const r = compile(SRC);
 	assert.deepEqual(r.errors, [nameless('  learn 143', 143), nameless('  learn 1296017', 1296017), nameless('  learn 113', 113)], r.text);
 	assert.deepEqual(r.warnings, [unknown('  learn 116 "Frostbolt"', 116), unknown('  craft 116 "Frostbolt"', 116), unknown('  learn 113 "Chains of Ice"', 113)], r.text);
+});
+
+test('without professions.json a recipe learn still errors, while a class spell or Comprehend Scroll stays quiet', () => {
+	const src = guideText(['step Trainer', '  learn 3276', '  learn 116 "Frostbolt"', '  learn 1296017']);
+	const r = compile(src, pinnedData(['professions.json']));
+	assert.deepEqual(r.errors, [`test.guide:${lineOf(src, '  learn 3276')}: spell 3276 is not in data (professions.json missing); give its name: \`learn 3276 "Name"\``], r.text);
+	assert.deepEqual(r.warnings, [], r.text);
+	assert.deepEqual(plain(r.guides[0].steps[0].goals).slice(1), [
+		{ t: 'learn', spell: 116, spellName: 'Frostbolt' },
+		{ t: 'learn', spell: 1296017, spellName: 'Comprehend Scroll' },
+	]);
 });

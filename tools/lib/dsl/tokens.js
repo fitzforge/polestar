@@ -415,7 +415,14 @@ function readTaughtSpells(data) {
 	const out = new Map();
 	const dir = data.dir && pinnedBuildDir(data, ['SpellName.csv', 'SkillLineAbility.csv']);
 	if (!dir) return out;
-	const taught = new Set(parseCsv(fs.readFileSync(path.join(dir, 'SkillLineAbility.csv'), 'utf8')).map((r) => Number(r.Spell)));
+	// A profession's recipes stay professions.json's, as for `craft`: their
+	// skill lines are left out (Riding teaches no recipe). Not SkillLine's
+	// CategoryID: its secondary skills (9) also hold Comprehension, Poisons and
+	// Riding.
+	const { BUILTIN_PROFESSIONS } = require('./data');
+	const recipeLines = new Set(BUILTIN_PROFESSIONS.filter((p) => p.name !== 'Riding').map((p) => p.id));
+	const rows = parseCsv(fs.readFileSync(path.join(dir, 'SkillLineAbility.csv'), 'utf8'));
+	const taught = new Set(rows.filter((r) => !recipeLines.has(Number(r.SkillLine))).map((r) => Number(r.Spell)));
 	for (const r of parseCsv(fs.readFileSync(path.join(dir, 'SpellName.csv'), 'utf8'))) {
 		const name = String(r.Name_lang || '').trim();
 		if (name && taught.has(Number(r.ID))) out.set(Number(r.ID), name);
