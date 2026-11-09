@@ -32,7 +32,7 @@ L["/reload or log out to send what's recorded"] = "/reload o cierra sesión para
 L["explorer mode: %s (/psrec explore on | off)"] = "modo explorador: %s (/psrec explore on | off)"
 L["usage: /psrec explore on | off"] = "uso: /psrec explore on | off"
 L["explorer mode %s"] = "modo explorador %s"
--- L["In Forever's new zones and dungeons the Recorder notes the creatures, your path, quest map points, dungeon floors, boss pulls, where quest givers stand and the objects you open in more detail. Nothing new about you."] = ""
+L["In Forever's new zones and dungeons the Recorder notes the creatures, your path, quest map points, dungeon floors, boss pulls, where quest givers stand and the objects you open in more detail. Nothing new about you."] = "En las zonas y calabozos nuevos de Forever, el Recorder registra con más detalle las criaturas, tu camino, los puntos de misión del mapa, los pisos de los calabozos, los pulls de jefes, dónde están los PNJ que dan misiones y los objetos que abres. Nada nuevo sobre ti."
 
 -- Trail.lua
 L["trail stopped after %d min: %s, %d points"] = "rastro detenido tras %d min: %s, %d puntos"
@@ -72,7 +72,7 @@ L["recordings from the previous Recorder (schema 1) were removed; recording now 
 L["on, because sharing is on in Polestar Client. /psrec off to stop."] = "activada, porque compartir está activado en Polestar Client. /psrec off para detenerla."
 
 -- Explore.lua
--- L["recording more detail here to map this new zone (/psrec explore off to stop)"] = ""
+L["recording more detail here to map this new zone (/psrec explore off to stop)"] = "grabando más detalle aquí para mapear esta zona nueva (/psrec explore off para detenerlo)"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["this client exposes no talent tree API"] = "este cliente no ofrece API de árbol de talentos"

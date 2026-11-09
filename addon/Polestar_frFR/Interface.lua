@@ -151,7 +151,7 @@ L["Hand in %s to %s, then take %s: saves a trip back"] = "Rendre %s à %s, puis 
 L["Hand in %s to %s: saves a trip back"] = "Rendre %s à %s : un retour en moins"
 L["Hand in %s to them, then take %s: saves a trip back"] = "Rendre %s sur place, puis prendre %s : un retour en moins"
 L["Hand in %s to them: saves a trip back"] = "Rendre %s sur place : un retour en moins"
--- L["Hand in %s to them"] = ""
+L["Hand in %s to them"] = "Rendre %s sur place"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Prendre %s ferme %s pour de bon."
