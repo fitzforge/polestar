@@ -257,44 +257,44 @@ return {
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
 	["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional."] = "{item:247813}、浸水的斧头和浸水的工具箱在桥南边的河里。{npc:330}是一头大野猪，和她的{npc:390}在河西边的{area:62}拱地：先把小猪拉开。沿途击杀觅食的灰狼和森林熊幼崽。小心：{npc:248278}是鱼人河岸上的11级精英。只有组队或达到10级后再去拿他的头；否则别管他：这是可选的。",
 
-	-- Step 51: Downstream and Princess
-	-- {quest:91740} Croaky's Head
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英怪：建议组队，找人一起做。{quest:91740}需要2人小队。如果你独自一人就跳过：路线会让你把经验刷回来。",
+	-- Step 50: Croaky
+	-- {npc:248278} Croaky · {quest:91740} Croaky's Head
+	["{npc:248278} is a level 11 elite on the murloc shore south of the bridge: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back. Right-click the head for its quest."] = "",
 
-	-- Step 53: Level 8.85
+	-- Step 52: Level 8.85
 	["Level 8.85"] = "等级 8.85",
 	-- {quest:91740} Croaky's Head
 	["If you skipped {quest:91740}, grind here to level 8.85 to stay on the route's plan."] = "如果你跳过了{quest:91740}，在这里刷到8.85级以跟上路线计划。",
 	-- {npc:118} Prowler
 	["grind on {npc:118}"] = "刷{npc:118}",
 
-	-- Step 55: The Eastvale Logging Camp
+	-- Step 54: The Eastvale Logging Camp
 	-- {area:88} Eastvale Logging Camp
 	["The {area:88}"] = "{area:88}",
 	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it."] = "营地在桥的东北方。一捆木柴散落在营地周围和北边的树林里。",
 	-- {npc:278} Sara Timberlain
 	["{npc:278}, inside"] = "{npc:278}，在里面",
 
-	-- Step 56: A half-eaten body
+	-- Step 55: A half-eaten body
 	["It lies by the river north-west of the logging camp."] = "它躺在伐木场西北方的河边。",
 
-	-- Step 57: Stone Cairn Lake
+	-- Step 56: Stone Cairn Lake
 	-- {area:86} Stone Cairn Lake · {object:56} Rolf's corpse
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard · Red Linen Bandanas = {item:1019} Red Linen Bandana
 	["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "{npc:474}在{area:86}岸边扎营；它们也掉落{item:1019}。{object:56}在东北岸的鱼人村里。",
 	-- plural, as words: Red Linen Bandanas = {item:1019} Red Linen Bandana
 	["Red Linen Bandanas"] = "{item:1019}",
 
-	-- Step 58: The gnoll camps
+	-- Step 57: The gnoll camps
 	["The gnoll camps"] = "豺狼人营地",
 	-- {area:86} Stone Cairn Lake · {quest:91725} Stolen Enchanting Supplies
 	["Riverpaw gnolls camp in the hills west of {area:86}; the {quest:91725} lie in their camps."] = "河爪豺狼人在{area:86}西边的山丘上扎营；{quest:91725}在它们的营地里。",
 
-	-- Step 59: The Jasperlode Mine's entrance
+	-- Step 58: The Jasperlode Mine's entrance
 	-- {quest:76} The Jasperlode Mine
 	["{quest:76}'s entrance"] = "{quest:76}的入口",
 
-	-- Step 60: Jasperlode Mine: kill these as you meet them
+	-- Step 59: Jasperlode Mine: kill these as you meet them
 	-- {area:54} Jasperlode Mine
 	["{area:54}: kill these as you meet them"] = "{area:54}：遇到就杀",
 	-- {item:247816} Mining Tools
@@ -304,22 +304,22 @@ return {
 	-- {npc:476} Kobold Geomancer · {area:54} Jasperlode Mine
 	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "{npc:476}在{area:54}附近走动：在地图上的圆圈里找",
 
-	-- Step 61: The Tower of Azora
+	-- Step 60: The Tower of Azora
 	["Follow the hills south to the tower."] = "沿山丘向南走到塔。",
 
-	-- Step 62: Guard Thomas
+	-- Step 61: Guard Thomas
 	-- {area:91} Tower of Azora
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
 	["Follow the road east past the {area:91} to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it."] = "沿道路向东经过{area:91}到桥。在桥南边的河边杀完觅食的灰狼和森林熊幼崽。",
 
-	-- Step 64: Stone Cairn Lake
+	-- Step 63: Stone Cairn Lake
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake."] = "在伐木场东北方。{npc:474}在湖岸边扎营。",
 
-	-- Step 65: The Tower of Azora
+	-- Step 64: The Tower of Azora
 	["Follow the hills south to the tower, on the road west."] = "沿山丘向南走到塔，就在向西的路上。",
 
-	-- Step 66: Goldshire
+	-- Step 65: Goldshire
 	-- {area:87} Goldshire · {npc:6306} Helene Peltskinner · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
 	["Follow the road west back to {area:87}; {npc:6306} stands on the lake shore before town. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "沿道路向西返回{area:87}；到镇子前，{npc:6306}站在湖岸上。{npc:377}（牧师）、{npc:328}（法师）和{npc:917}（潜行者）在旅店楼上：从里面的楼梯上去，箭头无法区分楼层。",
 	-- {npc:6306} Helene Peltskinner
@@ -335,36 +335,36 @@ return {
 	-- {npc:6121} Remen Marcot · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
 	["{npc:6121}: {npc:6122} in {zone:1453} takes it"] = "{npc:6121}：交给{zone:1453}的{npc:6122}",
 
-	-- Step 68: Jennea Cannon
+	-- Step 67: Jennea Cannon
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:5497} Jennea Cannon · {object:2101} Mage Quarter · {quest:1861} Mirror Lake
 	["Follow the road north from {area:87} into {zone:1453}. {npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "沿道路从{area:87}向北进入{zone:1453}。{npc:5497}站在{object:2101}的法师圣殿塔里；她会给你一个瓶子，用于{quest:1861}的瀑布。",
 
-	-- Step 70: Gakin the Darkbinder
+	-- Step 69: Gakin the Darkbinder
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["Follow the road north from {area:87} into {zone:1453}. {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}."] = "沿道路从{area:87}向北进入{zone:1453}。{npc:6122}在{object:2101}的{object:2164}地下室等候。",
 
-	-- Step 71: Woo Ping
+	-- Step 70: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "顺便：向{npc:11867}（{object:2096}，10银币）学习法杖；升级期间，法杖提供的法术属性比单手武器多。",
 
-	-- Step 72: Mirror Lake
+	-- Step 71: Mirror Lake
 	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
 	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "从正门离开{zone:1453}。{quest:1861}瀑布在城门西南方，就在向西前往{zone:1436}的路上：在瀑布底部装满{item:7207}。",
 
-	-- Step 73: Surena Caledon
+	-- Step 72: Surena Caledon
 	-- {area:87} Goldshire · {area:62} Brackwell Pumpkin Patch · {npc:881} Surena Caledon
 	["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "穿过{area:87}返回，沿路向东到{area:62}。{npc:881}（9级）站在农舍旁。",
 
-	-- Step 74: The Binding
+	-- Step 73: The Binding
 	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
 	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "回去找{npc:6122}。在{object:2164}地下室的召唤法阵处使用{item:6928}，击败召唤出的虚空行者。",
 	["Subdue the voidwalker"] = "制服虚空行者",
 
-	-- Step 75: Back to Elwynn Forest
+	-- Step 74: Back to Elwynn Forest
 	-- {area:12} Elwynn Forest
 	["Back to {area:12}"] = "返回{area:12}",
 
-	-- Step 76: Taming the Beast
+	-- Step 75: Taming the Beast
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:15908} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
 	-- plural, as words: Rockhide Boars = {npc:524} Rockhide Boar · Young Forest Bears = {npc:822} Young Forest Bear
 	["{npc:251507} stands with the {area:87} trainers. Each of her quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "{npc:251507}和{area:87}的训练师站在一起。她的每个任务都会给你一根{item:15908}：对她指定的野兽使用，然后把驯兽棒带回给她。{npc:524}和{npc:822}在{area:64}南边的山丘上游荡，森林灰狼在{area:18}东边的树林里。",
@@ -383,11 +383,11 @@ return {
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
 	["{npc:258930}, beside her: {spell:5149}"] = "{npc:258930}，在她旁边：{spell:5149}",
 
-	-- Step 77: Maybell Maclure
+	-- Step 76: Maybell Maclure
 	-- {area:64} Maclure Vineyards
 	["South down the road to the {area:64}."] = "沿道路向南到{area:64}。",
 
-	-- Step 78: The Stonefield Farm
+	-- Step 77: The Stonefield Farm
 	-- {npc:894} Homer Stonefield · {quest:91736} Applejack Still
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
 	["{npc:894} sells the Shiny Red Apples for the {quest:91736}. Apples looted from kobolds and crates count too: the purchase ticks itself once you have four."] = "{npc:894}出售{quest:91736}所需的新鲜的红苹果。从狗头人和箱子拾取的苹果也算：凑够四个后，购买目标会自动完成。",
@@ -395,7 +395,7 @@ return {
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
 	["Shiny Red Apples, from {npc:894}, for the {quest:91736}"] = "{item:4536}，来自{npc:894}，用于{quest:91736}",
 
-	-- Step 79: The Applejack Still
+	-- Step 78: The Applejack Still
 	-- {quest:91736} Applejack Still
 	["The {quest:91736}"] = "{quest:91736}",
 	-- {quest:91736} Applejack Still · {area:120} Westbrook Garrison · {item:247824} Thunder Applejack · {npc:955} Sergeant De Vries
@@ -404,7 +404,7 @@ return {
 	-- {item:247824} Thunder Applejack
 	["{item:247824}, from the still"] = "{item:247824}，来自蒸馏器",
 
-	-- Step 80: Westbrook Garrison
+	-- Step 79: Westbrook Garrison
 	-- {area:120} Westbrook Garrison · {zone:1436} Westfall · {npc:963} Deputy Rainer · {npc:955} Sergeant De Vries · {quest:91738} An Apple Treat · {item:247824} Thunder Applejack
 	["Follow the road south to the {area:120}, on the way into {zone:1436}. {npc:963} stands outside the barracks; {npc:955} stands inside. He has {quest:91738} only while you carry the {item:247824}: talk to him and it goes straight to the hand-in."] = "沿道路向南前往{area:120}，这里位于通往{zone:1436}的路上。{npc:963}站在兵营外；{npc:955}在兵营里。只有当你带着{item:247824}时他才有{quest:91738}：与他交谈，任务会直接进入交还阶段。",
 	-- {npc:963} Deputy Rainer · {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
@@ -412,7 +412,7 @@ return {
 	-- {npc:955} Sergeant De Vries · {item:247824} Thunder Applejack
 	["{npc:955}: he wants your {item:247824}; inside"] = "{npc:955}：他要你的{item:247824}；在里面",
 
-	-- Step 81: Forest's Edge
+	-- Step 80: Forest's Edge
 	-- {zone:1436} Westfall
 	-- plural, as words: Riverpaw Runts = {npc:97} Riverpaw Runt
 	["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border."] = "{npc:97}和河爪豺狼人前锋占据着要塞南边、{zone:1436}边境沿线的山丘。",
@@ -448,6 +448,7 @@ return {
 	-- ["The Stonefield farm is west of the mine. Ma and \"Auntie\" Bernice stand by the house."] = "斯通菲尔德农场在矿洞西边。斯通菲尔德妈妈和波尼斯·斯通菲尔德姑妈站在房子旁。",
 	-- ["The murloc camp"] = "鱼人营地",
 	-- ["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way."] = "{item:247813}、浸水的斧头和浸水的工具箱在桥南边的河里。{npc:330}是一头大野猪，和她的{npc:390}在河西边的{area:62}拱地：先把小猪拉开。沿途击杀{npc:118}和{npc:822}。",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英怪：建议组队，找人一起做。{quest:91740}需要2人小队。如果你独自一人就跳过：路线会让你把经验刷回来。",
 	-- ["Torn Murloc Fins"] = "{item:780}",
 	-- ["Use the {item:6866} on {npc:6172}"] = "对{npc:6172}使用{item:6866}",
 	-- ["{area:18} and the wolves"] = "{area:18}和狼",

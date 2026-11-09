@@ -345,14 +345,11 @@ step Downstream and Princess
   collect 247818 quest 91733                  -- Waterlogged Toolbox
   collect 247817 quest 91733                  -- Waterlogged Axe
 
-step Downstream and Princess
+step Croaky
   when group 91740
+  tip Croaky is a level 11 elite on the murloc shore south of the bridge: grouping up is encouraged, look for people to do it with. Croaky's Head needs a group of 2. Skip it if you are alone: the route has you grind the XP back. Right-click the head for its quest.
   collect 247826 x1                           -- Croaky's Head: Croaky
-
-step Downstream and Princess
-  when group 91740
-  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Croaky's Head needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
-  accept 91740
+  accept 91740 optional
 
 step Ridgepoint Tower
   when group 91740

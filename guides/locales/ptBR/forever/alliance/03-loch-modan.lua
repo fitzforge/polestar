@@ -323,6 +323,14 @@ return {
 	-- {area:69} Lakeshire
 	["{area:69} flight master"] = "Mestre de voo de {area:69}",
 
+	-- Step 58: Baros Alexston
+	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:28027} Dwarven District
+	["{npc:1646} stands at the east side of {object:2098}, on the way from the {object:28027} to the harbour."] = "",
+	-- {npc:1646} Baros Alexston · {area:442} Auberdine
+	["{npc:1646}: Thundris' letter from {area:442}"] = "",
+	-- {npc:3649} Thundris Windweaver
+	["For {npc:3649}, where the boat lands"] = "",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Elder Mountain Boars and {npc:270693}"] = "Javalis Montanheses Anciões e {npc:270693}",
 	-- ["South along the west shore. A {object:665289} lies on the loch bed east of {area:144} (it moves between several spots): open it for the {item:278051}, which starts the quest."] = "Ao sul pela margem oeste. {object:665289} está no fundo do lago a leste de {area:144} (ele muda entre vários pontos): abra-o para pegar {item:278051}, que inicia a missão.",

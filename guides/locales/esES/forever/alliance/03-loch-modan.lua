@@ -322,4 +322,12 @@ return {
 	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour."] = "",
 	-- {area:69} Lakeshire
 	["{area:69} flight master"] = "",
+
+	-- Step 58: Baros Alexston
+	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:28027} Dwarven District
+	["{npc:1646} stands at the east side of {object:2098}, on the way from the {object:28027} to the harbour."] = "",
+	-- {npc:1646} Baros Alexston · {area:442} Auberdine
+	["{npc:1646}: Thundris' letter from {area:442}"] = "",
+	-- {npc:3649} Thundris Windweaver
+	["For {npc:3649}, where the boat lands"] = "",
 }

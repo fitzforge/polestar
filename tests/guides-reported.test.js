@@ -1354,7 +1354,7 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		[TIRISFAL, 99156, [356], true],
 		[[LOCH_MODAN, REDRIDGE], 98386, [89]],
 		[WESTFALL, 92745, [92742, 92744]],
-		[WESTFALL, 92747, [92745, 92744]],
+		[[WESTFALL, LOCH_MODAN], 92747, [92745, 92744]],
 		[HILLSBRAD_HORDE, 98094, [528]],
 		[SILVERPINE, 91920, [430]],
 		[SILVERPINE, 91921, [91920], true],
@@ -2762,11 +2762,14 @@ test('Fitz (0.3.3): no guide of ours has a hearth goal; Westfall walks from Moon
 	assert.deepEqual(offenders, [], 'hearth goals');
 	const list = goals(WESTFALL);
 	assert.ok(!list.some(({ step }) => /^Hearth to/.test(step.title)), 'no "Hearth to" step');
-	const moonbrook = list.findIndex(({ step }) => step.title === 'Moonbrook and the Defias hills');
-	assert.ok(moonbrook >= 0, 'the Moonbrook step is in the guide');
-	const next = list.slice(moonbrook).find(({ step }) => step !== list[moonbrook].step);
-	assert.equal(next.step.title, 'Back to Sentinel Hill', 'the step after Moonbrook leads back to Sentinel Hill');
 	assert.ok(list.some(({ goal }) => goal.t === 'sethome' && goal.location === 'Sentinel Hill'), 'the bind at Sentinel Hill stays');
+	// #1415 (vW1): the Moonbrook step moved to the 19-20 Westfall walk (03-loch-modan); it still walks on, no hearth.
+	const loch = goals(LOCH_MODAN);
+	const moonbrook = loch.findIndex(({ step }) => step.title === 'Moonbrook and the Defias hills');
+	assert.ok(moonbrook >= 0, 'the Moonbrook step is in 03-loch-modan');
+	assert.ok(!loch.some(({ step }) => /^Hearth to/.test(step.title)), 'no "Hearth to" step there');
+	const back = loch.slice(moonbrook).findIndex(({ step }) => step.title === 'Sentinel Hill');
+	assert.ok(back > 0, 'the walk goes on back to Sentinel Hill');
 });
 
 // An Enticing Offer: the quest log lists the blood before the petals, so each
@@ -2847,8 +2850,9 @@ test(`${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridg
 			local view
 			for i, s in ipairs(SIM_GUIDE.steps) do if s.title == "Ridgepoint Tower" then view = E.GetStepView(i).goals[1].status end end
 			emit({ murlocs = murlocs, ridge = ridge, later = view or false, done = C_QuestLog.IsQuestFlaggedCompleted(91740) })`;
-		// Without the head, whatever the answer at the group quest; with it, as one who does it.
-		for (const [head, groups] of [[false, 'skip'], [false, 'do'], [true, 'do']]) {
+		// Without the head, skipping the group quest; with it, as one who does it. (#1415: a player who answers "Do it
+		// with a group" is led to Croaky, whose head the step now waits for, so "do" without the head is no longer a path.)
+		for (const [head, groups] of [[false, 'skip'], [true, 'do']]) {
 			const [out, got] = playGuide(pack, g, { race: 'Human', faction: 'Alliance', cls: 'WARRIOR', groups, script: watch(head) });
 			const who = `${head ? 'with the head' : 'without the head'}, answering ${groups}`;
 			assert.equal(out.stuck, undefined, `${who}: not stuck: ${JSON.stringify(out.stuck)}`);
@@ -3397,10 +3401,10 @@ test(`${TELDRASSIL}: Pynte's report: Flight to Auberdine is flown with Vesprystu
 // threshers below Auberdine, the Barrens' plainstriders by the Crossroads,
 // Silverpine's worgs and Vile Fins by the Yoricks' house and Hillsbrad's
 // bears and lions west of Tarren Mill.
+// (#1415: Westfall's murloc gills and eyes moved to a loop along the whole north coast, data/places.json's
+// 385-westfall-murloc-gills path; their own test checks the loop stays on the north coast.)
 const BY_LEVEL = [
 	[WESTFALL, 725, 102],
-	[WESTFALL, 254548, 92744],
-	[WESTFALL, 730, 38],
 	[DARKSHORE, 5385, 983],
 	[DARKSHORE, 5412, 1001],
 	['forever/horde/02-the-barrens.guide', 5087, 844],
@@ -3508,9 +3512,10 @@ test(`${WESTFALL}: flow audit: one north loop, one target per step in walking or
 	].map(([what, pred]) => [what, at(list, what, pred)]);
 	order.forEach(([what, i], k) => k && assert.ok(i > order[k - 1][1] && list[i].step !== list[order[k - 1][1]].step, `${what} in its own step after ${order[k - 1][0]}`));
 	const steps = compiled(WESTFALL).steps;
+	const background = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.filter((r) => r.background).map((r) => `${r.at.quest}.${r.at.objective}`));
 	for (const [item, quest] of [[723, 22], [729, 38], [829, 153]]) {
 		const bg = steps.find((st) => st.along && st.goals.some((g) => g.t === 'collect' && g.item === item));
-		assert.ok(bg && bg.background, `item ${item} is worked in the background`);
+		assert.ok(bg && bg.goals.every((g) => background.has(`${g.quest}.${g.oi}`)), `item ${item} is worked in the background (data/guide-fixes.json)`);
 		const finish = at(list, `the finish step of ${item}`, collects(item));
 		assert.ok(finish < at(list, `turnin ${quest}`, is('turnin', quest)), `item ${item} has a finish step before quest ${quest}'s hand-in`);
 	}
@@ -3523,7 +3528,7 @@ test(`${WESTFALL}: flow audit: one north loop, one target per step in walking or
 	}
 	assert.ok(at(list, 'turnin 9', is('turnin', 9)) < at(list, 'turnin 12', is('turnin', 12)), 'then Sentinel Hill');
 	assert.equal(list[at(list, 'the Jansen Stead well', collects(254546))].step, list[oats].step, 'the well vial with the oats');
-	assert.deepEqual(steps.filter((st) => st.along && !st.background).map((st) => st.title), [], 'no along-the-way lists but the background ones');
+	assert.deepEqual(steps.filter((st) => st.along && !st.goals.every((g) => background.has(`${g.quest}.${g.oi}`))).map((st) => st.title), [], 'no along-the-way lists but the background ones');
 });
 
 // --- Thendal Grove (Alx-Ryan, #363): the guide walked you to Rorian, up the
@@ -6715,7 +6720,8 @@ test('Wetlands (#1184, #1206): Whelgar\'s and Rethiel\'s chain quests come after
 	assert.ok(idx(wet, 'turnin', 299) < idx(wet, 'accept', 98216), 'Understanding Our Present after Uncovering the Past (#1206)');
 	for (const t of ['collect', 'turnin']) {
 		const g = wet.find(({ goal }) => goal.t === t && goal.quest === 98216);
-		assert.ok((g.step.when || []).some((p) => p.k === 'onquest' && [].concat(p.q).includes(98216)), `the keystone's ${t} only with 98216 in the log`);
+		// #1415: the hand-in waits for the quest to be complete (an onquest gate held an incomplete keystone run there).
+		assert.ok((g.step.when || []).some((p) => ['onquest', 'complete'].includes(p.k) && [].concat(p.q).includes(98216)), `the keystone's ${t} only with 98216 in the log`);
 	}
 	assert.ok(idx(wet, 'turnin', 98216) < idx(wet, 'accept', 98310), 'Gleaning Our Future after Understanding Our Present');
 	assert.ok(wet[idx(wet, 'accept', 98310)].step.when.some((p) => p.k === 'turnedin' && [].concat(p.q).includes(98216)), 'Gleaning Our Future only once 98216 is handed in (98216 is optional)');
@@ -8030,4 +8036,19 @@ test(`${REDRIDGE}: #1415: Alther's Mill's Tarantula Eggs have their goal beside 
 	const eggs = at(list, 'the Tarantula Eggs', (g) => g.t === 'interact' && g.quest === 98386 && g.object === 673101);
 	assert.equal(list[eggs].step, list[spiders].step, 'eggs and spiders in one step');
 	assert.ok(eggs < at(list, 'turnin 98386', is('turnin', 98386)), 'before the hand-in');
+});
+
+// Expanding Horizons (97914) is taken from Thundris at 15-16 and was handed to Baros on 06-ashenvale's Stormwind stop
+// at ~25, its reply (97926) back to Thundris on 06-wetlands' Auberdine stop at ~28: two guides of carry each. The route
+// passes Baros on 03-loch-modan's last Stormwind stop, right before the boat that lands at Thundris (03-darkshore-return):
+// both go in there now (#1415, flow audit: a passed ender at 86 yd). 06-ashenvale and 06-wetlands keep optional fallbacks.
+test(`${LOCH_MODAN} / ${DARKSHORE_RETURN}: #1415: Expanding Horizons goes to Baros before the boat, Making Do to Thundris where it lands`, { skip }, () => {
+	const loch = goals(LOCH_MODAN);
+	const baros = at(loch, 'turnin 97914', is('turnin', 97914));
+	assert.ok(baros < at(loch, 'the boat to Auberdine', (g) => g.t === 'goto' && /Boat to/.test(g.text || '')), 'Baros before the boat');
+	assert.ok(loch[at(loch, 'accept 97926', is('accept', 97926))].goal.optional, 'Making Do taken there, optional (#453)');
+	const dark = goals(DARKSHORE_RETURN);
+	assert.equal(dark[at(dark, 'turnin 97926', is('turnin', 97926))].s, 1, 'Making Do handed to Thundris on the first Auberdine stop');
+	const ash = goals(ASHENVALE);
+	assert.ok(ash[at(ash, 'turnin 97914', is('turnin', 97914))].goal.optional, '06-ashenvale keeps only an optional fallback');
 });

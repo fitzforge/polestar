@@ -8,6 +8,8 @@ section: players
     Hill loop.
   - Loch Modan: Crocolisk Hunting is taken at the Farstrider Lodge and done with Daggerfang on the east shore. A
     character without The Defias Brotherhood from Westfall now skips that Westfall walk.
+  - Expanding Horizons goes to Baros Alexston on the Stormwind stop before the boat back to Darkshore, and his reply
+    to Thundris where that boat lands, instead of being carried for two more guides.
   - Wetlands: Insane Druids and its barrow den are left out, The Eye of Paleth goes in on the last Menethil stop,
     Trying Times is taken with Razormaw Needling, the Fen Creepers are hunted along the river near Rethiel, and
     Astranaar's hand-ins happen on the first visit. A Night Elf Druid without Trial of the Sea Lion is no longer sent

@@ -8185,6 +8185,32 @@
 			{
 				"a": [
 					"turnin",
+					97914
+				],
+				"b": [
+					"accept",
+					729
+				],
+				"faction": "Alliance",
+				"why": "Alliance 1-30 audit (#1415): Expanding Horizons goes to Baros Alexston on 03-loch-modan's last Stormwind stop, right before the boat to Auberdine, not two guides later on 06-ashenvale's (flow audit: Baros passed at 86 yd).",
+				"source": "flow audit 2026-11-09"
+			},
+			{
+				"a": [
+					"turnin",
+					97926
+				],
+				"b": [
+					"accept",
+					986
+				],
+				"faction": "Alliance",
+				"why": "Alliance 1-30 audit (#1415): Making Do, Baros's reply, goes to Thundris on 03-darkshore-return's first Auberdine stop, where that boat lands, not on 06-wetlands' Auberdine stop at 28.",
+				"source": "flow audit 2026-11-09"
+			},
+			{
+				"a": [
+					"turnin",
 					1108
 				],
 				"b": [

@@ -64,8 +64,9 @@ next forever/alliance/05-duskwood
 # - Left out, accepted but never turned in on the route: Theocritus'
 #   Retrieval (178, a pendant drop for the Tower of Azora).
 # - Refresh (2026): Expanding Horizons (97914, from 03-darkshore) is handed
-#   to Baros Alexston at the Stormwind stop (the end of 06-ashenvale since 2026-11-07: the Cathedral Square, one pass through the city); his reply, Making Do (97926),
-#   goes back to Auberdine on 06-wetlands' boat trip to Ashenvale. Baros offers Making Do only
+#   to Baros Alexston on 03-loch-modan's last Stormwind stop (#1415; 06-ashenvale's Cathedral Square
+#   keeps an optional hand-in); his reply, Making Do (97926), goes to Thundris where that boat lands
+#   (03-darkshore-return). Baros offers Making Do only
 #   after Expanding Horizons (#453), which a player who skipped it in
 #   Darkshore does not have, and the project data lists no prerequisite:
 #   the accept is optional, so nobody is held at Baros.
