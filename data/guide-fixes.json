@@ -2981,8 +2981,8 @@
 				"quest": 7722,
 				"goal": "accept"
 			},
-			"tip": "Ride north-west across the Cauldron to Thorium Point, the scaffolded camp on the north-west rim.",
-			"note": "Searing Gorge, final route review before 0.3.5: Thorium Point comes after the Grimesilt outhouse in the south-east, so its step starts from there, not from Thelsamar.",
+			"tip": "Ride west along the north of the Gorge to Thorium Point, the scaffolded camp on the north-west rim.",
+			"note": "Searing Gorge, final route review before 0.3.5: Thorium Point comes after the Grimesilt outhouse in the south-east and, since 0.3.7, Dorius' escort to Dustfire Valley in the north-east, so its step starts from there, not from Thelsamar.",
 			"source": [
 				{
 					"kind": "recording",

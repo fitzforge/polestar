@@ -354,6 +354,10 @@ step Portal to Teldrassil
 
 # ---------------------------------------------------------------- Feralas
 
+step Rut'theran Village flight master
+  zone Teldrassil
+  goto 58.4,93.9 "Rut'theran Village flight master"
+
 step Feathermoon Stronghold
   zone Feralas
   tip From Rut'theran Village, fly to Feathermoon Stronghold.
@@ -508,6 +512,10 @@ step Linken
 
 # ---------------------------------------------------------------- Lost!
 
+step Into Silithus
+  zone Silithus
+  goto 81.5,19.5 "Into Silithus"
+
 step Layo Starstrike
   zone Silithus
   tip Ride out of the crater's north-western pass into Silithus: Layo Starstrike stands at Valor's Rest, where the pass comes out.
@@ -529,6 +537,7 @@ step Cenarion Hold
   sethome "Cenarion Hold"
   accept 8280                         -- Windcaller Proudhorn
   accept 8284                         -- Geologist Larksbane
+  accept 8318                         -- Bor Wildmane
 
 step Silithus: kill these as you meet them
   zone Silithus
@@ -551,7 +560,6 @@ step Cenarion Hold
   accept 8278
   turnin 8280
   accept 8281
-  accept 8318                         -- Bor Wildmane
 
 step Silithus: kill these as you meet them
   zone Silithus
