@@ -345,6 +345,7 @@ local function recordOffer(kind, id, available, active)
 	end
 	lastOffer.kind, lastOffer.id, lastOffer.at = kind, id, GetTime()
 	ns.Rec("offer", kind, id, ns.P(), ns.Ids(available), ns.Ids(active), ns.Ids(log), ns.Ids(done), ns.Ids(notOffered))
+	ns.Where(kind, id)
 end
 
 local function idsOf(list)
@@ -472,6 +473,7 @@ ns.On("QUEST_ACCEPTED", function(_, q)
 	ctx = ctx or context(nil)
 	turnedIn[q] = nil
 	ns.Rec("accept", q, ctx.kind, ctx.id, ns.PAt(ctx.map, ctx.x, ctx.y), UnitLevel("player"), rewardXP(q), ctx.rewardMoney, ctx.items, ctx.choices)
+	ns.Where(ctx.kind, ctx.id)
 	track(q, true)
 end)
 
@@ -508,6 +510,7 @@ ns.On("QUEST_TURNED_IN", function(_, q, xpReward, moneyReward)
 	local st = tracked[q]
 	if st and st.escort then escort(q, st, false) end
 	ns.Rec("turnin", q, ctx.kind, ctx.id, ns.PAt(ctx.map, ctx.x, ctx.y), UnitLevel("player"), Num(xpReward), Num(moneyReward), item)
+	ns.Where(ctx.kind, ctx.id)
 	tracked[q] = nil
 	wantedDirty = true
 end)

@@ -21,7 +21,9 @@ name of a refusal, see `refuse`), the server, instance and zone parts of
 creature GUIDs, the player's typed text other than `/psrec mark` notes and
 `/psrec trail` labels, and anything from outside the game folder.
 Quest and gossip text has the player's name replaced with `$N` (and race and
-class with `$R`, `$C`) in the addon, and again in Polestar Client.
+class) in the addon, and again in Polestar Client. Explorer mode (below) adds
+game data only: nothing on this list, and nothing more about the player than
+the records above already hold.
 
 ## SavedVariables (`PolestarRecorderDB`, per account)
 
@@ -30,6 +32,8 @@ PolestarRecorderDB = {
 	schema = 2,
 	enabled = true,            -- recording on (/psrec on, or Polestar Client's share flag); nothing is written while false
 	optout = true,             -- only after /psrec off: the client's share flag does not turn recording on; /psrec on clears it
+	explore = true,            -- explorer mode on (/psrec explore on, or Polestar Client's explorer flag); see "Explorer mode"
+	exploreOff = true,         -- only after /psrec explore off: the client's explorer flag does not turn it on; /psrec explore on clears it
 	install = "k3j9x0q2m7ab",  -- 12 random base-36 characters, made once per WoW account folder
 	seq = 41,                  -- last chunk number used
 	acked = 37,                -- highest chunk Polestar Client confirmed (from Ack.lua), kept for display
@@ -63,11 +67,12 @@ without its name.
 
 `Interface/AddOns/Polestar_Recorder/Ack.lua`, loaded first by the TOC. One
 entry per install, because several WoW accounts share one AddOns folder,
-then whether the player shares:
+then whether the player shares and whether explorer mode is on:
 
 ```lua
 PolestarRecorderAck = { ["k3j9x0q2m7ab"] = 37 }
 PolestarRecorderShare = true
+PolestarRecorderExplore = true
 ```
 
 The release zip ships it as `PolestarRecorderAck = nil` with no share flag;
@@ -91,6 +96,12 @@ is set, `false` turns it off (without setting `optout`), and no flag leaves
 `/psrec off` stays the player's last word until `/psrec on`. The Recorder's
 own default does not change: installed without Polestar Client (no flag), it
 stays off until `/psrec on`.
+
+`PolestarRecorderExplore` works the same way for explorer mode: `true` turns
+it on at login unless the player typed `/psrec explore off` (`exploreOff`),
+`false` turns it off (without setting `exploreOff`), no flag leaves the
+player's own choice. Polestar Client writes it only once its explorer toggle
+has been used. Explorer mode is off by default everywhere.
 
 ### Field encoding
 
@@ -183,7 +194,7 @@ Fights and loot
 | `rare` | npcId, level, cls, P, src | a rare or rare elite sighted (`src` `v` vignette, `p` plate, `t` target, `m` mouseover) |
 | `treasure` | objectId, P | a treasure vignette |
 | `enter` | instanceId, instanceType, difficulty, P | entering an instance (P = last outdoor position) |
-| `encounter` | encounterId, ok (1/0), difficulty, size | `ENCOUNTER_END` |
+| `encounter` | encounterId, ok (1/0), difficulty, size | `ENCOUNTER_END` (its start is `engage`, in explorer mode) |
 
 Services
 
@@ -200,6 +211,57 @@ Guide
 | Kind | Fields | When |
 |---|---|---|
 | `step` | guide, step, reason, P | Polestar's step or guide changes (`reason` `next`, `skip`, `back`, `auto` (also at login and reload), `pick`, `done`) |
+
+Explorer mode (`/psrec explore on`; see "Explorer mode")
+
+| Kind | Fields | When |
+|---|---|---|
+| `unitx` | npcId, spawnUid, P | where explorer density applies, and inside instances: a creature seen on a nameplate, target or mouseover, with its GUID's spawn part (`spawnUid`, as `spawn` carries it: never the server, instance or zone parts); once per spawn per 30 yd it moved (once per session inside an instance, where P is empty) |
+| `poi` | q, done (1/0), P | the quest log's own map point for a quest in the log (`C_QuestLog.GetQuestsOnMap` on the player's map): `P` is the quest's point, not the player's; `done` 1 when the quest is ready to hand in (the point is then where it is handed in). Once per quest, map and `done` per session |
+| `imap` | instanceId, uiMapId, groupId, floor | inside an instance, whenever its uiMapID changes (the client gives no position there): `groupId` the map group (`C_Map.GetMapGroupID`), `floor` that map's `relativeHeightIndex` in the group |
+| `engage` | encounterId, difficulty, size | `ENCOUNTER_START` (the `encounter` record is its end: boss order and time per boss) |
+| `where` | npcKind, npcId, subzoneText, indoors (1/0) | an `offer`, `accept` or `turnin` window: the subzone text there (`GetSubZoneText`) and whether the player stood indoors; once per NPC or object per session |
+| `open` | spellId, P, targetKind, targetId | the player opened a world object (an "Opening" cast: the client's lock-opening spells, by id or by that name in the client's language), at the player's position; the target is the object the client names as the soft-interact target, when it does (only `o`/`c`). At most 20 a minute |
+
+## Explorer mode
+
+Explorer mode makes the Recorder note more about the places Forever made
+new, for the zones and dungeons no other source covers yet. It is off by
+default and records only while recording is on.
+
+- **Turning it on and off.** `/psrec explore on`, `/psrec explore off`, or
+  `/psrec explore` to toggle; `/psrec status` shows it. Polestar Client can
+  turn it on too (`PolestarRecorderExplore` in Ack.lua, see "Ack file");
+  `/psrec explore off` stays the player's last word until `/psrec explore on`.
+- **Denser where it is new** (`Explore.lua`, `ns.Dense`): in Forever's new
+  zones (uiMapIDs 2521 and 2665 Zephras Isle, 2548 Riverglades, 2652
+  Shen'dralas, 2482 Mount Hyjal, 2524 Darkspear Islands, and every map inside
+  them) and within 200 yards of a new dungeon's entrance (Hall of Thanes,
+  Ruins of Lordaeron, Excavation Site: Wetlands, City of Dalaran), `unit` is
+  written once per 30 yards per creature (not 100) and `pos` every 10 yards
+  at most once a second (not 25 yards and 2 seconds); there, and inside
+  instances, each creature spawn seen is a `unitx`. Elsewhere the density is
+  the normal one.
+- **The explorer kinds, everywhere while it is on**: `poi`, `imap`,
+  `engage`, `where` and `open` (table above).
+- **Privacy.** Only game data: creatures, objects, quests, maps, subzone
+  names, boss pulls. Nothing more about the player than recording already
+  holds (the position and the indoors flag `pos` carries), and nothing on
+  the "never collected" list: never a player's GUID, name, chat, guild or
+  group member (`open` drops a soft-interact target that is a player).
+- **Cost.** An hour of questing in a new zone stores about 88 KiB instead
+  of 55 KiB (the 4 MiB store still holds over 40 hours of it), and its
+  per-session memory (one number per spawn seen) stays well under 256 KiB;
+  the Recorder's CPU budgets hold with it on
+  (`rust/crates/forge-addontest/tests/addontest/recorder-perf.rs`).
+- **Compatibility.** Each addition is a new record kind, so a reader that
+  does not know it skips it. Two older readers matter: a Polestar Client
+  built before these kinds leaves them out of the upload (it sends only the
+  kinds its library knows), and an ingest server before them drops them
+  from the stored chunk, but rejects a chunk holding more than 64 records of
+  kinds it does not know (a busy explorer chunk easily holds more `unitx`).
+  So the server learns the kinds first, then a Polestar Client that knows
+  them, and only then does explorer mode data reach the archive.
 
 ## Upload API (`https://data.polestar.guide/v1`)
 
@@ -255,8 +317,8 @@ The plausibility checks: clock within the last 30 days and at most 10
 minutes ahead, a chunk spans at most 2 hours, seq within 400 of the
 install's highest, levels 1–60, kill XP within what the level allows, at
 most 40 of the player's own kills (and their `spawn` records; kills another
-player had tagged don't count) a minute, 60 loot windows, 30 `gather` and 30
-`refuse` records a minute, groups of at most 40, ids below 1,000,000, and no
+player had tagged don't count) a minute, 60 loot windows, 30 `gather`, 30
+`refuse` and 30 `open` records a minute, groups of at most 40, ids below 1,000,000, and no
 movement faster than 100 yards a second between positions on one map twice
 in a row or more than twice in a chunk (one such jump is a teleport the game
 makes: the spirit healer after a release, a portal; map sizes from the game's

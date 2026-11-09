@@ -6,8 +6,8 @@
 --
 -- This file: SavedVariables, the chunk writer, positions and maps, the
 -- session record, and the lifecycle. Quests.lua, World.lua, Finds.lua,
--- Progress.lua, Route.lua and Trail.lua add the collectors, Commands.lua
--- the /psrec command, on the shared namespace.
+-- Progress.lua, Route.lua, Trail.lua and Explore.lua (explorer mode) add the
+-- collectors, Commands.lua the /psrec command, on the shared namespace.
 --
 -- A record is one line of tab-separated fields: kind, dt (tenths of a second
 -- since the chunk's epoch), then the kind's fields in the contract's order.
@@ -232,6 +232,11 @@ local enabled = false
 -- /psrec off was typed (and not undone by /psrec on): it wins over the
 -- client's share flag.
 local optout = false
+-- Explorer mode (Explore.lua): the player's /psrec explore, or Polestar
+-- Client's explorer flag; exploreOff after /psrec explore off, which wins
+-- over the client's flag as optout does over its share flag.
+local explore = false
+local exploreOff = false
 
 -- The live state, mirrored into PolestarRecorderDB by DB().
 local live -- the table PolestarRecorderDB was at the last DB()
@@ -266,6 +271,8 @@ local function DB()
 		db.chunks, db.maps = state.chunks, state.maps
 		db.enabled = enabled
 		db.optout = optout or nil
+		db.explore = explore or nil
+		db.exploreOff = exploreOff or nil
 	end
 	return db
 end
@@ -296,7 +303,8 @@ function ns.TextSeen() return CharDB().textSeen end
 -- Recorder window's own settings (position, ticked spots) stay. Then the
 -- client's share flag (Ack.lua, loaded before the SavedVariables): true turns
 -- recording on unless the player typed /psrec off, false turns it off, nil
--- (no Polestar Client) leaves the player's own choice.
+-- (no Polestar Client) leaves the player's own choice. The client's explorer
+-- flag (PolestarRecorderExplore) works the same way on explorer mode.
 local function adopt()
 	local db = PolestarRecorderDB
 	if type(db) ~= "table" then db = {} end
@@ -313,6 +321,15 @@ local function adopt()
 		enabled = false
 	end
 	db.enabled = enabled
+	explore = db.explore == true
+	exploreOff = db.exploreOff == true
+	local flag = PolestarRecorderExplore
+	if flag == true and not exploreOff then
+		explore = true
+	elseif flag == false then
+		explore = false
+	end
+	db.explore = explore or nil
 	state.install = validId(db.install, 12) and db.install or randomId(12)
 	state.seq = type(db.seq) == "number" and db.seq >= 0 and floor(db.seq) or 0
 	state.acked = type(db.acked) == "number" and db.acked >= 0 and floor(db.acked) or 0
@@ -352,6 +369,18 @@ local function pruneAcked()
 end
 
 function ns.IsEnabled() return enabled end
+
+-- Explorer mode is on (whether or not recording is).
+function ns.IsExploring() return explore end
+
+-- Explorer mode on or off by the player (/psrec explore): off is kept as an
+-- opt-out the client's explorer flag does not undo; on clears it.
+function ns.SetExplore(on)
+	explore = on and true or false
+	exploreOff = not explore
+	local db = DB()
+	db.explore, db.exploreOff = explore or nil, exploreOff or nil
+end
 
 ---------------------------------------------------------------------------
 -- The chunk writer

@@ -281,6 +281,8 @@ mod quests_levels;
 mod quoted_quest_names;
 mod rares;
 mod recorder;
+#[path = "recorder-explore.rs"]
+mod recorder_explore;
 #[path = "recorder-finds.rs"]
 mod recorder_finds;
 #[path = "recorder-perf.rs"]
