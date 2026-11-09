@@ -292,10 +292,11 @@ fn a_minimap_button_turned_off_stays_off_after_a_reload() {
 	assert_eq!(out, json!({ "exists": false, "on": false }));
 }
 
-// 0.3.5's default was off (on with the gamepad interface) and an off equal to it was never stored: an account from
-// before keeps the button as it had it, written once (PolestarDB.minimapButtonKept); a new account starts with it on.
+// 0.3.6 shows the minimap button to every account (Fitz, 2026-11-09): an account from 0.3.5, whose off was the
+// default and never stored, gets it on. The 0.3.6 test builds stored false once for such an account
+// (PolestarDB.minimapButtonKept): that off and its flag go, once; an off the player stores later stays.
 #[test]
-fn an_account_from_before_0_3_6_keeps_its_minimap_button_off_and_a_new_one_starts_with_it_on() {
+fn every_account_gets_the_minimap_button_on_and_the_test_builds_kept_off_is_undone_once() {
 	let state = r#"emit({ exists = stub.frame("PolestarMinimapButton") ~= nil, on = Polestar.Get("maps.minimapButton"),
 		stored = PolestarDB.settings.maps and PolestarDB.settings.maps.minimapButton, kept = PolestarDB.minimapButtonKept or false })"#;
 	let load = |saved: Option<&str>, gamepad: bool| {
@@ -310,18 +311,23 @@ fn an_account_from_before_0_3_6_keeps_its_minimap_button_off_and_a_new_one_start
 		})
 		.remove(0)
 	};
-	// Fitz's 0.3.5 account: settings of its own, none for the button (a dragged angle shows it was once on).
+	let on = json!({ "exists": true, "on": true, "kept": false });
+	// A 0.3.5 account: settings of its own, none for the button.
 	let old = "PolestarDB = { schema = 1, settings = { ui = { scale = 1.1 }, maps = { minimapButtonAngle = 140 } } }";
-	assert_eq!(load(Some(old), false), json!({ "exists": false, "on": false, "stored": false, "kept": true }), "kept off, stored once");
-	assert_eq!(load(None, false), json!({ "exists": true, "on": true, "kept": true }), "a new account: on, nothing stored");
-	assert_eq!(load(Some(old), true), json!({ "exists": true, "on": true, "kept": true }), "0.3.5 had it on with the gamepad interface");
+	assert_eq!(load(Some(old), false), on, "a 0.3.5 account: on, nothing stored");
+	assert_eq!(load(None, false), on, "a new account: on, nothing stored");
+	// A test build saved it off once: undone.
+	let kept_off = "PolestarDB = { schema = 1, settings = { maps = { minimapButton = false } }, minimapButtonKept = true }";
+	assert_eq!(load(Some(kept_off), false), on, "the test builds' saved off goes with its flag");
+	assert_eq!(load(Some("PolestarDB = { schema = 1, settings = { maps = {} }, minimapButtonKept = true }"), false), on, "turned on after a test build");
+	// The test builds never saved for the gamepad interface: an off there is the player's.
+	assert_eq!(load(Some(kept_off), true), json!({ "exists": false, "on": false, "stored": false, "kept": false }), "a gamepad player who turned it off");
+	// Without the flag an off is the player's own.
 	assert_eq!(
-		load(Some("PolestarDB = { schema = 1, settings = { maps = { minimapButton = false } } }"), true),
-		json!({ "exists": false, "on": false, "stored": false, "kept": true }),
-		"a gamepad player who turned it off"
+		load(Some("PolestarDB = { schema = 1, settings = { maps = { minimapButton = false } } }"), false),
+		json!({ "exists": false, "on": false, "stored": false, "kept": false }),
+		"a player who turned it off"
 	);
-	// Once kept, turning it on stores nothing (on is the default) and the next load leaves it on.
-	assert_eq!(load(Some("PolestarDB = { schema = 1, settings = { maps = {} }, minimapButtonKept = true }"), false), json!({ "exists": true, "on": true, "kept": true }), "turned on after the update");
 }
 
 // Minimap button collectors gather the minimap's named Button children: a flyout reparents them into its own

@@ -21,12 +21,11 @@ ns.RegisterDefaults("maps", {
 	zoneLevels = true,      -- level ranges on the continent and zone maps
 	coords = true,          -- player and cursor coordinates on the world map
 	minimapCoords = false,  -- a small player coordinate readout on the minimap
-	-- A Polestar button on the minimap's edge, on by default for a new
+	-- A Polestar button on the minimap's edge, on by default for every
 	-- account: players look for one to show and hide the guide, and the
 	-- gamepad interface has no slash commands (Core/Init.lua, ns.GamepadUI).
 	-- Turning it off stores false (a value equal to the default is never
-	-- stored), so it stays off. Accounts from before 0.3.6 keep the button
-	-- as they had it (keepMinimapButton below).
+	-- stored), so it stays off.
 	minimapButton = true,
 	minimapButtonAngle = 225, -- where on the edge, degrees (0 = east, counter-clockwise)
 	reveal = "tint",        -- unexplored areas: "off" | "on" (revealed) | "tint" (revealed, tinted)
@@ -44,22 +43,20 @@ ns.RegisterDefaults("maps", {
 	trackerPos = false,
 })
 
--- Players from before 0.3.6 keep their minimap button as it was: the
--- default was off then (on with the gamepad interface) and an off equal to
--- it was never stored, so an account Polestar knew before (ns.IsNewAccount
--- false) with no value of its own gets false written once, at its first
--- load of this version; with the gamepad interface the old default was on,
--- so nothing is written. A new account starts on the default, on.
--- PolestarDB.minimapButtonKept marks it done either way.
-local function keepMinimapButton()
+-- The 0.3.6 test builds saved the button off once for an account from
+-- before (never with the gamepad interface), flagged by
+-- PolestarDB.minimapButtonKept. 0.3.6 shows the button to everyone: an
+-- account with that flag loses it and the off it saved, so the default, on,
+-- applies again. Runs once; turning the button off later stores false again.
+local function undoMinimapButtonKept()
 	local db = ns.DB()
-	if db.minimapButtonKept then return end
-	db.minimapButtonKept = true
-	if ns.IsNewAccount() or ns.GamepadUI() then return end
-	if type(db.settings.maps) ~= "table" then db.settings.maps = {} end
-	if db.settings.maps.minimapButton == nil then db.settings.maps.minimapButton = false end
+	if not db.minimapButtonKept then return end
+	db.minimapButtonKept = nil
+	if ns.GamepadUI() then return end
+	local maps = type(db.settings) == "table" and db.settings.maps
+	if type(maps) == "table" and maps.minimapButton == false then maps.minimapButton = nil end
 end
-ns.OnInit(keepMinimapButton)
+ns.OnInit(undoMinimapButtonKept)
 
 ---------------------------------------------------------------------------
 -- Shared helpers

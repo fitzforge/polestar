@@ -4704,11 +4704,10 @@ flight timer and the instance tracker are set under Quality of Life.
   (`maps.coords`, `Maps/WorldMap.lua`). `maps.minimapCoords` adds a readout at
   the bottom of the minimap (`Maps/Coords.lua`, 5 Hz, repainted only when the
   tenth changes). Both use `Maps.FormatCoords`.
-- Minimap button (`maps.minimapButton`, on by default; turning it off stores
-  `false`, so it stays off; an account from before 0.3.6 keeps its old state:
-  `keepMinimapButton` in `Maps/Maps.lua` stores `false` once, flagged by
-  `PolestarDB.minimapButtonKept`, unless the gamepad interface made it on;
-  `Maps/MinimapButton.lua`):
+- Minimap button (`maps.minimapButton`, on by default for every account;
+  turning it off stores `false`, so it stays off; `undoMinimapButtonKept` in
+  `Maps/Maps.lua` clears, once, the `false` the 0.3.6 test builds stored with
+  `PolestarDB.minimapButtonKept`; `Maps/MinimapButton.lua`):
   click fires `TOGGLE_FRAME`, right-click opens `Maps.ShowMenu` (show or hide
   the window, Guides, Lookup, Options, Report a problem; each fires the
   existing event), a drag moves it
