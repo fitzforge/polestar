@@ -10,7 +10,7 @@ return {
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "飞往{area:976}",
 	-- {area:1099} Camp Mojache
-	["{area:1099} flight master"] = "",
+	["{area:1099} flight master"] = "{area:1099}的飞行管理员",
 
 	-- Step 4: Sandsorrow Watch
 	-- {item:8584} Untapped Dowsing Widget
@@ -26,21 +26,21 @@ return {
 
 	-- Step 8: Broken Pillar: kill these as you meet them
 	-- {area:1938} Broken Pillar
-	["{area:1938}: kill these as you meet them"] = "",
+	["{area:1938}: kill these as you meet them"] = "{area:1938}：沿途遇到就击杀",
 	-- {area:982} Noxious Lair · {npc:12046} Gor'marok the Ravager · {quest:3161} Gahz'ridian
 	["South of the {area:982} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end. Dig up {quest:3161} ornaments between the fights."] = "在{area:982}南边，砂槌食人魔占据着他们的营地，{npc:12046}在营地东端。在战斗间隙挖出{quest:3161}饰物。",
-	["Below ground"] = "",
+	["Below ground"] = "在地下",
 
 	-- Step 9: Noxious Lair
 	-- {npc:4196} Silithid Swarm
 	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
-	["West, the Centipaar insects swarm around their hives; any of them drops the parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "",
+	["West, the Centipaar insects swarm around their hives; any of them drops the parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "西边的森提帕尔虫群聚集在巢穴周围；每种都会掉落部件。\n小心：森提帕尔群居蝎在战斗内外都会施放 {npc:4196}，召来会打断你的小怪。",
 
 	-- Step 10: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
-	["{quest:3362}: kill these as you meet them"] = "",
+	["{quest:3362}: kill these as you meet them"] = "{quest:3362}：沿途击杀以下目标",
 	-- {area:440} Tanaris
-	["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {area:440} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs."] = "",
+	["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {area:440} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs."] = "营地西侧的山谷遍布仙人掌般的生物；只有露水收集者携带露腺。{area:440} 的大多数怪物都有极低概率掉落 OOX-17/TN 的求救信标：看见就留着。\n小心：此地其他灌木怪为 49-50 级，四处游荡，很容易额外引怪。",
 	-- {item:8623} OOX-17/TN Distress Beacon
 	["{item:8623}, a rare drop"] = "{item:8623}，稀有掉落",
 
@@ -52,22 +52,22 @@ return {
 
 	-- Step 13: Slake That Thirst
 	-- {spell:686} Shadow Bolt
-	["Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and {spell:686}. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less."] = "",
+	["Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and {spell:686}. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less."] = "小心：暗影法师（42-43级）会在脱战时召唤虚空行者，使用献祭和{spell:686}攻击。窃贼会缴械，潜行者会潜行移动，刺客则会在你生命值不超过20%时使用斩杀。",
 
 	-- Step 15: Gadgetzan
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
 	["the {item:8526} grows in the {zone:1425}, around level 48"] = "{item:8526}生长在{zone:1425}，大约48级时",
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}：在屋内",
 
 	-- Step 17: Scrimshank's gear
 	["Scrimshank's gear"] = "谢申克的勘探设备",
-	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "",
+	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "再往南，初级勘探员斯克林杰的装备在一个森提帕尔虫巢的入口处。\n注意：装备旁有一只虫子守着。隧道内有许多虫子巡逻，其中一些为50级，因此战斗时经常会引来额外的敌人。",
 
 	-- Step 18: OOX-17/TN
 	["OOX-17/TN"] = "OOX-17/TN",
 	-- {area:977} Steamwheedle Port · {area:35} Booty Bay
-	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "",
+	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "仅在持有求救信标时进行：OOX-17/TN 位于斯克林谢尔的虫巢东南方。护送它向北前往 {area:977}；奖励要到 {area:35} 找奥格索普领取。\n小心：护送途中有两次伏击。刚开始不久会有三只 47 级蝎子袭来。快到终点、靠近海滩时，会有三名废土人类袭击：一名法师和两名刺客，约 44 级。",
 
 	-- Step 19: Gadgetzan
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
@@ -75,18 +75,18 @@ return {
 
 	-- Step 20: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
-	["Boat to {area:16727}"] = "",
+	["Boat to {area:16727}"] = "乘船前往{area:16727}",
 
 	-- Step 21: Into Searing Gorge
 	-- {area:51} Searing Gorge
-	["Into {area:51}"] = "",
+	["Into {area:51}"] = "进入{area:51}",
 
 	-- Step 23: The Grimesilt Dig Site
 	-- {area:247} Grimesilt Dig Site
 	["The {area:247}"] = "{area:247}",
 	-- {area:16727} Powderfuse Port · {area:51} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	["From {area:16727}, ride into the {area:51} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "",
+	["From {area:16727}, ride into the {area:51} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "从 {area:16727} 骑行，经东侧山口进入 {area:51}，再向西到挖掘场。{object:173265} 在挖掘场南端；黑铁地质学家就在它北边不远处挖掘。带上 15 个 {item:4306}（拍卖行有售）。",
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "{object:173265}",
 
@@ -98,28 +98,28 @@ return {
 
 	-- Step 26: The Cauldron's slavers and golems
 	-- {area:246} The Cauldron
-	["{area:246}'s slavers and golems"] = "",
+	["{area:246}'s slavers and golems"] = "{area:246} 的奴隶贩子和傀儡",
 	-- {area:1446} Thorium Point
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Heavy War Golems = {npc:5854} Heavy War Golem
-	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Kalaran."] = "",
+	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Kalaran."] = "从 {area:1446} 向南骑行进入大熔炉：黑铁工头和黑铁奴隶贩子在小路上驱赶奴隶，重型作战傀儡在卡拉然下方的坑底巡逻。",
 
 	-- Step 27: Kalaran Windblade
-	["Kalaran Windblade"] = "",
+	["Kalaran Windblade"] = "卡拉然·温布雷",
 	-- {area:1446} Thorium Point
 	["Kalaran stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "卡拉然独自站在{area:1446}南边，大熔炉的边缘。听他讲他的故事。",
 
 	-- Step 30: Searing Gorge: kill these as you meet them
 	-- {area:51} Searing Gorge
-	["{area:51}: kill these as you meet them"] = "",
+	["{area:51}: kill these as you meet them"] = "{area:51}：沿途击杀以下目标",
 	-- {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Blazing Elementals = {npc:5850} Blazing Elemental · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Greater Lava Spiders = {npc:5858} Greater Lava Spider · Incendosaurs = {npc:9318} Incendosaur · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
+	["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "重型作战傀儡在卡拉然下方的大熔炉巡逻，会掉落油；其间游荡的熔岩元素和炽热元素掉落心脏。黑铁工头和黑铁奴隶贩子在各条小路上驱赶奴隶；奴隶贩子可能掉落 {item:11818}：保留它。\n灼热熔岩蜘蛛在峡谷西南部的高地和熔岩池一带游荡。\n{area:1443} 的入口位于大熔炉北部。熏火龙在其中的熔岩池里游动：将它们引到池边。秘密计划在矿坑上方的平台上。\n注意：黑铁奴隶贩子（45—46级）被引到时会向15码内的盟友求援，可在最远15码外投网，并在近战中使用撕裂。",
 	-- {item:11818} Grimesilt Outhouse Key
 	["{item:11818}, a rare drop"] = "{item:11818}，稀有掉落",
 
 	-- Step 31: Thorium Point
 	-- {area:1446} Thorium Point
-	["Ride back north to {area:1446}."] = "",
+	["Ride back north to {area:1446}."] = "向北骑行返回 {area:1446}。",
 
 	-- Step 33: The Steamsmiths' furnaces
 	["The Steamsmiths' furnaces"] = "黑铁锻造师的熔炉",

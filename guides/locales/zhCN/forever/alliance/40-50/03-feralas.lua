@@ -8,19 +8,19 @@
 return {
 	-- Step 1: Into The Barrens
 	-- {area:17} The Barrens
-	["Into {area:17}"] = "",
+	["Into {area:17}"] = "进入{area:17}",
 
 	-- Step 3: Thalanaar flight master
 	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "",
+	["{area:489} flight master"] = "{area:489}的飞行管理员",
 
 	-- Step 4: Boat to Feathermoon Stronghold
 	-- {area:1116} Feathermoon Stronghold
-	["Boat to {area:1116}"] = "",
+	["Boat to {area:1116}"] = "乘船前往{area:1116}",
 
 	-- Step 5: Feathermoon Stronghold
 	-- {area:1116} Feathermoon Stronghold · {area:1120} Sardor Isle · {area:1108} Forgotten Coast · {npc:7880} Ginro Hearthkindle
-	["{area:1116} stands on {area:1120}, off the {area:1108}: the boat from the coast's dock crosses to it. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{area:1116} stands on {area:1120}, off the {area:1108}: the boat from the coast's dock crosses to it. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{area:1116}位于{area:1108}近海的{area:1120}，可从海岸码头乘船前往。{npc:7880}在建筑楼上，从屋内上楼，箭头无法区分楼层。",
 	-- {npc:3936} Shandris Feathermoon
 	["{npc:3936}, beside him"] = "{npc:3936}，在他旁边",
 	-- {npc:7877} Latronicus Moonspear
@@ -42,7 +42,7 @@ return {
 
 	-- Step 10: Boat to Forgotten Coast
 	-- {area:1108} Forgotten Coast
-	["Boat to {area:1108}"] = "",
+	["Boat to {area:1108}"] = "乘船前往{area:1108}",
 
 	-- Step 12: The courier's boat
 	["The courier's boat"] = "信使的船",
@@ -60,26 +60,26 @@ return {
 	-- Step 15: Isle of Dread
 	-- {area:1121} Isle of Dread · {area:1120} Sardor Isle · {npc:8136} Lord Shalzaru
 	-- plural, as words: Hatecrest Serpent Guards = {npc:5333} Hatecrest Serpent Guard
-	["The {area:1121} is the island just south of {area:1120}: swim over. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "",
+	["The {area:1121} is the island just south of {area:1120}: swim over. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "{area:1121}是{area:1120}南侧的岛屿，游过去即可。这里由憎世毒蛇守卫和女巫占据，47 级的{npc:8136}在岛屿南端洞穴内等候，先清理他的守卫。",
 	-- {item:9248} Mysterious Relic
-	["{item:9248}; below ground"] = "",
+	["{item:9248}; below ground"] = "{item:9248}：在地下",
 
 	-- Step 16: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
-	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880}在建筑楼上，从屋内上楼，箭头无法区分楼层。",
 	-- {npc:7879} Quintis Jonespyre
-	["{npc:7879}, upstairs"] = "",
+	["{npc:7879}, upstairs"] = "{npc:7879}：在楼上",
 
 	-- Step 17: Fly to Thalanaar
 	-- {area:489} Thalanaar
-	["Fly to {area:489}"] = "",
-	["Feathermoon flight master"] = "",
+	["Fly to {area:489}"] = "飞往{area:489}",
+	["Feathermoon flight master"] = "羽月要塞飞行管理员",
 
 	-- Step 19: Grimtotem camp
 	["Grimtotem camp"] = "恐怖图腾营地",
 	-- {area:489} Thalanaar · {npc:7956} Kindal Moonweaver
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
-	["From {area:489} ride west along the road to the Grimtotem camp north of it. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "",
+	["From {area:489} ride west along the road to the Grimtotem camp north of it. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "从{area:489}沿路向西骑行，前往道路北侧的恐怖图腾营地。{npc:7956}在营地外等候；救出中央围栏中的小精龙，并确保{npc:7956}和至少六只小精龙存活。",
 
 	-- Step 20: Grimtotem tauren
 	["Grimtotem tauren"] = "恐怖图腾牛头人",
@@ -94,11 +94,11 @@ return {
 	-- {item:11463} Undelivered Parcel
 	["{item:11463}, from the backpacks"] = "{item:11463}，来自背包",
 	-- {object:164954} Zukk'ash Pod
-	["{object:164954}, inside"] = "",
+	["{object:164954}, inside"] = "{object:164954}：在屋内",
 
 	-- Step 23: High Wilderness: kill these as you meet them
 	-- {area:1136} High Wilderness
-	["{area:1136}: kill these as you meet them"] = "",
+	["{area:1136}: kill these as you meet them"] = "{area:1136}：沿途击杀以下目标",
 	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben
 	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "沿道路向西骑回，然后向北进入怒痕山丘。这里的每个雪人都可能掉落毛皮；可能会掉落{quest:7735}，{npc:7852}也会收购。",
 
@@ -109,7 +109,7 @@ return {
 	-- Step 28: Grind to 45
 	["Grind to 45"] = "刷到45级",
 	-- {area:1105} Feral Scar Vale · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak · {area:1517} Uldaman
-	["Ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "",
+	["Ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "骑马向东进入{area:1105}。海岸上{npc:14637}的任务需要45级。也可以组队去{area:978}副本或{area:1517}副本。",
 	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {area:357} Feralas
 	["grind on {npc:5292} at {area:1105}, {area:357}"] = "在{area:357}的{area:1105}刷{npc:5292}",
 
@@ -119,7 +119,7 @@ return {
 
 	-- Step 30: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast
-	["{area:1108}: kill these as you meet them"] = "",
+	["{area:1108}: kill these as you meet them"] = "{area:1108}：沿途击杀以下目标",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Shore Striders = {npc:5359} Shore Strider · Deep Striders = {npc:5360} Deep Strider · Wave Striders = {npc:5361} Wave Strider · Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
 	["Shore Striders, Deep Striders and Wave Striders (elite giants) wade along the coast north of the dock: zap one with {item:18904} and kill the shrunken giant. Sea Elementals and Sea Sprays drift in the same surf."] = "{npc:5359}、{npc:5360}和{npc:5361}（精英巨人）在码头北边的海岸涉水：用{item:18904}电一只，然后杀掉缩小的巨人。{npc:5461}和{npc:5462}在同一片浪花中飘荡。",
@@ -128,13 +128,13 @@ return {
 	-- {npc:14637} Zorbin Fandazzle
 	["{npc:14637}'s refills are level 55: skip them."] = "{npc:14637}的补充任务是55级：跳过。",
 	-- {zone:1446} Tanaris · {area:489} Thalanaar
-	["The {zone:1446} guide starts with the trip east, past {area:489}."] = "",
+	["The {zone:1446} guide starts with the trip east, past {area:489}."] = "{zone:1446}指南从向东赶路开始，途中经过{area:489}。",
 
 	-- Step 32: Thalanaar
 	-- {zone:1441} Thousand Needles
 	["Ride north-east to the night elf outpost on the {zone:1441} border."] = "向东北骑到{zone:1441}边境上的暗夜精灵前哨。",
 	-- {npc:4048} Falfindel Waywarder · {area:489} Thalanaar
-	["{npc:4048} walks around {area:489}: look inside the circle on the map"] = "",
+	["{npc:4048} walks around {area:489}: look inside the circle on the map"] = "{npc:4048}在{area:489}巡逻，请在地图标示的圆圈内寻找",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Boat to the {area:1108} and ride east across {zone:1444} to the Grimtotem camp north of the road. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "乘船前往{area:1108}，向东骑过{zone:1444}，到道路北边的恐怖图腾营地。{npc:7956}在营地外等候；解救中间围栏里的{npc:5278}，保证{npc:7956}和至少六只精灵龙存活。",

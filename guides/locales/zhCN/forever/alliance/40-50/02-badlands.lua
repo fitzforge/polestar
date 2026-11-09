@@ -9,7 +9,7 @@ return {
 	-- Step 2: Valley of Fangs
 	-- {npc:2817} Rigglefuzz
 	-- plural, as words: Blue Pearls = {item:4611} Blue Pearl
-	["{npc:2817}: Blue Pearls from Stranglethorn"] = "",
+	["{npc:2817}: Blue Pearls from Stranglethorn"] = "{npc:2817}：交付荆棘谷取得的蓝珍珠",
 	-- {npc:2817} Rigglefuzz
 	["{npc:2817}'s next quest pays no experience: skip it."] = "{npc:2817}的下一个任务不给经验：跳过。",
 
@@ -32,13 +32,13 @@ return {
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "飞往{area:271}",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "{area:144}的飞行管理员",
 
 	-- Step 8: Southshore
 	-- {npc:3980} Raleigh the Devout
-	["{npc:3980} preaches by the inn."] = "",
+	["{npc:3980} preaches by the inn."] = "{npc:3980}在旅店旁布道。",
 	-- {npc:3980} Raleigh the Devout
-	["{npc:3980}, upstairs"] = "",
+	["{npc:3980}, upstairs"] = "{npc:3980}：在楼上",
 	-- {area:796} Scarlet Monastery
 	["Raleigh's next errand is in the {area:796}: skip it."] = "虔诚的莱雷恩的下一个差事在{area:796}：跳过。",
 
@@ -46,11 +46,11 @@ return {
 	-- {area:271} Southshore · {area:47} The Hinterlands · {area:348} Aerie Peak · {npc:5635} Falstad Wildhammer · {quest:1450} Gryphon Master Talonaxe · {npc:7884} Fraggar Thundermantle
 	["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "沿道路向东北骑出{area:271}，进入{area:47}；{area:348}就在边界后面。{npc:5635}在顶层，{quest:1450}照看狮鹫棚，{npc:7884}站在旅店旁。",
 	-- {quest:1450} Gryphon Master Talonaxe
-	["{quest:1450}, inside"] = "",
+	["{quest:1450}, inside"] = "{quest:1450}：在屋内",
 	-- {npc:7884} Fraggar Thundermantle
-	["{npc:7884}, inside"] = "",
+	["{npc:7884}, inside"] = "{npc:7884}：在屋内",
 	-- {npc:7744} Innkeeper Thulfram
-	["{npc:7744}: the last guide binds here, so this usually ticks at once; below ground"] = "",
+	["{npc:7744}: the last guide binds here, so this usually ticks at once; below ground"] = "{npc:7744}在地下；上份指南已经在这里绑定炉石，通常会立即标记完成",
 
 	-- Step 11: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
@@ -65,33 +65,33 @@ return {
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884}会继续收购项链：交上多余的",
 	-- {npc:5636} Gryphon Master Talonaxe
-	["{npc:5636}, beside the flight master at the top; inside"] = "",
+	["{npc:5636}, beside the flight master at the top; inside"] = "{npc:5636}，位于高处飞行管理员旁的屋内",
 	-- {area:47} The Hinterlands
 	["Talonaxe's next task waits for a later {area:47} guide."] = "狮鹫管理员沙拉克·鹰斧的下一个任务留到之后的{area:47}指南。",
 
 	-- Step 14: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "飞往{area:150}",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "{area:348}的飞行管理员",
 
 	-- Step 16: Theramore
 	["Theramore"] = "塞拉摩岛",
 	-- {npc:2616} Privateer Groy
 	["{npc:2616} stands on the docks where the boat lands."] = "{npc:2616}站在船停靠的码头上。",
 	-- {npc:4944} Captain Garran Vimes
-	["{npc:4944}, on the top floor"] = "",
+	["{npc:4944}, on the top floor"] = "{npc:4944}，位于最顶层",
 	-- {npc:4968} Lady Jaina Proudmoore
-	["{npc:4968}, on the top floor"] = "",
+	["{npc:4968}, on the top floor"] = "{npc:4968}，位于最顶层",
 	-- {npc:4794} Morgan Stern
-	["{npc:4794}, inside"] = "",
+	["{npc:4794}, inside"] = "{npc:4794}：在屋内",
 
 	-- Step 17: Cortello's Riddle
 	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "",
+	["Inside {area:498}"] = "进入{area:498}内部",
 
 	-- Step 18: Theramore flight master
-	["Theramore flight master"] = "",
+	["Theramore flight master"] = "塞拉摩飞行管理员",
 
 	-- Step 20: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed

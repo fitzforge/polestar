@@ -10,7 +10,7 @@ return {
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "飞往{area:42}",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "{area:150}的飞行管理员",
 
 	-- Step 3: Nesingwary's Expedition
 	-- {zone:1431} Duskwood · {area:99} Rebel Camp
@@ -44,11 +44,11 @@ return {
 	-- {npc:469} Lieutenant Doren
 	["{npc:469}, in the hut"] = "{npc:469}，在小屋里",
 	-- {npc:469} Lieutenant Doren · {quest:200} Bookie Herod
-	["{npc:469}: {quest:200}'s records, on the northern loop (04b)"] = "",
+	["{npc:469}: {quest:200}'s records, on the northern loop (04b)"] = "{npc:469}：{quest:200}的记录，北部路线会去取（04b）",
 
 	-- Step 12: Kurzen's Compound: kill these as you meet them
 	-- {area:101} Kurzen's Compound
-	["{area:101}: kill these as you meet them"] = "",
+	["{area:101}: kill these as you meet them"] = "{area:101}：沿途击杀以下目标",
 	-- {area:99} Rebel Camp
 	["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents."] = "库尔森叛军占据{area:99}东边的营地；在外围活动，那里有库尔森丛林战士和库尔森药草师，并拾取帐篷旁的补给箱。",
 	-- {item:2634} Venom Fern Extract · {object:263} Kurzen Supplies
@@ -56,15 +56,15 @@ return {
 
 	-- Step 14: Stranglethorn Vale: kill these as you meet them
 	-- {area:33} Stranglethorn Vale
-	["{area:33}: kill these as you meet them"] = "",
-	["Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
+	["{area:33}: kill these as you meet them"] = "{area:33}：沿途击杀以下目标",
+	["Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "注意：老虎活动区域附近有巨魔营地，拉怪不慎可能引来巨魔。\n注意：迅猛龙巢穴中的幼龙会在成年迅猛龙遭攻击时加入战斗。",
 
 	-- Step 15: Level 34
-	["Level 34"] = "",
+	["Level 34"] = "34级",
 	-- {area:796} Scarlet Monastery
-	["The quests from here on are 37: if you are short of 34, keep on the elder tigers in the hills south-west of Nesingwary's camp until level 34. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "",
+	["The quests from here on are 37: if you are short of 34, keep on the elder tigers in the hills south-west of Nesingwary's camp until level 34. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "接下来的任务为37级；如果还没到34级，就继续击杀奈辛瓦里营地西南丘陵中的老年猛虎，直到34级。也可组队挑战{area:796}副本（图书馆或武器库）。",
 	-- {npc:1085} Elder Stranglethorn Tiger
-	["grind on {npc:1085}"] = "",
+	["grind on {npc:1085}"] = "刷{npc:1085}升级",
 
 	-- Step 16: Nesingwary's Expedition
 	-- {npc:716} Barnil Stonepot · {item:2755} Green Hills of Stranglethorn
@@ -83,35 +83,35 @@ return {
 	-- {object:3202} Grom'gol · {area:35} Booty Bay
 	["Follow the main road south the length of the jungle, past the {object:3202} turn-off, to {area:35} on the southern cape."] = "沿主路向南穿过整片丛林，经过{object:3202}岔路，到达南部海角的{area:35}。",
 	-- {npc:2495} Drizzlik
-	["{npc:2495}, by the bank; inside"] = "",
+	["{npc:2495}, by the bank; inside"] = "{npc:2495}，位于银行旁的屋内",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}：在屋内",
 	-- {npc:6807} Innkeeper Skindle · {object:56910} The Salty Sailor Tavern
-	["{npc:6807}, {object:56910}; upstairs"] = "",
+	["{npc:6807}, {object:56910}; upstairs"] = "{npc:6807}，位于{object:56910}楼上",
 	-- {npc:2832} Nixxrax Fillamug · {object:56910} The Salty Sailor Tavern
-	["{npc:2832}, in the {object:56910}; upstairs"] = "",
+	["{npc:2832}, in the {object:56910}; upstairs"] = "{npc:2832}，位于{object:56910}楼上",
 	-- {npc:773} Krazek
-	["{npc:773}, in the tavern; upstairs"] = "",
+	["{npc:773}, in the tavern; upstairs"] = "{npc:773}，位于旅店楼上",
 	-- {npc:737} Kebok
 	["{npc:737}, in the tavern"] = "{npc:737}，在旅店里",
 	-- {npc:737} Kebok
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["{npc:737}: the Tumbled Crystals, on the northern loop"] = "",
+	["{npc:737}: the Tumbled Crystals, on the northern loop"] = "{npc:737}：打磨过的水晶，北部路线会去收集",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}，在旅店楼上",
 
 	-- Step 19: Fly to Sentinel Hill
 	-- {area:108} Sentinel Hill
-	["Fly to {area:108}"] = "",
+	["Fly to {area:108}"] = "飞往{area:108}",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "{area:35}的飞行管理员",
 
 	-- Step 21: The Savage Coast: kill these as you meet them
 	-- {area:301} The Savage Coast
-	["{area:301}: kill these as you meet them"] = "",
+	["{area:301}: kill these as you meet them"] = "{area:301}：沿途击杀以下目标",
 	-- {area:108} Sentinel Hill · {zone:1436} Westfall · {area:310} Crystalvein Mine
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
-	["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins on the coast to the north."] = "",
+	["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins on the coast to the north."] = "从{area:108}向南离开{zone:1436}，进入荆棘谷西北部，前往海岸附近的{area:310}；周围的晶背蜥蜴会掉落碎片。\n闹鬼的岛屿就在矿洞西南边的近海，只需抵达即可。血顶巨魔占据了北边海岸上的废墟。",
 	["The haunted island"] = "闹鬼的小岛",
 
 	-- Step 22: River crocolisks
@@ -130,16 +130,16 @@ return {
 
 	-- Step 25: Booty Bay
 	-- {npc:2495} Drizzlik
-	["{npc:2495}, inside"] = "",
+	["{npc:2495}, inside"] = "{npc:2495}：在屋内",
 	-- {npc:2495} Drizzlik
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["{npc:2495}: the Snapjaw Crocolisks, on the northern loop"] = "",
+	["{npc:2495}: the Snapjaw Crocolisks, on the northern loop"] = "{npc:2495}：钳嘴鳄鱼，北部路线会去击杀",
 	-- {npc:773} Krazek
-	["{npc:773}, upstairs"] = "",
+	["{npc:773}, upstairs"] = "{npc:773}：在楼上",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}：在楼上",
 	-- {npc:2496} Baron Revilgaz
-	["{npc:2496}: the water elementals rise around the haunted island, on the northern loop"] = "",
+	["{npc:2496}: the water elementals rise around the haunted island, on the northern loop"] = "{npc:2496}：水元素出没于闹鬼岛屿周围，北部路线会去",
 
 	-- Step 26: Fly to Stormwind
 	-- {zone:1453} Stormwind
@@ -148,17 +148,17 @@ return {
 	-- Step 28: Druid training
 	["Druid training"] = "德鲁伊训练",
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {object:2101} Mage Quarter
-	["{npc:5504}, the druid trainer, stands in {zone:1453}, north-west of the {object:2101}."] = "",
+	["{npc:5504}, the druid trainer, stands in {zone:1453}, north-west of the {object:2101}."] = "德鲁伊训练师{npc:5504}位于{zone:1453}，在{object:2101}西北边。",
 
 	-- Step 30: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "飞往{area:415}",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "{area:442}的飞行管理员",
 
 	-- Step 31: Heartswood
 	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
-	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "",
+	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "从{area:415}向西北进入丘陵：{quest:1738}是一棵发光的树，位于通往{area:413}的道路北边。如果接了{quest:65602}，{item:190309}就在{area:413}北边林间的一间房子里（26.6,22.0）。然后沿路向西前往石爪山。",
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
 	["{item:190309}, north of {area:413}"] = "{item:190309}，在{area:413}北边",
 

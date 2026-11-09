@@ -11,7 +11,7 @@ return {
 	["Learn {skill:129}"] = "学习{skill:129}",
 	-- {skill:129} First Aid · {item:118} Minor Healing Potion · {item:2447} Peacebloom · {item:2678} Mild Spices · {item:3371} Empty Vial · {skill:182} Herbalism
 	-- plural, as words: Linen Bandages = {item:1251} Linen Bandage
-	["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (character level 5, 1s); the arrow picks the nearest. Forever teaches {item:118} with it: {item:2447}, {item:2678} and an {item:3371}, orange to 55. With {skill:182} it can replace the Linen Bandages below."] = "你所在阵营的任何{skill:129}训练师都教授初级{skill:129}（角色等级5，1银）；箭头会指向最近的一位。Forever会同时教授{item:118}：{item:2447}、{item:2678}和一个{item:3371}，55前为橙色。有{skill:182}的话，它可以替代下面的亚麻绷带。",
+	["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (character level 5, 1s); the arrow picks the nearest. Forever teaches {item:118} with it: {item:2447}, {item:2678} and an {item:3371}, orange to 55. With {skill:182} it can replace the Linen Bandages below."] = "你所在阵营的任何{skill:129}训练师都教授初级{skill:129}（角色等级5，1银）；箭头会指向最近的一位。无限会同时教授{item:118}：{item:2447}、{item:2678}和一个{item:3371}，55前为橙色。有{skill:182}的话，它可以替代下面的亚麻绷带。",
 
 	-- Step 2: Linen Bandage: cloth
 	-- {item:1251} Linen Bandage
@@ -22,7 +22,7 @@ return {
 	-- Step 3: Linen Bandage (1-40)
 	-- {item:1251} Linen Bandage · {item:279968} First Aid Kit · {skill:129} First Aid · {item:159} Refreshing Spring Water
 	-- plural, as words: Linen Bandages = {item:1251} Linen Bandage
-	["{item:1251} is orange from 1 (yellow at 30, green at 45, grey at 60): about 41 crafts to 40. Bandages need no fire: craft them anywhere. At 20 the trainer also teaches {item:279968} (1s; the Camping 101: {skill:129} quest at your starting area's camp teaches it free), Forever's camping item for {skill:129}: three Linen Bandages and a {item:159}; it gives a few points until 25."] = "{item:1251}从1开始为橙色（30变黄，45变绿，60变灰）：约制作41次到40。绷带不需要火：随处都能制作。20时训练师还会教授{item:279968}（1银；起始区域营地的“野营入门：{skill:129}”任务可免费学会），这是Forever的{skill:129}野营物品：三条亚麻绷带和一瓶{item:159}；25前能提供少量点数。",
+	["{item:1251} is orange from 1 (yellow at 30, green at 45, grey at 60): about 41 crafts to 40. Bandages need no fire: craft them anywhere. At 20 the trainer also teaches {item:279968} (1s; the Camping 101: {skill:129} quest at your starting area's camp teaches it free), Forever's camping item for {skill:129}: three Linen Bandages and a {item:159}; it gives a few points until 25."] = "{item:1251}从1开始为橙色（30变黄，45变绿，60变灰）：约制作41次到40。绷带不需要火：随处都能制作。20时训练师还会教授{item:279968}（1银；起始区域营地的“野营入门101：{skill:129}”任务可免费学会），这是无限的{skill:129}野营物品：三条亚麻绷带和一瓶{item:159}；25前能提供少量点数。",
 
 	-- Step 4: Heavy Linen Bandage: cloth
 	-- {item:2581} Heavy Linen Bandage

@@ -8,12 +8,12 @@
 return {
 	-- Step 1: Auberdine
 	-- {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis
-	["From the dock, up to the north end of the village first ({npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south."] = "",
+	["From the dock, up to the north end of the village first ({npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south."] = "从码头先上行到村庄北端（{npc:3702} 在月亮井旁，还有 {npc:2913}），再沿主街往下走：通缉告示在旅店外，{npc:3693} 在主街东端、道路向南出村的位置。",
 	["The WANTED poster"] = "通缉布告",
 
 	-- Step 3: Onu
 	-- {quest:948} Onu · {npc:270269} Arbal · {npc:11218} Kerlonian Evershade
-	["{quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "",
+	["{quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "{quest:948}是古树之林中的古树，{npc:270269}和{npc:11218}在他旁边沉睡。",
 
 	-- Step 4: Lunar Fungus and Earthroot
 	-- {item:15851} Lunar Fungus · {item:2449} Earthroot
@@ -24,7 +24,7 @@ return {
 
 	-- Step 5: The Grove of the Ancients
 	-- {quest:952} Grove of the Ancients
-	["The {quest:952}"] = "",
+	["The {quest:952}"] = "{quest:952}",
 	-- {quest:1003} Buzzbox 525
 	-- plural, as words: Grizzled Thistle Bears = {npc:2165} Grizzled Thistle Bear
 	["Grizzled Thistle Bears roam the hills around the Grove; {quest:1003} stands west of it among them."] = "{npc:2165}在林地周围的山丘上游荡；{quest:1003}就在林地西边的熊群之中。",
@@ -53,18 +53,18 @@ return {
 
 	-- Step 7: Prospector Remtravel
 	-- {area:450} Remtravel's Excavation · {npc:10323} Murkdeep
-	["{area:450} lies on the coast south of {npc:10323}'s beach. Protect the prospector while he searches for the fossil.\nCareful: Ambushers appear as he passes certain spots: a scout comes out from under the board ramp, and more scouts come out when he checks the tent."] = "",
+	["{area:450} lies on the coast south of {npc:10323}'s beach. Protect the prospector while he searches for the fossil.\nCareful: Ambushers appear as he passes certain spots: a scout comes out from under the board ramp, and more scouts come out when he checks the tent."] = "{area:450}位于{npc:10323}所在海滩的南侧海岸。保护勘察员寻找化石。\n注意：他经过特定地点时会触发伏击：经过木板坡道时，一名斥候会从下方出现；检查帐篷时，还会出现更多斥候。",
 
 	-- Step 8: Murkdeep's beach
 	-- {npc:10323} Murkdeep
 	["{npc:10323}'s beach"] = "{npc:10323}的海滩",
 	-- {npc:10323} Murkdeep · {area:450} Remtravel's Excavation
-	["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Four beached remains lie on the beaches west and south-west of {area:450}: take them on the way north to his camp."] = "",
+	["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Four beached remains lie on the beaches west and south-west of {area:450}: take them on the way north to his camp."] = "{npc:10323}在主宰之剑西侧海滩扎营。击杀营火旁的鱼人，他会在第三波与猎犬一同出现。{area:450}以西和西南的海滩上共有四处搁浅残骸，向北前往营地时顺路接取。",
 
 	-- Step 11: The shore west of the Grove
-	["The shore west of the Grove"] = "",
+	["The shore west of the Grove"] = "古树之林西侧海岸",
 	-- {area:442} Auberdine · {quest:4728} Beached Sea Creature
-	["On the way north to {area:442}, the last {quest:4728} lies on the shore west of the Grove."] = "",
+	["On the way north to {area:442}, the last {quest:4728} lies on the shore west of the Grove."] = "向北返回{area:442}时，最后一处{quest:4728}位于古树之林西侧海岸。",
 
 	-- Step 12: Auberdine
 	["Follow the road north."] = "沿道路向北。",
@@ -74,7 +74,7 @@ return {
 	["She gives you the {item:15826}"] = "她会给你{item:15826}",
 
 	-- Step 13: On the way
-	["On the way"] = "",
+	["On the way"] = "顺路完成",
 
 	-- Step 14: The naga
 	["The naga"] = "纳迦",
@@ -88,7 +88,7 @@ return {
 	-- {npc:6667} Gelkak Gyromast
 	-- plural, as words: Giant Foreststriders = {npc:2323} Giant Foreststrider · Raging Reef Crawlers = {npc:2236} Raging Reef Crawler
 	["{npc:6667} hides on the little island off the ruins. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667}躲在废墟外的小岛上。钥匙碎片掉落自凶猛的森林陆行鸟（上段）、灰雾鱼人（中段）和狂暴暗礁蟹（下段）。",
-	["Underwater"] = "",
+	["Underwater"] = "在水下",
 
 	-- Step 16: Strange Lockbox
 	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox
@@ -96,7 +96,7 @@ return {
 
 	-- Step 17: Mist's Edge: kill these as you meet them
 	-- {area:452} Mist's Edge
-	["{area:452}: kill these as you meet them"] = "",
+	["{area:452}: kill these as you meet them"] = "{area:452}：沿途击杀以下目标",
 
 	-- Step 18: Back south
 	["Back south"] = "返回南方",
@@ -105,20 +105,20 @@ return {
 
 	-- Step 19: Volcor
 	-- {npc:3692} Volcor · {area:449} Master's Glaive · {npc:3693} Terenthis · {area:442} Auberdine
-	["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "",
+	["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "{npc:3692} 藏在 {area:449} 东侧的山中。护送他返回道路；途中他会参与战斗。下次回到 {area:442} 时，找 {npc:3693} 交护送任务。",
 	-- {npc:3692} Volcor · {area:455} Blackwood Den
-	["{npc:3692}, inside {area:455}"] = "",
-	["His walk ends at the road, where Grimclaw waits"] = "",
+	["{npc:3692}, inside {area:455}"] = "{npc:3692}，位于{area:455}内部",
+	["His walk ends at the road, where Grimclaw waits"] = "他走到道路上、锐爪等候的位置就结束护送",
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
 	["{npc:12298}: use the {item:15826} on them; they roam all of {zone:1439}"] = "{npc:12298}：对它们使用{item:15826}；它们在整个{zone:1439}游荡",
 
 	-- Step 20: Auberdine
 	-- {npc:3694} Sentinel Selarin · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
-	["{npc:3694}: for {npc:3691} in {area:415}, in the next guide"] = "",
+	["{npc:3694}: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}：交给 {area:415} 的 {npc:3691}，见下一篇指南",
 
 	-- Step 21: Auberdine flight master
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "{area:442}的飞行管理员",
 
 	-- Step 22: The Great Cat Spirit
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
@@ -126,11 +126,11 @@ return {
 
 	-- Step 25: Moonglade
 	-- {spell:18960} Teleport: Moonglade
-	["Cast {spell:18960}"] = "",
+	["Cast {spell:18960}"] = "施放{spell:18960}",
 
 	-- Step 26: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "施放{spell:18960}。{npc:11802}在{area:2361}他所在建筑的楼上：从室内上去，箭头无法区分楼层。如果还没有那里的飞行路线，就去学习。",
 
 	-- Step 27: Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
@@ -151,5 +151,5 @@ return {
 
 	-- Step 32: To Darnassus
 	-- {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine · {zone:1440} Ashenvale
-	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}."] = "",
+	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}."] = "通过传送门上去找 {npc:4217}，再飞回 {area:442}，沿路向南前往 {zone:1440}。",
 }
