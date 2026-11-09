@@ -184,6 +184,12 @@ step Ratchet
   turnin 1111                         -- Wharfmaster Dizzywig, on the docks
   note Dizzywig's parts go back to Kravel in the Shimmering Flats, off the route: leave them.
 
+step Mebok Mizzyrix
+  when complete 1221
+  zone The Barrens
+  tip The Blueleaf Tubers from your Razorfen Kraul run: Mebok takes them with the crate and the stick.
+  turnin 1221                         -- Mebok Mizzyrix
+
 step The Affray
   zone The Barrens
   only Warrior
