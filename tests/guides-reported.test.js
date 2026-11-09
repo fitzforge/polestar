@@ -9060,3 +9060,17 @@ test('Desolace, both sides: the Book of the Ancients uses the Gem of the Serpent
 	}
 	assert.doesNotMatch(fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/alliance/30-40/06-badlands.guide'), 'utf8'), /Kragaru, a centaur/, 'Kragaru is no centaur');
 });
+
+// Final route review, Horde 40-60 (0.3.6): a quest ready to hand in is handed in on the city stop that walks past its
+// ender. A Grim Discovery (2976) went to Belgrom in the Valley of Honor five levels later, and Bone-Bladed Weapons
+// (4300, ravasaur claws from Un'Goro) to Jes'rimon three levels later, though the route trains in Orgrimmar first.
+test('Horde 45 and 53 Orgrimmar stops: Belgrom and Jes\'rimon take their ready hand-ins on the way through', { skip }, () => {
+	const fer = goals('forever/horde/40-50/02-feralas.guide');
+	const grim = fer[at(fer, 'turnin 2976', is('turnin', 2976))].s;
+	assert.equal(grim, fer[at(fer, 'turnin 7732', is('turnin', 7732))].s, 'Belgrom on the Orgrimmar stop after Feralas');
+	assert.equal(grim, fer[at(fer, 'turnin 3121', is('turnin', 3121))].s, 'with Neeru, same stop');
+	const fel = goals('forever/horde/50-60/02-felwood.guide');
+	const jes = fel[at(fel, 'turnin 4300', is('turnin', 4300))];
+	assert.ok(jes.step.when.some((p) => p.k === 'onquest' && !p.neg), 'only with the claws\' quest in the log');
+	assert.ok(jes.s < fel[at(fel, 'fly Splintertree Post', (g) => g.t === 'fly')].s, 'before the flight out of Orgrimmar');
+});

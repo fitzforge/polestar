@@ -425,6 +425,7 @@ step Orgrimmar
   accept 649                            -- Dran Droffers
   turnin 649                            -- Malton Droffers
   accept 650                            -- for the Hinterlands, around level 48
+  turnin 2976                           -- Belgrom Rockmaul, Valley of Honor
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   tip Valley of Honor, then the Cleft of Shadow and the Valley of Spirits.
   turnin 3121                           -- Neeru Fireblade, Cleft of Shadow

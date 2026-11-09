@@ -5,6 +5,30 @@
 		"pairs": [
 			{
 				"a": [
+					"turnin",
+					2976
+				],
+				"b": [
+					"accept",
+					3122
+				],
+				"faction": "Horde",
+				"why": "Final route review, Horde 40-60 (0.3.6): A Grim Discovery (level 45, no objective) goes to Belgrom Rockmaul in the Valley of Honor on 40-50/02's Orgrimmar stop at 45, where Neeru gives Return to Witch Doctor Uzer'i (3122); the guide carried it to 40-50/06's Orgrimmar stop at 50."
+			},
+			{
+				"a": [
+					"turnin",
+					4300
+				],
+				"b": [
+					"accept",
+					5156
+				],
+				"faction": "Horde",
+				"why": "Final route review, Horde 50-60 (0.3.6): Bone-Bladed Weapons (5100 XP) is ready once Un'Goro's ravasaur claws are in; 50-60/02 trains in Orgrimmar at 53 before Felwood's Emerald Sanctuary (Taronn's 5156), so Jes'rimon takes it then, not on 50-60/04's Orgrimmar stop at 56."
+			},
+			{
+				"a": [
 					"task",
 					553
 				],

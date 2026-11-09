@@ -118,6 +118,12 @@ step Orgrimmar
   zone Orgrimmar
   goto 51.5,45.6 "The middle of Orgrimmar"
 
+step Jes'rimon
+  zone Orgrimmar
+  when onquest 4300
+  tip Jes'rimon takes the ravasaur claws from Un'Goro; he stands in the Cleft of Shadow, a short walk from the middle of the city.
+  turnin 4300                           -- Jes'rimon, the Cleft of Shadow
+
 step Class trainer
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
