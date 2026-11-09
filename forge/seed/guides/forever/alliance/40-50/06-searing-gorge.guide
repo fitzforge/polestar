@@ -1,6 +1,6 @@
 # Searing Gorge from Thorium Point, Alliance 47 to 49 (consensus visit 55).
-# Flow: Thelsamar -> the Badlands -> Thorium Point (flight path, hub) -> Zamael and Kalaran -> the Cauldron
-# (golems and elementals, then the Dark Iron dwarves) -> the Greater Lava Spiders in the south-west -> Kalaran
+# Flow: Thelsamar -> the Badlands -> Thorium Point (flight path, hub) -> Zamael and Velarok -> the Cauldron
+# (golems and elementals, then the Dark Iron dwarves) -> the Greater Lava Spiders in the south-west -> Velarok
 # -> the Slag Pit -> Thorium Point -> the Grimesilt Dig Site -> Dorius' escort to Dustfire Valley -> hearth to
 # Thelsamar.
 # Order changes against the simulator, same quest set:
@@ -15,7 +15,7 @@
 # Class quests: none in this visit.
 # Left out (not in the route): Ledger from Tanaris (4450: Swamp of Sorrows and Dustwallow Marsh),
 # WANTED: Overseer Maltorius (7701, elite), Prayer to Elune's follow-up (3378, elite Twilight cultists), The
-# Flame's Casing and the rest of Kalaran's chain (3452 on, elite cultists), The Horn of the Beast (3181, elite).
+# Flame's Casing and the rest of Velarok's chain (3452 on, elite cultists), The Horn of the Beast (3181, elite).
 guide forever/alliance/40-50/06-searing-gorge
 title Searing Gorge
 faction Alliance
@@ -47,8 +47,8 @@ step Zamael Lunthistle
   accept 3377
   turnin 3377
 
-step Kalaran Windblade
-  tip Kalaran stands on the rim of the Cauldron, south of Thorium Point. Listen to his story.
+step Velarok Windblade
+  tip Velarok stands on the rim of the Cauldron, south of Thorium Point. Listen to his story.
   accept 3441
   turnin 3441
   accept 3442
@@ -56,12 +56,12 @@ step Kalaran Windblade
 # ---------------------------------------------------------------- The Cauldron
 
 step Golems and elementals
-  tip Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts.
+  tip Heavy War Golems patrol the floor of the Cauldron below Velarok; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts.
   kill 5854 quest 7723                -- Heavy War Golem
   collect 10511 quest 3442            -- Golem Oil
   collect 10509 quest 3442            -- Heart of Flame
 
-step Kalaran Windblade
+step Velarok Windblade
   turnin 3442
   accept 3443
 
@@ -79,7 +79,7 @@ step Greater Lava Spiders
   tip The spiders roam the plateaus and lava pools in the south-west of the gorge.
   kill 5858 quest 7724                -- Greater Lava Spider
 
-step Kalaran Windblade
+step Velarok Windblade
   turnin 3443
 
 step The Slag Pit

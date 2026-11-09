@@ -156,6 +156,7 @@ step Cenarion Hold
   turnin 8281
   turnin 8278
   accept 8282                         -- Noggle Ficklespragg, upstairs beside Beetix
+  accept 8304                         -- Commander Mar'alith
 
 step Hive'Ashi: kill these as you meet them
   zone Silithus
@@ -174,7 +175,6 @@ step Hive'Zora
 
 step Cenarion Hold
   turnin 8318                         -- Bor Wildmane
-  accept 8304                         -- Commander Mar'alith
   turnin 8284                         -- Geologist Larksbane
   accept 8285
 

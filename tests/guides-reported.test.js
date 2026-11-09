@@ -5892,13 +5892,24 @@ test('forever/alliance/40-50/03-feralas.guide: final review: the boat to the coa
 });
 
 // Final route review, Alliance 40-60: Loch Modan once each way (Ghak's quest from Thelsamar where the flight lands, the
-// seed's order). The Booty Bay flight after Nethergarde was only for The Monogrammed Sash's group; since 0.3.7 it is
-// for everyone (MacKinley and the Bloodsail captains), and the Sash and Negolash steps stay group-only.
+// seed's order). Since 0.3.7 the loop is done from the Badlands at 43, where the route already is: Ghak's quest is taken
+// in Thelsamar on the way into the Badlands (Stranglethorn guide's end) and handed in where the Badlands guide flies
+// out, and the Hinterlands guide only sets the hearth there. The Booty Bay flight after Nethergarde was only for The
+// Monogrammed Sash's group; since 0.3.7 it is for everyone (MacKinley and the Bloodsail captains), and the Sash and
+// Negolash steps stay group-only.
 test('forever/alliance/40-50/05-the-hinterlands.guide: final review: Loch Modan once each way, the Sash and Negolash only for the group', { skip }, () => {
+	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	assert.ok(at(stv, 'fly Thelsamar', (g) => g.t === 'fly' && /Thelsamar/.test(g.location || '')) < at(stv, 'accept 17', is('accept', 17)), 'Ghak where the flight lands');
+	const bad = goals('forever/alliance/40-50/02-badlands.guide');
+	const sb = (what, pred) => bad[at(bad, what, pred)].s;
+	assert.ok(sb('turnin 706', is('turnin', 706)) < sb('turnin 739', is('turnin', 739)), 'the Badlands first, then Ironband');
+	assert.ok(sb('turnin 739', is('turnin', 739)) < sb('urns', (g) => g.t === 'collect' && g.quest === 704), 'Ironband, then the dig');
+	assert.equal(sb('urns', (g) => g.t === 'collect' && g.quest === 704), sb('mushrooms', (g) => g.t === 'collect' && g.quest === 17), 'urns and mushrooms in one step');
+	assert.ok(sb('turnin 704', is('turnin', 704)) < sb('turnin 17', is('turnin', 17)), 'Ironband on the way back, then Ghak');
+	assert.ok(sb('turnin 17', is('turnin', 17)) < sb('fly Southshore', (g) => g.t === 'fly' && /Southshore/.test(g.location || '')), 'before the flight out');
 	const list = goals('forever/alliance/40-50/05-the-hinterlands.guide');
-	const stepOf = (what, pred) => list[at(list, what, pred)].s;
-	assert.ok(stepOf('accept 17', is('accept', 17)) < stepOf('turnin 739', is('turnin', 739)), 'Ghak before Ironband');
-	assert.ok(stepOf('turnin 704', is('turnin', 704)) < stepOf('turnin 17', is('turnin', 17)), 'Ironband on the way back, then Ghak');
+	assert.ok(!list.some(({ goal }) => [17, 739, 704].includes(goal.quest)), 'no second Loch Modan loop');
+	assert.ok(list.some(({ goal }) => goal.t === 'sethome' && /Stoutlager/.test(goal.location || goal.label || JSON.stringify(goal))), 'the hearth for the Searing Gorge guide');
 	for (const q of [8552, 8554]) {
 		const e = list[at(list, `accept ${q}`, is('accept', q))];
 		assert.ok((e.step.when || []).some((w) => w.k === 'group'), `${q} only for the group`);
@@ -5911,7 +5922,9 @@ test('forever/alliance/40-50/06-searing-gorge.guide: final review: Dorius taken 
 	const list = goals('forever/alliance/40-50/06-searing-gorge.guide');
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
 	assert.equal(stepOf('accept 3367', is('accept', 3367)), stepOf('complete 3367', is('complete', 3367)), 'accepted on the escort step');
-	assert.ok(stepOf('accept 3367', is('accept', 3367)) > stepOf('turnin 7722', is('turnin', 7722)), 'at the end, after Thorium Point');
+	// Since 0.3.7 the escort follows the outhouse, where Dorius stands, instead of a ride back there at the end.
+	assert.ok(stepOf('accept 3367', is('accept', 3367)) > stepOf('turnin 4449', is('turnin', 4449)), 'after the outhouse');
+	assert.ok(stepOf('accept 3367', is('accept', 3367)) < stepOf('accept 7728', is('accept', 7728)), 'before Thorium Point');
 	assert.equal(stepOf('turnin 4449', is('turnin', 4449)), stepOf('kill 5839', (g) => g.t === 'kill' && g.quest === 4449), 'Caught! with its geologists');
 	assert.ok(stepOf('turnin 4449', is('turnin', 4449)) < stepOf('accept 7728', is('accept', 7728)), 'before Thorium Point');
 	assert.ok(!list.some(({ step }) => step.along), 'no along lists');
@@ -8482,4 +8495,32 @@ test('Alliance Winterspring and Feralas: the long top-ups are split onto the que
 	assert.ok(fe.some(({ goal, s }) => goal.t === 'level' && lvlOf(goal) === 44.5 && s === fe[hide].s), '03-feralas: level 44.5 on the Rage Scar yetis');
 	const pristine = at(fe, 'turnin 7735', is('turnin', 7735));
 	assert.ok(required(fe[pristine]), 'Pristine Yeti Hide is counted');
+});
+
+// Alliance 40-60 flow pass (0.3.7): quest givers and hand-ins the route walked past and came back to later.
+test('forever/alliance 40-60: givers and hand-ins taken when the route passes them', { skip }, () => {
+	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const boat = at(stv, 'the Theramore boat', (g) => g.t === 'goto' && g.x === 71.6 && g.y === 56.4);
+	const vimes = at(stv, 'turnin 1287', is('turnin', 1287));
+	assert.ok(vimes < boat && stv[vimes].step.only, 'Humans report to Vimes before the Theramore boat');
+	const thyntel = at(stv, 'turnin 1037', is('turnin', 1037));
+	assert.ok(thyntel < at(stv, 'the walk to the riding trainer', (g) => g.t === 'goto' && g.x === 38.7 && g.y === 15.8), 'Night Elves see Thyn\'tel on the way in');
+	const sg = 'forever/alliance/40-50/06-searing-gorge.guide';
+	assert.ok(!/Kalaran/.test(fs.readFileSync(path.join(OFFICIAL_DIR, sg), 'utf8')), 'the Searing Gorge NPC is Velarok Windblade in Forever');
+	const g6 = goals(sg);
+	const s6 = (what, pred) => g6[at(g6, what, pred)].s;
+	assert.ok(s6('turnin 3442', is('turnin', 3442)) < s6('dagger', (g) => g.t === 'collect' && g.quest === 3443), 'the dagger is hunted with Forging the Shaft in the log');
+	assert.equal(s6('turnin 3443', is('turnin', 3443)), s6('dagger', (g) => g.t === 'collect' && g.quest === 3443) + 1, 'handed in right after');
+	const ws = goals('forever/alliance/50-60/03-winterspring.guide');
+	const sw = (what, pred) => ws[at(ws, what, pred)].s;
+	assert.equal(sw('scourgestones', (g) => g.t === 'collect' && g.quest === 5509), sw('spirits', (g) => g.t === 'kill' && g.quest === 5211), 'the scourgestones at Corin\'s Crossing with the spirits');
+	const wpl = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const sp = (what, pred) => wpl[at(wpl, what, pred)].s;
+	assert.ok(sp('turnin 978', is('turnin', 978)) < sp('accept 1047', is('accept', 1047)), 'Erelas before the portal up to Darnassus');
+	assert.ok(sp('turnin 1124', is('turnin', 1124)) < sp('accept 8277', is('accept', 8277)), 'Layo where the pass comes out, before Cenarion Hold');
+	assert.equal(sp('accept 9415', is('accept', 9415)), sp('accept 8277', is('accept', 8277)), 'Torrig on the first Cenarion Hold stop');
+	assert.equal(sp('accept 8284', is('accept', 8284)), sp('accept 8277', is('accept', 8277)), 'Larksbane on the first Cenarion Hold stop');
+	const si = goals('forever/alliance/50-60/06-silithus.guide');
+	const ss = (what, pred) => si[at(si, what, pred)].s;
+	assert.equal(ss('accept 8304', is('accept', 8304)), ss('accept 8282', is('accept', 8282)), 'Mar\'alith on the first Cenarion Hold stop');
 });

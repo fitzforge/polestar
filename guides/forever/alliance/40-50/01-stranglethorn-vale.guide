@@ -12,7 +12,8 @@ next forever/alliance/40-50/02-badlands
 # Added here: Cortello's Riddle (625), The Brassbolts Brothers (2769), ... and Bugs (1258).
 # Since 2026-11-07 The Black Shield (1253, 1319, 1320) and Suspicious Hoofprints (1284) are done on the Theramore
 # crossing at 33-34 (30-40/03).
-# Left out: The Bloodsail Buccaneers (608), and A Meal Served Cold (212): its 30-minute limit can't last from Stormwind to the
+# The Bloodsail Buccaneers (608) is taken on the level-48 Booty Bay stop (40-50/05).
+# Left out: A Meal Served Cold (212): its 30-minute limit can't last from Stormwind to the
 # Cold Eye Basilisks and back.
 
 # ---------------------------------------------------------------- Theramore
@@ -133,6 +134,15 @@ step Dustwallow Marsh
   zone Dustwallow Marsh
   when level>=40
   goto 67.5,51.2 "Dustwallow Marsh"
+
+step Foothold Citadel
+  only Human
+  zone Dustwallow Marsh
+  when level>=40
+  tip The boat leaves from Theramore: report to Captain Garran Vimes on the top floor of Foothold Citadel on the way to the docks.
+  turnin 1287                         -- Captain Garran Vimes, on the top floor
+  accept 1288
+  turnin 1288                         -- Lady Jaina Proudmoore, on the top floor
 
 step Boat to Menethil Harbor
   only Human
@@ -328,6 +338,7 @@ step Booty Bay
   turnin 587                          -- Deeg, on the top floor
   accept 348                          -- Fin Fizracket
   turnin 604                          -- Fleet Master Seahorn
+  note Seahorn now offers The Bloodsail Buccaneers: leave it. Its three captains are level 45-48 with crews around them, and the route brings you back to Seahorn at 48 for it.
   turnin 576                          -- Dizzy One-Eye
 
 step Gorilla hills
@@ -405,6 +416,7 @@ step Panther Mastery
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Bhag'thera is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.
   collect 3876 quest 193.1 @49.4,24.0 map 1434
 
+# For #1392 (grind-mob ids on level lines): level 42.16 grind 667   (Skullsplitter Warrior)
 step Level 42.16 at Zul'Mamwe
   when !group 193
   when !group 197
@@ -449,6 +461,7 @@ step Hemet Nesingwary
   when group 208
   turnin 208
 
+# For #1392 (grind-mob ids on level lines): level 42.16 grind 690   (Cold Eye Basilisk)
 step Level 42.16
   when level<42.16
   tip Still short of level 42.16 after the hunts you did? Make up the rest on the Cold Eye Basilisks by the Crystalvein Mine, on your way south to Booty Bay. Or, with a group, run the Uldaman dungeon instead.
@@ -523,6 +536,12 @@ step Fly to Rut'theran Village
   when level>=40
   goto 36.4,45.6 "Auberdine flight master"
   fly "Rut'theran Village"
+
+step Thyn'tel Bladeweaver
+  only NightElf
+  zone Darnassus
+  when level>=40
+  turnin 1037
 
 step Darnassus
   only NightElf
@@ -681,6 +700,11 @@ step Fly to Thelsamar
   goto 55.9,47.9 "Ironforge flight master"
   fly "Thelsamar"
   zone Loch Modan
+
+step Thelsamar
+  zone Loch Modan
+  tip Ghak Healtouch is below ground in Thelsamar, by the inn. His mushrooms grow in the Uldaman dig in the Badlands; the next guide takes you there and back through Thelsamar.
+  accept 17                           -- Ghak Healtouch, below ground
 
 step Badlands
   zone Badlands

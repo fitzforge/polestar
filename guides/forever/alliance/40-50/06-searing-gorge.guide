@@ -41,11 +41,18 @@ step Level 48.27
   goto 63.3,60.6 map 1427 "Dark Iron Geologist"
   level 48.27 grind 5839               -- grind on Dark Iron Geologist
 
+step Dorius Stonetender
+  tip Dorius stands by the road beside the Grimesilt Dig Site. Escort him north-east to Dustfire Valley and keep him alive; when it is over, read the Singed Letter he leaves on the road.
+  accept 3367
+  complete 3367
+  turnin 3367                         -- Singed Letter
+  accept 3368                         -- For Curator Thorius in Ironforge, later
+
 # ---------------------------------------------------------------- Thorium Point
 
 step Thorium Point
   zone Searing Gorge
-  tip Ride north-west across the Cauldron to Thorium Point, the scaffolded camp on the north-west rim.
+  tip Ride west along the north of the Gorge to Thorium Point, the scaffolded camp on the north-west rim.
   getfp "Thorium Point"
   accept 7722                         -- Master Smith Burninate
   accept 7727
@@ -69,39 +76,46 @@ step Zamael Lunthistle
   turnin 3377
 
 step Greater Lava Spiders
-  tip The spiders roam the plateaus and lava pools south of Zamael, on the way to Kalaran.
+  tip The spiders roam the plateaus and lava pools south of Zamael, on the way to Velarok.
   kill 5858 quest 7724                -- Greater Lava Spider
 
-step Kalaran Windblade
-  tip Kalaran stands on the rim of the Cauldron, south of Thorium Point. Listen to his story.
+step Velarok Windblade
+  tip Velarok stands on the rim of the Cauldron, south of Thorium Point. Listen to his story.
   accept 3441
 
 step Divine Retribution
   kill 8479 quest 3441.1 @39.1,39.0 map 1427
 
-step Kalaran Windblade
+step Velarok Windblade
   turnin 3441
   accept 3442
 
 # ---------------------------------------------------------------- The Cauldron
-step Firewatch Ridge: kill these as you meet them
+step Golems and elementals
   zone Searing Gorge
-  tip Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts.
-  tip Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a Thorium Plated Dagger. The Steamsmiths work at the furnaces in the middle (the Smithing Tuyere), the Lookouts stand on the southern ridges (the Spyglass). Any Dark Iron may drop the Grimesilt Outhouse Key: keep it.
-  tip Careful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee.
+  tip Heavy War Golems patrol the floor of the Cauldron below Velarok; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts.
   collect 10509 quest 3442            -- Heart of Flame
   collect 10511 quest 3442            -- Golem Oil
+  kill 5854 quest 7723                -- Heavy War Golem
+
+step Velarok Windblade
+  turnin 3442
+  accept 3443
+
+step Dark Iron dwarves: kill these as you meet them
+  zone Searing Gorge
+  tip Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a Thorium Plated Dagger. The Steamsmiths work at the furnaces in the middle (the Smithing Tuyere), the Lookouts stand on the southern ridges (the Spyglass). Any Dark Iron may drop the Grimesilt Outhouse Key: keep it.
+  tip Careful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee.
   kill 5846 quest 7729                -- Dark Iron Taskmaster
   kill 5844 quest 7729                -- Dark Iron Slaver
-  kill 5854 quest 7723                -- Heavy War Golem
+  collect 10551 quest 3443            -- Thorium Plated Dagger
   collect 18960 quest 7728            -- Lookout's Spyglass
   collect 11818 x1 optional           -- Grimesilt Outhouse Key
   accept 4451 optional
   collect 18959 quest 7728            -- Smithing Tuyere
 
-step Kalaran Windblade
-  turnin 3442
-  accept 3443
+step Velarok Windblade
+  turnin 3443
 
 step Thorium Point
   turnin 7729
@@ -112,7 +126,6 @@ step Thorium Point
 step Searing Gorge: kill these as you meet them
   zone Searing Gorge
   tip The Slag Pit opens in the north of the Cauldron. The Secret Plans lie on its upper ledge; Incendosaurs swim in the lava pools further in, so pull them to the edge. Stay clear of Overseer Maltorius and his elite guards deep inside.
-  collect 10551 quest 3443
   collect 18922 quest 7722            -- Secret Plans: Fiery Flux; below ground
   kill 9318 quest 7727                -- Incendosaur
 
@@ -132,17 +145,7 @@ step Level 48.66
   goto 46.0,22.0 map 1427 "Incendosaur"
   level 48.66 grind 9318               -- grind on Incendosaur
 
-step Thorium Point
-  turnin 7727
-  turnin 7722                         -- Master Smith Burninate
-
-step Dark Iron dwarves
-  collect 10551 quest 3443            -- Thorium Plated Dagger
-
-step Kalaran Windblade
-  turnin 3443
-
-step Kalaran Windblade
+step Velarok Windblade
   when group 3452
   accept 3452
 
@@ -151,7 +154,7 @@ step The Flame's Casing
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Twilight Dark Shaman (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back.
   collect 10552 quest 3452.1 @23.5,36.5 map 1427 group 3
 
-step Kalaran Windblade
+step Velarok Windblade
   when group 3452
   turnin 3452
 
@@ -169,18 +172,13 @@ step Margol's Horn
   accept 3181 optional
 
 step The Grimesilt outhouse
+  when onquest 4451
   turnin 4451 optional
 
-step Dorius Stonetender
-  tip Back at the Grimesilt Dig Site: Dorius stands by the road. Escort him north-east to Dustfire Valley and keep him alive; when it is over, read the Singed Letter he leaves on the road.
-  accept 3367
-  complete 3367
-  turnin 3367                         -- Singed Letter
-  accept 3368                         -- For Curator Thorius in Ironforge, later
-
-step Searing Gorge
+step Thorium Point
   zone Searing Gorge
-  goto 37.9,30.4 "Searing Gorge"
+  turnin 7727
+  turnin 7722                         -- Master Smith Burninate
 
 step Fly to Ironforge
   zone Searing Gorge

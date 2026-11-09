@@ -36,6 +36,46 @@ step Lethlor Ravine
 step Hammertoe's Digsite
   turnin 706 optional                 -- Sigrun Ironhew
 
+# ---------------------------------------------------------------- Loch Modan
+
+step Into Loch Modan
+  zone Badlands
+  goto 49.4,8.0 "Into Loch Modan"
+
+step Ironband's Excavation Site
+  zone Loch Modan
+  tip Ride north through the pass into Loch Modan and east along the south shore to Ironband's camp.
+  turnin 739                          -- Prospector Ironband
+  accept 704
+
+step Into Badlands
+  zone Badlands
+  goto 49.4,8.0 "Into Badlands"
+
+step Badlands
+  zone Badlands
+  goto 37.4,14.9 "Badlands"
+
+step The Uldaman dig
+  zone Badlands
+  tip Back through the pass: the Stonevault troggs dig outside Uldaman at the Badlands' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself.
+  collect 8047 quest 17               -- Magenta Fungus Cap; below ground
+  collect 4610 quest 704              -- Carved Stone Urn; below ground
+
+step Back to Loch Modan
+  zone Badlands
+  goto 49.4,8.0 "Loch Modan"
+
+step Ironband's Excavation Site
+  zone Loch Modan
+  tip Ride back north to Ironband's camp.
+  turnin 704                          -- Prospector Ironband
+
+step Thelsamar
+  zone Loch Modan
+  tip Ride west along the loch to Thelsamar.
+  turnin 17                           -- Ghak Healtouch, below ground
+
 # ---------------------------------------------------------------- Southshore and Aerie Peak
 
 step Fly to Southshore

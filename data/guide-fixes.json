@@ -2979,7 +2979,7 @@
 				"objective": 1
 			},
 			"along": false,
-			"note": "Fiery Menace!: the Greater Lava Spiders roam the plateaus south of Zamael Lunthistle, on the walk from him to Kalaran Windblade, so they are a step of their own there; the along list from Thorium Point kept them on screen instead.",
+			"note": "Fiery Menace!: the Greater Lava Spiders roam the plateaus south of Zamael Lunthistle, on the walk from him to Velarok Windblade, so they are a step of their own there; the along list from Thorium Point kept them on screen instead.",
 			"source": [
 				{
 					"kind": "recording",
@@ -3030,7 +3030,7 @@
 				"objective": 1
 			},
 			"along": false,
-			"note": "Forging the Shaft: the Thorium Plated Daggers come from the Dark Iron dwarves on the Slag Pit and Dark Iron steps; the along list from Kalaran duplicated them.",
+			"note": "Forging the Shaft: the Thorium Plated Daggers come from the Taskmasters and Slavers of the Cauldron, so the dagger is a goal of the Dark Iron dwarves step, which comes after Velarok gives the quest, and the quest is handed in right after it; the along list from Velarok duplicated them.",
 			"source": [
 				{
 					"kind": "recording",

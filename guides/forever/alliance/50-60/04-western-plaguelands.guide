@@ -312,6 +312,11 @@ step Fly to Rut'theran Village
   fly "Rut'theran Village"
   zone Teldrassil
 
+step Rut'theran Village
+  zone Teldrassil
+  turnin 978                          -- Erelas Ambersky
+  accept 979                          -- Ranshalla in Winterspring: keep it
+
 step Portal to Darnassus
   zone Teldrassil
   goto 55.9,89.3 "Portal to Darnassus"
@@ -364,11 +369,6 @@ step Darnassus
 step Portal to Teldrassil
   zone Darnassus
   goto 29.1,41.2 "Portal to Teldrassil"
-
-step Rut'theran Village
-  zone Teldrassil
-  turnin 978                          -- Erelas Ambersky
-  accept 979                          -- Ranshalla in Winterspring: keep it
 
 # ---------------------------------------------------------------- Feralas
 
@@ -526,6 +526,12 @@ step Linken
 
 # ---------------------------------------------------------------- Lost!
 
+step Layo Starstrike
+  zone Silithus
+  tip Ride out of the crater's north-western pass into Silithus: Layo Starstrike stands at Valor's Rest, where the pass comes out.
+  turnin 1124
+  accept 1125
+
 step Silithus
   zone Silithus
   goto 51.6,38.6 "Silithus"
@@ -534,10 +540,13 @@ step Silithus
 
 step Cenarion Hold
   zone Silithus
-  tip Ride out of the crater's north-western pass into Silithus and on to Cenarion Hold. Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
+  tip Ride on west to Cenarion Hold. Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
+  getfp "Cenarion Hold"
+  accept 9415                         -- Rifleman Torrig, at the Alliance tents
   accept 8277                         -- Beetix Ficklespragg
   sethome "Cenarion Hold"
   accept 8280                         -- Windcaller Proudhorn
+  accept 8284                         -- Geologist Larksbane
 
 step Silithus: kill these as you meet them
   zone Silithus
@@ -555,14 +564,11 @@ step Level 56.89
 
 step Cenarion Hold
   zone Silithus
-  tip Follow the road south-west out of the pass to Cenarion Hold. Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
-  accept 9415                         -- Rifleman Torrig, at the Alliance tents
-  getfp "Cenarion Hold"
+  tip Ride back to Cenarion Hold. Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 8277
   accept 8278
   turnin 8280
   accept 8281
-  accept 8284                         -- Geologist Larksbane
   accept 8318                         -- Bor Wildmane
 
 step Silithus: kill these as you meet them
@@ -572,11 +578,6 @@ step Silithus: kill these as you meet them
   kill 11741 quest 8281.1             -- Dredge Crusher walks around here: look inside the circle on the map
   collect 20377 quest 8278.3          -- Rock Stalker Fang
   collect 20375 quest 8278.1          -- Stonelash Flayer Stinger
-
-step Layo Starstrike
-  tip Ride east to Layo Starstrike.
-  turnin 1124
-  accept 1125
 
 step Southwind Village
   tip The tortured druids and sentinels haunt the ruined village south-west of Layo.
