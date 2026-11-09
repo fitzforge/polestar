@@ -521,13 +521,13 @@ step Razor Hill
 
 step Razor Hill
   when group 99052
-  accept 99052 optional               -- Orgnil Soulscar: Aggor the Young, an elite sea giant
+  accept 99052                        -- Orgnil Soulscar: Aggor the Young, an elite sea giant
 
 step Aggor the Young
   when group 99052
   tip Aggor the Young, a young sea giant, walks Durotar's north coast, north of the naga beach. Aggor the Young is elite: grouping up is advised.
-  collect 286009 quest 99052.1 optional -- Aggor's Belt
-  turnin 99052 optional               -- Orgnil Soulscar, back in Razor Hill
+  collect 286009 quest 99052.1        -- Aggor's Belt
+  turnin 99052                        -- Orgnil Soulscar, back in Razor Hill
 
 step Armored Scorpid
   only Hunter

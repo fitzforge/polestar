@@ -548,7 +548,7 @@ step Fly to Ratchet
 
 step Ratchet
   when group 92706
-  accept 92706 optional               -- WANTED poster
+  accept 92706                        -- WANTED poster
 
 step Ratchet
   accept 865                          -- Mebok Mizzyrix, beside the WANTED poster: take it now if he did not offer it on the first Ratchet stop
@@ -573,12 +573,12 @@ step Ratchet
 step Bruuz
   when group 92706
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Bruuz (level 20 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
-  collect 253710 quest 92706.1 optional @63.7,38.7 group 2
+  collect 253710 quest 92706.1 @63.7,38.7 group 2
 
 step Ratchet
   tip Gazlowe stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   when group 92706
-  turnin 92706 optional
+  turnin 92706
 
 # ---------------------------------------------------------------- South-west: the Raptor Grounds, then Northwatch Hold
 step Raptor nests
