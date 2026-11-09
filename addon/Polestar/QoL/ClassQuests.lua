@@ -172,8 +172,11 @@ function ClassQuests.Ready()
 		local v = seen[h.id]
 		local due = v == nil or (type(v) == "number" and level > v)
 		if h.category == "Class" and due and G.GuideMatches(h, player) and E.GetGuideState(h.id) == "new" then
+			-- A side-shelf guide's steps are read in for the check, then given back (Guides.Peek).
+			local _, fresh = G.Peek(h.id)
 			local g = G.Get(h.id)
 			if g and not E.StartGate(h.id) and not underWay(g) and not tooHard(ClassQuests.Heads(g, player), level) then out[#out + 1] = g end
+			G.Unpeek(h.id, fresh)
 		end
 	end
 	return out
@@ -185,7 +188,9 @@ function ClassQuests.Check()
 	if not g then return end
 	pending = g.id
 	local ok, player = pcall(ns.Compat.GetPlayerInfo)
+	local _, fresh = ns.Guides.Peek(g.id)
 	local heads = ClassQuests.HeadsLine(ClassQuests.Heads(g, ok and type(player) == "table" and player or {}), g)
+	ns.Guides.Unpeek(g.id, fresh)
 	ns.Fire("CLASS_QUEST_READY", { guideId = g.id, title = g.title or g.id, heads = heads, why = g.why })
 end
 

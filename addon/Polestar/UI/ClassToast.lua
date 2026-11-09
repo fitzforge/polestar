@@ -200,6 +200,8 @@ end
 
 -- The chain's own Class guide for this character: one that takes quest q,
 -- else one that takes another quest of its chain. -> guide id | nil
+-- A side-shelf guide's steps are read in for the search and given back
+-- (Guides.Peek).
 function CT.ClassGuide(q)
 	local G, C = ns.Guides, CC()
 	local p = C and C.Player()
@@ -207,13 +209,16 @@ function CT.ClassGuide(q)
 	local chain, other = C.ChainOf(q), nil
 	for _, h in ipairs(G.List()) do
 		if h.category == "Class" and (not G.GuideMatches or G.GuideMatches(h, p)) then
-			local g = G.Get(h.id)
-			for _, step in ipairs(g and g.steps or {}) do
+			local steps, fresh = G.Peek(h.id)
+			local takes = false
+			for _, step in ipairs(steps or {}) do
 				for _, goal in ipairs(step.goals or {}) do
-					if goal.quest == q then return h.id end
+					if goal.quest == q then takes = true end
 					if not other and ofChain(goal, q, chain) then other = h.id end
 				end
 			end
+			G.Unpeek(h.id, fresh)
+			if takes then return h.id end
 		end
 	end
 	return other

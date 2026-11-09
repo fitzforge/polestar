@@ -706,8 +706,8 @@ strip change.
 ## Format 8
 
 Polestar's own pack (`guides`, the `Polestar_Guides` folder) is written for
-memory; a community addon is written as before. Format 8 is format 7 with two
-changes, read by Polestar 0.3.0 and later:
+memory; a community addon is written as before. Format 8 is format 7 with
+these changes, read by Polestar 0.3.0 and later:
 
 - **Packed spawn spots.** A goal carries its `spots` as one string,
   `spotsPacked = "<spot>;<spot>;..."`, each spot its `x`, `y`, `z`, `r`, `n`,
@@ -731,6 +731,17 @@ changes, read by Polestar 0.3.0 and later:
   guide menu's faction filter asks for it, or when a saved tab holds a guide
   no loaded part has (`Polestar.Guides.LoadFaction`). A character holds its
   own faction's guides and the factionless ones, not the other side's.
+- **Side shelves** (from Polestar 0.3.7). Every guide of the pack that is not
+  a leveling guide (class, profession, reputation, collectible, exploration,
+  ...) carries its steps as one Lua source string, `stepsSrc = "return { ...
+  }"`, with `stepCount` (and `groupQuests`), as a race part's guide does
+  ([Race parts](#the-addon)), but registers for every character (no
+  `Polestar.PartWants`): the guide menu lists it with its header alone, and
+  its steps are read in when it is opened in a tab, and given back when no
+  tab shows it. A look at the steps of many guides (the guide menu's facts
+  and quest search, the follow-up and closes indexes, the class-quest card)
+  reads a shelf guide in and gives it back (`Polestar.Guides.Peek`). Leveling
+  guides keep their steps as tables: the route's guides are read together.
 
 ## Import strings
 

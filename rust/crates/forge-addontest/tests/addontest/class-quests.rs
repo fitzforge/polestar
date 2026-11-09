@@ -98,6 +98,8 @@ Polestar.Guides = {
 	List = function() return guides end,
 	Get = function(id) return byId[id] end,
 	GuideMatches = function(g, p) return not g.classes or g.classes[1] == p.class end,
+	Peek = function(id) return byId[id] and byId[id].steps, false end,
+	Unpeek = function() end,
 }
 local gates = { ["c/air"] = { level = 30 } }
 Polestar.Engine = {

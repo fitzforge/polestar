@@ -838,8 +838,10 @@ end
 
 ---------------------------------------------------------------------------
 -- Deferred steps. A race part's guide (docs/PACK_FORMAT.md, "Race parts")
--- carries its steps as one Lua source string, `stepsSrc` (`return { ... }`),
--- with `stepCount`: a guide nobody opens costs its string, not its tables.
+-- and a side-shelf guide of our pack (every guide that is not a leveling
+-- guide: class, profession, reputation, collectible...; "Format 8") carry
+-- their steps as one Lua source string, `stepsSrc` (`return { ... }`), with
+-- `stepCount`: a guide nobody opens costs its string, not its tables.
 -- The first read of `def.steps` runs it (Guides.Steps): the steps are
 -- checked, their pictures placed, their texts put in the client's language
 -- and escaped, as at registration. Guides.Release drops them again (the
@@ -897,6 +899,28 @@ function Own.sweep()
 end
 ns.On("TABS_CHANGED", Own.sweep)
 ns.On("GUIDE_CHANGED", Own.sweep)
+
+-- Whether guide def carries deferred steps (read in on first use).
+function Guides.Deferred(def)
+	return type(def) == "table" and type(rawget(def, "stepsSrc")) == "string"
+end
+
+-- Guide `id`'s steps for one look (an index, a check, the guide menu's
+-- facts): -> steps | nil, fresh. `fresh`: a deferred guide's steps were read
+-- in for this look; Guides.Unpeek(id, fresh) gives them back after, unless a
+-- tab shows the guide by then. What the caller keeps must not be the steps
+-- or goals themselves (they would stay in memory): copy what it needs.
+function Guides.Peek(id)
+	local def = Guides.Get(id)
+	if not def then return nil, false end
+	local fresh = Guides.Deferred(def) and rawget(def, "steps") == nil
+	return def.steps, fresh
+end
+
+function Guides.Unpeek(id, fresh)
+	local E = ns.Engine
+	if fresh and not (E and E.TabIds and E.TabIds()[id]) then Guides.Release(id) end
+end
 
 -- Whether the player's class is among `classes` (a race part's guide of one
 -- class route registers only for that class: its other classes' routes are
