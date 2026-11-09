@@ -106,10 +106,12 @@ stays off until `/psrec on`.
   (`session.locale`). At most 4,000 bytes per text field, and no control
   characters. Quest titles (`text`), objectives (`objectives`) and zone names
   (`zone`) also have no `|` (the game's escape character) and at most 255
-  characters (100 for zone names); readers empty a name that breaks this and
-  keep the record (the frFR client's kill objectives end in a
+  characters (100 for zone names). The frFR client's kill objectives end in a
   `|4personnage tué:personnages tués;` grammar escape, which the Recorder
-  drops). A control character still makes the chunk invalid.
+  drops since 0.3.6; readers drop it from older uploads too (with the count
+  before it, and no-break spaces read as spaces). Readers empty a name that
+  still breaks the rule and keep the record. A control character still makes
+  the chunk invalid.
 - `npcKind`: `c` creature, `o` game object, `i` item, `p` player (never
   stored beyond the kind), empty unknown.
 - `spawnUid`: 1–16 hex digits (`0-9`, `A-F`); `error`: a game constant's
