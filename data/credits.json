@@ -36,9 +36,16 @@
 	],
 	"exclude": [
 		"fitzforge",
-		"Fitz | Polestar"
+		"Fitz | Polestar",
+		"Twerkjob",
+		"butthole"
 	],
 	"names": {
-		"YamanNekon": "山猫"
+		"YamanNekon": "山猫",
+		"AURUM": "AurumTitanos",
+		"Conjure": "c0njure",
+		"tor": "Tor",
+		"defect": "bigdefect",
+		"Deadshot": "Deadshot0330"
 	}
 }
