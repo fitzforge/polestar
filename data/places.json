@@ -1901,6 +1901,85 @@
 					"ref": "npc 2714 met by 10 people at 61.3,59.4, 57.8,62.5, 56.5,63.0, 45.4,58.6, 43.5,51.8, 40.3,54.8, 39.7,54.6, 35.6,52.5, 32.0,51.9, 27.8,49.3, 25.2,46.4 and 23.6,43.0; the folder looted at 61.4,61.0 and 60.5,59.0"
 				}
 			]
+		},
+		{
+			"id": "badlands-boss-thogrun-loop",
+			"quest": 732,
+			"objective": 1,
+			"faction": "Alliance",
+			"path": {
+				"map": 1418,
+				"frame": "era",
+				"points": [
+					[
+						38.8,
+						56.1
+					],
+					[
+						31.5,
+						58.7
+					],
+					[
+						24.7,
+						56.7
+					],
+					[
+						18.2,
+						60.8
+					],
+					[
+						12.5,
+						67.5
+					],
+					[
+						12.7,
+						75.5
+					],
+					[
+						20.1,
+						78.5
+					],
+					[
+						30.2,
+						73.5
+					],
+					[
+						41.6,
+						72.2
+					],
+					[
+						51.2,
+						73.4
+					],
+					[
+						61.4,
+						69.3
+					],
+					[
+						54.0,
+						58.6
+					],
+					[
+						48.8,
+						48.7
+					]
+				]
+			},
+			"note": "Tremors of the Earth (732): Boss Tho'grun (2944), who drops the Sign of the Earth, walks a long loop around the Badlands with his guards: from Camp Boff (his spawn, 12.6,75.5, the only point the data has) east along the south of the zone to about 61,69, north to about 49,49 and back west. The step said he stands in the camp. The arrow searches his loop from the Valley of Fangs (where the route comes from Rigglefuzz) west to the camp and round, in his own walking direction. Points are nodes of his waypoint path.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature guid 20007209 (entry 2944) MovementType 2, waypoint_path 800072090: 102 nodes from 12.7,75.5 to 61.4,69.3 and 48.8,48.7 (Badlands, Era frame)"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature 2944's waypoint walk, 642 yd around world -6944,-2988 (data/forever/moves.json)"
+				},
+				{
+					"kind": "factoruide",
+					"ref": "npc 2944: 574 sighting rows spread over the Badlands"
+				}
+			]
 		}
 	]
 }

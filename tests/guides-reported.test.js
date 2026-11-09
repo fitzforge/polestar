@@ -9477,3 +9477,14 @@ test('Arathi Highlands (Alliance 36): the Forsaken Courier is searched for along
 	assert.ok(spots.length >= 6, `the arrow searches his road: ${JSON.stringify(goal.spots)}`);
 	assert.ok(spots[0].x > 55 && spots[spots.length - 1].x < 30, 'from Go\'Shek Farm west');
 });
+
+// Position sweep (0.3.6, class B2): Boss Tho'grun walks a long loop around the Badlands (the Forever TDB's waypoint
+// path for him, 102 nodes; CMaNGOS a 642 yd walk); the step said he stands at Camp Boff, his spawn and the only
+// point the data has. The arrow now searches his loop.
+test('Badlands (Alliance 40): Boss Tho\'grun is searched for along his loop', { skip }, () => {
+	const list = goals('forever/alliance/40-50/02-badlands.guide');
+	const { goal } = list[at(list, 'collect 4640', (g) => g.t === 'collect' && g.item === 4640)];
+	const spots = (goal.spots || []).filter((s) => !s.alt);
+	assert.ok(spots.length >= 8, `the arrow searches his loop: ${JSON.stringify(goal.spots)}`);
+	assert.ok(spots.some((s) => s.x > 55) && spots.some((s) => s.x < 15), 'from the east of the zone to Camp Boff');
+});
