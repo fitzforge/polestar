@@ -87,3 +87,41 @@ fn t_1485_a_warlock_at_18_5_moves_on_from_gan_rul_to_the_next_step_for_them() {
 	assert_eq!(out["accept"], "skipped", "{out}");
 	assert_eq!(out["title"], "Fly to Ratchet", "{out}");
 }
+
+// ReleaseFinal036's harness, Horde Ashenvale (zfeuqxcdw7): an accept a little under its level behind the
+// player's quest progress (King of the Foulweald, 6621, at Zoram'gar) never moves them back to it; it passes
+// as before. Here: Korran's accept (29) behind the player, who has handed in 1145's follow-up work further on.
+#[test]
+fn an_accept_a_little_under_its_level_behind_the_player_s_progress_passes_and_never_moves_them_back() {
+	let dir = forge_addontest::run::addons_dir();
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: r#"local w = stub.world
+w.race, w.faction, w.class, w.className, w.level = "Orc", "Horde", "WARRIOR", "WARRIOR", 28
+w.setXP(53000, 75700)
+-- Progress past Korran: Tarren Mill's quests taken.
+w.onQuest(552, { 0 }); w.onQuest(533, { 0 }); w.onQuest(532, { 0 })"#
+			.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"]), Addon::dir("Polestar_Guides", dir.join("Polestar_Guides")), Addon::dir("Polestar_Guides_Horde", dir.join("Polestar_Guides_Horde"))],
+		script: format!(
+			r#"
+E = Polestar.Engine
+for id, b in pairs(Polestar.MapFrames.era) do stub.world.addMap(id, b) end
+stub.login(); stub.advance(0.25)
+Polestar.Set("behavior.autoAccept", false)
+E.SetGuide("{HILLSBRAD}"); stub.advance(0.25)
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(11)
+local g = E.GetGuide()
+local korran
+for i, step in ipairs(g.steps) do if step.title == "Korran" then korran = i end end
+local live = E.GetLiveStep()
+local a = E.GetStepView(korran).goals[1]
+emit({{ korran = korran, live = live, accept = a.status, line = a.unavailableText or false }})"#
+		),
+		..Default::default()
+	})
+	.remove(0);
+	assert!(out["live"].as_u64().unwrap() > out["korran"].as_u64().unwrap(), "never back to Korran: {out}");
+	assert_eq!(out["accept"], "skipped", "{out}");
+	assert_eq!(out["line"], "Requires level 29", "passed, with its plain line: {out}");
+}

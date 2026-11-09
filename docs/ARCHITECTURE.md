@@ -2203,7 +2203,11 @@ holds at its opening, see "Not yet available"):
   (it can be the start), the accept pending with "Requires level 29: 0.3
   levels to go", the rest of the step doable (Fitz, 0.3.6: Horde Hillsbrad's
   Korran at 28.7; #1485's Warlock at Gan'rul). Further off, it passes as
-  below and the route goes on to the next step.
+  below and the route goes on to the next step. Only from the player's
+  quest progress at placement on (`Own.levelFloor`, the anchor): behind it
+  such an accept passes as before, so a reload or an update never moves the
+  player back to it (Horde Ashenvale's King of the Foulweald, 0.3.6
+  upgrade harness).
 - Before the start (with no start: before the last quest progress), a step
   passes when every open goal is an accept the character cannot take yet
   (level, prerequisite; marked unavailable for the session, so it comes back
