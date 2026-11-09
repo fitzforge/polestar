@@ -340,6 +340,8 @@ mod ui_route;
 mod ui_scrub;
 #[path = "ui-thanks.rs"]
 mod ui_thanks;
+#[path = "ui-transparent.rs"]
+mod ui_transparent;
 #[path = "ui-welcome.rs"]
 mod ui_welcome;
 #[path = "ui-whatsnew.rs"]

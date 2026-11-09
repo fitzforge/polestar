@@ -1826,6 +1826,12 @@ L["The way to the goal on the world map and the minimap: a line or dots where yo
 L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."] = "Cómo se dibujan las líneas de ruta: con una línea continua, con los puntos de Polestar o con destellos que se desplazan por el camino hacia el objetivo (puntos mientras Reducir movimiento está activado)."
 -- L["Button in the game menu"] = ""
 -- L["A Polestar button in the game menu (Esc) that opens the guide menu."] = ""
+-- L["Backing"] = ""
+-- L["With Transparent, a shade with no edge behind the text, so it reads over bright ground. Off: the outlined text alone on the world."] = ""
+-- L["Soft"] = ""
+-- L["Dark"] = ""
+-- L["Keep the bar shown"] = ""
+-- L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desactivado en la lista de AddOns"

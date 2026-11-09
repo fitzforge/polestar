@@ -32,12 +32,15 @@
 -- Styles (ui.style): "standard" draws the night ground (Theme.GroundAlpha,
 -- ui.bgOpacity, like every Polestar window), hairline border and the
 -- night-sky band behind the tabs and navigator. "transparent" draws no fills
--- or borders; every string is outlined so it reads over any terrain, the
--- progress track stays as a faint ink line, and the chrome (tabs, the whole
--- navigator: prev, "8 / 29", next, title, Skip, the bug, menu; the grip)
--- shows only while the cursor is over the window: the step number fades with
--- the chevrons that change it, so it never floats alone. Compact mode
--- (ui.compact) keeps the navigator, the focus goals and the progress bar.
+-- or borders; every string is outlined and, unless ui.backing is "none",
+-- sits on a scrim with no edge (GF.VEIL: soft or dark), one behind the body
+-- and one behind the tabs and navigator that comes and goes with them; tick
+-- boxes take the scrim and an ink edge, the progress track stays as a faint
+-- ink line, and the chrome (tabs, the whole navigator: prev, "8 / 29", next,
+-- title, Skip, the bug, menu; the grip) shows only while the cursor is over
+-- the window (ui.barShown keeps all of it but the grip): the step number
+-- fades with the chevrons that change it, so it never floats alone. Compact
+-- mode (ui.compact) keeps the navigator, the focus goals and the progress bar.
 --
 -- Colour: the accent marks interaction and where you are (the active tab,
 -- the arrow's target mark, the current goal's glyph, primary buttons, the
@@ -378,6 +381,10 @@ local function goalRow(i)
 		c:SetChecked(c.psChecked)
 		toggleGoal(r)
 	end)
+	if transparent() then
+		r.Check.psOnWorld = true
+		Theme.Repaint(r.Check)
+	end
 	r.Check:SetScript("OnEnter", function(c)
 		local goal = r.psGoal
 		local tip = not goal and "" or (goal.ticked and L["Untick"]) or (goal.status == "done" and L["Done"]) or L["Tick it done"]
@@ -2274,6 +2281,25 @@ local function placeBars(showFoot)
 		b.Bar:SetPoint(edge .. "LEFT", b, edge .. "LEFT", 0, 0)
 		b.Bar:SetPoint(edge .. "RIGHT", b, edge .. "RIGHT", 0, 0)
 	end
+	-- The backing (GF.VEIL): 14 past the window's sides, so it is solid under
+	-- text running to the window's padding, and 8 past its top and bottom;
+	-- over the navigator's inner edge the two scrims overlap so that one rises
+	-- as the other falls over the same band (Theme.Scrim), centred on that edge.
+	local v, bv = GF.veil, band.Veil
+	local o = (GF.VEIL_FEATHER + v.psClear) / 2
+	v:ClearAllPoints()
+	bv:ClearAllPoints()
+	if flip then
+		v:SetPoint("TOPLEFT", F, "TOPLEFT", -14, 8)
+		v:SetPoint("BOTTOMRIGHT", nav, "TOPRIGHT", 14, -o)
+		bv:SetPoint("TOPLEFT", nav, "TOPLEFT", -14, o)
+		bv:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 14, -8)
+	else
+		v:SetPoint("TOPLEFT", nav, "BOTTOMLEFT", -14, o)
+		v:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 14, -8)
+		bv:SetPoint("TOPLEFT", F, "TOPLEFT", -14, 8)
+		bv:SetPoint("BOTTOMRIGHT", nav, "BOTTOMRIGHT", 14, -o)
+	end
 end
 
 -- With ui.growUp, the height from the window's pinned bottom edge to the top
@@ -3545,6 +3571,21 @@ local function paintTrack(t)
 	t:SetVertexColor(r, g, b, transparent() and 0.15 or a)
 end
 
+-- The transparent style's backing (ui.backing): a scrim with no edge behind
+-- the body (GF.veil) and one behind the tabs and the navigator (band.Veil)
+-- that comes and goes with them, at GF.VEIL's strength; "none" leaves the
+-- outlined text alone on the world. Both feather over GF.VEIL_FEATHER and
+-- cross-fade where they meet (placeBars), so the shown bar never leaves a
+-- seam. (On GF: the main chunk is at Lua's 200 locals.)
+GF.VEIL = { soft = 0.42, dark = 0.68 }
+GF.VEIL_FEATHER = 20
+function GF.Backing()
+	return transparent() and GF.VEIL[ns.Get("ui.backing")] or nil
+end
+function GF.PaintVeil(s)
+	Theme.PaintScrim(s, GF.Backing() or 0)
+end
+
 -- The ground's opacity is Theme.GroundAlpha (ui.bgOpacity), read by the
 -- window skin itself; ui.bgOpacity changes land here to repaint it.
 function GF.ApplyStyle()
@@ -3554,7 +3595,11 @@ function GF.ApplyStyle()
 	Theme.Repaint(F)
 	local skin = Theme.SkinKey()
 	band:SetShown(not clear and skin == "polestar")
-	band.Shade:SetShown(clear and ns.Get("ui.barShown") and true or false)
+	local backing = GF.Backing() and true or false
+	GF.veil:SetShown(backing)
+	band.Veil:SetShown(backing)
+	W.Painter(GF.veil, GF.PaintVeil)
+	W.Painter(band.Veil, GF.PaintVeil)
 	nav.TitleBar:SetShown(not clear and skin == "hearth")
 	-- Blizzard's damage meter header bar under the tabs.
 	Theme.KitStrip(strip, not clear)
@@ -3565,6 +3610,11 @@ function GF.ApplyStyle()
 	W.Painter(foot.Line.Track, paintTrack)
 	if GF.here then W.Painter(GF.here.Panel, GF.PaintHerePanel) end
 	for i = 1, #texts do Theme.SetOutline(texts[i], clear) end
+	-- Tick boxes on the world: a scrim inside and an ink edge.
+	for _, r in ipairs(rows) do
+		r.Check.psOnWorld = clear
+		Theme.Repaint(r.Check)
+	end
 	if not clear then
 		watcher:SetScript("OnUpdate", nil)
 		hovering = false
@@ -3706,6 +3756,7 @@ local APPLY = {
 	["ui.bgOpacity"] = function() GF.ApplyStyle() end,
 	["ui.style"] = function() GF.ApplyStyle() end,
 	["ui.barShown"] = function() GF.ApplyStyle() end,
+	["ui.backing"] = function() GF.ApplyStyle() end,
 	["ui.locked"] = function() GF.ApplyLock() end,
 	["ui.compact"] = function() GF.ApplyCompact() end,
 	["ui.width"] = function() GF.ApplyWidth() end,
@@ -4279,11 +4330,13 @@ local function build()
 	band = Theme.Band(F, "BACKGROUND", -5)
 	band:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
 	band:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
-	-- ui.barShown: a dark strip behind a transparent window's tabs and step bar, so they read over the world.
-	band.Shade = W.Tex(F, "BACKGROUND", nil, nil, -6)
-	band.Shade:SetVertexColor(0, 0, 0, 0.55)
-	band.Shade:SetAllPoints(band)
-	band.Shade:Hide()
+	-- The transparent style's backing (GF.PaintVeil, placed by placeBars):
+	-- under the body, and under the tabs and navigator, fading with them.
+	GF.veil = Theme.Scrim(F, GF.VEIL_FEATHER)
+	band.Veil = Theme.Scrim(F, GF.VEIL_FEATHER)
+	GF.veil:Hide()
+	band.Veil:Hide()
+	chrome[#chrome + 1] = band.Veil
 
 	-- Tab strip
 	strip = CreateFrame("Frame", nil, F)

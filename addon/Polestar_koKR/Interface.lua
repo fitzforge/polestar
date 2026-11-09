@@ -2151,6 +2151,12 @@ L["The way to the goal on the world map and the minimap: a line or dots where yo
 L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."] = "경로선을 그리는 방식: 하나의 실선, Polestar 점, 또는 목표를 향해 흘러가는 반짝임 (움직임 줄이기가 켜져 있으면 점)."
 -- L["Button in the game menu"] = ""
 -- L["A Polestar button in the game menu (Esc) that opens the guide menu."] = ""
+-- L["Backing"] = ""
+-- L["With Transparent, a shade with no edge behind the text, so it reads over bright ground. Off: the outlined text alone on the world."] = ""
+-- L["Soft"] = ""
+-- L["Dark"] = ""
+-- L["Keep the bar shown"] = ""
+-- L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"

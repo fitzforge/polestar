@@ -23,7 +23,8 @@ ns.RegisterDefaults("ui", {
 	barsBottom = false, -- with growUp: tabs and navigator at the bottom, by the pinned edge
 	compact = false,
 	style = "standard", -- "standard" | "transparent"
-	barShown = false, -- transparent: the tabs and the step bar stay shown, on a dark strip, instead of only under the cursor
+	backing = "soft", -- transparent: "soft" | "dark" | "none", the shade behind the text (GuideFrame GF.VEIL)
+	barShown = false, -- transparent: the tabs and the step bar stay shown instead of only under the cursor
 	scale = 1,
 	opacity = 1,
 	bgOpacity = 0.94, -- the ground of every Polestar window

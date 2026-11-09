@@ -479,6 +479,8 @@ const PAD_UI = ['PolestarPadRing', 'PolestarPadHints', 'PolestarPadBadge'];
 const PAD_GUIDE = [...GUIDE, ...PAD_UI];
 const PAD_OPTIONS = [...OPTIONS, ...PAD_UI];
 const HOVER = 'PolestarGuideFrame.IsMouseOver = function() return true end; Polestar.UI.GuideFrame.HoverIn()';
+// One "While you're here" row: step 7's Kobold Workers, 60 yd away.
+const WHILE_HERE = 'local v = { step = 7, index = 1, here = "goal", yards = 60 }; for k, x in pairs(uistub.goal(7, 1)) do if v[k] == nil then v[k] = x end end; Polestar.Engine.GetWhileHereList = function() return { v } end; Polestar.UI.GuideFrame.HereChanged(); stub.advance(1)';
 const RECORDER = `stub.addonsLoaded.Polestar_Recorder = true
 PolestarRecorderDB = { enabled = true, current = "s2", sessions = {
 	s1 = { char = { name = "Testchar" }, events = {} },
@@ -1069,11 +1071,14 @@ const SCENES = [
 	},
 	{
 		file: 'guide-transparent.svg',
-		title: 'Transparent mode over a bright world: at rest, and with the cursor over it',
+		title: 'Transparent mode over a bright world: at rest on the soft backing; with the cursor over it; the bar kept shown, While you\'re here and the tip open; the dark backing; the backing off',
 		backdrop: 'terrain',
 		panels: [
 			{ roots: GUIDE, script: `Polestar.Set("ui.style", "transparent"); ${TABS}` },
 			{ roots: GUIDE, script: `Polestar.Set("ui.style", "transparent"); ${TABS}; ${HOVER}` },
+			{ roots: GUIDE, script: `Polestar.Set("ui.style", "transparent"); Polestar.Set("ui.barShown", true); ${TABS}; ${WHILE_HERE}; Polestar.UI.GuideFrame.parts.tip:Click()` },
+			{ roots: GUIDE, script: `Polestar.Set("ui.style", "transparent"); Polestar.Set("ui.backing", "dark"); ${TABS}` },
+			{ roots: GUIDE, script: `Polestar.Set("ui.style", "transparent"); Polestar.Set("ui.backing", "none"); ${TABS}` },
 		],
 	},
 	{

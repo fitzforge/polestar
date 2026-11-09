@@ -430,8 +430,12 @@ local BUILTIN = {
 	{ page = LOOK, tab = L["Windows"], section = L["Guide window"], controls = {
 		{ kind = "dropdown", key = "ui.style", label = L["Style"], help = L["Transparent drops every background and border; text is outlined and the controls appear when you hover the window."],
 			choices = { { value = "standard", label = L["Standard"] }, { value = "transparent", label = L["Transparent"] } } },
+		{ kind = "dropdown", key = "ui.backing", label = L["Backing"], child = true, disabled = function() return ns.Get("ui.style") ~= "transparent" end,
+			help = L["With Transparent, a shade with no edge behind the text, so it reads over bright ground. Off: the outlined text alone on the world."],
+			search = "transparent, background, shade, dark, readable, contrast",
+			choices = { { value = "soft", label = L["Soft"] }, { value = "dark", label = L["Dark"] }, { value = "none", label = L["Off"] } } },
 		{ kind = "toggle", key = "ui.barShown", label = L["Keep the bar shown"], child = true, disabled = function() return ns.Get("ui.style") ~= "transparent" end,
-			help = L["With Transparent, the tabs and the step bar stay on screen on a dark strip, so they read over any scenery, instead of only under the cursor."],
+			help = L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."],
 			search = "transparent, bar, header, readable, always, show" },
 		{ kind = "slider", key = "ui.scale", label = L["Window scale"], min = 0.6, max = 1.6, step = 0.05, format = percent, search = "size, bigger, smaller, zoom" },
 		{ kind = "slider", key = "ui.width", label = L["Width"], min = 260, max = 560, step = 10, format = "%d", search = "wide, wider, size" },
