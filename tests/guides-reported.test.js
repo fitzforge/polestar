@@ -7992,7 +7992,7 @@ test('forever/horde/50-60/06-silithus.guide: final review: Dearest Natalia from 
 	const file = 'forever/horde/50-60/06-silithus.guide';
 	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 8304 && f.tip && f.faction === 'Horde');
 	assert.ok(rec, 'the tip is a record');
-	assert.deepEqual(stepTips(file, /kill 15171 quest 8304/), [rec.tip]);
+	assert.deepEqual(stepTips(file, /talk 15171 quest 8304/), [rec.tip]);
 	assert.match(rec.tip, /Question them/);
 	const top = stepTips(file, /^\s+level 58\b/).join(' ');
 	assert.match(top, /Mar'alith/);
@@ -9073,4 +9073,19 @@ test('Horde 45 and 53 Orgrimmar stops: Belgrom and Jes\'rimon take their ready h
 	const jes = fel[at(fel, 'turnin 4300', is('turnin', 4300))];
 	assert.ok(jes.step.when.some((p) => p.k === 'onquest' && !p.neg), 'only with the claws\' quest in the log');
 	assert.ok(jes.s < fel[at(fel, 'fly Splintertree Post', (g) => g.t === 'fly')].s, 'before the flight out of Orgrimmar');
+});
+
+// Final route review, Horde 40-60 (0.3.6): an objective that is listening to or questioning a friendly NPC was
+// written as a kill goal, so the window read "Kill Velarok Windblade", "Kill Fallen Hero of the Horde", "Kill Frankal
+// Stonebridge". They are talk goals.
+test('Horde 40-60: listen and question objectives say Talk to, never Kill', { skip }, () => {
+	for (const [file, quest, npcs] of [
+		['forever/horde/40-50/04-tanaris.guide', 3441, [8479]],
+		['forever/horde/40-50/05-the-hinterlands.guide', 2784, [7572]],
+		['forever/horde/50-60/06-silithus.guide', 8304, [15171, 15170]],
+	]) {
+		const list = goals(file);
+		assert.ok(!list.some(({ goal }) => goal.t === 'kill' && goal.quest === quest), `${file}: no kill goal for ${quest}`);
+		for (const npc of npcs) at(list, `${file}: talk ${npc} quest ${quest}`, (g) => g.t === 'talk' && g.npc === npc && g.quest === quest);
+	}
 });

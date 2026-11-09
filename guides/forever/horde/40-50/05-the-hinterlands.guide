@@ -229,7 +229,7 @@ step Fallen Hero of the Horde
   accept 2784
 
 step Fall From Grace
-  kill 7572 quest 2784.1 @34.3,66.1 map 1435
+  talk 7572 quest 2784.1 @34.3,66.1 map 1435
 
 step Fallen Hero of the Horde
   turnin 2784

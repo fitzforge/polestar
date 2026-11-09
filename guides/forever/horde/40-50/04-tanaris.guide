@@ -230,7 +230,7 @@ step Velarok Windblade
   accept 3441
 
 step Divine Retribution
-  kill 8479 quest 3441.1 @39.1,39.0 map 1427
+  talk 8479 quest 3441.1 @39.1,39.0 map 1427
 
 step Velarok Windblade
   turnin 3441
