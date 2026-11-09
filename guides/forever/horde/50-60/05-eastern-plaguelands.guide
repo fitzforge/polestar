@@ -263,7 +263,8 @@ step Fly to Gadgetzan
   zone Tanaris
 
 step Gaeriyan
-  tip Gaeriyan is a ghost at the graveyard just north of Gadgetzan; the Conspicuous Gravestone is south of it, outside the town wall.
+  tip Drink the Videre Elixir at the graveyard just east of Gadgetzan: it kills you, and only as a ghost can you see Gaeriyan, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard.
+  use 11243 @54.0,28.7 map 1446         -- Videre Elixir
   turnin 3912
   accept 3913
 

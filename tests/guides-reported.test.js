@@ -9089,3 +9089,20 @@ test('Horde 40-60: listen and question objectives say Talk to, never Kill', { sk
 		for (const npc of npcs) at(list, `${file}: talk ${npc} quest ${quest}`, (g) => g.t === 'talk' && g.npc === npc && g.quest === quest);
 	}
 });
+
+// Final route review, Horde 50-60 (0.3.6): Gregan Brewspewer makes the Videre Elixir (3909) only from an Evoroot,
+// through his own quest (4041), and the root is a quest item north of his camp; the guide sent the player to Gregan
+// with nothing to give him. And Gaeriyan (3912) is seen only by drinking the elixir, which the step never said.
+test('Horde Winterspring guide: the Videre Elixir comes from the Evoroot, and Gaeriyan from drinking it', { skip }, () => {
+	const ws = goals('forever/horde/50-60/03-winterspring.guide');
+	const acc = at(ws, 'accept 4041', is('accept', 4041));
+	const root = at(ws, 'collect 11242', (g) => g.t === 'collect' && g.item === 11242 && g.quest === 4041);
+	const tin = at(ws, 'turnin 4041', is('turnin', 4041));
+	assert.ok(acc < root && root < tin, 'Gregan, the Evoroot, then Gregan again for the elixir');
+	const g = ws[root].goal;
+	assert.ok(g.map === 1444 && Math.abs(g.x - 44.5) < 1 && Math.abs(g.y - 10.2) < 1, `the Evoroot in northern Feralas (${g.x},${g.y})`);
+	const epl = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const drink = at(epl, 'use 11243', (g) => g.t === 'use' && g.item === 11243);
+	const meet = at(epl, 'turnin 3912', is('turnin', 3912));
+	assert.ok(drink < meet && epl[drink].s === epl[meet].s, 'the elixir is drunk on the step that meets Gaeriyan');
+});

@@ -174,10 +174,17 @@ step Talo Thornhoof
 
 # ---------------------------------------------------------------- Feralas
 
+step Gregan Brewspewer
+  tip Gregan Brewspewer, a dwarf, camps in the Lower Wilds north-west of Camp Mojache. He brews the Videre Elixir only from an Evoroot you bring him.
+  accept 4041
+
+step Evoroot
+  tip The Evoroot grows inside a ruined building north of Gregan's camp, east of the harpies' Ruins of Ravenwind: climb in through the broken part of its wall.
+  collect 11242 quest 4041.1 @44.5,10.2 map 1444
+
 step The Videre Elixir
-  tip Gregan Brewspewer, a dwarf, camps in the Lower Wilds north-west of Camp Mojache; he has the elixir.
-  goto 45.1,25.6 "Gregan Brewspewer"
-  complete 3909
+  tip Back south to Gregan. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by Gadgetzan later.
+  turnin 4041                           -- Gregan Brewspewer
 
 step Desolace
   zone Desolace
