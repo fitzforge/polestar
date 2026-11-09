@@ -6526,5 +6526,27 @@
 			}
 		],
 		"note": "The Forsaken Paladin's Continue Your Training (91209) comes with Coming to Terms (91208) from Aramis Hammerhand in Deathknell: it is offered once Rediscovering the Light (90902) is handed in, alongside 91208, not after it. The merged data read the world database's link to 91208 as a hand-in first, which every player's accept contradicts."
+	},
+	"1962": {
+		"set": {
+			"start": {
+				"npc": [
+					4576
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 2 people (an Undead and a Troll Mage) were offered Spellfire Robes (1962) by Josef Gregorian right after handing Gathering Materials (1961) in to him, and handed it in to him; Rhiannon Davis never offered it in any recorded window"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0, wowf builds to 1.60.1.70862: the quest's only giver and taker is Josef Gregorian (npc 4576)"
+			}
+		],
+		"note": "Spellfire Robes, the Horde mage robe, comes from Josef Gregorian in the Undercity's tailor shop once he has the materials. The merged data named Rhiannon Davis beside him as its only giver."
 	}
 }

@@ -10,7 +10,8 @@ return {
 	-- {spell:118} Polymorph
 	["A new look for {spell:118}: it turns the target into a pig rather than a sheep."] = "Une nouvelle apparence pour {spell:118} : la cible se transforme en cochon plutôt qu'en mouton.",
 
-	-- Step 1: Sanath Lim-yo
+	-- Step 1: Xylem's tower
+	["Xylem's tower"] = "",
 	-- {area:3137} Talrendis Point · {area:1237} Valormok · {npc:8395} Sanath Lim-yo · {npc:8379} Archmage Xylem · {zone:1447} Azshara · {area:1221} Ruins of Eldarath
 	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below {npc:8379}'s tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Dismount, and he teleports you up; a trail climbs to the Archmage at the top of the tower."] = "Volez jusqu'à {area:3137} (Alliance) ou {area:1237} (Horde). {npc:8395} campe au pied de la tour de {npc:8379}, un peu à l'est de {area:1237} : depuis l'embranchement de la route principale d'{zone:1447} aux {area:1221}, allez droit au nord jusqu'aux falaises. Descendez de monture, et il vous téléporte en haut ; un sentier monte jusqu'à l'archimage au sommet de la tour.",
 
