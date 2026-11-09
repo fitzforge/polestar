@@ -17,7 +17,9 @@
 --       those, with the level each opens at and the prerequisite it waits on),
 --       picked up outside from a
 --       giver (not inside), or from an item that drops outside from a mob or
---       object with a known place, at MIN_DROP percent or more, once the
+--       object with a known place, at MIN_DROP percent or more (any chance
+--       when nothing in the dungeon drops it: the Dark Iron Map from Dun
+--       Morogh's Dark Iron Spies, #1478), once the
 --       item's quest's own prerequisites are done (Dungeons.DropPoint: the
 --       Damp Note from Blackfathom Deeps' tunnel naga, #1380), not a follow-up
 --       of another quest of this page -- unless the quests before it here are
@@ -92,7 +94,9 @@
 --   Dungeons.DropPoint(key, pq, from, rec?) -> point | nil
 --       the nearest place (from `from`) of the best outside source of the
 --       item that starts the quest, one that gives it MIN_DROP percent of
---       the time or more: { kind = "drop", source = "npc"|"object", id, name,
+--       the time or more, or, when no source inside the dungeon drops it (the
+--       run cannot), the best one outside whatever its chance (known or not):
+--       { kind = "drop", source = "npc"|"object", id, name,
 --       map, x, y, f, z, item, itemName, chance }
 --
 -- Route: the cheapest path from where the player stands, through the
@@ -121,7 +125,7 @@ local max = math.max
 
 local KIND = "pickup"
 local FAR = 1e9
-local MIN_DROP = 25 -- percent: a rarer drop (or one of no known chance) is left for the run; the Damp Note drops one in three
+local MIN_DROP = 25 -- percent: a rarer drop (or one of no known chance) is left for the run, when the run can drop it; the Damp Note drops one in three
 local SAME_SPOT = 10 -- seconds of travel: closer than this, a spawn on the entrance's zone is the one
 
 local function LK() return ns.Lookup end
@@ -217,7 +221,7 @@ function Dungeons.StartDrops(key, pq, rec)
 			kind, sid, r = "object", src.object, C.Object(src.object)
 		end
 		if r then
-			local d = { kind = kind, id = sid, name = r.name, chance = src.chance, spawns = r.spawns }
+			local d = { kind = kind, id = sid, name = r.name, chance = src.chance, spawns = r.spawns, faction = r.faction }
 			if (src.instance or r.instance) == key then
 				out.inside[#out.inside + 1] = d
 			elseif not (src.instance or r.instance) and r.spawns and #r.spawns > 0 then
@@ -251,8 +255,16 @@ function Dungeons.DropPoint(key, pq, from, rec)
 	if not d then return nil end
 	local dg = Dungeons.Get(key)
 	local zone = dg and dg.entrance and dg.entrance.map
+	-- Nothing inside drops it: the run is no second chance, so the outside
+	-- sources are the only way, rare or of unknown chance (#1478: the Hall of
+	-- Thanes' Underground Map starts from the Dark Iron Map, which only Dun
+	-- Morogh's Dark Iron Spies drop, one kill in ten in players' recordings).
+	-- Only a mob of no faction (one killed for it): a friendly NPC listed as
+	-- the source hands the item over for something else first (Highlord
+	-- Demitrian's Vessel of Rebirth, after the Bindings).
+	local only = #d.inside == 0
 	for _, s in ipairs(d.outside) do
-		if s.chance and s.chance >= MIN_DROP then
+		if (s.chance and s.chance >= MIN_DROP) or (only and s.kind == "npc" and not s.faction) then
 			local p = spawnOn(s.spawns, from, zone)
 			if p then
 				return { kind = "drop", source = s.kind, id = s.id, name = s.name, map = p.map, x = p.x, y = p.y, f = p.f, z = p.z,
