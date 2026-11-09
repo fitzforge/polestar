@@ -51,5 +51,21 @@
 			}
 		],
 		"note": "Harvester Gyrostabilizer (Harvesting the Harvesters, 92909) drops from the Harvest Watcher (114). The merged data also listed the Harvest Golem (36) and the level 17-18 Harvest Reaper (115), which sent the arrow to the Reapers (Erá, Discord, #827)."
+	},
+	"4384": {
+		"removeVendors": [
+			789
+		],
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: Kimberly Hiett's vendor window opened by 17 people; her stock never held the Explosive Sheep (Small and Medium Quiver, Rough, Sharp and Razor Arrows)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "npc_vendor: Kimberly Hiett 789 sells five items, none of them 4384"
+			}
+		],
+		"note": "Explosive Sheep is made by engineers; Kimberly Hiett, the Lakeshire fletcher, does not sell it, so the Merchant's Favor writ step no longer sends players to her for one."
 	}
 }
