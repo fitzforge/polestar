@@ -84,7 +84,8 @@ step Senior Surveyor Fizzledowser
 # Accepted here, finished later on the route: Sprinkle's Secret Ingredient
 # (2641: the Violet Tragan grows in the Hinterlands), Rise of the Silithid
 # (32, Orgrimmar around 50), Return to Apothecary Zinge (864, the Undercity
-# around 52).
+# around 52), The Super Egg-O-Matic (2741: the egg in southern Feralas and the
+# hand-in at Gadgetzan, both at the end of forever/horde/40-50/06-azshara).
 #
 # Class training: Hunters and Shamans fly from Gadgetzan to Orgrimmar, and
 # Druids to Thunder Bluff, at about 47, before Ratchet: the next training
@@ -179,6 +180,7 @@ step Gadgetzan
   accept 113
   turnin 113                            -- Senior Surveyor Fizzledowser
   accept 32                             -- for Zilzibin Drumlore in Orgrimmar, around level 50
+  accept 2741                           -- The Egg-O-Matic machine, in the middle of town: the egg is in southern Feralas, around level 50
 
 step Boat to Powderfuse Port
   zone Tanaris

@@ -230,7 +230,7 @@ step Tanaris
 
 step Gadgetzan
   zone Tanaris
-  tip Fly to Gadgetzan. The Egg-O-Matic stands in the middle of town.
+  tip Fly to Gadgetzan. Still carrying The Super Egg-O-Matic? The machine stands in the middle of town.
   turnin 2741
   turnin 4507                         -- Inside
   accept 4509

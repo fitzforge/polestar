@@ -71,8 +71,11 @@ step Light's Hope Chapel
 #
 # Left open for later guides: Heroes of Darrowshire (5168), Tirion's hunts
 # (5542-5544), Wild Guardians (4741), Toxic Horrors (5086), A Reliquary of
-# Purity and Wasteland (5527, 1124: Silithus), Linken's Sword (3914), Are We
-# There, Yeti? (5163) and The Super Egg-O-Matic (2741, back in Tanaris).
+# Purity and Wasteland (5527, 1124: Silithus), Linken's Sword (3914) and Are We
+# There, Yeti? (5163).
+# The Super Egg-O-Matic (2741, level 47) is taken in forever/horde/40-50/04-tanaris
+# and handed in at 50 in forever/horde/40-50/06-azshara; the Feralas nests step
+# here is only for a character still carrying it.
 
 # ---------------------------------------------------------------- The south
 
@@ -281,10 +284,6 @@ step Sprinkle
 
 # ---------------------------------------------------------------- Tanaris
 
-step Gadgetzan
-  zone Tanaris
-  accept 2741                         -- The Egg-O-Matic machine
-
 step Gaeriyan
   turnin 3913                         -- A Conspicuous Gravestone
   accept 3914
@@ -308,7 +307,8 @@ step Camp Mojache
 
 step Ruins of Isildien
   zone Feralas
-  tip Ride south from Camp Mojache: the hippogryph nests are in the south of Feralas; each holds an egg for the Egg-O-Matic.
+  when onquest 2741
+  tip Only if you still carry The Super Egg-O-Matic: ride south from Camp Mojache; the hippogryph nests are in the south of Feralas, each holds an egg for the Egg-O-Matic.
   collect 8564 quest 2741 @58.0,76.3 map 1444
 
 # ---------------------------------------------------------------- Valor's Rest and Southwind

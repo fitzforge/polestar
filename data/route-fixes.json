@@ -12006,6 +12006,30 @@
 				],
 				"faction": "Horde",
 				"why": "Valik's report (2026-11-09, Horde 30-40/01): Henchman Valik (2333) offers Valik (535) only while Infiltration (533) is in the log (QuestieDB 1.0.10 and 1.0.13: parentQuest 533, childQuests [535]; the one recorded Valik window had 533 in the log; a level 30 player without 533 saw no offer), and its reward is the Syndicate Missive (3601) Infiltration asks for (quest reward data; 4 of 4 recorded takers handed the stout in seconds after the accept). Hand it in at once, before any missive farming."
+			},
+			{
+				"a": [
+					"task",
+					2741
+				],
+				"b": [
+					"turnin",
+					3124
+				],
+				"faction": "Horde",
+				"why": "Final route review leftovers, Horde 40-60 (0.3.6): The Super Egg-O-Matic (2741, level 47, 4200 XP; the Egg-O-Matic in Gadgetzan starts and takes it) is taken on 40-50/04's last Gadgetzan stop (about 47.5) and its Hippogryph Egg (nests, object 141931, Feralas 53.7-58.6,74-78) is taken on 40-50/06's Frayfeather hippogryph kills (58.0,62.8, about 600 yd north of the nests), before Witch Doctor Uzer'i's hand-in. It was taken at about 56.5 in 50-60/05 for about a fifth of its XP, with a Camp Mojache -> nests -> Camp Mojache ride. Measured with the calibrated level model."
+			},
+			{
+				"a": [
+					"turnin",
+					2741
+				],
+				"b": [
+					"accept",
+					3444
+				],
+				"faction": "Horde",
+				"why": "Final route review leftovers, Horde 40-60 (0.3.6): The Super Egg-O-Matic is handed in on 40-50/06's Gadgetzan stop at about 50.8, the one the guide flies to from Camp Mojache, before Marvon Rivetseeker's Stone Circle (3444) on the way out to Un'Goro; see the pair above."
 			}
 		]
 	}

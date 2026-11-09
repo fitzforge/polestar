@@ -9614,3 +9614,24 @@ test(`${WETLANDS}: Vengeful Trail's scroll is picked up at Satyrnaar on the way 
 	assert.equal(list[at(list, 'turnin 98417', is('turnin', 98417))].s, list[kayneth].s, "handed to Maseara on Kayneth's stop");
 	assert.ok(!list.some(({ goal }) => goal.quest === 98418), 'Shared Fury is left out');
 });
+
+// Final route review leftovers, Horde 40-60 (0.3.6): The Super Egg-O-Matic (2741, level 47) was taken at about 56.5 in
+// 50-60/05 (about a fifth of its 4200 XP there) with a Camp Mojache -> southern nests -> Camp Mojache ride. 40-50/04
+// passes the Egg-O-Matic at 47 and 40-50/06 kills the Frayfeather hippogryphs a short ride north of the nests, then
+// flies to Gadgetzan: taken, worked and handed in there, the 50-60/05 nests step is only for a character still carrying it.
+test('Horde 40-50: The Super Egg-O-Matic is taken in Tanaris at 47 and finished in 40-50/06, not with a Feralas ride at 56', { skip }, () => {
+	const tan = goals('forever/horde/40-50/04-tanaris.guide');
+	at(tan, 'accept 2741', is('accept', 2741));
+	const az = goals('forever/horde/40-50/06-azshara.guide');
+	const fray = at(az, 'the Frayfeather hippogryphs', (g) => g.t === 'use' && g.quest === 3124);
+	const egg = at(az, 'the Hippogryph Egg', (g) => g.t === 'collect' && g.item === 8564 && g.quest === 2741);
+	const uzeri = at(az, "turnin 3124 (Uzer'i)", is('turnin', 3124));
+	assert.ok(fray < egg && egg < uzeri, 'the nests right after the hippogryphs, before Camp Mojache');
+	assert.ok((az[egg].step.when || []).some((p) => p.k === 'onquest' && !p.neg), 'the nests only with the quest in the log');
+	const tin = az[at(az, 'turnin 2741', is('turnin', 2741))];
+	assert.ok(tin.step.goals.some(is('turnin', 4494)), 'on the Gadgetzan stop');
+	const epl = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	assert.ok(!epl.some(({ goal }) => is('accept', 2741)(goal)), '50-60/05 no longer takes it');
+	const late = epl.find(({ goal }) => goal.t === 'collect' && goal.quest === 2741);
+	assert.ok(!late || (late.step.when || []).some((p) => p.k === 'onquest' && !p.neg), 'the old nests step only for a carrier');
+});

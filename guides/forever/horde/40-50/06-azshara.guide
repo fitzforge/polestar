@@ -10,6 +10,9 @@ next forever/horde/50-60/01-un-goro-crater
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: The Monogrammed Sash (8552), Message in a Bottle (594), The Mind's Eye (591), The Bloodsail Buccaneers (608).
+# The Super Egg-O-Matic (2741, level 47, accepted in 04-tanaris): the egg from the nests south of the Frayfeather
+# hippogryphs and the hand-in at Gadgetzan, at 50 with its full 4,200 XP (it was taken at about 56.5 in 50-60/05 with a
+# Feralas ride for about a fifth of that).
 # Left out: Assisting Arch Druid Runetotem (3784).
 
 step Swamp of Sorrows
@@ -297,6 +300,11 @@ step Frayfeather Hippogryphs
   collect 9595 quest 3124
   use 9619 quest 3124.1 @58.0,62.8 map 1444
 
+step Hippogryph nests
+  when onquest 2741
+  tip The hippogryph nests are on the hills to the south, around the Ruins of Isildien; each holds an egg for the Egg-O-Matic.
+  collect 8564 quest 2741 @58.0,76.3 map 1444
+
 step Witch Doctor Uzer'i
   turnin 3124
   accept 3125
@@ -368,6 +376,7 @@ step Gadgetzan
   turnin 2641                         -- Sprinkle
   accept 2661
   accept 4504                         -- Tran'rek, beside the wind rider master
+  turnin 2741                         -- The Egg-O-Matic, in the middle of town
   sethome "Gadgetzan"
   turnin 2661                         -- Marin Noggenfogger
   accept 2662
