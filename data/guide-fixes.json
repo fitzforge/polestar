@@ -4330,6 +4330,69 @@
 					"ref": "players' recordings of quest 1249: 3 people, 2 fails on the first try, 1 abandon and retake"
 				}
 			]
+		},
+		{
+			"id": "horde-3040-clam-bait-open-clams",
+			"faction": "Horde",
+			"at": {
+				"quest": 6142,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach: each clam you open on the sea floor, and some crawlers, give a Soft-shelled Clam. Open each one in your bags for its meat.",
+			"note": "Horde 30-40 audit (2026-11-09): Clam Bait wants Soft-shelled Clam Meat, which comes from opening Soft-shelled Clams (15874) in the bags; the clams come from the Giant Softshell Clams (object 177784) on the sea floor and from some Enraged Reef Crawlers (12347).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "items.json 15874 (object 177784 100%, npc 12347 35%), 15924 container 15874"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings: 2 people collected the meat on the Desolace coast"
+				}
+			]
+		},
+		{
+			"id": "horde-3040-thunder-axe-hand-of-iruxos",
+			"faction": "Horde",
+			"at": {
+				"quest": 1435,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Head east to Thunder Axe Fortress. Beat a Burning Blade cultist down, then use the Burning Gem on it before it dies to fill one Infused Burning Gem. The Burning Blade Seer stands on the fortress's top floor with the Sceptre. The cultists also drop a Flayed Demon Skin now and then (1-5%); if one drops, read it. Hand of Iruxos: clear the middle of the largest building, then use the Demon Pick on the red Hand of Iruxos Crystal there. A Demon Spirit (37) comes out: kill it for the Demon Box.",
+			"note": "Horde 30-40 audit (2026-11-09): Hand of Iruxos (5381) gives the Demon Pick (14523, its source item): it is used on the Hand of Iruxos Crystal (object 176581, 54.95,26.66) in the middle of the largest building, which brings out the Demon Spirit (11876, level 37) that drops the Demon Box; the tip said to use the pick on the spirit.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "objects.json 176581; npcs.json 11876; items.json 13542 drops from 11876"
+				},
+				{
+					"kind": "eg",
+					"ref": "EG Link live quest 5381: objectives Demon Box (13542) and the Demon Pick (14523)"
+				}
+			]
+		},
+		{
+			"id": "horde-3040-book-of-the-ancients-statue",
+			"faction": "Horde",
+			"at": {
+				"quest": 6027,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Slitherblade naga hold the coast north of Ethel Rethor. Swim out to Ranazjar Isle off the far northern tip and use the Gem of the Serpent on the Serpent Statue: Lord Kragaru (38) rises; kill him for the Book of the Ancients. He is well above you: rest to full first.",
+			"note": "Horde 30-40 audit (2026-11-09): Lord Kragaru (12369, level 38) is summoned by using the Gem of the Serpent (15766, the quest's source item) on the Serpent Statue (object 177673) on Ranazjar Isle, 28.24,6.67; the tip said he guards the book at the northern tip.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "objects.json 177673; npcs.json 12369 at Desolace 28.24,6.67"
+				},
+				{
+					"kind": "eg",
+					"ref": "EG Link live quest 6027: objectives the Book (15803) and the Gem of the Serpent (15766)"
+				}
+			]
 		}
 	]
 }

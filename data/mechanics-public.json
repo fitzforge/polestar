@@ -159,6 +159,151 @@
 				}
 			],
 			"note": "The Offering of Blood (95885): the Offering Stone in Beren's Peril hands over a Tortured Soul (210713) with the quest; used beside the stone it makes the offering and summons the elite Tortured Soul (212753), whose kill completes the quest. Source: players' in-game recordings to 2026-11-08, 12 people (4 established), the offering cast at the stone a few seconds after the accept with no item looted, then the kill ticking the quest's last line (#1317)."
+		},
+		"5381": {
+			"kinds": [
+				{
+					"kind": "use-item-at-place",
+					"confidence": "high"
+				},
+				{
+					"kind": "summon-by-item",
+					"confidence": "high"
+				}
+			],
+			"params": [
+				{
+					"kind": "summon-by-item",
+					"item": 14523,
+					"npc": 11876
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"item": 14523,
+					"target": {
+						"type": "object",
+						"id": 176581
+					},
+					"place": {
+						"map": 1443,
+						"x": 54.95,
+						"y": 26.66,
+						"f": "e"
+					},
+					"fact": "Use the Demon Pick on the red Hand of Iruxos Crystal in the middle of the largest building of Thunder Axe Fortress: a Demon Spirit comes out.",
+					"confidence": "high"
+				},
+				{
+					"n": 2,
+					"action": "kill",
+					"target": {
+						"type": "npc",
+						"id": 11876
+					},
+					"place": {
+						"map": 1443,
+						"x": 55.0,
+						"y": 26.6,
+						"f": "e"
+					},
+					"fact": "Kill the Demon Spirit (level 37) for the Demon Box.",
+					"confidence": "high"
+				}
+			],
+			"note": "Hand of Iruxos: the game's data gives the quest the Demon Pick (14523) as its source item, the Hand of Iruxos Crystal (object 176581) at 54.95,26.66 and the Demon Spirit (11876) beside it, which drops the Demon Box (13542, 100%); EG Link's live quest record lists the pick with the box. The guide said to use the pick on the spirit."
+		},
+		"6027": {
+			"kinds": [
+				{
+					"kind": "use-item-at-place",
+					"confidence": "high"
+				},
+				{
+					"kind": "summon-by-item",
+					"confidence": "high"
+				}
+			],
+			"params": [
+				{
+					"kind": "summon-by-item",
+					"item": 15766,
+					"npc": 12369
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"item": 15766,
+					"target": {
+						"type": "object",
+						"id": 177673
+					},
+					"place": {
+						"map": 1443,
+						"x": 28.24,
+						"y": 6.67,
+						"f": "e"
+					},
+					"fact": "Use the Gem of the Serpent on the Serpent Statue on Ranazjar Isle, off Desolace's northern tip: Lord Kragaru rises.",
+					"confidence": "high"
+				},
+				{
+					"n": 2,
+					"action": "kill",
+					"target": {
+						"type": "npc",
+						"id": 12369
+					},
+					"place": {
+						"map": 1443,
+						"x": 28.24,
+						"y": 6.67,
+						"f": "e"
+					},
+					"fact": "Kill Lord Kragaru (level 38) for the Book of the Ancients.",
+					"confidence": "high"
+				}
+			],
+			"note": "Book of the Ancients: the game's data gives the quest the Gem of the Serpent (15766) as its source item and puts the Serpent Statue (object 177673) and Lord Kragaru (12369) at 28.24,6.67; EG Link's live quest record lists the gem with the book."
+		},
+		"6142": {
+			"kinds": [
+				{
+					"kind": "object-click",
+					"confidence": "high"
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "collect-object",
+					"item": 15874,
+					"target": {
+						"type": "object",
+						"id": 177784
+					},
+					"place": {
+						"map": 1443,
+						"x": 30.6,
+						"y": 31.9,
+						"f": "e"
+					},
+					"fact": "Open Giant Softshell Clams on the sea floor north of Shadowprey for Soft-shelled Clams; Enraged Reef Crawlers drop some too.",
+					"confidence": "high"
+				},
+				{
+					"n": 2,
+					"action": "use-item",
+					"item": 15874,
+					"fact": "Open each Soft-shelled Clam in your bags for its meat.",
+					"confidence": "high"
+				}
+			],
+			"note": "Clam Bait: the game's data has the meat (15924) inside the Soft-shelled Clam (15874), which comes from the Giant Softshell Clam objects (177784, 100%) and the Enraged Reef Crawlers (12347); 2 recorded players collected the meat on that coast."
 		}
 	}
 }
