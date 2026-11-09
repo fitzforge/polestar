@@ -4349,8 +4349,8 @@ test("Fitz's in-game check (2026-11-06): Darkshore's step offering Buzzbox 827 s
 // Paladins of the Felwood stop in Brill before the zeppelin to Orgrimmar.
 test("Snowiee's report (#912): a class the training stop cannot train trains in the town the way passes with its trainer, before leaving it", { skip }, () => {
 	for (const [guide, cls, after, before] of [
-		['forever/alliance/nightelf/02-darkshore.guide', 'DRUID', (g) => g.t === 'getfp' && g.location === 'Stormwind', (g) => g.t === 'goto' && g.text === 'Elwynn Forest'],
-		['forever/horde/50-60/02-felwood.guide', 'PALADIN', (g) => g.t === 'goto' && g.text === 'Tirisfal Glades', (g) => g.t === 'goto' && g.text === 'Zeppelin to Orgrimmar'],
+		['forever/alliance/nightelf/02-darkshore.guide', 'DRUID', (g) => g.t === 'getfp' && g.location === 'Stormwind', (g) => g.t === 'goto' && g.text === 'Goldshire'],
+		['forever/horde/50-60/02-felwood.guide', 'PALADIN', (g) => g.t === 'goto' && g.text === 'Brill', (g) => g.t === 'goto' && g.text === 'Zeppelin to Orgrimmar'],
 	]) {
 		const mine = goals(guide).filter(forClass(cls));
 		const into = at(mine, `${guide}: the way into town`, after);
