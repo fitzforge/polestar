@@ -96,6 +96,8 @@ return {
 	["{npc:3063}'s quest: beat three Novice Warriors (or players in duels) next to him."] = "Missão de {npc:3063}: vença três Guerreiros Novatos (ou jogadores em duelos) ao lado dele.",
 	-- {npc:3222} Brave Wildrunner · {area:222} Bloodhoof Village
 	["{npc:3222} walks around {area:222}: look inside the circle on the map"] = "{npc:3222} anda por {area:222}: procure dentro do círculo no mapa",
+	-- {npc:277182} Ahab Wheathoof · {item:287505} Tender Strider Meat
+	["{npc:277182}, at the north end of the village: Kyle wants {item:287505}"] = "",
 
 	-- Step 17: Bloodhoof Village
 	-- {npc:3067} Pyall Silentstride
@@ -104,6 +106,9 @@ return {
 	-- Step 18: Poison Water
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
 	["Prairie Wolves and Adult Plainstriders roam the plains around the village."] = "Lobos-da-pradaria e Pinotes Adultos vagam pelas planícies em volta da aldeia.",
+	-- {item:287505} Tender Strider Meat
+	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
+	["{item:287505} for Kyle: Adult Plainstriders drop it"] = "",
 	-- {object:2910} Well Stone
 	["{object:2910}, 170 yd east"] = "{object:2910}, 170 metros a leste",
 
@@ -120,14 +125,10 @@ return {
 	-- plural, as words: Prairie Stalkers = {npc:2959} Prairie Stalker · Flatland Cougars = {npc:3035} Flatland Cougar
 	["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it."] = "{quest:96130}, um lobo solitário, ronda as planícies a oeste da aldeia. Espreitadores-da-pradaria e Pumas das Estepes vagam pelas planícies ao norte e a oeste dela.",
 
-	-- Step 23: Bloodhoof Village
-	-- {npc:277182} Ahab Wheathoof · {item:287505} Tender Strider Meat
-	["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182} fica na borda norte da aldeia. Kyle quer {item:287505} de pinotes.",
-
 	-- Step 24: Thunderhorn Water Well
 	-- {item:287505} Tender Strider Meat
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
-	["The well lies north of the village. Adult Plainstriders graze around it: they drop the {item:287505} for Kyle."] = "O poço fica ao norte da aldeia. Os Pinotes Adultos pastam em volta dele: soltam a {item:287505} para Quico.",
+	["The well lies north of the village. Adult Plainstriders graze around it: they drop the {item:287505} for Kyle, if you have none yet."] = "",
 
 	-- Step 25: Bloodhoof Village
 	-- {npc:277154} Kyle the Frenzied · {item:287505} Tender Strider Meat
@@ -152,8 +153,7 @@ return {
 
 	-- Step 30: Galak centaurs
 	["Galak centaurs"] = "Centauros Galath",
-	-- {npc:275767} Herak the Pillager
-	["The Galak centaurs camp on the plains east of the well; {npc:275767} leads them."] = "Os centauros Galath acampam nas planícies a leste do poço; {npc:275767} os lidera.",
+	["The Galak centaurs camp on the plains east of the well; Herak leads them."] = "",
 
 	-- Step 31: The Venture Co. Mine
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes
@@ -331,13 +331,16 @@ return {
 	-- ["Ride down to {area:222} and tame with the {item:15908}: an {npc:2956} on the plains, a {npc:2959} north of the village, a Swoop to the north-west."] = "Desça até a {area:222} e domestique com a {item:15908}: um {npc:2956} nas planícies, um {npc:2959} ao norte da aldeia e um Rapineiro a noroeste.",
 	-- ["Speak with {npc:3067}"] = "Fale com {npc:3067}",
 	-- ["Swoops glide over the plains all around Bloodhoof."] = "Rapineiros planam sobre as planícies em volta de Casco Sangrento.",
+	-- ["The Galak centaurs camp on the plains east of the well; {npc:275767} leads them."] = "Os centauros Galath acampam nas planícies a leste do poço; {npc:275767} os lidera.",
 	-- ["The Galak centaurs camp on the plains north of the {area:821}; Herak leads them. Prairie Wolf Alphas roam among the wolves."] = "Os centauros Galath acampam nas planícies ao norte de {area:821}; Herak os lidera. Os Lobos-da-pradaria Alfa vagam entre os lobos.",
 	-- ["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the forge in {area:222}."] = "Os anões do {area:404} carregam as Picaretas do Prospector. Destrua-as na forja da {area:222}.",
+	-- ["The well lies north of the village. Adult Plainstriders graze around it: they drop the {item:287505} for Kyle."] = "O poço fica ao norte da aldeia. Os Pinotes Adultos pastam em volta dele: soltam a {item:287505} para Quico.",
 	-- ["The well lies north of the village. Well Stones sit around the well, {item:4809} lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for {quest:766} and {quest:761}."] = "O poço fica ao norte da aldeia. Pedras de Poço ficam em volta do poço, e {item:4809} fica sob as árvores próximas. Mate lobos, pumas, pinotes e rapineiros no caminho para {quest:766} e {quest:761}.",
 	-- ["The well lies north of the village. Well Stones sit around the well, {object:2912} lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for {quest:766} and {quest:761}."] = "O poço fica ao norte da aldeia. Pedras de Poço ficam em volta do poço, e {object:2912} fica sob as árvores próximas. Mate lobos, pumas, pinotes e rapineiros no caminho para {quest:766} e {quest:761}.",
 	-- ["The well lies south-east of the village."] = "O poço fica a sudeste da aldeia.",
 	-- ["The {area:380}"] = "{area:380}",
 	-- ["{npc:275789} stands on the {area:821} a little east of the well."] = "{npc:275789} fica nas {area:821}, um pouco a leste do poço.",
+	-- ["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182} fica na borda norte da aldeia. Kyle quer {item:287505} de pinotes.",
 	-- ["{npc:2988} camps by the {area:396} south-east of Bloodhoof."] = "{npc:2988} acampa junto ao {area:396}, a sudeste de Casco Sangrento.",
 	-- ["{npc:2991} sits by the tent on the camp's eastern edge; the {item:4755} stands next to her."] = "{npc:2991} fica sentada junto à tenda na borda leste do acampamento; o {item:4755} está ao lado dela.",
 	-- ["{npc:3059}, the warrior trainer"] = "{npc:3059}, o instrutor de guerreiro",

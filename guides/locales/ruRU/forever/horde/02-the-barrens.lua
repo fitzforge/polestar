@@ -204,8 +204,8 @@ return {
 	-- plural, as words: Raptor Heads = {item:5062} Raptor Head
 	["Finish the Raptor Heads"] = "Доберите головы ящеров",
 	-- {quest:881} Echeyakee
-	-- plural, as words: Sunscale Screechers = {npc:3255} Sunscale Screecher
-	["Still short of twelve? The Sunscale Screechers are thickest on the plains around {quest:881}'s lair, north of the Razormane camp."] = "Не хватает до двенадцати? Больше всего яркочешуйчатых крикунов на равнинах вокруг логова ({quest:881}), к северу от лагеря Иглогривых.",
+	-- plural, as words: Sunscale Lashtails = {npc:3254} Sunscale Lashtail
+	["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "",
 
 	-- Step 57: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3448} Tonga Runetotem · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork
@@ -664,6 +664,7 @@ return {
 	-- ["South-east on the way back to the {area:380}: {quest:881}, a white lion, prowls the plains north of the Razormane camp.\nCareful: Savannah Huntresses roam around the lair. They respawn quickly and often join the fight alongside {quest:881}, so clear them out before you blow the horn.\nSunscale raptors here count toward the heads."] = "На юго-восток, по пути обратно к месту {area:380}: {quest:881}, белый лев, рыщет по равнинам к северу от лагеря Иглогривых.\nОсторожно: вокруг логова бродят охотницы саванны. Они быстро возрождаются и часто вступают в бой вместе с {quest:881}, так что перебейте их, прежде чем трубить в рог.\nЯркочешуйчатые ящеры здесь тоже дают головы.",
 	-- ["Southsea beach"] = "Пляж Южных морей",
 	-- ["Still short of seven? Plainstriders are thickest on the plains north of the {area:380}, along the road north."] = "Не хватает до семи? Больше всего долгоногов на равнинах к северу от места {area:380}, вдоль дороги на север.",
+	-- ["Still short of twelve? The Sunscale Screechers are thickest on the plains around {quest:881}'s lair, north of the Razormane camp."] = "Не хватает до двенадцати? Больше всего яркочешуйчатых крикунов на равнинах вокруг логова ({quest:881}), к северу от лагеря Иглогривых.",
 	-- ["Sunscale raptors roam the plains north and east of the {area:380}, and about three in four drop a head: kill the ones you pass on the way. Careful: Sunscale Screechers call nearby allies within 30 yd once below 30% health."] = "Яркочешуйчатые ящеры бродят по равнинам к северу и востоку от места {area:380}, примерно с трех из четырех падает голова: убивайте встречных по пути. Осторожно: яркочешуйчатые крикуны при здоровье ниже 30% зовут союзников в радиусе 30 м.",
 	-- ["The Razormane camp lies east of the {area:380}. Warriors: the {object:58369} stands in the camp. Shamans: the quilboar drop the {item:5026}.\nCareful: The chest stands next to a broken wagon, guarded by a pair of Razormanes, including hunters that can pull more quilboar into the fight."] = "Лагерь Иглогривых находится к востоку от места {area:380}. Воины: {object:58369} стоит в лагере. Шаманы: с кабанолюдов падает {item:5026}.\nОсторожно: сундук стоит рядом со сломанной повозкой, его охраняют двое Иглогривых, включая охотников, которые могут привлечь в бой других кабанолюдов.",
 	-- ["The Savannah Prowlers hunt the plains between town and the Razormane camp to the east. In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end."] = "Хищники саванны ({npc:3425}) охотятся на равнинах между поселением и лагерем Иглогривых к востоку. В лагере водоискатели и терноплеты держат западную половину, охотники – середину; ящики с припасами стоят на восточном краю.",
