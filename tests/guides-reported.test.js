@@ -8317,7 +8317,7 @@ test('#1357: a training step carries its town, and the town has a trainer of eac
 		['forever/horde/30-40/01-hillsbrad-foothills.guide', /^Train$/, 1454],
 		['forever/horde/30-40/05-arathi-highlands.guide', /^(Undercity|\{zone:1458\}) trainers$/, 1458],
 		['forever/alliance/02-westfall.guide', /^Shaman training$/, 1455],
-		['forever/alliance/50-60/01-burning-steppes.guide', /^Druid training$/, 1457],
+		['forever/alliance/50-60/01-burning-steppes.guide', /^Darnassus$/, 1457],
 	];
 	for (const [guide, title, town] of cases) {
 		const list = goals(guide).filter(({ step, goal }) => title.test(step.title) && goal.t === 'train' && goal.class);
@@ -9715,4 +9715,28 @@ test(`${TELDRASSIL}: Twisted Hatred's webwoods on the way to the Oracle Glade, h
 	const hand = at(list, 'turnin 98403', is('turnin', 98403));
 	assert.ok(hand > at(list, 'kill 486 (Ursal)', (g) => g.t === 'kill' && g.quest === 486), 'handed to Tallonkai on the Dolanaar stop after Ursal');
 	assert.ok((list[hand].step.when || []).some((p) => p.k === 'complete' && !p.neg), 'only once the quest is done');
+});
+
+// --- Alliance 50-60 quest volume, 0.3.6 audit #11 (2026-11-09): XP before Winterspring's last top-up. Every
+// grind of 50-60/01-03 tops up to a level the next work needs, so only XP handed in before the 55.05 top-up
+// shortens it; these three hand-ins come on stops the route already makes, before it.
+test('Alliance 50-53: A Meeting with the Master on the hippogryph top-up, the relics and the soil handed in on the way to Felwood', { skip }, () => {
+	const bs = goals('forever/alliance/50-60/01-burning-steppes.guide');
+	const meet = at(bs, 'turnin 3381', is('turnin', 3381));
+	assert.ok(!bs[meet].goal.optional && !bs[at(bs, 'accept 3381', is('accept', 3381))].goal.optional, 'Sanath\'s feathers are part of the route');
+	assert.ok(bs[meet].step === bs.find(({ goal }) => goal.t === 'level' && goal.grind === 6375).step, 'on the step that tops up on the Thunderhead Hippogryphs');
+	const relics = at(bs, 'turnin 3701', is('turnin', 3701));
+	assert.ok(at(bs, 'relic work', (g) => g.quest === 3701 && g.t !== 'accept' && g.t !== 'turnin') < relics, 'the relics are read first');
+	assert.ok(at(bs, 'turnin 3501', is('turnin', 3501)) < relics, 'after the Steppes and the Blasted Lands, on the Ironforge stop');
+	assert.ok(relics < at(bs, 'fly to Menethil', (g) => g.t === 'fly' && /Menethil/.test(g.location || '')), 'before the flight to Menethil and the boat to Kalimdor');
+	const soil = at(bs, 'turnin 3764', is('turnin', 3764));
+	assert.ok(everyone(bs[soil]), 'every class goes up to Jenal');
+	assert.ok(soil > at(bs, 'turnin 3661', is('turnin', 3661)), 'from the Rut\'theran stop');
+	for (const g of ['04-western-plaguelands', '05-silithus']) {
+		const late = goals(`forever/alliance/50-60/${g}.guide`);
+		assert.ok(!late.some(({ goal }) => goal.t === 'turnin' && (goal.quest === 3701 || goal.quest === 3764)), `neither waits for ${g}`);
+	}
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
+	assert.ok(rf.include.some((e) => e.q === 3381), 'the route fixes include A Meeting with the Master');
+	for (const q of [3701, 3764]) assert.ok(rf.pairs.some((p) => p.a[0] === 'turnin' && p.a[1] === q && p.faction === 'Alliance'), `a route-fix pair keeps the ${q} hand-in early`);
 });

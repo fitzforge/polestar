@@ -331,11 +331,6 @@ step The Temple Gardens
 
 # ---------------------------------------------------------------- Darnassus
 
-step Darnassus
-  zone Darnassus
-  tip The portal in Rut'theran Village leads up to Darnassus.
-  turnin 3764                         -- Jenal, in the Cenarion Enclave
-
 # Fandral and Mathrengyl stand upstairs in the druids' building, and the walking maps have no way up
 # inside it: the arrow led onto a ledge outside, behind the wall (#1338). Before each of them, a goto
 # at the building's door on its south side, 35.8,11.6 (players' recordings walk in there), makes the

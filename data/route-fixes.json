@@ -8441,6 +8441,11 @@
 				],
 				"reason": "Quest volume, Horde 50-60 (0.3.7): Uncle Carlin (level 56, from 50, 2900 XP) is a message from Pamela Redpath in Darrowshire to Carlin Redpath at Light's Hope Chapel: 50-60/01 hands Pamela's doll in and hearths to the chapel, where the guide hands Defenders of Darrowshire (5211) to Carlin on the same stop. It is a delivery with no fighting, so the 3+ levels over at about 52.7 do not matter.",
 				"issue": "-"
+			},
+			{
+				"q": 3381,
+				"reason": "Quest volume, Alliance 50-60 (0.3.6 audit #11, 2026-11-09; Volume5060A's draft, landed by GRLeftovers): A Meeting with the Master (48, 2200 XP; the data had no reward when the seed was cut, so it was written optional) is taken and handed in at Sanath Lim-yo's camp in Azshara (50-60/01), where the route tops up on the Thunderhead Hippogryphs that drop the two Undamaged Hippogryph Feathers (30% each): no walk of its own, and the XP comes before Burning Steppes' level-51 gate.",
+				"issue": "-"
 			}
 		],
 		"skip": [
@@ -12094,6 +12099,30 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review leftovers, Horde 40-60 (0.3.6): The Super Egg-O-Matic is handed in on 40-50/06's Gadgetzan stop at about 50.8, the one the guide flies to from Camp Mojache, before Marvon Rivetseeker's Stone Circle (3444) on the way out to Un'Goro; see the pair above."
+			},
+			{
+				"a": [
+					"turnin",
+					3701
+				],
+				"b": [
+					"turnin",
+					3661
+				],
+				"faction": "Alliance",
+				"why": "Quest volume, Alliance 50-60 (0.3.6 audit #11, 2026-11-09; Volume5060A's draft, landed by GRLeftovers): The Smoldering Ruins of Thaurissan (5450 XP) is handed in to Royal Historian Archesonus on the Ironforge stop at the end of 50-60/01 (about 52.5), right after the relics are read in the Burning Steppes, instead of being carried to 05's Ironforge visit at 58: the XP comes before Felwood's and Winterspring's top-ups."
+			},
+			{
+				"a": [
+					"turnin",
+					3764
+				],
+				"b": [
+					"accept",
+					4101
+				],
+				"faction": "Alliance",
+				"why": "Quest volume, Alliance 50-60 (0.3.6 audit #11, 2026-11-09; Volume5060A's draft, landed by GRLeftovers): Un'Goro Soil (4700 XP, soil from 40-50/07) is handed in to Jenal in Darnassus on 50-60/01's Rut'theran stop (about 52.5; the druids already go up there to train), not on 04's Darnassus visit at 56.7: the XP comes before Felwood's and Winterspring's top-ups."
 			}
 		]
 	}

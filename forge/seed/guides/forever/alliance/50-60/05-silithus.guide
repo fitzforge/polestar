@@ -62,7 +62,6 @@ step Ironforge
   accept 7807 optional                -- Bubulo Acerbus, by the tram
   accept 7808 optional
   accept 7809 optional
-  turnin 3701                         -- Royal Historian Archesonus
   accept 7802 optional                -- Mistina Steelshield
   accept 7803 optional
   accept 7804 optional
