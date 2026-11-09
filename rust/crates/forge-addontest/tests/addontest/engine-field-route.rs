@@ -15,13 +15,7 @@ fn fields(points: &[(i32, i32)], extra: &str) -> String {
 	points
 		.iter()
 		.enumerate()
-		.map(|(i, (x, y))| {
-			format!(
-				"{{ t = \"kill\", target = \"Target {}\", npc = {}, count = 1, map = 1429, x = {x}, y = {y} {extra} }}",
-				i + 1,
-				i + 1
-			)
-		})
+		.map(|(i, (x, y))| format!("{{ t = \"kill\", target = \"Target {}\", npc = {}, count = 1, map = 1429, x = {x}, y = {y} {extra} }}", i + 1, i + 1))
 		.collect::<Vec<_>>()
 		.join(",")
 }
@@ -43,10 +37,7 @@ emit(true)
 		stubs: vec!["stub_world.lua"],
 		before: format!("{WORLD}\n{setup}"),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
-		saved: vec![(
-			"Polestar".into(),
-			"PolestarDB = { schema = 1, settings = { behavior = { autoSelectGuide = false, whileHere = false } } }".into(),
-		)],
+		saved: vec![("Polestar".into(), "PolestarDB = { schema = 1, settings = { behavior = { autoSelectGuide = false, whileHere = false } } }".into())],
 		script: [TEST_PACK, &guide].join("\n"),
 		..Default::default()
 	});
@@ -114,16 +105,9 @@ assert(E.AimGoal(1, 1)); flush(); assert(E.GetWaypoint().goalIndex == 1)
 
 #[test]
 fn mandatory_waits_and_npc_groups_are_not_crossed() {
-	let goals = format!(
-		"{}, {{ t = \"wait\", seconds = 60 }}, {}",
-		fields(&[(51, 50)], ""),
-		fields(&[(48, 50), (60, 50)], "")
-	);
+	let goals = format!("{}, {{ t = \"wait\", seconds = 60 }}, {}", fields(&[(51, 50)], ""), fields(&[(48, 50), (60, 50)], ""));
 	check(&goals, "", END, "assert(E.GetWaypoint().goalIndex == 1); assert(E.GetStepView(1).current == 1)");
-	let goals = format!(
-		"{{ t = \"talk\", npc = 90, npcName = \"First\", map = 1429, x = 80, y = 50 }}, {}",
-		fields(&[(51, 50), (48, 50), (60, 50)], "")
-	);
+	let goals = format!("{{ t = \"talk\", npc = 90, npcName = \"First\", map = 1429, x = 80, y = 50 }}, {}", fields(&[(51, 50), (48, 50), (60, 50)], ""));
 	check(&goals, "", END, "assert(E.GetWaypoint().goalIndex == 1); assert(E.GetLiveStep() == 1)");
 }
 
@@ -148,10 +132,7 @@ assert(E.GetStepView(1).current == 3)
 
 #[test]
 fn a_known_required_visit_scores_the_end_of_the_route() {
-	let goals = format!(
-		"{}, {{ t = \"talk\", npc = 90, npcName = \"Exit\", map = 1429, x = 40, y = 50 }}",
-		fields(&[(49, 50), (55, 50)], "")
-	);
+	let goals = format!("{}, {{ t = \"talk\", npc = 90, npcName = \"Exit\", map = 1429, x = 40, y = 50 }}", fields(&[(49, 50), (55, 50)], ""));
 	check(&goals, "", END, "assert(E.GetWaypoint().goalIndex == 2); assert(E.GetStepView(1).focus == 1)");
 }
 
@@ -168,17 +149,8 @@ E.GetStepView(2); flush()
 assert(E.GetStepView(2).goals[1].x == 60); assert(E.GetWaypoint().goalIndex == 1)
 "#,
 	);
-	let goals = format!(
-		"{}, {{ t = \"wait\", seconds = 60 }}, {}",
-		fields(&[(49, 50), (55, 50)], ""),
-		fields(&[(60, 50)], "")
-	);
-	check(
-		&goals,
-		"",
-		r#"{ t = "talk", npc = 90, npcName = "Exit", map = 1429, x = 40, y = 50 }"#,
-		"assert(E.GetWaypoint().goalIndex == 1)",
-	);
+	let goals = format!("{}, {{ t = \"wait\", seconds = 60 }}, {}", fields(&[(49, 50), (55, 50)], ""), fields(&[(60, 50)], ""));
+	check(&goals, "", r#"{ t = "talk", npc = 90, npcName = "Exit", map = 1429, x = 40, y = 50 }"#, "assert(E.GetWaypoint().goalIndex == 1)");
 }
 
 #[test]
@@ -200,26 +172,13 @@ assert(E.GetWaypoint().goalIndex == 1); assert(E.GetWaypoint().x == 49)
 
 #[test]
 fn missing_position_and_other_continents_keep_the_existing_fallback() {
-	check(
-		&fields(&[(51, 50), (48, 50), (60, 50)], ""),
-		"w.moveTo(nil)",
-		END,
-		"assert(E.GetWaypoint().goalIndex == 1)",
-	);
-	let goals = format!(
-		"{}, {{ t = \"kill\", target = \"Remote\", npc = 99, count = 1, map = 1411, x = 50, y = 50 }}",
-		fields(&[(51, 50), (48, 50)], "")
-	);
+	check(&fields(&[(51, 50), (48, 50), (60, 50)], ""), "w.moveTo(nil)", END, "assert(E.GetWaypoint().goalIndex == 1)");
+	let goals = format!("{}, {{ t = \"kill\", target = \"Remote\", npc = 99, count = 1, map = 1411, x = 50, y = 50 }}", fields(&[(51, 50), (48, 50)], ""));
 	check(&goals, "", END, "assert(E.GetWaypoint().goalIndex == 1)");
 }
 
 fn leveled_goals() -> String {
-	[
-		fields(&[(70, 50)], ", quest = 900001, oi = 1"),
-		fields(&[(51, 50)], ", quest = 900002, oi = 1"),
-		fields(&[(80, 50)], ", quest = 900003, oi = 1"),
-	]
-	.join(",")
+	[fields(&[(70, 50)], ", quest = 900001, oi = 1"), fields(&[(51, 50)], ", quest = 900002, oi = 1"), fields(&[(80, 50)], ", quest = 900003, oi = 1")].join(",")
 }
 
 const LEVELS: &str = r#"
@@ -271,12 +230,7 @@ assert(E.GetLiveStep() == 1)
 
 #[test]
 fn objective_metadata_is_used_when_live_quest_level_is_unknown() {
-	let goals = [
-		fields(&[(70, 50)], ", qlvl = 15"),
-		fields(&[(51, 50)], ", qlvl = 20"),
-		fields(&[(80, 50)], ", qlvl = 15"),
-	]
-	.join(",");
+	let goals = [fields(&[(70, 50)], ", qlvl = 15"), fields(&[(51, 50)], ", qlvl = 20"), fields(&[(80, 50)], ", qlvl = 15")].join(",");
 	check(
 		&goals,
 		"w.level = 15",

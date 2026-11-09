@@ -11864,4 +11864,3 @@ ns.On("PACKS_CHANGED", function()
 	if not activeTab then announceActive() end
 	evaluate()
 end)
-

@@ -2089,4 +2089,3 @@ fn a_hearth_step_whose_hearthstone_is_bound_at_another_inn_says_so_and_walks_the
 	assert_eq!(out["walked"], 2, "arriving in Goldshire on foot checks the hearth off");
 	assert_eq!(out["unknownInn"], json!({ "line": false, "arrow": false }));
 }
-
