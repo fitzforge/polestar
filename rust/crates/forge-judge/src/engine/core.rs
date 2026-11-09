@@ -1272,14 +1272,27 @@ impl<'a> Sim<'a> {
 
 	// ------------------------------------------------------------------ placement and current step
 
+	/// anchorStep: the last step with quest progress, counting only goals of quests the guide offers at or
+	/// before that goal (or direct hand-ins): a quest taken in another guide says nothing of where the
+	/// player is in this one.
 	fn anchor_step(&mut self) -> usize {
-		let n = self.gd().steps.len();
+		let gd = self.gd();
+		let n = gd.steps.len();
+		let mut offered: FxHashMap<u32, usize> = FxHashMap::default();
+		for s in 1..=n {
+			for goal in &gd.step(s).goals {
+				if let (T::Accept, Some(q)) = (goal.t, goal.quest) {
+					offered.entry(q).or_insert(s);
+				}
+			}
+		}
 		for s in (1..=n).rev() {
 			let step = self.gd().step(s);
 			if step.only.is_none() {
 				for g in 1..=step.goals.len() {
 					let goal = &step.goals[g - 1];
-					if goal.only.is_none() && !goal.optional && is_quest_goal(goal) && self.goal_applies(s, g) {
+					let own = goal.direct || goal.quest.and_then(|q| offered.get(&q)).is_some_and(|&a| a <= s);
+					if own && goal.only.is_none() && !goal.optional && is_quest_goal(goal) && self.goal_applies(s, g) {
 						let d = self.goal_done(s, g);
 						if d.done || (goal.oi.is_some() && d.cur.unwrap_or(0.0) > 0.0) {
 							return s;
@@ -1356,7 +1369,7 @@ impl<'a> Sim<'a> {
 		let travel = |t: T| matches!(t, T::Goto | T::Fly | T::Hearth | T::Explore | T::Die);
 		for s in 1..limit {
 			if self.step_applies(s) && !self.is_skipped(s) && !self.step_done(s) {
-				let behind = s < anchor;
+				let behind = s < anchor && self.leads_to_done(s);
 				let mut passes = true;
 				for g in 1..=gd.step(s).goals.len() {
 					let goal = gd.goal(s, g);
@@ -1383,6 +1396,27 @@ impl<'a> Sim<'a> {
 				}
 			}
 		}
+	}
+
+	/// place's leadsToDone: a soft step behind the progress passes only when the quest work it leads to (the
+	/// next quest goal for the character after it that they can do) is done or under way.
+	fn leads_to_done(&mut self, s: usize) -> bool {
+		let gd = self.gd();
+		for t in s + 1..=gd.steps.len() {
+			if !self.step_applies(t) || self.is_skipped(t) {
+				continue;
+			}
+			for g in 1..=gd.step(t).goals.len() {
+				let goal = gd.goal(t, g);
+				if blocks(goal) && is_quest_goal(goal) && self.goal_applies(t, g) && self.gated(goal).is_none() && self.unavailable_for(t, g, 0).is_none() {
+					if self.goal_done(t, g).done {
+						return true;
+					}
+					return goal.quest.is_some_and(|q| self.w.on_quest(q) || self.quest_done(q));
+				}
+			}
+		}
+		true
 	}
 
 	/// Own.jump: the first `skipto` whose predicate holds skips s up to the labelled step.

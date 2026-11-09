@@ -3,7 +3,7 @@
 //! (accept, kill, loot, walk there, talk, train, bind, level up...), ticks a manual goal that stays open,
 //! stops (or skips the step) where a goal stays open, and follows the engine's hand-over through `next`.
 
-use super::core::{is_manual, Sim, Status, TimerKind};
+use super::core::{is_manual, Reason, Sim, Status, TimerKind};
 use super::model::{Guide, T};
 use super::world::{FrameKind, Objective, Skill};
 use super::{Event, OnStuck};
@@ -33,6 +33,8 @@ pub(crate) struct ViewGoal {
 	pub npc: Option<u32>,
 	pub npc_name: Option<String>,
 	pub pos: Option<(u32, f64, f64)>,
+	/// An accept waiting for the character's level, hidden (status Na): Engine.lua's view `waitsLevel`.
+	pub waits_level: bool,
 }
 
 impl<'a> Sim<'a> {
@@ -246,15 +248,22 @@ impl<'a> Sim<'a> {
 		let n = self.gd().step(s).goals.len();
 		let mut out = Vec::with_capacity(n);
 		for g in 1..=n {
-			let (status, d) = match step_status {
+			let mut waits_level = false;
+			let (mut status, d) = match step_status {
 				None => (Status::Na, Default::default()),
 				Some(cur) => self.goal_status(s, g, cur),
 			};
+			// An accept waiting for the character's level is no task: the view hides it (Engine.lua's goal
+			// view, Fitz 0.3.6: no level text on pick-ups).
+			if status == Status::Skipped && self.gd().goal(s, g).t == T::Accept && self.unavailable_for(s, g, 0) == Some(Reason::Level) {
+				status = Status::Na;
+				waits_level = true;
+			}
 			let max = if d.cur.is_some() { d.max } else { None };
 			let (npc, npc_name) = self.npc_of(s, g);
 			let pos = self.pos_of(s, g).map(|p| (p.0, p.1, p.2));
 			let side = self.side_vendor(s, g);
-			out.push(ViewGoal { status, max, manual: is_manual(self.gd().goal(s, g)), side, npc, npc_name, pos });
+			out.push(ViewGoal { status, max, manual: is_manual(self.gd().goal(s, g)), side, npc, npc_name, pos, waits_level });
 		}
 		out
 	}
@@ -489,7 +498,7 @@ impl<'a> Sim<'a> {
 			// guide brings the quest back (#1320).
 			let mut need = 0.0f64;
 			for g in 1..=view.len() {
-				if view[g - 1].status == Status::Skipped {
+				if view[g - 1].status == Status::Skipped || view[g - 1].waits_level {
 					if let Some(l) = self.level_wait(i, g) {
 						need = need.max(l);
 					}

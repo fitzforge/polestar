@@ -3284,6 +3284,32 @@ local function place()
 		end
 	end
 	local function travel(t) return t == "goto" or t == "fly" or t == "hearth" or t == "explore" or t == "die" end
+	-- A soft step behind the progress passes only when the quest work it
+	-- leads to is done or under way: the next quest goal for the character
+	-- after it that they can do (not waiting for a level or a prerequisite),
+	-- or one the catch-up left out (the way passes with it). Progress on a
+	-- quest done before this guide (an earlier visit to the zone, an earlier
+	-- guide that offers it too) is no sign the travel and training before
+	-- the work still to do were done (SkipAheadSweep, 0.3.6: Stranglethorn's
+	-- flight to Darkshire, Feralas' zeppelin, Darkshore's boat).
+	local function leadsToDone(s)
+		for t = s + 1, #steps do
+			if stepApplies(steps[t]) and not (sk and sk[t]) then
+				for g, goal in ipairs(steps[t].goals) do
+					local q = goal.quest
+					-- Leads to a quest the catch-up left out: the way passes with it.
+					if blocks(goal) and isQuestGoal(goal) and q and out and out[q] then return true end
+					if blocks(goal) and isQuestGoal(goal) and goalApplies(goal) then
+						if (goal.t == "accept" or goal.direct) and greyNeed(goal) == false then return true end
+						if not gated(goal) and not unavailableFor(goal) then
+							return goalDone(t, g, goal) and true or (q ~= nil and (C.IsOnQuest(q) or questDone(q))) or false
+						end
+					end
+				end
+			end
+		end
+		return true
+	end
 	for s = 1, limit - 1 do
 		if stepApplies(steps[s]) and not (sk and sk[s]) and not stepDone(s) then
 			local goals, passes = steps[s].goals, true
@@ -3291,7 +3317,7 @@ local function place()
 			-- with every quest done; travel to a quest left out or through a
 			-- guide passed whole; the rest only in a guide passed for the
 			-- player, for the session.
-			local behind = s < anchor or allDone
+			local behind = (s < anchor and leadsToDone(s)) or allDone
 			local now = not behind and through
 			for g, goal in ipairs(goals) do
 				local t = goal.t
@@ -3938,7 +3964,11 @@ local function goalView(s, g, goal, stepStatus, group)
 	-- An accept waiting for the character's level is no task yet (Fitz,
 	-- 0.3.6: no level text on pick-ups): not shown, like a goal for another
 	-- class; the level-up brings it back (Own.clearMarks).
-	if unavail and unavail.reason == "level" and goal.t == "accept" then status, unavail = "na", nil end
+	-- `waitsLevel`: the level it waits for (playtest.js's SIMULATE levels the player to it).
+	local waitsLevel
+	if unavail and unavail.reason == "level" and goal.t == "accept" then
+		status, unavail, waitsLevel = "na", nil, tonumber(goal.minLevel)
+	end
 	-- A goal of a quest that left the log, held for the player's answer.
 	local lost = status == "skipped" and not unavail and Own.lostGoal(goal)
 	local text, src = goalText(goal, verb, subject, detail, kind)
@@ -3974,6 +4004,7 @@ local function goalView(s, g, goal, stepStatus, group)
 		spots = goal.spots and #goal.spots or nil, spread = goal.spread or nil,
 		lvl = goal.candidates and chosen(goal) and chosen(goal).lvl or nil,
 		unavailable = unavail and unavail.reason or nil,
+		waitsLevel = waitsLevel,
 		unavailableText = unavail and unavailableText(unavail) or nil,
 		-- Left out because the player skipped a quest it needs (directly or
 		-- down the chain): that quest's title (Own.skippedWithTitle).

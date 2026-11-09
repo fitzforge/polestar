@@ -2207,7 +2207,15 @@ holds at its opening, see "Not yet available"):
   quest taken in another guide is no sign of where the player is in this
   one (Fitz, 0.3.6: Tincho at 28.7, carrying Dangerous! from the 22-24
   Hillsbrad visit, was put past Orgrimmar, training and the Undercity in
-  Hillsbrad 29-32, at every load).
+  Hillsbrad 29-32, at every load). And a soft step behind it passes only
+  when the quest work it leads to (the next quest goal for the character
+  after it they can do, not waiting for a level or a prerequisite) is done or
+  under way, or left out by the catch-up (`leadsToDone`): progress on a quest
+  done before this guide (an earlier visit, an earlier guide offering it
+  too) is no sign of the travel before the work still to do (SkipAheadSweep:
+  Stranglethorn's flight to Darkshire, Feralas' zeppelin, Darkshore's boat).
+  The judge's Rust engine (forge-judge `place`, `anchor_step`,
+  `leads_to_done`) mirrors it.
 - Before the start (with no start: before the last quest progress), a step
   passes when every open goal is an accept the character cannot take yet
   (level, prerequisite; marked unavailable for the session, so it comes back
