@@ -778,10 +778,7 @@ Polestar.Fire("RARE_SPOTTED", { kind = "founder", name = "Fitz Polestar", zone =
 local f, s = PolestarRareToast, PolestarRareCardTarget
 emit({ f.Target:IsShown(), f.Target.Label:GetText(), s:IsShown(), s:GetAttribute("macrotext") })"#,
 	);
-	assert_eq!(
-		out[0],
-		json!([true, "Wave", true, "/cleartarget [nocombat]\n/targetexact Fitz Polestar\n/targetexact [noexists] Fitz\n/wave"])
-	);
+	assert_eq!(out[0], json!([true, "Wave", true, "/cleartarget [nocombat]\n/targetexact Fitz Polestar\n/targetexact [noexists] Fitz\n/wave"]));
 }
 
 // ------------------------------------------------------------ the section
