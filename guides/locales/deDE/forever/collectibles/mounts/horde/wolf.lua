@@ -12,15 +12,15 @@ return {
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "Reiten lernen",
 	-- {npc:4752} Kildar · {npc:3362} Ogunaro Wolfrunner · {faction:76} Orgrimmar · {object:172958} Valley of Honor · {skill:762} Riding
-	["{npc:4752} and {npc:3362}'s kennel are in {faction:76}'s {object:172958}. At 40 {npc:4752} teaches {skill:762} to Orcs for 100g (10% less at Honored with {faction:76}), and it comes with a wolf. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
+	["{npc:4752} and {npc:3362}'s kennel are in {faction:76}'s {object:172958}. At 40 {npc:4752} teaches {skill:762} to Orcs for 100g (10% less at Honored with {faction:76}), and it comes with a wolf. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "{npc:4752} und der Zwinger von {npc:3362} stehen in der {object:172958} von {faction:76}. Auf Stufe 40 lehrt {npc:4752} Orcs {skill:762} für 100g (10% weniger bei Wohlwollend mit {faction:76}), und ein Wolf gehört dazu. Andere Rassen lernen {skill:762}, mit ihrem eigenen ersten Reittier, beim Reitlehrer ihrer eigenen Rasse.",
 	-- {npc:4752} Kildar
 	["{npc:4752}, riding trainer"] = "{npc:4752}, Reitlehrer",
 
 	-- Step 2: Wolf Riding for other races
 	-- {spell:825} Wolf Riding
-	["{spell:825} for other races"] = "",
+	["{spell:825} for other races"] = "{spell:825} für andere Rassen",
 	-- {spell:825} Wolf Riding · {skill:762} Riding · {npc:4752} Kildar · {faction:76} Orgrimmar
-	["Any Horde race can buy these wolves, but riding one also takes {spell:825}, which only Orcs get with {skill:762}. {npc:4752} teaches it to other races once they are Exalted with {faction:76} (the Orgrimmar Reputation guide shows the way). Until then, don't buy a wolf for this character."] = "",
+	["Any Horde race can buy these wolves, but riding one also takes {spell:825}, which only Orcs get with {skill:762}. {npc:4752} teaches it to other races once they are Exalted with {faction:76} (the Orgrimmar Reputation guide shows the way). Until then, don't buy a wolf for this character."] = "Jede Hordenrasse kann diese Wölfe kaufen, aber um einen zu reiten, braucht man auch {spell:825}, das nur Orcs mit {skill:762} bekommen. {npc:4752} lehrt es andere Rassen, sobald sie bei {faction:76} Ehrfürchtig sind (der Ruf-Guide für Orgrimmar zeigt den Weg). Bis dahin kaufe für diesen Charakter keinen Wolf.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Wähle eine Farbe",

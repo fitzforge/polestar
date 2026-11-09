@@ -14,7 +14,7 @@ return {
 	-- {zone:1436} Westfall
 	["The note in {zone:1436}"] = "Die Notiz in {zone:1436}",
 	-- {zone:1436} Westfall
-	["The chain opens at level 14. A burned-out campfire in western {zone:1436}, with a nailed plank beside it."] = "",
+	["The chain opens at level 14. A burned-out campfire in western {zone:1436}, with a nailed plank beside it."] = "Die Kette beginnt auf Stufe 14. Ein ausgebranntes Lagerfeuer im Westen von {zone:1436}, daneben ein angenageltes Brett.",
 
 	-- Step 2: Its twin in the Barrens
 	-- {zone:1413} Barrens
@@ -26,7 +26,7 @@ return {
 	-- {zone:1413} Barrens
 	["The note in the {zone:1413}"] = "Die Notiz in der {zone:1413}",
 	-- {zone:1413} Barrens
-	["The chain opens at level 14. A burned-out campfire in the southern {zone:1413}, with a nailed plank beside it."] = "",
+	["The chain opens at level 14. A burned-out campfire in the southern {zone:1413}, with a nailed plank beside it."] = "Die Kette beginnt auf Stufe 14. Ein ausgebranntes Lagerfeuer im Süden der {zone:1413}, daneben ein angenageltes Brett.",
 
 	-- Step 4: Its twin in Westfall
 	-- {zone:1436} Westfall
@@ -36,7 +36,7 @@ return {
 
 	-- Step 5: Stonetalon Mountains
 	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter
-	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "",
+	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "Das nächste Versteck ist ein kleines Lager in den Hügeln nordwestlich von {area:460}, mitten im {zone:1442}. Verlasse die Straße dort, wo ein Pfad nach Westen in die Hügel führt, und folge ihm zum Lager; das {object:424005} liegt auf einer Kiste neben dem Zelt.",
 	-- {area:1702} Honor's Stand
 	["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "Die Straße nach Westen führt durch {area:1702}, einen Posten der Horde; dieser Weg führt darum herum.",
 	["North of Honor's Stand"] = "Nördlich von Ehrenwacht",

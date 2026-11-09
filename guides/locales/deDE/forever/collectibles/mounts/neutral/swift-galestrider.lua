@@ -13,7 +13,7 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "{skill:762} (Geselle)",
 	-- {skill:762} Riding
-	["Swift Galestriders need level 60 and Journeyman {skill:762}. Train it at your own race's riding trainer; see the Level 60 mount guides for where."] = "",
+	["Swift Galestriders need level 60 and Journeyman {skill:762}. Train it at your own race's riding trainer; see the Level 60 mount guides for where."] = "Schnelle Galestrider brauchen Stufe 60 und {skill:762} (Geselle). Lerne es beim Reitlehrer deiner eigenen Rasse; wo, steht in den Guides für Reittiere der Stufe 60.",
 
 	-- Step 2: Skyboat from Dalaran
 	-- {area:279} Dalaran
@@ -31,21 +31,21 @@ return {
 
 	-- Step 4: Journeyman Riding with Genn Fairweather
 	-- {skill:762} Riding · {npc:265756} Genn Fairweather
-	["Journeyman {skill:762} with {npc:265756}"] = "",
+	["Journeyman {skill:762} with {npc:265756}"] = "{skill:762} (Geselle) bei {npc:265756}",
 	-- {skill:762} Riding · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
-	["Skyborne train Journeyman {skill:762} with {npc:265756} himself for 1,000g; Blizzard says it comes with a mount. He stands at the {area:17684} in {area:16638}, near the skyboat docks."] = "",
+	["Skyborne train Journeyman {skill:762} with {npc:265756} himself for 1,000g; Blizzard says it comes with a mount. He stands at the {area:17684} in {area:16638}, near the skyboat docks."] = "Himmelsgeborene lernen {skill:762} (Geselle) bei {npc:265756} selbst für 1.000g; laut Blizzard gehört ein Reittier dazu. Er steht an den {area:17684} in {area:16638}, nahe den Docks der Himmelsboote.",
 	-- {npc:265756} Genn Fairweather
-	["{npc:265756}, riding trainer"] = "",
+	["{npc:265756}, riding trainer"] = "{npc:265756}, Reitlehrer",
 
 	-- Step 5: Galestrider Riding for other races
 	-- {spell:1285849} Galestrider Riding
-	["{spell:1285849} for other races"] = "",
+	["{spell:1285849} for other races"] = "{spell:1285849} für andere Rassen",
 	-- {spell:1285849} Galestrider Riding · {skill:762} Riding · {npc:265756} Genn Fairweather
-	["Any race can buy Galestriders, but riding one also takes {spell:1285849}, which only the Skyborne get with {skill:762}. Other races can learn it too, but how is not known yet: in Classic another race's riding needed Exalted with its home faction, here the High Order (Alliance) or the Windshapers (Horde). Ask {npc:265756} before you buy."] = "",
+	["Any race can buy Galestriders, but riding one also takes {spell:1285849}, which only the Skyborne get with {skill:762}. Other races can learn it too, but how is not known yet: in Classic another race's riding needed Exalted with its home faction, here the High Order (Alliance) or the Windshapers (Horde). Ask {npc:265756} before you buy."] = "Jede Rasse kann Galestrider kaufen, aber um einen zu reiten, braucht man auch {spell:1285849}, das nur die Himmelsgeborenen mit {skill:762} bekommen. Andere Rassen können es ebenfalls lernen, aber wie, ist noch nicht bekannt: In Classic brauchte das Reiten einer anderen Rasse Ehrfürchtig bei deren Heimatfraktion, hier die Hohe Ordnung (Allianz) oder die Windformer (Horde). Frag {npc:265756}, bevor du kaufst.",
 
 	-- Step 6: Genn Fairweather
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
-	["{npc:265756} is at the {area:17684} in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Swift Galestrider at 200g; choose one."] = "",
+	["{npc:265756} is at the {area:17684} in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Swift Galestrider at 200g; choose one."] = "{npc:265756} ist an den {area:17684} in {area:16638}, der Hafenstadt der Insel, nahe den Docks der Himmelsboote. Der Forever-Client führt jeden Schnellen Galestrider für 200g; such dir einen aus.",
 	["200g"] = "200g",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
