@@ -130,6 +130,14 @@ test('R5: a turn-in needs every objective credited by an earlier line', { skip }
 	assert.deepEqual(of(good, 'R5'), []);
 });
 
+test('R5: a `buy` line counts: a required step whose goal is a purchase is covered by the buy', { skip }, () => {
+	const kb = new Map([[5441, [{ n: 1, action: 'buy', kind: 'npc', target: 10556, item: 16114 }]]]);
+	const bought = play('step Foreman Thazz\'ril\n  accept 5441\n\nstep Buy it\n  buy 16114\n\nstep Lazy Peons\n  kill 10556 x5 quest 5441.1\n\nstep Foreman Thazz\'ril\n  turnin 5441\n', { kb });
+	assert.deepEqual(of(bought, 'R5'), []);
+	const not = play('step Foreman Thazz\'ril\n  accept 5441\n\nstep Lazy Peons\n  kill 10556 x5 quest 5441.1\n\nstep Foreman Thazz\'ril\n  turnin 5441\n', { kb });
+	assert.match(of(not, 'R5')[0].reason, /required step 1 \(buy Foreman's Blackjack\) has no line/);
+});
+
 test('R5: a turn-in needs a line for each of the knowledge base\'s required steps', { skip }, () => {
 	const kb = new Map([[5441, [{ n: 1, action: 'use-item', kind: 'npc', target: 10556, item: 16114, fact: 'Use the blackjack on a sleeping peon.' }]]]);
 	const bad = play('step Foreman Thazz\'ril\n  accept 5441\n\nstep Lazy Peons\n  kill 10556 x5 quest 5441.1\n\nstep Foreman Thazz\'ril\n  turnin 5441\n', { kb });

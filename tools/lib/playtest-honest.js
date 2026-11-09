@@ -468,6 +468,8 @@ function playGoal(w, g, x, gi, find, explicitNpc, along = false) {
 			return;
 		case 'buy':
 			w.give(x.item, x.count || 1);
+			if (x.quest && x.oi) w.credit(x.quest, x.oi, x.count || 1);
+			w.worked.push(x);
 			return;
 		case 'accept':
 			return accept(w, x, gi, find, explicitNpc, prior);
