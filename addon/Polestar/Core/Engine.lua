@@ -5416,7 +5416,7 @@ end
 -- A trainer window of the character's class: the reminder's level
 -- (classTrainLevel, also set on first sight). classTrainVisit, which `train
 -- class` trusts, is set only when that trainer taught a spell
--- (Own.trainerLearned).
+-- (Own.trainerLearned) or listed none to learn (Own.trainerChecked).
 local function noteClassTrainer(npc)
 	if not Engine.IsClassTrainer(npc) then return end
 	refreshPlayer()
@@ -5426,7 +5426,7 @@ local function noteClassTrainer(npc)
 end
 
 -- `train class` has nothing to teach: the character's class trainer taught
--- a spell (Own.trainerLearned) at this level or at
+-- a spell (Own.trainerLearned) or listed none left (Own.trainerChecked) at this level or at
 -- the even level below an odd one (class trainers teach on even levels
 -- only). Latched once the route moves past (latchable), so the next level
 -- does not send the player back.
@@ -9125,6 +9125,29 @@ function Own.trainerLearned()
 	useActive()
 	requestUpdate()
 end
+
+-- The open window of a class trainer of the character's class lists nothing
+-- the character can learn now (no "available" service): that is the visit
+-- `train class` remembers for the level too (Own.nothingToTrain), so a
+-- training step never holds the guide when there is nothing new (a Dwarf at
+-- 19 in Ironforge held Loch Modan's step, 2026-11-09). With a spell
+-- available it waits for the spell learned, as before. Unknown without the
+-- client's trainer list, or with its "available" filter off (the list then
+-- hides them). On TRAINER_SHOW and TRAINER_UPDATE (the list after a purchase).
+function Own.trainerChecked()
+	if openKind ~= "train" or not (openNpc and player) or not Engine.IsClassTrainer(openNpc) then return end
+	if not (GetNumTrainerServices and GetTrainerServiceInfo) then return end
+	if GetTrainerServiceTypeFilter and not GetTrainerServiceTypeFilter("available") then return end
+	for i = 1, GetNumTrainerServices() or 0 do
+		local _, kind = GetTrainerServiceInfo(i)
+		if kind == "available" then return end
+	end
+	refreshPlayer()
+	local s, level = ns.CharState(), player.level or 1
+	if tonumber(s.classTrainVisit) == level then return end
+	s.classTrainVisit = level
+	requestUpdate()
+end
 if hooksecurefunc then
 	for _, name in ipairs({ "SelectOption", "SelectOptionByIndex" }) do
 		if C_GossipInfo and type(C_GossipInfo[name]) == "function" then hooksecurefunc(C_GossipInfo, name, function() Own.talkAct() end) end
@@ -9294,7 +9317,9 @@ ns.RegisterEvent("PLAYER_LOGOUT", function() sync() end)
 ns.RegisterEvent("TRAINER_SHOW", function()
 	onNpcFrame("train")
 	noteClassTrainer(openNpc)
+	Own.trainerChecked()
 end)
+ns.RegisterEvent("TRAINER_UPDATE", function() Own.trainerChecked() end)
 ns.RegisterEvent("LEARNED_SPELL_IN_SKILL_LINE", function() Own.trainerLearned() end)
 ns.RegisterEvent("MERCHANT_SHOW", function() onNpcFrame("vendor") end)
 

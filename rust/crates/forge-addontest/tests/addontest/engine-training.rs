@@ -348,6 +348,49 @@ fn train_class_asks_nothing_when_there_is_nothing_new_trained_at_this_level_or_a
 	assert_eq!(at(13, Some(12), "stub.world.setLevel(14) stub.advance(0.5)"), 2, "passed at 13, then 14");
 }
 
+// A Dwarf at 19 stood at Ironforge's trainer with nothing new, and Loch Modan's `train class` step held
+// the guide (2026-11-09): no spell was learned, and no visit had been recorded at 18. A class trainer's
+// list with no "available" service is the visit for the level; with one, the step waits for the spell.
+#[test]
+fn train_class_is_done_when_the_class_trainer_lists_nothing_to_learn_and_waits_for_the_spell_when_it_lists_one() {
+	let play = |services: &str, filter_off: bool, after: &str| {
+		let pre = format!(
+			r#"stub.world.level = 19
+			SERVICES = {services}
+			function GetNumTrainerServices() return #SERVICES end
+			function GetTrainerServiceInfo(i) local s = SERVICES[i] if s then return s[1], s[2] end end
+			{}"#,
+			if filter_off { "function GetTrainerServiceTypeFilter(kind) return kind ~= \"available\" end" } else { "" }
+		);
+		run(
+			None,
+			&pre,
+			&format!(
+				r#"{AGAIN} stub.advance(0.5)
+				local before = Polestar.Engine.GetStepIndex()
+				stub.world.trainer(3353); stub.advance(0.5)
+				local open = Polestar.Engine.GetStepIndex()
+				{after}
+				emit({{ before = before, open = open, after = Polestar.Engine.GetStepIndex(), visit = PolestarCharDB.classTrainVisit or false }})"#
+			),
+		)
+	};
+	let used = r#"{ { "Battle Shout", "used" }, { "Cleave", "unavailable" } }"#;
+	assert_eq!(play(used, false, ""), json!({ "before": 1, "open": 2, "after": 2, "visit": 19 }), "nothing to learn at 19: done");
+	assert_eq!(play("{}", false, ""), json!({ "before": 1, "open": 2, "after": 2, "visit": 19 }), "an empty list: done");
+	let one = r#"{ { "Battle Shout", "used" }, { "Hamstring", "available" } }"#;
+	assert_eq!(play(one, false, "stub.world.learnSpell(1715); stub.advance(0.5)"), json!({ "before": 1, "open": 1, "after": 2, "visit": 19 }), "a spell to learn: waits until it is learned");
+	assert_eq!(play(one, false, "stub.world.close(); stub.advance(0.5)"), json!({ "before": 1, "open": 1, "after": 1, "visit": false }), "closed without training: still open");
+	// With the "available" filter off the list hides what could be learned: no word either way.
+	assert_eq!(play(used, true, ""), json!({ "before": 1, "open": 1, "after": 1, "visit": false }), "filter off: unknown");
+	// The list after the last purchase (TRAINER_UPDATE) has nothing left.
+	assert_eq!(
+		play(one, false, r#"SERVICES[2][2] = "used"; stub.fire("TRAINER_UPDATE"); stub.advance(0.5)"#),
+		json!({ "before": 1, "open": 1, "after": 2, "visit": 19 }),
+		"nothing left after training"
+	);
+}
+
 #[test]
 fn a_spell_learned_at_a_class_trainer_records_the_visit_s_level_opening_the_window_or_a_first_sight_does_not() {
 	let out = run(

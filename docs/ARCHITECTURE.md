@@ -1116,9 +1116,11 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   anywhere counts. `train class` is done on a spell learned at a candidate
   of the character's class (its `classes`) during the step, or when there is
   nothing new to learn: the character last learned a spell at its class
-  trainer (`classTrainVisit`) at this level, or at the even level below an
+  trainer, or opened one whose list had no "available" service
+  (`classTrainVisit`, on TRAINER_SHOW and TRAINER_UPDATE; not with the
+  list's "available" filter off), at this level, or at the even level below an
   odd one, since class trainers teach on even levels only. Opening a
-  trainer's window alone is no check-off (Fitz).
+  trainer's window that lists a spell to learn is no check-off (Fitz).
 - **Spawn areas.** A goal with `spots` is positioned at one spot, distances
   measured to each area's edge (`Compat.GetPlayerWorldPosition`). Camps: the
   spot nearest the player; a different spot takes over only once it is 40 yd
