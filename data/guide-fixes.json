@@ -4400,6 +4400,27 @@
 			]
 		},
 		{
+			"id": "horde-3040-theramore-docks-footlocker",
+			"faction": "Horde",
+			"at": {
+				"quest": 1202,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "South-east from the manor to Theramore Isle: the Captain's Footlocker lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57.",
+			"note": "Final route review 0.3.6 (2026-11-09): The Theramore Docks' step had no tip; the Captain's Documents (5882) come from a footlocker on the sea floor at 71.5,51.2, beside the Alliance town whose guards (Theramore Guard 4979) are 53-57.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "quests.json 1202: Captain's Documents 5882; npcs.json 4979 levels 53-57"
+				},
+				{
+					"kind": "questie",
+					"ref": "npc 4979 Theramore Guard, level 53-57 (Forever's observed level agrees)"
+				}
+			]
+		},
+		{
 			"id": "horde-3040-stv-nesingwary-pages-later",
 			"faction": "Horde",
 			"at": {
