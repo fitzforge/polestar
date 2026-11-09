@@ -24,7 +24,9 @@ why New in Forever: Dalaran's mages sell Azure armour recipes at Friendly and th
 # kill pays Kirin Tor, the Shade of the Archmage and Lyn the Ignored the most;
 # the game's data has no amounts or cap). Check the chat after a run and how
 # many runs Friendly takes.
-# INGAME: grey-quest rep at 60 (Classic: a fifth from 9 levels below; one Forever beta report: full, quest 456 at level 30 paid 100)
+# Low-level quests pay their full reputation in Forever at any level: in players' recordings every
+# quest turn-in 10 to 29 levels above the quest paid all of it (72 turn-ins, over 40 people, 2026-11-09),
+# as one beta report said (quest 456 at level 30). Classic cut it to a fifth.
 # Legacy Diplomat adds up to 10% to every gain; the numbers here leave it out.
 
 step Skyborne: the recipes now
@@ -43,7 +45,7 @@ step Skyborne: the recipes now
 
 step An Alarming Request
   zone Hillsbrad Foothills
-  tip Emissary Jacques of the Kirin Tor waits in Southshore. He sends you to Archmage Modera's image by the shore of Lordamere Lake, outside Dalaran's walls. The Kirin Tor quests start at level 24 to 30 and pay full reputation while they are at most 5 levels below you; in Classic a quest 6+ levels below you pays less (a fifth at 60).
+  tip Emissary Jacques of the Kirin Tor waits in Southshore. He sends you to Archmage Modera's image by the shore of Lordamere Lake, outside Dalaran's walls. The Kirin Tor quests start at level 24 to 30 and pay full reputation at any level in Forever.
   level 30
   accept 92432
 

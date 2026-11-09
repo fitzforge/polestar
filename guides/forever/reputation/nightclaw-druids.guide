@@ -39,9 +39,11 @@ why Zephras Isle's hidden druids: five cultist ears pay 1000 reputation, best do
 # level 13 quest: 1000 up to level 18, then 800, 600, 400 and 200 from
 # level 22. One beta player reported 200 for it, which fits that rule. The
 # storyline quests are level 11 to 13.
-# INGAME: low-level quest reputation: does Forever cut it as Classic did
-# (a beta report of 200 for More Al'Aketh Ears says yes; another report of
-# a full low-level quest at 30 says no)? Check one turn-in above level 18.
+# INGAME: low-level quest reputation for More Al'Aketh Ears: players'
+# recordings show quests paying in full far above their level (72 turn-ins
+# 10 to 29 levels over, 2026-11-09; Mercy Falls on Deaf Ears paid 1000 at 21),
+# but one beta report had 200 for this repeatable at 22+. Check one turn-in
+# above level 18.
 # Numbers are base reputation; the Legacy perk Diplomat adds up to 10%.
 # INGAME: the world database marks the ears as quest drops (only while an ear
 # quest wants them); a beta guide says to bank them. Check whether ears keep
@@ -63,7 +65,7 @@ step Skyboat from Thunder Bluff
 
 step Lotheluum Starbreeze
   zone Zephras Isle
-  tip Lotheluum stands in Valanaar, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Come early: in Classic a quest pays less once you are 6 levels above it, a fifth at most from 9 levels up, and these are level 11 to 13 quests.
+  tip Lotheluum stands in Valanaar, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Players' turn-ins paid their full reputation well above these quests' level.
   accept 94484
 
 step Elegael Thornpaw

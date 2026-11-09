@@ -28,12 +28,12 @@ why Mulgore quests while you level, Winterspring quests and Morrowgrain from 55,
 # The Legacy perk Diplomat adds 2% a rank, 10% at 5/5: the numbers here leave
 # it out. City reputation also gives a quarter to the other Horde cities
 # (Faction table: parent Horde, 0.25), except starting-zone quests.
-# Low-level quests: in Classic a quest 6 or more levels below you pays less, a
-# fifth at 60; quests of level 55 and up pay in full at 60, so the Winterspring
-# chain comes first. The old hubs are optional steps (the first step of each
-# carries a label; skipping it skips the hub), ranked by reputation per minute
-# at full value with the fifth beside it.
-# INGAME: grey-quest reputation at 60 (Classic: a fifth from 9 levels below; one Forever beta report: full, quest 456 at level 30 paid 100)
+# The Winterspring chain comes first, then the old hubs as optional steps (the
+# first step of each carries a label; skipping it skips the hub), ranked by
+# reputation per minute.
+# Low-level quests pay their full reputation in Forever at any level: in players' recordings every
+# quest turn-in 10 to 29 levels above the quest paid all of it (72 turn-ins, over 40 people, 2026-11-09),
+# as one beta report said (quest 456 at level 30). Classic cut it to a fifth.
 # INGAME: reputation discounts in Forever (Classic: 10% at Honored with the city's merchants; Forever guide sites report 5/10/15/20% from Friendly to Exalted, one says not announced)
 # Morrowgrain: the world database's loot table for the Evergreen Herb Casing
 # holds Morrowgrain 37% of the time, 1 to 5 of it (about 1.1 a casing).
@@ -87,7 +87,7 @@ step Thunder Bluff: Nara Wildmane
 step Morrowgrain (optional)
   label morrowgrain
   zone Thunder Bluff
-  tip Morrowgrain to Thunder Bluff takes 10 Morrowgrain for 50, as often as you like, and pays in full at 60, but it is slow: the Evergreen Pouch grows one casing every 10 minutes and a casing holds about one Morrowgrain on average, so each hand-in takes about 90 minutes of waiting, 18 Un'Goro Soil and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50 (in Classic a fifth at 60). Innkeeper Pala sends you to Arch Druid Hamuul Runetotem on Elder Rise; he wants 20 Un'Goro Soil.
+  tip Morrowgrain to Thunder Bluff takes 10 Morrowgrain for 50, as often as you like, and pays in full at 60, but it is slow: the Evergreen Pouch grows one casing every 10 minutes and a casing holds about one Morrowgrain on average, so each hand-in takes about 90 minutes of waiting, 18 Un'Goro Soil and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50. Innkeeper Pala sends you to Arch Druid Hamuul Runetotem on Elder Rise; he wants 20 Un'Goro Soil.
   accept 3762                         -- Innkeeper Pala: Assisting Arch Druid Runetotem
   turnin 3762                         -- Arch Druid Hamuul Runetotem
   accept 3761                         -- Un'Goro Soil, +100
@@ -117,7 +117,7 @@ step Morrowgrain as you go
 step Gloomrise (optional hub)
   label gloomrise
   zone Mulgore
-  tip In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. The Earthen Ring camp on the Skywatcher Plateau, north-west of Thunder Bluff: 300 Thunder Bluff reputation in 20 minutes (60 at a fifth), plus 100 each for Orgrimmar and the Darkspear Trolls and 450 Earthen Ring. Muln Earthfury, Mazu'kon and Yorn Grimtotem stand in the camp.
+  tip Forever pays these old quests in full at any level. The Earthen Ring camp on the Skywatcher Plateau, north-west of Thunder Bluff: 300 Thunder Bluff reputation in 20 minutes, plus 100 each for Orgrimmar and the Darkspear Trolls and 450 Earthen Ring. Muln Earthfury, Mazu'kon and Yorn Grimtotem stand in the camp.
   accept 96259                        -- Muln Earthfury: Defending the Dead, +100 (The Broodmother comes once it is handed in)
   accept 96241                        -- Mazu'kon: Talkin' bout Toxins, Mon (Darkspear +100)
   accept 96260                        -- Yorn Grimtotem: Stronger than Steel, +100
@@ -150,7 +150,7 @@ step The Skywatcher camp: hand in
 
 step Camp Narache (optional hub)
   label narache
-  tip In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Camp Narache, at the south end of Mulgore: about 1,100 Thunder Bluff reputation in 25 minutes (220 at a fifth). Starting-zone quests give the other cities no share. Grull Hawkwind and Chief Hawkwind stand in the camp, Brave Windfeather at its edge.
+  tip Forever pays these old quests in full at any level. Camp Narache, at the south end of Mulgore: about 1,100 Thunder Bluff reputation in 25 minutes. Starting-zone quests give the other cities no share. Grull Hawkwind and Chief Hawkwind stand in the camp, Brave Windfeather at its edge.
   accept 747                          -- Grull Hawkwind: The Hunt Begins, +100
   accept 752                          -- Chief Hawkwind: A Humble Task, +50
   accept 3376                         -- Brave Windfeather: Break Sharptusk!, +200
@@ -206,7 +206,7 @@ step Bloodhoof Village: Baine Bloodhoof
 
 step Bloodhoof Village (optional hub)
   label bloodhoof
-  tip In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Bloodhoof Village and eastern Mulgore: about 1,000 Thunder Bluff reputation in 45 minutes (200 at a fifth). Baine Bloodhoof stands in the middle of the village; Harken Windtotem, Ruul Eagletalon and Brave Wildrunner close by; Morin Cloudstalker waits east of the village by the road.
+  tip Forever pays these old quests in full at any level. Bloodhoof Village and eastern Mulgore: about 1,000 Thunder Bluff reputation in 45 minutes. Baine Bloodhoof stands in the middle of the village; Harken Windtotem, Ruul Eagletalon and Brave Wildrunner close by; Morin Cloudstalker waits east of the village by the road.
   accept 745                          -- Baine Bloodhoof: Sharing the Land, +100
   accept 761                          -- Harken Windtotem: Swoop Hunting, +150
   accept 743                          -- Ruul Eagletalon: Dangers of the Windfury, +100

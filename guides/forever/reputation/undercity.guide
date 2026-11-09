@@ -24,13 +24,12 @@ why Tirisfal quests while you level, the Plaguelands quests from 55, then Runecl
 # Diplomat adds 2% a rank, 10% at 5/5: the numbers here leave it out. City
 # reputation also gives a quarter to the other Horde cities (Faction table:
 # parent Horde, 0.25), except starting-zone quests.
-# Low-level quests: in Classic a quest 6 or more levels below you pays less, a
-# fifth at 60; quests of level 55 and up pay in full at 60, so Nathanos and the
-# Bulwark come first (the Bulwark's first quests are level 53: a little less).
-# The old hubs are optional steps (the first step of each carries a label;
-# skipping it skips the hub), ranked by reputation per minute at full value
-# with the fifth beside it.
-# INGAME: grey-quest reputation at 60 (Classic: a fifth from 9 levels below; one Forever beta report: full, quest 456 at level 30 paid 100)
+# The Bulwark and Nathanos come first, then the old hubs as optional steps (the
+# first step of each carries a label; skipping it skips the hub), ranked by
+# reputation per minute.
+# Low-level quests pay their full reputation in Forever at any level: in players' recordings every
+# quest turn-in 10 to 29 levels above the quest paid all of it (72 turn-ins, over 40 people, 2026-11-09),
+# as one beta report said (quest 456 at level 30). Classic cut it to a fifth.
 # INGAME: reputation discounts in Forever (Classic: 10% at Honored with the city's merchants; Forever guide sites report 5/10/15/20% from Friendly to Exalted, one says not announced)
 # Left out: class letters and Undead-only quests (Rude Awakening gates The
 # Mindless Ones in Deathknell), race-only breadcrumbs, Chemist Fuely's ooze
@@ -54,7 +53,7 @@ step Undercity: Harbinger Balthazad
 
 step The Bulwark: Scarlet Diversions
   zone Tirisfal Glades
-  tip The Bulwark is the Forsaken camp on the road from Tirisfal into the Western Plaguelands. High Executor Derrington's chain sends you against the Scourge cauldrons of the Western Plaguelands: about 820 Undercity reputation, about 710 at 60 if the level 53 quests pay less. Take a Flame in a Bottle from the box beside him; burn the command tent of the Scarlet camp between Dalson's Tears and Felstone Field and plant the Scourge Banner beside it.
+  tip The Bulwark is the Forsaken camp on the road from Tirisfal into the Western Plaguelands. High Executor Derrington's chain sends you against the Scourge cauldrons of the Western Plaguelands: about 820 Undercity reputation. Take a Flame in a Bottle from the box beside him; burn the command tent of the Scarlet camp between Dalson's Tears and Felstone Field and plant the Scourge Banner beside it.
   turnin 5094                         -- High Executor Derrington
   accept 5096                         -- Scarlet Diversions, +100 (level 53)
   complete 5096 map 1422 @40.7,51.9   -- the Scarlet Crusade Forward Camp
@@ -155,7 +154,7 @@ step Duskwing and Borelgore
 step The Spider God (optional chain)
   label shadra
   zone The Hinterlands
-  tip Six quests across the Hinterlands, Tarren Mill, Sen'jin Village, Zul'Farrak and the Undercity: 600 Undercity and 225 Darkspear reputation. Summoning Shadra and Venom to the Undercity are level 55 and pay 400 in full at 60; the four before them are level 43 to 45 (a fifth at 60 in Classic, 440 Undercity in all then). Allow about 90 minutes with the travel. The Venom Bottles stand on the tables of the Witherbark village in the west of the Hinterlands: click one to start.
+  tip Six quests across the Hinterlands, Tarren Mill, Sen'jin Village, Zul'Farrak and the Undercity: 600 Undercity and 225 Darkspear reputation. Summoning Shadra and Venom to the Undercity are level 55 and pay 400 in full at 60; the four before them are level 43 to 45 and pay in full too. Allow about 90 minutes with the travel. The Venom Bottles stand on the tables of the Witherbark village in the west of the Hinterlands: click one to start.
   accept 2933 object 142702           -- Venom Bottle: Venom Bottles, +100
 
 step Tarren Mill: Apothecary Lydon
@@ -205,7 +204,7 @@ step Tarren Mill and the Undercity
 step Deathknell (optional hub)
   label deathknell
   zone Tirisfal Glades
-  tip In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Deathknell, the Forsaken start at the west end of Tirisfal: about 900 Undercity reputation in 25 minutes (180 at a fifth). Starting-zone quests give the other cities no share. Novice Elreth, Executor Arren and Deathguard Saltain stand in the village.
+  tip Forever pays these old quests in full at any level. Deathknell, the Forsaken start at the west end of Tirisfal: about 900 Undercity reputation in 25 minutes. Starting-zone quests give the other cities no share. Novice Elreth, Executor Arren and Deathguard Saltain stand in the village.
   accept 376                          -- Novice Elreth: The Damned, +100
   collect 3265 x6 quest 376.1         -- Scavenger Paw
   collect 3264 x6 quest 376.2         -- Duskbat Wing
@@ -251,7 +250,7 @@ step Brill: Executor Zygand
 
 step Brill (optional hub)
   label brill
-  tip In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Brill and the fields around it: about 1,100 Undercity reputation in 45 minutes (220 at a fifth). Executor Zygand, Magistrate Sevren, Apothecary Johaan, Deathguard Dillinger and Coleman Farthing are in the town.
+  tip Forever pays these old quests in full at any level. Brill and the fields around it: about 1,100 Undercity reputation in 45 minutes. Executor Zygand, Magistrate Sevren, Apothecary Johaan, Deathguard Dillinger and Coleman Farthing are in the town.
   accept 99134                        -- Executor Zygand: Discipline, +100
   accept 99141                        -- Patience, +100
   accept 358                          -- Magistrate Sevren: Graverobbers, +100
