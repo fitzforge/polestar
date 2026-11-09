@@ -177,6 +177,97 @@ fn missing_position_and_other_continents_keep_the_existing_fallback() {
 	check(&goals, "", END, "assert(E.GetWaypoint().goalIndex == 1)");
 }
 
+/// Counts the plans the Engine asks for from here on.
+const COUNT: &str = r#"
+local R = Polestar.FieldRoute
+local plans, plan = 0, R.Plan
+R.Plan = function(...) plans = plans + 1; return plan(...) end
+-- One arrival poll (0.5 s) per stretch walked.
+local function walk(x, y, toX, toY, polls)
+	for i = 1, polls do
+		w.moveTo(1429, x + (toX - x) * i / polls, y + (toY - y) * i / polls); stub.advance(0.5)
+	end
+end
+"#;
+
+/// Three goals with camps along a road: the Boars' on it, the others' beside it further on.
+fn camps() -> String {
+	let goal = |target: &str, npc: i32, y: i32, xs: &[i32]| {
+		let spots = xs.iter().map(|x| format!("{{ x = {x}, y = {y}, r = 30, n = 4 }}")).collect::<Vec<_>>().join(", ");
+		format!("{{ t = \"kill\", target = \"{target}\", npc = {npc}, count = 8, map = 1429, x = {}, y = {y}, spots = {{ {spots} }} }}", xs[0])
+	};
+	[goal("Boars", 1, 50, &[30, 40, 50, 60]), goal("Wolves", 2, 56, &[45, 55, 65]), goal("Bears", 3, 44, &[50, 60, 70])].join(",")
+}
+
+#[test]
+fn a_minute_across_the_current_goals_camps_plans_nothing() {
+	// 7 yd a second for a minute, through all four of the Boars' camps: their chosen camp changes three
+	// times and the other goals' nearest camps five times, and none of that is a reason to plan.
+	for window in ["", "E.GetStepView(1)"] {
+		check(
+			&camps(),
+			"w.moveTo(1429, 20, 50)",
+			END,
+			&format!(
+				r#"{COUNT}
+{window}
+assert(E.GetWaypoint().goalIndex == 1)
+local camps, camp = 0, E.GetWaypoint().x
+for i = 1, 120 do
+	walk(20 + (i - 1) * 0.35, 50, 20 + i * 0.35, 50, 1)
+	local wp = E.GetWaypoint()
+	assert(wp.goalIndex == 1)
+	if wp.x ~= camp then camps, camp = camps + 1, wp.x end
+end
+assert(camps == 3, camps)
+assert(plans == 0, plans)
+"#
+			),
+		);
+	}
+}
+
+#[test]
+fn walking_to_the_stop_plans_nothing_and_a_detour_plans_once_per_stretch() {
+	// From (50,50): north 200 yd then 50 more, east 250 yd. North first is the shorter trip (604 against 620).
+	let goals = fields(&[(50, 30), (50, 25), (75, 50)], "");
+	check(
+		&goals,
+		"",
+		END,
+		&format!(
+			r#"{COUNT}
+assert(E.GetWaypoint().goalIndex == 1)
+walk(50, 50, 50, 32, 52)
+assert(plans == 0, plans); assert(E.GetWaypoint().goalIndex == 1)
+"#
+		),
+	);
+	check(
+		&goals,
+		"",
+		END,
+		&format!(
+			r#"{COUNT}
+-- East instead, towards the third: 80 yd on, the whole trip from here is not clearly better (535 against
+-- 621), so the stop holds; that asks twice, once free and once with the stop held.
+walk(50, 50, 57.9, 50, 23)
+assert(plans == 0, plans)
+walk(57.9, 50, 58.5, 50, 2)
+assert(plans == 2, plans); assert(E.GetWaypoint().goalIndex == 1)
+-- Another 80 yd: 451 against 665, clearly better, and the arrow follows the player.
+walk(58.5, 50, 66, 50, 21)
+assert(plans == 2, plans); assert(E.GetWaypoint().goalIndex == 1)
+walk(66, 50, 67, 50, 3)
+assert(plans == 4, plans); assert(E.GetWaypoint().goalIndex == 3)
+-- On the way to the new stop nothing more is asked.
+walk(67, 50, 74, 50, 20)
+assert(plans == 4, plans); assert(E.GetWaypoint().goalIndex == 3)
+"#
+		),
+	);
+}
+
 fn leveled_goals() -> String {
 	[fields(&[(70, 50)], ", quest = 900001, oi = 1"), fields(&[(51, 50)], ", quest = 900002, oi = 1"), fields(&[(80, 50)], ", quest = 900003, oi = 1")].join(",")
 }
@@ -264,7 +355,7 @@ end
 fn exact_weighted_and_unweighted_routes_match_exhaustive_permutations() {
 	solver(&format!(
 		r#"{LENGTH}
-for n = 1, 7 do
+for n = 1, 8 do
 	for _, weighted in ipairs({{false, true}}) do
 		for _, fixed in ipairs({{false, 1}}) do
 			local points, start, finish = {{}}, {{x = 9, y = -3}}, {{x = 23, y = 15}}
@@ -318,6 +409,29 @@ for _, n in ipairs({{9, 16, 32}}) do
 end
 "#
 	));
+}
+
+#[test]
+fn a_plan_leaves_only_its_order_behind() {
+	// Planned from the arrival poll: no table per subset or per pair of stops (eight stops made 158 KiB
+	// of garbage a plan, 32 made 26), only the orders tried.
+	solver(
+		r#"
+local R = Polestar.FieldRoute
+local start, finish = {x = 9, y = -3}, {x = 23, y = 15}
+for n, most in pairs({[8] = 1, [32] = 8}) do
+	local points = {}
+	for i = 1, n do points[i] = {x = (i * 173) % 1001 - 500, y = (i * 419) % 1001 - 500, delay = (i % 3) * 40} end
+	R.Plan(points, start, finish); R.Plan(points, start, finish, 3)
+	collectgarbage("collect"); collectgarbage("stop")
+	local before = collectgarbage("count")
+	for _ = 1, 10 do R.Plan(points, start, finish); R.Plan(points, start, finish, 3) end
+	local kib = (collectgarbage("count") - before) / 20
+	collectgarbage("restart")
+	assert(kib < most, n .. " stops: " .. kib .. " KiB a plan")
+end
+"#,
+	);
 }
 
 #[test]
