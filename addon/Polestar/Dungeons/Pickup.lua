@@ -36,11 +36,15 @@
 --       Deadmines, before Bazil Thredd), or one with no placed giver or
 --       turn-in (Finkle Einhorn inside Blackrock Spire); pre: the open
 --       prerequisites, in the order they are done
---       (all of `pre`, one of `preAny`: Lookup.QuestChain), with the open
+--       (all of `pre`, one of `preAny`: Lookup.QuestChain; of an exclusive
+--       group one alternative per plan, the one this character holds the
+--       standing for, else the one more page quests need outright, else the
+--       nearest giver: altRank), with the open
 --       breadcrumbs of the page's chain each before the quest it leads to
 --       (an errand turned in at that quest's giver, which nothing requires:
 --       The Greenwarden before Tramping Paws, #1226; closedBy: the quest
---       that closes each). A quest done on the way to another is neither a
+--       that closes each, and for an alternative of an exclusive group its
+--       rivals). A quest done on the way to another is neither a
 --       take of its own nor carried. A breadcrumb to a quest the plan takes
 --       anyway (no objectives, required by none of the plan's quests) is left
 --       out, from `take` and from `pre`, when it is a detour: its giver on a
@@ -599,6 +603,37 @@ local function dropDetours(plan, from, p)
 	return plan
 end
 
+-- How a pick-up ranks the alternatives of a `preAny` (Lookup.QuestChain's
+-- rank, lower first), so it takes the one of an exclusive group this
+-- character fits, else the cheapest: one asking for a standing the
+-- character lacks comes last (its giver would not offer it); then the one
+-- more of the page's quests need outright (need[id]: the Invoker's Reward
+-- needs the Invoker's path where the others take either, so none is left
+-- out for a rival); then the nearest giver from `from` (the entrance
+-- without a position, so a rebuild after /reload keeps the choice).
+local RANK_STANDING, RANK_NEED, RANK_FAR = 2 ^ 40, 2 ^ 20, 2 ^ 20 - 1
+local function altRank(d, p, from, need)
+	local Lk, C = LK(), ns.Codex
+	local e = d.entrance
+	local origin = from or (located(e) and { map = e.map, x = e.x, y = e.y, f = e.f }) or nil
+	local memo = {}
+	return function(id)
+		if memo[id] then return memo[id] end
+		local r = C.Quest(id)
+		local v = 0
+		if r and r.repFaction and r.repStanding
+			and (tonumber((ns.Compat.GetFactionStanding(r.repFaction))) or 4) < r.repStanding then
+			v = RANK_STANDING
+		end
+		v = v - (need and need[id] or 0) * RANK_NEED
+		local g = r and endPoint(Lk.QuestEnd(r.start, origin, p))
+		local t = g and origin and Lk.Travel(origin, g)
+		v = v + ((t and t < RANK_FAR) and t or RANK_FAR)
+		memo[id] = v
+		return v
+	end
+end
+
 function Dungeons.PickupPlan(key)
 	local d = Dungeons.Get(key)
 	if not d then return nil, "unknown" end
@@ -640,6 +675,36 @@ function Dungeons.PickupPlan(key)
 		end
 		return false
 	end
+	-- Its exclusive group: the quests each closing the other with it.
+	local function rivals(id)
+		local q, out = Dungeons.Quest(key, id), nil
+		for _, by in ipairs(q and type(q.closedBy) == "table" and q.closedBy or {}) do
+			if closes(by, id) then
+				out = out or {}
+				out[#out + 1] = by
+			end
+		end
+		return out
+	end
+	-- The page's quests this character may take, each counted on every
+	-- quest it needs outright (all of `pre`, a `preAny` of one).
+	local need = {}
+	for _, pq in ipairs(quests) do
+		local rec = C.Quest(pq.id)
+		if rec and not done(pq.id) and not notYours(key, pq, rec, p) then
+			local seen = {}
+			local function walk(id)
+				if seen[id] or done(id) then return end
+				seen[id] = true
+				need[id] = (need[id] or 0) + 1
+				local r = C.Quest(id)
+				for _, x in ipairs(r and r.pre or {}) do walk(x) end
+				if r and r.preAny and #r.preAny == 1 then walk(r.preAny[1]) end
+			end
+			walk(pq.id)
+		end
+	end
+	local rank = altRank(d, p, from, need)
 	for _, pq in ipairs(quests) do
 		local rec = C.Quest(pq.id)
 		if not notYours(key, pq, rec, p) then
@@ -659,7 +724,7 @@ function Dungeons.PickupPlan(key)
 				local giver = Dungeons.Giver(pq, from, rec) or (rec and preDone(rec) and Dungeons.DropPoint(key, pq, from, rec)) or nil
 				local pre, ok, waitOn = {}, giver ~= nil, nil
 				if ok and rec then
-					local chain = Lk.QuestChain(pq.id, p, clashes)
+					local chain = Lk.QuestChain(pq.id, p, clashes, rank)
 					for i = 1, #chain - 1 do
 						local r = chain[i]
 						-- A follow-up of another quest here is taken after the
@@ -690,6 +755,12 @@ function Dungeons.PickupPlan(key)
 				if ok and waitOn then
 					wait(pq, max(waitOn.minLevel, (rec and rec.minLevel) or pq.minLevel or 1), waitOn)
 				elseif ok then
+					-- An accept of an exclusive group names its rivals, so the
+					-- Engine passes it when the character takes another one
+					-- at the giver.
+					for _, r in ipairs(pre) do
+						if not plan.closedBy[r.id] then plan.closedBy[r.id] = rivals(r.id) end
+					end
 					pre = withBreadcrumbs(pq, rec, pre, onPage, from, p, plan.closedBy)
 					plan.take[#plan.take + 1] = { quest = pq, rec = rec, giver = giver, pre = pre }
 					chosen[pq.id] = true
@@ -1212,7 +1283,9 @@ function Dungeons.GiverTarget(key, questId)
 		local Lk, C = LK(), ns.Codex
 		local rec = Lk and Lk.QuestChain and C and C.Quest(questId)
 		if rec then
-			local first = Lk.QuestChain(questId, Lk.PlayerInfo())[1]
+			-- The alternative a pick-up would take (altRank, its standing and giver).
+			local p, d = Lk.PlayerInfo(), Dungeons.Get(key)
+			local first = Lk.QuestChain(questId, p, nil, d and altRank(d, p, ns.PlayerPoint()) or nil)[1]
 			if first and first.id ~= questId then
 				local pt, turnIn = chainPoint(key, first.id, first, ns.PlayerPoint())
 				if pt then return pt, pt.name, first.title, turnIn end

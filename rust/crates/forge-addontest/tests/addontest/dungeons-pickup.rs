@@ -852,14 +852,82 @@ end
 table.sort(accepts)
 emit({ take = take, pre = pre, accepts = accepts })"#);
 	let out = run(&own, &script, Opts::default()).remove(0);
-	assert_eq!(out["take"], json!([90502, 90503]), "the Invoker's quest needs the path the plan has ruled out");
-	assert_eq!(out["pre"], json!({ "90502": "90500", "90503": "90500" }), "both go through the Path of the Protector");
-	assert_eq!(out["accepts"], json!([90500, 90502, 90503]), "never both paths");
-	// The Invoker's path already in the log: the plan keeps to it.
-	let invoker = run(&own, &script, Opts { log: vec![1013, 90501], ..Default::default() }).remove(0);
-	assert_eq!(invoker["take"], json!([90502, 90503, 90504]));
-	assert_eq!(invoker["pre"], json!({ "90502": "90501", "90503": "90501", "90504": "90501" }));
-	assert!(!invoker["accepts"].as_array().unwrap().contains(&json!(90500)), "the Protector's path is never accepted: {}", invoker["accepts"]);
+	// The Invoker's path is the one more of the page's quests need (the Invoker's Reward needs it, the
+	// others take either), so all three come in through it.
+	assert_eq!(out["take"], json!([90502, 90503, 90504]), "no quest left out for a rival path");
+	assert_eq!(out["pre"], json!({ "90502": "90501", "90503": "90501", "90504": "90501" }), "all go through the Path of the Invoker");
+	assert_eq!(out["accepts"], json!([90501, 90502, 90503, 90504]), "never both paths");
+	// The Protector's path already in the log: the plan keeps to it, and the Invoker's quest is left out.
+	let protector = run(&own, &script, Opts { log: vec![1013, 90500], ..Default::default() }).remove(0);
+	assert_eq!(protector["take"], json!([90502, 90503]), "the Invoker's quest needs the path the log rules out");
+	assert_eq!(protector["pre"], json!({ "90502": "90500", "90503": "90500" }));
+	assert!(!protector["accepts"].as_array().unwrap().contains(&json!(90501)), "the Invoker's path is never accepted: {}", protector["accepts"]);
+}
+
+#[test]
+fn of_an_exclusive_group_the_pick_up_takes_the_alternative_the_character_holds_the_standing_for_else_the_nearest_and_its_accept_carries_the_group() {
+	// Plan 0.3.7 item 5 (SweepDungeons' 'exclusive'): one alternative per exclusive group, the one this
+	// character fits (its standing), else the cheapest. The chain took the first open one in `preAny` order
+	// whatever it cost, and its accept did not name its rivals, so taking another one at the giver
+	// (Ahn'Qiraj's three paths share Anachronos) left the guide waiting on an accept the game no longer offers.
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	let npc = |id: i32, name: &str, at: [i32; 3]| {
+		json!({
+			"id": id, "name": name, "level": 30, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false,
+			"instance": null, "roles": [], "spawns": [{ "map": at[0], "x": at[1], "y": at[2], "f": "e" }],
+		})
+	};
+	// From the Undercity: the far path's giver in The Barrens, the near one's in Silverpine.
+	c["npcs"]["90610"] = npc(90610, "Far Path Giver", BARRENS);
+	c["npcs"]["90611"] = npc(90611, "Near Path Giver", [1421, 45, 40]);
+	let kill = json!([{ "type": "kill", "id": 90520, "count": 1, "text": "Test Mob" }]);
+	let quest = |id: i32, title: &str, giver: i32, pre_any: &[i32]| {
+		json!({
+			"id": id, "title": title, "level": 25, "minLevel": 18, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [giver], "object": [], "item": [] }, "end": { "npc": [giver], "object": [] },
+			"objectives": kill.clone(), "pre": [], "zone": 1421, "rewards": [], "choices": [], "preAny": pre_any,
+		})
+	};
+	c["quests"]["90600"] = quest(90600, "The Far Path", 90610, &[]);
+	c["quests"]["90601"] = quest(90601, "The Near Path", 90611, &[]);
+	// The far one listed first.
+	c["quests"]["90602"] = quest(90602, "Either Path's Reward", 90611, &[90600, 90601]);
+	i["forever"]["quests"]["90600"] = json!({ "excl": [90601] });
+	i["forever"]["quests"]["90601"] = json!({ "excl": [90600] });
+	i["forever"]["quests"]["90602"] = json!({ "area": 209, "preAny": [90600, 90601] });
+	let script = k(r#"
+local plan = D.PickupPlan("{KEY}")
+local pre = {}
+for _, t in ipairs(plan.take) do
+	if t.quest.id == 90602 then for _, r in ipairs(t.pre) do pre[#pre + 1] = r.id end end
+end
+local accepts, closedBy = {}, {}
+for _, s in ipairs((D.PickupGuide("{KEY}") or { steps = {} }).steps) do
+	for _, g in ipairs(s.goals) do
+		if g.t == "accept" and g.quest >= 90600 then
+			accepts[#accepts + 1] = g.quest
+			closedBy[tostring(g.quest)] = g.closedBy and table.concat(g.closedBy, ",") or ""
+		end
+	end
+end
+table.sort(accepts)
+emit({ pre = table.concat(pre, ","), accepts = accepts, closedBy = closedBy })"#);
+	let near = run(&pack_of(&c, &i), &script, Opts::default()).remove(0);
+	assert_eq!(near["pre"], "90601", "the nearer alternative, though listed second");
+	assert_eq!(near["accepts"], json!([90601, 90602]));
+	assert_eq!(near["closedBy"]["90601"], "90600", "the chain's accept names its rival, so the Engine passes it once the rival is taken");
+	// The near one asks for Friendly with a faction this character is only Neutral with: the far one.
+	c["quests"]["90601"]["repFaction"] = json!(910);
+	c["quests"]["90601"]["repStanding"] = json!(5);
+	let rep = pack_of(&c, &i);
+	let neutral = format!("stub.world.setRep(910, \"Brood of Nozdormu\", 4, 0, 0, 3000)\n{script}");
+	let far = run(&rep, &neutral, Opts::default()).remove(0);
+	assert_eq!(far["pre"], "90600", "the standing the near one needs is not held");
+	assert_eq!(far["closedBy"]["90600"], "90601");
+	let friendly = format!("stub.world.setRep(910, \"Brood of Nozdormu\", 5, 0, 0, 6000)\n{script}");
+	assert_eq!(run(&rep, &friendly, Opts::default()).remove(0)["pre"], "90601", "Friendly: the near one again");
 }
 
 #[test]

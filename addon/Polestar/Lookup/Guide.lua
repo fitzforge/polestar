@@ -22,7 +22,7 @@
 --       Lookup.Guide then build `kind` with it, whatever lookup.enabled says
 --       (the module gates itself), and its saved tabs come back after /reload.
 --       Dungeons' "pickup", "handin" and "attune" kinds are three (Dungeons/Pickup.lua, Handin.lua, Attune.lua).
---   Lookup.QuestChain(questId, player) -> { quest, ... }
+--   Lookup.QuestChain(questId, player[, avoid, rank]) -> { quest, ... }
 --       the quest after all its open prerequisites, in the order they are done
 --   Lookup.QuestStep(quest, from, opts) -> step   -- accept, objectives, turn-in
 --       opts.inside(kind, id): where an NPC or object without a known spawn
@@ -320,8 +320,10 @@ end
 -- quests): a cut would drop the first quests to do. Each quest is visited
 -- once, so the walk ends. avoid(id), optional: a `preAny` alternative it
 -- names is passed over while another can be taken (a dungeon pick-up keeps
--- to one alternative of an exclusive group).
-local function questChain(questId, player, avoid)
+-- to one alternative of an exclusive group). rank(id), optional: the
+-- alternatives are tried lowest rank first, ties in their listed order (a
+-- pick-up takes the one the character fits, else the cheapest).
+local function questChain(questId, player, avoid, rank)
 	local C = Codex()
 	local order, seen = {}, {}
 	local function visit(qid, depth)
@@ -338,9 +340,22 @@ local function questChain(questId, player, avoid)
 				if ns.Compat.IsQuestCompleted(pid) then done = true; break end
 			end
 			if not done then
+				local alts = any
+				if rank then
+					local r, at = {}, {}
+					alts = {}
+					for i, pid in ipairs(any) do
+						alts[i] = pid
+						r[pid], at[pid] = r[pid] or rank(pid), at[pid] or i
+					end
+					table.sort(alts, function(a, b)
+						if r[a] ~= r[b] then return r[a] < r[b] end
+						return at[a] < at[b]
+					end)
+				end
 				local function choose(skip)
 					local pick, later
-					for _, pid in ipairs(any) do
+					for _, pid in ipairs(alts) do
 						local pq = not (skip and avoid(pid)) and C.Quest(pid) or nil
 						local why = pq and Lookup.QuestBlock(pq, player)
 						if pq and not why then pick = pid; break end
