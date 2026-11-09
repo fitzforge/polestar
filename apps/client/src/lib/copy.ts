@@ -19,7 +19,7 @@ export const NEVER_NOTE =
 	"In quest and gossip text, your character's name, race and class are swapped for placeholders: in the addon, and again here before anything leaves your PC.";
 
 export const EXPLORER_NOTE =
-	'In Forever’s new zones and dungeons the Recorder logs a little more about the game world while you record there, to map them: creatures seen and where, finer positions, the quest log’s map points, dungeon floors, boss pulls, the area each quest giver stands in and the objects you open. It says so in the game the first time and logs nothing more about you. Explorer mode in Settings, or /psrec explore off in the game, turns it off.';
+	'In Forever’s new zones and dungeons the Recorder logs a little more about the game world while you record there, to map them: creatures seen and where, finer positions of your path there, the quest log’s map points, dungeon floors, boss pulls, the area each quest giver stands in and the objects you open. It says so in the game the first time and logs nothing more about you. Explorer mode in Settings, or /psrec explore off in the game, turns it off.';
 
 export const COLLECTED = [
 	{ glyph: 'icon-goto', text: 'Where you go and how: map positions, flights, boats, zones, deaths' },
