@@ -277,7 +277,7 @@ step Pirate ghosts
 step Zul'Mamwe
   tip Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. Ana'thek the Cruel guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all.
   goto 45.4,36.2 "Skullsplitter warriors"
-  collect 1524 quest 209.1
+  collect 1524 quest 209.1 @45.4,36.2 map 1434 era
   kill 669 quest 586.1                -- Skullsplitter Hunter walks around here: look inside the circle on the map
   kill 781 quest 586.2
   kill 783 quest 586.3

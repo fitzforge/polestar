@@ -1614,6 +1614,24 @@
 				"kind": "pfquest",
 				"ref": "npcs.json 684 spawns on map 1434 (spawn at 41.3,34.76)"
 			}
+		},
+		{
+			"id": "1149-stv-skullsplitter-tusks",
+			"quest": 209,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1434,
+				"x": 45.4,
+				"y": 36.2,
+				"frame": "era"
+			},
+			"note": "Skullsplitter Tusks (209): every Skullsplitter troll drops the tusks (about one kill in five), and the Horde step works their warriors' camp north of the Zul'Mamwe ruins (the warriors, axe throwers and mystics spawn at 42-49,30-42, 24 places each). The data also has the lone Skullsplitter Panther at 45.6,41.6 dropping it at 100%, which put the arrow on that one panther, 230 yd south of the camp the step leads to; the point stays on the trolls' camp.",
+			"source": {
+				"kind": "questie",
+				"ref": "npcs.json 667, 696, 780 spawns on map 1434; items.json 1524 drops (trolls 21%, 756 Skullsplitter Panther 100%, one spawn)"
+			},
+			"issue": 1149
 		}
 	]
 }
