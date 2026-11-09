@@ -85,21 +85,21 @@ end
 ---------------------------------------------------------------------------
 
 local TRAINERS = {
-	Orc      = { map = 1454, x = 69.4,  y = 13.1,  npcName = "Kildar",               faction = 76  },
-	Troll    = { map = 1411, x = 55.3,  y = 75.5,  npcName = "Xar'Ti",               faction = 530 },
-	Tauren   = { map = 1412, x = 46.8,  y = 62.0,  npcName = "Kar Stormsinger",       faction = 81  },
-	Scourge  = { map = 1420, x = 60.1,  y = 52.6,  npcName = "Velma Warnam",          faction = 68  },
-	Human    = { map = 1429, x = 84.3,  y = 64.9,  npcName = "Randal Hunter",         faction = 72  },
-	NightElf = { map = 1438, x = 25.3,  y = 50.2,  npcName = "Jartsam",              faction = 69  },
-	Dwarf    = { map = 1426, x = 63.7,  y = 50.1,  npcName = "Ultham Ironhorn",       faction = 47  },
-	Gnome    = { map = 1426, x = 49.2,  y = 48.1,  npcName = "Binjy Featherwhistle", faction = 54  },
+	Orc      = { map = 1454, x = 69.4,  y = 13.1,  npc = 4752, npcName = "Kildar",               faction = 76  },
+	Troll    = { map = 1411, x = 55.3,  y = 75.5,  npc = 7953, npcName = "Xar'Ti",               faction = 530 },
+	Tauren   = { map = 1412, x = 46.8,  y = 62.0,  npc = 3690, npcName = "Kar Stormsinger",       faction = 81  },
+	Scourge  = { map = 1420, x = 60.1,  y = 52.6,  npc = 4773, npcName = "Velma Warnam",          faction = 68  },
+	Human    = { map = 1429, x = 84.3,  y = 64.9,  npc = 4732, npcName = "Randal Hunter",         faction = 72  },
+	NightElf = { map = 1438, x = 25.3,  y = 50.2,  npc = 4753, npcName = "Jartsam",              faction = 69  },
+	Dwarf    = { map = 1426, x = 63.7,  y = 50.1,  npc = 4772, npcName = "Ultham Ironhorn",       faction = 47  },
+	Gnome    = { map = 1426, x = 49.2,  y = 48.1,  npc = 7954, npcName = "Binjy Featherwhistle", faction = 54  },
 }
 local TRAINERS_SKYBORNE = {
-	Alliance = { map = 2521, x = 53.5, y = 80.5, npcName = "Genn Fairweather", faction = 2779 },
-	Horde    = { map = 2521, x = 53.5, y = 80.5, npcName = "Genn Fairweather", faction = 2778 },
+	Alliance = { map = 2521, x = 53.5, y = 80.5, npc = 265756, npcName = "Genn Fairweather", faction = 2779 },
+	Horde    = { map = 2521, x = 53.5, y = 80.5, npc = 265756, npcName = "Genn Fairweather", faction = 2778 },
 }
-local STRAHAD = { map = 1413, x = 62.6,  y = 35.5,  npcName = "Strahad Farsan"             }
-local GRAYSON = { map = 1453, x = 48.43, y = 50.22, npcName = "Lord Grayson Shadowbreaker"  }
+local STRAHAD = { map = 1413, x = 62.6,  y = 35.5,  npc = 6251, npcName = "Strahad Farsan"             }
+local GRAYSON = { map = 1453, x = 48.43, y = 50.22, npc = 928, npcName = "Lord Grayson Shadowbreaker"  }
 
 local function trainerFor(race, faction)
 	if race == "Skyborne" then return TRAINERS_SKYBORNE[faction] end
@@ -268,11 +268,13 @@ function Riding.Check(level)
 		-- Build a trainer sub-table; copy fields so the notice is immutable.
 		local trainerNotice
 		if trainer then
+			local N = ns.Names
 			trainerNotice = {
+				npc     = trainer.npc,
 				map     = trainer.map,
 				x       = trainer.x,
 				y       = trainer.y,
-				npcName = trainer.npcName,
+				npcName = (trainer.npc and N and N.Npc and N.Npc(trainer.npc)) or trainer.npcName,
 				faction = trainer.faction,
 			}
 		end

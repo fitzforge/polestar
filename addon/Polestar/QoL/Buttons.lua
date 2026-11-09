@@ -1519,6 +1519,7 @@ end)
 ns.On("RARE_NEARBY", refreshSoon)
 ns.On("FLIGHT_MARK_CHANGED", refreshSoon)
 ns.On("QUESTDB_LOADED", refreshSoon)
+ns.On("NAME_LEARNED", refreshSoon)
 ns.On("BAG_SPACE", refreshSoon)
 ns.On("WHILE_HERE_CHANGED", refreshSoon)
 -- The target button names the arrow's goal first.
