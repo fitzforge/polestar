@@ -180,7 +180,7 @@ the nearest 5, `opts.compact` writes yards from 1000 as "1.2k yd"
 keeps yards for whoever reads it.
 
 `PolestarDB = { schema = 1, settings = { [section] = { ... } }, packs = { [packId] = { off = true } }, imports = { [guideId] = { format, license, guide, frames } }, welcomeSeen = 1, gamepad = { chords = { [action] = "PADRSHOULDER+PADDUP" } } }`
-`PolestarCharDB = { schema = 1, guide = id|nil, tabs = { guideId, ... }, activeTab = n, absentAt = { [guideId] = place }, manual = { [guideId] = { ["s:g"] = true|"tick" } }, skipped = { [guideId] = { [stepIndex] = true, ["s:g"] = true } }, pins = { [guideId] = { step, done } }, offers = { [questID] = true }, skippedQuests = { [questID] = true }, shapes = { [guideId] = shape }, stepKeys = { [guideId] = { hash, ... } }, flags = { fp = { [name] = true }, ... }, dungeons = { [mapId] = true }, welcomeSeen = 0|1 }`
+`PolestarCharDB = { schema = 1, guide = id|nil, tabs = { guideId, ... }, activeTab = n, absentAt = { [guideId] = place }, closedTabs = { { id, at }, ... }, manual = { [guideId] = { ["s:g"] = true|"tick" } }, skipped = { [guideId] = { [stepIndex] = true, ["s:g"] = true } }, pins = { [guideId] = { step, done } }, offers = { [questID] = true }, skippedQuests = { [questID] = true }, shapes = { [guideId] = shape }, stepKeys = { [guideId] = { hash, ... } }, flags = { fp = { [name] = true }, ... }, dungeons = { [mapId] = true }, welcomeSeen = 0|1 }`
 
 `packs[<id>].off` hides a pack's guides account-wide (the Community guides page's
 switch). `imports` holds the guides pasted on the Import page, as decoded
@@ -1992,7 +1992,9 @@ and both of its values start on `"ask"`.
 ```lua
 Polestar.Engine.GetTabs() -> { { guideId, title, category, stepIndex, stepCount, done, total, complete }, ... }, activeIndex
 Polestar.Engine.OpenTab(guideId [, activate])  -> index   -- already open: just activates it (when activate ~= false)
-Polestar.Engine.CloseTab(index)                            -- the last tab may be closed (no guide)
+Polestar.Engine.CloseTab(index [, quiet])                  -- the last tab may be closed (no guide); quiet: Polestar's own close
+Polestar.Engine.ClosedTabs() -> { { guideId, title, at }, ... }   -- newest first, registered and not open
+Polestar.Engine.ReopenClosedTab([guideId]) -> index | nil -- the last closed (or guideId's), at its old place, active
 Polestar.Engine.SelectTab(index)
 Polestar.Engine.MoveTab(from, to)
 ```
@@ -2021,6 +2023,24 @@ shown again reopens at its old place, up to the tab limit; on
 `PACKS_CHANGED`, open tabs whose guide is gone close together and become
 absent (the active one hands over to its right neighbour, as `CloseTab`).
 Check-offs are keyed by guide id and survive regardless.
+
+**Closed tabs come back.** The player's close (`CloseTab(index)`) and a
+guide loaded over a tab (`SetGuide`, a route changed with `ChooseRoute`;
+`Own.replaceTab`) keep the guide among the closed ones (newest first, at
+most 10), saved as `CharState().closedTabs = { { id, at }, ... }` with their
+saved views (`pins`, which `persist` used to drop on close), and `CloseTab`
+fires `TAB_CLOSED(guideId)`. Opening a closed guide again by any way
+(`ReopenClosedTab`, `OpenTab`, `SetGuide`, `ChooseRoute`) takes it out of the
+list and opens it as a reload restores a saved tab: at the step the player
+was looking at (`Own.takeClosed`, the pin carried by `checkShape` to the
+steps as planned now), placed from the quest log. Ticks and skips are per
+guide and never went with the tab.
+`CloseTab(index, true)` is Polestar closing a tab it is done with (a finished
+dungeon pick-up or class guide, a generated Lookup guide reopening rebuilt):
+not kept, no `TAB_CLOSED`. The guide window offers "Closed <guide> · Reopen"
+for 10 seconds (also with no tab left); its menu and the tab menu have
+"Reopen closed tab"; `/polestar reopen` and the `POLESTAR_REOPEN_TAB` binding
+reopen the last one; the guide menu's Recent leads with Recently closed.
 
 Step view (render-ready; the UI never re-derives status):
 
@@ -5632,7 +5652,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   (community addons in three steps and the GUIDE_PACKS.md link).
 - **Guide menu** (the Guides section): three panes. Left: the categories with
   counts. Middle: Home (continue and suggested), Browse, Current (open tabs),
-  Recent tabs over one line per guide,
+  Recent (the tabs closed, newest first, then the last guides loaded) tabs
+  over one line per guide,
   `Title (min–max)`, in folders (a guide's `folder` when set, else leveling by
   faction and band, other guides by category); search also matches `folder`
   and `keywords`. The faction filter (`ui.pickerFaction`, default this
