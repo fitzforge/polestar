@@ -171,7 +171,8 @@ step Zeppelin to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  accept 7492                         -- Warcaller Gorlach, outside the front gate on the way in: for Talo Thornhoof at Camp Mojache, at the end of this guide
+  tip Warcaller Gorlach walks the Valley of Strength and the streets off it: look for him on the way to the flight master's tower; the circle on the map is his walk.
+  accept 7492 @48.2,66.1              -- Warcaller Gorlach: for Talo Thornhoof at Camp Mojache, at the end of this guide
   goto 45.3,63.7 "Orgrimmar"
 
 step Fly to Bloodvenom Post

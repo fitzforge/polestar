@@ -9443,3 +9443,16 @@ test('Teldrassil: Shayla\'s steps say she walks the road', { skip }, () => {
 		assert.doesNotMatch(step.note || '', /stands beside/, `${what}: not "stands beside"`);
 	}
 });
+
+// Position sweep (0.3.6, IngestCheck036's patrol item): Warcaller Gorlach walks Orgrimmar's Valley of Strength (the
+// game's spawn 48.18,66.11, a 262 yd walk); our data put him at 37.68,75.16, where none of the 71 people who met him
+// in the city did, and the goal's note said "outside the front gate".
+test('Orgrimmar (Horde 55): Camp Mojache points at Warcaller Gorlach\'s walk in the Valley of Strength', { skip }, () => {
+	const g = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const i = at(g, 'accept 7492', is('accept', 7492));
+	const goal = g[i].goal;
+	assert.ok(goal.map === 1454 && Math.abs(goal.x - 48.2) < 0.3 && Math.abs(goal.y - 66.1) < 0.3, `Gorlach's spawn (${goal.x},${goal.y})`);
+	const src = fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/horde/50-60/05-eastern-plaguelands.guide'), 'utf8');
+	assert.match(src, /tip Warcaller Gorlach walks the Valley of Strength/);
+	assert.doesNotMatch(src, /Gorlach, outside the front gate/);
+});

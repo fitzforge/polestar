@@ -1033,5 +1033,29 @@
 			}
 		],
 		"note": "Sentinel Shayla Nightbreeze walks the road west of Dolanaar. The merged data had her at 40.46,50.73, on her walk but 91 yd from her spawn, so the compiler drew no walk circle (it needs the point within 15 yd of the spawn) and half the players met her 70-130 yd from the arrow (position sweep). Her spawn is the game's own."
+	},
+	"10880": {
+		"addSpawns": {
+			"1454": {
+				"f": "e",
+				"pts": [
+					[
+						48.18,
+						66.11
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "creature spawn of entry 10880 at world 1655.5,-4356.4 (Orgrimmar 48.18,66.11), with a waypoint walk of 262 yd around 48.82,57.64 (data/forever/moves.json)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings, all addon versions: 71 people met him in Orgrimmar, most in the Valley of Strength (11 at about 46,64, others at 45-47,64-65, 50-52,62-71, 52-55,57-58); none at the data's 37.68,75.16"
+			}
+		],
+		"note": "Warcaller Gorlach, giver of Camp Mojache (7492), walks the Valley of Strength and the streets off it. The merged data had him at 37.68,75.16, 170 yd from his spawn and outside his walk, so the arrow led where no player met him and his goal got no walk circle (IngestCheck036, position sweep). His spawn is the game's own."
 	}
 }

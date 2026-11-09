@@ -1819,6 +1819,29 @@
 					"ref": "entry 1340's walk (moves.json)"
 				}
 			]
+		},
+		{
+			"id": "orgrimmar-gorlach-7492-giver",
+			"quest": 7492,
+			"objective": "giver",
+			"faction": "Horde",
+			"at": {
+				"map": 1454,
+				"x": 48.2,
+				"y": 66.1,
+				"frame": "era"
+			},
+			"note": "Camp Mojache (7492): Warcaller Gorlach walks the Valley of Strength (the game's spawn 48.18,66.11, a 262 yd walk around 48.8,57.6); the point is his spawn, so the compiler draws his walk as the goal's circle. The data's point, 37.68,75.16, is 170 yd from his spawn, where no player met him (71 people met him in the city, most around 46,64). Until a data build applies npcs correction 10880, lint warns that the point is more than 50 yd from the data's spawn.",
+			"source": [
+				{
+					"kind": "cmangos",
+					"ref": "creature spawn and waypoint walk of entry 10880 (data/forever/moves.json)"
+				},
+				{
+					"kind": "recording",
+					"ref": "npc 10880 met by 71 people in Orgrimmar, most in the Valley of Strength"
+				}
+			]
 		}
 	]
 }

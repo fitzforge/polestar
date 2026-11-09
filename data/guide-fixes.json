@@ -4945,6 +4945,26 @@
 					"ref": "entry 2155's walk (moves.json)"
 				}
 			]
+		},
+		{
+			"id": "orgrimmar-gorlach-walks-7492",
+			"faction": "Horde",
+			"at": {
+				"quest": 7492,
+				"goal": "accept"
+			},
+			"tip": "Warcaller Gorlach walks the Valley of Strength and the streets off it: look for him on the way to the flight master's tower; the circle on the map is his walk.",
+			"note": "Camp Mojache (7492): the goal's note said Gorlach stands outside the front gate; he walks the Valley of Strength (see places orgrimmar-gorlach-7492-giver).",
+			"source": [
+				{
+					"kind": "cmangos",
+					"ref": "entry 10880's walk (moves.json)"
+				},
+				{
+					"kind": "recording",
+					"ref": "npc 10880 met by 71 people, most in the Valley of Strength"
+				}
+			]
 		}
 	]
 }
