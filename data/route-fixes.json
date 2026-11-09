@@ -7642,6 +7642,15 @@
 				"issue": "-"
 			},
 			{
+				"q": 1094,
+				"reason": "PlayersHorde 0.3.6: Further Instructions (level 21, 830 XP) from Ziz Fizziks, taken with the Super Reaper 6000 hand-in (1093) at the end of 02-the-barrens, handed to Sputtervalve, who stands 5 yd from Ratchet's flight master, where 04-the-barrens lands at about 26 for Mahren (and 07 flies on from): no stop of its own. Replaces the 2026-11-07 skip, which counted the hand-in as a stop of its own. Players' recordings: 21 people took it, 16 handed it in (825 XP each).",
+				"issue": "-",
+				"after": [
+					"turnin",
+					1093
+				]
+			},
+			{
 				"q": 1359,
 				"reason": "Flow coverage, 2026-11-07: Zinge's Delivery (level 15, from 10) is offered by Apothecary Renferrel at the Sepulcher, and Apothecary Zinge stands in the Undercity's Apothecarium, which the Silverpine stay passes at its end (Horde 12-30 re-chain (2026-11-07)); recorded players take it (6 accepts, 6 hand-ins). Solo in Forever's quest data.",
 				"issue": "-",
@@ -8561,12 +8570,6 @@
 				"q": 3301,
 				"faction": "Horde",
 				"reason": "Horde 12-30 re-chain (2026-11-07): Mura Runetotem (level 15), a delivery from Tonga at the Crossroads to the Sepulcher: the route goes from the Crossroads to the Sepulcher only at 22, on the ride to Hillsbrad, where it is grey.",
-				"issue": "-"
-			},
-			{
-				"q": 1094,
-				"faction": "Horde",
-				"reason": "Horde 12-30 re-chain (2026-11-07): Further Instructions (level 21, 830 XP), from Ziz Fizziks on the Webwinder Path at the end of the Barrens stay to Sputtervalve in Ratchet: the route is next in Ratchet at 25, where it would be a hand-in on a stop of its own after riding through Ashenvale, Silverpine and Hillsbrad.",
 				"issue": "-"
 			},
 			{

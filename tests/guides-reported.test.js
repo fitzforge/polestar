@@ -9562,3 +9562,18 @@ test('Ashenvale and Azshara: the Krolg and Ravencrest steps name the rod and the
 	assert.match(src, /step Krolg\n  tip [^\n]*Dartol's Rod of Transformation/);
 	assert.match(fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/alliance/50-60/01-burning-steppes.guide'), 'utf8'), /step Ravencrest Monument\n  tip [^\n]*Standard Issue Flare Gun/);
 });
+
+// PlayersHorde (0.3.6, players' recordings): Further Instructions (1094, 830 XP) was skipped as "a hand-in on a stop
+// of its own" at Ratchet, but Ziz Fizziks offers it on the Super Reaper 6000 hand-in at the end of 02-the-barrens and
+// Sputtervalve stands 5 yd from Ratchet's flight master, where 04-the-barrens lands for Mahren. 21 recorded people took
+// it, 16 handed it in.
+test('Horde Barrens: Further Instructions from Ziz, handed to Sputtervalve on the Ratchet landing', { skip }, () => {
+	const b2 = goals('forever/horde/02-the-barrens.guide');
+	const acc = at(b2, 'accept 1094', is('accept', 1094));
+	assert.equal(b2[acc].s, b2[at(b2, 'turnin 1093', is('turnin', 1093))].s, 'offered by Ziz on the Super Reaper 6000 hand-in');
+	const b4 = goals('forever/horde/04-the-barrens.guide');
+	const fly = at(b4, 'fly Ratchet', (g) => g.t === 'fly' && g.location === 'Ratchet');
+	const tin = at(b4, 'turnin 1094', is('turnin', 1094));
+	assert.ok(fly < tin && tin < at(b4, 'turnin 874', is('turnin', 874)), 'on landing in Ratchet, before Mahren');
+	assert.ok(b4[tin].step.when.some((p) => p.k === 'onquest' && !p.neg && p.q.includes(1094)), 'only while carried: a fresh loader never sees it');
+});

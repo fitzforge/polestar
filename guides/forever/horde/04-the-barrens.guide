@@ -22,8 +22,8 @@ next forever/horde/07-ashenvale
 # -> up the Webwinder Path to Sun Rock Retreat (flight path, bind) -> Mirkfallon Lake and
 # Stonetalon Peak -> Sun Rock -> the Charred Vale -> Sun Rock -> down to Malaka'jin -> Camp
 # Taurajo (bind) -> the Field of Giants -> Gann Stonespire, Bael Modan and Blackthorn Ridge ->
-# the Great Lift -> Camp Taurajo -> fly to the Crossroads -> fly to Ratchet (Sputtervalve,
-# Mebok) -> the Merchant Coast (Mahren, Isha Awak). The next guide flies
+# the Great Lift -> Camp Taurajo -> fly to the Crossroads -> fly to Ratchet (Sputtervalve, for
+# Further Instructions 1094 from Ziz) -> the Merchant Coast (Mahren, Isha Awak). The next guide flies
 # from Ratchet to Zoram'gar Outpost.
 #
 # Rare-spawn quests (optional): Owatanka (884) and Washte Pawne (885) start from the drops of rare
@@ -250,6 +250,11 @@ step Fly to Ratchet
   zone The Barrens
   goto 51.5,30.4 "Crossroads flight master"
   fly "Ratchet"
+
+step Sputtervalve
+  when onquest 1094
+  tip Sputtervalve stands beside the flight master you land at.
+  turnin 1094                         -- Sputtervalve: Further Instructions, from Ziz Fizziks
 
 step Merchant Coast
   zone The Barrens

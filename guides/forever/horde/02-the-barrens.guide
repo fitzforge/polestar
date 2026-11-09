@@ -62,8 +62,9 @@ next forever/horde/05-stonetalon-mountains
 # (1069): few recorded players hand it in.
 #
 # Carried on, finished: Report to Kadrak (6541, the next guide's first stop) and The Ashenvale Hunt
-# (6382, Night Run). Further Instructions (1094) is left out: Ziz offers it at 21, and Sputtervalve
-# in Ratchet is next passed at 25, for one hand-in on a stop of its own.
+# (6382, Night Run). Carried on, to hand in: Further Instructions (1094), taken from Ziz with the
+# blueprints' hand-in at 21; Sputtervalve stands beside Ratchet's flight master, where
+# forever/horde/04-the-barrens lands at about 26 (830 XP for a few steps).
 #
 # Class quests: Warriors take Speak with Ruga / Trial at the Field of Giants / Speak with Thun'grim
 # (1823-1825) on the Orgrimmar trip at 20 and gather the Twitching Antennae at the Field of Giants
@@ -1170,6 +1171,7 @@ step Ziz Fizziks: Gerenzo's Orders
 
 step Ziz Fizziks
   turnin 1093                         -- Ziz Fizziks, inside
+  accept 1094                         -- Ziz Fizziks: for Sputtervalve, beside Ratchet's flight master at the end of the Barrens & Stonetalon guide
 
 step Malaka'jin
   tip Back down the Webwinder Path: Xen'Zilla stands just outside Malaka'jin, before the village.
