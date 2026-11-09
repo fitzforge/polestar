@@ -59,7 +59,7 @@ local CURVE_STEPS = 12
 -- CHEVRON_ARM long and CHEVRON_WIDTH thick, CHEVRON_ALPHA strong; flights
 -- dashed DASH on, DASH_GAP off; the walked stretch fades from WALKED_ALPHA
 -- to nothing over TAIL, in pieces of at most TAIL_STEP.
-local SHADOW, JOINT_COS = 3, 0.97
+local SHADOW, JOINT_COS, STRAIGHT_COS = 3, 0.97, 0.9999
 local CHEVRON_SPACING, CHEVRON_ARM, CHEVRON_WIDTH, CHEVRON_ALPHA = 90, 3.5, 1.5, 0.6
 local DASH, DASH_GAP = 7, 5
 -- The line's pieces: path points nearer than LINE_MIN px to the last one kept
@@ -298,11 +298,18 @@ local function LineSegment(x1, y1, dx, dy, length, start, low, high, color)
 		jointX = nil
 		return
 	end
-	if low == 0 and fade == 1 and jointX == x1 and jointY == y1 then
+	-- A piece joined to the last one at a bend starts half the line's width back
+	-- along its own way: that covers the wedge the two square ends leave on the
+	-- bend's outer side (any turn up to 90 degrees; sharper ones also get a
+	-- round joint). Straight-on joins (the tail's pieces) are not overlapped, so
+	-- a faded line shows no darker spots. No extra stroke either way.
+	local back = 0
+	if low == 0 and jointX == x1 and jointY == y1 then
 		local turn = (jointDx * dx + jointDy * dy) / sqrt((jointDx * jointDx + jointDy * jointDy) * (dx * dx + dy * dy))
-		if turn < JOINT_COS then Joint(x1, y1, dx, dy, color) end
+		if turn < STRAIGHT_COS then back = lineWidth / 2 / length end
+		if fade == 1 and turn < JOINT_COS then Joint(x1, y1, dx, dy, color) end
 	end
-	Wide(x1 + low * dx, y1 + low * dy, x1 + high * dx, y1 + high * dy, color)
+	Wide(x1 + (low - back) * dx, y1 + (low - back) * dy, x1 + high * dx, y1 + high * dy, color)
 	if high == 1 then
 		jointX, jointY, jointDx, jointDy = x1 + dx, y1 + dy, dx, dy
 	else

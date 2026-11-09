@@ -845,7 +845,11 @@ fn line_style_a_walk_is_one_piece_a_segment_end_to_end_over_a_soft_shadow_a_roun
 		assert!(s["color"] == "walk" && f(&s["alpha"]) == 1.0 && !truthy(&s["dot"]));
 	}
 	for w in lines.windows(2) {
-		assert!(near(f(&w[0]["bx"]), f(&w[1]["ax"])) && near(f(&w[0]["by"]), f(&w[1]["ay"])), "each piece starts where the last ends");
+		// Each piece starts half the line's width back from where the last ends, along its own way: no notch at the bend.
+		let (ex, ey) = (f(&w[0]["bx"]), f(&w[0]["by"]));
+		let (ax, ay, bx, by) = (f(&w[1]["ax"]), f(&w[1]["ay"]), f(&w[1]["bx"]), f(&w[1]["by"]));
+		assert!(near(((ax - ex).powi(2) + (ay - ey).powi(2)).sqrt(), LINE_W / 2.0), "overlaps by half the width");
+		assert!((ex - ax) * (bx - ax) + (ey - ay) * (by - ay) > 0.0, "back along its own way");
 	}
 	let joints: Vec<_> = plain.iter().filter(|s| truthy(&s["dot"])).collect();
 	assert_eq!(joints.len(), 1, "a joint at the right angle, none at the 5 degree turn");
