@@ -46,10 +46,11 @@ step Boat to Auberdine
 #   Darnassus, a detour off the route, and the chain's last step (943) needs
 #   the Stone of Relu, a 1.5% raptor drop in the Wetlands.
 # - Refresh: Expanding Horizons (97914, Forever) is taken at the end:
-#   Thundris Windweaver's letter goes to Baros Alexston at the Stormwind stop
-#   (06-ashenvale, its Stormwind stop), his reply (Making Do, 97926, a Shipwright's
-#   Satchel) back to Thundris on the next visit to Auberdine
-#   (06-wetlands).
+#   Thundris Windweaver's letter goes to Baros Alexston on the Stormwind stop
+#   before the boat back (the end of 03-loch-modan, #1415), his reply (Making Do,
+#   97926, a Shipwright's Satchel) to Thundris where the boat lands
+#   (03-darkshore-return); 06-ashenvale and 06-wetlands keep both as optional
+#   fallbacks for a player who still carries them.
 # - Left out, accepted but never turned in on the route: One Shot. One Kill.
 #   (5713): it ends at Maestra's Post (06-ashenvale, now at about 20); left
 #   out for now: Sentinel Aynasha stands on Kerlonian's escort road, and how

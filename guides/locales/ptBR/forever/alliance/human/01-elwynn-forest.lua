@@ -257,44 +257,44 @@ return {
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
 	["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional."] = "A {item:247813}, o Machado e a Caixa de Ferramentas estão no rio ao sul da ponte. {npc:330}, uma javalina graúda, fuça em {area:62}, a oeste do rio, com o {npc:390} dela: puxe os leitõezinhos para longe primeiro. Mate Predadores e Jovens Ursos da Floresta no caminho. Cuidado: {npc:248278} é elite de nível 11 na margem dos murlocs. Só vá atrás da cabeça dele em grupo ou depois do nível 10; senão deixe para lá: é opcional.",
 
-	-- Step 51: Downstream and Princess
-	-- {quest:91740} Croaky's Head
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {quest:91740} pede um grupo de 2. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
+	-- Step 50: Croaky
+	-- {npc:248278} Croaky · {quest:91740} Croaky's Head
+	["{npc:248278} is a level 11 elite on the murloc shore south of the bridge: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back. Right-click the head for its quest."] = "",
 
-	-- Step 53: Level 8.85
+	-- Step 52: Level 8.85
 	["Level 8.85"] = "Nível 8.85",
 	-- {quest:91740} Croaky's Head
 	["If you skipped {quest:91740}, grind here to level 8.85 to stay on the route's plan."] = "Se você pulou {quest:91740}, mate monstros aqui até o nível 8.85 para seguir o plano da rota.",
 	-- {npc:118} Prowler
 	["grind on {npc:118}"] = "mate {npc:118} até subir",
 
-	-- Step 55: The Eastvale Logging Camp
+	-- Step 54: The Eastvale Logging Camp
 	-- {area:88} Eastvale Logging Camp
 	["The {area:88}"] = "{area:88}",
 	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it."] = "O acampamento fica a nordeste da ponte. Feixes de Lenha estão espalhados pelo acampamento e pelo bosque ao norte dele.",
 	-- {npc:278} Sara Timberlain
 	["{npc:278}, inside"] = "{npc:278}, lá dentro",
 
-	-- Step 56: A half-eaten body
+	-- Step 55: A half-eaten body
 	["It lies by the river north-west of the logging camp."] = "Fica junto ao rio, a noroeste do acampamento madeireiro.",
 
-	-- Step 57: Stone Cairn Lake
+	-- Step 56: Stone Cairn Lake
 	-- {area:86} Stone Cairn Lake · {object:56} Rolf's corpse
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard · Red Linen Bandanas = {item:1019} Red Linen Bandana
 	["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Teurgos Proscritos Défias acampam nas margens de {area:86}; eles também soltam as Bandanas de Linho Vermelhas. {object:56} está na aldeia murloc da margem nordeste.",
 	-- plural, as words: Red Linen Bandanas = {item:1019} Red Linen Bandana
 	["Red Linen Bandanas"] = "Bandanas de Linho Vermelhas",
 
-	-- Step 58: The gnoll camps
+	-- Step 57: The gnoll camps
 	["The gnoll camps"] = "Os acampamentos gnolls",
 	-- {area:86} Stone Cairn Lake · {quest:91725} Stolen Enchanting Supplies
 	["Riverpaw gnolls camp in the hills west of {area:86}; the {quest:91725} lie in their camps."] = "Gnolls Pata Molhada acampam nas colinas a oeste de {area:86}; {quest:91725} estão nos acampamentos deles.",
 
-	-- Step 59: The Jasperlode Mine's entrance
+	-- Step 58: The Jasperlode Mine's entrance
 	-- {quest:76} The Jasperlode Mine
 	["{quest:76}'s entrance"] = "Entrada de {quest:76}",
 
-	-- Step 60: Jasperlode Mine: kill these as you meet them
+	-- Step 59: Jasperlode Mine: kill these as you meet them
 	-- {area:54} Jasperlode Mine
 	["{area:54}: kill these as you meet them"] = "{area:54}: vá matando estes pelo caminho",
 	-- {item:247816} Mining Tools
@@ -304,22 +304,22 @@ return {
 	-- {npc:476} Kobold Geomancer · {area:54} Jasperlode Mine
 	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "{npc:476} anda por {area:54}: procure dentro do círculo no mapa",
 
-	-- Step 61: The Tower of Azora
+	-- Step 60: The Tower of Azora
 	["Follow the hills south to the tower."] = "Siga pelas colinas para o sul até a torre.",
 
-	-- Step 62: Guard Thomas
+	-- Step 61: Guard Thomas
 	-- {area:91} Tower of Azora
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
 	["Follow the road east past the {area:91} to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it."] = "Siga a estrada para leste, passando por {area:91}, até a ponte. Termine os Predadores e Jovens Ursos da Floresta em volta do rio, ao sul dela.",
 
-	-- Step 64: Stone Cairn Lake
+	-- Step 63: Stone Cairn Lake
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake."] = "A nordeste do acampamento madeireiro. Teurgos Proscritos Défias acampam nas margens do lago.",
 
-	-- Step 65: The Tower of Azora
+	-- Step 64: The Tower of Azora
 	["Follow the hills south to the tower, on the road west."] = "Siga pelas colinas para o sul até a torre, na estrada para o oeste.",
 
-	-- Step 66: Goldshire
+	-- Step 65: Goldshire
 	-- {area:87} Goldshire · {npc:6306} Helene Peltskinner · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
 	["Follow the road west back to {area:87}; {npc:6306} stands on the lake shore before town. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Siga a estrada de volta para oeste até {area:87}; {npc:6306} fica na margem do lago, antes da cidade. {npc:377} (sacerdotes), {npc:328} (magos) e {npc:917} (ladinos) ficam no andar de cima da estalagem: suba as escadas por dentro, a seta não diferencia os andares.",
 	-- {npc:6306} Helene Peltskinner
@@ -335,36 +335,36 @@ return {
 	-- {npc:6121} Remen Marcot · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
 	["{npc:6121}: {npc:6122} in {zone:1453} takes it"] = "{npc:6121}: {npc:6122} em {zone:1453} recebe",
 
-	-- Step 68: Jennea Cannon
+	-- Step 67: Jennea Cannon
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:5497} Jennea Cannon · {object:2101} Mage Quarter · {quest:1861} Mirror Lake
 	["Follow the road north from {area:87} into {zone:1453}. {npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "Siga a estrada para o norte, de {area:87} até {zone:1453}. {npc:5497} fica no Sacrário dos Teurgos, a torre de {object:2101}; ela lhe dá um frasco para a cachoeira de {quest:1861}.",
 
-	-- Step 70: Gakin the Darkbinder
+	-- Step 69: Gakin the Darkbinder
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["Follow the road north from {area:87} into {zone:1453}. {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}."] = "Siga a estrada para o norte, de {area:87} até {zone:1453}. {npc:6122} espera no porão de {object:2164}, em {object:2101}.",
 
-	-- Step 71: Woo Ping
+	-- Step 70: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Já que está aqui: aprenda Cajados com {npc:11867} ({object:2096}, 10 pratas); enquanto você sobe de nível, um cajado traz mais atributos de feitiço que uma arma de uma mão.",
 
-	-- Step 72: Mirror Lake
+	-- Step 71: Mirror Lake
 	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
 	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Saia de {zone:1453} pelo portão principal. A cachoeira de {quest:1861} fica a sudoeste dos portões, no caminho para o oeste rumo a {zone:1436}: encha {item:7207} na base dela.",
 
-	-- Step 73: Surena Caledon
+	-- Step 72: Surena Caledon
 	-- {area:87} Goldshire · {area:62} Brackwell Pumpkin Patch · {npc:881} Surena Caledon
 	["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Volte por {area:87} e siga para leste pela estrada até {area:62}. {npc:881} (nível 9) fica perto da casa da fazenda.",
 
-	-- Step 74: The Binding
+	-- Step 73: The Binding
 	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
 	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "De volta a {npc:6122}. Use o {item:6928} no círculo de evocação no porão de {object:2164} e derrote o emissário do caos que ele invocar.",
 	["Subdue the voidwalker"] = "Subjugue o emissário do caos",
 
-	-- Step 75: Back to Elwynn Forest
+	-- Step 74: Back to Elwynn Forest
 	-- {area:12} Elwynn Forest
 	["Back to {area:12}"] = "De volta a {area:12}",
 
-	-- Step 76: Taming the Beast
+	-- Step 75: Taming the Beast
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:15908} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
 	-- plural, as words: Rockhide Boars = {npc:524} Rockhide Boar · Young Forest Bears = {npc:822} Young Forest Bear
 	["{npc:251507} stands with the {area:87} trainers. Each of her quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "{npc:251507} fica com os instrutores de {area:87}. Cada missão dela lhe dá um {item:15908}: use-o na fera que ela indicar e traga o bastão de volta. Javalis Couropedra e Jovens Ursos da Floresta vagam pelas colinas ao sul de {area:64}; Lobos Cinza da Floresta, pelo bosque a leste de {area:18}.",
@@ -383,11 +383,11 @@ return {
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
 	["{npc:258930}, beside her: {spell:5149}"] = "{npc:258930}, ao lado dela: {spell:5149}",
 
-	-- Step 77: Maybell Maclure
+	-- Step 76: Maybell Maclure
 	-- {area:64} Maclure Vineyards
 	["South down the road to the {area:64}."] = "Para o sul pela estrada até {area:64}.",
 
-	-- Step 78: The Stonefield Farm
+	-- Step 77: The Stonefield Farm
 	-- {npc:894} Homer Stonefield · {quest:91736} Applejack Still
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
 	["{npc:894} sells the Shiny Red Apples for the {quest:91736}. Apples looted from kobolds and crates count too: the purchase ticks itself once you have four."] = "{npc:894} vende as Maçãs Vermelhas Brilhantes para o {quest:91736}. Maçãs saqueadas de kobolds e caixotes também contam: a compra se marca sozinha quando você tiver quatro.",
@@ -395,7 +395,7 @@ return {
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
 	["Shiny Red Apples, from {npc:894}, for the {quest:91736}"] = "Maçãs Vermelhas Brilhantes, de {npc:894}, para {quest:91736}",
 
-	-- Step 79: The Applejack Still
+	-- Step 78: The Applejack Still
 	-- {quest:91736} Applejack Still
 	["The {quest:91736}"] = "{quest:91736}",
 	-- {quest:91736} Applejack Still · {area:120} Westbrook Garrison · {item:247824} Thunder Applejack · {npc:955} Sergeant De Vries
@@ -404,7 +404,7 @@ return {
 	-- {item:247824} Thunder Applejack
 	["{item:247824}, from the still"] = "{item:247824}, do alambique",
 
-	-- Step 80: Westbrook Garrison
+	-- Step 79: Westbrook Garrison
 	-- {area:120} Westbrook Garrison · {zone:1436} Westfall · {npc:963} Deputy Rainer · {npc:955} Sergeant De Vries · {quest:91738} An Apple Treat · {item:247824} Thunder Applejack
 	["Follow the road south to the {area:120}, on the way into {zone:1436}. {npc:963} stands outside the barracks; {npc:955} stands inside. He has {quest:91738} only while you carry the {item:247824}: talk to him and it goes straight to the hand-in."] = "Siga a estrada para o sul até {area:120}, no caminho para {zone:1436}. {npc:963} fica na frente do quartel; {npc:955} fica lá dentro. Ele só tem {quest:91738} enquanto você carrega {item:247824}: fale com ele e vai direto para a entrega.",
 	-- {npc:963} Deputy Rainer · {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
@@ -412,7 +412,7 @@ return {
 	-- {npc:955} Sergeant De Vries · {item:247824} Thunder Applejack
 	["{npc:955}: he wants your {item:247824}; inside"] = "{npc:955}: ele quer o seu {item:247824}; lá dentro",
 
-	-- Step 81: Forest's Edge
+	-- Step 80: Forest's Edge
 	-- {zone:1436} Westfall
 	-- plural, as words: Riverpaw Runts = {npc:97} Riverpaw Runt
 	["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border."] = "Pata Molhada Miúdos e Vanguardeiros ocupam as colinas ao sul da guarnição, ao longo da divisa com {zone:1436}.",
@@ -446,6 +446,7 @@ return {
 	-- ["The Stonefield farm is west of the mine. Ma and \"Auntie\" Bernice stand by the house."] = "A fazenda dos Campedra fica a oeste da mina. Mama e \"Titia\" Berenice ficam junto à casa.",
 	-- ["The murloc camp"] = "O acampamento murloc",
 	-- ["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way."] = "{item:247813}, o Machado Encharcado e a Caixa de Ferramentas Encharcada estão no rio ao sul da ponte. {npc:330}, uma javalina grande, fuça em {area:62}, a oeste do rio, com seu {npc:390}: afaste os leitões primeiro. Mate Predadores e Jovens Ursos da Floresta no caminho.",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {quest:91740} pede um grupo de 2. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
 	-- ["Torn Murloc Fins"] = "Barbatanas Rasgadas de Murloc",
 	-- ["Use the {item:6866} on {npc:6172}"] = "Use o {item:6866} em {npc:6172}",
 	-- ["{area:18} and the wolves"] = "{area:18} e os lobos",

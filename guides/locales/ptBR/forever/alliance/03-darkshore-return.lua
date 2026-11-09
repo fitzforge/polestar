@@ -7,8 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Auberdine
-	-- {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis
-	["From the dock, up to the north end of the village first ({npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south."] = "Do cais, suba primeiro até a ponta norte da vila ({npc:3702}, junto ao poço lunar, e {npc:2913}) e depois desça a rua principal: o cartaz de PROCURA-SE do lado de fora da estalagem e {npc:3693} na ponta leste dela, onde a estrada sai para o sul.",
+	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis
+	["From the dock, up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south."] = "",
+	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston
+	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "",
 	["The WANTED poster"] = "O cartaz de PROCURA-SE",
 
 	-- Step 3: Onu
@@ -152,4 +154,7 @@ return {
 	-- Step 32: To Darnassus
 	-- {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine · {zone:1440} Ashenvale
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}."] = "Pegue o portal para subir até {npc:4217} e depois voe de volta para {area:442} para a estrada ao sul até {zone:1440}.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["From the dock, up to the north end of the village first ({npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south."] = "Do cais, suba primeiro até a ponta norte da vila ({npc:3702}, junto ao poço lunar, e {npc:2913}) e depois desça a rua principal: o cartaz de PROCURA-SE do lado de fora da estalagem e {npc:3693} na ponta leste dela, onde a estrada sai para o sul.",
 }

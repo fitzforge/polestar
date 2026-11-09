@@ -373,7 +373,7 @@ step Tram to Stormwind
 step Cathedral Square
   zone Stormwind City
   tip The tram comes in at the Dwarven District; walk west to the Cathedral Square. Baros Alexston stands at its east side, High Priestess Laurena in the Cathedral of Light.
-  turnin 97914                            -- Baros Alexston: Thundris' letter from Auberdine
+  turnin 97914 optional                   -- Baros Alexston: Thundris' letter, if you still carry it (the route hands it in at the end of 03-loch-modan)
   accept 97926 optional                   -- Only once Expanding Horizons is handed in: for Thundris Windweaver, back in Auberdine (06-wetlands)
   accept 5676 only Human,Priest           -- High Priestess Laurena
   turnin 5676 only Human,Priest           -- Arcane Feedback

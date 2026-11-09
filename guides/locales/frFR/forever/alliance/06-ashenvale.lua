@@ -255,8 +255,8 @@ return {
 	-- Step 53: Cathedral Square
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston · {npc:376} High Priestess Laurena
 	["The tram comes in at the {object:28027}; walk west to the {object:2098}. {npc:1646} stands at its east side, {npc:376} in the Cathedral of Light."] = "",
-	-- {npc:1646} Baros Alexston · {area:442} Auberdine
-	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646} : la lettre de Thundris, d'{area:442}",
+	-- {npc:1646} Baros Alexston
+	["{npc:1646}: Thundris' letter, if you still carry it (the route hands it in at the end of 03-loch-modan)"] = "",
 	-- {quest:97914} Expanding Horizons · {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["Only once {quest:97914} is handed in: for {npc:3649}, back in {area:442} (06-wetlands)"] = "",
 	-- {npc:376} High Priestess Laurena · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
@@ -358,6 +358,7 @@ return {
 	-- ["{npc:1440}, in the Royal Library"] = "{npc:1440}, dans la Bibliothèque royale",
 	-- ["{npc:1444}, in the {object:2098}"] = "{npc:1444}, sur la {object:2098}",
 	-- ["{npc:1573}, in the {object:32372}"] = "{npc:1573}, à {object:32372}",
+	-- ["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646} : la lettre de Thundris, d'{area:442}",
 	-- ["{npc:2086}, by the keep"] = "{npc:2086}, près du donjon",
 	-- ["{npc:2092}'s quest in {zone:1455} needs level 28. If you are short of it after these hand-ins, grind the Dragonmaw orcs at the camps along the road east to {area:836} before you go on."] = "La quête de {npc:2092} à {zone:1455} demande le niveau 28. S'il vous manque après ces rendus, tuez des orcs Dragonmaw dans les camps le long de la route vers l'est jusqu'à {area:836} avant de continuer.",
 	-- ["{npc:2094} stands by the north gate."] = "{npc:2094} se tient près de la porte nord.",

@@ -25,8 +25,9 @@ next forever/alliance/03-darkshore-return
 # Hill -> Stormwind by gryphon (Shaw, General Marcus) and back -> Moonbrook (People's Militia
 # part 2 and Alba's crates, moved here from 02-westfall's second half), the lighthouse, the
 # traitor's escort -> the gryphon to Lakeshire -> the gnoll hills north of the lake ->
-# Lakeshire, then back to Auberdine: the gryphon to Stormwind (Sprite Jumpsprocket) and the
-# boat, or the Hearthstone (still bound there since the first Darkshore visit).
+# Lakeshire, then back to Auberdine: the gryphon to Stormwind (Sprite Jumpsprocket, Baros Alexston
+# for Expanding Horizons, whose reply goes to Thundris where the boat lands) and the boat, or the
+# Hearthstone (still bound there since the first Darkshore visit).
 # The Westfall stretch needs The Defias Brotherhood (65) from 02-westfall: a player who loads
 # this guide without it goes from Goldshire to Stormwind's gate (General Marcus) and flies
 # back to Lakeshire instead.
@@ -422,6 +423,13 @@ step Sprite Jumpsprocket
   when onquest 92748
   zone Stormwind City
   turnin 92748                                -- Sprite Jumpsprocket, Dwarven District
+
+step Baros Alexston
+  when onquest 97914
+  zone Stormwind City
+  tip Baros Alexston stands at the east side of Cathedral Square, on the way from the Dwarven District to the harbour.
+  turnin 97914                                -- Baros Alexston: Thundris' letter from Auberdine
+  accept 97926 optional                       -- For Thundris Windweaver, where the boat lands
 
 step Boat to Auberdine
   zone Stormwind City
