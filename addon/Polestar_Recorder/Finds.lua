@@ -178,16 +178,19 @@ end
 
 -- "<npc>:<spawnUid>" -> where its last `unitx` was, packed in one number
 -- (map * 1e10 + x * 1e5 + y, x and y in hundredths of a percent), or 0
--- inside an instance: one small entry per spawn, as a session sees hundreds.
-local spawnAt = {}
+-- inside an instance: one small entry per spawn. A busy zone shows many
+-- spawns (respawns get new ones), so past SPAWNS_KEPT it starts over: a
+-- spawn seen again then is written again, the memory stays bounded.
+local SPAWNS_KEPT = 1000
+local spawnAt, spawnsKept = {}, 0
 
--- `unitx`: in explorer mode where it is dense, or inside an instance, each
--- spawn seen (its GUID's spawn part), again once it is EXPLORE_UNIT_YARDS
--- from where it was last written (once per session inside an instance,
--- where there is no position). `e` is the unit's cache entry: its spawn part
--- and key are worked out once.
+-- `unitx`: where explorer mode is dense (Forever's new places, inside its
+-- new dungeons too), each spawn seen (its GUID's spawn part), again once it
+-- is EXPLORE_UNIT_YARDS from where it was last written (once per session
+-- inside an instance, where there is no position). `e` is the unit's cache
+-- entry: its spawn part and key are worked out once.
 local function spawnSighting(e, guid, npc, map, x, y, dense)
-	if not (dense or (ns.Exploring() and ns.InstanceId())) then return end
+	if not dense then return end
 	local key = e.spawnKey
 	if key == nil then
 		e.uid = spawnUid(guid)
@@ -204,6 +207,13 @@ local function spawnSighting(e, guid, npc, map, x, y, dense)
 		if m == map and ns.Yards(map, x - px, y - py) < ns.EXPLORE_UNIT_YARDS then return end
 	end
 	if ns.Rec("unitx", npc, uid, ns.PAt(map, x, y)) then
+		if not at then
+			if spawnsKept >= SPAWNS_KEPT then
+				spawnAt = {} -- a fresh table: a wiped one keeps its size
+				spawnsKept = 0
+			end
+			spawnsKept = spawnsKept + 1
+		end
 		spawnAt[key] = x and map * 1e10 + floor(x * 100 + 0.5) * 1e5 + floor(y * 100 + 0.5) or 0
 	end
 end
@@ -241,7 +251,7 @@ local function seeUnit(unit, src)
 	if not e.related and C_QuestLog.UnitIsRelatedToActiveQuest and call(C_QuestLog.UnitIsRelatedToActiveQuest, unit) then e.related = true end
 	remember(guid, e)
 	local map, x, y = ns.Position()
-	local dense = x and ns.Dense(map, x, y)
+	local dense = ns.Dense(map, x, y)
 	census(npc, lvl, cls, react(unit), src, map, x, y, dense)
 	spawnSighting(e, guid, npc, map, x, y, dense)
 	if cls and RARE[cls] then
@@ -704,7 +714,7 @@ ns.On("ZONE_CHANGED", noteOutdoor)
 ns.OnSession(function()
 	wipe(levelSeen)
 	wipe(placesSeen)
-	wipe(spawnAt)
+	spawnAt, spawnsKept = {}, 0
 	wipe(gathered)
 	pending = {}
 	recent.left, xpLine = 0, nil

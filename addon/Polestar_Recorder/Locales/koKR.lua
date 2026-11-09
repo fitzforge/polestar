@@ -32,7 +32,7 @@ L["/reload or log out to send what's recorded"] = "기록된 내용을 보내려
 -- L["explorer mode: %s (/psrec explore on | off)"] = ""
 -- L["usage: /psrec explore on | off"] = ""
 -- L["explorer mode %s"] = ""
--- L["In Forever's new zones and near their new dungeons the Recorder notes creatures and positions in more detail. Everywhere it also notes quest map points, dungeon floors, boss pulls, the area each quest giver stands in and the objects you open. Nothing new about you."] = ""
+-- L["In Forever's new zones and dungeons the Recorder notes the creatures, your path, quest map points, dungeon floors, boss pulls, where quest givers stand and the objects you open in more detail. Nothing new about you."] = ""
 
 -- Trail.lua
 L["trail stopped after %d min: %s, %d points"] = "%d분 후 경로 기록 멈춤: %s, %d개 지점"
@@ -70,6 +70,9 @@ L["Recorder: show or hide the window"] = "기록기: 창 표시/숨기기"
 -- Recorder.lua
 L["recordings from the previous Recorder (schema 1) were removed; recording now uses schema 2"] = "이전 기록기(스키마 1)의 기록을 삭제했습니다. 이제 스키마 2로 기록합니다"
 L["on, because sharing is on in Polestar Client. /psrec off to stop."] = "켜짐: Polestar Client에서 공유가 켜져 있습니다. 중지하려면 /psrec off."
+
+-- Explore.lua
+-- L["recording more detail here to map this new zone (/psrec explore off to stop)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["this client exposes no talent tree API"] = "이 클라이언트는 특성 트리 API를 제공하지 않습니다"

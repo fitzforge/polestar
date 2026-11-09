@@ -1,13 +1,14 @@
--- Explorer mode (docs/RECORDING.md, "Explorer mode"): off until the player
--- types /psrec explore on (or turns it on in Polestar Client), and only
--- while recording. It adds game data about the places Forever made new, and
--- nothing more about the player:
---   - denser sightings and positions in Forever's new zones and around its
---     new dungeons' entrances (ns.Dense: World.lua's breadcrumbs every
---     EXPLORE_POS_YARDS, Finds.lua's `unit` once per EXPLORE_UNIT_YARDS), and
---     there and inside instances each creature spawn seen (`unitx`, Finds.lua);
+-- Explorer mode (docs/RECORDING.md, "Explorer mode"): while recording, in
+-- Forever's new places (NEW_PLACES: its new zones, its new dungeons and
+-- battleground, and around the dungeon entrances outside them) the Recorder
+-- notes more about the game world there, and nothing more about the player.
+-- It works by itself; /psrec explore off (or Polestar Client's explorer flag
+-- false) turns it off. The first time it works it says so once in chat.
+--   - denser sightings and positions (ns.Dense: World.lua's breadcrumbs every
+--     EXPLORE_POS_YARDS, Finds.lua's `unit` once per EXPLORE_UNIT_YARDS) and
+--     each creature spawn seen (`unitx`, Finds.lua);
 --   - `poi`: the quest log's own map points (C_QuestLog.GetQuestsOnMap);
---   - `imap`: the uiMapID and floor inside an instance, on change;
+--   - `imap`: the uiMapID and floor inside a new dungeon, on change;
 --   - `engage`: an encounter's start (Finds.lua, beside `encounter`);
 --   - `where`: the subzone an NPC's quest window opened in (Quests.lua);
 --   - `open`: a world object opened (an "Opening" cast), with the object
@@ -16,10 +17,11 @@
 -- APIs, verified against .ref/wow-ui-source-forever: C_QuestLog
 -- .GetQuestsOnMap (QuestPOIMapInfo: questID, mapID, x, y in 0-1),
 -- C_Map.GetMapGroupID / GetMapGroupMembersInfo (relativeHeightIndex),
--- GetInstanceInfo (8th return: the instance map id), the "softinteract" unit
--- token, ENCOUNTER_START.
+-- GetInstanceInfo (8th return: the map id, of world maps too), the
+-- "softinteract" unit token, ENCOUNTER_START.
 
 local ADDON, ns = ...
+local L = ns.L
 
 local type, GetTime, ipairs, pcall, wipe = type, GetTime, ipairs, pcall, wipe
 local Num, Str = ns.Num, ns.Str
@@ -28,17 +30,40 @@ ns.EXPLORE_POS_YARDS = 10 -- a breadcrumb after moving this far ...
 ns.EXPLORE_POS_GAP = 0.9 -- ... at most once a tick of the 1 s position ticker, where dense
 ns.EXPLORE_UNIT_YARDS = 30 -- one `unit` (and `unitx` per spawn) per this many yards, where dense
 
--- Forever's new zones (uiMapIDs, data/forever zones.json); a map inside one
--- counts by its parents.
-local NEW_MAPS = { [2521] = true, [2665] = true, [2548] = true, [2652] = true, [2482] = true, [2524] = true }
--- Forever's new dungeons' entrances (data/forever dungeons.json): map, x, y.
-local ENTRANCES = {
-	{ 1455, 43.5, 52 }, -- Hall of Thanes
-	{ 1420, 63.4, 67.4 }, -- Ruins of Lordaeron
-	{ 1437, 47.7, 56.2 }, -- Excavation Site: Wetlands
-	{ 1416, 8.5, 59.3 }, -- City of Dalaran
+-- Forever's new places: the one list explorer mode goes by. uiMap: a zone's
+-- uiMapID (a map inside it counts by its parents); map: the map id
+-- GetInstanceInfo gives there (dungeons, the battleground, separate world
+-- maps); entrance: map, x, y of a dungeon's door in an older zone, dense
+-- within ENTRANCE_YARDS. From data/forever zones.json and dungeons.json and
+-- the client's Map table (the 70862 client).
+local NEW_PLACES = {
+	{ "Zephras Isle", uiMap = 2521, map = 2991 },
+	{ "Zephras Isle (system map)", uiMap = 2665 },
+	{ "Riverglades", uiMap = 2548 },
+	{ "Shen'dralas", uiMap = 2652 },
+	{ "Mount Hyjal", uiMap = 2482 },
+	{ "Hyjal Crater", map = 2995 },
+	{ "Darkspear Islands", uiMap = 2524, map = 2997 },
+	{ "The Hall of Thanes", map = 3065, entrance = { 1455, 43.5, 52 } },
+	{ "Ruins of Lordaeron", map = 2999, entrance = { 1420, 63.4, 67.4 } },
+	{ "Excavation Site: Wetlands", map = 2998, entrance = { 1437, 47.7, 56.2 } },
+	{ "City of Dalaran", map = 2959, entrance = { 1416, 8.5, 59.3 } },
+	{ "The Drowned City", map = 2970 },
+	{ "Krol'dok Stronghold", map = 3039 }, -- its door is in Riverglades
+	{ "Alcaz Prison", map = 2994 },
+	{ "Blackmaw Hold", map = 2974 },
+	{ "The Shaper's Terrace", map = 3001 },
+	{ "Manor Mistmantle", map = 3109 },
 }
+ns.NEW_PLACES = NEW_PLACES
 local ENTRANCE_YARDS = 200
+
+local NEW_UIMAP, NEW_MAP, ENTRANCES = {}, {}, {}
+for _, p in ipairs(NEW_PLACES) do
+	if p.uiMap then NEW_UIMAP[p.uiMap] = true end
+	if p.map then NEW_MAP[p.map] = true end
+	if p.entrance then ENTRANCES[#ENTRANCES + 1] = p.entrance end
+end
 
 local POI_DELAY = 2 -- seconds after a quest log or zone change before the map points are read
 local OPEN_PER_MINUTE = 20 -- most `open` records in any 60 seconds
@@ -51,8 +76,15 @@ local function call(fn, ...)
 	return nil
 end
 
--- Explorer mode is on and recording.
-function ns.Exploring() return ns.IsExploring() and ns.Recording() end
+-- The map id GetInstanceInfo gives (world maps too) and whether that is an
+-- instance; read at zone changes and every second.
+local worldMap, inInstance
+
+local function readInstance()
+	local _, kind, _, _, _, _, _, id = call(GetInstanceInfo)
+	worldMap = Num(id)
+	inInstance = kind ~= nil and kind ~= "none"
+end
 
 local newMap = {} -- uiMapID -> whether it is (inside) a new zone
 
@@ -61,7 +93,7 @@ local function isNewMap(map)
 	if known ~= nil then return known end
 	local m, found = map, false
 	for _ = 1, 8 do
-		if NEW_MAPS[m] then
+		if NEW_UIMAP[m] then
 			found = true
 			break
 		end
@@ -73,11 +105,11 @@ local function isNewMap(map)
 	return found
 end
 
--- Whether explorer density applies at (map, x, y) (x, y in percent): in a
--- new zone, or near a new dungeon's entrance, while exploring.
-function ns.Dense(map, x, y)
-	if not (map and ns.Exploring()) then return false end
-	if isNewMap(map) then return true end
+-- Whether (map, x, y) (x, y in percent; nil inside instances) is one of
+-- Forever's new places.
+local function newHere(map, x, y)
+	if worldMap and NEW_MAP[worldMap] then return true end
+	if map and isNewMap(map) then return true end
 	if not x then return false end
 	for _, e in ipairs(ENTRANCES) do
 		if e[1] == map and ns.Yards(map, x - e[2], y - e[3]) <= ENTRANCE_YARDS then return true end
@@ -85,13 +117,19 @@ function ns.Dense(map, x, y)
 	return false
 end
 
--- The instance map id while inside one.
-local function instanceId()
-	local _, kind, _, _, _, _, _, id = call(GetInstanceInfo)
-	if kind == nil or kind == "none" then return nil end
-	return Num(id)
+-- Explorer mode may work now: recording, and not turned off.
+local function active() return ns.ExploreAllowed() and ns.Recording() end
+
+-- Whether explorer density applies at (map, x, y): explorer mode working in
+-- one of Forever's new places.
+function ns.Dense(map, x, y)
+	return active() and newHere(map, x, y) or false
 end
-ns.InstanceId = instanceId
+
+-- Whether explorer mode works where the player is now.
+function ns.Exploring()
+	return active() and newHere(ns.Position()) or false
+end
 
 ---------------------------------------------------------------------------
 -- `where`: the subzone an NPC's (or object's) quest window opened in, once
@@ -135,19 +173,24 @@ local function readPOIs()
 end
 
 local function schedulePOIs()
-	if poiPending or not ns.Exploring() then return end
+	if poiPending or not active() then return end
 	poiPending = true
 	C_Timer.After(POI_DELAY, readPOIs)
 end
 
 ns.On("QUEST_LOG_UPDATE", schedulePOIs)
 ns.On("QUEST_ACCEPTED", schedulePOIs)
-ns.On("ZONE_CHANGED_NEW_AREA", schedulePOIs)
+ns.On("ZONE_CHANGED_NEW_AREA", function()
+	readInstance()
+	schedulePOIs()
+end)
 ns.On("ZONE_CHANGED", schedulePOIs)
+ns.On("PLAYER_ENTERING_WORLD", readInstance)
 
 ---------------------------------------------------------------------------
--- `imap`: inside an instance, its uiMapID and floor whenever they change
--- (read every second; the client gives no position there).
+-- Every second: the one-time chat note when explorer mode first works, and
+-- `imap`: inside a new dungeon, its uiMapID and floor whenever they change
+-- (the client gives no position there).
 ---------------------------------------------------------------------------
 
 local lastInst, lastMap
@@ -165,19 +208,23 @@ local function floorOf(map)
 	return group, nil
 end
 
-local function checkInstanceMap()
-	if not ns.Exploring() then return end
-	local id = instanceId()
-	if not id then
+local function tick()
+	readInstance()
+	if not active() then return end
+	local map, x, y = ns.Position()
+	if not newHere(map, x, y) then
 		lastInst, lastMap = nil, nil
 		return
 	end
-	local map = Num(call(C_Map and C_Map.GetBestMapForUnit, "player"))
-	if not map or (id == lastInst and map == lastMap) then return end
+	if not ns.ExploreSaid() then
+		ns.Print(L["recording more detail here to map this new zone (/psrec explore off to stop)"])
+		ns.SetExploreSaid()
+	end
+	if not (inInstance and worldMap and map) or (worldMap == lastInst and map == lastMap) then return end
 	local group, floor = floorOf(map)
-	if ns.Rec("imap", id, map, group, floor) then lastInst, lastMap = id, map end
+	if ns.Rec("imap", worldMap, map, group, floor) then lastInst, lastMap = worldMap, map end
 end
-C_Timer.NewTicker(1, checkInstanceMap)
+C_Timer.NewTicker(1, tick)
 
 ---------------------------------------------------------------------------
 -- `open`: a world object opened (an "Opening" cast: the client's lock
@@ -201,9 +248,9 @@ local function isOpening(spell)
 end
 
 ns.On("UNIT_SPELLCAST_SUCCEEDED", function(_, unit, _, spell)
-	if ns.Value(unit) ~= "player" or not ns.Exploring() then return end
+	if ns.Value(unit) ~= "player" or not active() then return end
 	spell = Num(spell)
-	if not (spell and isOpening(spell)) then return end
+	if not (spell and isOpening(spell)) or not ns.Exploring() then return end
 	local now = GetTime()
 	local n = 0
 	for i = 1, #openTimes do
@@ -228,5 +275,6 @@ ns.OnSession(function()
 	wipe(poiSeen)
 	wipe(openTimes)
 	lastInst, lastMap = nil, nil
+	readInstance()
 	schedulePOIs()
 end)

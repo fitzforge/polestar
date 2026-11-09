@@ -9,8 +9,8 @@
 //!   - a burst of finds in one frame (20 rares seen, 20 kills and their loot windows, a big pull), plus the
 //!     loot checks they schedule: under 4 ms.
 //!
-//! The same budgets hold in explorer mode (`/psrec explore on`) in one of Forever's new zones, where it records
-//! the most (addon/Polestar_Recorder/Explore.lua).
+//! The same budgets hold in one of Forever's new zones, where explorer mode works by itself and the Recorder
+//! records the most (addon/Polestar_Recorder/Explore.lua).
 //!
 //! Each measurement is taken over 5 rounds (ROUNDS) and the median is held to the budget; a regression shows
 //! in every round, a hiccup in one.
@@ -188,12 +188,11 @@ fn within(r: &Value, keys: &[&str]) {
 	println!("{report}");
 }
 
-/// Recording on, explorer mode on and the player in Zephras Isle (2521, its real size): the explorer
-/// variants run the same scripts there.
+/// Recording on and the player in Zephras Isle (2521, its real size), where explorer mode works by itself:
+/// the explorer variants run the same scripts there.
 const EXPLORE: &str = r#"
 stub.world.maps[2521] = { name = "Zephras Isle", mapType = 3, parentMapID = 947, c = 2991, top = 4956.25, left = 4231.25, bottom = 1247.917, right = -1331.25, w = 5562.5, h = 3708.33 }
 stub.moveTo(50, 50, 2521)
-SlashCmdList.POLESTARREC("explore on")
 "#;
 
 const WALK_AND_QUESTS: &str = r#"
@@ -345,7 +344,7 @@ const HOUR: &str = r#"
 		local kills, dust = 0, 0
 		for minute = 1, 60 do
 			walk(30)
-			for i = 1, 5 do
+			for i = 1, PLATES or 5 do -- creatures seen on nameplates this minute (PLATES: a busier zone)
 				local m = mobs[(minute + i) % #mobs + 1]
 				local g = stub.creature(m[1], m[2])
 				stub.setUnit("nameplate" .. i, g, m[2])
@@ -414,22 +413,26 @@ const HOUR: &str = r#"
 			stub.advance(6)
 		end
 		logout()
-		local bytes, kinds = 0, {}
+		local bytes, kinds, maxBytes, maxRecords = 0, {}, 0, 0
 		for _, text in pairs(PolestarRecorderDB.chunks) do
 			bytes = bytes + #text
-			for _, r in ipairs(stub.records(text)) do kinds[r[1]] = (kinds[r[1]] or 0) + 1 end
+			local recs = stub.records(text)
+			for _, r in ipairs(recs) do kinds[r[1]] = (kinds[r[1]] or 0) + 1 end
+			maxBytes, maxRecords = math.max(maxBytes, #text), math.max(maxRecords, #recs)
 		end
 		collectgarbage("collect")
-		emit({ bytes = bytes, seconds = stub.now, kinds = kinds, mem = collectgarbage("count"), bad = malformed() })"#;
+		emit({ bytes = bytes, seconds = stub.now, kinds = kinds, maxBytes = maxBytes, maxRecords = maxRecords, mem = collectgarbage("count"), bad = malformed() })"#;
 
 /// The hour after `setup`: its records, checked well formed and holding every kind questing writes.
 fn hour(setup: &str) -> Value {
 	let out = crate::recorder::run(&format!("{setup}{HOUR}"));
 	println!(
-		"recorded {} bytes in {} simulated seconds: {:.0} bytes per hour; Lua memory {:.0} KiB; records {}",
+		"recorded {} bytes in {} simulated seconds: {:.0} bytes per hour; largest chunk {} bytes, {} records; Lua memory {:.0} KiB; records {}",
 		out["bytes"],
 		out["seconds"],
 		per_hour(&out),
+		out["maxBytes"],
+		out["maxRecords"],
 		num(&out["mem"]),
 		out["kinds"]
 	);
@@ -453,15 +456,19 @@ fn an_hour_of_questing_stores_under_80_kib_in_well_formed_records() {
 	}
 }
 
-/// The hour in explorer mode in Zephras Isle, the quest log's map points readable: at most 120 KiB an hour
-/// (the 4 MiB cap still holds over 30 hours of it), and what explorer mode remembers for a session (sightings,
-/// spawns, map points, NPCs) under 256 KiB of Lua memory beyond the bigger chunks it stores.
+/// A busy hour in Zephras Isle, where explorer mode works by itself (25 creatures on nameplates a minute
+/// instead of 5, the quest log's map points readable): at most 160 KiB an hour, so the 4 MiB store holds over
+/// 25 hours of it and a day of it stays far under the server's 20 MiB per contributor; every chunk within
+/// the Recorder's 16 KiB (plus one record) and the server's 64 KiB and 4,096 records; and what explorer mode
+/// remembers for a session (sightings, spawns, map points, NPCs) under 256 KiB of Lua memory beyond the
+/// bigger chunks it stores.
 #[test]
-fn an_hour_of_explorer_mode_in_a_new_zone_stores_under_120_kib_and_its_memory_stays_small() {
+fn a_busy_hour_in_a_new_zone_stores_under_160_kib_in_chunks_the_server_takes_and_its_memory_stays_small() {
 	let normal = hour("");
 	let setup = format!(
 		"{EXPLORE}{}",
 		r#"
+		PLATES = 25
 		C_QuestLog.GetQuestsOnMap = function(map)
 			local out = {}
 			for _, q in ipairs(stub.world.log) do out[#out + 1] = { questID = q, mapID = map, x = 0.4, y = 0.6 } end
@@ -473,7 +480,10 @@ fn an_hour_of_explorer_mode_in_a_new_zone_stores_under_120_kib_and_its_memory_st
 	for kind in ["unitx", "poi", "where"] {
 		assert!(out["kinds"][kind].as_u64().unwrap_or(0) > 0, "no {kind} record in the explorer hour: {}", out["kinds"]);
 	}
-	assert!(per_hour(&out) < 120.0 * 1024.0, "{:.0} bytes per hour", per_hour(&out));
+	assert!(per_hour(&out) < 160.0 * 1024.0, "{:.0} bytes per hour", per_hour(&out));
+	assert!(per_hour(&out) * 24.0 < 20.0 * 1024.0 * 1024.0);
+	assert!(num(&out["maxBytes"]) < 16.0 * 1024.0 + 256.0, "largest chunk {}", out["maxBytes"]);
+	assert!(num(&out["maxRecords"]) < 4096.0, "most records in a chunk {}", out["maxRecords"]);
 	let held = num(&out["mem"]) - num(&normal["mem"]) - (num(&out["bytes"]) - num(&normal["bytes"])) / 1024.0;
 	assert!(held < 256.0, "explorer mode holds {held:.0} KiB more than the hour without it, beyond its chunks");
 }

@@ -7,6 +7,7 @@
 -- (sharing on in the client and not paused): true turns recording on at
 -- login unless the player typed /psrec off, false turns it off; and
 --   PolestarRecorderExplore = true|false
--- (its explorer mode toggle) the same way for explorer mode (/psrec explore).
+-- (its explorer mode toggle): false keeps explorer mode off, as /psrec
+-- explore off does.
 -- The release ships it empty; a lost ack only means a chunk is uploaded twice.
 PolestarRecorderAck = nil
