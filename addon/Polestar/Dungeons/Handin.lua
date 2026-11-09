@@ -271,7 +271,9 @@ function Dungeons.HandinGuide(key)
 			step.goals[#step.goals + 1] = questGoal("turnin", h.quest.id, titleOf(h.quest, h.rec), s.at)
 		end
 		for _, f in ipairs(s.accepts) do
-			local goal = questGoal("accept", f.rec.id, f.rec.title, s.at)
+			-- Its prerequisites (Lookup.AcceptPre): a turn-in skipped here
+			-- leaves it "Requires ... first", not a giver who refuses it.
+			local goal = LK().AcceptPre(questGoal("accept", f.rec.id, f.rec.title, s.at), f.rec)
 			goal.minLevel = f.rec.minLevel
 			step.goals[#step.goals + 1] = goal
 		end

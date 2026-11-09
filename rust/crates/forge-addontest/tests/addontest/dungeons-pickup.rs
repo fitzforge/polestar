@@ -485,6 +485,50 @@ stub.advance(0.6)
 	assert_eq!(json!([tabs.len(), tabs[tabs.len() - 1]]), json!([opened["before"].as_i64().unwrap() + 1, GID]), "in a new tab of its own");
 }
 
+// #1406 (In0k: Gryan Stoutmantle did not offer The Defias Brotherhood): the accepts carry their quests'
+// prerequisites, so when the step that does one is skipped, the accept after it says why and the guide moves
+// on, instead of sending the player to a giver who does not offer it. Skipping Bethor's errand leaves The
+// Dalaran Inquiry without its Horde prerequisite (the Alliance's Word from Dalaran is not named) and Arugal Must
+// Die without The Dalaran Inquiry.
+#[test]
+fn an_accept_whose_prerequisite_step_was_skipped_says_what_it_requires_and_the_guide_moves_on_1406() {
+	let pack = default_pack();
+	let out = run(
+		&pack,
+		&k(r#"
+D.PickUp("{KEY}")
+local E = Polestar.Engine
+Polestar.Set("behavior.autoAccept", false)
+stub.advance(0.25)
+local function marks(i)
+	local out = {}
+	for g, v in ipairs(E.GetStepView(i).goals) do out[g] = v.status .. ":" .. tostring(v.unavailableText) end
+	return out
+end
+local g = E.GetGuide()
+local inquiry, arugal = g.steps[2].goals[1], g.steps[3].goals[1]
+local r = {
+	inquiry = { inquiry.quest, inquiry.pre or false, inquiry.preAll or false },
+	arugal = { arugal.quest, arugal.pre or false, arugal.preAll or false, arugal.preTitles and arugal.preTitles[1011] or false },
+	before = { E.GetStepIndex(), marks(3) },
+}
+E.Skip()
+stub.advance(0.25)
+r.after = { E.GetStepIndex(), marks(2)[1], marks(3)[1] }
+emit(r)"#),
+		Opts::default(),
+	)
+	.remove(0);
+	assert_eq!(out["inquiry"], json!([1011, [1010], false]), "one of 1009 and 1010: the Horde's, the Alliance's left out");
+	assert_eq!(out["arugal"], json!([1014, false, [1011], "The Dalaran Inquiry"]));
+	assert_eq!(out["before"], json!([1, ["pending:nil"]]), "while the route still brings it, the accept waits its turn");
+	assert_eq!(
+		out["after"],
+		json!([4, "skipped:Requires Orders from the Undercity first", "skipped:Requires The Dalaran Inquiry first"]),
+		"Bethor's step skipped: the accepts after it say why, and the guide goes on to Doan Karhan"
+	);
+}
+
 #[test]
 fn the_tab_survives_reload_rebuilt_before_the_engine_reopens_it_in_the_same_route_without_a_position() {
 	let pack = default_pack();
