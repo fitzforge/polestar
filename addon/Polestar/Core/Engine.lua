@@ -8452,6 +8452,21 @@ local function wantsLoaded(verb, questID, span)
 	return guide ~= nil and computed ~= nil and wantsFrom(computed, verb, questID, span)
 end
 
+-- "turnin": a While-you're-here hand-in line up for questID in the active
+-- tab (#1408): the guide shows it to be handed in now, so Automation hands
+-- it in as it would the live step's, with the same rules (a group quest not
+-- answered for, a quest the group waits on or one the player left out is
+-- not handed in). Accepts are never While-here lines.
+function Own.hereWants(questID)
+	if Own.hereHeld or guide == nil or Own.hereGuide ~= guide or Own.questSkipped(questID)
+		or (ns.Party and ns.Party.HoldsQuest(questID)) then return false end
+	for i = 1, Own.hereOnN do
+		local e = Own.hereOn[i]
+		if e.kind == "turnin" and e.goal.quest == questID and Own.groupPending(guide.steps[e.s]) ~= questID then return true end
+	end
+	return false
+end
+
 function Engine.WantsQuest(verb, questID, span)
 	if not questID then return false end
 	if not player then refreshPlayer() end
@@ -8467,6 +8482,7 @@ function Engine.WantsQuest(verb, questID, span)
 		end
 	end
 	useActive()
+	if not found and verb == "turnin" then found = Own.hereWants(questID) end
 	return found
 end
 

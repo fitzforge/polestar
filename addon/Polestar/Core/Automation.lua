@@ -3,7 +3,8 @@
 --
 -- Rules: settings behavior.autoAccept / behavior.autoTurnin; holding Shift
 -- suppresses both; only `accept`/`turnin` goals of the live step qualify
--- (never a step ahead, nor one the player only looks at); a reward with
+-- (never a step ahead, nor one the player only looks at), and a hand-in the
+-- While-you're-here panel shows (Engine.WantsQuest, #1408); a reward with
 -- several choices is always
 -- left to the player, as are quests that cost money or flag for PvP, and
 -- (behavior.warnClosing) quests that close another one for good.

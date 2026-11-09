@@ -2098,7 +2098,11 @@ Prev/Next/Goto; `Engine.WantsQuest` evaluates first when a change is
 pending, so a hand-in that finished the step counts the next one as live;
 a `direct` one is picked from the gossip or greeting list of offered
 quests, and only while its goal is not done: the giver of a repeatable keeps
-offering it); never choose among multiple rewards; with `behavior.warnClosing` on,
+offering it); and a While-you're-here hand-in line up in the active tab
+(`Own.hereWants`, #1408: the guide shows it to be handed in now; never one
+held, of a group quest not answered for, of a quest the group waits on or
+one left out; While-here never suggests accepts); never choose among
+multiple rewards; with `behavior.warnClosing` on,
 never accept a quest that closes another for good (Missable quests).
 
 After its own accept or turn-in, the game often opens the NPC's next window
