@@ -200,7 +200,7 @@ fn ground_fought_on_holds_every_goal_there_and_moving_on_never_picks_a_camp_work
 		r#"
 		E.SetGuide("test/camps"); stub.advance(0.25)
 		stub.inCombat = true; wait(5); stub.inCombat = false
-		at(60); wait(2)                             -- on to B: the nearest camp now
+		at(60); wait(6)                             -- on to B, once the fight has settled (5 s)
 		local r = { atB = arrow() }
 		wait(9); r.fromB = arrow()                  -- B empty: C, not A (worked behind)
 		emit(r)
@@ -211,7 +211,8 @@ fn ground_fought_on_holds_every_goal_there_and_moving_on_never_picks_a_camp_work
 
 // ArrowGuard's grind sweep: running across a wide camp to its middle took the dwell's 7 s and the camp was left on
 // arrival; then the player fought there for ten minutes with the arrow on the next camp. Walking on restarts the
-// count (more than Spots.STILL yards), and a fight at a camp left already brings the arrow back to it.
+// count (more than Spots.STILL yards), and a fight inside a camp left already brings the arrow back to it once
+// the fight has settled (never under a fight: Spots.busy).
 #[test]
 fn walking_into_a_camp_never_counts_and_a_fight_at_a_left_camp_brings_the_arrow_back() {
 	let out = run(
@@ -225,10 +226,32 @@ fn walking_into_a_camp_never_counts_and_a_fight_at_a_left_camp_brings_the_arrow_
 		r.walked = arrow()
 		wait(5); r.stopped = arrow()                -- the count starts where the player stopped
 		wait(3); r.dwelt = arrow()                  -- 8 s still: on to B
-		stub.inCombat = true; wait(2)               -- a fight at A after all
+		stub.inCombat = true; wait(2)               -- a fight at A after all: no change under it
+		r.fight = arrow()
+		stub.inCombat = false; wait(6)              -- settled: back to A
 		r.back = arrow()
 		emit(r)
 	"#,
 	);
-	assert_eq!(out, json!({ "walked": 40, "stopped": 40, "dwelt": 60, "back": 40 }));
+	assert_eq!(out, json!({ "walked": 40, "stopped": 40, "dwelt": 60, "fight": 60, "back": 40 }));
+}
+
+// ArrowGuard's replay: the arrow changed under fights and right after kills (13.38 per 10 h against 11.69 before
+// the dwell). The automatic picks hold while the player fights and Spots.SETTLE (5 s) after.
+#[test]
+fn the_arrow_never_changes_under_a_fight_or_in_the_five_seconds_after_it() {
+	let out = run(
+		"w.onQuest(7, { 10 }); w.moveTo(1429, 40, 50)",
+		r#"
+		E.SetGuide("test/camps"); stub.advance(0.25)
+		local r = { start = arrow() }
+		stub.inCombat = true
+		at(60); wait(3); r.fighting = arrow()       -- fought over to B: the arrow holds on A
+		stub.inCombat = false
+		wait(3); r.settling = arrow()               -- 3 s after: still A
+		wait(3); r.settled = arrow()                -- past 5 s: the nearest camp, B
+		emit(r)
+	"#,
+	);
+	assert_eq!(out, json!({ "start": 40, "fighting": 40, "settling": 40, "settled": 60 }));
 }
