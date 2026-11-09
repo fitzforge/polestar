@@ -315,6 +315,31 @@ async fn missing_client_ip_is_refused() {
 }
 
 #[tokio::test]
+async fn explorer_mode_records_are_accepted_counted_and_exported() {
+	// What `/psrec explore` adds: a chunk with more spawns seen than an older server took as unknown
+	// records, and one of each other explorer kind.
+	let app = app();
+	let a = register(&app, IP_A).await;
+	let mut text = chunk(1, 70532);
+	for i in 0..100 {
+		text.push_str(&format!("\nunitx\t{}\t261306\t{:X}\t2521\t{}\t5000", 60 + i, 0x43F59F + i, 4000 + i));
+	}
+	text.push_str("\npoi\t200\t364\t0\t1420\t4400\t6100\nwhere\t201\tc\t1568\tDeathknell\t1\nopen\t202\t3365\t1420\t3100\t6700\to\t500123\nimap\t300\t2943\t2681\t512\t1\nengage\t301\t3301\t1\t5");
+	let (status, body) = upload(&app, &a, &[(1, text.clone())]).await;
+	assert_eq!(status, StatusCode::OK, "{body}");
+	assert_eq!(body, json!({ "accepted": [1], "duplicate": [], "rejected": [] }));
+	let (status, me) = send_json(&app, IP_A, Method::GET, "/v1/me", Some(&a), None).await;
+	assert_eq!(status, StatusCode::OK, "{me}");
+	assert_eq!(me["records"]["unitx"], 100);
+	for k in ["poi", "where", "open", "imap", "engage"] {
+		assert_eq!(me["records"][k], 1, "{k}: {me}");
+	}
+	let lines = export(&app, "").await;
+	assert_eq!(lines.len(), 1);
+	assert_eq!(lines[0]["text"], text, "stored and exported as sent");
+}
+
+#[tokio::test]
 async fn accepts_then_reports_duplicates_and_rejects_malformed() {
 	let app = app();
 	let a = register(&app, IP_A).await;
