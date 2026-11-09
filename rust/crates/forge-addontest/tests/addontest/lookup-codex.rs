@@ -361,8 +361,8 @@ fn in0k_s_report_a_skipped_defias_traitor_escort_leaves_gryan_s_and_riell_s_acce
 	let skipped = strs(&out["skipped"]["steps"]);
 	let gryan = skipped.iter().find(|s| s.starts_with("accept:166:")).expect("Gryan's The Defias Brotherhood");
 	let riell = skipped.iter().find(|s| s.starts_with("accept:214:")).expect("Scout Riell's Red Silk Bandanas");
-	assert_eq!(gryan, "accept:166:skipped:Requires The Defias Brotherhood first");
-	assert_eq!(riell, "accept:214:skipped:Requires The Defias Brotherhood first");
+	assert_eq!(gryan, "accept:166:skipped:Requires \u{201c}The Defias Brotherhood\u{201d} first");
+	assert_eq!(riell, "accept:214:skipped:Requires \u{201c}The Defias Brotherhood\u{201d} first");
 	assert_eq!(out["skipped"]["at"].as_u64(), Some(skipped.len() as u64), "on at the entrance: {skipped:?}");
 }
 

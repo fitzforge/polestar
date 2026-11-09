@@ -11,6 +11,9 @@
 -- size is left alone, and nothing is written into its tables. Esc keeps
 -- closing the menu as before.
 --
+-- With the gamepad interface (ns.GamepadUI) there is no button: its focus
+-- owns the game menu, and a frame of ours in it would be one more to walk.
+--
 -- Cost: one frame, made the first time the menu opens with the setting on.
 
 local ADDON, ns = ...
@@ -28,7 +31,7 @@ local button
 
 function GameMenu.Open()
 	local menu = _G.GameMenuFrame
-	if menu and menu:IsShown() then
+	if menu and menu:IsShown() and not ns.GamepadUI() then
 		if HideUIPanel then HideUIPanel(menu) else menu:Hide() end
 	end
 	ns.Fire("SHOW_PICKER")
@@ -53,7 +56,7 @@ end
 function GameMenu.Refresh()
 	local menu = _G.GameMenuFrame
 	if not menu or GameMenu.managed then return end
-	if ns.Get("ui.gameMenuButton") then
+	if ns.Get("ui.gameMenuButton") and not ns.GamepadUI() then
 		build(menu):Show()
 	elseif button then
 		button:Hide()
@@ -72,7 +75,7 @@ local function hook()
 	if type(rawget(menu, "InitButtons")) == "function" and type(rawget(menu, "AddButton")) == "function" then
 		GameMenu.managed = true
 		hooksecurefunc(menu, "InitButtons", function(self)
-			if ns.Get("ui.gameMenuButton") then self:AddButton("Polestar", GameMenu.Open) end
+			if ns.Get("ui.gameMenuButton") and not ns.GamepadUI() then self:AddButton("Polestar", GameMenu.Open) end
 		end)
 		return
 	end
