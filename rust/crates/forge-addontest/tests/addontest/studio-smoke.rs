@@ -12,6 +12,8 @@ const WORLD: &str = r#"
 local w = stub.world
 w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
 w.moveTo(1429, 48, 42)
+-- No target and no mouseover: the Targets tab shows its empty card.
+function UnitExists(unit) return unit == "player" end
 "#;
 
 // A draft of two steps: VanCleef's death, then a walk; Studio's model only (S.Model), as its tools add goals.
