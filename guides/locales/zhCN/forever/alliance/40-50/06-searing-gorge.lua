@@ -8,32 +8,32 @@
 return {
 	-- Step 1: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "前往{area:2101}",
 
 	-- Step 2: Into Searing Gorge
 	-- {area:51} Searing Gorge
-	["Into {area:51}"] = "",
+	["Into {area:51}"] = "进入{area:51}",
 
 	-- Step 4: The Grimesilt outhouse
 	["The Grimesilt outhouse"] = "格里塞特厕所",
 	-- {area:144} Thelsamar · {zone:1418} Badlands · {area:340} Kargath · {area:51} Searing Gorge · {area:247} Grimesilt Dig Site · {item:4306} Silk Cloth
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {area:51}: the {area:247} is just inside, in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "",
+	["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {area:51}: the {area:247} is just inside, in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "从{area:144}向南骑行进入{zone:1418}，再向西经过部落城镇{area:340}（绕远些），沿小径上行进入{area:51}：刚进去的东南边就是{area:247}。木制厕所里的囚犯要15块{item:4306}，并要求击杀周围挖掘场的八名黑铁地质学家。如果找到钥匙，也可以用钥匙打开厕所。",
 
 	-- Step 5: The Grimesilt outhouse
 	-- {zone:1446} Tanaris · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh
 	["The prisoner's next task, Ledger from {zone:1446}, sends you to the {zone:1435} and {zone:1445}: skip it."] = "囚犯的下一个任务“{zone:1446}的账本”会让你去{zone:1435}和{zone:1445}：跳过。",
 
 	-- Step 6: Level 48.27
-	["Level 48.27"] = "",
+	["Level 48.27"] = "等级 48.27",
 	-- {item:3985} Monogrammed Sash · {area:2100} Maraudon · {area:978} Zul'Farrak
-	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
+	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "如果跳过了{item:3985}或《挑战奈古拉什》，在这里刷怪补到48.27级，以跟上路线进度。也可以组队刷{area:2100}或{area:978}地下城。",
 	-- {npc:5839} Dark Iron Geologist
-	["grind on {npc:5839}"] = "",
+	["grind on {npc:5839}"] = "反复击杀{npc:5839}补足经验",
 
 	-- Step 7: Thorium Point
 	-- {area:1446} Thorium Point
-	["Ride north-west across the Cauldron to {area:1446}, the scaffolded camp on the north-west rim."] = "",
+	["Ride north-west across the Cauldron to {area:1446}, the scaffolded camp on the north-west rim."] = "向西北骑行穿过大熔炉，到达{area:1446}，即西北边缘搭着脚手架的营地。",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "{object:179827}布告板",
 
@@ -45,39 +45,39 @@ return {
 	-- plural, as words: Greater Lava Spiders = {npc:5858} Greater Lava Spider
 	["Greater Lava Spiders"] = "{npc:5858}",
 	-- {npc:8436} Zamael Lunthistle
-	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Kalaran."] = "",
+	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Kalaran."] = "蜘蛛在{npc:8436}南面的高地和熔岩池一带游荡，前往卡拉然的路上会经过。",
 
 	-- Step 13: Kalaran Windblade
-	["Kalaran Windblade"] = "",
+	["Kalaran Windblade"] = "卡拉然·温布雷",
 	-- {area:1446} Thorium Point
 	["Kalaran stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "卡拉然·温布雷站在{area:1446}南边的大熔炉边缘。听他讲述他的故事。",
 
 	-- Step 16: Firewatch Ridge: kill these as you meet them
 	-- {area:1442} Firewatch Ridge
-	["{area:1442}: kill these as you meet them"] = "",
+	["{area:1442}: kill these as you meet them"] = "{area:1442}：沿途击杀以下目标",
 	-- {item:10551} Thorium Plated Dagger · {item:18959} Smithing Tuyere · {object:147516} Dark Iron · {item:11818} Grimesilt Outhouse Key
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Magma Elementals = {npc:5855} Magma Elemental · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts.\nTaskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
+	["Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts.\nTaskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "重型作战傀儡在卡拉然·温布雷下方的大熔炉底部巡逻，熔岩元素也在其中游荡。傀儡和元素都会掉落油，元素还会掉落心脏。\n工头和奴隶贩子在大熔炉各处驱赶奴隶，都有几率携带{item:10551}。铸造师在中央熔炉处工作，掉落{item:18959}；斥候位于南侧山脊，掉落望远镜。任意{object:147516}均有几率掉落{item:11818}，请保留。\n注意：45–46 级的黑铁奴隶贩子被拉到时，会召唤 15 码内盟友支援，最远可在 15 码处投网，并在近战使用撕裂。",
 
 	-- Step 19: Searing Gorge: kill these as you meet them
 	-- {area:51} Searing Gorge
-	["{area:51}: kill these as you meet them"] = "",
+	["{area:51}: kill these as you meet them"] = "{area:51}：沿途击杀以下目标",
 	-- {area:1443} The Slag Pit · {npc:14621} Overseer Maltorius
 	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
 	["{area:1443} opens in the north of the Cauldron. The Secret Plans lie on its upper ledge; Incendosaurs swim in the lava pools further in, so pull them to the edge. Stay clear of {npc:14621} and his elite guards deep inside."] = "{area:1443}的入口在大熔炉北部。秘密设计图在上层岩架上；{npc:9318}在更深处的熔岩池里游动，把它们拉到池边。远离深处的{npc:14621}和他的精英卫兵。",
 	-- {item:18922} Secret Plans: Fiery Flux
-	["{item:18922}; below ground"] = "",
+	["{item:18922}; below ground"] = "{item:18922}：在地下",
 
 	-- Step 20: Searing Gorge: kill these as you meet them
 	-- {npc:14621} Overseer Maltorius
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:14621} is a level 50 elite: most classes solo it at level 52, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:14621} is a level 50 elite: most classes solo it at level 52, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:14621}是 50 级精英，多数职业到 52 级可以尝试单独击败，但可能仍需帮助。独自一人时可跳过，路线会安排刷怪补回经验。",
 
 	-- Step 22: Level 48.66
-	["Level 48.66"] = "",
+	["Level 48.66"] = "等级 48.66",
 	-- {quest:7701} WANTED: Overseer Maltorius · {area:2100} Maraudon · {area:978} Zul'Farrak
-	["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
+	["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "如果跳过了{quest:7701}，在这里刷怪补到48.66级，以跟上路线进度。也可以组队刷{area:2100}或{area:978}地下城。",
 	-- {npc:9318} Incendosaur
-	["grind on {npc:9318}"] = "",
+	["grind on {npc:9318}"] = "反复击杀{npc:9318}补足经验",
 
 	-- Step 24: Dark Iron dwarves
 	-- {object:147516} Dark Iron
@@ -85,31 +85,31 @@ return {
 
 	-- Step 27: The Flame's Casing
 	-- {npc:5860} Twilight Dark Shaman
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:5860}（50 级精英）需要 3 人小队。独自一人时可跳过，路线会安排刷怪补回经验。",
 
 	-- Step 29: Level 48.98
-	["Level 48.98"] = "",
+	["Level 48.98"] = "等级 48.98",
 	-- {quest:3452} The Flame's Casing · {area:2100} Maraudon · {area:978} Zul'Farrak
-	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
+	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "如果跳过了{quest:3452}，在这里刷怪补到48.98级，以跟上路线进度。也可以组队刷{area:2100}或{area:978}地下城。",
 	-- {npc:5844} Dark Iron Slaver
-	["grind on {npc:5844}"] = "",
+	["grind on {npc:5844}"] = "反复击杀{npc:5844}补足经验",
 
 	-- Step 30: Margol's Horn
 	-- {quest:3181} The Horn of the Beast
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:3181} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
-	["Below ground"] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:3181} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{quest:3181}需要 2 人小队。独自一人时可跳过，路线会安排刷怪补回经验。",
+	["Below ground"] = "在地下",
 
 	-- Step 32: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
-	["Back at the {area:247}: Dorius stands by the road. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "",
+	["Back at the {area:247}: Dorius stands by the road. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "返回{area:247}，杜里奥斯·裂石在道路旁等候。向东北护送他到{area:1959}，确保他存活；结束后阅读他留在道路上的{object:175704}。",
 	-- {npc:8256} Curator Thorius · {area:1537} Ironforge
 	["For {npc:8256} in {area:1537}, later"] = "之后交给{area:1537}的{npc:8256}",
 
 	-- Step 34: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "飞往{area:1537}",
 	-- {area:1446} Thorium Point
-	["{area:1446} flight master"] = "",
+	["{area:1446} flight master"] = "{area:1446}的飞行管理员",
 
 	-- Step 35: Class trainer
 	["Class trainer"] = "职业训练师",

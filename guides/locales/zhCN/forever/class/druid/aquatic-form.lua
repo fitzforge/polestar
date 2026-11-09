@@ -11,12 +11,12 @@ return {
 
 	-- Step 1: A Lesson to Learn
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:18960} Teleport: Moonglade · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
-	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. Skyborne: cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up."] = "",
+	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. Skyborne: cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up."] = "{npc:4217} 在 {area:1658} 德鲁伊建筑的楼上。天裔：施放 {spell:18960}，在 {area:2361} 中央搭乘 {npc:11800} 的航班（她会将德鲁伊送到 {area:702}，无需先开通飞行路线），然后使用传送门上去。",
 
 	-- Step 2: Trial of the Lake
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:29} Trial of the Lake · {area:656} Lake Elune'ara · {area:2361} Nighthaven · {object:177524} Bubbly Fissure (no name in this language: may be words) · {item:15877} Shrine Bauble · {area:2362} Shrine of Remulos · {npc:11799} Tajarri
 	-- plural, as words: Bauble Containers = {object:177785} Bauble Container
-	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. {quest:29} runs on a 30-minute timer. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of {area:656} below {area:2361}, often near the bubbling fissures (the {object:177524} in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the {item:15877} is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the {area:2362} on the north-west shore, use it inside the shrine grounds and speak to {npc:11799} by the tree."] = "",
+	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. {quest:29} runs on a 30-minute timer. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of {area:656} below {area:2361}, often near the bubbling fissures (the {object:177524} in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the {item:15877} is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the {area:2362} on the north-west shore, use it inside the shrine grounds and speak to {npc:11799} by the tree."] = "施放 {spell:18960}：{npc:11802} 站在你旁边建筑的楼上。{quest:29} 限时 30 分钟。在 {area:2361} 下方、{area:656} 深处的湖底，有六个神殿灵珠容器（花瓶），藏在狭窄的凹坑里，通常靠近冒泡的裂隙（湖中央的 {object:177524} 可让你恢复呼吸）；每个容器打开三分钟后会刷新，其他德鲁伊也会取用。浮出水面前，确认背包里已有 {item:15877}：它在拾取五分钟后就会消失。立即带着它游向西北岸的 {area:2362}，在神殿范围内使用，然后与树旁的 {npc:11799} 交谈。",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
 	["{item:15877}, from a {object:177785} in the lake"] = "{item:15877}，来自湖中的{object:177785}",
 	-- {area:2362} Shrine of Remulos
@@ -25,15 +25,15 @@ return {
 	-- Step 3: Half Pendant of Aquatic Agility
 	-- {area:2361} Nighthaven · {area:442} Auberdine · {object:177792} Strange Lockbox · {area:456} Cliffspring River
 	-- plural, as words: Darkshore Threshers = {npc:2185} Darkshore Thresher
-	["Fly from {area:2361} to {area:442}. The {object:177792} lies far out on the sea floor off the north coast, between tall rocks west of where the {area:456} reaches the sea: it cannot be seen from the east side of the rocks. Watch your breath and the Darkshore Threshers; fight above water."] = "",
+	["Fly from {area:2361} to {area:442}. The {object:177792} lies far out on the sea floor off the north coast, between tall rocks west of where the {area:456} reaches the sea: it cannot be seen from the east side of the rocks. Watch your breath and the Darkshore Threshers; fight above water."] = "从 {area:2361} 飞往 {area:442}。{object:177792} 位于北岸外较远处的海底，在 {area:456} 入海口西侧的高大岩石之间；从岩石东侧看不到它。注意呼吸和黑海岸蛇颈龙；战斗时要回到水面上。",
 	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox
-	["{item:15883}, from the {object:177792}"] = "",
+	["{item:15883}, from the {object:177792}"] = "{item:15883}，来自{object:177792}",
 
 	-- Step 4: Half Pendant of Aquatic Endurance
 	-- {area:442} Auberdine · {zone:1453} Stormwind · {area:108} Sentinel Hill · {object:177790} Strange Lockbox
-	["Take the boat from {area:442} to {zone:1453} and fly to {area:108}. Head west to the coast: the {object:177790} lies far out on the sea floor beside a bubbling fissure (air), west of a sunken anchor. Sharks roam here; do not swim on past the wreck beyond it, the deep water brings fatigue."] = "",
+	["Take the boat from {area:442} to {zone:1453} and fly to {area:108}. Head west to the coast: the {object:177790} lies far out on the sea floor beside a bubbling fissure (air), west of a sunken anchor. Sharks roam here; do not swim on past the wreck beyond it, the deep water brings fatigue."] = "从{area:442}乘船前往{zone:1453}，再飞往{area:108}。向西去海岸：{object:177790}位于离岸较远的海底，在冒泡的裂隙（可补充空气）旁边、沉没的船锚西面。这里有鲨鱼游荡；不要继续游过更远处的沉船，深水区会使你疲劳。",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
-	["{item:15882}, from the {object:177790}"] = "",
+	["{item:15882}, from the {object:177790}"] = "{item:15882}，来自{object:177790}",
 
 	-- Step 5: Pendant of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {item:15883} Half Pendant of Aquatic Agility · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
@@ -43,24 +43,24 @@ return {
 
 	-- Step 6: Aquatic Form
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {quest:5061} Aquatic Form
-	["Take the portal up to {npc:4217} in the {area:1658}. {quest:5061}: swim fast and breathe underwater."] = "",
+	["Take the portal up to {npc:4217} in the {area:1658}. {quest:5061}: swim fast and breathe underwater."] = "使用传送门上去，找 {area:1658} 的 {npc:4217}。{quest:5061}：提高游泳速度，并可在水下呼吸。",
 
 	-- Step 7: A Lesson to Learn
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise
-	["{npc:3033} stands in the druids' hut on {area:1639}."] = "",
+	["{npc:3033} stands in the druids' hut on {area:1639}."] = "{npc:3033} 站在 {area:1639} 的德鲁伊小屋里。",
 
 	-- Step 8: Trial of the Lake
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:28} Trial of the Lake · {area:656} Lake Elune'ara · {area:2361} Nighthaven · {object:177524} Bubbly Fissure (no name in this language: may be words) · {item:15877} Shrine Bauble · {area:2362} Shrine of Remulos · {npc:11799} Tajarri
 	-- plural, as words: Bauble Containers = {object:177785} Bauble Container
-	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. {quest:28} runs on a 30-minute timer. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of {area:656} below {area:2361}, often near the bubbling fissures (the {object:177524} in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the {item:15877} is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the {area:2362} on the north-west shore, use it inside the shrine grounds and speak to {npc:11799} by the tree."] = "",
+	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. {quest:28} runs on a 30-minute timer. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of {area:656} below {area:2361}, often near the bubbling fissures (the {object:177524} in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the {item:15877} is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the {area:2362} on the north-west shore, use it inside the shrine grounds and speak to {npc:11799} by the tree."] = "施放 {spell:18960}：{npc:11802} 站在你旁边建筑的楼上。{quest:28} 限时 30 分钟。在 {area:2361} 下方、{area:656} 深处的湖底，有六个神殿灵珠容器（花瓶），藏在狭窄的凹坑里，通常靠近冒泡的裂隙（湖中央的 {object:177524} 可让你恢复呼吸）；每个容器打开三分钟后会刷新，其他德鲁伊也会取用。浮出水面前，确认背包里已有 {item:15877}：它在拾取五分钟后就会消失。立即带着它游向西北岸的 {area:2362}，在神殿范围内使用，然后与树旁的 {npc:11799} 交谈。",
 
 	-- Step 9: Half Pendant of Aquatic Endurance
 	-- {npc:11798} Bunthen Plainswind · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1458} Undercity · {object:177790} Strange Lockbox · {area:228} Sepulcher
-	["Take {npc:11798}'s flight to {zone:1456}, fly to {zone:1454} and take the zeppelin to {zone:1420}; {zone:1421} is south of the {zone:1458}. The {object:177790} lies at the bottom of very deep water off the coast north-west of the {area:228}, beside an air fissure where you can breathe: watch your breath on the way down."] = "",
+	["Take {npc:11798}'s flight to {zone:1456}, fly to {zone:1454} and take the zeppelin to {zone:1420}; {zone:1421} is south of the {zone:1458}. The {object:177790} lies at the bottom of very deep water off the coast north-west of the {area:228}, beside an air fissure where you can breathe: watch your breath on the way down."] = "乘坐{npc:11798}提供的航班前往{zone:1456}，再飞往{zone:1454}，乘飞艇去{zone:1420}；{zone:1421}在{zone:1458}南面。{object:177790}位于{area:228}西北面海岸外的深水海底，旁边有可以呼吸的空气裂隙：下潜时注意剩余呼吸时间。",
 
 	-- Step 10: Half Pendant of Aquatic Agility
 	-- {object:177792} Strange Lockbox · {area:382} Sludge Fen
-	["The {object:177792} lies underwater in the {area:382} pond north of the Crossroads, in front of a wooden wall. The Venture Co. there are quick to join a fight: come in from the west to avoid most of them."] = "",
+	["The {object:177792} lies underwater in the {area:382} pond north of the Crossroads, in front of a wooden wall. The Venture Co. there are quick to join a fight: come in from the west to avoid most of them."] = "{object:177792} 位于十字路口北侧的 {area:382} 池塘水下，一堵木墙前。那里的风险投资公司成员很容易加入战斗：从西侧接近，可避开大多数敌人。",
 
 	-- Step 11: Pendant of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {item:15883} Half Pendant of Aquatic Agility · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff

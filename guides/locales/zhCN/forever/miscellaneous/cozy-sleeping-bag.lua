@@ -14,7 +14,7 @@ return {
 	-- {zone:1436} Westfall
 	["The note in {zone:1436}"] = "{zone:1436}的纸条",
 	-- {zone:1436} Westfall
-	["The chain opens at level 14. A burned-out campfire in western {zone:1436}, with a nailed plank beside it."] = "",
+	["The chain opens at level 14. A burned-out campfire in western {zone:1436}, with a nailed plank beside it."] = "这条任务链14级开放。地点在 {zone:1436} 西部的一处熄灭营火旁，旁边有一块钉着钉子的木板。",
 
 	-- Step 2: Its twin in the Barrens
 	-- {zone:1413} Barrens
@@ -26,7 +26,7 @@ return {
 	-- {zone:1413} Barrens
 	["The note in the {zone:1413}"] = "{zone:1413}的纸条",
 	-- {zone:1413} Barrens
-	["The chain opens at level 14. A burned-out campfire in the southern {zone:1413}, with a nailed plank beside it."] = "",
+	["The chain opens at level 14. A burned-out campfire in the southern {zone:1413}, with a nailed plank beside it."] = "这条任务链14级开放。起点是{zone:1413}南部一处烧尽的营火，旁边有块钉着钉子的木板。",
 
 	-- Step 4: Its twin in Westfall
 	-- {zone:1436} Westfall
@@ -36,10 +36,10 @@ return {
 
 	-- Step 5: Stonetalon Mountains
 	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter
-	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "",
+	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "下一个藏身处位于 {zone:1442} 中部、{area:460} 西北方山丘中的小营地。从向西上山的小路离开主路，沿小路到达营地；{object:424005} 就在帐篷旁的箱子上。",
 	-- {area:1702} Honor's Stand
-	["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "",
-	["North of Honor's Stand"] = "",
+	["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "向西的道路会穿过部落哨所{area:1702}；这条路线会绕开它。",
+	["North of Honor's Stand"] = "荣耀岗哨以北",
 	["Path into the hills"] = "上山小径",
 
 	-- Step 6: A hundred paces north

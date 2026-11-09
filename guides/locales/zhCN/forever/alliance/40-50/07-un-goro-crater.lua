@@ -8,14 +8,14 @@
 return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "飞往{area:150}",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "{zone:1455}飞行管理员",
 
 	-- Step 3: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "飞往{area:976}",
-	["Theramore flight master"] = "",
+	["Theramore flight master"] = "塞拉摩飞行管理员",
 
 	-- Step 4: Gadgetzan
 	-- {area:976} Gadgetzan
@@ -23,7 +23,7 @@ return {
 
 	-- Step 6: Sprinkle
 	-- {npc:7564} Marin Noggenfogger
-	["{npc:7564}, once he has brewed the elixir: a few seconds"] = "",
+	["{npc:7564}, once he has brewed the elixir: a few seconds"] = "{npc:7564}，等他调好药剂：几秒钟",
 
 	-- Step 8: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {area:490} Un'Goro Crater · {npc:9619} Torwa Pathfinder
@@ -40,7 +40,7 @@ return {
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["The Lar'korwi Mates prowl the jungle west of {npc:9619}. The wrecked raft lies on the shore of the lake there; the small pack sits in the water beside it. Keep the compass, map and key for {npc:8737}. Any beast in the crater may drop {item:11116}: right-click it."] = "拉克维的配偶在{npc:9619}西边的丛林中徘徊。失事的木筏在那里的湖岸上；小背包在它旁边的水里。指南针、地图和钥匙留给{npc:8737}。环形山中任何野兽都可能掉落{item:11116}：右键点击它。",
 	-- {object:161504} A Small Pack
-	["{object:161504}, underwater"] = "",
+	["{object:161504}, underwater"] = "{object:161504}：在水下",
 
 	-- Step 12: Karna Remtravel
 	-- {npc:9618} Karna Remtravel
@@ -48,11 +48,11 @@ return {
 
 	-- Step 13: Marshal's Refuge
 	-- {object:157936} Un'Goro Dirt Pile
-	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "",
+	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "向西骑行返回营地。\n远离精英魔暴龙和剑龙，从这里开始，沿途遇到的能量水晶和{object:157936}都要拾取。",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge entrance"] = "{npc:9998}，在避难所入口",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, at the back of the cave; below ground"] = "",
+	["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}，位于洞穴深处的地下",
 
 	-- Step 14: Fire Plume Ridge and the eastern jungle
 	-- {area:537} Fire Plume Ridge
@@ -63,7 +63,7 @@ return {
 
 	-- Step 16: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}：在地下",
 	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
 	["Ends with {npc:9298} in {zone:1452}: keep it"] = "在{zone:1452}的{npc:9298}处结束：留着",
 	-- {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
@@ -72,24 +72,24 @@ return {
 	-- Step 17: Northern Pylon
 	["Northern Pylon"] = "北部水晶塔",
 	-- {npc:9998} Shizzle
-	["The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop {npc:9998}'s scales."] = "",
+	["The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop {npc:9998}'s scales."] = "水晶塔位于营地东侧山坡，翼手龙在周围山坡盘旋，既计入斯普拉格·弗劳克的任务，也会掉落{npc:9998}所需的鳞片。",
 
 	-- Step 18: A-Me 01
 	-- {area:1943} Ironstone Plateau
 	["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "向北骑行到{area:1943}，机器人站在猩猩中间。别进那里的深洞。",
-	["Below ground"] = "",
+	["Below ground"] = "在地下",
 
 	-- Step 19: Level 49.51
-	["Level 49.51"] = "",
+	["Level 49.51"] = "等级 49.51",
 	-- {area:541} Marshal's Refuge · {area:2100} Maraudon
-	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "",
+	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "在这里补到49.51级，再去{area:541}交任务，交完会升到50级。也可以组队去{area:2100}副本。",
 	["Pterrordax"] = "翼手龙",
-	["grind on Pterrordax"] = "",
+	["grind on Pterrordax"] = "反复击杀翼手龙补足经验",
 
 	-- Step 20: Crate of Foodstuffs
 	-- {npc:9165} Fledgling Pterrordax · {npc:9998} Shizzle
 	-- plural, as words: Young Diemetradons = {npc:9162} Young Diemetradon
-	["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales. The crate sits at the abandoned camp in the eastern jungle."] = "",
+	["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales. The crate sits at the abandoned camp in the eastern jungle."] = "沿东侧向南骑行，幼双帆龙在东侧丛林活动，{npc:9165}在东侧峭壁附近飞行，两者都会掉落{npc:9998}所需的鳞片。箱子位于东侧丛林的废弃营地内。",
 
 	-- Step 21: Eastern Pylon
 	["Eastern Pylon"] = "东部水晶塔",
@@ -99,9 +99,9 @@ return {
 	["The Gorishi hive"] = "格里什虫巢",
 	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil · {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "",
+	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "骑行向西南，经过 {npc:9619}：异种虫巢遍布环形山南部。对孵化室使用未使用的采集瓶，孵化室就是悬挂着幼虫的洞室。格里什黄蜂和格里什工蝎会掉落 {quest:3764}；若击杀数量还不够，南侧悬崖上也有翼手龙栖息。\n小心：格里什异种虫为 51-54 级，近战时会施放 {spell:8137} 或 {spell:14120}；格里什工蝎的生命值降至 45% 以下时，有 50% 的概率呼叫 25 码内的同伴前来援助。",
 	-- {npc:9167} Frenzied Pterrordax
-	["grind on {npc:9167}"] = "",
+	["grind on {npc:9167}"] = "反复击杀{npc:9167}补足经验",
 
 	-- Step 23: Bones and equipment
 	["Bones and equipment"] = "骨头和设备",
@@ -109,7 +109,7 @@ return {
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone
 	["Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from Diemetradons. The expedition's {item:11112} lies in the south-west jungle."] = "恐龙骨头散落在西南部的地面上，在剑龙之间：剑龙是精英，在它们周围捡骨头，其余的从双帆龙身上获取。探险队的{item:11112}在西南部丛林中。",
 	-- {npc:9164} Elder Diemetradon
-	["grind on {npc:9164}"] = "",
+	["grind on {npc:9164}"] = "反复击杀{npc:9164}补足经验",
 
 	-- Step 24: Western Pylon
 	["Western Pylon"] = "西部水晶塔",
@@ -123,13 +123,13 @@ return {
 
 	-- Step 26: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "前往{area:2101}",
 
 	-- Step 27: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "飞往{area:1537}",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "{area:144}的飞行管理员",
 
 	-- Step 28: Hall of Explorers
 	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
@@ -150,16 +150,16 @@ return {
 
 	-- Step 34: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "飞往{area:415}",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "{area:442}的飞行管理员",
 
 	-- Step 35: Level 50.4
-	["Level 50.4"] = "",
+	["Level 50.4"] = "等级 50.4",
 	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
-	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "在这里补到50.4级，再去{area:3137}交任务，交完会升到51级。也可以组队去{area:2100}副本或{area:1417}副本。",
 	-- {npc:6116} Highborne Apparition
-	["grind on {npc:6116}"] = "",
+	["grind on {npc:6116}"] = "反复击杀{npc:6116}补足经验",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Archesonus stands beside King Magni in the {object:171709}."] = "阿克瑟努斯站在{object:171709}中麦格尼国王旁边。",

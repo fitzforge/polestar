@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Thendal Grove: kill these as you meet them
 	-- {area:16622} Thendal Grove
-	["{area:16622}: kill these as you meet them"] = "",
+	["{area:16622}: kill these as you meet them"] = "{area:16622}：沿途击杀以下目标",
 	-- {npc:250873} Juvenile Vuldren
 	["{npc:250873} and Pesky Cirrusflies roam the meadow just south-east of the grove."] = "{npc:250873}和烦人的卷云蝇在林地东南方的草地上游荡。",
 
@@ -68,10 +68,10 @@ return {
 	-- Step 10: Thendal Grove: kill these as you meet them
 	-- {npc:251115} Urs'anah · {npc:250926} Scrawny Ursera
 	-- plural, as words: Ursera Scavengers = {npc:250937} Ursera Scavenger
-	["The Ursera Scavengers den west of the grove, with {npc:251115}, the matriarch, at the back of the den; {npc:250926} prowl the woods between the den and the grove."] = "厄塞拉食腐者在林地西边筑巢，主母{npc:251115}在巢穴深处；{npc:250926}在巢穴与林地之间的树林里游荡。",
-	["Below ground"] = "",
+	["The Ursera Scavengers den west of the grove, with {npc:251115}, the matriarch, at the back of the den; {npc:250926} prowl the woods between the den and the grove."] = "乌萨拉食腐者在林地西边筑巢，主母{npc:251115}在巢穴深处；{npc:250926}在巢穴与林地之间的树林里游荡。",
+	["Below ground"] = "在地下",
 	-- {item:252665} Head of Urs'anah
-	["{item:252665}; below ground"] = "",
+	["{item:252665}; below ground"] = "{item:252665}：在地下",
 
 	-- Step 11: Aetheen of the Gales
 	["Back east out of the den to the grove."] = "从巢穴向东返回林地。",
@@ -88,7 +88,7 @@ return {
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
 	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "在{npc:263664}的篝火旁/sit，直到获得{spell:1229451}",
 	-- {npc:251905} Zerril Softbreeze
-	["{npc:251905}: Camping 101 asks you to learn it"] = "",
+	["{npc:251905}: Camping 101 asks you to learn it"] = "{npc:251905}：露营 101 要求你学习这项技能",
 
 	-- Step 15: Village quests
 	["Village quests"] = "村庄任务",
@@ -104,12 +104,12 @@ return {
 
 	-- Step 19: Shen'dar Highlands: kill these as you meet them
 	-- {area:16623} Shen'dar Highlands
-	["{area:16623}: kill these as you meet them"] = "",
+	["{area:16623}: kill these as you meet them"] = "{area:16623}：沿途击杀以下目标",
 	-- plural, as words: Highlands Bandits = {npc:251918} Highlands Bandit
 	["The Highlands Bandits camp north-east of the village. \"Badwind\" Bennic waits at the far north end of their camp."] = "高地强盗在村子东北边扎营。“恶风”本尼克在他们营地的最北端等着。",
 	-- plural, as words: Highlands Bandits = {npc:251918} Highlands Bandit
 	["Highlands Bandits"] = "高地强盗",
-	["\"Badwind\" Bennic, below ground"] = "",
+	["\"Badwind\" Bennic, below ground"] = "“恶风”本尼克，位于地下",
 
 	-- Step 20: Shen'dar turn-ins
 	["Shen'dar turn-ins"] = "申达尔交还任务",
@@ -118,22 +118,22 @@ return {
 	["Class trainer"] = "职业训练师",
 
 	-- Step 22: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "圣骑士训练师",
 	-- {npc:5148} Beldruk Doombrow · {zone:1455} Ironforge · {area:16624} Shen'dar Village
-	["{npc:5148} in {zone:1455}; {area:16624} has no paladin trainer"] = "",
+	["{npc:5148} in {zone:1455}; {area:16624} has no paladin trainer"] = "前往{zone:1455}找{npc:5148}；{area:16624}没有圣骑士训练师",
 
 	-- Step 23: Priest trainer
-	["Priest trainer"] = "",
+	["Priest trainer"] = "牧师训练师",
 	-- {zone:1438} Teldrassil · {area:16624} Shen'dar Village
-	["Lariia in {zone:1438}; {area:16624} has no priest trainer"] = "",
+	["Lariia in {zone:1438}; {area:16624} has no priest trainer"] = "前往{zone:1438}找拉瑞亚；{area:16624}没有牧师训练师",
 
 	-- Step 24: Shaman trainer
 	["Shaman trainer"] = "萨满祭司训练师",
 	-- {npc:258098} Eldrun Stormbreaker · {zone:1455} Ironforge · {area:16624} Shen'dar Village
-	["{npc:258098} in {zone:1455}; {area:16624} has no shaman trainer"] = "",
+	["{npc:258098} in {zone:1455}; {area:16624} has no shaman trainer"] = "前往{zone:1455}找{npc:258098}；{area:16624}没有萨满祭司训练师",
 
 	-- Step 25: Warlock trainer
-	["Warlock trainer"] = "",
+	["Warlock trainer"] = "术士训练师",
 	-- {item:2450} Briarthorn · {zone:1455} Ironforge · {area:16624} Shen'dar Village
 	["{item:2450} in {zone:1455}; {area:16624} has no warlock trainer"] = "",
 
@@ -176,9 +176,9 @@ return {
 	-- {npc:252383} Valennia Stormfist · {npc:252476} Talaanis Shadowsong · {area:16638} Valanaar · {npc:252475} Elaadrin Evengale · {npc:253204} Dondallion Whisperwind
 	["{npc:252383} and {npc:252476} stand at the north end of {area:16638}, {npc:252475} and {npc:253204} at the south end."] = "{npc:252383}和{npc:252476}站在{area:16638}北端，{npc:252475}和{npc:253204}在南端。",
 	-- {npc:252476} Talaanis Shadowsong
-	["{npc:252476}, upstairs"] = "",
+	["{npc:252476}, upstairs"] = "{npc:252476}：在楼上",
 	-- {npc:252383} Valennia Stormfist
-	["{npc:252383}, upstairs"] = "",
+	["{npc:252383}, upstairs"] = "{npc:252383}：在楼上",
 
 	-- Step 37: Skyhoppers
 	-- plural, as words: Skyhoppers = {npc:251727} Skyhopper
@@ -187,44 +187,44 @@ return {
 	-- plural, as words: Skyhoppers = {npc:251727} Skyhopper
 	["Skyhoppers swarm the fields west of {area:16638}."] = "天空跳跃者成群出没于{area:16638}西边的田野。",
 	-- {npc:260628} Valennia Stormfist
-	["{npc:260628}, upstairs"] = "",
+	["{npc:260628}, upstairs"] = "{npc:260628}，在楼上",
 
 	-- Step 38: The road to Valanaar
 	-- {area:16638} Valanaar
 	["The road to {area:16638}"] = "前往{area:16638}的路",
 	-- {npc:257006} Nyalah Brightfire · {npc:252448} Alvarion Windfield · {area:16638} Valanaar · {npc:252377} Seena Skybreaker · {npc:252389} Quel'ana Quickgale
 	-- plural, as words: Windsong Crawlers = {npc:254588} Windsong Crawler
-	["{npc:257006} and {npc:252448} stand on {area:16638}'s west side, beside the inn; {npc:252377} and {npc:252389} train just west of {npc:257006}. Windsong Crawlers line the shore further west, around 51,70."] = "",
+	["{npc:257006} and {npc:252448} stand on {area:16638}'s west side, beside the inn; {npc:252377} and {npc:252389} train just west of {npc:257006}. Windsong Crawlers line the shore further west, around 51,70."] = "{npc:257006} 和 {npc:252448} 站在 {area:16638} 西侧的旅店旁；{npc:252377} 和 {npc:252389} 的训练地点在 {npc:257006} 正西边。再往西，约 51,70 的岸边分布着风歌爬行者。",
 	-- {npc:252377} Seena Skybreaker · {npc:257006} Nyalah Brightfire · {npc:257196} Zaal Stormshield · {area:16629} Shrine of Akir
-	["{npc:252377}, beside {npc:257006}: {npc:257196} holds the Bulwark at the {area:16629}"] = "",
+	["{npc:252377}, beside {npc:257006}: {npc:257196} holds the Bulwark at the {area:16629}"] = "{npc:252377}，就在 {npc:257006} 旁边：{npc:257196} 在 {area:16629} 守着 亡灵壁垒。",
 	-- {npc:252389} Quel'ana Quickgale · {npc:257006} Nyalah Brightfire · {item:15908} Taming Rod
-	["{npc:252389}, beside {npc:257006}: the first {item:15908}"] = "",
+	["{npc:252389}, beside {npc:257006}: the first {item:15908}"] = "{npc:252389}，在 {npc:257006} 旁：第一根 {item:15908}",
 	-- {npc:255940} Donaal Downbreeze
-	["Innkeeper {npc:255940}, by the west gate"] = "",
+	["Innkeeper {npc:255940}, by the west gate"] = "旅店老板{npc:255940}，位于西门旁",
 	-- {npc:252448} Alvarion Windfield
 	["Listen to {npc:252448}'s story"] = "听{npc:252448}讲述他的故事",
 	-- {npc:257006} Nyalah Brightfire
-	["{npc:257006}, inside"] = "",
+	["{npc:257006}, inside"] = "{npc:257006}：在屋内",
 
 	-- Step 41: The missing scholar
 	["The missing scholar"] = "失踪的学者",
 	-- {object:581822} Bloodstained Satchel · {area:16638} Valanaar
-	["The {object:581822} lies by the path west of {area:16638}."] = "",
+	["The {object:581822} lies by the path west of {area:16638}."] = "{object:581822}位于{area:16638}以西的小路旁。",
 	-- {object:581822} Bloodstained Satchel
 	["The {object:581822}"] = "{object:581822}",
 
 	-- Step 42: Gustberry Lowlands
 	-- {npc:254588} Windsong Crawler · {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod
-	["{npc:254588}, among the crabs: tame one with {npc:252389}'s first {item:15908} while you are there"] = "",
+	["{npc:254588}, among the crabs: tame one with {npc:252389}'s first {item:15908} while you are there"] = "{npc:254588}在蟹群中：在那里使用{npc:252389}提供的第一根{item:15908}驯服一只",
 	-- {npc:254588} Windsong Crawler
-	["Tame {npc:254588}"] = "",
-	["Underwater"] = "",
+	["Tame {npc:254588}"] = "驯服{npc:254588}",
+	["Underwater"] = "在水下",
 
 	-- Step 43: The missing scholar
 	-- plural, as words: Shriekling Matriarchs = {npc:253283} Shriekling Matriarch
-	["Fillion's camp is north-west of it, and the Shriekling Matriarchs nest just west of the camp."] = "",
+	["Fillion's camp is north-west of it, and the Shriekling Matriarchs nest just west of the camp."] = "菲里昂·炎风的营地在它西北侧，尖啸幼兽主母就在营地西侧筑巢。",
 	-- {item:257107} Shriekling Matriarch's Head
-	["{item:257107}; below ground"] = "",
+	["{item:257107}; below ground"] = "{item:257107}：在地下",
 
 	-- Step 44: Aamelia Windfield
 	-- {npc:252800} Aamelia Windfield
@@ -232,7 +232,7 @@ return {
 
 	-- Step 45: Gustberry Lowlands: kill these as you meet them
 	-- {area:16626} Gustberry Lowlands
-	["{area:16626}: kill these as you meet them"] = "",
+	["{area:16626}: kill these as you meet them"] = "{area:16626}：沿途击杀以下目标",
 	-- {quest:92683} Flutterfly Dust · {npc:250929} Malfunctioning Cyclone Construct
 	-- plural, as words: Ripe Stormapples = {item:253591} Ripe Stormapple · Hungry Bandits = {npc:252802} Hungry Bandit · Ornery Galestriders = {npc:251707} Ornery Galestrider
 	["Ripe Stormapples and Hungry Bandits are in the orchard by the farm, {quest:92683} in the fields north-east of it, Ornery Galestriders all around. The {npc:250929} stands in the field north-east of the farm."] = "成熟的风暴苹果和饥饿的强盗在农场旁的果园里，{quest:92683}在其东北边的田野里，暴躁的疾风陆行鸟到处都是。{npc:250929}站在农场东北边的田里。",
@@ -263,26 +263,26 @@ return {
 	-- Step 51: Taming the Beast
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod · {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider · Vuldren Alphas = {npc:250874} Vuldren Alpha
-	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "",
+	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "{npc:252389}会收回第一根{item:15908}，再依次给你另外两根。暴躁的疾风陆行鸟和瓦尔德伦头狼在她北侧田野活动，用对应驯服棒分别驯服，再将棒交还给她。她身旁的{npc:254411}教授{spell:5149}。",
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "用{item:15908}驯服它",
 	-- {npc:251707} Ornery Galestrider
-	["Tame {npc:251707}"] = "",
+	["Tame {npc:251707}"] = "驯服{npc:251707}",
 	-- {npc:250874} Vuldren Alpha
-	["Tame {npc:250874}"] = "",
+	["Tame {npc:250874}"] = "驯服{npc:250874}",
 
 	-- Step 52: The Windstone Formations
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
-	["The Windstone Formations"] = "Windstone Formation",
+	["The Windstone Formations"] = "风石阵",
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
-	["The Windstone Formations stand on the rise west of Fillion's camp."] = "Windstone Formation矗立在Fillion营地西边的高地上。",
+	["The Windstone Formations stand on the rise west of Fillion's camp."] = "风石阵矗立在菲里昂·炎风营地西边的高地上。",
 	-- {item:262668} Wind-Infused Bough
-	["{item:262668}: by the formations"] = "",
+	["{item:262668}: by the formations"] = "{item:262668}：位于岩层附近",
 
 	-- Step 54: The eastern watchtower
 	["The eastern watchtower"] = "东部瞭望塔",
 	-- {npc:252378} Yorana Windyreed · {area:16638} Valanaar · {npc:252666} Commander Belguilos
-	["{npc:252378} holds the watchtower north of {area:16638}. The Al'Aketh camp is just west of the tower, its healers around 65,68 and 65,65; {npc:252666} stands at its north end. The Al'Aketh there drop Windstone Charms."] = "{npc:252378}驻守{area:16638}北边的瞭望塔。奥拉凯斯营地就在塔的西边，其治疗者在65,68和65,65附近；{npc:252666}站在营地北端。那里的奥拉凯斯成员会掉落Windstone Charm。",
+	["{npc:252378} holds the watchtower north of {area:16638}. The Al'Aketh camp is just west of the tower, its healers around 65,68 and 65,65; {npc:252666} stands at its north end. The Al'Aketh there drop Windstone Charms."] = "{npc:252378}驻守{area:16638}北边的瞭望塔。奥拉凯斯营地就在塔的西边，其治疗者在65,68和65,65附近；{npc:252666}站在营地北端。那里的奥拉凯斯成员会掉落奥拉凯斯风石护符。",
 
 	-- Step 55: Urs'endris
 	-- {npc:255853} Urs'endris · {npc:258443} Ur'endra · {area:16623} Shen'dar Highlands · {area:16638} Valanaar
@@ -299,19 +299,19 @@ return {
 
 	-- Step 58: Desperate times
 	["Desperate times"] = "危急时刻",
-	["Upstairs"] = "",
+	["Upstairs"] = "在楼上",
 
 	-- Step 60: Paladin trainer
 	-- {npc:5148} Beldruk Doombrow · {zone:1455} Ironforge · {area:16638} Valanaar
-	["{npc:5148} in {zone:1455}; {area:16638} has no paladin trainer"] = "",
+	["{npc:5148} in {zone:1455}; {area:16638} has no paladin trainer"] = "前往{zone:1455}找{npc:5148}；{area:16638}没有圣骑士训练师",
 
 	-- Step 61: Priest trainer
 	-- {npc:5141} Theodrus Frostbeard · {zone:1455} Ironforge · {area:16638} Valanaar
-	["{npc:5141} in {zone:1455}; {area:16638} has no priest trainer"] = "",
+	["{npc:5141} in {zone:1455}; {area:16638} has no priest trainer"] = "前往{zone:1455}找{npc:5141}；{area:16638}没有牧师训练师",
 
 	-- Step 62: Shaman trainer
 	-- {npc:258098} Eldrun Stormbreaker · {zone:1455} Ironforge · {area:16638} Valanaar
-	["{npc:258098} in {zone:1455}; {area:16638} has no shaman trainer"] = "",
+	["{npc:258098} in {zone:1455}; {area:16638} has no shaman trainer"] = "前往{zone:1455}找{npc:258098}；{area:16638}没有萨满祭司训练师",
 
 	-- Step 63: Warlock trainer
 	-- {item:2450} Briarthorn · {zone:1455} Ironforge · {area:16638} Valanaar
@@ -319,9 +319,9 @@ return {
 
 	-- Step 64: Desperate times
 	-- {npc:253844} Valennia Stormfist
-	["Meet {npc:253844} at the gate"] = "",
+	["Meet {npc:253844} at the gate"] = "在大门处与 {npc:253844} 会合",
 	-- {npc:255853} Urs'endris · {area:16638} Valanaar · {spell:5487} Bear Form
-	["{npc:255853}, by the falls north-east of {area:16638}, on the way north: {spell:5487}"] = "",
+	["{npc:255853}, by the falls north-east of {area:16638}, on the way north: {spell:5487}"] = "{npc:255853}位于{area:16638}东北侧瀑布旁，向北途中经过：{spell:5487}",
 
 	-- Step 65: Elegael Thornpaw
 	-- {area:16631} Shadowgale Forest · {npc:257944} Elegael Thornpaw
@@ -329,10 +329,10 @@ return {
 
 	-- Step 66: Shadowgale Forest: kill these as you meet them
 	-- {area:16631} Shadowgale Forest
-	["{area:16631}: kill these as you meet them"] = "",
+	["{area:16631}: kill these as you meet them"] = "{area:16631}：沿途击杀以下目标",
 	-- {npc:257944} Elegael Thornpaw · {item:265105} Lady's Tear Moss
 	-- plural, as words: Al'Aketh Stormchasers = {npc:252664} Al'Aketh Stormchaser
-	["Al'Aketh Stormchasers and Footsoldiers camp just north of {npc:257944} and drop the heirloom; the Shrieklings west of her drop the feathers and talons; the {item:265105} grows along the stream west of her."] = "奥拉凯斯Stormchaser和Footsoldier在{npc:257944}北边不远处扎营，会掉落传家宝；她西边的尖啸幼兽掉落羽毛和利爪；{item:265105}生长在她西边的溪流旁。",
+	["Al'Aketh Stormchasers and Footsoldiers camp just north of {npc:257944} and drop the heirloom; the Shrieklings west of her drop the feathers and talons; the {item:265105} grows along the stream west of her."] = "奥拉凯斯逐暴者和奥拉凯斯步兵在{npc:257944}北边不远处扎营，会掉落传家宝；她西边的尖啸幼兽掉落羽毛和利爪；{item:265105}生长在她西边的溪流旁。",
 
 	-- Step 67: Elegael Thornpaw again
 	-- {npc:257944} Elegael Thornpaw
@@ -352,14 +352,14 @@ return {
 	-- Step 70: The Strange Hermit
 	-- {quest:93159} The Strange Hermit · {npc:257944} Elegael Thornpaw
 	-- plural, as words: Zephyrseed Cones = {object:613238} Zephyrseed Cone
-	["{quest:93159} lives west of {npc:257944}. The Zephyrseed Cones lie in the woods between his hut and {npc:257944}."] = "{quest:93159}住在{npc:257944} Thornpaw西边。{object:613238}散落在他的小屋和{npc:257944} Thornpaw之间的树林里。",
+	["{quest:93159} lives west of {npc:257944}. The Zephyrseed Cones lie in the woods between his hut and {npc:257944}."] = "{quest:93159}住在{npc:257944} 埃莱盖尔·刺爪西边。泽风之种球果散落在他的小屋和{npc:257944} 埃莱盖尔·刺爪之间的树林里。",
 
 	-- Step 71: Ruins of Ban'aethal: kill these as you meet them
 	-- {area:16833} Ruins of Ban'aethal
-	["{area:16833}: kill these as you meet them"] = "",
+	["{area:16833}: kill these as you meet them"] = "{area:16833}：沿途击杀以下目标",
 	-- {item:266433} Abandoned Belongings · {npc:259013} Resaan Nimbuswalker
 	-- plural, as words: Wind Hollows = {npc:251676} Wind Hollow
-	["North of the cones: the Wind Hollows drift around the refugees' camp, the {item:266433} lie between the tents, and {npc:259013} lies at its north end."] = "球果北边：Wind Hollow在难民营地周围飘荡，{item:266433}在帐篷之间，{npc:259013}躺在营地北端。",
+	["North of the cones: the Wind Hollows drift around the refugees' camp, the {item:266433} lie between the tents, and {npc:259013} lies at its north end."] = "球果北边：空洞风灵在难民营地周围飘荡，{item:266433}在帐篷之间，{npc:259013}躺在营地北端。",
 
 	-- Step 72: Back to the Hermit
 	["Back to the Hermit"] = "回到隐士那里",
@@ -370,17 +370,17 @@ return {
 	-- {area:16629} Shrine of Akir · {npc:253576} Hyusaa Quickbreeze · {npc:253590} Valennia Stormfist
 	["Fight north to the {area:16629}. Guardians, Spiritcallers and Blademasters hold the approach; {npc:253576} waits at the shrine's door, {npc:253590} inside the inner sanctum."] = "向北一路杀到{area:16629}。奥拉凯斯守护者、唤灵者和剑圣把守着通道；{npc:253576}在圣坛门口等候，{npc:253590}在内殿里。",
 	-- {item:263993} Skybreaker Bulwark · {npc:257196} Zaal Stormshield
-	["{item:263993}: {npc:257196} holds it, west of the shrine's approach; defeat him for it on the way in"] = "",
+	["{item:263993}: {npc:257196} holds it, west of the shrine's approach; defeat him for it on the way in"] = "{item:263993}由{npc:257196}保管，他在通往神殿的道路西侧，进入途中击败他取得",
 	-- {npc:253590} Valennia Stormfist
-	["{npc:253590}, in the sanctum; upstairs"] = "",
+	["{npc:253590}, in the sanctum; upstairs"] = "{npc:253590}，位于圣所楼上",
 
 	-- Step 74: Portal to Rohashi Spires
 	-- {area:16630} Rohashi Spires
-	["Portal to {area:16630}"] = "",
+	["Portal to {area:16630}"] = "传送至{area:16630}",
 
 	-- Step 75: High Priestess Lorthuna
 	-- {area:16630} Rohashi Spires · {npc:252475} Elaadrin Evengale · {object:617084} Portal to Valanaar (no name in this language: may be words)
-	["Lorthuna waits up on the {area:16630}, east of the shrine: take the Portal to {area:16630} in the inner sanctum, beside Valennia, and cross the heights east to {npc:252475}. When she falls, the {object:617084} beside her takes you back to town."] = "",
+	["Lorthuna waits up on the {area:16630}, east of the shrine: take the Portal to {area:16630} in the inner sanctum, beside Valennia, and cross the heights east to {npc:252475}. When she falls, the {object:617084} beside her takes you back to town."] = "洛苏娜在神殿东侧高处的 {area:16630} 等待：从内殿瓦伦妮亚·风暴之拳旁边的传送门前往 {area:16630}，再沿高地向东前往 {npc:252475} 处。击败她后，她身旁的 {object:617084} 会将你送回城镇。",
 
 	-- Step 76: Valanaar, the fate of Zephras
 	-- {area:16638} Valanaar
@@ -396,17 +396,17 @@ return {
 
 	-- Step 80: Leave Zephras Isle to Alterac Mountains
 	-- {zone:2521} Zephras Isle · {zone:1416} Alterac Mountains
-	["Leave {zone:2521} to {zone:1416}"] = "",
+	["Leave {zone:2521} to {zone:1416}"] = "离开{zone:2521}，前往{zone:1416}",
 
 	-- Step 81: Denaaris Stargale
 	-- {npc:259084} Denaaris Stargale · {area:279} Dalaran · {zone:1453} Stormwind
-	["{npc:259084} stands beside the Skyborne Portal, where the skycutter lands by the Kirin Tor camp west of {area:279}. The portal takes you to {zone:1453}."] = "",
+	["{npc:259084} stands beside the Skyborne Portal, where the skycutter lands by the Kirin Tor camp west of {area:279}. The portal takes you to {zone:1453}."] = "{npc:259084}站在天裔传送门旁，即{area:279}西侧肯瑞托营地附近、飞空艇停靠的位置。传送门通往{zone:1453}。",
 	-- {npc:259084} Denaaris Stargale
-	["{npc:259084}, inside"] = "",
+	["{npc:259084}, inside"] = "{npc:259084}：在屋内",
 	-- {npc:270459} Alfina Nightgaze · {npc:259084} Denaaris Stargale · {npc:5504} Sheldras Moontree · {zone:1453} Stormwind
 	["{npc:270459}, beside {npc:259084}: for {npc:5504} in {zone:1453}"] = "{npc:270459}，在{npc:259084}身旁：前往{zone:1453}找{npc:5504}",
 	-- {object:631299} Skyborne Portal to Stormwind (no name in this language: may be words)
-	["{object:631299}, inside"] = "",
+	["{object:631299}, inside"] = "{object:631299}：在屋内",
 
 	-- Step 82: Stormwind flight master
 	-- {zone:1453} Stormwind
@@ -420,7 +420,7 @@ return {
 
 	-- Step 84: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {area:40} Westfall
-	["{npc:1646} stands in {object:2098}, on the way from the Keep to the main gate: his compass is in his old house in {area:40}, on the way."] = "",
+	["{npc:1646} stands in {object:2098}, on the way from the Keep to the main gate: his compass is in his old house in {area:40}, on the way."] = "{npc:1646}站在从要塞到正门途中的{object:2098}：他的罗盘在{area:40}的旧居中，之后顺路去取。",
 
 	-- Step 85: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District

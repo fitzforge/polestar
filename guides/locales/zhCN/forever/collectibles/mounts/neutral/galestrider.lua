@@ -12,7 +12,7 @@ return {
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "学习骑术",
 	-- {skill:762} Riding
-	["Galestriders need level 40 and {skill:762}. Train it at your own race's riding trainer; see the Level 40 mount guides for where."] = "",
+	["Galestriders need level 40 and {skill:762}. Train it at your own race's riding trainer; see the Level 40 mount guides for where."] = "骑乘风行者需要 40 级和 {skill:762}。请向自己种族的骑术训练师学习；具体位置见 40 级坐骑指南。",
 
 	-- Step 2: Skyboat from Dalaran
 	-- {area:279} Dalaran
@@ -30,21 +30,21 @@ return {
 
 	-- Step 4: Riding with Genn Fairweather
 	-- {skill:762} Riding · {npc:265756} Genn Fairweather
-	["{skill:762} with {npc:265756}"] = "",
+	["{skill:762} with {npc:265756}"] = "向 {npc:265756} 学习 {skill:762}。",
 	-- {skill:762} Riding · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
-	["Skyborne learn {skill:762} from {npc:265756} himself for 100g, and it comes with a Galestrider. He stands at the {area:17684} in {area:16638}, near the skyboat docks."] = "",
+	["Skyborne learn {skill:762} from {npc:265756} himself for 100g, and it comes with a Galestrider. He stands at the {area:17684} in {area:16638}, near the skyboat docks."] = "天裔可直接花费 100 金币向 {npc:265756} 学习 {skill:762}，并同时获得一只风行者。他站在 {area:16638} 的 {area:17684}，靠近飞船码头。",
 	-- {npc:265756} Genn Fairweather
-	["{npc:265756}, riding trainer"] = "",
+	["{npc:265756}, riding trainer"] = "{npc:265756}，骑术训练师",
 
 	-- Step 5: Galestrider Riding for other races
 	-- {spell:1285849} Galestrider Riding
-	["{spell:1285849} for other races"] = "",
+	["{spell:1285849} for other races"] = "其他种族学习{spell:1285849}",
 	-- {spell:1285849} Galestrider Riding · {skill:762} Riding · {npc:265756} Genn Fairweather
-	["Any race can buy Galestriders, but riding one also takes {spell:1285849}, which only the Skyborne get with {skill:762}. Other races can learn it too, but how is not known yet: in Classic another race's riding needed Exalted with its home faction, here the High Order (Alliance) or the Windshapers (Horde). Ask {npc:265756} before you buy."] = "",
+	["Any race can buy Galestriders, but riding one also takes {spell:1285849}, which only the Skyborne get with {skill:762}. Other races can learn it too, but how is not known yet: in Classic another race's riding needed Exalted with its home faction, here the High Order (Alliance) or the Windshapers (Horde). Ask {npc:265756} before you buy."] = "任何种族都能购买疾风陆行鸟，但骑乘还需要 {spell:1285849}，只有天裔学习 {skill:762} 时会一并获得。其他种族也能学习，但具体方法尚不清楚：经典怀旧服要求对应种族主城声望崇拜；这里对应的是高阶会（联盟）或塑风者码头管理员（部落）。购买前先询问 {npc:265756}。",
 
 	-- Step 6: Genn Fairweather
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
-	["{npc:265756} is at the {area:17684} in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Galestrider at 20g; choose one."] = "",
+	["{npc:265756} is at the {area:17684} in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Galestrider at 20g; choose one."] = "{npc:265756} 位于岛上港口城镇 {area:16638} 的 {area:17684}，靠近飞空艇码头。无限服客户端中每只疾风陆行鸟的标价为20金币；选一只即可。",
 	["20g"] = "20金",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

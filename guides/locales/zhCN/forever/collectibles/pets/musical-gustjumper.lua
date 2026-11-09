@@ -10,7 +10,7 @@ return {
 	-- {area:279} Dalaran
 	["Skyboat from {area:279}"] = "从{area:279}乘天空飞船",
 	-- {zone:2521} Zephras Isle · {area:279} Dalaran · {zone:1456} Thunder Bluff
-	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the north side of {area:279} about every five minutes (another flies from north of {zone:1456}; either faction may take either)."] = "",
+	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the north side of {area:279} about every five minutes (another flies from north of {zone:1456}; either faction may take either)."] = "{zone:2521} 是天裔的起始岛；据测试版玩家报告，任何人都可以前往。{area:279} 北侧约每五分钟有一班飞船出发（{zone:1456} 北侧也有一条航线；两个阵营都能乘坐任意一条）。",
 	-- {zone:2521} Zephras Isle
 	["Skyboat to {zone:2521}"] = "乘天空飞船前往{zone:2521}",
 
@@ -18,12 +18,12 @@ return {
 	-- {zone:1456} Thunder Bluff
 	["Skyboat from {zone:1456}"] = "从{zone:1456}乘天空飞船",
 	-- {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:279} Dalaran
-	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes (another flies from {area:279}; either faction may take either)."] = "",
+	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes (another flies from {area:279}; either faction may take either)."] = "{zone:2521}是天裔的初始岛屿；据测试版玩家报告，任何人都可以前往。{area:17045}南面、{zone:1456}北面的悬崖约每5分钟有一艘空中船出发（{area:279}也有另一艘；两个阵营都可乘坐任意一艘）。",
 
 	-- Step 3: Sing to the frogs
 	["Sing to the frogs"] = "对青蛙唱歌",
 	-- {area:16635} Thendal Village · {item:268109} Musical Gustjumper
-	["From {area:16635} follow the road south, then cut across the field to the top of the waterfall: five frogs sit together on a rock there, by a log. Mobs patrol nearby, so a level 1 character should watch its back. Stand by the rock, target a frog and type /sing. The frogs sing back, the group disappears and one frog hops onto the log beside you: click it to take the {item:268109}, then use it to learn the pet. The item is not bound until you use it, so a friend on the island can sing again and trade you one."] = "",
+	["From {area:16635} follow the road south, then cut across the field to the top of the waterfall: five frogs sit together on a rock there, by a log. Mobs patrol nearby, so a level 1 character should watch its back. Stand by the rock, target a frog and type /sing. The frogs sing back, the group disappears and one frog hops onto the log beside you: click it to take the {item:268109}, then use it to learn the pet. The item is not bound until you use it, so a friend on the island can sing again and trade you one."] = "从 {area:16635} 沿路向南，再穿过田地来到瀑布顶：那里的岩石上聚着五只青蛙，旁边有根原木。附近有怪物巡逻，1级角色要小心身后。站在岩石旁，选中一只青蛙并输入 /sing。青蛙会回唱，随后这群青蛙消失，其中一只会跳到你身旁的原木上：点击它领取 {item:268109}，再使用物品学会该宠物。物品使用前不绑定，因此岛上的朋友可以再唱一次，把获得的宠物交易给你。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Target one of the frogs here and type /sing; a {item:268109} appears. Interact with it to get the pet."] = "选中这里的一只青蛙并输入/sing；会出现一个{item:268109}。与它互动即可获得宠物。",

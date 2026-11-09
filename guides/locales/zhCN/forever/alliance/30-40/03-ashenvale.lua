@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "飞往{area:150}",
 
 	-- Step 2: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow
@@ -16,35 +16,35 @@ return {
 	["Inside"] = "在里面",
 
 	-- Step 4: Waterlogged Chest
-	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "Flying Osprey号的残骸在城堡南边的浅水中。",
+	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "飞翔鱼鹰号的残骸在城堡南侧浅水区。",
 
 	-- Step 5: Lightforge Ingots
 	["The Bluegill murlocs on the beach south-west of Menethil carry the ingots."] = "米奈希尔港西南方海滩上的蓝腮鱼人带着锭。",
 	-- {item:2702} Lightforge Ingot
-	["{item:2702}; underwater"] = "",
+	["{item:2702}; underwater"] = "{item:2702}：在水下",
 
 	-- Step 6: Glorin Steelbrow
 	-- {npc:1416} Grimand Elmore · {zone:1453} Stormwind
-	["For {npc:1416} in {zone:1453}, after Stranglethorn"] = "",
+	["For {npc:1416} in {zone:1453}, after Stranglethorn"] = "交给{zone:1453}的{npc:1416}，完成荆棘谷后再交",
 
 	-- Step 8: Theramore
 	["Theramore"] = "塞拉摩",
 	-- {area:514} Foothold Citadel · {npc:5083} Clerk Lendry · {npc:4964} Commander Samaul
 	["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "飞行管理员站在{area:514}大门旁；{npc:5083}和{npc:4964}在城堡里。",
 	-- {npc:5083} Clerk Lendry
-	["{npc:5083}, on the top floor"] = "",
+	["{npc:5083}, on the top floor"] = "{npc:5083}，位于最顶层",
 	-- {npc:4964} Commander Samaul
-	["{npc:4964}, on the top floor"] = "",
+	["{npc:4964}, on the top floor"] = "{npc:4964}，位于最顶层",
 	-- {npc:4456} Fiora Longears · {area:400} Thousand Needles
-	["{npc:4456}: the wyverns are in {area:400}, later in this guide"] = "",
+	["{npc:4456}: the wyverns are in {area:400}, later in this guide"] = "{npc:4456}：双足飞龙在{area:400}，本指南稍后会去",
 
 	-- Step 9: The Shady Rest Inn
 	-- {zone:1413} Barrens
-	["Follow the road west out of Theramore to the burned inn on the road toward the {zone:1413}: the black shield lies in the ashes and the hoofprints are in the mud beside the inn."] = "",
+	["Follow the road west out of Theramore to the burned inn on the road toward the {zone:1413}: the black shield lies in the ashes and the hoofprints are in the mud beside the inn."] = "沿路向西离开塞拉摩，前往通往{zone:1413}道路上被烧毁的旅店：黑色盾牌在灰烬中，蹄印在旅店旁的泥地里。",
 
 	-- Step 10: Into Barrens
 	-- {zone:1413} Barrens
-	["Into {zone:1413}"] = "",
+	["Into {zone:1413}"] = "进入{zone:1413}",
 
 	-- Step 11: Takar the Seer
 	-- {zone:1413} Barrens · {npc:6244} Takar the Seer · {area:378} Camp Taurajo
@@ -56,7 +56,7 @@ return {
 
 	-- Step 12: Highperch
 	-- {area:485} Great Lift · {area:400} Thousand Needles · {area:482} Highperch
-	["Down the {area:485} into {area:400}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "",
+	["Down the {area:485} into {area:400}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "乘{area:485}下到{area:400}，再向西前往{area:482}的双足飞龙悬崖。那里所有双足飞龙都可能掉落毒囊。",
 
 	-- Step 15: Mirage Raceway
 	-- {area:2240} Mirage Raceway
@@ -66,27 +66,27 @@ return {
 
 	-- Step 16: Mirage Raceway: kill these as you meet them
 	-- {area:2240} Mirage Raceway
-	["{area:2240}: kill these as you meet them"] = "",
+	["{area:2240}: kill these as you meet them"] = "{area:2240}：沿途击杀以下目标",
 	-- {object:19868} Rocket Car Rubble
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
-	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "",
+	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "{object:19868}遍布整片平原。恐蝎劫掠者和盐湖食腐鹫出没于北半部，盐壳钳嘴龟（乌龟）则遍布平原。盐石蜥蜴和盐石水晶蜥蜴在中部；盐石凝视者（34-35级）只在最南端。",
 
 	-- Step 17: Mirage Raceway
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
-	["{npc:4454}: for Martek in the {zone:1418}, at the end of 30-40"] = "",
+	["{npc:4454}: for Martek in the {zone:1418}, at the end of 30-40"] = "{npc:4454}：交给{zone:1418}的马特克，在30-40路线末尾完成",
 
 	-- Step 18: Gadgetzan
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan · {npc:7823} Bera Stonehammer
-	["From the raceway follow the road south out of the {area:439} into {zone:1446}; {area:976} is a short walk down it. Keep to the road. {npc:7823}, the Alliance flight master, stands inside the walls."] = "",
+	["From the raceway follow the road south out of the {area:439} into {zone:1446}; {area:976} is a short walk down it. Keep to the road. {npc:7823}, the Alliance flight master, stands inside the walls."] = "从赛道沿路向南离开{area:439}，进入{zone:1446}；再走一小段就到{area:976}。沿大路走。联盟飞行管理员{npc:7823}站在围墙内。",
 
 	-- Step 19: Fly to Theramore
 	["Fly to Theramore"] = "飞往塞拉摩岛",
 	-- {area:976} Gadgetzan
-	["{area:976} flight master"] = "",
+	["{area:976} flight master"] = "{area:976}的飞行管理员",
 
 	-- Step 20: Theramore
 	-- {npc:4456} Fiora Longears · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
-	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "",
+	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "{npc:4456}在镇子北部，Captain Vimes在{area:514}；{npc:4941}也站在镇内。",
 
 	-- Step 21: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor

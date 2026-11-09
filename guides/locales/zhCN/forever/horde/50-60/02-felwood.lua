@@ -10,21 +10,21 @@ return {
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "飞往{area:272}",
 	-- {area:2268} Light's Hope Chapel
-	["{area:2268} flight master"] = "",
+	["{area:2268} flight master"] = "{area:2268}的飞行管理员",
 
 	-- Step 3: Sorrow Hill
 	-- {npc:10840} Argent Officer Pureheart · {area:197} Sorrow Hill · {area:272} Tarren Mill
-	["{npc:10840} stands at the south end of the {area:197} graveyard, where the road from {area:272} comes in."] = "",
+	["{npc:10840} stands at the south end of the {area:197} graveyard, where the road from {area:272} comes in."] = "{npc:10840} 站在 {area:197} 墓地南端，来自 {area:272} 的道路入口处。",
 	-- {npc:10840} Argent Officer Pureheart
 	["{npc:10840}, at the graveyard's south end"] = "{npc:10840}，在墓地南端",
 
 	-- Step 4: Sorrow Hill
 	-- {npc:10927} Marlene Redpath · {npc:10936} Joseph Redpath
-	["{npc:10927}'s house stands by the road, and {npc:10936}'s monument is in the graveyard behind it."] = "",
+	["{npc:10927}'s house stands by the road, and {npc:10936}'s monument is in the graveyard behind it."] = "{npc:10927} 的房子在路旁，{npc:10936} 的纪念碑在屋后的墓地里。",
 	-- {npc:10927} Marlene Redpath
-	["{npc:10927}, upstairs"] = "",
+	["{npc:10927}, upstairs"] = "{npc:10927}：在楼上",
 	-- {area:2262} Darrowshire
-	["Keep Little Pamela: Pamela is in {area:2262}, visited again later."] = "",
+	["Keep Little Pamela: Pamela is in {area:2262}, visited again later."] = "保留“小帕米拉”：帕米拉在 {area:2262}，稍后还会再去。",
 
 	-- Step 5: Mulgris Deepriver
 	-- {area:202} Writhing Haunt · {area:200} Dalson's Tears
@@ -34,7 +34,7 @@ return {
 	-- Step 6: Chromie
 	-- {npc:10667} Chromie
 	["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "向西北骑进安多哈尔。{npc:10667}在城镇西侧被毁的旅店里等候；里面的骷髅是54-57级，所以沿着边缘走。",
-	["Upstairs"] = "",
+	["Upstairs"] = "在楼上",
 
 	-- Step 7: The Annals of Darrowshire
 	-- plural, as words: Musty Tomes = {object:176150} Musty Tome
@@ -55,12 +55,12 @@ return {
 	["Ride west to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "向西骑往{area:192}；{npc:11610}躲在它东北的山上。",
 
 	-- Step 11: Level 52.63
-	["Level 52.63"] = "",
+	["Level 52.63"] = "等级 52.63",
 	-- {area:200} Dalson's Tears · {npc:11610} Kirsta Deepshadow · {quest:6004} Unfinished Business · {area:1417} Sunken Temple · {area:2100} Maraudon
 	-- plural, as words: Scarlet Mages = {npc:1826} Scarlet Mage
-	["Top up here to level 52.63 before the hand-ins at {area:200}: they take you to level 53. The Scarlet Mages and Knights here count for {npc:11610}'s {quest:6004}. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
+	["Top up here to level 52.63 before the hand-ins at {area:200}: they take you to level 53. The Scarlet Mages and Knights here count for {npc:11610}'s {quest:6004}. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "先在此刷到 52.63 级，再去 {area:200} 交任务，交完即可到 53 级。这里的血色法师和血色骑士计入 {npc:11610} 的 {quest:6004}。也可组队前往 {area:1417} 副本或 {area:2100} 副本。",
 	-- {npc:1826} Scarlet Mage
-	["grind on {npc:1826}"] = "",
+	["grind on {npc:1826}"] = "击杀{npc:1826}刷经验",
 
 	-- Step 12: Diseased Wolves
 	["Diseased Wolves"] = "生病的狼",
@@ -73,16 +73,16 @@ return {
 	-- {npc:10816} Wandering Skeleton · {npc:10836} Farmer Dalson
 	["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "日记在农舍里，柜子在屋里，厕所在屋后。一个{npc:10816}带着厕所钥匙；打开厕所时{npc:10836}会出来，他带着柜子钥匙。",
 	-- {object:175924} Locked Cabinet
-	["{object:175924}, inside"] = "",
+	["{object:175924}, inside"] = "{object:175924}，在室内",
 	-- {quest:5058} Mrs. Dalson's Diary
-	["{quest:5058}, inside"] = "",
+	["{quest:5058}, inside"] = "{quest:5058}：在屋内",
 
 	-- Step 15: Level 53.02
-	["Level 53.02"] = "",
+	["Level 53.02"] = "等级 53.02",
 	-- {area:202} Writhing Haunt · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
-	["Top up here to level 53.02 before the hand-ins at {area:202}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
+	["Top up here to level 53.02 before the hand-ins at {area:202}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "先在此刷到 53.02 级，再去 {area:202} 交任务，交完即可到 54 级。也可组队前往 {area:1417} 副本或 {area:1584} 副本。",
 	-- {npc:1817} Diseased Wolf
-	["grind on {npc:1817}"] = "",
+	["grind on {npc:1817}"] = "击杀{npc:1817}刷经验",
 
 	-- Step 16: Diseased Grizzlies
 	["Diseased Grizzlies"] = "生病的灰熊",
@@ -94,18 +94,18 @@ return {
 	["Keep the branch: {npc:5770} is in {zone:1456}."] = "留着树枝：{npc:5770}在{zone:1456}。",
 
 	-- Step 18: Level 53.2
-	["Level 53.2"] = "",
+	["Level 53.2"] = "等级 53.2",
 	-- {area:152} The Bulwark · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
-	["Top up here to level 53.2 before the hand-ins at {area:152}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
+	["Top up here to level 53.2 before the hand-ins at {area:152}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "先在此刷到 53.2 级，再去 {area:152} 交任务，交完即可到 54 级。也可组队前往 {area:1417} 副本或 {area:1584} 副本。",
 	-- {npc:1816} Diseased Grizzly
-	["grind on {npc:1816}"] = "",
+	["grind on {npc:1816}"] = "击杀{npc:1816}刷经验",
 
 	-- Step 19: Scarlet Crusade
 	["Scarlet Crusade"] = "血色十字军",
 	-- {area:192} Northridge Lumber Camp
 	["Knights and magi work the {area:192}; the medics and hunters camp south of it."] = "血色骑士和血色占星师在{area:192}干活；血色医护员和血色猎人在它南边扎营。",
 	-- {npc:10605} Scarlet Medic
-	["grind on {npc:10605}"] = "",
+	["grind on {npc:10605}"] = "击杀{npc:10605}刷经验",
 
 	-- Step 21: The Bulwark
 	-- {area:152} The Bulwark
@@ -114,12 +114,12 @@ return {
 	["Derrington's watchtowers, Vandis' cauldron and {npc:11615}'s barrel are done on a later visit: keep them."] = "德灵顿的哨塔、范蒂丝的瘟疫之锅和{npc:11615}的木桶留到之后再来时完成：留着它们。",
 
 	-- Step 22: Level 53.34
-	["Level 53.34"] = "",
+	["Level 53.34"] = "等级 53.34",
 	-- {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
-	["Top up here to level 53.34 before the hand-ins at {area:1763}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
+	["Top up here to level 53.34 before the hand-ins at {area:1763}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "先在此刷到 53.34 级，再去 {area:1763} 交任务，交完即可到 54 级。也可组队前往 {area:1417} 副本或 {area:1584} 副本。",
 
 	-- Step 24: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "圣骑士训练师",
 	-- {npc:246152} Shari Stilwell · {area:85} Tirisfal Glades · {zone:1454} Orgrimmar
 	["{npc:246152} in {area:85}; {zone:1454} has no paladin trainer"] = "{npc:246152}在{area:85}；{zone:1454}没有圣骑士训练师",
 
@@ -133,13 +133,13 @@ return {
 	-- Step 28: Druid trainer
 	["Druid trainer"] = "德鲁伊训练师",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
-	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
+	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034} 在 {zone:1412}；{zone:1454} 没有德鲁伊训练师",
 
 	-- Step 29: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
-	["Fly to {area:431}"] = "",
+	["Fly to {area:431}"] = "飞往{area:431}",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "{zone:1454}飞行管理员",
 
 	-- Step 31: Emerald Sanctuary
 	["The druids' camp is just past the border."] = "德鲁伊的营地就在边界过去一点。",
@@ -148,9 +148,9 @@ return {
 
 	-- Step 32: Deadwood Village
 	-- {area:1769} Timbermaw Hold · {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
-	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
+	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "死木熊怪的村庄就在翡翠圣地南边不远处。每击杀一个死木熊怪也会提升 {area:1769} 声望；留着死木头饰羽毛。继续击杀，直到 53.92 级：翡翠圣地接下来的交任务环节和 {area:1763} 的路线需要达到这个进度。也可组队前往 {area:1417} 副本或 {area:1584} 副本。",
 	-- {npc:7153} Deadwood Warrior
-	["grind on {npc:7153}"] = "",
+	["grind on {npc:7153}"] = "反复击杀{npc:7153}补足经验",
 
 	-- Step 33: Emerald Sanctuary
 	-- {npc:9529} Maybess Riverbreeze
@@ -166,18 +166,18 @@ return {
 	-- {item:13140} Blood Red Key · {npc:11018} Arko'narin · {area:1770} Shadow Hold · {area:1763} Jaedenar
 	["Only if a {item:13140} dropped: use it to start the quest, then free {npc:11018} in her cage in {area:1770}, the cave at the north end of {area:1763}, and escort her out."] = "仅当掉落了{item:13140}时：使用它开始任务，然后到{area:1763}北端的洞穴{area:1770}里，把笼子里的{npc:11018}救出来，并护送她出去。",
 	-- {npc:11016} Captured Arko'narin
-	["{npc:11016}, below ground"] = "",
+	["{npc:11016}, below ground"] = "{npc:11016}：在地下",
 
 	-- Step 36: Emerald Sanctuary
 	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
 	["Only with 5 Deadwood Headdress Feathers"] = "仅当你有5根死木头饰羽毛时",
 
 	-- Step 37: Level 54.1
-	["Level 54.1"] = "",
+	["Level 54.1"] = "等级 54.1",
 	-- {area:361} Felwood · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
-	["Top up here to level 54.1 before the hand-ins at {area:361}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 54.1 before the hand-ins at {area:361}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "先在此刷到 54.1 级，再去 {area:361} 交任务，交完即可到 55 级。也可组队前往 {area:1584} 副本或 {area:1417} 副本。",
 	-- {npc:7155} Deadwood Pathfinder
-	["grind on {npc:7155}"] = "",
+	["grind on {npc:7155}"] = "反复击杀{npc:7155}补足经验",
 
 	-- Step 38: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
@@ -188,9 +188,9 @@ return {
 	-- Step 39: Rakaiah
 	-- {npc:11018} Arko'narin · {npc:9518} Rakaiah · {area:1763} Jaedenar · {npc:11020} Remains of Trey Lightforge
 	["Only if you rescued {npc:11018}: the succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "仅当你救出了{npc:11018}时：魅魔{npc:9518}在{area:1763}中部，就在{npc:11020}旁边等候。",
-	["Below ground"] = "",
+	["Below ground"] = "在地下",
 	-- {npc:11020} Remains of Trey Lightforge
-	["{npc:11020}, below ground"] = "",
+	["{npc:11020}, below ground"] = "{npc:11020}：在地下",
 
 	-- Step 40: Bloodvenom Post
 	-- {area:1763} Jaedenar
@@ -210,40 +210,40 @@ return {
 	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager
 	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo."] = "沿道路向东北前往{area:1767}。树林东侧的曲木食苔者和曲木撕裂者各带着一块{item:11503}；怒爪灰熊和魔爪掠夺者在同一片树林里游荡，是塔罗要的。",
 	-- {npc:8957} Angerclaw Grizzly
-	["grind on {npc:8957}"] = "",
+	["grind on {npc:8957}"] = "击杀{npc:8957}刷经验",
 
 	-- Step 43: Irontree Woods
 	-- {npc:7101} Warpwood Shredder
-	["grind on {npc:7101}"] = "",
+	["grind on {npc:7101}"] = "击杀{npc:7101}刷经验",
 
 	-- Step 44: Felpaw Village
 	-- {npc:9462} Chieftain Bloodmaw · {npc:11557} Meilosh
 	["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "隧道正西的死木熊怪村庄。{npc:9462}（56级）站在它们中间。{npc:11557}是一个友善的熊怪，坐在村庄北端。",
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
-	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "",
+	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "{npc:11557}：为他留着 30 个 {quest:6031}；木喉声望达到中立后才肯交易；在地下",
 
 	-- Step 45: Nafien
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold
 	["The road ends at {npc:15395}, outside the {area:1769} tunnel in the far north-east."] = "道路的尽头是{npc:15395}，就在遥远东北的{area:1769}隧道外。",
 
 	-- Step 46: Felpaw Village
-	["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "",
+	["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "小心：洞穴守卫为 53-54 级，生命值低于 50% 时会呼叫 25 码内的同伴援助，低于 15% 时还会逃跑求援。",
 
 	-- Step 48: Level 54.45
-	["Level 54.45"] = "",
+	["Level 54.45"] = "等级 54.45",
 	-- {area:1769} Timbermaw Hold · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
-	["Top up here to level 54.45 before the hand-ins at {area:1769}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 54.45 before the hand-ins at {area:1769}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "先在此刷到 54.45 级，再去 {area:1769} 交任务，交完即可到 55 级。也可组队前往 {area:1584} 副本或 {area:1417} 副本。",
 	-- {npc:7156} Deadwood Den Watcher
-	["grind on {npc:7156}"] = "",
+	["grind on {npc:7156}"] = "击杀{npc:7156}刷经验",
 
 	-- Step 49: Nafien
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
 	["Keep {quest:8465} for {zone:1452}."] = "留着{quest:8465}去{zone:1452}。",
 
 	-- Step 50: Level 54.54
-	["Level 54.54"] = "",
+	["Level 54.54"] = "等级 54.54",
 	-- {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
-	["Top up here to level 54.54 before the hand-ins at {area:2479}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 54.54 before the hand-ins at {area:2479}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "先在此刷到 54.54 级，再去 {area:2479} 交任务，交完即可到 55 级。也可组队前往 {area:1584} 副本或 {area:1417} 副本。",
 
 	-- Step 51: Felpaw Village
 	-- {quest:8470} Deadwood Ritual Totem
@@ -264,9 +264,9 @@ return {
 	["Keep {quest:5158}: {npc:5901} is in the {zone:1413}."] = "留着{quest:5158}：{npc:5901}在{zone:1413}。",
 
 	-- Step 55: Level 54.7
-	["Level 54.7"] = "",
+	["Level 54.7"] = "等级 54.7",
 	-- {area:1997} Bloodvenom Post · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
-	["Top up here to level 54.7 before the hand-ins at {area:1997} : they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 54.7 before the hand-ins at {area:1997} : they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "先在此刷到 54.7 级，再去 {area:1997} 交任务，交完即可到 55 级。也可组队前往 {area:1584} 副本或 {area:1417} 副本。",
 
 	-- Step 56: The Jadefire moonwell
 	["The Jadefire moonwell"] = "碧火月亮井",
@@ -284,11 +284,11 @@ return {
 	["Jadefire moonwell"] = "碧火月亮井",
 
 	-- Step 61: Level 54.87
-	["Level 54.87"] = "",
+	["Level 54.87"] = "等级 54.87",
 	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
-	["Top up here to level 54.87 before the hand-ins at {area:2255}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 54.87 before the hand-ins at {area:2255}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "先在此刷到 54.87 级，再去 {area:2255} 交任务，交完即可到 55 级。也可组队前往 {area:1584} 副本或 {area:1417} 副本。",
 	-- {npc:7125} Jaedenar Hound
-	["grind on {npc:7125}"] = "",
+	["grind on {npc:7125}"] = "反复击杀{npc:7125}补足经验",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "回到{area:1762}，死木熊怪（53-54级）就在隧道附近，每杀一个都会提升你的木喉要塞声望。",

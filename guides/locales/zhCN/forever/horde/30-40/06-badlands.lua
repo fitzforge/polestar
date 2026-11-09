@@ -10,7 +10,7 @@ return {
 	-- {zone:1418} Badlands
 	["Into the {zone:1418}"] = "进入{zone:1418}",
 	-- {object:2673} Thandol Span (no name in this language: may be words) · {zone:1437} Wetlands · {area:150} Menethil Harbor · {zone:1432} Loch Modan · {zone:1418} Badlands · {area:1877} Valley of Fangs
-	["Head for the {object:2673}, the great bridge at Arathi's southern edge, cross it and go south through the {zone:1437} (keep clear of {area:150}) and east into {zone:1432}; the road leaves {zone:1432} to the south into the {zone:1418}. Follow it south to the goblin camp in the {area:1877}."] = "",
+	["Head for the {object:2673}, the great bridge at Arathi's southern edge, cross it and go south through the {zone:1437} (keep clear of {area:150}) and east into {zone:1432}; the road leaves {zone:1432} to the south into the {zone:1418}. Follow it south to the goblin camp in the {area:1877}."] = "前往阿拉希南缘的大桥 {object:2673}，过桥后向南穿过 {zone:1437}（避开 {area:150}），再向东进入 {zone:1432}；道路从 {zone:1432} 南侧通往 {zone:1418}。沿路向南到 {area:1877} 的地精营地。",
 
 	-- Step 2: Valley of Fangs
 	-- {quest:1106} Martek the Exiled · {area:439} Shimmering Flats
@@ -26,18 +26,18 @@ return {
 	-- {area:75} Stonard
 	["for Helgrum in {area:75}, around level 42"] = "交给{area:75}的赫格拉姆，约42级",
 	-- {npc:6868} Jarkal Mossmeld
-	["{npc:6868}, inside"] = "",
+	["{npc:6868}, inside"] = "{npc:6868}：在屋内",
 
 	-- Step 5: Lesser Rock Elementals
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
-	["Lesser Rock Elementals"] = "小型岩石元素",
+	["Lesser Rock Elementals"] = "次级石元素",
 	-- {area:340} Kargath · {npc:2921} Lotwil Veriatus · {npc:6868} Jarkal Mossmeld
 	-- plural, as words: Rock Elemental Shards = {item:7848} Rock Elemental Shard
 	["The small elementals drift across the flats between {area:340} and {npc:2921}'s camp, on the road back east. Every rock elemental in the zone can drop {npc:6868}'s Rock Elemental Shards."] = "小型元素在{area:340}和{npc:2921}营地之间的平地上飘荡，就在向东返回的路上。这个地区的每个石元素都可能掉落{npc:6868}要的石元素的碎片。",
 
 	-- Step 7: Badlands: kill these as you meet them
 	-- {zone:1418} Badlands
-	["{zone:1418}: kill these as you meet them"] = "",
+	["{zone:1418}: kill these as you meet them"] = "{zone:1418}：沿途击杀以下目标",
 	-- {area:1878} The Dustbowl · {npc:6868} Jarkal Mossmeld
 	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Rock Elementals = {npc:92} Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard
 	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards.\nThe bigger Rock Elementals stand on the slopes north-west of the {area:1878}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards."] = "峭壁老山狗和巨型秃鹫在{area:1878}南边的盆地中游荡。山狗掉落颚骨和尖牙；巨型秃鹫掉落胃。\n更大的石元素站在{area:1878}西北方的山坡上；每个都掉落一块石板。每个石元素都可能掉落{npc:6868}要的石元素的碎片。",
@@ -58,18 +58,18 @@ return {
 	-- Step 12: Ancient Chest
 	-- {area:1517} Uldaman
 	["Keep north on the road; the chest lies in the {area:1517} dig site, at the foot of the ruins north-west of the road."] = "继续沿道路向北；箱子在{area:1517}挖掘场，位于道路西北方的废墟脚下。",
-	["Below ground"] = "",
+	["Below ground"] = "在地下",
 
 	-- Step 13: Agmond's End
 	-- {area:1877} Valley of Fangs
-	["Head back south down the road, past the {area:1877}."] = "",
+	["Head back south down the road, past the {area:1877}."] = "沿道路向南返回，经过 {area:1877}。",
 
 	-- Step 14: The Dustbowl: kill these as you meet them
 	-- {area:1878} The Dustbowl
-	["{area:1878}: kill these as you meet them"] = "",
+	["{area:1878}: kill these as you meet them"] = "{area:1878}：沿途遇到就击杀",
 	-- {zone:1418} Badlands · {npc:6868} Jarkal Mossmeld · {npc:2921} Lotwil Veriatus
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["Every rock elemental in the {zone:1418} drops {npc:6868}'s shards: the Lesser Rock Elementals (37) on the flats west of {npc:2921}'s camp are the safe ones, about one kill in five. Only the Greater Rock Elementals (42-44, well above you) in the south-western gulches drop {npc:2921}'s bracers, also about one kill in five: pull one at a time and rest between fights, or leave them. Keep killing coyotes and buzzards you still need on the way."] = "",
+	["Every rock elemental in the {zone:1418} drops {npc:6868}'s shards: the Lesser Rock Elementals (37) on the flats west of {npc:2921}'s camp are the safe ones, about one kill in five. Only the Greater Rock Elementals (42-44, well above you) in the south-western gulches drop {npc:2921}'s bracers, also about one kill in five: pull one at a time and rest between fights, or leave them. Keep killing coyotes and buzzards you still need on the way."] = "{zone:1418} 的所有石元素都会掉落 {npc:6868} 所需的碎片：{npc:2921} 营地西侧平地上的次级石元素（37 级）较为安全，掉落概率约为五分之一。只有西南部峡谷中的巨型石元素（42-44 级，远高于你当前等级）会掉落 {npc:2921} 所需的护腕，概率也约为五分之一：逐个拉怪，每次战斗后休息，或暂时不打。沿途继续击杀你还需要的土狼和秃鹫。",
 
 	-- Step 15: The Dustbowl
 	-- {npc:2920} Lucien Tosselwrench · {item:2868} Patterned Bronze Bracers · {skill:164} Blacksmithing
@@ -79,5 +79,5 @@ return {
 	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar
 	["Head north back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "向北返回{area:340}。{npc:5394}站在{area:340}的上层，远高于飞行管理员：沿坡道上去，箭头无法区分上下层。",
 	-- {area:340} Kargath · {area:35} Booty Bay
-	["The next guide flies from {area:340} to {area:35}."] = "",
+	["The next guide flies from {area:340} to {area:35}."] = "下一篇指南会从 {area:340} 飞往 {area:35}。",
 }
