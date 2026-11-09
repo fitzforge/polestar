@@ -194,19 +194,19 @@ step Lashtail Raptors
   kill 686 quest 195 @32.4,23.2 map 1434
   kill 686 quest 568
 
-step Level 35
-  when level<35
-  zone Stranglethorn Vale
-  tip Booty Bay's and Grom'gol's next quests are 35-38. Below 35? The Lashtail Raptors (35) hunt the slopes south of the camp, on your way back to Grom'gol: kill them until level 35. Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead.
-  goto 30.4,23.6 map 1434 "Lashtail Raptors"
-  level 35 grind 686                  -- grind on Lashtail Raptor
-
 step Grom'gol
   zone Stranglethorn Vale
   tip Commander Aggro'gosh stands in the middle of Grom'gol, Far Seer Mok'thardin beside the flight master.
   turnin 568                          -- Commander Aggro'gosh
   accept 569
   accept 570                          -- Far Seer Mok'thardin: the Shadowmaw claws and the tigress fang come at the end of this guide
+
+step Level 35
+  when level<35
+  zone Stranglethorn Vale
+  tip Booty Bay's and Grom'gol's next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of Grom'gol: kill them until level 35. Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead.
+  goto 32.4,24.6 map 1434 "Lashtail Raptors"
+  level 35 grind 686                  -- grind on Lashtail Raptor
 
 step Fly to Booty Bay
   zone Stranglethorn Vale
@@ -280,13 +280,6 @@ step Mosh'Ogg camp
   kill 1142 quest 569.1
   kill 1144 quest 569.2
 
-step Level 36
-  when level<36
-  zone Stranglethorn Vale
-  tip Dustwallow's quests are 35-38. Below 36? Keep killing the Mosh'Ogg Brutes and Witch Doctors here until level 36; pull one at a time. Or, with a group, run the Scarlet Monastery dungeon (Armory) or the Razorfen Downs dungeon instead.
-  goto 36.7,31.9 map 1434 "Mosh'Ogg camp"
-  level 36 grind 1142                 -- grind on Mosh'Ogg Brute
-
 step Grom'gol
   tip Back to Grom'gol.
   turnin 569                          -- Commander Aggro'gosh
@@ -294,3 +287,10 @@ step Grom'gol
   accept 572                          -- Far Seer Mok'thardin: for forever/horde/40-50/01-stranglethorn-vale
   accept 584                          -- Nimboya: for forever/horde/40-50/01-stranglethorn-vale
   note The next guide takes the zeppelin to Orgrimmar from the tower on the west side of the camp.
+
+step Level 36
+  when level<36
+  zone Stranglethorn Vale
+  tip Dustwallow's quests are 35-38. Still below 36 after Grom'gol's hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower. Or, with a group, run the Scarlet Monastery dungeon (Armory) or the Razorfen Downs dungeon instead.
+  goto 36.7,31.9 map 1434 "Mosh'Ogg camp"
+  level 36 grind 1142                 -- grind on Mosh'Ogg Brute

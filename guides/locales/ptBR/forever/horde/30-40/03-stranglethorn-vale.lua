@@ -115,19 +115,19 @@ return {
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["On your way back south to {object:3202}, the Lashtail Raptors (35-36) hunt the jungle between the camp and {object:3202}: they count for Hemet and for {npc:2464}."] = "",
 
-	-- Step 22: Level 35
-	["Level 35"] = "Nível 35",
-	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words) · {area:796} Scarlet Monastery
-	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{area:35}'s and {object:3202}'s next quests are 35-38. Below 35? The Lashtail Raptors (35) hunt the slopes south of the camp, on your way back to {object:3202}: kill them until level 35. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "As próximas missões de {area:35} e {object:3202} são de nível 35-38. Abaixo de 35? Os Raptores Batecauda (35) caçam nas encostas ao sul do acampamento, no seu caminho de volta a {object:3202}: mate-os até o nível 35. Ou, em grupo, faça a masmorra {area:796} (Biblioteca ou Arsenal).",
-	-- {npc:686} Lashtail Raptor
-	["grind on {npc:686}"] = "mate {npc:686} até subir",
-
-	-- Step 23: Grom'gol
+	-- Step 22: Grom'gol
 	-- {npc:2464} Commander Aggro'gosh · {object:3202} Grom'gol (no name in this language: may be words) · {npc:2465} Far Seer Mok'thardin
 	["{npc:2464} stands in the middle of {object:3202}, {npc:2465} beside the flight master."] = "",
 	-- {npc:2465} Far Seer Mok'thardin
 	["{npc:2465}: the Shadowmaw claws and the tigress fang come at the end of this guide"] = "",
+
+	-- Step 23: Level 35
+	["Level 35"] = "Nível 35",
+	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words) · {area:796} Scarlet Monastery
+	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
+	["{area:35}'s and {object:3202}'s next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of {object:3202}: kill them until level 35. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "",
+	-- {npc:686} Lashtail Raptor
+	["grind on {npc:686}"] = "mate {npc:686} até subir",
 
 	-- Step 24: Fly to Booty Bay
 	-- {area:35} Booty Bay
@@ -168,15 +168,7 @@ return {
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["The Mosh'Ogg ogres camp in the hills just east of {object:3202}, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time."] = "",
 
-	-- Step 33: Level 36
-	["Level 36"] = "Nível 36",
-	-- {area:796} Scarlet Monastery · {area:1316} Razorfen Downs
-	-- plural, as words: Mosh'Ogg Brutes = {npc:1142} Mosh'Ogg Brute
-	["Dustwallow's quests are 35-38. Below 36? Keep killing the Mosh'Ogg Brutes and Witch Doctors here until level 36; pull one at a time. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "As missões do Pântano Vadeoso são de nível 35-38. Abaixo de 36? Continue matando os Brutamontes e Mandingueiros Mosh'Ogg aqui até o nível 36; puxe um de cada vez. Ou, em grupo, faça a masmorra {area:796} (Arsenal) ou a masmorra {area:1316}.",
-	-- {npc:1142} Mosh'Ogg Brute
-	["grind on {npc:1142}"] = "mate {npc:1142} até subir",
-
-	-- Step 34: Grom'gol
+	-- Step 33: Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Back to {object:3202}."] = "De volta a {object:3202}.",
 	-- {npc:2465} Far Seer Mok'thardin
@@ -186,7 +178,16 @@ return {
 	-- {zone:1454} Orgrimmar
 	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "O próximo guia pega o zepelim para {zone:1454} na torre do lado oeste do acampamento.",
 
+	-- Step 34: Level 36
+	["Level 36"] = "Nível 36",
+	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:796} Scarlet Monastery · {area:1316} Razorfen Downs
+	-- plural, as words: Mosh'Ogg Brutes = {npc:1142} Mosh'Ogg Brute
+	["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "",
+	-- {npc:1142} Mosh'Ogg Brute
+	["grind on {npc:1142}"] = "mate {npc:1142} até subir",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Dustwallow's quests are 35-38. Below 36? Keep killing the Mosh'Ogg Brutes and Witch Doctors here until level 36; pull one at a time. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "As missões do Pântano Vadeoso são de nível 35-38. Abaixo de 36? Continue matando os Brutamontes e Mandingueiros Mosh'Ogg aqui até o nível 36; puxe um de cada vez. Ou, em grupo, faça a masmorra {area:796} (Arsenal) ou a masmorra {area:1316}.",
 	-- ["East of the ogres, Shadowmaw Panthers (37-38) stalk unseen until they strike; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for {npc:2495}.\nCareful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them."] = "A leste dos ogros, as Panteras Umbragorja (37-38) espreitam invisíveis até dar o bote; as Tigresas-do-espinhaço andam pela mesma área e de vez em quando deixam cair uma presa imaculada. Crocoliscos Arapuca tomam o rio logo a oeste da selva; guarde as peles para {npc:2495}.\nCuidado: as Panteras Umbragorja (nível 37-38) e as Panteras Umbragorja Anciãs (nível 42-43) ficam furtivas fora de combate, então só aparecem quando você chega perto.",
 	-- ["Elder tigers and Lashtail raptors"] = "Tigres anciãos e Raptores Batecauda",
 	-- ["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of {quest:338} you loot: {npc:716} asks for them later."] = "Siga a estrada para o norte saindo de {object:3202}; o acampamento de caça de Rosarães Guima fica na colina a nordeste do rio. Daqui em diante, guarde toda página de {quest:338} que saquear: {npc:716} vai pedi-las depois.",
@@ -202,6 +203,7 @@ return {
 	-- ["Upstairs"] = "No andar de cima",
 	-- ["Venture Co. camp"] = "Acampamento da Empreendimentos S.A.",
 	-- ["Young Stranglethorn Tigers prowl west of the camp, Young Panthers south and east of it.\nHead west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it.\nCareful: The troll camps have many patrolling mobs, so other trolls often join a fight."] = "Tigres-do-espinhaço Jovens rondam a oeste do acampamento, Panteras Jovens ao sul e a leste.\nSiga para oeste, passando pelo acampamento. Raptores-do-espinhaço (33-34) caçam nas clareiras, e os trolls Sanguescalpo ocupam as ruínas da costa: qualquer Sanguescalpo pode deixar cair uma presa. {item:4614} cai muito raramente deles: se cair, leia.\nCuidado: os acampamentos troll têm muita patrulha, então outros trolls costumam entrar na briga.",
+	-- ["{area:35}'s and {object:3202}'s next quests are 35-38. Below 35? The Lashtail Raptors (35) hunt the slopes south of the camp, on your way back to {object:3202}: kill them until level 35. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "As próximas missões de {area:35} e {object:3202} são de nível 35-38. Abaixo de 35? Os Raptores Batecauda (35) caçam nas encostas ao sul do acampamento, no seu caminho de volta a {object:3202}: mate-os até o nível 35. Ou, em grupo, faça a masmorra {area:796} (Biblioteca ou Arsenal).",
 	-- ["{npc:2465}, beside the flight master: the Shadowmaw and tigress parts come after the trolls"] = "{npc:2465}, ao lado do mestre de voo: as partes de Bocassombra e da tigresa vêm depois dos trolls",
 	-- ["{npc:773}'s missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "O acampamento dos caçadores desaparecidos de {npc:773} é o acampamento de Rosarães Guima: ande entre as tendas e a investigação é concluída. Crocoliscos do Rio ficam ao longo do rio, abaixo do acampamento.",
 }

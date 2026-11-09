@@ -115,19 +115,19 @@ return {
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["On your way back south to {object:3202}, the Lashtail Raptors (35-36) hunt the jungle between the camp and {object:3202}: they count for Hemet and for {npc:2464}."] = "",
 
-	-- Step 22: Level 35
-	["Level 35"] = "",
-	-- {area:35} Booty Bay · {object:3202} Grom'gol · {area:796} Scarlet Monastery
-	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{area:35}'s and {object:3202}'s next quests are 35-38. Below 35? The Lashtail Raptors (35) hunt the slopes south of the camp, on your way back to {object:3202}: kill them until level 35. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "",
-	-- {npc:686} Lashtail Raptor
-	["grind on {npc:686}"] = "",
-
-	-- Step 23: Grom'gol
+	-- Step 22: Grom'gol
 	-- {npc:2464} Commander Aggro'gosh · {object:3202} Grom'gol · {npc:2465} Far Seer Mok'thardin
 	["{npc:2464} stands in the middle of {object:3202}, {npc:2465} beside the flight master."] = "",
 	-- {npc:2465} Far Seer Mok'thardin
 	["{npc:2465}: the Shadowmaw claws and the tigress fang come at the end of this guide"] = "",
+
+	-- Step 23: Level 35
+	["Level 35"] = "",
+	-- {area:35} Booty Bay · {object:3202} Grom'gol · {area:796} Scarlet Monastery
+	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
+	["{area:35}'s and {object:3202}'s next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of {object:3202}: kill them until level 35. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "",
+	-- {npc:686} Lashtail Raptor
+	["grind on {npc:686}"] = "",
 
 	-- Step 24: Fly to Booty Bay
 	-- {area:35} Booty Bay
@@ -168,15 +168,7 @@ return {
 	-- {object:3202} Grom'gol
 	["The Mosh'Ogg ogres camp in the hills just east of {object:3202}, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time."] = "",
 
-	-- Step 33: Level 36
-	["Level 36"] = "",
-	-- {area:796} Scarlet Monastery · {area:1316} Razorfen Downs
-	-- plural, as words: Mosh'Ogg Brutes = {npc:1142} Mosh'Ogg Brute
-	["Dustwallow's quests are 35-38. Below 36? Keep killing the Mosh'Ogg Brutes and Witch Doctors here until level 36; pull one at a time. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "",
-	-- {npc:1142} Mosh'Ogg Brute
-	["grind on {npc:1142}"] = "",
-
-	-- Step 34: Grom'gol
+	-- Step 33: Grom'gol
 	-- {object:3202} Grom'gol
 	["Back to {object:3202}."] = "返回{object:3202}。",
 	-- {npc:2465} Far Seer Mok'thardin
@@ -185,6 +177,14 @@ return {
 	["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "",
 	-- {zone:1454} Orgrimmar
 	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "",
+
+	-- Step 34: Level 36
+	["Level 36"] = "",
+	-- {object:3202} Grom'gol · {area:796} Scarlet Monastery · {area:1316} Razorfen Downs
+	-- plural, as words: Mosh'Ogg Brutes = {npc:1142} Mosh'Ogg Brute
+	["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "",
+	-- {npc:1142} Mosh'Ogg Brute
+	["grind on {npc:1142}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Elder tigers and Lashtail raptors"] = "老年猛虎和鞭尾迅猛龙",
