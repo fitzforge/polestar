@@ -826,6 +826,72 @@ emit({{ camp = camp, report = report, calls = table.concat(calls, ", "), live = 
 	assert_eq!(cougars["report"]["here"], visit, "hunting cougars around the Seer, the visit shows: {cougars}");
 }
 
+// The Barrens as shipped: an Orc Warrior at 14, in from Far Watch Post on the road west, 60 yd past Thun'grim Firegaze
+// (5878) with his breadcrumb (1502, "Thun'grim Firegaze") ready, while the guide's step 3 sends him 449 yd on to the
+// Crossroads and step 4 brings him back east. The whole visit shows, and the quest named after its NPC is not said
+// twice ("… to them"). At his window 1502 is handed in and Forged Steel (1503) taken ahead; step 4 reads done.
+#[test]
+fn barrens_thungrim_firegaze_a_quest_named_after_its_npc_is_handed_in_to_them() {
+	use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack};
+	use forge_addontest::run::root;
+	let data_dir = root().join("data/forever");
+	if !data_dir.join("quests.json").exists() {
+		eprintln!("skipped: no reference data at data/forever");
+		return;
+	}
+	let data = forge_guide::data::load_data(&data_dir).expect("data/forever");
+	let file = "guides/forever/horde/02-the-barrens.guide";
+	let text = std::fs::read_to_string(root().join(file)).unwrap();
+	let compiled = compile_with(&[(file, &text)], &data, None);
+	let pack = write_test_pack(&compiled.guides, &data, &our_manifest());
+	let loads: Vec<String> = pack.scripts.iter().map(|f| format!("assert(loadfile({}))(\"Polestar_Guides\", ns)", serde_json::to_string(f).unwrap())).collect();
+	let f = data.map_frames.get("forever").get("1413");
+	let before = format!(
+		r#"local w = stub.world
+w.addMap(1413, {{ name = "The Barrens", c = {}, left = {}, right = {}, top = {}, bottom = {} }})
+w.race, w.raceName, w.class, w.className, w.faction, w.level = "Orc", "Orc", "WARRIOR", "WARRIOR", "Horde", 14
+w.zone, w.subzone = "The Barrens", ""
+w.moveTo(1413, 52.2, 31.0)
+w.complete({{ 1498 }})
+w.onQuest(842, {{}}); w.onQuest(1502, {{}})
+"#,
+		f.get("c").to_js_string(),
+		f.get("left").to_js_string(),
+		f.get("right").to_js_string(),
+		f.get("top").to_js_string(),
+		f.get("bottom").to_js_string()
+	);
+	let script = format!(
+		r#"do local ns = {{}}
+{}
+end
+stub.login()
+stub.fire("QUEST_LOG_UPDATE")
+{HELPERS}
+E.SetGuide("forever/horde/02-the-barrens"); flush()
+w.moveTo(1413, 56.64, 30.42); stub.advance(0.6); stub.advance(0.6)
+local rows = {{}}
+for _, v in ipairs(E.GetWhileHereList()) do rows[#rows + 1] = v.step .. ":" .. v.index .. " " .. v.hereText end
+local live = E.GetLiveStep()
+w.moveTo(1413, 57.2, 30.35); stub.advance(0.6); stub.advance(0.6)
+w.calls = {{}}
+w.questProgress(5878, 1502); flush()
+w.questDetail(5878, 1503); flush()
+local calls = {{}}
+for _, x in ipairs(w.calls) do if x[1] == "AcceptQuest" or x[1] == "GetQuestReward" then calls[#calls + 1] = x[1] .. " " .. tostring(x[2]) end end
+emit({{ live = live, rows = rows, calls = table.concat(calls, ", "), after = E.GetLiveStep(), done = {{ E.GoalDone(4, 1), E.GoalDone(4, 2) }} }})
+"#,
+		loads.join("\n")
+	);
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], script, ..Default::default() }).remove(0);
+	assert_eq!(out["live"], 3, "the Crossroads step is live: {out}");
+	let visit = "4:1 Hand in “Thun'grim Firegaze” to them, then take “Forged Steel”: saves a trip back";
+	assert!(out["rows"].as_array().unwrap().iter().any(|r| r == visit), "{out}");
+	assert_eq!(out["calls"], "GetQuestReward 1502, AcceptQuest 1503", "{out}");
+	assert_eq!(out["after"], 3, "{out}");
+	assert_eq!(out["done"], json!([true, true]), "{out}");
+}
+
 // The XP rule: a quest's full reward lasts until the player is 5 levels over it. When the guide's hand-in comes at a
 // level past that (a `level 8` goal on the way, the quest level 1, the player 5: 60% then), waiting costs XP, and
 // the hand-in may be twice the seconds out of the way: the 21 s detour shows at 20. Quest level 3 keeps its full

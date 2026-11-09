@@ -8487,14 +8487,24 @@ function Own.hereViewOf(e)
 		local text
 		if e.kind == "turnin" then
 			local _, npc = npcOf(goal)
-			local title = ns.Quoted(questTitle(goal) or titleOfQuest(goal.quest))
+			local raw = questTitle(goal) or titleOfQuest(goal.quest)
+			local title = ns.Quoted(raw)
 			local visit = e.visit
 			if visit and npc then
 				-- The whole visit (Own.hereVisit): its accepts by name, and why now.
+				-- A quest named after its NPC (a breadcrumb: "Thun'grim Firegaze" to
+				-- Thun'grim Firegaze) gets strings of its own that do not repeat it.
 				local names = {}
 				for i, a in ipairs(visit.accepts) do names[i] = ns.Quoted(questTitle(a) or titleOfQuest(a.quest)) end
-				text = #names > 0 and L["Hand in %s to %s, then take %s: saves a trip back"]:format(title, npc, table.concat(names, ", "))
-					or L["Hand in %s to %s: saves a trip back"]:format(title, npc)
+				local same = type(raw) == "string" and raw:lower() == npc:lower()
+				if #names > 0 then
+					local list = table.concat(names, ", ")
+					text = same and L["Hand in %s to them, then take %s: saves a trip back"]:format(title, list)
+						or L["Hand in %s to %s, then take %s: saves a trip back"]:format(title, npc, list)
+				else
+					text = same and L["Hand in %s to them: saves a trip back"]:format(title)
+						or L["Hand in %s to %s: saves a trip back"]:format(title, npc)
+				end
 			else
 				text = npc and L["Hand in %s to %s"]:format(title, npc) or L["Hand in %s"]:format(title)
 			end
