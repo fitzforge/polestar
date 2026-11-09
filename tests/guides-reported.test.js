@@ -8907,3 +8907,14 @@ test('Alliance Arathi & Alterac: Quae and Baron Vardus tips match the map', { sk
 	assert.doesNotMatch(text, /Baron Vardus walks the manor grounds/, 'Vardus is not on the manor grounds');
 	assert.match(text, /Baron Vardus \(40\) turns up in one spot at a time/, 'the Alliance tip names his spots, as the Horde one does');
 });
+
+// Final route review 0.3.6, Alliance 38-39 Desolace: the Kodo Graveyard step held a bare `kill 217590` (Flesh Picker,
+// for the optional My Little Friends), a check-off every player had to tick, quest or not. It is now its own step for
+// players on 93176, with the specimen counted in the bags, as Arathi's Hay Weevil and Stranglethorn's Arbor Tarantula.
+test('Alliance Desolace south loop: the Flesh Picker is only for players on My Little Friends', { skip }, () => {
+	const list = goals('forever/alliance/30-40/06-badlands.guide');
+	assert.ok(!list.some(({ goal }) => goal.t === 'kill' && goal.npc === 217590), 'no bare Flesh Picker check-off');
+	const pick = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 213567);
+	assert.equal(pick.length, 1, 'one Flesh Picker Specimen goal');
+	assert.ok((pick[0].step.when || []).some((p) => p.k === 'onquest' && !p.neg), 'only while My Little Friends is in the log');
+});

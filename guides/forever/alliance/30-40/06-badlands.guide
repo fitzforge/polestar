@@ -172,10 +172,14 @@ step Bibbly F'utzbuckle
   accept 5501
 
 step Kodo Graveyard
-  tip Hornizz stands at the edge of the Kodo Graveyard, south-west of Kormek's Hut; Kodo Bones lie among the skeletons. A Flesh Picker crawls about the graveyard: catch one with the Entomology Starter Kit, then tick it off.
+  tip Hornizz stands at the edge of the Kodo Graveyard, south-west of Kormek's Hut; Kodo Bones lie among the skeletons.
   collect 13703 quest 5501            -- Kodo Bone
-  kill 217590                         -- Flesh Picker: catch it, for My Little Friends
   accept 6134                         -- Hornizz Brimbuzzle
+
+step Flesh Picker
+  when onquest 93176
+  tip A Flesh Picker crawls about the Kodo Graveyard: catch one with the tool from Amaryllis Webb's Entomology Starter Kit.
+  collect 213567 "Flesh Picker Specimen" @48.1,57.1
 
 step Maraudine centaurs
   tip The Maraudine centaurs hold the Valley of Spears west of the graveyard; every kind drops the totems.
