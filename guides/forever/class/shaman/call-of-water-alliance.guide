@@ -75,7 +75,7 @@ step Hervdana Saegrund
 step The red waterskin
   zone Redridge Mountains
   tip Stonewatch Falls pour out of Lake Everstill at the east end of Redridge (fly from Ironforge to Lakeshire). Fill the Unfilled Red Waterskin at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from Hervdana for a new one.
-  collect 265748 quest 94499.1 @76.0,59.7     -- Full Red Waterskin
+  collect 265748 quest 94499.1 @71.9,60.3     -- Full Red Waterskin
 
 step Hervdana Saegrund
   zone Wetlands
