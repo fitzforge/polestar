@@ -90,9 +90,23 @@ line break of a release's notes, and each file starts with a `[[REPLACE ...]]` l
 ## The credits
 
 `forge release credits` rewrites `addon/Polestar/Core/Credits.lua` from `data/credits.json` (the
-supporters, highest total first; amounts are never stored) and the pull requests on GitHub, fetched
-with the GitHub CLI (`gh`, logged in): contributors by merged or folded pull requests, most first, bots
-and the logins in `exclude` left out, `names` mapping a login to the name shown. A closed pull request
-counts as folded when one of its commits is on the checkout's HEAD with its authorship kept: the same
-author email, and a subject that starts with the pull request commit's headline (a contributor's work
-cherry-picked into a maintainer's branch, as the 0.3.6 hotfix did).
+supporters, highest total first; amounts are never stored) and the pull requests and issues on GitHub,
+fetched with the GitHub CLI (`gh`, logged in):
+
+- contributors by merged or folded pull requests, most first. A closed pull request counts as folded when
+  one of its commits is on the checkout's HEAD with its authorship kept: the same author email, and a
+  subject that starts with the pull request commit's headline (a contributor's work cherry-picked into a
+  maintainer's branch, as the 0.3.6 hotfix did);
+- the top 40 bug reporters by useful reports, most first, ties to whoever reported first. The reporter
+  is the Discord name in the bot's first line ("**Reported by <name> on [Discord](...)**", unescaped
+  and folded to NFKC so styled letters show in the game's fonts), else the GitHub login that opened
+  the issue. A report counts when it is labelled `confirmed` or `fix-merged`, or was closed as
+  completed by a fix: a pull request that closed it, a `released:*` label, or a comment by the
+  repository's owner, a member or a collaborator saying it is fixed ("not fixed" and "isn't fixed
+  yet" don't count). It never counts when closed as a duplicate or not planned, labelled
+  `duplicate`, `invalid`, `wontfix` or `resolution:*`, still labelled `needs-info` or `stale`, or a
+  feature request (`enhancement` without `bug`).
+
+Bots, names with no letter or digit, and the logins and names in `exclude` are left out (the
+maintainer's login and Discord name, and anyone who asked not to be listed); `names` maps a login or
+Discord name to the name shown, and two names that differ only in case are one person.

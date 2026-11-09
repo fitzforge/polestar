@@ -326,6 +326,8 @@ mod ui_picker_scroll;
 mod ui_quest_unlocks;
 #[path = "ui-route.rs"]
 mod ui_route;
+#[path = "ui-thanks.rs"]
+mod ui_thanks;
 #[path = "ui-welcome.rs"]
 mod ui_welcome;
 #[path = "ui-whatsnew.rs"]

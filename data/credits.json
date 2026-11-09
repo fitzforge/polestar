@@ -35,7 +35,8 @@
 		"LucaNerlich"
 	],
 	"exclude": [
-		"fitzforge"
+		"fitzforge",
+		"Fitz | Polestar"
 	],
 	"names": {
 		"YamanNekon": "山猫"

@@ -312,12 +312,13 @@ function A.hookPolestar()
 	-- LEAKS.everyStep: every step and goal shows, whatever class, race or
 	-- faction it is for (the guide scenes: one character sees them all).
 	if LEAKS.everyStep and ns.Guides and ns.Guides.Matches then ns.Guides.Matches = function() return true end end
-	-- Guiding Stars' supporters and contributors are people's names, the
-	-- same in every language: placeholders, like the player's own.
+	-- Guiding Stars' supporters, contributors and bug reporters are people's
+	-- names, the same in every language: placeholders, like the player's own.
 	local C = ns.Credits
 	if C then
 		for i in ipairs(C.supporters or {}) do C.supporters[i] = P("p", i) end
 		for i, e in ipairs(C.contributors or {}) do e.name = P("p", i) end
+		for i, e in ipairs(C.bugReporters or {}) do e.name = P("p", i) end
 	end
 	local Names = ns.Names
 	-- A name Names had none for, with the Codex's English when it has one.

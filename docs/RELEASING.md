@@ -100,7 +100,7 @@ version throughout.
    forge data questdb
    forge data itemdb && forge data gear
    forge data sources --only builders && forge data codex   # release-safe inputs only
-   forge release credits                     # Guiding Stars: data/credits.json + merged or folded PRs (needs gh)
+   forge release credits                     # Guiding Stars: data/credits.json + merged or folded PRs + issues (needs gh)
    forge guide lint
    forge guide compile
    ```
@@ -124,7 +124,20 @@ version throughout.
    with the last release's: a large drop means translations went missing.
 
    Before `credits`, add new Ko-fi supporters to `data/credits.json`
-   (names only, highest total first; amounts are never stored).
+   (names only, highest total first; amounts are never stored). The bug
+   reporters column counts a reporter's useful reports from the issues: the
+   Discord name the bot filed it under ("**Reported by <name> on
+   [Discord](...)**"), else the GitHub login that opened it. A report counts
+   when it is labelled `confirmed` or `fix-merged`, or was closed as completed
+   by a fix (a pull request that closed it, a `released:*` label, or a
+   maintainer's comment saying it's fixed); never one closed as a duplicate or
+   not planned, labelled `duplicate`, `invalid`, `wontfix` or `resolution:*`,
+   still labelled `needs-info` or `stale`, or a feature request (`enhancement`
+   without `bug`). The top 40 by count show, ties to whoever reported first.
+   Check the printed list before committing it: add anyone who asks to be left
+   out, by login or name, to `exclude` (the maintainer's Discord name is
+   there too), and map a person's second name (a Discord name and a GitHub
+   login) onto one with `names`.
 
 3. Run the whole suite with the data built (nothing skips for missing data
    now):
