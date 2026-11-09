@@ -1479,19 +1479,31 @@ local Spots = {
 	work = {}, -- the last WORK_KEEP places the player fought or made progress at: { c, x, y, t } (Spots.noteWork)
 	WORK_KEEP = 16,
 	WORK_SAME = 20, -- yards: a fight this close to the last one updates it
+	SETTLE = 5, -- seconds after a fight or progress the automatic picks hold
+	lastWork = -1e9, -- GetTime() of the last work noted (none yet: long ago)
 	world = setmetatable({}, { __mode = "k" }), -- spot -> { c, wx, wy } | false
 }
 
 -- Whether a place of goal (a spot, or the goal itself at its point) was left
--- after a dwell within FORGET seconds, and not worked since: a fight or
--- progress there after leaving it brings it back (ArrowGuard's grind sweep:
--- a camp left on arrival, then fought in for ten minutes).
+-- after a dwell within FORGET seconds, and not worked inside since: a fight
+-- or progress within it after leaving it brings it back (ArrowGuard's grind
+-- sweep: a camp left on arrival, then fought in for ten minutes). Work on its
+-- fringe does not: it flipped the arrow between two goals' places sharing
+-- ground (ArrowGuard's replay, the Mirage Raceway).
 function Spots.isLeft(goal, place, now)
 	now = now or GetTime()
 	local t = Spots.left[place]
 	if not t or now - t > Spots.FORGET then return false end
-	local w = Own.workedNear(goal, place, now)
+	local w = Own.workedNear(goal, place, now, true)
 	return not (w and w > t)
+end
+
+-- The automatic picks hold (no spot or goal change) while the player fights
+-- and for Spots.SETTLE seconds after a fight or progress: the arrow never
+-- moves under a fight or right after a kill (ArrowGuard's replay).
+function Spots.busy(now)
+	if UnitAffectingCombat and UnitAffectingCombat("player") then return true end
+	return (now or GetTime()) - Spots.lastWork <= Spots.SETTLE
 end
 
 -- Where the player worked (a fight, progress on the waypoint's goal): kept by
@@ -1499,6 +1511,7 @@ end
 -- there (two goals' spots on the same camp; ArrowGuard's replay). The nearest
 -- entry within WORK_SAME yards is updated, else the oldest of WORK_KEEP reused.
 function Spots.noteWork(c, x, y, now)
+	Spots.lastWork = now
 	local list, oldest, oldT = Spots.work, nil, nil
 	for i = 1, #list do
 		local e = list[i]
@@ -1567,6 +1580,7 @@ function Spots.repick(goal, c, px, py, moveOn)
 	local cap = not manual and Spots.cap(goal)
 	local lvl = goal.lvl
 	if cur and not c and not moveOn then return false end
+	if cur and not moveOn and Spots.busy(now) then return false end
 	local curD = cur and c and Spots.edge(goal, cur, c, px, py)
 	-- On another continent nothing is measurable: the spot holds (ranking by
 	-- list order alone would walk to the next spot at every poll).
@@ -3769,11 +3783,11 @@ function Own.dwellPlace(goal, c, px, py)
 end
 
 -- The time of the latest work noted (Spots.work) on place's ground: within
--- its arrival radius and Spots.SWITCH yards around its edge, in the last
--- Spots.FORGET seconds; nil when none. place: a spot of goal, or goal itself
--- (a goal without spots, at its point).
-function Own.workedNear(goal, place, now)
-	local reach = (goal.r or DEFAULT_RADIUS) + Spots.SWITCH
+-- its arrival radius and Spots.SWITCH yards around its edge (inside: within
+-- the arrival radius only), in the last Spots.FORGET seconds; nil when none.
+-- place: a spot of goal, or goal itself (a goal without spots, at its point).
+function Own.workedNear(goal, place, now, inside)
+	local reach = (goal.r or DEFAULT_RADIUS) + (inside and 0 or Spots.SWITCH)
 	local latest
 	for _, e in ipairs(Spots.work) do
 		if now - e.t <= Spots.FORGET and not (latest and e.t <= latest) then
@@ -3855,7 +3869,8 @@ function Own.nearestField(s, list)
 	local c, px, py = Compat().GetPlayerWorldPosition()
 	local fighting = UnitAffectingCombat and UnitAffectingCombat("player")
 	local pick = cur
-	if c and not (cur and fighting) then
+	-- Held while the player fights and Spots.SETTLE seconds after (Spots.busy).
+	if c and not (cur and (fighting or Spots.busy())) then
 		local top = player and player.level and player.level + Spots.ABOVE
 		local best, bestD, curD, low, lowD, curLow
 		for _, g in ipairs(list) do

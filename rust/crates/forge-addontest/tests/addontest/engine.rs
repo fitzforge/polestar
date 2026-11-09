@@ -480,11 +480,13 @@ fn the_nearest_field_goal_holds_until_another_is_clearly_nearer_never_in_a_fight
 			r.past = at(51.5)
 			-- 50.5: 165 against 125, the Graverobbers not clearly nearer: no flap back
 			r.back = at(50.5)
-			-- in a fight beside the Graverobbers the arrow stays
+			-- in a fight beside the Graverobbers the arrow stays, and for 5 s after it (Spots.SETTLE)
 			fighting = true
 			r.fight = at(45.5)
 			fighting = false
-			r.after = at(45.5)
+			r.settling = at(45.5)
+			stub.advance(5)
+			r.after = E.GetWaypoint().goalIndex
 			-- the Graverobbers done: on to the nearest left, the Doom Weed
 			w.progress(8, 1, 8); flush()
 			r.done = E.GetWaypoint().goalIndex
@@ -492,7 +494,7 @@ fn the_nearest_field_goal_holds_until_another_is_clearly_nearer_never_in_a_fight
 		"#,
 		..Default::default()
 	});
-	assert_eq!(out, json!({ "start": 2, "between": 2, "past": 3, "back": 3, "fight": 3, "after": 2, "done": 3 }));
+	assert_eq!(out, json!({ "start": 2, "between": 2, "past": 3, "back": 3, "fight": 3, "settling": 3, "after": 2, "done": 3 }));
 }
 
 #[test]

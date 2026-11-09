@@ -1131,11 +1131,14 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   counts for every goal with a place there; `Own.workedNear`: a camp being
   cleared keeps the arrow through the drink and the walk to the next pull,
   and moving on never picks it again), the place is left (`Spots.left`, for
-  `Spots.FORGET`; work there later brings it back): the arrow moves on to the nearest place not left, never
+  `Spots.FORGET`; work inside it later brings it back): the arrow moves on to the nearest place not left, never
   back to one left while another is open (all left: the one left longest
   ago), and a goal whose places are all left measures no distance, so the
   step's nearest other open field goal takes over (`Own.nearestField`). A
-  spot picked by hand is not counted until reached. Spots with `alt` are never
+  spot picked by hand is not counted until reached. The automatic picks (a
+  goal's spot, the step's nearest field goal) hold while the player fights
+  and 5 s after a fight or progress (`Spots.busy`, `Spots.SETTLE`): the arrow
+  never moves under a fight or right after a kill. Spots with `alt` are never
   picked by these rules; they are reached by hand and, once picked, hold like
   any current spot (camps: until another spot is 40 yd nearer). Levels (#827): a kill or
   collect goal's spot carries `lvl`, the highest level of the mobs spawning in
