@@ -8838,3 +8838,15 @@ test('Horde Thousand Needles: the Galak Messenger never holds the centaur step',
 		assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg), `${goal.t} ${goal.quest}: only while the plot's quest chain is in the log`);
 	}
 });
+
+// Final route review (0.3.6): the Tauren Shaman's first Telf Joolam step said he waits on the riverbank; he keeps his
+// shrine at the top of a narrow mountain trail on the Durotar side, as every other Telf step says.
+test('Horde Call of Fire: every Telf Joolam step sends the player up the mountain trail, never to a riverbank', { skip }, () => {
+	for (const f of ['forever/horde/02-the-barrens.guide', 'forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']) {
+		const src = fs.readFileSync(path.join(OFFICIAL_DIR, f), 'utf8');
+		assert.doesNotMatch(src, /Telf waits on the riverbank/, `${f}: no riverbank Telf`);
+	}
+	const src = fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/horde/02-the-barrens.guide'), 'utf8');
+	const first = src.split('\nstep ').find((s) => s.startsWith('Telf Joolam') && /turnin 1524/.test(s));
+	assert.match(first, /trail climbs the mountain/, 'the Tauren Shaman is told about the trail');
+});

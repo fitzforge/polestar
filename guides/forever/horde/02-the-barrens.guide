@@ -281,7 +281,7 @@ step Durotar
 step Telf Joolam
   only Tauren,Shaman
   zone Durotar
-  tip Telf waits on the riverbank south of Far Watch Post, across the bridge.
+  tip Over the Southfury River bridge below Far Watch Post and south along the Durotar bank to where a narrow trail climbs the mountain: Telf keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail.
   turnin 1524 only Tauren
   accept 1525 only Tauren
 
