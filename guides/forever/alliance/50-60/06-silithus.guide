@@ -539,6 +539,7 @@ step Tirion Fordring (optional)
 
 step Eastern Plaguelands
   zone Eastern Plaguelands
+  when onquest 5845
   goto 71.3,34.0 "The lake for Of Lost Honor"
 
 step Of Lost Honor

@@ -4465,6 +4465,18 @@ test("Fitz's find (2026-11-06): after the Moonglade quests the Silithus guide ta
 	}
 });
 
+// Final route review 0.3.6 (Alliance 40-60): Of Lost Honor (5845) needs Of Forgotten Memories (5781), whose
+// Mercutio Filthgorger is elite and optional. A solo player never has 5845, yet the walk to its lake held
+// them: across the Eastern Plaguelands and back to Egan for nothing. The walk is only for players with 5845.
+test('Alliance 58-60: the walk to the lake for Of Lost Honor is only for players who have the quest', { skip }, () => {
+	const guide = 'forever/alliance/50-60/06-silithus.guide';
+	const list = goals(guide);
+	const symbol = at(list, `${guide}: collect 14625 for 5845`, (g) => g.t === 'collect' && g.item === 14625);
+	const walk = list.slice(0, symbol).reverse().find(({ goal }) => goal.t === 'goto');
+	assert.ok(walk && walk.s >= list[symbol].s - 1, `${guide}: a walk leads to the lake`);
+	assert.ok((walk.step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(5845)), `${guide}: "${walk.step.title}" waits for nobody without Of Lost Honor`);
+});
+
 test("Fitz's report: Darkshore's Fine Crab Chunks are a goal at Cliffspring Falls, by the crabs that drop them, not a list along ten stops", { skip }, () => {
 	// Only Reef Crawlers and Encrusted Tide Crawlers drop the chunks, on the north coast and the far
 	// south. Listed along the way, the chunks were open for ten stops of which three had crabs; the
