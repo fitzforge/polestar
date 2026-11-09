@@ -20,15 +20,15 @@ L["trail on: %s (stops by itself after %d min; /psrec trail off to end)"] = "경
 L["trail off: %s, %d points"] = "경로 기록 꺼짐: %s, %d개 지점"
 L["no trail running"] = "진행 중인 경로 기록 없음"
 L["usage: /psrec trail on [label] | trail off"] = "사용법: /psrec trail on [이름] | trail off"
--- L["%d chunks waiting for the uploader (about %d KiB of %d KiB)"] = ""
--- L["last chunk the uploader confirmed: %d (newest: %d)"] = ""
--- L["the uploader has not confirmed a chunk yet (newest: %d)"] = ""
--- L["install id: %s"] = ""
--- L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off | clear"] = ""
--- L["mark not recorded (not in the world yet)"] = ""
--- L["every recording not yet uploaded was deleted"] = ""
--- L["this deletes every recording not yet uploaded. Type |cffffd100/psrec clear confirm|r within %d seconds to proceed."] = ""
--- L["/reload or log out to send what's recorded"] = ""
+L["%d chunks waiting for the uploader (about %d KiB of %d KiB)"] = "업로더 대기 중인 묶음 %d개 (약 %d KiB / %d KiB)"
+L["last chunk the uploader confirmed: %d (newest: %d)"] = "업로더가 확인한 마지막 묶음: %d (최신: %d)"
+L["the uploader has not confirmed a chunk yet (newest: %d)"] = "업로더가 아직 묶음을 확인하지 않았습니다 (최신: %d)"
+L["install id: %s"] = "설치 ID: %s"
+L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off | clear"] = "명령어: /psrec on | off | ui | mark <텍스트> | trail on [이름] | trail off | clear"
+L["mark not recorded (not in the world yet)"] = "표시가 기록되지 않음 (아직 월드에 있지 않음)"
+L["every recording not yet uploaded was deleted"] = "업로드되지 않은 모든 기록을 삭제했습니다"
+L["this deletes every recording not yet uploaded. Type |cffffd100/psrec clear confirm|r within %d seconds to proceed."] = "업로드되지 않은 모든 기록을 삭제합니다. 진행하려면 %d초 안에 |cffffd100/psrec clear confirm|r을 입력하세요."
+L["/reload or log out to send what's recorded"] = "기록된 내용을 보내려면 /reload 하거나 로그아웃하세요"
 
 -- Trail.lua
 L["trail stopped after %d min: %s, %d points"] = "%d분 후 경로 기록 멈춤: %s, %d개 지점"
@@ -64,8 +64,8 @@ L["Recorder: start or stop the position trail"] = "기록기: 위치 경로 기�
 L["Recorder: show or hide the window"] = "기록기: 창 표시/숨기기"
 
 -- Recorder.lua
--- L["recordings from the previous Recorder (schema 1) were removed; recording now uses schema 2"] = ""
--- L["on, because sharing is on in Polestar Client. /psrec off to stop."] = ""
+L["recordings from the previous Recorder (schema 1) were removed; recording now uses schema 2"] = "이전 기록기(스키마 1)의 기록을 삭제했습니다. 이제 스키마 2로 기록합니다"
+L["on, because sharing is on in Polestar Client. /psrec off to stop."] = "켜짐: Polestar Client에서 공유가 켜져 있습니다. 중지하려면 /psrec off."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["this client exposes no talent tree API"] = "이 클라이언트는 특성 트리 API를 제공하지 않습니다"
