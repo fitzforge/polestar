@@ -44,7 +44,7 @@ step Theramore
 # ---------------------------------------------------------------- The north
 
 step Swamplight Manor
-  tip Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house.
+  tip Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house. Jarl wants three Soothing Spices: if you passed Helenia Olden, buy them from her in Theramore first.
   accept 1219                         -- Loose Dirt
   accept 1218                         -- "Swamp Eye" Jarl
   turnin 1218                         -- with the spices from Theramore
@@ -700,6 +700,12 @@ step Fly to Thelsamar
   goto 55.9,47.9 "Ironforge flight master"
   fly "Thelsamar"
   zone Loch Modan
+
+step Loch Modan
+  only Dwarf,Gnome
+  zone Loch Modan
+  tip Ride east out of Dun Morogh through the tunnel into Loch Modan and on along the road to Thelsamar.
+  goto 35.5,48.4 "Thelsamar"
 
 step Thelsamar
   zone Loch Modan
