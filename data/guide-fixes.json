@@ -4302,6 +4302,179 @@
 					"ref": "EG Link live quest 6027: objectives the Book (15803) and the Gem of the Serpent (15766)"
 				}
 			]
+		},
+		{
+			"id": "horde-3040-stv-nesingwary-pages-later",
+			"faction": "Horde",
+			"at": {
+				"quest": 583,
+				"goal": "accept"
+			},
+			"tip": "Follow the road north out of Grom'gol; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of The Green Hills of Stranglethorn you loot: Barnil takes them on your next Stranglethorn visit.",
+			"note": "Horde 30-40 audit (2026-11-09): Barnil Stonepot takes the Green Hills chapters (339-342, 338) on the next Stranglethorn visit (horde/40-50/01's Nesingwary stop), not later in this guide as the tip said.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "quests.json 338-342 ender Barnil Stonepot (716); the guides' turnins"
+			}
+		},
+		{
+			"id": "horde-3040-stv-young-cats-bloodscalps",
+			"faction": "Horde",
+			"at": {
+				"quest": 185,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Young Stranglethorn Tigers prowl west of the camp, Young Panthers east of it. Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A Pendant of Myzrael is a very rare drop from them: if one drops, read it. Careful: The troll camps have many patrolling mobs, so other trolls often join a fight.",
+			"note": "Horde 30-40 audit (2026-11-09): Young Panthers (683) spawn at 35-43,6.6-15, east of Nesingwary's camp (35.6,10.6), not south of it; one tip for the step (writer's troll-camp warning kept).",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 683, 681, 685 spawns on map 1434"
+			}
+		},
+		{
+			"id": "horde-3040-stv-booty-bay-from-the-coast",
+			"faction": "Horde",
+			"at": {
+				"quest": 575,
+				"goal": "accept"
+			},
+			"tip": "Back to the road and follow it south all the way to Booty Bay at the southern tip of the vale, and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. Gringer, the Horde flight master, waits on the inn's upper deck.",
+			"note": "Horde 30-40 audit (2026-11-09): the walk to Booty Bay starts from the Bloodscalp coast after the first loop; the step no longer binds the hearthstone at Booty Bay (no hearth used it before the next bind, the travel sweep's wasted binds).",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 2495, 2498, 737, 773, 2858 at Booty Bay"
+			}
+		},
+		{
+			"id": "horde-3040-stv-river-camp-investigation",
+			"faction": "Horde",
+			"at": {
+				"quest": 575,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "North up the road again. Nesingwary's camp is the one Krazek wants investigated: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp.",
+			"note": "Horde 30-40 audit (2026-11-09): Investigate the Camp completes among Nesingwary's tents (2 recorded completions at 35.4,11.2); River Crocolisks (1150) lie along the river below it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings: Investigate the Camp (201) completed at Stranglethorn 35.4,11.2 (2 people)"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 1150 spawns 32-41,8-14"
+				}
+			]
+		},
+		{
+			"id": "horde-3040-stv-elder-tigers",
+			"faction": "Horde",
+			"at": {
+				"quest": 187,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Elder Stranglethorn Tigers (34-35) roam the hills south-west of the camp. Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.",
+			"note": "Horde 30-40 audit (2026-11-09): the step named the Lashtail Raptors, whose kills now come on the walk back south to Grom'gol; one tip for the step (writer's troll warning kept).",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 1085 spawns 31-36,16-20"
+			}
+		},
+		{
+			"id": "horde-3040-stv-lashtails-on-the-way",
+			"faction": "Horde",
+			"at": {
+				"quest": 195,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "On your way back south to Grom'gol, the Lashtail Raptors (35-36) hunt the jungle between the camp and Grom'gol: they count for Hemet and for Commander Aggro'gosh.",
+			"note": "Horde 30-40 audit (2026-11-09): the Lashtail Raptors (686, 30-39,19-28) lie between Nesingwary's camp and Grom'gol; Raptor Mastery and The Defense of Grom'gol take them on that walk, and Aggro'gosh takes 568 on the Grom'gol stop before the Booty Bay flight (the flow audit's deferred Lashtail kills).",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 686 spawns on map 1434"
+			}
+		},
+		{
+			"id": "horde-3040-stv-gromgol-aggrogosh",
+			"faction": "Horde",
+			"at": {
+				"quest": 568,
+				"goal": "turnin"
+			},
+			"tip": "Commander Aggro'gosh stands in the middle of Grom'gol, Far Seer Mok'thardin beside the flight master.",
+			"note": "Horde 30-40 audit (2026-11-09): Commander Aggro'gosh (2464) at 32.17,28.9 and Far Seer Mok'thardin (2465) at 32.12,29.24 beside the flight master.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 2464, 2465 on map 1434"
+			}
+		},
+		{
+			"id": "horde-3040-stv-booty-bay-handins",
+			"faction": "Horde",
+			"at": {
+				"quest": 575,
+				"goal": "turnin"
+			},
+			"tip": "Drizzlik's shop is in the building east of the inn; Crank Fizzlebub is on the inn's bottom floor, Kebok and Krazek on its top floor beside the flight master.",
+			"note": "Horde 30-40 audit (2026-11-09): the mid Booty Bay stop hands in Hostile Takeover too (the crystals are gathered on the second loop); Drizzlik 28.29,77.59, Crank Fizzlebub 27.12,77.21, Kebok 27.0,77.13 and Krazek 26.95,77.21.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 2495, 2498, 737, 773 on map 1434"
+			}
+		},
+		{
+			"id": "horde-3040-stv-shadowmaw-and-tigresses",
+			"faction": "Horde",
+			"at": {
+				"quest": 570,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "East of the Mosh'Ogg hills, Shadowmaw Panthers (37-38) stalk the jungle towards the lake; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for Drizzlik. Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them.",
+			"note": "Horde 30-40 audit (2026-11-09): the Shadowmaw Panthers (684) and Stranglethorn Tigresses (772) spawn at 35-51,20-45, east of the Mosh'Ogg hills; the panthers' own step after this one repeated the same ground and is folded in. One tip for the step (writer's stealth warning kept).",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 684, 772 spawns on map 1434"
+			}
+		},
+		{
+			"id": "horde-3040-stv-green-hills-next-visit",
+			"faction": "Horde",
+			"at": {
+				"quest": 339,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Pages of The Green Hills of Stranglethorn drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. Barnil takes the chapters on your next Stranglethorn visit, at about 40.",
+			"note": "Horde 30-40 audit (2026-11-09): Barnil takes the chapters on the next Stranglethorn visit (horde/40-50/01), not later in this guide.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "quests.json 339-342 ender 716"
+			}
+		},
+		{
+			"id": "horde-3040-stv-moshogg-counts",
+			"faction": "Horde",
+			"at": {
+				"quest": 569,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Mosh'Ogg ogres camp in the hills just east of Grom'gol, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time.",
+			"note": "Horde 30-40 audit (2026-11-09): The Defense of Grom'gol (569) asks for 10 Mosh'Ogg Brutes (1142) and 5 Witch Doctors (1144); the tip said one of each.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "quests.json 569 objectives kill 1142 x10, 1144 x5"
+				},
+				{
+					"kind": "eg",
+					"ref": "EG Link live quest 569: monster 1142 x10, 1144 x5"
+				}
+			]
 		}
 	]
 }
