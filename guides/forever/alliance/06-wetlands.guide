@@ -261,10 +261,15 @@ step Boat to Auberdine
   tip The boat to Auberdine leaves from the far end of Menethil's western pier.
   goto 4.5,56.7 "Boat to Auberdine"
 
+step Thundris Windweaver
+  zone Darkshore
+  when onquest 97926
+  tip Thundris Windweaver stands at the north end of Auberdine.
+  turnin 97926                            -- Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first Auberdine stop)
+
 step Auberdine
   zone Darkshore
-  tip Thundris Windweaver stands at the north end of Auberdine, Terenthis and Sentinel Selarin by the flight master.
-  turnin 97926 optional                   -- Thundris Windweaver: Alexston's reply, if you took it in Stormwind
+  tip Terenthis and Sentinel Selarin stand by the flight master.
   turnin 994                              -- Terenthis: Volcor's escort from the end of Darkshore
   accept 990                              -- Sentinel Selarin: for Raene Wolfrunner in Astranaar
 

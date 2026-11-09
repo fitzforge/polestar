@@ -3690,7 +3690,8 @@ test(`Nittepitte's report (#453): Making Do is optional in Redridge and on the w
 	assert.ok(list[take].goal.optional, 'accept 97926 is optional');
 	assert.ok(at(list, 'turnin 97914', is('turnin', 97914)) < take, 'Expanding Horizons is handed in first');
 	const auberdine = goals(WETLANDS);
-	assert.ok(auberdine[at(auberdine, 'turnin 97926', is('turnin', 97926))].goal.optional, 'turnin 97926 is optional');
+	const back = auberdine[at(auberdine, 'turnin 97926', is('turnin', 97926))];
+	assert.ok(back.goal.optional || (back.step.when || []).some((p) => p.k === 'onquest'), 'turnin 97926 holds nobody without it (optional, or only with it in the log: #1415)');
 });
 
 // Ioney (#524): "quest not available from Tarrel Rockweaver until completing
@@ -8053,7 +8054,7 @@ test(`${LOCH_MODAN} / ${DARKSHORE_RETURN}: #1415: Expanding Horizons goes to Bar
 	const dark = goals(DARKSHORE_RETURN);
 	assert.equal(dark[at(dark, 'turnin 97926', is('turnin', 97926))].s, 1, 'Making Do handed to Thundris on the first Auberdine stop');
 	const ash = goals(ASHENVALE);
-	assert.ok(ash[at(ash, 'turnin 97914', is('turnin', 97914))].goal.optional, '06-ashenvale keeps only an optional fallback');
+	assert.ok(ash[at(ash, 'turnin 97914', is('turnin', 97914))].step.when.some((p) => p.k === 'onquest'), '06-ashenvale keeps only a fallback for a character still carrying it');
 });
 
 // Night Elves landed in Auberdine at the end of Teldrassil and killed Tide Crawlers on the Long Wash for Gwennyth's
