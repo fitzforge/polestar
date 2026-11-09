@@ -196,8 +196,8 @@ step Hermit Ortell
 step Bronzebeard's Encampment
   tip Ride south-west to the dwarves' camp near the southern mountains and question Frankal Stonebridge and Rutgar Glyphshaper. Noggle's satchel lies in the sand just south-east of the camp.
   collect 20379 quest 8282.1          -- Noggle's Satchel
-  kill 15171 quest 8304.1
-  kill 15170 quest 8304.2
+  talk 15171 quest 8304.1
+  talk 15170 quest 8304.2
 
 step The Twilight Post
   tip Twilight Keeper Exeter holds the cultists' camp in the far south-west.

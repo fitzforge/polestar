@@ -267,7 +267,7 @@ step Tirion Fordring
   accept 5742
 
 step Redemption
-  kill 1855 quest 5742.1 @5.2,35.6 map 1423 live
+  talk 1855 quest 5742.1 @5.2,35.6 map 1423 live
 
 step Tirion Fordring
   zone Eastern Plaguelands
@@ -497,7 +497,7 @@ step Gadgetzan
   turnin 4493                         -- Alchemist Pestlezugg, inside
   accept 4496
   use 12928 @51.1,26.9 "Umi's Mechanical Yeti" -- On Sprinkle
-  kill 7583 quest 5163.2 @51.1,26.9 map 1446 -- Sprinkle
+  kill 7583 quest 5163.2 @51.1,26.9 map 1446 "Scare Sprinkle with Umi's Mechanical Yeti" -- Sprinkle
   turnin 5538                         -- Krinkle Goodsteel
   accept 5801                         -- For Chillwind Camp: keep it
   accept 4504                         -- Tran'rek, north side of town: the tar is in Un'Goro, keep it

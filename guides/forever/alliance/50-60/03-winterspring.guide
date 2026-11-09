@@ -115,7 +115,7 @@ step Everlook
   turnin 977
   accept 5163
   use 12928 @61.5,38.6 "Umi's Mechanical Yeti" -- On Legacki, by the inn
-  kill 10978 quest 5163.1             -- Legacki: Sprinkle and Quixxil come later
+  kill 10978 quest 5163.1 "Scare Legacki with Umi's Mechanical Yeti" -- Legacki: Sprinkle and Quixxil come later
 
 step Winterspring
   zone Winterspring

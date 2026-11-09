@@ -173,7 +173,7 @@ step Royal Historian Archesonus
   zone Ironforge
   tip Archesonus stands beside King Magni in the High Seat.
   accept 3702
-  complete 3702
+  talk 8879 quest 3702.1
   turnin 3702
   accept 3701                         -- The relics are in the Burning Steppes: keep it
 

@@ -70,7 +70,7 @@ step Zamael Lunthistle
   accept 3377
 
 step Prayer to Elune
-  kill 8436 quest 3377.1 @29.6,26.3 map 1427
+  talk 8436 quest 3377.1 @29.6,26.3 map 1427
 
 step Zamael Lunthistle
   turnin 3377
@@ -84,7 +84,7 @@ step Velarok Windblade
   accept 3441
 
 step Divine Retribution
-  kill 8479 quest 3441.1 @39.1,39.0 map 1427
+  talk 8479 quest 3441.1 @39.1,39.0 map 1427
 
 step Velarok Windblade
   turnin 3441

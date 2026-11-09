@@ -4519,6 +4519,29 @@ test('Alliance 55-57: the Videre Elixir comes from Gregan\'s Evoroot errand, and
 	assert.match([].concat(gaeriyan.step.note || []).join(' '), /Videre Elixir/, `${guide}: "${gaeriyan.step.title}" says to drink the elixir`);
 });
 
+// Final route review 0.3.6 (Alliance 40-60, with the Horde reviewer): objectives the game credits as a "kill" of a
+// friendly NPC you only listen to or question read "Kill Velarok Windblade", "Kill Tirion Fordring". They are talk
+// goals now; the ones done with Umi's Mechanical Yeti say so, as Quixxil's already did.
+test('Alliance 40-60: listening and questioning are talk goals, the yeti scares say what they are', { skip }, () => {
+	const listen = [
+		['forever/alliance/40-50/06-searing-gorge.guide', 8436, 3377],
+		['forever/alliance/40-50/06-searing-gorge.guide', 8479, 3441],
+		['forever/alliance/50-60/01-burning-steppes.guide', 8879, 3702],
+		['forever/alliance/50-60/04-western-plaguelands.guide', 1855, 5742],
+		['forever/alliance/50-60/06-silithus.guide', 15171, 8304],
+		['forever/alliance/50-60/06-silithus.guide', 15170, 8304],
+	];
+	for (const [guide, npc, quest] of listen) {
+		const list = goals(guide);
+		at(list, `${guide}: talk ${npc} for ${quest}`, (g) => g.t === 'talk' && g.npc === npc && g.quest === quest);
+		assert.ok(!list.some(({ goal }) => goal.t === 'kill' && goal.npc === npc), `${guide}: no "Kill" of ${npc}`);
+	}
+	for (const [file, npc] of [['alliance/50-60/03-winterspring', 10978], ['alliance/50-60/04-western-plaguelands', 7583]]) {
+		const text = fs.readFileSync(path.join(OFFICIAL_DIR, 'forever', `${file}.guide`), 'utf8');
+		assert.match(text, new RegExp(`kill ${npc} quest 5163\\.\\d[^\\n]*"Scare [^"]+ with Umi's Mechanical Yeti"`), `${file}: the scare of ${npc} says what it is`);
+	}
+});
+
 test("Fitz's report: Darkshore's Fine Crab Chunks are a goal at Cliffspring Falls, by the crabs that drop them, not a list along ten stops", { skip }, () => {
 	// Only Reef Crawlers and Encrusted Tide Crawlers drop the chunks, on the north coast and the far
 	// south. Listed along the way, the chunks were open for ten stops of which three had crabs; the
