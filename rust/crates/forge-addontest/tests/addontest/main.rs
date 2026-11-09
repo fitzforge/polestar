@@ -118,6 +118,8 @@ mod engine_professions;
 mod engine_review;
 #[path = "engine-routes.rs"]
 mod engine_routes;
+#[path = "engine-sections.rs"]
+mod engine_sections;
 #[path = "engine-skip-undo.rs"]
 mod engine_skip_undo;
 #[path = "engine-skipquest.rs"]

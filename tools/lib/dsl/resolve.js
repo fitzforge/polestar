@@ -720,6 +720,29 @@ function resolveGuide(ast, data, diag, opts = {}) {
 	// pack.json); ours when no pack author is given.
 	guide.author = h.author || opts.author || 'Polestar';
 	guide.version = h.version !== undefined ? h.version : 1;
+	// `section <Profession> <from>-<to>`: { skill, skillLine, from, to } per heading (a step's `section`
+	// is its index, 1-based); the engine starts a profession guide at the section the player's skill is in.
+	if (ast.sections) {
+		let prev = null;
+		guide.sections = ast.sections.map((sec) => {
+			const out = {};
+			const p = data.professionNamed(sec.skill);
+			if (p) {
+				out.skill = String(p.name);
+				out.skillLine = p.id;
+			} else if (sec.skillQuoted) {
+				out.skill = sec.skill;
+				warn(sec.line, `profession "${sec.skill}" is not in data${data.hasProfessions ? '' : ' (professions.json missing)'}; using the explicit name (new Forever content?)`);
+			} else {
+				err(sec.line, `unknown profession "${sec.skill}"; quote the name to use it anyway: \`section "${sec.skill}" ${sec.from}-${sec.to}\``);
+			}
+			if (prev && (prev.skill !== sec.skill || sec.from < prev.from)) warn(sec.line, `section ${sec.skill} ${sec.from}-${sec.to} comes after ${prev.skill} ${prev.from}-${prev.to}: a guide's sections are one profession's skill ranges in rising order`);
+			prev = sec;
+			out.from = sec.from;
+			out.to = sec.to;
+			return out;
+		});
+	}
 	guide.steps = [];
 	hidden(guide, '_ast', ast);
 
@@ -784,6 +807,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		setIf(step, 'when', resolveWhen(s.when, stepZone ? stepZone.id : null, h.levels ? [h.levels.min, h.levels.max] : null, data, warn));
 		setIf(step, 'label', s.label);
 		setIf(step, 'along', s.along);
+		setIf(step, 'section', s.section);
 		// `skipto <label> when <predicate>`: { to, when } in the step's order, `when` one predicate.
 		if (s.skipto) step.skipto = s.skipto.map((k) => ({ to: k.to, when: resolveWhen([k.when], stepZone ? stepZone.id : null, null, data, warn)[0] }));
 		step.goals = [];
@@ -1680,6 +1704,13 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 						warn(ln, `\`until\` needs the recipe's profession, but spell ${g.spell} is not in professions.json; the engine cannot check the skill`);
 					} else if (Number(r.grey) > 0 && g.untilSkill > Number(r.grey)) {
 						warn(ln, `${goal.spellName} turns grey at ${r.grey}; crafting it gives no skill up to ${g.untilSkill}`);
+					}
+					// Its skill-up colours: the engine counts the crafts still to make from the player's
+					// skill (Classic chance (grey - skill) / (grey - yellow)), so a section's materials
+					// shrink as the skill rises.
+					if (found && Number(r.yellow) > 0 && Number(r.grey) > Number(r.yellow)) {
+						goal.yellow = Number(r.yellow);
+						goal.grey = Number(r.grey);
 					}
 				}
 				if (r && Array.isArray(r.reagents) && r.reagents.length) {

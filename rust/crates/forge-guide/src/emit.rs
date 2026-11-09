@@ -39,7 +39,7 @@ pub fn header(lang: &str, command: &str, sources: &str) -> String {
 
 // ------------------------------------------------------------ emit.js
 
-pub const GUIDE_KEYS: [&str; 28] = [
+pub const GUIDE_KEYS: [&str; 29] = [
 	"id",
 	"pack",
 	"title",
@@ -67,10 +67,11 @@ pub const GUIDE_KEYS: [&str; 28] = [
 	"group",
 	"names",
 	"written",
+	"sections",
 	"steps",
 ];
-/// `image` follows note, so a step without one is emitted as before.
-pub const STEP_KEYS: [&str; 9] = ["title", "note", "image", "label", "only", "when", "along", "skipto", "goals"];
+/// `image` follows note, so a step without one is emitted as before; so does `section`.
+pub const STEP_KEYS: [&str; 10] = ["title", "note", "image", "label", "only", "when", "along", "skipto", "section", "goals"];
 /// A step's picture: its path in the pack's addon folder (no extension) and its size in pixels.
 pub const IMAGE_KEYS: [&str; 3] = ["file", "w", "h"];
 /// A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order.
@@ -113,6 +114,9 @@ pub const GOAL_KEYS: [&str; 76] = [
 	"grind",
 	"money",
 	"untilSkill",
+	// A `craft … until` goal's skill-up colours (the engine's crafts still to make).
+	"yellow",
+	"grey",
 	"reagents",
 	"location",
 	"minLevel",
@@ -180,6 +184,8 @@ const SPOT_KEYS: [&str; 7] = ["x", "y", "z", "r", "n", "alt", "lvl"];
 const REWARD_KEYS: [&str; 3] = ["item", "itemName", "quality"];
 /// A guide's `reward = { ... }`: an item (`choice` when one of several), a spell or words.
 const GUIDE_REWARD_KEYS: [&str; 7] = ["item", "itemName", "quality", "choice", "spell", "spellName", "text"];
+/// A profession guide's `sections` (`section <Profession> <from>-<to>`): its skill-range headings.
+const SECTION_KEYS: [&str; 4] = ["skill", "skillLine", "from", "to"];
 
 /// LIST_DECIMALS[k]: farm-spot rates (items per kill) need three decimals; coordinates are already rounded to two.
 fn list_decimals(k: &str) -> usize {
@@ -201,6 +207,7 @@ pub fn list_keys(k: &str) -> Option<&'static [&'static str]> {
 		"items" => &REWARD_KEYS,
 		"choices" => &REWARD_KEYS,
 		"reward" => &GUIDE_REWARD_KEYS,
+		"sections" => &SECTION_KEYS,
 		_ => return None,
 	})
 }

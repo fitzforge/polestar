@@ -3,9 +3,12 @@
 // line numbers; filling from reference data happens in resolve.js.
 //
 // parseGuide(text, file, diag) -> guide | null
-//   guide = { file, id, line, header: { ... }, lines: { <headerKey>: line, pros: [line], cons: [line], rewards: [line], nextOf: { <id>: line } }, steps: [step] }
+//   guide = { file, id, line, header: { ... }, lines: { <headerKey>: line, pros: [line], cons: [line], rewards: [line], nextOf: { <id>: line } }, steps: [step], sections?: [section] }
 //   (header.next: the `next` guide ids in order; header.nextWhen: { <id>: predicate with its line } for `next <id> when ...`)
-//   step  = { line, title, only, tip, image?, when?: [predicate], label?, along?, skipto?, goals: [goal] }
+//   step  = { line, title, only, tip, image?, when?: [predicate], label?, along?, skipto?, section?, goals: [goal] }
+//   section = { line, skill, skillQuoted?, from, to, first } (a column-0 `section <Profession> <from>-<to>` line:
+//   a profession guide's skill range as a heading; `first`: the index in steps of its first step; a step's
+//   `section` is the 1-based index in guide.sections of the section it is under)
 //   (image: { path, ext, w, h, line }, images.js parseImagePath; w/h null unless written)
 //   (when: tools/lib/dsl/when.js predicates, each with its line; only on a step that has one;
 //   label: the step's name; along: true, or the label `along until` names; labelLine/alongLine: their lines;
@@ -162,6 +165,30 @@ function unquoteRest(line, lex, from) {
 	return line.slice(toks[0].start, lex.end).trim();
 }
 
+// `section <Profession> <from>-<to>` (a profession guide's skill range as a
+// heading over the steps after it): { line, skill, skillQuoted?, from, to }, or null.
+const RANGE_RE = /^(\d+)-(\d+)$/;
+function parseSection(toks, ln, err) {
+	const usage = '`section` needs a profession and a skill range: section <Profession> <from>-<to>';
+	const sec = { line: ln };
+	let i = 1;
+	if (toks[i] && toks[i].quoted) {
+		sec.skill = toks[i++].text;
+		sec.skillQuoted = true;
+	} else {
+		const w = wordsUntil(toks, i, (tk) => RANGE_RE.test(tk.text));
+		sec.skill = w.text;
+		i = w.next;
+	}
+	const r = toks[i];
+	const m = r && !r.quoted && RANGE_RE.exec(r.text);
+	if (!sec.skill || !m || i + 1 !== toks.length) return err(ln, usage), null;
+	sec.from = Number(m[1]);
+	sec.to = Number(m[2]);
+	if (sec.from >= sec.to) return err(ln, `malformed skill range "${r.text}" (from below to)`), null;
+	return sec;
+}
+
 // `image <path> [<w>x<h>]`: the step's picture, at most one per step.
 function parseImage(step, toks, ln, err) {
 	const usage = 'image media/<name>.tga [<width>x<height>]';
@@ -252,10 +279,19 @@ function parseGuide(text, file, diag) {
 			if (lex.note !== null) err(ln, 'notes (` -- `) are only allowed on goal lines');
 			if (kw === 'step') {
 				step = { line: ln, title: unquoteRest(line, lex, 1) || null, only: null, tip: null, goals: [] };
+				if (guide.sections) step.section = guide.sections.length;
 				guide.steps.push(step);
 				continue;
 			}
-			if (step) {
+			if (kw === 'section') {
+				const sec = parseSection(toks, ln, err);
+				if (sec) {
+					sec.first = guide.steps.length;
+					(guide.sections ||= []).push(sec);
+				}
+				continue;
+			}
+			if (step || guide.sections) {
 				err(ln, `unexpected \`${toks[0].text}\` in column 0 after the first step (indent step lines; header keys belong before the first step)`);
 				continue;
 			}
@@ -393,6 +429,12 @@ function parseGuide(text, file, diag) {
 	if (!guide.steps.length) err(guide.line, 'guide has no steps');
 	for (const s of guide.steps) {
 		if (!s.goals.length) err(s.line, 'step has no goals');
+	}
+	// A section heads at least one step.
+	const secs = guide.sections || [];
+	for (let i = 0; i < secs.length; i++) {
+		const end = i + 1 < secs.length ? secs[i + 1].first : guide.steps.length;
+		if (secs[i].first >= end) err(secs[i].line, '`section` has no steps under it');
 	}
 	return guide;
 }

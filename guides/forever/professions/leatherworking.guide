@@ -69,6 +69,7 @@ zone Azeroth
 # In-game check: whether Telonis or Una teach them.
 
 # ---------------------------------------------------------------- Apprentice (1-75)
+section Leatherworking 1-75
 
 step Learn Leatherworking
   tip Apprentice Leatherworking lets you craft up to 75 for 10c, at any character level. Any Leatherworking trainer of your faction teaches it; the arrow picks the nearest. Pair it with Skinning: Light Leather comes from the beasts of every starting zone. Coarse Thread and Salt are sold by leatherworking and trade supplies vendors. 1-75 takes about 1s 50c of recipes and 5s of vendor goods, plus 349 Light Leather to gather or buy.
@@ -137,6 +138,7 @@ step Embossed Leather Gloves to 75
   skill Leatherworking 75
 
 # ---------------------------------------------------------------- Journeyman (75-150)
+section Leatherworking 75-150
 
 step Journeyman Leatherworking
   tip Journeyman raises the cap from 75 to 150 for 5s; it needs Leatherworking 50 and character level 10, so you can take it on any visit from 50. Not every Leatherworking trainer teaches it: Alliance Aayndia Floralwind (Ashenvale), Drakk Stonehand (The Hinterlands), Emerii Tallgust (Zephras Isle), Faldron (Darnassus), Fimble Finespindle (Ironforge), Simon Tanner (Stormwind City) and Telonis (Darnassus); Horde Arthur Moore (Undercity), Brawn (Stranglethorn Vale), Emerii Tallgust (Zephras Isle), Hahrana Ironhide (Feralas), Karolek (Orgrimmar), Krulmoo Fullmoon (The Barrens), Narv Hidecrafter (Desolace), Tarn (Thunder Bluff) and Una (Thunder Bluff). The arrow picks the nearest of your faction. Learn now: Fine Leather Belt (from 55, 3s). 75-150 takes about 15s 50c of recipes and 57s of vendor goods, plus 144 Medium Leather, 24 Elixir of Minor Agility and 308 Heavy Leather to gather or buy.
@@ -220,6 +222,7 @@ step Heavy Armor Kit to 150
   skill Leatherworking 150
 
 # ---------------------------------------------------------------- Expert (150-225)
+section Leatherworking 150-225
 
 step Leatherworking 150-225: vendor goods
   tip Buy the whole bracket's share in one go: 8 Fine Thread (8s) and 32 Silken Thread (1g 60s); about 1g 68s in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero, Edna Mullby and Jillian Tanner; Orgrimmar: Borya, Felika and Shimra).
@@ -276,6 +279,7 @@ step Rugged Leather to 225
   skill Leatherworking 225
 
 # ---------------------------------------------------------------- Artisan (225-300)
+section Leatherworking 225-300
 
 step Artisan Leatherworking
   tip Artisan raises the cap from 225 to 300; it needs Leatherworking 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance Drakk Stonehand (The Hinterlands); Horde Hahrana Ironhide (Feralas). The arrow picks the nearest of your faction. Learn now: Rugged Armor Kit (from 205). 225-300 takes about 3g 40s of recipes and 44g 90s of vendor goods, plus 1009 Rugged Leather and 430 Runecloth to gather or buy.

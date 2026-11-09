@@ -1076,6 +1076,52 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 	};
 	guide.set("author", author_v);
 	guide.set("version", if !h.get("version").is_undef() { h.get("version") } else { 1.into() });
+	// `section <Profession> <from>-<to>`: { skill, skillLine, from, to } per heading (a step's `section`
+	// is its index, 1-based); the engine starts a profession guide at the section the player's skill is in.
+	if ast.get("sections").truthy() {
+		let mut out_secs = Vec::new();
+		let mut prev: Option<V> = None;
+		for sec in ast.get("sections").items() {
+			let out = V::obj();
+			let ln = sec.get("line");
+			let p = data.profession_named(&sec.get("skill").to_js_string());
+			if p.truthy() {
+				out.set("skill", p.get("name").to_js_string());
+				out.set("skillLine", p.get("id"));
+			} else if sec.get("skillQuoted").truthy() {
+				out.set("skill", sec.get("skill"));
+				r.warn(
+					&ln,
+					format!("profession \"{}\" is not in data{}; using the explicit name (new Forever content?)", sec.get("skill"), if data.has_professions { "" } else { " (professions.json missing)" }),
+					None,
+				);
+			} else {
+				r.err(&ln, format!("unknown profession \"{}\"; quote the name to use it anyway: `section \"{}\" {}-{}`", sec.get("skill"), sec.get("skill"), sec.get("from"), sec.get("to")), None);
+			}
+			if let Some(pv) = &prev {
+				if !pv.get("skill").strict_eq(&sec.get("skill")) || sec.get("from").num() < pv.get("from").num() {
+					r.warn(
+						&ln,
+						format!(
+							"section {} {}-{} comes after {} {}-{}: a guide's sections are one profession's skill ranges in rising order",
+							sec.get("skill"),
+							sec.get("from"),
+							sec.get("to"),
+							pv.get("skill"),
+							pv.get("from"),
+							pv.get("to")
+						),
+						None,
+					);
+				}
+			}
+			prev = Some(sec.clone());
+			out.set("from", sec.get("from"));
+			out.set("to", sec.get("to"));
+			out_secs.push(out);
+		}
+		guide.set("sections", V::from(out_secs));
+	}
 	let gsteps: V = V::arr();
 	guide.set("steps", gsteps.clone());
 	guide.set_hidden("_ast", ast.clone());
@@ -1175,6 +1221,7 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		set_if(&step, "when", resolve_when(&s.get("when"), &szid, levels, r));
 		set_if(&step, "label", s.get("label"));
 		set_if(&step, "along", s.get("along"));
+		set_if(&step, "section", s.get("section"));
 		if s.get("skipto").truthy() {
 			let mut list = Vec::new();
 			for k in s.get("skipto").items() {
@@ -2506,6 +2553,13 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 							r.warn(&ln, format!("`until` needs the recipe's profession, but spell {} is not in professions.json; the engine cannot check the skill", g.get("spell")), None);
 						} else if rc.get("grey").num() > 0.0 && g.get("untilSkill").num() > rc.get("grey").num() {
 							r.warn(&ln, format!("{} turns grey at {}; crafting it gives no skill up to {}", goal.get("spellName"), rc.get("grey"), g.get("untilSkill")), None);
+						}
+						// Its skill-up colours: the engine counts the crafts still to make from the player's
+						// skill (Classic chance (grey - skill) / (grey - yellow)), so a section's materials
+						// shrink as the skill rises.
+						if found.truthy() && rc.get("yellow").num() > 0.0 && rc.get("grey").num() > rc.get("yellow").num() {
+							goal.set("yellow", rc.get("yellow").num());
+							goal.set("grey", rc.get("grey").num());
 						}
 					}
 					if rc.truthy() && rc.get("reagents").is_arr() && !rc.get("reagents").is_empty() {

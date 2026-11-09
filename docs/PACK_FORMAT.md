@@ -525,6 +525,7 @@ Guide keys (the compiler writes them in this order):
 | `names` | no | format 3: `{ ["npc:240"] = "Marshal Dughan", ... }`, the English of every name token the guide's texts hold (a token it lacks is shown as written) |
 | `written` | no | format 3: `{ ["Back to {npc:3649}"] = "Back to Dendrite", ... }`, a text whose names its tokens' English in `names` would spell otherwise, with the author's words an English client reads |
 | `legsGrid`, `legs` | no | format 6 (read, no longer written): the navigation grid the legs were baked on, and `{ [<step>] = "<leg>" }`, one baked walk into each step ([Format 6](#format-6)); format 7 carries them in the race parts ([Format 7](#format-7)) |
+| `sections` | no | a profession guide's skill-range headings (`section <Profession> <from>-<to>`, GUIDE_FORMAT.md "Sections"): `{ { skill = "First Aid", skillLine = 129, from = 1, to = 40 }, ... }`, `skill` or `skillLine` (or both) and `from` < `to`; a step's `section` is its index. Polestar 0.3.7 and later start the guide at the range the player's skill is in, ask only for the materials still needed in it and show the range as a heading; older Polestar ignores them and plays the steps from the start, so they do not change the format |
 | `steps` | yes | list of steps, at least one |
 
 Step keys: `title` (optional), `note` (optional, player-facing), `image`
@@ -535,7 +536,10 @@ step's tip, and an imported guide, which has no addon folder, shows none),
 `only` (optional: `{ classes = { ... }, races = { ... }, factions = { ... } }`,
 AND across keys, OR within; Polestar also reads an entry `"!X"` as "not X",
 but the compiler writes positive lists only), `when` (optional, format 4: the
-step's conditions checked during play, below) and `goals` (at least one).
+step's conditions checked during play, below), `section` (optional: the
+index in the guide's `sections` of the skill range the step is under; a
+value that is not a whole number from 1 refuses the guide) and `goals` (at
+least one).
 
 Goal keys common to every verb: `t` (the verb), `text` (display text),
 `note`, `optional` (`true`: never blocks the step), `only` (as on a step),
@@ -575,7 +579,7 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 | `note` | `text` | — |
 | `skill` | `skill`, `level` | `skillLine` |
 | `learn` | `spell`, `spellName` | `skillLine`, `npc`/`npcName`, `item`/`itemName`, `candidates` |
-| `craft` | `spell`, `spellName` | `item`/`itemName`, `count`, `untilSkill`, `skillLine`, `reagents = { { item, itemName, count } }` |
+| `craft` | `spell`, `spellName` | `item`/`itemName`, `count`, `untilSkill`, `yellow`, `grey`, `skillLine`, `reagents = { { item, itemName, count } }` |
 | `rep` | `faction`, `factionName`, `standing` (1 to 8) | — |
 | `explore` | `map`, `x`, `y` | `text` |
 | `achieve` | `achievement`, `achievementName` | `criteria` |
@@ -603,6 +607,7 @@ The fields:
 | `frac` | on `level` (format 4): the share of the level's XP to reach, 0 < frac < 1 (above) |
 | `grind` | on `level`: the npc id of the mob the level is reached on (`level N grind <npc>`, GUIDE_FORMAT.md). The compiler places the goal at that mob's spawn areas, as a `kill`'s, leaving out the alternatives; Polestar 0.3.7 and later lead the arrow there rather than to a `goto` before it in the step. Older Polestar ignores it and leads to the goto, so it does not change the format |
 | `untilSkill` | on `craft`: craft until the profession reaches this skill |
+| `yellow`, `grey` | on a `craft` with `untilSkill`: the skill at which the recipe turns yellow and grey (the compiler's, from professions.json). Polestar 0.3.7 and later count the crafts still to make from them for a guide's `sections` (each craft gives a point below yellow, then (grey - skill) / (grey - yellow)); older Polestar ignores them, so they do not change the format |
 | `reagents` | `{ { item, itemName, count } }` |
 | `standing` | 1 Hated to 8 Exalted |
 | `criteria` | an achievement's criterion index |

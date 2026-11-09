@@ -131,6 +131,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `cast <spellId> ["Name"]` | Cast that spell while the goal is open (needs Polestar 0.3.0) | `cast 818 "Basic Campfire"` |
 | `craft <spell> ["Name"]` | Craft a recipe, `x<N>` times | `craft 3275 x5` |
 | `until <N>` | On `craft`: until the profession reaches N | `craft 3275 until 40` |
+| `section <Profession> <from>-<to>` | In column 0: a skill range as the heading over the steps after it; the guide starts at the range the player's skill is in, and asks only for the materials still needed in it (GUIDE_FORMAT, "Sections") | `section Mining 1-65` |
 
 ## Reputation and challenges
 

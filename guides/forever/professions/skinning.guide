@@ -27,6 +27,7 @@ zone Ironforge
 # changed a map frame, and a map without an Era frame (Zephras Isle) compiles live.
 
 # ---------------------------------------------------------------- Apprentice
+section Skinning 1-50
 
 step Learn Skinning
   tip Any Skinning trainer of your faction teaches Apprentice Skinning at any level (10c), and so does the Junior Skinning Trainer in each starting area; the arrow picks the nearest. Buy a Skinning Knife from a trade goods or general vendor: keep it in your bags, you cannot skin without it. The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's Cactus Apple Surprise, A Humble Task, Marla's Last Wish) offers Pelt Collecting for Beginners as a reward: reading it gives 2 skill, up to 15. Trade goods vendors and the junior trainers sell the Apprentice's Skinning Satchel, a four-slot bag for leather and hides (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: Skinning: hand it in to the skinning trainer it names once you reach skill 20, for the Camp Chair recipe.
@@ -167,6 +168,7 @@ step Journeyman Skinning
   learn 1229517
 
 # ---------------------------------------------------------------- Skinning 50-100
+section Skinning 50-100
 
 step Beasts 10-16: Westfall (50-100)
   only Human,Skyborne,Alliance
@@ -258,6 +260,7 @@ step Beasts 10-16: Silverpine Forest (50-100)
   skill Skinning 100
 
 # ---------------------------------------------------------------- Skinning 100-125
+section Skinning 100-125
 
 step Beasts 19-20: Duskwood (100-125)
   only Human,Dwarf,Gnome,Skyborne,Alliance
@@ -329,6 +332,7 @@ step Expert Skinning
   train Skinning Expert
 
 # ---------------------------------------------------------------- Skinning 125-150
+section Skinning 125-150
 
 step Beasts 21-27: Hillsbrad Foothills (125-150)
   only Human,Dwarf,Gnome,Skyborne,Alliance
@@ -403,6 +407,7 @@ step Beasts 21-27: Hillsbrad Foothills (125-150)
   skill Skinning 150
 
 # ---------------------------------------------------------------- Skinning 150-175
+section Skinning 150-175
 
 step Beasts 21-33: Alterac Mountains (150-175)
   zone Alterac Mountains
@@ -421,6 +426,7 @@ step Beasts 21-33: Alterac Mountains (150-175)
   skill Skinning 175
 
 # ---------------------------------------------------------------- Skinning 175-200
+section Skinning 175-200
 
 step Beasts 30-39: Stranglethorn Vale (175-200)
   zone Stranglethorn Vale
@@ -444,6 +450,7 @@ step Artisan Skinning
   train Skinning Artisan
 
 # ---------------------------------------------------------------- Skinning 200-225
+section Skinning 200-225
 
 step Beasts 35-41: Swamp of Sorrows (200-225)
   zone Swamp of Sorrows
@@ -459,6 +466,7 @@ step Beasts 35-41: Swamp of Sorrows (200-225)
   skill Skinning 225
 
 # ---------------------------------------------------------------- Skinning 225-250
+section Skinning 225-250
 
 step Beasts 42-49: The Hinterlands (225-250)
   zone The Hinterlands
@@ -478,6 +486,7 @@ step Beasts 42-49: The Hinterlands (225-250)
   skill Skinning 250
 
 # ---------------------------------------------------------------- Skinning 250-275
+section Skinning 250-275
 
 step Beasts 48-54: Un'Goro Crater (250-275)
   zone Un'Goro Crater
@@ -497,6 +506,7 @@ step Beasts 48-54: Un'Goro Crater (250-275)
   skill Skinning 275
 
 # ---------------------------------------------------------------- Skinning 275-300
+section Skinning 275-300
 
 step Beasts 51-55: Western Plaguelands (275-300)
   zone Western Plaguelands

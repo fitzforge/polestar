@@ -33,6 +33,7 @@ zone Ironforge
 # from 150 to 160, and fish lost at skill 1 in a starting area.
 
 # ---------------------------------------------------------------- Apprentice
+section Fishing 1-50
 
 step Learn Fishing
   tip Any Fishing trainer of your faction teaches Apprentice Fishing (character level 5, 1s); the arrow picks the nearest, and every starting area has one on its lake or shore. Buy a Fishing Pole (23c) from a trade goods or fishing vendor and equip it (you can only fish with a pole in your hands), and two or three Shiny Baubles (+25, 50c each): a lure adds its bonus to your skill for ten minutes, so fewer fish get away at the start. If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: Fishing, handed in to the fishing trainer it names at skill 20 for the Fish Bowl recipe.
@@ -40,7 +41,7 @@ step Learn Fishing
   train Fishing Apprentice
   buy 6256 x1 nearest
 
-# ---------------------------------------------------------------- Fishing 1-75
+# ---------------------------------------------------------------- Fishing 1-50
 
 step Fishing: Elwynn Forest (1-50)
   only Human
@@ -105,6 +106,7 @@ step Journeyman Fishing
   learn 1229745
 
 # ---------------------------------------------------------------- Fishing 50-125
+section Fishing 50-125
 
 step Fishing: Westfall (50-125)
   only Human,Skyborne,Alliance
@@ -142,6 +144,7 @@ step Fishing: Silverpine Forest (50-125)
   skill Fishing 125
 
 # ---------------------------------------------------------------- Expert Fishing
+section Fishing 125-225
 
 step Expert Fishing
   tip Expert Fishing (cap 225) is a book, not a trainer rank: Old Man Heming sells Expert Fishing - The Bass and You (1g) on the lowest dock of Booty Bay, at the south tip of Stranglethorn Vale, to both factions. Buy it and read it; it needs skill 125 and level 20. At level 20 the safe way in is the boat from Ratchet in The Barrens, not the road through Stranglethorn. He also sells Bright Baubles (+75 from skill 100, 2s 50c each), the lure for the rest of the way.
@@ -179,6 +182,7 @@ step Fishing: Hillsbrad Foothills (125-225)
   skill Fishing 225
 
 # ---------------------------------------------------------------- Artisan Fishing: Nat Pagle
+section Fishing 225-300
 
 step Nat Pagle, Angler Extreme
   only Alliance

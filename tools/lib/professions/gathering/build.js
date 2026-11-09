@@ -17,6 +17,7 @@ const { ZONES, RANKS, color, bandWeight } = require('./tables');
 const { RACE_GROUPS, REGIONS, SIDE, TWO_SIDED, raceCondition, maxZoneLevel } = require('./groups');
 const R = require('./route');
 const { OUT_DIR, GUIDE_HEADER, FACTIONS, context, fmt, liveMark, money, zoneName, flightMaster, rankInfo } = require('./common');
+const { byBanners } = require('../sections');
 
 // ------------------------------------------------------------------ planning
 
@@ -283,7 +284,8 @@ function render(ctx, prof) {
 	}
 	L.push('');
 	for (const line of prof.footer || []) L.push(line);
-	return `${L.join('\n').replace(/\n+$/, '')}\n`;
+	// Each band's range is a section (the guide window's heading; the guide starts at the player's skill).
+	return `${byBanners(L.join('\n').replace(/\n+$/, ''), prof.skill)}\n`;
 }
 
 // Every generated profession guide: { 'mining.guide': text, ... }.

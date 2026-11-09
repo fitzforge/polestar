@@ -541,6 +541,51 @@ guides, a `background` record in `data/guide-fixes.json` writes all of this
 as the along step it is, so a pack with it is written in pack format 4, like
 `along`.
 
+## Sections
+
+A profession guide groups its steps under skill ranges. A line
+`section <Profession> <from>-<to>` in column 0 (between steps, or after the
+header) starts one: every step after it, up to the next `section`, is under
+that range, and the guide window shows the range as a heading over them
+("First Aid 1-40"), in the accent colour while the player's skill is in it.
+
+```
+section First Aid 1-40
+
+step Linen Bandage: cloth
+  collect 2589 x41 nearest
+
+step Linen Bandage (1-40)
+  craft 3275 until 40
+
+section First Aid 40-50
+
+step Heavy Linen Bandage (40-50)
+  learn 3276
+  craft 3276 until 50
+```
+
+The guide starts where the player is, whatever skill they load it with:
+
+- The steps under a section whose end the player's skill has reached are
+  done; the first open step is in the range their skill is in. A step under
+  such a section that trains a profession rank the player still lacks
+  (`train First Aid Journeyman` at 75/75) still holds the route.
+- A `collect` or `buy` with a count (`x41`) under a section asks only for
+  what the section's crafts still need: its count, less what the `craft …
+  until` goals of the section would have used to bring the skill from the
+  section's start to where it is now (the expected crafts, from the recipe's
+  skill-up colours: every craft gives a point below yellow, then (grey -
+  skill) / (grey - yellow)). A material of a counted craft whose item an
+  `until` craft uses (a bolt of cloth) shrinks with that item's share.
+- Both are recomputed as the skill rises and when a rank is trained.
+
+Write a guide's sections for one profession in rising order (lint warns
+otherwise); the profession is named as for `skill` (quoted to use a name
+the data lacks). A `section` with no step under it is an error, and header
+keys go before the first `section`. An older Polestar ignores sections and
+plays the steps from the start, so a pack with them needs no newer format.
+
 ## Jumps
 
 `skipto <label> when <predicate>` lets a guide skip a block of steps that
@@ -1204,6 +1249,16 @@ step First Aid
   learn 3275
   craft 3275 until 40
   skill "First Aid" 40
+```
+
+Under a skill-range heading, so the guide starts where the player's skill
+is (see "Sections"):
+
+```
+section First Aid 1-40
+
+step Linen Bandage (1-40)
+  craft 3275 until 40
 ```
 
 ### Reputation and challenges: `rep`, `achieve`
