@@ -40,6 +40,16 @@ return {
 	-- {npc:5391} Galen Goodward
 	["{npc:5391} is caged at the north end of the sanctuary. Free him and keep him alive on the walk out; his strongbox waits by the road afterwards."] = "{npc:5391}被关在避难所北端的笼子里。救出他，并在护送他出去时保护他存活；之后他的保险箱就在路边。",
 
+	-- Step 10: The Harborage
+	-- {npc:5391} Galen Goodward · {area:657} The Harborage
+	["West along the road from {npc:5391}'s strongbox to the {area:657}."] = "",
+	-- {npc:1776} Magtoor
+	["{npc:1776}: Noboru's cudgel"] = "",
+
+	-- Step 11: Watcher Biggs
+	-- {npc:5476} Watcher Biggs
+	["South down the road to {npc:5476}, on the way west out of the swamp."] = "",
+
 	-- Step 13: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "飞往{zone:1453}",
@@ -53,7 +63,8 @@ return {
 	-- Step 15: The Binding
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6913} Heartswood Core · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
 	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}. Use the {item:6913} at the summoning circle there and defeat the succubus it calls. If you took {quest:65602}, hand him the {item:190309} too, place it at the same circle and defeat the incubus."] = "{npc:6122}在{object:2101}{object:2164}的地下室等候。在那里的召唤法阵使用{item:6913}，击败召来的魅魔。如果你接了{quest:65602}，也把{item:190309}交给他，放在同一个法阵上，然后击败梦魇。",
-	["Subdue the succubus"] = "制服魅魔",
+	-- {npc:5677} Summoned Succubus
+	["{npc:5677}, at the summoning circle"] = "",
 	-- {quest:65602} What Is Love?
 	["{quest:65602}, if you took it"] = "{quest:65602}，如果你接了",
 	-- {npc:185335} Summoned Incubus
@@ -92,23 +103,26 @@ return {
 	["{npc:2700}: {npc:1075}'s plea, from 01-hillsbrad-foothills"] = "",
 
 	-- Step 26: Northfold Manor
-	-- {area:320} Refuge Pointe · {npc:217589} Hay Weevil · {npc:217412} Amaryllis Webb
-	["The Syndicate hold the farm north-west of {area:320}. A {npc:217589} crawls about the farm: catch one with {npc:217412}'s Entomology Starter Kit, then tick it off.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "",
-	-- {npc:217589} Hay Weevil · {quest:93176} My Little Friends
-	["{npc:217589}: catch it, for {quest:93176}"] = "{npc:217589}：捕捉它，用于{quest:93176}",
+	-- {area:320} Refuge Pointe
+	["The Syndicate hold the farm north-west of {area:320}.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "",
 
-	-- Step 27: Witherbark Village
+	-- Step 27: Hay Weevil
+	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb
+	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
+	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "",
+
+	-- Step 28: Witherbark Village
 	-- {area:314} Go'Shek Farm
-	["South-east from Northfold to the Witherbark trolls in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley. Every troll here can drop a tusk."] = "",
+	["A few Witherbark trolls camp south of Northfold, on the way; the main village lies in the hills south of {area:314} in the south-east, where the Witch Doctors stand and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk."] = "",
 	-- {item:5040} Shadow Hunter Knife
 	["{item:5040}; below ground"] = "",
 
-	-- Step 28: Shards of Myzrael
+	-- Step 29: Shards of Myzrael
 	-- {area:314} Go'Shek Farm · {area:333} Circle of East Binding
 	["Head north past {area:314}; the shards glitter on the hill by the {area:333}."] = "向北经过{area:314}；碎片在{area:333}旁的山丘上闪闪发光。",
 	["Only if Gluggle gave you the pendant in Stranglethorn"] = "仅当格鲁高在荆棘谷给了你坠饰时",
 
-	-- Step 29: Drywhisker Gorge: kill these as you meet them
+	-- Step 30: Drywhisker Gorge: kill these as you meet them
 	-- {area:318} Drywhisker Gorge
 	["{area:318}: kill these as you meet them"] = "",
 	-- {area:321} Hammerfall
@@ -116,46 +130,52 @@ return {
 	-- {item:4435} Mote of Myzrael · {npc:2572} Drywhisker Kobold · {npc:2573} Drywhisker Surveyor · {npc:2574} Drywhisker Digger
 	["{item:4435} from {npc:2572}, {npc:2573} and {npc:2574}, by this stop"] = "从这一站附近的{npc:2572}、{npc:2573}和{npc:2574}身上获取{item:4435}",
 
-	-- Step 30: Iridescent Shards
+	-- Step 31: Iridescent Shards
 	-- {area:318} Drywhisker Gorge
 	["The shards lie at the far end of {area:318}."] = "碎片在{area:318}的尽头。",
 	["Below ground"] = "",
 
-	-- Step 31: Stones of Binding
+	-- Step 32: Stones of Binding
 	-- {area:320} Refuge Pointe · {object:2702} Stone of Inner Binding
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Thundering Exiles = {npc:2762} Thundering Exile · Cresting Exiles = {npc:2761} Cresting Exile
 	["Each key lies at one of the Highlands' standing-stone circles: east of the shards, near {area:320} and in the west. The {object:2702} stands west of {area:320}.\nCareful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East."] = "",
 
-	-- Step 32: Quae
+	-- Step 33: Quae
 	-- {area:320} Refuge Pointe · {npc:2712} Quae · {npc:2713} Kinelory · {area:314} Go'Shek Farm
 	["Head back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "",
 
-	-- Step 33: Forsaken Courier
+	-- Step 34: Forsaken Courier
 	-- {area:314} Go'Shek Farm
 	["The courier walks the road west of {area:314} with two guards; pull them off the road."] = "被遗忘者信使带着两名卫兵在{area:314}以西的路上行走；把他们引离道路。",
 
-	-- Step 35: Quae and Kinelory
+	-- Step 36: Quae and Kinelory
 	-- {npc:2712} Quae · {npc:2713} Kinelory
 	["{npc:2712} and {npc:2713}"] = "{npc:2712}和{npc:2713}",
 
-	-- Step 36: Kinelory's errand
+	-- Step 37: Kinelory's errand
 	-- {npc:2713} Kinelory
 	["{npc:2713}'s errand"] = "{npc:2713}的差事",
 	-- {npc:2713} Kinelory · {area:314} Go'Shek Farm
 	["Stay with {npc:2713} while she sneaks into {area:314} and back; Horde orcs jump you on the way.\nCareful: Orcs that drop to low health run away. {npc:2713} follows them and can pull more mobs, so kill or slow runners fast."] = "",
 
-	-- Step 37: Quae
+	-- Step 38: Quae
 	-- {npc:2711} Phin Odelic · {area:271} Southshore
 	["For {npc:2711} in {area:271}"] = "交给{area:271}的{npc:2711}",
 
-	-- Step 39: Faldir's Cove
+	-- Step 39: Refuge Pointe
+	-- {area:320} Refuge Pointe · {object:2689} Stone of West Binding
+	["West along the road to {area:320}, on the way to the {object:2689}."] = "",
+	-- {npc:2789} Skuerto · {npc:2793} Kor'gresh Coldrage · {area:327} Faldir's Cove
+	["{npc:2789}: {npc:2793}'s cave comes after {area:327}"] = "",
+
+	-- Step 41: Faldir's Cove
 	["South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "",
 
-	-- Step 40: Phizzlethorpe
+	-- Step 42: Phizzlethorpe
 	["Phizzlethorpe"] = "菲兹索普教授",
 	["Escort the professor up the hill to the cave above the cove and guard him while he works. Two level 40 water elementals ambush him there, and they are immune to frost. Hold them at the cave mouth, away from him: if the fight happens inside the cave, he joins in instead of working and more elementals keep coming."] = "",
 
-	-- Step 42: The Drowned Reef: kill these as you meet them
+	-- Step 44: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
 	["{area:328}: kill these as you meet them"] = "",
 	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay."] = "两艘沉船在海湾以西的海湾里。海图和航海日志在船里；宝石在周围的海底。整个海湾都有刺脊纳迦游动。",
@@ -174,35 +194,35 @@ return {
 	-- {object:2708} Spirit of Silverpine Charts
 	["{object:2708}; underwater"] = "",
 
-	-- Step 43: Faldir's Cove
+	-- Step 45: Faldir's Cove
 	-- {npc:2487} Fleet Master Seahorn · {area:35} Booty Bay
 	["For {npc:2487} in {area:35}: keep it"] = "交给{area:35}的{npc:2487}：保留它",
 
-	-- Step 45: Kor'gresh Coldrage
-	-- {npc:2793} Kor'gresh Coldrage
-	["{npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "食人魔法师{npc:2793}占据着枯木巨魔山谷南端的洞穴。",
+	-- Step 46: Kor'gresh Coldrage
+	-- {area:327} Faldir's Cove · {npc:2793} Kor'gresh Coldrage
+	["East from {area:327} through the southern hills: {npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "",
 	-- {item:4525} Trelane's Wand of Invocation
 	["{item:4525}; below ground"] = "",
 
-	-- Step 46: Foggy MacKreel
+	-- Step 47: Foggy MacKreel
 	-- {npc:2793} Kor'gresh Coldrage · {area:880} Thandol Span · {npc:2696} Foggy MacKreel · {quest:647} MacKreel's Moonshine · {npc:2705} Brewmeister Bilger · {area:271} Southshore · {area:320} Refuge Pointe
 	["South-west from {npc:2793}'s cave to the {area:880}: {npc:2696} stands on a broken section of the bridge; jump down to him from its north end. {quest:647} must reach {npc:2705} in {area:271} within 15 minutes: go straight back to {area:320} and fly to {area:271}."] = "",
 
-	-- Step 48: Fly to Southshore
+	-- Step 49: Fly to Southshore
 	-- {area:320} Refuge Pointe
 	["{area:320} flight master"] = "",
 
-	-- Step 49: Brewmeister Bilger
+	-- Step 50: Brewmeister Bilger
 	-- {area:271} Southshore
 	["Off the flight, straight to the {area:271} inn."] = "",
 	-- {npc:2705} Brewmeister Bilger
 	["{npc:2705}, below ground"] = "{npc:2705}，在地下",
 
-	-- Step 51: Gavin's Naze
+	-- Step 52: Gavin's Naze
 	-- {area:271} Southshore · {area:280} Strahnbrad · {npc:2306} Baron Vardus
 	["Follow the road north out of {area:271} into the mountains. Mountain lions roam the slopes; the Syndicate in {area:280} wear the signet rings, and {npc:2306} walks the manor grounds on the north side of town."] = "沿道路向北离开{area:271}进入山区。山地狮在山坡上游荡；{area:280}的辛迪加成员戴着图章戒指，{npc:2306}在镇子北边的庄园里走动。",
 
-	-- Step 52: Ruins of Alterac: kill these as you meet them
+	-- Step 53: Ruins of Alterac: kill these as you meet them
 	-- {area:281} Ruins of Alterac
 	["{area:281}: kill these as you meet them"] = "",
 	-- {area:280} Strahnbrad
@@ -213,48 +233,52 @@ return {
 	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase
 	["{item:3659}: the {object:1760}; inside"] = "",
 
-	-- Step 53: Ruins of Alterac: kill these as you meet them
+	-- Step 54: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 54: Strahnbrad: kill these as you meet them
+	-- Step 55: Strahnbrad: kill these as you meet them
 	-- {area:280} Strahnbrad
 	["{area:280}: kill these as you meet them"] = "",
 	-- {npc:2320} Nagaz
 	["Careful: Syndicate Spies and Assassins can be stealthed. Assassins also poison you.\nCareful: About three stealthed Syndicate mobs are inside {npc:2320}'s house. {npc:2320} does not join when they are pulled, and a ranged attack through the doorway brings him out by himself."] = "",
 
-	-- Step 55: Crushridge ogres
+	-- Step 56: Crushridge ogres
 	["Crushridge ogres"] = "破碎岭食人魔",
 	-- {area:280} Strahnbrad · {item:3706} Ensorcelled Parchment · {npc:2320} Nagaz · {quest:537} Dark Council
 	-- plural, as words: Crushridge Maulers = {npc:2254} Crushridge Mauler · Crushridge Ogres = {npc:2252} Crushridge Ogre
 	["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and drop the knucklebones too: pull one at a time, or group up."] = "",
 	["Inside"] = "在里面",
 
-	-- Step 57: Dalaran
+	-- Step 58: Dalaran
 	-- {area:279} Dalaran · {area:130} Silverpine Forest · {npc:269127} Image of Archmage Modera
 	["South-west to the Kirin Tor camp on the lake shore west of {area:279}, just over the border into {area:130}: the {npc:269127} stands there. Archmage Ansirem stands south-east of it, by the dome."] = "向西南前往{area:279}以西湖岸的肯瑞托营地，刚越过边界进入{area:130}：{npc:269127}站在那里。大法师安斯雷姆·鲁因维沃尔站在其东南的穹顶旁。",
 	-- {npc:2542} Catelyn the Blade · {area:35} Booty Bay
 	["For {npc:2542} in {area:35}: keep it"] = "交给{area:35}的{npc:2542}：保留它",
 
-	-- Step 59: Southshore
-	-- {item:2321} Fine Thread · {npc:2438} Bartolo Ginsetti · {npc:2381} Micha Yance
-	["{item:2321} for {npc:2438}'s cloak, from {npc:2381}, if you have none"] = "{npc:2438}的披风需要{item:2321}，如果没有就从{npc:2381}处购买",
-	-- {npc:2438} Bartolo Ginsetti
-	["{npc:2438}, if you took his cloak quest"] = "",
+	-- Step 60: Southshore
 	-- {npc:1440} Milton Sheaf · {zone:1453} Stormwind
 	["For {npc:1440} in {zone:1453}: keep it"] = "交给{zone:1453}的{npc:1440}：保留它",
+	-- {npc:2277} Loremaster Dibbs
+	["{npc:2277}: the parchment"] = "",
 
-	-- Step 62: Ironforge
+	-- Step 61: Bartolo Ginsetti
+	-- {npc:2438} Bartolo Ginsetti · {npc:2381} Micha Yance · {item:2321} Fine Thread
+	["{npc:2438} stands between the flight master and the inn; {npc:2381} beside him sells {item:2321} if you have none."] = "",
+	-- {item:2321} Fine Thread · {npc:2381} Micha Yance
+	["{item:2321}, from {npc:2381}"] = "",
+
+	-- Step 64: Ironforge
 	-- {npc:1356} Prospector Stormpike · {object:32356} Hall of Explorers · {npc:1344} Prospector Ironband · {area:38} Loch Modan
 	["{npc:1356}, {object:32356}: for {npc:1344} in {area:38}, next"] = "",
 
-	-- Step 64: Thelsamar
+	-- Step 66: Thelsamar
 	-- {zone:1455} Ironforge · {zone:1426} Dun Morogh · {area:38} Loch Modan · {area:144} Thelsamar
 	["From {zone:1455} take the tunnel east through {zone:1426} into {area:38} and follow the road to {area:144}."] = "从{zone:1455}出发，穿过{zone:1426}向东的隧道进入{area:38}，沿道路前往{area:144}。",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "",
 
-	-- Step 65: Prospector Ironband
+	-- Step 67: Prospector Ironband
 	["South-east along the loch to the dig site."] = "沿湖向东南前往挖掘场（铁环挖掘场）。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -268,6 +292,7 @@ return {
 	-- ["Ride back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "向东北骑回，经过{area:320}；{npc:2712}和{npc:2713}在{area:314}以北的山丘扎营。",
 	-- ["Shaman training"] = "萨满祭司训练",
 	-- ["Stay with {npc:2713} while she sneaks into {area:314} and back; Horde orcs jump you on the way."] = "跟着{npc:2713}潜入{area:314}再回来；途中部落兽人会突袭你。",
+	-- ["Subdue the succubus"] = "制服魅魔",
 	-- ["Summon Succubus"] = "召唤魅魔",
 	-- ["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it."] = "破碎岭食人魔占据着{area:280}以北的山丘。再往北，一个破旧的木箱里装着{item:3706}；{quest:537}的{npc:2320}就站在旁边。",
 	-- ["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop both the motes and Krazek's ore."] = "枯须狗头人在{area:321}（部落）以东的峡谷里挖掘；从北边绕过镇子。它们会掉落微粒和克拉兹克要的矿石。",
@@ -278,7 +303,10 @@ return {
 	-- ["The wrecks"] = "沉船",
 	-- ["Walk back onto the span: Ebenezer lies under its Arathi end."] = "走回桥上：伊贝尼瑟的尸体在桥的阿拉希一端下方。",
 	-- ["West along the coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "沿海岸向西前往地精的海湾（法迪尔海湾）；哨兵鲁鲁在上方的岩石上放哨。",
+	-- ["{item:2321} for {npc:2438}'s cloak, from {npc:2381}, if you have none"] = "{npc:2438}的披风需要{item:2321}，如果没有就从{npc:2381}处购买",
 	-- ["{item:3659}: the {object:1760}"] = "{item:3659}：{object:1760}",
+	-- ["{npc:217589}: catch it, for {quest:93176}"] = "{npc:217589}：捕捉它，用于{quest:93176}",
 	-- ["{npc:252085}, in the City of Dalaran"] = "{npc:252085}，在达拉然城中",
+	-- ["{npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "食人魔法师{npc:2793}占据着枯木巨魔山谷南端的洞穴。",
 	-- ["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455} and train with {npc:258098}. {npc:1573} in the {object:32372} flies to {area:271} too."] = "{zone:1453}没有萨满祭司训练师：从{object:28027}乘{area:2257}前往{zone:1455}，在{npc:258098}处学习。{object:32372}的{npc:1573}也能飞往{area:271}。",
 }

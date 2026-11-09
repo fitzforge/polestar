@@ -9,6 +9,8 @@ return {
 	-- Step 1: Nijel's Point
 	-- {area:460} Sun Rock Retreat · {area:465} Charred Vale · {zone:1443} Desolace · {area:608} Nijel's Point
 	["Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass."] = "Folge der Straße nach Westen an {area:460} (Horde) vorbei und nach Südwesten durch {area:465} nach {zone:1443}; {area:608} liegt oben am Pass.",
+	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
+	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
 
 	-- Step 2: Malem chest
 	["Malem chest"] = "Truhe der Malems",
@@ -32,8 +34,8 @@ return {
 	-- Step 8: Tyranis Malem and the Seer
 	-- {npc:5643} Tyranis Malem
 	["{npc:5643} and the Seer"] = "{npc:5643} und der Seher",
-	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer
-	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building."] = "Ihr Bruder {npc:5643} (36) läuft mit den Kultisten der Burning Blade (30-33) durch die Festung: Zieh ihn allein. {npc:13019} hat das Zepter im Hauptgebäude der Festung.",
+	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer · {npc:5642} Vahlarriel Demonslayer
+	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "",
 	-- {item:6767} Tyranis' Pendant
 	["{item:6767}; inside"] = "",
 	-- {quest:5741} Sceptre of Light
@@ -77,6 +79,7 @@ return {
 	-- ["From {area:415} head south-west to the {area:1276}, a tunnel through the mountains into Stonetalon."] = "Reite von {area:415} nach Südwesten zum {area:1276}, einem Tunnel durch die Berge ins Steinkrallengebirge.",
 	-- ["From {area:415} ride north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then back past {area:415} to the {area:1276}."] = "Reite von {area:415} nach Nordwesten in die Hügel: {quest:1738} ist ein leuchtender Baum nördlich der Straße nach {area:413}. Falls du {quest:65602} angenommen hast, liegt {item:190309} in einem Haus zwischen den Bäumen nördlich von {area:413} (26.6,22.0). Dann zurück an {area:415} vorbei zum {area:1276}.",
 	-- ["From {zone:1455}'s {npc:1573}"] = "Von {npc:1573} in {zone:1455}",
+	-- ["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building."] = "Ihr Bruder {npc:5643} (36) läuft mit den Kultisten der Burning Blade (30-33) durch die Festung: Zieh ihn allein. {npc:13019} hat das Zepter im Hauptgebäude der Festung.",
 	-- ["Scorpashi venom"] = "Skorpashigift",
 	-- ["Take the boat to {area:442} from Menethil's docks."] = "Nimm das Schiff von Menethils Anlegestelle nach {area:442}.",
 	-- ["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "Nimm das Schiff von Menethils Anlegestelle nach {area:442}. {npc:3649} steht in {area:442}, nördlich des Flugmeisters.",
