@@ -247,6 +247,7 @@ step Auberdine: the seal, the Den Mother and the pelts
   turnin 986
 
 step A Donation of Silk
+  zone Darnassus
   tip Silk Cloth drops from humanoids level 23 to 40: the satyrs and furbolgs of Ashenvale, the Thistlefur and Foulweald camps, the Grimtotem of Stonetalon.
   level 26
   collect 4306 x60 nearest
@@ -254,6 +255,7 @@ step A Donation of Silk
   turnin 7798
 
 step A Donation of Mageweave
+  zone Darnassus
   tip Mageweave Cloth drops from humanoids level 35 to 50: the Hatecrest naga and Gordunni ogres of Feralas, the Dunemaul ogres of Tanaris.
   level 40
   collect 4338 x60 nearest
@@ -261,6 +263,7 @@ step A Donation of Mageweave
   turnin 7799
 
 step A Donation of Runecloth
+  zone Darnassus
   tip Runecloth drops from humanoids level 50 and up: the Deadwood furbolgs of Felwood, the Winterfall furbolgs of Winterspring, the Scourge cultists of the Plaguelands. Keep any Runecloth past the first 60 for Additional Runecloth.
   level 50
   collect 14047 x60 nearest
