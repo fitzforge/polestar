@@ -24,7 +24,8 @@ and the game's names),
 dist/Polestar_Recorder-<version>.zip and dist/SHA256SUMS (the format `sha256sum -c` reads), the version
 taken from package.json. Polestar/ in the zip also carries LICENSE and README.txt (install steps),
 Polestar_Recorder/ the LICENSE. The Codex must be built first (forge data codex) from release-safe inputs:
-pack stops on a missing Codex or a local-extras one.
+pack stops on a missing Codex or a local-extras one. The baked legs must be current: pack stops on a
+guide that changed since its legs were baked (guides/legs.json), naming each, unless --bake bakes them.
 
 Given another pack (<dir>, --pack, or run inside one): builds it with our guides as context, then writes
 <pack>/dist/<folder>-<version>.zip holding its addon folder (and its texts addons and race parts), the
@@ -44,9 +45,15 @@ options:
   --addons <dir>        the addon folders (default <root>/addon/)
   --dist <dir>          the output folder (default <root>/dist/, <pack>/dist/ for another pack)
   --no-data             another pack only: build it without reference data (every quest title, NPC name
-                        and place given in the guide)";
+                        and place given in the guide)
+  --bake                our release only: bake the legs of the guides that changed since their legs were
+                        baked, on the maps guides/legs.json names (refused on other maps), into
+                        guides/legs.json and its GENERATED.json hash, then pack
+  --grid <dir>          with --bake: the walking grid (default as forge guide bake)
+  --leffe <dir>         with --bake: Leffe's navigation maps (default as forge guide bake)
+  --threads <n>         with --bake: routing threads (default 4)";
 
-const VALUES: [&str; 8] = ["--pack", "--root", "--data", "--context", "--context-data", "--guides", "--addons", "--dist"];
+const VALUES: [&str; 11] = ["--pack", "--root", "--data", "--context", "--context-data", "--guides", "--addons", "--dist", "--grid", "--leffe", "--threads"];
 
 fn print_errors(diags: &[Diag]) {
 	for d in diags.iter().filter(|d| d.severity != "warning") {
@@ -66,7 +73,7 @@ fn io(p: &Path) -> impl Fn(std::io::Error) -> String + '_ {
 }
 
 pub fn run(args: &[String]) -> Result<(), super::Fail> {
-	super::check_args(args, &VALUES, &["--no-data"], usize::MAX).map_err(super::usage)?;
+	super::check_args(args, &VALUES, &["--no-data", "--bake"], usize::MAX).map_err(super::usage)?;
 	let cwd = std::env::current_dir().unwrap_or_default();
 	let at = |p: String| forge_release::absolute(Path::new(&p));
 	let named = positional(args, &VALUES);
@@ -107,7 +114,14 @@ pub fn run(args: &[String]) -> Result<(), super::Fail> {
 		(!same_path(&dir, &official_dir)).then_some(dir)
 	};
 	let data_dir = opt(args, "--data").map_or_else(|| root.join("data/forever"), at);
+	let bake = args.iter().any(|a| a == "--bake");
+	if !bake {
+		if let Some(k) = ["--grid", "--leffe", "--threads"].into_iter().find(|k| opt(args, k).is_some()) {
+			return Err(super::usage(format!("{k} goes with --bake")));
+		}
+	}
 	match other {
+		Some(_) if bake => Err(super::usage("--bake is for our release (another pack has no baked legs)")),
 		Some(pack_dir) => pack_other(args, &root, &pack_dir, &data_dir, no_data),
 		None if no_data => Err(super::usage("--no-data builds a community addon; our release needs the reference data")),
 		None => pack_release(args, &root, &data_dir),
@@ -172,7 +186,21 @@ fn pack_release(args: &[String], root: &Path, data_dir: &Path) -> Result<(), sup
 	}
 	let mut data_diag = Diagnostics::new();
 	let data = load_project_data(data_dir, &mut data_diag)?;
-	let built = build_pack(root, &guides, &manifest, Vec::new(), &data, data_diag, BuildOpts { include_drafts: false, context: None, force: false })?;
+	let opts = || BuildOpts { include_drafts: false, context: None, force: false };
+	let mut built = build_pack(root, &guides, &manifest, Vec::new(), &data, data_diag, opts())?;
+	// Stale legs would ship as no legs at all for those guides: refuse, or bake them (--bake) and build again.
+	if !built.project.stale_legs.is_empty() && !built.project.diag.has_errors() {
+		let stale = std::mem::take(&mut built.project.stale_legs);
+		if !args.iter().any(|a| a == "--bake") {
+			print_errors(&built.project.diag.sorted());
+			return Err(stale_refusal(&guides, &stale).into());
+		}
+		rebake(args, root, &guides, data_dir, &stale)?;
+		built = build_pack(root, &guides, &manifest, Vec::new(), &data, Diagnostics::new(), opts())?;
+		if !built.project.stale_legs.is_empty() {
+			return Err(format!("still stale after the bake: {}", built.project.stale_legs.join(", ")).into());
+		}
+	}
 	let diag = built.project.diag;
 	print_errors(&diag.sorted());
 	let Some(files) = built.files.filter(|_| !diag.has_errors()) else {
@@ -201,6 +229,84 @@ fn pack_release(args: &[String], root: &Path, data_dir: &Path) -> Result<(), sup
 	std::fs::write(&sums_file, sums).map_err(io(&sums_file))?;
 	println!("wrote {}", shown(&sums_file));
 	println!("{}: {}", folder, plural(built.project.guides.len(), "guide"));
+	Ok(())
+}
+
+/// The refusal for guides whose baked legs are stale, naming each.
+fn stale_refusal(guides: &Path, stale: &[String]) -> String {
+	let legs = guides.join(forge::bake::LEGS_FILE);
+	let mut s = format!(
+		"{} changed since {} was baked; the zip would ship them without legs (the arrow searches instead of following them):\n",
+		plural(stale.len(), "guide"),
+		shown(&legs)
+	);
+	for id in stale {
+		s.push_str(&format!("  {id}\n"));
+	}
+	s.push_str("bake them: forge release pack --bake --grid <dir> --leffe <dir>, on the maps legs.json names");
+	s
+}
+
+/// `--bake`: route the stale guides' legs on the maps legs.json was baked on, put them into legs.json
+/// in place (every other guide's legs untouched, the file's order kept) and its hash into the checkout's
+/// guides/GENERATED.json when that lists it.
+fn rebake(args: &[String], root: &Path, guides: &Path, data_dir: &Path, stale: &[String]) -> Result<(), String> {
+	let at = |p: String| forge_release::absolute(Path::new(&p));
+	let legs_file = guides.join(forge::bake::LEGS_FILE);
+	let text = std::fs::read_to_string(&legs_file).map_err(io(&legs_file))?;
+	let mut doc: serde_json::Value = serde_json::from_str(&text).map_err(|e| format!("{}: {e}", legs_file.display()))?;
+	let want = doc["grid"].as_str().unwrap_or_default().to_string();
+	let grid = forge::grid_dir(opt(args, "--grid").map(at).as_deref(), root);
+	let leffe = forge::find_leffe(opt(args, "--leffe").map(at).as_deref());
+	let threads = match opt(args, "--threads").map(|t| t.parse::<usize>()) {
+		Some(Ok(t)) => t,
+		Some(Err(_)) => return Err("--threads needs a number".into()),
+		None => 4,
+	};
+	let src = forge_world::data::DirSource::repo(root);
+	let build = forge_world::data::forever_build(&src).ok_or_else(|| format!("no cached Forever AreaTable in {}/data/sources/wago", root.display()))?;
+	let say = |m: &str| eprintln!("forge release pack: {m}");
+	say(&format!("baking the legs of {}", plural(stale.len(), "guide")));
+	let r = forge::bake::route_trees(
+		&forge::bake::BakeIn {
+			trees: &[guides.to_path_buf()],
+			data: data_dir,
+			grid: &grid,
+			leffe: leffe.as_deref(),
+			area_table: &root.join(format!("data/sources/wago/{build}/AreaTable.csv")),
+			zones: &data_dir.join("zones.json"),
+			chokepoints: &root.join("addon/Polestar_Nav/Nav/Chokepoints.lua"),
+			threads,
+			log: &say,
+		},
+		Some(stale),
+	)?;
+	if r.maps != want {
+		return Err(format!("the bake routed on {}, but {} was baked on {want}: pass --grid and --leffe naming those maps (nothing written)", r.maps, shown(&legs_file)));
+	}
+	let tree = r.trees.into_iter().next().ok_or("the bake returned no tree")?;
+	for line in tree.qa.lines() {
+		println!("note: leg left out: {line}");
+	}
+	let legs = doc["legs"].as_object_mut().ok_or_else(|| format!("{}: no legs", legs_file.display()))?;
+	for id in stale {
+		let baked = tree.legs.get(id).ok_or_else(|| format!("the bake has no legs for {id}"))?;
+		legs.insert(id.clone(), baked.clone());
+	}
+	let out = serde_json::to_string_pretty(&doc).map_err(|e| e.to_string())? + if text.ends_with('\n') { "\n" } else { "" };
+	std::fs::write(&legs_file, &out).map_err(io(&legs_file))?;
+	println!("wrote {} ({} baked on {want})", shown(&legs_file), plural(stale.len(), "guide"));
+	let gen_file = root.join(forge::generated::GENERATED);
+	if same_path(guides, &root.join("guides")) && gen_file.is_file() {
+		let gtext = std::fs::read_to_string(&gen_file).map_err(io(&gen_file))?;
+		let mut gen: serde_json::Value = serde_json::from_str(&gtext).map_err(|e| format!("{}: {e}", gen_file.display()))?;
+		if let Some(h) = gen["files"].get_mut(forge::bake::LEGS_FILE) {
+			*h = serde_json::Value::from(sha256_hex(out.as_bytes()));
+			let g = serde_json::to_string_pretty(&gen).map_err(|e| e.to_string())? + if gtext.ends_with('\n') { "\n" } else { "" };
+			std::fs::write(&gen_file, g).map_err(io(&gen_file))?;
+			println!("wrote {}", shown(&gen_file));
+		}
+	}
 	Ok(())
 }
 

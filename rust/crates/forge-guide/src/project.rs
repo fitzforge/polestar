@@ -197,29 +197,30 @@ pub fn read_retired_text(text: Option<&str>, file: &str, guides: &[V], diag: &mu
 
 /// readLegs on legs.json's text (None: no file): a leveling guide (legs_races) whose leg ends still
 /// hash as when it was baked gets its legs hidden as `_legs` (step -> string) and `_legsGrid`, for
-/// build_pack_files to write into the race parts' Legs.lua.
-pub fn read_legs_text(text: Option<&str>, file: &str, guides: &[V], data: &Data, diag: &mut Diagnostics) {
-	let Some(text) = text else { return };
+/// build_pack_files to write into the race parts' Legs.lua. Returns the ids of the guides whose legs
+/// are stale (baked, but their leg ends hash differently now), in the guides' order.
+pub fn read_legs_text(text: Option<&str>, file: &str, guides: &[V], data: &Data, diag: &mut Diagnostics) -> Vec<String> {
+	let mut stale = Vec::new();
+	let Some(text) = text else { return stale };
 	let doc = match crate::js::parse_json(text) {
 		Ok(v) => v,
 		Err(e) => {
 			diag.error(file, 1.0, format!("legs.json is not JSON: {e}"), None);
-			return;
+			return stale;
 		}
 	};
 	if !doc.truthy() || doc.get("schema").as_num() != Some(1.0) || !(doc.get("legs").is_object() || matches!(doc.get("legs"), V::Null)) || !doc.get("grid").is_str() {
 		diag.error(file, 1.0, "legs.json is not a legs file of schema 1 (forge guide bake)", None);
-		return;
+		return stale;
 	}
 	let legs = doc.get("legs");
-	let mut stale = 0;
 	for g in guides {
 		let entry = legs.get(&g.get("id").to_js_string());
 		if !entry.truthy() || legs_races(g).is_none() {
 			continue;
 		}
 		if !entry.get("hash").strict_eq(&V::from(crate::bake::guide_hash(g, &data.map_frames))) {
-			stale += 1;
+			stale.push(g.get("id").to_js_string());
 			continue;
 		}
 		let steps = Obj::new();
@@ -236,9 +237,10 @@ pub fn read_legs_text(text: Option<&str>, file: &str, guides: &[V], data: &Data,
 			g.set_hidden("_legsGrid", doc.get("grid"));
 		}
 	}
-	if stale > 0 {
-		diag.warn(file, 1.0, format!("{stale} guide(s) changed since their legs were baked: they go without until `forge guide bake` runs again"), None);
+	if !stale.is_empty() {
+		diag.warn(file, 1.0, format!("{} guide(s) changed since their legs were baked: they go without until `forge guide bake` runs again", stale.len()), None);
 	}
+	stale
 }
 
 /// The race parts a leveling guide's baked legs ship in: its own race part's races (race_part),
@@ -611,6 +613,8 @@ mod native {
 		pub sources: Vec<String>,
 		pub retired: Vec<String>,
 		pub tokens: V,
+		/// Leveling guides whose baked legs are stale (read_legs_text): they ship without legs.
+		pub stale_legs: Vec<String>,
 	}
 
 	/// compileProject for a pack folder; `context`: our guides, read as context for another pack.
@@ -621,8 +625,8 @@ mod native {
 		let retired_file = pack_dir.join("retired.json");
 		let retired = read_retired_text(pack_text(pack_dir, "retired.json", &mut diag).as_deref(), &retired_file.to_string_lossy(), &c.guides, &mut diag);
 		let legs_file = pack_dir.join("legs.json");
-		read_legs_text(pack_text(pack_dir, "legs.json", &mut diag).as_deref(), &legs_file.to_string_lossy(), &c.guides, data, &mut diag);
-		Project { guides: c.guides, diag, sources, retired, tokens: c.tokens }
+		let stale_legs = read_legs_text(pack_text(pack_dir, "legs.json", &mut diag).as_deref(), &legs_file.to_string_lossy(), &c.guides, data, &mut diag);
+		Project { guides: c.guides, diag, sources, retired, tokens: c.tokens, stale_legs }
 	}
 
 	/// read_pack_file's text of `name` in the pack folder, None without it; a refused one (a link,
