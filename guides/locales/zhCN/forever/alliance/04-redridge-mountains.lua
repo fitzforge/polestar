@@ -235,13 +235,15 @@ return {
 	-- {npc:349} Corporal Keeshan
 	["{npc:349}, below ground"] = "",
 
-	-- Step 42: Back to Lakeshire
+	-- Step 42: Magistrate Solomon: Gath'Ilzogg
+	-- {npc:344} Magistrate Solomon
+	["{npc:344}, in the town hall"] = "{npc:344}，在市政厅",
+
+	-- Step 44: Back to Lakeshire
 	-- {area:69} Lakeshire
 	["Back to {area:69}"] = "回到{area:69}",
 	-- {area:69} Lakeshire · {npc:900} Bailiff Conacher · {npc:344} Magistrate Solomon · {npc:382} Marshal Marris · {npc:341} Foreman Oslow · {npc:903} Guard Howe
 	["Into {area:69} from the north with Keeshan: {npc:900} and {npc:344} in the town hall, {npc:382} and {npc:341} at the north end of the bridge, then over the bridge to {npc:903} and the gryphons."] = "",
-	-- {npc:344} Magistrate Solomon
-	["{npc:344}, in the town hall"] = "{npc:344}，在市政厅",
 	-- {npc:903} Guard Howe
 	["{npc:903}, by the gryphons south of the bridge"] = "{npc:903}，在桥南的狮鹫旁",
 	-- {area:42} Darkshire · {area:10} Duskwood

@@ -151,6 +151,7 @@ step Webwinder Path
 step The Ruins of Stardust
   zone Ashenvale
   tip Back north through the Talondeep Path: west of Mystral Lake, the stardust bushes grow among the ruins.
+  goto 33.3,67.7 "The Ruins of Stardust"
   collect 5494 quest 1034 @33.3,67.7      -- Handful of Stardust
 
 step Alonso
@@ -368,11 +369,16 @@ step Tram to Stormwind
 
 # ---------------------------------------------------------------- Stormwind
 
+step Baros Alexston
+  zone Stormwind City
+  when onquest 97914
+  tip The tram comes in at the Dwarven District; walk west to the Cathedral Square: Baros Alexston stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)
+  turnin 97914                            -- Baros Alexston: Thundris' letter from Auberdine
+  accept 97926 optional                   -- For Thundris Windweaver, back in Auberdine (06-wetlands)
+
 step Cathedral Square
   zone Stormwind City
-  tip The tram comes in at the Dwarven District; walk west to the Cathedral Square. Baros Alexston stands at its east side, High Priestess Laurena in the Cathedral of Light.
-  turnin 97914 optional                   -- Baros Alexston: Thundris' letter, if you still carry it (the route hands it in at the end of 03-loch-modan)
-  accept 97926 optional                   -- Only once Expanding Horizons is handed in: for Thundris Windweaver, back in Auberdine (06-wetlands)
+  tip The tram comes in at the Dwarven District; walk west to the Cathedral Square. High Priestess Laurena is in the Cathedral of Light.
   accept 5676 only Human,Priest           -- High Priestess Laurena
   turnin 5676 only Human,Priest           -- Arcane Feedback
   accept 5645 only Dwarf,Priest           -- High Priestess Laurena: High Priest Rohan in Ironforge takes it, later

@@ -254,13 +254,17 @@ return {
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "Metrô para {zone:1453}",
 
-	-- Step 53: Cathedral Square
-	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston · {npc:376} High Priestess Laurena
-	["The tram comes in at the {object:28027}; walk west to the {object:2098}. {npc:1646} stands at its east side, {npc:376} in the Cathedral of Light."] = "O metrô chega no {object:28027}; siga para oeste até a {object:2098}. {npc:1646} fica no lado leste dela, {npc:376} na Catedral da Luz.",
-	-- {npc:1646} Baros Alexston
-	["{npc:1646}: Thundris' letter, if you still carry it (the route hands it in at the end of 03-loch-modan)"] = "",
-	-- {quest:97914} Expanding Horizons · {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["Only once {quest:97914} is handed in: for {npc:3649}, back in {area:442} (06-wetlands)"] = "Só depois de entregar {quest:97914}: para {npc:3649}, de volta a {area:442} (06-wetlands)",
+	-- Step 53: Baros Alexston
+	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston
+	["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "",
+	-- {npc:1646} Baros Alexston · {area:442} Auberdine
+	["{npc:1646}: Thundris' letter from {area:442}"] = "",
+	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
+	["For {npc:3649}, back in {area:442} (06-wetlands)"] = "",
+
+	-- Step 54: Cathedral Square
+	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:376} High Priestess Laurena
+	["The tram comes in at the {object:28027}; walk west to the {object:2098}. {npc:376} is in the Cathedral of Light."] = "",
 	-- {npc:376} High Priestess Laurena · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
 	["{npc:376}: {npc:11406} in {zone:1455} takes it, later"] = "{npc:376}: {npc:11406} em {zone:1455} a recebe, mais tarde",
 	-- {npc:376} High Priestess Laurena · {npc:258785} High Priestess Mims · {zone:1455} Ironforge
@@ -268,19 +272,19 @@ return {
 	-- {npc:376} High Priestess Laurena · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
 	["{npc:376}: {npc:11401} in {zone:1457} takes it, later"] = "{npc:376}: {npc:11401} em {zone:1457} a recebe, mais tarde",
 
-	-- Step 54: Master Mathias Shaw
+	-- Step 55: Master Mathias Shaw
 	-- {object:2100} Old Town
 	["Mathias Shaw is at SI:7 in {object:2100}, south of the Keep."] = "Mathias Shaw fica no SI:7 na {object:2100}, ao sul da Fortaleza.",
 	-- {npc:332} Master Mathias Shaw · {npc:7024} Agent Kearnen · {zone:1436} Westfall · {zone:1431} Duskwood
 	["{npc:332}: {npc:7024} in {zone:1436} takes it, at the end of {zone:1431}'s second loop"] = "{npc:332}: {npc:7024} em {zone:1436} a recebe, no fim do segundo circuito de {zone:1431}",
 
-	-- Step 55: Collin Mauren
+	-- Step 56: Collin Mauren
 	-- {object:2164} The Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6122} Gakin the Darkbinder
 	["{object:2164} is in the {object:2101}. Warlocks: {npc:6122} is in its cellar."] = "O {object:2164} fica no {object:2101}. Bruxos: {npc:6122} fica no porão dele.",
 	-- {npc:6122} Gakin the Darkbinder · {npc:6244} Takar the Seer · {zone:1413} Barrens
 	["{npc:6122}: {npc:6244} in the {zone:1413} takes it, later"] = "{npc:6122}: {npc:6244} em {zone:1413} a recebe, mais tarde",
 
-	-- Step 56: Trade District
+	-- Step 57: Trade District
 	-- {zone:1453} Stormwind · {zone:1431} Duskwood
 	["Next: training in {zone:1453}, then the road east through Elwynn and south to {zone:1431}."] = "A seguir: treino em {zone:1453}, depois a estrada para leste por Elwynn e para o sul até {zone:1431}.",
 
@@ -310,6 +314,7 @@ return {
 	-- ["Mottled Raptors and Screechers roam the hills west of the excavation site."] = "Raptores Mosqueados e Guinchadores vagam pelas colinas a oeste do sítio de escavação.",
 	-- ["Next: fly to {area:42}."] = "Próximo: voe até {area:42}.",
 	-- ["Only if you looted {quest:337} in {zone:1431}"] = "Só se você saqueou {quest:337} em {zone:1431}",
+	-- ["Only once {quest:97914} is handed in: for {npc:3649}, back in {area:442} (06-wetlands)"] = "Só depois de entregar {quest:97914}: para {npc:3649}, de volta a {area:442} (06-wetlands)",
 	-- ["Raptor valley"] = "Vale dos raptores",
 	-- ["Ride east along the {zone:1437} road, south through {area:836} into {zone:1432} and west through the tunnel into {zone:1426} to {area:1537}."] = "Cavalgue para leste pela estrada do {zone:1437}, para o sul por {area:836} até {zone:1432} e para oeste pelo túnel até {zone:1426}, até {area:1537}.",
 	-- ["Ride south past {area:421} into the {area:1276} tunnel; it comes out in Stonetalon's {area:461}. {npc:4080} and {npc:4077} camp on the {area:1076} south-west of the crag."] = "Cavalgue para o sul, passando o {area:421}, até o túnel da {area:1276}; ele sai no {area:461}, na Cordilheira das Torres de Pedra. {npc:4080} e {npc:4077} acampam na {area:1076}, a sudoeste do penhasco.",
@@ -323,6 +328,7 @@ return {
 	-- ["The bigger raptors hunt in the valley just west of the dig."] = "Os raptores maiores caçam no vale logo a oeste da escavação.",
 	-- ["The excavation site sits on the hill south of the road."] = "O sítio de escavação fica na colina ao sul da estrada.",
 	-- ["The raptor hills"] = "As colinas dos raptores",
+	-- ["The tram comes in at the {object:28027}; walk west to the {object:2098}. {npc:1646} stands at its east side, {npc:376} in the Cathedral of Light."] = "O metrô chega no {object:28027}; siga para oeste até a {object:2098}. {npc:1646} fica no lado leste dela, {npc:376} na Catedral da Luz.",
 	-- ["The {area:1025}"] = "{area:1025}",
 	-- ["Three containers in the murloc hovels, south to north: the {object:261}, then the {object:142151}, then the {object:259} at the north end."] = "Três recipientes nas choças dos murlocs, de sul a norte: o {object:261}, depois o {object:142151}, depois o {object:259} no extremo norte.",
 	-- ["Venture Co. loggers"] = "Madeireiros da Empreendimentos S.A.",

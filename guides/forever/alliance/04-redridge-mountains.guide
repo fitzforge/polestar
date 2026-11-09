@@ -374,12 +374,20 @@ step Corporal Keeshan
   accept 219                                  -- Corporal Keeshan, below ground
   complete 219
 
+step Magistrate Solomon: Gath'Ilzogg
+  when group 169
+  when complete 169
+  turnin 169                                  -- Magistrate Solomon, in the town hall
+
+step Magistrate Solomon: Incinerator Gar'im
+  when group 95999
+  when complete 95999
+  turnin 95999                                -- Magistrate Solomon, in the town hall
+
 step Back to Lakeshire
   tip Into Lakeshire from the north with Keeshan: Bailiff Conacher and Magistrate Solomon in the town hall, Marshal Marris and Foreman Oslow at the north end of the bridge, then over the bridge to Guard Howe and the gryphons.
   turnin 91                                   -- Bailiff Conacher, in the town hall
   turnin 180                                  -- Magistrate Solomon, in the town hall
-  turnin 169 optional
-  turnin 95999 optional
   turnin 219                                  -- Marshal Marris
   turnin 20
   turnin 98387
