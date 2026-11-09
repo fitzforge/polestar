@@ -27,6 +27,15 @@
 --   Lookup.QuestStep(quest, from, opts) -> step   -- accept, objectives, turn-in
 --       opts.inside(kind, id): where an NPC or object without a known spawn
 --       is; with it the step is always whole (see questStep)
+--   Lookup.AcceptPre(goal, quest) -> goal
+--       an accept goal with the Codex quest's prerequisites as a compiled
+--       guide's accept carries them (all of `pre` as preAll, one of `preAny`
+--       as pre, without those of another faction, race or class while one
+--       is left; their titles as preTitles), so the Engine tells "Requires X
+--       first" when the route no longer brings X, and a giver's window that
+--       does not list the quest for that reason passes it (#1406: Gryan
+--       Stoutmantle's The Defias Brotherhood after The Defias Traitor's step
+--       was skipped)
 --   Lookup.SpawnZ(kind, id, point) -> z | nil
 --       the height of NPC or object `id`'s Codex spawn at point { map, x, y, f }
 --       (kind "npc" | "object"): its spawn on that map and frame nearest the
@@ -344,6 +353,36 @@ local function questChain(questId, player)
 	return order
 end
 
+function Lookup.AcceptPre(goal, q)
+	local all, any = q and q.pre or nil, q and q.preAny or nil
+	local titles
+	local function title(id)
+		local r = Codex().Quest(id)
+		if r and r.title then
+			titles = titles or {}
+			titles[id] = r.title
+		end
+	end
+	if type(all) == "table" and #all > 0 then
+		goal.preAll = all
+		for _, id in ipairs(all) do title(id) end
+	end
+	if type(any) == "table" and #any > 0 then
+		-- One of them: the character's own (The Dalaran Inquiry's Word from
+		-- Dalaran is the Alliance's, Orders from the Undercity the Horde's).
+		local p, own = Lookup.PlayerInfo(), {}
+		for _, id in ipairs(any) do
+			local r = Codex().Quest(id)
+			local why = r and Lookup.QuestBlock(r, p)
+			if not (why == "faction" or why == "race" or why == "class") then own[#own + 1] = id end
+		end
+		goal.pre = #own > 0 and own or any
+		for _, id in ipairs(goal.pre) do title(id) end
+	end
+	goal.preTitles = titles
+	return goal
+end
+
 local function endGoal(t, q, e)
 	local g = { t = t, quest = q.id, title = q.title }
 	if e.npc then
@@ -432,6 +471,7 @@ local function questStep(q, from, isTarget, opts)
 		accept = { t = "accept", quest = q.id, title = q.title, item = startItem, itemName = itemName(startItem) }
 	end
 	accept.minLevel = q.minLevel
+	Lookup.AcceptPre(accept, q)
 	goals[1] = accept
 	local here = giver and giver.spawn or from
 	local event = nil

@@ -660,10 +660,15 @@ end
 -- An accept goal at giver point g, with the height of the giver's spawn
 -- there (Lookup.SpawnZ: the arrow walks to its floor, #1024). At a drop
 -- point (Dungeons.DropPoint) the quest is taken from the item, as a guide's
--- "accept from item" (collectGoal comes first).
+-- "accept from item" (collectGoal comes first). It carries the quest's
+-- prerequisites (Lookup.AcceptPre): when the step that does one is skipped
+-- (The Defias Traitor's escort, before Gryan Stoutmantle's The Defias
+-- Brotherhood), the accept says "Requires ... first" instead of sending the
+-- player to a giver who does not offer it, #1406.
 local function acceptGoal(pq, rec, g)
 	local goal = { t = "accept", quest = pq.id, title = pq.title or (rec and rec.title),
 		minLevel = (rec and rec.minLevel) or pq.minLevel, closedBy = type(pq.closedBy) == "table" and pq.closedBy or nil }
+	if rec then LK().AcceptPre(goal, rec) end
 	if g.kind == "drop" then
 		goal.item, goal.itemName = g.item, g.itemName
 		return goal
