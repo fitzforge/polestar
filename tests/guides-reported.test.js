@@ -8888,3 +8888,12 @@ test('Horde Arathi 38-39: Guile of the Raptor is handed in on the Hammerfall sto
 	}
 	assert.ok(at(list, 'accept 702', is('accept', 702)) < at(list, 'turnin 702', is('turnin', 702)), 'taken before it is handed in');
 });
+
+// Final route review 0.3.6, Alliance 32-33: Fiora Longears stands inside Theramore's inn (66.4,45.2, the innkeeper's
+// spot), not on the docks where the Menethil boat lands; Red Jack Flint by Menethil Keep's door, as 30-40/01 says.
+test('Alliance Theramore crossing: Fiora Longears is in the inn, Red Jack Flint by the keep door', { skip }, () => {
+	const text = fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/alliance/30-40/03-ashenvale.guide'), 'utf8');
+	assert.doesNotMatch(text, /Fiora Longears[^\n]*docks/, 'no step puts Fiora on the docks');
+	assert.match(text, /turnin 1132\s+-- Fiora Longears, inside the inn/, 'the hand-in says where she is');
+	assert.match(text, /tip Red Jack Flint stands by Menethil Keep's door/, 'Red Jack Flint by the keep door');
+});
