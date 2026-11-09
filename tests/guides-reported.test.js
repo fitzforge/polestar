@@ -11481,3 +11481,58 @@ test('the #1791 sweep: Alas, Andorhal is a group quest on the Horde 50-60 route'
 		assert.ok((step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(105) && !p.neg), `${goal.t} 105 is under when group 105`);
 	}
 });
+
+// Dungeons in the route (0.3.7): a dungeon a character chose is injected into the one route as steps
+// (pick-ups on stops the route makes behind `when dungeon`, one run step at the door guarded by
+// `when dungeon` + `when onquest <its quests>`, hand-ins behind `when complete`/`when onquest`, never
+// behind `when dungeon`), and data/dungeon-runs.json records each one so a Forge round reproduces the
+// hand edits. One case per recorded dungeon: the guides hold what its record says.
+const DUNGEON_RUNS = () => JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'dungeon-runs.json'), 'utf8')).runs;
+const dungeonKey = (s) => String(s).trim().toLowerCase().replace(/^the\s+/, '');
+const whenDungeonOf = (step, name) => (step.when || []).some((p) => p.k === 'dungeon' && !p.neg && dungeonKey(p.name) === dungeonKey(name));
+const whenQuestOf = (step, kinds, quest) => (step.when || []).some((p) => kinds.includes(p.k) && !p.neg && [p.q].flat().includes(quest));
+for (const run of fs.existsSync(path.join(__dirname, '..', 'data', 'dungeon-runs.json')) ? DUNGEON_RUNS() : []) {
+	test(`dungeons in the route: ${run.dungeon} (${run.faction}): the recorded pick-ups, the guarded run at the door and the hand-ins are in the guides`, { skip }, () => {
+		const steps = (guide) => compiled(`${guide}.guide`).steps;
+		const runs = steps(run.run.guide).filter((s) => whenDungeonOf(s, run.dungeon) && s.goals.some((g) => g.t === 'enter'));
+		assert.equal(runs.length, 1, `${run.run.guide}: one run step`);
+		const [step] = runs;
+		for (const quest of run.run.objectives) assert.ok(whenQuestOf(step, ['onquest'], quest), `the run waits for a quest of it held (${quest}): no empty trip to the door`);
+		const enter = step.goals.find((g) => g.t === 'enter');
+		assert.equal(enter.map, run.run.entrance.map, 'the run enters on the entrance\'s map');
+		assert.ok(Math.hypot(enter.x - run.run.entrance.x, enter.y - run.run.entrance.y) < 1, `at the entrance (${enter.x},${enter.y})`);
+		const pickups = [...(run.pickups || []).map((p) => [p.quest, (p.after && p.after.guide) || p.guide]), ...(run.runStop || []).map((q) => [q, run.run.guide])];
+		for (const [quest, guide] of pickups) {
+			assert.ok(steps(guide).some((s) => whenDungeonOf(s, run.dungeon) && s.goals.some(is('accept', quest))), `${guide}: ${quest} is picked up only by a character who chose ${run.dungeon}`);
+		}
+		for (const h of run.handins || []) {
+			const ends = steps(h.guide).filter((s) => s.goals.some(is('turnin', h.quest)));
+			assert.ok(ends.length >= 1, `${h.guide}: ${h.quest} is handed in`);
+			for (const s of ends) {
+				assert.ok(whenQuestOf(s, ['complete', 'onquest'], h.quest), `${h.guide}: the hand-in of ${h.quest} waits for the quest (complete or held), so it passes for everyone else`);
+				assert.ok(!(s.when || []).some((p) => p.k === 'dungeon'), `${h.guide}: the hand-in of ${h.quest} is not behind \`when dungeon\`: whoever finished it is sent to hand it in`);
+			}
+		}
+	});
+}
+
+// The other way round: every `when dungeon` step of the leveling guides belongs to a recorded run (its dungeon
+// recorded for that guide's faction, and that guide named in the record), so no injected step is left without the
+// record a Forge round needs. The Horde 30-40 Gnomeregan steps (Nogg's Rig Wars) predate the records.
+test('dungeons in the route: every `when dungeon` step of the leveling guides is explained by data/dungeon-runs.json', { skip }, () => {
+	const runs = DUNGEON_RUNS();
+	const known = new Set(['forever/horde/30-40/02-thousand-needles|gnomeregan']);
+	const bad = [];
+	for (const guide of allGuides().filter((g) => /^forever\/(alliance|horde)\//.test(g))) {
+		const id = guide.replace(/\.guide$/, '');
+		const faction = guide.startsWith('forever/alliance/') ? 'Alliance' : 'Horde';
+		const text = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
+		for (const m of text.matchAll(/^\s*when dungeon "([^"]+)"/gm)) {
+			const name = dungeonKey(m[1]);
+			const ok = known.has(`${id}|${name}`) || runs.some((r) => r.faction === faction && dungeonKey(r.dungeon) === name &&
+				[r.run.guide, ...(r.pickups || []).map((p) => (p.after && p.after.guide) || p.guide), ...(r.handins || []).map((h) => h.guide)].includes(id));
+			if (!ok) bad.push(`${id}: ${m[1]}`);
+		}
+	}
+	assert.deepEqual([...new Set(bad)], []);
+});

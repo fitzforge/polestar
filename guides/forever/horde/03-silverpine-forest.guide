@@ -74,6 +74,14 @@ next forever/horde/02-the-barrens
 # The Engraved Ring (440) stays (Rev17H): Magistrate Sevren is in Brill, on the road from
 # Silverpine to the zeppelin towers.
 #
+# Ragefire Chasm (`when dungeon "Ragefire Chasm"`, dungeons in the route): for a character who chose it,
+# Neeru Fireblade's Slaying the Beast (5761) is taken in the Cleft of Shadow on the last Orgrimmar stop,
+# at about 15; the portal is beside him, so the run follows at once and he takes the heart when you
+# come out. Left out: Hidden Enemies (5726-5730: the insignia from Skull Rock's cultists and three walks
+# between Thrall and Neeru), The Power to Destroy... (5725: Varimathras stands in the Royal Quarter, off
+# this guide's Apothecarium stop, and the route is next in the Undercity at about 25) and Rahauro's
+# quests (5722-5724: Thunder Bluff, first on the route at 27).
+#
 # Class quests: Orcs and Trolls hand the cultists' Neeru Fireblade (829) and The Admiral's Orders
 # (831) in on arrival in Orgrimmar. Troll Priests hand Hex of Weakness (5654) to Ur'kyo on the
 # Orgrimmar training trip of forever/horde/02-the-barrens. Tauren Druids leave the Strange Lockbox
@@ -497,6 +505,27 @@ step Valley of Strength
   tip Borstan's Firepit is a few steps north.
   turnin 97246                        -- Borstan
   accept 97249
+
+step Neeru Fireblade
+  when dungeon "Ragefire Chasm"
+  zone Orgrimmar
+  tip For your Ragefire Chasm run: the Cleft of Shadow is the canyon under the Valley of Strength; Neeru Fireblade stands at its far end, next to the Ragefire Chasm portal.
+  accept 5761                         -- Neeru Fireblade
+
+step Ragefire Chasm
+  when dungeon "Ragefire Chasm"
+  when onquest 5761
+  zone Orgrimmar
+  tip Ragefire Chasm is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the Cleft of Shadow, beside Neeru.
+  tip Inside: past Oggleflint and his troggs, Taragaman the Hungerer waits in the lava cave and drops his heart. Jergosh the Invoker and Bazzalan, further in, are for Thrall's Hidden Enemies, which this route leaves out.
+  enter "Ragefire Chasm" @52.6,49.0
+  complete 5761                       -- Slaying the Beast: Taragaman the Hungerer's Heart
+
+step Neeru Fireblade
+  when complete 5761
+  zone Orgrimmar
+  tip Back out through the portal: Neeru stands beside it.
+  turnin 5761                         -- Neeru Fireblade
 
 step Class trainer
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
