@@ -564,6 +564,96 @@ fn t_1442_a_prerequisite_the_guide_has_only_for_other_races_is_missing_for_a_cha
 	assert_eq!(planned["hidden"], json!([4727]));
 }
 
+// Plan item "Engine prerequisite gap" (CatchUp, 2026-11-09): a prerequisite in the log counts as coming only
+// when the route takes the player to hand it in: a step for the character at an NPC or object the Codex says
+// takes it in. A Night Elf holding Washed Ashore (4681), whose Darkshore steps of it are for the other races,
+// is told to hand it in to Gwennyth Bly'Leggonde first, not shown Beached Sea Turtle (4727) as ready.
+// `gwennyth`: Lua goals for a step at Gwennyth (npc 10219) put before Cliffspring Falls, or "".
+fn held_darkshore(gwennyth: &str, codex_end: &str, guides: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: r#"local w = stub.world
+w.addMap(1439, { name = "Darkshore", c = 1, left = 1000, right = -1000, top = 1000, bottom = -3000 })
+w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+w.moveTo(1439, 53, 18)
+w.race, w.raceName, w.faction, w.class, w.className, w.level = "NightElf", "NightElf", "Alliance", "HUNTER", "Hunter", 17
+w.complete({ 3524 })
+w.onQuest(4681, {}, "Washed Ashore")"#
+			.to_string(),
+		addons: vec![Addon::name("Polestar")],
+		script: format!(
+			r#"{TEST_PACK}
+{TEST_SOURCE}
+local D = 1439
+local OTHERS = {{ races = {{ "Human", "Dwarf", "Gnome" }} }}
+local steps = {{
+	{{ title = "Auberdine", goals = {{ {{ t = "accept", quest = 4681, title = "Washed Ashore", only = OTHERS, npc = 10219, map = D, x = 37, y = 44 }} }} }},
+	{{ title = "The skeletal turtle", goals = {{ {{ t = "collect", item = 12289, itemName = "Sea Turtle Remains", quest = 4681, oi = 1, only = OTHERS, map = D, x = 36, y = 70 }} }} }},
+	{{ title = "Auberdine", goals = {{ {{ t = "turnin", quest = 4681, title = "Washed Ashore", only = OTHERS, npc = 10219, map = D, x = 37, y = 44 }} }} }},
+}}
+local extra = {{ {gwennyth} }}
+if #extra > 0 then steps[#steps + 1] = {{ title = "Gwennyth Bly'Leggonde", goals = extra }} end
+steps[#steps + 1] = {{ title = "Cliffspring Falls", goals = {{
+	{{ t = "accept", quest = 4727, title = "Beached Sea Turtle", pre = {{ 4681 }}, preTitles = {{ [4681] = "Washed Ashore" }}, object = 176196, map = D, x = 53, y = 18 }},
+	{{ t = "accept", quest = 999, title = "Fine Crab Chunks", map = D, x = 53, y = 18 }},
+}} }}
+Polestar.RegisterGuide({{ id = "test/ds", pack = "test", title = "Darkshore", faction = "Alliance", minLevel = 15, maxLevel = 19, steps = steps }})
+{guides}
+E = Polestar.Engine
+-- The Codex: every quest open to the character; Washed Ashore taken in by {codex_end}.
+Polestar.Codex.Quest = function(id) return {{ id = id, title = "Quest " .. id, faction = "A", ["end"] = id == 4681 and {codex_end} or nil }} end
+Polestar.Codex.Npc = function(id) return id == 10219 and {{ id = id, name = "Gwennyth Bly'Leggonde" }} or nil end
+stub.login(); stub.advance(0.25)
+Polestar.Set("behavior.autoAccept", false)
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.25)
+E.SetGuide("test/ds"); stub.advance(0.25)
+local out, g = {{}}, E.GetGuide()
+for i = 1, E.GetStepCount() do
+	local v = E.GetStepView(i)
+	for k, goal in ipairs(g.steps[i].goals) do
+		if goal.quest == 4727 then out[#out + 1] = goal.quest .. ":" .. v.goals[k].status .. ":" .. tostring(v.goals[k].unavailableText) end
+	end
+end
+local hidden = {{}}
+for q in pairs(g.hidden or {{}}) do hidden[#hidden + 1] = q end
+emit({{ goals = out, hidden = hidden, steps = E.GetStepCount() }})"#
+		),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+const AT_GWENNYTH: &str = "{ npc = { 10219 } }";
+
+#[test]
+fn a_held_prerequisite_the_route_never_hands_in_says_hand_it_in_first_with_its_ender() {
+	let out = held_darkshore("", AT_GWENNYTH, "");
+	assert_eq!(out["goals"], json!(["4727:skipped:Hand in “Washed Ashore” to Gwennyth Bly'Leggonde first"]), "{out}");
+}
+
+#[test]
+fn a_held_prerequisite_whose_ender_a_step_stands_at_keeps_its_follow_up_open() {
+	// A step for every race at Gwennyth (another of her quests): the player hands Washed Ashore in there.
+	let out = held_darkshore(
+		r#"{ t = "accept", quest = 998, title = "A Letter", npc = 10219, map = D, x = 37, y = 44 }"#,
+		AT_GWENNYTH,
+		"",
+	);
+	assert_eq!(out["goals"], json!(["4727:pending:nil"]), "{out}");
+	// The Codex cannot say who takes it in: the giver's window has the last word, as before (#1372).
+	let unknown = held_darkshore("", "nil", "");
+	assert_eq!(unknown["goals"], json!(["4727:active:nil"]), "{unknown}");
+}
+
+#[test]
+fn a_held_prerequisite_handed_in_far_away_keeps_its_follow_up_in_the_guide() {
+	// The Night Elf's own earlier guide hands Washed Ashore in, far away: no feeder goes in, and Beached Sea
+	// Turtle is not left out with "Requires" either: it says where to hand the held quest in.
+	let out = held_darkshore("", AT_GWENNYTH, NE_DARKSHORE);
+	assert!(out["hidden"].as_array().map_or(true, |a| a.is_empty()) && out["hidden"].as_object().map_or(true, |o| o.is_empty()), "{out}");
+	assert_eq!(out["goals"], json!(["4727:skipped:Hand in “Washed Ashore” to Gwennyth Bly'Leggonde first"]), "{out}");
+}
+
 // #1442 on the shipped Darkshore (03-darkshore, 15-19) for a Night Elf Hunter at 17. The guide's Washed Ashore,
 // How Big a Threat? and Plagued Lands steps are for the other races (a Night Elf does them in its own
 // Darkshore guide); the Codex is stubbed to say every quest is the character's (they are open to every

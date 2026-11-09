@@ -188,9 +188,8 @@ Polestar.RegisterGuide({
 })
 "#;
 
-#[test]
-fn a_letter_from_another_giver_in_the_log_keeps_the_next_call_of_water_open() {
-	let out = emitted(&RunAddon {
+fn letters(codex: &str) -> Value {
+	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: format!("{WORLD}\nw.race, w.raceName = \"Tauren\", \"Tauren\"\nw.complete({{}}); w.log[1530] = nil\nw.onQuest(1529, {{}}, \"Call of Water\")\nw.completed[1528] = nil"),
 		addons: vec![Addon::name("Polestar")],
@@ -199,6 +198,7 @@ fn a_letter_from_another_giver_in_the_log_keeps_the_next_call_of_water_open() {
 			TEST_SOURCE,
 			LETTERS,
 			HELPERS,
+			codex,
 			"stub.login()",
 			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
 			r#"E.SetGuide("test/barrens"); stub.advance(3)"#,
@@ -207,9 +207,20 @@ fn a_letter_from_another_giver_in_the_log_keeps_the_next_call_of_water_open() {
 		]
 		.join("\n"),
 		..Default::default()
-	});
-	assert_eq!(out[0]["live"], 2, "{}", out[0]);
-	assert_eq!(out[0]["accept"], "active", "{}", out[0]);
+	})
+	.remove(0)
+}
+
+#[test]
+fn a_letter_from_another_giver_in_the_log_keeps_the_next_call_of_water_open() {
+	let out = letters("");
+	assert_eq!(out["live"], 2, "{out}");
+	assert_eq!(out["accept"], "active", "{out}");
+	// With the Codex saying Islen Waterseer takes Thunder Bluff's letter in: the guide stands at her (a held
+	// prerequisite counts as coming only where the route hands it in, plan item "Engine prerequisite gap").
+	let islen = letters(r#"Polestar.Codex.Quest = function(id) return { id = id, title = "Call of Water", faction = "H", ["end"] = id == 1529 and { npc = { 5901 } } or nil } end"#);
+	assert_eq!(islen["live"], 2, "{islen}");
+	assert_eq!(islen["accept"], "active", "{islen}");
 }
 
 #[test]
