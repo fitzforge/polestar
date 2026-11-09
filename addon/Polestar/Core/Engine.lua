@@ -3150,6 +3150,12 @@ function Own.keep(s)
 	local held = ns.CharState().when
 	held[guide.id] = held[guide.id] or {}
 	held[guide.id][s] = true
+	-- Kept by the player now: no skip's undo takes it back (Own.skipRestore).
+	local all = ns.CharState().skipStored
+	local mine = type(all) == "table" and all[guide.id]
+	for _, rec in pairs(type(mine) == "table" and mine or NONE) do
+		if type(rec.steps) == "table" then rec.steps[s] = nil end
+	end
 end
 
 -- First applicable, not skipped, not done step, after placing the tab when
@@ -4448,6 +4454,23 @@ function Own.remap(id, map)
 			end
 			s[field][id] = next(out) and out or nil
 		end
+	end
+	-- What each skip stored on the way (Own.skipStore): its step and the
+	-- steps it names, those kept only.
+	local stored = type(s.skipStored) == "table" and s.skipStored[id]
+	if type(stored) == "table" then
+		local out = {}
+		for k, rec in pairs(stored) do
+			local nk = type(k) == "number" and map[k]
+			if nk and type(rec) == "table" then
+				local steps = {}
+				for t, v in pairs(type(rec.steps) == "table" and rec.steps or NONE) do
+					if type(t) == "number" and map[t] then steps[map[t]] = v end
+				end
+				out[nk] = { steps = steps, feed = rec.feed }
+			end
+		end
+		s.skipStored[id] = next(out) and out or nil
 	end
 	local p = type(s.pins) == "table" and s.pins[id]
 	if p then s.pins[id] = type(p) == "table" and map[p.step] and { step = map[p.step], done = p.done } or nil end
@@ -8393,29 +8416,114 @@ end
 -- Looking at another step than the live one, the view moves to the next
 -- applicable step. Undone by Unskip. Fires PLAYER_SKIPPED_STEP(guideId,
 -- step) after the evaluation (the window offers the undo). Returns the
--- skipped step.
+-- skipped step. What the skip stored besides the step (Own.skipStore) goes
+-- with its undo.
 function Engine.Skip()
 	if not (guide and current) then return nil end
 	refreshPlayer()
 	placing = nil
 	local s, id = current, guide.id
+	local st = ns.CharState()
+	local before = Own.skipState(id)
 	skippedFor(id, true)[s] = true
 	-- A feeder step skipped stays out of the guide's next prefix (Own.feederChain).
+	local feed = {}
 	if guide.steps[s].feeder then
-		local st = ns.CharState()
 		if type(st.feedSkips) ~= "table" then st.feedSkips = {} end
 		for _, goal in ipairs(guide.steps[s].goals) do
-			if goal.quest then st.feedSkips[goal.quest] = true end
+			local q = goal.quest
+			if q and not st.feedSkips[q] then
+				st.feedSkips[q] = true
+				feed[#feed + 1] = q
+			end
 		end
 	end
 	if pin then Own.view(nextApplicable(pin)) end
 	evaluate()
+	Own.skipStore(id, s, before, feed)
 	ns.Fire("PLAYER_SKIPPED_STEP", id, s)
 	return s
 end
 
+-- The steps of guide id with a stored `when` outcome or skip: { when = { [s]
+-- = true }, skipped = { [s] = value } }, a copy (Engine.Skip compares).
+function Own.skipState(id)
+	local st = ns.CharState()
+	local out = { when = {}, skipped = {} }
+	for field, into in pairs(out) do
+		local t = st[field][id]
+		if type(t) == "table" then
+			for k, v in pairs(t) do
+				if type(k) == "number" then into[k] = v end
+			end
+		end
+	end
+	return out
+end
+
+-- A skip moves the live step past more steps than the one skipped, and the
+-- route stores what it finds on the way: each passed step's `when` outcome
+-- (Own.latchWhen: held in `when`, failed as a skip) and the `skipto` jumps
+-- taken (Own.jump, "jump"). Those are the skip's own doing, so its undo
+-- takes them back with it, or a step passed at level 19 for `when level>=20`
+-- would stay passed at 20 once the skip is undone. Saved per character, per
+-- guide and skipped step, with the feeder quests the skip left out
+-- (CharState().skipStored[guideId][s] = { steps = { [t] = "when" | true |
+-- "jump" }, feed = { questID, ... } }); Own.remap moves it with the steps.
+function Own.skipStore(id, s, before, feed)
+	local now = Own.skipState(id)
+	local steps, any = {}, #feed > 0
+	for t in pairs(now.when) do
+		if not before.when[t] then steps[t], any = "when", true end
+	end
+	for t, v in pairs(now.skipped) do
+		if t ~= s and before.skipped[t] == nil and (v == true or v == "jump") then steps[t], any = v, true end
+	end
+	local st = ns.CharState()
+	if type(st.skipStored) ~= "table" then st.skipStored = {} end
+	local mine = st.skipStored[id]
+	if any then
+		mine = mine or {}
+		st.skipStored[id] = mine
+		mine[s] = { steps = steps, feed = feed }
+	elseif mine then
+		mine[s] = nil
+		if not next(mine) then st.skipStored[id] = nil end
+	end
+	if not next(st.skipStored) then st.skipStored = nil end
+end
+
+-- Step i of guide id is unskipped (Unskip, Goto): what its skip stored
+-- (Own.skipStore) and still holds goes too.
+function Own.skipRestore(id, i)
+	local st = ns.CharState()
+	local all = type(st.skipStored) == "table" and st.skipStored or nil
+	local mine = all and all[id]
+	local rec = type(mine) == "table" and mine[i]
+	if not rec then return end
+	mine[i] = nil
+	if not next(mine) then all[id] = nil end
+	if not next(all) then st.skipStored = nil end
+	local held, sk = st.when[id], st.skipped[id]
+	for t, v in pairs(type(rec.steps) == "table" and rec.steps or NONE) do
+		if v == "when" then
+			if held and held[t] == true then held[t] = nil end
+		elseif sk and sk[t] == v then
+			sk[t] = nil
+		end
+	end
+	if held and not next(held) then st.when[id] = nil end
+	if sk and not next(sk) then st.skipped[id] = nil end
+	local fs = st.feedSkips
+	if type(fs) == "table" then
+		for _, q in ipairs(type(rec.feed) == "table" and rec.feed or NONE) do fs[q] = nil end
+		if not next(fs) then st.feedSkips = nil end
+	end
+end
+
 -- Undo a skip: step i is open again (the live step when it is the first open
--- one). True if it was skipped.
+-- one), with what its skip stored on the way (Own.skipRestore). True if it
+-- was skipped.
 function Engine.Unskip(i)
 	if not guide or type(i) ~= "number" then return false end
 	local sk = skippedFor(guide.id)
@@ -8424,6 +8532,7 @@ function Engine.Unskip(i)
 	placing = nil
 	sk[i] = nil
 	if not next(sk) then ns.CharState().skipped[guide.id] = nil end
+	Own.skipRestore(guide.id, i)
 	Own.keep(i)
 	evaluate()
 	return true
@@ -8487,6 +8596,7 @@ function Engine.Goto(i)
 	local sk = skippedFor(guide.id)
 	if sk and sk[i] then
 		sk[i] = nil
+		Own.skipRestore(guide.id, i)
 		-- A jumped step looked at again takes no jump, or the route would jump straight back.
 		if guide.steps[i].skipto then Own.keep(i) end
 	end
@@ -8801,6 +8911,7 @@ function Engine.ResetProgress()
 	state.manual[guide.id] = nil
 	state.skipped[guide.id] = nil
 	state.when[guide.id] = nil
+	if type(state.skipStored) == "table" then state.skipStored[guide.id] = nil end
 	state.guideEnds[guide.id] = nil
 	Own.endOpen[guide.id], Own.lastOpen[guide.id] = nil, nil
 	pin, pinDone, aim, passedUpTo, placing = nil, nil, nil, 0, GetTime() + PLACE_SECONDS

@@ -2159,7 +2159,14 @@ and the saved view with them; saves from before step keys existed lose them.
 
 Navigation: `Next`, `Prev` and `Goto` only change the step on screen (the
 pin); `Skip` is the only way to skip a step (saved, undone by `Unskip`;
-`Goto` to a skipped step un-skips it). The pin is saved (`pins`), so a reload
+`Goto` to a skipped step un-skips it). A skip moves the live step past more
+steps than the one skipped, and the route stores what it finds there (their
+`when` outcomes, `skipto` jumps); the skip records those, and the feeder
+quests it left out (`feedSkips`), in `CharState().skipStored[guideId][step]`,
+and its undo (`Unskip`, `Goto`) takes them back with it, so a step passed at
+level 19 for `when level>=20` comes back at 20 once the skip is undone
+(`Own.skipStore`, `Own.skipRestore`; a step the player keeps meanwhile,
+`Own.keep`, stays). The pin is saved (`pins`), so a reload
 shows the step the player was looking at; it is released at the live step,
 and while the step it shows gets done it follows forward (behind the live
 step up to it, ahead of it to the next open step, latching the step's
@@ -5457,7 +5464,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   or on (down), ten with Shift (`GF.Scrub`, through `GF.LookAt`: Prev and
   Next, so a skipped step is never un-skipped), and four seconds after the
   last notch the window is back on the live step unless the player moved
-  on from there. A click on it lists the steps around it (`GF.ShowOverview`,
+  on from there or did some of that step's work meanwhile (a goal's status
+  or count changed: then it stays, as after Next); in combat it waits for
+  the fight to end. A click on it lists the steps around it (`GF.ShowOverview`,
   five before and ten after, those for this character): done ones ticked
   and dimmed, skipped ones dimmed, the live one marked with a chevron, the
   one on screen in the accent; a click looks at that step.

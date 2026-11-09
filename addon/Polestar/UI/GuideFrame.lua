@@ -1463,23 +1463,47 @@ end
 -- The wheel over the step number: each notch looks one step back (up) or on
 -- (down), ten with Shift, changing nothing. SCRUB_BACK seconds after the
 -- last notch the window is back on the live step, unless the player has
--- moved on from where the wheel left it.
+-- moved on from where the wheel left it, or has been doing that step's work
+-- meanwhile (a goal done or counted up, a quest taken): then it stays, as
+-- after Next. In combat it waits until the fight is over.
 local SCRUB_BACK = 4
-local scrubAt
+local scrubAt -- { step, mark }: the last notch's, until it is settled
+
+-- What has been done on step i so far, as one string (GF.Scrub compares it).
+-- (On GF: the main chunk is at Lua's 200 locals.)
+function GF.ScrubMark(E, i)
+	local v = E.GetStepView(i)
+	if not v then return "" end
+	local parts = { tostring(v.status) }
+	for g, goal in ipairs(v.goals or {}) do
+		parts[#parts + 1] = g .. ":" .. tostring(goal.status) .. ":" .. tostring(goal.progress and goal.progress.cur or "")
+	end
+	return table.concat(parts, ",")
+end
+
 function GF.Scrub(delta)
 	local E = Engine()
 	if not (E and E.GetStepIndex and E.GetLiveStep and E.GetStepIndex()) then return end
 	local n = ns.Compat.IsShiftKeyDown() and 10 or 1
 	GF.LookAt(math.max(1, math.min(E.GetStepCount(), E.GetStepIndex() + (delta > 0 and -n or n))))
 	local at = E.GetStepIndex()
-	scrubAt = at
-	ns.After(SCRUB_BACK, function()
+	local mine = { step = at, mark = GF.ScrubMark(E, at) }
+	scrubAt = mine
+	local function back()
+		if scrubAt ~= mine then return end
 		local live = E.GetLiveStep()
-		if scrubAt == at and E.GetStepIndex() == at and live and at ~= live then
+		if E.GetStepIndex() ~= at or not live or at == live or GF.ScrubMark(E, at) ~= mine.mark then
 			scrubAt = nil
-			GF.LookAt(live)
+			return
 		end
-	end)
+		if ns.Compat.InCombat() then
+			ns.After(SCRUB_BACK, back)
+			return
+		end
+		scrubAt = nil
+		GF.LookAt(live)
+	end
+	ns.After(SCRUB_BACK, back)
 end
 
 -- A click on the step number: the steps around the one on screen, done ones

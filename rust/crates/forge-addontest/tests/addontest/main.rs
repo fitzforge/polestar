@@ -116,6 +116,8 @@ mod engine_review;
 mod engine_routes;
 #[path = "engine-skipquest.rs"]
 mod engine_skipquest;
+#[path = "engine-skip-undo.rs"]
+mod engine_skip_undo;
 #[path = "engine-skipto.rs"]
 mod engine_skipto;
 #[path = "engine-smart.rs"]
@@ -318,6 +320,8 @@ mod ui_picker;
 mod ui_picker_folders;
 #[path = "ui-picker-levels.rs"]
 mod ui_picker_levels;
+#[path = "ui-scrub.rs"]
+mod ui_scrub;
 #[path = "ui-picker-packs.rs"]
 mod ui_picker_packs;
 #[path = "ui-picker-scroll.rs"]
