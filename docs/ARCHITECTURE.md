@@ -3103,11 +3103,18 @@ permission; `addon/Polestar_Nav/CREDITS.md`).
   minimap's own picture, under every frame on it, so no frame level puts the
   line beneath them. The player's arrow is drawn there too, so nothing is
   drawn within 9 px of the minimap's centre (`Strokes.PLAYER_GAP`: lines and
-  strokes are cut there, the dots keep clear of it as of a stop's pin); the
-  dots are otherwise 0.3.5's (tested against its recorded strokes). Every
-  style joins the walk at the player while the player is on it (within 15
-  yd, Follow.lua's BODY); only beside it does it start at the point the
-  arrow holds in sight (`joinPoint`).
+  strokes are cut there, the dots keep clear of it as of a stop's pin). On
+  the minimap the dots style is 0.3.4's trail (`Strokes.TRAIL_*`): 5-unit
+  pin-fill dots at 85 %, no rim, 12 minimap units apart at every zoom,
+  counted back from the walk's end and crawling toward the goal at the
+  sparkles' default pace (`view.phase`, the painter's 20 Hz driver; still
+  under `ui.reduceMotion`); the world map keeps 0.3.5's dots (tested against
+  their recorded strokes). The line there is `MINIMAP_LINE` of the setting
+  (1.5-3 px) over a 2 px shadow, with round ends, painted at 85 %. Dots and
+  the line join the walk at the player while the player is on it (within 15
+  yd, Follow.lua's BODY); only beside it do they run straight from the player
+  to the point the arrow holds in sight (`joinPoint`). Sparkles always start
+  abreast of the player.
 - Line style (`nav.lineStyle`, `RouteLines.STYLE_CHOICES`): `"line"`,
   `"dots"` (the above) or `"sparkle"`, chosen on the welcome's setup page
   (`UI/Welcome.lua`, three cards each previewing its style), in Options

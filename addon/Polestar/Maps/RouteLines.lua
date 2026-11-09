@@ -80,6 +80,8 @@ RouteLines.STYLE_CHOICES = {
 -- One colour for the whole line, instead of each leg's ("route"): bright and
 -- cool, apart from the minimap's yellow herb and ore dots and gold quest marks.
 RouteLines.DOT_COLORS = { cyan = { 0.2, 0.9, 1 }, magenta = { 1, 0.3, 0.85 }, white = { 1, 1, 1 } }
+-- The line style's strength on the minimap, before nav.minimapRouteAlpha.
+RouteLines.MINIMAP_LINE_ALPHA = 0.85
 -- The minimap line's opacity and size (nav.minimapRouteAlpha, nav.minimapRouteSize).
 RouteLines.MINIMAP_LIMITS = { minimapRouteAlpha = { 0.2, 1 }, minimapRouteSize = { 0.5, 1.5 } }
 
@@ -231,15 +233,18 @@ local function joinPoint(pc, px, py)
 end
 
 -- Where the sparkles start on each run: the first, when it is the leg being
--- travelled and the player is on it, at the player (or where the arrow joins it).
+-- travelled and the player is on it, abreast of the player. Never where the
+-- arrow aims ahead (joinPoint): sparkles have no straight stretch from the
+-- player to that point, so beside the path (a road along it) they started
+-- far ahead, at the minimap's edge or past the goal, and none showed by the
+-- arrow (Fitz, 0.3.6).
 local function sparkleProgress()
 	for i = 1, #runs do runFrom[i] = 0 end
 	local first = runs[1]
 	if not (first and not first.later) then return end
 	local pc, px, py = playerPosition()
 	if not pc then return end
-	local jx, jy = joinPoint(pc, px, py)
-	local along, off = Sparkle.Nearest(first, pc, jx, jy)
+	local along, off = Sparkle.Nearest(first, pc, px, py)
 	if along and off <= LIVE_REACH then runFrom[1] = along end
 end
 
@@ -855,6 +860,24 @@ local function drawMinimapSparkles(pc, px, py, radius, facing, square, width, he
 	finishSparkles(mm, d.used)
 end
 
+-- The minimap's dots crawl toward the goal (RouteStrokes' trail) at the
+-- sparkles' default pace: the distance a sparkle drifts a second, in trail
+-- spacings; under ui.reduceMotion they hold still at half a spacing.
+local TRAIL_INTERVAL = 1 / 20 -- trail redraws a second, at most
+local trailRate
+local function crawling()
+	return lineStyle == "dots" and not ns.Get("ui.reduceMotion")
+end
+local function trailPhase()
+	if lineStyle ~= "dots" then return 0 end
+	if not crawling() then return 0.5 end
+	if not trailRate then
+		local st = Sparkle and Sparkle.Style(function(key) return Sparkle.DEFAULTS[key] end)
+		trailRate = st and st.flow * st.spacing / Strokes.TRAIL_SPACING or 1 / 1.5
+	end
+	return (sparkleClock() * trailRate) % 1
+end
+
 local function drawMinimap(force)
 	local C = ns.Compat
 	local pc, px, py
@@ -883,13 +906,14 @@ local function drawMinimap(force)
 		return
 	end
 	finishSparkles(mm, 0)
+	local phase = trailPhase()
 	if not force and last.c == pc and last.x == px and last.y == py and last.radius == radius and last.facing == facing
 		and last.square == square and last.width == width and last.height == height and last.scale == scale
-		and last.revision == revision then
+		and last.revision == revision and last.phase == phase then
 		return
 	end
 	last.c, last.x, last.y, last.radius, last.facing, last.square = pc, px, py, radius, facing, square
-	last.width, last.height, last.scale, last.revision = width, height, scale, revision
+	last.width, last.height, last.scale, last.revision, last.phase = width, height, scale, revision, phase
 	if advance(pc, px, py) and worldPin and worldPin:IsShown() and view and view.shown then drawWorld(worldPin) end
 	local v = minimapView
 	v.c, v.x, v.y, v.radius, v.facing, v.square = pc, px, py, radius, facing, square
@@ -897,8 +921,10 @@ local function drawMinimap(force)
 	-- grow together, as at a larger UI scale; nav.minimapRouteAlpha fades them.
 	v.width, v.height, v.scale, v.colors = width, height, scale / mmSize, palette
 	v.style, v.lineWidth = lineStyle == "line" and "line" or nil, lineWidth
-	mm.opacity = mmAlpha
+	-- The line at 85 % on the minimap, so its terrain shows through it.
+	mm.opacity = mmAlpha * (lineStyle == "line" and RouteLines.MINIMAP_LINE_ALPHA or 1)
 	v.goalC, v.goalX, v.goalY, v.goalRadius = goalC, goalX, goalY, MINIMAP_GOAL
+	v.phase, v.trailSize = phase, mmSize
 	v.from, v.fromIndex, v.fromC, v.fromX, v.fromY = live ~= nil, live, liveC, liveX, liveY
 	Strokes.Minimap(minimapStrokes, paths, v)
 	paint(mm, minimapStrokes)
@@ -907,7 +933,8 @@ end
 local function tick(_, elapsed)
 	elapsedSince = elapsedSince + elapsed
 	local growing = drawingIn()
-	if elapsedSince < ((sparkling or growing) and SPARKLE_INTERVAL or DRIVE_INTERVAL) then return end
+	local interval = (sparkling or growing) and SPARKLE_INTERVAL or crawling() and TRAIL_INTERVAL or DRIVE_INTERVAL
+	if elapsedSince < interval then return end
 	elapsedSince = 0
 	if sparkling then
 		local now = sparkleClock()
