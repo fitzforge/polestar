@@ -84,6 +84,32 @@ fn trainers_read_the_pack_guides_only_not_drafts_or_dist() {
 	assert!(t.get("3175").is_none());
 }
 
+/// The class trainers the knowledge base added from the Forever TDB (`forever-tdb` in the data's
+/// trainers.json) stay in a regenerated list, unless their title names another trade (a portal
+/// trainer as a MAGE trainer, #1507); a guide's `train` at a portal trainer adds none either.
+#[test]
+fn tdb_class_trainers_stay_and_portal_trainers_stay_out() {
+	let data = dsl_data_copy("trainers-tdb-data");
+	let npcs_file = data.join("npcs.json");
+	let mut npcs: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(&npcs_file).unwrap()).unwrap();
+	npcs["6928"]["subName"] = "Portal Trainer".into();
+	npcs["152"]["subName"] = "Rogue Trainer".into();
+	std::fs::write(&npcs_file, npcs.to_string()).unwrap();
+	std::fs::write(
+		data.join("trainers.json"),
+		r#"{"152": {"id": 152, "name": "Brother Danil", "classes": ["ROGUE"], "sources": ["forever-tdb"]}, "6928": {"id": 6928, "name": "Innkeeper Grosk", "classes": ["MAGE"], "sources": ["forever-tdb"]}}"#,
+	)
+	.unwrap();
+	let guides = common::scratch("trainers-tdb-guides");
+	std::fs::write(guides.join("a.guide"), guide_text(&["step S", "  only Mage", "  train 6928"])).unwrap();
+	let (json, lua, rep) = forge_data::trainers::run(&data, Some(&guides), &common::scratch("trainers-tdb-recs")).unwrap();
+	let t: serde_json::Value = serde_json::from_str(&json).unwrap();
+	assert_eq!((&t["152"]["classes"], &t["152"]["sources"]), (&serde_json::json!(["ROGUE"]), &serde_json::json!(["forever-tdb"])));
+	assert!(t.get("6928").is_none(), "a portal trainer is no MAGE trainer: {}", t);
+	assert_eq!(rep.guide, 0);
+	assert!(forge_data::trainers::trainer_ids(&lua)[&152].contains("ROGUE"));
+}
+
 /// Recorded trainer visits from the recording server, under recordings.rs "Trust": a trainer another
 /// source lists takes a class only from three established players, each counted once however many
 /// installs it has; a trainer no source lists is filled by one; a new player counts for nothing.

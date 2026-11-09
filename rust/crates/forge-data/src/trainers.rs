@@ -1,6 +1,7 @@
 //! Class trainers (port of tools/lib/dsl/trainers.js buildTrainers and tools/commands/trainers.js):
 //! data/forever/trainers.json from the curated name list (resolved against npcs.json), every
-//! `train <npcId> only <Class>` goal under guides/, and recorded trainer visits (trusted as
+//! `train <npcId> only <Class>` goal under guides/, the class trainers the knowledge base added from
+//! the Forever TDB (the data's trainers.json, `forever-tdb`), and recorded trainer visits (trusted as
 //! recordings.rs "Trust" says); plus addon/Polestar/Core/ClassTrainers.lua.
 
 use std::path::Path;
@@ -291,6 +292,8 @@ pub struct Report {
 	pub guide: usize,
 	pub record: usize,
 	pub unverified: Vec<(String, String, i64)>,
+	/// Recordings read (read_recordings' list).
+	pub recordings: usize,
 }
 
 /// trainers.json's object and the counts, from the data, the guide pack and the recordings
@@ -354,6 +357,22 @@ pub fn build_trainers(data: &Data, guides: Option<&Path>, recordings: &Recording
 			}
 		}
 	}
+	// The class trainers the knowledge base added from the Forever TDB (data/forever/trainers.json,
+	// `forever-tdb`), kept when their title names the class: without them a regenerated file lost
+	// the 16 #1507 added by hand and #1357's Ian Strom and Fahrad. Portal trainers stay out.
+	for t in data.trainers_raw.values() {
+		if !t.get("sources").items().iter().any(|s| s.as_str() == Some("forever-tdb")) {
+			continue;
+		}
+		let id = t.get("id").num() as i64;
+		let n = data.npc(&V::Num(id as f64));
+		for c in t.get("classes").items() {
+			let cls = c.to_js_string();
+			if CLASS_FILES.contains(&cls.as_str()) && titled_for(&n, &cls) {
+				add(&mut entries, id, if n.truthy() && n.get("name").truthy() { n.get("name") } else { t.get("name") }, &cls, "forever-tdb");
+			}
+		}
+	}
 	// Recorded visits (recordings.rs "Trust"): per trainer and class, the counted players (cohorts,
 	// else contributors) who saw a character of that class train there, each once; sessions whose
 	// player doesn't count are left out. The classes judged are the trusted ones (`minVoters`
@@ -410,10 +429,10 @@ pub fn build_trainers(data: &Data, guides: Option<&Path>, recordings: &Recording
 		o.set("id", id as f64);
 		o.set("name", if e.name.truthy() { e.name.clone() } else { V::Null });
 		o.set("classes", V::from(CLASS_FILES.iter().filter(|c| e.classes.contains(**c)).map(|c| V::str(c)).collect::<Vec<_>>()));
-		o.set("sources", V::from(["curated", "guide", "record"].iter().filter(|x| e.sources.contains(**x)).map(|c| V::str(c)).collect::<Vec<_>>()));
+		o.set("sources", V::from(["curated", "guide", "record", "forever-tdb"].iter().filter(|x| e.sources.contains(**x)).map(|c| V::str(c)).collect::<Vec<_>>()));
 		out.set(&id.to_string(), o);
 	}
-	(out, Report { curated, guide, record, unverified })
+	(out, Report { curated, guide, record, unverified, recordings: recordings.list.len() })
 }
 
 /// trainers.json's text.
@@ -486,15 +505,15 @@ pub fn run(data_dir: &Path, guides: Option<&Path>, recordings: &Path) -> Result<
 }
 
 /// `forge data trainers` refuses missing inputs rather than writing fewer trainers: no guide folder
-/// (the trainers our guides' train steps name would go), or no recordings (the trainers only
-/// players' visits name would go).
-pub fn check_inputs(guides: Option<&Path>, recordings: &Path) -> Result<(), String> {
+/// (the trainers our guides' train steps name would go), or (`report`, after `run`) no recordings
+/// read (the trainers only players' visits name would go).
+pub fn check_inputs(guides: Option<&Path>, recordings: &Path, report: Option<&Report>) -> Result<(), String> {
 	match guides {
 		Some(g) if g.is_dir() => {}
 		g => return Err(format!("trainers: no guide folder{} (--guides): the trainers our guides' train steps name would be dropped", g.map(|g| format!(" at {}", g.display())).unwrap_or_default())),
 	}
-	if recordings::read_recordings(recordings)?.list.is_empty() {
-		return Err(format!("trainers: no recordings in {} (--recordings): the trainers only players' visits name would be dropped", recordings.display()));
+	if report.is_some_and(|r| r.recordings == 0) {
+		return Err(format!("trainers: no recordings in {} (--recordings): the trainers only players' visits name would be dropped; nothing written", recordings.display()));
 	}
 	Ok(())
 }
@@ -582,16 +601,15 @@ mod tests {
 	fn missing_inputs_fail_instead_of_dropping_trainers() {
 		let tmp = std::env::temp_dir().join(format!("forge-trainers-{}", std::process::id()));
 		let (guides, recs) = (tmp.join("guides"), tmp.join("recs"));
-		std::fs::create_dir_all(&recs).unwrap();
-		let e = check_inputs(None, &recs).err().unwrap_or_default();
+		let e = check_inputs(None, &recs, None).err().unwrap_or_default();
 		assert!(e.contains("no guide folder (--guides)"), "{e}");
-		let e = check_inputs(Some(guides.as_path()), &recs).err().unwrap_or_default();
+		let e = check_inputs(Some(guides.as_path()), &recs, None).err().unwrap_or_default();
 		assert!(e.contains("no guide folder at"), "{e}");
 		std::fs::create_dir_all(&guides).unwrap();
-		let e = check_inputs(Some(guides.as_path()), &recs).err().unwrap_or_default();
+		let rep = |n: usize| Report { curated: 0, guide: 0, record: 0, unverified: Vec::new(), recordings: n };
+		let e = check_inputs(Some(guides.as_path()), &recs, Some(&rep(0))).err().unwrap_or_default();
 		assert!(e.contains("no recordings in"), "{e}");
-		std::fs::write(recs.join("a.json"), r#"{"schema":1,"events":[]}"#).unwrap();
-		assert_eq!(check_inputs(Some(guides.as_path()), &recs), Ok(()));
+		assert_eq!(check_inputs(Some(guides.as_path()), &recs, Some(&rep(1))), Ok(()));
 		std::fs::remove_dir_all(&tmp).ok();
 	}
 }
