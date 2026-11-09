@@ -1665,7 +1665,6 @@ L["Hello, %s"] = "안녕하세요, %s 님"
 L["Welcome to Polestar"] = "Polestar에 오신 것을 환영합니다"
 L["Polestar guides you step by step: who to talk to, what to kill or collect, and where to go."] = "Polestar가 단계별로 가이드합니다: 누구와 대화하고, 무엇을 처치하거나 수집하고, 어디로 갈지."
 L["Make it yours"] = "내 방식대로"
-L["Three choices to start with. Everything else is in %s."] = "먼저 세 가지를 고르십시오. 나머지는 모두 %s에 있습니다."
 L["Accept and turn in guide quests for me"] = "가이드 퀘스트 자동 수락 및 제출"
 L["Only quests in the next steps of your open guides. Never picks between rewards. Hold Shift to skip."] = "열린 가이드의 다음 단계에 있는 퀘스트만. 보상은 고르지 않습니다. 건너뛰려면 Shift를 누르십시오."
 L["Load a guide for me when I log in"] = "접속 시 가이드 자동 불러오기"
@@ -1694,6 +1693,9 @@ L["Every style keeps you out of the other faction's towns and away from zones fa
 -- L["Played to the end in tests, but not yet by players. If a step is wrong, press %s in the guide window and tell us on Discord."] = ""
 -- L["Feedback, bug reports and news."] = ""
 -- L["Guides by other players, installed like any addon. They show under Community guides in the guide list."] = ""
+-- L["A few choices to start with. Everything else is in %s."] = ""
+-- L["Route line"] = ""
+-- L["How the way to your goal shows on the world map and the minimap. The line is the easiest to follow; sparkles show as dots while Reduce motion is on."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "선택되어 있습니다: Ctrl+C(Mac은 Cmd+C)로 복사한 뒤 Esc를 누르십시오."
@@ -1833,7 +1835,6 @@ L["Flights, boats and your hearthstone when they are faster. Off: the arrow poin
 L["Walk real paths"] = "실제 길로 걷기"
 L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."] = "화살표가 Polestar 보행 지도와 Cillian Berragan의 Shortest Path Forever 경로 탐색기로 절벽, 물, 벽을 돌아 지면의 길을 따라갑니다. 끄면 각 정류장을 곧장 가리킵니다."
 L["Route lines"] = "경로선"
-L["The way to the goal on the world map and the minimap: dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "지도와 미니맵에 목표까지의 길: 걷는 곳은 점, 비행·항해·탑승은 선, 이후 구간은 흐리게. Cillian Berragan의 Shortest Path Forever 방식으로 그립니다."
 L["Class teleports"] = "직업 순간이동"
 L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "더 빠르면 아는 순간이동 주문(마법사의 도시 순간이동, 드루이드의 달의 숲)으로 경로를 시작합니다. 도시 순간이동에는 가방에 순간이동의 룬이 필요합니다."
 L["Share boat times"] = "배 시간 공유"
@@ -2079,6 +2080,8 @@ L["Did you mean:"] = "찾으시는 항목:"
 -- L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."] = ""
 -- L["Route line on the minimap"] = ""
 -- L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map. Its colour, opacity and size: the gear beside Guide > Arrow & routes > Route lines."] = ""
+-- L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = ""
+-- L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -2647,7 +2650,6 @@ L["The licence differs from the stored guide's."] = "라이선스가 저장된 �
 L["Polestar trail dots"] = "Polestar 경로 점"
 
 -- UI/LineStyle.lua
-L["How the route lines are drawn: Polestar's dots, or sparkles that drift along the way to the goal."] = "경로 선을 그리는 방식: Polestar 점, 또는 목표를 향해 흘러가는 반짝임."
 L["Dots"] = "점"
 L["Sparkle"] = "반짝임"
 L["Intensity"] = "강도"
@@ -2674,15 +2676,17 @@ L["Sparkle the legs after this one too, fainter. Off: only the leg you are on."]
 L["Subtle"] = "은은함"
 L["Dazzling"] = "화려함"
 L["Route line style"] = "경로선 스타일"
--- L["Dot colour"] = ""
 -- L["Route colours tint each leg by how you travel it. Cyan, magenta and white stand apart from the minimap's yellow herb and ore dots and its gold quest marks. Right-click to reset."] = ""
 -- L["Cyan"] = ""
 -- L["Magenta"] = ""
 -- L["White"] = ""
 -- L["Minimap opacity"] = ""
--- L["How strongly the route line shows on the minimap, dots or sparkles; the world map keeps its own. Right-click to reset."] = ""
 -- L["Minimap size"] = ""
--- L["The route line's dots or sparkles on the minimap, and the gaps between them; the world map keeps its own. Right-click to reset."] = ""
+-- L["Line thickness"] = ""
+-- L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] = ""
+-- L["Route colour"] = ""
+-- L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] = ""
+-- L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] = ""
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "가이드: %d"
@@ -3001,6 +3005,10 @@ L["Polestar told your party about your quest progress in chat (Options > Questin
 L["%s is ready to turn in"] = "%s 제출 가능"
 L["looted %s, which starts %s"] = "%s 획득, 이 아이템으로 %s 시작"
 
+-- Maps/RouteLines.lua
+-- L["Line"] = ""
+-- L["Sparkles"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever가 안내 중입니다. Polestar의 화살표를 사용하려면 \"설치 시 Shortest Path Forever로 가이드\"(옵션, 연동)를 끄세요."
@@ -3052,3 +3060,6 @@ L["looted %s, which starts %s"] = "%s 획득, 이 아이템으로 %s 시작"
 -- L["Polestar %s is installed incompletely: %s. Close the game, delete every Polestar folder in Interface/AddOns and unzip the latest Polestar zip there (CurseForge or GitHub Releases, not \"Source code\")."] = "Polestar %s 설치가 불완전합니다: %s. 게임을 종료하고 Interface/AddOns의 Polestar 폴더를 모두 삭제한 뒤, 최신 Polestar zip을 그곳에 압축 해제하십시오(CurseForge 또는 GitHub Releases, \"Source code\" 아님)."
 -- L["Objective areas"] = "임무 지역"
 -- L["Shade the area each group of mobs or objects spreads over on the world map."] = "지도에 각 몹이나 사물 무리가 퍼져 있는 지역을 칠합니다."
+-- L["Three choices to start with. Everything else is in %s."] = "먼저 세 가지를 고르십시오. 나머지는 모두 %s에 있습니다."
+-- L["The way to the goal on the world map and the minimap: dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "지도와 미니맵에 목표까지의 길: 걷는 곳은 점, 비행·항해·탑승은 선, 이후 구간은 흐리게. Cillian Berragan의 Shortest Path Forever 방식으로 그립니다."
+-- L["How the route lines are drawn: Polestar's dots, or sparkles that drift along the way to the goal."] = "경로 선을 그리는 방식: Polestar 점, 또는 목표를 향해 흘러가는 반짝임."

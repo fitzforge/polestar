@@ -1900,7 +1900,7 @@ local function build()
 		for i = ci, #legs do
 			local leg = legs[i]
 			local from, to = leg.from, leg.to
-			local pts = {}
+			local pts, straight = {}, nil
 			local P = leg.parent
 			if P ~= lastParent then
 				lastParent, prevSeg = P, 0
@@ -1932,6 +1932,7 @@ local function build()
 				elseif not walkPoints(pts, to.c, to.wx, to.wy) and not (i == ci and shapePoints(pts, to.c, to.wx, to.wy)) then
 					if i == ci and pc == from.c then pt(pts, pc, px, py) else pt(pts, from.c, from.wx, from.wy) end
 					pt(pts, to.c, to.wx, to.wy)
+					straight = true
 				end
 			elseif leg.kind == "fly" and leg.stops then
 				for _, node in ipairs(leg.stops) do pt(pts, node.c, node.wx, node.wy) end
@@ -1942,7 +1943,8 @@ local function build()
 				pt(pts, from.c, from.wx, from.wy)
 				pt(pts, to.c, to.wx, to.wy)
 			end
-			out[#out + 1] = { kind = KIND[leg.kind] or leg.kind, pts = pts, current = i == ci, choke = leg.choke }
+			-- straight: a walk drawn straight, no walking path known for it (the route lines draw it paler; display only).
+			out[#out + 1] = { kind = KIND[leg.kind] or leg.kind, pts = pts, current = i == ci, choke = leg.choke, straight = straight }
 		end
 	else
 		local tc, tx, ty = Nav.GetTargetWorld()
@@ -1951,8 +1953,10 @@ local function build()
 			if not walkPoints(pts, tc, tx, ty) and not shapePoints(pts, tc, tx, ty) and pc == tc then
 				pt(pts, pc, px, py)
 				pt(pts, tc, tx, ty)
+				out[1] = { kind = "walk", pts = pts, current = true, straight = true }
+			elseif #pts > 0 then
+				out[1] = { kind = "walk", pts = pts, current = true }
 			end
-			if #pts > 0 then out[1] = { kind = "walk", pts = pts, current = true } end
 		end
 	end
 	return { legs = out }

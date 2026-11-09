@@ -1666,7 +1666,6 @@ L["Hello, %s"] = "Bonjour, %s"
 L["Welcome to Polestar"] = "Bienvenue dans Polestar"
 L["Polestar guides you step by step: who to talk to, what to kill or collect, and where to go."] = "Polestar vous guide étape par étape : à qui parler, quoi tuer ou ramasser, et où aller."
 L["Make it yours"] = "Personnalisez-le"
-L["Three choices to start with. Everything else is in %s."] = "Trois choix pour commencer. Tout le reste est dans %s."
 L["Accept and turn in guide quests for me"] = "Accepter et rendre les quêtes du guide pour moi"
 L["Only quests in the next steps of your open guides. Never picks between rewards. Hold Shift to skip."] = "Uniquement les quêtes des prochaines étapes de vos guides ouverts. Ne choisit jamais entre des récompenses. Maintenez Maj pour passer."
 L["Load a guide for me when I log in"] = "Charger un guide à la connexion"
@@ -1695,6 +1694,9 @@ L["%s opens the guide window on the right. The arrow points at your first stop."
 L["Played to the end in tests, but not yet by players. If a step is wrong, press %s in the guide window and tell us on Discord."] = "Joué jusqu'au bout en test, mais pas encore par des joueurs. Si une étape est fausse, appuyez sur %s dans la fenêtre du guide et dites-le-nous sur Discord."
 L["Feedback, bug reports and news."] = "Avis, signalements de bugs et nouveautés."
 L["Guides by other players, installed like any addon. They show under Community guides in the guide list."] = "Des guides d'autres joueurs, installés comme n'importe quel addon. Ils apparaissent sous Guides de la communauté dans la liste des guides."
+-- L["A few choices to start with. Everything else is in %s."] = ""
+-- L["Route line"] = ""
+-- L["How the way to your goal shows on the world map and the minimap. The line is the easiest to follow; sparkles show as dots while Reduce motion is on."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "Sélectionné pour vous : copiez avec Ctrl+C (Cmd+C sur Mac), puis appuyez sur Échap."
@@ -1834,7 +1836,6 @@ L["Flights, boats and your hearthstone when they are faster. Off: the arrow poin
 L["Walk real paths"] = "Suivre les vrais chemins"
 L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."] = "La flèche suit les chemins au sol en contournant falaises, eau et murs, sur les cartes de marche de Polestar, avec le calculateur d'itinéraire de Shortest Path Forever par Cillian Berragan. Désactivé : elle pointe tout droit vers chaque arrêt."
 L["Route lines"] = "Lignes d'itinéraire"
-L["The way to the goal on the world map and the minimap: dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "Le chemin vers l'objectif sur la carte et la minicarte : des points là où vous marchez, des lignes là où vous volez, naviguez ou voyagez, les tronçons suivants plus pâles. Dessiné comme le fait Shortest Path Forever par Cillian Berragan."
 L["Class teleports"] = "Téléportations de classe"
 L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "Un itinéraire peut commencer par un sort de téléportation que vous connaissez (les téléportations de mage vers les capitales, Reflet-de-Lune pour le druide) quand c'est plus rapide. Une téléportation vers une capitale demande une rune de téléportation dans vos sacs."
 L["Share boat times"] = "Partager les horaires des bateaux"
@@ -2080,6 +2081,8 @@ L["Did you mean:"] = "Vouliez-vous dire :"
 -- L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."] = ""
 -- L["Route line on the minimap"] = ""
 -- L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map. Its colour, opacity and size: the gear beside Guide > Arrow & routes > Route lines."] = ""
+-- L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = ""
+-- L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"
@@ -2648,7 +2651,6 @@ L["The licence differs from the stored guide's."] = "La licence diffère de cell
 L["Polestar trail dots"] = "Points de piste de Polestar"
 
 -- UI/LineStyle.lua
-L["How the route lines are drawn: Polestar's dots, or sparkles that drift along the way to the goal."] = "Comment les lignes d'itinéraire sont tracées : les points de Polestar, ou des étincelles qui dérivent le long du chemin vers l'objectif."
 L["Dots"] = "Points"
 L["Sparkle"] = "Étincelles"
 L["Intensity"] = "Intensité"
@@ -2675,15 +2677,17 @@ L["Sparkle the legs after this one too, fainter. Off: only the leg you are on."]
 L["Subtle"] = "Discret"
 L["Dazzling"] = "Éblouissant"
 L["Route line style"] = "Style de ligne d'itinéraire"
--- L["Dot colour"] = ""
 -- L["Route colours tint each leg by how you travel it. Cyan, magenta and white stand apart from the minimap's yellow herb and ore dots and its gold quest marks. Right-click to reset."] = ""
 -- L["Cyan"] = ""
 -- L["Magenta"] = ""
 -- L["White"] = ""
 -- L["Minimap opacity"] = ""
--- L["How strongly the route line shows on the minimap, dots or sparkles; the world map keeps its own. Right-click to reset."] = ""
 -- L["Minimap size"] = ""
--- L["The route line's dots or sparkles on the minimap, and the gaps between them; the world map keeps its own. Right-click to reset."] = ""
+-- L["Line thickness"] = ""
+-- L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] = ""
+-- L["Route colour"] = ""
+-- L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] = ""
+-- L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] = ""
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "Guide : %d"
@@ -3002,6 +3006,10 @@ L["Polestar told your party about your quest progress in chat (Options > Questin
 L["%s is ready to turn in"] = "%s est prête à rendre"
 L["looted %s, which starts %s"] = "a ramassé %s, qui lance %s"
 
+-- Maps/RouteLines.lua
+-- L["Line"] = ""
+-- L["Sparkles"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"
 -- L["Blood Elf"] = "Elfe de sang"
@@ -3096,3 +3104,6 @@ L["looted %s, which starts %s"] = "a ramassé %s, qui lance %s"
 -- L["About %d bars short of level %s by step %d"] = "Il manquera environ %d barres pour le niveau %s à l'étape %d"
 -- L["Objective areas"] = "Zones d'objectif"
 -- L["Shade the area each group of mobs or objects spreads over on the world map."] = "Ombrer sur la carte du monde la zone couverte par chaque groupe de monstres ou d'objets."
+-- L["Three choices to start with. Everything else is in %s."] = "Trois choix pour commencer. Tout le reste est dans %s."
+-- L["The way to the goal on the world map and the minimap: dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "Le chemin vers l'objectif sur la carte et la minicarte : des points là où vous marchez, des lignes là où vous volez, naviguez ou voyagez, les tronçons suivants plus pâles. Dessiné comme le fait Shortest Path Forever par Cillian Berragan."
+-- L["How the route lines are drawn: Polestar's dots, or sparkles that drift along the way to the goal."] = "Comment les lignes d'itinéraire sont tracées : les points de Polestar, ou des étincelles qui dérivent le long du chemin vers l'objectif."

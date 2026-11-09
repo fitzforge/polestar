@@ -455,11 +455,15 @@ local function lookup(root, keys)
 	return node
 end
 
+-- made: the table DB() made itself, when there was none; still the one in
+-- place at ADDON_LOADED means the account had no saved one (ns.IsNewAccount).
+local made
 local function DB()
 	local db = PolestarDB
 	if type(db) ~= "table" then
 		db = { schema = 1 }
 		PolestarDB = db
+		made = made or db
 	end
 	if type(db.settings) ~= "table" then db.settings = {} end
 	return db
@@ -562,9 +566,15 @@ end
 -- A character Polestar had never seen: no saved PolestarCharDB when the addon
 -- loaded. A /reload loads the saved table again, so it reads false after one.
 local newCharacter = false
+-- An account Polestar had never seen: no saved PolestarDB when it loaded.
+local newAccount = false
 
 function ns.IsNewCharacter()
 	return newCharacter
+end
+
+function ns.IsNewAccount()
+	return newAccount
 end
 
 ---------------------------------------------------------------------------
@@ -587,6 +597,7 @@ function ns.IsLoggedIn() return loggedIn end
 local function onAddonLoaded(_, name)
 	if name ~= ADDON then return end
 	ns.UnregisterEvent("ADDON_LOADED", onAddonLoaded)
+	newAccount = type(PolestarDB) ~= "table" or PolestarDB == made
 	DB()
 	newCharacter = type(PolestarCharDB) ~= "table"
 	ns.CharState()

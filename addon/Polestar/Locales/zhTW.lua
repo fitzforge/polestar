@@ -1665,7 +1665,6 @@ L["Hello, %s"] = "你好，%s"
 L["Welcome to Polestar"] = "歡迎使用 Polestar"
 L["Polestar guides you step by step: who to talk to, what to kill or collect, and where to go."] = "Polestar 一步步引導你：找誰交談、擊殺或收集什麼，以及去哪裡。"
 L["Make it yours"] = "打造你的風格"
-L["Three choices to start with. Everything else is in %s."] = "先做三個選擇。其他一切都在%s中。"
 L["Accept and turn in guide quests for me"] = "替我接受與繳交指南任務"
 L["Only quests in the next steps of your open guides. Never picks between rewards. Hold Shift to skip."] = "僅限開啟中指南接下來步驟的任務。絕不替你選擇獎勵。按住 Shift 可跳過。"
 L["Load a guide for me when I log in"] = "登入時替我載入指南"
@@ -1694,6 +1693,9 @@ L["Every style keeps you out of the other faction's towns and away from zones fa
 -- L["Played to the end in tests, but not yet by players. If a step is wrong, press %s in the guide window and tell us on Discord."] = ""
 -- L["Feedback, bug reports and news."] = ""
 -- L["Guides by other players, installed like any addon. They show under Community guides in the guide list."] = ""
+-- L["A few choices to start with. Everything else is in %s."] = ""
+-- L["Route line"] = ""
+-- L["How the way to your goal shows on the world map and the minimap. The line is the easiest to follow; sparkles show as dots while Reduce motion is on."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "已為你選取：用 Ctrl+C（Mac 為 Cmd+C）複製，然後按 Escape。"
@@ -1833,7 +1835,6 @@ L["Flights, boats and your hearthstone when they are faster. Off: the arrow poin
 L["Walk real paths"] = "走實際路徑"
 L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."] = "箭頭會依 Polestar 的步行地圖，沿地面繞過懸崖、水域與牆壁前進，使用 Cillian Berragan 的 Shortest Path Forever 路徑規劃器。關閉：直接指向每一站。"
 L["Route lines"] = "路線線條"
-L["The way to the goal on the world map and the minimap: dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "在地圖與小地圖上顯示通往目標的路：步行處為點，飛行、航行或搭乘處為線，之後的路段較淡。繪法與 Cillian Berragan 的 Shortest Path Forever 相同。"
 L["Class teleports"] = "職業傳送"
 L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "在較快時，路線可能以你會的傳送法術開始（法師的主城傳送、德魯伊的月光林地）。主城傳送需要背包中有傳送符文。"
 L["Share boat times"] = "分享船班時間"
@@ -2079,6 +2080,8 @@ L["Did you mean:"] = "你是不是要找："
 -- L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."] = ""
 -- L["Route line on the minimap"] = ""
 -- L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map. Its colour, opacity and size: the gear beside Guide > Arrow & routes > Route lines."] = ""
+-- L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = ""
+-- L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"
@@ -2647,7 +2650,6 @@ L["The licence differs from the stored guide's."] = "授權條款與已儲存指
 L["Polestar trail dots"] = "Polestar 路徑圓點"
 
 -- UI/LineStyle.lua
-L["How the route lines are drawn: Polestar's dots, or sparkles that drift along the way to the goal."] = "路線的繪製方式：Polestar 的圓點，或沿著前往目標的路上飄動的閃光。"
 L["Dots"] = "圓點"
 L["Sparkle"] = "閃光"
 L["Intensity"] = "強度"
@@ -2674,15 +2676,17 @@ L["Sparkle the legs after this one too, fainter. Off: only the leg you are on."]
 L["Subtle"] = "柔和"
 L["Dazzling"] = "炫目"
 L["Route line style"] = "路線樣式"
--- L["Dot colour"] = ""
 -- L["Route colours tint each leg by how you travel it. Cyan, magenta and white stand apart from the minimap's yellow herb and ore dots and its gold quest marks. Right-click to reset."] = ""
 -- L["Cyan"] = ""
 -- L["Magenta"] = ""
 -- L["White"] = ""
 -- L["Minimap opacity"] = ""
--- L["How strongly the route line shows on the minimap, dots or sparkles; the world map keeps its own. Right-click to reset."] = ""
 -- L["Minimap size"] = ""
--- L["The route line's dots or sparkles on the minimap, and the gaps between them; the world map keeps its own. Right-click to reset."] = ""
+-- L["Line thickness"] = ""
+-- L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] = ""
+-- L["Route colour"] = ""
+-- L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] = ""
+-- L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] = ""
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "指南：%d"
@@ -3001,6 +3005,10 @@ L["Polestar told your party about your quest progress in chat (Options > Questin
 L["%s is ready to turn in"] = "%s 可繳交"
 L["looted %s, which starts %s"] = "拾取了 %s，可開始任務 %s"
 
+-- Maps/RouteLines.lua
+-- L["Line"] = ""
+-- L["Sparkles"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。關閉「已安裝時以 Shortest Path Forever 導引」（「選項」>「箭頭與路線」）即可使用 Polestar 的箭頭。"
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。若要使用 Polestar 的箭頭，請關閉\"已安裝時以 Shortest Path Forever 導引\"（選項，整合）。"
@@ -3052,3 +3060,6 @@ L["looted %s, which starts %s"] = "拾取了 %s，可開始任務 %s"
 -- L["Polestar %s is installed incompletely: %s. Close the game, delete every Polestar folder in Interface/AddOns and unzip the latest Polestar zip there (CurseForge or GitHub Releases, not \"Source code\")."] = "Polestar %s 安裝不完整：%s。請關閉遊戲，刪除 Interface/AddOns 中所有 Polestar 資料夾，再把最新的 Polestar 壓縮檔解壓到那裡（CurseForge 或 GitHub Releases，不是「Source code」）。"
 -- L["Objective areas"] = "目標區域"
 -- L["Shade the area each group of mobs or objects spreads over on the world map."] = "在地圖上為每群怪物或物件的分布範圍塗上陰影。"
+-- L["Three choices to start with. Everything else is in %s."] = "先做三個選擇。其他一切都在%s中。"
+-- L["The way to the goal on the world map and the minimap: dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "在地圖與小地圖上顯示通往目標的路：步行處為點，飛行、航行或搭乘處為線，之後的路段較淡。繪法與 Cillian Berragan 的 Shortest Path Forever 相同。"
+-- L["How the route lines are drawn: Polestar's dots, or sparkles that drift along the way to the goal."] = "路線的繪製方式：Polestar 的圓點，或沿著前往目標的路上飄動的閃光。"
