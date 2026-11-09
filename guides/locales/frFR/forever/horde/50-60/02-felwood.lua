@@ -204,7 +204,7 @@ return {
 	-- {npc:11558} Kernda
 	["Step into the cave: {npc:11558} stands just inside."] = "",
 	-- {npc:11558} Kernda
-	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558} : les Grumegueules ne vous parlent qu'à partir de Neutre ; patrouille par ici : regardez dans le cercle sur la carte",
 
 	-- Step 45: Emerald Sanctuary
 	-- {zone:1448} Felwood

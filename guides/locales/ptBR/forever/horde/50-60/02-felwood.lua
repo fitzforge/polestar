@@ -202,9 +202,9 @@ return {
 
 	-- Step 44: Timbermaw Hold
 	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside."] = "",
+	["Step into the cave: {npc:11558} stands just inside."] = "Entre na caverna: {npc:11558} fica logo na entrada.",
 	-- {npc:11558} Kernda
-	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: os Presamatos só falam com você a partir de Neutro; anda por aqui: procure dentro do círculo no mapa",
 
 	-- Step 45: Emerald Sanctuary
 	-- {zone:1448} Felwood

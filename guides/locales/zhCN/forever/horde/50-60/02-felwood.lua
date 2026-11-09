@@ -204,7 +204,7 @@ return {
 	-- {npc:11558} Kernda
 	["Step into the cave: {npc:11558} stands just inside."] = "",
 	-- {npc:11558} Kernda
-	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}：木喉熊怪只会在声望达到中立后与你交谈；他在附近巡逻，请在地图标示的圆圈内寻找",
 
 	-- Step 45: Emerald Sanctuary
 	-- {zone:1448} Felwood
