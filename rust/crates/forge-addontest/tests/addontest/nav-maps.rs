@@ -23,6 +23,10 @@ fn read(p: &Path) -> String {
 fn pack_manifest() -> Value {
 	serde_json::from_str(&read(&nav().join("PACK.json"))).unwrap()
 }
+/// An empty list as the Lua side emits it: [] or {}.
+fn empty(v: &Value) -> bool {
+	v.as_array().is_some_and(|a| a.is_empty()) || v.as_object().is_some_and(|o| o.is_empty())
+}
 fn ws(s: &str) -> String {
 	Regex::new(r"\s+").unwrap().replace_all(s, " ").into_owned()
 }
@@ -740,7 +744,7 @@ fn the_packed_maps_decode_every_entrance_names_a_cell_of_its_cluster() {
 // from a new start): each ask used to flood the whole cluster from the start for its endpoint tree, 15,000 to 60,000
 // expansions for a quest objective in the Barrens a few yards away (measured in game, 0.3.5). A direct walk under the
 // least any way through the cluster's entrances could cost needs neither: the same walks and costs as the full search
-// (Path.direct = false), a small part of the expansions.
+// (Path.direct = false), a small part of the expansions, from cold caches each way.
 #[test]
 fn a_walk_inside_one_cluster_asked_again_as_the_player_walks_in_is_the_full_search_s_walk_without_its_flood() {
 	let got = run(
@@ -755,6 +759,7 @@ local dx, dy = away.x - goal.x, away.y - goal.y
 local len = math.sqrt(dx * dx + dy * dy)
 local opts = { profile = "Horde", style = "balanced" }
 local function walkIn(direct)
+	Path.ClearCaches() -- (cold: neither run reuses the other's endpoint entries or paths)
 	Path.direct = direct
 	local exp, costs, points = 0, {}, {}
 	for step = 0, 10 do
@@ -781,7 +786,7 @@ emit({ full = full, direct = direct })"#,
 	assert_eq!(direct["points"], full["points"], "and the same walks: {got}");
 	let (f, d) = (full["expansions"].as_i64().unwrap(), direct["expansions"].as_i64().unwrap());
 	assert!(f > 100_000, "the full search floods the cluster each time: {f}");
-	assert!(d * 20 < f, "the direct walk is a small part of it: {d} against {f}");
+	assert!(d * 5 < f, "the direct walks are a small part of it, the goal's one tree included: {d} against {f}");
 }
 
 // The same across a cluster border: the Crossroads sits where four clusters meet, so most walks round its objectives
@@ -813,4 +818,116 @@ emit({ expansions = exp, costs = costs })"#,
 	assert_eq!(got["costs"], json!([136.544, 70.594, 85.165]), "the full search's walks: {got}");
 	let e = got["expansions"].as_i64().unwrap();
 	assert!(e < 25_000, "not three cluster floods ({e} expansions, about 58,800 before)");
+}
+
+// Searches are sliced and take turns (the arrow's re-ask while a later leg's walk is searched): each job's trees are
+// its own (the scratch pump swaps), so two walks queued together, a small frame budget making them alternate, come
+// back as each does alone. A tree shared between jobs (the bounded start's, once) gave other walks' answers and errors.
+#[test]
+fn walks_queued_together_taking_turns_come_back_as_each_does_alone() {
+	let got = run(
+		r#"
+local Path = Polestar_NavEngine
+local ticks, STEP = 0, 100
+local function hook() ticks = ticks + STEP end
+local create = coroutine.create
+coroutine.create = function(f) local co = create(f) debug.sethook(co, hook, "", STEP) return co end
+Path.clock = function() return ticks / 100000 end
+Path.budget = 0.3
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local function drain() while #frames > 0 do table.remove(frames, 1)() end end
+local opts = { profile = "Horde", style = "balanced" }
+local walks = {
+	{ { x = -335.5, y = -2700.4, z = 94 }, { x = -406.9, y = -2645.4, z = 96.3 } }, -- across the Crossroads border
+	{ { x = -475.6, y = -2670.6, z = 96 }, { x = -406.9, y = -2645.4, z = 96.3 } },
+	{ { x = 800.1, y = -2717.4, z = 92 }, { x = 825.4, y = -2687.0, z = 91.6 } }, -- inside one cluster
+	{ { x = -450, y = -2650 }, { x = -255, y = -2390 } }, -- no start height
+	{ { x = 1630, y = -4400 }, { x = 920, y = -4040 } }, -- Durotar, long
+}
+local function answer(got) return got and string.format("%.3f/%d", got.cost, got.n) or "none" end
+local alone = {}
+for i, w in ipairs(walks) do
+	Path.ClearCaches()
+	local got
+	Path.Find(1, w[1], w[2], function(pts, cost) if pts then got = { cost = cost, n = #pts } end end, opts)
+	drain()
+	alone[i] = answer(got)
+end
+local bad = {}
+local pairs_ = 0
+for i = 1, #walks do
+	for j = 1, #walks do
+		if i ~= j then
+			Path.ClearCaches()
+			local a, b
+			Path.Find(1, walks[i][1], walks[i][2], function(pts, cost) if pts then a = { cost = cost, n = #pts } end end, opts)
+			Path.Find(1, walks[j][1], walks[j][2], function(pts, cost) if pts then b = { cost = cost, n = #pts } end end, opts)
+			local ok, err = pcall(drain)
+			pairs_ = pairs_ + 1
+			if not ok or answer(a) ~= alone[i] or answer(b) ~= alone[j] then
+				bad[#bad + 1] = string.format("%d+%d: %s %s / %s %s %s", i, j, answer(a), alone[i], answer(b), alone[j], ok and "" or tostring(err))
+			end
+		end
+	end
+end
+emit({ pairs = pairs_, bad = bad, alone = alone })"#,
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	);
+	assert_eq!(got["pairs"], 20);
+	assert!(empty(&got["bad"]), "each walk as alone: {got}");
+}
+
+// A start without a height stands on every surface at its spot; one may be a rock top whose tree meets no entrance,
+// which its connection moves to a node that does (settle). Walks from such starts, short (bounded) and far (the full
+// tree), cost what the full search gives, and the bound never costs more expansions than it saves.
+#[test]
+fn walks_without_a_start_height_cost_what_the_full_search_gives_and_no_more_work() {
+	let got = run(
+		r#"
+local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local function drain() while #frames > 0 do table.remove(frames, 1)() end end
+local opts = { profile = "Horde", style = "balanced" }
+-- a fixed spread round the Barrens and Durotar: short walks round objectives and long ones
+local seed = 12345
+local function rnd(a, b) seed = (seed * 1103515245 + 12345) % 2147483648 return a + (b - a) * seed / 2147483648 end
+local walks = {}
+while #walks < 24 do
+	local x, y = rnd(-1200, 1200), rnd(-4300, -2200)
+	local d = #walks < 12 and rnd(40, 380) or rnd(450, 1650)
+	local a = rnd(0, 2 * math.pi)
+	walks[#walks + 1] = { { x = x, y = y }, { x = x + math.cos(a) * d, y = y + math.sin(a) * d } }
+end
+local function one(w, direct)
+	Path.ClearCaches()
+	Path.direct = direct
+	local cost
+	local job = Path.Find(1, w[1], w[2], function(pts, c) if pts then cost = c end end, opts)
+	drain()
+	return cost, job.expansions
+end
+local diffs, full, bounded, both = {}, 0, 0, 0
+for i, w in ipairs(walks) do
+	local c0, e0 = one(w, false)
+	local c1, e1 = one(w, nil)
+	if c0 and c1 then
+		both = both + 1
+		full, bounded = full + e0, bounded + e1
+		if math.abs(c0 - c1) > 1e-6 then diffs[#diffs + 1] = string.format("%d: %.3f against %.3f", i, c1, c0) end
+	elseif c0 or c1 then
+		diffs[#diffs + 1] = string.format("%d: %s against %s", i, tostring(c1), tostring(c0))
+	end
+end
+Path.direct = nil
+emit({ diffs = diffs, full = full, bounded = bounded, both = both })"#,
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	);
+	assert!(empty(&got["diffs"]), "the full search's costs: {got}");
+	assert!(got["both"].as_i64().unwrap() >= 12, "enough walks on the maps: {got}");
+	let (f, b) = (got["full"].as_i64().unwrap(), got["bounded"].as_i64().unwrap());
+	assert!(b <= f, "no more work than the full search: {b} against {f}");
 }

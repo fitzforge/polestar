@@ -1,7 +1,7 @@
 ---
 section: players
 ---
-- Far smoother questing with the arrow on: following it round an objective no
-  longer makes the walking router search a whole map tile every few steps. A
-  short walk is found within a few hundred yards of you, the same walk as
-  before, at a small part of the work (thanks AlverezYari).
+- The walking router uses far less CPU while you follow the arrow round an
+  objective: it no longer searches a whole map tile every time the arrow asks
+  again from a few steps on, so fewer frames go over its budget. Walks and
+  their costs are as before (thanks AlverezYari).

@@ -490,7 +490,7 @@ local function trace(tree, node, out)
 	return out
 end
 
-local trees = { S = Tree(), G = Tree(), R = Tree() }
+local trees = { S = Tree(), G = Tree(), R = Tree(), B = {} } -- (B: connectWithin's, one per start surface)
 
 -- Abstract A* state.
 local ag, ay, apar, astamp, aclosed, agen = {}, {}, {}, {}, {}, 0
@@ -717,7 +717,10 @@ end
 -- entrances stops once past R, so it holds the exact cost of every entrance within R and nothing beyond. Its trees are
 -- run's own, reused (never cached: a moving start never comes again). -> as connectPoint, then whether every tree is
 -- complete (it met every entrance or ran dry: the full connection) and whether any entrance was met at all.
-local boundTrees = {}
+-- The trees are the job's own (trees.B, in its scratch): searches are sliced and take turns, and one job's tree must
+-- never be rewritten under another's paused search or traced by its refinement.
+-- A surface whose tree is complete and met no entrance is a rock top or ledge: like connectPoint, it goes through
+-- connect, which moves it to a node that reaches one (settle), and that connection joins the starts.
 local function connectWithin(st, swim, mult, k, nodes, R)
 	local targets, left = {}, 0
 	for _, id in ipairs(nodesOf(st, k)) do
@@ -729,13 +732,20 @@ local function connectWithin(st, swim, mult, k, nodes, R)
 	local ends, merged, via, yards = {}, {}, {}, {}
 	local complete, met = true, false
 	for i, n in ipairs(nodes) do
-		local tree = boundTrees[i] or Tree()
-		boundTrees[i] = tree
-		if not search(st, k, swim, mult, n, tree, nil, targets, left, nil, R) then
-			complete = false
-		end
+		local tree = trees.B[i] or Tree()
+		trees.B[i] = tree
+		local whole = search(st, k, swim, mult, n, tree, nil, targets, left, nil, R)
 		local edges, edgeYards = connections(st, tree, k)
-		local entry = { node = n, edges = edges, yards = edgeYards, tree = tree }
+		local entry
+		if whole and next(edges) == nil then
+			local _, _, _, _, settled = connect(st, swim, mult, k, n)
+			entry, edges, edgeYards = settled, settled.edges, settled.yards
+		else
+			entry = { node = n, edges = edges, yards = edgeYards, tree = tree }
+			if not whole then
+				complete = false
+			end
+		end
 		ends[#ends + 1] = entry
 		for id, c in pairs(edges) do
 			met = true
@@ -761,6 +771,9 @@ local LIFT_ID = 1073741824 -- landing i's vertex is LIFT_ID + i, above every ent
 local LIFT_ENDS = 64
 -- The longest walk a search looks for: DETOUR times the straight line plus DETOUR_YD yards (run's abstract A*).
 local DETOUR, DETOUR_YD = 8, 2000
+-- The straight yards up to which a walk across clusters bounds the start's tree (run): the arrow's re-asks round an
+-- objective, where the win is; a far walk's cost is usually well over the first bound, so it takes the full tree.
+local BOUNDED_YARDS = 400
 
 -- The map's lift landings, read once a map state: { [i] = { x, y, z, k, partners = { j, ... } }, byCluster = { [k] =
 -- { i, ... } } }.
@@ -954,14 +967,21 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 	-- cluster to its entrances; the goal's is kept (connect), but a moving start never reuses its own, so every time
 	-- the arrow asked again from a few steps on it flooded the cluster again: 15,000 to 60,000 expansions for a quest
 	-- objective 14 yards away. Any walk that leaves the cluster comes back to the goal through an entrance e, so it
-	-- costs at least the straight yards from the start to e at the cheapest yard (the abstract search's own lower
-	-- bound) plus the goal tree's exact cost from e. A direct walk no dearer than the least of those over every
-	-- entrance is the cheapest there is: the walk and cost the full search finds, without the start's tree. Its A*
-	-- stops once past that bound, so a surface that cannot reach the goal costs little. No lift in the cluster (a ride
-	-- enters through no entrance); otherwise, or when no direct walk is under the bound, the full search as before.
+	-- costs at least the straight yards from a start surface's own cell to e at the cheapest yard (the abstract
+	-- search's own lower bound) plus the goal tree's exact cost from e. A direct walk no dearer than the least of those
+	-- over every entrance costs what the full search finds (a tie may draw another line), without the start's tree.
+	-- Its A* stops once past that bound, so a surface that cannot reach the goal costs little. No lift in the cluster
+	-- (a ride enters through no entrance); otherwise, or when no direct walk is under the bound, the full search.
 	if Path.direct ~= false and sk == gk and #(lifts.byCluster[sk] or {}) == 0 then
 		local lower = max(0, 1 - 0.5 / cs) * hmin
 		goals, target, targetVia, targetYards = connectPoint(st, swim, mult, gk, gc, to.z, to.floors, true)
+		-- (from each start surface's own cell centre, where its search begins: snap may place it cells from the point)
+		local starts0 = surfaces(st, sk, sc, from.z, from.floors)
+		local centres = {}
+		for i, a in ipairs(starts0) do
+			local cell = cellOf(st, sk, a)
+			centres[i] = { x0 + (floor(sk / st.ny) * C + floor(cell / C) + 0.5) * cs, y0 + ((sk % st.ny) * C + cell % C + 0.5) * cs }
+		end
 		local bound = huge
 		for id, c in pairs(target) do
 			local k = floor(id / 4096)
@@ -969,18 +989,18 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 			local lc = metadata(st, id)
 			local ex = x0 + (floor(k / st.ny) * C + floor(lc / C) + 0.5) * cs
 			local ey = y0 + ((k % st.ny) * C + lc % C + 0.5) * cs
-			-- (less a cell: the start's own cell centre may lie that far from the point)
-			local d = max(0, sqrt((ex - from.x) ^ 2 + (ey - from.y) ^ 2) - cs)
-			if d * lower + c < bound then
-				bound = d * lower + c
+			for _, p in ipairs(centres) do
+				local d = sqrt((ex - p[1]) ^ 2 + (ey - p[2]) ^ 2)
+				if d * lower + c < bound then
+					bound = d * lower + c
+				end
 			end
 		end
-		local straight = sqrt((to.x - from.x) ^ 2 + (to.y - from.y) ^ 2)
-		if bound < huge and max(0, straight - cs) * lower < bound then
+		if bound < huge then
 			-- Every surface the start stands on must reach the goal so: one that does not (a rock top the grid cannot
 			-- leave) is moved by its endpoint tree (settle), which only the full search does.
 			local all = true
-			for _, a in ipairs(surfaces(st, sk, sc, from.z, from.floors)) do
+			for _, a in ipairs(starts0) do
 				local reaches = false
 				for _, b in ipairs(goals) do
 					if search(st, sk, swim, mult, a, S, b.node, nil, nil, nil, bound) and S.g[b.node + 1] <= bound then
@@ -1004,29 +1024,37 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 			end
 		end
 	end
-	local R, complete
+	local R, complete, full
+	local tries = 0
 	if not hops then
 		goals, target, targetVia, targetYards = connectPoint(st, swim, mult, gk, gc, to.z, to.floors, true)
 		key = table.concat({ sk, sc, gk, gc, swim, from.z and 1 or 0, to.z and 1 or 0, mult and mult.tag or "",
 			type(from.floors) == "table" and table.concat(from.floors, ",") or "", type(to.floors) == "table" and table.concat(to.floors, ",") or "" }, ":")
 		st.paths = st.paths or {}
 		cached = st.paths[key]
-		if not cached and Path.direct ~= false and sk ~= gk and #(lifts.byCluster[sk] or {}) == 0 then
-			R = 1.25 * sqrt((to.x - from.x) ^ 2 + (to.y - from.y) ^ 2) + 25
+		local straight = sqrt((to.x - from.x) ^ 2 + (to.y - from.y) ^ 2)
+		if not cached and Path.direct ~= false and sk ~= gk and straight <= BOUNDED_YARDS
+			and #(lifts.byCluster[sk] or {}) == 0 then
+			R = 1.25 * straight + 25
 		else
 			starts, source, sourceVia, sourceYards = connectPoint(st, swim, mult, sk, sc, from.z, from.floors)
 		end
 	end
-	-- A walk across clusters: the start's tree only as far as it needs to go. The start's Dijkstra to its entrances
-	-- stops past a cost R; a walk the abstract search then finds for at most R is the cheapest there is (any other
-	-- leaves the start's cluster through an entrance beyond R, so costs more), else R grows to that walk's cost (or
-	-- doubles) and the search runs again. A tree that meets every entrance or runs dry within R is the full one, so
-	-- its walk stands. A start that meets no entrance at all, its tree complete, is a rock top or ledge: the full
-	-- connection moves it (settle). Not with a lift in the start's cluster (its landings are walked to from the full
-	-- trees). The same walk and cost as before; the arrow's re-asks from a few steps on no longer flood the cluster.
+	-- A short walk across clusters (the arrow's re-asks round an objective: BOUNDED_YARDS): the start's tree only as
+	-- far as it needs to go. The start's Dijkstra to its entrances stops past a cost R; a walk the abstract search
+	-- then finds for at most R is the cheapest there is (any other leaves the start's cluster through an entrance
+	-- beyond R, so costs more). A walk dearer than R gets one more try with R that cost; none found, or a second
+	-- miss, takes the full tree (a far or unreachable goal would otherwise pay a growing tree and an abstract search
+	-- each time). A tree that meets every entrance or runs dry within R is the full one, so its walk stands. Not with
+	-- a lift in the start's cluster (its landings are walked to from the full trees). The cost is the full search's;
+	-- an equal-cost tie may draw another line.
 	while true do
 		local retry = false
-		if R then
+		if full then
+			full = false
+			starts, source, sourceVia, sourceYards = connectPoint(st, swim, mult, sk, sc, from.z, from.floors)
+		elseif R then
+			tries = tries + 1
 			local met
 			starts, source, sourceVia, sourceYards, complete, met =
 				connectWithin(st, swim, mult, sk, surfaces(st, sk, sc, from.z, from.floors), R)
@@ -1074,7 +1102,7 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 			-- Components join only through the grid: a lift may join two (a mesa top and the plain below).
 			if not direct and not shared and #lifts == 0 then
 				if R and not complete then
-					retry, R = true, R * 2
+					retry, R, full = true, nil, true
 				else
 					return nil, "unreachable"
 				end
@@ -1207,14 +1235,19 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 			end
 			if not found then
 				if R and not complete then
-					retry, R = true, R * 2
+					retry, R, full = true, nil, true
 				else
 					return nil, "unreachable"
 				end
 			elseif R and not complete and ag[GOAL] > R then
-				-- (a walk dearer than R: another may leave through an entrance beyond R; look that far)
+				-- (a walk dearer than R: another may leave through an entrance beyond R; look that far once, then
+				-- the full tree)
 				retry = true
-				R = ag[GOAL]
+				if tries < 2 then
+					R = ag[GOAL]
+				else
+					R, full = nil, true
+				end
 			else
 				cost, yards = ag[GOAL], ay[GOAL]
 				hops = { GOAL }
@@ -2007,7 +2040,7 @@ local function scratch(saved)
 		ag, apar, astamp, aclosed, agen, ay = saved[5], saved[6], saved[7], saved[8], saved[9], saved[10]
 	else
 		hk, hv, hn = {}, {}, 0
-		trees = { S = Tree(), G = Tree(), R = Tree() }
+		trees = { S = Tree(), G = Tree(), R = Tree(), B = {} }
 		ag, apar, astamp, aclosed, agen, ay = {}, {}, {}, {}, 0, {}
 	end
 	return previous
