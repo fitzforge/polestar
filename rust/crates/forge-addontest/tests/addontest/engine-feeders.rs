@@ -578,17 +578,19 @@ const ALL_MINE: &str = "Polestar.Codex = { Quest = function(id) return { id = id
 fn t_1442_darkshore_s_follow_ups_for_a_night_elf_who_skipped_its_own_darkshore_are_never_shown_as_ready() {
 	// Washed Ashore, How Big a Threat? and Plagued Lands neither done nor in the log.
 	let out = shipped_with("Alliance", "NightElf", "HUNTER", 17, NE_TELDRASSIL, NE_TELDRASSIL_LOG, "forever/alliance/03-darkshore", ALL_MINE);
-	// Before the plan: Beached Sea Turtle, Cleansing of the Infected, Thundris Windweaver and what follows
-	// wait on them ("Requires … first", no longer "Accept"). After: the Night Elf's own Teldrassil and
-	// Darkshore steps for them go in beside Auberdine (all in Darkshore, ~4 min), and nothing waits.
+	// Before the plan: Cleansing of the Infected, Thundris Windweaver and what follows wait on Plagued Lands and
+	// How Big a Threat? ("Requires … first", no longer "Accept"), whose steps in this guide are for the other
+	// races. (Washed Ashore is in the guide for every race since #1442's guide fix, so Beached Sea Turtle
+	// waits on nothing.) After: the Night Elf's own Darkshore steps for them go in, all in Darkshore, and
+	// nothing waits.
 	let before = ids(&out["before"]["requires"]);
-	for q in [4727, 2138, 4761] {
+	for q in [2138, 4761] {
 		assert!(before.contains(&q), "{q} waits on its prerequisite: {before:?}");
 	}
 	assert!(ids(&out["after"]["requires"]).is_empty(), "{out}");
 	let feeders = lines(&out["feeders"]);
 	assert!(!feeders.is_empty() && feeders.iter().all(|f| f.contains("[forever/alliance/nightelf/")), "{feeders:?}");
-	assert!(feeders.iter().any(|f| f.contains("turnin:4681")), "{feeders:?}");
+	assert!(feeders.iter().any(|f| f.contains("2118")) && feeders.iter().any(|f| f.contains("984")), "{feeders:?}");
 
 	// A Night Elf who played its own Darkshore: the guide as written, nothing waiting.
 	let route = shipped_with("Alliance", "NightElf", "HUNTER", 17, NE_DARKSHORE_DONE, NE_DARKSHORE_LOG, "forever/alliance/03-darkshore", ALL_MINE);
