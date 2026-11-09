@@ -405,17 +405,14 @@ step Shaman training
 step Stormwind
   only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
   zone Stormwind City
-  tip Walk to Stormwind, or fly if you know its flight path. Trainers: Old Town (Warriors, Rogues), the Cathedral (Paladins, Priests), the Mage Quarter (Mages, Warlocks), the Park (Druids).
+  tip Walk to Stormwind, or fly if you know its flight path. Trainers: Old Town (Warriors, Rogues), the Cathedral (Paladins, Priests), the Mage Quarter (Mages, Warlocks), the Dwarven District (Hunters), the Park (Druids).
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid -- Level 12, 14 and 16 spells
 
 step Back to Stormwind City
   only Shaman
   zone Stormwind City
-  goto 56.2,64.6 "Stormwind City"
-
-step Stormwind City
-  zone Stormwind City
-  goto 56.2,64.6 "Stormwind City"
+  tip Ride the tram back: it comes out in Stormwind's Dwarven District, where the errands below start.
+  goto 64.5,7.5 "Stormwind City"
 
 step Stormwind
   zone Stormwind City
