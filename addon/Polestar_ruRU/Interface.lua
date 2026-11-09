@@ -153,7 +153,7 @@ L["Hand in %s to them: saves a trip back"] = "Сдать %s здесь — не 
 L["Hand in %s to them"] = "Сдать %s здесь"
 L["Take %s from them: saves a trip back"] = "Взять %s здесь — не придётся возвращаться"
 L["Take %s from %s: saves a trip back"] = "Взять %s (%s) — не придётся возвращаться"
--- L["Requires level %d: %s levels to go"] = ""
+L["Requires level %d: %s levels to go"] = "Требуется уровень %d: осталось уровней – %s"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Взяв %s, вы навсегда закроете %s."
@@ -2799,7 +2799,7 @@ L["Line thickness"] = "Толщина линии"
 L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] = "Толщина сплошной линии на карте мира; на миникарте она следует размеру. ПКМ — сброс."
 L["Route colour"] = "Цвет маршрута"
 L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] = "Насколько заметен маршрут на миникарте — линия, точки или искры; у карты мира своя настройка. ПКМ — сброс."
--- L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] = ""
+L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] = "Линия, точки или искры маршрута на миникарте, у каждого стиля свой размер; у карты мира свой. ПКМ — сброс."
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "Гайд: %d"

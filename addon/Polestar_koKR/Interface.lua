@@ -153,7 +153,7 @@ L["Hand in %s to them: saves a trip back"] = "%s 퀘스트를 그 자리에서 �
 L["Hand in %s to them"] = "%s 퀘스트를 그 자리에서 제출"
 L["Take %s from them: saves a trip back"] = "%s 퀘스트를 그 자리에서 수락: 다시 돌아올 필요가 없습니다"
 L["Take %s from %s: saves a trip back"] = "%s 퀘스트를 %s에게서 수락: 다시 돌아올 필요가 없습니다"
--- L["Requires level %d: %s levels to go"] = ""
+L["Requires level %d: %s levels to go"] = "레벨 %d 필요: %s레벨 남음"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "%s 퀘스트를 받으면 %s 퀘스트는 영영 받을 수 없습니다."
@@ -2799,7 +2799,7 @@ L["Line thickness"] = "선 굵기"
 L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] = "지도에서 실선의 굵기입니다. 미니맵의 선은 미니맵 크기를 따릅니다. 오른쪽 클릭하면 초기화."
 L["Route colour"] = "경로 색"
 L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] = "미니맵에서 경로(선, 점 또는 반짝임)가 얼마나 진하게 보이는지. 지도는 따로 설정합니다. 오른쪽 클릭하면 초기화."
--- L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] = ""
+L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] = "미니맵의 경로 선, 점 또는 반짝임의 크기입니다. 스타일마다 크기가 따로 있습니다. 지도는 따로 설정합니다. 오른쪽 클릭하면 초기화."
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "가이드: %d"

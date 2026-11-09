@@ -153,7 +153,7 @@ L["Hand in %s to them: saves a trip back"] = "就地繳交 %s：省一趟回程"
 L["Hand in %s to them"] = "就地繳交 %s"
 L["Take %s from them: saves a trip back"] = "就地接取 %s：省一趟回程"
 L["Take %s from %s: saves a trip back"] = "向 %2$s 接取 %1$s：省一趟回程"
--- L["Requires level %d: %s levels to go"] = ""
+L["Requires level %d: %s levels to go"] = "需要等級 %d：還差 %s 級"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "接受 %s 將永久關閉 %s。"
@@ -2799,7 +2799,7 @@ L["Line thickness"] = "線條粗細"
 L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] = "實線在世界地圖上的粗細；小地圖上的則依其大小設定。右鍵點擊重置。"
 L["Route colour"] = "路線顏色"
 L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] = "路線在小地圖上的顯示強度，線條、圓點或閃光皆適用；世界地圖另有設定。右鍵點擊重置。"
--- L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] = ""
+L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] = "路線的線條、圓點或閃光在小地圖上的大小，每種樣式各自設定；世界地圖另有設定。右鍵點擊重置。"
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "指南：%d"

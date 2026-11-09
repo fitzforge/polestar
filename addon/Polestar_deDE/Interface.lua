@@ -155,7 +155,7 @@ L["Hand in %s to them: saves a trip back"] = "%s dort abgeben: spart einen Rück
 L["Hand in %s to them"] = "%s dort abgeben"
 L["Take %s from them: saves a trip back"] = "%s dort annehmen: spart einen Rückweg"
 L["Take %s from %s: saves a trip back"] = "%s bei %s annehmen: spart einen Rückweg"
--- L["Requires level %d: %s levels to go"] = ""
+L["Requires level %d: %s levels to go"] = "Benötigt Stufe %d: noch %s Stufen"
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."
@@ -2755,7 +2755,7 @@ L["Line thickness"] = "Linienstärke"
 L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] = "Wie dick die durchgehende Linie auf der Weltkarte ist; die der Minikarte folgt ihrer Größe. Rechtsklick zum Zurücksetzen."
 L["Route colour"] = "Routenfarbe"
 L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] = "Wie stark die Route auf der Minikarte erscheint, als Linie, Punkte oder Funken; die Weltkarte behält ihre eigene. Rechtsklick zum Zurücksetzen."
--- L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] = ""
+L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] = "Linie, Punkte oder Funken der Route auf der Minikarte, jeder Stil mit eigener Größe; die Weltkarte behält ihre eigene. Rechtsklick zum Zurücksetzen."
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "Guide: %d"

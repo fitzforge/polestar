@@ -153,7 +153,7 @@ L["Hand in %s to them: saves a trip back"] = "Entregar %s ali: poupa uma volta"
 L["Hand in %s to them"] = "Entregar %s ali"
 L["Take %s from them: saves a trip back"] = "Pegar %s ali: poupa uma volta"
 L["Take %s from %s: saves a trip back"] = "Pegar %s com %s: poupa uma volta"
--- L["Requires level %d: %s levels to go"] = ""
+L["Requires level %d: %s levels to go"] = "Requer nível %d: faltam %s níveis"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Pegar %s fecha %s para sempre."
@@ -2799,7 +2799,7 @@ L["Line thickness"] = "Espessura da linha"
 L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] = "A espessura da linha contínua no mapa-múndi; a do minimapa acompanha o tamanho dele. Botão direito para redefinir."
 L["Route colour"] = "Cor da rota"
 L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] = "Quão forte a rota aparece no minimapa, em linha, pontos ou brilhos; o mapa-múndi mantém a sua. Botão direito para redefinir."
--- L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] = ""
+L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] = "A linha, os pontos ou os brilhos da rota no minimapa, cada estilo com seu próprio tamanho; o mapa-múndi mantém o seu. Botão direito para redefinir."
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "Guia: %d"

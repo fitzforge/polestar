@@ -154,7 +154,7 @@ L["Hand in %s to them: saves a trip back"] = "Rendre %s sur place : un retour en
 L["Hand in %s to them"] = "Rendre %s sur place"
 L["Take %s from them: saves a trip back"] = "Prendre %s sur place : un retour en moins"
 L["Take %s from %s: saves a trip back"] = "Prendre %s auprès de %s : un retour en moins"
--- L["Requires level %d: %s levels to go"] = ""
+L["Requires level %d: %s levels to go"] = "Niveau %d requis : encore %s niveaux"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Prendre %s ferme %s pour de bon."
@@ -2800,7 +2800,7 @@ L["Line thickness"] = "Épaisseur de la ligne"
 L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] = "L'épaisseur de la ligne continue sur la carte du monde ; celle de la minicarte suit sa taille. Clic droit pour réinitialiser."
 L["Route colour"] = "Couleur de l'itinéraire"
 L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] = "La visibilité de l'itinéraire sur la minicarte, ligne, points ou étincelles ; la carte du monde garde la sienne. Clic droit pour réinitialiser."
--- L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] = ""
+L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] = "La ligne, les points ou les étincelles de l'itinéraire sur la minicarte, chaque style avec sa propre taille ; la carte du monde garde la sienne. Clic droit pour réinitialiser."
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "Guide : %d"
