@@ -258,15 +258,15 @@ return {
 	["{area:432}'s entrance"] = "",
 
 	-- Step 50: Insane druids
-	["Insane druids"] = "",
+	["Insane druids"] = "发狂的德鲁伊",
 	-- {area:432} The Dor'Danil Barrow Den · {npc:3940} Taneel Darkwood · {npc:3941} Uthil Mooncall · {npc:3942} Mavoris Cloudsbreak
 	["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "",
 	-- {npc:3940} Taneel Darkwood · {area:432} The Dor'Danil Barrow Den
-	["{npc:3940}, inside {area:432}"] = "",
+	["{npc:3940}, inside {area:432}"] = "{npc:3940}，位于{area:432}内部",
 	-- {npc:3941} Uthil Mooncall · {area:432} The Dor'Danil Barrow Den
-	["{npc:3941}, inside {area:432}"] = "",
+	["{npc:3941}, inside {area:432}"] = "{npc:3941}，位于{area:432}内部",
 	-- {npc:3942} Mavoris Cloudsbreak · {area:432} The Dor'Danil Barrow Den
-	["{npc:3942}, inside {area:432}"] = "",
+	["{npc:3942}, inside {area:432}"] = "{npc:3942}，位于{area:432}内部",
 
 	-- Step 51: Satyrnaar
 	-- {object:19901} Circle of Imprisonment · {area:430} Satyrnaar · {area:428} Night Run
@@ -365,7 +365,6 @@ return {
 	-- ["Back west along the road to {area:150}: {npc:2104} stands on the top floor of {area:2103}."] = "沿路向西返回{area:150}：{npc:2104}站在{area:2103}顶层。",
 	-- ["Flagon of Mead, from {npc:1464}"] = "Flagon of Mead，向{npc:1464}购买",
 	-- ["In {zone:1453}, join the two half pendants into the {item:15885} and cast {spell:18960}: {npc:11802} is in {area:2361}. Then {npc:11800} in {area:2361} flies Druids straight to {area:702}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "在{zone:1453}将两半坠饰合成{item:15885}，然后施放{spell:18960}：{npc:11802}在{area:2361}。之后，{area:2361}的{npc:11800}可让德鲁伊直接飞往{area:702}。{npc:11802}站在楼上：从屋内上楼，箭头无法区分楼层。",
-	-- ["Insane druids"] = "发狂的德鲁伊",
 	-- ["Inside"] = "在里面",
 	-- ["Red whelps fill the hills west of the gates, Maddened Rotclaws the {area:1025}, Razormaws the northern slopes; Neru stands in the north-east (use the {item:279996}).\nFen Creepers hide in the marsh pools north-west of the {area:1025}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "红色雏龙分布在大门西面的山丘，疯狂的腐爪出没于{area:1025}，刺喉龙在北面山坡活动；奈尔鲁在东北面（使用{item:279996}）。\n沼泽爬行者藏在{area:1025}西北的沼泽水潭中。\n小心：脱离战斗时，沼泽爬行者会不时施放Sneak，进入潜行，难以发现。",
 	-- ["South-east along the road to {area:415}: {npc:3691} in the inn, {npc:3961} and {npc:3894} inside, the flight master at the west end."] = "沿路向东南前往{area:415}：{npc:3691}在旅店内，{npc:3961}和{npc:3894}在里面，飞行管理员在西端。",
@@ -378,7 +377,4 @@ return {
 	-- ["{npc:3649}: Alexston's reply, if you took it in {zone:1453}"] = "{npc:3649}：如果此前在{zone:1453}接取，交付巴隆斯·阿历克斯顿的回信",
 	-- ["{npc:3691}, in the inn"] = "{npc:3691}，在旅店里",
 	-- ["{npc:3694}: for {npc:3691} in {area:415}"] = "{npc:3694}：交给{area:415}的{npc:3691}",
-	-- ["{npc:3940}, inside {area:432}"] = "{npc:3940}，位于{area:432}内部",
-	-- ["{npc:3941}, inside {area:432}"] = "{npc:3941}，位于{area:432}内部",
-	-- ["{npc:3942}, inside {area:432}"] = "{npc:3942}，位于{area:432}内部",
 }

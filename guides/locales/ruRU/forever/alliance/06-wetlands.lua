@@ -258,7 +258,7 @@ return {
 	["{area:432}'s entrance"] = "",
 
 	-- Step 50: Insane druids
-	["Insane druids"] = "",
+	["Insane druids"] = "Обезумевшие друиды",
 	-- {area:432} The Dor'Danil Barrow Den · {npc:3940} Taneel Darkwood · {npc:3941} Uthil Mooncall · {npc:3942} Mavoris Cloudsbreak
 	["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "",
 	-- {npc:3940} Taneel Darkwood · {area:432} The Dor'Danil Barrow Den
@@ -362,7 +362,6 @@ return {
 	["Next: fly to {area:42}."] = "Далее: летите сюда: {area:42}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Insane druids"] = "Обезумевшие друиды",
 	-- ["Inside"] = "Внутри",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it."] = "Реликвии лежат прямо на раскопках. {npc:1353}, крупный острозуб, рыщет в долине ящеров сразу к западу от них.",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}: соедините две половинки",

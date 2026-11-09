@@ -255,18 +255,18 @@ return {
 
 	-- Step 49: The Dor'Danil Barrow Den's entrance
 	-- {area:432} The Dor'Danil Barrow Den
-	["{area:432}'s entrance"] = "",
+	["{area:432}'s entrance"] = "Entrada de {area:432}",
 
 	-- Step 50: Insane druids
-	["Insane druids"] = "",
+	["Insane druids"] = "Druidas insanos",
 	-- {area:432} The Dor'Danil Barrow Den · {npc:3940} Taneel Darkwood · {npc:3941} Uthil Mooncall · {npc:3942} Mavoris Cloudsbreak
-	["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "",
+	["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "Os três druidas estão dentro de {area:432}, afastados uns dos outros: entre pela boca, ao sul do acampamento dos Renegados, não por cima da colina acima deles. {npc:3940} está nos salões do leste, {npc:3941} no ponto mais fundo, no extremo nordeste, e {npc:3942} no extremo oeste.\nCuidado: a toca tem muitos monstros que renascem rápido, incluindo mortos-vivos furtivos e patrulhas, então monstros extras costumam entrar na luta.",
 	-- {npc:3940} Taneel Darkwood · {area:432} The Dor'Danil Barrow Den
-	["{npc:3940}, inside {area:432}"] = "",
+	["{npc:3940}, inside {area:432}"] = "{npc:3940}, dentro de {area:432}",
 	-- {npc:3941} Uthil Mooncall · {area:432} The Dor'Danil Barrow Den
-	["{npc:3941}, inside {area:432}"] = "",
+	["{npc:3941}, inside {area:432}"] = "{npc:3941}, dentro de {area:432}",
 	-- {npc:3942} Mavoris Cloudsbreak · {area:432} The Dor'Danil Barrow Den
-	["{npc:3942}, inside {area:432}"] = "",
+	["{npc:3942}, inside {area:432}"] = "{npc:3942}, dentro de {area:432}",
 
 	-- Step 51: Satyrnaar
 	-- {object:19901} Circle of Imprisonment · {area:430} Satyrnaar · {area:428} Night Run
@@ -364,20 +364,14 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back west along the road to {area:150}: {npc:2104} stands on the top floor of {area:2103}."] = "De volta a oeste pela estrada até {area:150}: {npc:2104} fica no último andar de {area:2103}.",
 	-- ["In {zone:1453}, join the two half pendants into the {item:15885} and cast {spell:18960}: {npc:11802} is in {area:2361}. Then {npc:11800} in {area:2361} flies Druids straight to {area:702}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Em {zone:1453}, junte as duas metades do pendente em {item:15885} e lance {spell:18960}: {npc:11802} está em {area:2361}. Depois {npc:11800}, em {area:2361}, leva Druidas direto para {area:702}. {npc:11802} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
-	-- ["Insane druids"] = "Druidas insanos",
 	-- ["Inside"] = "Lá dentro",
 	-- ["Red whelps fill the hills west of the gates, Maddened Rotclaws the {area:1025}, Razormaws the northern slopes; Neru stands in the north-east (use the {item:279996}).\nFen Creepers hide in the marsh pools north-west of the {area:1025}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "Dragonetes vermelhos enchem as colinas a oeste dos portões, Maddened Rotclaws, {area:1025}, e Rasgaqueixos, as encostas do norte; Neru fica no nordeste (use {item:279996}).\nRastejantes do Pântano se escondem nas poças do brejo a noroeste de {area:1025}.\nCuidado: fora de combate, os Rastejantes do Pântano lançam Furtividade de tempos em tempos, então ficam furtivos e difíceis de ver.",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it."] = "As relíquias ficam na própria escavação. {npc:1353}, um Rasgaqueixo grande, ronda o vale dos raptores logo a oeste.",
-	-- ["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "Os três druidas estão dentro de {area:432}, afastados uns dos outros: entre pela boca, ao sul do acampamento dos Renegados, não por cima da colina acima deles. {npc:3940} está nos salões do leste, {npc:3941} no ponto mais fundo, no extremo nordeste, e {npc:3942} no extremo oeste.\nCuidado: a toca tem muitos monstros que renascem rápido, incluindo mortos-vivos furtivos e patrulhas, então monstros extras costumam entrar na luta.",
 	-- ["The three druids stand together at the Forsaken camp south of {area:2358}.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "Os três druidas ficam juntos no acampamento dos Renegados ao sul de {area:2358}.\nCuidado: o covil tem muitos monstros que renascem rápido, incluindo mortos-vivos furtivos e patrulhas, então é comum vir monstro a mais.",
 	-- ["{area:1025}: kill these as you meet them"] = "{area:1025}: vá matando estes pelo caminho",
-	-- ["{area:432}'s entrance"] = "Entrada de {area:432}",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}: junte as duas metades",
 	-- ["{npc:3649} stands at the north end of {area:442}, {npc:3693} and {npc:3694} by the flight master."] = "{npc:3649} fica no extremo norte de {area:442}, {npc:3693} e {npc:3694}, junto ao mestre de voo.",
 	-- ["{npc:3649}: Alexston's reply, if you took it in {zone:1453}"] = "{npc:3649}: a resposta do Aleixo, se você a pegou em {zone:1453}",
 	-- ["{npc:3691}, in the inn"] = "{npc:3691}, na estalagem",
 	-- ["{npc:3694}: for {npc:3691} in {area:415}"] = "{npc:3694}: para {npc:3691} em {area:415}",
-	-- ["{npc:3940}, inside {area:432}"] = "{npc:3940}, dentro de {area:432}",
-	-- ["{npc:3941}, inside {area:432}"] = "{npc:3941}, dentro de {area:432}",
-	-- ["{npc:3942}, inside {area:432}"] = "{npc:3942}, dentro de {area:432}",
 }

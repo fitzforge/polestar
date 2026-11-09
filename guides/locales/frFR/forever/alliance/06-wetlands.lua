@@ -258,15 +258,15 @@ return {
 	["{area:432}'s entrance"] = "",
 
 	-- Step 50: Insane druids
-	["Insane druids"] = "",
+	["Insane druids"] = "Druides fous",
 	-- {area:432} The Dor'Danil Barrow Den · {npc:3940} Taneel Darkwood · {npc:3941} Uthil Mooncall · {npc:3942} Mavoris Cloudsbreak
 	["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "",
 	-- {npc:3940} Taneel Darkwood · {area:432} The Dor'Danil Barrow Den
-	["{npc:3940}, inside {area:432}"] = "",
+	["{npc:3940}, inside {area:432}"] = "{npc:3940}, à l'intérieur de {area:432}",
 	-- {npc:3941} Uthil Mooncall · {area:432} The Dor'Danil Barrow Den
-	["{npc:3941}, inside {area:432}"] = "",
+	["{npc:3941}, inside {area:432}"] = "{npc:3941}, à l'intérieur de {area:432}",
 	-- {npc:3942} Mavoris Cloudsbreak · {area:432} The Dor'Danil Barrow Den
-	["{npc:3942}, inside {area:432}"] = "",
+	["{npc:3942}, inside {area:432}"] = "{npc:3942}, à l'intérieur de {area:432}",
 
 	-- Step 51: Satyrnaar
 	-- {object:19901} Circle of Imprisonment · {area:430} Satyrnaar · {area:428} Night Run
@@ -362,7 +362,6 @@ return {
 	["Next: fly to {area:42}."] = "Ensuite : volez jusqu'à {area:42}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Insane druids"] = "Druides fous",
 	-- ["Inside"] = "À l'intérieur",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it."] = "Les reliques se trouvent dans les fouilles mêmes. {npc:1353}, un grand raptor Razormaw, rôde dans la vallée des raptors juste à l'ouest.",
 	-- ["The three druids stand together at the Forsaken camp south of {area:2358}.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "Les trois druides se tiennent ensemble au camp des Réprouvés au sud de {area:2358}.\nAttention : le repaire compte de nombreux monstres qui réapparaissent vite, dont des morts-vivants camouflés et des patrouilles : d'autres monstres se joignent souvent au combat.",
@@ -370,7 +369,4 @@ return {
 	-- ["{item:15885}: join the two halves"] = "{item:15885} : assemblez les deux moitiés",
 	-- ["{npc:3649}: Alexston's reply, if you took it in {zone:1453}"] = "{npc:3649} : la réponse d'Alexston, si vous l'avez prise à {zone:1453}",
 	-- ["{npc:3691}, in the inn"] = "{npc:3691}, à l'auberge",
-	-- ["{npc:3940}, inside {area:432}"] = "{npc:3940}, à l'intérieur de {area:432}",
-	-- ["{npc:3941}, inside {area:432}"] = "{npc:3941}, à l'intérieur de {area:432}",
-	-- ["{npc:3942}, inside {area:432}"] = "{npc:3942}, à l'intérieur de {area:432}",
 }
