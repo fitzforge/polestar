@@ -1,0 +1,30 @@
+## Interface: 16001
+## Title: Polestar Skin: Lumen
+## Notes: A head-up skin for Polestar: no frame, corner ticks and one cyan line, compact type over the world. Not part of Polestar's release.
+## Title-deDE: Polestar-Design: Lumen
+## Notes-deDE: Ein Head-up-Design für Polestar: kein Rahmen, Eckmarken und eine cyanfarbene Linie, kompakte Schrift über der Spielwelt. Nicht Teil von Polestars Veröffentlichung.
+## Title-esES: Polestar, tema: Lumen
+## Notes-esES: Un tema de visor para Polestar: sin marco, marcas en las esquinas y una línea cian, texto compacto sobre el mundo. No forma parte de la versión de Polestar.
+## Title-esMX: Polestar, tema: Lumen
+## Notes-esMX: Un tema de visor para Polestar: sin marco, marcas en las esquinas y una línea cian, texto compacto sobre el mundo. No forma parte de la versión de Polestar.
+## Title-frFR: Polestar, habillage : Lumen
+## Notes-frFR: Un habillage tête haute pour Polestar : sans cadre, des repères aux coins et une ligne cyan, un texte compact sur le monde. Ne fait pas partie de la version publiée de Polestar.
+## Title-koKR: Polestar 스킨: Lumen
+## Notes-koKR: Polestar의 HUD 스킨: 테두리 없이 모서리 표시와 청록색 선 하나, 월드 위의 촘촘한 글자. Polestar 배포판에는 포함되지 않습니다.
+## Title-ptBR: Polestar, tema: Lumen
+## Notes-ptBR: Um tema de HUD para o Polestar: sem moldura, marcas nos cantos e uma linha ciano, texto compacto sobre o mundo. Não faz parte da versão do Polestar.
+## Title-ruRU: Polestar, оформление: Lumen
+## Notes-ruRU: HUD-оформление для Polestar: без рамки, метки по углам и одна бирюзовая линия, компактный текст поверх мира. Не входит в выпуск Polestar.
+## Title-zhCN: Polestar 皮肤：Lumen
+## Notes-zhCN: Polestar 的抬头显示皮肤：无边框，角标和一条青色线，游戏世界上的紧凑文字。不属于 Polestar 的发行版。
+## Title-zhTW: Polestar 皮膚：Lumen
+## Notes-zhTW: Polestar 的抬頭顯示皮膚：無邊框，角標與一條青色線，遊戲世界上的緊湊文字。不屬於 Polestar 的發行版本。
+## Author: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+## Version: 1.0
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+
+Lumen.lua

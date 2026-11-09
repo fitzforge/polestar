@@ -163,6 +163,63 @@ const TEXT = {
 			zhTW: '供皮膚作者參考的 Polestar 範例皮膚（Moonlit）。不屬於 Polestar 的發行版本。',
 		},
 	},
+	// The Skin API's showcase skins (docs/SKINS-API.md): in the repository only, never in a release.
+	Polestar_Skin_Aurora: {
+		title: { deDE: 'Polestar-Design: Aurora', esES: 'Polestar, tema: Aurora', esMX: 'Polestar, tema: Aurora', frFR: 'Polestar, habillage : Aurora', koKR: 'Polestar 스킨: Aurora', ptBR: 'Polestar, tema: Aurora', ruRU: 'Polestar, оформление: Aurora', zhCN: 'Polestar 皮肤：Aurora', zhTW: 'Polestar 皮膚：Aurora' },
+		notes: {
+			deDE: 'Polestars Nachthimmel mit einem Polarlicht im Band: tiefes Indigo, das zum Fuß jedes Fensters dunkler wird, ein türkis-violettes Leuchten unter den Sternen, Champagnergold. Nicht Teil von Polestars Veröffentlichung.',
+			esES: 'El cielo nocturno de Polestar con una aurora en la franja: índigo profundo que se oscurece hacia el pie de cada ventana, un brillo turquesa y violeta bajo las estrellas, oro champán. No forma parte de la versión de Polestar.',
+			esMX: 'El cielo nocturno de Polestar con una aurora en la franja: índigo profundo que se oscurece hacia el pie de cada ventana, un brillo turquesa y violeta bajo las estrellas, oro champán. No forma parte de la versión de Polestar.',
+			frFR: "Le ciel nocturne de Polestar avec une aurore dans le bandeau : un indigo profond qui s'assombrit vers le bas de chaque fenêtre, une lueur turquoise et violette sous les étoiles, un or champagne. Ne fait pas partie de la version publiée de Polestar.",
+			koKR: '띠에 오로라가 드리운 Polestar의 밤하늘: 창 아래로 갈수록 짙어지는 깊은 남색, 별 아래의 청록빛과 보랏빛, 샴페인 골드. Polestar 배포판에는 포함되지 않습니다.',
+			ptBR: 'O céu noturno do Polestar com uma aurora na faixa: índigo profundo que escurece em direção ao pé de cada janela, um brilho turquesa e violeta sob as estrelas, dourado champanhe. Não faz parte da versão do Polestar.',
+			ruRU: 'Ночное небо Polestar с сиянием в полосе: глубокий индиго, темнеющий к низу каждого окна, бирюзово-фиолетовое свечение под звёздами, золото шампань. Не входит в выпуск Polestar.',
+			zhCN: '带有极光的 Polestar 夜空：向窗底渐深的靛蓝底面，星空下的青紫光辉，香槟金。不属于 Polestar 的发行版。',
+			zhTW: '帶有極光的 Polestar 夜空：向窗底漸深的靛藍底面，星空下的青紫光輝，香檳金。不屬於 Polestar 的發行版本。',
+		},
+	},
+	Polestar_Skin_Beacon: {
+		title: { deDE: 'Polestar-Design: Beacon', esES: 'Polestar, tema: Beacon', esMX: 'Polestar, tema: Beacon', frFR: 'Polestar, habillage : Beacon', koKR: 'Polestar 스킨: Beacon', ptBR: 'Polestar, tema: Beacon', ruRU: 'Polestar, оформление: Beacon', zhCN: 'Polestar 皮肤：Beacon', zhTW: 'Polestar 皮膚：Beacon' },
+		notes: {
+			deDE: 'Ein kontrastreiches Design für Polestar: schwarze Flächen, größere weiße Schrift, gelber Akzent, kräftige Ränder, größere Markierungen und Pfeil. Nicht Teil von Polestars Veröffentlichung.',
+			esES: 'Un tema de alto contraste para Polestar: fondos negros, texto blanco más grande, acento amarillo, bordes marcados, marcadores y flecha más grandes. No forma parte de la versión de Polestar.',
+			esMX: 'Un tema de alto contraste para Polestar: fondos negros, texto blanco más grande, acento amarillo, bordes marcados, marcadores y flecha más grandes. No forma parte de la versión de Polestar.',
+			frFR: 'Un habillage à fort contraste pour Polestar : fonds noirs, texte blanc plus grand, accent jaune, bords marqués, repères et flèche plus grands. Ne fait pas partie de la version publiée de Polestar.',
+			koKR: 'Polestar의 고대비 스킨: 검은 바탕, 한 단계 큰 흰 글자, 노란 강조색, 굵은 테두리, 더 큰 표시와 화살표. Polestar 배포판에는 포함되지 않습니다.',
+			ptBR: 'Um tema de alto contraste para o Polestar: fundos pretos, texto branco maior, destaque amarelo, bordas fortes, marcadores e seta maiores. Não faz parte da versão do Polestar.',
+			ruRU: 'Высококонтрастное оформление для Polestar: чёрный фон, более крупный белый текст, жёлтый акцент, чёткие края, крупнее метки и стрелка. Не входит в выпуск Polestar.',
+			zhCN: 'Polestar 的高对比度皮肤：黑色底面，更大的白色文字，黄色强调色，清晰边框，更大的标记和箭头。不属于 Polestar 的发行版。',
+			zhTW: 'Polestar 的高對比皮膚：黑色底面，更大的白色文字，黃色強調色，清晰邊框，更大的標記與箭頭。不屬於 Polestar 的發行版本。',
+		},
+	},
+	Polestar_Skin_Lumen: {
+		title: { deDE: 'Polestar-Design: Lumen', esES: 'Polestar, tema: Lumen', esMX: 'Polestar, tema: Lumen', frFR: 'Polestar, habillage : Lumen', koKR: 'Polestar 스킨: Lumen', ptBR: 'Polestar, tema: Lumen', ruRU: 'Polestar, оформление: Lumen', zhCN: 'Polestar 皮肤：Lumen', zhTW: 'Polestar 皮膚：Lumen' },
+		notes: {
+			deDE: 'Ein Head-up-Design für Polestar: kein Rahmen, Eckmarken und eine cyanfarbene Linie, kompakte Schrift über der Spielwelt. Nicht Teil von Polestars Veröffentlichung.',
+			esES: 'Un tema de visor para Polestar: sin marco, marcas en las esquinas y una línea cian, texto compacto sobre el mundo. No forma parte de la versión de Polestar.',
+			esMX: 'Un tema de visor para Polestar: sin marco, marcas en las esquinas y una línea cian, texto compacto sobre el mundo. No forma parte de la versión de Polestar.',
+			frFR: 'Un habillage tête haute pour Polestar : sans cadre, des repères aux coins et une ligne cyan, un texte compact sur le monde. Ne fait pas partie de la version publiée de Polestar.',
+			koKR: 'Polestar의 HUD 스킨: 테두리 없이 모서리 표시와 청록색 선 하나, 월드 위의 촘촘한 글자. Polestar 배포판에는 포함되지 않습니다.',
+			ptBR: 'Um tema de HUD para o Polestar: sem moldura, marcas nos cantos e uma linha ciano, texto compacto sobre o mundo. Não faz parte da versão do Polestar.',
+			ruRU: 'HUD-оформление для Polestar: без рамки, метки по углам и одна бирюзовая линия, компактный текст поверх мира. Не входит в выпуск Polestar.',
+			zhCN: 'Polestar 的抬头显示皮肤：无边框，角标和一条青色线，游戏世界上的紧凑文字。不属于 Polestar 的发行版。',
+			zhTW: 'Polestar 的抬頭顯示皮膚：無邊框，角標與一條青色線，遊戲世界上的緊湊文字。不屬於 Polestar 的發行版本。',
+		},
+	},
+	Polestar_Skin_Vellum: {
+		title: { deDE: 'Polestar-Design: Vellum', esES: 'Polestar, tema: Vellum', esMX: 'Polestar, tema: Vellum', frFR: 'Polestar, habillage : Vellum', koKR: 'Polestar 스킨: Vellum', ptBR: 'Polestar, tema: Vellum', ruRU: 'Polestar, оформление: Vellum', zhCN: 'Polestar 皮肤：Vellum', zhTW: 'Polestar 皮膚：Vellum' },
+		notes: {
+			deDE: 'Ein Pergament-Design für Polestar: der Guide als Seite des Questlogs, dunkle Tinte auf Papier. Nicht Teil von Polestars Veröffentlichung.',
+			esES: 'Un tema de pergamino para Polestar: la guía como una página del registro de misiones, tinta oscura sobre papel. No forma parte de la versión de Polestar.',
+			esMX: 'Un tema de pergamino para Polestar: la guía como una página del registro de misiones, tinta oscura sobre papel. No forma parte de la versión de Polestar.',
+			frFR: 'Un habillage parchemin pour Polestar : le guide comme une page du journal de quêtes, encre sombre sur papier. Ne fait pas partie de la version publiée de Polestar.',
+			koKR: 'Polestar의 양피지 스킨: 퀘스트 일지의 한 페이지처럼, 종이 위의 짙은 잉크. Polestar 배포판에는 포함되지 않습니다.',
+			ptBR: 'Um tema de pergaminho para o Polestar: o guia como uma página do registro de missões, tinta escura sobre papel. Não faz parte da versão do Polestar.',
+			ruRU: 'Пергаментное оформление для Polestar: гайд как страница журнала заданий, тёмные чернила на бумаге. Не входит в выпуск Polestar.',
+			zhCN: 'Polestar 的羊皮纸皮肤：指南如同任务日志的一页，纸上深色墨迹。不属于 Polestar 的发行版。',
+			zhTW: 'Polestar 的羊皮紙皮膚：指南如同任務日誌的一頁，紙上深色墨跡。不屬於 Polestar 的發行版本。',
+		},
+	},
 };
 
 // The per-language folders: { title, notes } templates, %1 the locale code,
