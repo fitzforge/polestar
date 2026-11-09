@@ -1358,7 +1358,9 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   nothing else to do, targets the lines' kill and collect mobs after the
   step's own names, one from each line nearest first, as many as fit its
   macro (QoL/Buttons `HereNames`, `StepAction`; `behavior.whileHereStepKey`,
-  on by default; the macro changes only out of combat, `QoL.Secure`). Done early, the later step is done or
+  on by default; the macro changes only out of combat, `QoL.Secure`). An
+  item keeps the key, including the first line's item that `ChooseQuestItem`
+  falls back to (its `use` item or its quest's log item). Done early, the later step is done or
   shorter when the route gets there, as any objective done ahead.
 - **Jumps.** A step with `skipto` (format 5; GUIDE_FORMAT, "Jumps") is
   checked when `computeCurrent` reaches it as the first open step, once the
