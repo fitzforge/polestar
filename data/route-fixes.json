@@ -7803,6 +7803,12 @@
 				],
 				"reason": "With The Argent Emissary (96895), above.",
 				"issue": "-"
+			},
+			{
+				"q": 1132,
+				"faction": "Alliance",
+				"reason": "Quest volume (2026-11-08, Alliance 30-40): Fiora Longears (level 30, from 30, 1200 XP) is a delivery: Red Jack Flint stands on Menethil's dock beside the flight master where 30-40/03 lands, and Fiora Longears waits on Theramore's docks where that guide's boat lands, the same NPC who gives Highperch Venom (1135) on that stop. No walk added.",
+				"issue": "-"
 			}
 		],
 		"skip": [
