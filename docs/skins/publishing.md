@@ -83,26 +83,24 @@ them to find you.
 
 ## Licensing
 
-Your skin is your code and your art. Polestar is GPL-3.0-only; its
-[LICENSE-EXCEPTION](../../LICENSE-EXCEPTION.md) covers compiled guide packs,
-not skins, and there is no licence statement written for skins yet
-([API-GAPS](API-GAPS.md)). Until there is, the careful reading:
+Your skin is your code and your art. Polestar is GPL-3.0-only, with an
+additional permission for skin addons in
+[LICENSE-EXCEPTION.md](../../LICENSE-EXCEPTION.md#skin-addons): an addon that
+changes Polestar's look only by calling the documented Skin API may be
+licensed as its author chooses.
 
-- Your addon calls Polestar through its public API at run time, the way
-  addons call each other, and need not copy any of Polestar's code. Written
-  that way, from this documentation, it is yours to license (MIT, GPL-3.0,
-  CC BY, all rights reserved): ship the text as `LICENSE`, with
-  `## X-License` in the TOC.
-- If you **copy code from the example addon** (`Polestar_Skin_Example`,
-  GPL-3.0-only) or from Polestar's own files, the GPL applies to your addon.
-  Copying the *shape* of a spec from the example (the same field names in
-  the same order) is not copying its code; copying its painter is.
+- Pick a licence for your addon (MIT, GPL-3.0, CC BY, all rights reserved),
+  ship the text as `LICENSE`, and name it with `## X-License` in the TOC.
+- The permission does not cover an addon that copies or modifies Polestar's
+  code. The example addon (`Polestar_Skin_Example`) is CC0-1.0, so copying
+  its painter or any of its code into your skin carries no conditions.
 - **Fonts**: ship only fonts whose licence allows redistribution (SIL OFL,
   Apache). Polestar's bundled Inter, Fira Sans and Open Sans are available
   to your skin by name (`font = "fira"`) without shipping them. Do not ship
   the game's fonts.
-- **Art**: do not copy textures from Polestar's `Media/` folder, from other
-  addons, or from the game client into your zip. Reference Polestar's glyphs
+- **Art**: Polestar's own art, textures and fonts keep their licences
+  ([THIRD_PARTY.md](../../THIRD_PARTY.md)); do not copy them, textures from
+  other addons, or the game client's files into your zip. Reference Polestar's glyphs
   by name (`icons = { bug = "flag" }`) and the client's textures by path if
   you need them; draw your own band, stars and medallion.
 - Polestar's name: "for Polestar" and "Polestar skin" in your title and

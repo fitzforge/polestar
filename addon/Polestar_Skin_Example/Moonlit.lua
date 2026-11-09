@@ -8,6 +8,8 @@
 --     Halo's arrow and map icons.
 -- Nothing here touches Polestar's own files. Copy this folder, rename it and
 -- its .toc, and change the ids, names and colours to make your own skin.
+-- This example is CC0-1.0 (public domain; LICENSE in this folder): copy any
+-- of it into your own skin without conditions.
 
 local ADDON = ...
 

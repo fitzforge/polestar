@@ -104,17 +104,13 @@ the maintainer or Fitz, not just code.
 
 ## Documentation and policy
 
-14. **No licence statement for skins. Decision (Fitz).** Polestar is
-    GPL-3.0-only; LICENSE-EXCEPTION covers compiled guide packs and import
-    strings, not addons that use the Skin API. A community author (and the
-    publishing page) has to reason about whether a spec written from the
-    docs is "linking". A one-paragraph statement, in LICENSE-EXCEPTION or a
-    `docs/skins/LICENSE-NOTE.md`, that a skin addon which only calls the
-    documented API may be licensed as its author chooses, would remove the
-    doubt. The example addon's own licence (GPL-3.0-only via the TOC's
-    `X-License`) could also be relaxed to MIT or CC0 so copying its painter
-    is unencumbered. The publishing page says "no statement yet" and points
-    here.
+14. **Licence statement for skins: done.** LICENSE-EXCEPTION.md now has a
+    "Skin addons" permission (GPL-3.0 section 7): an addon that changes
+    Polestar's look only through the documented Skin API may be licensed as
+    its author chooses; copying or modifying Polestar's code, and Polestar's
+    own art and fonts, stay under their licences. The example addon is
+    CC0-1.0 so its painter can be copied freely. The publishing page points
+    at the section.
 15. **The deprecation window is written by the docs, not by the code or a
     maintainer decision.** [versioning.md](versioning.md) says an old `api`
     stays accepted "for at least the next minor release line" after
