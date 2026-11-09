@@ -10,19 +10,25 @@ use serde_json::{json, Value};
 const SCRIPT: &str = r#"
 local T, W = Polestar.Theme, Polestar.Widgets
 T._testShowHidden = true
--- Build what is built on demand.
+-- Build what is built on demand. The party panel shows only with someone in the party heard running Polestar.
+Polestar.Party.IsLive = function() return true end
+Polestar.Party.Roster = function() return { { name = "Ana", unit = "party1", level = 12 } } end
 Polestar.Set("party.panel", true)
 W.Modal({ title = "Reset?", text = "Sure?", action = "Reset" })
 Polestar.Nav.alerts.ShowSample()
 Polestar.Rares.Toast.Show({ kind = "rare", name = "Mother Fang", map = 1429, x = 50, y = 50 })
 Polestar.UI.ShowCopy("Copy", "text")
-local named = {
-	timer = PolestarFlightTimer, tracker = PolestarInstanceTracker, party = PolestarPartyPanel,
-	modal = PolestarModal and PolestarModal.Box, transit = PolestarTransitAlert, rare = PolestarRareToast,
-	copy = PolestarCopy,
+-- The swept frames by global name: a name that is gone (a renamed frame) is reported missing, not skipped.
+local NAMES = {
+	timer = "PolestarFlightTimer", tracker = "PolestarInstanceTracker", party = "PolestarPartyPanel",
+	modal = "PolestarModal", transit = "PolestarAlert", rare = "PolestarRareToast", copy = "PolestarCopy",
 }
-local missing = {}
-for k, f in pairs(named) do if not f then missing[#missing + 1] = k end end
+local named, missing = {}, {}
+for k, name in pairs(NAMES) do
+	local f = _G[name]
+	if f and k == "modal" then f = f.Box end
+	if f then named[k] = f else missing[#missing + 1] = k end
+end
 table.sort(missing)
 -- Every frame a skin painted.
 local painted = {}
@@ -63,7 +69,9 @@ fn switching_the_skin_restyles_the_flight_timer_and_every_polestar_frame_live_13
 	assert_eq!(skins.len(), 6);
 	for (key, s) in skins {
 		assert_eq!(s["stale"], 0, "{key}: every skinned frame repainted in the skin in use");
-		for (name, f) in s["frames"].as_object().unwrap() {
+		let frames = s["frames"].as_object().unwrap();
+		assert_eq!(frames.len(), 7, "{key}: every swept frame reported");
+		for (name, f) in frames {
 			assert_eq!(f["skin"], json!(key), "{key}: {name} painted in it");
 			// The window skin: Halo's soft veil (a panel would take the menu fill), the house drop shadow.
 			assert_eq!(f["veil"], json!(key == "halo"), "{key}: {name} on the window skin");
