@@ -4475,6 +4475,26 @@
 					"ref": "EG Link live quest 569: monster 1142 x10, 1144 x5"
 				}
 			]
+		},
+		{
+			"id": "horde-3040-portals-of-the-legion-hand",
+			"faction": "Horde",
+			"at": {
+				"quest": 5581,
+				"goal": "complete"
+			},
+			"tip": "Head east to Mannoroc Coven. With the Hand of Iruxos from Taiga in your bags, open a demon portal's ring: a Demon Portal Guardian (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake.",
+			"note": "Horde 30-40 audit (2026-11-09): Portals of the Legion has no Rod of Banishing: its source item is the Hand of Iruxos (14547); opening a Demon Portal (objects 177243, 177365, ...) with it in the bags brings out a Demon Portal Guardian (11937, 38-39), whose kill closes the portal (objective: 6 guardians). The step's warning about nearby demons is kept in the same tip.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "quests.json 5581 sourceItem 14547, objective kill 11937 x6; objects.json 177243 Demon Portal"
+				},
+				{
+					"kind": "eg",
+					"ref": "EG Link live quest 5581"
+				}
+			]
 		}
 	]
 }

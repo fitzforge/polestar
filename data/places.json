@@ -1178,6 +1178,46 @@
 				}
 			],
 			"pr": 1355
+		},
+		{
+			"id": "horde-3040-questioning-reethe",
+			"quest": 1273,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1445,
+				"x": 42.6,
+				"y": 38.1,
+				"frame": "era"
+			},
+			"note": "Questioning Reethe: Ogron walks to Paval Reethe's tent (Reethe 4980 at 42.65,38.07) and the fight is there; the guide's bare complete had nowhere to point (lint).",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 4980 Paval Reethe at Dustwallow 42.65,38.07; quests.json 1273 event point 42.47,38.07"
+			}
+		},
+		{
+			"id": "horde-3040-the-affray-grate",
+			"quest": 1719,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1413,
+				"x": 68.6,
+				"y": 48.7,
+				"frame": "era"
+			},
+			"note": "The Affray: the fight starts on the grate at Fray Island, where Big Will (6238) comes; the guide's bare complete had nowhere to point (lint).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 6238 Big Will at The Barrens 68.61,48.72; quests.json 1719 event 522 at 68.6,48.72"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings: The Affray completed at The Barrens 68.6,48.7 (1 person)"
+				}
+			]
 		}
 	]
 }

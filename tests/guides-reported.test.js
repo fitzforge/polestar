@@ -7875,3 +7875,20 @@ test("Ash's report (#1386): a class step collects a quest-only item only with it
 	assert.deepEqual(stepTips('forever/horde/06-hillsbrad-foothills.guide', /^\s+turnin 30\b/), [fixes.find((f) => f.id === 'upstairs-dendrite-starblaze-turnin-30').tip], 'the hand-in step carries the record tip');
 	assert.deepEqual(stepTips('forever/horde/02-the-barrens.guide', /^\s+turnin 6129\b/), [fixes.find((f) => f.id === 'upstairs-dendrite-starblaze-turnin-6129').tip], "the Barrens' Moonglade step carries its record tip");
 });
+
+// --- Horde 30-40 audit (2026-11-09, AuditHorde3040): Lydon's Shindigger keg is in Dun Garok's elite cellar, so Elixir
+// of Agony's second part is a group choice and its steps lead players who took it (a gated step whose goals were all
+// optional was done at once); the Shaman's Water Sapta is used at the brazier; Desolace's Demon Pick, Gem of the
+// Serpent and clams are lines of their own; Portals of the Legion uses the Hand of Iruxos, not a "Rod of Banishing".
+test('Horde 30-40 audit: Desolace\'s quest items are used where the game needs them', { skip }, () => {
+	const list = goals('forever/horde/30-40/02-thousand-needles.guide');
+	for (const [item, quest, what] of [[14523, 5381, 'the Demon Pick'], [15766, 6027, 'the Gem of the Serpent'], [15874, 6142, 'the Soft-shelled Clams']]) {
+		const use = at(list, `use ${item}`, (g) => g.t === 'use' && g.item === item);
+		assert.ok(use < at(list, `turnin ${quest}`, is('turnin', quest)), `${what} before the hand-in`);
+	}
+	const pick = list.find(({ goal }) => goal.t === 'use' && goal.item === 14523).goal;
+	assert.ok(Math.hypot(pick.x - 54.95, pick.y - 26.66) < 1, 'the Demon Pick goes to the Hand of Iruxos Crystal');
+	const [portals] = stepTips('forever/horde/30-40/04-dustwallow-marsh.guide', /^\s+complete 5581\b/);
+	assert.doesNotMatch(portals, /Rod of Banishing/);
+	assert.match(portals, /Hand of Iruxos/);
+});

@@ -2,7 +2,7 @@
 guide forever/horde/30-40/04-dustwallow-marsh
 title Dustwallow Marsh & Desolace
 faction Horde
-levels 37-38
+levels 36-38
 zone Dustwallow Marsh
 next forever/horde/30-40/05-arathi-highlands
 
@@ -99,7 +99,7 @@ step Brackenwall Village
 step Questioning Reethe
   tip Ogron waits in the Quagmire east of the village. Follow him to Reethe and keep him alive through the fight that breaks out.
   accept 1273
-  complete 1273
+  complete 1273 @42.6,38.1 map 1445
 
 # ---------------------------------------------------------------- Witch Hill
 
@@ -190,7 +190,7 @@ step The Affray
   tip Head south along the coast from Ratchet to Fray Island. Klannoc Macleod stands by the arena: step on the grate to start the fight; the challengers come one at a time, then Big Will (33).
   turnin 1718                         -- Klannoc Macleod
   accept 1719
-  complete 1719
+  complete 1719 @68.6,48.7 map 1413
   turnin 1719                         -- Klannoc Macleod: Berserker Stance
 
 # ---------------------------------------------------------------- Desolace, the second visit
@@ -208,8 +208,7 @@ step Shadowprey Village
 
 step Portals of the Legion
   zone Desolace
-  tip Head east to Mannoroc Coven. Use the Rod of Banishing by each demon portal to close six of them.
-  tip Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake.
+  tip Head east to Mannoroc Coven. With the Hand of Iruxos from Taiga in your bags, open a demon portal's ring: a Demon Portal Guardian (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake.
   goto 52.0,78.0 "Mannoroc Coven"
   complete 5581
 
@@ -285,7 +284,12 @@ step Belgrom Rockmaul
   zone Orgrimmar
   tip Belgrom Rockmaul stands in the Valley of Honor.
   turnin 1184                         -- Belgrom Rockmaul
-  turnin 2841                         -- Nogg, in the Valley of Honor beside Belgrom: Rig Wars, if you ran Gnomeregan
+
+step Nogg
+  when complete 2841
+  zone Orgrimmar
+  tip Nogg's workshop is in the Valley of Honor beside Belgrom: hand in Rig Wars if you ran Gnomeregan.
+  turnin 2841                         -- Nogg
 
 step Orgrimmar trainers
   only Hunter,Shaman
