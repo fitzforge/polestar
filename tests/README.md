@@ -94,7 +94,7 @@ modules meet. New client APIs go in the stub of the module that needs them;
 | `helpers/dsl.js` | The toolchain tests' helpers: the fixture reference data (`DATA_DIR`, `fixtureData`), `compile` of guide text, `writeTestPack` |
 | `helpers/cli.js` | `polestar(args, { cwd, env, input })` runs the command line as a child process; `quiet(fn)` runs a command in-process with its output captured; `fakeAddons` lays out addon folders for pack and install tests |
 | `helpers/data.js` | `needs(...files)`: the one skip reason for a test that reads `data/forever` when those files are not built |
-| `helpers/locale.js` | `fakeLocale(locale, strings)`: Lua for `runAddon`'s `before` that makes `GetLocale()` return `locale` and fills `Polestar.L` with `strings` right after `Core/Init.lua`, before any file reads `L` at load. Fake a locale Polestar does not ship (`itIT`); a shipped one throws |
+| `helpers/locale.js` | `fakeLocale(locale, strings)`: Lua for `runAddon`'s `before` that makes `GetLocale()` return `locale` and fills `Polestar.L` with `strings` when `Core/Locale.lua` asks for the language folder (`C_AddOns.LoadAddOn`), as the client runs its `Interface.lua`. Fake a locale Polestar does not ship (`itIT`); a shipped one throws |
 | `helpers/tmp.js` | `tmpdir()`: a fresh temporary folder, removed when the test process exits |
 | `helpers/codex.js` | `writeCodexPack`, `sampleCodex`: a loadable `Polestar_Codex` built from a Codex object such as `fixtures/codex/sample.json` |
 | `helpers/packs.js` | `TEST_PACK`, `TEST_SOURCE`: the Lua lines that register the test community addon and make it the suggestion source |
