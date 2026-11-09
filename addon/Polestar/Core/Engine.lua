@@ -4720,12 +4720,56 @@ local function rememberAbsent(id, at)
 	while #absent > MAX_TABS do table.remove(absent, 1) end
 end
 
+-- Tabs closed (Engine.CloseTab, or a guide loaded over them: SetGuide,
+-- ChooseRoute), newest first: { id, at } with `at` the tab's place, saved
+-- as CharState().closedTabs with their saved views (pins), so a closed
+-- guide opened again by any way (Engine.ReopenClosedTab, the guide list's
+-- Recently closed, Load, a route chosen again) comes back as a reload brings
+-- a saved tab back: at the step the player was looking at (Own.takeClosed),
+-- placed from the quest log. Ticks and skips are per guide and never go with
+-- a tab. (On Own: the main chunk is at Lua's 200 locals.)
+Own.MAX_CLOSED = 10
+Own.closed = {}
+
+function Own.rememberClosed(id, at)
+	local closed = Own.closed
+	for i = #closed, 1, -1 do
+		if closed[i].id == id then table.remove(closed, i) end
+	end
+	table.insert(closed, 1, { id = id, at = at })
+	while #closed > Own.MAX_CLOSED do table.remove(closed) end
+end
+
+-- Guide `id`'s closed tab entry and its index, or nil.
+function Own.closedEntry(id)
+	for i, c in ipairs(Own.closed) do
+		if c.id == id then return c, i end
+	end
+	return nil
+end
+
+-- Guide `id` opened again: out of the closed tabs. -> the step the player
+-- was looking at when they closed it and its `done` (its saved pin, carried
+-- to the guide's steps as planned now by checkShape), or nil.
+function Own.takeClosed(id)
+	local _, i = Own.closedEntry(id)
+	local g = i and Guides.Get(id)
+	if not g then return nil end
+	table.remove(Own.closed, i)
+	checkShape(g)
+	local pins = ns.CharState().pins
+	local p = type(pins) == "table" and pins[id]
+	if type(p) ~= "table" then return nil end
+	return tonumber(p.step), p.done
+end
+
 -- CharState().tabs = { guideId, ... } (open tabs, then the absent ones),
--- .absentAt = { [guideId] = place }, .activeTab, and .guide (the active
--- tab's guide, as before tabs existed). Saved views (pins) are kept for open
--- and absent guides only. A guide open in a tab is never absent too: however
--- it got into the tab (OpenTab, SetGuide, a `next` chain, a route choice),
--- its absent entry goes here, so closing it later forgets it.
+-- .absentAt = { [guideId] = place }, .activeTab, .guide (the active tab's
+-- guide, as before tabs existed) and .closedTabs. Saved views (pins) are
+-- kept for open, absent and closed guides only. A guide open in a tab is
+-- never absent or closed too: however it got into the tab (OpenTab,
+-- SetGuide, a `next` chain, a route choice), its absent and closed entries
+-- go here, so closing it later forgets it.
 local function persist()
 	sync()
 	local s = ns.CharState()
@@ -4746,8 +4790,18 @@ local function persist()
 		at = at or {}
 		at[a.id] = a.at
 	end
+	local closed = Own.closed
+	for i = #closed, 1, -1 do
+		if keep[closed[i].id] then table.remove(closed, i) end
+	end
+	local shut = {}
+	for i, c in ipairs(closed) do
+		shut[i] = { id = c.id, at = c.at }
+		keep[c.id] = true
+	end
 	s.tabs = ids
 	s.absentAt = at
+	s.closedTabs = #shut > 0 and shut or nil
 	s.activeTab = activeIndex > 0 and activeIndex or nil
 	s.guide = ids[activeIndex]
 	if type(s.pins) == "table" then
@@ -5638,6 +5692,18 @@ local function resetLoaded(id, auto)
 	tabsDirty = true
 end
 
+-- Guide `id` into tab `index` in place of its guide, which goes to the
+-- closed tabs (Own.rememberClosed); `id` starts afresh (resetLoaded), at
+-- the step the player was looking at if they closed it before
+-- (Own.takeClosed). Leaves that tab loaded.
+function Own.replaceTab(index, id, auto)
+	use(tabs[index])
+	sync()
+	Own.rememberClosed(guide.id, index)
+	resetLoaded(id, auto)
+	pin, pinDone = Own.takeClosed(id)
+end
+
 -- Notices of quests passed over, per guide, until the player is on the live
 -- step: { from = the first step passed, skips = { { quest, title, reason,
 -- text }, ... }, seen = { [quest] = true } }.
@@ -6219,6 +6285,8 @@ function Engine.OpenTab(id, activate, auto)
 	end
 	if #tabs >= MAX_TABS then return nil end
 	local tab = { guide = g, passedUpTo = 0, autoChain = auto and true or false, sawIncomplete = false, placing = GetTime() + PLACE_SECONDS }
+	-- Closed before: back at the step the player was looking at.
+	tab.pin, tab.pinDone = Own.takeClosed(id)
 	-- Finished or passed earlier this session, it may finish and chain again.
 	completedFired[id] = nil
 	Own.opened[id] = true
@@ -6249,11 +6317,16 @@ function Engine.SelectTab(index)
 end
 
 -- Closing the active tab activates its right neighbour (else the left one);
--- closing the last tab leaves no guide.
-function Engine.CloseTab(index)
+-- closing the last tab leaves no guide. The player's close keeps the tab
+-- among the closed ones (Engine.ReopenClosedTab) and fires
+-- TAB_CLOSED(guideId), for the window's undo. `quiet`: Polestar closes a tab
+-- it is done with (a finished dungeon pick-up or class guide, a generated
+-- guide reopening rebuilt), which is neither kept nor announced.
+function Engine.CloseTab(index, quiet)
 	if type(index) ~= "number" or not tabs[index] then return end
 	sync()
-	table.remove(tabs, index)
+	local tab = table.remove(tabs, index)
+	if not quiet then Own.rememberClosed(tab.guide.id, index) end
 	tabsDirty = true
 	if index == activeIndex then
 		activeIndex = math.min(index, #tabs)
@@ -6265,6 +6338,37 @@ function Engine.CloseTab(index)
 		persist()
 	end
 	evaluate()
+	if not quiet then ns.Fire("TAB_CLOSED", tab.guide.id) end
+end
+
+-- The closed tabs whose guide is registered and in no tab, newest first:
+-- { { guideId, title, at }, ... }.
+function Engine.ClosedTabs()
+	local out, openIds = {}, Engine.TabIds()
+	for _, c in ipairs(Own.closed) do
+		local g = Guides.Get(c.id)
+		if g and not openIds[c.id] then out[#out + 1] = { guideId = c.id, title = g.title, at = c.at } end
+	end
+	return out
+end
+
+-- Reopen a closed tab: guide `id`'s, else the last one closed (of
+-- Engine.ClosedTabs), at its old place, active, at the step the player was
+-- looking at. -> index | nil
+-- (none closed, or six tabs open).
+function Engine.ReopenClosedTab(id)
+	if not ns.IsLoggedIn() or #tabs >= MAX_TABS then return nil end
+	for _, c in ipairs(Engine.ClosedTabs()) do
+		if id == nil or c.guideId == id then
+			local index = Engine.OpenTab(c.guideId)
+			if index and c.at and c.at < index then
+				Engine.MoveTab(index, c.at)
+				index = math.max(c.at, 1)
+			end
+			return index
+		end
+	end
+	return nil
 end
 
 function Engine.MoveTab(from, to)
@@ -6313,8 +6417,10 @@ end
 function Engine.GetGuide() return guide end
 
 -- Replaces the active tab's guide (opens a first tab when none is open); a
--- guide already open in another tab is selected instead of duplicated. nil
--- closes the active tab.
+-- guide already open in another tab is selected instead of duplicated. The
+-- guide replaced goes to the closed tabs, and a closed one loaded comes
+-- back at the step the player was looking at (Own.replaceTab). nil closes
+-- the active tab.
 function Engine.SetGuide(id)
 	if id ~= nil and not Guides.Get(id) then return false end
 	if not ns.IsLoggedIn() then
@@ -6344,7 +6450,7 @@ function Engine.SetGuide(id)
 	elseif activeIndex == 0 then
 		Engine.OpenTab(id)
 	else
-		resetLoaded(id, false)
+		Own.replaceTab(activeIndex, id, false)
 		persist()
 		ns.Fire("GUIDE_CHANGED", id)
 		evaluate()
@@ -6452,7 +6558,9 @@ end
 
 -- Continue `fromId`'s route with `toId` (one of its options): remembered for
 -- the character and loaded in place of the finished guide, else of the open
--- option being changed, else in the active tab. Fires ROUTE_CHOSEN.
+-- option being changed, else in the active tab (Own.replaceTab: the guide
+-- replaced goes to the closed tabs, a closed `toId` comes back at its view).
+-- Fires ROUTE_CHOSEN.
 function Engine.ChooseRoute(fromId, toId)
 	local from, to = fromId and Guides.Get(fromId), toId and Guides.Get(toId)
 	if not (from and to and from.nextChoices) then return false end
@@ -6477,8 +6585,7 @@ function Engine.ChooseRoute(fromId, toId)
 		if not index and activeIndex == 0 then
 			Engine.OpenTab(toId)
 		else
-			use(tabs[index or activeIndex])
-			resetLoaded(toId, true)
+			Own.replaceTab(index or activeIndex, toId, true)
 			activeIndex = index or activeIndex
 			useActive()
 			persist()
@@ -9717,6 +9824,13 @@ ns.OnLogin(function()
 	fpTable()
 	refreshPlayer()
 	local s = ns.CharState()
+	-- The closed tabs, before anything is saved, so their pins stay.
+	for _, c in ipairs(type(s.closedTabs) == "table" and s.closedTabs or {}) do
+		local closed = Own.closed
+		if type(c) == "table" and type(c.id) == "string" and #closed < Own.MAX_CLOSED and not Own.closedEntry(c.id) then
+			closed[#closed + 1] = { id = c.id, at = tonumber(c.at) }
+		end
+	end
 	local ids, seen, back = {}, {}, {}
 	local function add(id)
 		if type(id) == "string" and not seen[id] and #ids < MAX_TABS and Guides.Get(id) then

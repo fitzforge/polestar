@@ -329,7 +329,7 @@ function Dungeons.HandIn(key)
 	local gid, reason = Lk.Guide(KIND, key)
 	if not gid and reason == "tabs" and done then
 		-- Six tabs: the finished pick-up guide gives up its tab first.
-		E.CloseTab(done)
+		E.CloseTab(done, true)
 		gid, reason = Lk.Guide(KIND, key)
 		if not gid then return gid, reason end
 		for i, t in ipairs(E.GetTabs()) do
@@ -345,7 +345,7 @@ function Dungeons.HandIn(key)
 		if t.guideId == gid then from = i end
 	end
 	if at and from then
-		E.CloseTab(at)
+		E.CloseTab(at, true)
 		if at < from then from = from - 1 end
 		E.MoveTab(from, at)
 	end

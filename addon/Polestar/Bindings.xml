@@ -26,6 +26,9 @@
 	<Binding name="POLESTAR_PREV_WAYPOINT" category="ADDONS">
 		Polestar.Bindings.PrevWaypoint()
 	</Binding>
+	<Binding name="POLESTAR_REOPEN_TAB" category="ADDONS">
+		Polestar.Bindings.ReopenTab()
+	</Binding>
 	<Binding name="CLICK PolestarQuestItemButton:LeftButton" category="ADDONS"/>
 	<Binding name="CLICK PolestarTargetButton:LeftButton" category="ADDONS"/>
 	<Binding name="CLICK PolestarRareButton:LeftButton" category="ADDONS"/>

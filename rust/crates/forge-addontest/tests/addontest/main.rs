@@ -124,6 +124,8 @@ mod engine_skipquest;
 mod engine_skipto;
 #[path = "engine-smart.rs"]
 mod engine_smart;
+#[path = "engine-tab-restore.rs"]
+mod engine_tab_restore;
 #[path = "engine-tabs.rs"]
 mod engine_tabs;
 #[path = "engine-talk.rs"]

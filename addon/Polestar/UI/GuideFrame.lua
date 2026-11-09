@@ -1178,7 +1178,7 @@ local function tabMenu(self)
 	local E = Engine()
 	local i = self.psIndex
 	local tabs = tabsOf(E) or {}
-	W.ShowMenu(self, {
+	local items = {
 		-- The picker loads into the active tab, so this tab becomes the active one first.
 		{ text = L["Choose guide"], icon = "search", onClick = function()
 			if E.SelectTab and not self.psActive then E.SelectTab(i) end
@@ -1187,7 +1187,10 @@ local function tabMenu(self)
 		{ text = L["Close tab"], icon = "close", onClick = function() E.CloseTab(i) end },
 		{ text = L["Move left"], icon = "chevron-left", disabled = i <= 1, onClick = function() E.MoveTab(i, i - 1) end },
 		{ text = L["Move right"], icon = "chevron-right", disabled = i >= #tabs, onClick = function() E.MoveTab(i, i + 1) end },
-	}, { point = "TOPLEFT", relPoint = "BOTTOMLEFT", x = 0, y = -2 })
+	}
+	local reopen = GF.ReopenItem()
+	if reopen then table.insert(items, 3, reopen) end
+	W.ShowMenu(self, items, { point = "TOPLEFT", relPoint = "BOTTOMLEFT", x = 0, y = -2 })
 end
 
 -- A tab's label: the title, then its level range in a dimmer string. The
@@ -1336,8 +1339,10 @@ function GF.RenderTabs()
 end
 
 ---------------------------------------------------------------------------
--- Banners: "Continue automatically" moving on from a finished leveling
--- guide (for SKIPPED_SECONDS); the group quest the live step waits on
+-- Banners: the tab the player just closed, with its Reopen (for
+-- GF.CLOSED_SECONDS, shown even with no tab left); "Continue automatically"
+-- moving on from a finished leveling guide (for SKIPPED_SECONDS); the group
+-- quest the live step waits on
 -- (`when group`: Skip it, the default, or Do it with a group; it cannot be
 -- dismissed); the step the player just skipped, with its undo; why the guide
 -- just moved past a quest (while that step's guide and next step are on
@@ -1354,7 +1359,7 @@ end
 ---------------------------------------------------------------------------
 
 local SKIPPED_SECONDS = 20 -- how long the "Skipped …" notices stay
-local notices = { questSkip = nil, stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil }
+local notices = { closedTab = nil, questSkip = nil, stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil }
 GF.notices = notices
 
 -- The step on screen when it is not the live step: { guideId, index, live,
@@ -1401,6 +1406,9 @@ local function bannerNotice()
 	-- On the way to a nearby service (Nav/Nearby.lua): the way back first.
 	local t = nearbyTrip()
 	if t then return "trip", t end
+	-- The tab just closed, until it is open again.
+	local ct = notices.closedTab
+	if ct and not (E and E.TabIds and E.TabIds()[ct.guideId]) then return "closedTab", ct end
 	if notices.questSkip then return "questSkip", notices.questSkip end
 	-- "Continue automatically" moved on from a finished leveling guide.
 	local c = notices.continued
@@ -1566,6 +1574,25 @@ ns.On("PLAYER_SKIPPED_QUEST", function(questID, title)
 	end)
 end)
 
+-- TAB_CLOSED(guideId): the player closed a tab; the banner offers to reopen
+-- it for GF.CLOSED_SECONDS (later: the guide list's Recently closed, the
+-- menus' Reopen closed tab, /polestar reopen, its key binding).
+GF.CLOSED_SECONDS = 10
+ns.On("TAB_CLOSED", function(guideId)
+	if not F or type(guideId) ~= "string" then return end
+	local G = ns.Guides
+	local g = G and G.Get and G.Get(guideId)
+	local notice = { guideId = guideId, title = g and g.title or guideId }
+	notices.closedTab = notice
+	if ns.IsLoggedIn() then GF.Layout() end
+	ns.After(GF.CLOSED_SECONDS, function()
+		if notices.closedTab == notice then
+			notices.closedTab = nil
+			if F and ns.IsLoggedIn() then GF.Layout() end
+		end
+	end)
+end)
+
 local function trainerPlace(t)
 	local zone = t.map and UI.MapName(t.map) or nil
 	if t.npcName and zone then return t.npcName .. ", " .. zone end
@@ -1609,6 +1636,11 @@ function GF.LayoutBanner(width)
 		local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
 		banner:SetHeight(h)
 		return h
+	elseif kind == "closedTab" then
+		banner.Icon:SetTexture(Theme.Media("close"))
+		banner.Text:SetText(string.format(L["Closed %s"], n.title))
+		placeLink(banner.Jump, L["Reopen"], 0, -4)
+		banner.Close:Show()
 	elseif kind == "questSkip" then
 		banner.Icon:SetTexture(Theme.Media("skip"))
 		banner.Text:SetText(string.format(L["Skipped %s"], ns.Quoted(n.title) or L["the quest"]) .. "  \194\183  " .. L["and the quests that follow from it"])
@@ -1788,6 +1820,9 @@ function GF.TakeBanner()
 	local E = Engine()
 	if kind == "trip" then
 		ns.Nav.nearby.EndTrip()
+	elseif kind == "closedTab" then
+		notices.closedTab = nil
+		if E and E.ReopenClosedTab then E.ReopenClosedTab(n.guideId) end
 	elseif kind == "questSkip" then
 		notices.questSkip = nil
 		if E and E.SkipQuest then E.SkipQuest(n.quest, false) end
@@ -2260,7 +2295,9 @@ function GF.Layout()
 	card:SetWidth(width)
 
 	local y = 0
-	if bannerNotice() and state ~= "noguide" and state ~= "noguides" then
+	-- With no guide open, only the tab just closed (its Reopen) shows.
+	local kind = bannerNotice()
+	if kind and ((state ~= "noguide" and state ~= "noguides") or kind == "closedTab") then
 		y = stack(banner, y, GF.LayoutBanner(width))
 		banner:Show()
 	else
@@ -2387,7 +2424,7 @@ function GF.CloseAndReturn(id)
 	local list, active = E.GetTabs()
 	local mine = list and list[active] and list[active].guideId == id and active
 	ns.CharState().classReturn[id] = nil
-	if mine then E.CloseTab(mine) end
+	if mine then E.CloseTab(mine, true) end
 	if E.SetGuide then E.SetGuide(back.id) end
 end
 
@@ -3985,7 +4022,21 @@ local function openMenu(button)
 	if type(PolestarRecorder_Command) == "function" then
 		table.insert(items, 5, { text = L["Recorder window"], icon = "record", onClick = function() PolestarRecorder_Command("ui") end })
 	end
+	local reopen = GF.ReopenItem()
+	if reopen then table.insert(items, 3, reopen) end
 	W.ShowMenu(button, items)
+end
+
+-- "Reopen closed tab", the last tab closed (Engine.ClosedTabs) back as it
+-- was, for the window's menu and the tab strip's: nil with none closed.
+function GF.ReopenItem()
+	local E = Engine()
+	local list = E and E.ClosedTabs and E.ClosedTabs()
+	local last = list and list[1]
+	if not last then return nil end
+	local tabs = tabsOf(E) or {}
+	return { text = L["Reopen closed tab"], icon = "reset", tip = last.title, disabled = #tabs >= (E.MAX_TABS or 6),
+		onClick = function() E.ReopenClosedTab() end }
 end
 
 -- Menu entries pinning the quests of step view `v` that are in the log with

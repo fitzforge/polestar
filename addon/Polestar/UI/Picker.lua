@@ -12,8 +12,8 @@
 -- Middle: tabs (Home: Continue cards for the open tabs, one row of them,
 -- the active tab first, then the most recently used, with "Show all (N)"
 -- for the rest, and the suggested guides; Browse: the last category or the
--- search; Current: the open tabs; Recent: the last guides loaded), one
--- always active, over one line per
+-- search; Current: the open tabs; Recent: the tabs closed, newest first,
+-- then the last guides loaded), one always active, over one line per
 -- guide, "Title (min-max)" (same-titled guides of one range with their races
 -- or faction: "Dun Morogh (Dwarf)", P.Titles), a "Group" chip on a guide
 -- with group content on the route every player follows (elites, dungeons,
@@ -1848,7 +1848,7 @@ function P.Render()
 		elseif view == "current" then
 			subtitle = L["The guides open in your tabs."]
 		else
-			subtitle = L["The last guides you loaded."]
+			subtitle = L["The tabs you closed and the last guides you loaded."]
 		end
 	end
 	if newTabMode then subtitle = L["Pick a guide to open in a new tab."] end
@@ -1960,13 +1960,29 @@ function P.Render()
 			empty = L["No guide is open. Load one and it shows up here."]
 		end
 	else
+		-- The tabs the player closed, newest first (Engine.ClosedTabs): opened
+		-- again, each comes back at the step it was on. Then the last guides loaded.
+		local E, shut, listed = ns.Engine, {}, {}
+		for _, c in ipairs(E and E.ClosedTabs and E.ClosedTabs() or {}) do
+			local g = byId[c.guideId]
+			if g then
+				shut[#shut + 1] = g
+				listed[g.id] = true
+			end
+		end
+		if #shut > 0 then
+			folder(L["Recently closed"], #shut)
+			local shown = P.Titles(shut)
+			for _, g in ipairs(shut) do row(g, nil, shown[g]) end
+		end
 		local recent = {}
-		for _, id in ipairs(P.Recent()) do if byId[id] then recent[#recent + 1] = byId[id] end end
+		for _, id in ipairs(P.Recent()) do if byId[id] and not listed[id] then recent[#recent + 1] = byId[id] end end
 		if #recent > 0 then
+			if #shut > 0 then y = y + 10 end
 			folder(L["Recently loaded"], #recent)
 			local shown = P.Titles(recent)
 			for _, g in ipairs(recent) do row(g, tabNote(g.id), shown[g]) end
-		else
+		elseif #shut == 0 then
 			empty = L["Guides you load show up here."]
 		end
 	end

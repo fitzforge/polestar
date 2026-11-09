@@ -837,7 +837,7 @@ local function openTab(guideId, rebuilt)
 				E.SelectTab(i)
 				return guideId
 			end
-			E.CloseTab(i)
+			E.CloseTab(i, true)
 			local index = E.OpenTab(guideId, true)
 			if index and index ~= i then E.MoveTab(index, i) end
 			return index and guideId or nil, index == nil and "tabs" or nil
