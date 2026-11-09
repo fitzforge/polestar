@@ -3543,6 +3543,16 @@ function GF.Refill()
 	followCurrent(false)
 end
 
+-- QUEST_TIMER (Quests/Timed.lua, each second a quest's timer runs): the
+-- countdowns on the card and the While-here lines move. Only while shown.
+function GF.TimerTick()
+	if not F or state ~= "steps" or not view or not F:IsVisible() then return end
+	fillCard(true)
+	GF.FillHere(Engine())
+	GF.Layout()
+	followCurrent(false)
+end
+
 function GF.UpdateTargets()
 	if not F or state ~= "steps" or not focusGroup then return end
 	local t = targetOf()
@@ -4960,6 +4970,7 @@ ns.On("GUIDE_COMPLETED", whenReady(GF.Render))
 ns.On("WAYPOINT_CHANGED", whenReady(GF.UpdateTargets))
 ns.On("WHILE_HERE_CHANGED", whenReady(GF.HereChanged))
 ns.On("WHILE_HERE_MOVED", whenReady(GF.HereMoved))
+ns.On("QUEST_TIMER", whenReady(GF.TimerTick))
 -- The screen's height changed (resolution, the game's UI scale): the
 -- height cap follows.
 ns.RegisterEvent("DISPLAY_SIZE_CHANGED", whenReady(function() GF.Layout() end))

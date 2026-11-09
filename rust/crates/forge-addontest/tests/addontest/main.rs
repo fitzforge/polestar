@@ -287,6 +287,8 @@ mod questdb_memory;
 mod quests;
 #[path = "quests-levels.rs"]
 mod quests_levels;
+#[path = "quests-timed.rs"]
+mod quests_timed;
 #[path = "quoted-quest-names.rs"]
 mod quoted_quest_names;
 mod rares;
