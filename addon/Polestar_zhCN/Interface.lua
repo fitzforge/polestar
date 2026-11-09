@@ -1707,7 +1707,6 @@ L["Hello, %s"] = "你好，%s"
 L["Welcome to Polestar"] = "欢迎使用 Polestar"
 L["Polestar guides you step by step: who to talk to, what to kill or collect, and where to go."] = "Polestar 按步骤引导你：找谁对话、击杀或收集什么、去哪里。"
 L["Make it yours"] = "个性设置"
-L["Three choices to start with. Everything else is in %s."] = "先做三个选择。其他设置都在%s中。"
 L["Accept and turn in guide quests for me"] = "自动接受和交还指南任务"
 L["Only quests in the next steps of your open guides. Never picks between rewards. Hold Shift to skip."] = "仅限已打开指南接下来步骤中的任务。从不替你选择奖励。按住 Shift 跳过。"
 L["Load a guide for me when I log in"] = "登录时自动载入指南"
@@ -1736,6 +1735,9 @@ L["%s opens the guide window on the right. The arrow points at your first stop."
 L["Played to the end in tests, but not yet by players. If a step is wrong, press %s in the guide window and tell us on Discord."] = "已在测试中完整走完，但尚未经玩家验证。如果某个步骤有误，请在指南窗口中按 %s，并在 Discord 上告诉我们。"
 L["Feedback, bug reports and news."] = "反馈、错误报告和新闻。"
 L["Guides by other players, installed like any addon. They show under Community guides in the guide list."] = "由其他玩家制作的指南，像普通插件一样安装。它们会显示在指南列表的“社区指南”下。"
+-- L["A few choices to start with. Everything else is in %s."] = ""
+-- L["Route line"] = ""
+-- L["How the way to your goal shows on the world map and the minimap. The line is the easiest to follow; sparkles show as dots while Reduce motion is on."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "已为你选中：按 Ctrl+C（Mac 上为 Cmd+C）复制，然后按 Esc。"
@@ -1875,7 +1877,6 @@ L["Flights, boats and your hearthstone when they are faster. Off: the arrow poin
 L["Walk real paths"] = "沿实际道路行走"
 L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."] = "箭头沿地面道路绕开悬崖、水域和墙壁，基于 Polestar 的步行地图及 Cillian Berragan 的 Shortest Path Forever 寻路器。关闭：直接指向每个站点。"
 L["Route lines"] = "路线线条"
-L["The way to the goal on the world map and the minimap: dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "在地图和微缩地图上显示通往目标的路线：步行段为点，飞行、航行或乘坐段为线，之后的路段颜色较淡。绘制方式沿用 Cillian Berragan 的 Shortest Path Forever。"
 L["Class teleports"] = "职业传送"
 L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "更快时，路线可从你已学会的传送法术开始（法师的城市传送、德鲁伊的月光林地）。城市传送需要背包中有传送符文。"
 L["Share boat times"] = "共享船班时间"
@@ -2135,6 +2136,8 @@ L["A soft chime for each new suggestion (once when several come together), at th
 -- L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."] = ""
 -- L["Mark quests new in Forever"] = ""
 -- L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = ""
+-- L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = ""
+-- L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
@@ -2703,7 +2706,6 @@ L["The licence differs from the stored guide's."] = "许可证与已存储指南
 L["Polestar trail dots"] = "Polestar 轨迹圆点"
 
 -- UI/LineStyle.lua
-L["How the route lines are drawn: Polestar's dots, or sparkles that drift along the way to the goal."] = "路线的绘制方式：Polestar 的圆点，或沿途飘向目标的闪光。"
 L["Dots"] = "圆点"
 L["Sparkle"] = "闪光"
 L["Intensity"] = "强度"
@@ -2730,15 +2732,17 @@ L["Sparkle the legs after this one too, fainter. Off: only the leg you are on."]
 L["Subtle"] = "柔和"
 L["Dazzling"] = "耀眼"
 L["Route line style"] = "路线样式"
--- L["Dot colour"] = ""
 -- L["Route colours tint each leg by how you travel it. Cyan, magenta and white stand apart from the minimap's yellow herb and ore dots and its gold quest marks. Right-click to reset."] = ""
 -- L["Cyan"] = ""
 -- L["Magenta"] = ""
 -- L["White"] = ""
 -- L["Minimap opacity"] = ""
--- L["How strongly the route line shows on the minimap, dots or sparkles; the world map keeps its own. Right-click to reset."] = ""
 -- L["Minimap size"] = ""
--- L["The route line's dots or sparkles on the minimap, and the gaps between them; the world map keeps its own. Right-click to reset."] = ""
+-- L["Line thickness"] = ""
+-- L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] = ""
+-- L["Route colour"] = ""
+-- L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] = ""
+-- L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] = ""
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "指南：%d"
@@ -3088,6 +3092,10 @@ L["looted %s, which starts %s"] = "拾取了 %s，可开始任务 %s"
 -- Quests/NewQuests.lua
 -- L["New in Forever"] = ""
 
+-- Maps/RouteLines.lua
+-- L["Line"] = ""
+-- L["Sparkles"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭\"安装 Shortest Path Forever 时由其导航\"（选项，整合）。"
@@ -3150,3 +3158,6 @@ L["looted %s, which starts %s"] = "拾取了 %s，可开始任务 %s"
 -- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = "也包括可交付的任务：交任务的 NPC 就在旁边，而指南稍后才交。"
 -- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = "选取目标按钮和步骤快捷键会给选中的怪物或 NPC 加上团队标记；非战斗状态下，若点击后未找到目标，则清除当前目标。队友也能看到标记；团队中只有团长和助理能设置标记。"
 -- L["The last guides you loaded."] = "最近加载的指南。"
+-- L["Three choices to start with. Everything else is in %s."] = "先做三个选择。其他设置都在%s中。"
+-- L["The way to the goal on the world map and the minimap: dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "在地图和微缩地图上显示通往目标的路线：步行段为点，飞行、航行或乘坐段为线，之后的路段颜色较淡。绘制方式沿用 Cillian Berragan 的 Shortest Path Forever。"
+-- L["How the route lines are drawn: Polestar's dots, or sparkles that drift along the way to the goal."] = "路线的绘制方式：Polestar 的圆点，或沿途飘向目标的闪光。"
