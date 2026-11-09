@@ -67,10 +67,16 @@ step Its twin in Westfall
   turnin 79007
   accept 79192 object 424010
 
+# Only for an Alliance player who is not yet in Stonetalon: once there (on foot or by the Stonetalon Peak flight)
+# the detour round the Horde post serves no purpose (#1496).
+step Round Honor's Stand
+  only Alliance
+  when !zone "Stonetalon Mountains"
+  goto 40.2,24.88 map 1413 "North of Honor's Stand" r 30 -- The road west runs through Honor's Stand, a Horde post; this way goes round it.
+
 step Stonetalon Mountains
   zone Stonetalon Mountains
   tip The next hideout is a small camp in the hills north-west of Sun Rock Retreat, in the middle of the Stonetalon Mountains. Leave the road where a path climbs west into the hills and follow it to the camp; the Pocket Litter lies on a crate beside its tent.
-  goto 40.2,24.88 map 1413 "North of Honor's Stand" r 30 only Alliance -- The road west runs through Honor's Stand, a Horde post; this way goes round it.
   goto 50.9,52.3 "Path into the hills"
   turnin 79192
   accept 79980
