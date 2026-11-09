@@ -52,6 +52,16 @@ next forever/alliance/03-darkshore-return
 # Solomon's Law (91, level 23; Galardell's Shadowhide gnolls are 23-25, worked at 24), Blackrock Bounty and An Unwelcome Guest (128, 34: levels 24-25),
 # the Wanted posters (elites, 24+), and on the boat into Menethil The Greenwarden, Young Crocolisk
 # Skins and Spoils of War (463, 484, 98197: level 21-22, 3+ over at 18.7; taken at 22-24).
+#
+# The Deadmines (`when dungeon "The Deadmines"`, DungeonRoutes pilot 2026-11-09): for a character who
+# chose it, its quests are picked up on stops this route makes anyway (Gnoarn on the way to Ironforge's
+# tram, Shoni and Wilder Thistlenettle off the tram in Stormwind, Gryan and Scout Riell when the Defias
+# chain ends at Sentinel Hill, about level 20), the run follows the traitor's escort, and the hand-ins
+# are Sentinel Hill's tower and the Stormwind stop before the boat (`when complete`/`when onquest`, so a
+# run left unfinished, or never chosen, passes them). Left out: Collecting Memories (168: four union cards
+# from the mine's undead, slow drops), Destruction in Deadmines (92753: the end of Alba Fairmoon's chain
+# after Sprite Jumpsprocket, 92749-92752, which the route doesn't take), the Paladin's Test of
+# Righteousness (class guide).
 
 # ---------------------------------------------------------------- To Loch Modan
 
@@ -194,9 +204,23 @@ step Ironforge
   vendor nearest optional
   turnin 301                                  -- Prospector Stormpike, Hall of Explorers
 
+step Gnoarn
+  when dungeon "The Deadmines"
+  zone Ironforge
+  tip For your Deadmines run: Gnoarn stands in Tinker Town, on your way to the tram.
+  accept 2041                                 -- Gnoarn: for Shoni the Shilent in Stormwind, by the tram
+
 step Tram to Stormwind
   zone Ironforge
   goto 78.0,51.4 "Tram to Stormwind"
+
+step Stormwind: the Dwarven District
+  when dungeon "The Deadmines"
+  zone Stormwind City
+  tip For your Deadmines run, on your way out of the Dwarven District: Shoni the Shilent first, then Wilder Thistlenettle south-east of her.
+  turnin 2041                                 -- Shoni the Shilent
+  accept 2040
+  accept 167                                  -- Wilder Thistlenettle: his brother is in the mine outside the Deadmines
 
 # ---------------------------------------------------------------- Redridge
 
@@ -382,6 +406,39 @@ step Sentinel Hill
   when turnedin 65
   tip Back north to Gryan Stoutmantle and the gryphons.
   turnin 155                                  -- Gryan Stoutmantle
+
+step Gryan Stoutmantle
+  when dungeon "The Deadmines"
+  tip For your Deadmines run: Gryan sends you after Edwin VanCleef, and Scout Riell, beside him at the top of the tower, wants Red Silk Bandanas. Look for a group now if you have none yet.
+  accept 166                                  -- Gryan Stoutmantle
+  accept 214                                  -- Scout Riell, at the top of the tower
+
+step The Deadmines
+  when dungeon "The Deadmines"
+  zone Westfall
+  tip The Deadmines is a dungeon for a group of five, about levels 17 to 24, and a full run takes about an hour. Its door is the mine below Moonbrook, where the traitor led you: the portal is at the far end of the mine's tunnels.
+  tip Foreman Thistlenettle walks the mine before the portal. Inside, the Defias drop the Red Silk Bandanas; Sneed's Shredder, then Sneed, carry the Gnoam Sprecklesprocket; Edwin VanCleef waits on the ship at the end. Open the Unsent Letter he drops: its quest goes to Stormwind, where this guide hands it in.
+  enter "The Deadmines" @42.5,71.7
+  collect 1875 quest 167.1                    -- Thistlenettle's Badge: Foreman Thistlenettle, in the mine before the portal
+  collect 915 x10 quest 214.1                 -- Red Silk Bandana: the Defias
+  complete 2040                               -- Underground Assault: Sneed
+  complete 166                                -- The Defias Brotherhood: Edwin VanCleef
+
+step Gryan Stoutmantle
+  when complete 166
+  zone Westfall
+  tip Out of the mine and north up the road to Sentinel Hill: Gryan Stoutmantle stands at the top of the tower.
+  turnin 166                                  -- Gryan Stoutmantle
+
+step Scout Riell
+  when complete 214
+  zone Westfall
+  tip Scout Riell keeps watch at the top of the Sentinel Hill tower.
+  turnin 214                                  -- Scout Riell
+
+step Fly to Lakeshire
+  zone Westfall
+  goto 56.6,52.6 "Sentinel Hill flight master"
   fly "Lakeshire"
 
 # ---------------------------------------------------------------- North of the lake
@@ -430,6 +487,29 @@ step Baros Alexston
   tip Baros Alexston stands at the east side of Cathedral Square, on the way from the Dwarven District to the harbour.
   turnin 97914                                -- Baros Alexston: Thundris' letter from Auberdine
   accept 97926 optional                       -- For Thundris Windweaver, where the boat lands
+
+step Wilder Thistlenettle
+  when complete 167
+  zone Stormwind City
+  tip Your Deadmines hand-ins, before the boat: north from the gryphons into the Dwarven District.
+  turnin 167                                  -- Wilder Thistlenettle
+
+step Shoni the Shilent
+  when complete 2040
+  zone Stormwind City
+  turnin 2040                                 -- Shoni the Shilent, in the Dwarven District
+
+step Baros Alexston
+  when onquest 373
+  zone Stormwind City
+  tip Baros Alexston, the city architect, is on your way west to the harbour. His next errand, Bazil Thredd, leads into the Stockade: it is for a Stockade run at about 29, so leave it unless you chose that dungeon.
+  turnin 373                                  -- Baros Alexston
+
+step Baros Alexston
+  when dungeon "The Stockade"
+  zone Stormwind City
+  tip For your Stockade run, later in Stormwind: keep it until then.
+  accept 389                                  -- Baros Alexston: for Warden Thelwater, at the Stockade's gate
 
 step Boat to Auberdine
   zone Stormwind City

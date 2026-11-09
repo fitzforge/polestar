@@ -300,14 +300,44 @@ one switch per Classic dungeon); every one is off at first, so the solo route
 is the default. A choice changes only the steps still ahead: like any `when`,
 a step the route has passed keeps its outcome.
 
+A run is three parts. Its quests are picked up in `when dungeon` steps on
+stops the route makes anyway; the run itself is one `when dungeon` step with
+an `enter` goal first (the arrow leads to the door) and the quests' objectives
+(`optional` for the slow or rare ones); the hand-ins come on the next stops,
+each in a step with `when complete <quest>` (or `when onquest <quest>` for one
+with no objectives), so a run left unfinished, or never chosen, passes them
+and a later guide can hand in what is still carried. A quest an item inside
+the dungeon starts, or an NPC inside gives, has no place the data knows: name
+it in the run's tip and write only its hand-in, behind `when onquest`. A step
+of `note`s only never holds (see "Errands"): the run needs goals of its own.
+
 ```
-step Ragefire Chasm
-  when dungeon "Ragefire Chasm"
-  note Run Ragefire Chasm with a group, then come back to Orgrimmar.
+step Gryan Stoutmantle
+  when dungeon "The Deadmines"
+  accept 166
+
+step The Deadmines
+  when dungeon "The Deadmines"
+  tip A dungeon for a group of five, about levels 17 to 24.
+  enter "The Deadmines" @42.5,71.7
+  complete 166
+
+step Gryan Stoutmantle
+  when complete 166
+  turnin 166
+
 step Grind instead
-  when !dungeon "Ragefire Chasm"
-  level 15
+  when !dungeon "The Deadmines"
+  level 21
 ```
+
+Lint counts a `when dungeon` step's goals, and those of quests accepted only
+in such steps, as a party's work, like `when group` ("Group content",
+Validation): its elite kills are no errors. A hand-in in a step that applies
+only while the quest is carried (`when complete`, `when onquest`) asks no
+solo work either. `polestar playtest --dungeon "The Deadmines"` (names or map
+IDs, comma-separated, or `all`) plays the guides as a character who chose
+those dungeons; without it, as one who chose none.
 
 Write the dungeon as the game names it: its name in the client's instance
 tables ("Ragefire Chasm", "Deadmines") or an area of that name on its map

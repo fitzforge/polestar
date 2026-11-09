@@ -887,6 +887,25 @@ fn elite_work_behind_when_group_a_group_step_and_the_quests_accepted_only_in_one
 }
 
 #[test]
+fn elite_work_behind_when_dungeon_and_hand_ins_behind_when_complete_or_onquest_are_not_solo_leveling() {
+	let ex = excluded("Alliance", json!([{ "id": 7, "title": "Kobold Camp Cleanup", "reason": "elite kill objective npc 95003", "category": "elite" }]));
+	let check = |lines: &[&str]| {
+		let src = guide_text(lines);
+		let mut r = compile_with(&src, &elite_data());
+		forge_guide::validate::validate_solo_policy(&r.guides, &ex, &mut r.diag);
+		let first = line_of(&src, lines[0]) as i64;
+		r.diag.sorted().iter().filter(|d| d.message.contains("elite")).map(|d| d.line as i64 - first).collect::<Vec<_>>()
+	};
+	// A dungeon run (`when dungeon`) is the group way, like `when group`: its accepts, its elite work and
+	// that quest's goals elsewhere are a party's; `when !dungeon` is the solo way.
+	assert_eq!(check(&["step A", "  when dungeon \"The Deadmines\"", "  accept 7", "  kill 95003", "", "step B", "  kill 95003 quest 7", "  turnin 7"]), Vec::<i64>::new());
+	assert_eq!(check(&["step A", "  when !dungeon \"The Deadmines\"", "  accept 7", "  kill 95003"]), [2, 3]);
+	// A hand-in only while the quest is carried ("hand it in if you have it") asks no solo work.
+	assert_eq!(check(&["step A", "  when complete 7", "  turnin 7", "", "step B", "  when onquest 33,7", "  turnin 7"]), Vec::<i64>::new());
+	assert_eq!(check(&["step A", "  when !onquest 7", "  turnin 7"]), [2]);
+}
+
+#[test]
 fn solo_policy_a_direct_turnin_of_a_repeatable_is_no_grind_it_does_not_need_optional() {
 	let ex = excluded("Alliance", json!([{ "id": 9390, "title": "Quest 9390", "reason": "repeatable without a recorded reward (no XP)", "category": "repeatable" }]));
 	let check = |line: &str| {

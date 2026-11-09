@@ -208,9 +208,21 @@ fn elite_tip(target: &str) -> String {
 	format!("in a Leveling guide put the goal in a step with `when group <quest>` (the player chooses it), not optional there, or make it `optional` in a step for everyone, with the tip \"{target} is elite: grouping up is advised.\"")
 }
 
-/// A step the route takes only for a player who chose to do a group quest.
+/// A step the route takes only for a player who chose the group way: a group quest (`when group <quest>`)
+/// or a dungeon run (`when dungeon "<Name>"`), as resolve.rs's opt-in steps.
 fn group_step(step: &V) -> bool {
-	step.get("when").items().iter().any(|p| p.get("k").as_str() == Some("group") && !p.get("neg").truthy())
+	step.get("when").items().iter().any(|p| matches!(p.get("k").as_str(), Some("group") | Some("dungeon")) && !p.get("neg").truthy())
+}
+
+/// A step that applies only while the player carries the goal's quest (`when onquest <quest>`, `when complete
+/// <quest>`): "hand it in if you have it", never work the solo route asks for (a dungeon quest's hand-in on a
+/// later stop).
+fn carried_step(step: &V, quest: &V) -> bool {
+	step.get("when").items().iter().any(|p| {
+		let q = p.get("q");
+		let qs = if q.is_arr() { q.items() } else { vec![q] };
+		!p.get("neg").truthy() && matches!(p.get("k").as_str(), Some("onquest") | Some("complete")) && qs.iter().any(|x| key(x) == key(quest))
+	})
 }
 
 /// A step only players who chose the group way follow (`when group <quest>`, `when dungeon "<Name>"`)
@@ -249,7 +261,8 @@ fn group_quests_of(g: &V) -> FxHashSet<Key> {
 
 /// A goal for a party, not solo leveling.
 fn party_work(step: &V, goal: &V, chosen: &FxHashSet<Key>) -> bool {
-	group_step(step) || (!goal.get("quest").is_undef() && chosen.contains(&key(&goal.get("quest"))))
+	let quest = goal.get("quest");
+	group_step(step) || (!quest.is_undef() && (chosen.contains(&key(&quest)) || carried_step(step, &quest)))
 }
 
 /// Our house rules: errors in our pack, warnings in every other.

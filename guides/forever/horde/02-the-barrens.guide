@@ -57,6 +57,17 @@ next forever/horde/05-stonetalon-mountains
 # recordings). Owatanka (884), Lakota'mani (883)
 # and the Rogue's Mission: Possible But Not Probable (2478, Gallywix is elite) are optional.
 #
+# Wailing Caverns (`when dungeon "Wailing Caverns"`, DungeonRoutes pilot 2026-11-09): for a character who
+# chose it, Smart Drinks and Trouble at the Docks are taken on the Ratchet stop after Orgrimmar, Nalpak's and
+# Ebru's on the way to Hezrul (their cave is above the entrance), and the run comes after Counterattack!, at
+# about 21, before the road west; then Nalpak and Ebru, a flight to Ratchet and back (Mebok, Bigglefuzz,
+# and Sputtervalve for the Glowing Shard, which players' recordings show must come before Falla), then
+# Falla Sagewind on the way west (`when complete`/`when onquest`, so a run left unfinished, or never chosen,
+# passes them; 04-the-barrens' Ratchet stop takes what is still open). Left out: Serpentbloom and Leaders
+# of the Fang (962, 914, with
+# Hamuul's and Nara's errands 1489 and 1490): they start in Thunder Bluff, which this route does not visit
+# before the run.
+#
 # Dropped: Chen's Empty Keg part 2 and 3 (821, 822): part 2's tusks, kidneys and horn are drops
 # spread over three areas of this guide, walked through and come back for. Deepmoss Spider Eggs
 # (1069): few recorded players hand it in.
@@ -859,6 +870,12 @@ step Ratchet
   turnin 865                          -- Mebok Mizzyrix
   vendor nearest
 
+step Ratchet: Wailing Caverns quests
+  when dungeon "Wailing Caverns"
+  tip For your Wailing Caverns run, at the end of the Barrens: Mebok Mizzyrix, now that he has his horns, and Crane Operator Bigglefuzz on the dock by the flight master. Look for a group as you quest.
+  accept 1491                         -- Mebok Mizzyrix
+  accept 959                          -- Crane Operator Bigglefuzz
+
 step Islen Waterseer
   only Shaman
   tip Islen waits on the hill south of Ratchet, on your way north.
@@ -906,6 +923,12 @@ step Regthar Deathgate
   zone The Barrens
   turnin 851
   accept 852
+
+step Nalpak and Ebru
+  when dungeon "Wailing Caverns"
+  tip For your Wailing Caverns run: Nalpak and Ebru stand in a hidden cave in the rocks above the Wailing Caverns entrance, at the north end of the oasis' west shore: climb up from the west side. Follow the arrow up.
+  accept 1486                         -- Nalpak
+  accept 1487                         -- Ebru
 
 step Hezrul Bloodmark
   tip Hezrul leads the Kolkar on the west shore of Lushwater Oasis, south of Regthar. He walks that shore, from about 46,36 in the north to 46,42 in the south: if he isn't at the arrow, follow the shore until you meet him. Hand his head to Regthar on your last Crossroads stop.
@@ -1102,6 +1125,74 @@ step Back to the Crossroads
   zone Thunder Bluff
   tip Fly back to the Crossroads; the road west to Stonetalon starts at Regthar's bunkers.
   fly "Crossroads"
+
+# ---------------------------------------------------------------- Wailing Caverns (for characters who chose it)
+
+step Wailing Caverns
+  when dungeon "Wailing Caverns"
+  zone The Barrens
+  tip Wailing Caverns is a dungeon for a group of five, about levels 17 to 24, and a full run takes about an hour. Its mouth is at the north end of Lushwater Oasis, south of Regthar's bunkers, under Nalpak's cave.
+  tip In the caves before the portal: Mad Magglish, stealthed, with the 99-Year-Old Port (he moves between a few spots and comes back slowly: leave him if he's gone). Inside: the Deviates for Ebru, and their hides for Nalpak (they drop rarely: one run may not be enough, so leave the rest for another run), Wailing Essence from the Ectoplasms. After the four Fanglords, the Disciple of Naralex at the entrance leads you to Naralex: open the Glowing Shard Mutanus the Devourer drops; this guide takes its quest to Ratchet, then to Falla Sagewind.
+  enter "Wailing Caverns" @46.0,36.5
+  collect 6443 x20 quest 1486.1 optional -- Deviate Hide
+  complete 1487                       -- Deviate Eradication
+  collect 6464 x6 quest 1491.1        -- Wailing Essence: the Ectoplasms
+  collect 5334 quest 959.1 optional   -- 99-Year-Old Port: Mad Magglish
+
+step Nalpak
+  when complete 1486
+  tip Back out of the caverns and up to the cave above the entrance.
+  turnin 1486                         -- Nalpak
+
+step Ebru
+  when complete 1487
+  turnin 1487                         -- Ebru
+
+step Fly to Ratchet
+  label wcRatchet
+  when complete 1491
+  zone The Barrens
+  tip The rest of your Wailing Caverns quests are in Ratchet: a quick flight from the Crossroads and back before the road west.
+  goto 51.5,30.4 "Crossroads flight master"
+  fly "Ratchet"
+
+step Fly to Ratchet
+  label wcShard
+  when onquest 6981
+  when !complete 1491
+  zone The Barrens
+  tip The Glowing Shard: ask about it in Ratchet first, then take it to Falla Sagewind above the caverns. A quick flight from the Crossroads and back before the road west.
+  goto 51.5,30.4 "Crossroads flight master"
+  fly "Ratchet"
+
+step Mebok Mizzyrix
+  when complete 1491
+  turnin 1491                         -- Mebok Mizzyrix, beside the WANTED poster
+
+step Crane Operator Bigglefuzz
+  when complete 959
+  turnin 959                          -- Crane Operator Bigglefuzz, on the dock
+
+step Sputtervalve
+  when onquest 6981
+  talk 3442 quest 6981.1              -- Sputtervalve: about the Glowing Shard
+
+step Fly to Crossroads
+  when done wcRatchet
+  zone The Barrens
+  goto 63.1,37.1 "Ratchet flight master"
+  fly "Crossroads"
+
+step Fly to Crossroads
+  when done wcShard
+  zone The Barrens
+  goto 63.1,37.1 "Ratchet flight master"
+  fly "Crossroads"
+
+step Falla Sagewind
+  when complete 6981
+  tip Falla Sagewind stands on top of the mound over the caverns, north-east of Nalpak's cave, on your way back west. She then offers In Nightmares, for Hamuul Runetotem in Thunder Bluff: leave it.
+  turnin 6981                         -- Falla Sagewind
 
 # ---------------------------------------------------------------- West: Seereth and the Webwinder Path
 step Seereth's camp

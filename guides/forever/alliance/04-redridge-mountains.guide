@@ -211,6 +211,12 @@ step Darkshire
   turnin 174
   accept 175                              -- For Blind Mary, on the hill south-east of town
 
+step Councilman Millstipe
+  when dungeon "The Stockade"
+  zone Duskwood
+  tip For your Stockade run, in Stormwind at about 29: Councilman Millstipe is in the town hall. Keep it until then.
+  accept 377                              -- Councilman Millstipe
+
 # ---------------------------------------------------------------- Tranquil Gardens
 
 step Tranquil Gardens Cemetery: kill these as you meet them

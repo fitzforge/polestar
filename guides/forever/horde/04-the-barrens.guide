@@ -250,6 +250,17 @@ step Fly to Ratchet
   goto 51.5,30.4 "Crossroads flight master"
   fly "Ratchet"
 
+step Mebok Mizzyrix
+  when complete 1491
+  zone The Barrens
+  tip Wailing Caverns quests still in your log: Mebok stands beside the WANTED poster, Bigglefuzz on the dock by the flight master.
+  turnin 1491                         -- Mebok Mizzyrix
+
+step Crane Operator Bigglefuzz
+  when complete 959
+  zone The Barrens
+  turnin 959                          -- Crane Operator Bigglefuzz, on the dock
+
 step Merchant Coast
   zone The Barrens
   tip Mahren Skyseer camps on the shore just north of Ratchet's flight master.
