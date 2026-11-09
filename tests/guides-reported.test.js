@@ -9497,3 +9497,21 @@ test('Walking elites: Gammerita\'s and Grel\'borg\'s steps say where they walk',
 	for (const f of ['forever/alliance/50-60/01-burning-steppes.guide', 'forever/horde/40-50/05-the-hinterlands.guide']) assert.match(src(f), /tip Gammerita walks the [^\n]*shore below the Overlook Cliffs/, f);
 	assert.match(src('forever/alliance/30-40/05-arathi-highlands.guide'), /tip Grel'borg walks from the arrow north-east/);
 });
+
+// Travel (0.3.6, the held Alliance Winterspring exit, Plan 0.3.7 list): 50-60/03 bound the Hearthstone at Everlook
+// and left Everlook by the flight to Theramore, the boat to Menethil Harbor and the flight to Southshore (about 15
+// minutes to Chillwind Camp in the addon's planner) while the route's bind, Thelsamar's (Hinterlands guide, 47), was
+// unused since the Blasted Lands: hearth, gryphon to Chillwind Camp, about 5 minutes. The level model's only Everlook
+// hearth saves 5 minutes, so keeping Thelsamar nets about 5 minutes. A player bound at Thelsamar keeps that bind and
+// leaves through it; anyone else binds at Everlook and leaves by Theramore and the boat, as before. Both fly to
+// Chillwind Camp (flight path from 50-60/01), not Southshore and a ride north.
+test('forever/alliance/50-60/03-winterspring.guide: the Thelsamar bind is kept and used, Everlook binds only without it', { skip }, () => {
+	const list = goals('forever/alliance/50-60/03-winterspring.guide');
+	const has = (step, neg) => (step.when || []).some((p) => p.k === 'bound' && !!p.neg === neg);
+	const bind = list.find(({ goal }) => goal.t === 'sethome' && goal.location === 'Everlook');
+	assert.ok(bind && has(bind.step, true), 'the Everlook bind only when not bound at Thelsamar');
+	const flights = list.filter(({ goal }) => goal.t === 'fly' && goal.location === 'Chillwind Camp');
+	assert.equal(flights.length, 2, 'two ways to Chillwind Camp');
+	assert.ok(flights.some(({ step }) => has(step, false)) && flights.some(({ step }) => has(step, true)), 'one per bind');
+	assert.ok(!list.some(({ goal }) => goal.t === 'fly' && goal.location === 'Southshore'), 'no flight to Southshore');
+});
