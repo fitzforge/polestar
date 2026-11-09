@@ -8,5 +8,5 @@ section: players
   reach the level. The pace line says "Behind" only when you're more than a
   level under the route, and a hard quest is named calmly, only on the step
   where you fight it.
-- Opening a guide for the first time no longer skips its travel and
-  training because you carry a quest from an earlier visit to the zone.
+- A guide no longer skips its travel and training because you carry a
+  quest from an earlier visit to the zone.

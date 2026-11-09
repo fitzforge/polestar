@@ -2202,12 +2202,12 @@ holds at its opening, see "Not yet available"):
   (status "na", no "Requires level" line: Fitz, 0.3.6, no level text on
   pick-ups); the route passes it as below and the level-up brings it back.
   The goals of its quest further on keep their "Requires level" line.
-- A guide the character opens for the first time (`Own.firstLoad`: never
-  started) takes its last quest progress (`anchorStep`) only from quests it
-  offers: progress on a quest taken in another guide is no sign of where the
-  player is in it (Fitz, 0.3.6: Tincho at 28.7, carrying Dangerous! from
-  the 22-24 Hillsbrad visit, was put past Orgrimmar, training and the
-  Undercity in Hillsbrad 29-32).
+- The last quest progress (`anchorStep`) counts only goals of quests the
+  guide offers at or before that goal (or `direct` hand-ins): progress on a
+  quest taken in another guide is no sign of where the player is in this
+  one (Fitz, 0.3.6: Tincho at 28.7, carrying Dangerous! from the 22-24
+  Hillsbrad visit, was put past Orgrimmar, training and the Undercity in
+  Hillsbrad 29-32, at every load).
 - Before the start (with no start: before the last quest progress), a step
   passes when every open goal is an accept the character cannot take yet
   (level, prerequisite; marked unavailable for the session, so it comes back

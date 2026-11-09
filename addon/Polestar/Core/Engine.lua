@@ -2991,16 +2991,17 @@ end
 -- in place counts (Own.goalMoved).
 local function anchorStep(added)
 	local steps = guide.steps
-	-- A guide opened for the first time (Own.firstLoad): progress on a quest
-	-- it never offers (taken in another guide) is no sign of where the
-	-- player is in it.
-	local own
-	if Own.firstLoad[guide.id] then
-		own = {}
-		for _, step in ipairs(steps) do
-			for _, goal in ipairs(step.goals) do
-				if goal.t == "accept" and goal.quest then own[goal.quest] = true end
-			end
+	-- Progress counts only on a quest the guide offers before (or at) that
+	-- goal: a quest taken in another guide (or further on in this one) is no
+	-- sign of where the player is in this guide. Fitz, 0.3.6: Tincho, a Horde
+	-- Warrior at 28.7 carrying Dangerous! (567) from the 22-24 Hillsbrad visit,
+	-- was put at Tarren Mill in Hillsbrad 29-32: that quest's done kills at the
+	-- Azurelode Mine (step 32) passed the flight to the Crossroads, Orgrimmar,
+	-- training and the Undercity, at every load.
+	local offered = {}
+	for s, step in ipairs(steps) do
+		for _, goal in ipairs(step.goals) do
+			if goal.t == "accept" and goal.quest and not offered[goal.quest] then offered[goal.quest] = s end
 		end
 	end
 	for s = #steps, 1, -1 do
@@ -3008,7 +3009,7 @@ local function anchorStep(added)
 		if not step.only then
 			for g, goal in ipairs(step.goals) do
 				if not goal.only and not goal.optional and isQuestGoal(goal) and goalApplies(goal)
-					and not (own and goal.quest and not own[goal.quest])
+					and (goal.direct or (goal.quest and offered[goal.quest] and offered[goal.quest] <= s))
 					and not (added and Own.goalMoved(added, s, goal)) then
 					local done, cur = goalDone(s, g, goal)
 					if done or (goal.oi and (cur or 0) > 0) then return s end
@@ -4728,19 +4729,6 @@ local function tabIndexOf(id)
 end
 
 -- Guides ever opened in a tab, for the picker's "started" state.
--- A guide this character opens for the first time (never started): its
--- placement's last quest progress (anchorStep) counts only quests the guide
--- offers. Fitz, 0.3.6: Tincho, a Horde Warrior at 28.7 carrying Hillsbrad's
--- Dangerous! (567) from the 22-24 visit, loaded Hillsbrad 29-32 and was put
--- at Tarren Mill, past Orgrimmar, training and the Undercity: that quest's
--- done kills at the Azurelode Mine (step 32) made everything soft before it
--- look done.
-Own.firstLoad = {}
-function Own.noteFirstLoad(id)
-	local started = ns.CharState().flags.started
-	Own.firstLoad[id] = not (type(started) == "table" and started[id]) or nil
-end
-
 local function markStarted(id)
 	local flags = ns.CharState().flags
 	if type(flags.started) ~= "table" then flags.started = {} end
@@ -6541,7 +6529,6 @@ local function resetLoaded(id, auto)
 	Own.skipQueue[id] = nil
 	autoChain, sawIncomplete, placing = auto and true or false, false, GetTime() + PLACE_SECONDS
 	Own.opened[id] = true
-	Own.noteFirstLoad(id)
 	Own.endOpen[id], Own.lastOpen[id] = nil, nil -- seen afresh once placed (Own.noteEnd)
 	tabsDirty = true
 end
@@ -7144,7 +7131,6 @@ function Engine.OpenTab(id, activate, auto)
 	-- Finished or passed earlier this session, it may finish and chain again.
 	completedFired[id] = nil
 	Own.opened[id] = true
-	Own.noteFirstLoad(id)
 	Own.endOpen[id], Own.lastOpen[id] = nil, nil -- seen afresh once placed (Own.noteEnd)
 	tabs[#tabs + 1] = tab
 	local index = #tabs
