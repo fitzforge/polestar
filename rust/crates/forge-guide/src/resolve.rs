@@ -315,6 +315,150 @@ fn source_npcs(data: &Data, first: &V, sources: &[V]) -> V {
 	}
 }
 
+/// Which of a collect's NPC sources spawn at each of its spots (#1616). Centaur Bounty's ears drop from every
+/// centaur tribe in Desolace and its spots run through all their camps, while `fromNpcs` names the five of the
+/// goal's point: at a Magram camp the target button named Kolkar. Only when some spot holds a source `fromNpcs`
+/// leaves out: those follow in `fromNpcs` (the most spawns at the spots first, up to the import string's cap),
+/// and `fromNpcsAt` gives, per spot in `spots` order, the 1-based places in `fromNpcs` of the sources spawning
+/// there (within its radius and a yard), most spawns first: "1,2;3,4;;5". Left out when that string would pass
+/// an import string's text cap.
+fn spot_npcs(data: &Data, goal: &V, sources: &[V], map: &V, f: &V) {
+	let spots = goal.get("spots").items();
+	if spots.len() < 2 || !data.map_size(map).truthy() {
+		return;
+	}
+	let mobs: Vec<(V, String, Vec<V>)> = sources
+		.iter()
+		.filter(|s| s.get("kind").as_str() == Some("npc"))
+		.filter_map(|s| {
+			let name = name_of(data, "npc", &s.get("id"))?;
+			let pts = spawn_points_of(data, std::slice::from_ref(s), map, f);
+			(!pts.is_empty()).then(|| (s.get("id"), name, pts))
+		})
+		.collect();
+	// Per spot, the mobs spawning in it: (index in mobs, spawns there), the most first.
+	let at: Vec<Vec<(usize, usize)>> = spots
+		.iter()
+		.map(|spot| {
+			let (sx, sy, r) = (num(spot, "x"), num(spot, "y"), num(spot, "r"));
+			let mut here: Vec<(usize, usize)> = mobs
+				.iter()
+				.enumerate()
+				.filter_map(|(i, (_, _, pts))| {
+					let n = pts.iter().filter(|p| distance(data, map, px(p), py(p), sx, sy) <= r + 1.0).count();
+					(n > 0).then_some((i, n))
+				})
+				.collect();
+			here.sort_by(|a, b| b.1.cmp(&a.1).then(a.0.cmp(&b.0)));
+			here
+		})
+		.collect();
+	let mut list: Vec<V> = goal.get("fromNpcs").items();
+	let mut ids: Vec<V> = list.iter().map(|n| n.get("npc")).collect();
+	let mut total = vec![0usize; mobs.len()];
+	for &(i, n) in at.iter().flatten() {
+		total[i] += n;
+	}
+	let mut left: Vec<usize> = (0..mobs.len()).filter(|&i| total[i] > 0 && !includes(&ids, &mobs[i].0)).collect();
+	if left.is_empty() {
+		return;
+	}
+	left.sort_by(|&a, &b| total[b].cmp(&total[a]).then(a.cmp(&b)));
+	for i in left {
+		if list.len() >= crate::importstring::LIMITS.from_npcs {
+			break;
+		}
+		list.push(obj! { "npc" => mobs[i].0.clone(), "npcName" => mobs[i].1.clone() }.into());
+		ids.push(mobs[i].0.clone());
+	}
+	let packed = at
+		.iter()
+		.map(|here| here.iter().filter_map(|&(i, _)| ids.iter().position(|id| id.strict_eq(&mobs[i].0)).map(|k| (k + 1).to_string())).collect::<Vec<_>>().join(","))
+		.collect::<Vec<_>>()
+		.join(";");
+	if packed.len() > crate::importstring::LIMITS.text {
+		return;
+	}
+	goal.set("fromNpcs", list);
+	goal.set("fromNpcsAt", packed);
+}
+
+/// The quests that hand item `item` over when taken (their `sourceItem`), by quest id.
+fn quests_handing_over(data: &Data, item: &V) -> Vec<V> {
+	const KEY: &str = "resolve.sourceItemQuests";
+	let memo = data.memo.borrow().get(KEY).cloned();
+	let by = memo.unwrap_or_else(|| {
+		let by = V::obj();
+		for id in data.quests.keys() {
+			let s = data.quests.get(&id).get("sourceItem");
+			if s.is_num() {
+				let k = s.to_js_string();
+				if !by.get(&k).is_arr() {
+					by.set(&k, V::arr());
+				}
+				by.get(&k).push(crate::js::str_to_num(&id));
+			}
+		}
+		data.memo.borrow_mut().insert(KEY, by.clone());
+		by
+	});
+	by.get(&item.to_js_string()).items()
+}
+
+/// The creatures a `kill` or `use` goal's quest objective credits when the data lists several (#1614): Kodo
+/// Roundup counts a tamed Aged, Dying or Ancient Kodo, and the Kodo Kombobulator the quest hands over works on
+/// all three. A `kill` bound to such an objective, or a `use` bound to one or of the item such a quest hands
+/// over (its `sourceItem`), gets them as `fromNpcs`, the goal's own creature first, so the target button names
+/// each. -> [{ npc, npcName }] | Undef
+fn credit_npcs(data: &Data, goal: &V) -> V {
+	// A quest's kill objectives with a credit list: objective `oi` alone when given.
+	let credited = |quest: &V, oi: &V| -> Vec<V> {
+		let objs = data.quest(quest).get("objectives").items();
+		let picked: Vec<V> = if oi.is_undef() {
+			objs
+		} else {
+			let i = oi.num();
+			if i >= 1.0 && is_integer(i) {
+				objs.get(i as usize - 1).cloned().into_iter().collect()
+			} else {
+				Vec::new()
+			}
+		};
+		picked.iter().filter(|o| o.get("type").as_str() == Some("kill") && o.get("credit").len() > 1).flat_map(|o| o.get("credit").items()).collect()
+	};
+	let (quest, oi) = (goal.get("quest"), goal.get("oi"));
+	let ids: Vec<V> = match goal.get("t").as_str() {
+		Some("kill") if !quest.is_undef() && !oi.is_undef() => credited(&quest, &oi),
+		Some("use") if !quest.is_undef() => credited(&quest, &oi),
+		Some("use") if !goal.get("item").is_undef() => quests_handing_over(data, &goal.get("item")).iter().flat_map(|q| credited(q, &V::Undef)).collect(),
+		_ => Vec::new(),
+	};
+	if ids.is_empty() {
+		return V::Undef;
+	}
+	let own = goal.get("npc");
+	let order: Vec<V> = std::iter::once(own).filter(|o| includes(&ids, o)).chain(ids.iter().cloned()).collect();
+	let mut seen: Vec<V> = Vec::new();
+	let mut out: Vec<V> = Vec::new();
+	for id in order {
+		if out.len() >= MAX_SOURCE_NPCS {
+			break;
+		}
+		if includes(&seen, &id) {
+			continue;
+		}
+		seen.push(id.clone());
+		if let Some(name) = name_of(data, "npc", &id) {
+			out.push(obj! { "npc" => id, "npcName" => name }.into());
+		}
+	}
+	if out.is_empty() {
+		V::Undef
+	} else {
+		out.into()
+	}
+}
+
 /// The sources a hand-placed point stands among: those with a spawn within `near` yards, nearest first.
 fn point_sources(data: &Data, sources: &[V], map: &V, f: &V, x: f64, y: f64, near: f64) -> Vec<V> {
 	let mut out: Vec<(V, f64)> = Vec::new();
@@ -2808,6 +2952,10 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			}
 			if v == "collect" && goal.get("npc").is_undef() {
 				set_if(&goal, "fromNpcs", source_npcs(data, &c, &picked.get("sources").items()));
+				// A `loop` step's goals take its gotos as their spots (apply_loop).
+				if !ctx.loop_ {
+					spot_npcs(data, &goal, &srcs, &picked.get("map"), &picked.get("f"));
+				}
 			}
 		} else if explicit && !goal.get("x").is_undef() {
 			// No source with known odds (the data's droppers without a chance): the droppers that spawn at
@@ -2849,6 +2997,7 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				let own = point_sources(data, &sources, &gmap, &gf, gx, gy, near);
 				let first = own.first().cloned().unwrap_or_default();
 				set_if(&goal, "fromNpcs", source_npcs(data, &first, &own));
+				spot_npcs(data, &goal, &sources, &gmap, &gf);
 			}
 		}
 	}
@@ -2867,6 +3016,9 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 		if q.truthy() && q.get("level").num() > 0.0 {
 			goal.set("qlvl", q.get("level").num());
 		}
+	}
+	if (v == "kill" || v == "use") && goal.get("fromNpcs").is_undef() {
+		set_if(&goal, "fromNpcs", credit_npcs(data, &goal));
 	}
 	set_if(&goal, "group", crate::group::group_of(&goal, &g.get("group"), &ctx.sides, data));
 	set_if(&goal, "escort", crate::escort::escort_of(&goal, data));

@@ -10592,3 +10592,34 @@ test('Horde Plaguelands: Darrowshire at 56 in the Eastern Plaguelands guide, not
 	assert.ok(!flyBack, 'no flight to Light\'s Hope before its flight path is learnt');
 	assert.ok(at(ep, 'turnin 6164', is('turnin', 6164)) > villains, 'Augustus takes the book back on the Terrordale stop');
 });
+
+// rockzors (#1614): "Kodo Roundup: the target button only names Aged Kodo; Dying and Ancient Kodos also give
+// credit when tamed." The quest's objective credits all three (the data's credit list), and the Kodo
+// Kombobulator it hands over works on each: the `use` goal names them (`fromNpcs`), so the button does.
+test('Desolace: Kodo Roundup: the Kodo Kombobulator step names the Aged, Dying and Ancient Kodos it tames (#1614)', { skip }, () => {
+	for (const file of ['forever/horde/30-40/02-thousand-needles.guide', 'forever/alliance/30-40/02-desolace.guide']) {
+		const list = goals(file);
+		const { goal } = list[at(list, 'use 13892', (g) => g.t === 'use' && g.item === 13892)];
+		assert.deepEqual((goal.fromNpcs || []).map((n) => n.npc).sort((a, b) => a - b), [4700, 4701, 4702], `${file}: the Kombobulator's kodos`);
+	}
+});
+
+// rockzors (#1616): "Centaur Bounty: the arrow moves through all the centaur camps but the target button names
+// the same five everywhere (Magram Scout and four Kolkar)." Centaur Ears drop from every tribe in Desolace and the
+// collect's spots run through all their camps: the goal now says which mobs spawn at each spot (`fromNpcsAt`), and
+// the button names the spot the arrow takes. A camp of each tribe names its own centaurs first and no other tribe's.
+test('Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its own camp\'s centaurs (#1616)', { skip }, () => {
+	const TRIBES = ['Kolkar', 'Magram', 'Gelkis', 'Maraudine'];
+	for (const [file, quest] of [['forever/horde/30-40/04-dustwallow-marsh.guide', 1366], ['forever/alliance/30-40/02-desolace.guide', 1387]]) {
+		const list = goals(file);
+		const { goal } = list[at(list, `collect 6067 quest ${quest}`, (g) => g.t === 'collect' && g.item === 6067 && g.quest === quest)];
+		assert.equal(typeof goal.fromNpcsAt, 'string', `${quest}: the goal lists each spot's mobs`);
+		const groups = goal.fromNpcsAt.split(';').map((s) => (s ? s.split(',').map((k) => goal.fromNpcs[Number(k) - 1].npcName) : []));
+		assert.equal(groups.length, goal.spots.length, `${quest}: a list per spot`);
+		for (const t of TRIBES) {
+			const others = TRIBES.filter((o) => o !== t);
+			const own = groups.some((names) => names.length && names[0].startsWith(t) && !names.some((n) => others.some((o) => n.startsWith(o))));
+			assert.ok(own, `${quest}: a spot at a ${t} camp names its ${t} centaurs and no other tribe's`);
+		}
+	}
+});

@@ -503,3 +503,76 @@ fn a_grind_level_goal_takes_its_mobs_spawn_areas_as_a_kill_would_and_warns_witho
 	assert_eq!(r.warned("grind 99999"), vec![format!("test.guide:{}: `grind 99999` has no known spawns here: the arrow keeps the step's goto", line_of(&text, "level 12 grind 99999"))]);
 	assert_eq!(compile(&guide_text(&["step One", "  kill 6 grind 6"])).erred("grind").len(), 1, "`grind` on a kill");
 }
+
+// #1616: seven tribes drop a Camp Token, each in its own camp in Elwynn (Centaur Bounty's ears drop from every
+// centaur tribe in Desolace). The goal's point names five; its spots run through all seven camps, so the two left
+// out follow in `fromNpcs` and `fromNpcsAt` gives, per spot, the places in `fromNpcs` of the mobs spawning there.
+const CAMPS: [(u32, &str, f64, f64); 7] = [
+	(95901, "Kolkar Raider", 30.0, 30.0),
+	(95902, "Kolkar Scout", 40.0, 30.0),
+	(95903, "Magram Raider", 50.0, 30.0),
+	(95904, "Magram Scout", 60.0, 30.0),
+	(95905, "Gelkis Raider", 30.0, 50.0),
+	(95906, "Gelkis Scout", 40.0, 50.0),
+	(95907, "Maraudine Raider", 50.0, 50.0),
+];
+
+#[test]
+fn a_collect_whose_spots_hold_more_sources_than_its_point_names_lists_each_spots_own_1616() {
+	let dir = data_dir_with("spot-npcs", &data_dir(), |raw| {
+		let drops: Map<String, Value> = CAMPS.iter().map(|c| (c.0.to_string(), json!(20))).collect();
+		raw.get_mut("items.json").unwrap()["95900"] = json!({ "id": 95900, "name": "Camp Token", "drops": { "npc": drops, "object": {} }, "vendors": [] });
+		for (id, name, x, y) in CAMPS {
+			raw.get_mut("npcs.json").unwrap()[id.to_string()] =
+				json!({ "id": id, "name": name, "level": 5, "faction": null, "spawns": { "1429": { "f": "e", "pts": [[x, y], [x + 0.2, y + 0.1]] } } });
+		}
+	});
+	let r = compile_with(&guide_text(&["step One", "  collect 95900 x5"]), &forge_guide::data::load_data(&dir).unwrap());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let steps = r.steps();
+	let goal = &steps[0]["goals"][0];
+	let from = goal["fromNpcs"].as_array().unwrap();
+	let names: Vec<&str> = from.iter().map(|n| n["npcName"].as_str().unwrap()).collect();
+	// The point's five first, as before; the two camps they leave out follow.
+	assert_eq!(names, ["Kolkar Raider", "Kolkar Scout", "Magram Raider", "Magram Scout", "Gelkis Raider", "Gelkis Scout", "Maraudine Raider"], "{goal}");
+	let spots = goal["spots"].as_array().unwrap();
+	let at: Vec<&str> = goal["fromNpcsAt"].as_str().unwrap().split(';').collect();
+	assert_eq!((spots.len(), at.len()), (7, 7), "a place list per spot: {goal}");
+	for (spot, group) in spots.iter().zip(&at) {
+		let (sx, sy) = (spot["x"].as_f64().unwrap(), spot["y"].as_f64().unwrap());
+		let camp = CAMPS.iter().min_by(|a, b| (a.2 - sx).hypot(a.3 - sy).total_cmp(&(b.2 - sx).hypot(b.3 - sy))).unwrap();
+		let here: Vec<u64> = group.split(',').map(|k| from[k.parse::<usize>().unwrap() - 1]["npc"].as_u64().unwrap()).collect();
+		assert_eq!(here, [camp.0 as u64], "spot {spot} names its own camp's mob");
+	}
+	// A goal whose point names every source at its spots carries none (Tough Wolf Meat).
+	assert!(goals_of(&["step One", "  collect 750 x4"]).0[0].get("fromNpcsAt").is_none());
+}
+
+// #1614: Kodo Roundup counts a tamed Aged, Dying or Ancient Kodo, and the Kodo Kombobulator it hands over works on
+// all three. The objective's credit list names them on a `use` of the item the quest hands over or bound to the
+// objective, and on a `kill` bound to it (its own creature first).
+#[test]
+fn a_use_of_the_item_a_quest_hands_over_and_a_kill_of_its_objective_name_every_creature_it_credits_1614() {
+	let dir = data_dir_with("credit-npcs", &data_dir(), |raw| {
+		raw.get_mut("quests.json").unwrap()["95910"] = json!({ "id": 95910, "title": "Ram Roundup", "level": 5, "minLevel": 1, "races": null, "classes": null,
+			"start": { "npc": [95914], "object": [], "item": [] }, "end": { "npc": [95914], "object": [] }, "pre": [], "excl": [], "next": null,
+			"objectives": [{ "type": "kill", "id": 95911, "count": 3, "text": "Old Ram", "credit": [95911, 95912, 95913] }],
+			"objectiveText": "", "zone": 1429, "xp": 250, "source": ["fixture"], "sourceItem": 95920 });
+		raw.get_mut("items.json").unwrap()["95920"] = json!({ "id": 95920, "name": "Ram Lasso", "drops": { "npc": {}, "object": {} }, "vendors": [] });
+		for (id, name, faction) in [(95911, "Old Ram", Value::Null), (95912, "Sick Ram", Value::Null), (95913, "Ancient Ram", Value::Null), (95914, "Ram Herder", json!("AH"))] {
+			raw.get_mut("npcs.json").unwrap()[id.to_string()] = json!({ "id": id, "name": name, "level": 5, "faction": faction, "spawns": { "1429": { "f": "e", "pts": [[55, 55]] } } });
+		}
+	});
+	let lines = ["step One", "  accept 95910", "  use 95920 @55,55", "  kill 95912 quest 95910.1", "  use 95920 quest 95910.1 @55,55", "  kill 6", "  use 1210 @55,55"];
+	let r = compile_with(&guide_text(&lines), &forge_guide::data::load_data(&dir).unwrap());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let steps = r.steps();
+	let g = &steps[0]["goals"];
+	let ids = |i: usize| json!(g[i]["fromNpcs"].as_array().map(|l| l.iter().map(|n| n["npc"].clone()).collect::<Vec<_>>()));
+	assert_eq!(ids(1), json!([95911, 95912, 95913]), "the item the quest hands over: {}", g[1]);
+	assert_eq!(g[1]["fromNpcs"][2], json!({ "npc": 95913, "npcName": "Ancient Ram" }));
+	assert_eq!(ids(2), json!([95912, 95911, 95913]), "a kill of the objective: its own creature first");
+	assert_eq!(ids(3), json!([95911, 95912, 95913]), "a use bound to the objective");
+	assert_eq!(ids(4), Value::Null, "a kill with no credit list names its own target only");
+	assert_eq!(ids(5), Value::Null, "a use of an item no such quest hands over");
+}

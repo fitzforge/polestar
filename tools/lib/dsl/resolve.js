@@ -33,6 +33,11 @@ const MAX_NAMED_SOURCES = 8;
 // `fromNpcs` on a collect: the mobs its point and spots belong to, for the
 // target button, which cycles at most this many names.
 const MAX_SOURCE_NPCS = 5;
+// With `fromNpcsAt` (spotNpcs), `fromNpcs` goes on up to the import string's
+// cap (pack/importstring.js LIMITS.fromNpcs), and the string stays under its
+// text cap (LIMITS.text).
+const MAX_SPOT_NPCS = 32;
+const MAX_SPOT_NPCS_TEXT = 4096;
 
 // A collect's droppers this many levels or more above its quest (by their
 // lowest level) do not set the likely-dropper bar where they would crowd out
@@ -187,6 +192,101 @@ function sourceNpcs(data, first, sources) {
 		seen.add(s.id);
 		const rec = data.npc(s.id);
 		if (rec && rec.name) out.push({ npc: s.id, npcName: String(rec.name) });
+	}
+	return out.length ? out : undefined;
+}
+
+// Which of a collect's NPC sources spawn at each of its spots (#1616).
+// Centaur Bounty's ears drop from every centaur tribe in Desolace and its
+// spots run through all their camps, while `fromNpcs` names the five of the
+// goal's point: at a Magram camp the target button named Kolkar. Only when
+// some spot holds a source `fromNpcs` leaves out: those follow in `fromNpcs`
+// (the most spawns at the spots first, up to MAX_SPOT_NPCS), and `fromNpcsAt`
+// gives, per spot in `spots` order, the 1-based places in `fromNpcs` of the
+// sources spawning there (within its radius and a yard), most spawns first:
+// "1,2;3,4;;5". Left out when that string would pass MAX_SPOT_NPCS_TEXT.
+function spotNpcs(data, goal, sources, map, f) {
+	const spots = goal.spots || [];
+	if (spots.length < 2 || !data.mapSize(map)) return;
+	const mobs = [];
+	for (const s of sources || []) {
+		if (!s || s.kind !== 'npc') continue;
+		const name = nameOf(data, 'npc', s.id);
+		const pts = spawnPointsOf(data, [s], map, f);
+		if (name && pts.length) mobs.push({ id: s.id, name, pts });
+	}
+	const at = spots.map((spot) => {
+		const here = [];
+		mobs.forEach((m, i) => {
+			const n = m.pts.filter((p) => distance(data, map, p[0], p[1], spot.x, spot.y) <= spot.r + 1).length;
+			if (n > 0) here.push([i, n]);
+		});
+		return here.sort((a, b) => b[1] - a[1] || a[0] - b[0]);
+	});
+	const list = [...(goal.fromNpcs || [])];
+	const ids = list.map((n) => n.npc);
+	const total = mobs.map(() => 0);
+	for (const here of at) for (const [i, n] of here) total[i] += n;
+	const left = mobs.map((_, i) => i).filter((i) => total[i] > 0 && !ids.includes(mobs[i].id));
+	if (!left.length) return;
+	left.sort((a, b) => total[b] - total[a] || a - b);
+	for (const i of left) {
+		if (list.length >= MAX_SPOT_NPCS) break;
+		list.push({ npc: mobs[i].id, npcName: mobs[i].name });
+		ids.push(mobs[i].id);
+	}
+	const packed = at.map((here) => here.map(([i]) => ids.indexOf(mobs[i].id)).filter((k) => k >= 0).map((k) => k + 1).join(',')).join(';');
+	if (packed.length > MAX_SPOT_NPCS_TEXT) return;
+	goal.fromNpcs = list;
+	goal.fromNpcsAt = packed;
+}
+
+// The quests that hand item `item` over when taken (their `sourceItem`), by
+// quest id; the index is built once per data object.
+const handedOver = new WeakMap();
+function questsHandingOver(data, item) {
+	let by = handedOver.get(data);
+	if (!by) {
+		by = new Map();
+		for (const [id, q] of Object.entries(data.quests)) {
+			if (q && typeof q.sourceItem === 'number') {
+				if (!by.has(q.sourceItem)) by.set(q.sourceItem, []);
+				by.get(q.sourceItem).push(Number(id));
+			}
+		}
+		handedOver.set(data, by);
+	}
+	return by.get(item) || [];
+}
+
+// The creatures a `kill` or `use` goal's quest objective credits when the
+// data lists several (#1614): Kodo Roundup counts a tamed Aged, Dying or
+// Ancient Kodo, and the Kodo Kombobulator the quest hands over works on all
+// three. A `kill` bound to such an objective, or a `use` bound to one or of
+// the item such a quest hands over (its `sourceItem`), gets them as
+// `fromNpcs`, the goal's own creature first, so the target button names
+// each. -> [{ npc, npcName }] | undefined
+function creditNpcs(data, goal) {
+	const credited = (quest, oi) => {
+		const q = data.quest(quest);
+		const objs = (q && Array.isArray(q.objectives) && q.objectives) || [];
+		const picked = oi === undefined ? objs : Number.isInteger(oi) && oi >= 1 && objs[oi - 1] ? [objs[oi - 1]] : [];
+		return picked.filter((o) => o && o.type === 'kill' && Array.isArray(o.credit) && o.credit.length > 1).flatMap((o) => o.credit);
+	};
+	let ids = [];
+	if (goal.t === 'kill' && goal.quest !== undefined && goal.oi !== undefined) ids = credited(goal.quest, goal.oi);
+	else if (goal.t === 'use' && goal.quest !== undefined) ids = credited(goal.quest, goal.oi);
+	else if (goal.t === 'use' && goal.item !== undefined) ids = questsHandingOver(data, goal.item).flatMap((q) => credited(q, undefined));
+	if (!ids.length) return undefined;
+	const order = ids.includes(goal.npc) ? [goal.npc, ...ids] : ids;
+	const seen = new Set();
+	const out = [];
+	for (const id of order) {
+		if (out.length >= MAX_SOURCE_NPCS) break;
+		if (seen.has(id)) continue;
+		seen.add(id);
+		const name = nameOf(data, 'npc', id);
+		if (name) out.push({ npc: id, npcName: name });
 	}
 	return out.length ? out : undefined;
 }
@@ -1894,7 +1994,11 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 				}
 			}
 			// An authored `npc` already names the one creature to target.
-			if (v === 'collect' && goal.npc === undefined) setIf(goal, 'fromNpcs', sourceNpcs(data, c, picked.sources));
+			if (v === 'collect' && goal.npc === undefined) {
+				setIf(goal, 'fromNpcs', sourceNpcs(data, c, picked.sources));
+				// A `loop` step's goals take its gotos as their spots (applyLoop).
+				if (!ctx.loop) spotNpcs(data, goal, area ? picked.sources || [c] : [c], picked.map, picked.f);
+			}
 		} else if (g.explicitCoords && goal.x !== undefined) {
 			// Hand-placed: the sources known to give the item (a drop chance, or a
 			// gathering node; not loot of unknown odds). A mob or object spawns
@@ -1925,6 +2029,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			if (v === 'collect' && goal.npc === undefined) {
 				const own = pointSources(data, sources, goal.map, goal.f, goal.x, goal.y, near);
 				setIf(goal, 'fromNpcs', sourceNpcs(data, own[0], own));
+				spotNpcs(data, goal, sources, goal.map, goal.f);
 			}
 		}
 	}
@@ -1937,6 +2042,8 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 		const q = goal.quest !== undefined ? data.quest(goal.quest) : null;
 		if (q && Number(q.level) > 0) goal.qlvl = Number(q.level);
 	}
+	// A kill's or use's credited creatures (#1614).
+	if ((v === 'kill' || v === 'use') && goal.fromNpcs === undefined) setIf(goal, 'fromNpcs', creditNpcs(data, goal));
 	// Group content (group.js): the author's `group [N]`, else derived.
 	setIf(goal, 'group', groupOf(goal, g.group, ctx.sides, data));
 	// An escort quest's accept and objectives (escort.js).

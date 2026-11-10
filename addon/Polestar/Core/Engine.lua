@@ -10850,6 +10850,29 @@ function Engine.CycleSpot(stepIndex, goalIndex, index)
 	return Spots.index(goal)
 end
 
+-- The index in goal.spots of the spot the arrow takes for goal (a guide
+-- goal with spawn areas): the one picked (Spots.chosen), else the nearest
+-- to the player, alternatives too. Changes nothing; nil without spots or a
+-- position. The target button names the mobs there (QoL/Buttons.lua, #1616).
+function Engine.SpotIndexOf(goal)
+	local spots = type(goal) == "table" and goal.spots
+	if type(spots) ~= "table" or not spots[1] then return nil end
+	local s = Spots.chosen[goal]
+	if not s then
+		local c, px, py = Compat().GetPlayerWorldPosition()
+		if not c then return nil end
+		local best
+		for _, t in ipairs(spots) do
+			local d = Spots.edge(goal, t, c, px, py)
+			if d and (not best or d < best) then s, best = t, d end
+		end
+	end
+	for i, t in ipairs(spots) do
+		if t == s then return i end
+	end
+	return nil
+end
+
 -- The waypoint keys (Bindings.xml): the next (dir 1) or previous (-1) place
 -- the arrow can lead to on the step on screen. A goal with spawn spots moves
 -- on to its next or previous spot (CycleSpot); else the arrow moves to the

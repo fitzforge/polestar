@@ -1615,6 +1615,34 @@
 		},
 		"note": "The Key to Scholomance: starts with Apothecary Dithers (npc 11057) and ends with Apothecary Dithers (npc 11057); as its giver the merged data also listed High Executor Derrington (npc 10837); as its ender the merged data also listed High Executor Derrington (npc 10837)."
 	},
+	"5561": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 4700,
+					"count": 5,
+					"text": "Aged Kodo",
+					"credit": [
+						4700,
+						4701,
+						4702
+					]
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-10): 8 people ran Kodo Roundup; the line ticked as they talked to a tamed Aged (4700, 13 times), Dying (4701, 19) or Ancient Kodo (4702, 9)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB killCredit: Aged, Dying and Ancient Kodo count for the objective"
+			}
+		],
+		"note": "Kodo Roundup: the Kodo Kombobulator tames an Aged, Dying or Ancient Kodo and each counts once talked to at Smeed's camp (#1614). Pinned so the target button names all three, whichever source a rebuild prefers (the Forever TrinityCore record names a Tamed Kodo, 11627, which no recording shows)."
+	},
 	"5631": {
 		"set": {
 			"start": {

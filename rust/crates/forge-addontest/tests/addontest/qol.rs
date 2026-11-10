@@ -424,6 +424,86 @@ fn target_button_a_collect_names_the_mobs_the_arrow_leads_to_first_356_then_the_
 	assert_eq!(out[4], json!(["Webwood Lurker"]));
 }
 
+// #1614: Kodo Roundup's Kombobulator tames an Aged, Dying or Ancient Kodo; the compiler gives its `use` goal the
+// creatures the quest's objective credits (`fromNpcs`), and a `kill` bound to such an objective the same.
+#[test]
+fn target_button_names_what_a_use_goal_s_item_works_on_and_every_creature_a_kill_s_objective_credits_1614() {
+	let out = run(r#"
+		local B = Polestar.QoL.Buttons
+		local t = PolestarTargetButton
+		local function names()
+			local out = {}
+			for i, n in ipairs(B.TargetNames()) do out[i] = n end
+			return out
+		end
+		q.step({
+			{ t = "use", item = 13892, itemName = "Kodo Kombobulator", fromNpcs = { { npc = 4700, npcName = "Aged Kodo" },
+				{ npc = 4701, npcName = "Dying Kodo" }, { npc = 4702, npcName = "Ancient Kodo" } } },
+			{ t = "talk", quest = 5561, oi = 1, npc = 4700, npcName = "Aged Kodo" },
+		})
+		emit({ names(), t.Label:GetText(), t:GetAttribute("macrotext") })
+		-- A use goal without them names no mob: the step's NPC, as before.
+		q.step({ { t = "use", item = 900, itemName = "Torch" }, { t = "talk", npc = 197, npcName = "Marshal McBride" } })
+		emit({ n = #B.TargetNames(), label = t.Label:GetText() })
+		-- A kill whose objective credits several creatures names them all, its own first.
+		q.step({ { t = "kill", npc = 6498, target = "Devilsaur", quest = 9051, oi = 1, fromNpcs = { { npc = 6498, npcName = "Devilsaur" },
+			{ npc = 6499, npcName = "Ironhide Devilsaur" }, { npc = 6500, npcName = "Tyrant Devilsaur" } } } })
+		emit(names())
+	"#);
+	assert_eq!(out[0][0], json!(["Aged Kodo", "Dying Kodo", "Ancient Kodo"]));
+	assert_eq!(out[0][1], "Aged Kodo");
+	let mac = text(&out[0][2]);
+	for name in ["Aged Kodo", "Dying Kodo", "Ancient Kodo"] {
+		assert!(mac.contains(&format!("/targetexact {name}\n")) || mac.contains(&format!("/targetexact [noexists] {name}\n")), "the macro tries {name}");
+	}
+	assert_eq!(out[1], json!({ "n": 0, "label": "Marshal McBride" }));
+	assert_eq!(out[2], json!(["Devilsaur", "Ironhide Devilsaur", "Tyrant Devilsaur"]));
+}
+
+// #1616: Centaur Bounty's spots run through every centaur tribe's camps; `fromNpcsAt` says, per spot, which of
+// `fromNpcs` spawn there, and the button names the mobs of the spot the arrow takes (Engine.SpotIndexOf) alone.
+#[test]
+fn target_button_names_the_mobs_at_the_spot_the_arrow_takes_when_a_collect_s_spots_hold_other_camps_1616() {
+	let out = run(r#"
+		local B = Polestar.QoL.Buttons
+		local t = PolestarTargetButton
+		local function names()
+			local out = {}
+			for i, n in ipairs(B.TargetNames()) do out[i] = n end
+			return out
+		end
+		Polestar.QuestDB = {
+			IsLoaded = function() return true end,
+			GetObjectiveMobs = function(quest, oi) if quest == 1366 then return { "Kolkar Centaur", "Magram Scout" } end end,
+		}
+		Polestar.Fire("QUESTDB_LOADED")
+		stub.runTimers()
+		local goal = { t = "collect", item = 6067, itemName = "Centaur Ear", quest = 1366, oi = 1,
+			fromNpcs = { { npc = 4638, npcName = "Magram Scout" }, { npc = 4632, npcName = "Kolkar Centaur" }, { npc = 4633, npcName = "Kolkar Scout" },
+				{ npc = 4634, npcName = "Kolkar Mauler" }, { npc = 4635, npcName = "Kolkar Windchaser" },
+				{ npc = 4639, npcName = "Magram Outrunner" }, { npc = 4641, npcName = "Magram Wrangler" }, { npc = 4642, npcName = "Magram Windchaser" } },
+			fromNpcsAt = "2,3,4,5;7,8,6,1;" }
+		-- The arrow at Kolkar Village (spot 1): its own four.
+		q.engine.spot = 1
+		q.step({ goal })
+		emit({ names(), t.Label:GetText() })
+		-- The arrow moved on to Magram Village (spot 2): the Magram, no Kolkar.
+		q.engine.spot = 2
+		Polestar.Fire("WAYPOINT_CHANGED")
+		stub.runTimers()
+		emit({ names(), t.Label:GetText() })
+		-- A spot with no mob listed, or no spot known: the point's names, as before.
+		q.engine.spot = 3
+		emit(names())
+		q.engine.spot = nil
+		emit(names())
+	"#);
+	assert_eq!(out[0], json!([["Kolkar Centaur", "Kolkar Scout", "Kolkar Mauler", "Kolkar Windchaser"], "Kolkar Centaur"]));
+	assert_eq!(out[1], json!([["Magram Wrangler", "Magram Windchaser", "Magram Outrunner", "Magram Scout"], "Magram Wrangler"]));
+	assert_eq!(out[2], json!(["Magram Scout", "Kolkar Centaur", "Kolkar Scout", "Kolkar Mauler", "Kolkar Windchaser"]));
+	assert_eq!(out[3], out[2]);
+}
+
 #[test]
 fn target_button_every_open_goal_gets_a_name_one_goal_s_many_mobs_do_not_crowd_out_the_rest_571() {
 	let out = run(r#"

@@ -11,15 +11,18 @@
 --     bags that one of the step's open quests handed over when taken
 --     (Polestar.QuestDB; none without it), never one left from another quest.
 --   Hearthstone: while the current step has an open `hearth` goal.
---   Target: /targetexact for the current step's kill targets and the mobs
---     that drop its collect items: the ones the guide sends you to for that
---     goal (`fromNpcs`), then the item's own droppers (Polestar.QuestDB when
---     loaded), passing over corpses; on a step with no such mob, its NPC
---     goals' NPCs (talk, accept, turn in, train...). The arrow's goal comes
---     first. After the step's own mobs (or with none), the mobs of the While
---     you're here rows, nearest row first (#1441); never after the step's
---     NPCs. Every click moves the next name to the front. With
---     qol.targetPlate (on by default) its icon shows what you do with the
+--   Target: /targetexact for the current step's kill targets (every creature
+--     their objective credits, `fromNpcs`), the creatures its `use` goals'
+--     items work on (`fromNpcs`, #1614) and the mobs that drop its collect
+--     items: the ones the guide sends you to for that goal (`fromNpcs`; where
+--     the goal's spots hold other mobs, `fromNpcsAt`, those at the spot the
+--     arrow takes alone, #1616), then the item's own droppers
+--     (Polestar.QuestDB when loaded), passing over corpses; on a step with no
+--     such mob, its NPC goals' NPCs (talk, accept, turn in, train...). The
+--     arrow's goal comes first. After the step's own mobs (or with none), the
+--     mobs of the While you're here rows, nearest row first (#1441); never
+--     after the step's NPCs. Every click moves the next name to the front.
+--     With qol.targetPlate (on by default) its icon shows what you do with the
 --     name the next click targets (Buttons.TargetLook: a speech bubble, !,
 --     ?, a sword, a bag, a skull for an elite, rare or boss), the name beside
 --     it in that kind's colour, and a row of small icons for the names after
@@ -551,7 +554,7 @@ local NPC_VERBS = { accept = true, turnin = true, talk = true, train = true, ven
 -- The picture of what you do with a name: its goal's verb glyph (Media/UI).
 -- An elite, rare or boss mob wears the skull instead (Buttons.TargetLook).
 local VERB_ICON = {
-	kill = "icon-kill", collect = "icon-collect", accept = "icon-accept", turnin = "icon-turnin", talk = "icon-talk",
+	kill = "icon-kill", collect = "icon-collect", use = "icon-use", accept = "icon-accept", turnin = "icon-turnin", talk = "icon-talk",
 	train = "icon-train", vendor = "icon-vendor", buy = "icon-buy", sethome = "icon-sethome", getfp = "icon-getfp", learn = "icon-learn",
 }
 
@@ -600,6 +603,41 @@ local function addDroppers(list, rg)
 	end
 end
 
+-- A goal's `fromNpcs` entry (raw goal rg), in the client's language by its id.
+local function addSource(e, rg)
+	if type(e) ~= "table" then return end
+	local N = ns.Names
+	addName((N and N.Npc(e.npc)) or e.npcName, e.npc, rankedSource(rg, e.npc))
+end
+
+-- The places in `fromNpcs` of the mobs at the spot the arrow takes for raw
+-- goal rg (`fromNpcsAt`: per spot in `spots` order, "1,2;3;;4";
+-- Engine.SpotIndexOf), most spawns first, or nil (a reused list).
+local spotAt = {}
+local function spotSources(rg)
+	local packed = type(rg) == "table" and rg.fromNpcsAt
+	if type(packed) ~= "string" then return nil end
+	local E = ns.Engine
+	local at = E and E.SpotIndexOf and E.SpotIndexOf(rg)
+	if not at then return nil end
+	local k = 0
+	for group in (packed .. ";"):gmatch("([^;]*);") do
+		k = k + 1
+		if k == at then
+			wipe(spotAt)
+			for n in group:gmatch("%d+") do spotAt[#spotAt + 1] = tonumber(n) end
+			return spotAt[1] and spotAt or nil
+		end
+	end
+	return nil
+end
+
+-- A goal the target button names mobs for: a kill, a collect, or a `use`
+-- whose item works on creatures the guide's data names (`fromNpcs`, #1614).
+local function mobGoal(gv, rg)
+	return gv.t == "kill" or gv.t == "collect" or (gv.t == "use" and type((rg or gv).fromNpcs) == "table")
+end
+
 -- The goal the arrow points at, among the goals from `from` on, moves to
 -- their front (it keeps its own names' order): its names come first, then
 -- the others' in order.
@@ -620,16 +658,25 @@ local function arrowFirst(from)
 	end
 end
 
--- The mobs of one open kill or collect goal (view gv, raw rg) into the goal
--- newGoal started last. qdb: Polestar.QuestDB when it is loaded.
+-- The mobs of one open kill, collect or use goal (view gv, raw rg) into the
+-- goal newGoal started last. qdb: Polestar.QuestDB when it is loaded.
 local function addGoalNames(gv, rg, qdb)
 	local N = ns.Names
+	local src = rg.fromNpcs or gv.fromNpcs
 	if gv.t == "kill" then
 		-- /targetexact needs the name as the client writes it. Elite
 		-- work (compiled `group`) marks the mob.
 		local id = rg.npc or gv.npc
 		local group = rg.group or gv.party
 		addName((N and N.Npc(id)) or rg.target or gv.subject, id, type(group) == "table" and group.kind == "elite")
+		-- Every other creature its objective credits (#1614).
+		for i = 1, type(src) == "table" and #src or 0 do addSource(src[i], rg) end
+		return
+	end
+	if gv.t == "use" then
+		-- The creatures the item works on: those the quest's objective credits
+		-- (Kodo Roundup's Aged, Dying and Ancient Kodos, #1614).
+		for i = 1, type(src) == "table" and #src or 0 do addSource(src[i], rg) end
 		return
 	end
 	-- The mobs the arrow leads to come first: the farm spot the engine
@@ -640,10 +687,17 @@ local function addGoalNames(gv, rg, qdb)
 	-- mostly in other zones.
 	local npc = gv.npc or rg.npc
 	if npc then addName((N and N.Npc(npc)) or gv.npcName or rg.npcName, npc, rankedSource(rg, npc)) end
-	local src = rg.fromNpcs or gv.fromNpcs
-	for i = 1, src and #src or 0 do
-		addName((N and N.Npc(src[i].npc)) or src[i].npcName, src[i].npc, rankedSource(rg, src[i].npc))
+	-- Spots holding other mobs than the point (`fromNpcsAt`: Centaur Bounty's
+	-- run through every centaur tribe's camps, #1616): the spot the arrow
+	-- takes names its own mobs, which stand alone; the point's and the item's
+	-- droppers are other camps' mobs.
+	local here = type(src) == "table" and spotSources(rg)
+	if here then
+		local before = #goalNames[goalCount]
+		for i = 1, #here do addSource(src[here[i]], rg) end
+		if #goalNames[goalCount] > before then return end
 	end
+	for i = 1, type(src) == "table" and #src or 0 do addSource(src[i], rg) end
 	if qdb then
 		if gv.quest and rg.oi and qdb.GetObjectiveMobs then
 			addDroppers(qdb.GetObjectiveMobs(gv.quest, rg.oi), rg)
@@ -735,9 +789,10 @@ function Buttons.TargetNames(view, raw, npcs, here)
 	local named = false
 	for g = 1, #goals do
 		local gv = goals[g]
-		if QoL.Open(gv) and (gv.t == "kill" or gv.t == "collect") then
+		local rg = raws and raws[g] or gv
+		if QoL.Open(gv) and mobGoal(gv, rg) then
 			if g <= own then newGoal(gv.t, stepIndex, g) else newGoal(gv.t, gv.step, gv.index) end
-			addGoalNames(gv, raws and raws[g] or gv, qdb)
+			addGoalNames(gv, rg, qdb)
 			named = named or #goalNames[goalCount] > 0
 		end
 	end
