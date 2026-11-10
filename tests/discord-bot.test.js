@@ -110,6 +110,13 @@ test('a report with no guide open still finds the arrow and position lines', () 
 	assert.equal(r.details.routes, undefined, 'a report from before the Routes line has none');
 });
 
+test('a report from an old Polestar keeps its version, and the issue says it is outdated', () => {
+	const r = parseReport('```\nPolestar 0.3.5 Beta (outdated: latest 0.3.7) · client 1.60.1 (70425) · enUS\nGuide: none open\nArrow: none\nWhere: Stormwind City · no position\nErrors: none\n```');
+	assert.equal(r.details.version, '0.3.5');
+	assert.equal(r.details.locale, 'enUS');
+	assert.match(I.issueBody({ report: r, reporter: 'x', guild: '1', thread: '2' }), /^\| Polestar \| 0\.3\.5 Beta \(outdated: latest 0\.3\.7\) \|$/m);
+});
+
 test('a post without a report is all description, other code blocks included', () => {
 	const r = parseReport('The map pin is wrong.\n```\nsome log\n```');
 	assert.equal(r.details, null);
