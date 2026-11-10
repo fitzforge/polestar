@@ -5618,12 +5618,16 @@ end
 -- An update replaced most of guide g's steps: it keeps fewer than half of
 -- those the character's save knew (0.3.5 reused leveling guide ids for
 -- other parts of the route, #1328). Read before checkShape stores the new
--- shape.
+-- shape. Only an update: a save stamped with the pack's own version saw
+-- none, and its shape is the guide as planned for the character (feeders
+-- in, quests waiting on earlier guides left out), whose step keys differ
+-- from the guide as registered (a /reload moved a fresh-start tab).
 function Own.reworked(g)
 	local s = ns.CharState()
 	local stored = type(s.shapes) == "table" and s.shapes[g.id]
 	local old = type(s.stepKeys) == "table" and s.stepKeys[g.id]
 	if not stored or stored == shapeOf(g) or type(old) ~= "table" or #old == 0 then return false end
+	if type(s.shapeVersions) == "table" and s.shapeVersions[g.id] == Own.packVersion(g) then return false end
 	local kept = 0
 	for _ in pairs(Own.matchSteps(old, Own.stepKeys(g))) do kept = kept + 1 end
 	return kept * 2 < #old
