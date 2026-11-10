@@ -188,8 +188,9 @@ return {
 
 	-- Step 40: Yeti cave
 	["Yeti cave"] = "Cueva de los yetis",
-	-- {area:271} Southshore
-	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp."] = "",
+	-- {area:271} Southshore · {area:277} Foothill Caverns · {npc:13602} The Abominable Greench
+	-- plural, as words: Giant Yetis = {npc:2251} Giant Yeti
+	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "",
 
 	-- Step 41: Alterac Mountains
 	["Syndicate camp"] = "Campamento de la Hermandad",

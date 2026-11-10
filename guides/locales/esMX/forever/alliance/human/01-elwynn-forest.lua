@@ -84,7 +84,7 @@ return {
 	["Inside {area:34}"] = "Dentro de {area:34}",
 	-- {npc:248362} Shinyfinder Narf
 	-- plural, as words: Kobold Laborers = {npc:80} Kobold Laborer
-	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right."] = "Los Obreros kóbold trabajan en los túneles dentro de la mina. {npc:248362} espera al fondo de la segunda curva a la derecha.",
+	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "",
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
 	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "",
 
@@ -254,9 +254,9 @@ return {
 	["Fun with Elementals: {npc:248464}"] = "Diversión con elementales: {npc:248464}",
 
 	-- Step 50: Goldtooth
-	-- {quest:87} Goldtooth · {area:57} Fargodeep Mine · {item:1972} Westfall Deed
+	-- {quest:87} Goldtooth · {area:57} Fargodeep Mine · {item:1972} Westfall Deed · {npc:248464} Nimsy · {npc:79} Narg the Taskmaster
 	-- plural, as words: Defias Bandits = {npc:116} Defias Bandit
-	["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it."] = "{quest:87} está dentro de {area:57}, no en la colina de arriba: entra por la boca y mantente a la izquierda hasta el fondo de la mina; no subas las escaleras. Los Bandidos Defias de los viñedos sueltan {item:1972} de vez en cuando: haz clic derecho en ella.",
+	["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it.\nCareful: {npc:248464} (6), a kobold deep in the mine, is elite, and {npc:79} (10, rare) walks the tunnels: pull the kobolds one at a time."] = "",
 	-- {item:981} Bernice's Necklace
 	["{item:981}; below ground"] = "",
 
@@ -353,9 +353,9 @@ return {
 	-- Step 71: Jasperlode Mine: kill these as you meet them
 	-- {area:54} Jasperlode Mine
 	["{area:54}: kill these as you meet them"] = "",
-	-- {item:247816} Mining Tools
-	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer
-	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "La mina está al suroeste de los campamentos gnoll. {item:247816} están cerca de la entrada; los Geománticos kóbold ocupan los túneles.",
+	-- {item:247816} Mining Tools · {npc:471} Mother Fang · {npc:248474} Geosculptor Yip
+	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer · Mine Spiders = {npc:43} Mine Spider
+	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "",
 	["Walk into the mine"] = "Entra en la mina",
 	-- {npc:476} Kobold Geomancer · {area:54} Jasperlode Mine
 	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "",
@@ -492,6 +492,7 @@ return {
 	-- ["From the {quest:2998} he gives you"] = "Del {quest:2998} que te da",
 	-- ["Head back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Regresa por {area:87} y al este hasta {area:86}. {npc:6172} yace al sur del lago: usa {item:6866} en él. Los Magos renegados Defias a su alrededor llevan el {item:6846}.",
 	-- ["Head north-west across the fields to the {quest:91736}, north of the {area:120}. Hand it four Shiny Red Apples for a {item:247824}."] = "Dirígete al noroeste a través de los campos hasta {quest:91736}, al norte de {area:120}. Dale cuatro Manzanas rojas lustrosas para obtener {item:247824}.",
+	-- ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right."] = "Los Obreros kóbold trabajan en los túneles dentro de la mina. {npc:248362} espera al fondo de la segunda curva a la derecha.",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "Los Batidores múrloc y los Rondadores múrloc ocupan el río al sur del puente. {npc:473}, un Defias, recorre {area:62}, al oeste. Termina con los Merodeadores y los Osos del bosque jóvenes por el camino.",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "Los Batidores múrloc y los Rondadores múrloc ocupan el río al sur del puente. {npc:473}, un Defias, recorre {area:62}, al oeste. Termina con los Merodeadores y los Osos del bosque jóvenes por el camino. {npc:248278} también ronda la orilla de los múrlocs: haz clic derecho en la cabeza que suelta. {npc:248278} es élite: se recomienda ir en grupo.",
 	-- ["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp."] = "Los Múrlocs y los Correcorrientes múrloc ocupan la orilla este; los Junk Piles están en su campamento.",
@@ -504,6 +505,7 @@ return {
 	-- ["Speak with {npc:1430}"] = "Habla con {npc:1430}",
 	-- ["Stonetusk Boars graze between the vineyards and the farm."] = "Los Jabalíes Colmipétreos pastan entre los viñedos y la granja.",
 	-- ["The Stonefield farm is west of the mine. Ma and \"Auntie\" Bernice stand by the house."] = "La granja Pedregosa está al oeste de la mina. La vieja Pedregosa y \"Tita\" Bernice están junto a la casa.",
+	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "La mina está al suroeste de los campamentos gnoll. {item:247816} están cerca de la entrada; los Geománticos kóbold ocupan los túneles.",
 	-- ["The murloc camp"] = "El campamento múrloc",
 	-- ["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way."] = "{item:247813}, el hacha y la caja de herramientas están en el río al sur del puente. {npc:330}, una jabalina grande, hoza en {area:62}, al oeste del río, con su {npc:390}: aleja primero a los lechones. Mata Merodeadores ({npc:118}) y Osos del bosque jóvenes ({npc:822}) por el camino.",
 	-- ["Torn Murloc Fins"] = "Aletas de múrloc rotas",
@@ -535,4 +537,5 @@ return {
 	-- ["{npc:927}: {npc:6171} in {zone:1453} takes it"] = "{npc:927}: la recibe {npc:6171} en {zone:1453}",
 	-- ["{npc:955}: he wants your {item:247824}"] = "{npc:955}: quiere tu {item:247824}",
 	-- ["{object:694855} grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood."] = "{object:694855} crece en los campos alrededor de los viñedos y de la granja Pedregosa; los Jabalíes Colmipétreos de alrededor dan la sangre.",
+	-- ["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it."] = "{quest:87} está dentro de {area:57}, no en la colina de arriba: entra por la boca y mantente a la izquierda hasta el fondo de la mina; no subas las escaleras. Los Bandidos Defias de los viñedos sueltan {item:1972} de vez en cuando: haz clic derecho en ella.",
 }

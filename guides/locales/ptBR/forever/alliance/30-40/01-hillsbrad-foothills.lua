@@ -188,8 +188,9 @@ return {
 
 	-- Step 40: Yeti cave
 	["Yeti cave"] = "Caverna dos yetis",
-	-- {area:271} Southshore
-	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp."] = "Os yetis vivem na caverna nas colinas ao norte de {area:271}, no caminho para o norte até o acampamento da Camarilha.",
+	-- {area:271} Southshore · {area:277} Foothill Caverns · {npc:13602} The Abominable Greench
+	-- plural, as words: Giant Yetis = {npc:2251} Giant Yeti
+	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "",
 
 	-- Step 41: Alterac Mountains
 	["Syndicate camp"] = "Acampamento da Camarilha",
@@ -290,6 +291,7 @@ return {
 	-- ["The Villards"] = "Os Villard",
 	-- ["The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it."] = "A etapa seguinte, Derrotar Nek'rosh, coloca você contra um chefe elite: pule-a.",
 	-- ["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "A próxima etapa, {quest:474}, joga você contra um chefe elite: pule.",
+	-- ["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp."] = "Os yetis vivem na caverna nas colinas ao norte de {area:271}, no caminho para o norte até o acampamento da Camarilha.",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "Os yetis vivem na caverna nas colinas ao norte de {area:271}, no caminho de volta para o sul.",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "Para o oeste, até as fazendas de {area:287}: coloque {item:279386} na mesa de contabilidade da prefeitura, onde ficam {npc:2335} e os conselheiros.",
 	-- ["Whelps, raptors and {npc:271458}"] = "Dragonetes, raptores e {npc:271458}",

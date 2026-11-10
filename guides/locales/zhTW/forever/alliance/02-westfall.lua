@@ -53,9 +53,9 @@ return {
 	-- Step 9: Jasperlode Mine: kill these as you meet them
 	-- {area:54} Jasperlode Mine
 	["{area:54}: kill these as you meet them"] = "",
-	-- {item:247816} Mining Tools
-	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer
-	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "礦坑在豺狼人營地西南方。{item:247816}在入口附近；狗頭人地卜師佔據隧道。",
+	-- {item:247816} Mining Tools · {npc:471} Mother Fang · {npc:248474} Geosculptor Yip
+	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer · Mine Spiders = {npc:43} Mine Spider
+	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "",
 	-- {npc:476} Kobold Geomancer · {area:54} Jasperlode Mine
 	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "",
 
@@ -356,6 +356,7 @@ return {
 	-- ["Riverpaw Gnolls and Scouts roam the hills between the coast and the {area:916}."] = "河爪豺狼人和河爪斥候在海岸與{area:916}之間的丘陵遊蕩。",
 	-- ["Sacks of Oats"] = "一袋燕麥",
 	-- ["The gnoll hills"] = "豺狼人丘陵",
+	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "礦坑在豺狼人營地西南方。{item:247816}在入口附近；狗頭人地卜師佔據隧道。",
 	-- ["The north coast"] = "北部海岸",
 	-- ["The western farms"] = "西部農場",
 	-- ["West of Molsen Farm, toward the coast. Riverpaw Miners work the quarry."] = "在摩爾森農場西邊，靠近海岸。河爪礦工在採石場工作。",

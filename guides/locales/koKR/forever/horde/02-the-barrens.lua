@@ -33,7 +33,8 @@ return {
 	-- {npc:3429} Thork
 	["Razormane camp: {npc:3429}'s quilboar"] = "",
 	-- {npc:3429} Thork
-	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end."] = "",
+	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
+	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "",
 
 	-- Step 8: Telf Joolam
 	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
@@ -62,7 +63,8 @@ return {
 	["Plainstriders roam the plains all over the {zone:1413}, and about one in four drops a beak: kill the ones you pass on the way."] = "",
 
 	-- Step 15: Razormane camp
-	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks."] = "",
+	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
+	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "",
 
 	-- Step 16: Finish the Plainstrider Beaks
 	-- plural, as words: Plainstrider Beaks = {item:5087} Plainstrider Beak
@@ -87,9 +89,9 @@ return {
 
 	-- Step 25: Thunder lizards across the river
 	["Thunder lizards across the river"] = "강 건너편의 천둥도마뱀",
-	-- {area:379} Far Watch Post
+	-- {area:379} Far Watch Post · {area:369} Thunder Ridge
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
-	["Thunder Lizards and Lightning Hides graze just across the bridge below {area:379}."] = "천둥도마뱀과 번개도마뱀은 {area:379} 아래 다리 바로 건너편에서 풀을 뜯습니다.",
+	["Thunder Lizards and Lightning Hides graze just across the bridge below {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "",
 
 	-- Step 27: Telf Joolam
 	-- {area:814} Southfury River · {area:379} Far Watch Post · {zone:1411} Durotar · {npc:5900} Telf Joolam
@@ -164,7 +166,8 @@ return {
 
 	-- Step 43: The Disruption Ends
 	-- {npc:3438} Kreenig Snarlsnout
-	["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them."] = "서슬갈기일족 야영지로 돌아가세요. 동쪽 절반은 흙점쟁이와 파수병이 차지하고 있으며, {npc:3438}은(는) 그들 사이를 돌아다닙니다.",
+	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
+	["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near {npc:3438}: pull {npc:3438} and the quilboar away from them one at a time."] = "",
 
 	-- Step 45: Telf Joolam
 	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
@@ -675,6 +678,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end."] = "해적 야영지를 지나 해변을 따라 다시 내려가세요. 장화 상자와 렌즈가 든 깨지기 쉬운 상자는 해변 남쪽 끝에 있습니다.",
+	-- ["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them."] = "서슬갈기일족 야영지로 돌아가세요. 동쪽 절반은 흙점쟁이와 파수병이 차지하고 있으며, {npc:3438}은(는) 그들 사이를 돌아다닙니다.",
 	-- ["Back west along the road."] = "길을 따라 서쪽으로 돌아가세요.",
 	-- ["Burning Blade Cultists hold {area:1898} in northern {area:14}; they drop the {item:6652}. The {item:5026} comes from the Razormane on your next visit to their camp."] = "불타는칼날단 이교도는 {area:14} 북부의 {area:1898}을(를) 차지하고 있으며, {item:6652}을(를) 떨어뜨립니다. {item:5026}은(는) 다음에 서슬갈기일족 야영지에 갈 때 그들에게서 얻습니다.",
 	-- ["East to the {area:1703}; {npc:9316} stands at the camp just south of it."] = "동쪽의 {area:1703}(으)로 가세요. {npc:9316}은(는) 그 바로 남쪽 야영지에 있습니다.",
@@ -699,6 +703,7 @@ return {
 	-- ["The {area:383}"] = "{area:383}",
 	-- ["The {object:4141} stands at the Venture Co. research site west of the {area:382}. Close the three valves around the drill, use the console again, then take the {item:5089} from {npc:3471} beside it."] = "{object:4141}은(는) {area:382} 서쪽의 투자개발회사 연구 현장에 있습니다. 시추기 주변의 밸브 세 개를 잠그고 제어판을 다시 사용한 뒤, 그 옆의 {npc:3471}에게서 {item:5089}을(를) 얻으세요.",
 	-- ["Thun'grim camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "툰그림은 {area:380}에서 {area:392}(으)로 가는 길가에 야영하고 있습니다. {object:58369}은(는) 그 바로 북쪽, 서슬갈기일족 야영지 남쪽에 있습니다.",
+	-- ["Thunder Lizards and Lightning Hides graze just across the bridge below {area:379}."] = "천둥도마뱀과 번개도마뱀은 {area:379} 아래 다리 바로 건너편에서 풀을 뜯습니다.",
 	-- ["Walk back south to the {area:380}. The next guide starts here and takes you to {zone:1454} and the zeppelin to {zone:1420}."] = "남쪽의 {area:380}로 걸어서 돌아가세요. 다음 가이드는 여기서 시작해 {zone:1454}와(과) {zone:1420}행 비행선으로 안내합니다.",
 	-- ["Walk back west along the road to the {area:380}."] = "길을 따라 서쪽의 {area:380}로 돌아가세요.",
 	-- ["West to the {area:383}. The Witchwing harpies nest all over them; any of them can drop a talon. {quest:819} lies in their hills."] = "서쪽의 {area:383}(으)로 가세요. 칼날바람하피가 곳곳에 둥지를 틀고 있으며, 누구나 발톱을 떨어뜨릴 수 있습니다. {quest:819}은(는) 그 언덕에 있습니다.",

@@ -84,7 +84,7 @@ return {
 	["Inside {area:34}"] = "{area:34}里面",
 	-- {npc:248362} Shinyfinder Narf
 	-- plural, as words: Kobold Laborers = {npc:80} Kobold Laborer
-	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right."] = "{npc:80}在矿洞里的隧道中干活。{npc:248362}在右边第二个转弯处等候。",
+	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "",
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
 	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "{npc:80}在{area:34}附近走动：查看地图上的圆圈范围内",
 
@@ -254,9 +254,9 @@ return {
 	["Fun with Elementals: {npc:248464}"] = "绘本：和元素一起玩：{npc:248464}",
 
 	-- Step 50: Goldtooth
-	-- {quest:87} Goldtooth · {area:57} Fargodeep Mine · {item:1972} Westfall Deed
+	-- {quest:87} Goldtooth · {area:57} Fargodeep Mine · {item:1972} Westfall Deed · {npc:248464} Nimsy · {npc:79} Narg the Taskmaster
 	-- plural, as words: Defias Bandits = {npc:116} Defias Bandit
-	["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it."] = "{quest:87}在{area:57}里面，不在上方的山丘上：从入口进去，一直靠左走到矿洞底层的最深处；不要上楼梯。葡萄园周围的{npc:116}偶尔会掉落{item:1972}：右键点击它。",
+	["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it.\nCareful: {npc:248464} (6), a kobold deep in the mine, is elite, and {npc:79} (10, rare) walks the tunnels: pull the kobolds one at a time."] = "",
 	-- {item:981} Bernice's Necklace
 	["{item:981}; below ground"] = "{item:981}；在地下",
 
@@ -353,9 +353,9 @@ return {
 	-- Step 71: Jasperlode Mine: kill these as you meet them
 	-- {area:54} Jasperlode Mine
 	["{area:54}: kill these as you meet them"] = "{area:54}：遇到就杀",
-	-- {item:247816} Mining Tools
-	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer
-	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "矿洞在豺狼人营地西南方。{item:247816}在入口附近；{npc:476}占据着隧道。",
+	-- {item:247816} Mining Tools · {npc:471} Mother Fang · {npc:248474} Geosculptor Yip
+	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer · Mine Spiders = {npc:43} Mine Spider
+	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "",
 	["Walk into the mine"] = "走进矿洞",
 	-- {npc:476} Kobold Geomancer · {area:54} Jasperlode Mine
 	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "{npc:476}在{area:54}附近走动：在地图上的圆圈里找",
@@ -492,6 +492,7 @@ return {
 	-- ["From the {quest:2998} he gives you"] = "从他给你的{quest:2998}获得",
 	-- ["Head back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "穿过{area:87}返回，向东到{area:86}。{npc:6172}躺在湖南边：对他使用{item:6866}。他周围的{npc:474}带着{item:6846}。",
 	-- ["Head north-west across the fields to the {quest:91736}, north of the {area:120}. Hand it four Shiny Red Apples for a {item:247824}."] = "向西北穿过田野到{area:120}北边的{quest:91736}。交给它四个{item:4536}，换一瓶{item:247824}。",
+	-- ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right."] = "{npc:80}在矿洞里的隧道中干活。{npc:248362}在右边第二个转弯处等候。",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "{npc:46}和鱼人潜伏者遍布桥南边的河岸。迪菲亚成员{npc:473}在河西边的{area:62}巡逻。顺路收集完{npc:118}和{npc:822}。",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "鱼人觅食者和鱼人潜伏者遍布桥南边的河岸。迪菲亚成员{npc:473}在河西边的{area:62}巡逻。顺路杀完潜伏者和小森林熊。{npc:248278}也在鱼人河岸游荡：右键点击它掉落的头颅。{npc:248278}是精英：建议组队。",
 	-- ["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp."] = "鱼人和{npc:735}占据着东岸；{object:694785}在它们的营地里。",
@@ -505,6 +506,7 @@ return {
 	-- ["Stonetusk Boars graze between the vineyards and the farm."] = "{npc:113}在葡萄园和农场之间吃草。",
 	-- ["Tame Beast"] = "驯服野兽",
 	-- ["The Stonefield farm is west of the mine. Ma and \"Auntie\" Bernice stand by the house."] = "斯通菲尔德农场在矿洞西边。斯通菲尔德妈妈和波尼斯·斯通菲尔德姑妈站在房子旁。",
+	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "矿洞在豺狼人营地西南方。{item:247816}在入口附近；{npc:476}占据着隧道。",
 	-- ["The murloc camp"] = "鱼人营地",
 	-- ["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way."] = "{item:247813}、浸水的斧头和浸水的工具箱在桥南边的河里。{npc:330}是一头大野猪，和她的{npc:390}在河西边的{area:62}拱地：先把小猪拉开。沿途击杀{npc:118}和{npc:822}。",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英怪：建议组队，找人一起做。{quest:91740}需要2人小队。如果你独自一人就跳过：路线会让你把经验刷回来。",
@@ -538,4 +540,5 @@ return {
 	-- ["{npc:927}: {npc:6171} in {zone:1453} takes it"] = "{npc:927}：交给{zone:1453}的{npc:6171}",
 	-- ["{npc:955}: he wants your {item:247824}"] = "{npc:955}：他想要你的{item:247824}",
 	-- ["{object:694855} grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood."] = "{object:694855}生长在葡萄园和斯通菲尔德农场周围的田野里；周围的{npc:113}提供血液。",
+	-- ["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it."] = "{quest:87}在{area:57}里面，不在上方的山丘上：从入口进去，一直靠左走到矿洞底层的最深处；不要上楼梯。葡萄园周围的{npc:116}偶尔会掉落{item:1972}：右键点击它。",
 }

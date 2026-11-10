@@ -140,7 +140,7 @@ return {
 	["Syndicate missives"] = "비밀결사대 서신",
 	-- {quest:535} Valik
 	-- plural, as words: Syndicate Footpads = {npc:2240} Syndicate Footpad
-	["Only if {quest:535}'s missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one."] = "",
+	["Only if {quest:535}'s missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 29-30 they are well above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge."] = "",
 
 	-- Step 33: Helcular's Rod
 	-- {area:277} Foothill Caverns · {area:272} Tarren Mill

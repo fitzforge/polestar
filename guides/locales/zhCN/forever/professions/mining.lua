@@ -46,7 +46,7 @@ return {
 	-- {zone:1412} Mulgore
 	["Copper: {zone:1412} (1-50)"] = "铜矿：{zone:1412}（1-50）",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "开采沿途所有铜矿（1，橙色），沿路径点循环，直到{skill:186}50。背包满时去熔炉熔炼：{spell:2657}（25前为橙色，70变灰）也能提升技能。地区等级1-10。这49点预计需开采约60处矿点。",
+	["Mine every Copper (1, orange), Poor Copper (1, orange, rare) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "",
 
 	-- Step 8: Copper & Poor Copper: Tirisfal Glades (1-50)
 	-- {zone:1420} Tirisfal Glades
@@ -89,7 +89,7 @@ return {
 	-- {zone:1412} Mulgore
 	["Copper: {zone:1412} (50-65) cont."] = "铜矿：{zone:1412}（50-65）续",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "开采沿途每个铜矿（1，黄色）矿点，沿路径点循环，直到 {skill:186} 达到65。背包满时到熔炉旁熔炼：{spell:2657}（25前为橙色，70变灰）也能提升技能。地区等级1—10。提升这15点预计需开采约80个矿点。",
+	["Mine every Copper (1, yellow), Poor Copper (1, yellow, rare) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "",
 
 	-- Step 16: Copper & Poor Copper: Tirisfal Glades (50-65) cont.
 	-- {zone:1420} Tirisfal Glades
@@ -219,8 +219,10 @@ return {
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-25."] = "开采沿途所有铜矿（1，绿色）、锡矿（65，橙色）、银矿（75起），绕着路径点循环，直到{skill:186}达到125。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级10-25。",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 15-25."] = "开采沿途所有铜矿（1，绿色）、锡矿（65，橙色）、银矿（75起），绕着路径点循环，直到{skill:186}达到125。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级15-25。",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 20-30."] = "开采沿途所有铜矿（1，绿色）、锡矿（65，橙色）、银矿（75起），绕着路径点循环，直到{skill:186}达到125。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级20-30。",
+	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "开采沿途所有铜矿（1，橙色），沿路径点循环，直到{skill:186}50。背包满时去熔炉熔炼：{spell:2657}（25前为橙色，70变灰）也能提升技能。地区等级1-10。这49点预计需开采约60处矿点。",
 	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 1-10."] = "开采沿途所有铜矿（1，橙色），绕着路径点循环，直到{skill:186}达到50。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级1-10。",
 	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-20."] = "开采沿途所有铜矿（1，橙色），绕着路径点循环，直到{skill:186}达到50。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级10-20。",
+	-- ["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "开采沿途每个铜矿（1，黄色）矿点，沿路径点循环，直到 {skill:186} 达到65。背包满时到熔炉旁熔炼：{spell:2657}（25前为橙色，70变灰）也能提升技能。地区等级1—10。提升这15点预计需开采约80个矿点。",
 	-- ["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 1-10."] = "开采沿途所有铜矿（1，黄色），绕着路径点循环，直到{skill:186}达到65。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级1-10。",
 	-- ["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-20."] = "开采沿途所有铜矿（1，黄色），绕着路径点循环，直到{skill:186}达到65。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级10-20。",
 	-- ["Mine every Gold (155, green), Mithril (175, green), Truesilver (230, orange), Small Thorium (245, orange) node you pass and circle the waypoints until {skill:186} 275. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 45-55."] = "开采沿途所有金矿石（155，绿色）、秘银矿脉（175，绿色）、真银矿石（230，橙色）、瑟银矿脉（245，橙色），绕着路径点循环，直到{skill:186}达到275。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级45-55。",

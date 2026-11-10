@@ -167,9 +167,9 @@ return {
 	["Moonstalker Fangs"] = "Presas de Espreitaluna",
 
 	-- Step 31: The Tower of Althalaxx
-	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale
-	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic
-	["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}."] = "A leste de Caixazorra 323, {npc:3661} se esconde ao pé da torre entre os Fanáticos da Linhagem das Trevas. Guarde a carta dele para Dinis, o Purificador, em {zone:1440}.",
+	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale · {npc:3660} Athrikus Narassin
+	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
+	["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}.\nCareful: Dark Strand Voidcallers (28-29) with their voidwalkers and {npc:3660} (31) stand in the tower itself: take the parchments from the Fanatics south of it and keep away from the tower."] = "",
 	-- {item:5348} Worn Parchment
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic
 	["{item:5348}: Dark Strand Fanatics"] = "{item:5348}: Fanáticos da Linhagem das Trevas",
@@ -209,6 +209,7 @@ return {
 	-- ["Boat to {zone:1453}"] = "Barco para {zone:1453}",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. Then fly back to {area:442} from {area:2361}."] = "Lance {spell:18960}. {npc:11802} está em {area:2361}. Adornos de Altar ficam nos recipientes no fundo de {area:656}, abaixo de {area:2361}: leve um até {area:2362} a noroeste, use-o lá e fale com {npc:11799}. Depois voe de volta para {area:442} a partir de {area:2361}.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "Lance {spell:18960}. {npc:11802} está em {area:2361}; aprenda a rota de voo de lá se ainda não a tiver.",
+	-- ["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}."] = "A leste de Caixazorra 323, {npc:3661} se esconde ao pé da torre entre os Fanáticos da Linhagem das Trevas. Guarde a carta dele para Dinis, o Purificador, em {zone:1440}.",
 	-- ["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "Escolte-a para fora da glaive; Therysil recebe a entrega em {zone:1440}",
 	-- ["Fine Moonstalker Pelts"] = "Pelagens de Espreitaluna Finas",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "Siga a costa para nordeste até {area:443}. {quest:951} estão entre as ruínas; Mirmidões Skamatrom, Feiticeiras Skamatrom e Guerreiros Skamatrom as ocupam, e Senhoras das Feras Skamatrom andam pela costa.",

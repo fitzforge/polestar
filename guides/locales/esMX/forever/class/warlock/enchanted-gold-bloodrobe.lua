@@ -7,9 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {npc:6266} Menara Voidrender · {zone:1443} Desolace
-	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile
-	["A rare cloth robe for your 30s, which {npc:6266} makes from the parts you bring her. It opens at 31; its last parts wait for level 35 ({zone:1443}'s infernals, 36-37) and 37 (Arathi's Burning Exiles, 38-39)."] = "",
+	-- {npc:6266} Menara Voidrender
+	["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 35 and 37."] = "",
 
 	-- Step 1: In Search of Menara Voidrender (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
