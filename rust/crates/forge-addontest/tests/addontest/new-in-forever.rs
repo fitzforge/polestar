@@ -115,8 +115,8 @@ fn a_forever_quest_s_goal_row_and_its_tooltip_carry_the_mark_a_classic_one_does_
 	assert_eq!(strs(&out[5]), on, "back on");
 }
 
-// A hand-in "While you're here" line names its quest: the mark follows the quoted name on the window's row, its
-// tooltip and the toast; a line of work (no quest name) has none.
+// A hand-in "While you're here" line names its quest: the mark follows the quoted name on its row in the card above
+// the window, its tooltip and the toast; a line of work (no quest name) has none.
 #[test]
 fn a_while_you_re_here_hand_in_of_a_forever_quest_carries_the_mark_on_its_row_tooltip_and_toast() {
 	let out = run(r#"
@@ -127,7 +127,7 @@ fn a_while_you_re_here_hand_in_of_a_forever_quest_carries_the_mark_on_its_row_to
 		end
 		local list = { view(98240, "Crimson Crate Delivery"), view(783, "A Threat Within") }
 		GF.FillHere({ GetWhileHereList = function() return list end })
-		local H = GF.parts.here
+		local H = GF.stepList.out.wh
 		emit({ H.Rows[1].Text:GetText(), H.Rows[2].Text:GetText() })
 		emit(tipLines(H.Rows[1]))
 		Polestar.UI.WhileHereToast.Show(list[1])

@@ -1607,11 +1607,14 @@ function SL.WHRow(i)
 		local v = self.psView
 		if not v then return end
 		self.Hover:Show()
-		W.Tooltip(self, tooltipAnchor(), L["While you're here:"] .. " " .. (v.hereText or ""), {
+		local lines = {
 			string.format(L["Step %d does this later; done now, that step is shorter or skipped when you get there."], UI.StepNo(v.step)),
-			{ L["Click to point the arrow here"], Theme.Accent() },
-			{ L["Right-click: not now, around here (twice: for the rest of this zone)."], Theme.Color("textDim") },
-		})
+		}
+		local new = (v.here == "turnin" or v.here == "take") and ns.NewQuests and ns.NewQuests.TooltipText(v.quest)
+		if new then lines[#lines + 1] = { new, Theme.Accent() } end
+		lines[#lines + 1] = { L["Click to point the arrow here"], Theme.Accent() }
+		lines[#lines + 1] = { L["Right-click: not now, around here (twice: for the rest of this zone)."], Theme.Color("textDim") }
+		W.Tooltip(self, tooltipAnchor(), L["While you're here:"] .. " " .. UI.HereText(v), lines)
 		GF.HoverIn()
 	end)
 	r:SetScript("OnLeave", function(self)
@@ -1649,7 +1652,7 @@ function SL.FillWH(list)
 		r.psView = v
 		r.Icon:SetTexture(Theme.VerbIcon(v.here == "turnin" and "turnin" or v.t))
 		W.Color(r.Icon, "textDim")
-		r.Text:SetText(v.here == "turnin" and (v.hereText or "") or UI.GoalLine(v, nil, true))
+		r.Text:SetText((v.here == "turnin" or v.here == "take") and UI.HereText(v) or UI.GoalLine(v, nil, true))
 		SL.WHMeta(r, v.yards)
 		r:Show()
 	end
@@ -3283,7 +3286,7 @@ local function layoutCard(width)
 		local nameW = cw - ICON - (TEXT_X - PAD - ICON)
 		-- The tick box of a goal the title took over, at the right of its first line.
 		local checkW = 0
-		if person.Check:IsShown() then
+		if rawget(person, "Check") and person.Check:IsShown() then
 			checkW = CHECK + 4 + CHECK_IN
 			local _, size = person.Name:GetFont()
 			person.Check:ClearAllPoints()
@@ -4430,10 +4433,14 @@ end
 
 -- The title row's tick box, for the goal it took over (GF.TitleTakeover).
 function GF.PaintTitleCheck()
-	local goal, c = person.psTakeover, person.Check
+	local goal, c = person.psTakeover, rawget(person, "Check")
 	local on = goal ~= nil and goal.tickable and true or false
-	c:SetShown(on)
-	if not on then return end
+	if not on then
+		if c then c:Hide() end
+		return
+	end
+	c = c or GF.NewTitleCheck()
+	c:Show()
 	local done = goal.status == "done"
 	c.psChecked = done
 	c:SetChecked(done)
@@ -6323,19 +6330,24 @@ local function build()
 	person.Rule:SetPoint("BOTTOMRIGHT", person, "BOTTOMRIGHT", -PAD, 0)
 	W.Color(person.Rule, "separator")
 	person.Rule:Hide()
-	-- The tick box of the goal the title took over (GF.TitleTakeover).
-	person.Check = W.Checkbox(person, function(c)
-		c:SetChecked(c.psChecked)
-		toggleGoal({ psGoal = person.psTakeover })
-	end)
-	person.Check:SetScript("OnEnter", function(c)
-		local goal = person.psTakeover
-		local tip = not goal and "" or (goal.ticked and L["Untick"]) or (goal.status == "done" and L["Done"]) or L["Tick it done"]
-		W.Tooltip(c, "ANCHOR_TOP", tip, goal and goal.status == "done" and not goal.ticked and { L["The game counts this one itself."] } or nil)
-		GF.HoverIn()
-	end)
-	person.Check:SetScript("OnLeave", function(c) W.HideTooltip(c) end)
-	person.Check:Hide()
+	-- The tick box of the goal the title took over (GF.TitleTakeover), made
+	-- the first time a title takes one over (GF.PaintTitleCheck), as the goal
+	-- rows' boxes are.
+	function GF.NewTitleCheck()
+		local c = W.Checkbox(person, function(c)
+			c:SetChecked(c.psChecked)
+			toggleGoal({ psGoal = person.psTakeover })
+		end)
+		c:SetScript("OnEnter", function(c)
+			local goal = person.psTakeover
+			local tip = not goal and "" or (goal.ticked and L["Untick"]) or (goal.status == "done" and L["Done"]) or L["Tick it done"]
+			W.Tooltip(c, "ANCHOR_TOP", tip, goal and goal.status == "done" and not goal.ticked and { L["The game counts this one itself."] } or nil)
+			GF.HoverIn()
+		end)
+		c:SetScript("OnLeave", function(c) W.HideTooltip(c) end)
+		person.Check = c
+		return c
+	end
 	person:SetScript("OnClick", function(self) pointAt(self.psPlace, self.psLabel) end)
 	person:SetScript("OnEnter", personEnter)
 	person:SetScript("OnLeave", personLeave)
