@@ -263,7 +263,6 @@ step The Cape of Stranglethorn: kill these as you meet them
 step Booty Bay
   tip Head south to Booty Bay. Shaky Phillipe waits on the docks.
   turnin 606                            -- "Shaky" Phillipe
-  turnin 628 optional                   -- Drizzlik, inside: the Elder Crocolisk Skin
   accept 607
   sethome "Booty Bay" npc 6807          -- Innkeeper Skindle, upstairs
   accept 580                            -- Whiskey Slim, in the inn: his bottles wash up on the Hinterlands coast, around level 48
@@ -274,6 +273,7 @@ step Booty Bay
   accept 2872                           -- MacKinley, on the top floor: for Stoley in Tanaris
   accept 609
   turnin 348                            -- Fin Fizracket
+  turnin 628 optional                   -- Drizzlik, inside: the Elder Crocolisk Skin
   vendor nearest
 
 step Zanzil's camps
