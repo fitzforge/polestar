@@ -307,6 +307,29 @@ local function rowMenu(row)
 	return true
 end
 
+-- A goal of the step the guide is on: the Engine leads the arrow there
+-- (its spawn areas and spots too, which a click on the arrow moves on
+-- through) and drops any point picked by hand; a goal whose quest is not
+-- taken yet leaves the arrow on the accept and says so (#1385). False for a
+-- goal anywhere else. (On GF: the main chunk is at Lua's 200 locals.)
+function GF.AimGoal(goal)
+	local E, nav = Engine(), ns.Nav
+	if not (goal and goal.index and view and E and E.AimGoal and E.GetStepIndex and E.GetStepIndex() == view.index) then return false end
+	local aimed, why, title = E.AimGoal(view.index, goal.index)
+	if not (aimed or why == "accept") then return false end
+	if nav and nav.ReleaseTarget then nav.ReleaseTarget() end
+	GF.UpdateTargets()
+	if why == "accept" then
+		local message = string.format(L["Take %s first"], ns.Quoted(title) or "")
+		if UIErrorsFrame and UIErrorsFrame.AddMessage then
+			UIErrorsFrame:AddMessage(message, 1, 0.82, 0)
+		else
+			ns.Print(message)
+		end
+	end
+	return true
+end
+
 local function rowClick(row, button)
 	local goal = row.psGoal
 	if not goal then return end
@@ -314,28 +337,8 @@ local function rowClick(row, button)
 		if not rowMenu(row) then toggleGoal(row) end
 		return
 	end
-	-- A goal of the step the guide is on: the Engine leads the arrow there
-	-- (its spawn areas and spots too) and drops any point picked by hand;
-	-- a goal whose quest is not taken yet leaves the arrow on the accept and
-	-- says so (#1385). Anywhere else, a plain point.
-	local E, nav = Engine(), ns.Nav
-	local onStep = view and E and E.AimGoal and E.GetStepIndex and E.GetStepIndex() == view.index
-	local aimed, why, title
-	if onStep then aimed, why, title = E.AimGoal(view.index, goal.index) end
-	if aimed or why == "accept" then
-		if nav and nav.ReleaseTarget then nav.ReleaseTarget() end
-		GF.UpdateTargets()
-		if why == "accept" then
-			local message = string.format(L["Take %s first"], ns.Quoted(title) or "")
-			if UIErrorsFrame and UIErrorsFrame.AddMessage then
-				UIErrorsFrame:AddMessage(message, 1, 0.82, 0)
-			else
-				ns.Print(message)
-			end
-		end
-	else
-		pointAt(goal, goal.text)
-	end
+	-- Anywhere else than the step the guide is on, a plain point.
+	if not GF.AimGoal(goal) then pointAt(goal, goal.text) end
 end
 
 local function rowEnter(row)
@@ -1091,6 +1094,7 @@ local function paintPerson(group)
 	person.Where:SetShown(where ~= nil)
 	person.psPlace = place
 	person.psLabel = UI.GroupName(view, group)
+	person.psGroup = group
 	-- The arrow on this person marks the header; a field group's goals carry
 	-- their own marks, except the "Go to" the header stands for.
 	person.psPerson = kind ~= "here"
@@ -4769,7 +4773,21 @@ local function build()
 	person.Rule:SetPoint("BOTTOMRIGHT", person, "BOTTOMRIGHT", -PAD, 0)
 	W.Color(person.Rule, "separator")
 	person.Rule:Hide()
-	person:SetScript("OnClick", function(self) pointAt(self.psPlace, self.psLabel) end)
+	-- The header of the step the guide is on leads the arrow to its group's
+	-- first open goal as a click on that goal's line does, so the arrow keeps
+	-- moving on through the goal's spots (#1653: a point picked by hand there
+	-- held the arrow on one spot); anywhere else, a plain point.
+	person:SetScript("OnClick", function(self)
+		local group, goal = self.psGroup, nil
+		for _, gi in ipairs(group and view and group.goals or {}) do
+			local g = view.goals[gi]
+			if g and g.map and g.x and (g.status == "active" or g.status == "pending") then
+				goal = g
+				break
+			end
+		end
+		if not GF.AimGoal(goal) then pointAt(self.psPlace, self.psLabel) end
+	end)
 	person:SetScript("OnEnter", personEnter)
 	person:SetScript("OnLeave", personLeave)
 	person:SetScript("OnHide", personLeave)

@@ -1536,6 +1536,56 @@ fn world_map_pins_target_and_open_goals_on_the_viewed_map_with_tooltip_and_click
 	assert_eq!(out["otherMap"], 1, "only the goal on the viewed map");
 }
 
+// #1653: a click on the pin of one of the step's goals leads the arrow there through the Engine (Engine.AimGoal), as
+// a click on its line in the guide window does, so a click on the arrow still moves on through the goal's spots; a
+// point picked by hand there held the arrow on one place. A goal whose quest waits for its accept leaves the arrow on
+// the accept and says so (#1385). An Along the way goal's pin still sets a point.
+#[test]
+fn a_click_on_a_step_goal_s_map_pin_aims_the_engine_so_the_arrow_still_moves_on_through_its_spots() {
+	let out = run(r#"
+		local m, x, y = nav.mapPoint(100, 0)
+		nav.engine.views[1] = { index = 1, goals = {
+			{ index = 1, status = "active", text = "Target goal", map = m, x = x, y = y },
+			{ index = 2, status = "active", text = "Accept Silver of the Waves", map = 9000, x = 60, y = 60 },
+		} }
+		function nav.Engine.GetAlong() return { { goals = { { index = 1, status = "active", text = "Along goal", map = 9000, x = 30, y = 30 } } } } end
+		local aimed, cycled, answer = {}, nil, true
+		function nav.Engine.AimGoal(s, g)
+			aimed[#aimed + 1] = { s, g }
+			if answer ~= true then return false, "accept", "Silver of the Waves" end
+			local _, sx, sy = nav.mapPoint(-100, 0)
+			nav.setWaypoint({ map = 9000, x = 60, y = 60, label = "Accept Silver of the Waves", stepIndex = 1, goalIndex = 2, kind = "accept", r = 8,
+				area = 15, spots = { { x = 60, y = 60, r = 15 }, { x = sx, y = sy, r = 15 } }, spot = 1 })
+			return true
+		end
+		function nav.Engine.CycleSpot(s, g, i) cycled = { s, g, i or 0 }; return 2 end
+		local said = {}
+		function UIErrorsFrame.AddMessage(_, message) said[#said + 1] = message end
+		local function pinFor(label)
+			for _, pin in ipairs(nav.pins()) do
+				if pin.data.layer.name == "nav.goals" and nav.tooltipOf(pin)[1] == label then return pin end
+			end
+		end
+		nav.setWaypoint(wp(100, 0, "Target goal"))
+		nav.showWorldMap(9000)
+		local r = {}
+		nav.click(pinFor("Accept Silver of the Waves"), "LeftButton")
+		r.aimed = { aimed[1], N.IsOverride(), N.GetTarget().goalIndex }
+		r.next = { N.NextSpot(), cycled }
+		nav.setWaypoint(wp(100, 0, "Target goal"))
+		nav.click(pinFor("Along goal"), "LeftButton")
+		r.along = { #aimed, N.IsOverride(), N.GetTarget().label }
+		N.ReleaseTarget()
+		answer = false
+		nav.click(pinFor("Accept Silver of the Waves"), "LeftButton")
+		r.accept = { aimed[#aimed], N.IsOverride(), said[1] or false }
+		emit(r)"#);
+	assert_eq!(out["aimed"], json!([[1, 2], false, 2]), "the Engine's waypoint, not a point by hand");
+	assert_eq!(out["next"], json!([true, [1, 2, 0]]), "a click on the arrow moves on to the goal's next spot");
+	assert_eq!(out["along"], json!([1, true, "Along goal"]), "an Along the way goal: a point, the Engine not asked");
+	assert_eq!(out["accept"], json!([[1, 2], false, "Take “Silver of the Waves” first"]));
+}
+
 #[test]
 fn a_step_change_waits_for_the_engine_waypoint_no_stale_re_apply_no_second_chime_no_tomtom_churn() {
 	let out = run(r#"
