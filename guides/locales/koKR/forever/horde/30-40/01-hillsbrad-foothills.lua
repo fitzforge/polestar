@@ -114,12 +114,12 @@ return {
 	-- Step 25: Durnholde Keep
 	-- {npc:2238} Tog'thar · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key
 	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "",
-	["Drull's ball and chain"] = "",
+	["Drull's ball and chain"] = "드럴의 족쇄",
 	-- {npc:2238} Tog'thar
-	["{npc:2238}'s ball and chain"] = "",
+	["{npc:2238}'s ball and chain"] = "{npc:2238}의 족쇄",
 
 	-- Step 26: The smithy
-	["The smithy"] = "",
+	["The smithy"] = "대장간",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron
 	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it."] = "",
 	["Inside"] = "",
