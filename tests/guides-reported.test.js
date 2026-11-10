@@ -10641,3 +10641,37 @@ test("creazy231's report (#1660): a player who did the 22-25 Hillsbrad guide see
 	for (const q of ['532', '533']) assert.ok(!/skipped|na/.test(out.accepts[q]), `${q} is open: ${out.accepts[q]}`);
 });
 
+// Centaur reputation, Magram (Discord, 2026-11-10: "Magram rep missing from the guide"): the guide went to the Magram
+// half only with Brutal Politics or Magram Alliance in the log, so a player who took only Buying Friendship: Magram,
+// or had handed the choice quest in, stayed on the Gelkis steps; a Gelkis player who had handed in only Buying
+// Friendship: Gelkis went on into the Magram half. Both Buying Friendships wait for Carved Centaur Totems
+// (players' recordings).
+const CENTAURS = 'forever/reputation/centaur-clans.guide';
+const TAUREN_WARRIOR_40 = { race: 'Tauren', raceName: 'Tauren', faction: 'Horde', cls: 'WARRIOR', className: 'Warrior', level: 40 };
+// The title of the live step once the clan's quests are taken and the totems handed in (`before`: the world).
+function centaurLive(before) {
+	return engineRun(CENTAURS, TAUREN_WARRIOR_40, {
+		before: `w.complete({ 93225 }); ${before}`,
+		after: `for g, v in ipairs(E.GetStepView(1).goals) do if v.t == "task" then E.ToggleGoal(1, g) end end`,
+		script: 'emit({ live = E.GetGuide().steps[E.GetLiveStep()].title })',
+	}).live;
+}
+
+test('Centaur reputation: Buying Friendship of either clan alone picks the clan, Gelkis first, and the totems come first', { skip }, () => {
+	const list = goals(CENTAURS);
+	for (const [totems, bf] of [[93224, 93226], [93224, 93227], [93225, 94872], [93225, 94873]]) {
+		assert.ok(at(list, `turnin ${totems}`, is('turnin', totems)) < at(list, `accept ${bf}`, is('accept', bf)), `${totems} before ${bf}`);
+	}
+	assert.equal(centaurLive('w.onQuest(94872, {})'), 'Magram Village: Warug and Gorhak', 'Buying Friendship: Magram alone');
+	assert.equal(centaurLive('w.complete({ 1367 })'), 'Magram Village: Warug and Gorhak', 'Magram Alliance handed in');
+	assert.equal(centaurLive('w.onQuest(94872, {}); w.onQuest(94873, {})'), 'Gelkis Village: Uthek and Molkar', 'both clans: the Gelkis');
+	assert.equal(centaurLive('w.onQuest(1368, {})'), 'Gelkis Village: Uthek and Molkar');
+});
+
+test('Centaur reputation: a Gelkis player at the end of the Gelkis half goes to the recipes, not the Magram half', { skip }, () => {
+	const list = goals(CENTAURS);
+	const router = list.find(({ step }) => step.title === 'Gelkis done').step;
+	const to = (q) => router.skipto.some((k) => k.to === 'recipes' && [].concat(k.when.q).includes(q));
+	for (const q of [1382, 93227, 1368, 94873]) assert.ok(to(q), `${q} handed in or carried: the recipes`);
+	assert.ok(list.findIndex(({ step }) => step === router) < list.findIndex(({ step }) => step.label === 'magram'), 'before the Magram half');
+});
