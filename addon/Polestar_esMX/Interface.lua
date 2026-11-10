@@ -1190,6 +1190,8 @@ L["If you finish this quest and the chain before it"] = "Si terminas esta misió
 L["You are level %d. Level %d is recommended for the first quest in this chain; from there:"] = "Eres de nivel %d. Para la primera misión de esta cadena se recomienda el nivel %d; desde ahí:"
 L["%s XP with its chain"] = "%s PE con su cadena"
 L["Waiting:"] = "En espera:"
+-- L["best at %d"] = ""
+-- L["Tough at your level"] = ""
 
 -- UI/GearPick.lua
 L["new"] = "nuevo"

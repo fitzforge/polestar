@@ -177,7 +177,7 @@ fn show_dungeon_nil_opens_the_hub_at_home_level_bands_in_the_sidebar_the_dungeon
 	assert!(is_match(out["sub"].as_str().unwrap(), r"^Level 20 .+ 1 dungeon to run now$"), "{}", out["sub"]);
 	assert_eq!(out["tabRow"], true, "the tab row stays for the faction filter");
 	assert_eq!(out["shown"]["band"], "level");
-	assert_eq!(out["stats"], "17\u{2013}24  \u{b7}  The Barrens  \u{b7}  4 quests");
+	assert_eq!(out["stats"], "17\u{2013}24  \u{b7}  best at 19  \u{b7}  The Barrens  \u{b7}  4 quests");
 	assert_eq!(out["chip"], false, "no \"Your level\" chip where every card is");
 }
 
@@ -219,6 +219,71 @@ fn for_your_level_starts_at_the_recommended_level_and_leaves_out_dungeons_inside
 	assert_eq!(out["a13"], json!(["The Hall of Thanes"]), "not Ragefire Chasm (Orgrimmar) for the Alliance");
 	assert_eq!(out["a15"], json!(["Ruins of Lordaeron", "The Hall of Thanes"]), "the Ruins lie outside the Undercity: the Alliance can get there");
 	assert_eq!(out["all13"], json!(["Ragefire Chasm", "The Hall of Thanes"]), "All shows both sides'");
+}
+
+// A player asked why Uldaman (35-47) showed under "For your level" at 35, where most of it suits ~42. It still
+// shows inside its range, but the cards go by closeness to where each suits best (Dungeons.BestAt), the ones the
+// player is 4+ levels under come after the ones that fit and say "Tough at your level" (a calm chip, not the
+// warning colour), and each card and page says "best at N" after the range.
+#[test]
+fn for_your_level_sorts_by_closeness_to_best_at_and_marks_dungeons_4_levels_under_it_tough_uldaman_at_35_vs_42() {
+	let out = run(r#"
+		Polestar.Dungeons.Load()
+		local function bosses(list)
+			local t = {}
+			for i, l in ipairs(list) do t[i] = string.format("{order=%d,name=%q,level=%d}", i, "Boss " .. i, l) end
+			return "return {bosses={" .. table.concat(t, ",") .. "}}"
+		end
+		Polestar.Dungeons.Register("dungeon", {
+			uldaman = { name = "Uldaman", kind = "dungeon", minLevel = 35, maxLevel = 47, players = 10, zoneName = "Badlands" },
+			["scarlet-monastery"] = { name = "Scarlet Monastery", kind = "dungeon", minLevel = 30, maxLevel = 42, players = 10, zoneName = "Tirisfal Glades" },
+			["razorfen-downs"] = { name = "Razorfen Downs", kind = "dungeon", minLevel = 35, maxLevel = 41, players = 10, zoneName = "The Barrens" },
+		}, {
+			uldaman = bosses({ 40, 42, 44, 44, 45, 46, 47 }),
+			["scarlet-monastery"] = bosses({ 32, 35, 37, 40, 42 }),
+			["razorfen-downs"] = bosses({ 39, 40, 40, 41 }),
+		})
+		local function at(level)
+			uistub.player.level = level
+			Polestar.Dungeons.Open()
+			DS.SetFaction("All")
+			DS.SetBand("level")
+			local out = {}
+			for _, c in ipairs(DS.cards) do
+				if c:IsShown() then
+					out[#out + 1] = { c.Name:GetText(), c.Yours:IsShown() and c.Yours.Text:GetText() or false, c.Stats:GetText() }
+				end
+			end
+			return out
+		end
+		local at35, at42 = at(35), at(42)
+		DS.SetBand("all")
+		local chips = {}
+		for _, c in ipairs(DS.cards) do
+			if c:IsShown() and c.Yours:IsShown() then chips[c.Name:GetText()] = c.Yours.Text:GetText() end
+		end
+		uistub.player.level = 35
+		DS.SetBand("all")
+		local tough = {}
+		for _, c in ipairs(DS.cards) do
+			if c:IsShown() and c.Name:GetText() == "Uldaman" then tough = { c.Yours:IsShown(), c.Yours.Text:GetText() } end
+		end
+		Polestar.Dungeons.Open("uldaman")
+		local _, _, pg = DS.Frames()
+		emit({ at35 = at35, at42 = at42, chips = chips, tough = tough, sub = pg.Sub:GetText() })"#);
+	let out = &out[0];
+	let names = |v: &Value| v.as_array().unwrap().iter().map(|c| c[0].as_str().unwrap().to_string()).collect::<Vec<_>>();
+	assert_eq!(names(&out["at35"]), ["Scarlet Monastery", "Razorfen Downs", "Uldaman"], "at 35 the Monastery (best at 36) fits; Razorfen Downs (39) and Uldaman (43) are tough, nearest first");
+	assert_eq!(out["at35"][0][1], false, "no chip on a card that fits under For your level");
+	assert_eq!(out["at35"][1][1], "Tough at your level");
+	assert_eq!(out["at35"][2][1], "Tough at your level");
+	assert_eq!(out["at35"][2][2], "35\u{2013}47  \u{b7}  best at 43  \u{b7}  Badlands\nNo quests known", "the chip leaves less room: the facts break between two");
+	assert_eq!(names(&out["at42"]), ["Uldaman", "Scarlet Monastery"], "at 42 Uldaman (best at 43) comes first; Razorfen Downs (35-41) is behind you");
+	assert_eq!(out["at42"][0][1], false, "not tough at 42");
+	assert_eq!(out["at42"][1][1], false, "6 over best at is no reason to warn");
+	assert_eq!(out["chips"]["Uldaman"], "Your level", "under All at 42: the usual chip");
+	assert_eq!(out["tough"], json!([true, "Tough at your level"]), "under All at 35 the chip says it is tough");
+	assert!(out["sub"].as_str().unwrap().starts_with("Levels 35\u{2013}47  \u{b7}  best at 43  \u{b7}  Badlands"), "{}", out["sub"]);
 }
 
 #[test]
@@ -296,7 +361,10 @@ fn a_page_the_painting_header_with_the_name_facts_and_actions_tabs_with_counts_g
 			back = (function() DS.Home() return { DS.Page() or false, PolestarPicker.Title:GetAlpha(), PolestarPicker.Band:IsShown(), pg:IsShown() } end)() })"#);
 	let out = &out[0];
 	// The facts break between two facts where the actions leave too little room.
-	assert_eq!(out["head"], json!(["Wailing Caverns", "Levels 17\u{2013}24  \u{b7}  The Barrens  \u{b7}  10 players\n4 bosses", true, true, true, false, "Wailing Caverns", 0, false, true]));
+	assert_eq!(
+		out["head"],
+		json!(["Wailing Caverns", "Levels 17\u{2013}24  \u{b7}  best at 19  \u{b7}  The Barrens\n10 players  \u{b7}  4 bosses", true, true, true, false, "Wailing Caverns", 0, false, true])
+	);
 	assert_eq!(out["tabs"], json!(["Quests  4", "Attunement", "Bosses  4", "Map"]), "the fixture gives Wailing Caverns an attunement");
 	assert_eq!(out["nav"], json!([1413, 46, 36.4, "Wailing Caverns"]));
 	assert_eq!(out["map"], 1413);

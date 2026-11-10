@@ -1375,6 +1375,8 @@ L["If you finish this quest and the chain before it"] = "Wenn du diese Quest und
 L["You are level %d. Level %d is recommended for the first quest in this chain; from there:"] = "Du bist Stufe %d. Für die erste Quest dieser Questreihe wird Stufe %d empfohlen; ab dort:"
 L["%s XP with its chain"] = "%s EP mit ihrer Questreihe"
 L["Waiting:"] = "Wartet:"
+-- L["best at %d"] = ""
+-- L["Tough at your level"] = ""
 
 -- UI/Lookup.lua
 L["Mount"] = "Reittier"

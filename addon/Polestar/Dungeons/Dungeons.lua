@@ -19,6 +19,9 @@
 --       (name and zoneName in the client's language when it has them; map: the instance's Map id)
 --   Dungeons.Get(key) -> { key, name, kind, forever, minLevel, maxLevel, players, map, zone, zoneName, entrance } | nil
 --   Dungeons.Entrance(key) -> map, x, y, f | nil
+--   Dungeons.BestAt(key) -> level | nil   -- the level it suits best, inside its range: one under the
+--       median level of its encounter bosses, else of all its bosses, else of its quests, else the
+--       range's midpoint (the first that falls inside the range); nil without a level range
 --   Dungeons.EnemyEntrance(key[, side]) -> text | nil   -- side "A" | "H" (nil: this character's): the
 --       way in lies in the other faction's land (Ruins of Lordaeron outside the Undercity, The Hall of
 --       Thanes in Ironforge, Ragefire Chasm, the Stockade): "Entrance in Horde territory (...)"
@@ -74,7 +77,7 @@ ns.Dungeons = Dungeons
 
 local type, pairs, ipairs, pcall, tostring = type, pairs, ipairs, pcall, tostring
 local find, lower, format, gsub = string.find, string.lower, string.format, string.gsub
-local sort = table.sort
+local sort, floor = table.sort, math.floor
 
 ns.RegisterDefaults("dungeons", { enabled = true, headsUp = true }) -- headsUp: UI/DungeonToast.lua
 
@@ -85,6 +88,7 @@ local meta
 local summaries = {} -- key -> summary table
 local sources = {} -- key -> page source (string)
 local openKey, openPage -- the one decoded page
+local bestAt = {} -- key -> level | false (Dungeons.BestAt)
 
 ---------------------------------------------------------------------------
 -- Registration and loading
@@ -96,7 +100,7 @@ function Dungeons.Register(group, a, b)
 	elseif group == "dungeon" then
 		if type(a) == "table" then for k, v in pairs(a) do summaries[k] = v end end
 		if type(b) == "table" then for k, v in pairs(b) do sources[k] = v end end
-		openKey, openPage = nil, nil
+		openKey, openPage, bestAt = nil, nil, {}
 	end
 end
 
@@ -292,6 +296,66 @@ function Dungeons.Get(key)
 	local s = key ~= nil and ready() and summaries[key]
 	if not s then return nil end
 	return summary(key, s)
+end
+
+-- The level a dungeon suits best (a player asked why Uldaman, 35-47, was "for
+-- your level" at 35, where most of it suits ~42). The players' side of the
+-- bosses: one level under their median, which lands where a run fits
+-- (Deadmines 19, Uldaman 43, Zul'Farrak 45, Blackrock Depths 54). A source
+-- counts only when it falls inside the range: the City of Dalaran (28-60)
+-- has one level 63 boss and reads its quests instead. Worked out from the
+-- page source once per dungeon, without decoding names.
+local function median(t)
+	local n = #t
+	if n == 0 then return nil end
+	sort(t)
+	if n % 2 == 1 then return t[(n + 1) / 2] end
+	return (t[n / 2] + t[n / 2 + 1]) / 2
+end
+
+local function pageFacts(key)
+	if key == openKey then return openPage end
+	local src = sources[key]
+	if type(src) ~= "string" then return nil end
+	local fn = loadstring(src, "=Dungeons:" .. tostring(key))
+	if not fn then return nil end
+	setfenv(fn, {})
+	local ok, p = pcall(fn)
+	return ok and type(p) == "table" and p or nil
+end
+
+local function deriveBestAt(key, s)
+	local lo, hi = s.minLevel, s.maxLevel or s.minLevel
+	if type(lo) ~= "number" then return nil end
+	if hi <= lo then return lo end
+	local p = pageFacts(key)
+	local encounters, bosses, quests = {}, {}, {}
+	for _, b in ipairs(p and p.bosses or {}) do
+		if type(b.level) == "number" then
+			bosses[#bosses + 1] = b.level
+			if not b.role then encounters[#encounters + 1] = b.level end
+		end
+	end
+	for _, q in ipairs(p and p.quests or {}) do
+		if type(q.level) == "number" and q.level > 0 then quests[#quests + 1] = q.level end
+	end
+	local function inside(m, under)
+		if not m then return nil end
+		local v = floor(m + 0.5) - under
+		return v >= lo and v <= hi and v or nil
+	end
+	return inside(median(encounters), 1) or inside(median(bosses), 1) or inside(median(quests), 0) or floor((lo + hi) / 2)
+end
+
+function Dungeons.BestAt(key)
+	local s = key ~= nil and ready() and summaries[key]
+	if not s then return nil end
+	local v = bestAt[key]
+	if v == nil then
+		v = deriveBestAt(key, s) or false
+		bestAt[key] = v
+	end
+	return v or nil
 end
 
 function Dungeons.Entrance(key)

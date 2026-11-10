@@ -1713,6 +1713,8 @@ L["If you finish this quest and the chain before it"] = "이 퀘스트와 선행
 L["You are level %d. Level %d is recommended for the first quest in this chain; from there:"] = "현재 레벨 %d입니다. 이 연계의 첫 퀘스트 권장 레벨은 %d이며, 그 레벨부터:"
 L["%s XP with its chain"] = "연계 포함 경험치 %s"
 L["Waiting:"] = "대기 중:"
+-- L["best at %d"] = ""
+-- L["Tough at your level"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "바로 여기"

@@ -1714,6 +1714,8 @@ L["If you finish this quest and the chain before it"] = "Se você terminar esta 
 L["You are level %d. Level %d is recommended for the first quest in this chain; from there:"] = "Você está no nível %d. O nível %d é recomendado para a primeira missão desta série; a partir dele:"
 L["%s XP with its chain"] = "%s XP com a sua série"
 L["Waiting:"] = "Aguardando:"
+-- L["best at %d"] = ""
+-- L["Tough at your level"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Bem aqui"

@@ -625,3 +625,56 @@ emit({ e = e, nav = nav })"#);
 	assert_eq!(out["e"]["wc"], false, "an entrance in no faction's land");
 	assert_eq!(out["nav"], json!([["Ruins of Lordaeron", "dungeon", "Entrance in Horde territory (outside the Undercity)"], ["Wailing Caverns", "dungeon", false]]));
 }
+
+// A player asked why Uldaman (35-47) showed "for your level" at 35, where most of it suits ~42: Dungeons.BestAt
+// gives the level a dungeon suits best, inside its range: one under the median of its encounter bosses, else of
+// all its bosses, else the median of its quests, else the range's midpoint; a source outside the range is passed
+// over (the City of Dalaran, 28-60, has one level 63 boss).
+#[test]
+fn runtime_best_at_one_under_the_bosses_median_else_the_quests_else_the_midpoint_always_inside_the_range() {
+	let out = run(r#"
+D.Load()
+local function bosses(list)
+	local t = {}
+	for i, b in ipairs(list) do
+		t[i] = string.format("{order=%d,name=%q,level=%d%s}", i, "Boss " .. i, b[1], b[2] and string.format(",role=%q", b[2]) or "")
+	end
+	return "bosses={" .. table.concat(t, ",") .. "}"
+end
+local function quests(levels)
+	local t = {}
+	for i, l in ipairs(levels) do t[i] = string.format("{id=%d,title=\"Q\",level=%d}", 900 + i, l) end
+	return "quests={" .. table.concat(t, ",") .. "}"
+end
+D.Register("dungeon", {
+	uldaman = { name = "Uldaman", kind = "dungeon", minLevel = 35, maxLevel = 47 },
+	dalaran = { name = "City of Dalaran", kind = "dungeon", minLevel = 28, maxLevel = 60 },
+	quested = { name = "Quests only", kind = "dungeon", minLevel = 30, maxLevel = 40 },
+	rares = { name = "Rares only", kind = "dungeon", minLevel = 30, maxLevel = 40 },
+	bare = { name = "Nothing known", kind = "dungeon", minLevel = 22, maxLevel = 29 },
+	raid = { name = "A raid", kind = "raid", minLevel = 60, maxLevel = 60 },
+	nolevel = { name = "No level", kind = "dungeon" },
+}, {
+	uldaman = "return {" .. bosses({ { 40 }, { 42 }, { 44 }, { 44 }, { 45 }, { 46 }, { 47 }, { 38, "rare" }, { 36, "optional" } }) .. "," .. quests({ 35, 36, 40 }) .. "}",
+	dalaran = "return {" .. bosses({ { 63 } }) .. "," .. quests({ 30, 33, 35 }) .. "}",
+	quested = "return {" .. quests({ 33, 35, 38 }) .. "}",
+	rares = "return {" .. bosses({ { 36, "rare" }, { 38, "event" } }) .. "}",
+	bare = "return {}",
+	raid = "return {" .. bosses({ { 63 } }) .. "}",
+	nolevel = "return {}",
+})
+emit({ uldaman = D.BestAt("uldaman"), dalaran = D.BestAt("dalaran"), quested = D.BestAt("quested"), rares = D.BestAt("rares"),
+	bare = D.BestAt("bare"), raid = D.BestAt("raid"), nolevel = D.BestAt("nolevel") or false, nowhere = D.BestAt("nowhere") or false,
+	wc = D.BestAt("wailing-caverns"), deadmines = D.BestAt("deadmines"), blackmaw = D.BestAt("blackmaw-hold") })"#);
+	assert_eq!(out["uldaman"], 43, "encounters 40-47 (median 44), one under; the rare and optional bosses left out");
+	assert_eq!(out["dalaran"], 33, "its level 63 boss is outside 28-60: its quests' median");
+	assert_eq!(out["quested"], 35, "no bosses: its quests' median");
+	assert_eq!(out["rares"], 36, "no encounters: all its bosses (median 37), one under");
+	assert_eq!(out["bare"], 25, "nothing known: the midpoint of 22-29");
+	assert_eq!(out["raid"], 60, "a one-level range is that level");
+	assert_eq!(out["nolevel"], false);
+	assert_eq!(out["nowhere"], false);
+	assert_eq!(out["wc"], 19, "the fixture's Wailing Caverns: bosses 20, 20, 20, 22");
+	assert_eq!(out["deadmines"], 20, "Edwin VanCleef 21; the trash has no level");
+	assert_eq!(out["blackmaw"], 57, "Blackmaw Hold, 55-60, nothing known");
+}

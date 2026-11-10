@@ -281,6 +281,26 @@ local function forYou(d, plevel)
 	return plevel >= d.minLevel and plevel <= (d.maxLevel or d.minLevel)
 end
 
+-- The level the dungeon suits best (Dungeons.BestAt), nil without one.
+local function bestAt(d)
+	return D().BestAt and D().BestAt(d.key) or nil
+end
+
+-- In range but 4+ levels under where it suits best: "Tough at your level"
+-- (Uldaman, 35-47, best at 43, at 35).
+local TOUGH = 4
+local function tough(d, plevel)
+	local b = bestAt(d)
+	return b ~= nil and plevel <= b - TOUGH
+end
+
+-- "best at 43" after a range wider than one level, nil otherwise.
+local function bestAtFact(d)
+	local b = bestAt(d)
+	if not b or not d.minLevel or (d.maxLevel or d.minLevel) <= d.minLevel then return nil end
+	return format(L["best at %d"], b)
+end
+
 -- Quests on a page for the filter ("All": both factions).
 local function questCount(d, f)
 	local q = d.quests or {}
@@ -304,7 +324,8 @@ local function list()
 	return listCache
 end
 
--- The cards a sidebar key shows, in level order.
+-- The cards a sidebar key shows, in level order; For your level, the ones
+-- that fit first, by closeness to where each suits best, the tough ones after.
 local function entries(key, plevel, f)
 	local out = {}
 	local q = filter ~= "" and lower(filter) or nil
@@ -322,6 +343,19 @@ local function entries(key, plevel, f)
 			ok = d.kind ~= "raid" and bandOf(d.minLevel) == key
 		end
 		if ok then out[#out + 1] = d end
+	end
+	if key == "level" and not q then
+		local rank = {}
+		for i, d in ipairs(out) do
+			local b = bestAt(d) or plevel
+			rank[d] = { tough(d, plevel) and 1 or 0, b > plevel and b - plevel or plevel - b, i }
+		end
+		table.sort(out, function(a, b)
+			local ra, rb = rank[a], rank[b]
+			if ra[1] ~= rb[1] then return ra[1] < rb[1] end
+			if ra[2] ~= rb[2] then return ra[2] < rb[2] end
+			return ra[3] < rb[3]
+		end)
 	end
 	return out
 end
@@ -1052,6 +1086,8 @@ local function paintCard(c, d, f, plevel, key)
 	local facts = {}
 	local lv = UI.LevelRange(d.minLevel, d.maxLevel)
 	if lv then facts[#facts + 1] = lv end
+	local best = bestAtFact(d)
+	if best then facts[#facts + 1] = best end
 	if d.zoneName then facts[#facts + 1] = d.zoneName end
 	local n, a, h = questCount(d, f)
 	if f == "All" and a ~= h and a > 0 and h > 0 then
@@ -1070,9 +1106,11 @@ local function paintCard(c, d, f, plevel, key)
 	end
 	local cw = c:GetWidth()
 	local right = PAD - CARD_X
-	-- Under For your level every card is; elsewhere the chip marks them.
-	if key ~= "level" and forYou(d, plevel) then
-		local w = W.SetChip(c.Yours, L["Your level"], "accent")
+	-- Under For your level every card is; elsewhere the chip marks them. One
+	-- 4+ levels under where it suits best says so, calmly, everywhere.
+	local isTough = forYou(d, plevel) and tough(d, plevel)
+	if isTough or (key ~= "level" and forYou(d, plevel)) then
+		local w = W.SetChip(c.Yours, isTough and L["Tough at your level"] or L["Your level"], not isTough and "accent" or nil)
 		c.Yours:ClearAllPoints()
 		c.Yours:SetPoint("RIGHT", c, "TOPRIGHT", -right, -(CARD_ART + 20))
 		right = right + w + 6
@@ -1201,6 +1239,8 @@ local function pageHeader(d)
 	local facts = {}
 	local lv = UI.LevelRange(d.minLevel, d.maxLevel)
 	if lv then facts[#facts + 1] = format(L["Levels %s"], lv) end
+	local best = bestAtFact(d)
+	if best then facts[#facts + 1] = best end
 	local z = d.zoneName or (e and mapName(e.map))
 	if z then facts[#facts + 1] = z end
 	if d.players then facts[#facts + 1] = format(L["%d players"], d.players) end
