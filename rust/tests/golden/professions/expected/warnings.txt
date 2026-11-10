@@ -195,7 +195,7 @@ warning: Skinning Alliance trainer "Eladriel": not in npcs.json for this side
 warning: Skinning Alliance trainer "Wilma Ranthal": not in npcs.json for this side
 warning: Skinning Horde trainer "Mooranta": not in npcs.json for this side
 warning: Skinning Horde trainer "Rand Rhobart": not in npcs.json for this side
-warning: Skinning Horde trainer "Killian Sanatha": not in npcs.json for this side
+warning: Skinning Horde trainer "Killian Hagey": not in npcs.json for this side
 warning: Skinning Horde trainer "Yonn Deepcut": not in npcs.json for this side
 warning: Skinning Horde trainer "Kulleg Stonehorn": not in npcs.json for this side
 warning: Skinning Horde trainer "Malux": not in npcs.json for this side
