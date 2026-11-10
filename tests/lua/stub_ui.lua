@@ -523,6 +523,16 @@ function Engine.GuideTrainStop()
 	if not t then return nil end
 	return t[1], t[2]
 end
+-- The real rule (Core/Engine.lua Engine.TrainingAdvice) over the stub's stop;
+-- uistub.plannerTrainer: the planner's pick (unset: none, the notice's is used).
+Engine.TRAIN_GUIDE_NEAR = 10
+function Engine.TrainingAdvice()
+	local steps, title = Engine.GuideTrainStop()
+	if type(steps) == "number" and steps <= Engine.TRAIN_GUIDE_NEAR then
+		return { steps = steps, title = title, guide = true }
+	end
+	return { steps = steps, title = title, trainer = uistub.plannerTrainer }
+end
 function Engine.Prev() record("Prev"); if guide and current and current > 1 then move(current - 1) end end
 function Engine.Goto(i) record("Goto", i); if guide and guide.steps[i] then move(i) end end
 -- Any goal but a note ticks done and back.
