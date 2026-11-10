@@ -135,7 +135,7 @@ function Maps.BuildServicePins(records)
 							end
 							p.onClick = function(button)
 								if button == "LeftButton" and ns.Nav and ns.Nav.SetTarget then
-									ns.Nav.SetTarget(map, x, y, name, spawn.f, p.kind)
+									ns.Nav.SetTarget(map, x, y, name, spawn.f, p.kind, spawn.z)
 								end
 							end
 							pins[#pins + 1] = p

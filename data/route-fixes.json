@@ -4830,7 +4830,7 @@
 					877
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 bracket review (0.3.6, 2026-11-10, flow): 02-the-barrens tested Tonga's seeds at the Stagnant Oasis (fissure 55.6,42.8) and walked back to the Crossroads to hand them in and take Altered Beings before the Lushwater/Dry Hills loop; the seed test now goes straight on north-west and Tonga takes it on the Crossroads stop after Echeyakee, where he already stands. Travel route: fissure to Lushwater 2:44 direct vs 4:54 by the Crossroads."
+				"why": "Horde 12-30 bracket review (0.3.6, 2026-11-10, flow), then #1644 (0.3.7): Tonga's seed test (877) is handed in after the Dry Hills, never on a walk back from the Stagnant Oasis. 0.3.6 dropped the walk back; #1644 moves the test itself to the Verog pass (see deliberate.together 851/877), so 877 is handed in on the Crossroads stop coming up the Gold Road."
 			},
 			{
 				"a": [
@@ -4842,7 +4842,7 @@
 					880
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 bracket review (0.3.6, 2026-11-10, flow): Altered Beings' Oasis Snapjaws (9 of the 24 spawns in the Stagnant Oasis' water, 55.0-55.3,41.9-43.0) are collected on the Verog pass at the same oasis and handed to Tonga on the next Crossroads stop (south gate, coming up the Gold Road); our comparison does the seed test and the snapjaws on the Verog pass too."
+				"why": "#1644 (0.3.7, flow): Altered Beings (880) is taken on the Crossroads stop after the Verog pass, where the seed test (877) is handed in, and its Oasis Snapjaws are collected at Lushwater Oasis on the Hezrul step (15 of their 24 spawns are in Lushwater's water, 45.7-48.1,38.3-40.6, where players' recordings show them killed; deliberate.together 852/880), handed to Tonga on the Crossroads stop before Counterattack!."
 			}
 		],
 		"notes": [
@@ -6474,6 +6474,34 @@
 				],
 				"faction": "Alliance",
 				"why": "Stranglethorn's second loop (Alliance 30-40/04b, 0.3.6, BrAlliance3040, our comparison): the Shadowmaw Panthers (level 37) live around Lake Nazferiti (45-51,20-30) and by the Skullsplitter ruins (35-42,32-45), none in the north-west, and the Venture Co. Geologists with the Tumbled Crystals work Lake Nazferiti's shore (42-48,16-24; two stray ones at 28,8). The guide listed both on the north-west tablets' step, so the arrow went from Zul'Kunda south to 36,34 and back north to the Rebel Camp (about 2,500 yd), and the Rebel Camp was visited three times. Now Erlgadin's Panther Mastery is taken at Nesingwary's on the way in, the lake right after Kurzen's Compound, the tablets west and north-west, and every Rebel Camp hand-in on one stop at the end, as our comparison loops it."
+			},
+			{
+				"a": [
+					"task",
+					851,
+					0
+				],
+				"b": [
+					"task",
+					877,
+					0
+				],
+				"faction": "Horde",
+				"why": "#1644 (0.3.7, flow; 02-the-barrens): the Stagnant Oasis was walked to from the Crossroads for Tonga's seed test alone (bubbling fissure 55.6,42.7), then the route turned back north-west to the Dry Hills: about 1,800 yd of out-and-back. The seed test now goes with Verog (851), whose Kolkar walk the same oasis on the way south to the Bristlebacks, as our benchmark comparison does it."
+			},
+			{
+				"a": [
+					"task",
+					852,
+					0
+				],
+				"b": [
+					"task",
+					880,
+					0
+				],
+				"faction": "Horde",
+				"why": "#1644 (0.3.7, flow; 02-the-barrens): Altered Beings' Oasis Snapjaws are collected at Lushwater Oasis with Hezrul Bloodmark (852), who walks its west shore (46,36-42) among 15 of the snapjaws' 24 spawns (45.7-48.1,38.3-40.6; players' recordings show snapjaws killed by 52 people, with Lushwater's 45-47,37-42 among the spots), so the seed test can go with Verog without a third oasis visit."
 			}
 		],
 		"after": [
