@@ -1427,6 +1427,49 @@ emit(PP.Frame():IsShown())"#
 	assert_eq!(out[8], false, "solo: hidden");
 }
 
+// The row's height counts the step line only while it shows, so the needs line must hang under the name then, not
+// under the hidden step line: a hidden region keeps its place in an anchor chain, and an empty one can keep a line's
+// height (Feature Studio's render of #1617: Ana's wrapped needs line ran into Ben's row).
+#[test]
+fn party_a_row_without_a_step_hangs_its_needs_line_under_the_name_and_sizes_to_its_wrapped_lines() {
+	let out = group(&format!(
+		"{PANEL_GUIDE}{}",
+		r#"
+local PP = Polestar.UI.PartyPanel
+p.join("Ana"); p.join("Ben")
+p.set("Ana", { class = "MAGE", level = 17 }); p.set("Ben", { class = "WARRIOR", level = 8 })
+p.receive("Ana-TestRealm", "1|33:3/8")
+p.receive("Ben-TestRealm", "1|60:1/4")
+stub.advance(1)
+local F = PP.Frame()
+local function rowOf(name)
+	for _, r in ipairs(F.rows) do if r:IsShown() and r.psName == name then return r end end
+end
+local function seen(r)
+	local _, rel = r.Needs:GetPoint(1)
+	local h = 6 + r.Name:GetStringHeight() + (r.Step:IsShown() and (2 + r.Step:GetStringHeight()) or 0)
+		+ (r.Needs:IsShown() and (2 + r.Needs:GetStringHeight()) or 0)
+	return { step = r.Step:IsShown(), under = rel == r.Name and "name" or rel == r.Step and "step" or "other",
+		wraps = r.Needs:GetNumLines() > 1, fits = r:GetHeight() >= h }
+end
+-- A long needs line wraps.
+Polestar.Engine.GetStepView = function(i)
+	if i == 5 then
+		return { goals = { { t = "kill", quest = 33, oi = 1, status = "active", subject = "Shipment of Boots from Drizzlik's Emporium" },
+			{ t = "kill", quest = 33, oi = 2, status = "active", subject = "Telescopic Lens from Fragile - Do Not Drop" } } }
+	end
+end
+p.receive("Ana-TestRealm", "1|33:3/8,1/4")
+PP.Refresh()
+emit(seen(rowOf("Ana")))
+p.receive("Ana-TestRealm", "1P|5|0.0.1|test|3|test/g")
+PP.Refresh()
+emit(seen(rowOf("Ana")))"#
+	));
+	assert_eq!(out[0], json!({ "step": false, "under": "name", "wraps": true, "fits": true }), "no step: under the name, every wrapped line in the row");
+	assert_eq!(out[1], json!({ "step": true, "under": "step", "wraps": true, "fits": true }), "with her step: under it");
+}
+
 #[test]
 fn party_a_collect_goal_and_the_loot_window_say_who_still_needs_an_item_you_do_not() {
 	let out = group(

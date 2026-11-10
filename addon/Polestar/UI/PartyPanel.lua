@@ -141,12 +141,17 @@ function PP.Refresh()
 		r.Name:SetText(name)
 		r.Level:SetText(level)
 		r.Step:SetText(step or "")
-		r.Step:SetShown(step ~= nil and step ~= "")
+		local hasStep = step ~= nil and step ~= ""
+		r.Step:SetShown(hasStep)
 		r.Needs:SetText(needs or "")
 		r.Needs:SetShown(needs ~= nil)
 		r.Needs:SetWidth(WIDTH - PAD * 2)
+		-- The needs line hangs under the step line only while that shows: a
+		-- hidden region still holds its place in an anchor chain, and an empty
+		-- one may keep a line's height, which the row's height below leaves out.
+		r.Needs:SetPoint("TOPLEFT", hasStep and r.Step or r.Name, "BOTTOMLEFT", 0, -2)
 		local h = 6 + r.Name:GetStringHeight()
-		if r.Step:IsShown() then h = h + 2 + r.Step:GetStringHeight() end
+		if hasStep then h = h + 2 + r.Step:GetStringHeight() end
 		if r.Needs:IsShown() then h = h + 2 + r.Needs:GetStringHeight() end
 		h = math.floor(h + 4 + 0.5)
 		r:SetHeight(h)
