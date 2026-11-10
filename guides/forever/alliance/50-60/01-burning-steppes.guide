@@ -374,16 +374,23 @@ step Ambassador Ardalan
   tip Ardalan is inside Nethergarde Keep.
   accept 2783 @67.6,19.3 map 1419
 
-step Fallen Hero of the Horde
+step Swamp of Sorrows
   zone Swamp of Sorrows
-  tip Ride north out of the Blasted Lands into the Swamp of Sorrows: the Fallen Hero stands by the road from the Blasted Lands. Keep clear of Stonard, the Horde town to the north-east. Listen to his tale, then ride back south to Kum'isha.
-  turnin 2783 @34.3,66.1
+  tip Ride north out of the Blasted Lands into the Swamp of Sorrows: the Fallen Hero stands by the road from the Blasted Lands. Keep clear of Stonard, the Horde town to the north-east.
+  goto 34.3,66.1 "Fallen Hero of the Horde"
+
+step Fallen Hero of the Horde
+  tip Listen to his tale, then ride back south to Kum'isha.
+  turnin 2783
   accept 2801
   talk 7572 quest 2801.1 @34.3,66.1
   turnin 2801
 
-step Kum'isha the Collector
+step Blasted Lands
   zone Blasted Lands
+  goto 52.0,35.7 "Rise of the Defiler"
+
+step Kum'isha the Collector
   tip Kum'isha waits at the Rise of the Defiler, the hill south-west of the keep. The Blasted Lands mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have.
   tip Careful: Felcular, Razelikh the Defiler and Ilifar are all level 60 elites. Razelikh casts Mana Burn, Strong Cleave and Decimate, and as its health drops it adds Razelikh's Tear, Flames of Chaos and then Enrage at 15%.
   accept 3501                         -- Kum'isha the Collector walks around here: look inside the circle on the map
