@@ -33,6 +33,10 @@ return {
 	-- {npc:9619} Torwa Pathfinder
 	["The dead Threshadon lies by the water north of {npc:9619}."] = "죽은 트레샤돈은 {npc:9619} 북쪽 물가에 있습니다.",
 
+	-- Step 10: Torwa Pathfinder
+	-- {area:1943} Ironstone Plateau
+	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "{area:1943}의 고릴라가 가죽을 지니고 있습니다: 56레벨 무렵 두 번째로 운고로에 올 때까지 보관하세요",
+
 	-- Step 11: Lar'korwi Mates and the raft
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["Lar'korwi Mates and the raft"] = "{npc:9683}와(과) 뗏목",
@@ -123,42 +127,35 @@ return {
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge's entrance"] = "{npc:9998}, 야영지 입구",
 
-	-- Step 26: To Stoutlager Inn
+	-- Step 26: Fly to Astranaar
+	-- {area:415} Astranaar
+	["Fly to {area:415}"] = "",
+	-- {zone:1455} Ironforge · {zone:1427} Searing Gorge · {zone:1440} Ashenvale · {zone:1447} Azshara
+	["The {zone:1455} quests were taken at the end of the {zone:1427} guide: fly straight on to {zone:1440} for {zone:1447}."] = "{zone:1455} 퀘스트는 {zone:1427} 가이드 끝에서 받았습니다: {zone:1447}에 가려면 곧장 {zone:1440}(으)로 날아가세요.",
+	-- {area:541} Marshal's Refuge
+	["{area:541} flight master"] = "{area:541} 비행 조련사",
+
+	-- Step 27: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
 	["To {area:2101}"] = "",
 
-	-- Step 27: Fly to Ironforge
+	-- Step 28: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "",
 
-	-- Step 28: Hall of Explorers
-	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
-	["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}: 수액괴물은 {zone:1448}에 있습니다. 보관하세요",
-
 	-- Step 29: Mystic Ward
-	-- {zone:1447} Azshara
-	["Four rune rubbings in {zone:1447}: keep it"] = "{zone:1447}의 룬 탁본 네 개: 보관하세요",
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}: {zone:1447}의 오그틴크에게 줄 것, 보관하세요",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
 	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "",
 
-	-- Step 30: Class trainer
-	["Class trainer"] = "",
-
-	-- Step 31: Xiggs Fuselighter
-	-- {object:32359} Military Ward (no name in this language: may be words)
-	["Xiggs waits in the {object:32359}."] = "시그스는 {object:32359}에서 기다립니다.",
-
-	-- Step 34: Fly to Astranaar
-	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	-- Step 32: Fly to Astranaar
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
 
-	-- Step 35: Level 50.4
+	-- Step 33: Level 50.4
 	["Level 50.4"] = "",
 	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
 	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
@@ -171,6 +168,7 @@ return {
 	-- ["Cross the south of the crater to {npc:9619} by the ramp."] = "분화구 남쪽을 가로질러 비탈 옆의 {npc:9619}에게 가세요.",
 	-- ["Escort {npc:9999}"] = "{npc:9999} 호위",
 	-- ["Fly from {area:144} to {area:1537}."] = "{area:144}에서 {area:1537}(으)로 날아가세요.",
+	-- ["Four rune rubbings in {zone:1447}: keep it"] = "{zone:1447}의 룬 탁본 네 개: 보관하세요",
 	-- ["From {area:144} fly to {area:150}, take the boat to Theramore and fly on to {area:976}. {npc:9619}'s first quest in the crater needs level 48: finish the level here if you are short."] = "{area:144}에서 {area:150}(으)로 날아가 배를 타고 테라모어로 간 뒤, {area:976}(으)로 날아가세요. 분화구에서 {npc:9619}의 첫 퀘스트는 48레벨이 필요합니다. 부족하면 여기서 레벨을 채우세요.",
 	-- ["Grind to 50"] = "50레벨까지 사냥",
 	-- ["Grind to 51"] = "51레벨까지 사냥",
@@ -197,12 +195,14 @@ return {
 	-- ["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997} and drop {npc:9998}'s scales."] = "수정탑은 야영지 동쪽 비탈에 서 있습니다. {npc:9166}이(가) 그 주변 비탈을 맴돕니다. {npc:9997}의 처치 수에 포함되며 {npc:9998}에게 줄 비늘을 떨어뜨립니다.",
 	-- ["The relics are in the {zone:1428}: keep it"] = "유물은 {zone:1428}에 있습니다: 보관하세요",
 	-- ["The wooden sign beside {npc:9997}"] = "{npc:9997} 옆의 나무 표지판",
+	-- ["Xiggs waits in the {object:32359}."] = "시그스는 {object:32359}에서 기다립니다.",
 	-- ["grind on the Wastewanderers or Dunemaul ogres around {area:976}"] = "{area:976} 주변의 황무지유랑단이나 모래망치 오우거를 사냥하세요",
 	-- ["grind on {npc:5458} at {area:982}, {zone:1446}"] = "{zone:1446} {area:982}에서 {npc:5458} 사냥",
 	-- ["grind on {npc:6514} at {area:1943}, {zone:1449}"] = "{zone:1449} {area:1943}에서 {npc:6514} 사냥",
 	-- ["{area:978} (optional)"] = "{area:978}(선택)",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: 이전 가이드가 귀환석으로 이곳에 데려오므로 보통 바로 완료됩니다",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}, 동굴 안쪽",
+	-- ["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}: 수액괴물은 {zone:1448}에 있습니다. 보관하세요",
 	-- ["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "{npc:9684}의 굴은 {npc:9619} 북쪽, 동쪽 절벽 아래 밀림에 있습니다. 그곳에서 {item:11568}을(를) 사용하세요. {npc:9684}은(는) 56레벨이니 생명력이 가득한 상태로 시작하세요.",
 	-- ["{npc:9997}'s friend {npc:9999} has gone missing."] = "{npc:9997}의 친구 {npc:9999}이(가) 실종되었습니다.",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999}은(는) 분화구 한가운데 {area:537}의 남동쪽 비탈에 앉아 있습니다.",

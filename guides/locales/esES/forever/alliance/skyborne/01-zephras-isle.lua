@@ -85,13 +85,51 @@ return {
 	["Follow the road south to {area:16624}. {npc:263664} camps by the fire west of the village; {npc:251523} and {npc:251903} stand in its middle."] = "Sigue el camino al sur hasta {area:16624}. {npc:263664} acampa junto al fuego al oeste del pueblo; {npc:251523} y {npc:251903} están en el centro.",
 
 	-- Step 14: Raan Wildwind
+	-- {npc:263664} Raan Wildwind · {area:16624} Shen'dar Village
+	["With a profession learned, {npc:263664} also offers its Camping 101, which its trainer in {area:16624} takes on the village round."] = "Si has aprendido una profesión, {npc:263664} también ofrece su Camping 101, que su instructor en {area:16624} recoge durante la ronda por el pueblo.",
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
 	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "Usa /sentarse junto a la hoguera de {npc:263664} hasta obtener {spell:1229451}",
+	-- {npc:263664} Raan Wildwind · {npc:257019} Nyassa Swiftdraught
+	["{npc:263664}, alchemists: for {npc:257019}"] = "{npc:263664}, alquimistas: para {npc:257019}",
+	-- {npc:263664} Raan Wildwind · {npc:251913} Aedi Thriceforged
+	["{npc:263664}, blacksmiths: for {npc:251913}"] = "{npc:263664}, herreros: para {npc:251913}",
+	-- {npc:263664} Raan Wildwind · {skill:129} First Aid · {npc:257018} Naleeia Tattermend
+	["{npc:263664}, {skill:129}: for {npc:257018}"] = "{npc:263664}, {skill:129}: para {npc:257018}",
+	-- {npc:263664} Raan Wildwind · {npc:251992} Fenn Fairweather
+	["{npc:263664}, fishers: for {npc:251992}"] = "{npc:263664}, pescadores: para {npc:251992}",
+	-- {npc:263664} Raan Wildwind · {npc:251993} Indari Sunseam
+	["{npc:263664}, leatherworkers: for {npc:251993}"] = "{npc:263664}, peleteros: para {npc:251993}",
+	-- {npc:263664} Raan Wildwind · {npc:257022} Messana Crestwind
+	["{npc:263664}, miners: for {npc:257022}"] = "{npc:263664}, mineros: para {npc:257022}",
+	-- {npc:263664} Raan Wildwind · {npc:257024} Mendalass Tattermend
+	["{npc:263664}, skinners: for {npc:257024}"] = "{npc:263664}, desolladores: para {npc:257024}",
+	-- {npc:263664} Raan Wildwind · {npc:251991} Taleen Shimmerthread
+	["{npc:263664}, tailors: for {npc:251991}"] = "{npc:263664}, sastres: para {npc:251991}",
+	-- {npc:263664} Raan Wildwind · {npc:257020} Nasalanna Windsinger
+	["{npc:263664}, enchanters: for {npc:257020}"] = "{npc:263664}, encantadores: para {npc:257020}",
 	-- {npc:251905} Zerril Softbreeze
 	["{npc:251905}: Camping 101 asks you to learn it"] = "",
 
 	-- Step 15: Village quests
 	["Village quests"] = "Misiones del pueblo",
+	-- {npc:251993} Indari Sunseam
+	["{npc:251993}: Camping 101, leatherworkers"] = "{npc:251993}: Camping 101, peleteros",
+	-- {npc:257022} Messana Crestwind
+	["{npc:257022}, beside her: Camping 101, miners"] = "{npc:257022}, a su lado: Camping 101, mineros",
+	-- {npc:251991} Taleen Shimmerthread
+	["{npc:251991}: Camping 101, tailors"] = "{npc:251991}: Camping 101, sastres",
+	-- {npc:251913} Aedi Thriceforged
+	["{npc:251913}, beside her: Camping 101, blacksmiths"] = "{npc:251913}, a su lado: Camping 101, herreros",
+	-- {npc:257019} Nyassa Swiftdraught · {npc:251905} Zerril Softbreeze
+	["{npc:257019}, west of {npc:251905}: Camping 101, alchemists"] = "{npc:257019}, al oeste de {npc:251905}: Camping 101, alquimistas",
+	-- {npc:257024} Mendalass Tattermend
+	["{npc:257024}: Camping 101, skinners"] = "{npc:257024}: Camping 101, desolladores",
+	-- {npc:257020} Nasalanna Windsinger
+	["{npc:257020}: Camping 101, enchanters"] = "{npc:257020}: Camping 101, encantadores",
+	-- {npc:257018} Naleeia Tattermend · {skill:129} First Aid
+	["{npc:257018}, at the south side of the village: Camping 101, {skill:129}"] = "{npc:257018}, en el lado sur del pueblo: Camping 101, {skill:129}",
+	-- {npc:251992} Fenn Fairweather
+	["{npc:251992}, on the south edge of the village: Camping 101, fishers"] = "{npc:251992}, en el borde sur del pueblo: Camping 101, pescadores",
 
 	-- Step 16: Prideclaws and Galestriders
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw

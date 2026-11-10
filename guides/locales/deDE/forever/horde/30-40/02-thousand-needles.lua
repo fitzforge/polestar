@@ -175,58 +175,70 @@ return {
 	-- {npc:6726} Thalon
 	["{npc:6726}, at the village's south-west end"] = "",
 
-	-- Step 32: Clam beds
-	["Clam beds"] = "Muschelbänke",
-	-- {item:15874} Soft-shelled Clam
-	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam · Enraged Reef Crawlers = {npc:12347} Enraged Reef Crawler
-	["Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach: each clam you open on the sea floor, and some crawlers, give a {item:15874}. Open each one in your bags for its meat."] = "",
-	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam
-	["Giant Softshell Clams, on the sea floor"] = "",
-	-- {item:15874} Soft-shelled Clam
-	["{item:15874}: open it in your bags"] = "",
-	["Underwater"] = "",
+	-- Step 32: Ethel Rethor
+	-- {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress · {area:2406} Ranazjar Isle
+	["Head north along the coast, then inland to the ruined tower of {area:2405}: {npc:11863} waits inside. The coast's clams and naga come after {area:599}, on one walk north to {area:2406}."] = "Geh die Küste entlang nach Norden, dann landeinwärts zum verfallenen Turm von {area:2405}: {npc:11863} wartet darin. Die Muscheln und Naga der Küste kommen nach {area:599}, auf einem Weg nach Norden bis zur {area:2406}.",
 
-	-- Step 33: Sar'theris Strand
-	-- {area:598} Sar'theris Strand
-	-- plural, as words: Slitherblade Myrmidons = {npc:4714} Slitherblade Myrmidon
-	["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time."] = "",
-
-	-- Step 34: Ethel Rethor
-	-- {npc:11863} Azore Aldamort · {area:2405} Ethel Rethor
-	["{npc:11863} waits in the ruined tower of {area:2405}, inland to the east."] = "",
-
-	-- Step 35: Thunder Axe Fortress
+	-- Step 33: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {quest:5381} Hand of Iruxos · {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal (no name in this language: may be words) · {npc:11876} Demon Spirit · {item:13542} Demon Box
 	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. {quest:5381}: clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}."] = "",
 	["On the top floor"] = "",
 	-- {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal (no name in this language: may be words)
 	["{item:14523}, on the {object:176581}"] = "",
 
-	-- Step 36: Ethel Rethor
+	-- Step 34: Ethel Rethor
 	-- {npc:11863} Azore Aldamort
 	["Back west to {npc:11863}."] = "",
 
-	-- Step 37: The Book of the Ancients
+	-- Step 35: Rackmore's Log
+	-- {object:177787} Rackmore's Log · {npc:11863} Azore Aldamort
+	["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore: read it. Its two keys drop only while you have the quest."] = "{object:177787} liegt knapp südwestlich von {npc:11863}s Turm auf dem Boden, auf dem Weg hinunter zum Ufer: Lies es. Seine beiden Schlüssel droppen nur, solange du die Quest hast.",
+
+	-- Step 36: Clam beds
+	["Clam beds"] = "Muschelbänke",
+	-- {item:15874} Soft-shelled Clam · {item:15878} Rackmore's Silver Key
+	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam · Enraged Reef Crawlers = {npc:12347} Enraged Reef Crawler · Drysnap Crawlers = {npc:11562} Drysnap Crawler
+	["West to the shore. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach: each clam you open on the sea floor, and some crawlers, give a {item:15874}. Open each one in your bags for its meat.\nThe Drysnap Crawlers and Pincers on the same beach carry {item:15878}, about one in seven."] = "Geh nach Westen zum Ufer. Riesen-Weichpanzermuscheln liegen im Flachwasser, und die Wütenden Riffkriecher laufen am Strand: Jede Muschel, die du am Meeresgrund öffnest, und manche Kriecher geben eine {item:15874}. Öffne jede davon in deinen Taschen für ihr Fleisch.\nDie Trockenschnappkriecher und -zwicker am selben Strand tragen {item:15878}, etwa jeder siebte.",
+	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam
+	["Giant Softshell Clams, on the sea floor"] = "",
+	-- {item:15874} Soft-shelled Clam
+	["{item:15874}: open it in your bags"] = "",
+	["Underwater"] = "",
+	-- {item:15878} Rackmore's Silver Key
+	["{item:15878}, from the Drysnap crabs"] = "{item:15878}, von den Trockenschnappkrabben",
+
+	-- Step 37: Sar'theris Strand
+	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key
+	-- plural, as words: Slitherblade Myrmidons = {npc:4714} Slitherblade Myrmidon
+	["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time. Any Slitherblade can drop {item:15881}."] = "Geh weiter nach Norden zum {area:598}. Die Myrmidonen, Naga und Zauberinnen der Schlangenschuppen halten den Strand; zieh sie einzeln. Jede Schlangenschuppe kann {item:15881} droppen.",
+	-- {item:15881} Rackmore's Golden Key
+	["{item:15881}, from the Slitherblade naga"] = "{item:15881}, von den Schlangenschuppen-Naga",
+
+	-- Step 38: The Book of the Ancients
 	-- {quest:6027} Book of the Ancients
 	["The {quest:6027}"] = "",
-	-- {area:2405} Ethel Rethor · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
-	["The Slitherblade naga hold the coast north of {area:2405}. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}. He is well above you: rest to full first."] = "",
+	-- {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients · {object:177786} Rackmore's Chest
+	["Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}. He is well above you: rest to full first. {object:177786} stands on the shore beside the statue: open it with both keys."] = "Schwimm vor der äußersten Nordspitze hinaus zur {area:2406} und benutze den {item:15766} an der {object:177673}: {npc:12369} (38) erhebt sich; töte ihn für das {quest:6027}. Er ist deutlich stärker als du: Ruh dich vorher voll aus. {object:177786} steht am Ufer neben der Statue: Öffne sie mit beiden Schlüsseln.",
 	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words)
 	["{item:15766}, on the {object:177673}"] = "{item:15766}, an {object:177673}",
 
-	-- Step 39: Sargeron
+	-- Step 39: Azore Aldamort
+	-- {npc:11863} Azore Aldamort
+	["Back south to {npc:11863}'s tower."] = "Zurück nach Süden zu {npc:11863}s Turm.",
+
+	-- Step 40: Sargeron
 	-- {area:599} Thunder Axe Fortress · {area:603} Sargeron · {npc:268705} Aka'rai
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue
 	["Head east past {area:599} and along the northern hills to the satyrs' ruins of {area:603}. Kill every kind you meet for {npc:268705}; the Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "",
 	-- {npc:4671} Hatefury Trickster
 	["{npc:4671}, on the way south"] = "",
 
-	-- Step 40: Khan Dez'hepah
+	-- Step 41: Khan Dez'hepah
 	-- {area:609} Kolkar Village · {quest:1365} Khan Dez'hepah
 	-- plural, as words: Kolkar Battle Lords = {npc:4636} Kolkar Battle Lord
 	["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "",
 
-	-- Step 41: Ghost Walker Post
+	-- Step 42: Ghost Walker Post
 	["South-west down the road to the post."] = "",
 	-- {npc:5641} Takata Steelblade · {npc:5640} Keldran · {zone:1454} Orgrimmar
 	["{npc:5641}: for {npc:5640} in {zone:1454}, next guide"] = "",
@@ -235,7 +247,7 @@ return {
 	-- {zone:1443} Desolace
 	["for the second {zone:1443} visit, in forever/horde/30-40/04-dustwallow-marsh"] = "",
 
-	-- Step 42: Shadowprey Village
+	-- Step 43: Shadowprey Village
 	["West to Shadowprey: your hearthstone is bound there."] = "",
 	-- {npc:268705} Aka'rai
 	["{npc:268705}, on the path just north of the village"] = "",

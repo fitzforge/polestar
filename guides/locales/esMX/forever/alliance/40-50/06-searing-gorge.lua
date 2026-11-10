@@ -36,8 +36,8 @@ return {
 	-- Step 7: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
 	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "",
-	-- {npc:8256} Curator Thorius · {area:1537} Ironforge
-	["For {npc:8256} in {area:1537}, later"] = "Para {npc:8256} en {area:1537}, más adelante",
+	-- {npc:8256} Curator Thorius · {zone:1455} Ironforge
+	["For {npc:8256} in {zone:1455}, at the end of this guide"] = "Para {npc:8256} en {zone:1455}, al final de esta guía",
 
 	-- Step 8: Thorium Point
 	-- {area:1446} Thorium Point
@@ -137,10 +137,23 @@ return {
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "",
 
-	-- Step 38: Class trainer
+	-- Step 38: Hall of Explorers
+	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
+	["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}: los mocos están en {zone:1448}, guárdala",
+
+	-- Step 39: Mystic Ward
+	-- {zone:1447} Azshara
+	["Four rune rubbings in {zone:1447}: keep it"] = "Cuatro calcos de runas en {zone:1447}: guárdala",
+
+	-- Step 40: Class trainer
 	["Class trainer"] = "",
 
+	-- Step 41: Xiggs Fuselighter
+	-- {object:32359} Military Ward (no name in this language: may be words)
+	["Xiggs waits in the {object:32359}."] = "Xiggs espera en el Distrito Militar ({object:32359}).",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["For {npc:8256} in {area:1537}, later"] = "Para {npc:8256} en {area:1537}, más adelante",
 	-- ["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}. {area:1446} is the scaffolded camp on the north-west rim."] = "Desde {area:144} cabalga al sur hacia {zone:1418}, luego al oeste pasando el pueblo de la Horda de {area:340} (mantén la distancia) y sube por el sendero hasta {zone:1427}. {area:1446} es el campamento con andamios en el borde noroeste.",
 	-- ["Greater Lava Spiders"] = "Arañas de lava superiores",
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "Los gólems de guerra pesados patrullan el fondo de La Caldera, debajo de Kalaran Espada del Viento; los elementales de magma flotan entre ellos. Los gólems y elementales sueltan el aceite; los elementales, los corazones.",

@@ -31,61 +31,80 @@ return {
 	["{zone:1454} trainers"] = "Instrutores de {zone:1454}",
 	["Train while you are in the city."] = "Treine enquanto estiver na cidade.",
 
-	-- Step 6: Zeppelin to Grom'gol
-	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["Zeppelin to {object:3202}"] = "Zepelim para {object:3202}",
+	-- Step 6: Fly to Ratchet
+	-- {area:392} Ratchet
+	["Fly to {area:392}"] = "Voe até {area:392}",
+	-- {area:35} Booty Bay · {area:392} Ratchet
+	["{area:35} first: the goblins' boat sails there from {area:392}, and every {area:35} quest is for the north of the vale, which you then walk up into."] = "Primeiro {area:35}: o barco dos goblins sai de {area:392} para lá, e todas as missões de {area:35} são para o norte do vale, até onde você depois segue a pé.",
+	-- {zone:1454} Orgrimmar
+	["{zone:1454} flight master"] = "Mestre de voo de {zone:1454}",
 
-	-- Step 7: Grom'gol
-	["The zeppelin lands at the tower on the west side of the camp."] = "O zepelim pousa na torre do lado oeste do acampamento.",
-	-- {npc:2497} Nimboya
-	["{npc:2497}: for Arathi, later on the route"] = "{npc:2497}: para o Planalto Arathi, mais adiante na rota",
+	-- Step 7: Ratchet
+	-- {npc:3391} Gazlowe · {quest:1111} Wharfmaster Dizzywig
+	["{npc:3391} waits upstairs in the house by the flight master; {quest:1111} stands on the docks, beside the boat."] = "{npc:3391} espera no andar de cima da casa ao lado do mestre de voo; {quest:1111} fica nas docas, ao lado do barco.",
+	-- {npc:3391} Gazlowe
+	["{npc:3391}, upstairs"] = "{npc:3391}, no andar de cima",
+	-- {npc:3391} Gazlowe · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
+	["{npc:3391}: for {npc:4631} in {area:35}, where the boat goes"] = "{npc:3391}: para {npc:4631} em {area:35}, para onde o barco vai",
+	-- {quest:1111} Wharfmaster Dizzywig
+	["{quest:1111}, on the docks"] = "{quest:1111}, nas docas",
+	-- {area:439} Shimmering Flats
+	["Dizzywig's parts go back to Kravel in the {area:439}, off the route: leave them."] = "As peças de Dizzywig voltam para Kravel em {area:439}, fora da rota: deixe-as.",
 
-	-- Step 8: Nesingwary's camp
-	["Nesingwary's camp"] = "Acampamento de Rosarães Guima",
-	-- {object:3202} Grom'gol (no name in this language: may be words) · {quest:338} The Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
-	["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of {quest:338} you loot: {npc:716} takes them on your next Stranglethorn visit."] = "Siga a estrada para o norte saindo de {object:3202}; o acampamento de caça de Rosarães Guima fica na colina a nordeste do rio. Daqui em diante, guarde toda página de {quest:338} que saquear: {npc:716} as recebe na sua próxima visita à Selva do Espinhaço.",
+	-- Step 8: Boat to Booty Bay
+	-- {area:35} Booty Bay
+	["Boat to {area:35}"] = "Barco para {area:35}",
 
-	-- Step 9: Nesingwary's Expedition: kill these as you meet them
-	-- {area:100} Nesingwary's Expedition
-	["{area:100}: kill these as you meet them"] = "{area:100}: vá matando estes pelo caminho",
-	-- {item:4614} Pendant of Myzrael
-	-- plural, as words: Young Stranglethorn Tigers = {npc:681} Young Stranglethorn Tiger · Young Panthers = {npc:683} Young Panther · Stranglethorn Raptors = {npc:685} Stranglethorn Raptor
-	["Young Stranglethorn Tigers prowl west of the camp, Young Panthers east of it. Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it. Careful: The troll camps have many patrolling mobs, so other trolls often join a fight."] = "Tigres-do-espinhaço Jovens rondam a oeste do acampamento, Panteras Jovens a leste dele. Siga para oeste, passando pelo acampamento. Raptores-do-espinhaço (33-34) caçam nas clareiras, e os trolls Sanguescalpo ocupam as ruínas da costa: qualquer Sanguescalpo pode deixar cair uma presa. {item:4614} cai muito raramente deles: se cair, leia. Cuidado: os acampamentos troll têm muita patrulha, então outros trolls costumam entrar na briga.",
-
-	-- Step 10: Booty Bay
-	-- {area:35} Booty Bay · {npc:2858} Gringer
-	["Back to the road and follow it south all the way to {area:35} at the southern tip of the vale, and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. {npc:2858}, the Horde flight master, waits on the inn's upper deck."] = "Volte à estrada e siga-a para o sul, até {area:35}, na ponta sul do vale, e entre pelo túnel nos penhascos. Fique na estrada: a selva ao lado está bem acima do seu nível. {npc:2858}, o mestre de voo da Horda, espera no deque superior da estalagem.",
+	-- Step 9: Booty Bay
+	-- {npc:4631} Wharfmaster Lozgil · {npc:2495} Drizzlik · {npc:2498} Crank Fizzlebub · {npc:2496} Baron Revilgaz · {npc:737} Kebok · {npc:773} Krazek · {npc:2858} Gringer
+	["{npc:4631} stands on the pier where the boat docks. {npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs, {npc:2858} the flight master on the upper deck."] = "{npc:4631} fica no píer onde o barco atraca. A loja de {npc:2495} fica no prédio a leste da estalagem; {npc:2498} está no andar de baixo da estalagem, {npc:2496}, {npc:737} e {npc:773} no andar de cima, e {npc:2858}, o mestre de voo, no deque superior.",
+	-- {npc:4631} Wharfmaster Lozgil
+	["{npc:4631}, on the pier"] = "{npc:4631}, no píer",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, inside"] = "{npc:2495}, lá dentro",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside, on the bottom floor"] = "{npc:2498}, lá dentro, no andar de baixo",
+	-- {npc:2496} Baron Revilgaz
+	["{npc:2496}, upstairs"] = "{npc:2496}, no andar de cima",
+	-- {npc:2496} Baron Revilgaz · {area:37} Lake Nazferiti
+	["{npc:2496}: Cozzle's footlocker is at {area:37}, later in this guide"] = "{npc:2496}: o baú de Cozzle fica em {area:37}, mais adiante neste guia",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs"] = "{npc:737}, no andar de cima",
 	-- {npc:773} Krazek
 	["{npc:773}, upstairs"] = "{npc:773}, no andar de cima",
 
-	-- Step 11: Fly to Grom'gol
-	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["Fly to {object:3202}"] = "Voe até {object:3202}",
-	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "Mestre de voo de {area:35}",
+	-- Step 10: Grom'gol
+	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words)
+	["Leave {area:35} through the tunnel and follow the road north to {object:3202}, the orc camp on the west side of the vale. Stay on the road: the jungle beside it is above your level."] = "Saia de {area:35} pelo túnel e siga a estrada para o norte até {object:3202}, o acampamento orc no lado oeste do vale. Fique na estrada: a selva ao lado está acima do seu nível.",
+	-- {npc:2497} Nimboya
+	["{npc:2497}: for Arathi, later on the route"] = "{npc:2497}: para o Planalto Arathi, mais adiante na rota",
 
-	-- Step 12: Grom'gol
-	-- {npc:2497} Nimboya · {object:3202} Grom'gol (no name in this language: may be words)
-	["{npc:2497} waits in {object:3202}, near the zeppelin tower."] = "{npc:2497} espera em {object:3202}, perto da torre do zepelim.",
+	-- Step 11: Nesingwary's camp
+	["Nesingwary's camp"] = "Acampamento de Rosarães Guima",
+	-- {object:3202} Grom'gol (no name in this language: may be words) · {npc:773} Krazek · {quest:338} The Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
+	["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. {npc:773} wants it investigated: walk among its tents. From here on, keep every page of {quest:338} you loot: {npc:716} takes them on your next Stranglethorn visit."] = "Siga a estrada para o norte saindo de {object:3202}; o acampamento de caça de Rosarães Guima fica na colina a nordeste do rio. {npc:773} quer que ele seja investigado: ande entre as tendas. Daqui em diante, guarde toda página de {quest:338} que saquear: {npc:716} as recebe na sua próxima visita à Selva do Espinhaço.",
 
-	-- Step 13: The camp by the river
-	["The camp by the river"] = "O acampamento à beira do rio",
-	-- {npc:773} Krazek
-	-- plural, as words: River Crocolisks = {npc:1150} River Crocolisk
-	["North up the road again. Nesingwary's camp is the one {npc:773} wants investigated: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "De novo para o norte pela estrada. O acampamento de Rosarães Guima é o que {npc:773} quer que seja investigado: ande entre as tendas e a investigação se completa. Crocoliscos do Rio ficam ao longo do rio abaixo do acampamento.",
+	-- Step 12: Nesingwary's Expedition: kill these as you meet them
+	-- {area:100} Nesingwary's Expedition
+	["{area:100}: kill these as you meet them"] = "{area:100}: vá matando estes pelo caminho",
+	-- {item:4614} Pendant of Myzrael
+	-- plural, as words: River Crocolisks = {npc:1150} River Crocolisk · Young Stranglethorn Tigers = {npc:681} Young Stranglethorn Tiger · Young Panthers = {npc:683} Young Panther · Stranglethorn Raptors = {npc:685} Stranglethorn Raptor
+	["River Crocolisks lie along the river below the camp. Young Stranglethorn Tigers prowl west of the camp, Young Panthers east of it. Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it. Careful: The troll camps have many patrolling mobs, so other trolls often join a fight."] = "Crocoliscos do Rio ficam ao longo do rio, abaixo do acampamento. Tigres-do-espinhaço Jovens rondam a oeste do acampamento, Panteras Jovens a leste dele. Siga para oeste, passando pelo acampamento. Raptores-do-espinhaço (33-34) caçam nas clareiras, e os trolls Sanguescalpo ocupam as ruínas da costa: qualquer Sanguescalpo pode deixar cair uma presa. {item:4614} cai muito raramente deles: se cair, leia. Cuidado: os acampamentos troll têm muita patrulha, então outros trolls costumam entrar na briga.",
 
-	-- Step 15: Stranglethorn Vale: kill these as you meet them
+	-- Step 14: Stranglethorn Vale: kill these as you meet them
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434}: kill these as you meet them"] = "{zone:1434}: vá matando estes pelo caminho",
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp."] = "Tigres-do-espinhaço (32) vagam pelas colinas em volta do acampamento e ao sul dele, Panteras (32) pelas clareiras a oeste e sudoeste. Os Geólogos da Empreendimentos S.A., que carregam os Cristais Rolados, trabalham nos acampamentos perto de {area:37}, a sudeste do acampamento.",
+
+	-- Step 15: Cozzle's Footlocker
+	-- {npc:4723} Foreman Cozzle · {area:37} Lake Nazferiti · {object:20691} Cozzle's Footlocker · {npc:2496} Baron Revilgaz
+	["{npc:4723} (38) is inside the Venture Co. house on {area:37}'s west shore, among the geologists: his key opens {object:20691} in the same house, which holds the blueprints for {npc:2496}."] = "{npc:4723} (38) está dentro da casa da Empreendimentos S.A. na margem oeste de {area:37}, entre os geólogos: a chave dele abre {object:20691} na mesma casa, que guarda as plantas para {npc:2496}.",
+	-- {npc:4723} Foreman Cozzle
+	["from {npc:4723}"] = "de {npc:4723}",
+	-- {item:5852} Fuel Regulator Blueprints · {object:20691} Cozzle's Footlocker
+	["{item:5852}, in {object:20691}"] = "{item:5852}, em {object:20691}",
 
 	-- Step 16: Nesingwary's camp
 	-- {object:3202} Grom'gol (no name in this language: may be words)
@@ -116,8 +135,8 @@ return {
 	["On your way back south to {object:3202}, the Lashtail Raptors (35-36) hunt the jungle between the camp and {object:3202}: they count for Hemet and for {npc:2464}."] = "Na volta para o sul, até {object:3202}, os Raptores Batecauda (35-36) caçam na selva entre o acampamento e {object:3202}: eles contam para Rosarães e para {npc:2464}.",
 
 	-- Step 22: Grom'gol
-	-- {npc:2464} Commander Aggro'gosh · {object:3202} Grom'gol (no name in this language: may be words) · {npc:2465} Far Seer Mok'thardin
-	["{npc:2464} stands in the middle of {object:3202}, {npc:2465} beside the flight master."] = "{npc:2464} fica no meio de {object:3202}, e {npc:2465}, ao lado do mestre de voo.",
+	-- {npc:2464} Commander Aggro'gosh · {object:3202} Grom'gol (no name in this language: may be words) · {npc:2497} Nimboya · {npc:2465} Far Seer Mok'thardin
+	["{npc:2464} stands in the middle of {object:3202}, {npc:2497} near the zeppelin tower, {npc:2465} beside the flight master."] = "{npc:2464} fica no meio de {object:3202}, {npc:2497} perto da torre do zepelim, e {npc:2465}, ao lado do mestre de voo.",
 	-- {npc:2465} Far Seer Mok'thardin
 	["{npc:2465}: the Shadowmaw claws and the tigress fang come at the end of this guide"] = "{npc:2465}: as garras das panteras Umbragorja e a presa da tigresa ficam para o fim deste guia",
 
@@ -136,10 +155,18 @@ return {
 	["{object:3202} flight master"] = "Mestre de voo de {object:3202}",
 
 	-- Step 25: Booty Bay
-	-- {npc:2495} Drizzlik · {npc:2498} Crank Fizzlebub · {npc:737} Kebok · {npc:773} Krazek
-	["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:737} and {npc:773} on its top floor beside the flight master."] = "A loja de {npc:2495} fica no prédio a leste da estalagem; {npc:2498} está no andar de baixo da estalagem, e {npc:737} e {npc:773}, no andar de cima, ao lado do mestre de voo.",
+	-- {npc:2495} Drizzlik · {npc:2498} Crank Fizzlebub · {npc:2496} Baron Revilgaz · {npc:737} Kebok · {npc:773} Krazek
+	["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master."] = "A loja de {npc:2495} fica no prédio a leste da estalagem; {npc:2498} está no andar de baixo da estalagem, e {npc:2496}, {npc:737} e {npc:773}, no andar de cima, ao lado do mestre de voo.",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}, lá dentro",
+	-- {npc:2496} Baron Revilgaz · {area:2240} Mirage Raceway · {zone:1446} Tanaris
+	["{npc:2496}: for Pozzik at the {area:2240}, on the way to {zone:1446} around level 43"] = "{npc:2496}: para Pozzik em {area:2240}, a caminho de {zone:1446} por volta do nível 43",
+
+	-- Step 26: Fly to Grom'gol
+	-- {object:3202} Grom'gol (no name in this language: may be words)
+	["Fly to {object:3202}"] = "Voe até {object:3202}",
+	-- {area:35} Booty Bay
+	["{area:35} flight master"] = "Mestre de voo de {area:35}",
 
 	-- Step 27: The Vile Reef
 	-- {area:104} Vile Reef · {item:4094} Tablet Shard
@@ -187,17 +214,27 @@ return {
 	["grind on {npc:1142}"] = "mate {npc:1142} até subir",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to the road and follow it south all the way to {area:35} at the southern tip of the vale, and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. {npc:2858}, the Horde flight master, waits on the inn's upper deck."] = "Volte à estrada e siga-a para o sul, até {area:35}, na ponta sul do vale, e entre pelo túnel nos penhascos. Fique na estrada: a selva ao lado está bem acima do seu nível. {npc:2858}, o mestre de voo da Horda, espera no deque superior da estalagem.",
 	-- ["Dustwallow's quests are 35-38. Below 36? Keep killing the Mosh'Ogg Brutes and Witch Doctors here until level 36; pull one at a time. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "As missões do Pântano Vadeoso são de nível 35-38. Abaixo de 36? Continue matando os Brutamontes e Mandingueiros Mosh'Ogg aqui até o nível 36; puxe um de cada vez. Ou, em grupo, faça a masmorra {area:796} (Arsenal) ou a masmorra {area:1316}.",
 	-- ["Elder tigers and Lashtail raptors"] = "Tigres anciãos e Raptores Batecauda",
+	-- ["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of {quest:338} you loot: {npc:716} takes them on your next Stranglethorn visit."] = "Siga a estrada para o norte saindo de {object:3202}; o acampamento de caça de Rosarães Guima fica na colina a nordeste do rio. Daqui em diante, guarde toda página de {quest:338} que saquear: {npc:716} as recebe na sua próxima visita à Selva do Espinhaço.",
 	-- ["Head north to {area:37}, south-east of Nesingwary's camp: the Venture Co. Geologists (34-36) work the camps by the lake and carry the Tumbled Crystals."] = "Siga para o norte até {area:37}, a sudeste do acampamento do Rosarães: os Geólogos da Empreendimentos S.A. (34-36) trabalham nos acampamentos junto ao lago e carregam os Cristais Rolados.",
 	-- ["Head south down the coast to {object:3202} and fly to {area:35}."] = "Siga a costa para o sul até {object:3202} e voe para {area:35}.",
+	-- ["North up the road again. Nesingwary's camp is the one {npc:773} wants investigated: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "De novo para o norte pela estrada. O acampamento de Rosarães Guima é o que {npc:773} quer que seja investigado: ande entre as tendas e a investigação se completa. Crocoliscos do Rio ficam ao longo do rio abaixo do acampamento.",
 	-- ["Shadowmaw panthers"] = "Panteras Umbragorja",
 	-- ["The Lashtail Raptors (35-36) hunt the jungle just north-east of {object:3202}."] = "Os Raptores Batecauda (35-36) caçam na selva logo a nordeste de {object:3202}.",
 	-- ["The Mosh'Ogg ogres camp in the hills just east of {object:3202}. Kill one Brute and one Witch Doctor (36-37); pull them one at a time."] = "Os ogros Mosh'Ogg acampam nas colinas logo a leste de {object:3202}. Mate um Brutamontes e um Mandingueiro (36-37); puxe um de cada vez.",
 	-- ["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "As Panteras Umbragorja (37-38) espreitam na selva a leste das colinas Mosh'Ogg e a nordeste, em direção ao lago; atacam da furtividade. Saqueie toda página de Grande Espinhaço: Veredas que encontrar pelo caminho.",
+	-- ["The camp by the river"] = "O acampamento à beira do rio",
+	-- ["The zeppelin lands at the tower on the west side of the camp."] = "O zepelim pousa na torre do lado oeste do acampamento.",
 	-- ["Upstairs"] = "No andar de cima",
 	-- ["Venture Co. camp"] = "Acampamento da Empreendimentos S.A.",
+	-- ["Young Stranglethorn Tigers prowl west of the camp, Young Panthers east of it. Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it. Careful: The troll camps have many patrolling mobs, so other trolls often join a fight."] = "Tigres-do-espinhaço Jovens rondam a oeste do acampamento, Panteras Jovens a leste dele. Siga para oeste, passando pelo acampamento. Raptores-do-espinhaço (33-34) caçam nas clareiras, e os trolls Sanguescalpo ocupam as ruínas da costa: qualquer Sanguescalpo pode deixar cair uma presa. {item:4614} cai muito raramente deles: se cair, leia. Cuidado: os acampamentos troll têm muita patrulha, então outros trolls costumam entrar na briga.",
+	-- ["Zeppelin to {object:3202}"] = "Zepelim para {object:3202}",
 	-- ["{area:35}'s and {object:3202}'s next quests are 35-38. Below 35? The Lashtail Raptors (35) hunt the slopes south of the camp, on your way back to {object:3202}: kill them until level 35. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "As próximas missões de {area:35} e {object:3202} são de nível 35-38. Abaixo de 35? Os Raptores Batecauda (35) caçam nas encostas ao sul do acampamento, no seu caminho de volta a {object:3202}: mate-os até o nível 35. Ou, em grupo, faça a masmorra {area:796} (Biblioteca ou Arsenal).",
+	-- ["{npc:2464} stands in the middle of {object:3202}, {npc:2465} beside the flight master."] = "{npc:2464} fica no meio de {object:3202}, e {npc:2465}, ao lado do mestre de voo.",
 	-- ["{npc:2465}, beside the flight master: the Shadowmaw and tigress parts come after the trolls"] = "{npc:2465}, ao lado do mestre de voo: as partes de Bocassombra e da tigresa vêm depois dos trolls",
+	-- ["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:737} and {npc:773} on its top floor beside the flight master."] = "A loja de {npc:2495} fica no prédio a leste da estalagem; {npc:2498} está no andar de baixo da estalagem, e {npc:737} e {npc:773}, no andar de cima, ao lado do mestre de voo.",
+	-- ["{npc:2497} waits in {object:3202}, near the zeppelin tower."] = "{npc:2497} espera em {object:3202}, perto da torre do zepelim.",
 	-- ["{npc:773}'s missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "O acampamento dos caçadores desaparecidos de {npc:773} é o acampamento de Rosarães Guima: ande entre as tendas e a investigação é concluída. Crocoliscos do Rio ficam ao longo do rio, abaixo do acampamento.",
 }

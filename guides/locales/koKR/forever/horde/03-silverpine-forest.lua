@@ -22,32 +22,64 @@ return {
 	-- {npc:3348} Kor'geld · {npc:3347} Yelmak · {npc:11046} Whuut
 	["{npc:3348} and {npc:3347} run the alchemy shop in the Drag; {npc:11046} is next door."] = "{npc:3348}와(과) {npc:3347}은(는) 골목길의 연금술 상점을 운영합니다. {npc:11046}은(는) 그 옆집에 있습니다.",
 
-	-- Step 5: Valley of Honor
+	-- Step 5: Jandi
+	-- {npc:3404} Jandi
+	["{npc:3404}, the herbalism trainer, keeps her shop in the Drag."] = "약초채집 상급자 {npc:3404}은(는) 골목길에서 상점을 운영합니다.",
+	-- {npc:3404} Jandi · {zone:1411} Durotar
+	["{npc:3404}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:3404}: 야영 기초, {zone:1411}의 브락의 모닥불에서",
+
+	-- Step 6: Jhag
+	-- {npc:11066} Jhag
+	["{npc:11066}, the enchanting trainer, works in the Drag."] = "마법부여 상급자 {npc:11066}은(는) 골목길에서 일합니다.",
+	-- {npc:11066} Jhag · {zone:1411} Durotar
+	["{npc:11066}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:11066}: 야영 기초, {zone:1411}의 브락의 모닥불에서",
+
+	-- Step 7: Valley of Honor
 	-- {object:172958} Valley of Honor
 	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "부들과 창풀은 골목길 동쪽, {object:172958}의 물가를 따라 자랍니다.",
 
-	-- Step 6: Class trainer
+	-- Step 8: Thuwd
+	-- {npc:7088} Thuwd · {object:172958} Valley of Honor
+	["{npc:7088}, the skinning trainer, stands in the {object:172958}."] = "무두질 상급자 {npc:7088}은(는) {object:172958}에 서 있습니다.",
+	-- {npc:7088} Thuwd · {zone:1411} Durotar
+	["{npc:7088}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:7088}: 야영 기초, {zone:1411}의 브락의 모닥불에서",
+
+	-- Step 9: Karolek
+	-- {npc:3365} Karolek · {object:172958} Valley of Honor
+	["{npc:3365}, the leatherworking trainer, works in the {object:172958}."] = "가죽세공 상급자 {npc:3365}은(는) {object:172958}에서 일합니다.",
+	-- {npc:3365} Karolek · {zone:1411} Durotar
+	["{npc:3365}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:3365}: 야영 기초, {zone:1411}의 브락의 모닥불에서",
+
+	-- Step 10: Snang
+	-- {npc:2855} Snang · {zone:1411} Durotar
+	["{npc:2855}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:2855}: 야영 기초, {zone:1411}의 브락의 모닥불에서",
+
+	-- Step 11: Class trainer
 	["Class trainer"] = "",
 	["Train while you are in the city: Druids and Paladins have no trainer here."] = "",
 
-	-- Step 7: Sayoc
+	-- Step 12: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor
 	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Warrior fastest."] = "",
 
-	-- Step 8: Hanashi
+	-- Step 13: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
-	-- Step 9: Hanashi
+	-- Step 14: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
 
-	-- Step 12: Valley of Wisdom
+	-- Step 17: Whuut
+	-- {npc:11046} Whuut · {zone:1411} Durotar
+	["{npc:11046}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:11046}: 야영 기초, {zone:1411}의 브락의 모닥불에서",
+
+	-- Step 18: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
 	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them."] = "",
 
-	-- Step 13: Thrall
+	-- Step 19: Thrall
 	-- {npc:4949} Thrall · {quest:98024} Journey to the Crossroads · {quest:93739} Exploring the Horde · {quest:95350} Welcome to Azeroth
 	["{npc:4949} stands in Grommash Hold. He offers {quest:98024} and {quest:93739} once {quest:95350} is handed in."] = "",
 	-- {npc:4949} Thrall
@@ -65,34 +97,34 @@ return {
 	-- {npc:10540} Vol'jin
 	["Talk to {npc:10540}"] = "",
 
-	-- Step 14: Nazgrel
+	-- Step 20: Nazgrel
 	-- {npc:3230} Nazgrel
 	["{npc:3230}, in Grommash Hold"] = "",
 
-	-- Step 15: Zeppelin to Undercity
+	-- Step 21: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "",
 
-	-- Step 16: Brill
+	-- Step 22: Brill
 	-- {area:159} Brill · {npc:1738} Deathguard Terrence · {npc:1518} Apothecary Johaan
 	["{area:159} is a short walk north up the road from the zeppelin towers: {npc:1738} stands by the road into town, {npc:1518} in the apothecary's house on the west side of the square."] = "",
 	-- {npc:1518} Apothecary Johaan
 	["{npc:1518}, inside"] = "",
 
-	-- Step 17: Hadric Harlson
+	-- Step 23: Hadric Harlson
 	-- {npc:1495} Deathguard Linnea · {npc:267009} Hadric Harlson
 	["Back down the road past the zeppelin towers and east to {npc:1495}'s camp: {npc:267009} stands beside her."] = "",
 
-	-- Step 18: The Cult of the Damned
+	-- Step 24: The Cult of the Damned
 	-- {npc:267009} Hadric Harlson
 	-- plural, as words: Dark Neophytes = {npc:267006} Dark Neophyte · Dark Enforcers = {npc:275437} Dark Enforcer · Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
 	["The cultists camp a short walk south-east of {npc:267009}. Dark Neophytes and Dark Enforcers drop the Necrotic Crystal Fragments; more fragments, black crystals, lie on the ground among the tents."] = "",
 
-	-- Step 20: Brill
+	-- Step 26: Brill
 	-- {npc:246152} Shari Stilwell · {area:159} Brill
 	["{npc:246152} trains Paladins in {area:159}, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine."] = "{npc:246152}은(는) 비행선 탑에서 길을 따라 북쪽으로 조금 걸어가면 나오는 {area:159}에서 성기사를 훈련시킵니다. 은빛소나무 숲으로 가려면 같은 길로 다시 내려오세요.",
 
-	-- Step 22: The Sepulcher
+	-- Step 28: The Sepulcher
 	-- {area:228} The Sepulcher · {npc:2226} Karos Razok
 	["{area:228} is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; {npc:2226}, the bat handler, is just east of it."] = "{area:228}은(는) 숲 한가운데에 있는 포세이큰의 지하묘지 마을입니다. 필요한 사람은 모두 지하묘지 입구 주변에 서 있습니다. 박쥐 조련사 {npc:2226}은(는) 그 바로 동쪽에 있습니다.",
 	-- {npc:2226} Karos Razok · {npc:4556} Gordon Wendham · {zone:1458} Undercity
@@ -100,35 +132,35 @@ return {
 	-- {npc:1952} High Executor Hadrec
 	["{npc:1952}, below ground"] = "",
 
-	-- Step 23: The Sepulcher
+	-- Step 29: The Sepulcher
 	-- {quest:264} Until Death Do Us Part · {object:24776} Yuriv's Tombstone
 	["{quest:264} is handed in at {object:24776}, a grave a few steps south of the crypt entrance, not to a person."] = "{quest:264}은(는) 사람이 아니라 지하묘지 입구 바로 남쪽의 무덤 {object:24776}에서 완료합니다.",
 
-	-- Step 24: Border Crossings
+	-- Step 30: Border Crossings
 	-- {object:1627} Dalaran Crate
 	["Follow the road south. The {object:1627} sits beside it, north of Pyrewood."] = "길을 따라 남쪽으로 가세요. {object:1627}은(는) 장작나무 마을 북쪽 길가에 있습니다.",
 
-	-- Step 25: The Dead Field
+	-- Step 31: The Dead Field
 	-- {area:228} The Sepulcher · {npc:1983} Nightlash · {area:240} The Dead Field
 	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field."] = "{area:228} 북쪽입니다. {npc:1983}이(가) {area:240}에 출몰합니다. 처치한 뒤 들판을 가로지르세요.",
 
-	-- Step 26: Malden's Orchard
+	-- Step 32: Malden's Orchard
 	-- {area:238} Malden's Orchard
 	["Follow the road north-east to the Yoricks' house at {area:238}."] = "길을 따라 북동쪽으로 {area:238}의 요릭 가족 집까지 가세요.",
 
-	-- Step 27: Mottled Worgs
+	-- Step 33: Mottled Worgs
 	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg
 	["Mottled Worgs"] = "점박이 검은늑대",
 	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg
 	["Mottled Worgs prowl the hills around the house."] = "점박이 검은늑대가 집 주변 언덕을 배회합니다.",
 
-	-- Step 28: Escorting Erland
+	-- Step 34: Escorting Erland
 	-- {npc:1978} Deathstalker Erland · {npc:1950} Rane Yorick
 	["{npc:1978} waits north-east of the house. Escort him back to {npc:1950}; worgs attack on the way."] = "{npc:1978}은(는) 집 북동쪽에서 기다립니다. 그를 {npc:1950}에게 호위하세요. 가는 길에 늑대가 공격합니다.",
 	-- {npc:1978} Deathstalker Erland
 	["{npc:1978}, inside"] = "",
 
-	-- Step 31: The Sepulcher
+	-- Step 37: The Sepulcher
 	-- {npc:1938} Dalar Dawnweaver · {area:227} Valgan's Field
 	["{npc:1938}: his books lie in the {area:227} farmhouse, on the walk north"] = "",
 	-- {npc:1937} Apothecary Renferrel · {zone:1458} Undercity
@@ -136,7 +168,7 @@ return {
 	-- {area:233} Ambermill
 	["{area:233} comes later, down the lake shore"] = "",
 
-	-- Step 32: Valgan's Field farmhouse
+	-- Step 38: Valgan's Field farmhouse
 	-- {area:227} Valgan's Field
 	["{area:227} farmhouse"] = "",
 	-- {area:227} Valgan's Field · {object:1571} Dusty Spellbooks · {npc:1770} Moonrage Darkrunner
@@ -144,25 +176,25 @@ return {
 	-- {object:1571} Dusty Spellbooks
 	["{object:1571}; upstairs"] = "",
 
-	-- Step 33: Quinn Yorick
+	-- Step 39: Quinn Yorick
 	["North again to the Yoricks' house."] = "다시 북쪽으로 요릭 가족 집에 가세요.",
 	-- {npc:1951} Quinn Yorick
 	["{npc:1951}, inside"] = "",
 
-	-- Step 34: Vile Fin murlocs
+	-- Step 40: Vile Fin murlocs
 	["Vile Fin murlocs"] = "썩은지느러미멀록",
 	-- plural, as words: Vile Fin Shredders = {npc:1767} Vile Fin Shredder
 	["Follow the lake shore south-east from the Yoricks' house: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes."] = "",
 
-	-- Step 35: The Decrepit Ferry
+	-- Step 41: The Decrepit Ferry
 	-- {object:1593} Corpse Laden Boat · {area:233} Ambermill
 	["Follow the lake shore south from the murlocs: the {object:1593} lies at the ferry landing, on the way to {area:233}."] = "",
 
-	-- Step 36: Ambermill
+	-- Step 42: Ambermill
 	-- {area:233} Ambermill · {npc:2120} Archmage Ataeric
 	["Keep south along the shore from the ferry to {area:233}. Protectors guard the outskirts and Mages the town; both drop pendants. Stay out of the middle, where {npc:2120} stands."] = "",
 
-	-- Step 37: The Sepulcher
+	-- Step 43: The Sepulcher
 	-- {area:228} The Sepulcher
 	["Back north-west up the road to the {area:228}."] = "",
 	-- {npc:1937} Apothecary Renferrel
@@ -172,16 +204,16 @@ return {
 	-- {npc:1499} Magistrate Sevren · {area:159} Brill
 	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "",
 
-	-- Step 38: The Ivar Patch
+	-- Step 44: The Ivar Patch
 	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
 	["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "{zone:1420} 방향으로 길을 따라 북쪽으로 가세요. {area:238}의 요릭 가족 집이 가는 길에 있습니다. {quest:425}은(는) 그 서쪽으로 조금 걸어간 곳에 숨어 있습니다.",
 	["Inside"] = "",
 
-	-- Step 40: Magistrate Sevren
+	-- Step 46: Magistrate Sevren
 	-- {area:159} Brill · {npc:1499} Magistrate Sevren
 	["{area:159} is a short walk north up the road from the zeppelin towers; {npc:1499} is in the town hall."] = "",
 
-	-- Step 42: The Undercity
+	-- Step 48: The Undercity
 	-- {object:1661} The Undercity · {area:153} Ruins of Lordaeron · {npc:2050} Raleigh Andrean · {npc:7683} Alessandro Luca · {npc:11044} Doctor Martin Felben · {npc:5204} Apothecary Zinge · {npc:2055} Master Apothecary Faranell
 	["{object:1661} lies under the {area:153}, beside the zeppelin towers. {npc:2050} stands at the inn by the way down; {npc:7683} on the way down to the Apothecarium, where {npc:11044} and {npc:5204} stand beside {npc:2055}."] = "",
 	-- {npc:4556} Gordon Wendham
@@ -189,7 +221,7 @@ return {
 	-- {npc:4551} Michael Garrett
 	["{npc:4551}, the bat handler"] = "박쥐 조련사 {npc:4551}",
 	-- {npc:4551} Michael Garrett · {item:16210} Gordon's Crate · {area:228} The Sepulcher
-	["{npc:4551}: keep {item:16210}, Podrig takes it on the ride through the {area:228} at 22"] = "{npc:4551}: {item:16210}은(는) 보관하세요. 22레벨에 {area:228}을(를) 지나갈 때 포드리그가 받습니다",
+	["{npc:4551}: keep {item:16210}, Podrig takes it on the next stop at the {area:228}, at 22"] = "{npc:4551}: {item:16210}은(는) 보관하세요. 22레벨에 다음 경유지인 {area:228}에서 포드리그가 받습니다",
 	-- {npc:11044} Doctor Martin Felben
 	["{npc:11044}, in the Apothecarium"] = "연금술 실험실의 {npc:11044}",
 	-- {npc:5204} Apothecary Zinge
@@ -199,7 +231,19 @@ return {
 	-- {npc:260093} Garen Largo · {area:1497} Undercity
 	["{npc:260093}, the {area:1497}'s paladin trainer"] = "",
 
-	-- Step 43: Lady Sylvanas Windrunner
+	-- Step 49: Brom Killian
+	-- {npc:4598} Brom Killian · {npc:265812} Eleanor Shackleton
+	["{npc:4598}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4598}: 야영 기초, 티리스팔의 {npc:265812}의 모닥불에서",
+
+	-- Step 50: Basil Frye
+	-- {npc:4605} Basil Frye · {npc:265812} Eleanor Shackleton
+	["{npc:4605}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4605}: 야영 기초, 티리스팔의 {npc:265812}의 모닥불에서",
+
+	-- Step 51: Graham Van Talen
+	-- {npc:4586} Graham Van Talen · {npc:265812} Eleanor Shackleton
+	["{npc:4586}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4586}: 야영 기초, 티리스팔의 {npc:265812}의 모닥불에서",
+
+	-- Step 52: Lady Sylvanas Windrunner
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter
 	["{npc:10181} holds court in the {object:36126}."] = "",
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter · {quest:93739} Exploring the Horde
@@ -207,28 +251,28 @@ return {
 	-- {npc:10181} Lady Sylvanas Windrunner
 	["Talk to {npc:10181}"] = "",
 
-	-- Step 44: Zeppelin to Orgrimmar
+	-- Step 53: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "{zone:1454}행 비행선",
 
-	-- Step 45: Orgrimmar
+	-- Step 54: Orgrimmar
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "",
 
-	-- Step 46: Valley of Strength
+	-- Step 55: Valley of Strength
 	-- {npc:268701} Thatog · {object:172982} Valley of Strength
 	["Walk in through the main gate. {npc:268701} stands in the {object:172982}."] = "",
 
-	-- Step 52: Sayoc
+	-- Step 61: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor
 	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "",
 
-	-- Step 54: Valley of Wisdom
+	-- Step 63: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:379} Far Watch Post
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
 	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide walks from here to {area:379} and the Crossroads."] = "",
 
-	-- Step 55: Zor Lonetree
+	-- Step 64: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {npc:4049} Seereth Stonebreak
 	["{npc:4047}: {npc:4049}, on the road into Stonetalon in the next guide"] = "",
 
@@ -279,6 +323,7 @@ return {
 	-- ["{npc:1938}: take it if he offers it; it may follow his {quest:98298} series, which the route does not run"] = "{npc:1938}: 제안하면 받으세요. 경로에서 진행하지 않는 그의 {quest:98298} 연계 퀘스트 다음에 나올 수 있습니다",
 	-- ["{npc:2121}: {quest:516}, on the south loop"] = "{npc:2121}: {quest:516}, 남쪽 순환로에서",
 	-- ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide starts at {npc:3310}, the wind rider master in the {object:172982}."] = "{npc:268684}와(과) {npc:268682}은(는) {object:172957}의 그롬마쉬 요새 뒤에 앉아 있고, 매끈한 바위가 그 주변에 놓여 있습니다. 도시에 있는 동안 훈련을 받으세요(드루이드와 성기사는 이곳에 상급자가 없습니다). 다음 가이드는 {object:172982}의 와이번 조련사 {npc:3310}에게서 시작합니다.",
+	-- ["{npc:4551}: keep {item:16210}, Podrig takes it on the ride through the {area:228} at 22"] = "{npc:4551}: {item:16210}은(는) 보관하세요. 22레벨에 {area:228}을(를) 지나갈 때 포드리그가 받습니다",
 	-- ["{npc:6018} stands in the {object:172961} on the city's west side."] = "{npc:6018}은(는) 도시 서쪽의 {object:172961}에 서 있습니다.",
 	-- ["{object:112888}, inside the keep"] = "{object:112888}, 성채 안",
 	-- ["{object:1599}, just east of the keep"] = "{object:1599}, 성채 바로 동쪽",

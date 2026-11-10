@@ -36,8 +36,8 @@ return {
 	-- Step 7: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
 	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "",
-	-- {npc:8256} Curator Thorius · {area:1537} Ironforge
-	["For {npc:8256} in {area:1537}, later"] = "나중에 {area:1537}의 {npc:8256}에게",
+	-- {npc:8256} Curator Thorius · {zone:1455} Ironforge
+	["For {npc:8256} in {zone:1455}, at the end of this guide"] = "이 가이드의 마지막에 {zone:1455}의 {npc:8256}에게",
 
 	-- Step 8: Thorium Point
 	-- {area:1446} Thorium Point
@@ -137,10 +137,23 @@ return {
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "",
 
-	-- Step 38: Class trainer
+	-- Step 38: Hall of Explorers
+	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
+	["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}: 수액괴물은 {zone:1448}에 있으니 간직하십시오",
+
+	-- Step 39: Mystic Ward
+	-- {zone:1447} Azshara
+	["Four rune rubbings in {zone:1447}: keep it"] = "{zone:1447}의 룬 탁본 네 개: 간직하십시오",
+
+	-- Step 40: Class trainer
 	["Class trainer"] = "",
 
+	-- Step 41: Xiggs Fuselighter
+	-- {object:32359} Military Ward (no name in this language: may be words)
+	["Xiggs waits in the {object:32359}."] = "직스 퓨즈라이터는 군사 지구에서 기다립니다({object:32359}).",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["For {npc:8256} in {area:1537}, later"] = "나중에 {area:1537}의 {npc:8256}에게",
 	-- ["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}. {area:1446} is the scaffolded camp on the north-west rim."] = "{area:144}에서 남쪽 {zone:1418}(으)로 간 다음, 서쪽으로 호드 마을 {area:340}을(를) 지나(거리를 두십시오) 오솔길을 따라 {zone:1427}(으)로 올라가십시오. {area:1446}은(는) 북서쪽 가장자리의 비계가 세워진 야영지입니다.",
 	-- ["Greater Lava Spiders"] = "거대한 용암거미",
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "칼라란 아래 용광로 바닥을 육중한 전투골렘이 순찰하고, 그 사이를 용암 정령이 떠다닙니다. 골렘 기름은 골렘과 정령이, 화염의 심장은 정령이 떨어뜨립니다.",

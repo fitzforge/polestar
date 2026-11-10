@@ -108,14 +108,32 @@ return {
 	["{npc:265811}, by the campfire"] = "{npc:265811}, près du feu de camp",
 
 	-- Step 16: The Great Outdoors
+	-- {npc:265811} Lyreena Duskblade · {npc:6286} Zarrin · {skill:129} First Aid · {npc:6094} Byancie
+	["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west."] = "Une fois un métier appris, {npc:265811} propose aussi son Camping 101, que rend son maître : l'alchimie et l'herboristerie à côté de {npc:6286}, {skill:129} avec {npc:6094} dans l'auberge, le dépeçage et le travail du cuir au camp des Tisse-crinière sur la route à l'ouest.",
 	-- {npc:265811} Lyreena Duskblade · {spell:1229451} Boosted Rest
 	["/sit by {npc:265811}'s campfire until you get {spell:1229451}"] = "/sit près du feu de camp de {npc:265811} jusqu'à obtenir {spell:1229451}",
+	-- {npc:265811} Lyreena Duskblade · {npc:3603} Cyndra Kindwhisper
+	["{npc:265811}, alchemists: for {npc:3603}"] = "{npc:265811}, alchimistes : pour {npc:3603}",
+	-- {npc:265811} Lyreena Duskblade · {npc:3604} Malorne Bladeleaf
+	["{npc:265811}, herbalists: for {npc:3604}"] = "{npc:265811}, herboristes : pour {npc:3604}",
+	-- {npc:265811} Lyreena Duskblade · {skill:129} First Aid · {npc:6094} Byancie
+	["{npc:265811}, {skill:129}: for {npc:6094}"] = "{npc:265811}, {skill:129} : pour {npc:6094}",
+	-- {npc:265811} Lyreena Duskblade · {npc:6287} Radnaal Maneweaver
+	["{npc:265811}, skinners: for {npc:6287}"] = "{npc:265811}, dépeceurs : pour {npc:6287}",
+	-- {npc:265811} Lyreena Duskblade · {npc:3605} Nadyia Maneweaver
+	["{npc:265811}, leatherworkers: for {npc:3605}"] = "{npc:265811}, travailleurs du cuir : pour {npc:3605}",
 	-- {npc:6286} Zarrin
 	["{npc:6286}, south of the inn: Camping 101 asks you to learn it"] = "{npc:6286}, au sud de l'auberge : Camping 101 vous demande de l'apprendre",
+	-- {npc:3603} Cyndra Kindwhisper · {npc:6286} Zarrin
+	["{npc:3603}, beside {npc:6286}: Camping 101, alchemists"] = "{npc:3603}, à côté de {npc:6286} : Camping 101, alchimistes",
+	-- {npc:3604} Malorne Bladeleaf · {npc:6286} Zarrin
+	["{npc:3604}, beside {npc:6286}: Camping 101, herbalists"] = "{npc:3604}, à côté de {npc:6286} : Camping 101, herboristes",
 
 	-- Step 17: Dolanaar
 	-- {npc:3515} Corithras Moonrage
 	["{npc:3515}, south of the inn"] = "{npc:3515}, au sud de l'auberge",
+	-- {npc:6094} Byancie · {skill:129} First Aid
+	["{npc:6094}, in the inn: Camping 101, {skill:129}"] = "{npc:6094}, dans l'auberge : Camping 101, {skill:129}",
 	-- {npc:3608} Aldia
 	["{npc:3608}, upstairs"] = "{npc:3608}, à l'étage",
 	-- {npc:3567} Tallonkai Swiftroot
@@ -186,6 +204,10 @@ return {
 	-- Step 28: Sentinel Shayla Nightbreeze
 	-- {area:261} Gnarlpine Hold
 	["West along the road toward the city. Shayla walks this stretch of road, from the arrow south-west to the bend at about 38,54 and back: if she isn't at the arrow, follow the road south-west. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and {area:261}'s all count."] = "Vers l'ouest le long de la route, en direction de la ville. Shayla parcourt ce tronçon de route, de la flèche vers le sud-ouest jusqu'au virage vers 38,54, puis revient : si elle n'est pas à la flèche, suivez la route vers le sud-ouest. Tous les furbolgs Pin-tordu laissent tomber des crocs : les embusqués de cette route, ceux du refuge et ceux du {area:261} comptent tous.",
+	-- {npc:6287} Radnaal Maneweaver
+	["{npc:6287}, camped beside the road before Shayla: Camping 101, skinners"] = "{npc:6287}, campé au bord de la route avant Shayla : Camping 101, dépeceurs",
+	-- {npc:3605} Nadyia Maneweaver
+	["{npc:3605}, beside him: Camping 101, leatherworkers"] = "{npc:3605}, à côté de lui : Camping 101, travailleurs du cuir",
 
 	-- Step 29: Darnassus
 	-- {quest:922} Rellian Greenspyre · {area:1658} Cenarion Enclave · {npc:7316} Sister Aquinne · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade · {item:279378} Lunar Pendant

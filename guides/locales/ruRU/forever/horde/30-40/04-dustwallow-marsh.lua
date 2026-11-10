@@ -108,14 +108,8 @@ return {
 	["{area:496} flight master"] = "",
 
 	-- Step 22: Ratchet
-	-- {npc:3391} Gazlowe · {npc:3446} Mebok Mizzyrix
-	["{npc:3391} waits upstairs in the house by the flight master; {npc:3446} stands below it, towards the docks."] = "",
-	-- {npc:3391} Gazlowe · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
-	["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}: для персонажа {npc:4631} ({area:35}), при первом заходе сюда ({area:35}) в руководстве 40-50",
-	-- {quest:1111} Wharfmaster Dizzywig
-	["{quest:1111}, on the docks"] = "",
-	-- {area:439} Shimmering Flats
-	["Dizzywig's parts go back to Kravel in the {area:439}, off the route: leave them."] = "",
+	-- {npc:3446} Mebok Mizzyrix
+	["{npc:3446} stands below Gazlowe's house by the flight master, towards the docks."] = "{npc:3446} стоит под домом Газлоу, у распорядителя полетов, ближе к причалам.",
 
 	-- Step 23: The Affray
 	-- {area:392} Ratchet · {area:720} Fray Island · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
@@ -226,6 +220,7 @@ return {
 	-- ["The caravan ends at {npc:11596}'s camp on the east side of the {area:596}."] = "Караван заканчивает путь у лагеря {npc:11596} в восточной части места {area:596}.",
 	-- ["The next guide takes you back to {zone:1434}."] = "Следующее руководство вернет вас сюда: {zone:1434}.",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "Караван ({npc:11626}) останавливается на дороге у края места {area:602}. Сопроводите его на восток мимо ковена; демоны нападут дважды.",
+	-- ["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}: для персонажа {npc:4631} ({area:35}), при первом заходе сюда ({area:35}) в руководстве 40-50",
 	-- ["{npc:5395} and {npc:5412} stand in the post just west of {npc:11596}'s camp."] = "{npc:5395} и {npc:5412} стоят в лагере чуть к западу от лагеря {npc:11596}.",
 	-- ["{npc:6791}: the last guide binds here, so this usually ticks at once"] = "{npc:6791}: предыдущий гайд привязывает вас здесь, так что это обычно отмечается сразу",
 }

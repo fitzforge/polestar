@@ -24,58 +24,56 @@ return {
 	-- {npc:4967} Archmage Tervosh
 	["{npc:4967}, at the tower"] = "{npc:4967}, 탑에서",
 
-	-- Step 3: Theramore
-	-- {npc:4794} Morgan Stern
-	["{npc:4794}, inside"] = "",
-	-- {npc:4794} Morgan Stern · {zone:1435} Swamp of Sorrows
-	["{npc:4794}: the crawlers are on the {zone:1435} shore, keep it"] = "",
-
-	-- Step 4: Swamplight Manor
+	-- Step 3: Swamplight Manor
 	-- {quest:1218} Soothing Spices · {npc:4897} Helenia Olden
 	["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house. Jarl wants three {quest:1218}: if you passed {npc:4897}, buy them from her in Theramore first."] = "",
 	["with the spices from Theramore"] = "테라모어에서 산 향신료를 가지고",
 
-	-- Step 5: "Stinky" Ignatz
+	-- Step 4: "Stinky" Ignatz
 	["\"Stinky\" Ignatz"] = "\"말썽꾼\" 이그나츠",
 	-- {area:504} North Point Tower
 	["Stinky waits west of the manor, in the marsh below {area:504}. Lead him to his Bogbean leaves and keep the swamp creatures off him."] = "이그나츠는 오두막 서쪽, {area:504} 아래 습지에서 기다립니다. 그를 늪콩 잎사귀가 있는 곳으로 데려가며 늪의 짐승들이 그를 공격하지 못하게 막으세요.",
 
-	-- Step 6: North Point Tower
+	-- Step 5: North Point Tower
 	-- {npc:4966} Private Hendel · {npc:4967} Archmage Tervosh · {npc:4968} Lady Jaina Proudmoore
 	["{npc:4966} holds the tower with a few deserters. He turns on you: beat him until he yields.\nCareful: Hendel has two guards who join the fight when he turns hostile. The guards flee once he surrenders.\n{npc:4967} and {npc:4968} wait beside the tower: once he yields, hand in to both on the spot."] = "{npc:4966}은(는) 탈영병 몇 명과 함께 탑을 지키고 있습니다. 그가 당신에게 덤벼드니 굴복할 때까지 때리세요.\n주의: 헨델에게는 경비병 둘이 있어 그가 적대적으로 변하면 전투에 합류합니다. 그가 항복하면 경비병들은 달아납니다.\n{npc:4967}와(과) {npc:4968}은(는) 탑 옆에서 기다립니다. 그가 굴복하면 그 자리에서 두 사람 모두에게 제출하세요.",
 
-	-- Step 7: Darkmist Cavern
+	-- Step 6: Darkmist Cavern
 	-- plural, as words: Darkmist Lurkers = {npc:4377} Darkmist Lurker
 	["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "",
 
-	-- Step 8: Mudcrush Durtfeet
+	-- Step 7: Mudcrush Durtfeet
 	["Ride south to the giant's hut in the middle of the marsh."] = "남쪽으로 습지 한가운데의 거인 오두막으로 가세요.",
 
-	-- Step 9: The Shady Rest Inn
+	-- Step 8: The Shady Rest Inn
 	-- {zone:1413} Barrens
 	["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes."] = "불탄 여관은 서쪽 길, {zone:1413} 방향에 있습니다. 경비병의 휘장은 잿더미 속에 있습니다.",
 
-	-- Step 10: Theramore
+	-- Step 9: Theramore
 	-- {area:514} Foothold Citadel
 	["Follow the road east back to Theramore. The officers are in {area:514}."] = "길을 따라 동쪽으로 테라모어에 돌아가세요. 장교들은 {area:514}에 있습니다.",
 	["On the top floor"] = "",
 	-- {npc:4948} Adjutant Tesoran
 	["{npc:4948}, on the top floor"] = "",
+	-- {npc:4794} Morgan Stern
+	["{npc:4794}, inside"] = "",
+	-- {npc:4794} Morgan Stern · {zone:1435} Swamp of Sorrows
+	["{npc:4794}: the crawlers are on the {zone:1435} shore, keep it"] = "",
 
-	-- Step 11: Mirefin murlocs
+	-- Step 10: Mirefin murlocs
 	["Mirefin murlocs"] = "진흙아가미멀록",
 	-- {area:497} Swamplight Manor
-	["The Mirefin murlocs crowd the north coast past {area:497}; finish the tongues on the tortoises beside them."] = "진흙아가미멀록은 {area:497} 너머 북쪽 해안에 모여 있습니다. 혀는 그 옆의 거북에게서 마저 모으세요.",
+	["The Mirefin murlocs crowd the north coast past {area:497}."] = "진흙아가미멀록은 {area:497} 너머 북쪽 해안에 모여 있습니다.",
 
-	-- Step 12: Swamplight Manor
+	-- Step 11: Swamplight Manor
 	-- {item:3853} Moonsteel Broadsword
 	["only if you carry a {item:3853} (a blacksmith's craft)"] = "{item:3853}(대장장이 제작품)을 가지고 있을 때만",
 
-	-- Step 14: Balos Jacken
+	-- Step 13: Balos Jacken
 	-- {npc:4503} Mudcrush Durtfeet
 	["The deserters camp south of the road, west of {npc:4503}'s hut."] = "탈영병들은 {npc:4503}의 오두막 서쪽, 길 남쪽에 진을 치고 있습니다.",
 
-	-- Step 16: The Affray
+	-- Step 15: The Affray
 	-- {area:392} Ratchet · {area:720} Fray Island · {area:391} Merchant Coast · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
 	["On the ride north to {area:392}, {area:720} lies off the {area:391} south of the town: wade over the sand bar shallows. {npc:6236} sends four challengers and then {npc:6238} (level 33) at you, one at a time."] = "{area:392}(으)로 북쪽으로 가는 길에, {area:720}은(는) 마을 남쪽 {area:391} 앞바다에 있습니다. 모래톱 얕은 물을 걸어서 건너가세요. {npc:6236}이(가) 도전자 넷을, 이어서 {npc:6238}(33레벨)을(를) 하나씩 보냅니다.",
 	-- {npc:6238} Big Will
@@ -83,7 +81,7 @@ return {
 	-- {npc:6236} Klannoc Macleod
 	["{npc:6236} offers The Windwatcher next (1791): the Whirlwind weapon chain, with an elite at the end, is in the Warrior class guide Whirlwind Weapon."] = "{npc:6236}은(는) 다음으로 바람의감시자(1791)를 줍니다. 끝에 정예가 나오는 소용돌이 무기 퀘스트 연계는 전사 직업 가이드 소용돌이 무기에 있습니다.",
 
-	-- Step 17: Foothold Citadel
+	-- Step 16: Foothold Citadel
 	-- {npc:4944} Captain Garran Vimes · {area:514} Foothold Citadel
 	["The boat leaves from Theramore: report to {npc:4944} on the top floor of {area:514} on the way to the docks."] = "",
 	-- {npc:4944} Captain Garran Vimes
@@ -91,24 +89,24 @@ return {
 	-- {npc:4968} Lady Jaina Proudmoore
 	["{npc:4968}, on the top floor"] = "",
 
-	-- Step 18: Boat to Menethil Harbor
+	-- Step 17: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "배를 타고 {area:150}(으)로",
 
-	-- Step 19: Fly to Stormwind
+	-- Step 18: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "{zone:1453}로 비행",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
-	-- Step 21: Riding at 40
+	-- Step 20: Riding at 40
 	["Riding at 40"] = "40레벨 탈것 타기",
 	-- {npc:4732} Randal Hunter · {area:88} Eastvale Logging Camp · {zone:1429} Elwynn Forest · {npc:384} Katie Hunter
 	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4732} teaches Humans at {area:88} in eastern {zone:1429}, beside {npc:384}'s horses. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "40레벨에 100골드가 있으면 탈것 타기를 배울 수 있으며, 배우면 탈것도 하나 받습니다. {npc:4732}은(는) {zone:1429} 동부 {area:88}의 {npc:384}의 말 옆에서 인간에게 가르칩니다. Forever에서는 어느 종족이든 아무 탈것 상급자에게 배울 수 있을지도 모릅니다(확인되지 않음). 수집품, 탈것 · 레벨 40에 모든 색상이 나옵니다.",
 	-- {npc:384} Katie Hunter
 	["{npc:384}: other colours, 20g"] = "{npc:384}: 다른 색상, 20골드",
 
-	-- Step 22: Riding at 40
+	-- Step 21: Riding at 40
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {area:279} Dalaran
 	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Skyborne learn it from {npc:265756}, the stablemaster and riding trainer at the {area:17684} in {area:16638} on Zephras Isle, who also sells the Galestriders: the skyboat to the isle leaves the north side of {area:279} about every five minutes. Collectibles, Mounts · Level 40 lists the Galestriders."] = "",
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
@@ -116,17 +114,19 @@ return {
 	-- {area:279} Dalaran
 	["Skyboat to Zephras Isle: the north side of {area:279}, about every five minutes."] = "",
 
-	-- Step 23: Boat to Booty Bay
+	-- Step 22: Boat to Booty Bay
 	-- {area:35} Booty Bay
 	["Boat to {area:35}"] = "배를 타고 {area:35}(으)로",
+	-- {npc:6251} Strahad Farsan
+	["for the flight back to {npc:6251} at 43"] = "43레벨에 {npc:6251}에게 돌아가는 비행을 위해",
 
-	-- Step 44: Fly to Booty Bay
+	-- Step 43: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "{area:35}(으)로 날아가기",
 	-- {area:42} Darkshire
 	["{area:42} flight master"] = "",
 
-	-- Step 45: Booty Bay
+	-- Step 44: Booty Bay
 	-- {npc:773} Krazek
 	["{npc:773}, upstairs"] = "",
 	-- {npc:770} Corporal Kaleb · {area:99} Rebel Camp
@@ -141,27 +141,27 @@ return {
 	["{npc:2542}, upstairs"] = "",
 	["Upstairs"] = "",
 
-	-- Step 46: Bloodsail camp
+	-- Step 45: Bloodsail camp
 	["Bloodsail camp"] = "붉은해적단 야영지",
 	["Leave town by the tunnel and follow the coast north; the letter lies in the Bloodsail camp on the beach, where \"Pretty Boy\" Duncan walks."] = "터널로 마을을 나가 해안을 따라 북쪽으로 가세요. 편지는 \"꽃미남\" 던컨이 걸어다니는 해변의 붉은해적단 야영지에 있습니다.",
 
-	-- Step 47: Booty Bay
+	-- Step 46: Booty Bay
 	-- {npc:2488} Deeg
 	["{npc:2488}, on the top floor"] = "",
 	-- {npc:2624} Gazban
 	["{npc:2624} swims off the north-west coast, on the northern loop"] = "{npc:2624}은(는) 북쪽 순환 경로 중 북서쪽 해안 앞바다에서 헤엄칩니다",
 
-	-- Step 48: Wild Shore: kill these as you meet them
+	-- Step 47: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
 	["{area:43}: kill these as you meet them"] = "",
 	-- {npc:2493} Dizzy One-Eye · {area:43} Wild Shore · {area:35} Booty Bay
 	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye; the Swashbucklers walk the shore just north of town. The charts and orders lie in the pirate camp on the {area:43}, south of {area:35}."] = "붉은해적단은 모두 코담배를 떨어뜨리고, 그중 하나가 {npc:2493}의 눈을 가지고 있습니다. 붉은해적단 칼잡이는 마을 바로 북쪽 해안을 걸어다닙니다. 해도와 명령서는 {area:35} 남쪽 {area:43}의 해적 야영지에 있습니다.",
 
-	-- Step 49: Booty Bay
+	-- Step 48: Booty Bay
 	-- {quest:604} The Bloodsail Buccaneers
 	["Seahorn now offers {quest:604}: leave it. Its three captains are level 45-48 with crews around them, and the route brings you back to Seahorn at 48 for it."] = "",
 
-	-- Step 50: Gorilla hills
+	-- Step 49: Gorilla hills
 	["Gorilla hills"] = "고릴라 언덕",
 	-- {npc:1449} Witch Doctor Unbagwa
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
@@ -169,17 +169,17 @@ return {
 	-- {npc:1449} Witch Doctor Unbagwa · {area:1742} Spirit Den
 	["{npc:1449}, inside {area:1742}"] = "",
 
-	-- Step 51: Unbagwa's ritual
+	-- Step 50: Unbagwa's ritual
 	["Unbagwa's ritual"] = "운바그와의 의식",
 	-- {npc:1514} Mokk the Savage
 	["Hand in the fangs and stay: three waves of gorillas come, {npc:1514} last. Fight at full health."] = "송곳니를 제출하고 그대로 있으세요. 고릴라가 세 차례 몰려오고 마지막에 {npc:1514}이(가) 나옵니다. 생명력이 가득한 상태로 싸우세요.",
 
-	-- Step 52: Naga Explorers
+	-- Step 51: Naga Explorers
 	-- plural, as words: Naga Explorers = {npc:1907} Naga Explorer
 	["Naga Explorers"] = "{npc:1907}",
 	["The naga comb the beaches north of the Bloodsail camp; they drop the reeds."] = "나가는 붉은해적단 야영지 북쪽 해변을 뒤지고 다니며, 갈대를 떨어뜨립니다.",
 
-	-- Step 53: Booty Bay
+	-- Step 52: Booty Bay
 	["Ride back down to town; Shaky stands at the tunnel mouth."] = "마을로 다시 내려가세요. 겁쟁이 필립은 터널 입구에 서 있습니다.",
 	-- {npc:2616} Privateer Groy
 	["for {npc:2616} in Theramore: keep it"] = "테라모어의 {npc:2616}에게 줄 것: 보관하세요",
@@ -187,31 +187,31 @@ return {
 	["for Stoley in {zone:1446}: keep it; on the top floor"] = "",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 
-	-- Step 54: Cortello's scroll
+	-- Step 53: Cortello's scroll
 	["Cortello's scroll"] = "코르텔로의 두루마리",
 	-- {area:35} Booty Bay
 	["Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of {area:35}, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48."] = "선택 사항: 코르텔로의 두루마리는 {area:35} 바로 남쪽 앞바다에 정박한 붉은해적단 배 세 척 중 하나의 중간 또는 아래 갑판에 있으며, 항상 같은 배에 있지는 않습니다. 선원은 42-45 레벨 해적입니다. 가장자리부터 하나씩 처치하며 길을 뚫고, 선장(45-48)은 남겨 두세요. 48 레벨에 경로상 다시 처치하러 옵니다.",
 	-- {zone:1435} Swamp of Sorrows
 	["for the {zone:1435} later"] = "나중에 {zone:1435}에 쓸 것",
 
-	-- Step 55: Zanzil's village
+	-- Step 54: Zanzil's village
 	["Zanzil's village"] = "잔질의 마을",
 	-- {npc:2537} Chucky "Ten Thumbs"
 	["Every Zanzil follower can drop the mixture; {npc:2537} walks the south of the camp."] = "잔질의 추종자는 누구나 혼합물을 떨어뜨릴 수 있습니다. {npc:2537}은(는) 야영지 남쪽을 걸어다닙니다.",
 
-	-- Step 56: Maury "Club Foot" Wilkins and Jon-Jon the Crow
+	-- Step 55: Maury "Club Foot" Wilkins and Jon-Jon the Crow
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["{npc:2535} and {npc:2536}"] = "{npc:2535}와(과) {npc:2536}",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["Ride north to the hills west of the road. {npc:2535} and {npc:2536} stand together just north of Zanzil's village."] = "북쪽으로 길 서쪽 언덕에 가세요. {npc:2535}와(과) {npc:2536}은(는) 잔질의 마을 바로 북쪽에 함께 서 있습니다.",
 
-	-- Step 57: Jungle Stalkers
+	-- Step 56: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["Jungle Stalkers"] = "줄무늬정글랩터",
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["The Jungle Stalkers roam the slopes west of the mine."] = "",
 
-	-- Step 58: The north-west coast
+	-- Step 57: The north-west coast
 	["The north-west coast"] = "북서쪽 해안",
 	-- {npc:2624} Gazban · {item:4034} Stone of the Tides
 	-- plural, as words: Giant Clams = {object:2744} Giant Clam
@@ -219,40 +219,40 @@ return {
 	-- {item:4611} Blue Pearl
 	["{item:4611}; underwater"] = "",
 
-	-- Step 61: Arbor Tarantula
+	-- Step 60: Arbor Tarantula
 	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb
 	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "",
 
-	-- Step 62: Rebel Camp
+	-- Step 61: Rebel Camp
 	["Ride north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "",
 
-	-- Step 64: Panther Mastery
+	-- Step 63: Panther Mastery
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 65: Level 42.16 at Zul'Mamwe
+	-- Step 64: Level 42.16 at Zul'Mamwe
 	["Level 42.16 at Zul'Mamwe"] = "",
 	-- {npc:737} Kebok · {area:1517} Uldaman
 	["Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for {npc:737}'s tusks. Or, with a group, run the {area:1517} dungeon instead."] = "",
 	-- {npc:667} Skullsplitter Warrior
 	["grind on {npc:667}"] = "",
 
-	-- Step 66: Ruins of Zul'Mamwe: kill these as you meet them
+	-- Step 65: Ruins of Zul'Mamwe: kill these as you meet them
 	-- {area:103} Ruins of Zul'Mamwe
 	["{area:103}: kill these as you meet them"] = "",
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "",
 
-	-- Step 67: Raptor Mastery
+	-- Step 66: Raptor Mastery
 	-- {npc:730} Tethis
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 71: Big Game Hunter
+	-- Step 70: Big Game Hunter
 	-- {npc:731} King Bangalash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "",
 
-	-- Step 73: Level 42.16
+	-- Step 72: Level 42.16
 	["Level 42.16"] = "",
 	-- {area:310} Crystalvein Mine · {area:35} Booty Bay · {area:1517} Uldaman
 	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
@@ -260,7 +260,7 @@ return {
 	-- {npc:690} Cold Eye Basilisk
 	["grind on {npc:690}"] = "",
 
-	-- Step 74: Booty Bay
+	-- Step 73: Booty Bay
 	-- {area:35} Booty Bay
 	["Ride south down the road to {area:35}."] = "",
 	-- {npc:2498} Crank Fizzlebub · {zone:1441} Thousand Needles
@@ -271,148 +271,148 @@ return {
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {zone:1446} Tanaris
 	["{npc:773}: for {quest:2864} in {zone:1446}, keep it"] = "{npc:773}: {zone:1446}의 {quest:2864}에게 줄 것, 보관하세요",
 
-	-- Step 75: Fly to Stormwind
+	-- Step 74: Fly to Stormwind
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "",
 
-	-- Step 76: Stormwind
+	-- Step 75: Stormwind
 	-- {npc:1141} Angus Stern · {object:2169} Blue Recluse · {npc:5384} Brohann Caskbelly · {object:28027} Dwarven District
 	["{npc:1141} cooks in the {object:2169}; {npc:5384} is in the {object:28027}."] = "{npc:1141}은(는) {object:2169}에서 요리하고, {npc:5384}은(는) {object:28027}에 있습니다.",
 	-- {npc:5694} High Sorcerer Andromath · {npc:5464} Watchmaster Sorigal · {area:42} Darkshire
 	["{npc:5694}: for {npc:5464} in {area:42}, on the way to the swamp"] = "",
 
-	-- Step 77: Stormwind
+	-- Step 76: Stormwind
 	-- {npc:1440} Milton Sheaf · {object:2117} Stormwind Keep
 	["{npc:1440}, the Royal Library in {object:2117}"] = "{npc:1440}, {object:2117}의 왕실 도서관",
 
-	-- Step 79: Paladin: The Tome of Nobility
+	-- Step 78: Paladin: The Tome of Nobility
 	-- {quest:1661} The Tome of Nobility
 	["Paladin: {quest:1661}"] = "성기사: {quest:1661}",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}, in the Cathedral of Light"] = "{npc:6171}, 빛의 대성당 안",
 
-	-- Step 80: Stormwind City
+	-- Step 79: Stormwind City
 	["Stormwind City"] = "",
 
-	-- Step 81: Warlock: Summon Felsteed
+	-- Step 80: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "흑마법사: {quest:3631}",
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {npc:6251} Strahad Farsan · {area:392} Ratchet
 	["{npc:461}, in the {object:2164}: {npc:6251} in {area:392} takes it at the end of the next guide"] = "{npc:461}, {object:2164} 안: 다음 가이드 끝에 {area:392}의 {npc:6251}이(가) 받습니다",
 
-	-- Step 83: Fly to Rut'theran Village
+	-- Step 82: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "",
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
 
-	-- Step 86: Riding at 40
+	-- Step 85: Riding at 40
 	-- {npc:4753} Jartsam · {zone:1457} Darnassus · {npc:4730} Lelanai · {area:17203} Stormwind Harbor · {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4732} Randal Hunter · {area:88} Eastvale Logging Camp · {zone:1429} Elwynn Forest
 	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4753} teaches Night Elves in {zone:1457}, beside {npc:4730}'s sabers: the boat from {area:17203} to {area:442}, then the flight to {area:702}. Forever may let any race learn from any riding trainer (unconfirmed), such as {npc:4732} at {area:88} in {zone:1429}. Collectibles, Mounts · Level 40 lists every colour."] = "40레벨에 100골드가 있으면 탈것 타기를 배울 수 있으며, 배우면 탈것도 하나 받습니다. {npc:4753}은(는) {zone:1457}의 {npc:4730}의 표범 옆에서 나이트 엘프에게 가르칩니다. {area:17203}에서 배를 타고 {area:442}(으)로 간 뒤 {area:702}(으)로 날아가세요. Forever에서는 어느 종족이든 {zone:1429} {area:88}의 {npc:4732} 같은 아무 탈것 상급자에게 배울 수 있을지도 모릅니다(확인되지 않음). 수집품, 탈것 · 레벨 40에 모든 색상이 나옵니다.",
 	-- {npc:4730} Lelanai
 	["{npc:4730}: other colours, 20g"] = "{npc:4730}: 다른 색상, 20골드",
 
-	-- Step 88: Fly to Auberdine
+	-- Step 87: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "",
 
-	-- Step 89: Boat to Stormwind Harbor
+	-- Step 88: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "",
 
-	-- Step 90: Fly to Darkshire
+	-- Step 89: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "{area:42}(으)로 날아가세요",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "",
 
-	-- Step 91: Darkshire
+	-- Step 90: Darkshire
 	-- {npc:5464} Watchmaster Sorigal
 	["{npc:5464}, by the flight master"] = "",
 
-	-- Step 93: Misty Valley
+	-- Step 92: Misty Valley
 	["The scroll lies in the marsh north of Biggs. The Swampwalkers north of it can drop Khadgar's essays."] = "두루마리는 빅스 북쪽 습지에 있습니다. 그 북쪽의 늪괴물이 카드가의 평론을 떨어뜨릴 수 있습니다.",
 
-	-- Step 95: Level 42.46
+	-- Step 94: Level 42.46
 	["Level 42.46"] = "",
 	-- {quest:543} The Perenolde Tiara · {area:1517} Uldaman
 	["If you skipped {quest:543}, grind here to level 42.46 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
 	-- {npc:766} Tangled Horror
 	["grind on {npc:766}"] = "",
 
-	-- Step 96: Cortello's Riddle
+	-- Step 95: Cortello's Riddle
 	-- {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
 	["{npc:217412}: {quest:93176}, from 30-40/05-arathi-highlands"] = "{npc:217412}: 30-40/05-arathi-highlands에서 받은 {quest:93176}",
 
-	-- Step 97: Watcher Biggs
+	-- Step 96: Watcher Biggs
 	-- {npc:5476} Watcher Biggs
 	["{npc:5476} stands by the road junction in the west of the swamp."] = "",
 
-	-- Step 98: The sunken temple
+	-- Step 97: The sunken temple
 	["The sunken temple"] = "가라앉은 사원",
 	-- {area:74} Pool of Tears
 	-- plural, as words: Tangled Horrors = {npc:766} Tangled Horror
 	["Ride east; the Tangled Horrors along the way also drop the essays. Search the edge of the {area:74}, where the temple's ruins break the water."] = "동쪽으로 가세요. 가는 길의 {npc:766}도 평론을 떨어뜨립니다. 사원 폐허가 수면 위로 드러난 {area:74} 가장자리를 찾아보세요.",
 
-	-- Step 99: Misty Reed Strand
+	-- Step 98: Misty Reed Strand
 	["The driftwood washes up along the eastern shore."] = "유목은 동쪽 해안을 따라 떠밀려 옵니다.",
 	-- {item:5938} Pristine Crawler Leg
 	-- plural, as words: Silt Crawlers = {npc:922} Silt Crawler
 	["{item:5938}, from the Silt Crawlers on the same shore"] = "",
 
-	-- Step 100: Watcher Biggs
+	-- Step 99: Watcher Biggs
 	-- {area:1438} Nethergarde Keep
 	["for {area:1438}: keep it"] = "{area:1438}에 쓸 것: 보관하세요",
 
-	-- Step 103: Stormwind
+	-- Step 102: Stormwind
 	-- {npc:5635} Falstad Wildhammer · {area:348} Aerie Peak
 	["for {npc:5635} at {area:348}: keep it"] = "{area:348}의 {npc:5635}에게 줄 것: 보관하세요",
 
-	-- Step 104: Tram to Ironforge
+	-- Step 103: Tram to Ironforge
 	-- {zone:1455} Ironforge
 	["Tram to {zone:1455}"] = "",
 
-	-- Step 107: Ironforge
+	-- Step 106: Ironforge
 	-- {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers (no name in this language: may be words) · {npc:2786} Gerrig Bonegrip · {object:32383} Forlorn Cavern
 	["{npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:2786} in the {object:32383}."] = "",
 	-- {zone:1453} Stormwind
 	["{zone:1453} has no shaman trainer"] = "{zone:1453}에는 주술사 상급자가 없습니다",
 
-	-- Step 109: Riding at 40
+	-- Step 108: Riding at 40
 	-- {npc:4772} Ultham Ironhorn · {area:803} Amberstill Ranch · {area:131} Kharanos · {zone:1432} Loch Modan · {npc:1261} Veron Amberstill
 	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4772} teaches Dwarves at {area:803}, east of {area:131} on the road to {zone:1432}, beside {npc:1261}'s rams. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "40레벨에 100골드가 있으면 탈것 타기를 배울 수 있으며, 배우면 탈것도 하나 받습니다. {npc:4772}은(는) {area:131} 동쪽, {zone:1432}(으)로 가는 길의 {area:803}에서 {npc:1261}의 산양 옆에서 드워프에게 가르칩니다. Forever에서는 어느 종족이든 아무 탈것 상급자에게 배울 수 있을지도 모릅니다(확인되지 않음). 수집품, 탈것 · 레벨 40에 모든 색상이 나옵니다.",
 	-- {npc:1261} Veron Amberstill
 	["{npc:1261}: other colours, 20g"] = "{npc:1261}: 다른 색상, 20골드",
 
-	-- Step 111: Riding at 40
+	-- Step 110: Riding at 40
 	-- {npc:7954} Binjy Featherwhistle · {area:189} Steelgrill's Depot · {area:131} Kharanos · {npc:7955} Milli Featherwhistle
 	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:7954} teaches Gnomes at {area:189}, just east of {area:131}, beside {npc:7955}'s mechanostriders. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "40레벨에 100골드가 있으면 탈것 타기를 배울 수 있으며, 배우면 탈것도 하나 받습니다. {npc:7954}은(는) {area:131} 바로 동쪽 {area:189}에서 {npc:7955}의 기계타조 옆에서 노움에게 가르칩니다. Forever에서는 어느 종족이든 아무 탈것 상급자에게 배울 수 있을지도 모릅니다(확인되지 않음). 수집품, 탈것 · 레벨 40에 모든 색상이 나옵니다.",
 	-- {npc:7955} Milli Featherwhistle
 	["{npc:7955}: other colours, 20g"] = "{npc:7955}: 다른 색상, 20골드",
 
-	-- Step 112: Fly to Thelsamar
+	-- Step 111: Fly to Thelsamar
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
-	-- Step 113: Loch Modan
+	-- Step 112: Loch Modan
 	-- {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
 	["Ride east out of {zone:1426} through the tunnel into {zone:1432} and on along the road to {area:144}."] = "",
 
-	-- Step 114: Thelsamar
+	-- Step 113: Thelsamar
 	-- {npc:1470} Ghak Healtouch · {area:144} Thelsamar · {area:1517} Uldaman · {zone:1418} Badlands
 	["{npc:1470} is below ground in {area:144}, by the inn. His mushrooms grow in the {area:1517} dig in the {zone:1418}; the next guide takes you there and back through {area:144}."] = "",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "",
 
-	-- Step 116: Hammertoe's Digsite
+	-- Step 115: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {zone:1418} Badlands · {npc:2860} Sigrun Ironhew
 	["Ride south out of {zone:1432} through the pass into the {zone:1418}; {npc:2860} camps at the dig."] = "남쪽 고개를 지나 {zone:1432}에서 {zone:1418}(으)로 가십시오. {npc:2860}은(는) 발굴 현장에 야영하고 있습니다.",
 
-	-- Step 117: Garek
+	-- Step 116: Garek
 	-- {npc:2888} Garek · {area:1898} Dustwind Gulch
 	["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888}은(는) 발굴 현장 남동쪽 {area:1898}에 홀로 야영하고 있습니다.",
 
@@ -440,6 +440,7 @@ return {
 	-- ["The Bloodsail captains"] = "붉은해적단 선장들",
 	-- ["The Cold Eye Basilisks lie on the rocks west of the mine."] = "{npc:690}은(는) 광산 서쪽 바위 위에 엎드려 있습니다.",
 	-- ["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes."] = "암흑안개 거미는 습지 북서쪽 거미굴 주변에 둥지를 틀고 있습니다. 거미는 모두 눈알을 떨어뜨립니다.",
+	-- ["The Mirefin murlocs crowd the north coast past {area:497}; finish the tongues on the tortoises beside them."] = "진흙아가미멀록은 {area:497} 너머 북쪽 해안에 모여 있습니다. 혀는 그 옆의 거북에게서 마저 모으세요.",
 	-- ["The Mudrock Tortoises and Spikeshells sun themselves on the shore north-east of the manor."] = "{npc:4396}와(과) 뾰족껍질 진흙바위거북은 오두막 북동쪽 물가에서 햇볕을 쬡니다.",
 	-- ["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do."] = "백골가루부족 트롤은 광산 바로 동쪽 폐허를 차지하고 있습니다. 누구든 엄니를 떨어뜨릴 수 있고, 그들의 퓨마는 항상 떨어뜨립니다.",
 	-- ["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes and the hoofprints are in the mud beside the inn."] = "불탄 여관은 서쪽 길, {zone:1413} 방향에 있습니다. 경비병의 휘장은 잿더미 속에, 발굽 자국은 여관 옆 진흙에 있습니다.",

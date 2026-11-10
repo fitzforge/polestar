@@ -125,8 +125,6 @@ return {
 	-- Step 25: Booty Bay
 	-- {area:35} Booty Bay
 	["Head south to {area:35}. Shaky Phillipe waits on the docks."] = "向南前往 {area:35}。“病鬼”菲利普 在码头等着。",
-	-- {npc:2495} Drizzlik · {item:4105} Elder Crocolisk Skin
-	["{npc:2495}, inside: the {item:4105}"] = "{npc:2495}，在屋内：交还{item:4105}",
 	-- {npc:6807} Innkeeper Skindle
 	["{npc:6807}, upstairs"] = "{npc:6807}：在楼上",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
@@ -135,6 +133,8 @@ return {
 	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "",
 	-- {zone:1446} Tanaris
 	["MacKinley, on the top floor: for Stoley in {zone:1446}"] = "顶层的“海狼”马克基雷：交给{zone:1446}的斯杜雷",
+	-- {npc:2495} Drizzlik · {item:4105} Elder Crocolisk Skin
+	["{npc:2495}, inside: the {item:4105}"] = "{npc:2495}，在屋内：交还{item:4105}",
 
 	-- Step 26: Zanzil's camps
 	["Zanzil's camps"] = "赞吉尔的营地",

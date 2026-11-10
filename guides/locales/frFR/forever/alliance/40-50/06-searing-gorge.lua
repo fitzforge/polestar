@@ -36,8 +36,8 @@ return {
 	-- Step 7: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
 	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "",
-	-- {npc:8256} Curator Thorius · {area:1537} Ironforge
-	["For {npc:8256} in {area:1537}, later"] = "Pour {npc:8256} à {area:1537}, plus tard",
+	-- {npc:8256} Curator Thorius · {zone:1455} Ironforge
+	["For {npc:8256} in {zone:1455}, at the end of this guide"] = "Pour {npc:8256} à {zone:1455}, à la fin de ce guide",
 
 	-- Step 8: Thorium Point
 	-- {area:1446} Thorium Point
@@ -137,10 +137,23 @@ return {
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "Maître de vol de {area:1446}",
 
-	-- Step 38: Class trainer
+	-- Step 38: Hall of Explorers
+	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
+	["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616} : les limons sont au {zone:1448}, gardez-la",
+
+	-- Step 39: Mystic Ward
+	-- {zone:1447} Azshara
+	["Four rune rubbings in {zone:1447}: keep it"] = "Quatre estampages de runes en {zone:1447} : gardez-la",
+
+	-- Step 40: Class trainer
 	["Class trainer"] = "Maître de classe",
 
+	-- Step 41: Xiggs Fuselighter
+	-- {object:32359} Military Ward
+	["Xiggs waits in the {object:32359}."] = "Xiggs attend dans le {object:32359}.",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["For {npc:8256} in {area:1537}, later"] = "Pour {npc:8256} à {area:1537}, plus tard",
 	-- ["For {npc:8256} in {zone:1455}, later"] = "Pour {npc:8256} à {zone:1455}, plus tard",
 	-- ["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {area:51}. {area:1446} is the scaffolded camp on the north-west rim."] = "Depuis {area:144}, chevauchez vers le sud jusqu'aux {zone:1418}, puis vers l'ouest après {area:340}, la ville de la Horde (gardez vos distances), et montez le sentier jusqu'à la {area:51}. {area:1446} est le camp à échafaudages sur le rebord nord-ouest.",
 	-- ["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}. {area:1446} is the scaffolded camp on the north-west rim."] = "Depuis {area:144}, chevauchez vers le sud jusqu'aux {zone:1418}, puis vers l'ouest au-delà de la ville horde de {area:340} (gardez vos distances) et montez la piste jusqu'à la {zone:1427}. Le {area:1446} est le camp échafaudé sur le rebord nord-ouest.",

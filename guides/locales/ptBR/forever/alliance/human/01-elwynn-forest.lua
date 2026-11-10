@@ -134,12 +134,28 @@ return {
 
 	-- Step 23: The lake shore
 	["The lake shore"] = "A margem do lago",
-	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner · {npc:383} Jason Mathers · {npc:1651} Lee Brown · {area:18} Crystal Lake
-	["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:263399} acampa a nordeste da estalagem; {npc:6306}, {npc:383} e {npc:1651} ficam na margem de {area:18}, a leste da cidade.",
+	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner · {npc:1632} Adele Fielder · {npc:383} Jason Mathers · {npc:1651} Lee Brown · {area:18} Crystal Lake · {skill:129} First Aid · {area:87} Goldshire
+	["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:1632}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town. With a profession learned, Sam also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing here on the shore, {skill:129} and blacksmithing in {area:87}."] = "{npc:263399} acampa a nordeste da estalagem; {npc:6306}, {npc:1632}, {npc:383} e {npc:1651} ficam na margem de {area:18}, a leste da cidade. Com uma profissão aprendida, Sam também oferece a Introdução ao acampamento dela, que o instrutor da profissão recebe: esfolamento, couraria e pesca aqui na margem; {skill:129} e ferraria em {area:87}.",
 	-- {spell:1229451} Boosted Rest
 	["Sit (/sit) by his campfire until you have {spell:1229451}"] = "Sente-se (/sit) junto à fogueira dele até ganhar {spell:1229451}",
+	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner
+	["{npc:263399}, skinners: for {npc:6306}"] = "{npc:263399}, esfoladores: para {npc:6306}",
+	-- {npc:263399} Sam Sarsaparilla · {npc:1632} Adele Fielder
+	["{npc:263399}, leatherworkers: for {npc:1632}"] = "{npc:263399}, coureiros: para {npc:1632}",
+	-- {npc:263399} Sam Sarsaparilla · {npc:1651} Lee Brown
+	["{npc:263399}, fishers: for {npc:1651}"] = "{npc:263399}, pescadores: para {npc:1651}",
+	-- {npc:263399} Sam Sarsaparilla · {skill:129} First Aid · {npc:2329} Michelle Belle
+	["{npc:263399}, {skill:129}: for {npc:2329} in the inn"] = "{npc:263399}, {skill:129}: para {npc:2329}, na estalagem",
+	-- {npc:263399} Sam Sarsaparilla · {npc:514} Smith Argus
+	["{npc:263399}, blacksmiths: for {npc:514} at the smithy"] = "{npc:263399}, ferreiros: para {npc:514}, na ferraria",
 	-- {npc:6306} Helene Peltskinner
 	["{npc:6306}: skinners only, the pelts are skinned; inside"] = "{npc:6306}: só para esfoladores, os pelegos saem da esfola; lá dentro",
+	-- {npc:6306} Helene Peltskinner
+	["{npc:6306}: Camping 101, skinners; inside"] = "{npc:6306}: Introdução ao acampamento, esfoladores; lá dentro",
+	-- {npc:1632} Adele Fielder
+	["{npc:1632}: Camping 101, leatherworkers"] = "{npc:1632}: Introdução ao acampamento, coureiros",
+	-- {npc:1651} Lee Brown
+	["{npc:1651}: Camping 101, fishers"] = "{npc:1651}: Introdução ao acampamento, pescadores",
 
 	-- Step 24: Crystal Lake
 	-- plural, as words: Fishing Traps = {object:694772} Fishing Trap
@@ -163,6 +179,10 @@ return {
 	["{npc:1430} cooks in the inn's kitchen. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:1430} cozinha na cozinha da estalagem. {npc:377} (sacerdotes), {npc:328} (magos) e {npc:917} (ladinos) ficam no andar de cima da estalagem: suba a escada por dentro, a seta não diferencia os andares.",
 	-- {npc:1430} Tomas
 	["{npc:1430}: Camping 101 asks you to learn it; below ground"] = "{npc:1430}: Introdução ao acampamento pede que você aprenda; no subterrâneo",
+	-- {npc:2329} Michelle Belle · {skill:129} First Aid
+	["{npc:2329}, in the inn: Camping 101, {skill:129}"] = "{npc:2329}, na estalagem: Introdução ao acampamento, {skill:129}",
+	-- {npc:514} Smith Argus
+	["{npc:514}, at the smithy across the road: Camping 101, blacksmiths"] = "{npc:514}, na ferraria do outro lado da estrada: Introdução ao acampamento, ferreiros",
 	-- {npc:377} Priestess Josetta · {item:16605} Friar's Robes of the Light
 	["{npc:377}, upstairs: {item:16605}"] = "{npc:377}, no andar de cima: {item:16605}",
 
@@ -342,7 +362,9 @@ return {
 	-- {npc:240} Marshal Dughan
 	["{npc:240}, while William brews"] = "{npc:240}, enquanto o Guilherme prepara a poção",
 	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind
-	["{npc:514}, at the smithy: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, na ferraria: {npc:1416} em {zone:1453} recebe (02-westfall)",
+	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, na ferraria ao lado de Dughan: {npc:1416} em {zone:1453} recebe (02-westfall)",
+	-- {npc:253} William Pestle
+	["{npc:253}, back in the inn"] = "{npc:253}, de volta à estalagem",
 	-- {npc:377} Priestess Josetta · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
 	["{npc:377}: {npc:376} in {zone:1453} takes it"] = "{npc:377}: quem recebe é {npc:376}, em {zone:1453}",
 	-- {npc:328} Zaldimar Wefhellt · {npc:5497} Jennea Cannon · {zone:1453} Stormwind
@@ -473,7 +495,9 @@ return {
 	-- ["{npc:247229}, in the library"] = "{npc:247229}, na biblioteca",
 	-- ["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "{npc:248277} fica de guarda em {area:798}, a leste da margem dos murlocs. Depois volte para o noroeste até a ponte.",
 	-- ["{npc:248415} stands behind the Abbey, by the stables."] = "{npc:248415} fica atrás da Abadia, perto dos estábulos.",
+	-- ["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:263399} acampa a nordeste da estalagem; {npc:6306}, {npc:383} e {npc:1651} ficam na margem de {area:18}, a leste da cidade.",
 	-- ["{npc:377}: {npc:376} in {zone:1453} takes both"] = "{npc:377}: {npc:376} em {zone:1453} recebe as duas",
+	-- ["{npc:514}, at the smithy: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, na ferraria: {npc:1416} em {zone:1453} recebe (02-westfall)",
 	-- ["{npc:6171}: Redemption"] = "{npc:6171}: Redenção",
 	-- ["{npc:6306}: skinners only, the pelts are skinned"] = "{npc:6306}: só para esfoladores; as peles são esfoladas",
 	-- ["{npc:911}, the warrior trainer"] = "{npc:911}, o instrutor de guerreiros",

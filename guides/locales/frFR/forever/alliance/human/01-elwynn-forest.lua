@@ -134,12 +134,28 @@ return {
 
 	-- Step 23: The lake shore
 	["The lake shore"] = "La rive du lac",
-	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner · {npc:383} Jason Mathers · {npc:1651} Lee Brown · {area:18} Crystal Lake
-	["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:263399} campe au nord-est de l'auberge ; {npc:6306}, {npc:383} et {npc:1651} se tiennent sur la rive du {area:18}, à l'est du village.",
+	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner · {npc:1632} Adele Fielder · {npc:383} Jason Mathers · {npc:1651} Lee Brown · {area:18} Crystal Lake · {skill:129} First Aid · {area:87} Goldshire
+	["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:1632}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town. With a profession learned, Sam also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing here on the shore, {skill:129} and blacksmithing in {area:87}."] = "{npc:263399} campe au nord-est de l'auberge ; {npc:6306}, {npc:1632}, {npc:383} et {npc:1651} se tiennent sur la rive du {area:18}, à l'est du village. Si vous avez appris un métier, Sam propose aussi son Camping 101, que reçoit le maître de ce métier : dépeçage, travail du cuir et pêche ici sur la rive, {skill:129} et forge à {area:87}.",
 	-- {spell:1229451} Boosted Rest
 	["Sit (/sit) by his campfire until you have {spell:1229451}"] = "Asseyez-vous (/sit) près de son feu de camp jusqu'à obtenir {spell:1229451}",
+	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner
+	["{npc:263399}, skinners: for {npc:6306}"] = "{npc:263399}, dépeceurs : pour {npc:6306}",
+	-- {npc:263399} Sam Sarsaparilla · {npc:1632} Adele Fielder
+	["{npc:263399}, leatherworkers: for {npc:1632}"] = "{npc:263399}, travailleurs du cuir : pour {npc:1632}",
+	-- {npc:263399} Sam Sarsaparilla · {npc:1651} Lee Brown
+	["{npc:263399}, fishers: for {npc:1651}"] = "{npc:263399}, pêcheurs : pour {npc:1651}",
+	-- {npc:263399} Sam Sarsaparilla · {skill:129} First Aid · {npc:2329} Michelle Belle
+	["{npc:263399}, {skill:129}: for {npc:2329} in the inn"] = "{npc:263399}, {skill:129} : pour {npc:2329} dans l'auberge",
+	-- {npc:263399} Sam Sarsaparilla · {npc:514} Smith Argus
+	["{npc:263399}, blacksmiths: for {npc:514} at the smithy"] = "{npc:263399}, forgerons : pour {npc:514} à la forge",
 	-- {npc:6306} Helene Peltskinner
 	["{npc:6306}: skinners only, the pelts are skinned; inside"] = "{npc:6306} : dépeceurs seulement, les peaux se dépècent ; à l'intérieur",
+	-- {npc:6306} Helene Peltskinner
+	["{npc:6306}: Camping 101, skinners; inside"] = "{npc:6306} : Camping 101, dépeceurs ; à l'intérieur",
+	-- {npc:1632} Adele Fielder
+	["{npc:1632}: Camping 101, leatherworkers"] = "{npc:1632} : Camping 101, travailleurs du cuir",
+	-- {npc:1651} Lee Brown
+	["{npc:1651}: Camping 101, fishers"] = "{npc:1651} : Camping 101, pêcheurs",
 
 	-- Step 24: Crystal Lake
 	-- plural, as words: Fishing Traps = {object:694772} Fishing Trap
@@ -163,6 +179,10 @@ return {
 	["{npc:1430} cooks in the inn's kitchen. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:1430} Tomas
 	["{npc:1430}: Camping 101 asks you to learn it; below ground"] = "{npc:1430} : Camping 101 vous demande de l'apprendre ; sous terre",
+	-- {npc:2329} Michelle Belle · {skill:129} First Aid
+	["{npc:2329}, in the inn: Camping 101, {skill:129}"] = "{npc:2329}, dans l'auberge : Camping 101, {skill:129}",
+	-- {npc:514} Smith Argus
+	["{npc:514}, at the smithy across the road: Camping 101, blacksmiths"] = "{npc:514}, à la forge de l'autre côté de la route : Camping 101, forgerons",
 	-- {npc:377} Priestess Josetta · {item:16605} Friar's Robes of the Light
 	["{npc:377}, upstairs: {item:16605}"] = "{npc:377}, à l'étage : {item:16605}",
 
@@ -342,7 +362,9 @@ return {
 	-- {npc:240} Marshal Dughan
 	["{npc:240}, while William brews"] = "{npc:240}, pendant que William prépare la potion",
 	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind
-	["{npc:514}, at the smithy: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "",
+	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, à la forge à côté de Dughan : {npc:1416} à {zone:1453} la reçoit (02-westfall)",
+	-- {npc:253} William Pestle
+	["{npc:253}, back in the inn"] = "{npc:253}, de retour dans l'auberge",
 	-- {npc:377} Priestess Josetta · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
 	["{npc:377}: {npc:376} in {zone:1453} takes it"] = "",
 	-- {npc:328} Zaldimar Wefhellt · {npc:5497} Jennea Cannon · {zone:1453} Stormwind
@@ -480,6 +502,7 @@ return {
 	-- ["{npc:247229}, in the library"] = "{npc:247229}, dans la bibliothèque",
 	-- ["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "{npc:248277} monte la garde à {area:798}, à l'est de la rive des murlocs. Repartez ensuite vers le nord-ouest jusqu'au pont.",
 	-- ["{npc:248415} stands behind the Abbey, by the stables."] = "{npc:248415} se tient derrière l'abbaye, près des écuries.",
+	-- ["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:263399} campe au nord-est de l'auberge ; {npc:6306}, {npc:383} et {npc:1651} se tiennent sur la rive du {area:18}, à l'est du village.",
 	-- ["{npc:270459} in {zone:1416}; {area:87} has no druid trainer"] = "{npc:270459} dans {zone:1416} ; {area:87} n'a pas de maître des druides",
 	-- ["{npc:377}: {npc:376} in {zone:1453} takes both"] = "{npc:377} : {npc:376} à {zone:1453} reçoit les deux",
 	-- ["{npc:459}: Summon Imp"] = "{npc:459} : Invocation d'un diablotin",

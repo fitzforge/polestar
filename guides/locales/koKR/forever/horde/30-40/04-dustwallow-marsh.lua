@@ -108,14 +108,8 @@ return {
 	["{area:496} flight master"] = "",
 
 	-- Step 22: Ratchet
-	-- {npc:3391} Gazlowe · {npc:3446} Mebok Mizzyrix
-	["{npc:3391} waits upstairs in the house by the flight master; {npc:3446} stands below it, towards the docks."] = "",
-	-- {npc:3391} Gazlowe · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
-	["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}: 40-50 가이드에서 처음 {area:35}에 들를 때 {area:35}의 {npc:4631}에게",
-	-- {quest:1111} Wharfmaster Dizzywig
-	["{quest:1111}, on the docks"] = "",
-	-- {area:439} Shimmering Flats
-	["Dizzywig's parts go back to Kravel in the {area:439}, off the route: leave them."] = "",
+	-- {npc:3446} Mebok Mizzyrix
+	["{npc:3446} stands below Gazlowe's house by the flight master, towards the docks."] = "{npc:3446}은(는) 비행 조련사 옆 가즐로의 집 아래, 부두 쪽에 서 있습니다.",
 
 	-- Step 23: The Affray
 	-- {area:392} Ratchet · {area:720} Fray Island · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
@@ -226,6 +220,7 @@ return {
 	-- ["The caravan ends at {npc:11596}'s camp on the east side of the {area:596}."] = "대상단은 {area:596} 동쪽의 {npc:11596} 야영지에서 끝납니다.",
 	-- ["The next guide takes you back to {zone:1434}."] = "다음 가이드는 다시 {zone:1434}(으)로 안내합니다.",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "{npc:11626}의 대상단은 {area:602} 가장자리 길에 멈춰 있습니다. 동쪽으로 소굴을 지날 때까지 호위하세요. 악마가 두 번 습격합니다.",
+	-- ["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}: 40-50 가이드에서 처음 {area:35}에 들를 때 {area:35}의 {npc:4631}에게",
 	-- ["{npc:5395} and {npc:5412} stand in the post just west of {npc:11596}'s camp."] = "{npc:5395}와(과) {npc:5412}은(는) {npc:11596} 야영지 바로 서쪽의 주둔지에 서 있습니다.",
 	-- ["{npc:6791}: the last guide binds here, so this usually ticks at once"] = "{npc:6791}: 이전 가이드에서 이곳에 귀환 지점을 정하므로 보통 바로 완료됩니다",
 }

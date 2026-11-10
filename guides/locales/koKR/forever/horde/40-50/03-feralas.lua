@@ -11,6 +11,8 @@ return {
 	["Zeppelin to {zone:1458}"] = "",
 
 	-- Step 2: Apothecary Zinge
+	-- {npc:2934} Keeper Bel'dugur
+	["{npc:2934}, on the way back to Zinge"] = "징에에게 돌아가는 길의 {npc:2934}",
 	-- {item:8523} Field Testing Kit · {area:976} Gadgetzan
 	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "",
 
@@ -132,16 +134,16 @@ return {
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "오닉시아의 알은 {area:511} 남동쪽의 용 동굴에 있으며, 맹독전사가 지키고 있습니다. 다섯 개를 깨부수세요.",
 	["Dragon caves"] = "용 동굴",
 
-	-- Step 29: Challenge Overlord Mok'Morokk
-	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "",
-
-	-- Step 30: Level 45.41
-	["Level 45.41"] = "",
-	-- {quest:1173} Challenge Overlord Mok'Morokk · {area:978} Zul'Farrak · {area:1517} Uldaman
-	["If you skipped {quest:1173}, grind here to level 45.41 to stay on the route's plan. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "",
+	-- Step 28: Level 45.37
+	["Level 45.37"] = "45.37레벨",
+	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak · {area:1517} Uldaman
+	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "담쟁이 마을로 돌아가서 하는 {npc:4500}의 도전에는 3인 파티가 필요합니다. 혼자라면 북쪽으로 돌아가기 전에 이곳 {area:511} 북쪽 가장자리의 화염갈기혈족 정찰병을 사냥해 45.37레벨까지 올리세요. 그러면 다시 내려올 필요가 없습니다. 파티가 있다면 대신 {area:978} 던전이나 {area:1517} 던전을 도세요.",
 	-- {npc:4329} Firemane Scout
 	["grind on {npc:4329}"] = "",
+
+	-- Step 30: Challenge Overlord Mok'Morokk
+	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "",
 
 	-- Step 31: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache

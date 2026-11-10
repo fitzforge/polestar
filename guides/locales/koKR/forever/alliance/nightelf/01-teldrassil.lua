@@ -108,14 +108,32 @@ return {
 	["{npc:265811}, by the campfire"] = "모닥불 옆의 {npc:265811}",
 
 	-- Step 16: The Great Outdoors
+	-- {npc:265811} Lyreena Duskblade · {npc:6286} Zarrin · {skill:129} First Aid · {npc:6094} Byancie
+	["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west."] = "전문 기술을 배웠다면 {npc:265811}에게서 야영 기초 퀘스트도 받을 수 있으며, 해당 기술의 상급자에게 가져가면 됩니다: 연금술과 약초채집은 {npc:6286} 옆, {skill:129}은(는) 여관의 {npc:6094}, 무두질과 가죽세공은 서쪽 길가의 메인위버 야영지입니다.",
 	-- {npc:265811} Lyreena Duskblade · {spell:1229451} Boosted Rest
 	["/sit by {npc:265811}'s campfire until you get {spell:1229451}"] = "{spell:1229451}을(를) 얻을 때까지 {npc:265811}의 모닥불 옆에서 /앉기 하세요",
+	-- {npc:265811} Lyreena Duskblade · {npc:3603} Cyndra Kindwhisper
+	["{npc:265811}, alchemists: for {npc:3603}"] = "{npc:265811}, 연금술사: {npc:3603}에게",
+	-- {npc:265811} Lyreena Duskblade · {npc:3604} Malorne Bladeleaf
+	["{npc:265811}, herbalists: for {npc:3604}"] = "{npc:265811}, 약초채집가: {npc:3604}에게",
+	-- {npc:265811} Lyreena Duskblade · {skill:129} First Aid · {npc:6094} Byancie
+	["{npc:265811}, {skill:129}: for {npc:6094}"] = "{npc:265811}, {skill:129}: {npc:6094}에게",
+	-- {npc:265811} Lyreena Duskblade · {npc:6287} Radnaal Maneweaver
+	["{npc:265811}, skinners: for {npc:6287}"] = "{npc:265811}, 무두장이: {npc:6287}에게",
+	-- {npc:265811} Lyreena Duskblade · {npc:3605} Nadyia Maneweaver
+	["{npc:265811}, leatherworkers: for {npc:3605}"] = "{npc:265811}, 가죽세공사: {npc:3605}에게",
 	-- {npc:6286} Zarrin
 	["{npc:6286}, south of the inn: Camping 101 asks you to learn it"] = "",
+	-- {npc:3603} Cyndra Kindwhisper · {npc:6286} Zarrin
+	["{npc:3603}, beside {npc:6286}: Camping 101, alchemists"] = "{npc:6286} 옆의 {npc:3603}: 야영 기초, 연금술사",
+	-- {npc:3604} Malorne Bladeleaf · {npc:6286} Zarrin
+	["{npc:3604}, beside {npc:6286}: Camping 101, herbalists"] = "{npc:6286} 옆의 {npc:3604}: 야영 기초, 약초채집가",
 
 	-- Step 17: Dolanaar
 	-- {npc:3515} Corithras Moonrage
 	["{npc:3515}, south of the inn"] = "여관 남쪽의 {npc:3515}",
+	-- {npc:6094} Byancie · {skill:129} First Aid
+	["{npc:6094}, in the inn: Camping 101, {skill:129}"] = "여관 안의 {npc:6094}: 야영 기초, {skill:129}",
 	-- {npc:3608} Aldia
 	["{npc:3608}, upstairs"] = "",
 	-- {npc:3567} Tallonkai Swiftroot
@@ -186,6 +204,10 @@ return {
 	-- Step 28: Sentinel Shayla Nightbreeze
 	-- {area:261} Gnarlpine Hold
 	["West along the road toward the city. Shayla walks this stretch of road, from the arrow south-west to the bend at about 38,54 and back: if she isn't at the arrow, follow the road south-west. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and {area:261}'s all count."] = "길을 따라 도시 쪽 서쪽으로 가세요. 샤일라는 화살표 위치에서 남서쪽으로 약 38,54의 굽은 길까지 이 구간을 오갑니다. 화살표 위치에 없으면 길을 따라 남서쪽으로 가세요. 모든 나무옹이일족 펄볼그가 송곳니를 떨어뜨립니다. 이 길의 복병, 지하굴과 {area:261}의 펄볼그 모두 해당됩니다.",
+	-- {npc:6287} Radnaal Maneweaver
+	["{npc:6287}, camped beside the road before Shayla: Camping 101, skinners"] = "샤일라 앞 길가에서 야영 중인 {npc:6287}: 야영 기초, 무두장이",
+	-- {npc:3605} Nadyia Maneweaver
+	["{npc:3605}, beside him: Camping 101, leatherworkers"] = "그 옆의 {npc:3605}: 야영 기초, 가죽세공사",
 
 	-- Step 29: Darnassus
 	-- {quest:922} Rellian Greenspyre · {area:1658} Cenarion Enclave · {npc:7316} Sister Aquinne · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade · {item:279378} Lunar Pendant

@@ -132,15 +132,28 @@ return {
 	["Follow the road through the tunnel and north-east to {area:131}. Start outside: {npc:1252} and Eric's campfire are in front of the {area:2102}."] = "",
 
 	-- Step 20: The Great Outdoors
-	["Sit by Eric's campfire (type /sit) and wait for the buff."] = "",
+	-- {npc:1241} Tognus Flintfire · {skill:129} First Aid · {npc:2326} Thamner Pol · {area:131} Kharanos · {area:189} Steelgrill's Depot
+	["Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with {npc:1241} and {skill:129} with {npc:2326} in {area:131}, mining and engineering at {area:189}."] = "에릭의 모닥불 옆에 앉아(/sit 입력) 버프를 기다리세요. 전문 기술을 배웠다면 에릭은 해당 기술의 야영 101도 주며, 그 기술의 상급자에게 제출합니다: 대장기술은 {npc:1241}, {skill:129}은(는) {area:131}의 {npc:2326}, 채광과 기계공학은 {area:189}에서.",
+	-- {npc:265813} Eric Brighthammer · {npc:1241} Tognus Flintfire
+	["{npc:265813}, blacksmiths: for {npc:1241}"] = "{npc:265813}, 대장장이: {npc:1241}에게",
+	-- {npc:265813} Eric Brighthammer · {skill:129} First Aid · {npc:2326} Thamner Pol
+	["{npc:265813}, {skill:129}: for {npc:2326}"] = "{npc:265813}, {skill:129}: {npc:2326}에게",
+	-- {npc:265813} Eric Brighthammer · {npc:5392} Yarr Hammerstone
+	["{npc:265813}, miners: for {npc:5392}"] = "{npc:265813}, 광부: {npc:5392}에게",
+	-- {npc:265813} Eric Brighthammer · {npc:1702} Bronk Guzzlegear
+	["{npc:265813}, engineers: for {npc:1702}"] = "{npc:265813}, 기계공학자: {npc:1702}에게",
 
 	-- Step 21: Kharanos
 	-- {npc:1872} Tharek Blackstone · {npc:6806} Tannok Frosthammer · {npc:1226} Maxan Anvol · {npc:1267} Ragnar Thunderbrew · {npc:1699} Gremlock Pilsnor · {skill:185} Cooking
 	["{npc:1872} works the forge west of the distillery.\nThen go in: {npc:6806}, the innkeeper, {npc:1226} and {npc:1267}. {npc:1699}'s {skill:185} lesson waits for the return with the ribs, when the copper is there for it."] = "",
 	-- {npc:1241} Tognus Flintfire
 	["{npc:1241}, below ground"] = "",
+	-- {npc:1241} Tognus Flintfire
+	["{npc:1241}, below ground: Camping 101, blacksmiths"] = "{npc:1241}, 지하: 야영 101, 대장장이",
 	-- {npc:6806} Tannok Frosthammer
 	["{npc:6806}, inside"] = "",
+	-- {npc:2326} Thamner Pol · {skill:129} First Aid
+	["{npc:2326}, inside: Camping 101, {skill:129}"] = "{npc:2326}, 실내: 야영 101, {skill:129}",
 	-- {npc:1226} Maxan Anvol
 	["{npc:1226}, upstairs"] = "",
 	-- {npc:1226} Maxan Anvol · {npc:12427} Mountaineer Dolf · {area:131} Kharanos
@@ -152,6 +165,10 @@ return {
 	["Follow the road north-east from {area:131} to the depot below the {zone:1455} road."] = "{area:131}에서 길을 따라 북동쪽으로 {zone:1455} 길 아래의 정거장까지 가세요.",
 	-- {npc:1694} Loslor Rudge
 	["{npc:1694}, beside him"] = "",
+	-- {npc:5392} Yarr Hammerstone
+	["{npc:5392}: Camping 101, miners"] = "{npc:5392}: 야영 101, 광부",
+	-- {npc:1702} Bronk Guzzlegear
+	["{npc:1702}, beside him: Camping 101, engineers"] = "{npc:1702}, 그의 옆: 야영 101, 기계공학자",
 
 	-- Step 23: Mountaineer Gretchen
 	-- {area:136} Grizzled Den · {area:131} Kharanos

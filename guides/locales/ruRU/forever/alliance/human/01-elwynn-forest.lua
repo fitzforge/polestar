@@ -134,12 +134,28 @@ return {
 
 	-- Step 23: The lake shore
 	["The lake shore"] = "Берег озера",
-	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner · {npc:383} Jason Mathers · {npc:1651} Lee Brown · {area:18} Crystal Lake
-	["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:263399} стоит лагерем к северо-востоку от таверны; {npc:6306}, {npc:383} и {npc:1651} стоят на берегу к востоку от городка ({area:18}).",
+	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner · {npc:1632} Adele Fielder · {npc:383} Jason Mathers · {npc:1651} Lee Brown · {area:18} Crystal Lake · {skill:129} First Aid · {area:87} Goldshire
+	["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:1632}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town. With a profession learned, Sam also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing here on the shore, {skill:129} and blacksmithing in {area:87}."] = "{npc:263399} стоит лагерем к северо-востоку от таверны; {npc:6306}, {npc:1632}, {npc:383} и {npc:1651} стоят на берегу к востоку от городка ({area:18}). Если у вас есть профессия, Сэм также предложит «Походное дело для начинающих» по ней, которое принимает ее учитель: снятие шкур, кожевничество и рыбная ловля – здесь, на берегу, {skill:129} и кузнечное дело – в городке ({area:87}).",
 	-- {spell:1229451} Boosted Rest
 	["Sit (/sit) by his campfire until you have {spell:1229451}"] = "Сядьте (/sit) у его костра, пока не получите эффект «{spell:1229451}»",
+	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner
+	["{npc:263399}, skinners: for {npc:6306}"] = "{npc:263399}, для снятия шкур: для NPC {npc:6306}",
+	-- {npc:263399} Sam Sarsaparilla · {npc:1632} Adele Fielder
+	["{npc:263399}, leatherworkers: for {npc:1632}"] = "{npc:263399}, для кожевников: для NPC {npc:1632}",
+	-- {npc:263399} Sam Sarsaparilla · {npc:1651} Lee Brown
+	["{npc:263399}, fishers: for {npc:1651}"] = "{npc:263399}, для рыболовов: для NPC {npc:1651}",
+	-- {npc:263399} Sam Sarsaparilla · {skill:129} First Aid · {npc:2329} Michelle Belle
+	["{npc:263399}, {skill:129}: for {npc:2329} in the inn"] = "{npc:263399}, {skill:129}: для NPC {npc:2329} в таверне",
+	-- {npc:263399} Sam Sarsaparilla · {npc:514} Smith Argus
+	["{npc:263399}, blacksmiths: for {npc:514} at the smithy"] = "{npc:263399}, для кузнецов: для NPC {npc:514} в кузнице",
 	-- {npc:6306} Helene Peltskinner
 	["{npc:6306}: skinners only, the pelts are skinned; inside"] = "{npc:6306}: только для снятия шкур, шкуры снимаются с добычи; внутри",
+	-- {npc:6306} Helene Peltskinner
+	["{npc:6306}: Camping 101, skinners; inside"] = "{npc:6306}: «Походное дело для начинающих», снятие шкур; внутри",
+	-- {npc:1632} Adele Fielder
+	["{npc:1632}: Camping 101, leatherworkers"] = "{npc:1632}: «Походное дело для начинающих», кожевники",
+	-- {npc:1651} Lee Brown
+	["{npc:1651}: Camping 101, fishers"] = "{npc:1651}: «Походное дело для начинающих», рыболовы",
 
 	-- Step 24: Crystal Lake
 	-- plural, as words: Fishing Traps = {object:694772} Fishing Trap
@@ -163,6 +179,10 @@ return {
 	["{npc:1430} cooks in the inn's kitchen. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:1430} готовит на кухне таверны. {npc:377} (жрецы), {npc:328} (маги) и {npc:917} (разбойники) стоят наверху в таверне: поднимитесь по лестнице внутри, стрелка не различает этажи.",
 	-- {npc:1430} Tomas
 	["{npc:1430}: Camping 101 asks you to learn it; below ground"] = "{npc:1430}: «Походное дело для начинающих» просит выучить это; под землей",
+	-- {npc:2329} Michelle Belle · {skill:129} First Aid
+	["{npc:2329}, in the inn: Camping 101, {skill:129}"] = "{npc:2329}, в таверне: «Походное дело для начинающих», {skill:129}",
+	-- {npc:514} Smith Argus
+	["{npc:514}, at the smithy across the road: Camping 101, blacksmiths"] = "{npc:514}, в кузнице через дорогу: «Походное дело для начинающих», кузнецы",
 	-- {npc:377} Priestess Josetta · {item:16605} Friar's Robes of the Light
 	["{npc:377}, upstairs: {item:16605}"] = "{npc:377}, наверху: {item:16605}",
 
@@ -342,7 +362,9 @@ return {
 	-- {npc:240} Marshal Dughan
 	["{npc:240}, while William brews"] = "{npc:240}, пока Уильям варит зелье",
 	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind
-	["{npc:514}, at the smithy: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, в кузнице: задание принимает {npc:1416} в {zone:1453} (02-westfall)",
+	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, в кузнице рядом с Даганом: задание принимает {npc:1416} ({zone:1453}) (02-westfall)",
+	-- {npc:253} William Pestle
+	["{npc:253}, back in the inn"] = "{npc:253}, снова в таверне",
 	-- {npc:377} Priestess Josetta · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
 	["{npc:377}: {npc:376} in {zone:1453} takes it"] = "{npc:377}: его принимает {npc:376} ({zone:1453})",
 	-- {npc:328} Zaldimar Wefhellt · {npc:5497} Jennea Cannon · {zone:1453} Stormwind
@@ -474,7 +496,9 @@ return {
 	-- ["{npc:247229}, in the library"] = "{npc:247229}, в библиотеке",
 	-- ["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "{npc:248277} несет дозор здесь: {area:798}, к востоку от берега мурлоков. Затем возвращайтесь на северо-запад к мосту.",
 	-- ["{npc:248415} stands behind the Abbey, by the stables."] = "{npc:248415} стоит за аббатством, у конюшен.",
+	-- ["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:263399} стоит лагерем к северо-востоку от таверны; {npc:6306}, {npc:383} и {npc:1651} стоят на берегу к востоку от городка ({area:18}).",
 	-- ["{npc:377}: {npc:376} in {zone:1453} takes both"] = "{npc:377}: оба принимает {npc:376} ({zone:1453})",
+	-- ["{npc:514}, at the smithy: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, в кузнице: задание принимает {npc:1416} в {zone:1453} (02-westfall)",
 	-- ["{npc:6171}: Redemption"] = "{npc:6171}: Искупление",
 	-- ["{npc:6306}: skinners only, the pelts are skinned"] = "{npc:6306}: только для снятия шкур, шкуры нужно снимать",
 	-- ["{npc:911}, the warrior trainer"] = "{npc:911}, учитель воинов",

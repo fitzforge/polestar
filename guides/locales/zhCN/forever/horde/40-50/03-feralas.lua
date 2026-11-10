@@ -11,6 +11,8 @@ return {
 	["Zeppelin to {zone:1458}"] = "乘飞艇前往{zone:1458}",
 
 	-- Step 2: Apothecary Zinge
+	-- {npc:2934} Keeper Bel'dugur
+	["{npc:2934}, on the way back to Zinge"] = "{npc:2934}，在返回金吉那里的路上",
 	-- {item:8523} Field Testing Kit · {area:976} Gadgetzan
 	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "",
 
@@ -132,16 +134,16 @@ return {
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "奥妮克希亚的蛋在{area:511}东南的龙穴里，由火鬃守卫看守；砸碎五个。",
 	["Dragon caves"] = "龙穴",
 
-	-- Step 29: Challenge Overlord Mok'Morokk
-	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "这些是精英怪：建议组队，找人一起做。{quest:1173} 需要三人小队。独自一人就跳过：路线会让你打怪补回这部分经验。\n{npc:4500} 是精英：建议组队。把他打到投降，然后向 {npc:4501} 汇报。",
-
-	-- Step 30: Level 45.41
-	["Level 45.41"] = "等级 45.41",
-	-- {quest:1173} Challenge Overlord Mok'Morokk · {area:978} Zul'Farrak · {area:1517} Uldaman
-	["If you skipped {quest:1173}, grind here to level 45.41 to stay on the route's plan. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "如果跳过了{quest:1173}，就在这里刷怪到45.41级，跟上路线的等级规划。也可组队挑战{area:978}或{area:1517}副本。",
+	-- Step 28: Level 45.37
+	["Level 45.37"] = "等级 45.37",
+	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak · {area:1517} Uldaman
+	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "回到蕨墙村后，{npc:4500}的挑战需要三人小队。独自一人的话，在向北骑回去之前，就在{area:511}北缘这里击杀火鬃斥候刷到45.37级，免得之后还要专程回来。也可组队挑战{area:978}或{area:1517}副本。",
 	-- {npc:4329} Firemane Scout
 	["grind on {npc:4329}"] = "击杀{npc:4329}刷经验",
+
+	-- Step 30: Challenge Overlord Mok'Morokk
+	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "这些是精英怪：建议组队，找人一起做。{quest:1173} 需要三人小队。独自一人就跳过：路线会让你打怪补回这部分经验。\n{npc:4500} 是精英：建议组队。把他打到投降，然后向 {npc:4501} 汇报。",
 
 	-- Step 31: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
@@ -192,6 +194,8 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {object:3202}"] = "飞往{object:3202}",
 	-- ["Forest walkers"] = "森林漫游者",
+	-- ["If you skipped {quest:1173}, grind here to level 45.41 to stay on the route's plan. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "如果跳过了{quest:1173}，就在这里刷怪到45.41级，跟上路线的等级规划。也可组队挑战{area:978}或{area:1517}副本。",
+	-- ["Level 45.41"] = "等级 45.41",
 	-- ["Monstrous Crawlers"] = "巨型淤泥蟹",
 	-- ["Murlocs of the Misty Reed"] = "芦苇丛中的鱼人",
 	-- ["North-west along the road, the Rage Scar yetis live around the caves in the hills. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "沿道路向西北，狂暴的怒痕雪人住在山丘里的洞穴周围。它们也都可能掉落{quest:7738}，它可以开始一个单独的任务。",

@@ -31,61 +31,80 @@ return {
 	["{zone:1454} trainers"] = "",
 	["Train while you are in the city."] = "",
 
-	-- Step 6: Zeppelin to Grom'gol
-	-- {object:3202} Grom'gol
-	["Zeppelin to {object:3202}"] = "{object:3202}행 비행선",
+	-- Step 6: Fly to Ratchet
+	-- {area:392} Ratchet
+	["Fly to {area:392}"] = "{area:392}(으)로 날아가기",
+	-- {area:35} Booty Bay · {area:392} Ratchet
+	["{area:35} first: the goblins' boat sails there from {area:392}, and every {area:35} quest is for the north of the vale, which you then walk up into."] = "먼저 {area:35}부터 갑니다. 고블린의 배가 {area:392}에서 그곳으로 운항하며, {area:35}의 퀘스트는 모두 골짜기 북쪽에서 진행하므로 이후 걸어서 올라갑니다.",
+	-- {zone:1454} Orgrimmar
+	["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",
 
-	-- Step 7: Grom'gol
-	["The zeppelin lands at the tower on the west side of the camp."] = "비행선은 주둔지 서쪽의 탑에 도착합니다.",
-	-- {npc:2497} Nimboya
-	["{npc:2497}: for Arathi, later on the route"] = "{npc:2497}: 경로 후반의 아라시 고원용",
+	-- Step 7: Ratchet
+	-- {npc:3391} Gazlowe · {quest:1111} Wharfmaster Dizzywig
+	["{npc:3391} waits upstairs in the house by the flight master; {quest:1111} stands on the docks, beside the boat."] = "{npc:3391}은(는) 비행 조련사 옆 건물 위층에 있고, {quest:1111}은(는) 부두의 배 옆에 서 있습니다.",
+	-- {npc:3391} Gazlowe
+	["{npc:3391}, upstairs"] = "{npc:3391}, 위층",
+	-- {npc:3391} Gazlowe · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
+	["{npc:3391}: for {npc:4631} in {area:35}, where the boat goes"] = "{npc:3391}: 배가 향하는 {area:35}의 {npc:4631}에게 전달",
+	-- {quest:1111} Wharfmaster Dizzywig
+	["{quest:1111}, on the docks"] = "{quest:1111}, 부두",
+	-- {area:439} Shimmering Flats
+	["Dizzywig's parts go back to Kravel in the {area:439}, off the route: leave them."] = "디지위그의 부품은 경로에서 벗어난 {area:439}의 크라벨에게 돌아가야 하니 받지 마세요.",
 
-	-- Step 8: Nesingwary's camp
-	["Nesingwary's camp"] = "네싱워리의 야영지",
-	-- {object:3202} Grom'gol · {quest:338} The Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
-	["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of {quest:338} you loot: {npc:716} takes them on your next Stranglethorn visit."] = "",
+	-- Step 8: Boat to Booty Bay
+	-- {area:35} Booty Bay
+	["Boat to {area:35}"] = "{area:35}행 배",
 
-	-- Step 9: Nesingwary's Expedition: kill these as you meet them
-	-- {area:100} Nesingwary's Expedition
-	["{area:100}: kill these as you meet them"] = "",
-	-- {item:4614} Pendant of Myzrael
-	-- plural, as words: Young Stranglethorn Tigers = {npc:681} Young Stranglethorn Tiger · Young Panthers = {npc:683} Young Panther · Stranglethorn Raptors = {npc:685} Stranglethorn Raptor
-	["Young Stranglethorn Tigers prowl west of the camp, Young Panthers east of it. Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it. Careful: The troll camps have many patrolling mobs, so other trolls often join a fight."] = "",
-
-	-- Step 10: Booty Bay
-	-- {area:35} Booty Bay · {npc:2858} Gringer
-	["Back to the road and follow it south all the way to {area:35} at the southern tip of the vale, and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. {npc:2858}, the Horde flight master, waits on the inn's upper deck."] = "",
+	-- Step 9: Booty Bay
+	-- {npc:4631} Wharfmaster Lozgil · {npc:2495} Drizzlik · {npc:2498} Crank Fizzlebub · {npc:2496} Baron Revilgaz · {npc:737} Kebok · {npc:773} Krazek · {npc:2858} Gringer
+	["{npc:4631} stands on the pier where the boat docks. {npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs, {npc:2858} the flight master on the upper deck."] = "{npc:4631}은(는) 배가 정박하는 부두에 서 있습니다. {npc:2495}의 상점은 여관 동쪽 건물에 있고, {npc:2498}은(는) 여관 1층, {npc:2496}, {npc:737}, {npc:773}은(는) 위층, 비행 조련사 {npc:2858}은(는) 위층 갑판에 있습니다.",
+	-- {npc:4631} Wharfmaster Lozgil
+	["{npc:4631}, on the pier"] = "{npc:4631}, 부두",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, inside"] = "",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside, on the bottom floor"] = "",
+	-- {npc:2496} Baron Revilgaz
+	["{npc:2496}, upstairs"] = "{npc:2496}, 위층",
+	-- {npc:2496} Baron Revilgaz · {area:37} Lake Nazferiti
+	["{npc:2496}: Cozzle's footlocker is at {area:37}, later in this guide"] = "{npc:2496}: 코즐의 사물함은 이 가이드 후반에 가는 {area:37}에 있습니다",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs"] = "",
 	-- {npc:773} Krazek
 	["{npc:773}, upstairs"] = "",
 
-	-- Step 11: Fly to Grom'gol
-	-- {object:3202} Grom'gol
-	["Fly to {object:3202}"] = "{object:3202}(으)로 날아가기",
-	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	-- Step 10: Grom'gol
+	-- {area:35} Booty Bay · {object:3202} Grom'gol
+	["Leave {area:35} through the tunnel and follow the road north to {object:3202}, the orc camp on the west side of the vale. Stay on the road: the jungle beside it is above your level."] = "터널을 통해 {area:35}을(를) 나와 길을 따라 북쪽으로 골짜기 서쪽의 오크 주둔지 {object:3202}(으)로 가세요. 길에서 벗어나지 마세요. 길 옆 정글은 레벨이 더 높습니다.",
+	-- {npc:2497} Nimboya
+	["{npc:2497}: for Arathi, later on the route"] = "{npc:2497}: 경로 후반의 아라시 고원용",
 
-	-- Step 12: Grom'gol
-	-- {npc:2497} Nimboya · {object:3202} Grom'gol
-	["{npc:2497} waits in {object:3202}, near the zeppelin tower."] = "",
+	-- Step 11: Nesingwary's camp
+	["Nesingwary's camp"] = "네싱워리의 야영지",
+	-- {object:3202} Grom'gol · {npc:773} Krazek · {quest:338} The Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
+	["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. {npc:773} wants it investigated: walk among its tents. From here on, keep every page of {quest:338} you loot: {npc:716} takes them on your next Stranglethorn visit."] = "길을 따라 {object:3202}에서 북쪽으로 나가세요. 네싱워리의 사냥 야영지는 강 북동쪽 언덕에 있습니다. {npc:773}이(가) 조사를 원하니 천막 사이를 걸어 다니세요. 지금부터 얻는 {quest:338}의 모든 쪽은 보관하세요. 다음에 가시덤불 골짜기에 올 때 {npc:716}이(가) 받습니다.",
 
-	-- Step 13: The camp by the river
-	["The camp by the river"] = "강가의 야영지",
-	-- {npc:773} Krazek
-	-- plural, as words: River Crocolisks = {npc:1150} River Crocolisk
-	["North up the road again. Nesingwary's camp is the one {npc:773} wants investigated: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "",
+	-- Step 12: Nesingwary's Expedition: kill these as you meet them
+	-- {area:100} Nesingwary's Expedition
+	["{area:100}: kill these as you meet them"] = "",
+	-- {item:4614} Pendant of Myzrael
+	-- plural, as words: River Crocolisks = {npc:1150} River Crocolisk · Young Stranglethorn Tigers = {npc:681} Young Stranglethorn Tiger · Young Panthers = {npc:683} Young Panther · Stranglethorn Raptors = {npc:685} Stranglethorn Raptor
+	["River Crocolisks lie along the river below the camp. Young Stranglethorn Tigers prowl west of the camp, Young Panthers east of it. Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it. Careful: The troll camps have many patrolling mobs, so other trolls often join a fight."] = "민물악어는 야영지 아래 강을 따라 있습니다. 어린 가시덤불호랑이는 야영지 서쪽, 어린 표범은 동쪽에 돌아다닙니다. 야영지를 지나 서쪽으로 가세요. 가시덤불랩터(33-34)는 빈터에서 사냥하고, 붉은머리부족 트롤은 해안의 폐허를 차지하고 있습니다. 붉은머리부족은 모두 엄니를 떨어뜨릴 수 있습니다. 이들에게서 {item:4614}이(가) 매우 드물게 떨어지니, 얻으면 읽어 보세요. 주의: 트롤 야영지에는 순찰하는 몹이 많아 다른 트롤이 자주 전투에 끼어듭니다.",
 
-	-- Step 15: Stranglethorn Vale: kill these as you meet them
+	-- Step 14: Stranglethorn Vale: kill these as you meet them
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434}: kill these as you meet them"] = "",
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp."] = "",
+
+	-- Step 15: Cozzle's Footlocker
+	-- {npc:4723} Foreman Cozzle · {area:37} Lake Nazferiti · {object:20691} Cozzle's Footlocker · {npc:2496} Baron Revilgaz
+	["{npc:4723} (38) is inside the Venture Co. house on {area:37}'s west shore, among the geologists: his key opens {object:20691} in the same house, which holds the blueprints for {npc:2496}."] = "{npc:4723}(38)은(는) {area:37} 서쪽 기슭의 투자개발회사 건물 안 지질학자들 사이에 있습니다. 그의 열쇠로 같은 건물의 {object:20691}을(를) 열 수 있으며, 그 안에 {npc:2496}에게 줄 설계도가 있습니다.",
+	-- {npc:4723} Foreman Cozzle
+	["from {npc:4723}"] = "{npc:4723}에게서",
+	-- {item:5852} Fuel Regulator Blueprints · {object:20691} Cozzle's Footlocker
+	["{item:5852}, in {object:20691}"] = "{item:5852}, {object:20691} 안",
 
 	-- Step 16: Nesingwary's camp
 	-- {object:3202} Grom'gol
@@ -116,8 +135,8 @@ return {
 	["On your way back south to {object:3202}, the Lashtail Raptors (35-36) hunt the jungle between the camp and {object:3202}: they count for Hemet and for {npc:2464}."] = "",
 
 	-- Step 22: Grom'gol
-	-- {npc:2464} Commander Aggro'gosh · {object:3202} Grom'gol · {npc:2465} Far Seer Mok'thardin
-	["{npc:2464} stands in the middle of {object:3202}, {npc:2465} beside the flight master."] = "",
+	-- {npc:2464} Commander Aggro'gosh · {object:3202} Grom'gol · {npc:2497} Nimboya · {npc:2465} Far Seer Mok'thardin
+	["{npc:2464} stands in the middle of {object:3202}, {npc:2497} near the zeppelin tower, {npc:2465} beside the flight master."] = "{npc:2464}은(는) {object:3202} 한가운데, {npc:2497}은(는) 비행선 탑 근처, {npc:2465}은(는) 비행 조련사 옆에 있습니다.",
 	-- {npc:2465} Far Seer Mok'thardin
 	["{npc:2465}: the Shadowmaw claws and the tigress fang come at the end of this guide"] = "",
 
@@ -136,10 +155,18 @@ return {
 	["{object:3202} flight master"] = "",
 
 	-- Step 25: Booty Bay
-	-- {npc:2495} Drizzlik · {npc:2498} Crank Fizzlebub · {npc:737} Kebok · {npc:773} Krazek
-	["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:737} and {npc:773} on its top floor beside the flight master."] = "",
+	-- {npc:2495} Drizzlik · {npc:2498} Crank Fizzlebub · {npc:2496} Baron Revilgaz · {npc:737} Kebok · {npc:773} Krazek
+	["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master."] = "{npc:2495}의 상점은 여관 동쪽 건물에 있고, {npc:2498}은(는) 여관 1층, {npc:2496}, {npc:737}, {npc:773}은(는) 위층 비행 조련사 옆에 있습니다.",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "",
+	-- {npc:2496} Baron Revilgaz · {area:2240} Mirage Raceway · {zone:1446} Tanaris
+	["{npc:2496}: for Pozzik at the {area:2240}, on the way to {zone:1446} around level 43"] = "{npc:2496}: 레벨 43쯤 {zone:1446}(으)로 가는 길에 있는 {area:2240}의 포직에게 전달",
+
+	-- Step 26: Fly to Grom'gol
+	-- {object:3202} Grom'gol
+	["Fly to {object:3202}"] = "{object:3202}(으)로 날아가기",
+	-- {area:35} Booty Bay
+	["{area:35} flight master"] = "",
 
 	-- Step 27: The Vile Reef
 	-- {area:104} Vile Reef · {item:4094} Tablet Shard
@@ -195,6 +222,9 @@ return {
 	-- ["The Lashtail Raptors (35-36) hunt the jungle just north-east of {object:3202}."] = "채찍꼬리랩터(35-36)는 {object:3202} 바로 북동쪽 정글에서 사냥합니다.",
 	-- ["The Mosh'Ogg ogres camp in the hills just east of {object:3202}. Kill one Brute and one Witch Doctor (36-37); pull them one at a time."] = "모쉬오그일족 오우거는 {object:3202} 바로 동쪽 언덕에 야영하고 있습니다. 모쉬오그일족 투사와 모쉬오그일족 의술사(36-37)를 하나씩 처치하세요. 한 마리씩 끌어오세요.",
 	-- ["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "그림자퓨마(37-38)는 모쉬오그일족 언덕 동쪽과 북동쪽 호수 방향 정글에 숨어 다니며, 은신 상태에서 공격합니다. 가는 길에 보이는 푸른 언덕의 쪽은 모두 챙기세요.",
+	-- ["The camp by the river"] = "강가의 야영지",
+	-- ["The zeppelin lands at the tower on the west side of the camp."] = "비행선은 주둔지 서쪽의 탑에 도착합니다.",
 	-- ["Venture Co. camp"] = "투자개발회사 야영지",
+	-- ["Zeppelin to {object:3202}"] = "{object:3202}행 비행선",
 	-- ["{npc:773}'s missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "{npc:773}의 실종된 사냥꾼들의 야영지는 네싱워리의 야영지입니다. 천막 사이를 걸으면 조사가 완료됩니다. 민물악어는 야영지 아래 강을 따라 있습니다.",
 }

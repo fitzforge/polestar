@@ -132,15 +132,28 @@ return {
 	["Follow the road through the tunnel and north-east to {area:131}. Start outside: {npc:1252} and Eric's campfire are in front of the {area:2102}."] = "Siga a estrada pelo túnel e para nordeste até {area:131}. Comece do lado de fora: {npc:1252} e a fogueira do Ériic ficam em frente a {area:2102}.",
 
 	-- Step 20: The Great Outdoors
-	["Sit by Eric's campfire (type /sit) and wait for the buff."] = "Sente na fogueira do Ériic (digite /sit) e espere o bônus.",
+	-- {npc:1241} Tognus Flintfire · {skill:129} First Aid · {npc:2326} Thamner Pol · {area:131} Kharanos · {area:189} Steelgrill's Depot
+	["Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with {npc:1241} and {skill:129} with {npc:2326} in {area:131}, mining and engineering at {area:189}."] = "Sente na fogueira do Ériic (digite /sit) e espere o bônus. Com uma profissão aprendida, o Eric também oferece a Introdução ao acampamento dela, que o instrutor da profissão recebe: ferraria com {npc:1241} e {skill:129} com {npc:2326} em {area:131}, mineração e engenharia em {area:189}.",
+	-- {npc:265813} Eric Brighthammer · {npc:1241} Tognus Flintfire
+	["{npc:265813}, blacksmiths: for {npc:1241}"] = "{npc:265813}, ferreiros: para {npc:1241}",
+	-- {npc:265813} Eric Brighthammer · {skill:129} First Aid · {npc:2326} Thamner Pol
+	["{npc:265813}, {skill:129}: for {npc:2326}"] = "{npc:265813}, {skill:129}: para {npc:2326}",
+	-- {npc:265813} Eric Brighthammer · {npc:5392} Yarr Hammerstone
+	["{npc:265813}, miners: for {npc:5392}"] = "{npc:265813}, mineradores: para {npc:5392}",
+	-- {npc:265813} Eric Brighthammer · {npc:1702} Bronk Guzzlegear
+	["{npc:265813}, engineers: for {npc:1702}"] = "{npc:265813}, engenheiros: para {npc:1702}",
 
 	-- Step 21: Kharanos
 	-- {npc:1872} Tharek Blackstone · {npc:6806} Tannok Frosthammer · {npc:1226} Maxan Anvol · {npc:1267} Ragnar Thunderbrew · {npc:1699} Gremlock Pilsnor · {skill:185} Cooking
 	["{npc:1872} works the forge west of the distillery.\nThen go in: {npc:6806}, the innkeeper, {npc:1226} and {npc:1267}. {npc:1699}'s {skill:185} lesson waits for the return with the ribs, when the copper is there for it."] = "{npc:1872} trabalha na forja a oeste da cervejaria.\nDepois entre: {npc:6806}, o estalajadeiro, {npc:1226} e {npc:1267}. A aula de {skill:185} com {npc:1699} fica para a volta com as costelas, quando já tiver o cobre para ela.",
 	-- {npc:1241} Tognus Flintfire
 	["{npc:1241}, below ground"] = "{npc:1241}, no subterrâneo",
+	-- {npc:1241} Tognus Flintfire
+	["{npc:1241}, below ground: Camping 101, blacksmiths"] = "{npc:1241}, no subterrâneo: Introdução ao acampamento, ferreiros",
 	-- {npc:6806} Tannok Frosthammer
 	["{npc:6806}, inside"] = "{npc:6806}, lá dentro",
+	-- {npc:2326} Thamner Pol · {skill:129} First Aid
+	["{npc:2326}, inside: Camping 101, {skill:129}"] = "{npc:2326}, lá dentro: Introdução ao acampamento, {skill:129}",
 	-- {npc:1226} Maxan Anvol
 	["{npc:1226}, upstairs"] = "{npc:1226}, no andar de cima",
 	-- {npc:1226} Maxan Anvol · {npc:12427} Mountaineer Dolf · {area:131} Kharanos
@@ -152,6 +165,10 @@ return {
 	["Follow the road north-east from {area:131} to the depot below the {zone:1455} road."] = "Siga a estrada para nordeste a partir de {area:131} até a garagem abaixo da estrada de {zone:1455}.",
 	-- {npc:1694} Loslor Rudge
 	["{npc:1694}, beside him"] = "{npc:1694}, ao lado dele",
+	-- {npc:5392} Yarr Hammerstone
+	["{npc:5392}: Camping 101, miners"] = "{npc:5392}: Introdução ao acampamento, mineradores",
+	-- {npc:1702} Bronk Guzzlegear
+	["{npc:1702}, beside him: Camping 101, engineers"] = "{npc:1702}, ao lado dele: Introdução ao acampamento, engenheiros",
 
 	-- Step 23: Mountaineer Gretchen
 	-- {area:136} Grizzled Den · {area:131} Kharanos
@@ -603,6 +620,7 @@ return {
 	-- ["Crag Boars and Young Black Bears roam the fields around {area:131} and the depot."] = "Rochetuscos e Ursos Pretos Jovens vagam pelos campos em volta de {area:131} e da garagem.",
 	-- ["Follow the road up to {zone:1455} and train with your class trainer. The {area:2257} leaves from {object:171524}, in the east of the city. Ride it to {zone:1453}."] = "Siga a estrada até {zone:1455} e treine com seu instrutor de classe. O {area:2257} sai da {object:171524}, no leste da cidade. Vá nele até {zone:1453}.",
 	-- ["Rockjaw Skullthumpers fill the quarry; Rockjaw Ambushers by {area:212} drop the {item:268548}."] = "Batecrânios Pedraqueixo enchem a pedreira; Emboscadores Pedraqueixo junto ao {area:212} deixam cair o {item:268548}.",
+	-- ["Sit by Eric's campfire (type /sit) and wait for the buff."] = "Sente na fogueira do Ériic (digite /sit) e espere o bônus.",
 	-- ["South down the road to {area:144}, finishing the ears, meat and ichor on the way."] = "Ao sul pela estrada até {area:144}, terminando as orelhas, a carne e o icor no caminho.",
 	-- ["The tram arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "O metrô chega no {object:28027}. {npc:5480} treina guerreiros em {object:2100}; {npc:6089} e {npc:6090} ficam juntos perto da {object:2152} de lá. {npc:6090} luta com você pela caneca dele.",
 	-- ["{npc:1226}: {npc:376} in {zone:1453} takes it"] = "{npc:1226}: {npc:376} em {zone:1453} a recebe",

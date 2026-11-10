@@ -33,6 +33,10 @@ return {
 	-- {npc:9619} Torwa Pathfinder
 	["The dead Threshadon lies by the water north of {npc:9619}."] = "Мертвый жесткозуб лежит у воды к северу от {npc:9619}.",
 
+	-- Step 10: Torwa Pathfinder
+	-- {area:1943} Ironstone Plateau
+	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "Шкуры носят гориллы на плато ({area:1943}): сохраните для второго визита в Ун'Горо, около 56-го уровня",
+
 	-- Step 11: Lar'korwi Mates and the raft
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["Lar'korwi Mates and the raft"] = "Самки Лар'корви и плот",
@@ -123,42 +127,35 @@ return {
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge's entrance"] = "{npc:9998} – у входа в укрытие",
 
-	-- Step 26: To Stoutlager Inn
+	-- Step 26: Fly to Astranaar
+	-- {area:415} Astranaar
+	["Fly to {area:415}"] = "",
+	-- {zone:1455} Ironforge · {zone:1427} Searing Gorge · {zone:1440} Ashenvale · {zone:1447} Azshara
+	["The {zone:1455} quests were taken at the end of the {zone:1427} guide: fly straight on to {zone:1440} for {zone:1447}."] = "Задания из зоны {zone:1455} были взяты в конце гайда по зоне {zone:1427}: летите сразу дальше в зону {zone:1440}, чтобы попасть в зону {zone:1447}.",
+	-- {area:541} Marshal's Refuge
+	["{area:541} flight master"] = "Распорядитель полетов ({area:541})",
+
+	-- Step 27: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
 	["To {area:2101}"] = "",
 
-	-- Step 27: Fly to Ironforge
+	-- Step 28: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "",
 
-	-- Step 28: Hall of Explorers
-	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
-	["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}: слизни – в зоне {zone:1448}, сохраните",
-
 	-- Step 29: Mystic Ward
-	-- {zone:1447} Azshara
-	["Four rune rubbings in {zone:1447}: keep it"] = "Четыре оттиска рун в зоне {zone:1447}: сохраните",
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}: для Огтинка (зона {zone:1447}), сохраните",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
 	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "",
 
-	-- Step 30: Class trainer
-	["Class trainer"] = "Учитель классовых навыков",
-
-	-- Step 31: Xiggs Fuselighter
-	-- {object:32359} Military Ward
-	["Xiggs waits in the {object:32359}."] = "Зиггс ждет здесь: {object:32359}.",
-
-	-- Step 34: Fly to Astranaar
-	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	-- Step 32: Fly to Astranaar
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
 
-	-- Step 35: Level 50.4
+	-- Step 33: Level 50.4
 	["Level 50.4"] = "",
 	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
 	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
@@ -168,9 +165,11 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Archesonus stands beside King Magni in the {object:171709}."] = "Аркессон стоит рядом с королем Магни ({object:171709}).",
 	-- ["Bind and train"] = "Привяжите камень и обучитесь",
+	-- ["Class trainer"] = "Учитель классовых навыков",
 	-- ["Cross the south of the crater to {npc:9619} by the ramp."] = "Пересеките юг кратера и вернитесь к {npc:9619} у спуска.",
 	-- ["Escort {npc:9999}"] = "Сопроводите NPC {npc:9999}",
 	-- ["Fly from {area:144} to {area:1537}."] = "Летите из поселка {area:144} в {area:1537}.",
+	-- ["Four rune rubbings in {zone:1447}: keep it"] = "Четыре оттиска рун в зоне {zone:1447}: сохраните",
 	-- ["From {area:144} fly to {area:150}, take the boat to Theramore and fly on to {area:976}. {npc:9619}'s first quest in the crater needs level 48: finish the level here if you are short."] = "Из поселка {area:144} летите в {area:150}, сядьте на корабль до Терамора и летите дальше в {area:976}. Первое задание {npc:9619} в кратере требует 48-го уровня: если не хватает, доберите уровень здесь.",
 	-- ["Grind to 50"] = "Добейте 50-й уровень",
 	-- ["Grind to 51"] = "Добейте 51-й уровень",
@@ -197,6 +196,7 @@ return {
 	-- ["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997} and drop {npc:9998}'s scales."] = "Пилон стоит на склоне к востоку от укрытия. {npc:9166}: кружат над склонами вокруг него, засчитываются для {npc:9997} и роняют чешую для NPC {npc:9998}.",
 	-- ["The relics are in the {zone:1428}: keep it"] = "Реликвии – в зоне {zone:1428}: сохраните",
 	-- ["The wooden sign beside {npc:9997}"] = "Деревянная табличка рядом с NPC {npc:9997}",
+	-- ["Xiggs waits in the {object:32359}."] = "Зиггс ждет здесь: {object:32359}.",
 	-- ["grind on the Wastewanderers or Dunemaul ogres around {area:976}"] = "убивайте Скитальцев Пустыни или огров из клана Песчаного Молота вокруг города {area:976}",
 	-- ["grind on {npc:5458} at {area:982}, {zone:1446}"] = "убивайте: {npc:5458} ({area:982}, {zone:1446})",
 	-- ["grind on {npc:6514} at {area:1943}, {zone:1449}"] = "убивайте: {npc:6514} ({area:1943}, {zone:1449})",
@@ -204,6 +204,7 @@ return {
 	-- ["{item:11834} from {npc:6518} and {npc:6519}, 60 yd south"] = "{item:11834}: падает с NPC {npc:6518} и {npc:6519}, в 60 м к югу",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: предыдущий гайд возвращает вас сюда камнем возвращения, так что это обычно отмечается сразу",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117} – в глубине пещеры",
+	-- ["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}: слизни – в зоне {zone:1448}, сохраните",
 	-- ["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "Логово зверя {npc:9684} – в джунглях к северу от {npc:9619}, под восточными утесами: используйте там {item:11568}. {npc:9684} – 56-го уровня: начинайте бой с полным здоровьем.",
 	-- ["{npc:9997}'s friend {npc:9999} has gone missing."] = "Пропал друг {npc:9997} – {npc:9999}.",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999} сидит на юго-восточном склоне вулкана ({area:537}) в середине кратера.",

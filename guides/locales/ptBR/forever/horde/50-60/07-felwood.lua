@@ -39,73 +39,85 @@ return {
 	-- {npc:9116} Eridan Bluewind · {item:11173} Irontree Heart · {zone:1448} Felwood
 	["{npc:9116}'s Silver Heart needs an {item:11173} from northern {zone:1448} and a ride back here. Skip it."] = "Coração de prata, de {npc:9116}, pede {item:11173} do norte de {zone:1448} e uma volta até aqui. Pule.",
 
-	-- Step 9: Dousing the Flames of Protection
+	-- Step 9: Maybess Riverbreeze
+	-- {npc:9529} Maybess Riverbreeze · {area:1763} Jaedenar · {quest:4102} Cleansing Felwood · {quest:5887} Salve via Hunting · {area:1770} Shadow Hold · {npc:10922} Greta Mosshoof
+	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
+	["{npc:9529} stands on the west side of the Sanctuary, the way out to {area:1763}. With {quest:4102} done, her {quest:5887} asks for six Corrupted Soul Shards: the Shadow Council cultists in {area:1763} and {area:1770} drop them about one kill in three, and you fight dozens of them for {npc:10922}."] = "{npc:9529} fica no lado oeste do Santuário, na saída para {area:1763}. Com {quest:4102} concluída, a missão dela, {quest:5887}, pede seis Fragmentos de Alma Corrompidos: os cultistas do Concílio das Sombras em {area:1763} e {area:1770} deixam cair um a cada três mortes, mais ou menos, e você enfrenta dezenas deles para {npc:10922}.",
+
+	-- Step 10: Dousing the Flames of Protection
 	-- {area:1763} Jaedenar
 	["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "Cavalgue para noroeste até {area:1763}. Os quatro braseiros ficam entre as construções do Concílio das Sombras; use a água purificada em cada um.\nCuidado: monstros do Concílio das Sombras de nível 53-55 lotam a caverna e costumam vir em grupos grandes e ligados, muitos com atordoamento. Melhor ir num grupo de 2 ou 3 jogadores.",
 	["Below ground"] = "No subterrâneo",
 
-	-- Step 10: Greta Mosshoof
+	-- Step 11: Greta Mosshoof
 	["Back south to the Sanctuary, a short ride."] = "Volte para o sul até o Santuário, perto daqui.",
 
-	-- Step 11: Bloodvenom Post
+	-- Step 12: Bloodvenom Post
 	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post
 	["Ride north along the road, past {area:1763}, to {area:1997}."] = "Siga a estrada para o norte, passando por {area:1763}, até {area:1997}.",
 	-- {npc:10306} Trull Failbane · {quest:4741} Wild Guardians · {zone:1452} Winterspring
 	["{npc:10306}'s next {quest:4741} would bring you back here from {zone:1452}. Skip it."] = "A próxima missão de {npc:10306}, {quest:4741}, traria você de volta de {zone:1452}. Pule.",
 
-	-- Step 12: A Final Blow
+	-- Step 13: A Final Blow
 	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar
 	["{npc:9861}, {npc:9860} and {npc:9517} wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "{npc:9861}, {npc:9860} e {npc:9517} esperam no fundo de {area:1770}, a caverna no norte de {area:1763}. Limpe o túnel pelo caminho.\nCuidado: os três chefes lutam juntos. Mate os monstros por perto antes para não puxar inimigo a mais.",
+	-- {quest:5887} Salve via Hunting
+	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
+	["Corrupted Soul Shards from the cultists, {quest:5887}"] = "Fragmentos de Alma Corrompidos dos cultistas, {quest:5887}",
 
-	-- Step 13: Greta Mosshoof
+	-- Step 14: Maybess Riverbreeze
+	-- {npc:10922} Greta Mosshoof · {npc:9529} Maybess Riverbreeze
+	["On the way back south to {npc:10922}, {npc:9529} takes the shards on the west side of the Sanctuary."] = "Na volta para o sul até {npc:10922}, entregue os fragmentos a {npc:9529}, no lado oeste do Santuário.",
+
+	-- Step 15: Greta Mosshoof
 	["South to the Sanctuary once more."] = "Volte mais uma vez para o sul até o Santuário.",
 
-	-- Step 14: Toxic Horrors
+	-- Step 16: Toxic Horrors
 	-- {zone:1448} Felwood · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors
 	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet."] = "Cavalgue para o norte, subindo a estrada de {zone:1448}, até {area:1767}; os {quest:5086} escorrem entre as árvores, e a maioria deles deixa cair uma gota.",
 
-	-- Step 16: Umber
+	-- Step 18: Umber
 	-- {zone:1450} Moonglade · {npc:11939} Umber · {area:2361} Nighthaven
 	["Through the Timbermaw tunnel to {zone:1450}. {npc:11939} reads in a house in {area:2361}."] = "Atravesse o túnel dos Presamatos até {zone:1450}. {npc:11939} lê numa casa em {area:2361}.",
 	-- {npc:11939} Umber · {area:2361} Nighthaven
 	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "{npc:11939} anda por {area:2361}: procure dentro do círculo no mapa",
 
-	-- Step 18: Class trainer
+	-- Step 20: Class trainer
 	["Class trainer"] = "Instrutor de classe",
 
-	-- Step 19: Rabine Saturna
+	-- Step 21: Rabine Saturna
 	-- {npc:11801} Rabine Saturna · {area:2577} Dire Maul
 	["{npc:11801}'s Shards of the Felvine needs {area:2577}. Skip it."] = "Pedaços de Vinhavil, de {npc:11801}, pede {area:2577}. Pule.",
 
-	-- Step 22: Donova Snowden
+	-- Step 24: Donova Snowden
 	-- {zone:1452} Winterspring · {npc:9298} Donova Snowden
 	["Back into the Timbermaw tunnel and take the {zone:1452} exit; {npc:9298} camps by the hot springs just outside."] = "Volte ao túnel dos Presamatos e pegue a saída para {zone:1452}; {npc:9298} acampa junto às fontes termais logo do lado de fora.",
 	["From Krakle in Un'Goro"] = "De Gualter, na Cratera Un'Goro",
 
-	-- Step 23: Winterfall Runners
+	-- Step 25: Winterfall Runners
 	-- {area:1769} Timbermaw Hold · {area:2244} Winterfall Village · {npc:9298} Donova Snowden · {spell:5384} Feign Death
 	["The runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "Os mensageiros andam pela estrada de {area:1769} rumo a {area:2244} em grupinhos; espere na beira da estrada perto de {npc:9298} e mate-os quando passarem. Cada um carrega um caixote.\nCuidado: a entrega faz surgir três ou quatro emboscadores Invernosos de nível 56-57 que atacam você; dá para escapar montado, furtivo ou com {spell:5384}, e depois eles se juntam perto do lago, liberando a próxima missão.",
 
-	-- Step 25: Beads for Salfa
+	-- Step 27: Beads for Salfa
 	-- {npc:11556} Salfa
 	["Any Winterfall furbolg can carry the beads; the camps just south of {npc:11556} are the closest."] = "Qualquer furbolg Invernoso pode carregar as contas; os acampamentos logo ao sul de {npc:11556} são os mais próximos.",
 	["Frostfire Winterfall camp"] = "Acampamento Invernoso das fontes termais",
 
-	-- Step 27: Meilosh
+	-- Step 29: Meilosh
 	-- {quest:6031} Runecloth · {area:1769} Timbermaw Hold · {npc:11557} Meilosh
 	["With 30 {quest:6031} in your bags: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "Com 30 {quest:6031} nas bolsas: siga a estrada para o norte até {area:1769}; {npc:11557} negocia logo depois da entrada.",
 
-	-- Step 28: Kernda
+	-- Step 30: Kernda
 	-- {area:1762} Felpaw Village · {npc:11558} Kernda · {area:1769} Timbermaw Hold · {zone:1448} Felwood
 	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558} anda por aqui: procure dentro do círculo no mapa",
 
-	-- Step 30: Darkwhisper Gorge
+	-- Step 32: Darkwhisper Gorge
 	-- {area:2249} Frostwhisper Gorge · {area:2256} Darkwhisper Gorge
 	["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Vá para leste e depois desça para o sul por {area:2249}. Os Gigantes Friomalho de lá são elite de nível 59: fique no meio e não pare. A estranha fonte está na entrada de {area:2256}, no extremo sul.",
 
-	-- Step 31: Level 59.9
+	-- Step 33: Level 59.9
 	["Level 59.9"] = "Nível 59.9",
 	-- {zone:1452} Winterspring · {area:2249} Frostwhisper Gorge · {area:1769} Timbermaw Hold · {area:2057} Scholomance · {area:2279} Stratholme
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
@@ -113,27 +125,27 @@ return {
 	-- {npc:7446} Rabid Shardtooth
 	["grind on {npc:7446}"] = "mate {npc:7446} até subir",
 
-	-- Step 32: Donova Snowden
+	-- Step 34: Donova Snowden
 	-- {area:2246} Frostfire Hot Springs
 	["Ride back west to {area:2246}."] = "Volte para oeste até {area:2246}.",
 	-- {npc:9298} Donova Snowden · {npc:10738} High Chief Winterfall
 	["{npc:9298} next sends you after {npc:10738}, an elite in his cave. Skip it."] = "Depois {npc:9298} manda você atrás de {npc:10738}, um elite na caverna dele. Pule.",
 
-	-- Step 33: Are We There, Yeti?
+	-- Step 35: Are We There, Yeti?
 	-- {npc:10978} Legacki · {npc:10980} Umi's Mechanical Yeti
 	["Scare {npc:10978} with {npc:10980}"] = "",
 
-	-- Step 34: Everlook
+	-- Step 36: Everlook
 	-- {area:2255} Everlook
 	["Ride east along the road to {area:2255}."] = "Siga a estrada para o leste até {area:2255}.",
 
-	-- Step 35: Dungeon instead of grinding
+	-- Step 37: Dungeon instead of grinding
 	["Dungeon instead of grinding"] = "Masmorra em vez de matar monstros",
 	-- {area:2279} Stratholme · {area:2057} Scholomance · {area:1584} Blackrock Depths
 	["Optional. Running {area:2279}, {area:2057}, Lower Blackrock Spire or {area:1584} with a group instead of grinding gets you there faster."] = "Opcional. Fazer {area:2279}, {area:2057}, o Pico da Rocha Negra Inferior ou {area:1584} em grupo, em vez de matar monstros, leva você lá mais rápido.",
 	["Optional: with a group, a 55-60 dungeon replaces the grind below."] = "Opcional: em grupo, uma masmorra 55-60 substitui a matança abaixo.",
 
-	-- Step 36: Grind to 60
+	-- Step 38: Grind to 60
 	["Grind to 60"] = "Mate monstros até o 60",
 	-- {area:2249} Frostwhisper Gorge · {zone:1452} Winterspring · {area:2255} Everlook
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth

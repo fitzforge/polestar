@@ -176,8 +176,13 @@ return {
 
 	-- Step 31: Back to the Crossroads
 	["Back to the Crossroads"] = "De volta à Encruzilhada",
-	-- {npc:3033} Turak Runetotem
-	["Train with {npc:3033}, then fly on to the Crossroads, where the next guide starts."] = "Treine com {npc:3033} e depois voe para a Encruzilhada, onde começa o próximo guia.",
+	-- {npc:3033} Turak Runetotem · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
+	["Train with {npc:3033}. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "Treine com {npc:3033}. Antes de seguir voo, {npc:3024} e {npc:4721}, a uma curta caminhada a leste do mestre de mantícoras, dão duas missões feitas pelo caminho dos próximos guias; depois voe para a Encruzilhada, onde começa o próximo guia.",
+	-- {npc:3024} Tah Winterhoof · {quest:97538} Pigments for Paints · {area:464} Mirkfallon Lake
+	["{npc:3024}: {quest:97538}, the Mirkweed in {area:464} by Sun Rock"] = "{npc:3024}: {quest:97538}, a Erva-do-pântano em {area:464}, perto da Rocha do Sol",
+	-- {npc:4721} Zangen Stonehoof · {quest:1195} The Sacred Flame · {zone:1440} Ashenvale
+	-- plural, as words: Laughing Sisters = {npc:4054} Laughing Sister
+	["{npc:4721}: {quest:1195}, the phial from {zone:1440}'s Laughing Sisters"] = "{npc:4721}: {quest:1195}, o frasco das Irmãs Risonhas de {zone:1440}",
 
 	-- Step 32: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -213,6 +218,7 @@ return {
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "A {area:288} fica ao sul da cidade de {area:287}. Mineradores trabalham nos túneis; {npc:2305} (30) e {npc:2450} (29) estão bem lá no fundo.",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "O cartaz {quest:567}: os alvos aparecem pelo caminho",
 	-- ["Town hall"] = "Prefeitura",
+	-- ["Train with {npc:3033}, then fly on to the Crossroads, where the next guide starts."] = "Treine com {npc:3033} e depois voe para a Encruzilhada, onde começa o próximo guia.",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Você chega vinculado à estalagem de {area:272}. Todos ficam em volta da praça da cidade.",
 	-- ["{npc:2230}, next to Lydon"] = "{npc:2230}, ao lado de Lindolfo",
 	-- ["{npc:2388}: the last guide binds here, so this usually ticks at once"] = "{npc:2388}: o guia anterior vincula você aqui, então isto costuma ser marcado na hora",

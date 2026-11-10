@@ -125,8 +125,6 @@ return {
 	-- Step 25: Booty Bay
 	-- {area:35} Booty Bay
 	["Head south to {area:35}. Shaky Phillipe waits on the docks."] = "",
-	-- {npc:2495} Drizzlik · {item:4105} Elder Crocolisk Skin
-	["{npc:2495}, inside: the {item:4105}"] = "{npc:2495}, dentro: {item:4105}",
 	-- {npc:6807} Innkeeper Skindle
 	["{npc:6807}, upstairs"] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
@@ -135,6 +133,8 @@ return {
 	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "",
 	-- {zone:1446} Tanaris
 	["MacKinley, on the top floor: for Stoley in {zone:1446}"] = "",
+	-- {npc:2495} Drizzlik · {item:4105} Elder Crocolisk Skin
+	["{npc:2495}, inside: the {item:4105}"] = "{npc:2495}, dentro: {item:4105}",
 
 	-- Step 26: Zanzil's camps
 	["Zanzil's camps"] = "Campamentos de Zanzil",

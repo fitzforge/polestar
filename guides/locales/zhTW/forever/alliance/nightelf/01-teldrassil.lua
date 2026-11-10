@@ -108,14 +108,32 @@ return {
 	["{npc:265811}, by the campfire"] = "{npc:265811}，在營火旁",
 
 	-- Step 16: The Great Outdoors
+	-- {npc:265811} Lyreena Duskblade · {npc:6286} Zarrin · {skill:129} First Aid · {npc:6094} Byancie
+	["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west."] = "學會一項專業技能後，{npc:265811}還會提供該專業的露營入門，由該專業的訓練師接收：煉金術和草藥學在{npc:6286}旁邊，{skill:129}找旅店裡的{npc:6094}，剝皮和製皮在往西道路上的鬃紡家族營地。",
 	-- {npc:265811} Lyreena Duskblade · {spell:1229451} Boosted Rest
 	["/sit by {npc:265811}'s campfire until you get {spell:1229451}"] = "在{npc:265811}的營火旁/sit，直到獲得{spell:1229451}",
+	-- {npc:265811} Lyreena Duskblade · {npc:3603} Cyndra Kindwhisper
+	["{npc:265811}, alchemists: for {npc:3603}"] = "{npc:265811}，煉金術師：交給{npc:3603}",
+	-- {npc:265811} Lyreena Duskblade · {npc:3604} Malorne Bladeleaf
+	["{npc:265811}, herbalists: for {npc:3604}"] = "{npc:265811}，草藥師：交給{npc:3604}",
+	-- {npc:265811} Lyreena Duskblade · {skill:129} First Aid · {npc:6094} Byancie
+	["{npc:265811}, {skill:129}: for {npc:6094}"] = "{npc:265811}，{skill:129}：交給{npc:6094}",
+	-- {npc:265811} Lyreena Duskblade · {npc:6287} Radnaal Maneweaver
+	["{npc:265811}, skinners: for {npc:6287}"] = "{npc:265811}，剝皮師：交給{npc:6287}",
+	-- {npc:265811} Lyreena Duskblade · {npc:3605} Nadyia Maneweaver
+	["{npc:265811}, leatherworkers: for {npc:3605}"] = "{npc:265811}，製皮師：交給{npc:3605}",
 	-- {npc:6286} Zarrin
 	["{npc:6286}, south of the inn: Camping 101 asks you to learn it"] = "",
+	-- {npc:3603} Cyndra Kindwhisper · {npc:6286} Zarrin
+	["{npc:3603}, beside {npc:6286}: Camping 101, alchemists"] = "{npc:3603}，在{npc:6286}旁邊：露營入門，煉金術師",
+	-- {npc:3604} Malorne Bladeleaf · {npc:6286} Zarrin
+	["{npc:3604}, beside {npc:6286}: Camping 101, herbalists"] = "{npc:3604}，在{npc:6286}旁邊：露營入門，草藥師",
 
 	-- Step 17: Dolanaar
 	-- {npc:3515} Corithras Moonrage
 	["{npc:3515}, south of the inn"] = "{npc:3515}，在旅店南邊",
+	-- {npc:6094} Byancie · {skill:129} First Aid
+	["{npc:6094}, in the inn: Camping 101, {skill:129}"] = "{npc:6094}，在旅店裡：露營入門，{skill:129}",
 	-- {npc:3608} Aldia
 	["{npc:3608}, upstairs"] = "",
 	-- {npc:3567} Tallonkai Swiftroot
@@ -186,6 +204,10 @@ return {
 	-- Step 28: Sentinel Shayla Nightbreeze
 	-- {area:261} Gnarlpine Hold
 	["West along the road toward the city. Shayla walks this stretch of road, from the arrow south-west to the bend at about 38,54 and back: if she isn't at the arrow, follow the road south-west. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and {area:261}'s all count."] = "沿著道路向西朝城市前進。夏伊拉在這段路上來回巡邏，從箭頭處往西南走到約38,54的彎道再折返：如果她不在箭頭處，沿著道路往西南走。每個瘤背熊怪都會掉落牙齒：這條路上的伏擊者、古墓裡的以及{area:261}的都算數。",
+	-- {npc:6287} Radnaal Maneweaver
+	["{npc:6287}, camped beside the road before Shayla: Camping 101, skinners"] = "{npc:6287}，在夏伊拉之前的路旁紮營：露營入門，剝皮師",
+	-- {npc:3605} Nadyia Maneweaver
+	["{npc:3605}, beside him: Camping 101, leatherworkers"] = "{npc:3605}，在他旁邊：露營入門，製皮師",
 
 	-- Step 29: Darnassus
 	-- {quest:922} Rellian Greenspyre · {area:1658} Cenarion Enclave · {npc:7316} Sister Aquinne · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade · {item:279378} Lunar Pendant

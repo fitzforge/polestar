@@ -78,6 +78,10 @@ return {
 	["The road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
+	-- {npc:4630} Pozzik · {item:5852} Fuel Regulator Blueprints · {npc:2496} Baron Revilgaz
+	["{npc:4630}: the {item:5852} from {npc:2496}, if you carry them"] = "{npc:4630}: los {item:5852} de {npc:2496}, si los llevas",
+	-- {npc:4706} Razzeric · {npc:4630} Pozzik
+	["{npc:4706}, beside {npc:4630}"] = "{npc:4706}, junto a {npc:4630}",
 
 	-- Step 21: To Gadgetzan
 	-- {area:976} Gadgetzan

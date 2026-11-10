@@ -36,8 +36,8 @@ return {
 	-- Step 7: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
 	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "",
-	-- {npc:8256} Curator Thorius · {area:1537} Ironforge
-	["For {npc:8256} in {area:1537}, later"] = "Для NPC {npc:8256} ({area:1537}), позже",
+	-- {npc:8256} Curator Thorius · {zone:1455} Ironforge
+	["For {npc:8256} in {zone:1455}, at the end of this guide"] = "Для NPC {npc:8256} ({zone:1455}), в конце этого гайда",
 
 	-- Step 8: Thorium Point
 	-- {area:1446} Thorium Point
@@ -137,10 +137,23 @@ return {
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "",
 
-	-- Step 38: Class trainer
+	-- Step 38: Hall of Explorers
+	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
+	["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}: слизни водятся в локации {zone:1448}, сохраните задание",
+
+	-- Step 39: Mystic Ward
+	-- {zone:1447} Azshara
+	["Four rune rubbings in {zone:1447}: keep it"] = "Четыре оттиска рун в локации {zone:1447}: сохраните задание",
+
+	-- Step 40: Class trainer
 	["Class trainer"] = "Учитель классовых навыков",
 
+	-- Step 41: Xiggs Fuselighter
+	-- {object:32359} Military Ward
+	["Xiggs waits in the {object:32359}."] = "Ксиггс ждет в районе {object:32359}.",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["For {npc:8256} in {area:1537}, later"] = "Для NPC {npc:8256} ({area:1537}), позже",
 	-- ["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}. {area:1446} is the scaffolded camp on the north-west rim."] = "Из места {area:144} езжайте на юг в {zone:1418}, затем на запад мимо ордынского городка {area:340} (обойдите его стороной) и вверх по тропе: {zone:1427}. {area:1446} — лагерь с лесами на северо-западном краю.",
 	-- ["Greater Lava Spiders"] = "Большие лавовые пауки",
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "Тяжелые боевые големы патрулируют дно Котлована под Калараном; среди них плавают элементали магмы. Масло падает с големов и элементалей, сердца — с элементалей.",

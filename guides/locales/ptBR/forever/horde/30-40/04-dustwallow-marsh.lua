@@ -108,14 +108,8 @@ return {
 	["{area:496} flight master"] = "Mestre de voo de {area:496}",
 
 	-- Step 22: Ratchet
-	-- {npc:3391} Gazlowe · {npc:3446} Mebok Mizzyrix
-	["{npc:3391} waits upstairs in the house by the flight master; {npc:3446} stands below it, towards the docks."] = "{npc:3391} espera no andar de cima da casa junto ao mestre de voo; {npc:3446} fica no andar de baixo, rumo às docas.",
-	-- {npc:3391} Gazlowe · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
-	["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}: para {npc:4631}, em {area:35}, na primeira parada em {area:35} do guia 40-50",
-	-- {quest:1111} Wharfmaster Dizzywig
-	["{quest:1111}, on the docks"] = "{quest:1111}, nas docas",
-	-- {area:439} Shimmering Flats
-	["Dizzywig's parts go back to Kravel in the {area:439}, off the route: leave them."] = "As peças de Caruncho voltam para Kravel em {area:439}, fora da rota: deixe-as.",
+	-- {npc:3446} Mebok Mizzyrix
+	["{npc:3446} stands below Gazlowe's house by the flight master, towards the docks."] = "{npc:3446} fica no andar de baixo da casa de Gazlowe, junto ao mestre de voo, rumo às docas.",
 
 	-- Step 23: The Affray
 	-- {area:392} Ratchet · {area:720} Fray Island · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
@@ -201,6 +195,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Darkfang spiders"] = "Aranhas Presanegra",
+	-- ["Dizzywig's parts go back to Kravel in the {area:439}, off the route: leave them."] = "As peças de Caruncho voltam para Kravel em {area:439}, fora da rota: deixe-as.",
 	-- ["For {npc:2519} at {object:3202}, in the next guide"] = "Para {npc:2519} em {object:3202}, no próximo guia",
 	-- ["Head east to {area:602}. Use the Rod of Banishing by each demon portal to close six of them.\nCareful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "Siga para leste até {area:602}. Use o bastão de banimento junto a cada portal demoníaco para fechar seis deles.\nCuidado: Infernais, Demonarcas e Evocadores da Lâmina Ardente andam perto de vários portais e podem entrar na briga; mate os monstros por perto primeiro ou arraste o guardião para longe, por exemplo rumo ao lago central do conciliábulo.",
 	-- ["Hearth to Shadowprey"] = "Regressar para a Aldeia Pescassombra",
@@ -228,9 +223,12 @@ return {
 	-- ["The next guide takes you back to {zone:1434}."] = "O próximo guia leva você de volta à {zone:1434}.",
 	-- ["grind on {npc:4362}"] = "mate {npc:4362} até subir",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "A caravana de {npc:11626} para na estrada na borda do {area:602}. Escolte-a para leste passando o conciliábulo; demônios a atacam duas vezes.",
+	-- ["{npc:3391} waits upstairs in the house by the flight master; {npc:3446} stands below it, towards the docks."] = "{npc:3391} espera no andar de cima da casa junto ao mestre de voo; {npc:3446} fica no andar de baixo, rumo às docas.",
 	-- ["{npc:3391}'s next errand takes you to {area:35}, off this part of the route: leave it."] = "A próxima tarefa de {npc:3391} leva você a {area:35}, fora desta parte da rota: deixe de lado.",
+	-- ["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}: para {npc:4631}, em {area:35}, na primeira parada em {area:35} do guia 40-50",
 	-- ["{npc:3412}, in the {object:172958} beside {npc:4485}: {quest:2841}, if you ran {area:133}"] = "{npc:3412}, em {object:172958}, ao lado de {npc:4485}: {quest:2841}, se você fez {area:133}",
 	-- ["{npc:5395} and {npc:5412} stand in the post just west of {npc:11596}'s camp."] = "{npc:5395} e {npc:5412} ficam no posto logo a oeste do acampamento de {npc:11596}.",
 	-- ["{npc:6791}: the last guide binds here, so this usually ticks at once"] = "{npc:6791}: o guia anterior vincula você aqui, então isto costuma ser marcado na hora",
+	-- ["{quest:1111}, on the docks"] = "{quest:1111}, nas docas",
 	-- ["{zone:1443}'s last quests and Alterac are 38-41. Below 37.5? Keep killing the Mirefin murlocs along the north-east coast, past {area:502}, until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "As últimas missões de {zone:1443} e Alterac são de nível 38-41. Abaixo de 37.5? Continue matando os murlocs Lamapina na costa nordeste, passando por {area:502}, até o nível 37.5. Ou, em grupo, faça a masmorra {area:1316} ou a masmorra {area:796} (Arsenal).",
 }

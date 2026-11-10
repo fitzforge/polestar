@@ -134,12 +134,28 @@ return {
 
 	-- Step 23: The lake shore
 	["The lake shore"] = "호숫가",
-	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner · {npc:383} Jason Mathers · {npc:1651} Lee Brown · {area:18} Crystal Lake
-	["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:263399}은(는) 여관 북동쪽에 야영하고 있으며, {npc:6306}, {npc:383}, {npc:1651}은(는) 마을 동쪽 {area:18} 호숫가에 있습니다.",
+	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner · {npc:1632} Adele Fielder · {npc:383} Jason Mathers · {npc:1651} Lee Brown · {area:18} Crystal Lake · {skill:129} First Aid · {area:87} Goldshire
+	["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:1632}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town. With a profession learned, Sam also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing here on the shore, {skill:129} and blacksmithing in {area:87}."] = "{npc:263399}은(는) 여관 북동쪽에 야영하고 있으며, {npc:6306}, {npc:1632}, {npc:383}, {npc:1651}은(는) 마을 동쪽 {area:18} 호숫가에 있습니다. 전문 기술을 배웠다면 샘이 해당 기술의 야영 기초 퀘스트도 주며, 이는 해당 기술 상급자가 받습니다. 무두질, 가죽세공, 낚시는 이곳 호숫가에서, {skill:129}와(과) 대장기술은 {area:87}에서 받습니다.",
 	-- {spell:1229451} Boosted Rest
 	["Sit (/sit) by his campfire until you have {spell:1229451}"] = "{spell:1229451} 효과를 얻을 때까지 그의 모닥불 옆에 앉으세요(/앉기)",
+	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner
+	["{npc:263399}, skinners: for {npc:6306}"] = "{npc:263399}, 무두질: {npc:6306}에게",
+	-- {npc:263399} Sam Sarsaparilla · {npc:1632} Adele Fielder
+	["{npc:263399}, leatherworkers: for {npc:1632}"] = "{npc:263399}, 가죽세공: {npc:1632}에게",
+	-- {npc:263399} Sam Sarsaparilla · {npc:1651} Lee Brown
+	["{npc:263399}, fishers: for {npc:1651}"] = "{npc:263399}, 낚시: {npc:1651}에게",
+	-- {npc:263399} Sam Sarsaparilla · {skill:129} First Aid · {npc:2329} Michelle Belle
+	["{npc:263399}, {skill:129}: for {npc:2329} in the inn"] = "{npc:263399}, {skill:129}: 여관의 {npc:2329}에게",
+	-- {npc:263399} Sam Sarsaparilla · {npc:514} Smith Argus
+	["{npc:263399}, blacksmiths: for {npc:514} at the smithy"] = "{npc:263399}, 대장기술: 대장간의 {npc:514}에게",
 	-- {npc:6306} Helene Peltskinner
 	["{npc:6306}: skinners only, the pelts are skinned; inside"] = "",
+	-- {npc:6306} Helene Peltskinner
+	["{npc:6306}: Camping 101, skinners; inside"] = "{npc:6306}: 야영 기초, 무두질; 실내",
+	-- {npc:1632} Adele Fielder
+	["{npc:1632}: Camping 101, leatherworkers"] = "{npc:1632}: 야영 기초, 가죽세공",
+	-- {npc:1651} Lee Brown
+	["{npc:1651}: Camping 101, fishers"] = "{npc:1651}: 야영 기초, 낚시",
 
 	-- Step 24: Crystal Lake
 	-- plural, as words: Fishing Traps = {object:694772} Fishing Trap
@@ -163,6 +179,10 @@ return {
 	["{npc:1430} cooks in the inn's kitchen. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:1430} Tomas
 	["{npc:1430}: Camping 101 asks you to learn it; below ground"] = "",
+	-- {npc:2329} Michelle Belle · {skill:129} First Aid
+	["{npc:2329}, in the inn: Camping 101, {skill:129}"] = "{npc:2329}, 여관 안: 야영 기초, {skill:129}",
+	-- {npc:514} Smith Argus
+	["{npc:514}, at the smithy across the road: Camping 101, blacksmiths"] = "{npc:514}, 길 건너 대장간: 야영 기초, 대장기술",
 	-- {npc:377} Priestess Josetta · {item:16605} Friar's Robes of the Light
 	["{npc:377}, upstairs: {item:16605}"] = "{npc:377}, 위층: {item:16605}",
 
@@ -342,7 +362,9 @@ return {
 	-- {npc:240} Marshal Dughan
 	["{npc:240}, while William brews"] = "",
 	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind
-	["{npc:514}, at the smithy: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "",
+	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, 듀간 옆 대장간: {zone:1453}의 {npc:1416}이(가) 받습니다 (02-westfall)",
+	-- {npc:253} William Pestle
+	["{npc:253}, back in the inn"] = "{npc:253}, 다시 여관 안",
 	-- {npc:377} Priestess Josetta · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
 	["{npc:377}: {npc:376} in {zone:1453} takes it"] = "",
 	-- {npc:328} Zaldimar Wefhellt · {npc:5497} Jennea Cannon · {zone:1453} Stormwind
@@ -474,6 +496,7 @@ return {
 	-- ["{npc:247229}, in the library"] = "{npc:247229}, 도서관 안",
 	-- ["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "{npc:248277}은(는) 멀록 해안 동쪽 {area:798}에서 경계를 서고 있습니다. 그다음 북서쪽으로 다리까지 돌아가십시오.",
 	-- ["{npc:248415} stands behind the Abbey, by the stables."] = "{npc:248415}은(는) 대성당 뒤 마구간 옆에 있습니다.",
+	-- ["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:263399}은(는) 여관 북동쪽에 야영하고 있으며, {npc:6306}, {npc:383}, {npc:1651}은(는) 마을 동쪽 {area:18} 호숫가에 있습니다.",
 	-- ["{npc:377}: {npc:376} in {zone:1453} takes both"] = "{npc:377}: {zone:1453}의 {npc:376}이(가) 둘 다 받습니다",
 	-- ["{npc:6171}: Redemption"] = "{npc:6171}: 구원",
 	-- ["{npc:6306}: skinners only, the pelts are skinned"] = "{npc:6306}: 무두질 전용, 가죽은 무두질로 얻습니다",

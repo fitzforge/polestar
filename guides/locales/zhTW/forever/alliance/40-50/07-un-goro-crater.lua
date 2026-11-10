@@ -33,6 +33,10 @@ return {
 	-- {npc:9619} Torwa Pathfinder
 	["The dead Threshadon lies by the water north of {npc:9619}."] = "死去的蛇頸龍躺在{npc:9619}北邊的水邊。",
 
+	-- Step 10: Torwa Pathfinder
+	-- {area:1943} Ironstone Plateau
+	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "{area:1943}的猩猩身上帶有毛皮：保留此任務，留待第二次來安戈洛時（約56級）完成",
+
 	-- Step 11: Lar'korwi Mates and the raft
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["Lar'korwi Mates and the raft"] = "拉克維的配偶與木筏",
@@ -123,42 +127,35 @@ return {
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge's entrance"] = "{npc:9998}，在避難營入口",
 
-	-- Step 26: To Stoutlager Inn
+	-- Step 26: Fly to Astranaar
+	-- {area:415} Astranaar
+	["Fly to {area:415}"] = "",
+	-- {zone:1455} Ironforge · {zone:1427} Searing Gorge · {zone:1440} Ashenvale · {zone:1447} Azshara
+	["The {zone:1455} quests were taken at the end of the {zone:1427} guide: fly straight on to {zone:1440} for {zone:1447}."] = "{zone:1455}的任務已在{zone:1427}指南結尾接取：直接飛往{zone:1440}，前往{zone:1447}。",
+	-- {area:541} Marshal's Refuge
+	["{area:541} flight master"] = "{area:541}飛行管理員",
+
+	-- Step 27: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
 	["To {area:2101}"] = "",
 
-	-- Step 27: Fly to Ironforge
+	-- Step 28: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "",
 
-	-- Step 28: Hall of Explorers
-	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
-	["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}：軟泥怪在{zone:1448}，保留此任務",
-
 	-- Step 29: Mystic Ward
-	-- {zone:1447} Azshara
-	["Four rune rubbings in {zone:1447}: keep it"] = "在{zone:1447}拓印四個符文：保留此任務",
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}：交給{zone:1447}的奧汀克，保留此任務",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
 	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "",
 
-	-- Step 30: Class trainer
-	["Class trainer"] = "",
-
-	-- Step 31: Xiggs Fuselighter
-	-- {object:32359} Military Ward
-	["Xiggs waits in the {object:32359}."] = "希格斯在{object:32359}等候。",
-
-	-- Step 34: Fly to Astranaar
-	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	-- Step 32: Fly to Astranaar
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
 
-	-- Step 35: Level 50.4
+	-- Step 33: Level 50.4
 	["Level 50.4"] = "",
 	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
 	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
@@ -171,6 +168,7 @@ return {
 	-- ["Cross the south of the crater to {npc:9619} by the ramp."] = "穿越環形山南部，前往坡道旁的{npc:9619}。",
 	-- ["Escort {npc:9999}"] = "護送{npc:9999}",
 	-- ["Fly from {area:144} to {area:1537}."] = "從{area:144}飛往{area:1537}。",
+	-- ["Four rune rubbings in {zone:1447}: keep it"] = "在{zone:1447}拓印四個符文：保留此任務",
 	-- ["From {area:144} fly to {area:150}, take the boat to Theramore and fly on to {area:976}. {npc:9619}'s first quest in the crater needs level 48: finish the level here if you are short."] = "從{area:144}飛往{area:150}，搭船到塞拉摩，再飛往{area:976}。{npc:9619}在環形山的第一個任務需要等級48：若等級不足，先在這裡練完這一級。",
 	-- ["Grind to 50"] = "練到50級",
 	-- ["Grind to 51"] = "練到51級",
@@ -197,12 +195,14 @@ return {
 	-- ["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997} and drop {npc:9998}'s scales."] = "水晶塔位於避難營東邊的山坡上。{npc:9166}在周圍山坡盤旋：擊殺牠們算入{npc:9997}的任務，並會掉落{npc:9998}要的鱗片。",
 	-- ["The relics are in the {zone:1428}: keep it"] = "聖物在{zone:1428}：保留此任務",
 	-- ["The wooden sign beside {npc:9997}"] = "{npc:9997}旁邊的木牌",
+	-- ["Xiggs waits in the {object:32359}."] = "希格斯在{object:32359}等候。",
 	-- ["grind on the Wastewanderers or Dunemaul ogres around {area:976}"] = "在{area:976}周圍擊殺廢土強盜或砂槌巨魔練等",
 	-- ["grind on {npc:5458} at {area:982}, {zone:1446}"] = "在{zone:1446}的{area:982}擊殺{npc:5458}練等",
 	-- ["grind on {npc:6514} at {area:1943}, {zone:1449}"] = "在{zone:1449}的{area:1943}擊殺{npc:6514}練等",
 	-- ["{area:978} (optional)"] = "{area:978}（可選）",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}：上一份指南用爐石把你送到這裡，所以這一步通常會立即完成",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}，在洞穴深處",
+	-- ["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}：軟泥怪在{zone:1448}，保留此任務",
 	-- ["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "{npc:9684}的巢穴位於{npc:9619}北邊的叢林，在東面懸崖下方：在那裡使用{item:11568}。{npc:9684}是56級：滿血再開打。",
 	-- ["{npc:9997}'s friend {npc:9999} has gone missing."] = "{npc:9997}的朋友{npc:9999}失蹤了。",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999}坐在環形山中央{area:537}的東南坡上。",

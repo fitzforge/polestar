@@ -423,24 +423,12 @@ return {
 	-- Step 110: Northern Pylon
 	["Northern Pylon"] = "북쪽 수정탑",
 
-	-- Step 112: The crater
-	["The crater"] = "분화구",
-	-- {area:538} Lakkari Tar Pits · {area:537} Fire Plume Ridge · {area:540} Slithering Scar · {item:11018} Un'Goro Soil
-	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Gorishi Workers = {npc:6552} Gorishi Worker
-	["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}.\nCareful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "",
-
-	-- Step 113: Torwa Pathfinder
-	-- {npc:9619} Torwa Pathfinder
-	["{npc:9619} camps at the foot of the ramp into the crater."] = "",
+	-- Step 111: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau
-	["The pelts come from the gorillas on {area:1943}"] = "",
-
-	-- Step 114: Lakkari Tar Pits: kill these as you meet them
-	-- {area:538} Lakkari Tar Pits
-	["{area:538}: kill these as you meet them"] = "",
-	-- {area:1943} Ironstone Plateau · {area:541} Marshal's Refuge · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
+	["{area:1943}: kill these as you meet them"] = "{area:1943}: 만나는 대로 처치하세요",
+	-- {area:1943} Ironstone Plateau · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
-	["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "",
+	["The gorillas live on {area:1943}, just east of the pylon: take the pelts for {npc:9619} now, while you are up here. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "고릴라는 수정탑 바로 동쪽의 {area:1943}에 삽니다. 여기 올라온 김에 지금 {npc:9619}에게 줄 가죽을 모으세요. 가장 깊은 동굴에는 들어가지 마세요. {npc:9622}은(는) 55레벨입니다.\n주의: 운고로 고릴라(50-51레벨)는 생명력이 25%로 떨어지면 20미터 안의 동료를 불러 도움을 요청합니다. 이 지역에는 고릴라로 가득한 동굴이 있어, 그곳에서 싸우면 많은 적이 몰려듭니다.",
 	-- {item:11478} Un'Goro Gorilla Pelt
 	["{item:11478}; below ground"] = "",
 	-- {item:11479} Un'Goro Stomper Pelt
@@ -448,28 +436,52 @@ return {
 	-- {item:11480} Un'Goro Thunderer Pelt
 	["{item:11480}; below ground"] = "",
 
-	-- Step 116: U'cha
+	-- Step 113: Lakkari Tar Pits: kill these as you meet them
+	-- {area:538} Lakkari Tar Pits
+	["{area:538}: kill these as you meet them"] = "",
+	-- {area:538} Lakkari Tar Pits
+	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Tar Lords = {npc:6519} Tar Lord
+	["The Tar Beasts and Tar Lords wallow in the {area:538}, south of the refuge on the way down into the crater."] = "타르 야수와 타르 군주는 분화구로 내려가는 길에 있는 피난처 남쪽의 {area:538}에서 뒹굴고 있습니다.",
+
+	-- Step 114: The crater
+	["The crater"] = "분화구",
+	-- {area:538} Lakkari Tar Pits · {area:537} Fire Plume Ridge · {area:540} Slithering Scar · {item:11018} Un'Goro Soil
+	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Gorishi Workers = {npc:6552} Gorishi Worker
+	["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}.\nCareful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "",
+
+	-- Step 115: Torwa Pathfinder
+	-- {npc:9619} Torwa Pathfinder
+	["{npc:9619} camps at the foot of the ramp into the crater."] = "",
+	-- {area:1943} Ironstone Plateau
+	["The pelts come from the gorillas on {area:1943}"] = "",
+
+	-- Step 117: Ironstone Plateau: kill these as you meet them
+	-- {area:1943} Ironstone Plateau · {area:541} Marshal's Refuge · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
+	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
+	["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "",
+
+	-- Step 119: U'cha
 	-- {npc:9622} U'cha
 	["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "동쪽을 따라 북쪽의 고릴라 고원으로 가세요. 55레벨 고릴라 {npc:9622}은(는) 가장 깊은 동굴에 있습니다. 먼저 동굴 입구의 고릴라를 정리하세요.",
 	["Below ground"] = "",
 
-	-- Step 117: Lar'korwi
+	-- Step 120: Lar'korwi
 	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder · {item:11568} Torwa's Pouch
 	["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "{npc:9684}의 굴은 {npc:9619} 북쪽, 동쪽 절벽 아래 밀림에 있습니다. 그곳에서 {item:11568}을(를) 사용하세요. {npc:9684}은(는) 56레벨이니 생명력이 가득한 상태로 시작하세요.",
 
-	-- Step 118: Torwa Pathfinder
+	-- Step 121: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
 	["Cross the south of the crater to {npc:9619} by the ramp."] = "분화구 남쪽을 가로질러 비탈 옆의 {npc:9619}에게 가세요.",
 
-	-- Step 119: The Marshlands: kill these as you meet them
+	-- Step 122: The Marshlands: kill these as you meet them
 	-- {area:1942} The Marshlands
 	["{area:1942}: kill these as you meet them"] = "",
 
-	-- Step 120: Ringo
+	-- Step 123: Ringo
 	-- {npc:9999} Ringo · {area:537} Fire Plume Ridge
 	["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999}은(는) 분화구 한가운데 {area:537}의 남동쪽 비탈에 앉아 있습니다.",
 
-	-- Step 121: Escort Ringo
+	-- Step 124: Escort Ringo
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "{npc:9999} 호위",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen

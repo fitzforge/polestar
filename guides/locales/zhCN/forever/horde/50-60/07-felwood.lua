@@ -39,73 +39,85 @@ return {
 	-- {npc:9116} Eridan Bluewind · {item:11173} Irontree Heart · {zone:1448} Felwood
 	["{npc:9116}'s Silver Heart needs an {item:11173} from northern {zone:1448} and a ride back here. Skip it."] = "{npc:9116}的银色之心需要{zone:1448}北部的一个{item:11173}，还要再骑回这里。跳过它。",
 
-	-- Step 9: Dousing the Flames of Protection
+	-- Step 9: Maybess Riverbreeze
+	-- {npc:9529} Maybess Riverbreeze · {area:1763} Jaedenar · {quest:4102} Cleansing Felwood · {quest:5887} Salve via Hunting · {area:1770} Shadow Hold · {npc:10922} Greta Mosshoof
+	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
+	["{npc:9529} stands on the west side of the Sanctuary, the way out to {area:1763}. With {quest:4102} done, her {quest:5887} asks for six Corrupted Soul Shards: the Shadow Council cultists in {area:1763} and {area:1770} drop them about one kill in three, and you fight dozens of them for {npc:10922}."] = "{npc:9529}站在翡翠圣地的西侧，也就是通往{area:1763}的出口处。完成{quest:4102}后，她的{quest:5887}要求你收集六块腐化的灵魂碎片：{area:1763}和{area:1770}的暗影议会信徒大约每击杀三个会掉落一块，而你为{npc:10922}要击杀几十个这样的信徒。",
+
+	-- Step 10: Dousing the Flames of Protection
 	-- {area:1763} Jaedenar
 	["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "骑行向西北前往 {area:1763}。四座火盆位于暗影议会的建筑之间；对每一座使用净化过的水。\n小心：洞穴中遍布 53-55 级的暗影议会怪物，它们经常以多只联动的大群出现，其中许多会昏迷技能。建议 2-3 名玩家组队。",
 	["Below ground"] = "在地下",
 
-	-- Step 10: Greta Mosshoof
+	-- Step 11: Greta Mosshoof
 	["Back south to the Sanctuary, a short ride."] = "向南回到翡翠圣地，路程很短。",
 
-	-- Step 11: Bloodvenom Post
+	-- Step 12: Bloodvenom Post
 	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post
 	["Ride north along the road, past {area:1763}, to {area:1997}."] = "沿道路向北骑行，经过{area:1763}，前往{area:1997}。",
 	-- {npc:10306} Trull Failbane · {quest:4741} Wild Guardians · {zone:1452} Winterspring
 	["{npc:10306}'s next {quest:4741} would bring you back here from {zone:1452}. Skip it."] = "{npc:10306}的下一个任务{quest:4741}会让你从{zone:1452}跑回这里。跳过它。",
 
-	-- Step 12: A Final Blow
+	-- Step 13: A Final Blow
 	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar
 	["{npc:9861}, {npc:9860} and {npc:9517} wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "{npc:9861}、{npc:9860} 和 {npc:9517} 在 {area:1770} 深处等着，那是 {area:1763} 北边的洞穴。边走边清理通道。\n小心：三名首领会一起战斗。先清掉周围的小怪，避免额外引怪。",
+	-- {quest:5887} Salve via Hunting
+	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
+	["Corrupted Soul Shards from the cultists, {quest:5887}"] = "从信徒身上收集腐化的灵魂碎片，{quest:5887}",
 
-	-- Step 13: Greta Mosshoof
+	-- Step 14: Maybess Riverbreeze
+	-- {npc:10922} Greta Mosshoof · {npc:9529} Maybess Riverbreeze
+	["On the way back south to {npc:10922}, {npc:9529} takes the shards on the west side of the Sanctuary."] = "在向南返回{npc:10922}的路上，在翡翠圣地西侧把碎片交给{npc:9529}。",
+
+	-- Step 15: Greta Mosshoof
 	["South to the Sanctuary once more."] = "再次向南前往翡翠圣地。",
 
-	-- Step 14: Toxic Horrors
+	-- Step 16: Toxic Horrors
 	-- {zone:1448} Felwood · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors
 	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet."] = "",
 
-	-- Step 16: Umber
+	-- Step 18: Umber
 	-- {zone:1450} Moonglade · {npc:11939} Umber · {area:2361} Nighthaven
 	["Through the Timbermaw tunnel to {zone:1450}. {npc:11939} reads in a house in {area:2361}."] = "穿过木喉隧道前往{zone:1450}。{npc:11939}在{area:2361}的一座房子里读书。",
 	-- {npc:11939} Umber · {area:2361} Nighthaven
 	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "{npc:11939}在{area:2361}巡逻，请在地图标示的圆圈内寻找",
 
-	-- Step 18: Class trainer
+	-- Step 20: Class trainer
 	["Class trainer"] = "职业训练师",
 
-	-- Step 19: Rabine Saturna
+	-- Step 21: Rabine Saturna
 	-- {npc:11801} Rabine Saturna · {area:2577} Dire Maul
 	["{npc:11801}'s Shards of the Felvine needs {area:2577}. Skip it."] = "{npc:11801}的魔藤碎片需要{area:2577}。跳过它。",
 
-	-- Step 22: Donova Snowden
+	-- Step 24: Donova Snowden
 	-- {zone:1452} Winterspring · {npc:9298} Donova Snowden
 	["Back into the Timbermaw tunnel and take the {zone:1452} exit; {npc:9298} camps by the hot springs just outside."] = "回到木喉隧道，走{zone:1452}出口；{npc:9298}就在出口外的温泉旁扎营。",
 	["From Krakle in Un'Goro"] = "来自安戈洛的克拉兰克",
 
-	-- Step 23: Winterfall Runners
+	-- Step 25: Winterfall Runners
 	-- {area:1769} Timbermaw Hold · {area:2244} Winterfall Village · {npc:9298} Donova Snowden · {spell:5384} Feign Death
 	["The runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "",
 
-	-- Step 25: Beads for Salfa
+	-- Step 27: Beads for Salfa
 	-- {npc:11556} Salfa
 	["Any Winterfall furbolg can carry the beads; the camps just south of {npc:11556} are the closest."] = "任何冬泉熊怪都可能携带冬泉灵魂珠串；{npc:11556}正南的营地最近。",
 	["Frostfire Winterfall camp"] = "冰火温泉的冬泉熊怪营地",
 
-	-- Step 27: Meilosh
+	-- Step 29: Meilosh
 	-- {quest:6031} Runecloth · {area:1769} Timbermaw Hold · {npc:11557} Meilosh
 	["With 30 {quest:6031} in your bags: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "",
 
-	-- Step 28: Kernda
+	-- Step 30: Kernda
 	-- {area:1762} Felpaw Village · {npc:11558} Kernda · {area:1769} Timbermaw Hold · {zone:1448} Felwood
 	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558}在附近巡逻，请在地图标示的圆圈内寻找",
 
-	-- Step 30: Darkwhisper Gorge
+	-- Step 32: Darkwhisper Gorge
 	-- {area:2249} Frostwhisper Gorge · {area:2256} Darkwhisper Gorge
 	["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "向东骑行，然后向南下到{area:2249}。那里的霜槌巨人是59级精英：走在中间，保持移动。奇怪的源头在南端{area:2256}的入口处。",
 
-	-- Step 31: Level 59.9
+	-- Step 33: Level 59.9
 	["Level 59.9"] = "等级 59.9",
 	-- {zone:1452} Winterspring · {area:2249} Frostwhisper Gorge · {area:1769} Timbermaw Hold · {area:2057} Scholomance · {area:2279} Stratholme
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
@@ -113,27 +125,27 @@ return {
 	-- {npc:7446} Rabid Shardtooth
 	["grind on {npc:7446}"] = "",
 
-	-- Step 32: Donova Snowden
+	-- Step 34: Donova Snowden
 	-- {area:2246} Frostfire Hot Springs
 	["Ride back west to {area:2246}."] = "向西骑回{area:2246}。",
 	-- {npc:9298} Donova Snowden · {npc:10738} High Chief Winterfall
 	["{npc:9298} next sends you after {npc:10738}, an elite in his cave. Skip it."] = "{npc:9298}接下来让你去对付{npc:10738}，他是洞穴里的精英。跳过它。",
 
-	-- Step 33: Are We There, Yeti?
+	-- Step 35: Are We There, Yeti?
 	-- {npc:10978} Legacki · {npc:10980} Umi's Mechanical Yeti
 	["Scare {npc:10978} with {npc:10980}"] = "",
 
-	-- Step 34: Everlook
+	-- Step 36: Everlook
 	-- {area:2255} Everlook
 	["Ride east along the road to {area:2255}."] = "沿道路向东骑往{area:2255}。",
 
-	-- Step 35: Dungeon instead of grinding
+	-- Step 37: Dungeon instead of grinding
 	["Dungeon instead of grinding"] = "用地下城代替刷怪",
 	-- {area:2279} Stratholme · {area:2057} Scholomance · {area:1584} Blackrock Depths
 	["Optional. Running {area:2279}, {area:2057}, Lower Blackrock Spire or {area:1584} with a group instead of grinding gets you there faster."] = "可选。和队伍一起刷{area:2279}、{area:2057}、黑石塔下层或{area:1584}，代替刷怪能更快到达。",
 	["Optional: with a group, a 55-60 dungeon replaces the grind below."] = "可选：有队伍时，用一个55-60级的地下城代替下面的刷怪。",
 
-	-- Step 36: Grind to 60
+	-- Step 38: Grind to 60
 	["Grind to 60"] = "刷到60级",
 	-- {area:2249} Frostwhisper Gorge · {zone:1452} Winterspring · {area:2255} Everlook
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth

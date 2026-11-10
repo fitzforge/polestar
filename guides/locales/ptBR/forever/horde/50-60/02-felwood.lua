@@ -110,6 +110,8 @@ return {
 	["The druids' camp is just past the border."] = "O acampamento dos druidas fica logo depois da fronteira.",
 	-- {npc:11554} Grazle
 	["{npc:11554}, at the south edge of the camp"] = "{npc:11554}, na borda sul do acampamento",
+	-- {npc:9529} Maybess Riverbreeze
+	["{npc:9529}, on the west side of the camp"] = "{npc:9529}, no lado oeste do acampamento",
 
 	-- Step 24: Deadwood Village
 	-- {area:1769} Timbermaw Hold · {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
@@ -117,131 +119,125 @@ return {
 	-- {npc:7153} Deadwood Warrior
 	["grind on {npc:7153}"] = "mate {npc:7153} até subir",
 
-	-- Step 25: Emerald Sanctuary
-	-- {npc:9529} Maybess Riverbreeze
-	["{npc:9529}, just west of the camp"] = "{npc:9529}, logo a oeste do acampamento",
-
-	-- Step 26: Southern Jaedenar
+	-- Step 25: Southern Jaedenar
 	-- {area:1763} Jaedenar
 	["Southern {area:1763}"] = "Sul de {area:1763}",
 	-- {area:1763} Jaedenar
 	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "Siga a estrada para noroeste. O sul de {area:1763}, em volta do poço lunar corrompido, é ocupado por sectários, adeptos, guardas e cães do Shadow Council.",
 
-	-- Step 27: A Strange Red Key
+	-- Step 26: A Strange Red Key
 	-- {item:13140} Blood Red Key · {npc:11018} Arko'narin · {area:1770} Shadow Hold · {area:1763} Jaedenar
 	["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "Caiu uma {item:13140}: use-a para iniciar a missão e depois liberte {npc:11018} da jaula dela em {area:1770}, a caverna no extremo norte de {area:1763}.",
 
-	-- Step 28: Captured Arko'narin
+	-- Step 27: Captured Arko'narin
 	-- {npc:11016} Captured Arko'narin
 	["{npc:11016}, below ground"] = "{npc:11016}, no subterrâneo",
 
-	-- Step 30: Rescue From Jaedenar
+	-- Step 29: Rescue From Jaedenar
 	-- {npc:11018} Arko'narin · {area:1770} Shadow Hold
 	["Walk {npc:11018} out of {area:1770} and keep her alive until she is out of the cave."] = "Leve {npc:11018} para fora de {area:1770} e mantenha-a viva até ela sair da caverna.",
 	-- {npc:11018} Arko'narin
 	["{npc:11018}, below ground"] = "{npc:11018}, no subterrâneo",
 
-	-- Step 31: Jessir Moonbow
+	-- Step 30: Jessir Moonbow
 	-- {area:2479} Emerald Sanctuary
 	["Back at the {area:2479}."] = "De volta a {area:2479}.",
 
-	-- Step 33: Emerald Sanctuary
+	-- Step 32: Emerald Sanctuary
 	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
 	["Only with 5 Deadwood Headdress Feathers"] = "Só com 5 Penas do Cocar de Lenha Morta",
 
-	-- Step 34: The Jaedenar moonwell
+	-- Step 33: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
 	["The {area:1763} moonwell"] = "O poço lunar de {area:1763}",
 	-- {area:1763} Jaedenar · {npc:10922} Greta Mosshoof
 	["Back north to {area:1763}. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "De volta ao norte, até {area:1763}. Encha o cantil de {npc:10922} no poço lunar corrompido no meio do acampamento do sul.",
 
-	-- Step 35: Rakaiah
+	-- Step 34: Rakaiah
 	-- {npc:9518} Rakaiah · {area:1763} Jaedenar · {npc:11020} Remains of Trey Lightforge
 	["The succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "A súcubo {npc:9518} espera no meio de {area:1763}, ao lado de {npc:11020}.",
 	["Below ground"] = "No subterrâneo",
 	-- {npc:11020} Remains of Trey Lightforge
 	["{npc:11020}, below ground"] = "{npc:11020}, no subterrâneo",
 
-	-- Step 37: Bloodvenom Post
+	-- Step 36: Bloodvenom Post
 	-- {area:1763} Jaedenar
 	["The Horde camp just north of {area:1763}."] = "O acampamento da Horda logo ao norte de {area:1763}.",
 	-- {npc:10306} Trull Failbane · {zone:1452} Winterspring
 	["{npc:10306}: the owlbeasts are in {zone:1452}"] = "{npc:10306}: os corujursos ficam em {zone:1452}",
 
-	-- Step 38: Shatter Scar Vale
+	-- Step 37: Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
 	["East of Bloodvenom Post, the cratered vale where the Entropic Beasts and Horrors roam. Kill two of each, then walk to each of the three fel-water craters."] = "A leste do Posto Peçonha, o vale de crateras onde vagam as Feras e os Horrores Entrópicos. Mate dois de cada, depois vá até cada uma das três crateras de água vil.",
 	["Southern crater"] = "Cratera do sul",
 	["Western crater"] = "Cratera do oeste",
 	["Northern crater"] = "Cratera do norte",
 
-	-- Step 39: Irontree Woods
+	-- Step 38: Irontree Woods
 	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {area:1997} Bloodvenom Post · {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
 	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager
 	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Siga a estrada para nordeste até {area:1767}. Os Rasgamusgo e Retalhadores Lenhatorta do lado leste da mata carregam cada um {item:11503}; Ursos-cinzentos Garraivosos e Assoladores Patavil andam pela mesma mata para Talo. Abaixo do nível 54.21, continue caçando os ursos-cinzentos e os assoladores: as entregas em {area:1997} e em {area:2479} levam você ao nível 55. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1417}.",
 	-- {npc:8957} Angerclaw Grizzly
 	["grind on {npc:8957}"] = "mate {npc:8957} até subir",
 
-	-- Step 40: Irontree Woods
+	-- Step 39: Irontree Woods
 	-- {npc:7101} Warpwood Shredder
 	["grind on {npc:7101}"] = "mate {npc:7101} até subir",
 
-	-- Step 41: Felpaw Village
+	-- Step 40: Felpaw Village
 	-- {npc:9462} Chieftain Bloodmaw · {npc:11557} Meilosh
 	["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "A aldeia dos furbolgs Lenha Morta, logo a oeste do túnel. {npc:9462} (56) fica entre eles. {npc:11557}, um furbolg amistoso, fica no extremo norte da aldeia.",
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
 	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "{npc:11557}: guarde 30 {quest:6031} para ele; ele só negocia a partir de Neutro com os Presamatos; no subterrâneo",
 
-	-- Step 42: Nafien
+	-- Step 41: Nafien
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold
 	["The road ends at {npc:15395}, outside the {area:1769} tunnel in the far north-east."] = "A estrada termina em {npc:15395}, do lado de fora do túnel de {area:1769}, no extremo nordeste.",
 
-	-- Step 43: Felpaw Village
+	-- Step 42: Felpaw Village
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold · {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda
 	["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "",
 	-- {npc:7156} Deadwood Den Watcher
 	["grind on {npc:7156}"] = "mate {npc:7156} até subir",
 
-	-- Step 44: Nafien
+	-- Step 43: Nafien
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
 	["Keep {quest:8465} for {zone:1452}."] = "Guarde {quest:8465} para {zone:1452}.",
 
-	-- Step 45: Timbermaw Hold
+	-- Step 44: Timbermaw Hold
 	-- {npc:11558} Kernda
 	["Step into the cave: {npc:11558} stands just inside."] = "Entre na caverna: {npc:11558} fica logo na entrada.",
 	-- {npc:11558} Kernda
 	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: os Presamatos só falam com você a partir de Neutro; anda por aqui: procure dentro do círculo no mapa",
 
-	-- Step 46: Emerald Sanctuary
+	-- Step 45: Emerald Sanctuary
 	-- {zone:1448} Felwood
 	["Ride the road south through {zone:1448} to the Sanctuary."] = "Siga a estrada para o sul através de {zone:1448} até o Santuário.",
-
-	-- Step 48: Overlord Ror
-	-- {area:1761} Deadwood Village
-	["Ror stands at the far south end of {area:1761}."] = "Ror fica no extremo sul de {area:1761}.",
-
-	-- Step 49: Emerald Sanctuary
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the Sanctuary"] = "{npc:9529}, no lado oeste do Santuário",
 	-- {quest:5158} Seeking Spiritual Aid · {npc:5901} Islen Waterseer · {zone:1413} Barrens
 	["Keep {quest:5158}: {npc:5901} is in the {zone:1413}."] = "Guarde {quest:5158}: {npc:5901} está em {zone:1413}.",
 
-	-- Step 50: Level 54.7
+	-- Step 47: Overlord Ror
+	-- {area:1761} Deadwood Village
+	["Ror stands at the far south end of {area:1761}."] = "Ror fica no extremo sul de {area:1761}.",
+
+	-- Step 48: Level 54.7
 	["Level 54.7"] = "Nível 54.7",
 	-- {area:1997} Bloodvenom Post · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
 	["Top up here to level 54.7 before the hand-ins at {area:1997} : they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Complete aqui até o nível 54.7 antes das entregas em {area:1997}: elas levam você ao nível 55. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1417}.",
 	-- {npc:7155} Deadwood Pathfinder
 	["grind on {npc:7155}"] = "mate {npc:7155} até subir",
 
-	-- Step 51: The Jadefire moonwell
+	-- Step 49: The Jadefire moonwell
 	["The Jadefire moonwell"] = "O poço lunar Flamejade",
 	-- {area:1763} Jaedenar · {npc:9996} Winna Hazzard
 	["Ride back south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "Cavalgue de volta para o sul, passando por {area:1763}, até o poço lunar corrompido dos sátiros Flamejade, e encha ali o frasquinho de {npc:9996}.",
 
-	-- Step 52: Bloodvenom Post
+	-- Step 50: Bloodvenom Post
 	["Ride north up the road again."] = "Cavalgue de novo para o norte pela estrada.",
 
-	-- Step 53: Winna Hazzard's kitten
+	-- Step 51: Winna Hazzard's kitten
 	-- {npc:9996} Winna Hazzard
 	["{npc:9996}'s kitten"] = "O gatinho da {npc:9996}",
 	-- {item:12565} Winna's Kitten Carrier · {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
@@ -249,7 +245,7 @@ return {
 	-- {item:12565} Winna's Kitten Carrier
 	["{item:12565}, at the Jadefire moonwell"] = "{item:12565}, no poço lunar Flamejade",
 
-	-- Step 55: Level 54.87
+	-- Step 53: Level 54.87
 	["Level 54.87"] = "Nível 54.87",
 	-- {zone:1452} Winterspring · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
 	["Top up here to level 54.87 before the hand-ins in {zone:1452}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Complete aqui até o nível 54.87 antes das entregas em {zone:1452}: elas levam você ao nível 55. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1417}.",
@@ -310,6 +306,7 @@ return {
 	-- ["{npc:11558}, at the tunnel mouth"] = "{npc:11558}, na entrada do túnel",
 	-- ["{npc:11610}'s last task needs level 53. The Scarlet Knights and Magi (54-55) working the lumber camp just south-west of her are the closest camp."] = "A última tarefa de {npc:11610} exige nível 53. Os Cavaleiros e Magos Escarlates (54-55) que trabalham no acampamento madeireiro logo a sudoeste dela são o acampamento mais próximo.",
 	-- ["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}."] = "{npc:11613} fica a leste do acampamento madeireiro; {npc:11611} guarda a estrada a nordeste de {npc:11610}, rumo a {area:190}.",
+	-- ["{npc:9529}, just west of the camp"] = "{npc:9529}, logo a oeste do acampamento",
 	-- ["{object:175894}, beside the house"] = "{object:175894}, ao lado da casa",
 	-- ["{quest:5210} goes to {area:2268}: keep it for later."] = "{quest:5210} vai para {area:2268}: guarde-a para depois.",
 	-- ["{quest:8470}, a rare drop"] = "{quest:8470}, um saque raro",

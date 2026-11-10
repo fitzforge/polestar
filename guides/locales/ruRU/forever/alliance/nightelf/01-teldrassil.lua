@@ -108,14 +108,32 @@ return {
 	["{npc:265811}, by the campfire"] = "{npc:265811} – у костра",
 
 	-- Step 16: The Great Outdoors
+	-- {npc:265811} Lyreena Duskblade · {npc:6286} Zarrin · {skill:129} First Aid · {npc:6094} Byancie
+	["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west."] = "Если вы изучили профессию, {npc:265811} также предлагает задание «Походное дело для начинающих», которое принимает учитель этой профессии: алхимия и травничество – рядом с персонажем {npc:6286}, {skill:129} – {npc:6094} в таверне, снятие шкур и кожевничество – в лагере Гривотков на дороге к западу.",
 	-- {npc:265811} Lyreena Duskblade · {spell:1229451} Boosted Rest
 	["/sit by {npc:265811}'s campfire until you get {spell:1229451}"] = "Сядьте (/sit) у костра {npc:265811}, пока не получите эффект «{spell:1229451}»",
+	-- {npc:265811} Lyreena Duskblade · {npc:3603} Cyndra Kindwhisper
+	["{npc:265811}, alchemists: for {npc:3603}"] = "{npc:265811}, алхимики: для персонажа {npc:3603}",
+	-- {npc:265811} Lyreena Duskblade · {npc:3604} Malorne Bladeleaf
+	["{npc:265811}, herbalists: for {npc:3604}"] = "{npc:265811}, травники: для персонажа {npc:3604}",
+	-- {npc:265811} Lyreena Duskblade · {skill:129} First Aid · {npc:6094} Byancie
+	["{npc:265811}, {skill:129}: for {npc:6094}"] = "{npc:265811}, {skill:129}: для персонажа {npc:6094}",
+	-- {npc:265811} Lyreena Duskblade · {npc:6287} Radnaal Maneweaver
+	["{npc:265811}, skinners: for {npc:6287}"] = "{npc:265811}, снятие шкур: для персонажа {npc:6287}",
+	-- {npc:265811} Lyreena Duskblade · {npc:3605} Nadyia Maneweaver
+	["{npc:265811}, leatherworkers: for {npc:3605}"] = "{npc:265811}, кожевники: для персонажа {npc:3605}",
 	-- {npc:6286} Zarrin
 	["{npc:6286}, south of the inn: Camping 101 asks you to learn it"] = "",
+	-- {npc:3603} Cyndra Kindwhisper · {npc:6286} Zarrin
+	["{npc:3603}, beside {npc:6286}: Camping 101, alchemists"] = "{npc:3603} – рядом с персонажем {npc:6286}: «Походное дело для начинающих», алхимики",
+	-- {npc:3604} Malorne Bladeleaf · {npc:6286} Zarrin
+	["{npc:3604}, beside {npc:6286}: Camping 101, herbalists"] = "{npc:3604} – рядом с персонажем {npc:6286}: «Походное дело для начинающих», травники",
 
 	-- Step 17: Dolanaar
 	-- {npc:3515} Corithras Moonrage
 	["{npc:3515}, south of the inn"] = "{npc:3515} – к югу от таверны",
+	-- {npc:6094} Byancie · {skill:129} First Aid
+	["{npc:6094}, in the inn: Camping 101, {skill:129}"] = "{npc:6094} – в таверне: «Походное дело для начинающих», {skill:129}",
 	-- {npc:3608} Aldia
 	["{npc:3608}, upstairs"] = "",
 	-- {npc:3567} Tallonkai Swiftroot
@@ -186,6 +204,10 @@ return {
 	-- Step 28: Sentinel Shayla Nightbreeze
 	-- {area:261} Gnarlpine Hold
 	["West along the road toward the city. Shayla walks this stretch of road, from the arrow south-west to the bend at about 38,54 and back: if she isn't at the arrow, follow the road south-west. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and {area:261}'s all count."] = "На запад по дороге к городу. Шейла ходит по этому участку дороги – от стрелки на юго-запад до поворота примерно у 38,54 и обратно: если ее нет у стрелки, идите по дороге на юго-запад. Клыки падают с любого фурболга из племени Кривой Сосны: подходят и душители на этой дороге, и фурболги из обители, и из лагеря ({area:261}).",
+	-- {npc:6287} Radnaal Maneweaver
+	["{npc:6287}, camped beside the road before Shayla: Camping 101, skinners"] = "{npc:6287} – в лагере у дороги, не доходя до Шейлы: «Походное дело для начинающих», снятие шкур",
+	-- {npc:3605} Nadyia Maneweaver
+	["{npc:3605}, beside him: Camping 101, leatherworkers"] = "{npc:3605} – рядом с ним: «Походное дело для начинающих», кожевники",
 
 	-- Step 29: Darnassus
 	-- {quest:922} Rellian Greenspyre · {area:1658} Cenarion Enclave · {npc:7316} Sister Aquinne · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade · {item:279378} Lunar Pendant

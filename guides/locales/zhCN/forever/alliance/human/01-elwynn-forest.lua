@@ -134,12 +134,28 @@ return {
 
 	-- Step 23: The lake shore
 	["The lake shore"] = "湖岸",
-	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner · {npc:383} Jason Mathers · {npc:1651} Lee Brown · {area:18} Crystal Lake
-	["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:263399}在旅店东北方扎营；{npc:6306}、{npc:383}和{npc:1651}站在镇子东边的{area:18}岸边。",
+	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner · {npc:1632} Adele Fielder · {npc:383} Jason Mathers · {npc:1651} Lee Brown · {area:18} Crystal Lake · {skill:129} First Aid · {area:87} Goldshire
+	["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:1632}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town. With a profession learned, Sam also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing here on the shore, {skill:129} and blacksmithing in {area:87}."] = "{npc:263399}在旅店东北方扎营；{npc:6306}、{npc:1632}、{npc:383}和{npc:1651}站在镇子东边的{area:18}岸边。学会一项专业后，萨姆还会提供该专业的野营入门，交给该专业的训练师：剥皮、制皮和钓鱼就在这片湖岸，{skill:129}和锻造在{area:87}。",
 	-- {spell:1229451} Boosted Rest
 	["Sit (/sit) by his campfire until you have {spell:1229451}"] = "在他的营火旁坐下（/sit），直到获得{spell:1229451}",
+	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner
+	["{npc:263399}, skinners: for {npc:6306}"] = "{npc:263399}，剥皮者：交给{npc:6306}",
+	-- {npc:263399} Sam Sarsaparilla · {npc:1632} Adele Fielder
+	["{npc:263399}, leatherworkers: for {npc:1632}"] = "{npc:263399}，制皮者：交给{npc:1632}",
+	-- {npc:263399} Sam Sarsaparilla · {npc:1651} Lee Brown
+	["{npc:263399}, fishers: for {npc:1651}"] = "{npc:263399}，钓鱼者：交给{npc:1651}",
+	-- {npc:263399} Sam Sarsaparilla · {skill:129} First Aid · {npc:2329} Michelle Belle
+	["{npc:263399}, {skill:129}: for {npc:2329} in the inn"] = "{npc:263399}，{skill:129}：交给旅店里的{npc:2329}",
+	-- {npc:263399} Sam Sarsaparilla · {npc:514} Smith Argus
+	["{npc:263399}, blacksmiths: for {npc:514} at the smithy"] = "{npc:263399}，锻造者：交给铁匠铺的{npc:514}",
 	-- {npc:6306} Helene Peltskinner
 	["{npc:6306}: skinners only, the pelts are skinned; inside"] = "{npc:6306}：仅限剥皮者，毛皮需剥皮获得；在里面",
+	-- {npc:6306} Helene Peltskinner
+	["{npc:6306}: Camping 101, skinners; inside"] = "{npc:6306}：野营入门，剥皮者；在里面",
+	-- {npc:1632} Adele Fielder
+	["{npc:1632}: Camping 101, leatherworkers"] = "{npc:1632}：野营入门，制皮者",
+	-- {npc:1651} Lee Brown
+	["{npc:1651}: Camping 101, fishers"] = "{npc:1651}：野营入门，钓鱼者",
 
 	-- Step 24: Crystal Lake
 	-- plural, as words: Fishing Traps = {object:694772} Fishing Trap
@@ -163,6 +179,10 @@ return {
 	["{npc:1430} cooks in the inn's kitchen. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:1430}在旅店厨房里做饭。{npc:377}（牧师）、{npc:328}（法师）和{npc:917}（潜行者）在旅店楼上：走室内楼梯上去，箭头无法区分楼层。",
 	-- {npc:1430} Tomas
 	["{npc:1430}: Camping 101 asks you to learn it; below ground"] = "{npc:1430}：野营入门要求你学会它；在地下",
+	-- {npc:2329} Michelle Belle · {skill:129} First Aid
+	["{npc:2329}, in the inn: Camping 101, {skill:129}"] = "{npc:2329}，在旅店里：野营入门，{skill:129}",
+	-- {npc:514} Smith Argus
+	["{npc:514}, at the smithy across the road: Camping 101, blacksmiths"] = "{npc:514}，在路对面的铁匠铺：野营入门，锻造者",
 	-- {npc:377} Priestess Josetta · {item:16605} Friar's Robes of the Light
 	["{npc:377}, upstairs: {item:16605}"] = "{npc:377}，在楼上：{item:16605}",
 
@@ -342,7 +362,9 @@ return {
 	-- {npc:240} Marshal Dughan
 	["{npc:240}, while William brews"] = "{npc:240}，趁威廉酿酒时",
 	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind
-	["{npc:514}, at the smithy: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}，在铁匠铺：交给 {zone:1453} 的 {npc:1416}（02-westfall）",
+	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}，在杜汉旁边的铁匠铺：交给{zone:1453}的{npc:1416}（02-westfall）",
+	-- {npc:253} William Pestle
+	["{npc:253}, back in the inn"] = "{npc:253}，回到旅店里",
 	-- {npc:377} Priestess Josetta · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
 	["{npc:377}: {npc:376} in {zone:1453} takes it"] = "{npc:377}：交给{zone:1453}的{npc:376}",
 	-- {npc:328} Zaldimar Wefhellt · {npc:5497} Jennea Cannon · {zone:1453} Stormwind
@@ -475,7 +497,9 @@ return {
 	-- ["{npc:247229}, in the library"] = "{npc:247229}，在图书馆里",
 	-- ["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "{npc:248277}在鱼人河岸东边的{area:798}站岗。之后向西北返回桥边。",
 	-- ["{npc:248415} stands behind the Abbey, by the stables."] = "{npc:248415}站在修道院后面的马厩旁。",
+	-- ["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:263399}在旅店东北方扎营；{npc:6306}、{npc:383}和{npc:1651}站在镇子东边的{area:18}岸边。",
 	-- ["{npc:377}: {npc:376} in {zone:1453} takes both"] = "{npc:377}：两个都交给{zone:1453}的{npc:376}",
+	-- ["{npc:514}, at the smithy: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}，在铁匠铺：交给 {zone:1453} 的 {npc:1416}（02-westfall）",
 	-- ["{npc:6171}: Redemption"] = "{npc:6171}：救赎",
 	-- ["{npc:6306}: skinners only, the pelts are skinned"] = "{npc:6306}：仅限剥皮者，毛皮需要剥皮获得",
 	-- ["{npc:911}, the warrior trainer"] = "{npc:911}，战士训练师",

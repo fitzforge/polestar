@@ -78,123 +78,101 @@ return {
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "乘飞艇前往{zone:1454}",
 
-	-- Step 17: Orgrimmar
-	-- {npc:10880} Warcaller Gorlach · {object:172982} Valley of Strength
-	["{npc:10880} walks the {object:172982} and the streets off it: look for him on the way to the flight master's tower; the circle on the map is his walk."] = "{npc:10880}在{object:172982}及其周边街道巡逻：在前往飞行管理员塔楼的路上留意他；地图上的圆圈就是他的巡逻范围。",
-	-- {npc:10880} Warcaller Gorlach · {npc:7776} Talo Thornhoof · {quest:7492} Camp Mojache
-	["{npc:10880}: for {npc:7776} at {quest:7492}, at the end of this guide"] = "{npc:10880}：交给{quest:7492}的{npc:7776}，在本指南末尾",
-
-	-- Step 18: Fly to Bloodvenom Post
+	-- Step 17: Fly to Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
 	["Fly to {area:1997}"] = "飞往{area:1997}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454}飞行管理员",
 
-	-- Step 19: Fly to Thunder Bluff
+	-- Step 18: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "飞往{area:1638}",
 
-	-- Step 20: Thunder Bluff
+	-- Step 19: Thunder Bluff
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} (Druids) trains on {area:1639}, {npc:246344} (Paladins) in the city too."] = "{npc:3033}（德鲁伊）在{area:1639}提供训练，{npc:246344}（圣骑士）也在城里。",
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{area:1639}的{npc:3033}；{npc:246344}",
 
-	-- Step 21: Fly to Bloodvenom Post
+	-- Step 20: Fly to Bloodvenom Post
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "{zone:1456}飞行管理员",
 
-	-- Step 23: Deadwood Cauldron
+	-- Step 22: Deadwood Cauldron
 	-- {area:1762} Felpaw Village · {area:1769} Timbermaw Hold
 	["Ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "",
 
-	-- Step 24: Kernda
+	-- Step 23: Kernda
 	-- {quest:8471} Winterfall Ritual Totem · {npc:11558} Kernda · {zone:1448} Felwood · {area:1769} Timbermaw Hold
 	["Only if a {quest:8471} dropped for you: {npc:11558} waits at the {zone:1448} entrance of {area:1769}, and speaks to you only at Neutral with the Timbermaw."] = "仅当你掉落了{quest:8471}时：{npc:11558}在{area:1769}的{zone:1448}入口处等候，只有你在木喉要塞声望达到中立时才会和你说话。",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558}在附近巡逻，请在地图标示的圆圈内寻找",
 
-	-- Step 26: Rabine Saturna
+	-- Step 25: Rabine Saturna
 	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
 	["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}."] = "穿过{area:1769}，走隧道通往{zone:1450}的岔路。{npc:11801}在{area:2361}。",
 
-	-- Step 27: Class trainer
+	-- Step 26: Class trainer
 	["Class trainer"] = "职业训练师",
 
-	-- Step 28: Rabine Saturna
+	-- Step 27: Rabine Saturna
 	-- {zone:1451} Silithus
 	["Both quests lead to {zone:1451}: keep them."] = "两个任务都通往{zone:1451}：留着它们。",
 
-	-- Step 30: Donova Snowden
+	-- Step 29: Donova Snowden
 	-- {zone:1452} Winterspring · {area:2246} Frostfire Hot Springs
 	["Back through the tunnel and take the {zone:1452} exit, then ride south to {area:2246}."] = "穿过隧道回去，走{zone:1452}出口，然后向南骑往{area:2246}。",
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
 	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "",
 
-	-- Step 31: Moontouched Owlbeasts
+	-- Step 30: Moontouched Owlbeasts
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Moontouched Owlbeasts"] = "月光枭兽",
 	-- {area:2255} Everlook · {area:2241} Frostsaber Rock
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Pull them one at a time."] = "向东骑往{area:2255}，再从那里向北出去；月光枭兽在{area:2241}南坡的山丘上游荡。一次引一只。",
 
-	-- Step 33: Fly to Gadgetzan
+	-- Step 32: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "飞往{area:976}",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "{area:2255}的飞行管理员",
 
-	-- Step 34: Gaeriyan
+	-- Step 33: Gaeriyan
 	-- {item:11243} Videre Elixir · {area:976} Gadgetzan · {npc:9299} Gaeriyan
 	["Drink the {item:11243} at the graveyard just east of {area:976}: it kills you, and only as a ghost can you see {npc:9299}, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard."] = "在{area:976}东边不远处的墓地喝下{item:11243}：它会杀死你，只有以鬼魂形态才能看到{npc:9299}，他在墓地正北方山丘中的一道岩缝里。在那里和他交谈，然后跑回尸体处复活：他让你去找的显眼的墓碑就在那片墓地里。",
 
-	-- Step 35: Sprinkle
+	-- Step 34: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
 	["Use {item:12928} on {npc:7583}, the goblin girl in {area:976}. {npc:10977} and {npc:10978} are scared later in the route."] = "对{area:976}的地精女孩{npc:7583}使用{item:12928}。{npc:10977}和{npc:10978}在路线后面再吓唬。",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:7583} with {item:12928}"] = "用{item:12928}吓唬{npc:7583}",
 
-	-- Step 36: Gaeriyan
+	-- Step 35: Gaeriyan
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
 	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914}要交还给安戈洛的{npc:8737}：留着它。",
 
-	-- Step 37: Marvon Rivetseeker
+	-- Step 36: Marvon Rivetseeker
 	-- {npc:7771} Marvon Rivetseeker · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
 	["{npc:7771} camps by the {area:1336} road, south of {area:976}."] = "{npc:7771}在{area:976}南边通往{area:1336}的路旁扎营。",
 
-	-- Step 38: Fly to Camp Mojache
-	-- {area:1099} Camp Mojache
-	["Fly to {area:1099}"] = "飞往{area:1099}",
+	-- Step 37: Fly to Marshal's Refuge
+	-- {area:541} Marshal's Refuge
+	["Fly to {area:541}"] = "飞往{area:541}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976}的飞行管理员",
 
-	-- Step 39: Camp Mojache
-	-- {npc:7776} Talo Thornhoof
-	["{npc:7776}, a few steps from the flight master"] = "",
-	-- {area:2577} Dire Maul
-	["His next task is for the {area:2577} dungeon: leave it."] = "",
-
-	-- Step 40: Ruins of Isildien
-	-- {quest:2741} The Super Egg-O-Matic · {area:1099} Camp Mojache · {zone:1444} Feralas
-	["Only if you still carry {quest:2741}: ride south from {area:1099}; the hippogryph nests are in the south of {zone:1444}, each holds an egg for the Egg-O-Matic."] = "仅当你还带着{quest:2741}时：从{area:1099}向南骑行；角鹰兽的巢在{zone:1444}南部，每个巢里都有一个蛋，用于超级蛋蛋机。",
-
-	-- Step 41: Fly to Marshal's Refuge
-	-- {area:541} Marshal's Refuge
-	["Fly to {area:541}"] = "飞往{area:541}",
-	-- {area:1099} Camp Mojache
-	["{area:1099} flight master"] = "{area:1099}的飞行管理员",
-
-	-- Step 42: Marshal's Refuge
+	-- Step 38: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:8737} Linken
 	["The flight lands at {area:541}: {npc:9997} stands beside the flight master, and {npc:8737} by the cave a few steps away. {npc:9997}'s work is in Un'Goro on the next guide's way back north."] = "",
 	-- {quest:3941} A Gnome's Assistance · {npc:9117} J.D. Collie · {area:541} Marshal's Refuge
 	["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "",
 
-	-- Step 43: Layo Starstrike
+	-- Step 39: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus · {npc:13220} Layo Starstrike
 	["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "从安戈洛环形山出来的山口通往{area:3077}，那是{zone:1451}东北部的墓地。{npc:13220}站在坟墓之间。",
 
-	-- Step 44: The Spirits of Southwind
+	-- Step 40: The Spirits of Southwind
 	-- {area:2738} Southwind Village · {object:179565} Dusty Reliquary · {quest:1123} Rabine Saturna
 	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {quest:1123} sits inside one of the ruined houses."] = "",
 
@@ -203,6 +181,7 @@ return {
 	-- ["Back through the tunnel and take the {area:618} exit, then ride south to {area:2246}."] = "穿过隧道回去，走{area:618}出口，然后向南骑往{area:2246}。",
 	-- ["Back to {area:1638}"] = "返回{area:1638}",
 	-- ["Fly to the {zone:1458}, take the zeppelin to {zone:1454} and fly on to {area:1638}."] = "飞往{zone:1458}，乘飞艇前往{zone:1454}，再继续飞往{area:1638}。",
+	-- ["Fly to {area:1099}"] = "飞往{area:1099}",
 	-- ["Fly to {area:1099}. The hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "飞往{area:1099}。角鹰兽的巢在{zone:1444}南部；每个巢里都有一个蛋，用于{object:142071}。",
 	-- ["Fly to {area:541}, then ride south-west through Un'Goro to the pass into {zone:1451}. The next guide opens at {area:3077}, where the pass comes out."] = "飞往{area:541}，然后向西南穿过安戈洛环形山，前往进入{zone:1451}的山口。下一个指南从山口出口处的{area:3077}开始。",
 	-- ["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:11801} is in {area:2361}."] = "穿过{area:1769}，走隧道通往{area:493}的岔路。{npc:11801}在{area:2361}。",
@@ -213,6 +192,7 @@ return {
 	-- ["On to {zone:1451}"] = "继续前往{zone:1451}",
 	-- ["On {area:1641}. Have the Wool, Silk and Mageweave in your bags."] = "在{area:1641}。把毛料、丝绸和魔纹布带在背包里。",
 	-- ["Only if you found a {item:12820} flask in {area:618}: ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "仅当你在{area:618}找到了一瓶{item:12820}时：沿道路向北骑行。大锅在{area:1769}西南不远的{area:1762}；那里的死木熊怪是敌对的。",
+	-- ["Only if you still carry {quest:2741}: ride south from {area:1099}; the hippogryph nests are in the south of {zone:1444}, each holds an egg for the Egg-O-Matic."] = "仅当你还带着{quest:2741}时：从{area:1099}向南骑行；角鹰兽的巢在{zone:1444}南部，每个巢里都有一个蛋，用于超级蛋蛋机。",
 	-- ["Plaguehounds and their runts roam the shores of the lake south-west of the chapel."] = "瘟疫犬和瘟疫幼犬在教堂西南的湖岸上游荡。",
 	-- ["Ride east out of the {area:1497} along the road; the {area:152} guards the way into the {area:28}."] = "沿道路向东骑出{area:1497}；{area:152}守卫着进入{area:28}的通道。",
 	-- ["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk."] = "从小屋沿道路向南骑往{area:2264}。{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。\n小心：隐形仆从血量降到40%时会呼叫25码内的同伴求援。脱离战斗时它们还会用{spell:10228}隐形。如果在镇子里触发求援，大量怪物可能加入战斗。在镇子外围战斗可以降低这种风险。",
@@ -227,8 +207,11 @@ return {
 	-- ["The {object:142071} machine"] = "{object:142071}机器",
 	-- ["The {object:177675} is just behind the {area:2261}."] = "{object:177675}就在{area:2261}后面。",
 	-- ["Upstairs"] = "在楼上",
+	-- ["{area:1099} flight master"] = "{area:1099}的飞行管理员",
 	-- ["{item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once."] = "{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。",
 	-- ["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "{npc:10778}的农场是{area:152}以东第一座农场。农场里的喋喋不休的食尸鬼携带她护符的另一半；{npc:11075}守着田里的大锅。\n小心：通常有一两只亡灵与他并肩战斗，使用大锅后还可能有更多护锅者来袭。",
+	-- ["{npc:10880} walks the {object:172982} and the streets off it: look for him on the way to the flight master's tower; the circle on the map is his walk."] = "{npc:10880}在{object:172982}及其周边街道巡逻：在前往飞行管理员塔楼的路上留意他；地图上的圆圈就是他的巡逻范围。",
+	-- ["{npc:10880}: for {npc:7776} at {quest:7492}, at the end of this guide"] = "{npc:10880}：交给{quest:7492}的{npc:7776}，在本指南末尾",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse."] = "{npc:15193}的勇士占据着{area:2260}的农舍。",
 	-- ["{npc:9299} is a ghost at the graveyard just north of {area:976}; the Conspicuous Gravestone is south of it, outside the town wall."] = "{npc:9299}是{area:976}正北墓地里的一个鬼魂；明显的墓碑在它南边、城墙外面。",
 	-- ["{object:1661}'s flight master is in the {object:36078}'s west tower, outside the walls."] = "{object:1661}的飞行管理员在{object:36078}城墙外的西塔上。",

@@ -132,15 +132,28 @@ return {
 	["Follow the road through the tunnel and north-east to {area:131}. Start outside: {npc:1252} and Eric's campfire are in front of the {area:2102}."] = "沿路穿过隧道，向东北前往 {area:131}。先处理室外的事：{npc:1252} 和艾瑞克的营火都在 {area:2102} 前面。",
 
 	-- Step 20: The Great Outdoors
-	["Sit by Eric's campfire (type /sit) and wait for the buff."] = "坐在艾瑞克的营火旁（输入 /sit），等待获得增益效果。",
+	-- {npc:1241} Tognus Flintfire · {skill:129} First Aid · {npc:2326} Thamner Pol · {area:131} Kharanos · {area:189} Steelgrill's Depot
+	["Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with {npc:1241} and {skill:129} with {npc:2326} in {area:131}, mining and engineering at {area:189}."] = "坐在艾瑞克的营火旁（输入 /sit），等待获得增益效果。学会专业技能后，艾瑞克还会提供该专业的“露营 101”任务，交给对应的训练师：锻造交给{npc:1241}，{skill:129}交给{area:131}的{npc:2326}，采矿和工程学则在{area:189}交付。",
+	-- {npc:265813} Eric Brighthammer · {npc:1241} Tognus Flintfire
+	["{npc:265813}, blacksmiths: for {npc:1241}"] = "{npc:265813}，锻造：交给{npc:1241}",
+	-- {npc:265813} Eric Brighthammer · {skill:129} First Aid · {npc:2326} Thamner Pol
+	["{npc:265813}, {skill:129}: for {npc:2326}"] = "{npc:265813}，{skill:129}：交给{npc:2326}",
+	-- {npc:265813} Eric Brighthammer · {npc:5392} Yarr Hammerstone
+	["{npc:265813}, miners: for {npc:5392}"] = "{npc:265813}，采矿：交给{npc:5392}",
+	-- {npc:265813} Eric Brighthammer · {npc:1702} Bronk Guzzlegear
+	["{npc:265813}, engineers: for {npc:1702}"] = "{npc:265813}，工程学：交给{npc:1702}",
 
 	-- Step 21: Kharanos
 	-- {npc:1872} Tharek Blackstone · {npc:6806} Tannok Frosthammer · {npc:1226} Maxan Anvol · {npc:1267} Ragnar Thunderbrew · {npc:1699} Gremlock Pilsnor · {skill:185} Cooking
 	["{npc:1872} works the forge west of the distillery.\nThen go in: {npc:6806}, the innkeeper, {npc:1226} and {npc:1267}. {npc:1699}'s {skill:185} lesson waits for the return with the ribs, when the copper is there for it."] = "{npc:1872} 在酿酒厂西边的熔炉旁工作。\n然后进去找 {npc:6806}、旅店老板、{npc:1226} 和 {npc:1267}。等带着肋排回来、有足够铜币时，再向 {npc:1699} 学习 {skill:185}。",
 	-- {npc:1241} Tognus Flintfire
 	["{npc:1241}, below ground"] = "{npc:1241}：在地下",
+	-- {npc:1241} Tognus Flintfire
+	["{npc:1241}, below ground: Camping 101, blacksmiths"] = "{npc:1241}，在地下：露营 101，锻造",
 	-- {npc:6806} Tannok Frosthammer
 	["{npc:6806}, inside"] = "{npc:6806}：在屋内",
+	-- {npc:2326} Thamner Pol · {skill:129} First Aid
+	["{npc:2326}, inside: Camping 101, {skill:129}"] = "{npc:2326}，在屋内：露营 101，{skill:129}",
 	-- {npc:1226} Maxan Anvol
 	["{npc:1226}, upstairs"] = "{npc:1226}：在楼上",
 	-- {npc:1226} Maxan Anvol · {npc:12427} Mountaineer Dolf · {area:131} Kharanos
@@ -152,6 +165,10 @@ return {
 	["Follow the road north-east from {area:131} to the depot below the {zone:1455} road."] = "沿道路从{area:131}向东北到{zone:1455}道路下方的钢架补给站。",
 	-- {npc:1694} Loslor Rudge
 	["{npc:1694}, beside him"] = "{npc:1694}，在他旁边",
+	-- {npc:5392} Yarr Hammerstone
+	["{npc:5392}: Camping 101, miners"] = "{npc:5392}：露营 101，采矿",
+	-- {npc:1702} Bronk Guzzlegear
+	["{npc:1702}, beside him: Camping 101, engineers"] = "{npc:1702}，在他旁边：露营 101，工程学",
 
 	-- Step 23: Mountaineer Gretchen
 	-- {area:136} Grizzled Den · {area:131} Kharanos
@@ -604,6 +621,7 @@ return {
 	-- ["Defensive Stance"] = "防御姿态",
 	-- ["Follow the road up to {zone:1455} and train with your class trainer. The {area:2257} leaves from {object:171524}, in the east of the city. Ride it to {zone:1453}."] = "沿道路上到{zone:1455}，找你的职业训练师学习。{area:2257}从城市东部的{object:171524}出发。乘它前往{zone:1453}。",
 	-- ["Rockjaw Skullthumpers fill the quarry; Rockjaw Ambushers by {area:212} drop the {item:268548}."] = "{npc:1115}遍布采掘场；{area:212}旁的{npc:1116}掉落{item:268548}。",
+	-- ["Sit by Eric's campfire (type /sit) and wait for the buff."] = "坐在艾瑞克的营火旁（输入 /sit），等待获得增益效果。",
 	-- ["South down the road to {area:144}, finishing the ears, meat and ichor on the way."] = "沿路向南前往 {area:144}，途中收齐耳朵、肉和毒液。",
 	-- ["Tame Beast"] = "驯服野兽",
 	-- ["The tram arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "地铁到达{object:28027}。{npc:5480}在{object:2100}训练战士；{npc:6089}和{npc:6090}一起站在那里的{object:2152}旁。{npc:6090}会为了他的杯子和你打一架。",

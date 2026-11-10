@@ -108,14 +108,32 @@ return {
 	["{npc:265811}, by the campfire"] = "{npc:265811}, junto à fogueira",
 
 	-- Step 16: The Great Outdoors
+	-- {npc:265811} Lyreena Duskblade · {npc:6286} Zarrin · {skill:129} First Aid · {npc:6094} Byancie
+	["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west."] = "Com uma profissão aprendida, {npc:265811} também oferece a Introdução ao acampamento dela, que o instrutor da profissão recebe: alquimia e herborismo ao lado de {npc:6286}, {skill:129} com {npc:6094} na estalagem, esfolamento e couraria no acampamento dos Tecejuba, na estrada para oeste.",
 	-- {npc:265811} Lyreena Duskblade · {spell:1229451} Boosted Rest
 	["/sit by {npc:265811}'s campfire until you get {spell:1229451}"] = "Use /sentar junto à fogueira de {npc:265811} até receber {spell:1229451}",
+	-- {npc:265811} Lyreena Duskblade · {npc:3603} Cyndra Kindwhisper
+	["{npc:265811}, alchemists: for {npc:3603}"] = "{npc:265811}, alquimistas: para {npc:3603}",
+	-- {npc:265811} Lyreena Duskblade · {npc:3604} Malorne Bladeleaf
+	["{npc:265811}, herbalists: for {npc:3604}"] = "{npc:265811}, herbalistas: para {npc:3604}",
+	-- {npc:265811} Lyreena Duskblade · {skill:129} First Aid · {npc:6094} Byancie
+	["{npc:265811}, {skill:129}: for {npc:6094}"] = "{npc:265811}, {skill:129}: para {npc:6094}",
+	-- {npc:265811} Lyreena Duskblade · {npc:6287} Radnaal Maneweaver
+	["{npc:265811}, skinners: for {npc:6287}"] = "{npc:265811}, esfoladores: para {npc:6287}",
+	-- {npc:265811} Lyreena Duskblade · {npc:3605} Nadyia Maneweaver
+	["{npc:265811}, leatherworkers: for {npc:3605}"] = "{npc:265811}, coureiros: para {npc:3605}",
 	-- {npc:6286} Zarrin
 	["{npc:6286}, south of the inn: Camping 101 asks you to learn it"] = "{npc:6286}, ao sul da estalagem: Introdução ao acampamento pede que você aprenda",
+	-- {npc:3603} Cyndra Kindwhisper · {npc:6286} Zarrin
+	["{npc:3603}, beside {npc:6286}: Camping 101, alchemists"] = "{npc:3603}, ao lado de {npc:6286}: Introdução ao acampamento, alquimistas",
+	-- {npc:3604} Malorne Bladeleaf · {npc:6286} Zarrin
+	["{npc:3604}, beside {npc:6286}: Camping 101, herbalists"] = "{npc:3604}, ao lado de {npc:6286}: Introdução ao acampamento, herbalistas",
 
 	-- Step 17: Dolanaar
 	-- {npc:3515} Corithras Moonrage
 	["{npc:3515}, south of the inn"] = "{npc:3515}, ao sul da estalagem",
+	-- {npc:6094} Byancie · {skill:129} First Aid
+	["{npc:6094}, in the inn: Camping 101, {skill:129}"] = "{npc:6094}, na estalagem: Introdução ao acampamento, {skill:129}",
 	-- {npc:3608} Aldia
 	["{npc:3608}, upstairs"] = "{npc:3608}, no andar de cima",
 	-- {npc:3567} Tallonkai Swiftroot
@@ -186,6 +204,10 @@ return {
 	-- Step 28: Sentinel Shayla Nightbreeze
 	-- {area:261} Gnarlpine Hold
 	["West along the road toward the city. Shayla walks this stretch of road, from the arrow south-west to the bend at about 38,54 and back: if she isn't at the arrow, follow the road south-west. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and {area:261}'s all count."] = "A oeste pela estrada, em direção à cidade. Shayla percorre este trecho da estrada, da seta para o sudoeste até a curva em cerca de 38,54, e volta: se ela não estiver na seta, siga a estrada para o sudoeste. Todo furbolg Masca-pinho solta presas: os emboscadores desta estrada, os do túmulo e os de {area:261} contam todos.",
+	-- {npc:6287} Radnaal Maneweaver
+	["{npc:6287}, camped beside the road before Shayla: Camping 101, skinners"] = "{npc:6287}, acampado à beira da estrada antes de Shayla: Introdução ao acampamento, esfoladores",
+	-- {npc:3605} Nadyia Maneweaver
+	["{npc:3605}, beside him: Camping 101, leatherworkers"] = "{npc:3605}, ao lado dele: Introdução ao acampamento, coureiros",
 
 	-- Step 29: Darnassus
 	-- {quest:922} Rellian Greenspyre · {area:1658} Cenarion Enclave · {npc:7316} Sister Aquinne · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade · {item:279378} Lunar Pendant

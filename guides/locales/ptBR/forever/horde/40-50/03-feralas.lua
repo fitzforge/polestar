@@ -11,6 +11,8 @@ return {
 	["Zeppelin to {zone:1458}"] = "Zepelim para {zone:1458}",
 
 	-- Step 2: Apothecary Zinge
+	-- {npc:2934} Keeper Bel'dugur
+	["{npc:2934}, on the way back to Zinge"] = "{npc:2934}, no caminho de volta para Zinge",
 	-- {item:8523} Field Testing Kit · {area:976} Gadgetzan
 	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "{item:8523} dessas tarefas: guarde-o, a missão Amostras de campo de Tanaris o devolve em {area:976}",
 
@@ -132,16 +134,16 @@ return {
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "Os Ovos de Onyxia ficam nas cavernas dos dragões no sudeste de {area:511}, guardados pelos Escamortes; esmague cinco.",
 	["Dragon caves"] = "Cavernas dos dragões",
 
-	-- Step 29: Challenge Overlord Mok'Morokk
-	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {quest:1173} pede um grupo de 3. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.\n{npc:4500} é elite: melhor ir em grupo. Bata nele até ele pedir arrego e depois fale com {npc:4501}.",
-
-	-- Step 30: Level 45.41
-	["Level 45.41"] = "Nível 45.41",
-	-- {quest:1173} Challenge Overlord Mok'Morokk · {area:978} Zul'Farrak · {area:1517} Uldaman
-	["If you skipped {quest:1173}, grind here to level 45.41 to stay on the route's plan. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "Se você pulou {quest:1173}, mate monstros aqui até o nível 45.41 para seguir o plano da rota. Ou, em grupo, faça a masmorra {area:978} ou a masmorra {area:1517}.",
+	-- Step 28: Level 45.37
+	["Level 45.37"] = "Nível 45.37",
+	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak · {area:1517} Uldaman
+	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "O desafio de {npc:4500}, de volta em Muralha Verde, pede um grupo de três. Sozinho, mate os Batedores Flamigrenha aqui na borda norte de {area:511} até o nível 45.37 antes de voltar para o norte, para não precisar descer de novo. Ou, em grupo, faça a masmorra {area:978} ou a masmorra {area:1517}.",
 	-- {npc:4329} Firemane Scout
 	["grind on {npc:4329}"] = "mate {npc:4329} até subir",
+
+	-- Step 30: Challenge Overlord Mok'Morokk
+	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {quest:1173} pede um grupo de 3. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.\n{npc:4500} é elite: melhor ir em grupo. Bata nele até ele pedir arrego e depois fale com {npc:4501}.",
 
 	-- Step 31: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
@@ -192,6 +194,8 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {object:3202}"] = "Voe para {object:3202}",
 	-- ["Forest walkers"] = "Andarilhos da Floresta",
+	-- ["If you skipped {quest:1173}, grind here to level 45.41 to stay on the route's plan. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "Se você pulou {quest:1173}, mate monstros aqui até o nível 45.41 para seguir o plano da rota. Ou, em grupo, faça a masmorra {area:978} ou a masmorra {area:1517}.",
+	-- ["Level 45.41"] = "Nível 45.41",
 	-- ["Monstrous Crawlers"] = "Rastejantes Monstruosos",
 	-- ["Murlocs of the Misty Reed"] = "Murlocs de Brumalga",
 	-- ["North-west along the road, the Rage Scar yetis live around the caves in the hills. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "A noroeste pela estrada, os Yetis Cortifúria vivem em volta das cavernas nas colinas. Qualquer um deles também pode deixar cair {quest:7738}, que inicia uma missão própria.",

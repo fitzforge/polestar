@@ -132,15 +132,28 @@ return {
 	["Follow the road through the tunnel and north-east to {area:131}. Start outside: {npc:1252} and Eric's campfire are in front of the {area:2102}."] = "",
 
 	-- Step 20: The Great Outdoors
-	["Sit by Eric's campfire (type /sit) and wait for the buff."] = "",
+	-- {npc:1241} Tognus Flintfire · {skill:129} First Aid · {npc:2326} Thamner Pol · {area:131} Kharanos · {area:189} Steelgrill's Depot
+	["Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with {npc:1241} and {skill:129} with {npc:2326} in {area:131}, mining and engineering at {area:189}."] = "Siéntate junto a la fogata de Eric (escribe /sit) y espera el beneficio. Si ya aprendiste una profesión, Eric también ofrece su Campamento 101, que se entrega a su instructor: herrería con {npc:1241} y {skill:129} con {npc:2326} en {area:131}, minería e ingeniería en {area:189}.",
+	-- {npc:265813} Eric Brighthammer · {npc:1241} Tognus Flintfire
+	["{npc:265813}, blacksmiths: for {npc:1241}"] = "{npc:265813}, herreros: para {npc:1241}",
+	-- {npc:265813} Eric Brighthammer · {skill:129} First Aid · {npc:2326} Thamner Pol
+	["{npc:265813}, {skill:129}: for {npc:2326}"] = "{npc:265813}, {skill:129}: para {npc:2326}",
+	-- {npc:265813} Eric Brighthammer · {npc:5392} Yarr Hammerstone
+	["{npc:265813}, miners: for {npc:5392}"] = "{npc:265813}, mineros: para {npc:5392}",
+	-- {npc:265813} Eric Brighthammer · {npc:1702} Bronk Guzzlegear
+	["{npc:265813}, engineers: for {npc:1702}"] = "{npc:265813}, ingenieros: para {npc:1702}",
 
 	-- Step 21: Kharanos
 	-- {npc:1872} Tharek Blackstone · {npc:6806} Tannok Frosthammer · {npc:1226} Maxan Anvol · {npc:1267} Ragnar Thunderbrew · {npc:1699} Gremlock Pilsnor · {skill:185} Cooking
 	["{npc:1872} works the forge west of the distillery.\nThen go in: {npc:6806}, the innkeeper, {npc:1226} and {npc:1267}. {npc:1699}'s {skill:185} lesson waits for the return with the ribs, when the copper is there for it."] = "",
 	-- {npc:1241} Tognus Flintfire
 	["{npc:1241}, below ground"] = "",
+	-- {npc:1241} Tognus Flintfire
+	["{npc:1241}, below ground: Camping 101, blacksmiths"] = "{npc:1241}, bajo tierra: Campamento 101, herreros",
 	-- {npc:6806} Tannok Frosthammer
 	["{npc:6806}, inside"] = "",
+	-- {npc:2326} Thamner Pol · {skill:129} First Aid
+	["{npc:2326}, inside: Camping 101, {skill:129}"] = "{npc:2326}, dentro: Campamento 101, {skill:129}",
 	-- {npc:1226} Maxan Anvol
 	["{npc:1226}, upstairs"] = "",
 	-- {npc:1226} Maxan Anvol · {npc:12427} Mountaineer Dolf · {area:131} Kharanos
@@ -152,6 +165,10 @@ return {
 	["Follow the road north-east from {area:131} to the depot below the {zone:1455} road."] = "Sigue el camino al noreste desde {area:131} hasta el almacén bajo el camino de {zone:1455}.",
 	-- {npc:1694} Loslor Rudge
 	["{npc:1694}, beside him"] = "",
+	-- {npc:5392} Yarr Hammerstone
+	["{npc:5392}: Camping 101, miners"] = "{npc:5392}: Campamento 101, mineros",
+	-- {npc:1702} Bronk Guzzlegear
+	["{npc:1702}, beside him: Camping 101, engineers"] = "{npc:1702}, a su lado: Campamento 101, ingenieros",
 
 	-- Step 23: Mountaineer Gretchen
 	-- {area:136} Grizzled Den · {area:131} Kharanos

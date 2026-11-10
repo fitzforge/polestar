@@ -423,24 +423,12 @@ return {
 	-- Step 110: Northern Pylon
 	["Northern Pylon"] = "北部水晶塔",
 
-	-- Step 112: The crater
-	["The crater"] = "环形山",
-	-- {area:538} Lakkari Tar Pits · {area:537} Fire Plume Ridge · {area:540} Slithering Scar · {item:11018} Un'Goro Soil
-	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Gorishi Workers = {npc:6552} Gorishi Worker
-	["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}.\nCareful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "焦油兽在{area:538}打滚，中央{area:537}的火元素携带灰烬，南侧{area:540}的格里什毒蜂携带腺体。环形山内所有生物都有几率掉落{item:11018}。\n注意：格里什工蝎生命值低于 45% 时，有 50% 几率呼叫 25 码内盟友支援。",
-
-	-- Step 113: Torwa Pathfinder
-	-- {npc:9619} Torwa Pathfinder
-	["{npc:9619} camps at the foot of the ramp into the crater."] = "",
+	-- Step 111: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau
-	["The pelts come from the gorillas on {area:1943}"] = "",
-
-	-- Step 114: Lakkari Tar Pits: kill these as you meet them
-	-- {area:538} Lakkari Tar Pits
-	["{area:538}: kill these as you meet them"] = "{area:538}：沿途击杀以下目标",
-	-- {area:1943} Ironstone Plateau · {area:541} Marshal's Refuge · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
+	["{area:1943}: kill these as you meet them"] = "{area:1943}：沿途击杀以下目标",
+	-- {area:1943} Ironstone Plateau · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
-	["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "猩猩生活在{area:541}以东的{area:1943}，保留毛皮交给{npc:9619}。不要进入最深处的洞穴，里面的{npc:9622}为 55 级。\n注意：50–51 级的安戈洛猩猩生命值降到 25% 时，会召集 20 码内盟友支援。这里有一座满是猩猩的洞穴，在洞内战斗会引来许多额外敌人。",
+	["The gorillas live on {area:1943}, just east of the pylon: take the pelts for {npc:9619} now, while you are up here. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "猩猩生活在水晶塔东边不远处的{area:1943}：趁着人在上面，现在就收集交给{npc:9619}的毛皮。不要进入最深处的洞穴，里面的{npc:9622}为 55 级。\n注意：50–51 级的安戈洛猩猩生命值降到 25% 时，会召集 20 码内盟友支援。这里有一座满是猩猩的洞穴，在洞内战斗会引来许多额外敌人。",
 	-- {item:11478} Un'Goro Gorilla Pelt
 	["{item:11478}; below ground"] = "{item:11478}：在地下",
 	-- {item:11479} Un'Goro Stomper Pelt
@@ -448,28 +436,52 @@ return {
 	-- {item:11480} Un'Goro Thunderer Pelt
 	["{item:11480}; below ground"] = "{item:11480}：在地下",
 
-	-- Step 116: U'cha
+	-- Step 113: Lakkari Tar Pits: kill these as you meet them
+	-- {area:538} Lakkari Tar Pits
+	["{area:538}: kill these as you meet them"] = "{area:538}：沿途击杀以下目标",
+	-- {area:538} Lakkari Tar Pits
+	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Tar Lords = {npc:6519} Tar Lord
+	["The Tar Beasts and Tar Lords wallow in the {area:538}, south of the refuge on the way down into the crater."] = "焦油兽和焦油领主在{area:538}打滚，位于避难所南边、下到环形山的路上。",
+
+	-- Step 114: The crater
+	["The crater"] = "环形山",
+	-- {area:538} Lakkari Tar Pits · {area:537} Fire Plume Ridge · {area:540} Slithering Scar · {item:11018} Un'Goro Soil
+	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Gorishi Workers = {npc:6552} Gorishi Worker
+	["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}.\nCareful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "焦油兽在{area:538}打滚，中央{area:537}的火元素携带灰烬，南侧{area:540}的格里什毒蜂携带腺体。环形山内所有生物都有几率掉落{item:11018}。\n注意：格里什工蝎生命值低于 45% 时，有 50% 几率呼叫 25 码内盟友支援。",
+
+	-- Step 115: Torwa Pathfinder
+	-- {npc:9619} Torwa Pathfinder
+	["{npc:9619} camps at the foot of the ramp into the crater."] = "",
+	-- {area:1943} Ironstone Plateau
+	["The pelts come from the gorillas on {area:1943}"] = "",
+
+	-- Step 117: Ironstone Plateau: kill these as you meet them
+	-- {area:1943} Ironstone Plateau · {area:541} Marshal's Refuge · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
+	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
+	["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "猩猩生活在{area:541}以东的{area:1943}，保留毛皮交给{npc:9619}。不要进入最深处的洞穴，里面的{npc:9622}为 55 级。\n注意：50–51 级的安戈洛猩猩生命值降到 25% 时，会召集 20 码内盟友支援。这里有一座满是猩猩的洞穴，在洞内战斗会引来许多额外敌人。",
+
+	-- Step 119: U'cha
 	-- {npc:9622} U'cha
 	["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "沿东侧向北骑行到猩猩高地。55级的猩猩{npc:9622}坐在最深的洞里：先清理洞口的猩猩。",
 	["Below ground"] = "在地下",
 
-	-- Step 117: Lar'korwi
+	-- Step 120: Lar'korwi
 	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder · {item:11568} Torwa's Pouch
 	["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "{npc:9684}的巢穴在{npc:9619}北边的丛林中，东部悬崖下方：在那里使用{item:11568}。{npc:9684}是56级：满血开打。",
 
-	-- Step 118: Torwa Pathfinder
+	-- Step 121: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
 	["Cross the south of the crater to {npc:9619} by the ramp."] = "穿过环形山南部，到坡道旁找{npc:9619}。",
 
-	-- Step 119: The Marshlands: kill these as you meet them
+	-- Step 122: The Marshlands: kill these as you meet them
 	-- {area:1942} The Marshlands
 	["{area:1942}: kill these as you meet them"] = "{area:1942}：沿途击杀以下目标",
 
-	-- Step 120: Ringo
+	-- Step 123: Ringo
 	-- {npc:9999} Ringo · {area:537} Fire Plume Ridge
 	["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999}坐在环形山中央{area:537}的东南坡上。",
 
-	-- Step 121: Escort Ringo
+	-- Step 124: Escort Ringo
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "护送{npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen

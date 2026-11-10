@@ -423,24 +423,12 @@ return {
 	-- Step 110: Northern Pylon
 	["Northern Pylon"] = "Le Pylône nord",
 
-	-- Step 112: The crater
-	["The crater"] = "Le cratère",
-	-- {area:538} Lakkari Tar Pits · {area:537} Fire Plume Ridge · {area:540} Slithering Scar · {item:11018} Un'Goro Soil
-	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Gorishi Workers = {npc:6552} Gorishi Worker
-	["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}.\nCareful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "Les Bêtes du goudron se vautrent dans les {area:538} ; les élémentaires de feu de la {area:537}, au centre, portent la cendre ; les guêpes Gorishi de la {area:540}, au sud, portent la glande. Toutes les créatures du cratère peuvent laisser tomber de la {item:11018}.\nAttention : les Ouvriers Gorishi qui passent sous 45 % de vie ont 50 % de chances d'appeler à l'aide leurs alliés à moins de 25 m.",
-
-	-- Step 113: Torwa Pathfinder
-	-- {npc:9619} Torwa Pathfinder
-	["{npc:9619} camps at the foot of the ramp into the crater."] = "",
+	-- Step 111: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau
-	["The pelts come from the gorillas on {area:1943}"] = "",
-
-	-- Step 114: Lakkari Tar Pits: kill these as you meet them
-	-- {area:538} Lakkari Tar Pits
-	["{area:538}: kill these as you meet them"] = "{area:538} : tuez-les au passage",
-	-- {area:1943} Ironstone Plateau · {area:541} Marshal's Refuge · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
+	["{area:1943}: kill these as you meet them"] = "{area:1943} : tuez-les au passage",
+	-- {area:1943} Ironstone Plateau · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
-	["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "Les gorilles vivent sur le {area:1943}, à l'est de {area:541}. Gardez leurs peaux pour {npc:9619}. Évitez la grotte la plus profonde : {npc:9622} est de niveau 55.\nAttention : les Gorilles d'Un'Goro (niveau 50-51) appellent à l'aide leurs alliés à moins de 20 m dès qu'ils tombent à 25 % de vie. Il y a dans la zone une grotte pleine de singes, et y combattre attire beaucoup de renforts.",
+	["The gorillas live on {area:1943}, just east of the pylon: take the pelts for {npc:9619} now, while you are up here. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "Les gorilles vivent sur le {area:1943}, juste à l'est du pylône : prenez dès maintenant les peaux pour {npc:9619}, tant que vous êtes là-haut. Évitez la grotte la plus profonde : {npc:9622} est de niveau 55.\nAttention : les Gorilles d'Un'Goro (niveau 50-51) appellent à l'aide leurs alliés à moins de 20 m dès qu'ils tombent à 25 % de vie. Il y a dans la zone une grotte pleine de singes, et y combattre attire beaucoup de renforts.",
 	-- {item:11478} Un'Goro Gorilla Pelt
 	["{item:11478}; below ground"] = "{item:11478} ; sous terre",
 	-- {item:11479} Un'Goro Stomper Pelt
@@ -448,28 +436,52 @@ return {
 	-- {item:11480} Un'Goro Thunderer Pelt
 	["{item:11480}; below ground"] = "{item:11480} ; sous terre",
 
-	-- Step 116: U'cha
+	-- Step 113: Lakkari Tar Pits: kill these as you meet them
+	-- {area:538} Lakkari Tar Pits
+	["{area:538}: kill these as you meet them"] = "{area:538} : tuez-les au passage",
+	-- {area:538} Lakkari Tar Pits
+	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Tar Lords = {npc:6519} Tar Lord
+	["The Tar Beasts and Tar Lords wallow in the {area:538}, south of the refuge on the way down into the crater."] = "Les Bêtes du goudron et les Seigneurs du goudron se vautrent dans les {area:538}, au sud du refuge, sur le chemin qui descend dans le cratère.",
+
+	-- Step 114: The crater
+	["The crater"] = "Le cratère",
+	-- {area:538} Lakkari Tar Pits · {area:537} Fire Plume Ridge · {area:540} Slithering Scar · {item:11018} Un'Goro Soil
+	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Gorishi Workers = {npc:6552} Gorishi Worker
+	["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}.\nCareful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "Les Bêtes du goudron se vautrent dans les {area:538} ; les élémentaires de feu de la {area:537}, au centre, portent la cendre ; les guêpes Gorishi de la {area:540}, au sud, portent la glande. Toutes les créatures du cratère peuvent laisser tomber de la {item:11018}.\nAttention : les Ouvriers Gorishi qui passent sous 45 % de vie ont 50 % de chances d'appeler à l'aide leurs alliés à moins de 25 m.",
+
+	-- Step 115: Torwa Pathfinder
+	-- {npc:9619} Torwa Pathfinder
+	["{npc:9619} camps at the foot of the ramp into the crater."] = "",
+	-- {area:1943} Ironstone Plateau
+	["The pelts come from the gorillas on {area:1943}"] = "",
+
+	-- Step 117: Ironstone Plateau: kill these as you meet them
+	-- {area:1943} Ironstone Plateau · {area:541} Marshal's Refuge · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
+	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
+	["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "Les gorilles vivent sur le {area:1943}, à l'est de {area:541}. Gardez leurs peaux pour {npc:9619}. Évitez la grotte la plus profonde : {npc:9622} est de niveau 55.\nAttention : les Gorilles d'Un'Goro (niveau 50-51) appellent à l'aide leurs alliés à moins de 20 m dès qu'ils tombent à 25 % de vie. Il y a dans la zone une grotte pleine de singes, et y combattre attire beaucoup de renforts.",
+
+	-- Step 119: U'cha
 	-- {npc:9622} U'cha
 	["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "Chevauchez vers le nord par le côté est jusqu'au plateau des gorilles. {npc:9622}, un gorille de niveau 55, se tient dans sa grotte la plus profonde : éliminez d'abord les gorilles de l'entrée.",
 	["Below ground"] = "Sous terre",
 
-	-- Step 117: Lar'korwi
+	-- Step 120: Lar'korwi
 	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder · {item:11568} Torwa's Pouch
 	["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "Le repaire de {npc:9684} se trouve dans la jungle au nord de {npc:9619}, sous les falaises est : utilisez-y la {item:11568}. {npc:9684} est de niveau 56 : commencez avec toute votre vie.",
 
-	-- Step 118: Torwa Pathfinder
+	-- Step 121: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
 	["Cross the south of the crater to {npc:9619} by the ramp."] = "Traversez le sud du cratère jusqu'à {npc:9619}, près de la rampe.",
 
-	-- Step 119: The Marshlands: kill these as you meet them
+	-- Step 122: The Marshlands: kill these as you meet them
 	-- {area:1942} The Marshlands
 	["{area:1942}: kill these as you meet them"] = "{area:1942} : tuez-les au passage",
 
-	-- Step 120: Ringo
+	-- Step 123: Ringo
 	-- {npc:9999} Ringo · {area:537} Fire Plume Ridge
 	["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999} est assis sur la pente sud-est de {area:537}, au milieu du cratère.",
 
-	-- Step 121: Escort Ringo
+	-- Step 124: Escort Ringo
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "Escorter {npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
