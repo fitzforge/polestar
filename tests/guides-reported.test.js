@@ -10229,3 +10229,17 @@ test('Horde Felwood 59: Salve via Hunting on the way to Jaedenar, shards in Shad
 	const tin = at(fw, 'turnin 5887', is('turnin', 5887));
 	assert.ok(tin > shards && tin < at(fw, 'turnin 5242', is('turnin', 5242)), 'handed in on the way back to Greta');
 });
+
+// Flow (0.3.6, Horde 40-50/03): the solo top-up that stands in for Mok'Morokk's group challenge was written after the
+// Brood of Onyxia hand-in at Brackenwall, but it grinds the Firemane scouts on the Wyrmbog's northern edge: a ride
+// back south and north again (about 1,200 yd each way). It now comes right after the eggs, in the Wyrmbog, before the
+// ride back, with its level lowered by the hand-in's 4850 XP.
+test('Horde Dustwallow 45: the solo top-up in the Wyrmbog before riding back to Brackenwall', { skip }, () => {
+	const list = goals('forever/horde/40-50/03-feralas.guide');
+	const eggs = at(list, 'interact 20359', (g) => g.t === 'interact' && g.quest === 1172);
+	const grind = list.findIndex(({ goal }) => goal.t === 'level' && goal.grind === 4329);
+	const tin = at(list, 'turnin 1172', is('turnin', 1172));
+	assert.ok(eggs < grind && grind < tin, 'eggs, top-up, then Brackenwall');
+	assert.equal(list.filter(({ goal }) => goal.t === 'level' && goal.grind === 4329).length, 1, 'one top-up');
+	assert.ok((list[grind].step.when || []).some((p) => p.k === 'group' && p.neg), 'only for solo players');
+});
