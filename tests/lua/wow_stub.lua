@@ -151,7 +151,16 @@ function Methods.IsVisible(self)
 	end
 	return true
 end
-function Methods.SetAlpha(self, a) self.alpha = a end
+-- As in the client, a texture's (or a line's) alpha and its vertex colour's
+-- alpha are one value: SetAlpha sets the alpha SetVertexColor gave it
+-- (#1684, the transparent window's 20 % shades drawn solid after
+-- SetAlpha(1)). tools/preview/render.js reads it that way.
+function Methods.SetAlpha(self, a)
+	if (self.kind == "Texture" or self.kind == "Line") and self.vertexColor then
+		self.vertexColor[4] = a
+	end
+	self.alpha = a
+end
 function Methods.GetAlpha(self) return self.alpha end
 function Methods.GetEffectiveAlpha(self) return self.alpha end
 

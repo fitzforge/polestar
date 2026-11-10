@@ -513,8 +513,11 @@ function svg(dump, { fonts, textures, roots, margin = 28, prefix = 'p', shared, 
 		if (!r || r.w <= 0 || r.h <= 0) return;
 		const clip = clipAttr(t) + maskAttr(t);
 		const vc = t.vertexColor || [1, 1, 1, 1];
+		// As in the client, a texture's alpha and its vertex colour's alpha are one value (the stub's SetAlpha
+		// writes both, #1684): with a vertex colour, its alpha is the texture's own.
+		const own = t.vertexColor ? 1 : (t.alpha ?? 1);
 		if (t.color) {
-			rect(r, [t.color[0] * vc[0], t.color[1] * vc[1], t.color[2] * vc[2], (t.color[3] ?? 1) * (vc[3] ?? 1)], a * (t.alpha ?? 1), clip);
+			rect(r, [t.color[0] * vc[0], t.color[1] * vc[1], t.color[2] * vc[2], (t.color[3] ?? 1) * (vc[3] ?? 1)], a * own, clip);
 			return;
 		}
 		const name = textureName(t.texture);
@@ -539,17 +542,17 @@ function svg(dump, { fonts, textures, roots, margin = 28, prefix = 'p', shared, 
 			const v = t.vertexOffset;
 			const at = (i, x, y) => `${f2(x - ox + v[2 * i] * s)},${f2(y - oy - v[2 * i + 1] * s)}`;
 			const pts = [at(0, r.x, r.y), at(2, r.x + r.w, r.y), at(3, r.x + r.w, r.y + r.h), at(1, r.x, r.y + r.h)].join(' ');
-			const { fill, opacity } = rgba(vc, a * (t.alpha ?? 1));
+			const { fill, opacity } = rgba(vc, a * own);
 			if (opacity > 0.001) body.push(`<polygon points="${pts}" fill="${fill}" fill-opacity="${f2(opacity)}" shape-rendering="crispEdges"${clip}/>`);
 			return;
 		}
 		if (name === 'white' && !t.texCoord) {
-			rect(r, vc, a * (t.alpha ?? 1), clip);
+			rect(r, vc, a * own, clip);
 			return;
 		}
 		const uri = textures.uri(name, [vc[0], vc[1], vc[2], 1], t.texCoord, t.desaturation || 0);
 		if (!uri) return;
-		const op = Math.max(0, Math.min(1, (vc[3] ?? 1) * a * (t.alpha ?? 1)));
+		const op = Math.max(0, Math.min(1, (vc[3] ?? 1) * a * own));
 		if (op <= 0.001) return;
 		// SetRotation (radians, counter-clockwise) turns about the centre;
 		// ADD blending lightens what is under it.
@@ -580,10 +583,11 @@ function svg(dump, { fonts, textures, roots, margin = 28, prefix = 'p', shared, 
 		if (len <= 0 || width <= 0) return;
 		const clip = clipAttr(t);
 		const vc = t.vertexColor || [1, 1, 1, 1];
+		const own = t.vertexColor ? 1 : (t.alpha ?? 1);
 		const c = t.color ? [t.color[0] * vc[0], t.color[1] * vc[1], t.color[2] * vc[2], (t.color[3] ?? 1) * (vc[3] ?? 1)] : vc;
 		const name = t.color ? 'white' : textureName(t.texture);
 		if (!name) return;
-		const op = Math.max(0, Math.min(1, (c[3] ?? 1) * a * (t.alpha ?? 1)));
+		const op = Math.max(0, Math.min(1, (c[3] ?? 1) * a * own));
 		if (op <= 0.001) return;
 		if (name === 'white') {
 			const { fill } = rgba(c, 1);
