@@ -5895,19 +5895,19 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   level for the character's race (`UnitRace`'s id against the mask), not
   known, and for a higher rank only when the rank below is known or trainable
   by then (a talent's higher ranks need the talent); any left fire
-  `LEVELUP_SPELLS` { level, spells, cost, money, trainer
-  (`Engine.NearestClassTrainer()`: by travel time from the player, the one
-  Nearby's "Show me" goes to) }. Nothing in an instance; in combat it
+  `LEVELUP_SPELLS` { level, spells, cost, money }. Nothing in an instance; in combat it
   waits for `PLAYER_REGEN_ENABLED`. The card: "LEVEL 12 · PRIEST", "3 new
   spells to train", a row of up to 8 icons ("+N more") with the game's spell
   tooltip (`W.SpellTip` with `CT.PlaceTip`: beside the card, on its side
   facing the screen's middle, never over its lines) and the training cost, the
   total (`SpellCards.Money`: `GetMoneyString`, zero units left out) in the
   success colour when affordable, the warning colour with the balance when
-  not; then where to train: the guide's own training stop when
-  `Engine.GuideTrainStop()` is within 10 steps ("The guide trains you in 6
+  not; then where to train, from `Engine.TrainingAdvice()` as the training
+  reminder banner says it (Class-training reminder above): the guide's own
+  training stop when it is within 10 steps ("The guide trains you in 6
   steps (Orgrimmar).", no button: `m.noAct`, Later leads the row), else the
-  nearest class trainer and **Show me** (`Nav.nearby.Go("class")`), and no
+  planner's class trainer and **Show me** (`Nav.SetTarget`, as the banner's
+  Show), and no
   trainer line at all while the guide window's training reminder banner is up;
   quiet (`m.quiet`: no chime), hidden after 30 s (`m.hideAfter`, not while
   the pointer is on it). The old-ranks card lists one spell per line in plain

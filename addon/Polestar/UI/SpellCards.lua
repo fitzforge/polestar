@@ -4,11 +4,11 @@
 -- LEVELUP_SPELLS: "LEVEL 12 · PRIEST", "3 new spells to train", a row of
 -- their icons (the game's tooltip on each, beside the card), what they cost
 -- together (the game's coins) in the success colour when the character can
--- pay it, the warning colour when not, then where to train: the guide's own
--- training stop when it is within GUIDE_STEPS steps ("The guide trains you
--- in 6 steps (Orgrimmar)."), else the class trainer nearest by travel time
--- (Engine.NearestClassTrainer, as Nearby ranks it) with "Show me", the
--- arrow there (Nearby's class trainer trip); nothing when the guide
+-- pay it, the warning colour when not, then where to train, as the guide
+-- window's training reminder says it (Engine.TrainingAdvice, so the two
+-- always agree): the guide's own training stop when it is near ("The guide
+-- trains you in 6 steps (Orgrimmar)."), else the class trainer the planner
+-- ranks best on the guide's way, with "Show me", the arrow there; nothing when the guide
 -- window's training reminder is up (it names one already). Quiet (no
 -- chime) and gone by itself after HIDE_AFTER seconds. "Turn these off"
 -- sets qol.levelUpSpells off.
@@ -50,19 +50,19 @@ function SC.Money(c)
 end
 local money = SC.Money
 
--- The guide's own class training stop counts as near within this many steps.
-SC.GUIDE_STEPS = 10
 -- Old ranks: one line per spell, this many, then "+N more".
 SC.RANK_LINES = 4
 
 local waiting = {} -- kind -> notice
 
--- "Show me": the arrow to the nearest class trainer.
-function SC.ShowTrainer()
-	local N = ns.Nav and ns.Nav.nearby
-	local ok = N and N.Go and N.Go("class")
-	if ok then CT().Hide() end
-	return ok
+-- "Show me": the arrow to trainer t (the advice's), as the training
+-- reminder's Show aims it.
+function SC.ShowTrainer(t)
+	local N = ns.Nav
+	if not (t and t.map and t.x and N and N.SetTarget) then return false end
+	N.SetTarget(t.map, t.x, t.y, t.npcName or L["Class trainer"], t.f, "trainer", t.z)
+	CT().Hide()
+	return true
 end
 
 function SC.LevelModel(n)
@@ -83,28 +83,24 @@ function SC.LevelModel(n)
 		or format(L["Cost %s: you have %s."], money(n.cost), money(n.money or 0))
 	m.giver = "|c" .. Theme.Hex(can and "success" or "warning") .. line .. "|r"
 	m.affordable = can
-	local t = n.trainer
 	-- The guide window's training reminder already names a trainer: not twice.
 	local GF = UI.GuideFrame
 	local banner = GF and GF.BannerNotice and GF.BannerNotice() == "train"
-	-- The guide's own training stop, when near, rather than another trainer.
 	local E = ns.Engine
-	local steps, stepTitle
-	if E and E.GuideTrainStop then steps, stepTitle = E.GuideTrainStop() end
-	if banner then
-		m.noAct = true
-	elseif type(steps) == "number" and steps <= SC.GUIDE_STEPS then
-		if steps <= 1 then
+	local advice = not banner and E and E.TrainingAdvice and E.TrainingAdvice() or {}
+	local t = advice.trainer
+	if advice.guide then
+		if advice.steps <= 1 then
 			m.route = L["Your guide's current step trains you."]
 		else
-			m.route = format(L["The guide trains you in %d steps"], steps)
-				.. (stepTitle and stepTitle ~= "" and (" (" .. stepTitle .. ")") or "") .. "."
+			m.route = format(L["The guide trains you in %d steps"], advice.steps)
+				.. (advice.title and advice.title ~= "" and (" (" .. advice.title .. ")") or "") .. "."
 		end
 		m.noAct = true
 	elseif t and t.npcName then
 		local zone = t.map and ns.Compat.GetMapName and ns.Compat.GetMapName(t.map)
-		m.route = zone and format(L["Nearest class trainer: %s, %s."], t.npcName, zone) or format(L["Nearest class trainer: %s."], t.npcName)
-		m.act = { label = L["Show me"], run = SC.ShowTrainer }
+		m.route = zone and format(L["Class trainer: %s, %s."], t.npcName, zone) or format(L["Class trainer: %s."], t.npcName)
+		m.act = { label = L["Show me"], run = function() return SC.ShowTrainer(t) end }
 	else
 		m.noAct = true
 	end
