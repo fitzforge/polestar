@@ -10592,3 +10592,26 @@ test('Horde Plaguelands: Darrowshire at 56 in the Eastern Plaguelands guide, not
 	assert.ok(!flyBack, 'no flight to Light\'s Hope before its flight path is learnt');
 	assert.ok(at(ep, 'turnin 6164', is('turnin', 6164)) > villains, 'Augustus takes the book back on the Terrordale stop');
 });
+
+// Offered-timed sweep (2026-11-10, Fitz carried Apothecary Zamah at 42:00 left): Helbrim offers Apothecary Zamah (853,
+// 45 minutes, to Zamah in Thunder Bluff's Pools of Vision) on the Fungal Spores hand-in, and the shared Barrens route
+// never goes to Thunder Bluff (0.3.5+ recordings: 4 took it, none handed it in). Druids fly there from the next
+// Crossroads stop: they take it on that stop and hand it in first thing on the Thunder Bluff step right after it;
+// nobody else takes it, and the Fungal Spores stop says to leave it.
+test('Horde Barrens 15-21: Apothecary Zamah only for Druids, taken right before their Thunder Bluff flight', { skip }, () => {
+	const list = goals('forever/horde/02-the-barrens.guide');
+	const spores = list[at(list, 'the Fungal Spores hand-in', is('turnin', 848))];
+	assert.ok([spores.step.tip, spores.step.note].flat().filter(Boolean).join(' ').includes('Apothecary Zamah'), 'the Fungal Spores stop says to leave it');
+	const druid = list.filter(forClass('DRUID'));
+	const take = at(druid, 'Apothecary Zamah for Druids', is('accept', 853));
+	const hand = at(druid, 'Zamah takes the spores', is('turnin', 853));
+	assert.ok(take > druid.findIndex(({ goal }) => goal === spores.goal), 'taken after Fungal Spores, not on its stop');
+	assert.equal(druid[take].goal.npc, 3390, 'from Apothecary Helbrim');
+	assert.equal(druid[hand].goal.npc, 3419, 'to Apothecary Zamah');
+	assert.equal(druid[hand].s, druid[take].s + 1, 'handed in on the step right after the stop that takes it');
+	const first = druid.findIndex(({ s }) => s === druid[hand].s);
+	assert.ok(druid.slice(first, hand).every(({ goal }) => goal.t === 'fly'), 'Zamah first on the Thunder Bluff step, before the trainer');
+	for (const cls of ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'SHAMAN', 'MAGE', 'WARLOCK']) {
+		assert.ok(!list.filter(forClass(cls)).some(({ goal }) => goal.quest === 853), `${cls}: no Apothecary Zamah`);
+	}
+});

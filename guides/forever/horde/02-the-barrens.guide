@@ -17,6 +17,9 @@ next forever/horde/05-stonetalon-mountains
 # Left out: The Harvester (897).
 # Trial at the Field of Giants (1824, Warriors) runs for 30 minutes: it is taken from Ruga on Jorn's stop after the thunder
 # lizards, right before the thunderhawks, the eggs and the antennae, not on the first Camp Taurajo stop.
+# Apothecary Zamah (853) runs for 45 minutes and Helbrim offers it on the Fungal Spores hand-in: only Druids
+# take it, on the next Crossroads stop, and hand it to Zamah on the Thunder Bluff step that follows; the
+# route takes nobody else to Thunder Bluff, so the Fungal Spores step's tip says to leave it.
 
 # Horde 12-30 in the order the quest levels fit (2026-11-07): the Barrens come after Silverpine
 # Forest, as one stay at 15-21 with the low Stonetalon road (the Webwinder Path and Windshear
@@ -441,7 +444,7 @@ step Kranal Fiss
 
 step The Crossroads
   zone The Barrens
-  tip Sergra by the inn first, then the innkeeper, Helbrim by the north gate, Thork and Darsok on the tower platform, Mankrik by the inn, and Tonga at the south gate on the way out.
+  tip Sergra by the inn first, then the innkeeper, Helbrim by the north gate, Thork and Darsok on the tower platform, Mankrik by the inn, and Tonga at the south gate on the way out. After the spores Helbrim offers Apothecary Zamah, a delivery to Thunder Bluff within 45 minutes: this route doesn't go there, so leave it (Druids take it on the next Crossroads stop, right before their flight to Thunder Bluff).
   turnin 903                          -- Sergra Darkthorn
   accept 881
   sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
@@ -493,6 +496,7 @@ step The Crossroads
   tip In from the north gate: Gazrog first, Sergra by the inn, Tonga at the south gate, then up to Darsok and Thork on the tower platform, where the flight master stands.
   turnin 869                          -- Gazrog
   accept 3281                         -- Gazrog: the Stolen Silver, in a raptor nest north-west of Northwatch Hold
+  accept 853 only Druid               -- Apothecary Helbrim: 45 minutes, for Zamah on the Thunder Bluff step next
   turnin 881                          -- Sergra Darkthorn
   accept 905                          -- Sergra Darkthorn: the raptor nests south of the Crossroads
   turnin 877                          -- Tonga Runetotem
@@ -506,8 +510,9 @@ step The Crossroads
 step Thunder Bluff
   only Druid
   zone Thunder Bluff
-  tip Fly from the Crossroads to Thunder Bluff: Turak Runetotem trains you on Elder Rise.
+  tip Fly from the Crossroads to Thunder Bluff. Apothecary Zamah waits in the Pools of Vision, the cave under Spirit Rise: hand in the spores there first, while their time runs. Then Turak Runetotem trains you on Elder Rise.
   fly "Thunder Bluff"
+  turnin 853                          -- Apothecary Zamah, in the Pools of Vision
   train class
   accept 27 only Tauren               -- Turak Runetotem
   accept 6126 only Tauren             -- Turak Runetotem: Lessons Anew
