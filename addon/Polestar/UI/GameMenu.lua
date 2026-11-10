@@ -14,6 +14,16 @@
 -- buttons down to make room), ours goes right under EllesmereUI's last
 -- button, and a spacer of ours in the layout keeps the room for it.
 --
+-- Look: ours is made from the menu's own button template (its buttonTemplate,
+-- GameMenuFrameButtonTemplate: the plain client's red three-slice button),
+-- so it looks like its neighbours. A skin that restyles the menu's pooled
+-- buttons (EllesmereUI's flat dark buttons) never reaches ours, so each time
+-- the menu opens ours mirrors the button it follows, read only: a template
+-- texture hidden there is hidden on ours, the label takes its font and
+-- colour, and a skinned neighbour (its three slices hidden) gets a flat
+-- inset of ours behind the label in the skin's colour and border (when
+-- EllesmereUI is loaded, through its own border function on our frame).
+--
 -- Taint: nothing of Blizzard's is written or moved. Our frames are made
 -- under UIParent and then set under the menu; the hook after InitButtons
 -- only reads the pool's buttons (their text, layoutIndex and size) and sets
@@ -39,7 +49,8 @@ UI.GameMenu = GameMenu
 local SECTION = 20 -- the menu's own section gap (MainMenuFrameMixin.AddSection)
 local GAP = 4 -- under EllesmereUI's last button, as its two buttons are apart
 
-local button, spacer
+local button, spacer, ref -- ref: the menu's button ours follows this opening
+local look -- our flat inset for a skinned menu: { frame, bg, edges, hl }
 
 function GameMenu.Open()
 	local menu = _G.GameMenuFrame
@@ -99,6 +110,90 @@ local function ellesmereLast()
 	return nil
 end
 
+-- A skinned menu button: its three-slice parts are there and hidden.
+local function skinned(r)
+	local parts = 0
+	for _, k in ipairs({ "Left", "Middle", "Right" }) do
+		local t = r[k]
+		if type(t) == "table" and t.GetAlpha then
+			if (t:GetAlpha() or 1) > 0 then return false end
+			parts = parts + 1
+		end
+	end
+	return parts > 0
+end
+
+local function textures(f)
+	local out = {}
+	for _, r in ipairs({ f:GetRegions() }) do
+		if r.IsObjectType and r:IsObjectType("Texture") then out[#out + 1] = r end
+	end
+	return out
+end
+
+-- Our flat inset: the skin's background and a 1px border, 2px inside the
+-- button (as the skinned neighbour's inset sits), a light hover.
+local function flatLook(b)
+	if look then return look end
+	local f = CreateFrame("Frame", nil, UIParent)
+	f:SetParent(b)
+	f:SetPoint("TOPLEFT", b, "TOPLEFT", 2, -2)
+	f:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -2, 2)
+	f:SetFrameLevel(b:GetFrameLevel())
+	local bg = f:CreateTexture(nil, "BACKGROUND", nil, -6)
+	bg:SetAllPoints(f)
+	local edges = {}
+	for i, side in ipairs({ { "TOPLEFT", "TOPRIGHT" }, { "BOTTOMLEFT", "BOTTOMRIGHT" }, { "TOPLEFT", "BOTTOMLEFT" }, { "TOPRIGHT", "BOTTOMRIGHT" } }) do
+		local e = f:CreateTexture(nil, "OVERLAY", nil, 7)
+		e:SetPoint(side[1], f, side[1], 0, 0)
+		e:SetPoint(side[2], f, side[2], 0, 0)
+		if i <= 2 then e:SetHeight(1) else e:SetWidth(1) end
+		edges[i] = e
+	end
+	local hl = b:CreateTexture(nil, "HIGHLIGHT")
+	hl:SetAllPoints(f)
+	hl:SetColorTexture(1, 1, 1, 0.1)
+	look = { frame = f, bg = bg, edges = edges, hl = hl }
+	return look
+end
+
+-- Ours takes the look of the menu's button r (read only).
+function GameMenu.Mirror(b, r)
+	b, r = b or button, r or ref
+	if not (b and r) then return end
+	local skin = skinned(r)
+	local theirs, n = textures(r), 0
+	for _, t in ipairs(textures(b)) do
+		if not (look and (t == look.hl)) then
+			n = n + 1
+			local other = theirs[n]
+			t:SetAlpha(skin and other and (other:GetAlpha() or 1) or 1)
+		end
+	end
+	local mine, other = b:GetFontString(), r.GetFontString and r:GetFontString()
+	if mine and other then
+		local path, size, flags = other:GetFont()
+		if path then mine:SetFont(path, size, flags or "") end
+		local cr, cg, cb, ca = other:GetTextColor()
+		if cr then mine:SetTextColor(cr, cg, cb, ca or 1) end
+	end
+	if not skin then
+		if look then look.frame:Hide(); look.hl:Hide() end
+		return
+	end
+	local l = flatLook(b)
+	local db, eui = _G.EllesmereUIDB, _G.EllesmereUI
+	local c = type(db) == "table" and type(db.popupMenuButtonBackgroundColor) == "table" and db.popupMenuButtonBackgroundColor or nil
+	l.bg:SetColorTexture(c and c.r or 0.1, c and c.g or 0.1, c and c.b or 0.1, c and c.a or 0.8)
+	local themed = type(eui) == "table" and type(eui._applyBlizzardConfiguredBorder) == "function"
+		and pcall(eui._applyBlizzardConfiguredBorder, l.frame, "popupMenuButton", 1)
+	for _, e in ipairs(l.edges) do
+		if themed then e:Hide() else e:SetColorTexture(1, 1, 1, 0.08); e:Show() end
+	end
+	l.frame:Show()
+	l.hl:Show()
+end
+
 -- After the menu's InitButtons, before its Layout: place ours for this opening.
 local function place(menu)
 	local b = button
@@ -113,7 +208,8 @@ local function place(menu)
 		if spacer then spacer:Hide() end
 		return
 	end
-	b = build(menu, "MainMenuFrameButtonTemplate")
+	b = build(menu, type(menu.buttonTemplate) == "string" and menu.buttonTemplate or "MainMenuFrameButtonTemplate")
+	ref = after
 	local w, h = after:GetWidth(), after:GetHeight()
 	if w and w > 0 and h and h > 0 then b:SetSize(w, h) end
 	local mid = index + (nextIndex - index) / 2
@@ -134,6 +230,7 @@ local function place(menu)
 		if spacer then spacer:Hide() end
 		b.layoutIndex, b.topPadding = mid, SECTION
 	end
+	GameMenu.Mirror(b, after)
 	b:Show()
 end
 
@@ -166,6 +263,7 @@ local function hook()
 	if type(rawget(menu, "InitButtons")) == "function" then
 		GameMenu.managed = true
 		hooksecurefunc(menu, "InitButtons", place)
+		menu:HookScript("OnShow", function() if button and button:IsShown() then GameMenu.Mirror() end end)
 		return
 	end
 	menu:HookScript("OnShow", GameMenu.Refresh)
