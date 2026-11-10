@@ -2250,6 +2250,18 @@ fn t_568_from_rutheran_village_to_the_darnassus_fishing_trainer_the_route_still_
 	assert!(kinds.iter().any(|k| k == "portal"), "the portal up ({})", kinds.join(", "));
 }
 
+/// #1564 (Phear, Night Elf Hunter 12, 0.3.5): in the south of Darnassus (38.76,70.66), bound for Oben
+/// Rageclaw at Ban'ethil Barrow Den (Teldrassil 44.94,61.59, The Sleeping Druid), the arrow led to the portal,
+/// which only goes down to Rut'theran Village; the way is out through the city's gate and down the road.
+#[test]
+fn t_1564_from_darnassus_to_banethil_barrow_den_the_route_walks_out_through_the_gate_never_down_the_rutheran_portal() {
+	skip_unless_ready!();
+	let out = teldrassil_route((1457, 38.76, 70.66), (1438, 44.94, 61.59, "Oben Rageclaw"));
+	let kinds = strs(&out["kinds"]);
+	assert!(kinds.iter().all(|k| k == "walk") && !kinds.is_empty(), "it walks all the way ({}; {})", kinds.join(", "), strs(&out["transports"]).join(", "));
+	assert_eq!(f(&out["treeWalks"]), 0.0, "no walk leg joins Rut'theran to the top of the tree");
+}
+
 /// #989 (Dante): off the Auberdine boat in Rut'theran Village, bound for Melithar Staghelm (The Woodland
 /// Protector, Teldrassil 59.92,42.47), the route walked straight up the tree; through the portal up to
 /// Darnassus, it sent the player back down the portal, and so on. The Rut'theran landing's walk was

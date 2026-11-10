@@ -847,9 +847,18 @@ local function planRoute(p)
 		end
 		return v
 	end
+	-- stranded[v]: v was reached on foot from a vertex with no walk to the
+	-- target (nw) or from one reached that way. Ground walked to from there is
+	-- the same ground, so it walks on to the target no more than its start
+	-- does: from the Rut'theran portal's landing, the boat's pier a few yards
+	-- off was the start of a walk straight up the tree, and players in
+	-- Darnassus were sent down the portal (#1564). A ride, a flight or the
+	-- Hearthstone leaves that ground.
+	local stranded = {}
 	local function relax(v, d, t, how, from)
 		if d < dist[v] then
 			dist[v], tm[v], prev[v], via[v] = d, t, from, how
+			stranded[v] = how == WALK and (nw[from] or stranded[from]) or nil
 			push(d, v)
 		end
 	end
@@ -895,7 +904,7 @@ local function planRoute(p)
 			local v = list[i]
 			if v == 2 and mu then
 				walk(u, 2, mu / speed, ty[u] / speed, du, tu)
-			elseif v == 2 and nw[u] then
+			elseif v == 2 and (nw[u] or stranded[u]) then
 				-- no walk from u to the target
 			elseif v ~= u then
 				local dx, dy = vx[v] - xu, vy[v] - yu
@@ -934,7 +943,7 @@ local function planRoute(p)
 				for v = 2, keys do
 					if v == 2 and mu then
 						walk(u, 2, mu / speed, ty[u] / speed, du, tu)
-					elseif v == 2 and nw[u] then
+					elseif v == 2 and (nw[u] or stranded[u]) then
 						-- no walk from u to the target
 					elseif v ~= u and vc[v] == cu and vkind[v] ~= INN then
 						local dx, dy = vx[v] - xu, vy[v] - yu
@@ -959,13 +968,13 @@ local function planRoute(p)
 			local ex = extra[u]
 			if ex then
 				for i = 1, #ex - 1, 2 do
-					straight(u, ex[i], ex[i + 1] * walkRate, du, tu)
+					if not (ex[i] == 2 and stranded[u]) then straight(u, ex[i], ex[i + 1] * walkRate, du, tu) end
 				end
 			end
 			local lk = links[u]
 			if lk and not learnV[u] then
 				for i = 1, #lk - 1, 2 do
-					straight(u, lk[i], lk[i + 1] * walkRate, du, tu)
+					if not (lk[i] == 2 and stranded[u]) then straight(u, lk[i], lk[i + 1] * walkRate, du, tu) end
 				end
 			end
 			if kind == TAXI then

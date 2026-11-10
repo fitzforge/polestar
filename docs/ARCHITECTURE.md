@@ -3622,7 +3622,10 @@ reached by the chain's straight link and keeps its straight price). Rules: a
 place the engine finds no walk from (`false`: Thunder Bluff's flight
 master, on a tower it cannot snap from) and every place when none has a walk
 (the target snapped off the ground) or the batch failed keep the straight
-estimate; a place farther or beyond the nearest 16 keeps it too; a target
+estimate, except a portal's end: it walks to the target by no route (#989),
+and neither does any place walked to from it (Rut'theran's boat pier beside
+the portal's landing, #1564) until a ride, a flight or the Hearthstone takes
+the player off that ground; a place farther or beyond the nearest 16 keeps it too; a target
 within 400 yd of the player is not measured at all (its plan keeps the
 straight estimates, the arrow its own search: a batch is about a second of
 router work, and a guide sets such a waypoint at every turn-in); the
