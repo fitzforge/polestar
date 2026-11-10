@@ -115,30 +115,48 @@ return {
 	["{npc:265809}'s campfire"] = "{npc:265809}的營火",
 	-- {npc:265809} Brakk · {area:362} Razor Hill · {spell:1229451} Boosted Rest · {zone:1454} Orgrimmar
 	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809}在{area:362}南邊紮營。坐在他的營火旁（/sit），直到出現{spell:1229451}增益效果。學會專業技能後，{npc:265809}也會提供他的露營入門，交給該專業的訓練師：在{area:362}，或在下一份指南開頭的{zone:1454}。",
+
+	-- Step 21: Camping 101: Mining
 	-- {npc:265809} Brakk · {npc:3175} Krunn
 	["{npc:265809}: for {npc:3175}"] = "{npc:265809}：交給{npc:3175}",
+
+	-- Step 22: Camping 101: Engineering
 	-- {npc:265809} Brakk · {npc:11025} Mukdrak
 	["{npc:265809}: for {npc:11025}"] = "{npc:265809}：交給{npc:11025}",
+
+	-- Step 23: Camping 101: First Aid
 	-- {npc:265809} Brakk · {npc:5943} Rawrk
 	["{npc:265809}: for {npc:5943}"] = "{npc:265809}：交給{npc:5943}",
+
+	-- Step 24: Camping 101: Skinning
 	-- {npc:265809} Brakk · {npc:7088} Thuwd
 	["{npc:265809}: for {npc:7088}"] = "{npc:265809}：交給{npc:7088}",
+
+	-- Step 25: Camping 101: Leatherworking
 	-- {npc:265809} Brakk · {npc:3365} Karolek
 	["{npc:265809}: for {npc:3365}"] = "{npc:265809}：交給{npc:3365}",
+
+	-- Step 26: Camping 101: Tailoring
 	-- {npc:265809} Brakk · {npc:2855} Snang
 	["{npc:265809}: for {npc:2855}"] = "{npc:265809}：交給{npc:2855}",
+
+	-- Step 27: Camping 101: Herbalism
 	-- {npc:265809} Brakk · {npc:3404} Jandi
 	["{npc:265809}: for {npc:3404}"] = "{npc:265809}：交給{npc:3404}",
+
+	-- Step 28: Camping 101: Enchanting
 	-- {npc:265809} Brakk · {npc:11066} Jhag
 	["{npc:265809}: for {npc:11066}"] = "{npc:265809}：交給{npc:11066}",
+
+	-- Step 29: Camping 101: Alchemy
 	-- {npc:265809} Brakk · {npc:11046} Whuut
 	["{npc:265809}: for {npc:11046}"] = "{npc:265809}：交給{npc:11046}",
 
-	-- Step 21: Razor Hill
+	-- Step 30: Razor Hill
 	-- {npc:266940} Turroc
 	["{npc:266940}, on the east side of town; inside"] = "",
 
-	-- Step 22: Razor Hill
+	-- Step 31: Razor Hill
 	-- {npc:3191} Cook Torka
 	["{npc:3191}: Camping 101 asks you to learn it"] = "",
 	-- {npc:6928} Innkeeper Grosk
@@ -146,94 +164,94 @@ return {
 	-- {npc:3147} Furl Scornbrow
 	["{npc:3147}, in the watchtower"] = "{npc:3147}，在瞭望塔裡",
 
-	-- Step 23: Prickly pears
+	-- Step 35: Prickly pears
 	["Prickly pears"] = "仙人掌果",
 	["The prickly pears grow among the quilboar huts just west of town."] = "仙人掌果生長在城鎮西邊的野豬人小屋之間。",
 
-	-- Step 25: Tiragarde Keep
+	-- Step 37: Tiragarde Keep
 	-- {area:362} Razor Hill · {item:4870} Canvas Scraps · {npc:3192} Lieutenant Benedict · {item:4881} Aged Envelope
 	["The keep stands on the coast south-east of {area:362}. The raiders' axe, bow and shield lie on its outskirts. Sailors and marines drop the {item:4870}. {npc:3192} waits at the top of the keep; his key opens the chest beside him, which holds the {item:4881}."] = "城堡位於{area:362}東南方的海岸上。襲擊者的斧頭、弓和盾牌在城堡外圍。庫爾提拉斯水手和水兵會掉落{item:4870}。{npc:3192}在城堡頂端等候；他的鑰匙可以打開他旁邊的箱子，裡面有{item:4881}。",
 	["Upstairs"] = "樓上",
 
-	-- Step 26: Razor Hill
+	-- Step 38: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3147} Furl Scornbrow · {npc:3142} Orgnil Soulscar · {npc:266940} Turroc
 	["Back north-west to {area:362}: {npc:3139} first, then {npc:3147} in the watchtower, then {npc:3142} and {npc:266940} on the way out east to the shore."] = "",
 	-- {npc:266940} Turroc
 	["{npc:266940}, inside"] = "",
 
-	-- Step 27: Scuttle Coast: kill these as you meet them
+	-- Step 39: Scuttle Coast: kill these as you meet them
 	-- {area:373} Scuttle Coast
 	["{area:373}: kill these as you meet them"] = "",
 	-- {area:362} Razor Hill
 	["The gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin.\nMakrura and surf crawlers line the beaches north-east of Sen'jin."] = "",
 	["Underwater"] = "",
 
-	-- Step 28: Echo Isles: kill these as you meet them
+	-- Step 40: Echo Isles: kill these as you meet them
 	-- {area:368} Echo Isles
 	["{area:368}: kill these as you meet them"] = "",
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger
 	["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.\nDurotar Tigers roam the isle as well as the shore south of Sen'jin, and the Taillasher eggs sit in nests on the isles and along the beach."] = "涉水到北邊的回音群島。女族長在那裡的迅猛龍之間徘徊。\n杜洛塔猛虎在島上以及森金村南邊的海岸遊蕩，鞭尾蜥蜴的蛋就在群島上和海灘沿岸的巢裡。",
 
-	-- Step 29: Echo Isles: kill these as you meet them
+	-- Step 41: Echo Isles: kill these as you meet them
 	-- {quest:826} Zalazane
 	-- plural, as words: Hexed Trolls = {npc:3207} Hexed Troll · Hexed Pendants = {item:275724} Hexed Pendant
 	["Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. {quest:826} and Minshina's cage are on the southernmost isle."] = "向南穿過群島。洛阿神像遍布南部島嶼；巫毒食人妖和被施妖術的食人妖守著它們，並掉落妖術墜飾。{quest:826}和明希納的囚籠在最南端的島上。",
 
-	-- Step 30: Deathskip to Sen'jin Village
+	-- Step 42: Deathskip to Sen'jin Village
 	-- {area:367} Sen'jin Village
 	["Deathskip to {area:367}"] = "",
 	-- {npc:3206} Voodoo Troll · {npc:6491} Spirit Healer
 	["Die to the mobs at 66.9,87.2 ({npc:3206}): a death there sends you to this graveyard. Release your spirit and take the {npc:6491}'s resurrection."] = "",
 
-	-- Step 32: Kolkar Crag
+	-- Step 44: Kolkar Crag
 	-- {area:366} Kolkar Crag · {npc:275811} Pal'juh
 	["{area:366} lies west of Sen'jin. The three attack plans sit on the ground among the centaur tents. {npc:275811} is held at the crag as well."] = "{area:366}在森金村西邊。三份進攻計畫放在半人馬帳篷之間的地上。{npc:275811}也被關在峭壁那裡。",
 	-- {npc:275811} Pal'juh
 	["Free {npc:275811} and see her safely out of the crag"] = "釋放{npc:275811}，並護送她安全離開峭壁",
 
-	-- Step 35: Level 10
+	-- Step 47: Level 10
 	["Level 10"] = "",
 	-- {quest:840} Conscript of the Horde · {area:362} Razor Hill
 	["Top up here to level 10: {quest:840}, at {area:362}, needs level 10."] = "",
 	-- {npc:3111} Razormane Quilboar
 	["grind on {npc:3111}"] = "",
 
-	-- Step 36: Razor Hill
+	-- Step 48: Razor Hill
 	-- {npc:3169} Tarshaw Jaggedscar
 	["{npc:3169}, inside"] = "",
 	-- {npc:3294} Ophek
 	["{npc:3294}, by the inn"] = "{npc:3294}，在旅店旁",
 
-	-- Step 37: Far Watch Post
+	-- Step 49: Far Watch Post
 	-- {area:814} Southfury River · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post · {npc:5907} Kranal Fiss
 	["West over the {area:814} bridge: {npc:3337} stands at {area:379} above it, on your way to {npc:5907}."] = "",
 
-	-- Step 42: Kranal Fiss
+	-- Step 54: Kranal Fiss
 	-- {area:814} Southfury River · {area:379} Far Watch Post · {npc:5907} Kranal Fiss
 	["West over the {area:814} bridge, past {area:379} and on along the ridge: {npc:5907} stands alone above the Razormane camp."] = "",
 
-	-- Step 43: Telf Joolam
+	-- Step 55: Telf Joolam
 	-- {zone:1411} Durotar · {npc:5900} Telf Joolam
 	["Back over the bridge and south along the {zone:1411} bank of the river to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "",
 
-	-- Step 44: Razormane Grounds
+	-- Step 56: Razormane Grounds
 	["Quilboars and scouts hold the huts west of town; dustrunners and battleguards hold the camps farther west."] = "鋼鬃野豬人和鋼鬃斥候佔據城鎮西邊的小屋；鋼鬃傳令兵和鋼鬃衛兵佔據更西邊的營地。",
 
-	-- Step 45: Rezlak
+	-- Step 57: Rezlak
 	-- {zone:1454} Orgrimmar · {npc:3293} Rezlak
 	["Head north-east to the road toward {zone:1454}. {npc:3293} camps beside it; the stolen sacks lie along the road south of him."] = "",
 
-	-- Step 46: Drygulch Ravine
+	-- Step 58: Drygulch Ravine
 	-- {area:370} Drygulch Ravine · {npc:3293} Rezlak · {item:277661} Dull Storm Orb · {area:371} Dustwind Cave · {item:6652} Reagent Pouch
 	-- plural, as words: Burning Blade Cultists = {npc:3199} Burning Blade Cultist
 	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}. Shamans: the Burning Blade Cultists by {area:371}, at the ravine's south end, drop the {item:6652}."] = "",
 
-	-- Step 47: Deathskip to Northern Durotar
+	-- Step 59: Deathskip to Northern Durotar
 	["Deathskip to Northern Durotar"] = "",
 	-- {npc:3118} Dustwind Storm Witch · {npc:6491} Spirit Healer
 	["Die to the mobs at 52.0,21.4 ({npc:3118}): a death there sends you to this graveyard. Release your spirit and take the {npc:6491}'s resurrection."] = "",
 
-	-- Step 49: Thunder Ridge: kill these as you meet them
+	-- Step 61: Thunder Ridge: kill these as you meet them
 	-- {area:369} Thunder Ridge
 	["{area:369}: kill these as you meet them"] = "",
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak · {area:362} Razor Hill · {npc:3099} Dire Mottled Boar · {item:15908} Taming Rod
@@ -242,105 +260,105 @@ return {
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "用{item:15908}馴服牠",
 
-	-- Step 50: Misha Tor'kren
+	-- Step 62: Misha Tor'kren
 	-- {area:814} Southfury River · {item:4891} Kron's Amulet
 	["Misha's hut stands south of the lizards. The crocolisks along the {area:814} to the west carry {item:4891}."] = "米莎的小屋在蜥蜴的南邊。西邊{area:814}沿岸的鱷魚身上帶著{item:4891}。",
 
-	-- Step 52: Heglan Shadeeye
+	-- Step 64: Heglan Shadeeye
 	-- {npc:275657} Heglan Shadeeye · {area:362} Razor Hill
 	["{npc:275657} stands on the shore east of {area:362}. The trident, banner and dagger lie on the beach around him."] = "{npc:275657}站在{area:362}東邊的岸上。三叉戟、旗幟和匕首散落在他周圍的海灘上。",
 
-	-- Step 54: Paladin trainer
+	-- Step 66: Paladin trainer
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {area:362} Razor Hill
 	["{npc:246344} in {zone:1456}; {area:362} has no paladin trainer"] = "",
 
-	-- Step 55: Mage trainer
+	-- Step 67: Mage trainer
 	["Mage trainer"] = "",
 	-- {npc:5884} Mai'ah · {zone:1411} Durotar · {area:362} Razor Hill
 	["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "",
 
-	-- Step 56: Druid trainer
+	-- Step 68: Druid trainer
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:362} Razor Hill
 	["{npc:3034} in {zone:1412}; {area:362} has no druid trainer"] = "",
 
-	-- Step 57: Razor Hill
+	-- Step 69: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3142} Orgnil Soulscar
 	["Back to {area:362}: {npc:3139}, then {npc:3142}."] = "",
 
-	-- Step 58: Spitelash naga
+	-- Step 70: Spitelash naga
 	["Spitelash naga"] = "惡鞭納迦",
 	-- {area:370} Drygulch Ravine · {npc:275657} Heglan Shadeeye · {npc:3107} Surf Crawler
 	-- plural, as words: Spitelash Scouts = {npc:275662} Spitelash Scout
 	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "",
 
-	-- Step 59: Margoz
+	-- Step 71: Margoz
 	-- {quest:828} Margoz · {quest:827} Skull Rock
 	["{quest:828} camps on the hill west of the naga beach, south of {quest:827}."] = "{quest:828}在納迦海灘西邊的山丘上紮營，位於{quest:827}南邊。",
 
-	-- Step 61: Gan'rul Bloodeye
+	-- Step 73: Gan'rul Bloodeye
 	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength
 	["{zone:1454}'s main gate is just west of {area:817}. {npc:5875} stands in the {object:172960}, the canyon under the {object:172982}."] = "{zone:1454}的正門就在{area:817}西邊。{npc:5875}站在{object:172960}，就是{object:172982}下方的峽谷。",
 
-	-- Step 62: Hanashi
+	-- Step 74: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
 
-	-- Step 63: Back to Durotar
+	-- Step 75: Back to Durotar
 	-- {zone:1411} Durotar
 	["Back to {zone:1411}"] = "",
 
-	-- Step 64: Skull Rock's mouth
+	-- Step 76: Skull Rock's mouth
 	-- {area:817} Skull Rock
 	["{area:817}'s mouth"] = "{area:817}入口",
 
-	-- Step 65: Skull Rock
+	-- Step 77: Skull Rock
 	-- {quest:827} Skull Rock · {item:4871} Searing Collar · {npc:3204} Gazz'uz · {item:4903} Eye of Burning Shadow
 	["Burning Blade cultists hold the caves of {quest:827}; any of them drops a {item:4871}. {npc:3204}, a level 14 warlock, stands deep inside and drops the {item:4903}."] = "燃刃氏族的教徒佔據{quest:827}的洞穴；他們都會掉落{item:4871}。{npc:3204}是14級的術士，站在深處，會掉落{item:4903}。",
 
-	-- Step 66: Tablet of Verga
+	-- Step 78: Tablet of Verga
 	-- {object:58595} Burning Blade Stash · {area:817} Skull Rock
 	["The {object:58595} stands in {area:817}, among the cultists you just fought."] = "{object:58595}在{area:817}裡，就在你剛才打過的教徒之間。",
 
-	-- Step 68: Razor Hill
+	-- Step 80: Razor Hill
 	-- {area:362} Razor Hill
 	["Back to {area:362}."] = "回到{area:362}。",
 
-	-- Step 69: Razor Hill
+	-- Step 81: Razor Hill
 	-- {npc:3142} Orgnil Soulscar · {npc:275666} Aggor the Young
 	["{npc:3142}: {npc:275666}, an elite sea giant"] = "{npc:3142}：{npc:275666}，一個精英海巨人",
 
-	-- Step 70: Aggor the Young
+	-- Step 82: Aggor the Young
 	-- {npc:275666} Aggor the Young · {zone:1411} Durotar
 	["{npc:275666}, a young sea giant, walks {zone:1411}'s north coast, north of the naga beach. {npc:275666} is elite: grouping up is advised."] = "",
 	-- {npc:3142} Orgnil Soulscar · {area:362} Razor Hill
 	["{npc:3142}, back in {area:362}"] = "{npc:3142}，回到{area:362}",
 
-	-- Step 71: Armored Scorpid
+	-- Step 83: Armored Scorpid
 	-- {area:362} Razor Hill · {npc:3171} Thotar
 	-- plural, as words: Armored Scorpids = {npc:3126} Armored Scorpid
 	["Armored Scorpids crawl over the plains west of {area:362}. Tame one, then return to {npc:3171}."] = "硬甲蠍在{area:362}西邊的平原上爬行。馴服一隻，然後回到{npc:3171}那裡。",
 	-- {npc:3171} Thotar · {npc:3352} Ormak Grimshot · {zone:1454} Orgrimmar · {spell:5149} Beast Training
 	["{npc:3171}: {npc:3352} in {zone:1454} teaches {spell:5149}"] = "",
 
-	-- Step 72: Far Watch Post
+	-- Step 84: Far Watch Post
 	-- {area:362} Razor Hill · {area:814} Southfury River · {npc:3337} Kargal Battlescar · {npc:5810} Uzzek · {area:379} Far Watch Post · {zone:1411} Durotar · {zone:1454} Orgrimmar
 	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {zone:1411} leads to {zone:1454}."] = "",
 
-	-- Step 73: Thunder lizards on the way north
+	-- Step 85: Thunder lizards on the way north
 	["Thunder lizards on the way north"] = "",
 	-- {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:6486} Singed Scale · {npc:5810} Uzzek · {area:379} Far Watch Post
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
 	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}."] = "",
 
-	-- Step 75: Ormak Grimshot
+	-- Step 87: Ormak Grimshot
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
 	["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "",
 
-	-- Step 76: Hanashi
+	-- Step 88: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
-	-- Step 77: To Orgrimmar
+	-- Step 89: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "前往{zone:1454}",
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
@@ -348,7 +366,7 @@ return {
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "",
 
-	-- Step 78: The Binding
+	-- Step 90: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning
 	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it."] = "{npc:5875}站在{object:172960}，也就是{object:172982}下方的峽谷。把{item:6535}交給他，然後在他旁邊的召喚法陣使用{item:7464}，擊敗虛空行者以束縛它。",
 
