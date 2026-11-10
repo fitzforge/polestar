@@ -637,7 +637,10 @@ client's spell names (the Forever `SpellName` table of the client build
 `meta.json` names, cached beside the data: any spell of two words or more, or
 with an apostrophe or colon; a one-word class or profession ability only in
 Class and Professions guides, or after "cast" or "your"; none another thing
-of the game shares, no profession rank spell, no spell owning something
+of the game shares, except, in a guide whose `class` names the spell's class,
+that class's own spell where an NPC, object, item, quest or faction has its
+name ("Cold Snap" in a Mage guide is the talent, not the staff; a place
+keeps its name), no profession rank spell, no spell owning something
 ("Blizzard's designers"), and no one-word spell used as a verb: taking an
 object or opening a sentence that goes on in lower case, "Polymorph a
 naga"; nor a name of a faction of the client's `Faction` table, "Burning
