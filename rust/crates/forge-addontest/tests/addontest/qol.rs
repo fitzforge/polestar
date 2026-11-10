@@ -692,7 +692,7 @@ fn step_key_interact_stage_talks_to_the_targeted_step_npc_loots_its_mob_and_acce
 
 // #1316: the step key also targets the mobs of the While you're here rows (Engine.GetWhileHereList, nearest
 // first; their raw goals by Engine.AlongGoal): after the step's own names, one from each row in turn, no name
-// twice, as many as fit the macro; an item, the Hearthstone or an NPC keeps the key; changed only out of combat;
+// twice, as many as fit the macro; an item or the Hearthstone keeps the key, an NPC comes first (#1623); changed only out of combat;
 // off with behavior.whileHereStepKey. rows(list) puts the rows up (each a goal view, its raw goal as `raw`) and
 // fires WHILE_HERE_CHANGED; names() reads the names the step key's macro tries, in order.
 const HERE_ROWS: &str = r#"
@@ -754,7 +754,7 @@ fn step_key_the_step_s_own_names_first_then_one_mob_from_each_while_you_re_here_
 }
 
 #[test]
-fn step_key_with_nothing_else_to_do_it_targets_the_while_you_re_here_mobs_an_item_or_an_npc_keeps_the_key_1316() {
+fn step_key_with_nothing_else_to_do_it_targets_the_while_you_re_here_mobs_an_item_keeps_the_key_an_npc_comes_first_1316() {
 	let out = run(&format!(
 		"{HERE_ROWS}{}",
 		r#"
@@ -775,7 +775,7 @@ fn step_key_with_nothing_else_to_do_it_targets_the_while_you_re_here_mobs_an_ite
 	assert_eq!(out[0], json!(["nil", ""]));
 	assert_eq!(out[1], json!(["macro", "Murloc, Kobold Vermin"]), "no action of its own: the rows' mobs");
 	assert_eq!(out[2], json!(["item", "item:900"]), "a use goal keeps its item");
-	assert_eq!(out[3], json!(["macro", "Marshal McBride"]), "an NPC goal keeps its NPC");
+	assert_eq!(out[3], json!(["macro", "Marshal McBride, Murloc, Kobold Vermin"]), "an NPC goal: its NPC first, the rows' mobs after (no place known: near, #1623)");
 }
 
 #[test]
@@ -2151,7 +2151,7 @@ fn target_button_names_the_while_you_re_here_rows_mobs_after_the_step_s_own_near
 }
 
 #[test]
-fn target_button_while_you_re_here_mobs_alone_on_a_step_without_mobs_an_npc_step_keeps_its_npc_1441() {
+fn target_button_while_you_re_here_mobs_alone_on_a_step_without_mobs_after_an_npc_step_s_npc_1441() {
 	let out = look_run(
 		&[
 			TARGET_HERE_ROWS,
@@ -2168,7 +2168,93 @@ fn target_button_while_you_re_here_mobs_alone_on_a_step_without_mobs_an_npc_step
 	);
 	assert_eq!(out[0], json!(["", false]));
 	assert_eq!(out[1], json!(["Black Ooze", true, "icon-kill"]));
-	assert_eq!(out[2], "Marshal Dughan", "an NPC step keeps its NPC");
+	assert_eq!(out[2], "Marshal Dughan, Black Ooze", "an NPC step: its NPC first (no place known: near), the rows' mobs after (#1623)");
+}
+
+// #1623 (Emil, Duskwood step 7): on a step whose goals are NPCs (turn in to Sven Yorgen, 400 yd off) with a While
+// you're here row up (Skeletal Fiend, 40 yd), the target button and the step key put the rows' mobs first while the
+// player stands farther than the While you're here radius (180 yd) from every one of the step's NPCs, and the NPC
+// first once within it; each name takes its own kind's ping and mark. A check each second re-orders them as the
+// player walks across the radius. Sven stands at map 9000 50,40: world (200, 0); the player starts at (0, 0).
+const SVEN_STEP: &str = r#"
+q.step({
+	{ t = "turnin", quest = 230, npc = 311, npcName = "Sven Yorgen", map = 9000, x = 50, y = 40 },
+	{ t = "accept", quest = 262, npc = 311, npcName = "Sven Yorgen", map = 9000, x = 50, y = 40 },
+})
+"#;
+
+#[test]
+fn target_button_while_you_re_here_mobs_before_the_step_s_npc_beyond_the_radius_after_it_within_1623() {
+	let script = [
+		LOOK,
+		TARGET_HERE_ROWS,
+		r#"
+		set("pingTarget", true)
+		set("markTarget", true)
+		local function macro() return t:GetAttribute("macrotext") end
+		local function at(wx) q.player = { c = 0, wx = wx, wy = 0 }; stub.advance(1.1) end
+		"#,
+		SVEN_STEP,
+		r#"
+		emit(tnames())
+		rows({ { t = "kill", subject = "Skeletal Fiend" } })
+		emit({ tnames(), look().name, macro() })
+		at(100)
+		emit({ tnames(), look().name, macro() })
+		at(21)
+		emit(tnames())
+		at(19)
+		emit(tnames())
+		q.click(t, false)
+		emit({ look().name, macro() })
+		Polestar.Set("behavior.whileHereRadius", 300)
+		stub.advance(1.1)
+		emit(tnames())
+		rows({})
+		at(-500)
+		emit(tnames())
+	"#,
+	]
+	.concat();
+	let out = run_with(&script, "SLASH_PING1 = \"/ping\"", None);
+	let mob_first = "/cleartarget [nocombat]\n/targetexact Skeletal Fiend\n/cleartarget [dead]\n/targetexact [noexists] Sven Yorgen\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
+	let npc_first = "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
+	assert_eq!(out[0], "Sven Yorgen", "no rows: the NPC alone");
+	assert_eq!(out[1], json!(["Skeletal Fiend, Sven Yorgen", "Skeletal Fiend", mob_first]), "200 yd from Sven: the row's mob first, pinged and marked as a mob");
+	assert_eq!(out[2], json!(["Sven Yorgen, Skeletal Fiend", "Sven Yorgen", npc_first]), "100 yd: Sven first, an NPC's mark, no ping");
+	assert_eq!(out[3], "Sven Yorgen, Skeletal Fiend", "179 yd: still within");
+	assert_eq!(out[4], "Skeletal Fiend, Sven Yorgen", "181 yd: beyond again");
+	assert_eq!(out[5], json!(["Sven Yorgen", "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1"]), "a press: Sven next, with his own kind's mark");
+	assert_eq!(out[6], "Sven Yorgen, Skeletal Fiend", "a wider radius: 181 yd is within it");
+	assert_eq!(out[7], "Sven Yorgen", "the rows hid: the NPC alone, wherever the player stands");
+}
+
+#[test]
+fn step_key_while_you_re_here_mobs_before_the_step_s_npc_beyond_the_radius_after_it_within_1623() {
+	let script = [
+		HERE_ROWS,
+		r#"
+		set("pingTarget", true)
+		local s = PolestarStepButton
+		local function at(wx) q.player = { c = 0, wx = wx, wy = 0 }; stub.advance(1.1) end
+		"#,
+		SVEN_STEP,
+		r#"
+		emit({ names(), s:GetAttribute("macrotext") })
+		rows({ { t = "kill", subject = "Skeletal Fiend" } })
+		emit({ names(), s:GetAttribute("macrotext") })
+		at(100)
+		emit({ names(), s:GetAttribute("macrotext") })
+		at(-10)
+		emit(names())
+	"#,
+	]
+	.concat();
+	let out = run_with(&script, "SLASH_PING1 = \"/ping\"", None);
+	assert_eq!(out[0], json!(["Sven Yorgen", "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]"]), "no rows: the NPC keeps the key");
+	assert_eq!(out[1], json!(["Skeletal Fiend, Sven Yorgen", "/cleartarget [nocombat]\n/targetexact Skeletal Fiend\n/cleartarget [dead]\n/targetexact [noexists] Sven Yorgen\n/cleartarget [dead]\n/ping [@target]"]), "200 yd: the row's mob first, pinged");
+	assert_eq!(out[2], json!(["Sven Yorgen, Skeletal Fiend", "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]"]), "100 yd: Sven first, not pinged");
+	assert_eq!(out[3], "Skeletal Fiend, Sven Yorgen", "210 yd: the mob first again");
 }
 
 #[test]
