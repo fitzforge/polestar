@@ -5216,6 +5216,55 @@
 					"ref": "data/forever/npcs.json 1217, 4963, 2104 spawns"
 				}
 			]
+		},
+		{
+			"id": "ba3040-arathi-shards-from-northfold",
+			"faction": "Alliance",
+			"at": {
+				"quest": 642,
+				"goal": "accept"
+			},
+			"tip": "East from Northfold Manor across the north of the Highlands; the shards glitter on the hill by the Circle of East Binding, north of Go'Shek Farm.",
+			"note": "BrAlliance3040 (0.3.6): the Myzrael story comes straight after Northfold Manor now (route-fixes pair 651 East key before 691); Shards of Myzrael (object 2705) at 62.5,33.7, Stone of East Binding (2691) at 66.7,29.7.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/objects.json 2705, 2691"
+				}
+			]
+		},
+		{
+			"id": "ba3040-arathi-witherbark-after-east-binding",
+			"faction": "Alliance",
+			"at": {
+				"quest": 691,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "South from the Stone of East Binding, past Go'Shek Farm, to Witherbark Village in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk.",
+			"note": "BrAlliance3040 (0.3.6): Witherbark Village is worked on the way south from the eastern circle to Quae instead of between Northfold and the shards. Witch Doctors (2555) 61-68,64-77; Shadow Hunters (2557, the knife) 66-69,78-82.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/npcs.json 2555, 2557"
+				}
+			]
+		},
+		{
+			"id": "ba3040-arathi-quae-from-witherbark",
+			"faction": "Alliance",
+			"at": {
+				"quest": 659,
+				"goal": "turnin"
+			},
+			"tip": "North-west out of the Witherbark valley; Quae and Kinelory camp in the hills just north of Go'Shek Farm.",
+			"note": "BrAlliance3040 (0.3.6): Quae (2712, 60.2,53.9) is reached from Witherbark Village now.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/npcs.json 2712"
+				}
+			]
 		}
 	]
 }

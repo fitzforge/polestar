@@ -10445,3 +10445,20 @@ test('Alliance Menethil 32: Glorin Steelbrow is in the Deepwater Tavern, not the
 	assert.match(tips[0], /Deepwater Tavern/);
 	assert.doesNotMatch(tips[0], /keep\./);
 });
+
+// Our comparison (0.3.6, BrAlliance3040, Alliance 30-40 Arathi): from Northfold Manor the loop goes once round, east
+// along the north to the Shards of Myzrael and Drywhisker Gorge, back to the Stone of East Binding, south to Witherbark
+// Village and north-west to Quae. The guide went to the troll village in the south-east first, then north to the shards,
+// east to the gorge and south again to Quae.
+test('Alliance Arathi: Northfold, the shards and the gorge, the eastern circle, then Witherbark Village on the way to Quae', { skip }, () => {
+	const list = goals(ARATHI);
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	const northfold = stepOf('kill 2589', (g) => g.t === 'kill' && g.quest === 681);
+	const shards = stepOf('accept 642', is('accept', 642));
+	const east = stepOf('collect 4484', (g) => g.t === 'collect' && g.item === 4484);
+	const trolls = stepOf('collect 5040', (g) => g.t === 'collect' && g.item === 5040);
+	const quae = stepOf('turnin 659', is('turnin', 659));
+	assert.ok(northfold < shards && shards < east && east < trolls && trolls < quae, `Northfold ${northfold}, shards ${shards}, east circle ${east}, Witherbark ${trolls}, Quae ${quae}`);
+	assert.equal(trolls, east + 1, 'Witherbark right after the eastern circle');
+	assert.equal(quae, trolls + 1, 'Quae right after the village');
+});

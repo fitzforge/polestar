@@ -173,16 +173,10 @@ step Hay Weevil
   tip Hay Weevils crawl about the north end of Northfold Manor's farm: catch one with the tool from Amaryllis Webb's Entomology Starter Kit.
   collect 213568 "Hay Weevil Specimen" @31.3,27.2
 
-step Witherbark Village
-  tip A few Witherbark trolls camp south of Northfold, on the way; the main village lies in the hills south of Go'Shek Farm in the south-east, where the Witch Doctors stand and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk.
-  collect 4503 quest 691.1            -- Witherbark Tusk
-  collect 4522 quest 691.2            -- Witherbark Medicine Pouch
-  collect 5040 quest 691.3            -- Shadow Hunter Knife; below ground
-
 # ---------------------------------------------------------------- The Myzrael story
 
 step Shards of Myzrael
-  tip Head north past Go'Shek Farm; the shards glitter on the hill by the Circle of East Binding.
+  tip East from Northfold Manor across the north of the Highlands; the shards glitter on the hill by the Circle of East Binding, north of Go'Shek Farm.
   turnin 635 optional                 -- Only if Gluggle gave you the pendant in Stranglethorn
   accept 642
 
@@ -203,10 +197,16 @@ step Stones of Binding
   tip Careful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East.
   collect 4484 quest 651.2            -- Cresting Key: Stone of East Binding
 
+step Witherbark Village
+  tip South from the Stone of East Binding, past Go'Shek Farm, to Witherbark Village in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk.
+  collect 4503 quest 691.1            -- Witherbark Tusk
+  collect 4522 quest 691.2            -- Witherbark Medicine Pouch
+  collect 5040 quest 691.3            -- Shadow Hunter Knife; below ground
+
 # ---------------------------------------------------------------- Go'Shek Farm
 
 step Quae
-  tip Head back south from the eastern circle; Quae and Kinelory camp in the hills just north of Go'Shek Farm.
+  tip North-west out of the Witherbark valley; Quae and Kinelory camp in the hills just north of Go'Shek Farm.
   turnin 659
   accept 658
 
