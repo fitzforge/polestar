@@ -2841,15 +2841,30 @@ end
 -- screen, nil while none is. (On GF: the main chunk is at Lua's 200 locals.)
 GF.HERE_DIST = { round = 5 }
 
+-- Above the While-here rows, one row per running timer whose hand-in this
+-- guide's route does not make (Quests/Timed.lua, Timed.OffRoute): "Apothecary
+-- Zamah  42:00 left", under it "Thunder Bluff ~6 min · this guide doesn't go
+-- there" (in the compact window too: it is the line's point). A click points
+-- the arrow at the ender (Timed.AimOff), a right-click or its close button
+-- hides it until the timer ends (Timed.MuteOff). In combat these rows never
+-- come or go (GF.offs holds the list from before; the countdowns still run);
+-- PLAYER_REGEN_ENABLED catches up. With only these rows the panel's label
+-- reads "Timed quest". GF.offs: the off-route quests on screen.
+GF.offs = {}
+
 function GF.FillHere(E)
 	local list = E.GetWhileHereList()
+	local Timed = ns.Timed
+	if Timed and Timed.OffRoute and not inCombat then GF.offs = Timed.OffRoute(GF.offs) end
+	local offs = Timed and GF.offs or {}
+	local nOff = #offs
 	local tight = compact()
 	local here = GF.here
 	local body = here.Body
-	if not (list and list[1]) then
+	if not ((list and list[1]) or nOff > 0) then
 		local was = here.psKey
 		here.psKey = nil
-		for _, r in ipairs(here.Rows) do r.psView = nil end
+		for _, r in ipairs(here.Rows) do r.psView, r.psOff = nil, nil end
 		if was and here:IsShown() and F:IsVisible() and not GF.catchingUp then
 			Anim.To(body, "offsetX", 0, -6, Anim.FAST, "out")
 			Anim.To(body, "alpha", body:GetAlpha(), 0, Anim.FAST, "out", function()
@@ -2864,10 +2879,27 @@ function GF.FillHere(E)
 		return
 	end
 	local keys = {}
+	for k = 1, nOff do
+		local q = offs[k]
+		local r = GF.HereRow(k)
+		r.psView, r.psOff, r.psAt = nil, q, nil
+		keys[k] = "t" .. q
+		r.Icon:SetTexture(Theme.VerbIcon("turnin"))
+		-- A line gone in combat (handed in, failed) keeps its last words until
+		-- the fight ends.
+		local text, sub = Timed.OffText(q)
+		if text then
+			r.Text:SetText(text)
+			r.Sub:SetText(sub)
+		end
+		r.Sub:SetShown(true)
+		r.Dist:SetText("")
+		r:Show()
+	end
 	for i, v in ipairs(list) do
-		local r = GF.HereRow(i)
-		r.psView = v
-		keys[i] = v.step .. ":" .. v.index
+		local r = GF.HereRow(nOff + i)
+		r.psView, r.psOff, r.psAt = v, nil, i
+		keys[nOff + i] = v.step .. ":" .. v.index
 		r.Icon:SetTexture(Theme.VerbIcon(v.here == "turnin" and "turnin" or v.t))
 		r.Text:SetText((v.here == "turnin" or v.here == "take") and UI.HereText(v) or UI.GoalLine(v))
 		r.Sub:SetText(string.format(v.later and L["Step %d, later in this guide"] or L["Step %d"], UI.StepNo(v.step)))
@@ -2875,10 +2907,11 @@ function GF.FillHere(E)
 		r.Dist:SetText(v.yards and ns.FormatDistance(v.yards, GF.HERE_DIST) or "")
 		r:Show()
 	end
-	for i = #list + 1, #here.Rows do
-		here.Rows[i].psView = nil
+	for i = nOff + #list + 1, #here.Rows do
+		here.Rows[i].psView, here.Rows[i].psOff = nil, nil
 		here.Rows[i]:Hide()
 	end
+	here.Label:SetText(list[1] and L["While you're here"] or L["Timed quest"])
 	-- The panel slides in when it comes; rows coming and going inside it do not.
 	local fresh = here.psKey == nil
 	local wasShown = here:IsShown()
@@ -4372,7 +4405,7 @@ end
 -- close button on the right. Left-click leads the arrow there, right-click
 -- (or the close button) dismisses it around here (Engine.DismissWhileHere:
 -- twice, for the rest of the zone). psAt: its place in
--- Engine.GetWhileHereList.
+-- Engine.GetWhileHereList; psOff instead: an off-route timer's quest (GF.HereOff).
 function GF.HereRow(i)
 	local here = GF.here
 	local r = here.Rows[i]
@@ -4385,8 +4418,9 @@ function GF.HereRow(i)
 	r.Icon:SetSize(ICON, ICON)
 	W.Color(r.Icon, "accent")
 	r.Close = W.IconButton(r, "close", 18, L["Not now (right-click)"], function()
+		if r.psOff then return GF.HereOff(r.psOff, "RightButton") end
 		local E = Engine()
-		if E then E.DismissWhileHere(r.psAt) end
+		if E and r.psAt then E.DismissWhileHere(r.psAt) end
 	end)
 	r.Dist = T(r, "small", "textMuted")
 	r.Dist:SetJustifyH("RIGHT")
@@ -4395,11 +4429,21 @@ function GF.HereRow(i)
 	r.Text:SetJustifyV("TOP")
 	r.Sub = T(r, "small", "textMuted")
 	r:SetScript("OnClick", function(self, button)
+		if self.psOff then return GF.HereOff(self.psOff, button) end
 		local E = Engine()
-		if not E then return end
+		if not (E and self.psAt) then return end
 		if button == "RightButton" then E.DismissWhileHere(self.psAt) else E.AimWhileHere(self.psAt) end
 	end)
 	r:SetScript("OnEnter", function(self)
+		if self.psOff then
+			W.Tooltip(self, tooltipAnchor(), self.Text:GetText() or "", {
+				L["This guide's route doesn't hand this quest in: go there yourself before the time runs out, or let it go."],
+				{ L["Click to point the arrow here"], Theme.Accent() },
+				{ L["Right-click: hide this until the timer ends."], Theme.Color("textDim") },
+			})
+			GF.HoverIn()
+			return
+		end
 		local v = self.psView
 		if not v then return end
 		local lines = {
@@ -4415,6 +4459,22 @@ function GF.HereRow(i)
 	r:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
 	here.Rows[i] = r
 	return r
+end
+
+-- An off-route timer's row clicked (GF.FillHere): the arrow to its ender, or
+-- (right button) the row hidden until the timer ends, at once, in combat too.
+function GF.HereOff(q, button)
+	local Timed = ns.Timed
+	if not Timed then return end
+	if button ~= "RightButton" then
+		Timed.AimOff(q)
+		return
+	end
+	Timed.MuteOff(q)
+	for k = #GF.offs, 1, -1 do
+		if GF.offs[k] == q then table.remove(GF.offs, k) end
+	end
+	GF.HereChanged()
 end
 
 function GF.BuildHere()
@@ -5314,6 +5374,8 @@ ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
 	inCombat = false
 	GF.ApplyVisibility()
 	GF.ApplyAlpha(true)
+	-- Off-route timer rows held through the fight (GF.FillHere) catch up.
+	if ns.Timed and ns.IsLoggedIn() then GF.HereChanged() end
 end)
 
 -- Dungeons, raids, battlegrounds and arenas: not scenarios.

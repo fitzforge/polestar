@@ -3177,6 +3177,11 @@ L["The way to %s takes about %s, longer than the time left"] = "Le trajet jusqu'
 L["%s: %d minutes left"] = "%s : %d minutes restantes"
 L["%s: 1 minute left"] = "%s : 1 minute restante"
 L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = "%s a échoué : le temps est écoulé. Abandonnez-la dans le journal de quêtes et reprenez-la."
+L["%s ~%s · this guide doesn't go there"] = "%s ~%s · ce guide n'y va pas"
+L["%s · this guide doesn't go there"] = "%s · ce guide n'y va pas"
+L["Timed quest"] = "Quête à durée limitée"
+L["This guide's route doesn't hand this quest in: go there yourself before the time runs out, or let it go."] = "L'itinéraire de ce guide ne rend pas cette quête : allez-y vous-même avant la fin du temps, ou laissez-la."
+L["Right-click: hide this until the timer ends."] = "Clic droit : masquer jusqu'à la fin du minuteur."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"

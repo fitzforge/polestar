@@ -3176,6 +3176,11 @@ L["The way to %s takes about %s, longer than the time left"] = "El camino hasta 
 L["%s: %d minutes left"] = "%s: quedan %d minutos"
 L["%s: 1 minute left"] = "%s: queda 1 minuto"
 L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = "%s ha fracasado: se acabó el tiempo. Abandónala en el registro de misiones y vuelve a aceptarla."
+L["%s ~%s · this guide doesn't go there"] = "%s ~%s · esta guía no va allí"
+L["%s · this guide doesn't go there"] = "%s · esta guía no va allí"
+L["Timed quest"] = "Misión con tiempo"
+L["This guide's route doesn't hand this quest in: go there yourself before the time runs out, or let it go."] = "La ruta de esta guía no entrega esta misión: ve tú antes de que se acabe el tiempo, o déjala."
+L["Right-click: hide this until the timer ends."] = "Clic derecho: ocultar hasta que se acabe el tiempo."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desactiva \"Guiar con Shortest Path Forever si está instalado\" (Opciones, Flecha y rutas) para usar la flecha de Polestar."

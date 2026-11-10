@@ -3175,6 +3175,11 @@ L["The way to %s takes about %s, longer than the time left"] = "El camino a %s t
 L["%s: %d minutes left"] = "%s: quedan %d minutos"
 L["%s: 1 minute left"] = "%s: queda 1 minuto"
 L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = "%s falló: se acabó el tiempo. Abandónala en el registro de misiones y vuelve a aceptarla."
+L["%s ~%s · this guide doesn't go there"] = "%s ~%s · esta guía no va allá"
+L["%s · this guide doesn't go there"] = "%s · esta guía no va allá"
+L["Timed quest"] = "Misión con tiempo"
+L["This guide's route doesn't hand this quest in: go there yourself before the time runs out, or let it go."] = "La ruta de esta guía no entrega esta misión: ve tú antes de que se acabe el tiempo, o déjala."
+L["Right-click: hide this until the timer ends."] = "Clic derecho: ocultar hasta que se acabe el tiempo."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "El objetivo de la flecha, las paradas de su ruta de viaje, los demás objetivos del paso y las zonas donde aparecen sus monstruos y objetos."
