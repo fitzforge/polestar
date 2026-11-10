@@ -1555,6 +1555,25 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 	}
 });
 
+// Floki's report (#1523): from the Greenwarden's Grove the step back to Captain Stoutfist said "Back west along the road",
+// about 1.9 km, though the guide binds the Hearthstone at Menethil's Deepwater Tavern and never uses it before. The arrow
+// takes the Hearthstone when it saves the walk; the tip now says so too. Sweep (long walks back to the town of the
+// guide's own unused bind, Alliance 12-30): 06-ashenvale's walk from Ironbeard's Tomb to Menethil and 05-duskwood's walk
+// from Sven's camp to Darkshire (bound on 04's first Darkshire stop).
+test(`${WETLANDS}: Floki's report (#1523): long walks back to the bind's town say to hearth`, { skip }, () => {
+	for (const [guide, home, quest, says] of [
+		[WETLANDS, WETLANDS, 464, /^Hearth back to Menethil Harbor/],
+		[ASHENVALE, ASHENVALE, 306, /^Hearth back to Menethil Harbor/],
+		['forever/alliance/05-duskwood.guide', REDRIDGE, 262, /^Hearth back to Darkshire/],
+	]) {
+		const list = goals(guide);
+		const hand = at(list, `${guide}: turnin ${quest}`, is('turnin', quest));
+		assert.ok(goals(home).some(({ goal }) => goal.t === 'sethome'), `${home} binds the Hearthstone`);
+		assert.ok(!list.slice(0, hand).some(({ goal }) => goal.t === 'hearth'), `${guide}: the Hearthstone is not used before`);
+		assert.match(list[hand].step.note || '', says, `${guide}: the step says to hearth back`);
+	}
+});
+
 // Bennistrov (#1354): a Night Elf Druid at 30 had skipped Captain Stoutfist's A Friend of the Family (98190). At
 // Stormwind Keep the turn-in read "You skipped this quest", but the guide still sent them to Bolvar for his A
 // Friend of the Family (98191), which he offers only once 98190 is handed in to him: the data had no

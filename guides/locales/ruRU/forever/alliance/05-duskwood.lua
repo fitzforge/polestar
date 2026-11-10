@@ -39,7 +39,7 @@ return {
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "Назад: {area:42}",
 	-- {area:42} Darkshire
-	["Head back east to {area:42}."] = "",
+	["Hearth back to {area:42} if you bound at the Scarlet Raven Tavern on the first loop, or head back east along the road."] = "",
 	-- {npc:265} Madame Eva
 	["{npc:265}, inside"] = "",
 	-- {npc:267} Clerk Daltry
