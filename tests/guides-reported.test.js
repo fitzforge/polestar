@@ -9808,3 +9808,16 @@ test('Burning Steppes (Alliance 52): after Trinkets..., A Taste of Flame is 4022
 	}
 	assert.ok(at(bs, 'turnin 4022', is('turnin', 4022)) < at(bs, 'accept 4023', is('accept', 4023)), 'the molt hand-in comes first');
 });
+
+// Our comparison, Alliance 50-60 (0.3.6): the Blasted Lands stop lands at Nethergarde Keep, where Ambassador Ardalan
+// gives Petty Squabbles (2783, 4,500 XP), and the Fallen Hero who takes it, and gives A Tale of Sorrow (2801, 600 XP),
+// stands just over the Swamp of Sorrows border: both on the stop, before Kum'isha and the hearth.
+test('Blasted Lands (Alliance 52): Petty Squabbles and A Tale of Sorrow on the Nethergarde stop', { skip }, () => {
+	const bs = goals('forever/alliance/50-60/01-burning-steppes.guide');
+	const land = at(bs, 'fly to Nethergarde', (g) => g.t === 'fly' && /Nethergarde/.test(g.location || ''));
+	const acc = at(bs, 'accept 2783', is('accept', 2783));
+	const told = at(bs, 'turnin 2801', is('turnin', 2801));
+	assert.ok(land < acc && acc < at(bs, 'turnin 2783', is('turnin', 2783)) && at(bs, 'turnin 2783', is('turnin', 2783)) < told, 'Ardalan after landing, then the Fallen Hero');
+	assert.ok(everyone(bs[acc]) && everyone(bs[told]) && !bs[acc].step.when, 'for everyone');
+	assert.ok(told < at(bs, 'turnin 3501', is('turnin', 3501)), 'before Kum\'isha and the hearth');
+});

@@ -8525,6 +8525,16 @@
 				"q": 3481,
 				"reason": "Our comparison, Alliance 40-60 (0.3.6): Velarok Windblade's chain after The Flame's Casing (3452, a group quest in 40-50/06-searing-gorge): The Torch of Retribution (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: Sentry Braziers 149025/149030/149031/149032 on the Cauldron's southern rim) and Trinkets... (3481), 13,710 XP, all given and taken at Velarok's spot (NPCs 8479, 8509, objects 149047, 149502; quest data and both comparison guides agree on the chain and its places). Done only by the group that hands 3452 in, straight after it; 3463 handed in on the way back to Thorium Point.",
 				"issue": "-"
+			},
+			{
+				"q": 2783,
+				"reason": "Our comparison, Alliance 50-60 (0.3.6): Petty Squabbles (2783, Alliance, level 57, min 50, 4,500 XP; Ambassador Ardalan 7826 in Nethergarde Keep, Blasted Lands 67.6,19.3) ends at the Fallen Hero of the Horde (7572, Swamp of Sorrows 34.3,66.1), who gives A Tale of Sorrow (2801, 600 XP, listen to him) on the spot. 50-60/01 lands at Nethergarde for Kum'isha and hearths away from the Blasted Lands, so the pair costs about 1,000 yd of riding for 5,100 XP at about 52, before the Winterspring top-up. Quest data and QuestieDB agree on givers and places; our comparison takes both on the same visit.",
+				"issue": "-"
+			},
+			{
+				"q": 2801,
+				"reason": "Our comparison, Alliance 50-60 (0.3.6): Petty Squabbles (2783, Alliance, level 57, min 50, 4,500 XP; Ambassador Ardalan 7826 in Nethergarde Keep, Blasted Lands 67.6,19.3) ends at the Fallen Hero of the Horde (7572, Swamp of Sorrows 34.3,66.1), who gives A Tale of Sorrow (2801, 600 XP, listen to him) on the spot. 50-60/01 lands at Nethergarde for Kum'isha and hearths away from the Blasted Lands, so the pair costs about 1,000 yd of riding for 5,100 XP at about 52, before the Winterspring top-up. Quest data and QuestieDB agree on givers and places; our comparison takes both on the same visit.",
+				"issue": "-"
 			}
 		],
 		"skip": [
