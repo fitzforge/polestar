@@ -23,8 +23,10 @@
 --       (its race, class and faction: the steps' and goals' `only`), from its
 --       minLevel when below it: each turn-in once, its XP from the Codex; each
 --       kill goal's kills, and each loot goal's from its drop chance
---       (count / chance, the goal's own mob else the item's likeliest), at the
---       mob's level; an objective split over steps once, nothing for quests
+--       (count / chance, the goal's own mob else the item's likeliest; a
+--       chance under 5% while another dropper's is not known counts as not
+--       known), at the mob's level; an objective split over steps once,
+--       nothing for quests
 --       done. from/to: only steps from..to-1, from where the character is
 --       (no minLevel start). nil: no guide, or no Codex to read (the Codex is
 --       loaded for it only while lookup.enabled, as Lookup owns it)
@@ -203,28 +205,40 @@ local function mobOf(Cx, npc)
 	return floor((rec.level + (rec.levelMax or rec.level)) / 2), rec.elite
 end
 
+-- A drop chance under STRAY % says nothing about where a loot goal's item
+-- comes from while another of its droppers has no chance known: a quest's
+-- loot counted over every kill of a mob, most of them by players without the
+-- quest, looks like a rare drop (#1697: Surgical Spidersilk, 1 in 16,605
+-- Giant Plains Creepers, so 12 of them were "120,000 kills", while the Plains
+-- Creepers beside them, no chance known, drop it on almost every kill).
+local STRAY = 5
+
 -- The kills a loot goal takes: count over its drop chance from the goal's own
 -- mob, else the item's likeliest dropper. -> n, mob level, elite | nil (no
--- drop to estimate from: an object, a vendor, a chance not known)
+-- drop to estimate from: an object, a vendor, a chance not known, or only a
+-- stray one beside a dropper whose chance is not known)
 local function lootKills(Cx, goal)
 	local item = goal.item and Cx.Item and Cx.Item(goal.item)
 	if not (item and type(item.sources) == "table") then return nil end
 	local own = goal.fromKind == "npc" and goal.fromId or nil
-	local best
+	local best, unknown
 	for _, src in pairs(item.sources) do
 		-- Also picked up from an object, and no mob named: gathered, no kills.
 		if src.type == "object" and not own then return nil end
 	end
 	for _, src in pairs(item.sources) do
-		if src.type == "drop" and src.npc and (src.chance or 0) > 0 then
-			if src.npc == own then
+		if src.type == "drop" and src.npc then
+			if (src.chance or 0) <= 0 then
+				unknown = true
+			elseif src.npc == own then
 				best = src
 				break
+			elseif not best or src.chance > best.chance then
+				best = src
 			end
-			if not best or src.chance > best.chance then best = src end
 		end
 	end
-	if not best then return nil end
+	if not best or (unknown and best.npc ~= own and best.chance < STRAY) then return nil end
 	local mob, elite = mobOf(Cx, best.npc)
 	if not mob then return nil end
 	return ceil((goal.count or 1) / (min(best.chance, 100) / 100)), mob, elite
