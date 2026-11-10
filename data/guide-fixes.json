@@ -5360,6 +5360,28 @@
 					"ref": "data/forever/npcs.json Rebel Camp NPCs"
 				}
 			]
+		},
+		{
+			"id": "1575-flame-of-uzel-danger",
+			"faction": "Horde",
+			"at": {
+				"quest": 553,
+				"goal": "objective",
+				"objective": 3
+			},
+			"tip": "Careful: two Giant Yetis (33) stand right by the flame, Skhowl, a rare yeti (36), roams the slope just south of the cave on the way up from the caverns, and Crushridge ogres (34-35) come down to it from Alterac. At 30-31 that is three to five levels over you: clear the yetis one at a time from the cave mouth before you use the Rod, and if an ogre stands at the flame, pull it away alone or bring a friend.",
+			"note": "Helcular's Revenge (553): the Flame of Uzel's cave in the hills north of the Foothill Caverns is reached at about 30-31 on the 29-33 Hillsbrad guide, and the mobs at the flame are higher: Giant Yetis (33) beside it, the rare Skhowl (36) about 40 yd south, and Crushridge ogres (34-35), one of which a player met there at 30.8. A caution, not a route change: the 38-39 Alterac visit never goes back to Southshore's graveyard for the hand-in, and the other two flames are in the caverns earlier in this guide. First case of the danger-at-the-spot check (#1575).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1575: Tincho's report on Discord (0.3.6), level 30.8 at the Flame of Uzel with a level 35 Crushridge ogre beside it"
+				},
+				{
+					"kind": "tdb",
+					"ref": "creature spawns within 45 yd of gameobject 1770 (Flame of Uzel, 263.4,-267.7): 2251 Giant Yeti x3 (level 33), 2452 Skhowl (rare, 36); npc levels 2252 Crushridge Ogre 34-35, 2253 Crushridge Brute 35"
+				}
+			],
+			"issue": 1575
 		}
 	]
 }

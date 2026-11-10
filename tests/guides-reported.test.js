@@ -5073,6 +5073,19 @@ test('Recordings (starting-zone review 0.3.6): Crystal Lake\'s murloc step warns
 	}
 });
 
+test('Tincho on Discord (#1575): the Flame of Uzel step warns about the higher yetis and Crushridge ogres at the cave', { skip }, () => {
+	// Reached at about 30-31 on the 29-33 Hillsbrad guide; Giant Yetis (33), Skhowl (36) and Crushridge ogres (34-35) at the flame.
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8'));
+	assert.ok(fixes.fixes.some((f) => f.at && f.at.quest === 553 && f.at.objective === 3 && /Crushridge/.test(f.tip || '')), 'the tip is a guide-fixes record');
+	const uzel = goals('forever/horde/30-40/01-hillsbrad-foothills.guide').filter(({ goal }) => goal.quest === 553 && goal.oi === 3 && goal.t !== 'accept' && goal.t !== 'turnin');
+	assert.ok(uzel.length > 0, 'the Flame of Uzel is lit in the Hillsbrad guide');
+	for (const { step } of uzel) {
+		const text = [step.note, step.tip].flat().filter(Boolean).join(' ');
+		assert.match(text, /Crushridge ogres \(34-35\)/, `"${step.title}" names the ogres and their level`);
+		assert.match(text, /Giant Yetis \(33\)/, `"${step.title}" names the yetis at the flame`);
+	}
+});
+
 test('Level fit (#977): the Rogues\' Venture Co. tower (drones 25, Gallywix a 23 elite) shows from level 23, not at the route\'s 20', { skip }, () => {
 	// Horde 12-30 re-chain: Fizzule is visited at 21 on the walk north to Kadrak; the tower work itself is left
 	// to the Class guide Poisons (Horde). Any tower work in a leveling guide shows from 23.

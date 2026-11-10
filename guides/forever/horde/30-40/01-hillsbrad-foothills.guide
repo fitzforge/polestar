@@ -250,6 +250,7 @@ step Foothill Caverns
 step Flame of Uzel
   zone Hillsbrad Foothills
   tip The third flame burns in the smaller cave up in the hills north of the caverns.
+  tip Careful: two Giant Yetis (33) stand right by the flame, Skhowl, a rare yeti (36), roams the slope just south of the cave on the way up from the caverns, and Crushridge ogres (34-35) come down to it from Alterac. At 30-31 that is three to five levels over you: clear the yetis one at a time from the cave mouth before you use the Rod, and if an ogre stands at the flame, pull it away alone or bring a friend.
   use 3710 quest 553.3 @41.7,6.4 map 1424 -- Flame of Uzel
 
 step Alterac Mountains
