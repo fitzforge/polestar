@@ -10880,7 +10880,9 @@ const TAUREN_WARRIOR_40 = { race: 'Tauren', raceName: 'Tauren', faction: 'Horde'
 function centaurLive(before) {
 	return engineRun(CENTAURS, TAUREN_WARRIOR_40, {
 		before: `w.complete({ 93225 }); ${before}`,
-		after: `for g, v in ipairs(E.GetStepView(1).goals) do if v.t == "task" then E.ToggleGoal(1, g) end end`,
+		// The quest log read (a jump waits for it), then the clan task ticked.
+		after: `stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)
+			for g, v in ipairs(E.GetStepView(1).goals) do if v.t == "task" then E.ToggleGoal(1, g) end end`,
 		script: 'emit({ live = E.GetGuide().steps[E.GetLiveStep()].title })',
 	}).live;
 }
