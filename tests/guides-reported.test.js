@@ -9793,3 +9793,18 @@ test('Searing Gorge (Alliance 48-49): The Flame\'s Casing group carries on with 
 	assert.ok(done < at(sg, 'turnin 7722', is('turnin', 7722)), 'before Thorium Point');
 	assert.ok(at(sg, 'turnin 3481', is('turnin', 3481)) > done, 'Trinkets... at the hoard beside the squire');
 });
+
+// The same group, in Burning Steppes: Trinkets... (3481) gives the Hoard of the Black Dragonflight, which holds the Black
+// Dragonflight Molt (quest reward data; the molt's sources list the hoard), and A Taste of Flame (4022, needs 3481, same
+// XP as 4023) takes it at Cyrus with no elite drake. 4023 is not offered once 4022 is in the log or done, so its group
+// steps are only for players without Trinkets.
+test('Burning Steppes (Alliance 52): after Trinkets..., A Taste of Flame is 4022 with the hoard\'s molt, not the drake', { skip }, () => {
+	const bs = goals('forever/alliance/50-60/01-burning-steppes.guide');
+	const cond = (i, k, neg) => (bs[i].step.when || []).some((p) => p.k === k && !!p.neg === neg && [].concat(p.q).includes(3481));
+	for (const t of ['accept', 'turnin']) assert.ok(cond(at(bs, `${t} 4022`, is(t, 4022)), 'turnedin', false), `${t} 4022 only after Trinkets...`);
+	for (const [t, q] of [['accept', 4023], ['collect', 4023], ['turnin', 4023]]) {
+		const i = at(bs, `${t} ${q}`, (g) => g.t === t && g.quest === q);
+		assert.ok(cond(i, 'turnedin', true), `${t} ${q} only without Trinkets...`);
+	}
+	assert.ok(at(bs, 'turnin 4022', is('turnin', 4022)) < at(bs, 'accept 4023', is('accept', 4023)), 'the molt hand-in comes first');
+});

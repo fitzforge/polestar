@@ -207,7 +207,7 @@ step Squire Maltrake
   tip Squire Maltrake and the dragonflight's hoard are beside Velarok, on the rim south of Thorium Point.
   turnin 3463
   accept 3481 object 149502
-  turnin 3481 object 149502
+  turnin 3481 object 149502           -- The Hoard of the Black Dragonflight it gives holds a Black Dragonflight Molt: keep it for Cyrus Therepentous in the Burning Steppes
 
 step Thorium Point
   zone Searing Gorge

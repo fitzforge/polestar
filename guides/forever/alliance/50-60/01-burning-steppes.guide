@@ -10,6 +10,8 @@ next forever/alliance/50-60/02-felwood
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: A Taste of Flame (4023).
+# A Taste of Flame (4022) instead for the group that did Velarok's chain to Trinkets... (3481) in 40-50/06: the hoard it
+# gives holds the Black Dragonflight Molt, so Cyrus takes it at once with no drake to fight.
 # Left out: Dark Iron Legacy (3801).
 
 # ---------------------------------------------------------------- Azshara
@@ -304,15 +306,26 @@ step Flame Crest
   turnin 4296                         -- Maxwort Uberglint
 
 step Cyrus Therepentous
+  when turnedin 3481
+  tip Open the Hoard of the Black Dragonflight from Searing Gorge for its Black Dragonflight Molt, then tell Cyrus you bring proof of your deeds: no drake to fight.
+  accept 4022                         -- Below ground
+  collect 10575 quest 4022.1          -- Black Dragonflight Molt, from the hoard
+  talk 9459 quest 4022.2 @95.1,31.6 map 1428
+  turnin 4022
+
+step Cyrus Therepentous
+  when !turnedin 3481
   when group 4023
   accept 4023                         -- Below ground
 
 step A Taste of Flame
+  when !turnedin 3481
   when group 4023
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Frenzied Black Drake is a level 54 elite: most classes solo it at level 56, but you may need help. Skip it if you are alone: the route has you grind the XP back.
   collect 10575 quest 4023.1 @94.4,31.8 map 1428
 
 step Cyrus Therepentous
+  when !turnedin 3481
   when group 4023
   turnin 4023                         -- Below ground
 
