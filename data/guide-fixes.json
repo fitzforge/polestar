@@ -4772,8 +4772,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "South-west, the Cave and Ferocious Yetis (30-32) fill the Foothill Caverns in the hills west of Tarren Mill; about one in sixteen carries the rod.",
-			"note": "Horde 30-40 audit (2026-11-09): Cave Yeti 2248 is 30-31 and Ferocious Yeti 2249 31-32; the tip said 30-31 for both.",
+			"tip": "South-west, the Cave and Ferocious Yetis (30-32) fill the Foothill Caverns in the hills west of Tarren Mill; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs.",
+			"note": "Horde 30-40 audit (2026-11-09): Cave Yeti 2248 is 30-31 and Ferocious Yeti 2249 31-32; the tip said 30-31 for both. #1695: the rod's goal now points at the caverns (places.json 1695-helcular-rod-foothill-caverns), and the tip says to stay there rather than farm the northern cave's 32-34 yetis.",
 			"source": {
 				"kind": "pfquest",
 				"ref": "npcs.json 2248 level 30-31, 2249 level 31-32"
