@@ -508,7 +508,7 @@ end
 local GLOW_SCALE = 1.8
 local function paintGlow(b)
 	local on = b.itemID ~= nil and b.itemID == b.glowID
-	local g = b.Glow
+	local g = b.questGlow
 	if not on then
 		if g then
 			if g.Pulse then g.Pulse:Stop() end
@@ -531,7 +531,7 @@ local function paintGlow(b)
 			a:SetDuration(0.7)
 			g.Pulse = ag
 		end
-		b.Glow = g
+		b.questGlow = g
 	end
 	color(g, "accent")
 	g:Show()
