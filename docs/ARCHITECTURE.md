@@ -1125,7 +1125,7 @@ Polestar.Engine.SkippedOut() -> { step, title } | nil   -- with no live step, th
 Polestar.Engine.AcceptGate(stepIndex, goalIndex) -> { level, short, needs = { text, ... } } | nil   -- what the game asks before it offers an accept (its tooltip's Level and Needs lines, #1247): the quest's minimum level above 1 (`short`: the character is below it) and, until the quest is taken or done, the prerequisites not handed in yet (each missing `preAll` by name; a `pre` list none of which is done as one "A or B" entry); from the compiled goal, else from the quest database when it is loaded (never loads it); nil for a goal that is no accept or one with nothing known
 Polestar.Engine.LostQuestion() -> questID, title | nil      -- a quest the route had passed that left the log, held for the player's answer (see "Quests that leave the log")
 Polestar.Engine.AnswerLost(questID, "back" | "skip")        -- go back to its giver, or skip it and what follows (SkipQuest)
-Polestar.Engine.AimGoal(stepIndex, goalIndex) -> bool[, "accept", title]  -- lead the arrow to a goal of the current step (row click); a goal whose quest waits for its accept in the step leaves the arrow on that accept: false, "accept", the quest's title (the window says "Take <quest> first")
+Polestar.Engine.AimGoal(stepIndex, goalIndex) -> bool[, "accept", title]  -- lead the arrow to a goal of the current step (a click on its line, on the step's header for the header group's first open goal, or on its map pin: #1653, so the arrow keeps its spots); a goal whose quest waits for its accept in the step leaves the arrow on that accept: false, "accept", the quest's title (the window says "Take <quest> first")
 Polestar.Engine.GetAlong() -> { { index, title, untilStep?, goals = { goal view, ... } }, ... }  -- open goals of along steps behind the live step; untilStep: an `along until` step's labelled step
 Polestar.Engine.AimAlong(stepIndex, goalIndex) -> bool     -- lead the arrow to one of them (row click); holds while it is listed
 Polestar.Engine.GetWaypoint() -> waypoint | nil
@@ -1218,7 +1218,11 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   Cycling a goal of the current step (spots or candidates) aims the arrow at
   that goal (`AimGoal`), whichever goal it pointed at before, and the window
   releases any point picked by hand (`Nav.ReleaseTarget`), so the arrow moves
-  to the chosen spot at once.
+  to the chosen spot at once. A click on the step's header (its group's first
+  open located goal) or on a step goal's map pin (Nav/Layers) aims the same
+  way rather than setting a point by hand (#1653: `Nav.NextSpot`, a click on
+  the arrow, only moves the Engine's waypoint on, so a point by hand held the
+  arrow on one spot); an Along the way goal's pin still sets a point.
 - **Race names.** `"Scourge"` and `"Undead"` are the same race everywhere a race is
   compared (Forever's client name is unconfirmed).
 - **Context-aware Suggest.** `Guides.Suggestions()` orders the leveling guides

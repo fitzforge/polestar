@@ -188,7 +188,7 @@ fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_the_others_on_a_line_each
 		uistub.update()
 		local s = snap()
 		stub.RunScript(GF.parts.person, "OnClick", "LeftButton")
-		s.target = lastCall("SetTarget")
+		s.target = { lastCall("AimGoal"), lastCall("ReleaseTarget"), lastCall("SetTarget") or false }
 		emit(s)"#);
 	let (first, second, third) = (&out[0], &out[1], &out[2]);
 	let plain = |v: &Value| -> Vec<String> { v.as_array().unwrap().iter().map(|l| text(&l["plain"]).to_string()).collect() };
@@ -215,7 +215,11 @@ fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_the_others_on_a_line_each
 	assert_eq!(plain(&third["lines"]), ["Marshal McBride, Eagan Peltskinner"]);
 	assert!(is_match(text(&third["after"]), r"^Then: \|c[0-9a-f]{8}Goldshire\|r$"), "after the last person: the next step");
 	assert_eq!(third["persons"], "");
-	assert_eq!(third["target"], json!(["SetTarget", 1429, 49.6, 40.4, "Brother Neals"]));
+	assert_eq!(
+		third["target"],
+		json!([["AimGoal", 4, 4], ["ReleaseTarget"], false]),
+		"a click on the header leads the arrow to the person's open goal through the Engine, as a click on its line does (#1653)"
+	);
 }
 
 #[test]
@@ -490,6 +494,42 @@ fn left_click_on_a_goal_whose_quest_is_not_taken_yet_says_take_it_first_and_sets
 	.remove(0);
 	assert_eq!(out["calls"], json!(["AimGoal", "ReleaseTarget"]), "the Engine keeps the arrow; no SetTarget");
 	assert_eq!(out["said"], "Take “Wolves Across the Border” first", "said once, where the game says what can't be done");
+}
+
+// #1653: the header of the step the guide is on (here the Discarded Fishing Toolbox, a quest-starting object with
+// three places) leads the arrow through the Engine to its first open goal, as a click on that goal's line does, so a
+// click on the arrow still moves on to the next place. It used to set a point by hand, which held the arrow on one
+// place. Where the Engine can't lead there, the header still points at its place.
+#[test]
+fn a_click_on_the_header_aims_the_arrow_at_the_group_s_open_goal_through_the_engine_not_a_point_by_hand() {
+	let out = run(r#"
+		local id = "forever/alliance/test-loch"
+		uistub.guides[id] = { id = id, pack = "guides", title = "Loch Modan", faction = "Alliance", category = "Leveling", minLevel = 10, maxLevel = 20,
+			zone = 1432, zoneName = "Loch Modan", author = "Polestar", version = 1, steps = {
+			{ title = "The loch", goals = {
+				{ t = "accept", verb = "Accept", subject = "Silver of the Waves", subjectKind = "quest", quest = 86614, object = 665289,
+					objectName = "Discarded Fishing Toolbox", map = 1432, x = 48.1, y = 39.7, spots = 3, status = "active" },
+			} },
+			{ title = "Thelsamar", goals = {
+				{ t = "turnin", verb = "Turn in", subject = "Silver of the Waves", subjectKind = "quest", quest = 86614, npc = 1, npcName = "Khara Deepwater",
+					map = 1432, x = 37.0, y = 46.0, status = "pending" },
+			} },
+		} }
+		uistub.setGuide(id, 1)
+		local P = GF.parts
+		local r = { name = P.person.Name:GetText() }
+		stub.RunScript(P.person, "OnClick", "LeftButton")
+		local t = Polestar.Nav.GetTarget()
+		r.aimed = { lastCall("AimGoal"), lastCall("ReleaseTarget"), lastCall("SetTarget") or false, t.stepIndex, t.goalIndex }
+		-- The Engine can't lead there: the header's place, by hand.
+		Polestar.Engine.AimGoal = function() return false end
+		stub.RunScript(P.person, "OnClick", "LeftButton")
+		r.byHand = lastCall("SetTarget")
+		emit(r)"#)
+	.remove(0);
+	assert_eq!(out["name"], "Discarded Fishing Toolbox");
+	assert_eq!(out["aimed"], json!([["AimGoal", 1, 1], ["ReleaseTarget"], false, 1, 1]), "the Engine's waypoint, with its spots; no point by hand");
+	assert_eq!(out["byHand"], json!(["SetTarget", 1432, 48.1, 39.7, "Discarded Fishing Toolbox"]));
 }
 
 // Skip this quest (Engine.SkipQuest): a quest's line, right-clicked, offers its tick and the quest's skip. The
