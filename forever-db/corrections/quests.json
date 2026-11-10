@@ -1566,12 +1566,6 @@
 		"set": {
 			"objectives": [
 				{
-					"type": "item",
-					"id": 13536,
-					"count": 1,
-					"text": "Horn of Awakening"
-				},
-				{
 					"type": "event",
 					"id": null,
 					"count": null,
@@ -1591,9 +1585,13 @@
 			{
 				"kind": "eg",
 				"ref": "players' caches (EG Link), build 70862: the objective reads 'Escort Kerlonian Evershade on the road south to his bag', the quest text sends you to Liladris Moonriver 'south along the road to find his bag in Darkshore'"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-10: 15 objective lists at accept with the Horn of Awakening line up to uploads of 2026-11-06 13:48; 17 (16 characters) with the escort line only from then on, every upload from 2026-11-06 23:08 (builds 70790-70862); the escort starts at the accept and the horn (spell 17536) is used without opening the chest"
 			}
 		],
-		"note": "The Sleeper Has Awakened: Kerlonian's escort ends at his bag on the road at the southern edge of Darkshore (41.6,89.9), not at Maestra's Post in Ashenvale as the data had; the turn-in is still Liladris Moonriver at Maestra's Post."
+		"note": "The Sleeper Has Awakened: Kerlonian's escort ends at his bag on the road at the southern edge of Darkshore (41.6,89.9), not at Maestra's Post in Ashenvale as the data had; the turn-in is still Liladris Moonriver at Maestra's Post. Since Blizzard's 2026-11-06 hotfix ('Players now also start with the Horn of Awakening item') the quest gives the horn on accept and has one objective, the escort: no chest to open."
 	},
 	"5511": {
 		"set": {
