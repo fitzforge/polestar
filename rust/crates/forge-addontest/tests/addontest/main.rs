@@ -144,6 +144,8 @@ mod engine_training;
 mod engine_unavailable;
 #[path = "engine-upgrade.rs"]
 mod engine_upgrade;
+#[path = "engine-upgrade-twice.rs"]
+mod engine_upgrade_twice;
 #[path = "engine-vendor.rs"]
 mod engine_vendor;
 #[path = "engine-wait.rs"]
