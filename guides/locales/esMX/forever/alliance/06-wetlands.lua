@@ -130,7 +130,7 @@ return {
 	["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\n{npc:270892} is elite: grouping up is advised."] = "",
 
 	-- Step 24: Prospector Whelgar
-	["Below ground"] = "",
+	["Below ground"] = "Bajo tierra",
 
 	-- Step 25: Prospector Whelgar
 	-- {item:279996} Goaz Stone · {zone:1437} Wetlands · {area:205} Dun Modr
@@ -340,7 +340,7 @@ return {
 
 	-- Step 68: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Vuela a {area:1537}",
 	-- {npc:1571} Shellei Brondir
 	["{npc:1571} is the flight master by Menethil's inn."] = "",
 	-- {area:150} Menethil Harbor

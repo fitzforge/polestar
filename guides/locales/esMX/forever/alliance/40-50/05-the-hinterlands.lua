@@ -25,12 +25,12 @@ return {
 
 	-- Step 4: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Vuela a {area:1537}",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "",
 
 	-- Step 5: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Instructor de clase",
 
 	-- Step 6: Tram to Stormwind
 	-- {zone:1453} Stormwind
@@ -58,7 +58,7 @@ return {
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "Maestro de vuelo de {area:144}",
 
 	-- Step 15: Rut'theran Village
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
@@ -86,7 +86,7 @@ return {
 
 	-- Step 24: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
-	["Portal to {zone:1438}"] = "",
+	["Portal to {zone:1438}"] = "Portal a {zone:1438}",
 
 	-- Step 25: Fly to Auberdine
 	-- {area:442} Auberdine

@@ -100,7 +100,7 @@ return {
 
 	-- Step 21: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "前往{area:2101}",
 
 	-- Step 22: Thelsamar
 	-- {npc:1470} Ghak Healtouch

@@ -66,7 +66,7 @@ return {
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "Cuernos prístinos de yeti ({item:12367})",
 	["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "Las Matriarcas y Patriarcas pegan duro: atráelos de uno en uno.",
-	["Below ground"] = "",
+	["Below ground"] = "Bajo tierra",
 
 	-- Step 13: Chillwind chimaeras
 	["Chillwind chimaeras"] = "Quimeras Viento Gélido",

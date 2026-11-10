@@ -251,7 +251,7 @@ return {
 	["If you skipped {quest:91775}, grind here to level 8.39 to stay on the route's plan."] = "",
 
 	-- Step 43: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "職業訓練師",
 
 	-- Step 44: Shaman trainer
 	["Shaman trainer"] = "",

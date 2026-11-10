@@ -69,7 +69,7 @@ return {
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "{area:271}(으)로 날아가세요",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "{area:144} 비행 조련사",
 
 	-- Step 16: Southshore
 	-- {npc:3980} Raleigh the Devout

@@ -67,7 +67,7 @@ return {
 	-- Step 12: Ancient Chest
 	-- {area:1517} Uldaman
 	["Keep north on the road; the chest lies in the {area:1517} dig site, at the foot of the ruins north-west of the road."] = "Sigue al norte por el camino; el cofre está en la excavación de {area:1517}, al pie de las ruinas al noroeste del camino.",
-	["Below ground"] = "",
+	["Below ground"] = "Bajo tierra",
 
 	-- Step 13: Agmond's End
 	-- {area:1877} Valley of Fangs

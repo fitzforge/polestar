@@ -67,7 +67,7 @@ return {
 	["Grells"] = "",
 
 	-- Step 8: Shadowglen
-	["Below ground"] = "",
+	["Below ground"] = "Bajo tierra",
 	-- {quest:97236} Fang of Githyiss
 	["{quest:97236}; below ground"] = "",
 

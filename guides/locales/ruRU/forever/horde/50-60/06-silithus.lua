@@ -36,7 +36,7 @@ return {
 	-- Step 7: Hermit Ortell
 	-- {area:3447} Ortell's Hideout
 	["Ride south-east to {area:3447} under the Un'Goro cliffs."] = "Езжайте на юго-восток сюда: {area:3447}, под скалами Ун'Горо.",
-	["Below ground"] = "",
+	["Below ground"] = "Под землей",
 	-- {item:20377} Rock Stalker Fang · {npc:11739} Rock Stalker
 	["{item:20377} from {npc:11739}, 130 yd south-west"] = "{item:20377} – с NPC {npc:11739}, в 130 м к юго-западу",
 
@@ -238,7 +238,7 @@ return {
 	["Mark {npc:10902} with the {item:12815}"] = "Отметьте предметом {item:12815}: {npc:10902}",
 
 	-- Step 57: Chromie
-	["Upstairs"] = "",
+	["Upstairs"] = "Наверху",
 
 	-- Step 58: Counting Out Time
 	-- {npc:10667} Chromie

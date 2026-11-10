@@ -18,7 +18,7 @@ return {
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Vuela a {area:392}",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
 	-- Step 3: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest

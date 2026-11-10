@@ -24,7 +24,7 @@ return {
 	-- {npc:12430} Grunt Kor'ja · {area:362} Razor Hill · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude
 	["{npc:12430} kneels behind a group of rocks just off the road, a short walk south of {area:362}. Cast {spell:613} (Rank 2) on her first, then {spell:1243}. Rank 1 of {spell:613} does not count; drag Rank 2 onto your bar from the spellbook. She leaves once both land and is back in about 5 minutes."] = "",
 	-- {npc:12430} Grunt Kor'ja
-	["Heal and fortify {npc:12430}"] = "",
+	["Heal and fortify {npc:12430}"] = "Cura y fortalece a {npc:12430}",
 
 	-- Step 4: Tai'jin
 	-- {area:362} Razor Hill · {npc:3706} Tai'jin · {item:16606} Juju Hex Robes
@@ -44,7 +44,7 @@ return {
 	-- {npc:12428} Deathguard Kel · {area:159} Brill · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude
 	["{npc:12428} kneels, half-dead, beside the north gate of {area:159}'s graveyard, a short walk north of the inn. Cast {spell:613} (Rank 2) on him first, then {spell:1243}: Fortitude first does not count, nor does Rank 1 of {spell:613}. If an addon gets in the way, cast both from the spellbook."] = "",
 	-- {npc:12428} Deathguard Kel
-	["Heal and fortify {npc:12428}"] = "",
+	["Heal and fortify {npc:12428}"] = "Cura y fortalece a {npc:12428}",
 
 	-- Step 8: Dark Cleric Beryl
 	-- {area:159} Brill · {item:16607} Acolyte's Sacrificial Robes

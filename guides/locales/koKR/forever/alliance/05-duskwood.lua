@@ -110,7 +110,7 @@ return {
 	["North from {area:94} through Elwynn: {area:87} is on the road to {zone:1453}."] = "",
 
 	-- Step 23: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "직업 전문가",
 	["Level 22 and 24 spells"] = "레벨 22, 24 주문",
 
 	-- Step 24: Gazin Tenorm

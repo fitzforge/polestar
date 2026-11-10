@@ -82,7 +82,7 @@ return {
 	-- {npc:271961} Webbed Forsaken
 	-- plural, as words: Young Night Web Spiders = {npc:1504} Young Night Web Spider · Night Web Spiders = {npc:1505} Night Web Spider
 	["Head west to the cave. The Young Night Web Spiders sit outside; the Night Web Spiders and the cocooned {npc:271961} are inside.\nCareful: A low-level character can die quickly if it pulls several Night Web Spiders in the cave at the same time."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "Под землей",
 	["attack the cocoons inside the cave to free them; below ground"] = "",
 	-- {npc:271961} Webbed Forsaken
 	["Free the {npc:271961}"] = "",

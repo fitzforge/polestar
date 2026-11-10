@@ -215,7 +215,7 @@ return {
 	["{npc:1699}: Camping 101 asks you to learn it; below ground"] = "",
 	-- {npc:1226} Maxan Anvol · {item:16605} Friar's Robes of the Light
 	["{npc:1226}, upstairs: {item:16605}"] = "{npc:1226}, en el piso de arriba: {item:16605}",
-	["Upstairs"] = "",
+	["Upstairs"] = "Arriba",
 
 	-- Step 32: Kharanos and the depot
 	-- {area:131} Kharanos
@@ -370,7 +370,7 @@ return {
 	-- Step 67: Protecting the Herd
 	-- {npc:1388} Vagash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: most classes solo it at level 14, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "Bajo tierra",
 
 	-- Step 68: Amberstill Ranch
 	-- {zone:1455} Ironforge

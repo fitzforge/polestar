@@ -139,7 +139,7 @@ return {
 	["Seahorn's next errand goes back to Arathi: skip it."] = "Следующее поручение Морского Рога ведет обратно в Нагорье Арати: пропустите его.",
 	-- {npc:2542} Catelyn the Blade
 	["{npc:2542}, upstairs"] = "",
-	["Upstairs"] = "",
+	["Upstairs"] = "Наверху",
 
 	-- Step 45: Bloodsail camp
 	["Bloodsail camp"] = "Лагерь шайки Кровавого Паруса",

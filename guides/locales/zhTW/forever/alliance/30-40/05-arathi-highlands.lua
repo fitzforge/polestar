@@ -127,7 +127,7 @@ return {
 	-- Step 30: Iridescent Shards
 	-- {area:318} Drywhisker Gorge
 	["The shards lie at the far end of {area:318}."] = "碎片在{area:318}的最深處。",
-	["Below ground"] = "",
+	["Below ground"] = "地下",
 
 	-- Step 31: Stones of Binding
 	-- {area:320} Refuge Pointe · {object:2702} Stone of Inner Binding

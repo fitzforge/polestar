@@ -46,7 +46,7 @@ return {
 	["{npc:9796} stands just outside the Den's entrance."] = "{npc:9796} está justo afuera de la entrada de la Guarida.",
 
 	-- Step 7: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Instructor de clase",
 
 	-- Step 8: Paladin trainer
 	["Paladin trainer"] = "",
@@ -73,7 +73,7 @@ return {
 	-- Step 15: Yarrog Baneshadow
 	-- {npc:3183} Yarrog Baneshadow
 	["Inside the cave, keep to the right wall all the way round, over the stream: {npc:3183} waits at the end."] = "Dentro de la cueva, sigue la pared derecha todo el camino, pasando sobre el arroyo: {npc:3183} espera al final.",
-	["Below ground"] = "",
+	["Below ground"] = "Bajo tierra",
 
 	-- Step 16: Felstalker hooves
 	-- {npc:3102} Felstalker
@@ -159,7 +159,7 @@ return {
 	-- Step 27: Tiragarde Keep
 	-- {area:362} Razor Hill · {item:4870} Canvas Scraps · {npc:3192} Lieutenant Benedict · {item:4881} Aged Envelope
 	["The keep stands on the coast south-east of {area:362}. The raiders' axe, bow and shield lie on its outskirts. Sailors and marines drop the {item:4870}. {npc:3192} waits at the top of the keep; his key opens the chest beside him, which holds the {item:4881}."] = "El fuerte está en la costa al sureste de {area:362}. El hacha, el arco y el escudo de los asaltantes están en sus afueras. Los marineros y marines sueltan {item:4870}. {npc:3192} espera en lo alto del fuerte; su llave abre el cofre a su lado, que contiene {item:4881}.",
-	["Upstairs"] = "",
+	["Upstairs"] = "Arriba",
 
 	-- Step 28: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3147} Furl Scornbrow · {npc:3142} Orgnil Soulscar · {npc:266940} Turroc

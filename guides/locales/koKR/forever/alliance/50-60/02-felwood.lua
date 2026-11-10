@@ -83,7 +83,7 @@ return {
 	-- Step 15: Irontree Woods
 	-- {area:1767} Irontree Woods · {area:2618} Jadefire Run · {item:11503} Blood Amber
 	["The Warpwood treants of {area:1767}, east of {area:2618}, carry the {item:11503}."] = "{area:2618} 동쪽 {area:1767}의 굽이나무정령이 {item:11503}을(를) 가지고 있습니다.",
-	["Below ground"] = "",
+	["Below ground"] = "지하",
 
 	-- Step 16: Nafien
 	-- {area:1769} Timbermaw Hold · {npc:15395} Nafien

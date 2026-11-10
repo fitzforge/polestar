@@ -4789,7 +4789,7 @@
 					1501
 				],
 				"faction": "Horde",
-				"why": "Horde final route review (0.3.6, 2026-11-09): Durotar (Orc, Troll) Warlocks: Creature of the Void's Tablet of Verga (Skull Rock) goes to Gan'rul Bloodeye, and The Binding is done, on the guide's last arrival in Orgrimmar (the Cleft of Shadow, beside Neeru Fireblade for the next guide), after the last Razor Hill stop; the route walked from Skull Rock into Orgrimmar and back out to Margoz in the middle of the guide, then came back to the city at the end (the benchmark order binds the voidwalker with Neeru's hand-in at the end)."
+				"why": "Horde final route review (0.3.6, 2026-11-09): Durotar (Orc, Troll) Warlocks: Creature of the Void's Tablet of Verga (Skull Rock) goes to Gan'rul Bloodeye, and The Binding is done, on the guide's last arrival in Orgrimmar (the Cleft of Shadow, beside Neeru Fireblade for the next guide), after the last Razor Hill stop; the route walked from Skull Rock into Orgrimmar and back out to Margoz in the middle of the guide, then came back to the city at the end (our comparison binds the voidwalker with Neeru's hand-in at the end)."
 			},
 			{
 				"a": [
@@ -6434,7 +6434,7 @@
 					1454
 				],
 				"faction": "Alliance",
-				"why": "Desolace (Alliance 30-40, 0.3.6, BrAlliance3040, our comparison): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit, as the benchmark order does, leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end."
+				"why": "Desolace (Alliance 30-40, 0.3.6, BrAlliance3040, our comparison): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit, as our comparison does, leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end."
 			},
 			{
 				"a": [
@@ -6446,7 +6446,7 @@
 					1454
 				],
 				"faction": "Alliance",
-				"why": "Desolace (Alliance 30-40, 0.3.6, BrAlliance3040, our comparison): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit, as the benchmark order does, leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end."
+				"why": "Desolace (Alliance 30-40, 0.3.6, BrAlliance3040, our comparison): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit, as our comparison does, leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end."
 			},
 			{
 				"a": [
@@ -6458,7 +6458,7 @@
 					1455
 				],
 				"faction": "Alliance",
-				"why": "Desolace (Alliance 30-40, 0.3.6, BrAlliance3040, our comparison): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit, as the benchmark order does, leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end. The chest's report (1455) goes in with Reagents (1459) on the visit's last Kreldig stop, which gives the satchel's errand (1456) to carry to the south loop."
+				"why": "Desolace (Alliance 30-40, 0.3.6, BrAlliance3040, our comparison): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit, as our comparison does, leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end. The chest's report (1455) goes in with Reagents (1459) on the visit's last Kreldig stop, which gives the satchel's errand (1456) to carry to the south loop."
 			},
 			{
 				"a": [
@@ -8993,7 +8993,7 @@
 			},
 			{
 				"q": 6523,
-				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10): Protect Kaya (level 18, from 12, 1350 XP) from Kaya Flathoof (11856, Stonetalon 73.5,85.6) in Grundig Darkcloud's hut at the bend of the Webwinder Path, which 02-the-barrens walks past going up (Grundig, 6629) and coming back down from Ziz; the escort ends at Camp Aparaje (77.1,90.8) between the hut and Malaka'jin, and Makaba takes it with Kill Grundig Darkcloud on the last Seereth stop. Players' recordings: 6 people, every one completed (levels 18-25), hand-ins at Makaba (11857). Both benchmark guides of our comparison escort her on this walk.",
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10): Protect Kaya (level 18, from 12, 1350 XP) from Kaya Flathoof (11856, Stonetalon 73.5,85.6) in Grundig Darkcloud's hut at the bend of the Webwinder Path, which 02-the-barrens walks past going up (Grundig, 6629) and coming back down from Ziz; the escort ends at Camp Aparaje (77.1,90.8) between the hut and Malaka'jin, and Makaba takes it with Kill Grundig Darkcloud on the last Seereth stop. Players' recordings: 6 people, every one completed (levels 18-25), hand-ins at Makaba (11857). Both guides of our comparison escort her on this walk.",
 				"issue": "-",
 				"after": [
 					"accept",
@@ -12916,7 +12916,7 @@
 					1466
 				],
 				"faction": "Alliance",
-				"why": "Desolace (Alliance 30-40, 0.3.6, BrAlliance3040, our comparison): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit, as the benchmark order does, leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end. The satchel is dived for before the south loop's Reagents hand-in, so Nijel's Point is visited once, at the end.",
+				"why": "Desolace (Alliance 30-40, 0.3.6, BrAlliance3040, our comparison): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit, as our comparison does, leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end. The satchel is dived for before the south loop's Reagents hand-in, so Nijel's Point is visited once, at the end.",
 				"source": "BrAlliance3040"
 			},
 			{
@@ -12929,7 +12929,7 @@
 					691
 				],
 				"faction": "Alliance",
-				"why": "Arathi Highlands (Alliance 30-40/05, 0.3.6, BrAlliance3040, our comparison): the loop from Northfold Manor goes once round (the Iridescent Shards before the trolls): east along the north to the Shards of Myzrael (62.5,33.7), Drywhisker Gorge and the Iridescent Shards (84.3,31.0), back to the Stone of East Binding (66.7,29.7), then south to Witherbark Village (Witch Doctors 61-68,64-77, Shadow Hunters 66-69,78-82) and north-west to Quae (60.2,53.9). The guide went from Northfold to the troll village in the south-east, north to the shards, east to the gorge and south again to Quae: about 540 yd more and the valley crossed twice. The benchmark order loops the same way.",
+				"why": "Arathi Highlands (Alliance 30-40/05, 0.3.6, BrAlliance3040, our comparison): the loop from Northfold Manor goes once round (the Iridescent Shards before the trolls): east along the north to the Shards of Myzrael (62.5,33.7), Drywhisker Gorge and the Iridescent Shards (84.3,31.0), back to the Stone of East Binding (66.7,29.7), then south to Witherbark Village (Witch Doctors 61-68,64-77, Shadow Hunters 66-69,78-82) and north-west to Quae (60.2,53.9). The guide went from Northfold to the troll village in the south-east, north to the shards, east to the gorge and south again to Quae: about 540 yd more and the valley crossed twice. Our comparison loops the same way.",
 				"source": "BrAlliance3040"
 			},
 			{
@@ -12986,6 +12986,7 @@
 			},
 			{
 				"a": [
+					"accept",
 					5542
 				],
 				"b": [

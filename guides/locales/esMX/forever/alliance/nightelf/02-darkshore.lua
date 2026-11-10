@@ -125,7 +125,7 @@ return {
 	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "",
 
 	-- Step 26: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Instructor de clase",
 
 	-- Step 27: Shaman trainer
 	["Shaman trainer"] = "",

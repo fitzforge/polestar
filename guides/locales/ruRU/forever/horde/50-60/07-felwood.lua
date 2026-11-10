@@ -15,7 +15,7 @@ return {
 
 	-- Step 3: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Распорядитель полетов: {zone:1454}",
 
 	-- Step 4: Vehena
 	-- {object:172961} Valley of Spirits
@@ -47,7 +47,7 @@ return {
 	-- Step 10: Dousing the Flames of Protection
 	-- {area:1763} Jaedenar
 	["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "Под землей",
 
 	-- Step 11: Greta Mosshoof
 	["Back south to the Sanctuary, a short ride."] = "Обратно на юг к Святилищу, недалеко.",

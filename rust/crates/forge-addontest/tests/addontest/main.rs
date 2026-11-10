@@ -74,6 +74,8 @@ mod engine_die;
 mod engine_dwell;
 #[path = "engine-enter.rs"]
 mod engine_enter;
+#[path = "engine-failed-quest.rs"]
+mod engine_failed_quest;
 #[path = "engine-feeders.rs"]
 mod engine_feeders;
 #[path = "engine-flights.rs"]
@@ -98,8 +100,6 @@ mod engine_level;
 mod engine_level_pick;
 #[path = "engine-level-wait.rs"]
 mod engine_level_wait;
-#[path = "engine-failed-quest.rs"]
-mod engine_failed_quest;
 #[path = "engine-lost-quest.rs"]
 mod engine_lost_quest;
 #[path = "engine-manual.rs"]

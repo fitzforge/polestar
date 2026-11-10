@@ -56,7 +56,7 @@ return {
 	-- Step 16: The Mind's Eye
 	-- {npc:818} Mai'Zoth
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:818} (level 47 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\nCareful: Two elite caster guards, around level 45, stand with {npc:818} and join the fight together with him."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "Bajo tierra",
 
 	-- Step 20: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -138,7 +138,7 @@ return {
 	-- Step 38: Archmage Xylem
 	-- {area:1237} Valormok
 	["Xylem's tower stands on the cliff just north of {area:1237}; the path winds up its north side."] = "La torre de Xylem está en el acantilado justo al norte de {area:1237}; el sendero sube serpenteando por su lado norte.",
-	["Upstairs"] = "",
+	["Upstairs"] = "Arriba",
 
 	-- Step 40: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -165,14 +165,14 @@ return {
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Vuela a {area:1638}",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
 	-- Step 45: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {area:1099} Camp Mojache · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise · {npc:3033} Turak Runetotem · {npc:246344} Alodan the Hopeful
 	["Fly to {zone:1456}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and {npc:4046} are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "Vuela a {zone:1456}; está camino a {area:1099}. ¿Aún no tienes esa ruta de vuelo? Vuela a {area:378} y cabalga al oeste por {zone:1412}. Hamuul y {npc:4046} están en {area:1639}; los druidas y paladines entrenan aquí ({npc:3033}, {npc:246344}).",
 
 	-- Step 46: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Instructor de clase",
 
 	-- Step 47: Thunder Bluff
 	-- {quest:3761} Un'Goro Soil · {npc:4046} Magatha Grimtotem · {npc:8587} Jediga

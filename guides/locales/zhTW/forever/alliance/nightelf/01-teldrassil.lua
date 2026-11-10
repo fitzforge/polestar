@@ -67,7 +67,7 @@ return {
 	["Grells"] = "",
 
 	-- Step 8: Shadowglen
-	["Below ground"] = "",
+	["Below ground"] = "地下",
 	-- {quest:97236} Fang of Githyiss
 	["{quest:97236}; below ground"] = "",
 
@@ -85,7 +85,7 @@ return {
 	-- Step 11: Tenaron Stormgrip
 	-- {area:256} Aldrassil · {object:654846} Lost Journal (no name in this language: may be words)
 	["Back to the top of {area:256}. The {object:654846} lies beside him."] = "回到{area:256}頂端。{object:654846}就在他旁邊。",
-	["Upstairs"] = "",
+	["Upstairs"] = "樓上",
 	-- {object:654846} Lost Journal (no name in this language: may be words)
 	["{object:654846}, upstairs"] = "",
 	-- {npc:3595} Shanda · {area:256} Aldrassil · {npc:3600} Laurna Morninglight · {area:186} Dolanaar

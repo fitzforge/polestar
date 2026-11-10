@@ -12,7 +12,7 @@ return {
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638} first: two of its elders give quests worked on this guide's and the next guide's walks."] = "Vuela primero a {area:1638}: dos de sus ancianos dan misiones que se completan en los recorridos de esta guía y de la siguiente.",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
 	-- Step 3: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo

@@ -137,7 +137,7 @@ return {
 	-- Step 27: J.D. Collie
 	-- {area:541} Marshal's Refuge
 	["Ride north back to {area:541}."] = "북쪽 {area:541}(으)로 돌아가세요.",
-	["Below ground"] = "",
+	["Below ground"] = "지하",
 
 	-- Step 28: To Gadgetzan
 	-- {area:976} Gadgetzan
@@ -155,7 +155,7 @@ return {
 	-- {area:976} Gadgetzan
 	["Back to {area:976}"] = "",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",
 
 	-- Step 32: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
@@ -248,7 +248,7 @@ return {
 	-- Step 50: Janice Felstone
 	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {npc:10778} Janice Felstone
 	["From the {area:152}, follow the road east into the {zone:1422}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "",
-	["Upstairs"] = "",
+	["Upstairs"] = "위층",
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, beside the house; inside"] = "",
 	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity

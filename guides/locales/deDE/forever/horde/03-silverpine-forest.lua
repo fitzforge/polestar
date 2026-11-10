@@ -37,7 +37,7 @@ return {
 	["{npc:2855}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:2855}: Camping 101, von Brakks Lagerfeuer in {zone:1411}",
 
 	-- Step 6: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Klassenlehrer",
 	["Train while you are in the city: Druids and Paladins have no trainer here."] = "",
 
 	-- Step 7: Sayoc

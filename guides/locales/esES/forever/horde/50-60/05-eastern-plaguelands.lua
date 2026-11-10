@@ -141,7 +141,7 @@ return {
 	-- {area:1997} Bloodvenom Post
 	["Fly to {area:1997}"] = "",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
 	-- Step 32: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
@@ -172,7 +172,7 @@ return {
 	["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Atraviesa {area:1769} y toma el ramal del túnel hacia {zone:1450}. {npc:11801} está en {area:2361}.",
 
 	-- Step 40: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Instructor de clase",
 
 	-- Step 41: Rabine Saturna
 	-- {zone:1451} Silithus

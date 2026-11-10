@@ -163,10 +163,10 @@ return {
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["From the bridge, head north to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "",
 	-- {item:6866} Symbol of Life · {npc:6172} Henze Faulk
-	["Use the {item:6866} on {npc:6172}"] = "",
+	["Use the {item:6866} on {npc:6172}"] = "Usa el {item:6866} en {npc:6172}",
 	-- {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["{item:6846}: Defias Rogue Wizards"] = "",
+	["{item:6846}: Defias Rogue Wizards"] = "{item:6846}: Zahoríes bribones Defias",
 
 	-- Step 32: Three Corners
 	-- {area:1002} Three Corners · {npc:464} Guard Parker
@@ -364,5 +364,5 @@ return {
 	["{npc:6173} and {npc:6171} are in the Cathedral of Light, on {object:2098}, on the way to the harbour."] = "",
 	["Cathedral of Light"] = "",
 	-- {npc:6171} Duthorian Rall
-	["{npc:6171}: Redemption"] = "",
+	["{npc:6171}: Redemption"] = "{npc:6171}: Redención",
 }

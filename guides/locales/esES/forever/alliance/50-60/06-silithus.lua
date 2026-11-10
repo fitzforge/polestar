@@ -136,7 +136,7 @@ return {
 	-- {area:3425} Cenarion Hold
 	["Fly to {area:3425}"] = "",
 	-- {area:541} Marshal's Refuge
-	["{area:541} flight master"] = "",
+	["{area:541} flight master"] = "Maestro de vuelo de {area:541}",
 
 	-- Step 23: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg
@@ -170,7 +170,7 @@ return {
 	-- Step 28: Hermit Ortell
 	-- {area:2738} Southwind Village
 	["The hermit hides among the rocks south-east of {area:2738}."] = "El ermitaño se esconde entre las rocas al sureste de {area:2738}.",
-	["Below ground"] = "",
+	["Below ground"] = "Bajo tierra",
 
 	-- Step 29: Bronzebeard's Encampment
 	["Bronzebeard's Encampment"] = "Campamento Barbabronce",
@@ -312,7 +312,7 @@ return {
 
 	-- Step 71: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
-	["Portal to {zone:1438}"] = "",
+	["Portal to {zone:1438}"] = "Portal a {zone:1438}",
 
 	-- Step 72: Fly to Auberdine
 	-- {area:442} Auberdine

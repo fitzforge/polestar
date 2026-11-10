@@ -56,7 +56,7 @@ return {
 	-- Step 16: The Mind's Eye
 	-- {npc:818} Mai'Zoth
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:818} (level 47 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\nCareful: Two elite caster guards, around level 45, stand with {npc:818} and join the fight together with him."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "Под землей",
 
 	-- Step 20: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -138,7 +138,7 @@ return {
 	-- Step 38: Archmage Xylem
 	-- {area:1237} Valormok
 	["Xylem's tower stands on the cliff just north of {area:1237}; the path winds up its north side."] = "Башня Ксилема стоит на скале чуть севернее места {area:1237}; тропа вьется по ее северной стороне.",
-	["Upstairs"] = "",
+	["Upstairs"] = "Наверху",
 
 	-- Step 40: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -165,7 +165,7 @@ return {
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Летите сюда: {area:1638}",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Распорядитель полетов: {zone:1454}",
 
 	-- Step 45: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {area:1099} Camp Mojache · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise · {npc:3033} Turak Runetotem · {npc:246344} Alodan the Hopeful

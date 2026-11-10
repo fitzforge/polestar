@@ -83,7 +83,7 @@ return {
 	-- Step 18: A-Me 01
 	-- {area:1943} Ironstone Plateau
 	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Reite nach Osten zum {area:1943}, wo der Roboter zwischen den Gorillas steht. Bleib dort aus der tiefen Höhle fern.",
-	["Below ground"] = "",
+	["Below ground"] = "Unter der Erde",
 
 	-- Step 19: Level 49.51
 	["Level 49.51"] = "",
@@ -137,13 +137,13 @@ return {
 
 	-- Step 27: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "Zum {area:2101}",
 
 	-- Step 28: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Flieg nach {area:1537}",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "Flugmeister in {area:144}",
 
 	-- Step 29: Mystic Ward
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara

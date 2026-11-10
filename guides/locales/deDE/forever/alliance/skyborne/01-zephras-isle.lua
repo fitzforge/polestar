@@ -69,7 +69,7 @@ return {
 	-- {npc:251115} Urs'anah · {npc:250926} Scrawny Ursera
 	-- plural, as words: Ursera Scavengers = {npc:250937} Ursera Scavenger
 	["The Ursera Scavengers den west of the grove, with {npc:251115}, the matriarch, at the back of the den; {npc:250926} prowl the woods between the den and the grove."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "Unter der Erde",
 	-- {item:252665} Head of Urs'anah
 	["{item:252665}; below ground"] = "",
 
@@ -153,7 +153,7 @@ return {
 	["Shen'dar turn-ins"] = "Shen'dar: Quests abgeben",
 
 	-- Step 21: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Klassenlehrer",
 
 	-- Step 22: Paladin trainer
 	["Paladin trainer"] = "",

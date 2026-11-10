@@ -83,7 +83,7 @@ return {
 	-- Step 15: Irontree Woods
 	-- {area:1767} Irontree Woods · {area:2618} Jadefire Run · {item:11503} Blood Amber
 	["The Warpwood treants of {area:1767}, east of {area:2618}, carry the {item:11503}."] = "{item:11503} носят древни-криводревы ({area:1767}, к востоку от места {area:2618}).",
-	["Below ground"] = "",
+	["Below ground"] = "Под землей",
 
 	-- Step 16: Nafien
 	-- {area:1769} Timbermaw Hold · {npc:15395} Nafien

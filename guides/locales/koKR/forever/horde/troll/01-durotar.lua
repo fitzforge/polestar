@@ -46,7 +46,7 @@ return {
 	["{npc:9796} stands just outside the Den's entrance."] = "{npc:9796}은(는) 동굴 막사 입구 바로 바깥에 서 있습니다.",
 
 	-- Step 7: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "직업 전문가",
 
 	-- Step 8: Paladin trainer
 	["Paladin trainer"] = "",
@@ -73,7 +73,7 @@ return {
 	-- Step 15: Yarrog Baneshadow
 	-- {npc:3183} Yarrog Baneshadow
 	["Inside the cave, keep to the right wall all the way round, over the stream: {npc:3183} waits at the end."] = "동굴 안에서 개울을 건너 오른쪽 벽을 따라 끝까지 돌아가세요. {npc:3183}이(가) 끝에서 기다립니다.",
-	["Below ground"] = "",
+	["Below ground"] = "지하",
 
 	-- Step 16: Felstalker hooves
 	-- {npc:3102} Felstalker
@@ -159,7 +159,7 @@ return {
 	-- Step 27: Tiragarde Keep
 	-- {area:362} Razor Hill · {item:4870} Canvas Scraps · {npc:3192} Lieutenant Benedict · {item:4881} Aged Envelope
 	["The keep stands on the coast south-east of {area:362}. The raiders' axe, bow and shield lie on its outskirts. Sailors and marines drop the {item:4870}. {npc:3192} waits at the top of the keep; his key opens the chest beside him, which holds the {item:4881}."] = "요새는 {area:362} 남동쪽 해안에 있습니다. 약탈자의 도끼, 활, 방패는 요새 외곽에 있습니다. 선원과 해병이 {item:4870}을(를) 떨어뜨립니다. {npc:3192}은(는) 요새 꼭대기에서 기다리며, 그의 열쇠로 옆 상자를 열면 {item:4881}이(가) 들어 있습니다.",
-	["Upstairs"] = "",
+	["Upstairs"] = "위층",
 
 	-- Step 28: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3147} Furl Scornbrow · {npc:3142} Orgnil Soulscar · {npc:266940} Turroc

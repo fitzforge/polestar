@@ -106,7 +106,7 @@ return {
 	-- Step 22: Iridescent Shards
 	-- {object:2701} Iridescent Shards
 	["The {object:2701} lie at the far end of the gorge."] = "{object:2701}在峽谷的最深處。",
-	["Below ground"] = "",
+	["Below ground"] = "地下",
 
 	-- Step 23: The Stone of East Binding
 	-- {object:2691} Stone of East Binding

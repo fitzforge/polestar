@@ -136,7 +136,7 @@ return {
 	-- {area:3425} Cenarion Hold
 	["Fly to {area:3425}"] = "",
 	-- {area:541} Marshal's Refuge
-	["{area:541} flight master"] = "",
+	["{area:541} flight master"] = "Maestro de vuelo de {area:541}",
 
 	-- Step 23: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg
@@ -170,7 +170,7 @@ return {
 	-- Step 28: Hermit Ortell
 	-- {area:2738} Southwind Village
 	["The hermit hides among the rocks south-east of {area:2738}."] = "El ermitaño se esconde entre las rocas al sureste de {area:2738}.",
-	["Below ground"] = "",
+	["Below ground"] = "Bajo tierra",
 
 	-- Step 29: Bronzebeard's Encampment
 	["Bronzebeard's Encampment"] = "Campamento Barbabronce",
@@ -312,7 +312,7 @@ return {
 
 	-- Step 71: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
-	["Portal to {zone:1438}"] = "",
+	["Portal to {zone:1438}"] = "Portal a {zone:1438}",
 
 	-- Step 72: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -378,7 +378,7 @@ return {
 	-- {npc:10778} Janice Felstone · {area:199} Felstone Field
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
 	["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of Andorhal. The Jabbering Ghouls in the field carry the other half of the charm: combine the two halves."] = "El fantasma de {npc:10778} deambula junto a la granja de {area:199}, al oeste de Andorhal. Los necrófagos farfullantes del campo llevan la otra mitad del amuleto: combina las dos mitades.",
-	["Upstairs"] = "",
+	["Upstairs"] = "Arriba",
 
 	-- Step 85: Northridge Lumber Camp
 	["Ride north up the road to the lumber mill and set the termite barrel down in the middle of it."] = "Cabalga al norte por el camino hasta el Aserradero Crestanorte y deja la barrica de termitas en medio.",

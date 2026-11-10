@@ -136,7 +136,7 @@ return {
 	-- {area:3425} Cenarion Hold
 	["Fly to {area:3425}"] = "",
 	-- {area:541} Marshal's Refuge
-	["{area:541} flight master"] = "",
+	["{area:541} flight master"] = "{area:541} 비행 조련사",
 
 	-- Step 23: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg
@@ -170,7 +170,7 @@ return {
 	-- Step 28: Hermit Ortell
 	-- {area:2738} Southwind Village
 	["The hermit hides among the rocks south-east of {area:2738}."] = "은둔자는 {area:2738} 남동쪽 바위 사이에 숨어 있습니다.",
-	["Below ground"] = "",
+	["Below ground"] = "지하",
 
 	-- Step 29: Bronzebeard's Encampment
 	["Bronzebeard's Encampment"] = "브론즈비어드 야영지",
@@ -312,7 +312,7 @@ return {
 
 	-- Step 71: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
-	["Portal to {zone:1438}"] = "",
+	["Portal to {zone:1438}"] = "{zone:1438}행 차원문",
 
 	-- Step 72: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -378,7 +378,7 @@ return {
 	-- {npc:10778} Janice Felstone · {area:199} Felstone Field
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
 	["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of Andorhal. The Jabbering Ghouls in the field carry the other half of the charm: combine the two halves."] = "{npc:10778}의 유령은 안돌할 서쪽 {area:199}의 농가 옆을 떠돕니다. 들판의 {npc:10801}이(가) 부적의 나머지 반쪽을 가지고 있습니다. 두 반쪽을 합치세요.",
-	["Upstairs"] = "",
+	["Upstairs"] = "위층",
 
 	-- Step 85: Northridge Lumber Camp
 	["Ride north up the road to the lumber mill and set the termite barrel down in the middle of it."] = "길을 따라 북쪽의 제재소로 가서 한가운데에 흰개미 통을 내려놓으세요.",

@@ -8,7 +8,7 @@
 return {
 	-- Step 1: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "A {area:2101}",
 
 	-- Step 2: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
@@ -123,7 +123,7 @@ return {
 	-- Step 33: Margol's Horn
 	-- {quest:3181} The Horn of the Beast
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:3181} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "Bajo tierra",
 
 	-- Step 35: Squire Maltrake
 	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade · {area:1446} Thorium Point
@@ -133,7 +133,7 @@ return {
 
 	-- Step 37: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Vuela a {area:1537}",
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "",
 
@@ -146,7 +146,7 @@ return {
 	["Four rune rubbings in {zone:1447}: keep it"] = "Cuatro calcos de runas en {zone:1447}: guárdala",
 
 	-- Step 40: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Instructor de clase",
 
 	-- Step 41: Xiggs Fuselighter
 	-- {object:32359} Military Ward (no name in this language: may be words)

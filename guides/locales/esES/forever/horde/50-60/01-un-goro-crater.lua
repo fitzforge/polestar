@@ -137,7 +137,7 @@ return {
 	-- Step 27: J.D. Collie
 	-- {area:541} Marshal's Refuge
 	["Ride north back to {area:541}."] = "Vuelve al norte, a {area:541}.",
-	["Below ground"] = "",
+	["Below ground"] = "Bajo tierra",
 
 	-- Step 28: To Gadgetzan
 	-- {area:976} Gadgetzan
@@ -155,7 +155,7 @@ return {
 	-- {area:976} Gadgetzan
 	["Back to {area:976}"] = "",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
 	-- Step 32: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port

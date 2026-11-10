@@ -18,7 +18,7 @@ return {
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "飛往{area:392}",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "{zone:1454}的飛行管理員",
 
 	-- Step 3: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
@@ -119,7 +119,7 @@ return {
 	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "",
 
 	-- Step 29: Janice Felstone
-	["Upstairs"] = "",
+	["Upstairs"] = "樓上",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Both {item:14047} donations are handed in later in the route: start saving {item:14047}."] = "兩個{item:14047}捐獻都在路線稍後繳交：開始存{item:14047}。",

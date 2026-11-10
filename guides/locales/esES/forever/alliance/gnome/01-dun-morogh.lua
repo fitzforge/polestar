@@ -345,7 +345,7 @@ return {
 	-- Step 64: Protecting the Herd
 	-- {npc:1388} Vagash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: most classes solo it at level 14, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "Bajo tierra",
 
 	-- Step 65: Rudra Amberstill
 	-- {zone:1455} Ironforge

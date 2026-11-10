@@ -109,7 +109,7 @@ return {
 	["{npc:8659}, the {object:172960}"] = "{object:172960}의 {npc:8659}",
 
 	-- Step 21: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "직업 전문가",
 
 	-- Step 22: Druid trainer
 	["Druid trainer"] = "",
@@ -120,7 +120,7 @@ return {
 	-- {area:431} Splintertree Post
 	["Fly to {area:431}"] = "",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",
 
 	-- Step 25: Emerald Sanctuary
 	["The druids' camp is just past the border."] = "드루이드 야영지는 경계를 막 지나서 있습니다.",
@@ -172,7 +172,7 @@ return {
 	-- Step 36: Rakaiah
 	-- {npc:9518} Rakaiah · {area:1763} Jaedenar · {npc:11020} Remains of Trey Lightforge
 	["The succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "지하",
 	-- {npc:11020} Remains of Trey Lightforge
 	["{npc:11020}, below ground"] = "",
 

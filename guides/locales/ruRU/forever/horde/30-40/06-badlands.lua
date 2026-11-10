@@ -67,7 +67,7 @@ return {
 	-- Step 12: Ancient Chest
 	-- {area:1517} Uldaman
 	["Keep north on the road; the chest lies in the {area:1517} dig site, at the foot of the ruins north-west of the road."] = "Идите дальше на север по дороге; сундук – на раскопках ({area:1517}), у подножия руин к северо-западу от дороги.",
-	["Below ground"] = "",
+	["Below ground"] = "Под землей",
 
 	-- Step 13: Agmond's End
 	-- {area:1877} Valley of Fangs

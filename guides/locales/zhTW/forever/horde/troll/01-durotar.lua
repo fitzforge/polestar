@@ -46,7 +46,7 @@ return {
 	["{npc:9796} stands just outside the Den's entrance."] = "{npc:9796}就站在大獸穴入口外。",
 
 	-- Step 7: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "職業訓練師",
 
 	-- Step 8: Paladin trainer
 	["Paladin trainer"] = "",
@@ -73,7 +73,7 @@ return {
 	-- Step 15: Yarrog Baneshadow
 	-- {npc:3183} Yarrog Baneshadow
 	["Inside the cave, keep to the right wall all the way round, over the stream: {npc:3183} waits at the end."] = "進入洞穴後，一路沿著右側牆壁繞行，越過溪流：{npc:3183}在盡頭等著。",
-	["Below ground"] = "",
+	["Below ground"] = "地下",
 
 	-- Step 16: Felstalker hooves
 	-- {npc:3102} Felstalker
@@ -159,7 +159,7 @@ return {
 	-- Step 27: Tiragarde Keep
 	-- {area:362} Razor Hill · {item:4870} Canvas Scraps · {npc:3192} Lieutenant Benedict · {item:4881} Aged Envelope
 	["The keep stands on the coast south-east of {area:362}. The raiders' axe, bow and shield lie on its outskirts. Sailors and marines drop the {item:4870}. {npc:3192} waits at the top of the keep; his key opens the chest beside him, which holds the {item:4881}."] = "城堡位於{area:362}東南方的海岸上。襲擊者的斧頭、弓和盾牌在城堡外圍。庫爾提拉斯水手和水兵會掉落{item:4870}。{npc:3192}在城堡頂端等候；他的鑰匙可以打開他旁邊的箱子，裡面有{item:4881}。",
-	["Upstairs"] = "",
+	["Upstairs"] = "樓上",
 
 	-- Step 28: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3147} Furl Scornbrow · {npc:3142} Orgnil Soulscar · {npc:266940} Turroc

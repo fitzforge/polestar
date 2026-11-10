@@ -12,7 +12,7 @@ return {
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638} first: two of its elders give quests worked on this guide's and the next guide's walks."] = "先飛往{area:1638}：那裡的兩位長者會給予在本指南和下一份指南路線中完成的任務。",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "{zone:1454}的飛行管理員",
 
 	-- Step 3: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo

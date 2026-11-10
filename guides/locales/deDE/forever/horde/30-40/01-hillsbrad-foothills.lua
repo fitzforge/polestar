@@ -225,7 +225,7 @@ return {
 	["Shindigger keg"] = "Fässchen Shindigger-Starkbier",
 	-- {area:290} Dun Garok · {area:271} Southshore · {npc:2304} Captain Ironhill
 	["The Kegs of Shindigger Stout stand in the cellar of {area:290}, the dwarven keep south-east of {area:271}, beside {npc:2304} (32); every dwarf there is elite (28-32)."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "Unter der Erde",
 
 	-- Step 44: Back to Tarren Mill
 	-- {area:272} Tarren Mill

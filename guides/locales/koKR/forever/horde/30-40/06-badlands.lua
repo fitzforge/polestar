@@ -67,7 +67,7 @@ return {
 	-- Step 12: Ancient Chest
 	-- {area:1517} Uldaman
 	["Keep north on the road; the chest lies in the {area:1517} dig site, at the foot of the ruins north-west of the road."] = "길을 따라 계속 북쪽으로 가세요. 상자는 길 북서쪽 폐허 기슭의 {area:1517} 발굴지에 있습니다.",
-	["Below ground"] = "",
+	["Below ground"] = "지하",
 
 	-- Step 13: Agmond's End
 	-- {area:1877} Valley of Fangs

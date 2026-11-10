@@ -20,7 +20,7 @@ return {
 	-- Step 5: Marlene Redpath
 	-- {npc:10927} Marlene Redpath · {npc:10936} Joseph Redpath
 	["{npc:10927}'s farmhouse stands on the hill east of the camp; {npc:10936}'s monument is just north of it."] = "{npc:10927}의 농가는 야영지 동쪽 언덕 위에 있고, {npc:10936}의 기념비는 바로 그 북쪽에 있습니다.",
-	["Upstairs"] = "",
+	["Upstairs"] = "위층",
 	-- {item:12894} Joseph's Wedding Ring
 	["{item:12894}, at the monument"] = "기념비의 {item:12894}",
 
@@ -230,7 +230,7 @@ return {
 
 	-- Step 63: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
-	["Portal to {zone:1438}"] = "",
+	["Portal to {zone:1438}"] = "{zone:1438}행 차원문",
 
 	-- Step 64: Rut'theran Village flight master
 	-- {area:702} Rut'theran Village
@@ -463,7 +463,7 @@ return {
 	-- Step 119: U'cha
 	-- {npc:9622} U'cha
 	["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "동쪽을 따라 북쪽의 고릴라 고원으로 가세요. 55레벨 고릴라 {npc:9622}은(는) 가장 깊은 동굴에 있습니다. 먼저 동굴 입구의 고릴라를 정리하세요.",
-	["Below ground"] = "",
+	["Below ground"] = "지하",
 
 	-- Step 120: Lar'korwi
 	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder · {item:11568} Torwa's Pouch

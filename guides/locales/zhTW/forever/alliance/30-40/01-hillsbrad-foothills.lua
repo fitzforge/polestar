@@ -103,7 +103,7 @@ return {
 	["{quest:98246}: the eggs"] = "",
 
 	-- Step 23: Prospector Whelgar
-	["Below ground"] = "",
+	["Below ground"] = "地下",
 	-- {npc:2916} Historian Karnik · {zone:1455} Ironforge
 	["For {npc:2916} in {zone:1455}, at the end of this guide"] = "給{zone:1455}的{npc:2916}，在本指南結尾",
 
@@ -215,7 +215,7 @@ return {
 
 	-- Step 47: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "飛往{area:1537}",
 	-- {area:271} Southshore
 	["{area:271} flight master"] = "",
 

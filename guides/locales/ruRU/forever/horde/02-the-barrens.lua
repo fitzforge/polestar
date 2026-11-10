@@ -110,7 +110,7 @@ return {
 	-- {area:392} Ratchet
 	["Follow the road south-east to {area:392} on the coast."] = "Идите по дороге на юго-восток: {area:392} на побережье.",
 	-- {npc:3391} Gazlowe
-	["{npc:3391}, upstairs"] = "",
+	["{npc:3391}, upstairs"] = "{npc:3391}, на втором этаже",
 	-- {npc:3442} Sputtervalve · {area:382} Sludge Fen
 	["{npc:3442}: the console is in the {area:382}, later"] = "{npc:3442}: пульт управления – {area:382}, позже",
 	-- {object:3972} WANTED
@@ -298,7 +298,7 @@ return {
 	-- plural, as words: Theramore Marines = {npc:3385} Theramore Marine
 	["{area:385}, on the coast just south of the pirate camp. The Theramore Marines and Preservers (15-16) drop the medals; {npc:3393} (20) and the two cannoneers (19) stand in the keep and on its walls, and they are why the hold waits until now.\nCareful: Each named target is linked to a healer and guards, and Fairmount has three extra marines with her. Killing the healer first makes the fight easier."] = "",
 	["On the top floor"] = "",
-	["Upstairs"] = "",
+	["Upstairs"] = "Наверху",
 
 	-- Step 72: Free From the Hold
 	-- {npc:3465} Gilthares Firebough · {area:392} Ratchet
@@ -456,7 +456,7 @@ return {
 	-- {area:392} Ratchet · {object:172982} Valley of Strength
 	["Fly on to {area:392} from Doras on the tower in the {object:172982}."] = "",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Распорядитель полетов: {zone:1454}",
 
 	-- Step 113: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet

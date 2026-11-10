@@ -83,7 +83,7 @@ return {
 	-- Step 18: A-Me 01
 	-- {area:1943} Ironstone Plateau
 	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Езжайте на восток: {area:1943}, где робот стоит среди горилл. Не заходите там в глубокую пещеру.",
-	["Below ground"] = "",
+	["Below ground"] = "Под землей",
 
 	-- Step 19: Level 49.51
 	["Level 49.51"] = "",
@@ -137,11 +137,11 @@ return {
 
 	-- Step 27: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "В таверну: {area:2101}",
 
 	-- Step 28: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Лететь в {area:1537}",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "",
 

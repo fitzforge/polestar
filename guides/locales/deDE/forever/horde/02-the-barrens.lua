@@ -110,7 +110,7 @@ return {
 	-- {area:392} Ratchet
 	["Follow the road south-east to {area:392} on the coast."] = "Folge der Straße nach Südosten nach {area:392} an der Küste.",
 	-- {npc:3391} Gazlowe
-	["{npc:3391}, upstairs"] = "",
+	["{npc:3391}, upstairs"] = "{npc:3391}, oben",
 	-- {npc:3442} Sputtervalve · {area:382} Sludge Fen
 	["{npc:3442}: the console is in the {area:382}, later"] = "{npc:3442}: Die Konsole ist in {area:382}, später",
 	-- {object:3972} WANTED
@@ -456,7 +456,7 @@ return {
 	-- {area:392} Ratchet · {object:172982} Valley of Strength
 	["Fly on to {area:392} from Doras on the tower in the {object:172982}."] = "",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Flugmeister: {zone:1454}",
 
 	-- Step 113: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet

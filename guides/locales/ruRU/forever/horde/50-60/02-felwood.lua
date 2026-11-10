@@ -120,7 +120,7 @@ return {
 	-- {area:431} Splintertree Post
 	["Fly to {area:431}"] = "",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Распорядитель полетов: {zone:1454}",
 
 	-- Step 25: Emerald Sanctuary
 	["The druids' camp is just past the border."] = "Лагерь друидов – сразу за границей.",
@@ -172,7 +172,7 @@ return {
 	-- Step 36: Rakaiah
 	-- {npc:9518} Rakaiah · {area:1763} Jaedenar · {npc:11020} Remains of Trey Lightforge
 	["The succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "Под землей",
 	-- {npc:11020} Remains of Trey Lightforge
 	["{npc:11020}, below ground"] = "",
 

@@ -23,7 +23,7 @@ return {
 	-- Step 4: Fly to the Crossroads
 	["Fly to the Crossroads"] = "",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Flugmeister: {zone:1454}",
 
 	-- Step 5: Korran
 	-- {npc:3428} Korran

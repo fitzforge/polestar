@@ -165,7 +165,7 @@ return {
 
 	-- Step 40: Thunder Bluff
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456}'s central rise"] = "",
+	["{zone:1456}'s central rise"] = "Platô central de {zone:1456}",
 
 	-- Step 41: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {npc:2995} Tal

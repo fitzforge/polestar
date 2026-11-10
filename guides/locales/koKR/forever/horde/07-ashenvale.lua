@@ -161,11 +161,11 @@ return {
 	["Back south to the camp, then up into {zone:1456} for the flight to {area:378}."] = "남쪽 야영지로 돌아간 뒤, {zone:1456}에 올라가 {area:378}(으)로 날아가세요.",
 
 	-- Step 39: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "직업 전문가",
 
 	-- Step 40: Thunder Bluff
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456}'s central rise"] = "",
+	["{zone:1456}'s central rise"] = "{zone:1456}의 중앙 언덕",
 
 	-- Step 41: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {npc:2995} Tal

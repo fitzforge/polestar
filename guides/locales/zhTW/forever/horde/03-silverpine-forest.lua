@@ -37,7 +37,7 @@ return {
 	["{npc:2855}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:2855}：野營入門，來自{zone:1411}布拉克的營火",
 
 	-- Step 6: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "職業訓練師",
 	["Train while you are in the city: Druids and Paladins have no trainer here."] = "",
 
 	-- Step 7: Sayoc

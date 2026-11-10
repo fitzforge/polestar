@@ -83,13 +83,13 @@ return {
 
 	-- Step 24: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "A {area:2101}",
 
 	-- Step 25: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Vuela a {area:1537}",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "Maestro de vuelo de {area:144}",
 
 	-- Step 27: Royal Historian Archesonus
 	-- {object:171709} High Seat
@@ -140,7 +140,7 @@ return {
 	-- Step 37: Janice Felstone
 	-- {npc:10778} Janice Felstone · {area:199} Felstone Field · {area:200} Dalson's Tears
 	["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "El fantasma de {npc:10778} vaga junto a la granja de {area:199}, al oeste de {area:200}; su paquete está adentro.",
-	["Upstairs"] = "",
+	["Upstairs"] = "Arriba",
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, inside"] = "",
 	-- {zone:1453} Stormwind
@@ -197,7 +197,7 @@ return {
 	-- Step 48: Cyrus Therepentous
 	-- {item:10569} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
 	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "Abre el {item:10569} de {zone:1427} para obtener su {item:10575} y luego dile a {npc:9459} que traes pruebas de tus hazañas: no hay que pelear con ningún dragón.",
-	["Below ground"] = "",
+	["Below ground"] = "Bajo tierra",
 	-- {item:10575} Black Dragonflight Molt
 	["{item:10575}, from the hoard"] = "{item:10575}, del tesoro",
 

@@ -35,7 +35,7 @@ return {
 	["{area:1938}: kill these as you meet them"] = "",
 	-- {area:982} Noxious Lair · {npc:12046} Gor'marok the Ravager · {quest:3161} Gahz'ridian
 	["South of the {area:982} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end. Dig up {quest:3161} ornaments between the fights."] = "{area:982} 남쪽에서 모래망치 오우거가 거주지를 차지하고 있으며, 동쪽 끝에 {npc:12046}이(가) 있습니다. 싸우는 사이사이에 {quest:3161} 장식품을 파내세요.",
-	["Below ground"] = "",
+	["Below ground"] = "지하",
 
 	-- Step 9: Noxious Lair
 	-- {npc:4196} Silithid Swarm

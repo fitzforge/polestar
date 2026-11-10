@@ -139,7 +139,7 @@ return {
 	["Seahorn's next errand goes back to Arathi: skip it."] = "시혼의 다음 심부름은 아라시로 돌아갑니다. 건너뛰세요.",
 	-- {npc:2542} Catelyn the Blade
 	["{npc:2542}, upstairs"] = "",
-	["Upstairs"] = "",
+	["Upstairs"] = "위층",
 
 	-- Step 45: Bloodsail camp
 	["Bloodsail camp"] = "붉은해적단 야영지",

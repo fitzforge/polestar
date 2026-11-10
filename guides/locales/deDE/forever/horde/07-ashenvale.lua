@@ -161,11 +161,11 @@ return {
 	["Back south to the camp, then up into {zone:1456} for the flight to {area:378}."] = "Zurück nach Süden zum Lager, dann hinauf nach {zone:1456} für den Flug nach {area:378}.",
 
 	-- Step 39: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Klassenlehrer",
 
 	-- Step 40: Thunder Bluff
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456}'s central rise"] = "",
+	["{zone:1456}'s central rise"] = "Mittlere Anhöhe von {zone:1456}",
 
 	-- Step 41: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {npc:2995} Tal

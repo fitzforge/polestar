@@ -51,7 +51,7 @@ return {
 	-- Step 12: Piznik
 	-- {npc:4276} Piznik · {area:2160} Windshear Mine
 	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} at the east end of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "Bajo tierra",
 	-- {npc:4276} Piznik
 	["Keep {npc:4276} alive while he mines, below ground"] = "",
 
@@ -230,7 +230,7 @@ return {
 
 	-- Step 48: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Vuela a {area:1537}",
 	-- {npc:1571} Shellei Brondir
 	["{npc:1571} is the flight master by Menethil's inn: you have both flight paths since your first trip east."] = "",
 	-- {area:150} Menethil Harbor

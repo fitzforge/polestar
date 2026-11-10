@@ -46,7 +46,7 @@ return {
 	["{npc:9796} stands just outside the Den's entrance."] = "{npc:9796} está justo fuera de la entrada de El Cubil.",
 
 	-- Step 7: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Instructor de clase",
 
 	-- Step 8: Paladin trainer
 	["Paladin trainer"] = "",
@@ -73,7 +73,7 @@ return {
 	-- Step 15: Yarrog Baneshadow
 	-- {npc:3183} Yarrog Baneshadow
 	["Inside the cave, keep to the right wall all the way round, over the stream: {npc:3183} waits at the end."] = "Dentro de la cueva, sigue la pared derecha durante todo el recorrido, cruzando el arroyo: {npc:3183} espera al final.",
-	["Below ground"] = "",
+	["Below ground"] = "Bajo tierra",
 
 	-- Step 16: Felstalker hooves
 	-- {npc:3102} Felstalker

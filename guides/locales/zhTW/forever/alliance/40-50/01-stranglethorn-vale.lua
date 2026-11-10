@@ -139,7 +139,7 @@ return {
 	["Seahorn's next errand goes back to Arathi: skip it."] = "海角的下一個任務會回到阿拉希：跳過。",
 	-- {npc:2542} Catelyn the Blade
 	["{npc:2542}, upstairs"] = "",
-	["Upstairs"] = "",
+	["Upstairs"] = "樓上",
 
 	-- Step 45: Bloodsail camp
 	["Bloodsail camp"] = "血帆營地",

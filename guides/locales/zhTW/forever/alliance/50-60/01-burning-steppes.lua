@@ -83,11 +83,11 @@ return {
 
 	-- Step 24: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "前往{area:2101}",
 
 	-- Step 25: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "飛往{area:1537}",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "",
 
@@ -140,7 +140,7 @@ return {
 	-- Step 37: Janice Felstone
 	-- {npc:10778} Janice Felstone · {area:199} Felstone Field · {area:200} Dalson's Tears
 	["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "{npc:10778}的鬼魂在{area:200}西邊{area:199}的農舍旁徘徊；她的包裹就在屋裡。",
-	["Upstairs"] = "",
+	["Upstairs"] = "樓上",
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, inside"] = "",
 	-- {zone:1453} Stormwind
@@ -197,7 +197,7 @@ return {
 	-- Step 48: Cyrus Therepentous
 	-- {item:10569} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
 	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "打開來自{zone:1427}的{item:10569}取得{item:10575}，然後告訴{npc:9459}你帶來了功績的證明：不必與飛龍戰鬥。",
-	["Below ground"] = "",
+	["Below ground"] = "地下",
 	-- {item:10575} Black Dragonflight Molt
 	["{item:10575}, from the hoard"] = "{item:10575}，從寶藏中取得",
 

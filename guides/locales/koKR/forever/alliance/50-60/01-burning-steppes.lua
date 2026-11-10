@@ -83,13 +83,13 @@ return {
 
 	-- Step 24: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "{area:2101}(으)로",
 
 	-- Step 25: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "{area:1537}(으)로 비행",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "{area:144} 비행 조련사",
 
 	-- Step 27: Royal Historian Archesonus
 	-- {object:171709} High Seat
@@ -140,7 +140,7 @@ return {
 	-- Step 37: Janice Felstone
 	-- {npc:10778} Janice Felstone · {area:199} Felstone Field · {area:200} Dalson's Tears
 	["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "{npc:10778}의 유령은 {area:200} 서쪽, {area:199}의 농가 근처를 떠돕니다. 소포는 농가 안에 있습니다.",
-	["Upstairs"] = "",
+	["Upstairs"] = "위층",
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, inside"] = "",
 	-- {zone:1453} Stormwind
@@ -197,7 +197,7 @@ return {
 	-- Step 48: Cyrus Therepentous
 	-- {item:10569} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
 	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "{zone:1427}에서 얻은 {item:10569}을(를) 열어 {item:10575}을(를) 꺼낸 뒤, {npc:9459}에게 업적의 증거를 가져왔다고 말하세요. 비룡과 싸울 필요는 없습니다.",
-	["Below ground"] = "",
+	["Below ground"] = "지하",
 	-- {item:10575} Black Dragonflight Molt
 	["{item:10575}, from the hoard"] = "{item:10575}, 보물에서",
 

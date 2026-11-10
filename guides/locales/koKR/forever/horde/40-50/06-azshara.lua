@@ -56,7 +56,7 @@ return {
 	-- Step 16: The Mind's Eye
 	-- {npc:818} Mai'Zoth
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:818} (level 47 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\nCareful: Two elite caster guards, around level 45, stand with {npc:818} and join the fight together with him."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "지하",
 
 	-- Step 20: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -138,7 +138,7 @@ return {
 	-- Step 38: Archmage Xylem
 	-- {area:1237} Valormok
 	["Xylem's tower stands on the cliff just north of {area:1237}; the path winds up its north side."] = "실렘의 탑은 {area:1237} 바로 북쪽 절벽 위에 있습니다. 길은 북쪽 면을 따라 구불구불 올라갑니다.",
-	["Upstairs"] = "",
+	["Upstairs"] = "위층",
 
 	-- Step 40: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -165,14 +165,14 @@ return {
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "{area:1638}(으)로 날아가기",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",
 
 	-- Step 45: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {area:1099} Camp Mojache · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise · {npc:3033} Turak Runetotem · {npc:246344} Alodan the Hopeful
 	["Fly to {zone:1456}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and {npc:4046} are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "{zone:1456}(으)로 날아가세요. {area:1099}(으)로 가는 길목입니다. 아직 비행 경로가 없다면 {area:378}(으)로 날아가 {zone:1412}을(를) 지나 서쪽으로 가세요. 하뮬과 {npc:4046}은(는) {area:1639}에 있습니다. 드루이드와 성기사는 여기서 기술을 배웁니다({npc:3033}, {npc:246344}).",
 
 	-- Step 46: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "직업 전문가",
 
 	-- Step 47: Thunder Bluff
 	-- {quest:3761} Un'Goro Soil · {npc:4046} Magatha Grimtotem · {npc:8587} Jediga

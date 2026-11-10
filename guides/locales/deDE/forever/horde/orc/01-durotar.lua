@@ -52,7 +52,7 @@ return {
 	["{quest:790}, a large scorpid, prowls the slope south of {npc:3287} among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side."] = "",
 
 	-- Step 6: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Klassenlehrer",
 
 	-- Step 7: Paladin trainer
 	["Paladin trainer"] = "",
@@ -79,7 +79,7 @@ return {
 	-- Step 14: Yarrog Baneshadow
 	-- {npc:3183} Yarrog Baneshadow
 	["Inside the cave, keep to the right wall all the way round, over the stream: {npc:3183} waits at the end."] = "Halte dich in der Höhle immer an der rechten Wand, über den Bach: {npc:3183} wartet am Ende.",
-	["Below ground"] = "",
+	["Below ground"] = "Unter der Erde",
 
 	-- Step 15: Felstalker hooves
 	-- {npc:3102} Felstalker

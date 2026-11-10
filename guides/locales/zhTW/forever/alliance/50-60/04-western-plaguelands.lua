@@ -20,7 +20,7 @@ return {
 	-- Step 5: Marlene Redpath
 	-- {npc:10927} Marlene Redpath · {npc:10936} Joseph Redpath
 	["{npc:10927}'s farmhouse stands on the hill east of the camp; {npc:10936}'s monument is just north of it."] = "{npc:10927}的農舍在營地東邊的山丘上；{npc:10936}的紀念碑就在它北邊。",
-	["Upstairs"] = "",
+	["Upstairs"] = "樓上",
 	-- {item:12894} Joseph's Wedding Ring
 	["{item:12894}, at the monument"] = "{item:12894}，在紀念碑旁",
 
@@ -230,7 +230,7 @@ return {
 
 	-- Step 63: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
-	["Portal to {zone:1438}"] = "",
+	["Portal to {zone:1438}"] = "傳送門前往{zone:1438}",
 
 	-- Step 64: Rut'theran Village flight master
 	-- {area:702} Rut'theran Village
@@ -463,7 +463,7 @@ return {
 	-- Step 119: U'cha
 	-- {npc:9622} U'cha
 	["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "沿東側向北騎往猩猩高地。55級的猩猩{npc:9622}在最深的洞穴裡：先清掉洞口的猩猩。",
-	["Below ground"] = "",
+	["Below ground"] = "地下",
 
 	-- Step 120: Lar'korwi
 	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder · {item:11568} Torwa's Pouch

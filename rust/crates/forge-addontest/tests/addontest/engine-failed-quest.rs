@@ -95,12 +95,7 @@ stub.world.onQuest(731, { { type = "event", required = 1, fulfilled = 0 } })"#,
 	assert_eq!(out[0]["arrow"], "2:1", "{}", out[0]);
 	// Failed: the step waits, its goal greyed with the reason, the arrow on Remtravel.
 	assert_eq!(out[1]["live"], 2, "{}", out[1]);
-	assert_eq!(
-		out[1]["goals"],
-		json!([{ "status": "skipped", "notice": "“The Absent Minded Prospector” failed: abandon it and take it again" }]),
-		"{}",
-		out[1]
-	);
+	assert_eq!(out[1]["goals"], json!([{ "status": "skipped", "notice": "“The Absent Minded Prospector” failed: abandon it and take it again" }]), "{}", out[1]);
 	assert_eq!(out[1]["arrow"], "1:1", "{}", out[1]);
 	// Abandoned to take it again: back to the giver, no question.
 	assert_eq!(out[2]["live"], 1, "{}", out[2]);
@@ -126,12 +121,7 @@ stub.world.onQuest(1093, { { type = "monster", required = 1, fulfilled = 0 } })"
 	"#,
 	);
 	assert_eq!(out[0]["live"], 5, "{}", out[0]);
-	assert_eq!(
-		out[0]["goals"],
-		json!([{ "status": "skipped", "notice": "“Gerenzo's Orders” failed: abandon it and take it again" }, { "status": "active", "notice": false }]),
-		"{}",
-		out[0]
-	);
+	assert_eq!(out[0]["goals"], json!([{ "status": "skipped", "notice": "“Gerenzo's Orders” failed: abandon it and take it again" }, { "status": "active", "notice": false }]), "{}", out[0]);
 	assert_eq!(out[0]["arrow"], "5:2", "the Super Reaper first: {}", out[0]);
 	// The Reaper done: the step still waits on Gerenzo's Orders, and the arrow leads to Gerenzo.
 	assert_eq!(out[1]["live"], 5, "{}", out[1]);

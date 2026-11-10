@@ -46,7 +46,7 @@ return {
 	["{npc:9796} stands just outside the Den's entrance."] = "{npc:9796} steht gleich vor dem Eingang des Höhlenbaus.",
 
 	-- Step 7: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Klassenlehrer",
 
 	-- Step 8: Paladin trainer
 	["Paladin trainer"] = "",
@@ -73,7 +73,7 @@ return {
 	-- Step 15: Yarrog Baneshadow
 	-- {npc:3183} Yarrog Baneshadow
 	["Inside the cave, keep to the right wall all the way round, over the stream: {npc:3183} waits at the end."] = "Halte dich in der Höhle immer an der rechten Wand, über den Bach: {npc:3183} wartet am Ende.",
-	["Below ground"] = "",
+	["Below ground"] = "Unter der Erde",
 
 	-- Step 16: Felstalker hooves
 	-- {npc:3102} Felstalker

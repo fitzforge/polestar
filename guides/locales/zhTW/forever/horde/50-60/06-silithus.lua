@@ -36,7 +36,7 @@ return {
 	-- Step 7: Hermit Ortell
 	-- {area:3447} Ortell's Hideout
 	["Ride south-east to {area:3447} under the Un'Goro cliffs."] = "往東南騎到安戈洛懸崖下的{area:3447}。",
-	["Below ground"] = "",
+	["Below ground"] = "地下",
 	-- {item:20377} Rock Stalker Fang · {npc:11739} Rock Stalker
 	["{item:20377} from {npc:11739}, 130 yd south-west"] = "",
 
@@ -193,7 +193,7 @@ return {
 	["{area:976} flight master"] = "",
 
 	-- Step 43: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "職業訓練師",
 
 	-- Step 44: Paladin trainer
 	["Paladin trainer"] = "",
@@ -238,7 +238,7 @@ return {
 	["Mark {npc:10902} with the {item:12815}"] = "用{item:12815}標記{npc:10902}",
 
 	-- Step 57: Chromie
-	["Upstairs"] = "",
+	["Upstairs"] = "樓上",
 
 	-- Step 58: Counting Out Time
 	-- {npc:10667} Chromie

@@ -69,7 +69,7 @@ return {
 	-- {npc:251115} Urs'anah · {npc:250926} Scrawny Ursera
 	-- plural, as words: Ursera Scavengers = {npc:250937} Ursera Scavenger
 	["The Ursera Scavengers den west of the grove, with {npc:251115}, the matriarch, at the back of the den; {npc:250926} prowl the woods between the den and the grove."] = "Медверы-падальщики живут в логове к западу от рощи, в глубине которого – матриарх {npc:251115}; {npc:250926} рыщут в лесу между логовом и рощей.",
-	["Below ground"] = "",
+	["Below ground"] = "Под землей",
 	-- {item:252665} Head of Urs'anah
 	["{item:252665}; below ground"] = "",
 
@@ -341,7 +341,7 @@ return {
 
 	-- Step 58: Desperate times
 	["Desperate times"] = "Отчаянные времена",
-	["Upstairs"] = "",
+	["Upstairs"] = "Наверху",
 
 	-- Step 60: Paladin trainer
 	-- {npc:5148} Beldruk Doombrow · {zone:1455} Ironforge · {area:16638} Valanaar

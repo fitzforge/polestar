@@ -83,13 +83,13 @@ return {
 
 	-- Step 24: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "Zum {area:2101}",
 
 	-- Step 25: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Flieg nach {area:1537}",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "Flugmeister in {area:144}",
 
 	-- Step 27: Royal Historian Archesonus
 	-- {object:171709} High Seat
@@ -197,7 +197,7 @@ return {
 	-- Step 48: Cyrus Therepentous
 	-- {item:10569} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
 	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "Öffne den {item:10569} aus der {zone:1427}, um an seine {item:10575} zu kommen, und sag dann {npc:9459}, dass du einen Beweis deiner Taten bringst: Du musst keinen Drachen bekämpfen.",
-	["Below ground"] = "",
+	["Below ground"] = "Unter der Erde",
 	-- {item:10575} Black Dragonflight Molt
 	["{item:10575}, from the hoard"] = "{item:10575}, aus dem Hort",
 

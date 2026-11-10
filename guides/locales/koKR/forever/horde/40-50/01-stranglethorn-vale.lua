@@ -152,7 +152,7 @@ return {
 	["Skullsplitter warriors"] = "백골가루부족 전사",
 	-- {npc:669} Skullsplitter Hunter
 	["{npc:669} walks around here: look inside the circle on the map"] = "",
-	["Below ground"] = "",
+	["Below ground"] = "지하",
 
 	-- Step 29: Balia'mah Ruins: kill these as you meet them
 	-- {area:127} Balia'mah Ruins

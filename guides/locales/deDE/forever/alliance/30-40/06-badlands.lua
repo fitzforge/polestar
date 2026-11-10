@@ -100,7 +100,7 @@ return {
 
 	-- Step 21: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "Zum {area:2101}",
 
 	-- Step 22: Thelsamar
 	-- {npc:1470} Ghak Healtouch
@@ -110,7 +110,7 @@ return {
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "Flugmeister in {area:144}",
 
 	-- Step 25: Theramore flight master
 	["Theramore flight master"] = "",

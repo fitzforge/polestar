@@ -109,7 +109,7 @@ return {
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 
 	-- Step 21: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Klassenlehrer",
 
 	-- Step 22: Druid trainer
 	["Druid trainer"] = "",
@@ -120,7 +120,7 @@ return {
 	-- {area:431} Splintertree Post
 	["Fly to {area:431}"] = "",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Flugmeister: {zone:1454}",
 
 	-- Step 25: Emerald Sanctuary
 	["The druids' camp is just past the border."] = "Das Lager der Druiden liegt gleich hinter der Grenze.",
@@ -172,7 +172,7 @@ return {
 	-- Step 36: Rakaiah
 	-- {npc:9518} Rakaiah · {area:1763} Jaedenar · {npc:11020} Remains of Trey Lightforge
 	["The succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "Unter der Erde",
 	-- {npc:11020} Remains of Trey Lightforge
 	["{npc:11020}, below ground"] = "",
 
