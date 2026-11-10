@@ -668,4 +668,32 @@ fn cave_and_dungeon_spots_on_the_continent_map_walk_to_a_goal_40_yd_away_1359_sw
 	}
 }
 
+// #1694: from the middle of the Badlands (50,50) to Kargath's flight master (Gorrik, 4.0,44.8), the walking engine
+// measured the walk 2,188 yd along the road; the planner priced a walk to the Searing Gorge gate's Badlands end
+// (1.09,62.92) straight (x1.25) and that end's walk on to Gorrik straight too, 300 yd: cheaper, so the arrow went
+// to the gate first and on from there. A walk that stops at a crossing's end without crossing is the same walk
+// past it: one walk. A target in Searing Gorge still goes through the gate.
+#[test]
+fn a_walk_never_stops_at_a_crossing_s_end_it_does_not_cross_kargath_from_the_badlands_1694() {
+	let out = run_raw(
+		r#"
+			local N = Polestar.Nav
+			local function plan(map, wx, wy, label)
+				local legs = N.PlanRoute({ c = 0, map = 1418, wx = -6718.75, wy = -3322.9, faction = 2, speed = 7,
+					target = { c = 0, map = map, wx = wx, wy = wy, label = label },
+					walkCost = function(_, _, _, start) if start then return 2188, 2188 end end })
+				local out = {}
+				for _, l in ipairs(legs or {}) do out[#out + 1] = l.kind .. "|" .. l.label .. (l.crossing and ("|" .. l.crossing) or "") end
+				return out
+			end
+			emit({
+				kargath = plan(1418, -6632.5, -2178.67, "Gorrik"),
+				gorge = plan(1427, -6843.75, -1884.8, "Searing Gorge"),
+			})"#,
+	);
+	assert_eq!(out["kargath"], json!(["walk|Gorrik"]), "one walk, never by the gate");
+	let gorge: Vec<&str> = out["gorge"].as_array().unwrap().iter().map(|l| l.as_str().unwrap()).collect();
+	assert!(gorge.iter().any(|l| l.ends_with("|carbonite-searing-gorge--badlands")), "into Searing Gorge through the gate: {gorge:?}");
+}
+
 // KEPT IN JS:

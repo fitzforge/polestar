@@ -651,6 +651,31 @@ fn nearby_rank_keeps_a_city_npc_on_the_city_map_not_its_zone_copy_a_yard_nearer(
 	assert_eq!(out[0], json!({ "map": 1454, "sameMap": true, "notCopy": true }));
 }
 
+// #1694 (Kargath, Badlands, 0.3.6): a border NPC is listed on both zones' maps, the lower map id first
+// (forge-data codex/spawns.rs), so the first listed copy is not always the right one. Zarise, Tarren Mill's
+// flight master (2389), is listed on Alterac's map (58.6,80.2) before Hillsbrad's (60.1,18.6), a yard apart;
+// a target on Alterac's map is walked through the Alterac crossing. Of two copies, the one on the zone the
+// walking maps put the place in wins; when they don't say (another continent, no maps), the first listed.
+#[test]
+fn nearby_rank_takes_a_border_npc_s_copy_on_the_zone_the_walking_maps_put_it_in_1694() {
+	let out = run(r#"
+		local Near = N.nearby
+		local alterac = { id = 2389, c = 0, wx = 2.9, wy = -857.5, map = 1416, x = 58.6, y = 80.2 }
+		local hillsbrad = { id = 2389, c = 0, wx = 3.2, wy = -856.5, map = 1424, x = 60.1, y = 18.6 }
+		local here = { c = 0, wx = -50, wy = -870 } -- Tarren Mill: the Alterac copy is the nearer by line
+		local function est() return 30 end
+		local function inHillsbrad(c) return c == 0 and 1424 or nil end
+		emit({
+			zone = Near.Rank({ alterac, hillsbrad }, here, est, inHillsbrad).map,
+			listedRight = Near.Rank({ hillsbrad, alterac }, here, est, inHillsbrad).map,
+			unknown = Near.Rank({ alterac, hillsbrad }, here, est, function() return nil end).map,
+			neither = Near.Rank({ alterac, hillsbrad }, here, est, function() return 1425 end).map,
+			noLookup = Near.Rank({ alterac, hillsbrad }, here, est).map,
+		})
+	"#);
+	assert_eq!(out[0], json!({ "zone": 1424, "listedRight": 1424, "unknown": 1416, "neither": 1416, "noLookup": 1416 }));
+}
+
 #[test]
 fn nearby_no_codex_combat_and_nothing_known_each_say_their_own_line_c14() {
 	let out = run(&[
