@@ -149,8 +149,9 @@ step Two-Handed Swords
 
 step Old Fire-Eye
   zone Silverpine Forest
-  tip Equip the Moonsilver Blade. Old Fire-Eye, the great worgen, roams the woods south of the Sepulcher toward the gates of Gilneas. He is elite (level 25): grouping up is encouraged; one player needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke.
+  tip Equip the Moonsilver Blade. Old Fire-Eye, the great worgen, roams the woods south of the Sepulcher toward the gates of Gilneas. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke.
   accept 95140                        -- Lumina Windsinger, the Sepulcher
+  level 22
   kill 259897 quest 95140.1 @47.91,85.33 -- Old Fire-Eye, with the Moonsilver Blade equipped
 
 step Wolfsbane
