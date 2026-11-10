@@ -43,7 +43,8 @@ why Runecloth to Exalted, with the old Durotar quests as a fast extra that pays 
 
 step Vehena: how it works
   tip Darkspear reputation comes from quests and cloth. Vehena, the Darkspear cloth quartermaster, stands in Orgrimmar's Valley of Spirits. She takes four one-time donations of 60 cloth (150 each) and then Additional Runecloth, 20 Runecloth for 50, as often as you like. Every point you earn with the Darkspear Trolls also gives a quarter as much to Orgrimmar, Thunder Bluff and the Undercity. While you level, do the Darkspear quests within 5 levels of them: Durotar at 5 to 12, Zoram Strand in Ashenvale at 19 to 27, Grom'gol in Stranglethorn at 34 to 46. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored the Darkspear merchants sell to you for 10% less (the Classic rule), the raptor vendor included; at Exalted other races can buy the raptors: 20 gold for a level 40 raptor, 200 gold for a swift raptor at level 60, once you have mount training. The Darkspear Trolls have no tabard or other reward.
-  accept 7833                         -- Vehena: A Donation of Wool, +150
+  zone Orgrimmar
+  goto 37.7,87.9 "Vehena"             -- her donations are handed in from her window and never enter the log (#1699 sweep)
 
 step Valley of Trials (optional hub)
   label valley
@@ -271,32 +272,29 @@ step Vehena: A Donation of Wool
   zone Orgrimmar
   tip From here it is cloth. Wool, Silk and Mageweave must all be handed in before Vehena offers the Runecloth donation, and Additional Runecloth needs the Runecloth donation. Buy cloth at the Auction House, or farm it: humanoids drop it, Wool from level 15 to 25, Silk 25 to 40, Mageweave 40 to 50, Runecloth 50 and up. At 60 farm mobs of level 52 or more: lower ones are grey.
   zone Ashenvale
-  collect 2592 x60 quest 7833.1 @36,37      -- Wool Cloth: the Thistlefur furbolgs drop it about one kill in four
-  turnin 7833                         -- Vehena, +150
+  collect 2592 x60 @36,37             -- Wool Cloth: the Thistlefur furbolgs drop it about one kill in four
+  turnin 7833 direct                  -- Vehena: A Donation of Wool, +150
 
 step A Donation of Silk
   tip Silk: the Syndicate in Hillsbrad and Alterac drop it about one kill in three, or buy it.
   level 26
-  accept 7834                         -- +150
   zone Alterac Mountains
-  collect 4306 x60 quest 7834.1 @57.7,67.6 -- Silk Cloth: the Syndicate
-  turnin 7834
+  collect 4306 x60 @57.7,67.6         -- Silk Cloth: the Syndicate
+  turnin 7834 direct                  -- +150
 
 step A Donation of Mageweave
   tip Mageweave: the Jadefire satyrs in southern Felwood and the Dunemaul ogres in Tanaris drop it about one kill in three, or buy it.
   level 40
-  accept 7835                         -- +150
   zone Felwood
-  collect 4338 x60 quest 7835.1 @41.6,85.7 -- Mageweave Cloth: the Jadefire satyrs
-  turnin 7835
+  collect 4338 x60 @41.6,85.7         -- Mageweave Cloth: the Jadefire satyrs
+  turnin 7835 direct                  -- +150
 
 step A Donation of Runecloth
   tip Runecloth: the Scarlet at Tyr's Hand in the Eastern Plaguelands, the Gordok ogres outside Dire Maul in Feralas and the Twilight camps of Silithus drop it about one kill in three. The Auction House is faster if you have gold.
   level 50
-  accept 7836                         -- +150
   zone Eastern Plaguelands
-  collect 14047 x60 quest 7836.1 live @68,69.5 -- Runecloth: the Scarlet outside Tyr's Hand
-  turnin 7836
+  collect 14047 x60 live @68,69.5     -- Runecloth: the Scarlet outside Tyr's Hand
+  turnin 7836 direct                  -- +150
 
 step Everlook: A Little Luck
   zone Winterspring

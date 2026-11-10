@@ -5373,6 +5373,45 @@ test('Repeatable quests handed straight back at their giver are direct turn-ins 
 	}
 });
 
+// Fenn's report (#1699, Orc Warrior 30): Whirlwind Weapon said "Accept Essence of the Exile" at Bath'rah's Cauldron,
+// but the cauldron opens straight on its hand-in window (his screenshot: the three charms it wants, then Continue)
+// and the quest never enters the log, so the accept, and the charm goals tracked as its objectives, never ticked and
+// held the guide. The game's data marks such quests as handed in on the spot, and players' recordings have never
+// shown one accepted (66 of them handed in, none taken). The sweep over the hand-written guides: each is a
+// `turnin <id> direct`, with no accept and no goal tracking it in the log (`quest <id>.<n>`); the generated
+// leveling guides' cases are listed on the issue.
+test("Fenn's report (#1699): quests handed in on the spot are direct turn-ins, never accepts or tracked objectives", { skip }, () => {
+	for (const [guide, quests] of [
+		['forever/class/warrior/whirlwind-weapon.guide', [1714]],
+		['forever/class/rogue/ravenholdt.guide', [6701]],
+		['forever/class/warlock/enchanted-gold-bloodrobe.guide', [4785]],
+		['forever/collectibles/pets/bitter-baitling.guide', [8193]],
+		['forever/reputation/argent-dawn.guide', [5227]],
+		['forever/reputation/brood-of-nozdormu.guide', [8579]],
+		['forever/reputation/darkspear-trolls.guide', [7833, 7834, 7835, 7836]],
+		['forever/reputation/orgrimmar.guide', [7826, 7827, 7831, 7824]],
+		['forever/reputation/thunder-bluff.guide', [7820, 7821, 7822, 7823]],
+		['forever/reputation/undercity.guide', [7813, 7814, 7817, 7818]],
+		['forever/reputation/nightclaw-druids.guide', [93459]],
+		['forever/reputation/ravenholdt.guide', [6701, 8249]],
+		['forever/reputation/steamwheedle-cartel.guide', [5525, 7429]],
+	]) {
+		const list = goals(guide);
+		for (const q of quests) {
+			const mine = list.filter(({ goal }) => goal.quest === q);
+			assert.ok(mine.length > 0, `${guide}: ${q} is in the guide`);
+			for (const { goal } of mine) assert.ok(goal.t === 'turnin' && goal.direct === true, `${guide}: ${goal.t} ${q} is a direct turn-in, nothing that waits on the log`);
+		}
+	}
+	const list = goals('forever/class/warrior/whirlwind-weapon.guide');
+	const essence = list.find(({ goal }) => is('turnin', 1714)(goal));
+	assert.equal(essence.goal.object, 89931, "Essence of the Exile is handed in at Bath'rah's Cauldron");
+	for (const charm of [4479, 4480, 4481]) {
+		const at = list.findIndex(({ goal }) => goal.t === 'collect' && goal.item === charm && goal.count === 8);
+		assert.ok(at >= 0 && at < list.indexOf(essence), `charm ${charm}: 8 collected before the cauldron`);
+	}
+});
+
 // #1117 (soockee, Tauren Shaman; #383 and #396 before it, Dwarf Paladins): Alonso's Dragonslayer quests
 // at Mystral Lake are for Warriors; other classes find no Alonso there. The lock lived only in
 // data/rules.json, which Forge does not read, so the generated Horde Ashenvale guide sent every class to

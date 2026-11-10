@@ -115,10 +115,8 @@ step Dire Maul North: Knot Thimblejack
   level 57
   goto 59.2,45.1 "Dire Maul"
   collect 18250 optional @59.2,45.1   -- Gordok Shackle Key, Gordok ogres
-  accept 5525 optional @59.2,45.1     -- Free Knot!: 150 to every town
-  turnin 5525 optional @59.2,45.1
-  accept 7429 optional @59.2,45.1     -- Free Knot!, again on every later run: 150
-  turnin 7429 optional @59.2,45.1
+  turnin 5525 direct optional @59.2,45.1 -- Free Knot!: 150 to every town, handed in from Knot's window
+  turnin 7429 direct optional @59.2,45.1 -- Free Knot!, again on every later run: 150
 
 step Every town to Friendly
   tip Neutral 500 to Friendly is 2,500 with each town. The quests above pay every town up to 700 (Zorbin's two 300, Tinkee's 150, the first Free Knot 150 and the first Ogre Suit 100); Zorbin's repeatables do the rest, 25 to every town each: 10 residue (ten giants) or 6 cores (about twelve elementals). The towns' own quests count too, each giving the other towns half: Ratchet's in the Barrens (levels 10-25, about 4,300: the Samophlange chain 625, Mebok Mizzyrix's errands, the Wizzlecrank and Gilthares escorts 150 each), Booty Bay's in Stranglethorn, Arathi and the Badlands (30-50, about 6,500: the three OOX robot rescues 250 each, An OOX of Your Own 200, Stranglethorn Fever 200, Facing Negolash 200, the Sunken Treasure chain at Faldir's Cove), Gadgetzan's in Tanaris (43-55, about 3,000: the Divino-matic Rod 200, Wastewander Justice 100 each, the WANTED posters) and Everlook's in Winterspring (52-60, about 1,450: Donova Snowden's Winterfall chain, Umi's yeti quests). Forever adds a few low ones: A Simmering Storm and Stormy Potential in Durotar and WANTED: Bruuz (Ratchet 100 each), Important Heirlooms in Ironforge (Gadgetzan 100). Forever pays them in full at any level. Kills help while they are not grey, 5 each: Southsea pirates in the Barrens for Ratchet and in Tanaris for Gadgetzan and Stranglethorn's Venture Co. camps for Booty Bay, up to the end of Honored; Wastewander bandits for Gadgetzan and Bloodsail pirates for Booty Bay only up to the end of Neutral. Friendly opens each quartermaster's first gear.
