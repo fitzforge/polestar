@@ -4949,14 +4949,19 @@ Polestar.QoL.Bind.OnGossip() -> bool         -- GOSSIP_SHOW (Toggles.lua: after 
   registered only while the setting is on (`QoL.WhileOn`). While the
   innkeeper (`"npc"`, else the last gossip's NPC: the client may have closed
   the gossip) is still `Wanted`, whether the helper or the player picked the
-  option, and Shift was held neither at that gossip nor now, it answers as the
-  popup's Accept does
+  option, and Shift was held neither at that gossip nor now, it answers on
+  the next frame (unless the interaction ended meanwhile:
+  `IsValidNPCInteraction(Binder)`, the popup's own test) as the popup's
+  Accept does
   (`C_PlayerInteractionManager.ConfirmationInteraction(Enum.PlayerInteractionType.Binder)`,
   then `ClearInteraction(Binder)`; Blizzard_StaticPopup_Game
-  GameDialogDefs.lua), closes the "CONFIRM_BINDER" popup on the next frame
+  GameDialogDefs.lua) and closes the "CONFIRM_BINDER" popup one frame later
   (`QoL.ClosePopup`, as for summons; left to the player under the gamepad
-  interface style) and prints "Bound your Hearthstone to <area>.". The
-  Engine completes the goal from the bind as it does for one by hand
+  interface style). Answered inside the event, Forever's client drops the
+  first bind at an innkeeper: the popup goes, the Hearthstone stays, and only
+  a second visit binds. "Bound your Hearthstone to <area>." waits for the
+  game's `HEARTHSTONE_BOUND` within 5 seconds of the answer. The Engine
+  completes the goal from the bind as it does for one by hand
   (`HEARTHSTONE_BOUND`).
 
 ### The step key on the flight map — QoL/Flight, QoL/Buttons

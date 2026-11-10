@@ -3978,7 +3978,9 @@ fn bind_at_the_step_s_innkeeper_picks_the_bind_option_and_confirms_the_bind_off_
 		q.step({ { t = "sethome", location = "Goldshire", npc = 295 } })
 		emit({ picked = visit(295), answer = confirm(), watching = QoL.Watching("CONFIRM_BINDER") })
 		set("autoBind", true)
-		emit({ picked = visit(295), answer = confirm(), said = printed("Bound your Hearthstone to Goldshire"), watching = QoL.Watching("CONFIRM_BINDER") })
+		local picked, answer = visit(295), confirm()
+		stub.fire("HEARTHSTONE_BOUND")
+		emit({ picked = picked, answer = answer, said = printed("Bound your Hearthstone to Goldshire"), watching = QoL.Watching("CONFIRM_BINDER") })
 		-- The icon as overrideIconID; the gossip already closed at the confirmation.
 		emit(visit(295, { options = { { gossipOptionID = 92, name = "?", icon = 0, overrideIconID = 132052, orderIndex = 0 } } }))
 		q.npc = nil
@@ -3994,6 +3996,51 @@ fn bind_at_the_step_s_innkeeper_picks_the_bind_option_and_confirms_the_bind_off_
 	assert_eq!(out[2], 92);
 	assert_eq!(out[3], json!({ "binder": 20, "cleared": 20, "closed": 1 }));
 	assert_eq!(out[4], 90);
+}
+
+// Answered inside CONFIRM_BINDER, Forever's client dropped the first bind at an innkeeper: the popup closed, the
+// Hearthstone stayed, and only a second visit bound. A frame later, as a click on Accept, it binds the first time.
+#[test]
+fn bind_the_confirmation_is_answered_a_frame_after_it_shows_and_bound_your_hearthstone_waits_for_the_game() {
+	let out = run(&[
+		INN,
+		r#"
+		set("autoBind", true)
+		q.step({ { t = "sethome", location = "Goldshire", npc = 295 } })
+		local function state() return { binder = calls("ConfirmationInteraction")[1] or 0, closed = #calls("StaticPopup_Hide"), said = printed("Bound your Hearthstone") } end
+		visit(295)
+		q.calls = {}
+		q.showPopup("CONFIRM_BINDER"); stub.fire("CONFIRM_BINDER", "Goldshire")
+		emit(state())
+		stub.frameTimers()
+		emit(state())
+		stub.runTimers()
+		emit(state())
+		stub.fire("HEARTHSTONE_BOUND")
+		emit(printed("Bound your Hearthstone to Goldshire"))
+		-- A bind the game never reported: a later one by hand is not Polestar's.
+		stub.messages = {}
+		visit(295); confirm()
+		stub.advance(10)
+		stub.fire("HEARTHSTONE_BOUND")
+		emit(printed("Bound your Hearthstone"))
+		-- Cancelled before the next frame: no answer.
+		visit(295)
+		q.calls = {}
+		q.showPopup("CONFIRM_BINDER"); stub.fire("CONFIRM_BINDER", "Goldshire")
+		q.binderGone = true
+		stub.runTimers()
+		q.binderGone = nil
+		emit(calls("ConfirmationInteraction")[1] or 0)
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "binder": 0, "closed": 0, "said": false }), "nothing inside the event");
+	assert_eq!(out[1]["binder"], 20, "answered on the next frame");
+	assert_eq!(out[2], json!({ "binder": 20, "closed": 1, "said": false }), "the popup closed, nothing said before the game binds");
+	assert_eq!(out[3], true);
+	assert_eq!(out[4], false);
+	assert_eq!(out[5], 0, "cancelled before the answer");
 }
 
 #[test]
