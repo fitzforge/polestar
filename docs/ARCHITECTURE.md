@@ -4488,6 +4488,7 @@ Polestar.Party.EncodeHello(reply) / DecodeHello(text)  -- "1H|<version>" hello, 
 Polestar.Party.Spoke(key) -> bool                  -- the member has spoken Polestar
 Polestar.Party.EncodePos(pos) / DecodePos(text)  -- "1P|<live step>|<Polestar version>|<pack id>|<pack version>|<guide id>"
 Polestar.Party.EncodeUnit(u) / DecodeUnit(text)  -- "2U|<level>|<XP %>|<class id>|<race id>"; later fields ignored
+Polestar.Party.EncodeRest(left) / DecodeRest(text)  -- "2B|<seconds left>", "2B|*" (on, no end), "2B|0" (ended) -> seconds | true | false; later fields ignored
 Polestar.Party.EncodeAt(pos, request) / DecodeAt(text)  -- "2P|<step key>|<guide id>" (where you are), "2G|" (sync request) -> at, request
 Polestar.Party.EncodeAnswer(code) / DecodeAnswer(text)  -- "2A|<y|n|x|=>": accepted, declined, cannot, already there
 Polestar.Party.StepKey(g, i) / StepAt(g, key)      -- a step's identity: the hash of its goals' kinds and ids, ".<n>" for the nth alike
@@ -4559,7 +4560,13 @@ Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sen
   agrees; a goto by its map and whole coordinates). Older clients drop
   "1P|" as malformed, and 0.3.5 every "2P|"/"2G|"/"2A|". "2U|" goes out with every
   snapshot and, two seconds after `PLAYER_XP_UPDATE`/`PLAYER_LEVEL_UP`, when
-  its text changed (a whole percent); version 1 decoders drop it.
+  its text changed (a whole percent); version 1 decoders drop it. "2B|"
+  (Boosted Rest, QoL/Rest) goes out two seconds after `QOL_REST_UPDATED`
+  with a real change and with every snapshot while it is on, an end only to
+  a party told it was on, never with `qol.boostedRest` off; a message of its
+  own, so every older decoder (versions 1 and 2) drops it and "2U|"'s later
+  fields stay free. The member's row (`Party.Roster().rest`) counts it down
+  from when it arrived.
 - With `party.show`, a member's position and unit are kept beside their
   counts. The guide window's party row (`GF.party`, over the XP row, not in
   compact mode) reads `StepLine`: "Ana: 3 steps ahead", "Ben: 1 step
@@ -5096,6 +5103,36 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
   is normal) on an open quest 3 or more levels above the character says so
   under its header, "Level 25 quest: you're 19.7" (your level and share of
   it, cut to one place), in a calm colour, never red.
+
+### Boosted Rest status — QoL/Rest
+
+```lua
+Polestar.QoL.Rest.Left() -> seconds | true | nil      -- Boosted Rest left; true: on without an end given; nil: off
+Polestar.QoL.Rest.BagLeft() -> nil | 0 | seconds      -- Cozy Sleeping Bag: not carried, ready, cooldown left
+Polestar.QoL.Rest.Parts(withOff) -> { text, ... }     -- for the XP row; one reused table; empty with the option off
+Polestar.QoL.Rest.Refresh(force)                      -- read the aura and the bag again
+-- message QOL_REST_UPDATED(changed): changed false for the minute redraws
+```
+
+- **What** (`qol.boostedRest`, on by default; Quality of Life > Trackers >
+  Experience): the campfire's Boosted Rest (spell 1229451, the buff the
+  Great Outdoors quests ask you to /sit for) and the Cozy Sleeping Bag
+  (item 211527), on the guide window's XP row after the pace text:
+  "Boosted Rest: 42m" (minutes rounded up; "Boosted Rest: on" when the
+  aura gives no end), then "Sleeping bag ready" or "Sleeping bag: 12m" when
+  the bag is in your bags. "Boosted Rest: off" only when the row shows
+  anyway, so the option never adds a row of its own; nothing at the maximum
+  level.
+- **Reads**: `C_UnitAuras.GetPlayerAuraBySpellID` (`expirationTime`) on
+  `UNIT_AURA` for the player, the bag's count and cooldown (Compat) on
+  `BAG_UPDATE_COOLDOWN` and `BAG_UPDATE_DELAYED`, registered only while the
+  option is on (`QoL.WhileOn`), and at login and on the setting. A cooldown
+  of 1.5 s or less is the global cooldown: ready.
+- **Redraws**: while a minute count shows, one `C_Timer.After` to the next
+  whole minute fires `QOL_REST_UPDATED(false)` from the times already read
+  (no client call); a newer read replaces it.
+- **The party**: party sync sends it as "2B|" (Quests/Party.lua), and the
+  party panel adds "Boosted Rest 42m" to a member's level line.
 
 ### Items kept for later — QoL/Keep, asks the Engine
 

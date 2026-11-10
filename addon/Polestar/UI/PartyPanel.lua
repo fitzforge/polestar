@@ -114,6 +114,12 @@ function PP.RowText(e)
 	if r then name = hexOf(r, g, b) .. name .. "|r" end
 	local level = e.level and L["Level %d"]:format(e.level) or ""
 	if e.xp then level = level .. DOT .. L["%d%% XP"]:format(e.xp) end
+	-- Boosted Rest (their "2B|"), unless the player turned the status off.
+	local Q = ns.QoL
+	if e.rest and not (Q and Q.On and not Q.On("boostedRest")) then
+		local rest = e.rest == true and L["Boosted Rest"] or L["Boosted Rest %dm"]:format(math.ceil(e.rest / 60))
+		level = level ~= "" and (level .. DOT .. rest) or rest
+	end
 	local parts = {}
 	if e.step then
 		parts[#parts + 1] = e.step

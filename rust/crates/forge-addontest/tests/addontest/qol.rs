@@ -4770,3 +4770,66 @@ fn step_gossip_picks_the_option_the_live_step_names_opens_goods_or_training_for_
 	"#);
 	assert_eq!(out[0], json!({ "named": 4021, "otherNpc": 0, "shift": 0, "quests": 0, "goods": 91, "train": 92, "notLive": 0, "off": 0 }));
 }
+
+// ---------------------------------------------------------------------------
+// Boosted Rest status (QoL/Rest.lua)
+// ---------------------------------------------------------------------------
+
+// The campfire's Boosted Rest from its aura on UNIT_AURA, the Cozy Sleeping Bag's cooldown on BAG_UPDATE_COOLDOWN
+// once it is in the bags; minutes rounded up; "off" only where the row shows anyway; nothing registered with the
+// option off.
+#[test]
+fn rest_boosted_rest_minutes_from_the_aura_off_and_the_sleeping_bag_cooldown_from_the_bags() {
+	let out = run(r#"
+		local R = QoL.Rest
+		local function line(w) return table.concat(R.Parts(w), " | ") end
+		emit({ line(true), line(false), R.Left() == nil, R.BagLeft() == nil, QoL.Watching("UNIT_AURA"), QoL.Watching("BAG_UPDATE_COOLDOWN") })
+		q.auras[1229451] = { spellId = 1229451, duration = 3600, expirationTime = GetTime() + 2520 }
+		stub.fire("UNIT_AURA", "target")
+		emit(line(true))
+		stub.fire("UNIT_AURA", "player")
+		emit({ line(true), math.floor(R.Left() + 0.5) })
+		stub.advance(30)
+		emit(line(true))
+		q.auras[1229451] = { spellId = 1229451, duration = 0, expirationTime = 0 }
+		stub.fire("UNIT_AURA", "player")
+		emit(line(true))
+		q.auras[1229451] = nil
+		stub.fire("UNIT_AURA", "player")
+		emit({ line(true), line(false) })
+		q.addItem(0, 1, 211527, 1)
+		stub.fire("BAG_UPDATE_DELAYED")
+		emit({ line(true), R.BagLeft() })
+		q.cooldowns[211527] = { GetTime() - 60, 780 }
+		stub.fire("BAG_UPDATE_COOLDOWN")
+		emit(line(false))
+		set("boostedRest", false)
+		emit({ #R.Parts(true), QoL.Watching("UNIT_AURA"), QoL.Watching("BAG_UPDATE_COOLDOWN") })
+	"#);
+	assert_eq!(out[0], json!(["Boosted Rest: off", "", true, true, true, true]), "on by default, nothing yet");
+	assert_eq!(out[1], "Boosted Rest: off", "another unit's auras are not read");
+	assert_eq!(out[2], json!(["Boosted Rest: 42m", 2520]));
+	assert_eq!(out[3], "Boosted Rest: 42m", "41.5 minutes left reads 42m");
+	assert_eq!(out[4], "Boosted Rest: on", "an aura without an end");
+	assert_eq!(out[5], json!(["Boosted Rest: off", ""]));
+	assert_eq!(out[6], json!(["Boosted Rest: off | Sleeping bag ready", 0]));
+	assert_eq!(out[7], "Sleeping bag: 12m");
+	assert_eq!(out[8], json!([0, false, false]), "off: nothing shown, nothing registered");
+}
+
+// Changes reach the party (QOL_REST_UPDATED true); the minute redraws (false) do not, and they stop with it.
+#[test]
+fn rest_a_real_change_fires_changed_and_the_minute_redraw_does_not() {
+	let out = run(r#"
+		local seen = {}
+		Polestar.On("QOL_REST_UPDATED", function(changed) seen[#seen + 1] = changed end)
+		q.auras[1229451] = { spellId = 1229451, duration = 3600, expirationTime = GetTime() + 125 }
+		stub.fire("UNIT_AURA", "player")
+		stub.fire("UNIT_AURA", "player")
+		emit(#seen)
+		stub.advance(6); stub.runTimers()
+		emit({ #seen, seen[1], seen[2], QoL.Rest.Parts()[1] })
+	"#);
+	assert_eq!(out[0], 1, "the same aura twice: one change");
+	assert_eq!(out[1], json!([2, true, false, "Boosted Rest: 2m"]), "the redraw at the minute is no change");
+}
