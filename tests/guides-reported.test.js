@@ -2191,9 +2191,9 @@ test(`${TELDRASSIL}: Pynte's report: Zenn's Bidding is taken on the walk down to
 
 const BADLANDS = 'forever/alliance/30-40/06-badlands.guide';
 test(`${BADLANDS}: the same pattern as #89: Book of the Ancients is taken from Azore on the way to Karnitol's Chest, not on a walk back from it`, { skip }, () => {
-	// Nijel's Point (1454) is taken from Kreldig Ungor on the first Desolace visit and carried
-	// through the guides between to the chest: the list is the chain from that guide.
-	const list = ['02-desolace', '03-ashenvale', '04-stranglethorn-vale', '05-arathi-highlands', '06-badlands'].flatMap((g) => goals(`forever/alliance/30-40/${g}.guide`));
+	// BrAlliance3040 (0.3.6): the first Desolace visit (02) opens the chest beside Azore's tower; the south loop (06) keeps
+	// the chain for a player who loads it without 02, and there Azore still comes before the chest.
+	const list = goals(BADLANDS);
 	const take = at(list, 'accept 6027 (Book of the Ancients)', is('accept', 6027));
 	assert.ok(at(list, 'accept 1454 (Nijel\'s Point)', is('accept', 1454)) < take, 'after Nijel\'s Point');
 	assert.ok(take < at(list, "turnin 1454 (Karnitol's Chest)", is('turnin', 1454)), 'before the chest');
@@ -6522,8 +6522,10 @@ test('Alliance 30-40 re-order: the Mirage Raceway on the Theramore crossing, Des
 	for (const q of [1284, 1253, 1319, 1320]) assert.ok(!late.some(({ goal }) => goal.quest === q), `40-50/01 no longer carries ${q}`);
 	assert.ok(late.some(({ goal }) => is('accept', 1265)(goal)), '40-50/01 takes The Missing Diplomat on at Theramore');
 	// Accepts more than four levels over the quest's band wait for the visit that works them (the level model ground for them).
-	assert.ok(!goals('forever/alliance/30-40/02-desolace.guide').some(({ goal }) => is('accept', 1454)(goal)), 'The Karnitol Shipwreck (39) is taken on the south loop, not at the first Desolace visit');
-	assert.ok(goals(BADLANDS).some(({ goal }) => is('accept', 1454)(goal)), 'and taken there');
+	// BrAlliance3040 (0.3.6): The Karnitol Shipwreck (39) is the exception: its first two parts are a chest beside Azore's
+	// tower and a talk to Kreldig, nothing to fight, so the first Desolace visit takes them; the satchel dive (1456) waits for the south loop.
+	assert.ok(goals('forever/alliance/30-40/02-desolace.guide').some(({ goal }) => is('turnin', 1455)(goal)), 'The Karnitol Shipwreck\'s chest and report on the first Desolace visit');
+	assert.ok(goals(BADLANDS).some(({ goal }) => goal.t === 'collect' && goal.quest === 1456), 'the satchel on the south loop');
 	assert.ok(!goals(HILLSBRAD_ALLIANCE).some(({ goal }) => is('accept', 707)(goal)), 'Ironband Wants You! (37) is not taken at 32');
 	assert.ok(goals(ARATHI).some(({ goal }) => is('accept', 707)(goal)), 'it is taken on the Ironforge stop before Loch Modan');
 	assert.ok(!goals('forever/alliance/30-40/04b-stranglethorn-vale.guide').some(({ goal }) => is('accept', 209)(goal)), 'Skullsplitter Tusks (42) is not taken at 37');
@@ -10399,4 +10401,35 @@ test('Un\'Goro (Alliance 56): the gorilla pelts on the northern pass, one ride f
 	assert.ok(hand < at(list, 'U\'cha', (g) => g.t === 'collect' && g.quest === 4301), 'before the ride to U\'cha');
 	const fallback = list.filter(({ goal, step }) => goal.t === 'collect' && goal.quest === 4289 && (step.when || []).some((p) => p.k === 'onquest' && !p.neg));
 	assert.ok(fallback.length >= 6, 'both pelt steps wait for 4289 in the log');
+});
+
+// Our comparison (0.3.6, BrAlliance3040, Alliance 30-40 Desolace): Karnitol's Chest lies beside Azore's tower, which the
+// first Desolace visit (02) climbs for the Sceptre of Light, so the chain is opened there and its report goes in on that
+// visit's last Kreldig stop. The south loop (06) then dives for the satchel on its one trip to the north-west coast, opens
+// Rackmore's Chest (every race: the quest's race mask is all) right after the Serpent Statue, and visits Nijel's Point
+// once at the end instead of walking back to it from the wreck in the middle of the loop.
+test('Alliance Desolace: the Karnitol chest on the first visit, one Nijel\'s Point stop and Rackmore for every race on the south loop', { skip }, () => {
+	const des = goals('forever/alliance/30-40/02-desolace.guide');
+	assert.equal(des[at(des, 'accept 1454', is('accept', 1454))].s, des[at(des, 'turnin 1453', is('turnin', 1453))].s, 'taken from Kreldig with his letter');
+	const azore = at(des, 'accept 5741', is('accept', 5741));
+	const chest = at(des, 'turnin 1454', is('turnin', 1454));
+	assert.equal(des[chest].s, des[azore].s + 1, 'the chest right after Azore');
+	assert.ok(chest < at(des, 'turnin 1438', is('turnin', 1438)), 'before Thunder Axe Fortress');
+	const report = at(des, 'turnin 1455', is('turnin', 1455));
+	assert.equal(des[report].s, des[at(des, 'turnin 1459', is('turnin', 1459))].s, "on the last Kreldig stop");
+	assert.equal(des[at(des, 'accept 1456', is('accept', 1456))].s, des[report].s, 'the satchel errand taken there');
+
+	const sth = goals('forever/alliance/30-40/06-badlands.guide');
+	const satchel = at(sth, 'collect 6245', (g) => g.t === 'collect' && g.quest === 1456);
+	const statue = at(sth, 'use 15766', (g) => g.t === 'use' && g.quest === 6027);
+	const golden = at(sth, 'collect 15881', (g) => g.t === 'collect' && g.item === 15881);
+	assert.ok(sth[satchel].s <= sth[golden].s && sth[golden].s <= sth[statue].s, 'the golden key on the naga coast, between the satchel and the statue');
+	const claim = at(sth, 'turnin 6161', is('turnin', 6161));
+	assert.equal(sth[claim].s, sth[statue].s + 1, "Rackmore's Chest right after the statue");
+	for (const i of [at(sth, 'accept 6161', is('accept', 6161)), sth.findIndex(({ goal }) => goal.t === 'collect' && goal.quest === 6161), golden, claim]) {
+		assert.ok(everyone(sth[i]), `${sth[i].goal.t} 6161 has no race filter`);
+	}
+	const kreldig = sth.map(({ goal }, i) => ((goal.t === 'turnin' && [1455, 1456, 1466].includes(goal.quest)) || (goal.t === 'accept' && [1457, 1467].includes(goal.quest)) ? i : -1)).filter((i) => i >= 0);
+	assert.ok(kreldig.every((i) => i > satchel && sth[i].s === sth[kreldig[kreldig.length - 1]].s), "Kreldig's hand-ins on one stop after the coast");
+	assert.ok(!sth.some(({ goal }) => is('accept', 1456)(goal)), 'the satchel errand comes from 02');
 });

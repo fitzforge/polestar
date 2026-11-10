@@ -5132,6 +5132,74 @@
 					"ref": "quests.json 3449 objectiveText; page snapshot 3449; quest-steps.json 3449"
 				}
 			]
+		},
+		{
+			"id": "ba3040-desolace-karnitol-chest-first-visit",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1454,
+				"goal": "turnin"
+			},
+			"tip": "The wrecked ship lies just south-west of Azore's tower; its chest sits beside Rackmore's Log.",
+			"note": "BrAlliance3040 (0.3.6): Karnitol's Chest (object 35251) and Rackmore's Log (177787) share 36.1,30.4, about 100 yd south-west of Azore Aldamort (38.9,27.2). The first Desolace visit (30-40/02) opens the chest after Azore (route-fixes together records); 30-40/06 keeps the step for a player who loads it fresh.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/objects.json 35251, 177787; npcs.json 11863"
+				}
+			]
+		},
+		{
+			"id": "ba3040-desolace-rackmore-keys",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6161,
+				"goal": "accept"
+			},
+			"tip": "Rackmore's Log lies beside Karnitol's Chest. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next.",
+			"note": "BrAlliance3040 (0.3.6): Claim Rackmore's Treasure! was Dwarf-only in 30-40/06 (a filter from an old per-race export; the quest's race mask is all races, and Scourge, Orc and Skyborne characters took it in the recordings). Silver key 15878: Drysnap Crawler/Pincer (11562/11563, 15%), which also spawn at 31-35,27-35 by the wreck; golden key 15881: every Slitherblade naga (4711-4719, 55%) of Sar'theris Strand, where the satchel and the Serpent Statue already take the route. No guide-fixes field holds a race filter: tests/guides-reported.test.js pins that the goals have none.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "forever-db quest 6161 races 0; item_source 15878, 15881"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 6161 (Br3040, 2026-11-10)"
+				}
+			]
+		},
+		{
+			"id": "ba3040-desolace-rackmore-chest-after-statue",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6161,
+				"goal": "turnin"
+			},
+			"tip": "Rackmore's chest lies just south-east of the Serpent Statue.",
+			"note": "BrAlliance3040 (0.3.6): Rackmore's Chest (177786) is at 30.0,8.7, the Serpent Statue at 28.2,6.7; the treasure is claimed right after the statue instead of after a walk south to 36.3,23.1 for the golden key and back.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/objects.json 177786"
+				}
+			]
+		},
+		{
+			"id": "ba3040-desolace-nijels-point-one-stop",
+			"faction": "Alliance",
+			"at": {
+				"quest": 93224,
+				"goal": "turnin"
+			},
+			"tip": "Follow the road north to Nijel's Point: Captain Pentigast stands at its south end, Kreldig Ungor in the middle, Brother Anton to the north.",
+			"note": "BrAlliance3040 (0.3.6): the south loop's hand-ins at Nijel's Point are made on one stop at the end, in the order the road from Kormek's Hut meets them: Pentigast (66.7,10.9), Kreldig (66.2,9.6), Anton (66.5,7.9), then the flight master (64.7,10.4).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/npcs.json 5396, 5638, 1182"
+				}
+			]
 		}
 	]
 }

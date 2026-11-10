@@ -6423,6 +6423,55 @@
 				],
 				"faction": "Horde",
 				"why": "Egg Hunt (Korran) is offered from level 17 (Forever's quest data); its eggs are worked in the Field of Giants south of Camp Taurajo at about 20-21. #1244 took it on the Crossroads stop after Echeyakee at 17, and 0.3.4's players carried it that long: 8 of the 14 who took it abandoned it (Ingest report 2026-11-08). Final route review (2026-11-08): it is taken on the last Crossroads stop before the eggs (Mankrik's Lost in Battle hand-in, Korran a few yards away), before the Orgrimmar trip at 20"
+			},
+			{
+				"a": [
+					"turnin",
+					1453
+				],
+				"b": [
+					"accept",
+					1454
+				],
+				"faction": "Alliance",
+				"why": "Desolace (Alliance 30-40, 0.3.6, BrAlliance3040, our comparison): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit, as the benchmark order does, leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end."
+			},
+			{
+				"a": [
+					"accept",
+					5741
+				],
+				"b": [
+					"turnin",
+					1454
+				],
+				"faction": "Alliance",
+				"why": "Desolace (Alliance 30-40, 0.3.6, BrAlliance3040, our comparison): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit, as the benchmark order does, leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end."
+			},
+			{
+				"a": [
+					"turnin",
+					1459
+				],
+				"b": [
+					"turnin",
+					1455
+				],
+				"faction": "Alliance",
+				"why": "Desolace (Alliance 30-40, 0.3.6, BrAlliance3040, our comparison): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit, as the benchmark order does, leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end. The chest's report (1455) goes in with Reagents (1459) on the visit's last Kreldig stop, which gives the satchel's errand (1456) to carry to the south loop."
+			},
+			{
+				"a": [
+					"task",
+					6027,
+					0
+				],
+				"b": [
+					"turnin",
+					6161
+				],
+				"faction": "Alliance",
+				"why": "Desolace south loop (Alliance 30-40/06, 0.3.6, BrAlliance3040): Rackmore's Chest (30.0,8.7) stands beside the Serpent Statue (28.2,6.7); the golden key drops (55%) from the Slitherblade naga of the same coast, so the treasure is claimed right after the statue. The guide sent the player south to 36.3,23.1 for the key and back north to the chest."
 			}
 		],
 		"after": [
@@ -12844,6 +12893,20 @@
 				"faction": "Horde",
 				"why": "Flow, Felwood (Horde 50-60/02, 0.3.6): Cleansing Felwood goes to Maybess on the Sanctuary stop that hands in Taronn's and Greta's quests, before Overlord Ror in Deadwood Village; the solo top-up then grinds the Deadwood where Ror stands instead of after a ride back to the Sanctuary and down again.",
 				"source": "BrHorde4060"
+			},
+			{
+				"a": [
+					"task",
+					1456,
+					0
+				],
+				"b": [
+					"turnin",
+					1466
+				],
+				"faction": "Alliance",
+				"why": "Desolace (Alliance 30-40, 0.3.6, BrAlliance3040, our comparison): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit, as the benchmark order does, leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end. The satchel is dived for before the south loop's Reagents hand-in, so Nijel's Point is visited once, at the end.",
+				"source": "BrAlliance3040"
 			}
 		]
 	}
