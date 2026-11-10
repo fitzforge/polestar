@@ -8,9 +8,7 @@
 return {
 	-- Step 1: Kerlonian Evershade
 	-- {area:442} Auberdine · {area:448} Grove of the Ancients · {npc:11218} Kerlonian Evershade · {item:13536} Horn of Awakening · {zone:1439} Darkshore · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post
-	["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest, open his chest for the {item:13536}, use it to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow the horn again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "De volta ao norte, a partir da glaive (Druidas: ao sul pela estrada, a partir de {area:442}) até {area:448}, onde {npc:11218} dorme ao lado de Arbal. Pegue a missão dele, abra o baú dele para pegar {item:13536}, use-o para acordá-lo e leve-o ao sul pela estrada até a bolsa dele, no extremo sul de {zone:1439}; toque o chifre de novo sempre que ele adormecer. Depois siga para {npc:11219}, em {area:413}.\nCuidado: emboscadas programadas de três monstros cada atacam ao longo da estrada.",
-	-- {object:176634} Kerlonian's Chest
-	["{object:176634}, beside him"] = "{object:176634}, ao lado dele",
+	["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest: it gives you the {item:13536}. Use the horn to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow it again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "De volta ao norte, a partir da glaive (Druidas: ao sul pela estrada, a partir de {area:442}) até {area:448}, onde {npc:11218} dorme ao lado de Arbal. Pegue a missão dele: ela lhe dá {item:13536}. Use o chifre para acordá-lo e leve-o ao sul pela estrada até a bolsa dele, no extremo sul de {zone:1439}; toque-o de novo sempre que ele adormecer. Depois siga para {npc:11219}, em {area:413}.\nCuidado: emboscadas programadas de três monstros cada atacam ao longo da estrada.",
 	-- {npc:11218} Kerlonian Evershade · {zone:1439} Darkshore · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post
 	["Escort {npc:11218} south along the road to his bag at the southern edge of {zone:1439}, then go on to {npc:11219} at {area:413}."] = "Escolte {npc:11218} para o sul pela estrada até a bolsa dele, no extremo sul de {zone:1439}, e depois siga para {npc:11219}, em {area:413}.",
 
@@ -293,6 +291,7 @@ return {
 	["Next: training in {zone:1453}, then the road east through Elwynn and south to {zone:1431}."] = "A seguir: treino em {zone:1453}, depois a estrada para leste por Elwynn e para o sul até {zone:1431}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest, open his chest for the {item:13536}, use it to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow the horn again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "De volta ao norte, a partir da glaive (Druidas: ao sul pela estrada, a partir de {area:442}) até {area:448}, onde {npc:11218} dorme ao lado de Arbal. Pegue a missão dele, abra o baú dele para pegar {item:13536}, use-o para acordá-lo e leve-o ao sul pela estrada até a bolsa dele, no extremo sul de {zone:1439}; toque o chifre de novo sempre que ele adormecer. Depois siga para {npc:11219}, em {area:413}.\nCuidado: emboscadas programadas de três monstros cada atacam ao longo da estrada.",
 	-- ["Back to the Cathedral of Light: {npc:928} stands inside."] = "De volta à Catedral da Luz: {npc:928} fica lá dentro.",
 	-- ["Back west along the road into Menethil: {npc:2096} by the road in, {npc:2111} and {npc:1480} at the inn, {npc:2086} in the keep, {npc:2094} on the west side by the docks, {npc:1242} on the pier north of the inn."] = "De volta para oeste pela estrada até Menethil: {npc:2096} na entrada da estrada, {npc:2111} e {npc:1480} na estalagem, {npc:2086} na bastilha, {npc:2094} no lado oeste, junto às docas, {npc:1242} no cais ao norte da estalagem.",
 	-- ["Black Oozes"] = "Gosmas Pretas",
@@ -358,6 +357,7 @@ return {
 	-- ["{npc:482}, the cheese shop in the {object:2096}"] = "{npc:482}, a loja de queijos no {object:2096}",
 	-- ["{npc:4959} and {npc:482}"] = "{npc:4959} e {npc:482}",
 	-- ["{npc:4982}, in the Cathedral of Light"] = "{npc:4982}, na Catedral da Luz",
+	-- ["{object:176634}, beside him"] = "{object:176634}, ao lado dele",
 	-- ["{object:2164} is in the {object:2101}."] = "{object:2164} fica no {object:2101}.",
 	-- ["{zone:1455} priests"] = "Sacerdotes de {zone:1455}",
 }
