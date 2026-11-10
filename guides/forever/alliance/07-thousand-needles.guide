@@ -100,12 +100,12 @@ step Back to Darkshire
   turnin 251                              -- Sirra Von'Indi, in the house behind the town hall
   turnin 225 optional
   accept 227 optional
-  turnin 227 optional                         -- Commander Althea Ebonlocke
   turnin 96138 optional                   -- Sirra Von'Indi
   accept 401
   turnin 401                              -- Wait a moment, then speak with her again
   accept 252
   turnin 252                              -- Lord Ello Ebonlocke
+  turnin 227 optional                         -- Commander Althea Ebonlocke
   turnin 58                               -- Commander Althea Ebonlocke
   turnin 1244                             -- Watcher Backus walks around Darkshire: look inside the circle on the map
   accept 1245                             -- For Elling Trias in Stormwind, in the next guide

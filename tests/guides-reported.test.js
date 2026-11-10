@@ -2459,6 +2459,16 @@ test(`${REDRIDGE}: Howling in the Hills taken in Lakeshire, Yowler on the walk t
 	assert.ok(hand > at(list, 'accept 219 (Keeshan)', is('accept', 219)) && list[hand].s === list[at(list, 'turnin 219', is('turnin', 219))].s, 'handed in on the way back through Lakeshire');
 });
 
+// Alliance 12-30 bracket review 0.3.6 (talk-order sweep): on the Duskwood return's last Darkshire stop the Weathered Grave's
+// hand-in at Commander Althea (town hall) sat between Sirra Von'Indi's goals (house behind it), one round trip more; it now
+// goes with Althea's other hand-in after Sirra.
+test(`${THOUSAND_NEEDLES}: the Darkshire stop finishes at Sirra Von'Indi before going back to the town hall`, { skip }, () => {
+	const list = goals(THOUSAND_NEEDLES);
+	const lastSirra = Math.max(...[251, 225, 96138, 401].map((q) => at(list, `turnin ${q}`, is('turnin', q))), at(list, 'accept 252', is('accept', 252)));
+	const grave = at(list, 'turnin 227', is('turnin', 227));
+	assert.ok(grave > lastSirra && grave > at(list, 'turnin 252', is('turnin', 252)) && list[grave].s === list[at(list, 'turnin 58', is('turnin', 58))].s, 'Althea\'s Weathered Grave hand-in with The Night Watch, after Sirra');
+});
+
 // The sweep for #1348: a Bronze Tube is never a buy that holds a step (every vendor of it keeps one or two),
 // and a goal that must get one sends the player to the Stormwind Auction House, not to a vendor.
 test('Every guide (#1348): no Bronze Tube buy holds a step; a required tube comes from the Auction House', { skip }, () => {
