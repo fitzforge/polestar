@@ -8370,7 +8370,9 @@ end
 --     for the same objective (Own.nearestField has those);
 --   * a use with its item in the bags, a click with an item its quest needs
 --     for it there (Own.hereCarries: Marla's Grave only with Samuel's
---     Remains, #1540);
+--     Remains, #1540), unless a use goal of the quest names that item (the
+--     Giant Softshell Clam gives the clam Clam Bait's use goal opens); the
+--     items are the quest's, not each objective's;
 --   * with mobs at most HERE_ABOVE levels over the player (a spot's `lvl`,
 --     else the goal's), measured to such places only;
 --   * any size: whatever is left (15 quilboars as much as 2), the player is there
@@ -8499,7 +8501,7 @@ Own.herePicked = {} -- the nearest HERE_MAX, when more fit (reused)
 Own.hereQuiet = setmetatable({}, { __mode = "k" }) -- goal -> true: dismissed (or no walk there), this zone stay
 Own.hereTo = {} -- the walk check's destination (reused)
 Own.hereSoonAt, Own.hereSoonTo = {}, 0 -- the route's next HERE_SOON steps' NPCs (objects negated) and last step (reused)
-Own.hereIndex = setmetatable({}, { __mode = "k" }) -- guide -> { at, unplaced, by = { [continent] = { s, g, s, g, ... } } }
+Own.hereIndex = setmetatable({}, { __mode = "k" }) -- guide -> { at, unplaced, by = { [continent] = { s, g, s, g, ... } }, uses = { [quest] = { [item] = true } } }
 Own.HERE_INDEX_RETRY = 10 -- seconds before an index with goals of maps not known yet is built again
 
 -- The loaded guide's goals that may be candidates on continent `c` (a
@@ -8507,13 +8509,23 @@ Own.HERE_INDEX_RETRY = 10 -- seconds before an index with goals of maps not know
 -- in route order, or nil. Indexed once per guide by world position, so a
 -- goal on the next zone's map (a border, a city inside its zone) is as near
 -- as the arrow measures it: no zone of the guide stops While you're here.
+-- The same pass notes the items each quest's use goals name, placed or not
+-- (Own.hereCarries).
 function Own.hereGoalsOn(c)
 	local idx = Own.hereIndex[guide]
 	if not idx or (idx.unplaced and GetTime() - idx.at >= Own.HERE_INDEX_RETRY) then
-		idx = { at = GetTime(), unplaced = false, by = {} }
+		idx = { at = GetTime(), unplaced = false, by = {}, uses = {} }
 		local verbs = Own.HERE_VERBS
 		for s, step in ipairs(guide.steps) do
 			for g, goal in ipairs(step.goals) do
+				if goal.t == "use" and goal.quest and goal.item then
+					local items = idx.uses[goal.quest]
+					if not items then
+						items = {}
+						idx.uses[goal.quest] = items
+					end
+					items[goal.item] = true
+				end
 				if goal.map and goal.quest and goal.x and goal.y and not goal.candidates and (verbs[goal.t] or goal.t == "turnin" or goal.t == "accept") then
 					local gc = goalWorld(goal)
 					if gc then
@@ -8977,16 +8989,23 @@ end
 -- Whether the bags hold what quest q's clicks need (#1540): one at least of
 -- the items the quest uses without asking for them (QuestDB.UsesOnly:
 -- Samuel's Remains for Marla's Grave, the Sunscale Feather for the
--- Scytheclaw nests). True for a quest that uses none, and without the quest
--- database, which alone knows them.
+-- Scytheclaw nests). An item a use goal of the quest names in the loaded
+-- guide does not count: the guide's own steps bring it, often from the very
+-- click (Clam Bait's Giant Softshell Clam gives the Soft-shelled Clam its
+-- use goal opens), and that goal checks the bags itself. The items are the
+-- quest's, not the objective's: a quest whose clicks need different items
+-- shows each of them with any one of those in the bags. True for a quest
+-- that uses none, and without the quest database, which alone knows them.
 function Own.hereCarries(q)
 	local Q = ns.QuestDB
 	local r = Q and Q.IsLoaded() and Q.QuestRecord(q)
 	local v = r and r[Q.F.ITEMS]
 	if not v then return true end
+	local idx = Own.hereIndex[guide]
+	local own = idx and idx.uses[q]
 	local C, uses = Compat(), false
 	for _, id in Q.Each(v) do
-		if Q.UsesOnly(q, id) then
+		if not (own and own[id]) and Q.UsesOnly(q, id) then
 			if C.GetItemCount(id) > 0 then return true end
 			uses = true
 		end

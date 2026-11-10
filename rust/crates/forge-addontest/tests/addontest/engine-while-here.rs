@@ -1578,10 +1578,13 @@ fn the_step_key_targets_a_line_s_mobs_after_the_live_step_s_own_1316() {
 // #1540: a click an item must be carried for (Marla's Grave takes Samuel's Remains, from the farm) is no line
 // until the bags hold it. The quest database says which items a quest uses without asking for them; 9100 uses item
 // 90001, which the farm step collects, at its grave right beside the player; 9101 uses nothing, at its grave beside
-// it. Without the database nothing says what a click needs: both graves count, as before.
+// it. Without the database nothing says what a click needs: both graves count, as before. 9102 (Clam Bait's shape:
+// the Giant Softshell Clam gives the Soft-shelled Clam a use goal then opens) uses item 90005 too, but a later use
+// goal of 9102 names it: the guide brings it, from that very click, so the click is a line without it.
 const REMAINS_WORLD: &str = r#"
 w.onQuest(9100, { 1 }, "A Last Wish")
 w.onQuest(9101, { 1 }, "Another Grave")
+w.onQuest(9102, { 1 }, "A Clam")
 "#;
 const REMAINS: &str = r#"
 Polestar.RegisterGuide({
@@ -1591,6 +1594,10 @@ Polestar.RegisterGuide({
 		{ title = "The farm", goals = { { t = "collect", item = 90001, itemName = "Remains", map = 1429, x = 70, y = 70 } } },
 		{ title = "The grave", goals = { { t = "interact", quest = 9100, title = "A Last Wish", object = 90002, objName = "A Grave", oi = 1, map = 1429, x = 47.6, y = 45.5 } } },
 		{ title = "The other grave", goals = { { t = "interact", quest = 9101, title = "Another Grave", object = 90003, objName = "Another Grave", oi = 1, map = 1429, x = 47.7, y = 45.1 } } },
+		{ title = "The clam", goals = {
+			{ t = "interact", quest = 9102, title = "A Clam", object = 90004, objName = "A Clam Bed", oi = 1, map = 1429, x = 47.5, y = 45.3 },
+			{ t = "use", quest = 9102, title = "A Clam", item = 90005, itemName = "A Clam", oi = 1, map = 1429, x = 47.5, y = 45.3 },
+		} },
 	},
 })
 "#;
@@ -1599,6 +1606,7 @@ Polestar.QuestDB.SetMeta({ schema = 2 })
 AddRecords("quests", {
 	[9100] = { "A Last Wish", 5, 3, nil, nil, 2, 9200, 9200, nil, nil, nil, { 3, 90002, nil }, 1429, nil, nil, nil, nil, nil, 90001 },
 	[9101] = { "Another Grave", 5, 3, nil, nil, 2, 9200, 9200, nil, nil, nil, { 3, 90003, nil }, 1429 },
+	[9102] = { "A Clam", 5, 3, nil, nil, 2, 9200, 9200, nil, nil, nil, { 3, 90004, nil }, 1429, nil, nil, nil, nil, nil, 90005 },
 })
 "#;
 const REMAINS_SCRIPT: &str = r#"
@@ -1634,7 +1642,8 @@ fn run_remains(db: bool) -> Vec<Value> {
 
 #[test]
 fn a_click_that_needs_an_item_the_bags_lack_is_no_line_until_the_item_is_there_1540() {
-	assert_eq!(run_remains(true), vec![json!("4:1:work:1"), json!("3:1:work:1 4:1:work:1"), json!("4:1:work:1")]);
-	let both = json!("3:1:work:1 4:1:work:1");
-	assert_eq!(run_remains(false), vec![both.clone(), both.clone(), both]);
+	let rest = json!("4:1:work:1 5:1:work:1");
+	assert_eq!(run_remains(true), vec![rest.clone(), json!("3:1:work:1 4:1:work:1 5:1:work:1"), rest]);
+	let all = json!("3:1:work:1 4:1:work:1 5:1:work:1");
+	assert_eq!(run_remains(false), vec![all.clone(), all.clone(), all]);
 }
