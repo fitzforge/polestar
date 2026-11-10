@@ -855,10 +855,20 @@ local function planRoute(p)
 	-- Darnassus were sent down the portal (#1564). A ride, a flight or the
 	-- Hearthstone leaves that ground.
 	local stranded = {}
+	-- onFoot[v]: v was reached by a plain walk (straight, or measured into the
+	-- target), not along a link of its own (a crossing, a chain, a learned
+	-- path: `along` while those are walked). A plain walk on from v goes only
+	-- where the walk into v could not have gone straight (another zone, through
+	-- an open border): a walk that stops at a place only to walk on is the same
+	-- walk past it, and with v's straight estimate cheaper than the start's
+	-- measured walk into the target it led the arrow to the Searing Gorge
+	-- gate's Badlands end, 300 yd short of Kargath, and on from there (#1694).
+	local onFoot, along = {}, false
 	local function relax(v, d, t, how, from)
 		if d < dist[v] then
 			dist[v], tm[v], prev[v], via[v] = d, t, from, how
 			stranded[v] = how == WALK and (nw[from] or stranded[from]) or nil
+			onFoot[v] = how == WALK and not along or nil
 			push(d, v)
 		end
 	end
@@ -897,12 +907,15 @@ local function planRoute(p)
 		walk(u, v, cost, s, du, tu)
 	end
 	-- Walks from u to every vertex of `list`: straight x1.25, or the measured walk into the target.
-	local function walkTo(list, u, du, tu, xu, yu)
+	-- back: the vertex u was walked to from (onFoot): no walk on where back walks straight.
+	local function walkTo(list, u, du, tu, xu, yu, back)
 		if not list then return end
 		local mu = tw[u]
 		for i = 1, #list do
 			local v = list[i]
-			if v == 2 and mu then
+			if back and zonesWalk(vzone[back], vzone[v]) then
+				-- the walk into u goes there straight
+			elseif v == 2 and mu then
 				walk(u, 2, mu / speed, ty[u] / speed, du, tu)
 			elseif v == 2 and (nw[u] or stranded[u]) then
 				-- no walk from u to the target
@@ -926,6 +939,7 @@ local function planRoute(p)
 			if kind == PATH then
 				local adj = pathAdj[vref[u]]
 				if adj then
+					along = true
 					for i = 1, #adj - 1, 2 do
 						local v = pathV[adj[i]]
 						if v then
@@ -933,11 +947,14 @@ local function planRoute(p)
 							walk(u, v, s, s, du, tu)
 						end
 					end
+					along = false
 				end
 			elseif learnV[u] then
 				-- a flight master not learnt yet: flown out of only, never walked on from (#989's portal stays the way up)
 			elseif sealed(u) then
 				-- explicit links only (below)
+			elseif onFoot[u] and not covered[cu] then
+				-- walked to: the walk into it goes anywhere on the continent straight
 			elseif not covered[cu] then
 				local mu = tw[u]
 				for v = 2, keys do
@@ -951,20 +968,21 @@ local function planRoute(p)
 					end
 				end
 			else
-				local zu = vzone[u]
+				local zu, back = vzone[u], onFoot[u] and prev[u] or nil
 				if zu == nil then
 					for z, list in pairs(byZone) do
-						if zoneInfo[z] and zoneInfo[z].c == cu then walkTo(list, u, du, tu, xu, yu) end
+						if zoneInfo[z] and zoneInfo[z].c == cu then walkTo(list, u, du, tu, xu, yu, back) end
 					end
 				else
-					walkTo(byZone[zu], u, du, tu, xu, yu)
+					walkTo(byZone[zu], u, du, tu, xu, yu, back)
 					local o = openPair[zu]
 					if o then
-						for z in pairs(o) do walkTo(byZone[z], u, du, tu, xu, yu) end
+						for z in pairs(o) do walkTo(byZone[z], u, du, tu, xu, yu, back) end
 					end
 				end
-				walkTo(free[cu], u, du, tu, xu, yu)
+				walkTo(free[cu], u, du, tu, xu, yu, back)
 			end
+			along = true
 			local ex = extra[u]
 			if ex then
 				for i = 1, #ex - 1, 2 do
@@ -977,6 +995,7 @@ local function planRoute(p)
 					if not (lk[i] == 2 and stranded[u]) then straight(u, lk[i], lk[i + 1] * walkRate, du, tu) end
 				end
 			end
+			along = false
 			if kind == TAXI then
 				local fl = flights[vref[u].id]
 				if fl then
