@@ -1131,8 +1131,8 @@ fn check_overrides(ck: &mut Ck, o: &V) {
 		ck.refers(&format!("{a}[1]"), "quests", &s.items()[1]);
 		Some(num_str(s.items()[1].num()))
 	};
-	let mut included: Vec<(String, String)> = Vec::new();
-	let mut skipped: Vec<(String, String)> = Vec::new();
+	let mut included: Vec<(String, String, bool)> = Vec::new();
+	let mut skipped: Vec<(String, String, bool)> = Vec::new();
 	for (sec, allowed) in [("include", &["q", "after", "reason", "issue"][..]), ("skip", &["q", "reason", "issue", "faction"][..])] {
 		let list = o.get(sec);
 		if !list.is_undef() && !list.is_arr() {
@@ -1156,14 +1156,16 @@ fn check_overrides(ck: &mut Ck, o: &V) {
 			}
 			let q = num_str(e.get("q").num());
 			let mine = if sec == "include" { &mut included } else { &mut skipped };
-			if mine.iter().any(|(x, _)| *x == q) {
+			if mine.iter().any(|(x, _, _)| *x == q) {
 				ck.warn(&a, format!("quest {q} is already in {sec}"));
 			}
-			mine.push((q, a));
+			mine.push((q, a, !f.is_undef()));
 		}
 	}
-	for (q, a) in &included {
-		if let Some((_, b)) = skipped.iter().find(|(x, _)| x == q) {
+	// A skip held for one side's routes leaves an include for the other side standing (Zamek's Distraction
+	// 1191: included for the Horde, skipped for the Alliance with its parent 1190).
+	for (q, a, _) in &included {
+		if let Some((_, b, _)) = skipped.iter().find(|(x, _, one_side)| x == q && !one_side) {
 			ck.err(a, format!("quest {q} is both included and skipped ({b})"));
 		}
 	}
@@ -1187,7 +1189,7 @@ fn check_overrides(ck: &mut Ck, o: &V) {
 		};
 		if let Some(q) = q {
 			if e.get("edit").as_str() != Some("insert") {
-				if let Some((_, b)) = skipped.iter().find(|(x, _)| *x == q) {
+				if let Some((_, b, _)) = skipped.iter().find(|(x, _, _)| *x == q) {
 					ck.err(&a, format!("quest {q} is skipped ({b}): reverting its step keeps nothing"));
 				}
 			}
@@ -1859,6 +1861,9 @@ mod tests {
 		assert!(has("deliberate.pairs[0].a[1]: no quest 6 in the data"), "{f:#?}");
 		assert!(has("error o deliberate.pairs[0].b"), "{f:#?}");
 		assert!(has("reverting its step keeps nothing"), "{f:#?}");
+		let o = r#"{ "overrides": { "include": [{ "q": 10, "reason": "x" }], "skip": [{ "q": 10, "reason": "y", "faction": "Alliance" }] } }"#;
+		let f = findings(None, None, Some(o));
+		assert!(!f.iter().any(|x| x.contains("both included and skipped")), "a one-side skip leaves the include for the other side: {f:#?}");
 		let m = r#"{ "schema": 1, "quests": { "10": { "kinds": [{ "kind": "teleport" }], "steps": [{ "n": 1, "action": "use" }], "note": "x" } }, "corrections": {} }"#;
 		let f = findings(Some(r#"{ "mechanics": { "10": { "params": [{ "kind": "delayed-offer" }], "note": "x" } } }"#), Some(m), None);
 		let has = |s: &str| f.iter().any(|x| x.contains(s));
