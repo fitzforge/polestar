@@ -158,11 +158,35 @@ scheme, then the route style (Fastest, Balanced or Roads, with a line on what
 each does); then the guide Polestar suggests for that character, the Discord
 and community guides (`/polestar welcome` shows it again).
 
-### New in 0.3.0
+### New in 0.3.6
 
-0.3.0 is the current release and our biggest yet, built around a complete
-overhaul of the leveling routes ([CHANGELOG.md](CHANGELOG.md) lists every
-change):
+0.3.6 is the current release ([CHANGELOG.md](CHANGELOG.md) lists every
+change, with the players who reported them):
+
+- **Every leveling guide stands on its own.** Start any leveling guide at its
+  level without the guides before it: quests that need a feeder from another
+  guide are left out instead of shown as broken steps.
+- **No quests you can't take yet.** The guide no longer points you at a
+  quest you're too low level to take: it carries on and brings the quest
+  back at its level. Hovering an accept shows **Level** (in red while you're
+  below it) and **Needs**, the quests you still have to hand in first.
+- **Smoother routes.** Alliance walking orders from 1 to 60 and several Horde
+  stretches reworked from players' reports: hand-ins you walk past are done
+  then, towns in one pass, fewer trips back.
+- **A steadier arrow.** It cycles a step's places by itself, no longer swings
+  when you walk close beside its target, ends "Fly to" steps when you land
+  and no longer asks you to cast a class teleport.
+- **Dungeons, class and reputation guides.** Pick-up and hand-in guides find
+  NPCs the data had placed nowhere; class quest cards say what a chain
+  involves (elites, zones, length) before you start it.
+- **Gear advice** no longer suggests profession tools as weapons or
+  overrates multi-school spell damage.
+- **Polestar Client 0.1.6** sends what the Recorder's explorer mode maps in
+  Forever's new zones, and says why when it can't reach the recording server.
+
+### Built in 0.3.0
+
+0.3.0 brought a complete overhaul of the leveling routes:
 
 - **Routes rebuilt from the ground up.** Every race plays its own starting
   zone, then one shared route per faction carries it to 60, so a fix or an
