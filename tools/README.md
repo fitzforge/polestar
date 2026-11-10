@@ -31,6 +31,42 @@ is installed. The contract the tools write to is in
 | `play` | The playground: the real addon in the browser against a simulated world |
 | `planner` | The route planner: a guide played on the real map with its clock, XP and quest log, its walks routed on the navigation grid when `nav build` has built it (`--nav <dir>`), edited in place; it fetches the game icons its page shows from wago.tools as they are first asked for (cached in `data/local/planner/icons/`); `planner art` builds its map art, `planner mcp` serves its commands to AI agents |
 | `preview` | Renders the guide window, the hub and the options to `docs/preview/*.svg` |
+| `studio` | The Feature Studio: renders scripted scenarios (`tools/studio/scenarios`) with the real addon to PNG, live on a local page; below |
+
+#### The Feature Studio
+
+`studio` shows a feature as it looks in game without logging in. Each
+scenario (`tools/studio/scenarios/<name>.js`) sets up a character (race,
+class, level, money), a place, a guide played some steps in, the spellbook,
+action bars, bags and the party, and names shots: a Lua script each (a ding,
+a hover, a party member's message) and the frames its close-up frames. A
+shot runs the playground's Lua session (`tools/play`: the real addons and
+data packs on the test client stub) plus `tools/studio/client.lua`, the
+client data the stub lacks (spells, items, bags, auras, the game's spell and
+item tooltip lines, atlases) from the Forever client's tables, and draws the
+screen with `tools/preview/render.js`.
+
+```sh
+polestar studio list                                  # scenarios and shots
+polestar studio party-sync --checkout ../lodestar-x   # every shot of one, from another branch's worktree
+polestar studio levelup-spells/card-hover             # one shot
+polestar studio --serve quest-loot                    # http://127.0.0.1:4848, re-renders on every Lua change
+polestar studio art import <old cache>                # client art: status | pull <fileID|atlas|path> | import <dir>
+```
+
+Renders go to `data/local/studio/` (`--out` elsewhere): `<scenario>-<shot>.svg`,
+`.png` and `-closeup.png` (2x; PNGs need `rsvg-convert`). `--world <image>`
+puts one of your own screenshots behind the UI.
+
+Client art (icons, atlases, the game font FRIZQT__.TTF, client tables) lives
+in a local cache, `$POLESTAR_STUDIO_ART` or `~/.cache/polestar-art`, filled
+from the Forever build on wago.tools' copy as shots ask (`--offline`: cache
+only). It is Blizzard's art for local renders only: never commit it, a render
+made with it, or post either. A texture the cache lacks is drawn as a grey
+striped placeholder. Not drawn at all: the 3D world, Blizzard's own frames
+(action bars, the chat window and Quick Keybind window are plain stand-ins
+where a scenario needs them), animations (their end state), secure-frame and
+combat behaviour.
 
 ### Writing guides and packs
 
@@ -107,6 +143,7 @@ The release steps are in [docs/RELEASING.md](../docs/RELEASING.md).
 | `media/` | Texture generators run by `media`: `nav.js`, `qol.js`, `ui.js`; the wordmark fonts in `media/fonts` |
 | `preview/` | `preview`'s renderer: a geometry-recording client stub (`stub.lua`), font outlines, SVG drawing, and a zlib encoder of its own for the textures (`deflate.js`), so the renders are byte-identical on any Node |
 | `play/` | The playground: server, Lua session, driver and the page in `play/public` |
+| `studio/` | The Feature Studio (`studio`): the runner (`studio.js`), client data from the client's tables (`clientdata.js`, `client.lua`, `early.lua`), the local art cache (`art.js`), the live page (`server.js`) and the scenarios (`scenarios/`) |
 | `planner/` | The route planner: server, workspace (packs, sources, edits, undo, lint), the command registry shared by HTTP, MCP and WebMCP, the MCP bridge, the walk routes on the navigation grid (`navpool.js`: worker pool, route cache, Walkable tiles) and the page in `planner/public` (WebGL2 map in `public/map`) |
 | `readme/` | The README's art, drawn by `readme`: `brand.js` (banners, emblem, logo, download, CurseForge and Polestar Client buttons, CurseForge avatar) with the wordmark outlines of `outline.js`, `charts.js` (route charts) and `png.js` (the listing's PNG copies, through `rsvg-convert`) |
 | `templates/pack/` | What `new` copies into a new pack |
