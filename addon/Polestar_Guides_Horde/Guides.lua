@@ -8042,7 +8042,6 @@ do
 						{ t = "accept", quest = 5147, title = "WANTED: Arnak Grimtotem", object = 176115, objName = "Wanted Poster - Arnak Grimtotem", minLevel = 25, qlvl = 29, map = 1441, x = 46, y = 50.86, z = 89.3, f = "e", note = "The Wanted poster beside {npc:10537}" },
 						{ t = "accept", quest = 98070, title = "Stop the Screeching", npc = 4877, npcName = "Jandia", minLevel = 25, qlvl = 30, map = 1441, x = 46.21, y = 51.51, z = 89.4, f = "e", note = "{npc:4877}, the trade supplies vendor: the Screeching harpies of {area:487}; inside the inn" },
 						{ t = "accept", quest = 98069, title = "Stolen Freewind Supplies", npc = 4877, npcName = "Jandia", minLevel = 25, qlvl = 30, map = 1441, x = 46.21, y = 51.51, z = 89.4, f = "e", note = "{npc:4877}: her stolen supplies lie in the same harpy den" },
-						{ t = "sethome", npc = 11116, npcName = "Innkeeper Abeqwa", location = "Freewind Post", area = 484, map = 1441, x = 46.07, y = 51.52, z = 89.4, f = "e", note = "{npc:11116}, beside {npc:4877}" },
 					},
 				},
 				{
@@ -8098,6 +8097,7 @@ do
 						{ t = "accept", quest = 5064, title = "Grimtotem Spying", npc = 10537, npcName = "Cliffwatcher Longhorn", minLevel = 24, qlvl = 28, pre = { 4841 }, preTitles = { [4841] = "Pacify the Centaur" }, map = 1441, x = 45.67, y = 50.74, z = 90, f = "e" },
 						{ t = "turnin", quest = 4821, title = "Alien Egg", npc = 10539, npcName = "Hagar Lightninghoof", map = 1441, x = 44.64, y = 50.29, z = 89.3, f = "e" },
 						{ t = "accept", quest = 4865, title = "Serpent Wild", npc = 10539, npcName = "Hagar Lightninghoof", minLevel = 24, qlvl = 26, pre = { 4821 }, preTitles = { [4821] = "Alien Egg" }, map = 1441, x = 44.64, y = 50.29, z = 89.3, f = "e" },
+						{ t = "sethome", npc = 11116, npcName = "Innkeeper Abeqwa", location = "Freewind Post", area = 484, map = 1441, x = 46.07, y = 51.52, z = 89.4, f = "e", note = "{npc:11116}, beside {npc:4877}" },
 					},
 				},
 				{
