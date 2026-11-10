@@ -479,6 +479,8 @@ const PAD_UI = ['PolestarPadRing', 'PolestarPadHints', 'PolestarPadBadge'];
 const PAD_GUIDE = [...GUIDE, ...PAD_UI];
 const PAD_OPTIONS = [...OPTIONS, ...PAD_UI];
 const HOVER = 'PolestarGuideFrame.IsMouseOver = function() return true end; Polestar.UI.GuideFrame.HoverIn()';
+// One "While you're here" row: step 7's Kobold Workers, 60 yd away.
+const WHILE_HERE = 'local v = { step = 7, index = 1, here = "goal", yards = 60 }; for k, x in pairs(uistub.goal(7, 1)) do if v[k] == nil then v[k] = x end end; Polestar.Engine.GetWhileHereList = function() return { v } end; Polestar.UI.GuideFrame.HereChanged(); stub.advance(1)';
 const RECORDER = `stub.addonsLoaded.Polestar_Recorder = true
 PolestarRecorderDB = { enabled = true, current = "s2", sessions = {
 	s1 = { char = { name = "Testchar" }, events = {} },
@@ -872,6 +874,25 @@ Polestar.Nav.GetRouteGeometry = function() return geom end`;
 function routeStyleScene(root, style) {
 	return questScene([root], `${ROUTE_STYLES}\nPolestar.Set("nav.lineStyle", "${style}")\nPolestar.Fire("NAV_ROUTE_GEOMETRY")\nstub.advance(1.5)`, undefined, ROUTE_FILES);
 }
+// The minimap's route on light ground (the Barrens' dry grass) and dark (a
+// night forest): a flat colour under the minimap's frames, as its own picture
+// would be. style, ground { r, g, b }, extra Lua run before the draw.
+function minimapLookScene(style, ground, extra = '') {
+	return questScene(['Minimap'], `${ROUTE_STYLES}
+local ground = CreateFrame("Frame", nil, Minimap)
+ground:SetAllPoints(Minimap); ground:SetFrameLevel((Minimap:GetFrameLevel() or 1) + 1)
+local g = ground:CreateTexture(nil, "BACKGROUND")
+g:SetAllPoints(ground); g:SetTexture("Interface\\\\AddOns\\\\Polestar\\\\Media\\\\UI\\\\circle"); g:SetVertexColor(${ground.join(', ')}, 1)
+Polestar.Set("ui.reduceMotion", true)
+Polestar.Set("nav.lineStyle", "${style}")
+${extra}
+Polestar.Fire("NAV_ROUTE_GEOMETRY")
+stub.advance(1.5)`, undefined, ROUTE_FILES);
+}
+const BARRENS = [0.71, 0.62, 0.42], NIGHT = [0.1, 0.13, 0.1];
+// A build before the sizes were per style (0.3.6's first) takes the size as
+// its one minimap size; this one keeps each style's own default.
+const styleSize = (v) => `if not Polestar.RouteLines.SIZE_KEYS then Polestar.Set("nav.minimapRouteSize", ${v}) end`;
 // Group content (the compiled `group`, the goal view's `party`): a class
 // guide whose route needs a group, its Felwood step (elites; the author's
 // "group 3" on the boss) and its Dire Maul step (two goals of one run, said
@@ -1069,11 +1090,14 @@ const SCENES = [
 	},
 	{
 		file: 'guide-transparent.svg',
-		title: 'Transparent mode over a bright world: at rest, and with the cursor over it',
+		title: 'Transparent mode over a bright world: at rest, a light shade behind each line (Soft); with the cursor over it; the bar kept shown, While you\'re here and the tip open; the Dark backing; the backing off',
 		backdrop: 'terrain',
 		panels: [
 			{ roots: GUIDE, script: `Polestar.Set("ui.style", "transparent"); ${TABS}` },
 			{ roots: GUIDE, script: `Polestar.Set("ui.style", "transparent"); ${TABS}; ${HOVER}` },
+			{ roots: GUIDE, script: `Polestar.Set("ui.style", "transparent"); Polestar.Set("ui.barShown", true); ${TABS}; ${WHILE_HERE}; Polestar.UI.GuideFrame.parts.tip:Click()` },
+			{ roots: GUIDE, script: `Polestar.Set("ui.style", "transparent"); Polestar.Set("ui.backing", "dark"); ${TABS}` },
+			{ roots: GUIDE, script: `Polestar.Set("ui.style", "transparent"); Polestar.Set("ui.backing", "none"); ${TABS}` },
 		],
 	},
 	{
@@ -1116,8 +1140,11 @@ const SCENES = [
 	},
 	{
 		file: 'whats-new.svg',
-		title: 'What\'s new, once per account on the first login after an update (/polestar whatsnew, About)',
-		panels: [{ roots: ['PolestarWhatsNew'], script: 'Polestar.UI.WhatsNew.Show()' }],
+		title: 'What\'s new, once per account on the first login after an update (/polestar whatsnew, About); its notes scrolled to the end',
+		panels: [
+			{ roots: ['PolestarWhatsNew'], script: 'Polestar.UI.WhatsNew.Show()' },
+			{ roots: ['PolestarWhatsNew'], script: 'Polestar.UI.WhatsNew.Show(); Polestar.Widgets.ScrollTo(PolestarWhatsNew.Scroll, 10000)' },
+		],
 	},
 	{
 		file: 'guide-professions.svg',
@@ -1420,6 +1447,13 @@ end`,
 		panels: [
 			{ roots: OPTIONS, script: `Polestar.Credits.supporters = { "Sample Supporter", "Another Supporter", "Third Supporter", "Fourth", "Fifth", "Sixth" }
 				Polestar.UI.ShowOptions("thanks")` },
+		],
+	},
+	{
+		file: 'line-style.svg',
+		title: 'The route line style window (the gear beside Route lines) on a short screen (768 high at a larger UI scale): its rows scroll under the header',
+		panels: [
+			{ roots: ['PolestarLineStyle'], files: WELCOME_ROUTE_FILES, script: 'UIParent:SetSize(1066, 600)\nPolestar.Set("nav.lineStyle", "sparkle")\nPolestar.UI.ShowLineStyle()' },
 		],
 	},
 	{
@@ -1733,6 +1767,21 @@ Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/h
 			routeStyleScene('Minimap', 'line'),
 			routeStyleScene('Minimap', 'dots'),
 			routeStyleScene('Minimap', 'sparkle'),
+		],
+	},
+	{
+		file: 'minimap-route-look.svg',
+		title: 'The route on the minimap at each style\'s default size, light ground (the Barrens) then dark: the line at 50 %, the dots at 80 %, the sparkles at 150 %; then the dots flowing toward the goal, three moments 0.4 s apart',
+		panels: [
+			minimapLookScene('line', BARRENS, styleSize(0.5)),
+			minimapLookScene('line', NIGHT, styleSize(0.5)),
+			minimapLookScene('dots', BARRENS, styleSize(0.8)),
+			minimapLookScene('dots', NIGHT, styleSize(0.8)),
+			minimapLookScene('sparkle', BARRENS, `${styleSize(1.5)}\nPolestar.Set("ui.reduceMotion", nil)`),
+			minimapLookScene('sparkle', NIGHT, `${styleSize(1.5)}\nPolestar.Set("ui.reduceMotion", nil)`),
+			minimapLookScene('dots', BARRENS, `${styleSize(0.8)}\nPolestar.Set("ui.reduceMotion", nil)`),
+			minimapLookScene('dots', BARRENS, `${styleSize(0.8)}\nPolestar.Set("ui.reduceMotion", nil)\nstub.advance(0.4)`),
+			minimapLookScene('dots', BARRENS, `${styleSize(0.8)}\nPolestar.Set("ui.reduceMotion", nil)\nstub.advance(0.8)`),
 		],
 	},
 	{

@@ -39,6 +39,8 @@ use super::{check_args, usage, Fail};
 pub const USAGE: &str = "usage: forge record import [--wtf <path>] [--vouch <name> | --anonymize] [--root <checkout>] [--out <dir>]
        forge record pull [--server <url>] [--key-file <path>] [--root <checkout>] [--out <dir>]
        forge record resession [--root <checkout>] [--out <dir>]
+       forge record learn [--scope forever-new] [--archive <dir>] [--data <dir>] [--verdicts <verdict.json>]
+                          [--out <dir>] [--report <dir>] [--sources <dir>] [--offline] [--root <checkout>]
 
 import: read the Recorder's file (WTF/Account/<account>/SavedVariables/Polestar_Recorder.lua) of every
 account of every WoW: Forever install found (or of --wtf: a WTF folder, a game folder or its _forever_
@@ -75,7 +77,23 @@ does not know) reach the sessions from the chunks already archived.
 
 --out: the recordings folder (default <root>/data/recordings); --root: the Polestar checkout (default:
 the one above the current folder). A recordings folder of the older layout (raw/<install>/) is moved to
-raw/<contributor>/<install>/ and its sessions rewritten first.";
+raw/<contributor>/<install>/ and its sessions rewritten first.
+
+learn: what the recordings archive teaches about the quests Forever added (docs/forge/learn.md): where
+each objective is done (from where players' objectives ticked) and their prerequisites and minimum
+levels (from givers' refusals and unlocks only), each fact with its number of players (counted and
+all) and status: trusted (enough established players agree), gap (fewer: provisional, never in the
+public database), conflict or stale. Writes the snapshot <out>/quests.json and meta.json (default
+<root>/data/recorded; commit it: no contributor, cohort or character ids, counts only), and
+<report>/report.md and conflicts.json (default <root>/data/local/recorded: per zone, every fact
+against our data: new, confirms, replaces, vs correction, conflict, stale, pending). Corrections always
+win: a fact that disagrees with one is listed, never applied. --archive: the re-sessioned archive
+(default ~/work/maintainer/recordings; its config.json exclude applies); --verdicts: IngestAudit's
+verdict.json (default ~/work/maintainer/ingest-audit/verdict.json when present: exclude and suspect
+contributors never count, one vote per merged person, re-rolled characters' race and class
+ignored); --data: data/forever (default <root>/data/forever); --sources: the source cache with the
+client quest tables that say which quests are new (default <root>/data/sources; --offline: cached
+tables only).";
 
 pub fn main() {
 	super::exit("record", run());
@@ -111,7 +129,7 @@ fn out_dir(args: &[String]) -> Result<PathBuf, Fail> {
 
 fn run() -> Result<(), Fail> {
 	let a: Vec<String> = super::args().skip(1).collect();
-	let Some((sub, rest)) = a.split_first() else { return Err(usage("a subcommand: import, pull or resession")) };
+	let Some((sub, rest)) = a.split_first() else { return Err(usage("a subcommand: import, pull, resession or learn")) };
 	match sub.as_str() {
 		"import" => {
 			check_args(rest, &["--wtf", "--vouch", "--root", "--out"], &["--anonymize"], 0).map_err(usage)?;
@@ -143,8 +161,57 @@ fn run() -> Result<(), Fail> {
 			migrate(&out)?;
 			resession(&out)
 		}
-		x => Err(usage(format!("unknown subcommand {x}: import, pull or resession"))),
+		"learn" => {
+			check_args(rest, &["--scope", "--archive", "--data", "--sources", "--verdicts", "--out", "--report", "--root"], &["--offline"], 0).map_err(usage)?;
+			learn(rest)
+		}
+		x => Err(usage(format!("unknown subcommand {x}: import, pull, resession or learn"))),
 	}
+}
+
+/// `~/work/maintainer/<rest>`: where the maintainer's recordings archive and IngestAudit live.
+fn maintainer(rest: &str) -> Option<PathBuf> {
+	std::env::var_os("HOME").map(|h| PathBuf::from(h).join("work/maintainer").join(rest))
+}
+
+fn learn(rest: &[String]) -> Result<(), Fail> {
+	if let Some(s) = opt(rest, "--scope").filter(|s| !forge_data::learn::SCOPES.contains(&s.as_str())) {
+		return Err(usage(format!("--scope {s}: one of {}", forge_data::learn::SCOPES.join(", "))));
+	}
+	let path = |k: &str| opt(rest, k).map(|p| std::path::absolute(&p).unwrap_or_else(|_| PathBuf::from(p)));
+	let root = root(rest)?;
+	let archive = path("--archive").or_else(|| maintainer("recordings")).ok_or_else(|| usage("no HOME: pass --archive"))?;
+	let verdicts = match path("--verdicts") {
+		Some(v) => Some(v),
+		None => maintainer("ingest-audit/verdict.json").filter(|v| v.is_file()),
+	};
+	if verdicts.is_none() {
+		eprintln!("warning: no IngestAudit verdicts (--verdicts): only the archive's config.json exclude applies, and no one is merged into one person");
+	}
+	let out = path("--out").unwrap_or_else(|| root.join(forge_data::learn::DIR));
+	let report = path("--report").unwrap_or_else(|| root.join("data/local/recorded"));
+	let o = forge_data::learn::Options {
+		archive,
+		data: path("--data").unwrap_or_else(|| root.join("data/forever")),
+		sources: path("--sources").unwrap_or_else(|| root.join("data/sources")),
+		corrections: forge_data::corrections::locate(&root),
+		verdicts,
+		previous: Some(out.join(forge_data::learn::FILE)),
+		offline: rest.iter().any(|a| a == "--offline"),
+	};
+	let r = forge_data::learn::run(&o, &|m| println!("{m}"))?;
+	for dir in [&out, &report] {
+		std::fs::create_dir_all(dir).map_err(|e| format!("{}: {e}", dir.display()))?;
+	}
+	for (dir, name, text) in [(&out, forge_data::learn::FILE, &r.quests), (&out, "meta.json", &r.meta), (&report, "report.md", &r.report), (&report, "conflicts.json", &r.conflicts)] {
+		let f = dir.join(name);
+		write_atomic(&f, text.as_bytes())?;
+		println!("wrote {}", f.display());
+	}
+	for l in &r.summary {
+		println!("{l}");
+	}
+	Ok(())
 }
 
 // ---- archive
@@ -1139,6 +1206,25 @@ mod tests {
 		let kinds: Vec<&str> = ev.iter().filter_map(|e| e["e"].as_str()).filter(|e| ["group", "spawn", "gather", "fail", "refuse"].contains(e)).collect();
 		assert_eq!(kinds, ["group", "spawn", "gather", "fail", "refuse"]);
 		assert_eq!(ev.iter().find(|e| e["e"] == "kill").unwrap()["group"], 2);
+		std::fs::remove_dir_all(&out).unwrap();
+	}
+
+	#[test]
+	fn explorer_records_reach_the_session_files() {
+		let out = scratch("explorer-kinds");
+		let text = format!(
+			"{}{}",
+			chunk(1, 1_799_990_000, 1),
+			"unitx\t5\t261306\t000043F59F\t2521\t4512\t6633\nwhere\t6\tc\t261306\tThe Drowned Chapel\t1\npoi\t7\t90012\t0\t2521\t4400\t6100\nopen\t8\t3365\t2521\t4520\t6640\to\t500123\nimap\t9\t2943\t2681\t512\t1\nengage\t10\t3301\t1\t5\n"
+		);
+		pull_page(&out, &line(1, VICTIM, "", 1, &text));
+		let s = sessions(&out);
+		let ev = s[0]["events"].as_array().unwrap();
+		let kinds: Vec<&str> = ev.iter().filter_map(|e| e["e"].as_str()).filter(|e| ["unitx", "where", "poi", "open", "imap", "engage"].contains(e)).collect();
+		assert_eq!(kinds, ["unitx", "where", "poi", "open", "imap", "engage"]);
+		let unitx = ev.iter().find(|e| e["e"] == "unitx").unwrap();
+		assert_eq!((&unitx["npc"], &unitx["uid"], &unitx["map"]), (&serde_json::json!(261306), &serde_json::json!("000043F59F"), &serde_json::json!(2521)));
+		assert_eq!(ev.iter().find(|e| e["e"] == "engage").unwrap()["inst"], 2943);
 		std::fs::remove_dir_all(&out).unwrap();
 	}
 

@@ -21,10 +21,20 @@ return {
 	-- Step 4: The Drag
 	-- {npc:3348} Kor'geld · {npc:3347} Yelmak · {npc:11046} Whuut
 	["{npc:3348} and {npc:3347} run the alchemy shop in the Drag; {npc:11046} is next door."] = "{npc:3348}和{npc:3347}在暗巷区经营炼金商店；{npc:11046}就在隔壁。",
+	-- {npc:3404} Jandi · {zone:1411} Durotar
+	["{npc:3404}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:3404}：露营入门，来自{zone:1411}布拉克的营火",
+	-- {npc:11066} Jhag · {zone:1411} Durotar
+	["{npc:11066}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:11066}：露营入门，来自{zone:1411}布拉克的营火",
 
 	-- Step 5: Valley of Honor
 	-- {object:172958} Valley of Honor
 	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "香蒲和矛草长在暗巷区东边{object:172958}的水边。",
+	-- {npc:7088} Thuwd · {zone:1411} Durotar
+	["{npc:7088}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:7088}：露营入门，来自{zone:1411}布拉克的营火",
+	-- {npc:3365} Karolek · {zone:1411} Durotar
+	["{npc:3365}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:3365}：露营入门，来自{zone:1411}布拉克的营火",
+	-- {npc:2855} Snang · {zone:1411} Durotar
+	["{npc:2855}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:2855}：露营入门，来自{zone:1411}布拉克的营火",
 
 	-- Step 6: Class trainer
 	["Class trainer"] = "职业训练师",
@@ -41,6 +51,10 @@ return {
 	-- Step 9: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "顺便：向{npc:2704}（{object:172958}，10银币）学习法杖；升级期间，法杖提供的法术属性比单手武器多。",
+
+	-- Step 11: Kor'geld
+	-- {npc:11046} Whuut · {zone:1411} Durotar
+	["{npc:11046}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:11046}：露营入门，来自{zone:1411}布拉克的营火",
 
 	-- Step 12: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom
@@ -95,8 +109,14 @@ return {
 	-- Step 22: The Sepulcher
 	-- {area:228} The Sepulcher · {npc:2226} Karos Razok
 	["{area:228} is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; {npc:2226}, the bat handler, is just east of it."] = "{area:228}是森林中央的被遗忘者墓穴小镇。你要找的人都站在墓穴入口周围；蝙蝠管理员{npc:2226}就在入口东边。",
+	-- {npc:2226} Karos Razok · {npc:4556} Gordon Wendham · {zone:1458} Undercity
+	["{npc:2226}: {npc:4556} in the {zone:1458}, at the end of this guide; no need to buy the flight"] = "{npc:2226}：交给{zone:1458}的{npc:4556}，在本指南最后完成；无需购买飞行路线",
 	-- {npc:1952} High Executor Hadrec
 	["{npc:1952}, below ground"] = "{npc:1952}：在地下",
+
+	-- Step 23: The Sepulcher
+	-- {quest:264} Until Death Do Us Part · {object:24776} Yuriv's Tombstone
+	["{quest:264} is handed in at {object:24776}, a grave a few steps south of the crypt entrance, not to a person."] = "{quest:264}要在{object:24776}交付，那是墓穴入口南边几步远的一座坟墓，而不是交给某个人。",
 
 	-- Step 24: Border Crossings
 	-- {object:1627} Dalaran Crate
@@ -178,6 +198,12 @@ return {
 	-- Step 42: The Undercity
 	-- {object:1661} The Undercity · {area:153} Ruins of Lordaeron · {npc:2050} Raleigh Andrean · {npc:7683} Alessandro Luca · {npc:11044} Doctor Martin Felben · {npc:5204} Apothecary Zinge · {npc:2055} Master Apothecary Faranell
 	["{object:1661} lies under the {area:153}, beside the zeppelin towers. {npc:2050} stands at the inn by the way down; {npc:7683} on the way down to the Apothecarium, where {npc:11044} and {npc:5204} stand beside {npc:2055}."] = "{object:1661} 位于 {area:153} 地下，旁边就是飞艇塔。{npc:2050} 在下去入口旁的旅店；{npc:7683} 在通往炼金房的路上，{npc:11044} 和 {npc:5204} 就在炼金房内的 {npc:2055} 旁。",
+	-- {npc:4556} Gordon Wendham
+	["{npc:4556}, the weapon merchant beside the bat handler"] = "{npc:4556}，蝙蝠管理员旁边的武器商人",
+	-- {npc:4551} Michael Garrett
+	["{npc:4551}, the bat handler"] = "{npc:4551}，蝙蝠管理员",
+	-- {npc:4551} Michael Garrett · {item:16210} Gordon's Crate · {area:228} The Sepulcher
+	["{npc:4551}: keep {item:16210}, Podrig takes it on the next stop at the {area:228}, at 22"] = "{npc:4551}：留着{item:16210}，22级时在下一站{area:228}交给波德里格",
 	-- {npc:11044} Doctor Martin Felben
 	["{npc:11044}, in the Apothecarium"] = "{npc:11044}，在炼金房",
 	-- {npc:5204} Apothecary Zinge
@@ -186,6 +212,12 @@ return {
 	["{npc:5204}: Helbrim at the Crossroads, in the next guide"] = "{npc:5204}：交给十字路口的赫布瑞姆，见下一篇指南",
 	-- {npc:260093} Garen Largo · {area:1497} Undercity
 	["{npc:260093}, the {area:1497}'s paladin trainer"] = "",
+	-- {npc:4598} Brom Killian · {npc:265812} Eleanor Shackleton
+	["{npc:4598}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4598}：露营入门，来自提瑞斯法林地{npc:265812}的营火",
+	-- {npc:4605} Basil Frye · {npc:265812} Eleanor Shackleton
+	["{npc:4605}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4605}：露营入门，来自提瑞斯法林地{npc:265812}的营火",
+	-- {npc:4586} Graham Van Talen · {npc:265812} Eleanor Shackleton
+	["{npc:4586}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4586}：露营入门，来自提瑞斯法林地{npc:265812}的营火",
 
 	-- Step 43: Lady Sylvanas Windrunner
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter
@@ -269,6 +301,7 @@ return {
 	-- ["{area:233} comes later, on the southern loop"] = "{area:233}稍后在南线环路中前往",
 	-- ["{item:15877}, from a {object:177785} in the lake"] = "{item:15877}，来自湖中的{object:177785}",
 	-- ["{item:3317}: a rare drop from the gnolls"] = "{item:3317}：豺狼人的稀有掉落",
+	-- ["{npc:11066}, the enchanting trainer, works in the Drag."] = "附魔训练师{npc:11066}在暗巷区工作。",
 	-- ["{npc:11798} in {area:2361} flies druids there; then fly on to {zone:1454} for the zeppelin"] = "{area:2361}的{npc:11798}载德鲁伊飞往那里；然后继续飞往{zone:1454}乘坐飞艇",
 	-- ["{npc:11799}, at the {area:2362}"] = "{npc:11799}，在{area:2362}",
 	-- ["{npc:1938}: take it if he offers it; it may follow his {quest:98298} series, which the route does not run"] = "{npc:1938}：如果他提供就接受；它可能接在他的{quest:98298}系列之后，而本路线不做该系列",
@@ -277,8 +310,12 @@ return {
 	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{zone:1456}的{npc:246344}；{zone:1454}没有圣骑士训练师",
 	-- ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide starts at {npc:3310}, the wind rider master in the {object:172982}."] = "{npc:268684}和{npc:268682}坐在{object:172957}的格罗玛什要塞后面；光滑的巨石就在他们周围。趁在城里时训练（德鲁伊和圣骑士在这里没有训练师）。下一个指南从{object:172982}的双足飞龙管理员{npc:3310}开始。",
 	-- ["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034} 在 {zone:1412}；{zone:1454} 没有德鲁伊训练师",
+	-- ["{npc:3365}, the leatherworking trainer, works in the {object:172958}."] = "制皮训练师{npc:3365}在{object:172958}工作。",
+	-- ["{npc:3404}, the herbalism trainer, keeps her shop in the Drag."] = "草药学训练师{npc:3404}在暗巷区开店。",
+	-- ["{npc:4551}: keep {item:16210}, Podrig takes it on the ride through the {area:228} at 22"] = "{npc:4551}：留着{item:16210}，22级时乘坐蝙蝠途经{area:228}时交给波德里格",
 	-- ["{npc:4949} offers {quest:98024} and {quest:93739} once {quest:95350} is handed in to him."] = "向{npc:4949}交还{quest:95350}后，他会提供{quest:98024}和{quest:93739}。",
 	-- ["{npc:6018} stands in the {object:172961} on the city's west side."] = "{npc:6018}在城西侧的{object:172961}。",
+	-- ["{npc:7088}, the skinning trainer, stands in the {object:172958}."] = "剥皮训练师{npc:7088}站在{object:172958}。",
 	-- ["{object:112888}, inside the keep"] = "{object:112888}，在城堡里",
 	-- ["{object:1599}, just east of the keep"] = "{object:1599}，就在城堡东边",
 	-- ["{quest:6127}: {area:384}, next guide"] = "{quest:6127}：{area:384}，见下一个指南",

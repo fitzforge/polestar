@@ -162,6 +162,58 @@ fn quest_item_button_the_current_use_goal_item_else_a_quest_log_item_else_a_usab
 }
 
 #[test]
+fn secure_buttons_a_mouse_click_acts_once_on_its_release_a_binding_once_at_either_key_down_setting() {
+	// The client gives an addon's secure button no mouse arguments (SecureTemplates.xml): SecureActionButton_OnClick
+	// acts on the press when useOnKeyDown (nil: ActionButtonUseKeyDown) says so, else on the release. A button that
+	// hears only one of them does nothing at the other setting (0.3.6: the rare card's Target button).
+	let out = run(r#"
+		q.items[900] = { name = "Torch" }
+		q.addItem(0, 1, 900, 1)
+		local nearby = { "Fitz Polestar", "Thuros Lightfingers" }
+		Polestar.Rares = { Nearby = function() return nearby end, IsFounder = function(n) return n == "Fitz Polestar" end }
+		q.step({ { t = "use", item = 900, quest = 7 }, { t = "kill", target = "Murloc" } })
+		Polestar.Fire("RARE_NEARBY")
+		stub.runTimers()
+		local out = {}
+		for _, cvar in ipairs({ "1", "0" }) do
+			stub.cvars.ActionButtonUseKeyDown = cvar
+			local row = {}
+			for _, name in ipairs({ "PolestarQuestItemButton", "PolestarTargetButton", "PolestarRareButton" }) do
+				local b = _G[name]
+				q.ran = {}
+				q.mouseClick(b)
+				local mouse = q.ran
+				-- the cursor leaves; its binding (no hover) after
+				stub.RunScript(b, "OnLeave")
+				q.ran = {}
+				q.keyClick(b)
+				row[name] = { mouse = mouse, key = q.ran, released = b:GetAttribute("useOnKeyDown") == nil }
+			end
+			q.ran = {}
+			q.keyClick(PolestarStepButton)
+			row.step = q.ran
+			out[#out + 1] = row
+		end
+		emit(out)
+	"#);
+	let wave = "/cleartarget [nocombat]\n/targetexact Fitz Polestar\n/targetexact [noexists] Fitz\n/wave";
+	for (i, row) in out[0].as_array().unwrap().iter().enumerate() {
+		let item = json!([["item", "item:900"]]);
+		assert_eq!(row["PolestarQuestItemButton"]["mouse"], item, "setting {i}: a mouse click uses the item once");
+		assert_eq!(row["PolestarQuestItemButton"]["key"], item, "setting {i}: and its binding once");
+		let t = &row["PolestarTargetButton"];
+		assert_eq!(t["mouse"].as_array().unwrap().len(), 1, "setting {i}: the target button targets once");
+		assert_eq!(t["key"].as_array().unwrap().len(), 1, "setting {i}");
+		assert!(t["mouse"][0][1].as_str().unwrap().contains("/targetexact Murloc"));
+		let r = &row["PolestarRareButton"];
+		assert_eq!(r["mouse"], json!([["macro", wave]]), "setting {i}: the founder's wave from the rare button, once");
+		assert_eq!(r["key"].as_array().unwrap().len(), 1, "setting {i}");
+		assert_eq!(r["released"], true, "setting {i}: leaving gives the binding back to the key-down setting");
+		assert_eq!(row["step"], item, "setting {i}: the step key acts once");
+	}
+}
+
+#[test]
 fn secure_buttons_changes_during_combat_wait_for_player_regen_enabled_display_still_updates() {
 	let out = run(r#"
 		local b, t = PolestarQuestItemButton, PolestarTargetButton
@@ -784,6 +836,79 @@ fn mark_target_off_by_default_on_the_target_button_and_step_key_put_a_skull_on_a
 	assert!(long.len() <= 255, "fits a macro");
 	assert!(long.starts_with(&format!("/cleartarget [nocombat]\n/targetexact {}1\n", "N".repeat(50))), "the preferred name stays first when names are dropped");
 	assert!(long.ends_with("\n/cleartarget [dead]\n/tm [@target,harm,nodead] !8"), "and the mark stays last");
+}
+
+#[test]
+fn ping_off_by_default_on_the_target_button_and_step_key_the_rare_button_always_pings_a_mob_after_targeting_never_an_npc_the_mark_last() {
+	let script = r#"
+		local t, s, r = PolestarTargetButton, PolestarStepButton, PolestarRareButton
+		local nearby = { "Thuros Lightfingers" }
+		Polestar.Rares = { Nearby = function() return nearby end }
+		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 } })
+		Polestar.Fire("RARE_NEARBY")
+		stub.runTimers()
+		emit({ Polestar.GetDefault("qol.pingTarget"), t:GetAttribute("macrotext"), s:GetAttribute("macrotext"), r:GetAttribute("macrotext") })
+		set("pingTarget", true)
+		emit({ t:GetAttribute("macrotext"), s:GetAttribute("macrotext") })
+		set("markTarget", true)
+		emit({ t:GetAttribute("macrotext"), s:GetAttribute("macrotext") })
+		q.step({ { t = "turnin", quest = 9, npc = 240, npcName = "Marshal Dughan" } })
+		emit({ t:GetAttribute("macrotext"), s:GetAttribute("macrotext") })
+		local long = {}
+		for i = 1, 5 do long[i] = string.rep("N", 50) .. i end
+		emit(Polestar.QoL.Buttons.TargetMacro(long, 1, "/tm [@target,harm,nodead] !8", Polestar.QoL.Buttons.PingLine()))
+	"#;
+	let plain = |name: &str| format!("/cleartarget [nocombat]\n/targetexact {name}\n/cleartarget [dead]");
+	let out = run_with(script, "SLASH_PING1 = \"/ping\"", None);
+	let ping = |name: &str| plain(name) + "\n/ping [@target]";
+	assert_eq!(out[0], json!([false, plain("Kobold Vermin"), plain("Kobold Vermin"), ping("Thuros Lightfingers")]), "off by default; the rare button always pings");
+	assert_eq!(out[1], json!([ping("Kobold Vermin"), ping("Kobold Vermin")]));
+	let marked = ping("Kobold Vermin") + "\n/tm [@target,harm,nodead] !8";
+	assert_eq!(out[2], json!([marked, marked]), "the ping right after the target, the mark last");
+	let star = plain("Marshal Dughan") + "\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
+	assert_eq!(out[3], json!([star, star]), "an NPC goal's NPC is not pinged");
+	let long = text(&out[4]);
+	assert!(long.len() <= 255, "fits a macro");
+	assert!(long.ends_with("\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8"), "names are dropped, never the ping or the mark");
+	// A localized command word is used as the client gives it; without the command, no ping line at all.
+	let out = run_with(script, "SLASH_PING1 = \"/пинг\"", None);
+	assert_eq!(out[1][0], json!(plain("Kobold Vermin") + "\n/пинг [@target]"));
+	let out = run_with(script, "SLASH_PING1 = nil", None);
+	assert_eq!(out[1], json!([plain("Kobold Vermin"), plain("Kobold Vermin")]));
+	assert_eq!(out[0][3], json!(plain("Thuros Lightfingers")));
+}
+
+#[test]
+fn ping_what_they_target_in_a_raid_only_the_leader_and_assistants_ping_from_the_target_button_and_step_key_the_rare_button_still_does() {
+	let out = run_with(
+		r#"
+		local t, s, r = PolestarTargetButton, PolestarStepButton, PolestarRareButton
+		Polestar.Rares = { Nearby = function() return { "Thuros Lightfingers" } end }
+		local g = { raid = false, party = false, lead = false, assist = false }
+		function IsInRaid() return g.raid end
+		function IsInGroup() return g.party or g.raid end
+		function UnitIsGroupLeader() return g.lead end
+		function UnitIsGroupAssistant() return g.assist end
+		local function has(b) return (b:GetAttribute("macrotext") or ""):find("/ping", 1, true) ~= nil end
+		local function now() stub.fire("GROUP_ROSTER_UPDATE") stub.runTimers() return { has(t), has(s), has(r) } end
+		set("pingTarget", true)
+		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 } })
+		Polestar.Fire("RARE_NEARBY")
+		emit(now())
+		g.party = true
+		emit(now())
+		g.raid = true
+		emit(now())
+		g.assist = true
+		emit(now())
+	"#,
+		"SLASH_PING1 = \"/ping\"",
+		None,
+	);
+	assert_eq!(out[0], json!([true, true, true]), "alone");
+	assert_eq!(out[1], json!([true, true, true]), "a party member who doesn't lead");
+	assert_eq!(out[2], json!([false, false, true]), "a raid member without lead or assist: only the rare button");
+	assert_eq!(out[3], json!([true, true, true]), "an assistant");
 }
 
 #[test]
@@ -2002,6 +2127,53 @@ fn xp_mark_hidden_with_the_option_off_without_a_target_without_the_xp_bar_or_at_
 		}),
 		json!({ "on": true, "off": false, "back": true, "none": false, "noBar": false, "hiddenBar": false, "maxed": false })
 	);
+}
+
+// A whole-UI addon (ErgoBars, ElvUI's kind) hides the game's bars by parenting them to a hidden frame: the bar is
+// still IsShown, but nothing of it is on screen. No mark then, and no scan of the guide for one on every XP gain.
+#[test]
+fn xp_mark_a_bar_hidden_under_a_hidden_parent_gets_no_mark_and_no_level_target_lookup_on_xp() {
+	let out = run(&[
+		XPMARK,
+		r#"
+		local bar = q.xpBar()
+		q.engine.levelTarget = 12
+		q.step({ { t = "level", level = 12 } })
+		local before = mark(bar).shown
+		local E = Polestar.Engine
+		local asked, real = 0, E.LevelTarget
+		E.LevelTarget = function(...) asked = asked + 1 return real(...) end
+		local attic = CreateFrame("Frame")
+		attic:Hide()
+		StatusTrackingBarManager:SetParent(attic)
+		q.gainXP(10)
+		stub.runTimers()
+		emit({ before = before, onScreen = QoL.XPMark.frame:IsVisible(), asked = asked, stillShown = bar:IsShown() })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "before": true, "onScreen": false, "asked": 0, "stillShown": true }));
+}
+
+// Alt+Z hides UIParent, and the XP bar with it. A refresh then (an XP gain) mustn't hide the mark for good:
+// it comes back with the UI, as it did before the early return above.
+#[test]
+fn xp_mark_comes_back_with_the_ui_after_an_xp_gain_while_the_ui_was_hidden() {
+	let out = run(&[
+		XPMARK,
+		r#"
+		local bar = q.xpBar()
+		q.engine.levelTarget = 12
+		q.step({ { t = "level", level = 12 } })
+		UIParent:Hide()
+		q.gainXP(10)
+		stub.runTimers()
+		UIParent:Show()
+		emit({ shown = mark(bar).shown, onScreen = QoL.XPMark.frame:IsVisible() })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "shown": true, "onScreen": true }));
 }
 
 #[test]

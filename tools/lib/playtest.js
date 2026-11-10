@@ -808,6 +808,8 @@ while guard < 4000 do
 	local need = 0
 	for _, g in ipairs(view.goals) do
 		if g.unavailable == "level" then need = math.max(need, tonumber((g.unavailableText or ""):match("(%d+)")) or w.level + 1) end
+		-- An accept waiting for a level is hidden from the view (status "na"), its level in waitsLevel.
+		if g.waitsLevel then need = math.max(need, g.waitsLevel) end
 	end
 	local open
 	-- A vendor check-off beside other work (g.side) is left alone, as by a

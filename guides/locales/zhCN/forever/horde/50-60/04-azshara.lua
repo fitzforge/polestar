@@ -93,26 +93,32 @@ return {
 	["{npc:8393}, beside him"] = "{npc:8393}，在他旁边",
 
 	-- Step 19: The Undercity
-	-- {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1458} Undercity · {object:36126} Royal Quarter
-	["Take the zeppelin from the tower outside {zone:1454} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "从{zone:1454}城外的塔楼乘飞艇前往{zone:1420}，再骑马进入{zone:1458}。希尔瓦娜斯女士坐镇{object:36126}。",
+	-- {object:36126} Royal Quarter
+	["Lady Sylvanas holds the {object:36126}."] = "希尔瓦娜斯女士在{object:36126}。",
 
-	-- Step 20: Royal Quarter
+	-- Step 22: Jeremiah Payson
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "{npc:8403}，在附近",
+
+	-- Step 23: Jeremiah Payson
 	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
 	["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050}要交还给{zone:1422}的{npc:10778}：留着它。",
+
+	-- Step 24: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "仅在背包中带有从{area:159}炼金店取得的书籍《{quest:79095}》时进行，详见《图书馆藏书》指南",
 
-	-- Step 22: The Bulwark
+	-- Step 26: The Bulwark
 	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
 	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "",
 
-	-- Step 24: Felstone Field
+	-- Step 28: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
 	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "{npc:10778}的农场是{area:152}以东第一座农场。农场里的喋喋不休的食尸鬼携带她护符的另一半；{npc:11075}守着田里的大锅。\n小心：通常有一两只亡灵与他并肩战斗，使用大锅后还可能有更多护锅者来袭。",
+
+	-- Step 29: Janice Felstone
 	["Upstairs"] = "在楼上",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -123,6 +129,7 @@ return {
 	-- ["Open {object:149036} for the {item:10556}"] = "打开{object:149036}拿取{item:10556}",
 	-- ["Ride north up the road to the {area:380}; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {zone:1454} from the {area:380}."] = "沿大路向北骑往{area:380}；{npc:256386}站在那里。打开她交给你的每一个箱子，把里面的东西带回来。然后从{area:380}飞往{zone:1454}。",
 	-- ["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus."] = "雷姆托里的营地在萨拉斯营地东端。在那里阅读{object:151286}，然后杀死这位大法师。",
+	-- ["Take the zeppelin from the tower outside {zone:1454} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "从{zone:1454}城外的塔楼乘飞艇前往{zone:1420}，再骑马进入{zone:1458}。希尔瓦娜斯女士坐镇{object:36126}。",
 	-- ["The zeppelin tower stands just north-east of {zone:1454}'s main gate; take the {zone:1458} zeppelin."] = "飞艇塔就在{zone:1454}正门东北不远；乘坐前往{zone:1458}的飞艇。",
 	-- ["Zeppelin to the {zone:1458}"] = "乘飞艇前往{zone:1458}",
 	-- ["Zeppelin tower"] = "飞艇塔",

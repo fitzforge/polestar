@@ -56,8 +56,10 @@ fn accepts_a_quest_the_current_step_wants_and_nothing_else() {
 	assert_eq!(out, json!({ "calls": ["AcceptQuest 783 nil"], "onQuest": true, "other": true, "step": 2 }));
 }
 
+// A step ahead's accept is taken only at its own NPC (Engine.WantsQuest: Own.aheadWants); these goals name no NPC,
+// so only the live step's accept is taken.
 #[test]
-fn accepts_on_the_live_step_only_never_a_step_ahead() {
+fn a_step_ahead_whose_accept_names_no_npc_is_never_taken_ahead() {
 	let out = run(
 		"",
 		&guide(),
@@ -72,7 +74,63 @@ fn accepts_on_the_live_step_only_never_a_step_ahead() {
 			emit(c)
 		"#,
 	);
-	assert_eq!(out, json!(["AcceptQuest 783 nil"]), "Fitz: automation acts on the live step only");
+	assert_eq!(out, json!(["AcceptQuest 783 nil"]));
+}
+
+// Accepts ahead (Fitz, 0.3.6): talking to an NPC, auto-accept also takes the accepts the route takes there in its next
+// five steps, so the route need not come back for them. 1 (live) Willem's 783; 2 Kobold Camp Cleanup (7) from Dughan
+// (240); 3 Wolves (33) from Dughan for level 10 and up; 4 Candles (60) from Dughan, timed (LIMIT s), handed in to
+// Maybell (251) 200 yd south in 5; 6 Brotherhood of Thieves (18) from Dughan, optional; 7 Bandits (88) from Dughan,
+// level 9.
+const AHEAD: &str = r#"Polestar.RegisterGuide({
+	id = "test/ahead", pack = "test", title = "Ahead", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ goals = { { t = "accept", quest = 783, title = "A Threat Within", npc = 823, npcName = "Deputy Willem", map = 1429, x = 48, y = 42 } } },
+		{ goals = { { t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 240, npcName = "Marshal Dughan", map = 1429, x = 48.5, y = 42 } } },
+		{ when = { { k = "level", op = ">=", n = 10 } }, goals = { { t = "accept", quest = 33, title = "Wolves Across the Border", npc = 240, npcName = "Marshal Dughan", map = 1429, x = 48.5, y = 42 } } },
+		{ goals = { { t = "accept", quest = 60, title = "Candles", npc = 240, npcName = "Marshal Dughan", map = 1429, x = 48.5, y = 42, limit = LIMIT } } },
+		{ goals = { { t = "turnin", quest = 60, title = "Candles", npc = 251, npcName = "Maybell Maclure", map = 1429, x = 48.5, y = 52 } } },
+		{ goals = { { t = "accept", quest = 18, title = "Brotherhood of Thieves", npc = 240, npcName = "Marshal Dughan", map = 1429, x = 48.5, y = 42, optional = true } } },
+		{ goals = { { t = "accept", quest = 88, title = "Princess Must Die!", npc = 240, npcName = "Marshal Dughan", map = 1429, x = 48.5, y = 42, minLevel = 9 } } },
+	},
+})
+"#;
+
+fn ahead(limit: u32) -> String {
+	["", TEST_PACK, TEST_SOURCE, &AHEAD.replace("LIMIT", &limit.to_string())].join("\n")
+}
+
+const AT_DUGHAN: &str = r#"
+	E = Polestar.Engine
+	E.SetGuide("test/ahead"); flush()
+	local function wp() local x = E.GetWaypoint(); return x and (x.stepIndex .. ":" .. x.goalIndex) or "none" end
+	local before = wp()
+	w.questDetail(251, 7); flush(); w.close()   -- another NPC: never
+	for _, q in ipairs({ 7, 33, 60, 18, 88 }) do w.questDetail(240, q); flush(); w.close() end
+	local c = {}
+	for _, x in ipairs(w.calls) do if x[1] == "AcceptQuest" then c[#c + 1] = "AcceptQuest " .. tostring(x[2]) .. " " .. tostring(x[3]) end end
+	emit({ calls = table.concat(c, ", "), live = E.GetLiveStep(), arrow = wp(), before = before, done2 = E.GoalDone(2, 1) })
+"#;
+
+#[test]
+fn talking_to_the_next_steps_giver_takes_its_accepts_the_live_step_and_the_arrow_stay() {
+	let out = run("", &ahead(600), AT_DUGHAN);
+	// 7 and the timed 60 (a 38 s walk to Maybell and two talks in 600 s); not 33 (level 10 step), 18 (optional) nor 88
+	// (level 9), and never 7 at Maybell.
+	assert_eq!(out["calls"], "AcceptQuest 7 nil, AcceptQuest 60 nil", "{out}");
+	assert_eq!(out["live"], 1, "{out}");
+	assert_eq!(out["arrow"], out["before"], "the arrow stays on the live step: {out}");
+	assert_eq!(out["done2"], true, "step 2's accept reads done: {out}");
+}
+
+#[test]
+fn a_timed_accept_whose_walk_does_not_fit_a_full_log_or_auto_accept_off_takes_nothing_ahead() {
+	let short = run("", &ahead(60), AT_DUGHAN);
+	assert_eq!(short["calls"], "AcceptQuest 7 nil", "60 s for a 38 s walk and two talks is past the 60% margin: {short}");
+	let full = run("for q = 1001, 1038 do w.onQuest(q, {}) end", &ahead(600), AT_DUGHAN);
+	assert_eq!(full["calls"], "", "38 of the 40 slots taken: two stay free: {full}");
+	let off = run("", &ahead(600), &format!("Polestar.Set(\"behavior.autoAccept\", false)\n{AT_DUGHAN}"));
+	assert_eq!(off["calls"], "", "{off}");
 }
 
 #[test]

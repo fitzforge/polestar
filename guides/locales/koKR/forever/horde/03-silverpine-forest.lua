@@ -21,13 +21,23 @@ return {
 	-- Step 4: The Drag
 	-- {npc:3348} Kor'geld · {npc:3347} Yelmak · {npc:11046} Whuut
 	["{npc:3348} and {npc:3347} run the alchemy shop in the Drag; {npc:11046} is next door."] = "{npc:3348}와(과) {npc:3347}은(는) 골목길의 연금술 상점을 운영합니다. {npc:11046}은(는) 그 옆집에 있습니다.",
+	-- {npc:3404} Jandi · {zone:1411} Durotar
+	["{npc:3404}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:3404}: 야영 기초, {zone:1411}의 브락의 모닥불에서",
+	-- {npc:11066} Jhag · {zone:1411} Durotar
+	["{npc:11066}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:11066}: 야영 기초, {zone:1411}의 브락의 모닥불에서",
 
 	-- Step 5: Valley of Honor
 	-- {object:172958} Valley of Honor
 	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "부들과 창풀은 골목길 동쪽, {object:172958}의 물가를 따라 자랍니다.",
+	-- {npc:7088} Thuwd · {zone:1411} Durotar
+	["{npc:7088}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:7088}: 야영 기초, {zone:1411}의 브락의 모닥불에서",
+	-- {npc:3365} Karolek · {zone:1411} Durotar
+	["{npc:3365}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:3365}: 야영 기초, {zone:1411}의 브락의 모닥불에서",
+	-- {npc:2855} Snang · {zone:1411} Durotar
+	["{npc:2855}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:2855}: 야영 기초, {zone:1411}의 브락의 모닥불에서",
 
 	-- Step 6: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "직업 전문가",
 	["Train while you are in the city: Druids and Paladins have no trainer here."] = "",
 
 	-- Step 7: Sayoc
@@ -41,6 +51,10 @@ return {
 	-- Step 9: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
+
+	-- Step 11: Kor'geld
+	-- {npc:11046} Whuut · {zone:1411} Durotar
+	["{npc:11046}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:11046}: 야영 기초, {zone:1411}의 브락의 모닥불에서",
 
 	-- Step 12: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom
@@ -95,8 +109,14 @@ return {
 	-- Step 22: The Sepulcher
 	-- {area:228} The Sepulcher · {npc:2226} Karos Razok
 	["{area:228} is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; {npc:2226}, the bat handler, is just east of it."] = "{area:228}은(는) 숲 한가운데에 있는 포세이큰의 지하묘지 마을입니다. 필요한 사람은 모두 지하묘지 입구 주변에 서 있습니다. 박쥐 조련사 {npc:2226}은(는) 그 바로 동쪽에 있습니다.",
+	-- {npc:2226} Karos Razok · {npc:4556} Gordon Wendham · {zone:1458} Undercity
+	["{npc:2226}: {npc:4556} in the {zone:1458}, at the end of this guide; no need to buy the flight"] = "{npc:2226}: 이 가이드 마지막에 {zone:1458}의 {npc:4556}에게, 비행 경로는 구입할 필요 없음",
 	-- {npc:1952} High Executor Hadrec
 	["{npc:1952}, below ground"] = "",
+
+	-- Step 23: The Sepulcher
+	-- {quest:264} Until Death Do Us Part · {object:24776} Yuriv's Tombstone
+	["{quest:264} is handed in at {object:24776}, a grave a few steps south of the crypt entrance, not to a person."] = "{quest:264}은(는) 사람이 아니라 지하묘지 입구 바로 남쪽의 무덤 {object:24776}에서 완료합니다.",
 
 	-- Step 24: Border Crossings
 	-- {object:1627} Dalaran Crate
@@ -178,6 +198,12 @@ return {
 	-- Step 42: The Undercity
 	-- {object:1661} The Undercity · {area:153} Ruins of Lordaeron · {npc:2050} Raleigh Andrean · {npc:7683} Alessandro Luca · {npc:11044} Doctor Martin Felben · {npc:5204} Apothecary Zinge · {npc:2055} Master Apothecary Faranell
 	["{object:1661} lies under the {area:153}, beside the zeppelin towers. {npc:2050} stands at the inn by the way down; {npc:7683} on the way down to the Apothecarium, where {npc:11044} and {npc:5204} stand beside {npc:2055}."] = "",
+	-- {npc:4556} Gordon Wendham
+	["{npc:4556}, the weapon merchant beside the bat handler"] = "박쥐 조련사 옆의 무기 상인 {npc:4556}",
+	-- {npc:4551} Michael Garrett
+	["{npc:4551}, the bat handler"] = "박쥐 조련사 {npc:4551}",
+	-- {npc:4551} Michael Garrett · {item:16210} Gordon's Crate · {area:228} The Sepulcher
+	["{npc:4551}: keep {item:16210}, Podrig takes it on the next stop at the {area:228}, at 22"] = "{npc:4551}: {item:16210}은(는) 보관하세요. 22레벨에 다음 경유지인 {area:228}에서 포드리그가 받습니다",
 	-- {npc:11044} Doctor Martin Felben
 	["{npc:11044}, in the Apothecarium"] = "연금술 실험실의 {npc:11044}",
 	-- {npc:5204} Apothecary Zinge
@@ -186,6 +212,12 @@ return {
 	["{npc:5204}: Helbrim at the Crossroads, in the next guide"] = "",
 	-- {npc:260093} Garen Largo · {area:1497} Undercity
 	["{npc:260093}, the {area:1497}'s paladin trainer"] = "",
+	-- {npc:4598} Brom Killian · {npc:265812} Eleanor Shackleton
+	["{npc:4598}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4598}: 야영 기초, 티리스팔의 {npc:265812}의 모닥불에서",
+	-- {npc:4605} Basil Frye · {npc:265812} Eleanor Shackleton
+	["{npc:4605}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4605}: 야영 기초, 티리스팔의 {npc:265812}의 모닥불에서",
+	-- {npc:4586} Graham Van Talen · {npc:265812} Eleanor Shackleton
+	["{npc:4586}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4586}: 야영 기초, 티리스팔의 {npc:265812}의 모닥불에서",
 
 	-- Step 43: Lady Sylvanas Windrunner
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter
@@ -262,12 +294,17 @@ return {
 	-- ["{area:233} comes later, on the southern loop"] = "{area:233}은(는) 나중에, 남쪽 순환로에서",
 	-- ["{item:15877}, from a {object:177785} in the lake"] = "호수 속 {object:177785}에서 얻는 {item:15877}",
 	-- ["{item:3317}: a rare drop from the gnolls"] = "{item:3317}: 놀에게서 드물게 떨어짐",
+	-- ["{npc:11066}, the enchanting trainer, works in the Drag."] = "마법부여 상급자 {npc:11066}은(는) 골목길에서 일합니다.",
 	-- ["{npc:11798} in {area:2361} flies druids there; then fly on to {zone:1454} for the zeppelin"] = "{area:2361}의 {npc:11798}이(가) 드루이드를 그곳으로 태워 줍니다. 그 후 비행선을 타러 {zone:1454}(으)로 날아가세요",
 	-- ["{npc:11799}, at the {area:2362}"] = "{npc:11799}, {area:2362}에서",
 	-- ["{npc:1938}: take it if he offers it; it may follow his {quest:98298} series, which the route does not run"] = "{npc:1938}: 제안하면 받으세요. 경로에서 진행하지 않는 그의 {quest:98298} 연계 퀘스트 다음에 나올 수 있습니다",
 	-- ["{npc:2121}: {quest:516}, on the south loop"] = "{npc:2121}: {quest:516}, 남쪽 순환로에서",
 	-- ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide starts at {npc:3310}, the wind rider master in the {object:172982}."] = "{npc:268684}와(과) {npc:268682}은(는) {object:172957}의 그롬마쉬 요새 뒤에 앉아 있고, 매끈한 바위가 그 주변에 놓여 있습니다. 도시에 있는 동안 훈련을 받으세요(드루이드와 성기사는 이곳에 상급자가 없습니다). 다음 가이드는 {object:172982}의 와이번 조련사 {npc:3310}에게서 시작합니다.",
+	-- ["{npc:3365}, the leatherworking trainer, works in the {object:172958}."] = "가죽세공 상급자 {npc:3365}은(는) {object:172958}에서 일합니다.",
+	-- ["{npc:3404}, the herbalism trainer, keeps her shop in the Drag."] = "약초채집 상급자 {npc:3404}은(는) 골목길에서 상점을 운영합니다.",
+	-- ["{npc:4551}: keep {item:16210}, Podrig takes it on the ride through the {area:228} at 22"] = "{npc:4551}: {item:16210}은(는) 보관하세요. 22레벨에 {area:228}을(를) 지나갈 때 포드리그가 받습니다",
 	-- ["{npc:6018} stands in the {object:172961} on the city's west side."] = "{npc:6018}은(는) 도시 서쪽의 {object:172961}에 서 있습니다.",
+	-- ["{npc:7088}, the skinning trainer, stands in the {object:172958}."] = "무두질 상급자 {npc:7088}은(는) {object:172958}에 서 있습니다.",
 	-- ["{object:112888}, inside the keep"] = "{object:112888}, 성채 안",
 	-- ["{object:1599}, just east of the keep"] = "{object:1599}, 성채 바로 동쪽",
 	-- ["{quest:6127}: {area:384}, next guide"] = "{quest:6127}: {area:384}, 다음 가이드",

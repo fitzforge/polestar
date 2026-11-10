@@ -204,6 +204,43 @@ async fn registrations_per_ip_per_day() {
 	assert_eq!(challenge(&app, "2001:db8:2::1").await.0, StatusCode::OK);
 }
 
+/// Registers a maintainer's test identity from `ip` (the maintainer key on both requests).
+async fn register_test(app: &App, ip: &str) -> String {
+	let (status, c) = send_json(app, ip, Method::POST, "/v1/register", Some(KEY), Some(json!({}))).await;
+	assert_eq!(status, StatusCode::OK, "{c}");
+	let challenge = c["challenge"].as_str().unwrap();
+	let solution = pow_solve(challenge, c["difficulty"].as_u64().unwrap() as u32);
+	let (status, body) = send_json(app, ip, Method::POST, "/v1/register", Some(KEY), Some(json!({ "challenge": challenge, "solution": solution.to_string() }))).await;
+	assert_eq!(status, StatusCode::OK, "{body}");
+	body["token"].as_str().unwrap().to_owned()
+}
+
+#[tokio::test]
+async fn the_maintainer_s_test_identities_use_no_network_s_registrations_and_are_never_exported() {
+	let app = app();
+	// More than a network's day of them, and the network's players can still register.
+	let mut tokens = Vec::new();
+	for _ in 0..polestar_ingest::REGISTRATIONS_PER_DAY + 2 {
+		tokens.push(register_test(&app, IP_A).await);
+	}
+	register(&app, IP_A).await;
+	// A wrong key is refused, not taken for a player's registration.
+	let (status, _) = send_json(&app, IP_B, Method::POST, "/v1/register", Some("not-the-key"), Some(json!({}))).await;
+	assert_eq!(status, StatusCode::UNAUTHORIZED);
+	// A test identity's upload is answered as anyone's and counted in its own /v1/me ...
+	let (status, body) = upload(&app, &tokens[0], &[(1, chunk(1, 70532))]).await;
+	assert_eq!((status, body["accepted"].clone()), (StatusCode::OK, json!([1])), "{body}");
+	let (_, me) = send_json(&app, IP_A, Method::GET, "/v1/me", Some(&tokens[0]), None).await;
+	assert_eq!(me["chunks"], 1);
+	// ... but never exported, and left out of the public totals.
+	assert!(export(&app, "").await.is_empty());
+	let (_, stats) = send_json(&app, IP_B, Method::GET, "/v1/stats", None, None).await;
+	assert_eq!((stats["contributors"].as_u64(), stats["chunks"].as_u64()), (Some(0), Some(0)), "{stats}");
+	// Its data is deleted as anyone's.
+	let (status, gone) = send_json(&app, IP_A, Method::DELETE, "/v1/me", Some(&tokens[0]), None).await;
+	assert_eq!((status, gone["deleted"].as_u64()), (StatusCode::OK, Some(1)));
+}
+
 #[tokio::test]
 async fn ipv6_registrations_are_also_capped_per_32() {
 	let app = app();
@@ -312,6 +349,31 @@ async fn missing_client_ip_is_refused() {
 	// Allowed for local development.
 	let direct = app_with(true);
 	assert_eq!(send_from(&direct, None, Method::GET, "/v1/stats", None, None).await.0, StatusCode::OK);
+}
+
+#[tokio::test]
+async fn explorer_mode_records_are_accepted_counted_and_exported() {
+	// What `/psrec explore` adds: a chunk with more spawns seen than an older server took as unknown
+	// records, and one of each other explorer kind.
+	let app = app();
+	let a = register(&app, IP_A).await;
+	let mut text = chunk(1, 70532);
+	for i in 0..100 {
+		text.push_str(&format!("\nunitx\t{}\t261306\t{:X}\t2521\t{}\t5000", 60 + i, 0x43F59F + i, 4000 + i));
+	}
+	text.push_str("\npoi\t200\t364\t0\t1420\t4400\t6100\nwhere\t201\tc\t1568\tDeathknell\t1\nopen\t202\t3365\t1420\t3100\t6700\to\t500123\nimap\t300\t2943\t2681\t512\t1\nengage\t301\t3301\t1\t5");
+	let (status, body) = upload(&app, &a, &[(1, text.clone())]).await;
+	assert_eq!(status, StatusCode::OK, "{body}");
+	assert_eq!(body, json!({ "accepted": [1], "duplicate": [], "rejected": [] }));
+	let (status, me) = send_json(&app, IP_A, Method::GET, "/v1/me", Some(&a), None).await;
+	assert_eq!(status, StatusCode::OK, "{me}");
+	assert_eq!(me["records"]["unitx"], 100);
+	for k in ["poi", "where", "open", "imap", "engage"] {
+		assert_eq!(me["records"][k], 1, "{k}: {me}");
+	}
+	let lines = export(&app, "").await;
+	assert_eq!(lines.len(), 1);
+	assert_eq!(lines[0]["text"], text, "stored and exported as sent");
 }
 
 #[tokio::test]

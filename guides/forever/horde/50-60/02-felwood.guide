@@ -10,6 +10,8 @@ next forever/horde/50-60/03-winterspring
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Left out: Little Pamela (5142).
+# Added here (0.3.6 flow pass, from 50-60/01): Augustus' Receipt Book (6164) and A Plague Upon Thee's termites (5901),
+# in Terrordale just east of Tirion's house; the rest of the Eastern Plaguelands waits for 50-60/05.
 
 step Mulgris Deepriver
   zone Western Plaguelands
@@ -24,9 +26,23 @@ step Tirion Fordring
   accept 5544
   note Tirion's hunts are in the Eastern Plaguelands: keep them for later.
 
+step Augustus the Touched
+  zone Eastern Plaguelands
+  tip Cross the river east into Terrordale, the ruined town in the north-west of the Eastern Plaguelands. Augustus sits in a hut at its edge.
+  accept 6164                         -- Inside
+
+step Terrordale: kill these as you meet them
+  zone Eastern Plaguelands
+  tip The book lies in the ruined inn of Terrordale; the undead in the town are 54-56, so pull them one at a time.
+  tip The Large Termite Mounds stand all over the hills east of Terrordale. Use the Empty Termite Jar on each mound you pass.
+  collect 15884 quest 6164 @17.4,31.1 -- Upstairs
+  collect 15043 quest 5901
+  collect 12840 quest 5408 optional   -- Minion's Scourgestones: the Terrordale undead drop them while you wear the Argent Dawn Commission
+  note Keep Augustus' Receipt Book: Augustus takes it back on the Eastern Plaguelands guide's Terrordale stop.
+
 step Kirsta Deepshadow
   zone Western Plaguelands
-  tip Ride west to the Northridge Lumber Camp; Kirsta hides on the hill north-east of it.
+  tip Ride back west over the river and on to the Northridge Lumber Camp; Kirsta hides on the hill north-east of it.
   accept 6004
 
 step Level 52.63
@@ -118,6 +134,12 @@ step Orgrimmar
   zone Orgrimmar
   goto 51.5,45.6 "The middle of Orgrimmar"
 
+step Jes'rimon
+  zone Orgrimmar
+  when onquest 4300
+  tip Jes'rimon takes the ravasaur claws from Un'Goro; he stands in the Cleft of Shadow, a short walk from the middle of the city.
+  turnin 4300                           -- Jes'rimon, the Cleft of Shadow
+
 step Class trainer
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
@@ -146,6 +168,7 @@ step Emerald Sanctuary
   accept 5156                         -- Taronn Redfeather
   accept 5155                         -- Greta Mosshoof
   accept 8460                         -- Grazle, at the south edge of the camp
+  accept 4102                         -- Maybess Riverbreeze, on the west side of the camp
 
 step Deadwood Village
   tip The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your Timbermaw Hold reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and Jaedenar want it. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
@@ -153,10 +176,6 @@ step Deadwood Village
   kill 7154 quest 8460.3
   level 53.92 grind 7153               -- grind on Deadwood Warrior
   kill 7155 quest 8460.2
-
-step Emerald Sanctuary
-  zone Felwood
-  accept 4102                         -- Maybess Riverbreeze, just west of the camp
 
 step Southern Jaedenar
   tip Follow the road north-west. The south of Jaedenar, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds.
@@ -255,9 +274,12 @@ step Nafien
 step Felpaw Village
   tip Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.
   tip Below level 54.54, keep fighting the Deadwood here after Nafien's count: the hand-ins at Timbermaw Hold and the Emerald Sanctuary take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
+  tip Keep killing them until one drops a Deadwood Ritual Totem, about one kill in thirty, then right-click it: Kernda in Timbermaw Hold takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59.
   kill 7156 quest 8461.1
   kill 7157 quest 8461.2
   kill 7158 quest 8461.3
+  collect 20741                       -- Deadwood Ritual Totem
+  accept 8470
   level 54.54 grind 7156               -- grind on Deadwood Den Watcher
 
 step Nafien
@@ -267,9 +289,9 @@ step Nafien
   turnin 8467 optional
   note Keep Speak to Salfa for Winterspring.
 
-step Felpaw Village
-  collect 20741 optional              -- Deadwood Ritual Totem, a rare drop
-  accept 8470 optional
+step Timbermaw Hold
+  tip Step into the cave: Kernda stands just inside.
+  turnin 8470 optional                -- Kernda: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map
 
 # ---------------------------------------------------------------- Back south
 
@@ -278,6 +300,8 @@ step Emerald Sanctuary
   turnin 5156                         -- Taronn Redfeather
   turnin 5157                         -- Greta Mosshoof
   accept 5158
+  turnin 4102                         -- Maybess Riverbreeze, on the west side of the Sanctuary
+  note Keep Seeking Spiritual Aid: Islen Waterseer is in the Barrens.
 
 step Jessir Moonbow
   when onquest 5385
@@ -286,10 +310,6 @@ step Jessir Moonbow
 step Overlord Ror
   tip Ror stands at the far south end of Deadwood Village.
   collect 15879 quest 6162 @48.2,94.3
-
-step Emerald Sanctuary
-  turnin 4102                         -- Maybess Riverbreeze, on the west side of the Sanctuary
-  note Keep Seeking Spiritual Aid: Islen Waterseer is in the Barrens.
 
 step Level 54.7
   when level<54.7
@@ -311,12 +331,9 @@ step Bloodvenom Post
   accept 4506
 
 step Winna's kitten
-  tip Take the kitten to the same moonwell and release it there; once it has turned into a Corrupted Saber, bring it back to Winna and click on it to hand it over.
-  goto 32.3,66.6 "Jadefire moonwell"
+  tip Take the kitten to the same moonwell and release it there with Winna's Kitten Carrier; once it has turned into a Corrupted Saber, bring it back to Winna and click on it to hand it over.
+  use 12565 quest 4506.1 @32.3,66.6 map 1448 -- Winna's Kitten Carrier, at the Jadefire moonwell
   complete 4506
-
-step Winna's Kitten Carrier
-  use 12565 quest 4506.1 @32.3,66.6 map 1448
 
 step Winna Hazzard
   turnin 4506

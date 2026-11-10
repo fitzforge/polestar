@@ -18,6 +18,7 @@ use tauri::{AppHandle, Emitter};
 use tokio::sync::Notify;
 
 use crate::addons;
+use crate::net::Family;
 use crate::register;
 use crate::store::{ActivityEntry, ActivityKind, Progress, Rejection, SentChunk, Settings, Store};
 use crate::update::Available;
@@ -79,8 +80,9 @@ impl Account {
 
 #[derive(Clone, Debug)]
 enum Failure {
-	/// No answer, or a server error: try again with backoff.
-	Offline { message: String, attempts: u32, retry_at: i64 },
+	/// No answer, or a server error or 429: try again with backoff. `answered`: the server
+	/// answered (it asked to wait), so this is no connection problem.
+	Offline { message: String, attempts: u32, retry_at: i64, answered: bool },
 	/// The server answered and refused the request as a whole.
 	Refused { message: String, retry_at: i64 },
 }
@@ -142,18 +144,15 @@ pub struct State {
 pub struct Engine {
 	app: AppHandle,
 	pub store: Store,
-	pub http: reqwest::Client,
-	/// For the community site: redirects only within its origin (packs.rs `redirect_policy`).
-	pub packs_http: reqwest::Client,
+	/// The HTTP clients and the connection fallback ladder (net.rs).
+	pub net: crate::net::Net,
 	state: Mutex<State>,
 	kick: Notify,
 }
 
 impl Engine {
 	pub fn new(app: AppHandle, store: Store) -> Result<Arc<Engine>, String> {
-		let client = || reqwest::Client::builder().user_agent(concat!("PolestarClient/", env!("CARGO_PKG_VERSION"))).connect_timeout(Duration::from_secs(15)).timeout(Duration::from_secs(90));
-		let http = client().build().map_err(|e| e.to_string())?;
-		let packs_http = client().redirect(crate::packs::redirect_policy()).build().map_err(|e| e.to_string())?;
+		let net = crate::net::Net::new();
 		let activity = store.activity();
 		let last_upload = activity.iter().find(|a| matches!(a.kind, ActivityKind::Upload)).map(|a| a.at);
 		let rejected = activity.first().filter(|a| matches!(a.kind, ActivityKind::Upload) && !a.rejected.is_empty()).map(|a| (a.at, a.rejected.clone()));
@@ -187,7 +186,17 @@ impl Engine {
 			last_emitted: String::new(),
 			skipped: BTreeSet::new(),
 		};
-		Ok(Arc::new(Engine { app, store, http, packs_http, state: Mutex::new(state), kick: Notify::new() }))
+		Ok(Arc::new(Engine { app, store, net, state: Mutex::new(state), kick: Notify::new() }))
+	}
+
+	/// The client for addon releases, update checks and other plain requests, on the rung in use.
+	pub fn http(&self) -> reqwest::Client {
+		self.net.client(Family::Api)
+	}
+
+	/// For the community site: redirects only within its origin (packs.rs `redirect_policy`).
+	pub fn packs_http(&self) -> reqwest::Client {
+		self.net.client(Family::Packs)
 	}
 
 	pub fn app(&self) -> &AppHandle {
@@ -220,7 +229,7 @@ impl Engine {
 		change(&mut state.settings);
 		self.store.save_settings(&state.settings).map_err(|e| format!("Could not save settings: {e}"))?;
 		drop(state);
-		self.sync_share();
+		self.sync_flags();
 		self.wake();
 		Ok(())
 	}
@@ -239,14 +248,20 @@ impl Engine {
 		let mut last_addon_check: Option<Instant> = None;
 		loop {
 			if last_process_check.is_none_or(|t| t.elapsed() >= PROCESS_CHECK) {
-				let running = game_running(&mut processes);
-				self.lock().game_running = running;
+				let game = game_process(&mut processes);
+				let mut state = self.lock();
+				if game.is_some() != state.game_running {
+					// Which process was taken for the game, for a player who says it isn't running.
+					eprintln!("game: {}", game.as_deref().map_or("not running".to_owned(), |name| format!("running ({name})")));
+				}
+				state.game_running = game.is_some();
+				drop(state);
 				last_process_check = Some(Instant::now());
 			}
 			let force = std::mem::take(&mut self.lock().rescan);
 			if force || last_scan.is_none_or(|t| t.elapsed() >= RESCAN) {
 				self.scan().await;
-				self.sync_share();
+				self.sync_flags();
 				self.refresh_packs();
 				// Before any upload (which can take a while): the window shows what was found now.
 				self.publish();
@@ -506,11 +521,12 @@ impl Engine {
 
 	/// POSTs `body` as JSON and reads the JSON answer.
 	async fn post_json<T: serde::de::DeserializeOwned>(&self, url: &str, body: &impl Serialize) -> Result<T, Failed> {
-		let response = self.http.post(url).json(body).send().await.map_err(|e| Failed::Offline(describe_reqwest(&e)))?;
+		let body = bytes::Bytes::from(serde_json::to_vec(body).map_err(|e| Failed::Offline(e.to_string()))?);
+		let response = self.net.send(|c| c.post(url).header("Content-Type", "application/json").body(body.clone())).await.map_err(|e| Failed::Offline(describe_reqwest(&e)))?;
 		let status = response.status();
 		if !status.is_success() {
 			let retry_after = retry_after(&response);
-			let message = server_message(response).await.unwrap_or_else(|| format!("The server answered {status}."));
+			let message = server_message(response).await.unwrap_or_else(|| not_from_server(status));
 			return Err(Failed::Status(status, retry_after, message));
 		}
 		read_answer(response).await.map_err(Failed::Offline)
@@ -519,7 +535,7 @@ impl Engine {
 	/// Records a failed request (see [`Engine::fail_status`]); None, for the caller to return.
 	fn record<T>(&self, failed: Failed) -> Option<T> {
 		match failed {
-			Failed::Offline(message) => self.fail_offline(message, None),
+			Failed::Offline(message) => self.fail_offline(message, None, false),
 			Failed::Status(status, retry_after, message) => {
 				self.fail_status(status, retry_after, message);
 			}
@@ -531,7 +547,7 @@ impl Engine {
 	async fn send(&self, batch: Batch, server: &str, token: &str) -> bool {
 		let request = api::UploadRequest { uploader: env!("CARGO_PKG_VERSION").to_owned(), install: batch.install.clone(), chunks: batch.chunks };
 		let body = match serde_json::to_vec(&request) {
-			Ok(body) => body,
+			Ok(body) => bytes::Bytes::from(body),
 			Err(e) => {
 				eprintln!("could not encode upload: {e}");
 				return false;
@@ -540,12 +556,13 @@ impl Engine {
 		let bytes = body.len() as u64;
 		let records = request.chunks.iter().map(|c| c.text.lines().count().saturating_sub(1) as u32).sum();
 		let max_seq = request.chunks.iter().map(|c| c.seq).max().unwrap_or(0);
-		let result = self.http.post(format!("{server}/v1/upload")).bearer_auth(token).header("Content-Type", "application/json").body(body).send().await;
+		let url = format!("{server}/v1/upload");
+		let result = self.net.send(|c| c.post(&url).bearer_auth(token).header("Content-Type", "application/json").body(body.clone())).await;
 		let now = now_ms();
 		let response = match result {
 			Ok(r) => r,
 			Err(e) => {
-				self.fail_offline(describe_reqwest(&e), None);
+				self.fail_offline(describe_reqwest(&e), None, false);
 				return false;
 			}
 		};
@@ -561,7 +578,7 @@ impl Engine {
 				self.wake();
 				return false;
 			}
-			let message = message.unwrap_or_else(|| format!("The server answered {status}."));
+			let message = message.unwrap_or_else(|| not_from_server(status));
 			if self.fail_status(status, retry_after, message.clone()) {
 				let _ = self.store.push_activity(ActivityEntry {
 					kind: ActivityKind::Failed,
@@ -579,7 +596,7 @@ impl Engine {
 		let answer: api::UploadResponse = match read_answer(response).await {
 			Ok(a) => a,
 			Err(e) => {
-				self.fail_offline(e, None);
+				self.fail_offline(e, None, false);
 				return false;
 			}
 		};
@@ -608,10 +625,10 @@ impl Engine {
 		state.week_dirty = true;
 		state.rejected = (!rejected.is_empty()).then(|| (now, rejected.clone()));
 		let addon_dir = state.install.as_ref().and_then(|i| i.addon_dir.clone());
-		let share = sharing(&state.settings);
+		let flags = ack_flags(&state.settings);
 		drop(state);
 		if let (Some(dir), true) = (addon_dir, acked > 0) {
-			if let Err(e) = ack::write(&dir, &request.install, acked, share) {
+			if let Err(e) = ack::write(&dir, &request.install, acked, flags) {
 				eprintln!("could not write Ack.lua: {e}");
 			}
 		}
@@ -630,21 +647,23 @@ impl Engine {
 		true
 	}
 
-	fn fail_offline(&self, message: String, retry_after: Option<u64>) {
+	fn fail_offline(&self, message: String, retry_after: Option<u64>, answered: bool) {
+		// Also on stderr: a player running the client from a terminal can quote it.
+		eprintln!("upload: {message}");
 		let mut state = self.lock();
 		let attempts = match &state.failure {
 			Some(Failure::Offline { attempts, .. }) => attempts + 1,
 			_ => 0,
 		};
 		let backoff = backoff_secs(attempts, retry_after);
-		state.failure = Some(Failure::Offline { message, attempts, retry_at: now_ms().saturating_add(backoff as i64 * 1000) });
+		state.failure = Some(Failure::Offline { message, attempts, retry_at: now_ms().saturating_add(backoff as i64 * 1000), answered });
 	}
 
 	/// Records a non-success answer: a server error or 429 is retried with backoff, anything
 	/// else is refused. Returns whether it was refused.
 	fn fail_status(&self, status: reqwest::StatusCode, retry_after: Option<u64>, message: String) -> bool {
 		if is_temporary(status) {
-			self.fail_offline(message, retry_after);
+			self.fail_offline(message, retry_after, true);
 			false
 		} else {
 			self.refuse(message);
@@ -657,23 +676,23 @@ impl Engine {
 	}
 
 	/// Writes Ack.lua again for every install the server confirmed chunks of
-	/// (after the Recorder was reinstalled, which ships it empty), and the share
-	/// flag. `ack::write` merges each install into the file's per-install map.
+	/// (after the Recorder was reinstalled, which ships it empty), and the flags.
+	/// `ack::write` merges each install into the file's per-install map.
 	pub fn rewrite_ack(&self) {
 		let state = self.lock();
 		let Some(dir) = state.install.as_ref().map(|i| i.addons_dir().join(install::ADDON)) else { return };
 		let acks: Vec<(String, u64)> = state.progress.iter().filter(|(_, p)| p.acked > 0).map(|(i, p)| (i.clone(), p.acked)).collect();
-		let share = sharing(&state.settings);
+		let flags = ack_flags(&state.settings);
 		drop(state);
 		if !dir.is_dir() {
 			return;
 		}
 		for (install, upto) in acks {
-			if let Err(e) = ack::write(&dir, &install, upto, share) {
+			if let Err(e) = ack::write(&dir, &install, upto, flags) {
 				eprintln!("could not write Ack.lua: {e}");
 			}
 		}
-		self.sync_share();
+		self.sync_flags();
 	}
 
 	/// Sharing is on by default: turns it on, as Start sharing does, for a player who never chose
@@ -698,19 +717,20 @@ impl Engine {
 		}
 	}
 
-	/// Puts the share flag in Ack.lua when the file does not say it already: the Recorder records
-	/// while the player shares (docs/RECORDING.md "Ack file"). Called when the settings change
-	/// and after every look for the game (which also catches a Recorder reinstalled by hand).
-	fn sync_share(&self) {
+	/// Puts the share and explorer flags in Ack.lua when the file does not say them already: the
+	/// Recorder records while the player shares, and keeps explorer mode off when they turned it
+	/// off here (docs/RECORDING.md "Ack file"). Called when the settings change and after every
+	/// look for the game (which also catches a Recorder reinstalled by hand).
+	fn sync_flags(&self) {
 		let state = self.lock();
 		let Some(dir) = state.install.as_ref().map(|i| i.addons_dir().join(install::ADDON)) else { return };
-		let Some(share) = sharing(&state.settings) else { return };
+		let flags = ack_flags(&state.settings);
 		drop(state);
-		if !dir.is_dir() {
+		if flags == ack::Flags::default() || !dir.is_dir() {
 			return;
 		}
-		if ack::read_share(&dir) != Some(share) {
-			if let Err(e) = ack::write_share(&dir, share) {
+		if ack::read_flags(&dir) != flags {
+			if let Err(e) = ack::write_flags(&dir, flags) {
 				eprintln!("could not write Ack.lua: {e}");
 			}
 		}
@@ -803,13 +823,18 @@ impl Engine {
 			running: state.game_running,
 		};
 		let pending: u64 = game.accounts.iter().map(|a| a.pending).sum();
-		let status = status(&state, &game, pending, now);
+		let mut status = status(&state, &game, pending, now);
+		// Which way of connecting is in use, while uploads go through.
+		if let (Some(note), None, true) = (self.net.note(), &state.failure, state.settings.consent) {
+			status.detail = format!("{} {note}", status.detail);
+		}
 		Snapshot {
 			version: env!("CARGO_PKG_VERSION").to_owned(),
 			setup_done: state.settings.setup_done || state.settings.consent,
 			consent: state.settings.consent,
 			share_notice: state.settings.consent && !state.settings.share_notice_seen,
 			paused: state.settings.paused,
+			explore: state.settings.explore != Some(false),
 			server_url: state.settings.server_url.clone(),
 			default_server_url: crate::store::DEFAULT_SERVER.to_owned(),
 			custom: CustomSites {
@@ -948,14 +973,38 @@ impl Batch {
 	}
 }
 
-fn describe_reqwest(e: &reqwest::Error) -> String {
-	if e.is_timeout() {
+/// What went wrong with a request that got no answer, with the underlying cause (a DNS failure,
+/// a refused or reset connection, a TLS failure) and what to try. The server answers every request
+/// it gets, so a connect failure is between this PC and the server: a firewall or antivirus
+/// blocking Polestar Client, a VPN or proxy, or the network. Players saw only "check your
+/// internet connection" while their browser was online.
+pub(crate) fn describe_reqwest(e: &reqwest::Error) -> String {
+	let cause = root_cause(e);
+	if crate::net::clock_wrong(e) {
+		crate::net::clock_message(now_ms() / 1000)
+	} else if e.is_timeout() {
 		"The server took too long to answer.".to_owned()
 	} else if e.is_connect() {
-		"Can't reach the recording server. Check your internet connection.".to_owned()
+		let check = e.url().map(|u| format!("{}/v1/stats", u.origin().ascii_serialization())).unwrap_or_else(|| "the recording server's address".to_owned());
+		format!("Can't reach the recording server from this PC ({cause}). If your browser opens {check}, a firewall, antivirus, VPN or proxy is probably blocking Polestar Client: allow it there.")
 	} else {
-		format!("The upload did not get through: {e}")
+		format!("The request did not get through ({cause}).")
 	}
+}
+
+/// A non-success answer without the recording server's `{"error": ...}`: it came from something
+/// between this PC and the server (a proxy, a VPN, a network filter, the server's front end).
+pub(crate) fn not_from_server(status: reqwest::StatusCode) -> String {
+	format!("The answer was {status}, not from the recording server itself: a proxy, VPN or network filter on the way may be blocking it, or the server's front end is briefly down. Polestar Client keeps trying.")
+}
+
+/// The innermost error of a chain: "dns error: …", "Connection refused", "invalid peer certificate".
+fn root_cause(e: &(dyn std::error::Error + 'static)) -> String {
+	let mut inner: &(dyn std::error::Error + 'static) = e;
+	while let Some(next) = inner.source() {
+		inner = next;
+	}
+	inner.to_string()
 }
 
 /// The server's `{"error": ...}`, from at most [`MAX_ANSWER`] bytes of its answer.
@@ -992,6 +1041,11 @@ fn backoff_secs(attempts: u32, retry_after: Option<u64>) -> u64 {
 /// have not paused uploads. (`consent` covers settings saved before `ever_shared` existed.)
 fn sharing(settings: &Settings) -> Option<bool> {
 	(settings.ever_shared || settings.consent).then_some(settings.consent && !settings.paused)
+}
+
+/// Ack.lua's flags: [`sharing`], and the explorer toggle once the player used it.
+fn ack_flags(settings: &Settings) -> ack::Flags {
+	ack::Flags { share: sharing(settings), explore: settings.explore }
 }
 
 /// Whether sharing turns on by default now: the player never chose (sharing was never on, so
@@ -1038,16 +1092,21 @@ fn old_recorder(installed: Option<&str>, latest: Option<&str>) -> (&'static str,
 /// whose name starts with "wow", such as WowUp-CF.exe, is not the game.
 const GAME_EXES: &[&str] = &["wow.exe", "wowt.exe", "wowb.exe", "wowclassic.exe", "wowclassict.exe", "wowclassicb.exe"];
 
-/// Is World of Warcraft running? (Under Wine the game shows up as its .exe.)
-fn game_running(system: &mut sysinfo::System) -> bool {
+/// The name of the game's process when World of Warcraft is running, else `None`. (Under Wine
+/// the game shows up as its .exe.)
+fn game_process(system: &mut sysinfo::System) -> Option<String> {
 	use sysinfo::{ProcessRefreshKind, ProcessesToUpdate};
 	system.refresh_processes_specifics(ProcessesToUpdate::All, true, ProcessRefreshKind::nothing());
-	system.processes().values().any(|p| is_game_process(&p.name().to_string_lossy()))
+	system.processes().values().map(|p| p.name().to_string_lossy().into_owned()).find(|name| is_game_process(name))
 }
 
+/// On Windows and under Wine the game is one of [`GAME_EXES`]; on a Mac it is the app's binary,
+/// "World of Warcraft" (or "World of Warcraft Classic", ...). "World of Warcraft Launcher.exe"
+/// in the game folder only hands over to Battle.net and is not the game (#1484), nor is the Mac
+/// launcher.
 fn is_game_process(name: &str) -> bool {
 	let name = name.to_ascii_lowercase();
-	GAME_EXES.contains(&name.as_str()) || name.starts_with("world of warcraft")
+	GAME_EXES.contains(&name.as_str()) || (name.starts_with("world of warcraft") && !name.ends_with(".exe") && !name.contains("launcher"))
 }
 
 fn status(state: &State, game: &GameView, pending: u64, now: i64) -> StatusView {
@@ -1091,8 +1150,9 @@ fn status(state: &State, game: &GameView, pending: u64, now: i64) -> StatusView 
 	if let Some(n) = state.uploading {
 		return make("uploading", "Sending", format!("Sending your latest play ({n} {}).", plural(n as u64, "part", "parts")), None);
 	}
-	if let Some(Failure::Offline { message, retry_at, .. }) = &state.failure {
-		let mut view = make("offline", "Can't reach the server", message.clone(), Some("retry"));
+	if let Some(Failure::Offline { message, retry_at, answered, .. }) = &state.failure {
+		let (title, detail) = if *answered { server_waits(message) } else { ("Can't reach the server", message.clone()) };
+		let mut view = make("offline", title, detail, Some("retry"));
 		view.next_retry = Some(*retry_at);
 		return view;
 	}
@@ -1104,7 +1164,14 @@ fn status(state: &State, game: &GameView, pending: u64, now: i64) -> StatusView 
 		return make("waiting", "Waiting for the first recording", "Log in to the game: the Recorder records while sharing is on. The game saves the recording when you log out or type /reload.".into(), None);
 	}
 	if files.iter().all(|f| !f.enabled) && pending == 0 {
-		return make("attention", "Recording is off in the game", "It turns on at your next login (or /reload) while sharing is on, unless you turned it off with /psrec off: then type /psrec on.".into(), None);
+		// The game writes the Recorder's on/off state only at a logout or /reload, so this is the
+		// state then: a /psrec on since shows only after the next one (#1453).
+		let detail = if state.game_running {
+			"The game tells Polestar Client only when you log out or type /reload. Turned it on since (/psrec on)? Type /reload in the game and what's recorded is sent."
+		} else {
+			"It turns on at your next login (or /reload) while sharing is on, unless you turned it off with /psrec off: then type /psrec on, and /reload to send what's recorded."
+		};
+		return make("attention", "Off in the game as of your last logout or /reload", detail.into(), None);
 	}
 	if let Some((at, rejected)) = &state.rejected {
 		if now - at < REJECTED_SHOWN_MS {
@@ -1117,6 +1184,17 @@ fn status(state: &State, game: &GameView, pending: u64, now: i64) -> StatusView 
 		return make("waiting", "Waiting for the game to save", "WoW writes the recording only when you log out or type /reload. It is sent a few seconds after that.".into(), None);
 	}
 	make("watching", "Sharing on", "New play is sent a few seconds after you log out or type /reload.".into(), None)
+}
+
+/// The status of an answer that asks to wait (a 429 or 5xx): the server was reached, so it is no
+/// connection problem. The daily registration cap per network (several new installs, or tests,
+/// from one network in a day) says what happens to the play meanwhile.
+fn server_waits(message: &str) -> (&'static str, String) {
+	if message.contains("registration limit") {
+		("Too many new registrations today", "Too many new registrations from your network today. Your play is kept on this PC and sent tomorrow.".to_owned())
+	} else {
+		("The server asked to wait", format!("{}. Your play is kept on this PC and sent when it's ready.", message.trim_end_matches('.')))
+	}
 }
 
 fn plural<'a>(n: u64, one: &'a str, many: &'a str) -> &'a str {
@@ -1138,6 +1216,8 @@ pub struct Snapshot {
 	/// Sharing is on and the notice saying what it sends has not been read yet.
 	pub share_notice: bool,
 	pub paused: bool,
+	/// The explorer toggle: on unless the player turned it off.
+	pub explore: bool,
 	pub server_url: String,
 	pub default_server_url: String,
 	pub data_dir: String,
@@ -1319,6 +1399,12 @@ mod tests {
 			assert!(is_game_process(name), "{name}");
 		}
 		// Addon managers and other tools named after the game are not the game.
+		assert!(is_game_process("World of Warcraft Classic"));
+		// The launcher in the game folder (Windows and Mac) and Battle.net's own processes only
+		// hand over to Battle.net (#1484: "always says WoW is running").
+		for name in ["World of Warcraft Launcher.exe", "World of Warcraft Launcher", "World of Warcraft.exe", "Battle.net Helper.exe", "Agent.exe"] {
+			assert!(!is_game_process(name), "{name}");
+		}
 		for name in ["WowUp-CF.exe", "WowUp.exe", "wowup.exe", "Battle.net.exe", "polestar-client.exe"] {
 			assert!(!is_game_process(name), "{name}");
 		}
@@ -1422,12 +1508,59 @@ mod tests {
 	}
 
 	#[test]
+	fn explorer_records_leave_and_the_toggle_reaches_ack_lua() {
+		// Recorder 0.3.6's explorer kinds: known, so sent (Client 0.1.5 left them out).
+		let text = [
+			"chunk\t0\t7\t1794170000\tk3j9x0q2m7",
+			"unitx\t1\t261306\t000043F59F\t2521\t4512\t6633",
+			"imap\t2\t2943\t2681\t512\t1",
+			"engage\t3\t3301\t1\t5",
+			"poi\t4\t90012\t0\t2521\t4400\t6100",
+			"where\t5\tc\t261306\tThe Drowned Chapel\t1",
+			"open\t6\t3365\t2521\t4520\t6640\to\t500123",
+		]
+		.join("\n");
+		let chunk = api::UploadChunk { seq: 7, text: text.clone() };
+		let reading = read_chunks(std::iter::once(&chunk), "would be turned away");
+		assert_eq!((reading.problems, reading.total_records), (Vec::<String>::new(), 6));
+		assert_eq!(prepare_chunk(&text, &[]).unwrap(), text);
+		// No explorer flag until the toggle is used; then it follows it, beside the share flag.
+		let shared = Settings { consent: true, ever_shared: true, ..Settings::default() };
+		assert_eq!(ack_flags(&shared), ack::Flags { share: Some(true), explore: None });
+		assert_eq!(ack_flags(&Settings { explore: Some(false), ..shared.clone() }), ack::Flags { share: Some(true), explore: Some(false) });
+		assert_eq!(ack_flags(&Settings { explore: Some(true), ..Settings::default() }), ack::Flags { share: None, explore: Some(true) });
+	}
+
+	#[test]
+	fn an_answer_that_asks_to_wait_is_no_connection_problem() {
+		// The server's 429 at registration (#1453's smoke: the fourth registration from one network
+		// in a day) showed as "Can't reach the server".
+		let (title, detail) = server_waits("registration limit for today reached, try again tomorrow");
+		assert_eq!(title, "Too many new registrations today");
+		assert_eq!(detail, "Too many new registrations from your network today. Your play is kept on this PC and sent tomorrow.");
+		let (title, detail) = server_waits("too many requests, try again in a minute");
+		assert_eq!((title, detail.as_str()), ("The server asked to wait", "too many requests, try again in a minute. Your play is kept on this PC and sent when it's ready."));
+	}
+
+	#[test]
 	fn ack_covers_only_what_was_sent() {
 		let sent: Vec<api::UploadChunk> = [3, 4, 5].iter().map(|&seq| api::UploadChunk { seq, text: String::new() }).collect();
 		assert_eq!(confirmed_ack(&sent, &[3, 4], &[5]), Some(5));
 		assert_eq!(confirmed_ack(&sent, &[3, u64::MAX], &[]), Some(3));
 		assert_eq!(confirmed_ack(&sent, &[9], &[2]), None);
 		assert_eq!(confirmed_ack(&[], &[1], &[]), None);
+	}
+
+	#[test]
+	fn a_request_that_gets_no_answer_says_why_and_what_to_try() {
+		// Port 9 on this machine: nothing listens, the connection is refused. 0.1.4 said only
+		// "Check your internet connection", which a player whose browser was online could not act on.
+		let _ = rustls::crypto::ring::default_provider().install_default();
+		let e = tauri::async_runtime::block_on(async { reqwest::Client::new().get("http://127.0.0.1:9/v1/upload").send().await.unwrap_err() });
+		let text = describe_reqwest(&e);
+		assert!(text.contains("Can't reach the recording server from this PC (") && text.to_lowercase().contains("refused"), "{text}");
+		assert!(text.contains("http://127.0.0.1:9/v1/stats") && text.contains("firewall, antivirus, VPN or proxy"), "{text}");
+		assert!(not_from_server(reqwest::StatusCode::FORBIDDEN).starts_with("The answer was 403 Forbidden, not from the recording server itself"));
 	}
 
 	#[test]

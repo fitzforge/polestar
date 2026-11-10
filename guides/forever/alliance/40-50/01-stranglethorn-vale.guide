@@ -29,17 +29,11 @@ step Theramore
 
 step Sentry Point
   tip Follow the road north-west out of Theramore to the watchtower at Sentry Point. Mudrock Burrowers roam the marsh around it.
+  tip Archmage Tervosh waits at the foot of the tower: once you have looked around, hand the quest in to him there, not in Theramore.
   complete 1265 @59.9,40.9
+  turnin 1265 @59.7,41.2              -- Archmage Tervosh, at the tower
+  accept 1266 @59.7,41.2
   collect 5883 quest 1204             -- Forked Mudrock Tongue
-
-step Archmage Tervosh
-  tip Back in Theramore: Tervosh waits with Lady Jaina in the tower of Foothold Citadel.
-  turnin 1265                         -- Upstairs
-  accept 1266                         -- Upstairs
-
-step Theramore
-  turnin 1204                         -- Morgan Stern, inside
-  accept 1258                         -- Morgan Stern: the crawlers are on the Swamp of Sorrows shore, keep it
 
 # ---------------------------------------------------------------- The north
 
@@ -58,9 +52,13 @@ step "Stinky" Ignatz
 step North Point Tower
   tip Private Hendel holds the tower with a few deserters. He turns on you: beat him until he yields.
   tip Careful: Hendel has two guards who join the fight when he turns hostile. The guards flee once he surrenders.
+  tip Archmage Tervosh and Lady Jaina Proudmoore wait beside the tower: once he yields, hand in to both on the spot.
   turnin 1266                         -- Private Hendel
   accept 1324
   complete 1324
+  turnin 1324 @45.2,24.4              -- Archmage Tervosh
+  accept 1267 @45.2,24.3              -- Lady Jaina Proudmoore
+  turnin 1267 @45.2,24.3
 
 step Darkmist Cavern
   tip The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes.
@@ -78,12 +76,9 @@ step The Shady Rest Inn
 # ---------------------------------------------------------------- Theramore
 
 step Theramore
-  tip Follow the road east back to Theramore. Tervosh, Lady Jaina and the officers are in the tower and Foothold Citadel.
+  tip Follow the road east back to Theramore. The officers are in Foothold Citadel.
   turnin 1219                         -- Theramore Lieutenant
   accept 1220
-  turnin 1324                         -- Archmage Tervosh, upstairs
-  accept 1267                         -- Lady Jaina Proudmoore, on the top floor
-  turnin 1267
   turnin 1252                         -- On the top floor
   accept 1259
   turnin 1259                         -- Adjutant Tesoran, on the top floor
@@ -92,11 +87,13 @@ step Theramore
   turnin 1220                         -- Captain Garran Vimes
   accept 1286
   turnin 1222                         -- Morgan Stern, inside
+  turnin 1204                         -- Morgan Stern
+  accept 1258                         -- Morgan Stern: the crawlers are on the Swamp of Sorrows shore, keep it
 
 # ---------------------------------------------------------------- The north again and the west
 
 step Mirefin murlocs
-  tip The Mirefin murlocs crowd the north coast past Swamplight Manor; finish the tongues on the tortoises beside them.
+  tip The Mirefin murlocs crowd the north coast past Swamplight Manor.
   collect 5847 quest 1177             -- Mirefin Head
 
 step Swamplight Manor
@@ -115,6 +112,7 @@ step Balos Jacken
 step The Barrens
   only Warrior
   zone The Barrens
+  when onquest 1718
   goto 68.6,49.2 "Klannoc Macleod"
 
 # ---------------------------------------------------------------- Booty Bay
@@ -177,6 +175,7 @@ step Riding at 40
 step Boat to Booty Bay
   only Dwarf
   zone The Barrens
+  getfp "Ratchet" only Warlock         -- for the flight back to Strahad Farsan at 43
   goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Mage,Warlock,Druid
 
 step The Barrens
@@ -248,7 +247,7 @@ step The Barrens
   only Gnome,Warlock
   zone The Barrens
   getfp "Ratchet"
-  goto 63.4,38.5 "The Barrens"
+  goto 63.4,38.5 "Ratchet"
 
 step Boat to Booty Bay
   only Gnome,Warlock
@@ -258,6 +257,7 @@ step Boat to Booty Bay
 step Boat to Booty Bay
   only NightElf
   zone The Barrens
+  getfp "Ratchet" only Warlock         -- for the flight back to Strahad Farsan at 43
   goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Paladin,Shaman,Mage,Warlock
 
 step The Barrens
@@ -273,6 +273,7 @@ step Boat to Booty Bay
 step Boat to Booty Bay
   only Skyborne
   zone The Barrens
+  getfp "Ratchet" only Warlock         -- for the flight back to Strahad Farsan at 43
   goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Paladin,Priest,Shaman,Warlock
 
 step Duskwood
@@ -362,10 +363,10 @@ step Booty Bay
   turnin 607                          -- "Sea Wolf" MacKinley, on the top floor
   accept 609
 
-step The Bloodsail captains
-  tip The captains stand on the ships anchored off the Wild Shore, each with a crew of 42-45 pirates: Stillwater (45) and Keelhaul (46) on the nearer decks, Fleet Master Firallon (48) on the flagship. At 42 this is a fight for a group or for the end of the guide; clear each deck first if you go. Cortello's scroll lies on the wreck by the shore.
-  collect 4056                        -- Cortello's Riddle
-  accept 624                          -- for the Swamp of Sorrows later
+step Cortello's scroll
+  tip Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of Booty Bay, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48.
+  collect 4056 optional               -- Cortello's Riddle
+  accept 624 optional                 -- for the Swamp of Sorrows later
 
 step Zanzil's village
   tip Every Zanzil follower can drop the mixture; Chucky "Ten Thumbs" walks the south of the camp.
@@ -440,7 +441,7 @@ step Hemet Nesingwary
   when group 197
   turnin 197
 
-step Hemet Nesingwary
+step Sir S. J. Erlgadin
   when group 193
   turnin 193
 

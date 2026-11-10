@@ -13,6 +13,10 @@ next forever/horde/02-the-barrens
 # Zinge's Delivery and Sample for Helbrim (1359, 1358), The Spirits of Stonetalon (1061), and for
 # the starts that come by zeppelin, The Argent Emissary, The Cult of the Damned, Remnants of War and
 # Delivery to Silverpine Forest (96895, 96897, 96898, 445).
+# Undead only: Supplying the Sepulcher (6321) and Ride to the Undercity (6323), Deathguard Podrig to
+# Karos Razok on the first Sepulcher stop, then Gordon Wendham and Michael Garrett (6322) side by side
+# on the Undercity stop at the end; Return to Podrig (6324) goes back with the ride through the
+# Sepulcher in forever/horde/05-stonetalon-mountains. Forever gives the chain to the Undead alone.
 
 # Horde 12-30 in the order the quest levels fit (2026-11-07): Silverpine Forest comes first, at
 # 12-15, straight from every start. Tirisfal Glades walks south into it; Durotar, Mulgore and
@@ -21,7 +25,7 @@ next forever/horde/02-the-barrens
 #
 # Flow: Orgrimmar (flight path, the starts' hand-ins, training) -> zeppelin to Tirisfal Glades ->
 # Brill (Terrence, Johaan) and Hadric's cultists by the zeppelin towers ->
-# the Sepulcher (flight path, bind) -> the Dalaran crate and back -> north loop: the Dead Field,
+# the Sepulcher (flight path) -> the Dalaran crate and back -> north loop: the Dead Field,
 # Malden's Orchard, Erland's escort, worg hearts -> the Sepulcher -> north again: Valgan's Field,
 # Quinn, the murloc eyes on the shore -> south along the lake shore past the Decrepit Ferry to
 # Ambermill -> the Sepulcher -> Quinn and Ivar the Foul on the road north -> Brill ->
@@ -120,6 +124,8 @@ step The Drag
   zone Orgrimmar
   tip Kor'geld and Yelmak run the alchemy shop in the Drag; Whuut is next door.
   accept 97242                        -- Kor'geld
+  turnin 97905 optional               -- Jandi: Camping 101, from Brakk's campfire in Durotar
+  turnin 97901 optional               -- Jhag: Camping 101, from Brakk's campfire in Durotar
 
 step Valley of Honor
   only Orc,Troll,Tauren,Skyborne
@@ -127,6 +133,9 @@ step Valley of Honor
   tip The cattails and speargrass grow along the water in the Valley of Honor, east of the Drag.
   collect 277278 quest 97242.1
   collect 277279 quest 97242.2
+  turnin 97908 optional               -- Thuwd: Camping 101, from Brakk's campfire in Durotar
+  turnin 97906 optional               -- Karolek: Camping 101, from Brakk's campfire in Durotar
+  turnin 96102 optional               -- Snang: Camping 101, from Brakk's campfire in Durotar
 
 step Class trainer
   only Orc,Troll,Tauren,Skyborne,Warrior,Hunter,Rogue,Priest,Shaman,Warlock
@@ -172,6 +181,7 @@ step Kor'geld
   turnin 97242
   accept 97275                        -- Yelmak
   turnin 97275                        -- Whuut
+  turnin 97899 optional               -- Whuut: Camping 101, from Brakk's campfire in Durotar
 
 step Valley of Wisdom
   only Orc,Troll,Tauren,Skyborne
@@ -250,17 +260,20 @@ step The Sepulcher
 step The Sepulcher
   zone Silverpine Forest
   tip The Sepulcher is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; Karos Razok, the bat handler, is just east of it.
+  accept 6321 only Undead             -- Deathguard Podrig
   getfp "The Sepulcher"
+  turnin 6321 only Undead             -- Karos Razok
+  accept 6323 only Undead             -- Karos Razok: Gordon Wendham in the Undercity, at the end of this guide; no need to buy the flight
   accept 477                          -- Shadow Priest Allister
   accept 421
   accept 428                          -- High Executor Hadrec, below ground
   accept 437
-  sethome "The Sepulcher" npc 6739    -- Innkeeper Bates
   turnin 445                          -- Apothecary Renferrel: Delivery to Silverpine Forest
 
 step The Sepulcher
   zone Silverpine Forest
   when onquest 264
+  tip Until Death Do Us Part is handed in at Yuriv's Tombstone, a grave a few steps south of the crypt entrance, not to a person.
   turnin 264 only Skyborne,Tauren
 
 step Border Crossings
@@ -378,13 +391,20 @@ step Tirisfal Glades
 step The Undercity
   zone Undercity
   tip The Undercity lies under the Ruins of Lordaeron, beside the zeppelin towers. Raleigh Andrean stands at the inn by the way down; Alessandro Luca on the way down to the Apothecarium, where Doctor Martin Felben and Apothecary Zinge stand beside Master Apothecary Faranell.
+  turnin 6323 only Undead             -- Gordon Wendham, the weapon merchant beside the bat handler
+  accept 6322 only Undead
   getfp "Undercity"
+  turnin 6322 only Undead             -- Michael Garrett, the bat handler
+  accept 6324 only Undead             -- Michael Garrett: keep Gordon's Crate, Podrig takes it on the next stop at the Sepulcher, at 22
   turnin 441                          -- Raleigh Andrean
   accept 97891                        -- Alessandro Luca
   turnin 97891                        -- Doctor Martin Felben, in the Apothecarium
   turnin 1359                         -- Apothecary Zinge, in the Apothecarium
   accept 1358                         -- Apothecary Zinge: Helbrim at the Crossroads, in the next guide
   train class only Paladin            -- Garen Largo, the Undercity's paladin trainer
+  turnin 97959 optional               -- Brom Killian: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
+  turnin 97952 optional               -- Basil Frye: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
+  turnin 97954 optional               -- Graham Van Talen: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
 
 step Lady Sylvanas Windrunner
   only Skyborne

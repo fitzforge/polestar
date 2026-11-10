@@ -36,9 +36,9 @@ return {
 	["Grizzled Scalps"] = "{item:5414}",
 
 	-- Step 6: The Master's Glaive
-	-- {object:10076} Scrying Bowl · {object:12666} Twilight Tome · {npc:3584} Therylune
+	-- {object:12666} Twilight Tome · {npc:3584} Therylune · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "{npc:2237}在主宰之剑周围的树林里潜行。{object:10076}和{object:12666}在陨坑底部；{npc:3584}站在陨坑北侧。",
+	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "月夜猎豹首领在战刃周围的树林里游荡。{object:12666}位于陨石坑底部；{npc:3584}站在坑的北侧。为了{quest:948}的任务，在陨石坑底部使用{item:5251}：它会召唤出{object:10076}，然后向水盆交任务。",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
 	["Fine Moonstalker Pelts"] = "{item:5386}",
 	-- {zone:1440} Ashenvale
@@ -157,5 +157,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["From the dock, up to the north end of the village first ({npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south."] = "从码头先上行到村庄北端（{npc:3702} 在月亮井旁，还有 {npc:2913}），再沿主街往下走：通缉告示在旅店外，{npc:3693} 在主街东端、道路向南出村的位置。",
+	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "{npc:2237}在主宰之剑周围的树林里潜行。{object:10076}和{object:12666}在陨坑底部；{npc:3584}站在陨坑北侧。",
 	-- ["{npc:3694}: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}：交给 {area:415} 的 {npc:3691}，见下一篇指南",
 }

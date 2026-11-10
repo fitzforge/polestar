@@ -9,6 +9,8 @@ return {
 	-- Step 1: Nijel's Point
 	-- {area:460} Sun Rock Retreat · {area:465} Charred Vale · {zone:1443} Desolace · {area:608} Nijel's Point
 	["Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass."] = "沿著道路向西經過{area:460}（部落），再向西南穿過{area:465}進入{zone:1443}；{area:608}位於山口頂端。",
+	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
+	["{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}"] = "{npc:5638}：沉船的箱子在{npc:11863}的塔下方，位於前往{area:599}的路上",
 	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
 	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
 
@@ -26,12 +28,18 @@ return {
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:11863}'s tower stands on the hill west of {area:599}: take his quest first, the sceptre he wants is in the fortress."] = "{npc:11863}的塔位於{area:599}西邊的山丘上：先接他的任務，他要的權杖就在要塞裡。",
 
-	-- Step 7: Dalinda Malem
+	-- Step 7: Karnitol's Chest
+	-- {npc:11863} Azore Aldamort · {object:177787} Rackmore's Log
+	["The wrecked ship lies just south-west of {npc:11863}'s tower; its chest sits beside {object:177787}."] = "沉船就在{npc:11863}的塔西南方不遠處；它的箱子在{object:177787}旁邊。",
+	-- {npc:5638} Kreldig Ungor
+	["For {npc:5638}, at the end of this guide"] = "給{npc:5638}的，在本指南結尾",
+
+	-- Step 8: Dalinda Malem
 	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point
 	["{npc:5644} hides inside the Burning Blade's fortress south-west of {area:608}."] = "{npc:5644}躲在{area:608}西南方火刃的要塞裡。",
 	["Inside"] = "",
 
-	-- Step 8: Tyranis Malem and the Seer
+	-- Step 9: Tyranis Malem and the Seer
 	-- {npc:5643} Tyranis Malem
 	["{npc:5643} and the Seer"] = "{npc:5643}與先知",
 	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer · {npc:5642} Vahlarriel Demonslayer
@@ -41,7 +49,7 @@ return {
 	-- {quest:5741} Sceptre of Light
 	["{quest:5741}; on the top floor"] = "",
 
-	-- Step 9: Escort Dalinda Malem
+	-- Step 10: Escort Dalinda Malem
 	-- {npc:5644} Dalinda Malem
 	["Escort {npc:5644}"] = "護送{npc:5644}",
 	-- {npc:5644} Dalinda Malem
@@ -50,11 +58,11 @@ return {
 	-- {npc:5644} Dalinda Malem · {npc:5642} Vahlarriel Demonslayer · {area:608} Nijel's Point
 	["Lead {npc:5644} out of the fortress; she walks off once you are clear of it. {npc:5642} takes the turn-in at {area:608} at the end of the guide."] = "帶{npc:5644}走出要塞；離開要塞後她就會自行離去。指南結尾時在{area:608}向{npc:5642}繳交。",
 
-	-- Step 10: Smeed Scrabblescrew
+	-- Step 11: Smeed Scrabblescrew
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:596} Kodo Graveyard
 	["{npc:11596}'s camp is on the road south of {area:609}, by the {area:596}."] = "{npc:11596}的營地在{area:609}南邊的路上，位於{area:596}旁。",
 
-	-- Step 11: Kodo Graveyard
+	-- Step 12: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher
 	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "",
@@ -63,17 +71,21 @@ return {
 	-- {npc:11596} Smeed Scrabblescrew
 	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
 
-	-- Step 13: Kolkar Village
+	-- Step 14: Kolkar Village
 	-- {area:609} Kolkar Village · {npc:5752} Corporal Melkins
 	["The Kolkar roam the plains around {area:609}; their ears are for {npc:5752}."] = "科卡爾半人馬在{area:609}周圍的平原上遊蕩；牠們的耳朵是給{npc:5752}的。",
 
-	-- Step 15: Fly to Auberdine
+	-- Step 15: Nijel's Point
+	-- {npc:5638} Kreldig Ungor
+	["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638}：背包在西北海岸外，位於30-40（06-荒蕪之地）結尾的南線上：先留著",
+
+	-- Step 16: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "",
 	-- {area:608} Nijel's Point
 	["{area:608} flight master"] = "",
 
-	-- Step 16: Boat to Stormwind Harbor
+	-- Step 17: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "",
 

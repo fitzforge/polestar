@@ -33,6 +33,10 @@ return {
 	-- {npc:9619} Torwa Pathfinder
 	["The dead Threshadon lies by the water north of {npc:9619}."] = "El trillanodonte muerto está junto al agua, al norte de {npc:9619}.",
 
+	-- Step 10: Torwa Pathfinder
+	-- {area:1943} Ironstone Plateau
+	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "Los gorilas de {area:1943} llevan las pieles: guárdala para la segunda visita a Un'Goro, alrededor del nivel 56",
+
 	-- Step 11: Lar'korwi Mates and the raft
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["Lar'korwi Mates and the raft"] = "Compañeras de Lar'korwi ({npc:9683}) y la balsa",
@@ -78,8 +82,8 @@ return {
 
 	-- Step 18: A-Me 01
 	-- {area:1943} Ironstone Plateau
-	["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Cabalga al norte hasta {area:1943}, donde el robot está entre los gorilas. No entres en la cueva profunda de allí.",
-	["Below ground"] = "",
+	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Cabalga al este hasta {area:1943}, donde el robot está entre los gorilas. No entres en la cueva profunda de allí.",
+	["Below ground"] = "Bajo tierra",
 
 	-- Step 19: Level 49.51
 	["Level 49.51"] = "",
@@ -123,42 +127,35 @@ return {
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge's entrance"] = "{npc:9998}, en la entrada del refugio",
 
-	-- Step 26: To Stoutlager Inn
+	-- Step 26: Fly to Astranaar
+	-- {area:415} Astranaar
+	["Fly to {area:415}"] = "",
+	-- {zone:1455} Ironforge · {zone:1427} Searing Gorge · {zone:1440} Ashenvale · {zone:1447} Azshara
+	["The {zone:1455} quests were taken at the end of the {zone:1427} guide: fly straight on to {zone:1440} for {zone:1447}."] = "Las misiones de {zone:1455} se tomaron al final de la guía de {zone:1427}: vuela directo a {zone:1440} para ir a {zone:1447}.",
+	-- {area:541} Marshal's Refuge
+	["{area:541} flight master"] = "Maestro de vuelo de {area:541}",
+
+	-- Step 27: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "A {area:2101}",
 
-	-- Step 27: Fly to Ironforge
+	-- Step 28: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Vuela a {area:1537}",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
-
-	-- Step 28: Hall of Explorers
-	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
-	["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}: los mocos están en {zone:1448}, guárdala",
+	["{area:144} flight master"] = "Maestro de vuelo de {area:144}",
 
 	-- Step 29: Mystic Ward
-	-- {zone:1447} Azshara
-	["Four rune rubbings in {zone:1447}: keep it"] = "Cuatro calcos de runas en {zone:1447}: guárdala",
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}: para Ogtinc en {zone:1447}, guárdala",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
 	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "",
 
-	-- Step 30: Class trainer
-	["Class trainer"] = "",
-
-	-- Step 31: Xiggs Fuselighter
-	-- {object:32359} Military Ward (no name in this language: may be words)
-	["Xiggs waits in the {object:32359}."] = "Xiggs espera en {object:32359}.",
-
-	-- Step 34: Fly to Astranaar
-	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	-- Step 32: Fly to Astranaar
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
 
-	-- Step 35: Level 50.4
+	-- Step 33: Level 50.4
 	["Level 50.4"] = "",
 	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
 	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
@@ -171,6 +168,7 @@ return {
 	-- ["Cross the south of the crater to {npc:9619} by the ramp."] = "Cruza el sur del cráter hasta {npc:9619}, junto a la rampa.",
 	-- ["Escort {npc:9999}"] = "Escolta a {npc:9999}",
 	-- ["Fly from {area:144} to {area:1537}."] = "Vuela de {area:144} a {area:1537}.",
+	-- ["Four rune rubbings in {zone:1447}: keep it"] = "Cuatro calcos de runas en {zone:1447}: guárdala",
 	-- ["From {area:144} fly to {area:150}, take the boat to Theramore and fly on to {area:976}. {npc:9619}'s first quest in the crater needs level 48: finish the level here if you are short."] = "Desde {area:144} vuela a {area:150}, toma el barco a Theramore y sigue volando a {area:976}. La primera misión de {npc:9619} en el cráter requiere nivel 48: si te falta, termina el nivel aquí.",
 	-- ["Grind to 50"] = "Farmea hasta el 50",
 	-- ["Grind to 51"] = "Farmea hasta el 51",
@@ -180,6 +178,7 @@ return {
 	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "Cabalga al este hasta {area:537}, súbela y usa {npc:10541} en las grietas de lava cerca de la cima.",
 	-- ["Ride north along the east side of the crater to {area:541}, the camp in the caves of the northern cliff. Give the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "Cabalga al norte por el lado este del cráter hasta {area:541}, el campamento en las cuevas del acantilado norte. Aléjate bien de los demosaurios y estegodones élite. Desde aquí, recoge todos los cristales de poder y cada {object:157936} que encuentres.",
 	-- ["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "Cabalga al norte por el lado este hasta la meseta de los gorilas. {npc:9622}, un gorila de nivel 55, está en su cueva más profunda: limpia antes los gorilas de la boca de la cueva.",
+	-- ["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Cabalga al norte hasta {area:1943}, donde el robot está entre los gorilas. No entres en la cueva profunda de allí.",
 	-- ["Ride south along the eastern cliffs to {npc:9619} at the foot of the ramp."] = "Cabalga al sur por los acantilados del este hasta {npc:9619}, al pie de la rampa.",
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "Cabalga al sur por el lado este. Los diemetradones jóvenes pastan en la jungla del este y los {npc:9165} vuelan cerca de los acantilados del este; ambos sueltan las escamas para {npc:9998}.",
 	-- ["Ride west back to the refuge."] = "Cabalga al oeste de vuelta al refugio.",
@@ -196,12 +195,14 @@ return {
 	-- ["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997} and drop {npc:9998}'s scales."] = "El pilón está en la ladera al este del refugio. Los {npc:9166} vuelan en círculos por las laderas a su alrededor: cuentan para {npc:9997} y sueltan las escamas para {npc:9998}.",
 	-- ["The relics are in the {zone:1428}: keep it"] = "Las reliquias están en {zone:1428}: guárdala",
 	-- ["The wooden sign beside {npc:9997}"] = "El letrero de madera junto a {npc:9997}",
+	-- ["Xiggs waits in the {object:32359}."] = "Xiggs espera en {object:32359}.",
 	-- ["grind on the Wastewanderers or Dunemaul ogres around {area:976}"] = "farmea Vagayermos u ogros Machacaduna alrededor de {area:976}",
 	-- ["grind on {npc:5458} at {area:982}, {zone:1446}"] = "farmea {npc:5458} en {area:982}, {zone:1446}",
 	-- ["grind on {npc:6514} at {area:1943}, {zone:1449}"] = "farmea {npc:6514} en {area:1943}, {zone:1449}",
 	-- ["{area:978} (optional)"] = "{area:978} (opcional)",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: la guía anterior te trae aquí con la piedra de hogar, así que esto suele marcarse de inmediato",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}, al fondo de la cueva",
+	-- ["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}: los mocos están en {zone:1448}, guárdala",
 	-- ["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "La guarida de {npc:9684} está en la jungla al norte de {npc:9619}, bajo los acantilados del este: usa {item:11568} allí. {npc:9684} es de nivel 56: empieza con la salud completa.",
 	-- ["{npc:9997}'s friend {npc:9999} has gone missing."] = "{npc:9999}, el amigo de {npc:9997}, ha desaparecido.",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999} está sentado en la ladera sureste de {area:537}, en medio del cráter.",

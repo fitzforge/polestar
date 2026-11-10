@@ -177,7 +177,7 @@ fn open_the_guide_list_closes_it_and_opens_the_guide_list_on_its_home_view_with_
 }
 
 #[test]
-fn it_says_what_changed_in_five_notes_and_fits_one_screen() {
+fn it_says_what_changed_in_ten_notes_in_order_and_scrolls_them_within_one_screen() {
 	let out = run_with(
 		r#"
 		WN.Show()
@@ -188,19 +188,29 @@ fn it_says_what_changed_in_five_notes_and_fits_one_screen() {
 		end
 		local escape = false
 		for _, n in ipairs(UISpecialFrames) do if n == "PolestarWhatsNew" then escape = true end end
+		local sf = F.Scroll
+		local view, content, barAtTop, top = sf.psView, sf.psContent, sf.Bar:IsShown(), sf:GetVerticalScroll()
+		sf:GetScript("OnMouseWheel")(sf, -100)
+		local bottom = sf:GetVerticalScroll()
 		emit({ notes = notes, site = F.Site:GetText(), gotIt = F.GotIt.Label:GetText(), list = F.GuideList.Label:GetText(),
-			escape = escape, height = F:GetHeight() })"#,
+			escape = escape, height = F:GetHeight(), view = view, content = content, bar = barAtTop, top = top,
+			bottom = bottom })"#,
 		updated(),
 		"",
 	);
 	assert_eq!(
 		out["notes"],
 		json!([
-			{ "head": "Every route reviewed", "text": "Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. Quests new in Forever carry a small ∞ mark. If the guide you had open doesn't match where you are, open the guide list and pick the guide under Suggested for you. Your quest log carries over." },
-			{ "head": "The arrow finds your targets", "text": "Grinding steps point at where the mob is found, and on a step with several camps the arrow moves on from one you've emptied. The Target button shows who it targets, the While you're here mobs included." },
-			{ "head": "Guide menu and minimap", "text": "Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options." },
-			{ "head": "Fixes from your reports", "text": "Quests asked for before the game offers them, wrong spots, dungeon pick-ups, guides opened part-way, the arrow while you're a ghost, and lots more." },
-			{ "head": "Found something off?", "text": "Type /polestar report right where it happens." },
+			{ "head": "Every route reviewed", "text": "More quests and shorter grinds at 40-60, fewer walk-backs, no pointless travel steps." },
+			{ "head": "Dynamic Questing saves trips", "text": "Hand in and pick up at NPCs on your way; auto-accept takes the next steps' quests." },
+			{ "head": "The arrow finds your targets", "text": "Grinds go to the nearest spawns, past emptied camps; Target shows who, pings, marks." },
+			{ "head": "Route lines your way", "text": "Line, Dots or Sparkles on map and minimap: set on the Welcome page or in Options." },
+			{ "head": "New in Forever", "text": "Quests only Forever has carry a small ∞ mark." },
+			{ "head": "Tabs and windows", "text": "Closed tabs reopen where you were; Transparent backing; floating button; Esc menu." },
+			{ "head": "Groups and dungeons", "text": "Sync to my guide in a party; Dungeons shows what fits your level, when more unlock." },
+			{ "head": "Rares", "text": "Target and ping a rare right from its card." },
+			{ "head": "Fully translated", "text": "In 9 languages, with thanks to our translators." },
+			{ "head": "Fixes from your reports", "text": "Gear spec, trainers, map spots and more. Found something off? Type /polestar report." },
 		])
 	);
 	assert_eq!(out["site"], "Full notes: polestar.guide");
@@ -208,5 +218,10 @@ fn it_says_what_changed_in_five_notes_and_fits_one_screen() {
 	assert_eq!(out["list"], "Open the guide list");
 	assert_eq!(out["escape"], true, "Escape closes it");
 	let h = out["height"].as_f64().unwrap();
-	assert!(h > 300.0 && h <= 640.0, "one screen at default scale (768 high), no scrolling: {h}");
+	assert!(h > 300.0 && h <= 440.0, "the window keeps its size with five notes; the list scrolls instead: {h}");
+	let (view, content) = (out["view"].as_f64().unwrap(), out["content"].as_f64().unwrap());
+	assert!(content > view, "ten notes are more than the window holds, so the list scrolls: {content} in {view}");
+	assert_eq!(out["bar"], true, "the scroll bar shows");
+	assert_eq!(out["top"], 0.0, "it opens at the first note");
+	assert_eq!(out["bottom"].as_f64().unwrap(), content - view, "the wheel reaches the last note and stops there");
 }

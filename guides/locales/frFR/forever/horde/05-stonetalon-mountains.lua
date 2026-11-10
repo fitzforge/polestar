@@ -14,7 +14,7 @@ return {
 
 	-- Step 2: Kadrak
 	-- {zone:1413} Barrens · {npc:8582} Kadrak · {area:1703} Mor'shan Rampart · {zone:1440} Ashenvale
-	["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}."] = "",
+	["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads; Rogues coming from Fizzule's tower head west to it. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}."] = "Depuis le camp de Seereth, allez vers le nord-est à travers {zone:1413} jusqu'à la route au nord de la Croisée ; les voleurs qui viennent de la tour de Fizzule y vont vers l'ouest. {npc:8582} se tient sur la tour de guet du {area:1703}, là où la route entre en {zone:1440}.",
 
 	-- Step 3: Into Ashenvale
 	-- {zone:1440} Ashenvale
@@ -123,21 +123,25 @@ return {
 	["{item:15882}, from the {object:177790}"] = "{item:15882}, dans le {object:177790}",
 
 	-- Step 24: Sepulcher
-	-- {area:228} Sepulcher · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
-	["From the zeppelin towers, run south through Tirisfal into Silverpine and down the road to the {area:228}. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "",
+	-- {area:228} Sepulcher · {object:177790} Strange Lockbox · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
+	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177790}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "Descendez la route à travers la forêt des Pins argentés jusqu'au {area:228} : depuis les tours des zeppelins, vers le sud à travers Tirisfal ; depuis le {object:177790}, vers le sud-est depuis la côte jusqu'à la route. {npc:2121} et {npc:1937} se tiennent près de l'entrée de la crypte.",
 	-- {npc:1937} Apothecary Renferrel · {area:272} Tarren Mill
 	["{npc:1937}: Lydon in {area:272}, next guide"] = "",
 	-- {npc:2121} Shadow Priest Allister · {quest:516} Beren's Peril · {area:233} Ambermill
 	["{npc:2121}: {quest:516}, south-east of {area:233}"] = "",
 
-	-- Step 25: Silverpine Forest: kill these as you meet them
+	-- Step 25: Deathguard Podrig
+	-- {npc:6389} Deathguard Podrig · {item:16210} Gordon's Crate · {zone:1458} Undercity
+	["{npc:6389} stands just west of the crypt entrance: hand him {item:16210} from the {zone:1458}."] = "{npc:6389} se tient juste à l'ouest de l'entrée de la crypte : remettez-lui {item:16210} venant de {zone:1458}.",
+
+	-- Step 26: Silverpine Forest: kill these as you meet them
 	-- {zone:1421} Silverpine Forest
 	["{zone:1421}: kill these as you meet them"] = "",
 	-- {area:233} Ambermill · {quest:516} Beren's Peril
 	-- plural, as words: Dalaran Watchers = {npc:1888} Dalaran Watcher · Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger
 	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "",
 
-	-- Step 26: Beren's Peril
+	-- Step 27: Beren's Peril
 	-- {quest:516} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone
 	["The Ravenclaw undead haunt the ruins of {quest:516}, east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}.\nAn elite spirit (20) often stands beside the {object:645153}: pull the Ravenclaws away from the stone before you fight them."] = "",
 	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
@@ -148,19 +152,19 @@ return {
 	-- plural, as words: Tortured Souls = {item:271350} Tortured Soul
 	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "{item:271350}, sur les Âmes torturées parmi les ruines ; sous terre",
 
-	-- Step 27: The Offering of Blood
+	-- Step 28: The Offering of Blood
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
 	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "",
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone
 	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "",
 
-	-- Step 28: Into Hillsbrad
+	-- Step 29: Into Hillsbrad
 	-- {area:287} Hillsbrad
 	["Into {area:287}"] = "",
 	-- {area:285} Southpoint Tower
 	["The road east to {area:285}"] = "",
 
-	-- Step 29: Southpoint Tower
+	-- Step 30: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
 	["Back on the road south. Where it turns east into {area:287}, {npc:2214} waits at {area:285}."] = "De nouveau sur la route vers le sud. Là où elle tourne vers l'est dans {area:287}, {npc:2214} attend à {area:285}.",
 	-- {npc:2214} Deathstalker Lesh · {area:272} Tarren Mill

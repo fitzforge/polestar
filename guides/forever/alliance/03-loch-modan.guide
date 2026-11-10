@@ -19,7 +19,8 @@ next forever/alliance/03-darkshore-return
 # Flow: the boat to Menethil Harbor -> the Wetlands road and Dun Algaz -> Loch Modan from the
 # north: the Algaz Station and the Silver Stream Mine, the Stonewrought Dam, the loch's
 # toolbox, Thelsamar (flight path), Ironband's Excavation, the Farstrider Lodge and its hunts,
-# Thelsamar, Ylva's banner and the tunnel post -> Dun Morogh -> Ironforge (flight path) ->
+# Thelsamar, Ylva's banner and the tunnel post -> Dun Morogh (Dwarves and Gnomes, who have the Ironforge flight path
+# from their start, fly from Thelsamar instead: #1508) -> Ironforge (flight path) ->
 # the tram -> Stormwind -> Elwynn -> Redridge: Three Corners, Lakeshire (flight path) and the
 # loop west and south of the lake -> the walk west through Goldshire (Smith Argus) to Sentinel
 # Hill -> Stormwind by gryphon (Shaw, General Marcus) and back -> Moonbrook (People's Militia
@@ -34,15 +35,22 @@ next forever/alliance/03-darkshore-return
 #
 # Crocolisk Hunting (385) rides on the lodge stops: Loch Crocolisks drop its meat and skins
 # (players' recordings: skins and meat looted in Loch Modan, hand-ins at about 17).
+# Stormpike's Delivery (353), from Grimand Elmore after Elmore's Task on 02-westfall's last Stormwind
+# stop (Humans), is handed to Mountaineer Stormpike on the first Algaz Station stop.
+# Human Paladins: The Tome of Divinity (1786, 1787, from Gazin Tenorm on 02-westfall's last Stormwind stop) on
+# this guide's walk east through Elwynn (Henze Faulk at Stone Cairn Lake, north of the bridge) and Redemption
+# (1788) at the Cathedral of Light on its last Stormwind stop, at about 20-21 instead of 04's Elwynn road and
+# 05's Stormwind stop at about 26 (those steps stay for a Paladin still carrying the quests).
 # Left out:
 # A Dark Threat Looms (161) goes on to Ashlan Stonesmirk at Whelgar's dig, three levels later.
 # Mountaineer Stormpike's Task and Stormpike's Order (1339, 1338): Kadrell's breadcrumb, and
 # the route reaches Stormpike from the north first (Filthy Paws, 307, has no prerequisite).
 # The tunnel post's trogg chain (224, 237, 263, 217): sixty trogg kills and four trips between
 # the post and Stonesplinter Valley. Bingles (2039, 2038): Find Bingles starts in Ironforge.
-# Mercenaries and Vyrin's Revenge (255, 271): elite. Keeper of the Flame (103): its flasks come
-# from the harvest golems around Sentinel Hill after Captain Grayson gives it, a second
-# lighthouse trip. Messenger to Westfall and Darkshire (143, 145): another round trip each.
+# Mercenaries and Vyrin's Revenge (255, 271): elite. Keeper of the Flame (103): taken and handed
+# in at once on the lighthouse stop, only by a player carrying five Flasks of Oil (a free drop of
+# the Harvest Watchers 02-westfall kills; it says to keep five), never a trip for the flasks.
+# Messenger to Westfall and Darkshire (143, 145): another round trip each.
 # Marshal Marris's Blackrock quests (20, 98387), Alther's Mill (98386) and Murloc Poachers (150,
 # from 20) are taken here, at their givers, and done on the 24 visit (04-redridge-mountains), where
 # level 20-21 quests still give full XP. Givers passed and left for later, by level: A Watchful Eye
@@ -77,6 +85,10 @@ step Algaz Station
   only Human,NightElf,Skyborne
   tip Mountaineer Stormpike stands at the Algaz Station, at the south end of the pass.
   accept 307                                  -- Mountaineer Stormpike
+
+step Mountaineer Stormpike
+  when onquest 353
+  turnin 353                                  -- Mountaineer Stormpike: Grimand Elmore's package
 
 step Silver Stream Mine
   only Human,NightElf,Skyborne
@@ -177,12 +189,24 @@ step The tunnel post
 
 # ---------------------------------------------------------------- Ironforge
 
+step Fly to Ironforge
+  only Dwarf,Gnome
+  zone Loch Modan
+  tip You have the Ironforge flight path from Dun Morogh: back north to Thelsamar's gryphons, quicker than walking through the tunnel and across Dun Morogh.
+  goto 33.9,50.8 "Thelsamar flight master"
+  fly "Ironforge"
+  zone Ironforge
+
 step Into Dun Morogh
+  only Human,NightElf,Skyborne
+  when !zone "Ironforge"
   zone Dun Morogh
-  tip Through the South Gate tunnel and west along the road to Ironforge.
+  tip Through the South Gate tunnel and west along the road to Ironforge. Know the Ironforge flight path already? Fly from Thelsamar instead: these two waypoints drop once you are in the city.
   goto 86.0,49.6 "Into Dun Morogh"
 
 step Into Ironforge
+  only Human,NightElf,Skyborne
+  when !zone "Ironforge"
   zone Ironforge
   goto 21.6,77.8 "Into Ironforge"
 
@@ -203,7 +227,7 @@ step Tram to Stormwind
 step Elwynn Forest
   zone Elwynn Forest
   tip From the tram, leave Stormwind by the main gate and follow the road through Goldshire and east through Elwynn to Redridge.
-  goto 65.2,69.7 "The road east to Redridge"
+  goto 65.8,74.0 "The road east to Redridge"
 
 step Guard Thomas
   only NightElf
@@ -211,6 +235,16 @@ step Guard Thomas
   when onquest 35
   tip Guard Thomas guards the bridge on this road east, past the Tower of Azora: Marshal Dughan's Further Concerns, from your walk through Goldshire, goes to him.
   turnin 35                                   -- Guard Thomas, on the bridge
+
+step Henze Faulk
+  only Human,Paladin
+  zone Elwynn Forest
+  when onquest 1786,1787
+  tip From the bridge, head north to Stone Cairn Lake. Henze Faulk lies south of the lake: use the Symbol of Life on him. The Defias Rogue Wizards around him carry the Defias Script.
+  use 6866 quest 1786.1 @72.6,51.41 map 1429 era only Human -- Use the Symbol of Life on Henze Faulk
+  turnin 1786 only Human -- Henze Faulk
+  accept 1787 only Human
+  collect 6846 quest 1787.1 only Human -- Defias Script: Defias Rogue Wizards
 
 step Three Corners
   zone Redridge Mountains
@@ -364,6 +398,13 @@ step Westfall Lighthouse
   collect 3636 quest 104 @33.7,83.9 map 1436 live -- Scale of Old Murk-Eye: Old Murk-Eye, on the beach north-east of the lighthouse
   turnin 104                                  -- Captain Grayson
 
+step Captain Grayson
+  when turnedin 65
+  when has 814 x5
+  tip Kept five Flasks of Oil from Westfall's Harvest Watchers? Captain Grayson takes them for his lighthouse fire.
+  accept 103                                  -- Captain Grayson
+  turnin 103
+
 step Sentinel Hill
   when turnedin 65
   tip Back north up the road to Sentinel Hill. The Defias Traitor waits at the foot of the tower ramp; if he is missing, someone is escorting him and he is back within minutes.
@@ -416,7 +457,7 @@ step Lakeshire
 step Fly to Stormwind
   zone Redridge Mountains
   tip Back to Auberdine for Darkshore's southern loops: the gryphon to Stormwind, then the boat from the harbour.
-  goto 25.5,59.4 "Lakeshire flight master"
+  goto 25.5,59.4 "Lakeshire flight master" live
   fly "Stormwind"
 
 step Sprite Jumpsprocket
@@ -430,6 +471,16 @@ step Baros Alexston
   tip Baros Alexston stands at the east side of Cathedral Square, on the way from the Dwarven District to the harbour.
   turnin 97914                                -- Baros Alexston: Thundris' letter from Auberdine
   accept 97926 optional                       -- For Thundris Windweaver, where the boat lands
+
+step Gazin Tenorm
+  only Human,Paladin
+  zone Stormwind City
+  when onquest 1787,1788
+  tip Gazin Tenorm and Duthorian Rall are in the Cathedral of Light, on Cathedral Square, on the way to the harbour.
+  goto 50.5,47.5 "Cathedral of Light" live
+  turnin 1787 only Human -- Gazin Tenorm
+  accept 1788 only Human
+  turnin 1788 only Human -- Duthorian Rall: Redemption
 
 step Boat to Auberdine
   zone Stormwind City

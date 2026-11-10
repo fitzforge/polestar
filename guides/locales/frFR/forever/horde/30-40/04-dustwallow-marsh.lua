@@ -83,6 +83,8 @@ return {
 	["only if you carry a {item:3853} ({skill:164} or the Auction House)"] = "seulement si vous avez une {item:3853} ({skill:164} ou Hôtel des ventes)",
 
 	-- Step 18: The Theramore Docks
+	-- {area:513} Theramore Isle · {object:20925} Captain's Footlocker
+	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57."] = "Au sud-est du manoir jusqu'à {area:513} : {object:20925} gît au fond de la mer au large des quais, sur la côte est de l'île. Entrez et sortez à la nage et tenez-vous à l'écart des jetées et de la ville : les gardes de Theramore sont de niveau 53-57.",
 	["Underwater"] = "Sous l'eau",
 
 	-- Step 19: Brackenwall Village
@@ -106,14 +108,8 @@ return {
 	["{area:496} flight master"] = "Maître de vol de {area:496}",
 
 	-- Step 22: Ratchet
-	-- {npc:3391} Gazlowe · {npc:3446} Mebok Mizzyrix
-	["{npc:3391} waits upstairs in the house by the flight master; {npc:3446} stands below it, towards the docks."] = "",
-	-- {npc:3391} Gazlowe · {area:35} Booty Bay
-	["{npc:3391}'s next errand takes you to {area:35}, off this part of the route: leave it."] = "",
-	-- {quest:1111} Wharfmaster Dizzywig
-	["{quest:1111}, on the docks"] = "",
-	-- {area:439} Shimmering Flats
-	["Dizzywig's parts go back to Kravel in the {area:439}, off the route: leave them."] = "",
+	-- {npc:3446} Mebok Mizzyrix
+	["{npc:3446} stands below Gazlowe's house by the flight master, towards the docks."] = "{npc:3446} se tient sous la maison de Gazlowe, près du maître de vol, en direction des quais.",
 
 	-- Step 23: The Affray
 	-- {area:392} Ratchet · {area:720} Fray Island · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
@@ -240,6 +236,7 @@ return {
 	-- ["Your trainer is in {area:1638}: fly there (no flight path there yet? fly to {area:378} and head west through {zone:1412}), then on to {area:496}."] = "Votre maître est aux {area:1638} : volez-y (pas encore de trajet aérien ? volez jusqu'au {area:378} et allez vers l'ouest à travers {zone:1412}), puis jusqu'à {area:496}.",
 	-- ["{area:380} flight master"] = "Maître de vol de la {area:380}",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "La caravane de {npc:11626} s'arrête sur la route en bordure de {area:602}. Escortez-la vers l'est au-delà du convent ; des démons l'attaquent deux fois.",
+	-- ["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391} : pour {npc:4631} à {area:35}, lors du premier passage à {area:35} du guide 40-50",
 	-- ["{npc:4501}, below ground"] = "{npc:4501}, sous terre",
 	-- ["{npc:4711} walks around {area:598}: look inside the circle on the map"] = "{npc:4711} se promène autour de {area:598} : cherchez dans le cercle sur la carte",
 	-- ["{npc:4714} walks around {area:598}: look inside the circle on the map"] = "{npc:4714} se promène autour de {area:598} : cherchez dans le cercle sur la carte",

@@ -14,7 +14,7 @@ return {
 
 	-- Step 2: Kadrak
 	-- {zone:1413} Barrens · {npc:8582} Kadrak · {area:1703} Mor'shan Rampart · {zone:1440} Ashenvale
-	["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}."] = "",
+	["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads; Rogues coming from Fizzule's tower head west to it. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}."] = "從賽瑞斯的營地往東北穿過{zone:1413}，前往十字路口北邊的道路；從菲蘇勒的塔過來的盜賊則往西走到這條路。{npc:8582}站在道路進入{zone:1440}處的{area:1703}瞭望塔上。",
 
 	-- Step 3: Into Ashenvale
 	-- {zone:1440} Ashenvale
@@ -67,7 +67,7 @@ return {
 	-- {npc:12818} Ruul Snowhoof · {area:428} Night Run · {npc:3987} Dal Bloodclaw
 	-- plural, as words: Troll Chests = {object:178144} Troll Chest
 	["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "地下",
 	-- {npc:12818} Ruul Snowhoof
 	["{npc:12818}, below ground"] = "",
 
@@ -123,21 +123,25 @@ return {
 	["{item:15882}, from the {object:177790}"] = "",
 
 	-- Step 24: Sepulcher
-	-- {area:228} Sepulcher · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
-	["From the zeppelin towers, run south through Tirisfal into Silverpine and down the road to the {area:228}. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "",
+	-- {area:228} Sepulcher · {object:177790} Strange Lockbox · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
+	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177790}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "沿著道路穿過銀松森林前往{area:228}：從飛艇塔出發的話，往南穿過提里斯法；從{object:177790}出發的話，從海岸往東南走到道路上。{npc:2121}和{npc:1937}站在墓穴入口旁。",
 	-- {npc:1937} Apothecary Renferrel · {area:272} Tarren Mill
 	["{npc:1937}: Lydon in {area:272}, next guide"] = "",
 	-- {npc:2121} Shadow Priest Allister · {quest:516} Beren's Peril · {area:233} Ambermill
 	["{npc:2121}: {quest:516}, south-east of {area:233}"] = "",
 
-	-- Step 25: Silverpine Forest: kill these as you meet them
+	-- Step 25: Deathguard Podrig
+	-- {npc:6389} Deathguard Podrig · {item:16210} Gordon's Crate · {zone:1458} Undercity
+	["{npc:6389} stands just west of the crypt entrance: hand him {item:16210} from the {zone:1458}."] = "{npc:6389}站在墓穴入口西邊不遠處：把來自{zone:1458}的{item:16210}交給他。",
+
+	-- Step 26: Silverpine Forest: kill these as you meet them
 	-- {zone:1421} Silverpine Forest
 	["{zone:1421}: kill these as you meet them"] = "",
 	-- {area:233} Ambermill · {quest:516} Beren's Peril
 	-- plural, as words: Dalaran Watchers = {npc:1888} Dalaran Watcher · Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger
 	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "",
 
-	-- Step 26: Beren's Peril
+	-- Step 27: Beren's Peril
 	-- {quest:516} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone (no name in this language: may be words)
 	["The Ravenclaw undead haunt the ruins of {quest:516}, east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}.\nAn elite spirit (20) often stands beside the {object:645153}: pull the Ravenclaws away from the stone before you fight them."] = "",
 	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
@@ -148,19 +152,19 @@ return {
 	-- plural, as words: Tortured Souls = {item:271350} Tortured Soul
 	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "",
 
-	-- Step 27: The Offering of Blood
+	-- Step 28: The Offering of Blood
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone (no name in this language: may be words) · {quest:95883} The Tortured Soul
 	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "",
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone (no name in this language: may be words)
 	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "",
 
-	-- Step 28: Into Hillsbrad
+	-- Step 29: Into Hillsbrad
 	-- {area:287} Hillsbrad
 	["Into {area:287}"] = "",
 	-- {area:285} Southpoint Tower
 	["The road east to {area:285}"] = "",
 
-	-- Step 29: Southpoint Tower
+	-- Step 30: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
 	["Back on the road south. Where it turns east into {area:287}, {npc:2214} waits at {area:285}."] = "回到道路往南走。在道路轉向東進入{area:287}的地方，{npc:2214}在{area:285}等候。",
 	-- {npc:2214} Deathstalker Lesh · {area:272} Tarren Mill

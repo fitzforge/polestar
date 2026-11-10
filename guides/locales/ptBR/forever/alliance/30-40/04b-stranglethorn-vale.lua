@@ -26,13 +26,19 @@ return {
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
 	["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}: para {npc:773}, em {area:35}",
 
-	-- Step 5: Bookie Herod
-	-- {area:101} Kurzen's Compound · {area:99} Rebel Camp
-	["Herod's records lie in a hut on the west side of {area:101}, east of the {area:99}."] = "Os registros de Herodes ficam numa cabana no lado oeste de {area:101}, a leste de {area:99}.",
+	-- Step 5: Nesingwary's Expedition
+	["South along the road: the hunters' tents stand just west of it."] = "Para o sul pela estrada: as barracas dos caçadores ficam logo a oeste dela.",
+	-- {npc:718} Sir S. J. Erlgadin · {area:37} Lake Nazferiti · {area:101} Kurzen's Compound
+	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
+	["{npc:718}: the Shadowmaw Panthers prowl around {area:37}, after {area:101}"] = "{npc:718}: as Panteras Umbragorja rondam {area:37}, depois de {area:101}",
+
+	-- Step 6: Bookie Herod
+	-- {area:101} Kurzen's Compound
+	["East to {area:101}: Herod's records lie in a hut on its west side."] = "Para o leste até {area:101}: os registros de Herodes ficam numa cabana no lado oeste.",
 	-- {object:287} Bookie Herod's Records
 	["{object:287}, upstairs"] = "{object:287}, no andar de cima",
 
-	-- Step 6: Kurzen's Compound
+	-- Step 7: Kurzen's Compound
 	-- {spell:7964} Smoke Bomb
 	-- plural, as words: Kurzen Commandos = {npc:938} Kurzen Commando
 	["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}."] = "Encolhedores de Cabeças ficam mais fundo no complexo; as Tropas de Choque ficam à espreita, furtivas, em volta dele e na caverna, e o cofre de Herodes fica na boca da caverna. Pegue as páginas de Grande Espinhaço: Veredas conforme caírem.\nCuidado: as Tropas de Choque de Kurzen são de nível 34-35, não elite, e costumam aparecer furtivas; perto da morte, elas usam {spell:7964}.",
@@ -41,28 +47,31 @@ return {
 	-- {object:288} Bookie Herod's Strongbox
 	["{object:288}, below ground"] = "{object:288}, no subterrâneo",
 
-	-- Step 7: Rebel Camp
-	-- {npc:733} Sergeant Yohwa
-	["{npc:733}: the Commandos and Headshrinkers fell in the compound"] = "{npc:733}: as Tropas de Choque e os Encolhedores de Cabeças são abatidos no complexo",
-
-	-- Step 8: Nesingwary's Expedition
-	["South along the road: the hunters' tents stand just west of it."] = "Para o sul pela estrada: as barracas dos caçadores ficam logo a oeste dela.",
+	-- Step 8: Lake Nazferiti
+	-- {area:37} Lake Nazferiti
+	-- plural, as words: Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Shadowmaw Panthers = {npc:684} Shadowmaw Panther
+	["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it."] = "Do complexo, siga para o sul até {area:37}: os Geólogos da Empreendimentos S.A. nos acampamentos da margem carregam os Cristais Rolados, e as Panteras Umbragorja rondam furtivas na selva ao sul e a leste dele.",
 
 	-- Step 9: The jungle ruins
 	["The jungle ruins"] = "As ruínas da selva",
-	-- {area:37} Lake Nazferiti
-	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Tumbled Crystals = {item:4106} Tumbled Crystal
-	["Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on {area:37} carries the Tumbled Crystals."] = "Percorra as ruínas trolls do norte e do centro: cada uma guarda uma tabuleta de pedra das lendas trolls. Panteras Umbragorja rondam furtivas na selva ao redor; o acampamento da Empreendimentos S.A. em {area:37} carrega os Cristais Rolados.",
+	["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west."] = "Para o oeste pela selva até as ruínas trolls: cada uma guarda uma tabuleta de pedra das lendas trolls, as duas primeiras nas ruínas a sudoeste do acampamento do Rosarães, as duas últimas na colina a noroeste.",
 	-- {item:2006} The Second Troll Legend · {object:58} Gri'lek the Wanderer
 	["{item:2006}: {object:58}; underwater"] = "{item:2006}: {object:58}; debaixo d'água",
 
 	-- Step 10: Water Elementals
 	-- plural, as words: Lesser Water Elementals = {npc:691} Lesser Water Elemental
-	["Follow the west coast north to the haunted island off the shore west of Nesingwary's camp: the Lesser Water Elementals rise from the water around it."] = "Siga a costa oeste para o norte até a ilha assombrada, ao largo da costa a oeste do acampamento do Rosarães: os Elementais Inferiores da Água surgem da água em volta dela.",
+	["The haunted island lies just off the shore west of the second tablet: the Lesser Water Elementals rise from the water around it."] = "A ilha assombrada fica logo ao largo da costa, a oeste da segunda tabuleta: os Elementais Inferiores da Água surgem da água em volta dela.",
 
-	-- Step 11: Stranglethorn Vale: kill these as you meet them
-	-- {zone:1434} Stranglethorn Vale
-	["{zone:1434}: kill these as you meet them"] = "{zone:1434}: vá matando estes pelo caminho",
+	-- Step 11: The Ruins of Zul'Kunda
+	-- {area:102} Ruins of Zul'Kunda
+	["The {area:102}"] = "{area:102}",
+	["North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop."] = "Para o norte pela costa até as ruínas na colina: as duas últimas tabuletas ficam lá. Pegue as páginas de Grande Espinhaço: Veredas conforme caírem.",
+
+	-- Step 12: Rebel Camp
+	-- {area:99} Rebel Camp
+	["East to the {area:99}, on the way back to Nesingwary's camp."] = "Para o leste até {area:99}, no caminho de volta ao acampamento do Rosarães.",
+	-- {npc:733} Sergeant Yohwa
+	["{npc:733}: the Commandos and Headshrinkers fell in the compound"] = "{npc:733}: as Tropas de Choque e os Encolhedores de Cabeças são abatidos no complexo",
 
 	-- Step 15: Snapjaw Crocolisks
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
@@ -99,5 +108,9 @@ return {
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley \"Lobo do Mar\", no último andar",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Follow the west coast north to the haunted island off the shore west of Nesingwary's camp: the Lesser Water Elementals rise from the water around it."] = "Siga a costa oeste para o norte até a ilha assombrada, ao largo da costa a oeste do acampamento do Rosarães: os Elementais Inferiores da Água surgem da água em volta dela.",
+	-- ["Herod's records lie in a hut on the west side of {area:101}, east of the {area:99}."] = "Os registros de Herodes ficam numa cabana no lado oeste de {area:101}, a leste de {area:99}.",
+	-- ["Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on {area:37} carries the Tumbled Crystals."] = "Percorra as ruínas trolls do norte e do centro: cada uma guarda uma tabuleta de pedra das lendas trolls. Panteras Umbragorja rondam furtivas na selva ao redor; o acampamento da Empreendimentos S.A. em {area:37} carrega os Cristais Rolados.",
 	-- ["Mauren, from Stonetalon"] = "Mauren, da Cordilheira das Torres de Pedra",
+	-- ["{zone:1434}: kill these as you meet them"] = "{zone:1434}: vá matando estes pelo caminho",
 }

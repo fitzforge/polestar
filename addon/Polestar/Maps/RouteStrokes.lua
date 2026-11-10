@@ -67,6 +67,11 @@ local DASH, DASH_GAP = 7, 5
 local LINE_MIN = 8
 local WALKED_ALPHA, TAIL, TAIL_STEP = 0.45, 120, 12
 local LINE_WIDTH, LINE_WIDTHS = 4, { 2, 8 }
+-- The dots style's minimap dots flow toward the goal: the walk's dots are
+-- counted back from its end (so they keep their place as the player walks)
+-- and moved on by view.phase, in spacings (the painter turns it at the
+-- sparkles' pace; still under ui.reduceMotion). Their size, rim and spacing
+-- are the dots' own, in screen pixels at every zoom.
 -- The minimap: nothing is drawn within PLAYER_GAP px of its centre, where the
 -- game draws the player's arrow under every frame on the minimap (a route dot
 -- there read as the player). Its dots are otherwise 0.3.5's: round, the same
@@ -662,6 +667,18 @@ function Strokes.Minimap(buffer, paths, view)
 					end
 				elseif pc == c then
 					px, py = Project(xs[1], ys[1], x, y, radius, cosine, sine)
+				end
+				if mode == "dots" then
+					-- Counted back from the walk's end, flowing by the phase.
+					local left, ax, ay = 0, nil, nil
+					if p == 1 and view.from and pc == c then ax, ay = view.fromX, view.fromY end
+					for i = ax and first or first - 1, path.n do
+						if i >= 1 and cs[i] == c then
+							if ax then left = left + sqrt((xs[i] - ax) ^ 2 + (ys[i] - ay) ^ 2) end
+							ax, ay = xs[i], ys[i]
+						end
+					end
+					walked = (-(left * (width / 2) / radius * scale) - (view.phase or 0) * spacing) % spacing
 				end
 				-- The line's pieces at least LINE_MIN long, as on the world map.
 				local merges, n = mode == "line" or mode == "guess", path.n

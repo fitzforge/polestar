@@ -79,7 +79,8 @@ step Valley of Trials: kill these as you meet them
   kill 3101 quest 792.1 only !Warlock
   collect 6487 quest 1485.1 only Warlock
 
-step Back to the Den
+step Galgar
+  tip Galgar stands just outside the Den's entrance.
   turnin 4402                         -- Galgar
 
 step Class trainer
@@ -139,6 +140,7 @@ step Zureetha Fargaze
   turnin 1516 only Shaman -- Canaga Earthcaller
   accept 1517 only Shaman
   turnin 6394
+  accept 5649 only Troll,Priest       -- Ken'jai, the priest trainer at the Den: for Tai'jin in Razor Hill
 
 step Call of Earth
   only Shaman
@@ -171,15 +173,26 @@ step Sen'jin Village
   kill 266849 quest 96821.2
 
 step Brakk's campfire
-  tip Brakk camps just south of Razor Hill. Sit by his campfire (/sit) until the Boosted Rest buff appears.
+  tip Brakk camps just south of Razor Hill. Sit by his campfire (/sit) until the Boosted Rest buff appears. With a profession learned, Brakk also offers its Camping 101, which its trainer takes: in Razor Hill or in Orgrimmar at the start of the next guide.
   turnin 96652                        -- Brakk
   accept 96604
   complete 96604 @52.1,47.4
   turnin 96604
   accept 96655
+  accept 97907 optional               -- Brakk: for Krunn
+  accept 97902 optional               -- Brakk: for Mukdrak
+  accept 97903 optional               -- Brakk: for Rawrk
+  accept 97908 optional               -- Brakk: for Thuwd
+  accept 97906 optional               -- Brakk: for Karolek
+  accept 96102 optional               -- Brakk: for Snang
+  accept 97905 optional               -- Brakk: for Jandi
+  accept 97901 optional               -- Brakk: for Jhag
+  accept 97899 optional               -- Brakk: for Whuut
 
 step Razor Hill
   accept 96822                        -- Turroc, on the east side of town; inside
+  turnin 5649 only Troll,Priest       -- Tai'jin, in the barracks beside Turroc
+  accept 5648 only Troll,Priest
   turnin 823                          -- Orgnil Soulscar
   accept 784
   turnin 96821                        -- Gar'Thok
@@ -195,6 +208,9 @@ step Razor Hill
   turnin 2161                         -- Innkeeper Grosk, inside
   sethome "Razor Hill"
   accept 791                          -- Furl Scornbrow, in the watchtower
+  turnin 97907 optional               -- Krunn: Camping 101: Mining
+  turnin 97902 optional               -- Mukdrak: Camping 101: Engineering
+  turnin 97903 optional               -- Rawrk: Camping 101: First Aid
 
 step Prickly pears
   tip The prickly pears grow among the quilboar huts just west of town.
@@ -202,6 +218,11 @@ step Prickly pears
 
 step Cook Torka
   turnin 96825
+
+step Grunt Kor'ja
+  only Troll,Priest
+  tip Grunt Kor'ja kneels behind the rocks just off the road south of Razor Hill, on your way to the keep. Cast Lesser Heal (Rank 2) on her, then Power Word: Fortitude: Rank 1 of Lesser Heal does not count.
+  kill 12430 quest 5648.1 "Heal and fortify Grunt Kor'ja" @53.1,46.5
 
 step Tiragarde Keep
   tip The keep stands on the coast south-east of Razor Hill. The raiders' axe, bow and shield lie on its outskirts. Sailors and marines drop the Canvas Scraps. Lieutenant Benedict waits at the top of the keep; his key opens the chest beside him, which holds the Aged Envelope.
@@ -224,6 +245,7 @@ step Razor Hill
   turnin 791                          -- Furl Scornbrow
   accept 806                          -- Orgnil Soulscar
   turnin 96822                        -- Turroc, inside
+  turnin 5648 only Troll,Priest       -- Tai'jin, beside Turroc: the Juju Hex Robes
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
 
 # ---------------------------------------------------------------- The coast and Sen'jin
@@ -483,31 +505,6 @@ step Tablet of Verga
   tip The Burning Blade Stash stands in Skull Rock, among the cultists you just fought.
   collect 6535 quest 1501.1
 
-step Into Orgrimmar
-  only Warlock
-  zone Orgrimmar
-  goto 52.5,84.4 "Into Orgrimmar"
-
-step Orgrimmar
-  only Warlock
-  zone Orgrimmar
-  goto 48.3,45.3 "Gan'rul Bloodeye"
-
-step The Binding
-  only Warlock
-  zone Orgrimmar
-  tip Back to Gan'rul in the Cleft of Shadow. Use the Glyphs of Summoning on the summoning circle there and defeat the voidwalker to bind it.
-  turnin 1501                         -- Gan'rul Bloodeye
-  accept 1504
-  use 7464 @49.3,50.0                 -- Glyphs of Summoning
-  kill 5676 quest 1504.1
-  turnin 1504                         -- Gan'rul Bloodeye: Summon Voidwalker
-
-step Back to Durotar
-  only Warlock
-  zone Durotar
-  goto 56.4,20.0 "Margoz"
-
 step Margoz
   zone Durotar
   turnin 827
@@ -573,3 +570,16 @@ step To Orgrimmar
   zone Orgrimmar
   tip Follow the road north from Far Watch Post to Orgrimmar's main gate. The next guide starts in Orgrimmar: Neeru Fireblade takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for Tirisfal Glades and Silverpine Forest. The Barrens come after Silverpine.
   goto 55.6,72.3 "Orgrimmar's Valley of Strength"
+
+# Warlocks bind the voidwalker on this arrival in Orgrimmar, with Neeru Fireblade in the same Cleft of
+# Shadow (forever/horde/03-silverpine-forest), not on a trip of its own from Skull Rock and back to
+# Margoz in the middle of the guide (final route review, 0.3.6).
+step The Binding
+  only Warlock
+  zone Orgrimmar
+  tip Gan'rul Bloodeye stands in the Cleft of Shadow, the canyon under the Valley of Strength. Hand him the Tablet of Verga, then use the Glyphs of Summoning on the summoning circle beside him and defeat the voidwalker to bind it.
+  turnin 1501                         -- Gan'rul Bloodeye
+  accept 1504
+  use 7464 @49.3,50.0                 -- Glyphs of Summoning
+  kill 5676 quest 1504.1
+  turnin 1504                         -- Gan'rul Bloodeye: Summon Voidwalker

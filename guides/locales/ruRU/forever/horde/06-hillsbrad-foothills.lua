@@ -67,28 +67,28 @@ return {
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
 	["{area:275}: kill these as you meet them"] = "",
-	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {area:272} Tarren Mill
-	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "",
+	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key · {area:272} Tarren Mill
+	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "Друлл и {npc:2238} прикованы в постройках внутреннего двора ({area:275}). Для их замков нужны ключи: {npc:2427} носит {item:3467}, а {npc:2428} — {item:3499}, оба в крепости. Убейте их, затем откройте оба замка.\nИз места {area:272} идите на юго-восток в холмы по пути к месту {area:275}. Лагеря на пути занимают разбойники и сторожа Синдиката.",
 	-- {npc:2261} Syndicate Watchman
 	["{npc:2261} walks around here: look inside the circle on the map"] = "",
 	["Drull's ball and chain"] = "Ядро и цепь Друлла",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "Ядро и цепь: {npc:2238}",
 
-	-- Step 11: Mudsnout Blossoms
-	-- {item:3502} Mudsnout Blossoms
-	["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "К юго-западу от Дарнхольда на склонах над рекой растет {item:3502}.",
-
-	-- Step 12: Deathstalker Masoj
+	-- Step 11: Deathstalker Masoj
 	-- {area:290} Dun Garok
-	["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Масодж прячется на склоне над местом {area:290}, к югу от Дарнхольда, по пути вниз к цветам.",
+	["Masoj hides on the hillside above {area:290}, south-west of Durnholde, on the way down to the blossoms."] = "Масодж прячется на склоне над местом {area:290}, к юго-западу от Дарнхольда, по пути вниз к цветам.",
 	-- {npc:270438} Deathstalker Masoj · {quest:98094} Scout Support
 	["{npc:270438}, once {quest:98094} is in"] = "{npc:270438}, после сдачи задания {quest:98094}",
+
+	-- Step 12: Mudsnout Blossoms
+	-- {item:3502} Mudsnout Blossoms
+	["Just south of Masoj, the {item:3502} grow on the hillsides above the river."] = "Сразу к югу от Масоджа на склонах над рекой растет {item:3502}.",
 
 	-- Step 13: The southern peak
 	["The southern peak"] = "Южная вершина",
 	-- {area:290} Dun Garok
-	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "Масоджу нужно, чтобы на трех вершинах поставили склянки аптекаря. Южная — холм над местом {area:290}, сразу к югу от него: используйте склянку на вершине.",
+	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, south-east of the blossoms: use a vial at the top."] = "Масоджу нужно, чтобы на трех вершинах поставили склянки аптекаря. Южная — холм над местом {area:290}, к юго-востоку от цветов: используйте склянку на вершине.",
 
 	-- Step 14: The smithy
 	["The smithy"] = "Кузница",
@@ -176,8 +176,13 @@ return {
 
 	-- Step 31: Back to the Crossroads
 	["Back to the Crossroads"] = "",
-	-- {npc:3033} Turak Runetotem
-	["Train with {npc:3033}, then fly on to the Crossroads, where the next guide starts."] = "",
+	-- {npc:3033} Turak Runetotem · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
+	["Train with {npc:3033}. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "Обучитесь у NPC {npc:3033}. Перед вылетом возьмите два задания у NPC {npc:3024} и {npc:4721}, недалеко к востоку от распорядителя ветрокрылов: их выполняют по пути в следующих гайдах. Затем летите на Перекресток, где начинается следующий гайд.",
+	-- {npc:3024} Tah Winterhoof · {quest:97538} Pigments for Paints · {area:464} Mirkfallon Lake
+	["{npc:3024}: {quest:97538}, the Mirkweed in {area:464} by Sun Rock"] = "{npc:3024}: {quest:97538}, мирквид у места {area:464} рядом с Солнечным Утесом",
+	-- {npc:4721} Zangen Stonehoof · {quest:1195} The Sacred Flame · {zone:1440} Ashenvale
+	-- plural, as words: Laughing Sisters = {npc:4054} Laughing Sister
+	["{npc:4721}: {quest:1195}, the phial from {zone:1440}'s Laughing Sisters"] = "{npc:4721}: {quest:1195}, флакон с хохочущих сестер ({zone:1440})",
 
 	-- Step 32: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -199,12 +204,15 @@ return {
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:1638} and train on {area:1639}, then fly on to {area:378}."] = "Из города {zone:1454} (дирижабль от башен у города {zone:1458}) летите в {area:1638} и обучитесь здесь: {area:1639}, затем летите дальше в {area:378}.",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:378}."] = "Из города {zone:1454} (дирижабль от башен у города {zone:1458}) летите в {area:378}.",
 	-- ["Hearth to {area:378} and fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "Используйте Камень возвращения: {area:378}, и летите в {area:392}. {quest:874} стоит лагерем на берегу к северу от места {area:392}.",
+	-- ["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Масодж прячется на склоне над местом {area:290}, к югу от Дарнхольда, по пути вниз к цветам.",
+	-- ["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "Масоджу нужно, чтобы на трех вершинах поставили склянки аптекаря. Южная — холм над местом {area:290}, сразу к югу от него: используйте склянку на вершине.",
 	-- ["No Gallywix yet? The Class guide Poisons (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "Нервотреп еще жив? Классовый гайд «Яды (Орда)» снова проводит цепочку от Шентула, с группой для Нервотрепа.",
 	-- ["No Gallywix yet? The Class guide {spell:2842} (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "Нервотреп еще жив? Классовый гайд «{spell:2842} (Орда)» снова проводит цепочку от Шентула, с группой для Нервотрепа.",
 	-- ["Only if Gallywix fell in the {zone:1413} (Mission: Possible But Not Probable): {npc:2391} stands in {area:272}. Wait beside him while he brews the cure, then take your reward: Poisons."] = "Только если Нервотреп пал в {zone:1413} («Миссия: выполнима, но с трудом»): {npc:2391} стоит здесь: {area:272}. Подождите рядом, пока он варит лекарство, затем заберите награду: Яды.",
 	-- ["Only if Gallywix fell in the {zone:1413} (Mission: Possible But Not Probable): {npc:2391} stands in {area:272}. Wait beside him while he brews the cure, then take your reward: {spell:2842}."] = "Только если Нервотреп пал в зоне {zone:1413} («Миссия: выполнима, но с трудом»): {npc:2391} стоит здесь: {area:272}. Подождите рядом, пока он варит лекарство, затем заберите награду: {spell:2842}.",
 	-- ["Peasants and skulls"] = "Крестьяне и черепа",
 	-- ["South-west of Bael Modan, {npc:12576} waits at the top of the {area:485}."] = "К юго-западу от Бейл Модана {npc:12576} ждет наверху: {area:485}.",
+	-- ["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "К юго-западу от Дарнхольда на склонах над рекой растет {item:3502}.",
 	-- ["Syndicate camps"] = "Лагеря Синдиката",
 	-- ["Take the zeppelin from the towers outside the {zone:1458} to {zone:1454} and train before you fly on."] = "Летите на дирижабле от башен у города {zone:1458} в {zone:1454} и обучитесь перед дальнейшим полетом.",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "Хилсбрадские крестьяне работают на полях к югу от фермерских домов. С каждого человека ({area:287}) падают черепа; чаще всего — с крестьян.",

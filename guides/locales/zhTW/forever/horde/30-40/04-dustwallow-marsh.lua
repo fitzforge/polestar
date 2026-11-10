@@ -23,7 +23,7 @@ return {
 	-- Step 4: Fly to the Crossroads
 	["Fly to the Crossroads"] = "",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "{zone:1454}的飛行管理員",
 
 	-- Step 5: Korran
 	-- {npc:3428} Korran
@@ -83,6 +83,8 @@ return {
 	["only if you carry a {item:3853} ({skill:164} or the Auction House)"] = "僅限你帶著{item:3853}時（{skill:164}或拍賣場）",
 
 	-- Step 18: The Theramore Docks
+	-- {area:513} Theramore Isle · {object:20925} Captain's Footlocker
+	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57."] = "從莊園往東南前往{area:513}：{object:20925}在島嶼東側碼頭外的海底。游進去再游出來，遠離碼頭和城鎮：希拉摩的守衛是53-57級。",
 	["Underwater"] = "",
 
 	-- Step 19: Brackenwall Village
@@ -106,14 +108,8 @@ return {
 	["{area:496} flight master"] = "",
 
 	-- Step 22: Ratchet
-	-- {npc:3391} Gazlowe · {npc:3446} Mebok Mizzyrix
-	["{npc:3391} waits upstairs in the house by the flight master; {npc:3446} stands below it, towards the docks."] = "",
-	-- {npc:3391} Gazlowe · {area:35} Booty Bay
-	["{npc:3391}'s next errand takes you to {area:35}, off this part of the route: leave it."] = "",
-	-- {quest:1111} Wharfmaster Dizzywig
-	["{quest:1111}, on the docks"] = "",
-	-- {area:439} Shimmering Flats
-	["Dizzywig's parts go back to Kravel in the {area:439}, off the route: leave them."] = "",
+	-- {npc:3446} Mebok Mizzyrix
+	["{npc:3446} stands below Gazlowe's house by the flight master, towards the docks."] = "{npc:3446}站在飛行管理員旁加茲羅的房子下方，靠碼頭那一側。",
 
 	-- Step 23: The Affray
 	-- {area:392} Ratchet · {area:720} Fray Island · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
@@ -224,6 +220,7 @@ return {
 	-- ["The caravan ends at {npc:11596}'s camp on the east side of the {area:596}."] = "商隊的終點是{area:596}東側{npc:11596}的營地。",
 	-- ["The next guide takes you back to {zone:1434}."] = "下一份指南會帶你回到{zone:1434}。",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "{npc:11626}的商隊停在{area:602}邊緣的道路上。護送商隊向東經過集會所；惡魔會攻擊兩次。",
+	-- ["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}：交給{area:35}的{npc:4631}，在40-50級第一次前往{area:35}時",
 	-- ["{npc:5395} and {npc:5412} stand in the post just west of {npc:11596}'s camp."] = "{npc:5395}和{npc:5412}站在{npc:11596}營地西邊的哨站裡。",
 	-- ["{npc:6791}: the last guide binds here, so this usually ticks at once"] = "{npc:6791}：上一份指南在這裡綁定爐石，所以這一步通常會立即完成",
 }

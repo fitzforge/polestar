@@ -166,7 +166,9 @@ fn a_low_quest_in_the_log_goes_while_it_is_not_done_and_stays_once_it_only_has_t
 #[test]
 fn without_skip_grey_quests_the_guide_is_placed_as_before_the_first_quest_not_done_in_the_first_guide() {
 	let out = run(DONE, GUIDES, OFF, r#"E.SetGuide("test/low"); flush(); emit({ guide = E.GetGuide().id, at = E.GetStepIndex() })"#);
-	assert_eq!(out, json!({ "guide": "test/low", "at": 3 }), "the trip to the farm is behind a quest turned in");
+	// The trip to the farm leads to Grey not done (102), still to do: it stays, though 101's turn-in further on
+	// is done (SkipAheadSweep, 0.3.6: travel before work still to do is never passed).
+	assert_eq!(out, json!({ "guide": "test/low", "at": 2 }), "the trip to the farm leads to work still to do");
 }
 
 #[test]

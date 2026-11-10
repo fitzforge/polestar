@@ -33,6 +33,10 @@ return {
 	-- {npc:9619} Torwa Pathfinder
 	["The dead Threshadon lies by the water north of {npc:9619}."] = "Der tote Dreschadon liegt am Wasser nördlich von {npc:9619}.",
 
+	-- Step 10: Torwa Pathfinder
+	-- {area:1943} Ironstone Plateau
+	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "Die Gorillas auf dem {area:1943} tragen die Felle: Behalte es für den zweiten Besuch im Un'Goro, etwa auf Stufe 56",
+
 	-- Step 11: Lar'korwi Mates and the raft
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["Lar'korwi Mates and the raft"] = "Lar'korwi-Weibchen und das Floß",
@@ -78,8 +82,8 @@ return {
 
 	-- Step 18: A-Me 01
 	-- {area:1943} Ironstone Plateau
-	["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Reite nach Norden zum {area:1943}, wo der Roboter zwischen den Gorillas steht. Bleib dort aus der tiefen Höhle fern.",
-	["Below ground"] = "",
+	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Reite nach Osten zum {area:1943}, wo der Roboter zwischen den Gorillas steht. Bleib dort aus der tiefen Höhle fern.",
+	["Below ground"] = "Unter der Erde",
 
 	-- Step 19: Level 49.51
 	["Level 49.51"] = "",
@@ -123,42 +127,35 @@ return {
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge's entrance"] = "{npc:9998}, am Eingang der Zuflucht",
 
-	-- Step 26: To Stoutlager Inn
+	-- Step 26: Fly to Astranaar
+	-- {area:415} Astranaar
+	["Fly to {area:415}"] = "",
+	-- {zone:1455} Ironforge · {zone:1427} Searing Gorge · {zone:1440} Ashenvale · {zone:1447} Azshara
+	["The {zone:1455} quests were taken at the end of the {zone:1427} guide: fly straight on to {zone:1440} for {zone:1447}."] = "Die Quests aus {zone:1455} wurden am Ende des Guides für die {zone:1427} angenommen: Flieg direkt weiter nach {zone:1440} für {zone:1447}.",
+	-- {area:541} Marshal's Refuge
+	["{area:541} flight master"] = "Flugmeister in {area:541}",
+
+	-- Step 27: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "Zum {area:2101}",
 
-	-- Step 27: Fly to Ironforge
+	-- Step 28: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Flieg nach {area:1537}",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
-
-	-- Step 28: Hall of Explorers
-	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
-	["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}: Die Schlammbestien sind in {zone:1448}, behalte es",
+	["{area:144} flight master"] = "Flugmeister in {area:144}",
 
 	-- Step 29: Mystic Ward
-	-- {zone:1447} Azshara
-	["Four rune rubbings in {zone:1447}: keep it"] = "Vier Runenabriebe in {zone:1447}: Behalte es",
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}: für Ogtinc in {zone:1447}, behalte es",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
 	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "",
 
-	-- Step 30: Class trainer
-	["Class trainer"] = "",
-
-	-- Step 31: Xiggs Fuselighter
-	-- {object:32359} Military Ward (no name in this language: may be words)
-	["Xiggs waits in the {object:32359}."] = "Xiggs wartet im {object:32359}.",
-
-	-- Step 34: Fly to Astranaar
-	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	-- Step 32: Fly to Astranaar
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
 
-	-- Step 35: Level 50.4
+	-- Step 33: Level 50.4
 	["Level 50.4"] = "",
 	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
 	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
@@ -171,6 +168,7 @@ return {
 	-- ["Cross the south of the crater to {npc:9619} by the ramp."] = "Durchquere den Süden des Kraters zu {npc:9619} an der Rampe.",
 	-- ["Escort {npc:9999}"] = "Eskortiere {npc:9999}",
 	-- ["Fly from {area:144} to {area:1537}."] = "Flieg von {area:144} nach {area:1537}.",
+	-- ["Four rune rubbings in {zone:1447}: keep it"] = "Vier Runenabriebe in {zone:1447}: Behalte es",
 	-- ["From {area:144} fly to {area:150}, take the boat to Theramore and fly on to {area:976}. {npc:9619}'s first quest in the crater needs level 48: finish the level here if you are short."] = "Flieg von {area:144} nach {area:150}, nimm das Boot nach Theramore und flieg weiter nach {area:976}. {npc:9619}s erste Quest im Krater erfordert Stufe 48: Mach die Stufe hier voll, falls dir etwas fehlt.",
 	-- ["Grind to 50"] = "Grinde bis 50",
 	-- ["Grind to 51"] = "Grinde bis 51",
@@ -180,6 +178,7 @@ return {
 	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "Reite nach Osten zum {area:537}, klettere hinauf und benutze {npc:10541} an den Lavaschloten nahe dem Gipfel.",
 	-- ["Ride north along the east side of the crater to {area:541}, the camp in the caves of the northern cliff. Give the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "Reite an der Ostseite des Kraters nach Norden zu {area:541}, dem Lager in den Höhlen der Nordklippe. Mach einen großen Bogen um die Elite-Teufelssaurier und Stegodons. Sammle ab hier jeden Machtkristall und jede {object:157936} ein, an denen du vorbeikommst.",
 	-- ["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "Reite an der Ostseite nach Norden zum Gorillaplateau. {npc:9622}, ein Gorilla der Stufe 55, sitzt in dessen tiefster Höhle: Säubere zuerst die Gorillas am Höhleneingang.",
+	-- ["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Reite nach Norden zum {area:1943}, wo der Roboter zwischen den Gorillas steht. Bleib dort aus der tiefen Höhle fern.",
 	-- ["Ride south along the eastern cliffs to {npc:9619} at the foot of the ramp."] = "Reite an den östlichen Klippen entlang nach Süden zu {npc:9619} am Fuß der Rampe.",
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "Reite an der Ostseite nach Süden. Junge Dimetrodons grasen im östlichen Dschungel, und {npc:9165} fliegen nahe den östlichen Klippen; beide lassen die Schuppen für {npc:9998} fallen.",
 	-- ["Ride west back to the refuge."] = "Reite nach Westen zurück zur Zuflucht.",
@@ -196,12 +195,14 @@ return {
 	-- ["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997} and drop {npc:9998}'s scales."] = "Der Pylon steht am Hang östlich der Zuflucht. {npc:9166} kreisen über den Hängen darum: Sie zählen für {npc:9997} und lassen die Schuppen für {npc:9998} fallen.",
 	-- ["The relics are in the {zone:1428}: keep it"] = "Die Relikte sind in der {zone:1428}: Behalte es",
 	-- ["The wooden sign beside {npc:9997}"] = "Das Holzschild neben {npc:9997}",
+	-- ["Xiggs waits in the {object:32359}."] = "Xiggs wartet im {object:32359}.",
 	-- ["grind on the Wastewanderers or Dunemaul ogres around {area:976}"] = "Grinde an den Wüstenläufern oder den Ogern der Dünenbrecher um {area:976}",
 	-- ["grind on {npc:5458} at {area:982}, {zone:1446}"] = "Grinde an {npc:5458} bei {area:982}, {zone:1446}",
 	-- ["grind on {npc:6514} at {area:1943}, {zone:1449}"] = "Grinde an {npc:6514} auf dem {area:1943}, {zone:1449}",
 	-- ["{area:978} (optional)"] = "{area:978} (optional)",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: Der letzte Guide bringt dich per Ruhestein hierher, daher ist das meist sofort abgehakt",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}, hinten in der Höhle",
+	-- ["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}: Die Schlammbestien sind in {zone:1448}, behalte es",
 	-- ["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "Der Bau von {npc:9684} liegt im Dschungel nördlich von {npc:9619}, unterhalb der östlichen Klippen: Benutze dort {item:11568}. {npc:9684} ist Stufe 56: Fang mit voller Gesundheit an.",
 	-- ["{npc:9997}'s friend {npc:9999} has gone missing."] = "{npc:9997}s Freund {npc:9999} wird vermisst.",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999} sitzt am Südosthang des {area:537}, in der Mitte des Kraters.",

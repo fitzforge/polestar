@@ -14,8 +14,8 @@ return {
 	["{npc:2817}'s next quest pays no experience: skip it."] = "Die nächste Quest von {npc:2817} gibt keine Erfahrung: Überspring sie.",
 
 	-- Step 3: Boss Tho'grun
-	-- {zone:1418} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
-	["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Reite nach Westen durch das {zone:1418} zum Lager der Staubspeier bei {area:342}. {npc:2944} steht in der Mitte, umgeben von Wyrmjägern und Raufern.",
+	-- {npc:2944} Boss Tho'grun · {area:342} Camp Boff · {zone:1418} Badlands
+	["{npc:2944} does not stay at {area:342}: he walks a long loop around the {zone:1418} with his guards, from the camp in the west along the south of the zone to about 61,69, north to about 49,49 and back west to the camp. The arrow follows his loop west from here until you meet him."] = "{npc:2944} bleibt nicht bei {area:342}: Er läuft mit seinen Wachen eine lange Runde durch das {zone:1418}, vom Lager im Westen am Südrand der Zone entlang bis etwa 61,69, nach Norden bis etwa 49,49 und zurück nach Westen zum Lager. Der Pfeil folgt seiner Runde von hier aus nach Westen, bis du ihn triffst.",
 
 	-- Step 4: Garek
 	-- {area:1898} Dustwind Gulch
@@ -69,7 +69,7 @@ return {
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "Flieg nach {area:271}",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "Flugmeister in {area:144}",
 
 	-- Step 16: Southshore
 	-- {npc:3980} Raleigh the Devout
@@ -87,7 +87,7 @@ return {
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "",
 	-- {npc:7744} Innkeeper Thulfram
-	["{npc:7744}: the last guide binds here, so this usually ticks at once; below ground"] = "",
+	["{npc:7744}; below ground"] = "{npc:7744}; unter der Erde",
 
 	-- Step 19: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
@@ -146,6 +146,7 @@ return {
 	-- ["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. Falstad holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Reite auf der Straße nach Nordosten aus {area:271} ins {zone:1425}; {area:348} liegt gleich hinter der Grenze. Falstad hält oben Hof, {quest:1450} kümmert sich um den Greifenhorst und {npc:7884} steht beim Gasthaus.",
 	-- ["Ride south out of {zone:1432} through the pass into the {zone:1418}; {npc:2860} camps at the dig."] = "Reite nach Süden aus {zone:1432} durch den Pass ins {zone:1418}; {npc:2860} lagert bei der Ausgrabung.",
 	-- ["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Reite nach Westen durch das {area:3} zum Lager der Staubspeier bei {area:342}. {npc:2944} steht in der Mitte, umgeben von Wyrmjägern und Raufern.",
+	-- ["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Reite nach Westen durch das {zone:1418} zum Lager der Staubspeier bei {area:342}. {npc:2944} steht in der Mitte, umgeben von Wyrmjägern und Raufern.",
 	-- ["Ride west to the {area:1877} in the middle of the {zone:1418}; {npc:2817} camps beside Martek."] = "Reite nach Westen ins {area:1877} mitten im {zone:1418}; {npc:2817} lagert neben Martek.",
 	-- ["Take the boat to Theramore from the far pier."] = "Nimm vom hinteren Pier das Schiff nach Theramore.",
 	-- ["Talonaxe's next task waits for a later {area:47} guide."] = "Talonaxes nächste Aufgabe wartet auf einen späteren Guide für das {area:47}.",

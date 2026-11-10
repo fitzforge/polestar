@@ -1,4 +1,4 @@
--- /psrec: status, on | off, ui, mark <text>, trail on [label] | off, clear.
+-- /psrec: status, on | off, explore on | off, ui, mark <text>, trail on [label] | off, clear.
 
 local ADDON, ns = ...
 local L = ns.L
@@ -21,6 +21,7 @@ local function status()
 		ns.Print(L["the uploader has not confirmed a chunk yet (newest: %d)"]:format(st.seq))
 	end
 	ns.Print(L["install id: %s"]:format(tostring(st.install)))
+	ns.Print(L["explorer mode: %s (/psrec explore on | off)"]:format(ns.ExploreAllowed() and "|cff4fd18f" .. L["on"] .. "|r" or "|cffd14f4f" .. L["off"] .. "|r"))
 	ns.Print(L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off | clear"])
 	-- The game writes the recording (and the on/off state Polestar Client shows) to disk only at
 	-- a logout or /reload: until then the uploader sees neither.
@@ -48,6 +49,31 @@ commands.off = function()
 	ns.SetEnabled(false)
 	ns.Print(L["recording %s"]:format("|cffd14f4f" .. L["off"] .. "|r"))
 	if ns.RefreshPanel then ns.RefreshPanel() end
+end
+
+-- /psrec explore on | off: explorer mode (Explore.lua), which works by
+-- itself in Forever's new places unless turned off. Bare, it toggles.
+commands.explore = function(rest)
+	local sub = rest:lower()
+	local on
+	if sub == "on" then
+		on = true
+	elseif sub == "off" then
+		on = false
+	elseif sub == "" then
+		on = not ns.ExploreAllowed()
+	else
+		ns.Print(L["usage: /psrec explore on | off"])
+		return
+	end
+	ns.SetExplore(on)
+	if not on then
+		ns.Print(L["explorer mode %s"]:format("|cffd14f4f" .. L["off"] .. "|r"))
+		return
+	end
+	ns.Print(L["explorer mode %s"]:format("|cff4fd18f" .. L["on"] .. "|r"))
+	ns.Print(L["In Forever's new zones and dungeons the Recorder notes the creatures, your path, quest map points, dungeon floors, boss pulls, where quest givers stand and the objects you open in more detail. Nothing new about you."])
+	if not ns.IsEnabled() then ns.Print(L["recording is off; /psrec on first"]) end
 end
 
 commands.mark = function(rest)

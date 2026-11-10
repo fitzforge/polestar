@@ -125,10 +125,20 @@ step Shen'dar Village
   turnin 96638                                -- Raan Wildwind
 
 step Raan Wildwind
+  tip With a profession learned, Raan also offers its Camping 101, which its trainer in Shen'dar Village takes on the village round.
   accept 96101                                -- Raan Wildwind
   complete 96101 @41.73,44.78                 -- /sit by Raan's campfire until you get Boosted Rest
   turnin 96101
   accept 96646
+  accept 97963 optional                       -- Raan Wildwind, alchemists: for Nyassa Swiftdraught
+  accept 97964 optional                       -- Raan Wildwind, blacksmiths: for Aedi Thriceforged
+  accept 97965 optional                       -- Raan Wildwind, First Aid: for Naleeia Tattermend
+  accept 97967 optional                       -- Raan Wildwind, fishers: for Fenn Fairweather
+  accept 97969 optional                       -- Raan Wildwind, leatherworkers: for Indari Sunseam
+  accept 97970 optional                       -- Raan Wildwind, miners: for Messana Crestwind
+  accept 97971 optional                       -- Raan Wildwind, skinners: for Mendalass Tattermend
+  accept 97973 optional                       -- Raan Wildwind, tailors: for Taleen Shimmerthread
+  accept 98286 optional                       -- Raan Wildwind, enchanters: for Nasalanna Windsinger
   train Cooking npc 251905                    -- Zerril Softbreeze: Camping 101 asks you to learn it
   complete 96646 @43.85,43.9
   turnin 96646
@@ -137,10 +147,28 @@ step Village quests
   turnin 93461                                -- Constable Aonda
   accept 92517
   accept 92515                                -- Indari Sunseam
+  talk 251993 quest 97969.1 optional
+  turnin 97969 optional                       -- Indari Sunseam: Camping 101, leatherworkers
+  talk 257022 quest 97970.1 optional
+  turnin 97970 optional                       -- Messana Crestwind, beside her: Camping 101, miners
   accept 93951                                -- Taleen Shimmerthread
+  talk 251991 quest 97973.1 optional
+  turnin 97973 optional                       -- Taleen Shimmerthread: Camping 101, tailors
+  talk 251913 quest 97964.1 optional
+  turnin 97964 optional                       -- Aedi Thriceforged, beside her: Camping 101, blacksmiths
   accept 92516                                -- Teeri Wellwind
   accept 93319
   accept 92553                                -- Zerril Softbreeze
+  talk 257019 quest 97963.1 optional
+  turnin 97963 optional                       -- Nyassa Swiftdraught, west of Zerril: Camping 101, alchemists
+  talk 257024 quest 97971.1 optional
+  turnin 97971 optional                       -- Mendalass Tattermend: Camping 101, skinners
+  talk 257020 quest 98286.1 optional
+  turnin 98286 optional                       -- Nasalanna Windsinger: Camping 101, enchanters
+  talk 257018 quest 97965.1 optional
+  turnin 97965 optional                       -- Naleeia Tattermend, at the south side of the village: Camping 101, First Aid
+  talk 251992 quest 97967.1 optional
+  turnin 97967 optional                       -- Fenn Fairweather, on the south edge of the village: Camping 101, fishers
 
 step Prideclaws and Galestriders
   tip Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village.
@@ -246,6 +274,10 @@ step Shen'dar Village again
   turnin 94413                                -- Rathiril Sunlance
   train class
 
+step Shen'dar Village again
+  when group 93318
+  turnin 93318                                -- Danarii Bellowveil
+
 step Fendaal Windstone
   tip On the road south-east to Valanaar, Fendaal Windstone watches the Al'Aketh Assassins just north of him.
   accept 98512                                -- Fendaal Windstone
@@ -293,10 +325,6 @@ step The road to Valanaar
 step Class trainer
   only Warrior,Hunter,Rogue,Mage,Druid
   train class only Warrior,Hunter,Rogue,Mage,Druid
-
-step Shen'dar Village again
-  when group 93318
-  turnin 93318
 
 step The missing scholar
   tip The Bloodstained Satchel lies by the path west of Valanaar.

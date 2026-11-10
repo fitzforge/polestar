@@ -14,8 +14,8 @@ return {
 	["{npc:2817}'s next quest pays no experience: skip it."] = "{npc:2817}的下一个任务不给经验：跳过。",
 
 	-- Step 3: Boss Tho'grun
-	-- {zone:1418} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
-	["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "向西骑过{zone:1418}，到{area:342}的火烟营地。{npc:2944}站在营地中央，周围是火烟猎龙者和火烟虐待者。",
+	-- {npc:2944} Boss Tho'grun · {area:342} Camp Boff · {zone:1418} Badlands
+	["{npc:2944} does not stay at {area:342}: he walks a long loop around the {zone:1418} with his guards, from the camp in the west along the south of the zone to about 61,69, north to about 49,49 and back west to the camp. The arrow follows his loop west from here until you meet him."] = "{npc:2944}不会一直待在{area:342}：他会带着卫兵在{zone:1418}绕一大圈巡逻，从西边的营地出发，沿地区南部走到约61,69，再向北到约49,49，然后向西返回营地。箭头会从这里沿他的路线向西指引，直到你遇到他。",
 
 	-- Step 4: Garek
 	-- {area:1898} Dustwind Gulch
@@ -87,7 +87,7 @@ return {
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "{npc:7884}：在屋内",
 	-- {npc:7744} Innkeeper Thulfram
-	["{npc:7744}: the last guide binds here, so this usually ticks at once; below ground"] = "{npc:7744}在地下；上份指南已经在这里绑定炉石，通常会立即标记完成",
+	["{npc:7744}; below ground"] = "{npc:7744}；在地下",
 
 	-- Step 19: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
@@ -146,6 +146,7 @@ return {
 	-- ["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. Falstad holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "沿道路向东北骑出{area:271}，进入{zone:1425}；{area:348}就在边界后面。弗斯塔德·蛮锤在顶层，{quest:1450}照看狮鹫棚，{npc:7884}站在旅店旁。",
 	-- ["Ride south out of {zone:1432} through the pass into the {zone:1418}; {npc:2860} camps at the dig."] = "向南骑出{zone:1432}，穿过山口进入{zone:1418}；{npc:2860}在挖掘场扎营。",
 	-- ["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "向西骑过{area:3}，到{area:342}的火烟营地。{npc:2944}站在营地中央，周围是火烟猎龙者和火烟虐待者。",
+	-- ["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "向西骑过{zone:1418}，到{area:342}的火烟营地。{npc:2944}站在营地中央，周围是火烟猎龙者和火烟虐待者。",
 	-- ["Ride west to the {area:1877} in the middle of the {zone:1418}; {npc:2817} camps beside Martek."] = "向西骑到{zone:1418}中部的{area:1877}；{npc:2817}在流放者马特克旁边扎营。",
 	-- ["Take the boat to Theramore from the far pier."] = "从最远的码头乘船前往塞拉摩岛。",
 	-- ["Talonaxe's next task waits for a later {area:47} guide."] = "狮鹫管理员沙拉克·鹰斧的下一个任务留到之后的{area:47}指南。",
@@ -155,4 +156,5 @@ return {
 	-- ["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888}独自在挖掘场东南方的{area:1898}扎营。",
 	-- ["{npc:5634}'s cocktail needs parts from Kalimdor: skip it."] = "{npc:5634}的鸡尾酒需要卡利姆多的材料：跳过。",
 	-- ["{npc:5636}, beside the flight master at the top"] = "{npc:5636}，在顶层飞行管理员旁边",
+	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once; below ground"] = "{npc:7744}在地下；上份指南已经在这里绑定炉石，通常会立即标记完成",
 }

@@ -620,10 +620,13 @@ local function planRoute(p)
 	local departure = p.departure
 	local innV = not walkOnly and not p.noHearth and p.hearth and add(INN, p.hearth.c, p.hearth.wx, p.hearth.wy, p.hearth, p.hearth.map)
 	-- Class teleports: { spell, name, to = point, cast = seconds, ready = seconds until castable }.
+	-- Never one that lands in the zone or city the player stands in: a Mage in
+	-- Stormwind is not sent to Teleport: Stormwind to cross the city (#1515).
 	local teleV = {}
 	for _, e in ipairs(walkOnly and {} or p.teleports or {}) do
 		local to = e.to
-		if to and to.c and to.wx and to.wy and not (skip and skip.spells[e.spell]) then
+		if to and to.c and to.wx and to.wy and not (skip and skip.spells[e.spell])
+			and not (p.map and to.map == p.map) then
 			-- Arrived at like an inn: walked from, never walked to.
 			teleV[add(INN, to.c, to.wx, to.wy, to, to.map)] = e
 		end

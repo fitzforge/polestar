@@ -2,6 +2,19 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), or a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "elwynn-crystal-lake-murloc-packs-99128",
+			"faction": "Alliance",
+			"at": { "quest": 99128, "goal": "objective", "objective": 1 },
+			"tip": "Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp. Careful: the murlocs stand close together, so a fight easily pulls two or three at once: pull them one at a time from the edge of the camp, and don't chase one into the next group.",
+			"note": "Slimy Menace (99128) and Bottles and Baubles (99143) at Crystal Lake's murloc camp, at about level 6-7 on the route: the deadliest spot of Elwynn in the recordings. A caution, not a route change (the later lake visit our comparison makes is a 0.3.7 item).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "deaths at Elwynn 48-59,61-71 (the murloc camp), all versions: 30 deaths of 17 people, 21 of them to Murlocs (285, level 6-7) and Murloc Streamrunners (735); 0.3.5+ players: 7 deaths of 4 people, 26 minutes median on the lake's kill and hand-in steps (IngestCheck036 deathsteps)"
+				}
+			]
+		},
+		{
 			"id": "1089-auberdine-selarin-respawns",
 			"faction": "Alliance",
 			"at": { "quest": 990, "goal": "accept" },
@@ -1827,8 +1840,8 @@
 				"quest": 1638,
 				"goal": "accept"
 			},
-			"tip": "From Westfall, walk to Stormwind; the tram from Ironforge arrives in the Dwarven District. Ilsa Corbin trains warriors in Old Town; Harry Burlguard and Bartleby stand together by the Pig and Whistle Tavern there. Bartleby fights you for his mug. If Ilsa doesn't offer A Warrior's Training, go straight to Harry: he gives Bartleby the Drunk without it.",
-			"note": "Every Alliance warrior's Defensive Stance step (Westfall's Humans, and the Dwarf and Gnome Dun Morogh guides) has the accept of A Warrior's Training, so this one record sets all their tips (records are scoped by faction only), and it carries each guide's travel line: Humans walk in from Westfall (their Stormwind flight path comes later, `getfp \"Stormwind\"`, so the seed's \"Fly or walk to Stormwind\" offered a flight they cannot take, #972), Dwarves and Gnomes arrive by the tram (their hand-written tip since 0.3.1, kept so a build never drops it). The offer audit (#1132) added the last sentence: A Warrior's Training (1638) is open to every Alliance warrior from 10 (Forever's quest data and the world database: all races; Ilsa Corbin and Lyria Du Lac start it), but it shares an exclusive group with Muren Stormpike (1679) and Elanaria (1684), and the Defensive Stance chains' first quests close it too, so a warrior who has done any of them is not offered it. It is only a lead: Harry Burlguard gives Bartleby the Drunk (1639) with nothing before it. No Dwarf or Gnome warrior of 10+ has opened Ilsa's window in the recordings yet.",
+			"tip": "Ilsa Corbin trains warriors in Old Town, near Osric's shop; the tram from Ironforge arrives in the Dwarven District, north of it. Harry Burlguard and Bartleby stand together by the Pig and Whistle Tavern there. Bartleby fights you for his mug. If Ilsa doesn't offer A Warrior's Training, go straight to Harry: he gives Bartleby the Drunk without it.",
+			"note": "Every Alliance warrior's Defensive Stance step (Westfall's Humans, and the Dwarf and Gnome Dun Morogh guides) has the accept of A Warrior's Training, so this one record sets all their tips (records are scoped by faction only), and it carries each guide's travel line: Humans walk in from Westfall (their Stormwind flight path comes later, `getfp \"Stormwind\"`, so the seed's \"Fly or walk to Stormwind\" offered a flight they cannot take, #972), Dwarves and Gnomes arrive by the tram (their hand-written tip since 0.3.1, kept so a build never drops it). The offer audit (#1132) added the last sentence: A Warrior's Training (1638) is open to every Alliance warrior from 10 (Forever's quest data and the world database: all races; Ilsa Corbin and Lyria Du Lac start it), but it shares an exclusive group with Muren Stormpike (1679) and Elanaria (1684), and the Defensive Stance chains' first quests close it too, so a warrior who has done any of them is not offered it. It is only a lead: Harry Burlguard gives Bartleby the Drunk (1639) with nothing before it. No Dwarf or Gnome warrior of 10+ has opened Ilsa's window in the recordings yet. Since 0.3.6 (Alliance 12-30 bracket review) Westfall's Humans do the chain on Thor's free-flight Stormwind visit, landing for Osric Strang in Old Town, so the walk-in line went: the tip names Osric's shop (Humans) and keeps the tram (Dwarves, Gnomes).",
 			"source": [
 				{
 					"kind": "client",
@@ -4400,6 +4413,48 @@
 			]
 		},
 		{
+			"id": "horde-3040-theramore-docks-footlocker",
+			"faction": "Horde",
+			"at": {
+				"quest": 1202,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "South-east from the manor to Theramore Isle: the Captain's Footlocker lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57.",
+			"note": "Final route review 0.3.6 (2026-11-09): The Theramore Docks' step had no tip; the Captain's Documents (5882) come from a footlocker on the sea floor at 71.5,51.2, beside the Alliance town whose guards (Theramore Guard 4979) are 53-57.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "quests.json 1202: Captain's Documents 5882; npcs.json 4979 levels 53-57"
+				},
+				{
+					"kind": "questie",
+					"ref": "npc 4979 Theramore Guard, level 53-57 (Forever's observed level agrees)"
+				}
+			]
+		},
+		{
+			"id": "alliance-3040-book-of-the-ancients-statue",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6027,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Slitherblade naga hold the north-west coast north of Azore's tower; Karnitol's satchel lies on the sea floor off it. Swim out to Ranazjar Isle off the far northern tip and use the Gem of the Serpent on the Serpent Statue: Lord Kragaru (38) rises; kill him for the Book of the Ancients.",
+			"note": "Final route review 0.3.6 (2026-11-09), Alliance side of horde-3040-book-of-the-ancients-statue: the Alliance Desolace south loop (30-40/06) collected the book with no use of the Gem of the Serpent (15766, the quest's source item) and called Lord Kragaru (12369) a centaur chieftain who camps on the coast; he is summoned at the Serpent Statue (object 177673), 28.24,6.67.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "objects.json 177673; npcs.json 12369 at Desolace 28.24,6.67; quests.json 6027 sourceItem 15766"
+				},
+				{
+					"kind": "eg",
+					"ref": "EG Link live quest 6027: objectives the Book (15803) and the Gem of the Serpent (15766)"
+				}
+			]
+		},
+		{
 			"id": "horde-3040-stv-nesingwary-pages-later",
 			"faction": "Horde",
 			"at": {
@@ -4636,8 +4691,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "The Syndicate Footpads and Thieves (32-34) around the camps west of the road carry the missives; about one in three drops one.",
-			"note": "Horde 30-40 audit (2026-11-09): the tip gave the Syndicate Footpads and Thieves as 32-33; the data has Footpad 2240 at 32-33 and Thief 2241 at 33-34.",
+			"tip": "Only if Valik's missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one.",
+			"note": "Horde 30-40 audit (2026-11-09): the tip gave the Syndicate Footpads and Thieves as 32-33; the data has Footpad 2240 at 32-33 and Thief 2241 at 33-34. Since Valik's report (2026-11-09): Henchman Valik's reward for the stout is the Syndicate Missive itself (535's reward item 3601; 2 of the 5 recorded Infiltration completions ticked at his camp), so the drop is the fallback.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -4813,6 +4868,517 @@
 				{
 					"kind": "client",
 					"ref": "quest minimum and quest levels in Forever's quest data; mob levels from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "h130-sepulcher-yuriv-tombstone",
+			"faction": "Horde",
+			"at": {
+				"quest": 264,
+				"goal": "turnin"
+			},
+			"tip": "Until Death Do Us Part is handed in at Yuriv's Tombstone, a grave a few steps south of the crypt entrance, not to a person.",
+			"note": "Horde final route review (0.3.6): the Sepulcher step for Tauren and Skyborne handed 264 in with no word on where; its ender is an object, Yuriv's Tombstone (24776, 44.19,42.67), a few steps south of the crypt entrance where the rest of the stop happens.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 264 ender object 24776, objects.json spawn 1421 44.19,42.67; the knowledge base's sources agree on the ender (6/6)"
+				}
+			]
+		},
+		{
+			"id": "h130-sepulcher-from-road-or-lockbox",
+			"faction": "Horde",
+			"at": {
+				"quest": 493,
+				"goal": "accept"
+			},
+			"tip": "Down the road through Silverpine to the Sepulcher: from the zeppelin towers, south through Tirisfal; from the Strange Lockbox, south-east from the coast to the road. Shadow Priest Allister and Apothecary Renferrel stand by the crypt entrance.",
+			"note": "Horde final route review (0.3.6 leftovers): forever/horde/05-stonetalon-mountains' Sepulcher step said 'From the zeppelin towers' to everyone, also to the Tauren Druids who come from the Strange Lockbox (object 177844, Silverpine 29.56,29.2) on the coast west of the Dead Field, the step right before it.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "objects.json 177844 Strange Lockbox, map 1421 29.56,29.2; the guide's own Strange Lockbox step (only Tauren,Druid, when onquest 30)"
+				}
+			]
+		},
+		{
+			"id": "h130-kadrak-rogues-from-fizzule",
+			"faction": "Horde",
+			"at": {
+				"quest": 6541,
+				"goal": "turnin"
+			},
+			"tip": "From Seereth's camp head north-east across the Barrens to the road north of the Crossroads; Rogues coming from Fizzule's tower head west to it. Kadrak stands on the watch tower of the Mor'shan Rampart where the road enters Ashenvale.",
+			"note": "Horde final route review (0.3.6 leftovers), detour-from-tip sweep: forever/horde/05-stonetalon-mountains' Kadrak step said 'From Seereth's camp head north-east' to everyone, but Rogues come from Taskmaster Fizzule (7233, Barrens 55.44,5.56), the step right before it, just east of Kadrak (8582, 48.12,5.42).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 7233 and 8582 on map 1413; the guide's own Taskmaster Fizzule step (only Rogue)"
+				}
+			]
+		},
+		{
+			"id": "teldrassil-shayla-walks-490-accept",
+			"faction": "Alliance",
+			"at": {
+				"quest": 490,
+				"goal": "accept"
+			},
+			"tip": "West along the road toward the city. Shayla walks this stretch of road, from the arrow south-west to the bend at about 38,54 and back: if she isn't at the arrow, follow the road south-west. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and Gnarlpine Hold's all count.",
+			"note": "Bounty: Gnarlpine Furbolg (490): Sentinel Shayla Nightbreeze walks the road west of Dolanaar (the game's spawn 42.22,51.27, a 161 yd walk around 39.4,52.6). The tip said she stands beside the gate. Players' recordings: 10 people took the bounty along the road from 41.3,51.0 to 38.2,54.4, half of them 70-130 yd south-west of the arrow (40.46,50.73). Tip only for 0.3.6: the data's point is 91 yd from her spawn, so the walk circle needs the npcs correction (2155) applied by a data build.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "accept 490 at npc 2155: 10 people, 38.2-41.3,50.7-54.4; 22 people met her, most at 39-41,51-54"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature spawn and waypoint walk of entry 2155 (data/forever/moves.json)"
+				}
+			]
+		},
+		{
+			"id": "teldrassil-shayla-walks-490-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 490,
+				"goal": "turnin"
+			},
+			"tip": "South from the glade toward Ursal: Shayla walks the road west of Dolanaar, from where the path down from the glade meets it south-west to the bend at about 38,54 and back.",
+			"note": "Bounty: Gnarlpine Furbolg (490): the hand-in; 13 people handed it in along the road from 41.2,50.8 to 38.8,53.6, 8 of them 60-120 yd from the arrow. See teldrassil-shayla-walks-490-accept.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 490 at npc 2155: 13 people, 38.8-41.2,50.8-53.6"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "entry 2155's walk (moves.json)"
+				}
+			]
+		},
+		{
+			"id": "orgrimmar-craven-drok-walks-1431",
+			"faction": "Horde",
+			"at": {
+				"quest": 1431,
+				"goal": "accept"
+			},
+			"tip": "The zeppelin lands at the tower outside Orgrimmar's main gate. Craven Drok walks the Drag: if he isn't at the arrow, look along its streets to the south-west. Keldran stands in the Valley of Spirits on the west side of the city.",
+			"note": "Alliance Relations (1431): Craven Drok walks a waypoint path through the Drag from his spawn at 51.3,45.9 (the data's point); the tip said he waits there. Players' recordings: 46 people met him across the Drag (46-52,43-52, most at 48-51,49-51), and the 3 who took the quest did so at 51.8,45.1, 47.8,49.7 and 44.5,52.4.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature guid 20001903 (entry 5639) at 1844.49,-4400.1, MovementType 2 (waypoint path)"
+				},
+				{
+					"kind": "recording",
+					"ref": "npc 5639 met by 46 people in the Drag; accept 1431 by 3 people at 51.8,45.1 / 47.8,49.7 / 44.5,52.4"
+				}
+			]
+		},
+		{
+			"id": "hinterlands-gammerita-walks-2944",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2944,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Gammerita walks the Hinterlands shore below the Overlook Cliffs, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore.",
+			"note": "The Super Snapper FX (2944): Gammerita (7977) walks the shore below the Overlook Cliffs, 319 yd from her spawn (80.4,58.2, the step's point) at the far end: the Forever TDB path runs 80.4,58.3 south to 75.6,66.6 and north to 81.6,52.0. The step said nothing about it.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature guid 20093683 (entry 7977) MovementType 2, waypoint_path 800936830, 50 nodes"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature 7977's waypoint walk, 243 yd (data/forever/moves.json)"
+				}
+			]
+		},
+		{
+			"id": "hinterlands-gammerita-walks-7816",
+			"faction": "Horde",
+			"at": {
+				"quest": 7816,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Gammerita walks the shore below the Overlook Cliffs, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore.",
+			"note": "Gammerita, Mon! (7816): see hinterlands-gammerita-walks-2944; the Horde step at the same spot.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature guid 20093683 (entry 7977) MovementType 2, waypoint_path 800936830, 50 nodes"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature 7977's waypoint walk, 243 yd (data/forever/moves.json)"
+				}
+			]
+		},
+		{
+			"id": "alterac-grelborg-walks-543",
+			"faction": "Alliance",
+			"at": {
+				"quest": 543,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Grel'borg walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path.",
+			"note": "The Perenolde Tiara (543): Grel'borg the Miser (2417) walks from his spawn (35.2,54.2, the step's point) north-east through the Ruins of Alterac to 40.1,47.2 and back, up to 217 yd away (Forever TDB path). The step said nothing about it.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature guid 20017040 (entry 2417) MovementType 2, waypoint_path 810024170, 27 nodes"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature 2417's waypoint walk, 114 yd (data/forever/moves.json)"
+				}
+			]
+		},
+		{
+			"id": "gh036-hillsbrad-rescue-jailor-keys",
+			"faction": "Horde",
+			"at": {
+				"quest": 498,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Drull and Tog'thar are chained inside Durnholde Keep's courtyard buildings. Their locks need keys: Jailor Eston carries the Dull Iron Key and Jailor Marlgen the Burnished Gold Key, both in the keep. Kill them, then open both locks.",
+			"note": "GuideHealth036 Steps (0.3.6): the step said 'open both locks' without the keys; items.json: Dull Iron Key 3467 drops from Jailor Eston 2427 (100%), Burnished Gold Key 3499 from Jailor Marlgen 2428 (100%), both at Durnholde (1424 ~79.5,41); the knowledge base's steps for 498 use both keys.",
+			"source": {
+				"kind": "client",
+				"ref": "items.json 3467/3499 drops; quest-steps.json 498"
+			}
+		},
+		{
+			"id": "gh036-barrens-scytheclaw-nests-feathers",
+			"faction": "Horde",
+			"at": {
+				"quest": 905,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "South-west from Ratchet across the plains to the Raptor Grounds: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a Sunscale Feather: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest.",
+			"note": "GuideHealth036 Steps (0.3.6): the nest step never named the feathers. Quest text 905: 'Kill Sunscale raptors and collect their feathers. Use the feathers on the 3 Scytheclaw nests'; items.json 5165 drops from Sunscale raptors 3254-3256 at 80%.",
+			"source": {
+				"kind": "client",
+				"ref": "quests.json 905 objectiveText; items.json 5165"
+			}
+		},
+		{
+			"id": "gh036-barrens-gann-explosive-stick",
+			"faction": "Horde",
+			"at": {
+				"quest": 849,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The dwarves' flying machine sits on its platform inside the dig site. Use the Explosive Stick of Gann that Gann gave you on it.",
+			"note": "GuideHealth036 Steps (0.3.6): the step pointed at the flying machine without the item that destroys it (Explosive Stick of Gann 5021, from Gann; the knowledge base's steps for 849).",
+			"source": {
+				"kind": "client",
+				"ref": "quest-steps.json 849; items.json 5021"
+			}
+		},
+		{
+			"id": "gh036-darkshore-masters-glaive-phial",
+			"faction": "Alliance",
+			"at": {
+				"quest": 944,
+				"goal": "complete"
+			},
+			"tip": "Moonstalker Sires prowl the woods around the glaive. The Twilight Tome sits at the bottom of the crater; Therylune stands on its north side. For Onu's quest, use the Phial of Scrying at the bottom of the crater: it makes the Scrying Bowl, and you hand the quest in to the bowl.",
+			"note": "GuideHealth036 Steps (0.3.6): the tip said the Scrying Bowl 'sits' in the crater; it only appears once the Phial of Scrying (5251) is used. Quest text 944: 'use the Phial of Scrying to create a Scrying Bowl'; ender object 10076.",
+			"source": {
+				"kind": "client",
+				"ref": "quests.json 944 objectiveText, end object 10076"
+			}
+		},
+		{
+			"id": "gh036-ashenvale-krolg-dartols-rod",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1030,
+				"goal": "turnin"
+			},
+			"tip": "Krolg, a furbolg untouched by the corruption, sits south of the road below Mystral Lake. Use Dartol's Rod of Transformation near him first: he only speaks to you in furbolg form.",
+			"note": "GuideHealth036 Steps (0.3.6): the Krolg step never named the rod. Quest text 1030: 'using the power of Dartol's Rod of Transformation, speak to him'; the knowledge base's steps for 1030 use the rod (5462) before the hand-in.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests.json 1030 objectiveText; quest-steps.json 1030"
+				}
+			]
+		},
+		{
+			"id": "gh036-azshara-ravencrest-flare-gun",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3449,
+				"goal": "turnin"
+			},
+			"tip": "Swim to the small island off the southern tip of Azshara. If Pilot Xiggs Fuselighter isn't there, fire your Standard Issue Flare Gun to signal him, and wait for him to land.",
+			"note": "GuideHealth036 Steps (0.3.6): the tip said Xiggs 'waits by the monument'. Quest text 3449 ('signaling Pilot Xiggs Fuselighter to pick them up'; completion: 'toss the flare gun') and the knowledge base (step 5: fire the Standard Issue Flare Gun 10444 on the island, wait for the pilot) say he comes on the flare; no recording has met him. Worded so it holds either way: verify in game whether he stands there.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests.json 3449 objectiveText; page snapshot 3449; quest-steps.json 3449"
+				}
+			]
+		},
+		{
+			"id": "ba3040-desolace-karnitol-chest-first-visit",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1454,
+				"goal": "turnin"
+			},
+			"tip": "The wrecked ship lies just south-west of Azore's tower; its chest sits beside Rackmore's Log.",
+			"note": "BrAlliance3040 (0.3.6): Karnitol's Chest (object 35251) and Rackmore's Log (177787) share 36.1,30.4, about 100 yd south-west of Azore Aldamort (38.9,27.2). The first Desolace visit (30-40/02) opens the chest after Azore (route-fixes together records); 30-40/06 keeps the step for a player who loads it fresh.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/objects.json 35251, 177787; npcs.json 11863"
+				}
+			]
+		},
+		{
+			"id": "ba3040-desolace-rackmore-keys",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6161,
+				"goal": "accept"
+			},
+			"tip": "Rackmore's Log lies beside Karnitol's Chest. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next.",
+			"note": "BrAlliance3040 (0.3.6): Claim Rackmore's Treasure! was Dwarf-only in 30-40/06 (a filter from an old per-race export; the quest's race mask is all races, and Scourge, Orc and Skyborne characters took it in the recordings). Silver key 15878: Drysnap Crawler/Pincer (11562/11563, 15%), which also spawn at 31-35,27-35 by the wreck; golden key 15881: every Slitherblade naga (4711-4719, 55%) of Sar'theris Strand, where the satchel and the Serpent Statue already take the route. No guide-fixes field holds a race filter: tests/guides-reported.test.js pins that the goals have none.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "forever-db quest 6161 races 0; item_source 15878, 15881"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 6161 (Br3040, 2026-11-10)"
+				}
+			]
+		},
+		{
+			"id": "ba3040-desolace-rackmore-chest-after-statue",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6161,
+				"goal": "turnin"
+			},
+			"tip": "Rackmore's chest lies just south-east of the Serpent Statue.",
+			"note": "BrAlliance3040 (0.3.6): Rackmore's Chest (177786) is at 30.0,8.7, the Serpent Statue at 28.2,6.7; the treasure is claimed right after the statue instead of after a walk south to 36.3,23.1 for the golden key and back.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/objects.json 177786"
+				}
+			]
+		},
+		{
+			"id": "ba3040-desolace-nijels-point-one-stop",
+			"faction": "Alliance",
+			"at": {
+				"quest": 93224,
+				"goal": "turnin"
+			},
+			"tip": "Follow the road north to Nijel's Point: Captain Pentigast stands at its south end, Kreldig Ungor in the middle, Brother Anton to the north.",
+			"note": "BrAlliance3040 (0.3.6): the south loop's hand-ins at Nijel's Point are made on one stop at the end, in the order the road from Kormek's Hut meets them: Pentigast (66.7,10.9), Kreldig (66.2,9.6), Anton (66.5,7.9), then the flight master (64.7,10.4).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/npcs.json 5396, 5638, 1182"
+				}
+			]
+		},
+		{
+			"id": "ba3040-menethil-glorin-in-the-tavern",
+			"faction": "Alliance",
+			"at": {
+				"quest": 270,
+				"goal": "turnin"
+			},
+			"tip": "Glorin stands in the Deepwater Tavern, south of the keep, where Mikhail and Vincent Hyal wait too.",
+			"note": "BrAlliance3040 (0.3.6, Alliance 30-40/03): the tip sent the player to the upper floor of Menethil Keep. Glorin Steelbrow (1217) spawns at 10.6,60.6, in the Deepwater Tavern beside Mikhail (4963, 10.6,60.8), whom the next step visits; Captain Stoutfist (2104) is the one in the keep (9.9,57.5). 06-wetlands already says Glorin is in the tavern.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/npcs.json 1217, 4963, 2104 spawns"
+				}
+			]
+		},
+		{
+			"id": "ba3040-arathi-shards-from-northfold",
+			"faction": "Alliance",
+			"at": {
+				"quest": 642,
+				"goal": "accept"
+			},
+			"tip": "East from Northfold Manor across the north of the Highlands; the shards glitter on the hill by the Circle of East Binding, north of Go'Shek Farm.",
+			"note": "BrAlliance3040 (0.3.6): the Myzrael story comes straight after Northfold Manor now (route-fixes pair 651 East key before 691); Shards of Myzrael (object 2705) at 62.5,33.7, Stone of East Binding (2691) at 66.7,29.7.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/objects.json 2705, 2691"
+				}
+			]
+		},
+		{
+			"id": "ba3040-arathi-witherbark-after-east-binding",
+			"faction": "Alliance",
+			"at": {
+				"quest": 691,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "South from the Stone of East Binding, past Go'Shek Farm, to Witherbark Village in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk.",
+			"note": "BrAlliance3040 (0.3.6): Witherbark Village is worked on the way south from the eastern circle to Quae instead of between Northfold and the shards. Witch Doctors (2555) 61-68,64-77; Shadow Hunters (2557, the knife) 66-69,78-82.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/npcs.json 2555, 2557"
+				}
+			]
+		},
+		{
+			"id": "ba3040-arathi-quae-from-witherbark",
+			"faction": "Alliance",
+			"at": {
+				"quest": 659,
+				"goal": "turnin"
+			},
+			"tip": "North-west out of the Witherbark valley; Quae and Kinelory camp in the hills just north of Go'Shek Farm.",
+			"note": "BrAlliance3040 (0.3.6): Quae (2712, 60.2,53.9) is reached from Witherbark Village now.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/npcs.json 2712"
+				}
+			]
+		},
+		{
+			"id": "ba3040-stv-erlgadin-on-the-way-in",
+			"faction": "Alliance",
+			"at": {
+				"quest": 192,
+				"goal": "accept"
+			},
+			"tip": "South along the road: the hunters' tents stand just west of it.",
+			"note": "BrAlliance3040 (0.3.6, 30-40/04b): Panther Mastery is taken at Nesingwary's on the way in from the Rebel Camp, so the Shadowmaw Panthers at Lake Nazferiti can be killed right after Kurzen's Compound (route-fixes pairs).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/npcs.json 684 spawns on map 1434"
+				}
+			]
+		},
+		{
+			"id": "ba3040-stv-herod-from-nesingwary",
+			"faction": "Alliance",
+			"at": {
+				"quest": 200,
+				"goal": "turnin"
+			},
+			"tip": "East to Kurzen's Compound: Herod's records lie in a hut on its west side.",
+			"note": "BrAlliance3040 (0.3.6, 30-40/04b): the compound is reached from Nesingwary's camp now; the records (object at 43.7,9.4) lie on its west side.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "guide compile: turnin 200 at 43.67,9.37"
+				}
+			]
+		},
+		{
+			"id": "ba3040-stv-lake-nazferiti-crystals-and-panthers",
+			"faction": "Alliance",
+			"at": {
+				"quest": 213,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "South from the compound to Lake Nazferiti: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it.",
+			"note": "BrAlliance3040 (0.3.6, 30-40/04b): Venture Co. Geologist (1096) spawns 42-48,16-24 (two at 28,8); Shadowmaw Panther (684) 45-51,20-30 and 35-42,32-45. Both were listed on the north-west tablets' step, where there are none but two geologists (the Horde guide had the same fault, fixed in #1109).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/npcs.json 1096, 684 spawns on map 1434"
+				}
+			]
+		},
+		{
+			"id": "ba3040-stv-tablets-west-from-the-lake",
+			"faction": "Alliance",
+			"at": {
+				"quest": 207,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.",
+			"note": "BrAlliance3040 (0.3.6, 30-40/04b): the tablets are visited after Lake Nazferiti: Moon Over the Vale 29.5,19.1, Gri'lek 24.8,22.9, Fall of Gurubashi 23.0,12.0, The Emperor's Tomb 24.7,8.9.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "guide compile: collect 2005-2008 points"
+				}
+			]
+		},
+		{
+			"id": "ba3040-stv-haunted-island-by-the-second-tablet",
+			"faction": "Alliance",
+			"at": {
+				"quest": 601,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The haunted island lies just off the shore west of the second tablet: the Lesser Water Elementals rise from the water around it.",
+			"note": "BrAlliance3040 (0.3.6, 30-40/04b): the tip said to follow the coast north to the island, but the island (22.5,23.1) is just west of Gri'lek's tablet (24.8,22.9), the step before.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "guide compile: collect 3923 at 22.53,23.13"
+				}
+			]
+		},
+		{
+			"id": "ba3040-stv-zulkunda-last-tablets",
+			"faction": "Alliance",
+			"at": {
+				"quest": 207,
+				"goal": "objective",
+				"objective": 3
+			},
+			"tip": "North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop.",
+			"note": "BrAlliance3040 (0.3.6, 30-40/04b): the third and fourth tablets (23.0,12.0 and 24.7,8.9) are the Ruins of Zul'Kunda, north of the haunted island.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "guide compile: collect 2007, 2008 points"
+				}
+			]
+		},
+		{
+			"id": "ba3040-stv-rebel-camp-one-stop",
+			"faction": "Alliance",
+			"at": {
+				"quest": 329,
+				"goal": "turnin"
+			},
+			"tip": "East to the Rebel Camp, on the way back to Nesingwary's camp.",
+			"note": "BrAlliance3040 (0.3.6, 30-40/04b): The Spy Revealed! chain, Special Forces and Kurzen's Mystery go in on one Rebel Camp stop after the tablets instead of a walk back from Kurzen's Compound.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/npcs.json Rebel Camp NPCs"
 				}
 			]
 		}

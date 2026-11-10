@@ -25,12 +25,12 @@ step Fly to Menethil Harbor
 
 step Red Jack Flint
   zone Wetlands
-  tip Red Jack Flint stands on the dock just north of the flight master.
-  accept 1132                         -- For Fiora Longears on Theramore's docks, where this guide's boat lands
+  tip Red Jack Flint stands by Menethil Keep's door, just north of the flight master.
+  accept 1132                         -- For Fiora Longears in Theramore's inn, where this guide's boat goes
 
 step Glorin Steelbrow
   zone Wetlands
-  tip Glorin stands on the upper floor of Menethil's keep.
+  tip Glorin stands in the Deepwater Tavern, south of the keep, where Mikhail and Vincent Hyal wait too.
   turnin 270                          -- Inside
   accept 321
 
@@ -72,7 +72,7 @@ step Theramore
   getfp "Theramore"
   turnin 1302                         -- Clerk Lendry, on the top floor
   turnin 1264                         -- Commander Samaul, on the top floor
-  turnin 1132                         -- Fiora Longears, on the docks
+  turnin 1132                         -- Fiora Longears, inside the inn in the north of town
   note Fiora's next errand goes to Astranaar, off this route: leave it.
   accept 1135                         -- Fiora Longears: the wyverns are in Thousand Needles, later in this guide
 
@@ -102,7 +102,8 @@ step Highperch
 
 step Thousand Needles
   zone Thousand Needles
-  goto 46.9,48.5 "The canyons east of Highperch"
+  tip East through the canyons. Freewind Post, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth.
+  goto 46.3,40.9 "The canyons east of Highperch"
 
 step Thousand Needles
   zone Thousand Needles

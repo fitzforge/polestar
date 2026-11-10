@@ -565,6 +565,7 @@ print the forge command to run):
 | `forge nav grid`, `prepare`, `pack`, `check`, `layers` | the walking grid, the walk graphs, Polestar_Nav's maps and their ground layers |
 | `forge release version`, `pack`, `notes`, `credits` | the version, the release zips, the release notes, the Guiding Stars page |
 | `forge changelog add`, `check`, `show`, `build` | the changelog fragments in `changes/` |
+| `forge record import`, `pull`, `resession`, `learn` | players' recordings: the archive, and what it teaches about the quests Forever added ([forge/learn.md](forge/learn.md)) |
 
 `forge <command> --help` gives each one's options. The contributor tools `playtest`, `find`,
 `record`, `new`, `dev`, `install`, `play`, `preview` and the planner stay on Node
@@ -575,6 +576,7 @@ print the forge command to run):
 | Page | For |
 |---|---|
 | [forge/data.md](forge/data.md) | reading the game's data, the reference data, corrections, the knowledge base, the data pack |
+| [forge/learn.md](forge/learn.md) | what players' recordings teach: `forge record learn`, its trust rules and the `data/recorded` snapshot |
 | [forge/nav.md](forge/nav.md) | the walking grid, Leffe's navigation maps, the walk store |
 | [forge/model.md](forge/model.md) | the time model: what a route's hours are made of |
 | [forge/routes.md](forge/routes.md) | how a route is searched from the seed: the search, guards, group quests, the shared route, ledgers, overrides |

@@ -395,8 +395,8 @@ step Level 60 books: Eastern Plaguelands
   zone Eastern Plaguelands
   tip A Study of the Light is inside Light's Hope Chapel. The Knight and the Lady lies at Corin's Crossing; other copies lie elsewhere in the zone (one by the Stratholme gates), and you can take only one. Scourge: Undead Menace or Misunderstood? is on a table in Plaguewood: wait for the patrolling elite to clear the creatures beside it and walk on.
   collect 228135 @71.8,48.2 live             -- A Study of the Light
-  collect 228138 "The Knight and the Lady" @54.4,51.1 live
-  collect 228140 "Scourge: Undead Menace or Misunderstood?" @31.2,21 live
+  collect 228138 "The Knight and the Lady" @54.4,51.1
+  collect 228140 "Scourge: Undead Menace or Misunderstood?" @31.2,21
 
 step Level 60 books: Timbermaw Hold
   zone Felwood

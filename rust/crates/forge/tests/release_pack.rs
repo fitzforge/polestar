@@ -363,6 +363,60 @@ fn pack_takes_the_pack_folder_as_its_one_argument_and_two_folders_exit_2() {
 	assert!(none.stderr.contains("no pack.json in "), "{}", none.out());
 }
 
+/// The fixture guides copied into `root/guides` with a legs.json for 02-elwynn: baked on its current leg
+/// ends (`fresh`), or on ends it has since changed.
+fn guides_with_legs(root: &Path, fresh: bool) -> PathBuf {
+	let guides = root.join("guides");
+	copy_dir(&repo().join("tests/fixtures/dsl/guides"), &guides);
+	let mut diag = forge_guide::diag::Diagnostics::new();
+	let data = forge_guide::project::load_project_data(&repo().join("tests/fixtures/dsl/data"), &mut diag).unwrap();
+	let (manifest, _) = forge_guide::manifest::read_manifest(&guides, true);
+	let project = forge_guide::project::compile_project(&guides, &manifest.unwrap(), &data, diag, false, None);
+	let g = project.guides.iter().find(|g| g.get("id").to_js_string() == "forever/alliance/human/02-elwynn").unwrap();
+	let hash = if fresh { forge_guide::bake::guide_hash(g, &data.map_frames) } else { "000000000000".into() };
+	let legs = format!("{{\n  \"schema\": 1,\n  \"grid\": \"test maps\",\n  \"legs\": {{\n    \"forever/alliance/human/02-elwynn\": {{\n      \"hash\": \"{hash}\",\n      \"steps\": {{\n        \"1\": \"CgA\"\n      }}\n    }}\n  }}\n}}\n");
+	std::fs::write(guides.join("legs.json"), legs).unwrap();
+	guides
+}
+
+#[test]
+fn pack_refuses_guides_whose_legs_are_stale_naming_each_and_writes_no_zip() {
+	let root = checkout("stale-legs", &RELEASE);
+	let guides = guides_with_legs(&root, false);
+	let dist = root.join("dist");
+	let d = fixture("tests/fixtures/dsl/data");
+	let r = forge(&root, &["--root", &root.to_string_lossy(), "--guides", &guides.to_string_lossy(), "--data", &d, "--dist", &dist.to_string_lossy()]);
+	assert_eq!(r.status, 1, "{}", r.out());
+	assert!(r.stderr.contains("1 guide changed since"), "{}", r.out());
+	assert!(r.stderr.contains("\n  forever/alliance/human/02-elwynn\n"), "{}", r.out());
+	assert!(r.stderr.contains("--bake"), "{}", r.out());
+	assert!(!dist.exists(), "no zip: {:?}", std::fs::read_dir(&dist).map(|d| d.count()).ok());
+}
+
+#[test]
+fn pack_ships_current_legs_in_the_race_part() {
+	let root = checkout("fresh-legs", &RELEASE);
+	let guides = guides_with_legs(&root, true);
+	let dist = root.join("dist");
+	let d = fixture("tests/fixtures/dsl/data");
+	let r = forge(&root, &["--root", &root.to_string_lossy(), "--guides", &guides.to_string_lossy(), "--data", &d, "--dist", &dist.to_string_lossy()]);
+	assert_eq!(r.status, 0, "{}", r.out());
+	assert!(names(&dist.join(format!("Polestar-{VERSION}.zip"))).iter().any(|n| n.ends_with("/Legs.lua")), "{}", r.out());
+}
+
+#[test]
+fn bake_options_go_with_bake_and_our_release_only() {
+	let root = checkout("bake-usage", &RELEASE);
+	let r = forge(&root, &["--root", &root.to_string_lossy(), "--grid", "/nowhere"]);
+	assert_eq!(r.status, 2, "{}", r.out());
+	assert!(r.stderr.contains("--grid goes with --bake"), "{}", r.out());
+	let joe = tmp("joe-bake");
+	copy_dir(&repo().join("tests/fixtures/packs/joe"), &joe);
+	let r = forge(&root, &[&joe.to_string_lossy(), "--root", &root.to_string_lossy(), "--bake"]);
+	assert_eq!(r.status, 2, "{}", r.out());
+	assert!(r.stderr.contains("--bake is for our release"), "{}", r.out());
+}
+
 fn copy_dir(from: &Path, to: &Path) {
 	std::fs::create_dir_all(to).unwrap();
 	for e in std::fs::read_dir(from).unwrap().flatten() {

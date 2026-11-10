@@ -1493,8 +1493,9 @@ fn xp_pace_from_the_qol_tracker_rate_and_time_to_level_hidden_when_off_or_maxed(
 }
 
 // Where the player stands (GF.PaceText over Levels.Pace, whose sums levels.rs checks): always one line, calm
-// when on pace or when a `level` goal ahead grinds the gap, in the warning colour when nothing in the guide
-// makes it up; grinding time from the tracker's XP an hour when there is one.
+// when on pace (up to a level short: Fitz, 0.3.6, a few bars short is no warning) or when a `level` goal ahead
+// grinds the gap, in the warning colour when more than a level short with nothing in the guide making it up;
+// grinding time from the tracker's XP an hour when there is one. A hard quest is named only on its own step.
 #[test]
 fn the_pace_line_says_on_pace_behind_with_a_grind_coming_behind_with_none_and_names_a_quest_too_hard() {
 	let out = run(r#"
@@ -1547,24 +1548,24 @@ fn the_pace_line_says_on_pace_behind_with_a_grind_coming_behind_with_none_and_na
 	// Behind with a `level` goal ahead: how far, and that the guide grinds it there; not a warning.
 	assert_eq!(out["grind"], "Behind by 1.2 levels: step 32 grinds to level 20 (~0h 30m)");
 	assert_eq!(out["grindNoRate"], "Behind by 1.2 levels: step 32 grinds to level 20");
-	assert_eq!(out["bars"], "Behind by 6 bars: step 12 grinds to level 18.5 (~0h 15m)", "under a level: the XP bar's bars");
+	assert_eq!(out["bars"], "On pace for level 18.5 by step 12", "under a level short: on pace, no warning");
 	// Behind with no grind step: the guide's end level, and how long to grind on the way.
 	assert_eq!(out["none"], warn("Behind by 2.4 levels for level 24 by step 21: grind ~2h 00m before then").as_str());
 	assert_eq!(out["noneNoRate"], warn("Behind by 2.4 levels for level 24 by step 21, and no grind step ahead").as_str());
-	// A quest that will be 3+ levels over you comes first: which, where, at what level you get there, the fix.
-	assert_eq!(out["hard"], warn("Behind: “Missing In Action” (25) at step 20, you'll be 20.0; grind ~1h 00m first").as_str());
-	assert_eq!(out["hardNoRate"], warn("Behind: “Missing In Action” (25) at step 20, you'll be 20.0; reach 23 first").as_str());
+	// A quest 3+ levels over you is named only on its own step; before it, the plain line.
+	assert_eq!(out["hard"], warn("Behind by 3.6 levels for level 24 by step 21: grind ~2h 38m before then").as_str());
+	assert_eq!(out["hardNoRate"], warn("Behind by 3.6 levels for level 24 by step 21, and no grind step ahead").as_str());
 	assert_eq!(out["hardNow"], warn("Behind: “Missing In Action” (25) at step 20, you're 20.0; grind ~1h 00m first").as_str());
-	// The same quest with the character on pace for the target: "On pace, but", never "Behind".
-	assert_eq!(out["hardOnPace"], warn("On pace, but “Ashenvale Outrunners” (24) at step 4 is hard: you'll be 21.3; grind ~0h 35m first").as_str());
-	assert_eq!(out["hardOnPaceNoRate"], warn("On pace, but “Ashenvale Outrunners” (24) at step 4 is hard: you'll be 21.3; reach 22 first").as_str());
-	assert_eq!(out["hardOnPaceNow"], warn("On pace, but “Ashenvale Outrunners” (24) at step 4 is hard: you're 21.3; reach 22 first").as_str());
+	// The same quest with the character on pace for the target: "On pace", calm, the quest only on its step.
+	assert_eq!(out["hardOnPace"], "On pace for level 22.5 by step 29");
+	assert_eq!(out["hardOnPaceNoRate"], "On pace for level 22.5 by step 29");
+	assert_eq!(out["hardOnPaceNow"], "On pace, but “Ashenvale Outrunners” (24) at step 4 is hard: you're 21.3; reach 22 first");
 	assert_eq!(out["row"], "3.4k XP/h  \u{b7}  Behind by 1.2 levels: step 32 grinds to level 20 (~0h 30m)", "one line in the XP row");
 	assert_eq!(out["nothing"], false, "no target and no Codex: no line");
 }
 
-// A step whose open quest is 3 or more levels above the character says so under its header (Levels.StepHint),
-// in the warning colour, red from 5 over as the quest log draws it.
+// A step with work on a quest 3 or more levels above the character says so under its header (Levels.StepHint),
+// in a calm colour (Fitz, 0.3.6: never red; players read it as being behind).
 #[test]
 fn a_step_with_a_quest_well_over_your_level_says_so_under_its_header() {
 	let out = run(r#"
@@ -1576,11 +1577,11 @@ fn a_step_with_a_quest_well_over_your_level_says_so_under_its_header() {
 		local red = { shown = hint:IsShown(), text = hint:GetText(), color = { hint:GetTextColor() } }
 		uistub.setStep(7)
 		local none = hint:IsShown()
-		emit({ red = red, none = none, danger = { Polestar.Theme.Color("danger") } })"#)
+		emit({ red = red, none = none, calm = { Polestar.Theme.Color("textDim") } })"#)
 	.remove(0);
 	assert_eq!(out["red"]["shown"], true);
 	assert_eq!(out["red"]["text"], "Level 9 quest: you're 4.1", "level 4, 16% in: cut to one place");
-	assert_eq!(rgb(&out["red"]["color"]), rgb(&out["danger"]), "5 levels over: red");
+	assert_eq!(rgb(&out["red"]["color"]), rgb(&out["calm"]), "5 levels over: calm, never red");
 	assert_eq!(out["none"], false, "Echo Ridge's quest has no level known over yours: no line");
 }
 
@@ -2533,4 +2534,26 @@ fn floating_button_hides_in_combat_and_instances_as_the_window_does_and_stays_wh
 		json!({ "windowHidden": true, "fightShow": true, "fightFade": true, "fightHide": false, "afterFight": true,
 			"dungeon": false, "openedThere": true, "left": true, "keepVisible": true })
 	);
+}
+
+// RegressVisual (0.3.6): the floating button's hover is the minimap button's, its 25 % in its colour, so nothing
+// that sets its regions back to full alpha turns it into an opaque disc over the logo.
+#[test]
+fn floating_button_hover_is_a_quarter_strong_accent_disc_even_with_its_regions_at_full_alpha() {
+	let out = run(r#"
+		Polestar.Set("ui.launcher", true)
+		local b = PolestarLauncher
+		local function strength() local _, _, _, a = b.Hover:GetVertexColor(); return (a or 1) * b.Hover:GetAlpha() end
+		local r = { file = b.Hover:GetTexture(), layer = b.Hover:GetDrawLayer(), rest = strength() }
+		for _, region in ipairs({ b:GetRegions() }) do region:SetAlpha(1) end
+		r.full = strength()
+		Polestar.Theme.Refresh()
+		r.repainted = strength()
+		emit(r)"#);
+	let r = &out[0];
+	assert!(r["file"].as_str().unwrap().ends_with("Polestar\\Media\\UI\\circle"));
+	assert_eq!(r["layer"], "HIGHLIGHT");
+	for k in ["rest", "full", "repainted"] {
+		assert!((r[k].as_f64().unwrap() - 0.25).abs() < 1e-6, "{k}: {}", r[k]);
+	}
 }

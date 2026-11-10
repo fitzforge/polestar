@@ -61,7 +61,8 @@ return {
 	["Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and {spell:686}. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less."] = "Cuidado: os Magos das Sombras (nível 42-43) invocam um Emissário do Caos fora de combate e atacam com Imolar e {spell:686}. Os Ladrões podem desarmar você, os Ladinos andam furtivos e os Assassinos usam Executar quando você está com 20% de vida ou menos.",
 
 	-- Step 14: Gadgetzan
-	["Use the Model 4711-FTZ Power Source Bilgewhizzle gave you: a two-hour timer starts"] = "Use a Modelo 4711-KTC Fonte de Energia que Silvadágua deu a você: um cronômetro de duas horas começa",
+	-- {quest:654} Tanaris Field Sampling
+	["Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts {quest:654}, a two-hour timer, so use it on the way back north from Scrimshank's hive."] = "Guarde a Modelo 4711-KTC Fonte de Energia que Silvadágua deu a você: ela inicia {quest:654}, com um cronômetro de duas horas, então use-a na volta para o norte, saindo da colmeia de Anilhacido.",
 
 	-- Step 15: Gadgetzan
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
@@ -69,25 +70,29 @@ return {
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, lá dentro",
 
-	-- Step 16: Tanaris Field Sampling
-	-- {area:976} Gadgetzan
-	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
-	["Just south of {area:976} the Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "Logo ao sul de {area:976}, as Hienas Patapústula, os Basiliscos Silicouro e os Caçadores Escorpídeos dividem as dunas. Cada um pode deixar cair uma amostra não testada: use-a, e ela passa como amostra aceitável ou se perde. Continue matando até ter oito de cada.",
-
-	-- Step 18: Scrimshank's gear
+	-- Step 17: Scrimshank's gear
 	["Scrimshank's gear"] = "O equipamento de Anilhacido",
 	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Mais ao sul, o aparelho do Topógrafo Júnior Anilhacido está na boca de uma colmeia Centiparte.\nCuidado: um inseto guarda o aparelho. Muitos insetos patrulham os túneis, alguns de nível 50, então as lutas costumam trazer bicho a mais.",
 
-	-- Step 19: OOX-17/TN
+	-- Step 18: OOX-17/TN
 	["OOX-17/TN"] = "OOX-17/TN",
 	-- {area:977} Steamwheedle Port · {area:35} Booty Bay
 	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "Só com o sinalizador de socorro: o OOX-17/TN fica a sudeste da colmeia do Anilhacido. Escolte-o para o norte até {area:977}; a recompensa fica com Olhatorto, em {area:35}.\nCuidado: a escolta tem duas emboscadas. Três escorpídeos de nível 47 atacam perto do começo. Perto do fim, junto à praia, três humanos Errantes atacam: um mago e dois assassinos, por volta do nível 44.",
+
+	-- Step 19: Tanaris Field Sampling
+	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source
+	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
+	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "De volta ao norte, logo ao sul de {area:976}, use a {item:8524} agora: o cronômetro de duas horas começa. As Hienas Patapústula, os Basiliscos Silicouro e os Caçadores Escorpídeos dividem as dunas aqui. Cada um pode deixar cair uma amostra não testada: use-a, e ela passa como amostra aceitável ou se perde. Continue matando até ter oito de cada.",
+	-- {item:8524} Model 4711-FTZ Power Source
+	["Use the {item:8524}"] = "Use a {item:8524}",
 
 	-- Step 20: Gadgetzan
 	-- {npc:5204} Apothecary Zinge · {zone:1458} Undercity
 	["for {npc:5204} in the {zone:1458}, around level 52"] = "para {npc:5204} na {zone:1458}, por volta do nível 52",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "para {npc:7010} em {zone:1454}, por volta do nível 50",
+	-- {object:142071} Egg-O-Matic · {zone:1444} Feralas
+	["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "A máquina {object:142071}, no meio da cidade: o ovo fica no sul de {zone:1444}, por volta do nível 50",
 
 	-- Step 21: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
@@ -171,6 +176,7 @@ return {
 	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive."] = "Mais ao sul, o equipamento do Inspetor Júnior Anilhacido está na entrada de uma colmeia Centiparte.",
 	-- ["Greater Lava Spiders"] = "Aranhas de Lava Abrasadoras",
 	-- ["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it."] = "Golens de Guerra Pesados patrulham O Caldeirão abaixo de Kalaran e deixam cair o óleo; os Elementais de Magma e Fulgurantes que flutuam entre eles deixam cair os corações. Os Capatazes e Feitores Ferro Negro tocam os escravos pelas trilhas; um Feitor pode deixar cair a {item:11818}: guarde-a.",
+	-- ["Just south of {area:976} the Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "Logo ao sul de {area:976}, as Hienas Patapústula, os Basiliscos Silicouro e os Caçadores Escorpídeos dividem as dunas. Cada um pode deixar cair uma amostra não testada: use-a, e ela passa como amostra aceitável ou se perde. Continue matando até ter oito de cada.",
 	-- ["Kalaran Windblade"] = "Kalaran Finalâmina",
 	-- ["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}."] = "Só com o transmissor de emergência: OOX-17/TN fica a sudeste da colmeia de Anilhacido. Escolte-o para o norte até o {area:977}; a recompensa espera com Olhatorto em {area:35}.",
 	-- ["Ride back north to {area:1446}."] = "Cavalgue de volta ao norte até {area:1446}.",
@@ -184,6 +190,7 @@ return {
 	-- ["The Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge."] = "As Aranhas de Lava Abrasadoras vagam pelos platôs e poças de lava no sudoeste da garganta.",
 	-- ["The Steamsmiths' furnaces"] = "As fornalhas dos Vaporistas",
 	-- ["The boat to {area:35} docks at {area:392}'s pier, below the flight master's hill."] = "O navio para {area:35} atraca no píer de {area:392}, abaixo do morro do mestre de voo.",
+	-- ["Use the Model 4711-FTZ Power Source Bilgewhizzle gave you: a two-hour timer starts"] = "Use a Modelo 4711-KTC Fonte de Energia que Silvadágua deu a você: um cronômetro de duas horas começa",
 	-- ["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one."] = "A oeste do complexo, as criaturas-cacto enchem o vale; só os Coletores de Orvalho levam uma glândula de orvalho. A maioria das criaturas de {zone:1446} pode deixar cair o transmissor de emergência de OOX-17/TN, raramente: guarde-o se aparecer.",
 	-- ["West, the Centipaar insects swarm around their hives; any of them drops the parts."] = "A oeste, os insetos Centiparte enxameiam em volta das colmeias; qualquer um deles deixa cair as peças.",
 	-- ["the {object:150075} in the square"] = "o {object:150075} na praça",

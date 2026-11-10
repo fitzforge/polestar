@@ -74,7 +74,7 @@ return {
 	-- Step 10: Thendal Grove: kill these as you meet them
 	-- {npc:250926} Scrawny Ursera · {npc:252095} Hanaa Nightwind · {npc:251115} Urs'anah
 	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "地下",
 
 	-- Step 11: Back to Thendal Village
 	-- {npc:257551} Valreaa Valewind · {npc:251366} Aetheen of the Gales · {npc:252095} Hanaa Nightwind
@@ -96,7 +96,7 @@ return {
 
 	-- Step 14: Shen'dar Village
 	-- {area:16624} Shen'dar Village · {npc:251523} Constable Aonda · {npc:251902} Illaya Amberwind · {npc:254089} Coriella Calmbreeze · {npc:263664} Raan Wildwind
-	["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side."] = "",
+	["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side. With a profession learned, {npc:263664} also offers its Camping 101: its trainer stands in the village."] = "沿道路向南前往島嶼中部的{area:16624}。{npc:251523}站在村莊東側，{npc:251902}在中央，{npc:254089}在她西北方不遠處，{npc:263664}在西側的營火旁。學會專業技能後，{npc:263664}也會提供對應的露營入門任務：該專業的訓練師就在村裡。",
 	-- {npc:251902} Illaya Amberwind
 	["talk to {npc:251902}"] = "與{npc:251902}交談",
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
@@ -259,7 +259,7 @@ return {
 	["{npc:252448} and {npc:256083}"] = "{npc:252448}與{npc:256083}",
 
 	-- Step 44: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "職業訓練師",
 
 	-- Step 45: Warlock trainer
 	["Warlock trainer"] = "",
@@ -280,7 +280,7 @@ return {
 	["{npc:256247} waits on the road north of {area:16638}, towards the {area:16629}."] = "{npc:256247}在{area:16638}北邊、通往{area:16629}的路上等著。",
 
 	-- Step 49: Valennia Stormfist
-	["Upstairs"] = "",
+	["Upstairs"] = "樓上",
 
 	-- Step 50: Lotheluum Starbreeze
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar · {npc:255853} Urs'endris · {area:17675} East Pylon Watchtower · {spell:1259416} Walk on Air
@@ -402,11 +402,11 @@ return {
 	-- {npc:251968} Ayessa Dawnsinger · {area:16638} Valanaar · {zone:1412} Mulgore · {npc:259119} Alaana Stormwalker
 	["{npc:251968} sends you on to Kalimdor. Once you have trained, board the skycutter at the dock on {area:16638}'s south-west edge: it flies to northern {zone:1412}, where {npc:259119} waits."] = "",
 
-	-- Step 81: Leave Zephras Isle to Mulgore
+	-- Step 80: Leave Zephras Isle to Mulgore
 	-- {zone:2521} Zephras Isle · {zone:1412} Mulgore
 	["Leave {zone:2521} to {zone:1412}"] = "",
 
-	-- Step 82: Northern Mulgore
+	-- Step 81: Northern Mulgore
 	-- {zone:1412} Mulgore
 	["Northern {zone:1412}"] = "{zone:1412}北部",
 	-- {npc:259119} Alaana Stormwalker
@@ -416,11 +416,11 @@ return {
 	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
 	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "降落處旁的{npc:259118}：給{zone:1456}的{npc:3033}",
 
-	-- Step 83: Clarice Foster
+	-- Step 82: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
 	["{npc:5543} stands in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart."] = "",
 
-	-- Step 85: Traditions of the Bluff
+	-- Step 84: Traditions of the Bluff
 	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner · {item:278078} Prepared Incense
 	["{npc:269068} wants tauren incense: buy its four parts from {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier, then combine them into {item:278078}."] = "{npc:269068}想要牛頭人的薰香：向草藥商{npc:3014}、附魔供應商{npc:3012}、製皮供應商{npc:3005}和烹飪供應商{npc:3027}購買四種材料，然後合成{item:278078}。",
 	-- {item:278079} Bundle of Herbs · {npc:3014} Nida Winterhoof
@@ -432,37 +432,37 @@ return {
 	-- {item:278083} Ceremonial Flint and Tinder · {npc:3027} Naal Mistrunner
 	["{item:278083}, from {npc:3027}"] = "{item:278083}，向{npc:3027}購買",
 
-	-- Step 86: Turak Runetotem
+	-- Step 85: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
 	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "",
 
-	-- Step 87: Hunter Rise
+	-- Step 86: Hunter Rise
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
 	["Use the {item:278078} at the ceremonial mat and burner on the south-facing cliff of {area:1641}."] = "在{area:1641}朝南的懸崖上，對儀式墊和香爐使用{item:278078}。",
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
 	["Spread the {item:278078} off {area:1641}"] = "在{area:1641}撒下{item:278078}",
 
-	-- Step 89: Ansekhwa
+	-- Step 88: Ansekhwa
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
 	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "",
 
-	-- Step 90: Ansekhwa
+	-- Step 89: Ansekhwa
 	-- {npc:11869} Ansekhwa
 	["While you're here: learn Staves from {npc:11869} (10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
-	-- Step 91: Into Mulgore
+	-- Step 90: Into Mulgore
 	-- {zone:1412} Mulgore
 	["Into {zone:1412}"] = "",
 
-	-- Step 92: Into The Barrens
+	-- Step 91: Into The Barrens
 	-- {zone:1413} The Barrens
 	["Into {zone:1413}"] = "",
 
-	-- Step 94: The Crossroads
+	-- Step 93: The Crossroads
 	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
 	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "",
 
-	-- Step 95: To Orgrimmar
+	-- Step 94: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "前往{zone:1454}",
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
@@ -519,6 +519,13 @@ return {
 	-- ["Wind Hollows drift over the lowlands around {area:16638}. The first {object:616466} lie west of the orchard road."] = "風之空靈在{area:16638}周圍的低地上飄蕩。第一批{object:616466}在果園道路的西邊。",
 	-- ["Wind Hollows drift over the lowlands around {area:16638}. The first {object:616467} lie west of the orchard road."] = "風之空靈在{area:16638}周圍的低地上飄蕩。第一批{object:616467}在果園道路的西邊。",
 	-- ["Windsong Crawlers"] = "風歌蟹",
+	-- ["With {skill:129} learned, {npc:263664} also offers its Camping 101: {npc:257018}, in Shen'dar, takes it."] = "學會{skill:129}後，{npc:263664}也會提供對應的露營入門任務：由申德村的{npc:257018}負責接取。",
+	-- ["With {skill:164} learned, {npc:263664} also offers its Camping 101: {npc:251913}, in Shen'dar, takes it."] = "學會{skill:164}後，{npc:263664}也會提供對應的露營入門任務：由申德村的{npc:251913}負責接取。",
+	-- ["With {skill:165} learned, {npc:263664} also offers its Camping 101: {npc:251993}, in Shen'dar, takes it."] = "學會{skill:165}後，{npc:263664}也會提供對應的露營入門任務：由申德村的{npc:251993}負責接取。",
+	-- ["With {skill:171} learned, {npc:263664} also offers its Camping 101: {npc:257019}, in Shen'dar, takes it."] = "學會{skill:171}後，{npc:263664}也會提供對應的露營入門任務：由申德村的{npc:257019}負責接取。",
+	-- ["With {skill:186} learned, {npc:263664} also offers its Camping 101: {npc:257022}, in Shen'dar, takes it."] = "學會{skill:186}後，{npc:263664}也會提供對應的露營入門任務：由申德村的{npc:257022}負責接取。",
+	-- ["With {skill:356} learned, {npc:263664} also offers its Camping 101: {npc:251992}, in Shen'dar, takes it."] = "學會{skill:356}後，{npc:263664}也會提供對應的露營入門任務：由申德村的{npc:251992}負責接取。",
+	-- ["With {skill:393} learned, {npc:263664} also offers its Camping 101: {npc:257024}, in Shen'dar, takes it."] = "學會{skill:393}後，{npc:263664}也會提供對應的露營入門任務：由申德村的{npc:257024}負責接取。",
 	-- ["talk to {npc:251905}"] = "與{npc:251905}交談",
 	-- ["{area:1638} is beside the landing: ride up a lift and learn the flight path from {npc:2995}, the wind rider master."] = "{area:1638}就在降落處旁：搭升降梯上去，向雙足飛龍管理員{npc:2995}學習飛行路線。",
 	-- ["{area:16624}, last time"] = "最後一次前往{area:16624}",

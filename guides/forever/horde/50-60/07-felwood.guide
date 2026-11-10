@@ -20,6 +20,8 @@ step Zeppelin to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
+  when !complete 7836
+  when !complete 7824
   goto 45.3,63.7 "Orgrimmar flight master"
 # Built from the simulator's consensus route (Horde, visits 102-116) and
 # machine-checked with lint; not play-tested on Forever yet. The end of the
@@ -75,10 +77,10 @@ step Orgrimmar
 
 # ---------------------------------------------------------------- Orgrimmar
 
-step Zeppelin to Orgrimmar
+step Vehena
   when complete 7836
   zone Orgrimmar
-  tip From the Undercity, take the zeppelin from the tower outside the city to Orgrimmar.
+  tip In the Valley of Spirits.
   turnin 7836                         -- sixty Runecloth
 
 step Rashona Straglash
@@ -105,6 +107,11 @@ step The Emerald Sanctuary
   accept 5165
   turnin 3942                         -- Eridan Bluewind, inside
   note Eridan's Silver Heart needs an Irontree Heart from northern Felwood and a ride back here. Skip it.
+
+step Maybess Riverbreeze
+  when available 5887
+  tip Maybess stands on the west side of the Sanctuary, the way out to Jaedenar. With Cleansing Felwood done, her Salve via Hunting asks for six Corrupted Soul Shards: the Shadow Council cultists in Jaedenar and Shadow Hold drop them about one kill in three, and you fight dozens of them for Greta.
+  accept 5887                         -- Maybess Riverbreeze
 
 step Dousing the Flames of Protection
   tip Ride north-west to Jaedenar. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.
@@ -133,6 +140,12 @@ step A Final Blow
   kill 9861 quest 5242.1              -- Below ground
   kill 9860 quest 5242.2              -- Below ground
   collect 13207 quest 5242.3          -- Below ground
+  collect 11515 quest 5887.1          -- Corrupted Soul Shards from the cultists, Salve via Hunting
+
+step Maybess Riverbreeze
+  when onquest 5887
+  tip On the way back south to Greta, Maybess takes the shards on the west side of the Sanctuary.
+  turnin 5887                         -- Maybess Riverbreeze
 
 step Greta Mosshoof
   tip South to the Sanctuary once more.
@@ -209,8 +222,8 @@ step Meilosh
 step Kernda
   when onquest 8470
   zone Felwood
-  tip Only at Neutral with the Timbermaw: Kernda waits at the tunnel mouth of Timbermaw Hold.
-  turnin 8470 optional                -- Kernda walks around here: look inside the circle on the map
+  tip The Deadwood totem from Felpaw Village, if Kernda didn't take it then: she waits at the tunnel mouth of Timbermaw Hold and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of Felwood brought you to.
+  turnin 8470                         -- Kernda walks around here: look inside the circle on the map
 
 step Winterspring
   zone Winterspring

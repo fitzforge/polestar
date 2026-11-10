@@ -35,7 +35,7 @@ return {
 	["{area:1938}: kill these as you meet them"] = "",
 	-- {area:982} Noxious Lair · {npc:12046} Gor'marok the Ravager · {quest:3161} Gahz'ridian
 	["South of the {area:982} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end. Dig up {quest:3161} ornaments between the fights."] = "{area:982} 남쪽에서 모래망치 오우거가 거주지를 차지하고 있으며, 동쪽 끝에 {npc:12046}이(가) 있습니다. 싸우는 사이사이에 {quest:3161} 장식품을 파내세요.",
-	["Below ground"] = "",
+	["Below ground"] = "지하",
 
 	-- Step 9: Noxious Lair
 	-- {npc:4196} Silithid Swarm
@@ -61,7 +61,8 @@ return {
 	["Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and {spell:686}. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less."] = "",
 
 	-- Step 14: Gadgetzan
-	["Use the Model 4711-FTZ Power Source Bilgewhizzle gave you: a two-hour timer starts"] = "",
+	-- {quest:654} Tanaris Field Sampling
+	["Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts {quest:654}, a two-hour timer, so use it on the way back north from Scrimshank's hive."] = "빌지위즐이 준 4711-FTZ형 동력원은 버리지 말고 보관하세요. 2시간 제한이 있는 {quest:654} 퀘스트를 시작하므로, 스크림섕크의 벌집에서 북쪽으로 돌아오는 길에 사용하세요.",
 
 	-- Step 15: Gadgetzan
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
@@ -69,25 +70,29 @@ return {
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
 
-	-- Step 16: Tanaris Field Sampling
-	-- {area:976} Gadgetzan
-	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
-	["Just south of {area:976} the Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "",
-
-	-- Step 18: Scrimshank's gear
+	-- Step 17: Scrimshank's gear
 	["Scrimshank's gear"] = "스크림섕크의 장비",
 	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "",
 
-	-- Step 19: OOX-17/TN
+	-- Step 18: OOX-17/TN
 	["OOX-17/TN"] = "OOX-17/TN",
 	-- {area:977} Steamwheedle Port · {area:35} Booty Bay
 	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "",
+
+	-- Step 19: Tanaris Field Sampling
+	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source
+	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
+	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "북쪽으로 돌아가 {area:976} 바로 남쪽에서 지금 {item:8524}을(를) 사용하세요. 2시간 타이머가 시작됩니다. 이곳 모래언덕에는 물집발 하이에나, 유리가죽 바실리스크, 전갈 사냥꾼이 함께 있습니다. 각각 검사하지 않은 표본을 떨어뜨릴 수 있습니다. 표본을 사용하면 쓸 만한 표본으로 통과하거나 사라집니다. 종류별로 8개씩 모을 때까지 계속 처치하세요.",
+	-- {item:8524} Model 4711-FTZ Power Source
+	["Use the {item:8524}"] = "{item:8524} 사용하기",
 
 	-- Step 20: Gadgetzan
 	-- {npc:5204} Apothecary Zinge · {zone:1458} Undercity
 	["for {npc:5204} in the {zone:1458}, around level 52"] = "",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "50레벨쯤 {zone:1454}의 {npc:7010}에게",
+	-- {object:142071} Egg-O-Matic · {zone:1444} Feralas
+	["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "마을 한가운데의 {object:142071} 기계: 알은 50레벨쯤 {zone:1444} 남부에 있습니다",
 
 	-- Step 21: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port

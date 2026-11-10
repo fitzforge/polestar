@@ -133,7 +133,7 @@ pub fn summarize_with_maps(chunks: &[Chunk], maps: &BTreeMap<u32, String>) -> Su
 					s.kills += 1;
 					creatures.insert(r.get("npcId").to_string());
 				}
-				Kind::Unit | Kind::Rare => {
+				Kind::Unit | Kind::Unitx | Kind::Rare => {
 					creatures.insert(r.get("npcId").to_string());
 				}
 				Kind::Loot => s.loot_windows += 1,

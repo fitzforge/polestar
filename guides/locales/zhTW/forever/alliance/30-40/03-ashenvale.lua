@@ -13,14 +13,14 @@ return {
 	["{zone:1453} flight master"] = "",
 
 	-- Step 2: Red Jack Flint
-	-- {npc:4455} Red Jack Flint
-	["{npc:4455} stands on the dock just north of the flight master."] = "",
+	-- {npc:4455} Red Jack Flint · {area:2103} Menethil Keep
+	["{npc:4455} stands by {area:2103}'s door, just north of the flight master."] = "{npc:4455}站在{area:2103}門口，就在飛行管理員北邊。",
 	-- {quest:1132} Fiora Longears
-	["For {quest:1132} on Theramore's docks, where this guide's boat lands"] = "",
+	["For {quest:1132} in Theramore's inn, where this guide's boat goes"] = "為了希拉摩旅店的{quest:1132}，本指南的船會開往那裡",
 
 	-- Step 3: Glorin Steelbrow
-	-- {npc:1217} Glorin Steelbrow
-	["{npc:1217} stands on the upper floor of Menethil's keep."] = "{npc:1217}站在米奈希爾城堡的上層。",
+	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {npc:4963} Mikhail · {npc:5082} Vincent Hyal
+	["{npc:1217} stands in the {area:2104}, south of the keep, where {npc:4963} and {npc:5082} wait too."] = "{npc:1217}站在城堡南邊的{area:2104}裡，{npc:4963}和{npc:5082}也在那裡等著。",
 	["Inside"] = "",
 
 	-- Step 4: Deepwater Tavern
@@ -48,7 +48,7 @@ return {
 	-- {npc:4964} Commander Samaul
 	["{npc:4964}, on the top floor"] = "",
 	-- {quest:1132} Fiora Longears
-	["{quest:1132}, on the docks"] = "",
+	["{quest:1132}, inside the inn in the north of town"] = "{quest:1132}，在鎮北的旅店內",
 	-- {npc:4456} Fiora Longears · {area:415} Astranaar
 	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "",
 	-- {quest:1132} Fiora Longears · {zone:1441} Thousand Needles
@@ -75,6 +75,8 @@ return {
 	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "",
 
 	-- Step 14: Thousand Needles
+	-- {area:484} Freewind Post
+	["East through the canyons. {area:484}, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth."] = "向東穿過峽谷。{area:484}是部落的營地，有守衛，位於這裡的台地上：沿著峽谷底部走，離它的升降梯底部遠一點。",
 	-- {area:482} Highperch
 	["The canyons east of {area:482}"] = "",
 

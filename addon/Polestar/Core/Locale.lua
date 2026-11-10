@@ -11,6 +11,10 @@
 -- at load (key binding names, the options' labels) stays English. Not
 -- through Data.Pack here: it refuses in combat, which would leave a /reload
 -- in combat in English for the session, and keeps a failure for the session.
+--
+-- A folder still not loaded at login (missing, or turned off in the AddOns
+-- list) gets one chat line, in English: the strings to say it in the
+-- player's language are what is missing.
 
 local _, ns = ...
 
@@ -21,4 +25,22 @@ if pack and load then
 	if not (ok and ns.Compat.Readable(loaded)) then
 		ns.Log("Locale: " .. pack .. " not loaded: " .. tostring(ok and ns.Compat.Readable(reason) or loaded))
 	end
+end
+
+-- The languages Polestar ships a folder for; a client in another language
+-- (itIT) has none to miss and plays in English without a word.
+local LANGUAGE = {
+	deDE = "German", esES = "Spanish (Spain)", esMX = "Spanish (Latin America)", frFR = "French", koKR = "Korean",
+	ptBR = "Portuguese (Brazil)", ruRU = "Russian", zhCN = "Simplified Chinese", zhTW = "Traditional Chinese",
+}
+local language = pack and LANGUAGE[pack:match("^Polestar_(.+)$") or ""]
+
+if language then
+	ns.OnLogin(function()
+		local isLoaded = C_AddOns and C_AddOns.IsAddOnLoaded
+		if not isLoaded then return end
+		local ok, loaded = pcall(isLoaded, pack)
+		if ok and ns.Compat.Readable(loaded) then return end
+		ns.Print(("the %s language files (%s) are missing or turned off in the AddOns list, so Polestar shows in English."):format(language, pack))
+	end)
 end

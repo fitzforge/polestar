@@ -126,7 +126,12 @@ local function build()
 	button:RegisterForDrag("LeftButton")
 	local back = W.Tex(button, "BACKGROUND", "circle", "panel")
 	back:SetAllPoints(button)
-	local logo = W.Tex(button, "ARTWORK", "logo")
+	-- Named PolestarMinimapButtonIcon: minimap tidiers that stand a proxy in
+	-- for the button (Leatrix Plus's Enhance minimap) take its icon from
+	-- _G[name .. "Icon"]; without it they took the last small region, the
+	-- hover's plain circle, and showed that as Polestar's icon.
+	local logo = button:CreateTexture("PolestarMinimapButtonIcon", "ARTWORK")
+	logo:SetTexture(ns.Theme.Media("logo"))
 	logo:SetSize(SIZE - 10, SIZE - 10)
 	logo:SetPoint("CENTER", button, "CENTER", 0, 0)
 	button.Icon = logo

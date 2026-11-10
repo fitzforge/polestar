@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Alliance Relations
 	-- {zone:1454} Orgrimmar · {npc:5639} Craven Drok · {npc:5640} Keldran · {object:172961} Valley of Spirits (no name in this language: may be words)
-	["The zeppelin lands at the tower outside {zone:1454}'s main gate. {npc:5639} waits in the Drag; {npc:5640} stands in the {object:172961} on the west side of the city."] = "O zepelim pousa na torre fora do portão principal de {zone:1454}. {npc:5639} espera no Drag; {npc:5640} fica em {object:172961}, no lado oeste da cidade.",
+	["The zeppelin lands at the tower outside {zone:1454}'s main gate. {npc:5639} walks the Drag: if he isn't at the arrow, look along its streets to the south-west. {npc:5640} stands in the {object:172961} on the west side of the city."] = "O zepelim pousa na torre fora do portão principal de {zone:1454}. {npc:5639} anda pelo Drag: se ele não estiver na seta, procure pelas ruas do Drag a sudoeste. {npc:5640} fica em {object:172961}, no lado oeste da cidade.",
 	-- {npc:5639} Craven Drok
 	["{npc:5639}: offered from level 30"] = "{npc:5639}: oferecida a partir do nível 30",
 	-- {npc:5641} Takata Steelblade · {zone:1443} Desolace
@@ -175,58 +175,70 @@ return {
 	-- {npc:6726} Thalon
 	["{npc:6726}, at the village's south-west end"] = "{npc:6726}, na ponta sudoeste da aldeia",
 
-	-- Step 32: Clam beds
-	["Clam beds"] = "Leitos de mariscos",
-	-- {item:15874} Soft-shelled Clam
-	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam · Enraged Reef Crawlers = {npc:12347} Enraged Reef Crawler
-	["Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach: each clam you open on the sea floor, and some crawlers, give a {item:15874}. Open each one in your bags for its meat."] = "Siga para o norte pela costa. Mariscos de Casca Mole Gigantes ficam nas águas rasas e os Tiscorais Enfurecidos andam pela praia: cada marisco que você abrir no fundo do mar, e alguns tiscorais, dão {item:15874}. Abra cada um nas bolsas para pegar a carne.",
-	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam
-	["Giant Softshell Clams, on the sea floor"] = "Mariscos de Casca Mole Gigantes, no fundo do mar",
-	-- {item:15874} Soft-shelled Clam
-	["{item:15874}: open it in your bags"] = "{item:15874}: abra nas bolsas",
-	["Underwater"] = "Debaixo d'água",
+	-- Step 32: Ethel Rethor
+	-- {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress · {area:2406} Ranazjar Isle
+	["Head north along the coast, then inland to the ruined tower of {area:2405}: {npc:11863} waits inside. The coast's clams and naga come after {area:599}, on one walk north to {area:2406}."] = "Siga para o norte pela costa e depois para o interior, até a torre em ruínas de {area:2405}: {npc:11863} espera lá dentro. Os mariscos e as nagas da costa ficam para depois de {area:599}, numa só caminhada para o norte até {area:2406}.",
 
-	-- Step 33: Sar'theris Strand
-	-- {area:598} Sar'theris Strand
-	-- plural, as words: Slitherblade Myrmidons = {npc:4714} Slitherblade Myrmidon
-	["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time."] = "Continue ao norte até {area:598}. Os Mirmidões, Nagas e Feiticeiras Sibilâmina ocupam a praia; puxe-os um de cada vez.",
-
-	-- Step 34: Ethel Rethor
-	-- {npc:11863} Azore Aldamort · {area:2405} Ethel Rethor
-	["{npc:11863} waits in the ruined tower of {area:2405}, inland to the east."] = "{npc:11863} espera na torre em ruínas de {area:2405}, para o interior, a leste.",
-
-	-- Step 35: Thunder Axe Fortress
+	-- Step 33: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {quest:5381} Hand of Iruxos · {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal (no name in this language: may be words) · {npc:11876} Demon Spirit · {item:13542} Demon Box
 	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. {quest:5381}: clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}."] = "Siga para leste até {area:599}. Derrube um sectário da Lâmina Ardente e use {item:6436} nele antes que morra, para obter {item:6435}. {npc:13019} fica no último andar da fortaleza com o Cetro. Os sectários também deixam cair {item:20310} de vez em quando (1-5%); quando cair, leia. {quest:5381}: limpe o meio do maior prédio e use {item:14523} no {object:176581} vermelho de lá. Um {npc:11876} (37) aparece: mate-o para pegar {item:13542}.",
 	["On the top floor"] = "No último andar",
 	-- {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal (no name in this language: may be words)
 	["{item:14523}, on the {object:176581}"] = "{item:14523}, no {object:176581}",
 
-	-- Step 36: Ethel Rethor
+	-- Step 34: Ethel Rethor
 	-- {npc:11863} Azore Aldamort
 	["Back west to {npc:11863}."] = "De volta ao oeste, até {npc:11863}.",
 
-	-- Step 37: The Book of the Ancients
+	-- Step 35: Rackmore's Log
+	-- {object:177787} Rackmore's Log · {npc:11863} Azore Aldamort
+	["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore: read it. Its two keys drop only while you have the quest."] = "{object:177787} fica no chão logo a sudoeste da torre de {npc:11863}, no caminho para a praia: leia-o. As duas chaves só caem enquanto você tiver a missão.",
+
+	-- Step 36: Clam beds
+	["Clam beds"] = "Leitos de mariscos",
+	-- {item:15874} Soft-shelled Clam · {item:15878} Rackmore's Silver Key
+	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam · Enraged Reef Crawlers = {npc:12347} Enraged Reef Crawler · Drysnap Crawlers = {npc:11562} Drysnap Crawler
+	["West to the shore. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach: each clam you open on the sea floor, and some crawlers, give a {item:15874}. Open each one in your bags for its meat.\nThe Drysnap Crawlers and Pincers on the same beach carry {item:15878}, about one in seven."] = "A oeste, até a praia. Mariscos de Casca Mole Gigantes ficam nas águas rasas e os Tiscorais Enfurecidos andam pela praia: cada marisco que você abrir no fundo do mar, e alguns tiscorais, dão {item:15874}. Abra cada um nas bolsas para pegar a carne.\nOs Rastejadores e as Pinças Estalasseca da mesma praia carregam {item:15878}, cerca de um em cada sete.",
+	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam
+	["Giant Softshell Clams, on the sea floor"] = "Mariscos de Casca Mole Gigantes, no fundo do mar",
+	-- {item:15874} Soft-shelled Clam
+	["{item:15874}: open it in your bags"] = "{item:15874}: abra nas bolsas",
+	["Underwater"] = "Debaixo d'água",
+	-- {item:15878} Rackmore's Silver Key
+	["{item:15878}, from the Drysnap crabs"] = "{item:15878}, dos caranguejos Secoestalo",
+
+	-- Step 37: Sar'theris Strand
+	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key
+	-- plural, as words: Slitherblade Myrmidons = {npc:4714} Slitherblade Myrmidon
+	["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time. Any Slitherblade can drop {item:15881}."] = "Continue ao norte até {area:598}. Os Mirmidões, Nagas e Feiticeiras Sibilâmina ocupam a praia; puxe-os um de cada vez. Qualquer Sibilâmina pode soltar {item:15881}.",
+	-- {item:15881} Rackmore's Golden Key
+	["{item:15881}, from the Slitherblade naga"] = "{item:15881}, das nagas Sibilâmina",
+
+	-- Step 38: The Book of the Ancients
 	-- {quest:6027} Book of the Ancients
 	["The {quest:6027}"] = "O {quest:6027}",
-	-- {area:2405} Ethel Rethor · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
-	["The Slitherblade naga hold the coast north of {area:2405}. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}. He is well above you: rest to full first."] = "As nagas Sibilâmina dominam a costa ao norte de {area:2405}. Nade até {area:2406}, no extremo norte, e use {item:15766} no {object:177673}: surge {npc:12369} (38); mate-o para pegar {quest:6027}. Ele está bem acima do seu nível: descanse até ficar com vida cheia antes.",
+	-- {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients · {object:177786} Rackmore's Chest
+	["Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}. He is well above you: rest to full first. {object:177786} stands on the shore beside the statue: open it with both keys."] = "Nade até {area:2406}, no extremo norte, e use {item:15766} no {object:177673}: surge {npc:12369} (38); mate-o para pegar {quest:6027}. Ele está bem acima do seu nível: descanse até ficar com vida cheia antes. {object:177786} fica na margem ao lado da estátua: abra-o com as duas chaves.",
 	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words)
 	["{item:15766}, on the {object:177673}"] = "{item:15766}, no {object:177673}",
 
-	-- Step 39: Sargeron
+	-- Step 39: Azore Aldamort
+	-- {npc:11863} Azore Aldamort
+	["Back south to {npc:11863}'s tower."] = "De volta ao sul, até a torre de {npc:11863}.",
+
+	-- Step 40: Sargeron
 	-- {area:599} Thunder Axe Fortress · {area:603} Sargeron · {npc:268705} Aka'rai
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue
 	["Head east past {area:599} and along the northern hills to the satyrs' ruins of {area:603}. Kill every kind you meet for {npc:268705}; the Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "Siga para leste, passando por {area:599} e pelas colinas do norte, até as ruínas dos sátiros de {area:603}. Mate todos os tipos que encontrar para {npc:268705}; os Assombrantes andam sem serem vistos.\nCuidado: os Errantes Furiódio usam Esconder ao surgir, então ficam furtivos até você encontrá-los.",
 	-- {npc:4671} Hatefury Trickster
 	["{npc:4671}, on the way south"] = "{npc:4671}, no caminho para o sul",
 
-	-- Step 40: Khan Dez'hepah
+	-- Step 41: Khan Dez'hepah
 	-- {area:609} Kolkar Village · {quest:1365} Khan Dez'hepah
 	-- plural, as words: Kolkar Battle Lords = {npc:4636} Kolkar Battle Lord
 	["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "Ao sul, até {area:609}. {quest:1365} (35) anda entre as tendas do lado leste com um ou dois Senhores de Batalha (32-33): limpe em volta dele, depois puxe-o sozinho, com vida cheia.\nCuidado: os Senhores de Batalha Kolkar chamam aliados num raio de 30 metros quando caem a 20% de vida.",
 
-	-- Step 41: Ghost Walker Post
+	-- Step 42: Ghost Walker Post
 	["South-west down the road to the post."] = "Desça a estrada para o sudoeste até o posto.",
 	-- {npc:5641} Takata Steelblade · {npc:5640} Keldran · {zone:1454} Orgrimmar
 	["{npc:5641}: for {npc:5640} in {zone:1454}, next guide"] = "{npc:5641}: para {npc:5640}, em {zone:1454}, no próximo guia",
@@ -235,7 +247,7 @@ return {
 	-- {zone:1443} Desolace
 	["for the second {zone:1443} visit, in forever/horde/30-40/04-dustwallow-marsh"] = "para a segunda visita a {zone:1443}, em forever/horde/30-40/04-dustwallow-marsh",
 
-	-- Step 42: Shadowprey Village
+	-- Step 43: Shadowprey Village
 	["West to Shadowprey: your hearthstone is bound there."] = "A oeste, até Pescassombra: sua Pedra de Regresso está vinculada lá.",
 	-- {npc:268705} Aka'rai
 	["{npc:268705}, on the path just north of the village"] = "{npc:268705}, na trilha logo ao norte da aldeia",
@@ -243,7 +255,12 @@ return {
 	["{npc:11624}'s Portals of the Legion and {zone:1443}'s other 38-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "Os Portais para a Legião de {npc:11624} e as outras missões de {zone:1443} dos níveis 38-40 ficam para a segunda visita, no nível 38: os próximos guias voam para {zone:1454} e pegam o zepelim para {zone:1434}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach: each clam you open on the sea floor, and some crawlers, give a {item:15874}. Open each one in your bags for its meat."] = "Siga para o norte pela costa. Mariscos de Casca Mole Gigantes ficam nas águas rasas e os Tiscorais Enfurecidos andam pela praia: cada marisco que você abrir no fundo do mar, e alguns tiscorais, dão {item:15874}. Abra cada um nas bolsas para pegar a carne.",
 	-- ["Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach; open each clam in your bags for its meat."] = "Suba a costa para o norte. Os Mariscos de Casca Mole Gigantes ficam na água rasa e os Tiscorais Enfurecidos andam pela praia; abra cada marisco nas bolsas para pegar a carne.",
+	-- ["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time."] = "Continue ao norte até {area:598}. Os Mirmidões, Nagas e Feiticeiras Sibilâmina ocupam a praia; puxe-os um de cada vez.",
+	-- ["The Slitherblade naga hold the coast north of {area:2405}. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}. He is well above you: rest to full first."] = "As nagas Sibilâmina dominam a costa ao norte de {area:2405}. Nade até {area:2406}, no extremo norte, e use {item:15766} no {object:177673}: surge {npc:12369} (38); mate-o para pegar {quest:6027}. Ele está bem acima do seu nível: descanse até ficar com vida cheia antes.",
 	-- ["The Slitherblade naga hold the coast north of {area:2405}; {npc:12369} guards the {quest:6027} at the far northern tip."] = "Os nagas Sibilâmina ocupam a costa ao norte de {area:2405}. {npc:12369} guarda o {quest:6027} na ponta extrema do norte.",
+	-- ["The zeppelin lands at the tower outside {zone:1454}'s main gate. {npc:5639} waits in the Drag; {npc:5640} stands in the {object:172961} on the west side of the city."] = "O zepelim pousa na torre fora do portão principal de {zone:1454}. {npc:5639} espera no Drag; {npc:5640} fica em {object:172961}, no lado oeste da cidade.",
+	-- ["{npc:11863} waits in the ruined tower of {area:2405}, inland to the east."] = "{npc:11863} espera na torre em ruínas de {area:2405}, para o interior, a leste.",
 	-- ["{zone:1443}'s quests are 33-38. Below 32.5? Keep killing the Sparkleshell Snappers near the silithid dig and the Saltstone Gazers south of it until level 32.5. Or, with a group, run the {area:796} dungeon (Graveyard or Library) instead."] = "As missões de {zone:1443} são de nível 33-38. Abaixo de 32.5? Continue matando as Tartaliscas Quelobrilho perto da escavação dos silitídeos e os Observadores Sal-gema ao sul dela até o nível 32.5. Ou, em grupo, faça a masmorra {area:796} (Cemitério ou Biblioteca).",
 }

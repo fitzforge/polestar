@@ -681,8 +681,8 @@ fn spawn_spots(data: &Data, sources: &[V], map: &V, f: &V, mut x: f64, mut y: f6
 }
 
 /// A hand-placed goal whose target spawns at several places: the author's point first, every other place
-/// an alternative. -> spots | Undef
-fn hand_spots(data: &Data, sources: &[V], map: &V, f: &V, x: f64, y: f64, near: f64) -> V {
+/// an alternative; with `alt_sources`, only the other places of those sources. -> spots | Undef
+fn hand_spots(data: &Data, sources: &[V], map: &V, f: &V, x: f64, y: f64, near: f64, alt_sources: Option<&[V]>) -> V {
 	if !data.map_size(map).truthy() {
 		return V::Undef;
 	}
@@ -701,8 +701,16 @@ fn hand_spots(data: &Data, sources: &[V], map: &V, f: &V, x: f64, y: f64, near: 
 		if d <= num(s, "r") + SPOT_MIN_RADIUS {
 			own_r = own_r.max((d + num(s, "r")).ceil());
 			own_n += num(s, "n");
-		} else {
+		} else if alt_sources.is_none() {
 			alts.push((obj! { "x" => s.get("x"), "y" => s.get("y"), "r" => s.get("r"), "n" => s.get("n"), "alt" => true }.into(), d));
+		}
+	}
+	if let Some(asp) = alt_sources.filter(|a| !a.is_empty()).and_then(|a| spawn_spots(data, a, map, f, x, y, &[])) {
+		for s in &asp.spots {
+			let d = distance(data, map, num(s, "x"), num(s, "y"), x, y);
+			if d > num(s, "r") + SPOT_MIN_RADIUS {
+				alts.push((obj! { "x" => s.get("x"), "y" => s.get("y"), "r" => s.get("r"), "n" => s.get("n"), "alt" => true }.into(), d));
+			}
 		}
 	}
 	alts.sort_by(|a, b| ord(jor(jor(a.1 - b.1, num(&a.0, "x") - num(&b.0, "x")), num(&a.0, "y") - num(&b.0, "y"))));
@@ -2028,6 +2036,9 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 					if q.truthy() && q.get("level").num() > 0.0 {
 						goal.set("qlvl", q.get("level").num());
 					}
+					if q.truthy() && q.get("limit").num() > 0.0 {
+						goal.set("limit", q.get("limit").num());
+					}
 					for (k, val) in accept_gate(&q, &goal.get("quest"), data).entries() {
 						goal.set(&k, val);
 					}
@@ -2788,16 +2799,26 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 		} else if explicit && !goal.get("x").is_undef() {
 			// No source with known odds (the data's droppers without a chance): the droppers that spawn at
 			// the author's point, with every place they spawn; not the other droppers, whose places the
-			// author chose against (the Savannah Lion Hide's Matriarchs by Ratchet, #273).
+			// author chose against (the Savannah Lion Hide's Matriarchs by Ratchet, #273). With known odds
+			// (the release data) the point's own spot stays as it was, and the alternatives are still only
+			// the other places of the droppers at the point.
 			let unknown_odds = area && !candidates.is_empty() && candidates.iter().all(|s| s.get("chance").is_num() && num(s, "chance") == 0.0);
 			let known: Vec<V> =
 				if area { candidates.iter().filter(|s| s.get("chance").is_undef() || num(s, "chance") > 0.0 || unknown_odds || gather_node(data, s)).cloned().collect() } else { vec![c.clone()] };
 			let all: Vec<(V, Vec<V>)> = known.iter().map(|k| (k.clone(), data.spawns(&k.get("kind").to_js_string(), &k.get("id")))).collect();
 			let gmap = goal.get("map");
 			let mut sources: Vec<V> = on_map(data, &all, &gmap, drop_sides, pass_rares, drop_level).0.into_iter().map(|o| o.0).collect();
-			if unknown_odds {
+			let mut alt_sources: Option<Vec<V>> = None;
+			if area {
 				let at_pin: FxHashSet<usize> = point_sources(data, &sources, &gmap, &goal.get("f"), goal.get("x").num(), goal.get("y").num(), SPREAD_YARDS).iter().map(ptr_key).collect();
-				sources.retain(|s| gather_node(data, s) || at_pin.contains(&ptr_key(s)));
+				if unknown_odds {
+					sources.retain(|s| gather_node(data, s) || at_pin.contains(&ptr_key(s)));
+				} else if !at_pin.is_empty() {
+					let pinned: Vec<V> = sources.iter().filter(|s| gather_node(data, s) || at_pin.contains(&ptr_key(s))).cloned().collect();
+					if pinned.len() < sources.len() {
+						alt_sources = Some(pinned);
+					}
+				}
 			}
 			let near = if !area {
 				SPAWN_CHECK_YARDS
@@ -2807,7 +2828,7 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				SPREAD_YARDS
 			};
 			let (gx, gy, gf) = (goal.get("x").num(), goal.get("y").num(), goal.get("f"));
-			set_if(&goal, "spots", hand_spots(data, &sources, &gmap, &gf, gx, gy, near));
+			set_if(&goal, "spots", hand_spots(data, &sources, &gmap, &gf, gx, gy, near, alt_sources.as_deref()));
 			if v == "kill" || v == "collect" {
 				spot_levels(data, &goal, &sources, &gmap, &gf);
 			}

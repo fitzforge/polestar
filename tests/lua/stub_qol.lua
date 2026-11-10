@@ -23,6 +23,7 @@
 --   q.addItem(bag, slot, itemID, count)        -- q.items[id] = { quality, price, classID, spell, noValue }
 --   q.combat(true|false)                        -- PLAYER_REGEN_DISABLED / ENABLED
 --   q.click(frame, down)                        -- OnClick + PostClick (button "LeftButton")
+--   q.mouseClick(frame[, mouse]), q.keyClick(frame) -- stub.mouseClick / stub.keyClick into q.ran
 --   q.gainXP(n)                                 -- UnitXP moves, PLAYER_XP_UPDATE (levels up past xpMax)
 --   q.xpBar(shown)                              -- the game's XP bar frames (StatusTrackingBarManager); returns the experience bar
 --   q.engine.levelTarget = N                    -- what Engine.LevelTarget answers above the player's level
@@ -98,6 +99,12 @@ function q.click(f, down)
 	stub.RunScript(f, "OnClick", "LeftButton", down)
 	stub.RunScript(f, "PostClick", "LeftButton", down)
 end
+
+-- The client's mouse click (stub.mouseClick, wow_stub.lua); q.ran lists what
+-- secure buttons ran.
+q.ran = {}
+function q.mouseClick(f, mouse) return stub.mouseClick(f, q.ran, mouse) end
+function q.keyClick(f) return stub.keyClick(f, q.ran) end
 
 ---------------------------------------------------------------------------
 -- Player, XP, death

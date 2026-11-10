@@ -36,7 +36,7 @@ return {
 	-- Step 7: Hermit Ortell
 	-- {area:3447} Ortell's Hideout
 	["Ride south-east to {area:3447} under the Un'Goro cliffs."] = "Езжайте на юго-восток сюда: {area:3447}, под скалами Ун'Горо.",
-	["Below ground"] = "",
+	["Below ground"] = "Под землей",
 	-- {item:20377} Rock Stalker Fang · {npc:11739} Rock Stalker
 	["{item:20377} from {npc:11739}, 130 yd south-west"] = "{item:20377} – с NPC {npc:11739}, в 130 м к юго-западу",
 
@@ -183,8 +183,8 @@ return {
 	["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "Теперь {npc:9619} просит шкуру ({npc:9622}) из северо-восточной пещеры: пропустите.",
 
 	-- Step 41: Gadgetzan
-	-- {area:976} Gadgetzan · {object:142071} Egg-O-Matic
-	["Fly to {area:976}. The {object:142071} stands in the middle of town."] = "Летите сюда: {area:976}. {object:142071} стоит в центре города.",
+	-- {area:976} Gadgetzan · {quest:2741} The Super Egg-O-Matic
+	["Fly to {area:976}. Still carrying {quest:2741}? The machine stands in the middle of town."] = "Летите сюда: {area:976}. Задание {quest:2741} еще при вас? Машина стоит в центре города.",
 
 	-- Step 42: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -238,7 +238,7 @@ return {
 	["Mark {npc:10902} with the {item:12815}"] = "Отметьте предметом {item:12815}: {npc:10902}",
 
 	-- Step 57: Chromie
-	["Upstairs"] = "",
+	["Upstairs"] = "Наверху",
 
 	-- Step 58: Counting Out Time
 	-- {npc:10667} Chromie
@@ -336,6 +336,7 @@ return {
 	-- ["Dredge Strikers, Stonelash Scorpids and Sand Skitterers share the sands just north of the hold."] = "Землечерпы, камнехвостые скорпиды и песчаные пауки-быстроноги бродят по пескам чуть к северу от крепости.",
 	-- ["Dredge and scorpids"] = "Землечерпы и скорпиды",
 	-- ["Fly to {area:1637} and train."] = "Летите сюда: {area:1637} и обучитесь.",
+	-- ["Fly to {area:976}. The {object:142071} stands in the middle of town."] = "Летите сюда: {area:976}. {object:142071} стоит в центре города.",
 	-- ["Mar'alith's Dearest Natalia needs level 58 and leads into {area:2744} among elites. Skip it."] = "Задание Мар'алита о Наталии требует 58-го уровня и ведет сюда: {area:2744}, к элите. Пропустите.",
 	-- ["North to the lumber camp; set the termite barrel down in the middle of the mill."] = "На север к лесопилке; поставьте бочку с термитами в центре лесопилки.",
 	-- ["Ride east across the plaguelands to the chapel."] = "Езжайте на восток через Чумные земли к часовне.",

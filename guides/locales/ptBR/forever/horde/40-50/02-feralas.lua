@@ -78,6 +78,10 @@ return {
 	["The road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "A estrada de {area:484} a {zone:1446} passa por {area:2240}, nas {area:439}: {npc:4454} fica no acampamento dos gnomos ao lado da trilha, {npc:4630} e {npc:4709} perto do acampamento dos goblins. {npc:4630} primeiro, depois {npc:4709}, que sai correndo para manter Rizzle ocupado; depois pegue os planos de Rizzle no acampamento dos gnomos e leve-os de volta a {npc:4630}.",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}: {quest:1137}, de Martek em {zone:1418}",
+	-- {npc:4630} Pozzik · {item:5852} Fuel Regulator Blueprints · {npc:2496} Baron Revilgaz
+	["{npc:4630}: the {item:5852} from {npc:2496}, if you carry them"] = "{npc:4630}: os {item:5852} de {npc:2496}, se estiver com eles",
+	-- {npc:4706} Razzeric · {npc:4630} Pozzik
+	["{npc:4706}, beside {npc:4630}"] = "{npc:4706}, ao lado de {npc:4630}",
 
 	-- Step 21: To Gadgetzan
 	-- {area:976} Gadgetzan
@@ -199,8 +203,12 @@ return {
 	["{area:1099} flight master"] = "Mestre de voo de {area:1099}",
 
 	-- Step 47: Orgrimmar
-	-- {zone:1454} Orgrimmar · {object:172958} Valley of Honor (no name in this language: may be words) · {object:172960} Cleft of Shadow (no name in this language: may be words) · {object:172961} Valley of Spirits (no name in this language: may be words)
-	["Fly to {zone:1454}. The Droffers brothers run their shop in the Drag.\n{object:172958}, then the {object:172960} and the {object:172961}."] = "Voe para {zone:1454}. Os irmãos Droffers têm a loja deles no Drag.\n{object:172958}, depois {object:172960} e {object:172961}.",
+	-- {zone:1454} Orgrimmar · {object:172960} Cleft of Shadow (no name in this language: may be words) · {object:172958} Valley of Honor (no name in this language: may be words)
+	["Fly to {zone:1454}. From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "Voe para {zone:1454}. A partir do mestre de voo: o {object:172960}, depois o Drag, depois o {object:172958}.",
+	-- {npc:7010} Zilzibin Drumlore
+	["{npc:7010}, the Drag"] = "{npc:7010}, no Drag",
+	-- {npc:6986} Dran Droffers
+	["{npc:6986}, the Drag"] = "{npc:6986}, no Drag",
 	-- {zone:1425} Hinterlands
 	["for the {zone:1425}, around level 48"] = "para {zone:1425}, por volta do nível 48",
 
@@ -210,6 +218,7 @@ return {
 	-- ["Fly to {area:484}, ride down the lift east of the post and across the salt flats, then south into {zone:1446}."] = "Voe para {area:484}, desça pelo elevador a leste do posto, atravesse as salinas e siga para o sul até {zone:1446}.",
 	-- ["Fly to {area:484}, then ride west through the canyons past {area:2237}; the road climbs into the {zone:1444} jungle and on to {area:1099}."] = "Voe para {area:484} e siga para o oeste pelos cânions, passando por {area:2237}; a estrada sobe para a selva de {zone:1444} e segue até {area:1099}.",
 	-- ["Fly to {area:75}"] = "Voe para {area:75}",
+	-- ["Fly to {zone:1454}. The Droffers brothers run their shop in the Drag.\n{object:172958}, then the {object:172960} and the {object:172961}."] = "Voe para {zone:1454}. Os irmãos Droffers têm a loja deles no Drag.\n{object:172958}, depois {object:172960} e {object:172961}.",
 	-- ["Galestriders: {npc:265756}, in {area:16638} on Zephras Isle."] = "Vagaventos: {npc:265756}, em {area:16638}, na Ilha de Zefras.",
 	-- ["Hearth to {area:1099}"] = "Regresse para {area:1099}",
 	-- ["Keep riding west to the coast. The Coast Crawl Deepseers and Snapclaws on the beaches drop OOX-22/FE's distress beacon about one kill in forty: if one drops, use it to start the quest."] = "Continue para o oeste até a costa. Os Olhabismos e Estalagarras da Areia nas praias deixam cair o sinalizador de socorro do OOX-22/FE em cerca de uma morte a cada quarenta: se cair, use-o para iniciar a missão.",

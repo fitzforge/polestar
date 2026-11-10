@@ -13,14 +13,14 @@ return {
 	["{zone:1453} flight master"] = "{zone:1453}飞行管理员",
 
 	-- Step 2: Red Jack Flint
-	-- {npc:4455} Red Jack Flint
-	["{npc:4455} stands on the dock just north of the flight master."] = "",
+	-- {npc:4455} Red Jack Flint · {area:2103} Menethil Keep
+	["{npc:4455} stands by {area:2103}'s door, just north of the flight master."] = "{npc:4455}站在{area:2103}门口，就在飞行管理员北边。",
 	-- {quest:1132} Fiora Longears
-	["For {quest:1132} on Theramore's docks, where this guide's boat lands"] = "",
+	["For {quest:1132} in Theramore's inn, where this guide's boat goes"] = "用于塞拉摩旅店的{quest:1132}，本指南的船会开往那里",
 
 	-- Step 3: Glorin Steelbrow
-	-- {npc:1217} Glorin Steelbrow
-	["{npc:1217} stands on the upper floor of Menethil's keep."] = "{npc:1217}站在米奈希尔城堡的上层。",
+	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {npc:4963} Mikhail · {npc:5082} Vincent Hyal
+	["{npc:1217} stands in the {area:2104}, south of the keep, where {npc:4963} and {npc:5082} wait too."] = "{npc:1217}站在城堡南边的{area:2104}里，{npc:4963}和{npc:5082}也在那里等候。",
 	["Inside"] = "在里面",
 
 	-- Step 4: Deepwater Tavern
@@ -48,7 +48,7 @@ return {
 	-- {npc:4964} Commander Samaul
 	["{npc:4964}, on the top floor"] = "{npc:4964}，位于最顶层",
 	-- {quest:1132} Fiora Longears
-	["{quest:1132}, on the docks"] = "",
+	["{quest:1132}, inside the inn in the north of town"] = "{quest:1132}，在镇子北部的旅店里",
 	-- {npc:4456} Fiora Longears · {area:415} Astranaar
 	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "",
 	-- {quest:1132} Fiora Longears · {zone:1441} Thousand Needles
@@ -75,6 +75,8 @@ return {
 	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "乘{area:485}下到{zone:1441}，再向西前往{area:482}的双足飞龙悬崖。那里所有双足飞龙都可能掉落毒囊。",
 
 	-- Step 14: Thousand Needles
+	-- {area:484} Freewind Post
+	["East through the canyons. {area:484}, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth."] = "向东穿过峡谷。{area:484}是一座有卫兵的部落营地，位于这里的台地上：沿着峡谷底部走，远离它升降梯的底部。",
 	-- {area:482} Highperch
 	["The canyons east of {area:482}"] = "",
 

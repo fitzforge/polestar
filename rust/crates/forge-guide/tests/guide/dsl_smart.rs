@@ -304,6 +304,18 @@ fn accept_goals_carry_the_quest_level_and_prerequisites_for_grey_quest_skipping(
 	assert!(unknown[0].get("qlvl").is_none() && unknown[0].get("pre").is_none());
 }
 
+// A timed quest's accept carries its time limit (quests.json `limit`, seconds): Dynamic Questing takes it early only
+// when the walk to it still fits. An untimed quest's carries none.
+#[test]
+fn an_accept_of_a_timed_quest_carries_its_time_limit() {
+	let data = data_with("limit", |raw| {
+		raw.get_mut("quests.json").unwrap()["9500"]["limit"] = json!(600);
+	});
+	let g = goals(&text(head(Some("Alliance"), &[]), &["step S", "  accept 9500", "  accept 783"]), Some(&data)).1;
+	assert_eq!(g[0].get("limit"), Some(&json!(600)), "{}", g[0]);
+	assert!(g[1].get("limit").is_none(), "{}", g[1]);
+}
+
 #[test]
 fn every_goal_of_a_quest_that_needs_a_profession_carries_it_a_leveling_guide_warns_on_its_non_optional_goals_unless_it_trains_the_profession_first() {
 	// Kobold Camp Cleanup (7) needs Mining 50, Wolves Across the Border (33) Mining with no level (rank 1).

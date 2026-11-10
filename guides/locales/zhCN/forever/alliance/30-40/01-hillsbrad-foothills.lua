@@ -15,8 +15,6 @@ return {
 	["South-east from Menethil to the Dragonmaw's {area:1036}: the first catapult stands on the way, and the {object:671518} lies in the camp."] = "从米奈希尔向东南前往龙喉的{area:1036}：第一辆投石车在途中，{object:671518}在营地内。",
 
 	-- Step 4: Angerfang Encampment
-	-- {quest:474} Defeat Nek'rosh
-	["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "后续任务{quest:474}需要挑战精英酋长，跳过即可。",
 	-- {object:671518} Tattered Spellbook (no name in this language: may be words) · {npc:2104} Captain Stoutfist
 	["{object:671518}: for {npc:2104}"] = "{object:671518}：交给{npc:2104}",
 
@@ -226,6 +224,10 @@ return {
 	["{npc:1356}, {npc:2916} and {npc:5637} stand in the {object:32356}, north-east of the flight master."] = "{npc:1356}、{npc:2916}和{npc:5637}位于飞行管理员东北侧的{object:32356}。",
 	["Level 30 and 32 spells"] = "30级和32级法术",
 
+	-- Step 50: Sara Balloo
+	-- {npc:2695} Sara Balloo · {zone:1455} Ironforge
+	["{npc:2695}: for King Magni, on the same {zone:1455} stop"] = "{npc:2695}：交给国王麦格尼·铜须，在同一次{zone:1455}行程中",
+
 	-- Step 52: King Magni Bronzebeard
 	-- {npc:2784} King Magni Bronzebeard · {object:171709} High Seat
 	["{npc:2784}, the {object:171709}"] = "{npc:2784}，{object:171709}",
@@ -294,6 +296,7 @@ return {
 	-- ["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one."] = "{npc:270892}就在勘察员维尔加营地的西边：在其中一个旁边使用他给你的{item:279996}。",
 	-- ["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp."] = "辛迪加营地在{area:287}北部、奥特兰克边境上，{area:272}（部落）西边；文件在营地里。",
 	-- ["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}."] = "碎鳍鱼人挤满了{area:271}西南方的{area:295}。",
+	-- ["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "后续任务{quest:474}需要挑战精英酋长，跳过即可。",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "雪人住在{area:271}北边山丘上的洞穴里，就在你向南返回的路上。",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "向西到{area:287}的农场：把{item:279386}放在市政厅的记账桌上，{npc:2335}和议员们站在那里。",
 	-- ["Whelps, raptors and {npc:271458}"] = "雏龙、迅猛龙和{npc:271458}",

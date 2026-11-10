@@ -75,7 +75,7 @@ return {
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats
 	["Follow the road from Elwynn into {zone:1436}: the Furlbrows sit by their burned farm, the first one on the road. Pick up oats from any {object:2724} you pass on the loop: the rest are gathered in the fields here on the way back."] = "沿着大路从艾尔文森林进入{zone:1436}：法布隆一家就在路边第一座被烧毁的农场旁。这一圈路上碰到的{object:2724}都捡上，剩下的回程时在这边的田里收集。",
 	-- {npc:237} Farmer Furlbrow · {npc:963} Deputy Rainer
-	["{npc:237}; Humans took it from {npc:963} in Elwynn"] = "{npc:237}；人类角色已在艾尔文森林从{npc:963}处接取此任务",
+	["{npc:237}: Humans may have it already from {npc:963} in Elwynn"] = "{npc:237}：人类角色可能已在艾尔文森林从{npc:963}处接取此任务",
 
 	-- Step 17: The Jansen Stead
 	-- {item:1972} Westfall Deed
@@ -112,53 +112,63 @@ return {
 	["{npc:279}, {object:2096}, by the gryphons"] = "{npc:279}，{object:2096}，在狮鹫旁",
 	-- {npc:1323} Osric Strang · {object:2156} Limited Immunity (no name in this language: may be words) · {object:2100} Old Town
 	["{npc:1323}, {object:2156} in {object:2100}"] = "{npc:1323}，有限无敌，在{object:2100}",
+
+	-- Step 22: Defensive Stance
+	-- {npc:5480} Ilsa Corbin · {object:2100} Old Town · {npc:1323} Osric Strang · {zone:1455} Ironforge · {object:28027} Dwarven District · {npc:6089} Harry Burlguard · {npc:6090} Bartleby · {object:2152} Pig and Whistle Tavern · {quest:1638} A Warrior's Training · {quest:1639} Bartleby the Drunk
+	["{npc:5480} trains warriors in {object:2100}, near {npc:1323}'s shop; the tram from {zone:1455} arrives in the {object:28027}, north of it. {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug. If {npc:5480} doesn't offer {quest:1638}, go straight to {npc:6089}: he gives {quest:1639} without it."] = "",
+
+	-- Step 23: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {zone:1436} Westfall
 	["{npc:1646}, {object:2098}: his compass is in his old house in {zone:1436}"] = "{npc:1646}，{object:2098}：他的罗盘在他{zone:1436}的老房子里",
+
+	-- Step 25: High Priestess Laurena
+	-- {npc:376} High Priestess Laurena · {object:2098} Cathedral Square · {npc:1646} Baros Alexston
+	["{npc:376} is in the Cathedral of Light, across {object:2098} from {npc:1646}."] = "",
+
+	-- Step 26: Dungar Longdrink
 	-- {npc:352} Dungar Longdrink
 	["{npc:352}, the gryphon master"] = "{npc:352}，狮鹫管理员",
 
-	-- Step 22: Sentinel Hill
+	-- Step 27: Sentinel Hill
 	-- {npc:234} Gryan Stoutmantle · {npc:821} Captain Danuvin · {npc:491} Quartermaster Lewis · {npc:878} Scout Galiaan · {npc:523} Thor
 	["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234}和{npc:821}站在石塔顶上。{npc:491}在塔内，{npc:878}在山丘南侧，旅店和狮鹫管理员{npc:523}旁边。",
-	-- {npc:234} Gryan Stoutmantle · {npc:963} Deputy Rainer
-	["{npc:234}: from {npc:963} at Westbrook"] = "{npc:234}：从西泉要塞的{npc:963}处接取",
 	-- {npc:491} Quartermaster Lewis · {zone:1453} Stormwind
 	["{npc:491}, inside: back from {zone:1453}"] = "{npc:491}，在里面：从{zone:1453}回来后找他",
 	-- {npc:253092} Alba Fairmoon · {npc:878} Scout Galiaan
 	["{npc:253092}, beside {npc:878}"] = "{npc:253092}，在{npc:878}旁边",
 
-	-- Step 24: Goretusk Livers as you go
+	-- Step 29: Goretusk Livers as you go
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
 	["Goretusk Livers as you go"] = "顺路收集{item:723}",
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
 	["Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers."] = "{npc:454}在这条路线的每一段游荡：顺路杀掉遇到的，收集馅饼用的肝脏。",
 
-	-- Step 25: Stringy Vulture Meat as you go
+	-- Step 30: Stringy Vulture Meat as you go
 	-- {item:729} Stringy Vulture Meat
 	["{item:729} as you go"] = "顺路收集{item:729}",
 	["Fleshrippers circle the fields along this loop: kill the ones you pass for the stew's meat."] = "碎尸鸟在这条路线的田野上空盘旋：顺路杀掉遇到的，收集炖肉用的肉。",
 	-- {item:729} Stringy Vulture Meat
 	["{item:729}: Fleshrippers"] = "{item:729}：碎尸鸟",
 
-	-- Step 26: Red Leather Bandanas as you go
+	-- Step 31: Red Leather Bandanas as you go
 	-- {quest:153} Red Leather Bandanas
 	["{quest:153} as you go"] = "顺路收集{quest:153}",
 	-- {item:829} Red Leather Bandana · {object:290} Furlbrow's Wardrobe
 	["Every Defias on this loop can drop a {item:829}: the Trappers and Smugglers, and the guards at {object:290}."] = "这条路线上的每个迪菲亚都可能掉落{item:829}：捕兽者和走私者，还有{object:290}处的守卫。",
 
-	-- Step 27: Defias Trappers and Smugglers
+	-- Step 32: Defias Trappers and Smugglers
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper
 	["Defias Trappers and Smugglers"] = "{npc:504}和迪菲亚走私者",
 	-- {area:108} Sentinel Hill · {area:918} Molsen Farm
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper
 	["North-west from {area:108} toward {area:918}: Defias Trappers and Smugglers camp in the fields between them."] = "从{area:108}向西北往{area:918}方向：{npc:504}和迪菲亚走私者在两地之间的田野扎营。",
 
-	-- Step 28: Molsen Farm's well
+	-- Step 33: Molsen Farm's well
 	-- {area:918} Molsen Farm
 	["{area:918}'s well"] = "{area:918}的井",
 	["Fill the vial at the farm's well"] = "在农场的井里装满药瓶",
 
-	-- Step 29: Molsen Farm's Harvest Watchers
+	-- Step 34: Molsen Farm's Harvest Watchers
 	-- {area:918} Molsen Farm
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
 	["{area:918}'s Harvest Watchers"] = "{area:918}的{npc:114}",
@@ -167,8 +177,10 @@ return {
 	["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "{npc:114}和麦田傀儡在{area:918}周围的田里干活；它们掉落同位弹簧、陀螺稳定器、{item:732}，有时还有{item:255155}。{npc:573}是20级稀有怪，在此巡逻：别惹它。",
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
 	["Harvest Watchers"] = "{npc:114}",
+	-- {item:814} Flask of Oil · {npc:392} Captain Grayson · {area:115} Westfall Lighthouse
+	["{item:814}: keep five for {npc:392} at the {area:115}, later on the route"] = "",
 
-	-- Step 30: The gnoll hills
+	-- Step 35: The gnoll hills
 	["The gnoll hills"] = "豺狼人山丘",
 	-- {area:111} Jangolode Mine · {area:916} The Jansen Stead
 	-- plural, as words: Riverpaw Gnolls = {npc:117} Riverpaw Gnoll
@@ -176,7 +188,7 @@ return {
 	-- plural, as words: Gnoll Paws = {item:725} Gnoll Paw
 	["Gnoll Paws"] = "{item:725}",
 
-	-- Step 31: The Longshore murlocs
+	-- Step 36: The Longshore murlocs
 	-- {area:2} Longshore
 	["The {area:2} murlocs"] = "{area:2}的鱼人",
 	-- {area:916} The Jansen Stead
@@ -185,49 +197,49 @@ return {
 	-- plural, as words: Longshore Murloc Gills = {item:254548} Longshore Murloc Gill
 	["Longshore Murloc Gills"] = "{item:254548}",
 
-	-- Step 32: Furlbrow's Wardrobe
+	-- Step 37: Furlbrow's Wardrobe
 	-- {object:290} Furlbrow's Wardrobe · {area:916} The Jansen Stead · {npc:502} Benny Blaanco
 	["{object:290} stands in the ruined house east of the mine, on the way to the {area:916}.\nCareful: Two Defias stand guard inside, one of them the level 15 named {npc:502}. They are linked, so attacking either one brings both."] = "{object:290}在矿洞东边的废墟房屋里，位于前往{area:916}的路上。\n小心：屋内有两个迪菲亚守卫，其中一个是15级的{npc:502}。它们是关联的，攻击任何一个都会引来两个。",
 	-- {object:290} Furlbrow's Wardrobe
 	["{object:290}; inside"] = "怀表就在屋里的{object:290}里",
 
-	-- Step 33: The Jansen Stead
+	-- Step 38: The Jansen Stead
 	["Sacks of Oats in the fields around the farm"] = "在农场周围收集一袋燕麦",
 	["Fill the vial at the well"] = "在井里装满药瓶",
 
-	-- Step 34: Finish the Goretusk Livers
+	-- Step 39: Finish the Goretusk Livers
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
 	["Finish the Goretusk Livers"] = "凑齐{item:723}",
 	-- {area:107} Saldean's Farm
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
 	["Still short of eight? Young Goretusks root in the fields just west of {area:107}."] = "还差八个？{npc:454}就在{area:107}西边的田野里拱土。",
 
-	-- Step 35: Finish the Stringy Vulture Meat
+	-- Step 40: Finish the Stringy Vulture Meat
 	-- {item:729} Stringy Vulture Meat
 	["Finish the {item:729}"] = "凑齐{item:729}",
 	-- {area:107} Saldean's Farm
 	-- plural, as words: Young Fleshrippers = {npc:199} Young Fleshripper
 	["Still short of three? Young Fleshrippers circle the fields north-west of {area:107}."] = "还差三个？{npc:199}在{area:107}西北边的田野上空盘旋。",
 
-	-- Step 37: Finish the Red Leather Bandanas
+	-- Step 42: Finish the Red Leather Bandanas
 	-- {quest:153} Red Leather Bandanas
 	["Finish the {quest:153}"] = "凑齐{quest:153}",
 	-- {area:108} Sentinel Hill
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper
 	["Still short of fifteen? Defias Trappers camp in the fields just west of {area:108}."] = "还差十五个？{npc:504}就在{area:108}西边的田野里扎营。",
 
-	-- Step 38: Sentinel Hill
+	-- Step 43: Sentinel Hill
 	-- {npc:266} Wiley the Black · {area:69} Lakeshire
 	["For {npc:266} in {area:69}, Redridge"] = "交给赤脊山{area:69}的{npc:266}",
 
-	-- Step 39: Jangolode Mine
+	-- Step 44: Jangolode Mine
 	-- {area:918} Molsen Farm
 	-- plural, as words: Kobold Diggers = {npc:1236} Kobold Digger
 	["Back north past {area:918} to the mine: Kobold Diggers work inside."] = "向北经过{area:918}回到矿洞：狗头人掘地工在矿洞内干活。",
 	-- plural, as words: Kobold Diggers = {npc:1236} Kobold Digger
 	["Kobold Diggers"] = "{npc:1236}",
 
-	-- Step 40: The Gold Coast Quarry
+	-- Step 45: The Gold Coast Quarry
 	-- {area:113} Gold Coast Quarry
 	["The {area:113}"] = "{area:113}",
 	-- {area:918} Molsen Farm
@@ -236,7 +248,7 @@ return {
 	-- plural, as words: Riverpaw Miners = {npc:1426} Riverpaw Miner
 	["Riverpaw Miners"] = "{npc:1426}",
 
-	-- Step 41: Moonbrook: kill these as you meet them
+	-- Step 46: Moonbrook: kill these as you meet them
 	-- {area:20} Moonbrook
 	["{area:20}: kill these as you meet them"] = "{area:20}：击杀以下目标，以完成任务",
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {object:1166} Alexston's Chest · {area:219} Alexston Farmstead · {npc:1646} Baros Alexston · {area:113} Gold Coast Quarry
@@ -245,15 +257,11 @@ return {
 	-- {item:2998} A Simple Compass · {object:1166} Alexston's Chest
 	["{item:2998}, from {object:1166}"] = "{item:2998}，来自{object:1166}",
 
-	-- Step 44: Defensive Stance
-	-- {zone:1436} Westfall · {zone:1453} Stormwind · {zone:1455} Ironforge · {object:28027} Dwarven District · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {npc:6089} Harry Burlguard · {npc:6090} Bartleby · {object:2152} Pig and Whistle Tavern · {quest:1638} A Warrior's Training · {quest:1639} Bartleby the Drunk
-	["From {zone:1436}, walk to {zone:1453}; the tram from {zone:1455} arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug. If {npc:5480} doesn't offer {quest:1638}, go straight to {npc:6089}: he gives {quest:1639} without it."] = "从{zone:1436}步行前往{zone:1453}；从{zone:1455}出发的地铁到达{object:28027}。{npc:5480}在{object:2100}训练战士；{npc:6089}和{npc:6090}一起站在那里的{object:2152}旁。{npc:6090}会为了他的杯子和你打一架。如果{npc:5480}没有提供{quest:1638}，直接去找{npc:6089}：不需要那个任务他也会给你{quest:1639}。",
-
-	-- Step 46: High Priestess Laurena
+	-- Step 49: High Priestess Laurena
 	-- {zone:1453} Stormwind · {npc:376} High Priestess Laurena
 	["Walk to {zone:1453}. {npc:376} is in the Cathedral of Light."] = "走去{zone:1453}。{npc:376}在光明大教堂。",
 
-	-- Step 48: The Tome of Divinity
+	-- Step 51: The Tome of Divinity
 	-- {npc:6171} Duthorian Rall · {npc:6173} Gazin Tenorm · {npc:6174} Stephanie Turner · {object:2096} Trade District · {item:2589} Linen Cloth
 	["{npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in the {object:2096} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "{npc:6171}和{npc:6173}在光明大教堂；{npc:6174}在{object:2096}，需要十块{item:2589}（人形怪掉落；拍卖行也有卖）。",
 	-- {item:6775} Tome of Divinity
@@ -261,60 +269,62 @@ return {
 	-- {npc:6172} Henze Faulk · {area:86} Stone Cairn Lake
 	["{npc:6172}, by {area:86} in Elwynn, on the road to Redridge"] = "{npc:6172}，在艾尔文森林的{area:86}旁，通往赤脊山的路上",
 
-	-- Step 49: Stormwind
+	-- Step 52: Stormwind
 	-- {zone:1453} Stormwind · {object:28027} Dwarven District
 	["{zone:1453}'s {object:28027}"] = "{zone:1453}的{object:28027}",
 
-	-- Step 50: Tram to Ironforge
+	-- Step 53: Tram to Ironforge
 	-- {zone:1455} Ironforge
 	["Tram to {zone:1455}"] = "乘地铁去{zone:1455}",
 
-	-- Step 51: Shaman training
+	-- Step 54: Shaman training
 	["Shaman training"] = "萨满祭司训练",
 	-- {zone:1453} Stormwind · {area:2257} Deeprun Tram · {object:28027} Dwarven District · {zone:1455} Ironforge · {npc:258098} Eldrun Stormbreaker
 	["Head to {zone:1453}. It has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back for the boat."] = "前往{zone:1453}。那里没有萨满祭司训练师：从{object:28027}乘{area:2257}前往{zone:1455}，在{npc:258098}处学习技能，然后乘地铁返回坐船。",
 
-	-- Step 52: Stormwind
+	-- Step 55: Stormwind
 	-- {area:1519} Stormwind · {object:2100} Old Town · {object:2101} Mage Quarter · {object:28027} Dwarven District
 	["Walk to {area:1519}, or fly if you know its flight path. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the {object:28027} (Hunters), the Park (Druids)."] = "走去{area:1519}，开了飞行点的话也可以飞过去。训练师：{object:2100}（战士、潜行者），大教堂（圣骑士、牧师），{object:2101}（法师、术士），{object:28027}（猎人），公园（德鲁伊）。",
 	["In through the main gate (already done if you are in the city)"] = "从正门进城（已经在城里的话，这一步就算完成了）",
 	["Level 12, 14 and 16 spells"] = "12、14和16级法术",
 
-	-- Step 53: Back to Stormwind
+	-- Step 56: Back to Stormwind
 	-- {zone:1453} Stormwind
 	["Back to {zone:1453}"] = "返回{zone:1453}",
 	-- {zone:1453} Stormwind · {object:28027} Dwarven District
 	["Ride the tram back: it comes out in {zone:1453}'s {object:28027}, where the errands below start."] = "乘地铁返回：出口在{zone:1453}的{object:28027}，接下来的任务从那里开始。",
 
-	-- Step 54: Stormwind
+	-- Step 57: Stormwind
 	-- {item:2449} Earthroot · {zone:1439} Darkshore · {npc:1313} Maria Lumere
 	["{item:2449} for Gathering the Cure (6123) in {zone:1439}: {npc:1313}, Alchemy Supplies; herbalists pick it there instead"] = "为{zone:1439}的任务“收集解药”（6123）准备{item:2449}：在{npc:1313}的炼金用品店购买；草药师可在那里采集",
+	-- {npc:1416} Grimand Elmore · {npc:1343} Mountaineer Stormpike · {zone:1432} Loch Modan
+	["{npc:1416}: his package for {npc:1343} in {zone:1432}, later on the route"] = "{npc:1416}：他要交给{zone:1432}的{npc:1343}的包裹，路线稍后会经过",
 	-- {npc:7232} Borgus Steelhand · {object:28027} Dwarven District · {area:442} Auberdine
 	["{npc:7232}, {object:28027}: for his brother in {area:442}"] = "{npc:7232}，{object:28027}：为了他在{area:442}的兄弟",
 	-- {npc:5497} Jennea Cannon · {quest:1861} Mirror Lake
 	["{npc:5497}, Wizard's Sanctum: {quest:1861}"] = "{npc:5497}，法师圣殿：{quest:1861}",
 
-	-- Step 56: Woo Ping
+	-- Step 59: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "顺便：找{npc:11867}学习{spell:202}（{object:2096}，10银币）；双手武器能让战士升级最快。",
 
-	-- Step 57: Woo Ping
+	-- Step 60: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "顺便：在{npc:11867}处学习{spell:202}（{object:2096}，10银币）；圣骑士用双手武器升级最快。",
 
-	-- Step 58: Woo Ping
+	-- Step 61: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "顺路找{npc:11867}学法杖（{object:2096}，10银）。猎人的近战武器主要看属性，双手武器属性最高。",
 
-	-- Step 59: Woo Ping
+	-- Step 62: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "顺路找{npc:11867}学剑类武器（{object:2096}，10银），主手拿剑，潜行者升级更稳。",
 
-	-- Step 60: Woo Ping
+	-- Step 63: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "顺路找{npc:11867}学法杖（{object:2096}，10银），升级时法杖带的法术属性比单手武器高。",
 
-	-- Step 62: Fishin' Time
+	-- Step 65: Fishin' Time
 	-- {npc:5494} Catherine Leland · {object:2096} Trade District · {npc:267118} Gilbert Gray
 	["{npc:5494} sells fishing supplies along the canal just west of the {object:2096}; {npc:267118} fishes at the harbor, on the way to the boat."] = "{npc:5494}在{object:2096}西边的运河旁出售钓鱼用品；{npc:267118}在港口钓鱼，就在去坐船的路上。",
 	-- {item:6529} Shiny Bauble · {npc:5494} Catherine Leland
@@ -346,6 +356,7 @@ return {
 	-- ["Follow the road west to Goldshire, on the way to {zone:1436}: {npc:240} stands outside the inn."] = "沿路向西回闪金镇，去{zone:1436}的路上正好经过：{npc:240}站在旅店外。",
 	-- ["For {npc:11026} in {zone:1453}'s {object:28027}"] = "交给{zone:1453}{object:28027}的{npc:11026}",
 	-- ["From {area:40}, walk to {zone:1453}; the tram from {zone:1455} arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug. If {npc:5480} doesn't offer {quest:1638}, go straight to {npc:6089}: he gives {quest:1639} without it."] = "从{area:40}步行前往{zone:1453}；从{zone:1455}来的地铁抵达{object:28027}。{npc:5480}在{object:2100}训练战士；{npc:6089}和{npc:6090}一起站在那里的{object:2152}旁。{npc:6090}会为了他的杯子和你打一架。如果{npc:5480}没有提供{quest:1638}，直接去找{npc:6089}：没有该任务他也会给你{quest:1639}。",
+	-- ["From {zone:1436}, walk to {zone:1453}; the tram from {zone:1455} arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug. If {npc:5480} doesn't offer {quest:1638}, go straight to {npc:6089}: he gives {quest:1639} without it."] = "从{zone:1436}步行前往{zone:1453}；从{zone:1455}出发的地铁到达{object:28027}。{npc:5480}在{object:2100}训练战士；{npc:6089}和{npc:6090}一起站在那里的{object:2152}旁。{npc:6090}会为了他的杯子和你打一架。如果{npc:5480}没有提供{quest:1638}，直接去找{npc:6089}：不需要那个任务他也会给你{quest:1639}。",
 	-- ["Furlbrow's Pumpkin Farm: kill these as you meet them"] = "法布隆农场：下面这些，遇到了就顺手杀",
 	-- ["Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go and fill the vial at the stead's well."] = "沿道路继续向北。法布隆夫妇坐在被烧毁的农场旁。沿途从田里的一袋燕麦收集燕麦，并在农场的井里装满药瓶。",
 	-- ["Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go."] = "沿道路继续向北。法布隆夫妇坐在被烧毁的农场旁。沿途从田里的一袋燕麦收集燕麦。",
@@ -384,6 +395,8 @@ return {
 	-- ["{area:918}: kill these as you meet them"] = "{area:918}：下面这些，遇到了就顺手杀",
 	-- ["{item:254676}, from the crates around {area:20}"] = "{item:254676}，来自{area:20}周围的箱子",
 	-- ["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} and {npc:253092} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234}和{npc:821}站在石塔顶上。{npc:491}在塔内，{npc:878}和{npc:253092}在山丘南侧，旅店和狮鹫管理员{npc:523}旁边。",
+	-- ["{npc:234}: from {npc:963} at Westbrook"] = "{npc:234}：从西泉要塞的{npc:963}处接取",
+	-- ["{npc:237}; Humans took it from {npc:963} in Elwynn"] = "{npc:237}；人类角色已在艾尔文森林从{npc:963}处接取此任务",
 	-- ["{npc:240}: for {npc:234} at {object:81}"] = "{npc:240}：交给哨兵岭的{npc:234}",
 	-- ["{npc:476} walks around Jasperlode Mine: look inside the circle on the map"] = "{npc:476}在詹戈洛德矿洞里四处走动：看地图上圆圈里面",
 	-- ["{npc:523}; skip the free flight it offers"] = "{npc:523}；不要乘坐它提供的免费飞行",

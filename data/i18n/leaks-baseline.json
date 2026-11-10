@@ -36879,6 +36879,13 @@
 				],
 				"english": "Seeking Remnant"
 			},
+			"npc:253370": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "[DNT] Kill Credit: Place Explosives"
+			},
 			"npc:259620": {
 				"reason": "no-source",
 				"scenes": [
@@ -37238,6 +37245,14 @@
 				],
 				"english": "Mowgh"
 			},
+			"npc:210107": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Kackle"
+			},
 			"npc:210995": {
 				"reason": "no-source",
 				"scenes": [
@@ -37539,6 +37554,13 @@
 				],
 				"english": "Fillion Flamebreeze"
 			},
+			"npc:253370": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "[DNT] Kill Credit: Place Explosives"
+			},
 			"npc:253576": {
 				"reason": "no-source",
 				"scenes": [
@@ -37700,13 +37722,6 @@
 					"guides"
 				],
 				"english": "Hervdana Saegrund"
-			},
-			"npc:258930": {
-				"reason": "no-source",
-				"scenes": [
-					"guide"
-				],
-				"english": "Isaac Chan"
 			},
 			"npc:259013": {
 				"reason": "no-source",

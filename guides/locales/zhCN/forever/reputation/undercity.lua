@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Undercity Reputation"] = "幽暗城声望",
 	-- {item:14047} Runecloth
-	["Tirisfal quests while you level, the Plaguelands quests from 55, then {item:14047} to Exalted."] = "",
+	["Tirisfal quests while you level, the Plaguelands quests from 55, then {item:14047} to Exalted."] = "升级时做提瑞斯法林地的任务，55级起做瘟疫之地的任务，然后上交{item:14047}直到崇拜。",
 	-- {faction:68} Undercity
 	["Exalted with the {faction:68}"] = "{faction:68}崇拜",
 

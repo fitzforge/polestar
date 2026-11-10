@@ -183,8 +183,8 @@ return {
 	["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "{npc:9619} demande maintenant la peau d'{npc:9622}, dans la grotte du nord-est : passez-la.",
 
 	-- Step 41: Gadgetzan
-	-- {area:976} Gadgetzan · {object:142071} Egg-O-Matic
-	["Fly to {area:976}. The {object:142071} stands in the middle of town."] = "Volez jusqu'à {area:976}. L'{object:142071} se dresse au milieu de la ville.",
+	-- {area:976} Gadgetzan · {quest:2741} The Super Egg-O-Matic
+	["Fly to {area:976}. Still carrying {quest:2741}? The machine stands in the middle of town."] = "Volez jusqu'à {area:976}. Vous avez toujours {quest:2741} ? La machine se dresse au milieu de la ville.",
 
 	-- Step 42: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -341,6 +341,7 @@ return {
 	-- ["Dredge and scorpids"] = "Térébrants et scorpides",
 	-- ["Fly to {area:1637} and train."] = "Volez jusqu'à {area:1637} et entraînez-vous.",
 	-- ["Fly to {area:541}"] = "Prendre un vol pour {area:541}",
+	-- ["Fly to {area:976}. The {object:142071} stands in the middle of town."] = "Volez jusqu'à {area:976}. L'{object:142071} se dresse au milieu de la ville.",
 	-- ["Fly to {zone:1454}"] = "Prendre un vol pour {zone:1454}",
 	-- ["If you skipped {quest:6135}, grind here to level 59.14 to stay on the route's plan."] = "Si vous avez passé {quest:6135}, tuez des monstres ici jusqu'au niveau 59.14 pour rester dans le plan du parcours.",
 	-- ["Mar'alith's Dearest Natalia needs level 58 and leads into {area:2744} among elites. Skip it."] = "Chère Natalia, la quête de Mar'alith, demande le niveau 58 et mène dans la {area:2744}, parmi des élites. Passez-la.",

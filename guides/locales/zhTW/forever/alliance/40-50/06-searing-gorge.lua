@@ -8,7 +8,7 @@
 return {
 	-- Step 1: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "前往{area:2101}",
 
 	-- Step 2: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
@@ -36,8 +36,8 @@ return {
 	-- Step 7: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
 	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "",
-	-- {npc:8256} Curator Thorius · {area:1537} Ironforge
-	["For {npc:8256} in {area:1537}, later"] = "之後給{area:1537}的{npc:8256}",
+	-- {npc:8256} Curator Thorius · {zone:1455} Ironforge
+	["For {npc:8256} in {zone:1455}, at the end of this guide"] = "在本指南的最後，交給{zone:1455}的{npc:8256}",
 
 	-- Step 8: Thorium Point
 	-- {area:1446} Thorium Point
@@ -96,28 +96,64 @@ return {
 	-- {npc:5860} Twilight Dark Shaman
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 29: Level 48.98
+	-- Step 29: The Torch of Retribution
+	-- {npc:8479} Velarok Windblade
+	["Listen to {npc:8479}'s story once more."] = "再聽一次{npc:8479}的故事。",
+
+	-- Step 30: Velarok Windblade
+	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
+	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "{quest:3453}就放在{npc:8479}腳邊的地上；{quest:3462}站在他旁邊。",
+	-- {quest:3462} Squire Maltrake · {area:1446} Thorium Point
+	["{quest:3462}: hand it in on the way back to {area:1446}"] = "{quest:3462}：在返回{area:1446}的路上交付",
+
+	-- Step 31: Sentry Braziers
+	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
+	["Sentry Braziers"] = "哨兵火盆",
+	-- {object:149047} Torch of Retribution
+	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
+	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "帶著{object:149047}沿大熔爐邊緣向南走，從西南方繞到東南方，點燃四座哨兵火盆。",
+
+	-- Step 32: Level 48.98
 	["Level 48.98"] = "",
 	-- {quest:3452} The Flame's Casing · {area:2100} Maraudon · {area:978} Zul'Farrak
 	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
 	-- {npc:5844} Dark Iron Slaver
 	["grind on {npc:5844}"] = "",
 
-	-- Step 30: Margol's Horn
+	-- Step 33: Margol's Horn
 	-- {quest:3181} The Horn of the Beast
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:3181} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "地下",
 
-	-- Step 33: Fly to Ironforge
+	-- Step 35: Squire Maltrake
+	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade · {area:1446} Thorium Point
+	["{npc:8509} and the dragonflight's hoard are beside {npc:8479}, on the rim south of {area:1446}."] = "{npc:8509}和龍群的寶藏就在{npc:8479}旁邊，位於{area:1446}南邊的邊緣上。",
+	-- {object:149502} Hoard of the Black Dragonflight · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous · {zone:1428} Burning Steppes
+	["The {object:149502} it gives holds a {item:10575}: keep it for {npc:9459} in the {zone:1428}"] = "它給你的{object:149502}裡有一個{item:10575}：留著它，之後交給{zone:1428}的{npc:9459}",
+
+	-- Step 37: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "飛往{area:1537}",
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "",
 
-	-- Step 34: Class trainer
-	["Class trainer"] = "",
+	-- Step 38: Hall of Explorers
+	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
+	["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}：軟泥怪在{zone:1448}，留著它",
+
+	-- Step 39: Mystic Ward
+	-- {zone:1447} Azshara
+	["Four rune rubbings in {zone:1447}: keep it"] = "{zone:1447}的四份符文拓印：留著它",
+
+	-- Step 40: Class trainer
+	["Class trainer"] = "職業訓練師",
+
+	-- Step 41: Xiggs Fuselighter
+	-- {object:32359} Military Ward
+	["Xiggs waits in the {object:32359}."] = "希克斯在{object:32359}等你。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["For {npc:8256} in {area:1537}, later"] = "之後給{area:1537}的{npc:8256}",
 	-- ["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}. {area:1446} is the scaffolded camp on the north-west rim."] = "從{area:144}向南騎進{zone:1418}，然後向西經過部落城鎮{area:340}（離它遠一點），再沿小徑上到{zone:1427}。{area:1446}是西北邊緣搭著鷹架的營地。",
 	-- ["Greater Lava Spiders"] = "巨型熔岩蜘蛛",
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "重型作戰傀儡在卡拉然下方的大熔爐底部巡邏；熔岩元素在牠們之間飄蕩。傀儡和元素會掉落油，元素會掉落核心。",

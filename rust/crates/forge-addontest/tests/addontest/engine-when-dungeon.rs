@@ -127,3 +127,42 @@ fn a_dungeon_the_compiler_found_no_map_id_for_is_never_chosen_dungeon_never_hold
 	);
 	assert_eq!(out[0], json!(["chosen=current", "other=na", "!other=current", "no map=na", "!no map=current"]));
 }
+
+// Options lists only the dungeons the character's guides have steps for (Engine.GuideDungeons, 0.3.6 plan:
+// "Options page lists only dungeons with steps"): Ragefire Chasm from a guide whose steps are read, The
+// Deadmines from a compiled guide whose steps are still source (not read for this), never a `!dungeon`
+// step's Wailing Caverns nor a Horde guide's Gnomeregan for this Human.
+#[test]
+fn guide_dungeons_are_the_maps_of_this_characters_guides_when_dungeon_steps_read_from_compiled_source_too() {
+	let guides = r#"
+Polestar.RegisterGuide({ id = "test/read", pack = "test", title = "Read", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
+	{ title = "Run", when = { { k = "dungeon", name = "Ragefire Chasm", map = 389 } }, goals = { { t = "note", text = "in" } } },
+	{ title = "Solo", when = { { k = "dungeon", neg = true, name = "Wailing Caverns", map = 43 } }, goals = { { t = "note", text = "out" } } },
+} })
+Polestar.RegisterGuide({ id = "test/deferred", pack = "test", title = "Deferred", faction = "Alliance", minLevel = 1, maxLevel = 20, stepCount = 2,
+	stepsSrc = 'return {\n{ title = "Run", when = { { k = "dungeon", name = "The Deadmines", map = 36 } }, goals = { { t = "note", text = "in" } } },\n{ title = "Solo", when = { { k = "dungeon", neg = true, name = "Wailing Caverns", map = 43 } }, goals = { { t = "note", text = "out" } } },\n}' })
+Polestar.RegisterGuide({ id = "test/horde", pack = "test", title = "Horde", faction = "Horde", minLevel = 1, maxLevel = 20, steps = {
+	{ title = "Run", when = { { k = "dungeon", name = "Gnomeregan", map = 90 } }, goals = { { t = "note", text = "in" } } },
+} })
+"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.into(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		script: [
+			TEST_PACK,
+			guides,
+			"stub.login()",
+			r#"
+local maps = {}
+for m in pairs(Polestar.Engine.GuideDungeons()) do maps[#maps + 1] = m end
+table.sort(maps)
+emit({ maps = maps, read = rawget(Polestar.Guides.Get("test/deferred"), "steps") ~= nil })"#,
+		]
+		.join("\n"),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["maps"], json!([36, 389]));
+	assert_eq!(out["read"], false, "the compiled guide's steps are not read for the list");
+}

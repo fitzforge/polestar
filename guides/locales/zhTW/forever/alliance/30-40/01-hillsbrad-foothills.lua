@@ -15,8 +15,6 @@ return {
 	["South-east from Menethil to the Dragonmaw's {area:1036}: the first catapult stands on the way, and the {object:671518} lies in the camp."] = "",
 
 	-- Step 4: Angerfang Encampment
-	-- {quest:474} Defeat Nek'rosh
-	["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "下一步「{quest:474}」要你對抗一名精英酋長：跳過它。",
 	-- {object:671518} Tattered Spellbook (no name in this language: may be words) · {npc:2104} Captain Stoutfist
 	["{object:671518}: for {npc:2104}"] = "{object:671518}：給{npc:2104}",
 
@@ -105,7 +103,7 @@ return {
 	["{quest:98246}: the eggs"] = "",
 
 	-- Step 23: Prospector Whelgar
-	["Below ground"] = "",
+	["Below ground"] = "地下",
 	-- {npc:2916} Historian Karnik · {zone:1455} Ironforge
 	["For {npc:2916} in {zone:1455}, at the end of this guide"] = "給{zone:1455}的{npc:2916}，在本指南結尾",
 
@@ -217,7 +215,7 @@ return {
 
 	-- Step 47: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "飛往{area:1537}",
 	-- {area:271} Southshore
 	["{area:271} flight master"] = "",
 
@@ -225,6 +223,10 @@ return {
 	-- {npc:1356} Prospector Stormpike · {npc:2916} Historian Karnik · {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers
 	["{npc:1356}, {npc:2916} and {npc:5637} stand in the {object:32356}, north-east of the flight master."] = "",
 	["Level 30 and 32 spells"] = "30級和32級法術",
+
+	-- Step 50: Sara Balloo
+	-- {npc:2695} Sara Balloo · {zone:1455} Ironforge
+	["{npc:2695}: for King Magni, on the same {zone:1455} stop"] = "{npc:2695}：給國王麥格尼·銅鬚，在同一趟{zone:1455}行程中",
 
 	-- Step 52: King Magni Bronzebeard
 	-- {npc:2784} King Magni Bronzebeard · {object:171709} High Seat
@@ -285,6 +287,7 @@ return {
 	-- ["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one."] = "{npc:270892}就站在維爾加營地西邊：在其中一個旁邊使用他給你的{item:279996}。",
 	-- ["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp."] = "辛迪加營地位於{area:287}北部的奧特蘭克邊界，在{area:272}（部落）西邊；文件就在營地裡。",
 	-- ["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}."] = "碎鰭魚人聚集在{area:271}西南方的{area:295}。",
+	-- ["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "下一步「{quest:474}」要你對抗一名精英酋長：跳過它。",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "雪人住在{area:271}北邊山丘的洞穴裡，就在你往南回去的路上。",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "向西前往{area:287}的農場：把{item:279386}放在市政廳裡的帳簿桌上，{npc:2335}和議員們就站在那裡。",
 	-- ["Whelps, raptors and {npc:271458}"] = "雛龍、迅猛龍與{npc:271458}",

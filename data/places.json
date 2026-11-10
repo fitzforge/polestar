@@ -46,6 +46,52 @@
 			"issue": 610
 		},
 		{
+			"id": "gh036-wetlands-nordel",
+			"quest": 98208,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1437,
+				"x": 12.2,
+				"y": 63.8,
+				"frame": "era"
+			},
+			"note": "Bloom of the Heavens: Nord'el lies on the shore just south of Menethil Harbor. The item comes from a ground object (questie-forever: object 670962) that our data has no spawn for, so the point is the players' recorded pick-up spot.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "objective 98208.1 ticks, 10 people, all at 12.1-12.3,63.6-63.9 on map 1437 (2026-11-09 archive)"
+				},
+				{
+					"kind": "questie",
+					"ref": "items.json 279915: dropped by object 670962"
+				}
+			]
+		},
+		{
+			"id": "gh036-ashenvale-kurothels-knapsack",
+			"quest": 98417,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1440,
+				"x": 81.7,
+				"y": 49.2,
+				"frame": "era"
+			},
+			"note": "Vengeful Trail: the Vine-Wrapped Scroll comes from Kurothel's Knapsack by Satyrnaar's Circle of Imprisonment (the quest: 'amongst the Satyrnaar demons'). Its ground object has no spawn in our data, so the point is the recorded pick-up; check in game that it stays there.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "objective 98417.1 tick, 1 person, at 81.69,49.2 on map 1440 (2026-11-09 archive)"
+				},
+				{
+					"kind": "questie",
+					"ref": "items.json 281014: dropped by object 673431; quests.json 98417 objective text (Satyrnaar)"
+				}
+			]
+		},
+		{
 			"id": "646-azshara-rimtori-camp",
 			"quest": 3505,
 			"objective": 3,
@@ -1614,6 +1660,349 @@
 				"kind": "pfquest",
 				"ref": "npcs.json 684 spawns on map 1434 (spawn at 41.3,34.76)"
 			}
+		},
+		{
+			"id": "1149-stv-skullsplitter-tusks",
+			"quest": 209,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1434,
+				"x": 45.4,
+				"y": 36.2,
+				"frame": "era"
+			},
+			"note": "Skullsplitter Tusks (209): every Skullsplitter troll drops the tusks (about one kill in five), and the Horde step works their warriors' camp north of the Zul'Mamwe ruins (the warriors, axe throwers and mystics spawn at 42-49,30-42, 24 places each). The data also has the lone Skullsplitter Panther at 45.6,41.6 dropping it at 100%, which put the arrow on that one panther, 230 yd south of the camp the step leads to; the point stays on the trolls' camp.",
+			"source": {
+				"kind": "questie",
+				"ref": "npcs.json 667, 696, 780 spawns on map 1434; items.json 1524 drops (trolls 21%, 756 Skullsplitter Panther 100%, one spawn)"
+			},
+			"issue": 1149
+		},
+		{
+			"id": "missing-diplomat-1265-tervosh-sentry-point",
+			"quest": 1265,
+			"objective": "ender",
+			"faction": "Alliance",
+			"at": {
+				"map": 1445,
+				"x": 59.7,
+				"y": 41.2,
+				"frame": "era"
+			},
+			"note": "The Missing Diplomat (1265): Archmage Tervosh takes it at the foot of Sentry Point's tower, where the quest's exploration ticks (59.9,40.9), not in Theramore's tower (66.4,49.3), the only spot the data has. Players' recordings: 4 of 4 people handed it in to him there, 3-10 s after the exploration ticked; nobody handed it in in Theramore. Forever's NPC page lists him at 59.6,41.2, at North Point Tower (45.2,24.4) and in Theramore. The guide hands it in on the spot.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 1265 at npc 4967, 1445 59.69-59.71,41.17-41.22: 20261107T230704Z-0508863063f76280, 20261108T160150Z-de3dc8531bec2328, 20261109T021334Z-c8c643866e0796f3, 20261109T192734Z-4f169629ddd9bab0"
+				}
+			]
+		},
+		{
+			"id": "missing-diplomat-1266-tervosh-sentry-point",
+			"quest": 1266,
+			"objective": "giver",
+			"faction": "Alliance",
+			"at": {
+				"map": 1445,
+				"x": 59.7,
+				"y": 41.2,
+				"frame": "era"
+			},
+			"note": "The Missing Diplomat (1266): taken from Archmage Tervosh at Sentry Point right after 1265 is handed in to him there (4 of 4 people in players' recordings), not in Theramore.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "accept 1266 at npc 4967, 1445 59.69-59.71,41.17-41.22, the same 4 sessions as 1265's hand-in"
+				}
+			]
+		},
+		{
+			"id": "missing-diplomat-1324-tervosh-north-point",
+			"quest": 1324,
+			"objective": "ender",
+			"faction": "Alliance",
+			"at": {
+				"map": 1445,
+				"x": 45.2,
+				"y": 24.4,
+				"frame": "era"
+			},
+			"note": "The Missing Diplomat (1324): Archmage Tervosh and Lady Jaina Proudmoore stand beside North Point Tower, where Private Hendel yields; 3 of 3 people in players' recordings handed 1324 in to Tervosh there (45.19-45.22,24.37-24.38) seconds after Hendel yielded, and nobody in Theramore's tower, the only spot the data has. Forever's NPC pages list both at North Point Tower as well as in Theramore. The guide hands it in on the spot.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 1324 at npc 4967: 20261108T160150Z-de3dc8531bec2328, 20261109T021334Z-c8c643866e0796f3, 20261109T192734Z-4f169629ddd9bab0; Tervosh and Jaina also moused over at 45.2,24.4 before Hendel's fight in 3 sessions"
+				}
+			]
+		},
+		{
+			"id": "missing-diplomat-1267-jaina-north-point-giver",
+			"quest": 1267,
+			"objective": "giver",
+			"faction": "Alliance",
+			"at": {
+				"map": 1445,
+				"x": 45.2,
+				"y": 24.3,
+				"frame": "era"
+			},
+			"note": "The Missing Diplomat (1267): Lady Jaina Proudmoore gives and takes it beside North Point Tower right after 1324 (3 of 3 people in players' recordings, 2-6 s after 1324), not in Theramore's tower.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 1267 at npc 4968, 1445 45.21-45.24,24.30-24.31: 20261108T160150Z-de3dc8531bec2328, 20261109T021334Z-c8c643866e0796f3, 20261109T192734Z-4f169629ddd9bab0"
+				}
+			]
+		},
+		{
+			"id": "missing-diplomat-1267-jaina-north-point-ender",
+			"quest": 1267,
+			"objective": "ender",
+			"faction": "Alliance",
+			"at": {
+				"map": 1445,
+				"x": 45.2,
+				"y": 24.3,
+				"frame": "era"
+			},
+			"note": "The Missing Diplomat (1267): handed in to Lady Jaina Proudmoore beside North Point Tower (3 of 3 people in players' recordings), see the giver record.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 1267 at npc 4968, the same 3 sessions"
+				}
+			]
+		},
+		{
+			"id": "loch-modan-kadrell-414-ender",
+			"quest": 414,
+			"objective": "ender",
+			"faction": "Alliance",
+			"at": {
+				"map": 1432,
+				"x": 33.8,
+				"y": 48.3,
+				"frame": "era"
+			},
+			"note": "Stout to Kadrell (414): Mountaineer Kadrell walks the road through Thelsamar (his spawn 34.17,47.84, a 97 yd walk). The point stands within 15 yd of his spawn so the compiler draws his walk, and within 50 yd of the data's point (32.63,49.74, the south end of the road, where few players met him); players handed it in along the road, median about 34.3,47.8 (14 people).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 414 at npc 1340: 14 people, 32.6-36.8,42.1-49.9"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature spawn and waypoint walk of entry 1340 (data/forever/moves.json)"
+				}
+			]
+		},
+		{
+			"id": "loch-modan-kadrell-416-giver",
+			"quest": 416,
+			"objective": "giver",
+			"faction": "Alliance",
+			"at": {
+				"map": 1432,
+				"x": 33.8,
+				"y": 48.3,
+				"frame": "era"
+			},
+			"note": "Rat Catching (416): Mountaineer Kadrell walks the road through Thelsamar; see loch-modan-kadrell-414-ender (17 people took it along the road).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "accept 416 at npc 1340: 17 people along the road"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "entry 1340's walk (moves.json)"
+				}
+			]
+		},
+		{
+			"id": "loch-modan-kadrell-416-ender",
+			"quest": 416,
+			"objective": "ender",
+			"faction": "Alliance",
+			"at": {
+				"map": 1432,
+				"x": 33.8,
+				"y": 48.3,
+				"frame": "era"
+			},
+			"note": "Rat Catching (416): handed in to Mountaineer Kadrell on his walk through Thelsamar (14 people); see loch-modan-kadrell-414-ender.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 416 at npc 1340: 14 people along the road"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "entry 1340's walk (moves.json)"
+				}
+			]
+		},
+		{
+			"id": "loch-modan-kadrell-1339-giver",
+			"quest": 1339,
+			"objective": "giver",
+			"faction": "Alliance",
+			"at": {
+				"map": 1432,
+				"x": 33.8,
+				"y": 48.3,
+				"frame": "era"
+			},
+			"note": "Mountaineer Stormpike's Task (1339): taken from Mountaineer Kadrell on his walk through Thelsamar (16 people); see loch-modan-kadrell-414-ender.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "accept 1339 at npc 1340: 16 people along the road"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "entry 1340's walk (moves.json)"
+				}
+			]
+		},
+		{
+			"id": "arathi-forsaken-courier-road",
+			"quest": 658,
+			"objective": 1,
+			"faction": "Alliance",
+			"path": {
+				"map": 1417,
+				"frame": "era",
+				"points": [
+					[
+						61.3,
+						59.4
+					],
+					[
+						57.8,
+						62.5
+					],
+					[
+						52.5,
+						61.5
+					],
+					[
+						45.4,
+						58.6
+					],
+					[
+						40.3,
+						54.8
+					],
+					[
+						35.6,
+						52.5
+					],
+					[
+						32.0,
+						51.9
+					],
+					[
+						27.8,
+						49.3
+					],
+					[
+						24.4,
+						44.7
+					]
+				]
+			},
+			"note": "Hints of a New Plague? (658): the Forsaken Courier (2714) who carries the Sealed Folder walks the road from Go'Shek Farm west across the Highlands and back with two guards. The data has one spawn (52.47,61.53) and the step pointed there; players met him anywhere along the road. The arrow searches the road from the farm, where the route comes from (Quae), west to the far end of his walk. Points from where players met him.",
+			"source": [
+				{
+					"kind": "cmangos",
+					"ref": "creature 2714's waypoint walk, 1,426 yd around world -831.7,-1889.4 (data/forever/moves.json); Forever TDB guid 20014772 MovementType 2"
+				},
+				{
+					"kind": "recording",
+					"ref": "npc 2714 met by 10 people at 61.3,59.4, 57.8,62.5, 56.5,63.0, 45.4,58.6, 43.5,51.8, 40.3,54.8, 39.7,54.6, 35.6,52.5, 32.0,51.9, 27.8,49.3, 25.2,46.4 and 23.6,43.0; the folder looted at 61.4,61.0 and 60.5,59.0"
+				}
+			]
+		},
+		{
+			"id": "badlands-boss-thogrun-loop",
+			"quest": 732,
+			"objective": 1,
+			"faction": "Alliance",
+			"path": {
+				"map": 1418,
+				"frame": "era",
+				"points": [
+					[
+						38.8,
+						56.1
+					],
+					[
+						31.5,
+						58.7
+					],
+					[
+						24.7,
+						56.7
+					],
+					[
+						18.2,
+						60.8
+					],
+					[
+						12.5,
+						67.5
+					],
+					[
+						12.7,
+						75.5
+					],
+					[
+						20.1,
+						78.5
+					],
+					[
+						30.2,
+						73.5
+					],
+					[
+						41.6,
+						72.2
+					],
+					[
+						51.2,
+						73.4
+					],
+					[
+						61.4,
+						69.3
+					],
+					[
+						54.0,
+						58.6
+					],
+					[
+						48.8,
+						48.7
+					]
+				]
+			},
+			"note": "Tremors of the Earth (732): Boss Tho'grun (2944), who drops the Sign of the Earth, walks a long loop around the Badlands with his guards: from Camp Boff (his spawn, 12.6,75.5, the only point the data has) east along the south of the zone to about 61,69, north to about 49,49 and back west. The step said he stands in the camp. The arrow searches his loop from the Valley of Fangs (where the route comes from Rigglefuzz) west to the camp and round, in his own walking direction. Points are nodes of his waypoint path.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature guid 20007209 (entry 2944) MovementType 2, waypoint_path 800072090: 102 nodes from 12.7,75.5 to 61.4,69.3 and 48.8,48.7 (Badlands, Era frame)"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature 2944's waypoint walk, 642 yd around world -6944,-2988 (data/forever/moves.json)"
+				},
+				{
+					"kind": "factoruide",
+					"ref": "npc 2944: 574 sighting rows spread over the Badlands"
+				}
+			]
 		}
 	]
 }

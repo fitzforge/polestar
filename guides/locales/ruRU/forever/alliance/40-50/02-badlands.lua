@@ -14,8 +14,8 @@ return {
 	["{npc:2817}'s next quest pays no experience: skip it."] = "{npc:2817}: следующее задание не дает опыта, пропустите его.",
 
 	-- Step 3: Boss Tho'grun
-	-- {zone:1418} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
-	["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Езжайте на запад через зону {zone:1418} к лагерю клана Гнилобрюхов ({area:342}). {npc:2944} стоит в его центре, вокруг – охотники на драконов и изверги.",
+	-- {npc:2944} Boss Tho'grun · {area:342} Camp Boff · {zone:1418} Badlands
+	["{npc:2944} does not stay at {area:342}: he walks a long loop around the {zone:1418} with his guards, from the camp in the west along the south of the zone to about 61,69, north to about 49,49 and back west to the camp. The arrow follows his loop west from here until you meet him."] = "{npc:2944} не стоит на месте ({area:342}): он со своими стражами обходит зону {zone:1418} по длинному кругу – от лагеря на западе вдоль юга зоны примерно до 61,69, затем на север примерно до 49,49 и обратно на запад к лагерю. Стрелка ведет по его маршруту на запад отсюда, пока вы его не встретите.",
 
 	-- Step 4: Garek
 	-- {area:1898} Dustwind Gulch
@@ -87,7 +87,7 @@ return {
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "",
 	-- {npc:7744} Innkeeper Thulfram
-	["{npc:7744}: the last guide binds here, so this usually ticks at once; below ground"] = "",
+	["{npc:7744}; below ground"] = "{npc:7744}; под землей",
 
 	-- Step 19: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
@@ -146,6 +146,7 @@ return {
 	-- ["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. Falstad holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Из места {area:271} езжайте по дороге на северо-восток в зону {zone:1425}; {area:348} – сразу за границей. Фалстад принимает наверху, у птичника – {quest:1450}, у таверны стоит {npc:7884}.",
 	-- ["Ride south out of {zone:1432} through the pass into the {zone:1418}; {npc:2860} camps at the dig."] = "Езжайте на юг из зоны {zone:1432} через перевал в зону {zone:1418}; {npc:2860} стоит лагерем у раскопок.",
 	-- ["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Езжайте на запад через зону {area:3} к лагерю клана Гнилобрюхов ({area:342}). {npc:2944} стоит в его центре, вокруг – охотники на драконов и изверги.",
+	-- ["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Езжайте на запад через зону {zone:1418} к лагерю клана Гнилобрюхов ({area:342}). {npc:2944} стоит в его центре, вокруг – охотники на драконов и изверги.",
 	-- ["Ride west to the {area:1877} in the middle of the {zone:1418}; {npc:2817} camps beside Martek."] = "Езжайте на запад. Цель: {area:1877}, в центре зоны {zone:1418}; {npc:2817} стоит лагерем рядом с Мартеком.",
 	-- ["Take the boat to Theramore from the far pier."] = "Сядьте на корабль до острова Терамор у дальнего причала.",
 	-- ["Talonaxe's next task waits for a later {area:47} guide."] = "Следующее задание Разящего Когтя подождет до более позднего гайда по {area:47}.",

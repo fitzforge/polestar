@@ -128,6 +128,12 @@ step Executor Arren
   accept 383
   accept 96656
 
+step Dark Cleric Duesten
+  only Priest
+  tip Dark Cleric Duesten, the priest trainer in the church, sends you to Dark Cleric Beryl in Brill. Train Lesser Heal (Rank 2) from him now: the wounded guard Beryl sends you to needs it.
+  train class
+  accept 5651                         -- Dark Cleric Duesten: for Dark Cleric Beryl in Brill
+
 # ---------------------------------------------------------------- To Brill
 
 # Out of Deathknell the road passes Calvin Montague, Deathguard Simmer, the
@@ -174,12 +180,22 @@ step Dry Branches
   collect 279991 quest 86784.1 @56.5,53.5
 
 step Eleanor Shackleton
-  tip Eleanor camps just south-west of town.
+  tip Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in Brill, at Linnea's camp, or in the Undercity in the next guide.
   turnin 96656
   accept 96607
   complete 96607 @57.2,55.5           -- /sit by her campfire until you get Boosted Rest
   turnin 96607
   accept 96658
+  accept 97955 optional               -- Eleanor: for Nurse Neela
+  accept 97953 optional               -- Eleanor: for Vance Undergloom
+  accept 97957 optional               -- Eleanor: for Faruza
+  accept 97951 optional               -- Eleanor: for Carolai Anise
+  accept 97960 optional               -- Eleanor: for Rand Rhobart
+  accept 97958 optional               -- Eleanor: for Shelene Rhobart
+  accept 97961 optional               -- Eleanor: for Bowen Brisboise
+  accept 97959 optional               -- Eleanor: for Brom Killian
+  accept 97952 optional               -- Eleanor: for Basil Frye
+  accept 97954 optional               -- Eleanor: for Graham Van Talen
   turnin 86784
 
 step Brill
@@ -194,6 +210,8 @@ step Brill
   accept 99141
   accept 398                          -- The Wanted poster by the inn
   accept 358                          -- Magistrate Sevren, in the town hall
+  turnin 97957 optional               -- Faruza, beside Johaan: Camping 101: Herbalism
+  turnin 97951 optional               -- Carolai Anise, beside Johaan: Camping 101: Alchemy
 
 step Carolai Anise
   when level>=7
@@ -216,6 +234,10 @@ step Gallows' End Tavern
   turnin 96658
   turnin 407                          -- The Captured Scarlet Zealot, in the inn's cellar
   train class                         -- The Brill trainers are in the inn (Austil de Mon downstairs, the rest upstairs); Shari Stilwell, the Paladin trainer, by the square
+  turnin 5651 only Priest             -- Dark Cleric Beryl, upstairs
+  accept 5650 only Priest
+  turnin 97955 optional               -- Nurse Neela, by the bar: Camping 101: First Aid
+  turnin 97953 optional               -- Vance Undergloom: Camping 101: Enchanting
 
 step Coleman Farthing and Gretchen Dedmar
   when level>=7
@@ -229,6 +251,8 @@ step Deathguard Linnea's camp
   collect 286201 quest 99141.2 npc 251001 @65.2,60.3 -- Ask Deathguard Kristof for his report
   accept 97558                        -- Shelene Rhobart
   accept 356                          -- Deathguard Linnea
+  turnin 97960 optional               -- Rand Rhobart, beside Shelene: Camping 101: Skinning
+  turnin 97958 optional               -- Shelene Rhobart: Camping 101: Leatherworking
 
 # ---------------------------------------------------------------- West loop
 
@@ -242,6 +266,7 @@ step Cold Hearth Manor: kill these as you meet them
   collect 2855 quest 404.1
   collect 2858 quest 367.1
   collect 278243 quest 97558.2
+  turnin 97961 optional               -- Bowen Brisboise, by the road west of Brill: Camping 101: Tailoring
 
 step Gordo
   tip Gordo walks the long road west of Brill, past Cold Hearth Manor, and back: the arrow follows his road west until you meet him.
@@ -288,6 +313,11 @@ step Brill
 
 # ---------------------------------------------------------------- North loop
 
+step Deathguard Kel
+  only Priest
+  tip Deathguard Kel kneels by the north gate of Brill's graveyard, on your way north. Cast Lesser Heal (Rank 2) on him, then Power Word: Fortitude: Fortitude first does not count.
+  kill 12428 quest 5650.1 "Heal and fortify Deathguard Kel" @59.2,46.5
+
 step Tirisfal Glades: kill these as you meet them
   zone Tirisfal Glades
   tip Greater Duskbats fly over the fields around Brill and along the road north: Gretchen wants their pelts, Shelene their wings.
@@ -317,6 +347,7 @@ step Brill
   accept 359
   buy 2320 npc 2118                   -- Coarse Thread from Abigail Shiel, for Gretchen
   turnin 375                          -- Gretchen Dedmar, upstairs
+  turnin 5650 only Priest             -- Dark Cleric Beryl, upstairs: the Acolyte's Sacrificial Robes
   train class
 
 step Deathguard Terrence

@@ -67,7 +67,7 @@ step Chillwind Camp
 
 step The Andorhal watchtowers
   tip Use the Beacon Torch at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp.
-  use 12815 @40.0,71.6 map 1422
+  use 12815 quest 5097.1 @40.0,71.6 map 1422
   kill 10902 quest 5097.1 "Mark Andorhal Tower One with the Beacon Torch"
   kill 10903 quest 5097.2 "Mark Andorhal Tower Two with the Beacon Torch"
 
@@ -267,7 +267,7 @@ step Tirion Fordring
   accept 5742
 
 step Redemption
-  kill 1855 quest 5742.1 @5.2,35.6 map 1423 live
+  talk 1855 quest 5742.1 @5.2,35.6 map 1423 live
 
 step Tirion Fordring
   zone Eastern Plaguelands
@@ -330,11 +330,6 @@ step The Temple Gardens
   collect 5646 quest 4441.1 @39.2,85.6 map 1457 -- Vial of Blessed Water
 
 # ---------------------------------------------------------------- Darnassus
-
-step Darnassus
-  zone Darnassus
-  tip The portal in Rut'theran Village leads up to Darnassus.
-  turnin 3764                         -- Jenal, in the Cenarion Enclave
 
 # Fandral and Mathrengyl stand upstairs in the druids' building, and the walking maps have no way up
 # inside it: the arrow led onto a ledge outside, behind the wall (#1338). Before each of them, a goto
@@ -407,16 +402,20 @@ step Zorbin Fandazzle
   turnin 7726
 
 step Gregan Brewspewer
-  tip Gregan's camp lies north of the Twin Colossals. He sells the Videre Elixir once he has his bait.
+  tip Gregan's camp lies north of the Twin Colossals. He brews the Videre Elixir from an Evoroot: take his errand for one.
   turnin 4142
-  collect 11243 quest 3909.1          -- Videre Elixir
+  accept 4041
 
 step Rockbiter
   tip The giant Rockbiter sits just north-west of Gregan's camp.
   accept 2844
 
+step Evoroot
+  tip The Evoroot grows inside a ruined building north of Rockbiter: climb in through the break in its wall from the ledge beside it.
+  collect 11242 quest 4041.1 @44.5,10.2 map 1444 -- Evoroot
+
 step Shay Leafrunner
-  tip Ride north into the Ravenwind Ruins: Shay hides in the small round building at the back. Open the chest beside her for Shay's Bell: it lasts 15 minutes, like the quest.
+  tip Ride west into the Ravenwind Ruins: Shay hides in the small round building at the back. Open the chest beside her for Shay's Bell: it lasts 15 minutes, like the quest.
   turnin 2844
   accept 2845
   collect 9189 quest 2845.1           -- Shay's Bell
@@ -425,6 +424,11 @@ step Wandering Shay
   tip Lead Shay back to Rockbiter at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them.
   complete 2845 @42.3,21.9
   turnin 2845                         -- Rockbiter
+
+step Gregan Brewspewer
+  tip Back to Gregan's camp, just south-east of Rockbiter: the Evoroot buys three Videre Elixirs. Keep them: Donova takes one, and Gaeriyan in Gadgetzan shows himself only to someone who has drunk one.
+  turnin 4041
+  collect 11243 quest 3909.1          -- Videre Elixir
 
 step Feralas
   zone Feralas
@@ -487,14 +491,14 @@ step Gadgetzan
   zone Tanaris
   turnin 4493                         -- Alchemist Pestlezugg, inside
   accept 4496
-  use 12928 @51.1,26.9 "Umi's Mechanical Yeti" -- On Sprinkle
-  kill 7583 quest 5163.2 @51.1,26.9 map 1446 -- Sprinkle
+  use 12928 "Umi's Mechanical Yeti" quest 5163.2 @51.1,26.9 -- On Sprinkle
+  kill 7583 quest 5163.2 @51.1,26.9 map 1446 "Scare Sprinkle with Umi's Mechanical Yeti" -- Sprinkle
   turnin 5538                         -- Krinkle Goodsteel
   accept 5801                         -- For Chillwind Camp: keep it
   accept 4504                         -- Tran'rek, north side of town: the tar is in Un'Goro, keep it
 
 step Gaeriyan
-  tip Gaeriyan waits at the graveyard just east of town; the gravestone stands nearby.
+  tip Gaeriyan is a ghost at the graveyard just east of town: drink a Videre Elixir there, which kills you, release your spirit and talk to him as a ghost. Then run back to your body to come back to life: the gravestone stands nearby.
   turnin 3912
   accept 3913
   turnin 3913                         -- A Conspicuous Gravestone
@@ -519,7 +523,7 @@ step Fly to Marshal's Refuge
 
 step Linken
   zone Un'Goro Crater
-  tip Fly from Gadgetzan to Marshal's Refuge. Linken's hut stands at the Lakkari Tar Pits, west of the refuge; J.D. Collie is up the hill behind it.
+  tip Fly from Gadgetzan to Marshal's Refuge. Linken stands at the back of the refuge; J.D. Collie is in the cave behind him.
   turnin 3914
   accept 3941
   turnin 3941                         -- J.D. Collie, below ground
@@ -552,7 +556,6 @@ step Cenarion Hold
   getfp "Cenarion Hold"
   accept 9415                         -- Rifleman Torrig, at the Alliance tents
   accept 8277                         -- Beetix Ficklespragg
-  sethome "Cenarion Hold"
   accept 8280                         -- Windcaller Proudhorn
   accept 8284                         -- Geologist Larksbane
 
@@ -597,7 +600,7 @@ step Layo Starstrike
   accept 1126
 
 step The Hive'Ashi tower
-  tip Ride east to the Hive'Ashi tower in Southwind Village; climb it and kill the ambushers that rise for the encrusted object.
+  tip Ride back south-west to the Hive'Ashi tower in Southwind Village; climb it and kill the ambushers that rise for the encrusted object.
   collect 17346 quest 1126.1          -- Encrusted Silithid Object
 
 step Layo Starstrike
@@ -630,8 +633,22 @@ step Krakle
 step Northern Pylon
   kill 9166 quest 4501                -- Pterrordax
 
+step Ironstone Plateau: kill these as you meet them
+  when onquest 4289
+  zone Un'Goro Crater
+  tip The gorillas live on Ironstone Plateau, just east of the pylon: take the pelts for Torwa Pathfinder now, while you are up here. Stay out of the deepest cave: U'cha is level 55.
+  tip Careful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds.
+  collect 11478 quest 4289            -- Un'Goro Gorilla Pelt; below ground
+  collect 11479 quest 4289            -- Un'Goro Stomper Pelt; below ground
+  collect 11480 quest 4289            -- Un'Goro Thunderer Pelt; below ground
+
 step Marshal's Refuge
   turnin 4501                         -- Spraggle Frock
+
+step Lakkari Tar Pits: kill these as you meet them
+  zone Un'Goro Crater
+  tip The Tar Beasts and Tar Lords wallow in the Lakkari Tar Pits, south of the refuge on the way down into the crater.
+  collect 11834 quest 4504.1          -- Super Sticky Tar
 
 step The crater
   tip Tar Beasts wallow in the Lakkari Tar Pits; the fire elementals of Fire Plume Ridge in the middle carry the ash; the Gorishi wasps of the Slithering Scar in the south carry the gland. Every creature in the crater can drop Un'Goro Soil.
@@ -645,18 +662,24 @@ step Torwa Pathfinder
   accept 4292
   accept 4289                         -- The pelts come from the gorillas on Ironstone Plateau
 
+step Torwa Pathfinder
+  when complete 4289
+  turnin 4289
+  accept 4301
+
 # ---------------------------------------------------------------- East side
 
-step Lakkari Tar Pits: kill these as you meet them
+step Ironstone Plateau: kill these as you meet them
+  when onquest 4289
   zone Un'Goro Crater
   tip The gorillas live on Ironstone Plateau, east of Marshal's Refuge. Keep their pelts for Torwa Pathfinder. Stay out of the deepest cave: U'cha is level 55.
   tip Careful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds.
-  collect 11834 quest 4504.1          -- Super Sticky Tar
   collect 11478 quest 4289            -- Un'Goro Gorilla Pelt; below ground
   collect 11479 quest 4289            -- Un'Goro Stomper Pelt; below ground
   collect 11480 quest 4289            -- Un'Goro Thunderer Pelt; below ground
 
 step Torwa Pathfinder
+  when onquest 4289
   turnin 4289
   accept 4301
 
@@ -669,6 +692,7 @@ step Lar'korwi
   collect 11510 quest 4292.1
 
 step Torwa Pathfinder
+  when onquest 4301,4292
   tip Cross the south of the crater to Torwa by the ramp.
   turnin 4301
   turnin 4292

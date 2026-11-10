@@ -43,7 +43,7 @@ return {
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "{area:1638}(으)로 날아가기",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",
 
 	-- Step 11: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
@@ -78,6 +78,10 @@ return {
 	["The road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
+	-- {npc:4630} Pozzik · {item:5852} Fuel Regulator Blueprints · {npc:2496} Baron Revilgaz
+	["{npc:4630}: the {item:5852} from {npc:2496}, if you carry them"] = "{npc:4630}: 가지고 있다면 {npc:2496}에게서 받은 {item:5852}",
+	-- {npc:4706} Razzeric · {npc:4630} Pozzik
+	["{npc:4706}, beside {npc:4630}"] = "{npc:4630} 옆의 {npc:4706}",
 
 	-- Step 21: To Gadgetzan
 	-- {area:976} Gadgetzan
@@ -109,7 +113,7 @@ return {
 	["{area:1336}: kill these as you meet them"] = "",
 	-- {npc:7883} Andre Firebeard
 	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "",
-	["Upstairs"] = "",
+	["Upstairs"] = "위층",
 
 	-- Step 27: Waterspring Field: kill these as you meet them
 	-- {area:985} Waterspring Field
@@ -199,8 +203,12 @@ return {
 	["{area:1099} flight master"] = "",
 
 	-- Step 47: Orgrimmar
-	-- {zone:1454} Orgrimmar · {object:172958} Valley of Honor · {object:172960} Cleft of Shadow · {object:172961} Valley of Spirits
-	["Fly to {zone:1454}. The Droffers brothers run their shop in the Drag.\n{object:172958}, then the {object:172960} and the {object:172961}."] = "",
+	-- {zone:1454} Orgrimmar · {object:172960} Cleft of Shadow · {object:172958} Valley of Honor
+	["Fly to {zone:1454}. From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "{zone:1454}(으)로 날아가세요. 비행 조련사에서부터: {object:172960}, 그다음 골목길, 그다음 {object:172958}.",
+	-- {npc:7010} Zilzibin Drumlore
+	["{npc:7010}, the Drag"] = "{npc:7010}, 골목길",
+	-- {npc:6986} Dran Droffers
+	["{npc:6986}, the Drag"] = "골목길의 {npc:6986}",
 	-- {zone:1425} Hinterlands
 	["for the {zone:1425}, around level 48"] = "48레벨쯤 {zone:1425}에서",
 

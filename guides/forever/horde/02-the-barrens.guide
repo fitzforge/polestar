@@ -9,7 +9,11 @@ next forever/horde/05-stonetalon-mountains
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Letter to Jin'Zil (1060), Sample for Helbrim (1358, from Zinge in the Undercity).
+# Added here: Letter to Jin'Zil (1060), Sample for Helbrim (1358, from Zinge in the Undercity),
+# Protect Kaya (6523, Kaya waits in Grundig Darkcloud's hut at the bend of the Webwinder Path, which
+# the route walks past twice; her escort ends at Camp Aparaje on the way back down to Malaka'jin) and
+# Kaya's Alive (6401, from Makaba with the escort's hand-in; Tammra Windfield takes it at Sun Rock in
+# forever/horde/04-the-barrens).
 # Left out: The Harvester (897).
 # Trial at the Field of Giants (1824, Warriors) runs for 30 minutes: it is taken from Ruga on Jorn's stop after the thunder
 # lizards, right before the thunderhawks, the eggs and the antennae, not on the first Camp Taurajo stop.
@@ -27,7 +31,7 @@ next forever/horde/05-stonetalon-mountains
 # Flow: Orgrimmar -> Far Watch Post (Orcs and Trolls: Kargal, Uzzek) -> the Crossroads (flight
 # path, bind) -> the Razormane camp -> the Crossroads -> Ratchet (Southsea beach) -> the oases and
 # Regthar -> the Dry Hills -> the Sludge Fen console -> the Razormane camp -> the Crossroads ->
-# the Stagnant and Lushwater oases -> the Dry Hills -> Echeyakee -> the Crossroads -> Ratchet
+# the Stagnant Oasis -> the Dry Hills -> Echeyakee -> the Crossroads -> Ratchet
 # (Samophlange handed in): the Raptor Grounds' nests and the silver -> Gazlowe's Stolen Booty on
 # the beach -> Northwatch Hold and Gilthares' escort back to Ratchet -> fly to the Crossroads ->
 # the Dry Hills (Vrang, Walton) -> Wenikee -> the Sludge Fen shredder
@@ -36,7 +40,8 @@ next forever/horde/05-stonetalon-mountains
 # Crossroads, Regthar,
 # Hezrul -> Camp Taurajo (bind): Jorn's thunder lizards and thunderhawks -> the Crossroads:
 # Counterattack! -> west to Seereth, Makaba and Malaka'jin -> the Webwinder Path, Ziz Fizziks and
-# Windshear Crag -> back down to Seereth. The next guide goes north to the Mor'shan Rampart and
+# Windshear Crag -> back down: Kaya's escort from Grundig's hut to Camp Aparaje -> Malaka'jin ->
+# Seereth. The next guide goes north to the Mor'shan Rampart and
 # Ashenvale.
 #
 # Orcs and Trolls: Far Watch Post first (Crossroads Conscription from Kargal: they handed him
@@ -62,8 +67,10 @@ next forever/horde/05-stonetalon-mountains
 # (1069): few recorded players hand it in.
 #
 # Carried on, finished: Report to Kadrak (6541, the next guide's first stop) and The Ashenvale Hunt
-# (6382, Night Run). Further Instructions (1094) is left out: Ziz offers it at 21, and Sputtervalve
-# in Ratchet is next passed at 25, for one hand-in on a stop of its own.
+# (6382, Night Run). Carried on, to hand in: Further Instructions (1094), taken from Ziz with the
+# blueprints' hand-in at 21; Sputtervalve stands beside Ratchet's flight master, where
+# forever/horde/04-the-barrens lands at about 26 (830 XP for a few steps). Kaya's Alive (6401) goes to
+# Tammra Windfield on 04-the-barrens' first Sun Rock stop.
 #
 # Class quests: Warriors take Speak with Ruga / Trial at the Field of Giants / Speak with Thun'grim
 # (1823-1825) on the Orgrimmar trip at 20 and gather the Twitching Antennae at the Field of Giants
@@ -145,6 +152,7 @@ step Razormane camp: Thork's quilboar
 
 step Durotar
   only Orc,Troll,Shaman
+  when onquest 1525
   zone Durotar
   goto 38.5,59.0 "Telf Joolam"
 
@@ -281,7 +289,7 @@ step Durotar
 step Telf Joolam
   only Tauren,Shaman
   zone Durotar
-  tip Telf waits on the riverbank south of Far Watch Post, across the bridge.
+  tip Over the Southfury River bridge below Far Watch Post and south along the Durotar bank to where a narrow trail climbs the mountain: Telf keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail.
   turnin 1524 only Tauren
   accept 1525 only Tauren
 
@@ -449,19 +457,10 @@ step The Crossroads
 # ---------------------------------------------------------------- South and Ratchet
 
 step The Stagnant Oasis
-  tip South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank.
+  tip South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank; Tonga takes the result on the next Crossroads stop, so carry on north-west to the Dry Hills from here.
   interact 3737 quest 877.1           -- Underwater
 
-step The Crossroads
-  tip Back west along the road.
-  turnin 877                          -- Tonga Runetotem
-  accept 880
-
-# ---------------------------------------------------------------- One loop: south-west, the Dry Hills, north, back south
-
-step Lushwater Oasis
-  tip Oasis Snapjaws crawl around Lushwater Oasis, south-west of the Crossroads, and around the Stagnant Oasis.
-  collect 5098 quest 880.1
+# ---------------------------------------------------------------- One loop: north-west, the Dry Hills, east, back south
 
 step Harpy Lieutenants
   tip North-west to the Dry Hills: the Witchwing Slayers hold their western end; they wear the rings.
@@ -496,7 +495,8 @@ step The Crossroads
   accept 3281                         -- Gazrog: the Stolen Silver, in a raptor nest north-west of Northwatch Hold
   turnin 881                          -- Sergra Darkthorn
   accept 905                          -- Sergra Darkthorn: the raptor nests south of the Crossroads
-  turnin 880                          -- Tonga Runetotem
+  turnin 877                          -- Tonga Runetotem
+  accept 880                          -- Tonga Runetotem: the Oasis Snapjaws at the Stagnant Oasis, with Verog
   turnin 875                          -- Darsok Swiftdagger
   accept 876                          -- Darsok Swiftdagger, on the tower: Serena Bloodfeather leads the harpies in the Dry Hills
   accept 6541                         -- Thork, on the tower, from level 17. Keep it: Kadrak at the Mor'shan Rampart, next guide
@@ -581,7 +581,7 @@ step Ratchet
 
 # ---------------------------------------------------------------- South-west: the Raptor Grounds, then Northwatch Hold
 step Raptor nests
-  tip South-west from Ratchet across the plains to the Raptor Grounds: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them.
+  tip South-west from Ratchet across the plains to the Raptor Grounds: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a Sunscale Feather: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest.
   interact 6907 quest 905.1
   interact 6908 quest 905.2
   interact 6906 quest 905.3
@@ -735,8 +735,9 @@ step the Crossroads
 
 step Verog the Dervish
   zone The Barrens
-  tip Verog walks among the Kolkar at the Stagnant Oasis south-east of the Crossroads.
+  tip Verog walks among the Kolkar at the Stagnant Oasis south-east of the Crossroads. Oasis Snapjaws crawl in the water around it: their shells are for Tonga.
   collect 5023 quest 851.1
+  collect 5098 quest 880.1
   kill 12296 quest 6129.1 "Cure Sickly Gazelle" only Tauren,Druid -- Sickly Gazelle: use the Curative Animal Salve on them; they roam the plains all around the Crossroads
 
 step Bristleback camps
@@ -769,7 +770,8 @@ step Agama'gor
 
 step The Crossroads
   zone The Barrens
-  tip North up the Gold Road to the Crossroads: Mankrik stands by the inn, Korran west of the north gate. Keep the Blood Shard: Mangletooth takes it on the next stop in Camp Taurajo.
+  tip North up the Gold Road to the Crossroads: Tonga Runetotem at the south gate, Mankrik by the inn, Korran west of the north gate. Keep the Blood Shard: Mangletooth takes it on the next stop in Camp Taurajo.
+  turnin 880                          -- Tonga Runetotem
   turnin 899                          -- Mankrik
   turnin 4921
   accept 95774                        -- Mankrik offers Her Name Is Olgra once Lost in Battle is handed in
@@ -1169,9 +1171,17 @@ step Ziz Fizziks: Gerenzo's Orders
 
 step Ziz Fizziks
   turnin 1093                         -- Ziz Fizziks, inside
+  accept 1094                         -- Ziz Fizziks: for Sputtervalve, beside Ratchet's flight master at the end of the Barrens & Stonetalon guide
+
+step Kaya Flathoof
+  zone Stonetalon Mountains
+  tip On the way back down the Webwinder Path, Kaya Flathoof is held in Grundig Darkcloud's hut at the bend in the road. Once you take her quest she walks straight off south-east to Camp Aparaje, the burned village, without waiting: stay close, or the quest fails.
+  tip Careful: Three Grimtotems ambush her at the burned village and go for her, not you: pull them off her and kill their caster quickly.
+  accept 6523 @73.5,85.6              -- Kaya Flathoof, inside Grundig's hut
+  complete 6523 @77.1,90.8
 
 step Malaka'jin
-  tip Back down the Webwinder Path: Xen'Zilla stands just outside Malaka'jin, before the village.
+  tip West from the burned village to Malaka'jin: Xen'Zilla stands just outside it, before the village.
   turnin 6461                         -- Xen'Zilla
 
 step Seereth's camp
@@ -1183,4 +1193,6 @@ step Seereth Stonebreak
   tip East along the road to Seereth and Makaba's camp, on the way back out of Stonetalon.
   turnin 1062                         -- Seereth Stonebreak
   turnin 6629                         -- Makaba Flathoof
+  turnin 6523                         -- Makaba Flathoof
+  accept 6401                         -- Makaba Flathoof: keep it, Tammra Windfield at Sun Rock Retreat in the Barrens & Stonetalon guide
   note The next guide goes north-east across the Barrens to the Mor'shan Rampart and Ashenvale.

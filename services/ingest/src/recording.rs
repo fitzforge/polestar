@@ -68,7 +68,7 @@ pub fn prepare(upload: UploadChunk, min_build: u32, ctx: &mut plausible::Context
 fn quests_of(decoded: &polestar_recording::record::Chunk) -> BTreeSet<u32> {
 	let mut quests = BTreeSet::new();
 	for record in &decoded.records {
-		if matches!(record.kind, Kind::Detail | Kind::Text | Kind::Accept | Kind::Objectives | Kind::Progress | Kind::Complete | Kind::Turnin | Kind::Abandon | Kind::Escort) {
+		if matches!(record.kind, Kind::Detail | Kind::Text | Kind::Accept | Kind::Objectives | Kind::Progress | Kind::Complete | Kind::Turnin | Kind::Abandon | Kind::Escort | Kind::Poi) {
 			if let Some(q) = record.int("q").filter(|q| (1..plausible::MAX_ID as i64).contains(q)).and_then(|q| u32::try_from(q).ok()) {
 				quests.insert(q);
 			}
@@ -216,6 +216,34 @@ mod tests {
 		// before (a 0.3.5 player's "field money: bad value '-300'").
 		let Prepared::Ok(c) = prep(format!("{HEAD}accept\t0\t2945\ti\t9326\t\t\t\t31\t2700\t\t\t\nturnin\t412\t2945\to\t142487\t\t\t\t31\t2700\t-300\t\n")) else { panic!("stored") };
 		assert_eq!((c.quests.clone(), c.suspect.len()), (BTreeSet::from([2945]), 0));
+	}
+
+	#[test]
+	fn explorer_records_are_stored_as_sent_and_checked() {
+		// `/psrec explore` in a Forever-new zone: many spawns seen in one chunk, more than an older
+		// server took as unknown records (it rejected such a chunk whole), each a known kind now.
+		let mut body = String::new();
+		for i in 0..(MAX_UNKNOWN_RECORDS + 36) {
+			body.push_str(&format!("unitx\t{}\t261306\t{:X}\t2521\t{}\t5000\n", i, 0x43F59F + i, 4000 + i));
+		}
+		body.push_str("poi\t200\t90012\t0\t2521\t4400\t6100\nwhere\t201\tc\t261306\tThe Drowned Chapel\t1\nopen\t202\t3365\t2521\t4520\t6640\to\t500123\nimap\t300\t2943\t2681\t512\t1\nengage\t301\t3301\t1\t5\n");
+		let sent = format!("{HEAD}{body}");
+		let Prepared::Ok(c) = prep(sent.clone()) else { panic!("stored") };
+		let text = String::from_utf8(zstd::stream::decode_all(&c.ztext[..]).unwrap()).unwrap();
+		assert_eq!(text, sent, "every explorer record is kept");
+		assert!(c.suspect.is_empty(), "{:?}", c.suspect);
+		assert_eq!(c.kinds["unitx"], (MAX_UNKNOWN_RECORDS + 36) as u64);
+		for k in ["poi", "where", "open", "imap", "engage"] {
+			assert_eq!(c.kinds[k], 1, "{k}");
+		}
+		assert_eq!(c.quests, BTreeSet::from([90012]), "the quest a map point is for was seen");
+		// Strictly decoded: a malformed one rejects the chunk, counted by its rule.
+		let Prepared::Rejected(r, class) = prep(format!("{HEAD}unitx\t0\t261306\t43f59f\t2521\t1\t1\n")) else { panic!("rejected") };
+		assert_eq!((r.reason.as_str(), class.as_str()), ("record 2 (unitx): field spawnUid: bad value '43f59f'", "unitx: field spawnUid: bad value"));
+		// Plausibility: more objects opened in a minute than a player can open is held as suspect.
+		let opens: String = (0..40).map(|i| format!("open\t{i}\t3365\t2521\t4520\t6640\t\t\n")).collect();
+		let Prepared::Ok(c) = prep(format!("{HEAD}{opens}")) else { panic!("stored") };
+		assert!(c.suspect.iter().any(|s: &String| s.starts_with("open-rate")), "{:?}", c.suspect);
 	}
 
 	#[test]

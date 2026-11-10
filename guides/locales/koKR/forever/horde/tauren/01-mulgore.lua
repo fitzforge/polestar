@@ -56,7 +56,7 @@ return {
 	-- {npc:8554} Chief Sharptusk Thornmantle · {object:3076} Dirt-stained Map
 	-- plural, as words: Battleboars = {npc:2966} Battleboar
 	["Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. {npc:8554} stands at its eastern end, and the {object:3076} lies on the ground in the camp."] = "전투멧돼지는 제단 북쪽에서 풀을 뜯고, 뾰족털 가시멧돼지는 북동쪽 협곡을 차지하고 있습니다. {npc:8554}은(는) 협곡 동쪽 끝에 서 있고, {object:3076}은(는) 야영지 바닥에 있습니다.",
-	["Below ground"] = "",
+	["Below ground"] = "지하",
 
 	-- Step 10: Deathskip to Red Cloud Mesa
 	-- {area:220} Red Cloud Mesa
@@ -85,10 +85,30 @@ return {
 	["{npc:5888}: {npc:5873} and your {item:5175}"] = "{npc:5888}: {npc:5873}, {item:5175}",
 
 	-- Step 15: Kaga Wildhoof
-	-- {area:220} Red Cloud Mesa · {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {spell:1229451} Boosted Rest
-	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "길을 따라 {area:220}에서 북쪽으로 나가세요. {npc:265810}은(는) {area:222} 바로 남쪽 길에서 기다립니다. {spell:1229451}을(를) 얻을 때까지 그녀의 모닥불 옆에서 /앉기 하세요.",
+	-- {area:220} Red Cloud Mesa · {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {spell:1229451} Boosted Rest · {zone:1456} Thunder Bluff
+	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof or on the {zone:1456} stop."] = "길을 따라 {area:220}에서 북쪽으로 나가세요. {npc:265810}은(는) {area:222} 바로 남쪽 길에서 기다립니다. {spell:1229451}을(를) 얻을 때까지 그녀의 모닥불 옆에서 /앉기 하세요. 전문 기술을 배웠다면 카가가 야영 기초 퀘스트도 주며, 해당 전문 기술 상급자에게 완료합니다. 상급자는 블러드후프 마을이나 {zone:1456}에 있습니다.",
 	-- {spell:1229451} Boosted Rest
 	["/sit by Kaga's campfire until you get {spell:1229451}"] = "{spell:1229451}을(를) 얻을 때까지 카가의 모닥불 옆에서 /앉기",
+	-- {npc:265810} Kaga Wildhoof · {npc:6290} Yonn Deepcut
+	["{npc:265810}: for {npc:6290}"] = "{npc:265810}: {npc:6290}에게",
+	-- {npc:265810} Kaga Wildhoof · {npc:3069} Chaw Stronghide
+	["{npc:265810}: for {npc:3069}"] = "{npc:265810}: {npc:3069}에게",
+	-- {npc:265810} Kaga Wildhoof · {npc:5939} Vira Younghoof
+	["{npc:265810}: for {npc:5939}"] = "{npc:265810}: {npc:5939}에게",
+	-- {npc:265810} Kaga Wildhoof · {npc:5938} Uthan Stillwater
+	["{npc:265810}: for {npc:5938}"] = "{npc:265810}: {npc:5938}에게",
+	-- {npc:265810} Kaga Wildhoof · {npc:3013} Komin Winterhoof
+	["{npc:265810}: for {npc:3013}"] = "{npc:265810}: {npc:3013}에게",
+	-- {npc:265810} Kaga Wildhoof · {npc:3001} Brek Stonehoof
+	["{npc:265810}: for {npc:3001}"] = "{npc:265810}: {npc:3001}에게",
+	-- {npc:265810} Kaga Wildhoof · {npc:11047} Kray
+	["{npc:265810}: for {npc:11047}"] = "{npc:265810}: {npc:11047}에게",
+	-- {npc:265810} Kaga Wildhoof · {npc:10278} Thrag Stonehoof
+	["{npc:265810}: for {npc:10278}"] = "{npc:265810}: {npc:10278}에게",
+	-- {npc:265810} Kaga Wildhoof · {npc:11071} Mot Dawnstrider
+	["{npc:265810}: for {npc:11071}"] = "{npc:265810}: {npc:11071}에게",
+	-- {npc:265810} Kaga Wildhoof · {npc:11051} Vhan
+	["{npc:265810}: for {npc:11051}"] = "{npc:265810}: {npc:11051}에게",
 
 	-- Step 16: Bloodhoof Village
 	-- {npc:3063} Krang Stonehoof
@@ -100,6 +120,10 @@ return {
 	-- Step 17: Bloodhoof Village
 	-- {npc:3067} Pyall Silentstride
 	["{npc:3067}: Camping 101 asks you to learn it"] = "",
+	-- {npc:6290} Yonn Deepcut · {npc:3067} Pyall Silentstride · {quest:97936} Camping 101: Skinning
+	["{npc:6290}, beside {npc:3067}: {quest:97936}"] = "{npc:3067} 옆의 {npc:6290}: {quest:97936}",
+	-- {npc:3069} Chaw Stronghide · {npc:3067} Pyall Silentstride · {quest:97934} Camping 101: Leatherworking
+	["{npc:3069}, beside {npc:3067}: {quest:97934}"] = "{npc:3067} 옆의 {npc:3069}: {quest:97934}",
 
 	-- Step 18: Poison Water
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
@@ -250,7 +274,7 @@ return {
 	["While you're here: learn Staves from {npc:11869} (10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
 	-- Step 48: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "직업 전문가",
 
 	-- Step 49: Rogue trainer
 	["Rogue trainer"] = "",
@@ -298,23 +322,31 @@ return {
 	-- {zone:1413} The Barrens
 	["Into {zone:1413}"] = "",
 
-	-- Step 62: The Crossroads
+	-- Step 61: Kirge Sternhorn
+	-- {npc:3418} Kirge Sternhorn · {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:458} Gold Road
+	["{npc:3418} stands at {area:378}, where the road from {zone:1412} meets the {area:458} north to the Crossroads."] = "{npc:3418}은(는) {zone:1412}에서 오는 길이 크로스로드로 향하는 북쪽의 {area:458}과 만나는 {area:378}에 서 있습니다.",
+	-- {npc:3418} Kirge Sternhorn · {npc:3429} Thork
+	["{npc:3418}: for {npc:3429} at the Crossroads"] = "{npc:3418}: 크로스로드의 {npc:3429}에게",
+
+	-- Step 63: The Crossroads
 	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
 	["Leave {zone:1412} by the south-eastern pass and follow the road to the Crossroads. {npc:3448} stands at the south gate, {quest:860} by the inn, {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "",
+	-- {npc:3429} Thork
+	["{npc:3429}, by the wind rider tower"] = "윈드라이더 탑 옆의 {npc:3429}",
 	-- {npc:3615} Devrak
 	["{npc:3615}, the wind rider master"] = "윈드라이더 조련사 {npc:3615}",
 
-	-- Step 63: Jahan Hawkwing
+	-- Step 64: Jahan Hawkwing
 	-- {npc:3483} Jahan Hawkwing · {npc:3615} Devrak · {zone:1456} Thunder Bluff · {npc:3033} Turak Runetotem
 	["{npc:3483} sells armor on the north side of the Crossroads. His bundle goes to {npc:3615}, who sends it with you on the flight to {zone:1456} you take for {npc:3033} anyway."] = "",
 
-	-- Step 64: Class turn-in in Thunder Bluff
+	-- Step 65: Class turn-in in Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Class turn-in in {area:1638}"] = "",
 	-- {npc:8359} Ahanu
 	["{npc:8359}, by the wind riders on the central rise"] = "",
 
-	-- Step 66: To Orgrimmar
+	-- Step 67: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "{zone:1454}(으)로",
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
@@ -329,6 +361,7 @@ return {
 	-- ["Class turn-ins in {area:1638}"] = "{area:1638}에서 직업 퀘스트 완료",
 	-- ["Finish the wolf heart, cougar femur, plainstrider scale and swoop gizzard on the plains around the village."] = "마을 주변 평원에서 늑대 심장, 퓨마 대퇴골, 초원타조 비늘, 검독수리 모래주머니를 마저 모으세요.",
 	-- ["Flatland Prowlers roam the plains around {area:225}"] = "굶주린 평원퓨마는 {area:225} 주변 평원을 돌아다닙니다",
+	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "길을 따라 {area:220}에서 북쪽으로 나가세요. {npc:265810}은(는) {area:222} 바로 남쪽 길에서 기다립니다. {spell:1229451}을(를) 얻을 때까지 그녀의 모닥불 옆에서 /앉기 하세요.",
 	-- ["Galak centaurs and Prairie Wolf Alphas"] = "갈라크일족 켄타우로스와 우두머리 초원늑대",
 	-- ["Hearth to {area:222} and ride north to {area:1639}."] = "귀환석으로 {area:222}에 간 뒤 북쪽의 {area:1639}(으)로 가세요.",
 	-- ["Leave {zone:1412} by the south-eastern pass and follow the road to the {area:380}. {quest:860} stands by the inn, {npc:3448} at the south gate. {zone:1413} guide starts here."] = "남동쪽 고갯길로 {zone:1412}을(를) 나가 길을 따라 {area:380}(으)로 가세요. {quest:860}은(는) 여관 옆에, {npc:3448}은(는) 남문에 서 있습니다. {zone:1413} 가이드는 여기서 시작합니다.",
@@ -344,6 +377,16 @@ return {
 	-- ["The well lies north of the village. Well Stones sit around the well, {object:2912} lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for {quest:766} and {quest:761}."] = "우물은 마을 북쪽에 있습니다. 우물돌은 우물 주변에, {object:2912}은(는) 근처 나무 아래에 있습니다. 가는 길에 {quest:766}와(과) {quest:761}을(를) 위해 늑대, 퓨마, 초원타조, 검독수리를 처치하세요.",
 	-- ["The well lies south-east of the village."] = "우물은 마을 남동쪽에 있습니다.",
 	-- ["The {area:380}"] = "{area:380}",
+	-- ["With {skill:129} learned, Kaga also offers its Camping 101: {npc:5939} in Bloodhoof takes it."] = "{skill:129}을(를) 배웠다면 카가가 야영 기초 퀘스트도 줍니다. 블러드후프 마을의 {npc:5939}에게 완료하세요.",
+	-- ["With {skill:164} learned, Kaga also offers its Camping 101: {npc:10278} in {zone:1456} takes it."] = "{skill:164}을(를) 배웠다면 카가가 야영 기초 퀘스트도 줍니다. {zone:1456}의 {npc:10278}에게 완료하세요.",
+	-- ["With {skill:165} learned, Kaga also offers its Camping 101: {npc:3069} in Bloodhoof takes it."] = "{skill:165}을(를) 배웠다면 카가가 야영 기초 퀘스트도 줍니다. 블러드후프 마을의 {npc:3069}에게 완료하세요.",
+	-- ["With {skill:171} learned, Kaga also offers its Camping 101: {npc:11047} in {zone:1456} takes it."] = "{skill:171}을(를) 배웠다면 카가가 야영 기초 퀘스트도 줍니다. {zone:1456}의 {npc:11047}에게 완료하세요.",
+	-- ["With {skill:182} learned, Kaga also offers its Camping 101: {npc:3013} in {zone:1456} takes it."] = "{skill:182}을(를) 배웠다면 카가가 야영 기초 퀘스트도 줍니다. {zone:1456}의 {npc:3013}에게 완료하세요.",
+	-- ["With {skill:186} learned, Kaga also offers its Camping 101: {npc:3001} in {zone:1456} takes it."] = "{skill:186}을(를) 배웠다면 카가가 야영 기초 퀘스트도 줍니다. {zone:1456}의 {npc:3001}에게 완료하세요.",
+	-- ["With {skill:197} learned, Kaga also offers its Camping 101: {npc:11051} in {zone:1456} takes it."] = "{skill:197}을(를) 배웠다면 카가가 야영 기초 퀘스트도 줍니다. {zone:1456}의 {npc:11051}에게 완료하세요.",
+	-- ["With {skill:333} learned, Kaga also offers its Camping 101: {npc:11071} in {zone:1456} takes it."] = "{skill:333}을(를) 배웠다면 카가가 야영 기초 퀘스트도 줍니다. {zone:1456}의 {npc:11071}에게 완료하세요.",
+	-- ["With {skill:356} learned, Kaga also offers its Camping 101: {npc:5938} in Bloodhoof takes it."] = "{skill:356}을(를) 배웠다면 카가가 야영 기초 퀘스트도 줍니다. 블러드후프 마을의 {npc:5938}에게 완료하세요.",
+	-- ["With {skill:393} learned, Kaga also offers its Camping 101: {npc:6290} in Bloodhoof takes it."] = "{skill:393}을(를) 배웠다면 카가가 야영 기초 퀘스트도 줍니다. 블러드후프 마을의 {npc:6290}에게 완료하세요.",
 	-- ["{npc:275789} stands on the {area:821} a little east of the well."] = "{npc:275789}은(는) 우물 조금 동쪽의 {area:821}에 서 있습니다.",
 	-- ["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182}은(는) 마을 북쪽 가장자리에 서 있습니다. 카일은 초원타조에게서 얻는 {item:287505}을(를) 원합니다.",
 	-- ["{npc:2988} camps by the {area:396} south-east of Bloodhoof."] = "{npc:2988}은(는) 블러드후프 마을 남동쪽의 {area:396} 옆에 야영하고 있습니다.",

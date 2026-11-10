@@ -52,7 +52,7 @@ return {
 	["{quest:790}, a large scorpid, prowls the slope south of {npc:3287} among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side."] = "",
 
 	-- Step 6: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "직업 전문가",
 
 	-- Step 7: Paladin trainer
 	["Paladin trainer"] = "",
@@ -79,7 +79,7 @@ return {
 	-- Step 14: Yarrog Baneshadow
 	-- {npc:3183} Yarrog Baneshadow
 	["Inside the cave, keep to the right wall all the way round, over the stream: {npc:3183} waits at the end."] = "동굴 안에서 개울을 건너 오른쪽 벽을 따라 끝까지 돌아가세요. {npc:3183}이(가) 끝에서 기다립니다.",
-	["Below ground"] = "",
+	["Below ground"] = "지하",
 
 	-- Step 15: Felstalker hooves
 	-- {npc:3102} Felstalker
@@ -113,8 +113,26 @@ return {
 	-- Step 20: Brakk's campfire
 	-- {npc:265809} Brakk
 	["{npc:265809}'s campfire"] = "{npc:265809}의 모닥불",
-	-- {npc:265809} Brakk · {area:362} Razor Hill · {spell:1229451} Boosted Rest
-	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears."] = "",
+	-- {npc:265809} Brakk · {area:362} Razor Hill · {spell:1229451} Boosted Rest · {zone:1454} Orgrimmar
+	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809}은(는) {area:362} 바로 남쪽에 야영하고 있습니다. {spell:1229451} 효과가 나타날 때까지 그의 모닥불 옆에 앉으세요(/sit). 전문 기술을 배웠다면 {npc:265809}에게서 해당 기술의 야영 기초(Camping 101) 퀘스트도 받을 수 있으며, 그 기술의 상급자에게 완료하세요. {area:362} 또는 다음 가이드 시작 지점인 {zone:1454}에 있습니다.",
+	-- {npc:265809} Brakk · {npc:3175} Krunn
+	["{npc:265809}: for {npc:3175}"] = "{npc:265809}: {npc:3175}에게 전달",
+	-- {npc:265809} Brakk · {npc:11025} Mukdrak
+	["{npc:265809}: for {npc:11025}"] = "{npc:265809}: {npc:11025}에게 전달",
+	-- {npc:265809} Brakk · {npc:5943} Rawrk
+	["{npc:265809}: for {npc:5943}"] = "{npc:265809}: {npc:5943}에게 전달",
+	-- {npc:265809} Brakk · {npc:7088} Thuwd
+	["{npc:265809}: for {npc:7088}"] = "{npc:265809}: {npc:7088}에게 전달",
+	-- {npc:265809} Brakk · {npc:3365} Karolek
+	["{npc:265809}: for {npc:3365}"] = "{npc:265809}: {npc:3365}에게 전달",
+	-- {npc:265809} Brakk · {npc:2855} Snang
+	["{npc:265809}: for {npc:2855}"] = "{npc:265809}: {npc:2855}에게 전달",
+	-- {npc:265809} Brakk · {npc:3404} Jandi
+	["{npc:265809}: for {npc:3404}"] = "{npc:265809}: {npc:3404}에게 전달",
+	-- {npc:265809} Brakk · {npc:11066} Jhag
+	["{npc:265809}: for {npc:11066}"] = "{npc:265809}: {npc:11066}에게 전달",
+	-- {npc:265809} Brakk · {npc:11046} Whuut
+	["{npc:265809}: for {npc:11046}"] = "{npc:265809}: {npc:11046}에게 전달",
 
 	-- Step 21: Razor Hill
 	-- {npc:266940} Turroc
@@ -135,7 +153,7 @@ return {
 	-- Step 25: Tiragarde Keep
 	-- {area:362} Razor Hill · {item:4870} Canvas Scraps · {npc:3192} Lieutenant Benedict · {item:4881} Aged Envelope
 	["The keep stands on the coast south-east of {area:362}. The raiders' axe, bow and shield lie on its outskirts. Sailors and marines drop the {item:4870}. {npc:3192} waits at the top of the keep; his key opens the chest beside him, which holds the {item:4881}."] = "요새는 {area:362} 남동쪽 해안에 있습니다. 약탈자의 도끼, 활, 방패는 요새 외곽에 있습니다. 선원과 해병이 {item:4870}을(를) 떨어뜨립니다. {npc:3192}은(는) 요새 꼭대기에서 기다리며, 그의 열쇠로 옆 상자를 열면 {item:4881}이(가) 들어 있습니다.",
-	["Upstairs"] = "",
+	["Upstairs"] = "위층",
 
 	-- Step 26: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3147} Furl Scornbrow · {npc:3142} Orgnil Soulscar · {npc:266940} Turroc
@@ -154,7 +172,7 @@ return {
 	-- {area:368} Echo Isles
 	["{area:368}: kill these as you meet them"] = "",
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger
-	["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.\nWade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach."] = "",
+	["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.\nDurotar Tigers roam the isle as well as the shore south of Sen'jin, and the Taillasher eggs sit in nests on the isles and along the beach."] = "얕은 물을 건너 북쪽 메아리 섬으로 가세요. 그곳의 랩터들 사이를 우두머리 암컷이 배회합니다.\n듀로타 호랑이는 섬과 센진 남쪽 해안을 돌아다니며, 채찍꼬리 알은 섬과 해변을 따라 둥지에 있습니다.",
 
 	-- Step 29: Echo Isles: kill these as you meet them
 	-- {quest:826} Zalazane
@@ -283,54 +301,46 @@ return {
 	-- {object:58595} Burning Blade Stash · {area:817} Skull Rock
 	["The {object:58595} stands in {area:817}, among the cultists you just fought."] = "{object:58595}은(는) 방금 싸운 이교도들 사이, {area:817} 안에 있습니다.",
 
-	-- Step 67: Into Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Into {zone:1454}"] = "",
-
-	-- Step 69: The Binding
-	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {item:7464} Glyphs of Summoning
-	["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "{object:172960}의 {npc:5875}에게 돌아가세요. 그곳 소환진에서 {item:7464}을(를) 사용하고 공허방랑자를 물리쳐 속박하세요.",
-
-	-- Step 72: Razor Hill
+	-- Step 68: Razor Hill
 	-- {area:362} Razor Hill
 	["Back to {area:362}."] = "{area:362}(으)로 돌아가세요.",
 
-	-- Step 73: Razor Hill
+	-- Step 69: Razor Hill
 	-- {npc:3142} Orgnil Soulscar · {npc:275666} Aggor the Young
 	["{npc:3142}: {npc:275666}, an elite sea giant"] = "{npc:3142}: 정예 바다 거인 {npc:275666}",
 
-	-- Step 74: Aggor the Young
+	-- Step 70: Aggor the Young
 	-- {npc:275666} Aggor the Young · {zone:1411} Durotar
 	["{npc:275666}, a young sea giant, walks {zone:1411}'s north coast, north of the naga beach. {npc:275666} is elite: grouping up is advised."] = "",
 	-- {npc:3142} Orgnil Soulscar · {area:362} Razor Hill
 	["{npc:3142}, back in {area:362}"] = "{npc:3142}, {area:362}에 돌아가서",
 
-	-- Step 75: Armored Scorpid
+	-- Step 71: Armored Scorpid
 	-- {area:362} Razor Hill · {npc:3171} Thotar
 	-- plural, as words: Armored Scorpids = {npc:3126} Armored Scorpid
 	["Armored Scorpids crawl over the plains west of {area:362}. Tame one, then return to {npc:3171}."] = "{npc:3126}은(는) {area:362} 서쪽 평원을 기어다닙니다. 하나를 길들인 뒤 {npc:3171}에게 돌아가세요.",
 	-- {npc:3171} Thotar · {npc:3352} Ormak Grimshot · {zone:1454} Orgrimmar · {spell:5149} Beast Training
 	["{npc:3171}: {npc:3352} in {zone:1454} teaches {spell:5149}"] = "",
 
-	-- Step 76: Far Watch Post
+	-- Step 72: Far Watch Post
 	-- {area:362} Razor Hill · {area:814} Southfury River · {npc:3337} Kargal Battlescar · {npc:5810} Uzzek · {area:379} Far Watch Post · {zone:1411} Durotar · {zone:1454} Orgrimmar
 	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {zone:1411} leads to {zone:1454}."] = "",
 
-	-- Step 77: Thunder lizards on the way north
+	-- Step 73: Thunder lizards on the way north
 	["Thunder lizards on the way north"] = "",
 	-- {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:6486} Singed Scale · {npc:5810} Uzzek · {area:379} Far Watch Post
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
 	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}."] = "",
 
-	-- Step 79: Ormak Grimshot
+	-- Step 75: Ormak Grimshot
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
 	["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "",
 
-	-- Step 80: Hanashi
+	-- Step 76: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
-	-- Step 81: To Orgrimmar
+	-- Step 77: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "{zone:1454}(으)로",
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
@@ -338,10 +348,24 @@ return {
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "",
 
+	-- Step 78: The Binding
+	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning
+	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it."] = "{npc:5875}은(는) {object:172982} 아래 협곡인 {object:172960}에 있습니다. 그에게 {item:6535}을(를) 건넨 뒤, 옆의 소환진에서 {item:7464}을(를) 사용하고 공허방랑자를 물리쳐 속박하세요.",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back east to the shore north of {npc:275657}. Spitelash Scouts and Attendants hold the beach below {area:370}. Hunters: tame a {npc:3107} on the beach."] = "동쪽으로 {npc:275657} 북쪽 해안에 돌아가세요. {npc:275662}와(과) 수행원이 {area:370} 아래 해변을 차지하고 있습니다. 사냥꾼: 해변에서 {npc:3107}을(를) 길들이세요.",
 	-- ["Back south to {area:362}."] = "남쪽 {area:362}(으)로 돌아가세요.",
+	-- ["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "{object:172960}의 {npc:5875}에게 돌아가세요. 그곳 소환진에서 {item:7464}을(를) 사용하고 공허방랑자를 물리쳐 속박하세요.",
 	-- ["Follow the road north from {area:362} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "길을 따라 {area:362}에서 북쪽 {area:817} 바로 서쪽의 {zone:1454} 정문까지 가세요. {npc:3352}은(는) {object:172958}에서 사냥꾼 상급자들과 함께 서 있습니다.",
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369} across the bridge; any of them can drop a {item:6486}."] = "{npc:3130}와(과) {npc:3131}이(가) 다리 건너 {area:369}에서 풀을 뜯으며, 누구든 {item:6486}을(를) 떨어뜨릴 수 있습니다.",
 	-- ["Thunder lizards across the river"] = "강 건너 천둥도마뱀",
+	-- ["With {skill:129} learned, {npc:265809} also offers its Camping 101: {npc:5943} in {area:362} takes it."] = "{skill:129}을(를) 배웠다면 {npc:265809}에게서 해당 기술의 야영 기초(Camping 101) 퀘스트도 받을 수 있습니다. {area:362}의 {npc:5943}에게 완료하세요.",
+	-- ["With {skill:165} learned, {npc:265809} also offers its Camping 101: {npc:3365} in {zone:1454} (next guide) takes it."] = "{skill:165}을(를) 배웠다면 {npc:265809}에게서 해당 기술의 야영 기초(Camping 101) 퀘스트도 받을 수 있습니다. {zone:1454}의 {npc:3365}에게 완료하세요(다음 가이드).",
+	-- ["With {skill:171} learned, {npc:265809} also offers its Camping 101: {npc:11046} in {zone:1454} (next guide) takes it."] = "{skill:171}을(를) 배웠다면 {npc:265809}에게서 해당 기술의 야영 기초(Camping 101) 퀘스트도 받을 수 있습니다. {zone:1454}의 {npc:11046}에게 완료하세요(다음 가이드).",
+	-- ["With {skill:182} learned, {npc:265809} also offers its Camping 101: {npc:3404} in {zone:1454} (next guide) takes it."] = "{skill:182}을(를) 배웠다면 {npc:265809}에게서 해당 기술의 야영 기초(Camping 101) 퀘스트도 받을 수 있습니다. {zone:1454}의 {npc:3404}에게 완료하세요(다음 가이드).",
+	-- ["With {skill:186} learned, {npc:265809} also offers its Camping 101: {npc:3175} in {area:362} takes it."] = "{skill:186}을(를) 배웠다면 {npc:265809}에게서 해당 기술의 야영 기초(Camping 101) 퀘스트도 받을 수 있습니다. {area:362}의 {npc:3175}에게 완료하세요.",
+	-- ["With {skill:197} learned, {npc:265809} also offers its Camping 101: {npc:2855} in {zone:1454} (next guide) takes it."] = "{skill:197}을(를) 배웠다면 {npc:265809}에게서 해당 기술의 야영 기초(Camping 101) 퀘스트도 받을 수 있습니다. {zone:1454}의 {npc:2855}에게 완료하세요(다음 가이드).",
+	-- ["With {skill:202} learned, {npc:265809} also offers its Camping 101: {npc:11025} in {area:362} takes it."] = "{skill:202}을(를) 배웠다면 {npc:265809}에게서 해당 기술의 야영 기초(Camping 101) 퀘스트도 받을 수 있습니다. {area:362}의 {npc:11025}에게 완료하세요.",
+	-- ["With {skill:333} learned, {npc:265809} also offers its Camping 101: {npc:11066} in {zone:1454} (next guide) takes it."] = "{skill:333}을(를) 배웠다면 {npc:265809}에게서 해당 기술의 야영 기초(Camping 101) 퀘스트도 받을 수 있습니다. {zone:1454}의 {npc:11066}에게 완료하세요(다음 가이드).",
+	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "{skill:393}을(를) 배웠다면 {npc:265809}에게서 해당 기술의 야영 기초(Camping 101) 퀘스트도 받을 수 있습니다. {zone:1454}의 {npc:7088}에게 완료하세요(다음 가이드).",
 }

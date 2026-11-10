@@ -103,6 +103,26 @@ fn c11_a_class_teleport_is_a_leg_from_the_start_when_it_is_faster_a_ghost_only_w
 }
 
 #[test]
+fn issue_1515_a_class_teleport_landing_in_the_zone_the_player_stands_in_is_never_planned() {
+	let out = run(r#"
+		local r = {}
+		local landing = { name = "Testshire", c = 0, wx = -500, wy = -500, map = 9000, x = 75, y = 75 }
+		Polestar.Transit = {
+			Now = function() return 0 end,
+			Teleports = function() return { { spell = 3561, name = "Teleport: Testshire", cast = 10, ready = 0, to = landing } } end,
+		}
+		nav.place(0, 0)                                   -- in Testshire (map 9000), 700 yd from the quest
+		target(-500, -480, "Quest")
+		r.inZone = route()
+		landing.map = 9002                                -- the same landing, in another zone
+		target(-500, -470, "Quest")
+		r.elsewhere = route()
+		emit(r)"#);
+	assert_eq!(out["inZone"], json!(["walk|Quest"]), "in Testshire: no Teleport: Testshire across it");
+	assert_eq!(out["elsewhere"], json!(["teleport|Cast Teleport: Testshire", "walk|Quest"]));
+}
+
+#[test]
 fn a_walk_in_portal_goes_one_way_only() {
 	let out = run(r#"
 		local r = {}

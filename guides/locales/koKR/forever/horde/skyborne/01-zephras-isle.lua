@@ -74,7 +74,7 @@ return {
 	-- Step 10: Thendal Grove: kill these as you meet them
 	-- {npc:250926} Scrawny Ursera · {npc:252095} Hanaa Nightwind · {npc:251115} Urs'anah
 	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "지하",
 
 	-- Step 11: Back to Thendal Village
 	-- {npc:257551} Valreaa Valewind · {npc:251366} Aetheen of the Gales · {npc:252095} Hanaa Nightwind
@@ -96,7 +96,7 @@ return {
 
 	-- Step 14: Shen'dar Village
 	-- {area:16624} Shen'dar Village · {npc:251523} Constable Aonda · {npc:251902} Illaya Amberwind · {npc:254089} Coriella Calmbreeze · {npc:263664} Raan Wildwind
-	["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side."] = "",
+	["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side. With a profession learned, {npc:263664} also offers its Camping 101: its trainer stands in the village."] = "길을 따라 남쪽으로 섬 한가운데의 {area:16624}에 가세요. {npc:251523}은(는) 마을 동쪽에, {npc:251902}은(는) 한가운데에, {npc:254089}은(는) 그녀 바로 북서쪽에, {npc:263664}은(는) 서쪽 모닥불 옆에 있습니다. 전문 기술을 배우면 {npc:263664}이(가) 해당 야영 101 퀘스트도 줍니다. 그 기술의 상급자는 마을에 있습니다.",
 	-- {npc:251902} Illaya Amberwind
 	["talk to {npc:251902}"] = "{npc:251902}와(과) 대화하세요",
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
@@ -259,7 +259,7 @@ return {
 	["{npc:252448} and {npc:256083}"] = "{npc:252448}와(과) {npc:256083}",
 
 	-- Step 44: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "직업 전문가",
 
 	-- Step 45: Warlock trainer
 	["Warlock trainer"] = "",
@@ -280,7 +280,7 @@ return {
 	["{npc:256247} waits on the road north of {area:16638}, towards the {area:16629}."] = "{npc:256247}은(는) {area:16629}(으)로 가는 {area:16638} 북쪽 길에서 기다립니다.",
 
 	-- Step 49: Valennia Stormfist
-	["Upstairs"] = "",
+	["Upstairs"] = "위층",
 
 	-- Step 50: Lotheluum Starbreeze
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar · {npc:255853} Urs'endris · {area:17675} East Pylon Watchtower · {spell:1259416} Walk on Air
@@ -402,11 +402,11 @@ return {
 	-- {npc:251968} Ayessa Dawnsinger · {area:16638} Valanaar · {zone:1412} Mulgore · {npc:259119} Alaana Stormwalker
 	["{npc:251968} sends you on to Kalimdor. Once you have trained, board the skycutter at the dock on {area:16638}'s south-west edge: it flies to northern {zone:1412}, where {npc:259119} waits."] = "",
 
-	-- Step 81: Leave Zephras Isle to Mulgore
+	-- Step 80: Leave Zephras Isle to Mulgore
 	-- {zone:2521} Zephras Isle · {zone:1412} Mulgore
 	["Leave {zone:2521} to {zone:1412}"] = "",
 
-	-- Step 82: Northern Mulgore
+	-- Step 81: Northern Mulgore
 	-- {zone:1412} Mulgore
 	["Northern {zone:1412}"] = "{zone:1412} 북부",
 	-- {npc:259119} Alaana Stormwalker
@@ -416,11 +416,11 @@ return {
 	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
 	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "착륙장 옆의 {npc:259118}: {zone:1456}의 {npc:3033}에게",
 
-	-- Step 83: Clarice Foster
+	-- Step 82: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
 	["{npc:5543} stands in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart."] = "",
 
-	-- Step 85: Traditions of the Bluff
+	-- Step 84: Traditions of the Bluff
 	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner · {item:278078} Prepared Incense
 	["{npc:269068} wants tauren incense: buy its four parts from {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier, then combine them into {item:278078}."] = "{npc:269068}은(는) 타우렌 향을 원합{npc:3014}. 약초상 니다, 마법부여 상인 {npc:3012}, 가죽세공 상인 {npc:3005}, 요리 상인 {npc:3027}에게서 재료 네 가지를 사서 {item:278078}(으)로 합치세요.",
 	-- {item:278079} Bundle of Herbs · {npc:3014} Nida Winterhoof
@@ -432,37 +432,37 @@ return {
 	-- {item:278083} Ceremonial Flint and Tinder · {npc:3027} Naal Mistrunner
 	["{item:278083}, from {npc:3027}"] = "{npc:3027}에게서 {item:278083}",
 
-	-- Step 86: Turak Runetotem
+	-- Step 85: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
 	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "",
 
-	-- Step 87: Hunter Rise
+	-- Step 86: Hunter Rise
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
 	["Use the {item:278078} at the ceremonial mat and burner on the south-facing cliff of {area:1641}."] = "{area:1641} 남쪽 절벽의 의식용 깔개와 향로에서 {item:278078}을(를) 사용하세요.",
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
 	["Spread the {item:278078} off {area:1641}"] = "{area:1641}에서 {item:278078}을(를) 피우세요",
 
-	-- Step 89: Ansekhwa
+	-- Step 88: Ansekhwa
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
 	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "",
 
-	-- Step 90: Ansekhwa
+	-- Step 89: Ansekhwa
 	-- {npc:11869} Ansekhwa
 	["While you're here: learn Staves from {npc:11869} (10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
-	-- Step 91: Into Mulgore
+	-- Step 90: Into Mulgore
 	-- {zone:1412} Mulgore
 	["Into {zone:1412}"] = "",
 
-	-- Step 92: Into The Barrens
+	-- Step 91: Into The Barrens
 	-- {zone:1413} The Barrens
 	["Into {zone:1413}"] = "",
 
-	-- Step 94: The Crossroads
+	-- Step 93: The Crossroads
 	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
 	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "",
 
-	-- Step 95: To Orgrimmar
+	-- Step 94: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "{zone:1454}(으)로",
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
@@ -519,6 +519,13 @@ return {
 	-- ["Wind Hollows drift over the lowlands around {area:16638}. The first {object:616466} lie west of the orchard road."] = "{npc:251676}은(는) {area:16638} 주변 저지대를 떠다닙니다. 첫 {object:616466}은(는) 과수원 길 서쪽에 있습니다.",
 	-- ["Wind Hollows drift over the lowlands around {area:16638}. The first {object:616467} lie west of the orchard road."] = "바람의 유령은 {area:16638} 주변 저지대를 떠다닙니다. 첫 {object:616467}은(는) 과수원 길 서쪽에 있습니다.",
 	-- ["Windsong Crawlers"] = "{npc:254588}",
+	-- ["With {skill:129} learned, {npc:263664} also offers its Camping 101: {npc:257018}, in Shen'dar, takes it."] = "{skill:129}을(를) 배우면 {npc:263664}이(가) 해당 야영 101 퀘스트도 줍니다. 셴다르의 {npc:257018}에게 완료하세요.",
+	-- ["With {skill:164} learned, {npc:263664} also offers its Camping 101: {npc:251913}, in Shen'dar, takes it."] = "{skill:164}을(를) 배우면 {npc:263664}이(가) 해당 야영 101 퀘스트도 줍니다. 셴다르의 {npc:251913}에게 완료하세요.",
+	-- ["With {skill:165} learned, {npc:263664} also offers its Camping 101: {npc:251993}, in Shen'dar, takes it."] = "{skill:165}을(를) 배우면 {npc:263664}이(가) 해당 야영 101 퀘스트도 줍니다. 셴다르의 {npc:251993}에게 완료하세요.",
+	-- ["With {skill:171} learned, {npc:263664} also offers its Camping 101: {npc:257019}, in Shen'dar, takes it."] = "{skill:171}을(를) 배우면 {npc:263664}이(가) 해당 야영 101 퀘스트도 줍니다. 셴다르의 {npc:257019}에게 완료하세요.",
+	-- ["With {skill:186} learned, {npc:263664} also offers its Camping 101: {npc:257022}, in Shen'dar, takes it."] = "{skill:186}을(를) 배우면 {npc:263664}이(가) 해당 야영 101 퀘스트도 줍니다. 셴다르의 {npc:257022}에게 완료하세요.",
+	-- ["With {skill:356} learned, {npc:263664} also offers its Camping 101: {npc:251992}, in Shen'dar, takes it."] = "{skill:356}을(를) 배우면 {npc:263664}이(가) 해당 야영 101 퀘스트도 줍니다. 셴다르의 {npc:251992}에게 완료하세요.",
+	-- ["With {skill:393} learned, {npc:263664} also offers its Camping 101: {npc:257024}, in Shen'dar, takes it."] = "{skill:393}을(를) 배우면 {npc:263664}이(가) 해당 야영 101 퀘스트도 줍니다. 셴다르의 {npc:257024}에게 완료하세요.",
 	-- ["talk to {npc:251905}"] = "{npc:251905}와(과) 대화하세요",
 	-- ["{area:1638} is beside the landing: ride up a lift and learn the flight path from {npc:2995}, the wind rider master."] = "{area:1638}은(는) 착륙장 옆에 있습니다. 승강기를 타고 올라가 와이번 조련사 {npc:2995}에게서 비행 경로를 배우세요.",
 	-- ["{area:16624}, last time"] = "마지막으로 {area:16624}",

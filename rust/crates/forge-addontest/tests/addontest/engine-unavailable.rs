@@ -78,7 +78,7 @@ fn accepts_their_giver_does_not_offer_for_a_reason_the_data_gives_are_skipped_wi
 		"#,
 	);
 	// 870 is simply not offered: never a skip (Fitz, #741); the line asks for a report and the guide stays.
-	assert_eq!(out["step1"], json!(["skipped:pre:Requires “Disrupt the Attacks” first", "skipped:level:Requires level 14", "active:nil:nil", "done:nil:nil",]));
+	assert_eq!(out["step1"], json!(["skipped:pre:Requires “Disrupt the Attacks” first", "na:nil:nil", "active:nil:nil", "done:nil:nil",]));
 	assert_eq!(out["notice"], "Not offered by Thork? Report it with /polestar");
 	assert_eq!(out["at"], 1); // Gazrog's accept still open
 	assert_eq!(out["atAfter"], 1, "the guide stays at Thork");
@@ -102,7 +102,7 @@ fn another_npc_s_window_never_marks_an_accept_and_the_giver_offering_a_quest_cle
 	);
 	// 872's prerequisite (871) is missing and the guide never turns it in, and 880 needs level 14 (#1320): both
 	// known before any visit. Thork's window offering them has the last word.
-	assert_eq!(out["other"], json!(["skipped:pre:Requires “Disrupt the Attacks” first", "skipped:level:Requires level 14", "active:nil:nil", "active:nil:nil"]));
+	assert_eq!(out["other"], json!(["skipped:pre:Requires “Disrupt the Attacks” first", "na:nil:nil", "active:nil:nil", "active:nil:nil"]));
 	assert_eq!(out["offered"], json!(["active:nil:nil", "active:nil:nil", "active:nil:nil", "active:nil:nil"]));
 	assert_eq!(out["at"], 1);
 }
@@ -127,7 +127,7 @@ fn a_detail_window_opened_from_the_giver_s_list_says_nothing_about_the_others_a_
 		"#,
 	);
 	assert_eq!(out["fromList"], json!(["active:nil:nil", "active:nil:nil", "active:nil:nil", "active:nil:nil"]));
-	assert_eq!(out["direct"], json!(["skipped:pre:Requires “Disrupt the Attacks” first", "skipped:level:Requires level 14", "active:nil:nil", "active:nil:nil",]));
+	assert_eq!(out["direct"], json!(["skipped:pre:Requires “Disrupt the Attacks” first", "na:nil:nil", "active:nil:nil", "active:nil:nil",]));
 }
 
 #[test]
@@ -174,11 +174,7 @@ fn t_161_in_a_step_the_guide_has_moved_past_a_level_up_or_a_turn_in_brings_back_
 		"#,
 	);
 	assert_eq!(out["before"], 2);
-	assert_eq!(
-		out["level13"],
-		json!([2, ["skipped:pre:Requires “Disrupt the Attacks” first", "skipped:level:Requires level 14", "done:nil:nil", "done:nil:nil",]]),
-		"still at the raptors: 880 still needs level 14"
-	);
+	assert_eq!(out["level13"], json!([2, ["skipped:pre:Requires “Disrupt the Attacks” first", "na:nil:nil", "done:nil:nil", "done:nil:nil",]]), "still at the raptors: 880 still needs level 14");
 	assert_eq!(out["level14"], json!([1, ["skipped:pre:Requires “Disrupt the Attacks” first", "active:nil:nil", "done:nil:nil", "done:nil:nil",]]), "level 14: back to Thork for 880");
 	assert_eq!(out["taken"], 2);
 	assert_eq!(out["turnIn"], json!([1, ["active:nil:nil", "done:nil:nil", "done:nil:nil", "done:nil:nil",]]), "871 done: back to Thork for 872");
@@ -202,7 +198,7 @@ fn t_161_a_level_up_or_a_turn_in_clears_the_marks_of_the_step_at_hand_so_its_giv
 		"#,
 	);
 	// Gazrog's 869 is still to take: Thork's step is the one at hand. 870, not listed, is never a skip.
-	assert_eq!(out["before"], json!([1, ["skipped:pre:Requires “Disrupt the Attacks” first", "skipped:level:Requires level 14", "active:nil:nil", "active:nil:nil",]]));
+	assert_eq!(out["before"], json!([1, ["skipped:pre:Requires “Disrupt the Attacks” first", "na:nil:nil", "active:nil:nil", "active:nil:nil",]]));
 	// 872 keeps its missing prerequisite (known from the data) until 871 is done.
 	assert_eq!(out["levelUp"], json!([1, ["skipped:pre:Requires “Disrupt the Attacks” first", "active:nil:nil", "active:nil:nil", "active:nil:nil"]]));
 	assert_eq!(out["turnIn"], json!([1, ["active:nil:nil", "active:nil:nil", "active:nil:nil", "active:nil:nil"]]));
@@ -576,7 +572,8 @@ fn an_accept_above_the_character_s_level_is_passed_with_requires_level_its_work_
 		"#;
 	let out = run("w.level = 24", DUN_MODR, script);
 	let held = json!(["skipped:level:Requires level 25"]);
-	assert_eq!(out["low"], json!([3, "3:1", held, held, held]), "level 24: Thork's accept passed with its level, on to the raptors; its kill and turn-in wait with it");
+	// Fitz, 0.3.6: the accept itself is no task while it waits (no level text on pick-ups).
+	assert_eq!(out["low"], json!([3, "3:1", ["na:nil:nil"], held, held]), "level 24: Thork's accept passed, not shown, on to the raptors; its kill and turn-in wait with it");
 	assert_eq!(out["ding"], json!([2, "2:1", ["active:nil:nil"], ["pending:nil:nil"], ["pending:nil:nil"]]), "level 25: back to Thork, the arrow on the accept");
 	assert_eq!(out["taken"][0], json!(3), "taken: on to the raptors");
 	assert_eq!(json!([out["taken"][3], out["taken"][4]]), json!([["pending:nil:nil"], ["pending:nil:nil"]]), "its kill and turn-in still to do");
@@ -592,7 +589,7 @@ fn an_accept_above_the_character_s_level_is_passed_with_requires_level_its_work_
 			r[3] = E.GetStepIndex() or false
 			emit(r)"#,
 	);
-	assert_eq!(finished, json!([false, ["skipped:level:Requires level 25"], 2]));
+	assert_eq!(finished, json!([false, ["na:nil:nil"], 2]));
 	// The same guide as no leveling guide (a dungeon's or an attunement's): it waits at Thork, not finished.
 	let wait = run(
 		"w.level = 24; w.complete({ 869 })",
@@ -602,6 +599,7 @@ fn an_accept_above_the_character_s_level_is_passed_with_requires_level_its_work_
 			flush()
 			emit({ E.GetStepIndex(), brief(2), done })"#,
 	);
+	// Waiting there, the accept's level is the one thing the step says.
 	assert_eq!(wait, json!([2, ["skipped:level:Requires level 25"], 0]));
 
 	// The level reached: the accept leads as before.
@@ -636,9 +634,9 @@ fn a_dungeon_run_is_not_moved_on_to_past_an_accept_waiting_for_a_level_the_guide
 		)
 	};
 	let run_chosen = run("w.level = 24", RUN, &script("E.ChooseDungeon(389, true)"));
-	assert_eq!(run_chosen, json!([2, ["skipped:level:Requires level 25"]]), "the run chosen: the guide waits at Thork");
+	assert_eq!(run_chosen, json!([2, ["skipped:level:Requires level 25"]]), "the run chosen: the guide waits at Thork, saying why");
 	let solo = run("w.level = 24", RUN, &script(""));
-	assert_eq!(solo, json!([4, ["skipped:level:Requires level 25"]]), "no run: on to the raptors");
+	assert_eq!(solo, json!([4, ["na:nil:nil"]]), "no run: on to the raptors");
 }
 
 // #1247: Engine.AcceptGate, what an accept's tooltip says the game asks first: the quest's minimum level (and
@@ -739,4 +737,31 @@ Polestar.RegisterGuide({ id = "test/gate", pack = "test", title = "Wetlands", fa
 	assert_eq!(out["unloaded"], "nil", "not loaded: nothing known, and nothing loaded for it");
 	assert_eq!(out["loaded"], "29:true:Crocs of the Sky");
 	assert_eq!(out["done"], "29:true:", "Crocs of the Sky handed in: the level is left");
+}
+
+// #1531 (Horde Ashenvale): "collect Ursangous's Paw" sat beside "accept The Hunt Continues item 16303", a quest that
+// needs The Hunt Begins (6383) first: the accept read "Requires The Hunt Begins first", but the arrow still sent the
+// player to kill Ursangous for a paw only that quest wants. The item a quest starts from waits with the quest: it
+// is unavailable for the same reason, and applies only while the accept does.
+#[test]
+fn a_quest_s_starting_item_waits_with_a_quest_that_cannot_be_taken_1531() {
+	let guide = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Ashenvale", faction = "Horde", minLevel = 10, maxLevel = 30, steps = {
+	{ title = "Ursangous", goals = {
+		{ t = "collect", item = 16303, itemName = "Ursangous's Paw", map = 1413, x = 40, y = 40 },
+		{ t = "accept", quest = 23, title = "Ursangous's Paw", item = 16303, pre = { 6383 }, preAll = { 6383 } },
+	} },
+	{ title = "Trainer", goals = { { t = "train", npc = 3353, npcName = "Trainer", map = 1413, x = 52, y = 31 } } },
+} })
+"#;
+	let out = run(
+		"",
+		guide,
+		r#"
+		stub.fire("QUEST_LOG_UPDATE"); flush()
+		emit({ live = E.GetLiveStep(), ursangous = brief(1) })
+	"#,
+	);
+	assert_eq!(out["live"], 2, "the paw is no work while its quest can't be taken: {out}");
+	assert!(out["ursangous"][0].as_str().unwrap().starts_with("skipped:pre"), "{out}");
 }

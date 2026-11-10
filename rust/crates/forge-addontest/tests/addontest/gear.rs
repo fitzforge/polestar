@@ -349,6 +349,22 @@ fn spec_automatic_on_forever_reads_the_talent_columns_points_a_restoration_druid
 	assert_eq!(out[4], json!(["restoration", "Restoration (healer)", "talents"]), "no trait tree: the talent tabs");
 }
 
+// A group row the client gives without its traitNodeGroupID (a tree it shapes otherwise) is no Lua error: its
+// points are unknown, and the talent tabs answer.
+#[test]
+fn spec_automatic_a_talent_group_row_without_its_id_is_no_lua_error_the_talent_tabs_answer() {
+	let out = run(
+		r#"
+		g.setSpecs({ { "Balance", 0 }, { "Feral Combat", 0 }, { "Restoration", 12 } })
+		g.setColumns({ { "Balance", 0 }, { "Feral Combat", 0 }, { "Restoration", 11 } })
+		C_Traits.GetGroupCurrencyInfo = function() return { { currencyInfos = { { traitCurrencyID = 1, quantity = 0, spent = 11 } } } } end
+		emit({ G.GetSpec() })
+	"#,
+		druid(20),
+	);
+	assert_eq!(out[0], json!(["restoration", "Restoration (healer)", "talents"]));
+}
+
 // A player set Stat weights to Restoration and saw Feral come back. The chosen spec holds over a reload, a level,
 // talent points in Feral and Cat Form, on every surface: the spec, the weights, the tooltip line and reward picks.
 #[test]

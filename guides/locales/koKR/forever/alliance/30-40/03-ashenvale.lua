@@ -13,14 +13,14 @@ return {
 	["{zone:1453} flight master"] = "",
 
 	-- Step 2: Red Jack Flint
-	-- {npc:4455} Red Jack Flint
-	["{npc:4455} stands on the dock just north of the flight master."] = "",
+	-- {npc:4455} Red Jack Flint · {area:2103} Menethil Keep
+	["{npc:4455} stands by {area:2103}'s door, just north of the flight master."] = "{npc:4455}은(는) 비행 조련사 바로 북쪽, {area:2103} 문 옆에 서 있습니다.",
 	-- {quest:1132} Fiora Longears
-	["For {quest:1132} on Theramore's docks, where this guide's boat lands"] = "",
+	["For {quest:1132} in Theramore's inn, where this guide's boat goes"] = "테라모어 여관의 {quest:1132}용 (이 가이드의 배가 가는 곳)",
 
 	-- Step 3: Glorin Steelbrow
-	-- {npc:1217} Glorin Steelbrow
-	["{npc:1217} stands on the upper floor of Menethil's keep."] = "{npc:1217}은(는) 메네실 항구 성채의 위층에 있습니다.",
+	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {npc:4963} Mikhail · {npc:5082} Vincent Hyal
+	["{npc:1217} stands in the {area:2104}, south of the keep, where {npc:4963} and {npc:5082} wait too."] = "{npc:1217}은(는) 성채 남쪽의 {area:2104}에 있으며, {npc:4963}와(과) {npc:5082}도 그곳에서 기다리고 있습니다.",
 	["Inside"] = "",
 
 	-- Step 4: Deepwater Tavern
@@ -48,7 +48,7 @@ return {
 	-- {npc:4964} Commander Samaul
 	["{npc:4964}, on the top floor"] = "",
 	-- {quest:1132} Fiora Longears
-	["{quest:1132}, on the docks"] = "",
+	["{quest:1132}, inside the inn in the north of town"] = "{quest:1132}, 마을 북쪽 여관 안",
 	-- {npc:4456} Fiora Longears · {area:415} Astranaar
 	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "",
 	-- {quest:1132} Fiora Longears · {zone:1441} Thousand Needles
@@ -75,6 +75,8 @@ return {
 	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "",
 
 	-- Step 14: Thousand Needles
+	-- {area:484} Freewind Post
+	["East through the canyons. {area:484}, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth."] = "협곡을 지나 동쪽으로 가세요. 이곳 고원 위에는 경비병이 있는 호드 야영지 {area:484}이(가) 있습니다. 협곡 바닥으로만 다니고 승강기 아래쪽은 멀리 피하세요.",
 	-- {area:482} Highperch
 	["The canyons east of {area:482}"] = "",
 

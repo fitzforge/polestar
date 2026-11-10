@@ -430,6 +430,13 @@ local BUILTIN = {
 	{ page = LOOK, tab = L["Windows"], section = L["Guide window"], controls = {
 		{ kind = "dropdown", key = "ui.style", label = L["Style"], help = L["Transparent drops every background and border; text is outlined and the controls appear when you hover the window."],
 			choices = { { value = "standard", label = L["Standard"] }, { value = "transparent", label = L["Transparent"] } } },
+		{ kind = "dropdown", key = "ui.backing", label = L["Backing"], child = true, disabled = function() return ns.Get("ui.style") ~= "transparent" end,
+			help = L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."],
+			search = "transparent, background, shade, dark, readable, contrast",
+			choices = { { value = "soft", label = L["Soft"] }, { value = "dark", label = L["Dark"] }, { value = "none", label = L["Off"] } } },
+		{ kind = "toggle", key = "ui.barShown", label = L["Keep the bar shown"], child = true, disabled = function() return ns.Get("ui.style") ~= "transparent" end,
+			help = L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."],
+			search = "transparent, bar, header, readable, always, show" },
 		{ kind = "slider", key = "ui.scale", label = L["Window scale"], min = 0.6, max = 1.6, step = 0.05, format = percent, search = "size, bigger, smaller, zoom" },
 		{ kind = "slider", key = "ui.width", label = L["Width"], min = 260, max = 560, step = 10, format = "%d", search = "wide, wider, size" },
 		{ kind = "slider", key = "ui.opacity", label = L["Window opacity"], min = 0.3, max = 1, step = 0.05, format = percent, search = "transparency, alpha, see through",
@@ -438,6 +445,9 @@ local BUILTIN = {
 	{ page = LOOK, tab = L["Windows"], section = L["Menus"], controls = {
 		{ kind = "slider", key = "ui.menuScale", label = L["Menu scale"], min = 0.7, max = 1.4, step = 0.05, format = percent, release = true,
 			help = L["The guide menu and this window; applies when you let go. Right-click to reset."] },
+		{ kind = "toggle", key = "ui.gameMenuButton", label = L["Button in the game menu"],
+			help = L["A Polestar button in the game menu (Esc) that opens the guide menu."],
+			search = "game menu, escape, esc, main menu, button, open polestar" },
 	} },
 	{ page = LOOK, tab = L["Arrow"], section = L["Arrow"], controls = {
 		H({ kind = "dropdown", key = "nav.arrowStyle", label = L["Arrow style"], choices = { { value = "skin", label = L["The skin's arrow"] }, { value = "3d", label = L["3D"] }, { value = "flat", label = L["Flat"] },

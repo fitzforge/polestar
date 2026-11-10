@@ -8,7 +8,7 @@
 return {
 	-- Step 1: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "Zum {area:2101}",
 
 	-- Step 2: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
@@ -36,8 +36,8 @@ return {
 	-- Step 7: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
 	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "",
-	-- {npc:8256} Curator Thorius · {area:1537} Ironforge
-	["For {npc:8256} in {area:1537}, later"] = "Für {npc:8256} in {area:1537}, später",
+	-- {npc:8256} Curator Thorius · {zone:1455} Ironforge
+	["For {npc:8256} in {zone:1455}, at the end of this guide"] = "Für {npc:8256} in {zone:1455}, am Ende dieses Guides",
 
 	-- Step 8: Thorium Point
 	-- {area:1446} Thorium Point
@@ -96,28 +96,64 @@ return {
 	-- {npc:5860} Twilight Dark Shaman
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 29: Level 48.98
+	-- Step 29: The Torch of Retribution
+	-- {npc:8479} Velarok Windblade
+	["Listen to {npc:8479}'s story once more."] = "Hör dir die Geschichte von {npc:8479} noch einmal an.",
+
+	-- Step 30: Velarok Windblade
+	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
+	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "{quest:3453} liegt zu Füßen von {npc:8479} auf dem Boden; {quest:3462} steht neben ihm.",
+	-- {quest:3462} Squire Maltrake · {area:1446} Thorium Point
+	["{quest:3462}: hand it in on the way back to {area:1446}"] = "{quest:3462}: Gib sie auf dem Rückweg zur {area:1446} ab",
+
+	-- Step 31: Sentry Braziers
+	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
+	["Sentry Braziers"] = "Wachkohlenbecken",
+	-- {object:149047} Torch of Retribution
+	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
+	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "Trag die {object:149047} am Rand des Kessels entlang nach Süden und entzünde die vier Wachkohlenbecken, vom Südwesten herum bis zum Südosten.",
+
+	-- Step 32: Level 48.98
 	["Level 48.98"] = "",
 	-- {quest:3452} The Flame's Casing · {area:2100} Maraudon · {area:978} Zul'Farrak
 	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
 	-- {npc:5844} Dark Iron Slaver
 	["grind on {npc:5844}"] = "",
 
-	-- Step 30: Margol's Horn
+	-- Step 33: Margol's Horn
 	-- {quest:3181} The Horn of the Beast
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:3181} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "Unter der Erde",
 
-	-- Step 33: Fly to Ironforge
+	-- Step 35: Squire Maltrake
+	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade · {area:1446} Thorium Point
+	["{npc:8509} and the dragonflight's hoard are beside {npc:8479}, on the rim south of {area:1446}."] = "{npc:8509} und der Hort des Drachenschwarms befinden sich neben {npc:8479}, am Rand südlich der {area:1446}.",
+	-- {object:149502} Hoard of the Black Dragonflight · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous · {zone:1428} Burning Steppes
+	["The {object:149502} it gives holds a {item:10575}: keep it for {npc:9459} in the {zone:1428}"] = "Der {object:149502}, den sie dir gibt, enthält eine {item:10575}: Behalte sie für {npc:9459} in der {zone:1428}",
+
+	-- Step 37: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Flieg nach {area:1537}",
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "",
 
-	-- Step 34: Class trainer
-	["Class trainer"] = "",
+	-- Step 38: Hall of Explorers
+	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
+	["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}: Die Schlammbestien sind im {zone:1448}, behalte sie",
+
+	-- Step 39: Mystic Ward
+	-- {zone:1447} Azshara
+	["Four rune rubbings in {zone:1447}: keep it"] = "Vier Runenabriebe in {zone:1447}: Behalte sie",
+
+	-- Step 40: Class trainer
+	["Class trainer"] = "Klassenlehrer",
+
+	-- Step 41: Xiggs Fuselighter
+	-- {object:32359} Military Ward (no name in this language: may be words)
+	["Xiggs waits in the {object:32359}."] = "Xiggs wartet im {object:32359}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["For {npc:8256} in {area:1537}, later"] = "Für {npc:8256} in {area:1537}, später",
 	-- ["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}. {area:1446} is the scaffolded camp on the north-west rim."] = "Reite von {area:144} nach Süden ins {zone:1418}, dann nach Westen an der Hordestadt {area:340} vorbei (halte Abstand) und den Pfad hinauf in die {zone:1427}. Die {area:1446} ist das eingerüstete Lager am Nordwestrand.",
 	-- ["Greater Lava Spiders"] = "Versengende Lavaspinnen",
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "Schwere Kriegsgolems patrouillieren unterhalb von Kalaran über den Boden des Kessels; Magmaelementare treiben zwischen ihnen. Golems und Elementare droppen das Öl, Elementare die Herzen.",

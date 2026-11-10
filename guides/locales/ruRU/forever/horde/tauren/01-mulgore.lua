@@ -56,7 +56,7 @@ return {
 	-- {npc:8554} Chief Sharptusk Thornmantle · {object:3076} Dirt-stained Map
 	-- plural, as words: Battleboars = {npc:2966} Battleboar
 	["Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. {npc:8554} stands at its eastern end, and the {object:3076} lies on the ground in the camp."] = "К северу от святилища пасутся боевые вепри; дыбогривые свинобразы занимают ущелье к северо-востоку. {npc:8554} стоит в его восточной части, а {object:3076} лежит на земле в лагере.",
-	["Below ground"] = "",
+	["Below ground"] = "Под землей",
 
 	-- Step 10: Deathskip to Red Cloud Mesa
 	-- {area:220} Red Cloud Mesa
@@ -85,10 +85,30 @@ return {
 	["{npc:5888}: {npc:5873} and your {item:5175}"] = "{npc:5888}: {npc:5873} и ваш {item:5175}",
 
 	-- Step 15: Kaga Wildhoof
-	-- {area:220} Red Cloud Mesa · {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {spell:1229451} Boosted Rest
-	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "Идите по дороге на север от места {area:220}. {npc:265810} ждет на дороге чуть к югу от места {area:222}; /sit у ее костра, пока не получите {spell:1229451}.",
+	-- {area:220} Red Cloud Mesa · {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {spell:1229451} Boosted Rest · {zone:1456} Thunder Bluff
+	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof or on the {zone:1456} stop."] = "Идите по дороге на север от места {area:220}. {npc:265810} ждет на дороге чуть к югу от места {area:222}; /sit у ее костра, пока не получите {spell:1229451}. Если у вас изучена профессия, Кага также предлагает свое задание «Походы для начинающих», которое принимает ваш учитель профессии: в Деревне Кровавого Копыта или во время остановки в городе {zone:1456}.",
 	-- {spell:1229451} Boosted Rest
 	["/sit by Kaga's campfire until you get {spell:1229451}"] = "/sit у костра Каги, пока не получите {spell:1229451}",
+	-- {npc:265810} Kaga Wildhoof · {npc:6290} Yonn Deepcut
+	["{npc:265810}: for {npc:6290}"] = "{npc:265810}: для персонажа {npc:6290}",
+	-- {npc:265810} Kaga Wildhoof · {npc:3069} Chaw Stronghide
+	["{npc:265810}: for {npc:3069}"] = "{npc:265810}: для персонажа {npc:3069}",
+	-- {npc:265810} Kaga Wildhoof · {npc:5939} Vira Younghoof
+	["{npc:265810}: for {npc:5939}"] = "{npc:265810}: для персонажа {npc:5939}",
+	-- {npc:265810} Kaga Wildhoof · {npc:5938} Uthan Stillwater
+	["{npc:265810}: for {npc:5938}"] = "{npc:265810}: для персонажа {npc:5938}",
+	-- {npc:265810} Kaga Wildhoof · {npc:3013} Komin Winterhoof
+	["{npc:265810}: for {npc:3013}"] = "{npc:265810}: для персонажа {npc:3013}",
+	-- {npc:265810} Kaga Wildhoof · {npc:3001} Brek Stonehoof
+	["{npc:265810}: for {npc:3001}"] = "{npc:265810}: для персонажа {npc:3001}",
+	-- {npc:265810} Kaga Wildhoof · {npc:11047} Kray
+	["{npc:265810}: for {npc:11047}"] = "{npc:265810}: для персонажа {npc:11047}",
+	-- {npc:265810} Kaga Wildhoof · {npc:10278} Thrag Stonehoof
+	["{npc:265810}: for {npc:10278}"] = "{npc:265810}: для персонажа {npc:10278}",
+	-- {npc:265810} Kaga Wildhoof · {npc:11071} Mot Dawnstrider
+	["{npc:265810}: for {npc:11071}"] = "{npc:265810}: для персонажа {npc:11071}",
+	-- {npc:265810} Kaga Wildhoof · {npc:11051} Vhan
+	["{npc:265810}: for {npc:11051}"] = "{npc:265810}: для персонажа {npc:11051}",
 
 	-- Step 16: Bloodhoof Village
 	-- {npc:3063} Krang Stonehoof
@@ -100,6 +120,10 @@ return {
 	-- Step 17: Bloodhoof Village
 	-- {npc:3067} Pyall Silentstride
 	["{npc:3067}: Camping 101 asks you to learn it"] = "",
+	-- {npc:6290} Yonn Deepcut · {npc:3067} Pyall Silentstride · {quest:97936} Camping 101: Skinning
+	["{npc:6290}, beside {npc:3067}: {quest:97936}"] = "{npc:6290}, рядом с {npc:3067}: {quest:97936}",
+	-- {npc:3069} Chaw Stronghide · {npc:3067} Pyall Silentstride · {quest:97934} Camping 101: Leatherworking
+	["{npc:3069}, beside {npc:3067}: {quest:97934}"] = "{npc:3069}, рядом с {npc:3067}: {quest:97934}",
 
 	-- Step 18: Poison Water
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
@@ -298,23 +322,31 @@ return {
 	-- {zone:1413} The Barrens
 	["Into {zone:1413}"] = "",
 
-	-- Step 62: The Crossroads
+	-- Step 61: Kirge Sternhorn
+	-- {npc:3418} Kirge Sternhorn · {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:458} Gold Road
+	["{npc:3418} stands at {area:378}, where the road from {zone:1412} meets the {area:458} north to the Crossroads."] = "{npc:3418} стоит здесь: {area:378} – там, где дорога из края {zone:1412} выходит на тракт {area:458}, ведущий на север к Перекрестку.",
+	-- {npc:3418} Kirge Sternhorn · {npc:3429} Thork
+	["{npc:3418}: for {npc:3429} at the Crossroads"] = "{npc:3418}: для персонажа {npc:3429} на Перекрестке",
+
+	-- Step 63: The Crossroads
 	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
 	["Leave {zone:1412} by the south-eastern pass and follow the road to the Crossroads. {npc:3448} stands at the south gate, {quest:860} by the inn, {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "",
+	-- {npc:3429} Thork
+	["{npc:3429}, by the wind rider tower"] = "{npc:3429}, у башни ветрокрылов",
 	-- {npc:3615} Devrak
 	["{npc:3615}, the wind rider master"] = "{npc:3615}, распорядитель полетов",
 
-	-- Step 63: Jahan Hawkwing
+	-- Step 64: Jahan Hawkwing
 	-- {npc:3483} Jahan Hawkwing · {npc:3615} Devrak · {zone:1456} Thunder Bluff · {npc:3033} Turak Runetotem
 	["{npc:3483} sells armor on the north side of the Crossroads. His bundle goes to {npc:3615}, who sends it with you on the flight to {zone:1456} you take for {npc:3033} anyway."] = "",
 
-	-- Step 64: Class turn-in in Thunder Bluff
+	-- Step 65: Class turn-in in Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Class turn-in in {area:1638}"] = "",
 	-- {npc:8359} Ahanu
 	["{npc:8359}, by the wind riders on the central rise"] = "",
 
-	-- Step 66: To Orgrimmar
+	-- Step 67: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "В {zone:1454}",
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
@@ -329,6 +361,7 @@ return {
 	-- ["Class turn-ins in {area:1638}"] = "Сдача классовых заданий: {area:1638}",
 	-- ["Finish the wolf heart, cougar femur, plainstrider scale and swoop gizzard on the plains around the village."] = "Доберите сердце волка, бедро пумы, чешую долгонога и желудок перепелятника на равнинах вокруг деревни.",
 	-- ["Flatland Prowlers roam the plains around {area:225}"] = "Хищники плоскогорья бродят по равнинам вокруг места {area:225}",
+	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "Идите по дороге на север от места {area:220}. {npc:265810} ждет на дороге чуть к югу от места {area:222}; /sit у ее костра, пока не получите {spell:1229451}.",
 	-- ["Galak centaurs and Prairie Wolf Alphas"] = "Кентавры Галак и могучие волки прерий",
 	-- ["Hearth to {area:222} and ride north to {area:1639}."] = "Камень возвращения: {area:222}, затем езжайте на север сюда: {area:1639}.",
 	-- ["Leave {zone:1412} by the south-eastern pass and follow the road to the {area:380}. {npc:3448} stands at the south gate, {quest:860} by the inn; {npc:3449}, {npc:3429} and {npc:3615} on the tower platform, then Helbrim and {npc:3464} by the north gate and the inn. {area:17} guide starts here.\n{area:380} is your base for this guide. Everyone you need stands within a few steps of the inn."] = "Покиньте край {zone:1412} через юго-восточный перевал и идите по дороге сюда: {area:380}. {npc:3448} стоит у южных ворот, {quest:860} – у таверны; {npc:3449}, {npc:3429} и {npc:3615} – на площадке башни, затем Хелбрим и {npc:3464} – у северных ворот и таверны. Здесь начинается Гайд: {area:17}.\n{area:380} – ваша база в этом Гайде. Все нужные NPC стоят в нескольких шагах от таверны.",
@@ -346,6 +379,16 @@ return {
 	-- ["The well lies north of the village. Well Stones sit around the well, {object:2912} lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for {quest:766} and {quest:761}."] = "Колодец – к северу от деревни. Камни у источника лежат вокруг него, {object:2912} – под деревьями рядом. По пути убивайте волков, пум, долгоногов и перепелятников для заданий {quest:766} и {quest:761}.",
 	-- ["The well lies south-east of the village."] = "Колодец – к юго-востоку от деревни.",
 	-- ["The {area:380}"] = "{area:380}",
+	-- ["With {skill:129} learned, Kaga also offers its Camping 101: {npc:5939} in Bloodhoof takes it."] = "Если у вас изучен навык «{skill:129}», Кага также предлагает свое задание «Походы для начинающих»: его принимает {npc:5939} в Деревне Кровавого Копыта.",
+	-- ["With {skill:164} learned, Kaga also offers its Camping 101: {npc:10278} in {zone:1456} takes it."] = "Если у вас изучен навык «{skill:164}», Кага также предлагает свое задание «Походы для начинающих»: его принимает {npc:10278} ({zone:1456}).",
+	-- ["With {skill:165} learned, Kaga also offers its Camping 101: {npc:3069} in Bloodhoof takes it."] = "Если у вас изучен навык «{skill:165}», Кага также предлагает свое задание «Походы для начинающих»: его принимает {npc:3069} в Деревне Кровавого Копыта.",
+	-- ["With {skill:171} learned, Kaga also offers its Camping 101: {npc:11047} in {zone:1456} takes it."] = "Если у вас изучен навык «{skill:171}», Кага также предлагает свое задание «Походы для начинающих»: его принимает {npc:11047} ({zone:1456}).",
+	-- ["With {skill:182} learned, Kaga also offers its Camping 101: {npc:3013} in {zone:1456} takes it."] = "Если у вас изучен навык «{skill:182}», Кага также предлагает свое задание «Походы для начинающих»: его принимает {npc:3013} ({zone:1456}).",
+	-- ["With {skill:186} learned, Kaga also offers its Camping 101: {npc:3001} in {zone:1456} takes it."] = "Если у вас изучен навык «{skill:186}», Кага также предлагает свое задание «Походы для начинающих»: его принимает {npc:3001} ({zone:1456}).",
+	-- ["With {skill:197} learned, Kaga also offers its Camping 101: {npc:11051} in {zone:1456} takes it."] = "Если у вас изучен навык «{skill:197}», Кага также предлагает свое задание «Походы для начинающих»: его принимает {npc:11051} ({zone:1456}).",
+	-- ["With {skill:333} learned, Kaga also offers its Camping 101: {npc:11071} in {zone:1456} takes it."] = "Если у вас изучен навык «{skill:333}», Кага также предлагает свое задание «Походы для начинающих»: его принимает {npc:11071} ({zone:1456}).",
+	-- ["With {skill:356} learned, Kaga also offers its Camping 101: {npc:5938} in Bloodhoof takes it."] = "Если у вас изучен навык «{skill:356}», Кага также предлагает свое задание «Походы для начинающих»: его принимает {npc:5938} в Деревне Кровавого Копыта.",
+	-- ["With {skill:393} learned, Kaga also offers its Camping 101: {npc:6290} in Bloodhoof takes it."] = "Если у вас изучен навык «{skill:393}», Кага также предлагает свое задание «Походы для начинающих»: его принимает {npc:6290} в Деревне Кровавого Копыта.",
 	-- ["{npc:275789} stands on the {area:821} a little east of the well."] = "{npc:275789} стоит здесь: {area:821}, чуть к востоку от колодца.",
 	-- ["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182} стоит на северной окраине деревни. Кайлу нужен предмет {item:287505} с равнинных долгоногов.",
 	-- ["{npc:2988} camps by the {area:396} south-east of Bloodhoof."] = "{npc:2988} стоит лагерем у места {area:396}, к юго-востоку от Деревни Кровавого Копыта.",

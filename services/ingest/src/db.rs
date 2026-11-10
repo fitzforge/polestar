@@ -479,7 +479,9 @@ impl Db {
 	/// unless one of `networks` (today's HMAC of a network, with its cap) already registered its
 	/// cap of contributors today. Each network's count goes up by one.
 	#[allow(clippy::too_many_arguments)]
-	pub fn register(&mut self, hash: &str, challenge: &str, expires: i64, now: i64, networks: &[(&str, u32)], cohort: &str) -> rusqlite::Result<Registration> {
+	/// A new contributor, counted against each of `networks`' daily caps; `blocked` (a maintainer's
+	/// test identity) from the start.
+	pub fn register(&mut self, hash: &str, challenge: &str, expires: i64, now: i64, networks: &[(&str, u32)], cohort: &str, blocked: bool) -> rusqlite::Result<Registration> {
 		let today = now.div_euclid(DAY);
 		let tx = self.conn.transaction()?;
 		for &(network, cap) in networks {
@@ -495,7 +497,7 @@ impl Db {
 		for &(network, _) in networks {
 			tx.execute("INSERT INTO registrations (day, network, n) VALUES (?1, ?2, 1) ON CONFLICT (day, network) DO UPDATE SET n = n + 1", params![today, network])?;
 		}
-		tx.execute("INSERT INTO contributors (hash, first_seen, last_seen, bytes_today, day, cohort) VALUES (?1, ?2, ?2, 0, ?3, ?4)", params![hash, now, today, cohort])?;
+		tx.execute("INSERT INTO contributors (hash, first_seen, last_seen, bytes_today, day, cohort, blocked) VALUES (?1, ?2, ?2, 0, ?3, ?4, ?5)", params![hash, now, today, cohort, blocked])?;
 		tx.commit()?;
 		Ok(Registration::Done(cohort.to_owned()))
 	}
@@ -1028,7 +1030,7 @@ mod tests {
 	fn db_with(contributors: &[&str]) -> Db {
 		let mut db = Db::open_in_memory().unwrap();
 		for (i, c) in contributors.iter().enumerate() {
-			assert_eq!(db.register(c, &format!("ch{i}"), NOW + 600, NOW, &[(&format!("net{i}"), 3)], "0123456789abcdef").unwrap(), Registration::Done("0123456789abcdef".to_owned()));
+			assert_eq!(db.register(c, &format!("ch{i}"), NOW + 600, NOW, &[(&format!("net{i}"), 3)], "0123456789abcdef", false).unwrap(), Registration::Done("0123456789abcdef".to_owned()));
 		}
 		db
 	}
@@ -1062,7 +1064,7 @@ mod tests {
 	#[test]
 	fn a_registration_counts_against_every_network_it_is_in() {
 		let mut db = Db::open_in_memory().unwrap();
-		let reg = |db: &mut Db, i: u32, nets: &[(&str, u32)]| db.register(&format!("h{i}"), &format!("ch{i}"), NOW + 600, NOW, nets, "c").unwrap();
+		let reg = |db: &mut Db, i: u32, nets: &[(&str, u32)]| db.register(&format!("h{i}"), &format!("ch{i}"), NOW + 600, NOW, nets, "c", false).unwrap();
 		assert!(matches!(reg(&mut db, 0, &[("a48", 3), ("wide", 2)]), Registration::Done(_)));
 		assert!(matches!(reg(&mut db, 1, &[("b48", 3), ("wide", 2)]), Registration::Done(_)));
 		assert_eq!(reg(&mut db, 2, &[("c48", 3), ("wide", 2)]), Registration::OverCap, "the wide network is full");

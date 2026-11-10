@@ -3,7 +3,8 @@
 //! whether the player shares. One game folder holds every WoW account's install, so the file maps
 //! each install id to its highest acknowledged chunk:
 //! `PolestarRecorderAck = { ["<install>"] = <upto>, ... }`, then, once the player has shared at
-//! least once, `PolestarRecorderShare = true|false` (sharing on and not paused in the client).
+//! least once, `PolestarRecorderShare = true|false` (sharing on and not paused in the client), and
+//! once they used the client's explorer toggle, `PolestarRecorderExplore = true|false`.
 
 use std::collections::BTreeMap;
 use std::io::{self, Write};
@@ -14,33 +15,45 @@ use crate::sv::valid_install;
 
 pub const FILE_NAME: &str = "Ack.lua";
 
+/// The flags after the acks; `None` leaves one out of the file.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct Flags {
+	/// `PolestarRecorderShare`: whether the Recorder records (the player shares, not paused).
+	pub share: Option<bool>,
+	/// `PolestarRecorderExplore`: `false` keeps explorer mode off.
+	pub explore: Option<bool>,
+}
+
 /// Records that `install`'s chunks up to `upto` are on the server: reads the ack file in
 /// `addon_dir` (the Polestar_Recorder addon folder), raises this install's entry (never lowers
 /// it), keeps the other installs' entries, and writes the file atomically (a temporary file, then
-/// a rename) with the share flag `share` (`None`: no flag, the player never shared).
-pub fn write(addon_dir: &Path, install: &str, upto: u64, share: Option<bool>) -> io::Result<()> {
+/// a rename) with `flags`.
+pub fn write(addon_dir: &Path, install: &str, upto: u64, flags: Flags) -> io::Result<()> {
 	if !valid_install(install) {
 		return Err(io::Error::new(io::ErrorKind::InvalidInput, format!("not an install id: {install:?}")));
 	}
 	let mut acks = read(addon_dir);
 	let e = acks.entry(install.to_string()).or_insert(upto);
 	*e = (*e).max(upto);
-	save(addon_dir, &acks, share)
+	save(addon_dir, &acks, flags)
 }
 
-/// Writes the share flag, keeping every install's ack.
-pub fn write_share(addon_dir: &Path, share: bool) -> io::Result<()> {
-	save(addon_dir, &read(addon_dir), Some(share))
+/// Writes the flags, keeping every install's ack.
+pub fn write_flags(addon_dir: &Path, flags: Flags) -> io::Result<()> {
+	save(addon_dir, &read(addon_dir), flags)
 }
 
-fn save(addon_dir: &Path, acks: &BTreeMap<String, u64>, share: Option<bool>) -> io::Result<()> {
+fn save(addon_dir: &Path, acks: &BTreeMap<String, u64>, flags: Flags) -> io::Result<()> {
 	let mut text = String::from("PolestarRecorderAck = {\n");
 	for (i, n) in acks {
 		text.push_str(&format!("\t[\"{i}\"] = {n},\n"));
 	}
 	text.push_str("}\n");
-	if let Some(share) = share {
+	if let Some(share) = flags.share {
 		text.push_str(&format!("PolestarRecorderShare = {share}\n"));
+	}
+	if let Some(explore) = flags.explore {
+		text.push_str(&format!("PolestarRecorderExplore = {explore}\n"));
 	}
 	let tmp = addon_dir.join(format!("{FILE_NAME}.tmp"));
 	{
@@ -76,14 +89,18 @@ pub fn read(addon_dir: &Path) -> BTreeMap<String, u64> {
 	out
 }
 
-/// The share flag in `addon_dir`'s ack file; `None` when there is none (the release's file).
-pub fn read_share(addon_dir: &Path) -> Option<bool> {
-	global(addon_dir, "PolestarRecorderShare")?.as_bool()
+/// The flags in `addon_dir`'s ack file; `None` for each one it does not say (the release's file
+/// says neither).
+pub fn read_flags(addon_dir: &Path) -> Flags {
+	let flag = |name| global(addon_dir, name)?.as_bool();
+	Flags { share: flag("PolestarRecorderShare"), explore: flag("PolestarRecorderExplore") }
 }
 
 #[cfg(test)]
 mod tests {
 	use super::*;
+
+	const SHARE: Flags = Flags { share: Some(true), explore: None };
 
 	#[test]
 	fn writes_and_reads_the_ack_map() {
@@ -91,36 +108,44 @@ mod tests {
 		std::fs::create_dir_all(&dir).unwrap();
 		std::fs::write(dir.join(FILE_NAME), "PolestarRecorderAck = nil\n").unwrap();
 		assert!(read(&dir).is_empty());
-		assert_eq!(read_share(&dir), None);
+		assert_eq!(read_flags(&dir), Flags::default());
 		// A player who never shared: acks only, no flag.
-		write(&dir, "k3j9x0q2m7ab", 30, None).unwrap();
+		write(&dir, "k3j9x0q2m7ab", 30, Flags::default()).unwrap();
 		assert_eq!(std::fs::read_to_string(dir.join(FILE_NAME)).unwrap(), "PolestarRecorderAck = {\n\t[\"k3j9x0q2m7ab\"] = 30,\n}\n");
-		assert_eq!(read_share(&dir), None);
-		write(&dir, "k3j9x0q2m7ab", 37, Some(true)).unwrap();
+		assert_eq!(read_flags(&dir), Flags::default());
+		write(&dir, "k3j9x0q2m7ab", 37, SHARE).unwrap();
 		assert_eq!(std::fs::read_to_string(dir.join(FILE_NAME)).unwrap(), "PolestarRecorderAck = {\n\t[\"k3j9x0q2m7ab\"] = 37,\n}\nPolestarRecorderShare = true\n");
 		assert!(!dir.join("Ack.lua.tmp").exists());
-		assert_eq!(read_share(&dir), Some(true));
+		assert_eq!(read_flags(&dir), SHARE);
 		// A second account's install keeps the first's entry.
-		write(&dir, "0000aaaabbbb", 5, Some(true)).unwrap();
+		write(&dir, "0000aaaabbbb", 5, SHARE).unwrap();
 		let acks = read(&dir);
 		assert_eq!((acks["k3j9x0q2m7ab"], acks["0000aaaabbbb"]), (37, 5));
 		// Raised, never lowered.
-		write(&dir, "k3j9x0q2m7ab", 41, Some(true)).unwrap();
-		write(&dir, "k3j9x0q2m7ab", 12, Some(true)).unwrap();
+		write(&dir, "k3j9x0q2m7ab", 41, SHARE).unwrap();
+		write(&dir, "k3j9x0q2m7ab", 12, SHARE).unwrap();
 		assert_eq!(read(&dir)["k3j9x0q2m7ab"], 41);
-		assert_eq!(write(&dir, "\"; os.exit() --", 1, Some(true)).unwrap_err().kind(), io::ErrorKind::InvalidInput);
+		assert_eq!(write(&dir, "\"; os.exit() --", 1, SHARE).unwrap_err().kind(), io::ErrorKind::InvalidInput);
 		assert_eq!(read(&dir).len(), 2);
 		// Sharing turned off: the flag changes, the acks stay.
-		write_share(&dir, false).unwrap();
-		assert_eq!(read_share(&dir), Some(false));
+		write_flags(&dir, Flags { share: Some(false), explore: None }).unwrap();
+		assert_eq!(read_flags(&dir).share, Some(false));
 		assert_eq!(read(&dir).len(), 2);
 		// Junk entries and the old single-install form are not acks.
 		std::fs::write(dir.join(FILE_NAME), "PolestarRecorderAck = { install = \"k3j9x0q2m7ab\", upto = 3, [\"BAD\"] = 1 }\n").unwrap();
 		assert!(read(&dir).is_empty());
 		// With no acks yet, the flag alone is written.
-		write_share(&dir, true).unwrap();
+		write_flags(&dir, SHARE).unwrap();
 		assert_eq!(std::fs::read_to_string(dir.join(FILE_NAME)).unwrap(), "PolestarRecorderAck = {\n}\nPolestarRecorderShare = true\n");
 		assert!(read(&dir).is_empty());
+		// The explorer toggle used: its flag follows the share flag, alone or not.
+		let off = Flags { share: Some(true), explore: Some(false) };
+		write(&dir, "k3j9x0q2m7ab", 3, off).unwrap();
+		assert_eq!(std::fs::read_to_string(dir.join(FILE_NAME)).unwrap(), "PolestarRecorderAck = {\n\t[\"k3j9x0q2m7ab\"] = 3,\n}\nPolestarRecorderShare = true\nPolestarRecorderExplore = false\n");
+		assert_eq!(read_flags(&dir), off);
+		write_flags(&dir, Flags { share: None, explore: Some(true) }).unwrap();
+		assert_eq!(read_flags(&dir), Flags { share: None, explore: Some(true) });
+		assert_eq!(read(&dir)["k3j9x0q2m7ab"], 3);
 		std::fs::remove_dir_all(&dir).unwrap();
 	}
 }

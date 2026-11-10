@@ -96,7 +96,7 @@ return {
 
 	-- Step 14: Shen'dar Village
 	-- {area:16624} Shen'dar Village · {npc:251523} Constable Aonda · {npc:251902} Illaya Amberwind · {npc:254089} Coriella Calmbreeze · {npc:263664} Raan Wildwind
-	["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side."] = "",
+	["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side. With a profession learned, {npc:263664} also offers its Camping 101: its trainer stands in the village."] = "Suivez la route vers le sud jusqu'à {area:16624}, au milieu de l'île. {npc:251523} se tient du côté est, {npc:251902} au milieu, {npc:254089} juste au nord-ouest d'elle, {npc:263664} près du feu de camp du côté ouest. Une fois un métier appris, {npc:263664} propose aussi la quête Camping 101 correspondante : son maître se tient dans le village.",
 	-- {npc:251902} Illaya Amberwind
 	["talk to {npc:251902}"] = "parlez à {npc:251902}",
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
@@ -402,11 +402,11 @@ return {
 	-- {npc:251968} Ayessa Dawnsinger · {area:16638} Valanaar · {zone:1412} Mulgore · {npc:259119} Alaana Stormwalker
 	["{npc:251968} sends you on to Kalimdor. Once you have trained, board the skycutter at the dock on {area:16638}'s south-west edge: it flies to northern {zone:1412}, where {npc:259119} waits."] = "{npc:251968} vous envoie vers Kalimdor. Une fois entraîné, montez à bord du coupe-ciel au quai, à la lisière sud-ouest de {area:16638} : il vole jusqu'au nord de {zone:1412}, où {npc:259119} vous attend.",
 
-	-- Step 81: Leave Zephras Isle to Mulgore
+	-- Step 80: Leave Zephras Isle to Mulgore
 	-- {zone:2521} Zephras Isle · {zone:1412} Mulgore
 	["Leave {zone:2521} to {zone:1412}"] = "Quittez {zone:2521} pour {zone:1412}",
 
-	-- Step 82: Northern Mulgore
+	-- Step 81: Northern Mulgore
 	-- {zone:1412} Mulgore
 	["Northern {zone:1412}"] = "Nord de {zone:1412}",
 	-- {npc:259119} Alaana Stormwalker
@@ -416,11 +416,11 @@ return {
 	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
 	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:259118}, près de l'aire d'atterrissage : pour {npc:3033} à {zone:1456}",
 
-	-- Step 83: Clarice Foster
+	-- Step 82: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
 	["{npc:5543} stands in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart."] = "",
 
-	-- Step 85: Traditions of the Bluff
+	-- Step 84: Traditions of the Bluff
 	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner · {item:278078} Prepared Incense
 	["{npc:269068} wants tauren incense: buy its four parts from {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier, then combine them into {item:278078}."] = "{npc:269068} veut de l'encens tauren : achetez ses quatre ingrédients à {npc:3014} l'herboriste, {npc:3012} la fournisseuse en enchantement, {npc:3005} le fournisseur en travail du cuir et {npc:3027} le fournisseur en cuisine, puis combinez-les en {item:278078}.",
 	-- {item:278079} Bundle of Herbs · {npc:3014} Nida Winterhoof
@@ -432,37 +432,37 @@ return {
 	-- {item:278083} Ceremonial Flint and Tinder · {npc:3027} Naal Mistrunner
 	["{item:278083}, from {npc:3027}"] = "{item:278083}, chez {npc:3027}",
 
-	-- Step 86: Turak Runetotem
+	-- Step 85: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
 	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "",
 
-	-- Step 87: Hunter Rise
+	-- Step 86: Hunter Rise
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
 	["Use the {item:278078} at the ceremonial mat and burner on the south-facing cliff of {area:1641}."] = "Utilisez l'{item:278078} sur le tapis et le brûleur de cérémonie, sur la falaise sud de {area:1641}.",
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
 	["Spread the {item:278078} off {area:1641}"] = "Répandez l'{item:278078} depuis {area:1641}",
 
-	-- Step 89: Ansekhwa
+	-- Step 88: Ansekhwa
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
 	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "Tant que vous y êtes : apprenez {spell:199} auprès de {npc:11869} (10 pièces d'argent) ; les armes à deux mains font monter un guerrier le plus vite.",
 
-	-- Step 90: Ansekhwa
+	-- Step 89: Ansekhwa
 	-- {npc:11869} Ansekhwa
 	["While you're here: learn Staves from {npc:11869} (10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Tant que vous y êtes : apprenez les Bâtons auprès de {npc:11869} (10 pièces d'argent) ; l'arme de mêlée d'un chasseur compte surtout pour ses caractéristiques, et les armes à deux mains en apportent le plus.",
 
-	-- Step 91: Into Mulgore
+	-- Step 90: Into Mulgore
 	-- {zone:1412} Mulgore
 	["Into {zone:1412}"] = "Vers {zone:1412}",
 
-	-- Step 92: Into The Barrens
+	-- Step 91: Into The Barrens
 	-- {zone:1413} The Barrens
 	["Into {zone:1413}"] = "Vers les {zone:1413}",
 
-	-- Step 94: The Crossroads
+	-- Step 93: The Crossroads
 	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
 	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "",
 
-	-- Step 95: To Orgrimmar
+	-- Step 94: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "Vers {zone:1454}",
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
@@ -526,6 +526,13 @@ return {
 	-- ["Wind Hollows drift over the lowlands around {area:16638}. The first {object:616466} lie west of the orchard road."] = "Des Creux du vent ({npc:251676}) dérivent au-dessus des plaines autour de {area:16638}. Les premières {object:616466} se trouvent à l'ouest de la route du verger.",
 	-- ["Wind Hollows drift over the lowlands around {area:16638}. The first {object:616467} lie west of the orchard road."] = "Des Creux du vent dérivent au-dessus des plaines autour de {area:16638}. Les premières {object:616467} se trouvent à l'ouest de la route du verger.",
 	-- ["Windsong Crawlers"] = "Clampants chantevent ({npc:254588})",
+	-- ["With {skill:129} learned, {npc:263664} also offers its Camping 101: {npc:257018}, in Shen'dar, takes it."] = "Une fois {skill:129} appris, {npc:263664} propose aussi la quête Camping 101 correspondante : {npc:257018}, à Shen'dar, la récupère.",
+	-- ["With {skill:164} learned, {npc:263664} also offers its Camping 101: {npc:251913}, in Shen'dar, takes it."] = "Une fois {skill:164} appris, {npc:263664} propose aussi la quête Camping 101 correspondante : {npc:251913}, à Shen'dar, la récupère.",
+	-- ["With {skill:165} learned, {npc:263664} also offers its Camping 101: {npc:251993}, in Shen'dar, takes it."] = "Une fois {skill:165} appris, {npc:263664} propose aussi la quête Camping 101 correspondante : {npc:251993}, à Shen'dar, la récupère.",
+	-- ["With {skill:171} learned, {npc:263664} also offers its Camping 101: {npc:257019}, in Shen'dar, takes it."] = "Une fois {skill:171} appris, {npc:263664} propose aussi la quête Camping 101 correspondante : {npc:257019}, à Shen'dar, la récupère.",
+	-- ["With {skill:186} learned, {npc:263664} also offers its Camping 101: {npc:257022}, in Shen'dar, takes it."] = "Une fois {skill:186} appris, {npc:263664} propose aussi la quête Camping 101 correspondante : {npc:257022}, à Shen'dar, la récupère.",
+	-- ["With {skill:356} learned, {npc:263664} also offers its Camping 101: {npc:251992}, in Shen'dar, takes it."] = "Une fois {skill:356} appris, {npc:263664} propose aussi la quête Camping 101 correspondante : {npc:251992}, à Shen'dar, la récupère.",
+	-- ["With {skill:393} learned, {npc:263664} also offers its Camping 101: {npc:257024}, in Shen'dar, takes it."] = "Une fois {skill:393} appris, {npc:263664} propose aussi la quête Camping 101 correspondante : {npc:257024}, à Shen'dar, la récupère.",
 	-- ["talk to {npc:251905}"] = "parlez à {npc:251905}",
 	-- ["talk to {npc:252383}"] = "parlez à {npc:252383}",
 	-- ["{area:1638} is beside the landing: ride up a lift and learn the flight path from {npc:2995}, the wind rider master."] = "{area:1638} est à côté de l'aire d'atterrissage : montez par un ascenseur et apprenez le trajet aérien auprès de {npc:2995}, le maître des coursiers du vent.",

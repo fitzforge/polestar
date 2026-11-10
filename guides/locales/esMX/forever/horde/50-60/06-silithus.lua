@@ -36,7 +36,7 @@ return {
 	-- Step 7: Hermit Ortell
 	-- {area:3447} Ortell's Hideout
 	["Ride south-east to {area:3447} under the Un'Goro cliffs."] = "Cabalga al sureste hasta {area:3447}, bajo los acantilados de Un'Goro.",
-	["Below ground"] = "",
+	["Below ground"] = "Bajo tierra",
 	-- {item:20377} Rock Stalker Fang · {npc:11739} Rock Stalker
 	["{item:20377} from {npc:11739}, 130 yd south-west"] = "",
 
@@ -183,8 +183,8 @@ return {
 	["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "Ahora {npc:9619} pide la piel de {npc:9622}, en la cueva del noreste: omítela.",
 
 	-- Step 41: Gadgetzan
-	-- {area:976} Gadgetzan · {object:142071} Egg-O-Matic
-	["Fly to {area:976}. The {object:142071} stands in the middle of town."] = "Vuela a {area:976}. {object:142071} está en el centro del pueblo.",
+	-- {area:976} Gadgetzan · {quest:2741} The Super Egg-O-Matic
+	["Fly to {area:976}. Still carrying {quest:2741}? The machine stands in the middle of town."] = "Vuela a {area:976}. ¿Todavía llevas {quest:2741}? La máquina está en el centro del pueblo.",
 
 	-- Step 42: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -193,7 +193,7 @@ return {
 	["{area:976} flight master"] = "",
 
 	-- Step 43: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Instructor de clase",
 
 	-- Step 44: Paladin trainer
 	["Paladin trainer"] = "",
@@ -238,7 +238,7 @@ return {
 	["Mark {npc:10902} with the {item:12815}"] = "Marca {npc:10902} con {item:12815}",
 
 	-- Step 57: Chromie
-	["Upstairs"] = "",
+	["Upstairs"] = "Arriba",
 
 	-- Step 58: Counting Out Time
 	-- {npc:10667} Chromie
@@ -336,6 +336,7 @@ return {
 	-- ["Dredge Strikers, Stonelash Scorpids and Sand Skitterers share the sands just north of the hold."] = "Los Asediadores deslizantes ({npc:11740}), los Escórpidos Latipiedra ({npc:11735}) y los Arácnidos de arena ({npc:11738}) comparten las arenas justo al norte del fuerte.",
 	-- ["Dredge and scorpids"] = "Deslizantes y escórpidos",
 	-- ["Fly to {area:1637} and train."] = "Vuela a {area:1637} y entrena.",
+	-- ["Fly to {area:976}. The {object:142071} stands in the middle of town."] = "Vuela a {area:976}. {object:142071} está en el centro del pueblo.",
 	-- ["Mar'alith's Dearest Natalia needs level 58 and leads into {area:2744} among elites. Skip it."] = "Queridísima Natalia, de Mar'alith, necesita nivel 58 y lleva a {area:2744} entre élites. Omítela.",
 	-- ["North to the lumber camp; set the termite barrel down in the middle of the mill."] = "Al norte hasta el aserradero; coloca el barril de termitas en medio del aserradero.",
 	-- ["Ride east across the plaguelands to the chapel."] = "Cabalga al este cruzando las Tierras de la Peste hasta la capilla.",

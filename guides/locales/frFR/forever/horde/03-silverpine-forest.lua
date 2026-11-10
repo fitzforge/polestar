@@ -21,10 +21,20 @@ return {
 	-- Step 4: The Drag
 	-- {npc:3348} Kor'geld · {npc:3347} Yelmak · {npc:11046} Whuut
 	["{npc:3348} and {npc:3347} run the alchemy shop in the Drag; {npc:11046} is next door."] = "{npc:3348} et {npc:3347} tiennent la boutique d'alchimie de la Herse ; {npc:11046} est juste à côté.",
+	-- {npc:3404} Jandi · {zone:1411} Durotar
+	["{npc:3404}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:3404} : Camping 101, au feu de camp de Brakk en {zone:1411}",
+	-- {npc:11066} Jhag · {zone:1411} Durotar
+	["{npc:11066}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:11066} : Camping 101, au feu de camp de Brakk en {zone:1411}",
 
 	-- Step 5: Valley of Honor
 	-- {object:172958} Valley of Honor
 	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "Les massettes et les herbes-lances poussent au bord de l'eau dans {object:172958}, à l'est de la Herse.",
+	-- {npc:7088} Thuwd · {zone:1411} Durotar
+	["{npc:7088}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:7088} : Camping 101, au feu de camp de Brakk en {zone:1411}",
+	-- {npc:3365} Karolek · {zone:1411} Durotar
+	["{npc:3365}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:3365} : Camping 101, au feu de camp de Brakk en {zone:1411}",
+	-- {npc:2855} Snang · {zone:1411} Durotar
+	["{npc:2855}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:2855} : Camping 101, au feu de camp de Brakk en {zone:1411}",
 
 	-- Step 6: Class trainer
 	["Class trainer"] = "Maître de classe",
@@ -41,6 +51,10 @@ return {
 	-- Step 9: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Pendant que vous y êtes : apprenez le maniement des bâtons auprès de {npc:2704} ({object:172958}, 10 pièces d'argent) ; un bâton apporte plus de caractéristiques de sorts qu'une arme à une main pendant la progression.",
+
+	-- Step 11: Kor'geld
+	-- {npc:11046} Whuut · {zone:1411} Durotar
+	["{npc:11046}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:11046} : Camping 101, au feu de camp de Brakk en {zone:1411}",
 
 	-- Step 12: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom
@@ -95,8 +109,14 @@ return {
 	-- Step 22: The Sepulcher
 	-- {area:228} The Sepulcher · {npc:2226} Karos Razok
 	["{area:228} is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; {npc:2226}, the bat handler, is just east of it."] = "{area:228} est la ville-crypte des Réprouvés, au milieu de la forêt. Tous ceux dont vous avez besoin se tiennent autour de l'entrée de la crypte ; {npc:2226}, le maître des chauves-souris, est juste à l'est.",
+	-- {npc:2226} Karos Razok · {npc:4556} Gordon Wendham · {zone:1458} Undercity
+	["{npc:2226}: {npc:4556} in the {zone:1458}, at the end of this guide; no need to buy the flight"] = "{npc:2226} : {npc:4556} à {zone:1458}, à la fin de ce guide ; inutile de payer le vol",
 	-- {npc:1952} High Executor Hadrec
 	["{npc:1952}, below ground"] = "{npc:1952}, sous terre",
+
+	-- Step 23: The Sepulcher
+	-- {quest:264} Until Death Do Us Part · {object:24776} Yuriv's Tombstone
+	["{quest:264} is handed in at {object:24776}, a grave a few steps south of the crypt entrance, not to a person."] = "{quest:264} se rend à {object:24776}, une tombe à quelques pas au sud de l'entrée de la crypte, et non à un personnage.",
 
 	-- Step 24: Border Crossings
 	-- {object:1627} Dalaran Crate
@@ -178,6 +198,12 @@ return {
 	-- Step 42: The Undercity
 	-- {object:1661} The Undercity · {area:153} Ruins of Lordaeron · {npc:2050} Raleigh Andrean · {npc:7683} Alessandro Luca · {npc:11044} Doctor Martin Felben · {npc:5204} Apothecary Zinge · {npc:2055} Master Apothecary Faranell
 	["{object:1661} lies under the {area:153}, beside the zeppelin towers. {npc:2050} stands at the inn by the way down; {npc:7683} on the way down to the Apothecarium, where {npc:11044} and {npc:5204} stand beside {npc:2055}."] = "",
+	-- {npc:4556} Gordon Wendham
+	["{npc:4556}, the weapon merchant beside the bat handler"] = "{npc:4556}, le marchand d'armes à côté du maître des chauves-souris",
+	-- {npc:4551} Michael Garrett
+	["{npc:4551}, the bat handler"] = "{npc:4551}, le maître des chauves-souris",
+	-- {npc:4551} Michael Garrett · {item:16210} Gordon's Crate · {area:228} The Sepulcher
+	["{npc:4551}: keep {item:16210}, Podrig takes it on the next stop at the {area:228}, at 22"] = "{npc:4551} : gardez {item:16210}, Podrig le prendra à la prochaine étape, à {area:228}, au niveau 22",
 	-- {npc:11044} Doctor Martin Felben
 	["{npc:11044}, in the Apothecarium"] = "{npc:11044}, dans l'Apothicarium",
 	-- {npc:5204} Apothecary Zinge
@@ -186,6 +212,12 @@ return {
 	["{npc:5204}: Helbrim at the Crossroads, in the next guide"] = "",
 	-- {npc:260093} Garen Largo · {area:1497} Undercity
 	["{npc:260093}, the {area:1497}'s paladin trainer"] = "",
+	-- {npc:4598} Brom Killian · {npc:265812} Eleanor Shackleton
+	["{npc:4598}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4598} : Camping 101, au feu de camp de {npc:265812} à Tirisfal",
+	-- {npc:4605} Basil Frye · {npc:265812} Eleanor Shackleton
+	["{npc:4605}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4605} : Camping 101, au feu de camp de {npc:265812} à Tirisfal",
+	-- {npc:4586} Graham Van Talen · {npc:265812} Eleanor Shackleton
+	["{npc:4586}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4586} : Camping 101, au feu de camp de {npc:265812} à Tirisfal",
 
 	-- Step 43: Lady Sylvanas Windrunner
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter
@@ -290,6 +322,7 @@ return {
 	-- ["{item:3317}: a rare drop from the gnolls"] = "{item:3317} : butin rare des gnolls",
 	-- ["{item:3354} along the way to the {area:228}"] = "{item:3354} sur le chemin du {area:228}",
 	-- ["{item:3354} on the way"] = "{item:3354} en chemin",
+	-- ["{npc:11066}, the enchanting trainer, works in the Drag."] = "{npc:11066}, le maître des enchanteurs, travaille dans la Herse.",
 	-- ["{npc:11798} in {area:2361} flies druids there; then fly on to {zone:1454} for the zeppelin"] = "{npc:11798}, à {area:2361}, y emmène les druides ; volez ensuite jusqu'à {zone:1454} pour le zeppelin",
 	-- ["{npc:11799}, at the {area:2362}"] = "{npc:11799}, à {area:2362}",
 	-- ["{npc:1499} in {area:159}, on the way to the zeppelin at 19"] = "{npc:1499} à {area:159}, sur le chemin du zeppelin au niveau 19",
@@ -300,7 +333,11 @@ return {
 	-- ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide starts at {npc:3310}, the wind rider master in the {object:172982}."] = "{npc:268684} et {npc:268682} sont assis derrière le fort Grommash, dans la {object:172957} ; les Rochers lisses se trouvent autour d'eux. Entraînez-vous pendant que vous êtes en ville (les Druides et les Paladins n'ont pas de maître ici). Le prochain guide commence auprès de {npc:3310}, le maître des coursiers du vent, dans la {object:172982}.",
 	-- ["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034} en {zone:1412} ; {zone:1454} n'a pas de maître des druides",
 	-- ["{npc:3348} and {npc:3347} run the alchemy shop in the {object:172959}; {npc:11046} is next door."] = "{npc:3348} et {npc:3347} tiennent la boutique d'alchimie dans {object:172959} ; {npc:11046} est juste à côté.",
+	-- ["{npc:3365}, the leatherworking trainer, works in the {object:172958}."] = "{npc:3365}, le maître des travailleurs du cuir, travaille dans {object:172958}.",
+	-- ["{npc:3404}, the herbalism trainer, keeps her shop in the Drag."] = "{npc:3404}, la maîtresse des herboristes, tient sa boutique dans la Herse.",
+	-- ["{npc:4551}: keep {item:16210}, Podrig takes it on the ride through the {area:228} at 22"] = "{npc:4551} : gardez {item:16210}, Podrig le prendra lors du trajet par {area:228} au niveau 22",
 	-- ["{npc:6018} stands in the {object:172961} on the city's west side."] = "{npc:6018} se tient dans {object:172961}, à l'ouest de la ville.",
+	-- ["{npc:7088}, the skinning trainer, stands in the {object:172958}."] = "{npc:7088}, le maître des dépeceurs, se tient dans {object:172958}.",
 	-- ["{object:112888}, inside the keep"] = "{object:112888}, dans le donjon",
 	-- ["{object:112888}, inside the keep; upstairs"] = "{object:112888}, dans le fort ; à l'étage",
 	-- ["{object:1599}, just east of the keep"] = "{object:1599}, juste à l'est du donjon",

@@ -8,7 +8,7 @@
 return {
 	-- Step 1: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "{area:2101}(으)로",
 
 	-- Step 2: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
@@ -36,8 +36,8 @@ return {
 	-- Step 7: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
 	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "",
-	-- {npc:8256} Curator Thorius · {area:1537} Ironforge
-	["For {npc:8256} in {area:1537}, later"] = "나중에 {area:1537}의 {npc:8256}에게",
+	-- {npc:8256} Curator Thorius · {zone:1455} Ironforge
+	["For {npc:8256} in {zone:1455}, at the end of this guide"] = "이 가이드의 마지막에 {zone:1455}의 {npc:8256}에게",
 
 	-- Step 8: Thorium Point
 	-- {area:1446} Thorium Point
@@ -96,28 +96,64 @@ return {
 	-- {npc:5860} Twilight Dark Shaman
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 29: Level 48.98
+	-- Step 29: The Torch of Retribution
+	-- {npc:8479} Velarok Windblade
+	["Listen to {npc:8479}'s story once more."] = "{npc:8479}의 이야기를 한 번 더 들으십시오.",
+
+	-- Step 30: Velarok Windblade
+	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
+	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "{quest:3453}은(는) {npc:8479}의 발치 땅바닥에 놓여 있고, {quest:3462}은(는) 그 옆에 서 있습니다.",
+	-- {quest:3462} Squire Maltrake · {area:1446} Thorium Point
+	["{quest:3462}: hand it in on the way back to {area:1446}"] = "{quest:3462}: {area:1446}(으)로 돌아가는 길에 완료하십시오",
+
+	-- Step 31: Sentry Braziers
+	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
+	["Sentry Braziers"] = "감시용 화로",
+	-- {object:149047} Torch of Retribution
+	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
+	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "{object:149047}을(를) 들고 용광로 가장자리를 따라 남쪽으로 가서, 남서쪽부터 남동쪽까지 돌며 감시용 화로 네 개에 불을 붙이십시오.",
+
+	-- Step 32: Level 48.98
 	["Level 48.98"] = "",
 	-- {quest:3452} The Flame's Casing · {area:2100} Maraudon · {area:978} Zul'Farrak
 	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
 	-- {npc:5844} Dark Iron Slaver
 	["grind on {npc:5844}"] = "",
 
-	-- Step 30: Margol's Horn
+	-- Step 33: Margol's Horn
 	-- {quest:3181} The Horn of the Beast
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:3181} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "지하",
 
-	-- Step 33: Fly to Ironforge
+	-- Step 35: Squire Maltrake
+	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade · {area:1446} Thorium Point
+	["{npc:8509} and the dragonflight's hoard are beside {npc:8479}, on the rim south of {area:1446}."] = "{npc:8509}와(과) 용군단의 보물은 {area:1446} 남쪽 가장자리, {npc:8479} 옆에 있습니다.",
+	-- {object:149502} Hoard of the Black Dragonflight · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous · {zone:1428} Burning Steppes
+	["The {object:149502} it gives holds a {item:10575}: keep it for {npc:9459} in the {zone:1428}"] = "보상으로 받는 {object:149502}에는 {item:10575}이(가) 들어 있습니다: {zone:1428}의 {npc:9459}에게 가져갈 수 있도록 간직하십시오",
+
+	-- Step 37: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "{area:1537}(으)로 비행",
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "",
 
-	-- Step 34: Class trainer
-	["Class trainer"] = "",
+	-- Step 38: Hall of Explorers
+	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
+	["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}: 수액괴물은 {zone:1448}에 있으니 간직하십시오",
+
+	-- Step 39: Mystic Ward
+	-- {zone:1447} Azshara
+	["Four rune rubbings in {zone:1447}: keep it"] = "{zone:1447}의 룬 탁본 네 개: 간직하십시오",
+
+	-- Step 40: Class trainer
+	["Class trainer"] = "직업 전문가",
+
+	-- Step 41: Xiggs Fuselighter
+	-- {object:32359} Military Ward (no name in this language: may be words)
+	["Xiggs waits in the {object:32359}."] = "직스 퓨즈라이터는 군사 지구에서 기다립니다({object:32359}).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["For {npc:8256} in {area:1537}, later"] = "나중에 {area:1537}의 {npc:8256}에게",
 	-- ["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}. {area:1446} is the scaffolded camp on the north-west rim."] = "{area:144}에서 남쪽 {zone:1418}(으)로 간 다음, 서쪽으로 호드 마을 {area:340}을(를) 지나(거리를 두십시오) 오솔길을 따라 {zone:1427}(으)로 올라가십시오. {area:1446}은(는) 북서쪽 가장자리의 비계가 세워진 야영지입니다.",
 	-- ["Greater Lava Spiders"] = "거대한 용암거미",
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "칼라란 아래 용광로 바닥을 육중한 전투골렘이 순찰하고, 그 사이를 용암 정령이 떠다닙니다. 골렘 기름은 골렘과 정령이, 화염의 심장은 정령이 떨어뜨립니다.",

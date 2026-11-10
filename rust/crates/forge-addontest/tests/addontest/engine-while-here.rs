@@ -564,12 +564,14 @@ fn the_later_step_is_done_or_shorter_after_an_early_grab() {
 // ground), at most behavior.whileHereTurninSeconds (20 by default), or any detour in the town the player rests in.
 //
 // The guide: 1 (live) the wolves at WOLVES,35.1 (where the arrow leads), the steps `between`, then Marshal Dughan's
-// turn-in of 40 (ready) at 42,35.1 with `dughan` added to the goal.
+// turn-in of 40 (ready) at 42,35.1 with `dughan` added to the goal. His step also hands in Kobold Camp Cleanup (7), not
+// done yet: the route comes back to him whatever happens, so handing 40 in now saves no trip (no Own.hereVisit).
 fn turnins(wolves: f64, between: &[&str], dughan: &str) -> String {
 	let mut steps = vec![format!(r#"{{ title = "Wolves", goals = {{ {{ t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = {wolves}, y = 35.1 }} }} }}"#)];
 	steps.extend(between.iter().map(|s| s.to_string()));
 	steps.push(format!(
-		r#"{{ title = "Dughan", goals = {{ {{ t = "turnin", quest = 40, title = "A Fishy Peril", npc = 240, npcName = "Marshal Dughan", map = 1429, x = 42.0, y = 35.1{dughan} }} }} }}"#
+		r#"{{ title = "Dughan", goals = {{ {{ t = "turnin", quest = 40, title = "A Fishy Peril", npc = 240, npcName = "Marshal Dughan", map = 1429, x = 42.0, y = 35.1{dughan} }},
+			{{ t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 240, npcName = "Marshal Dughan", map = 1429, x = 42.0, y = 35.1 }} }} }}"#
 	));
 	format!(
 		r#"Polestar.RegisterGuide({{ id = "test/turnins", pack = "test", title = "Turnins", minLevel = 1, maxLevel = 10, steps = {{
@@ -579,9 +581,11 @@ fn turnins(wolves: f64, between: &[&str], dughan: &str) -> String {
 	)
 }
 
-// A step with nothing to do around here (88 is not in the log), and one at Marshal Dughan (an accept of 106).
+// A step with nothing to do around here (88 is not in the log), one at Marshal Dughan (an accept of 106), and a walk
+// far south (900 yd from Dughan).
 const ELSEWHERE: &str = r#"{ title = "Bandits", goals = { { t = "kill", target = "Defias Bandit", npc = 116, count = 2, quest = 88, oi = 1, map = 1429, x = 30.0, y = 80.0 } } }"#;
 const AT_DUGHAN: &str = r#"{ title = "Errand", goals = { { t = "accept", quest = 106, title = "Young Lovers", npc = 240, npcName = "Marshal Dughan", map = 1429, x = 42.0, y = 35.1 } } }"#;
+const FAR: &str = r#"{ title = "South", goals = { { t = "goto", map = 1429, x = 30.0, y = 80.0 } } }"#;
 
 fn run_turnins(guide: &str, script: &str) -> Vec<Value> {
 	run_guide_with(guide, "test/turnins", "", script)
@@ -693,17 +697,310 @@ fn never_a_hand_in_on_another_floor() {
 	assert_eq!(out, vec![json!(["none", "turned away (another floor; checked again in 15 s or 25 yd)"]), json!("4:1 Hand in “A Fishy Peril” to Marshal Dughan 10")]);
 }
 
-// Never a hand-in the route reaches anyway in its next two steps: the guide's own hand-in right after the live step,
-// or a step at the same NPC (an accept at Dughan) on the way there; a step at him three steps on does not count.
+// A hand-in the route reaches anyway in its next two steps, without leading away first, is left to it: the arrow
+// leads east to the wolves at 44 (60 yd past Dughan, on the way), and his hand-in is the next step, or the step after
+// next is at Dughan (an accept). Standing at him (10 yd, within 0.3.5's 30) it shows all the same. A step that leads
+// away first (a walk 900 yd south) or a live step that does (the wolves 660 yd west, Fitz walking past Seer
+// Graytongue with Grull 530 yd north) leaves it to the detour rule; a step at him three steps on does not count.
 #[test]
-fn a_hand_in_the_route_reaches_in_its_next_two_steps_is_left_to_it() {
-	let script = r#"at(42.0, 35.6); emit({ cands(), here() })"#;
-	let next = run_turnins(&turnins(20.0, &[], ""), script);
-	let errand = run_turnins(&turnins(20.0, &[ELSEWHERE, AT_DUGHAN, ELSEWHERE], ""), script);
-	let later = run_turnins(&turnins(20.0, &[ELSEWHERE, ELSEWHERE, AT_DUGHAN], ""), script);
-	assert_eq!(next, vec![json!(["", "none"])], "his hand-in is the next step");
-	assert_eq!(errand, vec![json!(["", "none"])], "the step after next is at Dughan");
-	assert_eq!(later, vec![json!(["5:1:turnin:0", "5:1 Hand in “A Fishy Peril” to Marshal Dughan 10"])], "three steps on");
+fn a_hand_in_the_route_reaches_next_without_leading_away_shows_only_at_its_npc() {
+	let script = r#"
+		at(40.0, 35.1); emit({ cands(), here(), E.WhileHereState().why })
+		at(42.0, 35.6); emit(here())
+	"#;
+	let next = run_turnins(&turnins(44.0, &[], ""), script);
+	let errand = run_turnins(&turnins(44.0, &[AT_DUGHAN, ELSEWHERE], ""), script);
+	let away = run_turnins(&turnins(44.0, &[FAR, AT_DUGHAN], ""), script);
+	let behind = run_turnins(&turnins(20.0, &[], ""), script);
+	let later = run_turnins(&turnins(44.0, &[ELSEWHERE, ELSEWHERE, AT_DUGHAN], ""), script);
+	let left = "left to the route (it goes there next; shows within 30 yd)";
+	assert_eq!(next, vec![json!(["2:1:turnin:0", "none", left]), json!("2:1 Hand in “A Fishy Peril” to Marshal Dughan 10")], "his hand-in is the next step");
+	assert_eq!(errand, vec![json!(["4:1:turnin:0", "none", left]), json!("4:1 Hand in “A Fishy Peril” to Marshal Dughan 10")], "the step after next is at Dughan");
+	assert_eq!(away[0], json!(["4:1:turnin:0", "4:1 Hand in “A Fishy Peril” to Marshal Dughan 60"]), "the walk south first");
+	assert_eq!(behind, vec![json!(["2:1:turnin:0", "none", "out of the way (21 s, over 20 s)"]), json!("2:1 Hand in “A Fishy Peril” to Marshal Dughan 10")], "the wolves 660 yd west first");
+	assert_eq!(later[0], json!(["5:1:turnin:0", "5:1 Hand in “A Fishy Peril” to Marshal Dughan 60"]), "three steps on");
+	// A quest named after its NPC: the plain line does not name him twice.
+	let namesake = run_turnins(&turnins(44.0, &[], r#", title = "Marshal Dughan""#), script);
+	assert_eq!(namesake[1], json!("2:1 Hand in “Marshal Dughan” to them 10"), "{namesake:?}");
+}
+
+// Fitz on 0.3.6 (build f5fbd242a), his /polestar report: a level 3 Tauren Warrior on Mulgore's step 6 of 51 (Grull
+// Hawkwind: hand in The Hunt Continues, 750; the arrow 411 yd north at 44.47,77.50), standing at 42.79,87.19 on Red
+// Cloud Mesa, 121 yd from Seer Graytongue (2982, 42.54,90.13), with Rites of the Earthmother (755), 750 and 1656 ready:
+// "While here: none · 1 candidates · nearest quest 1656". 755's hand-in is the very next step (7), and #1393's
+// next-two-steps rule left it to the route, which goes to Grull first and comes back south ("I'm here and you'd
+// expect it to send me backwards to grab the dynamic quest behind"). Now the route leading away first makes it no
+// "soon" hand-in, and step 7 is the whole Seer visit (755 in, Grace of An'she and Mu'sha and Rite of Strength out):
+// doing it now saves the trip back from Grull (93 s against a 43 s detour), so it shows at the shipped 20 s. At the
+// Seer, auto turn-in hands 755 in and auto-accept takes both quests of step 7; the live step stays 6, the arrow on
+// it, step 7 done. Grace is timed (ten minutes, its `limit`): the walk Seer, Grull, Ritual Fire fits; with a
+// two-minute limit it would not, so no visit (no credit: the 43 s detour is too far) and no early accept. On the
+// cougar step (5) around the Seer the line shows too; at Grull's tent nothing. The guide as shipped
+// (guides/forever/horde/tauren/01-mulgore.guide, compiled with data/forever; skipped with a note without it).
+#[test]
+fn mulgore_fitz_walking_past_seer_graytongue_with_rites_of_the_earthmother_ready_is_offered_the_whole_visit() {
+	use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack};
+	use forge_addontest::run::root;
+	let data_dir = root().join("data/forever");
+	if !data_dir.join("quests.json").exists() {
+		eprintln!("skipped: no reference data at data/forever");
+		return;
+	}
+	let data = forge_guide::data::load_data(&data_dir).expect("data/forever");
+	let file = "guides/forever/horde/tauren/01-mulgore.guide";
+	let text = std::fs::read_to_string(root().join(file)).unwrap();
+	let compiled = compile_with(&[(file, &text)], &data, None);
+	let pack = write_test_pack(&compiled.guides, &data, &our_manifest());
+	let loads: Vec<String> = pack.scripts.iter().map(|f| format!("assert(loadfile({}))(\"Polestar_Guides\", ns)", serde_json::to_string(f).unwrap())).collect();
+	let f = data.map_frames.get("forever").get("1412");
+	// pelts: 750's count (10: ready, step 6 live); limit: Grace's seconds (the data's 600 once rebuilt with its
+	// correction; set here so the test does not wait for the data build).
+	let run = |pelts: u32, limit: u32| {
+		let before = format!(
+			r#"local w = stub.world
+w.addMap(1412, {{ name = "Mulgore", c = {}, left = {}, right = {}, top = {}, bottom = {} }})
+w.race, w.raceName, w.class, w.className, w.faction, w.level = "Tauren", "Tauren", "WARRIOR", "WARRIOR", "Horde", 3
+w.zone, w.subzone = "Mulgore", "Red Cloud Mesa"
+w.moveTo(1412, 44.47, 79.0)
+w.complete({{ 752, 747, 753, 3091 }})
+w.onQuest(755, {{}}); w.onQuest(1656, {{}})
+w.onQuest(750, {{ {{ text = "Mountain Cougar Pelt: {pelts}/10", type = "item", required = 10, fulfilled = {pelts} }} }})
+w.addItem(4742, {pelts})
+"#,
+			f.get("c").to_js_string(),
+			f.get("left").to_js_string(),
+			f.get("right").to_js_string(),
+			f.get("top").to_js_string(),
+			f.get("bottom").to_js_string()
+		);
+		let script = format!(
+			r#"do local ns = {{}}
+{}
+end
+stub.login()
+stub.fire("QUEST_LOG_UPDATE")
+{HELPERS}
+E.SetGuide("forever/horde/tauren/01-mulgore"); flush()
+for _, g in ipairs(E.GetGuide().steps[7].goals) do if g.quest == 95805 then g.limit = {limit} end end
+stub.fire("QUEST_LOG_UPDATE"); flush()
+local function mg(x, y) w.moveTo(1412, x, y); stub.advance(0.6); stub.advance(0.6) end
+local function state()
+	local st = E.WhileHereState()
+	local v = E.GetWhileHere()
+	local credit = false
+	for _, c in ipairs(E.GetWhileHereCandidates()) do if c.step == 7 and c.credit then credit = math.floor(c.credit + 0.5) end end
+	return {{ live = E.GetLiveStep(), arrow = wp(), here = v and (v.step .. ":" .. v.index .. " " .. v.hereText) or "none", why = st.why or false, credit = credit }}
+end
+mg(44.47, 79.0); local camp = state()
+mg(42.79, 87.19); local report = state()
+-- At the Seer: his windows, as the game opens them after each hand-in and accept.
+mg(42.54, 89.95)
+w.calls = {{}}
+w.questProgress(2982, 755); flush()
+w.questDetail(2982, 95805); flush()
+w.questDetail(2982, 757); flush()
+local calls = {{}}
+for i, x in ipairs(w.calls) do calls[i] = tostring(x[1]) .. " " .. tostring(x[2]) end
+local done = {{}}
+for g = 1, #E.GetGuide().steps[7].goals do done[g] = E.GoalDone(7, g) end
+emit({{ camp = camp, report = report, calls = table.concat(calls, ", "), live = E.GetLiveStep(), arrow = wp(), done = done }})
+"#,
+			loads.join("\n")
+		);
+		emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], script, ..Default::default() }).remove(0)
+	};
+	let visit = "7:1 Hand in “Rites of the Earthmother” to Seer Graytongue, then take “Grace of An'she and Mu'sha”, “Rite of Strength”: saves a trip back";
+	let fitz = run(10, 600);
+	assert_eq!(fitz["report"]["live"], 6, "Grull Hawkwind's step is live: {fitz}");
+	assert_eq!(fitz["report"]["here"], visit, "121 yd from the Seer, the whole visit shows at the shipped settings: {fitz}");
+	assert!(fitz["report"]["credit"].as_f64().is_some_and(|c| c > 43.0), "its credit outweighs the 43 s detour: {fitz}");
+	assert_eq!(fitz["camp"]["here"], "none", "at Grull's tent, 530 yd off, nothing: {fitz}");
+	let calls = fitz["calls"].as_str().unwrap();
+	assert!(calls.contains("GetQuestReward 755") && calls.contains("AcceptQuest 95805") && calls.contains("AcceptQuest 757"), "hand-in and both accepts: {calls}");
+	assert_eq!(fitz["live"], 6, "the live step stays: {fitz}");
+	assert!(fitz["arrow"].as_str().unwrap().starts_with("6:"), "the arrow stays on it: {fitz}");
+	assert_eq!(fitz["done"], json!([true, true, true]), "step 7 is done: no trip back: {fitz}");
+	let short = run(10, 120);
+	assert_eq!(short["report"]["here"], "none", "a two-minute Grace: no visit, the bare hand-in 43 s out of the way: {short}");
+	assert_eq!(short["report"]["why"], "out of the way (43 s, over 20 s)", "{short}");
+	assert!(!short["calls"].as_str().unwrap().contains("AcceptQuest 95805"), "Grace not taken ahead: {short}");
+	let cougars = run(6, 600);
+	assert_eq!(cougars["report"]["live"], 5, "the cougar step is live: {cougars}");
+	assert_eq!(cougars["report"]["here"], visit, "hunting cougars around the Seer, the visit shows: {cougars}");
+}
+
+// The Barrens as shipped: an Orc Warrior at 14, in from Far Watch Post on the road west, 60 yd past Thun'grim Firegaze
+// (5878) with his breadcrumb (1502, "Thun'grim Firegaze") ready, while the guide's step 3 sends him 449 yd on to the
+// Crossroads and step 4 brings him back east. The whole visit shows, and the quest named after its NPC is not said
+// twice ("… to them"). At his window 1502 is handed in and Forged Steel (1503) taken ahead; step 4 reads done.
+#[test]
+fn barrens_thungrim_firegaze_a_quest_named_after_its_npc_is_handed_in_to_them() {
+	use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack};
+	use forge_addontest::run::root;
+	let data_dir = root().join("data/forever");
+	if !data_dir.join("quests.json").exists() {
+		eprintln!("skipped: no reference data at data/forever");
+		return;
+	}
+	let data = forge_guide::data::load_data(&data_dir).expect("data/forever");
+	let file = "guides/forever/horde/02-the-barrens.guide";
+	let text = std::fs::read_to_string(root().join(file)).unwrap();
+	let compiled = compile_with(&[(file, &text)], &data, None);
+	let pack = write_test_pack(&compiled.guides, &data, &our_manifest());
+	let loads: Vec<String> = pack.scripts.iter().map(|f| format!("assert(loadfile({}))(\"Polestar_Guides\", ns)", serde_json::to_string(f).unwrap())).collect();
+	let f = data.map_frames.get("forever").get("1413");
+	let before = format!(
+		r#"local w = stub.world
+w.addMap(1413, {{ name = "The Barrens", c = {}, left = {}, right = {}, top = {}, bottom = {} }})
+w.race, w.raceName, w.class, w.className, w.faction, w.level = "Orc", "Orc", "WARRIOR", "WARRIOR", "Horde", 14
+w.zone, w.subzone = "The Barrens", ""
+w.moveTo(1413, 52.2, 31.0)
+w.complete({{ 1498 }})
+w.onQuest(842, {{}}); w.onQuest(1502, {{}})
+"#,
+		f.get("c").to_js_string(),
+		f.get("left").to_js_string(),
+		f.get("right").to_js_string(),
+		f.get("top").to_js_string(),
+		f.get("bottom").to_js_string()
+	);
+	let script = format!(
+		r#"do local ns = {{}}
+{}
+end
+stub.login()
+stub.fire("QUEST_LOG_UPDATE")
+{HELPERS}
+E.SetGuide("forever/horde/02-the-barrens"); flush()
+w.moveTo(1413, 56.64, 30.42); stub.advance(0.6); stub.advance(0.6)
+local rows = {{}}
+for _, v in ipairs(E.GetWhileHereList()) do rows[#rows + 1] = v.step .. ":" .. v.index .. " " .. v.hereText end
+local live = E.GetLiveStep()
+-- The guide window's row for step 4's hand-in: the quest, no "at Thun'grim Firegaze" after it.
+local g4 = E.GetStepView(4).goals[1]
+local row4 = {{ verb = g4.verb, subject = g4.subject, detail = g4.detail or false }}
+w.moveTo(1413, 57.2, 30.35); stub.advance(0.6); stub.advance(0.6)
+w.calls = {{}}
+w.questProgress(5878, 1502); flush()
+w.questDetail(5878, 1503); flush()
+local calls = {{}}
+for _, x in ipairs(w.calls) do if x[1] == "AcceptQuest" or x[1] == "GetQuestReward" then calls[#calls + 1] = x[1] .. " " .. tostring(x[2]) end end
+emit({{ live = live, rows = rows, row4 = row4, calls = table.concat(calls, ", "), after = E.GetLiveStep(), done = {{ E.GoalDone(4, 1), E.GoalDone(4, 2) }} }})
+"#,
+		loads.join("\n")
+	);
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], script, ..Default::default() }).remove(0);
+	assert_eq!(out["live"], 3, "the Crossroads step is live: {out}");
+	let visit = "4:1 Hand in “Thun'grim Firegaze” to them, then take “Forged Steel”: saves a trip back";
+	assert!(out["rows"].as_array().unwrap().iter().any(|r| r == visit), "{out}");
+	assert_eq!(out["calls"], "GetQuestReward 1502, AcceptQuest 1503", "{out}");
+	assert_eq!(out["after"], 3, "{out}");
+	assert_eq!(out["done"], json!([true, true]), "{out}");
+	assert_eq!(out["row4"], json!({ "verb": "Turn in", "subject": "Thun'grim Firegaze", "detail": false }), "{out}");
+}
+
+// Fitz on the 0.3.6 build: an Undead Warlock at 13 on The Barrens' "Razormane camp" step, Disrupt the Attacks (871)
+// done, went to the Crossroads. While-here offered 871's hand-in to Thork (3429), auto turn-in handed it in, and the
+// window the game then opened with the follow-up The Disruption Ends (872), which the route's Crossroads step takes
+// at Thork, closed without it. Now auto-accept takes it there (the route's next steps' accept at that NPC), the live
+// step stays, and the Crossroads step's accept reads done. With auto-accept off, While-here offers it as a line
+// while the player stands at Thork. The guide as shipped (compiled with data/forever; skipped without it).
+#[test]
+fn barrens_thork_after_handing_in_disrupt_the_attacks_the_follow_up_is_taken_there() {
+	use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack};
+	use forge_addontest::run::root;
+	let data_dir = root().join("data/forever");
+	if !data_dir.join("quests.json").exists() {
+		eprintln!("skipped: no reference data at data/forever");
+		return;
+	}
+	let data = forge_guide::data::load_data(&data_dir).expect("data/forever");
+	let file = "guides/forever/horde/02-the-barrens.guide";
+	let text = std::fs::read_to_string(root().join(file)).unwrap();
+	let compiled = compile_with(&[(file, &text)], &data, None);
+	let pack = write_test_pack(&compiled.guides, &data, &our_manifest());
+	let loads: Vec<String> = pack.scripts.iter().map(|f| format!("assert(loadfile({}))(\"Polestar_Guides\", ns)", serde_json::to_string(f).unwrap())).collect();
+	let f = data.map_frames.get("forever").get("1413");
+	let run = |auto: bool| {
+		let before = format!(
+			r#"local w = stub.world
+w.addMap(1413, {{ name = "The Barrens", c = {}, left = {}, right = {}, top = {}, bottom = {} }})
+w.race, w.raceName, w.class, w.className, w.faction, w.level = "Scourge", "Undead", "WARLOCK", "WARLOCK", "Horde", 13
+w.zone, w.subzone = "The Barrens", "The Crossroads"
+w.moveTo(1413, 51.5, 30.9)
+w.complete({{ 1358 }})
+w.onQuest(844, {{ {{ text = "Plainstrider Beak: 3/7", type = "item", required = 7, fulfilled = 3 }} }})
+w.onQuest(869, {{ {{ text = "Raptor Head: 4/12", type = "item", required = 12, fulfilled = 4 }} }})
+w.onQuest(1492, {{}})
+w.onQuest(848, {{ {{ text = "Fungal Spores: 0/1", type = "item", required = 1, fulfilled = 0 }} }})
+w.onQuest(5041, {{ {{ text = "Supplies for the Crossroads: 0/1", type = "item", required = 1, fulfilled = 0 }} }})
+w.onQuest(871, {{ {{ required = 8, fulfilled = 8 }}, {{ required = 8, fulfilled = 8 }}, {{ required = 3, fulfilled = 3 }} }})
+w.onQuest(867, {{ {{ text = "Witchwing Talon: 0/8", type = "item", required = 8, fulfilled = 0 }} }})
+w.onQuest(870, {{ 1 }})
+w.bindLocation = "The Crossroads"
+"#,
+			f.get("c").to_js_string(),
+			f.get("left").to_js_string(),
+			f.get("right").to_js_string(),
+			f.get("top").to_js_string(),
+			f.get("bottom").to_js_string()
+		);
+		let script = format!(
+			r#"do local ns = {{}}
+{}
+end
+stub.login()
+stub.fire("QUEST_LOG_UPDATE")
+{HELPERS}
+Polestar.Set("behavior.autoAccept", {auto})
+E.SetGuide("forever/horde/02-the-barrens"); flush()
+local G = E.GetGuide()
+local cross
+for s, step in ipairs(G.steps) do
+	for g, goal in ipairs(step.goals) do if goal.t == "accept" and goal.quest == 872 then cross = {{ s, g }} end end
+end
+local live = E.GetLiveStep()
+local liveTitle = G.steps[live].title
+-- At Thork (51.5, 30.9): his hand-in, then the window the game opens with the follow-up.
+w.moveTo(1413, 51.5, 30.95); stub.advance(0.6); stub.advance(0.6)
+local shown = here()
+w.calls = {{}}
+-- The server's order: the follow-up's window opens on the reward before the quest log and the completed flag
+-- catch up (QUEST_TURNED_IN, then the log, a moment later).
+function GetQuestReward(choice)
+	local f = w.frame
+	w.calls[#w.calls + 1] = {{ "GetQuestReward", f and f.questID, choice }}
+	w.questDetail(3429, 872)
+	stub.advance(0.1)
+	w.turnIn(f.questID)
+end
+w.questProgress(3429, 871); flush()
+local calls = {{}}
+for _, x in ipairs(w.calls) do calls[#calls + 1] = tostring(x[1]) .. " " .. tostring(x[2]) end
+local open = w.frame and w.frame.kind == "detail" and w.frame.questID or false
+w.close(); stub.advance(0.6); stub.advance(0.6)
+local lines = {{}}
+for _, v in ipairs(E.GetWhileHereList()) do lines[#lines + 1] = v.step .. ":" .. v.index .. " " .. v.hereText end
+emit({{ live = live, liveTitle = liveTitle, shown = shown, calls = table.concat(calls, ", "), open = open, after = E.GetLiveStep(),
+	crossDone = E.GoalDone(cross[1], cross[2]), on872 = w.log[872] ~= nil, lines = lines, cross = cross[1] }})
+"#,
+			loads.join("\n")
+		);
+		emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], script, ..Default::default() }).remove(0)
+	};
+	let on = run(true);
+	assert_eq!(on["liveTitle"], "Razormane camp", "{on}");
+	assert!(on["calls"].as_str().unwrap().contains("GetQuestReward 871"), "871 handed in: {on}");
+	assert!(on["calls"].as_str().unwrap().contains("AcceptQuest 872"), "872 taken at Thork: {on}");
+	assert_eq!(on["after"], on["live"], "the live step stays: {on}");
+	assert_eq!(on["crossDone"], true, "the Crossroads step's accept of 872 reads done: {on}");
+	let off = run(false);
+	assert_eq!(off["on872"], false, "{off}");
+	let line = format!("{}:", off["cross"]);
+	assert!(
+		off["lines"].as_array().is_some_and(|a| a.iter().any(|l| l.as_str().is_some_and(|l| l.starts_with(&line) && l.contains("Take “The Disruption Ends” from Thork: saves a trip back")))),
+		"the take-it-here line: {off}"
+	);
 }
 
 // The XP rule: a quest's full reward lasts until the player is 5 levels over it. When the guide's hand-in comes at a

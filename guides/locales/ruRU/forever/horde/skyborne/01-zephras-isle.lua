@@ -74,7 +74,7 @@ return {
 	-- Step 10: Thendal Grove: kill these as you meet them
 	-- {npc:250926} Scrawny Ursera · {npc:252095} Hanaa Nightwind · {npc:251115} Urs'anah
 	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "Под землей",
 
 	-- Step 11: Back to Thendal Village
 	-- {npc:257551} Valreaa Valewind · {npc:251366} Aetheen of the Gales · {npc:252095} Hanaa Nightwind
@@ -96,7 +96,7 @@ return {
 
 	-- Step 14: Shen'dar Village
 	-- {area:16624} Shen'dar Village · {npc:251523} Constable Aonda · {npc:251902} Illaya Amberwind · {npc:254089} Coriella Calmbreeze · {npc:263664} Raan Wildwind
-	["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side."] = "Идите по дороге на юг сюда: {area:16624}, в центр острова. {npc:251523} стоит в восточной части, {npc:251902} – в центре, {npc:254089} – чуть к северо-западу от нее, {npc:263664} – у костра в западной части.",
+	["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side. With a profession learned, {npc:263664} also offers its Camping 101: its trainer stands in the village."] = "Идите по дороге на юг сюда: {area:16624}, в центр острова. {npc:251523} стоит в восточной части, {npc:251902} – в центре, {npc:254089} – чуть к северо-западу от нее, {npc:263664} – у костра в западной части. Если вы изучили профессию, {npc:263664} также предложит соответствующее задание «Основы походной жизни»: учитель этой профессии находится в деревне.",
 	-- {npc:251902} Illaya Amberwind
 	["talk to {npc:251902}"] = "поговорите с персонажем {npc:251902}",
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
@@ -280,7 +280,7 @@ return {
 	["{npc:256247} waits on the road north of {area:16638}, towards the {area:16629}."] = "{npc:256247} ждет на дороге к северу от места {area:16638}, в сторону места {area:16629}.",
 
 	-- Step 49: Valennia Stormfist
-	["Upstairs"] = "",
+	["Upstairs"] = "Наверху",
 
 	-- Step 50: Lotheluum Starbreeze
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar · {npc:255853} Urs'endris · {area:17675} East Pylon Watchtower · {spell:1259416} Walk on Air
@@ -402,11 +402,11 @@ return {
 	-- {npc:251968} Ayessa Dawnsinger · {area:16638} Valanaar · {zone:1412} Mulgore · {npc:259119} Alaana Stormwalker
 	["{npc:251968} sends you on to Kalimdor. Once you have trained, board the skycutter at the dock on {area:16638}'s south-west edge: it flies to northern {zone:1412}, where {npc:259119} waits."] = "",
 
-	-- Step 81: Leave Zephras Isle to Mulgore
+	-- Step 80: Leave Zephras Isle to Mulgore
 	-- {zone:2521} Zephras Isle · {zone:1412} Mulgore
 	["Leave {zone:2521} to {zone:1412}"] = "",
 
-	-- Step 82: Northern Mulgore
+	-- Step 81: Northern Mulgore
 	-- {zone:1412} Mulgore
 	["Northern {zone:1412}"] = "Север: {zone:1412}",
 	-- {npc:259119} Alaana Stormwalker
@@ -416,11 +416,11 @@ return {
 	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
 	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:259118}, у места посадки: для персонажа {npc:3033} ({zone:1456})",
 
-	-- Step 83: Clarice Foster
+	-- Step 82: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
 	["{npc:5543} stands in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart."] = "{npc:5543} стоит здесь: {area:2197} – пещера под местом {area:1640}: спуститесь внутрь, стрелка не различает ярусы.",
 
-	-- Step 85: Traditions of the Bluff
+	-- Step 84: Traditions of the Bluff
 	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner · {item:278078} Prepared Incense
 	["{npc:269068} wants tauren incense: buy its four parts from {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier, then combine them into {item:278078}."] = "{npc:269068} просит тауренские благовония: купите четыре части у {npc:3014} (травница), {npc:3012} (товары для зачарования), персонажа {npc:3005} (товары для кожевников) и {npc:3027} (товары для кулинарии), затем соедините их в предмет {item:278078}.",
 	-- {item:278079} Bundle of Herbs · {npc:3014} Nida Winterhoof
@@ -432,37 +432,37 @@ return {
 	-- {item:278083} Ceremonial Flint and Tinder · {npc:3027} Naal Mistrunner
 	["{item:278083}, from {npc:3027}"] = "{item:278083}, у персонажа {npc:3027}",
 
-	-- Step 86: Turak Runetotem
+	-- Step 85: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
 	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "",
 
-	-- Step 87: Hunter Rise
+	-- Step 86: Hunter Rise
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
 	["Use the {item:278078} at the ceremonial mat and burner on the south-facing cliff of {area:1641}."] = "Используйте предмет {item:278078} у церемониального коврика и курильницы на южном обрыве ({area:1641}).",
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
 	["Spread the {item:278078} off {area:1641}"] = "Развейте предмет {item:278078} с обрыва ({area:1641})",
 
-	-- Step 89: Ansekhwa
+	-- Step 88: Ansekhwa
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
 	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "",
 
-	-- Step 90: Ansekhwa
+	-- Step 89: Ansekhwa
 	-- {npc:11869} Ansekhwa
 	["While you're here: learn Staves from {npc:11869} (10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
-	-- Step 91: Into Mulgore
+	-- Step 90: Into Mulgore
 	-- {zone:1412} Mulgore
 	["Into {zone:1412}"] = "",
 
-	-- Step 92: Into The Barrens
+	-- Step 91: Into The Barrens
 	-- {zone:1413} The Barrens
 	["Into {zone:1413}"] = "",
 
-	-- Step 94: The Crossroads
+	-- Step 93: The Crossroads
 	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
 	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "",
 
-	-- Step 95: To Orgrimmar
+	-- Step 94: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "В {zone:1454}",
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
@@ -477,6 +477,7 @@ return {
 	-- ["Climb the watchtower in the village, jump off the top and use {spell:1259416} to float down."] = "Поднимитесь на сторожевую башню в деревне, прыгните с вершины и используйте {spell:1259416}, чтобы плавно спуститься.",
 	-- ["Faladiel stands on the hill west of the falls, north of {area:16638}."] = "Фаладиэль стоит на холме к западу от водопада, к северу от места {area:16638}.",
 	-- ["Follow the road south to {area:16624}, in the middle of the isle."] = "Идите по дороге на юг сюда: {area:16624}, в центр острова.",
+	-- ["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side."] = "Идите по дороге на юг сюда: {area:16624}, в центр острова. {npc:251523} стоит в восточной части, {npc:251902} – в центре, {npc:254089} – чуть к северо-западу от нее, {npc:263664} – у костра в западной части.",
 	-- ["High Order Apprentices"] = "Ученики Высшего ордена",
 	-- ["Hippogryph nests"] = "Гнезда гиппогрифов",
 	-- ["Horde airship"] = "Воздушный корабль Орды",
@@ -519,6 +520,13 @@ return {
 	-- ["Wind Hollows drift over the lowlands around {area:16638}. The first {object:616466} lie west of the orchard road."] = "Ветряные мертвени парят над низинами вокруг места {area:16638}. Первые детали ({object:616466}) лежат к западу от дороги к саду.",
 	-- ["Wind Hollows drift over the lowlands around {area:16638}. The first {object:616467} lie west of the orchard road."] = "Ветряные мертвени парят над низинами вокруг места {area:16638}. Первые детали ({object:616467}) лежат к западу от дороги к саду.",
 	-- ["Windsong Crawlers"] = "Ветроозерные крабы",
+	-- ["With {skill:129} learned, {npc:263664} also offers its Camping 101: {npc:257018}, in Shen'dar, takes it."] = "Если вы изучили навык {skill:129}, {npc:263664} также предложит соответствующее задание «Основы походной жизни»; сдайте его персонажу {npc:257018} в Шен'даре.",
+	-- ["With {skill:164} learned, {npc:263664} also offers its Camping 101: {npc:251913}, in Shen'dar, takes it."] = "Если вы изучили навык {skill:164}, {npc:263664} также предложит соответствующее задание «Основы походной жизни»; сдайте его персонажу {npc:251913} в Шен'даре.",
+	-- ["With {skill:165} learned, {npc:263664} also offers its Camping 101: {npc:251993}, in Shen'dar, takes it."] = "Если вы изучили навык {skill:165}, {npc:263664} также предложит соответствующее задание «Основы походной жизни»; сдайте его персонажу {npc:251993} в Шен'даре.",
+	-- ["With {skill:171} learned, {npc:263664} also offers its Camping 101: {npc:257019}, in Shen'dar, takes it."] = "Если вы изучили навык {skill:171}, {npc:263664} также предложит соответствующее задание «Основы походной жизни»; сдайте его персонажу {npc:257019} в Шен'даре.",
+	-- ["With {skill:186} learned, {npc:263664} also offers its Camping 101: {npc:257022}, in Shen'dar, takes it."] = "Если вы изучили навык {skill:186}, {npc:263664} также предложит соответствующее задание «Основы походной жизни»; сдайте его персонажу {npc:257022} в Шен'даре.",
+	-- ["With {skill:356} learned, {npc:263664} also offers its Camping 101: {npc:251992}, in Shen'dar, takes it."] = "Если вы изучили навык {skill:356}, {npc:263664} также предложит соответствующее задание «Основы походной жизни»; сдайте его персонажу {npc:251992} в Шен'даре.",
+	-- ["With {skill:393} learned, {npc:263664} also offers its Camping 101: {npc:257024}, in Shen'dar, takes it."] = "Если вы изучили навык {skill:393}, {npc:263664} также предложит соответствующее задание «Основы походной жизни»; сдайте его персонажу {npc:257024} в Шен'даре.",
 	-- ["talk to {npc:251905}"] = "поговорите с персонажем {npc:251905}",
 	-- ["{area:1638} is beside the landing: ride up a lift and learn the flight path from {npc:2995}, the wind rider master."] = "{area:1638} – рядом с местом посадки: поднимитесь на подъемнике и откройте маршрут у персонажа {npc:2995}, распорядителя полетов.",
 	-- ["{area:16624}, last time"] = "{area:16624}, в последний раз",

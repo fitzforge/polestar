@@ -1272,14 +1272,27 @@ impl<'a> Sim<'a> {
 
 	// ------------------------------------------------------------------ placement and current step
 
+	/// anchorStep: the last step with quest progress, counting only goals of quests the guide offers at or
+	/// before that goal (or direct hand-ins): a quest taken in another guide says nothing of where the
+	/// player is in this one.
 	fn anchor_step(&mut self) -> usize {
-		let n = self.gd().steps.len();
+		let gd = self.gd();
+		let n = gd.steps.len();
+		let mut offered: FxHashMap<u32, usize> = FxHashMap::default();
+		for s in 1..=n {
+			for goal in &gd.step(s).goals {
+				if let (T::Accept, Some(q)) = (goal.t, goal.quest) {
+					offered.entry(q).or_insert(s);
+				}
+			}
+		}
 		for s in (1..=n).rev() {
 			let step = self.gd().step(s);
 			if step.only.is_none() {
 				for g in 1..=step.goals.len() {
 					let goal = &step.goals[g - 1];
-					if goal.only.is_none() && !goal.optional && is_quest_goal(goal) && self.goal_applies(s, g) {
+					let own = goal.direct || goal.quest.and_then(|q| offered.get(&q)).is_some_and(|&a| a <= s);
+					if own && goal.only.is_none() && !goal.optional && is_quest_goal(goal) && self.goal_applies(s, g) {
 						let d = self.goal_done(s, g);
 						if d.done || (goal.oi.is_some() && d.cur.unwrap_or(0.0) > 0.0) {
 							return s;
@@ -1356,7 +1369,7 @@ impl<'a> Sim<'a> {
 		let travel = |t: T| matches!(t, T::Goto | T::Fly | T::Hearth | T::Explore | T::Die);
 		for s in 1..limit {
 			if self.step_applies(s) && !self.is_skipped(s) && !self.step_done(s) {
-				let behind = s < anchor;
+				let behind = s < anchor && self.leads_to_done(s);
 				let mut passes = true;
 				for g in 1..=gd.step(s).goals.len() {
 					let goal = gd.goal(s, g);
@@ -1383,6 +1396,29 @@ impl<'a> Sim<'a> {
 				}
 			}
 		}
+	}
+
+	/// place's leadsToDone: a soft step behind the progress passes only when the quest work it leads to (the
+	/// next quest goal for the character after it that they can do) is done or under way.
+	fn leads_to_done(&mut self, s: usize) -> bool {
+		let gd = self.gd();
+		for t in s + 1..=gd.steps.len() {
+			// A group quest waiting for the player's answer is no work they owe the route.
+			if !self.step_applies(t) || self.is_skipped(t) || self.group_pending(t) {
+				continue;
+			}
+			for g in 1..=gd.step(t).goals.len() {
+				let goal = gd.goal(t, g);
+				if blocks(goal) && is_quest_goal(goal) && self.goal_applies(t, g) && self.gated(goal).is_none() && self.unavailable_for(t, g, 0).is_none() {
+					if self.goal_done(t, g).done {
+						return true;
+					}
+					// A hand-in of a quest in the log is still to do where its NPC stands: no sign the player went there.
+					return goal.quest.is_some_and(|q| self.quest_done(q) || (goal.t != T::Turnin && self.w.on_quest(q)));
+				}
+			}
+		}
+		true
 	}
 
 	/// Own.jump: the first `skipto` whose predicate holds skips s up to the labelled step.
@@ -1448,6 +1484,22 @@ impl<'a> Sim<'a> {
 			return None;
 		}
 		self.level_hold().filter(|&hold| hold < s)
+	}
+
+	/// Own.waitsOnLevel: the route waits at step s for its accept waiting on a level, as compute_current
+	/// decides it: s is the level hold with nothing else open on it, no open step before it, and the first
+	/// open step after it held (holds_before), or none open and the guide no leveling guide.
+	pub(crate) fn waits_on_level(&mut self, s: usize) -> bool {
+		if self.level_hold() != Some(s) || !self.step_done(s) {
+			return false;
+		}
+		let n = self.gd().steps.len();
+		for k in 1..=n {
+			if k != s && self.step_applies(k) && !self.is_skipped(k) && !self.step_done(k) {
+				return k > s && (self.every_step() || self.dungeon_step(k));
+			}
+		}
+		self.every_step()
 	}
 
 	/// Own.levelHold: the first step with an accept waiting for the character's level (unavailableFor's

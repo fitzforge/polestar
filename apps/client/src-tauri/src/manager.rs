@@ -132,7 +132,7 @@ impl Engine {
 			state.settings.channel == Channel::Beta
 		};
 		self.publish();
-		let result = addons::releases(&self.http, beta).await;
+		let result = addons::releases(&self.http(), beta).await;
 		{
 			let mut state = self.lock();
 			state.checking = false;
@@ -187,7 +187,7 @@ impl Engine {
 			}
 		};
 		let result = match &release {
-			Some(release) => addons::install(&self.http, product, release, &dir, &report).await.map(|_| release.version.clone()),
+			Some(release) => addons::install(&self.http(), product, release, &dir, &report).await.map(|_| release.version.clone()),
 			None => {
 				report(addons::Progress::step("remove"));
 				let dir = dir.clone();

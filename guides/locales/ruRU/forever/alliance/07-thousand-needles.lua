@@ -46,7 +46,7 @@ return {
 	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "",
 	-- {npc:272273} Lost Watcher · {quest:96138} Merrick's Bow
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "Только если с противника {npc:272273} выпал предмет «{quest:96138}»: щелкните по нему правой кнопкой",
-	["Below ground"] = "",
+	["Below ground"] = "Под землей",
 
 	-- Step 10: Defias Strongbox
 	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall

@@ -74,6 +74,8 @@ mod engine_die;
 mod engine_dwell;
 #[path = "engine-enter.rs"]
 mod engine_enter;
+#[path = "engine-failed-quest.rs"]
+mod engine_failed_quest;
 #[path = "engine-feeders.rs"]
 mod engine_feeders;
 #[path = "engine-flights.rs"]
@@ -96,6 +98,8 @@ mod engine_l10n;
 mod engine_level;
 #[path = "engine-level-pick.rs"]
 mod engine_level_pick;
+#[path = "engine-level-wait.rs"]
+mod engine_level_wait;
 #[path = "engine-lost-quest.rs"]
 mod engine_lost_quest;
 #[path = "engine-manual.rs"]
@@ -116,6 +120,8 @@ mod engine_professions;
 mod engine_review;
 #[path = "engine-routes.rs"]
 mod engine_routes;
+#[path = "engine-skip-ahead.rs"]
+mod engine_skip_ahead;
 #[path = "engine-skip-undo.rs"]
 mod engine_skip_undo;
 #[path = "engine-skipquest.rs"]
@@ -134,6 +140,8 @@ mod engine_talk;
 mod engine_training;
 #[path = "engine-unavailable.rs"]
 mod engine_unavailable;
+#[path = "engine-upgrade.rs"]
+mod engine_upgrade;
 #[path = "engine-vendor.rs"]
 mod engine_vendor;
 #[path = "engine-wait.rs"]
@@ -267,6 +275,8 @@ mod party_chat;
 mod party_group;
 #[path = "party-pair.rs"]
 mod party_pair;
+#[path = "party-sync.rs"]
+mod party_sync;
 mod qol;
 #[path = "qol-bagglow.rs"]
 mod qol_bagglow;
@@ -283,6 +293,8 @@ mod quests_levels;
 mod quoted_quest_names;
 mod rares;
 mod recorder;
+#[path = "recorder-explore.rs"]
+mod recorder_explore;
 #[path = "recorder-finds.rs"]
 mod recorder_finds;
 #[path = "recorder-perf.rs"]
@@ -312,6 +324,8 @@ mod ui_along;
 mod ui_card;
 #[path = "ui-dungeons.rs"]
 mod ui_dungeons;
+#[path = "ui-game-menu.rs"]
+mod ui_game_menu;
 #[path = "ui-guide-end.rs"]
 mod ui_guide_end;
 #[path = "ui-import.rs"]
@@ -342,6 +356,8 @@ mod ui_route;
 mod ui_scrub;
 #[path = "ui-thanks.rs"]
 mod ui_thanks;
+#[path = "ui-transparent.rs"]
+mod ui_transparent;
 #[path = "ui-welcome.rs"]
 mod ui_welcome;
 #[path = "ui-whatsnew.rs"]

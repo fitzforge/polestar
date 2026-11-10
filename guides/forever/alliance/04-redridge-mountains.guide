@@ -11,6 +11,9 @@ next forever/alliance/05-duskwood
 # into this file.
 # Added here: A Free Lunch (129), Blackrock Blockade (98387); on Duskwood's first loop Raven Hill (163)
 # and Jitters' Growling Gut (5), with Jitters on the Raven Hill stop and Chef Grual on the way back.
+# Chef Grual's follow-up Dusky Crab Cakes (93) is taken with 5's hand-in (handed in at once by a
+# player already carrying six Gooey Spider Legs, a free drop of Duskwood's spiders); 05-duskwood
+# finishes it on its west loop and hands Return to Jitters (240) to Jitters at Raven Hill.
 
 # Duskwood and Redridge, first half (about 23 to 25.6). Since 2026-11-07
 # Duskwood and Redridge are played together, so Redridge comes at 23+ where
@@ -24,7 +27,7 @@ next forever/alliance/05-duskwood
 # south to Darkshire (flight path, hearth, every quest giver) -> Duskwood's
 # first loop (the Duskwood notes are in 05-duskwood) -> Darkshire -> north to Three
 # Corners -> Lakeridge Highway (Guard Howe) -> the murlocs east of the
-# bridge -> Lakeshire (Baren, hearth, every quest giver) -> Bellygrub's pen
+# bridge -> Lakeshire (Baren, every quest giver) -> Bellygrub's pen
 # and Martie -> Lakeshire (the Wanted posters) -> Alther's Mill, the Blackrock
 # camps and Gar'im's cave ->
 # north through Galardell Valley (Fangore), the Old Lion Statue, the watch
@@ -58,9 +61,9 @@ next forever/alliance/05-duskwood
 #   Redridge Goulash, Verner's and Solomon's chains, Hilary's Necklace) and the
 #   Defias chain from Wiley the Black are done at 19-20 in 03-loch-modan,
 #   where they give full XP.
-# - The Lakeshire flight path and hearth (listed at the end of Darkshore in
-#   the export) are taken on arrival. The Darkshire flight path and hearth
-#   the export lists at the end of this visit belong to the Duskwood guide.
+# - The Lakeshire flight path (listed at the end of Darkshore in the export) is taken on
+#   arrival. The Hearthstone stays at Darkshire, bound on the first Duskwood loop: the
+#   Duskwood guide hearths there (Lakeshire's bind was never used).
 # - Left out, accepted but never turned in on the route: Theocritus'
 #   Retrieval (178, a pendant drop for the Tower of Azora).
 # - Refresh (2026): Expanding Horizons (97914, from 03-darkshore) is handed
@@ -90,10 +93,10 @@ next forever/alliance/05-duskwood
 # the Westfall half pendant for Trial of the Sea Lion (272), only while it is
 # in the log: the lockbox gives the half to no one else (#1386). Train in
 # Stormwind on the way; Shamans take the Deeprun Tram to Ironforge for theirs.
-# Paladins: Human Paladins use the Symbol of Life on Henze Faulk by Stone
-# Cairn Lake on the road east through Elwynn (The Tome of Divinity, 1786 and
-# 1787, from the Stormwind stop of 02-westfall; Redemption at the Stormwind
-# stop of 05-duskwood). At 20 Duthorian Rall (Human) or Tiza Battleforge
+# Paladins: Human Paladins do The Tome of Divinity (1786, 1787) and learn
+# Redemption on 03-loch-modan's Elwynn walk and last Stormwind stop; a
+# Paladin still carrying 1786 or 1787 does Henze Faulk by Stone Cairn Lake
+# here and Redemption at the Stormwind stop of 05-duskwood. At 20 Duthorian Rall (Human) or Tiza Battleforge
 # (Dwarf) starts The Tome of Valor (1793/1794), the way to Verigan's Fist:
 # three dungeons and an escort, the Class guide
 # forever/class/paladin/verigans-fist.
@@ -105,7 +108,9 @@ next forever/alliance/05-duskwood
 # 115: Marshal Marris offers them only once Blackrock Menace and Blackrock
 # Blockade, 20 and 98387, are handed in, after the keep), Morganth (249), the
 # Speaking of Fortitude and Theocritus' Retrieval chains (343+, 178). Howling in
-# the Hills (126, after A Baying of Gnolls in 03-loch-modan): not taken.
+# the Hills (126, offered once 03-loch-modan's Lakeshire quests are handed in) is
+# taken on the Lakeshire stop: Yowler stands at the top of the Redridge Canyons on
+# the walk up to Render's Valley, and Verner Osgood is on the way back through town.
 
 # ---------------------------------------------------------------- Stormwind and the road
 
@@ -175,6 +180,7 @@ step Theocritus
 step Henze Faulk
   only Human,Paladin
   zone Elwynn Forest
+  when onquest 1786,1787
   tip On the road east, past the Tower of Azora, head north from the bridge to Stone Cairn Lake. Henze Faulk lies south of the lake: use the Symbol of Life on him. The Defias Rogue Wizards around him carry the Defias Script.
   use 6866 quest 1786.1 @72.6,51.41 map 1429 era only Human -- Use the Symbol of Life on Henze Faulk
   turnin 1786 only Human -- Henze Faulk
@@ -246,6 +252,7 @@ step The Hushed Bank: kill these as you meet them
   kill 213 quest 226                      -- Starving Dire Wolf
   kill 539 quest 245 @10.6,55.4 map 1431 era -- Pygmy Venom Web Spider
   collect 1130 quest 101                  -- Vial of Spider Venom: Pygmy Venom Web Spiders, Venom Web Spiders and Green Recluses
+  collect 2251 x6 optional                -- Gooey Spider Leg: keep the ones these spiders drop, for Chef Grual in Darkshire
 
 step Abercrombie
   tip The hermit's shack stands in the woods north-east of the Raven Hill Cemetery.
@@ -272,6 +279,9 @@ step Yorgen Farmstead
 step Darkshire
   turnin 96139                            -- Sirra Von'Indi, inside
   turnin 5                                -- Chef Grual, in the Scarlet Raven Tavern
+  accept 93                               -- Chef Grual: six Gooey Spider Legs, which Duskwood's spiders drop even without the quest
+  turnin 93 optional                      -- Already carrying six? Hand them in now
+  accept 240 optional                     -- For Jitters, at Raven Hill on the next Duskwood loop
   turnin 56                               -- Commander Althea Ebonlocke
   accept 57
   level 23
@@ -301,10 +311,10 @@ step Lake Everstill's murlocs: kill these as you meet them
 # ---------------------------------------------------------------- Lakeshire
 
 step Lakeshire
-  tip Cross the long bridge north into town: Dockmaster Baren on the docks, Bailiff Conacher in the town hall, the innkeeper in the inn, Martie Jainrose in her garden at the west end. Marshal Marris's Blackrock quests and Alther's Mill came with you from your first Redridge visit.
+  tip Cross the long bridge north into town: Dockmaster Baren on the docks, Bailiff Conacher in the town hall, Martie Jainrose in her garden at the west end. Marshal Marris's Blackrock quests and Alther's Mill came with you from your first Redridge visit.
+  accept 126                                  -- Verner Osgood, by the road at the north end of the bridge
   turnin 150                                  -- Dockmaster Baren
   accept 91                                   -- Bailiff Conacher, in the town hall
-  sethome "Lakeshire"
   accept 180                                  -- The Wanted poster by the inn
   accept 34                                   -- Martie Jainrose
 
@@ -365,6 +375,10 @@ step Stonewatch Keep
 
 # ---------------------------------------------------------------- Render's Valley
 
+step Yowler
+  tip From the keep head back west along the lake's north shore and north up the Redridge Canyons. Just south of Render's Valley, Yowler, a level 25 gnoll, walks among the Redridge Alphas and Mystics.
+  collect 3614 quest 126 @22.7,21.6 map 1433 live -- Yowler's Paw
+
 step Render's Valley
   tip From the keep head back west along the lake's north shore and north up the Redridge Canyons to Render's Valley; Lakeshire's hand-ins wait for Keeshan's escort, which ends there. Blackrock Champions camp in the valley.
   kill 435 quest 128                          -- Blackrock Champion, below ground
@@ -388,6 +402,7 @@ step Back to Lakeshire
   tip Into Lakeshire from the north with Keeshan: Bailiff Conacher and Magistrate Solomon in the town hall, Marshal Marris and Foreman Oslow at the north end of the bridge, then over the bridge to Guard Howe and the gryphons.
   turnin 91                                   -- Bailiff Conacher, in the town hall
   turnin 180                                  -- Magistrate Solomon, in the town hall
+  turnin 126                                  -- Verner Osgood, by the road on the way to the bridge
   turnin 219                                  -- Marshal Marris
   turnin 20
   turnin 98387

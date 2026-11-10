@@ -56,7 +56,7 @@ return {
 	-- {npc:8554} Chief Sharptusk Thornmantle · {object:3076} Dirt-stained Map
 	-- plural, as words: Battleboars = {npc:2966} Battleboar
 	["Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. {npc:8554} stands at its eastern end, and the {object:3076} lies on the ground in the camp."] = "鬥豬在神殿北邊吃草；刺背野豬人佔據東北方的峽谷。{npc:8554}站在峽谷東端，{object:3076}就在營地的地上。",
-	["Below ground"] = "",
+	["Below ground"] = "地下",
 
 	-- Step 10: Deathskip to Red Cloud Mesa
 	-- {area:220} Red Cloud Mesa
@@ -85,10 +85,30 @@ return {
 	["{npc:5888}: {npc:5873} and your {item:5175}"] = "{npc:5888}：{npc:5873}和你的{item:5175}",
 
 	-- Step 15: Kaga Wildhoof
-	-- {area:220} Red Cloud Mesa · {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {spell:1229451} Boosted Rest
-	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "沿道路從{area:220}向北走。{npc:265810}在{area:222}南邊不遠的路上等著；在她的營火旁 /sit，直到獲得{spell:1229451}。",
+	-- {area:220} Red Cloud Mesa · {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {spell:1229451} Boosted Rest · {zone:1456} Thunder Bluff
+	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof or on the {zone:1456} stop."] = "沿道路從{area:220}向北走。{npc:265810}在{area:222}南邊不遠的路上等著；在她的營火旁 /sit，直到獲得{spell:1229451}。學會專業技能後，Kaga還會提供她的露營入門任務，交給該專業的訓練師：在血蹄村或{zone:1456}停留時繳交。",
 	-- {spell:1229451} Boosted Rest
 	["/sit by Kaga's campfire until you get {spell:1229451}"] = "在Kaga的營火旁 /sit，直到獲得{spell:1229451}",
+	-- {npc:265810} Kaga Wildhoof · {npc:6290} Yonn Deepcut
+	["{npc:265810}: for {npc:6290}"] = "{npc:265810}：給{npc:6290}",
+	-- {npc:265810} Kaga Wildhoof · {npc:3069} Chaw Stronghide
+	["{npc:265810}: for {npc:3069}"] = "{npc:265810}：給{npc:3069}",
+	-- {npc:265810} Kaga Wildhoof · {npc:5939} Vira Younghoof
+	["{npc:265810}: for {npc:5939}"] = "{npc:265810}：給{npc:5939}",
+	-- {npc:265810} Kaga Wildhoof · {npc:5938} Uthan Stillwater
+	["{npc:265810}: for {npc:5938}"] = "{npc:265810}：給{npc:5938}",
+	-- {npc:265810} Kaga Wildhoof · {npc:3013} Komin Winterhoof
+	["{npc:265810}: for {npc:3013}"] = "{npc:265810}：給{npc:3013}",
+	-- {npc:265810} Kaga Wildhoof · {npc:3001} Brek Stonehoof
+	["{npc:265810}: for {npc:3001}"] = "{npc:265810}：給{npc:3001}",
+	-- {npc:265810} Kaga Wildhoof · {npc:11047} Kray
+	["{npc:265810}: for {npc:11047}"] = "{npc:265810}：給{npc:11047}",
+	-- {npc:265810} Kaga Wildhoof · {npc:10278} Thrag Stonehoof
+	["{npc:265810}: for {npc:10278}"] = "{npc:265810}：給{npc:10278}",
+	-- {npc:265810} Kaga Wildhoof · {npc:11071} Mot Dawnstrider
+	["{npc:265810}: for {npc:11071}"] = "{npc:265810}：給{npc:11071}",
+	-- {npc:265810} Kaga Wildhoof · {npc:11051} Vhan
+	["{npc:265810}: for {npc:11051}"] = "{npc:265810}：給{npc:11051}",
 
 	-- Step 16: Bloodhoof Village
 	-- {npc:3063} Krang Stonehoof
@@ -100,6 +120,10 @@ return {
 	-- Step 17: Bloodhoof Village
 	-- {npc:3067} Pyall Silentstride
 	["{npc:3067}: Camping 101 asks you to learn it"] = "",
+	-- {npc:6290} Yonn Deepcut · {npc:3067} Pyall Silentstride · {quest:97936} Camping 101: Skinning
+	["{npc:6290}, beside {npc:3067}: {quest:97936}"] = "{npc:6290}，在{npc:3067}旁邊：{quest:97936}",
+	-- {npc:3069} Chaw Stronghide · {npc:3067} Pyall Silentstride · {quest:97934} Camping 101: Leatherworking
+	["{npc:3069}, beside {npc:3067}: {quest:97934}"] = "{npc:3069}，在{npc:3067}旁邊：{quest:97934}",
 
 	-- Step 18: Poison Water
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
@@ -250,7 +274,7 @@ return {
 	["While you're here: learn Staves from {npc:11869} (10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
 	-- Step 48: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "職業訓練師",
 
 	-- Step 49: Rogue trainer
 	["Rogue trainer"] = "",
@@ -298,23 +322,31 @@ return {
 	-- {zone:1413} The Barrens
 	["Into {zone:1413}"] = "",
 
-	-- Step 62: The Crossroads
+	-- Step 61: Kirge Sternhorn
+	-- {npc:3418} Kirge Sternhorn · {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:458} Gold Road
+	["{npc:3418} stands at {area:378}, where the road from {zone:1412} meets the {area:458} north to the Crossroads."] = "{npc:3418}站在{area:378}，也就是{zone:1412}來的道路與向北通往十字路口的{area:458}交會之處。",
+	-- {npc:3418} Kirge Sternhorn · {npc:3429} Thork
+	["{npc:3418}: for {npc:3429} at the Crossroads"] = "{npc:3418}：給十字路口的{npc:3429}",
+
+	-- Step 63: The Crossroads
 	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
 	["Leave {zone:1412} by the south-eastern pass and follow the road to the Crossroads. {npc:3448} stands at the south gate, {quest:860} by the inn, {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "",
+	-- {npc:3429} Thork
+	["{npc:3429}, by the wind rider tower"] = "{npc:3429}，在雙足飛龍塔旁",
 	-- {npc:3615} Devrak
 	["{npc:3615}, the wind rider master"] = "雙足飛龍管理員{npc:3615}",
 
-	-- Step 63: Jahan Hawkwing
+	-- Step 64: Jahan Hawkwing
 	-- {npc:3483} Jahan Hawkwing · {npc:3615} Devrak · {zone:1456} Thunder Bluff · {npc:3033} Turak Runetotem
 	["{npc:3483} sells armor on the north side of the Crossroads. His bundle goes to {npc:3615}, who sends it with you on the flight to {zone:1456} you take for {npc:3033} anyway."] = "",
 
-	-- Step 64: Class turn-in in Thunder Bluff
+	-- Step 65: Class turn-in in Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Class turn-in in {area:1638}"] = "",
 	-- {npc:8359} Ahanu
 	["{npc:8359}, by the wind riders on the central rise"] = "",
 
-	-- Step 66: To Orgrimmar
+	-- Step 67: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "前往{zone:1454}",
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
@@ -329,6 +361,7 @@ return {
 	-- ["Class turn-ins in {area:1638}"] = "{area:1638}的職業任務繳交",
 	-- ["Finish the wolf heart, cougar femur, plainstrider scale and swoop gizzard on the plains around the village."] = "在村子周圍的平原收集完狼心、山獅股骨、平原陸行鳥鱗片和猛鷲砂囊。",
 	-- ["Flatland Prowlers roam the plains around {area:225}"] = "平原徘徊者在{area:225}周圍的平原遊蕩",
+	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "沿道路從{area:220}向北走。{npc:265810}在{area:222}南邊不遠的路上等著；在她的營火旁 /sit，直到獲得{spell:1229451}。",
 	-- ["Galak centaurs and Prairie Wolf Alphas"] = "加拉克半人馬與草原狼前鋒",
 	-- ["Hearth to {area:222} and ride north to {area:1639}."] = "用爐石回到{area:222}，向北騎到{area:1639}。",
 	-- ["Leave {zone:1412} by the south-eastern pass and follow the road to the {area:380}. {quest:860} stands by the inn, {npc:3448} at the south gate. {zone:1413} guide starts here."] = "從東南方的山口離開{zone:1412}，沿道路前往{area:380}。{quest:860}站在旅店旁，{npc:3448}在南門。{zone:1413}指南從這裡開始。",
@@ -344,6 +377,16 @@ return {
 	-- ["The well lies north of the village. Well Stones sit around the well, {object:2912} lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for {quest:766} and {quest:761}."] = "水井在村子北邊。水井石放在井的周圍，{object:2912}在附近的樹下。途中擊殺狼、山獅、平原陸行鳥和猛鷲，完成{quest:766}和{quest:761}。",
 	-- ["The well lies south-east of the village."] = "水井在村子東南方。",
 	-- ["The {area:380}"] = "{area:380}",
+	-- ["With {skill:129} learned, Kaga also offers its Camping 101: {npc:5939} in Bloodhoof takes it."] = "學會{skill:129}後，Kaga還會提供她的露營入門任務：交給血蹄村的{npc:5939}。",
+	-- ["With {skill:164} learned, Kaga also offers its Camping 101: {npc:10278} in {zone:1456} takes it."] = "學會{skill:164}後，Kaga還會提供她的露營入門任務：交給{zone:1456}的{npc:10278}。",
+	-- ["With {skill:165} learned, Kaga also offers its Camping 101: {npc:3069} in Bloodhoof takes it."] = "學會{skill:165}後，Kaga還會提供她的露營入門任務：交給血蹄村的{npc:3069}。",
+	-- ["With {skill:171} learned, Kaga also offers its Camping 101: {npc:11047} in {zone:1456} takes it."] = "學會{skill:171}後，Kaga還會提供她的露營入門任務：交給{zone:1456}的{npc:11047}。",
+	-- ["With {skill:182} learned, Kaga also offers its Camping 101: {npc:3013} in {zone:1456} takes it."] = "學會{skill:182}後，Kaga還會提供她的露營入門任務：交給{zone:1456}的{npc:3013}。",
+	-- ["With {skill:186} learned, Kaga also offers its Camping 101: {npc:3001} in {zone:1456} takes it."] = "學會{skill:186}後，Kaga還會提供她的露營入門任務：交給{zone:1456}的{npc:3001}。",
+	-- ["With {skill:197} learned, Kaga also offers its Camping 101: {npc:11051} in {zone:1456} takes it."] = "學會{skill:197}後，Kaga還會提供她的露營入門任務：交給{zone:1456}的{npc:11051}。",
+	-- ["With {skill:333} learned, Kaga also offers its Camping 101: {npc:11071} in {zone:1456} takes it."] = "學會{skill:333}後，Kaga還會提供她的露營入門任務：交給{zone:1456}的{npc:11071}。",
+	-- ["With {skill:356} learned, Kaga also offers its Camping 101: {npc:5938} in Bloodhoof takes it."] = "學會{skill:356}後，Kaga還會提供她的露營入門任務：交給血蹄村的{npc:5938}。",
+	-- ["With {skill:393} learned, Kaga also offers its Camping 101: {npc:6290} in Bloodhoof takes it."] = "學會{skill:393}後，Kaga還會提供她的露營入門任務：交給血蹄村的{npc:6290}。",
 	-- ["{npc:275789} stands on the {area:821} a little east of the well."] = "{npc:275789}站在水井東邊不遠的{area:821}。",
 	-- ["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182}站在村子北緣。Kyle想要從平原陸行鳥取得的{item:287505}。",
 	-- ["{npc:2988} camps by the {area:396} south-east of Bloodhoof."] = "{npc:2988}在血蹄村東南方的{area:396}旁紮營。",

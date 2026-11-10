@@ -14,8 +14,8 @@ return {
 	["{npc:2817}'s next quest pays no experience: skip it."] = "{npc:2817}의 다음 퀘스트는 경험치를 주지 않으니 건너뛰십시오.",
 
 	-- Step 3: Boss Tho'grun
-	-- {zone:1418} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
-	["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "{zone:1418}을(를) 가로질러 서쪽 {area:342}의 먼지목도리 야영지로 가십시오. {npc:2944}은(는) 그 한가운데에 있으며 주위에 먼지목도리일족 고룡사냥꾼과 먼지목도리일족 싸움꾼이 있습니다.",
+	-- {npc:2944} Boss Tho'grun · {area:342} Camp Boff · {zone:1418} Badlands
+	["{npc:2944} does not stay at {area:342}: he walks a long loop around the {zone:1418} with his guards, from the camp in the west along the south of the zone to about 61,69, north to about 49,49 and back west to the camp. The arrow follows his loop west from here until you meet him."] = "{npc:2944}은(는) {area:342}에 머물러 있지 않습니다. 호위병들과 함께 {zone:1418}을(를) 크게 돌며, 서쪽 야영지에서 지역 남쪽을 따라 약 61,69까지, 북쪽으로 약 49,49까지 간 뒤 다시 서쪽 야영지로 돌아옵니다. 화살표는 그를 만날 때까지 여기서부터 서쪽으로 그의 경로를 따라갑니다.",
 
 	-- Step 4: Garek
 	-- {area:1898} Dustwind Gulch
@@ -69,7 +69,7 @@ return {
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "{area:271}(으)로 날아가세요",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "{area:144} 비행 조련사",
 
 	-- Step 16: Southshore
 	-- {npc:3980} Raleigh the Devout
@@ -87,7 +87,7 @@ return {
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "",
 	-- {npc:7744} Innkeeper Thulfram
-	["{npc:7744}: the last guide binds here, so this usually ticks at once; below ground"] = "",
+	["{npc:7744}; below ground"] = "{npc:7744}, 지하",
 
 	-- Step 19: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
@@ -146,6 +146,7 @@ return {
 	-- ["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. Falstad holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "길을 따라 북동쪽으로 {area:271}을(를) 빠져나가 {zone:1425}(으)로 가십시오. {area:348}은(는) 경계 바로 너머에 있습니다. 폴스타트 와일드해머는 꼭대기에, {quest:1450}은(는) 그리핀 둥지에, {npc:7884}은(는) 여관 옆에 있습니다.",
 	-- ["Ride south out of {zone:1432} through the pass into the {zone:1418}; {npc:2860} camps at the dig."] = "남쪽 고개를 지나 {zone:1432}에서 {zone:1418}(으)로 가십시오. {npc:2860}은(는) 발굴 현장에 야영하고 있습니다.",
 	-- ["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "{area:3}을(를) 가로질러 서쪽 {area:342}의 먼지목도리 야영지로 가십시오. {npc:2944}은(는) 그 한가운데에 있으며 주위에 먼지목도리일족 고룡사냥꾼과 먼지목도리일족 싸움꾼이 있습니다.",
+	-- ["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "{zone:1418}을(를) 가로질러 서쪽 {area:342}의 먼지목도리 야영지로 가십시오. {npc:2944}은(는) 그 한가운데에 있으며 주위에 먼지목도리일족 고룡사냥꾼과 먼지목도리일족 싸움꾼이 있습니다.",
 	-- ["Ride west to the {area:1877} in the middle of the {zone:1418}; {npc:2817} camps beside Martek."] = "서쪽 {zone:1418} 한가운데의 {area:1877}(으)로 가십시오. {npc:2817}은(는) 망명자 마르텍 옆에 야영하고 있습니다.",
 	-- ["Take the boat to Theramore from the far pier."] = "가장 먼 부두에서 테라모어 섬행 배를 타십시오.",
 	-- ["Talonaxe's next task waits for a later {area:47} guide."] = "탈론액스의 다음 임무는 이후 {area:47} 가이드에서 합니다.",

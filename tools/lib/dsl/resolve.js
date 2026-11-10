@@ -533,9 +533,10 @@ function spawnSpots(data, sources, map, f, x, y, elites = []) {
 // joins, the point is the goal's only spot). Only while the point lies where
 // the data has the target, within `near` yards of a known spawn: a point
 // further from every spawn places the target where the data does not (Forever
-// moved it), and the data's places would mislead.
+// moved it), and the data's places would mislead. `altSources` (default:
+// `sources`): the sources whose other places are offered as alternatives.
 // -> spots | undefined
-function handSpots(data, sources, map, f, x, y, near) {
+function handSpots(data, sources, map, f, x, y, near, altSources = sources) {
 	if (!data.mapSize(map)) return undefined;
 	const pts = spawnPointsOf(data, sources, map, f);
 	if (!pts.some((p) => distance(data, map, p[0], p[1], x, y) <= near)) return undefined;
@@ -548,7 +549,14 @@ function handSpots(data, sources, map, f, x, y, near) {
 		if (d <= s.r + SPOT_MIN_RADIUS) {
 			own.r = Math.max(own.r, Math.ceil(d + s.r));
 			own.n += s.n;
-		} else alts.push({ x: s.x, y: s.y, r: s.r, n: s.n, alt: true, d });
+		} else if (altSources === sources) alts.push({ x: s.x, y: s.y, r: s.r, n: s.n, alt: true, d });
+	}
+	if (altSources !== sources) {
+		const asp = altSources.length ? spawnSpots(data, altSources, map, f, x, y) : null;
+		for (const s of asp ? asp.spots : []) {
+			const d = distance(data, map, s.x, s.y, x, y);
+			if (d > s.r + SPOT_MIN_RADIUS) alts.push({ x: s.x, y: s.y, r: s.r, n: s.n, alt: true, d });
+		}
 	}
 	alts.sort((a, b) => a.d - b.d || a.x - b.x || a.y - b.y);
 	return [own, ...alts.map(({ d, ...s }) => s)];
@@ -1898,16 +1906,22 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			// the droppers that spawn at the author's point, with every place
 			// they spawn; not the other droppers, whose places the author chose
 			// against (the Savannah Lion Hide's Matriarchs by Ratchet, #273).
+			// With known odds (the release data) the point's own spot stays as it
+			// was, and the alternatives are still only the other places of the
+			// droppers at the point.
 			const unknownOdds = area && candidates.length > 0 && candidates.every((s) => s.chance === 0);
 			const known = area ? candidates.filter((s) => s.chance === undefined || s.chance > 0 || unknownOdds || gatherNode(data, s)) : [c];
 			const all = known.map((cand) => ({ cand, spawns: data.spawns(cand.kind, cand.id) }));
 			let sources = onMap(data, all, goal.map, dropSides, passRares, dropLevel).on.map((o) => o.cand);
-			if (unknownOdds) {
+			let altSources = sources;
+			if (area) {
 				const atPin = new Set(pointSources(data, sources, goal.map, goal.f, goal.x, goal.y, SPREAD_YARDS));
-				sources = sources.filter((s) => gatherNode(data, s) || atPin.has(s));
+				const pinned = sources.filter((s) => gatherNode(data, s) || atPin.has(s));
+				if (unknownOdds) sources = altSources = pinned;
+				else if (atPin.size && pinned.length < sources.length) altSources = pinned;
 			}
 			const near = !area ? SPAWN_CHECK_YARDS : sources.length && sources.every((s) => gatherNode(data, s)) ? Infinity : SPREAD_YARDS;
-			setIf(goal, 'spots', handSpots(data, sources, goal.map, goal.f, goal.x, goal.y, near));
+			setIf(goal, 'spots', handSpots(data, sources, goal.map, goal.f, goal.x, goal.y, near, altSources));
 			if (v === 'collect' && goal.npc === undefined) {
 				const own = pointSources(data, sources, goal.map, goal.f, goal.x, goal.y, near);
 				setIf(goal, 'fromNpcs', sourceNpcs(data, own[0], own));

@@ -67,7 +67,7 @@ return {
 	-- Step 12: Ancient Chest
 	-- {area:1517} Uldaman
 	["Keep north on the road; the chest lies in the {area:1517} dig site, at the foot of the ruins north-west of the road."] = "Bleib auf der Straße nach Norden; die Truhe liegt in der Grabungsstätte von {area:1517}, am Fuß der Ruinen nordwestlich der Straße.",
-	["Below ground"] = "",
+	["Below ground"] = "Unter der Erde",
 
 	-- Step 13: Agmond's End
 	-- {area:1877} Valley of Fangs

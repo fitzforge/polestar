@@ -85,10 +85,30 @@ return {
 	["{npc:5888}: {npc:5873} and your {item:5175}"] = "{npc:5888} : {npc:5873} et votre {item:5175}",
 
 	-- Step 15: Kaga Wildhoof
-	-- {area:220} Red Cloud Mesa · {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {spell:1229451} Boosted Rest
-	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "Suivez la route vers le nord pour quitter {area:220}. {npc:265810} attend sur la route juste au sud de {area:222} ; /sit près de son feu de camp jusqu'à obtenir {spell:1229451}.",
+	-- {area:220} Red Cloud Mesa · {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {spell:1229451} Boosted Rest · {zone:1456} Thunder Bluff
+	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof or on the {zone:1456} stop."] = "Suivez la route vers le nord pour quitter {area:220}. {npc:265810} attend sur la route juste au sud de {area:222} ; /sit près de son feu de camp jusqu'à obtenir {spell:1229451}. Si vous avez appris un métier, Kaga propose aussi sa quête Camping 101, que reçoit le maître de ce métier : à Sabot-de-Sang ou lors de l'étape à {zone:1456}.",
 	-- {spell:1229451} Boosted Rest
 	["/sit by Kaga's campfire until you get {spell:1229451}"] = "/sit près du feu de camp de Kaga jusqu'à obtenir {spell:1229451}",
+	-- {npc:265810} Kaga Wildhoof · {npc:6290} Yonn Deepcut
+	["{npc:265810}: for {npc:6290}"] = "{npc:265810} : pour {npc:6290}",
+	-- {npc:265810} Kaga Wildhoof · {npc:3069} Chaw Stronghide
+	["{npc:265810}: for {npc:3069}"] = "{npc:265810} : pour {npc:3069}",
+	-- {npc:265810} Kaga Wildhoof · {npc:5939} Vira Younghoof
+	["{npc:265810}: for {npc:5939}"] = "{npc:265810} : pour {npc:5939}",
+	-- {npc:265810} Kaga Wildhoof · {npc:5938} Uthan Stillwater
+	["{npc:265810}: for {npc:5938}"] = "{npc:265810} : pour {npc:5938}",
+	-- {npc:265810} Kaga Wildhoof · {npc:3013} Komin Winterhoof
+	["{npc:265810}: for {npc:3013}"] = "{npc:265810} : pour {npc:3013}",
+	-- {npc:265810} Kaga Wildhoof · {npc:3001} Brek Stonehoof
+	["{npc:265810}: for {npc:3001}"] = "{npc:265810} : pour {npc:3001}",
+	-- {npc:265810} Kaga Wildhoof · {npc:11047} Kray
+	["{npc:265810}: for {npc:11047}"] = "{npc:265810} : pour {npc:11047}",
+	-- {npc:265810} Kaga Wildhoof · {npc:10278} Thrag Stonehoof
+	["{npc:265810}: for {npc:10278}"] = "{npc:265810} : pour {npc:10278}",
+	-- {npc:265810} Kaga Wildhoof · {npc:11071} Mot Dawnstrider
+	["{npc:265810}: for {npc:11071}"] = "{npc:265810} : pour {npc:11071}",
+	-- {npc:265810} Kaga Wildhoof · {npc:11051} Vhan
+	["{npc:265810}: for {npc:11051}"] = "{npc:265810} : pour {npc:11051}",
 
 	-- Step 16: Bloodhoof Village
 	-- {npc:3063} Krang Stonehoof
@@ -100,6 +120,10 @@ return {
 	-- Step 17: Bloodhoof Village
 	-- {npc:3067} Pyall Silentstride
 	["{npc:3067}: Camping 101 asks you to learn it"] = "{npc:3067} : la quête Camping 101 vous demande de l'apprendre",
+	-- {npc:6290} Yonn Deepcut · {npc:3067} Pyall Silentstride · {quest:97936} Camping 101: Skinning
+	["{npc:6290}, beside {npc:3067}: {quest:97936}"] = "{npc:6290}, à côté de {npc:3067} : {quest:97936}",
+	-- {npc:3069} Chaw Stronghide · {npc:3067} Pyall Silentstride · {quest:97934} Camping 101: Leatherworking
+	["{npc:3069}, beside {npc:3067}: {quest:97934}"] = "{npc:3069}, à côté de {npc:3067} : {quest:97934}",
 
 	-- Step 18: Poison Water
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
@@ -298,23 +322,31 @@ return {
 	-- {zone:1413} The Barrens
 	["Into {zone:1413}"] = "Vers les {zone:1413}",
 
-	-- Step 62: The Crossroads
+	-- Step 61: Kirge Sternhorn
+	-- {npc:3418} Kirge Sternhorn · {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:458} Gold Road
+	["{npc:3418} stands at {area:378}, where the road from {zone:1412} meets the {area:458} north to the Crossroads."] = "{npc:3418} se tient au {area:378}, là où la route venant de {zone:1412} rejoint la {area:458} qui monte au nord vers la Croisée.",
+	-- {npc:3418} Kirge Sternhorn · {npc:3429} Thork
+	["{npc:3418}: for {npc:3429} at the Crossroads"] = "{npc:3418} : pour {npc:3429} à la Croisée",
+
+	-- Step 63: The Crossroads
 	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
 	["Leave {zone:1412} by the south-eastern pass and follow the road to the Crossroads. {npc:3448} stands at the south gate, {quest:860} by the inn, {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "",
+	-- {npc:3429} Thork
+	["{npc:3429}, by the wind rider tower"] = "{npc:3429}, près de la tour des coursiers du vent",
 	-- {npc:3615} Devrak
 	["{npc:3615}, the wind rider master"] = "{npc:3615}, le maître des coursiers du vent",
 
-	-- Step 63: Jahan Hawkwing
+	-- Step 64: Jahan Hawkwing
 	-- {npc:3483} Jahan Hawkwing · {npc:3615} Devrak · {zone:1456} Thunder Bluff · {npc:3033} Turak Runetotem
 	["{npc:3483} sells armor on the north side of the Crossroads. His bundle goes to {npc:3615}, who sends it with you on the flight to {zone:1456} you take for {npc:3033} anyway."] = "",
 
-	-- Step 64: Class turn-in in Thunder Bluff
+	-- Step 65: Class turn-in in Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Class turn-in in {area:1638}"] = "Quête de classe à rendre à {area:1638}",
 	-- {npc:8359} Ahanu
 	["{npc:8359}, by the wind riders on the central rise"] = "{npc:8359}, près des coursiers du vent sur le piton central",
 
-	-- Step 66: To Orgrimmar
+	-- Step 67: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "Vers {zone:1454}",
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
@@ -330,6 +362,7 @@ return {
 	-- ["Class turn-ins in {area:1638}"] = "Quêtes de classe à rendre à {area:1638}",
 	-- ["Finish the wolf heart, cougar femur, plainstrider scale and swoop gizzard on the plains around the village."] = "Terminez le cœur de loup, le fémur de puma, l'écaille de trotteur et le gésier de rapace dans les plaines autour du village.",
 	-- ["Flatland Prowlers roam the plains around {area:225}"] = "Les Rôdeurs des basses plaines parcourent les plaines autour de {area:225}",
+	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "Suivez la route vers le nord pour quitter {area:220}. {npc:265810} attend sur la route juste au sud de {area:222} ; /sit près de son feu de camp jusqu'à obtenir {spell:1229451}.",
 	-- ["Galak centaurs and Prairie Wolf Alphas"] = "Centaures galak et Loups Alpha des prairies ({npc:2960})",
 	-- ["Galak centaurs and {npc:2958} Alphas"] = "Centaures galak et Loups Alpha ({npc:2958})",
 	-- ["Hearth to {area:1638} and cross to {area:1639}."] = "Pierre de foyer vers {area:1638}, puis traversez jusqu'à {area:1639}.",
@@ -354,6 +387,16 @@ return {
 	-- ["The well lies south-east of the village."] = "Le puits se trouve au sud-est du village.",
 	-- ["The {area:380}"] = "{area:380}",
 	-- ["To {area:1637}"] = "Vers {area:1637}",
+	-- ["With {skill:129} learned, Kaga also offers its Camping 101: {npc:5939} in Bloodhoof takes it."] = "Si vous avez appris {skill:129}, Kaga propose aussi sa quête Camping 101 : {npc:5939} la reçoit à Sabot-de-Sang.",
+	-- ["With {skill:164} learned, Kaga also offers its Camping 101: {npc:10278} in {zone:1456} takes it."] = "Si vous avez appris {skill:164}, Kaga propose aussi sa quête Camping 101 : {npc:10278} la reçoit à {zone:1456}.",
+	-- ["With {skill:165} learned, Kaga also offers its Camping 101: {npc:3069} in Bloodhoof takes it."] = "Si vous avez appris {skill:165}, Kaga propose aussi sa quête Camping 101 : {npc:3069} la reçoit à Sabot-de-Sang.",
+	-- ["With {skill:171} learned, Kaga also offers its Camping 101: {npc:11047} in {zone:1456} takes it."] = "Si vous avez appris {skill:171}, Kaga propose aussi sa quête Camping 101 : {npc:11047} la reçoit à {zone:1456}.",
+	-- ["With {skill:182} learned, Kaga also offers its Camping 101: {npc:3013} in {zone:1456} takes it."] = "Si vous avez appris {skill:182}, Kaga propose aussi sa quête Camping 101 : {npc:3013} la reçoit à {zone:1456}.",
+	-- ["With {skill:186} learned, Kaga also offers its Camping 101: {npc:3001} in {zone:1456} takes it."] = "Si vous avez appris {skill:186}, Kaga propose aussi sa quête Camping 101 : {npc:3001} la reçoit à {zone:1456}.",
+	-- ["With {skill:197} learned, Kaga also offers its Camping 101: {npc:11051} in {zone:1456} takes it."] = "Si vous avez appris {skill:197}, Kaga propose aussi sa quête Camping 101 : {npc:11051} la reçoit à {zone:1456}.",
+	-- ["With {skill:333} learned, Kaga also offers its Camping 101: {npc:11071} in {zone:1456} takes it."] = "Si vous avez appris {skill:333}, Kaga propose aussi sa quête Camping 101 : {npc:11071} la reçoit à {zone:1456}.",
+	-- ["With {skill:356} learned, Kaga also offers its Camping 101: {npc:5938} in Bloodhoof takes it."] = "Si vous avez appris {skill:356}, Kaga propose aussi sa quête Camping 101 : {npc:5938} la reçoit à Sabot-de-Sang.",
+	-- ["With {skill:393} learned, Kaga also offers its Camping 101: {npc:6290} in Bloodhoof takes it."] = "Si vous avez appris {skill:393}, Kaga propose aussi sa quête Camping 101 : {npc:6290} la reçoit à Sabot-de-Sang.",
 	-- ["{item:4739} along the way to {npc:2980}"] = "{item:4739} sur le chemin de {npc:2980}",
 	-- ["{item:4740} along the way to {npc:2980}"] = "{item:4740} sur le chemin de {npc:2980}",
 	-- ["{item:4848} along the way to {area:221}"] = "{item:4848} sur le chemin de {area:221}",

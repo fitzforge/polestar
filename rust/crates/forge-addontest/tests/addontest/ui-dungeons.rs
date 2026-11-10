@@ -181,6 +181,46 @@ fn show_dungeon_nil_opens_the_hub_at_home_level_bands_in_the_sidebar_the_dungeon
 	assert_eq!(out["chip"], false, "no \"Your level\" chip where every card is");
 }
 
+// Fitz, 2026-11-08 (a level 13 Horde Warlock saw the Ruins of Lordaeron, 15-22, and The Hall of Thanes, in
+// Ironforge, under "For your level"): a dungeon is for your level from its recommended start, and
+// one whose way in lies inside the other faction's capital is not under that faction's filter. The Ruins,
+// outside the Undercity, can be reached by both.
+#[test]
+fn for_your_level_starts_at_the_recommended_level_and_leaves_out_dungeons_inside_the_other_factions_capital() {
+	let f = fixture("dungeons.json");
+	let mut codex = f["codex"].clone();
+	let forever = |key: &str, name: &str, levels: [i64; 3]| json!({ "key": key, "name": name, "kind": "dungeon", "forever": true, "areaId": null, "map": null, "entrance": null, "levels": levels, "bosses": [] });
+	codex["instances"]["ruins-of-lordaeron"] = forever("ruins-of-lordaeron", "Ruins of Lordaeron", [10, 15, 22]);
+	codex["instances"]["the-hall-of-thanes"] = forever("the-hall-of-thanes", "The Hall of Thanes", [10, 13, 16]);
+	codex["instances"]["ragefire-chasm"] = forever("ragefire-chasm", "Ragefire Chasm", [10, 13, 16]);
+	let out = run_pack(
+		r#"
+		local function at(level, f)
+			uistub.player.level = level
+			Polestar.Dungeons.Open()
+			DS.SetFaction(f)
+			DS.SetBand("level")
+			local keep = { ["Ruins of Lordaeron"] = true, ["The Hall of Thanes"] = true, ["Ragefire Chasm"] = true }
+			local out = {}
+			for _, n in ipairs(cardNames()) do if keep[n] then out[#out + 1] = n end end
+			table.sort(out)
+			return out
+		end
+		emit({ h12 = at(12, "Horde"), h13 = at(13, "Horde"), h14 = at(14, "Horde"), h15 = at(15, "Horde"), h22 = at(22, "Horde"),
+			a13 = at(13, "Alliance"), a15 = at(15, "Alliance"), all13 = at(13, "All") })"#,
+		Some(pack_of(&codex, &f["inputs"])),
+	);
+	let out = &out[0];
+	assert_eq!(out["h12"], json!({}), "not below the recommended start");
+	assert_eq!(out["h13"], json!(["Ragefire Chasm"]), "not the Ruins (15-22) at 13; not The Hall of Thanes (Ironforge) for the Horde");
+	assert_eq!(out["h14"], json!(["Ragefire Chasm"]), "the Ruins from 15, not 14");
+	assert_eq!(out["h15"], json!(["Ragefire Chasm", "Ruins of Lordaeron"]));
+	assert_eq!(out["h22"], json!(["Ruins of Lordaeron"]));
+	assert_eq!(out["a13"], json!(["The Hall of Thanes"]), "not Ragefire Chasm (Orgrimmar) for the Alliance");
+	assert_eq!(out["a15"], json!(["Ruins of Lordaeron", "The Hall of Thanes"]), "the Ruins lie outside the Undercity: the Alliance can get there");
+	assert_eq!(out["all13"], json!(["Ragefire Chasm", "The Hall of Thanes"]), "All shows both sides'");
+}
+
 #[test]
 fn home_all_dungeons_groups_by_band_the_faction_filter_changes_the_counts_search_narrows_and_enter_opens_the_first() {
 	let out = run(r#"
@@ -410,6 +450,50 @@ fn a_page_with_quests_to_pick_up_pick_up_the_quests_is_the_primary_action_the_en
 	assert!(is_match(none["tip"][0].as_str().unwrap(), "^Nothing to pick up before the run"), "{}", none["tip"]);
 	assert_eq!(none["printed"], json!([none["tip"][0]]), "the action says so");
 	assert_eq!(none["tabs"], 0, "and opens no guide");
+}
+
+// Fitz, 2026-11-08 (Ragefire Chasm at 13 offered "a guide to the 5 quests here you can take" when two needed
+// 16): the button says how many can be taken now and how many wait for which level; its tip lists the
+// waiting ones and why; with none open now it says from which level. Here Trouble at the Docks needs 19.
+#[test]
+fn pick_up_the_quests_says_how_many_now_and_how_many_wait_for_a_level_the_tip_lists_the_waiting_ones() {
+	let f = fixture("dungeons.json");
+	let mut codex = f["codex"].clone();
+	codex["quests"]["959"]["minLevel"] = json!(19);
+	let out = run_pack(
+		r#"
+		local _, _, pg = DS.Frames()
+		local function page(level)
+			uistub.player.level = level
+			Polestar.Dungeons.Open("wailing-caverns")
+			local _, _, p = DS.Frames()
+			local b = p.Pickup:IsShown() and p.Pickup or p.PickupNone
+			return { label = b.Label:GetText(), tip = b.psTipLines, width = b:GetWidth() > b.Label:GetStringWidth() }
+		end
+		local at17 = page(17)
+		local at19 = page(19)
+		done[1486] = true
+		local none = page(17)
+		emit({ at17 = at17, at19 = at19, none = none })"#,
+		Some(pack_of(&codex, &f["inputs"])),
+	);
+	let out = &out[0];
+	assert_eq!(out["at17"]["label"], "Pick up the quests (1 now \u{b7} 1 at level 19)");
+	assert_eq!(out["at17"]["width"], true, "the button grows with its label");
+	assert_eq!(
+		out["at17"]["tip"],
+		json!([
+			"A guide to the 1 quest here you can take, with what comes before it, ending at the entrance.",
+			"1 more is in your log already.",
+			"Waiting:",
+			"\u{201c}Trouble at the Docks\u{201d}: level 19",
+			"It opens in a new tab."
+		])
+	);
+	assert_eq!(out["at19"]["label"], "Pick up the quests", "all open: the plain label");
+	assert_eq!(out["none"]["label"], "Pick up the quests from level 19");
+	assert!(is_match(out["none"]["tip"][0].as_str().unwrap(), "^Nothing to pick up before the run.+1 more opens at a later level"), "{}", out["none"]["tip"]);
+	assert_eq!(out["none"]["tip"][2], "\u{201c}Trouble at the Docks\u{201d}: level 19");
 }
 
 #[test]

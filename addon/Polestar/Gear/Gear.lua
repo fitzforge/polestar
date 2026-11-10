@@ -193,7 +193,7 @@ function Client.TreeColumns()
 	if ok4 and type(groups) == "table" then
 		for _, g in ipairs(groups) do
 			local c = type(g) == "table" and type(g.currencyInfos) == "table" and g.currencyInfos[1]
-			if type(c) == "table" then spent[g.traitNodeGroupID] = readable(c.spent) end
+			if type(c) == "table" and g.traitNodeGroupID ~= nil then spent[g.traitNodeGroupID] = readable(c.spent) end
 		end
 	end
 	local out = {}

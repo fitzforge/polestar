@@ -320,6 +320,57 @@ fn every_class_trainer_counts_not_only_the_reminder_s_one_per_town_capital_train
 	assert_eq!(out, json!({ "pet": false, "weapon": false, "riding": false, "merchant": false }));
 }
 
+// A Night Elf Hunter dinged 20 at the Farstrider Lodge, trained with Dargh Trueaim there, and Loch Modan's
+// `train class` step still sent him to Regnus Thundergranite in Ironforge (#1507): the class trainer list
+// lacked Dargh and the other trainers the trainer data has. Training with any trainer of the class ticks it;
+// portal trainers are no class trainers.
+#[test]
+fn training_with_dargh_trueaim_at_the_farstrider_lodge_ticks_loch_modan_s_train_class_step_1507() {
+	let added = [
+		("HUNTER", 10930),
+		("HUNTER", 987),
+		("HUNTER", 1404),
+		("HUNTER", 3963),
+		("HUNTER", 5501),
+		("HUNTER", 8308),
+		("DRUID", 8142),
+		("DRUID", 9465),
+		("DRUID", 270459),
+		("MAGE", 331),
+		("PALADIN", 8140),
+		("PRIEST", 5994),
+		("SHAMAN", 986),
+		("WARLOCK", 988),
+		("WARRIOR", 985),
+		("WARRIOR", 8141),
+	];
+	for (cls, npc) in added {
+		let out = run(None, &format!("stub.world.class = \"{cls}\""), &format!("emit({{ yes = Polestar.Engine.IsClassTrainer({npc}) }})"));
+		assert_eq!(out["yes"], true, "{cls} {npc}");
+	}
+	let out = run(None, r#"stub.world.class = "MAGE""#, "emit({ portal = Polestar.Engine.IsClassTrainer(2489) })");
+	assert_eq!(out["portal"], false, "Milstaff Stormeye, a portal trainer");
+
+	let out = run(
+		None,
+		r#"local w = stub.world
+		w.addMap(1432, { name = "Loch Modan", c = 0, left = -1993.75, right = -4752.083, top = -4487.5, bottom = -6327.083 })
+		w.race, w.raceName, w.faction, w.class = "NightElf", "Night Elf", "Alliance", "HUNTER"
+		w.level = 20
+		w.moveTo(1432, 82.4, 62.5)
+		Polestar.RegisterGuide({ id = "test/loch", pack = "test", title = "Loch Modan", faction = "Alliance", minLevel = 15, maxLevel = 21, steps = {
+			{ goals = { { t = "train", class = true, candidates = { { npc = 5117, npcName = "Regnus Thundergranite", map = 1455, x = 69.87, y = 82.9, f = "e", faction = "A", classes = { "HUNTER" } } } } } },
+			{ goals = { { t = "level", level = 21 } } },
+		} })"#,
+		r#"Polestar.Engine.SetGuide("test/loch") stub.advance(0.5)
+		local before = Polestar.Engine.GetStepIndex()
+		stub.world.trainer(10930); stub.advance(0.5)
+		stub.world.learnSpell(14281); stub.advance(0.5)
+		emit({ before = before, after = Polestar.Engine.GetStepIndex() })"#,
+	);
+	assert_eq!(out, json!({ "before": 1, "after": 2 }), "trained with Dargh Trueaim: the step is done");
+}
+
 // Grezz trains warriors in step 1; step 2 holds the route; step 3 trains again.
 const AGAIN: &str = r#"
 local grezz = { { npc = 3353, npcName = "Grezz Ragefist", map = 1454, x = 79.8, y = 31.4, f = "e", faction = "H", classes = { "WARRIOR" } } }

@@ -67,28 +67,28 @@ return {
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
 	["{area:275}: kill these as you meet them"] = "",
-	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {area:272} Tarren Mill
-	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "",
+	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key · {area:272} Tarren Mill
+	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "드럴과 {npc:2238}은(는) {area:275} 안뜰 건물 안에 사슬로 묶여 있습니다. 자물쇠를 열려면 열쇠가 필요합니다. {npc:2427}이(가) {item:3467}을(를), {npc:2428}이(가) {item:3499}을(를) 가지고 있으며, 둘 다 요새 안에 있습니다. 이들을 처치한 뒤 자물쇠 두 개를 모두 여세요.\n{area:272}에서 남동쪽으로 {area:275}(으)로 가는 길의 언덕으로 가세요. 길목의 야영지에는 비밀결사대 도적과 비밀결사대 경비병이 있습니다.",
 	-- {npc:2261} Syndicate Watchman
 	["{npc:2261} walks around here: look inside the circle on the map"] = "",
 	["Drull's ball and chain"] = "드럴의 족쇄",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "{npc:2238}의 족쇄",
 
-	-- Step 11: Mudsnout Blossoms
-	-- {item:3502} Mudsnout Blossoms
-	["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "던홀드 남서쪽, 강 위 언덕에 {item:3502}이(가) 자랍니다.",
-
-	-- Step 12: Deathstalker Masoj
+	-- Step 11: Deathstalker Masoj
 	-- {area:290} Dun Garok
-	["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Masoj는 던홀드 남쪽, 꽃이 있는 곳으로 내려가는 길의 {area:290} 위 언덕에 숨어 있습니다.",
+	["Masoj hides on the hillside above {area:290}, south-west of Durnholde, on the way down to the blossoms."] = "Masoj는 던홀드 남서쪽, 꽃이 있는 곳으로 내려가는 길의 {area:290} 위 언덕에 숨어 있습니다.",
 	-- {npc:270438} Deathstalker Masoj · {quest:98094} Scout Support
 	["{npc:270438}, once {quest:98094} is in"] = "",
+
+	-- Step 12: Mudsnout Blossoms
+	-- {item:3502} Mudsnout Blossoms
+	["Just south of Masoj, the {item:3502} grow on the hillsides above the river."] = "Masoj 바로 남쪽, 강 위 언덕에 {item:3502}이(가) 자랍니다.",
 
 	-- Step 13: The southern peak
 	["The southern peak"] = "",
 	-- {area:290} Dun Garok
-	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "",
+	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, south-east of the blossoms: use a vial at the top."] = "Masoj는 세 봉우리에 연금술사 약병을 놓기를 원합니다. 남쪽 봉우리는 꽃이 있는 곳 남동쪽, {area:290} 위의 언덕 꼭대기입니다. 꼭대기에서 약병을 사용하세요.",
 
 	-- Step 14: The smithy
 	["The smithy"] = "대장간",
@@ -176,8 +176,13 @@ return {
 
 	-- Step 31: Back to the Crossroads
 	["Back to the Crossroads"] = "",
-	-- {npc:3033} Turak Runetotem
-	["Train with {npc:3033}, then fly on to the Crossroads, where the next guide starts."] = "",
+	-- {npc:3033} Turak Runetotem · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
+	["Train with {npc:3033}. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "{npc:3033}에게 기술을 배우세요. 다시 날아가기 전에, 와이번 조련사에서 동쪽으로 조금 걸어가면 있는 {npc:3024}와(과) {npc:4721}에게서 다음 가이드들의 이동 경로에서 진행할 퀘스트 두 개를 받으세요. 그런 다음 다음 가이드가 시작되는 크로스로드로 날아가세요.",
+	-- {npc:3024} Tah Winterhoof · {quest:97538} Pigments for Paints · {area:464} Mirkfallon Lake
+	["{npc:3024}: {quest:97538}, the Mirkweed in {area:464} by Sun Rock"] = "{npc:3024}: {quest:97538}, 태양바위 근처 {area:464}의 어둠잡초",
+	-- {npc:4721} Zangen Stonehoof · {quest:1195} The Sacred Flame · {zone:1440} Ashenvale
+	-- plural, as words: Laughing Sisters = {npc:4054} Laughing Sister
+	["{npc:4721}: {quest:1195}, the phial from {zone:1440}'s Laughing Sisters"] = "{npc:4721}: {quest:1195}, {zone:1440}의 웃음짓는 자매에게서 얻는 약병",
 
 	-- Step 32: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -197,12 +202,14 @@ return {
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:1638} and train on {area:1639}, then fly on to {area:378}."] = "{zone:1454}에서({zone:1458} 바깥 탑에서 비행선) {area:1638}(으)로 날아가 {area:1639}에서 기술을 배운 뒤 {area:378}(으)로 날아가세요.",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:378}."] = "{zone:1454}에서({zone:1458} 바깥 탑에서 비행선) {area:378}(으)로 날아가세요.",
 	-- ["Hearth to {area:378} and fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "귀환석으로 {area:378}에 간 뒤 {area:392}(으)로 날아가세요. {quest:874}은(는) {area:392} 북쪽 해안에 야영하고 있습니다.",
+	-- ["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Masoj는 던홀드 남쪽, 꽃이 있는 곳으로 내려가는 길의 {area:290} 위 언덕에 숨어 있습니다.",
 	-- ["No Gallywix yet? The Class guide Poisons (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "아직 갤리윅스를 처치하지 않았나요? 직업 가이드 독 조제 (호드)에서 셴툴부터 연계 퀘스트를 다시 진행하며, 갤리윅스는 파티와 함께 처치합니다.",
 	-- ["No Gallywix yet? The Class guide {spell:2842} (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "아직 갤리윅스를 처치하지 않았나요? 직업 가이드 {spell:2842} (호드)에서 셴툴부터 연계 퀘스트를 다시 진행하며, 갤리윅스는 파티와 함께 처치합니다.",
 	-- ["Only if Gallywix fell in the {zone:1413} (Mission: Possible But Not Probable): {npc:2391} stands in {area:272}. Wait beside him while he brews the cure, then take your reward: Poisons."] = "{zone:1413}에서 갤리윅스를 처치했을 때만(미션 임파서블: 잘하면 가능): {npc:2391}은(는) {area:272}에 있습니다. 해독제를 만드는 동안 옆에서 기다린 뒤 보상을 받으세요: 독 조제.",
 	-- ["Only if Gallywix fell in the {zone:1413} (Mission: Possible But Not Probable): {npc:2391} stands in {area:272}. Wait beside him while he brews the cure, then take your reward: {spell:2842}."] = "{zone:1413}에서 갤리윅스를 처치했을 때만(미션 임파서블: 잘하면 가능): {npc:2391}은(는) {area:272}에 있습니다. 해독제를 만드는 동안 옆에서 기다린 뒤 보상을 받으세요: {spell:2842}.",
 	-- ["Peasants and skulls"] = "소작농과 해골",
 	-- ["South-west of Bael Modan, {npc:12576} waits at the top of the {area:485}."] = "바엘 모단 남서쪽, {area:485} 꼭대기에서 {npc:12576}이(가) 기다립니다.",
+	-- ["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "던홀드 남서쪽, 강 위 언덕에 {item:3502}이(가) 자랍니다.",
 	-- ["Syndicate camps"] = "비밀결사대 야영지",
 	-- ["Take the zeppelin from the towers outside the {zone:1458} to {zone:1454} and train before you fly on."] = "{zone:1458} 바깥 탑에서 비행선을 타고 {zone:1454}(으)로 가서, 다시 날아가기 전에 기술을 배우세요.",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "힐스브래드 소작농은 농가 남쪽 밭에서 일합니다. {area:287}의 인간은 모두 해골을 떨어뜨리며, 힐스브래드 소작농이 가장 자주 떨어뜨립니다.",

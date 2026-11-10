@@ -457,6 +457,24 @@ test('objective clicks retain row navigation and the quest right-click menu', ()
 	assert.equal(out.wholeRow, true);
 });
 
+test('an objective overlay runs its macro once per mouse click, on the release, at either key-down setting', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		settle()
+		local button = assert(targetFor(rowFor("Kobold Vermin")), "missing mob overlay")
+		local out = {}
+		for _, cvar in ipairs({ "1", "0" }) do
+			stub.cvars.ActionButtonUseKeyDown = cvar
+			stub.qol.ran = {}
+			stub.qol.mouseClick(button)
+			out[#out + 1] = { ran = stub.qol.ran, expected = button:GetAttribute("macrotext1") }
+		end
+		emit(out)`);
+	for (const [i, row] of out.entries()) {
+		assert.deepEqual(row.ran, [['macro', row.expected]], `setting ${i}: one macro per click`);
+	}
+});
+
 test('a non-quest objective still toggles completion directly through the overlay', () => {
 	const [out] = run(`
 		uistub.guides[uistub.elwynn].steps[3].goals[3].quest = nil

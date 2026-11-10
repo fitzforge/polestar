@@ -47,7 +47,7 @@ local WIDTH = {
 	objectives = 2, progress = 7, complete = 1, turnin = 10, abandon = 1, gossip = 7, cast = 7, escort = 5, kill = 10,
 	loot = 8, gather = 7, unit = 8, rare = 7, treasure = 4, enter = 6, encounter = 4, trainer = 5, vendor = 5, flightmaster = 6,
 	bind = 4, rep = 4, skill = 3, explore = 5, learn = 1, craft = 3, achieve = 1, step = 6, group = 2, spawn = 5, fail = 4,
-	refuse = 6,
+	refuse = 6, unitx = 5, imap = 4, engage = 3, poi = 5, where = 4, open = 6,
 }
 -- Records whose kind is unknown or whose field count is wrong, as "kind:count".
 local function malformed()

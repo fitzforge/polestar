@@ -29,7 +29,7 @@ return {
 	-- Step 9: Sanath Lim-yo
 	-- {npc:8395} Sanath Lim-yo
 	-- plural, as words: Undamaged Hippogryph Feathers = {item:10450} Undamaged Hippogryph Feather
-	["Optional: {npc:8395} wants two Undamaged Hippogryph Feathers from the hippogryphs around his camp. The data lists no experience for it."] = "Opcional: {npc:8395} quiere dos plumas de hipogrifo sin estropear ({item:10450}) de los hipogrifos alrededor de su campamento. Los datos no indican experiencia para ella.",
+	["{npc:8395} wants two Undamaged Hippogryph Feathers from the Thunderhead hippogryphs around his camp, the ones you top up on here: about one in three carries one."] = "{npc:8395} quiere dos plumas de hipogrifo sin estropear de los hipogrifos Cabeza de Trueno alrededor de su campamento, los mismos con los que subes de nivel aquí: aproximadamente uno de cada tres lleva una.",
 	-- {npc:6375} Thunderhead Hippogryph
 	["grind on {npc:6375}"] = "",
 
@@ -78,18 +78,18 @@ return {
 	["Xylem's last task, Destroy Morphaz, is in the {area:1417}: skip it."] = "",
 
 	-- Step 23: Ravencrest Monument
-	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter
-	["Swim to the small island off the southern tip of {zone:1447}: {npc:8392} waits by the monument."] = "Nada hasta la islita frente al extremo sur de {zone:1447}: {npc:8392} espera junto al monumento.",
+	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter · {item:10444} Standard Issue Flare Gun
+	["Swim to the small island off the southern tip of {zone:1447}. If {npc:8392} isn't there, fire your {item:10444} to signal him, and wait for him to land."] = "Nada hasta la islita frente al extremo sur de {zone:1447}. Si {npc:8392} no está allí, dispara tu {item:10444} para avisarle y espera a que aterrice.",
 
 	-- Step 24: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "A {area:2101}",
 
 	-- Step 25: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Vuela a {area:1537}",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "Maestro de vuelo de {area:144}",
 
 	-- Step 27: Royal Historian Archesonus
 	-- {object:171709} High Seat
@@ -110,8 +110,8 @@ return {
 	["The Wildkin Feathers lie on the ground across the {zone:1425}, south and east of {area:348}, where the owlbeasts roam; the mobs here are well below you now."] = "",
 
 	-- Step 30: The Super Snapper FX
-	-- {npc:7977} Gammerita
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
+	-- {npc:7977} Gammerita · {zone:1425} Hinterlands · {area:307} Overlook Cliffs
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "Son bichos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:7977} (élite de nivel 48) requiere un grupo de 2. Sáltatela si vas solo: la ruta te hace recuperar la experiencia matando bichos.\n{npc:7977} recorre la orilla de {zone:1425} bajo {area:307}, desde la flecha al sur hasta aprox. 75,66 y al norte hasta aprox. 82,52: si no está en la flecha, sigue la orilla.",
 
 	-- Step 32: Fly to Southshore
 	-- {area:271} Southshore
@@ -195,85 +195,113 @@ return {
 	["Ends with {quest:4808} in {area:2255}, {zone:1452}: keep it"] = "Termina con {quest:4808} en {area:2255}, {zone:1452}: guárdala",
 
 	-- Step 48: Cyrus Therepentous
-	["Below ground"] = "",
+	-- {item:10569} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
+	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "Abre el {item:10569} de {zone:1427} para sacar su {item:10575} y luego dile a {npc:9459} que traes pruebas de tus hazañas: no hay que luchar contra ningún dragón.",
+	["Below ground"] = "Bajo tierra",
+	-- {item:10575} Black Dragonflight Molt
+	["{item:10575}, from the hoard"] = "{item:10575}, del tesoro",
 
-	-- Step 49: A Taste of Flame
+	-- Step 50: A Taste of Flame
 	-- {npc:9461} Frenzied Black Drake
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:9461} is a level 54 elite: most classes solo it at level 56, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 51: Level 52.08
+	-- Step 52: Level 52.08
 	["Level 52.08"] = "",
 	-- {quest:4022} A Taste of Flame · {area:1417} Sunken Temple · {area:2100} Maraudon
 	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
 	-- {npc:9690} Ember Worg
 	["grind on {npc:9690}"] = "",
 
-	-- Step 52: Blackrock Stronghold
+	-- Step 53: Blackrock Stronghold
 	-- {npc:9176} Gor'tesh · {area:254} Blackrock Mountain · {area:251} Flame Crest
 	["{npc:9176} and the Blackrock orcs hold the camps and the stronghold at the foot of {area:254}, west of {area:251}. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty.\nCareful: {npc:9176} has a guard linked to him that joins the fight, and a second soldier patrols close by; clear the patrol before pulling."] = "",
 	-- {item:11467} Blackrock Medallion
 	["{item:11467}; inside"] = "",
 
-	-- Step 53: Morgan's Vigil
+	-- Step 54: Morgan's Vigil
 	["Ride back east along the road to the Vigil."] = "Vuelve al este por el camino hasta la Vigilia.",
 
-	-- Step 54: Dreadmaul Rock
+	-- Step 55: Dreadmaul Rock
 	-- {area:249} Dreadmaul Rock
 	["Climb to the top of {area:249} and plant the head in the soft dirt mound."] = "Sube a la cima de {area:249} y planta la cabeza en el montículo de tierra blanda.",
 
-	-- Step 56: Fly to Nethergarde Keep
+	-- Step 57: Fly to Nethergarde Keep
 	-- {area:1438} Nethergarde Keep
 	["Fly to {area:1438}"] = "",
 	-- {area:2418} Morgan's Vigil
 	["{area:2418} flight master"] = "",
 
-	-- Step 57: Kum'isha the Collector
+	-- Step 58: Ambassador Ardalan
+	-- {area:1438} Nethergarde Keep
+	["Ardalan is inside {area:1438}."] = "Ardalan está dentro de {area:1438}.",
+
+	-- Step 59: Swamp of Sorrows
+	-- {zone:1419} Blasted Lands · {zone:1435} Swamp of Sorrows · {npc:10996} Fallen Hero · {area:75} Stonard
+	["Ride north out of the {zone:1419} into the {zone:1435}: the {npc:10996} stands by the road from the {zone:1419}. Keep clear of {area:75}, the Horde town to the north-east."] = "Cabalga al norte desde {zone:1419} hasta {zone:1435}: el {npc:10996} está junto al camino que viene de {zone:1419}. Mantente alejado de {area:75}, el pueblo de la Horda al noreste.",
+
+	-- Step 60: Fallen Hero of the Horde
+	["Listen to his tale, then ride back south to Kum'isha."] = "Escucha su historia y luego vuelve al sur hasta Kum'isha.",
+
+	-- Step 62: Kum'isha the Collector
 	-- {area:2517} Rise of the Defiler · {zone:1419} Blasted Lands · {npc:7664} Razelikh the Defiler · {spell:2691} Mana Burn · {spell:8255} Strong Cleave · {object:141891} Razelikh's Tear (no name in this language: may be words) · {spell:10854} Flames of Chaos
 	-- plural, as words: Imperfect Draenethyst Fragments = {item:10593} Imperfect Draenethyst Fragment
 	["Kum'isha waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have.\nCareful: Felcular, {npc:7664} and Ilifar are all level 60 elites. Razelikh casts {spell:2691}, {spell:8255} and Decimate, and as its health drops it adds {object:141891}, {spell:10854} and then Enrage at 15%."] = "",
 	-- {npc:7363} Kum'isha the Collector
 	["{npc:7363} walks around here: look inside the circle on the map"] = "",
 
-	-- Step 65: Fly to Menethil Harbor
+	-- Step 70: Royal Historian Archesonus
+	-- {object:171709} High Seat
+	["Archesonus stands beside King Magni in the {object:171709}: the relics you read in the Steppes are his."] = "Archesonus está junto al rey Magni en {object:171709}: las reliquias que leíste en las Estepas son suyas.",
+
+	-- Step 71: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
 
-	-- Step 67: Fly to Rut'theran Village
+	-- Step 73: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "",
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
 
-	-- Step 68: Rut'theran Village
+	-- Step 74: Rut'theran Village
 	-- {zone:1452} Winterspring
 	["The wildkin are in {zone:1452}: keep it"] = "Los lechúcicos están en {zone:1452}: guárdala",
 
-	-- Step 69: Druid training
-	["Druid training"] = "Entrenamiento de druida",
-	-- {zone:1455} Ironforge · {zone:1457} Darnassus · {area:1658} Cenarion Enclave · {area:702} Rut'theran Village
-	["{zone:1455} has no druid trainer: take the portal up to {zone:1457} and train in the {area:1658}, then come back down to {area:702}."] = "{zone:1455} no tiene instructor de druidas: toma el portal para subir a {zone:1457} y entrena en el {area:1658}; luego vuelve a bajar a {area:702}.",
+	-- Step 76: Darnassus
+	-- {area:702} Rut'theran Village · {zone:1457} Darnassus · {npc:9047} Jenal · {area:1658} Cenarion Enclave
+	["The portal in {area:702} leads up to {zone:1457}: {npc:9047} waits in the {area:1658}, in the north of the city."] = "El portal de {area:702} sube a {zone:1457}: {npc:9047} espera en el {area:1658}, en el norte de la ciudad.",
+	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave
+	["{npc:9047}, in the {area:1658}"] = "{npc:9047}, en el {area:1658}",
+	-- {zone:1455} Ironforge
+	["{zone:1455} has no druid trainer"] = "{zone:1455} no tiene instructor de druidas",
 
-	-- Step 70: Back to Teldrassil
+	-- Step 77: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
-	["Back to {zone:1438}"] = "",
+	["Portal to {zone:1438}"] = "Portal a {zone:1438}",
 
-	-- Step 71: Daryn Lightwind
+	-- Step 78: Daryn Lightwind
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Class trainer"] = "Instructor de clase",
 	-- ["Climb back to {npc:8405} at the {area:1224}, above the ruins."] = "Vuelve a subir hasta {npc:8405} en {area:1224}, sobre las ruinas.",
+	-- ["Druid training"] = "Entrenamiento de druida",
 	-- ["Fly from {zone:1455} to {area:150} and take the boat to {area:442}."] = "Vuela de {zone:1455} a {area:150} y toma el barco a {area:442}.",
 	-- ["Fly from {zone:1455} to {area:69}."] = "Vuela de {zone:1455} a {area:69}.",
 	-- ["Fly to {area:1438}."] = "Vuela a {area:1438}.",
 	-- ["Fly to {area:150} and take the boat to {area:442}, then the boat on to {area:702}."] = "Vuela a {area:150} y toma el barco a {area:442}; luego, el barco a {area:702}.",
 	-- ["From the {area:442} dock, fly to {area:415}."] = "Desde el muelle de {area:442}, vuela a {area:415}.",
+	-- ["Optional: {npc:8395} wants two Undamaged Hippogryph Feathers from the hippogryphs around his camp. The data lists no experience for it."] = "Opcional: {npc:8395} quiere dos plumas de hipogrifo sin estropear ({item:10450}) de los hipogrifos alrededor de su campamento. Los datos no indican experiencia para ella.",
 	-- ["Optional: {npc:8888}'s ghost stands on his tomb on the great chain inside {area:254}, and only the dead can see him. If you die near the mountain anyway, run your spirit to him before resurrecting."] = "Opcional: el fantasma de {npc:8888} está sobre su tumba en la gran cadena dentro de la {area:254}, y solo los muertos pueden verlo. Si mueres cerca de la montaña de todas formas, lleva a tu espíritu hasta él antes de resucitar.",
+	-- ["Priests and Mages trained here at the end of the Un'Goro guide"] = "Los sacerdotes y los magos ya entrenaron aquí al final de la guía de Un'Goro",
 	-- ["Read the tablet in the {object:147516} camp among the ruins, south-west of {area:251}, to copy the transcript."] = "Lee la tablilla del campamento {object:147516} entre las ruinas, al suroeste de {area:251}, para copiar la transcripción.",
 	-- ["Ride back to {area:1438} and fly to {area:348}. The Wildkin Feathers lie on the ground across the {zone:1425}, south and east of {area:348}, where the owlbeasts roam; the mobs here are well below you now."] = "Vuelve a {area:1438} y vuela a {area:348}. Las plumas de lechúcico ({item:10819}) están por el suelo de {zone:1425}, al sur y al este de {area:348}, donde rondan los lechúcicos; los bichos de aquí ya son de nivel muy inferior al tuyo.",
 	-- ["Ride east along the road out of {zone:1440} into {zone:1447} to the Sentinels' camp at {area:3137}."] = "Cabalga al este por el camino que sale de {zone:1440} hacia {zone:1447} hasta el campamento de las centinelas en {area:3137}.",
+	-- ["Ride north out of the {zone:1419} into the {zone:1435}: the {npc:10996} stands by the road from the {zone:1419}. Keep clear of {area:75}, the Horde town to the north-east. Listen to his tale, then ride back south to Kum'isha."] = "Cabalga al norte desde {zone:1419} hasta {zone:1435}: el {npc:10996} está junto al camino que viene de {zone:1419}. Mantente alejado de {area:75}, el pueblo de la Horda al noreste. Escucha su historia y luego vuelve al sur hasta Kum'isha.",
 	-- ["Ride north out of {area:69} through the pass into the {zone:1428}; {area:2418} sits at the top, in the south-east of the Steppes."] = "Cabalga al norte desde {area:69} por el paso hasta {zone:1428}; {area:2418} está arriba, en el sureste de las Estepas.",
 	-- ["Swim to the small island off the southern tip of {area:16}: {npc:8392} waits by the monument."] = "Nada hasta la islita frente al extremo sur de {area:16}: {npc:8392} espera junto al monumento.",
+	-- ["Swim to the small island off the southern tip of {zone:1447}: {npc:8392} waits by the monument."] = "Nada hasta la islita frente al extremo sur de {zone:1447}: {npc:8392} espera junto al monumento.",
 	-- ["Thaurissan Relics"] = "Reliquias Thaurissan ({object:153556})",
 	-- ["The relics are the carved stones scattered through the {area:250} around {area:251}: click them until the information is recovered."] = "Las reliquias son las piedras talladas repartidas por las {area:250} alrededor de {area:251}: haz clic en ellas hasta recuperar la información.",
 	-- ["The shrine lies in the south-west corner of {area:16}, south of {area:3137}."] = "El santuario está en la esquina suroeste de {area:16}, al sur de {area:3137}.",
@@ -282,4 +310,5 @@ return {
 	-- ["{npc:5111}: the last guide binds here, so this usually ticks at once"] = "{npc:5111}: la guía anterior te vincula aquí, así que esto suele marcarse al instante",
 	-- ["{npc:7363} waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have."] = "{npc:7363} espera en el {area:2517}, la colina al suroeste del castillo. Los bichos de {zone:1419} del camino sueltan los fragmentos draenetistas imperfectos ({item:10593}); llévale los que tengas.",
 	-- ["{npc:9176} and the Blackrock orcs hold the camps and the stronghold at the foot of {area:254}, west of {area:251}. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty."] = "{npc:9176} y los orcos Roca Negra ocupan los campamentos y el bastión al pie de la {area:254}, al oeste de {area:251}. Atráelos de uno en uno; cualquier orco o huargo puede soltar un medallón, así que mátalos hasta tener cincuenta.",
+	-- ["{zone:1455} has no druid trainer: take the portal up to {zone:1457} and train in the {area:1658}, then come back down to {area:702}."] = "{zone:1455} no tiene instructor de druidas: toma el portal para subir a {zone:1457} y entrena en el {area:1658}; luego vuelve a bajar a {area:702}.",
 }

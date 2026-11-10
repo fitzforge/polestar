@@ -32,12 +32,16 @@
 -- Styles (ui.style): "standard" draws the night ground (Theme.GroundAlpha,
 -- ui.bgOpacity, like every Polestar window), hairline border and the
 -- night-sky band behind the tabs and navigator. "transparent" draws no fills
--- or borders; every string is outlined so it reads over any terrain, the
--- progress track stays as a faint ink line, and the chrome (tabs, the whole
--- navigator: prev, "8 / 29", next, title, Skip, the bug, menu; the grip)
--- shows only while the cursor is over the window: the step number fades with
--- the chevrons that change it, so it never floats alone. Compact mode
--- (ui.compact) keeps the navigator, the focus goals and the progress bar.
+-- or borders; every string is outlined and (ui.backing) sits on a light
+-- feathered shade of its own ("soft", GF.PaintShades) or on a dark scrim with
+-- no edge ("dark", GF.VEIL), one behind the body and one behind the tabs and
+-- navigator that comes and goes with them, or on nothing ("none"); tick
+-- boxes take the scrim and an ink edge, the progress track stays as a faint
+-- ink line, and the chrome (tabs, the whole navigator: prev, "8 / 29", next,
+-- title, Skip, the bug, menu; the grip) shows only while the cursor is over
+-- the window (ui.barShown keeps all of it but the grip): the step number
+-- fades with the chevrons that change it, so it never floats alone. Compact
+-- mode (ui.compact) keeps the navigator, the focus goals and the progress bar.
 --
 -- Colour: the accent marks interaction and where you are (the active tab,
 -- the arrow's target mark, the current goal's glyph, primary buttons, the
@@ -378,6 +382,10 @@ local function goalRow(i)
 		c:SetChecked(c.psChecked)
 		toggleGoal(r)
 	end)
+	if transparent() then
+		r.Check.psOnWorld = true
+		Theme.Repaint(r.Check)
+	end
 	r.Check:SetScript("OnEnter", function(c)
 		local goal = r.psGoal
 		local tip = not goal and "" or (goal.ticked and L["Untick"]) or (goal.status == "done" and L["Done"]) or L["Tick it done"]
@@ -1159,6 +1167,20 @@ local function alongRow(i)
 	r.Text:SetMaxLines(2)
 	r:SetScript("OnClick", function(self, button)
 		local E = Engine()
+		-- A quest an update left behind the player (Engine.GetBehind): the
+		-- arrow on a click, Skip or Abandon on a right-click.
+		local q = self.psBehind
+		if q and E then
+			if button ~= "RightButton" then
+				if E.AimBehind then E.AimBehind(q) end
+				return
+			end
+			W.ShowMenu(self, {
+				{ text = L["Skip this quest"], icon = "skip", onClick = function() E.SkipBehind(q) end },
+				{ text = L["Abandon"], icon = "close", onClick = function() ns.Compat.AskAbandonQuest(q) end },
+			})
+			return
+		end
 		-- A pinned quest's row unpins it on a right-click (#644).
 		if button == "RightButton" then
 			if self.psPin and E and E.PinQuest then E.PinQuest(self.psPin, false) end
@@ -1170,6 +1192,10 @@ local function alongRow(i)
 		local lines = {}
 		if self.psPlace then lines[#lines + 1] = { L["Click to point the arrow here"], Theme.Accent() } end
 		if self.psPin then lines[#lines + 1] = { L["Pinned by you. Right-click to unpin."], Theme.Color("textDim") } end
+		if self.psBehind then
+			lines[#lines + 1] = { L["You carry this quest; the update moved what is left of it before your place in the guide."], Theme.Color("textDim") }
+			lines[#lines + 1] = { L["Right-click to skip or abandon it."], Theme.Color("textDim") }
+		end
 		W.Tooltip(self, tooltipAnchor(), self.psTitle or "", lines)
 		GF.HoverIn()
 	end)
@@ -2274,6 +2300,25 @@ local function placeBars(showFoot)
 		b.Bar:SetPoint(edge .. "LEFT", b, edge .. "LEFT", 0, 0)
 		b.Bar:SetPoint(edge .. "RIGHT", b, edge .. "RIGHT", 0, 0)
 	end
+	-- The backing (GF.VEIL): 14 past the window's sides, so it is solid under
+	-- text running to the window's padding, and 8 past its top and bottom;
+	-- over the navigator's inner edge the two scrims overlap so that one rises
+	-- as the other falls over the same band (Theme.Scrim), centred on that edge.
+	local v, bv = GF.veil, band.Veil
+	local o = (GF.VEIL_FEATHER + v.psClear) / 2
+	v:ClearAllPoints()
+	bv:ClearAllPoints()
+	if flip then
+		v:SetPoint("TOPLEFT", F, "TOPLEFT", -14, 8)
+		v:SetPoint("BOTTOMRIGHT", nav, "TOPRIGHT", 14, -o)
+		bv:SetPoint("TOPLEFT", nav, "TOPLEFT", -14, o)
+		bv:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 14, -8)
+	else
+		v:SetPoint("TOPLEFT", nav, "BOTTOMLEFT", -14, o)
+		v:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 14, -8)
+		bv:SetPoint("TOPLEFT", F, "TOPLEFT", -14, 8)
+		bv:SetPoint("BOTTOMRIGHT", nav, "BOTTOMRIGHT", 14, -o)
+	end
 end
 
 -- With ui.growUp, the height from the window's pinned bottom edge to the top
@@ -2378,6 +2423,7 @@ function GF.Layout()
 	if showStrip then GF.RenderTabs() end
 	GF.PaintProgress(false)
 	if UI.NameTargets then UI.NameTargets.Refresh() end
+	GF.PaintShades()
 end
 
 ---------------------------------------------------------------------------
@@ -2747,6 +2793,22 @@ local function fillAlong(E)
 		end
 	end
 	local n, untilStep, mixed = 0, nil, false
+	-- First the quests an update left behind the player (Engine.GetBehind):
+	-- "Still to do: <quest>, back in <zone>, 240 yd".
+	local back = 0
+	for _, b in ipairs(E.GetBehind and E.GetBehind() or {}) do
+		if n < ALONG_MAX then
+			n, back = n + 1, back + 1
+			local r = alongRow(n)
+			local where = b.zone and (b.yards and string.format(L["back in %s, %s"], b.zone, ns.FormatDistance(b.yards)) or string.format(L["back in %s"], b.zone)) or nil
+			local quest = ns.Quoted(b.title or (L["Quest"] .. " " .. b.quest))
+			r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = nil, nil, b.title, nil, b.quest
+			r.psPlace = true
+			r.Icon:SetTexture(Theme.VerbIcon("turnin"))
+			r.Text:SetText(where and string.format(L["Still to do: %s, %s"], quest, where) or string.format(L["Still to do: %s"], quest))
+			r:Show()
+		end
+	end
 	for _, s in ipairs(E.GetAlong()) do
 		for _, gv in ipairs(s.goals) do
 			local a, b = alongKeys(gv)
@@ -2755,7 +2817,7 @@ local function fillAlong(E)
 				if not s.untilStep or (untilStep and untilStep ~= s.untilStep) then mixed = true end
 				untilStep = untilStep or s.untilStep
 				local r = alongRow(n)
-				r.psStep, r.psGoal, r.psTitle, r.psPin = gv.step or s.index, gv.index, s.title or UI.GoalLine(gv), s.pin
+				r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = gv.step or s.index, gv.index, s.title or UI.GoalLine(gv), s.pin, nil
 				r.psPlace = gv.map and gv.x and gv.y and true or nil
 				r.Icon:SetTexture(Theme.VerbIcon(gv.t))
 				r.Text:SetText(UI.GoalLine(gv))
@@ -2763,7 +2825,7 @@ local function fillAlong(E)
 			end
 		end
 	end
-	along.Label:SetText((untilStep and not mixed) and string.format(L["Along the way, until step %d"], UI.StepNo(untilStep)) or L["Along the way"])
+	along.Label:SetText(back == n and L["Still to do"] or (untilStep and not mixed) and string.format(L["Along the way, until step %d"], UI.StepNo(untilStep)) or L["Along the way"])
 	along:SetShown(n > 0)
 end
 
@@ -2807,7 +2869,7 @@ function GF.FillHere(E)
 		r.psView = v
 		keys[i] = v.step .. ":" .. v.index
 		r.Icon:SetTexture(Theme.VerbIcon(v.here == "turnin" and "turnin" or v.t))
-		r.Text:SetText(v.here == "turnin" and UI.HereText(v) or UI.GoalLine(v))
+		r.Text:SetText((v.here == "turnin" or v.here == "take") and UI.HereText(v) or UI.GoalLine(v))
 		r.Sub:SetText(string.format(L["Step %d"], UI.StepNo(v.step)))
 		r.Sub:SetShown(not tight)
 		r.Dist:SetText(v.yards and ns.FormatDistance(v.yards, GF.HERE_DIST) or "")
@@ -3047,13 +3109,14 @@ local function fillCard(sameFocus)
 	local why = view.why
 	person.Why:SetText(why or "")
 	person.Why:SetShown(why ~= nil)
-	-- A quest on the step 3 or more levels above the character (Levels.StepHint):
-	-- "Level 25 quest: you're 19.7", red from 5 levels as in the quest log.
+	-- Work on the step for a quest 3 or more levels above the character
+	-- (Levels.StepHint; never an accept): "Level 25 quest: you're 19.7", in a
+	-- calm colour (Fitz, 0.3.6: players read red as being behind).
 	local Lv = ns.Levels
 	local hint = Lv and Lv.StepHint and Lv.StepHint(view.index)
 	if hint then
 		person.Level:SetText(string.format(L["Level %d quest: you're %s"], hint.level, GF.LevelText(hint.you)))
-		W.Color(person.Level, hint.level - floor(hint.you) >= 5 and "danger" or "warning")
+		W.Color(person.Level, "textDim")
 	end
 	person.Level:SetShown(hint ~= nil)
 	person:Show()
@@ -3501,9 +3564,10 @@ function GF.TabsOf(E) return tabsOf(E) end
 local watcher = CreateFrame("Frame")
 local hovering = false
 
-local function chromeAlpha()
-	if not transparent() then return 1 end
-	return hovering and 1 or 0
+-- ui.barShown keeps a transparent window's tabs and step bar on screen (not the grip).
+local function chromeAlpha(c)
+	if not transparent() or hovering then return 1 end
+	return (ns.Get("ui.barShown") and c ~= grip) and 1 or 0
 end
 
 local function fadeChrome(to)
@@ -3512,7 +3576,7 @@ local function fadeChrome(to)
 		if to == 1 then
 			Anim.To(c, "alpha", c:GetAlpha(), 1, Anim.FAST, "out")
 		else
-			Anim.To(c, "alpha", c:GetAlpha(), 0, Anim.BASE, "out")
+			Anim.To(c, "alpha", c:GetAlpha(), chromeAlpha(c), Anim.BASE, "out")
 		end
 	end
 end
@@ -3544,6 +3608,107 @@ local function paintTrack(t)
 	t:SetVertexColor(r, g, b, transparent() and 0.15 or a)
 end
 
+-- The transparent style's backing (ui.backing). "dark": a scrim with no edge
+-- behind the body (GF.veil) and one behind the tabs and the navigator
+-- (band.Veil) that comes and goes with them, at GF.VEIL; both feather over
+-- GF.VEIL_FEATHER and cross-fade where they meet (placeBars), so the shown
+-- bar never leaves a seam. "soft" (the default): no box, only a light shade
+-- behind each string on screen (GF.PaintShades), the world showing between
+-- and around the lines. "none": the outlined text alone on the world. (On
+-- GF: the main chunk is at Lua's 200 locals.)
+GF.VEIL = { dark = 0.68 }
+GF.VEIL_FEATHER = 20
+function GF.Backing()
+	return transparent() and GF.VEIL[ns.Get("ui.backing")] or nil
+end
+function GF.PaintVeil(s)
+	Theme.PaintScrim(s, GF.Backing() or 0)
+end
+
+-- The soft backing: Theme.TextShade behind each string (on its parent, under
+-- it), its solid middle the text's own size at GF.SHADE and feathering out
+-- over GF.SHADE_FEATHER: wide to the sides, short above and below (inside
+-- the gap to the next line, clear of the scrolling goals' clipped edges).
+-- Sized again on a layout and, a frame
+-- later (GF.QueueShades: one OnUpdate, then none), when a string's text,
+-- width or shown state changes; a string's own alpha (the chrome's fade, a
+-- dimmed label) carries to its shade. GF.shades: string -> its shade.
+GF.SHADE = 0.2
+GF.SHADE_FEATHER = { x = 30, y = 12 }
+GF.SHADE_INSET = { x = 10, y = 6 }
+GF.shades, GF.shadeHooked = {}, {}
+GF.shadeFrame = CreateFrame("Frame")
+function GF.SoftShade() return transparent() and ns.Get("ui.backing") == "soft" end
+
+function GF.ShadeText(fs, on)
+	local s = GF.shades[fs]
+	local text = fs:GetText()
+	if not (on and fs:IsShown() and text and text ~= "") then
+		if s and s.shown then
+			s.shown = false
+			for _, p in ipairs(s.parts) do p:Hide() end
+		end
+		return
+	end
+	if not s then
+		s = Theme.TextShade(fs:GetParent(), GF.SHADE_FEATHER.x, GF.SHADE_FEATHER.y)
+		GF.shades[fs] = s
+	end
+	-- The solid middle is the text less GF.SHADE_INSET on each side: the rise
+	-- begins inside the text, so no edge of the shade shows as a line.
+	local w, fw = fs:GetStringWidth(), fs:GetWidth()
+	if fw and fw > 0 then w = min(w, fw) end
+	local ix, iy = GF.SHADE_INSET.x, GF.SHADE_INSET.y
+	local m = s.parts[1]
+	m:ClearAllPoints()
+	m:SetSize(max(1, w - 2 * ix), max(1, fs:GetStringHeight() - 2 * iy))
+	local jh = fs.GetJustifyH and fs:GetJustifyH()
+	local jv = fs.GetJustifyV and fs:GetJustifyV()
+	local x = (jh == "RIGHT" and "RIGHT") or (jh == "CENTER" and "") or "LEFT"
+	local y = (jv == "TOP" and "TOP") or (jv == "BOTTOM" and "BOTTOM") or ""
+	local point = (y .. x ~= "") and (y .. x) or "CENTER"
+	m:SetPoint(point, fs, point, x == "LEFT" and ix or x == "RIGHT" and -ix or 0, y == "TOP" and -iy or y == "BOTTOM" and iy or 0)
+	Theme.PaintScrim(s, GF.SHADE)
+	local a = fs:GetAlpha() or 1
+	s.shown = true
+	for _, p in ipairs(s.parts) do
+		p:SetAlpha(a)
+		p:Show()
+	end
+end
+
+function GF.QueueShades()
+	if GF.shadesQueued or not (GF.shadesOn or GF.SoftShade()) then return end
+	GF.shadesQueued = true
+	GF.shadeFrame:SetScript("OnUpdate", function(self)
+		self:SetScript("OnUpdate", nil)
+		GF.shadesQueued = nil
+		GF.PaintShades()
+	end)
+end
+
+function GF.ShadeAlpha(fs, a)
+	local s = GF.shades[fs]
+	if s and s.shown then for _, p in ipairs(s.parts) do p:SetAlpha(a or 1) end end
+end
+
+function GF.PaintShades()
+	local on = GF.SoftShade()
+	if not (on or GF.shadesOn) then return end
+	GF.shadesOn = on
+	for i = 1, #texts do
+		local fs = texts[i]
+		if on and not GF.shadeHooked[fs] then
+			GF.shadeHooked[fs] = true
+			for _, m in ipairs({ "SetText", "SetFormattedText", "SetWidth", "Show", "Hide", "SetShown" }) do
+				if fs[m] then hooksecurefunc(fs, m, GF.QueueShades) end
+			end
+			hooksecurefunc(fs, "SetAlpha", GF.ShadeAlpha)
+		end
+		GF.ShadeText(fs, on)
+	end
+end
+
 -- The ground's opacity is Theme.GroundAlpha (ui.bgOpacity), read by the
 -- window skin itself; ui.bgOpacity changes land here to repaint it.
 function GF.ApplyStyle()
@@ -3553,6 +3718,11 @@ function GF.ApplyStyle()
 	Theme.Repaint(F)
 	local skin = Theme.SkinKey()
 	band:SetShown(not clear and skin == "polestar")
+	local backing = GF.Backing() and true or false
+	GF.veil:SetShown(backing)
+	band.Veil:SetShown(backing)
+	W.Painter(GF.veil, GF.PaintVeil)
+	W.Painter(band.Veil, GF.PaintVeil)
 	nav.TitleBar:SetShown(not clear and skin == "hearth")
 	-- Blizzard's damage meter header bar under the tabs.
 	Theme.KitStrip(strip, not clear)
@@ -3563,13 +3733,18 @@ function GF.ApplyStyle()
 	W.Painter(foot.Line.Track, paintTrack)
 	if GF.here then W.Painter(GF.here.Panel, GF.PaintHerePanel) end
 	for i = 1, #texts do Theme.SetOutline(texts[i], clear) end
+	-- Tick boxes on the world: a scrim inside and an ink edge.
+	for _, r in ipairs(rows) do
+		r.Check.psOnWorld = clear
+		Theme.Repaint(r.Check)
+	end
 	if not clear then
 		watcher:SetScript("OnUpdate", nil)
 		hovering = false
 	end
 	for i = 1, #chrome do
 		Anim.Stop(chrome[i], "alpha")
-		chrome[i]:SetAlpha(chromeAlpha())
+		chrome[i]:SetAlpha(chromeAlpha(chrome[i]))
 	end
 	GF.Layout()
 end
@@ -3703,6 +3878,8 @@ local APPLY = {
 	["ui.opacity"] = function() GF.ApplyAlpha(false) end,
 	["ui.bgOpacity"] = function() GF.ApplyStyle() end,
 	["ui.style"] = function() GF.ApplyStyle() end,
+	["ui.barShown"] = function() GF.ApplyStyle() end,
+	["ui.backing"] = function() GF.ApplyStyle() end,
 	["ui.locked"] = function() GF.ApplyLock() end,
 	["ui.compact"] = function() GF.ApplyCompact() end,
 	["ui.width"] = function() GF.ApplyWidth() end,
@@ -4218,7 +4395,7 @@ function GF.HereRow(i)
 		local lines = {
 			string.format(L["Step %d does this later; done now, that step is shorter or skipped when you get there."], UI.StepNo(v.step)),
 		}
-		local new = v.here == "turnin" and ns.NewQuests and ns.NewQuests.TooltipText(v.quest)
+		local new = (v.here == "turnin" or v.here == "take") and ns.NewQuests and ns.NewQuests.TooltipText(v.quest)
 		if new then lines[#lines + 1] = { new, Theme.Accent() } end
 		lines[#lines + 1] = { L["Click to point the arrow here"], Theme.Accent() }
 		lines[#lines + 1] = { L["Right-click: not now, around here (twice: for the rest of this zone)."], Theme.Color("textDim") }
@@ -4276,6 +4453,13 @@ local function build()
 	band = Theme.Band(F, "BACKGROUND", -5)
 	band:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
 	band:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
+	-- The transparent style's backing (GF.PaintVeil, placed by placeBars):
+	-- under the body, and under the tabs and navigator, fading with them.
+	GF.veil = Theme.Scrim(F, GF.VEIL_FEATHER)
+	band.Veil = Theme.Scrim(F, GF.VEIL_FEATHER)
+	GF.veil:Hide()
+	band.Veil:Hide()
+	chrome[#chrome + 1] = band.Veil
 
 	-- Tab strip
 	strip = CreateFrame("Frame", nil, F)
@@ -4783,17 +4967,19 @@ ns.RegisterEvent("UI_SCALE_CHANGED", whenReady(function() GF.Layout() end))
 
 -- Where the character stands against the guide (Core/Levels.lua, Levels.Pace),
 -- in one line; stats: the QoL tracker's, whose XP an hour turns XP short into
--- grinding time. On pace (or ahead): "On pace for level 14 by step 32"; at
--- the guide's end, the level the route gets you to ("level 22.4 by step 97").
--- Behind, with a `level` goal ahead that grinds it: "Behind by 6 bars: step 32
--- grinds to level 14 (~12m)". Behind with none, in the warning colour: a quest
--- that will be 3+ levels over you, "Behind: Missing In Action (25) at step
--- 20, you'll be 21.0; grind ~1h 10m first" (or "reach 23 first"), else
--- "Behind by 2.4 levels for level 24 by step 21: grind ~1h 10m before then"
--- (or "and no grind step ahead"). Such a quest with the character on pace for
--- the target is the route's, not the character's lag: "On pace, but Ashenvale
--- Outrunners (24) at step 4 is hard: you'll be 21.3; reach 22 first", never
--- "Behind". nil without a target ahead or the Codex.
+-- grinding time. "Behind" only past GF.PACE_SLACK levels short of the route's
+-- target (Fitz, 0.3.6: a few bars short read as a warning and players thought
+-- they were behind); within it, on pace. On pace: "On pace for level 14 by
+-- step 32"; at the guide's end, the level the route gets you to ("level 22.4
+-- by step 97"). Behind, with a `level` goal ahead that grinds it: "Behind by
+-- 2.4 levels: step 32 grinds to level 14 (~12m)", said plainly. Behind with
+-- none, in the warning colour: "Behind by 2.4 levels for level 24 by step 21:
+-- grind ~1h 10m before then" (or "and no grind step ahead"). A quest 3+
+-- levels over the character (pace.hard) is named only on the step where it is
+-- fought, calmly: "On pace, but Ashenvale Outrunners (24) at step 4 is hard:
+-- you're 21.3; reach 22 first", or the "Behind:" form past the slack. nil
+-- without a target ahead or the Codex.
+GF.PACE_SLACK = 1
 function GF.PaceText(stats)
 	local Lv = ns.Levels
 	local pace = Lv and Lv.Pace and Lv.Pace()
@@ -4806,43 +4992,35 @@ function GF.PaceText(stats)
 	end
 	local level = pace.target % 1 == 0 and string.format("%d", pace.target) or string.format("%.1f", pace.target)
 	local stepNo = UI.StepNo(pace.step)
-	local h, text = pace.hard, nil
+	local behind = (pace.short or 0) > GF.PACE_SLACK
+	local h = pace.hard
+	if h and h.step ~= pace.live then h = nil end
 	if h then
 		local name, at, you, time = ns.Quoted(h.title) or L["Quest"], UI.StepNo(h.step), GF.LevelText(h.reach), grind(h.xp)
-		if pace.bars == 0 then
-			if h.step == pace.live then
-				text = time and string.format(L["On pace, but %s (%d) at step %d is hard: you're %s; grind ~%s first"], name, h.level, at, you, time)
-					or string.format(L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"], name, h.level, at, you, h.need)
-			else
-				text = time and string.format(L["On pace, but %s (%d) at step %d is hard: you'll be %s; grind ~%s first"], name, h.level, at, you, time)
-					or string.format(L["On pace, but %s (%d) at step %d is hard: you'll be %s; reach %d first"], name, h.level, at, you, h.need)
-			end
-		elseif h.step == pace.live then
-			text = time and string.format(L["Behind: %s (%d) at step %d, you're %s; grind ~%s first"], name, h.level, at, you, time)
-				or string.format(L["Behind: %s (%d) at step %d, you're %s; reach %d first"], name, h.level, at, you, h.need)
-		else
-			text = time and string.format(L["Behind: %s (%d) at step %d, you'll be %s; grind ~%s first"], name, h.level, at, you, time)
-				or string.format(L["Behind: %s (%d) at step %d, you'll be %s; reach %d first"], name, h.level, at, you, h.need)
+		if not behind then
+			return time and string.format(L["On pace, but %s (%d) at step %d is hard: you're %s; grind ~%s first"], name, h.level, at, you, time)
+				or string.format(L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"], name, h.level, at, you, h.need)
 		end
-	elseif pace.bars == 0 then
+		local text = time and string.format(L["Behind: %s (%d) at step %d, you're %s; grind ~%s first"], name, h.level, at, you, time)
+			or string.format(L["Behind: %s (%d) at step %d, you're %s; reach %d first"], name, h.level, at, you, h.need)
+		return "|c" .. Theme.Hex("warning") .. text .. "|r"
+	end
+	if not behind then
 		-- At a guide's end there is no goal to meet, only the level the route
 		-- gets you to: say that one, which a character already at the guide's
 		-- top passes (15-21 at 21: "level 22.4", never "level 21").
 		if pace.kind == "end" and type(pace.reach) == "number" and pace.reach > pace.target then level = GF.LevelText(pace.reach) end
 		return string.format(L["On pace for level %s by step %d"], level, stepNo)
-	else
-		local bars = pace.bars
-		local by = pace.short >= 1 and string.format(L["%s levels"], string.format("%.1f", pace.short))
-			or (bars == 1 and L["1 bar"] or string.format(L["%d bars"], bars))
-		local time = grind(pace.xp)
-		if pace.kind == "goal" then
-			-- The guide grinds it at that step: said plainly, not as a warning.
-			return time and string.format(L["Behind by %s: step %d grinds to level %s (~%s)"], by, stepNo, level, time)
-				or string.format(L["Behind by %s: step %d grinds to level %s"], by, stepNo, level)
-		end
-		text = time and string.format(L["Behind by %s for level %s by step %d: grind ~%s before then"], by, level, stepNo, time)
-			or string.format(L["Behind by %s for level %s by step %d, and no grind step ahead"], by, level, stepNo)
 	end
+	local by = string.format(L["%s levels"], string.format("%.1f", pace.short))
+	local time = grind(pace.xp)
+	if pace.kind == "goal" then
+		-- The guide grinds it at that step: said plainly, not as a warning.
+		return time and string.format(L["Behind by %s: step %d grinds to level %s (~%s)"], by, stepNo, level, time)
+			or string.format(L["Behind by %s: step %d grinds to level %s"], by, stepNo, level)
+	end
+	local text = time and string.format(L["Behind by %s for level %s by step %d: grind ~%s before then"], by, level, stepNo, time)
+		or string.format(L["Behind by %s for level %s by step %d, and no grind step ahead"], by, level, stepNo)
 	return "|c" .. Theme.Hex("warning") .. text .. "|r"
 end
 

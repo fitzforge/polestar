@@ -21,10 +21,11 @@ ns.RegisterDefaults("maps", {
 	zoneLevels = true,      -- level ranges on the continent and zone maps
 	coords = true,          -- player and cursor coordinates on the world map
 	minimapCoords = false,  -- a small player coordinate readout on the minimap
-	-- A Polestar button on the minimap's edge, on by default: players look
-	-- for one to show and hide the guide, and the gamepad interface has no
-	-- slash commands (Core/Init.lua, ns.GamepadUI). Turning it off stores
-	-- false (a value equal to the default is never stored), so it stays off.
+	-- A Polestar button on the minimap's edge, on by default for every
+	-- account: players look for one to show and hide the guide, and the
+	-- gamepad interface has no slash commands (Core/Init.lua, ns.GamepadUI).
+	-- Turning it off stores false (a value equal to the default is never
+	-- stored), so it stays off.
 	minimapButton = true,
 	minimapButtonAngle = 225, -- where on the edge, degrees (0 = east, counter-clockwise)
 	reveal = "tint",        -- unexplored areas: "off" | "on" (revealed) | "tint" (revealed, tinted)
@@ -41,6 +42,21 @@ ns.RegisterDefaults("maps", {
 	timerPos = false,       -- { point, x, y } once dragged
 	trackerPos = false,
 })
+
+-- The 0.3.6 test builds saved the button off once for an account from
+-- before (never with the gamepad interface), flagged by
+-- PolestarDB.minimapButtonKept. 0.3.6 shows the button to everyone: an
+-- account with that flag loses it and the off it saved, so the default, on,
+-- applies again. Runs once; turning the button off later stores false again.
+local function undoMinimapButtonKept()
+	local db = ns.DB()
+	if not db.minimapButtonKept then return end
+	db.minimapButtonKept = nil
+	if ns.GamepadUI() then return end
+	local maps = type(db.settings) == "table" and db.settings.maps
+	if type(maps) == "table" and maps.minimapButton == false then maps.minimapButton = nil end
+end
+ns.OnInit(undoMinimapButtonKept)
 
 ---------------------------------------------------------------------------
 -- Shared helpers

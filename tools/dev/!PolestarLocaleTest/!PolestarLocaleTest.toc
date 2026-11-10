@@ -1,0 +1,8 @@
+## Interface: 16001
+## Title: Polestar locale test (developers only)
+## Notes: Makes Polestar load as on a client in another language (deDE). Remove it after the test.
+## Author: Polestar
+## Version: dev
+## X-License: GPL-3.0-only
+
+PolestarLocaleTest.lua

@@ -108,6 +108,10 @@
 					<span class="label">Pause uploads</span>
 					<button class="toggle" role="switch" aria-checked={snapshot.paused} aria-label="Pause uploads" disabled={!snapshot.consent} onclick={() => run('pause', () => api.setPaused(!snapshot.paused))}></button>
 				</div>
+				<div class="row" title="In Forever’s new zones and dungeons the Recorder logs a little more about the game world there (creatures seen, quest map points, dungeon floors), nothing more about you. Off: it doesn’t, from your next login or /reload.">
+					<span class="label">Explorer mode</span>
+					<button class="toggle" role="switch" aria-checked={snapshot.explore} aria-label="Explorer mode" onclick={() => run('explore', () => api.setExplore(!snapshot.explore))}></button>
+				</div>
 			</div>
 		</section>
 

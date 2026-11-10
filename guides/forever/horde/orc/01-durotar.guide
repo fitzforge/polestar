@@ -167,12 +167,21 @@ step Sen'jin Village
 # ---------------------------------------------------------------- Sen'jin and Razor Hill
 
 step Brakk's campfire
-  tip Brakk camps just south of Razor Hill. Sit by his campfire (/sit) until the Boosted Rest buff appears.
+  tip Brakk camps just south of Razor Hill. Sit by his campfire (/sit) until the Boosted Rest buff appears. With a profession learned, Brakk also offers its Camping 101, which its trainer takes: in Razor Hill or in Orgrimmar at the start of the next guide.
   turnin 96652                        -- Brakk
   accept 96604
   complete 96604 @52.1,47.4
   turnin 96604
   accept 96655
+  accept 97907 optional               -- Brakk: for Krunn
+  accept 97902 optional               -- Brakk: for Mukdrak
+  accept 97903 optional               -- Brakk: for Rawrk
+  accept 97908 optional               -- Brakk: for Thuwd
+  accept 97906 optional               -- Brakk: for Karolek
+  accept 96102 optional               -- Brakk: for Snang
+  accept 97905 optional               -- Brakk: for Jandi
+  accept 97901 optional               -- Brakk: for Jhag
+  accept 97899 optional               -- Brakk: for Whuut
 
 step Razor Hill
   accept 96822                        -- Turroc, on the east side of town; inside
@@ -191,6 +200,9 @@ step Razor Hill
   turnin 2161                         -- Innkeeper Grosk, inside
   sethome "Razor Hill"
   accept 791                          -- Furl Scornbrow, in the watchtower
+  turnin 97907 optional               -- Krunn: Camping 101: Mining
+  turnin 97902 optional               -- Mukdrak: Camping 101: Engineering
+  turnin 97903 optional               -- Rawrk: Camping 101: First Aid
 
 step Prickly pears
   tip The prickly pears grow among the quilboar huts just west of town.
@@ -239,7 +251,7 @@ step Scuttle Coast: kill these as you meet them
 step Echo Isles: kill these as you meet them
   zone Durotar
   tip Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.
-  tip Wade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach.
+  tip Durotar Tigers roam the isle as well as the shore south of Sen'jin, and the Taillasher eggs sit in nests on the isles and along the beach.
   collect 277128 quest 97223.1
   collect 4892 quest 817.1            -- Durotar Tiger Fur
 
@@ -489,31 +501,6 @@ step Tablet of Verga
   tip The Burning Blade Stash stands in Skull Rock, among the cultists you just fought.
   collect 6535 quest 1501.1
 
-step Into Orgrimmar
-  only Warlock
-  zone Orgrimmar
-  goto 52.5,84.4 "Into Orgrimmar"
-
-step Orgrimmar
-  only Warlock
-  zone Orgrimmar
-  goto 48.3,45.3 "Gan'rul Bloodeye"
-
-step The Binding
-  only Warlock
-  zone Orgrimmar
-  tip Back to Gan'rul in the Cleft of Shadow. Use the Glyphs of Summoning on the summoning circle there and defeat the voidwalker to bind it.
-  turnin 1501                         -- Gan'rul Bloodeye
-  accept 1504
-  use 7464 @49.3,50.0                 -- Glyphs of Summoning
-  kill 5676 quest 1504.1
-  turnin 1504                         -- Gan'rul Bloodeye: Summon Voidwalker
-
-step Back to Durotar
-  only Warlock
-  zone Durotar
-  goto 56.4,20.0 "Margoz"
-
 step Margoz
   zone Durotar
   turnin 827
@@ -579,3 +566,16 @@ step To Orgrimmar
   zone Orgrimmar
   tip Follow the road north from Far Watch Post to Orgrimmar's main gate. The next guide starts in Orgrimmar: Neeru Fireblade takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for Tirisfal Glades and Silverpine Forest. The Barrens come after Silverpine.
   goto 55.6,72.3 "Orgrimmar's Valley of Strength"
+
+# Warlocks bind the voidwalker on this arrival in Orgrimmar, with Neeru Fireblade in the same Cleft of
+# Shadow (forever/horde/03-silverpine-forest), not on a trip of its own from Skull Rock and back to
+# Margoz in the middle of the guide (final route review, 0.3.6).
+step The Binding
+  only Warlock
+  zone Orgrimmar
+  tip Gan'rul Bloodeye stands in the Cleft of Shadow, the canyon under the Valley of Strength. Hand him the Tablet of Verga, then use the Glyphs of Summoning on the summoning circle beside him and defeat the voidwalker to bind it.
+  turnin 1501                         -- Gan'rul Bloodeye
+  accept 1504
+  use 7464 @49.3,50.0                 -- Glyphs of Summoning
+  kill 5676 quest 1504.1
+  turnin 1504                         -- Gan'rul Bloodeye: Summon Voidwalker

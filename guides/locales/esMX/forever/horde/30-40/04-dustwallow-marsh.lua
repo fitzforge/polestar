@@ -23,7 +23,7 @@ return {
 	-- Step 4: Fly to the Crossroads
 	["Fly to the Crossroads"] = "",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
 	-- Step 5: Korran
 	-- {npc:3428} Korran
@@ -83,6 +83,8 @@ return {
 	["only if you carry a {item:3853} ({skill:164} or the Auction House)"] = "solo si llevas una {item:3853} ({skill:164} o la casa de subastas)",
 
 	-- Step 18: The Theramore Docks
+	-- {area:513} Theramore Isle · {object:20925} Captain's Footlocker
+	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57."] = "Al sureste desde la mansión hasta {area:513}: {object:20925} está en el fondo del mar frente a los muelles del lado este de la isla. Entra y sal nadando y mantente lejos de los muelles y del pueblo: los guardias de Theramore son de nivel 53-57.",
 	["Underwater"] = "",
 
 	-- Step 19: Brackenwall Village
@@ -106,14 +108,8 @@ return {
 	["{area:496} flight master"] = "",
 
 	-- Step 22: Ratchet
-	-- {npc:3391} Gazlowe · {npc:3446} Mebok Mizzyrix
-	["{npc:3391} waits upstairs in the house by the flight master; {npc:3446} stands below it, towards the docks."] = "",
-	-- {npc:3391} Gazlowe · {area:35} Booty Bay
-	["{npc:3391}'s next errand takes you to {area:35}, off this part of the route: leave it."] = "",
-	-- {quest:1111} Wharfmaster Dizzywig
-	["{quest:1111}, on the docks"] = "",
-	-- {area:439} Shimmering Flats
-	["Dizzywig's parts go back to Kravel in the {area:439}, off the route: leave them."] = "",
+	-- {npc:3446} Mebok Mizzyrix
+	["{npc:3446} stands below Gazlowe's house by the flight master, towards the docks."] = "{npc:3446} está debajo de la casa de Gazlowe, junto al maestro de vuelo, en dirección a los muelles.",
 
 	-- Step 23: The Affray
 	-- {area:392} Ratchet · {area:720} Fray Island · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
@@ -224,6 +220,7 @@ return {
 	-- ["The caravan ends at {npc:11596}'s camp on the east side of the {area:596}."] = "La caravana termina en el campamento de {npc:11596}, en el lado este de {area:596}.",
 	-- ["The next guide takes you back to {zone:1434}."] = "La siguiente guía te lleva de vuelta a {zone:1434}.",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "La caravana de {npc:11626} se detiene en el camino, al borde de {area:602}. Escóltala al este pasando el aquelarre; los demonios la atacan dos veces.",
+	-- ["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}: para {npc:4631} en {area:35}, en la primera parada en {area:35} de 40-50",
 	-- ["{npc:5395} and {npc:5412} stand in the post just west of {npc:11596}'s camp."] = "{npc:5395} y {npc:5412} están en el poblado justo al oeste del campamento de {npc:11596}.",
 	-- ["{npc:6236}: Berserker Stance"] = "{npc:6236}: Actitud rabiosa",
 	-- ["{npc:6791}: the last guide binds here, so this usually ticks at once"] = "{npc:6791}: la guía anterior te vincula aquí, así que esto suele marcarse de inmediato",

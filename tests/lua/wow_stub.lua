@@ -19,6 +19,8 @@
 --   stub.frame(name)         look up a named frame
 --   stub.withEllesmere()     install a fake EllesmereUI matching SKINNING_API.md
 --   stub.json(value)         encode a value for emit()
+--   stub.mouseClick(f, ran[, mouse]) the client's mouse click: OnEnter, then the press and the release
+--   stub.keyClick(f, ran)    a CLICK binding's key press and release (no hover)
 --
 -- Animation groups finish synchronously: Play() runs OnPlay then OnFinished.
 -- WoW's global trig helpers (sin, cos, atan2, ...) take and return degrees, as
@@ -250,6 +252,10 @@ end
 -- is half the font size wide, a UTF-8 one (“, ·, «) counting once.
 local function chars(s) return #s - select(2, s:gsub("[\128-\191]", "")) end
 function Methods.SetWordWrap(self, on) self.wordWrap = not not on end
+function Methods.SetJustifyH(self, j) self.justifyH = j end
+function Methods.GetJustifyH(self) return self.justifyH or "CENTER" end
+function Methods.SetJustifyV(self, j) self.justifyV = j end
+function Methods.GetJustifyV(self) return self.justifyV or "MIDDLE" end
 function Methods.GetWordWrap(self) return self.wordWrap ~= false end
 function Methods.GetUnboundedStringWidth(self)
 	local size = (self.font and self.font[2]) or 12
@@ -1242,5 +1248,63 @@ function stub.json(v)
 end
 
 function emit(v) io.write("@@JSON ", stub.json(v), "\n") end
+
+---------------------------------------------------------------------------
+-- Clicks as the client delivers them
+---------------------------------------------------------------------------
+-- The press, then the release, each reaching the button only when
+-- RegisterForClicks asked for it ("AnyDown"/"AnyUp", "<Button>Down"/"Up"; a
+-- button that never called it gets "LeftButtonUp"). A secure action button
+-- (f.secure) runs SecureActionButton_OnClick, which the client calls without
+-- its mouse arguments for an addon's button (SecureTemplates.xml), so mouse
+-- and key alike act on the press when useOnKeyDown -- the attribute, else the
+-- ActionButtonUseKeyDown CVar (stub.cvars) -- is true, else on the release;
+-- "type1".."typeN" answers only that button, "type" any. Each action goes in
+-- ran as { type, macrotext or item or spell }; PreClick and PostClick run on
+-- every event delivered. A plain button gets OnClick per event while enabled.
+-- A mouse click enters the button first (OnEnter; the cursor stays on it).
+local registerForClicks = Methods.RegisterForClicks
+function Methods.RegisterForClicks(self, ...)
+	self.clicks = {}
+	for _, c in ipairs({ ... }) do self.clicks[c] = true end
+	if registerForClicks then return registerForClicks(self, ...) end
+end
+
+local function deliver(f, ran, mouse)
+	mouse = mouse or "LeftButton"
+	local digit = ({ LeftButton = "1", RightButton = "2", MiddleButton = "3" })[mouse]
+	for _, down in ipairs({ true, false }) do
+		local c = f.clicks or { LeftButtonUp = true }
+		if c[down and "AnyDown" or "AnyUp"] or c[mouse .. (down and "Down" or "Up")] then
+			if f.secure then
+				RunScript(f, "PreClick", mouse, down)
+				local attr = f:GetAttribute("useOnKeyDown")
+				local onDown
+				if attr == nil then onDown = GetCVarBool("ActionButtonUseKeyDown") else onDown = attr and true or false end
+				if onDown == down then
+					local kind = f:GetAttribute("type" .. (digit or "")) or f:GetAttribute("type")
+					if kind then
+						local function attr(k) return digit and f:GetAttribute(k .. digit) or f:GetAttribute(k) end
+						ran[#ran + 1] = { kind, attr("macrotext") or attr("item") or attr("spell") or false }
+					end
+				end
+				RunScript(f, "PostClick", mouse, down)
+			elseif f:IsEnabled() then
+				RunScript(f, "PreClick", mouse, down)
+				RunScript(f, "OnClick", mouse, down)
+				RunScript(f, "PostClick", mouse, down)
+			end
+		end
+	end
+end
+
+function stub.mouseClick(f, ran, mouse)
+	RunScript(f, "OnEnter")
+	deliver(f, ran, mouse)
+end
+
+function stub.keyClick(f, ran)
+	deliver(f, ran, "LeftButton")
+end
 
 return stub

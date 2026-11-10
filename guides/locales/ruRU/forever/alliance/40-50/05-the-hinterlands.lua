@@ -25,7 +25,7 @@ return {
 
 	-- Step 4: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Лететь в {area:1537}",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "",
 
@@ -86,7 +86,7 @@ return {
 
 	-- Step 24: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
-	["Portal to {zone:1438}"] = "",
+	["Portal to {zone:1438}"] = "Портал: {zone:1438}",
 
 	-- Step 25: Fly to Auberdine
 	-- {area:442} Auberdine

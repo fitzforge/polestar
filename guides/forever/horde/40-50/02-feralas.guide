@@ -171,10 +171,11 @@ step Fly to Freewind Post
 
 step Ratchet for the Felsteed
   only Warlock
-  zone The Barrens
+  zone Orgrimmar
   tip Fly from Orgrimmar to Ratchet; Strahad Farsan stands on the hill above the docks.
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Ratchet"
+  zone The Barrens
   turnin 3631                           -- Strahad Farsan
   accept 4490
   turnin 4490
@@ -206,6 +207,9 @@ step Mirage Raceway
   tip The road from Freewind Post to Tanaris runs past the Mirage Raceway on the Shimmering Flats: Fizzle Brassbolts is in the gnomes' camp beside the track, Pozzik and Zamek by the goblins' camp. Pozzik first, then Zamek, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to Pozzik.
   turnin 1137                           -- Fizzle Brassbolts: News for Fizzle, from Martek in the Badlands
   accept 1190                           -- Pozzik
+  turnin 1183                           -- Pozzik: the Fuel Regulator Blueprints from Baron Revilgaz, if you carry them
+  accept 1186
+  turnin 1186                           -- Razzeric, beside Pozzik
   accept 1191                           -- Zamek
   turnin 1191
   turnin 1190                           -- Rizzle's Unguarded Plans
@@ -421,15 +425,15 @@ step Fly to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  tip Fly to Orgrimmar. The Droffers brothers run their shop in the Drag.
-  accept 649                            -- Dran Droffers
-  turnin 649                            -- Malton Droffers
-  accept 650                            -- for the Hinterlands, around level 48
-  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-  tip Valley of Honor, then the Cleft of Shadow and the Valley of Spirits.
+  tip Fly to Orgrimmar. From the flight master: the Cleft of Shadow, then the Drag, then the Valley of Honor.
   turnin 3121                           -- Neeru Fireblade, Cleft of Shadow
   accept 3122
-  turnin 7732                           -- Zilzibin Drumlore, Valley of Spirits
+  turnin 7732                           -- Zilzibin Drumlore, the Drag
+  accept 649                            -- Dran Droffers, the Drag
+  turnin 649                            -- Malton Droffers
+  accept 650                            -- for the Hinterlands, around level 48
+  turnin 2976                           -- Belgrom Rockmaul, Valley of Honor
+  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 step Orgrimmar
   zone Orgrimmar

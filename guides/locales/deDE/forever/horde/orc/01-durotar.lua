@@ -52,7 +52,7 @@ return {
 	["{quest:790}, a large scorpid, prowls the slope south of {npc:3287} among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side."] = "",
 
 	-- Step 6: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Klassenlehrer",
 
 	-- Step 7: Paladin trainer
 	["Paladin trainer"] = "",
@@ -79,7 +79,7 @@ return {
 	-- Step 14: Yarrog Baneshadow
 	-- {npc:3183} Yarrog Baneshadow
 	["Inside the cave, keep to the right wall all the way round, over the stream: {npc:3183} waits at the end."] = "Halte dich in der Höhle immer an der rechten Wand, über den Bach: {npc:3183} wartet am Ende.",
-	["Below ground"] = "",
+	["Below ground"] = "Unter der Erde",
 
 	-- Step 15: Felstalker hooves
 	-- {npc:3102} Felstalker
@@ -113,8 +113,26 @@ return {
 	-- Step 20: Brakk's campfire
 	-- {npc:265809} Brakk
 	["{npc:265809}'s campfire"] = "Lagerfeuer von {npc:265809}",
-	-- {npc:265809} Brakk · {area:362} Razor Hill · {spell:1229451} Boosted Rest
-	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears."] = "",
+	-- {npc:265809} Brakk · {area:362} Razor Hill · {spell:1229451} Boosted Rest · {zone:1454} Orgrimmar
+	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809} lagert gleich südlich von {area:362}. Setz dich an sein Lagerfeuer (/sit), bis der Buff {spell:1229451} erscheint. Wenn du einen Beruf erlernt hast, bietet {npc:265809} auch dessen Camping 101 an, das der jeweilige Lehrer annimmt: in {area:362} oder in {zone:1454} zu Beginn des nächsten Guides.",
+	-- {npc:265809} Brakk · {npc:3175} Krunn
+	["{npc:265809}: for {npc:3175}"] = "{npc:265809}: für {npc:3175}",
+	-- {npc:265809} Brakk · {npc:11025} Mukdrak
+	["{npc:265809}: for {npc:11025}"] = "{npc:265809}: für {npc:11025}",
+	-- {npc:265809} Brakk · {npc:5943} Rawrk
+	["{npc:265809}: for {npc:5943}"] = "{npc:265809}: für {npc:5943}",
+	-- {npc:265809} Brakk · {npc:7088} Thuwd
+	["{npc:265809}: for {npc:7088}"] = "{npc:265809}: für {npc:7088}",
+	-- {npc:265809} Brakk · {npc:3365} Karolek
+	["{npc:265809}: for {npc:3365}"] = "{npc:265809}: für {npc:3365}",
+	-- {npc:265809} Brakk · {npc:2855} Snang
+	["{npc:265809}: for {npc:2855}"] = "{npc:265809}: für {npc:2855}",
+	-- {npc:265809} Brakk · {npc:3404} Jandi
+	["{npc:265809}: for {npc:3404}"] = "{npc:265809}: für {npc:3404}",
+	-- {npc:265809} Brakk · {npc:11066} Jhag
+	["{npc:265809}: for {npc:11066}"] = "{npc:265809}: für {npc:11066}",
+	-- {npc:265809} Brakk · {npc:11046} Whuut
+	["{npc:265809}: for {npc:11046}"] = "{npc:265809}: für {npc:11046}",
 
 	-- Step 21: Razor Hill
 	-- {npc:266940} Turroc
@@ -154,7 +172,7 @@ return {
 	-- {area:368} Echo Isles
 	["{area:368}: kill these as you meet them"] = "",
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger
-	["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.\nWade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach."] = "",
+	["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.\nDurotar Tigers roam the isle as well as the shore south of Sen'jin, and the Taillasher eggs sit in nests on the isles and along the beach."] = "Wate hinüber zur nördlichen Echoinsel. Die Matriarchin streift dort zwischen den Raptoren umher.\nDurotartiger streifen über die Insel und das Ufer südlich von Sen'jin, und die Peitschenschwanzeier liegen in Nestern auf den Inseln und entlang des Strands.",
 
 	-- Step 29: Echo Isles: kill these as you meet them
 	-- {quest:826} Zalazane
@@ -283,54 +301,46 @@ return {
 	-- {object:58595} Burning Blade Stash · {area:817} Skull Rock
 	["The {object:58595} stands in {area:817}, among the cultists you just fought."] = "{object:58595} steht in {area:817}, zwischen den Kultisten, die du gerade bekämpft hast.",
 
-	-- Step 67: Into Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Into {zone:1454}"] = "",
-
-	-- Step 69: The Binding
-	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {item:7464} Glyphs of Summoning
-	["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "Zurück zu {npc:5875} in {object:172960}. Benutze dort {item:7464} am Beschwörungskreis und besiege den Leerwandler, um ihn zu binden.",
-
-	-- Step 72: Razor Hill
+	-- Step 68: Razor Hill
 	-- {area:362} Razor Hill
 	["Back to {area:362}."] = "Zurück nach {area:362}.",
 
-	-- Step 73: Razor Hill
+	-- Step 69: Razor Hill
 	-- {npc:3142} Orgnil Soulscar · {npc:275666} Aggor the Young
 	["{npc:3142}: {npc:275666}, an elite sea giant"] = "{npc:3142}: {npc:275666}, ein Elite-Meeresriese",
 
-	-- Step 74: Aggor the Young
+	-- Step 70: Aggor the Young
 	-- {npc:275666} Aggor the Young · {zone:1411} Durotar
 	["{npc:275666}, a young sea giant, walks {zone:1411}'s north coast, north of the naga beach. {npc:275666} is elite: grouping up is advised."] = "",
 	-- {npc:3142} Orgnil Soulscar · {area:362} Razor Hill
 	["{npc:3142}, back in {area:362}"] = "{npc:3142}, zurück in {area:362}",
 
-	-- Step 75: Armored Scorpid
+	-- Step 71: Armored Scorpid
 	-- {area:362} Razor Hill · {npc:3171} Thotar
 	-- plural, as words: Armored Scorpids = {npc:3126} Armored Scorpid
 	["Armored Scorpids crawl over the plains west of {area:362}. Tame one, then return to {npc:3171}."] = "Gepanzerte Skorpide kriechen über die Ebenen westlich von {area:362}. Zähm einen und kehr dann zu {npc:3171} zurück.",
 	-- {npc:3171} Thotar · {npc:3352} Ormak Grimshot · {zone:1454} Orgrimmar · {spell:5149} Beast Training
 	["{npc:3171}: {npc:3352} in {zone:1454} teaches {spell:5149}"] = "",
 
-	-- Step 76: Far Watch Post
+	-- Step 72: Far Watch Post
 	-- {area:362} Razor Hill · {area:814} Southfury River · {npc:3337} Kargal Battlescar · {npc:5810} Uzzek · {area:379} Far Watch Post · {zone:1411} Durotar · {zone:1454} Orgrimmar
 	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {zone:1411} leads to {zone:1454}."] = "",
 
-	-- Step 77: Thunder lizards on the way north
+	-- Step 73: Thunder lizards on the way north
 	["Thunder lizards on the way north"] = "",
 	-- {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:6486} Singed Scale · {npc:5810} Uzzek · {area:379} Far Watch Post
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
 	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}."] = "",
 
-	-- Step 79: Ormak Grimshot
+	-- Step 75: Ormak Grimshot
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
 	["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "",
 
-	-- Step 80: Hanashi
+	-- Step 76: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
-	-- Step 81: To Orgrimmar
+	-- Step 77: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "Nach {zone:1454}",
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
@@ -338,10 +348,24 @@ return {
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "",
 
+	-- Step 78: The Binding
+	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning
+	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it."] = "{npc:5875} steht in {object:172960}, der Schlucht unter {object:172982}. Gib ihm {item:6535}, benutze dann {item:7464} am Beschwörungskreis neben ihm und besiege den Leerwandler, um ihn zu binden.",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back east to the shore north of {npc:275657}. Spitelash Scouts and Attendants hold the beach below {area:370}. Hunters: tame a {npc:3107} on the beach."] = "Zurück nach Osten zum Ufer nördlich von {npc:275657}. Späher und Bedienstete der Grollflossen halten den Strand unterhalb von {area:370}. Jäger: Zähm am Strand einen {npc:3107}.",
 	-- ["Back south to {area:362}."] = "Zurück nach Süden nach {area:362}.",
+	-- ["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "Zurück zu {npc:5875} in {object:172960}. Benutze dort {item:7464} am Beschwörungskreis und besiege den Leerwandler, um ihn zu binden.",
 	-- ["Follow the road north from {area:362} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Folge der Straße von {area:362} nach Norden zum Haupttor von {zone:1454}, gleich westlich von {area:817}. {npc:3352} steht bei den Jägerlehrern im {object:172958}.",
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369} across the bridge; any of them can drop a {item:6486}."] = "Donnerechsen und Blitzechsen grasen jenseits der Brücke auf dem {area:369}; jede kann {item:6486} fallen lassen.",
 	-- ["Thunder lizards across the river"] = "Donnerechsen jenseits des Flusses",
+	-- ["With {skill:129} learned, {npc:265809} also offers its Camping 101: {npc:5943} in {area:362} takes it."] = "Wenn du {skill:129} erlernt hast, bietet {npc:265809} auch sein Camping 101 an: {npc:5943} in {area:362} nimmt es an.",
+	-- ["With {skill:165} learned, {npc:265809} also offers its Camping 101: {npc:3365} in {zone:1454} (next guide) takes it."] = "Wenn du {skill:165} erlernt hast, bietet {npc:265809} auch sein Camping 101 an: {npc:3365} in {zone:1454} (nächster Guide) nimmt es an.",
+	-- ["With {skill:171} learned, {npc:265809} also offers its Camping 101: {npc:11046} in {zone:1454} (next guide) takes it."] = "Wenn du {skill:171} erlernt hast, bietet {npc:265809} auch sein Camping 101 an: {npc:11046} in {zone:1454} (nächster Guide) nimmt es an.",
+	-- ["With {skill:182} learned, {npc:265809} also offers its Camping 101: {npc:3404} in {zone:1454} (next guide) takes it."] = "Wenn du {skill:182} erlernt hast, bietet {npc:265809} auch sein Camping 101 an: {npc:3404} in {zone:1454} (nächster Guide) nimmt es an.",
+	-- ["With {skill:186} learned, {npc:265809} also offers its Camping 101: {npc:3175} in {area:362} takes it."] = "Wenn du {skill:186} erlernt hast, bietet {npc:265809} auch sein Camping 101 an: {npc:3175} in {area:362} nimmt es an.",
+	-- ["With {skill:197} learned, {npc:265809} also offers its Camping 101: {npc:2855} in {zone:1454} (next guide) takes it."] = "Wenn du {skill:197} erlernt hast, bietet {npc:265809} auch sein Camping 101 an: {npc:2855} in {zone:1454} (nächster Guide) nimmt es an.",
+	-- ["With {skill:202} learned, {npc:265809} also offers its Camping 101: {npc:11025} in {area:362} takes it."] = "Wenn du {skill:202} erlernt hast, bietet {npc:265809} auch sein Camping 101 an: {npc:11025} in {area:362} nimmt es an.",
+	-- ["With {skill:333} learned, {npc:265809} also offers its Camping 101: {npc:11066} in {zone:1454} (next guide) takes it."] = "Wenn du {skill:333} erlernt hast, bietet {npc:265809} auch sein Camping 101 an: {npc:11066} in {zone:1454} (nächster Guide) nimmt es an.",
+	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "Wenn du {skill:393} erlernt hast, bietet {npc:265809} auch sein Camping 101 an: {npc:7088} in {zone:1454} (nächster Guide) nimmt es an.",
 }

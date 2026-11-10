@@ -23,6 +23,8 @@ ns.RegisterDefaults("ui", {
 	barsBottom = false, -- with growUp: tabs and navigator at the bottom, by the pinned edge
 	compact = false,
 	style = "standard", -- "standard" | "transparent"
+	backing = "soft", -- transparent: "soft" (a light shade behind each line) | "dark" (a dark backing) | "none" (GuideFrame GF.SHADE, GF.VEIL)
+	barShown = false, -- transparent: the tabs and the step bar stay shown instead of only under the cursor
 	scale = 1,
 	opacity = 1,
 	bgOpacity = 0.94, -- the ground of every Polestar window
@@ -252,12 +254,12 @@ function UI.MarkQuestName(goal, text)
 	return paintSubject(goal, text, nil)
 end
 
--- A "While you're here" line's text (Engine's `hereText`), a turn-in's quest
--- marked after its name when Forever added it.
+-- A "While you're here" line's text (Engine's `hereText`), a turn-in's or a
+-- quest to take's name marked after it when Forever added the quest.
 function UI.HereText(v)
 	local text = v.hereText or ""
 	local NQ, title = ns.NewQuests, v.hereTitle
-	if v.here ~= "turnin" or not NQ or type(title) ~= "string" or title == "" then return text end
+	if not (v.here == "turnin" or v.here == "take") or not NQ or type(title) ~= "string" or title == "" then return text end
 	local mark = NQ.Mark(v.quest)
 	if mark == "" then return text end
 	local _, b = text:find(title, 1, true)

@@ -84,7 +84,8 @@ step Senior Surveyor Fizzledowser
 # Accepted here, finished later on the route: Sprinkle's Secret Ingredient
 # (2641: the Violet Tragan grows in the Hinterlands), Rise of the Silithid
 # (32, Orgrimmar around 50), Return to Apothecary Zinge (864, the Undercity
-# around 52).
+# around 52), The Super Egg-O-Matic (2741: the egg in southern Feralas and the
+# hand-in at Gadgetzan, both at the end of forever/horde/40-50/06-azshara).
 #
 # Class training: Hunters and Shamans fly from Gadgetzan to Orgrimmar, and
 # Druids to Thunder Bluff, at about 47, before Ratchet: the next training
@@ -137,7 +138,7 @@ step Slake That Thirst
 step Gadgetzan
   turnin 5863                           -- Andi Lynn
   turnin 379
-  accept 654                            -- Use the Model 4711-FTZ Power Source Bilgewhizzle gave you: a two-hour timer starts
+  note Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts Tanaris Field Sampling, a two-hour timer, so use it on the way back north from Scrimshank's hive.
 
 step Gadgetzan
   turnin 2605                           -- Marin Noggenfogger
@@ -147,12 +148,6 @@ step Gadgetzan
   accept 2641                           -- the Violet Tragan grows in the Hinterlands, around level 48
   turnin 82                             -- Alchemist Pestlezugg, inside
   accept 10                             -- Senior Surveyor Fizzledowser
-
-step Tanaris Field Sampling
-  tip Just south of Gadgetzan the Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each.
-  collect 9441 quest 654.2 @50.2,31.6 map 1446
-  collect 9440 quest 654.1 @49.4,31.0 map 1446
-  collect 9438 quest 654.3 @53.2,31.2 map 1446
 
 step Marvon Rivetseeker
   turnin 3161
@@ -170,6 +165,13 @@ step OOX-17/TN
   accept 648 optional
   complete 648 optional
 
+step Tanaris Field Sampling
+  tip Back north, just south of Gadgetzan, use the Model 4711-FTZ Power Source now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each.
+  accept 654                            -- Use the Model 4711-FTZ Power Source
+  collect 9441 quest 654.2 @50.2,31.6 map 1446
+  collect 9440 quest 654.1 @49.4,31.0 map 1446
+  collect 9438 quest 654.3 @53.2,31.2 map 1446
+
 step Gadgetzan
   turnin 654                            -- Chief Engineer Bilgewhizzle
   accept 864                            -- for Apothecary Zinge in the Undercity, around level 52
@@ -179,6 +181,7 @@ step Gadgetzan
   accept 113
   turnin 113                            -- Senior Surveyor Fizzledowser
   accept 32                             -- for Zilzibin Drumlore in Orgrimmar, around level 50
+  accept 2741                           -- The Egg-O-Matic machine, in the middle of town: the egg is in southern Feralas, around level 50
 
 step Boat to Powderfuse Port
   zone Tanaris
@@ -230,7 +233,7 @@ step Velarok Windblade
   accept 3441
 
 step Divine Retribution
-  kill 8479 quest 3441.1 @39.1,39.0 map 1427
+  talk 8479 quest 3441.1 @39.1,39.0 map 1427
 
 step Velarok Windblade
   turnin 3441

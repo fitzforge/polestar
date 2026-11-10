@@ -183,8 +183,8 @@ return {
 	["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "Agora {npc:9619} pede a pele de {npc:9622}, lá na caverna a nordeste: pule.",
 
 	-- Step 41: Gadgetzan
-	-- {area:976} Gadgetzan · {object:142071} Egg-O-Matic
-	["Fly to {area:976}. The {object:142071} stands in the middle of town."] = "Voe até {area:976}. O {object:142071} fica no meio da cidade.",
+	-- {area:976} Gadgetzan · {quest:2741} The Super Egg-O-Matic
+	["Fly to {area:976}. Still carrying {quest:2741}? The machine stands in the middle of town."] = "Voe até {area:976}. Ainda está com {quest:2741}? A máquina fica no meio da cidade.",
 
 	-- Step 42: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -337,6 +337,7 @@ return {
 	-- ["Dredge and scorpids"] = "Dragas e escorpídeos",
 	-- ["Fly to {area:1637} and train."] = "Voe até {area:1637} e treine.",
 	-- ["Fly to {area:541}"] = "Voe para {area:541}",
+	-- ["Fly to {area:976}. The {object:142071} stands in the middle of town."] = "Voe até {area:976}. O {object:142071} fica no meio da cidade.",
 	-- ["Mar'alith's Dearest Natalia needs level 58 and leads into {area:2744} among elites. Skip it."] = "Querida Natália, de Mar'alith, requer nível 58 e leva à {area:2744} entre elites. Pule-a.",
 	-- ["North to the lumber camp; set the termite barrel down in the middle of the mill."] = "Para o norte até a madeireira; coloque o barril de cupins no meio da serraria.",
 	-- ["Ride east across the plaguelands to the chapel."] = "Cavalgue para leste pelas terras pestilentas até a capela.",

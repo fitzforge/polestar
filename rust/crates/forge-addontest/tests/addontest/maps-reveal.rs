@@ -292,6 +292,44 @@ fn a_minimap_button_turned_off_stays_off_after_a_reload() {
 	assert_eq!(out, json!({ "exists": false, "on": false }));
 }
 
+// 0.3.6 shows the minimap button to every account (Fitz, 2026-11-09): an account from 0.3.5, whose off was the
+// default and never stored, gets it on. The 0.3.6 test builds stored false once for such an account
+// (PolestarDB.minimapButtonKept): that off and its flag go, once; an off the player stores later stays.
+#[test]
+fn every_account_gets_the_minimap_button_on_and_the_test_builds_kept_off_is_undone_once() {
+	let state = r#"emit({ exists = stub.frame("PolestarMinimapButton") ~= nil, on = Polestar.Get("maps.minimapButton"),
+		stored = PolestarDB.settings.maps and PolestarDB.settings.maps.minimapButton, kept = PolestarDB.minimapButtonKept or false })"#;
+	let load = |saved: Option<&str>, gamepad: bool| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_world.lua", "stub_maps.lua"],
+			before: String::from("stub.maps.useWorld(); stub.maps.withMapCanvas(); stub.maps.place(0, 800)\n")
+				+ if gamepad { "Enum.InputDeviceInterfaceType = { Mkb = 0, Gamepad = 1 }\nC_InputInterfaceStyle = { GetCurrentStyle = function() return 1 end }\n" } else { "" },
+			addons: vec![Addon::files("Polestar", FILES)],
+			saved: saved.map(|s| ("Polestar".to_string(), s.to_string())).into_iter().collect(),
+			login: true,
+			script: state.into(),
+		})
+		.remove(0)
+	};
+	let on = json!({ "exists": true, "on": true, "kept": false });
+	// A 0.3.5 account: settings of its own, none for the button.
+	let old = "PolestarDB = { schema = 1, settings = { ui = { scale = 1.1 }, maps = { minimapButtonAngle = 140 } } }";
+	assert_eq!(load(Some(old), false), on, "a 0.3.5 account: on, nothing stored");
+	assert_eq!(load(None, false), on, "a new account: on, nothing stored");
+	// A test build saved it off once: undone.
+	let kept_off = "PolestarDB = { schema = 1, settings = { maps = { minimapButton = false } }, minimapButtonKept = true }";
+	assert_eq!(load(Some(kept_off), false), on, "the test builds' saved off goes with its flag");
+	assert_eq!(load(Some("PolestarDB = { schema = 1, settings = { maps = {} }, minimapButtonKept = true }"), false), on, "turned on after a test build");
+	// The test builds never saved for the gamepad interface: an off there is the player's.
+	assert_eq!(load(Some(kept_off), true), json!({ "exists": false, "on": false, "stored": false, "kept": false }), "a gamepad player who turned it off");
+	// Without the flag an off is the player's own.
+	assert_eq!(
+		load(Some("PolestarDB = { schema = 1, settings = { maps = { minimapButton = false } } }"), false),
+		json!({ "exists": false, "on": false, "stored": false, "kept": false }),
+		"a player who turned it off"
+	);
+}
+
 // Minimap button collectors gather the minimap's named Button children: a flyout reparents them into its own
 // panel, a row re-anchors them on the minimap. Once moved, the button is theirs: a drag, a resized minimap or a
 // changed angle leaves it where they put it, and its clicks still work.
@@ -446,7 +484,7 @@ fn a_dungeon_pin_opens_its_dungeon_page_without_the_dungeons_module_or_with_shif
 #[test]
 fn the_minimap_button_s_logo_and_hover_are_polestar_s_files_the_hover_a_quarter_strong_even_shown_at_full_alpha() {
 	let out = run(
-		r#"
+		r##"
 		local b = stub.frame("PolestarMinimapButton")
 		local function look()
 			local r, g, bl, a = b.Hover:GetVertexColor()
@@ -463,15 +501,39 @@ fn the_minimap_button_s_logo_and_hover_are_polestar_s_files_the_hover_a_quarter_
 		r.bar = look()
 		Polestar.Theme.Refresh()
 		r.repainted = look()
-		emit(r)"#,
+		-- Leatrix Plus's Enhance minimap stands a proxy in for the button, its icon _G[name .. "Icon"]'s texture, else
+		-- the last region under 30 wide (CreateBadButton): before the logo was named, that was the hover's circle.
+		local function leatrixIcon(name)
+			local finalTex = "Interface\\HELPFRAME\\HelpIcon-KnowledgeBase"
+			if _G[name .. "Icon"] then
+				if _G[name .. "Icon"]:GetObjectType() == "Texture" then
+					local gTex = _G[name .. "Icon"]:GetTexture()
+					if gTex then finalTex = gTex end
+				end
+			else
+				for i = 1, select("#", _G[name]:GetRegions()) do
+					local region = select(i, _G[name]:GetRegions())
+					if region.GetTexture then
+						local x = region:GetSize()
+						if x and x < 30 then finalTex = region:GetTexture() end
+					end
+				end
+			end
+			return finalTex
+		end
+		r.proxy = leatrixIcon("PolestarMinimapButton")
+		r.named = _G.PolestarMinimapButtonIcon == b.Icon
+		emit(r)"##,
 		None,
 	);
+	assert!(out["proxy"].as_str().unwrap().ends_with("Polestar\\Media\\UI\\logo"), "a proxy shows the logo: {}", out["proxy"]);
+	assert_eq!(out["named"], true);
 	let rest = &out["rest"];
 	assert!(rest["icon"].as_str().unwrap().ends_with("Polestar\\Media\\UI\\logo"), "{rest}");
 	assert!(rest["hover"].as_str().unwrap().ends_with("Polestar\\Media\\UI\\circle"));
 	assert_eq!(rest["layer"], "HIGHLIGHT");
 	for k in ["rest", "enter", "leave", "bar", "repainted"] {
-		assert!((f64::from(out[k]["strength"].as_f64().unwrap()) - 0.25).abs() < 1e-6, "{k}: the hover at 25 %: {}", out[k]);
+		assert!((out[k]["strength"].as_f64().unwrap() - 0.25).abs() < 1e-6, "{k}: the hover at 25 %: {}", out[k]);
 		assert_eq!(out[k]["iconAlpha"], 1, "{k}: the logo shows");
 		assert_eq!(out[k]["icon"], rest["icon"]);
 	}

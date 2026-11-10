@@ -78,10 +78,10 @@ step Thendal Village turn-ins
   turnin 92463                        -- Elatrell Featherlight
   turnin 92598                        -- Ventaari Brightwish
   turnin 92469                        -- Rorian the Dayseeker
+  accept 92471
   turnin 92482 only Hunter            -- Tai'ree Farsight, beside Rorian
   turnin 92483 only Rogue             -- Akeri Duskblade, in the watchtower
   turnin 92532 only Warrior           -- Blademaster Ren, in the watchtower
-  accept 92471
   turnin 92471                        -- Aetheen of the Gales
   accept 92470
   train class
@@ -126,7 +126,7 @@ step Windshaper Boro
 # ---------------------------------------------------------------- Shen'dar Village
 
 step Shen'dar Village
-  tip Follow the road south to Shen'dar Village, in the middle of the isle. Constable Aonda stands on its east side, Illaya Amberwind in the middle, Coriella just north-west of her, Raan Wildwind by the campfire on the west side.
+  tip Follow the road south to Shen'dar Village, in the middle of the isle. Constable Aonda stands on its east side, Illaya Amberwind in the middle, Coriella just north-west of her, Raan Wildwind by the campfire on the west side. With a profession learned, Raan also offers its Camping 101: its trainer stands in the village.
   turnin 92472                        -- Constable Aonda
   accept 92514                        -- Constable Aonda
   accept 92595                        -- Illaya Amberwind
@@ -140,6 +140,13 @@ step Shen'dar Village
   complete 96101 @41.73,44.78         -- /sit by Raan's campfire until you get Boosted Rest
   turnin 96101                        -- Raan Wildwind
   accept 96646
+  accept 97971 optional               -- Raan Wildwind
+  accept 97965 optional               -- Raan Wildwind
+  accept 97969 optional               -- Raan Wildwind
+  accept 97970 optional               -- Raan Wildwind
+  accept 97963 optional               -- Raan Wildwind
+  accept 97964 optional               -- Raan Wildwind
+  accept 97967 optional               -- Raan Wildwind
   turnin 92514                        -- Constable Aonda
   accept 92517
   accept 92516                        -- Teeri Wellwind
@@ -150,6 +157,20 @@ step Shen'dar Village
   complete 96646 @43.85,43.9
   turnin 96646                        -- Zerril Softbreeze
   accept 92553                        -- Zerril Softbreeze
+  complete 97971 optional @43.29,43.37 map 2521 live
+  turnin 97971 optional               -- Mendalass Tattermend
+  complete 97965 optional @43.08,46.31 map 2521 live
+  turnin 97965 optional               -- Naleeia Tattermend
+  complete 97969 optional @44.68,44.52 map 2521 live
+  turnin 97969 optional               -- Indari Sunseam
+  complete 97970 optional @44.77,44.56 map 2521 live
+  turnin 97970 optional               -- Messana Crestwind
+  complete 97963 optional @43.69,43.42 map 2521 live
+  turnin 97963 optional               -- Nyassa Swiftdraught
+  complete 97964 optional @44.88,44.37 map 2521 live
+  turnin 97964 optional               -- Aedi Thriceforged
+  complete 97967 optional @45.02,48.44 map 2521 live
+  turnin 97967 optional               -- Fenn Fairweather
 
 step Shen'dar Village: kill these as you meet them
   zone Zephras Isle
@@ -600,9 +621,6 @@ step Valanaar
   accept 93090
   turnin 94896                        -- Ealaane Nimbuswalker
   turnin 94897
-
-step Valanaar
-  when onquest 94491
   turnin 94491                        -- Lotheluum Starbreeze
 
 step Valanaar

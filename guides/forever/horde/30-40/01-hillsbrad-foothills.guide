@@ -2,7 +2,7 @@
 guide forever/horde/30-40/01-hillsbrad-foothills
 title Hillsbrad Foothills & Arathi Highlands
 faction Horde
-levels 29-32
+levels 29-33
 zone Hillsbrad Foothills
 next forever/horde/30-40/02-thousand-needles
 
@@ -188,18 +188,16 @@ step Tarren Mill
 # ---------------------------------------------------------------- Valik and the Syndicate
 
 step Henchman Valik
+  when onquest 533
   zone Alterac Mountains
-  tip Follow the road north out of Tarren Mill into the Alterac foothills. Valik waits by the Syndicate camp; hand him the stout.
+  tip Follow the road north out of Tarren Mill into the Alterac foothills. Valik waits by the Syndicate camp. He offers his errand only while you carry Krusk's Infiltration: hand him the stout at once, and his reward is the Syndicate Missive Krusk wants.
   accept 535
+  turnin 535
 
 step Syndicate missives
   zone Alterac Mountains
-  tip The Syndicate Footpads and Thieves (32-34) around the camps west of the road carry the missives; about one in three drops one.
+  tip Only if Valik's missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one.
   collect 3601 quest 533
-
-step Henchman Valik
-  zone Alterac Mountains
-  turnin 535
 
 # ---------------------------------------------------------------- Yetis and the town hall
 
@@ -256,7 +254,7 @@ step Flame of Uzel
 
 step Alterac Mountains
   zone Alterac Mountains
-  goto 20.2,84.3 "The Dalaran crater"
+  goto 24.5,82.8 "The Dalaran crater's eastern rim"
 
 step The Dalaran crater
   zone Alterac Mountains

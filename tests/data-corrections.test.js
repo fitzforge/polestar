@@ -73,6 +73,22 @@ test('every prerequisite correction blocks the quest until its prerequisites are
 	assert.deepEqual(dead, [], `corrections that set prerequisites but block nothing: ${dead.join(', ')}`);
 });
 
+// A timed quest's `limit` (seconds once taken): the Forever TDB's TimeAllowed through the data build's KB step, a
+// Forever quest's from a correction. Dynamic Questing takes a timed quest early only when the walk still fits.
+test('Grace of An\'she and Mu\'sha allows ten minutes; a time limit is a whole number of seconds', () => {
+	assert.equal(corrections.quests[95805].set.limit, 600);
+	const bad = Object.entries(corrections.quests).filter(([, e]) => e.set && 'limit' in e.set && !(Number.isInteger(e.set.limit) && e.set.limit > 0));
+	assert.deepEqual(bad.map(([id]) => id), []);
+});
+
+test('the release data carries time limits: 95805 600 s, Scalding Mornbrew Delivery the TDB\'s 300 s, none on an untimed quest', (t) => {
+	const file = path.join(__dirname, '..', 'data', 'forever', 'quests.json');
+	if (!fs.existsSync(file)) return t.skip('no data/forever');
+	const quests = JSON.parse(fs.readFileSync(file, 'utf8'));
+	if (!Object.values(quests).some((q) => q.limit)) return t.skip('data/forever was built without the KB step (no time limits)');
+	assert.deepEqual([quests[95805].limit, quests[3364].limit, quests[755].limit], [600, 300, undefined]);
+});
+
 test('Highland Hides waits for Young Crocolisk Skins, not Daily Delivery (#533)', () => {
 	const { all, any } = blockingPrereqs({ id: 98815, start: { npc: [2094] }, ...corrections.quests[98815].set });
 	assert.deepEqual({ all, any }, { all: [], any: [484] });
@@ -145,6 +161,7 @@ test('Follow-ups wait for the quest before them, so a skipped one takes its foll
 		[98397, 11802, [98731, 98738], 'Dendrite Starblaze: either blessing'],
 		[78089, 3663, [78088], 'Delgren the Purifier (Paladin cloak)'],
 		[78090, 5492, [78089], 'Katherine the Pure'],
+		[78091, 5495, [78090], 'Ursula Deline: Earning Your Salt'],
 		[78092, 5495, [78091], 'Ursula Deline'],
 		[91859, 248840, [91858], 'Trevan Rol (Lumina Windsinger chain)'],
 		[91860, 259611, [91859], 'Deathguard Baldren'],
@@ -153,6 +170,7 @@ test('Follow-ups wait for the quest before them, so a skipped one takes its foll
 		[96264, 259023, [94789], 'Veyric Thunderhame (Shaman Call of Air)'],
 		[92519, 12920, [97539], 'Doctor Gregory Victor, Hammerfall'],
 		[92457, 269127, [92432], 'Image of Archmage Modera (Kirin Tor)'],
+		[95770, 2519, [95748], 'Kin\'weelay: Locating the Lost City after The Gurubashi Legends of Old'],
 	]) assert.deepEqual(blocks(id, npc), { all: [], any }, who);
 	const fenris = corrections.quests[91861];
 	assert.ok(fenris, 'a correction for 91861');

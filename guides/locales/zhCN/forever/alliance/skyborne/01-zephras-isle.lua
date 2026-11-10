@@ -85,13 +85,51 @@ return {
 	["Follow the road south to {area:16624}. {npc:263664} camps by the fire west of the village; {npc:251523} and {npc:251903} stand in its middle."] = "沿道路向南前往{area:16624}。{npc:263664}在村子西边的篝火旁扎营；{npc:251523}和{npc:251903}站在村子中央。",
 
 	-- Step 14: Raan Wildwind
+	-- {npc:263664} Raan Wildwind · {area:16624} Shen'dar Village
+	["With a profession learned, {npc:263664} also offers its Camping 101, which its trainer in {area:16624} takes on the village round."] = "学会一项专业技能后，{npc:263664}还会提供对应的露营 101，在{area:16624}巡村时交给该专业的训练师。",
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
 	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "在{npc:263664}的篝火旁/sit，直到获得{spell:1229451}",
+	-- {npc:263664} Raan Wildwind · {npc:257019} Nyassa Swiftdraught
+	["{npc:263664}, alchemists: for {npc:257019}"] = "{npc:263664}，炼金师：交给{npc:257019}",
+	-- {npc:263664} Raan Wildwind · {npc:251913} Aedi Thriceforged
+	["{npc:263664}, blacksmiths: for {npc:251913}"] = "{npc:263664}，锻造师：交给{npc:251913}",
+	-- {npc:263664} Raan Wildwind · {skill:129} First Aid · {npc:257018} Naleeia Tattermend
+	["{npc:263664}, {skill:129}: for {npc:257018}"] = "{npc:263664}，{skill:129}：交给{npc:257018}",
+	-- {npc:263664} Raan Wildwind · {npc:251992} Fenn Fairweather
+	["{npc:263664}, fishers: for {npc:251992}"] = "{npc:263664}，钓鱼者：交给{npc:251992}",
+	-- {npc:263664} Raan Wildwind · {npc:251993} Indari Sunseam
+	["{npc:263664}, leatherworkers: for {npc:251993}"] = "{npc:263664}，制皮师：交给{npc:251993}",
+	-- {npc:263664} Raan Wildwind · {npc:257022} Messana Crestwind
+	["{npc:263664}, miners: for {npc:257022}"] = "{npc:263664}，采矿者：交给{npc:257022}",
+	-- {npc:263664} Raan Wildwind · {npc:257024} Mendalass Tattermend
+	["{npc:263664}, skinners: for {npc:257024}"] = "{npc:263664}，剥皮者：交给{npc:257024}",
+	-- {npc:263664} Raan Wildwind · {npc:251991} Taleen Shimmerthread
+	["{npc:263664}, tailors: for {npc:251991}"] = "{npc:263664}，裁缝：交给{npc:251991}",
+	-- {npc:263664} Raan Wildwind · {npc:257020} Nasalanna Windsinger
+	["{npc:263664}, enchanters: for {npc:257020}"] = "{npc:263664}，附魔师：交给{npc:257020}",
 	-- {npc:251905} Zerril Softbreeze
 	["{npc:251905}: Camping 101 asks you to learn it"] = "{npc:251905}：露营 101 要求你学习这项技能",
 
 	-- Step 15: Village quests
 	["Village quests"] = "村庄任务",
+	-- {npc:251993} Indari Sunseam
+	["{npc:251993}: Camping 101, leatherworkers"] = "{npc:251993}：露营 101，制皮师",
+	-- {npc:257022} Messana Crestwind
+	["{npc:257022}, beside her: Camping 101, miners"] = "{npc:257022}，在她旁边：露营 101，采矿者",
+	-- {npc:251991} Taleen Shimmerthread
+	["{npc:251991}: Camping 101, tailors"] = "{npc:251991}：露营 101，裁缝",
+	-- {npc:251913} Aedi Thriceforged
+	["{npc:251913}, beside her: Camping 101, blacksmiths"] = "{npc:251913}，在她旁边：露营 101，锻造师",
+	-- {npc:257019} Nyassa Swiftdraught · {npc:251905} Zerril Softbreeze
+	["{npc:257019}, west of {npc:251905}: Camping 101, alchemists"] = "{npc:257019}，在{npc:251905}西边：露营 101，炼金师",
+	-- {npc:257024} Mendalass Tattermend
+	["{npc:257024}: Camping 101, skinners"] = "{npc:257024}：露营 101，剥皮者",
+	-- {npc:257020} Nasalanna Windsinger
+	["{npc:257020}: Camping 101, enchanters"] = "{npc:257020}：露营 101，附魔师",
+	-- {npc:257018} Naleeia Tattermend · {skill:129} First Aid
+	["{npc:257018}, at the south side of the village: Camping 101, {skill:129}"] = "{npc:257018}，在村子南侧：露营 101，{skill:129}",
+	-- {npc:251992} Fenn Fairweather
+	["{npc:251992}, on the south edge of the village: Camping 101, fishers"] = "{npc:251992}，在村子南缘：露营 101，钓鱼者",
 
 	-- Step 16: Prideclaws and Galestriders
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
@@ -164,15 +202,15 @@ return {
 	-- {area:16624} Shen'dar Village
 	["{area:16624} again"] = "再次前往{area:16624}",
 
-	-- Step 33: Fendaal Windstone
+	-- Step 34: Fendaal Windstone
 	-- {area:16638} Valanaar · {npc:273017} Fendaal Windstone · {quest:98512} Al'Aketh Assassins
 	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "在向东南前往{area:16638}的路上，{npc:273017}监视着他北边不远处的{quest:98512}。",
 
-	-- Step 34: Valanaar, the turncoat
+	-- Step 35: Valanaar, the turncoat
 	-- {area:16638} Valanaar
 	["{area:16638}, the turncoat"] = "{area:16638}，叛徒",
 
-	-- Step 35: Valanaar
+	-- Step 36: Valanaar
 	-- {npc:252383} Valennia Stormfist · {npc:252476} Talaanis Shadowsong · {area:16638} Valanaar · {npc:252475} Elaadrin Evengale · {npc:253204} Dondallion Whisperwind
 	["{npc:252383} and {npc:252476} stand at the north end of {area:16638}, {npc:252475} and {npc:253204} at the south end."] = "{npc:252383}和{npc:252476}站在{area:16638}北端，{npc:252475}和{npc:253204}在南端。",
 	-- {npc:252476} Talaanis Shadowsong
@@ -180,7 +218,7 @@ return {
 	-- {npc:252383} Valennia Stormfist
 	["{npc:252383}, upstairs"] = "{npc:252383}：在楼上",
 
-	-- Step 37: Skyhoppers
+	-- Step 38: Skyhoppers
 	-- plural, as words: Skyhoppers = {npc:251727} Skyhopper
 	["Skyhoppers"] = "天空跳跃者",
 	-- {area:16638} Valanaar
@@ -189,7 +227,7 @@ return {
 	-- {npc:260628} Valennia Stormfist
 	["{npc:260628}, upstairs"] = "{npc:260628}，在楼上",
 
-	-- Step 38: The road to Valanaar
+	-- Step 39: The road to Valanaar
 	-- {area:16638} Valanaar
 	["The road to {area:16638}"] = "前往{area:16638}的路",
 	-- {npc:257006} Nyalah Brightfire · {npc:252448} Alvarion Windfield · {area:16638} Valanaar · {npc:252377} Seena Skybreaker · {npc:252389} Quel'ana Quickgale

@@ -338,7 +338,7 @@ fn the_painters_draw_the_route_on_the_world_map_and_the_minimap_and_stand_in_for
 	assert_eq!(out["active"], true);
 	assert_eq!(out["paths"], 1, "one walk to the target");
 	assert!(f(&out["world"]) > 10.0 && out["worldLines"] == out["world"], "world map: {} strokes, {} lines shown", out["world"], out["worldLines"]);
-	assert!(f(&out["minimap"]) > 5.0, "minimap: {} strokes", out["minimap"]);
+	assert!(f(&out["minimap"]) > 3.0, "minimap: {} strokes", out["minimap"]);
 	assert_eq!(out["trail"], false, "the trail stands down while the lines draw");
 	assert_eq!(out["offWorld"], true, "nav.routeLines off: no world lines");
 	assert_eq!(out["offTrail"], true, "and the trail is back");
@@ -767,17 +767,17 @@ fn the_dot_colour_tints_the_walk_on_both_maps_the_minimap_opacity_and_size_chang
 			return { mm = { r, g, b }, world = { wr, wg, wb }, alpha = mm:GetAlpha(), worldAlpha = world:GetAlpha(),
 				width = mm:GetThickness(), worldWidth = world:GetThickness(), n = R.GetStrokes("minimap").n }
 		end
-		local r = { defaults = { Polestar.Get("nav.dotColor"), Polestar.Get("nav.minimapRouteAlpha"), Polestar.Get("nav.minimapRouteSize") } }
+		local r = { defaults = { Polestar.Get("nav.dotColor"), Polestar.Get("nav.minimapRouteAlpha"), Polestar.Get("nav.minimapDotsSize") } }
 		r.route = look()
 		Polestar.Set("nav.dotColor", "magenta")
 		stub.advance(0.3)
 		r.magenta = look()
 		Polestar.Set("nav.minimapRouteAlpha", 0.5)
-		Polestar.Set("nav.minimapRouteSize", 1.5)
+		Polestar.Set("nav.minimapDotsSize", 1.2)
 		stub.advance(0.3)
 		r.styled = look()
 		Polestar.Set("nav.minimapRouteAlpha", 0)
-		Polestar.Set("nav.minimapRouteSize", 9)
+		Polestar.Set("nav.minimapDotsSize", 9)
 		stub.advance(0.3)
 		r.clamped = look()
 		Polestar.Set("nav.dotColor", "route")
@@ -786,7 +786,7 @@ fn the_dot_colour_tints_the_walk_on_both_maps_the_minimap_opacity_and_size_chang
 		r.colors = R.DOT_COLORS
 		emit(r)"#,
 	);
-	assert_eq!(out["defaults"], json!(["route", 1, 1]));
+	assert_eq!(out["defaults"], json!(["route", 1, 0.8]), "the dots at 80 % on the minimap by default (Fitz, 0.3.6)");
 	let route = &out["route"];
 	assert_eq!(route["mm"], route["world"], "the route colours on both maps");
 	assert_ne!(route["mm"], json!([1, 0.3, 0.85]));
@@ -797,12 +797,12 @@ fn the_dot_colour_tints_the_walk_on_both_maps_the_minimap_opacity_and_size_chang
 	assert_eq!(out["route"]["alpha"], 1);
 	let styled = &out["styled"];
 	assert!(near(f(&styled["alpha"]), 0.5), "minimap opacity 50%: {}", styled["alpha"]);
-	assert!(near(f(&styled["width"]), f(&route["width"]) * 1.5), "minimap size 150%: {} from {}", styled["width"], route["width"]);
+	assert!(near(f(&styled["width"]), f(&route["width"]) * 1.2 / 0.8), "minimap size 120%: {} from {}", styled["width"], route["width"]);
 	assert!(f(&styled["n"]) < f(&route["n"]), "larger dots sit further apart: {} from {}", styled["n"], route["n"]);
 	assert_eq!(styled["worldAlpha"], route["worldAlpha"], "the world map keeps its own opacity");
 	assert_eq!(styled["worldWidth"], route["worldWidth"], "and its own size");
 	assert!(near(f(&out["clamped"]["alpha"]), 0.2), "opacity no lower than 20%: {}", out["clamped"]["alpha"]);
-	assert!(near(f(&out["clamped"]["width"]), f(&route["width"]) * 1.5), "size no larger than 150%");
+	assert!(near(f(&out["clamped"]["width"]), f(&route["width"]) * 1.5 / 0.8), "size no larger than 150%");
 	assert_eq!(out["back"]["mm"], route["mm"], "Route colours again");
 }
 
@@ -835,7 +835,9 @@ fn line_style_a_walk_is_one_piece_a_segment_end_to_end_over_a_soft_shadow_a_roun
 		S.Map(marked, { path("walk", pts) }, view({ style = "line", lineWidth = 4, chevrons = true, chevronColor = { 0, 0, 0 } }))
 		local thick = S.New()
 		S.Map(thick, { path("walk", pts) }, view({ style = "line", lineWidth = 99 }))
-		emit({ plain = list(buf), marked = list(marked), thick = thick.width[1] })"#,
+		local thickest
+		for i = 1, thick.n do if thick.soft[i] then thickest = thick.width[i] break end end
+		emit({ plain = list(buf), marked = list(marked), thick = thickest })"#,
 	);
 	let plain = arr(&out["plain"]);
 	let lines = pieces(&out["plain"]);
@@ -879,7 +881,7 @@ fn line_style_clipped_to_the_map_flights_dashed_in_their_own_colour_rides_solid_
 		S.Map(dots, paths, view())
 		emit({ across = across, both = list(both), dots = list(dots) })"#,
 	);
-	let across = arr(&out["across"]);
+	let across: Vec<&Value> = arr(&out["across"]).iter().filter(|s| truthy(&s["soft"])).collect();
 	assert_eq!(across.len(), 1);
 	assert!(near(f(&across[0]["ax"]), 0.0) && near(f(&across[0]["bx"]), 1000.0), "cut at the map's edges");
 	let both = arr(&out["both"]);
@@ -887,7 +889,7 @@ fn line_style_clipped_to_the_map_flights_dashed_in_their_own_colour_rides_solid_
 	let period = DASH + DASH_GAP;
 	assert_eq!(flight.len(), (600.0 / period).ceil() as usize, "600 px of flight in {DASH} px dashes every {period} px");
 	assert!(flight.iter().all(|s| f(&s["len"]) <= DASH + 1e-6 && !truthy(&s["soft"]) && f(&s["width"]) == 2.0));
-	let walk: Vec<_> = both.iter().filter(|s| s["color"] == "walk").collect();
+	let walk: Vec<_> = both.iter().filter(|s| s["color"] == "walk" && truthy(&s["soft"])).collect();
 	assert!(walk.len() == 1 && truthy(&walk[0]["soft"]) && near(f(&walk[0]["width"]), LINE_W), "the walk: one thick line");
 	let tram: Vec<_> = both.iter().filter(|s| s["color"] == "tram").collect();
 	assert!(tram.len() == 1 && near(f(&tram[0]["len"]), 500.0), "a ride stays one solid stroke");
@@ -939,7 +941,7 @@ fn line_style_a_walk_with_no_walking_path_known_is_dashed_and_paler_the_dots_sty
 	let guess = arr(&out["guess"]);
 	assert!(guess.len() > 20, "dashed: {} dashes", guess.len());
 	assert!(guess.iter().all(|s| near(f(&s["alpha"]), 0.55) && truthy(&s["soft"]) && f(&s["len"]) <= 2.0 * DASH + 1e-6), "paler dashes as thick as the line");
-	assert_eq!(arr(&out["known"]).len(), 1, "a known path: one line");
+	assert_eq!(arr(&out["known"]).iter().filter(|s| truthy(&s["soft"])).count(), 1, "a known path: one line");
 	assert_eq!(out["dotsGuess"], out["dots"], "the dots look the same either way");
 }
 
@@ -964,7 +966,12 @@ fn minimap_nothing_is_drawn_over_the_player_s_arrow_its_dots_round_in_every_styl
 		assert!(!all.is_empty());
 		for s in all {
 			// The nearest any stroke comes to the centre (100, 100): its ends and its centre lie on the row.
-			let nearest = [f(&s["ax"]), f(&s["bx"]), f(&s["x"])].iter().map(|x| (x - 100.0).abs()).fold(f64::INFINITY, f64::min);
+			// A disc (a dot, a cap) by its drawn edge: its quad is DOT_ART times as wide as the disc.
+			let nearest = if truthy(&s["dot"]) {
+				(f(&s["x"]) - 100.0).abs() - f(&s["width"]) / DOT_ART / 2.0
+			} else {
+				[f(&s["ax"]), f(&s["bx"]), f(&s["x"])].iter().map(|x| (x - 100.0).abs()).fold(f64::INFINITY, f64::min)
+			};
 			assert!(nearest >= PLAYER_GAP - 1e-6, "{style}: a stroke {nearest} px from the player");
 		}
 		assert!(all.iter().any(|s| f(&s["x"]) < 100.0) && all.iter().any(|s| f(&s["x"]) > 100.0), "{style}: both sides drawn");
@@ -1192,14 +1199,13 @@ fn an_account_from_before_the_line_keeps_its_dots_a_style_it_chose_stays_a_new_a
 	assert_eq!(run(Some("PolestarDB = { schema = 1, settings = {}, lineStyleKept = true }")), json!({ "style": "line", "kept": true, "drawn": "line" }), "the line picked after the change stays");
 }
 
-// 0.3.5's strokes (v0.3.5 Maps/RouteStrokes.lua, run on the scenario below and recorded): the dots style draws the
-// same today, on the world map exactly and on the minimap but for the dots within reach of the player's arrow
-// (PLAYER_GAP + STOP_GAP + a dot's half and rim). Each: x1, y1, x2, y2, width, under, dot.
-const DOTS_035_MINIMAP: &str = "[[68.844754,-72.820175,71.155246,-67.179825,6.095238,9.142857,true],[72.347315,-64.533376,75.095373,-59.092778,6.095238,9.142857,true],[76.795222,-56.718802,80.256943,-51.701989,6.095238,9.142857,true],[82.111889,-49.460700,86.041733,-44.801488,6.095238,9.142857,true],[87.984858,-42.641357,92.153260,-38.194296,6.095238,9.142857,true],[94.159955,-36.094123,98.362785,-31.679585,6.095238,9.142857,true],[100.356063,-29.566728,104.502085,-25.098794,6.095238,9.142857,true],[106.398772,-22.897471,110.273587,-18.192395,6.095238,9.142857,true]]";
+// 0.3.5's strokes (v0.3.5 Maps/RouteStrokes.lua, run on the scenario below and recorded): the dots style draws
+// the same on the world map today. (The minimap's dots are 0.3.4's trail: the trail tests below.) Each: x1, y1, x2,
+// y2, width, under, dot.
 const DOTS_035_WORLD: &str = "[[197.850007,-297.840021,202.149993,-302.159979,6.095238,9.142857,true],[204.199206,-304.218710,208.499192,-308.538668,6.095238,9.142857,true],[210.539953,-310.605694,214.778824,-314.985637,6.095238,9.142857,true],[216.798911,-317.072953,221.037782,-321.452896,6.095238,9.142857,true],[222.954247,-323.637640,227.064918,-328.138119,6.095238,9.142857,true],[229.010856,-330.294271,232.913850,-334.975998,6.095238,9.142857,true],[234.773871,-337.207133,238.676865,-341.888859,6.095238,9.142857,true],[240.267189,-344.330621,243.863715,-349.251690,6.095238,9.142857,true],[245.437869,-351.690222,248.603531,-356.898918,6.095238,9.142857,true],[250.181398,-359.344095,252.764322,-364.865004,6.095238,9.142857,true],[254.336241,-367.363270,256.167310,-373.176970,6.095238,9.142857,true],[257.039928,-375.947562,258.870997,-381.761263,6.095238,9.142857,true],[259.036435,-384.696422,259.960296,-390.721238,6.095238,9.142857,true],[259.804192,-393.634145,259.727872,-399.728905,6.095238,9.142857,true],[259.262843,-402.592872,258.194449,-408.593744,6.095238,9.142857,true],[257.470551,-411.398393,255.515603,-417.171616,6.095238,9.142857,true],[254.593644,-419.926915,251.912430,-425.400763,6.095238,9.142857,true],[250.837707,-428.122413,247.598158,-433.285479,6.095238,9.142857,true],[246.054310,-435.746002,242.814761,-440.909068,6.095238,9.142857,true],[241.003106,-443.185908,237.353208,-448.067523,6.095238,9.142857,true],[235.590394,-450.375279,231.650395,-455.025907,6.095238,9.142857,true],[229.772740,-457.242222,225.832741,-461.892849,6.095238,9.142857,true],[223.783092,-463.957036,219.648436,-468.435490,6.095238,9.142857,true],[217.663068,-470.555582,213.410931,-474.922647,6.095238,9.142857,true],[211.384522,-477.003827,207.132386,-481.370893,6.095238,9.142857,true],[205.065118,-483.411812,200.761292,-487.727946,6.095238,9.142857,true],[198.709799,-489.784404,194.415024,-494.109544,6.095238,9.142857,true],[192.368295,-496.170744,188.073520,-500.495884,6.095238,9.142857,true],[186.068576,-502.597907,181.844477,-506.992098,6.095238,9.142857,true],[179.802483,-509.059235,175.717583,-513.583118,6.095238,9.142857,true],[173.770873,-515.739032,169.685974,-520.262916,6.095238,9.142857,true],[167.857499,-522.520562,163.993733,-527.234715,6.095238,9.142857,true],[162.116821,-529.454072,158.576477,-534.415714,6.095238,9.142857,true],[156.889282,-536.780247,153.348938,-541.741889,6.095238,9.142857,true],[152.035852,-544.349149,148.947531,-549.604071,6.095238,9.142857,true],[147.719522,-552.233809,145.238773,-557.801377,6.095238,9.142857,true],[144.120009,-560.477926,142.416433,-566.330255,6.095238,9.142857,true],[141.465149,-569.090185,140.688008,-575.135678,6.095238,9.142857,true],[139.987656,-578.001822,140.216424,-584.092766,6.095238,9.142857,true],[139.841205,-587.053247,141.051655,-593.027084,6.095238,9.142857,true],[141.628510,-595.873992,142.838960,-601.847829,6.095238,9.142857,true],[144.095334,-604.503997,146.170441,-610.235128,6.095238,9.142857,true],[147.521954,-612.808733,150.297607,-618.235305,6.095238,9.142857,true],[151.701273,-620.774718,155.011349,-625.892855,6.095238,9.142857,true],[156.461547,-628.421530,160.162103,-633.264857,6.095238,9.142857,true],[161.925649,-635.573005,165.626205,-640.416331,6.095238,9.142857,true],[167.544050,-642.599343,171.518905,-647.220215,6.095238,9.142857,true],[173.390414,-649.442733,177.547322,-653.900541,6.095238,9.142857,true],[179.528348,-656.024965,183.685255,-660.482772,6.095238,9.142857,true],[185.728872,-662.547394,189.992796,-666.902950,6.095238,9.142857,true],[192.014886,-668.988469,196.321187,-673.302133,6.095238,9.142857,true],[198.373408,-675.357864,202.679709,-679.671528,6.095238,9.142857,true],[204.724675,-681.734472,209.012855,-686.066151,6.095238,9.142857,true],[211.091137,-688.096745,215.298925,-692.506557,6.095238,9.142857,true],[217.304199,-694.608109,221.511987,-699.017921,6.095238,9.142857,true],[200.000000,-700.000000,600.000000,-900.000000,2.000000,4.000000,false]]";
 
 #[test]
-fn the_dots_style_draws_as_0_3_5_did_on_the_world_map_exactly_on_the_minimap_but_for_the_dots_on_the_player_s_arrow() {
+fn the_dots_style_draws_as_0_3_5_did_on_the_world_map() {
 	let out = strokes(
 		r#"
 		local COLORS2 = { walk = WALK, flight = FLY }
@@ -1228,14 +1234,6 @@ fn the_dots_style_draws_as_0_3_5_did_on_the_world_map_exactly_on_the_minimap_but
 	let world = arr(&out["world"]);
 	assert_eq!(world.len(), arr(&world_old).len(), "the world map: as many strokes as 0.3.5");
 	assert!(world.iter().zip(arr(&world_old)).all(|(a, b)| same(a, b)), "the world map: 0.3.5's strokes");
-	let mm_old: Value = serde_json::from_str(DOTS_035_MINIMAP).unwrap();
-	let reach = PLAYER_GAP + STOP_GAP + DOT / 2.0 + RIM;
-	let kept: Vec<&Value> = arr(&mm_old).iter().filter(|s| (((f(&s[0]) + f(&s[2])) / 2.0 - 70.0).powi(2) + ((f(&s[1]) + f(&s[3])) / 2.0 + 70.0).powi(2)).sqrt() >= reach).collect();
-	assert!(kept.len() + 1 < arr(&mm_old).len() + 1 && !kept.is_empty());
-	let mm = arr(&out["mm"]);
-	assert_eq!(mm.len(), kept.len(), "the minimap: 0.3.5's dots less those on the arrow");
-	assert!(mm.iter().zip(kept).all(|(a, b)| same(a, b)), "same place, size and shape as 0.3.5");
-	assert!(mm.iter().all(|s| near(f(&s[4]), DOT * DOT_ART)), "4 px dots");
 }
 
 // Fitz in game (0.3.6 build): with the arrow holding a point in sight far ahead while the player walks on the path
@@ -1319,4 +1317,242 @@ fn the_minimap_dots_are_laid_out_again_from_the_player_at_every_step_along_the_w
 	assert_eq!(out["still"], out["a"], "standing still: the same dots");
 	let moved = arr(&out["moved"]);
 	assert!(moved[0] != out["a"] && moved[1] != moved[0] && moved[2] != moved[1], "each step redraws them: {moved:?}");
+}
+
+// Fitz tuned each style on the 0.3.6 build: the minimap's size is each style's own (the line 50 %, the dots 80 %,
+// the sparkles 150 %, all at full opacity), drawn as the installed build drew them at those values; the window's
+// slider shows and sets the chosen style's size, right-click its default.
+#[test]
+fn each_style_keeps_its_own_minimap_size_the_line_half_the_dots_80_percent_the_sparkles_150_at_full_opacity() {
+	let out = painted_line(
+		r#"
+		Polestar.Set("nav.travel", false)
+		nav.viewRadius = 300
+		nav.place(0, 0)
+		target(60, -700)
+		Polestar.Fire("NAV_ROUTE_GEOMETRY")
+		stub.advance(1)
+		local function look()
+			local s = R.GetStrokes("minimap")
+			for i = 1, s.n do
+				if s.soft[i] or s.dot[i] then return { width = s.width[i], alpha = R.GetMinimapFrame().lines[i]:GetAlpha() } end
+			end
+			return false
+		end
+		local r = { defaults = { Polestar.Get("nav.minimapLineSize"), Polestar.Get("nav.minimapDotsSize"), Polestar.Get("nav.minimapSparkleSize"),
+			Polestar.Get("nav.minimapRouteAlpha"), Polestar.Get("nav.lineWidth") } }
+		r.line = look()
+		Polestar.Set("nav.lineStyle", "dots")
+		stub.advance(0.5)
+		r.dots = look()
+		Polestar.Set("nav.lineStyle", "sparkle")
+		stub.advance(0.5)
+		r.sparkle = R.MinimapSize()
+		Polestar.Set("nav.minimapSparkleSize", 1)
+		stub.advance(0.5)
+		r.sparkleAt1 = R.MinimapSize()
+		r.others = { Polestar.Get("nav.minimapLineSize"), Polestar.Get("nav.minimapDotsSize") }
+		emit(r)"#,
+	);
+	assert_eq!(out["defaults"], json!([0.5, 0.8, 1.5, 1, 4]));
+	// The installed build's look at those values: the 4 px line laid out at half the frame's scale, the 4 px dots at
+	// 80 %, all at full opacity.
+	assert!(near(f(&out["line"]["width"]), 4.0 * 0.5), "the line at 50 %: {}", out["line"]["width"]);
+	assert_eq!(out["line"]["alpha"], 1);
+	assert!(near(f(&out["dots"]["width"]), DOT * DOT_ART * 0.8), "the dots at 80 %: {}", out["dots"]["width"]);
+	assert_eq!(out["dots"]["alpha"], 1);
+	assert_eq!(out["sparkle"], 1.5, "the sparkles at 150 %");
+	assert_eq!(out["sparkleAt1"], 1);
+	assert_eq!(out["others"], json!([0.5, 0.8]), "each style's size its own");
+}
+
+// The window's "Minimap size" slider shows and sets the chosen style's size; right-click puts that style's default
+// back.
+#[test]
+fn the_minimap_size_slider_follows_the_chosen_style() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Maps/RouteSparkle.lua", "UI/UI.xml"])],
+		script: r#"
+Polestar.RegisterDefaults("nav", { routeLines = true, lineStyle = "line", lineWidth = 4, dotColor = "route", minimapRouteAlpha = 1, minimapRouteSize = 1,
+	minimapLineSize = 0.5, minimapDotsSize = 0.8, minimapSparkleSize = 1.5 })
+Polestar.RegisterDefaults("nav", Polestar.RouteSparkle.DEFAULTS)
+Polestar.RouteLines = { SIZE_KEYS = { line = "minimapLineSize", dots = "minimapDotsSize", sparkle = "minimapSparkleSize" },
+	STYLE_CHOICES = { { value = "line", label = "Line" }, { value = "dots", label = "Dots" }, { value = "sparkle", label = "Sparkles" } } }
+uistub.install()
+stub.login()
+Polestar.UI.ShowLineStyle()
+local slider = Polestar.UI.LineStyleControls()["nav.minimapRouteSize"]
+local function shows() return slider.Slider:GetValue() end
+local r = { line = shows() }
+Polestar.Set("nav.lineStyle", "dots")
+r.dots = shows()
+Polestar.Set("nav.lineStyle", "sparkle")
+r.sparkle = shows()
+stub.RunScript(slider.Slider, "OnValueChanged", 1.0, true)
+r.after = { Polestar.Get("nav.minimapLineSize"), Polestar.Get("nav.minimapDotsSize"), Polestar.Get("nav.minimapSparkleSize") }
+slider:Click("RightButton")
+r.reset = Polestar.Get("nav.minimapSparkleSize")
+r.max = select(2, slider.Slider:GetMinMaxValues())
+emit(r)"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!([&out["line"], &out["dots"], &out["sparkle"]], [&json!(0.5), &json!(0.8), &json!(1.5)], "the slider follows the style");
+	assert_eq!(out["after"], json!([0.5, 0.8, 1]), "only the sparkles' size changed");
+	assert_eq!(out["reset"], 1.5);
+	assert_eq!(out["max"], 1.5, "the size stops at 150 %");
+}
+
+// A size saved before the sizes were per style is kept, as every style's own; with none saved the defaults apply.
+#[test]
+fn a_minimap_size_saved_before_becomes_every_style_s_own_with_none_the_defaults() {
+	let run = |saved: &str| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_nav.lua"],
+			addons: vec![lines()],
+			saved: vec![("Polestar".to_string(), saved.to_string())],
+			login: true,
+			script: r#"emit({ Polestar.Get("nav.minimapLineSize"), Polestar.Get("nav.minimapDotsSize"), Polestar.Get("nav.minimapSparkleSize"),
+				PolestarDB.settings.nav.minimapRouteSize == nil })"#
+				.into(),
+			..Default::default()
+		})
+		.remove(0)
+	};
+	assert_eq!(run("PolestarDB = { schema = 1, settings = { nav = { minimapRouteSize = 1.2 } } }"), json!([1.2, 1.2, 1.2, true]));
+	assert_eq!(run("PolestarDB = { schema = 1, settings = { nav = { minimapRouteSize = 1.2, minimapDotsSize = 0.6 } } }"), json!([1.2, 0.6, 1.2, true]));
+	assert_eq!(run("PolestarDB = { schema = 1, settings = { nav = {} } }"), json!([0.5, 0.8, 1.5, true]));
+}
+
+// Fitz in game (0.3.6): the minimap dots should flow toward the goal as they used to, at the size the installed
+// 0.3.6 build draws them (4 px with a 1 px rim, 9 px apart, in screen pixels, so the same at every zoom), starting
+// just past the gap at the player's arrow. Counted back from the walk's end, moved on by the phase.
+#[test]
+fn minimap_dots_keep_their_size_and_spacing_at_every_zoom_and_flow_toward_the_goal() {
+	let out = strokes(
+		r#"
+		-- A straight walk 600 yd east from the player, at a UI scale of 1.5.
+		local walk = S.Path("walk", { { 0, 0, 0 }, { 0, 0, -600 } })
+		local function draw(radius, phase)
+			local b = S.New(600)
+			S.Minimap(b, { walk }, { c = 0, x = 0, y = 0, radius = radius, facing = 0, width = 140, height = 140, scale = 1.5, colors = COLORS,
+				phase = phase, from = true, fromIndex = 2, fromC = 0, fromX = 0, fromY = 0 })
+			return list(b)
+		end
+		-- The minimap's zoom levels 0-5 outdoors (yards across its radius).
+		local r = { zooms = {} }
+		for i, radius in ipairs({ 233, 200, 166, 133, 100, 66 }) do r.zooms[i] = draw(radius, 0) end
+		r.later = draw(166, 0.25)
+		emit(r)"#,
+	);
+	let px = 1.0 / 1.5; // units per screen pixel
+	for (z, dots) in arr(&out["zooms"]).iter().enumerate() {
+		let dots = arr(dots);
+		assert!(dots.len() >= 3, "zoom {z}: {} dots", dots.len());
+		for d in dots {
+			assert!(truthy(&d["dot"]) && near(f(&d["width"]), DOT * DOT_ART * px) && near(f(&d["len"]), DOT * DOT_ART * px), "zoom {z}: 4 px: {d}");
+			assert!(near(f(&d["under"]), (DOT + 2.0 * RIM) * DOT_ART * px) && f(&d["alpha"]) == 1.0, "zoom {z}: its rim, full strength: {d}");
+		}
+		for w in dots.windows(2) {
+			assert!(near(f(&w[1]["x"]) - f(&w[0]["x"]), SPACING * px), "zoom {z}: 9 px apart: {} then {}", w[0]["x"], w[1]["x"]);
+		}
+		let first = (f(&dots[0]["x"]) - 70.0) / px;
+		let reach = PLAYER_GAP + STOP_GAP + DOT / 2.0 + RIM;
+		assert!(first >= reach - 1e-6 && first <= reach + SPACING + 1e-6, "zoom {z}: the first dot just past the arrow's gap ({first} px)");
+	}
+	// A quarter of a spacing later every dot sits a quarter of 9 px further toward the goal.
+	let a = arr(&out["zooms"][2]);
+	let b = arr(&out["later"]);
+	let shift = ((f(&b[0]["x"]) - f(&a[0]["x"])) / px).rem_euclid(SPACING);
+	assert!(near(shift, SPACING / 4.0), "the flow: {shift} px");
+}
+
+// The painter moves the crawl with time (at the sparkles' pace) while the dots style shows; under reduced motion
+// the dots hold still.
+#[test]
+fn the_minimap_dots_crawl_over_time_and_hold_still_under_reduced_motion() {
+	let out = painted(
+		r#"
+		Polestar.Set("nav.travel", false)
+		Polestar.Set("ui.reduceMotion", nil)
+		nav.viewRadius = 200
+		nav.place(0, 0)
+		target(0, -600)
+		stub.advance(1)
+		local s = R.GetStrokes("minimap")
+		local function at() return string.format("%.3f", s.x1[1] or -1) end
+		local r = { a = at() }
+		stub.advance(0.2)
+		r.b = at()
+		stub.advance(0.2)
+		r.c = at()
+		Polestar.Set("ui.reduceMotion", true)
+		stub.advance(0.2)
+		r.still1 = at()
+		stub.advance(0.5)
+		r.still2 = at()
+		emit(r)"#,
+	);
+	assert!(out["a"] != out["b"] && out["b"] != out["c"], "they move with time: {out}");
+	assert_eq!(out["still1"], out["still2"], "still under reduced motion");
+}
+
+// Fitz in game (0.3.6, the Gold Road): walking a road beside the baked path, the arrow aims at a point far ahead and
+// the sparkles started there, past the minimap's edge: none showed by the arrow. Every style shows marks by the
+// arrow at every step of a walk on and beside the path.
+#[test]
+fn walking_on_and_beside_the_path_every_style_always_shows_marks_by_the_arrow() {
+	let out = painted_line(
+		r#"
+		Polestar.Set("nav.travel", false)
+		Polestar.Set("ui.reduceMotion", true) -- no draw-in
+		nav.viewRadius = 150
+		local m, x, y = nav.mapPoint(0, -900)
+		N.SetTarget(m, x, y, "T")
+		-- A long walk west along wy, the target at its end.
+		geom.legs = { { kind = "walk", pts = { { 0, 0, 0 }, { 0, 0, -300 }, { 0, 10, -600 }, { 0, 0, -900 } }, current = true } }
+		local W = N.walk
+		W.SightAim = function() return 0, 0, -900 end -- the arrow aims at the far end
+		local cx, cy = Minimap:GetWidth() / 2, -Minimap:GetHeight() / 2
+		local function marks(style)
+			local n = 0
+			if style == "sparkle" then
+				for _, s in ipairs(R.GetMinimapFrame().stars or {}) do
+					if s:IsShown() then
+						local _, _, _, sx, sy = s:GetPoint(1)
+						if math.sqrt((sx - cx) ^ 2 + (sy - cy) ^ 2) <= 40 then n = n + 1 end
+					end
+				end
+			else
+				local s = R.GetStrokes("minimap")
+				for i = 1, s.n do
+					local mx, my = (s.x1[i] + s.x2[i]) / 2, (s.y1[i] + s.y2[i]) / 2
+					if math.sqrt((mx - cx) ^ 2 + (my - cy) ^ 2) <= 40 then n = n + 1 end
+				end
+			end
+			return n
+		end
+		local r = {}
+		for _, style in ipairs({ "line", "dots", "sparkle" }) do
+			Polestar.Set("ui.reduceMotion", style ~= "sparkle" or nil)
+			Polestar.Set("nav.lineStyle", style)
+			local least = math.huge
+			-- On the path, then 25 and 45 yd beside it (a road), every 30 yd along.
+			for _, off in ipairs({ 0, 25, 45 }) do
+				for step = 1, 8 do
+					nav.place(off, -60 - step * 30)
+					Polestar.Fire("NAV_ROUTE_GEOMETRY")
+					stub.advance(0.2)
+					least = math.min(least, marks(style))
+				end
+			end
+			r[style] = least
+		end
+		emit(r)"#,
+	);
+	for style in ["line", "dots", "sparkle"] {
+		assert!(f(&out[style]) >= 1.0, "{style}: a frame with no mark within 40 px of the arrow");
+	}
 }

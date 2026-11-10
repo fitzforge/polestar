@@ -67,28 +67,28 @@ return {
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
 	["{area:275}: kill these as you meet them"] = "{area:275}: vá matando estes pelo caminho",
-	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {area:272} Tarren Mill
-	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "Drull e {npc:2238} estão acorrentados nas construções do pátio de {area:275}; abra os dois cadeados.\nDe {area:272}, siga para sudeste pelas colinas rumo a {area:275}. Ladinos e Vigias da Camarilha ocupam os acampamentos pelo caminho.",
+	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key · {area:272} Tarren Mill
+	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "Drull e {npc:2238} estão acorrentados nas construções do pátio de {area:275}. Os cadeados precisam de chaves: {npc:2427} carrega a {item:3467} e {npc:2428}, a {item:3499}, ambos na fortaleza. Mate-os e depois abra os dois cadeados.\nDe {area:272}, siga para sudeste pelas colinas rumo a {area:275}. Ladinos e Vigias da Camarilha ocupam os acampamentos pelo caminho.",
 	-- {npc:2261} Syndicate Watchman
 	["{npc:2261} walks around here: look inside the circle on the map"] = "{npc:2261} anda por aqui: procure dentro do círculo no mapa",
 	["Drull's ball and chain"] = "Bola e corrente de Drull",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "Bola e corrente de {npc:2238}",
 
-	-- Step 11: Mudsnout Blossoms
-	-- {item:3502} Mudsnout Blossoms
-	["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "A sudoeste do Forte do Desterro, as {item:3502} crescem nas encostas acima do rio.",
-
-	-- Step 12: Deathstalker Masoj
+	-- Step 11: Deathstalker Masoj
 	-- {area:290} Dun Garok
-	["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Masoj se esconde na encosta acima de {area:290}, ao sul do Forte do Desterro, no caminho até as flores.",
+	["Masoj hides on the hillside above {area:290}, south-west of Durnholde, on the way down to the blossoms."] = "Masoj se esconde na encosta acima de {area:290}, a sudoeste do Forte do Desterro, no caminho até as flores.",
 	-- {npc:270438} Deathstalker Masoj · {quest:98094} Scout Support
 	["{npc:270438}, once {quest:98094} is in"] = "{npc:270438}, depois que {quest:98094} estiver entregue",
+
+	-- Step 12: Mudsnout Blossoms
+	-- {item:3502} Mudsnout Blossoms
+	["Just south of Masoj, the {item:3502} grow on the hillsides above the river."] = "Logo ao sul de Masoj, as {item:3502} crescem nas encostas acima do rio.",
 
 	-- Step 13: The southern peak
 	["The southern peak"] = "O pico sul",
 	-- {area:290} Dun Garok
-	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "Masoj quer uma Ampola de Boticário colocada em três picos. O do sul é o topo do morro acima de {area:290}, logo ao sul dele: use uma ampola no alto.",
+	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, south-east of the blossoms: use a vial at the top."] = "Masoj quer uma Ampola de Boticário colocada em três picos. O do sul é o topo do morro acima de {area:290}, a sudeste das flores: use uma ampola no alto.",
 
 	-- Step 14: The smithy
 	["The smithy"] = "A ferraria",
@@ -176,8 +176,13 @@ return {
 
 	-- Step 31: Back to the Crossroads
 	["Back to the Crossroads"] = "De volta à Encruzilhada",
-	-- {npc:3033} Turak Runetotem
-	["Train with {npc:3033}, then fly on to the Crossroads, where the next guide starts."] = "Treine com {npc:3033} e depois voe para a Encruzilhada, onde começa o próximo guia.",
+	-- {npc:3033} Turak Runetotem · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
+	["Train with {npc:3033}. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "Treine com {npc:3033}. Antes de seguir voo, {npc:3024} e {npc:4721}, a uma curta caminhada a leste do mestre de mantícoras, dão duas missões feitas pelo caminho dos próximos guias; depois voe para a Encruzilhada, onde começa o próximo guia.",
+	-- {npc:3024} Tah Winterhoof · {quest:97538} Pigments for Paints · {area:464} Mirkfallon Lake
+	["{npc:3024}: {quest:97538}, the Mirkweed in {area:464} by Sun Rock"] = "{npc:3024}: {quest:97538}, a Erva-do-pântano em {area:464}, perto da Rocha do Sol",
+	-- {npc:4721} Zangen Stonehoof · {quest:1195} The Sacred Flame · {zone:1440} Ashenvale
+	-- plural, as words: Laughing Sisters = {npc:4054} Laughing Sister
+	["{npc:4721}: {quest:1195}, the phial from {zone:1440}'s Laughing Sisters"] = "{npc:4721}: {quest:1195}, o frasco das Irmãs Risonhas de {zone:1440}",
 
 	-- Step 32: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -192,16 +197,20 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "Drull e {npc:2238} estão acorrentados nos prédios do pátio de {area:275}; abra as duas trancas.",
+	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "Drull e {npc:2238} estão acorrentados nas construções do pátio de {area:275}; abra os dois cadeados.\nDe {area:272}, siga para sudeste pelas colinas rumo a {area:275}. Ladinos e Vigias da Camarilha ocupam os acampamentos pelo caminho.",
 	-- ["Follow the road south to the dwarf dig site at {area:359}. {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "Siga a estrada para o sul até a escavação anã em {area:359}. {npc:3421} se esconde na borda sul da escavação; {object:3646} fica no fundo da escavação.",
 	-- ["From {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "De {area:272}, vá para sudeste pelas colinas no caminho até {area:275}. Ladinos e Vigias ocupam os acampamentos pelo caminho.",
 	-- ["From {area:287} town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border."] = "Da vila de {area:287}, siga para o norte pelo sopé de Alterac: a ampola do oeste vai no topo do morro logo depois da fronteira.",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:1638} and train on {area:1639}, then fly on to {area:378}."] = "De {zone:1454} (zepelim das torres fora de {zone:1458}), voe até {area:1638} e treine em {area:1639}, depois siga voando até {area:378}.",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:378}."] = "De {zone:1454} (zepelim das torres fora de {zone:1458}), voe até {area:378}.",
 	-- ["Hearth to {area:378} and fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "Use a Pedra de Regresso para {area:378} e voe até {area:392}. {quest:874} acampa na praia ao norte de {area:392}.",
+	-- ["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Masoj se esconde na encosta acima de {area:290}, ao sul do Forte do Desterro, no caminho até as flores.",
+	-- ["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "Masoj quer uma Ampola de Boticário colocada em três picos. O do sul é o topo do morro acima de {area:290}, logo ao sul dele: use uma ampola no alto.",
 	-- ["No Gallywix yet? The Class guide Poisons (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "Ainda sem Gallywix? O guia de classe Venenos (Horda) refaz a cadeia a partir de Shenthul, com um grupo para Gallywix.",
 	-- ["Only if Gallywix fell in the {zone:1413} (Mission: Possible But Not Probable): {npc:2391} stands in {area:272}. Wait beside him while he brews the cure, then take your reward: Poisons."] = "Só se Gallywix caiu nos {zone:1413} (Missão: possível, mas não provável): {npc:2391} fica em {area:272}. Espere ao lado dele enquanto prepara a cura e pegue sua recompensa: Venenos.",
 	-- ["Peasants and skulls"] = "Camponeses e caveiras",
 	-- ["South-west of Bael Modan, {npc:12576} waits at the top of the {area:485}."] = "A sudoeste de Bael Modan, {npc:12576} espera no topo do {area:485}.",
+	-- ["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "A sudoeste do Forte do Desterro, as {item:3502} crescem nas encostas acima do rio.",
 	-- ["Syndicate camps"] = "Acampamentos da Camarilha",
 	-- ["Take the zeppelin from the towers outside the {zone:1458} to {zone:1454} and train before you fly on."] = "Pegue o zepelim nas torres fora de {zone:1458} até {zone:1454} e treine antes de seguir voando.",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "Os Camponeses trabalham nos campos ao sul das casas de fazenda. Todo humano de {area:287} derruba caveiras; os Camponeses derrubam com mais frequência.",
@@ -209,6 +218,7 @@ return {
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "A {area:288} fica ao sul da cidade de {area:287}. Mineradores trabalham nos túneis; {npc:2305} (30) e {npc:2450} (29) estão bem lá no fundo.",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "O cartaz {quest:567}: os alvos aparecem pelo caminho",
 	-- ["Town hall"] = "Prefeitura",
+	-- ["Train with {npc:3033}, then fly on to the Crossroads, where the next guide starts."] = "Treine com {npc:3033} e depois voe para a Encruzilhada, onde começa o próximo guia.",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Você chega vinculado à estalagem de {area:272}. Todos ficam em volta da praça da cidade.",
 	-- ["{npc:2230}, next to Lydon"] = "{npc:2230}, ao lado de Lindolfo",
 	-- ["{npc:2388}: the last guide binds here, so this usually ticks at once"] = "{npc:2388}: o guia anterior vincula você aqui, então isto costuma ser marcado na hora",

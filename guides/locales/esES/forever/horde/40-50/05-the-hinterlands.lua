@@ -48,8 +48,8 @@ return {
 	["{item:8704}, a rare drop"] = "{item:8704}, botín poco común",
 
 	-- Step 10: The Overlook Cliffs: kill these as you meet them
-	-- {npc:7977} Gammerita
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} is a level 48 elite: most classes solo it at level 50, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+	-- {npc:7977} Gammerita · {area:307} The Overlook Cliffs
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} is a level 48 elite: most classes solo it at level 50, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "Son enemigos élite: se recomienda ir en grupo, busca a gente con quien hacerlo. {npc:7977} es élite de nivel 48: la mayoría de las clases puede con ella en solitario a nivel 50, pero quizá necesites ayuda. Sáltatela si vas solo: la ruta te hace recuperar la experiencia matando.\n{npc:7977} recorre la orilla bajo {area:307}, desde la flecha hacia el sur hasta 75,66 aprox. y hacia el norte hasta 82,52 aprox.: si no está en la flecha, sigue la orilla.",
 
 	-- Step 11: Rin'ji's Secret
 	-- {area:307} The Overlook Cliffs

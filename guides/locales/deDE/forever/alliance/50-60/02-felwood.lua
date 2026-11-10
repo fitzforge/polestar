@@ -83,7 +83,7 @@ return {
 	-- Step 15: Irontree Woods
 	-- {area:1767} Irontree Woods · {area:2618} Jadefire Run · {item:11503} Blood Amber
 	["The Warpwood treants of {area:1767}, east of {area:2618}, carry the {item:11503}."] = "Die Wucherborkentreants im {area:1767}, östlich der {area:2618}, tragen die {item:11503}.",
-	["Below ground"] = "",
+	["Below ground"] = "Unter der Erde",
 
 	-- Step 16: Nafien
 	-- {area:1769} Timbermaw Hold · {npc:15395} Nafien

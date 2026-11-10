@@ -34,7 +34,13 @@ return {
 	["Gringer, the flight master, waits on {area:35}'s upper deck. The quest givers stand on the boardwalks around the harbour and in the inn."] = "",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}: the Snapjaw skins gathered earlier; inside"] = "{npc:2495} : les peaux de Gueule d'acier ramassées plus tôt ; à l'intérieur",
+	-- {npc:2495} Drizzlik · {npc:2635} Elder Saltwater Crocolisk · {object:3202} Grom'gol (no name in this language: may be words)
+	["{npc:2495}: the {npc:2635} suns on the coast between Zul'Kunda and {object:3202}, later on this loop"] = "{npc:2495} : le {npc:2635} se dore au soleil sur la côte entre Zul'Kunda et {object:3202}, plus tard dans cette boucle",
+	-- {npc:4631} Wharfmaster Lozgil
+	["{npc:4631}, on the docks: Gazlowe's letter, if you carry it"] = "{npc:4631}, sur les quais : la lettre de Gazlowe, si vous l'avez",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "« Loup de mer » MacKinley, au dernier étage",
+	-- {npc:2496} Baron Revilgaz
+	["{npc:2496}, on the balcony beside MacKinley"] = "{npc:2496}, sur le balcon à côté de MacKinley",
 	["Inside"] = "À l'intérieur",
 
 	-- Step 7: Bloodsail Correspondence
@@ -83,8 +89,8 @@ return {
 
 	-- Step 20: Zul'Kunda
 	["Zul'Kunda"] = "Ruines de Zul'Kunda",
-	-- {npc:1061} Gan'zulah · {npc:1062} Nezzliok the Dire · {quest:586} Speaking with Gan'zulah · {area:1517} Uldaman
-	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	-- {npc:1061} Gan'zulah · {npc:1062} Nezzliok the Dire · {quest:586} Speaking with Gan'zulah · {area:1517} Uldaman · {object:3202} Grom'gol (no name in this language: may be words) · {npc:2635} Elder Saltwater Crocolisk · {npc:2495} Drizzlik
+	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43. Or, with a group, run the {area:1517} dungeon instead.\nOn the coast between Zul'Kunda and {object:3202} an {npc:2635} (level 38 elite) shares the spawns of the ordinary crocolisks: kill it if it is up and take its skin for {npc:2495}."] = "À l'ouest de l'expédition, les chefs Bloodscalp {npc:1061} et {npc:1062} se tiennent ensemble dans les ruines de Zul'Kunda. Éliminez d'abord leurs gardes, puis attirez-les. Restez sur les Bloodscalp ici jusqu'au niveau 41 : {quest:586}, au chaudron juste après, vous envoie contre des Skullsplitter de niveau 41-43. Ou bien, en groupe, faites plutôt le donjon d'{area:1517}.\nSur la côte entre Zul'Kunda et {object:3202}, un {npc:2635} (élite de niveau 38) partage les points d'apparition des crocilisques ordinaires : tuez-le s'il est là et prenez sa peau pour {npc:2495}.",
 	-- {object:52} Fall of Gurubashi
 	["from the {object:52}, in the ruins"] = "",
 	-- {quest:586} Speaking with Gan'zulah
@@ -97,19 +103,26 @@ return {
 	["{npc:2497}: for the {zone:1425}, around level 48"] = "",
 	-- {npc:2519} Kin'weelay
 	["{npc:2519}: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "",
+	-- {npc:2519} Kin'weelay · {area:104} Vile Reef
+	["{npc:2519}: the cavern entrance under the {area:104}, west of the camp"] = "{npc:2519} : l'entrée de la caverne sous {area:104}, à l'ouest du camp",
 
-	-- Step 22: Jungle stalkers
+	-- Step 22: The Vile Reef
+	-- {quest:95770} Locating the Lost City · {object:3202} Grom'gol (no name in this language: may be words) · {area:104} Vile Reef
+	["{quest:95770}: west of {object:3202}, swim out over the {area:104} and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast."] = "{quest:95770} : à l'ouest de {object:3202}, nagez au-dessus de {area:104} et plongez jusqu'à l'entrée de la caverne dans le récif ; la quête s'accomplit dès que vous la trouvez. Laissez la caverne pour l'instant : les traqueurs de la jungle sont au sud, le long de la côte.",
+	["the Drowned City's entrance, underwater"] = "l'entrée de la Cité engloutie, sous l'eau",
+
+	-- Step 23: Jungle stalkers
 	["Jungle stalkers"] = "Traqueurs de la jungle",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["The stalker raptors hunt the jungle south of {object:3202}, out towards the west coast."] = "Les raptors traqueurs chassent dans la jungle au sud de {object:3202}, vers la côte ouest.",
 
-	-- Step 23: The Cape of Stranglethorn: kill these as you meet them
+	-- Step 24: The Cape of Stranglethorn: kill these as you meet them
 	-- {area:1577} The Cape of Stranglethorn
 	["{area:1577}: kill these as you meet them"] = "{area:1577} : tuez-les au passage",
 	-- {object:759} Holy Spring
 	["Follow the coast south. The naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them."] = "Suivez la côte vers le sud. Les explorateurs nagas pataugent le long du rivage et portent les bottes de roseaux ; {object:759} bouillonne dans les collines juste à l'est.",
 
-	-- Step 24: Booty Bay
+	-- Step 25: Booty Bay
 	-- {area:35} Booty Bay
 	["Head south to {area:35}. Shaky Phillipe waits on the docks."] = "Allez vers le sud jusqu'à {area:35}. Shaky Phillipe attend sur les quais.",
 	-- {npc:6807} Innkeeper Skindle
@@ -120,17 +133,19 @@ return {
 	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "",
 	-- {zone:1446} Tanaris
 	["MacKinley, on the top floor: for Stoley in {zone:1446}"] = "",
+	-- {npc:2495} Drizzlik · {item:4105} Elder Crocolisk Skin
+	["{npc:2495}, inside: the {item:4105}"] = "{npc:2495}, à l'intérieur : la {item:4105}",
 
-	-- Step 25: Zanzil's camps
+	-- Step 26: Zanzil's camps
 	["Zanzil's camps"] = "Les camps de Zanzil",
 	["North-east of Mistvale, Zanzil's followers camp in the jungle; every one of them can carry the mixture."] = "Au nord-est de Valbrume, les disciples de Zanzil campent dans la jungle ; chacun d'eux peut porter le mélange.",
 
-	-- Step 26: Pirate ghosts
+	-- Step 27: Pirate ghosts
 	["Pirate ghosts"] = "Pirates fantômes",
 	-- {area:35} Booty Bay · {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow · {npc:2537} Chucky "Ten Thumbs"
 	["The three ghostly pirates haunt the jungle north of {area:35}, near Zanzil's camps: {npc:2535} and {npc:2536} stand together, {npc:2537} further east."] = "Les trois pirates fantômes hantent la jungle au nord de {area:35}, près des camps de Zanzil : {npc:2535} et {npc:2536} se tiennent ensemble, {npc:2537} plus à l'est.",
 
-	-- Step 27: Zul'Mamwe
+	-- Step 28: Zul'Mamwe
 	["Zul'Mamwe"] = "Ruines de Zul'Mamwe",
 	-- {npc:1059} Ana'thek the Cruel
 	["Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all."] = "Allez vers le nord jusqu'aux ruines Skullsplitter, à l'est de la mine de la KapitalRisk ; attirez les chasseurs de têtes et les berserkers un par un. {npc:1059} garde les ruines du sud-ouest, et un tas de crânes trophées se trouve du côté nord des ruines. Chaque Skullsplitter peut lâcher une défense ou un collier : les colliers sont la partie lente, alors continuez à tuer dans le camp des guerriers au nord des ruines jusqu'à les avoir tous.",
@@ -139,13 +154,13 @@ return {
 	["{npc:669} walks around here: look inside the circle on the map"] = "{npc:669} se promène par ici : cherchez dans le cercle sur la carte",
 	["Below ground"] = "Sous terre",
 
-	-- Step 28: Balia'mah Ruins: kill these as you meet them
+	-- Step 29: Balia'mah Ruins: kill these as you meet them
 	-- {area:127} Balia'mah Ruins
 	["{area:127}: kill these as you meet them"] = "{area:127} : tuez-les au passage",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "",
 
-	-- Step 29: Grom'gol Base Camp
+	-- Step 30: Grom'gol Base Camp
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Head west to {object:3202}."] = "Allez vers l'ouest jusqu'à Grom'gol.",
 	-- {object:2076} Bubbling Cauldron
@@ -155,7 +170,7 @@ return {
 	-- {npc:2519} Kin'weelay · {area:35} Booty Bay
 	["{npc:2519}: the basilisks graze beside the road back from {area:35}"] = "",
 
-	-- Step 31: Booty Bay
+	-- Step 32: Booty Bay
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}, à l'intérieur",
 	-- {npc:737} Kebok
@@ -163,50 +178,50 @@ return {
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {area:976} Gadgetzan
 	["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "",
 
-	-- Step 32: Ironjaw Basilisks
+	-- Step 33: Ironjaw Basilisks
 	-- plural, as words: Ironjaw Basilisks = {npc:1551} Ironjaw Basilisk
 	["Ironjaw Basilisks"] = "Basilics gueule de fer",
 	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words)
 	["Ride north out of {area:35} along the road; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to {object:3202}. Their shards drop often."] = "",
 
-	-- Step 33: Grom'gol Base Camp
+	-- Step 34: Grom'gol Base Camp
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Ride on north to {object:3202}."] = "",
 
-	-- Step 35: Nesingwary's Expedition
+	-- Step 36: Nesingwary's Expedition
 	["Head north up the road to the hunters' camp."] = "Remontez la route vers le nord jusqu'au camp des chasseurs.",
 
-	-- Step 37: Raptor Mastery
+	-- Step 38: Raptor Mastery
 	-- {npc:730} Tethis
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:730} est un élite de niveau 43 : la plupart des classes le tuent seules au niveau 45, mais vous aurez peut-être besoin d'aide. Passez-le si vous êtes seul : la route vous fait regagner cette expérience en tuant des monstres.",
 
-	-- Step 38: Panther Mastery
+	-- Step 39: Panther Mastery
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:728} est un élite de niveau 40 : la plupart des classes le tuent seules au niveau 42, mais vous aurez peut-être besoin d'aide. Passez-le si vous êtes seul : la route vous fait regagner cette expérience en tuant des monstres.",
 
-	-- Step 42: Level 42.68
+	-- Step 43: Level 42.68
 	["Level 42.68"] = "Niveau 42.68",
 	-- {quest:192} Panther Mastery · {quest:195} Raptor Mastery · {area:1517} Uldaman
 	["If you skipped {quest:192} or {quest:195}, grind here to level 42.68 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
 	-- {npc:667} Skullsplitter Warrior
 	["grind on {npc:667}"] = "tuez en boucle : {npc:667}",
 
-	-- Step 43: Big Game Hunter
+	-- Step 44: Big Game Hunter
 	-- {npc:731} King Bangalash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. Le {npc:731} est un élite de niveau 43 : la plupart des classes le tuent seules au niveau 45, mais vous aurez peut-être besoin d'aide. Passez-le si vous êtes seul : la route vous fait regagner cette expérience en tuant des monstres.\nAttention : des tigres et des panthères Ombregueule camouflées rôdent près de lui. Éliminez-les avant de l'attirer. Une fois attiré, le {npc:731} appelle à l'aide les créatures à moins de 20 m.",
 
-	-- Step 45: Level 42.74
+	-- Step 46: Level 42.74
 	["Level 42.74"] = "Niveau 42.74",
 	-- {quest:208} Big Game Hunter · {area:1517} Uldaman
 	["If you skipped {quest:208}, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
 
-	-- Step 49: Into the Swamp of Sorrows
+	-- Step 50: Into the Swamp of Sorrows
 	-- {zone:1435} Swamp of Sorrows
 	["Into the {zone:1435}"] = "Vers {zone:1435}",
 	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
 	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "",
 
-	-- Step 50: Stonard
+	-- Step 51: Stonard
 	-- {area:75} Stonard
 	["Head east to {area:75}, in the reeds south of the road. Bind here."] = "",
 	-- {npc:5591} Dar
@@ -218,29 +233,29 @@ return {
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "{npc:1443}, au dernier étage",
 
-	-- Step 51: Sawtooth crocolisks
+	-- Step 52: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "Crocilisques Dents-de-scie",
 	-- {npc:5391} Galen Goodward · {area:75} Stonard
 	["The crocolisks wallow in the pools around {npc:5391}'s camp and south towards {area:75}; about one in four drops a flank."] = "Les crocilisques se vautrent dans les mares autour du camp de {npc:5391} et vers le sud jusqu'à {area:75} ; environ un sur quatre laisse tomber un flanc.",
 
-	-- Step 52: Noboru the Cudgel
+	-- Step 53: Noboru the Cudgel
 	-- {area:76} Fallow Sanctuary
 	["Noboru wanders the clearing south-west of the {area:76}; his cudgel starts a quest."] = "Noboru erre dans la clairière au sud-ouest de {area:76} ; son gourdin lance une quête.",
 
-	-- Step 53: Draenethyst crystals
+	-- Step 54: Draenethyst crystals
 	["Draenethyst crystals"] = "Cristaux de draenéthyste",
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
 	["Ride north-east to the {area:76}. The crystals stand along the way up to {npc:5391}'s cage."] = "Chevauchez vers le nord-est jusqu'à {area:76}. Les cristaux se dressent le long du chemin qui monte vers la cage de {npc:5391}.",
 
-	-- Step 54: Galen's Escape
+	-- Step 55: Galen's Escape
 	-- {npc:5391} Galen Goodward · {area:76} Fallow Sanctuary
 	["{npc:5391} is held in the {area:76} in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him."] = "{npc:5391} est retenu à {area:76}, dans le nord-est du marais. Libérez-le et suivez-le dehors en repoussant les créatures du marais qui le poursuivent.",
 
-	-- Step 55: Galen's Strongbox
+	-- Step 56: Galen's Strongbox
 	-- {area:75} Stonard
 	["His strongbox waits at his old camp north of {area:75}, on the way back west."] = "",
 
-	-- Step 56: Harborage
+	-- Step 57: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass · {quest:698} Lack of Surplus · {npc:5592} Tok'Kar · {area:1978} Misty Reed Post
 	["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at {area:1978} on the next swamp visit: keep the flanks."] = "",
 

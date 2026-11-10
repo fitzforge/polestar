@@ -245,8 +245,9 @@ fn loot_of(drops: &mut [Drop], t: f64, q: i64, oi: i64, cur: i64, delta: Option<
 
 /// One record -> its events (most records give one; `map` gives none).
 fn events_of(r: &Record, t: f64, st: &mut State, known: &Known) -> Vec<Ev> {
-	if r.pos().is_some() && r.kind != Kind::Enter {
-		// A position means the player is outdoors: no longer in the instance entered last.
+	if r.pos().is_some() && !matches!(r.kind, Kind::Enter | Kind::Poi) {
+		// A position means the player is outdoors: no longer in the instance entered last. (A `poi`'s
+		// position is the quest's map point, not the player's.)
 		st.inst = None;
 	}
 	let mut e = Ev::new(t, r.kind.as_str());
@@ -487,6 +488,25 @@ fn events_of(r: &Record, t: f64, st: &mut State, known: &Known) -> Vec<Ev> {
 		}
 		Kind::Encounter => {
 			e.int("enc", r, "encounterId").set("ok", flag(r, "ok")).int("difficulty", r, "difficulty").int("size", r, "size").inst(st);
+		}
+		Kind::Unitx => {
+			e.int("npc", r, "npcId").text("uid", r, "spawnUid").pos(r).inst(st);
+		}
+		Kind::Imap => {
+			st.inst = r.int("instanceId");
+			e.opt("inst", st.inst).int("uiMap", r, "uiMapId").int("group", r, "groupId").int("floor", r, "floor");
+		}
+		Kind::Engage => {
+			e.int("enc", r, "encounterId").int("difficulty", r, "difficulty").int("size", r, "size").inst(st);
+		}
+		Kind::Poi => {
+			e.int("q", r, "q").set("done", flag(r, "done")).pos(r);
+		}
+		Kind::Where => {
+			e.who(r, "npcKind", "npcId", "").text("subzone", r, "subzoneText").set("indoors", flag(r, "indoors"));
+		}
+		Kind::Open => {
+			e.int("spell", r, "spellId").pos(r).who(r, "targetKind", "targetId", "target").inst(st);
 		}
 		Kind::Trainer => {
 			let services: Vec<Value> = r
@@ -880,5 +900,43 @@ mod tests {
 		assert_eq!(links, [(300.2, 723), (700.1, 723)]);
 		let tagged: Vec<&Value> = ev.iter().filter(|e| e["e"] == "drop").flat_map(|e| e["items"].as_array().unwrap()).filter(|i| i.get("q").is_some()).collect();
 		assert_eq!(tagged.len(), 2);
+	}
+
+	#[test]
+	fn explorer_kinds_reach_the_session_events() {
+		let session = "session\t0\tabcdefghij\tScourge\tWARRIOR\tHorde\t2\t12\tenUS\t62345\t11508\t3\th\t2.0.0\t1.4.0\t\n";
+		let body = [
+			"unitx\t10\t261306\t000043F59F\t2521\t4512\t6633",
+			"where\t20\tc\t261306\tThe Drowned Chapel\t1",
+			"open\t30\t3365\t2521\t4520\t6640\to\t500123",
+			"enter\t40\t2943\tparty\t1\t1420\t6340\t6740",
+			// inside: the quest's map point does not take the player out of the instance
+			"poi\t50\t90012\t1\t1420\t6300\t6700",
+			"imap\t60\t2943\t2681\t512\t2",
+			"engage\t70\t3301\t1\t5",
+			"encounter\t900\t3301\t1\t1\t5",
+		]
+		.join("\n");
+		let src = Source { contributor: "local".into(), install: "k3j9x0q2m7ab".into(), chunks: vec![chunk(1, 1700000000, &format!("{session}{body}\n"))], maps: BTreeMap::new() };
+		let out = sessions(&[src]);
+		let ev: Vec<&Value> = out[0]["events"].as_array().unwrap().iter().filter(|e| e["e"] != "session").collect();
+		let strip = |e: &Value| {
+			let mut e = e.clone();
+			e.as_object_mut().unwrap().remove("t");
+			e
+		};
+		assert_eq!(
+			ev.into_iter().map(strip).collect::<Vec<_>>(),
+			[
+				json!({ "e": "unitx", "npc": 261306, "uid": "000043F59F", "map": 2521, "x": 45.12, "y": 66.33 }),
+				json!({ "e": "where", "npc": 261306, "subzone": "The Drowned Chapel", "indoors": true }),
+				json!({ "e": "open", "spell": 3365, "map": 2521, "x": 45.2, "y": 66.4, "targetObject": 500123 }),
+				json!({ "e": "enter", "inst": 2943, "instType": "party", "difficulty": 1, "map": 1420, "x": 63.4, "y": 67.4 }),
+				json!({ "e": "poi", "q": 90012, "done": true, "map": 1420, "x": 63.0, "y": 67.0 }),
+				json!({ "e": "imap", "inst": 2943, "uiMap": 2681, "group": 512, "floor": 2 }),
+				json!({ "e": "engage", "enc": 3301, "difficulty": 1, "size": 5, "inst": 2943 }),
+				json!({ "e": "encounter", "enc": 3301, "ok": true, "difficulty": 1, "size": 5, "inst": 2943 }),
+			]
+		);
 	}
 }

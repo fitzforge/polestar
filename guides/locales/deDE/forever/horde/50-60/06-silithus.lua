@@ -36,7 +36,7 @@ return {
 	-- Step 7: Hermit Ortell
 	-- {area:3447} Ortell's Hideout
 	["Ride south-east to {area:3447} under the Un'Goro cliffs."] = "Reite nach Südosten zu {area:3447} unter den Klippen des Un'Goro-Kraters.",
-	["Below ground"] = "",
+	["Below ground"] = "Unter der Erde",
 	-- {item:20377} Rock Stalker Fang · {npc:11739} Rock Stalker
 	["{item:20377} from {npc:11739}, 130 yd south-west"] = "",
 
@@ -183,8 +183,8 @@ return {
 	["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "{npc:9619} will jetzt das Fell von {npc:9622}, zurück in der nordöstlichen Höhle: Überspringe es.",
 
 	-- Step 41: Gadgetzan
-	-- {area:976} Gadgetzan · {object:142071} Egg-O-Matic
-	["Fly to {area:976}. The {object:142071} stands in the middle of town."] = "Flieg nach {area:976}. Der {object:142071} steht mitten in der Stadt.",
+	-- {area:976} Gadgetzan · {quest:2741} The Super Egg-O-Matic
+	["Fly to {area:976}. Still carrying {quest:2741}? The machine stands in the middle of town."] = "Flieg nach {area:976}. Hast du {quest:2741} noch dabei? Die Maschine steht mitten in der Stadt.",
 
 	-- Step 42: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -193,7 +193,7 @@ return {
 	["{area:976} flight master"] = "",
 
 	-- Step 43: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Klassenlehrer",
 
 	-- Step 44: Paladin trainer
 	["Paladin trainer"] = "",
@@ -336,6 +336,7 @@ return {
 	-- ["Dredge Strikers, Stonelash Scorpids and Sand Skitterers share the sands just north of the hold."] = "Baggerschläger, Steinpanzerskorpide und Sandhuscher teilen sich den Sand gleich nördlich der Burg.",
 	-- ["Dredge and scorpids"] = "Bagger und Skorpide",
 	-- ["Fly to {area:1637} and train."] = "Flieg nach {area:1637} und trainiere.",
+	-- ["Fly to {area:976}. The {object:142071} stands in the middle of town."] = "Flieg nach {area:976}. Der {object:142071} steht mitten in der Stadt.",
 	-- ["Mar'alith's Dearest Natalia needs level 58 and leads into {area:2744} among elites. Skip it."] = "Mar'aliths Liebste Natalia braucht Stufe 58 und führt in den {area:2744} zwischen Elitegegner. Überspring sie.",
 	-- ["North to the lumber camp; set the termite barrel down in the middle of the mill."] = "Nach Norden zum Holzlager Northridge; stell das Fass mit Pestland-Termiten mitten in der Mühle ab.",
 	-- ["Ride east across the plaguelands to the chapel."] = "Reite nach Osten durch die Pestländer zur Kapelle.",

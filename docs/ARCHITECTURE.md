@@ -214,7 +214,37 @@ steps the player skipped (step number) and the optional goals they skipped
 live one (Prev/Next/Goto). (Older saves also hold `offers`, the quests a
 giver did not offer; login drops it: no such mark is kept, #741.) All of
 them are keyed by step position: `stepKeys` (a hash per step of its verbs and
-ids) lets a pack update carry them to the steps it kept (see "Placement").
+ids) lets a pack update carry them to the steps it kept (see "Placement"),
+and, for a step it changed, to the step that has the same goal now: the
+changed step's goals come from `ns.LegacySteps` (Core/LegacySteps.lua,
+written by `tools/legacy-steps.js` from earlier releases' guides), so a
+check-off goes to the goal with the same verb and quest (or item, landing),
+a skip and the saved view to the step sharing most of its quest goals
+(`Own.remap`, `Own.legacyMaps`). `shapeVersions` holds the pack version a
+guide's shape was saved with.
+An update never moves a player back (#1353 upgrade): when a guide's shape
+came from another version of its pack, `Own.noteAdded` notes what the update
+added (steps none of whose quest goals the old guide had there, goals it did
+not have or had only further on, and goals of a carried quest an earlier
+release had optional only: `required` in LegacySteps.lua), and the first
+placement with the quest log in passes what of it lies behind the player's
+place (`Own.passAdded`: the first step that holds for content the old guide
+had, by the step's own rule, `Own.holds`: a vendor check-off beside other
+work never holds it), as `gone` steps and goals that no longer apply; nothing shows as
+skipped. A quest the player carries whose remaining work is among them is
+noted `behind`: the guide window lists it under the step as "Still to do"
+(`Engine.GetBehind`; a click points the arrow, a right-click skips or
+abandons it) and While-here offers its objectives nearby; the place stays. A
+quest ahead that needed something passed is planned again (`Own.replan`,
+`Own.goneSource`): the passed step comes back just before it when it is on
+the way (the catch-up's local rule), else the quest drops out with what
+follows. Safety: the mapping runs once per saved guide (the save is stamped
+with the pack version, `shapeVersions`); it runs under `Own.safely`, so an
+error puts the save back, restores it by kept steps alone, and writes one
+line to the debug log (`/polestar report`) instead of a Lua error;
+LegacySteps.lua is a function whose table is built only for that mapping and
+dropped at the first `QUEST_LOG_UPDATE`; Reset progress clears `gone` and
+`behind`, and none of them binds the step arrows, Skip or the guide list.
 A saved tab of a leveling guide that kept fewer than half of those steps
 (`Own.reworked`: an update reused the id for another part of the route, as
 0.3.5 did for Horde 04-06, #1328) moves, at the first `QUEST_LOG_UPDATE`
@@ -388,10 +418,15 @@ is not kept, so Names and Guide texts still try the folder later) right after
 `Polestar.Names` and `GuideTexts` as it loads, and every file after it may
 read `L` at load. The files before it, Init.lua included, read `L` only when
 they print (the commands register in Core/Commands.lua). An English client
-loads nothing; a missing or disabled folder leaves the interface in English.
+loads nothing; a missing or disabled folder leaves the interface in English,
+and when the folder of a language Polestar ships is still not loaded at
+login, one English chat line says so ("the German language files
+(Polestar_deDE) are missing or turned off in the AddOns list…").
 If the early load fails and Names' or Guide texts' later one succeeds, `L`
 fills then: what was read at load (key binding names, the options' labels)
-stays English, the rest is translated.
+stays English, the rest is translated. To try this load on an English
+client, `tools/dev/!PolestarLocaleTest` makes Polestar's own files see
+another `GetLocale()` (its .lua says how).
 docs/TRANSLATING.md describes the files and `forge i18n`.
 
 A word with more than one meaning gets a key per meaning:
@@ -919,7 +954,7 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 
 | `t` | Required | Optional | Done when (Engine) |
 |---|---|---|---|
-| `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `pre`, `preAll`, `closedBy`, `preTitles` | on quest **or** completed (or abandoned by the guide); a hand tick never stands for it (#739): the accept stays open with `noticeText` "<title> isn't in your quest log", and its quest's later goals stay (never orphaned by the tick) |
+| `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `limit`, `pre`, `preAll`, `closedBy`, `preTitles` | on quest **or** completed (or abandoned by the guide); a hand tick never stands for it (#739): the accept stays open with `noticeText` "<title> isn't in your quest log", and its quest's later goals stay (never orphaned by the tick) |
 | `turnin` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `rewards = { choices = { { item, itemName, quality } }, items = { ... }, xp, money }` (copper), `direct` | completed; `direct` (never accepted, so never orphaned): its QUEST_TURNED_IN during the step (latched) or the completed flag, not the session's turn-ins, so one hand-in of a repeatable closes one goal |
 | `complete` | `quest`, `title` | — | ready for turn-in or completed |
 | `kill` | `target` | `npc`, `count`, `quest`, `oi` | its objective finished (the quest-log line named after `target`, else line `oi`), or quest ready/completed (not while the log lists no objectives yet, right after the accept); without `quest`: manual |
@@ -951,7 +986,9 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 Objective index `oi` is 1-based, matching `C_QuestLog.GetQuestObjectives`.
 Field names `npc`, `object`, `item`, `quest` always hold numeric IDs.
 Objective goals also carry the quest's `title`; `accept` carries `minLevel`
-from the data when the author gave none, `qlvl` (quest level), the blocking
+from the data when the author gave none, `qlvl` (quest level), `limit` (a
+timed quest's seconds once taken, quests.json `limit`: the Forever TDB's
+TimeAllowed, a Forever quest's from a correction), the blocking
 prerequisites `pre` (one of) and `preAll` (every one), `closedBy` (the quest
 its breadcrumb leads to and the quests exclusive with it: once any of them is
 taken or done the giver never offers it again) and `preTitles` (titles of the
@@ -1072,6 +1109,7 @@ Polestar.Engine.GetStepView(i) -> view | nil
 Polestar.Engine.Next() / Prev() / Goto(i)    -- look at another step; changes nothing (Goto un-skips its target)
 Polestar.Engine.Skip() -> stepIndex         -- skip the step shown, saved; fires PLAYER_SKIPPED_STEP
 Polestar.Engine.Unskip(i) -> bool           -- undo a skip
+Polestar.Engine.SkipUpTo(i) -> n             -- party sync accepted: skip the open steps from the live one up to i (ticks, skips kept); one undo of the first takes all back
 Polestar.Engine.GetLiveStep() -> i | nil    -- the first open step, whatever step is shown
 Polestar.Engine.LevelTarget(level?) -> N, stepIndex, frac | nil   -- the first `level N` goal from the step shown for this character (step `only`/`when`, goal `only`; skips left out) with N above `level` (default: the character's), or a point inside that level (`frac`) not reached yet; QoL's XP bar mark
 Polestar.Engine.KeptItems() -> { [itemID] = stepIndex }   -- items the active guide still needs in the bags (see "Items kept for later"); built once per evaluation, read only
@@ -1095,6 +1133,7 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
 Polestar.Engine.StepNumber(i) -> number, hidden     -- step i of the active guide as the player counts it (see "Steps the character has")
 Polestar.Engine.StepTotal() -> number               -- the steps the player sees
 Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTotalOf(guide) -> number  -- the same for any guide
+Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who = { class, race, faction } (default: the player); party sync counts the steps both have
 ```
 
 #### Smart logic
@@ -1373,15 +1412,53 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   `HERE_REPICK` yards moved, at another waypoint or a new setting, never
   quiet for the zone. It goes once out of town with its detour past
   `HERE_CLEAR` times the seconds and `HERE_SLACK` (10) more, or past
-  `HERE_CLEAR` times `HERE_FAR`. Never one the route reaches anyway in its
-  next `HERE_SOON` (2) steps for the character (`Own.hereSoon`: the hand-in's
-  own step, or an open goal at the same NPC or object): the guide sends the
-  player there in a moment. When waiting costs XP (`Own.hereXpLoss`: at the
+  `HERE_CLEAR` times `HERE_FAR`. One the route reaches anyway in its next
+  `HERE_SOON` (2) steps for the character without leading away first
+  (`Own.hereSoon`: the hand-in's own step, or an open goal at the same NPC
+  or object, and no open goal with a place of the live step or a step
+  before it past `HERE_FAR` from the NPC, `Own.hereAway`) is left to the
+  guide, which sends the player there in a moment, unless the player stands
+  at the NPC: within `HERE_AT` (30) yards a hand-in shows whatever its step
+  or detour (0.3.5's reach; with the seconds above 0 or in town), and stays
+  while there (`Own.hereAt`); a "soon" one goes past `HERE_CLEAR` times
+  `HERE_AT`. Fitz on 0.3.6 walked past Seer Graytongue with Rites of the
+  Earthmother ready while the guide sent him 411 yd north to Grull and
+  then back to the Seer: the route led away, so the hand-in is no "soon"
+  one. A hand-in whose NPC the route comes back to in its next `AHEAD` (5)
+  steps is the whole visit there when every open goal of that step is a
+  hand-in ready now or an accept there that may be taken now
+  (`Own.hereVisit`, `Own.aheadOk`, below): one line "Hand in X to Y, then
+  take A, B: saves a trip back", its seconds raised by the trip back it
+  saves (`visit.credit`: the route's walk from its last place before that
+  step to the NPC and on to the first place after it, less the walk that
+  skips the NPC; straight lines `HERE_WINDING` longer at `HERE_SPEED`; not
+  with the seconds at 0). When waiting costs XP (`Own.hereXpLoss`: at the
   guide's hand-in the character will be more levels over the quest than now,
   past the 5 that keep its full reward, `Levels.Share`; that level from the
   guide's `level` goals on the way and, with the Codex, `Levels.ForGuide`
   of the steps between, `Own.herePlanned`), it may be `HERE_XP` (2) times
   the seconds out of the way.
+  Accepts ahead (`Own.aheadWants`, Automation): at an NPC's window,
+  auto-accept also takes an accept of that NPC (`npc`) in the route's next
+  `AHEAD` steps for the character, so the route need not come back; the goal
+  then reads done, the live step and the arrow stay. Only when
+  `Own.aheadOk`: the step and goal apply and are not skipped, no unanswered
+  group question in the step, no `optional` accept, a `group` (elite,
+  dungeon) one only after the player said "do", the quest not skipped,
+  closed, dropped by an `abandon` of the guide or above the character's
+  level, the log keeping `LOG_SPARE` (2) slots free (`Own.logRoom`, of
+  `Compat.GetLogCap`: Forever's client answers 0 to
+  `GetMaxNumQuestsCanAccept`, and its log holds 40), and a
+  timed quest (`limit`) only when the route's walk from the NPC to its
+  hand-in (open goals with a place in order, `GOAL_SECONDS` (10) each)
+  fits `LIMIT_SHARE` (0.6) of its time (`Own.aheadLimitOk`; no hand-in in
+  the guide or one on another continent: not taken). The same check runs
+  on the window the game opens after a hand-in (a follow-up: Thork's The
+  Disruption Ends after Disrupt the Attacks). With auto-accept off, such a
+  quest whose prerequisites are done (`Own.READY_NONE`) is a line of its
+  own while the player stands within `HERE_AT` of its NPC (kind "take",
+  not one the route reaches next, `Own.hereSoon`): "Take X from Y: saves a
+  trip back".
   A build reads only the goals on the player's map: `Own.hereGoalsOn` indexes
   each guide's goals with a quest and a place by map once (weak per guide).
   The arrival poll measures at most `HERE_MAX` of them (`Own.hereList`): all
@@ -1617,6 +1694,17 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   or skipping it otherwise forgets the hold (`Own.pruneLost`). A step the
   player brings back (Unskip, Goto) asks nothing unless its quest left the
   log.
+- **Quests that failed in the log** (an escort lost, a timer run out, an
+  event's NPC killed: `Compat.IsQuestFailed`, C_QuestLog.IsFailed, which
+  Forever answers: the Recorder's `fail` events) can't be done until they
+  are abandoned and taken again. Their goals other than the accept read as
+  lost (`Own.lostGoal` via `Own.failedQuest`): greyed with "<quest> failed:
+  abandon it and take it again", never the current goal, the focus, a map
+  pin, the arrow's or a While-you're-here line; the step still waits on
+  them. Other open work of the step leads; with none, the arrow leads to the
+  quest's giver (`Own.failedAim`: its accept nearest before the step).
+  Abandoning it (`Own.wasFailed`) sends the route back to the giver without
+  asking, whatever `behavior.lostQuests` says, with the chat line.
 - **Room in the quest log** (`Core/RoutePlan.lua`; nothing is ever
   abandoned for the player). `RoutePlan.Unneeded()` lists the log's quests
   the selected route never hands in (`GetTurnIn` status `missed`, `skipped`
@@ -2122,6 +2210,31 @@ holds at its opening, see "Not yet available"):
   what they chose to pass. (Before this rule, a saved skip on a step with its
   quest in the log was dropped at every load, so a player who had skipped
   ahead with › was sent back to the first such step on every reload.)
+- An accept waiting for the character's level is no task in the step view
+  (status "na", no "Requires level" line: Fitz, 0.3.6, no level text on
+  pick-ups); the route passes it as below and the level-up brings it back.
+  The goals of its quest further on keep their "Requires level" line. Where
+  the route waits on it instead (`Own.waitsOnLevel`: computeCurrent's own
+  rule, the level hold with nothing else open there and the next open step
+  held behind it, i.e. a guide that is no leveling guide or a chosen dungeon
+  run ahead) it keeps its "Requires level" line, the one thing that step
+  says (without it the Orgrimmar reputation guide's Crossroads hub sat
+  empty and never moved on). The Rust port's step view (forge-judge
+  `Sim::view`) does the same.
+- The last quest progress (`anchorStep`) counts only goals of quests the
+  guide offers at or before that goal (or `direct` hand-ins): progress on a
+  quest taken in another guide is no sign of where the player is in this
+  one (Fitz, 0.3.6: Tincho at 28.7, carrying Dangerous! from the 22-24
+  Hillsbrad visit, was put past Orgrimmar, training and the Undercity in
+  Hillsbrad 29-32, at every load). And a soft step behind it passes only
+  when the quest work it leads to (the next quest goal for the character
+  after it they can do, not waiting for a level or a prerequisite) is done or
+  under way, or left out by the catch-up (`leadsToDone`): progress on a quest
+  done before this guide (an earlier visit, an earlier guide offering it
+  too) is no sign of the travel before the work still to do (SkipAheadSweep:
+  Stranglethorn's flight to Darkshire, Feralas' zeppelin, Darkshore's boat).
+  The judge's Rust engine (forge-judge `place`, `anchor_step`,
+  `leads_to_done`) mirrors it.
 - Before the start (with no start: before the last quest progress), a step
   passes when every open goal is an accept the character cannot take yet
   (level, prerequisite; marked unavailable for the session, so it comes back
@@ -2233,16 +2346,17 @@ several open field goals (the same poll re-picks the nearest).
 
 Automation (setting `behavior.autoAccept`, `behavior.autoTurnin`, default
 on; holding Shift suppresses): accept only quests that are `accept` goals, and
-turn in only quests that are `turnin` goals, of the live step only (Fitz:
-never a step ahead, never a step the player is only looking at with
+turn in only quests that are `turnin` goals, of the live step (Fitz:
+never a step the player is only looking at with
 Prev/Next/Goto; `Engine.WantsQuest` evaluates first when a change is
 pending, so a hand-in that finished the step counts the next one as live;
 a `direct` one is picked from the gossip or greeting list of offered
 quests, and only while its goal is not done: the giver of a repeatable keeps
-offering it); and a While-you're-here hand-in line up in the active tab
+offering it); a While-you're-here hand-in line up in the active tab
 (`Own.hereWants`, #1408: the guide shows it to be handed in now; never one
 held, of a group quest not answered for, of a quest the group waits on or
-one left out; While-here never suggests accepts); never choose among
+one left out); and an accept of the next steps at the NPC whose window is
+open (`Own.aheadWants`, "While you're here" above, with its guards); never choose among
 multiple rewards; with `behavior.warnClosing` on,
 never accept a quest that closes another for good (Missable quests).
 
@@ -3026,19 +3140,29 @@ permission; `addon/Polestar_Nav/CREDITS.md`).
   yellow herb and ore blips and gold quest marks) on both maps; flights,
   boats and the rest keep their own colours, so a walk and a flight never
   read as one line. `nav.minimapRouteAlpha` (20-100%) fades the minimap's line, either
-  style; `nav.minimapRouteSize` (50-150%) scales it, dots, spacing and the gap
-  at the pin together (the strokes are laid out at the frame's scale divided
-  by it). Both in the line style window, the world map keeping its own. The
+  style; each style's own size (`RouteLines.SIZE_KEYS`: `nav.minimapLineSize`
+  50 %, `nav.minimapDotsSize` 80 %, `nav.minimapSparkleSize` 150 %, Fitz's
+  tuning for 0.3.6; 50-150 %) scales it, dots, spacing and the gap at the pin
+  together (the strokes are laid out at the frame's scale divided by it).
+  The line style window's "Minimap size" slider (key `nav.minimapRouteSize`)
+  reads and sets the chosen style's; a size saved there before the sizes
+  were per style became each style's own (`splitSize`). Both in the line
+  style window, the world map keeping its own. The
   minimap frame sits at the minimap's level + 3, under Polestar's trail and
   pins: the client draws its tracking blips and quest marks into the
   minimap's own picture, under every frame on it, so no frame level puts the
   line beneath them. The player's arrow is drawn there too, so nothing is
   drawn within 9 px of the minimap's centre (`Strokes.PLAYER_GAP`: lines and
-  strokes are cut there, the dots keep clear of it as of a stop's pin); the
-  dots are otherwise 0.3.5's (tested against its recorded strokes). Every
-  style joins the walk at the player while the player is on it (within 15
-  yd, Follow.lua's BODY); only beside it does it start at the point the
-  arrow holds in sight (`joinPoint`).
+  strokes are cut there, the dots keep clear of it as of a stop's pin). On
+  the minimap the dots keep their size, rim and 9 px spacing (screen pixels,
+  so the same at every zoom, scaled by the minimap size) and flow: counted
+  back from the walk's end and moved toward the goal at the sparkles' default
+  pace (`view.phase`, the painter's 20 Hz driver; still under
+  `ui.reduceMotion`); the world map's dots are 0.3.5's (tested against their
+  recorded strokes). Dots and the line join the walk at the player while the player is on it (within 15
+  yd, Follow.lua's BODY); only beside it do they run straight from the player
+  to the point the arrow holds in sight (`joinPoint`). Sparkles always start
+  abreast of the player.
 - Line style (`nav.lineStyle`, `RouteLines.STYLE_CHOICES`): `"line"`,
   `"dots"` (the above) or `"sparkle"`, chosen on the welcome's setup page
   (`UI/Welcome.lua`, three cards each previewing its style), in Options
@@ -3176,6 +3300,10 @@ player's own estimates leave out the Hearthstone and the class teleports: a
 player's teleport reset Trial of the Lake (#1327), and a hearth leaves an
 escort behind. `QUEST_LOG_UPDATE` marks the state to read again on the next
 `Refresh`, which plans again when it changed.
+A class teleport whose landing lies in the zone the player stands in
+(its point's `map` equals the plan's `map`, the player's zone) is never
+planned: a Mage in Stormwind is not sent to Teleport: Stormwind to cross the
+city (#1515).
 A transport end is its ship's stop; where the ship lies in the water off
 its pier, the end carries a board point on the deck (TravelData's `board`,
 below), and the dock vertex is there: the walk to the boat ends on the
@@ -4313,10 +4441,17 @@ Polestar.Party.EncodeHello(reply) / DecodeHello(text)  -- "1H|<version>" hello, 
 Polestar.Party.Spoke(key) -> bool                  -- the member has spoken Polestar
 Polestar.Party.EncodePos(pos) / DecodePos(text)  -- "1P|<live step>|<Polestar version>|<pack id>|<pack version>|<guide id>"
 Polestar.Party.EncodeUnit(u) / DecodeUnit(text)  -- "2U|<level>|<XP %>|<class id>|<race id>"; later fields ignored
-Polestar.Party.MyPos() -> { step, addon, pack, packVersion, guide } | nil
+Polestar.Party.EncodeAt(pos, request) / DecodeAt(text)  -- "2P|<step key>|<guide id>" (where you are), "2G|" (sync request) -> at, request
+Polestar.Party.EncodeAnswer(code) / DecodeAnswer(text)  -- "2A|<y|n|x|=>": accepted, declined, cannot, already there
+Polestar.Party.StepKey(g, i) / StepAt(g, key)      -- a step's identity: the hash of its goals' kinds and ids, ".<n>" for the nth alike
+Polestar.Party.SharedSteps(g, a, b, who) -> n       -- b's place minus a's, counting steps both you and `who` have (Engine.StepHiddenFor)
+Polestar.Party.MyPos() -> { step, key, addon, pack, packVersion, guide } | nil
 Polestar.Party.MyUnit() -> { level, xp, class, race }
 Polestar.Party.Newer(a, b) -> bool                 -- dotted versions; a dev build compares as neither
 Polestar.Party.StepLine() -> text, holding | nil   -- the guide window's party row; holding: the group waits on the step
+Polestar.Party.RequestSync() -> bool               -- "Sync to my guide": the party panel's button, /polestar party sync
+Polestar.Party.SyncOffer(at) -> offer | nil; SyncPrompt(name, offer) -> text  -- what accepting would do here
+Polestar.Party.AcceptSync(req) / DeclineSync(req) -> bool  -- the prompt's buttons
 Polestar.Party.Waiting(goal) -> { { name, cur, max }, ... } | nil  -- members the group waits for short of goal's line
 Polestar.Party.HoldsQuest(q) -> bool                -- a member the group waits for has q unfinished
 Polestar.Party.StepWait() -> names, ready | nil     -- the live step's wait
@@ -4372,17 +4507,43 @@ Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sen
   off. The options carry `search`, more words the settings search reads.
 - With `party.share`, the position goes out with every snapshot and, two
   seconds after `STEP_CHANGED`/`STEP_UPDATED`/`GUIDE_CHANGED`, only when it
-  changed. Older clients drop "1P|" as malformed. "2U|" goes out with every
+  changed: "1P|", then "2P|" with the live step's key (`Party.StepKey`: a
+  hash of its goals' kinds and ids, never text, so every client language
+  agrees; a goto by its map and whole coordinates). Older clients drop
+  "1P|" as malformed, and 0.3.5 every "2P|"/"2G|"/"2A|". "2U|" goes out with every
   snapshot and, two seconds after `PLAYER_XP_UPDATE`/`PLAYER_LEVEL_UP`, when
   its text changed (a whole percent); version 1 decoders drop it.
 - With `party.show`, a member's position and unit are kept beside their
   counts. The guide window's party row (`GF.party`, over the XP row, not in
   compact mode) reads `StepLine`: "Ana: 3 steps ahead", "Ben: 1 step
-  behind", "Cy: on this step" for members on the same guide and pack
-  version, "Dee: other guide" on another; then the wait ("Waiting on Ana",
+  behind", "Cy: on this step" for members on your guide whose step key is in
+  your copy of it (any pack version) or, from a member who sends no "2P|"
+  (0.3.5), whose step number is on the same pack version; the count takes
+  only steps both of you have (`Party.SharedSteps`: neither a class, race or
+  hearth-only step of one of you, `Engine.StepHiddenFor` with the member's
+  class and race), so a Warrior on his Warrior-only step and a Mage on the
+  next step are on the same step. "Dee: other guide" on another; then the
+  wait ("Waiting on Ana",
   "Everyone's ready"), or with nobody holding the step "Still at it: Ana" (a
   hint). A click toggles the party panel; while the step is held, "Go on
   without them" sits at its end.
+- Sync to my guide (`Party.RequestSync`: the party panel's header button,
+  `/polestar party sync`): "2G|<step key>|<guide id>" to the party, once per
+  30 s; answers ("2A|") from the members asked count for 5 minutes and are
+  said in chat. A member's request, once per 30 s per member and never
+  accepted for the player, opens a StaticPopup (`POLESTAR_PARTY_SYNC`) from
+  `Party.SyncOffer`: the guide to switch to when it is not the active one,
+  their step, the turn-ins the move passes that you have not done ("Ana is
+  past these"), and those you did already that the guide passes there. One
+  you cannot follow (no such guide, not for your character, a copy without
+  the step) answers "x" and says so in chat; one you are on already answers
+  "=" with no prompt. Accept (`Party.AcceptSync`) opens the guide
+  (`Engine.OpenTab`) and calls `Engine.SkipUpTo(step)`: every open,
+  applicable, unskipped step from the live step up to it skipped, ticks and
+  earlier skips untouched, stored with the first one's skip so the window's
+  undo (`PLAYER_SKIPPED_STEP`) takes the whole sync back; nothing moves
+  back when you are past their step. Decline answers "n" and changes
+  nothing.
 - The wait (`party.waitForGroup`): the members the group waits for are
   those in your zone (`Compat.GetUnitZone`; unknown counts as here) and
   those offline under 2 minutes (kept apart from `Members`). The Engine asks
@@ -4659,8 +4820,10 @@ flight timer and the instance tracker are set under Quality of Life.
   (`maps.coords`, `Maps/WorldMap.lua`). `maps.minimapCoords` adds a readout at
   the bottom of the minimap (`Maps/Coords.lua`, 5 Hz, repainted only when the
   tenth changes). Both use `Maps.FormatCoords`.
-- Minimap button (`maps.minimapButton`, on by default; turning it off stores
-  `false`, so it stays off; `Maps/MinimapButton.lua`):
+- Minimap button (`maps.minimapButton`, on by default for every account;
+  turning it off stores `false`, so it stays off; `undoMinimapButtonKept` in
+  `Maps/Maps.lua` clears, once, the `false` the 0.3.6 test builds stored with
+  `PolestarDB.minimapButtonKept`; `Maps/MinimapButton.lua`):
   click fires `TOGGLE_FRAME`, right-click opens `Maps.ShowMenu` (show or hide
   the window, Guides, Lookup, Options, Report a problem; each fires the
   existing event), a drag moves it
@@ -4899,7 +5062,9 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
   fades, hides and resizes with the bar and its gamepad width. It takes no
   mouse: the bar's tooltip stays. No scripts, methods or hooks on the bar;
   no bar shown (another addon replaced or hid it, the maximum level): no
-  mark, and no error.
+  mark, and no error. A bar that is shown but not visible (a whole-UI addon
+  parents the game's bars to a hidden frame) counts as none: the refresh
+  stops before `Engine.LevelTarget`, so an XP gain scans nothing for it.
 - **Updates**, coalesced to the next frame (after the game's bar and the
   engine took the same event): `PLAYER_XP_UPDATE` and
   `PLAYER_ENTERING_WORLD` while the option is on (`QoL.WhileOn`),
@@ -4913,30 +5078,34 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
   `levels` top, where the next guide starts, at its last step shown), and
   what the steps up to there give (`Levels.ForGuide(id, p, live, step)`:
   their turn-ins' XP from the Codex, their kills and loot at the mobs'
-  levels, from where the character is). It also looks for the first open
+  levels, from where the character is). A span's entries are kept, by the
+  guide's table, the span and who the character is (level, class, race,
+  faction), until a turn-in, a level, or a guide, pack or Codex change
+  (`Levels.Invalidate`): the line is asked on every `PLAYER_XP_UPDATE`, and a
+  kill's XP only reruns `Levels.Run` over them. It also looks for the first open
   quest before the target (not a turn-in or a talk) that will be 3 or more
   levels above the character when the route gets there (`hard`; its level
   from the guide's `qlvl`, else the Codex, else the client). The guide
   window's XP row (`GF.PaceText(stats)`) always says one of: "On pace for
-  level 14 by step 32" (on pace or ahead); "Behind by 6 bars: step 32 grinds
-  to level 14 (~12m)" (a `level` goal ahead makes up the gap); in the warning
-  colour, "Behind: Missing In Action (25) at step 20, you'll be 21.0; grind
-  ~1h 10m first" (a hard quest; "you're" on the live step, "reach 23 first"
-  without an XP rate; with the character on pace for the target, the hard
-  quest is the route's, not their lag: "On pace, but Ashenvale Outrunners
-  (24) at step 4 is hard: you'll be 21.3; reach 22 first"), or "Behind by 2.4
-  levels for level 24 by step 21: grind ~1h 10m before then" ("and no grind
-  step ahead" without a rate).
-  Under a level the gap reads in the XP bar's bars (20 a level, rounded up),
-  from one level in levels; grinding time is the XP short over the QoL
-  tracker's XP an hour. Nothing without the Codex (Lookup), at 60, or with
-  no target (a guide that is not a leveling one with no `level` goal
-  ahead). Re-read with the XP row and on `STEP_CHANGED`.
+  level 14 by step 32" (on pace, ahead, or up to `GF.PACE_SLACK`, one
+  level, short: Fitz, 0.3.6, players read a few bars short as being behind);
+  "Behind by 1.2 levels: step 32 grinds to level 14 (~12m)" (a `level` goal
+  ahead makes up the gap, said plainly); in the warning colour, "Behind by
+  2.4 levels for level 24 by step 21: grind ~1h 10m before then" ("and no
+  grind step ahead" without a rate). The hard quest is named only on its own
+  step: calmly, "On pace, but Ashenvale Outrunners (24) at step 4 is hard:
+  you're 21.3; reach 22 first", or past the slack, in the warning colour,
+  "Behind: Missing In Action (25) at step 20, you're 21.0; grind ~1h 10m
+  first" ("reach 23 first" without an XP rate). Grinding time is the XP
+  short over the QoL tracker's XP an hour. Nothing without the Codex
+  (Lookup), at 60, or with no target (a guide that is not a leveling one
+  with no `level` goal ahead). Re-read with the XP row and on
+  `STEP_CHANGED`.
 - **A quest well over your level, on its step** (`Levels.StepHint(i)`): a
-  step with an open quest 3 or more levels above the character says so
+  step with work (not an accept, a hand-in or a talk: taking a quest early
+  is normal) on an open quest 3 or more levels above the character says so
   under its header, "Level 25 quest: you're 19.7" (your level and share of
-  it, cut to one place), in the warning colour, red from 5 levels over as in
-  the quest log.
+  it, cut to one place), in a calm colour, never red.
 
 ### Items kept for later — QoL/Keep, asks the Engine
 
@@ -5943,12 +6112,11 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   dart going to its first walk's place, the library's Leveling, Professions
   and Reputation counts); Set up (quest automation, the guide at login, the
   colour scheme as preview cards in each scheme's colours that apply live;
-  Skip keeps them); Route style (the start zone's painting with
-  the walk each route style takes between two places of its first guide,
-  baked by the walking router (`polestar nav welcome`, UI/WelcomeRoutes.lua):
-  the chosen style's drawn as the route line, drawn in again on a switch
-  (whole at once under reduced motion), the other two faint, the place
-  named and the walk's yards; `nav.routeStyle`, the setting Options' Route style dropdown
+  Skip keeps them); Route style (polestar.guide's route demo, the same for everyone: the
+  Elwynn Forest painting, Northshire Abbey to the Westfall bridge, the
+  chosen style's illustrated walk as the site draws it; a switch leaves the
+  last one as a faint dashed ghost and replays the trail, at once under
+  reduced motion; `nav.routeStyle`, the setting Options' Route style dropdown
   writes, as three rows, Fastest,
   Balanced with its Recommended tag and Roads, each saying what it does: a
   click sets it live and Nav/Walk.lua searches again, right-click or the
@@ -6335,9 +6503,20 @@ Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
   "known spawn 120 yd"), "Set waypoint" (the vignette's position, asked again
   on the click and on parent maps when the player's map lacks it; a unit:
   where it was seen; else the nearest known spawn on the player's continent,
-  or no waypoint) and "Show rare" (the section),
-  `rares.toastSeconds` with a drain line, held under the cursor, draggable
-  (`rares.toastPoint`).
+  or no waypoint), "Show rare" (the section) and, for a rare, "Target": a
+  secure button (`PolestarRareCardTarget`, on UIParent, registered for press
+  and release with `useOnKeyDown` false so it acts once, on the release,
+  whatever `ActionButtonUseKeyDown` says) over the card's own
+  runs `QoL.Buttons.RareCardMacro` (`/targetexact` the name, `/ping
+  [@target]` where the client has `SLASH_PING1`, always, as the rare button
+  does; the Target button and step key ping mobs only with `qol.pingTarget`,
+  off by default, never for a raid member without lead or assist:
+  `Buttons.QuestPingLine`; the mob's `/tm` with `qol.markTarget`); for the founder it runs `Buttons.FounderMacro`. Its
+  macro and its anchor to the card are set only out of combat;
+  `PLAYER_REGEN_DISABLED` (before the lockdown) lets go of it, so the card
+  can still move and close in a fight, where Target shows disabled with a
+  tooltip naming the rare button and its key. `rares.toastSeconds` with a
+  drain line, held under the cursor, draggable (`rares.toastPoint`).
 - **The founder** (`rares.founder`, on; Discovery → Rares → When a rare
   shows up): a player unit on the nameplate, target or mouseover path goes
   to `FounderSighting`, which matches `Compat.UnitFullName(unit)` (Forever's
@@ -6350,8 +6529,9 @@ Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
   only, `GetTime`). The alert is `RARE_SPOTTED` with `kind = "founder"`
   (`enemy` when his faction differs; both factions get it): the toast shows
   a gold star, "The Polestar founder is nearby!", his name and zone, a
-  nudge to wave (another line for the other faction) and no waypoint or
-  section button. Nothing enters the history. He is listed in `Nearby()`
+  nudge to wave (another line for the other faction), the card's Target
+  button (it waves) and no waypoint or section button. Nothing enters the
+  history. He is listed in `Nearby()`
   for the rare button while shown (looked at every 45 s), and the button's
   macro for him is `Buttons.FounderMacro`: `/cleartarget [nocombat]`,
   `/targetexact Fitz Polestar`, `/targetexact [noexists] Fitz` (Forever's

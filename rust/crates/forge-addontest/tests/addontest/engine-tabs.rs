@@ -363,3 +363,15 @@ fn a_tab_whose_guide_an_update_reworked_follows_the_quests_in_the_log_to_their_g
 	let open = run_reworked(&log, &saved_tabs(r#""test/zone05", "test/zone04""#, "{ 1, 2, 3, 4 }"));
 	assert_eq!(json!([open["tabs"], open["said"]]), json!([["test/zone05", "test/zone04"], ""]), "never a second tab of a guide");
 }
+
+// The fresh-start sweep (EngineReview036, 0.3.6): a /reload with no update moved an Alliance 35 tab from
+// Stranglethorn Vale to Arathi Highlands ("changed in this update"). The saved shape and step keys are the
+// guide as planned for the character (feeders in, quests waiting on earlier guides left out: other step keys),
+// so against the guide as registered they read reworked. A save stamped with the pack's own version saw no
+// update: the tab stays, whatever its keys.
+#[test]
+fn a_reload_with_no_update_never_moves_a_tab_however_its_planned_steps_differ() {
+	let saved = saved_tabs(r#""test/zone05""#, "{ 1, 2, 3, 4 }").replace("activeTab = 1,", r#"activeTab = 1, shapeVersions = { ["test/zone05"] = "1" },"#);
+	let out = run_reworked(&[1087, 6282, 216], &saved);
+	assert_eq!(json!([out["tabs"], out["said"]]), json!([["test/zone05"], ""]), "{out}");
+}

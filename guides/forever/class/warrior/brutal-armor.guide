@@ -155,7 +155,8 @@ step Velora Nitely
 
 step Dragonmaw Shinbones
   zone Wetlands
-  tip The Dragonmaw orcs (level 26-30) camp in the middle of the Wetlands; from Hammerfall in Arathi head south over the Thandol Span (Menethil Harbor is Alliance). Every Raider, Swamprunner, Centurion, Shadowwarder and Bonewarder drops a Dragonmaw Shinbone: right-click it to test it, and about one in four comes out sturdy, the rest break, so expect 30 or more kills for 8. You can test while moving or fighting. The orcs run for help at 15%; Raiders net you, Centurions shield-bash, Shadowwarders cast Shadow Bolt, Bonewarders raise skeletons.
+  when onquest 1846
+  tip The Dragonmaw orcs (level 26-30) camp in the middle of the Wetlands; from Hammerfall in Arathi head south over the Thandol Span (Menethil Harbor is Alliance). With Dragonmaw Shinbones from Velora in your log, every Raider, Swamprunner, Centurion, Shadowwarder and Bonewarder drops a Dragonmaw Shinbone (without the quest they drop none): right-click it to test it, and about one in four comes out sturdy, the rest break, so expect 30 or more kills for 8. You can test while moving or fighting. The orcs run for help at 15%; Raiders net you, Centurions shield-bash, Shadowwarders cast Shadow Bolt, Bonewarders raise skeletons.
   collect 7131 "Dragonmaw Shinbone" optional  -- from the Dragonmaw orcs: right-click to test it
   collect 7134 x8 quest 1846.1                -- Sturdy Dragonmaw Shinbone
 

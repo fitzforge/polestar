@@ -106,7 +106,7 @@ return {
 	-- Step 22: Iridescent Shards
 	-- {object:2701} Iridescent Shards
 	["The {object:2701} lie at the far end of the gorge."] = "{object:2701}在峽谷的最深處。",
-	["Below ground"] = "",
+	["Below ground"] = "地下",
 
 	-- Step 23: The Stone of East Binding
 	-- {object:2691} Stone of East Binding
@@ -136,6 +136,8 @@ return {
 	["Back to {area:321}"] = "返回{area:321}",
 	-- {area:321} Hammerfall
 	["Back north-east to {area:321}."] = "",
+	-- {npc:2792} Gor'mul
+	["{npc:2792}, by the gate"] = "{npc:2792}，在大門旁",
 
 	-- Step 28: Boulderfist quests for a group
 	["Boulderfist quests for a group"] = "",

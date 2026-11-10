@@ -9,10 +9,93 @@ next forever/horde/50-60/06-silithus
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Duskwing, Oh How I Hate Thee... (6135), Camp Mojache (7492).
+# Added here: Duskwing, Oh How I Hate Thee... (6135).
+# Left out since the 0.3.6 flow pass: Camp Mojache (7492, Gorlach's 1500 XP delivery to Talo): it cost a flight from
+# Gadgetzan to Camp Mojache and on to Marshal's Refuge instead of the direct flight.
+# Added here (0.3.6 flow pass, from 50-60/01, where the guide was about 52.4 among level 54-57 mobs): Light's Hope
+# Chapel's flight path and bind, Pamela's doll (5149), Zaeldarr (6021), Uncle Carlin (5241) and Defenders of
+# Darrowshire (5211), and the Marlene/Chromie chain (5152, 5153, 5154) to Brother Carlin (5210). Brother Carlin opens
+# Heroes and Villains of Darrowshire (5168, 5181), so the chain comes first, as in our comparison at 56-58.
+
+step Eastern Plaguelands
+  zone Eastern Plaguelands
+  goto 71.0,52.0 "Light's Hope Chapel"
+
+step Light's Hope Chapel
+  tip Follow the road east from the Western Plaguelands, over the river and across the whole Eastern Plaguelands, to the Argent Dawn's chapel in the far east.
+  getfp "Light's Hope Chapel"
+  sethome "Light's Hope Chapel"
+  accept 5281                         -- Caretaker Alen
+  accept 6021                         -- Caretaker Alen
+  turnin 6030                         -- Duke Nicholas Zverenhoff
+  accept 5510 optional
+
+step Pamela Redpath
+  tip Pamela's ghost stands in the ruins of Darrowshire, in the south-west.
+  accept 5149
+
+step Pamela's Doll
+  tip The doll's head and its two sides lie in the houses around Pamela; join them from your bags.
+  collect 12886                       -- Inside
+  collect 12887
+  collect 12888                       -- Inside
+  collect 12885 quest 5149 @38.5,91.4
+
+step Pamela Redpath
+  turnin 5149
+  accept 5152
+  accept 5241                         -- a message for Carlin at Light's Hope Chapel
+  note Keep Auntie Marlene: Marlene lives at Sorrow Hill in the Western Plaguelands.
+
+step Zaeldarr the Outcast
+  tip Zaeldarr lurks just west of Darrowshire.
+  collect 15785 quest 6021            -- Below ground
+
+step Pestilent Scar
+  tip Careful: Eye of Naxxramas goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min.
+  collect 12840 quest 5510 optional
+
+step Back to Light's Hope Chapel
+  turnin 6021                         -- Caretaker Alen
+  turnin 5241                         -- Carlin Redpath
+  accept 5211
+  note Defenders of Darrowshire's spirits come with the Corin's Crossing stop later in this guide: keep it.
+  turnin 5510 optional
+
+# ---------------------------------------------------------------- Western Plaguelands: Marlene and Chromie
+
+step Fly to Tarren Mill
+  zone Eastern Plaguelands
+  goto 80.1,57.0 "Light's Hope Chapel flight master"
+  fly "Tarren Mill"
+  zone Hillsbrad Foothills
+
+step To Sorrow Hill
+  zone Western Plaguelands
+  goto 49.2,78.6 "Sorrow Hill"
+
+step Sorrow Hill
+  tip Ride north up the road from Tarren Mill. Marlene's house stands by the road at Sorrow Hill, and Joseph Redpath's monument is in the graveyard behind it.
+  turnin 5152                         -- Marlene Redpath, upstairs
+  accept 5153
+  collect 12894 quest 5153 @49.7,76.8
+
+step Chromie
+  tip Ride north-west into Andorhal. Chromie waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges.
+  turnin 5153                         -- Upstairs
+  accept 5154
+
+step The Annals of Darrowshire
+  tip The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one.
+  collect 12900 quest 5154 @43.4,69.5
+
+step Chromie
+  turnin 5154                         -- Upstairs
+  accept 5210
 
 step Fly to Light's Hope Chapel
   zone Hillsbrad Foothills
+  tip Ride back south to Tarren Mill and fly to Light's Hope Chapel.
   goto 60.2,18.8 "Tarren Mill flight master"
   fly "Light's Hope Chapel"
   zone Eastern Plaguelands
@@ -22,9 +105,6 @@ step Light's Hope Chapel
   accept 5168
   accept 5181
   note Heroes of Darrowshire's items lie in the later Plaguelands zones: keep it.
-  sethome "Light's Hope Chapel"
-  accept 5281                         -- Caretaker Alen
-  turnin 6030                         -- Duke Nicholas Zverenhoff
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 86-93) and machine-checked with lint; not play-tested on Forever yet.
 #
@@ -45,7 +125,7 @@ step Light's Hope Chapel
 # Timbermaw Hold to Moonglade (Rabine Saturna) -> Winterspring (Donova,
 # Moontouched Owlbeasts) -> hearth to Thunder Bluff -> fly to Gadgetzan
 # (Sprinkle, Egg-O-Matic, Linken's sword) -> fly to
-# Camp Mojache (hippogryph eggs) -> Silithus.
+# Marshal's Refuge -> Silithus.
 #
 # Super Sticky and Bungle in the Jungle (4504, 4496), which the export turns
 # in at Gadgetzan here, are handed in by the Un'Goro guide at its own
@@ -69,8 +149,10 @@ step Light's Hope Chapel
 #
 # Left open for later guides: Heroes of Darrowshire (5168), Tirion's hunts
 # (5542-5544), Wild Guardians (4741), Toxic Horrors (5086), A Reliquary of
-# Purity and Wasteland (5527, 1124: Silithus), Linken's Sword (3914), Are We
-# There, Yeti? (5163) and The Super Egg-O-Matic (2741, back in Tanaris).
+# Purity and Wasteland (5527, 1124: Silithus), Linken's Sword (3914) and Are We
+# There, Yeti? (5163).
+# The Super Egg-O-Matic (2741, level 47) is taken in forever/horde/40-50/04-tanaris
+# and handed in at 50 in forever/horde/40-50/06-azshara.
 
 # ---------------------------------------------------------------- The south
 
@@ -130,7 +212,9 @@ step Pathstrider
 step Corin's Crossing
   tip Ride south from the lodge to Corin's Crossing, on the road. Living Rot spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the Mortar and Pestle at once.
   tip Careful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with Greater Invisibility. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.
+  tip With Defenders of Darrowshire in your log (from Carlin at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the Living Rot.
   goto 52.3,58.2 "Corin's Crossing" live
+  kill 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
   collect 15447 x7
   complete 6022
 
@@ -151,6 +235,7 @@ step Duskwing, Oh How I Hate Thee...
 
 step Carlin Redpath
   turnin 5181
+  turnin 5211
 
 # ---------------------------------------------------------------- Eastern Plaguelands
 
@@ -163,11 +248,6 @@ step Fly to Undercity
 step Zeppelin to Orgrimmar
   zone Tirisfal Glades
   goto 60.7,58.9 "Zeppelin to Orgrimmar"
-
-step Orgrimmar
-  zone Orgrimmar
-  accept 7492                         -- Warcaller Gorlach, outside the front gate on the way in: for Talo Thornhoof at Camp Mojache, at the end of this guide
-  goto 45.3,63.7 "Orgrimmar"
 
 step Fly to Bloodvenom Post
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
@@ -263,7 +343,8 @@ step Fly to Gadgetzan
   zone Tanaris
 
 step Gaeriyan
-  tip Gaeriyan is a ghost at the graveyard just north of Gadgetzan; the Conspicuous Gravestone is south of it, outside the town wall.
+  tip Drink the Videre Elixir at the graveyard just east of Gadgetzan: it kills you, and only as a ghost can you see Gaeriyan, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard.
+  use 11243 @54.0,28.7 map 1446         -- Videre Elixir
   turnin 3912
   accept 3913
 
@@ -274,10 +355,6 @@ step Sprinkle
 
 # ---------------------------------------------------------------- Tanaris
 
-step Gadgetzan
-  zone Tanaris
-  accept 2741                         -- The Egg-O-Matic machine
-
 step Gaeriyan
   turnin 3913                         -- A Conspicuous Gravestone
   accept 3914
@@ -287,29 +364,14 @@ step Marvon Rivetseeker
   tip Marvon camps by the Lost Rigger Cove road, south of Gadgetzan.
   turnin 3444
 
-# ---------------------------------------------------------------- Feralas and on to Silithus
-
-step Fly to Camp Mojache
-  zone Tanaris
-  goto 51.6,25.5 "Gadgetzan flight master"
-  fly "Camp Mojache"
-
-step Camp Mojache
-  zone Feralas
-  turnin 7492                         -- Talo Thornhoof, a few steps from the flight master
-  note His next task is for the Dire Maul dungeon: leave it.
-
-step Ruins of Isildien
-  zone Feralas
-  tip Fly to Camp Mojache. The hippogryph nests are in the south of Feralas; each holds an egg for the Egg-O-Matic.
-  collect 8564 quest 2741 @58.0,76.3 map 1444
-
-# ---------------------------------------------------------------- Valor's Rest and Southwind
+# ---------------------------------------------------------------- On to Silithus
 
 step Fly to Marshal's Refuge
-  zone Feralas
-  goto 75.4,44.3 "Camp Mojache flight master"
+  zone Tanaris
+  goto 51.6,25.5 "Gadgetzan flight master"
   fly "Marshal's Refuge"
+
+# ---------------------------------------------------------------- Valor's Rest and Southwind
 
 step Marshal's Refuge
   zone Un'Goro Crater

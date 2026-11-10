@@ -69,7 +69,7 @@ return {
 	-- {npc:251115} Urs'anah · {npc:250926} Scrawny Ursera
 	-- plural, as words: Ursera Scavengers = {npc:250937} Ursera Scavenger
 	["The Ursera Scavengers den west of the grove, with {npc:251115}, the matriarch, at the back of the den; {npc:250926} prowl the woods between the den and the grove."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "地下",
 	-- {item:252665} Head of Urs'anah
 	["{item:252665}; below ground"] = "",
 
@@ -85,13 +85,51 @@ return {
 	["Follow the road south to {area:16624}. {npc:263664} camps by the fire west of the village; {npc:251523} and {npc:251903} stand in its middle."] = "沿著道路向南前往{area:16624}。{npc:263664}在村子西邊的火堆旁紮營；{npc:251523}和{npc:251903}站在村子中央。",
 
 	-- Step 14: Raan Wildwind
+	-- {npc:263664} Raan Wildwind · {area:16624} Shen'dar Village
+	["With a profession learned, {npc:263664} also offers its Camping 101, which its trainer in {area:16624} takes on the village round."] = "學會一項專業技能後，{npc:263664}也會提供該專業的「露營入門」任務，由{area:16624}的專業訓練師在繞村途中接手。",
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
 	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "在{npc:263664}的營火旁 /sit，直到獲得{spell:1229451}",
+	-- {npc:263664} Raan Wildwind · {npc:257019} Nyassa Swiftdraught
+	["{npc:263664}, alchemists: for {npc:257019}"] = "{npc:263664}，煉金師：交給{npc:257019}",
+	-- {npc:263664} Raan Wildwind · {npc:251913} Aedi Thriceforged
+	["{npc:263664}, blacksmiths: for {npc:251913}"] = "{npc:263664}，鍛造師：交給{npc:251913}",
+	-- {npc:263664} Raan Wildwind · {skill:129} First Aid · {npc:257018} Naleeia Tattermend
+	["{npc:263664}, {skill:129}: for {npc:257018}"] = "{npc:263664}，{skill:129}：交給{npc:257018}",
+	-- {npc:263664} Raan Wildwind · {npc:251992} Fenn Fairweather
+	["{npc:263664}, fishers: for {npc:251992}"] = "{npc:263664}，釣魚者：交給{npc:251992}",
+	-- {npc:263664} Raan Wildwind · {npc:251993} Indari Sunseam
+	["{npc:263664}, leatherworkers: for {npc:251993}"] = "{npc:263664}，製皮師：交給{npc:251993}",
+	-- {npc:263664} Raan Wildwind · {npc:257022} Messana Crestwind
+	["{npc:263664}, miners: for {npc:257022}"] = "{npc:263664}，採礦者：交給{npc:257022}",
+	-- {npc:263664} Raan Wildwind · {npc:257024} Mendalass Tattermend
+	["{npc:263664}, skinners: for {npc:257024}"] = "{npc:263664}，剝皮者：交給{npc:257024}",
+	-- {npc:263664} Raan Wildwind · {npc:251991} Taleen Shimmerthread
+	["{npc:263664}, tailors: for {npc:251991}"] = "{npc:263664}，裁縫師：交給{npc:251991}",
+	-- {npc:263664} Raan Wildwind · {npc:257020} Nasalanna Windsinger
+	["{npc:263664}, enchanters: for {npc:257020}"] = "{npc:263664}，附魔師：交給{npc:257020}",
 	-- {npc:251905} Zerril Softbreeze
 	["{npc:251905}: Camping 101 asks you to learn it"] = "",
 
 	-- Step 15: Village quests
 	["Village quests"] = "村莊任務",
+	-- {npc:251993} Indari Sunseam
+	["{npc:251993}: Camping 101, leatherworkers"] = "{npc:251993}：露營入門，製皮師",
+	-- {npc:257022} Messana Crestwind
+	["{npc:257022}, beside her: Camping 101, miners"] = "{npc:257022}，在她旁邊：露營入門，採礦者",
+	-- {npc:251991} Taleen Shimmerthread
+	["{npc:251991}: Camping 101, tailors"] = "{npc:251991}：露營入門，裁縫師",
+	-- {npc:251913} Aedi Thriceforged
+	["{npc:251913}, beside her: Camping 101, blacksmiths"] = "{npc:251913}，在她旁邊：露營入門，鍛造師",
+	-- {npc:257019} Nyassa Swiftdraught · {npc:251905} Zerril Softbreeze
+	["{npc:257019}, west of {npc:251905}: Camping 101, alchemists"] = "{npc:257019}，在{npc:251905}西邊：露營入門，煉金師",
+	-- {npc:257024} Mendalass Tattermend
+	["{npc:257024}: Camping 101, skinners"] = "{npc:257024}：露營入門，剝皮者",
+	-- {npc:257020} Nasalanna Windsinger
+	["{npc:257020}: Camping 101, enchanters"] = "{npc:257020}：露營入門，附魔師",
+	-- {npc:257018} Naleeia Tattermend · {skill:129} First Aid
+	["{npc:257018}, at the south side of the village: Camping 101, {skill:129}"] = "{npc:257018}，在村子南側：露營入門，{skill:129}",
+	-- {npc:251992} Fenn Fairweather
+	["{npc:251992}, on the south edge of the village: Camping 101, fishers"] = "{npc:251992}，在村子南緣：露營入門，釣魚者",
 
 	-- Step 16: Prideclaws and Galestriders
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
@@ -115,7 +153,7 @@ return {
 	["Shen'dar turn-ins"] = "申德村繳交任務",
 
 	-- Step 21: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "職業訓練師",
 
 	-- Step 22: Paladin trainer
 	["Paladin trainer"] = "",
@@ -164,15 +202,15 @@ return {
 	-- {area:16624} Shen'dar Village
 	["{area:16624} again"] = "再回{area:16624}",
 
-	-- Step 33: Fendaal Windstone
+	-- Step 34: Fendaal Windstone
 	-- {area:16638} Valanaar · {npc:273017} Fendaal Windstone · {quest:98512} Al'Aketh Assassins
 	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "",
 
-	-- Step 34: Valanaar, the turncoat
+	-- Step 35: Valanaar, the turncoat
 	-- {area:16638} Valanaar
 	["{area:16638}, the turncoat"] = "{area:16638}，叛徒",
 
-	-- Step 35: Valanaar
+	-- Step 36: Valanaar
 	-- {npc:252383} Valennia Stormfist · {npc:252476} Talaanis Shadowsong · {area:16638} Valanaar · {npc:252475} Elaadrin Evengale · {npc:253204} Dondallion Whisperwind
 	["{npc:252383} and {npc:252476} stand at the north end of {area:16638}, {npc:252475} and {npc:253204} at the south end."] = "{npc:252383}和{npc:252476}站在{area:16638}北端，{npc:252475}和{npc:253204}在南端。",
 	-- {npc:252476} Talaanis Shadowsong
@@ -180,7 +218,7 @@ return {
 	-- {npc:252383} Valennia Stormfist
 	["{npc:252383}, upstairs"] = "",
 
-	-- Step 37: Skyhoppers
+	-- Step 38: Skyhoppers
 	-- plural, as words: Skyhoppers = {npc:251727} Skyhopper
 	["Skyhoppers"] = "空躍者",
 	-- {area:16638} Valanaar
@@ -189,7 +227,7 @@ return {
 	-- {npc:260628} Valennia Stormfist
 	["{npc:260628}, upstairs"] = "",
 
-	-- Step 38: The road to Valanaar
+	-- Step 39: The road to Valanaar
 	-- {area:16638} Valanaar
 	["The road to {area:16638}"] = "前往{area:16638}的路",
 	-- {npc:257006} Nyalah Brightfire · {npc:252448} Alvarion Windfield · {area:16638} Valanaar · {npc:252377} Seena Skybreaker · {npc:252389} Quel'ana Quickgale
@@ -303,7 +341,7 @@ return {
 
 	-- Step 58: Desperate times
 	["Desperate times"] = "危急時刻",
-	["Upstairs"] = "",
+	["Upstairs"] = "樓上",
 
 	-- Step 60: Paladin trainer
 	-- {npc:5148} Beldruk Doombrow · {zone:1455} Ironforge · {area:16638} Valanaar

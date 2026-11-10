@@ -67,28 +67,28 @@ return {
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
 	["{area:275}: kill these as you meet them"] = "",
-	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {area:272} Tarren Mill
-	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "",
+	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key · {area:272} Tarren Mill
+	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "德盧爾和{npc:2238}被鎖在{area:275}庭院的建築裡。鎖需要鑰匙：{npc:2427}帶著{item:3467}，{npc:2428}帶著{item:3499}，兩人都在城堡裡。殺死他們，然後打開兩把鎖。\n從{area:272}向東南進入通往{area:275}途中的丘陵。辛迪加盜賊和辛迪加衛士佔據沿途的營地。",
 	-- {npc:2261} Syndicate Watchman
 	["{npc:2261} walks around here: look inside the circle on the map"] = "",
 	["Drull's ball and chain"] = "德盧爾的腳鐐",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "{npc:2238}的腳鐐",
 
-	-- Step 11: Mudsnout Blossoms
-	-- {item:3502} Mudsnout Blossoms
-	["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "在敦霍爾德城堡西南方，{item:3502}生長在河流上方的山坡上。",
-
-	-- Step 12: Deathstalker Masoj
+	-- Step 11: Deathstalker Masoj
 	-- {area:290} Dun Garok
-	["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "亡靈哨兵馬索吉躲在敦霍爾德城堡南邊、{area:290}上方的山坡上，就在下山前往花叢的路上。",
+	["Masoj hides on the hillside above {area:290}, south-west of Durnholde, on the way down to the blossoms."] = "馬索吉躲在敦霍爾德城堡西南邊、{area:290}上方的山坡上，就在下山前往花叢的路上。",
 	-- {npc:270438} Deathstalker Masoj · {quest:98094} Scout Support
 	["{npc:270438}, once {quest:98094} is in"] = "",
+
+	-- Step 12: Mudsnout Blossoms
+	-- {item:3502} Mudsnout Blossoms
+	["Just south of Masoj, the {item:3502} grow on the hillsides above the river."] = "在馬索吉南邊不遠，{item:3502}生長在河流上方的山坡上。",
 
 	-- Step 13: The southern peak
 	["The southern peak"] = "",
 	-- {area:290} Dun Garok
-	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "",
+	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, south-east of the blossoms: use a vial at the top."] = "馬索吉要你在三座山峰上各放一瓶藥劑師瓶子。南邊那座是{area:290}上方、花叢東南邊的山頂：在山頂使用一瓶。",
 
 	-- Step 14: The smithy
 	["The smithy"] = "鐵匠鋪",
@@ -176,8 +176,13 @@ return {
 
 	-- Step 31: Back to the Crossroads
 	["Back to the Crossroads"] = "",
-	-- {npc:3033} Turak Runetotem
-	["Train with {npc:3033}, then fly on to the Crossroads, where the next guide starts."] = "",
+	-- {npc:3033} Turak Runetotem · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
+	["Train with {npc:3033}. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "在{npc:3033}那裡訓練。繼續飛行前，風騎士管理員東邊不遠處的{npc:3024}和{npc:4721}會給你兩個任務，在接下來幾份指南的路上完成；然後飛往十字路口，下一份指南從那裡開始。",
+	-- {npc:3024} Tah Winterhoof · {quest:97538} Pigments for Paints · {area:464} Mirkfallon Lake
+	["{npc:3024}: {quest:97538}, the Mirkweed in {area:464} by Sun Rock"] = "{npc:3024}：{quest:97538}，太陽岩旁{area:464}的暗色水草",
+	-- {npc:4721} Zangen Stonehoof · {quest:1195} The Sacred Flame · {zone:1440} Ashenvale
+	-- plural, as words: Laughing Sisters = {npc:4054} Laughing Sister
+	["{npc:4721}: {quest:1195}, the phial from {zone:1440}'s Laughing Sisters"] = "{npc:4721}：{quest:1195}，從{zone:1440}的狂笑姐妹身上取得藥瓶",
 
 	-- Step 32: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -197,12 +202,14 @@ return {
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:1638} and train on {area:1639}, then fly on to {area:378}."] = "從{zone:1454}（從{zone:1458}外的塔搭飛艇）飛往{area:1638}，在{area:1639}訓練，然後繼續飛往{area:378}。",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:378}."] = "從{zone:1454}（從{zone:1458}外的塔搭飛艇）飛往{area:378}。",
 	-- ["Hearth to {area:378} and fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "用爐石回到{area:378}，飛往{area:392}。{quest:874}在{area:392}北邊的海岸紮營。",
+	-- ["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "亡靈哨兵馬索吉躲在敦霍爾德城堡南邊、{area:290}上方的山坡上，就在下山前往花叢的路上。",
 	-- ["No Gallywix yet? The Class guide Poisons (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "還沒打倒加里維克斯？職業指南「毒藥（部落）」會從申蘇爾那裡重新跑這條任務鏈，並組隊對付加里維克斯。",
 	-- ["No Gallywix yet? The Class guide {spell:2842} (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "還沒打倒加里維克斯？職業指南{spell:2842}（部落）會從申蘇爾那裡重新跑這條任務鏈，並組隊對付加里維克斯。",
 	-- ["Only if Gallywix fell in the {zone:1413} (Mission: Possible But Not Probable): {npc:2391} stands in {area:272}. Wait beside him while he brews the cure, then take your reward: Poisons."] = "只有在你已於{zone:1413}擊敗加里維克斯時（基本不可能的任務）：{npc:2391}站在{area:272}。在他旁邊等他調製解藥，然後領取獎勵：毒藥。",
 	-- ["Only if Gallywix fell in the {zone:1413} (Mission: Possible But Not Probable): {npc:2391} stands in {area:272}. Wait beside him while he brews the cure, then take your reward: {spell:2842}."] = "只有在你已於{zone:1413}擊敗加里維克斯時（基本不可能的任務）：{npc:2391}站在{area:272}。在他旁邊等他調製解藥，然後領取獎勵：{spell:2842}。",
 	-- ["Peasants and skulls"] = "農民與頭骨",
 	-- ["South-west of Bael Modan, {npc:12576} waits at the top of the {area:485}."] = "在巴爾莫丹西南方，{npc:12576}在{area:485}頂端等著。",
+	-- ["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "在敦霍爾德城堡西南方，{item:3502}生長在河流上方的山坡上。",
 	-- ["Syndicate camps"] = "辛迪加營地",
 	-- ["Take the zeppelin from the towers outside the {zone:1458} to {zone:1454} and train before you fly on."] = "從{zone:1458}外的塔搭飛艇前往{zone:1454}，在繼續飛行前先訓練。",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "希爾斯布萊德農民在農舍南邊的田裡工作。每個{area:287}的人類都會掉落頭骨；農民掉落最頻繁。",

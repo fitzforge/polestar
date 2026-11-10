@@ -15,8 +15,6 @@ return {
 	["South-east from Menethil to the Dragonmaw's {area:1036}: the first catapult stands on the way, and the {object:671518} lies in the camp."] = "",
 
 	-- Step 4: Angerfang Encampment
-	-- {quest:474} Defeat Nek'rosh
-	["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "El siguiente paso, {quest:474}, te enfrenta a un jefe élite: sáltatelo.",
 	-- {object:671518} Tattered Spellbook · {npc:2104} Captain Stoutfist
 	["{object:671518}: for {npc:2104}"] = "{object:671518}: para {npc:2104}",
 
@@ -105,7 +103,7 @@ return {
 	["{quest:98246}: the eggs"] = "",
 
 	-- Step 23: Prospector Whelgar
-	["Below ground"] = "",
+	["Below ground"] = "Bajo tierra",
 	-- {npc:2916} Historian Karnik · {zone:1455} Ironforge
 	["For {npc:2916} in {zone:1455}, at the end of this guide"] = "Para {npc:2916} en {zone:1455}, al final de esta guía",
 
@@ -217,7 +215,7 @@ return {
 
 	-- Step 47: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Vuela a {area:1537}",
 	-- {area:271} Southshore
 	["{area:271} flight master"] = "",
 
@@ -225,6 +223,10 @@ return {
 	-- {npc:1356} Prospector Stormpike · {npc:2916} Historian Karnik · {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers (no name in this language: may be words)
 	["{npc:1356}, {npc:2916} and {npc:5637} stand in the {object:32356}, north-east of the flight master."] = "",
 	["Level 30 and 32 spells"] = "Hechizos de nivel 30 y 32",
+
+	-- Step 50: Sara Balloo
+	-- {npc:2695} Sara Balloo · {zone:1455} Ironforge
+	["{npc:2695}: for King Magni, on the same {zone:1455} stop"] = "{npc:2695}: para el Rey Magni Barbabronce, en la misma parada de {zone:1455}",
 
 	-- Step 52: King Magni Bronzebeard
 	-- {npc:2784} King Magni Bronzebeard · {object:171709} High Seat
@@ -285,6 +287,7 @@ return {
 	-- ["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one."] = "Los Guardianes de Goaz están justo al oeste del campamento del Prospector Whelgar: usa junto a uno la {item:279996} que te dio.",
 	-- ["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp."] = "El campamento del Sindicato está en la frontera con las Montañas de Alterac, al norte de {area:287}, al oeste de {area:272} (Horda); los documentos están en el campamento.",
 	-- ["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}."] = "Los múrlocs Rompeanca abarrotan {area:295}, al suroeste de {area:271}.",
+	-- ["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "El siguiente paso, {quest:474}, te enfrenta a un jefe élite: sáltatelo.",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "Los yetis viven en la cueva de las colinas al norte de {area:271}, de camino de vuelta al sur.",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "Al oeste, hasta las granjas de {area:287}: pon la {item:279386} en la mesa de contabilidad del ayuntamiento, donde están {npc:2335} y los Consejeros de Trabalomas.",
 	-- ["Whelps, raptors and {npc:271458}"] = "Crías, raptores y {npc:271458}",

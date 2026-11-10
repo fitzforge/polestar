@@ -1826,6 +1826,23 @@
 		],
 		"note": "The Eastern Plagues (Alliance, 60): find the three SI:7 Insignias and the Blightcaller's place. The merged data also listed Nathanos Blightcaller (npc 11878, a level 62 elite) as a kill, a credit only one source has; the world then made it an elite kill and the planner a group quest. It is done alone at 57-59; Nathanos is the next quest's story (The Blightcaller Cometh tells Bolvar of him)."
 	},
+	"6383": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-10): Senani Thunderheart (12696) gave The Ashenvale Hunt to 33 people with no refusal, 23 of them with no Ashenvale Hunt breadcrumb (6382) ever taken or handed in"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "quest_template 6383: no PrevQuestId; 6382, 235 and 742 are breadcrumbs pointing at it"
+			}
+		],
+		"note": "The Ashenvale Hunt has no prerequisite on Forever: Senani Thunderheart at Splintertree Post offers it to any Horde player from level 20. The merged data listed Thork's breadcrumb (6382) as a prerequisite beside the two breadcrumbs it already marked, so a player who never took the breadcrumb was told to fetch it first, and Ursangous, Sharptalon and Shadumbra drop their trophies only once 6383 is handed in (#1531)."
+	},
 	"6641": {
 		"set": {
 			"escort": true
@@ -2398,6 +2415,27 @@
 		],
 		"note": "The Paladin Cloak of the Divine Storm chain: Katherine the Pure's A Second Opinion (78090) follows Advice From Stormwind (78089), handed in to her. The merged data had no prerequisite."
 	},
+	"78091": {
+		"set": {
+			"pre": [
+				78090
+			],
+			"preAny": [
+				78090
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (IngestCheck036, 2026-11-09 pull, people counted per IngestAudit): Ursula Deline did not offer Earning Your Salt (78091) to 3 people (1 established) who could take it while A Second Opinion (78090) was still in their log, and all 3 took it right after handing 78090 in to her"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 78090"
+			}
+		],
+		"note": "The Paladin Cloak of the Divine Storm chain: Ursula Deline's Earning Your Salt (78091) follows A Second Opinion (78090), handed in to her. The merged data had no prerequisite; the rest of the chain (78089, 78090, 78092) already had theirs."
+	},
 	"78092": {
 		"set": {
 			"pre": [
@@ -2882,6 +2920,30 @@
 			}
 		],
 		"note": "The Lumina Windsinger chain (Undead Paladins): Into Fenris Keep (91861), from the Charred Remains, follows A Grim Fate (91860), handed in to them. The merged data had no prerequisite."
+	},
+	"91899": {
+		"set": {
+			"minLevel": 1
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.10 (Forever) and EG Link's caches (1.60.1.70338) both give minimum level 1"
+			}
+		],
+		"note": "A Sealed Crate: recordings suggest 18, unconfirmed; review 0.3.7. Pinned at 1 for 0.3.6 so data/recorded's learned minimum level does not apply until a second source agrees."
+	},
+	"91900": {
+		"set": {
+			"minLevel": 1
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.10 (Forever) and EG Link's caches (1.60.1.70450) both give minimum level 1"
+			}
+		],
+		"note": "A Sealed Crate: recordings suggest 24, unconfirmed; review 0.3.7. Pinned at 1 for 0.3.6 so data/recorded's learned minimum level does not apply until a second source agrees."
 	},
 	"91901": {
 		"set": {
@@ -6586,7 +6648,8 @@
 	},
 	"95805": {
 		"set": {
-			"xp": 360
+			"xp": 360,
+			"limit": 600
 		},
 		"source": [
 			{
@@ -6596,9 +6659,13 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 355 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB Forever quest 95805's objective text: carry the incense to the shrine before it burns to ash in ten minutes"
 			}
 		],
-		"note": "Grace of An'she and Mu'sha pays 360 XP, not 180: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+		"note": "Grace of An'she and Mu'sha pays 360 XP, not 180: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414). It allows ten minutes (600 s) from the Seer to the shrine, as its objective says; the Forever TDB has no record of it, so the data had no limit and Dynamic Questing could not tell whether taking it early still leaves time for the walk."
 	},
 	"96130": {
 		"set": {
@@ -6851,6 +6918,27 @@
 		],
 		"note": "The Gurubashi Legends of Old (Forever, Horde): Kin'weelay at Grom'gol gives it and takes the Third Troll Legend back. The merged data had no giver or ender, so the arrow had nowhere to point."
 	},
+	"95770": {
+		"set": {
+			"pre": [
+				95748
+			],
+			"preAny": [
+				95748
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-09): Kin'weelay (2519) offered Locating the Lost City to 2 people only after they handed The Gurubashi Legends of Old (95748) in; Kin'weelay's windows while 95748 was in their log listed nothing new. Both found the cavern entrance at Stranglethorn 21.7-22.0,27.1-28.1 within 3 minutes and handed it in to Kin'weelay (3,150 XP)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 95748"
+			}
+		],
+		"note": "Locating the Lost City (Forever, Horde): Kin'weelay at Grom'gol offers it once The Gurubashi Legends of Old is handed in; the cavern entrance is under the Vile Reef, west of Grom'gol. The merged data had no prerequisite."
+	},
 	"91209": {
 		"set": {
 			"pre": [
@@ -7092,15 +7180,20 @@
 				],
 				"object": []
 			},
+			"minLevel": 24,
 			"objectiveText": "Speak with the Image of Archmage Modera near Dalaran."
 		},
 		"source": [
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings: 3 people took Shrewd Negotiations from Magus Wordeen Voidglare with the log line 'Speak with the Image of Archmage Modera near Dalaran.', and the 2 who finished it handed it in to her (npc 269127), all established"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.10 (Forever) gives minimum level 24; EG Link's caches have no quest record for it"
 			}
 		],
-		"note": "Shrewd Negotiations (Horde, Magus Wordeen Voidglare in Tarren Mill) ends at the Image of Archmage Modera outside the City of Dalaran, not at Archmage Celindra inside the city."
+		"note": "Shrewd Negotiations (Horde, Magus Wordeen Voidglare in Tarren Mill) ends at the Image of Archmage Modera outside the City of Dalaran, not at Archmage Celindra inside the city. Minimum level: recordings suggest 31, unconfirmed; review 0.3.7. Pinned at 24 for 0.3.6 so data/recorded's learned minimum level does not apply until a second source agrees."
 	},
 	"870": {
 		"set": {

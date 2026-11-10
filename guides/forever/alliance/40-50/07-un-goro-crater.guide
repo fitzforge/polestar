@@ -61,6 +61,7 @@ step Fresh Threshadon Carcass
 step Torwa Pathfinder
   turnin 4290
   accept 4291
+  accept 4289                         -- The gorillas on Ironstone Plateau carry the pelts: keep it for the second Un'Goro visit, around 56
 
 step Lar'korwi Mates and the raft
   tip The Lar'korwi Mates prowl the jungle west of Torwa. The wrecked raft lies on the shore of the lake there; the small pack sits in the water beside it. Keep the compass, map and key for Linken. Any beast in the crater may drop A Mangled Journal: right-click it.
@@ -123,7 +124,7 @@ step Northern Pylon
   collect 11830 quest 4503
 
 step A-Me 01
-  tip Ride north to Ironstone Plateau, where the robot stands among the gorillas. Stay out of the deep cave there.
+  tip Ride east to Ironstone Plateau, where the robot stands among the gorillas. Stay out of the deep cave there.
   turnin 4243                         -- Below ground
 
 step Level 49.51
@@ -175,50 +176,46 @@ step Marshal's Refuge
   turnin 4321
   level 50 only Priest
 
+step Fly to Astranaar
+  only Warrior,Paladin,Hunter,Rogue,Shaman,Warlock,Druid
+  zone Un'Goro Crater
+  tip The Ironforge quests were taken at the end of the Searing Gorge guide: fly straight on to Ashenvale for Azshara.
+  goto 45.3,6.0 "Marshal's Refuge flight master"
+  fly "Astranaar"
+
 step To Stoutlager Inn
+  only Priest,Mage
   zone Loch Modan
   goto 35.5,48.4 "Stoutlager Inn"
 
-# ---------------------------------------------------------------- Ironforge
+# ---------------------------------------------------------------- Ironforge (Priests and Mages)
 
 step Fly to Ironforge
+  only Priest,Mage
   zone Loch Modan
   goto 33.9,50.8 "Thelsamar flight master"
   fly "Ironforge"
   zone Ironforge
 
-step Hall of Explorers
-  accept 3448                         -- Historian Karnik
-  turnin 3368                         -- Curator Thorius
-  accept 4512                         -- Laris Geardawdle: the oozes are in Felwood, keep it
-
 step Mystic Ward
-  turnin 3448                         -- Tymor
-  accept 3449                         -- Four rune rubbings in Azshara: keep it
-  accept 3450
+  only Priest,Mage
   accept 8254 npc 11406 only Priest   -- High Priest Rohan: for Ogtinc in Azshara, keep it
   accept 8250 npc 7312 only Mage      -- Dink, the mage trainer: for Sanath Lim-yo in Azshara, keep it
-
-step Class trainer
-  only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-  train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-
-step Xiggs Fuselighter
-  tip Xiggs waits in the Military Ward.
-  turnin 3450
-  accept 3451
-  turnin 3451
+  train class
 
 step Fly to Menethil Harbor
+  only Priest,Mage
   zone Ironforge
   goto 55.9,47.9 "Ironforge flight master"
   fly "Menethil Harbor"
 
 step Boat to Auberdine
+  only Priest,Mage
   zone Wetlands
   goto 4.5,56.7 "Boat to Auberdine"
 
 step Fly to Astranaar
+  only Priest,Mage
   zone Darkshore
   goto 36.4,45.6 "Auberdine flight master"
   fly "Astranaar"

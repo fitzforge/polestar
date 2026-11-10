@@ -33,6 +33,10 @@ return {
 	-- {npc:9619} Torwa Pathfinder
 	["The dead Threshadon lies by the water north of {npc:9619}."] = "死去的蛇颈龙躺在{npc:9619}北边的水边。",
 
+	-- Step 10: Torwa Pathfinder
+	-- {area:1943} Ironstone Plateau
+	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "{area:1943}的猩猩身上有毛皮：留到第二次来安戈洛时再做，大约56级",
+
 	-- Step 11: Lar'korwi Mates and the raft
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["Lar'korwi Mates and the raft"] = "{npc:9683}和木筏",
@@ -78,7 +82,7 @@ return {
 
 	-- Step 18: A-Me 01
 	-- {area:1943} Ironstone Plateau
-	["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "向北骑行到{area:1943}，机器人站在猩猩中间。别进那里的深洞。",
+	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "向东骑行到{area:1943}，机器人站在猩猩中间。别进那里的深洞。",
 	["Below ground"] = "在地下",
 
 	-- Step 19: Level 49.51
@@ -123,42 +127,35 @@ return {
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge's entrance"] = "{npc:9998}，在避难所入口",
 
-	-- Step 26: To Stoutlager Inn
+	-- Step 26: Fly to Astranaar
+	-- {area:415} Astranaar
+	["Fly to {area:415}"] = "飞往{area:415}",
+	-- {zone:1455} Ironforge · {zone:1427} Searing Gorge · {zone:1440} Ashenvale · {zone:1447} Azshara
+	["The {zone:1455} quests were taken at the end of the {zone:1427} guide: fly straight on to {zone:1440} for {zone:1447}."] = "{zone:1455}的任务已在{zone:1427}指南末尾接取：直接飞往{zone:1440}，前往{zone:1447}。",
+	-- {area:541} Marshal's Refuge
+	["{area:541} flight master"] = "{area:541}飞行管理员",
+
+	-- Step 27: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
 	["To {area:2101}"] = "前往{area:2101}",
 
-	-- Step 27: Fly to Ironforge
+	-- Step 28: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "飞往{area:1537}",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "{area:144}的飞行管理员",
 
-	-- Step 28: Hall of Explorers
-	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
-	["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}：软泥怪在{zone:1448}，留着",
-
 	-- Step 29: Mystic Ward
-	-- {zone:1447} Azshara
-	["Four rune rubbings in {zone:1447}: keep it"] = "{zone:1447}的四个符文拓片：留着",
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}：交给{zone:1447}的奥汀克，留着",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
 	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "",
 
-	-- Step 30: Class trainer
-	["Class trainer"] = "职业训练师",
-
-	-- Step 31: Xiggs Fuselighter
-	-- {object:32359} Military Ward
-	["Xiggs waits in the {object:32359}."] = "西格斯在{object:32359}等候。",
-
-	-- Step 34: Fly to Astranaar
-	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "飞往{area:415}",
+	-- Step 32: Fly to Astranaar
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "{area:442}的飞行管理员",
 
-	-- Step 35: Level 50.4
+	-- Step 33: Level 50.4
 	["Level 50.4"] = "等级 50.4",
 	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
 	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "在这里补到50.4级，再去{area:3137}交任务，交完会升到51级。也可以组队去{area:2100}副本或{area:1417}副本。",
@@ -168,9 +165,11 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Archesonus stands beside King Magni in the {object:171709}."] = "阿克瑟努斯站在{object:171709}中麦格尼国王旁边。",
 	-- ["Bind and train"] = "设置炉石并训练",
+	-- ["Class trainer"] = "职业训练师",
 	-- ["Cross the south of the crater to {npc:9619} by the ramp."] = "穿过环形山南部，到坡道旁找{npc:9619}。",
 	-- ["Escort {npc:9999}"] = "护送{npc:9999}",
 	-- ["Fly from {area:144} to {area:1537}."] = "从{area:144}飞往{area:1537}。",
+	-- ["Four rune rubbings in {zone:1447}: keep it"] = "{zone:1447}的四个符文拓片：留着",
 	-- ["From {area:144} fly to {area:150}, take the boat to Theramore and fly on to {area:976}. {npc:9619}'s first quest in the crater needs level 48: finish the level here if you are short."] = "从{area:144}飞往{area:150}，乘船前往塞拉摩，再飞往{area:976}。{npc:9619}在环形山的第一个任务需要48级：等级不够就在这里练满。",
 	-- ["Grind to 50"] = "刷到50级",
 	-- ["Grind to 51"] = "刷到51级",
@@ -180,6 +179,7 @@ return {
 	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "向东骑行到{area:537}，爬上去，在山顶附近的熔岩喷口使用{npc:10541}。",
 	-- ["Ride north along the east side of the crater to {area:541}, the camp in the caves of the northern cliff. Give the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "沿环形山东侧向北骑行到{area:541}，即北面悬崖洞穴中的营地。远离精英魔暴龙和剑龙。从这里开始，沿途遇到的每个能量水晶和{object:157936}都拾取。",
 	-- ["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "沿东侧向北骑行到猩猩高地。55级的猩猩{npc:9622}坐在最深的洞里：先清理洞口的猩猩。",
+	-- ["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "向北骑行到{area:1943}，机器人站在猩猩中间。别进那里的深洞。",
 	-- ["Ride south along the eastern cliffs to {npc:9619} at the foot of the ramp."] = "沿东部悬崖向南骑行，到坡道脚下找{npc:9619}。",
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "沿东侧向南骑行。幼双帆龙在东部丛林吃草，{npc:9165}在东部悬崖附近飞行；两者都掉落{npc:9998}要的鳞片。",
 	-- ["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. {item:11316} Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "向南骑行到环形山中央的{area:537}，然后向东进入东部丛林。水晶簇遍布环形山，很多在{area:537}周围：每种颜色多拿几个。{item:11316}鞭笞者和猛击者掉落花瓣；探险队的{item:11113}在东部丛林的一处废弃营地里。",
@@ -197,6 +197,7 @@ return {
 	-- ["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997} and drop {npc:9998}'s scales."] = "水晶塔立在避难所东边的山坡上。{npc:9166}在周围山坡上盘旋：它们计入{npc:9997}的任务，并掉落{npc:9998}要的鳞片。",
 	-- ["The relics are in the {zone:1428}: keep it"] = "圣物在{zone:1428}：留着",
 	-- ["The wooden sign beside {npc:9997}"] = "{npc:9997}旁边的木牌",
+	-- ["Xiggs waits in the {object:32359}."] = "西格斯在{object:32359}等候。",
 	-- ["grind on the Wastewanderers or Dunemaul ogres around {area:976}"] = "在{area:976}周围刷废土强盗或砂槌食人魔",
 	-- ["grind on {npc:5458} at {area:982}, {zone:1446}"] = "在{zone:1446}的{area:982}刷{npc:5458}",
 	-- ["grind on {npc:6514} at {area:1943}, {zone:1449}"] = "在{zone:1449}的{area:1943}刷{npc:6514}",
@@ -204,6 +205,7 @@ return {
 	-- ["{item:11834} from {npc:6518} and {npc:6519}, 60 yd south"] = "{item:11834}从{npc:6518}和{npc:6519}身上获取，在南边60码处",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}：上一份指南用炉石把你送到这里，所以这一步通常会立即完成",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}，在洞穴深处",
+	-- ["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}：软泥怪在{zone:1448}，留着",
 	-- ["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "{npc:9684}的巢穴在{npc:9619}北边的丛林中，东部悬崖下方：在那里使用{item:11568}。{npc:9684}是56级：满血开打。",
 	-- ["{npc:9997}'s friend {npc:9999} has gone missing."] = "{npc:9997}的朋友{npc:9999}失踪了。",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999}坐在环形山中央{area:537}的东南坡上。",

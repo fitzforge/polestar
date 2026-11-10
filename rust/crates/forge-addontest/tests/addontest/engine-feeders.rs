@@ -340,7 +340,11 @@ for i, step in ipairs(g.steps) do
 end
 for q in pairs(g.hidden or {{}}) do hidden[#hidden + 1] = q end
 table.sort(hidden)
-emit({{ guide = g.title, before = before, after = after, feeders = feeders, outside = outside, hidden = hidden, cost = g.feedCost or 0 }})"#
+local collects = {{}}
+for _, step in ipairs(g.steps) do
+	for _, goal in ipairs(step.goals) do if goal.t == "collect" and not goal.quest and goal.item then collects[#collects + 1] = goal.item end end
+end
+emit({{ guide = g.title, before = before, after = after, feeders = feeders, outside = outside, hidden = hidden, collects = collects, cost = g.feedCost or 0 }})"#
 		),
 		..Default::default()
 	})
@@ -381,8 +385,11 @@ fn t_1353_malifax_and_a_player_who_did_the_route_on_the_shipped_ashenvale() {
 	let out = shipped("Horde", "Tauren", "PALADIN", 26, MALIFAX_DONE, "6382", "forever/horde/07-ashenvale");
 	println!("{}", serde_json::to_string_pretty(&out).unwrap());
 	let before = ids(&out["before"]["requires"]);
-	for q in [2, 23, 24, 6621] {
-		assert!(before.contains(&q), "{q} was passed: {before:?}");
+	// The hunt trophies (2, 23, 24) wait in the guide itself for The Ashenvale Hunt (`when turnedin 6383`, #1531,
+	// 58d54acf1): never a Requires line, before the plan or after. 6621 still needs the plan.
+	assert!(before.contains(&6621), "6621 was passed: {before:?}");
+	for q in [2, 23, 24] {
+		assert!(!before.contains(&q), "{q} waits in the guide, no Requires line: {before:?}");
 	}
 	let after = ids(&out["after"]["requires"]);
 	for q in [2, 23, 24, 6621] {
@@ -390,11 +397,40 @@ fn t_1353_malifax_and_a_player_who_did_the_route_on_the_shipped_ashenvale() {
 	}
 	assert_eq!(out["outside"], 0);
 	assert_eq!(out["after"]["empty"], 0);
+	// #1531: a quest left out goes with the item it starts from (Ursangous's Paw 16303 for 23, Shadumbra's Head
+	// 16304 for 24, Sharptalon's Claw 16305 for 2): no kill for an item only a hidden quest wants.
+	let hidden = ids(&out["hidden"]);
+	let collects = ids(&out["collects"]);
+	for (q, item) in [(23, 16303), (24, 16304), (2, 16305)] {
+		if hidden.contains(&q) {
+			assert!(!collects.contains(&item), "{item} is collected for {q}, which is left out: {out}");
+		}
+	}
 
 	// A player who did the route: the guide as written.
 	let normal = shipped("Horde", "Tauren", "PALADIN", 26, &format!("{MALIFAX_DONE}, 6382, 6383, 216"), "", "forever/horde/07-ashenvale");
 	assert!(lines(&normal["feeders"]).is_empty() && ids(&normal["hidden"]).is_empty(), "{normal}");
 	assert_eq!(normal["after"], normal["before"]);
+}
+
+// The fresh-start sweep (EngineReview036, 0.3.6): an Orc 39 loading Stranglethorn Vale (Horde 40-50) with no
+// earlier guides got Bloody Bone Necklace (596) put in as a local feeder for Split Bone Necklace (598), which
+// also needs The Vile Reef (629): the plan followed only the first missing prerequisite, so 598 still read
+// "Requires The Vile Reef" on its accept, its skulls and its hand-in, and the feeder opened nothing. Same for Big
+// Game Hunter (208: 188, 193 and 197). An accept opens only once every missing prerequisite is put in; else it
+// is left out, and a chain no accept can use stays out.
+#[test]
+fn an_accept_missing_several_prerequisites_is_planned_for_all_of_them_or_left_out() {
+	let out = shipped("Horde", "Orc", "WARRIOR", 39, "", "", "forever/horde/40-50/01-stranglethorn-vale");
+	let after = ids(&out["after"]["requires"]);
+	for q in [598, 208] {
+		assert!(!after.contains(&q), "{q} never shows as Requires: {out}");
+	}
+	let hidden = ids(&out["hidden"]);
+	let feeders = lines(&out["feeders"]).join("\n");
+	if hidden.contains(&598) {
+		assert!(!feeders.contains("accept:596"), "no feeder for 598 when 598 is left out: {out}");
+	}
 }
 
 #[test]
@@ -578,17 +614,19 @@ const ALL_MINE: &str = "Polestar.Codex = { Quest = function(id) return { id = id
 fn t_1442_darkshore_s_follow_ups_for_a_night_elf_who_skipped_its_own_darkshore_are_never_shown_as_ready() {
 	// Washed Ashore, How Big a Threat? and Plagued Lands neither done nor in the log.
 	let out = shipped_with("Alliance", "NightElf", "HUNTER", 17, NE_TELDRASSIL, NE_TELDRASSIL_LOG, "forever/alliance/03-darkshore", ALL_MINE);
-	// Before the plan: Beached Sea Turtle, Cleansing of the Infected, Thundris Windweaver and what follows
-	// wait on them ("Requires … first", no longer "Accept"). After: the Night Elf's own Teldrassil and
-	// Darkshore steps for them go in beside Auberdine (all in Darkshore, ~4 min), and nothing waits.
+	// Before the plan: Cleansing of the Infected, Thundris Windweaver and what follows wait on Plagued Lands and
+	// How Big a Threat? ("Requires … first", no longer "Accept"), whose steps in this guide are for the other
+	// races. (Washed Ashore is in the guide for every race since #1442's guide fix, so Beached Sea Turtle
+	// waits on nothing.) After: the Night Elf's own Darkshore steps for them go in, all in Darkshore, and
+	// nothing waits.
 	let before = ids(&out["before"]["requires"]);
-	for q in [4727, 2138, 4761] {
+	for q in [2138, 4761] {
 		assert!(before.contains(&q), "{q} waits on its prerequisite: {before:?}");
 	}
 	assert!(ids(&out["after"]["requires"]).is_empty(), "{out}");
 	let feeders = lines(&out["feeders"]);
 	assert!(!feeders.is_empty() && feeders.iter().all(|f| f.contains("[forever/alliance/nightelf/")), "{feeders:?}");
-	assert!(feeders.iter().any(|f| f.contains("turnin:4681")), "{feeders:?}");
+	assert!(feeders.iter().any(|f| f.contains("2118")) && feeders.iter().any(|f| f.contains("984")), "{feeders:?}");
 
 	// A Night Elf who played its own Darkshore: the guide as written, nothing waiting.
 	let route = shipped_with("Alliance", "NightElf", "HUNTER", 17, NE_DARKSHORE_DONE, NE_DARKSHORE_LOG, "forever/alliance/03-darkshore", ALL_MINE);

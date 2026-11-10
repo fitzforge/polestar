@@ -9,6 +9,8 @@ return {
 	-- Step 1: Nijel's Point
 	-- {area:460} Sun Rock Retreat · {area:465} Charred Vale · {zone:1443} Desolace · {area:608} Nijel's Point
 	["Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass."] = "길을 따라 서쪽으로 {area:460}(호드)을(를) 지나, 남서쪽 {area:465}을(를) 거쳐 {zone:1443}(으)로 가십시오. {area:608}은(는) 고개 꼭대기에 있습니다.",
+	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
+	["{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}"] = "{npc:5638}: 난파선의 궤짝은 {npc:11863}의 탑 아래, {area:599}(으)로 가는 길에 있습니다",
 	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
 	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
 
@@ -26,12 +28,18 @@ return {
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:11863}'s tower stands on the hill west of {area:599}: take his quest first, the sceptre he wants is in the fortress."] = "{npc:11863}의 탑은 {area:599} 서쪽 언덕에 있습니다. 먼저 그의 퀘스트를 수락하십시오. 그가 원하는 홀은 요새 안에 있습니다.",
 
-	-- Step 7: Dalinda Malem
+	-- Step 7: Karnitol's Chest
+	-- {npc:11863} Azore Aldamort · {object:177787} Rackmore's Log
+	["The wrecked ship lies just south-west of {npc:11863}'s tower; its chest sits beside {object:177787}."] = "난파선은 {npc:11863}의 탑 바로 남서쪽에 있습니다. 궤짝은 {object:177787} 옆에 있습니다.",
+	-- {npc:5638} Kreldig Ungor
+	["For {npc:5638}, at the end of this guide"] = "{npc:5638}에게, 이 가이드 마지막에",
+
+	-- Step 8: Dalinda Malem
 	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point
 	["{npc:5644} hides inside the Burning Blade's fortress south-west of {area:608}."] = "{npc:5644}은(는) {area:608} 남서쪽에 있는 불타는칼날단의 요새 안에 숨어 있습니다.",
 	["Inside"] = "",
 
-	-- Step 8: Tyranis Malem and the Seer
+	-- Step 9: Tyranis Malem and the Seer
 	-- {npc:5643} Tyranis Malem
 	["{npc:5643} and the Seer"] = "{npc:5643}와(과) 현자",
 	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer · {npc:5642} Vahlarriel Demonslayer
@@ -41,7 +49,7 @@ return {
 	-- {quest:5741} Sceptre of Light
 	["{quest:5741}; on the top floor"] = "",
 
-	-- Step 9: Escort Dalinda Malem
+	-- Step 10: Escort Dalinda Malem
 	-- {npc:5644} Dalinda Malem
 	["Escort {npc:5644}"] = "{npc:5644} 호위",
 	-- {npc:5644} Dalinda Malem
@@ -50,11 +58,11 @@ return {
 	-- {npc:5644} Dalinda Malem · {npc:5642} Vahlarriel Demonslayer · {area:608} Nijel's Point
 	["Lead {npc:5644} out of the fortress; she walks off once you are clear of it. {npc:5642} takes the turn-in at {area:608} at the end of the guide."] = "{npc:5644}을(를) 요새 밖으로 데려가십시오. 요새를 벗어나면 그녀가 떠납니다. 가이드 마지막에 {area:608}에서 {npc:5642}에게 완료 보고를 하십시오.",
 
-	-- Step 10: Smeed Scrabblescrew
+	-- Step 11: Smeed Scrabblescrew
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:596} Kodo Graveyard
 	["{npc:11596}'s camp is on the road south of {area:609}, by the {area:596}."] = "{npc:11596}의 야영지는 {area:609} 남쪽 길가, {area:596} 옆에 있습니다.",
 
-	-- Step 11: Kodo Graveyard
+	-- Step 12: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher
 	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "",
@@ -63,17 +71,21 @@ return {
 	-- {npc:11596} Smeed Scrabblescrew
 	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
 
-	-- Step 13: Kolkar Village
+	-- Step 14: Kolkar Village
 	-- {area:609} Kolkar Village · {npc:5752} Corporal Melkins
 	["The Kolkar roam the plains around {area:609}; their ears are for {npc:5752}."] = "콜카르일족이 {area:609} 주변 평원을 돌아다닙니다. 귀는 {npc:5752}에게 가져가십시오.",
 
-	-- Step 15: Fly to Auberdine
+	-- Step 15: Nijel's Point
+	-- {npc:5638} Kreldig Ungor
+	["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638}: 가방은 북서쪽 해안 앞바다에 있으며, 30-40(06-badlands) 마지막의 남쪽 순회 중에 얻습니다. 보관해 두십시오",
+
+	-- Step 16: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "",
 	-- {area:608} Nijel's Point
 	["{area:608} flight master"] = "",
 
-	-- Step 16: Boat to Stormwind Harbor
+	-- Step 17: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "",
 

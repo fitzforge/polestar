@@ -21,7 +21,21 @@ step Valley of Fangs
   note Rigglefuzz's next quest pays no experience: skip it.
 
 step Boss Tho'grun
-  tip Ride west across the Badlands to the Dustbelcher camp at Camp Boff. Boss Tho'grun stands in its middle with Wyrmhunters and Maulers around him.
+  tip Boss Tho'grun does not stay at Camp Boff: he walks a long loop around the Badlands with his guards, from the camp in the west along the south of the zone to about 61,69, north to about 49,49 and back west to the camp. The arrow follows his loop west from here until you meet him.
+  loop
+  goto 38.8,56.1
+  goto 31.5,58.7
+  goto 24.7,56.7
+  goto 18.2,60.8
+  goto 12.5,67.5
+  goto 12.7,75.5
+  goto 20.1,78.5
+  goto 30.2,73.5
+  goto 41.6,72.2
+  goto 51.2,73.4
+  goto 61.4,69.3
+  goto 54.0,58.6
+  goto 48.8,48.7
   collect 4640 quest 732              -- Sign of the Earth
 
 step Garek
@@ -104,7 +118,7 @@ step Aerie Peak
   accept 1451
   accept 2988
   accept 2880                         -- Fraggar Thundermantle, inside
-  sethome "Aerie Peak" npc 7744       -- Innkeeper Thulfram: the last guide binds here, so this usually ticks at once; below ground
+  sethome "Aerie Peak" npc 7744       -- Innkeeper Thulfram; below ground
 
 # ---------------------------------------------------------------- Aerie Peak
 
@@ -154,11 +168,13 @@ step Cortello's Riddle
 step Theramore flight master
   only Warlock
   zone Dustwallow Marsh
+  when onquest 4488
   goto 67.5,51.2 "Theramore flight master"
 
 step Ratchet
   only Human,Warlock
   zone The Barrens
+  when onquest 4488
   goto 63.1,37.1 "Ratchet"
 
 step Warlock: Summon Felsteed

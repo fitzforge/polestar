@@ -129,6 +129,8 @@ return {
 	-- {item:1130} Vial of Spider Venom
 	-- plural, as words: Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider · Venom Web Spiders = {npc:217} Venom Web Spider · Green Recluses = {npc:569} Green Recluse
 	["{item:1130}: Pygmy Venom Web Spiders, Venom Web Spiders and Green Recluses"] = "",
+	-- {item:2251} Gooey Spider Leg · {npc:272} Chef Grual · {area:42} Darkshire
+	["{item:2251}: keep the ones these spiders drop, for {npc:272} in {area:42}"] = "",
 
 	-- Step 20: Abercrombie
 	-- {area:492} Raven Hill Cemetery
@@ -153,6 +155,12 @@ return {
 	["{npc:268}, inside"] = "",
 	-- {npc:272} Chef Grual
 	["{npc:272}, in the Scarlet Raven Tavern"] = "",
+	-- {npc:272} Chef Grual · {zone:1431} Duskwood
+	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
+	["{npc:272}: six Gooey Spider Legs, which {zone:1431}'s spiders drop even without the quest"] = "",
+	["Already carrying six? Hand them in now"] = "",
+	-- {npc:288} Jitters · {quest:163} Raven Hill · {zone:1431} Duskwood
+	["For {npc:288}, at {quest:163} on the next {zone:1431} loop"] = "",
 	-- {npc:663} Calor
 	["{npc:663}, by the town hall"] = "{npc:663}，在市政廳旁",
 
@@ -173,7 +181,9 @@ return {
 
 	-- Step 29: Lakeshire
 	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {quest:98386} Alther's Mill
-	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, the innkeeper in the inn, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "",
+	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "向北走過長橋進入城鎮：{npc:381}在碼頭，{npc:900}在市政廳，{npc:342}在西端她的花園裡。{npc:382}的黑石任務和{quest:98386}是你第一次來赤脊山時就接下的。",
+	-- {npc:415} Verner Osgood
+	["{npc:415}, by the road at the north end of the bridge"] = "",
 	-- {npc:900} Bailiff Conacher
 	["{npc:900}, in the town hall"] = "",
 	["The Wanted poster by the inn"] = "旅店旁的通緝告示",
@@ -228,28 +238,35 @@ return {
 	-- plural, as words: Blackrock Shadowcasters = {npc:436} Blackrock Shadowcaster
 	["The keep stands beside the tower. {npc:334} (elite) waits in the keep's top room with two guards and a dragon; Blackrock Shadowcasters (elite) and Sentries stand on its west side, so pull one at a time on the way in, and hug the right wall as you enter his room so you don't pull him at once. Elite: group up if you can."] = "",
 
-	-- Step 40: Render's Valley
+	-- Step 40: Yowler
+	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {npc:518} Yowler
+	-- plural, as words: Redridge Alphas = {npc:445} Redridge Alpha
+	["From the keep head back west along the lake's north shore and north up the {area:95}. Just south of {area:997}, {npc:518}, a level 25 gnoll, walks among the Redridge Alphas and Mystics."] = "",
+
+	-- Step 41: Render's Valley
 	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {area:69} Lakeshire
 	-- plural, as words: Blackrock Champions = {npc:435} Blackrock Champion
 	["From the keep head back west along the lake's north shore and north up the {area:95} to {area:997}; {area:69}'s hand-ins wait for Keeshan's escort, which ends there. Blackrock Champions camp in the valley."] = "",
 	-- {npc:435} Blackrock Champion
 	["{npc:435}, below ground"] = "",
 
-	-- Step 41: Corporal Keeshan
+	-- Step 42: Corporal Keeshan
 	-- {zone:1428} Burning Steppes · {area:69} Lakeshire
 	["Keeshan hides at the very north end of the valley, by the {zone:1428} border. Escort him down to {area:69}; Blackrock orcs ambush you on the way."] = "基沙恩躲在山谷最北端、{zone:1428}邊界旁。護送他下到{area:69}；途中黑石獸人會伏擊你。",
 	-- {npc:349} Corporal Keeshan
 	["{npc:349}, below ground"] = "",
 
-	-- Step 42: Magistrate Solomon: Gath'Ilzogg
+	-- Step 43: Magistrate Solomon: Gath'Ilzogg
 	-- {npc:344} Magistrate Solomon
 	["{npc:344}, in the town hall"] = "{npc:344}，在市政廳",
 
-	-- Step 44: Back to Lakeshire
+	-- Step 45: Back to Lakeshire
 	-- {area:69} Lakeshire
 	["Back to {area:69}"] = "返回{area:69}",
 	-- {area:69} Lakeshire · {npc:900} Bailiff Conacher · {npc:344} Magistrate Solomon · {npc:382} Marshal Marris · {npc:341} Foreman Oslow · {npc:903} Guard Howe
 	["Into {area:69} from the north with Keeshan: {npc:900} and {npc:344} in the town hall, {npc:382} and {npc:341} at the north end of the bridge, then over the bridge to {npc:903} and the gryphons."] = "",
+	-- {npc:415} Verner Osgood
+	["{npc:415}, by the road on the way to the bridge"] = "",
 	-- {npc:903} Guard Howe
 	["{npc:903}, by the gryphons south of the bridge"] = "{npc:903}，在橋南邊的獅鷲旁",
 	-- {area:42} Darkshire · {zone:1431} Duskwood

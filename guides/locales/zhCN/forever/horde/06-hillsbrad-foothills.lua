@@ -67,28 +67,28 @@ return {
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
 	["{area:275}: kill these as you meet them"] = "{area:275}：沿途遇到就击杀",
-	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {area:272} Tarren Mill
-	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "德鲁尔和{npc:2238}被锁在{area:275}庭院的建筑内；打开两处锁。\n从{area:272}向东南进入山丘，朝{area:275}走。沿途营地由潜行者和卫兵占据。",
+	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key · {area:272} Tarren Mill
+	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "德鲁尔和{npc:2238}被锁在{area:275}庭院的建筑内。开锁需要钥匙：{npc:2427}携带{item:3467}，{npc:2428}携带{item:3499}，两人都在城堡里。击杀他们，然后打开两处锁。\n从{area:272}向东南进入山丘，朝{area:275}走。沿途营地由潜行者和卫兵占据。",
 	-- {npc:2261} Syndicate Watchman
 	["{npc:2261} walks around here: look inside the circle on the map"] = "{npc:2261}在附近巡逻，请在地图标示的圆圈内寻找",
 	["Drull's ball and chain"] = "德鲁尔的镣铐",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "{npc:2238}的镣铐",
 
-	-- Step 11: Mudsnout Blossoms
-	-- {item:3502} Mudsnout Blossoms
-	["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "在敦霍尔德城堡西南，{item:3502}长在河上方的山坡上。",
-
-	-- Step 12: Deathstalker Masoj
+	-- Step 11: Deathstalker Masoj
 	-- {area:290} Dun Garok
-	["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "亡灵哨兵玛索吉躲在{area:290}上方的山坡上，位于敦霍尔德城堡南边，就在下去采花的路上。",
+	["Masoj hides on the hillside above {area:290}, south-west of Durnholde, on the way down to the blossoms."] = "亡灵哨兵玛索吉躲在{area:290}上方的山坡上，位于敦霍尔德城堡西南边，就在下去采花的路上。",
 	-- {npc:270438} Deathstalker Masoj · {quest:98094} Scout Support
 	["{npc:270438}, once {quest:98094} is in"] = "{npc:270438}，接到{quest:98094}后",
+
+	-- Step 12: Mudsnout Blossoms
+	-- {item:3502} Mudsnout Blossoms
+	["Just south of Masoj, the {item:3502} grow on the hillsides above the river."] = "在玛索吉南边不远处，{item:3502}长在河上方的山坡上。",
 
 	-- Step 13: The southern peak
 	["The southern peak"] = "南边的山峰",
 	-- {area:290} Dun Garok
-	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "马索吉要你在三座山峰上各放一个药剂师之瓶。南边那座是{area:290}上方的山顶，就在他南边：在山顶使用药瓶。",
+	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, south-east of the blossoms: use a vial at the top."] = "玛索吉要你在三座山峰上各放一个药剂师之瓶。南边那座是{area:290}上方的山顶，位于花丛东南边：在山顶使用药瓶。",
 
 	-- Step 14: The smithy
 	["The smithy"] = "铁匠铺",
@@ -176,8 +176,13 @@ return {
 
 	-- Step 31: Back to the Crossroads
 	["Back to the Crossroads"] = "返回十字路口",
-	-- {npc:3033} Turak Runetotem
-	["Train with {npc:3033}, then fly on to the Crossroads, where the next guide starts."] = "",
+	-- {npc:3033} Turak Runetotem · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
+	["Train with {npc:3033}. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "向{npc:3033}训练。继续飞行前，风骑士管理员东边不远处的{npc:3024}和{npc:4721}会给你两个任务，在接下来几份指南的路上完成；然后飞往十字路口，下一份指南从那里开始。",
+	-- {npc:3024} Tah Winterhoof · {quest:97538} Pigments for Paints · {area:464} Mirkfallon Lake
+	["{npc:3024}: {quest:97538}, the Mirkweed in {area:464} by Sun Rock"] = "{npc:3024}：{quest:97538}，在烈日石居旁的{area:464}采集暗色草",
+	-- {npc:4721} Zangen Stonehoof · {quest:1195} The Sacred Flame · {zone:1440} Ashenvale
+	-- plural, as words: Laughing Sisters = {npc:4054} Laughing Sister
+	["{npc:4721}: {quest:1195}, the phial from {zone:1440}'s Laughing Sisters"] = "{npc:4721}：{quest:1195}，从{zone:1440}的欢笑姐妹身上获得小瓶",
 
 	-- Step 32: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -192,6 +197,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "德鲁尔和{npc:2238}被锁在{area:275}庭院的建筑里；把两把锁都打开。",
+	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "德鲁尔和{npc:2238}被锁在{area:275}庭院的建筑内；打开两处锁。\n从{area:272}向东南进入山丘，朝{area:275}走。沿途营地由潜行者和卫兵占据。",
 	-- ["Fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "飞往{area:392}。{quest:874}在{area:392}北边的海岸上扎营。",
 	-- ["Follow the road south to the dwarf dig site at {area:359}. {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "沿道路向南前往{area:359}的矮人挖掘场。{npc:3421}躲在挖掘场南缘；{object:3646}在挖掘坑底部。",
 	-- ["From {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "从{area:272}向东南进入山丘，前往{area:275}。沿途的营地由辛迪加潜行者和辛迪加卫士占据。",
@@ -199,12 +205,15 @@ return {
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:1638} and train on {area:1639}, then fly on to {area:378}."] = "从{zone:1454}（在{zone:1458}外的塔上乘飞艇）飞往{area:1638}，在{area:1639}训练，然后继续飞往{area:378}。",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:378}."] = "从{zone:1454}（在{zone:1458}外的塔上乘飞艇）飞往{area:378}。",
 	-- ["Hearth to {area:378} and fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "用炉石回到{area:378}，飞往{area:392}。{quest:874}在{area:392}北边的海岸上扎营。",
+	-- ["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "亡灵哨兵玛索吉躲在{area:290}上方的山坡上，位于敦霍尔德城堡南边，就在下去采花的路上。",
+	-- ["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "马索吉要你在三座山峰上各放一个药剂师之瓶。南边那座是{area:290}上方的山顶，就在他南边：在山顶使用药瓶。",
 	-- ["No Gallywix yet? The Class guide Poisons (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "还没击败加里维克斯？职业指南“毒药（部落）”会从申苏尔处重新带你做这条任务线，并组队击败加里维克斯。",
 	-- ["No Gallywix yet? The Class guide {spell:2842} (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "还没击败加里维克斯？职业指南{spell:2842}（部落）会从申苏尔处重新带你做这条任务线，并组队击败加里维克斯。",
 	-- ["Only if Gallywix fell in the {zone:1413} (Mission: Possible But Not Probable): {npc:2391} stands in {area:272}. Wait beside him while he brews the cure, then take your reward: Poisons."] = "仅当你已在{zone:1413}击败加里维克斯（申苏尔的潜行者任务线）时：{npc:2391}站在{area:272}。在他调制解药时在旁边等候，然后领取奖励：毒药。",
 	-- ["Only if Gallywix fell in the {zone:1413} (Mission: Possible But Not Probable): {npc:2391} stands in {area:272}. Wait beside him while he brews the cure, then take your reward: {spell:2842}."] = "仅当你已在{zone:1413}击败加里维克斯（申苏尔的潜行者任务线）时：{npc:2391}站在{area:272}。在他调制解药时在旁边等候，然后领取奖励：{spell:2842}。",
 	-- ["Peasants and skulls"] = "农民和头骨",
 	-- ["South-west of Bael Modan, {npc:12576} waits at the top of the {area:485}."] = "在巴尔莫丹西南，{npc:12576}在{area:485}顶部等候。",
+	-- ["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "在敦霍尔德城堡西南，{item:3502}长在河上方的山坡上。",
 	-- ["Syndicate camps"] = "辛迪加营地",
 	-- ["Take the zeppelin from the towers outside the {zone:1458} to {zone:1454} and train before you fly on."] = "在{zone:1458}外的塔上乘飞艇前往{zone:1454}，继续飞行前先训练。",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "希尔斯布莱德农民在农舍南边的田里干活。每个{area:287}人类都会掉落头骨；希尔斯布莱德农民掉得最多。",

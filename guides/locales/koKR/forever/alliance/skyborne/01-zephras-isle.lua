@@ -69,7 +69,7 @@ return {
 	-- {npc:251115} Urs'anah · {npc:250926} Scrawny Ursera
 	-- plural, as words: Ursera Scavengers = {npc:250937} Ursera Scavenger
 	["The Ursera Scavengers den west of the grove, with {npc:251115}, the matriarch, at the back of the den; {npc:250926} prowl the woods between the den and the grove."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "지하",
 	-- {item:252665} Head of Urs'anah
 	["{item:252665}; below ground"] = "",
 
@@ -85,13 +85,51 @@ return {
 	["Follow the road south to {area:16624}. {npc:263664} camps by the fire west of the village; {npc:251523} and {npc:251903} stand in its middle."] = "길을 따라 남쪽 {area:16624}(으)로 가세요. {npc:263664}은(는) 마을 서쪽 모닥불 옆에 야영하고, {npc:251523}와(과) {npc:251903}은(는) 마을 한가운데에 서 있습니다.",
 
 	-- Step 14: Raan Wildwind
+	-- {npc:263664} Raan Wildwind · {area:16624} Shen'dar Village
+	["With a profession learned, {npc:263664} also offers its Camping 101, which its trainer in {area:16624} takes on the village round."] = "전문 기술을 배웠다면 {npc:263664}이(가) 해당 전문 기술의 야영 기초 퀘스트도 줍니다. 그 퀘스트는 마을을 돌 때 {area:16624}에 있는 해당 기술 전문가에게 제출합니다.",
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
 	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "{spell:1229451} 효과를 얻을 때까지 {npc:263664}의 모닥불 옆에 앉으세요(/앉기)",
+	-- {npc:263664} Raan Wildwind · {npc:257019} Nyassa Swiftdraught
+	["{npc:263664}, alchemists: for {npc:257019}"] = "{npc:263664}, 연금술사: {npc:257019}용",
+	-- {npc:263664} Raan Wildwind · {npc:251913} Aedi Thriceforged
+	["{npc:263664}, blacksmiths: for {npc:251913}"] = "{npc:263664}, 대장장이: {npc:251913}용",
+	-- {npc:263664} Raan Wildwind · {skill:129} First Aid · {npc:257018} Naleeia Tattermend
+	["{npc:263664}, {skill:129}: for {npc:257018}"] = "{npc:263664}, {skill:129}: {npc:257018}용",
+	-- {npc:263664} Raan Wildwind · {npc:251992} Fenn Fairweather
+	["{npc:263664}, fishers: for {npc:251992}"] = "{npc:263664}, 낚시꾼: {npc:251992}용",
+	-- {npc:263664} Raan Wildwind · {npc:251993} Indari Sunseam
+	["{npc:263664}, leatherworkers: for {npc:251993}"] = "{npc:263664}, 가죽세공사: {npc:251993}용",
+	-- {npc:263664} Raan Wildwind · {npc:257022} Messana Crestwind
+	["{npc:263664}, miners: for {npc:257022}"] = "{npc:263664}, 채광꾼: {npc:257022}용",
+	-- {npc:263664} Raan Wildwind · {npc:257024} Mendalass Tattermend
+	["{npc:263664}, skinners: for {npc:257024}"] = "{npc:263664}, 무두장이: {npc:257024}용",
+	-- {npc:263664} Raan Wildwind · {npc:251991} Taleen Shimmerthread
+	["{npc:263664}, tailors: for {npc:251991}"] = "{npc:263664}, 재봉사: {npc:251991}용",
+	-- {npc:263664} Raan Wildwind · {npc:257020} Nasalanna Windsinger
+	["{npc:263664}, enchanters: for {npc:257020}"] = "{npc:263664}, 마법부여사: {npc:257020}용",
 	-- {npc:251905} Zerril Softbreeze
 	["{npc:251905}: Camping 101 asks you to learn it"] = "",
 
 	-- Step 15: Village quests
 	["Village quests"] = "마을 퀘스트",
+	-- {npc:251993} Indari Sunseam
+	["{npc:251993}: Camping 101, leatherworkers"] = "{npc:251993}: 야영 기초, 가죽세공사",
+	-- {npc:257022} Messana Crestwind
+	["{npc:257022}, beside her: Camping 101, miners"] = "그녀 옆의 {npc:257022}: 야영 기초, 채광꾼",
+	-- {npc:251991} Taleen Shimmerthread
+	["{npc:251991}: Camping 101, tailors"] = "{npc:251991}: 야영 기초, 재봉사",
+	-- {npc:251913} Aedi Thriceforged
+	["{npc:251913}, beside her: Camping 101, blacksmiths"] = "그녀 옆의 {npc:251913}: 야영 기초, 대장장이",
+	-- {npc:257019} Nyassa Swiftdraught · {npc:251905} Zerril Softbreeze
+	["{npc:257019}, west of {npc:251905}: Camping 101, alchemists"] = "{npc:251905} 서쪽의 {npc:257019}: 야영 기초, 연금술사",
+	-- {npc:257024} Mendalass Tattermend
+	["{npc:257024}: Camping 101, skinners"] = "{npc:257024}: 야영 기초, 무두장이",
+	-- {npc:257020} Nasalanna Windsinger
+	["{npc:257020}: Camping 101, enchanters"] = "{npc:257020}: 야영 기초, 마법부여사",
+	-- {npc:257018} Naleeia Tattermend · {skill:129} First Aid
+	["{npc:257018}, at the south side of the village: Camping 101, {skill:129}"] = "마을 남쪽의 {npc:257018}: 야영 기초, {skill:129}",
+	-- {npc:251992} Fenn Fairweather
+	["{npc:251992}, on the south edge of the village: Camping 101, fishers"] = "마을 남쪽 가장자리의 {npc:251992}: 야영 기초, 낚시꾼",
 
 	-- Step 16: Prideclaws and Galestriders
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
@@ -115,7 +153,7 @@ return {
 	["Shen'dar turn-ins"] = "셴다르 퀘스트 제출",
 
 	-- Step 21: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "직업 전문가",
 
 	-- Step 22: Paladin trainer
 	["Paladin trainer"] = "",
@@ -164,15 +202,15 @@ return {
 	-- {area:16624} Shen'dar Village
 	["{area:16624} again"] = "다시 {area:16624}",
 
-	-- Step 33: Fendaal Windstone
+	-- Step 34: Fendaal Windstone
 	-- {area:16638} Valanaar · {npc:273017} Fendaal Windstone · {quest:98512} Al'Aketh Assassins
 	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "",
 
-	-- Step 34: Valanaar, the turncoat
+	-- Step 35: Valanaar, the turncoat
 	-- {area:16638} Valanaar
 	["{area:16638}, the turncoat"] = "{area:16638}, 배신자",
 
-	-- Step 35: Valanaar
+	-- Step 36: Valanaar
 	-- {npc:252383} Valennia Stormfist · {npc:252476} Talaanis Shadowsong · {area:16638} Valanaar · {npc:252475} Elaadrin Evengale · {npc:253204} Dondallion Whisperwind
 	["{npc:252383} and {npc:252476} stand at the north end of {area:16638}, {npc:252475} and {npc:253204} at the south end."] = "{npc:252383}와(과) {npc:252476}은(는) {area:16638} 북쪽 끝에, {npc:252475}와(과) {npc:253204}은(는) 남쪽 끝에 서 있습니다.",
 	-- {npc:252476} Talaanis Shadowsong
@@ -180,7 +218,7 @@ return {
 	-- {npc:252383} Valennia Stormfist
 	["{npc:252383}, upstairs"] = "",
 
-	-- Step 37: Skyhoppers
+	-- Step 38: Skyhoppers
 	-- plural, as words: Skyhoppers = {npc:251727} Skyhopper
 	["Skyhoppers"] = "하늘폴짝이",
 	-- {area:16638} Valanaar
@@ -189,7 +227,7 @@ return {
 	-- {npc:260628} Valennia Stormfist
 	["{npc:260628}, upstairs"] = "",
 
-	-- Step 38: The road to Valanaar
+	-- Step 39: The road to Valanaar
 	-- {area:16638} Valanaar
 	["The road to {area:16638}"] = "{area:16638}(으)로 가는 길",
 	-- {npc:257006} Nyalah Brightfire · {npc:252448} Alvarion Windfield · {area:16638} Valanaar · {npc:252377} Seena Skybreaker · {npc:252389} Quel'ana Quickgale
@@ -303,7 +341,7 @@ return {
 
 	-- Step 58: Desperate times
 	["Desperate times"] = "절박한 시기",
-	["Upstairs"] = "",
+	["Upstairs"] = "위층",
 
 	-- Step 60: Paladin trainer
 	-- {npc:5148} Beldruk Doombrow · {zone:1455} Ironforge · {area:16638} Valanaar

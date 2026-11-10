@@ -118,72 +118,85 @@ return {
 	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "下船后沿码头前往{area:514}大门旁的飞行管理员Baldruc。",
 
 	-- Step 26: Nijel's Point
-	-- {npc:5638} Kreldig Ungor
-	["{npc:5638}: the wreck is on the north-west coast, at the end of the loop"] = "{npc:5638}：沉船在西北海岸，路线绕行到最后时再去",
+	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort
+	["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}，如果30-40/02没有接这个任务：残骸在{npc:11863}的塔下方",
 
 	-- Step 27: Bibbly F'utzbuckle
 	-- {area:2407} Kormek's Hut
 	["Follow the road south to {area:2407}."] = "沿道路向南到{area:2407}。",
 
 	-- Step 28: Kodo Graveyard
-	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones · {npc:217590} Flesh Picker
-	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons. A {npc:217590} crawls about the graveyard: catch one with the Entomology Starter Kit, then tick it off."] = "{npc:6019}站在{area:2407}西南方的{area:596}边缘；{object:176751}散落在骨架之间。一只{npc:217590}在墓地里爬行：用昆虫学入门工具包抓住一只，然后勾选完成。",
-	-- {npc:217590} Flesh Picker
-	["{npc:217590}: catch it, for My Little Friends"] = "{npc:217590}：抓住它，用于我的小朋友们",
+	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones
+	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019}站在{area:2407}西南方的{area:596}边缘；{object:176751}散落在骨架之间。",
 
-	-- Step 29: Maraudine centaurs
+	-- Step 29: Flesh Picker
+	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb
+	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "一只{npc:217590}在{area:596}里爬行：用{npc:217412}的昆虫学入门工具包中的工具抓住一只。",
+
+	-- Step 30: Maraudine centaurs
 	["Maraudine centaurs"] = "玛洛迪半人马",
 	-- {area:607} Valley of Spears
 	["The Maraudine centaurs hold the {area:607} west of the graveyard; every kind drops the totems."] = "玛洛迪半人马占据着墓地西边的{area:607}；每种都会掉落图腾。",
 
-	-- Step 30: Melizza Brimbuzzle
+	-- Step 31: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
 	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} 被关在墓地西边的半人马营地中。救出她，并在离开营地的路上保护她活下来；她会在墓地旁停下。\n注意：护送途中触发的敌群会一起加入战斗，而且仅在护送时出现，因此无法提前清除，也无法逐个引出。不过，开始前先清除沿途的普通半人马会有所帮助。",
 	-- {npc:12277} Melizza Brimbuzzle
 	["escort {npc:12277} back toward the graveyard"] = "护送{npc:12277}回到墓地",
 
-	-- Step 31: Mannoroc Coven
+	-- Step 32: Mannoroc Coven
 	-- {area:602} Mannoroc Coven · {zone:1443} Desolace
 	-- plural, as words: Mana Eaters = {npc:4678} Mana Eater · Ley Hunters = {npc:4685} Ley Hunter · Nether Maidens = {npc:4679} Nether Maiden · Doomwarder Captains = {npc:4680} Doomwarder Captain
 	["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "恶魔聚集在{zone:1443}南部的{area:602}：坑周围有地狱犬（噬法魔犬、法师猎手和灵能猎犬）、地狱魔女、虚空姐妹以及末日看守队长。\n注意：这里多数怪物会巡逻，容易额外引怪。",
 
-	-- Step 32: The Valley of Bones
+	-- Step 33: The Valley of Bones
 	-- {area:2657} Valley of Bones
 	["The {area:2657}"] = "{area:2657}",
 	-- {item:15848} Crate of Ghost Magnets
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre
 	["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven; at the far south-east, use the {item:15848} to draw the Magrami Spectres."] = "{npc:11561}在玛格拉姆村南边、集会所东边的骨原上游荡；在最东南端使用{item:15848}引出{npc:11560}。",
 
-	-- Step 35: Azore Aldamort
+	-- Step 36: Azore Aldamort
 	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
 	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "沿道路向西穿过{zone:1443}北部，到{area:2405}的废墟。{npc:11863}的塔就在那里的山丘上，在去残骸的路上。",
 
-	-- Step 36: Karnitol's Chest
+	-- Step 37: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
-	["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "失事船只的箱子在{npc:11863}的塔西边不远的岸上。",
+	["The wrecked ship's chest lies just south-west of {npc:11863}'s tower."] = "失事船只的箱子在{npc:11863}的塔西南边不远处。",
 
-	-- Step 37: Claim Rackmore's Treasure!
+	-- Step 38: Claim Rackmore's Treasure!
+	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest
+	["{object:177787} lies beside {object:35251}. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787}在{object:35251}旁边。他的银钥匙由残骸周围的干钳蟹掉落；金钥匙接下来从西北海岸的滑刃纳迦身上获得。",
 	["Underwater"] = "在水下",
-
-	-- Step 38: Nijel's Point
-	-- {area:608} Nijel's Point
-	["Follow the road north to {area:608}."] = "沿道路向北到{area:608}。",
-	-- {npc:5637} Roetten Stonehammer · {zone:1455} Ironforge
-	["for {npc:5637} in {zone:1455}: keep it"] = "交给{zone:1455}的{npc:5637}：先留着",
-	-- {npc:3980} Raleigh the Devout · {area:271} Southshore
-	["for {npc:3980} in {area:271}: keep it"] = "交给{area:271}的{npc:3980}：先留着",
 
 	-- Step 39: Sar'theris Strand: kill these as you meet them
 	-- {area:598} Sar'theris Strand
 	["{area:598}: kill these as you meet them"] = "{area:598}：沿途击杀以下目标",
-	-- {npc:12369} Lord Kragaru · {npc:11863} Azore Aldamort
-	["{npc:12369}, a centaur chieftain, camps on the north-west coast, north of {npc:11863}'s tower."] = "{npc:12369}是一个半人马首领，在{npc:11863}的塔北边的西北海岸扎营。",
+	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
+	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "滑刃纳迦占据着{npc:11863}的塔楼北边的西北海岸；卡尼托的挎包就在近海的海底，任何纳迦都可能掉落拉克摩尔的金钥匙。游到最北端外海的{area:2406}，对{object:177673}使用{item:15766}：{npc:12369}（38级）会出现；杀死他获得{quest:6027}。",
+	-- {item:15881} Rackmore's Golden Key
+	["{item:15881}, from the Slitherblade naga"] = "{item:15881}，由滑刃纳迦掉落",
+	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words)
+	["{item:15766}, on the {object:177673}"] = "{item:15766}，对{object:177673}使用",
+
+	-- Step 40: Rackmore's Chest
+	-- {object:177673} Serpent Statue (no name in this language: may be words)
+	["Rackmore's chest lies just south-east of the {object:177673}."] = "拉克摩尔的箱子在{object:177673}东南边不远处。",
+
+	-- Step 43: Nijel's Point
+	-- {area:608} Nijel's Point · {npc:5396} Captain Pentigast · {npc:5638} Kreldig Ungor · {npc:1182} Brother Anton
+	["Follow the road north to {area:608}: {npc:5396} stands at its south end, {npc:5638} in the middle, {npc:1182} to the north."] = "沿道路向北到{area:608}：{npc:5396}站在南端，{npc:5638}在中间，{npc:1182}在北边。",
+	-- {npc:5637} Roetten Stonehammer · {zone:1455} Ironforge
+	["for {npc:5637} in {zone:1455}: keep it"] = "交给{zone:1455}的{npc:5637}：先留着",
+	-- {npc:3980} Raleigh the Devout · {area:271} Southshore
+	["for {npc:3980} in {area:271}: keep it"] = "交给{area:271}的{npc:3980}：先留着",
 
 	-- Step 44: Fly to Theramore
 	["Fly to Theramore"] = "飞往塞拉摩岛",
 	["The next guide starts in Theramore."] = "下一份指南从塞拉摩岛开始。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Follow the road north to {area:608}."] = "沿道路向北到{area:608}。",
 	-- ["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "沿道路向西穿过{zone:1443}北部，到{area:2405}的废墟；失事船只的箱子在废墟西边的岸上。",
 	-- ["Greater Rock Elementals"] = "{npc:2736}",
 	-- ["Lesser Rock Elementals"] = "{npc:2735}",
@@ -198,11 +211,13 @@ return {
 	-- ["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east."] = "火烟食人魔在山谷南边不远处扎营；任何一个都会掉落废料。秃鹫在东边的平原上空盘旋。",
 	-- ["The Greater Rock Elementals (level 42) walk the far south-west corner below {area:342}; pull them one at a time. The Dustbelcher Wyrmhunters and Maulers at {area:342} also drop scrap."] = "{npc:2736}（42级）在{area:342}下方的西南角巡逻；一次拉一个。{area:342}的{npc:2716}和火烟虐待者也会掉落废料。",
 	-- ["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}."] = "{npc:2735}在{npc:2921}西边的{area:1878}游荡。",
+	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "滑刃纳迦占据着{npc:11863}的塔楼北边的西北海岸；卡尼托的挎包就在近海的海底。游到最北端外海的{area:2406}，对{object:177673}使用{item:15766}：{npc:12369}（38级）会出现；杀死他获得{quest:6027}。",
 	-- ["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south."] = "破损的骷髅就在食人魔东边、石窟穴居人营地边缘；周围的石窟断骨者和石窟萨满祭司掉落碎片。迷失者塞尔杜林坐在更南边的废弃营地旁。",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit."] = "恶魔聚集在{zone:1443}南部的{area:602}：地狱犬（{npc:4678}、法师猎手和{npc:4685}）、{npc:4679}和地狱修女，以及坑周围的{npc:4680}。",
 	-- ["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "飞行管理员站在{area:514}大门旁；{npc:5083}和{npc:4964}在城堡里。",
 	-- ["The next guide starts in Theramore."] = "下一份指南从塞拉摩岛开始。",
 	-- ["The skeleton's next task, Murdaloc, waits until the later {zone:1418} guide at 43."] = "骷髅的下一个任务“莫达洛克”留到之后43级的{zone:1418}指南。",
+	-- ["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "失事船只的箱子在{npc:11863}的塔西边不远的岸上。",
 	-- ["Theramore"] = "塞拉摩岛",
 	-- ["for the Dustwallow loop in the next guide"] = "留给下一份指南的尘泥沼泽环线",
 	-- ["for {npc:4454} in the {area:439}: the {zone:1446} guide crosses them at 45, keep it"] = "交给{area:439}的{npc:4454}：{zone:1446}指南会在45级经过那里，先留着",
@@ -210,9 +225,13 @@ return {
 	-- ["{npc:11626}'s caravan stops on the road east of {area:606}. Take the quest and walk with the kodos past the {area:602}, killing the demons that jump them; talk to {npc:11596} at his camp east of the {area:596} afterwards."] = "{npc:11626}的车队停在{area:606}东边的路上。接下任务，跟着科多兽经过{area:602}，击杀袭击它们的恶魔；之后到{area:596}东边的营地与{npc:11596}交谈。",
 	-- ["{npc:11863}'s tower stands on the hill east of the wreck."] = "{npc:11863}的塔在残骸东边的山丘上。",
 	-- ["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard."] = "{npc:12277}被关在墓地西边的半人马营地里。救出她，在出去的路上保护她；她会在墓地旁停下。",
+	-- ["{npc:12369}, a centaur chieftain, camps on the north-west coast, north of {npc:11863}'s tower."] = "{npc:12369}是一个半人马首领，在{npc:11863}的塔北边的西北海岸扎营。",
 	-- ["{npc:1470}, in the inn"] = "{npc:1470}，在旅店里",
+	-- ["{npc:217590}: catch it, for My Little Friends"] = "{npc:217590}：抓住它，用于我的小朋友们",
 	-- ["{npc:2920}, beside {npc:2921}, wants {item:2868}, a blacksmith's craft: skip him unless you carry a pair."] = "{npc:2920}在{npc:2921}旁，需要锻造制作的{item:2868}：身上没有一副就跳过。",
 	-- ["{npc:2921}'s next test needs crafted gear: skip it."] = "{npc:2921}的下一个测试需要制作的装备：跳过。",
 	-- ["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {area:3}."] = "{npc:4618}和{npc:2817}一起在{area:3}中部的{area:1877}扎营。",
 	-- ["{npc:5638}'s next task, {item:6245}, is a drop on the far coast: skip it."] = "{npc:5638}的下一个任务{item:6245}是远处海岸的掉落物：跳过。",
+	-- ["{npc:5638}: the wreck is on the north-west coast, at the end of the loop"] = "{npc:5638}：沉船在西北海岸，路线绕行到最后时再去",
+	-- ["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons. A {npc:217590} crawls about the graveyard: catch one with the Entomology Starter Kit, then tick it off."] = "{npc:6019}站在{area:2407}西南方的{area:596}边缘；{object:176751}散落在骨架之间。一只{npc:217590}在墓地里爬行：用昆虫学入门工具包抓住一只，然后勾选完成。",
 }

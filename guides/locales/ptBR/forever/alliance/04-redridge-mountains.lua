@@ -129,6 +129,8 @@ return {
 	-- {item:1130} Vial of Spider Venom
 	-- plural, as words: Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider · Venom Web Spiders = {npc:217} Venom Web Spider · Green Recluses = {npc:569} Green Recluse
 	["{item:1130}: Pygmy Venom Web Spiders, Venom Web Spiders and Green Recluses"] = "{item:1130}: Veneracnas Pigmeias, Venaracnas e Reclusas Verdes",
+	-- {item:2251} Gooey Spider Leg · {npc:272} Chef Grual · {area:42} Darkshire
+	["{item:2251}: keep the ones these spiders drop, for {npc:272} in {area:42}"] = "",
 
 	-- Step 20: Abercrombie
 	-- {area:492} Raven Hill Cemetery
@@ -153,6 +155,12 @@ return {
 	["{npc:268}, inside"] = "{npc:268}, lá dentro",
 	-- {npc:272} Chef Grual
 	["{npc:272}, in the Scarlet Raven Tavern"] = "{npc:272}, na Scarlet Raven Tavern",
+	-- {npc:272} Chef Grual · {zone:1431} Duskwood
+	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
+	["{npc:272}: six Gooey Spider Legs, which {zone:1431}'s spiders drop even without the quest"] = "",
+	["Already carrying six? Hand them in now"] = "",
+	-- {npc:288} Jitters · {quest:163} Raven Hill · {zone:1431} Duskwood
+	["For {npc:288}, at {quest:163} on the next {zone:1431} loop"] = "",
 	-- {npc:663} Calor
 	["{npc:663}, by the town hall"] = "{npc:663}, junto à prefeitura",
 
@@ -173,7 +181,9 @@ return {
 
 	-- Step 29: Lakeshire
 	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {quest:98386} Alther's Mill
-	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, the innkeeper in the inn, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "Atravesse a ponte longa para o norte, em direção à cidade: {npc:381}, nas docas, {npc:900}, na prefeitura, o estalajadeiro, na estalagem, e {npc:342}, na horta dela, na ponta oeste. As missões Rocha Negra de {npc:382} e {quest:98386} vieram com você desde a sua primeira visita a Cristarrubra.",
+	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "Atravesse a ponte longa para o norte, em direção à cidade: {npc:381}, nas docas, {npc:900}, na prefeitura, e {npc:342}, na horta dela, na ponta oeste. As missões Rocha Negra de {npc:382} e {quest:98386} vieram com você desde a sua primeira visita a Cristarrubra.",
+	-- {npc:415} Verner Osgood
+	["{npc:415}, by the road at the north end of the bridge"] = "",
 	-- {npc:900} Bailiff Conacher
 	["{npc:900}, in the town hall"] = "{npc:900}, na prefeitura",
 	["The Wanted poster by the inn"] = "O cartaz de procura-se perto da estalagem",
@@ -228,28 +238,35 @@ return {
 	-- plural, as words: Blackrock Shadowcasters = {npc:436} Blackrock Shadowcaster
 	["The keep stands beside the tower. {npc:334} (elite) waits in the keep's top room with two guards and a dragon; Blackrock Shadowcasters (elite) and Sentries stand on its west side, so pull one at a time on the way in, and hug the right wall as you enter his room so you don't pull him at once. Elite: group up if you can."] = "A fortaleza fica ao lado da torre. {npc:334} (elite) espera na sala do alto da fortaleza com dois guardas e um dragão; Lança-sombras Rocha Negra (elite) e Sentinelas Rocha Negra ficam no lado oeste, então puxe um de cada vez na subida e vá rente à parede direita ao entrar na sala dele para não puxá-lo de uma vez. Elite: forme grupo se puder.",
 
-	-- Step 40: Render's Valley
+	-- Step 40: Yowler
+	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {npc:518} Yowler
+	-- plural, as words: Redridge Alphas = {npc:445} Redridge Alpha
+	["From the keep head back west along the lake's north shore and north up the {area:95}. Just south of {area:997}, {npc:518}, a level 25 gnoll, walks among the Redridge Alphas and Mystics."] = "",
+
+	-- Step 41: Render's Valley
 	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {area:69} Lakeshire
 	-- plural, as words: Blackrock Champions = {npc:435} Blackrock Champion
 	["From the keep head back west along the lake's north shore and north up the {area:95} to {area:997}; {area:69}'s hand-ins wait for Keeshan's escort, which ends there. Blackrock Champions camp in the valley."] = "Da fortaleza, volte para oeste pela margem norte do lago e ao norte pelo {area:95} até {area:997}; as entregas de {area:69} esperam a escolta de Keeshan, que termina lá. Campeões Rocha Negra acampam no vale.",
 	-- {npc:435} Blackrock Champion
 	["{npc:435}, below ground"] = "{npc:435}, no subterrâneo",
 
-	-- Step 41: Corporal Keeshan
+	-- Step 42: Corporal Keeshan
 	-- {zone:1428} Burning Steppes · {area:69} Lakeshire
 	["Keeshan hides at the very north end of the valley, by the {zone:1428} border. Escort him down to {area:69}; Blackrock orcs ambush you on the way."] = "Keeshan se esconde no extremo norte do vale, na divisa com {zone:1428}. Escolte-o até {area:69}; orcs Rocha Negra emboscam vocês no caminho.",
 	-- {npc:349} Corporal Keeshan
 	["{npc:349}, below ground"] = "{npc:349}, no subterrâneo",
 
-	-- Step 42: Magistrate Solomon: Gath'Ilzogg
+	-- Step 43: Magistrate Solomon: Gath'Ilzogg
 	-- {npc:344} Magistrate Solomon
 	["{npc:344}, in the town hall"] = "{npc:344}, na prefeitura",
 
-	-- Step 44: Back to Lakeshire
+	-- Step 45: Back to Lakeshire
 	-- {area:69} Lakeshire
 	["Back to {area:69}"] = "De volta a {area:69}",
 	-- {area:69} Lakeshire · {npc:900} Bailiff Conacher · {npc:344} Magistrate Solomon · {npc:382} Marshal Marris · {npc:341} Foreman Oslow · {npc:903} Guard Howe
 	["Into {area:69} from the north with Keeshan: {npc:900} and {npc:344} in the town hall, {npc:382} and {npc:341} at the north end of the bridge, then over the bridge to {npc:903} and the gryphons."] = "Entre em {area:69} pelo norte com Keeshan: {npc:900} e {npc:344} na prefeitura, {npc:382} e {npc:341} no extremo norte da ponte, depois atravesse a ponte até {npc:903} e os grifos.",
+	-- {npc:415} Verner Osgood
+	["{npc:415}, by the road on the way to the bridge"] = "",
 	-- {npc:903} Guard Howe
 	["{npc:903}, by the gryphons south of the bridge"] = "{npc:903}, junto aos grifos ao sul da ponte",
 	-- {area:42} Darkshire · {zone:1431} Duskwood
@@ -258,6 +275,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bellygrub"] = "Ronquifuça",
 	-- ["Cross the long bridge north into town. {npc:341} and {npc:382} stand at the north end of the bridge, {npc:900} in the town hall, {npc:381} and {npc:266} on the docks, {npc:343} at the inn, {npc:342} in her garden at the west end."] = "Atravesse a ponte comprida para o norte até a vila. {npc:341} e {npc:382} ficam na ponta norte da ponte, {npc:900} na prefeitura, {npc:381} e {npc:266} nas docas, {npc:343} na estalagem, {npc:342} na horta dela, no extremo oeste.",
+	-- ["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, the innkeeper in the inn, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "Atravesse a ponte longa para o norte, em direção à cidade: {npc:381}, nas docas, {npc:900}, na prefeitura, o estalajadeiro, na estalagem, e {npc:342}, na horta dela, na ponta oeste. As missões Rocha Negra de {npc:382} e {quest:98386} vieram com você desde a sua primeira visita a Cristarrubra.",
 	-- ["East past the mill and across the river. Shadowhide gnolls fill the valley; {npc:703} (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of {area:2099} to the south: its orcs are elite."] = "A leste, passe o moinho e atravesse o rio. Gnolls Umbrapele enchem o vale; {npc:703} (26, bem acima de você) os lidera no extremo norte: elimine a escolta dele primeiro e lute com ele com a vida cheia. Fique longe de {area:2099} ao sul: os orcs de lá são elite.",
 	-- ["Follow the road south from {area:1002} into {area:10}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "Siga a estrada para o sul a partir de {area:1002} até {area:10}; {area:42} fica no lado leste da floresta.\nSem {item:4371} para {quest:174}? {npc:3133} vende na casa ao lado de {npc:276}, em estoque limitado; {npc:1448}, em {area:150}, também vende.\nA casa de {npc:276} fica no extremo leste da cidade. {npc:3133} vende artigos de engenharia na casa ao lado.",
 	-- ["For {npc:3649}, on the return to {area:442} (06-ashenvale)"] = "Para {npc:3649}, na volta a {area:442} (06-ashenvale)",

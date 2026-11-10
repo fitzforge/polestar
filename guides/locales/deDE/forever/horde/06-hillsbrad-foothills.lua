@@ -67,28 +67,28 @@ return {
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
 	["{area:275}: kill these as you meet them"] = "",
-	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {area:272} Tarren Mill
-	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "",
+	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key · {area:272} Tarren Mill
+	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "Drull und {npc:2238} sind in Gebäuden im Hof der {area:275} angekettet. Für ihre Schlösser brauchst du Schlüssel: {npc:2427} trägt den {item:3467} und {npc:2428} den {item:3499}, beide in der Burg. Töte sie und öffne dann beide Schlösser.\nGeh von {area:272} nach Südosten in die Hügel auf dem Weg zur {area:275}. Schurken und Wachmänner des Syndikats halten die Lager unterwegs.",
 	-- {npc:2261} Syndicate Watchman
 	["{npc:2261} walks around here: look inside the circle on the map"] = "",
 	["Drull's ball and chain"] = "Drulls Kugel und Kette",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "Kugel und Kette von {npc:2238}",
 
-	-- Step 11: Mudsnout Blossoms
-	-- {item:3502} Mudsnout Blossoms
-	["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "Südwestlich von Burg Durnholde wachsen die {item:3502} an den Hängen über dem Fluss.",
-
-	-- Step 12: Deathstalker Masoj
+	-- Step 11: Deathstalker Masoj
 	-- {area:290} Dun Garok
-	["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Masoj versteckt sich am Hang über {area:290}, südlich von Burg Durnholde, auf dem Weg hinunter zu den Blüten.",
+	["Masoj hides on the hillside above {area:290}, south-west of Durnholde, on the way down to the blossoms."] = "Masoj versteckt sich am Hang über {area:290}, südwestlich von Burg Durnholde, auf dem Weg hinunter zu den Blüten.",
 	-- {npc:270438} Deathstalker Masoj · {quest:98094} Scout Support
 	["{npc:270438}, once {quest:98094} is in"] = "",
+
+	-- Step 12: Mudsnout Blossoms
+	-- {item:3502} Mudsnout Blossoms
+	["Just south of Masoj, the {item:3502} grow on the hillsides above the river."] = "Direkt südlich von Masoj wachsen die {item:3502} an den Hängen über dem Fluss.",
 
 	-- Step 13: The southern peak
 	["The southern peak"] = "",
 	-- {area:290} Dun Garok
-	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "",
+	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, south-east of the blossoms: use a vial at the top."] = "Masoj will, dass du eine Apothekerphiole auf drei Gipfeln platzierst. Der südliche ist die Hügelkuppe über {area:290}, südöstlich der Blüten: Benutze oben eine Phiole.",
 
 	-- Step 14: The smithy
 	["The smithy"] = "Die Schmiede",
@@ -176,8 +176,13 @@ return {
 
 	-- Step 31: Back to the Crossroads
 	["Back to the Crossroads"] = "",
-	-- {npc:3033} Turak Runetotem
-	["Train with {npc:3033}, then fly on to the Crossroads, where the next guide starts."] = "",
+	-- {npc:3033} Turak Runetotem · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
+	["Train with {npc:3033}. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "Trainiere bei {npc:3033}. Bevor du weiterfliegst, geben dir {npc:3024} und {npc:4721}, ein kurzes Stück östlich des Windreitermeisters, zwei Quests, die auf den Wegen der nächsten Guides erledigt werden; flieg dann weiter zum Wegekreuz, wo der nächste Guide beginnt.",
+	-- {npc:3024} Tah Winterhoof · {quest:97538} Pigments for Paints · {area:464} Mirkfallon Lake
+	["{npc:3024}: {quest:97538}, the Mirkweed in {area:464} by Sun Rock"] = "{npc:3024}: {quest:97538}, das Dunkelkraut am {area:464} beim Sonnenfels",
+	-- {npc:4721} Zangen Stonehoof · {quest:1195} The Sacred Flame · {zone:1440} Ashenvale
+	-- plural, as words: Laughing Sisters = {npc:4054} Laughing Sister
+	["{npc:4721}: {quest:1195}, the phial from {zone:1440}'s Laughing Sisters"] = "{npc:4721}: {quest:1195}, die Phiole von den Lachenden Schwestern im {zone:1440}",
 
 	-- Step 32: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -197,12 +202,14 @@ return {
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:1638} and train on {area:1639}, then fly on to {area:378}."] = "Flieg von {zone:1454} (Zeppelin von den Türmen vor {zone:1458}) nach {area:1638}, trainiere im Ort {area:1639} und flieg dann weiter nach {area:378}.",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:378}."] = "Flieg von {zone:1454} (Zeppelin von den Türmen vor {zone:1458}) nach {area:378}.",
 	-- ["Hearth to {area:378} and fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "Ruhestein nach {area:378} und flieg nach {area:392}. {quest:874} lagert am Ufer nördlich von {area:392}.",
+	-- ["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Masoj versteckt sich am Hang über {area:290}, südlich von Burg Durnholde, auf dem Weg hinunter zu den Blüten.",
 	-- ["No Gallywix yet? The Class guide Poisons (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "Noch kein Gallywix? Der Klassenguide Gifte (Horde) führt die Questreihe ab Shenthul erneut, mit einer Gruppe für Gallywix.",
 	-- ["No Gallywix yet? The Class guide {spell:2842} (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "Noch kein Gallywix? Der Klassenguide {spell:2842} (Horde) führt die Questreihe ab Shenthul erneut, mit einer Gruppe für Gallywix.",
 	-- ["Only if Gallywix fell in the {zone:1413} (Mission: Possible But Not Probable): {npc:2391} stands in {area:272}. Wait beside him while he brews the cure, then take your reward: Poisons."] = "Nur wenn Gallywix im {zone:1413} gefallen ist (Mission: möglich, aber nicht sehr wahrscheinlich): {npc:2391} steht in {area:272}. Warte bei ihm, während er das Heilmittel braut, und hol dir dann deine Belohnung: Gifte.",
 	-- ["Only if Gallywix fell in the {zone:1413} (Mission: Possible But Not Probable): {npc:2391} stands in {area:272}. Wait beside him while he brews the cure, then take your reward: {spell:2842}."] = "Nur wenn Gallywix im {zone:1413} gefallen ist (Mission: möglich, aber nicht sehr wahrscheinlich): {npc:2391} steht in {area:272}. Warte bei ihm, während er das Heilmittel braut, und hol dir dann deine Belohnung: {spell:2842}.",
 	-- ["Peasants and skulls"] = "Arbeiter und Schädel",
 	-- ["South-west of Bael Modan, {npc:12576} waits at the top of the {area:485}."] = "Südwestlich von Bael Modan wartet {npc:12576} oben am Aufzug ({area:485}).",
+	-- ["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "Südwestlich von Burg Durnholde wachsen die {item:3502} an den Hängen über dem Fluss.",
 	-- ["Syndicate camps"] = "Lager des Syndikats",
 	-- ["Take the zeppelin from the towers outside the {zone:1458} to {zone:1454} and train before you fly on."] = "Nimm den Zeppelin von den Türmen vor {zone:1458} nach {zone:1454} und trainiere, bevor du weiterfliegst.",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "Die Arbeiter von Hillsbrad bestellen die Felder südlich der Bauernhäuser. Jeder Mensch aus {area:287} droppt Schädel; die Arbeiter am häufigsten.",

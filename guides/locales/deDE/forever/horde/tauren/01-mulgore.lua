@@ -56,7 +56,7 @@ return {
 	-- {npc:8554} Chief Sharptusk Thornmantle · {object:3076} Dirt-stained Map
 	-- plural, as words: Battleboars = {npc:2966} Battleboar
 	["Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. {npc:8554} stands at its eastern end, and the {object:3076} lies on the ground in the camp."] = "Kampfeber grasen nördlich des Schreins; die Stacheleber der Borstennacken halten die Schlucht im Nordosten. {npc:8554} steht an ihrem östlichen Ende, und {object:3076} liegt im Lager auf dem Boden.",
-	["Below ground"] = "",
+	["Below ground"] = "Unter der Erde",
 
 	-- Step 10: Deathskip to Red Cloud Mesa
 	-- {area:220} Red Cloud Mesa
@@ -85,10 +85,30 @@ return {
 	["{npc:5888}: {npc:5873} and your {item:5175}"] = "{npc:5888}: {npc:5873} und dein {item:5175}",
 
 	-- Step 15: Kaga Wildhoof
-	-- {area:220} Red Cloud Mesa · {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {spell:1229451} Boosted Rest
-	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "Folge der Straße nach Norden aus {area:220}. {npc:265810} wartet auf der Straße gleich südlich von {area:222}; /sit an ihrem Lagerfeuer, bis du {spell:1229451} bekommst.",
+	-- {area:220} Red Cloud Mesa · {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {spell:1229451} Boosted Rest · {zone:1456} Thunder Bluff
+	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof or on the {zone:1456} stop."] = "Folge der Straße nach Norden aus {area:220}. {npc:265810} wartet auf der Straße gleich südlich von {area:222}; /sit an ihrem Lagerfeuer, bis du {spell:1229451} bekommst. Wenn du einen Beruf erlernt hast, bietet Kaga auch ihr Camping 101 an, das dessen Lehrer entgegennimmt: in Bloodhoof oder beim Halt in {zone:1456}.",
 	-- {spell:1229451} Boosted Rest
 	["/sit by Kaga's campfire until you get {spell:1229451}"] = "/sit an Kagas Lagerfeuer, bis du {spell:1229451} bekommst",
+	-- {npc:265810} Kaga Wildhoof · {npc:6290} Yonn Deepcut
+	["{npc:265810}: for {npc:6290}"] = "{npc:265810}: für {npc:6290}",
+	-- {npc:265810} Kaga Wildhoof · {npc:3069} Chaw Stronghide
+	["{npc:265810}: for {npc:3069}"] = "{npc:265810}: für {npc:3069}",
+	-- {npc:265810} Kaga Wildhoof · {npc:5939} Vira Younghoof
+	["{npc:265810}: for {npc:5939}"] = "{npc:265810}: für {npc:5939}",
+	-- {npc:265810} Kaga Wildhoof · {npc:5938} Uthan Stillwater
+	["{npc:265810}: for {npc:5938}"] = "{npc:265810}: für {npc:5938}",
+	-- {npc:265810} Kaga Wildhoof · {npc:3013} Komin Winterhoof
+	["{npc:265810}: for {npc:3013}"] = "{npc:265810}: für {npc:3013}",
+	-- {npc:265810} Kaga Wildhoof · {npc:3001} Brek Stonehoof
+	["{npc:265810}: for {npc:3001}"] = "{npc:265810}: für {npc:3001}",
+	-- {npc:265810} Kaga Wildhoof · {npc:11047} Kray
+	["{npc:265810}: for {npc:11047}"] = "{npc:265810}: für {npc:11047}",
+	-- {npc:265810} Kaga Wildhoof · {npc:10278} Thrag Stonehoof
+	["{npc:265810}: for {npc:10278}"] = "{npc:265810}: für {npc:10278}",
+	-- {npc:265810} Kaga Wildhoof · {npc:11071} Mot Dawnstrider
+	["{npc:265810}: for {npc:11071}"] = "{npc:265810}: für {npc:11071}",
+	-- {npc:265810} Kaga Wildhoof · {npc:11051} Vhan
+	["{npc:265810}: for {npc:11051}"] = "{npc:265810}: für {npc:11051}",
 
 	-- Step 16: Bloodhoof Village
 	-- {npc:3063} Krang Stonehoof
@@ -100,6 +120,10 @@ return {
 	-- Step 17: Bloodhoof Village
 	-- {npc:3067} Pyall Silentstride
 	["{npc:3067}: Camping 101 asks you to learn it"] = "",
+	-- {npc:6290} Yonn Deepcut · {npc:3067} Pyall Silentstride · {quest:97936} Camping 101: Skinning
+	["{npc:6290}, beside {npc:3067}: {quest:97936}"] = "{npc:6290}, neben {npc:3067}: {quest:97936}",
+	-- {npc:3069} Chaw Stronghide · {npc:3067} Pyall Silentstride · {quest:97934} Camping 101: Leatherworking
+	["{npc:3069}, beside {npc:3067}: {quest:97934}"] = "{npc:3069}, neben {npc:3067}: {quest:97934}",
 
 	-- Step 18: Poison Water
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
@@ -250,7 +274,7 @@ return {
 	["While you're here: learn Staves from {npc:11869} (10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
 	-- Step 48: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Klassenlehrer",
 
 	-- Step 49: Rogue trainer
 	["Rogue trainer"] = "",
@@ -298,23 +322,31 @@ return {
 	-- {zone:1413} The Barrens
 	["Into {zone:1413}"] = "",
 
-	-- Step 62: The Crossroads
+	-- Step 61: Kirge Sternhorn
+	-- {npc:3418} Kirge Sternhorn · {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:458} Gold Road
+	["{npc:3418} stands at {area:378}, where the road from {zone:1412} meets the {area:458} north to the Crossroads."] = "{npc:3418} steht bei {area:378}, wo die Straße aus {zone:1412} auf die {area:458} nach Norden zum Wegekreuz trifft.",
+	-- {npc:3418} Kirge Sternhorn · {npc:3429} Thork
+	["{npc:3418}: for {npc:3429} at the Crossroads"] = "{npc:3418}: für {npc:3429} am Wegekreuz",
+
+	-- Step 63: The Crossroads
 	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
 	["Leave {zone:1412} by the south-eastern pass and follow the road to the Crossroads. {npc:3448} stands at the south gate, {quest:860} by the inn, {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "",
+	-- {npc:3429} Thork
+	["{npc:3429}, by the wind rider tower"] = "{npc:3429}, beim Windreiterturm",
 	-- {npc:3615} Devrak
 	["{npc:3615}, the wind rider master"] = "{npc:3615}, der Windreitermeister",
 
-	-- Step 63: Jahan Hawkwing
+	-- Step 64: Jahan Hawkwing
 	-- {npc:3483} Jahan Hawkwing · {npc:3615} Devrak · {zone:1456} Thunder Bluff · {npc:3033} Turak Runetotem
 	["{npc:3483} sells armor on the north side of the Crossroads. His bundle goes to {npc:3615}, who sends it with you on the flight to {zone:1456} you take for {npc:3033} anyway."] = "",
 
-	-- Step 64: Class turn-in in Thunder Bluff
+	-- Step 65: Class turn-in in Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Class turn-in in {area:1638}"] = "",
 	-- {npc:8359} Ahanu
 	["{npc:8359}, by the wind riders on the central rise"] = "",
 
-	-- Step 66: To Orgrimmar
+	-- Step 67: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "Nach {zone:1454}",
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
@@ -329,6 +361,7 @@ return {
 	-- ["Class turn-ins in {area:1638}"] = "Klassenabgaben in {area:1638}",
 	-- ["Finish the wolf heart, cougar femur, plainstrider scale and swoop gizzard on the plains around the village."] = "Sammle das restliche Wolfsherz, den Pumaknochen, die Ebenenschreiterschuppe und den Sturzfliegermagen auf den Ebenen ums Dorf.",
 	-- ["Flatland Prowlers roam the plains around {area:225}"] = "Flachlandstreuner streifen über die Ebenen um {area:225}",
+	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "Folge der Straße nach Norden aus {area:220}. {npc:265810} wartet auf der Straße gleich südlich von {area:222}; /sit an ihrem Lagerfeuer, bis du {spell:1229451} bekommst.",
 	-- ["Galak centaurs and Prairie Wolf Alphas"] = "Zentauren der Galak und Präriewolfalphas",
 	-- ["Head down to {area:222} and tame with the {item:15908}: an {npc:2956} on the plains, a {npc:2959} north of the village, a Swoop to the north-west."] = "Geh hinunter nach {area:222} und zähme mit {item:15908}: einen {npc:2956} auf den Ebenen, einen {npc:2959} nördlich des Dorfes, einen Sturzflieger im Nordwesten.",
 	-- ["Hearth to {area:222} and head north to {area:1639}."] = "Kehr per Ruhestein nach {area:222} zurück und geh nach Norden zum {area:1639}.",
@@ -346,6 +379,16 @@ return {
 	-- ["The well lies north of the village. Well Stones sit around the well, {object:2912} lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for {quest:766} and {quest:761}."] = "Der Brunnen liegt nördlich des Dorfs. Quellsteine liegen um den Brunnen, {object:2912} unter den Bäumen in der Nähe. Töte unterwegs Wölfe, Pumas, Ebenenschreiter und Sturzflieger für {quest:766} und {quest:761}.",
 	-- ["The well lies south-east of the village."] = "Der Brunnen liegt südöstlich des Dorfs.",
 	-- ["The {area:380}"] = "{area:380}",
+	-- ["With {skill:129} learned, Kaga also offers its Camping 101: {npc:5939} in Bloodhoof takes it."] = "Wenn du {skill:129} erlernt hast, bietet Kaga auch ihr Camping 101 an: {npc:5939} in Bloodhoof nimmt es entgegen.",
+	-- ["With {skill:164} learned, Kaga also offers its Camping 101: {npc:10278} in {zone:1456} takes it."] = "Wenn du {skill:164} erlernt hast, bietet Kaga auch ihr Camping 101 an: {npc:10278} in {zone:1456} nimmt es entgegen.",
+	-- ["With {skill:165} learned, Kaga also offers its Camping 101: {npc:3069} in Bloodhoof takes it."] = "Wenn du {skill:165} erlernt hast, bietet Kaga auch ihr Camping 101 an: {npc:3069} in Bloodhoof nimmt es entgegen.",
+	-- ["With {skill:171} learned, Kaga also offers its Camping 101: {npc:11047} in {zone:1456} takes it."] = "Wenn du {skill:171} erlernt hast, bietet Kaga auch ihr Camping 101 an: {npc:11047} in {zone:1456} nimmt es entgegen.",
+	-- ["With {skill:182} learned, Kaga also offers its Camping 101: {npc:3013} in {zone:1456} takes it."] = "Wenn du {skill:182} erlernt hast, bietet Kaga auch ihr Camping 101 an: {npc:3013} in {zone:1456} nimmt es entgegen.",
+	-- ["With {skill:186} learned, Kaga also offers its Camping 101: {npc:3001} in {zone:1456} takes it."] = "Wenn du {skill:186} erlernt hast, bietet Kaga auch ihr Camping 101 an: {npc:3001} in {zone:1456} nimmt es entgegen.",
+	-- ["With {skill:197} learned, Kaga also offers its Camping 101: {npc:11051} in {zone:1456} takes it."] = "Wenn du {skill:197} erlernt hast, bietet Kaga auch ihr Camping 101 an: {npc:11051} in {zone:1456} nimmt es entgegen.",
+	-- ["With {skill:333} learned, Kaga also offers its Camping 101: {npc:11071} in {zone:1456} takes it."] = "Wenn du {skill:333} erlernt hast, bietet Kaga auch ihr Camping 101 an: {npc:11071} in {zone:1456} nimmt es entgegen.",
+	-- ["With {skill:356} learned, Kaga also offers its Camping 101: {npc:5938} in Bloodhoof takes it."] = "Wenn du {skill:356} erlernt hast, bietet Kaga auch ihr Camping 101 an: {npc:5938} in Bloodhoof nimmt es entgegen.",
+	-- ["With {skill:393} learned, Kaga also offers its Camping 101: {npc:6290} in Bloodhoof takes it."] = "Wenn du {skill:393} erlernt hast, bietet Kaga auch ihr Camping 101 an: {npc:6290} in Bloodhoof nimmt es entgegen.",
 	-- ["{npc:275789} stands on the {area:821} a little east of the well."] = "{npc:275789} steht auf den {area:821} ein Stück östlich des Brunnens.",
 	-- ["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182} steht am Nordrand des Dorfs. Kyle will {item:287505} von Ebenenschreitern.",
 	-- ["{npc:2988} camps by the {area:396} south-east of Bloodhoof."] = "{npc:2988} lagert beim {area:396} südöstlich von Bloodhoof.",

@@ -36,9 +36,9 @@ return {
 	["Grizzled Scalps"] = "Седые скальпы",
 
 	-- Step 6: The Master's Glaive
-	-- {object:10076} Scrying Bowl · {object:12666} Twilight Tome · {npc:3584} Therylune
+	-- {object:12666} Twilight Tome · {npc:3584} Therylune · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "Взрослые лунопарды рыщут в лесу вокруг глефы. {object:10076} и {object:12666} – на дне кратера; {npc:3584} стоит на его северной стороне.",
+	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Взрослые лунопарды рыщут в лесу вокруг глефы. {object:12666} – на дне кратера; {npc:3584} стоит на его северной стороне. Для задания {quest:948} примените {item:5251} на дне кратера: так появится {object:10076}, и задание сдается чаше.",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
 	["Fine Moonstalker Pelts"] = "Прекрасные шкуры лунопарда",
 	-- {zone:1440} Ashenvale
@@ -154,4 +154,7 @@ return {
 	-- Step 32: To Darnassus
 	-- {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine · {zone:1440} Ashenvale
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}."] = "",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "Взрослые лунопарды рыщут в лесу вокруг глефы. {object:10076} и {object:12666} – на дне кратера; {npc:3584} стоит на его северной стороне.",
 }

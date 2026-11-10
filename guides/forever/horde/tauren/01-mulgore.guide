@@ -116,12 +116,22 @@ step Call of Earth
 # ---------------------------------------------------------------- Bloodhoof Village
 
 step Kaga Wildhoof
-  tip Follow the road north out of Red Cloud Mesa. Kaga Wildhoof waits on the road just south of Bloodhoof Village; /sit by her campfire until you get Boosted Rest.
+  tip Follow the road north out of Red Cloud Mesa. Kaga Wildhoof waits on the road just south of Bloodhoof Village; /sit by her campfire until you get Boosted Rest. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof or on the Thunder Bluff stop.
   turnin 96659
   accept 96605
   complete 96605 @46.2,67.3 live      -- /sit by Kaga's campfire until you get Boosted Rest
   turnin 96605
   accept 96661
+  accept 97936 optional               -- Kaga Wildhoof: for Yonn Deepcut
+  accept 97934 optional               -- Kaga Wildhoof: for Chaw Stronghide
+  accept 97931 optional               -- Kaga Wildhoof: for Vira Younghoof
+  accept 97932 optional               -- Kaga Wildhoof: for Uthan Stillwater
+  accept 97933 optional               -- Kaga Wildhoof: for Komin Winterhoof
+  accept 97935 optional               -- Kaga Wildhoof: for Brek Stonehoof
+  accept 97927 optional               -- Kaga Wildhoof: for Kray
+  accept 97928 optional               -- Kaga Wildhoof: for Thrag Stonehoof
+  accept 97929 optional               -- Kaga Wildhoof: for Mot Dawnstrider
+  accept 97937 optional               -- Kaga Wildhoof: for Vhan
 
 step Bloodhoof Village
   accept 743                          -- Ruul Eagletalon
@@ -146,6 +156,10 @@ step Bloodhoof Village
   complete 96661 @44.92,61.67 map 1412 live
   turnin 96661                        -- Pyall Silentstride
   accept 746
+  turnin 97936 optional               -- Yonn Deepcut, beside Pyall: Camping 101: Skinning
+  turnin 97934 optional               -- Chaw Stronghide, beside Pyall: Camping 101: Leatherworking
+  turnin 97931 optional               -- Vira Younghoof: Camping 101: First Aid
+  turnin 97932 optional               -- Uthan Stillwater: Camping 101: Fishing
 
 step Poison Water
   tip Prairie Wolves and Adult Plainstriders roam the plains around the village.
@@ -341,6 +355,12 @@ step Traditions of the Bluff
   sethome "Thunder Bluff" npc 6746 only Druid -- Innkeeper Pala, at the south end of the central rise: the hearth from Moonglade brings you back here
   accept 5926 only Druid              -- Innkeeper Pala: Heeding the Call, for Turak on Elder Rise
   getfp "Thunder Bluff" npc 2995      -- Tal
+  turnin 97933 optional               -- Komin Winterhoof: Camping 101: Herbalism
+  turnin 97935 optional               -- Brek Stonehoof: Camping 101: Mining
+  turnin 97927 optional               -- Kray: Camping 101: Alchemy
+  turnin 97928 optional               -- Thrag Stonehoof: Camping 101: Blacksmithing
+  turnin 97929 optional               -- Mot Dawnstrider: Camping 101: Enchanting
+  turnin 97937 optional               -- Vhan: Camping 101: Tailoring
 
 step Hunter Rise
   zone Thunder Bluff
@@ -447,6 +467,11 @@ step Into The Barrens
   zone The Barrens
   goto 41.9,58.6 "Into The Barrens"
 
+step Kirge Sternhorn
+  zone The Barrens
+  tip Kirge Sternhorn stands at Camp Taurajo, where the road from Mulgore meets the Gold Road north to the Crossroads.
+  accept 854                          -- Kirge Sternhorn: for Thork at the Crossroads
+
 step The Crossroads
   zone The Barrens
   goto 52.2,31.0 "The Crossroads"
@@ -456,6 +481,7 @@ step The Crossroads
   tip Leave Mulgore by the south-eastern pass and follow the road to the Crossroads. Tonga Runetotem stands at the south gate, Sergra Darkthorn by the inn, Devrak on the tower platform. The Crossroads' own quests come after Silverpine Forest, in the Barrens guide.
   turnin 886                          -- Tonga Runetotem
   turnin 860                          -- Sergra Darkthorn
+  turnin 854                          -- Thork, by the wind rider tower
   getfp "Crossroads" npc 3615         -- Devrak, the wind rider master
 
 # ---------------------------------------------------------------- The Crossroads
