@@ -9948,3 +9948,20 @@ test('Horde Stranglethorn 40: Goblin Sponsorship parts 2 and 3 handed in on the 
 	for (const i of [lozgil, take, baron]) assert.equal(stv[i].s, stv[mack].s, "on MacKinley's Booty Bay stop");
 	assert.ok(!stv.some(({ goal }) => is('accept', 1182)(goal)), 'part 4 is not routed');
 });
+
+// Final route review (0.3.6): Tanaris Field Sampling (654) runs on a two-hour timer from the moment its power source is
+// used. It was started on the first Gadgetzan stop, with Marvon, Scrimshank's hive and OOX-17/TN's optional escort under
+// the timer (80-100 minutes); the power source is now used on the way back north, the dunes south of Gadgetzan sampled,
+// and the kit handed in on the stop right after.
+test('Horde Tanaris 46: Tanaris Field Sampling started after Scrimshank, handed in right after the dunes', { skip }, () => {
+	const tan = goals('forever/horde/40-50/04-tanaris.guide');
+	const take = at(tan, 'accept 654', is('accept', 654));
+	const gear = at(tan, 'collect 8593 (Scrimshank)', (g) => g.t === 'collect' && g.quest === 10);
+	const marvon = at(tan, 'turnin 3161', is('turnin', 3161));
+	const ox = tan.findIndex(({ goal }) => is('accept', 648)(goal));
+	assert.ok(marvon < take && gear < take && ox < take, 'Marvon, the hive and the escort come before the timer starts');
+	const sample = tan.findIndex(({ goal }) => goal.t === 'collect' && goal.quest === 654);
+	assert.equal(tan[sample].s, tan[take].s, 'sampled on the step that starts it');
+	const tin = at(tan, 'turnin 654', is('turnin', 654));
+	assert.equal(tan[tin].s, tan[sample].s + 1, 'handed in on the next step');
+});

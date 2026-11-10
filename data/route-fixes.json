@@ -8380,7 +8380,7 @@
 					"turnin",
 					379
 				],
-				"reason": "Quest volume, Horde 40-60 (2026-11-08): Tanaris Field Sampling (level 46, 4050 XP) from the power source Bilgewhizzle hands out with Slake That Thirst: the hyenas, basilisks and scorpids on the dunes just south of Gadgetzan, on the way to Marvon; handed in on the next Gadgetzan stop (two-hour timer).",
+				"reason": "Quest volume, Horde 40-60 (2026-11-08; order 0.3.6, BrHorde4060): Tanaris Field Sampling (level 46, 4050 XP) from the power source Bilgewhizzle hands out with Slake That Thirst: the hyenas, basilisks and scorpids on the dunes just south of Gadgetzan. The power source starts the quest and its two-hour timer, so it is used on the way back north from Scrimshank's hive (and OOX-17/TN's escort), sampled on the dunes and handed in on the Gadgetzan stop right after: about 20 minutes on the timer instead of 80-100 with Marvon, the hive and the escort under it.",
 				"issue": "-"
 			},
 			{
@@ -12330,6 +12330,19 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 30-40/40-50 seam (0.3.6): Gazlowe's letter (1180) goes to Wharfmaster Lozgil and his note (1181) to Baron Revilgaz on 40-50/01's first Booty Bay stop, beside MacKinley's accept; see the include for 1181.",
+				"source": "BrHorde4060"
+			},
+			{
+				"a": [
+					"task",
+					10
+				],
+				"b": [
+					"accept",
+					654
+				],
+				"faction": "Horde",
+				"why": "Tanaris (Horde 40-50/04, 0.3.6): Tanaris Field Sampling runs on a two-hour timer from the moment its power source is used, so Scrimshank's gear (and the optional OOX-17/TN escort) come first and the dunes south of Gadgetzan are sampled on the way back, right before the hand-in; see the include for 654.",
 				"source": "BrHorde4060"
 			}
 		]

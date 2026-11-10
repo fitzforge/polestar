@@ -138,7 +138,7 @@ step Slake That Thirst
 step Gadgetzan
   turnin 5863                           -- Andi Lynn
   turnin 379
-  accept 654                            -- Use the Model 4711-FTZ Power Source Bilgewhizzle gave you: a two-hour timer starts
+  note Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts Tanaris Field Sampling, a two-hour timer, so use it on the way back north from Scrimshank's hive.
 
 step Gadgetzan
   turnin 2605                           -- Marin Noggenfogger
@@ -148,12 +148,6 @@ step Gadgetzan
   accept 2641                           -- the Violet Tragan grows in the Hinterlands, around level 48
   turnin 82                             -- Alchemist Pestlezugg, inside
   accept 10                             -- Senior Surveyor Fizzledowser
-
-step Tanaris Field Sampling
-  tip Just south of Gadgetzan the Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each.
-  collect 9441 quest 654.2 @50.2,31.6 map 1446
-  collect 9440 quest 654.1 @49.4,31.0 map 1446
-  collect 9438 quest 654.3 @53.2,31.2 map 1446
 
 step Marvon Rivetseeker
   turnin 3161
@@ -170,6 +164,13 @@ step OOX-17/TN
   turnin 351 optional                   -- Homing Robot OOX-17/TN
   accept 648 optional
   complete 648 optional
+
+step Tanaris Field Sampling
+  tip Back north, just south of Gadgetzan, use the Model 4711-FTZ Power Source now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each.
+  accept 654                            -- Use the Model 4711-FTZ Power Source
+  collect 9441 quest 654.2 @50.2,31.6 map 1446
+  collect 9440 quest 654.1 @49.4,31.0 map 1446
+  collect 9438 quest 654.3 @53.2,31.2 map 1446
 
 step Gadgetzan
   turnin 654                            -- Chief Engineer Bilgewhizzle
