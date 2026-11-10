@@ -781,7 +781,9 @@ mouse over or see the nameplate of (not in your group or guild), Polestar
 sends one hidden addon whisper with its version number, at most once a day
 per player, once every 10 seconds and 30 times a session, never in combat
 or dungeons, and stops once it has heard of a newer release; their Polestar
-answers once with its own. Nothing goes to chat, and turning party sync's
+answers once with its own. A newer version heard only this way counts once
+two different players have answered with it. Nothing goes to chat, and
+turning party sync's
 sharing off stops all of these. With no source at all, a Polestar first run
 three weeks ago or more says, in the guide window only, that updates come
 often.

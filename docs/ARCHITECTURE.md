@@ -198,7 +198,8 @@ install (`ns.IsNewAccount()`: no saved `PolestarDB` as Polestar loaded) is set t
 first ran Polestar; 0 for one from before), `since = { version, at }` (when this build was first run),
 `peer`, `peerAt` (a player's newer release and when it was heard), `snooze` (Got it, until), `shown`,
 `shownAt` (the card's last version and time), `helloAt`, `replyAt` (the guild hello's), `probed` (the
-version probe's players, name -> when, at most 300).
+version probe's players, name -> when, at most 300), `heard` (players' answers to our probes, name -> `{ v,
+at }`, at most 50, 7 days).
 `dungeons` (per character) holds the dungeons this character runs in leveling
 guides, by the instance's Map id (`Engine.ChooseDungeon`, `when dungeon`).
 `behavior.suggestFrom` (default `"guides"`) is the pack suggestions come from.
@@ -5939,14 +5940,22 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   lockdown (`C_ChatInfo.InChatMessagingLockdown`), is asked once:
   `C_ChatInfo.RequestCanLocalWhisperTarget(guid)` first where the client has
   it, and only on `CAN_LOCAL_WHISPER_TARGET_RESPONSE` status 0 (CanWhisper,
-  so no "not found" line shows) the addon whisper `V?<version>` on Party's
-  prefix, to the name as the game's Whisper builds it
-  (`Compat.UnitFullName`: "Ana Smith" with the client's
-  `CHARACTERNAME_SURNAME_SEPARATOR`; `RegionalUniqueNamesEnabled()` is not
-  read, as other addons found it off on Forever). The receiver keeps the
-  version when it counts and answers `V=<version>` to a probe only, once per
-  sender a session (100 at most), to the `sender` string as it arrived; a
-  `V=` is never answered. Limits: one probe per player per 24 h
+  so no "not found" line shows) the addon whisper `PSV1?<version>` on the
+  `Polestar` prefix (unique among Forever's addons), to the unit's own name
+  as the game's Whisper builds it (`Compat.UnitFullName`: "Ana Smith" with
+  the client's `CHARACTERNAME_SURNAME_SEPARATOR`; `RegionalUniqueNamesEnabled()`
+  is not read, as other addons found it off on Forever). Its own handler
+  reads WHISPER only (Party.lua reads PARTY only), and only
+  `^PSV1([%?=])(%d+)%.(%d+)%.(%d+)$` at most 24 bytes with major ≤ 99, minor
+  and patch ≤ 999; anything else is dropped silently. A `?` is answered
+  `PSV1=<version>` after 0.5-2.5 s, once per sender per 60 s (by
+  `Compat.SenderName`), to the `sender` string as it arrived, never our own
+  echo; its version is not kept. A `=` counts only from a player probed in
+  the last 60 s, once (the entry goes with the answer). A newer release
+  heard this way is kept per player (`update.heard`) and told as a peer's
+  version (`NotePeer`) only once two different players answered with newer
+  releases: the lower of the two highest. Older Polestars don't answer
+  whispers, so silence means nothing. Limits: one probe per player per 24 h
   (`update.probed`, 300 players, the oldest dropped), one per 10 s, 30 a
   session, none once a newer release is known (the unit events are then
   unregistered). Any result but Success (a throttle, the lockdown, an
@@ -5954,8 +5963,10 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   Only while `party.share` is on, from a release build. No SAY, YELL or
   CHANNEL addon messages: Forever's Mainline client refuses the first two
   and a custom channel shows in the channel list.
-  `CHAT_MSG_ADDON` is registered in a guild or while `party.share` is on
-  (`PLAYER_GUILD_UPDATE`, `SETTING_CHANGED`); solo with sharing off, not at all.
+  `CHAT_MSG_ADDON` is registered for the guild in a guild and for whispers
+  while sharing from a release build (`PLAYER_GUILD_UPDATE`,
+  `SETTING_CHANGED`); the prefix is registered with either. Solo with sharing
+  off, nothing listens.
 - **Hub** (`UI/Picker.lua`, `UI.ShowPicker(opts)`; the window the guide menu
   grew into, `docs/SUITE.md` "UI"). A section rail (`W.Shell` with
   `rail = true`, `W.ShellRail`) at the window's left: the emblem, then one

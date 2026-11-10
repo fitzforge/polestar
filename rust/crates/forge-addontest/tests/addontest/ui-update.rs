@@ -385,7 +385,7 @@ local function whispers()
 	return out
 end
 local n = 0
--- A stranger at `unit` (a new name and GUID each unless given), then the event that shows them.
+-- A stranger at `unit` (a new GUID each), then the event that shows them.
 local function meet(unit, facts)
 	n = n + 1
 	facts = facts or {}
@@ -397,10 +397,11 @@ local function meet(unit, facts)
 	else stub.fire("NAME_PLATE_UNIT_ADDED", unit) end
 	stub.advance(0.2)
 	return facts
-end"#;
+end
+local function hear(sender, text) p.receive(sender, text, "WHISPER") end"#;
 
 #[test]
-fn a_player_of_your_faction_you_target_gets_one_hidden_whisper_probe_after_the_clients_whisper_check() {
+fn a_player_of_your_faction_you_target_gets_one_tagged_whisper_probe_after_the_clients_whisper_check() {
 	let out = probe(
 		r#"
 		local a = meet("target", { name = "Ana" })
@@ -412,14 +413,14 @@ fn a_player_of_your_faction_you_target_gets_one_hidden_whisper_probe_after_the_c
 		meet("nameplate3")
 		emit({ plate = whispers() })"#,
 	);
-	assert_eq!(out[0], json!({ "checks": ["Player-1-0001"], "sent": ["V?0.3.6 > Ana Smith"], "probed": true }), "named as the game's Whisper names her");
+	assert_eq!(out[0], json!({ "checks": ["Player-1-0001"], "sent": ["PSV1?0.3.6 > Ana Smith"], "probed": true }), "named as the game's Whisper names her");
 	assert_eq!(out[1], json!({ "again": {}, "checks": 1 }), "once per player");
-	assert_eq!(out[2], json!({ "plate": ["V?0.3.6 > Pld Smith"] }), "a nameplate counts too");
+	assert_eq!(out[2], json!({ "plate": ["PSV1?0.3.6 > Pld Smith"] }), "a nameplate counts too");
 	// Probed an hour ago (saved): not again; 25 hours ago: again.
 	let hour = probe_run(r#"meet("target", { name = "Ana" }); emit(whispers())"#, true, &format!("update = {{ probed = {{ [\"Ana Smith\"] = {} }} }}", EPOCH - 3600));
 	assert_eq!(hour[0], json!({}));
 	let day = probe_run(r#"meet("target", { name = "Ana" }); emit(whispers())"#, true, &format!("update = {{ probed = {{ [\"Ana Smith\"] = {} }} }}", EPOCH - 25 * 3600));
-	assert_eq!(day[0], json!(["V?0.3.6 > Ana Smith"]));
+	assert_eq!(day[0], json!(["PSV1?0.3.6 > Ana Smith"]));
 }
 
 #[test]
@@ -480,30 +481,96 @@ fn no_probe_to_the_other_faction_your_group_or_guild_a_hidden_name_in_instances_
 }
 
 #[test]
-fn a_probe_is_answered_once_to_its_sender_an_answer_never_and_a_newer_release_stops_the_probes() {
+fn a_probe_is_answered_after_a_moment_once_a_minute_per_sender_never_an_answer_an_echo_or_another_channel() {
 	let out = probe(
 		r#"
-		p.receive("Bob Stone-TestRealm", "V?0.3.5", "WHISPER")
-		p.receive("Bob Stone-TestRealm", "V?0.3.5", "WHISPER")
-		p.receive("Cy Hill-TestRealm", "V=0.3.5", "WHISPER")
-		p.receive("Dee Moor-TestRealm", "1H|0.3.5", "WHISPER")
-		emit({ sent = whispers(), latest = U.Latest() or false })
-		-- Pre-releases, dev builds and made-up versions never count; a newer release does.
-		p.receive("Eve Dale-TestRealm", "V?0.3.7-rc1", "WHISPER")
-		p.receive("Fay Rook-TestRealm", "V=dev", "WHISPER")
-		p.receive("Gil Wood-TestRealm", "V=9.9.9", "WHISPER")
-		local before = U.Latest() or false
+		hear("Bob Stone-TestRealm", "PSV1?0.3.5")
+		local now = whispers()
+		stub.advance(3)
+		local later = whispers()
+		hear("Bob Stone-TestRealm", "PSV1?0.3.5")
+		stub.advance(3)
+		local again = whispers()
+		stub.advance(61)
+		hear("Bob Stone-TestRealm", "PSV1?0.3.5")
+		stub.advance(3)
+		local minute = whispers()
+		hear("Testchar Brightwood-TestRealm", "PSV1?0.3.5")
+		hear("Cy Hill-TestRealm", "PSV1=0.3.5")
+		hear("Dee Moor-TestRealm", "1H|0.3.5")
+		hear("Eve Dale-TestRealm", "PSV1?0.3.7")
+		p.receive("Fay Rook-TestRealm", "PSV1?0.3.5", "PARTY")
+		stub.advance(3)
+		emit({ now = now, later = later, again = again, minute = minute, rest = whispers(), latest = U.Latest() or false })"#,
+	);
+	assert_eq!(
+		out[0],
+		json!({ "now": {}, "later": ["PSV1=0.3.6 > Bob Stone-TestRealm"], "again": {}, "minute": ["PSV1=0.3.6 > Bob Stone-TestRealm"],
+			"rest": ["PSV1=0.3.6 > Eve Dale-TestRealm"], "latest": false }),
+		"to the sender's own string; not our echo, a reply, a party hello or a party-channel probe; a probe's own version never counts"
+	);
+	let off = probe_run(r#"hear("Bob Stone-TestRealm", "PSV1?0.3.5"); stub.advance(3); emit({ sent = #p.sent })"#, false, "");
+	assert_eq!(off[0], json!({ "sent": 0 }), "party sharing off: no answer");
+}
+
+#[test]
+fn malformed_probe_messages_are_dropped_and_versions_are_capped() {
+	let out = probe(
+		r#"
+		for _, t in ipairs({ "PSV1?0.3.7x", "PSV1?00000000000000000000.3.7", "PSV1?100.0.0", "PSV1?0.1000.0", "PSV1?0.3.1000", "PSV2?0.3.7",
+			"V?0.3.7", "PSV1?0.3.7-rc1", "PSV1?0.3", "PSV1?dev", "psv1?0.3.7", "PSV1!0.3.7", "PSV1?0.3.7|x" }) do
+			hear("Bob Stone-TestRealm", t)
+		end
+		stub.advance(3)
+		emit({ sent = whispers(), parse = { U.ParseProbe("PSV1=0.03.7") }, cap = { U.ParseProbe("PSV1?99.999.999") }, padded = { U.ParseProbe("PSV1?099.0999.0999") } })"#,
+	);
+	assert_eq!(
+		out[0],
+		json!({ "sent": {}, "parse": ["=", "0.3.7"], "cap": ["?", "99.999.999"], "padded": ["?", "99.999.999"] }),
+		"over 24 bytes, parts over 99/999, another tag or kind, a pre-release, two parts, a pipe: nothing answered"
+	);
+}
+
+#[test]
+fn only_answers_to_our_own_probes_count_and_a_newer_release_needs_two_players() {
+	let out = probe(
+		r#"
+		local ana = meet("target", { name = "Ana" })
 		whispers()
-		p.receive("Hal Ford-TestRealm", "V=0.3.7", "WHISPER")
-		local latest = U.Latest() or false
+		hear("Ana Smith-TestRealm", "PSV1=0.3.7")
+		local one = { latest = U.Latest() or false, heard = PolestarDB.update.heard["Ana Smith"] and PolestarDB.update.heard["Ana Smith"].v }
+		hear("Ana Smith-TestRealm", "PSV1=0.3.8")
+		hear("Zed Fox-TestRealm", "PSV1=0.3.8")
+		local spoof = { latest = U.Latest() or false, ana = PolestarDB.update.heard["Ana Smith"].v, zed = PolestarDB.update.heard["Zed Fox"] or false }
+		stub.advance(11)
+		meet("target", { name = "Bob" })
+		stub.advance(61)
+		hear("Bob Smith-TestRealm", "PSV1=0.3.8")
+		local late = { latest = U.Latest() or false, bob = PolestarDB.update.heard["Bob Smith"] or false }
+		meet("target", { name = "Cy" })
+		whispers()
+		hear("Cy Smith-TestRealm", "PSV1=0.3.8")
+		local two = { latest = U.Latest() or false, peer = PolestarDB.update.peer }
 		stub.advance(11)
 		meet("target")
-		emit({ before = before, latest = latest, peer = PolestarDB.update.peer, probes = whispers() })"#,
+		emit({ one = one, spoof = spoof, late = late, two = two, probes = whispers() })"#,
 	);
-	assert_eq!(out[0], json!({ "sent": ["V=0.3.6 > Bob Stone-TestRealm"], "latest": false }), "the sender's own string, once");
-	assert_eq!(out[1], json!({ "before": false, "latest": "0.3.7", "peer": "0.3.7", "probes": {} }));
-	let off = probe_run(r#"p.receive("Bob Stone-TestRealm", "V?0.3.5", "WHISPER"); emit({ sent = #p.sent })"#, false, "");
-	assert_eq!(off[0], json!({ "sent": 0 }), "party sharing off: no answer");
+	let o = &out[0];
+	assert_eq!(o["one"], json!({ "latest": false, "heard": "0.3.7" }), "one player's answer is kept, not told");
+	assert_eq!(o["spoof"], json!({ "latest": false, "ana": "0.3.7", "zed": false }), "one answer per probe; an unasked answer is ignored");
+	assert_eq!(o["late"], json!({ "latest": false, "bob": false }), "an answer after 60 s is ignored");
+	assert_eq!(o["two"], json!({ "latest": "0.3.7", "peer": "0.3.7" }), "two players: the lower of their two releases");
+	assert_eq!(o["probes"], json!({}), "a newer release known: no more probes");
+	let single = probe(
+		r#"
+		meet("target", { name = "Ana" })
+		hear("Ana Smith-TestRealm", "PSV1=0.4.0")
+		stub.advance(11)
+		meet("target", { name = "Bob" })
+		hear("Bob Smith-TestRealm", "PSV1=0.3.6")
+		emit({ latest = U.Latest() or false, heard = PolestarDB.update.heard and PolestarDB.update.heard["Ana Smith"] and PolestarDB.update.heard["Ana Smith"].v or false, bob = PolestarDB.update.heard["Bob Smith"] or false })"#,
+	);
+	assert_eq!(single[0], json!({ "latest": false, "heard": "0.4.0", "bob": false }), "a single spoofed answer raises nothing; ours is no news");
 }
 
 #[test]
@@ -511,14 +578,15 @@ fn a_refused_probe_or_answer_is_skipped_quietly_and_not_tried_again() {
 	let out = probe(
 		r#"
 		stub.messages = {}
-		p.result = 12 -- TargetOffline
+		p.result = 12
 		meet("target", { name = "Ana" })
 		local a = { sent = #whispers(), probed = PolestarDB.update.probed["Ana Smith"] ~= nil }
-		p.result = 3 -- AddonMessageThrottle
+		p.result = 3
 		stub.advance(11)
 		meet("target")
-		p.result = 11 -- AddOnMessageLockdown
-		p.receive("Bob Stone-TestRealm", "V?0.3.5", "WHISPER")
+		p.result = 11
+		hear("Bob Stone-TestRealm", "PSV1?0.3.5")
+		stub.advance(3)
 		emit({ a = a, b = #whispers(), messages = #stub.messages })"#,
 	);
 	assert_eq!(out[0], json!({ "a": { "sent": 1, "probed": true }, "b": 2, "messages": 0 }), "one attempt each, nothing in chat");
