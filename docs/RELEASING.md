@@ -111,6 +111,20 @@ version throughout.
    folders (`Polestar_<locale>`: guide texts and names) are committed; rebuild
    their names with `forge data names` when the data changed.
 
+   Compile after `forge release version`, never before: `forge release
+   version` writes the TOCs, but the guide pack's version in
+   `Polestar_Guides/Pack.lua` comes from the compile. The Engine maps a save
+   to changed guides (steps added behind the player, moved steps) only when
+   the save's pack version differs from the pack's, so a pack still carrying
+   the last release's version skips that mapping for every save made on it.
+   Check before packing, and on the zip: `Pack.lua`'s `version` and every
+   `Polestar_Guides*` TOC equal the release version (a test build carries
+   its `x.y.z-rcN` the same way).
+
+   Don't regenerate `addon/Polestar/Nav/TravelData.lua` (`forge data
+   travel`) on a release build unless its output keeps every portal of the
+   committed file: check `git diff` before committing.
+
    Pass `--questie` explicitly on a release build. Without it the build
    picks the first QuestieDB it finds among the installed clients, so a
    client update or a second install (Forever moved from the
