@@ -445,10 +445,16 @@ A fix goes into a record the next build applies, whoever builds:
 | whether the route takes a quest; an order players asked for | `data/route-fixes.json` (`overrides`, `deliberate`) |
 | the check that pins it | `tests/guides-reported.test.js` |
 | an arrow point: where an objective is done, or where a giver or ender stands; a road the target walks; an objective that needs its own goal line | `data/places.json` |
-| a step's tip, a `level` gate before a goal, or a `when` (`level>=N`: the goal's step shows only from that level) | `data/guide-fixes.json` |
+| a step's tip, a goal's note (`goalNote`), an optional goal (`optional: true`), a `level` gate before a goal, or a `when` (`level>=N`: the goal's step shows only from that level) | `data/guide-fixes.json` |
 
 Places and guide fixes are anchored on a quest's goal, never on a line or a step, and the writer
 applies them to the guides it writes, last:
+
+A `goalNote` record replaces the anchored goal's `--` note without changing
+the step's tip or other goals. An `optional: true` record makes only the
+anchored goal optional, including its copies listed on the way. Use separate
+records for these changes. When a whole quest is optional, cover its accept,
+each objective and its turn-in, so none of them holds the route later.
 
 ```json
 { "places": [
