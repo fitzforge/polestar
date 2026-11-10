@@ -5808,11 +5808,23 @@ local ticker
 local requestUpdate
 
 -- A `die` arrives only alive: a ghost at the graveyard has not resurrected yet.
+-- A `fly` arrives at its landing's flight master (Own.landingNode), off the taxi.
 local function isArrivalGoal(goal)
 	local t = goal.t
 	if t == "die" then return not (UnitIsDeadOrGhost and UnitIsDeadOrGhost("player")) end
-	return t == "goto" or t == "explore" or (t == "fly" and Own.unknownLanding(goal) ~= nil)
+	if t == "fly" then return Own.landingNode(goal) ~= nil and not Compat().IsOnTaxi() end
+	return t == "goto" or t == "explore"
 end
+
+-- The place a `fly` goal arrives at: its landing's taxi node, known or not
+-- (#1530: a flight to the Crossroads landed but never ended its step, the
+-- zone text reading "The Crossroads" and the goal "Crossroads"; so with
+-- Stormwind, Grom'gol, Theramore, Feathermoon), with a place; else nil.
+function Own.landingNode(goal)
+	local node = Own.unknownLanding(goal) or (goal.node and ns.Nav and ns.Nav.GetTaxiNode and Own.knownLanding(goal))
+	return node and node.map and node.x and node.y and node or nil
+end
+Own.LANDING_RADIUS = 30 -- yards around the flight master: where the taxi sets the player down
 
 -- Whether the player (c, px, py) is within reach of a goal's place: its
 -- arrival margin, around its spawn area when it has one.
@@ -5925,13 +5937,13 @@ function Own.arriveStep(s, c, px, py)
 		if isArrivalGoal(goal) and not arrived[goal] and goalApplies(goal) then
 			local gc, gx, gy
 			if goal.t == "fly" then
-				-- A landing led as travel (Own.unknownLanding): its flight master's place.
-				local node = Own.unknownLanding(goal)
+				-- Its landing's flight master (Own.landingNode).
+				local node = Own.landingNode(goal)
 				gc, gx, gy = Compat().MapToWorld(node.map, node.x, node.y, node.f)
 			else
 				gc, gx, gy = goalWorld(goal)
 			end
-			local dx, dy, r = (gx or 0) - px, (gy or 0) - py, goal.r or (goal.t == "die" and Own.DIE_RADIUS) or DEFAULT_RADIUS
+			local dx, dy, r = (gx or 0) - px, (gy or 0) - py, goal.r or (goal.t == "die" and Own.DIE_RADIUS) or (goal.t == "fly" and Own.LANDING_RADIUS) or DEFAULT_RADIUS
 			local here = gc == c and dx * dx + dy * dy <= r * r
 			if not here and goal.t == "goto" and Own.enteredPlace(goals, g, goal) then here = true end
 			if not here and goal.t == "goto" and step.title and goal.text == step.title then

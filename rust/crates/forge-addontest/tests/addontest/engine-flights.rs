@@ -412,6 +412,43 @@ fn a_flight_step_reached_by_another_way_is_done_whole_its_walk_to_the_named_flig
 	);
 }
 
+// #1530 (Horde 30-40 Hillsbrad's opening "Fly to the Crossroads"): the player landed, the arrow said "Fly to
+// Crossroads · 5 yd", and the step waited for a tick. The goal names "Crossroads" with no area (none is called
+// that; the client's subzone text is "The Crossroads"), so the zone text never matched, and only an unknown
+// landing arrived by its flight master. 37 such flights in 24 guides: Crossroads, Stormwind ("Stormwind City"),
+// Grom'gol ("Grom'gol Base Camp"), Theramore ("Theramore Isle"), Feathermoon, Bloodvenom Post. Now any flight
+// with a landing node arrives at its flight master, off the taxi.
+const CROSSROADS: &str = r#"
+stub.world.addMap(1413, { name = "The Barrens", c = 1, left = 3000, right = -1000, top = -1000, bottom = -5000 })
+Polestar.RegisterGuide({ id = "test/crossroads", pack = "test", title = "Hillsbrad", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Fly to the Crossroads", goals = {
+		{ t = "goto", map = 1442, x = 36.4, y = 7.2, text = "Stonetalon Peak flight master" },
+		{ t = "fly", location = "Crossroads", node = 25 },
+	} },
+	{ title = "Orgrimmar", goals = { { t = "accept", quest = 1008, title = "Quest", npc = 3880, map = 1413, x = 52, y = 31 } } },
+} })
+"#;
+
+#[test]
+fn a_flight_to_a_known_landing_the_zone_text_names_otherwise_is_done_on_landing_1530() {
+	let out = run(
+		CROSSROADS,
+		r#"
+		Polestar.RegisterMapFrames({ era = { [1413] = { c = 1, left = 3000, right = -1000, top = -1000, bottom = -5000 } } })
+		NODES[25] = { id = 25, name = "Crossroads, The Barrens", c = 1, map = 1413, x = 51.5, y = 30.3, f = "e" }
+		KNOWN = { [25] = true, [33] = true }
+		E.SetGuide("test/crossroads"); flush()
+		local r = { before = E.GetStepIndex() }
+		-- Landed beside the Crossroads' flight master; the client names the subzone "The Crossroads".
+		stub.world.moveTo(1413, 51.6, 30.4); stub.world.setZone("The Barrens", "The Crossroads"); stub.fire("ZONE_CHANGED"); stub.advance(1)
+		local v = E.GetStepView(1)
+		r.landed = { E.GetStepIndex(), v.goals[1].status, v.goals[2].status }
+		emit(r)
+		"#,
+	);
+	assert_eq!(out, json!({ "before": 1, "landed": [2, "done", "done"] }));
+}
+
 // The report's trip on the real addon (TravelData's taxi nodes through Nav.GetTaxiNode, the known ones through
 // Nav.GetKnownTaxiNodes, the client's map frames): 0.3.4's Ashenvale after Webwinder Path in Stonetalon, a walk to
 // Astranaar's flight master and the flight to Auberdine. A Night Elf who knows Stonetalon Peak, Astranaar and
