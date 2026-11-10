@@ -4591,13 +4591,15 @@ The four marker layers (`availableQuests`, `mapObjectives`, `turnInMarkers`,
 Polestar.Party.EncodeHello(reply) / DecodeHello(text)  -- "1H|<version>" hello, "1Y|<version>" its bare answer -> "H"|"Y", version
 Polestar.Party.Spoke(key) -> bool                  -- the member has spoken Polestar
 Polestar.Party.EncodePos(pos) / DecodePos(text)  -- "1P|<live step>|<Polestar version>|<pack id>|<pack version>|<guide id>"
-Polestar.Party.EncodeUnit(u) / DecodeUnit(text)  -- "2U|<level>|<XP %>|<class id>|<race id>"; later fields ignored
+Polestar.Party.EncodeUnit(u) / DecodeUnit(text)  -- "2U|<level>|<XP %>|<class id>|<race id>|<Polestar version>" (0.3.6 and older: no version); later fields ignored
+Polestar.Party.EncodeDone(ids) / DecodeDone(text)  -- "2D|<quest>,<quest>,...": quests handed in around the live step -> { [q] = true }
 Polestar.Party.EncodeAt(pos, request) / DecodeAt(text)  -- "2P|<step key>|<guide id>" (where you are), "2G|" (sync request) -> at, request
 Polestar.Party.EncodeAnswer(code) / DecodeAnswer(text)  -- "2A|<y|n|x|=>": accepted, declined, cannot, already there
 Polestar.Party.StepKey(g, i) / StepAt(g, key)      -- a step's identity: the hash of its goals' kinds and ids, ".<n>" for the nth alike
 Polestar.Party.SharedSteps(g, a, b, who) -> n       -- b's place minus a's, counting steps both you and `who` have (Engine.StepHiddenFor)
 Polestar.Party.MyPos() -> { step, key, addon, pack, packVersion, guide } | nil
-Polestar.Party.MyUnit() -> { level, xp, class, race }
+Polestar.Party.MyUnit() -> { level, xp, class, race, version }
+Polestar.Party.MyDone() -> { q, ... }              -- quests of the steps from 20 before the live step to 5 after it you handed in, nearest first
 Polestar.Party.Newer(a, b) -> bool                 -- dotted versions; a dev build compares as neither
 Polestar.Party.StepLine() -> text, holding | nil   -- the guide window's party row; holding: the group waits on the step
 Polestar.Party.RequestSync() -> bool               -- "Sync to my guide": the party panel's button, /polestar party sync
@@ -4653,17 +4655,34 @@ Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sen
   `GROUP_ROSTER_UPDATE` and `GROUP_LEFT` are registered; in a party
   (`wantLive`) the addon channel, the quest log, XP and level, connections
   and zone changes, and a 5 s look at who holds the wait (sends nothing). The
-  first message from a member who runs Polestar prints, once per account
-  (`PolestarDB.partySyncTold`), that party sync is on and where to turn it
-  off. The options carry `search`, more words the settings search reads.
+  first time a member's progress is kept to show (`memberFor`: counts, a
+  position, a unit) with `party.share` and `party.show` both on, chat says
+  once per account (`PolestarDB.partySyncTold`) that you and your party see
+  each other's progress and that Options turns it off; a player who turned
+  either off is not told. The options carry `search`, more words the
+  settings search reads.
 - With `party.share`, the position goes out with every snapshot and, two
   seconds after `STEP_CHANGED`/`STEP_UPDATED`/`GUIDE_CHANGED`, only when it
   changed: "1P|", then "2P|" with the live step's key (`Party.StepKey`: a
   hash of its goals' kinds and ids, never text, so every client language
-  agrees; a goto by its map and whole coordinates). Older clients drop
-  "1P|" as malformed, and 0.3.5 every "2P|"/"2G|"/"2A|". "2U|" goes out with every
-  snapshot and, two seconds after `PLAYER_XP_UPDATE`/`PLAYER_LEVEL_UP`, when
-  its text changed (a whole percent); version 1 decoders drop it.
+  agrees; a goto by its map and whole coordinates), then "2D|" (`MyDone`:
+  the quests of the steps from 20 before the live step to 5 after it that
+  `Compat.IsQuestCompleted`, nearest first, as many as fit 255 bytes and 40
+  at most) when it changed; a snapshot makes the receiver drop the last
+  "2D|", so an empty one goes out only to clear a list the party holds.
+  Older clients drop "1P|" as malformed, 0.3.5 every "2P|"/"2G|"/"2A|", and
+  0.3.6 "2D|". "2U|" goes out with every snapshot and, two seconds after
+  `PLAYER_XP_UPDATE`/`PLAYER_LEVEL_UP`, when its text changed (a whole
+  percent); version 1 decoders drop it. From 0.3.7 it ends in the sender's
+  Polestar version, a field 0.3.6's DecodeUnit ignores (it reads nothing
+  past the race).
+- Versions: a member's Polestar version comes with their hello ("1H|",
+  "1Y|"), "1P|" and "2U|". With `party.show`, one on another release than
+  yours (both dotted numbers; a dev build counts as unknown) prints once
+  per member and version a session "Ana is on Polestar 0.3.6: your guides
+  can differ." (`noticeVersion`), ending in "A newer version is out." when
+  theirs is newer; a member with a newer version of a guide pack you have
+  prints once a session per pack (`noticePack`).
 - With `party.show`, a member's position and unit are kept beside their
   counts. The guide window's party row (`GF.party`, over the XP row, not in
   compact mode) reads `StepLine`: "Ana: 3 steps ahead", "Ben: 1 step
@@ -4709,9 +4728,11 @@ Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sen
   turn-in ready for you "Waiting on Ana" or "Everyone's ready"; on a quest
   you have, "Not on this quest: Ben (level 8, needs 10)" with the reason
   when known: the game's answer to a share (`ERR_QUEST_PUSH_*_S` on
-  `CHAT_MSG_SYSTEM`, read 10 s after `Party.Share`), else the quest
-  database's class and race masks and minimum level against the member's
-  (`UnitClass`/`UnitRace`/`UnitLevel`, else "2U|"). The row's Share button
+  `CHAT_MSG_SYSTEM`, read 10 s after `Party.Share`), else the member's
+  "2D|" ("already done"), else the quest database's class and race masks
+  and minimum level against the member's (`UnitClass`/`UnitRace`/`UnitLevel`,
+  else "2U|"). A member whose class or race rules the quest out (either
+  source) is left off the line: their guide never has it. The row's Share button
   (`r.Share`, once per card) shows for members with no reason against
   (`Party.ShareFor`), through `Compat.ShareQuest` (`C_QuestLog.SetSelectedQuest`,
   `QuestLogPushQuest`, after `IsPushableQuest` when the client has it).

@@ -677,13 +677,19 @@ runs solo or in a raid.
 
 - **Party sync**: each member's count shows under the quest goals you share
   ("Ana 5/8", "Ben done"), and on a quest you took, which of them lacks it.
-  It is on by default; the first time a party member answers as a Polestar
-  user, Polestar says so once in chat. What goes out: quest IDs and counts,
-  level, XP %, class and race, your step, your guide (and pack) and your
-  Polestar version, as hidden addon messages to your party, never to chat.
+  It is on by default; the first time a party member's progress shows,
+  Polestar says so once in chat. What goes out: quest IDs and counts,
+  level, XP %, class and race, your step, your guide (and pack), your
+  Polestar version, and which quests of the steps around yours you've
+  handed in, as hidden addon messages to your party, never to chat.
   Up to v0.3.2 it was off by default and that choice wasn't stored, so if
   you had it off, 0.3.3 turned it on once (with a chat notice); turned off
   since then, it stays off.
+- **Another Polestar version**: a party member on another Polestar version
+  gets one line in chat per session ("Ana is on Polestar 0.3.6: your guides
+  can differ."), since the steps and quests of a guide can change between
+  versions. Two players on the same version still see different steps when
+  their class or race differs: each sees only the steps for their own.
 - **Wait for the group**: when you finish an objective a party member on the
   same quest still needs ("Waiting on Ana: 3/8 Boar Ribs"), the step and its
   turn-in wait for them (nothing is handed in automatically meanwhile), and
@@ -693,8 +699,10 @@ runs solo or in a raid.
   "Go on without them".
 - **Share a missing quest**: a Share button on the goal of a quest you have
   that a member lacks, using the game's own sharing. When Polestar knows why
-  they can't take it, it says so ("Ben (level 8, needs 10)", "another class",
-  "already done").
+  they can't take it, it says so ("Ben (level 8, needs 10)", "already done":
+  the game said so, or they handed it in near their step). A member whose
+  class or race can't take the quest isn't named at all: their guide never
+  has it.
 - **Party panel**: a small movable panel that opens by itself the first time
   another Polestar member in the party is heard, with each one's level and
   XP, the step they are on, what they still need of yours, and whether they
