@@ -526,6 +526,19 @@ function UI.FinderLine(goal)
 	return "|c" .. Theme.Hex("dungeon") .. text .. "|r"
 end
 
+-- Quest work a later guide hands in (the goal's `carriedTo`, Engine
+-- Own.carriedTo: once per step): "Keep this: you hand it in later in
+-- Badlands" ("Keep this: a later guide hands it in" when that guide is not installed). Nil once
+-- the goal is skipped.
+function UI.CarriedLine(goal)
+	local to = goal.carriedTo
+	if type(to) ~= "string" or goal.status == "skipped" then return nil end
+	local G = ns.Guides
+	local later = G and G.Get and G.Get(to)
+	if later and later.title then return format(L["Keep this: you hand it in later in %s"], later.title) end
+	return L["Keep this: a later guide hands it in"]
+end
+
 -- How to get the item a quest starts from, on the quest's one line (the
 -- goal's `starter`): "Runed Scroll: kill Aean Swiftriver (rare elite)", then
 -- "Runed Scroll: in your bags, right-click it". An item lying there as an
@@ -566,7 +579,8 @@ end
 
 -- The one line under a goal in the reading flow, only when it changes what
 -- the player does: why a quest is unavailable, that the goal needs a group,
--- that it is an escort, how to get the item a quest starts from, which later
+-- that it is an escort, how to get the item a quest starts from, that a
+-- later guide hands the quest in (keep it), which later
 -- quest a grey accept "Skip grey quests" keeps opens, whom an item is got
 -- from, that an area objective's mobs are all over its area, which mobs a
 -- farm spot is, where a chosen trainer/vendor is, the goal's own note (a
@@ -598,6 +612,8 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort, noFinder)
 	if finder then parts[#parts + 1] = finder end
 	local starter = UI.StarterLine(goal)
 	if starter then parts[#parts + 1] = starter end
+	local carried = UI.CarriedLine(goal)
+	if carried then parts[#parts + 1] = carried end
 	-- A hearth goal while the Hearthstone waits, or while travelling there
 	-- is about as fast: what to do (#576).
 	if goal.hearthText then parts[#parts + 1] = goal.hearthText end

@@ -66,6 +66,8 @@ mod engine_aim_accept_first;
 mod engine_along;
 #[path = "engine-alt-start.rs"]
 mod engine_alt_start;
+#[path = "engine-carried.rs"]
+mod engine_carried;
 #[path = "engine-cast.rs"]
 mod engine_cast;
 #[path = "engine-catchup.rs"]

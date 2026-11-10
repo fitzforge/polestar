@@ -616,6 +616,7 @@ take a jump.
 | spawn areas `spots` | every goal placed at an NPC or object that spawns at more than one place, and hand-placed `@x,y` goals whose target the data also knows: see "Spawn areas" below |
 | group content `group` | elite work, dungeon and raid quests and goals on an instance map: see "Group content" below |
 | escort `escort` | the accept, `complete` and objective goals of an escort quest: see "Escort quests" below |
+| later hand-in `carriedTo` | `complete` and objective goals of a quest only a later guide of the chain hands in: see "Quests carried to a later guide" below |
 | height `z` | a goal at an NPC or object: the height of that NPC's or object's spawn (`spawnz.json`), so the walk ends on its floor: see "Heights" below |
 | place area `area` | `sethome`, `hearth`, `fly` and `getfp` (their location) and `goto` (its label): the AreaTable area of that name, so the goal completes and reads right on every client language: see "Places by ID" below |
 | taxi node `node` | `getfp`: its flight point's taxi node (`travel.json`): see "Places by ID" below |
@@ -873,6 +874,28 @@ for a quest whose text wrongly says escort (Lost! 4492 carries the objective
 of the escort after it). There is no modifier: a wrong label is a data fix.
 While you're here never offers an escort's accept ahead of its own step
 ("Take X: saves a trip back"): the NPC walks off the moment it is taken.
+
+## Quests carried to a later guide
+
+A quest worked in one guide and handed in only in a later guide of its chain
+(the Sceptre of Light, looted in Desolace and handed in at Azore's tower in
+the Badlands guide) must stay in the log in between. The compiler writes
+`carriedTo = "<guide id>"` on each `complete` and objective goal of a quest
+the guide does not turn in (or abandon) after that goal, when every route
+after the guide (`next` and every route choice, each character following
+only the guides its race, class and faction can) first hands the quest in
+in that one guide, for every character the goal applies to. A route that
+never hands it in, drops it with an `abandon`, or two routes handing it in
+in different guides: no `carriedTo`. There is nothing to write in the guide.
+
+In the game the guide window says under the quest's last such goal in the
+step: "Keep this: you hand it in later in <guide title>" ("Keep this: a
+later guide hands it in" when that guide is not installed). When the player finishes the
+guide, the guide-end window lists the quests still in the log that a later
+guide hands in, under "Carried to later guides", each with that guide; with
+"Continue automatically" the chat says them. "Clean up quest log" never
+lists such a quest as unneeded: it is handed in later, even when that guide
+is not loaded yet.
 
 ## Validation
 

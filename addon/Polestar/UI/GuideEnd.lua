@@ -13,7 +13,10 @@
 -- (1–12)" over "3 steps were left undone." when the route still has open
 -- steps. The body shows the next guide's zone painting (UI.ZoneArt, framed on
 -- where it starts, as the guide menu's details) with "Next: The Barrens
--- (12–16)" on it. The footer holds the buttons, the primary on the right:
+-- (12–16)" on it, then "Carried to later guides": the quests still in the
+-- log that a later guide of the chain hands in (Engine.CarriedQuests), each
+-- with that guide ("Sceptre of Light · Badlands"), so the player keeps them.
+-- The footer holds the buttons, the primary on the right:
 --   next guide     Start The Barrens (Engine.StartNext: in the same tab)
 --                  Not now, or Back to step 13 (the guide stays; the guide
 --                  window then offers the next guide: GuideFrame's banner)
@@ -48,6 +51,7 @@ local HEAD_BOTTOM = 24 -- under the heading's last line
 local ART_H = 132
 local FOOT_H = 60
 local RISE = 12 -- the entrance's rise, in pixels
+local CARRIED_SHOWN = 6 -- carried quests listed; the rest as "+N more"
 
 local F -- the window
 local shown -- the model on screen
@@ -83,6 +87,7 @@ function GE.Model(info)
 			m.nextLabel = label(nextGuide)
 		end
 	end
+	m.carried = E and E.CarriedQuests and E.CarriedQuests(g.id) or {}
 	return m
 end
 
@@ -216,6 +221,14 @@ local function build()
 	F.Text:SetWidth(WIDTH - PAD * 2)
 	F.Text:SetJustifyH("CENTER")
 	F.Text:SetWordWrap(true)
+	F.CarriedHead = W.Text(F, "label", "text")
+	F.CarriedHead:SetWidth(WIDTH - PAD * 2)
+	F.CarriedHead:SetJustifyH("LEFT")
+	F.Carried = W.Text(F, "note", "textDim")
+	F.Carried:SetWidth(WIDTH - PAD * 2)
+	F.Carried:SetJustifyH("LEFT")
+	F.Carried:SetWordWrap(true)
+	F.Carried:SetSpacing(3)
 
 	-- Footer: the second button, then the primary on the right.
 	local foot = CreateFrame("Frame", nil, F)
@@ -285,6 +298,32 @@ local function layout(m)
 		F.Text:SetPoint("TOP", F, "TOP", 0, -y)
 		F.Text:Show()
 		y = y + F.Text:GetStringHeight()
+	end
+
+	-- The quests a later guide hands in: keep them.
+	local list = m.carried or {}
+	if #list > 0 then
+		local G, lines = ns.Guides, {}
+		for i, c in ipairs(list) do
+			if i > CARRIED_SHOWN then
+				lines[#lines + 1] = format(L["+%d more"], #list - CARRIED_SHOWN)
+				break
+			end
+			local later = G and G.Get(c.guideId)
+			lines[i] = later and later.title and format(L["%s · %s"], c.title, later.title) or c.title
+		end
+		F.CarriedHead:SetText(L["Carried to later guides"])
+		F.CarriedHead:ClearAllPoints()
+		F.CarriedHead:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -(y + 16))
+		F.CarriedHead:Show()
+		F.Carried:SetText(table.concat(lines, "\n"))
+		F.Carried:ClearAllPoints()
+		F.Carried:SetPoint("TOPLEFT", F.CarriedHead, "BOTTOMLEFT", 0, -6)
+		F.Carried:Show()
+		y = y + 16 + F.CarriedHead:GetStringHeight() + 6 + F.Carried:GetStringHeight()
+	else
+		F.CarriedHead:Hide()
+		F.Carried:Hide()
 	end
 
 	if m.choose then

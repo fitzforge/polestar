@@ -1180,6 +1180,8 @@ L["Final reward"] = "최종 보상"
 L["%s (%d parts)"] = "%s (%d부작)"
 L["%s and %d more"] = "%s 외 %d개"
 L["Skipping also skips: %s"] = "함께 건너뛰는 것: %s"
+-- L["Keep this: you hand it in later in %s"] = ""
+-- L["Keep this: a later guide hands it in"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "위치"
@@ -1425,6 +1427,7 @@ L["Step %d, later in this guide"] = "%d단계, 이 가이드 뒷부분"
 -- L["Polestar Guides is turned off"] = ""
 -- L["It is installed but unticked in the game's AddOns list, so Polestar has no guides to show."] = ""
 -- L["Turn on Polestar Guides and reload"] = ""
+-- L["Keep these, a later guide hands them in: %s"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -3106,6 +3109,7 @@ L["%d steps were left undone."] = "완료하지 않은 단계가 %d개 있습니
 L["Next: %s"] = "다음: %s"
 L["Pick a guide"] = "가이드 선택"
 L["Not now"] = "나중에"
+-- L["Carried to later guides"] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "클릭: %s 대상 지정 및 징표 표시 (전투 중이 아닐 때)."

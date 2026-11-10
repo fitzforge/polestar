@@ -167,6 +167,8 @@ function Own.chainOf(g)
 	end
 	local open = {}
 	local pres, accepts = {}, {}
+	-- unknown: a guide down the chain is not loaded, so what it needs is not known.
+	local unknown = false
 	local seenIds, queue, head = {}, { g }, 1
 	while queue[head] and head <= 200 do
 		local cur = queue[head]
@@ -193,12 +195,13 @@ function Own.chainOf(g)
 				if not Own.optionClosed(cur, id) then
 					if cur.nextWhen and cur.nextWhen[id] then open[#open + 1] = { from = cur, id = id } end
 					local nxt = Guides.Get(id)
-					if nxt then queue[#queue + 1] = nxt end
+					if nxt then queue[#queue + 1] = nxt else unknown = true end
 				end
 			end
 		end
 	end
-	c.chain, c.open = { accepts = accepts, pres = pres }, open
+	if queue[head] then unknown = true end -- past the walk's cap
+	c.chain, c.open = { accepts = accepts, pres = pres, unknown = unknown }, open
 	return c.chain
 end
 
@@ -279,6 +282,19 @@ local function greyNeed(goal)
 	local q = goal.quest
 	if C.IsOnQuest(q) or questDone(q) then return nil end
 	return chainNeeds(guide, level)[q] or false
+end
+
+-- Whether Skip grey quests leaves grey quest q out of guide `id` and the
+-- guides after it at character level `level`, as greyNeed judges an accept:
+-- the setting on, a leveling guide, and no quest still worth doing on that
+-- chain needs q (chainNeeds). RoutePlan.Unneeded lists a grey quest a later
+-- guide hands in only then.
+function Engine.GreyLeftOut(id, q, level)
+	local g = id and Guides.Get(id)
+	if not (g and q and level and ns.Get("behavior.skipGrey")) or Own.everyStep(g) then return false end
+	-- A guide down the chain not loaded: its needs are unknown, so the quest stays.
+	if Own.chainOf(g).unknown then return false end
+	return chainNeeds(g, level)[q] == nil
 end
 
 -- Per guide: each goal's step index, each quest's accept, turn-in and
@@ -4063,6 +4079,22 @@ local function goalText(goal, verb, subject, detail, kind, noBar)
 	return verb .. " " .. tostring(subject), src
 end
 
+-- Quest work a later guide of the chain hands in (the compiled `carriedTo`,
+-- that guide's id): the guide window says to keep it (UI.CarriedLine), once
+-- per step, on the last such goal of the quest there. Nil for a goal that is
+-- not this character's or was skipped. (On Own: the main chunk is at Lua's
+-- 200 locals.)
+function Own.carriedTo(s, g, goal, status)
+	local to = goal.carriedTo
+	if not to or status == "na" or status == "skipped" then return nil end
+	local goals = guide.steps[s].goals
+	for i = g + 1, #goals do
+		local o = goals[i]
+		if o.carriedTo and o.quest == goal.quest and goalApplies(o) then return nil end
+	end
+	return to
+end
+
 local function goalView(s, g, goal, stepStatus, group)
 	local status, cur, max, label, pkind
 	if stepStatus == "na" then
@@ -4165,6 +4197,8 @@ local function goalView(s, g, goal, stepStatus, group)
 		-- A timed quest's accept: the seconds it allows (compiled `limit`,
 		-- quests.json; Quests/Timed.lua says so before it is taken).
 		limit = goal.t == "accept" and goal.limit or nil,
+		-- Quest work a later guide hands in: that guide's id (Own.carriedTo).
+		carriedTo = Own.carriedTo(s, g, goal, status),
 		-- A collect's source (compiled `from`); `inText`: the goal's text
 		-- already names it.
 		source = src,
@@ -7108,7 +7142,8 @@ end
 -- it does not hand off by itself: GUIDE_END(guideId, info) asks the player
 -- (UI/GuideEnd.lua), who starts the next guide (Engine.StartNext), chooses
 -- a route, or stays. With "continue" the hand-off loads the next guide as
--- before and GUIDE_CONTINUED(fromId, toId) says so. Other guides always go on.
+-- before and GUIDE_CONTINUED(fromId, toId, carried) says so (carried:
+-- Engine.CarriedQuests(fromId), taken before the hand-off). Other guides always go on.
 --
 -- The end is reached when the guide is done, or when its last step with
 -- work for the character (Own.lastWork) is done ahead of the live step,
@@ -7248,6 +7283,31 @@ function Own.noteEnd()
 	local nextId, asks = routeNext(guide)
 	if nextId and not Guides.Get(nextId) then nextId = nil end
 	Own.pendingEnds[#Own.pendingEnds + 1] = { guideId = id, undone = undone, live = computed, next = nextId, choose = asks or nil }
+end
+
+-- The quests of leveling guide `id` still in the log that a later guide of
+-- its chain hands in (the compiled `carriedTo` on its quest work, for this
+-- character), in step order, one entry per quest: { quest, title, guideId }
+-- (guideId: the guide that hands it in). The guide-end window lists them
+-- (UI/GuideEnd.lua); "Continue automatically" says them in chat
+-- (GUIDE_CONTINUED's third argument).
+function Engine.CarriedQuests(id)
+	local g = id and Guides.Get(id)
+	local out = {}
+	if not (g and player) then return out end
+	local C, seen = Compat(), {}
+	for _, step in ipairs(g.steps) do
+		if Guides.Matches(step.only, player) then
+			for _, goal in ipairs(step.goals) do
+				local q = goal.quest
+				if goal.carriedTo and q and not seen[q] and Guides.Matches(goal.only, player) and C.IsOnQuest(q) and not questDone(q) then
+					seen[q] = true
+					out[#out + 1] = { quest = q, title = questTitle(goal), guideId = goal.carriedTo }
+				end
+			end
+		end
+	end
+	return out
 end
 
 -- Evaluate the loaded tab. Only the active tab announces step and waypoint
@@ -7414,7 +7474,7 @@ local function evaluateLoaded(active)
 				-- "Continue automatically" says so (GUIDE_CONTINUED, after the evaluation).
 				if not through and Own.leveling(guide) then
 					ns.CharState().guideEnds[id] = true
-					Own.pendingContinued[#Own.pendingContinued + 1] = { id, nextId }
+					Own.pendingContinued[#Own.pendingContinued + 1] = { id, nextId, Engine.CarriedQuests(id) }
 				end
 				resetLoaded(nextId, true)
 				persist()
@@ -7533,7 +7593,7 @@ local function evaluate()
 	if #Own.pendingContinued > 0 then
 		local list = Own.pendingContinued
 		Own.pendingContinued = {}
-		for i = 1, #list do ns.Fire("GUIDE_CONTINUED", list[i][1], list[i][2]) end
+		for i = 1, #list do ns.Fire("GUIDE_CONTINUED", list[i][1], list[i][2], list[i][3]) end
 	end
 	if #Own.pendingEnds > 0 then
 		local list = Own.pendingEnds

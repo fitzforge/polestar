@@ -478,6 +478,8 @@ local function checkGoal(goal)
 	end
 	-- Per spot, places in fromNpcs (`fromNpcsAt`, "1,2;3;;4"): digits, commas and semicolons only.
 	if goal.fromNpcsAt ~= nil and not (isStr(goal.fromNpcsAt) and goal.fromNpcsAt:find("^[%d,;]*$")) then return "bad fromNpcsAt" end
+	-- Quest work a later guide hands in: that guide's id.
+	if goal.carriedTo ~= nil and not isStr(goal.carriedTo) then return "bad carriedTo" end
 	for _, key in ipairs(KEYS.goalRanks) do
 		if goal[key] ~= nil and not isNum(goal[key]) and not isStr(goal[key]) then return "bad " .. key end
 	end

@@ -5379,16 +5379,22 @@ ns.On("GUIDE_OUTLEVELED", function(guideId, suggestedId)
 	if ns.IsLoggedIn() then GF.Layout() end
 end)
 
--- GUIDE_CONTINUED(fromId, toId): with "Continue automatically" a finished
--- leveling guide handed off by itself. Said in the banner for
--- SKIPPED_SECONDS, in chat while the window is hidden.
-ns.On("GUIDE_CONTINUED", function(fromId, toId)
+-- GUIDE_CONTINUED(fromId, toId, carried): with "Continue automatically" a
+-- finished leveling guide handed off by itself. Said in the banner for
+-- SKIPPED_SECONDS, in chat while the window is hidden; the quests a later
+-- guide hands in (Engine.CarriedQuests) are said in chat, so they are kept.
+ns.On("GUIDE_CONTINUED", function(fromId, toId, carried)
 	local G = ns.Guides
 	local from, to = G and G.Get and G.Get(fromId), G and G.Get and G.Get(toId)
 	if not (from and to) then return end
 	local n = { to = toId, fromTitle = from.title or fromId, toTitle = to.title or toId }
 	if not (F and F:IsShown()) then
 		ns.Print(string.format(L["%s complete \226\128\148 continuing with %s"], n.fromTitle, n.toTitle))
+	end
+	if type(carried) == "table" and #carried > 0 then
+		local titles = {}
+		for i, c in ipairs(carried) do titles[i] = ns.Quoted(c.title) end
+		ns.Print(string.format(L["Keep these, a later guide hands them in: %s"], table.concat(titles, ", ")))
 	end
 	if not F then return end
 	notices.continued = n

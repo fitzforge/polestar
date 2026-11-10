@@ -79,7 +79,7 @@ pub const WHEN_KEYS: [&str; 18] = ["k", "neg", "op", "n", "frac", "q", "item", "
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 78] = [
+pub const GOAL_KEYS: [&str; 79] = [
 	"t",
 	"class",
 	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
@@ -167,6 +167,8 @@ pub const GOAL_KEYS: [&str; 78] = [
 	"objs",
 	"startItem",
 	"startItemName",
+	// Quest work handed in only by a later guide of the chain: that guide's id (validate.rs, Ctx::mark_carried).
+	"carriedTo",
 ];
 const REAGENT_KEYS: [&str; 3] = ["item", "itemName", "count"];
 /// A `complete` goal's `objs`: each objective's text and count.

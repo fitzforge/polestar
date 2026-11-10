@@ -1459,6 +1459,7 @@ L["Step %d, later in this guide"] = "Paso %d, más adelante en esta guía"
 -- L["Polestar Guides is turned off"] = ""
 -- L["It is installed but unticked in the game's AddOns list, so Polestar has no guides to show."] = ""
 -- L["Turn on Polestar Guides and reload"] = ""
+-- L["Keep these, a later guide hands them in: %s"] = ""
 
 -- UI/Lookup.lua
 L["Loading the Codex\226\128\166"] = "Cargando el Codex…"
@@ -2122,6 +2123,8 @@ L["Final reward"] = "Recompensa final"
 L["%s (%d parts)"] = "%s (%d partes)"
 L["%s and %d more"] = "%s y %d más"
 L["Skipping also skips: %s"] = "Omitir también omite: %s"
+-- L["Keep this: you hand it in later in %s"] = ""
+-- L["Keep this: a later guide hands it in"] = ""
 
 -- UI/Welcome.lua
 L["level %d %s"] = "personaje de nivel %d (%s)"
@@ -3105,6 +3108,7 @@ L["%d steps were left undone."] = "Quedaron %d pasos sin hacer."
 L["Next: %s"] = "Siguiente: %s"
 L["Pick a guide"] = "Elegir una guía"
 L["Not now"] = "Ahora no"
+-- L["Carried to later guides"] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "Haz clic para seleccionar y marcar a %s (fuera de combate)."
