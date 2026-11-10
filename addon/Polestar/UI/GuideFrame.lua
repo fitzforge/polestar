@@ -752,6 +752,22 @@ do
 	end
 	GF.ItemTop = itemTop
 
+	-- The row edge nearest `to` on one side: the last item top at or above it
+	-- (dir < 0) or the first at or below it (dir > 0); nil when there is none.
+	-- Scroll stops land on these, so no goal shows cut in half at the top.
+	local function rowEdge(to, dir)
+		local y, items, hs, last = 0, area.items, area.h, nil
+		for i = 1, area.n do
+			if dir > 0 and y >= to - 0.5 then return y end
+			if dir < 0 and y > to + 0.5 then return last end
+			last = y
+			y = y + hs[i] * (items[i].psK or 1)
+		end
+		if dir < 0 then return last end
+		return nil
+	end
+	GF.RowEdge = rowEdge
+
 	-- The goals area's items, top to bottom (tests, preview).
 	function GF.CardItems()
 		local out = {}
@@ -782,6 +798,14 @@ do
 	function fitGoals()
 		local content = contentHeight()
 		local viewH = min(content, max(CARD.minView, fit.room))
+		-- Past the cap, the view gives up the part of a row that would not
+		-- fit, so its last scroll stop starts on a row as well. Not at the
+		-- top of the screen (fit.snap off): there the window must end exactly
+		-- on it (#666).
+		if fit.snap and content > viewH + 0.5 then
+			local edge = rowEdge(content - viewH, 1)
+			if edge and content - edge >= CARD.minView then viewH = content - edge end
+		end
 		goals:SetHeight(max(0.01, viewH))
 		goals.psContentH, goals.psViewH = content, viewH
 		W.SetScrollContent(goals, content, viewH)
@@ -808,7 +832,13 @@ do
 	-- Scroll the goals area to `to` (clamped), gliding there unless `snap`.
 	local function scrollTo(to, snap)
 		local cur = goals:GetVerticalScroll()
-		to = min(max(0, (goals.psContentH or 0) - (goals.psViewH or 0)), max(0, to))
+		local last = max(0, (goals.psContentH or 0) - (goals.psViewH or 0))
+		to = min(last, max(0, to))
+		-- Stop on a row's top, in the direction of travel (fitGoals keeps the
+		-- last stop on one too).
+		if to > 0.5 and to < last - 0.5 then
+			to = min(last, rowEdge(to, to > cur and 1 or -1) or to)
+		end
 		if abs(to - cur) < 0.5 then return end
 		barWake()
 		if snap then
@@ -2410,7 +2440,13 @@ function GF.Layout()
 		-- area gives up the difference and scrolls.
 		fit.h = y - fit.from
 		fit.from = nil
-		fit.room = min(capHeight(), fit.limit or math.huge) - (fit.outer + y - content)
+		-- The class quest card (UI/ClassToast.lua) counts against the cap
+		-- while it shows: window and card together stay within ui.maxHeight.
+		local toast = UI.ClassToast
+		local toastRoom = toast and toast.Reserved and toast.Reserved() or 0
+		local cap = capHeight() - toastRoom
+		fit.snap = cap <= (fit.limit or math.huge)
+		fit.room = min(cap, fit.limit or math.huge) - (fit.outer + y - content)
 		fitGoals()
 	else
 		sizeWindow(y)
