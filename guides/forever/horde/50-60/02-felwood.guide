@@ -10,6 +10,8 @@ next forever/horde/50-60/03-winterspring
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Left out: Little Pamela (5142).
+# Added here (0.3.6 flow pass, from 50-60/01): Augustus' Receipt Book (6164) and A Plague Upon Thee's termites (5901),
+# in Terrordale just east of Tirion's house; the rest of the Eastern Plaguelands waits for 50-60/05.
 
 step Mulgris Deepriver
   zone Western Plaguelands
@@ -24,9 +26,23 @@ step Tirion Fordring
   accept 5544
   note Tirion's hunts are in the Eastern Plaguelands: keep them for later.
 
+step Augustus the Touched
+  zone Eastern Plaguelands
+  tip Cross the river east into Terrordale, the ruined town in the north-west of the Eastern Plaguelands. Augustus sits in a hut at its edge.
+  accept 6164                         -- Inside
+
+step Terrordale: kill these as you meet them
+  zone Eastern Plaguelands
+  tip The book lies in the ruined inn of Terrordale; the undead in the town are 54-56, so pull them one at a time.
+  tip The Large Termite Mounds stand all over the hills east of Terrordale. Use the Empty Termite Jar on each mound you pass.
+  collect 15884 quest 6164 @17.4,31.1 -- Upstairs
+  collect 15043 quest 5901
+  collect 12840 quest 5408 optional   -- Minion's Scourgestones: the Terrordale undead drop them while you wear the Argent Dawn Commission
+  note Keep Augustus' Receipt Book: Augustus takes it back on the Eastern Plaguelands guide's Terrordale stop.
+
 step Kirsta Deepshadow
   zone Western Plaguelands
-  tip Ride west to the Northridge Lumber Camp; Kirsta hides on the hill north-east of it.
+  tip Ride back west over the river and on to the Northridge Lumber Camp; Kirsta hides on the hill north-east of it.
   accept 6004
 
 step Level 52.63

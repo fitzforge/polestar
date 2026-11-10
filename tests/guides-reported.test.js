@@ -2655,7 +2655,7 @@ test('Phear\'s report: a kill or collect leads to the camp that holds its mobs, 
 		['forever/alliance/50-60/01-burning-steppes.guide', 7972],
 		['forever/class/priest/blood-of-morphaz.guide', 7972],
 		['forever/alliance/50-60/03-winterspring.guide', 12840],
-		['forever/horde/50-60/01-un-goro-crater.guide', 12840],
+		['forever/horde/50-60/05-eastern-plaguelands.guide', 12840],
 		['forever/horde/40-50/02-feralas.guide', 8705],
 		['forever/class/shaman/darkreaver.guide', 18335],
 	];
@@ -6626,10 +6626,10 @@ test('forever/horde/50-60/01-un-goro-crater.guide: final review: Balthazad first
 test('forever/horde/50-60/02-felwood.guide: final review: Marlene before Mulgris, no along list, the flight path at Bloodvenom Post', { skip }, () => {
 	const file = 'forever/horde/50-60/02-felwood.guide';
 	const list = goals(file);
-	// Since 0.3.7 Marlene and Chromie close 50-60/01 (fresh start, Horde 40-60 flow pass): 02 opens at Mulgris.
-	const ungoro = goals('forever/horde/50-60/01-un-goro-crater.guide');
-	assert.ok(ungoro.some(({ goal }) => is('turnin', 5152)(goal)), 'Marlene at the end of the guide before');
-	assert.ok(!list.some(({ goal }) => is('turnin', 5152)(goal)), 'not again here');
+	// Since the 0.3.6 flow pass Marlene and Chromie open 50-60/05 with the rest of Darrowshire: 02 opens at Mulgris.
+	const ep = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	assert.ok(ep.some(({ goal }) => is('turnin', 5152)(goal)), 'Marlene in the Eastern Plaguelands guide');
+	assert.ok(!list.some(({ goal }) => is('turnin', 5152)(goal)), 'not here');
 	assert.equal(list[0].goal.quest, 4984, 'Mulgris first');
 	assert.deepEqual(compiled(file).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
 	const fp = list[at(list, 'getfp Bloodvenom Post', (g) => g.t === 'getfp' && g.location === 'Bloodvenom Post')];
@@ -6751,9 +6751,9 @@ const HORDE_VOLUME = {
 	'forever/horde/40-50/04-tanaris.guide': [654, 864], // Tanaris Field Sampling; Return to Apothecary Zinge
 	'forever/horde/40-50/05-the-hinterlands.guide': [2784, 2621, 2622], // the Fallen Hero of the Horde, Ruag and Bengor
 	'forever/horde/40-50/06-azshara.guide': [608], // The Bloodsail Buccaneers, at 50
-	'forever/horde/50-60/01-un-goro-crater.guide': [4324, 5241], // Yuka Screwspigot; Uncle Carlin (0.3.7: a message for Light's Hope Chapel)
+	'forever/horde/50-60/01-un-goro-crater.guide': [4324], // Yuka Screwspigot
 	'forever/horde/50-60/03-winterspring.guide': [5083, 5084], // Winterfall Firewater, Falling to Corruption (0.3.7: the flask drops from one Winterfall in ten)
-	'forever/horde/50-60/05-eastern-plaguelands.guide': [5085, 5086], // Mystery Goo; Toxic Horrors
+	'forever/horde/50-60/05-eastern-plaguelands.guide': [5085, 5086, 5241], // Mystery Goo; Toxic Horrors; Uncle Carlin (a message for Light's Hope Chapel)
 	'forever/horde/50-60/07-felwood.guide': [5087], // Winterfall Runners
 	'forever/horde/50-60/06-silithus.guide': [5234, 5235, 5236, 5238], // the Bulwark cauldrons to Mission Accomplished!
 };
@@ -6904,7 +6904,8 @@ test('Horde 40-60 fresh start: the guides open at hubs that stand on their own',
 	assert.ok(at(az, 'accept 3504', is('accept', 3504)) < at(az, 'turnin 3504', is('turnin', 3504)), 'Belgrom in Orgrimmar before Valormok');
 	assert.equal(az[az.length - 1].goal.quest, 5051, 'the Bulwark and Felstone Farm close the Azshara guide');
 	const epl = g('50-60/05-eastern-plaguelands');
-	assert.ok(epl.filter(({ s }) => s === epl[0].s).some(({ goal }) => goal.t === 'fly'), "the Eastern Plaguelands guide opens with the flight to Light's Hope Chapel");
+	assert.equal(epl.find(({ goal }) => goal.t === 'getfp').goal.location, "Light's Hope Chapel", "the Eastern Plaguelands guide opens at Light's Hope Chapel and learns its flight path");
+	assert.equal(epl.find(({ goal }) => goal.t === 'accept').goal.quest, 5281, 'its first accept is at the chapel');
 	assert.equal(g('50-60/06-silithus').find(({ goal }) => goal.t === 'accept').goal.quest, 8277, 'Silithus opens at Cenarion Hold');
 	const fel = g('50-60/02-felwood');
 	assert.ok(!fel.some(({ goal }) => [5402, 5403].includes(goal.quest)), "no Alliance Scourgestone turn-ins at Chillwind Camp");
@@ -9527,8 +9528,8 @@ test('Alliance: gotos typed with an NPC\'s live coordinates are live-frame', { s
 // Travel sweep (0.3.6): Horde 50-60/01's walk from Tarren Mill to Sorrow Hill pointed at WPL 43.0,83.5, Argent
 // Officer Pureheart's spot inside the Alliance's Chillwind Camp (Commander Ashlam Valorfist, Weldon Barov, Flint
 // Shadowmore within 40 yd). It now leads to Sorrow Hill itself.
-test('forever/horde/50-60/01-un-goro-crater.guide: the walk to Sorrow Hill keeps out of Chillwind Camp', { skip }, () => {
-	const list = goals('forever/horde/50-60/01-un-goro-crater.guide');
+test('forever/horde/50-60/05-eastern-plaguelands.guide: the walk to Sorrow Hill keeps out of Chillwind Camp', { skip }, () => {
+	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
 	const marlene = at(list, 'turnin 5152', is('turnin', 5152));
 	const walk = list.slice(0, marlene).reverse().find(({ goal }) => goal.t === 'goto' && goal.map === 1422);
 	assert.ok(walk, 'a travel line into the Western Plaguelands');
@@ -9593,14 +9594,14 @@ test('forever/horde/50-60/02-felwood.guide: the Kitten Carrier is used on the mo
 
 // GuideHealth036 breadcrumb sweep (0.3.6): Horde 50-60/01 took Defenders of Darrowshire (5211) from Carlin Redpath on
 // its first Light's Hope stop and Uncle Carlin (5241) later at Pamela. The server data and the quest data name 5241 as
-// 5211's prerequisite (the Alliance route takes them in that order): 5211 now comes after 5241 is handed in, on 01's last
-// Light's Hope stop, and its spirits are freed at Corin's Crossing in 50-60/05, handed in with Villains of Darrowshire.
+// 5211's prerequisite (the Alliance route takes them in that order): 5211 comes after 5241 is handed in on the Light's
+// Hope stop after Darrowshire (50-60/05 since the 0.3.6 flow pass), its spirits freed at Corin's Crossing later in
+// 50-60/05, handed in with Villains of Darrowshire.
 test('Horde Darrowshire: Defenders of Darrowshire after Uncle Carlin', { skip }, () => {
-	const un = goals('forever/horde/50-60/01-un-goro-crater.guide');
-	const acc = at(un, 'accept 5211', is('accept', 5211));
-	assert.ok(at(un, 'turnin 5241', is('turnin', 5241)) < acc, 'Uncle Carlin handed in before Defenders of Darrowshire is taken');
-	assert.ok(!un.some(({ goal }) => goal.quest === 5211 && goal.t !== 'accept'), 'no spirits or hand-in in the Un\'Goro guide');
 	const ep = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const acc = at(ep, 'accept 5211', is('accept', 5211));
+	assert.ok(at(ep, 'turnin 5241', is('turnin', 5241)) < acc, 'Uncle Carlin handed in before Defenders of Darrowshire is taken');
+	assert.ok(acc < at(ep, 'the spirits', (g) => g.t === 'kill' && g.quest === 5211), 'taken before the spirits');
 	const spirits = at(ep, 'the spirits', (g) => g.t === 'kill' && g.quest === 5211);
 	assert.ok(spirits < at(ep, 'turnin 5211', is('turnin', 5211)), 'spirits before the hand-in');
 	assert.equal(ep[at(ep, 'turnin 5211', is('turnin', 5211))].s, ep[at(ep, 'turnin 5181', is('turnin', 5181))].s, 'with Villains of Darrowshire');
@@ -10519,4 +10520,32 @@ test('#1531: the Ashenvale hunt trophies only after The Ashenvale Hunt, offered 
 	assert.ok(senani < at(list, 'Shadumbra', (g) => g.t === 'collect' && g.item === 16304), 'before Shadumbra');
 	const late = hunt(16303).map((e) => list.indexOf(e)).filter((i) => i > senani);
 	assert.ok(late.length === 1 && late[0] < at(list, 'the hunts handed in', is('turnin', 2)), 'Ursangous comes round again after Splintertree, before the hand-in');
+});
+
+// Flow pass (0.3.6, Horde 50-60): Darrowshire (Pamela's doll, Zaeldarr, Uncle Carlin) and the Marlene/Chromie chain
+// closed 50-60/01 at about level 52.4 among Darrowshire's level 54-57 mobs; our comparison does them at 56-58. They now
+// open 50-60/05 (about 56): Light's Hope Chapel on the road in (flight path, bind), Darrowshire, back to the chapel,
+// the flight to Tarren Mill for Marlene and Chromie, the flight back to Carlin for Heroes and Villains of Darrowshire.
+// Terrordale (Augustus' book, A Plague Upon Thee's termites) moved from 01 to 02's Tirion stop, a river away.
+test('Horde Plaguelands: Darrowshire at 56 in the Eastern Plaguelands guide, not at 52 in the Un\'Goro guide', { skip }, () => {
+	const un = goals('forever/horde/50-60/01-un-goro-crater.guide');
+	assert.ok(!un.some(({ goal }) => [5149, 5152, 5241, 5153, 5154, 5210, 6021, 6164].includes(goal.quest)), 'none of it in 01');
+	assert.ok(!un.some(({ goal }) => goal.t === 'getfp' && /Light's Hope/.test(goal.location || '')), 'no Light\'s Hope flight path in 01');
+	assert.equal(un.filter(({ goal }) => goal.quest).pop().goal.quest, 5096, '01 ends at the Scarlet camp');
+	const fel = goals('forever/horde/50-60/02-felwood.guide');
+	const tirion = at(fel, 'accept 5542', is('accept', 5542));
+	const book = at(fel, 'collect 15884', (g) => g.t === 'collect' && g.quest === 6164);
+	const termites = at(fel, 'collect 15043', (g) => g.t === 'collect' && g.quest === 5901);
+	assert.ok(tirion < at(fel, 'accept 6164', is('accept', 6164)) && fel[book].s === fel[termites].s, 'Terrordale after Tirion');
+	assert.ok(termites < at(fel, 'turnin 5901', is('turnin', 5901)), 'the termites before the Bulwark hand-in');
+	const ep = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const fp = at(ep, 'getfp LHC', (g) => g.t === 'getfp' && /Light's Hope/.test(g.location || ''));
+	const pam = at(ep, 'turnin 5149', is('turnin', 5149));
+	const marlene = at(ep, 'turnin 5152', is('turnin', 5152));
+	const brother = at(ep, 'turnin 5210', is('turnin', 5210));
+	const villains = at(ep, 'accept 5181', is('accept', 5181));
+	assert.ok(fp < pam && pam < marlene && marlene < brother && brother < villains, 'chapel, Darrowshire, Marlene and Chromie, then Carlin');
+	const flyBack = ep.slice(0, fp).some(({ goal }) => goal.t === 'fly');
+	assert.ok(!flyBack, 'no flight to Light\'s Hope before its flight path is learnt');
+	assert.ok(at(ep, 'turnin 6164', is('turnin', 6164)) > villains, 'Augustus takes the book back on the Terrordale stop');
 });

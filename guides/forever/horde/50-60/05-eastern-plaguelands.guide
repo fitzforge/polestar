@@ -12,11 +12,90 @@ next forever/horde/50-60/06-silithus
 # Added here: Duskwing, Oh How I Hate Thee... (6135).
 # Left out since the 0.3.6 flow pass: Camp Mojache (7492, Gorlach's 1500 XP delivery to Talo): it cost a flight from
 # Gadgetzan to Camp Mojache and on to Marshal's Refuge instead of the direct flight.
-# Carried in: Defenders of Darrowshire (5211), taken from Carlin after Uncle Carlin at the end of 50-60/01; its spirits
-# are freed at Corin's Crossing and it is handed in with Villains of Darrowshire.
+# Added here (0.3.6 flow pass, from 50-60/01, where the guide was about 52.4 among level 54-57 mobs): Light's Hope
+# Chapel's flight path and bind, Pamela's doll (5149), Zaeldarr (6021), Uncle Carlin (5241) and Defenders of
+# Darrowshire (5211), and the Marlene/Chromie chain (5152, 5153, 5154) to Brother Carlin (5210). Brother Carlin opens
+# Heroes and Villains of Darrowshire (5168, 5181), so the chain comes first, as in our comparison at 56-58.
+
+step Eastern Plaguelands
+  zone Eastern Plaguelands
+  goto 71.0,52.0 "Light's Hope Chapel"
+
+step Light's Hope Chapel
+  tip Follow the road east from the Western Plaguelands, over the river and across the whole Eastern Plaguelands, to the Argent Dawn's chapel in the far east.
+  getfp "Light's Hope Chapel"
+  sethome "Light's Hope Chapel"
+  accept 5281                         -- Caretaker Alen
+  accept 6021                         -- Caretaker Alen
+  turnin 6030                         -- Duke Nicholas Zverenhoff
+  accept 5510 optional
+
+step Pamela Redpath
+  tip Pamela's ghost stands in the ruins of Darrowshire, in the south-west.
+  accept 5149
+
+step Pamela's Doll
+  tip The doll's head and its two sides lie in the houses around Pamela; join them from your bags.
+  collect 12886                       -- Inside
+  collect 12887
+  collect 12888                       -- Inside
+  collect 12885 quest 5149 @38.5,91.4
+
+step Pamela Redpath
+  turnin 5149
+  accept 5152
+  accept 5241                         -- a message for Carlin at Light's Hope Chapel
+  note Keep Auntie Marlene: Marlene lives at Sorrow Hill in the Western Plaguelands.
+
+step Zaeldarr the Outcast
+  tip Zaeldarr lurks just west of Darrowshire.
+  collect 15785 quest 6021            -- Below ground
+
+step Pestilent Scar
+  tip Careful: Eye of Naxxramas goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min.
+  collect 12840 quest 5510 optional
+
+step Back to Light's Hope Chapel
+  turnin 6021                         -- Caretaker Alen
+  turnin 5241                         -- Carlin Redpath
+  accept 5211
+  note Defenders of Darrowshire's spirits come with the Corin's Crossing stop later in this guide: keep it.
+  turnin 5510 optional
+
+# ---------------------------------------------------------------- Western Plaguelands: Marlene and Chromie
+
+step Fly to Tarren Mill
+  zone Eastern Plaguelands
+  goto 80.1,57.0 "Light's Hope Chapel flight master"
+  fly "Tarren Mill"
+  zone Hillsbrad Foothills
+
+step To Sorrow Hill
+  zone Western Plaguelands
+  goto 49.2,78.6 "Sorrow Hill"
+
+step Sorrow Hill
+  tip Ride north up the road from Tarren Mill. Marlene's house stands by the road at Sorrow Hill, and Joseph Redpath's monument is in the graveyard behind it.
+  turnin 5152                         -- Marlene Redpath, upstairs
+  accept 5153
+  collect 12894 quest 5153 @49.7,76.8
+
+step Chromie
+  tip Ride north-west into Andorhal. Chromie waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges.
+  turnin 5153                         -- Upstairs
+  accept 5154
+
+step The Annals of Darrowshire
+  tip The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one.
+  collect 12900 quest 5154 @43.4,69.5
+
+step Chromie
+  turnin 5154                         -- Upstairs
+  accept 5210
 
 step Fly to Light's Hope Chapel
   zone Hillsbrad Foothills
+  tip Ride back south to Tarren Mill and fly to Light's Hope Chapel.
   goto 60.2,18.8 "Tarren Mill flight master"
   fly "Light's Hope Chapel"
   zone Eastern Plaguelands
@@ -26,9 +105,6 @@ step Light's Hope Chapel
   accept 5168
   accept 5181
   note Heroes of Darrowshire's items lie in the later Plaguelands zones: keep it.
-  sethome "Light's Hope Chapel"
-  accept 5281                         -- Caretaker Alen
-  turnin 6030                         -- Duke Nicholas Zverenhoff
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 86-93) and machine-checked with lint; not play-tested on Forever yet.
 #
@@ -136,7 +212,7 @@ step Pathstrider
 step Corin's Crossing
   tip Ride south from the lodge to Corin's Crossing, on the road. Living Rot spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the Mortar and Pestle at once.
   tip Careful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with Greater Invisibility. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.
-  tip With Defenders of Darrowshire in your log (from Carlin at the end of the Un'Goro guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the Living Rot.
+  tip With Defenders of Darrowshire in your log (from Carlin at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the Living Rot.
   goto 52.3,58.2 "Corin's Crossing" live
   kill 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
   collect 15447 x7

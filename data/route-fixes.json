@@ -8948,7 +8948,7 @@
 					"turnin",
 					5149
 				],
-				"reason": "Quest volume, Horde 50-60 (0.3.7): Uncle Carlin (level 56, from 50, 2900 XP) is a message from Pamela Redpath in Darrowshire to Carlin Redpath at Light's Hope Chapel: 50-60/01 hands Pamela's doll in and hearths to the chapel, where the guide hands Defenders of Darrowshire (5211) to Carlin on the same stop. It is a delivery with no fighting, so the 3+ levels over at about 52.7 do not matter.",
+				"reason": "Quest volume, Horde 50-60 (0.3.7; moved to 50-60/05 by the 0.3.6 flow pass): Uncle Carlin (level 56, from 50, 2900 XP) is a message from Pamela Redpath in Darrowshire to Carlin Redpath at Light's Hope Chapel: 50-60/05 hands Pamela's doll in and rides back to the chapel to fly to Tarren Mill, where Carlin takes it and gives Defenders of Darrowshire (5211) on the same stop. A delivery with no fighting.",
 				"issue": "-"
 			},
 			{
@@ -12934,6 +12934,19 @@
 			},
 			{
 				"a": [
+					"turnin",
+					5051
+				],
+				"b": [
+					"accept",
+					5149
+				],
+				"faction": "Horde",
+				"why": "Flow, Horde 50-60 (0.3.6 flow pass, BrHorde4060): Darrowshire (Pamela's doll 5149, Zaeldarr 6021, Uncle Carlin 5241) and the Marlene/Chromie chain (5152-5154, 5210) closed 50-60/01 at sim level 52.3-52.5 among Darrowshire's level 54-57 mobs; our comparison does them at 56-58. Moved to the start of 50-60/05 (Light's Hope Chapel on the road in, flight path and bind there): calibrated level model (CALIB=1 levels_ra.js, Orc, every class) puts them at 55.0-55.2, hours to 60 +0.02-0.03 h (one extra Tarren Mill -> Light's Hope flight; the grind moves from 05's hidden grind to 03's 55.04 top-up), no level hole.",
+				"source": "BrHorde4060"
+			},
+			{
+				"a": [
 					"accept",
 					192
 				],
@@ -12970,6 +12983,18 @@
 				"faction": "Alliance",
 				"why": "Stranglethorn's second loop (Alliance 30-40/04b, 0.3.6, BrAlliance3040, our comparison): the Shadowmaw Panthers (level 37) live around Lake Nazferiti (45-51,20-30) and by the Skullsplitter ruins (35-42,32-45), none in the north-west, and the Venture Co. Geologists with the Tumbled Crystals work Lake Nazferiti's shore (42-48,16-24; two stray ones at 28,8). The guide listed both on the north-west tablets' step, so the arrow went from Zul'Kunda south to 36,34 and back north to the Rebel Camp (about 2,500 yd), and the Rebel Camp was visited three times. Now Erlgadin's Panther Mastery is taken at Nesingwary's on the way in, the lake right after Kurzen's Compound, the tablets west and north-west, and every Rebel Camp hand-in on one stop at the end, as our comparison loops it.",
 				"source": "BrAlliance3040"
+			},
+			{
+				"a": [
+					5542
+				],
+				"b": [
+					"accept",
+					6164
+				],
+				"faction": "Horde",
+				"why": "Flow, Horde 50-60/02 (0.3.6 flow pass): with the Eastern Plaguelands moved out of 50-60/01, Augustus' Receipt Book (6164) and A Plague Upon Thee's termites (5901) are done in Terrordale, a river east of Tirion's house, on 02's Tirion stop; Augustus takes the book back on 05's Terrordale stop.",
+				"source": "BrHorde4060"
 			}
 		]
 	}
