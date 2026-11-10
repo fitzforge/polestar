@@ -170,24 +170,54 @@ step Level 5.77
   goto 41.7,78.0 map 1429 "Kobold Miner"
   level 5.77 grind 40                 -- grind on Kobold Miner
 
-step The lake shore
-  tip Sam Sarsaparilla camps north-east of the inn; Helene Peltskinner, Adele Fielder, Jason Mathers and Lee Brown stand on the shore of Crystal Lake east of town. With a profession learned, Sam also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing here on the shore, First Aid and blacksmithing in Goldshire.
+step Sam Sarsaparilla
+  tip Sam Sarsaparilla camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, First Aid and blacksmithing in Goldshire.
   turnin 96627                                -- Sam Sarsaparilla
   accept 95998
   complete 95998 @44.9,63.2                   -- Sit (/sit) by his campfire until you have Boosted Rest
   turnin 95998
   accept 96626
-  accept 97924 optional                       -- Sam Sarsaparilla, skinners: for Helene Peltskinner
-  accept 97922 optional                       -- Sam Sarsaparilla, leatherworkers: for Adele Fielder
-  accept 97920 optional                       -- Sam Sarsaparilla, fishers: for Lee Brown
-  accept 97919 optional                       -- Sam Sarsaparilla, First Aid: for Michelle Belle in the inn
-  accept 97916 optional                       -- Sam Sarsaparilla, blacksmiths: for Smith Argus at the smithy
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  accept 97924                                -- Sam Sarsaparilla: for Helene Peltskinner on the lake shore
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  accept 97922                                -- Sam Sarsaparilla: for Adele Fielder on the lake shore
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  accept 97920                                -- Sam Sarsaparilla: for Lee Brown on the lake shore
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  accept 97919                                -- Sam Sarsaparilla: for Michelle Belle in the Lion's Pride Inn
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  accept 97916                                -- Sam Sarsaparilla: for Smith Argus at the Goldshire smithy
+
+step Helene Peltskinner
+  when onquest 97924
+  complete 97924 @46.24,62.24                 -- talk to the trainer
+  turnin 97924                                -- Helene Peltskinner, on the lake shore east of town; inside
+
+step Adele Fielder
+  when onquest 97922
+  complete 97922 @46.38,62.05                 -- talk to the trainer
+  turnin 97922                                -- Adele Fielder, beside Helene
+
+step The lake shore
+  tip Helene Peltskinner, Jason Mathers and Lee Brown stand on the shore of Crystal Lake east of town.
   accept 91751 optional                       -- Helene Peltskinner: skinners only, the pelts are skinned; inside
-  turnin 97924 optional                       -- Helene Peltskinner: Camping 101, skinners; inside
-  turnin 97922 optional                       -- Adele Fielder: Camping 101, leatherworkers
   accept 99127                                -- Jason Mathers
   accept 99143                                -- Lee Brown
-  turnin 97920 optional                       -- Lee Brown: Camping 101, fishers
+
+step Lee Brown
+  when onquest 97920
+  complete 97920 @47.61,62.32                 -- talk to the trainer
+  turnin 97920                                -- Lee Brown
 
 step Crystal Lake
   tip The Fishing Traps sit along the west shore of the lake.
@@ -222,9 +252,17 @@ step Goldshire
   turnin 99129                                -- Remy "Two Times"
   accept 99130
   train class
-  turnin 97919 optional                       -- Michelle Belle, in the inn: Camping 101, First Aid
-  turnin 97916 optional                       -- Smith Argus, at the smithy across the road: Camping 101, blacksmiths
   turnin 5624 reward 16605 only Priest        -- Priestess Josetta, upstairs: Friar's Robes of the Light
+
+step Michelle Belle
+  when onquest 97919
+  complete 97919 @43.39,65.55                 -- talk to the trainer
+  turnin 97919                                -- Michelle Belle, in the Lion's Pride Inn
+
+step Smith Argus
+  when onquest 97916
+  complete 97916 @41.71,65.54                 -- talk to the trainer
+  turnin 97916                                -- Smith Argus, at the smithy across the road
 
 # ---------------------------------------------------------------- The south: Fargodeep and the farms
 

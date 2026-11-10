@@ -130,15 +130,44 @@ step Raan Wildwind
   complete 96101 @41.73,44.78                 -- /sit by Raan's campfire until you get Boosted Rest
   turnin 96101
   accept 96646
-  accept 97963 optional                       -- Raan Wildwind, alchemists: for Nyassa Swiftdraught
-  accept 97964 optional                       -- Raan Wildwind, blacksmiths: for Aedi Thriceforged
-  accept 97965 optional                       -- Raan Wildwind, First Aid: for Naleeia Tattermend
-  accept 97967 optional                       -- Raan Wildwind, fishers: for Fenn Fairweather
-  accept 97969 optional                       -- Raan Wildwind, leatherworkers: for Indari Sunseam
-  accept 97970 optional                       -- Raan Wildwind, miners: for Messana Crestwind
-  accept 97971 optional                       -- Raan Wildwind, skinners: for Mendalass Tattermend
-  accept 97973 optional                       -- Raan Wildwind, tailors: for Taleen Shimmerthread
-  accept 98286 optional                       -- Raan Wildwind, enchanters: for Nasalanna Windsinger
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  accept 97963                                -- Raan Wildwind: for Nyassa Swiftdraught
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  accept 97964                                -- Raan Wildwind: for Aedi Thriceforged
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  accept 97965                                -- Raan Wildwind: for Naleeia Tattermend
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  accept 97967                                -- Raan Wildwind: for Fenn Fairweather
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  accept 97969                                -- Raan Wildwind: for Indari Sunseam
+
+step Camping 101: Mining
+  when skill Mining 1
+  accept 97970                                -- Raan Wildwind: for Messana Crestwind
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  accept 97971                                -- Raan Wildwind: for Mendalass Tattermend
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  accept 97973                                -- Raan Wildwind: for Taleen Shimmerthread
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  accept 98286                                -- Raan Wildwind: for Nasalanna Windsinger
+
+step Zerril Softbreeze
   train Cooking npc 251905                    -- Zerril Softbreeze: Camping 101 asks you to learn it
   complete 96646 @43.85,43.9
   turnin 96646
@@ -147,28 +176,59 @@ step Village quests
   turnin 93461                                -- Constable Aonda
   accept 92517
   accept 92515                                -- Indari Sunseam
-  talk 251993 quest 97969.1 optional
-  turnin 97969 optional                       -- Indari Sunseam: Camping 101, leatherworkers
-  talk 257022 quest 97970.1 optional
-  turnin 97970 optional                       -- Messana Crestwind, beside her: Camping 101, miners
+
+step Indari Sunseam
+  when onquest 97969
+  talk 251993 quest 97969.1
+  turnin 97969                                -- Indari Sunseam
+
+step Messana Crestwind
+  when onquest 97970
+  talk 257022 quest 97970.1
+  turnin 97970                                -- Messana Crestwind, beside Indari
+
+step Village quests
   accept 93951                                -- Taleen Shimmerthread
-  talk 251991 quest 97973.1 optional
-  turnin 97973 optional                       -- Taleen Shimmerthread: Camping 101, tailors
-  talk 251913 quest 97964.1 optional
-  turnin 97964 optional                       -- Aedi Thriceforged, beside her: Camping 101, blacksmiths
+
+step Taleen Shimmerthread
+  when onquest 97973
+  talk 251991 quest 97973.1
+  turnin 97973                                -- Taleen Shimmerthread
+
+step Aedi Thriceforged
+  when onquest 97964
+  talk 251913 quest 97964.1
+  turnin 97964                                -- Aedi Thriceforged, beside Taleen
+
+step Village quests
   accept 92516                                -- Teeri Wellwind
   accept 93319
   accept 92553                                -- Zerril Softbreeze
-  talk 257019 quest 97963.1 optional
-  turnin 97963 optional                       -- Nyassa Swiftdraught, west of Zerril: Camping 101, alchemists
-  talk 257024 quest 97971.1 optional
-  turnin 97971 optional                       -- Mendalass Tattermend: Camping 101, skinners
-  talk 257020 quest 98286.1 optional
-  turnin 98286 optional                       -- Nasalanna Windsinger: Camping 101, enchanters
-  talk 257018 quest 97965.1 optional
-  turnin 97965 optional                       -- Naleeia Tattermend, at the south side of the village: Camping 101, First Aid
-  talk 251992 quest 97967.1 optional
-  turnin 97967 optional                       -- Fenn Fairweather, on the south edge of the village: Camping 101, fishers
+
+step Nyassa Swiftdraught
+  when onquest 97963
+  talk 257019 quest 97963.1
+  turnin 97963                                -- Nyassa Swiftdraught, west of Zerril
+
+step Mendalass Tattermend
+  when onquest 97971
+  talk 257024 quest 97971.1
+  turnin 97971                                -- Mendalass Tattermend
+
+step Nasalanna Windsinger
+  when onquest 98286
+  talk 257020 quest 98286.1
+  turnin 98286                                -- Nasalanna Windsinger
+
+step Naleeia Tattermend
+  when onquest 97965
+  talk 257018 quest 97965.1
+  turnin 97965                                -- Naleeia Tattermend, at the south side of the village
+
+step Fenn Fairweather
+  when onquest 97967
+  talk 251992 quest 97967.1
+  turnin 97967                                -- Fenn Fairweather, on the south edge of the village
 
 step Prideclaws and Galestriders
   tip Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village.

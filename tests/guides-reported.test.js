@@ -7677,9 +7677,11 @@ test('Alliance starting zones: the level 5 Priest robe quests ride on stops the 
 });
 
 // Starting-zone review 0.3.6 (Alliance 1-12): the profession Camping 101 quests from each start campfire (270 XP,
-// one per profession) are optional goals in the campfire step, right after its /sit quest (the addon shows a
-// profession-gated goal only to characters with the profession), and handed in on a stop the guide already makes
-// (route-fixes include). No extra step and no detour.
+// one per profession), handed in on a stop the guide already makes (route-fixes include). #1559: auto-accept never
+// takes an optional accept, and the campfire step's required accept ends the step before it, so each is a required
+// accept in its own `when skill` step right after the campfire's steps, and each hand-in a required turn-in in a
+// `when onquest` step at the trainer: the profession-holder's auto-accept and auto turn-in take them, everyone else
+// never sees them (same form as the Horde starts).
 test('Alliance starting zones: profession Camping 101s from the campfire, for those with the skill, handed in on existing stops', { skip }, () => {
 	const sets = [
 		['forever/alliance/human/01-elwynn-forest.guide', 95998, [97924, 97922, 97920, 97919, 97916]],
@@ -7697,9 +7699,12 @@ test('Alliance starting zones: profession Camping 101s from the campfire, for th
 			const take = at(list, `${guide}: accept ${q}`, is('accept', q));
 			const give = at(list, `${guide}: turnin ${q}`, is('turnin', q));
 			assert.ok(sat < take && take < give, `${guide}: ${q} is taken after the /sit quest and handed in later`);
-			assert.equal(list[take].step, list[sat].step, `${guide}: ${q} is offered at the campfire, in its step`);
-			assert.ok(list[take].goal.optional && list[give].goal.optional, `${guide}: ${q} is optional (only characters with the profession)`);
-			assert.ok(!list[give].step.when, `${guide}: ${q}'s hand-in is on a stop everyone makes`);
+			assert.ok(!list[take].goal.optional && !list[give].goal.optional, `${guide}: ${q} is required, so auto-accept and auto turn-in take it (#1559)`);
+			const when = (i) => [].concat(list[i].step.when || []);
+			assert.ok(when(take).some((w) => w.k === 'skill' && !w.neg), `${guide}: ${q} is offered only with the profession`);
+			assert.ok(when(give).some((w) => w.k === 'onquest' && !w.neg && [].concat(w.q).includes(q)), `${guide}: ${q}'s hand-in shows only with the quest in the log`);
+			const between = list.slice(sat + 1, take);
+			assert.ok(between.every(({ step }) => step === list[sat].step || [].concat(step.when || []).some((w) => w.k === 'skill')), `${guide}: ${q}'s step follows the campfire step directly`);
 		}
 	}
 });
