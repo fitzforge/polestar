@@ -1752,23 +1752,34 @@ function GF.LayoutBanner(width)
 		local class = UI.PlayerClass and UI.PlayerClass() or nil
 		local parts = { string.format(L["Level %d"], n.level or 0),
 			class and string.format(L["new %s skills"], class) or L["new class skills"] }
-		local place = n.trainer and trainerPlace(n.trainer)
+		-- Where to train (Engine.TrainingAdvice, as the level-up spell card
+		-- says it): the guide's own stop when it is near, and then no other
+		-- trainer; else the planner's pick, live (the notice's when the
+		-- engine has none).
+		local E = Engine()
+		local advice = E and E.TrainingAdvice and E.TrainingAdvice() or {}
+		local trainer = not advice.guide and (advice.trainer or n.trainer) or nil
+		local place = trainer and trainerPlace(trainer)
 		if place then parts[#parts + 1] = place end
 		local text = table.concat(parts, "  \194\183  ")
-		-- How far the guide's own training stop is, from the live step (#668);
-		-- on that step itself, the step says it.
-		local E = Engine()
-		local steps, title
-		if E and E.GuideTrainStop then steps, title = E.GuideTrainStop() end
+		-- How far the guide's own training stop is, from the live step (#668).
+		local steps, title = advice.steps, advice.title
 		if steps == false then
 			text = text .. "\n" .. L["The guide has no class training ahead."]
-		elseif steps and steps > 1 then
+		elseif advice.guide and steps <= 1 then
+			text = text .. "\n" .. L["Your guide's current step trains you."]
+		elseif steps then
 			text = text .. "\n" .. string.format(L["The guide trains you in %d steps"], steps)
 				.. (title and title ~= "" and (" (" .. title .. ")") or "") .. "."
 		end
 		banner.Text:SetText(text)
-		local w = placeLink(banner.Jump, L["Show"], 0, -4)
-		placeLink(banner.Later, L["Later"], w + 10, -4)
+		local w = 0
+		if trainer then
+			w = placeLink(banner.Jump, L["Show"], 0, -4) + 10
+		else
+			banner.Jump:Hide()
+		end
+		placeLink(banner.Later, L["Later"], w, -4)
 		banner.Close:Hide()
 	elseif kind == "riding" then
 		banner.Icon:SetTexture(Theme.Media("icon-mount"))
@@ -1896,7 +1907,8 @@ function GF.TakeBanner()
 		end
 	elseif kind == "train" then
 		notices.train = nil
-		local t, nav2 = n.trainer, ns.Nav
+		local advice = E and E.TrainingAdvice and E.TrainingAdvice() or {}
+		local t, nav2 = not advice.guide and (advice.trainer or n.trainer) or nil, ns.Nav
 		if t and t.map and t.x and nav2 and nav2.SetTarget then
 			nav2.SetTarget(t.map, t.x, t.y, t.npcName or L["Class trainer"], t.f, "trainer", t.z)
 		end

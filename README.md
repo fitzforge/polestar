@@ -448,8 +448,9 @@ its source is in [apps/client](apps/client).
 - **Professions** send you to the nearest trainer, vendor or inn of your own
   faction from where you stand, never into a city of the other faction; a
   goal's cycle button picks another.
-- **Class training reminder** every two levels (configurable): the nearest
-  trainer of your class, unless your guide is about to take you there. At
+- **Class training reminder** every two levels (configurable): when your
+  guide trains you within a few steps it says so, else it names the class
+  trainer that fits your route. At
   levels 40 and 60 a **riding reminder** shows the cost of riding and your
   balance, and points the arrow at your riding trainer once you can afford
   it.
