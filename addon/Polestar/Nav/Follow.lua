@@ -244,7 +244,8 @@ local function inSight(xs, ys, zs, left, idx, along, limit, zRef, px, py, sight)
 	local last, capped = idx - 1, false
 	for j = idx, limit do
 		local zj = zs[j]
-		if zRef and zj and apart(zj - zRef, xs[j] - xs[idx], ys[j] - ys[idx]) then break end
+		-- Another floor: from the projection's point, or a steep step on the way (stairs between two flat pieces).
+		if zRef and zj and (apart(zj - zRef, xs[j] - xs[idx], ys[j] - ys[idx]) or (j > idx and floorChange(xs, ys, zs, j))) then break end
 		if start - left[j] > cap then capped = true break end
 		last = j
 	end
@@ -307,10 +308,12 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 		end
 		local ex, ey = ax + dx * t - px, ay + dy * t - py
 		local d = sqrt(ex * ex + ey * ey)
-		-- The next segment on takes over as soon as it is nearer; any later one
+		-- The next segment on takes over as soon as it is nearer, or as near
+		-- with the projection at the end of the current one (the player on
+		-- the point between them: aiming on, not at their feet); any later one
 		-- (the far side of a hairpin) must be HYST yards nearer.
 		local need = a == best + 1 and 0 or HYST
-		if bestD == nil or d + need < bestD then
+		if bestD == nil or d + need < bestD or (need == 0 and d == bestD and bestT == 1) then
 			best, bestD, bestT = a, d, t
 		end
 	end
@@ -377,7 +380,7 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 	local joined = false
 	for j = idx, limit do
 		local zj = zs[j]
-		if zRef and zj and apart(zj - zRef, xs[j] - xs[idx], ys[j] - ys[idx]) then break end
+		if zRef and zj and (apart(zj - zRef, xs[j] - xs[idx], ys[j] - ys[idx]) or (j > idx and floorChange(xs, ys, zs, j))) then break end
 		-- Where the path's points are close together (a road's zigzag, pieces
 		-- of SHORT yards or less on both sides), the aim slides along the path
 		-- smoothed over each point's neighbours (1-2-1), so the side-to-side

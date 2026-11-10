@@ -468,7 +468,6 @@ fn a_search_landing_100_yd_behind_a_player_running_down_a_steep_slope_is_followe
 	.concat());
 	assert_eq!(out["asked"], 1, "straying asks once");
 	assert_eq!(out["again"], 1, "no second search while the first runs");
-	assert_eq!(out["urgent"], true, "the arrow's own search is urgent (sliced before the later legs')");
 	// 0.3.6: the follower started at the late path's start, 100 yd back up the slope, held there by the first
 	// steep corner, and pointed back until the player stopped (Fitz, 0.3.7).
 	let (dx, dy) = (num(&out["s"]["dx"]), num(&out["s"]["dy"]));
@@ -476,6 +475,7 @@ fn a_search_landing_100_yd_behind_a_player_running_down_a_steep_slope_is_followe
 	let (lx, ly) = (num(&out["later"]["dx"]), num(&out["later"]["dy"]));
 	assert!(ly < 0.0 && lx.abs() < 1.0, "and keeps doing so (aim {lx}, {ly})");
 	assert!(num(&out["s"]["dist"]) < 500.0, "the yards shown are from the player on, not from the search's start (dist {})", out["s"]["dist"]);
+	assert_eq!(out["urgent"], true, "the arrow's own search is urgent (sliced before the later legs')");
 }
 
 #[test]
