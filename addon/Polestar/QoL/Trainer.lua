@@ -155,7 +155,7 @@ end
 
 local function initTrainerButton()
 	if not ClassTrainerFrame or trainerButton then return end
-	local btn = CreateFrame("Button", "PolestarTrainAllButton", ClassTrainerFrame, "UIPanelButtonTemplate")
+	local btn = ns.CreateFrameUnder("Button", "PolestarTrainAllButton", ClassTrainerFrame, "UIPanelButtonTemplate")
 	btn:SetSize(80, 22)
 	if ClassTrainerTrainButton then
 		btn:SetPoint("RIGHT", ClassTrainerTrainButton, "LEFT", -2, 0)
