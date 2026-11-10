@@ -767,6 +767,7 @@ L["Marks it with %s."] = "Помечает меткой %s."
 L["Marks it with %s if it has no icon yet: you don't lead the party."] = "Помечает меткой %s, если метки еще нет: вы не лидер группы."
 L["Marks nothing: in a raid only the leader and assistants set icons."] = "Ничего не помечает: в рейде метки ставят только лидер и помощники."
 L["Target and wave"] = "Выбрать и помахать"
+-- L["You can take the quest this item starts. Click to read it."] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "Уровень %d"
@@ -964,6 +965,10 @@ L["Clicking an objective row or NPC heading also targets its NPC outside combat,
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "Кнопка цели и клавиша шага ставят рейдовую метку на противника или НИП, которых выбирают целью; вне боя нажатие, не нашедшее ни того ни другого, сбрасывает вашу цель. Повторное нажатие никогда не снимает метку. В группе, где вы не лидер, метку получает только цель без метки; в рейде — только если вы лидер или помощник."
 L["Ping what they target"] = "Отмечать пингом выбранную цель"
 L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = "Кнопка цели и клавиша шага отмечают пингом выбранного противника, чтобы группа видела его за скалами и зданиями. В рейде — только если вы лидер или помощник. Кнопки редкой цели отмечают всегда."
+-- L["Show quest-starting loot"] = ""
+-- L["When you loot an item that starts a quest you can take, it goes on the quest item button with a glow until you click it or take the quest. The step's own item comes first; several wait their turn, oldest first."] = ""
+-- L["Track only dungeon quests in dungeons"] = ""
+-- L["Inside a dungeon or raid, the game's quest tracker and Polestar's quest markers show only that instance's quests. The quests you were tracking come back when you leave, even after a reload inside."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Только Альянс"

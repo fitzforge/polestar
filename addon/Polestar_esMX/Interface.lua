@@ -630,6 +630,7 @@ L["Marks it with %s."] = "Lo marca con %s."
 L["Marks it with %s if it has no icon yet: you don't lead the party."] = "Lo marca con %s si aún no tiene icono: no eres líder del grupo."
 L["Marks nothing: in a raid only the leader and assistants set icons."] = "No marca nada: en una banda solo el líder y los ayudantes ponen iconos."
 L["Target and wave"] = "Seleccionar y saludar"
+-- L["You can take the quest this item starts. Click to read it."] = ""
 
 -- QoL/Buy.lua
 L["Left %d %s (%s) for you to buy."] = "Quedan %d %s (%s) para que los compres tú."
@@ -787,6 +788,10 @@ L["Clicking an objective row or NPC heading also targets its NPC outside combat,
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "El botón de objetivo y la tecla del paso ponen un icono de banda al monstruo y al PNJ que seleccionan; fuera de combate, una pulsación que no encuentra ninguno quita tu objetivo. Volver a pulsar nunca quita un icono. En un grupo que no lideras, solo recibe icono una unidad que no tenga; en una banda, solo si eres líder o ayudante."
 L["Ping what they target"] = "Marcar con ping lo que seleccionan"
 L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = "El botón de objetivo y la tecla de paso marcan con un ping al monstruo que seleccionan, para que tu grupo lo vea detrás de rocas y edificios. Nunca en una banda salvo que seas líder o asistente. Los botones de raro siempre hacen ping."
+-- L["Show quest-starting loot"] = ""
+-- L["When you loot an item that starts a quest you can take, it goes on the quest item button with a glow until you click it or take the quest. The step's own item comes first; several wait their turn, oldest first."] = ""
+-- L["Track only dungeon quests in dungeons"] = ""
+-- L["Inside a dungeon or raid, the game's quest tracker and Polestar's quest markers show only that instance's quests. The quests you were tracking come back when you leave, even after a reload inside."] = ""
 
 -- QoL/QoL.lua
 L["%dh %02dm"] = "%dh %02dm"

@@ -767,6 +767,7 @@ L["Marks it with %s."] = "以 %s 標記它。"
 L["Marks it with %s if it has no icon yet: you don't lead the party."] = "若尚無圖示則以 %s 標記：你不是隊長。"
 L["Marks nothing: in a raid only the leader and assistants set icons."] = "不會標記：在團隊中只有隊長與助理能設定圖示。"
 L["Target and wave"] = "選取並揮手"
+-- L["You can take the quest this item starts. Click to read it."] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "等級 %d"
@@ -964,6 +965,10 @@ L["Clicking an objective row or NPC heading also targets its NPC outside combat,
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "目標按鈕與步驟鍵會在其選取的怪物與 NPC 上標記團隊圖示；非戰鬥中，若按下時兩者都找不到會清除你的目標。再按一次不會移除圖示。在你不是隊長的小隊中，只有沒有圖示的單位會被標記；在團隊中，僅限你是隊長或助理時。"
 L["Ping what they target"] = "對選取的目標發送信號"
 L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = "目標按鈕和步驟鍵會對選取的怪物發送信號，讓隊友隔著岩石和建築也能看到它。團隊中只有團隊領袖或助理才會發送。稀有按鈕一律會發送信號。"
+-- L["Show quest-starting loot"] = ""
+-- L["When you loot an item that starts a quest you can take, it goes on the quest item button with a glow until you click it or take the quest. The step's own item comes first; several wait their turn, oldest first."] = ""
+-- L["Track only dungeon quests in dungeons"] = ""
+-- L["Inside a dungeon or raid, the game's quest tracker and Polestar's quest markers show only that instance's quests. The quests you were tracking come back when you leave, even after a reload inside."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "僅限聯盟"

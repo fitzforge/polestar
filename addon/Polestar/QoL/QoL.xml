@@ -5,6 +5,7 @@
 	<Script file="Marks.lua"/>
 	<Script file="Space.lua"/>
 	<Script file="QuickBind.lua"/>
+	<Script file="QuestLoot.lua"/>
 	<Script file="Buttons.lua"/>
 	<Script file="BagGlow.lua"/>
 	<Script file="Hearth.lua"/>
@@ -29,5 +30,6 @@
 	<Script file="Social.lua"/>
 	<Script file="Riding.lua"/>
 	<Script file="ClassQuests.lua"/>
+	<Script file="InstanceTrack.lua"/>
 	<Script file="Options.lua"/>
 </Ui>

@@ -37,6 +37,7 @@ end
 
 local defaults = {
 	itemButton = true,       -- quest item button
+	questLoot = true,        -- ... also shows a looted item that starts a quest you can take, glowing (QoL/QuestLoot.lua)
 	bagGlow = true,          -- the step's item glows in the bags
 	targetButton = true,     -- target macro button
 	targetPlate = true,      -- ... its icon shows the action, its name in the target's colour, the next names as small icons
@@ -79,6 +80,7 @@ local defaults = {
 	hideErrors = false,      -- combat error spam ("Not enough rage", "Out of range")
 	autoReleasePvP = false,  -- release at once in battlegrounds
 	hideQuestTracker = false, -- the game's objective tracker, as Questie can
+	instanceTrack = true,    -- in a dungeon, the quest tracker watches only its quests (QoL/InstanceTrack.lua)
 	declineDuels = false,    -- friends and guild excepted
 	declineGuildInvites = false,
 	declinePartyStrangers = false,
@@ -350,6 +352,17 @@ function Client.SlotQuest(bag, slot)
 	local C = C_Container
 	local info = C and C.GetContainerItemQuestInfo and C.GetContainerItemQuestInfo(bag, slot)
 	return info ~= nil and (info.isQuestItem == true or (info.questID or 0) > 0)
+end
+
+-- The quest the slot's item begins, while that quest is not in the log
+-- (QuestInfoFields.questID and isActive); nil otherwise or on a client without
+-- C_Container.GetContainerItemQuestInfo.
+function Client.SlotStartsQuest(bag, slot)
+	local C = C_Container
+	local info = C and C.GetContainerItemQuestInfo and C.GetContainerItemQuestInfo(bag, slot)
+	local q = info and readable(info.questID)
+	if type(q) ~= "number" or q <= 0 or info.isActive == true then return nil end
+	return q
 end
 
 function Client.UseSlot(bag, slot)

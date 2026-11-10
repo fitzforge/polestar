@@ -623,7 +623,8 @@ end
 ---------------------------------------------------------------------------
 
 -- Features that need the database; with all of them off it never loads.
-local NEEDS = { "mapObjectives", "minimapObjectives", "availableQuests", "turnInMarkers", "questTooltips", "questBagMarks", "questSellWarning", "nameplateIcons" }
+local NEEDS = { "mapObjectives", "minimapObjectives", "availableQuests", "turnInMarkers", "questTooltips", "questBagMarks", "questSellWarning", "nameplateIcons",
+	"questLoot" } -- QoL/QuestLoot.lua: who may take the quest an item starts
 
 function Q.IsWanted()
 	if not ns.Get("qol.questDB") then return false end

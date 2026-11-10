@@ -437,6 +437,7 @@ end
 
 local function itemTooltip(b, tip)
 	if b.itemID and tip.SetItemByID then tip:SetItemByID(b.itemID) end
+	if b.itemID and b.itemID == b.glowID then tip:AddLine(L["You can take the quest this item starts. Click to read it."], 1, 1, 1, true) end
 	tip:AddLine(ns.Get("ui.lockHud") and L["Shift-drag to move."] or L["Drag to move."], 0.6, 0.6, 0.6)
 end
 
@@ -446,9 +447,50 @@ local function newItemButton(name)
 	return b
 end
 
--- Apply the wanted item (secure) and repaint.
-local function applyItem(b, itemID)
+-- The glow round a quest-starting item from the bags (QoL/QuestLoot.lua):
+-- the soft glow in the accent, behind the button, pulsing unless
+-- ui.reduceMotion. A texture, so it may change in combat; it follows the
+-- item the button holds, never the one waiting for combat to end.
+local GLOW_SCALE = 1.8
+local function paintGlow(b)
+	local on = b.itemID ~= nil and b.itemID == b.glowID
+	local g = b.Glow
+	if not on then
+		if g then
+			if g.Pulse then g.Pulse:Stop() end
+			g:Hide()
+		end
+		return
+	end
+	if not g then
+		g = b:CreateTexture(nil, "BACKGROUND", nil, -1)
+		g:SetSize(SIZE * GLOW_SCALE, SIZE * GLOW_SCALE)
+		g:SetPoint("CENTER", b, "CENTER", 0, 0)
+		g:SetTexture(media("glow"))
+		if g.SetBlendMode then g:SetBlendMode("ADD") end
+		if g.CreateAnimationGroup then
+			local ag = g:CreateAnimationGroup()
+			ag:SetLooping("BOUNCE")
+			local a = ag:CreateAnimation("Alpha")
+			a:SetFromAlpha(1)
+			a:SetToAlpha(0.35)
+			a:SetDuration(0.7)
+			g.Pulse = ag
+		end
+		b.Glow = g
+	end
+	color(g, "accent")
+	g:Show()
+	if g.Pulse then
+		if ns.Get("ui.reduceMotion") then g.Pulse:Stop() elseif not g.Pulse:IsPlaying() then g.Pulse:Play() end
+	end
+end
+
+-- Apply the wanted item (secure) and repaint. glowID: the item glows while
+-- the button holds it (a quest starter from the bags).
+local function applyItem(b, itemID, glowID)
 	b.wantID = itemID
+	b.glowID = glowID
 	QoL.Secure("item:" .. b:GetName(), function()
 		local id = b.wantID
 		b:SetAttribute("type", id and "item" or nil)
@@ -461,8 +503,10 @@ local function applyItem(b, itemID)
 		else
 			b:Hide()
 		end
+		paintGlow(b)
 	end)
 	if b.itemID then paintItem(b) end
+	paintGlow(b)
 end
 
 -- Usable item from a quest's log entry (e.g. a quest's special item).
@@ -1473,7 +1517,13 @@ local function refresh()
 	-- One view of the current step for all three buttons.
 	local view, raw = QoL.CurrentStep()
 	local guideShown = ns.GuideShown()
-	applyItem(itemButton, QoL.On("itemButton") and guideShown and view and not onTaxi() and Buttons.ChooseQuestItem(view, raw) or nil)
+	-- The step's item first; with none, a quest starter from the bags, glowing.
+	-- Never on a taxi: the client refuses item spells there (#1583).
+	local itemOn = QoL.On("itemButton") and guideShown and not onTaxi()
+	local item = itemOn and view and Buttons.ChooseQuestItem(view, raw) or nil
+	local QL = QoL.QuestLoot
+	local loot = itemOn and not item and QL and QL.Current() or nil
+	applyItem(itemButton, item or loot, loot)
 	applyItem(hearthButton, QoL.On("hearthButton") and guideShown and view and Buttons.WantsHearth(view) and Client.HEARTHSTONE or nil)
 
 	local list, verbs, ids, marks
@@ -1555,6 +1605,12 @@ local function create()
 	holder:SetClampRectInsets(0, 0, 2 * GAP, -2 * GAP)
 	itemButton = newItemButton("PolestarQuestItemButton")
 	hearthButton = newItemButton("PolestarHearthButton")
+	-- A starter clicked on the button has been read: the next one takes its place.
+	itemButton:HookScript("PostClick", function(self, _, down)
+		if down or self.dragging then return end
+		local id = self.itemID
+		if id and id == self.glowID and QoL.QuestLoot then QoL.QuestLoot.Used(id) end
+	end)
 	targetButton = newButton("PolestarTargetButton", targetTooltip)
 	targetButton.Icon:SetTexture(media("qol-target"))
 	targetButton.Icon:SetTexCoord(0, 1, 0, 1)
@@ -1676,6 +1732,7 @@ ns.On("QUESTDB_LOADED", refreshSoon)
 ns.On("NAME_LEARNED", refreshSoon)
 ns.On("BAG_SPACE", refreshSoon)
 ns.On("WHILE_HERE_CHANGED", refreshSoon)
+ns.On("QUEST_LOOT_CHANGED", refreshSoon)
 -- The target button names the arrow's goal first.
 ns.On("WAYPOINT_CHANGED", refreshSoon)
 ns.On("SETTING_CHANGED", function(path)

@@ -827,7 +827,11 @@ each section says what is missing.
 
 ### Quality of life
 
-Quest item, target and Hearthstone buttons; a hearth step while your
+Quest item, target and Hearthstone buttons; an item you loot that starts a
+quest you can take shows on the quest item button, glowing, until you read
+it (the step's own item comes first); inside a dungeon or raid the quest
+tracker shows only that instance's quests and gives you your list back when
+you leave; a hearth step while your
 Hearthstone is on cooldown says how long until it is ready and points the
 arrow at the inn; XP per hour and time to level;
 how long the campfire's Boosted Rest lasts and the Cozy Sleeping Bag's

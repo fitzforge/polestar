@@ -767,6 +767,7 @@ L["Marks it with %s."] = "%s(으)로 표시합니다."
 L["Marks it with %s if it has no icon yet: you don't lead the party."] = "아이콘이 아직 없으면 %s(으)로 표시합니다: 파티장이 아니기 때문입니다."
 L["Marks nothing: in a raid only the leader and assistants set icons."] = "표시하지 않습니다: 공격대에서는 공격대장과 부공격대장만 아이콘을 지정할 수 있습니다."
 L["Target and wave"] = "대상 지정 후 손 흔들기"
+-- L["You can take the quest this item starts. Click to read it."] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "레벨 %d"
@@ -964,6 +965,10 @@ L["Clicking an objective row or NPC heading also targets its NPC outside combat,
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "대상 버튼과 단계 키가 대상으로 지정한 몹과 NPC에 공격대 아이콘을 붙입니다. 전투 중이 아닐 때 아무것도 찾지 못하면 대상을 해제합니다. 다시 눌러도 아이콘을 떼지 않습니다. 내가 파티장이 아닌 파티에서는 아이콘이 없는 대상에만 붙이고, 공격대에서는 공격대장이나 부공격대장일 때만 붙입니다."
 L["Ping what they target"] = "대상에 핑 표시"
 L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = "대상 버튼과 단계 키가 지정한 몹에 핑을 찍어, 파티원이 바위나 건물 뒤에서도 볼 수 있게 합니다. 공격대에서는 공격대장이나 부공격대장일 때만 찍습니다. 희귀 버튼은 항상 핑을 찍습니다."
+-- L["Show quest-starting loot"] = ""
+-- L["When you loot an item that starts a quest you can take, it goes on the quest item button with a glow until you click it or take the quest. The step's own item comes first; several wait their turn, oldest first."] = ""
+-- L["Track only dungeon quests in dungeons"] = ""
+-- L["Inside a dungeon or raid, the game's quest tracker and Polestar's quest markers show only that instance's quests. The quests you were tracking come back when you leave, even after a reload inside."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "얼라이언스 전용"
