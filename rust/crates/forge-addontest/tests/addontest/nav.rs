@@ -911,6 +911,30 @@ fn without_a_player_position_the_arrow_says_so_keeps_the_label_and_points_again_
 	);
 }
 
+// #1581: the label under the arrow is as wide as the distance line's longer texts ("Hearth to The Crossroads:
+// saves 3 min"), so "Accept “The Power to Destroy...”" no longer breaks onto a second line; a longer one still
+// wraps to two. The stub draws each character half the font size wide (12: 6 px).
+#[test]
+fn the_arrow_label_keeps_a_long_quest_name_on_one_line_and_wraps_a_longer_one_to_two_1581() {
+	let out = run(r#"
+		local seen = {}
+		local function snap(label)
+			target(100, 0, label)
+			stub.advance(0.1)
+			seen[#seen + 1] = { A.labelText:GetText(), A.labelText:GetNumLines(), A.labelText:IsTruncated() }
+		end
+		snap("Accept “The Power to Destroy...” · Varimathras ok") -- 49 characters: 294 px (two lines at the old 200)
+		snap("Turn in “The Power to Destroy...” to Varimathras in the Royal Quarter") -- 69: 414 px
+		emit(seen)"#);
+	assert_eq!(
+		out,
+		json!([
+			["Accept “The Power to Destroy...” · Varimathras ok", 1, false],
+			["Turn in “The Power to Destroy...” to Varimathras in the Royal Quarter", 2, false]
+		])
+	);
+}
+
 #[test]
 fn releasetarget_drops_only_the_override_and_guides_to_the_engine_waypoint_again() {
 	let out = run(r#"

@@ -229,9 +229,13 @@ timerText:SetPoint("TOP", distText, "BOTTOM", 0, -4)
 timerText:SetJustifyH("CENTER")
 timerText:Hide()
 
+-- About as wide as the distance line's longest text ("Hearth to The
+-- Crossroads: saves 3 min"), so a quest name of that length stays on one
+-- line; longer ones wrap to a second (#1581).
+local LABEL_WIDTH = 300
 local labelText = frame:CreateFontString(nil, "OVERLAY")
 labelText:SetPoint("TOP", distText, "BOTTOM", 0, -5)
-labelText:SetWidth(200)
+labelText:SetWidth(LABEL_WIDTH)
 labelText:SetJustifyH("CENTER")
 labelText:SetWordWrap(true)
 labelText:SetMaxLines(2)
