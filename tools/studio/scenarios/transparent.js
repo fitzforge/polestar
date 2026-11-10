@@ -48,29 +48,21 @@ module.exports = {
 			title: 'Hillsbrad Fields at the default width: the kill counts, the tip, While you\'re here',
 			lua: STEP,
 		},
-		'fields-280': {
-			title: 'The same at width 280',
-			lua: `Polestar.Set("ui.width", 280)\n${STEP}`,
+		'fields-270': {
+			title: 'Width 270, "Kill Hillsbrad Farmhand 0/6" ends its line (on next: "0/" then "6")',
+			lua: `Polestar.Set("ui.width", 270)\n${STEP}`,
 		},
-		'fields-290': {
-			title: 'The same at width 290',
-			lua: `Polestar.Set("ui.width", 290)\n${STEP}`,
+		'fields-325': {
+			title: 'Width 325, "Collect Mountain Lion Blood 3/10" ends its line (on next: "3/" then "10")',
+			lua: `Polestar.Set("ui.width", 325)\n${STEP}`,
 		},
-		'fields-300': {
-			title: 'The same at width 300',
-			lua: `Polestar.Set("ui.width", 300)\n${STEP}`,
+		'fields-285-text120': {
+			title: 'Width 285, text size 120 %: "Kill Hillsbrad Farmer 0/6" ends its line',
+			lua: `Polestar.Set("ui.width", 285)\nPolestar.Set("ui.textSize", 1.2)\n${STEP}`,
 		},
-		'fields-310': {
-			title: 'The same at width 310',
-			lua: `Polestar.Set("ui.width", 310)\n${STEP}`,
-		},
-		'fields-320': {
-			title: 'The same at width 320',
-			lua: `Polestar.Set("ui.width", 320)\n${STEP}`,
-		},
-		'fields-330': {
-			title: 'The same at width 330',
-			lua: `Polestar.Set("ui.width", 330)\n${STEP}`,
+		'fields-305-text120': {
+			title: 'Width 305, text size 120 %: "Kill Hillsbrad Farmhand 0/6" ends its line',
+			lua: `Polestar.Set("ui.width", 305)\nPolestar.Set("ui.textSize", 1.2)\n${STEP}`,
 		},
 	},
 };
