@@ -18,12 +18,12 @@ step Zeppelin to Undercity
 step Apothecary Zinge
   zone Undercity
   accept 232
-  turnin 232
+  turnin 232                            -- Alessandro Luca
   accept 238
+  turnin 728                            -- Keeper Bel'dugur, on the way back to Zinge
   turnin 238
   accept 243
   collect 8523                          -- the Field Testing Kit from these errands: keep it, Tanaris Field Sampling hands it back in Gadgetzan
-  turnin 728
 
 # ---------------------------------------------------------------- The Undercity
 

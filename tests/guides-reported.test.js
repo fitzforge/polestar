@@ -10204,3 +10204,14 @@ test('Horde starts: the profession Camping 101 quests, each behind its skill, af
 		}
 	}
 });
+
+// Hand-in order sweep (0.3.6, Horde 40-60): talk goals are taken in written order. On 40-50/03's Undercity stop Zinge's
+// errand runs Zinge -> Alessandro Luca -> Zinge, and Keeper Bel'dugur (728) stands between Luca and Zinge, so he is
+// visited on the way back instead of after a second walk.
+test('Horde Undercity 45: Yagyin\'s Digest to Bel\'dugur between Luca and Zinge', { skip }, () => {
+	const list = goals('forever/horde/40-50/03-feralas.guide');
+	const luca = at(list, 'turnin 232', is('turnin', 232));
+	const bel = at(list, 'turnin 728', is('turnin', 728));
+	const zinge = at(list, 'turnin 238', is('turnin', 238));
+	assert.ok(luca < bel && bel < zinge && list[bel].s === list[luca].s && list[zinge].s === list[luca].s, 'Luca, Bel\'dugur, Zinge on one stop');
+});
