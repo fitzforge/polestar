@@ -191,11 +191,11 @@ step Brakk's campfire
 
 step Razor Hill
   accept 96822                        -- Turroc, on the east side of town; inside
+  turnin 5649 only Troll,Priest       -- Tai'jin, in the barracks beside Turroc
+  accept 5648 only Troll,Priest
   turnin 823                          -- Orgnil Soulscar
   accept 784
   turnin 96821                        -- Gar'Thok
-  turnin 5649 only Troll,Priest       -- Tai'jin, in the barracks with Gar'Thok
-  accept 5648 only Troll,Priest
   accept 815
 
 # ---------------------------------------------------------------- Razor Hill and the north
@@ -239,13 +239,13 @@ step Tiragarde Keep
 step Razor Hill
   tip Back north-west to Razor Hill: Gar'Thok first, then Furl in the watchtower, then Orgnil and Turroc on the way out east to the shore.
   turnin 784                          -- Gar'Thok
-  turnin 5648 only Troll,Priest       -- Tai'jin, beside Gar'Thok: the Juju Hex Robes
   turnin 830 optional
   accept 831
   accept 825
   turnin 791                          -- Furl Scornbrow
   accept 806                          -- Orgnil Soulscar
   turnin 96822                        -- Turroc, inside
+  turnin 5648 only Troll,Priest       -- Tai'jin, beside Turroc: the Juju Hex Robes
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
 
 # ---------------------------------------------------------------- The coast and Sen'jin
