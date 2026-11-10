@@ -24,7 +24,7 @@ commented example, [`addon/Polestar_Skin_Example`](../addon/Polestar_Skin_Exampl
 - [Tokens](#tokens)
 - [Legibility](#legibility)
 - [Painters and the paint kit](#painters-and-the-paint-kit)
-- [Hooks: the arrow and the map pins](#hooks-the-arrow-and-the-map-pins)
+- [Hooks: the arrow, the map pins and the guide window's title](#hooks-the-arrow-the-map-pins-and-the-guide-windows-title)
 - [When things go wrong](#when-things-go-wrong)
 - [Saved choices, load order, late registration](#saved-choices-load-order-late-registration)
 - [Versions and capabilities](#versions-and-capabilities)
@@ -211,7 +211,7 @@ Theme.RegisterSkin(id, {
 | `media` | `band`, `bandStars`: the header band's sky mask and stars (1024x128, drawn at 1:1 and tinted with `sky` and `star`). `medallion`: the map pins' medallion while the player's map icons follow the skin. |
 | `arrow`, `mapIcons` | Which of Polestar's arrow and map icon designs a player gets with these on "Skin" (the default). |
 | `paint` | [Painters](#painters-and-the-paint-kit), by kind of frame. |
-| `hooks` | [Hooks](#hooks-the-arrow-and-the-map-pins) for the art modules draw themselves. |
+| `hooks` | [Hooks](#hooks-the-arrow-the-map-pins-and-the-guide-windows-title) for the art modules draw themselves. |
 | `onApply`, `onLeave` | Called with the skin's id when it becomes, or stops being, the one in use (also at login when it is). For your own frames, if any. |
 
 ## Tokens
@@ -225,11 +225,13 @@ The palette is a set of named colours every Polestar frame reads through
 - **Washes** (colours with alpha): `border`, `divider`, `hover`, `selected`,
   `progress`, `track`, `toggle`, `box`, `thumb`, `swatch`, `chip`,
   `watermark`, `mover`.
-- **Roles**: `accent`, `windowBorder` (overridden by the player's window
-  border setting), `title`, `textOff`, `link`, `todo`, `later`, `arrive`,
+- **Roles**: `accent`, `windowBorder` (the windows' edge, on any base;
+  the player's border colour or accent border wins), `title`, `textOff`, `link`, `todo`, `later`, `arrive`,
   `manual`, `skipped`, `separator`, `rowLine`, `veil`, `veilWindow`, `menuBg`,
   `inputBg`, `control`, `accentLine`, `padSelect`, `chipAccent`, `icon`,
-  `iconHover`, `buttonText`, `personName`, `tabRest`, `rowLabel`, `navRest`.
+  `iconHover`, `buttonText`, `personName`, `tabRest`, `rowLabel`, `navRest`,
+  `closeFill`, `closeEdge`, `closeGlyph` (the guide window's close square, shown
+  by a `guideTitle` hook).
 - **The game looks' own**: `bgBottom`, `skyBottom`, `windowEdge`,
   `frameEdge`, `frameEdgeDark`, `titleLine`.
 - **Art**: `mapUnexplored`, `haze`.
@@ -314,15 +316,17 @@ whenever the player changes a colour, the scheme, the skin or the UI scale,
 and a frame must come out the same every time it is painted. Create a texture
 once (in `kit.store`), then only show, hide, tint and place it.
 
-## Hooks: the arrow and the map pins
+## Hooks: the arrow, the map pins and the guide window's title
 
-The waypoint arrow and the map pins are drawn by their own modules, not by
-`Theme.Skin`. After painting them, Polestar hands them to your hook:
+The waypoint arrow, the map pins and the guide window's title row are drawn
+by their own modules, not by `Theme.Skin`. After painting them, Polestar
+hands them to your hook:
 
 | Hook | Called with | When |
 |---|---|---|
 | `arrow` | the arrow's frame (`PolestarNavArrow`), the style in use (`"3d"`, `"flat"`, `"halo"`, `"hearth"`) | after the arrow repaints its look (a theme or arrow setting changed) |
 | `pin` | the pin's frame | after a map pin is (re)built or restyled |
+| `guideTitle` | the navigator frame, and `parts`: `bar` (the title bar texture, the `sky` to `skyBottom` gradient), `close` (a close square in `closeFill`, `closeEdge` and `closeGlyph` that hides the window), `rule` (the line under the navigator), `band` (the house band behind the bars), `menuRight` (the menu button's inset from the right edge, 8) | after the window's style is applied (not in the transparent window), each part in the base's state; show or hide parts and set `parts.menuRight` (26 leaves room for the close square). With the bar shown, the rule takes `titleLine` |
 
 Hooks run often (one per pin); keep them cheap and keep what you create on
 the frame you are given, created once. Choosing Polestar's own designs is
@@ -378,7 +382,7 @@ painter kind and hook (`surfaces.window`, `surfaces.guide`, `surfaces.toast`,
 `surfaces.panel`, `surfaces.sidebar`, `surfaces.inset`, `surfaces.button`,
 `surfaces.tile`, `surfaces.dropdown`, `surfaces.editbox`,
 `surfaces.checkbox`, `surfaces.tab`, `surfaces.close`, `surfaces.scrollbar`,
-`surfaces.arrow`, `surfaces.pin`). `Theme.Capabilities()` lists them.
+`surfaces.arrow`, `surfaces.pin`, `surfaces.guideTitle`). `Theme.Capabilities()` lists them.
 
 Polestar 0.3.6 and older have no `Theme.RegisterSkin`: check for it, as the
 quick start does.

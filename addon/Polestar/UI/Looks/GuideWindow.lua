@@ -140,6 +140,18 @@ local function buildPreview(view)
 	nav.SkipIcon:SetSize(11, 11)
 	nav.Skip = text(nav, "small", "textDim", "bar")
 	nav.Skip:SetText(L["Skip"])
+	-- A skin's title bar and close square (the guideTitle hook shows them).
+	nav.TitleBar = W.Tex(nav, "BACKGROUND", nil, "sky", -4)
+	nav.TitleBar:SetPoint("TOPLEFT", nav, "TOPLEFT", 4, 0)
+	nav.TitleBar:SetPoint("BOTTOMRIGHT", nav, "BOTTOMRIGHT", -4, 1)
+	nav.Close = CreateFrame("Frame", nil, nav)
+	nav.Close:SetSize(18, 18)
+	nav.Close:SetPoint("RIGHT", nav, "RIGHT", -5, 0)
+	W.Fill(nav.Close, "closeFill", "BACKGROUND", -3)
+	nav.Close.Glyph = W.Tex(nav.Close, "ARTWORK", "close", "closeGlyph")
+	nav.Close.Glyph:SetSize(10, 10)
+	nav.Close.Glyph:SetPoint("CENTER", nav.Close, "CENTER", 0, 0)
+	W.Painter(nav.Close, function(b) Theme.Border(b, Theme.Color("closeEdge")) end)
 	f.Nav = nav
 
 	-- The focus: who to talk to.
@@ -292,7 +304,18 @@ local function buildPreview(view)
 		nav.Title:SetShown((not showStrip or not steps) and G.On("guideTitle"))
 		nav.Title:ClearAllPoints()
 		nav.Title:SetPoint("LEFT", nav, "LEFT", steps and (x0 + 48 + cw + 8) or pad, 0)
-		local right = 8
+		-- The skin's title (GuideFrame's ApplyStyle): the house state, then its hook.
+		nav.TitleBar:SetShown(not clear and Theme.SkinKey() == "hearth")
+		nav.Close:Hide()
+		gw.Band:SetShown(not clear and Theme.SkinKey() == "polestar")
+		local title = G.TitleParts(nav.TitleBar, nav.Close, nav.Rule, gw.Band)
+		if not clear and Theme.SkinHook then Theme.SkinHook("guideTitle", nav, title) end
+		if nav.TitleBar:IsShown() then
+			nav.Rule:SetVertexColor(Theme.Color("titleLine"))
+		else
+			nav.Rule:SetVertexColor(Theme.Wash("divider"))
+		end
+		local right = tonumber(title.menuRight) or 8
 		nav.Menu:SetPoint("CENTER", nav, "RIGHT", -(right + 12), 0)
 		right = right + 24
 		local report = G.On("reportButton")
@@ -417,9 +440,9 @@ local function buildPreview(view)
 		end
 		gw:SetHeight(y)
 
-		-- The band behind the bars (Standard, the house skin), the transparent
-		-- style's backing, the bars that wait for the cursor.
-		gw.Band:SetShown(not clear and Theme.SkinKey() == "polestar")
+		-- The band behind the bars (Standard, the house skin, unless the skin's
+		-- title hides it), the transparent style's backing, the bars that wait
+		-- for the cursor.
 		gw.Band:SetHeight(barsH)
 		gw.Band:SetTexCoord(Theme.BandCoords(w - 2, barsH, 30))
 		local veil = G.Backing()
@@ -429,7 +452,7 @@ local function buildPreview(view)
 		for _, fs in ipairs(self.texts) do G.ShadeText(fs, soft and fs:IsVisible()) end
 		local bars = (not clear or self.psHover or ns.Get("ui.barShown")) and 1 or 0
 		strip:SetAlpha(bars)
-		for _, t in ipairs({ nav.Prev, nav.Count, nav.Next, nav.Title, nav.Menu, nav.Report, nav.Nearby, nav.Skip, nav.SkipIcon }) do t:SetAlpha(bars) end
+		for _, t in ipairs({ nav.Prev, nav.Count, nav.Next, nav.Title, nav.Menu, nav.Report, nav.Nearby, nav.Skip, nav.SkipIcon, nav.TitleBar, nav.Close }) do t:SetAlpha(bars) end
 		gw:SetAlpha((ns.Get("ui.opacity") or 1) * (self.psHover and 1 or G.Num("idleAlpha")))
 
 		-- The window at its own scale, smaller only to fit the stage.

@@ -295,7 +295,7 @@ assert(ok, message)
 | `arrow` | `"3d"`, `"flat"`, `"halo"`, `"hearth"` | Which of Polestar's arrow designs a player gets while their arrow style is "Skin" (the default). Default: the base's (`3d` for Polestar, `halo` for Halo, `hearth` for the rest). |
 | `mapIcons` | `"polestar"`, `"halo"`, `"hearth"` | Which map icon design those players get. Same defaults. |
 | `paint` | table of surface -> function | [Painters](#surfaces-painters). Unknown surface: `unknown paint "<name>"`; not a function: `paint.<name> has the wrong type`. |
-| `hooks` | `{ arrow? = fn, pin? = fn }` | [Hooks](#surfaces-hooks) for the arrow and the map pins. |
+| `hooks` | `{ arrow? = fn, pin? = fn, guideTitle? = fn }` | [Hooks](#surfaces-hooks) for the arrow, the map pins and the guide window's title row. |
 | `onApply`, `onLeave` | functions | [Events](#events). |
 
 Everything is optional except `name` and `addon`: `RegisterSkin("x", { name
@@ -427,7 +427,9 @@ give them as full colours instead.
 ### Roles (skins only)
 
 Derived from other tokens on the Polestar base (the "from" column) unless a
-skin gives them; the other bases give them outright.
+skin gives them; the other bases give them outright, except `closeFill`,
+`closeEdge` and `closeGlyph`, which every base derives the same way, and
+`windowBorder`, which the player's border settings override on every base.
 
 | Token | Where | Polestar: from | Halo | Hearth | Forever / Blizzard / Classic |
 |---|---|---|---|---|---|
@@ -457,7 +459,10 @@ skin gives them; the other bases give them outright.
 | `padSelect` | the gamepad selection | **ignored on this base** (accent @0.12) | `#ffd100@0.12` | `#ffd100@0.14` | same |
 | `chipAccent` | accent-tinted chips | **ignored on this base** (accent @0.16) | `#ffd100@0.16` | `#ffd100@0.16` | same |
 | `inputBg` | edit box grounds | **ignored on this base** (`shade` @0.35) | `#000000@0.35` | `#000000` | same |
-| `windowBorder` | the window border | **ignored on every base**: at run time it is the player's border colour, else the accent when they chose that, else `windowEdge` or `border` | | | |
+| `closeFill` | the guide window's close square (shown by a [`guideTitle`](#surfaces-hooks) hook) | `danger` | `danger` | `danger` | `danger` |
+| `closeEdge` | the close square's edge | `border` | `border` | `border` | `border` |
+| `closeGlyph` | the close square's cross | `text` | `text` | `text` | `text` |
+| `windowBorder` | the window border, on every base | the player's border colour, else the accent when they chose that (`ui.borderAccent`), else the skin's `windowBorder`, else `border` | same | same, with `windowEdge` before `border` | same, with `windowEdge` before `border` |
 
 ### The game looks' own (skins only)
 
@@ -662,8 +667,8 @@ assert(Theme.RegisterSkin("ref-kit", {
 
 ## Surfaces: hooks
 
-The waypoint arrow and the map pins draw themselves and then hand the frame
-to your hook, if the skin in use has one. A hook may add to what is drawn
+The waypoint arrow, the map pins and the guide window's title row draw
+themselves and then hand the frame to your hook, if the skin in use has one. A hook may add to what is drawn
 (keep what you create on the frame you are given, created once) and tint
 what it can reach; Polestar's own arrow and map icon designs are chosen with
 `arrow` and `mapIcons` in the spec, which is simpler and usually enough.
@@ -672,6 +677,7 @@ what it can reach; Polestar's own arrow and map icon designs are chosen with
 |---|---|---|---|
 | `arrow` | `function(frame, style)` | after the arrow repaints its look: a theme change, an arrow setting changed | `frame`: the arrow's frame (`PolestarNavArrow`, a frame of fixed size holding the dial and the distance text). `style`: `"3d"`, `"flat"`, `"halo"` or `"hearth"`. The dial's parts are **not** exposed as fields on the frame in version 1: you can overlay, not restyle. |
 | `pin` | `function(pin)` | after a map pin is built or restyled, for every pin (world map, minimap, numbered route pins) | `pin`: the pin's frame. Its parts are plain fields today (`pin.icon`, `pin.medal`, `pin.mark`, `pin.glow`, `pin.edge`, `pin.text`, `pin.fill`, `pin.ring`, `pin.ring2`, `pin.back`) but they are **not** part of the versioned API: treat them as read-only and check they exist. |
+| `guideTitle` | `function(nav, parts)` | after the guide window's style is applied (a skin, theme or window style change), not in the transparent window; the Looks page's preview calls it too, with its own parts | `nav`: the navigator frame (the row with the step count and the menu). `parts`, each in the base's state when the hook runs: `bar` (the title bar texture, a `sky` to `skyBottom` gradient, shown on Hearth), `close` (a close square in `closeFill`, `closeEdge` and `closeGlyph` that hides the window, hidden), `rule` (the line under the navigator), `band` (the house band behind the bars, shown on the Polestar base), `menuRight` (the menu button's inset from the right edge, `8`). Show or hide parts and set `parts.menuRight`: `26` leaves room for the close square. With the bar shown, the rule takes `titleLine`. Under `surfaces.guideTitle`. |
 
 Hooks run often (one per pin per restyle). Keep them cheap; create nothing
 on every call.
@@ -858,7 +864,7 @@ player sees Polestar's own look, and their saved choice waits.
 | `events` | `onApply`, `onLeave` |
 | `preview` | `DrawSkinCard`, `DrawSchemeCard`, cards in the picker |
 | `surfaces.window`, `surfaces.guide`, `surfaces.toast`, `surfaces.panel`, `surfaces.sidebar`, `surfaces.inset`, `surfaces.button`, `surfaces.tile`, `surfaces.dropdown`, `surfaces.editbox`, `surfaces.checkbox`, `surfaces.tab`, `surfaces.close`, `surfaces.scrollbar` | each painter kind |
-| `surfaces.arrow`, `surfaces.pin` | each hook |
+| `surfaces.arrow`, `surfaces.pin`, `surfaces.guideTitle` | each hook |
 
 A later Polestar adds capabilities without raising `API_VERSION`; test for
 the one you need and leave the feature out where it is missing

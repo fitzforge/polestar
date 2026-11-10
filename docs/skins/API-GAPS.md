@@ -9,14 +9,12 @@ the maintainer or Fitz, not just code.
 
 ## Tokens that are accepted but ignored
 
-1. **`windowBorder` is a no-op on every base.** `resolve` and `resolveSkin`
-   both end with `out.windowBorder = <player colour> or <accent> or
-   copy(out.windowEdge or out.border)`, so a skin's `windowBorder` token
-   never reaches the palette, yet `RegisterSkin` accepts it. Docs say "the
-   player's setting wins", which reads as "else yours". Fix: either let the
-   skin's token stand in the "else" branch (before `windowEdge`/`border`),
-   or refuse the token in a spec as `belongs to the player`. The reference
-   documents the current behaviour as "ignored on every base".
+1. **`windowBorder` on every base: done.** `resolve` and `resolveSkin` now
+   take a skin's `windowBorder` token in the "else" branch: the player's
+   border colour, else the accent border (`ui.borderAccent`), else the
+   skin's `windowBorder`, else `windowEdge` or `border`. Before, the token
+   was accepted and never reached the palette. The reference documents the
+   new order.
 2. **`accentLine`, `padSelect`, `chipAccent`, `inputBg` are ignored on the
    `polestar` base** (overwritten from the accent and `shade` at the end of
    `resolve`), but honoured on `halo`, `hearth` and the game looks. Fix:

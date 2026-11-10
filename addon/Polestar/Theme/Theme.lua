@@ -639,7 +639,11 @@ local HOUSE_EXTRA = {
 	manual = "item", skipped = "spell", separator = "divider", rowLine = "divider", veil = "bg", veilWindow = "bg",
 	menuBg = "panel", control = "panelAlt", icon = "textDim", iconHover = "text", buttonText = "text",
 	personName = "npc", tabRest = "textDim", rowLabel = "text", navRest = "textDim",
+	-- A close square a skin shows on the guide window's title (the guideTitle hook).
+	closeFill = "danger", closeEdge = "border", closeGlyph = "text",
 }
+-- Those a non-house skin falls back on too.
+local SKIN_EXTRA = { "closeFill", "closeEdge", "closeGlyph" }
 
 -- A skin's palette, with the player's own accent, window border and arrow
 -- colours over it.
@@ -669,7 +673,10 @@ local function resolveSkin(skin)
 	elseif get("ui.borderAccent") then
 		out.windowBorder = { r, g, b, 0.8 }
 	else
-		out.windowBorder = copy(out.windowEdge or out.border)
+		out.windowBorder = copy(out.windowBorder or out.windowEdge or out.border)
+	end
+	for _, name in ipairs(SKIN_EXTRA) do
+		if not out[name] then out[name] = copy(out[HOUSE_EXTRA[name]] or out.text) end
 	end
 	local far, near = get("nav.arrowColor"), get("nav.arrowNearColor")
 	out.arrow = isColor(far) and { far[1], far[2], far[3], 1 } or copy(out.accent)
@@ -746,14 +753,15 @@ local function resolve(id, schemeKey)
 	ownColours(out)
 	ownDepth(out)
 	-- The window border: the player's own colour > the accent
-	-- (ui.borderAccent, at the focus ring's 80%) > the scheme's hairline.
+	-- (ui.borderAccent, at the focus ring's 80%) > a registered skin's own
+	-- windowBorder token > the scheme's hairline.
 	local edge = get("ui.borderColor")
 	if isColor(edge) then
 		out.windowBorder = { edge[1], edge[2], edge[3], 1 }
 	elseif get("ui.borderAccent") then
 		out.windowBorder = { r, g, b, 0.8 }
 	else
-		out.windowBorder = copy(out.border)
+		out.windowBorder = copy(out.windowBorder or out.border)
 	end
 	-- The waypoint arrow, its route stops and the map's target pin: the
 	-- player's own colour > the accent while far; the player's own > success
@@ -2266,7 +2274,7 @@ Theme.API_VERSION = 1
 -- themselves and hand to a skin's hook (Theme.SkinHook).
 local PAINT_KINDS = { window = true, guide = true, toast = true, panel = true, sidebar = true, inset = true, button = true,
 	dropdown = true, tile = true, editbox = true, checkbox = true, tab = true, close = true, scrollbar = true }
-local HOOKS = { arrow = true, pin = true }
+local HOOKS = { arrow = true, pin = true, guideTitle = true }
 local SKIN_MEDIA = { band = true, bandStars = true, medallion = true }
 local ARROW_STYLES = { ["3d"] = true, flat = true, halo = true, hearth = true }
 local MAP_ICONS = { polestar = true, halo = true, hearth = true }
