@@ -4794,6 +4794,27 @@
 		],
 		"note": "Stormy Potential (Durotar, Rezlak) is offered once A Simmering Storm 97281 is handed in, and A Simmering Storm starts from the Dull Storm Orb, a chance drop of the Dustwind Storm Witches. Three Orc and Troll players at Rezlak were not offered it (#807). The merged data had no prerequisite, so the routes took it as a must-do at the first Rezlak stop; with it, the writer makes it optional (a chain after a chance drop)."
 	},
+	"97284": {
+		"set": {
+			"pre": [
+				1437
+			],
+			"preAny": [
+				1437
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#1579"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (#1579, people counted per IngestAudit): 3 people (2 established) were offered Vahlarriel's Vengeance (97284) by Vahlarriel Demonslayer, each with Vahlarriel's Search (1437) handed in; a level 36 Human with 1437 not done got only 1437 from her (a direct quest window)"
+			}
+		],
+		"note": "Vahlarriel's Vengeance (Desolace, Vahlarriel Demonslayer at Nijel's Point) comes after the first part of Vahlarriel's Search (1437), handed in at the Malem chest: in game, it was available once 1437 was completed (#1579, 2026-11-10), and a player with 1437 still in the log found nothing to take. The merged data had no prerequisite, so the Alliance Desolace guide asked for it together with 1437."
+	},
 	"97289": {
 		"set": {
 			"pre": [
