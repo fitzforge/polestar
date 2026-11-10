@@ -3162,6 +3162,9 @@ L["%s: %d minutes left"] = "%s: noch %d Minuten"
 L["%s: 1 minute left"] = "%s: noch 1 Minute"
 L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = "%s fehlgeschlagen: Die Zeit ist abgelaufen. Brecht sie im Questlog ab und nehmt sie erneut an."
 
+-- UI/GearPick.lua
+-- L["at turn-in"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "Das Ziel des Pfeils, die Stationen seiner Reiseroute, die anderen Ziele des Schritts und die Gebiete, in denen ihre Mobs und Objekte spawnen."
