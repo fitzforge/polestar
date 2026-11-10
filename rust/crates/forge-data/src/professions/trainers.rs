@@ -190,7 +190,7 @@ const CURATED: [Curated; 12] = [
 		name: "Skinning",
 		train: s(
 			&["Maris Granger", "Helene Peltskinner", "Balthus Stoneflayer", "Radnaal Maneweaver", "Jayla", "Eladriel", "Wilma Ranthal"],
-			&["Thuwd", "Mooranta", "Rand Rhobart", "Killian Sanatha", "Yonn Deepcut", "Dranh", "Kulleg Stonehorn", "Malux"],
+			&["Thuwd", "Mooranta", "Rand Rhobart", "Killian Hagey", "Yonn Deepcut", "Dranh", "Kulleg Stonehorn", "Malux"],
 		),
 		novice: None,
 		expert: None,
@@ -493,5 +493,18 @@ mod tests {
 		let level = |i: usize| r.ranks[i].get("minLevel").num();
 		assert_eq!([level(0), level(1), level(2), level(3)], [1.0, 10.0, 20.0, 35.0]);
 		assert_eq!(resolve(186, &f, "gathering").ranks[0].get("minLevel").num(), 1.0);
+	}
+
+	// Undercity's Skinning trainer is Killian Hagey; Killian Sanatha (The Sepulcher) teaches Fishing,
+	// and no Forever trainer list has him teaching Skinning (#1608's trainer sweep).
+	#[test]
+	fn undercity_skinning_trainer_is_killian_hagey() {
+		let npcs = parse_json(r#"{"1":{"id":1,"name":"Killian Hagey","faction":"H","spawns":{"1458":{"pts":[[70,59]]}}},"2":{"id":2,"name":"Killian Sanatha","faction":"H","spawns":{"1421":{"pts":[[43,40]]}}}}"#).unwrap();
+		let f = Finder::new(npcs.as_obj().unwrap());
+		let r = resolve(393, &f, "gathering");
+		assert_eq!(stringify(&r.trainers.get("Horde"), None), "[1]");
+		for rank in &r.ranks {
+			assert_eq!(stringify(&rank.get("trainers").get("Horde"), None), "[1]");
+		}
 	}
 }
