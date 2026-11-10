@@ -212,9 +212,10 @@ L["Open the Community guides page"] = "커뮤니티 가이드 페이지 열기"
 L["Browse the guide with the gamepad"] = "게임패드로 가이드 탐색"
 L["Open the guide menu"] = "가이드 메뉴 열기"
 L["Open Polestar options"] = "Polestar 설정 열기"
+L["Browse guide (gamepad)"] = "가이드 탐색 (게임패드)"
+L["Delete cheapest junk"] = "가장 싼 잡동사니 삭제"
 L["Open the Gamepad page: button names and bindings"] = "게임패드 페이지 열기: 버튼 이름과 단축키"
 L["Target rare"] = "희귀 대상 지정"
-L["Make bag room: delete the cheapest junk (press twice)"] = "가방 공간 확보: 가장 싼 잡동사니 삭제 (두 번 누르기)"
 L["Next waypoint"] = "다음 경유지"
 L["Previous waypoint"] = "이전 경유지"
 L["List the quests in your log the route never hands in"] = "경로에서 제출하지 않는 퀘스트 목록의 퀘스트 나열"
@@ -750,6 +751,9 @@ L["Instance limits, runs and lockouts (instances clear: forget them)"] = "인스
 L["%dh %02dm"] = "%d시간 %02d분"
 L["%dm"] = "%d분"
 L["%ds"] = "%d초"
+
+-- QoL/QuickBind.lua
+L["Not needed right now: shown so you can bind it."] = "지금은 필요 없음: 키를 지정할 수 있도록 표시됩니다."
 
 -- QoL/Buttons.lua
 L["Target"] = "대상"

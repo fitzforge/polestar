@@ -275,6 +275,9 @@ local function create()
 	-- mouse click casts once, on its release; leaving puts it back to nil, so
 	-- the binding follows the player's key-down setting.
 	b:SetScript("OnEnter", function(self)
+		-- The game's Quick Keybind Mode takes the hover (QoL/QuickBind.lua).
+		local QB = ns.QoL and ns.QoL.QuickBind
+		if QB and QB.Hover(self) then return end
 		if not inLockdown() then self:SetAttribute("useOnKeyDown", false) end
 		paintBorder(self, true)
 		if not GameTooltip then return end
@@ -294,6 +297,10 @@ local function create()
 	end)
 	button = b
 	Prompts.button = b
+	-- Bindable from Quick Keybind Mode while it shows (never shown for it:
+	-- it stands under the arrow only for a cast leg).
+	local QB = ns.QoL and ns.QoL.QuickBind
+	if QB then QB.Add(b) end
 end
 
 -- Just under the arrow, in UIParent's space; the arrow may be scaled.

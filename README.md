@@ -665,6 +665,17 @@ guides you there instead.
 - **New in Forever.** Quests Forever added carry a small ∞ mark on their
   step, in While you're here, in the Codex and in quest tooltips (Options,
   Guide, Window, "Mark quests new in Forever").
+- **Bind the buttons from Quick Keybind Mode** (Options > Keybindings > Quick
+  Keybind Mode, or an action bar addon's `/kb`): hover the Target, quest
+  item, Hearthstone, rare, bag or travel button and press a key (with
+  Shift, Ctrl or Alt if you like), a mouse button or the wheel; Escape
+  unbinds. While the window is open, the buttons the guide doesn't need right
+  now show dimmed in their places, named, so you can bind them too, and go
+  again when it closes. The window's Okay keeps the keys (for this character
+  only if you tick its box), Cancel drops them. Nothing changes in a fight.
+- **Key bindings** (Options > Keybindings): all of Polestar's, the
+  Recorder's included, have a **Polestar** section of their own, and
+  searching "polestar" there finds them.
 
 ### Playing in a party
 

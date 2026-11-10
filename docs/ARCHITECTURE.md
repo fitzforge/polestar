@@ -81,7 +81,7 @@ Only these globals may be assigned anywhere under `addon/` (enforced by
 
 `Polestar`, `PolestarDB`, `PolestarCharDB`, `PolestarRecorderDB`,
 `SLASH_POLESTAR<n>`, `SLASH_POLESTARREC<n>`, `SLASH_POLESTARWAY<n>` (`/way`,
-claimed only while no addon has it), `BINDING_HEADER_POLESTAR`,
+claimed only while no addon has it), `BINDING_TAG_POLESTAR`,
 `BINDING_NAME_POLESTAR_*`, in `Polestar_Nav` only `Polestar_NavEngine`
 (the engine's handoff), `PolestarPathData` (the walking maps) and, in
 `Routing/Costs.lua` only, `Polestar_NavCosts` (the router's ground-class
@@ -5127,6 +5127,56 @@ or `SetOverrideBindingClick` on `QuestFrameAcceptButton`,
 by the press after it). Re-read on target, quest-window, binding and step
 changes and `LOOT_CLOSED`.
 
+### Quick Keybind Mode — QoL/QuickBind, QoL/Buttons, Nav/Prompts
+
+```lua
+Polestar.QoL.QuickBind.Add(button, { force?, enabled?, wanted?, icon? })
+Polestar.QoL.QuickBind.Hover(button) -> true when the mode took the hover
+Polestar.QoL.QuickBind.Active() -> bool
+```
+
+The game's Quick Keybind Mode (`QuickKeybindFrame`, Blizzard_QuickKeybind;
+opened from Options > Keybindings or an action bar addon's `/kb`) binds a key
+to the button under the cursor. The game's own action buttons join it through
+`QuickKeybindButtonTemplateMixin`, called from secure code; addon code calling
+that mixin starts the window's `KeybindListener` tainted (its `ProcessInput`
+runs `RunBinding("SCREENSHOT")`, protected). So Polestar's buttons join the
+mode with code of their own, on the same signals and the same binding rules:
+`EventRegistry` callbacks `QuickKeybindFrame.QuickKeybindModeEnabled` /
+`...Disabled` open and close it; each registered button wears the mode's
+highlight (atlas `UI-HUD-ActionBar-IconFrame-Mouseover`, 0.5 idle, 1
+hovered, as `DoModeChange` and `QuickKeybindButtonOnEnter` set it; an accent
+wash without the atlas). Hovering one (`Hover`, first thing in the button's
+`OnEnter`, which then skips its own tooltip) lays a plain frame
+(FULLSCREEN_DIALOG, above the window's DIALOG) over it that reads the
+keyboard, mouse buttons and wheel, and shows `QuickKeybindTooltip` as the
+mixin does (`GetBindingName`, `GetBindingKeyForAction`, `ESCAPE_TO_UNBIND` /
+`NOT_BOUND` + `PRESS_KEY_TO_BIND`). A key there follows `ProcessInput`:
+`GetConvertedKeyOrButton`, `IsKeyPressIgnoredForBinding` (a bare modifier),
+`CreateKeyChordStringUsingMetaKeyState`, the action's keys cleared, the key
+taken from what it ran (`KEY_UNBOUND_ERROR` / `PRIMARY_KEY_UNBOUND_ERROR`
+in the window's line when that action is left without it), the new key bound
+first and the old second key after it (`KEY_BOUND`); all in the action's
+`C_KeyBindings.GetBindingContextForAction` context. Escape clears the first
+key (`ClearActionPrimaryBinding`); left and right clicks bind nothing
+(`QuickKeybindButtonOnClick`); the screenshot key takes one (`Screenshot()`).
+Nothing saves: the window's Okay runs `SaveBindings(GetCurrentBindingSet())`
+(its character-specific box picks the set), Cancel `LoadBindings`. The frame
+consumes what it reads and never runs in a fight: `PLAYER_REGEN_DISABLED`
+hides it.
+
+`force` buttons (the quest item, Hearthstone, Target, rare and bag buttons;
+each only while its option is on, `enabled`) show while the window is open
+even when the guide hides them (`wanted`: a secure `type` attribute, the bag
+button's `junk`), at 0.45 alpha, with `icon()` standing in for an item icon
+and the binding's name as the label. A 0.2 s check while the window is open
+re-shows one the guide hides and gives one the guide shows its own look
+back (the label only while it is still the binding's name). Closing restores
+the labels and hides those buttons through `QoL.Secure` (a fight holds
+them, dimmed, until it ends). The travel button joins unforced (it is made
+for a cast leg and bindable while it shows). The step key has no button on
+screen; Options > Keybindings binds it.
+
 ### Breath warning — QoL/Breath
 
 Behind `qol.breathWarning` (off by default; Quality of Life → Travel →
@@ -6557,7 +6607,15 @@ Polestar.Gamepad.HasWindow() -> bool                        -- a Polestar window
   goal that has a place, round the step), `_FOCUS`, `_MENU`
   (`TOGGLE_PICKER`), `_OPTIONS` (`TOGGLE_OPTIONS`), `_REPORT`, and the quest
   buttons' `CLICK` bindings; `Polestar.Bindings` runs them, and every one but
-  the `CLICK` bindings takes a chord. Nothing is bound unasked. A chord
+  the `CLICK` bindings takes a chord. Every binding (the Recorder's too) has
+  `category="Polestar"`: Options > Keybindings lists them in a section of
+  their own after AddOns (the game shows a category that is no global string
+  as itself; `_G.Polestar` is the addon's table), so their names are short
+  (the column fits ~22 characters) and say no "Polestar". The settings search
+  matches names and search tags, never the section, so each has
+  `searchTags="BINDING_TAG_POLESTAR"` (`"Polestar"`, set in Core/Commands.lua
+  and the Recorder's Panel.lua). Bindings are saved by name, so moving the
+  section keeps every key. Nothing is bound unasked. A chord
   (`"PADLSHOULDER+PADDUP"`) is Polestar's own, in
   `PolestarDB.gamepad.chords[action]` (account-wide, outside the settings,
   so "Reset all settings" keeps it), never bound: while chords exist and a
@@ -7770,8 +7828,8 @@ read by the data build and `record report|draft`; nothing writes it any more.
 The Recorder window (`Panel.lua`; `/psrec ui`, Polestar's Options > Recorder
 and its guide menu; drawn with Polestar's Theme and Widgets when Polestar is
 loaded, else the game's templates) turns recording on and off, starts and
-stops a trail (also the key binding "Recorder: start or stop the position
-trail", `/psrec trail toggle`), marks a point, lists this session's trails
+stops a trail (also the key binding "Recorder: trail on/off", `/psrec trail
+toggle`), marks a point, lists this session's trails
 and has Save now (a /reload). Its spot list is `Spots.lua`, generated once
 from the maintainers' trail list (spots up to level 30, in each faction's tour
 order); the label box offers the first spot not done that the player's level

@@ -53,9 +53,10 @@ L["Use the route's Hearthstone or teleport"] = "Usar la piedra de hogar o el tel
 L["Browse the guide with the gamepad"] = "Recorrer la guía con el control"
 L["Open the guide menu"] = "Abrir el menú de la guía"
 L["Open Polestar options"] = "Abrir las opciones de Polestar"
+L["Browse guide (gamepad)"] = "Recorrer guía (control)"
+L["Delete cheapest junk"] = "Eliminar basura más barata"
 L["Open the Gamepad page: button names and bindings"] = "Abrir la página Control: nombres de botones y asignaciones"
 L["Target rare"] = "Seleccionar raro"
-L["Make bag room: delete the cheapest junk (press twice)"] = "Hacer espacio en las bolsas: eliminar la basura más barata (presiona dos veces)"
 L["Next waypoint"] = "Punto de ruta siguiente"
 L["Previous waypoint"] = "Punto de ruta anterior"
 L["List the quests in your log the route never hands in"] = "Mostrar las misiones de tu registro que la ruta nunca entrega"
@@ -613,6 +614,9 @@ L["Ride the elevator up"] = "Sube en el ascensor"
 L["Ride the elevator down"] = "Baja en el ascensor"
 L["Ride the elevator"] = "Toma el ascensor"
 L["%s Inn"] = "Posada de %s"
+
+-- QoL/QuickBind.lua
+L["Not needed right now: shown so you can bind it."] = "Ahora no se necesita: se muestra para que puedas asignarle una tecla."
 
 -- QoL/Buttons.lua
 L["Target"] = "Objetivo"
