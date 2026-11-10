@@ -74,6 +74,8 @@ mod engine_catchup;
 mod engine_die;
 #[path = "engine-dwell.rs"]
 mod engine_dwell;
+#[path = "engine-empty-stop.rs"]
+mod engine_empty_stop;
 #[path = "engine-enter.rs"]
 mod engine_enter;
 #[path = "engine-failed-quest.rs"]
