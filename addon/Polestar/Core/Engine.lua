@@ -2899,10 +2899,14 @@ goalDone = function(s, g, goal)
 		if areaName and (same(loc, areaName(want and want.area)) or same(loc, areaName(goal.area))) then return true end
 		return same(loc, goal.location)
 	elseif t == "enter" then
-		-- In the zone or area: its zone or subzone text (inPlace).
-		return inPlace(goal)
+		-- In the zone or area: its zone or subzone text (inPlace), on the
+		-- ground: a taxi passing over it is not there, landing in it is.
+		return inPlace(goal) and not C.IsOnTaxi()
 	elseif t == "hearth" or t == "fly" then
-		if inPlace(goal) or (t == "fly" and Own.landingReached(goal)) then return true end
+		-- A hearth is done in its place however the player got there (a flight
+		-- that lands in the town counts), but only on the ground: a taxi passing
+		-- over the town on its way elsewhere is not there.
+		if (inPlace(goal) and (t == "fly" or not C.IsOnTaxi())) or (t == "fly" and Own.landingReached(goal)) then return true end
 		-- Done once any later goal of the step is, like goto: a hearth followed
 		-- by a flight is behind the player once the flight lands. Later travel
 		-- goals count by their own place or check-off only (no recursion).

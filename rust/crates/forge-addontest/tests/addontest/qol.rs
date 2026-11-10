@@ -1349,6 +1349,95 @@ fn hearth_button_while_a_hearth_goal_is_open_gethearth_reports_bind_and_cooldown
 	assert_eq!(out[4], false);
 }
 
+// Reported on 0.3.6: the step said to hearth, the player took a flight instead, and the Hearthstone button stayed up for the
+// whole flight. On a taxi it goes (the client refuses the Hearthstone there), and the step key passes over it;
+// on landing it comes back while the goal is still open, the change held to the end of a fight like every
+// secure change, and stays gone when the flight landed where the goal is done (the Engine counts it there).
+#[test]
+fn hearth_button_hides_during_a_flight_and_comes_back_on_landing_while_the_hearth_goal_is_open() {
+	let out = run(r#"
+		local h, B = PolestarHearthButton, QoL.Buttons
+		local taxi = false
+		UnitOnTaxi = function(unit) return unit == "player" and taxi end
+		local function key() local k, v = B.StepAction(); return { k or false, v or false } end
+		q.items[6948] = { name = "Hearthstone" }
+		q.addItem(0, 1, 6948, 1)
+		q.step({ { t = "hearth", location = "Goldshire" } })
+		emit({ h:IsShown(), B.WantsHearth(), key() })
+		-- a flight starts
+		taxi = true
+		stub.fire("PLAYER_CONTROL_LOST"); stub.runTimers()
+		emit({ h:IsShown(), B.WantsHearth(), key() })
+		-- the step changing mid-flight does not bring it back
+		q.step({ { t = "hearth", location = "Goldshire" }, { t = "note", text = "Back to the inn." } })
+		emit(h:IsShown())
+		-- lands elsewhere, the goal still open: back
+		taxi = false
+		stub.fire("PLAYER_CONTROL_GAINED"); stub.runTimers()
+		emit({ h:IsShown(), key() })
+		-- a fight on the next flight: the landing's Show waits for its end
+		taxi = true
+		stub.fire("PLAYER_CONTROL_LOST"); stub.runTimers()
+		q.combat(true)
+		taxi = false
+		stub.fire("PLAYER_CONTROL_GAINED"); stub.runTimers()
+		emit(h:IsShown())
+		q.combat(false)
+		emit(h:IsShown())
+		-- a flight that lands in the hearth town: the goal is done there, the button stays gone
+		taxi = true
+		stub.fire("PLAYER_CONTROL_LOST"); stub.runTimers()
+		taxi = false
+		q.step({ { t = "hearth", location = "Goldshire", status = "done" }, { t = "note", text = "Back to the inn." } })
+		stub.fire("PLAYER_CONTROL_GAINED"); stub.runTimers()
+		emit({ h:IsShown(), B.WantsHearth() })
+	"#);
+	assert_eq!(out[0], json!([true, true, ["item", 6948]]));
+	assert_eq!(out[1], json!([false, false, [false, false]]), "on a taxi: no button, and the step key passes over the Hearthstone");
+	assert_eq!(out[2], false);
+	assert_eq!(out[3], json!([true, ["item", 6948]]), "landed away from the town, the goal still open");
+	assert_eq!(out[4], false, "no secure Show in combat");
+	assert_eq!(out[5], true, "shown once the fight ends");
+	assert_eq!(out[6], json!([false, false]));
+}
+
+// The same class for the quest item: the client refuses item spells on a taxi and says nothing about which
+// item would work there, so on a flight the quest item button goes and the step key never offers an item (a
+// use goal's or the fallback quest item); on landing both come back, held to the end of a fight. The bag glow
+// still marks the item (Buttons.ChooseQuestItem is unchanged).
+#[test]
+fn quest_item_button_and_step_key_item_are_hidden_during_a_flight_and_back_on_landing() {
+	let out = run(r#"
+		local b, B = PolestarQuestItemButton, QoL.Buttons
+		local taxi = false
+		UnitOnTaxi = function(unit) return unit == "player" and taxi end
+		local function keyItem() local k, v = B.StepAction(); return k == "item" and v or false end
+		q.items[900] = { name = "Torch" }
+		q.addItem(0, 1, 900, 1)
+		q.step({ { t = "use", item = 900, quest = 7 } })
+		emit({ b:IsShown(), b:GetAttribute("item"), keyItem() })
+		taxi = true
+		stub.fire("PLAYER_CONTROL_LOST"); stub.runTimers()
+		emit({ b:IsShown(), b:GetAttribute("item") or false, keyItem(), B.ChooseQuestItem() })
+		taxi = false
+		stub.fire("PLAYER_CONTROL_GAINED"); stub.runTimers()
+		emit({ b:IsShown(), b:GetAttribute("item"), keyItem() })
+		taxi = true
+		stub.fire("PLAYER_CONTROL_LOST"); stub.runTimers()
+		q.combat(true)
+		taxi = false
+		stub.fire("PLAYER_CONTROL_GAINED"); stub.runTimers()
+		emit(b:IsShown())
+		q.combat(false)
+		emit(b:IsShown())
+	"#);
+	assert_eq!(out[0], json!([true, "item:900", 900]));
+	assert_eq!(out[1], json!([false, false, false, 900]), "on a taxi: no button, no step key item; the choice itself stands");
+	assert_eq!(out[2], json!([true, "item:900", 900]), "back on landing");
+	assert_eq!(out[3], false, "no secure Show in combat");
+	assert_eq!(out[4], true, "shown once the fight ends");
+}
+
 // The client's choice in SecureActionButton_OnClick (SecureTemplates.lua) for an addon button: act on the press
 // when useOnKeyDown (nil: the ActionButtonUseKeyDown CVar) says so, else on the release.
 const ACTS: &str = r#"

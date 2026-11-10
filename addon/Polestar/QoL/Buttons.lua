@@ -10,7 +10,9 @@
 --     item of a quest in the current step; else a usable quest item in the
 --     bags that one of the step's open quests handed over when taken
 --     (Polestar.QuestDB; none without it), never one left from another quest.
---   Hearthstone: while the current step has an open `hearth` goal.
+--     Never during a flight.
+--   Hearthstone: while the current step has an open `hearth` goal, never
+--     during a flight.
 --   Target: /targetexact for the current step's kill targets and the mobs
 --     that drop its collect items: the ones the guide sends you to for that
 --     goal (`fromNpcs`), then the item's own droppers (Polestar.QuestDB when
@@ -528,14 +530,25 @@ function Buttons.ChooseQuestItem(view, raw)
 	return nil
 end
 
+-- On a flight neither button nor the step key offers an item: the client
+-- refuses item spells on a taxi and has no call that says which item would
+-- work there (the Hearthstone button stayed up all the way when a player
+-- flew instead of hearthing).
+local function onTaxi()
+	return ns.Compat.IsOnTaxi()
+end
+
+-- The Hearthstone can be used now: in the bags, and not on a flight.
+local function canHearth()
+	return Client.ItemCount(Client.HEARTHSTONE) > 0 and not onTaxi()
+end
+
 function Buttons.WantsHearth(view)
 	if not view then view = QoL.CurrentStep() end
 	if not view then return false end
 	local goals = view.goals or {}
 	for g = 1, #goals do
-		if goals[g].t == "hearth" and QoL.Open(goals[g]) then
-			return Client.ItemCount(Client.HEARTHSTONE) > 0
-		end
+		if goals[g].t == "hearth" and QoL.Open(goals[g]) then return canHearth() end
 	end
 	return false
 end
@@ -1273,9 +1286,9 @@ local function stepGoal(view, raw, goals, optional)
 			local t = gv.t
 			if t == "use" then
 				local item = gv.item or rg.item
-				if item and Client.ItemCount(item) > 0 then return "item", item end
+				if item and Client.ItemCount(item) > 0 and not onTaxi() then return "item", item end
 			elseif t == "hearth" then
-				if Client.ItemCount(Client.HEARTHSTONE) > 0 then return "item", Client.HEARTHSTONE end
+				if canHearth() then return "item", Client.HEARTHSTONE end
 			elseif t == "kill" or t == "collect" then
 				-- This goal's own mobs decide; the key then cycles all the step's.
 				if #Buttons.TargetNames({ goals = { gv } }, { rg }) > 0 then return "target", Buttons.TargetNames(view, raw) end
@@ -1299,7 +1312,7 @@ function Buttons.StepAction(view, raw)
 	local goals = view.goals or {}
 	local kind, value = stepGoal(view, raw, goals, false)
 	if not kind then kind, value = stepGoal(view, raw, goals, true) end
-	if not kind then
+	if not kind and not onTaxi() then
 		local item = Buttons.ChooseQuestItem(view, raw)
 		if item then kind, value = "item", item end
 	end
@@ -1456,7 +1469,7 @@ local function refresh()
 	-- One view of the current step for all three buttons.
 	local view, raw = QoL.CurrentStep()
 	local guideShown = ns.GuideShown()
-	applyItem(itemButton, QoL.On("itemButton") and guideShown and view and Buttons.ChooseQuestItem(view, raw) or nil)
+	applyItem(itemButton, QoL.On("itemButton") and guideShown and view and not onTaxi() and Buttons.ChooseQuestItem(view, raw) or nil)
 	applyItem(hearthButton, QoL.On("hearthButton") and guideShown and view and Buttons.WantsHearth(view) and Client.HEARTHSTONE or nil)
 
 	local list, verbs, ids, marks
@@ -1630,6 +1643,10 @@ ns.RegisterEvent("BAG_UPDATE_COOLDOWN", repaintItems)
 -- Who may mark (Buttons.MarkRight) follows the group.
 ns.RegisterEvent("GROUP_ROSTER_UPDATE", refreshSoon)
 ns.RegisterEvent("PARTY_LEADER_CHANGED", refreshSoon)
+-- The quest item and Hearthstone buttons go when a flight starts and come
+-- back on landing; in combat QoL.Secure holds the change until it ends.
+ns.RegisterEvent("PLAYER_CONTROL_LOST", refreshSoon)
+ns.RegisterEvent("PLAYER_CONTROL_GAINED", refreshSoon)
 ns.RegisterEvent("UPDATE_BINDINGS", function()
 	if not itemButton then return end
 	refreshHotkey(itemButton)
