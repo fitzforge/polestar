@@ -340,7 +340,6 @@ step Freewind Post
   accept 5147                         -- The Wanted poster beside Cliffwatcher
   accept 98070                        -- Jandia, the trade supplies vendor: the Screeching harpies of Roguefeather Den; inside the inn
   accept 98069                        -- Jandia: her stolen supplies lie in the same harpy den
-  sethome "Freewind Post"             -- Innkeeper Abeqwa, beside Jandia
 
 step Rau Cliffrunner
   zone Thousand Needles
@@ -380,6 +379,7 @@ step Freewind Post
   accept 5064
   turnin 4821                         -- Hagar Lightninghoof
   accept 4865
+  sethome "Freewind Post"             -- Innkeeper Abeqwa, beside Jandia
 
 step Rau Cliffrunner
   zone Thousand Needles

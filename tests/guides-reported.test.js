@@ -6074,6 +6074,22 @@ test('forever/horde/07-ashenvale.guide: final route review: Sharptalon on the wa
 	}
 });
 
+// Kolbi's report (#1563, Skyborne Druid 28): the first Freewind Post stop ended on the bind; leaving for the canyon
+// without it, the guide held that step and sent him back up the lift for the bind alone, while Pacify the Centaur's
+// hand-in waited for the later stop. The canyon work (the Alien Egg, the Galak camps, Splithoof Hold, Dorn's mesa)
+// all lies around Freewind and uses no hearthstone, so the bind comes on the return, with the hand-ins, before
+// the walk west to Darkcloud and Whitereach (as our comparison's order does).
+test(`${ASHENVALE_HORDE}: Kolbi's report (#1563): Freewind Post's bind comes on the return with the Galak hand-in, not on the first stop`, { skip }, () => {
+	const list = goals(ASHENVALE_HORDE);
+	const binds = list.filter(({ goal }) => goal.t === 'sethome' && goal.location === 'Freewind Post');
+	assert.equal(binds.length, 1, 'one Freewind Post bind');
+	const handIn = at(list, 'turnin 4841', is('turnin', 4841));
+	assert.equal(binds[0].s, list[handIn].s, 'the bind is on the stop that hands in Pacify the Centaur');
+	assert.ok(at(list, 'accept 4841', is('accept', 4841)) < list.indexOf(binds[0]), 'after the first stop');
+	for (const q of [4094, 4093, 4096]) assert.ok(list.findIndex(({ goal }) => goal.t === 'kill' && goal.npc === q) < list.indexOf(binds[0]), `the Galak kills (${q}) before the bind`);
+	assert.ok(list.indexOf(binds[0]) < at(list, 'Document Chest (5064)', (g) => g.quest === 5064 && g.t === 'interact'), 'the bind before the walk west to Darkcloud');
+});
+
 // Final route review, Horde 1-30 (and the release audit): Tirisfal's first Brill pass walks past Carolai, Coleman and
 // Gretchen (level 7) and the pass after the north loop past Terrence (level 10). Players' recordings show players at
 // 5-7 on the first pass, so each gets a step gated on its level where the walk passes, and the later visit keeps the
