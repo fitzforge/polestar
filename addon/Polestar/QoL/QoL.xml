@@ -4,6 +4,7 @@
 	<Script file="Keep.lua"/>
 	<Script file="Marks.lua"/>
 	<Script file="Space.lua"/>
+	<Script file="QuickBind.lua"/>
 	<Script file="Buttons.lua"/>
 	<Script file="BagGlow.lua"/>
 	<Script file="Hearth.lua"/>

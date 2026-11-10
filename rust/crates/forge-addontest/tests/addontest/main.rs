@@ -280,6 +280,8 @@ mod qol;
 mod qol_bagglow;
 #[path = "qol-items.rs"]
 mod qol_items;
+#[path = "qol-quickbind.rs"]
+mod qol_quickbind;
 #[path = "quest-links.rs"]
 mod quest_links;
 #[path = "questdb-memory.rs"]

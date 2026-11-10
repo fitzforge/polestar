@@ -56,6 +56,8 @@
 --     lead or assist (Buttons.QuestPingLine).
 --
 -- All of them go with the guide window (ns.GuideShown); the step key stays.
+-- In the game's Quick Keybind Mode they take a key under the cursor, and the
+-- hidden ones show dimmed in their slots until it closes (QoL/QuickBind.lua).
 --
 -- The buttons hang off one holder: the bag and hearth above the item, target and rare
 -- below. A left-drag on any of them moves the set (out of combat; with
@@ -373,6 +375,8 @@ local function newButton(name, onEnter)
 	end
 
 	b:SetScript("OnEnter", function(self)
+		-- The game's Quick Keybind Mode takes the hover (QoL/QuickBind.lua).
+		if QoL.QuickBind.Hover(self) then return end
 		paintBorder(self, true)
 		hoverStart(self)
 		if GameTooltip and onEnter then
@@ -1605,6 +1609,17 @@ local function create()
 	end)
 	Buttons.item, Buttons.hearth, Buttons.target, Buttons.rare, Buttons.step, Buttons.bag = itemButton, hearthButton, targetButton, rareButton, stepButton, bagButton
 	set = { bagButton, hearthButton, itemButton, targetButton, rareButton }
+	-- Bindable from the game's Quick Keybind Mode, shown there while hidden
+	-- (the step key has no button on screen: Options > Keybindings binds it).
+	local QB = QoL.QuickBind
+	local useIcon = function() return media("icon-use") end
+	QB.Add(itemButton, { force = true, enabled = function() return QoL.On("itemButton") end, icon = useIcon })
+	QB.Add(hearthButton, { force = true, enabled = function() return QoL.On("hearthButton") end,
+		icon = function() return Client.ItemIcon(Client.HEARTHSTONE) or media("icon-hearth") end })
+	QB.Add(targetButton, { force = true, enabled = function() return QoL.On("targetButton") end })
+	QB.Add(rareButton, { force = true, enabled = function() return QoL.On("rareButton") end })
+	QB.Add(bagButton, { force = true, enabled = function() return QoL.On("bagSpace") end,
+		wanted = function(b) return b.junk ~= nil end, icon = useIcon })
 	-- An Above name moves when a button over it comes or goes.
 	local function placeLabels() for i = 1, #set do placeLabel(set[i]) end end
 	for i = 1, #set do
