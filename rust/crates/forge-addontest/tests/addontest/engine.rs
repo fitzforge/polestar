@@ -1254,6 +1254,9 @@ fn talk_sethome_getfp_fly_vendor_buy_collect_and_hearth_complete_from_interactio
 	assert_eq!(out["trail"], json!(["early-vendor=1", "wrong-npc=1", "talk-open=1", "talk=2", "bind=3", "fp=4", "fly=5", "vendor=6", "buy=7", "collect-2=7", "collect-3=8", "hearth=9", "moved-on=9"]));
 	assert_eq!(out["fp"], json!({ "Stormwind, Elwynn": true }));
 	assert_eq!(out["progress"], json!({ "cur": 2, "max": 3, "kind": "count" }));
+	// The buy and the collect stay done with their items gone (latched): no progress bar shows their count
+	// then, so the text says it. A buy the route passed before the player bought it read "Buy Soothing
+	// Spices" with no count, and the player bought one of three (#1631).
 	assert_eq!(
 		out["texts"],
 		json!([
@@ -1262,8 +1265,8 @@ fn talk_sethome_getfp_fly_vendor_buy_collect_and_hearth_complete_from_interactio
 			"Get the flight path at Stormwind",
 			"Fly to Stormwind City",
 			"Sell and repair at Corina Steele",
-			"Buy Refreshing Spring Water",
-			"Collect Tough Wolf Meat",
+			"Buy 5 Refreshing Spring Water",
+			"Collect 3 Tough Wolf Meat",
 			"Hearth to Goldshire",
 		])
 	);
