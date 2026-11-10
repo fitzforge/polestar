@@ -152,6 +152,7 @@ step Emerald Sanctuary
   accept 5156                         -- Taronn Redfeather
   accept 5155                         -- Greta Mosshoof
   accept 8460                         -- Grazle, at the south edge of the camp
+  accept 4102                         -- Maybess Riverbreeze, on the west side of the camp
 
 step Deadwood Village
   tip The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your Timbermaw Hold reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and Jaedenar want it. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
@@ -159,10 +160,6 @@ step Deadwood Village
   kill 7154 quest 8460.3
   level 53.92 grind 7153               -- grind on Deadwood Warrior
   kill 7155 quest 8460.2
-
-step Emerald Sanctuary
-  zone Felwood
-  accept 4102                         -- Maybess Riverbreeze, just west of the camp
 
 step Southern Jaedenar
   tip Follow the road north-west. The south of Jaedenar, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds.
@@ -287,6 +284,8 @@ step Emerald Sanctuary
   turnin 5156                         -- Taronn Redfeather
   turnin 5157                         -- Greta Mosshoof
   accept 5158
+  turnin 4102                         -- Maybess Riverbreeze, on the west side of the Sanctuary
+  note Keep Seeking Spiritual Aid: Islen Waterseer is in the Barrens.
 
 step Jessir Moonbow
   when onquest 5385
@@ -295,10 +294,6 @@ step Jessir Moonbow
 step Overlord Ror
   tip Ror stands at the far south end of Deadwood Village.
   collect 15879 quest 6162 @48.2,94.3
-
-step Emerald Sanctuary
-  turnin 4102                         -- Maybess Riverbreeze, on the west side of the Sanctuary
-  note Keep Seeking Spiritual Aid: Islen Waterseer is in the Barrens.
 
 step Level 54.7
   when level<54.7

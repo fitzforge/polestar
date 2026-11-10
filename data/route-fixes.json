@@ -12732,6 +12732,32 @@
 				"faction": "Horde",
 				"why": "Tanaris (Horde 40-50/04, 0.3.6): Tanaris Field Sampling runs on a two-hour timer from the moment its power source is used, so Scrimshank's gear (and the optional OOX-17/TN escort) come first and the dunes south of Gadgetzan are sampled on the way back, right before the hand-in; see the include for 654.",
 				"source": "BrHorde4060"
+			},
+			{
+				"a": [
+					"accept",
+					4102
+				],
+				"b": [
+					"task",
+					8460
+				],
+				"faction": "Horde",
+				"why": "Flow, Felwood (Horde 50-60/02, 0.3.6): Maybess Riverbreeze stands on the west side of the Emerald Sanctuary, about 250 yd from Greta and Taronn, so Cleansing Felwood is taken on the arrival stop, not on a second Sanctuary stop between Deadwood Village and Jaedenar.",
+				"source": "BrHorde4060"
+			},
+			{
+				"a": [
+					"turnin",
+					4102
+				],
+				"b": [
+					"task",
+					6162
+				],
+				"faction": "Horde",
+				"why": "Flow, Felwood (Horde 50-60/02, 0.3.6): Cleansing Felwood goes to Maybess on the Sanctuary stop that hands in Taronn's and Greta's quests, before Overlord Ror in Deadwood Village; the solo top-up then grinds the Deadwood where Ror stands instead of after a ride back to the Sanctuary and down again.",
+				"source": "BrHorde4060"
 			}
 		]
 	}

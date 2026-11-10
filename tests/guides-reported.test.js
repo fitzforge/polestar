@@ -10243,3 +10243,17 @@ test('Horde Dustwallow 45: the solo top-up in the Wyrmbog before riding back to 
 	assert.equal(list.filter(({ goal }) => goal.t === 'level' && goal.grind === 4329).length, 1, 'one top-up');
 	assert.ok((list[grind].step.when || []).some((p) => p.k === 'group' && p.neg), 'only for solo players');
 });
+
+// Flow (0.3.6, Horde 50-60/02): Maybess Riverbreeze stands in the Emerald Sanctuary with Greta and Taronn. Cleansing
+// Felwood had a Sanctuary stop of its own each way: Deadwood -> Sanctuary -> Jaedenar to take it, and Ror (south end of
+// Deadwood) -> Sanctuary -> the Deadwood top-up to hand it in. Both now ride on the Sanctuary stops the guide makes.
+test('Horde Felwood 53: Cleansing Felwood taken and handed in on the Sanctuary stops, no extra trips', { skip }, () => {
+	const fw = goals('forever/horde/50-60/02-felwood.guide');
+	const take = at(fw, 'accept 4102', is('accept', 4102));
+	assert.equal(fw[take].s, fw[at(fw, 'accept 5156', is('accept', 5156))].s, 'on the arrival stop');
+	const tin = at(fw, 'turnin 4102', is('turnin', 4102));
+	assert.equal(fw[tin].s, fw[at(fw, 'turnin 5156', is('turnin', 5156))].s, "with Taronn's hand-in");
+	const ror = at(fw, 'collect 15879', (g) => g.t === 'collect' && g.quest === 6162);
+	const grind = fw.findIndex(({ goal }) => goal.t === 'level' && goal.grind === 7155);
+	assert.ok(tin < ror && fw[grind].s === fw[ror].s + 1, 'Ror, then the Deadwood top-up right after');
+});
