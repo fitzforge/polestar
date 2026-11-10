@@ -1448,6 +1448,32 @@ SL.OUT_GAP, SL.OUT_NEAR, SL.OUT_PAD = 5, 10, 10 -- between cards, from the lowes
 SL.OPT_ROW = 18
 SL.OUT_TOP, SL.OUT_LABEL = 5, 12 -- readMetrics sets these per look
 
+-- A small circled "i" right after a section label, centred on it, in the
+-- label's quiet ink and brighter under the cursor; its tooltip says what the
+-- card holds. SL.LayoutOut paints it with its label.
+function SL.InfoIcon(parent, label, tip)
+	local b = CreateFrame("Button", nil, parent)
+	b:SetSize(12, 12)
+	b.Icon = b:CreateTexture(nil, "ARTWORK")
+	b.Icon:SetTexture(Theme.Media(Theme.Icon("info")))
+	b.Icon:SetSize(8, 8)
+	b.Icon:SetPoint("CENTER", b, "CENTER", 0, 0)
+	b:SetPoint("LEFT", label, "RIGHT", 1, 0)
+	b.psTip = tip
+	function b.Paint() W.Color(b.Icon, b:IsMouseOver() and "textDim" or GF.LabelInk()) end
+	b:SetScript("OnEnter", function(self)
+		W.Color(self.Icon, "textDim")
+		W.Tooltip(self, "ANCHOR_TOP", self.psTip)
+		GF.HoverIn()
+	end)
+	b:SetScript("OnLeave", function(self)
+		W.Color(self.Icon, GF.LabelInk())
+		W.HideTooltip(self)
+	end)
+	b.Paint()
+	return b
+end
+
 function SL.BuildOut()
 	if SL.out then return end
 	local function cardFrame()
@@ -1461,11 +1487,13 @@ function SL.BuildOut()
 	opt.Rows = {}
 	opt.Label = GF.SectionLabel(T(opt, "cardNote", "textMuted"))
 	opt.Label:SetText(string.upper(L["Optional"]))
+	opt.Info = SL.InfoIcon(opt, opt.Label, L["Optional objectives during this step"])
 	-- While you're here: the Engine's nearby objectives of later steps, in a card
 	-- between the notes and the Optional card (SL.FillWH).
 	wh.Rows = {}
 	wh.Label = GF.SectionLabel(T(wh, "cardNote", "textMuted"))
 	wh.Label:SetText(string.upper(L["While you're here"]))
+	wh.Info = SL.InfoIcon(wh, wh.Label, L["Get ahead, if possible"])
 	SL.out = { hint = hint, opt = opt, wh = wh, h = 0 }
 end
 
@@ -1772,6 +1800,7 @@ function SL.LayoutOut(width)
 	local gap = SL.OUT_NEAR
 	if showOpt then
 		W.Color(opt.Label, GF.LabelInk())
+		opt.Info.Paint()
 		opt.Label:ClearAllPoints()
 		opt.Label:SetPoint("TOPLEFT", opt, "TOPLEFT", pad, -SL.OUT_TOP)
 		local y = SL.OUT_TOP + SL.OUT_LABEL
@@ -1820,6 +1849,7 @@ function SL.LayoutOut(width)
 	wh:SetShown(showWH)
 	if showWH then
 		W.Color(wh.Label, GF.LabelInk())
+		wh.Info.Paint()
 		wh.Label:ClearAllPoints()
 		wh.Label:SetPoint("TOPLEFT", wh, "TOPLEFT", pad, -SL.OUT_TOP)
 		local y = SL.OUT_TOP + SL.OUT_LABEL

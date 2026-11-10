@@ -425,3 +425,46 @@ fn step_tips_off_hides_the_tip_strip_in_full_and_compact() {
 		assert_eq!(out, json!({ "on": true, "full": false, "compact": false, "back": true }), "{skin}");
 	}
 }
+
+/// A small circled "i" right after the Optional and While you're here labels: centred on the label with a small gap,
+/// in the label's quiet ink, brighter under the cursor, its tooltip saying what the card holds.
+#[test]
+fn the_outside_cards_labels_carry_an_info_icon_with_what_the_card_holds() {
+	for skin in SKINS {
+		let out = run_in(
+			skin,
+			r#"
+			uistub.setGuide(uistub.elwynn, 3)
+			local g = uistub.goal(3, 4)
+			g.optional = true
+			uistub.update()
+			stub.advance(1)
+			local o = SL.out
+			local function rgb(t) local r, g, b = t:GetVertexColor() return { math.floor(r * 255 + 0.5), math.floor(g * 255 + 0.5), math.floor(b * 255 + 0.5) } end
+			local function ink(name) local r, g, b = Polestar.Theme.Color(name) return { math.floor(r * 255 + 0.5), math.floor(g * 255 + 0.5), math.floor(b * 255 + 0.5) } end
+			local function look(card)
+				local i = card.Info
+				local p, rel, rp, x, y = i:GetPoint(1)
+				local still = rgb(i.Icon)
+				i:GetScript("OnEnter")(i)
+				local hover = { color = rgb(i.Icon), tip = GameTooltip:IsShown() and GameTooltip:GetOwner() == i and GameTooltip.lines or false }
+				i:GetScript("OnLeave")(i)
+				return { at = { p, rel == card.Label, rp, x, y }, still = still, hover = hover, after = rgb(i.Icon), gone = GameTooltip:IsShown(),
+					texture = i.Icon:GetTexture(), size = { i.Icon:GetWidth(), i.Icon:GetHeight() } }
+			end
+			emit({ shown = o.opt:IsShown() and o.opt.Info:IsShown(), opt = look(o.opt), wh = look(o.wh), ink = ink(GF.LabelInk()), dim = ink("textDim") })"#,
+		)
+		.remove(0);
+		assert_eq!(out["shown"], true, "{skin}: on the Optional card");
+		for (card, tip) in [("opt", "Optional objectives during this step"), ("wh", "Get ahead, if possible")] {
+			let c = &out[card];
+			assert_eq!(c["at"], json!(["LEFT", true, "RIGHT", 1, 0]), "{skin} {card}: right after its label, centred on it");
+			assert!(c["texture"].as_str().unwrap().ends_with("info"), "{skin} {card}: {c}");
+			assert_eq!(c["size"], json!([8, 8]), "{skin} {card}");
+			assert_eq!(c["still"], out["ink"], "{skin} {card}: the label's quiet ink");
+			assert_eq!(c["hover"]["color"], out["dim"], "{skin} {card}: brighter under the cursor");
+			assert_eq!(c["hover"]["tip"], json!([tip]), "{skin} {card}");
+			assert_eq!((c["after"].clone(), c["gone"].clone()), (out["ink"].clone(), json!(false)), "{skin} {card}: back on leave");
+		}
+	}
+}
