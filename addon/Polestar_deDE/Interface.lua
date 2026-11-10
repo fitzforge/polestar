@@ -1767,8 +1767,8 @@ L["Area opacity"] = "Deckkraft der Flächen"
 L["How strongly the objective areas tint the map."] = "Wie stark die Zielflächen die Karte einfärben."
 L["Quest marker size"] = "Größe der Questmarkierungen"
 L["The size of every quest marker on the world map and the minimap."] = "Die Größe jeder Questmarkierung auf der Weltkarte und der Minikarte."
--- L["Timed quest alerts"] = ""
--- L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = ""
+L["Timed quest alerts"] = "Warnungen für Zeitquests"
+L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "Eine Chatzeile und ein Ton, wenn eine Zeitquest noch 5 Minuten hat, erneut bei 1 Minute und wenn sie fehlschlägt. Das Leitfadenfenster zeigt die verbleibende Zeit immer an."
 
 -- UI/Packs.lua (the pack report lines stay English: authors read them)
 L["turned off in the AddOns list"] = "in der AddOn-Liste ausgeschaltet"
@@ -3151,13 +3151,13 @@ L["Comes back at level %d: %s"] = "Kommt auf Stufe %d zurück: %s"
 L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = "Stufe %d: Du kannst jetzt %s annehmen. Der Questgeber ist auf deiner Karte markiert; nimm die Quests noch einmal an, um sie in den Guide aufzunehmen."
 
 -- Quests/Timed.lua
--- L["%d h"] = ""
--- L["%s left"] = ""
--- L["Timed: %s once accepted"] = ""
--- L["The way to %s takes about %s, longer than the time left"] = ""
--- L["%s: %d minutes left"] = ""
--- L["%s: 1 minute left"] = ""
--- L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = ""
+L["%d h"] = "%d Std."
+L["%s left"] = "noch %s"
+L["Timed: %s once accepted"] = "Zeitlimit: %s nach Annahme"
+L["The way to %s takes about %s, longer than the time left"] = "Der Weg zu %s dauert etwa %s, länger als die verbleibende Zeit"
+L["%s: %d minutes left"] = "%s: noch %d Minuten"
+L["%s: 1 minute left"] = "%s: noch 1 Minute"
+L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = "%s fehlgeschlagen: Die Zeit ist abgelaufen. Brecht sie im Questlog ab und nehmt sie erneut an."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."

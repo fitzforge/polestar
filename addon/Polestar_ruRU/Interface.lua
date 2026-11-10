@@ -516,8 +516,8 @@ L["Area opacity"] = "Непрозрачность областей"
 L["How strongly the objective areas tint the map."] = "Насколько сильно области целей закрашивают карту."
 L["Quest marker size"] = "Размер меток заданий"
 L["The size of every quest marker on the world map and the minimap."] = "Размер всех меток заданий на карте мира и мини-карте."
--- L["Timed quest alerts"] = ""
--- L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = ""
+L["Timed quest alerts"] = "Оповещения о заданиях на время"
+L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "Строка в чате и звук, когда у задания на время остаётся 5 минут, снова за 1 минуту и если оно провалено. Окно руководства всегда показывает оставшееся время."
 
 -- Quests/Party.lua
 L["%s done"] = "%s: готово"
@@ -3166,13 +3166,13 @@ L["Line"] = "Линия"
 L["Sparkles"] = "Искры"
 
 -- Quests/Timed.lua
--- L["%d h"] = ""
--- L["%s left"] = ""
--- L["Timed: %s once accepted"] = ""
--- L["The way to %s takes about %s, longer than the time left"] = ""
--- L["%s: %d minutes left"] = ""
--- L["%s: 1 minute left"] = ""
--- L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = ""
+L["%d h"] = "%d ч"
+L["%s left"] = "осталось %s"
+L["Timed: %s once accepted"] = "На время: %s после принятия"
+L["The way to %s takes about %s, longer than the time left"] = "Путь до %s займёт около %s, дольше оставшегося времени"
+L["%s: %d minutes left"] = "%s: осталось %d мин."
+L["%s: 1 minute left"] = "%s: осталась 1 минута"
+L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = "%s провалено: время вышло. Откажитесь от задания в журнале и возьмите его снова."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."

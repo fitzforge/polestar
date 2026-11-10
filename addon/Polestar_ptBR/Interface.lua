@@ -516,8 +516,8 @@ L["Area opacity"] = "Opacidade das áreas"
 L["How strongly the objective areas tint the map."] = "O quanto as áreas de objetivos tingem o mapa."
 L["Quest marker size"] = "Tamanho dos marcadores de missão"
 L["The size of every quest marker on the world map and the minimap."] = "O tamanho de todos os marcadores de missão no mapa-múndi e no minimapa."
--- L["Timed quest alerts"] = ""
--- L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = ""
+L["Timed quest alerts"] = "Alertas de missões com tempo"
+L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "Uma linha no chat e um som quando uma missão com tempo tem 5 minutos restantes, de novo com 1 minuto e se ela falhar. A janela do guia sempre mostra o tempo restante."
 
 -- Quests/Party.lua
 L["%s done"] = "%s concluiu"
@@ -3166,13 +3166,13 @@ L["Line"] = "Linha"
 L["Sparkles"] = "Brilhos"
 
 -- Quests/Timed.lua
--- L["%d h"] = ""
--- L["%s left"] = ""
--- L["Timed: %s once accepted"] = ""
--- L["The way to %s takes about %s, longer than the time left"] = ""
--- L["%s: %d minutes left"] = ""
--- L["%s: 1 minute left"] = ""
--- L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = ""
+L["%d h"] = "%d h"
+L["%s left"] = "%s restantes"
+L["Timed: %s once accepted"] = "Com tempo: %s após aceitar"
+L["The way to %s takes about %s, longer than the time left"] = "O caminho até %s leva cerca de %s, mais que o tempo restante"
+L["%s: %d minutes left"] = "%s: %d minutos restantes"
+L["%s: 1 minute left"] = "%s: 1 minuto restante"
+L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = "%s falhou: o tempo acabou. Abandone-a no registro de missões e pegue de novo."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Seta e rotas) para usar a seta do Polestar."

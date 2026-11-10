@@ -516,8 +516,8 @@ L["Area opacity"] = "区域不透明度"
 L["How strongly the objective areas tint the map."] = "目标区域给地图着色的深浅。"
 L["Quest marker size"] = "任务标记大小"
 L["The size of every quest marker on the world map and the minimap."] = "世界地图和微缩地图上所有任务标记的大小。"
--- L["Timed quest alerts"] = ""
--- L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = ""
+L["Timed quest alerts"] = "限时任务提醒"
+L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "限时任务剩余 5 分钟时、剩余 1 分钟时以及失败时，在聊天框显示一行提示并播放声音。指南窗口始终显示剩余时间。"
 
 -- Quests/Party.lua
 L["%s done"] = "%s 已完成"
@@ -3166,13 +3166,13 @@ L["Line"] = "线条"
 L["Sparkles"] = "闪光"
 
 -- Quests/Timed.lua
--- L["%d h"] = ""
--- L["%s left"] = ""
--- L["Timed: %s once accepted"] = ""
--- L["The way to %s takes about %s, longer than the time left"] = ""
--- L["%s: %d minutes left"] = ""
--- L["%s: 1 minute left"] = ""
--- L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = ""
+L["%d h"] = "%d 小时"
+L["%s left"] = "剩余 %s"
+L["Timed: %s once accepted"] = "限时：接取后 %s"
+L["The way to %s takes about %s, longer than the time left"] = "前往 %s 约需 %s，比剩余时间更长"
+L["%s: %d minutes left"] = "%s：剩余 %d 分钟"
+L["%s: 1 minute left"] = "%s：剩余 1 分钟"
+L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = "%s 已失败：时间已到。请在任务日志中放弃后重新接取。"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"

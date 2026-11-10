@@ -881,8 +881,8 @@ L["Area opacity"] = "Opacidad del área"
 L["How strongly the objective areas tint the map."] = "Qué tan fuerte tiñen el mapa las áreas de los objetivos."
 L["Quest marker size"] = "Tamaño de los marcadores de misión"
 L["The size of every quest marker on the world map and the minimap."] = "El tamaño de todos los marcadores de misión en el mapa del mundo y el minimapa."
--- L["Timed quest alerts"] = ""
--- L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = ""
+L["Timed quest alerts"] = "Avisos de misiones con tiempo"
+L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "Una línea de chat y un sonido cuando a una misión con tiempo le quedan 5 minutos, otra vez a 1 minuto y si falla. La ventana de la guía siempre muestra el tiempo restante."
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "Inicia una misión"
@@ -3165,13 +3165,13 @@ L["Line"] = "Línea"
 L["Sparkles"] = "Destellos"
 
 -- Quests/Timed.lua
--- L["%d h"] = ""
--- L["%s left"] = ""
--- L["Timed: %s once accepted"] = ""
--- L["The way to %s takes about %s, longer than the time left"] = ""
--- L["%s: %d minutes left"] = ""
--- L["%s: 1 minute left"] = ""
--- L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = ""
+L["%d h"] = "%d h"
+L["%s left"] = "quedan %s"
+L["Timed: %s once accepted"] = "Con tiempo: %s al aceptarla"
+L["The way to %s takes about %s, longer than the time left"] = "El camino a %s toma unos %s, más que el tiempo restante"
+L["%s: %d minutes left"] = "%s: quedan %d minutos"
+L["%s: 1 minute left"] = "%s: queda 1 minuto"
+L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = "%s falló: se acabó el tiempo. Abandónala en el registro de misiones y vuelve a aceptarla."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "El objetivo de la flecha, las paradas de su ruta de viaje, los demás objetivos del paso y las zonas donde aparecen sus monstruos y objetos."
