@@ -191,11 +191,13 @@ struct Opts {
 	saved: Option<String>,
 	/// Load the quest database module (Quests/QuestDB.lua) too; the script adds its records.
 	questdb: bool,
+	/// Load the whole addon (the guide window too), not only Core, Lookup and Dungeons.
+	whole: bool,
 }
 
 impl Default for Opts {
 	fn default() -> Self {
-		Opts { level: 21, race: "Scourge", faction: "Horde", cls: "WARLOCK", at: Some(UNDERCITY), done: vec![1098], log: vec![1013], ready: vec![], saved: None, questdb: false }
+		Opts { level: 21, race: "Scourge", faction: "Horde", cls: "WARLOCK", at: Some(UNDERCITY), done: vec![1098], log: vec![1013], ready: vec![], saved: None, questdb: false, whole: false }
 	}
 }
 
@@ -217,7 +219,9 @@ fn run(pack: &CodexPack, script: &str, o: Opts) -> Vec<Value> {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before,
-		addons: vec![if o.questdb {
+		addons: vec![if o.whole {
+			Addon::name("Polestar")
+		} else if o.questdb {
 			Addon::files("Polestar", &["Core/Core.xml", "Lookup/Lookup.xml", "Quests/QuestDB.lua", "Dungeons/Dungeons.xml"])
 		} else {
 			Addon::files("Polestar", &["Core/Core.xml", "Lookup/Lookup.xml", "Dungeons/Dungeons.xml"])
@@ -274,6 +278,51 @@ emit({ take = take, carried = carried, title = def.title, steps = describe(def),
 	assert_eq!(out["note"], "In your log already: “The Book of Ur”");
 	assert_eq!(out["entrance"], json!([1421, 44.8, 67.8, "Shadowfang Keep"]), "the dungeon's name: the window reads it as Enter Shadowfang Keep");
 	assert_eq!(out["after"], "After the run: choose Hand in the quests at the end of this guide or on the dungeon's page.");
+}
+
+// The pick-up guide's last step in the real guide window (the whole addon): the entrance is its own row, "Enter
+// Shadowfang Keep" (not "Go to Enter …", and not folded into the step's heading though its text is the step's
+// title), with "Need a group? Press I for the group finder." under it; the after-the-run line names no slash
+// command. Inside the instance the finder line goes.
+#[test]
+fn the_last_pick_up_step_shows_the_entrance_row_enter_x_with_the_group_finder_line_under_it() {
+	let pack = default_pack();
+	let out = run(
+		&pack,
+		&k(r#"
+local inside = false
+function GetBindingKey(action) if action == "TOGGLEGROUPFINDER" then return "I" end end
+function IsInInstance() return inside end
+D.PickUp("{KEY}")
+local E, GF = Polestar.Engine, Polestar.UI.GuideFrame
+E.Goto(E.GetStepCount())
+stub.advance(0.6)
+local function rows()
+	local out = {}
+	for _, r in ipairs(GF.rows) do
+		if r:IsShown() then
+			local function plain(s) return ((s or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
+			out[#out + 1] = { t = r.psGoal.t, text = plain(r.Text:GetText()), sub = r.Sub:IsShown() and plain(r.Sub:GetText()) or false }
+		end
+	end
+	return out
+end
+local view = E.GetStepView(E.GetStepIndex())
+local outside = rows()
+inside = true
+GF.Render()
+emit({ step = E.GetStepIndex(), count = E.GetStepCount(), header = view.goals[2].header or false, outside = outside, inside = rows() })"#),
+		Opts { whole: true, ..Default::default() },
+	)
+	.remove(0);
+	assert_eq!(out["step"], out["count"], "the last step: {out}");
+	assert_eq!(out["header"], false, "the entrance is not folded into the heading: {out}");
+	let enter = out["outside"].as_array().unwrap().iter().find(|r| r["t"] == "goto").unwrap_or_else(|| panic!("no entrance row: {out}"));
+	assert_eq!(enter["text"], "Enter Shadowfang Keep", "{out}");
+	assert_eq!(enter["sub"], "Need a group? Press I for the group finder.", "{out}");
+	assert!(out["outside"].as_array().unwrap().iter().any(|r| r["text"] == "After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."), "{out}");
+	let inside = out["inside"].as_array().unwrap().iter().find(|r| r["t"] == "goto").unwrap_or_else(|| panic!("no entrance row inside: {out}"));
+	assert_eq!(inside["sub"], false, "inside the instance, no finder line: {out}");
 }
 
 #[test]
