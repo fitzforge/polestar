@@ -421,7 +421,7 @@ local function build()
 	f.Close = W.IconButton(f, "close", 24, L["Dismiss"], function() CT.Hide() end)
 	f.Open = W.Button(f, L["Open in a new tab"], function() CT.Open() end, { primary = true })
 	f.ShowMe = W.Button(f, L["Show me"], function() CT.ShowMe() end, { primary = true })
-	f.Later = W.Button(f, L["Later"], function() CT.Hide() end, { ghost = true })
+	f.Later = W.Button(f, L["Later"], function() CT.Later() end, { ghost = true })
 	-- Another heads-up's own action, its second button and its "stop these"
 	-- (UI/DungeonToast.lua).
 	f.Act = W.Button(f, "", function() CT.Act() end, { primary = true })
@@ -620,7 +620,9 @@ end
 -- another heads-up's, which carries its own action instead of a quest:
 -- { head, title, giver, route, badge, icon, class (nil: the accent),
 -- titleColor, iconColor, art, act = { label, run }, more = { label, run },
--- off = { label, run }, spells, spellTip, spellRight, hideAfter, quiet }.
+-- off = { label, run }, later = { label, run }, spells, spellTip, spellRight,
+-- hideAfter, quiet }. later: the Later button's own words and what it does
+-- before the card hides (UI/UpdateCard.lua's "Got it").
 -- art = { file, l, r, t, b, lift }: a picture
 -- cropped to those texture coordinates, filling the ring, lifted by lift
 -- (0-1) when dark; without it an icon tinted iconColor is a glyph, drawn
@@ -679,6 +681,7 @@ function CT.ShowCard(m)
 	if m.more then W.SetButtonText(f.More, m.more.label) end
 	f.Off:SetShown(m.off ~= nil)
 	if m.off then W.SetButtonText(f.Off, m.off.label) end
+	W.SetButtonText(f.Later, m.later and m.later.label or L["Later"])
 	f.Open:SetShown(m.act == nil and not m.noAct and m.guideId ~= nil)
 	f.ShowMe:SetShown(m.act == nil and not m.noAct and m.guideId == nil)
 	CT.Place(not wasShown)
@@ -794,6 +797,14 @@ end
 function CT.Off()
 	local m = CT.current
 	if m and m.off and m.off.run then m.off.run(m) end
+	CT.Hide()
+end
+
+-- Later, or the model's own words for it (m.later): its action, then the
+-- card hides.
+function CT.Later()
+	local m = CT.current
+	if m and m.later and m.later.run then m.later.run(m) end
 	CT.Hide()
 end
 

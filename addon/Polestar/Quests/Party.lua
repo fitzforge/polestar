@@ -913,7 +913,10 @@ local function noticeVersion(key, name, version)
 	if not (newer or Party.Newer(ns.version, version)) then return end
 	toldVersion[key] = version
 	local L = ns.L
-	if newer then
+	-- The update card (UI/UpdateCard.lua) already says a newer version is out
+	-- when it has shown, or will this session, for that one (Update.Covers).
+	local U = ns.Update
+	if newer and not (U and U.Covers(version)) then
 		ns.Print(L["%s is on Polestar %s: your guides can differ. A newer version is out."]:format(name, version))
 	else
 		ns.Print(L["%s is on Polestar %s: your guides can differ."]:format(name, version))
@@ -1249,6 +1252,8 @@ local function onAddonMessage(_, prefix, text, channel, sender)
 	end
 	diag.matched = diag.matched + 1
 	local mark, version = Party.DecodeHello(text)
+	-- Every member's Polestar version tells the update notices (Core/Update.lua).
+	if mark and ns.Update then ns.Update.NotePeer(version) end
 	if mark == "H" then
 		-- A hello (they joined, logged in or reloaded): a sharer answers with
 		-- its snapshot, asking theirs; anyone else with a bare answer.
@@ -1266,6 +1271,7 @@ local function onAddonMessage(_, prefix, text, channel, sender)
 		return
 	end
 	local pos = Party.DecodePos(text)
+	if pos and ns.Update then ns.Update.NotePeer(pos.addon) end
 	if pos then
 		heard(key, false)
 		if not ns.Get("party.show") then return end
@@ -1302,6 +1308,7 @@ local function onAddonMessage(_, prefix, text, channel, sender)
 	local u = Party.DecodeUnit(text)
 	if u then
 		heard(key, false)
+		if ns.Update then ns.Update.NotePeer(u.version) end
 		if not ns.Get("party.show") then return end
 		memberFor(key, short).unit = u
 		noticeVersion(key, short, u.version)

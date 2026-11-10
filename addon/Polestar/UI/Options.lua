@@ -210,6 +210,9 @@ local BUILTIN = {
 		{ kind = "toggle", key = "ui.newInForever", label = L["Mark quests new in Forever"],
 			help = L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."],
 			search = "new in forever, infinity, new quest, forever quest, mark, badge" },
+		{ kind = "toggle", key = "update.card", label = L["Tell me when a newer Polestar is out"],
+			help = L["At login, a card on the guide window says a newer Polestar is out and how to update; Got it keeps it away for a day. A line in the guide window stays until you update. Two or more updates behind, both show even with this off (the card at most once a day)."],
+			search = "update, new version, outdated, old version, release, curseforge, polestar client, upgrade" },
 	} },
 	-- Core/Engine.lua, Dynamic Questing (Own.hereBuild): quick objectives of later steps close by, in the guide
 	-- window's "While you're here" panel. The setting keys keep their behavior.whileHere* names.

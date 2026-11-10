@@ -103,6 +103,44 @@ player (on unless they typed `/psrec explore off`). `/psrec explore on`
 overrides a `false` flag for the session. Polestar Client writes it only
 once its explorer toggle has been used.
 
+### Client info (written by Polestar Client)
+
+`Interface/AddOns/Polestar/ClientInfo.lua`, loaded first by Polestar's TOC
+(the main addon's folder, not the Recorder's: the update card is
+Polestar's). After each check for addon updates, after it installs or
+updates Polestar (whose release ships the file as `PolestarClientInfo =
+nil`) and after each look for the game, Polestar Client writes the newest
+Polestar releases it found:
+
+```lua
+PolestarClientInfo = {
+	latest = "0.3.7",
+	released = 1794312000,
+	checked = 1794400000,
+	releases = { "0.3.7", "0.3.6", "0.3.5" },
+}
+```
+
+`latest` is the newest release, `released` when GitHub published it and
+`checked` when the client looked (Unix seconds), `releases` up to 20
+release versions, newest first. Only releases count, never pre-releases,
+whichever update channel the client is on, and only versions of digits and
+dots. The game reads addon files only when it loads them (login, `/reload`)
+and never writes them, so the client writes this one at any time, atomically
+(a temporary file, then a rename), and only when its text changes. The
+client checks GitHub's release list every 6 hours while **Check for
+updates** is on (and whenever the Addons page checks); the file is never
+older than its last check.
+
+The addon (`Core/Update.lua`, docs/ARCHITECTURE.md "Update notices") trusts
+it before any other player's version: `latest` newer than the running build
+shows the update card; `releases` counts how many releases behind it is; a
+check newer than a party or guild member's sighting overrules that member's
+higher number; a check from the last 7 days that finds nothing newer keeps
+the "this Polestar is 3 weeks old" line away. Its presence alone says the
+client is installed, and the card then says the client can update
+Polestar.
+
 ### Field encoding
 
 - Integers in decimal. Empty field = unknown or not applicable.

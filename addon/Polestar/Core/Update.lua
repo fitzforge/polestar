@@ -1,0 +1,421 @@
+-- Update notices (docs/ARCHITECTURE.md, "Update notices"): what Polestar
+-- knows of a newer release, and when to say so. Many reports come from
+-- players a release or two behind, so it says so at every login until they
+-- update; the card and the guide window's line are UI/UpdateCard.lua.
+--
+-- Where the newest release comes from, most trusted first:
+--   1. Polestar Client: it writes PolestarClientInfo into the Polestar
+--      folder's ClientInfo.lua (docs/RECORDING.md, "Client info") from the
+--      release list it checks for its own addon updates: { latest, released,
+--      checked, releases = { newest first } }. The release zip ships the file
+--      empty. A check newer than a peer's sighting overrules that peer.
+--   2. Other players: a release version a party member's Polestar sends
+--      (Quests/Party.lua: the hello, "1P|") or a guild member's (the guild
+--      hello below). It counts when it parses as x.y.z, is newer than ours
+--      and at most one minor version ahead (a garbled or made-up "9.9.9" is
+--      dropped); it is kept PEER_DAYS days.
+--   3. Nothing knows: a build first run more than OLD_DAYS days ago says it
+--      may be old (no card).
+-- Dev builds ("dev") and pre-releases ("0.3.7-rc1") from peers never count;
+-- our own dev build hears nothing at all.
+--
+-- How far behind: the Client's list counts the releases newer than ours;
+-- without it, the version numbers say (0.3.5 -> 0.3.7: 2; a new minor
+-- version: its patch number + 1).
+--
+-- The guild hello: once a login (at most every HELLO_GAP), "1H|<version>"
+-- on the guild's hidden addon channel, Party's message on Party's prefix
+-- (Party reads only the party channel, so older Polestars ignore it). A
+-- guild member on a newer release answers "1Y|<version>" after a random
+-- moment, unless someone else answered with that version or newer first,
+-- and at most once per REPLY_GAP. Only the version goes out, and only while
+-- party sharing (party.share) is on: a player who turned that off sends
+-- nothing here either. Listening needs no setting.
+--
+--   Polestar.Update.Parse(v), .Compare(a, b), .Release(v)
+--   Polestar.Update.Latest()      -> version, behind, source ("client" | "peer") | nil
+--   Polestar.Update.Notice()      -> { kind = "behind", latest, behind, mine } | { kind = "old", weeks } | nil
+--   Polestar.Update.NotePeer(v)   a peer's version (true when it counts)
+--   Polestar.Update.Covers(v)     the card says it, so a peer's chat line need not
+--   Polestar.Update.ReportNote(), .Outdated()  for the report window
+
+local ADDON, ns = ...
+local floor, max, type, tonumber, tostring, ipairs = math.floor, math.max, type, tonumber, tostring, ipairs
+
+local U = {}
+ns.Update = U
+
+local DAY = 86400
+U.PEER_DAYS = 7 -- a peer's version is kept this long
+U.OLD_DAYS = 21 -- with nothing known, a build first run this long ago says it may be old
+U.CLIENT_FRESH = 7 * DAY -- the Client's check this recent says we are current
+U.HELLO_GAP = 1800 -- seconds between two guild hellos (a /reload sends none)
+U.HELLO_DELAY = 20 -- seconds after login
+U.REPLY_GAP = 300 -- seconds between two guild answers
+U.PREFIX = "Polestar" -- Party.PREFIX
+
+ns.RegisterDefaults("update", { card = true })
+
+---------------------------------------------------------------------------
+-- Versions
+---------------------------------------------------------------------------
+
+-- "0.3.7" -> { 0, 3, 7 }; "0.3.7-rc1" -> { 0, 3, 7, pre = "rc1" }; nil for
+-- anything else ("dev", "999.0", a nil).
+function U.Parse(v)
+	if type(v) ~= "string" or #v > 32 then return nil end
+	local nums, pre = v:match("^(%d+%.%d+%.%d+[%.%d]*)%-?([%w%.]*)$")
+	if not nums or nums:find("%.%.") or nums:sub(-1) == "." then return nil end
+	local out = {}
+	for n in nums:gmatch("%d+") do out[#out + 1] = tonumber(n) end
+	if pre ~= "" then out.pre = pre end
+	return out
+end
+
+-- A release's version: x.y.z, no pre-release part.
+function U.Release(v)
+	local p = U.Parse(v)
+	return p ~= nil and p.pre == nil
+end
+
+-- -1, 0 or 1 as a is older than, the same as or newer than b; nil when
+-- either does not parse. A pre-release comes before its release.
+function U.Compare(a, b)
+	local pa, pb = U.Parse(a), U.Parse(b)
+	if not (pa and pb) then return nil end
+	for i = 1, max(#pa, #pb) do
+		local x, y = pa[i] or 0, pb[i] or 0
+		if x ~= y then return x > y and 1 or -1 end
+	end
+	if pa.pre == pb.pre then return 0 end
+	if not pa.pre then return 1 end
+	if not pb.pre then return -1 end
+	return pa.pre > pb.pre and 1 or -1
+end
+
+local function newer(a, b)
+	local c = U.Compare(a, b)
+	return c ~= nil and c > 0
+end
+
+-- How many releases a is ahead of b (a newer), from the numbers alone.
+function U.Estimate(a, b)
+	local pa, pb = U.Parse(a), U.Parse(b)
+	if not (pa and pb) then return 1 end
+	if pa[1] == pb[1] and pa[2] == pb[2] then return max(1, (pa[3] or 0) - (pb[3] or 0)) end
+	return max(1, (pa[3] or 0) + 1)
+end
+
+-- Our own version, when it is one (a dev build's "dev" is not).
+local function mine()
+	local v = tostring(ns.version or "")
+	return U.Parse(v) and v or nil
+end
+
+-- A peer's version we believe: a release, newer than ours, at most one minor
+-- version ahead (or the next major's x.0).
+local function plausible(v)
+	local p, m = U.Parse(v), U.Parse(mine())
+	if not (p and m) then return false end
+	return (p[1] == m[1] and p[2] <= m[2] + 1) or (p[1] == m[1] + 1 and p[2] == 0)
+end
+
+---------------------------------------------------------------------------
+-- What is known
+---------------------------------------------------------------------------
+
+local function now() return time and time() or 0 end
+
+-- Per account: PolestarDB.update = { firstRun, since = { version, at },
+-- peer, peerAt, snooze, shown, shownAt, helloAt, replyAt }.
+function U.State()
+	local db = ns.DB()
+	local s = db.update
+	if type(s) ~= "table" then
+		s = {}
+		db.update = s
+	end
+	return s
+end
+local state = U.State
+
+-- When this version was first run on this account (a lower bound on its age).
+local function since()
+	local s = state()
+	local v = tostring(ns.version or "")
+	if type(s.since) ~= "table" or s.since.version ~= v then s.since = { version = v, at = now() } end
+	return s.since
+end
+
+-- PolestarClientInfo (ClientInfo.lua, written by Polestar Client), checked:
+-- { latest, released, checked, releases } with release versions only; nil
+-- without the Client.
+function U.ClientInfo()
+	local c = PolestarClientInfo
+	if type(c) ~= "table" then return nil end
+	local list = {}
+	if type(c.releases) == "table" then
+		for _, v in ipairs(c.releases) do
+			if U.Release(v) then list[#list + 1] = v end
+		end
+	end
+	return {
+		latest = U.Release(c.latest) and c.latest or nil,
+		released = tonumber(c.released),
+		checked = tonumber(c.checked),
+		releases = list,
+	}
+end
+
+-- The newest release known that is newer than ours, how many releases we
+-- are behind it, and where it came from. nil when none is known.
+function U.Latest()
+	local m = mine()
+	if not m then return nil end
+	local best, behind, from
+	local c = U.ClientInfo()
+	if c and c.latest and newer(c.latest, m) then
+		best, from, behind = c.latest, "client", 0
+		for _, v in ipairs(c.releases) do
+			if newer(v, m) then behind = behind + 1 end
+		end
+		if behind == 0 then behind = U.Estimate(c.latest, m) end
+	end
+	local s = state()
+	local p, at = s.peer, tonumber(s.peerAt) or 0
+	if p and newer(p, m) and plausible(p) and now() - at < U.PEER_DAYS * DAY then
+		-- The Client looked after that player was heard: its answer stands.
+		local overruled = c and c.latest and c.checked and c.checked > at and newer(p, c.latest)
+		if not overruled and (not best or newer(p, best)) then
+			behind = best and (behind + U.Estimate(p, best)) or U.Estimate(p, m)
+			best, from = p, "peer"
+		end
+	end
+	if not best then return nil end
+	return best, max(1, behind), from
+end
+
+-- The Client checked lately and found nothing newer than ours.
+function U.Confirmed()
+	local c, m = U.ClientInfo(), mine()
+	return c ~= nil and m ~= nil and c.latest ~= nil and c.checked ~= nil and now() - c.checked < U.CLIENT_FRESH
+		and not newer(c.latest, m)
+end
+
+-- Whether Polestar Client is installed (it wrote ClientInfo.lua).
+function U.HasClient()
+	return U.ClientInfo() ~= nil
+end
+
+-- What there is to say: a newer release ({ kind = "behind", latest, behind,
+-- mine, from }), or with nothing known and nothing confirmed, a build first
+-- run OLD_DAYS or more ago ({ kind = "old", weeks }); nil otherwise.
+function U.Notice()
+	local m = mine()
+	if not m then return nil end
+	local latest, behind, from = U.Latest()
+	if latest then return { kind = "behind", latest = latest, behind = behind, mine = m, from = from } end
+	if U.Confirmed() then return nil end
+	local days = (now() - since().at) / DAY
+	if days >= U.OLD_DAYS then return { kind = "old", weeks = floor(days / 7) } end
+	return nil
+end
+
+-- A peer's Polestar version. -> true when it counts (UPDATE_KNOWN fires
+-- when it is newer than what was known).
+function U.NotePeer(v)
+	local m = mine()
+	if not (m and U.Release(v) and newer(v, m) and plausible(v)) then return false end
+	local before = U.Latest()
+	local s = state()
+	local t = now()
+	local fresh = s.peer and t - (tonumber(s.peerAt) or 0) < U.PEER_DAYS * DAY
+	if not fresh or newer(v, s.peer) then
+		s.peer, s.peerAt = v, t
+	elseif U.Compare(v, s.peer) == 0 then
+		s.peerAt = t
+	end
+	local after = U.Latest()
+	if after and (not before or newer(after, before)) and ns.Fire then ns.Fire("UPDATE_KNOWN", after) end
+	return true
+end
+
+---------------------------------------------------------------------------
+-- What the card has said
+---------------------------------------------------------------------------
+
+-- The card has shown for version v (or a newer one) on this account.
+function U.Told(v)
+	local s = state()
+	return s.shown ~= nil and U.Compare(s.shown, v) ~= nil and U.Compare(s.shown, v) >= 0
+end
+
+-- Whether the card says (or has said) that version v is out, so a party
+-- member's chat line need not: told already, or due to show this session.
+-- Without the card (no guide window) it is false.
+function U.Covers(v)
+	if not newer(v, mine()) then return false end
+	if U.Told(v) then return true end
+	local UC = ns.UI and ns.UI.UpdateCard
+	local latest = U.Latest()
+	return UC ~= nil and UC.Wanted ~= nil and latest ~= nil and not newer(v, latest) and UC.Wanted() or false
+end
+
+-- "Got it": the card waits SNOOZE seconds.
+U.SNOOZE = DAY
+function U.Snooze()
+	state().snooze = now() + U.SNOOZE
+end
+
+function U.Snoozed()
+	return (tonumber(state().snooze) or 0) > now()
+end
+
+-- The card went on screen for version v.
+function U.MarkShown(v)
+	local s = state()
+	s.shown, s.shownAt = v, now()
+end
+
+-- Seconds since the card last showed (huge when never).
+function U.SinceShown()
+	local at = tonumber(state().shownAt)
+	return at and now() - at or math.huge
+end
+
+-- Seconds since this account first ran Polestar (huge for an account from
+-- before this was kept).
+function U.SinceFirstRun()
+	return now() - (tonumber(state().firstRun) or 0)
+end
+
+---------------------------------------------------------------------------
+-- The report window (UI/Report.lua)
+---------------------------------------------------------------------------
+
+-- " (outdated: latest 0.3.7)" after the version, or "".
+function U.Outdated()
+	local latest = U.Latest()
+	return latest and (" " .. ns.L["(outdated: latest %s)"]:format(latest)) or ""
+end
+
+-- The line at the top of the report window when a newer release is known.
+function U.ReportNote()
+	if not U.Latest() then return nil end
+	return ns.L["You're on an old Polestar (%s): please update first, your problem may already be fixed."]:format(mine())
+end
+
+-- The release notes' page for version v (nil: the newest release's).
+function U.ReleaseURL(v)
+	local base = "https://github.com/fitzforge/polestar/releases"
+	return v and (base .. "/tag/v" .. v) or (base .. "/latest")
+end
+
+---------------------------------------------------------------------------
+-- The guild hello
+---------------------------------------------------------------------------
+
+local function guildOn()
+	return ns.Get("party.share") and IsInGuild and IsInGuild() and C_ChatInfo and C_ChatInfo.SendAddonMessage and true or false
+end
+
+local function sendGuild(text)
+	local C = C_ChatInfo
+	if C.IsAddonMessagePrefixRegistered and not C.IsAddonMessagePrefixRegistered(U.PREFIX) and C.RegisterAddonMessagePrefix then
+		C.RegisterAddonMessagePrefix(U.PREFIX)
+	end
+	return C.SendAddonMessage(U.PREFIX, text, "GUILD")
+end
+
+-- One hello a login, a release's version only.
+function U.Hello()
+	U.Listen()
+	local v = mine()
+	if not (v and U.Release(v) and guildOn()) then return false end
+	local s = state()
+	if now() - (tonumber(s.helloAt) or 0) < U.HELLO_GAP then return false end
+	s.helloAt = now()
+	sendGuild("1H|" .. v)
+	return true
+end
+
+-- The answer waiting to go out (a table, so a newer one replaces it).
+local pending
+function U.ReplyDelay() return 2 + math.random() * 10 end
+
+local function answer(theirs)
+	local v = mine()
+	if pending or not (v and U.Release(v) and newer(v, theirs) and guildOn()) then return end
+	local s = state()
+	if now() - (tonumber(s.replyAt) or 0) < U.REPLY_GAP then return end
+	local me = {}
+	pending = me
+	ns.After(U.ReplyDelay(), function()
+		if pending ~= me then return end
+		pending = nil
+		if not guildOn() then return end
+		state().replyAt = now()
+		sendGuild("1Y|" .. v)
+	end)
+end
+
+local function onAddonMessage(_, prefix, text, channel, sender)
+	local C = ns.Compat
+	if C.IsSecret(prefix) or C.IsSecret(channel) or C.IsSecret(text) then return end
+	if prefix ~= U.PREFIX or channel ~= "GUILD" or type(text) ~= "string" or type(sender) ~= "string" then return end
+	if C.SenderIsMe(sender) then return end
+	local mark, v = text:match("^1([HY])|([^|]*)$")
+	if not mark then return end
+	U.NotePeer(v)
+	if mark == "H" then
+		answer(v)
+	elseif pending and U.Compare(v, mine()) ~= nil and U.Compare(v, mine()) >= 0 then
+		-- Someone answered with ours or newer: ours would say nothing more.
+		pending = nil
+	end
+end
+
+-- The guild channel is listened to only in a guild (solo, Polestar keeps
+-- CHAT_MSG_ADDON for the party alone, as Quests/Party.lua does). Checked at
+-- login, at the hello and when the guild changes.
+local listening = false
+function U.Listen()
+	local want = IsInGuild and IsInGuild() and true or false
+	if want == listening then return end
+	listening = want
+	if want then
+		ns.RegisterEvent("CHAT_MSG_ADDON", onAddonMessage)
+	else
+		ns.UnregisterEvent("CHAT_MSG_ADDON", onAddonMessage)
+	end
+end
+
+---------------------------------------------------------------------------
+-- Lifecycle
+---------------------------------------------------------------------------
+
+ns.OnInit(function()
+	local s = state()
+	-- A fresh install starts its two quiet minutes now; an account from
+	-- before this was kept has had Polestar long enough.
+	if s.firstRun == nil then s.firstRun = ns.IsNewAccount() and now() or 0 end
+	since()
+end)
+
+ns.OnLogin(function()
+	U.Listen()
+	ns.After(U.HELLO_DELAY, U.Hello)
+end)
+
+ns.RegisterEvent("PLAYER_GUILD_UPDATE", function() U.Listen() end)
+
+ns.RegisterCommand("update", function()
+	local UC = ns.UI and ns.UI.UpdateCard
+	if UC and UC.Show(true) then return end
+	local L = ns.L
+	if U.Confirmed() then
+		ns.Print(L["Polestar %s is the newest release."]:format(tostring(ns.version)))
+	else
+		ns.Print(L["No newer Polestar is known. Polestar Client, the CurseForge app or the releases page say for sure."])
+	end
+end, ns.L["Show the update card when a newer Polestar is out"])

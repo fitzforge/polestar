@@ -4,7 +4,9 @@
 -- fix needs, taken when the window opens: the guide and the step on screen
 -- with every goal's state, ids and position, the arrow, where the player
 -- stands, the versions, other packs and addons and the errors Polestar
--- caught. "Mark the right spot" adds where the step should have sent the
+-- caught. On an old Polestar (Core/Update.lua knows a newer release) a line
+-- at the top asks to update first, and the version says "(outdated: latest
+-- 0.3.7)". "Mark the right spot" adds where the step should have sent the
 -- player, marked from a bar while the window steps aside. Then the way to
 -- send it, the Polestar Discord's #bugs, whose bot files each post as a
 -- GitHub issue: "Copy report" shows the report, selected, sized to stay
@@ -102,8 +104,11 @@ local function goalLine(gv, raw, mark, wp)
 	return cut(table.concat(parts, SEP))
 end
 
+-- The version, its stage, and " (outdated: latest 0.3.7)" when a newer
+-- release is known (Core/Update.lua), so triage sees it.
 local function polestarVersion()
-	return tostring(ns.version or "dev") .. (ns.stage and (" " .. ns.stage) or "")
+	local U = ns.Update
+	return tostring(ns.version or "dev") .. (ns.stage and (" " .. ns.stage) or "") .. (U and U.Outdated() or "")
 end
 
 local function versions()
@@ -791,6 +796,10 @@ end
 
 local function layout()
 	local y = HEAD_H + 12
+	if F.Outdated:IsShown() then
+		put(F.Outdated, PAD, y)
+		y = y + F.Outdated:GetStringHeight() + 12
+	end
 	put(F.Context, PAD, y)
 	y = y + F.Context:GetStringHeight() + 16
 	put(F.DescLabel, PAD, y)
@@ -1060,6 +1069,12 @@ local function build()
 	F.Context:SetWidth(BOX_W)
 	F.Context:SetJustifyH("LEFT")
 	F.Context:SetWordWrap(false)
+	-- An old Polestar: update first, the problem may be fixed already.
+	F.Outdated = W.Text(F, "note", "warning")
+	F.Outdated:SetWidth(BOX_W)
+	F.Outdated:SetJustifyH("LEFT")
+	F.Outdated:SetWordWrap(true)
+	F.Outdated:Hide()
 
 	F.DescLabel = W.Text(F, "label", "text")
 	F.DescLabel:SetText(L["What went wrong?"])
@@ -1158,6 +1173,9 @@ function UI.ShowReport()
 	F.key = F.details.key
 	F.Desc.Placeholder:SetShown((F.Desc:GetText() or "") == "")
 	F.Context:SetText(F.details.context)
+	local note = ns.Update and ns.Update.ReportNote()
+	F.Outdated:SetText(note or "")
+	F.Outdated:SetShown(note ~= nil)
 	F.Box:Hide()
 	compose()
 	F:Show()

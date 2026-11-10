@@ -32,6 +32,7 @@
 ## SavedVariables: PolestarDB
 ## SavedVariablesPerCharacter: PolestarCharDB
 
+ClientInfo.lua
 Core\Core.xml
 Theme\Theme.xml
 Nav\Nav.xml

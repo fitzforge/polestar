@@ -1404,6 +1404,7 @@ L["Still to do: %s, %s"] = "Осталось сделать: %s, %s"
 L["Still to do: %s"] = "Осталось сделать: %s"
 L["Still to do"] = "Осталось сделать"
 L["Step %d, later in this guide"] = "Шаг %d, дальше в этом руководстве"
+-- L["How to update"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -2201,6 +2202,8 @@ L["Dark"] = "Тёмная"
 L["Keep the bar shown"] = "Не скрывать панель"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "В прозрачном стиле вкладки и панель шага остаются на экране, а не только под курсором."
 L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = "В стиле «Прозрачный»: «Мягкая» кладет легкую тень под каждую строку текста, «Тёмная» – темную подложку под все окно. «Выкл.»: только текст с обводкой поверх мира."
+-- L["Tell me when a newer Polestar is out"] = ""
+-- L["At login, a card on the guide window says a newer Polestar is out and how to update; Got it keeps it away for a day. A line in the guide window stays until you update. Two or more updates behind, both show even with this off (the card at most once a day)."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -3191,6 +3194,29 @@ L["%s · this guide doesn't go there"] = "%s · этот гайд туда не 
 L["Timed quest"] = "Задание на время"
 L["This guide's route doesn't hand this quest in: go there yourself before the time runs out, or let it go."] = "Маршрут этого гайда не сдаёт это задание: доберитесь сами, пока не вышло время, или оставьте его."
 L["Right-click: hide this until the timer ends."] = "Правый клик: скрыть до конца таймера."
+
+-- Core/Update.lua
+-- L["(outdated: latest %s)"] = ""
+-- L["You're on an old Polestar (%s): please update first, your problem may already be fixed."] = ""
+-- L["Polestar %s is the newest release."] = ""
+-- L["No newer Polestar is known. Polestar Client, the CurseForge app or the releases page say for sure."] = ""
+-- L["Show the update card when a newer Polestar is out"] = ""
+
+-- UI/UpdateCard.lua
+-- L["Polestar Client can update it for you: open it, press Update, then restart the game or /reload."] = ""
+-- L["Update it with the CurseForge app or Polestar Client (or the zip from GitHub), then restart the game or /reload."] = ""
+-- L["POLESTAR UPDATE"] = ""
+-- L["Check for a newer Polestar"] = ""
+-- L["This Polestar is %d weeks old: updates come often."] = ""
+-- L["Polestar %s is out"] = ""
+-- L["You're on %s, %d updates behind: fixes for the quests and arrow issues players report are in the newer versions."] = ""
+-- L["You're on %s."] = ""
+-- L["Polestar %s: what's new"] = ""
+-- L["Polestar releases"] = ""
+-- L["The link is selected for you: copy it with Ctrl+C (Cmd+C on a Mac) and open it in your browser."] = ""
+-- L["This Polestar is %d weeks old: updates come often, check for a newer one."] = ""
+-- L["Polestar %s is out: you're on %s, %d updates behind."] = ""
+-- L["Polestar %s is out: you're on %s."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."

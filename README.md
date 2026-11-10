@@ -411,6 +411,10 @@ computer and:
   shows exactly what each upload holds. A notice says so the first time,
   with Stop sharing; stop, pause, or delete everything it sent, any time
   ([docs/RECORDING.md](docs/RECORDING.md) lists every field).
+- **tells Polestar about new releases**: after each check for updates it
+  writes the newest Polestar release into the addon's folder, so the update
+  card in the game knows it ([docs/RECORDING.md](docs/RECORDING.md), "Client
+  info").
 
 Download it from [polestar.guide/client](https://polestar.guide/client) or the
 [Client's GitHub release](https://github.com/fitzforge/polestar/releases/tag/client-v0.1.6);
@@ -853,6 +857,30 @@ invitations, guild invitations and duels (friends and guild excepted). Hold
 **Shift** to skip auto-accept, auto-turn-in, auto-sell, training, binding or
 the flight helper once, or to answer a request yourself.
 
+### Updates
+
+Many problems players report are already fixed in a newer Polestar, so
+Polestar says when one is out. At every login, ten seconds in, a card on the
+guide window says "Polestar 0.3.7 is out", which version you're on and how to
+update: with Polestar Client installed, that it can do it for you; else the
+CurseForge app, Polestar Client or the zip. **What's new** gives you the
+release notes' link to copy; **Got it** keeps the card away for a day. A line
+in the guide window ("Polestar 0.3.7 is out: you're on 0.3.6.") stays until
+you update; its **Update** brings the card back. Two or more updates behind,
+both say so, the line can't be closed, and the card still shows once a day
+with its option off. The card never shows in combat, in dungeons or in the
+first two minutes of a fresh install. Turn it off under Options > Guide >
+Window (**Tell me when a newer Polestar is out**).
+
+Where Polestar learns of a newer release: Polestar Client, after each of its
+checks for updates; party members running Polestar (the version party sync
+already sends); and guild members running Polestar. For the guild, Polestar
+sends one hidden hello with only its version number when you log in (at
+most every half hour), and a guild member on a newer release answers with
+theirs; nothing goes to chat, and turning party sync's sharing off stops
+these too. With no source at all, a Polestar first run three weeks ago or
+more says, in the guide window only, that updates come often.
+
 ### With a gamepad
 
 Polestar plays with a gamepad on Forever (ported from Ding! by Yendi,
@@ -968,6 +996,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `welcome` | Show the welcome again |
 | `where` | Print your map and position as guide lines (`zone map <id>`, `goto x,y live`), in a box to copy |
 | `report` | Report a problem with the step on screen (the guide window's bug button) |
+| `update` | Show the update card when a newer Polestar is out (else whether this one is the newest, when Polestar Client says so) |
 | `discord` | The invite to the Polestar Discord, to copy |
 | `debug` | Toggle debug output |
 
