@@ -96,6 +96,7 @@ step Jasperlode Mine: kill these as you meet them
   only Dwarf,Gnome
   zone Elwynn Forest
   tip The mine is south-west of the gnoll camps. Mining Tools lie near the entrance; Kobold Geomancers hold the tunnels.
+  tip Careful: Mother Fang (7-10), the Mine Spiders (7-9) and Geosculptor Yip (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend.
   collect 247816 quest 91732                  -- Mining Tools
   kill 476 quest 91723                        -- Kobold Geomancer walks around Jasperlode Mine: look inside the circle on the map
 

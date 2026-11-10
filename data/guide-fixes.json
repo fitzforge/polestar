@@ -47,6 +47,114 @@
 			"issue": 1550
 		},
 		{
+			"id": "1575-elwynn-jasperlode-elites",
+			"faction": "Alliance",
+			"at": { "quest": 91723, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Mother Fang (7-10), the Mine Spiders (7-9) and Geosculptor Yip (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend.",
+			"note": "Danger-at-the-spot sweep (#1575): Jasperlode Mine's tunnels hold three elites that a level 9-10 player meets beside the kobolds. Players' recordings: 11 people died within 60 yd of the step's goals at about level 10, with Mother Fang, a Mine Spider and Geosculptor Yip, recorded as elite, among what they fought.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 471 Mother Fang 7-10, 43 Mine Spider 7-9, 248474 Geosculptor Yip 7: rank elite, spawns in Elwynn 60-62,46-49" },
+				{ "kind": "recording", "ref": "rec index 2026-11-11: 11 people died within 60 yd of Jasperlode Mine's goals (median level 10); foes 471, 43 and 248474 recorded as elite" }
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-elwynn-fargodeep-elites",
+			"faction": "Alliance",
+			"at": { "quest": 87, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Nimsy (6), a kobold deep in the mine, is elite, and Narg the Taskmaster (10, rare) walks the tunnels: pull the kobolds one at a time.",
+			"note": "Danger-at-the-spot sweep (#1575): Goldtooth is at the back of the Fargodeep Mine, past Nimsy (elite) and Narg the Taskmaster (rare, 10). Players' recordings: 12 people died within 60 yd of the step's goal at about level 7, with Nimsy (elite) and Narg among what they fought.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 248464 Nimsy 6 rank elite at Elwynn 41.6,79.9; 79 Narg the Taskmaster 10 rank rare at 40.9,77.5" },
+				{ "kind": "recording", "ref": "rec index 2026-11-11: 12 people died within 60 yd of Bernice's Necklace (87.1) at Fargodeep (median level 7); foes 248464 (elite) and 79" }
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-elwynn-echo-ridge-narf",
+			"faction": "Alliance",
+			"at": { "quest": 21, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Shinyfinder Narf (3) is elite: leave him unless you have a friend.",
+			"note": "Danger-at-the-spot sweep (#1575): the Kobold Laborers' tunnels lead past Shinyfinder Narf, a level 3 elite (his own quest is a group step of its own). Players' recordings: 4 people died within 60 yd of the step's goal at about level 4, with Narf (elite) among what they fought.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 248362 Shinyfinder Narf 3 rank elite, Elwynn 49.2,28.0" },
+				{ "kind": "recording", "ref": "rec index 2026-11-11: 4 people died within 60 yd of Echo Ridge Mine's goal (21.1) at about level 4; foe 248362 recorded as elite" }
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-durotar-halikor-fizzle",
+			"faction": "Horde",
+			"at": { "quest": 806, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.",
+			"note": "Danger-at-the-spot sweep (#1575): Halikor (12, elite) patrols Thunder Ridge, where the Orc and Troll Durotar guides send players of 11-12 for Fizzle and the lizards. Players' recordings: 13 people died within 60 yd of the step's goals at about level 11 (most to the Burning Blade, which the step already warns about); Halikor was recorded as elite among the foes on the ridge.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 266852 Halikor 12 rank elite, 20 spawn points on Thunder Ridge (Durotar 39,25-30)" },
+				{ "kind": "recording", "ref": "rec index 2026-11-11: 13 people died within 60 yd of Thunder Ridge's goals (median level 11); 266852 recorded as elite" }
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-durotar-halikor-singed-scale",
+			"faction": "Horde",
+			"at": { "quest": 1498, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.",
+			"note": "Danger-at-the-spot sweep (#1575): the Warriors' Singed Scale comes from the same Thunder Ridge lizards Halikor (12, elite) patrols among. Players' recordings: 3 people died within 60 yd of the step's goal at about level 11, Halikor (elite) among what they fought.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 266852 Halikor 12 rank elite, 20 spawn points on Thunder Ridge (Durotar 39,25-30)" },
+				{ "kind": "recording", "ref": "rec index 2026-11-11: 3 people died within 60 yd of 1498.1's goal (median level 11); foe 266852 recorded as elite" }
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-barrens-razormane-elites-crates",
+			"faction": "Horde",
+			"at": { "quest": 5041, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time.",
+			"note": "Danger-at-the-spot sweep (#1575): the Crossroads' supply crates (58.8,25.8) stand among the Razormane Flesheaters (57.8-58.0,25.5-27.3) and next to the Berserkers (56.5-57.8,22.5-26.3), level 18-19 elites, at a route level of 15-16. Players' recordings: 5 people died within 60 yd of the crates at about level 14, a Berserker (elite) among what they fought.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 267308 Razormane Flesheater 18-19 and 267314 Razormane Berserker 18-19, rank elite, The Barrens 56.5-58,22.5-27.3" },
+				{ "kind": "recording", "ref": "rec index 2026-11-11: 5 people died within 60 yd of 5041.1 (median level 14); foe 267314 recorded as elite" }
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-barrens-razormane-elites-kreenig",
+			"faction": "Horde",
+			"at": { "quest": 872, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near Kreenig: pull Kreenig and the quilboar away from them one at a time.",
+			"note": "Danger-at-the-spot sweep (#1575): The Disruption Ends sends players of about 16 back among the camp's level 18-19 elites; Kreenig's tusk is taken at 58.5,27.0, beside the Flesheaters. Players' recordings: 7 people died within 60 yd of the step's goals at about level 15, a Flesheater (elite) among what they fought.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 267308 Razormane Flesheater 18-19 and 267314 Razormane Berserker 18-19, rank elite, The Barrens 56.5-58,22.5-27.3" },
+				{ "kind": "recording", "ref": "rec index 2026-11-11: 7 people died within 60 yd of 872's goals (median level 15); foe 267308 recorded as elite" }
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-darkshore-althalaxx-voidcallers",
+			"faction": "Alliance",
+			"at": { "quest": 966, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Dark Strand Voidcallers (28-29) with their voidwalkers and Athrikus Narassin (31) stand in the tower itself: take the parchments from the Fanatics south of it and keep away from the tower.",
+			"note": "Danger-at-the-spot sweep (#1575): the Worn Parchments are taken at about 18 from the Dark Strand Fanatics at the foot of the Tower of Althalaxx, a few yards from Voidcallers (28-29) and Athrikus Narassin (31). Players' recordings: the parchments drop south of the tower (55-56.6,26-28), the Voidcallers were seen at the tower by 17 people, and 4 people died there at 19-22 to a Voidcaller, its voidwalker or Athrikus.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 2337 Dark Strand Voidcaller 28-29 (Darkshore 56.1-56.5,25.7-26.4), 3660 Athrikus Narassin 31 (56.0,26.3)" },
+				{ "kind": "recording", "ref": "rec index 2026-11-11: 966.1 ticks, 134, at Darkshore 55-56.6,26-28 (levels 17-23); hostile 2337 seen at 56,26 by 17 people; deaths at 56,26 at 19-22 with foes 2337, 8996 and 3660" }
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-hillsbrad-alliance-yeti-fur-caverns",
+			"faction": "Alliance",
+			"at": { "quest": 565, "goal": "objective", "objective": 4 },
+			"tip": "Stay in the Foothill Caverns: the cave further north has Mountain and Giant Yetis (32-34) in pairs and The Abominable Greench, a level 36 elite.",
+			"note": "Danger-at-the-spot sweep (#1575), #1695's pattern on the Alliance side: Yeti Fur drops from every Hillsbrad yeti, so the goal toured the northern cave of Mountain and Giant Yetis (32-34), where The Abominable Greench (36, elite) roams, at a route level of 31. The goal now points at the Foothill Caverns' Cave and Ferocious Yetis (data/places.json 1575-hillsbrad-alliance-yeti-fur-caverns), and the tip says why.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 2248-2251 yetis on map 1424 (Cave and Ferocious at 42-47,25-34, Mountain and Giant at 36-47,3-13); 13602 The Abominable Greench 36 rank elite at Hillsbrad 38.9,8 / 44.6,7.7 / 45.1,4.1 and Alterac 29-32,50-64" },
+				{ "kind": "recording", "ref": "rec index 2026-11-11: 565.4 ticks by 5 people at 32-33" }
+			],
+			"issue": 1575
+		},
+		{
 			"id": "elwynn-crystal-lake-murloc-packs-99128",
 			"faction": "Alliance",
 			"at": { "quest": 99128, "goal": "objective", "objective": 1 },

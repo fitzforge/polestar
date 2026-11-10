@@ -2,6 +2,54 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
+			"id": "1575-hillsbrad-alliance-yeti-fur-caverns",
+			"quest": 565,
+			"objective": 4,
+			"faction": "Alliance",
+			"at": {
+				"map": 1424,
+				"x": 44.5,
+				"y": 29.4,
+				"frame": "era"
+			},
+			"note": "Bartolo's Yeti Fur Cloak: Yeti Fur drops from every Hillsbrad yeti, so the goal toured eleven spots, eight of them in the northern cave of Mountain and Giant Yetis (32-34) where The Abominable Greench (36, elite) roams, at a route level of 31. The Cave and Ferocious Yetis (30-32) of the Foothill Caverns carry it as often: the arrow points at their densest spot (16 of their 33 spawns within 2.5 map units), as for the Horde's Helcular's Rod (#1695).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "items.json 3720 Yeti Fur: dropped by 2248-2251; npcs.json spawns of 2248 and 2249 on map 1424 at 42-47,25-34, of 2250 and 2251 at 36-47,3-13"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-11: 565.4 ticks by 5 people at 32-33"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-desolace-infused-burning-gem-thunder-axe",
+			"quest": 1435,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1443,
+				"x": 55.0,
+				"y": 26.5,
+				"frame": "era"
+			},
+			"note": "The Burning of Spirits (1435): the Infused Burning Gem is filled on any Burning Blade cultist, so the goal toured sixteen spots, half of them the Mannoroc Coven's Summoners and Invokers (38-40) in southern Desolace, at a route level of 33. The step is at Thunder Axe Fortress, whose cultists (30-33) are the ones meant: the arrow points at the fortress's densest spot.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "the goal's droppers: Burning Blade Augur, Reaver, Adept, Felsworn, Shadowmage, Seer (30-33) at Thunder Axe Fortress (Desolace 52-57,22-33); Burning Blade Summoner and Invoker (38-40) at 49-55,71-79 and 79-82,77-81"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-11: 1435.1 ticks by 4 people at 32-34"
+				}
+			],
+			"issue": 1575
+		},
+		{
 			"id": "610-wetlands-fen-creepers",
 			"quest": 275,
 			"objective": 1,
