@@ -173,10 +173,6 @@ step Ironforge
   zone Ironforge
   turnin 3461                         -- Tymor, Mystic Ward
 
-step Class trainer
-  only Warrior,Paladin,Hunter,Rogue,Shaman,Warlock
-  train class only Warrior,Paladin,Hunter,Rogue,Shaman,Warlock -- Priests and Mages trained here at the end of the Un'Goro guide
-
 step Royal Historian Archesonus
   zone Ironforge
   tip Archesonus stands beside King Magni in the High Seat.
