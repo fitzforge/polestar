@@ -72,15 +72,64 @@ end
 -- house style a scrim-to-ground gradient and the haze), the transport's glyph
 -- in a ring, what is coming in Title and a live countdown in Small textDim,
 -- a 2px accent line draining to the arrival. A click dismisses it.
+--
+-- Alerts.ShowNotice puts one of Polestar's own heads-ups in the same banner
+-- (UI/GuideFrame.lua: the window hiding in an instance): the emblem in an
+-- accent ring, a title, a fixed line in Small textDim that wraps to three
+-- lines (the banner grows with it), the line draining over its time.
 ---------------------------------------------------------------------------
 
 local WIDTH, HEIGHT, PAD = 320, 56, 16
+local RING = 32
+local TEXT_WIDTH = WIDTH - PAD - RING - 12 - PAD
+local NOTICE_LINES = 3
 local DEFAULT_Y = -72
 local banner
 
+-- The ring's glyph and colour: a transport's (icon-boat, place), or the
+-- emblem in the accent, which wears its own colours.
+local function paintRing(f)
+	local Theme, W = ns.Theme, ns.Widgets
+	local skin = Theme.SkinKey()
+	local color = f.psNotice and "accent" or "place"
+	f.Glyph:SetTexture(Theme.Media(f.psNotice and "logo" or "icon-boat"))
+	f.Glyph:SetSize(f.psNotice and 20 or 16, f.psNotice and 20 or 16)
+	if skin == "polestar" then
+		f.Ring:SetTexture(Theme.Media("qol-ring"))
+		f.Ring:SetSize(RING, RING)
+		W.Color(f.Ring, color)
+	else
+		local size = skin == "halo" and 30 or RING
+		f.Ring:SetTexture(Theme.Media("skin-ring"))
+		f.Ring:SetSize(size * 60 / 48, size * 60 / 48)
+		if skin == "halo" then W.Color(f.Ring, "accent") else W.Uncolor(f.Ring); f.Ring:SetVertexColor(0.78, 0.612, 0.243, 1) end
+	end
+	if f.psNotice then
+		-- The emblem in its own colours: W.Uncolor only stops the theme following it.
+		W.Uncolor(f.Glyph)
+		f.Glyph:SetVertexColor(1, 1, 1, 1)
+	else
+		W.Color(f.Glyph, skin == "polestar" and "place" or "accent")
+	end
+end
+
+-- One line (a countdown) or a notice's wrapping line; the banner grows by
+-- the extra lines and the text block stays centred on the ring.
+local function layout(f)
+	local wrap = f.psNotice and true or false
+	f.When:SetWordWrap(wrap)
+	f.When:SetMaxLines(wrap and NOTICE_LINES or 1)
+	local extra = wrap and math.max(0, f.When:GetStringHeight() - f.When:GetLineHeight()) or 0
+	local height = HEIGHT + extra
+	f:SetHeight(height)
+	f.Title:SetPoint("BOTTOMLEFT", f.Ring, "RIGHT", 12, 1 + extra / 2)
+	f.When:SetPoint("TOPLEFT", f.Ring, "RIGHT", 12, -3 + extra / 2)
+	f.Band:SetTexCoord(ns.Theme.BandCoords(WIDTH - 2, height - 2))
+end
+
 local function build()
 	local Theme, W, Anim = ns.Theme, ns.Widgets, ns.Anim
-	local f = CreateFrame("Frame", "PolestarTransitAlert", UIParent)
+	local f = CreateFrame("Frame", "PolestarAlert", UIParent)
 	f:SetSize(WIDTH, HEIGHT)
 	f:SetFrameStrata("HIGH")
 	f:SetClampedToScreen(true)
@@ -115,7 +164,7 @@ local function build()
 	f.Band:SetTexCoord(Theme.BandCoords(WIDTH - 2, HEIGHT - 2))
 
 	f.Ring = W.Tex(head, "ARTWORK", "qol-ring", "place")
-	f.Ring:SetSize(32, 32)
+	f.Ring:SetSize(RING, RING)
 	f.Ring:SetPoint("LEFT", f, "LEFT", PAD, 0)
 	f.Glyph = W.Tex(head, "OVERLAY", "icon-boat", "place")
 	f.Glyph:SetSize(16, 16)
@@ -124,29 +173,15 @@ local function build()
 	-- In the skins (DIRECTION_B_HALO.md §3, DIRECTION_A_BLIZZARD.md §5): Halo's
 	-- 30-unit ring in the accent; Hearth's and the game's looks' 32-unit ring
 	-- edged #C79C3E, their title in gold.
-	W.Painter(f.Ring, function(t)
-		local skin = Theme.SkinKey()
-		if skin == "polestar" then
-			t:SetTexture(Theme.Media("qol-ring"))
-			t:SetSize(32, 32)
-			W.Color(t, "place")
-			W.Color(f.Glyph, "place")
-		else
-			local size = skin == "halo" and 30 or 32
-			t:SetTexture(Theme.Media("skin-ring"))
-			t:SetSize(size * 60 / 48, size * 60 / 48)
-			if skin == "halo" then W.Color(t, "accent") else W.Uncolor(t); t:SetVertexColor(0.78, 0.612, 0.243, 1) end
-			W.Color(f.Glyph, "accent")
-		end
-	end)
+	W.Painter(f.Ring, function() paintRing(f) end)
 	f.Title = W.Text(head, "title", "title")
 	f.Title:SetPoint("BOTTOMLEFT", f.Ring, "RIGHT", 12, 1)
-	f.Title:SetPoint("RIGHT", f, "RIGHT", -PAD, 0)
+	f.Title:SetWidth(TEXT_WIDTH)
 	f.Title:SetJustifyH("LEFT")
 	f.Title:SetWordWrap(false)
 	f.When = W.Text(head, "small", "textDim")
 	f.When:SetPoint("TOPLEFT", f.Ring, "RIGHT", 12, -3)
-	f.When:SetPoint("RIGHT", f, "RIGHT", -PAD, 0)
+	f.When:SetWidth(TEXT_WIDTH)
 	f.When:SetJustifyH("LEFT")
 	f.When:SetWordWrap(false)
 	-- Text on the band: the deeper shade under it, as on the rare alert.
@@ -167,14 +202,16 @@ local function build()
 	f:SetScript("OnMouseUp", function(self) self:Hide() end)
 	f:SetScript("OnUpdate", ns.Safe(function(self)
 		local left = self.arriveAt - GetTime()
-		if left <= -LINGER then
+		if left <= -self.linger then
 			self:Hide()
 			return
 		end
-		local shown = left > 0 and floor(left + 0.5) or 0
-		if shown ~= self.lastShown then
-			self.lastShown = shown
-			self.When:SetText(left > 0 and format(self.whenFormat, Alerts.Countdown(left)) or L["Arriving now"])
+		if self.whenFormat then
+			local shown = left > 0 and floor(left + 0.5) or 0
+			if shown ~= self.lastShown then
+				self.lastShown = shown
+				self.When:SetText(left > 0 and format(self.whenFormat, Alerts.Countdown(left)) or L["Arriving now"])
+			end
 		end
 		W.SetProgress(self.Timer, left > 0 and left / self.total or 0, WIDTH - 2)
 	end))
@@ -184,21 +221,47 @@ local function build()
 	Alerts.banner = f
 end
 
+local function present(notice, seconds)
+	banner.psNotice = notice
+	paintRing(banner)
+	layout(banner)
+	banner.total = seconds > 0 and seconds or 1
+	banner.arriveAt = GetTime() + seconds
+	banner.lastShown = nil
+	local wasShown = banner:IsShown()
+	banner:Show()
+	if not wasShown then banner.Anim.To(banner, "alpha", 0, 1, banner.Anim.FAST, "out") end
+end
+
 -- title: what is coming; whenFormat: "Arrives in %s" or the like.
 local function showBanner(title, whenFormat, seconds)
 	if not (ns.Theme and ns.Widgets and ns.Anim) then return end
 	if not banner then build() end
 	banner.Title:SetText(title)
 	banner.whenFormat = whenFormat
-	banner.total = seconds > 0 and seconds or 1
-	banner.arriveAt = GetTime() + seconds
-	banner.lastShown = nil
+	banner.linger = LINGER
 	banner.When:SetText(format(whenFormat, Alerts.Countdown(seconds)))
-	local wasShown = banner:IsShown()
-	banner:Show()
-	if not wasShown then banner.Anim.To(banner, "alpha", 0, 1, banner.Anim.FAST, "out") end
+	present(false, seconds)
 end
 Alerts.ShowBanner = showBanner
+
+-- One of Polestar's own heads-ups: title, a fixed line (wrapping), gone
+-- after `seconds` or a click.
+function Alerts.ShowNotice(title, line, seconds)
+	if not (ns.Theme and ns.Widgets and ns.Anim) then return end
+	if not banner then build() end
+	banner.Title:SetText(title)
+	banner.whenFormat = nil
+	banner.linger = 0
+	banner.When:SetText(line)
+	present(true, seconds)
+end
+
+-- Takes a notice down (the window it pointed to is back); a transport's
+-- countdown stays.
+function Alerts.HideNotice()
+	if banner and banner.psNotice and banner:IsShown() then banner:Hide() end
+end
 
 ---------------------------------------------------------------------------
 -- Checking

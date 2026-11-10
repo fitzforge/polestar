@@ -648,6 +648,245 @@ emit({ label = PolestarRareToast.Open.Label:GetText() })"#);
 	assert_eq!(out[0]["label"], "Show treasure");
 }
 
+// The card's Target button needs QoL's macro (QoL/Buttons.lua): these runs add QoL and stub_qol.lua, whose
+// secure frames refuse SetAttribute, Show, Hide, SetPoint and ClearAllPoints while stub.inCombat is true.
+fn run_card(before: &str, script: &str) -> Vec<Value> {
+	let codex = sample_codex();
+	let pack = pack();
+	let mut files: Vec<&str> = FILES.to_vec();
+	files.push("QoL/QoL.xml");
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_rares.lua", "stub_qol.lua"],
+		before: format!("{}\nlocal w = stub.world\n{}\nw.moveTo(1429, 88, 78)\nw.setLevel(10)\n{before}\n", pack.stub_lua, maps(&codex)),
+		addons: vec![Addon::files("Polestar", &files)],
+		saved: vec![],
+		login: true,
+		script: format!("{PRELUDE}{script}"),
+	})
+}
+
+const SPOT_THUROS: &str = r#"
+Polestar.Codex.Load()
+-- stub_qol.lua answers UnitName for its own units, so the alert comes as the nameplate path builds it.
+Polestar.Fire("RARE_SPOTTED", R.AlertOf({ source = "nameplate", kind = "rare", id = 61, name = "Thuros Lightfingers" }, { map = 1429, x = 88, y = 78 }, true))
+local f, s = PolestarRareToast, PolestarRareCardTarget
+local function card()
+	local p = s and { s:GetPoint(1) } or {}
+	return { shown = f.Target:IsShown(), enabled = f.Target:IsEnabled() and true or false, secure = s and s:IsShown() or false,
+		over = p[2] == f.Target, macro = s and s:GetAttribute("macrotext") or false, tip = f.Target.psTipLines and f.Target.psTipLines[1][1] or false }
+end
+"#;
+
+#[test]
+fn rare_card_target_button_targets_the_rare_by_its_full_name_and_pings_it_where_the_client_has_ping() {
+	let plain = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]";
+	let out = run_card("SLASH_PING1 = \"/ping\"", &format!("{SPOT_THUROS}emit(card())\nemit(R.Toast.TargetMacro({{ kind = \"rare\", name = \"Bad\\n/run X()\" }}) or false)"));
+	assert_eq!(out[0], json!({ "shown": true, "enabled": true, "secure": true, "over": true, "tip": false, "macro": format!("{plain}\n/ping [@target]") }));
+	assert_eq!(out[1], json!(false), "a name with a line break never becomes a macro");
+	// A client without the command: no ping line.
+	let out = run_card("SLASH_PING1 = nil", &format!("{SPOT_THUROS}emit(card().macro)"));
+	assert_eq!(out[0], json!(plain));
+}
+
+#[test]
+fn rare_card_target_button_marks_the_rare_only_with_mark_what_they_target_on_and_its_group_etiquette() {
+	let out = run_card(
+		"SLASH_PING1 = \"/ping\"",
+		&format!(
+			r#"{SPOT_THUROS}
+emit(card().macro)
+R.Toast.Hide()
+Polestar.Set("qol.markTarget", true)
+R.Toast.Show(R.AlertOf({{ source = "nameplate", kind = "rare", id = 61, name = "Thuros Lightfingers" }}, {{ map = 1429, x = 88, y = 78 }}, true))
+emit(card().macro)
+-- A party member who doesn't lead: only a unit with no icon gets one.
+function IsInGroup() return true end
+function IsInRaid() return false end
+function UnitIsGroupLeader() return false end
+R.Toast.Show(R.AlertOf({{ source = "nameplate", kind = "rare", id = 61, name = "Thuros Lightfingers" }}, {{ map = 1429, x = 88, y = 78 }}, true))
+emit(card().macro)
+-- A raid member without lead or assist: no icon.
+function IsInRaid() return true end
+function UnitIsGroupAssistant() return false end
+R.Toast.Show(R.AlertOf({{ source = "nameplate", kind = "rare", id = 61, name = "Thuros Lightfingers" }}, {{ map = 1429, x = 88, y = 78 }}, true))
+emit(card().macro)"#
+		),
+	);
+	let ping = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]\n/ping [@target]";
+	assert_eq!(out[0], json!(ping), "marking is off by default");
+	assert_eq!(out[1], json!(format!("{ping}\n/tm [@target,harm,nodead] !8")));
+	assert_eq!(out[2], json!(format!("{ping}\n/tm [@target,harm,nodead] ~8")));
+	assert_eq!(out[3], json!(ping));
+}
+
+#[test]
+fn rare_card_target_button_lets_go_before_a_fight_shows_disabled_with_the_rare_button_s_key_and_comes_back_after() {
+	let out = run_card(
+		"SLASH_PING1 = \"/ping\"\nstub.qol.bindings[\"CLICK PolestarRareButton:LeftButton\"] = { \"SHIFT-T\" }",
+		&format!(
+			r#"{SPOT_THUROS}
+-- PLAYER_REGEN_DISABLED fires before the lockdown starts.
+stub.fire("PLAYER_REGEN_DISABLED")
+stub.inCombat = true
+local c = card()
+c.points = s:GetNumPoints()
+emit(c)
+-- The card still closes and comes back in the fight: nothing secure is touched.
+R.Toast.Hide()
+R.Toast.Show(R.AlertOf({{ source = "nameplate", kind = "rare", id = 79, name = "Narg the Taskmaster" }}, {{ map = 1429, x = 88, y = 78 }}, true))
+emit(card())
+stub.inCombat = false
+stub.fire("PLAYER_REGEN_ENABLED")
+emit(card())
+stub.qol.bindings["CLICK PolestarRareButton:LeftButton"] = nil
+stub.fire("PLAYER_REGEN_DISABLED")
+stub.inCombat = true
+emit(card().tip)"#
+		),
+	);
+	let thuros = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]\n/ping [@target]";
+	let narg = "/cleartarget [nocombat]\n/targetexact Narg the Taskmaster\n/cleartarget [dead]\n/ping [@target]";
+	let keyed = "The card can't target during a fight. Use the rare button or its key (sT).";
+	assert_eq!(out[0], json!({ "shown": true, "enabled": false, "secure": false, "over": false, "points": 0, "macro": thuros, "tip": keyed }));
+	assert_eq!(out[1], json!({ "shown": true, "enabled": false, "secure": false, "over": false, "macro": thuros, "tip": keyed }), "a card that appears in a fight keeps the old macro, unarmed");
+	assert_eq!(out[2], json!({ "shown": true, "enabled": true, "secure": true, "over": true, "macro": narg, "tip": false }));
+	assert_eq!(out[3], json!("The card can't target during a fight. Use the rare button."));
+}
+
+#[test]
+fn rare_card_a_treasure_or_the_options_sample_without_a_rare_has_no_target_button() {
+	let out = run_card(
+		"",
+		r#"
+Polestar.Codex.Load()
+Polestar.Fire("RARE_SPOTTED", R.AlertOf({ source = "vignette", kind = "treasure", id = 2843, name = "Battered Chest" }, { map = 1429, x = 79.6, y = 55.7 }, true))
+emit({ PolestarRareToast.Target:IsShown(), PolestarRareCardTarget:IsShown() })
+Polestar.Fire("RARE_SPOTTED", { kind = "rare", name = "A rare", source = "sample", inSight = true })
+emit({ PolestarRareToast.Target:IsShown(), PolestarRareCardTarget:IsShown() })"#,
+	);
+	assert_eq!(out[0], json!([false, false]));
+	assert_eq!(out[1], json!([false, false]));
+}
+
+// Where a frame is on screen, from its anchors (stub frames keep them, the stub lays nothing out): offsets and
+// sizes in the frame's effective scale, UIParent at its own; two anchors span, one places by size. Then what the
+// mouse hits at a point: the shown, mouse-enabled candidate highest by strata (inherited from the parents, as
+// the client does) and frame level.
+const HIT: &str = r#"
+local STRATA = { BACKGROUND = 1, LOW = 2, MEDIUM = 3, HIGH = 4, DIALOG = 5, FULLSCREEN = 6, TOOLTIP = 8 }
+local function strata(fr) while fr do if fr.strata then return STRATA[fr.strata] end fr = fr.parent end return 3 end
+local function at(r, p)
+	local x = p:find("LEFT") and r.l or p:find("RIGHT") and r.r or (r.l + r.r) / 2
+	local y = p:find("TOP") and r.t or p:find("BOTTOM") and r.b or (r.t + r.b) / 2
+	return x, y
+end
+local function rect(fr)
+	local es = fr:GetEffectiveScale()
+	if fr == UIParent then return { l = 0, b = 0, r = 1920 * es, t = 1080 * es } end
+	local pts = fr.points or {}
+	if #pts == 0 then return nil end
+	local l, r, t, b, cx, cy
+	for _, p in ipairs(pts) do
+		local x, y = at(rect(p.rel or fr.parent or UIParent), p.relPoint)
+		x, y = x + p.x * es, y + p.y * es
+		if p.point:find("LEFT") then l = x elseif p.point:find("RIGHT") then r = x else cx = x end
+		if p.point:find("TOP") then t = y elseif p.point:find("BOTTOM") then b = y else cy = y end
+	end
+	local w, h = fr:GetWidth() * es, fr:GetHeight() * es
+	if not l and not r then l = cx - w / 2; r = l + w end
+	if not t and not b then b = cy - h / 2; t = b + h end
+	l = l or r - w; r = r or l + w; t = t or b + h; b = b or t - h
+	return { l = l, r = r, t = t, b = b }
+end
+local function hit(x, y, ...)
+	local best, bs, bl
+	for _, fr in ipairs({ ... }) do
+		local r = fr:IsVisible() and rect(fr)
+		if r and x >= r.l and x <= r.r and y >= r.b and y <= r.t then
+			local st, lv = strata(fr), fr:GetFrameLevel()
+			if not best or st > bs or (st == bs and lv > bl) then best, bs, bl = fr, st, lv end
+		end
+	end
+	return best
+end
+"#;
+
+#[test]
+fn rare_card_a_mouse_click_on_the_target_button_where_it_shows_targets_the_rare_at_any_ui_scale_and_either_key_down_setting() {
+	// Fitz, the installed 0.3.6: the card for Rocklance (in sight, out of combat) showed Target, and a click on it
+	// targeted nothing. The overlay was registered for the release only, and with ActionButtonUseKeyDown on (the
+	// client's default) SecureActionButton_OnClick acts only on the press.
+	let out = run_card(
+		"SLASH_PING1 = \"/ping\"",
+		&format!(
+			r#"{HIT}
+local out = {{}}
+for _, case in ipairs({{ {{ 1, "1" }}, {{ 0.64, "1" }}, {{ 1.15, "0" }}, {{ 0.8, "0" }} }}) do
+	UIParent:SetScale(case[1])
+	stub.cvars.ActionButtonUseKeyDown = case[2]
+	R.Toast.Hide()
+	stub.qol.ran = {{}}
+	Polestar.Fire("RARE_SPOTTED", R.AlertOf({{ source = "nameplate", kind = "rare", id = 900001, name = "Rocklance", level = 17, class = "rareelite" }}, {{ map = 1429, x = 88, y = 78 }}, true))
+	-- The slide-in runs to its end, then the card is dragged somewhere else.
+	stub.advance(1)
+	local f, s = PolestarRareToast, PolestarRareCardTarget
+	local r1 = rect(f.Target)
+	local x, y = (r1.l + r1.r) / 2, (r1.t + r1.b) / 2
+	local first = hit(x, y, f, f.Target, s)
+	stub.qol.mouseClick(first)
+	local ran1 = stub.qol.ran
+	stub.qol.ran = {{}}
+	f:ClearAllPoints()
+	f:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 40, 60)
+	local r2 = rect(f.Target)
+	local moved = hit((r2.l + r2.r) / 2, (r2.t + r2.b) / 2, f, f.Target, s)
+	stub.qol.mouseClick(moved)
+	out[#out + 1] = {{ first = first == s, moved = moved == s, ran = ran1, ranMoved = stub.qol.ran, printed = #stub.messages }}
+end
+emit(out)"#
+		),
+	);
+	let macro_ = "/cleartarget [nocombat]\n/targetexact Rocklance\n/cleartarget [dead]\n/ping [@target]";
+	for (i, case) in out[0].as_array().unwrap().iter().enumerate() {
+		assert_eq!(case["first"], true, "case {i}: the click lands on the secure overlay where the card's Target button shows");
+		assert_eq!(case["moved"], true, "case {i}: and still after the card moved");
+		assert_eq!(case["ran"], json!([["macro", macro_]]), "case {i}: one click runs the macro once");
+		assert_eq!(case["ranMoved"], json!([["macro", macro_]]), "case {i}");
+	}
+}
+
+#[test]
+fn rare_card_a_click_the_overlay_missed_lays_it_over_and_says_how_to_target() {
+	let out = run_card(
+		"SLASH_PING1 = \"/ping\"",
+		&format!(
+			r#"{SPOT_THUROS}
+s:Hide()
+s:ClearAllPoints()
+local before = #stub.messages
+stub.qol.mouseClick(f.Target)
+emit({{ card(), stub.messages[#stub.messages] or false, #stub.messages - before }})"#
+		),
+	);
+	assert_eq!(out[0][0]["secure"], true);
+	assert_eq!(out[0][0]["over"], true);
+	assert!(out[0][1].as_str().unwrap().contains("Click Target again to target the rare, or use the rare button."));
+	assert_eq!(out[0][2], 1);
+}
+
+#[test]
+fn rare_card_the_founder_s_card_waves_with_its_button_never_pings_or_marks() {
+	let out = run_card(
+		"SLASH_PING1 = \"/ping\"",
+		r#"
+Polestar.Set("qol.markTarget", true)
+Polestar.Fire("RARE_SPOTTED", { kind = "founder", name = "Fitz Polestar", zone = "Elwynn Forest", button = true })
+local f, s = PolestarRareToast, PolestarRareCardTarget
+emit({ f.Target:IsShown(), f.Target.Label:GetText(), s:IsShown(), s:GetAttribute("macrotext") })"#,
+	);
+	assert_eq!(out[0], json!([true, "Wave", true, "/cleartarget [nocombat]\n/targetexact Fitz Polestar\n/targetexact [noexists] Fitz\n/wave"]));
+}
+
 // ------------------------------------------------------------ the section
 
 #[test]
@@ -786,4 +1025,196 @@ local sync = decoded
 stub.advance(0.1)
 emit({ during = during, idle = idle, sync = sync, built = decoded > 0, layer = Polestar.Pins.GetLayer("rares.rare") ~= nil })"#);
 	assert_eq!(out[0], json!({ "during": 0, "idle": 0, "sync": 0, "built": true, "layer": true }));
+}
+
+// ------------------------------------------------------------ the founder
+
+#[test]
+fn decide_founder_every_reason_it_stays_quiet_and_the_half_hour() {
+	let out = run(r#"
+local function d(over, extra)
+	local cfg = { enabled = true, founder = true }
+	for k, v in pairs(over or {}) do cfg[k] = v end
+	local c = { get = function(k) return cfg[k] end, now = 5000, inCombat = false, inInstance = false, self = false, present = false }
+	for k, v in pairs(extra or {}) do c[k] = v end
+	local a, r = R.DecideFounder(c)
+	return { a, r }
+end
+emit({
+	alert = d(),
+	off = d({ founder = false }),
+	raresOff = d({ enabled = false }),
+	self = d(nil, { self = true }),
+	instance = d(nil, { inInstance = true }),
+	combat = d(nil, { inCombat = true }),
+	stillHere = d(nil, { alerted = 5000 - 40 * 60, present = true }),
+	cooldown = d(nil, { alerted = 5000 - 29 * 60 }),
+	again = d(nil, { alerted = 5000 - 31 * 60 }),
+	name = R.FOUNDER,
+	is = { R.IsFounder("Fitz Polestar"), R.IsFounder("Fitz Polestar-CAMWOW EU5 Realm 8 PvP"), R.IsFounder("Fitz Poletsar"),
+		R.IsFounder("Fitz"), R.IsFounder("fitz polestar"), R.IsFounder("Fitz Polestar Jr"), R.IsFounder(nil) },
+})"#);
+	let out = &out[0];
+	assert_eq!(out["alert"], json!(["alert"]));
+	assert_eq!(out["off"], json!(["skip", "off"]));
+	assert_eq!(out["raresOff"], json!(["skip", "off"]));
+	assert_eq!(out["self"], json!(["skip", "self"]));
+	assert_eq!(out["instance"], json!(["skip", "instance"]));
+	assert_eq!(out["combat"], json!(["skip", "combat"]));
+	assert_eq!(out["stillHere"], json!(["skip", "stillHere"]), "past the half hour, but he never left");
+	assert_eq!(out["cooldown"], json!(["skip", "cooldown"]));
+	assert_eq!(out["again"], json!(["alert"]));
+	assert_eq!(out["name"], "Fitz Polestar");
+	assert_eq!(out["is"], json!([true, true, false, false, false, false, false]));
+}
+
+/// The observer is a Forever character (a surname); `scene` runs after it, with `fitz(token, o)` showing a player
+/// named Fitz Polestar (o: guid, faction, name, surname) and `founders()` the founder alerts so far.
+fn founder_run(scene: &str) -> Vec<Value> {
+	run(&format!(
+		r#"local U = stub.rares
+U.me = {{ "Ana", "Smith" }}
+local function fitz(token, o)
+	o = o or {{}}
+	U.unit(token, {{ guid = o.guid or "Player-1-0000F175", name = o.name or "Fitz", surname = o.surname == nil and "Polestar" or o.surname or nil,
+		player = true, faction = o.faction or "Alliance", level = 13 }})
+end
+local function founders()
+	local n = 0
+	for _, a in ipairs(got) do if a.kind == "founder" then n = n + 1 end end
+	return n
+end
+{scene}"#
+	))
+}
+
+#[test]
+fn founder_a_player_named_fitz_polestar_alerts_once_with_the_card_and_the_rare_button_list_near_matches_never() {
+	let out = founder_run(
+		r#"
+-- Near matches: the other surname, the first name alone, another player.
+fitz("nameplate1", { guid = "Player-1-0000AAAA", surname = "Poletsar" })
+fitz("nameplate2", { guid = "Player-1-0000BBBB", surname = false })
+U.unit("nameplate3", { guid = "Player-1-0000CCCC", name = "Polestar", surname = "Fitz", player = true })
+for i = 1, 3 do stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate" .. i) end
+emit({ n = #got, nearby = #R.Nearby() })
+-- The founder, on the player's own side.
+fitz("nameplate4")
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate4")
+local a = got[1]
+local f = PolestarRareToast
+emit({ n = founders(), kind = a.kind, name = a.name, enemy = a.enemy, zone = a.zone, sounds = #stub.sounds,
+	shown = f:IsShown(), title = f.Name:GetText(), facts = f.Facts:GetText(), row = f.Distance:GetText(),
+	waypoint = f.Waypoint:IsShown(), open = f.Open:IsShown(), nearby = R.Nearby()[1] })
+local h = 0
+for _ in pairs(R.History()) do h = h + 1 end
+emit({ history = h })
+-- The combined form ("Fitz Polestar" in one string) is the same character.
+U.clear("nameplate4")
+stub.advance(120)
+U.unit("target", { guid = "Player-1-0000F175", name = "Fitz Polestar", player = true, faction = "Alliance" })
+emit({ nearby = #R.Nearby(), action = { R.FounderSighting("target", "target", "Player-1-0000F175") } })"#,
+	);
+	assert_eq!(out[0], json!({ "n": 0, "nearby": 0 }), "Fitz Poletsar, Fitz and Polestar Fitz are not him");
+	assert_eq!(
+		out[1],
+		json!({
+			"n": 1, "kind": "founder", "name": "Fitz Polestar", "enemy": false, "zone": "Elwynn Forest", "sounds": 1,
+			"shown": true, "title": "The Polestar founder is nearby!", "facts": "Fitz Polestar  \u{b7}  Elwynn Forest",
+			"row": "Go say hi", "waypoint": false, "open": false, "nearby": "Fitz Polestar"
+		})
+	);
+	assert_eq!(out[2], json!({ "history": 0 }), "the founder never enters the rares history");
+	assert_eq!(out[3], json!({ "nearby": 0, "action": ["skip", "cooldown"] }), "the one-string name matches too (inside the half hour)");
+}
+
+#[test]
+fn founder_the_other_faction_gets_the_alert_with_its_own_line() {
+	let out = founder_run(
+		r#"
+fitz("mouseover", { faction = "Horde" })
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+emit({ n = founders(), enemy = got[1] and got[1].enemy, row = PolestarRareToast.Distance:GetText() })"#,
+	);
+	assert_eq!(out[0], json!({ "n": 1, "enemy": true, "row": "Other faction: wave from a safe distance" }));
+}
+
+#[test]
+fn founder_once_per_half_hour_never_while_he_stays_again_after_he_left_and_the_half_hour_is_up() {
+	let out = founder_run(
+		r#"
+fitz("nameplate1")
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
+emit(founders())
+-- Still in range, seen by other paths: no second alert.
+stub.advance(4)
+fitz("target")
+stub.fire("PLAYER_TARGET_CHANGED")
+emit(founders())
+-- 31 minutes with his nameplate up the whole time: he never left.
+U.clear("target")
+stub.advance(31 * 60)
+fitz("mouseover")
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+emit({ founders(), R.Nearby()[1] })
+-- He leaves: off the list within a minute. Back after that, more than half an hour after the alert: due again.
+U.clear("nameplate1")
+U.clear("mouseover")
+stub.advance(120)
+emit(#R.Nearby())
+fitz("nameplate2")
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
+emit(founders())
+-- Leaves again and comes back ten minutes later: inside the new half hour.
+U.clear("nameplate2")
+stub.advance(10 * 60)
+fitz("nameplate3")
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate3")
+emit(founders())"#,
+	);
+	assert_eq!(out[0], 1);
+	assert_eq!(out[1], 1, "seen again while in range");
+	assert_eq!(out[2], json!([1, "Fitz Polestar"]), "the half hour passed, but he stayed in range");
+	assert_eq!(out[3], 0, "out of sight: off the rare button");
+	assert_eq!(out[4], 2, "left and came back after the half hour");
+	assert_eq!(out[5], 2, "back inside the half hour");
+}
+
+#[test]
+fn founder_never_on_his_own_client_in_an_instance_in_combat_or_with_the_option_off() {
+	let quiet = |setup: &str, after: &str| -> Vec<Value> {
+		founder_run(&format!(
+			r#"{setup}
+fitz("target")
+stub.fire("PLAYER_TARGET_CHANGED")
+emit({{ n = founders(), nearby = #R.Nearby() }})
+{after}"#
+		))
+	};
+	let own = quiet(r#"U.me = { "Fitz", "Polestar" }"#, "");
+	assert_eq!(own[0], json!({ "n": 0, "nearby": 0 }), "his own client");
+	let instance = quiet("stub.world.inInstance = true", "");
+	assert_eq!(instance[0], json!({ "n": 0, "nearby": 0 }), "inside an instance, battleground or arena");
+	let off = quiet(r#"Polestar.Set("rares.founder", false)"#, "");
+	assert_eq!(off[0], json!({ "n": 0, "nearby": 0 }), "the option off");
+	// Combat: nothing then; a later sighting after the fight still alerts (combat used up nothing).
+	let combat = quiet(
+		"stub.inCombat = true",
+		r#"stub.inCombat = false
+stub.advance(4)
+stub.fire("PLAYER_TARGET_CHANGED")
+emit({ n = founders() })"#,
+	);
+	assert_eq!(combat[0], json!({ "n": 0, "nearby": 0 }), "in combat");
+	assert_eq!(combat[1], json!({ "n": 1 }));
+	// Turning the option off takes him off the rare button at once.
+	let later = founder_run(
+		r#"
+fitz("target")
+stub.fire("PLAYER_TARGET_CHANGED")
+local before = #R.Nearby()
+Polestar.Set("rares.founder", false)
+emit({ before, #R.Nearby() })"#,
+	);
+	assert_eq!(later[0], json!([1, 0]));
 }

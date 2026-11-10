@@ -12,13 +12,17 @@
 -- Middle: tabs (Home: Continue cards for the open tabs, one row of them,
 -- the active tab first, then the most recently used, with "Show all (N)"
 -- for the rest, and the suggested guides; Browse: the last category or the
--- search; Current: the open tabs; Recent: the last guides loaded), one
--- always active, over one line per
--- guide, "Title (min-max)", a "Group" chip on a guide with group content
--- (elites, dungeons, raids: the compiled `group`; on the Continue cards
--- too), a check on finished guides and a muted "Tab N"
--- on open ones, under small folder headers (leveling by faction and band:
--- "Horde 30-40"; the rest by category). The faction filter sits at the
+-- search; Current: the open tabs; Recent: the tabs closed, newest first,
+-- then the last guides loaded), one always active, over one line per
+-- guide, "Title (min-max)" (same-titled guides of one range with their races
+-- or faction: "Dun Morogh (Dwarf)", P.Titles), a "Group" chip on a guide
+-- with group content on the route every player follows (elites, dungeons,
+-- raids: the compiled `group`; on the Continue cards too), a check on
+-- finished guides and a muted "Tab N" on open ones, under small folder
+-- headers (leveling by faction and band: "Horde 30-40"; the rest by
+-- category). On Browse without a search a header folds its guides away and
+-- back (click, or A on a gamepad; its count stays), kept account-wide in
+-- ui.pickerCollapsed; opening the menu unfolds the open guide's folder. The faction filter sits at the
 -- right of the tab row. The header says what the list holds ("Horde · 65
 -- guides · 1 open", or the search's result count). The list runs to the
 -- window's bottom.
@@ -264,22 +268,87 @@ P.Band = band
 
 local FACTION_ORDER = { Alliance = 1, Horde = 2 }
 
--- The folder a guide is listed under -> label, sort key. A guide's own
--- `folder` wins; guides sharing it still sort by faction, then level.
+-- The folder a guide is listed under -> label, sort key, id. A guide's own
+-- `folder` wins; guides sharing it still sort by faction, then level. The
+-- id names the folder whatever the client's language or the character's
+-- faction (the collapsed folders are kept by it, account-wide).
 local function folderOf(g, mine)
 	local c = categoryOf(g)
 	if type(g.folder) == "string" and g.folder ~= "" then
-		return g.folder, string.format("%02d", CATEGORY_RANK[c] or 99) .. c .. "/" .. g.folder
+		return g.folder, string.format("%02d", CATEGORY_RANK[c] or 99) .. c .. "/" .. g.folder, c .. "/" .. g.folder
 	end
 	if c == "Leveling" then
 		local lo, hi = band(g)
 		local f = g.faction
 		local rank = f == nil and 3 or (f == mine and 0 or (FACTION_ORDER[f] or 4))
 		local label = (f and ns.FactionName(f) or L["Leveling"]) .. " " .. UI.LevelRange(lo, hi)
-		return label, string.format("%02d%d%03d", CATEGORY_RANK.Leveling, rank, lo)
+		return label, string.format("%02d%d%03d", CATEGORY_RANK.Leveling, rank, lo), "Leveling/" .. (f or "") .. "/" .. lo
 	end
-	return L[c], string.format("%02d", CATEGORY_RANK[c] or 99) .. c
+	return L[c], string.format("%02d", CATEGORY_RANK[c] or 99) .. c, c
 end
+local OTHER_STARTS = "Leveling/other-starts"
+
+-- Same-titled guides in one list (#1358: the Dwarf's and the Gnome's "Dun
+-- Morogh (1-12)") say whose they are: their races where those differ, else
+-- their faction ("Zephras Isle (Horde)" beside the Alliance one). A title
+-- with another level range needs nothing: the range tells them apart.
+-- list: guide headers -> { [guide] = shown title }
+local function racesOf(g)
+	if type(g.races) ~= "table" or #g.races == 0 then return nil end
+	local names = {}
+	for i, r in ipairs(g.races) do names[i] = UI.RaceName(r) end
+	local text = names[1]
+	for i = 2, #names do text = string.format(L["%s, %s"], text, names[i]) end
+	return text
+end
+
+function P.Titles(list)
+	local same = {}
+	for _, g in ipairs(list) do
+		local k = (g.title or g.id or "") .. "\0" .. (g.minLevel or "") .. "-" .. (g.maxLevel or "")
+		local s = same[k]
+		if not s then
+			s = {}
+			same[k] = s
+		end
+		s[#s + 1] = g
+	end
+	local out = {}
+	for _, s in pairs(same) do
+		local races, factions = {}, {}
+		for _, g in ipairs(s) do
+			races[racesOf(g) or ""] = true
+			factions[g.faction or ""] = true
+		end
+		local function count(t)
+			local n = 0
+			for _ in pairs(t) do n = n + 1 end
+			return n
+		end
+		local byRace, byFaction = count(races) == #s, count(factions) == #s
+		for _, g in ipairs(s) do
+			local q = #s > 1 and ((byRace and racesOf(g)) or (byFaction and g.faction and ns.FactionName(g.faction))) or nil
+			out[g] = q and string.format(L["%s (%s)"], g.title or g.id, q) or (g.title or g.id)
+		end
+	end
+	return out
+end
+
+-- Browse folders the player folded away: { [folder id] = true }, account-wide.
+function P.IsCollapsed(id)
+	local t = ns.Get("ui.pickerCollapsed")
+	return id ~= nil and type(t) == "table" and t[id] == true
+end
+
+function P.SetCollapsed(id, collapsed)
+	if id == nil or P.IsCollapsed(id) == (collapsed and true or false) then return end
+	local t, copy = ns.Get("ui.pickerCollapsed"), {}
+	if type(t) == "table" then for k, v in pairs(t) do copy[k] = v end end
+	copy[id] = collapsed and true or nil
+	ns.Set("ui.pickerCollapsed", next(copy) and copy or nil)
+end
+
+function P.ToggleFolder(id) P.SetCollapsed(id, not P.IsCollapsed(id)) end
 
 local function rankOfFaction(f, mine)
 	if f == nil then return 3 end
@@ -293,7 +362,8 @@ end
 -- other races' but their starting zones: those, Guides.OtherStart, go in an
 -- "Other starting zones" folder after the player's own levels 1-30); the
 -- other faction and "All" list every guide.
--- -> entries { kind = "folder"|"guide", text, count, guide },
+-- -> entries { kind = "folder", text, count, id } | { kind = "guide", guide,
+--    title (Titles), folder (the folder entry) },
 --    number of guides listed, { [category] = matching guides, Favorites = n }
 --    (before the category filter)
 function P.Entries(filter, q, cat)
@@ -325,12 +395,12 @@ function P.Entries(filter, q, cat)
 			if cat == "All" or c == cat then picked[#picked + 1] = g end
 		end
 	end
-	local key, label = {}, {}
+	local key, label, fid = {}, {}, {}
 	for _, g in ipairs(picked) do
 		if other[g] then
-			label[g], key[g] = L["Other starting zones"], string.format("%02d0001~", CATEGORY_RANK.Leveling)
+			label[g], key[g], fid[g] = L["Other starting zones"], string.format("%02d0001~", CATEGORY_RANK.Leveling), OTHER_STARTS
 		else
-			label[g], key[g] = folderOf(g, mine)
+			label[g], key[g], fid[g] = folderOf(g, mine)
 		end
 	end
 	table.sort(picked, function(a, b)
@@ -346,16 +416,26 @@ function P.Entries(filter, q, cat)
 		if categoryOf(a) == "Leveling" then return (a.id or "") < (b.id or "") end
 		return (a.title or "") < (b.title or "")
 	end)
+	local titles = P.Titles(picked)
 	local out, folder = {}, nil
 	for _, g in ipairs(picked) do
 		if label[g] ~= (folder and folder.text) then
-			folder = { kind = "folder", text = label[g], count = 0 }
+			folder = { kind = "folder", text = label[g], count = 0, id = fid[g] }
 			out[#out + 1] = folder
 		end
 		folder.count = folder.count + 1
-		out[#out + 1] = { kind = "guide", guide = g }
+		out[#out + 1] = { kind = "guide", guide = g, title = titles[g], folder = folder }
 	end
 	return out, #picked, counts
+end
+
+-- The id of the Browse folder a guide is listed under (every category, no
+-- search, the faction filter as set), or nil where it is not listed.
+function P.FolderOf(id)
+	for _, e in ipairs((P.Entries(factionFilter(), "", "All"))) do
+		if e.kind == "guide" and e.guide.id == id then return e.folder.id end
+	end
+	return nil
 end
 
 ---------------------------------------------------------------------------
@@ -552,21 +632,76 @@ end
 -- Middle pane: folders, guide lines, Continue cards
 ---------------------------------------------------------------------------
 
+-- A Browse folder's header folds its guides away and back (#1358): a click,
+-- or A on a gamepad. Its count stays; the chevron at the right points down
+-- while open, right while folded. Elsewhere (Home, Current, Recent, a
+-- search) a header is only a label.
+local function folderPaint(f, hover)
+	local tone = hover and "textDim" or "textMuted"
+	W.Color(f.Text, tone)
+	W.Color(f.Chevron, tone)
+end
+
+local function folderClick(self)
+	if self.psFolder then P.ToggleFolder(self.psFolder) end
+end
+
+local function folderEnter(self)
+	if not self.psFolder then return end
+	folderPaint(self, true)
+	W.SimpleTip(self)
+end
+
+local function folderLeave(self)
+	folderPaint(self, false)
+	W.HideTip(self)
+end
+
 local function folderRow(i)
 	local f = folderPool[i]
 	if f then return f end
-	f = CreateFrame("Frame", nil, win.Body)
+	f = CreateFrame("Button", nil, win.Body)
 	f:SetHeight(FOLDER_H)
+	W.Hover(f)
 	f.Text = W.Text(f, "label", "textMuted")
 	f.Text:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", TEXT_X, 7)
+	f.Chevron = W.Tex(f, "ARTWORK", "chevron-down", "textMuted")
+	f.Chevron:SetSize(12, 12)
+	f.Chevron:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -TEXT_X, 7)
 	f.Count = W.Text(f, "number", "textMuted")
 	f.Count:SetJustifyH("RIGHT")
-	f.Count:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -TEXT_X, 7)
 	f.Rule = W.Divider(f, false, 0.7)
 	f.Rule:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", TEXT_X, 0)
 	f.Rule:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -TEXT_X, 0)
+	f:SetScript("OnClick", folderClick)
+	f:SetScript("OnEnter", folderEnter)
+	f:SetScript("OnLeave", folderLeave)
 	folderPool[i] = f
 	return f
+end
+
+-- id: the folder's id where it folds (Browse without a search), else nil.
+local function paintFolder(f, text, count, id)
+	f.psFolder = id
+	local collapsed = id ~= nil and P.IsCollapsed(id)
+	f.psCollapsed = collapsed
+	f.Text:SetText(text)
+	f.Count:SetText(count or "")
+	f.Count:ClearAllPoints()
+	if id then
+		f.Chevron:SetTexture(Theme.Media(collapsed and "chevron-right" or "chevron-down"))
+		f.Count:SetPoint("BOTTOMRIGHT", f.Chevron, "BOTTOMLEFT", -6, 0)
+		f.psPadLabel = collapsed and L["Expand"] or L["Collapse"]
+		f.psTip = f.psPadLabel
+	else
+		f.Count:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -TEXT_X, 7)
+		f.psTip, f.psPadLabel = nil, nil
+	end
+	f.Chevron:SetShown(id ~= nil)
+	f:EnableMouse(id ~= nil)
+	f:SetEnabled(id ~= nil)
+	f.psPadSkip = id == nil or nil
+	folderPaint(f, false)
 end
 
 local function rowClick(self)
@@ -619,8 +754,9 @@ local function guideRow(i)
 	return r
 end
 
--- note: the right-hand text ("Tab 2", "Tab 2 · 25%"), or nil.
-local function paintRow(r, g, note, width)
+-- note: the right-hand text ("Tab 2", "Tab 2 · 25%"), or nil; title: the
+-- title to show (P.Titles), else the guide's own.
+local function paintRow(r, g, note, width, title)
 	r.psGuide = g
 	r.psTip = loadHint()
 	local sel = P.Selected() == g.id
@@ -636,7 +772,7 @@ local function paintRow(r, g, note, width)
 		note = note and (note .. DOT .. when) or when
 	end
 	r.Title:SetWidth(0) -- measured below from scratch, as the note
-	r.Title:SetText(g.title or g.id)
+	r.Title:SetText(title or g.title or g.id)
 	W.Color(r.Title, sel and "text" or ((done or gate) and "textDim" or "text"))
 	local lv = UI.LevelRange(g.minLevel, g.maxLevel)
 	r.Range:SetText(lv and ("(" .. lv .. ")") or "")
@@ -1139,6 +1275,7 @@ local function renderDetails(byId, tabs, active)
 		d.EmptyTitle:Show()
 		d.EmptyNote:Show()
 		P.detail = nil
+		d.psReadFor = nil
 		return
 	end
 	d.EmptyTitle:Hide()
@@ -1245,6 +1382,14 @@ local function renderDetails(byId, tabs, active)
 		if #choose > 0 then facts[#facts + 1] = { L["Choose one"], rewards = choose } end
 	end
 	if type(g.why) == "string" and g.why ~= "" then facts[#facts + 1] = { L["Why"], g.why } end
+	-- A Class guide: the same heads-up the class-quest card gives (QoL/ClassQuests.lua).
+	local CQ, G = ns.QoL and ns.QoL.ClassQuests, ns.Guides
+	local full = g.category == "Class" and CQ and CQ.Heads and G and G.Get and G.Get(g.id)
+	if type(full) == "table" and type(full.steps) == "table" then
+		local okP, player = pcall(ns.Compat.GetPlayerInfo)
+		local heads = CQ.HeadsLine(CQ.Heads(full, okP and type(player) == "table" and player or {}), full)
+		if heads then facts[#facts + 1] = { L["Heads-up"], heads } end
+	end
 	if g.stepCount then facts[#facts + 1] = { L["Steps"], tostring(g.stepCount) } end
 	if info.quests > 0 then facts[#facts + 1] = { L["Quests"], tostring(info.quests) } end
 	if #info.zones > 0 then facts[#facts + 1] = { L["Zones"], info.zones, "textDim" } end
@@ -1385,7 +1530,14 @@ local function renderDetails(byId, tabs, active)
 	if pros > 0 and type(g.cons) == "table" and #g.cons > 0 then cy = cy + 4 end
 	lines(d.Cons, g.cons, "cross", "textMuted", "textDim", 9)
 	W.SetScrollContent(d.Scroll, cy + 8, win:GetHeight() - y - bottom)
-	W.ScrollTo(d.Scroll, 0)
+	-- Another guide (or another quest's search) reads from the top; the same
+	-- one drawn again (a tab's progress, a guide registering) keeps the
+	-- place the player scrolled to.
+	local readFor = g.id .. "\0" .. (questContext and questContext.query or "")
+	if d.psReadFor ~= readFor then
+		d.psReadFor = readFor
+		W.ScrollTo(d.Scroll, 0)
+	end
 
 	-- Buttons: Load and Open in new tab; on a guide already open, Continue
 	-- alone at full width.
@@ -1696,7 +1848,7 @@ function P.Render()
 		elseif view == "current" then
 			subtitle = L["The guides open in your tabs."]
 		else
-			subtitle = L["The last guides you loaded."]
+			subtitle = L["The tabs you closed and the last guides you loaded."]
 		end
 	end
 	if newTabMode then subtitle = L["Pick a guide to open in a new tab."] end
@@ -1705,11 +1857,11 @@ function P.Render()
 	local width = MID_W - ROW_X * 2
 	local y, nf, ng, nc = 8, 0, 0, 0
 	visibleIds = {}
-	local function folder(text, count)
+	-- id: a Browse folder's id where it folds (no search), else nil.
+	local function folder(text, count, id)
 		nf = nf + 1
 		local f = folderRow(nf)
-		f.Text:SetText(text)
-		f.Count:SetText(count or "")
+		paintFolder(f, text, count, id)
 		f:ClearAllPoints()
 		f:SetPoint("TOPLEFT", win.Body, "TOPLEFT", ROW_X, -y)
 		f:SetWidth(width)
@@ -1726,10 +1878,10 @@ function P.Render()
 		local pct = tot > 0 and floor((t.done or 0) / tot * 100 + 0.5) or 0
 		return string.format(L["Tab %d  \194\183  %d%%"], i, pct)
 	end
-	local function row(g, note)
+	local function row(g, note, shownTitle)
 		ng = ng + 1
 		local r = guideRow(ng)
-		paintRow(r, g, note, width)
+		paintRow(r, g, note, width, shownTitle)
 		r:ClearAllPoints()
 		r:SetPoint("TOPLEFT", win.Body, "TOPLEFT", ROW_X, -y)
 		r:Show()
@@ -1741,14 +1893,16 @@ function P.Render()
 	-- draws them again below.
 	if UI.HideLookupRows then UI.HideLookupRows(win.Body) end
 	if view == "browse" then
+		-- A search lists every match: no folder folds then.
+		local folds = query == ""
 		local lastFolder = false
 		for _, e in ipairs(entries) do
 			if e.kind == "folder" then
 				if lastFolder then y = y + 10 end
-				folder(e.text, e.count)
+				folder(e.text, e.count, folds and e.id or nil)
 				lastFolder = true
-			else
-				row(e.guide, tabNote(e.guide.id))
+			elseif not (folds and P.IsCollapsed(e.folder.id)) then
+				row(e.guide, tabNote(e.guide.id), e.title)
 			end
 		end
 		-- Items, NPCs and quests that match, under the guides (UI/Lookup.lua).
@@ -1791,26 +1945,44 @@ function P.Render()
 		local sugg = suggestions(byId, tabs, openIndex)
 		if #sugg > 0 then
 			folder(L["Suggested for you"], #sugg)
-			for _, g in ipairs(sugg) do row(g, tabNote(g.id)) end
+			local shown = P.Titles(sugg)
+			for _, g in ipairs(sugg) do row(g, tabNote(g.id), shown[g]) end
 		end
 		if nc == 0 and #sugg == 0 then empty = L["Nothing open yet. Pick a category on the left to find a guide."] end
 	elseif view == "current" then
 		if tabs and #tabs > 0 then
 			folder(L["Open tabs"], #tabs)
-			for i, t in ipairs(tabs) do
-				local g = byId[t.guideId]
-				if g then row(g, tabNote(g.id, true)) end
-			end
+			local open = {}
+			for _, t in ipairs(tabs) do open[#open + 1] = byId[t.guideId] end
+			local shown = P.Titles(open)
+			for _, g in ipairs(open) do row(g, tabNote(g.id, true), shown[g]) end
 		else
 			empty = L["No guide is open. Load one and it shows up here."]
 		end
 	else
+		-- The tabs the player closed, newest first (Engine.ClosedTabs): opened
+		-- again, each comes back at the step it was on. Then the last guides loaded.
+		local E, shut, listed = ns.Engine, {}, {}
+		for _, c in ipairs(E and E.ClosedTabs and E.ClosedTabs() or {}) do
+			local g = byId[c.guideId]
+			if g then
+				shut[#shut + 1] = g
+				listed[g.id] = true
+			end
+		end
+		if #shut > 0 then
+			folder(L["Recently closed"], #shut)
+			local shown = P.Titles(shut)
+			for _, g in ipairs(shut) do row(g, nil, shown[g]) end
+		end
 		local recent = {}
-		for _, id in ipairs(P.Recent()) do if byId[id] then recent[#recent + 1] = byId[id] end end
+		for _, id in ipairs(P.Recent()) do if byId[id] and not listed[id] then recent[#recent + 1] = byId[id] end end
 		if #recent > 0 then
+			if #shut > 0 then y = y + 10 end
 			folder(L["Recently loaded"], #recent)
-			for _, g in ipairs(recent) do row(g, tabNote(g.id)) end
-		else
+			local shown = P.Titles(recent)
+			for _, g in ipairs(recent) do row(g, tabNote(g.id), shown[g]) end
+		elseif #shut == 0 then
 			empty = L["Guides you load show up here."]
 		end
 	end
@@ -1953,6 +2125,10 @@ local function build()
 	end, { ghost = true, height = 24 })
 	win.CardsMore.psTight = true
 	win.CardsMore:Hide()
+	-- The list's column ends where the details begin: the hidden footer
+	-- marks the body's width (W.ShellFooter), so the list's scroll area and
+	-- its bar stop at the details' edge rather than run on under them.
+	win.Footer:SetPoint("BOTTOMRIGHT", main, "BOTTOMRIGHT", -DETAIL_W, 0)
 	W.ShellFooter(win, nil, nil)
 
 	-- The faction filter, at the right of the tab row, centred in it; its
@@ -1985,14 +2161,15 @@ local function build()
 	if ns.Gamepad and ns.Gamepad.Register then
 		ns.Gamepad.Register(win, {
 			initial = function(rows)
-				local first
+				-- The selected guide, else the first line that is no folder header.
+				local first, header
 				for i, w in ipairs(rows) do
 					if ns.Gamepad.Within(w, win.Main) and w.psKey == nil and w ~= win.ThanksLink then
 						if w.psGuide and w.psGuide.id == P.Selected() then return i end
-						first = first or i
+						if w.psFolder then header = header or i else first = first or i end
 					end
 				end
-				return first
+				return first or header
 			end,
 			prevTab = function() P.StepSection(-1) end,
 			nextTab = function() P.StepSection(1) end,
@@ -2031,6 +2208,12 @@ function UI.ShowPicker(opts)
 		local G = ns.Guides
 		if not sel and G and G.Suggest then sel = G.Suggest() end
 		uiState().pickerSelected = sel and byId[sel] and sel or nil
+	end
+	-- The folder holding the open guide starts expanded (#1358).
+	if not win:IsShown() then
+		local tabs, active = tabsInfo()
+		local open = tabs and active and tabs[active] and tabs[active].guideId
+		if open then P.SetCollapsed(P.FolderOf(open), false) end
 	end
 	local settings = UI.Options and UI.Options.frame
 	if win:IsShown() then
@@ -2080,7 +2263,7 @@ ns.On("GUIDE_CHANGED", function(id)
 	P.Render()
 end)
 ns.On("SETTING_CHANGED", function(path)
-	if path == "ui.pickerFaction" or path == "" or path == "ui" then P.Render() end
+	if path == "ui.pickerFaction" or path == "ui.pickerCollapsed" or path == "" or path == "ui" then P.Render() end
 end)
 -- The filter is account-wide: a character of the other faction logging in
 -- after "Horde" or "Alliance" was picked would open on the wrong side's

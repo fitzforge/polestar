@@ -13,9 +13,11 @@ use rustc_hash::{FxHashMap, FxHashSet};
 use crate::jsv::{arr, hypot, math_round, nums, to_int32};
 use crate::players::{round_quest_xp, Eg, EgQuest, QuestXp, Vo};
 
+/// Lower wins. Our corrections outrank players' recordings: a recording never overrides a corrected
+/// value (recordings.rs puts them back; this keeps the knowledge base's choice the same).
 const TIERS: [(&str, f64); 25] = [
-	("recorder", 0.0),
 	("correction", 0.0),
+	("recorder", 0.5),
 	("tdb", 1.0),
 	("client", 1.0),
 	("eg.observed", 1.4),
@@ -2108,11 +2110,10 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 				tag(&q, "kb:tdb:pre");
 				bump(&tdb_report, "preFilled", 1.0);
 			}
-			let time = tq.get("time");
-			if time.num() > 0.0 && !q.get("limit").strict_eq(&time) {
+			if let Some(time) = tdb_limit(&q, &tq) {
 				let cur = q.get("limit");
 				kb.change("quests", qidn, "limit", if cur.is_nullish() { V::Null } else { cur }, time.clone(), src);
-				q.set("limit", time.clone());
+				q.set("limit", time);
 				bump(&tdb_report, "limits", 1.0);
 			}
 			let rs = tq.get("rewardSpell");
@@ -2548,6 +2549,15 @@ fn verify_counts(list: &[V]) -> Obj {
 fn tdb_rate_fills_unrated(item: &V, row: &V) -> bool {
 	let scale = item.get("dropScale");
 	(scale.is_nullish() || scale.as_str() == Some("server")) && row.num_at(0) > 0.0
+}
+
+/// The quest's time limit from its TDB row: the server's `TimeAllowed` (`time`, whole seconds once the
+/// quest is taken) when it has one and the quest's `limit` differs, else None (nothing to change).
+/// quests.json's `limit` reaches every accept of the quest in the guides (forge-guide resolve.rs), which
+/// Dynamic Questing and the addon's countdown read (Quests/Timed.lua).
+fn tdb_limit(q: &V, tq: &V) -> Option<V> {
+	let time = tq.get("time");
+	(time.num() > 0.0 && !q.get("limit").strict_eq(&time)).then_some(time)
 }
 
 /// The TDB's sniffed spawns, drop rates and droppers (kb.js applyTdbWorld).
@@ -3546,8 +3556,32 @@ mod tests {
 		assert!(!tdb_rate_fills_unrated(&item, &parse_json(r#"[0, "vmangos", 5, null, null, 1]"#).unwrap()));
 	}
 
+	#[test]
+	fn tdb_time_allowed_becomes_the_quests_limit() {
+		// Need for a Cure 812: the server allows 45 minutes.
+		let tq = parse_json(r#"{ "sniffed": false, "obj": [[1, 4904, 1]], "time": 2700 }"#).unwrap();
+		let fresh = parse_json(r#"{ "id": 812 }"#).unwrap();
+		assert_eq!(tdb_limit(&fresh, &tq).map(|t| t.num()), Some(2700.0));
+		let other = parse_json(r#"{ "id": 812, "limit": 1800 }"#).unwrap();
+		assert_eq!(tdb_limit(&other, &tq).map(|t| t.num()), Some(2700.0), "the server's time wins over another source's");
+		let same = parse_json(r#"{ "id": 812, "limit": 2700 }"#).unwrap();
+		assert!(tdb_limit(&same, &tq).is_none(), "already the same: no change logged");
+		// No TimeAllowed (or 0): untimed on the server, the quest keeps what it has.
+		assert!(tdb_limit(&fresh, &parse_json(r#"{ "sniffed": false, "obj": [] }"#).unwrap()).is_none());
+		assert!(tdb_limit(&other, &parse_json(r#"{ "time": 0 }"#).unwrap()).is_none());
+	}
+
 	fn fact_of(alt: &Alt, key: &str, field: &str, source: &str) -> Option<String> {
 		alt.facts.get(key)?.iter().find(|f| f.field == field && f.source == source).map(|f| f.value.to_js_string())
+	}
+
+	#[test]
+	fn corrections_outrank_recordings_which_outrank_every_other_source() {
+		for f in ["level", "min_level", "start", "races", "spawns"] {
+			assert!(tier_of("correction", f) < tier_of("recorder", f), "{f}");
+			assert!(tier_of("recorder", f) < tier_of("tdb", f), "{f}");
+			assert!(decides_verify(f, tier_of("recorder", f)), "{f}");
+		}
 	}
 
 	#[test]

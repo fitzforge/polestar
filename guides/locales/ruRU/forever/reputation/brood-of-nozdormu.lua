@@ -7,10 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Brood of Nozdormu Reputation"] = "",
-	["The Bronze Dragonflight's ring, upgraded at every standing; a long climb from Hated, mostly in raids."] = "",
+	["Brood of Nozdormu Reputation"] = "Репутация: Род Ноздорму",
+	["The Bronze Dragonflight's ring, upgraded at every standing; a long climb from Hated, mostly in raids."] = "Кольцо бронзовых драконов улучшается на каждом уровне репутации; долгий путь от ненависти, в основном в рейдах.",
 	-- {item:21175} The Scepter of the Shifting Sands
-	["{item:21175} quest chain"] = "",
+	["{item:21175} quest chain"] = "Цепочка заданий {item:21175}",
 
 	-- Step 1: Baristolth in Cenarion Hold
 	-- {area:3425} Cenarion Hold

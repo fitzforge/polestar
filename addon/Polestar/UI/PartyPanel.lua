@@ -10,6 +10,8 @@
 -- the guide hides there. Toggled from the guide window's party line and
 -- /polestar party (which says why when nothing can show yet; "/polestar
 -- party debug" prints Party.Debug); its place is kept in party.panelPos.
+-- "Sync to my guide" in its header (and /polestar party sync) asks the
+-- party to move to your step (Party.RequestSync).
 
 local ADDON, ns = ...
 local UI, Theme, W = ns.UI, ns.Theme, ns.Widgets
@@ -88,6 +90,12 @@ local function build()
 	F.Title:SetText(L["Party"])
 	F.Close = W.IconButton(F, "close", 18, L["Close"], function() ns.Set("party.panel", false) end, 10)
 	F.Close:SetPoint("TOPRIGHT", F, "TOPRIGHT", -4, -4)
+	F.Sync = W.Button(F, "", function() ns.Party.RequestSync() end, { ghost = true, height = 18 })
+	F.Sync.psTight = true
+	W.SetButtonText(F.Sync, L["Sync to my guide"])
+	F.Sync.psTip = L["Sync to my guide"]
+	F.Sync.psTipLines = { L["Asks your party to move to your step. Each of them gets a prompt; nothing changes for anyone who declines."] }
+	F.Sync:SetPoint("RIGHT", F.Close, "LEFT", -4, 0)
 	F.rows = {}
 	F:SetScript("OnHide", function()
 		if ticker then
@@ -181,12 +189,14 @@ end
 
 -- The guide window's party line and /polestar party: an open panel closes
 -- (and stays closed: party.panel false), a closed one opens, or it says why
--- it cannot yet. "/polestar party debug": Party.Debug's lines.
+-- it cannot yet. "/polestar party debug": Party.Debug's lines; "/polestar
+-- party sync": Party.RequestSync.
 function PP.Toggle(arg)
 	if type(arg) == "string" and arg:lower() == "debug" then
 		for _, line in ipairs(ns.Party.Debug()) do ns.Print(line) end
 		return
 	end
+	if type(arg) == "string" and arg:lower() == "sync" then return ns.Party.RequestSync() end
 	if F and F:IsShown() then return ns.Set("party.panel", false) end
 	ns.Set("party.panel", true)
 	if not (F and F:IsShown()) then

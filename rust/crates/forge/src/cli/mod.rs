@@ -111,6 +111,8 @@ The data builders, one at a time (forge build's data stage runs the ones it need
   talents       build|check addon/Polestar/Talents/Builds.lua  [--root --plans --out --sources --build --offline]
   maps          build: Maps/ZoneLevels.lua [--data --lua]; overlays: UI/ZoneArtOverlays.lua
                 [--build --sources --offline --lua]
+  newquests     Quests/NewQuestIds.lua: the quests Forever added (the \"New in Forever\" mark)
+                [--root --data --sources --offline --check --lua]
   check-corrections  check an edit of forever-db/corrections, mechanics-public.json or route-fixes.json
                 [--root --data --corrections --mechanics --route-fixes --json]
   trainers      trainers.json and Core/ClassTrainers.lua  [--data --guides --recordings --out --lua]

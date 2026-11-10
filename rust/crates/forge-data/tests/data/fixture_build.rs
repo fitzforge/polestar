@@ -28,6 +28,8 @@ pub fn options(recordings: Option<&Path>) -> Options {
 	o.sources = fixture().join("sources");
 	o.pfquest = Some(fixture().join("pfquest"));
 	o.recordings = recordings.map(Path::to_path_buf).unwrap_or_else(|| fixture().join("recordings"));
+	// Not the checkout's learned snapshot: the fixture has none.
+	o.recorded = fixture().join("recorded").join("quests.json");
 	o.questie = None;
 	o.forever = false;
 	o.web_xp = false;
@@ -310,7 +312,8 @@ fn recordings_override_era_data_add_factions_and_recorder_only_records_with_full
 	assert!(pf["notice"].as_str().unwrap().starts_with("MIT License"));
 	assert!(m["sources"][1]["revision"].as_str().unwrap().contains("wow_classic_era 1.15.9.11111"));
 	let c = &m["counts"];
-	assert_eq!([&c["quests"], &c["npcs"], &c["objects"], &c["items"], &c["mapFrames"]], [&json!(9), &json!(7), &json!(2), &json!(5), &json!(4)]);
+	// Objects: the fixture's 2 plus the 4 Attack Plans the repository's corrections create (#1312).
+	assert_eq!([&c["quests"], &c["npcs"], &c["objects"], &c["items"], &c["mapFrames"]], [&json!(9), &json!(7), &json!(6), &json!(5), &json!(4)]);
 }
 
 #[test]
@@ -334,6 +337,33 @@ fn meta_names_the_web_xp_cache_with_forward_slashes() {
 
 fn common_scratch(name: &str) -> PathBuf {
 	crate::common::scratch(name)
+}
+
+#[test]
+fn the_learned_layer_gives_trusted_prerequisites_and_levels_and_never_its_gaps() {
+	let dir = common_scratch("forge-data-learned");
+	std::fs::create_dir_all(&dir).unwrap();
+	let file = dir.join("quests.json");
+	let fact = |v: &str, status: &str| format!(r#"{{"value":{v},"voters":3,"counted":3,"status":"{status}","builds":[1,1],"beats":null}}"#);
+	std::fs::write(
+		&file,
+		format!(
+			r#"{{"101":{{"zone":1429,"pre":[{}],"minLevel":{}}},"104":{{"zone":1429,"pre":[{}],"minLevel":{}}}}}"#,
+			fact("104", "trusted"),
+			fact("4", "trusted"),
+			fact("100", "gap"),
+			fact("9", "gap")
+		),
+	)
+	.unwrap();
+	let mut o = options(Some(&no_recordings()));
+	o.recorded = file;
+	let q = build(&o).read("quests");
+	assert_eq!((&q["101"]["pre"], &q["101"]["preAll"], &q["101"]["minLevel"]), (&json!([100, 104]), &json!([100, 104]), &json!(4)));
+	assert_eq!(q["101"]["source"], json!(["pfquest", "recorder:pre", "recorder:minLevel"]));
+	// One player's facts are provisional: never in this data.
+	assert_ne!(q["104"]["minLevel"], json!(9));
+	assert_eq!(q["104"]["source"], json!(["pfquest"]));
 }
 
 #[test]

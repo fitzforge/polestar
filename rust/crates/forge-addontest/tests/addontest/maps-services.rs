@@ -691,6 +691,7 @@ fn a_fresh_install_leaves_the_codex_unloaded_until_the_layer_is_on_and_the_world
 		rarescanner: None,
 		local_extras: false,
 		recorded: V::obj(),
+		learned: Default::default(),
 		client: None,
 		web: None,
 		curated: Vec::new(),

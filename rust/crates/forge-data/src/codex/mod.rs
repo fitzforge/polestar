@@ -1,7 +1,8 @@
 //! `forge data codex` (the port of the JS `codex build`), offline: data/forever/*.json + the Forever
 //! client's cached wago.tools tables + the cached web facts + the recorded item sources
-//! (data/codex/recorded.json) + Polestar's guides and curated tables -> data/forever/codex/*.json
-//! and the pack
+//! (data/codex/recorded.json) + what players' recordings teach about Forever-new quests
+//! (data/recorded/quests.json: prerequisites and objective spots, `crate::learn`) + Polestar's guides
+//! and curated tables -> data/forever/codex/*.json and the pack
 //! addon/Polestar_Codex. Byte for byte the JS build's output. `--local-extras` (`Options::local_extras`)
 //! also merges the installed AtlasLoot and RareScanner and dungeons.json, skips the web facts, and
 //! marks the build local (this machine only).
@@ -123,6 +124,9 @@ pub struct Inputs {
 	pub local_extras: bool,
 	/// Item sources from players' recordings: data/codex/recorded.json (`recorded::load`).
 	pub recorded: V,
+	/// What players' recordings teach about Forever-new quests: data/recorded/quests.json (`forge
+	/// record learn`), with the corrections it never overrides.
+	pub learned: crate::learn::Snapshot,
 	pub client: Option<ClientFacts>,
 	/// The cached web facts: { npc, object, item, spell, listed }.
 	pub web: Option<V>,
@@ -485,6 +489,7 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 		rarescanner,
 		local_extras: opts.local_extras,
 		recorded: recorded::load(&lib.join(recorded::FILE))?,
+		learned: crate::learn::Snapshot::load(&opts.root)?,
 		client: Some(cl),
 		web,
 		curated: curated_collects(&texts),
@@ -574,6 +579,14 @@ fn sources_meta(inputs: &Inputs) -> V {
 	}
 	if let Some(s) = recorded::source_meta(&inputs.recorded) {
 		out.push(s);
+	}
+	let nl = inputs.learned.quests.len();
+	if nl > 0 {
+		out.push(source(
+			"Polestar Recorder sessions (data/recorded/quests.json): Forever-new quests' prerequisites and objective spots",
+			V::str(&format!("{nl} quests")),
+			V::str("Facts only (quest ids, levels, positions); counts of players, no player data"),
+		));
 	}
 	let nj = inputs.journal_quests.len();
 	if nj > 0 {

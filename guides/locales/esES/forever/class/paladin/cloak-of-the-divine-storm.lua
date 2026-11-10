@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {spell:407778} Divine Storm
-	["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "",
+	-- {area:444} Tower of Althalaxx
+	["Starts now at 22 at the {area:444}; its mobs are 28-30, so go nearer 30 or with a friend. Alliance only for now."] = "",
 
 	-- Step 1: The Strange Orb
 	["The Strange Orb"] = "El orbe extraño",
@@ -63,6 +63,8 @@ return {
 	-- ["Blackrock Summoners, Champions and Trackers camp in the north-west of Redridge; they drop the {item:209778}."] = "Los invocadores, campeones y rastreadores Roca Negra acampan en el noroeste de las Montañas Crestagrana; sueltan la {item:209778}.",
 	-- ["Climb to the top of the {area:444} in northern {zone:1439}. Loot the Strange Orb up there: it gives you the Althalaxx Orb, which starts the quest."] = "Sube a lo alto de la {area:444}, en el norte de {zone:1439}. Despoja el orbe extraño de arriba: te da el orbe de Althalaxx, que inicia la misión.",
 	-- ["Katherine sends you to the warlocks in the {object:2101}; {npc:5495} speaks for them."] = "Katherine te envía a los brujos de {object:2101}; {npc:5495} habla por ellos.",
+	-- ["Strange Orb atop the {area:444}: right-click the Althalaxx Orb it gives"] = "Orbe extraño en lo alto de la {area:444}: haz clic derecho en el orbe de Althalaxx que da",
+	-- ["The Strange Orb"] = "El orbe extraño",
 	-- ["The {object:409311} stands at the east end of {area:435}. Shatter the orb on it; the {object:409315} appears beside it."] = "{object:409311} está en el extremo este de {area:435}. Rompe el orbe que hay en ella; {object:409315} aparece a su lado.",
 	-- ["The {object:409311} stands at the east end of {area:435}. {spell:11170} the orb on it; the {object:409315} appears beside it."] = "{object:409311} está en el extremo este de {area:435}. Lanza {spell:11170} sobre el orbe que hay en ella; {object:409315} aparece a su lado.",
 	-- ["{area:435} is in south-east {zone:1440}. The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds in it drop the Motes of Mannoroth."] = "{area:435} está en el sureste de {zone:1440}. Los Mannoroc Latiguez, infernales abrasadores, guardias malditos y canes de la Legión de allí sueltan las motas de Mannoroth.",

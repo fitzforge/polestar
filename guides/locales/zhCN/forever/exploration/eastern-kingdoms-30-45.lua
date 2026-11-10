@@ -12,8 +12,8 @@ return {
 
 	-- Step 1: Alterac Mountains (1/2)
 	-- {zone:1416} Alterac Mountains · {zone:1424} Hillsbrad Foothills · {zone:1434} Stranglethorn Vale
-	["Starts in the {zone:1416}, north of {zone:1424}, and ends in {zone:1434}. 15 areas to discover here, levels 27-39."] = "",
-	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "在一个角色上探索整张世界地图是一项 Forever 传承挑战（1点账号通用传承点数）。",
+	["Starts in the {zone:1416}, north of {zone:1424}, and ends in {zone:1434}. 15 areas to discover here, levels 27-39."] = "从{zone:1424}北面的{zone:1416}开始，在{zone:1434}结束。这里有15处地区待探索，等级范围27-39。",
+	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "在一个角色上探索整张世界地图是一项 无限 传承挑战（1点账号通用传承点数）。",
 	-- {area:271} Southshore · {zone:1424} Hillsbrad Foothills · {zone:1416} Alterac Mountains
 	["Fly to {area:271} in {zone:1424} and walk north into the {zone:1416}."] = "飞往{zone:1424}的{area:271}，然后向北走进{zone:1416}。",
 	-- {area:272} Tarren Mill · {zone:1424} Hillsbrad Foothills · {zone:1416} Alterac Mountains
@@ -51,14 +51,14 @@ return {
 
 	-- Step 7: Riverglades (1/2)
 	-- {area:16724} Farholde Keep · {area:16743} Rog'mar
-	["14 areas to discover here, levels 36-44. Flight paths: {area:16724} in the south-east (Alliance), {area:16743} in the middle (Horde)."] = "",
+	["14 areas to discover here, levels 36-44. Flight paths: {area:16724} in the south-east (Alliance), {area:16743} in the middle (Horde)."] = "这里有 14 个区域可供探索，适合 36-44 级。飞行点：东南的 {area:16724}（联盟），中央的 {area:16743}（部落）。",
 	-- {zone:1418} Badlands · {area:345} Agmond's End · {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {area:2417} Blackrock Pass · {area:977} Steamwheedle Port · {zone:1446} Tanaris · {area:16727} Powderfuse Port · {area:17780} Krol'dok Stronghold
-	["From the south of the {zone:1418}, past {area:345}, a way leads down into the {zone:2548} by {area:16685}. (The {zone:2548} also open off northern Redridge through {area:2417}, and a ship runs from {area:977} in {zone:1446} to {area:16727}, the neutral goblin port on its coast.) {area:17780} is an ogre clan's outdoor dungeon."] = "",
+	["From the south of the {zone:1418}, past {area:345}, a way leads down into the {zone:2548} by {area:16685}. (The {zone:2548} also open off northern Redridge through {area:2417}, and a ship runs from {area:977} in {zone:1446} to {area:16727}, the neutral goblin port on its coast.) {area:17780} is an ogre clan's outdoor dungeon."] = "从 {zone:1418} 南部经过 {area:345}，有一条路通往下方 {area:16685} 附近的 {zone:2548}。（也可以从赤脊山北部经 {area:2417} 进入 {zone:2548}，或从 {zone:1446} 的 {area:977} 坐船前往其沿海的中立地精港口 {area:16727}。）{area:17780} 是由食人魔氏族占据的露天地下城。",
 
 	-- Step 9: Swamp of Sorrows (1/2)
 	["11 areas to discover here, levels 36-43."] = "这里有11个区域待发现，36-43级。",
 	-- {zone:1435} Swamp of Sorrows · {zone:2548} Riverglades · {area:16725} Wheeler's Grange · {area:16737} Bristle Hills
-	["The {zone:1435} lies south of the {zone:2548}: swim south from {area:16725}, or walk through Redridge Pass, south of the {area:16737}."] = "",
+	["The {zone:1435} lies south of the {zone:2548}: swim south from {area:16725}, or walk through Redridge Pass, south of the {area:16737}."] = "{zone:1435} 位于 {zone:2548} 南侧：从 {area:16725} 向南游泳，或从 {area:16737} 南侧的山道步行前往。",
 	-- {area:75} Stonard
 	["{area:75} is the Horde town."] = "{area:75}是部落城镇。",
 	-- {area:75} Stonard
@@ -68,9 +68,9 @@ return {
 	-- {area:35} Booty Bay · {area:392} Ratchet
 	["27 areas to discover here, levels 30-50. {area:35} at the southern tip is a neutral goblin port with a boat to {area:392}."] = "这里有27个区域待发现，30-50级。南端的{area:35}是中立地精港口，有船开往{area:392}。",
 	-- {zone:1435} Swamp of Sorrows · {zone:1430} Deadwind Pass · {zone:1431} Duskwood · {zone:1434} Stranglethorn Vale
-	["Ride west out of the {zone:1435} through {zone:1430} (level 50+ creatures off the road) into {zone:1431} and take the road south into northern {zone:1434}."] = "",
+	["Ride west out of the {zone:1435} through {zone:1430} (level 50+ creatures off the road) into {zone:1431} and take the road south into northern {zone:1434}."] = "从{zone:1435}骑马向西，穿过{zone:1430}（道路外有50级及以上生物）进入{zone:1431}，再沿路向南进入{zone:1434}北部。",
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {area:117} Grom'gol Base Camp
-	["Or take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "",
+	["Or take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "也可以从{zone:1454}或{zone:1458}搭乘飞艇前往{area:117}。",
 	-- {area:35} Booty Bay
 	["Flight path here: {area:35} (Gyll)."] = "飞行路线：{area:35}（盖尔）。",
 	-- {area:35} Booty Bay · {object:3202} Grom'gol

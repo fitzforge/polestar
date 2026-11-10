@@ -480,3 +480,26 @@ fn step_titles_tips_and_only_conditions_compile_onto_the_step() {
 fn unknown_zone_names_are_errors_at_the_zone_line() {
 	assert_eq!(compile(&guide_text(&["step S", "  zone Atlantis", "  level 2"])).errors, ["test.guide:8: unknown zone \"Atlantis\" (not in zones.json; use `zone map <uiMapID>`)"]);
 }
+
+// `level N grind <npc>` (docs/GUIDE_FORMAT.md): the level goal names the mob it is reached on and takes that mob's
+// spawn place and areas as a kill of it would, so the arrow leads to the nearest area, not the step's goto; a mob
+// with no known spawns leaves the goal without a place (the goto leads) and warns; `grind` applies to `level` only.
+#[test]
+fn a_grind_level_goal_takes_its_mobs_spawn_areas_as_a_kill_would_and_warns_without_spawns() {
+	let (g, placed) = goals_of(&["step One", "  goto 47.6,35.1", "  level 12 grind 6 -- grind on Kobold Vermin", "  kill 6"]);
+	assert!(placed.warned("already leads").is_empty(), "the goto is the grind's fallback, no redundant goto: {}", placed.text);
+	let (level, kill) = (&g[1], &g[2]);
+	assert_eq!(json!([level["t"], level["level"], level["grind"], level["npcName"], level["note"]]), json!(["level", 12, 6, "Kobold Vermin", "grind on Kobold Vermin"]));
+	assert_eq!(json!([level["map"], level["x"], level["y"], level["f"]]), json!([1429, 49, 32.4, "e"]), "the spawn nearest the goto, as `kill 6`'s");
+	// The kill's spots without its alternatives: a grind keeps the places the arrow picks.
+	let picks: Vec<Value> = kill["spots"].as_array().unwrap().iter().filter(|s| s.get("alt").is_none()).cloned().collect();
+	assert_eq!(get(level, "spots"), json!(picks));
+	assert!(level["spots"].as_array().is_some_and(|s| !s.is_empty()));
+	let text = guide_text(&["step One", "  goto 47.6,35.1", "  level 12 grind 99999"]);
+	let r = compile(&text);
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let level = &r.steps()[0]["goals"][1];
+	assert_eq!(json!([level["grind"], get(level, "map"), get(level, "spots")]), json!([99999, null, null]));
+	assert_eq!(r.warned("grind 99999"), vec![format!("test.guide:{}: `grind 99999` has no known spawns here: the arrow keeps the step's goto", line_of(&text, "level 12 grind 99999"))]);
+	assert_eq!(compile(&guide_text(&["step One", "  kill 6 grind 6"])).erred("grind").len(), 1, "`grind` on a kill");
+}

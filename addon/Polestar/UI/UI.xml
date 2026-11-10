@@ -5,6 +5,9 @@
 	<Script file="ZoneArtOverlays.lua"/>
 	<Script file="NameTargets.lua"/>
 	<Script file="GuideFrame.lua"/>
+	<Script file="Launcher.lua"/>
+	<Script file="GameMenu.lua"/>
+	<Script file="WhileHere.lua"/>
 	<Script file="PartyPanel.lua"/>
 	<Script file="PartyLoot.lua"/>
 	<Script file="ClassRewards.lua"/>
@@ -22,6 +25,7 @@
 	<Script file="RouteChoice.lua"/>
 	<Script file="GuideEnd.lua"/>
 	<Script file="Welcome.lua"/>
+	<Script file="WhatsNew.lua"/>
 	<Script file="Copy.lua"/>
 	<Script file="QuestRoom.lua"/>
 	<Script file="GearScales.lua"/>

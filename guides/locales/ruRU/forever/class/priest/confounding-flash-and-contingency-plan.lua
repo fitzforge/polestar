@@ -10,7 +10,7 @@ return {
 	-- {quest:94817} Confounding Flash · {quest:94818} Contingency Plan
 	["{quest:94817} and {quest:94818}"] = "{quest:94817} и {quest:94818}",
 	-- {quest:94817} Confounding Flash · {quest:94818} Contingency Plan
-	["The Gnome priest spells, new in Forever: {quest:94817} at 10, {quest:94818} at 20. Free, no objectives."] = "",
+	["The Gnome priest spells, new in Forever: {quest:94817} at 10, {quest:94818} at 20. Free, no objectives."] = "Заклинания жрецов-гномов, новые в Forever: {quest:94817} на 10-м уровне, {quest:94818} на 20-м. Бесплатно, без задач.",
 
 	-- Step 1: Confounding Flash: Maxan Anvol
 	-- {npc:1226} Maxan Anvol · {area:2102} Thunderbrew Distillery · {area:131} Kharanos · {quest:94817} Confounding Flash · {npc:258785} High Priestess Mims · {zone:1455} Ironforge

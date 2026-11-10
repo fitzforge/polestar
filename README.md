@@ -84,8 +84,10 @@ Good to know:
 
 - `/polestar guides` opens the hub: every guide, Lookup, Dungeons, Talents
   and Rares. `/polestar options` holds every setting; quest markers on the map
-  are off until you turn them on under **Map**. Right-click the minimap
-  button for a short menu.
+  are off until you turn them on under **Map**. The Polestar button on the
+  minimap's edge shows or hides the guide window with a click; right-click it
+  for a short menu, drag it to move it (Options, Map, Guide & quests,
+  Minimap button turns it off).
 - `/polestar skip` moves on for good; `/polestar next` and `prev` only look
   ahead or back.
 - **Updating:** the CurseForge app and the Polestar Client update Polestar for
@@ -362,7 +364,7 @@ site walks through every step.
 ## Polestar Client
 
 The [Polestar Client](https://polestar.guide/client) is a small desktop app for
-Windows, macOS and Linux (beta, 0.1.0). It finds WoW: Forever on your
+Windows, macOS and Linux (beta, 0.1.6). It finds WoW: Forever on your
 computer and:
 
 - **installs and updates Polestar's addons**: Polestar, the Recorder and
@@ -379,7 +381,7 @@ computer and:
   ([docs/RECORDING.md](docs/RECORDING.md) lists every field).
 
 Download it from [polestar.guide/client](https://polestar.guide/client) or the
-[Client's GitHub release](https://github.com/fitzforge/polestar/releases/tag/client-v0.1.0);
+[Client's GitHub release](https://github.com/fitzforge/polestar/releases/tag/client-v0.1.6);
 its source is in [apps/client](apps/client).
 
 <p align="center">
@@ -402,6 +404,10 @@ its source is in [apps/client](apps/client).
 - **Skip a quest.** Right-click a quest's line, Skip this quest: the guide
   drops it and the quests that follow from it, in every guide, and the
   banner's Undo brings them back. Skip, at the top, passes the whole step.
+- **Abandoned a quest by mistake?** The guide stays on its step, greys out
+  that quest's goals and points the arrow back at its giver, and asks: go
+  back for it, or skip it and what follows. "When you abandon a guide
+  quest" (Options, Guide, Automation) can always do one or the other.
 - **It catches up.** With "Skip grey quests" on, a guide you open on a
   character who already did part of the route goes over what is done to
   where you are: gray quests are left out, and so are green ones behind your
@@ -421,6 +427,14 @@ its source is in [apps/client](apps/client).
   use the guide window's menu, and its open objectives join the Along the way
   list beside whatever step you are on, with their map marks, the target
   button and the arrow, until they are done or you unpin it.
+- **Dynamic Questing.** When you pass through the area of a later step's
+  objective whose quest is already in your log (12 vermin as much as one
+  chest), a "While you're here" panel under the step lists it, up to three
+  at once; done now, that step is done or shorter when you get there. Click
+  one for the arrow, right-click it to leave it around there (twice: for the
+  rest of the zone). A quest ready to hand in shows the same way when its
+  NPC is in the town you're in or a few seconds out of your way (20 by
+  default; Options, Guide, Window, "Dynamic Questing").
 - **Group quests are your call.** At a quest a guide marks as a group quest,
   the guide window asks: Skip it keeps to the solo route, Do it with a group
   takes it on. "Group quests" (Options, Guide, Automation) can answer them
@@ -455,7 +469,14 @@ its source is in [apps/client](apps/client).
   dungeons and battlegrounds; on by default): the guide window, its action
   buttons and alerts stay out of the way inside dungeons, raids,
   battlegrounds and arenas and come back when you leave. `/polestar`, the key
-  binding or the minimap button still opens it while you are inside.
+  binding or the minimap button still opens it while you are inside. The
+  first time it hides, a note at the top of the screen says how to bring it
+  back.
+- **Floating button** (Options, Guide, Window, Show and hide; off by default):
+  a small Polestar button you put anywhere on the screen. Click it to show or
+  hide the guide window, right-click it for a short menu, drag it to move it.
+  It hides with the window in combat and in dungeons when those are set to
+  hide. The minimap button's switch is there too.
 
 ### Navigation
 
@@ -572,11 +593,20 @@ guides you there instead.
 - **The step's item glows in your bags** (and in Baganator): the carcass, the
   seeds or the horn the step uses or has you collect.
 - **Hide the game's quest tracker** (Options, Questing; off by default).
+- **The Target button** (Options, Questing, Buttons; bindable): targets the
+  step's mobs by name, or the NPCs it sends you to when it has no mob, the
+  arrow's goal first and the next name on each click. Its icon shows what
+  you do with the one it targets next (a speech bubble, ! or ? for an NPC, a
+  sword or a bag for a mob, a skull for an elite, rare or boss, or their face
+  once you have seen them), with the name beside it in green, red or gold
+  and small icons for the names after it.
 - **Mark what they target** (Options, Questing, Buttons; off by default): the
   target button and the step key put a raid icon on the mob or NPC they
-  target — a skull and a star by default, configurable — leaving icons
-  already placed alone. Either can be set to "A new one each press", so the
-  last few targets keep theirs. Your party sees the icons.
+  target — a skull and a star by default, configurable — and pressing again
+  never takes an icon off. Either can be set to "A new one each press", so the
+  last few targets keep theirs. Your party sees the icons. In a party you
+  don't lead, only a mob or NPC with no icon yet gets one, so a mark someone
+  else placed stays; in a raid it marks only when you lead or assist.
 
 ### Playing in a party
 
@@ -615,18 +645,32 @@ runs solo or in a raid.
   closed; a click on the guide window's party line or `/polestar party`
   brings it back (and says why when nothing can show yet). Without a
   Polestar member in the party it stays hidden.
+- **Sync to my guide**: the party panel's "Sync to my guide" (or
+  `/polestar party sync`) asks your party to move to your step. Each member
+  who runs Polestar gets a prompt, never an automatic move, that names the
+  quests the move passes they haven't done and the ones they did already.
+  Accepting opens your guide (in a new tab when needed) and moves them to
+  your step by the step itself, not its number; their ticks and skips stay,
+  and Undo takes it back. Declining changes nothing. Once every 30 seconds.
 - **Loot a friend needs**: "Ana still needs 2 Scalding Mornbrew" under a
   collect goal, and on a loot window or roll with a quest item a member still
   needs and you don't, "For Ana: she still needs 2". Nothing is passed,
   rolled or said for you.
-- **Tell my party in chat** (on by default): the one part everyone in the
-  party sees, Polestar or not. When you finish one of a quest's objectives,
-  one party chat line with the quest's link ("[Polestar] Finished: Plagued
-  Hide 5/5 - [Plagued Lands]"), and when the quest is ready to turn in,
-  "[Polestar] Ready to turn in: [Plagued Lands]". Nothing for what was
-  already done when you log in, reload or join, and never the same line
-  twice. During a boss fight, while the game holds chat back, a line waits
-  up to two minutes. The first line says once where to turn it off.
+- **Tell my party** (on by default): the one part everyone in the party
+  sees, Polestar or not. Party chat lines that start with the Star raid
+  icon and the quest's link: "Polestar: [Plagued Lands] Plagued Hide 5/5,
+  Rabid Wolves 8/8" for objectives you finish (those within a few seconds
+  in one line), "Polestar: [Plagued Lands] is ready to turn in", and, when
+  you loot an item that starts a quest, "Polestar: looted [Mysterious
+  Letter], which starts [The Dark Iron War]". Nothing for what was already
+  done when you log in, reload or join, and never the same line twice.
+  During a boss fight, while the game holds chat back, a line waits up to
+  two minutes. The first line says once where to change it. Party members
+  with Polestar see Polestar's star on these lines; your own stay out of
+  your chat unless you turn "Show my own lines in my chat too" on. Also
+  under Options > Questing > Quests > Group: the loot line, hiding other
+  players' Polestar lines, and "Only when someone in the party doesn't have
+  Polestar".
 
 ### Gear advice
 
@@ -777,7 +821,7 @@ packs, Gamepad, Recorder and About, with a search that finds any setting.
 With the game's gamepad interface on (Options, Gamepad, Enable Gamepad UI)
 there are no slash commands: the game blocks gamepad actions after any
 addon command typed in chat, until the game freezes. Polestar's minimap
-button (on by default then) and its key bindings open the guide and the
+button (on by default) and its key bindings open the guide and the
 settings instead, and Polestar keeps out of the game's own windows.
 
 <details>

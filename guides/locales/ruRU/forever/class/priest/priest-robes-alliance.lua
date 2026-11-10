@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Priest Robes at 5 (Alliance)"] = "",
-	["A free uncommon robe at 5: heal and fortify a wounded guard near your first town."] = "",
+	["Priest Robes at 5 (Alliance)"] = "Одеяния жреца на 5-м уровне (Альянс)",
+	["A free uncommon robe at 5: heal and fortify a wounded guard near your first town."] = "Бесплатное необычное одеяние на 5-м уровне: исцелите раненого стражника у вашего первого города и наложите на него защиту.",
 
 	-- Step 1: In Favor of the Light
 	-- {npc:375} Priestess Anetta · {area:24} Northshire Abbey · {npc:377} Priestess Josetta · {area:87} Goldshire · {spell:613} Lesser Heal
@@ -24,7 +24,7 @@ return {
 	-- {npc:12423} Guard Roberts · {area:87} Goldshire · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude
 	["{npc:12423} kneels by a tree on the lake shore east of {area:87}, off the road: walk along the shore, the minimap misses him from the road. Cast {spell:613} (Rank 2) on him first, then {spell:1243}. Rank 1 of {spell:613} does not count; drag Rank 2 onto your bar from the spellbook (or cast both from the spellbook if an action bar addon gets in the way). He walks off once both land and is back in about 3 minutes."] = "",
 	-- {npc:12423} Guard Roberts
-	["Heal and fortify {npc:12423}"] = "",
+	["Heal and fortify {npc:12423}"] = "Исцелите и укрепите: {npc:12423}",
 
 	-- Step 4: Priestess Josetta
 	-- {item:16605} Friar's Robes of the Light
@@ -64,7 +64,7 @@ return {
 	-- {npc:12429} Sentinel Shaya · {area:259} Lake Al'Ameth · {area:186} Dolanaar · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude
 	["{npc:12429} kneels on the rocks at the edge of {area:259}, about 100 yards south of {area:186}, with no quest mark over her. Cast {spell:613} (Rank 2) on her first, then {spell:1243}; she runs off toward the lake once both land and is back in about 5 minutes. Rank 1 of {spell:613} does not count."] = "",
 	-- {npc:12429} Sentinel Shaya
-	["Heal and fortify {npc:12429}"] = "",
+	["Heal and fortify {npc:12429}"] = "Исцелите и укрепите: {npc:12429}",
 
 	-- Step 12: Laurna Morninglight
 	-- {area:186} Dolanaar · {npc:3600} Laurna Morninglight · {item:16604} Moon Robes of Elune

@@ -254,18 +254,24 @@ fn api_navigate_checks_its_input_sets_the_target_and_names_the_owner_cancel_only
 }
 
 #[test]
-fn api_a_target_replaced_is_not_the_owner_s_until_the_same_spot_comes_back_the_death_helper_hands_it_back() {
+fn api_a_target_replaced_is_not_the_owner_s_while_the_death_helper_holds_the_arrow_it_waits_and_is_theirs_again() {
 	let out = run(r#"
 		API.Navigate("Helper", 9000, 0.25, 0.75, "Camp")
-		N.SetTarget(9000, 70, 50, "Your corpse")
+		N.Hold(9000, 70, 50, "Your corpse")
 		local active, owner = API.Active()
 		emit({ active = active, owner = owner or false, cancel = API.Cancel("Helper"), label = label() })
+		N.Unhold()
+		active, owner = API.Active()
+		emit({ owner = owner or false, label = label(), cancel = API.Cancel("Helper") })
+		API.Navigate("Helper", 9000, 0.25, 0.75, "Camp")
+		N.SetTarget(9000, 70, 50, "Elsewhere")
 		N.SetTarget(9000, 25, 75, "Camp")
 		active, owner = API.Active()
 		emit({ owner = owner or false, cancel = API.Cancel("Helper") })
 	"#);
 	assert_eq!(out[0], json!({ "active": true, "owner": false, "cancel": false, "label": "Your corpse" }));
-	assert_eq!(out[1], json!({ "owner": "Helper", "cancel": true }));
+	assert_eq!(out[1], json!({ "owner": "Helper", "label": "Camp", "cancel": true }));
+	assert_eq!(out[2], json!({ "owner": false, "cancel": false }), "replaced, then the same spot picked again: a new target, not the owner's");
 }
 
 #[test]
@@ -934,52 +940,41 @@ fn nearby_the_guide_window_s_list_puts_the_everyday_services_first_then_a_traine
 }
 
 // ---------------------------------------------------------------------------
-// Corpse: the death helper hands a picked point back
+// Corpse: the death helper holds the arrow (Nav.Hold) over every other target
 // ---------------------------------------------------------------------------
 
 #[test]
-fn death_helper_a_point_picked_before_dying_comes_back_after_resurrecting_on_the_same_step_only() {
-	let run2 = |script: &str| {
-		emitted(&RunAddon {
-			stubs: vec!["stub_qol.lua"],
-			addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Core/Compat.lua", "Theme/Theme.xml", "QoL/QoL.xml"])],
-			login: true,
-			script: ["local q = stub.qol\nlocal QoL = Polestar.QoL\n", script].concat(),
-			..Default::default()
-		})
-		.remove(0)
-	};
-	let back = run2(
-		r#"
-			q.Nav.IsOverride = function() return q.nav.target ~= nil and q.nav.target.label == "Picked" end
-			QoL.SetData({ spiritHealers = { { 0, 20, 0, 9000, 50, 49 } }, flightMasters = {} })
-			q.player = { c = 0, wx = 0, wy = 0 }
-			q.nav.target = { map = 9000, x = 30, y = 30, label = "Picked", kind = "manual", stepIndex = q.engine.step }
-			local _, cx, cy = q.mapPoint(0, -400)
-			q.corpse = { cx, cy }
-			q.level = 30
-			q.ghost = true
-			stub.fire("PLAYER_ALIVE")
-			local during = q.nav.target.label
-			q.ghost = false
-			stub.fire("PLAYER_UNGHOST")
-			emit({ during = during, after = q.nav.target and q.nav.target.label, releases = q.nav.releases })
-		"#,
-	);
-	let moved = run2(
-		r#"
-			q.Nav.IsOverride = function() return q.nav.target ~= nil and q.nav.target.label == "Picked" end
-			QoL.SetData({ spiritHealers = { { 0, 20, 0, 9000, 50, 49 } }, flightMasters = {} })
-			q.player = { c = 0, wx = 0, wy = 0 }
-			q.nav.target = { map = 9000, x = 30, y = 30, label = "Picked", kind = "manual", stepIndex = -1 }
-			q.level = 8
-			q.ghost = true
-			stub.fire("PLAYER_ALIVE")
-			q.ghost = false
-			stub.fire("PLAYER_UNGHOST")
-			emit({ after = q.nav.target and q.nav.target.label or false, releases = q.nav.releases })
-		"#,
-	);
-	assert_eq!(back, json!({ "during": "Your corpse", "after": "Picked", "releases": 0 }));
-	assert_eq!(moved, json!({ "after": false, "releases": 1 }));
+fn hold_nothing_takes_the_arrow_off_the_corpse_once_it_lets_go_what_is_underneath_shows_a_picked_point_only_on_its_step_1382() {
+	let out = run(r#"
+		local function wp(i, x, l) return { map = 9000, x = x, y = 80, label = l, stepIndex = i, goalIndex = 1, kind = "goto", r = 8 } end
+		nav.changeStep(1, wp(1, 50, "Step one"))
+		stub.runTimers()
+		local announced = 0
+		Polestar.On("WAYPOINT_CHANGED", function(t) if t == N.GetTarget() then announced = announced + 1 end end)
+		-- Picked before dying, same step: back once alive.
+		N.SetTarget(9000, 30, 30, "Picked")
+		local held = N.Hold(9000, 70, 50, "Your corpse")
+		emit({ label = label(), same = held == N.GetTarget(), held = N.IsHeld(), own = N.IsOverride() })
+		announced = 0
+		nav.setWaypoint(wp(1, 55, "Goal two"))                 -- the guide's next goal
+		N.SetTarget(9000, 20, 20, "Map click")                 -- picked as a ghost
+		N.ReleaseTarget(); N.SetTarget(9000, 25, 25, "Party: Ana")
+		stub.runTimers()
+		emit({ label = label(), announced = announced })
+		N.Unhold()
+		emit({ label = label(), held = N.IsHeld(), own = N.IsOverride() })
+		-- A step change while held: the corpse stays; alive, the new step's target, the pick dropped.
+		N.SetTarget(9000, 30, 30, "Picked")
+		N.Hold(9000, 70, 50, "Your corpse")
+		nav.changeStep(2, wp(2, 60, "Step two"))
+		stub.runTimers()
+		emit(label())
+		N.Unhold()
+		emit(label())
+	"#);
+	assert_eq!(out[0], json!({ "label": "Your corpse", "same": true, "held": true, "own": false }));
+	assert_eq!(out[1], json!({ "label": "Your corpse", "announced": 0 }), "the guide's goal, a map click, a party member: none moves the arrow or announces");
+	assert_eq!(out[2], json!({ "label": "Party: Ana", "held": false, "own": true }), "the last point picked while a ghost, same step");
+	assert_eq!(out[3], "Your corpse", "a step change while a ghost");
+	assert_eq!(out[4], "Step two", "alive again: the step's target; the point picked on step one went with that step");
 }

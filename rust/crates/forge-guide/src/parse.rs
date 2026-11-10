@@ -5,10 +5,11 @@
 //! parse_guide(text, file, diag) -> guide | Null
 //!   guide = { file, id, line, header: { ... }, lines: { <headerKey>: line, pros: [line], cons: [line], rewards: [line], nextOf: { <id>: line } }, steps: [step] }
 //!   (header.next: the `next` guide ids in order; header.nextWhen: { <id>: predicate with its line } for `next <id> when ...`)
-//!   step  = { line, title, only, tip, image?, when?: [predicate], label?, along?, skipto?, goals: [goal] }
+//!   step  = { line, title, only, tip, image?, when?: [predicate], label?, along?, background?, skipto?, goals: [goal] }
 //!   (image: { path, ext, w, h, line }, images.rs parse_image_path; w/h null unless written)
 //!   (when: when.rs predicates, each with its line; only on a step that has one;
 //!   label: the step's name; along: true, or the label `along until` names; labelLine/alongLine: their lines;
+//!   background: true on an `along until` step of zone-wide, slow goals (backgroundLine its line, #1135);
 //!   skipto: [{ to, when: predicate, line }], the step's `skipto <label> when <predicate>` lines in order)
 //!   goal  = { line, verb, zone, note, ...positional/modifier fields }
 //! `zone` on a goal is the zone spec in effect ({ name } | { map }, with line),
@@ -58,7 +59,7 @@ pub const HEADER_KEYS: [&str; 20] =
 /// and interact goals (resolve.rs, applyLoop).
 /// `skipto <label> when <predicate>`: when the route reaches the step and the
 /// predicate holds, it jumps to the labelled step (resolve.rs, checkLabels).
-pub const STEP_KEYS: [&str; 9] = ["zone", "only", "tip", "image", "when", "label", "along", "skipto", "loop"];
+pub const STEP_KEYS: [&str; 10] = ["zone", "only", "tip", "image", "when", "label", "along", "background", "skipto", "loop"];
 
 // COMMON = text optional only group; COORDS = at map r frame (`frame` = the `era` / `live` modifiers).
 /// The modifiers each verb takes, in the JS object's order (VERBS is the verbs in this order).
@@ -87,7 +88,8 @@ pub const MODS: [(&str, &[&str]); 32] = [
 	("train", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "gossip"]),
 	("buy", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "count", "nearest"]),
 	("vendor", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "gossip"]),
-	("level", &["text", "optional", "only", "group"]),
+	// `grind <npcId>`: the mob a level is reached on; the arrow leads to its nearest spawn area.
+	("level", &["text", "optional", "only", "group", "grind"]),
 	// `money <amount>`: hold that much; `task "<text>"`: done when the player ticks it.
 	("money", &["text", "optional", "only"]),
 	("task", &["optional", "only", "at", "map", "r", "frame"]),
@@ -125,11 +127,12 @@ fn mod_label(m: &str) -> &str {
 		"xp" => "xp <N>",
 		"money" => "money <amount>",
 		"group" => "group [N]",
+		"grind" => "grind <npcId>",
 		_ => m,
 	}
 }
-pub const MOD_WORDS: [&str; 21] =
-	["map", "npc", "object", "item", "quest", "r", "lvl", "optional", "only", "until", "criteria", "era", "live", "nearest", "reward", "choose", "xp", "money", "group", "direct", "gossip"];
+pub const MOD_WORDS: [&str; 22] =
+	["map", "npc", "object", "item", "quest", "r", "lvl", "optional", "only", "until", "criteria", "era", "live", "nearest", "reward", "choose", "xp", "money", "group", "direct", "gossip", "grind"];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN: f64 = 2.0;
 const GROUP_MAX: f64 = 40.0;
@@ -525,6 +528,18 @@ pub fn parse_guide(text: &str, file: &str, diag: &mut Diagnostics) -> V {
 						continue;
 					}
 					step.set("alongLine", ln);
+				}
+				"background" => {
+					if step.get("background").truthy() {
+						cx.err(ln, "duplicate `background` in step", None);
+						continue;
+					}
+					if toks.len() != 1 {
+						cx.err(ln, "`background` takes nothing", None);
+						continue;
+					}
+					step.set("background", true);
+					step.set("backgroundLine", ln);
 				}
 				"skipto" => {
 					let usage = "`skipto` needs a label and a predicate: skipto <label> when <predicate>";
@@ -1315,6 +1330,13 @@ fn parse_goal(verb: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut Cx) -> Opti
 					}
 					_ => fail!(format!("malformed radius \"{}\" (yards > 0)", tok_text(tk))),
 				}
+				i += 2;
+				continue;
+			}
+			"grind" => {
+				use_!("grind");
+				let v = int_arg(i + 1, "npc id", cx)?;
+				goal.set("grind", v);
 				i += 2;
 				continue;
 			}

@@ -63,8 +63,8 @@ return {
 
 	-- Step 11: Moonglade
 	["1 area to discover here, level 15."] = "1 zone à découvrir ici, niveau 15.",
-	-- {area:1769} Timbermaw Hold · {zone:1448} Felwood · {zone:1450} Moonglade · {area:2361} Nighthaven
-	["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: Teleport: {zone:1450}). {area:2361} is neutral."] = "",
+	-- {area:1769} Timbermaw Hold · {zone:1448} Felwood · {zone:1450} Moonglade · {spell:18960} Teleport: Moonglade · {area:2361} Nighthaven
+	["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: {spell:18960}). {area:2361} is neutral."] = "Prenez le tunnel de {area:1769}, au nord de {zone:1448}, pour rejoindre {zone:1450} (druides : {spell:18960}). {area:2361} est neutre.",
 	-- {zone:1450} Moonglade
 	["Flight path here: {zone:1450} (Sindrayl)."] = "Trajet aérien ici : {zone:1450} (Sindrayl).",
 	-- {zone:1450} Moonglade
@@ -87,6 +87,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["9 areas to discover here."] = "9 zones à découvrir ici.",
-	-- ["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: {spell:18960}). {area:2361} is neutral."] = "Prenez le tunnel de {area:1769}, au nord de {zone:1448}, pour rejoindre {zone:1450} (druides : {spell:18960}). {area:2361} est neutre.",
 	-- ["{zone:1451} is west of {zone:1449}. {area:3425} is neutral."] = "{zone:1451} se trouve à l'ouest de {zone:1449}. {area:3425} est neutre.",
 }

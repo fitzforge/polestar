@@ -6,6 +6,18 @@
 			"instance": "dire-maul",
 			"source": { "edition": "forever", "kind": "quest", "id": 5526 },
 			"note": "Shards of the Felvine (Rabine Saturna, Moonglade): Forever's quest data says Type: Dungeon, and its objective is to find the Felvine in Dire Maul, take a shard from it once Alzzin the Wildshaper falls and seal it in the Reliquary of Purity (checked 2026-10-15). QuestieDB files it under Moonglade and lists only the Sealed Reliquary of Purity, which no NPC drops."
+		},
+		{
+			"quest": 4143,
+			"instance": "sunken-temple",
+			"source": { "edition": "forever", "kind": "quest", "id": 4143 },
+			"note": "Haze of Evil (Alliance; Gregan Brewspewer, Feralas, for Muigin in Un'Goro): five Atal'ai Haze, which only the Murk Worms, Saturated Oozes and Deep Lurkers drop, and the Forever world database spawns those only inside the Sunken Temple (map 109). Forever's quest data and CMaNGOS's classic-db call it a dungeon quest; our NPC data has no spawns for the three, so no rule placed it (checked 2026-11-09)."
+		},
+		{
+			"quest": 4146,
+			"instance": "sunken-temple",
+			"source": { "edition": "forever", "kind": "quest", "id": 4146 },
+			"note": "Zapper Fuel (Horde; Liv Rizzlefix, Ratchet, for Larion in Un'Goro): five Atal'ai Haze from the Murk Worms, Saturated Oozes and Deep Lurkers, which the Forever world database spawns only inside the Sunken Temple (map 109); CMaNGOS's classic-db files the quest under the Sunken Temple's zone. Our NPC data has no spawns for the three, so no rule placed it (checked 2026-11-09)."
 		}
 	]
 }

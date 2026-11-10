@@ -238,7 +238,7 @@ fn shipped_wording(locale: &str, label: &str) {
 local buttons = questMenu("MENU_QUEST_MAP_LOG_TITLE", { questID = 7 })
 emit({ label = buttons[2].text })
 "#,
-		&format!("function GetLocale() return \"{locale}\" end\n"),
+		&format!("function GetLocale() return \"{locale}\" end\n{}\n", forge_addontest::shipped_strings(locale)),
 	);
 	assert_eq!(r["label"], format!("Polestar: {label}").as_str());
 }

@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "Cuatro piezas de armadura a nivel 30 (camisote, yelmo, guanteletes y musleras) y un escudo por el camino.",
+	["Starts now at 20 at your trainer; four armor pieces at 30 (hauberk, helm, gauntlets, legguards), a shield on the way."] = "",
 
 	-- Step 1: Speak with Ruga (Orgrimmar)
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo
@@ -33,8 +33,8 @@ return {
 	["{item:7119}, from the silithid"] = "",
 
 	-- Step 6: Thun'grim Firegaze
-	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill · {area:380} Crossroads · {quest:1838} Brutal Armor · {item:7587} Thun'grim's Instructions
-	["{npc:5878}'s hut sits on top of {area:1699}, east of the {area:380}: climb the broad ridge on the north or east side. {quest:1838} is a level 30 quest; take it now and gather on the way. {item:7587} list where each material comes from."] = "",
+	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill · {quest:1838} Brutal Armor · {item:7587} Thun'grim's Instructions
+	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads: climb the broad ridge on the north or east side. {quest:1838} is a level 30 quest; take it now and gather on the way. {item:7587} list where each material comes from."] = "",
 
 	-- Step 7: Roogug in Razorfen Kraul
 	-- {area:1717} Razorfen Kraul
@@ -100,13 +100,14 @@ return {
 	["Take the zeppelin from {zone:1454} to {zone:1420}; {npc:6411} works in the {zone:1458}'s {object:36078}. She wants 8 Sturdy Dragonmaw Shinbones."] = "",
 
 	-- Step 19: Dragonmaw Shinbones
-	-- {zone:1437} Wetlands · {area:321} Hammerfall · {area:881} Thandol Span · {area:150} Menethil Harbor · {item:7131} Dragonmaw Shinbone · {spell:686} Shadow Bolt
-	["The Dragonmaw orcs (level 26-30) camp in the middle of the {zone:1437}; from {area:321} in Arathi head south over the {area:881} ({area:150} is Alliance). Every Raider, Swamprunner, Centurion, Shadowwarder and Bonewarder drops a {item:7131}: right-click it to test it, and about one in four comes out sturdy, the rest break, so expect 30 or more kills for 8. You can test while moving or fighting. The orcs run for help at 15%; Raiders net you, Centurions shield-bash, Shadowwarders cast {spell:686}, Bonewarders raise skeletons."] = "",
+	-- {zone:1437} Wetlands · {area:321} Hammerfall · {area:881} Thandol Span · {area:150} Menethil Harbor · {quest:1846} Dragonmaw Shinbones · {npc:6411} Velora Nitely · {item:7131} Dragonmaw Shinbone · {spell:686} Shadow Bolt
+	["The Dragonmaw orcs (level 26-30) camp in the middle of the {zone:1437}; from {area:321} in Arathi head south over the {area:881} ({area:150} is Alliance). With {quest:1846} from {npc:6411} in your log, every Raider, Swamprunner, Centurion, Shadowwarder and Bonewarder drops a {item:7131} (without the quest they drop none): right-click it to test it, and about one in four comes out sturdy, the rest break, so expect 30 or more kills for 8. You can test while moving or fighting. The orcs run for help at 15%; Raiders net you, Centurions shield-bash, Shadowwarders cast {spell:686}, Bonewarders raise skeletons."] = "Los orcos Faucedraco (nivel 26-30) acampan en medio de {zone:1437}; desde {area:321}, en Arathi, dirígete al sur cruzando {area:881} ({area:150} es de la Alianza). Con {quest:1846} de {npc:6411} en tu registro, todos los Asaltantes, Correpantanos, Centuriones, Pastores y Guardahuesos sueltan una {item:7131} (sin la misión no sueltan ninguna): haz clic derecho sobre ella para probarla; aproximadamente una de cada cuatro resulta robusta y el resto se rompen, así que cuenta con 30 muertes o más para conseguir 8. Puedes probarlas mientras te mueves o luchas. Los orcos huyen en busca de ayuda al 15%; los Asaltantes te lanzan redes, los Centuriones dan golpes con el escudo, los Pastores lanzan {spell:686} y los Guardahuesos levantan esqueletos.",
 	["from the Dragonmaw orcs: right-click to test it"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:5878} beside the road east of the {area:380}. {quest:1848} is the first piece; he then sends you to three crafters for the rest."] = "Vuelve con {npc:5878}, junto al camino al este de {area:380}. {quest:1848} es la primera pieza; después te envía con tres artesanos para el resto.",
 	-- ["Fly to {area:378}. South of the camp the Silithid Mounds dot the {area:390}: the silithid there carry the Twitching Antennae."] = "Vuela a {area:378}. Al sur del campamento, los Montículos de silítidos salpican {area:390}: los silítidos de allí llevan las Antenas retorcidas.",
+	-- ["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "Cuatro piezas de armadura a nivel 30 (camisote, yelmo, guanteletes y musleras) y un escudo por el camino.",
 	-- ["Miners smelt Iron Bars from {item:2772} ({skill:186} 125); everyone else buys them at the auction house in {zone:1454}."] = "Los mineros funden Lingotes de hierro a partir de {item:2772} ({skill:186} 125); los demás los compran en la casa de subastas de {zone:1454}.",
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "Roogug es un jabaespín élite dentro de {area:1717}, la mazmorra del extremo sur de {zone:1413}; suelta el {item:6841}. {area:1717} es una mazmorra: se recomienda ir en grupo.",
 	-- ["Smoky Iron Ingots from the Windshear kobolds"] = "Lingotes de hierro humeantes de los kóbolds Cortaviento",

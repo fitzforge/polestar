@@ -4,7 +4,8 @@
 -- (`spawn`: the creature GUID's spawn part), loot windows per source with
 -- the open item objectives (the drop-chance denominator), the world objects
 -- gathered with a skill (`gather`: herbs, ore, fishing pools, locks),
--- instance entrances and encounters.
+-- instance entrances and encounters. In explorer mode (Explore.lua) also each
+-- spawn seen (`unitx`) and an encounter's start (`engage`).
 --
 -- Kills: Forever's combat log is closed to addons (COMBAT_LOG_EVENT_* are
 -- callback events; C_CombatLog has no GetCurrentEventInfo), so deaths come
@@ -29,7 +30,7 @@
 
 local ADDON, ns = ...
 
-local type, GetTime, tonumber, ipairs, pairs, wipe, concat = type, GetTime, tonumber, ipairs, pairs, wipe, table.concat
+local type, GetTime, tonumber, ipairs, pairs, wipe, concat, floor = type, GetTime, tonumber, ipairs, pairs, wipe, table.concat, math.floor
 local usable, Str, Num = ns.Usable, ns.Str, ns.Num
 
 local SIGHT_YARDS = 50 -- one rare / treasure sighting per npc (object) per this many yards per session
@@ -148,18 +149,72 @@ local function remember_place(key, map, x, y)
 	list[#list + 1] = { map = map, x = x, y = y }
 end
 
+-- The spawn part of a creature GUID ("Creature-0-<server>-<instance>-<zone>-
+-- <npc>-<spawn>"): the last of its seven parts when that is 1-16 hex digits
+-- (uppercase), else nil and no `spawn` (or `unitx`) is written. No other part of the GUID
+-- is ever kept.
+local function spawnUid(guid)
+	if type(guid) ~= "string" then return nil end
+	local uid = guid:match("^%a+%-[^-]*%-[^-]*%-[^-]*%-[^-]*%-%d+%-(%x+)$")
+	if uid and #uid <= 16 then return uid:upper() end
+	return nil
+end
+
 local UNIT_SRC = { nameplate = "p", target = "t", mouseover = "m" }
 
-local function census(npc, lvl, cls, reaction, src)
-	local map, x, y = ns.Position()
+-- One `unit` per npc per UNIT_YARDS (EXPLORE_UNIT_YARDS where explorer mode
+-- is dense, Explore.lua).
+local function census(npc, lvl, cls, reaction, src, map, x, y, dense)
 	local lkey = npc .. ":" .. (lvl or "")
 	local key = "u" .. npc
 	local newLevel = not levelSeen[lkey]
-	local newPlace = x and not near(key, map, x, y, UNIT_YARDS)
+	local newPlace = x and not near(key, map, x, y, dense and ns.EXPLORE_UNIT_YARDS or UNIT_YARDS)
 	if not (newLevel or newPlace) then return end
 	if ns.Rec("unit", npc, lvl, ns.Cls(cls), reaction, ns.PAt(map, x, y), UNIT_SRC[src]) then
 		levelSeen[lkey] = true
 		if x then remember_place(key, map, x, y) end
+	end
+end
+
+-- "<npc>:<spawnUid>" -> where its last `unitx` was, packed in one number
+-- (map * 1e10 + x * 1e5 + y, x and y in hundredths of a percent), or 0
+-- inside an instance: one small entry per spawn. A busy zone shows many
+-- spawns (respawns get new ones), so past SPAWNS_KEPT it starts over: a
+-- spawn seen again then is written again, the memory stays bounded.
+local SPAWNS_KEPT = 1000
+local spawnAt, spawnsKept = {}, 0
+
+-- `unitx`: where explorer mode is dense (Forever's new places, inside its
+-- new dungeons too), each spawn seen (its GUID's spawn part), again once it
+-- is EXPLORE_UNIT_YARDS from where it was last written (once per session
+-- inside an instance, where there is no position). `e` is the unit's cache
+-- entry: its spawn part and key are worked out once.
+local function spawnSighting(e, guid, npc, map, x, y, dense)
+	if not dense then return end
+	local key = e.spawnKey
+	if key == nil then
+		e.uid = spawnUid(guid)
+		key = e.uid and npc .. ":" .. e.uid or false
+		e.spawnKey = key
+	end
+	if not key then return end
+	local uid = e.uid
+	local at = spawnAt[key]
+	if at then
+		if not x then return end
+		local m = floor(at / 1e10)
+		local px, py = floor(at / 1e5) % 1e5 / 100, at % 1e5 / 100
+		if m == map and ns.Yards(map, x - px, y - py) < ns.EXPLORE_UNIT_YARDS then return end
+	end
+	if ns.Rec("unitx", npc, uid, ns.PAt(map, x, y)) then
+		if not at then
+			if spawnsKept >= SPAWNS_KEPT then
+				spawnAt = {} -- a fresh table: a wiped one keeps its size
+				spawnsKept = 0
+			end
+			spawnsKept = spawnsKept + 1
+		end
+		spawnAt[key] = x and map * 1e10 + floor(x * 100 + 0.5) * 1e5 + floor(y * 100 + 0.5) or 0
 	end
 end
 
@@ -195,9 +250,11 @@ local function seeUnit(unit, src)
 	if src == "target" then e.targeted = true end
 	if not e.related and C_QuestLog.UnitIsRelatedToActiveQuest and call(C_QuestLog.UnitIsRelatedToActiveQuest, unit) then e.related = true end
 	remember(guid, e)
-	census(npc, lvl, cls, react(unit), src)
+	local map, x, y = ns.Position()
+	local dense = ns.Dense(map, x, y)
+	census(npc, lvl, cls, react(unit), src, map, x, y, dense)
+	spawnSighting(e, guid, npc, map, x, y, dense)
 	if cls and RARE[cls] then
-		local map, x, y = ns.Position()
 		sighting("rare", "r" .. npc, npc, { lvl = lvl, cls = cls, src = RARE_SRC[src] }, map, x, y)
 	end
 end
@@ -318,17 +375,6 @@ local xpLine = nil -- { name, xp, rested, at } no death claimed yet
 
 local function nameMatches(name, text)
 	return not name or not text or text:find(name, 1, true) ~= nil
-end
-
--- The spawn part of a creature GUID ("Creature-0-<server>-<instance>-<zone>-
--- <npc>-<spawn>"): the last of its seven parts when that is 1-16 hex digits
--- (uppercase), else nil and no `spawn` is written. No other part of the GUID
--- is ever kept.
-local function spawnUid(guid)
-	if type(guid) ~= "string" then return nil end
-	local uid = guid:match("^%a+%-[^-]*%-[^-]*%-[^-]*%-[^-]*%-%d+%-(%x+)$")
-	if uid and #uid <= 16 then return uid:upper() end
-	return nil
 end
 
 local function finish(k)
@@ -456,6 +502,8 @@ ns.On("ENCOUNTER_START", function(_, id, _, diff, size)
 	id = Num(id)
 	if not id then return end
 	encounter = { enc = id, diff = Num(diff), size = Num(size) }
+	-- Explorer mode: the pull too (boss order and time per boss).
+	if ns.Exploring() then ns.Rec("engage", id, encounter.diff, encounter.size) end
 end)
 
 ns.On("ENCOUNTER_END", function(_, id, _, diff, size, success)
@@ -564,8 +612,17 @@ local function itemList(items)
 	return concat(out, ";")
 end
 
-ns.On("LOOT_OPENED", function()
-	if not (GetNumLootItems and GetLootSlotInfo) or not ns.Recording() then return end
+-- The window is read at LOOT_READY, before any auto-loot takes its slots:
+-- fast loot (Polestar's own, or another addon's) calls LootSlot on every slot
+-- at LOOT_READY, and by LOOT_OPENED the slots the server already cleared
+-- read as empty, so a window read then lost its first items (a boar's liver
+-- gone, its snout kept, and the liver's quest tick tied to the snout).
+-- LOOT_OPENED reads it when LOOT_READY did not; one read per window.
+local windowRead = false
+local function readLoot()
+	if windowRead or not (GetNumLootItems and GetLootSlotInfo) or not ns.Recording() then return end
+	if (GetNumLootItems() or 0) == 0 then return end
+	windowRead = true
 	local p = ns.P()
 	if IsFishingLoot and ns.Value(IsFishingLoot()) then
 		local items = {}
@@ -611,7 +668,10 @@ ns.On("LOOT_OPENED", function()
 			end
 		end
 	end
-end)
+end
+ns.On("LOOT_READY", readLoot)
+ns.On("LOOT_OPENED", readLoot)
+ns.On("LOOT_CLOSED", function() windowRead = false end)
 
 ---------------------------------------------------------------------------
 -- Instance entrances
@@ -654,6 +714,7 @@ ns.On("ZONE_CHANGED", noteOutdoor)
 ns.OnSession(function()
 	wipe(levelSeen)
 	wipe(placesSeen)
+	spawnAt, spawnsKept = {}, 0
 	wipe(gathered)
 	pending = {}
 	recent.left, xpLine = 0, nil

@@ -18,7 +18,9 @@ ns.RegisterDefaults("qol", {
 	questDB = true, -- load the quest database (Polestar_QuestDB) when a quest feature needs it
 	mapObjectives = false, -- objective markers on the world map (off by default: crowded maps)
 	minimapObjectives = false, -- ... and on the minimap
-	objectiveAreas = false, -- a soft area under each objective spawn cluster (world map)
+	objectiveSpots = "groups", -- an objective's spots close together: "groups" (one area, one marker), "icons", "areas"
+	objectiveAreaAlpha = 0.6, -- how opaque those areas are (times the map's own area fill)
+	questMarkerSize = 1, -- every quest marker's size, on the world map and the minimap
 	turnInMarkers = false, -- markers on quest enders once a quest is ready
 	availableQuests = false, -- markers on quest givers with quests you can take now
 	lowLevelQuests = false, -- include grey (trivial) quests among available ones
@@ -557,6 +559,28 @@ function Q.FollowUps(id)
 		end
 	end
 	return followUps[id]
+end
+
+-- Quests item itemID starts (the quests' start item), ascending, or nil.
+-- Built on the first ask, and again once more quest chunks arrived (the item
+-- tooltip's "Starts a quest" line, Quests/PartyChat.lua's loot line).
+local startedBy, startedByOf
+function Q.StartedBy(itemID)
+	local ids = Q.QuestIds()
+	if startedByOf ~= ids then
+		startedBy, startedByOf = {}, ids
+		for _, q in ipairs(ids) do
+			for _, it in Each(data.quests[q][QUEST_START_ITEM]) do
+				local list = startedBy[it]
+				if not list then
+					list = {}
+					startedBy[it] = list
+				end
+				list[#list + 1] = q
+			end
+		end
+	end
+	return startedBy[itemID]
 end
 
 ---------------------------------------------------------------------------

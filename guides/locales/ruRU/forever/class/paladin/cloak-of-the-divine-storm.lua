@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {spell:407778} Divine Storm
-	["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "",
+	-- {area:444} Tower of Althalaxx
+	["Starts now at 22 at the {area:444}; its mobs are 28-30, so go nearer 30 or with a friend. Alliance only for now."] = "",
 
 	-- Step 1: The Strange Orb
 	["The Strange Orb"] = "Странная сфера",
@@ -63,6 +63,8 @@ return {
 	-- ["Blackrock Summoners, Champions and Trackers camp in the north-west of Redridge; they drop the {item:209778}."] = "Призыватели, воители и следопыты из клана Черной Горы стоят лагерем на северо-западе Красногорья; с них падает {item:209778}.",
 	-- ["Climb to the top of the {area:444} in northern {zone:1439}. Loot the Strange Orb up there: it gives you the Althalaxx Orb, which starts the quest."] = "Поднимитесь на вершину башни ({area:444}) на севере зоны {zone:1439}. Обыщите там странную сферу: она дает Сферу Алталакса, с которой начинается задание.",
 	-- ["Katherine sends you to the warlocks in the {object:2101}; {npc:5495} speaks for them."] = "Катерина отправляет вас к чернокнижникам ({object:2101}); от их имени говорит {npc:5495}.",
+	-- ["Strange Orb atop the {area:444}: right-click the Althalaxx Orb it gives"] = "Странная сфера на вершине башни ({area:444}): щелкните правой кнопкой по Сфере Алталакса, которую она дает",
+	-- ["The Strange Orb"] = "Странная сфера",
 	-- ["The {object:409311} stands at the east end of {area:435}. Shatter the orb on it; the {object:409315} appears beside it."] = "{object:409311} стоит в восточном конце каньона ({area:435}). Разбейте сферу на нем; рядом появится {object:409315}.",
 	-- ["The {object:409311} stands at the east end of {area:435}. {spell:11170} the orb on it; the {object:409315} appears beside it."] = "{object:409311} стоит в восточном конце каньона ({area:435}). Примените на сферу на нем: {spell:11170}; рядом появится {object:409315}.",
 	-- ["{area:435} is in south-east {zone:1440}. The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds in it drop the Motes of Mannoroth."] = "{area:435} – на юго-востоке зоны {zone:1440}. С бичевательниц Маннорока, опаляющих инферналов, стражей Скверны и гончих Легиона там падают частицы Маннорота.",

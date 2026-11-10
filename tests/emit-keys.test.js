@@ -19,7 +19,9 @@ table.sort(out)
 io.write(table.concat(out, '\\n'))`;
 	const r = spawnSync(findLua(), ['-e', program], { encoding: 'utf8' });
 	assert.equal(r.status, 0, r.stderr);
-	return r.stdout;
+	// Windows Lua opens stdout in text mode and turns every \n into \r\n;
+	// the expected side is LF.
+	return r.stdout.replace(/\r\n/g, '\n');
 }
 
 function expected(entries) {

@@ -12,13 +12,13 @@ return {
 	["{area:1581}: Defias Pirates"] = "{area:1581}: Piraten der Defias",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
 	-- plural, as words: Defias Pirates = {npc:657} Defias Pirate
-	["{area:1581} is a group of five at level 17-26, under {area:20}: go in at the {area:20} mine and follow the tunnel down to the instance portal. The Defias Pirates (elite, level 19-20) on and around the ship at the far end drop the macaw about once in 30 kills, so plan on several runs; a character well past the dungeon's level clears it alone. The cage can be traded: look at the Auction House too."] = "",
+	["{area:1581} is a group of five at level 17-26, under {area:20}: go in at the {area:20} mine and follow the tunnel down to the instance portal. The Defias Pirates (elite, level 19-20) on and around the ship at the far end drop the macaw about once in 30 kills, so plan on several runs; a character well past the dungeon's level clears it alone. The cage can be traded: look at the Auction House too."] = "{area:1581} ist eine Gruppe von fünf auf Stufe 17-26 unter {area:20}: Geh an der Mine von {area:20} hinein und folge dem Tunnel nach unten zum Instanzportal. Die Defias Pirates (Elite, Stufe 19-20) auf und um das Schiff am Ende lassen den Ara etwa bei jedem 30. Kill fallen, plane also mehrere Durchgänge; ein Charakter weit über der Stufe des Dungeons räumt ihn allein. Der Käfig ist handelbar: Schau auch im Auktionshaus.",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
-	["{area:1581}, in the {area:20} mine"] = "",
+	["{area:1581}, in the {area:20} mine"] = "{area:1581}, in der Mine von {area:20}",
 	-- {area:1581} The Deadmines
-	["{area:1581} portal, at the bottom of the mine"] = "",
+	["{area:1581} portal, at the bottom of the mine"] = "Portal von {area:1581}, am Grund der Mine",
 	-- plural, as words: Defias Pirates = {npc:657} Defias Pirate
-	["Defias Pirates, on the ship"] = "",
+	["Defias Pirates, on the ship"] = "Defias Pirates, auf dem Schiff",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Defias Pirates"] = "Piraten der Defias",

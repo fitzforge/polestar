@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {spell:2458} Berserker Stance · {spell:1680} Whirlwind
-	["{spell:2458} at 30 and a {spell:1680} axe, sword or warhammer at 40."] = "",
+	["{spell:2458} at 30 and a {spell:1680} axe, sword or warhammer at 40."] = "30레벨에 {spell:2458}, 40레벨에 {spell:1680} 도끼, 검 또는 전투망치.",
 
 	-- Step 1: The Islander (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens
@@ -95,5 +95,4 @@ return {
 	-- ["{item:6894} from {quest:1712}"] = "{item:6894}, {quest:1712}에게서",
 	-- ["{npc:6176} camps in the south-east of {zone:1416}, above {zone:1424}; his cauldron stands beside him. He asks for a {item:3357}, a {item:3901} and the {quest:1714}, which his cauldron brews from three charms."] = "{npc:6176}은(는) {zone:1424} 위쪽, {zone:1416} 남동쪽에서 야영하며 가마솥이 옆에 있습니다. {item:3357}, {item:3901}, 그리고 가마솥에서 부적 세 개로 끓이는 {quest:1714}을(를) 요구합니다.",
 	-- ["{quest:1712} waits just north of {npc:6176}'s camp and carries the {item:6894}. {quest:1712} is elite: grouping up is advised."] = "{quest:1712}은(는) {npc:6176}의 야영지 바로 북쪽에서 기다리며 {item:6894}을(를) 가지고 있습니다. {quest:1712}은(는) 정예입니다. 파티를 권장합니다.",
-	-- ["{spell:2458} at 30 and a {spell:1680} axe, sword or warhammer at 40."] = "30레벨에 {spell:2458}, 40레벨에 {spell:1680} 도끼, 검 또는 전투망치.",
 }

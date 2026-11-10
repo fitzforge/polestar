@@ -597,12 +597,37 @@ pub fn premature_class_turnins(files: &mut [String], in_route: &FxHashSet<u32>) 
 	set_then_rewrite(files, texts, del, set);
 }
 
+/// The chain's files in the order the route plays them: by the median route position of each file's
+/// lines (`median`; None keeps the file right after the one before it), ties in chain order. v1's
+/// `next` links put a guide they do not reach after every guide they do, and every pass that compares
+/// positions across guides (a step's file and line) reads the files in this order: Silverpine (12-15)
+/// after the Barrens (15-21) it leads into made the Barrens' accept of Trial of the Sea Lion (30) come
+/// "before" Silverpine's Strange Lockbox step, which stayed at 12-15 with nothing to open it for,
+/// #1386. Returns the chain's indices in play order.
+pub fn play_order(chain: &[String], median: &dyn Fn(&str) -> Option<usize>) -> Vec<usize> {
+	let mut last = 0usize;
+	let keys: Vec<usize> = chain
+		.iter()
+		.map(|f| {
+			if let Some(m) = median(f) {
+				last = m;
+			}
+			last
+		})
+		.collect();
+	let mut order: Vec<usize> = (0..chain.len()).collect();
+	order.sort_by_key(|&i| keys[i]);
+	order
+}
+
 /// A step for a quest the route does not take, written before that quest's accept: a step `when
 /// onquest Q`, or one whose every goal collects a quest item that drops only for Q (`item_quest`):
 /// the Druids' Strange Lockbox (the Half Pendant, Trial of the Sea Lion's) at 15.5, before the Moonglade
 /// accept, so the box held nothing and the Druids reached Moonglade at 23 without it, c15 Rev15H1. It
 /// goes, whole, to the end of the first step after the accept that stands near it (`place`, within
-/// `near_yd`), else right after the accept's step. Only into a guide whose players include its own's.
+/// `near_yd`), else right after the accept's step. Only into a guide whose players include its own's;
+/// where its players' guides have no such step, it stays, `when onquest Q`. `files` are in play order
+/// ([`play_order`]): "before" is the route's before, not the files' path order (#1386).
 pub fn steps_after_their_quest(
 	files: &mut [String],
 	in_route: &FxHashSet<u32>,
@@ -662,6 +687,12 @@ pub fn steps_after_their_quest(
 		let here = pts(fi, b, e);
 		let to = *steps[ai..].iter().find(|&&(tf, tb, te)| may(tf, fi) && !here.is_empty() && near(&pts(tf, tb, te), &here)).unwrap_or(&steps[ai]);
 		if !may(to.0, fi) {
+			// (Into no guide of its players: it stays, gated on the quest, so a player without it is not
+			// sent there for nothing.)
+			let gated = texts[fi][b + 1..=e].iter().any(|l| re!(r"^\s+when\s+onquest\s+(\d+)\s*$").captures(split_comment(l).0).is_some_and(|m| m[1].parse::<u32>().ok() == Some(q)));
+			if !gated {
+				ins[fi].entry(b).or_default().push(format!("  when onquest {q}"));
+			}
 			continue;
 		}
 		for k in b..=e {
@@ -1334,6 +1365,93 @@ pub fn class_only_lines(files: &mut [String], data: &Data) {
 	}
 }
 
+/// A goal line the passes gave two `only` words (one carried from its step, one cutting it to the
+/// guide's races) gets one list: `only !Rogue only Human` -> `only !Rogue,Human` (classes OR, races OR,
+/// the two AND, as two words meant); the compiler refuses a second `only`. Each value once.
+pub fn one_only(files: &mut [String]) {
+	for f in files.iter_mut() {
+		let mut changed = false;
+		let mut lines: Vec<String> = f.split('\n').map(str::to_string).collect();
+		for l in lines.iter_mut() {
+			let (code, _) = split_comment(l);
+			if !is_goal(l) || re!(r"\sonly\s+\S").find_iter(code).count() < 2 {
+				continue;
+			}
+			let mut vals: Vec<String> = Vec::new();
+			for m in re!(r"\sonly\s+(\S+)").captures_iter(code) {
+				for v in m[1].split(',').filter(|v| !v.is_empty()) {
+					if !vals.iter().any(|x| x == v) {
+						vals.push(v.to_string());
+					}
+				}
+			}
+			let rest = re!(r"\sonly\s+\S+").replace_all(code, "");
+			let tail = re!(r"\s--\s.*$").find(l).map_or(String::new(), |m| m.as_str().to_string());
+			*l = format!("{} only {}{tail}", trim_end(&rest), vals.join(","));
+			changed = true;
+		}
+		if changed {
+			*f = lines.join("\n");
+		}
+	}
+}
+
+/// #1153: a repeatable quest whose giver is also its ender, taken and handed in at one stop, is
+/// `turnin <id> direct` with no accept: the giver takes it straight back from the quest window and the
+/// client never marks it completed, so an accept-then-turnin step reopens after a reload (Westfall's
+/// The Tome of Divinity, 1641). The accept's `only` goes onto the turn-in. A quest another line of the
+/// guide tracks (`quest <id>`, `onquest <id>`, `complete <id>`: Morrowgrain to Thunder Bluff, A Sealed
+/// Crate) is left as it is.
+pub fn repeatable_direct(files: &mut [String], data: &Data) {
+	for f in files.iter_mut() {
+		let mut lines: Vec<String> = f.split('\n').map(str::to_string).collect();
+		let tracked = |q: u32, lines: &[String]| {
+			let r = regex::Regex::new(&format!(r"\b(quest|onquest)\s+{q}\b|^\s+complete\s+{q}\b")).unwrap();
+			lines.iter().any(|l| r.is_match(split_comment(l).0))
+		};
+		let mut drop: Vec<usize> = Vec::new();
+		let mut start = 0;
+		while start < lines.len() {
+			let end = (start + 1..lines.len()).find(|&i| is_step(&lines[i]) || starts_nonspace(&lines[i])).unwrap_or(lines.len());
+			let mut accepts: Vec<(u32, usize)> = Vec::new();
+			for i in start..end {
+				let code = split_comment(&lines[i]).0;
+				if let Some(m) = re!(r"^\s+accept\s+(\d+)\b").captures(code) {
+					accepts.push((m[1].parse().unwrap_or(0), i));
+					continue;
+				}
+				let Some(m) = re!(r"^\s+turnin\s+(\d+)\b").captures(code) else { continue };
+				let q: u32 = m[1].parse().unwrap_or(0);
+				if re!(r"\bdirect\b").is_match(code) {
+					continue;
+				}
+				let Some(&(_, ai)) = accepts.iter().find(|a| a.0 == q) else { continue };
+				let Some(rec) = data.quests.get(&q) else { continue };
+				let (Some(st), Some(en)) = (&rec.start, &rec.end) else { continue };
+				if !rec.repeatable() || !st.npc.iter().any(|n| en.npc.contains(n)) || tracked(q, &lines) {
+					continue;
+				}
+				let acode = split_comment(&lines[ai]).0.to_string();
+				let only = re!(r"\sonly\s+\S+").find(&acode).map(|m| m.as_str().to_string()).filter(|_| !re!(r"\sonly\s+\S").is_match(code));
+				let tail = re!(r"\s--\s.*$").find(&lines[i]).map_or(String::new(), |m| m.as_str().to_string());
+				let head = &code[..m.get(0).unwrap().end()];
+				let rest = trim_end(&code[m.get(0).unwrap().end()..]);
+				lines[i] = format!("{head} direct{rest}{}{tail}", only.unwrap_or_default());
+				drop.push(ai);
+			}
+			start = end;
+		}
+		if !drop.is_empty() {
+			let mut k = 0;
+			lines.retain(|_| {
+				k += 1;
+				!drop.contains(&(k - 1))
+			});
+			*f = lines.join("\n");
+		}
+	}
+}
+
 /// A tip or note carried from a guide played at riding level (40) into one played below it
 /// does not tell you to ride (#404). v1's own lines of the guide are left as they are.
 pub fn no_riding(files: &mut [String], sources: &[&str]) {
@@ -1968,6 +2086,169 @@ pub fn class_only_steps(files: &mut [String]) {
 	}
 }
 
+/// A quest's prerequisites in the data: those that must all be handed in (`pre`), and those one of
+/// which must be (a negative `pre`, `preAny`). Not its parent: that one must be in the log, not handed
+/// in (Chapter I-IV inside The Green Hills of Stranglethorn).
+pub fn prereqs_of(data: &Data, q: u32) -> (Vec<u32>, Vec<u32>) {
+	let Some(r) = data.quests.get(&q) else { return (Vec::new(), Vec::new()) };
+	let ids = |v: &Option<Vec<serde_json::Value>>| -> Vec<i64> { v.iter().flatten().filter_map(|x| x.as_i64()).collect() };
+	let parent = r.parent.map(|p| p as i64);
+	let pre: Vec<i64> = ids(&r.pre).into_iter().filter(|&p| Some(p.abs()) != parent).collect();
+	let all: Vec<u32> = pre.iter().filter(|&&p| p > 0).map(|&p| p as u32).collect();
+	let mut any: Vec<u32> = pre.iter().filter(|&&p| p < 0).map(|p| (-p) as u32).collect();
+	any.extend(ids(&r.pre_any).into_iter().filter(|&p| p > 0 && Some(p) != parent).map(|p| p as u32));
+	(all, any)
+}
+
+/// How the writer treats a guide's opening accepts that need a quest only an earlier guide hands in
+/// ("Every guide stands on its own": a player may load any guide fresh at its level).
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum FreshOpeners {
+	/// Not checked.
+	Off,
+	/// Listed in the writer's log (`fresh opener: …`); the guides as written.
+	#[default]
+	Flag,
+	/// Each moves to the guide's first later visit to its giver after the opening, where there is one
+	/// ([`fresh_openers_later`]); the rest are listed.
+	Move,
+}
+
+/// The steps that open a guide, for the fresh-start check (the release gate's "first 10 steps").
+pub const FRESH_STEPS: usize = 10;
+
+/// An accept in a guide's opening that needs a quest only an earlier guide hands in.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct FreshOpener {
+	/// The file (in play order), its step (0-based) and the accept's line.
+	pub file: usize,
+	pub step: usize,
+	pub line: usize,
+	pub quest: u32,
+	/// The prerequisites a fresh player lacks, each with the earlier files that hand it in.
+	pub needs: Vec<(u32, Vec<usize>)>,
+}
+
+/// (A file's steps: (title line, last body line).)
+fn step_spans(lines: &[String]) -> Vec<(usize, usize)> {
+	let mut out = Vec::new();
+	let mut i = 0;
+	while i < lines.len() {
+		if !is_step(&lines[i]) {
+			i += 1;
+			continue;
+		}
+		let mut e = i;
+		while e + 1 < lines.len() && !is_step(&lines[e + 1]) && !starts_nonspace(&lines[e + 1]) && !trim(&lines[e + 1]).is_empty() {
+			e += 1;
+		}
+		out.push((i, e));
+		i = e + 1;
+	}
+	out
+}
+
+/// "Every guide stands on its own" (Fitz, 2026-11-08): a player who loads a guide fresh at its level
+/// has done their race's starting zone (`starter`, the chain's level-1 guide) and none of our other
+/// guides. An accept in a guide's first `first_n` steps whose quest needs one (the data's
+/// prerequisites, [`prereqs_of`]) that the guide has not handed in before it and that only an earlier
+/// guide of the chain hands in is one that player cannot take: the giver does not offer it, and the
+/// Engine hides it. `files` in play order ([`play_order`]). A prerequisite no guide of the chain hands
+/// in is a route gap, not this check's.
+pub fn fresh_openers(files: &[String], data: &Data, first_n: usize, starter: Option<usize>) -> Vec<FreshOpener> {
+	let texts = split_lines(files);
+	let tin_re = re!(r"^\s+turnin\s+(\d+)\b");
+	let tin = |l: &str| tin_re.captures(split_comment(l).0).and_then(|m| m[1].parse::<u32>().ok());
+	let turned: Vec<FxHashSet<u32>> = texts.iter().map(|ls| ls.iter().filter_map(|l| tin(l)).collect()).collect();
+	let mut out = Vec::new();
+	for (fi, lines) in texts.iter().enumerate() {
+		if Some(fi) == starter {
+			continue;
+		}
+		let fresh_has = |p: u32| starter.is_some_and(|s| s < fi && turned[s].contains(&p));
+		let fed = |p: u32| -> Vec<usize> { (0..fi).filter(|&f| Some(f) != starter && turned[f].contains(&p)).collect() };
+		let mut own: FxHashSet<u32> = FxHashSet::default();
+		for (si, &(b, e)) in step_spans(lines).iter().enumerate().take(first_n) {
+			for (li, l) in lines.iter().enumerate().take(e + 1).skip(b + 1) {
+				if let Some(q) = tin(l) {
+					own.insert(q);
+					continue;
+				}
+				if head_ws(l) != Some("accept") {
+					continue;
+				}
+				let Some(q) = quest_of(l) else { continue };
+				let (all, any) = prereqs_of(data, q);
+				let done = |p: &u32| own.contains(p) || fresh_has(*p);
+				let mut needs: Vec<(u32, Vec<usize>)> = all.iter().filter(|p| !done(p)).map(|&p| (p, fed(p))).filter(|(_, f)| !f.is_empty()).collect();
+				if !any.is_empty() && !any.iter().any(done) {
+					needs.extend(any.iter().map(|&p| (p, fed(p))).filter(|(_, f)| !f.is_empty()));
+				}
+				if !needs.is_empty() {
+					out.push(FreshOpener { file: fi, step: si, line: li, quest: q, needs });
+				}
+			}
+		}
+	}
+	out
+}
+
+/// [`FreshOpeners::Move`]: an opener's accept goes to the end of its guide's first step after the
+/// opening (`first_n` steps) that stands by its giver (`place`: a line's NPC points, within `near_yd`),
+/// a later visit to the same NPC, when the step is for everyone (no `only`, no `when`) and no line of
+/// the quest comes before it: the route's player takes it there, and the opening asks nothing of a
+/// fresh player they cannot do. A line moved out of a step with `only` takes it. Returns the openers
+/// left where they are (the Engine hides them for a player without the earlier quest).
+pub fn fresh_openers_later(files: &mut [String], openers: &[FreshOpener], first_n: usize, place: &dyn Fn(&str) -> Vec<crate::input::Pt>, near_yd: f64) -> Vec<FreshOpener> {
+	let texts = split_lines(files);
+	let near = |a: &[crate::input::Pt], b: &[crate::input::Pt]| a.iter().any(|p| b.iter().any(|q| p.c == q.c && js_hypot(p.wx - q.wx, p.wy - q.wy) <= near_yd));
+	let mut del: Del = vec![FxHashSet::default(); texts.len()];
+	let mut ins: Ins = vec![FxHashMap::default(); texts.len()];
+	let mut left = Vec::new();
+	for o in openers {
+		let lines = &texts[o.file];
+		let spans = step_spans(lines);
+		let qs = o.quest.to_string();
+		// (A line of the quest: its goals, `complete`, a `when` naming it.)
+		let refs = |l: &str| quest_of(l) == Some(o.quest) || (matches!(head_ws(l), Some("when" | "complete")) && split_comment(l).0.split(|c: char| !c.is_ascii_digit()).any(|t| t == qs));
+		let giver = place(&lines[o.line]);
+		let Some(&(ob, oe)) = spans.get(o.step) else {
+			left.push(o.clone());
+			continue;
+		};
+		let mut target = None;
+		if !giver.is_empty() && !lines[o.line + 1..=oe].iter().any(|l| refs(l)) {
+			for (j, &(b, e)) in spans.iter().enumerate().skip(o.step + 1) {
+				let body = &lines[b + 1..=e];
+				if body.iter().any(|l| refs(l)) {
+					break;
+				}
+				if j >= first_n && !body.iter().any(|l| matches!(head_ws(l), Some("only" | "when"))) && body.iter().any(|l| near(&place(l), &giver)) {
+					target = Some(e);
+					break;
+				}
+			}
+		}
+		let Some(at) = target else {
+			left.push(o.clone());
+			continue;
+		};
+		let l = &lines[o.line];
+		let step_only = lines[ob + 1..=oe].iter().find(|x| head_ws(x) == Some("only")).map(|x| trim(&re!(r"^\s+only\s+").replace(split_comment(x).0, "")).to_string());
+		let line = match step_only.filter(|_| line_only(l).is_none()) {
+			Some(a) => {
+				let (code, rest) = split_comment(l);
+				format!("{} only {a}{rest}", trim_end(code))
+			}
+			None => l.clone(),
+		};
+		del[o.file].insert(o.line);
+		ins[o.file].entry(at).or_default().push(line);
+	}
+	rewrite(files, &texts, &del, &ins);
+	left
+}
+
 /// A quest's lines written before the hand-in of a prerequisite (the data's `pre`, all of them, and
 /// `preAny`, one of them) go after that hand-in, in steps of their own after its step: each keeps its
 /// v1 step's title, `only` and zone, so it reads on its own map, and the step after them names the zone
@@ -1980,18 +2261,7 @@ pub fn prereq_order(files: &mut [String], data: &Data, route_q: &FxHashSet<u32>,
 	let acc_re = re!(r"^\s+accept\s+(\d+)\b");
 	let tin_re = re!(r"^\s+turnin\s+(\d+)\b");
 	let zone_re = re!(r"^\s*zone\s+(.+?)\s*$");
-	let pres = |q: u32| -> (Vec<u32>, Vec<u32>) {
-		let Some(r) = data.quests.get(&q) else { return (Vec::new(), Vec::new()) };
-		let ids = |v: &Option<Vec<serde_json::Value>>| -> Vec<i64> { v.iter().flatten().filter_map(|x| x.as_i64()).collect() };
-		// (Not its parent: that one must be in the log, not handed in, Chapter I-IV inside The Green
-		// Hills of Stranglethorn.)
-		let parent = r.parent.map(|p| p as i64);
-		let pre: Vec<i64> = ids(&r.pre).into_iter().filter(|&p| Some(p.abs()) != parent).collect();
-		let all: Vec<u32> = pre.iter().filter(|&&p| p > 0).map(|&p| p as u32).collect();
-		let mut any: Vec<u32> = pre.iter().filter(|&&p| p < 0).map(|p| (-p) as u32).collect();
-		any.extend(ids(&r.pre_any).into_iter().filter(|&p| p > 0 && Some(p) != parent).map(|p| p as u32));
-		(all, any)
-	};
+	let pres = |q: u32| prereqs_of(data, q);
 	let refs = |l: &str, q: u32| -> bool {
 		let code = split_comment(l).0;
 		quest_of(l) == Some(q) || re!(r"^\s+complete\s+(\d+)\b").captures(code).is_some_and(|m| m[1].parse::<u32>().ok() == Some(q))
@@ -3436,6 +3706,113 @@ mod tests {
 		steps_after_their_quest(&mut files, &[5, 858].into_iter().collect(), &item_quest, &|_, _| true, &place, 600.0);
 		assert_eq!(files[0], "guide a\n\nstep Camp\n  accept 5\n");
 		assert_eq!(files[1], "guide b\n\nstep Moonglade\n  only Druid\n  accept 30\n\nstep Gated\n  when onquest 30\n  goto 1,1\n\nstep Ignition\n  accept 858\n\nstep Strange Lockbox\n  only Tauren,Druid\n  collect 15883\n");
+	}
+
+	#[test]
+	fn the_chain_is_read_in_the_routes_order_not_the_files() {
+		// #1386 (T1386): Silverpine (12-15) is played before the Barrens (15-21), but the chain had the
+		// Barrens first, so the Barrens' accept of Trial of the Sea Lion (30) read as coming before
+		// Silverpine's Strange Lockbox step (15882, a quest item that drops only with 30 in the log),
+		// which stayed at 12-15 with nothing to open it for.
+		let chain: Vec<String> = ["forever/horde/02-the-barrens.guide", "forever/horde/03-silverpine-forest.guide", "forever/horde/05-stonetalon-mountains.guide"].map(String::from).to_vec();
+		let median = |f: &str| -> Option<usize> {
+			if f.contains("02-the-barrens") {
+				Some(40)
+			} else if f.contains("03-silverpine") {
+				Some(10)
+			} else {
+				Some(70)
+			}
+		};
+		let ord = play_order(&chain, &median);
+		assert_eq!(ord, vec![1, 0, 2]);
+		// (A file with no route line keeps its place right after the file before it.)
+		let abc: Vec<String> = ["a", "b", "c"].map(String::from).to_vec();
+		assert_eq!(
+			play_order(&abc, &|f| match f {
+				"a" => Some(10),
+				"c" => Some(5),
+				_ => None,
+			}),
+			vec![2, 0, 1]
+		);
+		let barrens = "guide b\n\nstep Moonglade\n  only Druid\n  accept 30\n\nstep Camp\n  accept 5\n".to_string();
+		let silverpine = "guide s\n\nstep Strange Lockbox\n  only Tauren,Druid\n  collect 15882\n\nstep Sepulcher\n  accept 6\n".to_string();
+		let item_quest: FxHashMap<u32, u32> = [(15882, 30)].into_iter().collect();
+		let in_route: FxHashSet<u32> = [5, 6].into_iter().collect();
+		let nowhere = |_: &str| -> Vec<crate::input::Pt> { Vec::new() };
+		// (In the files' path order the lockbox reads as after the accept: it stays, the bug.)
+		let mut path_order = vec![barrens.clone(), silverpine.clone()];
+		steps_after_their_quest(&mut path_order, &in_route, &item_quest, &|_, _| true, &nowhere, 600.0);
+		assert!(path_order[1].contains("collect 15882"), "{path_order:#?}");
+		// (In the route's order it goes after the accept.)
+		let mut files: Vec<String> = ord[..2].iter().map(|&k| [barrens.clone(), silverpine.clone(), String::new()][k].clone()).collect();
+		steps_after_their_quest(&mut files, &in_route, &item_quest, &|_, _| true, &nowhere, 600.0);
+		assert_eq!(files[0], "guide s\n\nstep Sepulcher\n  accept 6\n");
+		assert_eq!(files[1], "guide b\n\nstep Moonglade\n  only Druid\n  accept 30\n\nstep Strange Lockbox\n  only Tauren,Druid\n  collect 15882\n\nstep Camp\n  accept 5\n");
+	}
+
+	#[test]
+	fn a_step_for_a_quest_only_other_players_take_later_is_gated_on_it() {
+		// (The accept is in a guide the step's players do not play: the step stays, `when onquest`, so
+		// a player without the quest is not sent to the box for nothing.)
+		let item_quest: FxHashMap<u32, u32> = [(15882, 30)].into_iter().collect();
+		let mut files =
+			vec!["guide s\n\nstep Strange Lockbox\n  only Tauren,Druid\n  collect 15882\n\nstep Sepulcher\n  accept 6\n".to_string(), "guide o\n\nstep Moonglade\n  accept 30\n".to_string()];
+		steps_after_their_quest(&mut files, &[6].into_iter().collect(), &item_quest, &|dst, src| dst == src, &|_| Vec::new(), 600.0);
+		assert_eq!(files[0], "guide s\n\nstep Strange Lockbox\n  when onquest 30\n  only Tauren,Druid\n  collect 15882\n\nstep Sepulcher\n  accept 6\n");
+		assert_eq!(files[1], "guide o\n\nstep Moonglade\n  accept 30\n");
+	}
+
+	#[test]
+	fn a_guides_opening_accepts_that_need_an_earlier_guides_quest_are_found() {
+		// "Every guide stands on its own" (Fitz, 2026-11-08): a player loading guide two fresh has done
+		// the starting zone (quest 1) and nothing of guide one (101).
+		let mut data = Data::default();
+		let pre = |p: serde_json::Value| -> crate::input::Quest { serde_json::from_value(serde_json::json!({ "pre": p })).unwrap() };
+		data.quests.insert(102, pre(serde_json::json!([101])));
+		data.quests.insert(103, pre(serde_json::json!([1])));
+		data.quests.insert(104, pre(serde_json::json!([-101, -201])));
+		data.quests.insert(105, pre(serde_json::json!([106])));
+		data.quests.insert(107, pre(serde_json::json!([101])));
+		data.quests.insert(108, pre(serde_json::json!([999])));
+		let files = vec![
+			"guide start\nlevels 1-12\n\nstep A\n  accept 1\n  turnin 1\n".to_string(),
+			"guide one\nlevels 12-15\n\nstep B\n  accept 101\n  turnin 101\n".to_string(),
+			"guide two\nlevels 15-20\n\nstep C\n  accept 106\n  turnin 106\n  accept 102\n  accept 103\n\nstep D\n  accept 104\n  accept 105\n  accept 108\n\nstep E\n  accept 107\n".to_string(),
+		];
+		let got =
+			|starter: Option<usize>| -> Vec<(usize, usize, u32, Vec<(u32, Vec<usize>)>)> { fresh_openers(&files, &data, 2, starter).into_iter().map(|o| (o.file, o.step, o.quest, o.needs)).collect() };
+		// (102 needs guide one's 101; 104 one of 101 and 201, and only guide one hands in either; 103's
+		// 1 is the starting zone's; 105's 106 is the guide's own, before it; 108's 999 no guide hands
+		// in, a route gap; 107 is past the opening.)
+		assert_eq!(got(Some(0)), vec![(2, 0, 102, vec![(101, vec![1])]), (2, 1, 104, vec![(101, vec![1])])]);
+		// (With no starting zone, the starting zone's quests count as an earlier guide's too.)
+		assert_eq!(got(None), vec![(2, 0, 102, vec![(101, vec![1])]), (2, 0, 103, vec![(1, vec![0])]), (2, 1, 104, vec![(101, vec![1])])]);
+	}
+
+	#[test]
+	fn an_opening_accept_moves_to_the_guides_later_visit_to_its_giver() {
+		let pt = |x: f64| crate::input::Pt { c: 1, wx: x, wy: 0.0, map: 1413 };
+		let place = |l: &str| -> Vec<crate::input::Pt> {
+			if l.contains("accept 102") || l.contains("turnin 5") {
+				vec![pt(0.0)]
+			} else if l.contains("accept 5") {
+				vec![pt(10.0)]
+			} else {
+				Vec::new()
+			}
+		};
+		let opener = |line: usize| FreshOpener { file: 0, step: 0, line, quest: 102, needs: vec![(101, vec![])] };
+		let mut files = vec!["guide two\n\nstep Town\n  only Human\n  accept 102\n  accept 5\n\nstep Field\n  kill 1\n\nstep Town again\n  turnin 5\n".to_string()];
+		let left = fresh_openers_later(&mut files, &[opener(4)], 1, &place, 40.0);
+		assert!(left.is_empty());
+		assert_eq!(files[0], "guide two\n\nstep Town\n  only Human\n  accept 5\n\nstep Field\n  kill 1\n\nstep Town again\n  turnin 5\n  accept 102 only Human\n");
+		// (A line of the quest before that visit: it stays.)
+		let kept = "guide two\n\nstep Town\n  accept 102\n  accept 5\n\nstep Field\n  collect 9 quest 102.1\n\nstep Town again\n  turnin 5\n".to_string();
+		let mut files = vec![kept.clone()];
+		let left = fresh_openers_later(&mut files, &[opener(3)], 1, &place, 40.0);
+		assert_eq!((left.len(), &files[0]), (1, &kept));
 	}
 
 	#[test]

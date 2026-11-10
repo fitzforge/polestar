@@ -31,7 +31,7 @@ return {
 	-- {quest:1859} Therzok · {npc:6466} Gamon · {object:172982} Valley of Strength · {item:7208} Tazan's Key · {item:7209} Tazan's Satchel · {spell:1804} Pick Lock
 	["{quest:1859} hands the satchel back: now open it. {npc:6466} (level 12) kneels by the innkeeper in the inn in the {object:172982}; stealth up and pick his pocket for {item:7208} (do not kill him: the key almost never drops). Players often kill him, so you may wait up to 5 minutes for him. Then use the key on {item:7209} in your bags. If you have trained {spell:1804}, you can pick the satchel's lock instead."] = "",
 	-- {item:7208} Tazan's Key
-	["{item:7208}: Pick Pocket Gamon"] = "",
+	["Pick Pocket Gamon for {item:7208}"] = "",
 	-- {item:7209} Tazan's Satchel
 	["{item:7209}, once you have the key"] = "{item:7209}, 열쇠를 얻은 뒤",
 	-- {item:7295} Tazan's Logbook

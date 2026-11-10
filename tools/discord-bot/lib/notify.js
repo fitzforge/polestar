@@ -473,4 +473,4 @@ async function onRelease({ discord, github, event, forumId, testers = null, log 
 	return { told, failed };
 }
 
-module.exports = { onIssue, onRelease, onProgress, issueMessage, releaseMessage, progressMessage, candidateMessage, shippedBy, isPrerelease, maintainerNote, threadOf, postIn };
+module.exports = { onIssue, onRelease, onProgress, issueMessage, releaseMessage, progressMessage, candidateMessage, shippedBy, shipCheck, isPrerelease, isAddonRelease, maintainerNote, threadOf, postIn };

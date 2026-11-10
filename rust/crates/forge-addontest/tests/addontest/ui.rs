@@ -200,7 +200,7 @@ fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_the_others_on_a_line_each
 	assert_eq!(first["goals"], json!(["Kobold Camp Cleanup", "Investigate Echo Ridge"]));
 	assert_eq!(first["dimmed"], json!([false, false]));
 	assert_eq!(first["subs"][0], false, "the focus's goals do not repeat the header");
-	assert_eq!(plain(&first["lines"]), ["Then: Eagan Peltskinner  ·  Turn in Wolves Across the Border", "Then: Brother Neals  ·  Talk to Brother Neals"]);
+	assert_eq!(plain(&first["lines"]), ["Then: Eagan Peltskinner  ·  Turn in “Wolves Across the Border”", "Then: Brother Neals  ·  Talk to Brother Neals"]);
 	assert!(is_match(text(&first["lines"][0]["text"]), r"^Then: \|c[0-9a-f]{8}Eagan Peltskinner\|r"), "the person in the NPC colour");
 	assert_eq!(first["after"], false, "the lines name the persons to come: no second \"Then:\", no \"Person 1 of 3\"");
 	assert_eq!(first["mark"], true, "the arrow points at this person");
@@ -470,6 +470,28 @@ fn left_click_on_a_goal_of_the_step_aims_the_arrow_at_it_right_click_a_menu_on_a
 	assert_eq!(out["after"], false, "the box follows the engine, which flipped it back");
 }
 
+// #1385: a click on a goal whose quest is not taken yet (Engine.AimGoal answers false, "accept", its title) leaves
+// the arrow with the Engine, on the accept: no point set by hand, and the player reads "Take <quest> first".
+#[test]
+fn left_click_on_a_goal_whose_quest_is_not_taken_yet_says_take_it_first_and_sets_no_point_by_hand() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		Polestar.Engine.AimGoal = function(s, g)
+			table.insert(uistub.calls, { "AimGoal", s, g })
+			return false, "accept", "Wolves Across the Border"
+		end
+		local said = {}
+		function UIErrorsFrame.AddMessage(_, message) said[#said + 1] = message end
+		local calls = #uistub.calls
+		stub.RunScript(rowFor("Tough Wolf Meat"), "OnClick", "LeftButton")
+		local after = {}
+		for i = calls + 1, #uistub.calls do after[#after + 1] = uistub.calls[i][1] end
+		emit({ calls = after, said = table.concat(said, " | ") })"#)
+	.remove(0);
+	assert_eq!(out["calls"], json!(["AimGoal", "ReleaseTarget"]), "the Engine keeps the arrow; no SetTarget");
+	assert_eq!(out["said"], "Take “Wolves Across the Border” first", "said once, where the game says what can't be done");
+}
+
 // Skip this quest (Engine.SkipQuest): a quest's line, right-clicked, offers its tick and the quest's skip. The
 // card moves on, so a banner offers the undo; a skipped quest's line reads so, its accept shows Undo, and a
 // right-click brings it back. A line with no quest ticks.
@@ -522,7 +544,7 @@ fn right_click_on_a_quest_line_tick_it_done_or_skip_this_quest_the_banner_undo_o
 		out["skipped"],
 		json!({
 			"call": ["SkipQuest", 15, true],
-			"banner": "Skipped Investigate Echo Ridge  ·  and the quests that follow from it",
+			"banner": "Skipped “Investigate Echo Ridge”  ·  and the quests that follow from it",
 			"undo": "Undo",
 		})
 	);
@@ -549,6 +571,54 @@ fn hovering_a_goal_explains_it_detail_quest_npc_location_and_what_clicks_do() {
 	assert!(has(&lines, "Location | Elwynn Forest  49.6, 40.4"));
 	assert!(has(&lines, "Click to point the arrow here"));
 	assert!(has(&lines, "Right-click to tick it done"));
+}
+
+// #1247: an accept's tooltip names the level its quest needs (red while the character is below it) and the
+// prerequisites not handed in yet (Engine.AcceptGate); with nothing to say, neither line.
+#[test]
+fn an_accept_s_tooltip_shows_the_level_its_quest_needs_and_the_quests_it_still_needs() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		for g = 1, 3 do uistub.goal(4, g).status = "done" end
+		uistub.goal(4, 2).status = "active"
+		local danger = "|c" .. Polestar.Theme.Hex("danger")
+		local function hover()
+			local row = rowFor("Investigate Echo Ridge")
+			stub.RunScript(row, "OnEnter")
+			local plain, red = {}, {}
+			for _, l in ipairs(GameTooltip.lines) do
+				local p = l:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
+				plain[#plain + 1] = p
+				if l:find(danger, 1, true) then red[#red + 1] = p end
+			end
+			return { plain = plain, red = red }
+		end
+		local r = {}
+		-- Below the level, a prerequisite and one of two others missing.
+		uistub.goal(4, 2).gate = { level = 7, short = true, needs = { "Kobold Camp Cleanup", "Bounty on Murlocs or Report to Goldshire" } }
+		uistub.setStep(4)
+		r.short = hover()
+		-- At the level, the prerequisites done.
+		uistub.goal(4, 2).gate = { level = 7, short = false, needs = {} }
+		Polestar.Fire("STEP_UPDATED", 4)
+		r.met = hover()
+		-- Nothing known.
+		uistub.goal(4, 2).gate = nil
+		Polestar.Fire("STEP_UPDATED", 4)
+		r.none = hover()
+		emit(r)"#)
+	.remove(0);
+	let short = &out["short"];
+	assert!(has(&short["plain"], "Level | Requires level 7"), "{}", joined(&short["plain"]));
+	assert!(has(&short["plain"], "Needs | Kobold Camp Cleanup, Bounty on Murlocs or Report to Goldshire"), "{}", joined(&short["plain"]));
+	assert_eq!(short["red"], json!(["Level | Requires level 7", "Needs | Kobold Camp Cleanup, Bounty on Murlocs or Report to Goldshire"]));
+	let met = &out["met"];
+	assert!(has(&met["plain"], "Level | Requires level 7"), "{}", joined(&met["plain"]));
+	assert!(met["red"] == json!([]) || met["red"] == json!({}), "met: not red: {}", met["red"]);
+	assert!(!joined(&met["plain"]).contains("Needs"), "no prerequisite left: no Needs line");
+	let none = joined(&out["none"]["plain"]);
+	assert!(!none.contains("Level |") && !none.contains("Needs |"), "nothing known: neither line: {none}");
+	assert!(none.contains("Quest | Investigate Echo Ridge"), "the rest of the tooltip as before: {none}");
 }
 
 #[test]
@@ -1423,8 +1493,9 @@ fn xp_pace_from_the_qol_tracker_rate_and_time_to_level_hidden_when_off_or_maxed(
 }
 
 // Where the player stands (GF.PaceText over Levels.Pace, whose sums levels.rs checks): always one line, calm
-// when on pace or when a `level` goal ahead grinds the gap, in the warning colour when nothing in the guide
-// makes it up; grinding time from the tracker's XP an hour when there is one.
+// when on pace (up to a level short: Fitz, 0.3.6, a few bars short is no warning) or when a `level` goal ahead
+// grinds the gap, in the warning colour when more than a level short with nothing in the guide making it up;
+// grinding time from the tracker's XP an hour when there is one. A hard quest is named only on its own step.
 #[test]
 fn the_pace_line_says_on_pace_behind_with_a_grind_coming_behind_with_none_and_names_a_quest_too_hard() {
 	let out = run(r#"
@@ -1441,6 +1512,7 @@ fn the_pace_line_says_on_pace_behind_with_a_grind_coming_behind_with_none_and_na
 		local out = {}
 		out.onPace = line({ target = 20, step = 32, reach = 20.1, bars = 0, short = 0, xp = 0, kind = "goal", live = 30 }, stats)
 		out.ahead = line({ target = 24, step = 21, reach = 25.3, bars = 0, short = 0, xp = 0, kind = "end", live = 3 }, stats)
+		out.atTop = line({ target = 21, step = 97, reach = 21, bars = 0, short = 0, xp = 0, kind = "end", live = 22 }, stats)
 		local grind = { target = 20, step = 32, reach = 18.8, bars = 24, short = 1.2, xp = 1700, kind = "goal", live = 30 }
 		out.grind = line(grind, stats)
 		out.grindNoRate = line(grind, nil)
@@ -1454,6 +1526,14 @@ fn the_pace_line_says_on_pace_behind_with_a_grind_coming_behind_with_none_and_na
 		out.hardNoRate = line(hard, nil)
 		hard.live = 20
 		out.hardNow = line(hard, stats)
+		-- On pace for the guide's top (a Discord report, Ashenvale & Silverpine 21-22 at 21): the route's own hard
+		-- quest, not the character's lag.
+		local route = { target = 22, step = 29, reach = 22.5, bars = 0, short = 0, xp = 0, kind = "end", live = 3,
+			hard = { quest = 6503, title = "Ashenvale Outrunners", level = 24, step = 4, reach = 21.34, need = 22, xp = 2000 } }
+		out.hardOnPace = line(route, stats)
+		out.hardOnPaceNoRate = line(route, nil)
+		route.live = 4
+		out.hardOnPaceNow = line(route, nil)
 		pace = grind
 		Polestar.Fire("QOL_XP_UPDATED", stats)
 		out.row = GF.xp:IsShown() and GF.xp.Text:GetText()
@@ -1463,24 +1543,29 @@ fn the_pace_line_says_on_pace_behind_with_a_grind_coming_behind_with_none_and_na
 	.remove(0);
 	let warn = |s: &str| format!("|c{}{s}|r", text(&out["warn"]));
 	assert_eq!(out["onPace"], "On pace for level 20 by step 32", "on target: calm, as before");
-	assert_eq!(out["ahead"], "On pace for level 24 by step 21");
+	assert_eq!(out["ahead"], "On pace for level 25.3 by step 21", "past the guide's top: where the route gets you, not the top");
+	assert_eq!(out["atTop"], "On pace for level 21 by step 97", "exactly the top: the top");
 	// Behind with a `level` goal ahead: how far, and that the guide grinds it there; not a warning.
 	assert_eq!(out["grind"], "Behind by 1.2 levels: step 32 grinds to level 20 (~0h 30m)");
 	assert_eq!(out["grindNoRate"], "Behind by 1.2 levels: step 32 grinds to level 20");
-	assert_eq!(out["bars"], "Behind by 6 bars: step 12 grinds to level 18.5 (~0h 15m)", "under a level: the XP bar's bars");
+	assert_eq!(out["bars"], "On pace for level 18.5 by step 12", "under a level short: on pace, no warning");
 	// Behind with no grind step: the guide's end level, and how long to grind on the way.
 	assert_eq!(out["none"], warn("Behind by 2.4 levels for level 24 by step 21: grind ~2h 00m before then").as_str());
 	assert_eq!(out["noneNoRate"], warn("Behind by 2.4 levels for level 24 by step 21, and no grind step ahead").as_str());
-	// A quest that will be 3+ levels over you comes first: which, where, at what level you get there, the fix.
-	assert_eq!(out["hard"], warn("Behind: Missing In Action (25) at step 20, you'll be 20.0; grind ~1h 00m first").as_str());
-	assert_eq!(out["hardNoRate"], warn("Behind: Missing In Action (25) at step 20, you'll be 20.0; reach 23 first").as_str());
-	assert_eq!(out["hardNow"], warn("Behind: Missing In Action (25) at step 20, you're 20.0; grind ~1h 00m first").as_str());
+	// A quest 3+ levels over you is named only on its own step; before it, the plain line.
+	assert_eq!(out["hard"], warn("Behind by 3.6 levels for level 24 by step 21: grind ~2h 38m before then").as_str());
+	assert_eq!(out["hardNoRate"], warn("Behind by 3.6 levels for level 24 by step 21, and no grind step ahead").as_str());
+	assert_eq!(out["hardNow"], warn("Behind: “Missing In Action” (25) at step 20, you're 20.0; grind ~1h 00m first").as_str());
+	// The same quest with the character on pace for the target: "On pace", calm, the quest only on its step.
+	assert_eq!(out["hardOnPace"], "On pace for level 22.5 by step 29");
+	assert_eq!(out["hardOnPaceNoRate"], "On pace for level 22.5 by step 29");
+	assert_eq!(out["hardOnPaceNow"], "On pace, but “Ashenvale Outrunners” (24) at step 4 is hard: you're 21.3; reach 22 first");
 	assert_eq!(out["row"], "3.4k XP/h  \u{b7}  Behind by 1.2 levels: step 32 grinds to level 20 (~0h 30m)", "one line in the XP row");
 	assert_eq!(out["nothing"], false, "no target and no Codex: no line");
 }
 
-// A step whose open quest is 3 or more levels above the character says so under its header (Levels.StepHint),
-// in the warning colour, red from 5 over as the quest log draws it.
+// A step with work on a quest 3 or more levels above the character says so under its header (Levels.StepHint),
+// in a calm colour (Fitz, 0.3.6: never red; players read it as being behind).
 #[test]
 fn a_step_with_a_quest_well_over_your_level_says_so_under_its_header() {
 	let out = run(r#"
@@ -1492,11 +1577,11 @@ fn a_step_with_a_quest_well_over_your_level_says_so_under_its_header() {
 		local red = { shown = hint:IsShown(), text = hint:GetText(), color = { hint:GetTextColor() } }
 		uistub.setStep(7)
 		local none = hint:IsShown()
-		emit({ red = red, none = none, danger = { Polestar.Theme.Color("danger") } })"#)
+		emit({ red = red, none = none, calm = { Polestar.Theme.Color("textDim") } })"#)
 	.remove(0);
 	assert_eq!(out["red"]["shown"], true);
 	assert_eq!(out["red"]["text"], "Level 9 quest: you're 4.1", "level 4, 16% in: cut to one place");
-	assert_eq!(rgb(&out["red"]["color"]), rgb(&out["danger"]), "5 levels over: red");
+	assert_eq!(rgb(&out["red"]["color"]), rgb(&out["calm"]), "5 levels over: calm, never red");
 	assert_eq!(out["none"], false, "Echo Ridge's quest has no level known over yours: no line");
 }
 
@@ -1569,6 +1654,12 @@ local function told()
 	for _, m in ipairs(stub.messages) do if m:find("hides in dungeons and battlegrounds", 1, true) then n = n + 1 end end
 	return n
 end
+-- The notices the window's hint put up (Nav/Alerts.lua's ShowNotice), and how often one was taken down.
+local notices, noticeHides = {}, 0
+Polestar.Nav.alerts = {
+	ShowNotice = function(title, line, seconds) notices[#notices + 1] = { title, line, seconds } end,
+	HideNotice = function() noticeHides = noticeHides + 1 end,
+}
 "#;
 
 // Tangens (Discord): healing in Wailing Caverns, the window was in the way the whole run. A profile that never
@@ -1646,11 +1737,12 @@ fn in_dungeons_and_battlegrounds_what_goes_with_the_guide_goes_while_it_waits_an
 	assert_eq!(out, json!({ "outside": true, "inside": false, "opened": true, "left": true, "fired": [false, true] }));
 }
 
-// The first time on the account the window hides itself on the way in, one chat line says how to bring it
-// back; never again, and never when it did not hide (Keep visible, or the window off anyway).
+// The first time on the account the window hides itself on the way in, a notice at the top of the screen says
+// how to bring it back and one chat line says where the setting is; never again, and never when it did not
+// hide (Keep visible, or the window off anyway). Showing the window takes the notice down.
 #[test]
-fn in_dungeons_and_battlegrounds_the_first_hide_on_the_account_says_once_how_to_show_it() {
-	let line = "The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window.";
+fn in_dungeons_and_battlegrounds_the_first_hide_on_the_account_shows_once_how_to_show_it() {
+	let line = "The guide window hides in dungeons and battlegrounds. Type /polestar to show it. Change it in Options > Guide > Window.";
 	let out = run(&[
 		ENTER,
 		r#"
@@ -1667,20 +1759,72 @@ fn in_dungeons_and_battlegrounds_the_first_hide_on_the_account_says_once_how_to_
 		Polestar.Fire("SHOW_FRAME")
 		enter("party")
 		local first, text = told(), last()
+		local before = noticeHides
+		Polestar.Fire("TOGGLE_FRAME")
+		local takenDown = noticeHides > before
 		enter(nil)
 		enter("pvp")
 		enter("raid")
-		emit({ keptVisible = keptVisible, windowOff = windowOff, first = first, text = text, after = told(), saved = PolestarDB.instanceHideTold })"#,
+		emit({ keptVisible = keptVisible, windowOff = windowOff, first = first, text = text, after = told(), notices = notices,
+			takenDown = takenDown, saved = PolestarDB.instanceHint })"#,
 	]
 	.concat())
 	.remove(0);
-	assert_eq!(out, json!({ "keptVisible": 0, "windowOff": 0, "first": 1, "text": line, "after": 1, "saved": true }));
+	assert_eq!(out["notices"][0], json!(["Polestar is hidden here", "Type /polestar to show it.", 12]));
+	assert_eq!(out["notices"].as_array().unwrap().len(), 1, "one notice: {}", out["notices"]);
+	assert_eq!(out["takenDown"], true, "opening the window there takes the notice down");
+	assert_eq!(out, json!({ "keptVisible": 0, "windowOff": 0, "first": 1, "text": line, "after": 1, "notices": out["notices"], "takenDown": true, "saved": true }));
 }
 
 #[test]
-fn in_dungeons_and_battlegrounds_the_line_is_not_said_again_on_an_account_already_told() {
-	let out = run_with(&[ENTER, r#"enter("party"); emit({ hidden = not F:IsShown(), told = told() })"#].concat(), r#"PolestarDB = { schema = 1, instanceHideTold = true }"#, "").remove(0);
-	assert_eq!(out, json!({ "hidden": true, "told": 0 }));
+fn in_dungeons_and_battlegrounds_the_hint_is_not_shown_again_on_an_account_already_hinted() {
+	let out =
+		run_with(&[ENTER, r#"enter("party"); emit({ hidden = not F:IsShown(), told = told(), notices = #notices })"#].concat(), r#"PolestarDB = { schema = 1, instanceHint = true }"#, "").remove(0);
+	assert_eq!(out, json!({ "hidden": true, "told": 0, "notices": 0 }));
+}
+
+// Accounts told by the old chat line alone (instanceHideTold) see the on-screen notice once; the old flag goes.
+#[test]
+fn in_dungeons_and_battlegrounds_an_account_told_by_the_old_chat_line_sees_the_notice_once() {
+	let out = run_with(
+		&[ENTER, r#"enter("party"); enter(nil); enter("party"); emit({ told = told(), notices = #notices, hint = PolestarDB.instanceHint, old = PolestarDB.instanceHideTold })"#].concat(),
+		r#"PolestarDB = { schema = 1, instanceHideTold = true }"#,
+		"",
+	)
+	.remove(0);
+	assert_eq!(out, json!({ "told": 1, "notices": 1, "hint": true }));
+}
+
+// The how-to names what this player has: the minimap button when it is on, the toggle's key when bound, else
+// /polestar; with the gamepad interface (no slash commands) never /polestar.
+#[test]
+fn in_dungeons_and_battlegrounds_the_hint_names_the_minimap_button_the_key_binding_or_polestar() {
+	let out = run(r#"
+		local key
+		function GetBindingKey(action) if action == "POLESTAR_TOGGLE" then return key end end
+		local function how(button, k, pad)
+			Polestar.Set("maps.minimapButton", button)
+			key = k
+			local gamepad = Polestar.GamepadUI
+			if pad then Polestar.GamepadUI = function() return true end end
+			local s = GF.HowToShow()
+			Polestar.GamepadUI = gamepad
+			return s
+		end
+		emit({ how(true, "CTRL-P"), how(true, nil), how(false, "CTRL-P"), how(false, nil), how(false, "PAD1", true), how(false, nil, true), how(true, nil, true) })"#)
+	.remove(0);
+	assert_eq!(
+		out,
+		json!([
+			"Click the minimap button or press CTRL-P to show it.",
+			"Click the minimap button to show it.",
+			"Press CTRL-P or type /polestar to show it.",
+			"Type /polestar to show it.",
+			"Press PAD1 to show it.",
+			"Turn on the minimap button or bind a key to show it.",
+			"Click the minimap button to show it.",
+		])
+	);
 }
 
 #[test]
@@ -1928,7 +2072,7 @@ fn a_quest_started_by_a_dropped_item_reads_as_one_line_the_quest_the_go_to_namin
 	.remove(0);
 	assert_eq!(
 		out["rows"],
-		json!([{ "text": "Accept The Runed Scroll  optional", "sub": "Runed Scroll: kill Aean Swiftriver (rare elite)  \u{b7}  Keep it: Kadrak", "icon": "icon-accept", "index": 2 }]),
+		json!([{ "text": "Accept “The Runed Scroll”  optional", "sub": "Runed Scroll: kill Aean Swiftriver (rare elite)  \u{b7}  Keep it: Kadrak", "icon": "icon-accept", "index": 2 }]),
 		"one row: the quest, worded as the accept and tagged optional, acting as the collect (index 2)"
 	);
 	assert_eq!(out["header"], "Field of Giants");
@@ -1957,7 +2101,7 @@ fn a_group_quest_banner_asks_skip_it_or_do_it_with_a_group_and_cannot_be_dismiss
 	]
 	.concat())
 	.remove(0);
-	assert_eq!(skip["shown"], json!([true, "Group quest: Arachnophobia\nIt needs a group. Skip it and the guide keeps to the solo route.", "Skip it", "Do it with a group", false, true]));
+	assert_eq!(skip["shown"], json!([true, "Group quest: “Arachnophobia”\nIt needs a group. Skip it and the guide keeps to the solo route.", "Skip it", "Do it with a group", false, true]));
 	assert_eq!(skip["kept"], true, "dismissing does not answer");
 	assert_eq!(skip["call"], json!(["AnswerGroup", 6284, "skip"]));
 	assert_eq!(skip["after"], false);
@@ -2278,4 +2422,138 @@ fn the_wheel_over_the_step_number_scrubs_through_the_steps_shift_by_ten_back_on_
 	"#);
 	assert_eq!(out[0]["seen"], json!([4, 2, 3, 8]), "down looks on, up back; after the pause the live step; Shift goes ten, to the last");
 	assert_eq!(out[0]["rows"], json!(["3", "4", "5", "7", "8"]), "step 6 is the Mage's alone and is left out");
+}
+
+// #1030 (soulrocha): pointing at the goals' scroll bar and away wakes it without a Lua error. Its OnEnter and OnLeave
+// hooks are set in build(), outside the block that holds the local barWake, so they reach it as GF.BarWake; 0.3.3
+// to 0.3.5 called a nil global there ("GuideFrame.lua:4294: attempt to call a nil value").
+#[test]
+fn pointing_at_the_goals_scroll_bar_and_away_wakes_it_without_an_error_1030() {
+	let out = run(r#"
+		local bar = GF.parts.goals.Bar
+		local okEnter, errEnter = pcall(stub.RunScript, bar, "OnEnter")
+		local okLeave, errLeave = pcall(stub.RunScript, bar, "OnLeave")
+		emit({ enter = okEnter, leave = okLeave, err = tostring(errEnter or errLeave or "") })
+	"#);
+	assert_eq!(out[0]["enter"], true, "OnEnter: {}", out[0]["err"]);
+	assert_eq!(out[0]["leave"], true, "OnLeave: {}", out[0]["err"]);
+}
+
+// ---------------------------------------------------------------------------
+// The floating button (UI/Launcher.lua)
+// ---------------------------------------------------------------------------
+
+// Off by default (no frame); on, beside the window's default corner: click shows or hides the window,
+// right-click opens Polestar's menu, a drag moves it anywhere and saves where (ui.launcherPos); with
+// Lock arrow and buttons only a Shift-drag does.
+#[test]
+fn floating_button_off_by_default_on_it_toggles_the_window_opens_the_menu_and_a_drag_moves_it() {
+	let out = run(r#"
+		local before = PolestarLauncher ~= nil
+		local fired, menu = {}, nil
+		Polestar.On("TOGGLE_FRAME", function() fired[#fired + 1] = "toggle" end)
+		Polestar.Maps = { ShowMenu = function(anchor) menu = anchor end }
+		Polestar.Set("ui.launcher", true)
+		local b = PolestarLauncher
+		local function at() local p, rel, rp, x, y = b:GetPoint(1); return { p, rel == UIParent, rp, x, y } end
+		local start, shown = at(), b:IsShown()
+		b:Click("LeftButton")
+		b:Click("RightButton")
+		b.x, b.y = 100, 200
+		b:GetScript("OnDragStart")(b)
+		local moving = b.moving
+		b:GetScript("OnDragStop")(b)
+		local saved, moved = Polestar.Get("ui.launcherPos"), at()
+		Polestar.Set("ui.lockHud", true)
+		b:GetScript("OnDragStart")(b)
+		local locked = b.moving
+		stub.keys.shift = true
+		b:GetScript("OnDragStart")(b)
+		local shiftDrag = b.moving
+		b:GetScript("OnDragStop")(b)
+		stub.keys.shift = false
+		Polestar.Set("ui.launcher", false)
+		emit({ before = before, start = start, shown = shown, fired = fired, menu = menu == b, moving = moving, saved = saved, moved = moved,
+			locked = locked, shiftDrag = shiftDrag, off = not b:IsShown() })"#)
+	.remove(0);
+	assert_eq!(out["before"], false, "no frame while off");
+	assert_eq!(out["start"], json!(["CENTER", true, "TOPRIGHT", -440, -256]), "beside the window's default corner");
+	assert_eq!(out["shown"], true);
+	assert_eq!(out["fired"], json!(["toggle"]));
+	assert_eq!(out["menu"], true, "right-click opens Polestar's menu at the button");
+	assert_eq!(out["moving"], true);
+	// The 32 x 32 button's centre, from the screen's bottom-left corner.
+	assert_eq!(out["saved"], json!([116, 216]));
+	assert_eq!(out["moved"], json!(["CENTER", true, "BOTTOMLEFT", 116, 216]));
+	assert_eq!(out["locked"], false, "Lock arrow and buttons: a plain drag does nothing");
+	assert_eq!(out["shiftDrag"], true, "a Shift-drag still moves it");
+	assert_eq!(out["off"], true);
+}
+
+// It follows the window's own rules: hidden in a fight when the window hides in combat, hidden in a dungeon or
+// battleground the window waits out and back once the player opens the window there or leaves; it stays when
+// the window is only faded or kept, and when the player hid the window (it is the way back).
+#[test]
+fn floating_button_hides_in_combat_and_instances_as_the_window_does_and_stays_when_the_window_is_hidden_by_hand() {
+	let out = run(&[
+		ENTER,
+		r#"
+		Polestar.Set("ui.launcher", true)
+		local b = PolestarLauncher
+		local r = {}
+		Polestar.Fire("HIDE_FRAME")
+		r.windowHidden = b:IsShown()
+		Polestar.Fire("SHOW_FRAME")
+		stub.fire("PLAYER_REGEN_DISABLED")
+		r.fightShow = b:IsShown()
+		stub.fire("PLAYER_REGEN_ENABLED")
+		Polestar.Set("ui.combat", "fade")
+		stub.fire("PLAYER_REGEN_DISABLED")
+		r.fightFade = b:IsShown()
+		stub.fire("PLAYER_REGEN_ENABLED")
+		Polestar.Set("ui.combat", "hide")
+		stub.fire("PLAYER_REGEN_DISABLED")
+		r.fightHide = b:IsShown()
+		stub.fire("PLAYER_REGEN_ENABLED")
+		r.afterFight = b:IsShown()
+		enter("party")
+		r.dungeon = b:IsShown()
+		Polestar.Fire("TOGGLE_FRAME")
+		r.openedThere = b:IsShown()
+		enter(nil)
+		r.left = b:IsShown()
+		Polestar.Set("ui.instance", "show")
+		enter("pvp")
+		r.keepVisible = b:IsShown()
+		emit(r)"#,
+	]
+	.concat())
+	.remove(0);
+	assert_eq!(
+		out,
+		json!({ "windowHidden": true, "fightShow": true, "fightFade": true, "fightHide": false, "afterFight": true,
+			"dungeon": false, "openedThere": true, "left": true, "keepVisible": true })
+	);
+}
+
+// RegressVisual (0.3.6): the floating button's hover is the minimap button's, its 25 % in its colour, so nothing
+// that sets its regions back to full alpha turns it into an opaque disc over the logo.
+#[test]
+fn floating_button_hover_is_a_quarter_strong_accent_disc_even_with_its_regions_at_full_alpha() {
+	let out = run(r#"
+		Polestar.Set("ui.launcher", true)
+		local b = PolestarLauncher
+		local function strength() local _, _, _, a = b.Hover:GetVertexColor(); return (a or 1) * b.Hover:GetAlpha() end
+		local r = { file = b.Hover:GetTexture(), layer = b.Hover:GetDrawLayer(), rest = strength() }
+		for _, region in ipairs({ b:GetRegions() }) do region:SetAlpha(1) end
+		r.full = strength()
+		Polestar.Theme.Refresh()
+		r.repainted = strength()
+		emit(r)"#);
+	let r = &out[0];
+	assert!(r["file"].as_str().unwrap().ends_with("Polestar\\Media\\UI\\circle"));
+	assert_eq!(r["layer"], "HIGHLIGHT");
+	for k in ["rest", "full", "repainted"] {
+		assert!((r[k].as_f64().unwrap() - 0.25).abs() < 1e-6, "{k}: {}", r[k]);
+	}
 }

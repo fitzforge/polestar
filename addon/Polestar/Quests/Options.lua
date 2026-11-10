@@ -11,6 +11,7 @@ local L = ns.L
 local function dbOff() return not ns.Get("qol.questDB") end
 local function availableOff() return not ns.Get("qol.questDB") or not ns.Get("qol.availableQuests") end
 local function objectivesOff() return not ns.Get("qol.questDB") or not ns.Get("qol.mapObjectives") end
+local function areasOff() return objectivesOff() or ns.Get("qol.objectiveSpots") == "icons" end
 local function guideOff() return not ns.Get("qol.questDB") or not ns.Get("qol.guideHighlight") end
 local function platesOff() return not ns.Get("qol.questDB") or not ns.Get("qol.nameplateIcons") end
 
@@ -21,6 +22,8 @@ local function levelWindow(v)
 	if v == 0 then return L["Your level"] end
 	return "+" .. v
 end
+
+local function percent(v) return math.floor((tonumber(v) or 0) * 100 + 0.5) .. "%" end
 
 Q.OPTIONS = {
 	{
@@ -43,12 +46,20 @@ Q.OPTIONS = {
 				help = L["Also mark grey quests that are far below your level."] },
 			{ kind = "toggle", key = "qol.mapObjectives", label = L["World map objectives"], disabled = dbOff, search = "map pins, icons, markers, objectives, quest areas",
 				help = L["Mark mob areas, item sources and objects for quests in your log."] },
-			{ kind = "toggle", key = "qol.objectiveAreas", label = L["Objective areas"], disabled = objectivesOff, child = true,
-				help = L["Shade the area each group of mobs or objects spreads over on the world map."] },
+			{ kind = "dropdown", key = "qol.objectiveSpots", label = L["Objective spots on the map"], disabled = objectivesOff, child = true,
+				search = "areas, circles, shaded areas, quest areas, clutter, overlapping icons",
+				help = L["A goal's spots close together can draw as one shaded area with one marker in the middle, so the map stays readable."],
+				choices = { { value = "groups", label = L["Areas for groups"] }, { value = "icons", label = L["Icons only"] }, { value = "areas", label = L["Areas only"] } } },
+			{ kind = "slider", key = "qol.objectiveAreaAlpha", label = L["Area opacity"], disabled = areasOff, child = true,
+				min = 0.2, max = 1, step = 0.05, format = percent, release = true,
+				help = L["How strongly the objective areas tint the map."] },
 			{ kind = "toggle", key = "qol.turnInMarkers", label = L["Turn-ins"], disabled = dbOff, search = "question mark, hand in, turnin, map pins, icons, markers",
 				help = L["Mark who to return to once a quest is ready."] },
 			{ kind = "toggle", key = "qol.minimapObjectives", label = L["Minimap markers"], disabled = dbOff, search = "minimap icons, minimap pins, objectives",
 				help = L["Show the same quest markers on the minimap."] },
+			{ kind = "slider", key = "qol.questMarkerSize", label = L["Quest marker size"], disabled = dbOff,
+				min = 0.6, max = 1.6, step = 0.05, format = percent, release = true, search = "icon size, bigger icons, smaller icons, map pins",
+				help = L["The size of every quest marker on the world map and the minimap."] },
 			{ kind = "toggle", key = "qol.guideHighlight", label = L["Highlight step quests"], disabled = dbOff,
 				help = L["Enlarge and light up the markers of the quests in your guide's current step."] },
 			{ kind = "toggle", key = "qol.guideDim", label = L["Dim other quests"], disabled = guideOff, child = true,
@@ -72,6 +83,8 @@ Q.OPTIONS = {
 				choices = { { value = "left", label = L["Left"] }, { value = "right", label = L["Right"] }, { value = "above", label = L["Above"] } } },
 			{ kind = "toggle", key = "qol.questLevels", label = L["Quest levels"], search = "quest log, level numbers, show level",
 				help = L["Show quest levels, like [12], wherever the game lists quests without them."] },
+			{ kind = "toggle", key = "qol.questTimerAlerts", label = L["Timed quest alerts"], search = "timer, timed quest, countdown, time limit, time left, alarm",
+				help = L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] },
 		},
 	},
 }

@@ -1,16 +1,25 @@
 -- A Polestar button on the edge of the minimap (setting maps.minimapButton,
--- off by default): click shows or hides the guide window, right-click opens
+-- on by default): click shows or hides the guide window, right-click opens
 -- Polestar's menu (the guide window, the guides, Lookup, the settings, a
 -- report), drag moves it around the edge. Where it sits is
 -- maps.minimapButtonAngle, in degrees (0 = east, counter-clockwise); on a
 -- square minimap (GetMinimapShape, set by minimap addons) it rides the
 -- square's edge instead of the circle.
 --
+-- Minimap button collectors (a flyout or a row of buttons gathered from
+-- the minimap's named children) take it as they take any addon's button:
+-- it is a Button named PolestarMinimapButton, a child of Minimap, with its
+-- icon at button.Icon. Once one has moved it (into its own panel, or onto
+-- its own row), the button is theirs to place: a drag or a resized
+-- minimap no longer pulls it back to the edge, and click and right-click
+-- work as before.
+--
 -- The game's addon compartment (the minimap's addon list, on clients that
 -- have one: AddonCompartmentFrame) does the same through the globals the
 -- .toc names: Polestar_OnAddonCompartmentClick / OnEnter / OnLeave.
 --
--- Cost: nothing until the setting is first turned on (no frame exists).
+-- Cost: nothing for a player who turned it off (no frame exists until the
+-- setting is first on).
 
 local ADDON, ns = ...
 local Maps = ns.Maps
@@ -23,6 +32,19 @@ local SIZE = 32
 local EDGE = 5 -- pixels past the minimap's edge, so the button sits on its border
 
 local button
+-- Where place() last put the button: "CENTER" of Minimap at these offsets.
+local placedX, placedY
+
+-- Whether the button still sits where place() put it (or nowhere yet). A
+-- collector that reparented it or anchored it elsewhere owns its place.
+local function ours()
+	if button:GetParent() ~= Minimap then return false end
+	if placedX == nil then return true end
+	local point, rel, relPoint, x, y = button:GetPoint(1)
+	if point == nil then return true end
+	return point == "CENTER" and rel == Minimap and relPoint == "CENTER"
+		and abs((x or 0) - placedX) < 0.5 and abs((y or 0) - placedY) < 0.5
+end
 
 local function angle()
 	local a = tonumber(ns.Get("maps.minimapButtonAngle"))
@@ -30,13 +52,15 @@ local function angle()
 end
 
 local function place(a)
+	if not ours() then return end
 	local x, y = cos(rad(a)), sin(rad(a))
 	if GetMinimapShape and GetMinimapShape() == "SQUARE" then
 		local m = max(abs(x), abs(y))
 		x, y = x / m, y / m
 	end
+	placedX, placedY = x * (Minimap:GetWidth() / 2 + EDGE), y * (Minimap:GetHeight() / 2 + EDGE)
 	button:ClearAllPoints()
-	button:SetPoint("CENTER", Minimap, "CENTER", x * (Minimap:GetWidth() / 2 + EDGE), y * (Minimap:GetHeight() / 2 + EDGE))
+	button:SetPoint("CENTER", Minimap, "CENTER", placedX, placedY)
 end
 
 -- The cursor's angle around the minimap's centre, in whole degrees.
@@ -102,13 +126,23 @@ local function build()
 	button:RegisterForDrag("LeftButton")
 	local back = W.Tex(button, "BACKGROUND", "circle", "panel")
 	back:SetAllPoints(button)
-	local logo = W.Tex(button, "ARTWORK", "logo")
+	-- Named PolestarMinimapButtonIcon: minimap tidiers that stand a proxy in
+	-- for the button (Leatrix Plus's Enhance minimap) take its icon from
+	-- _G[name .. "Icon"]; without it they took the last small region, the
+	-- hover's plain circle, and showed that as Polestar's icon.
+	local logo = button:CreateTexture("PolestarMinimapButtonIcon", "ARTWORK")
+	logo:SetTexture(ns.Theme.Media("logo"))
 	logo:SetSize(SIZE - 10, SIZE - 10)
 	logo:SetPoint("CENTER", button, "CENTER", 0, 0)
 	button.Icon = logo
-	local hover = W.Tex(button, "HIGHLIGHT", "circle", "accent")
+	-- The hover: the accent at 25 %, the strength in its colour (W.Color's
+	-- alpha, kept through theme repaints), not in the region's own alpha, so a
+	-- button bar that shows our regions again at full alpha cannot turn it into
+	-- an opaque disc over the logo.
+	local hover = W.Tex(button, "HIGHLIGHT", "circle")
+	W.Color(hover, "accent", 0.25)
 	hover:SetAllPoints(button)
-	hover:SetAlpha(0.25)
+	button.Hover = hover
 	button:SetScript("OnClick", function(self, which)
 		if which == "RightButton" then
 			W.HideTooltip(self)
@@ -121,9 +155,11 @@ local function build()
 	button:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
 	button:SetScript("OnDragStart", function(self)
 		W.HideTooltip(self)
+		if not ours() then return end
 		self:SetScript("OnUpdate", ns.Safe(function() place(cursorAngle()) end))
 	end)
 	button:SetScript("OnDragStop", function(self)
+		if not self:GetScript("OnUpdate") then return end
 		self:SetScript("OnUpdate", nil)
 		ns.Set("maps.minimapButtonAngle", cursorAngle())
 	end)

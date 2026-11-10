@@ -10,5 +10,257 @@
 			"ref": "#357, PR #467"
 		},
 		"note": "Benedict's Chest (Tiragarde Keep, Durotar) opens only with Benedict's Key 4882, which Lieutenant Benedict 3192 drops (items.json: 4882 drops 100% from 3192); the chest holds the Aged Envelope 4881 that starts The Admiral's Orders 830, so 830 can be taken only after Benedict is killed (PR #467, #357; the knowledge base's 830 step: \"Kill Lieutenant Benedict in Tiragarde Keep for his key, then open the chest\"). No merged source records the lock."
+	},
+	"665289": {
+		"addSpawns": {
+			"1432": {
+				"f": "e",
+				"pts": [
+					[
+						48.06,
+						39.7
+					],
+					[
+						45.69,
+						43.36
+					],
+					[
+						48.74,
+						54.42
+					],
+					[
+						50.63,
+						53.29
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: 7 people took Silver of the Waves (86614) from the toolbox, 4 at 47.9-48.2,39.7-39.9 (20261105T164040Z, 20261106T131246Z, 20261107T011351Z, 20261107T154948Z), and one each at 45.69,43.36 (20261107T132422Z), 50.63,53.29 (20261108T144805Z) and 48.74,54.42 (20261108T153303Z), the last three in the toolbox's own quest window"
+			},
+			{
+				"kind": "questie",
+				"ref": "objects.json 665289: one spawn, 48.06,39.70 on map 1432"
+			}
+		],
+		"note": "The Discarded Fishing Toolbox, which offers Silver of the Waves (86614), lies on the bed of Loch Modan's loch at one of several places, not only the one the data had (48.06,39.70, east of Thelsamar): players took the quest from it at three more, 45.69,43.36 south-west of there and 48.74,54.42 and 50.63,53.29 at the loch's south end (their positions in the toolbox's window, within reach of it). A player who stood on the one known point found nothing to click (#1339). Replaces the map's single point with the four."
+	},
+	"671481": {
+		"set": {
+			"name": "Attack Plan: Menethil Harbor"
+		},
+		"addSpawns": {
+			"1437": {
+				"f": "e",
+				"pts": [
+					[
+						45.6,
+						42.7
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings of From the Ashes (98221), 4 people (20261107T061701Z-de3dc8531bec2328-l5tenxxtuasy-ry63289xsu, 20261107T192842Z-a390bd97e7ffa6cd-4fpgjqho68g2-wyxt85n88o, 20261107T213524Z-55228f803fde9043-cl1d80l1edsq-q4fdu4tnrs, and one more): objective 1 ticks as the player clicks this plan here, with no item used"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1312"
+			}
+		],
+		"note": "Attack Plan: Menethil Harbor (From the Ashes 98221, objective 1) lies in the Dragonmaw camp north and north-east of Whelgar's dig, at Wetlands 45.6,42.7; the merged data had neither its name nor a spawn (#1312)."
+	},
+	"671483": {
+		"set": {
+			"name": "Attack Plan: Southshore"
+		},
+		"addSpawns": {
+			"1437": {
+				"f": "e",
+				"pts": [
+					[
+						45.4,
+						45.7
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings of From the Ashes (98221), 4 people (20261107T061701Z-de3dc8531bec2328-l5tenxxtuasy-ry63289xsu, 20261107T192842Z-a390bd97e7ffa6cd-4fpgjqho68g2-wyxt85n88o, 20261107T213524Z-55228f803fde9043-cl1d80l1edsq-q4fdu4tnrs, and one more): objective 3 ticks as the player clicks this plan here, with no item used"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1312"
+			}
+		],
+		"note": "Attack Plan: Southshore (From the Ashes 98221, objective 3) lies in the Dragonmaw camp north and north-east of Whelgar's dig, at Wetlands 45.4,45.7; the merged data had neither its name nor a spawn (#1312)."
+	},
+	"671486": {
+		"set": {
+			"name": "Attack Plan: Thelsamar"
+		},
+		"addSpawns": {
+			"1437": {
+				"f": "e",
+				"pts": [
+					[
+						49.4,
+						46.8
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings of From the Ashes (98221), 4 people (20261107T061701Z-de3dc8531bec2328-l5tenxxtuasy-ry63289xsu, 20261107T192842Z-a390bd97e7ffa6cd-4fpgjqho68g2-wyxt85n88o, 20261107T213524Z-55228f803fde9043-cl1d80l1edsq-q4fdu4tnrs, and one more): objective 2 ticks as the player clicks this plan here, with no item used"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1312"
+			}
+		],
+		"note": "Attack Plan: Thelsamar (From the Ashes 98221, objective 2) lies in the Dragonmaw camp north and north-east of Whelgar's dig, at Wetlands 49.4,46.8; the merged data had neither its name nor a spawn (#1312)."
+	},
+	"671487": {
+		"set": {
+			"name": "Attack Plan: Ironforge"
+		},
+		"addSpawns": {
+			"1437": {
+				"f": "e",
+				"pts": [
+					[
+						38.5,
+						46.1
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings of From the Ashes (98221), 4 people (20261107T061701Z-de3dc8531bec2328-l5tenxxtuasy-ry63289xsu, 20261107T192842Z-a390bd97e7ffa6cd-4fpgjqho68g2-wyxt85n88o, 20261107T213524Z-55228f803fde9043-cl1d80l1edsq-q4fdu4tnrs, and one more): objective 4 ticks as the player clicks this plan here, with no item used"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1312"
+			}
+		],
+		"note": "Attack Plan: Ironforge (From the Ashes 98221, objective 4) lies in the Dragonmaw camp north and north-east of Whelgar's dig, at Wetlands 38.5,46.1; the merged data had neither its name nor a spawn (#1312)."
+	},
+	"148836": {
+		"set": {
+			"instances": [
+				109
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 109 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 109"
+			}
+		],
+		"note": "The Altar of Hakkar stands inside the Sunken Temple (instance map 109)."
+	},
+	"148838": {
+		"set": {
+			"instances": [
+				109
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 109 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 109"
+			}
+		],
+		"note": "The Idol of Hakkar stands inside the Sunken Temple (instance map 109)."
+	},
+	"148512": {
+		"set": {
+			"instances": [
+				109
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 109 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 109"
+			}
+		],
+		"note": "The Essence Font stands inside the Sunken Temple (instance map 109)."
+	},
+	"164689": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "The Monument of Franclorn Forgewright (Dark Iron Legacy) stands inside Blackrock Depths."
+	},
+	"164869": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "The Spectral Chalice stands inside Blackrock Depths."
+	},
+	"179880": {
+		"set": {
+			"instances": [
+				229
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 229 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 229"
+			}
+		],
+		"note": "Drakkisath's Brand (Blackhand's Command) stands inside Upper Blackrock Spire."
 	}
 }

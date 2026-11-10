@@ -40,8 +40,9 @@ local sold, earned = 0, 0
 local ticker
 
 -- A slot holding a grey item, or one marked as junk, worth money that no
--- keep mark or later step protects (Marks.Protected covers QoL.Kept): itemID,
--- stack count, price per item.
+-- keep mark or later step protects (Marks.Protected covers QoL.Kept), no quest
+-- needs, and that is no quest's item or quest starter: itemID, stack count,
+-- price per item.
 local function junkAt(bag, slot)
 	local info = Client.SlotInfo(bag, slot)
 	if not info or info.isLocked or info.hasNoValue then return nil end
@@ -51,6 +52,7 @@ local function junkAt(bag, slot)
 	if Marks.Protected(id) then return nil end
 	local Q = ns.QuestDB
 	if Q and Q.IsItemNeeded and Q.IsItemNeeded(id) then return nil end -- a quest still needs it
+	if Client.SlotQuest(bag, slot) then return nil end -- a quest's item or a quest starter (#1557)
 	if info.quality ~= Client.QUALITY_POOR and not Marks.Junk(id) then return nil end
 	local price = Client.SellPrice(id)
 	if not price or price <= 0 then return nil end

@@ -36,8 +36,8 @@ return {
 	["The {quest:1945}, dryads of level 24-25, roam around the {area:426} in central {zone:1440}; every one drops a hair and they come back after 5 minutes. They often resist fire (and some frost and shadow): arcane spells land best. Each runs for help at low health. Keep clear of the guards by the white tower of the retreat, who hit hard."] = "",
 
 	-- Step 6: Kil'hala
-	-- {npc:3484} Kil'hala · {area:380} Crossroads
-	["{npc:3484}, a troll tailor, works at the {area:380}. The robe gives intellect, stamina and spirit; the tunic more intellect and stamina but no spirit."] = "",
+	-- {npc:3484} Kil'hala
+	["{npc:3484}, a troll tailor, works at the Crossroads. The robe gives intellect, stamina and spirit; the tunic more intellect and stamina but no spirit."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A robe or a tunic for Undead and Troll mages in their late 20s."] = "給20多級後段不死族和食人妖法師的長袍或外衣。",

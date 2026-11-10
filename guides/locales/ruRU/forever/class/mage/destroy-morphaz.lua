@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {zone:1447} Azshara · {area:1417} Sunken Temple
-	["Experience at 50 through {zone:1447} and the {area:1417}; Classic's item choice may be gone on Forever."] = "",
+	["Experience at 50 through {zone:1447} and the {area:1417}; Classic's item choice may be gone on Forever."] = "Опыт на 50-м уровне через зону {zone:1447} и {area:1417}; на Forever выбора предмета из классики может не быть.",
 	["Experience"] = "Опыт",
 
 	-- Step 1: Magecraft (Stormwind)

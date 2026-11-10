@@ -10,6 +10,8 @@ next forever/alliance/02-westfall
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
+# Added here: Humble Beginnings (399), from Baros Alexston on the walk from the Keep to the gate
+# (02-westfall hands it in).
 
 # ---------------------------------------------------------------- Thendal Grove
 
@@ -86,26 +88,27 @@ step Thendal Grove turn-ins
 
 step Thendal Grove: kill these as you meet them
   zone Zephras Isle
-  tip Scrawny Ursera prowl the woods just west of the grove; the Ursera Scavengers den further west, with Urs'anah, the matriarch, at the back of the den.
-  collect 251918 quest 92473.1 @41.4,26.4
+  tip The Ursera Scavengers den west of the grove, with Urs'anah, the matriarch, at the back of the den; Scrawny Ursera prowl the woods between the den and the grove.
   kill 250937 quest 92470.1           -- Below ground
   collect 252665 quest 92470.2                -- Head of Urs'anah; below ground
+  collect 251918 quest 92473.1 @41.4,26.4
+
+step Aetheen of the Gales
+  tip Back east out of the den to the grove.
+  turnin 92473                                -- Valreaa Valewind
+  turnin 92470                                -- Aetheen of the Gales
+  accept 92472
+  accept 96638
+  train class
 
 step Hanaa Nightwind
-  tip Hanaa Nightwind camps south of the Ursera den. The Al'Aketh thugs hold the camp south-west of her; Malduko Cloudcrush stands in its middle.
+  tip Hanaa Nightwind camps south-west of the grove, south of the Ursera den, on the way south to Shen'dar. The Al'Aketh thugs hold the camp south-west of her; Malduko Cloudcrush stands in its middle.
   tip Careful: Malduko Cloudcrush casts shocks; drag him clear of the other cultists before fighting so they don't join in.
   accept 92544                                -- Hanaa Nightwind
   kill 251145 quest 92544.1
   kill 251448 quest 92544.2
   kill 256935 quest 92544.3                   -- Malduko Cloudcrush
   turnin 92544
-
-step Aetheen of the Gales
-  turnin 92473                                -- Valreaa Valewind
-  turnin 92470                                -- Aetheen of the Gales
-  accept 92472
-  accept 96638
-  train class                                 -- Level 6 spells
 
 # ---------------------------------------------------------------- Shen'dar Village
 
@@ -121,15 +124,50 @@ step Shen'dar Village
   talk 254089 quest 93461.2 @43.05,43.3 map 2521 live
   turnin 96638                                -- Raan Wildwind
 
-step Windshaper Novice Seer on the way
-  along until q94413
-  kill 257532 quest 94413.1
-
 step Raan Wildwind
+  tip With a profession learned, Raan also offers its Camping 101, which its trainer in Shen'dar Village takes on the village round.
   accept 96101                                -- Raan Wildwind
   complete 96101 @41.73,44.78                 -- /sit by Raan's campfire until you get Boosted Rest
   turnin 96101
   accept 96646
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  accept 97963                                -- Raan Wildwind: for Nyassa Swiftdraught
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  accept 97964                                -- Raan Wildwind: for Aedi Thriceforged
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  accept 97965                                -- Raan Wildwind: for Naleeia Tattermend
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  accept 97967                                -- Raan Wildwind: for Fenn Fairweather
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  accept 97969                                -- Raan Wildwind: for Indari Sunseam
+
+step Camping 101: Mining
+  when skill Mining 1
+  accept 97970                                -- Raan Wildwind: for Messana Crestwind
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  accept 97971                                -- Raan Wildwind: for Mendalass Tattermend
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  accept 97973                                -- Raan Wildwind: for Taleen Shimmerthread
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  accept 98286                                -- Raan Wildwind: for Nasalanna Windsinger
+
+step Zerril Softbreeze
   train Cooking npc 251905                    -- Zerril Softbreeze: Camping 101 asks you to learn it
   complete 96646 @43.85,43.9
   turnin 96646
@@ -138,41 +176,82 @@ step Village quests
   turnin 93461                                -- Constable Aonda
   accept 92517
   accept 92515                                -- Indari Sunseam
+
+step Indari Sunseam
+  when onquest 97969
+  talk 251993 quest 97969.1
+  turnin 97969                                -- Indari Sunseam
+
+step Messana Crestwind
+  when onquest 97970
+  talk 257022 quest 97970.1
+  turnin 97970                                -- Messana Crestwind, beside Indari
+
+step Village quests
+  accept 93951                                -- Taleen Shimmerthread
+
+step Taleen Shimmerthread
+  when onquest 97973
+  talk 251991 quest 97973.1
+  turnin 97973                                -- Taleen Shimmerthread
+
+step Aedi Thriceforged
+  when onquest 97964
+  talk 251913 quest 97964.1
+  turnin 97964                                -- Aedi Thriceforged, beside Taleen
+
+step Village quests
   accept 92516                                -- Teeri Wellwind
   accept 93319
   accept 92553                                -- Zerril Softbreeze
 
+step Nyassa Swiftdraught
+  when onquest 97963
+  talk 257019 quest 97963.1
+  turnin 97963                                -- Nyassa Swiftdraught, west of Zerril
+
+step Mendalass Tattermend
+  when onquest 97971
+  talk 257024 quest 97971.1
+  turnin 97971                                -- Mendalass Tattermend
+
+step Nasalanna Windsinger
+  when onquest 98286
+  talk 257020 quest 98286.1
+  turnin 98286                                -- Nasalanna Windsinger
+
+step Naleeia Tattermend
+  when onquest 97965
+  talk 257018 quest 97965.1
+  turnin 97965                                -- Naleeia Tattermend, at the south side of the village
+
+step Fenn Fairweather
+  when onquest 97967
+  talk 251992 quest 97967.1
+  turnin 97967                                -- Fenn Fairweather, on the south edge of the village
+
 step Prideclaws and Galestriders
-  label q94413
-  tip Prideclaws and Galestriders roam the grasslands south of the village. Galestriders drop both the eggs and the meat.
-  collect 6889 quest 92553.1
+  tip Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village.
+  collect 6889 quest 92553.1 @42.1,39.4
   collect 5469 quest 92553.2
-  kill 257532 quest 94413.1
-
-step Village quests
-  when group 93318
-  accept 93318 optional                       -- The bounty board
-
-step Prideclaws and Galestriders
   collect 252670 quest 92515.1
 
 step Village quests
-  accept 93951                                -- Taleen Shimmerthread
-  turnin 92515                                -- Indari Sunseam
-  turnin 92553                                -- Zerril Softbreeze
+  when group 93318
+  accept 93318                                -- The bounty board
 
-step Highlands Bandit on the way
-  along until q92517
-  kill 251918 quest 92517.1 -- Highlands Bandit along the way to Shen'dar turn-ins
+step Village quests
+  turnin 92553                                -- Zerril Softbreeze
+  turnin 92515                                -- Indari Sunseam
 
 step Shen'dar Highlands: kill these as you meet them
   zone Zephras Isle
   tip The Highlands Bandits camp north-east of the village. "Badwind" Bennic waits at the far north end of their camp.
+  kill 251918 quest 92517.1                   -- Highlands Bandits
   collect 257945 quest 93319.1
   kill 255534 quest 92517.2                   -- "Badwind" Bennic, below ground
 
 step Shen'dar turn-ins
-  label q92517
   turnin 92517                                -- Constable Aonda
   accept 93036
   turnin 93036                                -- Sania Silverstream
@@ -208,7 +287,7 @@ step Falaath Village
 step Vulgara the Insatiable
   when group 93318
   tip Vulgara lurks in the hills south-west of the village, on the way back. Vulgara the Insatiable is elite: grouping up is advised.
-  collect 257942 quest 93318.1 optional       -- Vulgara's Head
+  collect 257942 quest 93318.1                -- Vulgara's Head
 
 step Constable Aonda
   turnin 92528                                -- Constable Aonda
@@ -237,7 +316,7 @@ step The Western Watch
 step Shen'dar Highlands: kill these as you meet them
   zone Zephras Isle
   tip Head north-west to the hippogryph nests on the western cliffs. Hippogryph Down lies around the nests; the Matriarch patrols among them.
-  tip The Novice Seers practise in the clearing west of Shen'dar.
+  tip The Novice Seers practise in the clearing west of Shen'dar, on the way back to the village.
   kill 251291 quest 92516.1
   kill 251284 quest 92516.2
   collect 263493 quest 93951.1
@@ -255,8 +334,20 @@ step Shen'dar Village again
   turnin 94413                                -- Rathiril Sunlance
   train class
 
+step Shen'dar Village again
+  when group 93318
+  turnin 93318                                -- Danarii Bellowveil
+
+step Fendaal Windstone
+  tip On the road south-east to Valanaar, Fendaal Windstone watches the Al'Aketh Assassins just north of him.
+  accept 98512                                -- Fendaal Windstone
+  kill 254626 quest 98512.1
+  turnin 98512                                -- Fendaal Windstone
+
 step Valanaar, the turncoat
   accept 94484                                -- Lotheluum Starbreeze
+  accept 94896                                -- Ealaane Nimbuswalker
+  accept 94897
 
 step Valanaar
   tip Valennia Stormfist and Talaanis Shadowsong stand at the north end of Valanaar, Elaadrin Evengale and Dondallion Whisperwind at the south end.
@@ -282,7 +373,9 @@ step Skyhoppers
 
 step The road to Valanaar
   tip Nyalah Brightfire and Alvarion Windfield stand on Valanaar's west side, beside the inn; Seena Skybreaker and Quel'ana Quickgale train just west of Nyalah. Windsong Crawlers line the shore further west, around 51,70.
+  level 10 only Warrior
   accept 94003 only Warrior                   -- Seena Skybreaker, beside Nyalah: Zaal Stormshield holds the Bulwark at the Shrine of Akir
+  level 10 only Hunter
   accept 94978 only Hunter                    -- Quel'ana Quickgale, beside Nyalah: the first Taming Rod
   sethome "Valanaar" npc 255940               -- Innkeeper Donaal Downbreeze, by the west gate
   accept 92679                                -- Alvarion Windfield
@@ -292,10 +385,6 @@ step The road to Valanaar
 step Class trainer
   only Warrior,Hunter,Rogue,Mage,Druid
   train class only Warrior,Hunter,Rogue,Mage,Druid
-
-step Shen'dar Village again
-  when group 93318
-  turnin 93318 optional
 
 step The missing scholar
   tip The Bloodstained Satchel lies by the path west of Valanaar.
@@ -319,7 +408,7 @@ step The missing scholar
 step Aamelia Windfield
   tip Aamelia Windfield runs the farm in the south-west lowlands.
   talk 252800 quest 92679.1 @46.7,81.95
-  turnin 92679
+  turnin 92679 @46.7,81.95
   accept 92682
   accept 92683
   accept 92684
@@ -334,19 +423,20 @@ step Gustberry Lowlands: kill these as you meet them
   collect 253591 quest 92682.1
 
 step Aamelia again
-  turnin 92682                                -- Aamelia Windfield
-  turnin 92684
-  turnin 92683
-  accept 92685
-  turnin 92698
+  tip Back to Aamelia Windfield at the farmhouse.
+  turnin 92682 @46.7,81.95                    -- Aamelia Windfield
+  turnin 92684 @46.7,81.95
+  turnin 92683 @46.7,81.95
+  accept 92685 @46.7,81.95
+  turnin 92698 @46.7,81.95
 
 step Bandit Highwaymen
   tip The Bandit Highwaymen hold the hills north of the farm.
   collect 253596 quest 92685.1
 
 step Standing our ground
-  turnin 92685                                -- Aamelia Windfield
-  accept 92693
+  turnin 92685 @46.7,81.95                    -- Aamelia Windfield, at the farmhouse
+  accept 92693 @46.7,81.95
   talk 252800 quest 92693.1 "Tell Aamelia Windfield you're ready"
   kill 252863 quest 92693.2
   turnin 92693
@@ -355,10 +445,7 @@ step Standing our ground
 step Valanaar turn-ins
   turnin 92703                                -- Alvarion Windfield
   turnin 93317                                -- Nyalah Brightfire, inside
-
-step Valanaar, the turncoat
-  accept 94896                                -- Ealaane Nimbuswalker
-  accept 94897
+  accept 94006 only Druid                     -- Lotheluum Starbreeze, between the west gate and Valennia's house: The Great Ursera Spirit
 
 step Valanaar turn-ins
   turnin 92850                                -- Fillion Flamebreeze
@@ -396,11 +483,6 @@ step Elaadrin Evengale
   turnin 92860                                -- Valennia Stormfist, upstairs
   accept 93320
 
-step Lotheluum Starbreeze
-  only Druid
-  tip Lotheluum Starbreeze, the druid trainer, stands between the west gate and Valennia's house.
-  accept 94006                                -- Lotheluum Starbreeze: The Great Ursera Spirit (level 10)
-
 step The eastern watchtower
   tip Yorana Windyreed holds the watchtower north of Valanaar. The Al'Aketh camp is just west of the tower, its healers around 65,68 and 65,65; Commander Belguilos stands at its north end. The Al'Aketh there drop Windstone Charms.
   turnin 93320                                -- Yorana Windyreed
@@ -414,6 +496,12 @@ step The eastern watchtower
   turnin 92645
   accept 92880
 
+step Urs'endris
+  only Druid
+  tip Urs'endris waits by the falls just north of the watchtower. Ur'endra prowls the Shen'dar Highlands south-west of the dead cultist, where you go after Valanaar.
+  turnin 94006                                -- Urs'endris
+  accept 94638
+
 step Valanaar, the turncoat
   turnin 92834                                -- Elaadrin Evengale
   turnin 92880                                -- Valennia Stormfist, upstairs
@@ -421,20 +509,11 @@ step Valanaar, the turncoat
   turnin 92881                                -- Talaanis Shadowsong, upstairs
   accept 92643
 
-step Urs'endris
-  only Druid
-  tip Urs'endris waits by the falls north-east of Valanaar. Ur'endra prowls the Shen'dar Highlands west of Valanaar, by the road you take next.
-  turnin 94006                                -- Urs'endris
-  accept 94638
-
 step The dead cultist
-  tip North-west of Valanaar along the road: Fendaal Windstone watches the Al'Aketh Assassins; the dead cultist lies just north of him.
-  accept 98512                                -- Fendaal Windstone
+  tip North-west of Valanaar along the road, past Fendaal Windstone: the dead cultist lies just north of him.
   complete 92643 @56.01,58.81                 -- Search the dead cultist
-  kill 254626 quest 98512.1
   turnin 92643                        -- Inside
   accept 92644
-  turnin 98512                                -- Fendaal Windstone
   kill 258443 quest 94638.1 only Druid        -- Ur'endra, in the highlands south-west of the cultist
 
 step Desperate times
@@ -506,7 +585,7 @@ step Vayn Moongaze
   collect 265475 quest 94488.1                -- Commander Haalien's Severed Head
   kill 258134 quest 94489.1 "Heal the injured druids in the Nightfang Den" -- Below ground
   talk 258130 quest 94489.2 "Find Jorel Windsinger" -- Below ground
-  collect 258771 quest 93165.1
+  collect 258771 quest 93165.1 @63.7,37.1 map 2521 live -- Al'Aketh Cultist's Ear: the Stormchasers and Footsoldiers around Vayn's camp
   turnin 93165
 
 step Elegael Thornpaw, the missive
@@ -561,17 +640,15 @@ step High Priestess Lorthuna
 # ---------------------------------------------------------------- Leaving the isle
 
 step Valanaar, the fate of Zephras
-  tip Elaadrin Evengale sends you on to Dalaran. Once you have trained, take the skycutter from the dock tower just south of Valanaar: it lands by the Kirin Tor camp west of Dalaran, beside Denaaris Stargale and the Skyborne Portal.
-  turnin 94896                                -- Ealaane Nimbuswalker
-  turnin 94897
+  tip The Portal to Valanaar sets you down beside Elaadrin Evengale at the south end of the town. Talaanis Shadowsong is at the north end, Ealaane Nimbuswalker a few steps north-west of her.
   turnin 93835                                -- Elaadrin Evengale
   accept 94369
+  turnin 92741                                -- Iaadaria Bitterwind
   talk 252476 quest 94369.1 @66.17,76.51      -- Talaanis Shadowsong
   turnin 94369                        -- Upstairs
   accept 93089
-  turnin 93089                                -- Elaadrin Evengale
-  accept 94946                                -- Elaadrin Evengale: Denaaris Stargale waits by the Skyborne portal
-  turnin 92741                                -- Iaadaria Bitterwind
+  turnin 94896                                -- Ealaane Nimbuswalker
+  turnin 94897
 
 step Valanaar, the fate of Zephras
   when onquest 94491
@@ -580,6 +657,11 @@ step Valanaar, the fate of Zephras
 step Valanaar, the fate of Zephras
   train class
   turnin 94003 only Warrior                   -- Seena Skybreaker: Defensive Stance
+
+step Elaadrin Evengale
+  tip Elaadrin Evengale sends you on to Dalaran. Take the skycutter from the dock tower just south of Valanaar: it lands by the Kirin Tor camp west of Dalaran, beside Denaaris Stargale and the Skyborne Portal.
+  turnin 93089                                -- Elaadrin Evengale
+  accept 94946                                -- Elaadrin Evengale: Denaaris Stargale waits by the Skyborne portal
 
 step Leave Zephras Isle to Alterac Mountains
   zone Zephras Isle
@@ -603,6 +685,11 @@ step Stormwind Keep
   tip Bolvar Fordragon stands in the throne room of Stormwind Keep, at the north end of the city. Then leave by the main gate for Westfall.
   turnin 94947                                -- Highlord Bolvar Fordragon
   accept 98021                                -- For Gryan Stoutmantle at Sentinel Hill
+
+step Baros Alexston
+  zone Stormwind City
+  tip Baros Alexston stands in Cathedral Square, on the way from the Keep to the main gate: his compass is in his old house in Westfall, on the way.
+  accept 399
 
 step Woo Ping
   only Warrior
@@ -631,7 +718,7 @@ step Woo Ping
 step Stormwind City
   only Druid
   zone Stormwind City
-  goto 20.9,55.5 "Stormwind City"
+  goto 20.9,55.5 "Sheldras Moontree"
 
 step Sheldras Moontree
   only Druid
@@ -643,7 +730,7 @@ step Sheldras Moontree
 step Stormwind City
   only Mage
   zone Stormwind City
-  goto 38.6,79.3 "Stormwind City"
+  goto 38.6,79.3 "Jennea Cannon"
 
 step Jennea Cannon
   only Mage
@@ -659,4 +746,4 @@ step Mirror Lake
 
 step Westfall
   zone Westfall
-  goto 59.9,19.4 "Westfall"
+  goto 59.9,19.4 "The Jansen Stead"

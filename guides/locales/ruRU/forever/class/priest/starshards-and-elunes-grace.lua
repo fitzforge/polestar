@@ -10,7 +10,7 @@ return {
 	-- {spell:10797} Starshards · {spell:2651} Elune's Grace
 	["{spell:10797} and {spell:2651}"] = "{spell:10797} и {spell:2651}",
 	-- {spell:10797} Starshards · {spell:2651} Elune's Grace
-	["The Night Elf priest spells: {spell:10797} at 10, {spell:2651} at 20. Free, no objectives."] = "",
+	["The Night Elf priest spells: {spell:10797} at 10, {spell:2651} at 20. Free, no objectives."] = "Заклинания жрецов – ночных эльфов: «{spell:10797}» на 10-м уровне, «{spell:2651}» на 20-м. Бесплатно, без задач.",
 
 	-- Step 1: Starshards: Laurna Morninglight
 	-- {npc:3600} Laurna Morninglight · {area:186} Dolanaar · {quest:5628} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus

@@ -35,7 +35,7 @@ return {
 	-- {area:280} Strahnbrad
 	["Barton hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "",
 	-- {item:275482} Barton's Scouting Report
-	["{item:275482}: pickpocket Barton"] = "",
+	["{item:275482}: pickpocket Barton"] = "{item:275482}: róbaselo a Barton",
 
 	-- Step 5: Northfold Manor: a uniform
 	-- {area:313} Northfold Manor
@@ -59,7 +59,7 @@ return {
 
 	-- Step 8: Back to Myrokos Silentform
 	-- {npc:13085} Myrokos Silentform
-	["Back to {npc:13085}"] = "",
+	["Back to {npc:13085}"] = "De vuelta con {npc:13085}",
 	-- {quest:96782} Covert Extraction · {quest:96781} What's the Big Idea?
 	["{quest:96782}, after {quest:96781}"] = "",
 

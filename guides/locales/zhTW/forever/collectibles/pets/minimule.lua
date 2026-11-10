@@ -18,9 +18,9 @@ return {
 
 	-- Step 2: Durotar Supply and Logistics
 	["Durotar Supply and Logistics"] = "杜洛塔物資流通",
-	-- {area:380} Crossroads · {npc:256384} Gishah · {zone:1458} Undercity
+	-- {npc:256384} Gishah · {zone:1458} Undercity
 	-- plural, as words: Waylaid Crates = {item:248549} Waylaid Crate
-	["The Horde camp is just outside the west gate of the {area:380}. Merchant's Favor comes from Waylaid Crates that mobs drop from level 10: fill one with a bundle it lists and hand it to Dokimi, for 5 to 30 Favor a crate. The treat costs 1,500 Favor and, by beta vendor lists, needs Revered with Durotar Supply and Logistics. Crates pay no standing: that comes from the Craftsman's Writs, 21,000 from Neutral to Revered. The Supply Factions Reputation guide takes you there. (Another {npc:256384} stands in the {zone:1458}; this is the one at the camp.)"] = "",
+	["The Horde camp is just outside the west gate of the Crossroads. Merchant's Favor comes from Waylaid Crates that mobs drop from level 10: fill one with a bundle it lists and hand it to Dokimi, for 5 to 30 Favor a crate. The treat costs 1,500 Favor and, by beta vendor lists, needs Revered with Durotar Supply and Logistics. Crates pay no standing: that comes from the Craftsman's Writs, 21,000 from Neutral to Revered. The Supply Factions Reputation guide takes you there. (Another {npc:256384} stands in the {zone:1458}; this is the one at the camp.)"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The Alliance camp is at {area:1002} in western {zone:1433}. Loot supply crates in the world, fill them and hand them in to {npc:214101} for Merchant's Favor (5-20 a crate); the treat costs 1,500."] = "聯盟營地位於{zone:1433}西部的{area:1002}。在野外拾取補給箱，裝滿後交給{npc:214101}換取Merchant's Favor（每箱5-20）；這個點心要價1,500。",

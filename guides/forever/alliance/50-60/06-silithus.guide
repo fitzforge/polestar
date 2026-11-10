@@ -23,14 +23,14 @@ step Fly to Talrendis Point
 
 step Felwood
   zone Felwood
-  goto 51.2,82.1 "Felwood"
+  goto 51.2,82.1 "The Emerald Sanctuary"
 
 step The Emerald Sanctuary
   zone Felwood
-  tip Ride north out of Astranaar into Felwood to the druids' camp on the road just past the border.
+  tip From Talrendis Point ride into Felwood: the Emerald Sanctuary is the druids' camp on the road just past the Ashenvale border.
   turnin 5159                         -- Greta Mosshoof
   accept 5165
-  turnin 4441 optional
+  turnin 4441
   accept 4442                         -- Inside
   turnin 4442                         -- Wait a moment for Eridan
   turnin 3942                         -- Eridan Bluewind
@@ -39,15 +39,28 @@ step The Emerald Sanctuary
 step Shadow Hold braziers
   tip Shadow Hold is the cave at the back of Jaedenar, west of the road. Use the Purified Moonwell Water on the four braziers inside. Kill the Angerclaw bears and Felpaw wolves you pass for the Silvery Claws.
   tip Careful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended.
+  tip The Jaedenar Darkweavers, Warlocks and Enforcers in here drop a Blood Red Key, about one kill in thirty: keep killing them until it drops. It opens the cell of Arko'narin, the night elf held in the cave.
   collect 11172 quest 4084.1          -- Angerclaw bears and Felpaw wolves
   interact 176159 quest 5165.2        -- Brazier of Malice, below ground
   interact 176160 quest 5165.3        -- Brazier of Suffering, below ground
   interact 176158 quest 5165.1        -- Brazier of Pain, below ground
   interact 176161 quest 5165.4        -- Brazier of Hatred, below ground
+  collect 13140                       -- Blood Red Key
+  accept 5202
+  turnin 5202                         -- Captured Arko'narin, in her cell; below ground
+  accept 5203
+
+step Arko'narin
+  when onquest 5203
+  tip Lead her out of Shadow Hold and keep her alive until she is outside the cave: clear the way back first.
+  goto 35.4,59.1
+  complete 5203
 
 step The Emerald Sanctuary
   turnin 5165                         -- Greta Mosshoof
   accept 5242
+  turnin 5203                         -- Jessir Moonbow
+  accept 5204
 
 step Irontree Woods
   tip Follow the road north to Irontree Woods. The Irontree Stompers carry the heart; finish the claws on the Angerclaw Grizzlies and Felpaw Ravagers of the north.
@@ -62,12 +75,15 @@ step Arei
 
 step Felpaw Village
   tip Ride north to the Deadwood furbolgs' village by the Timbermaw Hold cave mouth.
-  turnin 5084 optional                -- Deadwood Cauldron, if you found the Firewater flask in Winterspring
-  accept 5085 optional                -- Mystery Goo: Donova Snowden in Winterspring, keep it
+  turnin 5084                         -- Deadwood Cauldron
+  accept 5085                         -- Mystery Goo: Donova Snowden in Winterspring, keep it
 
 step A Final Blow
-  tip Back into Shadow Hold: Moora and Salia guard Shadow Lord Fel'dan in its deepest chamber.
+  tip Back into Shadow Hold: Moora and Salia guard Shadow Lord Fel'dan in its deepest chamber. The succubus Rakaiah waits on the way, with Trey Lightforge's remains beside her.
   tip Careful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies.
+  kill 9518 quest 5204.1 @38.3,50.5 map 1448 -- Rakaiah, below ground
+  turnin 5204                         -- Remains of Trey Lightforge, below ground
+  accept 5385
   kill 9861 quest 5242.1              -- Moora, below ground
   kill 9860 quest 5242.2              -- Salia, below ground
   collect 13207 quest 5242.3          -- Shadow Lord Fel'dan; below ground
@@ -77,10 +93,11 @@ step The Emerald Sanctuary
   turnin 4084                         -- Eridan Bluewind, inside
   accept 4005                         -- Keep the Book of Aquor, the claws and the heart he hands back
   turnin 5242                         -- Greta Mosshoof
+  turnin 5385                         -- Jessir Moonbow
 
 step Azshara
   zone Azshara
-  goto 11.9,77.5 "Azshara"
+  goto 11.9,77.5 "Talrendis Point"
 
 step Fly to Gadgetzan
   zone Azshara
@@ -107,7 +124,7 @@ step Broken Pillar
 
 step Un'Goro Crater
   zone Un'Goro Crater
-  goto 43.8,81.4 "Un'Goro Crater"
+  goto 43.8,81.4 "The Slithering Scar"
 
 step The Slithering Scar
   zone Un'Goro Crater
@@ -126,7 +143,7 @@ step Marshal's Refuge
   turnin 4005                         -- J.D. Collie, below ground
   accept 3961
   turnin 3961                         -- Linken, at the back of the refuge
-  kill 10977 quest 5163.3             -- Quixxil
+  kill 10977 quest 5163.3 "Scare Quixxil with Umi's Mechanical Yeti" -- Quixxil
 
 step Fly to Cenarion Hold
   zone Un'Goro Crater
@@ -138,6 +155,8 @@ step Cenarion Hold
   tip Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 8281
   turnin 8278
+  accept 8282                         -- Noggle Ficklespragg, upstairs beside Beetix
+  accept 8304                         -- Commander Mar'alith
 
 step Hive'Ashi: kill these as you meet them
   zone Silithus
@@ -156,17 +175,10 @@ step Hive'Zora
 
 step Cenarion Hold
   turnin 8318                         -- Bor Wildmane
-  accept 8304                         -- Commander Mar'alith
   turnin 8284                         -- Geologist Larksbane
   accept 8285
 
 # ---------------------------------------------------------------- Silithus
-
-step Cenarion Hold
-  zone Silithus
-  tip Noggle Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
-  sethome "Cenarion Hold"
-  accept 8282                         -- Noggle Ficklespragg
 
 step Southwind Village
   tip Ride east to the ruins of Southwind Village. The Dusty Reliquary lies among the ruined buildings, watched by Tortured Sentinels.
@@ -180,8 +192,8 @@ step Hermit Ortell
 step Bronzebeard's Encampment
   tip Ride south-west to the dwarves' camp near the southern mountains and question Frankal Stonebridge and Rutgar Glyphshaper. Noggle's satchel lies in the sand just south-east of the camp.
   collect 20379 quest 8282.1          -- Noggle's Satchel
-  kill 15171 quest 8304.1
-  kill 15170 quest 8304.2
+  talk 15171 quest 8304.1
+  talk 15170 quest 8304.2
 
 step The Twilight Post
   tip Twilight Keeper Exeter holds the cultists' camp in the far south-west.
@@ -235,19 +247,44 @@ step Fly to Everlook
 step Everlook
   when onquest 5163
   zone Winterspring
-  tip Ride back to Talrendis Point and fly to Everlook.
   turnin 5163                         -- Umi Rumplesnicker
+
+step Everlook
+  zone Winterspring
+  accept 6604                         -- Harlo Wigglesworth
+
+step Starfall Village
+  zone Winterspring
+  tip Ride north-west up the road to Starfall Village.
+  turnin 6604                         -- Jaron Stoneshaper
+  accept 4861
 
 step Donova Snowden
   turnin 980
   accept 4842
+  turnin 5085
+  accept 5086
+
+# ---------------------------------------------------------------- The south
+
+step Jaron's camp
+  tip Ride back east past Everlook and south-east down the valley to Jaron's damaged crate in the snow at Mazthoril, with his wrecked wagon just east of it.
+  turnin 4861                         -- Damaged Crate
+  accept 4863
+  turnin 4863                         -- Jaron's Wagon
+  accept 4864
+
+step Jaron's supplies
+  tip Pick up the supplies around the wagon and take Jaron's amulet back from the owlbeasts nearby.
+  collect 12524 quest 4864.2          -- Blue-feathered Amulet
+  collect 12525 quest 4864.1          -- Jaron's Supplies
 
 # ---------------------------------------------------------------- Winterspring and Moonglade
 
 step Ranshalla
   zone Winterspring
   tip Ranshalla waits at Owl Wing Thicket, south of Everlook.
-  turnin 979                          -- Ranshalla: her escort comes later on the route
+  turnin 979                          -- Ranshalla
   tip Protect Ranshalla while she lights the torches on the way to the Altar of Elune.
   accept 4901
   complete 4901
@@ -257,36 +294,47 @@ step Darkwhisper Gorge
   goto 59.8,74.2 "Darkwhisper Gorge"
   complete 4842
 
+step Starfall Village
+  zone Winterspring
+  tip Ride north up the valley, past Everlook, to Starfall Village.
+  turnin 4864                         -- Jaron Stoneshaper
+
 step Donova Snowden
   turnin 4842
 
 step Dire Maul (optional)
   tip Running Dire Maul in Feralas instead of grinding gets you there faster in a group. Skip this step to grind solo.
-  note Dire Maul fits levels 55 to 60; the Rabid Shardtooth grind below gets you to 59 alone.
-
-step Donova Snowden
-  tip Keep west on the road to Donova's camp beside the hot springs.
-  turnin 5085 optional
-  accept 5086
+  note Dire Maul fits levels 55 to 60; alone, the Terrordale grind at the end of this guide gets you to 60.
 
 step Felwood
   zone Felwood
-  goto 50.0,26.9 "Felwood"
+  goto 50.0,26.9 "The Toxic Horrors"
 
 step Toxic Horrors
   collect 12822 quest 5086.1 @49.8,27.4 map 1448
 
-step Felpaw Village
-  when onquest 8471,6031
-  turnin 8471 optional                -- Kernda, just inside the cave: only from Neutral with the Timbermaw; walks around here: look inside the circle on the map
-  turnin 6031 optional                -- Meilosh, if you have thirty Runecloth; below ground
+step Kernda
+  when onquest 8471
+  tip Kernda stands just inside the Timbermaw Hold cave: she speaks to you from Neutral with the Timbermaw, which the Winterfall furbolgs you ground in Winterspring brought you to.
+  turnin 8471                         -- Kernda, just inside the cave: walks around here: look inside the circle on the map
+
+step Kernda
+  when onquest 8470
+  tip The Deadwood totem from Felpaw Village, if Kernda didn't take it then.
+  turnin 8470                         -- Kernda: walks around here: look inside the circle on the map
+
+step Meilosh
+  when has 14047 x30
+  tip Meilosh, just inside the cave beside Kernda, takes thirty Runecloth from Friendly with the Timbermaw: the Winterspring top-up on the Winterfall furbolgs gets you both.
+  accept 6031                         -- Meilosh; below ground
+  turnin 6031
 
 step Winterspring
   zone Winterspring
-  goto 31.3,45.2 "Winterspring"
+  goto 31.3,45.2 "Donova Snowden"
 
 step Donova Snowden
-  turnin 5086 optional
+  turnin 5086
   accept 5087
 
 step Salfa
@@ -309,7 +357,7 @@ step Donova Snowden
 
 step Moonglade
   zone Moonglade
-  goto 44.9,35.6 "Moonglade"
+  goto 44.9,35.6 "Umber"
 
 # ---------------------------------------------------------------- Moonglade
 
@@ -355,6 +403,16 @@ step Darnassus
   turnin 4508                         -- Gracina Spiritmight, in the Temple of the Moon
   accept 4510
   turnin 4510                         -- Idriana, in the bank
+
+# Fandral stands at the top of the druids' building, and the walking maps have no way up inside it:
+# the arrow led onto a ledge outside, behind the wall (#1338). A goto at the building's door on its
+# south side, 35.8,11.6 (players' recordings walk in there), makes the arrow point straight at him.
+step Cenarion Enclave
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
+
+step Darnassus
+  zone Darnassus
   turnin 4902                         -- Arch Druid Fandral Staghelm, atop the Cenarion Enclave
 
 step Portal to Teldrassil
@@ -371,15 +429,9 @@ step Boat to Menethil Harbor
   zone Darkshore
   goto 32.4,43.8 "Boat to Menethil Harbor"
 
-step Fly to Ironforge
+step Fly to Stormwind
   zone Wetlands
   goto 9.5,59.7 "Menethil Harbor flight master"
-  fly "Ironforge"
-  zone Ironforge
-
-step Fly to Stormwind
-  zone Ironforge
-  goto 55.9,47.9 "Ironforge flight master"
   fly "Stormwind"
   zone Stormwind City
 
@@ -393,12 +445,19 @@ step Stormwind
   collect 4338 x60 quest 7794.1 optional @61.2,71.3 map 1453 live -- Mageweave Cloth, from your bags
   turnin 7793 optional                -- Clavicus Knavingham, in the Trade District
   turnin 7794 optional
+  collect 2592 x60 quest 7791.1 optional @61.2,71.3 map 1453 live -- Wool Cloth, from your bags
+  turnin 7791 optional
+  accept 7795 optional
+  collect 14047 x60 quest 7795.1 optional @61.2,71.3 map 1453 live -- Runecloth, from your bags
+  turnin 7795 optional
+
+step Tram to Ironforge
+  zone Stormwind City
+  goto 64.5,7.5 "Tram to Ironforge"
 
 step Ironforge
   zone Ironforge
   tip Take the Deeprun Tram to Ironforge. Bubulo Acerbus and Mistina Steelshield each take sixty Wool, sixty Silk and sixty Mageweave, then sixty Runecloth: hand in what you carry (or buy at the Auction House), skip the rest.
-  tip Careful: Jadefire Shadowstalkers are level 51-52 and move stealthed. They use Slowing Poison and are found about 550 yd south of Bloodvenom Post.
-  tip Careful: Jadefire Shadowstalkers sneak around and use Slowing Poison.
   turnin 4513                         -- Laris Geardawdle
   collect 2592 x60 quest 7807.1 optional @24.2,74.7 map 1455 -- Wool Cloth, from your bags
   collect 4306 x60 quest 7808.1 optional @24.2,74.7 map 1455 -- Silk Cloth, from your bags
@@ -420,32 +479,16 @@ step Ironforge
   turnin 7805 optional
   train class only Shaman             -- Stormwind has no shaman trainer
 
-step Fly to Stormwind
-  zone Ironforge
-  goto 55.9,47.9 "Ironforge flight master"
-  fly "Stormwind"
-
-step Stormwind City
-  when onquest 7791
-  zone Stormwind City
-  turnin 7791 optional                -- Sixty Wool Cloth, if you carry them
-
-step Stormwind
-  zone Stormwind City
-  accept 7795 optional
-  collect 14047 x60 quest 7795.1 optional @61.2,71.3 map 1453 live -- Runecloth, from your bags
-  turnin 7795 optional
-
 # ---------------------------------------------------------------- To the Plaguelands
 
 step Fly to Southshore
-  zone Stormwind City
-  goto 66.3,62.7 "Stormwind flight master"
+  zone Ironforge
+  goto 55.9,47.9 "Ironforge flight master"
   fly "Southshore"
 
 step Alterac Mountains
   zone Alterac Mountains
-  goto 39.5,81.2 "Alterac Mountains"
+  goto 39.5,81.2 "Lieutenant Haggerdin"
 
 step Lieutenant Haggerdin
   zone Alterac Mountains
@@ -453,7 +496,7 @@ step Lieutenant Haggerdin
 
 step Western Plaguelands
   zone Western Plaguelands
-  goto 42.7,83.8 "Western Plaguelands"
+  goto 42.7,83.8 "Chillwind Camp"
 
 # ---------------------------------------------------------------- Western Plaguelands
 
@@ -462,6 +505,7 @@ step Chillwind Camp
   turnin 5801                         -- Alchemist Arbington
   accept 5803 optional                -- Araj the Summoner is a level 61 elite
   turnin 6184                         -- Flint Shadowmore
+  accept 6185                         -- Flint Shadowmore: the agents' remains lie at the Marris Stead in the Eastern Plaguelands
   turnin 5903                         -- Nathaniel Dumah
   accept 5904
 
@@ -491,7 +535,8 @@ step Tirion Fordring (optional)
 
 step Eastern Plaguelands
   zone Eastern Plaguelands
-  goto 71.3,34.0 "Eastern Plaguelands"
+  when onquest 5845
+  goto 71.3,34.0 "The lake for Of Lost Honor"
 
 step Of Lost Honor
   collect 14625 quest 5845.1 @62.5,26.8 map 1423 live -- Underwater
@@ -501,10 +546,24 @@ step Tirion Fordring
   turnin 5845 optional
   accept 5846
 
+step Egan
+  zone Eastern Plaguelands
+  tip Cross the river east of Tirion's hut into Terrordale: Egan stands by Augustus' ruined hut.
+  turnin 5281
+
+step The Marris Stead
+  zone Eastern Plaguelands
+  tip Ride south to the Marris Stead, the farm north-west of Darrowshire. The three agents' remains are bone outlines on the ground: one by the road south of the farm, one on the hill east of the house, one on the mound in front of it. Coming close enough to see the Blightcaller in front of the house completes the scouting.
+  tip Careful: Nathanos Blightcaller (level 62 elite) and his elite hounds stand in front of the house: take the remains on the mound from the side and do not pull him. You don't have to fight him.
+  collect 16003 quest 6185.1          -- SI:7 Insignia (Rutger)
+  collect 16002 quest 6185.3          -- SI:7 Insignia (Turyen)
+  collect 16001 quest 6185.2          -- SI:7 Insignia (Fredo)
+  complete 6185
+
 step Artist Renfray
   when onquest 5846
   zone Western Plaguelands
-  goto 65.8,75.4 "Western Plaguelands"
+  goto 65.8,75.4 "Artist Renfray"
   turnin 5846                         -- Inside
 
 step Scholomance (optional)
@@ -512,19 +571,21 @@ step Scholomance (optional)
   tip Running Scholomance (Caer Darrow, south-east Western Plaguelands) or Stratholme instead of grinding gets you there faster in a group. Skip this step to grind solo.
   note Scholomance fits levels 58 to 60; The Key to Scholomance is handed in at Chillwind Camp below.
 
-step Grind to 60
+step Level 59.93
   zone Eastern Plaguelands
-  tip Cross the river east of Tirion into Terrordale. The Terrordale Spirits haunt the woods there.
-  level 60 -- grind on Terrordale Spirit at Terrordale, Eastern Plaguelands
+  tip Cross the river east of Tirion into Terrordale. The Terrordale Spirits haunt the woods there. Top up here to level 59.93 before the hand-ins at Chillwind Camp: they take you to level 60. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
+  level 59.93 grind 14564 -- grind on Terrordale Spirit at Terrordale, Eastern Plaguelands
 
 step Western Plaguelands
   zone Western Plaguelands
-  goto 43.4,84.8 "Western Plaguelands"
+  goto 43.4,84.8 "Chillwind Camp"
 
 step Chillwind Camp
   zone Western Plaguelands
   tip Ride back south-west to Chillwind Camp.
   turnin 6389                         -- Nathaniel Dumah
+  turnin 6185                         -- Flint Shadowmore
+  note Flint's next task goes to Stormwind: you are level 60 now, skip it.
   turnin 5803 optional                -- Alchemist Arbington
   accept 5505 optional
   turnin 5505 optional

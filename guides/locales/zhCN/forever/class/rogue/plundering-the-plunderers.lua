@@ -22,17 +22,17 @@ return {
 	-- {npc:3401} Shenthul · {quest:2379} Zando'zan
 	["{npc:3401} and {quest:2379}"] = "{npc:3401}和{quest:2379}",
 	-- {zone:1458} Undercity · {zone:1411} Durotar · {npc:3401} Shenthul · {quest:2379} Zando'zan · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {spell:1804} Pick Lock
-	["Undead take the zeppelin from the towers outside the {zone:1458} to {zone:1411}. {npc:3401} and {quest:2379} stand in the {object:172960}, the canyon under the {object:172982}. Train {spell:1804} from {npc:3401} (or any rogue trainer) now if you lack it: this job is a lockpicking test."] = "",
+	["Undead take the zeppelin from the towers outside the {zone:1458} to {zone:1411}. {npc:3401} and {quest:2379} stand in the {object:172960}, the canyon under the {object:172982}. Train {spell:1804} from {npc:3401} (or any rogue trainer) now if you lack it: this job is a lockpicking test."] = "亡灵角色搭乘 {zone:1458} 城外塔楼的飞艇前往 {zone:1411}。{npc:3401} 和 {quest:2379} 位于 {object:172960}，即 {object:172982} 下方的峡谷。如果还没有 {spell:1804}，现在就向 {npc:3401}（或任意潜行者训练师）学习：这项任务是开锁测试。",
 
 	-- Step 4: Wrenix the Wretched
 	-- {area:392} Ratchet · {zone:1413} Barrens · {npc:7161} Wrenix the Wretched · {item:7970} E.C.A.C. · {item:5060} Thieves' Tools · {spell:1804} Pick Lock
-	["Fly or walk to {area:392} on the {zone:1413} coast. {npc:7161} stands in a small shed near the bank, up the hill to the left before the docks. His Gizmotronic Apparatus beside him hands out what the job needs: take an {item:7970} and {item:5060} ({spell:1804} does not work without the tools in your bags)."] = "",
+	["Fly or walk to {area:392} on the {zone:1413} coast. {npc:7161} stands in a small shed near the bank, up the hill to the left before the docks. His Gizmotronic Apparatus beside him hands out what the job needs: take an {item:7970} and {item:5060} ({spell:1804} does not work without the tools in your bags)."] = "飞行或步行前往{zone:1413}海岸的{area:392}。{npc:7161}站在银行附近的小棚屋里，位置在码头前左侧的山坡上。他身旁的维尼克斯的机械设备会提供任务所需物品：领取{item:7970}和{item:5060}（背包里没有工具就无法使用{spell:1804}）。",
 
 	-- Step 5: Southsea Treasure
 	-- {area:392} Ratchet · {object:123462} The Jewel of the Southsea (no name in this language: may be words) · {npc:7168} Polly · {item:7970} E.C.A.C. · {item:7968} Southsea Treasure
-	["Follow the coast south from {area:392} to the first beached pirate ship, the Tide Razor, and climb aboard up its bow. On the middle deck the Buccaneer's Strongboxes come back fast: pick them until your Lockpicking is about 30 (a few are trapped with a frost nova or turn you into a rat; picking still works as a rat). Keep picking while they still give skill: the poisons job at 20 ends at a lockbox that needs about 75, and these boxes are the closest practice. Then go down to the bottom hold and pick the lock of {object:123462}: it is empty, but opening it calls a giant level 50 {npc:7168} into the next room. Stay stealthed, put the {item:7970} on your action bar, target {npc:7168} and use it: the parrot shrinks to level 18. Kill it for the {item:7968}."] = "",
+	["Follow the coast south from {area:392} to the first beached pirate ship, the Tide Razor, and climb aboard up its bow. On the middle deck the Buccaneer's Strongboxes come back fast: pick them until your Lockpicking is about 30 (a few are trapped with a frost nova or turn you into a rat; picking still works as a rat). Keep picking while they still give skill: the poisons job at 20 ends at a lockbox that needs about 75, and these boxes are the closest practice. Then go down to the bottom hold and pick the lock of {object:123462}: it is empty, but opening it calls a giant level 50 {npc:7168} into the next room. Stay stealthed, put the {item:7970} on your action bar, target {npc:7168} and use it: the parrot shrinks to level 18. Kill it for the {item:7968}."] = "从 {area:392} 沿海岸向南，到第一艘搁浅的海盗船“海浪剃刀号”，从船头爬上去。中层甲板上的海盗的保险箱刷新很快：一直开锁练到开锁技能约 30（有些箱子带陷阱，会释放冰霜新星或把你变成老鼠；老鼠形态仍能开锁）。只要还能涨技能，就继续开：20 级的制毒任务最后有个箱子，需要约 75 点开锁，这里是最近的练习地点。然后下到底层货舱，撬开 {object:123462}：里面是空的，但打开会在隔壁房间召出一只巨大的 50 级 {npc:7168}。保持潜行，把 {item:7970} 放到动作条上，选中 {npc:7168} 并使用它：鹦鹉就会缩小，降到 18 级。杀死它，拾取 {item:7968}。",
 	-- {item:7968} Southsea Treasure · {npc:7168} Polly · {item:7970} E.C.A.C.
-	["{item:7968}: {npc:7168}, after the {item:7970}"] = "",
+	["{item:7968}: {npc:7168}, after the {item:7970}"] = "{item:7968}：获得{item:7970}后找{npc:7168}",
 
 	-- Step 6: Back to Wrenix the Wretched
 	-- {npc:7161} Wrenix the Wretched
@@ -42,15 +42,15 @@ return {
 
 	-- Step 7: Fenwick Thatros
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {quest:1998} Fenwick Thatros · {area:1338} Lordamere Lake · {area:228} Sepulcher
-	["Take the zeppelin from {zone:1454} to the {zone:1458} and head south into Silverpine. {quest:1998} (level 16) stands alone on the old ferry dock on {area:1338}, north-east of the {area:228}. His Uppercut knocks you back, so do not fight him at the dock's edge. He always drops his head and is back 4 1/2 minutes after a death."] = "",
+	["Take the zeppelin from {zone:1454} to the {zone:1458} and head south into Silverpine. {quest:1998} (level 16) stands alone on the old ferry dock on {area:1338}, north-east of the {area:228}. His Uppercut knocks you back, so do not fight him at the dock's edge. He always drops his head and is back 4 1/2 minutes after a death."] = "从 {zone:1454} 乘飞艇前往 {zone:1458}，再向南进入银松森林。{quest:1998}（16 级）独自站在 {area:1338} 的旧渡口码头上，位于 {area:228} 东北方。他的上勾拳会将你击退，因此不要在码头边缘与他战斗。他必定掉落头颅，死亡 4 分半后刷新。",
 
 	-- Step 8: Mennet Carkad
 	-- {item:5060} Thieves' Tools · {npc:6566} Estelle Gendry · {object:36073} Rogues' Quarter
-	["If you have no {item:5060} left, ask {npc:6566}, the outfitter in the {object:36073}."] = "",
+	["If you have no {item:5060} left, ask {npc:6566}, the outfitter in the {object:36073}."] = "如果 {item:5060} 已经用完，向 {object:36073} 的装备商 {npc:6566} 索取。",
 
 	-- Step 9: Ambermill
 	-- {area:233} Ambermill · {object:103815} Ambermill Strongbox · {item:5060} Thieves' Tools
-	["The Kirin Tor keep their reports in walled {area:233}, in south-east Silverpine. Facing the town hall, take the building on the right: the {object:103815} is in a corner room upstairs (any Lockpicking opens it; the {item:5060} must be in your bags). Three casters of level 19-20 guard that floor and see through stealth, one walking in and out of the strongbox room: time it or fight them one at a time."] = "",
+	["The Kirin Tor keep their reports in walled {area:233}, in south-east Silverpine. Facing the town hall, take the building on the right: the {object:103815} is in a corner room upstairs (any Lockpicking opens it; the {item:5060} must be in your bags). Three casters of level 19-20 guard that floor and see through stealth, one walking in and out of the strongbox room: time it or fight them one at a time."] = "肯瑞托把报告放在银松森林东南部、有围墙的 {area:233}。面朝镇公所时，进入右手边的建筑：{object:103815} 在楼上的一间角落房间里（任何开锁技能等级都能打开，但背包必须带着 {item:5060}）。该层由三名 19-20 级施法者看守，它们能识破潜行，其中一名会在保险箱房间内外来回走动：看准时机，或逐一击杀。",
 
 	-- Step 10: Back to Mennet Carkad
 	-- {npc:6467} Mennet Carkad

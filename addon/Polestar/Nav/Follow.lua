@@ -57,8 +57,21 @@
 -- after the player moves SIGHT_MOVE yards. The aim may be a point, or the
 -- one SIGHT_AHEAD along a long straight piece (it slides with the player).
 -- Where no such point is in sight (a cliff, a river, a building's walls) the
--- aim is the corridor's, as above: tight. S.sighted says which one it is; the
--- caller asks for no new path while it is true (Nav/Walk.lua's STRAY).
+-- aim is the corridor's, as above: tight. S.sighted says a point ahead is in
+-- sight; the caller asks for no new path while it is true (Nav/Walk.lua's STRAY).
+-- The aim never runs back along the path (0.3.5, the walk out of Goldshire on
+-- the real maps): a point found in sight stays the aim until the player passes
+-- it, a further one is found, or they have moved SIGHT_HOLD yards without
+-- seeing it again (the walking grid closes a step at a lamp post or a fence
+-- post between two looks), and within BODY yards of the path (on the road's
+-- join) the corridor's aim wins whenever it lies further along than the one in
+-- sight (there the corridor runs along the path itself; beside the path it is
+-- not checked for walls, so the point in sight stands). A point held ahead
+-- keeps the arrow until the player comes within SIGHT_NEAR (not BODY) yards
+-- of the path, and nearer still stays the aim, not looked for again, while it
+-- lies further along than the corridor's (0.3.6: a player following it back
+-- toward the path crossed BODY back and forth, and the arrow flipped between
+-- the two aims at every crossing).
 --
 --   Follow.Reset(S)                    a fresh path: S.idx = 2 (the first segment's end)
 --   Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight) -> ax, ay | nil
@@ -70,6 +83,9 @@
 --       S.left    yards along the path from the projection to its end
 --       S.off     yards from the player to the projection (off the path)
 --       S.sighted the aim is a point in sight beside the path (open ground)
+--       S.aimAlong that point's yards along the path from its start (nil for
+--                 any other aim): the caller's yards left go the way the
+--                 arrow points, to it and then along the path
 
 local ADDON, ns = ...
 local Nav = ns.Nav
@@ -96,12 +112,14 @@ local OPEN = 100       -- yards beside the path the player may run with the arro
 local SIGHT_AHEAD = 150 -- yards along the path past the projection the sight aim may lie
 local SIGHT_GAP = 8    -- yards along the path between the closest sight candidates
 local SIGHT_MOVE = 2   -- yards the player moves before the sight aim is looked for again
+local SIGHT_HOLD = 12  -- yards the player may move with the point last seen in sight held while it is not seen again
+local SIGHT_NEAR = BODY - 5 -- yards beside the path: a point held in sight stays the sight aim until the player comes this near
 
 Follow.RADIUS, Follow.AHEAD, Follow.PAD, Follow.REACH, Follow.OPEN = RADIUS, AHEAD, PAD, REACH, OPEN
 
 function Follow.Reset(S)
-	S.idx, S.along, S.left, S.off, S.sighted = 2, 0, nil, nil, false
-	S.sightAt, S.sightX, S.sightY = nil, nil, nil
+	S.idx, S.along, S.left, S.off, S.sighted, S.aimAlong = 2, 0, nil, nil, false, nil
+	S.sightAt, S.sightX, S.sightY, S.heldX, S.heldY = nil, nil, nil, nil, nil
 end
 
 local function floorChange(zs, i)
@@ -186,7 +204,7 @@ local function inSight(xs, ys, zs, left, idx, along, limit, zRef, px, py, sight)
 end
 
 function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight)
-	S.sighted = false
+	S.sighted, S.aimAlong = false, nil
 	if n == 0 then return nil end
 	if n == 1 then
 		local dx, dy = xs[1] - px, ys[1] - py
@@ -249,22 +267,41 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight)
 	if stop and stop < limit then limit = stop end
 	local zRef = zs[idx]
 	-- Beside the path in open ground, or on a fresh path's way onto the road:
-	-- the furthest point ahead in sight.
-	if sight and bestD <= OPEN and (bestD > BODY or (join and S.along <= join)) then
+	-- the furthest point ahead in sight (sat: its yards along the path), held
+	-- while it is not seen again for SIGHT_HOLD yards. A point held ahead keeps
+	-- this until the player comes within SIGHT_NEAR of the path, not BODY, and
+	-- nearer still it stays the aim, not looked for again, while it lies further
+	-- along than the corridor's (below): a player following it back toward the
+	-- path no longer flips the arrow between it and the corridor's aim at every
+	-- yard across BODY.
+	local sat
+	local holding = S.sightAt and S.sightAt > S.along or false -- (sightAt is false when the last look found none)
+	if sight and bestD <= OPEN and (bestD > BODY or (holding and bestD > SIGHT_NEAR) or (join and S.along <= join)) then
 		local at = S.sightAt
 		local mx, my = px - (S.sightX or huge), py - (S.sightY or huge)
 		if mx * mx + my * my >= SIGHT_MOVE * SIGHT_MOVE or (at and at <= S.along) then
-			at = inSight(xs, ys, zs, left, idx, S.along, limit, zRef, px, py, sight)
-			S.sightAt, S.sightX, S.sightY = at, px, py
+			local found = inSight(xs, ys, zs, left, idx, S.along, limit, zRef, px, py, sight)
+			S.sightX, S.sightY = px, py
+			local hx, hy = px - (S.heldX or huge), py - (S.heldY or huge)
+			local held = at and at > S.along and hx * hx + hy * hy < SIGHT_HOLD * SIGHT_HOLD
+			if found and not (held and found < at) then
+				at, S.heldX, S.heldY = found, px, py
+			elseif not held then
+				at = found
+				if found then S.heldX, S.heldY = px, py end
+			end
+			S.sightAt = at
 		end
-		if at and at > S.along then
-			S.sighted = true
-			return pointAlong(xs, ys, left, a, n, at)
-		end
+		if at and at > S.along then sat = at end
+	elseif sight and holding and bestD <= SIGHT_NEAR then
+		sat = S.sightAt
+	else
+		S.sightAt = nil
 	end
+	S.sighted = sat ~= nil
 	local r2 = RADIUS * RADIUS
 	local sx, sy, done = p0x, p0y, 0
-	local qx, qy
+	local qx, qy, qAlong -- the corridor's aim and its yards along the path past the projection
 	local open = false -- the aim stopped mid-path at RADIUS or AHEAD (not at a corner, a floor change or the end)
 	local from = idx    -- the first path point the corridor holds to (past a road's join, the points after it)
 	local joined = false
@@ -316,14 +353,20 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight)
 					local mid = (lo + hi) * 0.5
 					if inCorridor(xs, ys, from, j - 1, p0x, p0y, sx + dx * mid, sy + dy * mid, CORNER_PAD) then lo = mid else hi = mid end
 				end
-				if lo > 0 then qx, qy = sx + dx * lo, sy + dy * lo end
+				if lo > 0 then qx, qy, qAlong = sx + dx * lo, sy + dy * lo, done + L * lo end
 				break
 			end
-			qx, qy = cx, cy
+			qx, qy, qAlong = cx, cy, done + L * u
 			if u < 1 then open = true break end
 			done = done + L
 		end
 		sx, sy = ex, ey
+	end
+	-- The point in sight beside the path; within BODY of it, only when it lies
+	-- further along than the corridor's aim.
+	if sat and (bestD > BODY or not qx or sat > S.along + qAlong) then
+		S.aimAlong = sat
+		return pointAlong(xs, ys, left, a, n, sat)
 	end
 	if qx then
 		-- The body: walking beside the path within BODY yards, the arrow points

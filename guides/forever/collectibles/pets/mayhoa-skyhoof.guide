@@ -12,11 +12,12 @@ zone Orgrimmar
 # Sources: NPC 268745 (her path in Forever's NPC data: the Valley of Wisdom,
 # the Drag and the Valley of Honor; one beta sighting at 65.0,38.4); Forever's
 # client data (ItemSparse 277508: 60s, no level or standing).
-# ASSUMED: she carries one pup at a time and restocks after a while (beta
-# reports; no vendor stock row in our data). In-game check: her stock after a
-# purchase and how long it takes to come back.
+# She carries one pup at a time: the EG Link vendor scan of build 1.60.1.70790
+# lists the carrier as limited, at most 1, and seven players' merchant windows
+# showed 1 in stock (recordings, #1348 sweep). ASSUMED: she restocks after a
+# while. In-game check: how long until she has a pup again after a purchase.
 
 step Mayhoa Skyhoof
-  tip Mayhoa Skyhoof, the girl with puppies, walks a long loop through Orgrimmar: from the Valley of Wisdom through the Drag to the Valley of Honor and back. The waypoint is where she is seen most, on the road between the Drag and the Valley of Honor; if she is not there, walk the loop. The carrier costs 60s. By beta reports she carries one pup at a time: if she has none, another player just bought it, so come back later. Each pet item teaches its companion when you use it; the goals stay ticked afterwards.
+  tip Mayhoa Skyhoof, the girl with puppies, walks a long loop through Orgrimmar: from the Valley of Wisdom through the Drag to the Valley of Honor and back. The waypoint is where she is seen most, on the road between the Drag and the Valley of Honor; if she is not there, walk the loop. The carrier costs 60s. She carries one pup at a time: if she has none, another player just bought it, so come back later. Each pet item teaches its companion when you use it; the goals stay ticked afterwards.
   vendor 268745 "Mayhoa Skyhoof" @65.0,38.4 live
   buy 277508 "Prairie Wolf Pup Carrier" npc 268745 @65.0,38.4 live -- 60s

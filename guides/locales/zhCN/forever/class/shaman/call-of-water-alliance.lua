@@ -14,31 +14,31 @@ return {
 
 	-- Step 1: Eldrun Stormbreaker
 	-- {npc:258098} Eldrun Stormbreaker · {zone:1455} Ironforge · {object:32362} Mystic Ward · {npc:258043} Norric Lochthane · {zone:1432} Loch Modan
-	["At 20 {npc:258098}, the shaman trainer in {zone:1455}'s {object:32362}, sends you to {npc:258043} in {zone:1432}."] = "",
+	["At 20 {npc:258098}, the shaman trainer in {zone:1455}'s {object:32362}, sends you to {npc:258043} in {zone:1432}."] = "20级时，{zone:1455} 的 {object:32362} 中的萨满祭司训练师 {npc:258098} 会派你去 {zone:1432} 找 {npc:258043}。",
 
 	-- Step 2: Norric Lochthane
 	-- {npc:258043} Norric Lochthane · {area:146} Stonewrought Dam · {area:144} Thelsamar
-	["{npc:258043}'s burrow hut stands on the north-western shore of the loch, below {area:146}, north of {area:144}."] = "",
+	["{npc:258043}'s burrow hut stands on the north-western shore of the loch, below {area:146}, north of {area:144}."] = "{npc:258043} 的地穴小屋位于湖的西北岸，在 {area:146} 下方、{area:144} 以北。",
 
 	-- Step 3: Hervdana Saegrund
 	-- {npc:258203} Hervdana Saegrund · {zone:1437} Wetlands · {area:836} Dun Algaz · {zone:1432} Loch Modan
-	["{npc:258203}'s family lives in a cave beneath the southern falls of the {zone:1437}, east of {area:836}: not in a town. Through the Algaz tunnel north of {zone:1432}, then east off the road."] = "",
+	["{npc:258203}'s family lives in a cave beneath the southern falls of the {zone:1437}, east of {area:836}: not in a town. Through the Algaz tunnel north of {zone:1432}, then east off the road."] = "{npc:258203} 的家人住在 {zone:1437} 南部瀑布下方的一座洞穴中，位于 {area:836} 以东，不在城镇里。穿过 {zone:1432} 北侧的丹奥加兹隧道，然后离开道路向东走。",
 
 	-- Step 4: The brown waterskin
 	["The brown waterskin"] = "棕色水袋",
 	-- {item:265732} Unfilled Brown Waterskin · {npc:258203} Hervdana Saegrund · {object:147516} Dark Iron
-	["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "",
+	["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "在 {npc:258203} 洞穴下方瀑布底部、淡水与咸淡混合水交会处，装满 {item:265732}。瀑布附近有 {object:147516} 矮人游荡。",
 
 	-- Step 6: The red waterskin
 	["The red waterskin"] = "红色水袋",
 	-- {area:71} Stonewatch Falls · {area:68} Lake Everstill · {zone:1455} Ironforge · {area:69} Lakeshire · {item:265747} Unfilled Red Waterskin · {npc:258203} Hervdana Saegrund
 	-- plural, as words: Murloc Nightcrawlers = {npc:544} Murloc Nightcrawler
-	["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "",
+	["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "{area:71} 从赤脊山东端的 {area:68} 奔流而下（从 {zone:1455} 飞往 {area:69}）。在瀑布底部鱼人夜行者聚集的地方装满 {item:265747}；先把鱼人从取水点拉走。若水囊消失却未计入任务，放弃任务，再从 {npc:258203} 处重新接受以取得新的水囊。",
 
 	-- Step 8: The blue waterskin
 	["The blue waterskin"] = "蓝色水袋",
 	-- {area:150} Menethil Harbor · {area:442} Auberdine · {area:271} Southshore · {zone:1439} Darkshore · {area:415} Astranaar · {zone:1440} Ashenvale · {item:265772} Unfilled Blue Waterskin
-	["Take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then fly or walk south through {zone:1439} to {area:415} in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "",
+	["Take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then fly or walk south through {zone:1439} to {area:415} in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "从 {area:150} 乘船前往 {area:442}（途中会停靠 {area:271}），再飞行或向南步行穿过 {zone:1439}，前往 {zone:1440} 的 {area:415}。在城镇周围的湖中装满 {item:265772}，然后乘船返回米奈希尔港。",
 
 	-- Step 9: Hervdana Saegrund
 	-- {item:7810} Vial of Purest Water · {npc:258043} Norric Lochthane
@@ -46,27 +46,27 @@ return {
 
 	-- Step 10: Norric Lochthane
 	-- {npc:258043} Norric Lochthane · {area:146} Stonewrought Dam · {item:7810} Vial of Purest Water · {item:6637} Water Sapta · {item:7811} Remaining Drops of Purest Water · {zone:1436} Westfall
-	["Back to {npc:258043} by {area:146} with the {item:7810}. He hands you the {item:6637} and the {item:7811}: keep both for {zone:1436}."] = "",
+	["Back to {npc:258043} by {area:146} with the {item:7810}. He hands you the {item:6637} and the {item:7811}: keep both for {zone:1436}."] = "带着{item:7810}回到{area:146}旁的{npc:258043}处。他会给你{item:6637}和{item:7811}：两件都留着，去{zone:1436}时要用。",
 	-- {npc:258043} Norric Lochthane · {item:6637} Water Sapta
 	["{npc:258043}: your {item:6637}"] = "{npc:258043}：你的{item:6637}",
 
 	-- Step 11: Lost the Water Sapta?
 	-- {quest:94616} Water Sapta
-	["Lost the {quest:94616}?"] = "",
+	["Lost the {quest:94616}?"] = "弄丢了{quest:94616}？",
 	-- {quest:94616} Water Sapta · {npc:258043} Norric Lochthane · {zone:1436} Westfall
-	["Only if the {quest:94616} is gone from your bags: {npc:258043} gives you another before you leave for {zone:1436}."] = "",
+	["Only if the {quest:94616} is gone from your bags: {npc:258043} gives you another before you leave for {zone:1436}."] = "仅当背包里已经没有{quest:94616}时：出发前往{zone:1436}前，向{npc:258043}再领一个。",
 	-- {npc:258043} Norric Lochthane · {quest:94616} Water Sapta
-	["{npc:258043}: a new {quest:94616}"] = "",
+	["{npc:258043}: a new {quest:94616}"] = "{npc:258043}：新的{quest:94616}",
 
 	-- Step 12: Stendel's Pond
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {area:919} Stendel's Pond · {object:619896} Forgotten Shrine · {item:6637} Water Sapta · {npc:5894} Corrupt Minor Manifestation of Water · {spell:8056} Frost Shock · {spell:122} Frost Nova · {item:7811} Remaining Drops of Purest Water · {npc:258043} Norric Lochthane · {npc:5895} Minor Manifestation of Water · {item:7813} Shard of Water
-	["Fly to {area:108} and head south to {area:20}: {area:919} and the {object:619896} lie just north of it. Drink the {item:6637} by the shrine to see the {npc:5894} (level 22, {spell:8056} and {spell:122}; one spawn, back three minutes after a kill), defeat it for its bracers (always dropped), then place them and the {item:7811} on the {object:619896} (this, not {npc:258043}, ends the quest). Click the shrine again: the {npc:5895} rises beside it; speak to it before you walk off (if it is gone, abandon and take the quest again at the shrine). It gives you the {item:7813}."] = "",
+	["Fly to {area:108} and head south to {area:20}: {area:919} and the {object:619896} lie just north of it. Drink the {item:6637} by the shrine to see the {npc:5894} (level 22, {spell:8056} and {spell:122}; one spawn, back three minutes after a kill), defeat it for its bracers (always dropped), then place them and the {item:7811} on the {object:619896} (this, not {npc:258043}, ends the quest). Click the shrine again: the {npc:5895} rises beside it; speak to it before you walk off (if it is gone, abandon and take the quest again at the shrine). It gives you the {item:7813}."] = "飞往 {area:108}，再向南前往 {area:20}：{area:919} 和 {object:619896} 就在其北侧。在神殿旁喝下 {item:6637}，即可看见 {npc:5894}（22 级，会使用 {spell:8056} 和 {spell:122}；只有一个刷新点，击杀三分钟后刷新），击败它取得护腕（必定掉落），再将护腕和 {item:7811} 放在 {object:619896} 上（在这里完成任务，不是找 {npc:258043}）。再次点击神殿：{npc:5895} 会在旁边出现；离开前要与它交谈（若它已消失，在神殿处放弃并重新接受任务）。它会给你 {item:7813}。",
 	-- {npc:5895} Minor Manifestation of Water
-	["{npc:5895}, at the shrine"] = "{npc:5895}，在神龛处",
+	["{npc:5895}, beside the shrine"] = "",
 
 	-- Step 13: Norric Lochthane
 	-- {npc:258043} Norric Lochthane · {item:7813} Shard of Water · {item:5177} Water Totem
-	["Back to {npc:258043} with the {item:7813}. Keep the {item:5177} in your bags for good: every water totem needs it."] = "",
+	["Back to {npc:258043} with the {item:7813}. Keep the {item:5177} in your bags for good: every water totem needs it."] = "带着 {item:7813} 返回 {npc:258043} 处。务必将 {item:5177} 永久留在背包中：所有水之图腾都需要它。",
 	-- {npc:258043} Norric Lochthane · {spell:5394} Healing Stream Totem · {item:5177} Water Totem
 	["{npc:258043}: {spell:5394} and your {item:5177}"] = "{npc:258043}：{spell:5394}和你的{item:5177}",
 
@@ -78,4 +78,5 @@ return {
 	-- ["{npc:258043}'s burrow hut stands on the north-western edge of the loch, south of {area:146}."] = "{npc:258043}的地洞小屋位于湖的西北边缘，{area:146}南边。",
 	-- ["{npc:258203}'s family lives in a cave beneath the southern falls of the {zone:1437}."] = "{npc:258203}的家人住在{zone:1437}南部瀑布下方的一个洞穴里。",
 	-- ["{npc:258203}: take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then go south to {area:415}. Fill the {item:265772} in the lake around the town."] = "{npc:258203}：从{area:150}乘船前往{area:442}（途中停靠{area:271}），然后向南前往{area:415}。在镇子周围的湖里装满{item:265772}。",
+	-- ["{npc:5895}, at the shrine"] = "{npc:5895}，在神龛处",
 }

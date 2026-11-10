@@ -9,7 +9,7 @@ next forever/alliance/50-60/03-winterspring
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: To Winterspring! (5249).
+# Left out: To Winterspring! (5249).
 
 step Fly to Astranaar
   zone Teldrassil
@@ -19,9 +19,10 @@ step Fly to Astranaar
 
 step Felwood
   zone Felwood
-  goto 54.2,86.8 "Felwood"
+  goto 54.2,86.8 "The Emerald Sanctuary"
 
 step The Emerald Sanctuary
+  tip Ride north out of Astranaar into Felwood to the Emerald Sanctuary, the druids' camp by the road.
   accept 4101                         -- Arathandris Silversky, in the ruins just east of Grazle
   accept 4421                         -- Eridan Bluewind, inside
   accept 5156                         -- Taronn Redfeather
@@ -31,7 +32,7 @@ step The Emerald Sanctuary
 
 step Grazle
   zone Felwood
-  tip Ride north out of Astranaar into Felwood. Grazle the furbolg stands by the road just south of the Emerald Sanctuary.
+  tip Grazle the furbolg stands by the road just south of the Emerald Sanctuary.
   accept 8460
 
 step Deadwood Village
@@ -42,9 +43,9 @@ step Deadwood Village
 
 step Level 52.58
   when level<52.58
-  tip If you skipped The Horn of the Beast or The Super Snapper FX, grind here to level 52.58 to stay on the route's plan.
+  tip If you skipped The Horn of the Beast or The Super Snapper FX, grind here to level 52.58 to stay on the route's plan. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   goto 48.7,92.1 map 1448 "Deadwood Warrior"
-  level 52.58                          -- grind on Deadwood Warrior
+  level 52.58 grind 7153               -- grind on Deadwood Warrior
 
 step Grazle
   turnin 8460
@@ -54,17 +55,19 @@ step Grazle
 
 step Level 52.69
   when level<52.69
-  tip Top up here to level 52.69 before the hand-ins at Jaedenar: they take you to level 53.
+  tip Top up here to level 52.69 before the hand-ins at Jaedenar: they take you to level 53. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   goto 46.3,89.4 map 1448 "Deadwood Pathfinder"
-  level 52.69                          -- grind on Deadwood Pathfinder
+  level 52.69 grind 7155               -- grind on Deadwood Pathfinder
 
 # ---------------------------------------------------------------- The south
 
 step Jadefire Glen
   tip The Jadefire satyrs hold the glen west of the road, with Xavathras at its back.
   tip Careful: Jadefire Shadowstalkers (level 51-52) use Sneak and Slowing Poison and are stealthed, so they often join fights uninvited.
+  tip Cursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains.
   kill 7109 quest 4421.1              -- Jadefire Felsworn
-  level 52.74                          -- grind on Jadefire Felsworn
+  collect 11947 quest 4512.1          -- Filled Cursed Ooze Jar
+  level 52.74 grind 7109               -- grind on Jadefire Felsworn
 
 step Ruins of Constellas
   kill 7110 quest 4421.2              -- Jadefire Shadowstalker
@@ -72,33 +75,23 @@ step Ruins of Constellas
   kill 9454 quest 4421.4              -- Xavathras
 
 step Jaedenar
-  tip Jaedenar is the ruined temple north of the glen. Some of its cultists drop a Blood Red Key, about one kill in thirty: it opens Arko'narin's cell in Shadow Hold, the cave at the back. If it drops, clear the way out before you free her; if not, skip her quests.
+  tip Jaedenar is the ruined temple north of the glen.
   kill 7125 quest 5155.1              -- Jaedenar Hound
   kill 7113 quest 5155.2              -- Jaedenar Guardian
   kill 7115 quest 5155.3              -- Jaedenar Adept
   kill 7112 quest 5155.4              -- Jaedenar Cultist
-  collect 13140 optional              -- Blood Red Key, a rare drop
-  accept 5202 optional
-  turnin 5202 optional                -- Captured Arko'narin, in Shadow Hold; below ground
-  accept 5203 optional
-  level 52.87                          -- grind on Jaedenar Hound
-
-step Jaedenar
-  when onquest 5203
-  goto 35.4,59.1
-  complete 5203 optional              -- Keep her alive until she is out of the cave
+  collect 11949 quest 4512.2          -- Filled Tainted Ooze Jar: Tainted Oozes slide about Jaedenar's fel pools
+  level 52.87 grind 7125                          -- grind on Jaedenar Hound
 
 step Level 52.9
   when level<52.9
-  tip Top up here to level 52.9 before the hand-ins at Emerald Sanctuary: they take you to level 53.
+  tip Top up here to level 52.9 before the hand-ins at Emerald Sanctuary: they take you to level 53. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   goto 38.3,61.7 map 1448 "Jaedenar Hound"
-  level 52.9                          -- grind on Jaedenar Hound
+  level 52.9 grind 7125               -- grind on Jaedenar Hound
 
 step The Emerald Sanctuary
   turnin 5155                         -- Greta Mosshoof
   accept 5157
-  turnin 5203 optional                -- Jessir Moonbow
-  accept 5204 optional
   turnin 4421                         -- Eridan Bluewind, inside
   accept 4906
 
@@ -123,29 +116,26 @@ step Nafien
   accept 8461
 
 step Felpaw Village
-  tip The Deadwood furbolgs of Felpaw Village fill the hills west of the cave. The Avengers can drop a Deadwood Ritual Totem.
+  tip The Deadwood furbolgs of Felpaw Village fill the hills west of the cave. Keep killing them until one drops a Deadwood Ritual Totem, about one kill in thirty, then right-click it: Kernda in Timbermaw Hold takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.
   tip Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.
   kill 7156 quest 8461.1              -- Deadwood Den Watcher
   kill 7157 quest 8461.2              -- Deadwood Avenger
   kill 7158 quest 8461.3              -- Deadwood Shaman
+  collect 20741                       -- Deadwood Ritual Totem
+  accept 8470
 
 step Nafien
   turnin 8461
   accept 8465                         -- Salfa stands at the Winterspring end of the tunnel: keep it
   accept 8467 optional
 
-step Felpaw Village
-  collect 20741 optional              -- Deadwood Ritual Totem, a rare drop
-  accept 8470 optional
-
 step Nafien
-  when onquest 8467
-  turnin 8467 optional
+  when complete 8467
+  turnin 8467
 
 step Timbermaw Hold
-  tip Step into the cave: Kernda and Meilosh stand just inside.
+  tip Step into the cave: Kernda stands just inside.
   turnin 8470 optional                -- Kernda: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map
-  accept 6031 optional                -- Meilosh: thirty Runecloth, handed in when you pass through again at 57; below ground
 
 step Jadefire Run: kill these as you meet them
   zone Felwood
@@ -161,35 +151,20 @@ step Jadefire Run: kill these as you meet them
 # ---------------------------------------------------------------- The north
 
 step Jaedenar again
-  tip Use the Empty Canteen at the corrupted moonwell in the middle of Jaedenar. If you freed Arko'narin, go back into Shadow Hold for the succubus Rakaiah.
+  tip Use the Empty Canteen at the corrupted moonwell in the middle of Jaedenar.
   use 12922 quest 5157.1 @35.2,59.8 map 1448
   collect 12907 quest 5157.1
-
-step Oozes
-  tip The Cursed and Tainted Oozes slide about the streams and fel pools around Jaedenar and Bloodvenom Falls: kill them and use Laris's Empty Ooze Jars on their remains.
-  collect 11947 quest 4512.1          -- Filled Cursed Ooze Jar
-
-step Jaedenar again
-  tip Trey Lightforge's remains lie beside her.
-  kill 9518 quest 5204.1 optional @38.3,50.5 map 1448 -- Rakaiah, below ground
-  turnin 5204 optional                -- Remains of Trey Lightforge, below ground
-  accept 5385 optional
-
-step Jaedenar
-  collect 11949 quest 4512.2          -- Filled Tainted Ooze Jar
 
 # ---------------------------------------------------------------- Back south
 
 step The Emerald Sanctuary
   tip Ride south-east from Jaedenar to the Emerald Sanctuary, the druids' camp by the road in southern Felwood.
   turnin 5156                         -- Taronn Redfeather
-  accept 5249
 
 step The Emerald Sanctuary
-  turnin 939 optional
+  turnin 939
   accept 4441                         -- The vial is filled in Darnassus: keep it; inside
   turnin 4906                         -- Eridan Bluewind
-  turnin 5385 optional                -- Jessir Moonbow
   turnin 5157                         -- Greta Mosshoof
   accept 5158                         -- Ends in the Barrens: keep it
   turnin 4101                         -- Arathandris Silversky

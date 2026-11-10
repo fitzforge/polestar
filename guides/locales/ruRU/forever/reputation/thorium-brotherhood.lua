@@ -9,15 +9,15 @@ return {
 	-- Guide
 	["Thorium Brotherhood Reputation"] = "Репутация: Братство Тория",
 	-- {npc:12944} Lokhtos Darkbargainer · {area:2717} Molten Core · {object:147516} Dark Iron
-	["{npc:12944}'s {area:2717} recipes: fire resistance gear, {object:147516} armour and the Exalted epic weapon plans."] = "",
+	["{npc:12944}'s {area:2717} recipes: fire resistance gear, {object:147516} armour and the Exalted epic weapon plans."] = "Рецепты {npc:12944} из рейда {area:2717}: снаряжение с сопротивлением огню, доспехи ({object:147516}) и чертежи эпического оружия за «Превознесение».",
 	-- {npc:12944} Lokhtos Darkbargainer
-	["{npc:12944}'s 29 recipes, from Friendly to Exalted"] = "",
+	["{npc:12944}'s 29 recipes, from Friendly to Exalted"] = "{npc:12944}: 29 рецептов, от «Дружелюбия» до «Превознесения»",
 
 	-- Step 1: Thorium Point
-	-- {area:1446} Thorium Point · {zone:1427} Searing Gorge · {npc:14624} Master Smith Burninate · {quest:7722} What the Flux? · {item:18942} Fiery Flux
-	["{area:1446} is the scaffolded camp on the north-west rim of the Cauldron, with a flight point. Everyone starts Neutral with the Brotherhood. These seven quests (level 48 to 50) pay 100 reputation each: 700 in all, 800 with the pillow below. In Classic a quest pays less once it is 6 or more levels below you, only 20 each at 60, so do them while you level through {zone:1427} if you can; your first turn-in shows which. {npc:14624}'s {quest:7722} also opens his {item:18942} turn-ins, so it is needed at any level. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%."] = "",
+	-- {area:1446} Thorium Point · {npc:14624} Master Smith Burninate · {quest:7722} What the Flux? · {item:18942} Fiery Flux
+	["{area:1446} is the scaffolded camp on the north-west rim of the Cauldron, with a flight point. Everyone starts Neutral with the Brotherhood. These seven quests (level 48 to 50) pay 100 reputation each: 700 in all, 800 with the pillow below. Forever pays them in full at any level. {npc:14624}'s {quest:7722} also opens his {item:18942} turn-ins, so it is needed at any level. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%."] = "",
 	-- {object:179827} Wanted/Missing/Lost & Found
-	["The {object:179827} board"] = "",
+	["The {object:179827} board"] = "Доска: {object:179827}",
 	-- {npc:14621} Overseer Maltorius
 	["{npc:14621} is elite"] = "",
 
@@ -36,7 +36,7 @@ return {
 
 	-- Step 3: Greater Lava Spiders
 	-- plural, as words: Greater Lava Spiders = {npc:5858} Greater Lava Spider
-	["Greater Lava Spiders"] = "",
+	["Greater Lava Spiders"] = "Большие лавовые пауки",
 	["The spiders roam the lava pools and plateaus of the south-west."] = "",
 
 	-- Step 4: The Slag Pit

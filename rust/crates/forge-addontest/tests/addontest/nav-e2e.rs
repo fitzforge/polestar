@@ -636,6 +636,9 @@ fn c_walking_the_path_point_by_point_moves_the_aim_forward_along_it_never_asks_t
 	assert_eq!(out["final"], "arrived");
 }
 
+// A stray with nothing ahead on the path in sight (Path.Sight answering false everywhere: walls, a cliff): more than
+// 25 yd off asks again. In open ground with a point ahead in sight, up to 100 yd off asks nothing (Nav/Follow.lua's
+// sight, #1107; nav-spf a8-a13).
 #[test]
 fn d_30_yards_off_the_path_asks_once_after_the_2_s_throttle_keeping_the_old_path_meanwhile_the_arrow_follows_the_new_path() {
 	skip_unless_ready!();
@@ -644,6 +647,7 @@ fn d_30_yards_off_the_path_asks_once_after_the_2_s_throttle_keeping_the_old_path
 		local r = {}
 		place(1429, GOLDSHIRE[1], GOLDSHIRE[2], GOLDSHIRE[3])
 		local f = guide()
+		E.Sight = function() return false end -- nothing in sight
 		local a, b = f.points[1], f.points[2]
 		-- Up to 40 yd along the first segment (at most half of it), then 35 yd off it, square to it, on the side
 		-- farther from the rest of the path.
@@ -1926,6 +1930,64 @@ fn lifts_the_walk_on_from_thunder_bluffs_lift_crossing_is_the_engines_drawn_alon
 	assert_eq!(out["aim"]["measured"], true, "and the arrow follows the path, not a straight line");
 }
 
+// #1053 (troders, beside Arch Druid Hamuul Runetotem in his hut on Elder Rise: the arrow 358 yd, the journey 720 yd,
+// back over the bridge and round again) and #1023 (Pilk, beside Nara Wildmane): the turn-in came up in the Barrens, so
+// the player's walk to Hamuul was measured from there (thousands of yards, through Mulgore and up a lift), and within
+// 400 yd of a target nothing is measured again. That far measure less the yards moved stood for the player's walk in
+// Thunder Bluff, dearer than a walk to the north lift's top and the measured walk in from there; at the lift top the
+// walk went back to the hut, and at the hut back to the lift top. Within 400 yd the player's walk is straight.
+#[test]
+fn a_turn_in_set_in_the_barrens_walked_to_from_thunder_bluffs_flight_master_arrives_beside_hamuul_runetotem_never_back_to_the_lift_1053() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Horde"
+		w.setLevel(17)
+		local HAMUUL = { -1049.0, -303.7 } -- 1456 78.6,28.6
+		local function route()
+			local legs, ci = N.GetRoute()
+			local list = {}
+			for i = ci or 1, #(legs or {}) do list[#list + 1] = legs[i].kind .. "|" .. legs[i].label end
+			return list
+		end
+		-- At Tonga Runetotem in the Barrens (the step's accept): the turn-in comes up and is measured from there.
+		local _, bx, by = C.MapToWorld(1413, 52.3, 31.9, "e")
+		place(1413, bx, by, 0)
+		for _ = 1, 40 do stub.advance(0.05); aim() end
+		Polestar.Fire("WAYPOINT_CHANGED", { map = 1456, x = 78.6, y = 28.6, f = "e", label = "Hamuul Runetotem", kind = "turnin", r = 5 })
+		for _ = 1, 600 do aim(); stub.advance(0.05) end
+		local r = { measured = N.walk.Measured(1, HAMUUL[1], HAMUUL[2], false) ~= nil }
+		-- Flown to Thunder Bluff, 365 yd from him.
+		place(1456, -1197.2, 29.7, 0)
+		for _ = 1, 100 do aim(); stub.advance(0.05) end
+		r.landed = route()
+		-- Along the arrow's path into the hut (indoors there), then at the report's spot (78.28,28.52) beside him.
+		local f = finds[#finds]
+		local _, x0, y0 = C.GetPlayerWorldPosition()
+		for _, p in ipairs(f and f.points or {}) do
+			local k = math.max(1, math.ceil(dist(x0, y0, p.x, p.y) / 2))
+			for i = 1, k do
+				local x, y = x0 + (p.x - x0) * i / k, y0 + (p.y - y0) * i / k
+				w.indoors = dist(x, y, HAMUUL[1], HAMUUL[2]) < 12
+				place(1456, x, y, 0)
+				stub.advance(0.3)
+				aim()
+			end
+			x0, y0 = p.x, p.y
+		end
+		w.indoors = true
+		place(1456, -1048.45, -300.38, 0)
+		for _ = 1, 200 do aim(); stub.advance(0.05) end
+		r.beside = { state = aim().state, route = route() }
+		emit(r)"#,
+		true,
+	);
+	assert_eq!(out["measured"], true, "the walk to Hamuul was measured from the Barrens");
+	assert_eq!(out["landed"], serde_json::json!(["walk|Hamuul Runetotem"]), "from the flight master, the walk to him: not by the north lift's top");
+	assert_eq!(out["beside"]["state"], "arrived", "beside him in his hut, arrived");
+	assert_eq!(out["beside"]["route"], serde_json::json!(["walk|Hamuul Runetotem"]), "with nothing to walk back to");
+}
+
 // Ironforge's gate (Fitz, 2026-10-23, a Tauren after a /reload at the gate): the client says outdoors in the gate's
 // arch, where the cell holds the city's floor (an indoor city class, 497) and the mountain's ground over it (620, the
 // one outdoor surface), so the floor was seeded on the mountain and the walk to Loch Modan was searched and drawn from
@@ -2186,6 +2248,18 @@ fn t_568_from_rutheran_village_to_the_darnassus_fishing_trainer_the_route_still_
 	let out = teldrassil_route((1438, 55.6, 90.6), (1457, 47.89, 56.65, "Fishing trainer"));
 	let kinds = strs(&out["kinds"]);
 	assert!(kinds.iter().any(|k| k == "portal"), "the portal up ({})", kinds.join(", "));
+}
+
+/// #1564 (Phear, Night Elf Hunter 12, 0.3.5): in the south of Darnassus (38.76,70.66), bound for Oben
+/// Rageclaw at Ban'ethil Barrow Den (Teldrassil 44.94,61.59, The Sleeping Druid), the arrow led to the portal,
+/// which only goes down to Rut'theran Village; the way is out through the city's gate and down the road.
+#[test]
+fn t_1564_from_darnassus_to_banethil_barrow_den_the_route_walks_out_through_the_gate_never_down_the_rutheran_portal() {
+	skip_unless_ready!();
+	let out = teldrassil_route((1457, 38.76, 70.66), (1438, 44.94, 61.59, "Oben Rageclaw"));
+	let kinds = strs(&out["kinds"]);
+	assert!(kinds.iter().all(|k| k == "walk") && !kinds.is_empty(), "it walks all the way ({}; {})", kinds.join(", "), strs(&out["transports"]).join(", "));
+	assert_eq!(f(&out["treeWalks"]), 0.0, "no walk leg joins Rut'theran to the top of the tree");
 }
 
 /// #989 (Dante): off the Auberdine boat in Rut'theran Village, bound for Melithar Staghelm (The Woodland

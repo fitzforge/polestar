@@ -24,7 +24,7 @@ return {
 
 	-- Step 3: Duthorian Rall
 	-- {npc:6171} Duthorian Rall
-	["{npc:6171}, Cathedral of Light"] = "",
+	["{npc:6171}, Cathedral of Light"] = "{npc:6171}, Catedral de la Luz",
 
 	-- Step 5: The Tome of Divinity
 	-- {npc:6171} Duthorian Rall · {item:6775} Tome of Divinity · {item:2589} Linen Cloth
@@ -40,7 +40,7 @@ return {
 
 	-- Step 7: The Symbol of Life
 	-- {item:6866} Symbol of Life
-	["The {item:6866}"] = "",
+	["The {item:6866}"] = "{item:6866}",
 	-- {npc:6171} Duthorian Rall · {item:6866} Symbol of Life · {npc:6173} Gazin Tenorm · {npc:6172} Henze Faulk
 	["Back to the Cathedral. {npc:6171} gives you the {item:6866}; {npc:6173} lies wounded by the altar of the same hall. Keep the symbol: you need it on {npc:6172}. If you lose it, {npc:6171} gives you another (The {item:6866})."] = "",
 
@@ -59,7 +59,7 @@ return {
 	["The Defias Rogue Wizards around the big stone tablet east of {npc:6172} carry the {item:6846}: about one kill in two drops it, but some players need many kills. They respawn in three minutes."] = "",
 	-- {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["{item:6846}: Defias Rogue Wizards"] = "",
+	["{item:6846}: Defias Rogue Wizards"] = "{item:6846}: Zahoríes bribones de Defias",
 
 	-- Step 10: Redemption
 	-- {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall · {spell:7328} Redemption
@@ -96,7 +96,7 @@ return {
 	-- {item:6847} Dark Iron Script
 	["The Dark Iron Spies (level 9-11, twelve of them) sneak around the little house below the lake, just south of Narm; you see them from his hill. About one kill in two drops the {item:6847}. They run for help at low health: finish them or step back. They respawn in three minutes."] = "",
 	-- {item:6847} Dark Iron Script
-	["{item:6847}: Dark Iron Spies"] = "",
+	["{item:6847}: Dark Iron Spies"] = "{item:6847}: Espías Hierro Negro",
 
 	-- Step 19: Redemption
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6178} Muiredon Battleforge · {npc:6179} Tiza Battleforge · {spell:7328} Redemption

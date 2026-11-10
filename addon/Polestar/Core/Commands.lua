@@ -18,6 +18,7 @@ BINDING_NAME_POLESTAR_OPTIONS = L["Open Polestar options"]
 BINDING_NAME_POLESTAR_REPORT = L["Report a problem"]
 BINDING_NAME_POLESTAR_NEXT_WAYPOINT = L["Next waypoint"]
 BINDING_NAME_POLESTAR_PREV_WAYPOINT = L["Previous waypoint"]
+BINDING_NAME_POLESTAR_REOPEN_TAB = L["Reopen closed tab"]
 -- Labels for the QoL secure buttons' CLICK bindings (QoL/Buttons.lua). The
 -- client looks these names up as globals; they contain spaces and a colon,
 -- so they can only be set through _G.
@@ -41,6 +42,7 @@ ns.Bindings = {
 	-- The arrow to the step's next or previous place: spawn spot, else goal.
 	NextWaypoint = function() Engine.CycleWaypoint(1) end,
 	PrevWaypoint = function() Engine.CycleWaypoint(-1) end,
+	ReopenTab = function() ns.RunCommand("reopen") end,
 }
 
 local function needGuide()
@@ -67,7 +69,7 @@ ns.RegisterCommand("prev", function()
 end, L["Look at the step before"])
 
 ns.RegisterCommand("skip", function()
-	if needGuide() then Engine.Skip() end
+	if needGuide() and not Engine.Skip() then ns.Print(L["Nothing to skip: the guide has no step open."]) end
 end, L["Skip the step shown, for good (the window offers the undo)"])
 
 ns.RegisterCommand("reset", function()
@@ -149,6 +151,13 @@ ns.RegisterCommand("close", function()
 	Engine.CloseTab(active)
 end, L["Close the current guide tab"])
 
+-- The last tab closed, back where it was (Engine.ReopenClosedTab).
+ns.RegisterCommand("reopen", function()
+	if Engine.ReopenClosedTab() then return end
+	local closed = Engine.ClosedTabs()
+	ns.Print(#closed == 0 and L["No closed tab to reopen."] or L["Six tabs is the limit. Close one to open another."])
+end, L["Reopen the last guide tab you closed"])
+
 ns.RegisterCommand("path", function()
 	if not Engine.OfferRouteChoice() then
 		ns.Print(L["No choice of route here: this guide has one way on."])
@@ -158,6 +167,10 @@ end, L["Choose (or change) where to level next"])
 ns.RegisterCommand("welcome", function()
 	ns.Fire("SHOW_WELCOME")
 end, L["Show the welcome again"])
+
+ns.RegisterCommand("whatsnew", function()
+	ns.Fire("SHOW_WHATSNEW")
+end, L["Show what's new in this version"])
 
 -- Where the player stands as guide lines (ns.WhereLines, Core/Compat.lua),
 -- printed with a hint for other goals (`@x,y live`), and shown in a box to

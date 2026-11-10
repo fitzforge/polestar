@@ -20,7 +20,7 @@
 ## Title-zhTW: Polestar 指南（部落）
 ## Notes-zhTW: Polestar 的部落角色指南。按需載入。
 ## Author: Polestar
-## Version: 0.3.4
+## Version: 0.3.6
 ## Category: Polestar
 ## Group: Polestar
 ## LoadOnDemand: 1

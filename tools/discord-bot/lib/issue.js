@@ -221,6 +221,16 @@ function readTrackedReply(content, repo) {
 	return m ? Number(m[1]) : null;
 }
 
+// The bot's reply to a post held by the hourly limit (edited into the
+// tracked reply once it is filed), and that reply recognised again.
+const HELD_LEAD = "Thanks! You've sent a few reports this hour";
+function heldReply(minutes) {
+	const m = Math.max(1, Math.ceil(minutes));
+	return `${HELD_LEAD}; this one will be filed automatically in about ${m} minute${m === 1 ? '' : 's'}.`;
+}
+
+const isHeldReply = (content) => String(content || '').startsWith(HELD_LEAD);
+
 module.exports = {
 	FOLLOWUP_MARK,
 	discordToText,
@@ -236,6 +246,8 @@ module.exports = {
 	followUpComment,
 	trackedReply,
 	readTrackedReply,
+	heldReply,
+	isHeldReply,
 	issueMarker,
 	labelNames,
 };

@@ -163,7 +163,7 @@ fn accept_objectives_and_turn_in_advance_the_steps_and_fire_messages_in_order() 
 		json!(goals),
 		json!([
 			["active", "Go to Kobold camp", "Go to", "Kobold camp", "place", "Elwynn Forest", false],
-			["active", "Kill Kobold Vermin", "Kill", "Kobold Vermin", "npc", "for Kobold Camp Cleanup", false],
+			["active", "Kill Kobold Vermin", "Kill", "Kobold Vermin", "npc", "for “Kobold Camp Cleanup”", false],
 		])
 	);
 	assert_eq!(view3["goals"][1]["progress"], json!({ "cur": 3, "max": 10, "kind": "count" }));
@@ -287,6 +287,42 @@ fn goto_completes_on_arrival_via_the_ticker_which_runs_only_while_a_goto_is_acti
 			"log": ["STEP_UPDATED 3"],
 		})
 	);
+}
+
+// #1120 (Fitz, Undead Warlock, The Binding): "use 6284" (Runes of Summoning) has no quest, so it waited for a tick
+// while the voidwalker was killed and The Binding handed in, and the step never moved on. A quest-less use, click
+// or kill is done once a later quest goal of its step is; before that it holds, and an optional later goal never
+// passes it.
+#[test]
+fn a_quest_less_use_is_done_once_a_later_quest_goal_of_its_step_is_1120_runes_of_summoning() {
+	const BINDING: &str = r#"
+Polestar.RegisterGuide({ id = "test/binding", pack = "test", title = "Binding", zone = 1429, steps = {
+	{ title = "Carendin", goals = { { t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, map = 1429, x = 48.9, y = 41.6 } } },
+	{ title = "Circle", goals = {
+		{ t = "use", item = 6284, itemName = "Runes of Summoning", map = 1429, x = 47.6, y = 35.1 },
+		{ t = "accept", quest = 783, title = "A Threat Within", npc = 823, map = 1429, x = 48.2, y = 42.0, optional = true },
+		{ t = "kill", target = "Summoned Voidwalker", npc = 5676, count = 1, quest = 7, oi = 1, map = 1429, x = 47.6, y = 35.1 },
+		{ t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 197, map = 1429, x = 48.9, y = 41.6 },
+	} },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+"#;
+	let out = run1(Run {
+		guides: BINDING,
+		script: r#"
+			local w = stub.world
+			E.SetGuide("test/binding"); flush()
+			w.accept(7, { 1 }); flush()
+			w.accept(783, {}); flush()
+			local before = { index = E.GetStepIndex(), use = E.GetStepView(2).goals[1].status }
+			w.progress(7, 1, 1); flush()
+			local killed = E.GetStepView(2).goals[1].status
+			w.turnIn(7); flush()
+			emit({ before = before, killed = killed, after = E.GetStepIndex() })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!({ "before": { "index": 2, "use": "active" }, "killed": "done", "after": 3 }));
 }
 
 #[test]
@@ -444,11 +480,13 @@ fn the_nearest_field_goal_holds_until_another_is_clearly_nearer_never_in_a_fight
 			r.past = at(51.5)
 			-- 50.5: 165 against 125, the Graverobbers not clearly nearer: no flap back
 			r.back = at(50.5)
-			-- in a fight beside the Graverobbers the arrow stays
+			-- in a fight beside the Graverobbers the arrow stays, and for 5 s after it (Spots.SETTLE)
 			fighting = true
 			r.fight = at(45.5)
 			fighting = false
-			r.after = at(45.5)
+			r.settling = at(45.5)
+			stub.advance(5)
+			r.after = E.GetWaypoint().goalIndex
 			-- the Graverobbers done: on to the nearest left, the Doom Weed
 			w.progress(8, 1, 8); flush()
 			r.done = E.GetWaypoint().goalIndex
@@ -456,7 +494,7 @@ fn the_nearest_field_goal_holds_until_another_is_clearly_nearer_never_in_a_fight
 		"#,
 		..Default::default()
 	});
-	assert_eq!(out, json!({ "start": 2, "between": 2, "past": 3, "back": 3, "fight": 3, "after": 2, "done": 3 }));
+	assert_eq!(out, json!({ "start": 2, "between": 2, "past": 3, "back": 3, "fight": 3, "settling": 3, "after": 2, "done": 3 }));
 }
 
 #[test]
@@ -1231,6 +1269,35 @@ fn talk_sethome_getfp_fly_vendor_buy_collect_and_hearth_complete_from_interactio
 	);
 }
 
+// #1298: the bind confirmation closes the innkeeper's window before HEARTHSTONE_BOUND, so the "npc" unit is gone
+// then (every bind the Recorder saw). The innkeeper is the last NPC window closed within 2 minutes; a bind
+// location that does not read as the goal's place ("Lakeshire Inn") still completes the goal bound at its inn.
+#[test]
+fn t_1298_a_bind_after_the_innkeeper_s_window_closed_completes_the_sethome_at_that_innkeeper_only() {
+	let out = run1(Run {
+		guides: r#"
+			Polestar.RegisterGuide({ id = "test/bind", pack = "test", title = "Bind", minLevel = 1, maxLevel = 30, steps = {
+				{ goals = { { t = "sethome", location = "Lakeshire", npc = 6727, npcName = "Innkeeper Brianna" } } },
+				{ goals = { { t = "level", level = 99 } } },
+			} })
+		"#,
+		script: r#"
+			local w = stub.world
+			E.SetGuide("test/bind"); flush()
+			local r = {}
+			w.gossip(54); w.close(); w.bind("Lakeshire Inn"); flush()
+			r.otherNpc = E.GetStepIndex()
+			w.gossip(6727); w.close(); stub.advance(130); w.bind("Lakeshire Inn"); flush()
+			r.longAgo = E.GetStepIndex()
+			w.gossip(6727); w.close(); w.bind("Lakeshire Inn"); flush()
+			r.innkeeper = E.GetStepIndex()
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!({ "otherNpc": 1, "longAgo": 1, "innkeeper": 2 }));
+}
+
 // #859: Desperate Times (92640) asks to speak with Valennia, then the Windshapers (Ayessa), then the High
 // Order (Elaadrin), and the client lists each line only once the one before it is done. A quest `talk` goal
 // reads its quest-log line; talking checks it off only on a line the client does not list yet, with every
@@ -1291,7 +1358,7 @@ fn t_859_a_quest_talk_goal_ticks_from_its_quest_log_line_and_a_talk_counts_only_
 	assert_eq!(out["trail"], json!(["start=---", "elaadrin-first=---", "valennia=---", "line1=x--", "elaadrin-early=x--", "ayessa=x--", "line2=xx-", "elaadrin=xxx"]));
 	assert_eq!(out["at"], 2);
 	assert_eq!(out["text"], "Talk to Valennia");
-	assert_eq!(out["detail"], "for Desperate Times");
+	assert_eq!(out["detail"], "for “Desperate Times”");
 
 	// The quest ready for turn-in: every talk goal is done, the lines the client never listed too.
 	let ready = run1(Run {
@@ -1714,6 +1781,27 @@ fn a_quest_to_complete_shows_its_objectives_count_and_reads_as_its_objective_lin
 	// Looting past the need counts the need; a finished objective stays a line, full.
 	assert_eq!(*fed, json!([{ "cur": 7, "max": 14, "kind": "count" }, ["Plainstrider Meat 7/7", "Plainstrider Feathers 0/7"], { "cur": 0, "max": 1, "kind": "count" }, ["Water Pitcher 0/1"]]));
 	assert_eq!(*log, json!(["STEP_UPDATED 1", "STEP_UPDATED 1"]), "each count change redraws the step");
+}
+
+// The frFR client's kill line (#942's objective lines): "Jeune loup : 3/7 |4personnage tué:personnages tués;"
+// reads as "Jeune loup 3/7", never with the raw grammar escape.
+#[test]
+fn a_quest_to_complete_reads_an_frfr_kill_line_without_its_grammar_escape() {
+	let guides = format!("{NORTHSHIRE}{HUNT}");
+	let out = run(Run {
+		guides: &guides,
+		before: r#"w.onQuest(747, { { text = "Jeune loup\194\160: 0/7 |4personnage tué:personnages tués;", required = 7 } })"#,
+		script: r#"
+			local w = stub.world
+			E.SetGuide("test/hunt"); flush()
+			w.progress(747, 1, 3); flush()
+			local out = {}
+			for _, o in ipairs(E.GetStepView(1).goals[1].objectiveLines or {}) do out[#out + 1] = o.text .. " " .. o.cur .. "/" .. o.max end
+			emit(out)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out[0], json!(["Jeune loup 3/7"]));
 }
 
 // Darkshore's Plagued Lands (#942): looked at before the quest is taken, its `complete` goal reads as the

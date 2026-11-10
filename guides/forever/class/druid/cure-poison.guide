@@ -44,6 +44,17 @@ zone Moonglade
 # Blooms grow in the moonkin caves east of Auberdine) and item 2449.
 
 # ---------------------------------------------------------------- Night Elves and Alliance Skyborne
+# Mathrengyl stands upstairs in the druids' building and the walking maps have no way up inside it:
+# without a waypoint the arrow led round past the hunters' building onto a ledge outside his floor,
+# behind the wall (#1338). Each step to him comes after a goto at the building's door on its south
+# side, 35.8,11.6, where players' recordings walk in; from there the arrow points straight at him.
+
+step Cenarion Enclave
+  only NightElf
+  zone Darnassus
+  tip Mathrengyl Bearwalker stands upstairs in the druids' building of the Cenarion Enclave. No Herbalism? Buy five Earthroot on the Auction House first: you need them later.
+  level 14
+  goto 35.8,11.6 "Cenarion Enclave"
 
 step Lessons Anew
   only NightElf
@@ -51,6 +62,13 @@ step Lessons Anew
   tip Mathrengyl Bearwalker stands upstairs in the druids' building of the Cenarion Enclave. No Herbalism? Buy five Earthroot on the Auction House first: you need them later.
   level 14
   accept 6121 npc 4217                  -- Mathrengyl Bearwalker
+
+step Cenarion Enclave
+  only Skyborne,Alliance
+  zone Darnassus
+  tip Mathrengyl Bearwalker stands upstairs in the druids' building of the Cenarion Enclave; Alfina Nightgaze by the Skyborne Portal does not give this quest. Cast Teleport: Moonglade and take Silva Fil'naveth's flight from the middle of Nighthaven (she flies druids to Rut'theran Village, no flight path needed), then the portal up. No Herbalism? Buy five Earthroot on the Auction House first: you need them later.
+  level 14
+  goto 35.8,11.6 "Cenarion Enclave"
 
 step Lessons Anew
   only Skyborne,Alliance
@@ -104,6 +122,12 @@ step Curing the Sick
   turnin 6124                           -- Dendrite Starblaze
   accept 6125
   fly "Rut'theran Village"
+
+step Cenarion Enclave
+  only NightElf,Skyborne,Alliance
+  zone Darnassus
+  tip Mathrengyl Bearwalker, upstairs in the Cenarion Enclave, teaches you Cure Poison.
+  goto 35.8,11.6 "Cenarion Enclave"
 
 step Power over Poison
   only NightElf,Skyborne,Alliance

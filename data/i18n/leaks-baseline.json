@@ -36879,6 +36879,13 @@
 				],
 				"english": "Seeking Remnant"
 			},
+			"npc:253370": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "[DNT] Kill Credit: Place Explosives"
+			},
 			"npc:259620": {
 				"reason": "no-source",
 				"scenes": [
@@ -37005,6 +37012,20 @@
 				],
 				"english": "Mountaineer Cornelius"
 			},
+			"object:460005": {
+				"reason": "no-source",
+				"scenes": [
+					"guide"
+				],
+				"english": "Jansen Stead Water Well"
+			},
+			"object:460006": {
+				"reason": "no-source",
+				"scenes": [
+					"guide"
+				],
+				"english": "Molsen Farm Water Well"
+			},
 			"object:616860": {
 				"reason": "no-source",
 				"scenes": [
@@ -37027,7 +37048,7 @@
 				"english": "Oracle Tree Bark"
 			},
 			"object:694772": {
-				"reason": "same-as-english",
+				"reason": "no-source",
 				"scenes": [
 					"guide",
 					"guides"
@@ -37224,6 +37245,14 @@
 				],
 				"english": "Mowgh"
 			},
+			"npc:210107": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Kackle"
+			},
 			"npc:210995": {
 				"reason": "no-source",
 				"scenes": [
@@ -37415,12 +37444,12 @@
 				],
 				"english": "Hagar Lowe"
 			},
-			"npc:248277": {
+			"npc:248278": {
 				"reason": "no-source",
 				"scenes": [
 					"guide"
 				],
-				"english": "Merell Ross"
+				"english": "Croaky"
 			},
 			"npc:248362": {
 				"reason": "no-source",
@@ -37525,6 +37554,13 @@
 				],
 				"english": "Fillion Flamebreeze"
 			},
+			"npc:253370": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "[DNT] Kill Credit: Place Explosives"
+			},
 			"npc:253576": {
 				"reason": "no-source",
 				"scenes": [
@@ -37545,6 +37581,13 @@
 					"guides"
 				],
 				"english": "Vayn Moongaze"
+			},
+			"npc:255699": {
+				"reason": "no-source",
+				"scenes": [
+					"lookup"
+				],
+				"english": "Lordaeron Captain"
 			},
 			"npc:255853": {
 				"reason": "no-source",
@@ -37633,6 +37676,7 @@
 			"npc:257446": {
 				"reason": "no-source",
 				"scenes": [
+					"guide",
 					"guides"
 				],
 				"english": "Teo Hammerstorm"
@@ -37905,7 +37949,7 @@
 				"english": "Snow Leopard Prowler"
 			},
 			"npc:269127": {
-				"reason": "same-as-english",
+				"reason": "no-source",
 				"scenes": [
 					"dungeons",
 					"guides"
@@ -38099,7 +38143,7 @@
 				"english": "Riptear"
 			},
 			"npc:276099": {
-				"reason": "same-as-english",
+				"reason": "no-source",
 				"scenes": [
 					"picker",
 					"rares",
@@ -38126,7 +38170,7 @@
 				"english": "Stormherald Ukta"
 			},
 			"npc:276108": {
-				"reason": "same-as-english",
+				"reason": "no-source",
 				"scenes": [
 					"picker",
 					"rares",
@@ -38162,7 +38206,7 @@
 				"english": "Matriarch Bristlefur"
 			},
 			"npc:276194": {
-				"reason": "same-as-english",
+				"reason": "no-source",
 				"scenes": [
 					"picker",
 					"rares",
@@ -38265,6 +38309,20 @@
 				],
 				"english": "Mountaineer Cornelius"
 			},
+			"object:460005": {
+				"reason": "no-source",
+				"scenes": [
+					"guide"
+				],
+				"english": "Jansen Stead Water Well"
+			},
+			"object:460006": {
+				"reason": "no-source",
+				"scenes": [
+					"guide"
+				],
+				"english": "Molsen Farm Water Well"
+			},
 			"object:554626": {
 				"reason": "no-source",
 				"scenes": [
@@ -38311,6 +38369,13 @@
 					"guides"
 				],
 				"english": "Mining Tools"
+			},
+			"object:562131": {
+				"reason": "no-source",
+				"scenes": [
+					"guide"
+				],
+				"english": "Applejack Still"
 			},
 			"object:578937": {
 				"reason": "no-source",
@@ -38426,7 +38491,7 @@
 				"english": "Junk Pile"
 			},
 			"object:694855": {
-				"reason": "same-as-english",
+				"reason": "no-source",
 				"scenes": [
 					"guide",
 					"guides"

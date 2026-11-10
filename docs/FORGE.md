@@ -474,15 +474,28 @@ line of an objective the quest no longer has goes (#859).
   { "id": "674-gordo-tip", "at": { "quest": 5481, "goal": "accept" }, "tip": "Gordo walks the road …", "…": "…" },
   { "id": "698-sleeping-bag", "at": { "quest": 79008, "goal": "accept" }, "level": 14, "…": "…" },
   { "id": "798-gordo-on-the-road-to-brill", "at": { "quest": 5481, "goal": "accept" },
-    "early": { "after": { "quest": 8, "goal": "accept" }, "title": "Gordo on the road to Brill", "when": "level>=5", "tip": "…" }, "…": "…" } ] }
+    "early": { "after": { "quest": 8, "goal": "accept" }, "title": "Gordo on the road to Brill", "when": "level>=5", "tip": "…" }, "…": "…" },
+  { "id": "1135-plainstrider-beaks", "at": { "quest": 844, "goal": "objective", "objective": 1 },
+    "background": { "title": "Plainstrider Beaks as you go", "tip": "…", "mobs": [3244, 3245, 3246], "mention": "…",
+      "finish": { "title": "Finish the Plainstrider Beaks", "tip": "…", "map": 1413, "x": 53.4, "y": 26.5 } }, "…": "…" } ] }
 ```
 
 `at.goal` is `accept`, `turnin`, `complete` or `objective` (with `at.objective`); `tip` sets the
 step's tip, `level` puts a `level N` gate right before the goal (with `"after": true`, right after
-it, so the hand-ins up to it count towards the level). `early` (on an accept) is a take on the way:
+it, so the hand-ins up to it count towards the level; with `"only": "Priest"`, a class or race list,
+the gate is `level N only Priest` and holds those players alone). `early` (on an accept) is a take on the way:
 right after the step of `early.after`, an `along until` step (with the record's title, `when` and tip)
 lists the quest's accept and objectives until the quest's own step, which gets a `label` and still
-takes it for everyone else. A place with the same numbers as a goal's
+takes it for everyone else. `background` (on an objective, #1135) makes a slow, zone-wide collection
+a goal of the whole stay (docs/GUIDE_FORMAT.md, "Background goals"): the objective's lines leave the
+work steps between the quest's accept and the step that hands it in; right after the (last) accept's
+step an `along until … background` step with the record's title and tip lists it until that step
+(labelled `q<quest>` when it has none); right before it a finish step with `finish`'s title and tip
+works it at `finish`'s point (for an item, `when !has <item> x<count>`: only a player still short
+gets it); and each step in between with a point within 2 map percent of a spawn
+of `mobs` gets the tip `mention`. Keep it for objectives the recordings show as a slog: many kills
+for the count, or a long search between kills of sparse or contested droppers, with the droppers spread
+along the route; `finish` is where players got the most kills a minute. A place with the same numbers as a goal's
 typed point but another map is applied (the map typed too). A place or guide fix with
 `"faction": "Alliance"` (or `"Horde"`) holds for that side's routes only.
 
@@ -552,6 +565,7 @@ print the forge command to run):
 | `forge nav grid`, `prepare`, `pack`, `check`, `layers` | the walking grid, the walk graphs, Polestar_Nav's maps and their ground layers |
 | `forge release version`, `pack`, `notes`, `credits` | the version, the release zips, the release notes, the Guiding Stars page |
 | `forge changelog add`, `check`, `show`, `build` | the changelog fragments in `changes/` |
+| `forge record import`, `pull`, `resession`, `learn` | players' recordings: the archive, and what it teaches about the quests Forever added ([forge/learn.md](forge/learn.md)) |
 
 `forge <command> --help` gives each one's options. The contributor tools `playtest`, `find`,
 `record`, `new`, `dev`, `install`, `play`, `preview` and the planner stay on Node
@@ -562,6 +576,7 @@ print the forge command to run):
 | Page | For |
 |---|---|
 | [forge/data.md](forge/data.md) | reading the game's data, the reference data, corrections, the knowledge base, the data pack |
+| [forge/learn.md](forge/learn.md) | what players' recordings teach: `forge record learn`, its trust rules and the `data/recorded` snapshot |
 | [forge/nav.md](forge/nav.md) | the walking grid, Leffe's navigation maps, the walk store |
 | [forge/model.md](forge/model.md) | the time model: what a route's hours are made of |
 | [forge/routes.md](forge/routes.md) | how a route is searched from the seed: the search, guards, group quests, the shared route, ledgers, overrides |

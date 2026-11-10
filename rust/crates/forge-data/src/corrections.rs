@@ -91,6 +91,16 @@ fn same_fields(e: &V, set: &V) -> bool {
 	set.entries().iter().all(|(k, v)| stringify(&e.get(k), None) == stringify(v, None))
 }
 
+/// A copy of a correction's value for a record: values are shared objects and arrays, so a later
+/// stage that edits the record in place (recordings.rs adding a giver to `start.npc`) would
+/// otherwise edit the correction itself.
+fn owned(v: &V) -> V {
+	match v {
+		V::Obj(_) | V::Arr(_) => forge_guide::js::parse_json(&stringify(v, None)).expect("a correction's value is JSON"),
+		_ => v.clone(),
+	}
+}
+
 fn tag(e: &V) {
 	if !e.get("source").is_arr() {
 		e.set("source", V::arr());
@@ -217,7 +227,7 @@ pub fn apply(c: &V, quests: &Obj, npcs: &Obj, objects: &Obj, items: &Obj, sim: b
 			entry(&mut a, "quests", &id, "applied", String::new());
 		}
 		for (k, v) in cq.get("set").entries() {
-			q.set(&k, v);
+			q.set(&k, owned(&v));
 		}
 		tag(&q);
 		a.records += 1;
@@ -291,14 +301,14 @@ pub fn apply(c: &V, quests: &Obj, npcs: &Obj, objects: &Obj, items: &Obj, sim: b
 			let set = ce.get("set");
 			if set.truthy() {
 				for (k, v) in set.entries() {
-					e.set(&k, v);
+					e.set(&k, owned(&v));
 				}
 			}
 			let add = ce.get("addSpawns");
 			if add.truthy() {
 				let merged = e.get("spawns").as_obj().map(|o| o.spread()).unwrap_or_default();
 				for (k, v) in add.entries() {
-					merged.set_str(k, v);
+					merged.set_str(k, owned(&v));
 				}
 				let mut keys: Vec<(f64, Str)> = merged.keys().into_iter().map(|k| (str_to_num(&k), k)).collect();
 				keys.sort_by(|a, b| a.0.partial_cmp(&b.0).unwrap_or(std::cmp::Ordering::Equal));
@@ -313,6 +323,78 @@ pub fn apply(c: &V, quests: &Obj, npcs: &Obj, objects: &Obj, items: &Obj, sim: b
 		}
 	}
 	a
+}
+
+/// Puts every corrected value back after a later overlay (players' recordings, recordings.rs) has
+/// run, and names what the overlay had changed, as `"<section> <id>: <field>"`: our corrections are
+/// the last word, so a recording that disagrees with one is listed for review and never applied.
+/// A quest field put back loses the overlay's `recorder:<field>` / `recorder-gap:<field>` tag (its
+/// value is the correction's again). [`apply`] is idempotent, so it simply runs again.
+pub fn reassert(c: &V, quests: &Obj, npcs: &Obj, objects: &Obj, items: &Obj, sim: bool) -> Vec<String> {
+	let differs = |a: &V, b: &V| stringify(a, None) != stringify(b, None);
+	let mut out = Vec::new();
+	for (id, cq) in c.get("quests").entries() {
+		let q = quests.get(&id);
+		if cq.get("remove").truthy() {
+			if !q.is_undef() {
+				out.push(format!("quests {id}: back after its removal"));
+			}
+			continue;
+		}
+		if q.is_undef() {
+			continue;
+		}
+		let mut back: Vec<String> = Vec::new();
+		for (k, v) in cq.get("set").entries() {
+			if differs(&q.get(&k), &v) {
+				out.push(format!("quests {id}: {k}"));
+				back.push(k.to_string());
+			}
+		}
+		let src = q.get("source");
+		if !back.is_empty() && src.is_arr() {
+			let overlay_tag = |t: &str| back.iter().any(|k| t == format!("recorder:{k}") || t == format!("recorder-gap:{k}") || (k == "xp" && t.starts_with("recorder:xp-")));
+			q.set("source", arr(src.items().into_iter().filter(|t| !t.as_str().is_some_and(overlay_tag)).collect()));
+		}
+	}
+	for (kind, table) in [("npcs", npcs), ("objects", objects)] {
+		for (id, ce) in c.get(kind).entries() {
+			let e = table.get(&id);
+			if e.is_undef() {
+				continue;
+			}
+			for (k, v) in ce.get("set").entries() {
+				if differs(&e.get(&k), &v) {
+					out.push(format!("{kind} {id}: {k}"));
+				}
+			}
+			for (map, v) in ce.get("addSpawns").entries() {
+				if differs(&e.get("spawns").get(&map), &v) {
+					out.push(format!("{kind} {id}: spawns on map {map}"));
+				}
+			}
+		}
+	}
+	for (id, ci) in c.get("items").entries() {
+		let it = items.get(&id);
+		if it.is_undef() {
+			continue;
+		}
+		for kind in ["npc", "object"] {
+			for x in ci.get("removeDrops").get(kind).items() {
+				if !it.get("drops").get(kind).get(&x.to_js_string()).is_undef() {
+					out.push(format!("items {id}: drop from {kind} {}", x.to_js_string()));
+				}
+			}
+		}
+		for r in ci.get("removeVendors").items() {
+			if it.get("vendors").items().iter().any(|v| r.strict_eq(v)) {
+				out.push(format!("items {id}: vendor {}", r.to_js_string()));
+			}
+		}
+	}
+	apply(c, quests, npcs, objects, items, sim);
+	out
 }
 
 // ---------------------------------------------------------------- checking an edit
@@ -397,7 +479,7 @@ pub const KINDS: [&str; 14] = [
 	"other",
 ];
 
-const QUEST_FIELDS: [&str; 21] = [
+const QUEST_FIELDS: [&str; 22] = [
 	"title",
 	"level",
 	"minLevel",
@@ -419,6 +501,8 @@ const QUEST_FIELDS: [&str; 21] = [
 	"escort",
 	"breadcrumbFor",
 	"breadcrumbs",
+	// Seconds the quest allows once taken (the TDB's TimeAllowed; a Forever quest's from its text).
+	"limit",
 ];
 
 struct Ck<'a> {
@@ -683,7 +767,11 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 		ck.keys(&at, &e, &["set", "remove", "source", "note"]);
 		ck.note(&at, &e);
 		ck.source(&at, &e);
-		if ck.exists("quests", &id) == Some(false) && !ck.created.contains(&("quests", id.clone())) {
+		// A `remove: true` record's quest is absent from any build that applied it: the build takes it
+		// out. Whether the sources still hold it (a stale record) is the build's call: its fixes ledger
+		// marks such a record `redundant` ("no such quest in the merged data").
+		let removes = matches!(e.get("remove"), V::Bool(true));
+		if !removes && ck.exists("quests", &id) == Some(false) && !ck.created.contains(&("quests", id.clone())) {
 			ck.err(&at, why(&quest_lacks(&e)).replace("no such record", &format!("no quest {id} in the data")));
 		}
 		// `remove: true` takes the quest out of the data; it stands alone, without `set`.
@@ -704,7 +792,7 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 		for (k, v) in set.entries() {
 			let a = format!("{at}.set.{k}");
 			match &*k {
-				"races" | "classes" | "xp" | "level" | "minLevel" | "zone" | "skill" | "event" => {
+				"races" | "classes" | "xp" | "level" | "minLevel" | "zone" | "skill" | "event" | "limit" => {
 					if !(v.is_nullish() || v.as_num().is_some_and(|n| n >= 0.0 && n.fract() == 0.0)) {
 						ck.err(&a, format!("{} must be a whole number or null", show(&v)));
 					}
@@ -1273,13 +1361,18 @@ fn check_places(ck: &mut Ck, d: &V) {
 }
 
 /// data/guide-fixes.json: `{ about, fixes: [{ id, at: { quest, goal: accept | turnin | complete |
-/// objective, objective? }, tip | level (after?) | along: false | early | when, note, source, issue, pr }] }`. `along: false` (an
+/// objective, objective? }, tip | level (after?, only?) | along: false | early | when, note, source, issue, pr }] }`. `along: false` (an
 /// objective goal only): the writer never lists the objective "on the way" before its step. `after: true`
-/// (a level gate only): the gate goes right after the anchor goal, not before it. `early: { after: { quest, goal:
+/// (a level gate only): the gate goes right after the anchor goal, not before it. `only` (a level gate only): a
+/// class or race list the gate holds (`level N only Priest`), the others pass. `early: { after: { quest, goal:
 /// accept | turnin }, title, when?, tip? }` (an accept only): an `along until` step right after the step of `after`
 /// lists the quest's accept and objectives on the way to its own step (`when`: a predicate, e.g. `level>=5`).
 /// `when: "level>=N"`: the goal's step shows only from that level (optional work above the level the route
-/// plays it at, #977).
+/// plays it at, #977). `background: { title, tip?, mobs: [npc], mention?, finish: { title, tip?, map, x, y } }`
+/// (an objective only, #1135): a zone-wide, slow collection: the writer lists the objective on the way
+/// (an `along until … background` step right after the quest's accept) until the step that hands the
+/// quest in, puts a finish step at `finish` right before it (passed at once when the count is reached),
+/// and gives each step in between whose points lie near a spawn of `mobs` the tip `mention`.
 fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	ck.keys("", d, &["about", "_about", "fixes"]);
 	let list = d.get("fixes");
@@ -1291,10 +1384,17 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	let mut slots: Vec<(String, String)> = Vec::new();
 	for (i, r) in list.items().iter().enumerate() {
 		let at = format!("fixes[{i}]");
-		ck.keys(&at, r, &["id", "at", "tip", "level", "after", "along", "early", "when", "faction", "note", "source", "issue", "pr"]);
+		ck.keys(&at, r, &["id", "at", "tip", "level", "after", "only", "along", "early", "when", "background", "faction", "note", "source", "issue", "pr"]);
 		let after = r.get("after");
 		if !after.is_undef() && (!matches!(after, V::Bool(true)) || r.get("level").is_undef()) {
 			ck.err(format!("{at}.after"), "`after` is true, on a level gate");
+		}
+		let only = r.get("only");
+		if !only.is_undef()
+			&& (r.get("level").is_undef()
+				|| !only.as_str().is_some_and(|o| !o.is_empty() && o.split(',').all(|x| !x.trim().is_empty() && x.trim().chars().all(|c| c.is_ascii_alphabetic() || c == '!'))))
+		{
+			ck.err(format!("{at}.only"), "`only` is a class or race list (`Priest`, `Warrior,Hunter`), on a level gate");
 		}
 		check_record(ck, &at, r, &mut ids);
 		let a = r.get("at");
@@ -1315,7 +1415,15 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 			_ => ck.err(format!("{at}.at.goal"), format!("{}: accept, turnin, complete or objective", show(&a.get("goal")))),
 		}
 		let (tip, level, along, early, when) = (r.get("tip"), r.get("level"), r.get("along"), r.get("early"), r.get("when"));
+		let background = r.get("background");
 		let kind = match (tip.is_undef(), level.is_undef()) {
+			(true, true) if !background.is_undef() && when.is_undef() && early.is_undef() && along.is_undef() => {
+				check_background(ck, &at, &background);
+				if a.get("goal").as_str() != Some("objective") {
+					ck.err(format!("{at}.at.goal"), "a `background` fix is on an objective goal");
+				}
+				"background"
+			}
 			(true, true) if !when.is_undef() && early.is_undef() && along.is_undef() => {
 				if !when.as_str().is_some_and(|w| w.strip_prefix("level>=").is_some_and(|n| n.parse::<u32>().is_ok_and(|n| (2..=60).contains(&n)))) {
 					ck.err(format!("{at}.when"), format!("{}: `level>=N`, N a level from 2 to 60", show(&when)));
@@ -1363,7 +1471,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				"level"
 			}
 			_ => {
-				ck.err(&at, "a guide fix sets a `tip`, a `level` gate, a `when` or `along: false`");
+				ck.err(&at, "a guide fix sets a `tip`, a `level` gate, a `when`, `along: false`, `early` or `background`");
 				"?"
 			}
 		};
@@ -1373,6 +1481,47 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 			ck.err(&at, format!("{} of this goal's step is set by {other} too", kind));
 		}
 		slots.push((slot, id));
+	}
+}
+
+/// A guide fix's `background` (check_guide_fixes).
+fn check_background(ck: &mut Ck, at: &str, b: &V) {
+	let line = |ck: &mut Ck, k: &str, v: &V, required: bool| {
+		if (required || !v.is_undef()) && (!has_text(v) || v.as_str().is_some_and(|t| t.contains('\n'))) {
+			ck.err(format!("{at}.background.{k}"), "one line of text");
+		}
+	};
+	ck.keys(&format!("{at}.background"), b, &["title", "tip", "mobs", "mention", "finish"]);
+	line(ck, "title", &b.get("title"), true);
+	line(ck, "tip", &b.get("tip"), false);
+	line(ck, "mention", &b.get("mention"), false);
+	let mobs = b.get("mobs");
+	if !mobs.is_arr() || mobs.items().is_empty() {
+		ck.err(format!("{at}.background.mobs"), "a list of the NPCs that drop the item");
+	}
+	for (j, n) in mobs.items().iter().enumerate() {
+		ck.refers(&format!("{at}.background.mobs[{j}]"), "npcs", n);
+	}
+	let f = b.get("finish");
+	ck.keys(&format!("{at}.background.finish"), &f, &["title", "tip", "map", "x", "y"]);
+	let fl = format!("{at}.background.finish");
+	if !f.is_obj() {
+		ck.err(&fl, "the finish step: { title, tip?, map, x, y }");
+		return;
+	}
+	if !has_text(&f.get("title")) || f.get("title").as_str().is_some_and(|t| t.contains('\n')) {
+		ck.err(format!("{fl}.title"), "one line of text");
+	}
+	if !f.get("tip").is_undef() && (!has_text(&f.get("tip")) || f.get("tip").as_str().is_some_and(|t| t.contains('\n'))) {
+		ck.err(format!("{fl}.tip"), "one line of text");
+	}
+	if !is_id(&f.get("map")) {
+		ck.err(format!("{fl}.map"), "a map id");
+	}
+	for k in ["x", "y"] {
+		if !f.get(k).as_num().is_some_and(|n| (0.0..=100.0).contains(&n)) {
+			ck.err(format!("{fl}.{k}"), "a map percent, 0 to 100");
+		}
 	}
 }
 
@@ -1502,6 +1651,27 @@ mod tests {
 	}
 
 	#[test]
+	fn a_time_limit_is_whole_seconds() {
+		let src = r#""source": { "kind": "questie", "ref": "objective text" }, "note": "ten minutes""#;
+		assert_eq!(findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "limit": 600 }}, {src} }} }} }}"#)), None, None), Vec::<String>::new());
+		let bad = findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "limit": "10 min" }}, {src} }}, "11": {{ "set": {{ "limit": 1.5 }}, {src} }} }} }}"#)), None, None);
+		assert_eq!(bad.len(), 2, "{bad:?}");
+	}
+
+	#[test]
+	fn a_removed_quest_the_build_dropped_passes_a_missing_quest_still_errors() {
+		// 2358 (#948) is gone from every build that applied its own `remove`: that is the record working.
+		let src = r#""source": { "kind": "in-game-check", "ref": "issue 948" }, "note": "gone""#;
+		assert_eq!(findings(Some(&format!(r#"{{ "quests": {{ "2358": {{ "remove": true, {src} }} }} }}"#)), None, None), Vec::<String>::new());
+		// A correction that sets fields on a quest the data lacks is still an error.
+		let f = findings(Some(&format!(r#"{{ "quests": {{ "2358": {{ "set": {{ "xp": 1 }}, {src} }} }} }}"#)), None, None);
+		assert!(f.iter().any(|x| x.contains("no quest 2358 in the data, and the correction lacks title, start, end")), "{f:#?}");
+		// So is a link to the removed quest from another correction.
+		let f = findings(Some(&format!(r#"{{ "quests": {{ "2358": {{ "remove": true, {src} }}, "10": {{ "set": {{ "pre": [2358] }}, {src} }} }} }}"#)), None, None);
+		assert!(f.iter().any(|x| x.contains("no quest 2358 in the data")), "{f:#?}");
+	}
+
+	#[test]
 	fn a_good_edit_passes() {
 		let c = r#"{ "quests": {
 			"10": { "set": { "pre": [11], "start": { "npc": [20], "object": [], "item": [40] } }, "source": { "kind": "in-game-check", "ref": "issue 1" }, "note": "checked in game" },
@@ -1535,7 +1705,7 @@ mod tests {
 				{{ "id": "1-d", "quest": 10, "objective": 2, "faction": "Horde", "at": {{ "map": 2521, "x": 1, "y": 1, "frame": "live" }}, {src} }} ] }}"#
 		);
 		let g = format!(
-			r#"{{ "fixes": [ {{ "id": "1-t", "at": {{ "quest": 10, "goal": "accept" }}, "tip": "A tip.", {src} }}, {{ "id": "1-l", "at": {{ "quest": 11, "goal": "objective", "objective": 1 }}, "level": 14, {src} }}, {{ "id": "1-w", "at": {{ "quest": 11, "goal": "turnin" }}, "when": "level>=23", {src} }} ] }}"#
+			r#"{{ "fixes": [ {{ "id": "1-t", "at": {{ "quest": 10, "goal": "accept" }}, "tip": "A tip.", {src} }}, {{ "id": "1-l", "at": {{ "quest": 11, "goal": "objective", "objective": 1 }}, "level": 14, {src} }}, {{ "id": "1-w", "at": {{ "quest": 11, "goal": "turnin" }}, "when": "level>=23", {src} }}, {{ "id": "1-b", "at": {{ "quest": 10, "goal": "objective", "objective": 1 }}, "background": {{ "title": "Beaks as you go", "mobs": [20], "mention": "They count here.", "finish": {{ "title": "Finish the beaks", "map": 1413, "x": 50.5, "y": 25 }} }}, {src} }} ] }}"#
 		);
 		assert_eq!(record_findings(Some(&p), Some(&g)), Vec::<String>::new());
 		let bad_p = r#"{ "places": [
@@ -1543,7 +1713,7 @@ mod tests {
 			{ "id": "x", "quest": 10, "objective": 1, "write": true, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" },
 			{ "id": "y", "quest": 10, "objective": 1, "at": { "map": 1429, "x": 1, "y": 1 }, "path": { "map": 1429, "points": [] }, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" },
 			{ "id": "w", "quest": 10, "objective": 2, "faction": "Both", "at": { "map": 2521, "x": 1, "y": 1, "frame": "era" }, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" } ] }"#;
-		let bad_g = r#"{ "fixes": [ { "id": "z", "at": { "quest": 10, "goal": "pickup" }, "tip": "two\nlines", "level": 70 }, { "id": "y", "at": { "quest": 10, "goal": "accept" }, "tip": "A tip.", "after": true }, { "id": "v", "at": { "quest": 10, "goal": "turnin" }, "when": "onquest 12" } ] }"#;
+		let bad_g = r#"{ "fixes": [ { "id": "z", "at": { "quest": 10, "goal": "pickup" }, "tip": "two\nlines", "level": 70 }, { "id": "y", "at": { "quest": 10, "goal": "accept" }, "tip": "A tip.", "after": true }, { "id": "v", "at": { "quest": 10, "goal": "turnin" }, "when": "onquest 12" }, { "id": "u", "at": { "quest": 10, "goal": "accept" }, "background": { "title": "", "mobs": [21], "finish": { "title": "F", "map": 1413, "x": 150, "y": 1 } } } ] }"#;
 		let f = record_findings(Some(bad_p), Some(bad_g));
 		let has = |s: &str| f.iter().any(|x| x.contains(s));
 		for s in [
@@ -1559,9 +1729,13 @@ mod tests {
 			"places[3].faction: \"Both\" is not Alliance or Horde",
 			"places[3].at.frame: map 2521 has no Era bounds",
 			"fixes[0].at.goal",
-			"fixes[0]: a guide fix sets a `tip`, a `level` gate, a `when` or `along: false`",
+			"fixes[0]: a guide fix sets a `tip`, a `level` gate, a `when`, `along: false`, `early` or `background`",
 			"fixes[1].after: `after` is true, on a level gate",
 			"fixes[2].when: \"onquest 12\": `level>=N`",
+			"fixes[3].background.title: one line of text",
+			"fixes[3].background.mobs[0]",
+			"fixes[3].background.finish.x: a map percent",
+			"fixes[3].at.goal: a `background` fix is on an objective goal",
 		] {
 			assert!(has(s), "{s}: {f:#?}");
 		}

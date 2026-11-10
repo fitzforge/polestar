@@ -74,13 +74,17 @@ local function where(map, x, y, f)
 end
 
 local MARK = { done = "[x]", skipped = "[-]", na = "[n/a]" }
+-- The window's current goal, and the goal the arrow leads to when the player
+-- picked another one (a row click, the waypoint keys: #1385).
+local CURRENT, ARROW = "[>]", "[\226\134\146]"
 
--- One goal: its state ([>] the arrow's, [x] done, [-] skipped, [n/a] not for
--- this character, [ ] open), its line and count, its ids and position.
-local function goalLine(gv, raw, isCurrent, wp)
+-- One goal: its state (`mark`: CURRENT the window's current goal, ARROW the
+-- arrow's when it is another; else [x] done, [-] skipped, [n/a] not for this
+-- character, [ ] open), its line and count, its ids and position.
+local function goalLine(gv, raw, mark, wp)
 	local text = gv.text
 	if type(text) ~= "string" or text == "" then text = (gv.verb or "") .. " " .. tostring(gv.subject or "") end
-	local head = (isCurrent and "[>]" or MARK[gv.status] or "[ ]") .. " " .. plain(text):match("^%s*(.-)%s*$")
+	local head = (mark or MARK[gv.status] or "[ ]") .. " " .. plain(text):match("^%s*(.-)%s*$")
 	local p = gv.progress
 	if p and p.cur and p.max then head = head .. (" %s/%s"):format(tostring(p.cur), tostring(p.max)) end
 	local parts = { head }
@@ -156,6 +160,22 @@ local function guideLines(d, on)
 	local line = (L["Guide: %s (%s)"]):format(on.title, plain(tostring(guide.id)))
 	if pack then line = line .. SEP .. (L["pack %s"]):format(plain(pack.title or pack.id) .. (pack.version and (" " .. plain(pack.version)) or "")) end
 	out[#out + 1] = cut(line)
+	-- The steps the Engine planned for the character (#1353), for triage only:
+	-- the guide window shows none of this.
+	if guide.fromBase then
+		out[#out + 1] = cut("[planned: " .. (guide.feeders or 0) .. " feeder steps, ~" .. floor((guide.feedCost or 0) / 60 + 0.5) .. " min]")
+		local hidden = {}
+		for q, h in pairs(guide.hidden or {}) do hidden[#hidden + 1] = { q = q, h = h } end
+		table.sort(hidden, function(a, b) return a.q < b.q end)
+		for i, e in ipairs(hidden) do
+			if i > 8 then
+				out[#out + 1] = "[hidden: " .. (#hidden - 8) .. " more]"
+				break
+			end
+			local h = e.h
+			out[#out + 1] = (plain(h.title or ("#" .. e.q)) .. " [hidden: needs " .. plain(h.needTitle or ("#" .. tostring(h.need))) .. " from " .. plain(h.from or "?") .. "]")
+		end
+	end
 	if not view then
 		out[#out + 1] = L["Step: none, the guide is complete"]
 		return
@@ -163,6 +183,11 @@ local function guideLines(d, on)
 	-- The guide's own step index too, which maintainers find the step by.
 	local step = (L["Step %d of %d (guide step %d): %s"]):format(on.number, on.total, index, plain(view.title or ""))
 	if view.skipped then step = step .. SEP .. L["skipped"] end
+	-- A feeder step the Engine put in (#1353): where it comes from, for triage only.
+	local raw = guide.steps and guide.steps[index]
+	if raw and raw.feeder then
+		step = step .. SEP .. "[feeder from " .. plain(tostring(raw.feeder)) .. " step " .. tostring(raw.feederStep) .. "]"
+	end
 	local live = E.GetLiveStep and E.GetLiveStep()
 	if live and live ~= index then
 		step = step .. SEP .. (L["the guide is at step %d"]):format(UI.StepNo(live))
@@ -171,13 +196,17 @@ local function guideLines(d, on)
 	end
 	out[#out + 1] = cut(step)
 	local wp = E.GetWaypoint and E.GetWaypoint()
+	-- The arrow's goal on this step, when the player picked one other than
+	-- the window's current goal.
+	local picked = wp and wp.stepIndex == index and wp.goalIndex ~= view.current and wp.goalIndex or nil
 	local raws = guide.steps and guide.steps[index] and guide.steps[index].goals or {}
 	local goals = view.goals or {}
 	local shown = min(#goals, GOALS_MAX)
 	d.goals = { first = #out + 1, last = #out + shown, more = #goals - shown }
 	for g = 1, shown do
 		if view.current == g then d.goals.current = #out + 1 end
-		out[#out + 1] = goalLine(goals[g], raws[g], view.current == g, wp)
+		local mark = (view.current == g and CURRENT) or (picked == g and ARROW) or nil
+		out[#out + 1] = goalLine(goals[g], raws[g], mark, wp)
 	end
 	if d.goals.more > 0 then out[#out + 1] = (L["... %d more goals"]):format(d.goals.more) end
 end
@@ -191,10 +220,12 @@ local function arrowLine()
 	-- Always yards, whatever nav.distanceUnit says: the report is read by
 	-- whoever fixes the bug, in the game's own unit.
 	if d then line = line .. SEP .. ("%d yd"):format(floor(d + 0.5)) end
-	if N.IsOverride and N.IsOverride() then
-		line = line .. SEP .. L["your own waypoint"]
+	local own = N.IsOverride and N.IsOverride()
+	-- Held (the way back to your corpse or a Spirit Healer, Nav.Hold): its label says whose it is.
+	if own or (N.IsHeld and N.IsHeld()) then
+		if own then line = line .. SEP .. L["your own waypoint"] end
 		local pos = where(t.map, t.x, t.y, t.f)
-		if pos then line = line .. " " .. pos end
+		if pos then line = line .. (own and " " or SEP) .. pos end
 	end
 	return cut(line)
 end
@@ -223,6 +254,41 @@ local function routesLine()
 	local N = ns.Nav
 	if N and N.HandedOff and N.HandedOff() then parts[#parts + 1] = "handed to Shortest Path Forever" end
 	return cut((L["Routes: %s"]):format(table.concat(parts, SEP)))
+end
+
+-- The "While you're here" line (Engine.WhileHereState): the lines shown
+-- (each: what, quest, step, distance; "; " between them) or "none", the
+-- radius, a hand-in's seconds out of the way and how many candidates there
+-- are, and without a line the nearest candidate (a hand-in: its detour) and
+-- why it does not show. The words stay English like Routes;
+-- after Routes, so Arrow, Where and Routes keep their places for the bug bot.
+local function whileHereLine()
+	local E = ns.Engine
+	local st = E and E.WhileHereState and E.WhileHereState()
+	if not st then return nil end
+	local function step(s) return ("step %s (guide %d)"):format(tostring((E.StepNumber(s))), s) end
+	if not st.on then return cut((L["While here: %s"]):format("off")) end
+	local parts = {}
+	if st.shown then
+		local lines = {}
+		for i, v in ipairs(st.shown) do
+			lines[i] = table.concat({ plain(v.text or "?"), ("quest %s"):format(tostring(v.quest)), step(v.step), ("%d yd"):format(v.yards or 0) }, SEP)
+		end
+		parts[1] = table.concat(lines, "; ")
+	else
+		parts[1] = "none"
+	end
+	parts[#parts + 1] = ("radius %d yd"):format(st.radius)
+	parts[#parts + 1] = st.turnins and ("hand-ins %d s"):format(st.turnins) or "hand-ins off"
+	parts[#parts + 1] = ("%d candidates"):format(st.candidates)
+	if not st.shown then
+		local n = st.nearest
+		local why = st.why or "?"
+		parts[#parts + 1] = n and ("nearest quest %s, %s, %d yd%s%s: %s"):format(tostring(n.quest), step(n.step), n.yards,
+			n.detour and (", %d s out of the way"):format(n.detour) or "", n.seen and ", its mob in sight" or "", why) or why
+	end
+	-- Longer than the other lines (LINE_MAX): what shows and why all count.
+	return cut((L["While here: %s"]):format(table.concat(parts, SEP)), 400)
 end
 
 -- Other guide packs that are on, with their versions.
@@ -301,7 +367,8 @@ local function errorLines(out)
 	end
 	for _, e in ipairs(ns.Errors and ns.Errors() or {}) do add(e.msg, e.count, e.seq) end
 	for _, b in ipairs(ns.Blocked and ns.Blocked() or {}) do
-		list[#list + 1] = { text = L["blocked in %s: %s (%s)"]:format(b.addon, plain(b.fn), b.at), count = b.count, seq = b.seq }
+		local fn = plain(b.fn) .. (b.where and (" " .. b.where) or "")
+		list[#list + 1] = { text = L["blocked in %s: %s (%s)"]:format(b.addon, fn, b.at), count = b.count, seq = b.seq }
 	end
 	local BG = BugGrabber
 	if type(BG) == "table" and type(BG.GetDB) == "function" then
@@ -389,7 +456,7 @@ end
 --   key       the guide and the step, to tell a report on another step
 --   context   the line under the window's title
 --   goals     where the step's goal lines sit in `lines`: first, last, the
---             arrow's (current), and how many more were not listed
+--             window's current goal (current), and how many more were not listed
 --   names     the other addons' names, for the report's Addons line
 --   addons    the other addons with their versions, for the issue's field
 --   issue     on a step, the facts a "Wrong step" issue names: the guide's
@@ -404,6 +471,7 @@ function R.Details()
 	out[#out + 1] = arrowLine()
 	out[#out + 1] = playerLine()
 	out[#out + 1] = routesLine()
+	out[#out + 1] = whileHereLine()
 	out[#out + 1] = packsLine()
 	out[#out + 1] = installLine()
 	errorLines(out)

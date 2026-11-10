@@ -51,7 +51,7 @@ step Defias Dockmaster
   only Human,Skyborne
   zone Elwynn Forest
   tip The Defias Dockmaster (level 10, a goblin) works in the dock house at Jerod's Landing, on the river at Elwynn's southern edge, south of Goldshire. Stealth in and Pick Pocket him from behind: the schedule never drops from his corpse. Do not open with Sap or a fight: he calls in three waves of bodyguards. Keep away from the fireplaces in the house; they burn you out of stealth. He is back 2 to 5 minutes after a death.
-  collect 7675 quest 2206.1                   -- Defias Shipping Schedule: Pick Pocket the Defias Dockmaster
+  collect 7675 quest 2206.1 "Pick Pocket the Defias Dockmaster for the Defias Shipping Schedule"
 
 step Back to Mathias Shaw
   only Human,Skyborne
@@ -106,7 +106,7 @@ step Sethir the Ancient
   only NightElf
   zone Teldrassil
   tip Sethir the Ancient (level 12 satyr) lives out on a great branch north of the Oracle Glade: go through the V-shaped gap in the wall north of the glade and out along the branch. Pick his pocket for the journal; killing him does not give it, and a fight brings out three Minions of Sethir. He walks between the main branch and a side branch: wait stealthed at the far end of the main branch and pick him from behind when he comes back. Then Sprint away. He is back 8 1/2 minutes after a death.
-  collect 7737 quest 2242.1                   -- Sethir's Journal: Pick Pocket Sethir the Ancient
+  collect 7737 quest 2242.1 "Pick Pocket Sethir the Ancient for Sethir's Journal"
 
 step Back to Syurna
   only NightElf

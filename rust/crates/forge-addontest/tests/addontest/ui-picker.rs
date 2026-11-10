@@ -433,6 +433,33 @@ fn selecting_a_guide_shows_its_details_and_loads_nothing_the_selection_is_rememb
 }
 
 #[test]
+fn a_class_guide_s_details_carry_the_class_quest_heads_up_after_why() {
+	let out = run_all(
+		r#"
+		local id = "forever/class/paladin/test"
+		uistub.guides[id] = { id = id, pack = "guides", title = "Storm", category = "Class", folder = "Paladin", minLevel = 22, maxLevel = 30,
+			zone = 1439, zoneName = "Darkshore", why = "A cloak.",
+			steps = { { title = "One", goals = { { t = "note", text = "One", status = "pending" } } } } }
+		table.insert(uistub.order, id)
+		local asked
+		Polestar.QoL = Polestar.QoL or {}
+		Polestar.QoL.ClassQuests = {
+			Heads = function(g) asked = g.id; return { quests = 6 } end,
+			HeadsLine = function(h) return h.quests == 6 and "Long chain: 6 quests across 4 zones" or nil end,
+		}
+		Polestar.Set("ui.pickerFaction", "All")
+		UI.ShowPicker()
+		P.Select(id)
+		emit({ asked = asked, facts = { P.detail.facts[1], P.detail.facts[2] } })
+		P.Select("forever/alliance/02-westfall")
+		emit(P.detail.facts[1][1])"#,
+		"",
+	);
+	assert_eq!(out[0], json!({ "asked": "forever/class/paladin/test", "facts": [["Why", "A cloak."], ["Heads-up", "Long chain: 6 quests across 4 zones"]] }));
+	assert_eq!(out[1], "Steps", "a leveling guide has none");
+}
+
+#[test]
 fn a_class_guide_s_details_lead_with_its_reward_item_and_spell_icons_quality_colour_the_game_s_tooltip_on_hover_and_why() {
 	let out = run_all(
 		r#"
@@ -939,4 +966,85 @@ fn the_next_fact_and_the_suggested_follow_ups_list_only_the_options_offered_now(
 	assert_eq!(out["both"], json!(["Next", "Your choice: Desolace or Feralas"]));
 	assert_eq!(out["one"], json!(["Next", "Desolace (31\u{2013}34)"]));
 	assert_ne!(out["none"], "Next");
+}
+
+// Fitz, 0.3.5 preview (EllesmereUI's font, menu scale 90 %): on a fresh client start the hub's rail labels drew
+// blank, one or two excepted, and stayed blank on every return from Options; a /reload brought them back. The
+// client lays a window's first strings out blank and draws them only once their text is set again in a later frame
+// (setting the same text changes nothing). The stub models that: a label set in the frame its window shows is
+// blank until set in a later one. Every rail label must show, at 80, 90 and 100 %, in English and German.
+fn rail_labels(before: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		before: before.into(),
+		addons: vec![Addon::files("Polestar", &FILES)],
+		script: format!(
+			"uistub.install()\nstub.login()\nlocal UI, P = Polestar.UI, Polestar.UI.Picker\n{}",
+			r#"
+		local hooked = {}
+		local function shown(f)
+			for _, b in ipairs(f.railButtons) do
+				local l = b.Label
+				if not hooked[l] then
+					hooked[l] = true
+					local set = l.SetText
+					l.SetText = function(self, ...)
+						if GetTime() > self.psShownAt then self.psBlank = nil end
+						return set(self, ...)
+					end
+				end
+				l.psBlank, l.psShownAt = true, GetTime()
+			end
+		end
+		local function labels(f)
+			local out = {}
+			for _, b in ipairs(f.railButtons) do
+				if b:IsShown() then out[#out + 1] = b.Label.psBlank and "" or (b.Label:GetText() or "") end
+			end
+			return out
+		end
+		local out = {}
+		for _, scale in ipairs({ 0.8, 0.9, 1 }) do
+			Polestar.Set("ui.menuScale", scale)
+			if PolestarPicker then PolestarPicker:Hide() end
+			if PolestarOptions then PolestarOptions:Hide() end
+			UI.ShowPicker()
+			shown(PolestarPicker)
+			stub.advance(0.1)
+			local first = labels(PolestarPicker)
+			UI.ShowOptions()
+			shown(PolestarOptions)
+			stub.advance(0.1)
+			local options = labels(PolestarOptions)
+			UI.ShowPicker()
+			shown(PolestarPicker)
+			stub.advance(0.1)
+			local want = {}
+			for _, item in ipairs(P.FootItems()) do want[#want + 1] = item.label end
+			for _, item in ipairs(P.RailItems()) do want[#want + 1] = item.label end
+			out[#out + 1] = { scale = PolestarPicker:GetScale(), want = want, first = first, options = options, back = labels(PolestarPicker) }
+		end
+		emit(out)"#
+		),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+#[test]
+fn every_rail_label_shows_on_the_hub_s_first_show_and_on_the_way_back_from_options_at_80_90_and_100_percent_in_english_and_german() {
+	let german = format!("function GetLocale() return \"deDE\" end\n{}", forge_addontest::shipped_strings("deDE"));
+	for (locale, before, lookup) in [("enUS", "", "Lookup"), ("deDE", german.as_str(), "Nachschlagen")] {
+		let out = rail_labels(before);
+		let runs = out.as_array().unwrap();
+		assert_eq!(runs.len(), 3);
+		for (run, scale) in runs.iter().zip([0.8, 0.9, 1.0]) {
+			assert_eq!(run["scale"].as_f64().unwrap(), scale, "{locale}");
+			let want = &run["want"];
+			assert!(want.as_array().unwrap().iter().any(|l| l.as_str() == Some(lookup)), "{locale}: {want}");
+			assert_eq!(&run["first"], want, "{locale} {scale}: the hub's first show");
+			assert_eq!(&run["options"], want, "{locale} {scale}: the settings' rail");
+			assert_eq!(&run["back"], want, "{locale} {scale}: back from the settings");
+		}
+	}
 }

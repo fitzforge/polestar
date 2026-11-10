@@ -22,8 +22,8 @@ return {
 	-- Step 3: Defias Dockmaster
 	-- {npc:6846} Defias Dockmaster · {area:797} Jerod's Landing · {area:87} Goldshire · {spell:921} Pick Pocket · {spell:2070} Sap
 	["The {npc:6846} (level 10, a goblin) works in the dock house at {area:797}, on the river at Elwynn's southern edge, south of {area:87}. Stealth in and {spell:921} him from behind: the schedule never drops from his corpse. Do not open with {spell:2070} or a fight: he calls in three waves of bodyguards. Keep away from the fireplaces in the house; they burn you out of stealth. He is back 2 to 5 minutes after a death."] = "",
-	-- {item:7675} Defias Shipping Schedule · {spell:921} Pick Pocket · {npc:6846} Defias Dockmaster
-	["{item:7675}: {spell:921} the {npc:6846}"] = "",
+	-- {spell:921} Pick Pocket · {npc:6846} Defias Dockmaster · {item:7675} Defias Shipping Schedule
+	["{spell:921} the {npc:6846} for the {item:7675}"] = "",
 
 	-- Step 4: Back to Mathias Shaw
 	["Back to Mathias Shaw"] = "마티아스 쇼에게 돌아가기",
@@ -58,7 +58,7 @@ return {
 	-- {npc:6909} Sethir the Ancient · {area:264} Oracle Glade · {spell:2983} Sprint
 	["{npc:6909} (level 12 satyr) lives out on a great branch north of the {area:264}: go through the V-shaped gap in the wall north of the glade and out along the branch. Pick his pocket for the journal; killing him does not give it, and a fight brings out three Minions of Sethir. He walks between the main branch and a side branch: wait stealthed at the far end of the main branch and pick him from behind when he comes back. Then {spell:2983} away. He is back 8 1/2 minutes after a death."] = "",
 	-- {item:7737} Sethir's Journal
-	["{item:7737}: Pick Pocket Sethir the Ancient"] = "",
+	["Pick Pocket Sethir the Ancient for {item:7737}"] = "",
 
 	-- Step 12: Back to Syurna
 	-- {npc:4163} Syurna

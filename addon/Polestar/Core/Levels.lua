@@ -43,8 +43,9 @@
 --       step or the Codex, and with no target (no `level` goal ahead in a
 --       guide that is not a leveling one)
 --   Levels.StepHint(i[, p]) -> { quest, title, level, you } | nil  -- step i
---       of the active guide holds an open quest 3 or more levels above the
---       character (you: their level and share of it, 19.75)
+--       of the active guide holds work (not an accept, a hand-in or a talk)
+--       on an open quest 3 or more levels above the character (you: their
+--       level and share of it, 19.75)
 --   Levels.QuestLevel(qid[, g]) -> level | nil  -- guide g's own (an accept's
 --       qlvl), else the Codex's while loaded, else the client's
 --   Levels.Player() -> p ; Levels.LEVEL_XP[L] -> XP from L to L + 1 ; Levels.MAX_LEVEL
@@ -229,6 +230,23 @@ local function lootKills(Cx, goal)
 	return ceil((goal.count or 1) / (min(best.chance, 100) / 100)), mob, elite
 end
 
+-- A span's entries depend on the guide (its table: an updated import is a new one), the span, who the character is (level, class, race, faction:
+-- the steps' `only`) and which quests are turned in; not on the XP inside a level, which moves on every
+-- kill. The guide window's pace line asks on every PLAYER_XP_UPDATE (GF.UpdateXP > Levels.Pace, up to
+-- five spans through hardQuest), and each scan walked every step left, building a table per goal: a
+-- 5-25 ms frame per kill on a long guide, then its garbage. Kept until one of those changes.
+local spans, spanCount = {}, 0
+local SPAN_MAX = 32
+function Levels.Invalidate()
+	spans, spanCount = {}, 0
+end
+for _, ev in ipairs({ "QUEST_TURNED_IN", "PLAYER_LEVEL_UP" }) do
+	if ns.RegisterEvent then ns.RegisterEvent(ev, Levels.Invalidate) end
+end
+for _, msg in ipairs({ "GUIDES_REGISTERED", "PACKS_CHANGED", "CODEX_LOADED", "GUIDE_CHANGED" }) do
+	if ns.On then ns.On(msg, Levels.Invalidate) end
+end
+
 function Levels.ForGuide(id, p, from, to)
 	local G, Cx = ns.Guides, ns.Codex
 	local g = G and G.Get and G.Get(id)
@@ -238,6 +256,9 @@ function Levels.ForGuide(id, p, from, to)
 		if not (ns.Get("lookup.enabled") and Cx.Load and Cx.Load()) then return nil end
 	end
 	p = p or Levels.Player()
+	local key = table.concat({ tostring(g), tostring(from), tostring(to), tostring(p.level), tostring(p.class), tostring(p.race), tostring(p.faction) }, "|")
+	local cached = spans[key]
+	if cached then return Levels.Run(cached, p, not from and g.minLevel or nil) end
 	local C = ns.Compat
 	local fits = G.Matches
 	local function applies(only)
@@ -277,6 +298,8 @@ function Levels.ForGuide(id, p, from, to)
 			end
 		end
 	end
+	if spanCount >= SPAN_MAX then spans, spanCount = {}, 0 end
+	spans[key], spanCount = entries, spanCount + 1
 	return Levels.Run(entries, p, not from and g.minLevel or nil)
 end
 
@@ -322,12 +345,39 @@ function Levels.QuestLevel(qid, g)
 	return C and C.GetQuestLevel and C.GetQuestLevel(qid) or nil
 end
 
+-- Whether quest q asks for work in guide g: a goal of its own objectives in
+-- the guide (kill, collect, use, interact, complete, or one naming its
+-- objective), or objectives in the Codex (work done in another guide). A
+-- delivery (Calling in the Reserves: taken at Sun Rock, handed in at the
+-- Great Lift) has none: its level asks nothing of the character.
+local worked = setmetatable({}, { __mode = "k" })
+local WORK = { kill = true, collect = true, use = true, interact = true, complete = true }
+local function asksWork(g, q)
+	local map = worked[g]
+	if not map then
+		map = {}
+		for _, step in ipairs(g.steps) do
+			for _, goal in ipairs(type(step.goals) == "table" and step.goals or {}) do
+				local t = goal.t
+				if goal.quest and t ~= "accept" and t ~= "turnin" and t ~= "note" and (WORK[t] or goal.oi ~= nil) then map[goal.quest] = true end
+			end
+		end
+		worked[g] = map
+	end
+	if map[q] then return true end
+	local Cx = ns.Codex
+	local rec = Cx and Cx.IsLoaded and Cx.IsLoaded() and Cx.Quest and Cx.Quest(q)
+	return type(rec) == "table" and type(rec.objectives) == "table" and #rec.objectives > 0
+end
+
 -- The highest open quest on step s of guide g for this character: a goal of
 -- a quest neither done nor ready to hand in, other than its turn-in or a
--- talk (never hard); with `work`, not its accept either (taking a quest is
--- not doing it: the pace line points at the step that does). The active
--- guide asks the Engine what applies (`when`, quests the route leaves out);
--- another, the steps' and goals' `only`. -> quest, level, title | nil
+-- talk (never hard), of a quest that asks for work (asksWork: never a
+-- delivery); with `work`, not its accept either (taking a quest is not
+-- doing it: the pace line points at the step that does). The active guide
+-- asks the Engine what applies (`when`, quests the route leaves out);
+-- another, the steps' and goals' `only`. -> quest, level, title (the
+-- client's, Polestar.Names, else the guide's) | nil
 local function stepQuest(g, s, p, work)
 	local step = g.steps[s]
 	if not (step and type(step.goals) == "table") then return nil end
@@ -338,7 +388,7 @@ local function stepQuest(g, s, p, work)
 	local best, lvl, title
 	for gi, goal in ipairs(step.goals) do
 		local q, t = goal.quest, goal.t
-		local open = q and t ~= "turnin" and t ~= "talk" and not (work and t == "accept")
+		local open = q and t ~= "turnin" and t ~= "talk" and not (work and t == "accept") and asksWork(g, q)
 			and not (C and C.IsQuestCompleted and C.IsQuestCompleted(q))
 			and not (C and C.IsQuestReadyForTurnIn and C.IsQuestReadyForTurnIn(q))
 		if open then
@@ -351,7 +401,7 @@ local function stepQuest(g, s, p, work)
 		local l = open and Levels.QuestLevel(q, g)
 		if l and (not lvl or l > lvl) then best, lvl, title = q, l, goal.title end
 	end
-	return best, lvl, title
+	return best, lvl, best and ns.Names and ns.Names.Quest(best) or title
 end
 
 function Levels.StepHint(i, p)
@@ -361,7 +411,9 @@ function Levels.StepHint(i, p)
 	p = p or Levels.Player()
 	local lvl = p.level or 1
 	if lvl >= MAX_LEVEL then return nil end
-	local q, l, title = stepQuest(g, i, p)
+	-- Only work on the step counts (kills, objectives): taking a quest above
+	-- your level early is normal, and an accept-only step says nothing.
+	local q, l, title = stepQuest(g, i, p, true)
 	if not (l and l - lvl >= HARD) then return nil end
 	return { quest = q, title = title, level = l, you = lvl + ((p.xpMax or 0) > 0 and (p.xp or 0) / p.xpMax or 0) }
 end

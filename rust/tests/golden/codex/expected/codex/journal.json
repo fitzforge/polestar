@@ -456,7 +456,7 @@
 					"finish": {
 						"f": null,
 						"id": 8929,
-						"inside": false,
+						"inside": true,
 						"kind": "npc",
 						"map": null,
 						"name": "Princess Moira Bronzebeard",

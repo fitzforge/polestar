@@ -13,7 +13,7 @@ return {
 
 	-- Step 1: Lorekeeper Lydros
 	-- {area:1099} Camp Mojache · {area:2577} Dire Maul · {zone:1444} Feralas · {npc:14368} Lorekeeper Lydros · {item:18249} Crescent Key · {item:18594} Powerful Seaforium Charge
-	["Fly to Feathermoon (Alliance) or {area:1099} (Horde) and ride to {area:2577} in central {zone:1444}. {npc:14368} waits in the Athenaeum, the library, reached through the West wing, or through the North wing's courtyard doors with a {item:18249} (it drops from the imp Pusillin in the East wing; a {item:18594} also opens them; Blink no longer gets past). Other mages in your group can take it too: share it."] = "",
+	["Fly to Feathermoon (Alliance) or {area:1099} (Horde) and ride to {area:2577} in central {zone:1444}. {npc:14368} waits in the Athenaeum, the library, reached through the West wing, or through the North wing's courtyard doors with a {item:18249} (it drops from the imp Pusillin in the East wing; a {item:18594} also opens them; Blink no longer gets past). Other mages in your group can take it too: share it."] = "联盟飞往羽月要塞，部落飞往{area:1099}，再骑行前往{zone:1444}中部的{area:2577}。{npc:14368}在图书馆等候，可从西区抵达，或使用{item:18249}打开北区庭院的门进入。钥匙由东区小鬼普希林掉落，{item:18594}也能开门；现在已无法用闪现穿过去。小队里的其他法师也能接取，记得共享任务。",
 
 	-- Step 2: Hydrospawn
 	["Hydrospawn"] = "海多斯博恩",
@@ -25,7 +25,7 @@ return {
 	-- Step 3: Back to Lydros
 	["Back to Lydros"] = "回到莱德罗斯处",
 	-- {npc:14368} Lorekeeper Lydros · {spell:10140} Conjure Water
-	["{npc:14368}: {spell:10140}, and 200 Shen'dralar reputation"] = "",
+	["{npc:14368}: {spell:10140}, and 200 Shen'dralar reputation"] = "{npc:14368}：学习{spell:10140}，并获得 200 点辛德拉声望",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to Feathermoon (Alliance) or {area:1099} (Horde) and ride to {area:2577} in central {zone:1444}. {npc:14368} waits in the Athenaeum, the library, reached through the West wing (or the North wing with a {item:18249})."] = "飞往羽月要塞（联盟）或{area:1099}（部落），然后骑行到{zone:1444}中部的{area:2577}。{npc:14368}在图书馆等候，经由西区（或持有{item:18249}经由北区）到达。",

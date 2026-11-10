@@ -20,7 +20,7 @@
 ## Title-zhTW: Polestar 指南（地精）
 ## Notes-zhTW: Polestar 為地精角色提供的升級指南及其步行路線。按需載入。
 ## Author: Polestar
-## Version: 0.3.4
+## Version: 0.3.6
 ## Category: Polestar
 ## Group: Polestar
 ## LoadOnDemand: 1

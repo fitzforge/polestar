@@ -33,12 +33,12 @@ reward text Khan Jehn's quest: a clan title and a choice of three rare level 35 
 # Magram series between Broken Tears and Valley of Bones; the Gelkis series has no such step). Its Conqueror's
 # Helm has no source in Forever's data; Warug sends you to "a crypt" in the Badlands. In-game check: does Warug
 # offer Valley of Bones without it, and where is the helm?
-# INGAME: grey-quest rep. In Classic a quest paid full only while at most 5 levels below you, then a fifth less
-# per level down to a fifth (Buying Friendship, level 45, would pay 600 at 60); a Forever beta report says quests
-# paid in full at any level. Economic Warfare is a level 60 quest: never cut.
+# Low-level quests pay their full reputation in Forever at any level: in players' recordings every
+# quest turn-in 10 to 29 levels above the quest paid all of it (72 turn-ins, over 40 people, 2026-11-09),
+# as one beta report said (quest 456 at level 30). Classic cut it to a fifth.
 
 step Pick your clan
-  tip The Gelkis (south-west Desolace) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now, and the choice quests no longer cost the other clan anything. Alliance: Captain Pentigast at Nijel's Point offers Strange Alliance (Gelkis) and Brutal Politics (Magram). Horde: Gurda Wildmane, east of Shadowprey, offers Gelkis Alliance and Magram Alliance. Take the one of your clan and its Buying Friendship (3,000 for carrying a tote of totems), then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it jumps to the Magram half. Do the clan's quests by level 50 if you can: in Classic a quest pays less once it is 6 or more levels below you, down to a fifth.
+  tip The Gelkis (south-west Desolace) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now, and the choice quests no longer cost the other clan anything. Alliance: Captain Pentigast at Nijel's Point offers Strange Alliance (Gelkis) and Brutal Politics (Magram). Horde: Gurda Wildmane, east of Shadowprey, offers Gelkis Alliance and Magram Alliance. Take the one of your clan and its Buying Friendship (3,000 for carrying a tote of totems), then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it jumps to the Magram half. Forever pays these quests in full at any level.
   accept 1382 optional only Alliance  -- Strange Alliance: Gelkis
   accept 93227 optional only Alliance -- Buying Friendship: Gelkis
   accept 1368 optional only Horde     -- Gelkis Alliance
@@ -87,6 +87,7 @@ step Gelkis: totems and kills to Honored
 
 step Gelkis: the Valley of Bones
   tip At Honored, Uthek sends you east to Nerlokh at the southern entrance of the Valley of Bones, in Shen'dralas. Nerlokh's quests (500 each) take you among the undead and the outcasts there: Ravaging Ravagers, Outing Outcasts and Facing the Truth, then A Cleansing Cry from Uthek, and a second line (Saving Our Own, Bone Burying, Checking Things Out) that ends with Khan Jehn: kill the Magram khan in his own village for 6,000, a title and a rare level 35 weapon. They all ask you to stay Honored or better. Honored to Revered is 12,000: the valley's quests pay about 10,600 of it, two or three Economic Warfare turn-ins the rest.
+  level 35
   accept 93034                        -- Uthek the Wise: Valley of Bones
   zone Shen'dralas
   turnin 93034                        -- Nerlokh: 125
@@ -161,6 +162,7 @@ step Magram: totems and kills to Honored
 
 step Magram: the Valley of Bones
   tip At Honored, and after A Conqueror's Crown, Warug sends you to Orgrul at the northern entrance of the Valley of Bones, in Shen'dralas. Orgrul's quests (500 each: Mountain of Bones, Outcast Necromancers, Corrupting Tears, Proof of Concept, No Mercy for the Weak, Bone Raising) and Hagiak's at the Magram Front (Bristleback Retreat, Long-Term Solutions, Threat of Starvation, Return to Orgrul) end with Khan Jehn: raise the dead khan with Orgrul's staff at the tent by the lake in Magram Village, for 6,000, a title and a rare level 35 weapon. They all ask you to stay Honored or better. Honored to Revered is 12,000: the valley's quests pay about 11,000 of it, two Economic Warfare turn-ins the rest.
+  level 35
   accept 92841                        -- Warug: Valley of Bones
   zone Shen'dralas
   turnin 92841                        -- Orgrul: 125

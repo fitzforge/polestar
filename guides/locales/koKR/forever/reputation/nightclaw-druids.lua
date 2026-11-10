@@ -16,21 +16,21 @@ return {
 
 	-- Step 1: Skyboat from Dalaran
 	-- {area:279} Dalaran
-	["Skyboat from {area:279}"] = "",
+	["Skyboat from {area:279}"] = "{area:279}에서 하늘배 타기",
 	-- {zone:2521} Zephras Isle · {area:279} Dalaran · {zone:1456} Thunder Bluff
 	["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the north side of {area:279} about every five minutes; another flies from north of {zone:1456}, and either faction may take either."] = "",
 	-- {zone:2521} Zephras Isle
-	["Skyboat to {zone:2521}"] = "",
+	["Skyboat to {zone:2521}"] = "하늘배로 {zone:2521}에 가기",
 
 	-- Step 2: Skyboat from Thunder Bluff
 	-- {zone:1456} Thunder Bluff
-	["Skyboat from {zone:1456}"] = "",
+	["Skyboat from {zone:1456}"] = "{zone:1456}에서 하늘배 타기",
 	-- {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:279} Dalaran
 	["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes; another flies from {area:279}, and either faction may take either."] = "",
 
 	-- Step 3: Lotheluum Starbreeze
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar
-	["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Come early: in Classic a quest pays less once you are 6 levels above it, a fifth at most from 9 levels up, and these are level 11 to 13 quests."] = "",
+	["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Players' turn-ins paid their full reputation well above these quests' level."] = "",
 
 	-- Step 4: Elegael Thornpaw
 	-- {area:16631} Shadowgale Forest · {npc:257944} Elegael Thornpaw
@@ -78,7 +78,7 @@ return {
 
 	-- Step 12: Back to Valanaar
 	-- {area:16638} Valanaar
-	["Back to {area:16638}"] = "",
+	["Back to {area:16638}"] = "{area:16638}(으)로 돌아가기",
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar · {area:16626} Gustberry Lowlands
 	["{npc:252359} waits in {area:16638}. Hand in on your way to a skyboat or to the {area:16626}."] = "",
 

@@ -250,6 +250,8 @@ pub struct Goal {
 	pub level: Option<f64>,
 	/// `level N.frac` (0..1) for level goals.
 	pub frac: Option<f64>,
+	/// `level N grind <npc>`: the mob the level is reached on.
+	pub grind: Option<u32>,
 	pub count: Option<u32>,
 	/// `quest Q[.O]`.
 	pub quest_obj: Option<(u32, Option<u32>)>,
@@ -298,6 +300,7 @@ impl Goal {
 			rank: None,
 			level: None,
 			frac: None,
+			grind: None,
 			count: None,
 			quest_obj: None,
 			at: None,
@@ -362,6 +365,9 @@ impl Goal {
 					}
 					_ => crate::js::num_str(l),
 				});
+				if let Some(id) = self.grind {
+					w.push(format!("grind {id}"));
+				}
 			}
 			Verb::Money => w.push(self.money.unwrap_or(0).to_string()),
 			Verb::Wait => w.push(self.seconds.unwrap_or(1).to_string()),
@@ -711,15 +717,18 @@ fn goal_from_compiled(c: &V) -> Option<Goal> {
 	g.place = s("location");
 	g.level = n("level");
 	g.frac = n("frac");
+	g.grind = num_u32(c.get("grind"));
 	g.count = num_u32(c.get("count"));
 	if !matches!(verb, Verb::Accept | Verb::Turnin | Verb::Complete | Verb::Abandon) {
 		if let Some(q) = num_u32(c.get("quest")) {
 			g.quest_obj = Some((q, num_u32(c.get("oi"))));
 		}
 	}
-	g.map = num_u32(c.get("map"));
+	// A level goal's place is its grind mob's spawn area, filled in by the compiler: `level` takes no coordinates.
+	let placed = verb != Verb::Level;
+	g.map = num_u32(c.get("map")).filter(|_| placed);
 	g.at = match (n("x"), n("y")) {
-		(Some(x), Some(y)) => Some(At { x, y }),
+		(Some(x), Some(y)) if placed => Some(At { x, y }),
 		_ => None,
 	};
 	g.r = n("r");

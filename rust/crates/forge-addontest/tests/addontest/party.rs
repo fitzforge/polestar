@@ -568,7 +568,8 @@ Polestar.Widgets.OnOptionsRegistered(function(spec)
 	end
 end)
 emit(keys)
-emit({ Polestar.Get("party.share"), Polestar.Get("party.show"), Polestar.Get("party.waitForGroup"), Polestar.Get("party.lootNeeds"), Polestar.Get("party.panel"), Polestar.Get("party.chat") })"#,
+emit({ Polestar.Get("party.share"), Polestar.Get("party.show"), Polestar.Get("party.waitForGroup"), Polestar.Get("party.lootNeeds"), Polestar.Get("party.panel"), Polestar.Get("party.chat"), Polestar.Get("party.chatLoot") })
+emit({ Polestar.Get("party.chatEcho"), Polestar.Get("party.chatHideOthers"), Polestar.Get("party.chatOnlyNeeded") })"#,
 		LIVE_STUBS,
 		SHOWN_FILES,
 		true,
@@ -582,10 +583,15 @@ emit({ Polestar.Get("party.share"), Polestar.Get("party.show"), Polestar.Get("pa
 			"Questing/Group/party.waitForGroup",
 			"Questing/Group/party.lootNeeds",
 			"Questing/Group/party.panel",
-			"Questing/Group/party.chat"
+			"Questing/Group/party.chat",
+			"Questing/Group/party.chatLoot",
+			"Questing/Group/party.chatEcho",
+			"Questing/Group/party.chatHideOthers",
+			"Questing/Group/party.chatOnlyNeeded"
 		])
 	);
-	assert_eq!(out[1], json!([true, true, true, true, true, true]), "the panel opens by itself once a member is heard (#1018)");
+	assert_eq!(out[1], json!([true, true, true, true, true, true, true]), "the panel opens by itself once a member is heard (#1018)");
+	assert_eq!(out[2], json!([false, false, false]), "own lines, hiding others' and the Polestar-only quiet start off");
 }
 
 // Found by the final review (Codex and a fresh reviewer).
@@ -1161,6 +1167,31 @@ emit(P.ShareFor(goal) == nil)"#
 	assert_eq!(out[7], true, "a quest the game will not share: no Share");
 }
 
+// In the client's chat lockdown (encounters, dungeons: CHAT_MSG_SYSTEM is SecretInChatMessagingLockdown in Forever's
+// ChatInfoDocumentation) the share's answer comes as a secret string, and matching one throws. Lua 5.1 has no secret
+// type, so the stub marks the line secret through issecretvalue: a handler that parsed it would mark Dee "already
+// done"; the share's answer reads as no answer instead.
+#[test]
+fn party_a_secret_system_line_after_a_share_is_never_parsed() {
+	let out = group(&format!(
+		"{QDB}{}",
+		r#"
+local secret = {}
+function issecretvalue(v) return type(v) == "string" and secret[v] ~= nil end
+local goal = { t = "kill", quest = 33, oi = 1, status = "active" }
+p.join("Dee")
+p.set("Dee", { level = 12, class = "WARRIOR", race = "Human" })
+w.onQuest(33, { 8 })
+emit(P.Share(33))
+secret[ERR_QUEST_PUSH_ALREADY_DONE_S:format("Dee")] = true
+p.pushResult("Dee", "ERR_QUEST_PUSH_ALREADY_DONE_S")
+stub.advance(1)
+emit(P.Line(goal))"#
+	));
+	assert_eq!(out[0], true);
+	assert_eq!(out[1], "Not on this quest: Dee", "the secret line is passed over, never parsed");
+}
+
 const PANEL_GUIDE: &str = r#"
 local E = Polestar.Engine
 E.GetGuide = function() return { id = "test/g", pack = "test", steps = { [5] = { title = "Kobold Camp" } } } end
@@ -1199,7 +1230,7 @@ emit(PP.Frame():IsShown())
 stub.fire("PLAYER_REGEN_ENABLED")
 emit(PP.Frame():IsShown())
 local t
-Polestar.Nav = { SetTarget = function(map, x, y, label) t = { map, x, y, label }; return true end, GetTarget = function() return t end }
+Polestar.Nav = { SetTarget = function(map, x, y, label) t = { map, x, y, label }; return t end, GetTarget = function() return t end }
 emit({ P.PointAt("party1"), t, P.PointAt("party2") })
 p.disband()
 emit(PP.Frame():IsShown())"#

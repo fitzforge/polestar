@@ -38,9 +38,9 @@ ns.IssueURL = "https://github.com/fitzforge/polestar/issues/new"
 local pcall, type, pairs, select, tostring = pcall, type, pairs, select, tostring
 
 -- Translations: a key is the English text, and a missing key renders as
--- itself. A locale file loaded right after this one fills L for its client,
--- so nothing in this file reads L at load: the commands with their help
--- lines register in Commands.lua.
+-- itself. The client's language folder fills L when Core/Locale.lua loads
+-- it, so nothing in this file (nor any before Locale.lua) reads L at load:
+-- the commands with their help lines register in Commands.lua.
 local L = setmetatable({}, { __index = function(_, key) return key end })
 ns.L = L
 
@@ -50,6 +50,20 @@ ns.L = L
 -- "Chest" while there is none.
 function ns.LC(context, text)
 	return rawget(L, context .. ": " .. text) or text
+end
+
+-- A quest's name in running text, in the client's own quote marks ("Turn in
+-- “Your Place in the World”", Havi's suggestion): the translation of
+-- "quote marks: “%s”" (deDE „…“, frFR « … », ruRU «…», zhTW 「…」, ...).
+-- A name that already holds double quotes, guillemets or corner brackets
+-- keeps its own; nil and "" come back as they are.
+local OWN_QUOTES = { '"', "\226\128\156", "\226\128\157", "\226\128\158", "\194\171", "\194\187", "\227\128\140", "\227\128\141", "\227\128\142", "\227\128\143" }
+function ns.Quoted(name)
+	if type(name) ~= "string" or name == "" then return name end
+	for _, q in ipairs(OWN_QUOTES) do
+		if name:find(q, 1, true) then return name end
+	end
+	return ns.LC("quote marks", "\226\128\156%s\226\128\157"):format(name)
 end
 
 -- An amount of copper as the guide window writes it: "1g 50s", "7s", "25c"
@@ -175,18 +189,39 @@ function ns.Errors() return errors end
 -- function), for the report: taint is no Lua error, so without these a
 -- report on a broken gamepad or button reads "Errors: none". The last few,
 -- oldest first, each with the Polestar addon blamed, how often and when it
--- last came.
+-- last came. Only our own addons count: another author's "Polestar_..."
+-- folder (Polestar_Mob_Markers, #1123) is not ours. `where` is the first line
+-- of our code under the blocked call (the event fires inside it), since the
+-- game names a namespaced or anonymous frame's function only "UNKNOWN()".
 local MAX_BLOCKED = 5
 local blocked = {}
+local function ownAddon(addon)
+	if addon == ADDON then return true end
+	if not addon:find("^Polestar_") then return false end
+	local get = C_AddOns and C_AddOns.GetAddOnMetadata
+	local author = get and get(addon, "Author")
+	return type(author) == "string" and (author == "Polestar" or author:find("^Polestar;") ~= nil)
+end
+local function blockedSite()
+	if type(debugstack) ~= "function" then return nil end
+	local stack = debugstack(2, 40, 0) or ""
+	for path, line in stack:gmatch("AddOns[/\\](Polestar[%w_]*[/\\][^:\"%]\n]-%.lua)\"?%]?:(%d+)") do
+		local rel = path:gsub("\\", "/")
+		-- This handler and the event dispatch in this file.
+		if rel ~= ADDON .. "/Core/Init.lua" then return rel .. ":" .. line end
+	end
+	return nil
+end
 function ns.NoteBlocked(addon, fn)
-	if type(addon) ~= "string" or not (addon == ADDON or addon:find("^Polestar_")) then return end
+	if type(addon) ~= "string" or not ownAddon(addon) then return end
 	fn = tostring(fn or "?")
+	local where = blockedSite()
 	local at = date("%H:%M:%S")
-	ns.Log("blocked: " .. addon .. " " .. fn)
+	ns.Log("blocked: " .. addon .. " " .. fn .. (where and (" at " .. where) or ""))
 	seq = seq + 1
 	for i = 1, #blocked do
 		local e = blocked[i]
-		if e.addon == addon and e.fn == fn then
+		if e.addon == addon and e.fn == fn and e.where == where then
 			table.remove(blocked, i)
 			e.count, e.at, e.seq = e.count + 1, at, seq
 			blocked[#blocked + 1] = e
@@ -194,7 +229,7 @@ function ns.NoteBlocked(addon, fn)
 		end
 	end
 	if #blocked >= MAX_BLOCKED then table.remove(blocked, 1) end
-	blocked[#blocked + 1] = { addon = addon, fn = fn, count = 1, at = at, seq = seq }
+	blocked[#blocked + 1] = { addon = addon, fn = fn, where = where, count = 1, at = at, seq = seq }
 end
 function ns.Blocked() return blocked end
 
@@ -434,11 +469,18 @@ local function lookup(root, keys)
 	return node
 end
 
+-- The table DB() made when there was none: before the saved variables load
+-- (a file reading a setting as it loads), the client replaces it with the
+-- saved one if there is one, so still holding it at ADDON_LOADED means a
+-- fresh install.
+local madeDB
+
 local function DB()
 	local db = PolestarDB
 	if type(db) ~= "table" then
 		db = { schema = 1 }
 		PolestarDB = db
+		madeDB = db
 	end
 	if type(db.settings) ~= "table" then db.settings = {} end
 	return db
@@ -533,17 +575,27 @@ function ns.CharState()
 	if type(s.flags) ~= "table" then s.flags = {} end
 	-- Quest id -> true: the quests the player pinned as along the way (#644; Engine.PinQuest).
 	if type(s.pinnedQuests) ~= "table" then s.pinnedQuests = {} end
-	-- Guide id -> true: the leveling guides whose end the player reached (Engine.lua, Own.noteEnd), told once.
-	if type(s.guideEnds) ~= "table" then s.guideEnds = {} end
+	-- Guide id -> true: the leveling guides whose end the player reached (Engine.lua, Own.noteEnd), told once; it stands only while that end holds, and is forgotten by a reset or when a pack update changes the guide's steps (checkShape).
+	-- Those saved before 0.3.6 (guideEndsV unset) are dropped once: 0.3.5 reused guide ids for other parts of the route, and ended guides by where the player stood (the Undercity at the start of Hillsbrad), so any of them can be false; one without a live step shows nothing either way.
+	if type(s.guideEnds) ~= "table" or s.guideEndsV ~= 2 then
+		s.guideEnds, s.guideEndsV = {}, 2
+	end
 	return s
 end
 
 -- A character Polestar had never seen: no saved PolestarCharDB when the addon
 -- loaded. A /reload loads the saved table again, so it reads false after one.
 local newCharacter = false
+-- An account the same way: no saved PolestarDB (a fresh install), or only
+-- the table DB() made while the files loaded.
+local newAccount = false
 
 function ns.IsNewCharacter()
 	return newCharacter
+end
+
+function ns.IsNewAccount()
+	return newAccount
 end
 
 ---------------------------------------------------------------------------
@@ -566,6 +618,7 @@ function ns.IsLoggedIn() return loggedIn end
 local function onAddonLoaded(_, name)
 	if name ~= ADDON then return end
 	ns.UnregisterEvent("ADDON_LOADED", onAddonLoaded)
+	newAccount = type(PolestarDB) ~= "table" or PolestarDB == madeDB
 	DB()
 	newCharacter = type(PolestarCharDB) ~= "table"
 	ns.CharState()

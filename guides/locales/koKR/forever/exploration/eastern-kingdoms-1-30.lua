@@ -174,15 +174,12 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Cross the {area:881} in northern {zone:1437} into the {zone:1417} (level 30+ creatures off the road), follow the road west past {area:320} and on into {zone:1424}."] = "{zone:1437} 북쪽의 {area:881}을(를) 건너 {zone:1417}(으)로 가세요(길 밖에는 레벨 30 이상 몬스터). 길을 따라 서쪽으로 {area:320}을(를) 지나 {zone:1424}(으)로 가세요.",
-	-- ["Flight path here: {area:228} ({npc:2226})."] = "이곳의 비행 경로: {area:228} ({npc:2226}).",
 	-- ["From {area:925} take the tunnel west into {zone:1426}. {area:131} and {zone:1455}'s gates are Alliance ground."] = "{area:925}에서 서쪽 터널을 지나 {zone:1426}(으)로 가세요. {area:131}와(과) {zone:1455} 성문은 얼라이언스 지역입니다.",
 	-- ["From {area:925}, the road north through the {area:836} pass leads into the {zone:1437}."] = "{area:925}에서 {area:836} 고개를 지나 북쪽으로 가는 길이 {zone:1437}(으)로 이어집니다.",
-	-- ["Horde guards: touch the edge of {area:228} and move on"] = "호드 경비병: {area:228}의 가장자리만 밟고 지나가세요",
 	-- ["Leave {zone:1426} east through the gate tunnel; it opens into {zone:1432} at {area:925}."] = "동쪽 관문 터널을 지나 {zone:1426}을(를) 떠나세요. 터널은 {area:925}에서 {zone:1432}(으)로 이어집니다.",
 	-- ["Redridge starts at {area:1002}, where the roads from {zone:1429} and {zone:1431} meet."] = "붉은마루 산맥은 {zone:1429}와(과) {zone:1431}에서 오는 길이 만나는 {area:1002}에서 시작됩니다.",
 	-- ["Take the {area:2257} from {zone:1453}'s {object:28027} to {zone:1455} (or fly to {zone:1455}), then leave the city through its gates."] = "{zone:1453}의 {object:28027}에서 {area:2257}을(를) 타고 {zone:1455}(으)로 가세요(또는 {zone:1455}(으)로 날아가세요). 그런 다음 성문을 통해 도시를 나가세요.",
 	-- ["The {area:228}"] = "{area:228}",
-	-- ["{zone:1429} is north of {zone:1436} and {zone:1431}. {area:87}, {area:9} and {zone:1453}'s gates are Alliance ground with guards."] = "{zone:1429}은(는) {zone:1436}와(과) {zone:1431}의 북쪽에 있습니다. {area:87}, {area:9}, {zone:1453} 성문은 경비병이 있는 얼라이언스 지역입니다.",
 	-- ["{zone:1431} is east of {zone:1436} and south of {zone:1429}. Its road runs east to {area:42}."] = "{zone:1431}은(는) {zone:1436}의 동쪽, {zone:1429}의 남쪽에 있습니다. 길이 동쪽으로 {area:42}까지 이어집니다.",
 	-- ["{zone:1436} borders {zone:1429} to the west: follow the road out past the {area:120}."] = "{zone:1436}은(는) {zone:1429}의 서쪽에 붙어 있습니다. {area:120}을(를) 지나 길을 따라 나가세요.",
 }

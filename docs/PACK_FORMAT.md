@@ -547,7 +547,7 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 
 | Verb `t` | Required | Optional |
 |---|---|---|
-| `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `pre`, `preAll`, `closedBy`, `preTitles` |
+| `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `limit`, `pre`, `preAll`, `closedBy`, `preTitles` |
 | `turnin` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `rewards = { choices = { { item, itemName, quality } }, items = { ... }, xp, money }`, `direct` |
 | `complete` | `quest`, `title` | `objs`, `startItem`, `startItemName` |
 | `abandon` | `quest`, `title` (format 5) | — |
@@ -565,10 +565,10 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 | `fly` | `location` | `area` |
 | `enter` | `location` (format 5) | `area`, `map`, `x`, `y` |
 | `cast` | `spell`, `spellName` (format 5) | `map`, `x`, `y` |
-| `train` | — | `npc`, `npcName`, `class`, `skill`, `skillLine`, `rank`, `rankMax`, `candidates`, `gossip` |
+| `train` | — | `npc`, `npcName`, `class`, `zone`, `skill`, `skillLine`, `rank`, `rankMax`, `candidates`, `gossip` |
 | `buy` | `item`, `itemName` | `count`, `npc`, `npcName`, `candidates` |
 | `vendor` | — | `npc`, `npcName`, `candidates`, `gossip` |
-| `level` | `level` | `frac` (format 4) |
+| `level` | `level` | `frac` (format 4), `grind` with `npcName`, `map`, `x`, `y`, `f`, `spots`, `spread`, `lvl` |
 | `money` | `money`: copper (format 5) | — |
 | `wait` | `seconds` | `text` |
 | `task` | `text` (format 5) | — |
@@ -589,16 +589,19 @@ The fields:
 | `count` | number to collect, kill or buy; on `craft`, the number of items to make |
 | `oi` | 1-based quest objective index (`C_QuestLog.GetQuestObjectives`) |
 | `minLevel` | the level an `accept` needs; `qlvl` the quest's level (number or string) |
+| `limit` | on an `accept` of a timed quest: the seconds it allows once taken (Dynamic Questing takes it early only when the walk to it still fits). Polestar 0.3.6 and later also say under the accept how long it allows, and count down from the accept with it when the client reports no timer (a delivery quest) |
 | `pre` | prerequisite quest ids, any one suffices; `preAll` every one needed |
 | `closedBy` | quest ids that close this one once taken or done |
 | `preTitles` | `{ [questId] = title }` for the quests those name |
 | `profLine`, `profName`, `profRank` | on any goal of a quest only characters with a profession can take: its skill line id, name and the rank it needs; the goal is hidden from characters without it |
 | `location` | an inn, flight point or zone name as the game shows it |
 | `class` | `true` on `train`: the nearest trainer of the player's class |
+| `zone` | on a `train` with `class`: its step's zone (a uiMapID), written by the compiler from the step's `zone`. Polestar 0.3.7 and later rank the candidates on that map first, wherever the player stands, unless another stands within 100 yards of them; older Polestar ignores it |
 | `skill` | a profession name; `skillLine` its skill line id |
 | `rank`, `rankMax` | on `train`: the profession rank (1 Apprentice to 4 Artisan; Polestar also reads a rank name or a skill cap) and its skill cap (written by the compiler, not read by Polestar) |
 | `level` | on `level`: the level to reach; on `skill`: the skill to reach |
 | `frac` | on `level` (format 4): the share of the level's XP to reach, 0 < frac < 1 (above) |
+| `grind` | on `level`: the npc id of the mob the level is reached on (`level N grind <npc>`, GUIDE_FORMAT.md). The compiler places the goal at that mob's spawn areas, as a `kill`'s, leaving out the alternatives; Polestar 0.3.7 and later lead the arrow there rather than to a `goto` before it in the step. Older Polestar ignores it and leads to the goto, so it does not change the format |
 | `untilSkill` | on `craft`: craft until the profession reaches this skill |
 | `reagents` | `{ { item, itemName, count } }` |
 | `standing` | 1 Hated to 8 Exalted |
@@ -622,7 +625,7 @@ The fields:
 | `escort` | `true` on the accept, `complete` and objective goals of an escort quest: the guide window says under the goal that the NPC may have to respawn (GUIDE_FORMAT.md, "Escort quests"). Older Polestar ignores it |
 | `objs` | on a `complete`: its quest's objectives from the quest data, `{ { text, count } }`, which the guide window shows while the quest is not in the log (looked at ahead); in the log it shows the game's own lines. Older Polestar ignores it |
 | `startItem`, `startItemName` | on a `complete`: the item its quest hands over when taken (Tharnariun's Hope for Plagued Lands), id and name; while it is in the bags and usable the guide window starts the goal with "Use <item>:". Older Polestar ignores them |
-| `group` | format 2: the goal needs a group, shown under it in the guide window: `{ kind = "elite", rank = 1 }` (rank 1 elite, 2 rare elite, 3 boss: "Elite: group advised"), `{ kind = "dungeon", name = "Dire Maul" }` ("Dungeon: Dire Maul"), `{ kind = "raid", name = "Molten Core" }` ("Raid: Molten Core"), `{ kind = "group", size = 3 }` ("Group of 3 advised"; without `size`, "Group advised"). The compiler derives it or takes the author's `group [N]` (GUIDE_FORMAT.md, "Group content"); Polestar shows nothing for a kind it does not know |
+| `group` | format 2: the goal needs a group, shown under it in the guide window: `{ kind = "elite", rank = 1, lvl = 29 }` (rank 1 elite, 2 rare elite, 3 boss: "Elite: group advised"; `lvl`, when known, the elites' highest level, which also holds back the class-quest offer), `{ kind = "dungeon", name = "Dire Maul" }` ("Dungeon: Dire Maul"), `{ kind = "raid", name = "Molten Core" }` ("Raid: Molten Core"), `{ kind = "group", size = 3 }` ("Group of 3 advised"; without `size`, "Group advised"). The compiler derives it or takes the author's `group [N]` (GUIDE_FORMAT.md, "Group content"); Polestar shows nothing for a kind it does not know |
 
 Polestar 0.1.0 reads every verb above; 0.2.4 and later read the `group`
 keys; 0.2.4 and later read `z`; 0.2.5 and later read `area`, `node` and
@@ -713,8 +716,10 @@ changes, read by Polestar 0.3.0 and later:
   left out (`"57.6,62.1,,33,4"`, `"43.5,9.2,-12.5,110,19,1"`,
   `"51.1,47,,40,2,,12"`; `lvl` from Polestar 0.3.2). Polestar
   checks the string when the guide registers and builds the spot tables when
-  the goal's `spots` is first read; they stay on the goal for the session. A
-  table per spot costs about 250 bytes in the game, its text about 16.
+  the goal's `spots` is first read; they stay on the goal for the session.
+  Goals with the same string on the same map and frame share one list (from
+  Polestar 0.3.7). A table per spot costs about 250 bytes in the game, its
+  text about 16.
 - **Faction parts.** The pack's guides of one faction that no race part
   holds ship in `Polestar_Guides_Alliance` and `Polestar_Guides_Horde` beside
   it. Their TOC carries `## LoadOnDemand: 1`, `## Dependencies: Polestar,

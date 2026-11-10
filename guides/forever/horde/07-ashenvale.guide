@@ -2,15 +2,30 @@
 guide forever/horde/07-ashenvale
 title Ashenvale & Thousand Needles
 faction Horde
-levels 27-30
+levels 26-30
 zone Ashenvale
-next forever/horde/30-40/01-desolace
+next forever/horde/30-40/01-hillsbrad-foothills
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: The Broodmother (96261), Hypercapacitor Gizmo (5151).
-# Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): Hardened Shells (1105), A Bump in the Road (1175), Load Lightening (1176).
+# Added here: The Broodmother (96261), Hypercapacitor Gizmo (5151), The Tear of the Moons (857, a
+# level 30 quest, at 28 on the road from Camp Taurajo to the Great Lift, #1333).
+# Carried in from forever/horde/04-the-barrens' Thunder Bluff stop (or 06's for Druids), for players
+# who took them: The Sacred Flame (1195: the Etched Phial from Raynewood's Laughing Sisters, filled at
+# the moonwell south of them on the way to Mystral Lake; 1196 from Zangen on the Thunder Bluff stop to
+# Rau at Freewind; 1197 at the Ancient Brazier in Splithoof Hold, north of the Galak camps) and
+# Pigments for Paints (97538, Tah Winterhoof on the Thunder Bluff stop). Every step of theirs is shown
+# only to a player carrying the quest. Everyone flies from Zoram'gar to Thunder Bluff (04 teaches the
+# flight path; without it the arrow goes by Camp Taurajo and Mulgore).
+# The Mirage Raceway's quests (1110, 1104, 5762, 1105, 1176, 1175, Martek the Exiled 1106) are worked in one
+# visit at 33 in forever/horde/30-40/02-thousand-needles.
+# Stonetalon Standstill (25) is taken from Mastok on the first Splintertree stop and worked at Mystral
+# Lake with Tideress on the way back from Shadumbra: Tideress drops the Befouled Water Globe (The
+# Befouled Element 1918) only for a player with 25 in the log or handed in (players' recordings, #1346).
+# Troll Charm (6462), Between a Rock and a Thistlefur (216) and Freedom to Ruul (6482) are done on the
+# first Ashenvale visit at 21 (forever/horde/05-stonetalon-mountains), with Vorsha the Lasher (6641); King of the Foulweald (6621)
+# opens with 216's hand-in and is taken here from Karang.
 
 step Fly to Zoram'gar Outpost
   zone The Barrens
@@ -20,14 +35,9 @@ step Fly to Zoram'gar Outpost
 
 step Zoram'gar Outpost
   zone Ashenvale
-  accept 6641                         -- Muglash: starts his escort at once
+  tip Je'neu Sancrea stands in the outpost.
   turnin 6562                         -- Je'neu Sancrea
   accept 6563
-
-step Vorsha the Lasher
-  tip Muglash walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead.
-  goto 9.6,27.6 "Naga brazier"
-  complete 6641
 
 # The Sapphires (objects 178184-178186, 12.9-13.8,10.6-13.5) grow in the
 # tunnels under the strand that lead to the Blackfathom Deeps portal, outside
@@ -49,63 +59,36 @@ step Sapphires of Aku'Mai
   tip The Sapphires are blue crystals on the walls of the tunnels leading to the Blackfathom Deeps portal, underground and outside the instance: swim down from the pit, under the wall, into the cave. The satyrs and naga in the tunnels are elite: grouping up is advised. The crystals respawn quickly, so there is no need to go deep.
   collect 16784 quest 6563
 
-# ---------------------------------------------------------------- Thistlefur
-
-step Thistlefur Village
-  tip East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold.
-  tip Careful: A Shaman at 15% health or lower runs off to find help, which can pull extra furbolgs.
-  kill 3925 quest 216.1
-  kill 3924 quest 216.2
-
-step Thistlefur Hold
-  tip Inside the hold, Troll Chests lie along the tunnels. Ruul Snowhoof is held deep inside: free him and protect him all the way out, then he runs home to Night Run.
-  tip Careful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where Dal Bloodclaw roams.
-  collect 16602 quest 6462            -- Below ground
-  accept 6482                         -- Ruul Snowhoof, below ground
-  complete 6482
-
 step Zoram'gar Outpost
-  turnin 6641                         -- Warsong Runner
   note Je'neu offers a Blackfathom Deeps quest next; leave it unless you have a group.
-  tip Back west to Zoram'gar before heading east for good.
-  turnin 216                          -- Karang Amakkar
-  accept 6621
+  tip Back to Zoram'gar from the ruins before heading east for good.
   turnin 6563                         -- Je'neu Sancrea
-  turnin 6462                         -- Mitsuwa
+  accept 6621                         -- Karang Amakkar
 
 # ---------------------------------------------------------------- East along the road
 
+step Ruins of Stardust fountain
+  zone Ashenvale
+  only Shaman
+  tip The fountain stands in the middle of the Ruins of Stardust, where Ursangous roams: use the Empty Blue Waterskin there.
+  collect 7770 quest 1534.1
+
 step Ursangous
+  when turnedin 6383
   tip Follow the main road east past Astranaar (Alliance: keep to the road). Ursangous, a big grizzly, roams the Ruins of Stardust south of the road, west of Mystral Lake. His paw starts the next hunt quest.
   collect 16303
   accept 23 item 16303
 
 step Alonso
+  only Warrior
   tip Alonso, a Forever addition, stands on the west shore of Mystral Lake with three quick Dragonslayer quests.
   goto 42.4,70 "Alonso"
-  accept 78132 optional                   -- Alonso may not offer these to every class; if he doesn't, carry on.; walks around The Talondeep Path: the map marks where to look
+  accept 78132 optional               -- Alonso walks around the Talondeep Path: the map marks where to look
   turnin 78132
   accept 78133 optional
   turnin 78133
   accept 78134 optional
   turnin 78134
-
-step Ashenvale
-  only Shaman
-  zone Ashenvale
-  goto 12.2,33.8 "Ashenvale"
-
-step Ruins of Stardust fountain
-  zone Ashenvale
-  only Shaman
-  tip The fountain stands in the middle of the Ruins of Stardust: use the Empty Blue Waterskin there.
-  collect 7770 quest 1534.1
-
-step Tideress
-  zone Ashenvale
-  tip Tideress, a corrupted water elemental, drifts in Mystral Lake. Her Befouled Water Globe starts a quest for Splintertree.
-  collect 16408
-  accept 1918 item 16408
 
 step King of the Foulweald
   tip The Foulweald furbolgs hold the woods east of Mystral Lake, south of the road. Place Karang's Banner on the Foulweald Totem Mound and guard it: the furbolgs come to tear it down. Chief Murgut comes last; his totem drops in the basket.
@@ -117,56 +100,102 @@ step Torek's Assault
   accept 6544
   complete 6544
 
+step Sharptalon
+  when turnedin 6383
+  tip Sharptalon, a big nightsaber, prowls the woods south-east of the Warsong lumber camp, on the way north to Splintertree. Her claw starts the next hunt quest.
+  collect 16305
+  accept 2 item 16305
+
+# Splintertree from the road in: Ertog and Pixel by the gate, Senani, Mastok,
+# then the inn once (Yama and the innkeeper stand inside it together).
 step Splintertree Post
+  turnin 6544                         -- Ertog Ragetusk
   accept 6441                         -- Pixel
 
-step Splintertree Post
-  when onquest 1918
-  turnin 1918                         -- Mastok Wrilehiss
-
-step Splintertree Post
-  accept 824
-  turnin 6482                         -- Yama Snowhoof, inside
+step Senani Thunderheart
+  when !turnedin 6383
+  tip Senani Thunderheart keeps the hunt board at Night Run, by the flight master: take The Ashenvale Hunt and hand it straight back. Ursangous, Sharptalon and Shadumbra drop their trophies only after it.
+  accept 6383                         -- Senani Thunderheart
+  turnin 6383
 
 step Splintertree Post
   when onquest 23
   turnin 23                           -- Senani Thunderheart
 
 step Splintertree Post
-  sethome "Splintertree Post"
-  turnin 6544                         -- Ertog Ragetusk
+  accept 25                           -- Mastok Wrilehiss
+  sethome "Splintertree Post"         -- Innkeeper Kaylisk, beside her
   accept 6504 optional                -- Gurda Ragescar: only if you carry the manual pages
   turnin 6504 optional
   vendor nearest
-
-step Sharptalon
-  tip Sharptalon, a big nightsaber, prowls the woods south-east of the Warsong lumber camp. Her claw starts the next hunt quest.
-  collect 16305
-  accept 2 item 16305
 
 step Felmusk satyrs
   tip North-west of Splintertree, the Felmusk satyrs camp in the woods. Every satyr can drop horns.
   collect 5481 quest 6441
 
 step Shadumbra
+  when turnedin 6383
   tip Shadumbra, a shadow panther, stalks the woods around Raynewood Retreat, west of the Felmusk camp. Her head starts the next hunt quest.
   collect 16304
   accept 24 item 16304
 
+step Laughing Sisters
+  when onquest 1195
+  tip The Laughing Sisters, dryads, wander Raynewood Retreat around Shadumbra's woods; one of them drops Zangen's Etched Phial, which can take several kills.
+  collect 5867 @59.0,56.1             -- Etched Phial, from a Laughing Sister
+
+step Ashenvale Moonwell
+  when onquest 1195
+  tip South from Raynewood, the moonwell sits in a hollow west of the river, hard to see from the road; Mystral Lake is west of it. Use the Etched Phial at the moonwell to fill it.
+  use 5867 quest 1195.1 @60.2,72.9                 -- Etched Phial, at the Ashenvale Moonwell
+  collect 5868 quest 1195
+
+step Tideress
+  zone Ashenvale
+  tip Back south-west to Mystral Lake. Tideress, a corrupted water elemental, drifts around the lake's island and under the water. She drops the Befouled Water Globe only once you have Stonetalon Standstill from Mastok; it starts a quest for Splintertree.
+  collect 16408
+  accept 1918 item 16408
+
 step Mystral Lake
-  when onquest 25
-  tip Back south-west to Mystral Lake. Befouled Water Elementals drift around its shores; the gazebo stands on the island, overlooking the Alliance outpost.
+  tip Befouled Water Elementals drift around the lake's shores; the gazebo stands on the island, overlooking the Alliance outpost.
   kill 3917 quest 25.1                -- Underwater
   goto 48.9,69.6 "Gazebo"
   complete 25
 
+step Ursangous
+  when turnedin 6383
+  when !onquest 23
+  when !turnedin 23
+  tip West of Mystral Lake, Ursangous, a big grizzly, roams the Ruins of Stardust: his paw now drops for you.
+  collect 16303 @39.8,65.2
+  accept 23 item 16303
+
+step Sharptalon
+  when turnedin 6383
+  when !onquest 2
+  when !turnedin 2
+  tip On the way back north-east to Splintertree: Sharptalon prowls the woods south-east of the Warsong lumber camp.
+  collect 16305 @75.0,70.1
+  accept 2 item 16305
+
 step Splintertree Post
-  turnin 25                           -- Mastok Wrilehiss
-  turnin 2 optional -- Senani Thunderheart
+  when onquest 2,23,24
+  turnin 23 optional                  -- Senani Thunderheart
+  turnin 2 optional                   -- Senani Thunderheart
   turnin 24 optional
-  accept 247
+
+step Splintertree Post
+  accept 247                          -- Senani Thunderheart, once all three hunts are in
   turnin 247
   turnin 6441                         -- Pixel
+
+step Splintertree Post
+  turnin 25                           -- Mastok Wrilehiss
+
+step Splintertree Post
+  when onquest 1918
+  turnin 1918                         -- Mastok Wrilehiss
+  accept 824
 
 step Zoram'gar Outpost
   fly "Zoram'gar Outpost"
@@ -176,27 +205,30 @@ step Zoram'gar Outpost
   when onquest 824
   turnin 824                          -- Je'neu Sancrea
 
-step Fly to Camp Taurajo
+step Fly to Thunder Bluff
   zone Ashenvale
+  tip Fly to Thunder Bluff from Zoram'gar. If you don't know its flight path, fly to Camp Taurajo and walk north through Mulgore instead.
   goto 12.2,33.8 "Zoram'gar Outpost flight master"
-  fly "Camp Taurajo"
-  zone The Barrens
+  fly "Thunder Bluff"
+  zone Thunder Bluff
 
-step Mulgore
+step Skywatcher Plateau
+  only Orc,Troll,Undead,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock,Druid
   zone Mulgore
-  goto 40.6,22.2 "Mulgore"
+  tip The Earthen Ring camp and its three quests stand up on Skywatcher Plateau, north of Thunder Bluff. Fly to Thunder Bluff if you know its flight path and take a lift down, else fly to Camp Taurajo and walk north through Mulgore; the arrow then leads round to the plateau's north end and up onto it.
+  goto 40.6,22.2 "North of Thunder Bluff"
 
-step Mulgore
+step Skywatcher Plateau
+  only Orc,Troll,Undead,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock,Druid
   zone Mulgore
-  goto 30.5,8.2 "Mulgore"
+  goto 30.5,8.2 "Skywatcher Plateau"
 
 step The Earthen Ring
   zone Mulgore
-  tip Take a lift down from Thunder Bluff. The Earthen Ring camp stands north of the bluffs: Mazu'kon, Yorn Grimtotem and Muln Earthfury.
+  tip The Earthen Ring camp stands north of the bluffs: Mazu'kon, Yorn Grimtotem and Muln Earthfury. From Thunder Bluff, take a lift down; coming on foot from Camp Taurajo, keep north past the bluffs.
   accept 96260                        -- Yorn Grimtotem
   accept 96241 @32.5,20.6 live        -- Mazu'kon
-  accept 96261
-  accept 96259                        -- Muln Earthfury
+  accept 96259                        -- Muln Earthfury: The Broodmother comes once this is handed in
 
 step Gloomrise: kill these as you meet them
   zone Mulgore
@@ -205,18 +237,29 @@ step Gloomrise: kill these as you meet them
   kill 264083 quest 96259.2
   kill 264079 quest 96259.1
   collect 273001 quest 96241.1        -- Gloomrise Toxin Samples, from the Gnawed Corpses
-  kill 264082 quest 96261.1
 
-step Gloomrise
-  collect 273658 @33.4,7.6 live optional -- Bloody Parchment, from Broodmother Valraxx
+step The Earthen Ring
+  tip Muln Earthfury offers The Broodmother only once Defending the Dead is handed in.
+  turnin 96260                        -- Yorn Grimtotem
+  turnin 96241                        -- Mazu'kon
+  turnin 96259                        -- Muln Earthfury
+
+step The Broodmother
+  when group 96261
+  accept 96261                        -- Muln Earthfury
+
+step Broodmother Valraxx
+  zone Mulgore
+  when group 96261
+  tip Broodmother Valraxx sits at the north end of Gloomrise; her Bloody Parchment starts A Darker Truth. Broodmother Valraxx is elite: grouping up is advised.
+  kill 264082 quest 96261.1
+  collect 273658 @33.4,7.6 live optional -- Bloody Parchment, from Broodmother Valraxx: it does not drop for everyone
   accept 96294 item 273658 optional
 
 step The Earthen Ring
+  when group 96261
   tip Back south to the camp, then up into Thunder Bluff for the flight to Camp Taurajo.
-  turnin 96260                        -- Yorn Grimtotem
-  turnin 96241                        -- Mazu'kon
   turnin 96261
-  turnin 96259                        -- Muln Earthfury
   turnin 96294 optional
 
 step Class trainer
@@ -229,13 +272,26 @@ step Class trainer
 
 step Thunder Bluff
   zone Thunder Bluff
-  goto 47.0,49.8 "Thunder Bluff"
+  goto 47.0,49.8 "Thunder Bluff's central rise"
 
 step Thunder Bluff
   zone Thunder Bluff
-  tip Fly to Thunder Bluff if you know the flight path. If not, fly to Camp Taurajo, head west into Mulgore past Bloodhoof Village to Thunder Bluff and take its flight path from Tal on the central rise.
+  tip Into Thunder Bluff by a lift: Tal, the wind rider master, stands on the central rise. Take his flight path if you don't know it yet.
   getfp "Thunder Bluff" npc 2995      -- Tal
   kill 3057 quest 93739.3 "Talk to Cairne Bloodhoof" only Skyborne optional -- Speak with Cairne Bloodhoof, in Thunder Bluff: Exploring the Horde
+
+step Zangen Stonehoof
+  zone Thunder Bluff
+  when complete 1195
+  tip Zangen Stonehoof stands a short walk east of Tal.
+  turnin 1195                         -- Zangen Stonehoof
+  accept 1196                         -- Zangen Stonehoof: Rau Cliffrunner at Freewind Post, later in this guide
+
+step Tah Winterhoof
+  zone Thunder Bluff
+  when complete 97538
+  tip Tah Winterhoof stands beside Zangen, east of Tal.
+  turnin 97538                        -- Tah Winterhoof
 
 step Ansekhwa
   only Warrior
@@ -251,13 +307,27 @@ step Fly to Camp Taurajo
   fly "Camp Taurajo"
   zone The Barrens
 
-step Thousand Needles
-  zone Thousand Needles
-  goto 31.9,23.9 "Thousand Needles"
+step Brine
+  only Shaman
+  zone The Barrens
+  tip Brine's hut stands on the ridge above the quilboar watering hole south of Camp Taurajo, on the road to the Great Lift.
+  turnin 1534                         -- Brine
+  accept 220                          -- for Islen Waterseer, south of Ratchet: next guide
 
-step Thousand Needles
+step Tear of the Moons
+  zone The Barrens
+  tip On the road south to the Great Lift, turn east into the Bael Modan dig. Feegly the Exiled hides at its south edge. General Twinbraid's Strongbox stands on the bottom floor of the dwarves' fortress, beside General Twinbraid (30) and his Officers (26): pull them to you one at a time.
+  accept 857                          -- Feegly the Exiled
+  collect 5038 quest 857 @49.1,84.3   -- General Twinbraid's Strongbox; below ground
+  turnin 857
+
+step The Great Lift
   zone Thousand Needles
-  goto 44.9,48.9 "Thousand Needles"
+  goto 31.9,23.9 "The Great Lift, down into Thousand Needles"
+
+step Freewind Post's lift
+  zone Thousand Needles
+  goto 44.9,48.9 "Freewind Post's lift"
 
 step Freewind Post
   zone Thousand Needles
@@ -265,11 +335,18 @@ step Freewind Post
   getfp "Freewind Post"
   accept 4767                         -- Elu, by the wind rider master
   accept 4821                         -- Hagar Lightninghoof
-  sethome "Freewind Post"
   turnin 4542                         -- Cliffwatcher Longhorn
   accept 4841
   accept 5147                         -- The Wanted poster beside Cliffwatcher
-  accept 98070                        -- Jandia, the trade supplies vendor: the Screeching harpies of Roguefeather Den; inside
+  accept 98070                        -- Jandia, the trade supplies vendor: the Screeching harpies of Roguefeather Den; inside the inn
+  accept 98069                        -- Jandia: her stolen supplies lie in the same harpy den
+
+step Rau Cliffrunner
+  zone Thousand Needles
+  when onquest 1196
+  tip Rau Cliffrunner stands in Freewind Post: Zangen's filled phial is for him.
+  turnin 1196                         -- Rau Cliffrunner
+  accept 1197                         -- Rau Cliffrunner: the Ancient Brazier in Splithoof Hold, among the Galak camps
 
 step Alien Egg
   tip Take the lift down. The egg lies in a nest on the canyon floor in one of three spots: south-east of the mesas (52.3,55.2), east (56.4,50.4) or south-west (37.6,56.1).
@@ -280,8 +357,15 @@ step Galak centaurs
   kill 4094 quest 4841.1
   kill 4093 quest 4841.2
   kill 4096 quest 4841.3
-  collect 12564
-  accept 4881 item 12564
+  collect 12564 optional              -- Galak Messenger's Assassination Plot, if you meet him
+  accept 4881 item 12564 optional
+
+step Splithoof Hold
+  when onquest 1197
+  tip A short walk north of the Galak camps, the cave of Splithoof Hold leads down to its deepest chamber, where the Ancient Brazier burns. Use the Filled Etched Phial on it, then loot the Cloven Hoof at once: the flame only stays out briefly, and if it relights the phial is gone. Then east to Dorn's mesa.
+  tip Careful: Two Galak Flame Guards (30) stand by the brazier and a centaur guard walks the cave: pull them away one at a time before you douse the flame.
+  use 5868 quest 1197.1 @42.0,31.5                 -- Filled Etched Phial, at the Ancient Brazier
+  collect 5869 quest 1197 @42.0,31.5  -- Cloven Hoof, from the Ancient Brazier
 
 step Dorn Plainstalker
   tip Dorn Plainstalker stands on a mesa top east of the Galak camps. For the Test of Faith, walk off the end of the planks beside him: you land safely.
@@ -290,60 +374,37 @@ step Dorn Plainstalker
   turnin 1149
   accept 1150
 
-step Test of Endurance
-  accept 1151 optional                -- Below ground
-
-step Rok'Alim the Pounder
-  tip Rok'Alim, a hard-hitting rock elemental, walks the cliffs of Highperch. Rok'Alim the Pounder is elite: grouping up is advised.
-  collect 5844 quest 1151 optional
-  turnin 1151 optional                -- Dorn Plainstalker, below ground
-
 step Freewind Post
   turnin 4841                         -- Cliffwatcher Longhorn
   accept 5064
   turnin 4821                         -- Hagar Lightninghoof
   accept 4865
+  sethome "Freewind Post"             -- Innkeeper Abeqwa, beside Jandia
 
-step Thousand Needles
+step Rau Cliffrunner
   zone Thousand Needles
-  goto 31.8,32.6 "Thousand Needles"
+  when complete 1197
+  turnin 1197                         -- Rau Cliffrunner
 
 # ---------------------------------------------------------------- Darkcloud Pinnacle and Whitereach Post
 
 step Darkcloud Pinnacle
   tip West of Freewind, the Grimtotem camps below Darkcloud Pinnacle. The Secret Notes are in Document Chests at the south-east, south-west and north-west camps.
-  interact 176344 quest 5064.1 @31.8,32.6 map 1441 -- Document Chest, north-west camp
+  interact 190484 quest 5064.3 @39.3,41.5 map 1441 -- Document Chest, south-east camp
   interact 190483 quest 5064.2 @33.8,40.0 map 1441 -- Document Chest, south-west camp
-  interact 190484 quest 5064.3        -- Document Chest, south-east camp
+  interact 176344 quest 5064.1 @31.8,32.6 map 1441 -- Document Chest, north-west camp
+
+step Level 28.9
+  when level<28.9
+  tip Short of 28.9? The Grimtotem around these camps (25-28) are the right level: kill a few more before the climb to Lakota. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon or the Razorfen Kraul dungeon instead.
+  goto 35.0,31.5 map 1441 "Grimtotem camps below Darkcloud Pinnacle"
+  level 28.9 grind 10759              -- grind on Grimtotem Stomper
 
 step Lakota Windsong
   tip Climb the path to the top of Darkcloud Pinnacle. Lakota Windsong is held captive beside Arnak Grimtotem (29): clear the guards and Arnak first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way.
   collect 12884 quest 5147 @38.1,26.9 -- Arnak Grimtotem
   accept 4904 @37.95,26.45            -- Lakota Windsong
   complete 4904
-
-step Freewind Post flight master
-  only Shaman
-  zone Thousand Needles
-  goto 45.0,49.1 "Freewind Post flight master"
-
-# ---------------------------------------------------------------- Freewind Post
-
-step Brine
-  only Shaman
-  zone The Barrens
-  tip Fly to Camp Taurajo. Brine's hut stands on the ridge above the quilboar watering hole south of the camp, on the road to the Great Lift.
-  fly "Camp Taurajo"
-  turnin 1534                         -- Brine
-  accept 220                          -- for Islen Waterseer, south of Ratchet: next guide
-
-step Back to Freewind Post
-  only Shaman
-  zone The Barrens
-  goto 44.5,59.1 "Camp Taurajo flight master"
-  fly "Freewind Post"
-  zone Thousand Needles
-  goto 11.6,34.3 "Thousand Needles"
 
 step Highperch
   zone Thousand Needles
@@ -353,11 +414,15 @@ step Highperch
   accept 4770                         -- Pao'ka Swiftmountain
   complete 4770
 
-step Wizlo Bearingshiner
+step Whitereach Post
   turnin 4770                         -- Motega Firemane
   turnin 4865                         -- Motega Firemane
   note Motega's next quest, Sacred Fire, ends in Thunder Bluff, off this route. Skip it.
-  turnin 4881 optional -- Kanati Greycloud
+
+step Kanati Greycloud
+  when onquest 4881,4966
+  tip Only if the Galak Messenger dropped his plot for you: Kanati Greycloud stands at Whitereach Post.
+  turnin 4881                         -- Kanati Greycloud
   accept 4966
 
 step Wizlo Bearingshiner
@@ -370,6 +435,7 @@ step Hypercapacitor Gizmo
   collect 12946 quest 5151.1 @22.8,24.6 map 1441
 
 step Whitereach Post
+  when onquest 4966
   complete 4966 @21.25,32.06 map 1441 era -- Kill the Galak Assassin that comes for Kanati
 
 step Whitereach Post
@@ -383,47 +449,39 @@ step Wizlo Bearingshiner
 step Level 29.49
   when !group 5151
   when level<29.49
-  tip If you skipped Hypercapacitor Gizmo, grind here to level 29.49 to stay on the route's plan.
+  tip If you skipped Hypercapacitor Gizmo and are still short of 29.49, kill harpies here first: Roguefeather Den is your next stop anyway. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon or the Scarlet Monastery dungeon (Graveyard) instead.
   goto 27.0,51.9 map 1441 "Screeching Roguefeather"
-  level 29.49                          -- grind on Screeching Roguefeather
+  level 29.49 grind 4101               -- grind on Screeching Roguefeather
 
 step The Screeching Canyon: kill these as you meet them
   zone Thousand Needles
-  tip South of Darkcloud, the harpies of Roguefeather Den. Grenka Bloodscreech (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are Jandia's.
+  tip South of Darkcloud, the harpies of Roguefeather Den. Grenka Bloodscreech (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are Jandia's; her Stolen Freewind Supplies lie on the ground along the foot of the cliff and in the cave up on top.
   kill 4101 quest 98070.2
   kill 4104 quest 98070.3
   kill 4100 quest 98070.1
+  collect 279383 x8 quest 98069 @27.0,51.9 map 1441 -- Stolen Freewind Supplies, on the ground around the den
   collect 5843 quest 1150
 
-step Test of Endurance
-  turnin 1150                         -- Dorn Plainstalker, below ground
-
 step Freewind Post
+  tip Back east to Freewind Post: it lies on the way from Roguefeather Den to Dorn's mesa.
   turnin 4767                         -- Elu
   turnin 5147
   turnin 5064                         -- Cliffwatcher Longhorn
   turnin 4904                         -- Thalia Amberhide, inside
   turnin 98070                        -- Jandia, inside
+  turnin 98069                        -- Jandia, inside
   vendor nearest
 
-# ---------------------------------------------------------------- Shimmering Flats
+step Test of Endurance
+  tip Dorn Plainstalker's mesa is north-east of Freewind.
+  turnin 1150                         -- Dorn Plainstalker, below ground
+  accept 1151 optional                -- Dorn Plainstalker offers Test of Strength once Test of Endurance is in
 
-step Mirage Raceway
-  tip Follow the canyon east out of the mesas onto the salt flats. The goblins and gnomes of the Mirage Raceway are neutral and give quests to both factions.
-  accept 1110                         -- Kravel Koalbeard
-  accept 5762                         -- His crate is for Stranglethorn, later on the route
-  accept 1104                         -- Fizzle Brassbolts
-
-step Mirage Raceway: kill these as you meet them
-  zone Thousand Needles
-  tip Rocket Car Rubble lies all over the flats north of the raceway. Scorpid Reavers roam the north half; keep to it, away from the Saltstone Basilisks, Crystalhides and Gazers (32-35) west of the track, in the middle and the far south.
-  collect 5794 quest 1104
-  collect 5798 quest 1110
-
-step Mirage Raceway
-  turnin 1110                         -- Kravel Koalbeard
-  turnin 1104                         -- Fizzle Brassbolts
-  accept 1106                         -- Fizzle Brassbolts: his letter goes to Martek in the Badlands, around level 38
+step Rok'Alim the Pounder
+  tip Rok'Alim, a hard-hitting rock elemental, walks the cliffs of Highperch, back west past Whitereach Post. Rok'Alim the Pounder is elite: grouping up is advised.
+  collect 5844 quest 1151 optional
+  turnin 1151 optional                -- Dorn Plainstalker, below ground
 
 step Freewind Post
-  note The next guide flies on from here to Orgrimmar.
+  tip Back to Freewind Post. The Mirage Raceway's quests come with the next visit to the Shimmering Flats, at 33.
+  note The next guide flies on from here to the Crossroads and Orgrimmar.

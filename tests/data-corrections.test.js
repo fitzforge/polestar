@@ -73,6 +73,22 @@ test('every prerequisite correction blocks the quest until its prerequisites are
 	assert.deepEqual(dead, [], `corrections that set prerequisites but block nothing: ${dead.join(', ')}`);
 });
 
+// A timed quest's `limit` (seconds once taken): the Forever TDB's TimeAllowed through the data build's KB step, a
+// Forever quest's from a correction. Dynamic Questing takes a timed quest early only when the walk still fits.
+test('Grace of An\'she and Mu\'sha allows ten minutes; a time limit is a whole number of seconds', () => {
+	assert.equal(corrections.quests[95805].set.limit, 600);
+	const bad = Object.entries(corrections.quests).filter(([, e]) => e.set && 'limit' in e.set && !(Number.isInteger(e.set.limit) && e.set.limit > 0));
+	assert.deepEqual(bad.map(([id]) => id), []);
+});
+
+test('the release data carries time limits: 95805 600 s, Scalding Mornbrew Delivery the TDB\'s 300 s, none on an untimed quest', (t) => {
+	const file = path.join(__dirname, '..', 'data', 'forever', 'quests.json');
+	if (!fs.existsSync(file)) return t.skip('no data/forever');
+	const quests = JSON.parse(fs.readFileSync(file, 'utf8'));
+	if (!Object.values(quests).some((q) => q.limit)) return t.skip('data/forever was built without the KB step (no time limits)');
+	assert.deepEqual([quests[95805].limit, quests[3364].limit, quests[755].limit], [600, 300, undefined]);
+});
+
 test('Highland Hides waits for Young Crocolisk Skins, not Daily Delivery (#533)', () => {
 	const { all, any } = blockingPrereqs({ id: 98815, start: { npc: [2094] }, ...corrections.quests[98815].set });
 	assert.deepEqual({ all, any }, { all: [], any: [484] });
@@ -127,6 +143,40 @@ test('Crocs of the Sky waits for Apprentice\'s Duties, and The Shamed Lieutenant
 	assert.deepEqual(blocks(98219, 928), { all: [], any: [98191] }, 'Lord Grayson Shadowbreaker, Stormwind');
 });
 
+// Bennistrov (#1354): Highlord Bolvar Fordragon's A Friend of the Family (98191) is offered only once Captain
+// Stoutfist's (98190) is handed in to him. Without the prerequisite the guide still sent a player who had skipped
+// 98190 to Bolvar for 98191. The follow-up sweep (players' recordings: taken only after the quest before, refused
+// before it; a second source agreeing) found the same gap in these chains.
+test('Follow-ups wait for the quest before them, so a skipped one takes its follow-up with it (#1354 sweep)', () => {
+	const blocks = (id, npc) => {
+		const entry = corrections.quests[id];
+		assert.ok(entry, `a correction for ${id}`);
+		return blockingPrereqs({ id, start: { npc: [npc] }, ...entry.set });
+	};
+	for (const [id, npc, any, who] of [
+		[98191, 1748, [98190], 'Highlord Bolvar Fordragon, Stormwind (#1354)'],
+		[98394, 11802, [98393], 'Dendrite Starblaze, Moonglade (Druid cat form)'],
+		[98396, 11957, [98394], 'the Great Cat Spirit'],
+		[98731, 11957, [98396], 'the Great Cat Spirit'],
+		[98397, 11802, [98731, 98738], 'Dendrite Starblaze: either blessing'],
+		[78089, 3663, [78088], 'Delgren the Purifier (Paladin cloak)'],
+		[78090, 5492, [78089], 'Katherine the Pure'],
+		[78091, 5495, [78090], 'Ursula Deline: Earning Your Salt'],
+		[78092, 5495, [78091], 'Ursula Deline'],
+		[91859, 248840, [91858], 'Trevan Rol (Lumina Windsinger chain)'],
+		[91860, 259611, [91859], 'Deathguard Baldren'],
+		[96204, 248755, [91862], 'Lumina Windsinger'],
+		[95034, 259620, [96204], 'Lumina Windsinger'],
+		[96264, 259023, [94789], 'Veyric Thunderhame (Shaman Call of Air)'],
+		[92519, 12920, [97539], 'Doctor Gregory Victor, Hammerfall'],
+		[92457, 269127, [92432], 'Image of Archmage Modera (Kirin Tor)'],
+		[95770, 2519, [95748], 'Kin\'weelay: Locating the Lost City after The Gurubashi Legends of Old'],
+	]) assert.deepEqual(blocks(id, npc), { all: [], any }, who);
+	const fenris = corrections.quests[91861];
+	assert.ok(fenris, 'a correction for 91861');
+	assert.deepEqual(blockingPrereqs({ id: 91861, start: { object: [566037] }, ...fenris.set }), { all: [], any: [91860] }, 'the Charred Remains');
+});
+
 test('Seeking Caitlin is closed by Lost in the Thicket Things, its breadcrumb target (#533)', () => {
 	const quests = { 95737: { id: 95737, ...corrections.quests[95737].set }, 95647: { id: 95647 } };
 	assert.deepEqual(closedByOf(95737, quests), [95647]);
@@ -139,6 +189,15 @@ test('Daily Delivery is closed by Young Crocolisk Skins, its breadcrumb target (
 
 test('Benedict\'s Chest opens with Benedict\'s Key (#467)', () => {
 	assert.deepEqual(corrections.objects[3239].set.lock, { item: 4882 });
+});
+
+test('The Glowing Shard\'s one line is to speak with Sputtervalve in Ratchet, so its hand-in guide goes there first (#1326)', () => {
+	assert.deepEqual(corrections.quests[6981].set.objectives, [{ type: 'talk', id: 3442, count: 1, text: 'Speak with someone in Ratchet about the Glowing Shard' }]);
+});
+
+test('dungeon turn-in NPCs the data placed nowhere stand where players hand in to them (#1326 sweep)', () => {
+	assert.deepEqual(corrections.npcs[13155].set.spawns, { 1437: { f: 'e', pts: [[51.41, 59.23]] } }, 'Deathstalker Agent: Dragonmaw Rumors and Open the Maw, Wetlands');
+	assert.deepEqual(corrections.npcs[15991].set.spawns, { 1453: { f: 'e', pts: [[68.15, 29], [70.18, 29.86]] } }, 'Lady Dena Kennedy: Crest of Lordaeron, Stormwind City');
 });
 
 test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {

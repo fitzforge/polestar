@@ -273,9 +273,32 @@ local function bandLabel(key)
 	return key
 end
 
+-- For your level: from the dungeon's recommended start to its top (Fitz,
+-- 2026-11-08: the Ruins of Lordaeron, 15-22, is not for a level
+-- 13; an overlap with a wide window let it in from 13).
 local function forYou(d, plevel)
 	if d.kind == "raid" or not d.minLevel then return false end
-	return plevel >= d.minLevel - 2 and plevel <= (d.maxLevel or d.minLevel)
+	return plevel >= d.minLevel and plevel <= (d.maxLevel or d.minLevel)
+end
+
+-- The level the dungeon suits best (Dungeons.BestAt), nil without one.
+local function bestAt(d)
+	return D().BestAt and D().BestAt(d.key) or nil
+end
+
+-- In range but 4+ levels under where it suits best: "Tough at your level"
+-- (Uldaman, 35-47, best at 43, at 35).
+local TOUGH = 4
+local function tough(d, plevel)
+	local b = bestAt(d)
+	return b ~= nil and plevel <= b - TOUGH
+end
+
+-- "best at 43" after a range wider than one level, nil otherwise.
+local function bestAtFact(d)
+	local b = bestAt(d)
+	if not b or not d.minLevel or (d.maxLevel or d.minLevel) <= d.minLevel then return nil end
+	return format(L["best at %d"], b)
 end
 
 -- Quests on a page for the filter ("All": both factions).
@@ -286,10 +309,12 @@ local function questCount(d, f)
 end
 
 -- For your level under the filter: a dungeon whose quests are all the other
--- faction's is theirs, not yours.
+-- faction's is theirs, not yours; so is one whose way in lies inside their
+-- capital (Dungeons.EnemyCapital: The Hall of Thanes is not a Horde dungeon).
 local function forYouAs(d, plevel, f)
 	if not forYou(d, plevel) then return false end
 	if f == "All" then return true end
+	if D().EnemyCapital and D().EnemyCapital(d.key, SIDE[f]) then return false end
 	local q = d.quests or {}
 	return (q[SIDE[f]] or 0) > 0 or ((q.A or 0) == 0 and (q.H or 0) == 0)
 end
@@ -299,7 +324,8 @@ local function list()
 	return listCache
 end
 
--- The cards a sidebar key shows, in level order.
+-- The cards a sidebar key shows, in level order; For your level, the ones
+-- that fit first, by closeness to where each suits best, the tough ones after.
 local function entries(key, plevel, f)
 	local out = {}
 	local q = filter ~= "" and lower(filter) or nil
@@ -317,6 +343,19 @@ local function entries(key, plevel, f)
 			ok = d.kind ~= "raid" and bandOf(d.minLevel) == key
 		end
 		if ok then out[#out + 1] = d end
+	end
+	if key == "level" and not q then
+		local rank = {}
+		for i, d in ipairs(out) do
+			local b = bestAt(d) or plevel
+			rank[d] = { tough(d, plevel) and 1 or 0, b > plevel and b - plevel or plevel - b, i }
+		end
+		table.sort(out, function(a, b)
+			local ra, rb = rank[a], rank[b]
+			if ra[1] ~= rb[1] then return ra[1] < rb[1] end
+			if ra[2] ~= rb[2] then return ra[2] < rb[2] end
+			return ra[3] < rb[3]
+		end)
 	end
 	return out
 end
@@ -380,6 +419,16 @@ local function startOf(q, from)
 	local Dg = D()
 	if not s or s.inside or s.kind == "item" or q.startItem or not Dg.Giver then return s end
 	return Dg.Giver(q, from) or s
+end
+
+-- Where a page quest is turned in for this character: the page's own place,
+-- or the Codex ender of the character's side when the page's is the other
+-- side's (Dungeons.Ender).
+local function endOf(q, from)
+	local f = q.finish
+	local Dg = D()
+	if not f or f.inside or not Dg.Ender then return f end
+	return Dg.Ender(q, from) or f
 end
 
 local function guideTo(self)
@@ -495,7 +544,7 @@ local function chainEnter(self)
 	local obj = D().ObjectiveText(q)
 	if obj then lines[#lines + 1] = obj end
 	lines[#lines + 1] = { left = L["Starts"], right = pointText(startOf(q, ns.PlayerPoint())) }
-	if q.finish then lines[#lines + 1] = { left = L["Ends"], right = pointText(q.finish) } end
+	if q.finish then lines[#lines + 1] = { left = L["Ends"], right = pointText(endOf(q, ns.PlayerPoint())) } end
 	local rw = q.rewards or {}
 	local extras = rewardExtras(rw)
 	if #extras > 0 then lines[#lines + 1] = { left = L["Rewards"], right = concat(extras, DOT) } end
@@ -1023,12 +1072,22 @@ local function factLines(fs, facts, width)
 	return concat(lines, "\n")
 end
 
+-- The enemy-territory warning (Dungeons.EnemyEntrance) for the filter's side,
+-- this character's under All, in the warning colour; nil when it needs none.
+local function enemyWarning(d, f)
+	local side = SIDE[f] or SIDE[UI.PlayerFaction() or ""]
+	local text = D().EnemyEntrance and D().EnemyEntrance(d.key, side)
+	return text and ("|c" .. Theme.Hex("warning") .. text .. "|r") or nil
+end
+
 local function paintCard(c, d, f, plevel, key)
 	c.psKey, c.psEntry = d.key, d
 	c.Name:SetText(d.name)
 	local facts = {}
 	local lv = UI.LevelRange(d.minLevel, d.maxLevel)
 	if lv then facts[#facts + 1] = lv end
+	local best = bestAtFact(d)
+	if best then facts[#facts + 1] = best end
 	if d.zoneName then facts[#facts + 1] = d.zoneName end
 	local n, a, h = questCount(d, f)
 	if f == "All" and a ~= h and a > 0 and h > 0 then
@@ -1047,9 +1106,11 @@ local function paintCard(c, d, f, plevel, key)
 	end
 	local cw = c:GetWidth()
 	local right = PAD - CARD_X
-	-- Under For your level every card is; elsewhere the chip marks them.
-	if key ~= "level" and forYou(d, plevel) then
-		local w = W.SetChip(c.Yours, L["Your level"], "accent")
+	-- Under For your level every card is; elsewhere the chip marks them. One
+	-- 4+ levels under where it suits best says so, calmly, everywhere.
+	local isTough = forYou(d, plevel) and tough(d, plevel)
+	if isTough or (key ~= "level" and forYou(d, plevel)) then
+		local w = W.SetChip(c.Yours, isTough and L["Tough at your level"] or L["Your level"], not isTough and "accent" or nil)
 		c.Yours:ClearAllPoints()
 		c.Yours:SetPoint("RIGHT", c, "TOPRIGHT", -right, -(CARD_ART + 20))
 		right = right + w + 6
@@ -1066,7 +1127,10 @@ local function paintCard(c, d, f, plevel, key)
 	end
 	local statsW = max(60, cw - (PAD - CARD_X) - right - 6)
 	c.Stats:SetWidth(statsW)
-	c.Stats:SetText(factLines(c.Stats, facts, statsW))
+	local text = factLines(c.Stats, facts, statsW)
+	local warn = enemyWarning(d, f)
+	if warn then text = text .. "\n" .. warn end
+	c.Stats:SetText(text)
 	W.Color(c.Stats, n > 0 and "textDim" or "textMuted")
 end
 
@@ -1175,6 +1239,8 @@ local function pageHeader(d)
 	local facts = {}
 	local lv = UI.LevelRange(d.minLevel, d.maxLevel)
 	if lv then facts[#facts + 1] = format(L["Levels %s"], lv) end
+	local best = bestAtFact(d)
+	if best then facts[#facts + 1] = best end
 	local z = d.zoneName or (e and mapName(e.map))
 	if z then facts[#facts + 1] = z end
 	if d.players then facts[#facts + 1] = format(L["%d players"], d.players) end
@@ -1211,15 +1277,32 @@ local function pageHeader(d)
 	local lead = hand > 0 and "handin" or take > 0 and "pickup" or "go"
 	local side = SIDE[UI.PlayerFaction() or ""]
 	local none = plan ~= nil and take == 0 and #Dg.Quests(d.key, side) > 0 and lead == "go"
+	-- The quests that wait for a level say so on the button and in its tip
+	-- (Dungeons.PickupLabel, WaitingLines: "3 now · 2 at level 16").
+	local waiting = plan and Dg.WaitingLines and Dg.WaitingLines(plan) or {}
+	local label = plan and Dg.PickupLabel and Dg.PickupLabel(plan) or L["Pick up the quests"]
+	local function withWaiting(lines)
+		if #waiting > 0 then
+			lines[#lines + 1] = L["Waiting:"]
+			for _, w in ipairs(waiting) do lines[#lines + 1] = w end
+		end
+		return lines
+	end
 	if take > 0 then
 		local lines = { format(take == 1 and L["A guide to the 1 quest here you can take, with what comes before it, ending at the entrance."]
 			or L["A guide to the %d quests here you can take, with what comes before them, ending at the entrance."], take) }
 		local carried = #plan.carried
 		if carried > 0 then lines[#lines + 1] = carried == 1 and L["1 more is in your log already."] or format(L["%d more are in your log already."], carried) end
+		withWaiting(lines)
 		lines[#lines + 1] = L["It opens in a new tab."]
-		for _, b in ipairs({ pg.Pickup, pg.PickupQuiet }) do b.psTip, b.psTipLines = L["Pick up the quests"], lines end
+		for _, b in ipairs({ pg.Pickup, pg.PickupQuiet }) do
+			W.SetButtonText(b, label)
+			b.psTip, b.psTipLines = label, lines
+		end
 	elseif none then
-		pg.PickupNone.psTip, pg.PickupNone.psTipLines = L["Nothing to pick up"], { DS.NothingText(plan) }
+		local text = #waiting > 0 and label or L["Nothing to pick up"]
+		W.SetButtonText(pg.PickupNone, text)
+		pg.PickupNone.psTip, pg.PickupNone.psTipLines = text, withWaiting({ DS.NothingText(plan) })
 	end
 	if logged > 0 then
 		local lines
@@ -1301,20 +1384,43 @@ local function tilesHeight(n)
 	return floor((n + per - 1) / per) * (TILE_H + 6) - 6
 end
 
+-- What drops the item that starts page quest q (Dungeons.StartDrops), inside
+-- the dungeon or outside it (the Damp Note's Blackfathom Tide Priestesses,
+-- in the tunnels before the portal, #1380), the likeliest first.
+-- -> list | nil, insideOnly (every one of them inside)
+local function dropsOf(q, key)
+	local Dg = D()
+	if not (key and Dg.StartDrops and (q.startItem or (q.start and q.start.kind == "item"))) then return nil, false end
+	local d = Dg.StartDrops(key, q)
+	if not d or #d.inside + #d.outside == 0 then return nil, false end
+	local list = {}
+	for _, s in ipairs(d.inside) do list[#list + 1] = s end
+	for _, s in ipairs(d.outside) do list[#list + 1] = s end
+	table.sort(list, function(a, b) return (a.chance or 0) > (b.chance or 0) end)
+	return list, #d.outside == 0
+end
+
 -- Where a quest starts, and the line that says so: the giver or object, or
--- the item that starts it with the boss it drops from. -> point, text
+-- the item that starts it with what drops it: the boss, else the two
+-- likeliest mobs or objects (dropsOf). -> point, text
 local function startLine(q, key)
 	local s = startOf(q, ns.PlayerPoint())
 	if q.startItem and not (s and s.kind == "item") then s = { kind = "item", id = q.startItem.id, name = q.startItem.name, map = s and s.map, x = s and s.x, y = s and s.y, f = s and s.f, inside = s and s.inside } end
 	local text = pointText(s)
 	if s and s.kind == "item" and key then
-		-- An item that starts it: the boss it drops from, when one does.
+		local from
 		for _, boss in ipairs(D().Bosses(key)) do
 			for _, t in ipairs(boss.quests or {}) do
-				if t.id == q.id and t.how == "starts" then
-					text = "|c" .. Theme.Hex("item") .. ((type(s.id) == "number" and ns.Names.Item(s.id)) or s.name or "") .. "|r|c" .. Theme.Hex("textMuted") .. DOT .. "|r|c" .. Theme.Hex("textDim") .. format(L["drops from %s"], boss.name) .. "|r"
-				end
+				if t.id == q.id and t.how == "starts" then from = boss.name end
 			end
+		end
+		if not from then
+			local list = dropsOf(q, key)
+			local a, b = list and list[1] and list[1].name, list and list[2] and list[2].name
+			from = a and b and format(L["%s, %s"], a, b) or a
+		end
+		if from then
+			text = "|c" .. Theme.Hex("item") .. ((type(s.id) == "number" and ns.Names.Item(s.id)) or s.name or "") .. "|r|c" .. Theme.Hex("textMuted") .. DOT .. "|r|c" .. Theme.Hex("textDim") .. format(L["drops from %s"], from) .. "|r"
 		end
 	end
 	return s, text
@@ -1457,7 +1563,9 @@ local function paintQuest(b, q, p, top, plevel, key)
 	if q.level then meta[#meta + 1] = format(L["Level %d"], q.level) end
 	if q.minLevel then meta[#meta + 1] = format(L["Requires level %d"], q.minLevel) end
 	if q.classes and #q.classes > 0 then meta[#meta + 1] = format(L["%s only"], UI.ClassList(q.classes)) end
-	if q.inside then meta[#meta + 1] = L["Picked up inside the dungeon"] end
+	-- An item that starts it: where it drops decides (dropsOf), else the page.
+	local drops, insideOnly = dropsOf(q, key)
+	if (drops and insideOnly) or (not drops and q.inside) then meta[#meta + 1] = L["Picked up inside the dungeon"] end
 	if q.shareable == true then meta[#meta + 1] = L["Shareable"] elseif q.shareable == false then meta[#meta + 1] = L["Not shareable"] end
 	b.Meta:SetText(concat(meta, DOT))
 	b.Meta:SetWidth(MW - PAD * 2)
@@ -1483,7 +1591,8 @@ local function paintQuest(b, q, p, top, plevel, key)
 	local Dg = D()
 	local target, tlabel, first, turnIn
 	if key and Dg.GiverTarget then target, tlabel, first, turnIn = Dg.GiverTarget(key, q.id) end
-	if not first then target, tlabel = s, s and s.name end
+	-- Its own giver, or where the item that starts it drops outside (#1380).
+	if not target then target, tlabel = s, s and s.name end
 	local go = canGuide(target)
 	b.StartPin.psPoint, b.StartPin.psLabel = target, tlabel
 	W.SetIconState(b.StartPin, false, go)
@@ -1494,7 +1603,7 @@ local function paintQuest(b, q, p, top, plevel, key)
 		link.psTip, link.psTipLines = L["Not known"], { L["Where this quest starts is not known yet."] }
 	elseif first then
 		link.psTip = format(L["Set the arrow to %s"], tlabel or L["the quest giver"])
-		link.psTipLines = { format(turnIn and L["First turn in %s, which comes before this quest."] or L["First pick up %s, which comes before this quest."], first) }
+		link.psTipLines = { format(turnIn and L["First turn in %s, which comes before this quest."] or L["First pick up %s, which comes before this quest."], ns.Quoted(first)) }
 	else
 		link.psTip = format(L["Set the arrow to %s"], tlabel or L["the quest giver"])
 		link.psTipLines = { L["Where this quest starts."] }
@@ -1510,7 +1619,7 @@ local function paintQuest(b, q, p, top, plevel, key)
 	link:SetPoint("LEFT", b.StartPin, "LEFT", 0, 0)
 	link:SetWidth(26 + min(half - 24, floor(b.Start:GetStringWidth() + 1)))
 	link:Show()
-	local fin = q.finish
+	local fin = endOf(q, ns.PlayerPoint())
 	b.EndLabel:ClearAllPoints()
 	b.EndLabel:SetPoint("TOPLEFT", b, "TOPLEFT", VALUE_X + half + 16, -(y + 4))
 	b.EndPin:ClearAllPoints()
@@ -1694,7 +1803,7 @@ local function renderBosses(key, f, plevel)
 				local row = tie(nt)
 				local spec = TIE[t.how] or TIE.involved
 				row.Glyph:SetTexture(Theme.Media(spec[1]))
-				local qh = "|c" .. hexOf(difficulty(q.level, plevel)) .. (q.title or "") .. "|r"
+				local qh = "|c" .. hexOf(difficulty(q.level, plevel)) .. (ns.Quoted(q.title) or "") .. "|r"
 				local ih = "|c" .. Theme.Hex("item") .. (t.itemName or L["an item"]) .. "|r"
 				if t.how == "item" or t.how == "starts" then
 					row.Text:SetText(format(spec[2], ih, qh))
@@ -1766,6 +1875,8 @@ local function renderMap(key, d, f)
 		local z = mapName(e.map) or d.zoneName or ""
 		local text = format(L["The entrance, on %s (%.1f, %.1f)."], z, e.x or 0, e.y or 0)
 		if n > 0 then text = text .. " " .. (n == 1 and L["The quest giver nearby is marked; hover for their quests."] or format(L["The %d quest givers nearby are marked; hover for their quests."], n)) end
+		local warn = enemyWarning(d, f)
+		if warn then text = warn .. "\n" .. text end
 		pg.MapNote:SetText(text)
 	else
 		pg.MapNote:SetText(L["The entrance of this dungeon is not known yet."])

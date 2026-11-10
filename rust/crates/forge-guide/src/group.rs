@@ -30,13 +30,28 @@ pub fn is_rare(rank: &V, faction: &V, sides: &V) -> bool {
 	rank.num() == RARE_RANK && hostile_to(faction, sides)
 }
 
+/// An npc record's highest level (0: unknown).
+fn top_level(n: &V) -> f64 {
+	let m = n.get("levelMax").num();
+	let l = if m > 0.0 { m } else { n.get("level").num() };
+	if l > 0.0 {
+		l
+	} else {
+		0.0
+	}
+}
+
 /// A `kill` of an elite, or a `collect` of an item whose every located dropper is an elite.
-/// -> { rank, names } | Null
+/// -> { rank, names, lvl } | Null (`lvl`: the elites' highest level, 0 when unknown)
 pub fn elite_work(goal: &V, sides: &V, data: &Data) -> V {
 	let t = goal.get("t");
 	if t.as_str() == Some("kill") && !goal.get("npc").is_undef() {
 		let n = data.npc(&goal.get("npc"));
-		return if n.truthy() && is_elite(&n.get("rank"), &n.get("faction"), sides) { obj! { "rank" => n.get("rank").num(), "names" => vec![n.get("name")] }.into() } else { V::Null };
+		return if n.truthy() && is_elite(&n.get("rank"), &n.get("faction"), sides) {
+			obj! { "rank" => n.get("rank").num(), "names" => vec![n.get("name")], "lvl" => top_level(&n) }.into()
+		} else {
+			V::Null
+		};
 	}
 	if t.as_str() != Some("collect") || goal.get("candidates").truthy() {
 		return V::Null;
@@ -76,7 +91,8 @@ pub fn elite_work(goal: &V, sides: &V, data: &Data) -> V {
 			names.push(n);
 		}
 	}
-	obj! { "rank" => recs[0].get("rank").num(), "names" => names }.into()
+	let lvl = recs.iter().map(top_level).fold(0.0, f64::max);
+	obj! { "rank" => recs[0].get("rank").num(), "names" => names, "lvl" => lvl }.into()
 }
 
 /// Whether an npc or object spawns in the open world, or an item drops from one that does.
@@ -117,7 +133,11 @@ pub fn group_of(goal: &V, explicit: &V, sides: &V, data: &Data) -> V {
 	}
 	let elite = elite_work(goal, sides, data);
 	if elite.truthy() {
-		obj! { "kind" => "elite", "rank" => elite.get("rank") }.into()
+		let out: V = obj! { "kind" => "elite", "rank" => elite.get("rank") }.into();
+		if elite.get("lvl").num() > 0.0 {
+			out.set("lvl", elite.get("lvl"));
+		}
+		out
 	} else {
 		V::Null
 	}

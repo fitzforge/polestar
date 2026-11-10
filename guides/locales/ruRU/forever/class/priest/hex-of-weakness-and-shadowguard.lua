@@ -10,7 +10,7 @@ return {
 	-- {quest:5652} Hex of Weakness · {quest:5642} Shadowguard
 	["{quest:5652} and {quest:5642}"] = "{quest:5652} и {quest:5642}",
 	-- {quest:5652} Hex of Weakness · {quest:5642} Shadowguard
-	["The Troll priest spells: {quest:5652} at 10, {quest:5642} at 20. Free, no objectives."] = "",
+	["The Troll priest spells: {quest:5652} at 10, {quest:5642} at 20. Free, no objectives."] = "Заклинания жрецов-троллей: {quest:5652} на 10-м уровне, {quest:5642} на 20-м. Бесплатно, без задач.",
 
 	-- Step 1: Hex of Weakness: Tai'jin
 	-- {npc:3706} Tai'jin · {area:362} Razor Hill · {area:363} Valley of Trials · {quest:5652} Hex of Weakness · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar

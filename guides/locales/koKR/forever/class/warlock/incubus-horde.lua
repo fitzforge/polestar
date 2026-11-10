@@ -17,24 +17,24 @@ return {
 	["the incubus"] = "",
 
 	-- Step 2: Zankaja
-	-- {npc:5910} Zankaja · {object:172982} Valley of Strength · {area:380} Crossroads
-	["{npc:5910} lives in a hut up on the cliffs on the west side of the city, above the {object:172982}: climb the wind rider tower, cross the bridge at its top to the west and turn right off it. She sends you to the {area:380}."] = "",
+	-- {npc:5910} Zankaja · {object:172982} Valley of Strength
+	["{npc:5910} lives in a hut up on the cliffs on the west side of the city, above the {object:172982}: climb the wind rider tower, cross the bridge at its top to the west and turn right off it. She sends you to the Crossroads."] = "",
 
 	-- Step 3: Magar
 	-- {npc:3363} Magar · {object:173018} Magar's Cloth Goods · {object:172960} Cleft of Shadow · {zone:1440} Ashenvale
 	["{npc:3363} keeps {object:173018} on the main street east of the {object:172960}. He asks you to look for his mate Krilge in {zone:1440}."] = "",
 
 	-- Step 4: Gazrog
-	-- {npc:3464} Gazrog · {area:380} Crossroads · {npc:4197} Ken'zigla · {area:2539} Malaka'jin · {zone:1442} Stonetalon Mountains
-	["{npc:3464} waits in front of the inn at the {area:380}. He sends you on to {npc:4197} at {area:2539}, in {zone:1442}."] = "",
+	-- {npc:3464} Gazrog · {npc:4197} Ken'zigla · {area:2539} Malaka'jin · {zone:1442} Stonetalon Mountains
+	["{npc:3464} waits in front of the inn at the Crossroads. He sends you on to {npc:4197} at {area:2539}, in {zone:1442}."] = "",
 
 	-- Step 5: Ken'zigla
-	-- {area:380} Crossroads · {zone:1442} Stonetalon Mountains · {area:2539} Malaka'jin · {npc:4197} Ken'zigla · {npc:5911} Grunt Logmar
-	["Take the road west from the {area:380} into {zone:1442} and, just past the border, the faint trail up to the left (south): {area:2539} cannot be reached from the main road. {npc:4197} hands you her draught for {npc:5911}."] = "",
+	-- {zone:1442} Stonetalon Mountains · {area:2539} Malaka'jin · {npc:4197} Ken'zigla · {npc:5911} Grunt Logmar
+	["Take the road west from the Crossroads into {zone:1442} and, just past the border, the faint trail up to the left (south): {area:2539} cannot be reached from the main road. {npc:4197} hands you her draught for {npc:5911}."] = "",
 
 	-- Step 6: Grunt Dogran
-	-- {npc:5911} Grunt Logmar · {area:378} Camp Taurajo · {area:380} Crossroads · {npc:5875} Gan'rul Bloodeye
-	["{npc:5911} stands at {area:378}, south down the road from the {area:380}. He sends you north to the quilboar camp where Dogran is held: the camp with two huts side by side, north-west of a decoy camp whose huts stand apart. A rare level 22 elite quilboar sometimes guards the huts: send your voidwalker in, sacrifice it if you must, and talk to Dogran. He gives you a pendant for {npc:5875}. Keep it."] = "",
+	-- {npc:5911} Grunt Logmar · {area:378} Camp Taurajo · {npc:5875} Gan'rul Bloodeye
+	["{npc:5911} stands at {area:378}, south down the road from the Crossroads. He sends you north to the quilboar camp where Dogran is held: the camp with two huts side by side, north-west of a decoy camp whose huts stand apart. A rare level 22 elite quilboar sometimes guards the huts: send your voidwalker in, sacrifice it if you must, and talk to Dogran. He gives you a pendant for {npc:5875}. Keep it."] = "",
 
 	-- Step 7: The Binding: succubus (Orgrimmar)
 	-- {quest:1513} The Binding · {zone:1454} Orgrimmar
@@ -67,16 +67,14 @@ return {
 	["{npc:185333} (level 22) works as a tailor for the {area:279} wizards at {area:233}, in eastern Silverpine: the wizards around her are hostile. {npc:5682} (level 20, not elite) patrols near the {area:230} in the far south. Both are Alliance-friendly humans: attacking them can flag you for PvP. Each drops her or his heart."] = "",
 
 	-- Step 12: Corma Villard
-	["Corma Villard"] = "",
-	-- {zone:1437} Wetlands · {area:881} Thandol Span · {zone:1458} Undercity · {area:287} Hillsbrad · {zone:1417} Arathi Highlands
-	["Corma Villard (level 22, not elite; Comar in older records) wanders the north of the {zone:1437} just past the {area:881}, to the right as you come off the bridge. From the {zone:1458} head through {area:287} and {zone:1417}, where the mobs are 30 and up. Attacking her flags you for PvP."] = "",
-	["Corma's Heart"] = "",
+	-- {npc:5683} Corma Villard · {zone:1437} Wetlands · {area:881} Thandol Span · {zone:1458} Undercity · {area:287} Hillsbrad · {zone:1417} Arathi Highlands
+	["{npc:5683} (level 22, not elite; Comar in older records) wanders the north of the {zone:1437} just past the {area:881}, to the right as you come off the bridge. From the {zone:1458} head through {area:287} and {zone:1417}, where the mobs are 30 and up. Attacking her flags you for PvP."] = "",
 
 	-- Step 13: The Binding: succubus (Undercity)
 	-- {quest:1474} The Binding · {zone:1458} Undercity
 	["{quest:1474}: succubus ({zone:1458})"] = "",
-	-- {npc:5675} Carendin Halgar · {item:6286} Pure Hearts
-	["Back to {npc:5675} with Dalin's and Corma's hearts. He hands you the {item:6286}: go down to the summoning circle below him, stand on it and use them. Summon your voidwalker first and keep the fight on the circle, or the guards may kill her and the kill does not count. If she wins, use the hearts again; keep them, {npc:5675} takes them back."] = "",
+	-- {npc:5675} Carendin Halgar · {npc:5683} Corma Villard · {item:6286} Pure Hearts
+	["Back to {npc:5675} with Dalin's and {npc:5683}'s hearts. He hands you the {item:6286}: go down to the summoning circle below him, stand on it and use them. Summon your voidwalker first and keep the fight on the circle, or the guards may kill her and the kill does not count. If she wins, use the hearts again; keep them, {npc:5675} takes them back."] = "",
 	-- {item:6286} Pure Hearts · {npc:5675} Carendin Halgar
 	["{item:6286}, on the circle below {npc:5675}"] = "",
 

@@ -253,9 +253,9 @@ fn the_minimap_button_exists_only_once_turned_on_click_shows_or_hides_the_guide_
 		Polestar.Set("maps.minimapButton", false)
 		emit({ before = before ~= nil, start = start, fired = fired, menu = menu, picked = picked, dragging = dragging, saved = saved,
 			stopped = stopped, corner = corner, resized = resized, hidden = not b:IsShown() })"#,
-		None,
+		MINIMAP_BUTTON_OFF,
 	);
-	assert_eq!(out["before"], false, "no frame while off");
+	assert_eq!(out["before"], false, "no frame while turned off");
 	// 225 degrees (south-west) at 70 + 5 px from the centre.
 	assert_eq!(out["start"], json!([true, -53, -53]));
 	assert_eq!(out["menu"], true, "right-click opens Polestar's menu on the button");
@@ -267,6 +267,117 @@ fn the_minimap_button_exists_only_once_turned_on_click_shows_or_hides_the_guide_
 	assert_eq!(out["corner"], json!([true, 75, 75]), "the square's corner, not the circle");
 	assert_eq!(out["resized"], json!([true, 145, 0]), "on the edge of the resized minimap");
 	assert_eq!(out["hidden"], true);
+}
+
+const MINIMAP_BUTTON_OFF: Option<&str> = Some("PolestarDB = { schema = 1, settings = { maps = { minimapButton = false } } }");
+
+#[test]
+fn the_minimap_button_shows_on_a_fresh_profile_and_turning_it_off_is_stored_so_it_stays_off() {
+	let out = run(
+		r#"
+		local b = stub.frame("PolestarMinimapButton")
+		local fresh = { exists = b ~= nil, shown = b and b:IsShown(), parent = b and b:GetParent() == Minimap, stored = (PolestarDB.settings.maps or {}).minimapButton }
+		Polestar.Set("maps.minimapButton", false)
+		emit({ fresh = fresh, hidden = not b:IsShown(), stored = PolestarDB.settings.maps.minimapButton })"#,
+		None,
+	);
+	assert_eq!(out["fresh"], json!({ "exists": true, "shown": true, "parent": true }), "on by default, nothing stored");
+	assert_eq!(out["hidden"], true);
+	assert_eq!(out["stored"], false, "an explicit off is stored, so a later default can't turn it back on");
+}
+
+#[test]
+fn a_minimap_button_turned_off_stays_off_after_a_reload() {
+	let out = run(r#"emit({ exists = stub.frame("PolestarMinimapButton") ~= nil, on = Polestar.Get("maps.minimapButton") })"#, MINIMAP_BUTTON_OFF);
+	assert_eq!(out, json!({ "exists": false, "on": false }));
+}
+
+// 0.3.6 shows the minimap button to every account (Fitz, 2026-11-09): an account from 0.3.5, whose off was the
+// default and never stored, gets it on. The 0.3.6 test builds stored false once for such an account
+// (PolestarDB.minimapButtonKept): that off and its flag go, once; an off the player stores later stays.
+#[test]
+fn every_account_gets_the_minimap_button_on_and_the_test_builds_kept_off_is_undone_once() {
+	let state = r#"emit({ exists = stub.frame("PolestarMinimapButton") ~= nil, on = Polestar.Get("maps.minimapButton"),
+		stored = PolestarDB.settings.maps and PolestarDB.settings.maps.minimapButton, kept = PolestarDB.minimapButtonKept or false })"#;
+	let load = |saved: Option<&str>, gamepad: bool| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_world.lua", "stub_maps.lua"],
+			before: String::from("stub.maps.useWorld(); stub.maps.withMapCanvas(); stub.maps.place(0, 800)\n")
+				+ if gamepad { "Enum.InputDeviceInterfaceType = { Mkb = 0, Gamepad = 1 }\nC_InputInterfaceStyle = { GetCurrentStyle = function() return 1 end }\n" } else { "" },
+			addons: vec![Addon::files("Polestar", FILES)],
+			saved: saved.map(|s| ("Polestar".to_string(), s.to_string())).into_iter().collect(),
+			login: true,
+			script: state.into(),
+		})
+		.remove(0)
+	};
+	let on = json!({ "exists": true, "on": true, "kept": false });
+	// A 0.3.5 account: settings of its own, none for the button.
+	let old = "PolestarDB = { schema = 1, settings = { ui = { scale = 1.1 }, maps = { minimapButtonAngle = 140 } } }";
+	assert_eq!(load(Some(old), false), on, "a 0.3.5 account: on, nothing stored");
+	assert_eq!(load(None, false), on, "a new account: on, nothing stored");
+	// A test build saved it off once: undone.
+	let kept_off = "PolestarDB = { schema = 1, settings = { maps = { minimapButton = false } }, minimapButtonKept = true }";
+	assert_eq!(load(Some(kept_off), false), on, "the test builds' saved off goes with its flag");
+	assert_eq!(load(Some("PolestarDB = { schema = 1, settings = { maps = {} }, minimapButtonKept = true }"), false), on, "turned on after a test build");
+	// The test builds never saved for the gamepad interface: an off there is the player's.
+	assert_eq!(load(Some(kept_off), true), json!({ "exists": false, "on": false, "stored": false, "kept": false }), "a gamepad player who turned it off");
+	// Without the flag an off is the player's own.
+	assert_eq!(
+		load(Some("PolestarDB = { schema = 1, settings = { maps = { minimapButton = false } } }"), false),
+		json!({ "exists": false, "on": false, "stored": false, "kept": false }),
+		"a player who turned it off"
+	);
+}
+
+// Minimap button collectors gather the minimap's named Button children: a flyout reparents them into its own
+// panel, a row re-anchors them on the minimap. Once moved, the button is theirs: a drag, a resized minimap or a
+// changed angle leaves it where they put it, and its clicks still work.
+#[test]
+fn a_minimap_button_collector_owns_its_place_once_it_moves_the_button_and_clicks_still_work() {
+	let out = run(
+		r#"
+		local fired = {}
+		Polestar.On("TOGGLE_FRAME", function() fired[#fired + 1] = "toggle" end)
+		local b = stub.frame("PolestarMinimapButton")
+		local collected = b:IsObjectType("Button") and b:GetParent() == Minimap and not b:GetName():match("%d$") and b:GetWidth() >= 20 and b.Icon ~= nil
+		local function at() local p, rel, _, x, y = b:GetPoint(1); return { p, rel == Minimap, x, y } end
+		-- A flyout: reparented into the collector's panel, in a grid cell.
+		local panel = CreateFrame("Frame", nil, UIParent)
+		b:SetParent(panel)
+		b:ClearAllPoints()
+		b:SetPoint("TOPLEFT", panel, "TOPLEFT", 4, -4)
+		b:SetSize(24, 24)
+		stub.cursor = { 200, 70 }
+		b:GetScript("OnDragStart")(b)
+		local dragged = b:GetScript("OnUpdate") ~= nil
+		b:GetScript("OnDragStop")(b)
+		Minimap:SetSize(280, 280)
+		stub.RunScript(Minimap, "OnSizeChanged", 280, 280)
+		Polestar.Set("maps.minimapButtonAngle", 90)
+		local inFlyout = at()
+		b:Click("LeftButton")
+		b:Click("RightButton")
+		local menu = Polestar.Widgets.MenuShown(b)
+		Polestar.Widgets.HideMenu()
+		-- A row on the minimap: back on Minimap, anchored by the collector.
+		b:SetParent(Minimap)
+		b:ClearAllPoints()
+		b:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMLEFT", 0, 30)
+		Minimap:SetSize(300, 300)
+		stub.RunScript(Minimap, "OnSizeChanged", 300, 300)
+		Polestar.Set("maps.minimapButtonAngle", 180)
+		emit({ collected = collected, dragged = dragged, angle = Polestar.Get("maps.minimapButtonAngle"), inFlyout = inFlyout,
+			parent = b:GetParent() == Minimap, onRow = at(), fired = fired, menu = menu })"#,
+		None,
+	);
+	assert_eq!(out["collected"], true, "a named Button child of Minimap, at least 20 wide, its name not ending in a digit, icon at .Icon");
+	assert_eq!(out["dragged"], false, "a drag inside the collector doesn't pull it back to the edge");
+	assert_eq!(out["angle"], 180);
+	assert_eq!(out["inFlyout"], json!(["TOPLEFT", false, 4, -4]), "neither a resize nor a new angle moves it out of the grid");
+	assert_eq!(out["onRow"], json!(["BOTTOMRIGHT", true, 0, 30]), "nor off the collector's row");
+	assert_eq!(out["fired"], json!(["toggle"]));
+	assert_eq!(out["menu"], true, "right-click still opens Polestar's menu");
 }
 
 // ---------------------------------------------------------------------------
@@ -365,4 +476,65 @@ fn a_dungeon_pin_opens_its_dungeon_page_without_the_dungeons_module_or_with_shif
 	assert_eq!(out["opened"], json!(["deadmines", "hall-of-thanes"]));
 	assert_eq!(out["targets"], json!(["The Deadmines@9000:42.5,71.7", "The Deadmines@9000:42.5,71.7"]));
 	assert_eq!(out["tip"], json!(["The Deadmines", "Dungeon · Levels 17–26", " ", "Click to open its page", "Shift-click to set a waypoint"]));
+}
+
+// Fitz in game (0.3.6, the button in EllesmereUIMinimap's button bar): on hover the button showed a flat accent
+// disc where its logo was. The logo and the hover resolve to Polestar's own files, and the hover's 25 % is in its
+// colour, so a bar that sets our regions back to full alpha cannot turn it into an opaque disc.
+#[test]
+fn the_minimap_button_s_logo_and_hover_are_polestar_s_files_the_hover_a_quarter_strong_even_shown_at_full_alpha() {
+	let out = run(
+		r##"
+		local b = stub.frame("PolestarMinimapButton")
+		local function look()
+			local r, g, bl, a = b.Hover:GetVertexColor()
+			return { icon = b.Icon:GetTexture(), hover = b.Hover:GetTexture(), layer = b.Hover:GetDrawLayer(),
+				strength = (a or 1) * b.Hover:GetAlpha(), iconAlpha = b.Icon:GetAlpha() }
+		end
+		local r = { rest = look() }
+		stub.RunScript(b, "OnEnter")
+		r.enter = look()
+		stub.RunScript(b, "OnLeave")
+		r.leave = look()
+		-- A bar showing every region of the button at full alpha.
+		for _, region in ipairs({ b:GetRegions() }) do region:SetAlpha(1) end
+		r.bar = look()
+		Polestar.Theme.Refresh()
+		r.repainted = look()
+		-- Leatrix Plus's Enhance minimap stands a proxy in for the button, its icon _G[name .. "Icon"]'s texture, else
+		-- the last region under 30 wide (CreateBadButton): before the logo was named, that was the hover's circle.
+		local function leatrixIcon(name)
+			local finalTex = "Interface\\HELPFRAME\\HelpIcon-KnowledgeBase"
+			if _G[name .. "Icon"] then
+				if _G[name .. "Icon"]:GetObjectType() == "Texture" then
+					local gTex = _G[name .. "Icon"]:GetTexture()
+					if gTex then finalTex = gTex end
+				end
+			else
+				for i = 1, select("#", _G[name]:GetRegions()) do
+					local region = select(i, _G[name]:GetRegions())
+					if region.GetTexture then
+						local x = region:GetSize()
+						if x and x < 30 then finalTex = region:GetTexture() end
+					end
+				end
+			end
+			return finalTex
+		end
+		r.proxy = leatrixIcon("PolestarMinimapButton")
+		r.named = _G.PolestarMinimapButtonIcon == b.Icon
+		emit(r)"##,
+		None,
+	);
+	assert!(out["proxy"].as_str().unwrap().ends_with("Polestar\\Media\\UI\\logo"), "a proxy shows the logo: {}", out["proxy"]);
+	assert_eq!(out["named"], true);
+	let rest = &out["rest"];
+	assert!(rest["icon"].as_str().unwrap().ends_with("Polestar\\Media\\UI\\logo"), "{rest}");
+	assert!(rest["hover"].as_str().unwrap().ends_with("Polestar\\Media\\UI\\circle"));
+	assert_eq!(rest["layer"], "HIGHLIGHT");
+	for k in ["rest", "enter", "leave", "bar", "repainted"] {
+		assert!((out[k]["strength"].as_f64().unwrap() - 0.25).abs() < 1e-6, "{k}: the hover at 25 %: {}", out[k]);
+		assert_eq!(out[k]["iconAlpha"], 1, "{k}: the logo shows");
+		assert_eq!(out[k]["icon"], rest["icon"]);
+	}
 }

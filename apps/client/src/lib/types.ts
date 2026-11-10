@@ -231,6 +231,8 @@ export interface Snapshot {
 	/** Sharing is on and its notice (what is shared, Stop sharing) has not been read yet. */
 	shareNotice: boolean;
 	paused: boolean;
+	/** The explorer toggle: on unless the player turned it off. */
+	explore: boolean;
 	serverUrl: string;
 	defaultServerUrl: string;
 	dataDir: string;

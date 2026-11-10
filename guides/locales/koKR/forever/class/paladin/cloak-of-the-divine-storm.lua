@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {spell:407778} Divine Storm
-	["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "",
+	-- {area:444} Tower of Althalaxx
+	["Starts now at 22 at the {area:444}; its mobs are 28-30, so go nearer 30 or with a friend. Alliance only for now."] = "",
 
 	-- Step 1: The Strange Orb
 	["The Strange Orb"] = "Strange Orb",
@@ -63,6 +63,8 @@ return {
 	-- ["Blackrock Summoners, Champions and Trackers camp in the north-west of Redridge; they drop the {item:209778}."] = "붉은마루 산맥 북서쪽에 진을 친 검은바위부족 소환사, 용사, 추적자가 {item:209778}을(를) 떨어뜨립니다.",
 	-- ["Climb to the top of the {area:444} in northern {zone:1439}. Loot the Strange Orb up there: it gives you the Althalaxx Orb, which starts the quest."] = "{zone:1439} 북부의 {area:444} 꼭대기로 올라가십시오. 그곳의 Strange Orb에서 Althalaxx Orb를 얻으면 퀘스트가 시작됩니다.",
 	-- ["Katherine sends you to the warlocks in the {object:2101}; {npc:5495} speaks for them."] = "캐서린은 당신을 {object:2101}의 흑마법사들에게 보냅니다. {npc:5495}이(가) 그들을 대변합니다.",
+	-- ["Strange Orb atop the {area:444}: right-click the Althalaxx Orb it gives"] = "{area:444} 꼭대기의 Strange Orb: 얻은 Althalaxx Orb를 오른쪽 클릭",
+	-- ["The Strange Orb"] = "Strange Orb",
 	-- ["The {object:409311} stands at the east end of {area:435}. Shatter the orb on it; the {object:409315} appears beside it."] = "{object:409311}은(는) {area:435} 동쪽 끝에 서 있습니다. 그 위의 구슬을 깨뜨리면 옆에 {object:409315}이(가) 나타납니다.",
 	-- ["The {object:409311} stands at the east end of {area:435}. {spell:11170} the orb on it; the {object:409315} appears beside it."] = "{object:409311}은(는) {area:435} 동쪽 끝에 서 있습니다. 그 위의 구슬에 {spell:11170}을(를) 사용하면 옆에 {object:409315}이(가) 나타납니다.",
 	-- ["{area:435} is in south-east {zone:1440}. The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds in it drop the Motes of Mannoroth."] = "{area:435}은(는) {zone:1440} 남동쪽에 있습니다. 그 안의 만노로크 채찍마녀, 불타는 지옥불정령, 지옥군단병, 군단 지옥사냥개가 만노로스의 티끌을 떨어뜨립니다.",

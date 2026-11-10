@@ -5,7 +5,7 @@ faction Horde
 race Tauren
 levels 1-12
 zone Mulgore
-next forever/horde/02-the-barrens
+next forever/horde/03-silverpine-forest
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -116,12 +116,52 @@ step Call of Earth
 # ---------------------------------------------------------------- Bloodhoof Village
 
 step Kaga Wildhoof
-  tip Follow the road north out of Red Cloud Mesa. Kaga Wildhoof waits on the road just south of Bloodhoof Village; /sit by her campfire until you get Boosted Rest.
+  tip Follow the road north out of Red Cloud Mesa. Kaga Wildhoof waits on the road just south of Bloodhoof Village; /sit by her campfire until you get Boosted Rest. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof or on the Thunder Bluff stop.
   turnin 96659
   accept 96605
   complete 96605 @46.2,67.3 live      -- /sit by Kaga's campfire until you get Boosted Rest
   turnin 96605
   accept 96661
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  accept 97936                        -- Kaga Wildhoof: for Yonn Deepcut
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  accept 97934                        -- Kaga Wildhoof: for Chaw Stronghide
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  accept 97931                        -- Kaga Wildhoof: for Vira Younghoof
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  accept 97932                        -- Kaga Wildhoof: for Uthan Stillwater
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  accept 97933                        -- Kaga Wildhoof: for Komin Winterhoof
+
+step Camping 101: Mining
+  when skill Mining 1
+  accept 97935                        -- Kaga Wildhoof: for Brek Stonehoof
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  accept 97927                        -- Kaga Wildhoof: for Kray
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  accept 97928                        -- Kaga Wildhoof: for Thrag Stonehoof
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  accept 97929                        -- Kaga Wildhoof: for Mot Dawnstrider
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  accept 97937                        -- Kaga Wildhoof: for Vhan
 
 step Bloodhoof Village
   accept 743                          -- Ruul Eagletalon
@@ -146,6 +186,26 @@ step Bloodhoof Village
   complete 96661 @44.92,61.67 map 1412 live
   turnin 96661                        -- Pyall Silentstride
   accept 746
+
+step Yonn Deepcut
+  when onquest 97936
+  complete 97936 @44.97,61.4 map 1412 live
+  turnin 97936                        -- Yonn Deepcut, beside Pyall: Camping 101: Skinning
+
+step Chaw Stronghide
+  when onquest 97934
+  complete 97934 @44.94,61.46 map 1412 live
+  turnin 97934                        -- Chaw Stronghide, beside Pyall: Camping 101: Leatherworking
+
+step Vira Younghoof
+  when onquest 97931
+  complete 97931 @46.08,63.96 map 1412 live
+  turnin 97931                        -- Vira Younghoof: Camping 101: First Aid
+
+step Uthan Stillwater
+  when onquest 97932
+  complete 97932 @44.16,63.8 map 1412 live
+  turnin 97932                        -- Uthan Stillwater: Camping 101: Fishing
 
 step Poison Water
   tip Prairie Wolves and Adult Plainstriders roam the plains around the village.
@@ -202,9 +262,10 @@ step Bloodhoof Village
 step Thunderhorn Water Well
   tip The well lies north of the village. Adult Plainstriders graze around it: they drop the Tender Strider Meat for Kyle.
   use 5415 quest 758.1 @44.6,45.4     -- Thunderhorn Cleansing Totem
+  collect 287505                      -- Tender Strider Meat
 
 step Bloodhoof Village
-  use 287505 quest 99411.1            -- Kyle the Frenzied runs around the village: give him the Tender Strider Meat
+  use 287505 quest 99411.1 @47.8,63.1 -- Kyle the Frenzied runs around the village: give him the Tender Strider Meat
   turnin 99411                        -- Ahab Wheathoof, at the north end of the village
   turnin 758                          -- Mull Thunderhorn
   accept 759
@@ -317,7 +378,7 @@ step Red Rocks
 
 step Thunder Bluff
   zone Thunder Bluff
-  goto 60.3,51.7 "Thunder Bluff"
+  goto 60.3,51.7 "Cairne's tent"
 
 # ---------------------------------------------------------------- Thunder Bluff
 
@@ -340,6 +401,36 @@ step Traditions of the Bluff
   sethome "Thunder Bluff" npc 6746 only Druid -- Innkeeper Pala, at the south end of the central rise: the hearth from Moonglade brings you back here
   accept 5926 only Druid              -- Innkeeper Pala: Heeding the Call, for Turak on Elder Rise
   getfp "Thunder Bluff" npc 2995      -- Tal
+
+step Komin Winterhoof
+  when onquest 97933
+  complete 97933 @40,25.1 map 1412
+  turnin 97933                        -- Komin Winterhoof: Camping 101: Herbalism
+
+step Brek Stonehoof
+  when onquest 97935
+  complete 97935 @36.8,28.6 map 1412
+  turnin 97935                        -- Brek Stonehoof: Camping 101: Mining
+
+step Kray
+  when onquest 97927
+  complete 97927 @39.3,23.8 map 1412
+  turnin 97927                        -- Kray: Camping 101: Alchemy
+
+step Thrag Stonehoof
+  when onquest 97928
+  complete 97928 @37.8,28.4 map 1412
+  turnin 97928                        -- Thrag Stonehoof: Camping 101: Blacksmithing
+
+step Mot Dawnstrider
+  when onquest 97929
+  complete 97929 @38.9,24.7 map 1412
+  turnin 97929                        -- Mot Dawnstrider: Camping 101: Enchanting
+
+step Vhan
+  when onquest 97937
+  complete 97937 @38.8,25.9 map 1412
+  turnin 97937                        -- Vhan: Camping 101: Tailoring
 
 step Hunter Rise
   zone Thunder Bluff
@@ -391,6 +482,7 @@ step Preparation for Ceremony
 step Clarice Foster
   zone Thunder Bluff
   tip Clarice Foster stands in the Pools of Vision, the cave under Spirit Rise: go down inside, the arrow cannot tell the floors apart.
+  level 12
   accept 264
   accept 1523 only Shaman -- Xanis Flameweaver, a few steps from Clarice Foster on Spirit Rise
 
@@ -434,14 +526,10 @@ step The Moonkin Stone
   use 15710 @71.7,65.0                -- Cenarion Lunardust
   complete 6002
 
-step Back to The Barrens
-  only Druid
-  zone The Barrens
-  goto 52.2,31.0 "The Barrens"
-
 # ---------------------------------------------------------------- The Crossroads
 
 step Into Mulgore
+  only !Druid
   zone Mulgore
   goto 42.1,20.2 "Into Mulgore"
 
@@ -449,25 +537,23 @@ step Into The Barrens
   zone The Barrens
   goto 41.9,58.6 "Into The Barrens"
 
-step The Barrens
+step Kirge Sternhorn
   zone The Barrens
-  goto 52.2,31.0 "The Barrens"
+  tip Kirge Sternhorn stands at Camp Taurajo, where the road from Mulgore meets the Gold Road north to the Crossroads.
+  accept 854                          -- Kirge Sternhorn: for Thork at the Crossroads
 
 step The Crossroads
   zone The Barrens
-  tip Leave Mulgore by the south-eastern pass and follow the road to the Crossroads. Sergra Darkthorn stands by the inn, Tonga Runetotem at the south gate. The Barrens guide starts here.
-  turnin 860                          -- Sergra Darkthorn
+  goto 52.2,31.0 "The Crossroads"
+
+step The Crossroads
+  zone The Barrens
+  tip Leave Mulgore by the south-eastern pass and follow the road to the Crossroads. Tonga Runetotem stands at the south gate, Sergra Darkthorn by the inn, Devrak on the tower platform. The Crossroads' own quests come after Silverpine Forest, in the Barrens guide.
   turnin 886                          -- Tonga Runetotem
-  tip The Crossroads is your base for this guide. Everyone you need stands within a few steps of the inn.
+  turnin 860                          -- Sergra Darkthorn
+  turnin 854                          -- Thork, by the wind rider tower
   getfp "Crossroads" npc 3615         -- Devrak, the wind rider master
-  sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
-  accept 870                          -- Tonga Runetotem
-  accept 867                          -- Darsok Swiftdagger: the harpies come later, in the Dry Hills
-  accept 5041
-  accept 871                          -- Thork
-  accept 1492
-  accept 848                          -- Apothecary Helbrim
-  accept 869                          -- Gazrog
+
 # ---------------------------------------------------------------- The Crossroads
 
 step Jahan Hawkwing
@@ -493,3 +579,8 @@ step Jahan Hawkwing
   only Druid
   zone The Barrens
   turnin 6364                         -- Jahan Hawkwing
+
+step To Orgrimmar
+  zone Orgrimmar
+  tip From the Crossroads follow the road north-east to Far Watch Post, cross the Southfury River into Durotar and keep north to Orgrimmar's main gate. The next guide starts in Orgrimmar and takes the zeppelin to Tirisfal Glades and Silverpine Forest.
+  goto 55.6,72.3 "Orgrimmar's Valley of Strength"

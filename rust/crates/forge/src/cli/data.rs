@@ -358,6 +358,7 @@ fn run() -> Result<(), Fail> {
 		"names" => return names(args.collect()),
 		"talents" => return talents(args.collect()),
 		"maps" => return maps(args.collect()),
+		"newquests" => return newquests(args.collect()),
 		_ => {}
 	}
 	if cmd != "build" {
@@ -1016,6 +1017,41 @@ fn maps(args: Vec<String>) -> Result<(), Fail> {
 	Ok(())
 }
 
+pub(super) const NEWQUESTS_USAGE: &str = "usage: forge data newquests [options]
+
+The quests Forever added (in neither pfQuest's Classic database nor the Classic Era client's quest
+table), for the addon's \"New in Forever\" mark -> addon/Polestar/Quests/NewQuestIds.lua.
+  --data DIR      data/forever (quests.json)
+  --sources DIR   source cache folder (default: <root>/data/sources): the pinned client quest tables
+  --offline       use cached tables only
+  --check         fail when the file is out of date instead of writing it
+  --lua FILE      output (default: <root>/addon/Polestar/Quests/NewQuestIds.lua)
+  --root DIR      the checkout (default: the one above the current folder)";
+
+fn newquests(args: Vec<String>) -> Result<(), Fail> {
+	let (kv, fl, pos) = opts(args, &["--root", "--data", "--sources", "--lua"], &["--offline", "--check"])?;
+	if let Some(p) = pos.first() {
+		return Err(usage(format!("unexpected argument {p}")));
+	}
+	let get = |k: &str| kv.iter().rev().find(|(a, _)| a == k).map(|(_, v)| v.clone());
+	let root = root_of(&kv)?;
+	let data = get("--data").map(abs).unwrap_or_else(|| root.join("data").join("forever"));
+	let src = get("--sources").map(abs).unwrap_or_else(|| root.join("data").join("sources"));
+	let out = get("--lua").map(abs).unwrap_or_else(|| root.join("addon/Polestar/Quests/NewQuestIds.lua"));
+	let (ids, lua) = forge_data::newquests::build(&data, &src, fl.iter().any(|f| f == "--offline"), &|m| println!("{m}"))?;
+	println!("newquests: {} quests new in Forever ({} bytes of ids)", ids.len(), ids.len() * forge_data::newquests::WIDTH);
+	if fl.iter().any(|f| f == "--check") {
+		if std::fs::read_to_string(&out).ok().as_deref() != Some(lua.as_str()) {
+			return Err(format!("{} is out of date ({})", rel(&out), forge_data::newquests::COMMAND).into());
+		}
+		println!("1 files up to date");
+		return Ok(());
+	}
+	std::fs::write(&out, &lua).map_err(|e| format!("{}: {e}", out.display()))?;
+	println!("wrote {}", rel(&out));
+	Ok(())
+}
+
 /// The help of `forge data <sub>`, for the subcommands with one of their own.
 pub(super) fn sub_usage(sub: &str) -> Option<&'static str> {
 	Some(match sub {
@@ -1027,6 +1063,7 @@ pub(super) fn sub_usage(sub: &str) -> Option<&'static str> {
 		"names" => NAMES_USAGE,
 		"talents" => TALENTS_USAGE,
 		"maps" => MAPS_USAGE,
+		"newquests" => NEWQUESTS_USAGE,
 		"build" => USAGE,
 		_ => return None,
 	})

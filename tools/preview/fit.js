@@ -33,7 +33,8 @@ const PASSES = [
 	['game font', 'Polestar.Set("ui.font", "game")\n'],
 	['Inter', 'Polestar.Set("ui.font", "inter")\n'],
 ];
-const LOCALE_DIR = path.join(ROOT, 'addon', 'Polestar', 'Locales');
+// Polestar's interface strings of a locale: Interface.lua in its language folder.
+const interfaceFile = (locale) => path.join(ROOT, 'addon', `Polestar_${locale}`, 'Interface.lua');
 
 const wide = (cp) => (cp >= 0x1100 && cp <= 0x11ff) || (cp >= 0x2e80 && cp <= 0xa4cf) || (cp >= 0xa960 && cp <= 0xa97f) || (cp >= 0xac00 && cp <= 0xd7ff) || (cp >= 0xf900 && cp <= 0xfaff) || (cp >= 0xfe30 && cp <= 0xfe4f) || (cp >= 0xff00 && cp <= 0xff60) || (cp >= 0xffe0 && cp <= 0xffe6);
 
@@ -60,7 +61,9 @@ function localeCodepoints(files) {
 	return [...cps].filter((c) => c >= 0x180);
 }
 
-// Lua run first: the client's locale, the file that stands for it, and
+// Lua run first: the client's locale, the file that stands for its
+// interface strings (loaded when Core/Locale.lua asks for the language
+// folder, as the client loads it; the shipped Interface.lua by default), and
 // string.format's positional arguments (%1$s), which the client has and
 // Lua 5.1 does not.
 function localeLua(locale, file) {
@@ -77,13 +80,19 @@ function localeLua(locale, file) {
 	end
 	format = string.format
 end`];
-	if (file) {
+	const strings = file || interfaceFile(locale);
+	if (fs.existsSync(strings)) {
 		lines.push(`do
-	local load = loadfile
-	function loadfile(f)
-		if f:match("[/\\\\]Polestar[/\\\\]Locales[/\\\\]${locale}%.lua$") then return load(${JSON.stringify(file)}) end
-		return load(f)
+	local load = C_AddOns.LoadAddOn
+	function C_AddOns.LoadAddOn(name)
+		if name ~= ${JSON.stringify(`Polestar_${locale}`)} then return load(name) end
+		if not stub.addonsLoaded[name] then
+			dofile(${JSON.stringify(strings)})
+			stub.addonLoaded(name)
+		end
+		return true
 	end
+	LoadAddOn = C_AddOns.LoadAddOn
 end`);
 	}
 	return lines.join('\n');
@@ -202,7 +211,7 @@ function panelsOf(before) {
 // file to load instead of the shipped one.
 function auditLocale(locale, { file = null, slack = 1, extraFiles = [] } = {}) {
 	const fonts = fontsFor(slack);
-	const shipped = Object.keys(LOCALES).map((l) => path.join(LOCALE_DIR, `${l}.lua`));
+	const shipped = Object.keys(LOCALES).map(interfaceFile);
 	const prelude = `${P.metricsLua(fonts, localeCodepoints([...shipped, ...extraFiles]))}\n${localeLua(locale, file)}`;
 	const found = [];
 	try {

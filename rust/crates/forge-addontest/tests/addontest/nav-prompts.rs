@@ -105,6 +105,40 @@ fn travel_button_a_hearth_leg_gets_a_secure_item_button_under_the_arrow_out_of_c
 }
 
 #[test]
+fn travel_button_a_mouse_click_casts_once_on_its_release_its_binding_once_and_a_right_click_casts_nothing_at_either_key_down_setting() {
+	let out = run_nav(
+		r#"
+		nav.items[6948] = 1
+		setRoute({ HEARTH, WALK })
+		local b = btn()
+		local out = {}
+		for _, cvar in ipairs({ "1", "0" }) do
+			stub.cvars.ActionButtonUseKeyDown = cvar
+			local ran = {}
+			stub.mouseClick(b, ran)
+			local mouse, onEnter = ran, b:GetAttribute("useOnKeyDown")
+			stub.RunScript(b, "OnLeave")
+			ran = {}
+			stub.keyClick(b, ran)
+			local key = ran
+			ran = {}
+			stub.mouseClick(b, ran, "RightButton")
+			stub.RunScript(b, "OnLeave")
+			out[#out + 1] = { mouse = mouse, hovered = onEnter, key = key, right = #ran, left = b:GetAttribute("useOnKeyDown") == nil }
+		end
+		emit(out)
+	"#,
+	);
+	for (i, row) in out[0].as_array().unwrap().iter().enumerate() {
+		assert_eq!(row["mouse"], json!([["item", "item:6948"]]), "setting {i}: one cast per mouse click");
+		assert_eq!(row["hovered"], false, "setting {i}: on its release");
+		assert_eq!(row["key"], json!([["item", "item:6948"]]), "setting {i}: one cast per key press");
+		assert_eq!(row["right"], 0, "setting {i}: a right click casts nothing");
+		assert_eq!(row["left"], true, "setting {i}");
+	}
+}
+
+#[test]
 fn travel_button_issues_6_never_changed_in_combat_the_last_request_lands_when_combat_ends() {
 	let out = run_nav(
 		r#"
@@ -309,6 +343,45 @@ fn alerts_issues_c5_30_s_before_a_timed_boat_at_the_dock_20_s_before_the_next_st
 	assert_eq!(out[9], false);
 	assert_eq!(out[10], json!([true, 0, 0]));
 	assert_eq!(out[11], false);
+}
+
+// Polestar's own notices (the window hiding in an instance) take the same banner: the emblem in the ring, a
+// fixed line that wraps and grows the banner by its extra lines, no countdown; a click or HideNotice takes it
+// down, a transport's countdown after it is one line again.
+#[test]
+fn alerts_a_notice_wraps_its_line_grows_the_banner_and_goes_on_hide_a_transport_banner_after_it_is_one_line() {
+	let out = run_nav(
+		r#"
+		local A = N.alerts
+		local line = "Click the minimap button or press Ctrl-Shift-P to show it. It comes back when you leave."
+		A.ShowNotice("Polestar is hidden here", line, 12)
+		local b = PolestarAlert
+		local notice = { shown = b:IsShown(), title = b.Title:GetText(), line = b.When:GetText(), wraps = b.When:GetWordWrap(),
+			multi = b.When:GetNumLines() >= 2, grown = b:GetHeight() == 56 + (b.When:GetNumLines() - 1) * b.When:GetLineHeight(),
+			glyph = b.Glyph:GetTexture():match("logo$") ~= nil, tint = { b.Glyph:GetVertexColor() } }
+		stub.advance(5)
+		local still = b:IsShown() and b.When:GetText() == line
+		stub.advance(8)
+		local gone = not b:IsShown()
+		A.ShowNotice("Polestar is hidden here", line, 12)
+		A.HideNotice()
+		local hidden = not b:IsShown()
+		A.ShowBanner("Boat to Farland Pier", "Arrives in %s", 30)
+		A.HideNotice()
+		emit({ notice = notice, still = still, gone = gone, hidden = hidden, transit = { shown = b:IsShown(), height = b:GetHeight(),
+			wraps = b.When:GetWordWrap(), when = b.When:GetText(), boat = b.Glyph:GetTexture():match("icon%-boat$") ~= nil } })
+	"#,
+	);
+	assert_eq!(
+		out[0]["notice"],
+		json!({ "shown": true, "title": "Polestar is hidden here", "line": "Click the minimap button or press Ctrl-Shift-P to show it. It comes back when you leave.",
+			"wraps": true, "multi": true, "grown": true, "glyph": true, "tint": [1, 1, 1, 1] }),
+		"the emblem in its own colours, not the boat glyph's tint (RegressVisual V2)"
+	);
+	assert_eq!(out[0]["still"], true, "a fixed line, no countdown");
+	assert_eq!(out[0]["gone"], true, "gone after its time, without the transport's linger");
+	assert_eq!(out[0]["hidden"], true);
+	assert_eq!(out[0]["transit"], json!({ "shown": true, "height": 56, "wraps": false, "when": "Arrives in 0:30", "boat": true }), "HideNotice leaves a countdown up");
 }
 
 // ---------------------------------------------------------------------------

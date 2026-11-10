@@ -29,6 +29,21 @@ local function known(...)
 end
 "#;
 
+/// nav() loads no Core/Locale.lua, and Nav/Travel.lua reads its captions at load: the language folder is
+/// asked for right after Core/Init.lua, where Locale.lua (before Nav in Core.xml) would have asked.
+const ASK_FOR_THE_FOLDER: &str = r#"
+do
+	local load = loadfile
+	function loadfile(file)
+		local chunk, err = load(file)
+		if not chunk or not file:match("[/\\]Polestar[/\\]Core[/\\]Init%.lua$") then return chunk, err end
+		return function(...)
+			chunk(...)
+			C_AddOns.LoadAddOn("Polestar_" .. GetLocale())
+		end
+	end
+end"#;
+
 fn nav() -> Addon {
 	Addon::files("Polestar", &["Core/Init.lua", "Nav/Nav.xml"])
 }
@@ -77,7 +92,7 @@ fn every_leg_caption_is_in_the_client_language_flight_boat_and_tram() {
 				("Take the boat to %s", "Nimm das Schiff nach %s"),
 				("Take the tram to %s", "Nimm die Tiefenbahn nach %s"),
 			],
-		),
+		) + ASK_FOR_THE_FOLDER,
 	);
 	assert_eq!(
 		out,
@@ -130,6 +145,29 @@ fn crosses_continents_by_boat() {
 	assert_eq!(out["route"], json!(["walk|Walk to the boat", "boat|Take the boat to Testshire Docks", "walk|Docks quest"]));
 	assert_eq!(out["to"], json!(["Testshire Docks", 0]));
 	assert_eq!(out["boatSecs"], 90, "wait + ride");
+}
+
+// #1125 (Fitz, the Undercity's zeppelin tower): the board point has a height (the tower top, z 98.3) and the player's
+// floor is unknown, so the walk to it ended only within 5 yards; at the spot Fitz calls exact, 6.6 yards from it, the
+// ride never came up. At a dock the walk ends within its reach; the floor rule stays for other ends.
+#[test]
+fn at_a_zeppelin_tower_with_the_floor_unknown_the_ride_comes_up_within_the_walk_s_reach_1125() {
+	let out = run(r#"
+		N.RegisterTravelData({ build = "test", taxi = {}, flights = {}, inns = {},
+			transports = {
+				{ id = "zeppelin-test", kind = "zeppelin", faction = 3, ab = 60, ba = 60, waitA = 30, waitB = 30,
+					a = { "Testshire Tower", 0, -900, 400, 9000, 30, 95, "l", nil, 98.3 }, b = { "Farland Tower", 1, 400, 200, 9001, 30, 10, "l", nil, 54.4 } },
+			},
+		}, true)
+		local function at(dx)
+			nav.place(-900 + dx, 400)
+			N.SetTarget(9001, 50, 50, "Farland quest")
+			N.Sample()
+			return route()[1]
+		end
+		emit({ near = at(8), far = at(30) })"#);
+	assert_eq!(out["near"], "zeppelin|Take the zeppelin to Farland Tower", "8 yd from the board point, floor unknown: the ride");
+	assert!(out["far"].as_str().unwrap_or("").starts_with("walk|"), "30 yd off: still the walk there: {}", out["far"]);
 }
 
 // The Hearthstone's hour-long cooldown is spent once a trip is long enough for it to clearly pay (Fitz, #1096):

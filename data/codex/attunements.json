@@ -170,12 +170,8 @@
 		}
 	],
 	"inside": [
-		{ "kind": "npc", "id": 9023, "name": "Marshal Windsor", "instance": "blackrock-depths", "sources": [{ "edition": "forever", "kind": "npc", "id": 9023, "note": "'can be found in Blackrock Depths'" }] },
-		{ "kind": "object", "id": 164689, "name": "Monument of Franclorn Forgewright", "instance": "blackrock-depths", "sources": [{ "edition": "forever", "kind": "object", "id": 164689, "note": "'can be found in Blackrock Depths'" }] },
 		{ "kind": "object", "id": 179553, "name": "Core Fragment", "instance": "blackrock-depths", "sources": [{ "edition": "forever", "kind": "object", "id": 179553, "note": "'can be found in Blackrock Depths'" }, { "edition": "forever", "kind": "quest", "id": 7848, "note": "'the Molten Core entry portal in Blackrock Depths'" }] },
-		{ "kind": "object", "id": 175785, "name": "Inconspicuous Documents", "instance": "blackrock-spire", "sources": [{ "edition": "forever", "kind": "object", "id": 175785, "note": "'can be found in Blackrock Spire'" }] },
-		{ "kind": "object", "id": 179880, "name": "Drakkisath's Brand", "instance": "blackrock-spire", "sources": [{ "edition": "forever", "kind": "object", "id": 179880, "note": "'can be found in Blackrock Spire'" }] },
-		{ "kind": "object", "id": 103821, "name": "Doan's Strongbox", "instance": "scarlet-monastery", "sources": [{ "edition": "forever", "kind": "object", "id": 103821, "note": "'can be found in Scarlet Monastery'" }] }
+		{ "kind": "object", "id": 175785, "name": "Inconspicuous Documents", "instance": "blackrock-spire", "sources": [{ "edition": "forever", "kind": "object", "id": 175785, "note": "'can be found in Blackrock Spire'" }] }
 	],
 	"removed": [
 		{

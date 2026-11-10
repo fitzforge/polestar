@@ -44,8 +44,8 @@
 		},
 		{
 			"id": "H09", "kind": "buy", "item": 4371, "vendor": 3133, "quest": 174,
-			"fact": "The Bronze Tube for Look to the Stars (174) is bought from Herble Baubbletump in Darkshire, next to Viktori; the export's drop in Stonetalon is wrong.",
-			"source": { "refs": ["0.2.3 report"], "credit": ["Yendi"], "guide": "guides/forever/alliance/05-duskwood.guide:26" }
+			"fact": "The Bronze Tube for Look to the Stars (174) is sold by Herble Baubbletump in Darkshire, next to Viktori, in limited stock, and on Forever he is nearly always sold out (no tube in 30 merchant windows of 19 players' recordings), so the guide's buy there is optional and the Stormwind stop before Darkshire buys it at the Auction House; the export's drop in Stonetalon is wrong.",
+			"source": { "refs": ["0.2.3 report", "#1348"], "credit": ["Yendi", "uNBEx", "Bennistrov"], "guide": "guides/forever/alliance/04-redridge-mountains.guide:109" }
 		},
 		{
 			"id": "H11", "kind": "requires", "quest": 4763, "objective": 0, "item": 12347, "place": { "map": 1439, "x": 37.78, "y": 44.03 },

@@ -696,6 +696,7 @@ fn inputs(s: Synth) -> Inputs {
 		rarescanner: s.rarescanner.as_ref().map(v),
 		local_extras: false,
 		recorded: v(&s.recorded),
+		learned: Default::default(),
 		client: Some(s.client),
 		web: s.web.as_ref().map(v),
 		curated: s.curated,
