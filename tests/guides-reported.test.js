@@ -10302,3 +10302,18 @@ test('Horde 24-30: Thunder Bluff stop for Pigments and The Sacred Flame, carrier
 	const { step } = h[at(h, 'Druids in Thunder Bluff', is('accept', 1195))];
 	assert.ok(step.only && step.only.classes && step.only.classes.includes('DRUID'), 'Druids, already in Thunder Bluff');
 });
+
+// Final route review leftover, Alliance 40-43 (0.3.6): every Alliance race but Humans walks onto the Ratchet dock for the
+// Booty Bay boat at 41, 30 yd from the flight master, and the Badlands guide sends Warlocks back to Strahad Farsan in
+// Ratchet at 43 with `fly "Ratchet"` for Dwarves, Gnomes, Night Elves and Skyborne; only Gnome Warlocks learned the
+// flight path. Every one of those Warlocks now learns it at the dock.
+test('Stranglethorn Vale (Alliance 41): every Warlock who flies to Ratchet at 43 learns its flight path at the boat', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const fits = (o, race) => !o || ((!o.races || o.races.includes(race)) && (!o.classes || o.classes.includes('WARLOCK')));
+	for (const race of ['Dwarf', 'Gnome', 'NightElf', 'Skyborne']) {
+		const mine = list.filter(({ step, goal }) => fits(step.only, race) && fits(goal.only, race));
+		const fp = mine.findIndex(({ goal }) => goal.t === 'getfp' && goal.location === 'Ratchet');
+		const boat = mine.findIndex(({ goal }) => goal.t === 'goto' && goal.text === 'Boat to Booty Bay');
+		assert.ok(fp >= 0 && boat >= 0 && fp <= boat, `${race} Warlocks learn the Ratchet flight path before the boat`);
+	}
+});

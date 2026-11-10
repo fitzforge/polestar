@@ -177,6 +177,7 @@ step Riding at 40
 step Boat to Booty Bay
   only Dwarf
   zone The Barrens
+  getfp "Ratchet" only Warlock         -- for the flight back to Strahad Farsan at 43
   goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Mage,Warlock,Druid
 
 step The Barrens
@@ -258,6 +259,7 @@ step Boat to Booty Bay
 step Boat to Booty Bay
   only NightElf
   zone The Barrens
+  getfp "Ratchet" only Warlock         -- for the flight back to Strahad Farsan at 43
   goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Paladin,Shaman,Mage,Warlock
 
 step The Barrens
@@ -273,6 +275,7 @@ step Boat to Booty Bay
 step Boat to Booty Bay
   only Skyborne
   zone The Barrens
+  getfp "Ratchet" only Warlock         -- for the flight back to Strahad Farsan at 43
   goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Paladin,Priest,Shaman,Warlock
 
 step Duskwood
