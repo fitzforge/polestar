@@ -8,6 +8,7 @@
 
 pub mod build;
 pub mod client;
+pub mod class_spells;
 pub mod cmangos;
 pub mod codex;
 pub mod corrections;
