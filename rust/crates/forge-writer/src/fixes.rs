@@ -18,6 +18,9 @@
 //!   class or race list, the gate holds only those players: `level N only Priest`). `background` (on an objective,
 //!   #1135) makes a slow, zone-wide collection a goal of the whole stay: listed on the way from the
 //!   quest's accept to its hand-in, with a finish step before the hand-in (apply_background).
+//!   `at: { guide, goal: "fly", fly }` anchors on a flight step instead (`fly "<fly>"` in the guide
+//!   whose `guide` line is `guide`; #1676): a `when` there shows the flight only while it holds
+//!   (`when onquest 1094,874`: the trip is for those quests).
 //!
 //! A record with `faction` ("Alliance" or "Horde") applies only to that faction's routes (a quest both
 //! sides do whose fix holds for one). Every record carries `source` ({ kind, ref }), `issue` and `note`;
@@ -66,20 +69,25 @@ enum Anchor {
 	/// A bare `complete Q` (or `complete Q.N`).
 	Complete(u32),
 	Objective(u32, u32),
+	/// A `fly "<place>"` step (in the record's `at.guide` only).
+	Fly(String),
 }
 
 impl Anchor {
-	fn quest(&self) -> u32 {
+	/// The anchor's quest (None: a flight step).
+	fn quest(&self) -> Option<u32> {
 		match *self {
-			Anchor::Giver(q) | Anchor::Ender(q) | Anchor::Complete(q) | Anchor::Objective(q, _) => q,
+			Anchor::Giver(q) | Anchor::Ender(q) | Anchor::Complete(q) | Anchor::Objective(q, _) => Some(q),
+			Anchor::Fly(_) => None,
 		}
 	}
 	fn describe(&self) -> String {
-		match *self {
+		match self {
 			Anchor::Giver(q) => format!("accept {q}"),
 			Anchor::Ender(q) => format!("turnin {q}"),
 			Anchor::Complete(q) => format!("complete {q}"),
 			Anchor::Objective(q, n) => format!("objective {q}.{n}"),
+			Anchor::Fly(p) => format!("fly \"{p}\""),
 		}
 	}
 }
@@ -102,6 +110,9 @@ fn place_anchor(r: &Value) -> Option<Anchor> {
 
 fn fix_anchor(r: &Value) -> Option<Anchor> {
 	let at = &r["at"];
+	if at["goal"].as_str() == Some("fly") {
+		return at["fly"].as_str().filter(|p| !p.is_empty()).map(|p| Anchor::Fly(p.to_string()));
+	}
 	let q = at["quest"].as_u64()? as u32;
 	match at["goal"].as_str()? {
 		"accept" => Some(Anchor::Giver(q)),
@@ -112,15 +123,24 @@ fn fix_anchor(r: &Value) -> Option<Anchor> {
 	}
 }
 
+/// Whether a guide's text is the record's `at.guide` (any guide when the record names none).
+fn guide_is(text: &str, r: &Value) -> bool {
+	match r["at"]["guide"].as_str() {
+		Some(id) => text.lines().any(|l| l.trim_end().strip_prefix("guide ").is_some_and(|g| g.trim() == id)),
+		None => true,
+	}
+}
+
 /// The goal lines (0-based indices) of `lines` that `a` names.
 fn anchor_lines(lines: &[String], a: &Anchor) -> Vec<usize> {
 	let code = |l: &String| split_comment(l).0.to_string();
 	let find = |f: &dyn Fn(&str) -> bool| -> Vec<usize> { lines.iter().enumerate().filter(|(_, l)| f(&code(l))).map(|(i, _)| i).collect() };
-	match *a {
+	match a {
 		Anchor::Giver(q) => find(&|c| re!(r"^\s+accept\s+(\d+)(?:\s|$)").captures(c).is_some_and(|m| m[1] == *q.to_string())),
 		Anchor::Ender(q) => find(&|c| re!(r"^\s+turnin\s+(\d+)(?:\s|$)").captures(c).is_some_and(|m| m[1] == *q.to_string())),
 		Anchor::Complete(q) => find(&|c| re!(r"^\s+complete\s+(\d+)(?:\.\d+)?(?:\s|$)").captures(c).is_some_and(|m| m[1] == *q.to_string())),
-		Anchor::Objective(q, n) => {
+		Anchor::Fly(p) => find(&|c| re!(r#"^\s+fly\s+"([^"]*)""#).captures(c).is_some_and(|m| m[1] == **p)),
+		&Anchor::Objective(q, n) => {
 			let (qs, full) = (q.to_string(), format!("{q}.{n}"));
 			// The objective's own goal lines; else the quest's bare `complete`; else, for the first
 			// objective, the quest's goal lines without an objective number.
@@ -771,7 +791,7 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 		recs.push(Rec {
 			file: "guide-fixes",
 			r,
-			slot: format!("{anchor:?} {kind}"),
+			slot: format!("{anchor:?} {kind}{}", r["at"]["guide"].as_str().map_or(String::new(), |g| format!(" in {g}"))),
 			want: format!("{}{}{}{}{}{}{}", r["tip"], r["level"], r["only"], r["along"], r["early"], r["when"], r["background"]),
 			anchor,
 		});
@@ -802,9 +822,13 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			rows.push(row);
 			continue;
 		}
-		let (mut found_any, mut changed_any) = (false, false);
+		let (mut found_any, mut changed_any, mut guide_here) = (false, false, false);
 		for f in files {
 			let Some(text) = tree.get(f) else { continue };
+			if !guide_is(text, x.r) {
+				continue;
+			}
+			guide_here = true;
 			let mut lines: Vec<String> = text.split('\n').map(str::to_string).collect();
 			let found = anchor_lines(&lines, anchor);
 			if found.is_empty() {
@@ -830,9 +854,13 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 				tree.insert(f.clone(), lines.join("\n"));
 			}
 		}
-		// No line to anchor on: stale when the route takes the quest, else not this start's (a line
-		// the written guides keep, a class quest's say, is fixed whether the route counts it or not).
-		let in_route = quests.is_empty() || quests.contains(&anchor.quest());
+		// No line to anchor on: stale when the route takes the quest (a flight step: when its guide is
+		// written), else not this start's (a line the written guides keep, a class quest's say, is fixed
+		// whether the route counts it or not).
+		let in_route = match anchor.quest() {
+			Some(q) => quests.is_empty() || quests.contains(&q),
+			None => guide_here,
+		};
 		row.state = if !found_any && !in_route {
 			"not for this start"
 		} else if !found_any {
@@ -844,7 +872,10 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 		}
 		.into();
 		if !found_any && !in_route {
-			row.detail = format!("quest {} is not in the route", anchor.quest());
+			row.detail = match anchor.quest() {
+				Some(q) => format!("quest {q} is not in the route"),
+				None => format!("guide {} is not written here", x.r["at"]["guide"].as_str().unwrap_or("?")),
+			};
 		} else if !found_any {
 			row.detail = format!("the written guides have no {} line", anchor.describe());
 		} else if !changed_any {
@@ -857,6 +888,9 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 		let Some(anchor) = x.anchor.as_ref().filter(|_| row.state == "applied" || row.state == "redundant") else { continue };
 		for f in files {
 			let Some(text) = tree.get(f) else { continue };
+			if !guide_is(text, x.r) {
+				continue;
+			}
 			let lines: Vec<String> = text.split('\n').map(str::to_string).collect();
 			row.lines.extend(anchor_lines(&lines, anchor).iter().map(|i| format!("{f}:{}", i + 1)));
 		}
@@ -964,6 +998,24 @@ mod tests {
 		let (again, rows) = run(&out, json!({}), fixes, &[]);
 		assert_eq!(again, out);
 		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
+	}
+
+	#[test]
+	fn a_when_fix_on_a_flight_step_gates_that_guides_flight_only() {
+		// #1676: the Barrens' last flight to Ratchet is for Sputtervalve's and Mahren's quests; without
+		// them the player flew there and straight back through the Crossroads for the next guide.
+		let seed = "guide forever/a\nzone The Barrens\n\nstep Fly to Ratchet\n  zone The Barrens\n  goto 51.5,30.4 \"Crossroads flight master\"\n  fly \"Ratchet\"\n\nstep Sputtervalve\n  when onquest 1094\n  turnin 1094\n";
+		let rec = |guide: &str| json!({ "fixes": [{ "id": "1676", "at": { "guide": guide, "goal": "fly", "fly": "Ratchet" }, "when": "onquest 1094,874,873" }] });
+		let (out, rows) = run(seed, json!({}), rec("forever/a"), &[1094]);
+		assert_eq!(out, seed.replace("  zone The Barrens\n  goto", "  zone The Barrens\n  when onquest 1094,874,873\n  goto"));
+		assert_eq!(rows.iter().map(|r| (r.state.as_str(), r.lines.clone())).collect::<Vec<_>>(), [("applied", vec!["forever/a.guide:8".to_string()])]);
+		let (again, rows) = run(&out, json!({}), rec("forever/a"), &[1094]);
+		assert_eq!(again, out);
+		assert_eq!(rows[0].state, "redundant");
+		// Another guide's flight to Ratchet is left alone.
+		let (other, rows) = run(seed, json!({}), rec("forever/b"), &[1094]);
+		assert_eq!(other, seed);
+		assert_eq!((rows[0].state.as_str(), rows[0].detail.as_str()), ("not for this start", "guide forever/b is not written here"));
 	}
 
 	#[test]

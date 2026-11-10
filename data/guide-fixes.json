@@ -5360,6 +5360,24 @@
 					"ref": "data/forever/npcs.json Rebel Camp NPCs"
 				}
 			]
+		},
+		{
+			"id": "1676-barrens-ratchet-flight-for-its-quests",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/04-the-barrens",
+				"goal": "fly",
+				"fly": "Ratchet"
+			},
+			"when": "onquest 1094,874,873",
+			"note": "The Barrens & Stonetalon (horde/04) ends with a flight from the Crossroads to Ratchet for Sputtervalve (Further Instructions 1094, only for players carrying it) and Mahren Skyseer on the Merchant Coast (874, then Isha Awak 873). A player with none of them in the log flew to Ratchet for nothing, and the next guide (horde/07-ashenvale) opens with a flight to Zoram'gar Outpost that goes back through the Crossroads. The flight now shows only while one of those quests is in the log; without them the next guide's flight leaves from the Crossroads.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1676: report at step 43 of 0.3.6 with 1094, 874 and 873 not in the quest log and Mahren's steps hidden"
+				}
+			],
+			"issue": 1676
 		}
 	]
 }

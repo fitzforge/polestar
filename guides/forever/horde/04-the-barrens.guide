@@ -332,6 +332,7 @@ step The Crossroads
 
 step Fly to Ratchet
   zone The Barrens
+  when onquest 1094,874,873
   goto 51.5,30.4 "Crossroads flight master"
   fly "Ratchet"
 
