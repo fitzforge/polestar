@@ -8700,6 +8700,10 @@ end
 --     else the goal's), measured to such places only;
 --   * any size: whatever is left (15 quilboars as much as 2), the player is there
 --     already.
+-- One objective is one line, however many steps hold it (Own.hereGroups:
+-- the same quest objective, item or mob; a hand-in or a pick-up once): it
+-- names the earliest of those steps and measures to the nearest copy's
+-- places; a dismiss or an expiry is for every copy.
 -- The goals with a place are indexed by map once per guide (Own.hereGoalsOn),
 -- so a build looks only at this map's. The poll measures at most HERE_MAX of
 -- them: all when that many fit, else the HERE_MAX nearest the player, picked
@@ -8789,17 +8793,113 @@ Own.hereMutes = setmetatable({}, { __mode = "k" })
 
 -- The player's "not now" for line e: muted near where it was dismissed
 -- (Own.hereMuted); dismissed a second time in the zone stay, quiet for the
--- rest of it (Own.hereQuiet).
+-- rest of it (Own.hereQuiet). For the objective, not the one step's copy:
+-- every candidate of its group (e.group, Own.hereGroups) with it.
 function Own.hereDismiss(e)
-	local g = e.goal
-	local n = (Own.hereStrikes[g] or 0) + 1
-	Own.hereStrikes[g], Own.herePickC = n, nil
-	if n >= 2 then
-		Own.hereQuiet[g], Own.hereMutes[g] = true, nil
+	local n = (Own.hereStrikes[e.goal] or 0) + 1
+	Own.herePickC = nil
+	local m = nil
+	if n < 2 then
+		local c, x, y = Compat().GetPlayerWorldPosition()
+		m = { at = GetTime(), c = c, x = x or 0, y = y or 0, far = false }
+	end
+	local group = e.group
+	for k = 1, group and #group or 1 do
+		local g = group and group[k].goal or e.goal
+		Own.hereStrikes[g] = n
+		if m then
+			Own.hereMutes[g] = m
+		else
+			Own.hereQuiet[g], Own.hereMutes[g] = true, nil
+		end
+	end
+end
+
+-- Per-goal state `t` (Own.hereExpiredAt, Own.hereMutes) set to `value` for
+-- candidate e and every other of its group. Allocation-free.
+function Own.hereGroupSet(e, t, value)
+	local group = e.group
+	if not group then
+		t[e.goal] = value
 		return
 	end
-	local c, x, y = Compat().GetPlayerWorldPosition()
-	Own.hereMutes[g] = { at = GetTime(), c = c, x = x or 0, y = y or 0, far = false }
+	for k = 1, #group do t[group[k].goal] = value end
+end
+
+-- What candidate e does, the same whichever step holds it, or false: a
+-- hand-in or a pick-up its quest; work its quest's objective (`oi`), else
+-- the item it collects or the mob it kills. The guide often has one
+-- objective on several steps (Raptor Horns on each of the Barrens' raptor
+-- camp visits: Fitz saw "Collect Intact Raptor Horn 0/5" three times, from
+-- steps 21, 34 and 45); While you're here says it once (Own.hereGroups).
+function Own.hereKey(e)
+	local goal = e.goal
+	local q = goal.quest
+	if e.kind == "turnin" then return "t" .. q end
+	if e.kind == "take" then return "a" .. q end
+	if goal.oi ~= nil then return q .. ":o" .. tostring(goal.oi) end
+	if goal.t == "collect" and goal.item then return q .. ":i" .. tostring(goal.item) end
+	if goal.t == "kill" and type(goal.npc) == "number" then return q .. ":n" .. goal.npc end
+	return false
+end
+
+-- One objective, one line (Own.hereKey), over candidates list[1..n] in route
+-- order; returns the new n. A hand-in or a pick-up keeps only its first step
+-- (one NPC: any copy measures the same), none an NPC's whole visit names
+-- already ("Hand in X to Y, then take A"). Work keeps every step's copy, each
+-- with its own places, as one group (e.group, shared, route order): the line
+-- measures to the nearest of them (Own.hereTick) yet reads the earliest
+-- step, the one the route reaches first (e.first, e.near from it), and a
+-- dismiss or an expiry is for them all.
+function Own.hereGroups(list, n)
+	local seen, kept = nil, 0
+	for i = 1, n do
+		local e = list[i]
+		if e.visit then
+			for _, a in ipairs(e.visit.accepts) do
+				seen = seen or {}
+				seen["a" .. a.quest] = true
+			end
+		end
+	end
+	local groups = nil
+	for i = 1, n do
+		local e = list[i]
+		local key = Own.hereKey(e)
+		e.key = key
+		if not key then
+			kept = kept + 1
+			list[kept] = e
+		elseif e.kind ~= "work" then
+			if not (seen and seen[key]) then
+				kept = kept + 1
+				list[kept] = e
+				seen = seen or {}
+				seen[key] = true
+			end
+		else
+			kept = kept + 1
+			list[kept] = e
+			groups = groups or {}
+			local group = groups[key]
+			if not group then
+				groups[key] = { e }
+			else
+				group[#group + 1] = e
+			end
+		end
+	end
+	for i = kept + 1, n do list[i] = nil end
+	for _, group in pairs(groups or {}) do
+		if #group > 1 then
+			local first = group[1]
+			for k = 1, #group do
+				local e = group[k]
+				e.group, e.first, e.near = group, first.s, first.near
+			end
+		end
+	end
+	return kept
 end
 
 -- Whether candidate e is muted: dismissed once, until HERE_MUTE s have
@@ -9455,32 +9555,8 @@ function Own.hereBuild()
 				end
 			end
 		end
-		-- A pick-up once: its first accept in the route, and none an NPC's
-		-- whole visit names already ("Hand in X to Y, then take A").
-		local seen, kept = nil, 0
-		for i = 1, n do
-			local e = list[i]
-			if e.visit then
-				for _, a in ipairs(e.visit.accepts) do
-					seen = seen or {}
-					seen[a.quest] = true
-				end
-			end
-		end
-		for i = 1, n do
-			local e = list[i]
-			local q = e.kind == "take" and e.goal.quest
-			if not (q and seen and seen[q]) then
-				kept = kept + 1
-				list[kept] = e
-				if q then
-					seen = seen or {}
-					seen[q] = true
-				end
-			end
-		end
-		for i = kept + 1, n do list[i] = nil end
-		n = kept
+		-- One line per objective, hand-in and pick-up (Own.hereGroups).
+		n = Own.hereGroups(list, n)
 	end
 	Own.hereAllN = n
 	-- The poll measures them all, or the nearest HERE_MAX (picked at its next
@@ -9491,8 +9567,10 @@ function Own.hereBuild()
 		Own.hereList, Own.hereN, Own.hereCut, Own.herePickC = Own.herePicked, 0, true, nil
 	end
 	-- Each line stays on its goal while that is a candidate (its count may
-	-- have changed; it takes over the new entry); a goal done or no longer one
-	-- ends it.
+	-- have changed; it takes over the new entry), else on another step's copy
+	-- of its objective (Own.hereKey: the step it measured to was done or
+	-- skipped; not while the player's click leads the arrow to it); a goal
+	-- done or no longer one ends it.
 	local on, changed = Own.hereOn, false
 	local i = 1
 	while i <= Own.hereOnN do
@@ -9503,8 +9581,19 @@ function Own.hereBuild()
 				break
 			end
 		end
+		if not e and cur.key and aim ~= cur.goal then
+			for j = 1, n do
+				local o = list[j]
+				if o.key == cur.key and not o.on then
+					e = o
+					break
+				end
+			end
+		end
 		if e then
 			e.on, e.since, e.yards, e.serial, e.view, e.spot, e.seen = true, cur.since, cur.yards, cur.serial, cur.view, cur.spot, cur.seen
+			if e.goal ~= cur.goal then e.spot, e.view, changed = false, false, true end
+			if e.first ~= cur.first or e.near ~= cur.near then e.view, changed = false, true end
 			if e.left ~= cur.left then
 				-- Worked on: its time starts again.
 				e.since, e.view, changed = GetTime(), false, true
@@ -9527,6 +9616,48 @@ function Own.hereOf(goal)
 		if on[i].goal == goal then return on[i] end
 	end
 	return nil
+end
+
+-- Whether another step's copy of candidate e's objective shows (e.group,
+-- Own.hereGroups): then e never shows beside it. Allocation-free.
+function Own.hereGroupOn(e)
+	local group = e.group
+	if not group then return false end
+	for k = 1, #group do
+		local o = group[k]
+		if o ~= e and o.on then return true end
+	end
+	return false
+end
+
+-- Shown line i and its yards from world point c, px, py (Own.hereDistance):
+-- one of an objective several steps hold (e.group) measures to the nearest
+-- copy not quiet, which takes the line over (its row, time and serial: no
+-- new chime), so its row, reach and arrow go by the camp the player is at
+-- while it reads the earliest step (Own.hereViewOf). Not while the player's
+-- click leads the arrow to it. Allocation-free.
+function Own.hereNearest(i, c, px, py)
+	local on = Own.hereOn
+	local cur = on[i]
+	local d = Own.hereDistance(cur, c, px, py)
+	local group = cur.group
+	if not group or aim == cur.goal then return cur, d end
+	local best, bestD = cur, d
+	for k = 1, #group do
+		local o = group[k]
+		if o ~= cur and not Own.hereQuiet[o.goal] then
+			local od = Own.hereDistance(o, c, px, py)
+			if od and (not bestD or od < bestD) then best, bestD = o, od end
+		end
+	end
+	if best ~= cur then
+		best.on, best.since, best.yards, best.serial, best.view, best.d = true, cur.since, cur.yards, cur.serial, false, bestD
+		cur.on, cur.view = false, false
+		on[i] = best
+		Own.here = on[1]
+		ns.Fire("WHILE_HERE_CHANGED")
+	end
+	return best, bestD
 end
 
 -- End line i (dismissed: Own.hereDismiss). True when the player had clicked
@@ -9892,7 +10023,7 @@ function Own.hereUnpark()
 				break
 			end
 		end
-		if e and not e.on and Own.hereOnN < Own.HERE_SHOW then
+		if e and not e.on and not Own.hereGroupOn(e) and Own.hereOnN < Own.HERE_SHOW then
 			if e ~= p then
 				e.yards, e.serial, e.spot, e.seen = p.yards, p.serial, p.spot, p.seen
 				e.view = e.left == p.left and p.view or false
@@ -9960,14 +10091,13 @@ function Own.hereTick(c, px, py)
 	local step, on, aimed, now = Own.HERE_STEP, Own.hereOn, parked, GetTime()
 	local i = 1
 	while i <= Own.hereOnN do
-		local cur = on[i]
-		local d = Own.hereDistance(cur, c, px, py)
+		local cur, d = Own.hereNearest(i, c, px, py)
 		if not d or Own.herePast(cur, d) then
 			if Own.hereRemove(i, false) then aimed = true end
 		elseif not Own.hereIn(cur, d) and now - cur.since > Own.HERE_SECONDS then
 			-- Out of reach (no spawn area in reach, none of its mobs in sight)
 			-- for HERE_SECONDS without going past the clear distance: it goes.
-			Own.hereExpiredAt[cur.goal] = now
+			Own.hereGroupSet(cur, Own.hereExpiredAt, now)
 			if Own.hereRemove(i, false) then aimed = true end
 		else
 			-- In reach the line holds, however long (Fitz: "it shouldn't
@@ -10019,7 +10149,7 @@ function Own.hereTick(c, px, py)
 	end
 	for j = 1, Own.hereN do
 		local e = list[j]
-		if not e.on then
+		if not e.on and not Own.hereGroupOn(e) then
 			local d = not quiet[e.goal] and (not timedOnly or Own.hereTimed(e)) and not (e.kind == "take" and takes >= Own.HERE_TAKES)
 				and Own.hereDistance(e, c, px, py)
 			if d and Own.hereIn(e, d) and Own.hereAgain(e) and not Own.hereMuted(e) and not (e.kind ~= "work" and Own.hereWalkWait(e, c, px, py, d)) then
@@ -10033,7 +10163,7 @@ function Own.hereTick(c, px, py)
 		local best = nil
 		for j = 1, Own.hereN do
 			local e = list[j]
-			if not e.on and e.d and not (e.kind == "take" and takes >= Own.HERE_TAKES) and Own.hereBefore(e, e.d, best, best and best.d) then best = e end
+			if not e.on and e.d and not (e.kind == "take" and takes >= Own.HERE_TAKES) and not Own.hereGroupOn(e) and Own.hereBefore(e, e.d, best, best and best.d) then best = e end
 		end
 		if not best then break end
 		open = open - 1
@@ -10053,7 +10183,8 @@ function Own.hereTick(c, px, py)
 			Own.hereSerial = (Own.hereSerial or 0) + 1
 			best.on, best.since, best.serial, best.view = true, now, Own.hereSerial, false
 			best.yards = math.floor(best.d / step + 0.5) * step
-			Own.hereExpiredAt[best.goal], Own.hereMutes[best.goal] = nil, nil
+			Own.hereGroupSet(best, Own.hereExpiredAt, nil)
+			Own.hereGroupSet(best, Own.hereMutes, nil)
 			Own.here = on[1]
 			ns.Fire("WHILE_HERE_CHANGED")
 		elseif best.kind ~= "work" then
@@ -10068,18 +10199,20 @@ function Own.hereTick(c, px, py)
 end
 
 -- Line e as a goal view (Engine.GetAlong's) of its later step with: `step`
--- (its step), `here` ("work" | "turnin" | "take"), `left`, `appeared` (a number new
+-- (its step: the copy measured to), `firstStep` (the earliest step holding
+-- the same objective, Own.hereGroups: the one the row names), `here` ("work" |
+-- "turnin" | "take"), `left`, `appeared` (a number new
 -- for each line that appears: the minimap's ping), `yards` (to the next
 -- HERE_STEP), `hereText` (what to do: "Kill Kobold Vermin, 2 more", "Hand in
 -- X to Y"), `hereTitle` (a turn-in's quoted quest name in it: UI.HereText
--- marks it), `later` (a step past the route's next AHEAD: "later in this
+-- marks it), `later` (firstStep past the route's next AHEAD: "later in this
 -- guide"). Kept on the line until its count changes.
 function Own.hereViewOf(e)
 	local v = e.view
 	if not v then
 		local goal, left = e.goal, e.left
 		v = goalView(e.s, e.g, goal, "current", nil)
-		v.step, v.here, v.left, v.appeared, v.later = e.s, e.kind, left, e.serial, not e.near
+		v.step, v.firstStep, v.here, v.left, v.appeared, v.later = e.s, e.first or e.s, e.kind, left, e.serial, not e.near
 		local text
 		if e.kind == "turnin" then
 			local _, npc = npcOf(goal)
@@ -10171,16 +10304,18 @@ function Engine.DismissWhileHere(i)
 end
 
 -- The candidates now, in route order, for tests and /polestar debug:
--- { { step, index, kind, left, measured, soon, credit }, ... }; `measured`:
--- the poll measures it (all of them, or the nearest HERE_MAX); a hand-in's
--- `soon` (Own.hereSoon) and `credit` (its visit's seconds saved, or nil).
+-- { { step, index, kind, left, measured, soon, credit, first }, ... };
+-- `measured`: the poll measures it (all of them, or the nearest HERE_MAX); a
+-- hand-in's `soon` (Own.hereSoon) and `credit` (its visit's seconds saved, or
+-- nil); `first`: the earliest step holding the same objective, for one
+-- several steps hold (Own.hereGroups), else nil.
 function Engine.GetWhileHereCandidates()
 	local out = {}
 	local cut, serial = Own.hereCut, Own.herePickSerial
 	for i = 1, Own.hereAllN do
 		local e = Own.hereAll[i]
 		out[i] = { step = e.s, index = e.g, kind = e.kind, left = e.left, measured = not cut or (Own.hereN > 0 and e.pick == serial),
-			soon = e.soon, credit = e.visit and e.visit.credit or nil }
+			soon = e.soon, credit = e.visit and e.visit.credit or nil, first = e.first }
 	end
 	return out
 end

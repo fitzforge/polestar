@@ -1409,7 +1409,15 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   way lists them; a later along step not listed yet counts like any step),
   not an objective the live step works itself, with mobs at most
   `HERE_ABOVE` levels over the player, whatever is left (no size cap: the
-  player is there already). With `behavior.whileHereTurnins`, a later
+  player is there already). One objective is one line however many steps
+  hold it (`Own.hereGroups`, by `Own.hereKey`: the quest's objective `oi`,
+  else the item collected or the mob killed; Fitz, 0.3.6: Raptor Horns read
+  three times, from steps 21, 34 and 45): each step's copy stays a candidate
+  with its own places, in one group (`e.group`); only one shows, measured to
+  the nearest copy (`Own.hereNearest` hands the line over, its serial kept),
+  its row naming the earliest step (the view's `firstStep`, `later` from it);
+  a dismiss or an expiry is for the whole group. A hand-in or a pick-up keeps
+  only its first step. With `behavior.whileHereTurnins`, a later
   `turnin` of a ready quest counts too, weighed by what it costs rather than
   by its distance (a hand-in is a short walk to one NPC and a click): its
   detour (`Own.hereDetour`, on every poll: the seconds of extra walking to

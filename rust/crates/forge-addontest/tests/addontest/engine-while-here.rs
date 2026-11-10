@@ -1574,3 +1574,85 @@ fn the_step_key_targets_a_line_s_mobs_after_the_live_step_s_own_1316() {
 	assert_eq!(out[1], json!(["2:1:50", format!("{wolves}\n/targetexact [noexists] Kobold Vermin\n/cleartarget [dead]")]));
 	assert_eq!(out[2], wolves);
 }
+
+// One objective on several steps (Fitz, 0.3.6, the Barrens: "Collect Intact Raptor Horn 0/5" three times, from steps
+// 21, 34 and 45, one per raptor camp visit). 1 (live) the wolves far off · 2, 4, 6 the same candles for 60 (1 of 3),
+// at 20,80 (far), 47.6,34.1 and 47.6,39.1 · 3 and 5 quest 61's two objectives: spiders at 47.0,36.1 and eggs at
+// 48.4,36.1 · 7 and 8 hand in 40 (ready) to Dughan, far off.
+const DUPES: &str = r#"
+stub.world.onQuest(61, { { required = 4, fulfilled = 0 }, { text = "Spider Egg: 0/3", type = "item", required = 3, fulfilled = 0 } }, "Spiders and Eggs")
+local function candles(title, x, y)
+	return { title = title, goals = { { t = "collect", item = 772, itemName = "Large Candle", count = 3, quest = 60, oi = 1, npc = 476, map = 1429, x = x, y = y } } }
+end
+local dughan = { t = "turnin", quest = 40, title = "A Fishy Peril", npc = 240, npcName = "Marshal Dughan", map = 1429, x = 20.0, y = 20.0 }
+Polestar.RegisterGuide({
+	id = "test/dupes", pack = "test", title = "Dupes", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "Wolves", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 60 } } },
+		candles("Candles west", 20.0, 80.0),
+		{ title = "Spiders", goals = { { t = "kill", target = "Forest Spider", npc = 43, count = 4, quest = 61, oi = 1, map = 1429, x = 47.0, y = 36.1 } } },
+		candles("Candles north", 47.6, 34.1),
+		{ title = "Eggs", goals = { { t = "collect", item = 773, itemName = "Spider Egg", count = 3, quest = 61, oi = 2, map = 1429, x = 48.4, y = 36.1 } } },
+		candles("Candles south", 47.6, 39.1),
+		{ title = "Dughan", goals = { dughan } },
+		{ title = "Dughan again", goals = { dughan } },
+	},
+})
+function dupes()
+	local out = {}
+	for _, c in ipairs(E.GetWhileHereCandidates()) do out[#out + 1] = c.step .. ":" .. c.index .. ":" .. c.kind .. ":" .. c.left .. ":" .. (c.first or "-") end
+	return table.concat(out, " ")
+end
+-- Every line shown: "step:named step:yards ...".
+function named()
+	local out = {}
+	for _, v in ipairs(E.GetWhileHereList()) do out[#out + 1] = v.step .. ":" .. v.firstStep .. ":" .. (v.yards or "-") end
+	return table.concat(out, " ")
+end
+"#;
+
+// The candles are one line, naming step 2 (the earliest, the one the route reaches first) and measured to the copy
+// nearest the player: step 4's camp, then step 6's once the player walks there (the same line: no new chime). The
+// two objectives of quest 61 are two lines. The hand-in is one candidate, step 7's.
+#[test]
+fn an_objective_several_steps_hold_is_one_line_naming_the_earliest_step_two_objectives_of_a_quest_are_two() {
+	let out = run_guide(
+		DUPES,
+		"test/dupes",
+		r#"
+		emit(dupes())
+		at(47.6, 35.6); emit(named())
+		local before = E.GetWhileHereList()[3].appeared
+		at(47.6, 38.1); emit(named())
+		emit(E.GetWhileHereList()[3].appeared == before)
+	"#,
+	);
+	assert_eq!(
+		out,
+		vec![
+			json!("2:1:work:2:2 3:1:work:4:- 4:1:work:2:2 5:1:work:3:- 6:1:work:2:2 7:1:turnin:0:-"),
+			json!("3:3:20 5:5:25 4:2:30"),
+			json!("3:3:45 5:5:45 6:2:20"),
+			json!(true)
+		]
+	);
+}
+
+// Dismissing the line dismisses the objective: step 6's copy, 10 yd off, stays away as step 4's does.
+#[test]
+fn dismissing_an_objective_several_steps_hold_hides_every_copy() {
+	let out = run_guide(
+		DUPES,
+		"test/dupes",
+		r#"
+		at(47.6, 35.6); emit(named())
+		emit(E.DismissWhileHere(3)); emit(named())
+		at(47.6, 38.6); emit(named())
+		stub.advance(300); emit(named())
+	"#,
+	);
+	assert_eq!(
+		out,
+		vec![json!("3:3:20 5:5:25 4:2:30"), json!(true), json!("3:3:20 5:5:25"), json!("3:3:55 5:5:55"), json!("3:3:55 5:5:55")]
+	);
+}
