@@ -20,7 +20,8 @@
 --   Dungeons.Attune(key, id) -> guideId | nil, reason    -- builds, registers and opens it
 --
 -- Guide: one stop per quest still to do (Lookup.QuestStep, with the open
--- prerequisites Lookup.QuestChain finds that the list lacks), after the
+-- prerequisites Lookup.QuestChain finds that the list lacks, each noting the
+-- quests of the list it is needed for: Dungeons.OpensNote), after the
 -- steps it waits on, each whole: its accept, objectives and turn-in, also
 -- when the giver, a target or the turn-in is inside an instance (the Codex's
 -- NPC instance, else the attunement's cited `inside`): sent to that
@@ -266,7 +267,8 @@ local function itemStep(s, inside)
 end
 
 -- The quest stops: every quest step still to do (and the open prerequisites
--- QuestChain adds), each after the quest steps it waits on.
+-- QuestChain adds, each with `opens`: the steps' quests it comes before),
+-- each after the quest steps it waits on.
 local function questStops(a, st, p, from, inside)
 	local Lk, C = LK(), ns.Codex
 	local stops, byId = {}, {}
@@ -291,7 +293,13 @@ local function questStops(a, st, p, from, inside)
 					if not byId[r.id] then
 						local listed = false
 						for _, o in ipairs(st.steps) do listed = listed or (o.step.kind == "quest" and o.step.id == r.id) end
-						if not listed then deps[#deps + 1] = add(r, { deps[#deps] }) end
+						if not listed then
+							deps[#deps + 1] = add(r, { deps[#deps] })
+							stops[deps[#deps]].opens = { rec }
+						end
+					elseif stops[byId[r.id]].opens then
+						local opens = stops[byId[r.id]].opens
+						if opens[#opens] ~= rec then opens[#opens + 1] = rec end
 					end
 				end
 				for _, pid in ipairs(s.after or {}) do
@@ -351,7 +359,10 @@ function Dungeons.AttuneGuide(key, id)
 	for _, si in ipairs(order) do
 		local stop = stops[si]
 		extras((stop.index or 1) - 1)
-		steps[#steps + 1] = Lk.QuestStep(stop.rec, stop.inP or from, { inside = inside })
+		local step = Lk.QuestStep(stop.rec, stop.inP or from, { inside = inside })
+		-- A quest the list lacks says which of its quests it opens (Dungeons.OpensNote).
+		if stop.opens then step.note = Dungeons.OpensNote(stop.opens, false, step.note) end
+		steps[#steps + 1] = step
 	end
 	extras(#st.steps)
 	if #steps == 0 then return nil, "nothing" end

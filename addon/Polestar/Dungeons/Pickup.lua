@@ -58,6 +58,12 @@
 --       wait "(3 now · 2 at level 16)", none open now "Pick up the quests from level 16"
 --   Dungeons.WaitingLines(plan) -> { text }   -- one per waiting quest: why it waits (its level,
 --       the prerequisite it needs first)
+--   Dungeons.OpensNote(quests, breadcrumb, note) -> text | note
+--       a prerequisite step's note: "Needed for “A”, “B”." (a breadcrumb:
+--       "Leads to “A”."), the quests ({ title }, ...) it comes before, then
+--       the step's own note; `note` unchanged when there are none. The
+--       pick-up and attunement guides put it on every quest they add to
+--       reach one of theirs.
 --   The guide lists the waiting quests at the entrance, "Comes back at level N" in the accent. When
 --   the character reaches one's level while that pick-up guide is the open tab, a chat line says
 --   so and its giver (the first open prerequisite's) gets a pin on the map and minimap; the arrow
@@ -943,8 +949,9 @@ end
 
 -- plan -> stops: each open prerequisite quest once (after the one before it
 -- in its chain; it starts at its giver nearest the player and leaves the
--- player at its turn-in) and each giver once per set of prerequisites its
--- quests wait on (a giver comes up again for a quest still waiting).
+-- player at its turn-in; `opens`: the page quests it comes before, each
+-- once) and each giver once per set of prerequisites its quests wait on (a
+-- giver comes up again for a quest still waiting).
 local function stopsOf(plan, from)
 	local Lk = LK()
 	local stops, byKey = {}, {}
@@ -963,9 +970,11 @@ local function stopsOf(plan, from)
 				local start = endPoint(Lk.QuestEnd(r.start, from))
 				local drop = not start and Dungeons.DropPoint(plan.dungeon.key, r, from, r) or nil
 				local finish = endPoint(Lk.QuestEnd(r["end"], start or drop or from))
-				add({ key = k, rec = r, inP = start or drop, outP = finish or start or drop, deps = {}, drop = drop })
+				add({ key = k, rec = r, inP = start or drop, outP = finish or start or drop, deps = {}, drop = drop, opens = {} })
 			end
 			local s = stops[byKey[k]]
+			local opens = s.opens
+			if opens[#opens] ~= t.quest then opens[#opens + 1] = t.quest end
 			if prev and prev ~= byKey[k] then
 				local dup = false
 				for _, d in ipairs(s.deps) do dup = dup or d == prev end
@@ -1022,6 +1031,17 @@ function Dungeons.OrderStops(stops, from, finish, field, key)
 	return order
 end
 
+function Dungeons.OpensNote(quests, breadcrumb, note)
+	local titles = {}
+	for _, q in ipairs(type(quests) == "table" and quests or {}) do
+		local t = ns.Quoted(q.title)
+		if t and t ~= "" then titles[#titles + 1] = t end
+	end
+	if #titles == 0 then return note end
+	local text = format(breadcrumb and L["Leads to %s."] or L["Needed for %s."], table.concat(titles, ", "))
+	return note and (text .. " " .. note) or text
+end
+
 -- plan -> steps (the givers and prerequisites in route order): the
 -- cheapest path to the entrance, or the order kept for the character.
 local function route(key, plan)
@@ -1057,6 +1077,10 @@ local function route(key, plan)
 					if g.t == "accept" and g.quest == s.rec.id then g.closedBy = by end
 				end
 			end
+			-- Why the step is in a dungeon's guide: the page quests it opens (a
+			-- breadcrumb: leads to), so a quest out in the world is not a mystery
+			-- (Rear Guard Patrol before the Ruins of Lordaeron's The Wrath of Rath'mael).
+			if step then step.note = Dungeons.OpensNote(s.opens, by ~= nil, step.note) end
 			steps[#steps + 1] = step
 			lastGiver = nil
 		end

@@ -26,7 +26,11 @@
 --       the quest after all its open prerequisites, in the order they are done
 --   Lookup.QuestStep(quest, from, opts) -> step   -- accept, objectives, turn-in
 --       opts.inside(kind, id): where an NPC or object without a known spawn
---       is; with it the step is always whole (see questStep)
+--       is; with it the step is always whole (see questStep). A kill of an
+--       elite, rare elite or boss out in the world, or an item it drops,
+--       carries the compiled guides' `group` ({ kind = "elite", rank, lvl }),
+--       so the step says "Elite: group advised" (Rear Guard Patrol's Riptear,
+--       before the Ruins of Lordaeron's The Wrath of Rath'mael)
 --   Lookup.AcceptPre(goal, quest) -> goal
 --       an accept goal with the Codex quest's prerequisites as a compiled
 --       guide's accept carries them (all of `pre` as preAll, one of `preAny`
@@ -208,12 +212,13 @@ end
 -- source; else, with `inside` (see questStep), where its best source without
 -- a known spawn is, unless that source rarely gives it (under INSIDE_CHANCE
 -- percent: Razorgore's 1.5% Nexus Crystal is no errand) -> point, its name
--- (an inside source only), the best source's spawns (a placed source only).
+-- (an inside source only), the best source's spawns (a placed source only),
+-- the best placed source's NPC record (a drop only).
 local function itemSpot(itemId, from, inside)
 	local C = Codex()
 	local item = C.Item(itemId)
 	if not item then return nil end
-	local best, bestChance, bestSpawns, placed, placedChance, placedName
+	local best, bestChance, bestSpawns, bestNpc, placed, placedChance, placedName
 	for _, src in ipairs(item.sources or {}) do
 		local rec, kind, id
 		if src.type == "drop" and src.npc then
@@ -225,14 +230,28 @@ local function itemSpot(itemId, from, inside)
 		if rec and rec.spawns and #rec.spawns > 0 then
 			if not best or chance > bestChance then
 				best, bestChance, bestSpawns = Lookup.Nearest(rec.spawns, from), chance, rec.spawns
+				bestNpc = kind == "npc" and rec or nil
 			end
 		elseif kind and inside and not best and (src.chance == nil or chance >= INSIDE_CHANCE) and (not placed or chance > placedChance) then
 			local p = inside(kind, id)
 			if p then placed, placedChance, placedName = p, chance, (rec and rec.name) or (C.Name(kind, id)) end
 		end
 	end
-	if best then return best, nil, bestSpawns end
+	if best then return best, nil, bestSpawns, bestNpc end
 	return placed, placedName
+end
+
+-- A Codex NPC that needs a group out in the world -> the compiled guides'
+-- `group` for a goal at it ({ kind = "elite", rank = 1 elite | 2 rare elite
+-- | 3 boss, lvl }, UI.GroupLine), else nil. One inside an instance is part
+-- of the run, not a warning for the step; one friendly to a side (Tirion
+-- Fordring, whose "kill" objective is a talk) or of no real level (9999:
+-- Anachronos) is no fight.
+local MAX_LEVEL = 63
+local function eliteGroup(npc)
+	if not (npc and (npc.elite or npc.boss)) or npc.instance or npc.faction then return nil end
+	if npc.level and npc.level > MAX_LEVEL then return nil end
+	return { kind = "elite", rank = npc.boss and 3 or (npc.rare and 2) or 1, lvl = npc.level }
 end
 
 -- Spawn areas (docs/GUIDE_FORMAT.md, "Spawn areas"), as compiled goals get
@@ -491,13 +510,13 @@ local function questStep(q, from, isTarget, opts)
 				mark(s, target)
 			end
 			goals[#goals + 1] = spawnSpots(at({ t = "kill", target = target, npc = o.id, tame = o.tame,
-				quest = q.id, oi = oi, count = count, title = q.title }, s), npc and npc.spawns)
+				quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(npc) }, s), npc and npc.spawns)
 		elseif o.type == "item" and o.id then
 			local name = (C.Name("item", o.id)) or o.text or itemName(o.id)
-			local s, source, spawns = itemSpot(o.id, here, inside)
+			local s, source, spawns, dropper = itemSpot(o.id, here, inside)
 			if source then mark(s, name) end
 			goals[#goals + 1] = spawnSpots(at({ t = "collect", item = o.id, itemName = name,
-				quest = q.id, oi = oi, count = count, title = q.title }, s), spawns)
+				quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(dropper) }, s), spawns)
 		elseif o.type == "talk" and o.id then
 			-- Speak to an NPC (Hidden Enemies: Neeru Fireblade): the engine counts it by the
 			-- quest's objective line, so it holds the step until done.
