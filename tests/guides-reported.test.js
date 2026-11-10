@@ -5538,11 +5538,11 @@ test('forever/alliance/30-40/02-desolace.guide: flow re-order: the Scorpashi ven
 });
 
 // #1579: the first Nijel's Point step had Vahlarriel's Vengeance taken with the first part of Vahlarriel's Search
-// (1437), but she offers it only once 1437 is handed in at the Malem chest (in game, 2026-11-10; the recordings show
-// it offered in her window after the chest's part, 1465, is handed back to her, the next visit to her).
+// (1437), but she offers it with the third part (1438) when the Malem chest's part (1465) is handed back to her (the
+// reporter in game, 2026-11-10, and every recorded window).
 test('forever/alliance/30-40/02-desolace.guide: Vahlarriel\'s Vengeance is taken when the Malem chest\'s part of her search is handed back, not with its first part (#1579)', { skip }, () => {
 	const fix = (loadCorrections().quests[97284] || {}).set || {};
-	assert.deepEqual([fix.pre, fix.preAny], [[1437], [1437]], 'forever-db: 97284 comes after 1437');
+	assert.deepEqual([fix.pre, fix.preAny], [[1465], [1465]], 'forever-db: 97284 comes after 1465');
 	const list = goals('forever/alliance/30-40/02-desolace.guide');
 	const stepOf = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
 	const take = at(list, 'accept 97284', is('accept', 97284));
@@ -5550,7 +5550,7 @@ test('forever/alliance/30-40/02-desolace.guide: Vahlarriel\'s Vengeance is taken
 	assert.ok(at(list, 'turnin 1465', is('turnin', 1465)) < take, 'after the second part is handed back to Vahlarriel');
 	assert.equal(list[take].s, stepOf('turnin', 1465), 'on the Nijel\'s Point stop that hands her 1465');
 	assert.ok(take < at(list, 'kill 4663 (Burning Blade Augur)', is('kill', 97284)), 'before the cultists in Thunder Axe Fortress');
-	if (((data.quests[97284] || {}).pre || []).includes(1437)) assert.ok((list[take].goal.pre || []).includes(1437), `the accept waits for 1437: ${JSON.stringify(list[take].goal.pre)}`);
+	if (((data.quests[97284] || {}).pre || []).includes(1465)) assert.ok((list[take].goal.pre || []).includes(1465), `the accept waits for 1465: ${JSON.stringify(list[take].goal.pre)}`);
 });
 
 // Offer sweep with #1579: Alliance Tanaris (40-50/04) took and handed in Zamek's Distraction (1191) on its Mirage Raceway

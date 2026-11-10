@@ -4797,23 +4797,23 @@
 	"97284": {
 		"set": {
 			"pre": [
-				1437
+				1465
 			],
 			"preAny": [
-				1437
+				1465
 			]
 		},
 		"source": [
 			{
 				"kind": "in-game-check",
-				"ref": "#1579"
+				"ref": "#1579: the reporter, in game on 2026-11-10: Vahlarriel offered nothing to take with 1437 in the log; once the search part was handed in to her, she gave Vahlarriel's Vengeance together with another Vahlarriel's Search (1438)"
 			},
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (#1579, people counted per IngestAudit): 3 people (2 established) were offered Vahlarriel's Vengeance (97284) by Vahlarriel Demonslayer, each with Vahlarriel's Search (1437) handed in; a level 36 Human with 1437 not done got only 1437 from her (a direct quest window)"
+				"ref": "players' in-game recordings (#1579, people counted per IngestAudit): 3 people (2 established) were offered Vahlarriel's Vengeance (97284) by Vahlarriel Demonslayer, each in her window right after handing her Vahlarriel's Search (1465) or later, two of them together with 1438; no window offered it before 1465 was handed in; a level 36 Human with nothing done got only 1437 from her (a direct quest window)"
 			}
 		],
-		"note": "Vahlarriel's Vengeance (Desolace, Vahlarriel Demonslayer at Nijel's Point) comes after the first part of Vahlarriel's Search (1437), handed in at the Malem chest: in game, it was available once 1437 was completed (#1579, 2026-11-10), and a player with 1437 still in the log found nothing to take. The merged data had no prerequisite, so the Alliance Desolace guide asked for it together with 1437."
+		"note": "Vahlarriel's Vengeance (Desolace, Vahlarriel Demonslayer at Nijel's Point) comes with the third part of Vahlarriel's Search (1438), when the second part (1465, from the Malem chest) is handed back to her (#1579: in game and in every recorded window). Whether the first part (1437) alone would unlock it can't be told: nobody opened her window between the two hand-ins, and 1437 ends at the chest, so she is next visited with 1465. The merged data had no prerequisite, so the Alliance Desolace guide asked for it together with 1437."
 	},
 	"97289": {
 		"set": {
