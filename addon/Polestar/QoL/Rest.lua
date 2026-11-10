@@ -1,15 +1,15 @@
 -- Boosted Rest status (qol.boostedRest, on by default): how long the
--- campfire's Boosted Rest lasts ("Boosted Rest: 42m", or "off") and, when
--- you carry the Cozy Sleeping Bag, its cooldown ("Sleeping bag ready" /
--- "Sleeping bag: 12m"), on the guide window's XP line. Party members'
--- Boosted Rest comes through party sync ("2B|", Quests/Party.lua) and shows
--- in the party panel.
+-- campfire's Boosted Rest lasts ("Boosted Rest: 42m") and, when you carry
+-- the Cozy Sleeping Bag, its cooldown ("Sleeping bag ready" / "Sleeping
+-- bag: 12m"), on a short line of its own under the guide window's XP line.
+-- Party members' Boosted Rest comes through party sync ("2B|",
+-- Quests/Party.lua) and shows in the party panel.
 --
 --   Polestar.QoL.Rest.Left() -> seconds left, true (on, no end given) or nil (off)
 --   Polestar.QoL.Rest.BagLeft() -> nil (no bag), 0 (ready) or seconds
---   Polestar.QoL.Rest.Parts(withOff) -> { text, ... } for the XP line; empty while
---     the setting is off. "Boosted Rest: off" only with `withOff` (the line
---     shows anyway), so it never makes the line appear by itself.
+--   Polestar.QoL.Rest.Parts() -> { text, ... } for that line; empty while the
+--     setting is off or there is nothing to say. "Boosted Rest: off" only
+--     beside the bag, so it never makes the line appear by itself.
 --   message QOL_REST_UPDATED(changed): changed true when Boosted Rest starts,
 --     ends or is renewed, the bag's cooldown starts or ends, or the setting
 --     moves; false for the minute redraws
@@ -81,7 +81,7 @@ end
 Rest.Minutes = minutes
 
 local parts = {}
-function Rest.Parts(withOff)
+function Rest.Parts()
 	for i = #parts, 1, -1 do parts[i] = nil end
 	if not enabled() then return parts end
 	local left = Rest.Left()
@@ -89,10 +89,9 @@ function Rest.Parts(withOff)
 		parts[1] = L["Boosted Rest: on"]
 	elseif left then
 		parts[1] = format(L["Boosted Rest: %s"], minutes(left))
-	elseif withOff then
-		parts[1] = L["Boosted Rest: off"]
 	end
 	local bag = Rest.BagLeft()
+	if bag ~= nil and not parts[1] then parts[1] = L["Boosted Rest: off"] end
 	if bag == 0 then
 		parts[#parts + 1] = L["Sleeping bag ready"]
 	elseif bag then

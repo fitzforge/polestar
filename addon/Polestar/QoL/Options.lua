@@ -301,7 +301,7 @@ register(QOL, L["Trackers"], L["Experience"], {
 		help = L["A mark at the end of the game's XP bar with the level the guide wants you to reach before it moves on, and how many levels away that is when it is more than one."],
 		search = "experience bar, exp bar, target level" },
 	{ kind = "toggle", key = "qol.boostedRest", label = L["Boosted Rest status"],
-		help = L["How long the campfire's Boosted Rest lasts and the Cozy Sleeping Bag's cooldown, on the guide window's XP line; your party's Boosted Rest in the party panel."],
+		help = L["How long the campfire's Boosted Rest lasts and the Cozy Sleeping Bag's cooldown, under the guide window's XP line; your party's Boosted Rest in the party panel."],
 		search = "boosted rest, campfire, sit, rested, sleeping bag, camp, cozy sleeping bag" },
 	{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset session"], help = L["Start this session's XP per hour from zero."], search = "xp, experience",
 		onClick = function() if QoL.XP then QoL.XP.ResetSession() end end },

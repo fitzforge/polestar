@@ -112,6 +112,10 @@ end
 local TAB_MAX_W = 150
 
 local GF = {}
+-- The XP row's height, what its Boosted Rest line adds below a gap, and
+-- its icon's offset beside the first of two lines (a field: the file is at
+-- Lua's 200 locals).
+GF.XPROW = { h = 28, restH = 16, gap = 3, iconY = 6 }
 UI.GuideFrame = GF
 
 local F, strip, nav, body, card, person, after, along, upnext, empty, grip, band, banner, foot, goals
@@ -4072,7 +4076,7 @@ function GF.ApplySkin()
 	upnext.Toggle:SetHeight(UP_TOGGLE)
 	upnext.Toggle.Label:SetPoint("LEFT", upnext.Toggle, "LEFT", PAD, 0)
 	upnext.Toggle.Icon:SetPoint("RIGHT", upnext.Toggle, "RIGHT", -PAD, 0)
-	GF.xp.Icon:SetPoint("LEFT", GF.xp, "LEFT", PAD, -1)
+	GF.xp.Icon:SetPoint("LEFT", GF.xp, "LEFT", PAD, GF.xp.psRest and GF.XPROW.iconY or -1)
 	GF.party.Icon:SetPoint("LEFT", GF.party, "LEFT", PAD, -1)
 	banner.Icon:SetPoint("TOPLEFT", banner, "TOPLEFT", PAD, -10)
 	banner.Text:SetPoint("TOPLEFT", banner, "TOPLEFT", PAD + 21, -9)
@@ -4755,7 +4759,7 @@ local function build()
 
 	-- XP pace (QoL module): "3.4k XP/h · 1h 05m to level", full summary on hover.
 	local xp = CreateFrame("Frame", nil, body)
-	xp:SetHeight(28)
+	xp:SetHeight(GF.XPROW.h)
 	xp:EnableMouse(true)
 	xp.Rule = W.Divider(xp)
 	xp.Rule:SetPoint("TOPLEFT", xp, "TOPLEFT", PAD, 0)
@@ -4769,8 +4773,22 @@ local function build()
 	xp.Text:SetPoint("RIGHT", xp, "RIGHT", -PAD, 0)
 	xp.Text:SetJustifyH("LEFT")
 	xp.Text:SetWordWrap(false)
+	-- Boosted Rest and the sleeping bag (QoL/Rest.lua) on a short line of
+	-- their own under it, so the pace text never pushes them out of sight.
+	xp.Rest = T(xp, "small", "textDim")
+	xp.Rest:SetPoint("TOPLEFT", xp.Text, "BOTTOMLEFT", 0, -GF.XPROW.gap)
+	xp.Rest:SetPoint("RIGHT", xp, "RIGHT", -PAD, 0)
+	xp.Rest:SetJustifyH("LEFT")
+	xp.Rest:SetWordWrap(false)
+	xp.Rest:Hide()
 	xp:SetScript("OnEnter", function(self)
-		if self.psSummary or self.psLine then W.Tooltip(self, tooltipAnchor(), L["Experience"], { self.psLine, self.psSummary }) end
+		if self.psSummary or self.psLine then
+			local lines = {}
+			for _, l in ipairs({ self.psLine or false, self.psRest or false, self.psSummary or false }) do
+				if l then lines[#lines + 1] = l end
+			end
+			W.Tooltip(self, tooltipAnchor(), L["Experience"], lines)
+		end
 		GF.HoverIn()
 	end)
 	xp:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
@@ -5066,23 +5084,34 @@ function GF.UpdateXP(stats)
 			parts[#parts + 1] = string.format(L["%s to level"], Q.Duration(stats.timeToLevel))
 		end
 	end
+	local restLine
 	if not (type(stats) == "table" and stats.maxed) then
 		local pace = GF.PaceText(stats)
 		if pace then parts[#parts + 1] = pace end
-		-- Boosted Rest and the sleeping bag (QoL/Rest.lua; nothing while its setting is off).
-		local rest = Q and Q.Rest and Q.Rest.Parts(#parts > 0)
-		for i = 1, rest and #rest or 0 do parts[#parts + 1] = rest[i] end
+		-- Boosted Rest and the sleeping bag (QoL/Rest.lua): empty while its
+		-- setting is off or there is nothing to say.
+		local rest = Q and Q.Rest and Q.Rest.Parts()
+		if rest and #rest > 0 then restLine = table.concat(rest, "  \194\183  ") end
 	end
-	local had = GF.xp.psHas
-	GF.xp.psHas = #parts > 0
-	if GF.xp.psHas then
-		local line = table.concat(parts, "  \194\183  ")
-		GF.xp.Text:SetText(line)
-		GF.xp.psLine = line
+	local xp = GF.xp
+	local line = #parts > 0 and table.concat(parts, "  \194\183  ") or nil
+	-- Its own line under the XP line; alone, in the XP line's place.
+	if not line then line, restLine = restLine, nil end
+	local had, hadRest = xp.psHas, xp.psRest ~= nil
+	xp.psHas, xp.psRest = line ~= nil, restLine
+	if line then
+		xp.Text:SetText(line)
+		xp.psLine = line
 		local ok, summary = pcall(function() return Q.XP and Q.XP.Summary and Q.XP.Summary(stats) end)
-		GF.xp.psSummary = ok and summary or nil
+		xp.psSummary = ok and summary or nil
 	end
-	if had ~= GF.xp.psHas then GF.Layout() end
+	xp.Rest:SetText(restLine or "")
+	xp.Rest:SetShown(restLine ~= nil)
+	if had ~= xp.psHas or hadRest ~= (restLine ~= nil) then
+		xp:SetHeight(restLine and GF.XPROW.h + GF.XPROW.restH or GF.XPROW.h)
+		xp.Icon:SetPoint("LEFT", xp, "LEFT", PAD, restLine and GF.XPROW.iconY or -1)
+		GF.Layout()
+	end
 end
 
 ns.On("QOL_XP_UPDATED", whenReady(function(stats) GF.UpdateXP(stats) end))
