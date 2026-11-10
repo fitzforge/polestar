@@ -462,17 +462,32 @@ function Own.skipMark(goal)
 	return m
 end
 
+-- Quest q's "closed" mark for accept a, closed for good by quest `by`; the
+-- same table while that holds.
+function Own.closedMark(q, a, by)
+	local u = unavailable[q]
+	if not (u and u.reason == "closed" and u.accept == a and u.by == by) then
+		u = { reason = "closed", accept = a, by = by }
+		unavailable[q] = u
+	end
+	return u
+end
+
 -- Per quest, a goal's unavailable mark or nil. First, a quest the player
 -- skipped (Own.questSkipped) reads as "skipped" until it is done, even in the
 -- log. Known in advance when an accept of the quest in this guide is closed
 -- for good (reason "closed"): one of its `closedBy` (the quest a breadcrumb
--- leads to, or one exclusive with it) is in the log or done, so the giver
--- never offers it again. Else the mark its giver's window left this session.
+-- leads to, or one exclusive with it) is in the log or done, or its `parent`
+-- is handed in (a child quest, offered only while the parent is in the log:
+-- Valik with Infiltration, #1661), so the giver never offers it again. Else
+-- the mark its giver's window left this session.
 -- Else, also known in advance, "level": the accept's `minLevel` is above the
 -- character's level (the route passes it, "Requires level N", and comes back
 -- to it on the level-up; its objectives and turn-in wait with it). Else
 -- "pre": the accept lacks a prerequisite the route no longer brings
--- (Own.preBlocked), a mark that goes the moment that prerequisite is done.
+-- (Own.preBlocked), a mark that goes the moment that prerequisite is done,
+-- or its `parent` is not in the log and the route no longer brings it
+-- (Own.coming), a mark that goes the moment the parent is taken.
 -- `depth`: how far Own.coming has followed a chain of prerequisites.
 local function unavailableFor(goal, depth)
 	local q = goal.quest
@@ -492,16 +507,11 @@ local function unavailableFor(goal, depth)
 		local a = own and goal or list[i].goal
 		if type(a.closedBy) == "table" then
 			for _, by in ipairs(a.closedBy) do
-				if C.IsOnQuest(by) or questDone(by) then
-					local u = unavailable[q]
-					if not (u and u.reason == "closed" and u.accept == a and u.by == by) then
-						u = { reason = "closed", accept = a, by = by }
-						unavailable[q] = u
-					end
-					return u
-				end
+				if C.IsOnQuest(by) or questDone(by) then return Own.closedMark(q, a, by) end
 			end
 		end
+		local parent = tonumber(a.parent)
+		if parent and questDone(parent) then return Own.closedMark(q, a, parent) end
 	end
 	local u = unavailable[q]
 	if u and u.reason == "closed" then
@@ -527,7 +537,9 @@ local function unavailableFor(goal, depth)
 	if (depth or 0) > 8 then return nil end
 	for i = 1, own and 1 or #list do
 		local a = own and goal or list[i].goal
-		local pre = (a.pre or a.preAll) and Own.preBlocked(a, depth)
+		local parent = tonumber(a.parent)
+		local pre = parent and not C.IsOnQuest(parent) and not Own.coming(parent, depth) and parent
+			or (a.pre or a.preAll) and Own.preBlocked(a, depth)
 		if pre then
 			local m = Own.preMarks[a]
 			if not m then
@@ -556,13 +568,14 @@ end
 -- player can still Unskip a step stored off by mistake.
 
 -- Quest `p.q` can be taken now: not in the log or done, the level reached,
--- its prerequisites done (missingPre, as an accept's) and none of the quests
--- that close it taken or done.
+-- its prerequisites done (missingPre, as an accept's), its `parent` in the
+-- log, and none of the quests that close it taken or done.
 function Own.availableNow(p)
 	local C, q = Compat(), p.q
 	if C.IsOnQuest(q) or questDone(q) then return false end
 	if p.minLevel and (player.level or 1) < p.minLevel then return false end
 	if missingPre(p) then return false end
+	if p.parent and not C.IsOnQuest(p.parent) then return false end
 	for _, by in ipairs(type(p.closedBy) == "table" and p.closedBy or NONE) do
 		if C.IsOnQuest(by) or questDone(by) then return false end
 	end
@@ -3728,8 +3741,12 @@ end
 local function unavailableText(u)
 	if u.reason == "skipped" then return L["You skipped this quest"] end
 	local a = u.accept
+	-- A child quest's parent (`parent`): handed in, or not in the log.
+	local parent = tonumber(a.parent)
+	if u.reason == "closed" and u.by == parent then return L["Only before %s is handed in"]:format(ns.Quoted(titleOfQuest(parent, a.preTitles))) end
 	if u.reason == "closed" then return L["No longer offered: you took %s"]:format(ns.Quoted(titleOfQuest(u.by, a.preTitles))) end
 	if u.reason == "level" then return L["Requires level %d"]:format(tonumber(a.minLevel) or 0) end
+	if u.reason == "pre" and u.pre and u.pre == parent then return L["Only with %s in your quest log"]:format(ns.Quoted(titleOfQuest(parent, a.preTitles))) end
 	if u.reason == "pre" then
 		local pre = u.pre or missingPre(a)
 		if pre then return L["Requires %s first"]:format(ns.Quoted(titleOfQuest(pre, a.preTitles))) end

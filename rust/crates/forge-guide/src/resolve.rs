@@ -1423,7 +1423,9 @@ fn check_background(steps: &[V], gsteps: &[V], r: &mut R) {
 	}
 }
 
-/// What an accept of quest `id` (record `q`, or Null) waits on, for the engine.
+/// What an accept of quest `id` (record `q`, or Null) waits on, for the engine: its blocking prerequisites, the
+/// quests that close it for good, and its `parent` (a child quest, which its giver offers only while the parent is
+/// in the log and never once it is handed in: Valik with Infiltration, #1661).
 fn accept_gate(q: &V, id: &V, data: &Data) -> V {
 	let out: V = V::obj();
 	let bp = crate::prereqs::blocking_prereqs(q, &|p: &V| data.quest(p));
@@ -1439,8 +1441,12 @@ fn accept_gate(q: &V, id: &V, data: &Data) -> V {
 	if !closed_by.is_empty() {
 		out.set("closedBy", closed_by.clone());
 	}
+	let parent: Vec<V> = if q.truthy() && q.get("parent").num() > 0.0 { vec![V::from(q.get("parent").num())] } else { Vec::new() };
+	if let Some(p) = parent.first() {
+		out.set("parent", p.clone());
+	}
 	let titles: V = V::obj();
-	for p in all.iter().chain(any.iter()).chain(closed_by.iter()) {
+	for p in all.iter().chain(any.iter()).chain(closed_by.iter()).chain(parent.iter()) {
 		let pq = data.quest(p);
 		if pq.truthy() && pq.get("title").truthy() {
 			titles.set(&p.to_js_string(), pq.get("title").to_js_string());
@@ -1500,6 +1506,7 @@ fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, r: &mut R) ->
 					set_if(&w, "pre", gate.get("pre"));
 					set_if(&w, "preAll", gate.get("preAll"));
 					set_if(&w, "closedBy", gate.get("closedBy"));
+					set_if(&w, "parent", gate.get("parent"));
 				}
 			}
 			"has" => {

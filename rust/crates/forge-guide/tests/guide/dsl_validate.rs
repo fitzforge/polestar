@@ -306,6 +306,16 @@ fn an_accept_compiles_closed_by_the_quest_its_breadcrumb_leads_to_and_its_exclus
 	assert_eq!(json!([g[3]["closedBy"], g[3]["preTitles"]]), json!([[9330], { "9330": "Quest 9330" }]));
 }
 
+// #1661: a child quest (9340, `parent` 9341, like Valik under Infiltration) is offered only while its parent is in
+// the log: the accept carries the parent, titled for the reason text, and no prerequisite.
+#[test]
+fn an_accept_of_a_child_quest_compiles_its_parent_titled_for_the_reason_text() {
+	let r = compile_with(&guide_text(&["step S", "  accept 9341", "  accept 9340", "  accept 9311"]), &prereq_data());
+	let g = r.steps()[0]["goals"].as_array().unwrap().clone();
+	assert_eq!(json!([g[1]["parent"], g[1]["preTitles"], g[1].get("pre")]), json!([9341, { "9341": "Quest 9341" }, null]));
+	assert!(g[0].get("parent").is_none() && g[2].get("parent").is_none());
+}
+
 #[test]
 fn coordinates_outside_0_100_are_errors() {
 	let src = guide_text(&["step S", "  goto 101,5", "  kill 6 @-1,50", "  goto 100,0"]);
