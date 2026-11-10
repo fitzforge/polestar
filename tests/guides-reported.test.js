@@ -10592,3 +10592,52 @@ test('Horde Plaguelands: Darrowshire at 56 in the Eastern Plaguelands guide, not
 	assert.ok(!flyBack, 'no flight to Light\'s Hope before its flight path is learnt');
 	assert.ok(at(ep, 'turnin 6164', is('turnin', 6164)) > villains, 'Augustus takes the book back on the Terrordale stop');
 });
+
+// creazy231's report (#1660): a Tauren Druid at 29 who skipped the 22-25 Hillsbrad guide opened Horde 30-40/01 with
+// Battle of Hillsbrad 532, 539, 541 and Infiltration 533 hidden ("needs Battle of Hillsbrad / The Rescue from Hillsbrad
+// Foothills"). The guide now does Battle of Hillsbrad 527-529 and The Rescue (498) from Tarren Mill first, each step
+// only until its chain's last quest is handed in.
+const HILLSBRAD_3040 = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
+const TAUREN_DRUID_29 = { race: 'Tauren', raceName: 'Tauren', faction: 'Horde', cls: 'DRUID', className: 'Druid', level: 29 };
+// Per quest of the Hillsbrad chains: the statuses of its accept goals, and what the plan left out (guide.hidden).
+function hillsbradChains(before) {
+	return engineRun(HILLSBRAD_3040, TAUREN_DRUID_29, {
+		before,
+		script: `local out, hidden = {}, {}
+			for i = 1, #E.GetGuide().steps do
+				for _, g in ipairs(E.GetStepView(i).goals) do
+					if g.t == "accept" and ({ [527] = 1, [528] = 1, [529] = 1, [498] = 1, [532] = 1, [533] = 1, [539] = 1, [541] = 1 })[g.quest] then
+						out[tostring(g.quest)] = (out[tostring(g.quest)] and out[tostring(g.quest)] .. "," or "") .. g.status
+					end
+				end
+			end
+			for q in pairs(E.GetGuide().hidden or {}) do hidden[#hidden + 1] = q end
+			table.sort(hidden)
+			emit({ accepts = out, hidden = hidden })`,
+	});
+}
+
+test("creazy231's report (#1660): Hillsbrad 30-40 catches a player who skipped the 22-25 guide up on Battle of Hillsbrad and The Rescue", { skip }, () => {
+	const list = goals(HILLSBRAD_3040);
+	const catchUp = list.filter(({ goal }) => [527, 528, 529, 498].includes(goal.quest));
+	assert.ok(catchUp.length >= 12, 'the chains are in the guide');
+	for (const { step, goal } of catchUp) {
+		const last = [527, 528, 529].includes(goal.quest) ? 529 : 498;
+		assert.ok((step.when || []).some((p) => p.k === 'turnedin' && p.neg && p.q === last), `${goal.t} ${goal.quest}: only until ${last} is handed in`);
+	}
+	const firstStop = at(list, 'accept 533', is('accept', 533));
+	assert.ok(at(list, 'turnin 529', is('turnin', 529)) < at(list, 'accept 532', is('accept', 532)), '529 handed in before 532 is taken');
+	assert.ok(at(list, 'turnin 498', is('turnin', 498)) < firstStop, 'The Rescue handed in before Infiltration is taken');
+	const out = hillsbradChains('');
+	assert.deepEqual(Object.values(out.hidden), [], 'nothing left out for a character without the 22-25 guide'); // an empty Lua table comes back as {}
+	for (const q of ['527', '498', '532', '533']) assert.ok(!/skipped|na/.test(out.accepts[q]), `${q} is open: ${out.accepts[q]}`);
+});
+
+test("creazy231's report (#1660): a player who did the 22-25 Hillsbrad guide sees none of the catch-up", { skip }, () => {
+	const out = hillsbradChains('w.complete({ 527, 528, 529, 498 })');
+	assert.deepEqual(Object.values(out.hidden), []);
+	// Not in the guide, or in a step that does not apply to them ("na").
+	for (const q of ['527', '528', '529', '498']) assert.ok([undefined, 'na', 'na,na'].includes(out.accepts[q]), `no ${q} step for them: ${out.accepts[q]}`);
+	for (const q of ['532', '533']) assert.ok(!/skipped|na/.test(out.accepts[q]), `${q} is open: ${out.accepts[q]}`);
+});
+

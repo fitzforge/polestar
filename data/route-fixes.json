@@ -9123,6 +9123,26 @@
 					"turnin",
 					1062
 				]
+			},
+			{
+				"q": 527,
+				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1660, Fitz's call 2026-11-10): a character who skipped 06-hillsbrad-foothills arrives at 29-30 without Battle of Hillsbrad 527-529 and The Rescue 498, so 532, 539, 541 and Infiltration 533 (with Valik 535) were hidden as needing another guide's quests. The 30-40 guide now does them first from Tarren Mill, in 06's order (fields 527 -> Tarren Mill -> peasants 528 -> Tarren Mill -> Durnholde Keep 498 -> the smithy 529 -> Tarren Mill), each step `when !turnedin 529` (Battle) or `when !turnedin 498` (Rescue), so 06's players see none of it. About 14,700 XP at 29 (498 at 60%), on top of what the unhidden quests give. Recordings: 527 and 498 are taken at 21-27 mostly, some at 28-33.",
+				"issue": "#1660"
+			},
+			{
+				"q": 528,
+				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1660): Battle of Hillsbrad part 2, `when !turnedin 529`; see 527.",
+				"issue": "#1660"
+			},
+			{
+				"q": 529,
+				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1660): Battle of Hillsbrad part 3, `when !turnedin 529`; it opens 532 on the guide's first Tarren Mill stop. See 527.",
+				"issue": "#1660"
+			},
+			{
+				"q": 498,
+				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1660): The Rescue (Durnholde Keep), `when !turnedin 498`; it opens Infiltration 533 (and Valik) on the guide's first Tarren Mill stop. See 527.",
+				"issue": "#1660"
 			}
 		],
 		"skip": [

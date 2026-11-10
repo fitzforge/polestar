@@ -26,6 +26,14 @@ next forever/horde/30-40/02-thousand-needles
 # and the Witherbark trolls -> Hammerfall -> fly to the Undercity (training), where the next
 # guide takes the Orgrimmar zeppelin.
 #
+# Catch-up (#1660): a character who skipped forever/horde/06-hillsbrad-foothills arrives without
+# Darthalia's first Battle of Hillsbrad parts (527-529) and Krusk's The Rescue (498), and then
+# without Battle of Hillsbrad 532, 539 and 541 and Infiltration (533, with Valik), which need them.
+# For that character the guide does them first, from Tarren Mill, in the 22-25 guide's order: the
+# fields, Tarren Mill, the peasants, Tarren Mill, Durnholde Keep, Hillsbrad's smithy, Tarren Mill.
+# Each of those steps is shown only until its chain's last quest (529, 498) is handed in, so a
+# character who did the 22-25 guide sees none of them.
+#
 # Saved for the 38-39 visit (forever/horde/30-40/05-arathi-highlands): Gol'dir and the
 # Perenolde chain (503-508), Dalaran Patrols and Bracers of Binding (545, 557: accepted here), Foul Magics
 # (671, accepted here; its Syndicate are by the road in from Tarren Mill), Guile of the Raptor
@@ -174,6 +182,74 @@ step Fly to Tarren Mill
   goto 63.1,48.3 "Undercity flight master"
   fly "Tarren Mill"
   zone Hillsbrad Foothills
+
+# ---------------------------------------------------------------- Catch-up: the Battle of Hillsbrad and The Rescue
+
+step High Executor Darthalia
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  tip You missed Darthalia's first errands, from the 22-25 Hillsbrad guide: they come first now. They are a few levels below you and quick, and they open the rest of the Battle of Hillsbrad in this guide.
+  accept 527                          -- High Executor Darthalia
+
+step Krusk
+  when !turnedin 498
+  zone Hillsbrad Foothills
+  tip Krusk wants his two scouts freed from Durnholde Keep before he trusts you with Infiltration.
+  accept 498                          -- Krusk, inside
+
+step Hillsbrad Fields
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  tip West past the hills to the farms east of Hillsbrad town. Farmer Ray works the field by the northern farmhouse, Farmer Getz the one further south-east; Farmhands and Farmers are everywhere.
+  kill 2266 quest 527.1
+  kill 2360 quest 527.2
+  kill 232 quest 527.3
+  kill 2403 quest 527.4
+
+step Tarren Mill
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  tip Back east to Tarren Mill.
+  turnin 527                          -- High Executor Darthalia
+  accept 528
+
+step Hillsbrad Peasants
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  tip Back to the fields: the Peasants work south of the farmhouses. Careful: A fleeing peasant that reaches the town hall can bring back adds; snares or roots keep them from escaping.
+  kill 2267 quest 528.1
+
+step Tarren Mill
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  turnin 528                          -- High Executor Darthalia
+  accept 529
+
+step Durnholde Keep
+  when !turnedin 498
+  zone Hillsbrad Foothills
+  tip South-east of Tarren Mill. Drull and Tog'thar are chained in the keep's courtyard buildings: Jailor Eston carries the Dull Iron Key and Jailor Marlgen the Burnished Gold Key, both in the keep. Kill them, then open both locks.
+  interact 1721 quest 498.1           -- Drull's ball and chain
+  interact 1722 quest 498.2           -- Tog'thar's ball and chain
+
+step The smithy
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  tip West across the foothills to Hillsbrad town: the smithy stands in the middle of it. Blacksmith Verringtan and his apprentices work at the forge; the Shipment of Iron is stacked beside it.
+  kill 2404 quest 529.1
+  kill 2265 quest 529.2
+  collect 3564 quest 529.3            -- Inside
+
+step Krusk
+  when !turnedin 498
+  zone Hillsbrad Foothills
+  tip Back to Tarren Mill.
+  turnin 498                          -- Krusk, inside
+
+step High Executor Darthalia
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  turnin 529                          -- High Executor Darthalia
 
 # ---------------------------------------------------------------- Tarren Mill
 
