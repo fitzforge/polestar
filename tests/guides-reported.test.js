@@ -10666,7 +10666,10 @@ test('Centaur reputation: Buying Friendship of either clan alone picks the clan,
 	}
 	assert.equal(centaurLive('w.onQuest(94872, {})'), 'Magram Village: Warug and Gorhak', 'Buying Friendship: Magram alone');
 	assert.equal(centaurLive('w.complete({ 1367 })'), 'Magram Village: Warug and Gorhak', 'Magram Alliance handed in');
-	assert.equal(centaurLive('w.onQuest(94872, {}); w.onQuest(94873, {})'), 'Gelkis Village: Uthek and Molkar', 'both clans: the Gelkis');
+	// Gelkis Buying Friendship without the choice quest: the Gelkis half asks for Gelkis Alliance first, which
+	// Uthek's quests need (the playtest stuck at the Kolkar camps without it).
+	assert.equal(centaurLive('w.onQuest(94872, {}); w.onQuest(94873, {})'), 'Gelkis: the choice quest', 'both clans: the Gelkis');
+	assert.equal(centaurLive('w.onQuest(94873, {})'), 'Gelkis: the choice quest', 'Buying Friendship: Gelkis alone');
 	assert.equal(centaurLive('w.onQuest(1368, {})'), 'Gelkis Village: Uthek and Molkar');
 });
 
