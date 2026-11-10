@@ -126,7 +126,7 @@ step Windshaper Boro
 # ---------------------------------------------------------------- Shen'dar Village
 
 step Shen'dar Village
-  tip Follow the road south to Shen'dar Village, in the middle of the isle. Constable Aonda stands on its east side, Illaya Amberwind in the middle, Coriella just north-west of her, Raan Wildwind by the campfire on the west side.
+  tip Follow the road south to Shen'dar Village, in the middle of the isle. Constable Aonda stands on its east side, Illaya Amberwind in the middle, Coriella just north-west of her, Raan Wildwind by the campfire on the west side. With a profession learned, Raan also offers its Camping 101: its trainer stands in the village.
   turnin 92472                        -- Constable Aonda
   accept 92514                        -- Constable Aonda
   accept 92595                        -- Illaya Amberwind
@@ -150,52 +150,24 @@ step Shen'dar Village
   complete 96646 @43.85,43.9
   turnin 96646                        -- Zerril Softbreeze
   accept 92553                        -- Zerril Softbreeze
-
-step Camping 101: Skinning
-  when skill Skinning 1
-  tip With Skinning learned, Raan also offers its Camping 101: Mendalass Tattermend, in Shen'dar, takes it.
   accept 97971 optional               -- Raan Wildwind
   complete 97971 optional @43.29,43.37 map 2521 live
   turnin 97971 optional               -- Mendalass Tattermend
-
-step Camping 101: First Aid
-  when skill "First Aid" 1
-  tip With First Aid learned, Raan also offers its Camping 101: Naleeia Tattermend, in Shen'dar, takes it.
   accept 97965 optional               -- Raan Wildwind
   complete 97965 optional @43.08,46.31 map 2521 live
   turnin 97965 optional               -- Naleeia Tattermend
-
-step Camping 101: Leatherworking
-  when skill Leatherworking 1
-  tip With Leatherworking learned, Raan also offers its Camping 101: Indari Sunseam, in Shen'dar, takes it.
   accept 97969 optional               -- Raan Wildwind
   complete 97969 optional @44.68,44.52 map 2521 live
   turnin 97969 optional               -- Indari Sunseam
-
-step Camping 101: Mining
-  when skill Mining 1
-  tip With Mining learned, Raan also offers its Camping 101: Messana Crestwind, in Shen'dar, takes it.
   accept 97970 optional               -- Raan Wildwind
   complete 97970 optional @44.77,44.56 map 2521 live
   turnin 97970 optional               -- Messana Crestwind
-
-step Camping 101: Alchemy
-  when skill Alchemy 1
-  tip With Alchemy learned, Raan also offers its Camping 101: Nyassa Swiftdraught, in Shen'dar, takes it.
   accept 97963 optional               -- Raan Wildwind
   complete 97963 optional @43.69,43.42 map 2521 live
   turnin 97963 optional               -- Nyassa Swiftdraught
-
-step Camping 101: Blacksmithing
-  when skill Blacksmithing 1
-  tip With Blacksmithing learned, Raan also offers its Camping 101: Aedi Thriceforged, in Shen'dar, takes it.
   accept 97964 optional               -- Raan Wildwind
   complete 97964 optional @44.88,44.37 map 2521 live
   turnin 97964 optional               -- Aedi Thriceforged
-
-step Camping 101: Fishing
-  when skill Fishing 1
-  tip With Fishing learned, Raan also offers its Camping 101: Fenn Fairweather, in Shen'dar, takes it.
   accept 97967 optional               -- Raan Wildwind
   complete 97967 optional @45.02,48.44 map 2521 live
   turnin 97967 optional               -- Fenn Fairweather
@@ -649,9 +621,6 @@ step Valanaar
   accept 93090
   turnin 94896                        -- Ealaane Nimbuswalker
   turnin 94897
-
-step Valanaar
-  when onquest 94491
   turnin 94491                        -- Lotheluum Starbreeze
 
 step Valanaar

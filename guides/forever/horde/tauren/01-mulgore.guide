@@ -116,61 +116,21 @@ step Call of Earth
 # ---------------------------------------------------------------- Bloodhoof Village
 
 step Kaga Wildhoof
-  tip Follow the road north out of Red Cloud Mesa. Kaga Wildhoof waits on the road just south of Bloodhoof Village; /sit by her campfire until you get Boosted Rest.
+  tip Follow the road north out of Red Cloud Mesa. Kaga Wildhoof waits on the road just south of Bloodhoof Village; /sit by her campfire until you get Boosted Rest. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof or on the Thunder Bluff stop.
   turnin 96659
   accept 96605
   complete 96605 @46.2,67.3 live      -- /sit by Kaga's campfire until you get Boosted Rest
   turnin 96605
   accept 96661
-
-step Camping 101: Skinning
-  when skill Skinning 1
-  tip With Skinning learned, Kaga also offers its Camping 101: Yonn Deepcut in Bloodhoof takes it.
   accept 97936 optional               -- Kaga Wildhoof: for Yonn Deepcut
-
-step Camping 101: Leatherworking
-  when skill Leatherworking 1
-  tip With Leatherworking learned, Kaga also offers its Camping 101: Chaw Stronghide in Bloodhoof takes it.
   accept 97934 optional               -- Kaga Wildhoof: for Chaw Stronghide
-
-step Camping 101: First Aid
-  when skill "First Aid" 1
-  tip With First Aid learned, Kaga also offers its Camping 101: Vira Younghoof in Bloodhoof takes it.
   accept 97931 optional               -- Kaga Wildhoof: for Vira Younghoof
-
-step Camping 101: Fishing
-  when skill Fishing 1
-  tip With Fishing learned, Kaga also offers its Camping 101: Uthan Stillwater in Bloodhoof takes it.
   accept 97932 optional               -- Kaga Wildhoof: for Uthan Stillwater
-
-step Camping 101: Herbalism
-  when skill Herbalism 1
-  tip With Herbalism learned, Kaga also offers its Camping 101: Komin Winterhoof in Thunder Bluff takes it.
   accept 97933 optional               -- Kaga Wildhoof: for Komin Winterhoof
-
-step Camping 101: Mining
-  when skill Mining 1
-  tip With Mining learned, Kaga also offers its Camping 101: Brek Stonehoof in Thunder Bluff takes it.
   accept 97935 optional               -- Kaga Wildhoof: for Brek Stonehoof
-
-step Camping 101: Alchemy
-  when skill Alchemy 1
-  tip With Alchemy learned, Kaga also offers its Camping 101: Kray in Thunder Bluff takes it.
   accept 97927 optional               -- Kaga Wildhoof: for Kray
-
-step Camping 101: Blacksmithing
-  when skill Blacksmithing 1
-  tip With Blacksmithing learned, Kaga also offers its Camping 101: Thrag Stonehoof in Thunder Bluff takes it.
   accept 97928 optional               -- Kaga Wildhoof: for Thrag Stonehoof
-
-step Camping 101: Enchanting
-  when skill Enchanting 1
-  tip With Enchanting learned, Kaga also offers its Camping 101: Mot Dawnstrider in Thunder Bluff takes it.
   accept 97929 optional               -- Kaga Wildhoof: for Mot Dawnstrider
-
-step Camping 101: Tailoring
-  when skill Tailoring 1
-  tip With Tailoring learned, Kaga also offers its Camping 101: Vhan in Thunder Bluff takes it.
   accept 97937 optional               -- Kaga Wildhoof: for Vhan
 
 step Bloodhoof Village
@@ -196,25 +156,9 @@ step Bloodhoof Village
   complete 96661 @44.92,61.67 map 1412 live
   turnin 96661                        -- Pyall Silentstride
   accept 746
-
-step Yonn Deepcut
-  when onquest 97936
-  complete 97936 optional @44.97,61.4 map 1412 live
   turnin 97936 optional               -- Yonn Deepcut, beside Pyall: Camping 101: Skinning
-
-step Chaw Stronghide
-  when onquest 97934
-  complete 97934 optional @44.94,61.46 map 1412 live
   turnin 97934 optional               -- Chaw Stronghide, beside Pyall: Camping 101: Leatherworking
-
-step Vira Younghoof
-  when onquest 97931
-  complete 97931 optional @46.08,63.96 map 1412 live
   turnin 97931 optional               -- Vira Younghoof: Camping 101: First Aid
-
-step Uthan Stillwater
-  when onquest 97932
-  complete 97932 optional @44.16,63.8 map 1412 live
   turnin 97932 optional               -- Uthan Stillwater: Camping 101: Fishing
 
 step Poison Water
@@ -411,35 +355,11 @@ step Traditions of the Bluff
   sethome "Thunder Bluff" npc 6746 only Druid -- Innkeeper Pala, at the south end of the central rise: the hearth from Moonglade brings you back here
   accept 5926 only Druid              -- Innkeeper Pala: Heeding the Call, for Turak on Elder Rise
   getfp "Thunder Bluff" npc 2995      -- Tal
-
-step Komin Winterhoof
-  when onquest 97933
-  complete 97933 optional @40,25.1 map 1412
   turnin 97933 optional               -- Komin Winterhoof: Camping 101: Herbalism
-
-step Brek Stonehoof
-  when onquest 97935
-  complete 97935 optional @36.8,28.6 map 1412
   turnin 97935 optional               -- Brek Stonehoof: Camping 101: Mining
-
-step Kray
-  when onquest 97927
-  complete 97927 optional @39.3,23.8 map 1412
   turnin 97927 optional               -- Kray: Camping 101: Alchemy
-
-step Thrag Stonehoof
-  when onquest 97928
-  complete 97928 optional @37.8,28.4 map 1412
   turnin 97928 optional               -- Thrag Stonehoof: Camping 101: Blacksmithing
-
-step Mot Dawnstrider
-  when onquest 97929
-  complete 97929 optional @38.9,24.7 map 1412
   turnin 97929 optional               -- Mot Dawnstrider: Camping 101: Enchanting
-
-step Vhan
-  when onquest 97937
-  complete 97937 optional @38.8,25.9 map 1412
   turnin 97937 optional               -- Vhan: Camping 101: Tailoring
 
 step Hunter Rise

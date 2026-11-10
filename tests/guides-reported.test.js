@@ -10203,10 +10203,10 @@ test('Horde Desolace 34: Rackmore\'s Treasure on one walk north along the coast,
 });
 
 // BrHordeStart (0.3.6): every Horde start campfire also offers a profession Camping 101 (270 XP, needs the skill at
-// accept). Each variant is a `when skill` step right after the Cooking one; the hand-in sits on a stop the route makes
+// accept). Each variant is an optional accept in the campfire step (hidden without the profession); the hand-in sits on a stop the route makes
 // (Orgrimmar and Undercity trainers: 03-silverpine-forest). Recordings: Tirisfal First Aid 14 accepts, Mining 13,
 // Durotar Skinning 12, Mulgore Skinning 7.
-test('Horde starts: the profession Camping 101 quests, each behind its skill, after the Cooking one', { skip }, () => {
+test('Horde starts: the profession Camping 101 quests, optional in the campfire step, handed in on stops the route makes', { skip }, () => {
 	const starts = {
 		'forever/horde/tauren/01-mulgore.guide': [96661, [97936, 97934, 97931, 97932, 97933, 97935, 97927, 97928, 97929, 97937], []],
 		'forever/horde/orc/01-durotar.guide': [96655, [97907, 97902, 97903], [97908, 97906, 96102, 97905, 97901, 97899]],
@@ -10220,7 +10220,7 @@ test('Horde starts: the profession Camping 101 quests, each behind its skill, af
 		for (const q of [...here, ...later]) {
 			const take = at(list, `${file}: accept ${q}`, is('accept', q));
 			assert.ok(take > cook, `${file}: ${q} after the Cooking variant`);
-			assert.ok((list[take].step.when || []).some((p) => p.k === 'skill' && !p.neg), `${file}: ${q} only with its profession`);
+			assert.ok(list[take].goal.optional && list[take].s === list[cook].s, `${file}: ${q} an optional goal in the campfire step`);
 			const hand = list.findIndex(({ goal }) => goal.t === 'turnin' && goal.quest === q);
 			if (here.includes(q)) assert.ok(hand > take, `${file}: ${q} handed in later in the guide`);
 			else assert.equal(hand, -1, `${file}: ${q} goes to the next guide's trainer`);
