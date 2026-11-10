@@ -2001,11 +2001,14 @@ a node the character knows (`Nav.GetTaxiNode`, `Nav.GetKnownTaxiNodes`):
 A walk passes too, whatever comes after it, when the stop it leads to holds
 nothing for the character (#1596; `stepDone`, `Own.stopEmpty`; planner leading,
 quest log read): their own steps after it that are written with work (a
-hand-in, a flight path, training) are, up to their next travel step, all done
-or not applying now (a false `when`, a flight path known). Open optional work
-(a riding trainer) keeps the stop. Steps for other classes or races, and steps
-of notes alone, are no stop: a walk followed only by those holds (it is the way
-on), as does one with no travel step after its stop (the guide's end).
+hand-in, a flight path, training) are, up to their next travel step, all done,
+skipped or not applying now (a false `when`, a flight path known). A skipped
+step counts like one that does not apply: passing a stop stores the `when` that
+failed there as a skip (`Own.latchWhen`), so the stop reads the same on the
+next evaluation and after a reload. Open optional work (a riding trainer) keeps
+the stop. Steps for other classes or races, and steps of notes alone, are no
+stop: a walk followed only by those holds (it is the way on), as does one with
+no travel step after its stop (the guide's end).
 Standing in Camp Taurajo with nothing to do in Thunder Bluff, Ashenvale &
 Thousand Needles' walk up to Thunder Bluff passes and The Tear of the Moons
 leads; the 'Fly to Camp Taurajo' step reads done there, so no flight follows

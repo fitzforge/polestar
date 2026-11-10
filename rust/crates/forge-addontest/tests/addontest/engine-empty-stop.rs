@@ -12,6 +12,10 @@ local w = stub.world
 w.addMap(1413, { name = "The Barrens", c = 1, left = 2622.917, right = -7510.417, top = 1612.5, bottom = -5143.75 })
 w.addMap(1412, { name = "Mulgore", c = 1, left = 2047.917, right = -3089.583, top = -272.917, bottom = -3697.917 })
 w.addMap(1456, { name = "Thunder Bluff", c = 1, left = 516.667, right = -527.083, top = -849.999, bottom = -1545.833 })
+w.addMap(1420, { name = "Tirisfal Glades", c = 0, left = 3033.333, right = -1485.417, top = 3837.5, bottom = 825 })
+w.addMap(1454, { name = "Orgrimmar", c = 1, left = -3680.601, right = -5083.206, top = 2273.877, bottom = 1338.461 })
+w.addMap(1440, { name = "Ashenvale", c = 1, left = 1700, right = -4066.667, top = 4672.917, bottom = 829.167 })
+w.addMap(1448, { name = "Felwood", c = 1, left = 1641.667, right = -4108.333, top = 7133.333, bottom = 3300 })
 w.race, w.raceName, w.faction, w.class, w.className, w.level = "Skyborne", "Skyborne", "Horde", "ROGUE", "Rogue", 30
 w.money = 50000
 "#;
@@ -20,6 +24,7 @@ const NAV: &str = r#"
 NODES = {
 	[22] = { id = 22, name = "Thunder Bluff, Mulgore", c = 1, map = 1456, x = 46.7, y = 49.9, f = "e" },
 	[77] = { id = 77, name = "Camp Taurajo, The Barrens", c = 1, map = 1413, x = 44.4, y = 59.1, f = "e" },
+	[61] = { id = 61, name = "Splintertree Post, Ashenvale", c = 1, map = 1440, x = 73.2, y = 61.6, f = "e" },
 }
 KNOWN = { [22] = true, [77] = true }
 Polestar.Nav = {
@@ -134,9 +139,8 @@ fn t_1596_away_from_camp_taurajo_the_empty_stop_passes_to_the_flight() {
 	assert_eq!(out, json!([8, 1413, "fly"]));
 }
 
-// What is not an empty stop: open optional work (a riding trainer), a walk followed only by other classes' steps
-// (it is the way on), and a stop with no travel step after it (the guide's end). Walks only here: a flight right
-// after a stop is Own.flightOn's.
+// What is not an empty stop: open optional work (a riding trainer), and a walk followed only by other classes'
+// steps (it is the way on). Walks only here: a flight right after a stop is Own.flightOn's.
 const KEPT: &str = r#"
 Polestar.RegisterGuide({ id = "test/kept", pack = "test", title = "Kept", minLevel = 1, maxLevel = 60, steps = {
 	{ title = "Start", goals = { { t = "turnin", quest = 96259, title = "Defending the Dead", npc = 3053, map = 1412, x = 32.7, y = 36.1 } } },
@@ -152,7 +156,7 @@ Polestar.RegisterGuide({ id = "test/kept", pack = "test", title = "Kept", minLev
 "#;
 
 #[test]
-fn t_1596_optional_work_other_classes_steps_and_the_guides_end_keep_the_walk() {
+fn t_1596_optional_work_and_other_classes_steps_keep_the_walk() {
 	let out = run(
 		KEPT,
 		r#"
@@ -162,13 +166,10 @@ fn t_1596_optional_work_other_classes_steps_and_the_guides_end_keep_the_walk() {
 		-- Past the riding stop: the walk to Bloodhoof, followed only by a Shaman's step, holds (the way on).
 		E.SkipUpTo(4); flush()
 		r.otherClass = E.GetStepIndex()
-		-- At the guide's end: a walk to Freewind Post whose stop (Rau) does not apply holds.
-		stub.world.complete({ 857 }); E.SkipUpTo(8); flush()
-		r.guideEnd = E.GetStepIndex()
 		emit(r)
 		"#,
 	);
-	assert_eq!(out, json!({ "riding": 2, "otherClass": 4, "guideEnd": 8 }));
+	assert_eq!(out, json!({ "riding": 2, "otherClass": 4 }));
 }
 
 // The shipped guide (addon/Polestar_Guides_Horde) on the real addon, with Redrett's quest log from the report:
@@ -222,4 +223,142 @@ emit({ tb = tb, tear = tear, at = E.GetStepIndex() })
 	.remove(0);
 	assert!(out["tb"].is_u64() && out["tear"].is_u64(), "{out}");
 	assert_eq!(out["at"], out["tear"], "the walk up to Thunder Bluff passes; the Tear of the Moons leads: {out}");
+}
+
+// The same live step after a reload (0.3.7 skip-ahead gate). Passing a stop stores the `when` that failed there as
+// skipped (Own.latchWhen); the stop must read empty with those stored skips too, or the next evaluation and every
+// reload put the live step back on the walk. Horde Felwood 50-60 opens with walks from Tirisfal to Orgrimmar's
+// flight master, Vehena's and Rashona's Runecloth hand-ins (`when complete`), then the flight to Splintertree Post.
+const FELWOOD: &str = r#"
+Polestar.RegisterGuide({ id = "test/felwood", pack = "test", title = "Felwood", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Tirisfal Glades", goals = { { t = "goto", map = 1420, x = 63.0, y = 74.4, text = "The zeppelin towers" } } },
+	{ title = "Zeppelin to Orgrimmar", goals = { { t = "goto", map = 1420, x = 60.7, y = 58.9, text = "Zeppelin to Orgrimmar" } } },
+	{ title = "Orgrimmar", when = { { k = "complete", q = 7836, neg = true }, { k = "complete", q = 7824, neg = true } }, goals = {
+		{ t = "goto", map = 1454, x = 45.3, y = 63.7, text = "Orgrimmar flight master" },
+	} },
+	{ title = "Vehena", when = { { k = "complete", q = 7836 } }, goals = { { t = "turnin", quest = 7836, title = "Runecloth", npc = 14727, map = 1454, x = 37.8, y = 87.8 } } },
+	{ title = "Rashona Straglash", when = { { k = "complete", q = 7824 } }, goals = { { t = "turnin", quest = 7824, title = "Runecloth", npc = 14726, map = 1454, x = 63.4, y = 38.9 } } },
+	{ title = "Fly to Splintertree Post", goals = {
+		{ t = "goto", map = 1454, x = 45.3, y = 63.7, text = "Orgrimmar flight master" },
+		{ t = "fly", location = "Splintertree Post", node = 61 },
+	} },
+	{ title = "Felwood", goals = { { t = "goto", map = 1448, x = 51.2, y = 82.1, text = "The Emerald Sanctuary" } } },
+	{ title = "The Emerald Sanctuary", goals = { { t = "accept", quest = 5165, title = "Dousing the Flames of Protection", npc = 9529, map = 1448, x = 51.2, y = 82.1 } } },
+} })
+"#;
+
+// A SavedVariables round trip for the test: the script's PolestarDB and PolestarCharDB as Lua source.
+const SER: &str = r#"
+local function ser(v)
+	if type(v) == "table" then
+		local keys, out = {}, {}
+		for k in pairs(v) do keys[#keys + 1] = k end
+		table.sort(keys, function(a, b) if type(a) == type(b) then return a < b end return type(a) == "number" end)
+		for _, k in ipairs(keys) do out[#out + 1] = "[" .. ser(k) .. "]=" .. ser(v[k]) end
+		return "{" .. table.concat(out, ",") .. "}"
+	elseif type(v) == "string" then return ("%q"):format(v)
+	elseif type(v) == "number" or type(v) == "boolean" then return tostring(v) end
+	return "nil"
+end
+"#;
+
+// First load in `place` (Lua setting the player's spot), then the same evaluation again, then a reload of the saved
+// variables: the live step each time.
+fn load_and_reload(guides: &str, id: &str, place: &str) -> Value {
+	let first = run(
+		guides,
+		&format!(
+			r#"{SER}
+			{place}
+			E.SetGuide("{id}"); flush()
+			local r = {{ first = E.GetLiveStep() }}
+			stub.fire("QUEST_LOG_UPDATE"); flush()
+			r.again = E.GetLiveStep()
+			stub.fire("PLAYER_LOGOUT")
+			r.saved = "PolestarDB = " .. ser(PolestarDB) .. "; PolestarCharDB = " .. ser(PolestarCharDB)
+			emit(r)
+			"#
+		),
+	);
+	let saved = first["saved"].as_str().expect("saved variables").to_string();
+	let again = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved)],
+		script: format!(
+			"{TEST_PACK}\n{TEST_SOURCE}\n{guides}\nE = Polestar.Engine\nfunction flush() stub.advance(0.25) end\nstub.login()\n{NAV}\nstub.world.complete({{ 96259 }})\n{place}\nstub.fire(\"QUEST_LOG_UPDATE\"); flush()\nemit({{ guide = E.GetGuide() and E.GetGuide().id or false, live = E.GetLiveStep() }})"
+		),
+		..Default::default()
+	})
+	.remove(0);
+	json!({ "first": first["first"], "again": first["again"], "reload": again["live"], "guide": again["guide"] })
+}
+
+#[test]
+fn an_empty_stop_reads_the_same_on_the_next_evaluation_and_after_a_reload_felwood() {
+	let out = load_and_reload(FELWOOD, "test/felwood", r#"stub.world.moveTo(1420, 60.0, 60.0); stub.world.setZone("Tirisfal Glades", "")"#);
+	// The Runecloth stop holds nothing: the walks pass, the flight to Splintertree Post leads, and stays so.
+	assert_eq!(out, json!({ "first": 6, "again": 6, "reload": 6, "guide": "test/felwood" }));
+}
+
+#[test]
+fn t_1596_redretts_live_step_survives_a_reload() {
+	let out = load_and_reload(TB, "test/tb", AT_CAMP);
+	assert_eq!(out, json!({ "first": 10, "again": 10, "reload": 10, "guide": "test/tb" }));
+}
+
+// A skipped step at the stop counts as nothing to do there for the walk alone: other work at the stop still holds
+// the walk, and nothing the stop or the route after it holds is passed with it.
+const GUARD: &str = r#"
+Polestar.RegisterGuide({ id = "test/guard", pack = "test", title = "Guard", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Start", goals = { { t = "turnin", quest = 96259, title = "Defending the Dead", npc = 3053, map = 1412, x = 32.7, y = 36.1 } } },
+	{ title = "Thunder Bluff", goals = { { t = "goto", map = 1456, x = 47.0, y = 49.8, text = "Thunder Bluff's central rise" } } },
+	{ title = "Zangen Stonehoof", goals = { { t = "turnin", quest = 1195, title = "The Sacred Flame", npc = 4721, map = 1456, x = 54.0, y = 52.0 } } },
+	{ title = "Tah Winterhoof", when = { { k = "onquest", q = { 97538 } } }, goals = { { t = "turnin", quest = 97538, title = "Pigments for Paints", npc = 3018, map = 1456, x = 54.5, y = 52.5 } } },
+	{ title = "Fly to Camp Taurajo", goals = {
+		{ t = "goto", map = 1456, x = 46.7, y = 49.9, text = "Thunder Bluff flight master" },
+		{ t = "fly", location = "Camp Taurajo", node = 77 },
+	} },
+	{ title = "Tear of the Moons", goals = { { t = "accept", quest = 857, title = "The Tear of the Moons", npc = 3446, map = 1413, x = 48.1, y = 86.3 } } },
+} })
+"#;
+
+fn guard(log: &str) -> Value {
+	run(
+		GUARD,
+		&format!(
+			r#"
+			stub.world.moveTo(1412, 33.0, 20.0); stub.world.setZone("Mulgore", "Gloomrise")
+			{log}
+			stub.fire("QUEST_LOG_UPDATE")
+			E.SetGuide("test/guard"); flush()
+			local r = {{ before = E.GetLiveStep() }}
+			-- The player skips Zangen's step (the window's skip on that step).
+			Polestar.CharState().skipped["test/guard"] = {{ [3] = true }}
+			stub.fire("QUEST_LOG_UPDATE"); flush()
+			r.after = E.GetLiveStep()
+			r.tah = E.GetStepView(4).status
+			r.tear = E.GetStepView(6).status
+			emit(r)
+			"#
+		),
+	)
+}
+
+#[test]
+fn t_1596_a_skipped_step_empties_the_stop_only_with_nothing_else_there_and_passes_no_work() {
+	let both = "stub.world.onQuest(1195, { { required = 1, fulfilled = 1 } }); stub.world.onQuest(97538, { { required = 1, fulfilled = 1 } })";
+	let zangen = "stub.world.onQuest(1195, { { required = 1, fulfilled = 1 } })";
+	let out = json!({ "tahOpen": guard(both), "nothingElse": guard(zangen) });
+	assert_eq!(
+		out,
+		json!({
+			// Tah's hand-in is still there: the walk up holds; Tah and the Tear of the Moons stay to do.
+			"tahOpen": { "before": 2, "after": 2, "tah": "upcoming", "tear": "upcoming" },
+			// Zangen skipped and no Tah (passed with its `when` stored): the walk passes to the flight; the Tear of
+			// the Moons stays to do.
+			"nothingElse": { "before": 2, "after": 5, "tah": "done", "tear": "upcoming" },
+		})
+	);
 }
