@@ -153,8 +153,8 @@ W.SimpleTip, W.HideTip = simpleTip, hideTip
 
 -- The game's own item and spell tooltips on Polestar's buttons (reward
 -- tiles, loot tiles, gear picks, rare drops), and their modified clicks.
---   W.ItemTip(owner, itemID, extra?)   -- extra(tooltip): lines after the game's
---   W.SpellTip(owner, spellID, extra?)
+--   W.ItemTip(owner, itemID, extra?, place?)   -- extra(tooltip): lines after the game's
+--   W.SpellTip(owner, spellID, extra?, place?) -- place(tooltip): anchors it (default: right of owner)
 --   W.ItemClick(itemID) -> handled     -- Shift links, Ctrl tries on, Alt guides
 --   W.SpellClick(spellID) -> handled   -- Shift links
 --   W.PrefetchItem(itemID), W.PrefetchSpell(spellID)
@@ -162,9 +162,9 @@ W.SimpleTip, W.HideTip = simpleTip, hideTip
 -- information" and the client's own refresh does not reliably redraw it, so
 -- the tooltip is set again when GET_ITEM_INFO_RECEIVED / SPELL_DATA_LOAD_RESULT
 -- brings that ID while the same button still owns it.
-local gameTip -- { owner, kind, id, extra } of the tooltip last set here
+local gameTip -- { owner, kind, id, extra, place } of the tooltip last set here
 
-local function setGameTip(owner, kind, id, extra)
+local function setGameTip(owner, kind, id, extra, place)
 	local tip = GameTooltip
 	if not (tip and owner and type(id) == "number") then return end
 	local C = ns.Compat
@@ -175,15 +175,19 @@ local function setGameTip(owner, kind, id, extra)
 	elseif C.RequestSpell then
 		C.RequestSpell(id)
 	end
-	tip:SetOwner(owner, "ANCHOR_RIGHT")
+	tip:SetOwner(owner, place and "ANCHOR_NONE" or "ANCHOR_RIGHT")
+	if place then
+		tip:ClearAllPoints()
+		place(tip)
+	end
 	if kind == "item" then tip:SetHyperlink("item:" .. id) else tip:SetSpellByID(id) end
 	if extra then extra(tip) end
 	tip:Show()
-	gameTip = { owner = owner, kind = kind, id = id, extra = extra }
+	gameTip = { owner = owner, kind = kind, id = id, extra = extra, place = place }
 end
 
-function W.ItemTip(owner, itemID, extra) setGameTip(owner, "item", itemID, extra) end
-function W.SpellTip(owner, spellID, extra) setGameTip(owner, "spell", spellID, extra) end
+function W.ItemTip(owner, itemID, extra, place) setGameTip(owner, "item", itemID, extra, place) end
+function W.SpellTip(owner, spellID, extra, place) setGameTip(owner, "spell", spellID, extra, place) end
 
 local function owns(owner)
 	local tip = GameTooltip
@@ -197,7 +201,7 @@ local function arrived(kind, id)
 	if not (g and g.kind == kind and (id == nil or id == g.id)) then return end
 	if GameTooltip and GameTooltip.IsShown and not GameTooltip:IsShown() then gameTip = nil return end
 	if not owns(g.owner) then gameTip = nil return end
-	setGameTip(g.owner, kind, g.id, g.extra)
+	setGameTip(g.owner, kind, g.id, g.extra, g.place)
 end
 
 if ns.RegisterEvent then

@@ -6179,14 +6179,22 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   known, and for a higher rank only when the rank below is known or trainable
   by then (a talent's higher ranks need the talent); any left fire
   `LEVELUP_SPELLS` { level, spells, cost, money, trainer
-  (`Engine.NearestClassTrainer(true)`) }. Nothing in an instance; in combat it
+  (`Engine.NearestClassTrainer()`: by travel time from the player, the one
+  Nearby's "Show me" goes to) }. Nothing in an instance; in combat it
   waits for `PLAYER_REGEN_ENABLED`. The card: "LEVEL 12 · PRIEST", "3 new
   spells to train", a row of up to 8 icons ("+N more") with the game's spell
-  tooltip (`W.SpellTip`) and the training cost, the total in the success
-  colour when affordable, the warning colour with the balance when not, the
-  nearest class trainer and **Show me** (`Nav.nearby.Go("class")`); quiet
-  (`m.quiet`: no chime), hidden after 30 s (`m.hideAfter`, not while the
-  pointer is on it). **Old ranks**: `Spells.OldRanks()` reads action slots
+  tooltip (`W.SpellTip` with `CT.PlaceTip`: beside the card, on its side
+  facing the screen's middle, never over its lines) and the training cost, the
+  total (`SpellCards.Money`: `GetMoneyString`, zero units left out) in the
+  success colour when affordable, the warning colour with the balance when
+  not; then where to train: the guide's own training stop when
+  `Engine.GuideTrainStop()` is within 10 steps ("The guide trains you in 6
+  steps (Orgrimmar).", no button: `m.noAct`, Later leads the row), else the
+  nearest class trainer and **Show me** (`Nav.nearby.Go("class")`), and no
+  trainer line at all while the guide window's training reminder banner is up;
+  quiet (`m.quiet`: no chime), hidden after 30 s (`m.hideAfter`, not while
+  the pointer is on it). The old-ranks line is plain text ("Renew: rank 2 to
+  3"): the game's fonts have no arrow. **Old ranks**: `Spells.OldRanks()` reads action slots
   1-180 (every page, the stance and form bars, the side bars, and bar addons
   that use the game's slots); a `spell` action whose name has a higher
   "Rank N" in the player's spellbook (`C_SpellBook`, the pet's left out) is
