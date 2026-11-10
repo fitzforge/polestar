@@ -10317,3 +10317,16 @@ test('Stranglethorn Vale (Alliance 41): every Warlock who flies to Ratchet at 43
 		assert.ok(fp >= 0 && boat >= 0 && fp <= boat, `${race} Warlocks learn the Ratchet flight path before the boat`);
 	}
 });
+
+// Flow review, Alliance 40 (0.3.6): Mudrock Soup and Bugs (1204) was handed to Morgan Stern on a ride back from Sentry
+// Point to Theramore and out past Sentry Point again; it now goes in on the second Theramore stop, with Stinky's
+// Escape to the same NPC.
+test('Dustwallow Marsh (Alliance 40): Mudrock Soup and Bugs handed in with Stinky\'s Escape, no ride back from Sentry Point', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const soup = at(list, 'turnin 1204', is('turnin', 1204));
+	assert.equal(list[soup].step, list[at(list, 'turnin 1222', is('turnin', 1222))].step, 'on the stop that hands Stinky in');
+	assert.equal(list[at(list, 'accept 1258', is('accept', 1258))].step, list[soup].step, '... and Bugs taken there');
+	const sentry = at(list, 'turnin 1265', is('turnin', 1265));
+	const manor = at(list, 'accept 1218', is('accept', 1218));
+	assert.ok(!list.slice(sentry, manor).some(({ step }) => step.title === 'Theramore'), 'Sentry Point straight on to Swamplight Manor');
+});

@@ -4830,6 +4830,18 @@
 				],
 				"faction": "Horde",
 				"why": "PlayersHorde 0.3.6: see the pair before (Darkcloud chests south-east, south-west, north-west)."
+			},
+			{
+				"a": [
+					"turnin",
+					1266
+				],
+				"b": [
+					"turnin",
+					1204
+				],
+				"faction": "Alliance",
+				"why": "Flow review, Alliance 40-50/01 (0.3.6, BrAlliance4060): Mudrock Soup and Bugs (1204) goes to Morgan Stern on the second Theramore stop, with Stinky's Escape (1222) to the same NPC, after The Missing Diplomat's tower (1266). The route used to ride Sentry Point -> Theramore -> back past Sentry Point north for this one hand-in (about 760 yd and a town entry). Our comparison hands both in to Morgan Stern on one visit; the tongues are still finished at Sentry Point, so nothing waits on the hand-in."
 			}
 		],
 		"notes": [
