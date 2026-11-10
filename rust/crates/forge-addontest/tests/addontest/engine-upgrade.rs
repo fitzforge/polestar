@@ -217,6 +217,32 @@ fn reset_progress_brings_back_what_an_update_passed() {
 	assert_eq!(out[1]["live"], 2, "{}", out[1]);
 }
 
+// UpgradeMid036 on the 0.3.6 candidate (Wetlands, a 0.3.5 save at Anilia, step 42, carrying Bloom of the
+// Heavens taken off the route): Menethil's second stop gained that quest's hand-in (new) beside its hand-ins and
+// a vendor check-off the save had there too. The vendor never holds that step (Own.sideVendor), so the player's
+// place is still past it, and the carried quest is still to do; before, the vendor read as open work the update
+// did not add and sent the player 28 steps back to Menethil.
+#[test]
+fn a_vendor_beside_what_an_update_added_to_a_step_behind_the_player_never_holds_them_there() {
+	const VENDOR: &str = r#"{ t = "vendor" }"#;
+	let guide = GUIDE.replace(r#"{ title = "Changed", goals = { a(102), a(109) } },"#, &format!(r#"{{ title = "Changed", goals = {{ a(102), t(109), {VENDOR} }} }},"#));
+	let old = saved("").replace(r#""accept:102", "goto:1429""#, r#""accept:102,vendor:", "goto:1429""#);
+	let script = SCRIPT
+		.replace(r#"[h("accept:102")] = "accept:102""#, r#"[h("accept:102,vendor:")] = "accept:102,vendor:""#)
+		.replace("changed = {", "behind = E.GetBehind()[1] and E.GetBehind()[1].quest or false, changed = {");
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}\nstub.world.onQuest(109, {{ {{ required = 5, fulfilled = 1 }} }}, \"Quest 109\")"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), old)],
+		login: false,
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{guide}\n{script}"),
+	})
+	.remove(0);
+	assert_eq!(out["live"], 8, "the player still at 103's hand-in: {out}");
+	assert_eq!(out["behind"], 109, "109 still to do: {out}");
+}
+
 // Fitz: a step an update passed behind the player may hold a prerequisite for a quest ahead. Here the update
 // added 111 (accept and hand-in) behind the player and 112 (needs 111) after 103's hand-in. On the way (the
 // same zone, near): 111 comes back just before 112, after the player's place. Far (another continent): 112

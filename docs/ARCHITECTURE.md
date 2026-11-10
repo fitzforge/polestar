@@ -229,7 +229,8 @@ not have or had only further on, and goals of a carried quest an earlier
 release had optional only: `required` in LegacySteps.lua), and the first
 placement with the quest log in passes what of it lies behind the player's
 place (`Own.passAdded`: the first step that holds for content the old guide
-had), as `gone` steps and goals that no longer apply; nothing shows as
+had, by the step's own rule, `Own.holds`: a vendor check-off beside other
+work never holds it), as `gone` steps and goals that no longer apply; nothing shows as
 skipped. A quest the player carries whose remaining work is among them is
 noted `behind`: the guide window lists it under the step as "Still to do"
 (`Engine.GetBehind`; a click points the arrow, a right-click skips or

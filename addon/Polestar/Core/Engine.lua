@@ -5355,7 +5355,8 @@ end
 -- What an update added behind the player passes for them. At the first
 -- placement after the update with the quest log in: the player's place is the
 -- first step that holds for what the save's guide had too (a goal open that
--- the update did not add); behind it, each step the update added, or
+-- the update did not add and that holds its step, Own.holds: a vendor
+-- check-off beside other work never does); behind it, each step the update added, or
 -- a feeder step, and each quest goal it added to a step, is noted gone
 -- (CharState().gone[id], as `added`): it no longer applies (stepApplies,
 -- goalApplies), as another class's, so its accepts are not offered and its
@@ -5386,7 +5387,7 @@ function Own.passAdded()
 		if stepApplies(steps[j]) and not (sk and sk[j]) and not stepDone(j) then
 			local holds = false
 			for g, goal in ipairs(steps[j].goals) do
-				if blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(j, g, goal)
+				if Own.holds(j, goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(j, g, goal)
 					and not Own.goalAdded(added, j, goal) then
 					holds = true
 					break
@@ -5407,7 +5408,7 @@ function Own.passAdded()
 			local holds = false
 			for g, goal in ipairs(steps[j].goals) do
 				local h = e[Own.goalId(goal)]
-				if type(h) == "number" and h <= P and blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(j, g, goal) then
+				if type(h) == "number" and h <= P and Own.holds(j, goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(j, g, goal) then
 					holds = true
 					break
 				end
