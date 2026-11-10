@@ -40,7 +40,7 @@ local SOUND_EVERY = 5
 local soundAt = -math.huge
 
 local f
-local shownKey -- "<step>:<goal>" of the line the toast shows
+local shownKey -- the `appeared` serial of the line the toast shows (it stays when another step's copy of the objective takes the line over)
 local seen = 0 -- the newest line's `appeared` chimed for (Engine serials only grow)
 local token = 0 -- the current show; a timer or fade of an older one does nothing
 
@@ -50,7 +50,7 @@ local function shownIndex()
 	local E = ns.Engine
 	local list = E and E.GetWhileHereList and E.GetWhileHereList() or {}
 	for i, v in ipairs(list) do
-		if v.step .. ":" .. v.index == shownKey then return i end
+		if shownKey and v.appeared == shownKey then return i end
 	end
 	return 1
 end
@@ -166,7 +166,7 @@ ns.On("WHILE_HERE_CHANGED", function()
 	local new, cur = nil, nil
 	for _, v in ipairs(list) do
 		if (v.appeared or 0) > seen and (not new or v.appeared > new.appeared) then new = v end
-		if v.step .. ":" .. v.index == shownKey then cur = v end
+		if shownKey and v.appeared == shownKey then cur = v end
 	end
 	if not new then
 		if cur then
@@ -181,6 +181,6 @@ ns.On("WHILE_HERE_CHANGED", function()
 	if not ns.IsLoggedIn() then return end
 	T.Chime()
 	if windowShows() then return end
-	shownKey = new.step .. ":" .. new.index
+	shownKey = new.appeared
 	T.Show(new)
 end)
