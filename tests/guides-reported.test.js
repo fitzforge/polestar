@@ -1634,7 +1634,9 @@ test('Offer audit: Bartleby the Drunk never waits on A Warrior\'s Training, and 
 		assert.ok(!(list[bartleby].goal.pre || []).includes(1638), `${guide}: accept 1639 needs nothing before it`);
 		assert.equal(list[bartleby].goal.npc, 6089, `${guide}: Bartleby the Drunk comes from Harry Burlguard`);
 		assert.match(list[take].step.note || '', /If Ilsa doesn't offer A Warrior's Training, go straight to Harry/, `${guide}: the step says what to do if Ilsa doesn't offer it`);
-		assert.match(list[take].step.note || '', guide === WESTFALL ? /walk to Stormwind/i : /the tram from Ironforge arrives in the Dwarven District/, `${guide}: the step keeps its own travel line`);
+		// Westfall's Warrior step rides the Thor flight's Old Town stop (Alliance 12-30 bracket review 0.3.6): it says where
+		// Ilsa and Harry stand from Osric's shop.
+		assert.match(list[take].step.note || '', guide === WESTFALL ? /near Osric's shop/ : /the tram from Ironforge arrives in the Dwarven District/, `${guide}: the step keeps its own travel line`);
 	}
 	// A build writes the guide-fixes record's tip over every Alliance warrior's step: it must carry the
 	// Dwarf and Gnome tram line and the Human walk, so a rebuild loses neither hand fix.
@@ -3677,6 +3679,20 @@ test(`${WESTFALL} / ${LOCH_MODAN}: Keeper of the Flame's flasks kept from the Ha
 	assert.ok(loch[take].s === loch[hand].s && take < hand, 'taken and handed in on one step');
 	assert.ok((loch[hand].step.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 814), 'only for a player carrying the flasks');
 	assert.equal(loch[hand].s, loch[at(loch, 'turnin 104', is('turnin', 104))].s + 1, 'right after Old Murk-Eye, at the lighthouse');
+});
+
+// Alliance 12-30 bracket review 0.3.6: Thor's free flight takes Humans to Stormwind at about 13 for Osric Strang in Old Town,
+// where Ilsa Corbin, Harry Burlguard and Bartleby stand, and back past Cathedral Square, where High Priestess Laurena is.
+// Human Warriors' Defensive Stance and Human Priests' Divine Grace are done on that visit, not on a detour at about 16.
+test(`${WESTFALL}: Human Warriors' Defensive Stance and Human Priests' Divine Grace on the Thor flight's Stormwind visit`, { skip }, () => {
+	const list = goals(WESTFALL);
+	const osric = at(list, 'turnin 6281', is('turnin', 6281));
+	const dungar = at(list, 'turnin 6261', is('turnin', 6261));
+	const stance = at(list, 'turnin 1665', is('turnin', 1665));
+	const grace = at(list, 'turnin 94774', is('turnin', 94774));
+	assert.ok(osric < stance && stance < at(list, 'accept 399 (Baros)', is('accept', 399)), 'Defensive Stance in Old Town, right after Osric');
+	assert.ok(at(list, 'accept 399 (Baros)', is('accept', 399)) < grace && grace < dungar, 'Divine Grace on Cathedral Square, before the gryphon back');
+	assert.equal(list.filter(({ goal }) => is('turnin', 1665)(goal)).length, 1, 'no second Defensive Stance stop at the end of the guide');
 });
 
 // --- Handful of Oats (Xaden Ryan, #621): the oats were the first step's last
