@@ -281,14 +281,17 @@ local function greyNeed(goal)
 	return chainNeeds(guide, level)[q] or false
 end
 
--- Per guide: each goal's step index, and each quest's accept, turn-in and
--- abandon goals ({ s, key = "s:g", step, goal }).
+-- Per guide: each goal's step index, each quest's accept, turn-in and
+-- abandon goals ({ s, key = "s:g", step, goal }), and `starters`: a plain
+-- `collect` of an item (no quest) -> the accept after it in its step that
+-- the item starts (`accept <q> item <item>`, no giver: Ursangous's Paw
+-- before The Hunt Continues), as Own.starterTaken pairs them.
 local NONE = {}
 local layoutCache = setmetatable({}, { __mode = "k" })
 local function layoutOf(g)
 	local l = layoutCache[g]
 	if l then return l end
-	l = { stepOf = {}, accepts = {}, turnins = {}, abandons = {} }
+	l = { stepOf = {}, accepts = {}, turnins = {}, abandons = {}, starters = {} }
 	for s, step in ipairs(g.steps) do
 		for gi, goal in ipairs(step.goals) do
 			l.stepOf[goal] = s
@@ -300,6 +303,15 @@ local function layoutOf(g)
 					by[goal.quest] = list
 				end
 				list[#list + 1] = { s = s, key = s .. ":" .. gi, step = step, goal = goal }
+			end
+			if goal.t == "collect" and not goal.quest and goal.item and (goal.count or 1) == 1 then
+				for j = gi + 1, #step.goals do
+					local a = step.goals[j]
+					if a.item == goal.item then
+						if a.t == "accept" and a.quest and not a.npc and not a.object then l.starters[goal] = a end
+						break
+					end
+				end
 			end
 		end
 	end
@@ -351,6 +363,9 @@ end
 -- (Inline: the main chunk is at Lua's 200 locals.)
 local function goalApplies(goal)
 	if not Guides.Matches(goal.only, player) or Own.barred(goal) or Own.gone(goal) then return false end
+	-- The item a quest starts from is collected only for that quest (#1531).
+	local starts = goal.t == "collect" and not goal.quest and guide and layoutOf(guide).starters[goal]
+	if starts and not goalApplies(starts) then return false end
 	if goal.t == "die" and not Own.deathskips() then return false end
 	if goal.profLine or goal.profName then
 		local C = Compat()
@@ -461,7 +476,13 @@ end
 -- `depth`: how far Own.coming has followed a chain of prerequisites.
 local function unavailableFor(goal, depth)
 	local q = goal.quest
-	if not q then return nil end
+	if not q then
+		-- A quest's starting item waits with the quest (#1531: Ursangous's Paw
+		-- for The Hunt Continues, which needs The Hunt Begins first).
+		local a = goal.t == "collect" and guide and layoutOf(guide).starters[goal]
+		if a and not questDone(a.quest) and not Compat().IsOnQuest(a.quest) then return unavailableFor(a, depth) end
+		return nil
+	end
 	if Own.questSkipped(q) and not questDone(q) then return Own.skipMark(goal) end
 	local C = Compat()
 	if C.IsOnQuest(q) or questDone(q) then return nil end
@@ -1654,10 +1675,13 @@ function Own.feederPlan(g)
 		end
 	end
 	add(gaps[0])
+	local starters = l.starters
 	for s, step in ipairs(g.steps) do
 		local kept, lost, quests = {}, false, false
 		for _, goal in ipairs(step.goals) do
-			if goal.quest and drop[goal.quest] then
+			-- A quest left out goes with its goals, and with the item it starts from (#1531).
+			local starts = starters[goal]
+			if (goal.quest and drop[goal.quest]) or (starts and drop[starts.quest]) then
 				lost = true
 			else
 				kept[#kept + 1] = goal
@@ -4035,7 +4059,7 @@ local function goalView(s, g, goal, stepStatus, group)
 	-- "Requires level" line is the one thing the step says.
 	-- `waitsLevel`: the level a hidden one waits for (playtest.js's SIMULATE levels the player to it).
 	local waitsLevel
-	if unavail and unavail.reason == "level" and goal.t == "accept" and not Own.waitsOnLevel(s) then
+	if unavail and unavail.reason == "level" and (goal.t == "accept" or layoutOf(guide).starters[goal]) and not Own.waitsOnLevel(s) then
 		status, unavail, waitsLevel = "na", nil, tonumber(goal.minLevel)
 	end
 	-- A goal of a quest that left the log, held for the player's answer.

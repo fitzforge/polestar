@@ -738,3 +738,30 @@ Polestar.RegisterGuide({ id = "test/gate", pack = "test", title = "Wetlands", fa
 	assert_eq!(out["loaded"], "29:true:Crocs of the Sky");
 	assert_eq!(out["done"], "29:true:", "Crocs of the Sky handed in: the level is left");
 }
+
+// #1531 (Horde Ashenvale): "collect Ursangous's Paw" sat beside "accept The Hunt Continues item 16303", a quest that
+// needs The Hunt Begins (6383) first: the accept read "Requires The Hunt Begins first", but the arrow still sent the
+// player to kill Ursangous for a paw only that quest wants. The item a quest starts from waits with the quest: it
+// is unavailable for the same reason, and applies only while the accept does.
+#[test]
+fn a_quest_s_starting_item_waits_with_a_quest_that_cannot_be_taken_1531() {
+	let guide = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Ashenvale", faction = "Horde", minLevel = 10, maxLevel = 30, steps = {
+	{ title = "Ursangous", goals = {
+		{ t = "collect", item = 16303, itemName = "Ursangous's Paw", map = 1413, x = 40, y = 40 },
+		{ t = "accept", quest = 23, title = "Ursangous's Paw", item = 16303, pre = { 6383 }, preAll = { 6383 } },
+	} },
+	{ title = "Trainer", goals = { { t = "train", npc = 3353, npcName = "Trainer", map = 1413, x = 52, y = 31 } } },
+} })
+"#;
+	let out = run(
+		"",
+		guide,
+		r#"
+		stub.fire("QUEST_LOG_UPDATE"); flush()
+		emit({ live = E.GetLiveStep(), ursangous = brief(1) })
+	"#,
+	);
+	assert_eq!(out["live"], 2, "the paw is no work while its quest can't be taken: {out}");
+	assert!(out["ursangous"][0].as_str().unwrap().starts_with("skipped:pre"), "{out}");
+}

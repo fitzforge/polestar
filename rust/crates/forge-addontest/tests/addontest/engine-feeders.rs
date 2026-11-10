@@ -340,7 +340,11 @@ for i, step in ipairs(g.steps) do
 end
 for q in pairs(g.hidden or {{}}) do hidden[#hidden + 1] = q end
 table.sort(hidden)
-emit({{ guide = g.title, before = before, after = after, feeders = feeders, outside = outside, hidden = hidden, cost = g.feedCost or 0 }})"#
+local collects = {{}}
+for _, step in ipairs(g.steps) do
+	for _, goal in ipairs(step.goals) do if goal.t == "collect" and not goal.quest and goal.item then collects[#collects + 1] = goal.item end end
+end
+emit({{ guide = g.title, before = before, after = after, feeders = feeders, outside = outside, hidden = hidden, collects = collects, cost = g.feedCost or 0 }})"#
 		),
 		..Default::default()
 	})
@@ -390,6 +394,15 @@ fn t_1353_malifax_and_a_player_who_did_the_route_on_the_shipped_ashenvale() {
 	}
 	assert_eq!(out["outside"], 0);
 	assert_eq!(out["after"]["empty"], 0);
+	// #1531: a quest left out goes with the item it starts from (Ursangous's Paw 16303 for 23, Shadumbra's Head
+	// 16304 for 24, Sharptalon's Claw 16305 for 2): no kill for an item only a hidden quest wants.
+	let hidden = ids(&out["hidden"]);
+	let collects = ids(&out["collects"]);
+	for (q, item) in [(23, 16303), (24, 16304), (2, 16305)] {
+		if hidden.contains(&q) {
+			assert!(!collects.contains(&item), "{item} is collected for {q}, which is left out: {out}");
+		}
+	}
 
 	// A player who did the route: the guide as written.
 	let normal = shipped("Horde", "Tauren", "PALADIN", 26, &format!("{MALIFAX_DONE}, 6382, 6383, 216"), "", "forever/horde/07-ashenvale");
