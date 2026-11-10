@@ -223,10 +223,38 @@ fn the_step_list_comes_back_with_the_window_a_hide_of_the_window_is_not_a_close(
 				-- The window hides: the client runs the shown list's OnHide with it (the stub's Hide does not cascade).
 				GF.frame:Hide()
 				SL.frame:GetScript("OnHide")(SL.frame)
-				local hidden = SL.On()
+				-- Still open, but its own frame hidden too: Escape is not spent on a list nobody sees.
+				local hidden = { on = SL.On(), shown = SL.frame:IsShown() }
+				-- Drawn again while the window is hidden (progress in combat): it stays hidden.
+				GF.Render()
+				hidden.drawn = SL.frame:IsShown()
 				GF.frame:Show()
 				stub.advance(0.3)
 				emit({ open = open, hidden = hidden, back = SL.frame:IsShown() and SL.frame:IsVisible() })"#,
 	);
-	assert_eq!(out[0], json!({ "open": true, "hidden": true, "back": true }), "{}", out[0]);
+	assert_eq!(out[0], json!({ "open": true, "hidden": { "on": true, "shown": false, "drawn": false }, "back": true }), "{}", out[0]);
+}
+
+// The guide ends or another one opens with the list open: the list closes, and the next guide opens on its card.
+#[test]
+fn the_step_list_closes_when_the_guide_goes_and_the_next_guide_opens_on_its_card() {
+	let out = run_script(
+		r#"
+				stub.login()
+				stub.advance(0.5)
+				local GF = Polestar.UI.GuideFrame
+				local E = Polestar.Engine
+				local SL = Polestar.UI.StepList
+				local id = E.GetGuide().id
+				SL.Toggle(true)
+				stub.advance(0.3)
+				local open = SL.On()
+				E.SetGuide(nil)
+				stub.advance(0.3)
+				local gone = SL.On()
+				E.SetGuide(id)
+				stub.advance(0.5)
+				emit({ open = open, gone = gone, back = SL.On(), list = SL.frame:IsShown(), card = GF.parts.card:IsShown() })"#,
+	);
+	assert_eq!(out[0], json!({ "open": true, "gone": false, "back": false, "list": false, "card": true }), "{}", out[0]);
 }

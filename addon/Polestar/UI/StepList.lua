@@ -67,12 +67,19 @@ local function build(parent)
 	SL.frame = f
 	-- Escape closes it: the game hides the frame, and a hide the layout did
 	-- not ask for closes the list. A parent's hide (Alt-Z, combat, the window
-	-- hidden) runs this too with the list itself still shown: it comes back
-	-- with the window.
+	-- hidden) runs this too with the list itself still shown: the list hides
+	-- its own frame as well, so the next Escape is not spent on a list nobody
+	-- sees, and comes back with the window (its OnShow draws it again).
+	-- Under the gamepad UI Escape does not reach it: the step number closes it.
 	_G.PolestarStepList = f
 	ns.CloseOnEscape("PolestarStepList")
 	f:SetScript("OnHide", function(self)
-		if SL.wantShown and not self:IsShown() then
+		if SL.placing or not SL.wantShown then return end
+		if self:IsShown() then
+			SL.placing = true
+			self:Hide()
+			SL.placing = false
+		else
 			SL.wantShown = false
 			SL.Toggle(false)
 		end
@@ -84,13 +91,23 @@ end
 -- The list's frame in `parent` (the window's body), shown while it is open
 -- and the window shows a guide's steps. -> frame | nil while closed
 function SL.Place(parent, steps)
+	-- The guide finished or another one opened: the list closes, so the next
+	-- guide opens on its step card.
+	local E = ns.Engine
+	local guide = E and E.GetGuide and E.GetGuide()
+	local id = guide and guide.id or false
+	if SL.open and (not steps or id ~= SL.guide) then SL.open, SL.sig = false, nil end
+	SL.guide = id
 	local on = SL.open and steps and true or false
 	if not SL.frame then
 		if not on then return nil end
 		build(parent)
 	end
 	SL.wantShown = on
-	SL.frame:SetShown(on)
+	-- Drawn while the window is hidden: the frame stays hidden until it shows.
+	SL.placing = true
+	SL.frame:SetShown(on and parent:IsVisible())
+	SL.placing = false
 	return on and SL.frame or nil
 end
 

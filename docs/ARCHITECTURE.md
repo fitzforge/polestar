@@ -6237,8 +6237,11 @@ in every look and in compact mode. A click on the step number opens it
 (`StepList.Toggle`); a second click, a click on a card or Escape
 (`PolestarStepList` in `UISpecialFrames`) closes it. A hide the layout did
 not ask for (Escape) closes it; a hide of the whole window (Alt-Z, combat)
-does not, so the list comes back with the window. The open state is not
-saved. `GuideFrame.Layout` asks `StepList.Place(body, steps)` for its frame
+does not: the list hides its own frame too, so the next Escape is not spent
+on it, and comes back with the window. Under the gamepad UI Escape does not
+reach it (`ns.CloseOnEscape` adds nothing there); the step number closes it.
+The guide finishing or another guide opening closes it, so the next guide
+opens on its card. The open state is not saved. `GuideFrame.Layout` asks `StepList.Place(body, steps)` for its frame
 and stacks it at `StepList.Layout(width, room)`, as tall as its cards up to
 the window's cap (`ui.maxHeight`, the screen's top with Grow upward).
 `StepList.Fill` reads `Engine.GetStepView` for each step not hidden for this
