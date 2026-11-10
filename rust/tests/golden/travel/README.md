@@ -12,4 +12,6 @@ When the shipped crossings file moved out of tools/ to data/crossings.json, expe
 
 When the Rust builder's inn list gained Zephras Isle's two inns (Shen'dar Village, Valanaar; 2026-10-27), expected/travel.json's warnings gained their two "not in npcs.json" lines by hand (the slice has neither innkeeper); nothing else changed.
 
+When the Rust builder gained the walk-in portals that are game objects (Zephras Isle's Portal To Rohashi Spires and Portal to Valanaar; #1674), expected/travel.json's warnings gained their two "an end is on no map, skipped" lines by hand (the data golden has no Zephras Isle frames); nothing else changed.
+
 Test: rust/crates/forge-data/tests/travel.rs (byte compare of every file in expected/). Regenerate only when the JS is the reference; CI never runs the generator.

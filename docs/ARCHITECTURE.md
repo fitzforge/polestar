@@ -4032,7 +4032,10 @@ with their reagents in the bags (a Rune of Teleportation for a mage's city),
 `ready` the seconds of cooldown left (`Compat.GetSpellCooldown`; the global
 cooldown does not count); Astral Recall is a `bind` teleport to the bound
 inn. Walk-in portals (TravelData `portals`: Darnassus <-> Rut'theran
-Village, 5 s) are one-way links a -> b for the planner.
+Village, area triggers; Zephras Isle's shrine portal up to the Rohashi
+Spires and the Portal to Valanaar back down, game objects whose teleport
+targets are server-side, so their landings come from players' recordings,
+#1674; 5 s each) are one-way links a -> b for the planner.
 
 `travel build` makes this data (`tools/lib/travel/timetable.js`, after
 Shortest Path Forever's generators). Boats and zeppelins: the CMaNGOS
