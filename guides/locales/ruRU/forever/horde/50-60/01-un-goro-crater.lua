@@ -258,78 +258,11 @@ return {
 	["Scarlet forward camp"] = "Передовой лагерь Алого ордена",
 	-- {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
 	["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Палатки Алого ордена стоят между местами {area:199} и {area:200}. Подожгите командную палатку ({object:176092}) и установите знамя Плети.",
-
-	-- Step 53: Augustus the Touched
-	-- {zone:1422} Western Plaguelands · {zone:1423} Eastern Plaguelands · {area:2627} Terrordale · {npc:12384} Augustus the Touched
-	["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Езжайте по дороге на восток через край {zone:1422} и за реку в край {zone:1423}; сверните на север сюда: {area:2627} – разрушенный город на северо-западе. {npc:12384} сидит в хижине на его краю.",
-
-	-- Step 54: Terrordale: kill these as you meet them
-	-- {area:2627} Terrordale
-	["{area:2627}: kill these as you meet them"] = "",
-	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
-	-- plural, as words: Large Termite Mounds = {object:177464} Large Termite Mound
-	["The book lies in the ruined inn of {area:2627}.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "",
-
-	-- Step 55: Light's Hope Chapel
-	-- {area:2268} Light's Hope Chapel
-	["Ride south back to the road and follow it east across the whole zone to {area:2268}."] = "Возвращайтесь на юг к дороге и езжайте по ней на восток через всю зону сюда: {area:2268}.",
-
-	-- Step 56: Pamela Redpath
-	-- {npc:10926} Pamela Redpath · {area:2262} Darrowshire
-	["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "Призрак {npc:10926} стоит в руинах ({area:2262}) на юго-западе.",
-
-	-- Step 57: Pamela's Doll
-	-- {npc:10926} Pamela Redpath
-	["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "Голова куклы и две ее половины лежат в домах вокруг {npc:10926}; соедините их в сумках.",
-
-	-- Step 58: Pamela Redpath
-	-- {npc:11063} Carlin Redpath · {area:2268} Light's Hope Chapel
-	["a message for {npc:11063} at {area:2268}, where this guide ends"] = "",
-	-- {quest:5152} Auntie Marlene · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {zone:1422} Western Plaguelands
-	["Keep {quest:5152}: {npc:10927} lives at {area:197} in the {zone:1422}."] = "",
-
-	-- Step 59: Zaeldarr the Outcast
-	-- {area:2262} Darrowshire
-	["Zaeldarr lurks just west of {area:2262}."] = "",
-
-	-- Step 60: Pestilent Scar
-	-- {npc:10411} Eye of Naxxramas
-	-- plural, as words: Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
-	["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "",
-
-	-- Step 61: Back to Light's Hope Chapel
-	-- {area:2268} Light's Hope Chapel
-	["Back to {area:2268}"] = "Назад: {area:2268}",
-	-- {quest:5211} Defenders of Darrowshire · {zone:1423} Eastern Plaguelands · {area:2264} Corin's Crossing
-	["{quest:5211}'s spirits come with the {zone:1423} guide's {area:2264} stop: keep it."] = "Духи для задания {quest:5211} будут на остановке {area:2264} в руководстве по краю {zone:1423}: сохраните задание.",
-
-	-- Step 62: Fly to Tarren Mill
-	-- {area:2268} Light's Hope Chapel
-	["{area:2268} flight master"] = "",
-
-	-- Step 63: To Sorrow Hill
-	-- {area:197} Sorrow Hill
-	["To {area:197}"] = "Сюда: {area:197}",
-
-	-- Step 64: Sorrow Hill
-	-- {area:272} Tarren Mill · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {npc:10936} Joseph Redpath
-	["Ride north up the road from {area:272}. {npc:10927}'s house stands by the road at {area:197}, and {npc:10936}'s monument is in the graveyard behind it."] = "",
-	-- {npc:10927} Marlene Redpath
-	["{npc:10927}, upstairs"] = "",
-
-	-- Step 65: Chromie
-	-- {npc:10667} Chromie
-	["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "Езжайте на северо-запад в Андорал. {npc:10667} ждет в разрушенной таверне в западной части города; скелеты внутри 54-57 уровня, держитесь окраин.",
-
-	-- Step 66: The Annals of Darrowshire
-	-- plural, as words: Musty Tomes = {object:176150} Musty Tome
-	["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Летопись лежит среди затхлых фолиантов ({object:176150}) в ратуше Андорала; открывайте их, пока не найдете нужный.",
-
-	-- Step 67: Chromie
-	-- {quest:5210} Brother Carlin · {area:2268} Light's Hope Chapel · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
-	["{quest:5210} goes to {area:2268}: keep it for later. The next guide starts with {npc:10739} by the {area:202}, east of Andorhal."] = "",
+	-- {quest:5901} A Plague Upon Thee · {area:2627} Terrordale · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
+	["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Сохраните задание {quest:5901}: его термитники находятся здесь: {area:2627}, по пути к Тириону в следующем руководстве. Следующее руководство начинается с персонажа {npc:10739} у места {area:202}, к юго-востоку отсюда.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to {area:2268}"] = "Назад: {area:2268}",
 	-- ["Black Broodlings"] = "Детеныши черного дракона",
 	-- ["Black Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence."] = "Детеныши черного дракона гнездятся на холмах чуть к востоку от места {area:251}. Примените предмет {npc:10267} ({item:12284}) на почти убитом детеныше, чтобы поймать его сущность.",
 	-- ["Bloodpetal Flayers"] = "Кровоцветы-живодеры",
@@ -340,6 +273,7 @@ return {
 	-- ["Fly to {area:1638} and train with {npc:3033} on {area:1639}, then fly to {area:1637} for the {object:3202} zeppelin."] = "Летите сюда: {area:1638}, учитель: {npc:3033} ({area:1639}), затем летите сюда: {area:1637} к дирижаблю ({object:3202}).",
 	-- ["Fly to {area:340}"] = "Летите сюда: {area:340}",
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Езжайте по дороге на восток через край {area:28} и за реку в край {area:139}; сверните на север сюда: {area:2627} – разрушенный город на северо-западе. {npc:12384} сидит в хижине на его краю.",
+	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Езжайте по дороге на восток через край {zone:1422} и за реку в край {zone:1423}; сверните на север сюда: {area:2627} – разрушенный город на северо-западе. {npc:12384} сидит в хижине на его краю.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "Освободите духов Дарроушира: поговорите с ними",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "От места {area:1938} езжайте на запад к длинному извилистому спуску в край {area:490}, затем вдоль северной стены кратера сюда: {area:541} – лагерь в пещерах скалы. Все здесь нейтральны.",
 	-- ["Gorillas"] = "Гориллы",
@@ -353,15 +287,19 @@ return {
 	-- ["Power Crystals and soil"] = "Кристаллы силы и земля",
 	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "Езжайте на восток сюда: {area:537}, поднимитесь и используйте предмет {npc:10541} у лавового жерла у вершины, затем возвращайтесь на запад к персонажу {npc:10302}.",
 	-- ["Ride north along the east side. Bloodpetal Lashers and Threshers fill the jungle."] = "Езжайте на север вдоль восточной части. Джунгли полны кровоцветов-хлыстунов и крепкозубов.",
+	-- ["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "Езжайте на северо-запад в Андорал. {npc:10667} ждет в разрушенной таверне в западной части города; скелеты внутри 54-57 уровня, держитесь окраин.",
+	-- ["Ride south back to the road and follow it east across the whole zone to {area:2268}."] = "Возвращайтесь на юг к дороге и езжайте по ней на восток через всю зону сюда: {area:2268}.",
 	-- ["Ride south-west along the western cliffs. {npc:9167} fly over the west side, and Bloodpetal Trappers grow in the same jungle."] = "Езжайте на юго-запад вдоль западных скал. Над западной частью летают монстры {npc:9167}, а в тех же джунглях растут кровоцветы-звероловы.",
 	-- ["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot."] = "Езжайте на юго-запад сюда: {area:537} – вулкан в центре кратера. У его подножия растут кровоцветы-живодеры.",
 	-- ["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it."] = "Езжайте на запад к раскопкам. Големы ({npc:7039}, 53) топчутся вокруг, осколки с них падают часто; табличка ({quest:4296}) стоит в центре среди дворфов Тауриссана. Скопируйте ее.",
 	-- ["South of the hot springs, Stegodons graze and Dinosaur Bones drop from them or lie on the ground; Diemetradons nearby carry the scales {npc:9998} wants. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon."] = "К югу от горячих источников пасутся стегодоны; кости динозавров падают с них или лежат на земле; у деметродонов рядом – чешуя для персонажа {npc:9998}. Равазавры охотятся стаями на юго-западе: их когти – для персонажа {npc:8659}, а иногда с них падает истрепанный дневник (редкая добыча: берите задание, только если он выпадет). Избегайте Граффа – стегодона 57-го уровня.",
 	-- ["Termite mounds"] = "Термитники",
 	-- ["Thaurissan dig site"] = "Раскопки Тауриссана",
+	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Летопись лежит среди затхлых фолиантов ({object:176150}) в ратуше Андорала; открывайте их, пока не найдете нужный.",
 	-- ["The Gorishi hive"] = "Улей Гориши",
 	-- ["The Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "Большие термитники стоят по всем холмам к востоку от места {area:2627}. Используйте предмет {item:15042} на каждом термитнике по пути.",
 	-- ["The book lies in the ruined inn of {area:2627}."] = "Книга лежит в разрушенной таверне ({area:2627}).",
+	-- ["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "Голова куклы и две ее половины лежат в домах вокруг {npc:10926}; соедините их в сумках.",
 	-- ["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "Ящик экспедиции стоит в заброшенном лагере в восточных джунглях.",
 	-- ["The gorillas live on the north-east plateau. Stay out of the deepest cave: {npc:9622} lives there."] = "Гориллы живут на северо-восточном плато. Не заходите в самую дальнюю пещеру: там живет {npc:9622}.",
 	-- ["The next guide starts here, at the chapel's flight master."] = "Следующее руководство начинается здесь, у распорядителя полетов часовни.",
@@ -369,11 +307,13 @@ return {
 	-- ["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}."] = "Смоляные ямы – чуть к югу от лагеря. {item:11834} падает со смоляных тварей, скрытней и ползунов.",
 	-- ["The wooden sign beside {npc:9997}"] = "Деревянная табличка рядом с {npc:9997}",
 	-- ["Theodora's quest in {area:340} needs level 52. The Tar Lurkers and Tar Lords just south of the refuge are the closest camp."] = "Задание Теодоры ({area:340}) требует 52-го уровня. Смоляные скрытни и смоляные господа чуть к югу от лагеря – ближайшее место.",
+	-- ["To {area:197}"] = "Сюда: {area:197}",
 	-- ["Western jungle"] = "Западные джунгли",
 	-- ["With {npc:11063}'s quest in your log, slain Scourge sometimes leave a {npc:11064}; talk to it to free it. Kill undead on the ride south-west to {area:2262}."] = "Пока у вас есть задание {npc:11063}, после убитых воинов Плети иногда остается {npc:11064}; поговорите с ним, чтобы освободить. Убивайте нежить по пути на юго-запад сюда: {area:2262}.",
 	-- ["grind on Tar Lurkers at {area:538}, {zone:1449}"] = "бейте смоляных скрытней: {area:538}, {zone:1449}",
 	-- ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302} отправляет вас к персонажу {npc:9298} ({zone:1452}): сохраните задание.",
 	-- ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "Гоблин {npc:10302} сидит здесь: {area:543}, чуть к востоку от пилона.",
+	-- ["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "Призрак {npc:10926} стоит в руинах ({area:2262}) на юго-западе.",
 	-- ["{npc:12250} lurks just west of {area:2262}."] = "{npc:12250} прячется чуть к западу от места {area:2262}.",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}, в глубине пещеры",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "Теперь {npc:9619} просит шкуру ({npc:9622}) из северо-восточной пещеры: пропустите.",
@@ -381,4 +321,5 @@ return {
 	-- ["{npc:9623}, the robot on the plateau"] = "{npc:9623}, робот на плато",
 	-- ["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "Логово ({npc:9684}) – чуть к югу от пилона. Используйте там приманку {npc:9619}; {npc:9684} – 56-го уровня и бьет сильно, начинайте с полным здоровьем.",
 	-- ["{npc:9999} sits on the ridge, lost and exhausted."] = "{npc:9999} сидит на хребте, заблудившийся и обессиленный.",
+	-- ["{quest:5211}'s spirits come with the {zone:1423} guide's {area:2264} stop: keep it."] = "Духи для задания {quest:5211} будут на остановке {area:2264} в руководстве по краю {zone:1423}: сохраните задание.",
 }

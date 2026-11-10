@@ -17,11 +17,27 @@ return {
 	-- {npc:1855} Tirion Fordring · {zone:1423} Eastern Plaguelands
 	["{npc:1855}'s hunts are in the {zone:1423}: keep them for later."] = "{npc:1855}的狩獵任務在{zone:1423}：先保留。",
 
-	-- Step 3: Kirsta Deepshadow
-	-- {area:192} Northridge Lumber Camp · {npc:11610} Kirsta Deepshadow
-	["Ride west to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "向西騎往{area:192}；{npc:11610}躲在它東北方的山丘上。",
+	-- Step 3: Augustus the Touched
+	-- {area:2627} Terrordale · {zone:1423} Eastern Plaguelands · {npc:12384} Augustus the Touched
+	["Cross the river east into {area:2627}, the ruined town in the north-west of the {zone:1423}. {npc:12384} sits in a hut at its edge."] = "向東渡河進入{area:2627}，那是{zone:1423}西北部的廢墟城鎮。{npc:12384}坐在城鎮邊緣的一間小屋裡。",
 
-	-- Step 4: Level 52.63
+	-- Step 4: Terrordale: kill these as you meet them
+	-- {area:2627} Terrordale
+	["{area:2627}: kill these as you meet them"] = "{area:2627}：遇到就擊殺",
+	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
+	-- plural, as words: Large Termite Mounds = {object:177464} Large Termite Mound
+	["The book lies in the ruined inn of {area:2627}; the undead in the town are 54-56, so pull them one at a time.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "書在{area:2627}的廢墟旅店裡；鎮上的不死生物是54-56級，所以一次拉一隻。\n大型白蟻丘遍布{area:2627}東邊的山丘。對經過的每個白蟻丘使用{item:15042}。",
+	["Upstairs"] = "樓上",
+	-- {quest:5408} Minion's Scourgestones · {area:2627} Terrordale · {item:12846} Argent Dawn Commission
+	["{quest:5408}: the {area:2627} undead drop them while you wear the {item:12846}"] = "{quest:5408}：佩戴{item:12846}時，{area:2627}的不死生物會掉落",
+	-- {quest:6164} Augustus' Receipt Book · {npc:12384} Augustus the Touched · {zone:1423} Eastern Plaguelands · {area:2627} Terrordale
+	["Keep {quest:6164}: {npc:12384} takes it back on the {zone:1423} guide's {area:2627} stop."] = "保留{quest:6164}：{npc:12384}會在{zone:1423}指南的{area:2627}站收回它。",
+
+	-- Step 5: Kirsta Deepshadow
+	-- {area:192} Northridge Lumber Camp · {npc:11610} Kirsta Deepshadow
+	["Ride back west over the river and on to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "向西騎回河對岸，繼續前往{area:192}；{npc:11610}躲在它東北方的山丘上。",
+
+	-- Step 6: Level 52.63
 	["Level 52.63"] = "",
 	-- {area:200} Dalson's Tears · {npc:11610} Kirsta Deepshadow · {quest:6004} Unfinished Business · {area:1417} Sunken Temple · {area:2100} Maraudon
 	-- plural, as words: Scarlet Mages = {npc:1826} Scarlet Mage
@@ -29,12 +45,12 @@ return {
 	-- {npc:1826} Scarlet Mage
 	["grind on {npc:1826}"] = "",
 
-	-- Step 5: Diseased Wolves
+	-- Step 7: Diseased Wolves
 	["Diseased Wolves"] = "生病的狼",
 	-- {area:200} Dalson's Tears · {area:202} Writhing Haunt
 	["The wolves roam the fields between Andorhal, {area:200} and the {area:202}. Finish them on the ride back east."] = "狼群在安多哈爾、{area:200}和{area:202}之間的田野遊蕩。在往東騎回去的路上把牠們殺完。",
 
-	-- Step 6: Dalson's Tears farmhouse
+	-- Step 8: Dalson's Tears farmhouse
 	-- {area:200} Dalson's Tears
 	["{area:200} farmhouse"] = "{area:200}農舍",
 	-- {npc:10816} Wandering Skeleton · {npc:10836} Farmer Dalson
@@ -44,173 +60,173 @@ return {
 	-- {quest:5058} Mrs. Dalson's Diary
 	["{quest:5058}, inside"] = "",
 
-	-- Step 8: Diseased Grizzlies
+	-- Step 10: Diseased Grizzlies
 	["Diseased Grizzlies"] = "生病的灰熊",
 	-- {area:202} Writhing Haunt · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
 	["The bears roam the hills north and east of the {area:202}. Below level 53.02, keep hunting them after the eighth: the hand-ins at the {area:202} take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
 	-- {npc:1816} Diseased Grizzly
 	["grind on {npc:1816}"] = "",
 
-	-- Step 9: Mulgris Deepriver
+	-- Step 11: Mulgris Deepriver
 	-- {npc:5770} Nara Wildmane · {zone:1456} Thunder Bluff
 	["Keep the branch: {npc:5770} is in {zone:1456}."] = "保留樹枝：{npc:5770}在{zone:1456}。",
 
-	-- Step 10: Scarlet Crusade
+	-- Step 12: Scarlet Crusade
 	["Scarlet Crusade"] = "血色十字軍",
 	-- {area:192} Northridge Lumber Camp
 	["Knights and magi work the {area:192}; the medics and hunters camp south of it."] = "血色騎士和血色法師在{area:192}工作；血色醫護員和血色獵人在它南邊紮營。",
 	-- {npc:10605} Scarlet Medic
 	["grind on {npc:10605}"] = "",
 
-	-- Step 12: The Bulwark
+	-- Step 14: The Bulwark
 	-- {area:152} The Bulwark
 	["Ride south-west past Felstone Farm and follow the road west back to the {area:152}."] = "向西南騎過費爾斯通農場，沿著道路向西回到{area:152}。",
 	-- {npc:11615} Mickey Levine
 	["Derrington's watchtowers, Vandis' cauldron and {npc:11615}'s barrel are done on a later visit: keep them."] = "德靈頓的瞭望塔、范蒂絲的大鍋和{npc:11615}的木桶會在之後造訪時完成：先保留。",
 
-	-- Step 13: Level 53.34
+	-- Step 15: Level 53.34
 	["Level 53.34"] = "",
 	-- {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
 	["Top up here to level 53.34 before the hand-ins at {area:1763}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
 
-	-- Step 15: Paladin trainer
+	-- Step 17: Paladin trainer
 	["Paladin trainer"] = "",
 	-- {npc:246152} Shari Stilwell · {zone:1420} Tirisfal Glades · {zone:1454} Orgrimmar
 	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "",
 
-	-- Step 16: Zeppelin to Orgrimmar
+	-- Step 18: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "搭飛艇前往{zone:1454}",
 
-	-- Step 17: Orgrimmar
+	-- Step 19: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "",
 
-	-- Step 18: Jes'rimon
+	-- Step 20: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659} takes the ravasaur claws from Un'Goro; he stands in the {object:172960}, a short walk from the middle of the city."] = "{npc:8659}收下安戈洛的恐龍爪；他站在{object:172960}，從城市中央走一小段路就到。",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}，{object:172960}",
 
-	-- Step 19: Class trainer
+	-- Step 21: Class trainer
 	["Class trainer"] = "",
 
-	-- Step 20: Druid trainer
+	-- Step 22: Druid trainer
 	["Druid trainer"] = "",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
 
-	-- Step 21: Fly to Splintertree Post
+	-- Step 23: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
 	["Fly to {area:431}"] = "",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "",
 
-	-- Step 23: Emerald Sanctuary
+	-- Step 25: Emerald Sanctuary
 	["The druids' camp is just past the border."] = "德魯伊的營地就在邊界過去一點。",
 	-- {npc:11554} Grazle
 	["{npc:11554}, at the south edge of the camp"] = "{npc:11554}，在營地南緣",
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the camp"] = "{npc:9529}，在營地西側",
 
-	-- Step 24: Deadwood Village
+	-- Step 26: Deadwood Village
 	-- {area:1769} Timbermaw Hold · {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
 	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
 	-- {npc:7153} Deadwood Warrior
 	["grind on {npc:7153}"] = "",
 
-	-- Step 25: Southern Jaedenar
+	-- Step 27: Southern Jaedenar
 	-- {area:1763} Jaedenar
 	["Southern {area:1763}"] = "{area:1763}南部",
 	-- {area:1763} Jaedenar
 	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "沿著道路向西北走。{area:1763}南部的腐化月井周圍，由加德納爾祭司、加德納爾精兵、加德納爾守護者和加德納爾惡犬佔據。",
 
-	-- Step 26: A Strange Red Key
+	-- Step 28: A Strange Red Key
 	-- {item:13140} Blood Red Key · {npc:11018} Arko'narin · {area:1770} Shadow Hold · {area:1763} Jaedenar
 	["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "",
 
-	-- Step 27: Captured Arko'narin
+	-- Step 29: Captured Arko'narin
 	-- {npc:11016} Captured Arko'narin
 	["{npc:11016}, below ground"] = "",
 
-	-- Step 29: Rescue From Jaedenar
+	-- Step 31: Rescue From Jaedenar
 	-- {npc:11018} Arko'narin · {area:1770} Shadow Hold
 	["Walk {npc:11018} out of {area:1770} and keep her alive until she is out of the cave."] = "",
 	-- {npc:11018} Arko'narin
 	["{npc:11018}, below ground"] = "",
 
-	-- Step 30: Jessir Moonbow
+	-- Step 32: Jessir Moonbow
 	-- {area:2479} Emerald Sanctuary
 	["Back at the {area:2479}."] = "",
 
-	-- Step 32: Emerald Sanctuary
+	-- Step 34: Emerald Sanctuary
 	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
 	["Only with 5 Deadwood Headdress Feathers"] = "僅限擁有5根死木頭飾羽毛時",
 
-	-- Step 33: The Jaedenar moonwell
+	-- Step 35: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
 	["The {area:1763} moonwell"] = "{area:1763}月井",
 	-- {area:1763} Jaedenar · {npc:10922} Greta Mosshoof
 	["Back north to {area:1763}. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "向北回到{area:1763}。在南方營地中央的腐化月井裝滿{npc:10922}的水壺。",
 
-	-- Step 34: Rakaiah
+	-- Step 36: Rakaiah
 	-- {npc:9518} Rakaiah · {area:1763} Jaedenar · {npc:11020} Remains of Trey Lightforge
 	["The succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "",
 	["Below ground"] = "",
 	-- {npc:11020} Remains of Trey Lightforge
 	["{npc:11020}, below ground"] = "",
 
-	-- Step 36: Bloodvenom Post
+	-- Step 38: Bloodvenom Post
 	-- {area:1763} Jaedenar
 	["The Horde camp just north of {area:1763}."] = "{area:1763}北邊的部落營地。",
 	-- {npc:10306} Trull Failbane · {zone:1452} Winterspring
 	["{npc:10306}: the owlbeasts are in {zone:1452}"] = "{npc:10306}：梟獸在{zone:1452}",
 
-	-- Step 37: Shatter Scar Vale
+	-- Step 39: Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
 	["East of Bloodvenom Post, the cratered vale where the Entropic Beasts and Horrors roam. Kill two of each, then walk to each of the three fel-water craters."] = "在血毒崗哨東邊，熱能野獸和熱能恐獸遊蕩的坑窪山谷。各擊殺兩隻，然後走到三個魔化水坑的每一個。",
 	["Southern crater"] = "南方坑洞",
 	["Western crater"] = "西方坑洞",
 	["Northern crater"] = "北方坑洞",
 
-	-- Step 38: Irontree Woods
+	-- Step 40: Irontree Woods
 	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {area:1997} Bloodvenom Post · {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
 	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager
 	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:8957} Angerclaw Grizzly
 	["grind on {npc:8957}"] = "",
 
-	-- Step 39: Irontree Woods
+	-- Step 41: Irontree Woods
 	-- {npc:7101} Warpwood Shredder
 	["grind on {npc:7101}"] = "",
 
-	-- Step 40: Felpaw Village
+	-- Step 42: Felpaw Village
 	-- {npc:9462} Chieftain Bloodmaw · {npc:11557} Meilosh
 	["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "就在隧道西邊的死木熊怪村莊。{npc:9462}（56級）站在牠們之中。友善的熊怪{npc:11557}坐在村莊北端。",
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
 	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "",
 
-	-- Step 41: Nafien
+	-- Step 43: Nafien
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold
 	["The road ends at {npc:15395}, outside the {area:1769} tunnel in the far north-east."] = "道路盡頭是{npc:15395}，在東北角的{area:1769}隧道外。",
 
-	-- Step 42: Felpaw Village
+	-- Step 44: Felpaw Village
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold · {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda
 	["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "",
 	-- {npc:7156} Deadwood Den Watcher
 	["grind on {npc:7156}"] = "",
 
-	-- Step 43: Nafien
+	-- Step 45: Nafien
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
 	["Keep {quest:8465} for {zone:1452}."] = "保留{quest:8465}，留到{zone:1452}。",
 
-	-- Step 44: Timbermaw Hold
+	-- Step 46: Timbermaw Hold
 	-- {npc:11558} Kernda
 	["Step into the cave: {npc:11558} stands just inside."] = "",
 	-- {npc:11558} Kernda
 	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "",
 
-	-- Step 45: Emerald Sanctuary
+	-- Step 47: Emerald Sanctuary
 	-- {zone:1448} Felwood
 	["Ride the road south through {zone:1448} to the Sanctuary."] = "沿著道路向南穿過{zone:1448}前往聖地。",
 	-- {npc:9529} Maybess Riverbreeze
@@ -218,26 +234,26 @@ return {
 	-- {quest:5158} Seeking Spiritual Aid · {npc:5901} Islen Waterseer · {zone:1413} Barrens
 	["Keep {quest:5158}: {npc:5901} is in the {zone:1413}."] = "保留{quest:5158}：{npc:5901}在{zone:1413}。",
 
-	-- Step 47: Overlord Ror
+	-- Step 49: Overlord Ror
 	-- {area:1761} Deadwood Village
 	["Ror stands at the far south end of {area:1761}."] = "洛爾站在{area:1761}的最南端。",
 
-	-- Step 48: Level 54.7
+	-- Step 50: Level 54.7
 	["Level 54.7"] = "",
 	-- {area:1997} Bloodvenom Post · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
 	["Top up here to level 54.7 before the hand-ins at {area:1997} : they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:7155} Deadwood Pathfinder
 	["grind on {npc:7155}"] = "",
 
-	-- Step 49: The Jadefire moonwell
+	-- Step 51: The Jadefire moonwell
 	["The Jadefire moonwell"] = "碧火月井",
 	-- {area:1763} Jaedenar · {npc:9996} Winna Hazzard
 	["Ride back south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "向南騎回去經過{area:1763}，前往碧火薩特的腐化月井，在那裡裝滿{npc:9996}的小瓶。",
 
-	-- Step 50: Bloodvenom Post
+	-- Step 52: Bloodvenom Post
 	["Ride north up the road again."] = "再次沿著道路向北騎。",
 
-	-- Step 51: Winna Hazzard's kitten
+	-- Step 53: Winna Hazzard's kitten
 	-- {npc:9996} Winna Hazzard
 	["{npc:9996}'s kitten"] = "{npc:9996}的小貓",
 	-- {item:12565} Winna's Kitten Carrier · {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
@@ -245,7 +261,7 @@ return {
 	-- {item:12565} Winna's Kitten Carrier
 	["{item:12565}, at the Jadefire moonwell"] = "{item:12565}，在碧火月井",
 
-	-- Step 53: Level 54.87
+	-- Step 55: Level 54.87
 	["Level 54.87"] = "",
 	-- {zone:1452} Winterspring · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
 	["Top up here to level 54.87 before the hand-ins in {zone:1452}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
@@ -271,6 +287,7 @@ return {
 	-- ["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "向西北騎進安多哈爾。{npc:10667}在城鎮西側的廢墟旅店裡等候；裡面的骷髏是54-57級，所以沿著邊緣走。",
 	-- ["Ride south past the {area:202} to {area:197}; {npc:10927}'s house stands by the road, and {npc:10936}'s monument is in the graveyard behind it. Kill the Diseased Wolves you meet in the fields on the way."] = "向南騎過{area:202}前往{area:197}；{npc:10927}的房子在路旁，{npc:10936}的紀念碑在房子後面的墓地裡。沿途擊殺田野中遇到的生病的狼。",
 	-- ["Ride the road south through {area:361} to the Sanctuary."] = "沿著道路向南穿過{area:361}前往聖地。",
+	-- ["Ride west to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "向西騎往{area:192}；{npc:11610}躲在它東北方的山丘上。",
 	-- ["Scarlet forward camp"] = "血色十字軍前進營地",
 	-- ["Take the kitten to the same moonwell and release it there; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "把小貓帶到同一個月井並在那裡放出牠；牠變成{npc:10042}後，把牠帶回給{npc:9996}，點擊牠來交給她。",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "歷史書在安多哈爾市政廳的發黴的書籍之中；逐一打開直到找到正確的那本。",

@@ -258,93 +258,29 @@ return {
 	["Scarlet forward camp"] = "Acampamento avançado Escarlate",
 	-- {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
 	["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "As barracas da Cruzada Escarlate ficam entre {area:199} e {area:200}. Incendeie a barraca de comando com a {object:176092} e finque o estandarte do Flagelo.",
-
-	-- Step 53: Augustus the Touched
-	-- {zone:1422} Western Plaguelands · {zone:1423} Eastern Plaguelands · {area:2627} Terrordale · {npc:12384} Augustus the Touched
-	["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Siga a estrada para o leste através de {zone:1422} e atravesse o rio para {zone:1423}; saia dela para o norte rumo a {area:2627}, a cidade em ruínas no noroeste. {npc:12384} fica numa cabana na borda.",
-
-	-- Step 54: Terrordale: kill these as you meet them
-	-- {area:2627} Terrordale
-	["{area:2627}: kill these as you meet them"] = "{area:2627}: vá matando estes pelo caminho",
-	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
-	-- plural, as words: Large Termite Mounds = {object:177464} Large Termite Mound
-	["The book lies in the ruined inn of {area:2627}.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "O livro está na estalagem em ruínas de {area:2627}.\nOs Cupinzeiros Grandes estão espalhados pelas colinas a leste de {area:2627}. Use a {item:15042} em cada cupinzeiro que passar.",
-
-	-- Step 55: Light's Hope Chapel
-	-- {area:2268} Light's Hope Chapel
-	["Ride south back to the road and follow it east across the whole zone to {area:2268}."] = "Volte para o sul até a estrada e siga por ela para o leste, atravessando toda a zona até {area:2268}.",
-
-	-- Step 56: Pamela Redpath
-	-- {npc:10926} Pamela Redpath · {area:2262} Darrowshire
-	["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "O fantasma de {npc:10926} fica nas ruínas de {area:2262}, no sudoeste.",
-
-	-- Step 57: Pamela's Doll
-	-- {npc:10926} Pamela Redpath
-	["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "A cabeça da boneca e suas duas metades estão nas casas em volta de {npc:10926}; junte-as pelas bolsas.",
-
-	-- Step 58: Pamela Redpath
-	-- {npc:11063} Carlin Redpath · {area:2268} Light's Hope Chapel
-	["a message for {npc:11063} at {area:2268}, where this guide ends"] = "uma mensagem para {npc:11063} em {area:2268}, onde este guia termina",
-	-- {quest:5152} Auntie Marlene · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {zone:1422} Western Plaguelands
-	["Keep {quest:5152}: {npc:10927} lives at {area:197} in the {zone:1422}."] = "Guarde {quest:5152}: {npc:10927} mora em {area:197}, em {zone:1422}.",
-
-	-- Step 59: Zaeldarr the Outcast
-	-- {area:2262} Darrowshire
-	["Zaeldarr lurks just west of {area:2262}."] = "Zaeldarr espreita logo a oeste de {area:2262}.",
-
-	-- Step 60: Pestilent Scar
-	-- {npc:10411} Eye of Naxxramas
-	-- plural, as words: Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
-	["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "Cuidado: o {npc:10411} fica invisível fora de combate e chama Gárgulas Petrasas quando a luta começa. Só existem 3, e elas renascem a cada 15 min.",
-
-	-- Step 61: Back to Light's Hope Chapel
-	-- {area:2268} Light's Hope Chapel
-	["Back to {area:2268}"] = "Volte para {area:2268}",
-	-- {quest:5211} Defenders of Darrowshire · {zone:1423} Eastern Plaguelands · {area:2264} Corin's Crossing
-	["{quest:5211}'s spirits come with the {zone:1423} guide's {area:2264} stop: keep it."] = "Os espíritos de {quest:5211} ficam para a parada em {area:2264} do guia de {zone:1423}: guarde-a.",
-
-	-- Step 62: Fly to Tarren Mill
-	-- {area:2268} Light's Hope Chapel
-	["{area:2268} flight master"] = "Mestre de voo de {area:2268}",
-
-	-- Step 63: To Sorrow Hill
-	-- {area:197} Sorrow Hill
-	["To {area:197}"] = "Para {area:197}",
-
-	-- Step 64: Sorrow Hill
-	-- {area:272} Tarren Mill · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {npc:10936} Joseph Redpath
-	["Ride north up the road from {area:272}. {npc:10927}'s house stands by the road at {area:197}, and {npc:10936}'s monument is in the graveyard behind it."] = "Cavalgue para o norte pela estrada, saindo de {area:272}. A casa de {npc:10927} fica junto à estrada em {area:197}, e o monumento de {npc:10936} fica no cemitério atrás dela.",
-	-- {npc:10927} Marlene Redpath
-	["{npc:10927}, upstairs"] = "{npc:10927}, no andar de cima",
-
-	-- Step 65: Chromie
-	-- {npc:10667} Chromie
-	["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "Cavalgue para noroeste até Andorhal. {npc:10667} espera na estalagem em ruínas do lado oeste da cidade; os esqueletos lá dentro são 54-57, então fique pelas bordas.",
-
-	-- Step 66: The Annals of Darrowshire
-	-- plural, as words: Musty Tomes = {object:176150} Musty Tome
-	["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Os Anais estão entre os Tomos Mofados na prefeitura de Andorhal; abra-os até achar o certo.",
-
-	-- Step 67: Chromie
-	-- {quest:5210} Brother Carlin · {area:2268} Light's Hope Chapel · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
-	["{quest:5210} goes to {area:2268}: keep it for later. The next guide starts with {npc:10739} by the {area:202}, east of Andorhal."] = "{quest:5210} vai para {area:2268}: guarde-a para depois. O próximo guia começa com {npc:10739}, junto a {area:202}, a leste de Andorhal.",
+	-- {quest:5901} A Plague Upon Thee · {area:2627} Terrordale · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
+	["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Guarde {quest:5901}: os cupinzeiros dela ficam em {area:2627}, no caminho do próximo guia até Tirion. O próximo guia começa com {npc:10739}, junto a {area:202}, a sudeste daqui.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to {area:2268}"] = "Volte para {area:2268}",
 	-- ["Black Broodlings"] = "Filhotes Negros",
 	-- ["Black Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence."] = "Filhotes Negros fazem ninho nas colinas logo a leste de {area:251}. Use {item:12284} de {npc:10267} num filhote quando ele estiver quase morto para capturar sua essência.",
 	-- ["Bloodpetal Flayers"] = "Esfoladoras Pétala Sangrenta",
 	-- ["Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time."] = "Cuidado: tem muito ravassauro andando pela área, então é fácil puxar vários de uma vez.",
+	-- ["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "Cuidado: o {npc:10411} fica invisível fora de combate e chama Gárgulas Petrasas quando a luta começa. Só existem 3, e elas renascem a cada 15 min.",
 	-- ["Darrowshire Spirits"] = "Espíritos da Vila das Flechas",
 	-- ["Escort {npc:9999}"] = "Escolte {npc:9999}",
 	-- ["Fly to {area:1637}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {zone:1418}' west edge."] = "Voe para {area:1637}, pegue o zepelim para {object:3202} e de lá voe para {area:340}, construída nos penhascos da borda oeste de {zone:1418}.",
 	-- ["Fly to {area:1638} and train with {npc:3033} on {area:1639}, then fly to {area:1637} for the {object:3202} zeppelin."] = "Voe para {area:1638} e treine com {npc:3033} em {area:1639}; depois voe para {area:1637} para pegar o zepelim para {object:3202}.",
 	-- ["Fly to {area:340}"] = "Voe para {area:340}",
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Siga a estrada para o leste através de {area:28} e atravesse o rio para {area:139}; saia dela para o norte rumo a {area:2627}, a cidade em ruínas no noroeste. {npc:12384} fica numa cabana na borda.",
+	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Siga a estrada para o leste através de {zone:1422} e atravesse o rio para {zone:1423}; saia dela para o norte rumo a {area:2627}, a cidade em ruínas no noroeste. {npc:12384} fica numa cabana na borda.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "Liberte os Espíritos da Vila das Flechas: fale com eles",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "De {area:1938}, siga para o oeste até a longa rampa que desce para {area:490} e então acompanhe a parede norte da cratera até {area:541}, um acampamento nas cavernas do penhasco. Todos aqui são neutros.",
 	-- ["Gorillas"] = "Gorilas",
 	-- ["Into {area:490}"] = "Para {area:490}",
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "Guarde a isca: {npc:9684} é nível 56, e a segunda volta passa pelo covil dele.",
+	-- ["Keep {quest:5152}: {npc:10927} lives at {area:197} in the {zone:1422}."] = "Guarde {quest:5152}: {npc:10927} mora em {area:197}, em {zone:1422}.",
 	-- ["Lashers and Threshers"] = "Açoitadeiras e Látegas",
 	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Leve {npc:9999} para o norte até {area:541}. Quando ele desmaiar, use {item:11804} nele para acordá-lo.",
 	-- ["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "Saia de {zone:1458} e siga para o leste pela estrada através de {area:85} até o {area:152}, o forte dos Renegados na fronteira.",
@@ -353,15 +289,21 @@ return {
 	-- ["Power Crystals and soil"] = "Cristais de Poder e solo",
 	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "Siga para o leste até {area:537}, suba e use {npc:10541} na fenda de lava perto do topo; depois volte para o oeste até {npc:10302}.",
 	-- ["Ride north along the east side. Bloodpetal Lashers and Threshers fill the jungle."] = "Siga para o norte pelo lado leste. Açoitadeiras e Látegas Pétala Sangrenta enchem a selva.",
+	-- ["Ride north up the road from {area:272}. {npc:10927}'s house stands by the road at {area:197}, and {npc:10936}'s monument is in the graveyard behind it."] = "Cavalgue para o norte pela estrada, saindo de {area:272}. A casa de {npc:10927} fica junto à estrada em {area:197}, e o monumento de {npc:10936} fica no cemitério atrás dela.",
+	-- ["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "Cavalgue para noroeste até Andorhal. {npc:10667} espera na estalagem em ruínas do lado oeste da cidade; os esqueletos lá dentro são 54-57, então fique pelas bordas.",
+	-- ["Ride south back to the road and follow it east across the whole zone to {area:2268}."] = "Volte para o sul até a estrada e siga por ela para o leste, atravessando toda a zona até {area:2268}.",
 	-- ["Ride south-west along the western cliffs. {npc:9167} fly over the west side, and Bloodpetal Trappers grow in the same jungle."] = "Siga para o sudoeste pelos penhascos a oeste. {npc:9167} voam pelo lado oeste, e Laçadoras Pétala Sangrenta crescem na mesma selva.",
 	-- ["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot."] = "Siga para o sudoeste até {area:537}, o vulcão no meio da cratera. Esfoladoras Pétala Sangrenta crescem ao redor do sopé.",
 	-- ["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it."] = "Siga para o oeste até a escavação. Golens {npc:7039} (53) andam por ali e deixam cair os fragmentos com frequência; {quest:4296} fica no meio, entre os anões de Thaurissan. Copie.",
 	-- ["South of the hot springs, Stegodons graze and Dinosaur Bones drop from them or lie on the ground; Diemetradons nearby carry the scales {npc:9998} wants. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon."] = "Ao sul das fontes termais, Estegodons pastam, e Ossos de Dinossauro caem deles ou ficam no chão; os Dimetrodontes ali perto têm as escamas que {npc:9998} quer. Ravassauros caçam em bando no sudoeste: as garras são para {npc:8659}, e de vez em quando um carrega Um Diário Destroçado (item raro: pegue a missão só se conseguir um). Evite Grufo, um Estegodon de nível 57.",
 	-- ["Termite mounds"] = "Cupinzeiros",
 	-- ["Thaurissan dig site"] = "Escavação de Thaurissan",
+	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Os Anais estão entre os Tomos Mofados na prefeitura de Andorhal; abra-os até achar o certo.",
 	-- ["The Gorishi hive"] = "A colmeia Gorishi",
 	-- ["The Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "Os Cupinzeiros Grandes estão por todas as colinas a leste de {area:2627}. Use {item:15042} em cada cupinzeiro pelo caminho.",
 	-- ["The book lies in the ruined inn of {area:2627}."] = "O livro está na estalagem em ruínas de {area:2627}.",
+	-- ["The book lies in the ruined inn of {area:2627}.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "O livro está na estalagem em ruínas de {area:2627}.\nOs Cupinzeiros Grandes estão espalhados pelas colinas a leste de {area:2627}. Use a {item:15042} em cada cupinzeiro que passar.",
+	-- ["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "A cabeça da boneca e suas duas metades estão nas casas em volta de {npc:10926}; junte-as pelas bolsas.",
 	-- ["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "O caixote da expedição está num acampamento abandonado na selva a leste.",
 	-- ["The gorillas live on the north-east plateau. Stay out of the deepest cave: {npc:9622} lives there."] = "Os gorilas vivem no platô a nordeste. Fique fora da caverna mais funda: {npc:9622} mora lá.",
 	-- ["The next guide starts here, at the chapel's flight master."] = "O próximo guia começa aqui, no mestre de voo da capela.",
@@ -369,14 +311,21 @@ return {
 	-- ["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}."] = "Os poços de piche ficam logo ao sul do refúgio. Monstros, Tocaieiros e Rastejantes de Piche deixam cair {item:11834}.",
 	-- ["The wooden sign beside {npc:9997}"] = "A placa de madeira ao lado de {npc:9997}",
 	-- ["Theodora's quest in {area:340} needs level 52. The Tar Lurkers and Tar Lords just south of the refuge are the closest camp."] = "A missão de Theodora em {area:340} pede nível 52. Os Tocaieiros de Piche e Senhores do Piche logo ao sul do refúgio são o grupo mais próximo.",
+	-- ["To {area:197}"] = "Para {area:197}",
 	-- ["Top up here to level 52: {quest:4061} at {area:340} needs it, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Complete aqui até o nível 52: {quest:4061} em {area:340} exige isso, e as missões das Terras Pestilentas no fim deste guia são de nível 55. Ou, em grupo, faça a masmorra {area:1417} ou a masmorra {area:2100}.",
 	-- ["Western jungle"] = "Selva a oeste",
 	-- ["With {npc:11063}'s quest in your log, slain Scourge sometimes leave a {npc:11064}; talk to it to free it. Kill undead on the ride south-west to {area:2262}."] = "Com a missão de {npc:11063} no registro, o Flagelo abatido às vezes deixa {npc:11064}; fale com ele para libertá-lo. Mate mortos-vivos no caminho para o sudoeste até {area:2262}.",
+	-- ["Zaeldarr lurks just west of {area:2262}."] = "Zaeldarr espreita logo a oeste de {area:2262}.",
+	-- ["a message for {npc:11063} at {area:2268}, where this guide ends"] = "uma mensagem para {npc:11063} em {area:2268}, onde este guia termina",
 	-- ["grind on Tar Lurkers at {area:538}, {zone:1449}"] = "mate Tocaieiros de Piche em {area:538}, {zone:1449}",
 	-- ["grind on {npc:6509}"] = "mate {npc:6509} até subir",
 	-- ["{area:139}: kill these as you meet them"] = "{area:139}: vá matando estes pelo caminho",
+	-- ["{area:2268} flight master"] = "Mestre de voo de {area:2268}",
+	-- ["{area:2627}: kill these as you meet them"] = "{area:2627}: vá matando estes pelo caminho",
 	-- ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302} manda você até {npc:9298} em {zone:1452}: guarde.",
 	-- ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "O goblin {npc:10302} fica em {area:543}, logo a leste do pilar.",
+	-- ["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "O fantasma de {npc:10926} fica nas ruínas de {area:2262}, no sudoeste.",
+	-- ["{npc:10927}, upstairs"] = "{npc:10927}, no andar de cima",
 	-- ["{npc:12250} lurks just west of {area:2262}."] = "{npc:12250} espreita logo a oeste de {area:2262}.",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}, no fundo da caverna",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "Agora {npc:9619} pede a pele de {npc:9622}, lá na caverna a nordeste: pule.",
@@ -384,5 +333,7 @@ return {
 	-- ["{npc:9623}, the robot on the plateau"] = "{npc:9623}, o robô no platô",
 	-- ["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "O covil de {npc:9684} fica logo ao sul do pilar. Use a isca de {npc:9619} ali; {npc:9684} é nível 56 e bate forte, então comece com a vida cheia.",
 	-- ["{npc:9999} sits on the ridge, lost and exhausted."] = "{npc:9999} está sentado na serra, perdido e exausto.",
+	-- ["{quest:5210} goes to {area:2268}: keep it for later. The next guide starts with {npc:10739} by the {area:202}, east of Andorhal."] = "{quest:5210} vai para {area:2268}: guarde-a para depois. O próximo guia começa com {npc:10739}, junto a {area:202}, a leste de Andorhal.",
+	-- ["{quest:5211}'s spirits come with the {zone:1423} guide's {area:2264} stop: keep it."] = "Os espíritos de {quest:5211} ficam para a parada em {area:2264} do guia de {zone:1423}: guarde-a.",
 	-- ["{zone:1423}: kill these as you meet them"] = "{zone:1423}: vá matando estes pelo caminho",
 }

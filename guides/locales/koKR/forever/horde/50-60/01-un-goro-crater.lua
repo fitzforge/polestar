@@ -258,78 +258,11 @@ return {
 	["Scarlet forward camp"] = "붉은십자군 전진 야영지",
 	-- {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
 	["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "붉은십자군의 천막은 {area:199}와(과) {area:200} 사이에 있습니다. {object:176092}(으)로 지휘 천막을 불태우고 스컬지 깃발을 꽂으세요.",
-
-	-- Step 53: Augustus the Touched
-	-- {zone:1422} Western Plaguelands · {zone:1423} Eastern Plaguelands · {area:2627} Terrordale · {npc:12384} Augustus the Touched
-	["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "길을 따라 동쪽으로 {zone:1422}을(를) 지나 강을 건너 {zone:1423}(으)로 가세요. 북서쪽의 폐허 마을 {area:2627}(으)로 가려면 길에서 북쪽으로 벗어나세요. {npc:12384}은(는) 마을 가장자리의 오두막에 있습니다.",
-
-	-- Step 54: Terrordale: kill these as you meet them
-	-- {area:2627} Terrordale
-	["{area:2627}: kill these as you meet them"] = "",
-	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
-	-- plural, as words: Large Termite Mounds = {object:177464} Large Termite Mound
-	["The book lies in the ruined inn of {area:2627}.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "",
-
-	-- Step 55: Light's Hope Chapel
-	-- {area:2268} Light's Hope Chapel
-	["Ride south back to the road and follow it east across the whole zone to {area:2268}."] = "남쪽 길로 돌아가 지역을 가로질러 동쪽 {area:2268}까지 가세요.",
-
-	-- Step 56: Pamela Redpath
-	-- {npc:10926} Pamela Redpath · {area:2262} Darrowshire
-	["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "{npc:10926}의 유령은 남서쪽 {area:2262} 폐허에 있습니다.",
-
-	-- Step 57: Pamela's Doll
-	-- {npc:10926} Pamela Redpath
-	["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "인형의 머리와 양쪽 몸통은 {npc:10926} 주변 집들에 있습니다. 가방에서 합치세요.",
-
-	-- Step 58: Pamela Redpath
-	-- {npc:11063} Carlin Redpath · {area:2268} Light's Hope Chapel
-	["a message for {npc:11063} at {area:2268}, where this guide ends"] = "",
-	-- {quest:5152} Auntie Marlene · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {zone:1422} Western Plaguelands
-	["Keep {quest:5152}: {npc:10927} lives at {area:197} in the {zone:1422}."] = "",
-
-	-- Step 59: Zaeldarr the Outcast
-	-- {area:2262} Darrowshire
-	["Zaeldarr lurks just west of {area:2262}."] = "",
-
-	-- Step 60: Pestilent Scar
-	-- {npc:10411} Eye of Naxxramas
-	-- plural, as words: Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
-	["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "",
-
-	-- Step 61: Back to Light's Hope Chapel
-	-- {area:2268} Light's Hope Chapel
-	["Back to {area:2268}"] = "{area:2268}(으)로 돌아가기",
-	-- {quest:5211} Defenders of Darrowshire · {zone:1423} Eastern Plaguelands · {area:2264} Corin's Crossing
-	["{quest:5211}'s spirits come with the {zone:1423} guide's {area:2264} stop: keep it."] = "{quest:5211}의 영혼은 {zone:1423} 가이드의 {area:2264} 구간에서 모읍니다. 보관하세요.",
-
-	-- Step 62: Fly to Tarren Mill
-	-- {area:2268} Light's Hope Chapel
-	["{area:2268} flight master"] = "",
-
-	-- Step 63: To Sorrow Hill
-	-- {area:197} Sorrow Hill
-	["To {area:197}"] = "{area:197}(으)로",
-
-	-- Step 64: Sorrow Hill
-	-- {area:272} Tarren Mill · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {npc:10936} Joseph Redpath
-	["Ride north up the road from {area:272}. {npc:10927}'s house stands by the road at {area:197}, and {npc:10936}'s monument is in the graveyard behind it."] = "",
-	-- {npc:10927} Marlene Redpath
-	["{npc:10927}, upstairs"] = "",
-
-	-- Step 65: Chromie
-	-- {npc:10667} Chromie
-	["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "북서쪽의 안돌할로 가세요. {npc:10667}은(는) 마을 서쪽의 무너진 여관에서 기다립니다. 안쪽의 해골은 54-57레벨이니 가장자리로만 다니세요.",
-
-	-- Step 66: The Annals of Darrowshire
-	-- plural, as words: Musty Tomes = {object:176150} Musty Tome
-	["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "연대기는 안돌할 시청의 곰팡이 슨 고서 사이에 있습니다. 맞는 것을 찾을 때까지 열어 보세요.",
-
-	-- Step 67: Chromie
-	-- {quest:5210} Brother Carlin · {area:2268} Light's Hope Chapel · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
-	["{quest:5210} goes to {area:2268}: keep it for later. The next guide starts with {npc:10739} by the {area:202}, east of Andorhal."] = "",
+	-- {quest:5901} A Plague Upon Thee · {area:2627} Terrordale · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
+	["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "{quest:5901}은(는) 보관하세요. 흰개미집은 다음 가이드에서 티리온에게 가는 길의 {area:2627}에 있습니다. 다음 가이드는 이곳 남동쪽 {area:202} 옆의 {npc:10739}에게서 시작합니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to {area:2268}"] = "{area:2268}(으)로 돌아가기",
 	-- ["Black Broodlings"] = "검은 새끼용",
 	-- ["Black Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence."] = "검은 새끼용은 {area:251} 바로 동쪽 언덕에 둥지를 틉니다. 새끼용이 거의 죽었을 때 {npc:10267}의 {item:12284}을(를) 사용해 정수를 포획하세요.",
 	-- ["Bloodpetal Flayers"] = "칼날가시 붉은꽃잎덩굴손",
@@ -340,6 +273,7 @@ return {
 	-- ["Fly to {area:1638} and train with {npc:3033} on {area:1639}, then fly to {area:1637} for the {object:3202} zeppelin."] = "{area:1638}(으)로 날아가 {area:1639}의 {npc:3033}에게 기술을 배운 뒤, {area:1637}(으)로 날아가 {object:3202}행 비행선을 타세요.",
 	-- ["Fly to {area:340}"] = "{area:340}(으)로 비행",
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "길을 따라 동쪽으로 {area:28}을(를) 지나 강을 건너 {area:139}(으)로 가세요. 북서쪽의 폐허 마을 {area:2627}(으)로 가려면 길에서 북쪽으로 벗어나세요. {npc:12384}은(는) 마을 가장자리의 오두막에 있습니다.",
+	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "길을 따라 동쪽으로 {zone:1422}을(를) 지나 강을 건너 {zone:1423}(으)로 가세요. 북서쪽의 폐허 마을 {area:2627}(으)로 가려면 길에서 북쪽으로 벗어나세요. {npc:12384}은(는) 마을 가장자리의 오두막에 있습니다.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "다로우샤이어 영혼 해방: 말 걸기",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "{area:1938}에서 서쪽으로 가 {area:490}(으)로 구불구불 내려가는 긴 비탈길을 타고, 분화구 북쪽 벽을 따라 절벽 동굴 속 야영지인 {area:541}(으)로 가세요. 이곳 주민은 모두 중립입니다.",
 	-- ["Gorillas"] = "고릴라",
@@ -353,15 +287,19 @@ return {
 	-- ["Power Crystals and soil"] = "마력의 수정과 흙",
 	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "동쪽 {area:537}(으)로 가서 올라가 정상 근처 용암 분출구에서 {npc:10541}을(를) 사용한 뒤, 서쪽 {npc:10302}에게 돌아가세요.",
 	-- ["Ride north along the east side. Bloodpetal Lashers and Threshers fill the jungle."] = "동쪽을 따라 북쪽으로 가세요. 채찍줄기 붉은꽃잎덩굴손과 덩이줄기 붉은꽃잎덩굴손이 정글에 가득합니다.",
+	-- ["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "북서쪽의 안돌할로 가세요. {npc:10667}은(는) 마을 서쪽의 무너진 여관에서 기다립니다. 안쪽의 해골은 54-57레벨이니 가장자리로만 다니세요.",
+	-- ["Ride south back to the road and follow it east across the whole zone to {area:2268}."] = "남쪽 길로 돌아가 지역을 가로질러 동쪽 {area:2268}까지 가세요.",
 	-- ["Ride south-west along the western cliffs. {npc:9167} fly over the west side, and Bloodpetal Trappers grow in the same jungle."] = "서쪽 절벽을 따라 남서쪽으로 가세요. {npc:9167}이(가) 서쪽 위를 날고, 같은 정글에 질긴뿌리 붉은꽃잎덩굴손이 자랍니다.",
 	-- ["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot."] = "남서쪽, 분화구 한가운데의 화산인 {area:537}(으)로 가세요. 기슭에 칼날가시 붉은꽃잎덩굴손이 자랍니다.",
 	-- ["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it."] = "서쪽 발굴지로 가세요. {npc:7039} 골렘(53)이 주변을 돌아다니며 조각을 자주 떨어뜨립니다. {quest:4296}은(는) 발굴지 한가운데 타우릿산 드워프들 사이에 있습니다. 베껴 쓰세요.",
 	-- ["South of the hot springs, Stegodons graze and Dinosaur Bones drop from them or lie on the ground; Diemetradons nearby carry the scales {npc:9998} wants. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon."] = "간헐천 남쪽에서 스테고돈이 풀을 뜯습니다. 공룡 뼈는 스테고돈이 떨어뜨리거나 땅에 놓여 있습니다. 근처 디메트로돈은 {npc:9998}이(가) 원하는 비늘을 지니고 있습니다. 라바사우루스는 남서쪽에서 무리 지어 사냥합니다. 발톱은 {npc:8659}에게 가져가며, 가끔 구겨진 일지를 지닌 개체가 있습니다(희귀 획득물: 얻었을 때만 퀘스트를 받으세요). 레벨 57 스테고돈인 그러프는 피하세요.",
 	-- ["Termite mounds"] = "흰개미집",
 	-- ["Thaurissan dig site"] = "타우릿산 발굴지",
+	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "연대기는 안돌할 시청의 곰팡이 슨 고서 사이에 있습니다. 맞는 것을 찾을 때까지 열어 보세요.",
 	-- ["The Gorishi hive"] = "고리쉬 벌집",
 	-- ["The Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "큰 흰개미집이 {area:2627} 동쪽 언덕 곳곳에 있습니다. 지나가는 흰개미집마다 {item:15042}을(를) 사용하세요.",
 	-- ["The book lies in the ruined inn of {area:2627}."] = "책은 {area:2627}의 무너진 여관에 있습니다.",
+	-- ["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "인형의 머리와 양쪽 몸통은 {npc:10926} 주변 집들에 있습니다. 가방에서 합치세요.",
 	-- ["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "원정대의 상자는 동쪽 정글의 버려진 야영지에 있습니다.",
 	-- ["The gorillas live on the north-east plateau. Stay out of the deepest cave: {npc:9622} lives there."] = "고릴라는 북동쪽 고원에 삽니다. 가장 깊은 동굴에는 들어가지 마세요. {npc:9622}이(가) 삽니다.",
 	-- ["The next guide starts here, at the chapel's flight master."] = "다음 가이드는 여기 예배당의 비행 조련사에서 시작합니다.",
@@ -369,11 +307,13 @@ return {
 	-- ["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}."] = "잿구덩이는 야영지 바로 남쪽에 있습니다. 송진괴물, 송진껍질괴물, 송진이끼괴물이 {item:11834}을(를) 떨어뜨립니다.",
 	-- ["The wooden sign beside {npc:9997}"] = "{npc:9997} 옆의 나무 표지판",
 	-- ["Theodora's quest in {area:340} needs level 52. The Tar Lurkers and Tar Lords just south of the refuge are the closest camp."] = "{area:340}의 테오도라 퀘스트는 레벨 52가 필요합니다. 야영지 바로 남쪽의 송진껍질괴물과 우두머리 송진괴물이 가장 가까운 사냥터입니다.",
+	-- ["To {area:197}"] = "{area:197}(으)로",
 	-- ["Western jungle"] = "서쪽 정글",
 	-- ["With {npc:11063}'s quest in your log, slain Scourge sometimes leave a {npc:11064}; talk to it to free it. Kill undead on the ride south-west to {area:2262}."] = "{npc:11063}의 퀘스트가 있으면 처치한 스컬지가 가끔 {npc:11064}을(를) 남깁니다. 말을 걸어 풀어 주세요. 남서쪽 {area:2262}(으)로 가는 길에 언데드를 처치하세요.",
 	-- ["grind on Tar Lurkers at {area:538}, {zone:1449}"] = "{zone:1449}, {area:538}에서 송진껍질괴물 사냥",
 	-- ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302}이(가) {zone:1452}의 {npc:9298}에게 보냅니다. 보관하세요.",
 	-- ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "고블린 {npc:10302}은(는) 수정탑 바로 동쪽 {area:543}에 있습니다.",
+	-- ["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "{npc:10926}의 유령은 남서쪽 {area:2262} 폐허에 있습니다.",
 	-- ["{npc:12250} lurks just west of {area:2262}."] = "{npc:12250}은(는) {area:2262} 바로 서쪽에 숨어 있습니다.",
 	-- ["{npc:9117}, at the back of the cave"] = "동굴 안쪽의 {npc:9117}",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "이제 {npc:9619}이(가) 북동쪽 동굴에 있는 {npc:9622}의 가죽을 요구합니다. 건너뛰세요.",
@@ -381,4 +321,5 @@ return {
 	-- ["{npc:9623}, the robot on the plateau"] = "고원의 로봇 {npc:9623}",
 	-- ["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "{npc:9684}의 소굴은 수정탑 바로 남쪽에 있습니다. 그곳에서 {npc:9619}의 미끼를 사용하세요. {npc:9684}은(는) 레벨 56이고 공격이 강하니 생명력을 가득 채우고 시작하세요.",
 	-- ["{npc:9999} sits on the ridge, lost and exhausted."] = "{npc:9999}이(가) 길을 잃고 지친 채 마루에 앉아 있습니다.",
+	-- ["{quest:5211}'s spirits come with the {zone:1423} guide's {area:2264} stop: keep it."] = "{quest:5211}의 영혼은 {zone:1423} 가이드의 {area:2264} 구간에서 모읍니다. 보관하세요.",
 }
