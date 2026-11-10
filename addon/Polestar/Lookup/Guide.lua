@@ -235,6 +235,53 @@ local function itemSpot(itemId, from, inside)
 	return placed, placedName
 end
 
+-- Who gives a quest item, on its collect goal (`from`, `fromId`, `fromKind`,
+-- `fromRank`, `fromFaction`, `fromAlso`, `fromAlsoId`, as compiled goals
+-- carry them: tools/lib/dsl/resolve.js), so the step reads "Kill Burning
+-- Blade Fanatic or Burning Blade Apprentice for Lieutenant's Insignia"
+-- instead of only the item (#1589, Hidden Enemies: the insignia drops in
+-- Skull Rock's cave). Of its NPC and object sources with a known spawn, best
+-- chance first: named when there are at most two (each one is where it
+-- drops), else when the best gives it NAMED_CHANCE percent of the time or
+-- more, with a second of the same kind that does too. -> goal
+local NAMED_CHANCE = 50
+
+local function itemFrom(goal, itemId)
+	local C = Codex()
+	local item = C.Item(itemId)
+	if not item then return goal end
+	local located = {}
+	for _, src in ipairs(item.sources or {}) do
+		local kind, rec
+		if src.type == "drop" and src.npc then
+			kind, rec = "npc", C.Npc(src.npc)
+		elseif src.type == "object" and src.object then
+			kind, rec = "object", C.Object(src.object)
+		end
+		if rec and rec.name and rec.spawns and #rec.spawns > 0 then
+			located[#located + 1] = { kind = kind, id = src.npc or src.object, rec = rec, chance = src.chance or 0 }
+		end
+	end
+	if #located == 0 then return goal end
+	table.sort(located, function(a, b)
+		if a.chance ~= b.chance then return a.chance > b.chance end
+		return a.id < b.id
+	end)
+	local few = #located <= 2
+	local top, second = located[1], located[2]
+	if not (few or top.chance >= NAMED_CHANCE) then return goal end
+	goal.from, goal.fromId, goal.fromKind = top.rec.name, top.id, top.kind
+	if top.kind == "npc" then
+		local r = top.rec
+		goal.fromRank = (r.boss and 3) or (r.rare and r.elite and 2) or (r.elite and 1) or (r.rare and 4) or nil
+		if r.faction == "A" or r.faction == "H" or r.faction == "AH" then goal.fromFaction = r.faction end
+	end
+	if second and second.kind == top.kind and (few or second.chance >= NAMED_CHANCE) and second.rec.name ~= goal.from then
+		goal.fromAlso, goal.fromAlsoId = second.rec.name, second.id
+	end
+	return goal
+end
+
 -- Spawn areas (docs/GUIDE_FORMAT.md, "Spawn areas"), as compiled goals get
 -- them (tools/lib/dsl/resolve.js, spawnSpots), for a kill, collect or interact
 -- goal placed at one of its target's spawns: every Codex spawn of the target
@@ -480,6 +527,7 @@ local function questStep(q, from, isTarget, opts)
 	goals[1] = accept
 	local here = giver and giver.spawn or from
 	local event = nil
+	local talks = {} -- the NPCs of talk objectives, for the step's note
 	for oi, o in ipairs(q.objectives or {}) do
 		local count = o.count or 1
 		if o.type == "kill" and o.id then
@@ -496,8 +544,8 @@ local function questStep(q, from, isTarget, opts)
 			local name = (C.Name("item", o.id)) or o.text or itemName(o.id)
 			local s, source, spawns = itemSpot(o.id, here, inside)
 			if source then mark(s, name) end
-			goals[#goals + 1] = spawnSpots(at({ t = "collect", item = o.id, itemName = name,
-				quest = q.id, oi = oi, count = count, title = q.title }, s), spawns)
+			goals[#goals + 1] = spawnSpots(at(itemFrom({ t = "collect", item = o.id, itemName = name,
+				quest = q.id, oi = oi, count = count, title = q.title }, o.id), s), spawns)
 		elseif o.type == "talk" and o.id then
 			-- Speak to an NPC (Hidden Enemies: Neeru Fireblade): the engine counts it by the
 			-- quest's objective line, so it holds the step until done.
@@ -509,6 +557,7 @@ local function questStep(q, from, isTarget, opts)
 				mark(s, who)
 			end
 			goals[#goals + 1] = at({ t = "talk", npc = o.id, npcName = who, quest = q.id, oi = oi, title = q.title }, s)
+			talks[#talks + 1] = who
 		elseif o.type == "object" and o.id then
 			local obj = C.Object(o.id)
 			local objName = (obj and obj.name) or o.text or (L["Object"] .. " " .. o.id)
@@ -528,10 +577,15 @@ local function questStep(q, from, isTarget, opts)
 	end
 	goals[#goals + 1] = endGoal("turnin", q, finish)
 	local step = { title = q.title, goals = goals }
-	if #order > 0 then
+	if #order > 0 or #talks > 0 then
 		local lines = {}
 		for i, inst in ipairs(order) do
 			lines[i] = format(L["%s: inside %s."], concat(within[inst], ", "), inst)
+		end
+		-- A talk objective ticks only once the NPC's dialogue is gone through
+		-- (#1590, Neeru Fireblade's several pages for Hidden Enemies).
+		for _, who in ipairs(talks) do
+			lines[#lines + 1] = format(L["%s: click through what they say until the quest's line is done."], who)
 		end
 		step.note = concat(lines, " ")
 	end
