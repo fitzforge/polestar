@@ -1155,6 +1155,8 @@ L["Final reward"] = "Итоговая награда"
 L["%s (%d parts)"] = "%s (частей: %d)"
 L["%s and %d more"] = "%s и еще %d"
 L["Skipping also skips: %s"] = "Пропуск также пропустит: %s"
+-- L["Keep this: you hand it in later in %s"] = ""
+-- L["Keep this: a later guide hands it in"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Место"
@@ -1394,6 +1396,7 @@ L["Still to do: %s, %s"] = "Осталось сделать: %s, %s"
 L["Still to do: %s"] = "Осталось сделать: %s"
 L["Still to do"] = "Осталось сделать"
 L["Step %d, later in this guide"] = "Шаг %d, дальше в этом руководстве"
+-- L["Keep these, a later guide hands them in: %s"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -3069,6 +3072,7 @@ L["%d steps were left undone."] = "Невыполненных шагов: %d."
 L["Next: %s"] = "Далее: %s"
 L["Pick a guide"] = "Выбрать гайд"
 L["Not now"] = "Не сейчас"
+-- L["Carried to later guides"] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "Щелкните, чтобы выбрать целью и пометить: %s (вне боя)."

@@ -483,6 +483,46 @@ fn a_next_guide_whose_races_leave_out_the_characters_says_why_its_turnins_do_not
 	);
 }
 
+// Quest work handed in only by a later guide of the chain carries that guide's id (`carriedTo`), when every route of
+// every character the goal applies to hands it in there: the Engine says to keep it and lists it at the guide's
+// end. Work this guide hands in itself carries none.
+#[test]
+fn quest_work_handed_in_only_by_a_later_guide_carries_that_guides_id() {
+	let carried = |c: &Compiled, id: &str| -> Vec<Value> { c.guide(id).get("steps").items().iter().flat_map(|s| s.get("goals").items()).map(|g| plain(&g.get("carriedTo"))).collect() };
+	let one = text("t/one", &["step S", "  accept 7", "  accept 33", "  kill 6 quest 7.1", "  collect 750 x8 quest 33.1", "  turnin 33"], &["next t/two"]);
+	let deep = compile_map(&[("1.guide", &one), ("2.guide", &text("t/two", &["step S", "  level 2"], &["next t/three"])), ("3.guide", &text("t/three", &["step S", "  turnin 7"], &[]))]);
+	assert_eq!(carried(&deep, "t/one"), vec![Value::Null, Value::Null, json!("t/three"), Value::Null, Value::Null]);
+	assert!(emit(&deep.guides).contains("carriedTo = \"t/three\""));
+	// Route choices: one guide every route hands it in at.
+	let choice = |two: &[&str], three: &[&str], meet: bool| {
+		let start = text("t/one", &["step S", "  accept 7", "  kill 6 quest 7.1"], &["next t/two, t/three"]);
+		let extra: &[&str] = if meet { &["next t/four"] } else { &[] };
+		let two = text("t/two", two, &[&["pitch Two"], extra].concat());
+		let three = text("t/three", three, &[&["pitch Three"], extra].concat());
+		let four = text("t/four", &["step S", "  turnin 7"], &[]);
+		let c = compile_map(&[("1.guide", &start), ("2.guide", &two), ("3.guide", &three), ("4.guide", &four)]);
+		carried(&c, "t/one")[1].clone()
+	};
+	assert_eq!(choice(&["step S", "  level 2"], &["step S", "  turnin 7"], false), Value::Null, "the route through t/two never hands it in");
+	assert_eq!(choice(&["step S", "  turnin 7"], &["step S", "  turnin 7"], false), Value::Null, "two guides hand it in");
+	assert_eq!(choice(&["step S", "  level 2"], &["step S", "  level 3"], true), json!("t/four"), "both routes meet where it is handed in");
+	// A race branch counts for its own characters only, and nothing after an abandon.
+	let raced = compile_map(&[
+		("1.guide", &text("t/one", &["step S", "  accept 7", "  kill 6 quest 7.1", "  kill 6 quest 7.1 only Dwarf"], &["race Human, Dwarf", "next t/two"])),
+		("2.guide", &text("t/two", &["step S", "  turnin 7"], &["race Dwarf"])),
+	]);
+	assert_eq!(carried(&raced, "t/one")[1..], [Value::Null, json!("t/two")], "a Human cannot follow t/two");
+	let dropped = compile_map(&[
+		("1.guide", &text("t/one", &["step S", "  accept 7", "  kill 6 quest 7.1"], &["next t/two"])),
+		("2.guide", &text("t/two", &["step S", "  abandon 7"], &["next t/three"])),
+		("3.guide", &text("t/three", &["step S", "  accept 7", "  turnin 7"], &[])),
+	]);
+	assert_eq!(carried(&dropped, "t/one")[1], Value::Null);
+	// Handed in later in the same guide: nothing carried.
+	let here = compile_map(&[("1.guide", &text("t/one", &["step S", "  accept 7", "  kill 6 quest 7.1", "step T", "  turnin 7"], &["next t/two"])), ("2.guide", &text("t/two", &["step S", "  turnin 7"], &[]))]);
+	assert_eq!(carried(&here, "t/one")[1], Value::Null);
+}
+
 #[test]
 fn an_objective_index_past_the_quests_objectives_is_an_error_naming_them_with_a_hint() {
 	let src = guide_text(&["step S", "  accept 7", "  kill 6 quest 7.2", "  turnin 7"]);

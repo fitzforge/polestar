@@ -476,6 +476,8 @@ local function checkGoal(goal)
 	if goal.fromFaction ~= nil and goal.fromFaction ~= "A" and goal.fromFaction ~= "H" and goal.fromFaction ~= "AH" then
 		return "bad fromFaction"
 	end
+	-- Quest work a later guide hands in: that guide's id.
+	if goal.carriedTo ~= nil and not isStr(goal.carriedTo) then return "bad carriedTo" end
 	for _, key in ipairs(KEYS.goalRanks) do
 		if goal[key] ~= nil and not isNum(goal[key]) and not isStr(goal[key]) then return "bad " .. key end
 	end

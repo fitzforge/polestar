@@ -166,3 +166,29 @@ fn back_on_the_guide_its_banner_offers_the_next_guide_until_dismissed_and_contin
 	assert_eq!(out["continued"], "Elwynn Forest complete — continuing with Westfall");
 	assert_eq!(out["gone"], false);
 }
+
+// The quests still in the log that a later guide hands in (Engine.CarriedQuests): listed under "Carried to later
+// guides" with the guide that hands each in, six at most and "+N more"; none, and the list is gone.
+#[test]
+fn the_end_lists_the_quests_a_later_guide_hands_in_with_that_guide() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 1); uistub.complete()
+		local list = { { quest = 1, title = "Sceptre of Light", guideId = NEXT }, { quest = 2, title = "Lost Letter", guideId = "gone/guide" } }
+		for i = 3, 8 do list[i] = { quest = i, title = "Quest " .. i, guideId = NEXT } end
+		E.CarriedQuests = function(id) return id == uistub.elwynn and list or {} end
+		Polestar.Fire("GUIDE_END", uistub.elwynn, info({ undone = 0, next = NEXT }))
+		stub.advance(1)
+		local F = PolestarGuideEnd
+		local r = { head = F.CarriedHead:IsShown() and F.CarriedHead:GetText() or false, list = F.Carried:IsShown() and F.Carried:GetText() or false, tall = F:GetHeight() }
+		Polestar.UI.GuideEnd.Hide()
+		list = {}
+		Polestar.Fire("GUIDE_END", uistub.elwynn, info({ undone = 0, next = NEXT }))
+		stub.advance(1)
+		r.none = { head = F.CarriedHead:IsShown(), list = F.Carried:IsShown(), tall = F:GetHeight() }
+		emit(r)"#);
+	assert_eq!(out["head"], "Carried to later guides");
+	assert_eq!(out["list"], "Sceptre of Light · Westfall\nLost Letter\nQuest 3 · Westfall\nQuest 4 · Westfall\nQuest 5 · Westfall\nQuest 6 · Westfall\n+2 more");
+	assert_eq!(out["none"]["head"], false);
+	assert_eq!(out["none"]["list"], false);
+	assert!(out["tall"].as_f64().unwrap() > out["none"]["tall"].as_f64().unwrap(), "the list makes the window taller");
+}

@@ -22,6 +22,8 @@ const GOAL_KEYS = [
 	'quest', 'title', 'target', 'npc', 'npcName', 'object', 'objName', 'item', 'itemName', 'count', 'oi', 'skill', 'skillLine', 'rank', 'rankMax', 'level', 'frac', 'grind', 'money', 'untilSkill',
 	'reagents', 'location', 'minLevel', 'qlvl', 'pre', 'preAll', 'closedBy', 'preTitles', 'text', 'node', 'area', 'map', 'x', 'y', 'z', 'f', 'r', 'spots', 'spread', 'optional', 'only', 'profLine', 'profName', 'profRank', 'note',
 	'from', 'fromKind', 'fromRank', 'fromFaction', 'fromAlso', 'fromId', 'fromAlsoId', 'fromNpcs', 'candidates', 'rewards', 'group', 'direct', 'escort',
+	// Quest work handed in only by a later guide of the chain: that guide's id (validate.js, markCarried).
+	'carriedTo',
 ];
 const REAGENT_KEYS = ['item', 'itemName', 'count'];
 // `z` (heights.js) follows y in candidates and spawn areas as in goals.

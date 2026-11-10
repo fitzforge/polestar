@@ -1155,6 +1155,8 @@ L["Final reward"] = "Recompensa final"
 L["%s (%d parts)"] = "%s (%d partes)"
 L["%s and %d more"] = "%s e mais %d"
 L["Skipping also skips: %s"] = "Pular também pula: %s"
+-- L["Keep this: you hand it in later in %s"] = ""
+-- L["Keep this: a later guide hands it in"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Local"
@@ -1395,6 +1397,7 @@ L["Still to do: %s, %s"] = "Ainda a fazer: %s, %s"
 L["Still to do: %s"] = "Ainda a fazer: %s"
 L["Still to do"] = "Ainda a fazer"
 L["Step %d, later in this guide"] = "Passo %d, mais adiante neste guia"
+-- L["Keep these, a later guide hands them in: %s"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Elevador para %s"
@@ -3069,6 +3072,7 @@ L["%d steps were left undone."] = "%d etapas ficaram por fazer."
 L["Next: %s"] = "Próximo: %s"
 L["Pick a guide"] = "Escolher um guia"
 L["Not now"] = "Agora não"
+-- L["Carried to later guides"] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "Clique para selecionar e marcar %s (fora de combate)."

@@ -563,6 +563,7 @@ L["Still to do: %s, %s"] = "Noch offen: %s, %s"
 L["Still to do: %s"] = "Noch offen: %s"
 L["Still to do"] = "Noch offen"
 L["Step %d, later in this guide"] = "Schritt %d, später in diesem Leitfaden"
+-- L["Keep these, a later guide hands them in: %s"] = ""
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"
@@ -707,6 +708,8 @@ L["Final reward"] = "Endbelohnung"
 L["%s (%d parts)"] = "%s (%d Teile)"
 L["%s and %d more"] = "%s und %d weitere"
 L["Skipping also skips: %s"] = "Überspringen überspringt auch: %s"
+-- L["Keep this: you hand it in later in %s"] = ""
+-- L["Keep this: a later guide hands it in"] = ""
 
 -- UI/Welcome.lua
 L["level %d %s"] = "Stufe %d, %s"
@@ -3042,6 +3045,7 @@ L["%d steps were left undone."] = "%d Schritte blieben offen."
 L["Next: %s"] = "Als Nächstes: %s"
 L["Pick a guide"] = "Guide auswählen"
 L["Not now"] = "Nicht jetzt"
+-- L["Carried to later guides"] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "Klicken, um %s anzuvisieren und zu markieren (außerhalb des Kampfes)."

@@ -1155,6 +1155,8 @@ L["Final reward"] = "最終獎勵"
 L["%s (%d parts)"] = "%s（%d 部分）"
 L["%s and %d more"] = "%s 及其他 %d 個"
 L["Skipping also skips: %s"] = "跳過也會跳過：%s"
+-- L["Keep this: you hand it in later in %s"] = ""
+-- L["Keep this: a later guide hands it in"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -1394,6 +1396,7 @@ L["Still to do: %s, %s"] = "尚未完成：%s，%s"
 L["Still to do: %s"] = "尚未完成：%s"
 L["Still to do"] = "尚未完成"
 L["Step %d, later in this guide"] = "第 %d 步，本指南稍後"
+-- L["Keep these, a later guide hands them in: %s"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"
@@ -3069,6 +3072,7 @@ L["%d steps were left undone."] = "有 %d 個步驟未完成。"
 L["Next: %s"] = "下一份：%s"
 L["Pick a guide"] = "選擇指南"
 L["Not now"] = "稍後再說"
+-- L["Carried to later guides"] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "點擊選取並標記 %s（戰鬥外）。"

@@ -136,7 +136,7 @@ Messages:
 | `WAYPOINT_CHANGED` | waypoint or nil | Engine (and Nav when an override is set/cleared) |
 | `GUIDE_COMPLETED` | guideId | Engine |
 | `GUIDE_END` | guideId, `{ guideId, undone, live, next, choose }` | Engine, after the evaluation, with `behavior.guideEnd = "ask"` (default): the player reached the end of a leveling guide (its last step for the character done, whatever was skipped or left open before it), once per guide per character (`CharState().guideEnds`); `undone` the open steps left, `live` the live step (nil when all are done), `next` the guide the hand-off goes to (nil with none or a choice to make), `choose` a route choice the player makes. The guide-end window asks (UI/GuideEnd.lua); see "End of a leveling guide" |
-| `GUIDE_CONTINUED` | fromId, toId | Engine, after the evaluation, with `behavior.guideEnd = "continue"`: a finished leveling guide handed off by itself (the guide window's banner says so, chat while it is hidden) |
+| `GUIDE_CONTINUED` | fromId, toId, carried | Engine, after the evaluation, with `behavior.guideEnd = "continue"`: a finished leveling guide handed off by itself (the guide window's banner says so, chat while it is hidden; `carried`: Engine.CarriedQuests(fromId), said in chat) |
 | `GUIDE_PLACED` | guideId, stepIndex or nil, `{ guideId, ... }` | Engine, active tab, once placement of a guide just opened ends (see "Placement"; not for a guide a login or /reload brings back): where the guide resumes, and the guides passed whole on the way; the guide window goes over the steps before it, titles and count rolling (`GF.PlayCatchUp`, after `PLAYER_ENTERING_WORLD`) |
 | `CATCH_UP` | true \| false | Guide window, while its catch-up goes over the steps (`GF.PlayCatchUp`): the arrow shows an hourglass turning over in its dial's place (`Arrow.SetBusy`; Media/UI `hourglass`, `hourglass-sand`, tools/media/ui.js) |
 | `SETTING_CHANGED` | path, value | Core settings |
@@ -1756,8 +1756,14 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   (status `grey`, which also replaces those three: `Compat.IsQuestTrivial`
   on `Compat.GetQuestLevel`, the client's `GetQuestDifficultyLevel`, at the
   character's level; a grey quest the route hands in later in this chapter
-  stays, still worth its reward or its chain), or nil while the plan
-  cannot say (no guide, a route choice to make, a guide not loaded).
+  stays, still worth its reward or its chain; one a later chapter hands in
+  stays unless that chapter leaves it out too: `Engine.GreyLeftOut`, Skip
+  grey quests on and nothing on its chain needing it, and every guide down
+  that chain loaded, so an unknown need keeps it), or nil while the plan
+  cannot say (no guide, a route choice to make, a guide not loaded). A quest
+  the route's quest work marks `carriedTo` a later guide (the compiler's,
+  GUIDE_FORMAT.md "Quests carried to a later guide") is status `later` at
+  that guide even where the plan cannot reach it, never `unplanned`.
   `RoutePlan.LogOverflow()` is
   `{ take, free, drop }` when the live step's open accepts outnumber the
   free slots (`Compat.GetLogCap`: the client's `GetMaxNumQuestsCanAccept`,
@@ -2116,9 +2122,17 @@ and both of its values start on `"ask"`.
   window's banner then offers the next guide (`GF.EndOffer`) until dismissed;
   a finished guide's completed state offers it as before.
 - **Continue:** the hand-off at completion as under "At completion", and
-  `GUIDE_CONTINUED(fromId, toId)`: the guide window's banner reads "Durotar
-  complete — continuing with The Barrens" for 20 seconds (chat while the
-  window is hidden).
+  `GUIDE_CONTINUED(fromId, toId, carried)`: the guide window's banner reads
+  "Durotar complete — continuing with The Barrens" for 20 seconds (chat while
+  the window is hidden), and chat names the quests still in the log that a
+  later guide hands in (`carried`, `Engine.CarriedQuests(fromId)`).
+- **Carried quests:** `Engine.CarriedQuests(id)` -> `{ { quest, title,
+  guideId } }`, the guide's quests still in the log whose quest work carries
+  `carriedTo` for this character, in step order; the guide-end window lists
+  them under "Carried to later guides". On the step view a goal's `carriedTo`
+  is set once per quest and step (`Own.carriedTo`: its last such goal there
+  that applies), and `UI.CarriedLine` reads "Keep this: you hand it in later
+  in <guide>".
 
 #### Tabs (several guides at once)
 
