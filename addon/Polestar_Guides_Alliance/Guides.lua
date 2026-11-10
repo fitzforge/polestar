@@ -21030,6 +21030,7 @@ do
 					title = "Twisted Fire Totems",
 					note = "Five Twisted Fire Totems. The Stonevault troggs (Skullthumpers, Bonesnappers and Shamans, level 37-41) south of {area:338} in the {zone:1418} carry them; the Shamans drop Fire Nova Totems and a {npc:3560}, the Bonesnappers run for help when hurt. Respawn about five minutes.",
 					goals = {
+						{ t = "level", level = 36 },
 						{ t = "collect", quest = 79358, title = "Storm, Earth, and Fire", item = 274044, itemName = "Twisted Fire Totem", count = 5, oi = 3, map = 1418, x = 50.46, y = 68.43, f = "e", spotsPacked = "49.8,69.6,,67,12;51,66.1,,47,7", lvl = 41, fromNpcs = { { npc = 2893, npcName = "Stonevault Bonesnapper" }, { npc = 2894, npcName = "Stonevault Shaman" } } },
 					},
 				},
@@ -21037,6 +21038,7 @@ do
 					title = "Twisted Earth Totems",
 					note = "Five Twisted Earth Totems. The Lost Ones (murlocs, level 34-39) north and north-east of {area:75} in the {zone:1435} carry them; most run for help when hurt.",
 					goals = {
+						{ t = "level", level = 33 },
 						{ t = "collect", quest = 79358, title = "Storm, Earth, and Fire", item = 274045, itemName = "Twisted Earth Totem", count = 5, oi = 2, map = 1435, x = 48.46, y = 31.13, f = "e", spotsPacked = "50.2,31.2,,61,7;45.3,30,,41,3;43.4,36.5,,32,2;55.7,31.2,,50,9,,37;57.7,25.8,,64,10,,37;61.4,21.8,,42,11,,39;62.9,24.3,,79,13,1,39;64.4,20.4,,51,4,1,39", lvl = 36, fromNpcs = { { npc = 755, npcName = "Lost One Mudlurker" }, { npc = 757, npcName = "Lost One Fisherman" }, { npc = 759, npcName = "Lost One Hunter" }, { npc = 760, npcName = "Lost One Muckdweller" }, { npc = 761, npcName = "Lost One Seer" }, { npc = 1106, npcName = "Lost One Cook" }, { npc = 763, npcName = "Lost One Chieftain" }, { npc = 762, npcName = "Lost One Riftseeker" } }, fromNpcsAt = "1,2;1,2;1,2;4,2,3;3,4,2;7,6,3,8,4,5;4,6,3,8,7,5;4,6,8,3,5,7" },
 					},
 				},
@@ -21044,6 +21046,7 @@ do
 					title = "Twisted Water Totems",
 					note = "Five Twisted Water Totems. The Mirefin murlocs (level 35-38) north-east of {area:496} in northern {zone:1445} carry them.",
 					goals = {
+						{ t = "level", level = 34 },
 						{ t = "collect", quest = 79358, title = "Storm, Earth, and Fire", item = 274046, itemName = "Twisted Water Totem", count = 5, oi = 1, map = 1445, x = 57.15, y = 21.37, f = "e", spotsPacked = "56.9,22,,56,15,,36;57.7,20.1,,40,7,,36;58.6,15.8,,40,7,,37;57.6,10.9,,49,9;59.4,10.2,,40,7;59.8,7.7,,40,4;63,7.5,,64,18;62.4,18.6,,53,6;64.8,26.7,,40,2;64.5,28.6,,40,2;63.4,27.6,,49,5;54.5,15.4,,62,11,,37;57.4,15.7,,73,13,1,37;58.7,9.1,,50,11,1", spread = true, lvl = 38, fromNpcs = { { npc = 4358, npcName = "Mirefin Puddlejumper" }, { npc = 4359, npcName = "Mirefin Murloc" }, { npc = 4360, npcName = "Mirefin Warrior" }, { npc = 4361, npcName = "Mirefin Muckdweller" }, { npc = 4362, npcName = "Mirefin Coastrunner" }, { npc = 4363, npcName = "Mirefin Oracle" } }, fromNpcsAt = "1,2;1,2;2,5;3,4,6;3,4,6;3,4,6;3,4,6;3;3;3;3;2,5;2,5;3,4,6" },
 					},
 				},
@@ -21051,6 +21054,7 @@ do
 					title = "Twisted Air Totems",
 					note = "Five Twisted Air Totems. The Maraudine centaurs (level 36-40) north and north-east of {area:2408} in western {zone:1443} carry them; the Scouts drop one nearly every other kill. Wranglers Net and Disarm, Windchasers heal, Stormers throw {spell:9654}: pull one at a time. Respawn about five minutes.",
 					goals = {
+						{ t = "level", level = 36 },
 						{ t = "collect", quest = 79358, title = "Storm, Earth, and Fire", item = 274047, itemName = "Twisted Air Totem", count = 5, oi = 4, map = 1443, x = 32.59, y = 59.75, f = "e", spotsPacked = "34.9,57.6,,77,3;31,54.6,,39,3;30.7,66.2,,28,2;30.7,61.1,,15,1,1;35.8,61.3,,15,1,1;33,65.9,,15,1,1", lvl = 38, fromNpcs = { { npc = 4654, npcName = "Maraudine Scout" } } },
 					},
 				},
@@ -21065,6 +21069,7 @@ do
 					title = "The steam pools",
 					note = "{npc:259023} hands you the {item:268582}. {zone:1441} is far: the boat to Theramore and the road west, or fly to {area:489} on the {zone:1444} border and head east into the canyon. Place the {item:268582} at the steam pools north-west of {area:484} to call the corrupted elementals and then the {npc:216474}; Razormane quilboar join the fight while the ritual runs. A group quest: bring at least one or two friends. The {item:212792} drops about every other kill, and every group member can loot it.",
 					goals = {
+						{ t = "level", level = 38 },
 						{ t = "collect", quest = 96135, title = "Heed My Call", item = 212792, itemName = "Eye of the Tempest", count = 1, oi = 1, map = 1441, x = 36.72, y = 39.25, f = "e", spotsPacked = "36.5,37.8,,39,3;37,40.7,,28,3", lvl = 40, note = "{item:212792}, from the {npc:216474}", from = "Ravaging Tempest", fromKind = "npc", fromRank = 1, fromId = 216474, fromNpcs = { { npc = 216474, npcName = "Ravaging Tempest" } }, group = { kind = "group", size = 3 } },
 					},
 				},
