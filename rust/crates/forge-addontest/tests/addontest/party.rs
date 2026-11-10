@@ -1293,9 +1293,9 @@ p.join("Ana"); p.set("Ana", { map = 1429, x = 40, y = 50 }) -- party2 now
 local offline = follow("party2", function() p.connect("Ana", false) end)
 p.connect("Ana", true)
 local lost = follow("party2", function() p.set("Ana", { map = false }) end) -- no place the client gives
+calls = {}
 P.PointAt("party2")
 t = { label = "Elsewhere" }                  -- another target took over: the follow stops quietly
-calls = {}
 stub.advance(3.1)
 emit({ left = left, offline = offline, lost = lost, replaced = calls })"#,
 	);
@@ -1304,7 +1304,7 @@ emit({ left = left, offline = offline, lost = lost, replaced = calls })"#,
 	assert_eq!(out["left"], followed("end"), "she left: the trip ends, the arrow never jumps to Ben");
 	assert_eq!(out["offline"], followed("end"));
 	assert_eq!(out["lost"], followed("end"));
-	assert_eq!(out["replaced"], json!([]));
+	assert_eq!(out["replaced"], json!(["set Party: Ana", "trip Ana (Party)"]), "no move, no end: it stops without a word");
 }
 
 #[test]
