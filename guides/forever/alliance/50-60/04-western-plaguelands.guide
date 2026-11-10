@@ -633,8 +633,22 @@ step Krakle
 step Northern Pylon
   kill 9166 quest 4501                -- Pterrordax
 
+step Ironstone Plateau: kill these as you meet them
+  when onquest 4289
+  zone Un'Goro Crater
+  tip The gorillas live on Ironstone Plateau, just east of the pylon: take the pelts for Torwa Pathfinder now, while you are up here. Stay out of the deepest cave: U'cha is level 55.
+  tip Careful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds.
+  collect 11478 quest 4289            -- Un'Goro Gorilla Pelt; below ground
+  collect 11479 quest 4289            -- Un'Goro Stomper Pelt; below ground
+  collect 11480 quest 4289            -- Un'Goro Thunderer Pelt; below ground
+
 step Marshal's Refuge
   turnin 4501                         -- Spraggle Frock
+
+step Lakkari Tar Pits: kill these as you meet them
+  zone Un'Goro Crater
+  tip The Tar Beasts and Tar Lords wallow in the Lakkari Tar Pits, south of the refuge on the way down into the crater.
+  collect 11834 quest 4504.1          -- Super Sticky Tar
 
 step The crater
   tip Tar Beasts wallow in the Lakkari Tar Pits; the fire elementals of Fire Plume Ridge in the middle carry the ash; the Gorishi wasps of the Slithering Scar in the south carry the gland. Every creature in the crater can drop Un'Goro Soil.
@@ -648,18 +662,24 @@ step Torwa Pathfinder
   accept 4292
   accept 4289                         -- The pelts come from the gorillas on Ironstone Plateau
 
+step Torwa Pathfinder
+  when complete 4289
+  turnin 4289
+  accept 4301
+
 # ---------------------------------------------------------------- East side
 
-step Lakkari Tar Pits: kill these as you meet them
+step Ironstone Plateau: kill these as you meet them
+  when onquest 4289
   zone Un'Goro Crater
   tip The gorillas live on Ironstone Plateau, east of Marshal's Refuge. Keep their pelts for Torwa Pathfinder. Stay out of the deepest cave: U'cha is level 55.
   tip Careful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds.
-  collect 11834 quest 4504.1          -- Super Sticky Tar
   collect 11478 quest 4289            -- Un'Goro Gorilla Pelt; below ground
   collect 11479 quest 4289            -- Un'Goro Stomper Pelt; below ground
   collect 11480 quest 4289            -- Un'Goro Thunderer Pelt; below ground
 
 step Torwa Pathfinder
+  when onquest 4289
   turnin 4289
   accept 4301
 
@@ -672,6 +692,7 @@ step Lar'korwi
   collect 11510 quest 4292.1
 
 step Torwa Pathfinder
+  when onquest 4301,4292
   tip Cross the south of the crater to Torwa by the ramp.
   turnin 4301
   turnin 4292

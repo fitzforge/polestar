@@ -9056,7 +9056,9 @@ test('Alliance Un\'Goro, second visit: the Scent of Lar\'korwi, the Bait and The
 	const torwa = [is('turnin', 4291), is('accept', 4292), is('accept', 4289)].map((p, k) => second[at(second, `Torwa ${k}`, p)].s);
 	assert.equal(new Set(torwa).size, 1, 'one stop at Torwa');
 	const first = goals('forever/alliance/40-50/07-un-goro-crater.guide');
-	assert.ok(!first.some(({ goal }) => goal.t === 'accept' && goal.quest === 4289), '07 does not take The Apes of Un\'Goro (level 55) at 49');
+	// Since the 0.3.6 flow review 07 takes it (min level 47) and keeps it: the pelts are taken at 56 on 04's pass by
+	// Ironstone Plateau, so Torwa's first stop there hands it in (see the 'gorilla pelts on the northern pass' test).
+	assert.ok(first.some(({ goal }) => goal.t === 'accept' && goal.quest === 4289), '07 takes The Apes of Un\'Goro, for 56');
 });
 
 test('Alliance Winterspring and Feralas: the long top-ups are split onto the quest mobs', { skip }, () => {
@@ -10354,4 +10356,20 @@ test('Searing Gorge and Un\'Goro (Alliance 49-50): the Ironforge quests on the f
 	const bs = goals('forever/alliance/50-60/01-burning-steppes.guide').filter(forClass('WARRIOR'));
 	const train = bs.findIndex(({ goal }) => goal.t === 'train');
 	assert.ok(train > bs.findIndex(({ goal }) => goal.t === 'fly' && goal.location === 'Ironforge'), 'Warriors train on the Burning Steppes guide\'s Ironforge stop');
+});
+
+// Flow review, Alliance 49/56 (0.3.6): The Apes of Un'Goro is taken on the first Torwa visit (40-50/07), the pelts on
+// the second visit's pass by Ironstone Plateau next to the Northern Pylon, and it is handed in on the first Torwa stop
+// there, so the guide rides to the plateau once (for U'cha), not twice. A player without 4289 still gets the pelts trip.
+test('Un\'Goro (Alliance 56): the gorilla pelts on the northern pass, one ride from Torwa to the plateau', { skip }, () => {
+	const first = goals('forever/alliance/40-50/07-un-goro-crater.guide');
+	assert.equal(first[at(first, 'accept 4289', is('accept', 4289))].step, first[at(first, 'accept 4291', is('accept', 4291))].step, 'taken with The Scent of Lar\'korwi');
+	const list = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const pelts = list.findIndex(({ goal }) => goal.t === 'collect' && goal.quest === 4289);
+	assert.ok(pelts > at(list, 'pterrordax at the pylon', (g) => g.t === 'kill' && g.quest === 4501) && pelts < at(list, 'turnin 4501', is('turnin', 4501)), 'pelts between the pylon and the refuge');
+	const hand = at(list, 'turnin 4289', is('turnin', 4289));
+	assert.ok((list[hand].step.when || []).some((p) => p.k === 'complete' && !p.neg), 'handed in on the first Torwa stop once done');
+	assert.ok(hand < at(list, 'U\'cha', (g) => g.t === 'collect' && g.quest === 4301), 'before the ride to U\'cha');
+	const fallback = list.filter(({ goal, step }) => goal.t === 'collect' && goal.quest === 4289 && (step.when || []).some((p) => p.k === 'onquest' && !p.neg));
+	assert.ok(fallback.length >= 6, 'both pelt steps wait for 4289 in the log');
 });

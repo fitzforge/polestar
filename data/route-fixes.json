@@ -4842,6 +4842,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow review, Alliance 40-50/01 (0.3.6, BrAlliance4060): Mudrock Soup and Bugs (1204) goes to Morgan Stern on the second Theramore stop, with Stinky's Escape (1222) to the same NPC, after The Missing Diplomat's tower (1266). The route used to ride Sentry Point -> Theramore -> back past Sentry Point north for this one hand-in (about 760 yd and a town entry). Our comparison hands both in to Morgan Stern on one visit; the tongues are still finished at Sentry Point, so nothing waits on the hand-in."
+			},
+			{
+				"a": [
+					"turnin",
+					4290
+				],
+				"b": [
+					"accept",
+					4289
+				],
+				"faction": "Alliance",
+				"why": "Flow review, Alliance 49/56 (0.3.6, BrAlliance4060): The Apes of Un'Goro (4289, min 47) is taken from Torwa on the first Un'Goro visit (40-50/07, with The Scent of Lar'korwi; min level 47, quest level 55, nothing to do for it at 49), so the pelts (gorillas on Ironstone Plateau, 60-69,13-20, beside the Northern Pylon) are taken on 50-60/04's pass north of the crater and handed in on the first Torwa stop there. 50-60/04 used to ride Torwa -> plateau (pelts) -> Torwa -> plateau (U'cha) -> Torwa: one Torwa-plateau round trip (about 2,500 yd) less. A fresh loader without 4289 still takes it at Torwa and gets the old pelts trip (when onquest 4289)."
 			}
 		],
 		"notes": [

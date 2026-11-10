@@ -61,6 +61,7 @@ step Fresh Threshadon Carcass
 step Torwa Pathfinder
   turnin 4290
   accept 4291
+  accept 4289                         -- The gorillas on Ironstone Plateau carry the pelts: keep it for the second Un'Goro visit, around 56
 
 step Lar'korwi Mates and the raft
   tip The Lar'korwi Mates prowl the jungle west of Torwa. The wrecked raft lies on the shore of the lake there; the small pack sits in the water beside it. Keep the compass, map and key for Linken. Any beast in the crater may drop A Mangled Journal: right-click it.
