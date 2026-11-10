@@ -5086,6 +5086,23 @@ test('Tincho on Discord (#1575): the Flame of Uzel step warns about the higher y
 	}
 });
 
+test('Kolbi on Discord (#1695): Helcular\'s Rod is farmed on the Foothill Caverns\' 30-32 yetis, never toured into the 32-34 cave', { skip }, () => {
+	// The rod drops from every Hillsbrad yeti; the goal toured eleven spots, eight of them in the northern cave of Mountain
+	// and Giant Yetis (32-34), taken at 29. Recordings: 15 of the 18 people who got it did so in the caverns.
+	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8'));
+	assert.ok(places.places.some((p) => p.quest === 552 && p.objective === 1 && p.at), 'the point is a places.json record');
+	const rod = goals('forever/horde/30-40/01-hillsbrad-foothills.guide').filter(({ goal }) => goal.t === 'collect' && goal.quest === 552);
+	assert.ok(rod.length > 0, 'the rod is farmed in the Hillsbrad guide');
+	for (const { step, goal } of rod) {
+		// The Cave (2248) and Ferocious (2249) Yetis stand at Hillsbrad 42-47,25-34; the 32-34 yetis north of y 14.
+		assert.equal(goal.map, 1424);
+		for (const p of [goal, ...(goal.spots || [])]) assert.ok(p.x >= 42 && p.x <= 47 && p.y >= 25 && p.y <= 34, `every point is in the caverns (${p.x},${p.y})`);
+		const from = (goal.fromNpcs || []).map((n) => n.npc);
+		assert.ok(!from.includes(2250) && !from.includes(2251), `the Mountain and Giant Yetis are not the rod's targets (${from.join(', ')})`);
+		assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Stay in these caverns/, `"${step.title}" says to stay in the caverns`);
+	}
+});
+
 test('Level fit (#977): the Rogues\' Venture Co. tower (drones 25, Gallywix a 23 elite) shows from level 23, not at the route\'s 20', { skip }, () => {
 	// Horde 12-30 re-chain: Fizzule is visited at 21 on the walk north to Kadrak; the tower work itself is left
 	// to the Class guide Poisons (Horde). Any tower work in a leveling guide shows from 23.

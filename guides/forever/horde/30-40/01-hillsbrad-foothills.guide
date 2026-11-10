@@ -207,8 +207,8 @@ step Hillsbrad Foothills
 
 step Helcular's Rod
   zone Hillsbrad Foothills
-  tip South-west, the Cave and Ferocious Yetis (30-32) fill the Foothill Caverns in the hills west of Tarren Mill; about one in sixteen carries the rod.
-  collect 3708 quest 552
+  tip South-west, the Cave and Ferocious Yetis (30-32) fill the Foothill Caverns in the hills west of Tarren Mill; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs.
+  collect 3708 quest 552 @44.5,29.4
 
 step Level 30
   when level<30

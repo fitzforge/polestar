@@ -46,6 +46,34 @@
 			"issue": 610
 		},
 		{
+			"id": "1695-helcular-rod-foothill-caverns",
+			"quest": 552,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1424,
+				"x": 44.5,
+				"y": 29.4,
+				"frame": "era"
+			},
+			"note": "Helcular's Rod drops from every yeti of the Hillsbrad hills (about one in sixteen), so the goal toured eleven spots, eight of them in the northern cave of Mountain and Giant Yetis (32-34) around the Flame of Uzel. The quest is taken at 29 on the 29-33 Hillsbrad guide, so players were sent to farm mobs 3-5 levels above them (#1695). The Cave and Ferocious Yetis (30-32) of the Foothill Caverns west of Tarren Mill carry it as often: the arrow now points at their densest spot (16 of their 33 spawns within 2.5 map units). Players' recordings: 18 people got the rod, 15 of them in the caverns, at levels 29-34 (median 31); the three who got it in the northern cave did so at 29 and 32.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "items.json 3708: dropped by 2248 Cave Yeti (30-31), 2249 Ferocious Yeti (31-32), 2250 Mountain Yeti (32-33), 2251 Giant Yeti (33-34), 6% each; npcs.json spawns of 2248 and 2249 on map 1424 at 42-47,25-34, of 2250 and 2251 at 36-47,3-13"
+				},
+				{
+					"kind": "recording",
+					"ref": "objective 552.1 ticks, 18 people (rec index 2026-11-11): 15 in the Foothill Caverns (Hillsbrad 42-47,27-33), 3 in the northern cave (Alterac 42-43,62-65)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1695: Kolbi, sent to farm 32-34 mobs at 29 for Helcular's Revenge"
+				}
+			],
+			"issue": 1695
+		},
+		{
 			"id": "gh036-wetlands-nordel",
 			"quest": 98208,
 			"objective": 1,
