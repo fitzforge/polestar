@@ -10,9 +10,11 @@
 --      checked, releases = { newest first } }. The release zip ships the file
 --      empty. A check newer than a peer's sighting overrules that peer.
 --   2. Other players: a release version a party member's Polestar sends
---      (Quests/Party.lua: the hello, "1P|") or a guild member's (the guild
---      hello below). It counts when it parses as x.y.z, is newer than ours
---      and at most one minor version ahead (a garbled or made-up "9.9.9" is
+--      (Quests/Party.lua: the hello, "1P|"), a guild member's (the guild
+--      hello below) or a stranger's (the version probe below: one hidden
+--      addon whisper to a player of your faction you target, mouse over or
+--      see). It counts when it parses as x.y.z, is newer than ours and at
+--      most one minor version ahead (a garbled or made-up "9.9.9" is
 --      dropped); it is kept PEER_DAYS days.
 --   3. Nothing knows: a build first run more than OLD_DAYS days ago says it
 --      may be old (no card).
@@ -30,12 +32,14 @@
 -- moment, unless someone else answered with that version or newer first,
 -- and at most once per REPLY_GAP. Only the version goes out, and only while
 -- party sharing (party.share) is on: a player who turned that off sends
--- nothing here either. Listening needs no setting.
+-- nothing here either, probes included. Addon messages are listened to in a
+-- guild or while sharing; solo with sharing off, not at all.
 --
 --   Polestar.Update.Parse(v), .Compare(a, b), .Release(v)
 --   Polestar.Update.Latest()      -> version, behind, source ("client" | "peer") | nil
 --   Polestar.Update.Notice()      -> { kind = "behind", latest, behind, mine } | { kind = "old", weeks } | nil
 --   Polestar.Update.NotePeer(v)   a peer's version (true when it counts)
+--   Polestar.Update.Probe(unit), .ProbeTarget(unit), .Listen()  the version probe
 --   Polestar.Update.Covers(v)     the card says it, so a peer's chat line need not
 --   Polestar.Update.ReportNote(), .Outdated()  for the report window
 
@@ -312,19 +316,45 @@ function U.ReleaseURL(v)
 end
 
 ---------------------------------------------------------------------------
--- The guild hello
+-- The guild hello and the version probe
 ---------------------------------------------------------------------------
 
+-- Both send only while party sharing is on, from a release build.
+local function sendingOn()
+	local v = mine()
+	return v ~= nil and U.Release(v) and ns.Get("party.share") and C_ChatInfo ~= nil and C_ChatInfo.SendAddonMessage ~= nil and true or false
+end
+
 local function guildOn()
-	return ns.Get("party.share") and IsInGuild and IsInGuild() and C_ChatInfo and C_ChatInfo.SendAddonMessage and true or false
+	return sendingOn() and IsInGuild and IsInGuild() and true or false
+end
+
+local function lockdown()
+	local C = C_ChatInfo
+	if not (C and C.InChatMessagingLockdown) then return false end
+	local ok, locked = pcall(C.InChatMessagingLockdown)
+	return ok and locked == true
+end
+
+-- Our prefix, registered once (Quests/Party.lua registers it in a group).
+local function prefix()
+	local C = C_ChatInfo
+	if C and C.IsAddonMessagePrefixRegistered and not C.IsAddonMessagePrefixRegistered(U.PREFIX) and C.RegisterAddonMessagePrefix then
+		C.RegisterAddonMessagePrefix(U.PREFIX)
+	end
+end
+
+-- Sends text; a refusal (a throttle, a lockdown, a trial account, an
+-- offline target: any result but Success) is skipped quietly.
+local function sendTo(text, chatType, target)
+	prefix()
+	local ok, r = pcall(C_ChatInfo.SendAddonMessage, U.PREFIX, text, chatType, target)
+	local success = Enum and Enum.SendAddonMessageResult and Enum.SendAddonMessageResult.Success or 0
+	return ok and (r == nil or r == true or r == success)
 end
 
 local function sendGuild(text)
-	local C = C_ChatInfo
-	if C.IsAddonMessagePrefixRegistered and not C.IsAddonMessagePrefixRegistered(U.PREFIX) and C.RegisterAddonMessagePrefix then
-		C.RegisterAddonMessagePrefix(U.PREFIX)
-	end
-	return C.SendAddonMessage(U.PREFIX, text, "GUILD")
+	return sendTo(text, "GUILD")
 end
 
 -- One hello a login, a release's version only.
@@ -359,11 +389,138 @@ local function answer(theirs)
 	end)
 end
 
-local function onAddonMessage(_, prefix, text, channel, sender)
+-- The version probe: Polestar can't tell that a player it sees runs
+-- Polestar without asking, so it asks a few: a player of your faction you
+-- target, mouse over or see the nameplate of, not in your group or guild
+-- (those hear the party sync and the guild hello), out of combat, outside
+-- instances and the game's messaging lockdown, gets one hidden addon
+-- whisper, "V?<version>". The client's whisper check
+-- (RequestCanLocalWhisperTarget) answers first where it exists: only a
+-- player it says can be whispered gets it, so no "not found" line shows.
+-- Their Polestar answers "V=<version>" to a probe only, once per sender a
+-- session, to the sender exactly as it arrived; a "V=" is never answered.
+-- Each side keeps the other's version when it counts (NotePeer). Limits:
+-- one probe per player per PROBE_AGAIN (PolestarDB.update.probed, at most
+-- PROBE_KEEP players), one per PROBE_GAP seconds, PROBE_SESSION a session,
+-- none once a newer release is known. Only while party sharing is on, like
+-- the guild hello. The target is named as the game's own Whisper does it
+-- (Compat.UnitFullName: "Ana Smith" with the client's surname separator).
+U.PROBE_GAP = 10
+U.PROBE_SESSION = 30
+U.PROBE_AGAIN = DAY
+U.PROBE_KEEP = 300
+U.ANSWER_SESSION = 100 -- probes answered a session at most
+U.CHECK_WAIT = 30 -- seconds a whisper check's answer is waited for
+local probe = { sent = 0, at = -math.huge, waiting = {}, answered = {}, answers = 0 }
+
+-- Whether a probe may go out now: the cheap checks first, as the mouseover
+-- event fires often.
+local function probeDue()
+	if GetTime() - probe.at < U.PROBE_GAP or probe.sent >= U.PROBE_SESSION then return false end
+	if not sendingOn() or U.Latest() then return false end
 	local C = ns.Compat
-	if C.IsSecret(prefix) or C.IsSecret(channel) or C.IsSecret(text) then return end
-	if prefix ~= U.PREFIX or channel ~= "GUILD" or type(text) ~= "string" or type(sender) ~= "string" then return end
-	if C.SenderIsMe(sender) then return end
+	return not (C.InCombat() or C.IsInInstance() or lockdown())
+end
+
+local function readable(v)
+	if ns.Compat.IsSecret(v) then return nil end
+	return v
+end
+
+-- A player to probe at `unit`: their whisper name and GUID, or nil.
+function U.ProbeTarget(unit)
+	if type(unit) ~= "string" or not (UnitIsPlayer and UnitFactionGroup) then return nil end
+	if readable(UnitIsPlayer(unit)) ~= true then return nil end
+	if UnitIsUnit and readable(UnitIsUnit(unit, "player")) ~= false then return nil end
+	local theirs, ours = readable(UnitFactionGroup(unit)), readable(UnitFactionGroup("player"))
+	if type(theirs) ~= "string" or theirs ~= ours then return nil end
+	-- In your group (UnitInRaid gives an index) or guild: those hear the rest.
+	for _, fn in ipairs({ UnitInParty or false, UnitInRaid or false, UnitIsInMyGuild or false }) do
+		if fn then
+			local v = fn(unit)
+			if ns.Compat.IsSecret(v) or v then return nil end
+		end
+	end
+	local name = ns.Compat.UnitFullName(unit)
+	if type(name) ~= "string" then return nil end
+	local guid = UnitGUID and readable(UnitGUID(unit))
+	return name, type(guid) == "string" and guid or nil
+end
+
+-- The players probed: name -> when; the oldest go past PROBE_KEEP.
+local function probed()
+	local s = state()
+	if type(s.probed) ~= "table" then s.probed = {} end
+	return s.probed
+end
+
+local function remember(name)
+	local list, t = probed(), now()
+	list[name] = t
+	local n, oldest, oldestAt = 0, nil, math.huge
+	for k, at in pairs(list) do
+		if t - (tonumber(at) or 0) >= U.PROBE_AGAIN then
+			list[k] = nil
+		else
+			n = n + 1
+			if at < oldestAt then oldest, oldestAt = k, at end
+		end
+	end
+	if n > U.PROBE_KEEP and oldest then list[oldest] = nil end
+end
+
+local function whisperProbe(target)
+	if not sendingOn() or lockdown() then return false end
+	return sendTo("V?" .. mine(), "WHISPER", target)
+end
+
+-- Probe the player at `unit` when everything allows. -> true when asked
+function U.Probe(unit)
+	if not probeDue() then return false end
+	local target, guid = U.ProbeTarget(unit)
+	if not target then return false end
+	if now() - (tonumber(probed()[target]) or 0) < U.PROBE_AGAIN then return false end
+	remember(target)
+	probe.sent, probe.at = probe.sent + 1, GetTime()
+	local C = C_ChatInfo
+	if guid and C.RequestCanLocalWhisperTarget then
+		probe.waiting[guid] = { target = target, at = GetTime() }
+		pcall(C.RequestCanLocalWhisperTarget, guid)
+	else
+		whisperProbe(target)
+	end
+	if probe.sent >= U.PROBE_SESSION then U.Listen() end
+	return true
+end
+
+local function onWhisperCheck(_, guid, status)
+	local w = type(guid) == "string" and probe.waiting[guid]
+	if not w then return end
+	probe.waiting[guid] = nil
+	local can = Enum and Enum.ChatWhisperTargetStatus and Enum.ChatWhisperTargetStatus.CanWhisper or 0
+	if status == can and GetTime() - w.at <= U.CHECK_WAIT then whisperProbe(w.target) end
+end
+
+-- A probe's answer: once per sender a session, to the sender as it came.
+local function answerProbe(sender)
+	if probe.answered[sender] or probe.answers >= U.ANSWER_SESSION or not sendingOn() or lockdown() then return end
+	probe.answered[sender] = true
+	probe.answers = probe.answers + 1
+	sendTo("V=" .. mine(), "WHISPER", sender)
+end
+
+local function onAddonMessage(_, prefixIn, text, channel, sender)
+	local C = ns.Compat
+	if C.IsSecret(prefixIn) or C.IsSecret(channel) or C.IsSecret(text) or C.IsSecret(sender) then return end
+	if prefixIn ~= U.PREFIX or type(text) ~= "string" or type(sender) ~= "string" then return end
+	if channel == "WHISPER" then
+		local kind, v = text:match("^V([%?=])([^|]*)$")
+		if not kind then return end
+		U.NotePeer(v)
+		if kind == "?" then answerProbe(sender) end
+		return
+	end
+	if channel ~= "GUILD" or C.SenderIsMe(sender) then return end
 	local mark, v = text:match("^1([HY])|([^|]*)$")
 	if not mark then return end
 	U.NotePeer(v)
@@ -375,18 +532,35 @@ local function onAddonMessage(_, prefix, text, channel, sender)
 	end
 end
 
--- The guild channel is listened to only in a guild (solo, Polestar keeps
--- CHAT_MSG_ADDON for the party alone, as Quests/Party.lua does). Checked at
--- login, at the hello and when the guild changes.
-local listening = false
+local function probeTarget() U.Probe("target") end
+local function probeMouseover() U.Probe("mouseover") end
+local function probePlate(_, unit) U.Probe(unit) end
+
+-- What Polestar listens to, checked at login, at the hello, when the guild,
+-- party sharing or what is known changes, and as the session's probes run
+-- out: addon messages in a guild or while sharing (guild hellos, probes and
+-- their answers); the units to probe while a probe can still go out.
+-- Solo with sharing off, neither.
+local listening, probing = false, false
 function U.Listen()
-	local want = IsInGuild and IsInGuild() and true or false
-	if want == listening then return end
-	listening = want
-	if want then
-		ns.RegisterEvent("CHAT_MSG_ADDON", onAddonMessage)
-	else
-		ns.UnregisterEvent("CHAT_MSG_ADDON", onAddonMessage)
+	local share = ns.Get("party.share") and true or false
+	local want = share or (IsInGuild and IsInGuild() and true or false)
+	if want ~= listening then
+		listening = want
+		if want then
+			prefix()
+			ns.RegisterEvent("CHAT_MSG_ADDON", onAddonMessage)
+		else
+			ns.UnregisterEvent("CHAT_MSG_ADDON", onAddonMessage)
+		end
+	end
+	local wantProbe = sendingOn() and probe.sent < U.PROBE_SESSION and U.Latest() == nil
+	if wantProbe ~= probing then
+		probing = wantProbe
+		local set = wantProbe and ns.RegisterEvent or ns.UnregisterEvent
+		set("PLAYER_TARGET_CHANGED", probeTarget)
+		set("UPDATE_MOUSEOVER_UNIT", probeMouseover)
+		set("NAME_PLATE_UNIT_ADDED", probePlate)
 	end
 end
 
@@ -408,6 +582,13 @@ ns.OnLogin(function()
 end)
 
 ns.RegisterEvent("PLAYER_GUILD_UPDATE", function() U.Listen() end)
+ns.On("SETTING_CHANGED", function(path)
+	if path == "party.share" or path == "party" then U.Listen() end
+end)
+ns.On("UPDATE_KNOWN", function() U.Listen() end)
+-- The whisper check asked for the session's last probe still answers after
+-- the unit events stop.
+ns.RegisterEvent("CAN_LOCAL_WHISPER_TARGET_RESPONSE", onWhisperCheck)
 
 ns.RegisterCommand("update", function()
 	local UC = ns.UI and ns.UI.UpdateCard

@@ -303,7 +303,7 @@ emit(p.sent[#p.sent].text)"#,
 }
 
 #[test]
-fn party_solo_only_the_roster_events_listen_in_a_party_the_rest_and_with_both_off_nothing() {
+fn party_solo_only_the_roster_events_listen_for_the_party_in_a_party_the_rest_and_with_both_off_nothing() {
 	let out = live(&sent(
 		r#"
 local EVENTS = { "GROUP_ROSTER_UPDATE", "GROUP_LEFT", "QUEST_LOG_UPDATE", "CHAT_MSG_ADDON", "PLAYER_XP_UPDATE", "CHAT_MSG_SYSTEM" }
@@ -324,7 +324,9 @@ Polestar.Set("party.show", false)
 emit(registered())"#,
 	));
 	let others = |v: &Value| -> Vec<Value> { v.as_array().unwrap().iter().filter(|e| e.as_str() != Some("QUEST_LOG_UPDATE") && e.as_str() != Some("PLAYER_XP_UPDATE")).cloned().collect() };
-	assert_eq!(others(&out[0]), vec![json!("GROUP_ROSTER_UPDATE"), json!("GROUP_LEFT")], "solo: only the roster");
+	// Solo with sharing on, Core/Update.lua listens for addon messages too (a stranger's version probe and its
+	// answer); with sharing off, outside a guild, nothing listens.
+	assert_eq!(others(&out[0]), vec![json!("GROUP_ROSTER_UPDATE"), json!("GROUP_LEFT"), json!("CHAT_MSG_ADDON")], "solo: the roster, and Update's probes");
 	let grouped = out[1].as_array().unwrap();
 	assert!(grouped.contains(&json!("CHAT_MSG_ADDON")) && grouped.contains(&json!("PLAYER_XP_UPDATE")), "{grouped:?}");
 	assert!(!grouped.contains(&json!("CHAT_MSG_SYSTEM")), "the share answers only after a share");

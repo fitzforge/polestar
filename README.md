@@ -874,12 +874,18 @@ Window (**Tell me when a newer Polestar is out**).
 
 Where Polestar learns of a newer release: Polestar Client, after each of its
 checks for updates; party members running Polestar (the version party sync
-already sends); and guild members running Polestar. For the guild, Polestar
-sends one hidden hello with only its version number when you log in (at
-most every half hour), and a guild member on a newer release answers with
-theirs; nothing goes to chat, and turning party sync's sharing off stops
-these too. With no source at all, a Polestar first run three weeks ago or
-more says, in the guide window only, that updates come often.
+already sends); guild members running Polestar; and other players of your
+faction you meet. For the guild, Polestar sends one hidden hello with only
+its version number when you log in (at most every half hour), and a guild
+member on a newer release answers with theirs. For players you target,
+mouse over or see the nameplate of (not in your group or guild), Polestar
+sends one hidden addon whisper with its version number, at most once a day
+per player, once every 10 seconds and 30 times a session, never in combat
+or dungeons, and stops once it has heard of a newer release; their Polestar
+answers once with its own. Nothing goes to chat, and turning party sync's
+sharing off stops all of these. With no source at all, a Polestar first run
+three weeks ago or more says, in the guide window only, that updates come
+often.
 
 ### With a gamepad
 
