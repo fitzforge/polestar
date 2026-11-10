@@ -1658,11 +1658,14 @@ test('Offer audit: Bartleby the Drunk never waits on A Warrior\'s Training, and 
 		assert.match(list[take].step.note || '', guide === WESTFALL ? /near Osric's shop/ : /the tram from Ironforge arrives in the Dwarven District/, `${guide}: the step keeps its own travel line`);
 	}
 	// A build writes the guide-fixes record's tip over every Alliance warrior's step: it must carry the
-	// Dwarf and Gnome tram line and the Human walk, so a rebuild loses neither hand fix.
+	// Dwarf and Gnome tram line and Westfall's Old Town line (Humans land there for Osric on Thor's flight since
+	// 0.3.6), so a rebuild loses neither hand fix; Westfall's step is the record's tip word for word.
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
 	const tips = fixes.filter((r) => r.at && r.at.quest === 1638 && r.at.goal === 'accept' && r.tip).map((r) => r.tip);
 	assert.equal(tips.length, 1, 'one tip record for the Defensive Stance step');
-	for (const want of [/the tram from Ironforge arrives in the Dwarven District/, /walk to Stormwind/i, /go straight to Harry/]) assert.match(tips[0], want);
+	for (const want of [/the tram from Ironforge arrives in the Dwarven District/, /near Osric's shop/, /go straight to Harry/]) assert.match(tips[0], want);
+	const west = goals(WESTFALL);
+	assert.equal(west[at(west, 'accept 1638', is('accept', 1638))].step.note, tips[0], 'Westfall\'s step carries the record\'s tip');
 });
 
 // Rohkin (#807): Stormy Potential follows A Simmering Storm, which only a
