@@ -3095,9 +3095,14 @@ an overlap. The polygon inset by the rim is filled with quads fanned from its
 first point (the pin's colour at 0.2 alpha), the rim is one quad per side
 (0.7), 1.5 UI units wide on screen. Every piece shares the polygon's box
 around its centre. On the world map a hull is a frame of its own
-(`PIN_FRAME_LEVEL_QUEST_BLOB`, no mouse, the box in canvas units; the rim is
-laid out again when zooming changes its width by a quarter), drawn when any of
-it lies on the viewed map (the view's world-to-percent transform, the trail's).
+(`PIN_FRAME_LEVEL_QUEST_BLOB`, no mouse, the box in canvas units), drawn when
+any of it lies on the viewed map (the view's world-to-percent transform, the
+trail's) inside a window around what the map's scroll frame shows: the view
+and half its size again on every side. A pan or zoom out past the window, a
+zoom in to a quarter of its width, or a zoom that changes the rim's width by a
+quarter draws the hulls again for the view as it is then, so a zoomed-in map,
+or OpenMap's stitched map over a whole continent, holds only the hulls near
+the screen (#1622).
 On the minimap a `minimapAreas` layer's hulls sit with the discs, masked the
 same way; a hull is laid out again only when its pin, the zoom, the minimap's
 size or (rotating) the facing changed, and walking moves only the first
