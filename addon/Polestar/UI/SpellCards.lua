@@ -2,14 +2,20 @@
 -- from QoL/Spells.lua:
 --
 -- LEVELUP_SPELLS: "LEVEL 12 · PRIEST", "3 new spells to train", a row of
--- their icons (the game's tooltip on each), what they cost together in the
--- success colour when the character can pay it, the warning colour when not,
--- and the nearest class trainer; "Show me" points the arrow there (Nearby's
--- class trainer trip). Quiet (no chime) and gone by itself after HIDE_AFTER
--- seconds. "Turn these off" sets qol.levelUpSpells off.
+-- their icons (the game's tooltip on each, beside the card), what they cost
+-- together (the game's coins) in the success colour when the character can
+-- pay it, the warning colour when not, then where to train: the guide's own
+-- training stop when it is within GUIDE_STEPS steps ("The guide trains you
+-- in 6 steps (Orgrimmar)."), else the class trainer nearest by travel time
+-- (Engine.NearestClassTrainer, as Nearby ranks it) with "Show me", the
+-- arrow there (Nearby's class trainer trip); nothing when the guide
+-- window's training reminder is up (it names one already). Quiet (no
+-- chime) and gone by itself after HIDE_AFTER seconds. "Turn these off"
+-- sets qol.levelUpSpells off.
 --
 -- OLD_RANKS: "2 spells on your bars are an old rank", their icons and
--- "Renew 2 → 3 · Fireball 4 → 5"; "Upgrade" puts the highest rank in those
+-- "Renew: rank 2 to 3 · Fireball: rank 4 to 5" (plain text: the game's
+-- fonts have no arrow); "Upgrade" puts the highest rank in those
 -- slots (Spells.Upgrade); a right-click on an icon keeps that spell at its
 -- rank ("Keep this rank", said in its tooltip). "Turn these off" sets
 -- qol.oldRanks off.
@@ -30,10 +36,22 @@ SC.HIDE_AFTER = 30
 local function CT() return UI.ClassToast end
 local function Q() return ns.QoL end
 
-local function money(c)
-	local q = Q()
-	return q and q.Money and q.Money(c) or tostring(c)
+-- Coins as the game writes them (GetMoneyString: zero units left out), else
+-- "64s", "1g 5c".
+function SC.Money(c)
+	c = math.floor(c or 0)
+	if GetMoneyString then return GetMoneyString(c) end
+	local g, s, k = math.floor(c / 10000), math.floor(c / 100) % 100, c % 100
+	local parts = {}
+	if g > 0 then parts[#parts + 1] = g .. "g" end
+	if s > 0 then parts[#parts + 1] = s .. "s" end
+	if k > 0 or #parts == 0 then parts[#parts + 1] = k .. "c" end
+	return concat(parts, " ")
 end
+local money = SC.Money
+
+-- The guide's own class training stop counts as near within this many steps.
+SC.GUIDE_STEPS = 10
 
 local waiting = {} -- kind -> notice
 
@@ -64,10 +82,29 @@ function SC.LevelModel(n)
 	m.giver = "|c" .. Theme.Hex(can and "success" or "warning") .. line .. "|r"
 	m.affordable = can
 	local t = n.trainer
-	if t and t.npcName then
+	-- The guide window's training reminder already names a trainer: not twice.
+	local GF = UI.GuideFrame
+	local banner = GF and GF.BannerNotice and GF.BannerNotice() == "train"
+	-- The guide's own training stop, when near, rather than another trainer.
+	local E = ns.Engine
+	local steps, stepTitle
+	if E and E.GuideTrainStop then steps, stepTitle = E.GuideTrainStop() end
+	if banner then
+		m.noAct = true
+	elseif type(steps) == "number" and steps <= SC.GUIDE_STEPS then
+		if steps <= 1 then
+			m.route = L["Your guide's current step trains you."]
+		else
+			m.route = format(L["The guide trains you in %d steps"], steps)
+				.. (stepTitle and stepTitle ~= "" and (" (" .. stepTitle .. ")") or "") .. "."
+		end
+		m.noAct = true
+	elseif t and t.npcName then
 		local zone = t.map and ns.Compat.GetMapName and ns.Compat.GetMapName(t.map)
 		m.route = zone and format(L["Nearest class trainer: %s, %s."], t.npcName, zone) or format(L["Nearest class trainer: %s."], t.npcName)
 		m.act = { label = L["Show me"], run = SC.ShowTrainer }
+	else
+		m.noAct = true
 	end
 	m.spellTip = function(tip, s)
 		if s.cost and s.cost > 0 then tip:AddLine(format(L["Training cost: %s"], money(s.cost)), 1, 1, 1) end
@@ -79,8 +116,6 @@ function SC.LevelModel(n)
 	return m
 end
 
-local ARROW = " \226\134\146 "
-
 function SC.RanksModel(n)
 	local S = Q() and Q().Spells
 	local count = #n.spells
@@ -91,7 +126,7 @@ function SC.RanksModel(n)
 	local spells, names = {}, {}
 	for i, e in ipairs(n.spells) do
 		spells[i] = { id = e.id, bestId = e.bestId }
-		names[#names + 1] = (e.name or "?") .. " " .. e.have .. ARROW .. e.best
+		names[#names + 1] = format(L["%s: rank %d to %d"], e.name or "?", e.have, e.best)
 	end
 	m.spells = spells
 	m.icon = ns.Compat.SpellIcon(spells[1].id) or m.icon

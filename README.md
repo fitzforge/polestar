@@ -455,12 +455,13 @@ its source is in [apps/client](apps/client).
   it.
 - **New spells at level-up.** When you ding, a quiet card on the guide window
   shows the class spells you can now train (the game's own tooltip on each
-  icon), what they cost together and whether you can pay it, and the nearest
-  class trainer with a button for the arrow. It goes by itself, stays away in
+  icon), what they cost together and whether you can pay it, and where to
+  train: your guide's own training stop when it is a few steps away, else the
+  nearest class trainer with a button for the arrow. It goes by itself, stays away in
   combat and dungeons, and says nothing on levels with nothing new.
 - **Old ranks on your bars.** Action bars keep the exact rank you put on
   them, so after training (and at login) a card lists the spells on your bars
-  that are a lower rank than your spellbook's ("Renew 2 → 3"), and
+  that are a lower rank than your spellbook's ("Renew: rank 2 to 3"), and
   **Upgrade** puts the highest rank in those same buttons, out of combat.
   Macros and items are never touched; right-click a spell on the card to keep
   it at its rank, and a lower rank you put on a bar yourself is kept too.

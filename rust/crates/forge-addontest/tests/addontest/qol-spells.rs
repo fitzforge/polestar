@@ -94,14 +94,16 @@ fn a_ding_with_three_new_spells_tells_those_three_with_their_cost_and_the_traine
 	let out = run_qol(
 		r#"
 		Polestar.Engine = Polestar.Engine or {}
-		Polestar.Engine.NearestClassTrainer = function() return { npc = 376, npcName = "High Priestess Laurena", map = 1453, x = 49.5, y = 44.6 } end
+		local asked = {}
+		Polestar.Engine.NearestClassTrainer = function(...) asked[#asked + 1] = select('#', ...); return { npc = 376, npcName = "High Priestess Laurena", map = 1453, x = 49.5, y = 44.6 } end
 		q.money = 1000
 		levelUp(10)
 		local n = cards[1]
-		emit({ count = #cards, level = n.level, ids = ids(n.spells), cost = n.cost, money = n.money, trainer = n.trainer.npcName })"#,
+		emit({ count = #cards, level = n.level, ids = ids(n.spells), cost = n.cost, money = n.money, trainer = n.trainer.npcName, args = asked[1] })"#,
 	);
-	// The Night Elf spell and the talent's second rank are left out.
-	assert_eq!(out[0], json!({ "count": 1, "level": 10, "ids": [139, 586, 594], "cost": 900, "money": 1000, "trainer": "High Priestess Laurena" }));
+	// The Night Elf spell and the talent's second rank are left out; the trainer is the travel-nearest one, as
+	// Nearby's "Show me" picks it (no route detour argument).
+	assert_eq!(out[0], json!({ "count": 1, "level": 10, "ids": [139, 586, 594], "cost": 900, "money": 1000, "trainer": "High Priestess Laurena", "args": 0 }));
 }
 
 #[test]
@@ -275,7 +277,7 @@ GetSpellTexture = function(id) return "Interface\\Icons\\spell-" .. id end
 if C_Spell then C_Spell.GetSpellTexture = GetSpellTexture end
 uistub.player.class, uistub.player.level = "PRIEST", 10
 local upgraded, kept, checked = 0, {}, 0
-Polestar.QoL = { Money = function(c) return c .. "c" end, Spells = {
+Polestar.QoL = { Spells = {
 	Upgrade = function() upgraded = upgraded + 1 end,
 	Keep = function(id) kept[#kept + 1] = id end,
 	CheckRanks = function() checked = checked + 1 end,
@@ -287,7 +289,9 @@ local function card()
 	for _, b in ipairs(on and f.SpellRow or {}) do if b:IsShown() then icons = icons + 1 end end
 	return { shown = on, kind = m and m.kind or nil, title = on and f.Title:GetText() or nil, giver = on and f.Giver:IsShown() and f.Giver:GetText() or nil,
 		route = on and f.Route:IsShown() and f.Route:GetText() or nil, icons = icons, more = on and f.SpellMore:IsShown() and f.SpellMore:GetText() or nil,
-		act = on and f.Act:IsShown() and (f.Act.Label and f.Act.Label:GetText() or f.Act:GetText()) or nil }
+		act = on and f.Act:IsShown() and (f.Act.Label and f.Act.Label:GetText() or f.Act:GetText()) or nil,
+		buttons = on and (f.Act:IsShown() or f.Open:IsShown() or f.ShowMe:IsShown()) or false,
+		laterFirst = on and select(2, f.Later:GetPoint(1)) == f or false }
 end
 local function spells(n)
 	local out = {}
@@ -317,7 +321,7 @@ fn the_level_up_card_shows_the_spells_their_cost_the_trainer_and_hides_by_itself
 	assert_eq!(c["kind"], "levelUp");
 	assert_eq!(c["title"], "3 new spells to train");
 	assert_eq!(c["icons"], 3);
-	assert!(text(&c["giver"]).contains("300c") && text(&c["giver"]).contains("you can pay"), "{c}");
+	assert!(text(&c["giver"]).contains("Cost 3s: you can pay"), "{c}");
 	assert!(text(&c["route"]).contains("High Priestess Laurena"), "{c}");
 	assert_eq!(c["act"], "Show me");
 	assert_eq!(out[1], 0, "a quiet card: no chime");
@@ -334,7 +338,7 @@ fn ten_new_spells_show_eight_icons_and_two_more_and_a_short_purse_says_so() {
 	let c = &out[0];
 	assert_eq!(c["icons"], 8);
 	assert_eq!(c["more"], "+2 more");
-	assert!(text(&c["giver"]).contains("you have 400c"), "{c}");
+	assert!(text(&c["giver"]).contains("Cost 10s: you have 4s."), "{c}");
 }
 
 #[test]
@@ -353,7 +357,7 @@ fn the_old_ranks_card_lists_them_upgrades_and_keeps_a_rank_on_right_click() {
 	let c = &out[0];
 	assert_eq!(c["kind"], "oldRanks", "{c}");
 	assert_eq!(c["title"], "1 spell on your bars is an old rank");
-	assert_eq!(c["giver"], "Renew 2 \u{2192} 3");
+	assert_eq!(c["giver"], "Renew: rank 2 to 3", "plain text: the game's fonts have no arrow");
 	assert_eq!(c["icons"], 1);
 	assert_eq!(c["act"], "Upgrade");
 	assert_eq!(out[1], json!({ "upgraded": 1, "kept": [139], "checked": 1 }));
@@ -373,4 +377,80 @@ fn a_card_already_up_goes_first_and_the_level_up_card_follows_it() {
 	);
 	assert_eq!(out[0], "other");
 	assert_eq!(out[1], "levelUp");
+}
+
+#[test]
+fn costs_leave_zero_units_out() {
+	let out = run_ui(
+		r#"
+		local SC = Polestar.UI.SpellCards
+		emit({ SC.Money(6400), SC.Money(10005), SC.Money(0), SC.Money(123456) })"#,
+	);
+	assert_eq!(out[0], json!(["64s", "1g 5c", "0c", "12g 34s 56c"]));
+}
+
+#[test]
+fn the_guides_own_training_stop_within_ten_steps_wins_over_the_nearest_trainer() {
+	let out = run_ui(
+		r#"
+		local T = { npc = 3169, npcName = "Jen'shan", map = 1411, x = 42.5, y = 69 }
+		Polestar.Engine.GuideTrainStop = function() return 6, "Orgrimmar" end
+		Polestar.Fire("LEVELUP_SPELLS", { level = 20, spells = spells(2), cost = 200, money = 1000, trainer = T })
+		emit(card())
+		CT.Hide()
+		Polestar.Engine.GuideTrainStop = function() return 1, "Orgrimmar" end
+		Polestar.Fire("LEVELUP_SPELLS", { level = 20, spells = spells(2), cost = 200, money = 1000, trainer = T })
+		emit(card().route)
+		CT.Hide()
+		Polestar.Engine.GuideTrainStop = function() return 14, "Thunder Bluff" end
+		Polestar.Fire("LEVELUP_SPELLS", { level = 20, spells = spells(2), cost = 200, money = 1000, trainer = T })
+		emit(card())"#,
+	);
+	let near = &out[0];
+	assert_eq!(near["route"], "The guide trains you in 6 steps (Orgrimmar).", "{near}");
+	assert_eq!(near["buttons"], false, "no arrow to another trainer: {near}");
+	assert_eq!(near["laterFirst"], true, "Later leads the row: {near}");
+	assert_eq!(out[1], "Your guide's current step trains you.");
+	let far = &out[2];
+	assert!(text(&far["route"]).starts_with("Nearest class trainer: Jen'shan"), "{far}");
+	assert_eq!(far["act"], "Show me");
+}
+
+#[test]
+fn with_the_guide_windows_training_reminder_up_the_card_names_no_trainer() {
+	let out = run_ui(
+		r#"
+		Polestar.UI.GuideFrame.BannerNotice = function() return "train" end
+		Polestar.Fire("LEVELUP_SPELLS", { level = 20, spells = spells(2), cost = 200, money = 1000,
+			trainer = { npc = 3169, npcName = "Jen'shan", map = 1411, x = 42.5, y = 69 } })
+		emit(card())"#,
+	);
+	let c = &out[0];
+	assert_eq!(c["shown"], true, "{c}");
+	assert_eq!(c["route"], Value::Null, "{c}");
+	assert_eq!(c["buttons"], false, "{c}");
+}
+
+#[test]
+fn a_spell_tooltip_sits_beside_the_card_never_over_its_lines() {
+	let out = run_ui(
+		r#"
+		Polestar.Fire("LEVELUP_SPELLS", { level = 10, spells = spells(2), cost = 200, money = 1000 })
+		local f = CT.frame
+		local function hover()
+			local b = f.SpellRow[1]
+			b:GetScript("OnEnter")(b)
+			local point, rel, relPoint = GameTooltip:GetPoint(1)
+			return { point = point, rel = rel == f, relPoint = relPoint, side = CT.tipSide }
+		end
+		-- The card on the left half of the screen: the tooltip on its right.
+		f.GetCenter = function() return 200, 300 end
+		UIParent.GetCenter = function() return 960, 540 end
+		emit(hover())
+		-- On the right half: on its left.
+		f.GetCenter = function() return 1600, 300 end
+		emit(hover())"#,
+	);
+	assert_eq!(out[0], json!({ "point": "TOPLEFT", "rel": true, "relPoint": "TOPRIGHT", "side": "right" }));
+	assert_eq!(out[1], json!({ "point": "TOPRIGHT", "rel": true, "relPoint": "TOPLEFT", "side": "left" }));
 }

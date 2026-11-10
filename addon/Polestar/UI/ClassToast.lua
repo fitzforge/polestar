@@ -502,13 +502,15 @@ function layout(width)
 	-- The buttons in one row: the action, another heads-up's second button
 	-- ("Open in Dungeons"), Later and its "stop these". When they don't all
 	-- fit in the card's width, Later and the rest start a row of their own,
-	-- and a button that still doesn't fit starts the next row.
-	local act = (f.Act:IsShown() and f.Act) or (f.Open:IsShown() and f.Open) or f.ShowMe
+	-- and a button that still doesn't fit starts the next row. A heads-up
+	-- with nothing to do (m.noAct) starts with Later.
+	local act = (f.Act:IsShown() and f.Act) or (f.Open:IsShown() and f.Open) or (f.ShowMe:IsShown() and f.ShowMe) or nil
 	local row = { act }
-	local avail, total = width - 2 * PAD - STRIPE, act:GetWidth()
+	local avail, total = width - 2 * PAD - STRIPE, act and act:GetWidth() or 0
 	for _, b in ipairs({ f.More, f.Later, f.Off }) do
 		if b:IsShown() then
-			total = total + (#row == 1 and 8 or 4) + b:GetWidth()
+			if #row > 0 then total = total + (row[#row] == act and 8 or 4) end
+			total = total + b:GetWidth()
 			row[#row + 1] = b
 		end
 	end
@@ -602,7 +604,8 @@ end
 -- more"), each with the game's spell tooltip, spellTip(tooltip, spell) adding
 -- lines to it, spellRight(spell) run on a right-click.
 -- hideAfter: seconds on screen before it hides itself (not while the
--- pointer is on it); quiet: no chime.
+-- pointer is on it); quiet: no chime; noAct: no action button (Later
+-- leads the row).
 -- -> true when shown
 function CT.ShowCard(m)
 	if not (m and window()) then return false end
@@ -651,8 +654,8 @@ function CT.ShowCard(m)
 	if m.more then W.SetButtonText(f.More, m.more.label) end
 	f.Off:SetShown(m.off ~= nil)
 	if m.off then W.SetButtonText(f.Off, m.off.label) end
-	f.Open:SetShown(m.act == nil and m.guideId ~= nil)
-	f.ShowMe:SetShown(m.act == nil and m.guideId == nil)
+	f.Open:SetShown(m.act == nil and not m.noAct and m.guideId ~= nil)
+	f.ShowMe:SetShown(m.act == nil and not m.noAct and m.guideId == nil)
 	CT.Place(not wasShown)
 	if not wasShown and f:IsShown() and not m.quiet then
 		local C = CC()
@@ -687,7 +690,7 @@ function CT.SpellButton(i)
 	b:SetScript("OnEnter", function(self)
 		local m, s = CT.current, self.spell
 		if not (m and s) then return end
-		W.SpellTip(self, s.id, m.spellTip and function(tip) m.spellTip(tip, s) end or nil)
+		W.SpellTip(self, s.id, m.spellTip and function(tip) m.spellTip(tip, s) end or nil, CT.PlaceTip)
 	end)
 	b:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
 	b:SetScript("OnClick", function(self, button)
@@ -701,6 +704,21 @@ function CT.SpellButton(i)
 	end)
 	f.SpellRow[i] = b
 	return b
+end
+
+-- A spell icon's tooltip beside the card, never over its lines: on the side
+-- of the card facing the middle of the screen, top edges level.
+function CT.PlaceTip(tip)
+	local cx = f:GetCenter()
+	local mid = UIParent:GetCenter()
+	local fs, us = f:GetEffectiveScale() or 1, UIParent:GetEffectiveScale() or 1
+	if cx and mid and cx * fs > mid * us then
+		tip:SetPoint("TOPRIGHT", f, "TOPLEFT", -4, 0)
+		CT.tipSide = "left"
+	else
+		tip:SetPoint("TOPLEFT", f, "TOPRIGHT", 4, 0)
+		CT.tipSide = "right"
+	end
 end
 
 -- The row of spell icons for list (nil: none).
