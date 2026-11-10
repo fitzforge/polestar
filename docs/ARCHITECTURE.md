@@ -2618,8 +2618,9 @@ scheme.
   `ui.border` (default on) and its thickness `ui.borderSize` (1–4 physical
   pixels, growing outward; `Theme.WindowBorder()`), its colour the
   `windowBorder` token: `ui.borderColor` (`false` or `{ r, g, b }`) > the
-  accent at 80% when `ui.borderAccent` > the scheme's `border` hairline (the
-  two sources turn each other off); `ui.shadow` (default on) for the drop
+  accent at 80% when `ui.borderAccent` > a registered skin's own
+  `windowBorder` token > the scheme's `border` hairline (the two player
+  sources turn each other off); `ui.shadow` (default on) for the drop
   shadow; `ui.band` (default on, `Theme.ShowsBand()`) paints every header band
   clear when off (a band standing in for missing zone art stays).
 - The arrow: the `arrow` token is `nav.arrowColor` > the accent; `arrowNear`
