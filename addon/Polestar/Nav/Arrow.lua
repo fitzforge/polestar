@@ -1,5 +1,6 @@
 -- The waypoint arrow: turns smoothly toward the target, with distance, label
--- and ETA underneath. It shifts from its far colour to its near colour as
+-- and ETA underneath, and while a timed quest's timer runs its countdown
+-- between the distance and the label (syncTimer). It shifts from its far colour to its near colour as
 -- you close in and becomes a pulsing ring on arrival. On another continent
 -- it shows the target's zone instead; where the client gives no player
 -- position (the Deeprun Tram) it says so over the label, or keeps showing the
@@ -220,6 +221,14 @@ local distText = frame:CreateFontString(nil, "OVERLAY")
 distText:SetPoint("TOP", dial, "BOTTOM", 0, -12) -- clear of the dart's tip and the 3D arrow's shadow
 distText:SetJustifyH("CENTER")
 
+-- A timed quest's countdown (Quests/Timed.lua), between the distance and the
+-- label while a timer runs (syncTimer); the label sits under the distance
+-- otherwise.
+local timerText = frame:CreateFontString(nil, "OVERLAY")
+timerText:SetPoint("TOP", distText, "BOTTOM", 0, -4)
+timerText:SetJustifyH("CENTER")
+timerText:Hide()
+
 local labelText = frame:CreateFontString(nil, "OVERLAY")
 labelText:SetPoint("TOP", distText, "BOTTOM", 0, -5)
 labelText:SetWidth(200)
@@ -240,7 +249,7 @@ local UI_MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\UI\\"
 
 local Arrow = {
 	frame = frame, dial = dial, mover = mover, body = body, facet = facet, glow = glow, sheet = sheet, sheetSpec = sheetSpec,
-	ring = ring, halo = halo, legIcon = legIcon, distText = distText, labelText = labelText, etaText = etaText, floorIcon = floorIcon,
+	ring = ring, halo = halo, legIcon = legIcon, distText = distText, timerText = timerText, labelText = labelText, etaText = etaText, floorIcon = floorIcon,
 	dart = dart, dartEdge = dartEdge, skinRing = skinRing, skinCheck = skinCheck, skinDisc = skinDisc,
 	glass = glass, glassBody = glassBody, glassSand = glassSand,
 }
@@ -710,6 +719,38 @@ function Arrow.StyleFor(v)
 	return "3d"
 end
 
+-- The countdown line (timerText): while a timed quest's timer runs, the
+-- countdown of the arrow's target's quest, else of the timer that ends
+-- first (a "Fly to" or a walk on the way to a delivery's hand-in has no
+-- quest of its own), as Timed.Countdown words and colours it. Set on
+-- QUEST_TIMER (each second a timer runs, once when the last one stops) and
+-- on a new target; no work of its own per frame.
+local timerShown -- the countdown on screen, or nil
+local function syncTimer()
+	local T = ns.Timed
+	local text
+	if T then
+		local target = Nav.GetTarget()
+		local q = target and target.quest
+		text = q and T.Countdown(q)
+		if not text then
+			q = T.Soonest()
+			text = q and T.Countdown(q)
+		end
+	end
+	if text == timerShown then return end
+	local was = timerShown ~= nil
+	timerShown = text
+	if text then timerText:SetText(text) end
+	if was ~= (text ~= nil) then
+		timerText:SetShown(text ~= nil)
+		labelText:ClearAllPoints()
+		labelText:SetPoint("TOP", text and timerText or distText, "BOTTOM", 0, -5)
+	end
+end
+Arrow.SyncTimer = syncTimer
+ns.On("QUEST_TIMER", syncTimer)
+
 function Arrow:OnTheme()
 	applyStyle(Arrow.StyleFor(ns.Get("nav.arrowStyle")))
 	if skinStyle() then
@@ -725,6 +766,13 @@ function Arrow:OnTheme()
 		labelText:SetTextColor(Nav.RGB("text"))
 	end
 	etaColor()
+	Nav.SetHudFont(timerText, "small", skinStyle() and 11 or 12)
+	-- Its colours are the theme's: set it afresh.
+	timerShown = nil
+	timerText:Hide()
+	labelText:ClearAllPoints()
+	labelText:SetPoint("TOP", distText, "BOTTOM", 0, -5)
+	syncTimer()
 	mover:SetColorTexture(Nav.Wash("mover"))
 	local m = mode
 	mode = nil
@@ -734,6 +782,7 @@ end
 function Arrow:OnTarget(target)
 	labelText:SetText(target and target.label or "")
 	mode, hasAngle, routeSeen, loneSeen, warning = nil, false, -1, -1, nil
+	syncTimer()
 	self:Refresh()
 end
 
@@ -766,6 +815,7 @@ function Arrow.SetBusy(on)
 	distText:SetAlpha(a)
 	labelText:SetAlpha(a)
 	etaText:SetAlpha(a)
+	timerText:SetAlpha(a)
 end
 
 function Arrow.IsBusy()

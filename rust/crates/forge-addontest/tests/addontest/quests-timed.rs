@@ -1,10 +1,12 @@
-//! Timed quests (addon/Polestar/Quests/Timed.lua, 0.3.7, a Discord request): before the accept, how long the quest
+//! Timed quests (addon/Polestar/Quests/Timed.lua, 0.3.6, a Discord request): before the accept, how long the quest
 //! allows (its `limit`); once taken, "M:SS left" on its goals in the guide window, full and compact, in the warning
 //! colour under 2 minutes and the danger colour under 1; a chat line and a sound at 5 minutes, at 1 and when it fails
 //! (qol.questTimerAlerts); and a hint on the step when the way to its hand-in (Nav.EstimateTravel) takes longer than
 //! the time left. The clock is the client's (C_QuestLog.GetTimeAllowed), else the accept's time plus the guide's
 //! `limit` (a delivery, ready at once, which the client may not report: recordings show 3364, 3522, 647, 853 and 97891
-//! failing at exactly their limits with no timer the Recorder saw). The whole addon, the stub world.
+//! failing at exactly their limits with no timer the Recorder saw). The arrow shows the same countdown between its
+//! distance and its label (Nav/Arrow.lua, syncTimer). A failed quest loses its countdown and reads as the Engine's
+//! failed-quest line says. The whole addon, the stub world.
 
 use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::Value;
@@ -74,8 +76,7 @@ fn run(limit: u32, script: &str) -> Value {
 		before: WORLD.into(),
 		addons: vec![Addon::name("Polestar")],
 		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/timed" }"#.into())],
-		script: [TEST_PACK, TEST_SOURCE, &GUIDE.replace("LIMIT", &limit.to_string()), HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, script]
-			.join("\n"),
+		script: [TEST_PACK, TEST_SOURCE, &GUIDE.replace("LIMIT", &limit.to_string()), HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, script].join("\n"),
 		..Default::default()
 	})
 	.remove(0)
@@ -155,4 +156,90 @@ fn alerts_at_five_minutes_one_minute_and_on_failure_once_each_and_only_with_the_
 	assert_eq!(out["failed"], serde_json::json!([1, 3]));
 	assert_eq!(out["failedOnce"], 1);
 	assert_eq!(out["off"], serde_json::json!([0, true]));
+}
+
+#[test]
+fn the_arrow_counts_down_under_its_distance_while_a_timer_runs_and_the_label_moves_back_after() {
+	let out = run(
+		300,
+		r#"
+		local t0
+		C_QuestLog.GetTimeAllowed = function(q) if q == 3364 and w.log[3364] then return 300, GetTime() - t0 end return 0 end
+		local A = Polestar.Nav.arrow
+		local function plain(s) return ((s or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|T.-|t", "")) end
+		local function role()
+			local c = (A.timerText:GetText() or ""):match("|c(%x%x%x%x%x%x%x%x)")
+			for _, k in ipairs({ "text", "warning", "danger" }) do if c and Polestar.Theme.Hex(k) == c then return k end end
+			return c or false
+		end
+		local function labelUnder() local _, rel = A.labelText:GetPoint(1); return rel == A.timerText and "timer" or rel == A.distText and "distance" or "?" end
+		local r = { before = { A.timerText:IsShown(), labelUnder() } }
+		t0 = GetTime(); w.accept(3364, {}, "Scalding Mornbrew Delivery"); stub.advance(1.1)
+		local wp = E.GetWaypoint()
+		r.target = wp and wp.quest or false
+		r.taken = { A.timerText:IsShown(), plain(A.timerText:GetText()), role(), labelUnder(), (A.timerText:GetText() or ""):find("|T", 1, true) ~= nil }
+		jump(200); r.warn = role()
+		jump(45); r.danger = { plain(A.timerText:GetText()), role() }
+		-- A point of the player's own (no quest): the timer that runs still shows.
+		Polestar.Nav.SetTarget(1429, 30, 30, "Somewhere")
+		stub.advance(1.1)
+		r.manual = { A.timerText:IsShown(), plain(A.timerText:GetText()) ~= "" }
+		Polestar.Nav.ReleaseTarget()
+		w.turnIn(3364); stub.advance(1.1)
+		r.done = { A.timerText:IsShown(), labelUnder() }
+		emit(r)"#,
+	);
+	assert_eq!(out["before"], serde_json::json!([false, "distance"]), "no timer: no line, the label under the distance");
+	assert_eq!(out["target"], 3364, "the arrow leads to the timed quest's hand-in");
+	let taken = &out["taken"];
+	assert_eq!(taken[0], true);
+	assert!(s(&taken[1]).contains("4:59 left") || s(&taken[1]).contains("4:58 left"), "{taken}");
+	assert_eq!(taken[2], "text");
+	assert_eq!(taken[3], "timer", "the label moves under the countdown");
+	assert_eq!(taken[4], true, "with the hourglass");
+	assert_eq!(out["warn"], "warning", "under 2 minutes");
+	assert_eq!(out["danger"][1], "danger", "under 1 minute: {}", out["danger"]);
+	assert_eq!(out["manual"], serde_json::json!([true, true]));
+	assert_eq!(out["done"], serde_json::json!([false, "distance"]), "handed in: the line goes, the label comes back up");
+}
+
+#[test]
+fn a_delivery_ready_at_the_accept_counts_down_from_the_guides_limit_and_its_failure_reads_one_way() {
+	let out = run(
+		600,
+		r#"
+		-- The client has the API but reports no time for a quest ready at once (what the recordings point to).
+		C_QuestLog.GetTimeAllowed = function() return 0, 0 end
+		C_QuestLog.IsFailed = function(q) return w.log[q] and w.log[q].failed or false end
+		local A = Polestar.Nav.arrow
+		local r = {}
+		w.accept(3364, {}, "Scalding Mornbrew Delivery"); stub.advance(1.1)
+		r.ready = C_QuestLog.ReadyForTurnIn(3364)
+		r.step, r.taken, r.arrow = E.GetStepIndex(), rows(), A.timerText:IsShown()
+		r.record = Polestar.CharState().timedAccepts[3364] ~= nil
+		jump(420); r.later = rows()
+		w.log[3364].failed = true; stub.fire("QUEST_LOG_UPDATE"); stub.advance(1.1)
+		r.failed, r.failedArrow = rows(), A.timerText:IsShown()
+		r.said = { said("failed: its time ran out"), said("failed") }
+		w.abandon(3364); stub.advance(1.1)
+		r.abandoned = rows()
+		w.accept(3364, {}, "Scalding Mornbrew Delivery"); stub.advance(1.1)
+		r.again = rows()
+		emit(r)"#,
+	);
+	assert_eq!(out["ready"], true, "a delivery: ready at the accept");
+	assert_eq!(out["step"], 2);
+	let taken = s(&out["taken"]);
+	assert!(taken.contains("9:59 left") || taken.contains("9:58 left"), "the guide's 600 s from the accept: {taken}");
+	assert_eq!(out["arrow"], true, "the arrow counts down too");
+	assert_eq!(out["record"], true, "kept in CharState over a reload");
+	assert!(s(&out["later"]).contains("2:5") || s(&out["later"]).contains("3:0"), "{}", out["later"]);
+	let failed = s(&out["failed"]);
+	assert!(!failed.contains(" left"), "failed: no countdown ({failed})");
+	assert!(failed.contains("failed: abandon it and take it again"), "the Engine's failed line: {failed}");
+	assert_eq!(out["failedArrow"], false);
+	assert_eq!(out["said"], serde_json::json!([1, 1]), "one chat line, telling the same thing");
+	assert!(s(&out["abandoned"]).contains("Timed: 10 min once accepted"), "back at the giver, the accept says how long: {}", out["abandoned"]);
+	let again = s(&out["again"]);
+	assert!(again.contains("9:59 left") || again.contains("9:58 left"), "taken again, the clock starts afresh: {again}");
 }

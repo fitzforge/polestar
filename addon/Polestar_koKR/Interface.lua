@@ -516,6 +516,8 @@ L["Area opacity"] = "지역 불투명도"
 L["How strongly the objective areas tint the map."] = "임무 지역이 지도를 얼마나 진하게 칠할지 정합니다."
 L["Quest marker size"] = "퀘스트 표시 크기"
 L["The size of every quest marker on the world map and the minimap."] = "지도와 미니맵의 모든 퀘스트 표시 크기입니다."
+-- L["Timed quest alerts"] = ""
+-- L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = ""
 
 -- Quests/Party.lua
 L["%s done"] = "%s 완료"
@@ -3162,6 +3164,15 @@ L["New in Forever"] = "Forever 신규"
 -- Maps/RouteLines.lua
 L["Line"] = "선"
 L["Sparkles"] = "반짝임"
+
+-- Quests/Timed.lua
+-- L["%d h"] = ""
+-- L["%s left"] = ""
+-- L["Timed: %s once accepted"] = ""
+-- L["The way to %s takes about %s, longer than the time left"] = ""
+-- L["%s: %d minutes left"] = ""
+-- L["%s: 1 minute left"] = ""
+-- L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."

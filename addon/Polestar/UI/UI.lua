@@ -261,7 +261,8 @@ function UI.HereText(v)
 	local NQ, title = ns.NewQuests, v.hereTitle
 	if (v.here == "turnin" or v.here == "take") and NQ and type(title) == "string" and title ~= "" then
 		local mark = NQ.Mark(v.quest)
-		local _, b = mark ~= "" and text:find(title, 1, true)
+		local _, b
+		if mark ~= "" then _, b = text:find(title, 1, true) end
 		if b then text = text:sub(1, b) .. mark .. text:sub(b + 1) end
 	end
 	-- A timed quest's hand-in: its time left (Quests/Timed.lua).

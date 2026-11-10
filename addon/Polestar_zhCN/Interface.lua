@@ -516,6 +516,8 @@ L["Area opacity"] = "区域不透明度"
 L["How strongly the objective areas tint the map."] = "目标区域给地图着色的深浅。"
 L["Quest marker size"] = "任务标记大小"
 L["The size of every quest marker on the world map and the minimap."] = "世界地图和微缩地图上所有任务标记的大小。"
+-- L["Timed quest alerts"] = ""
+-- L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = ""
 
 -- Quests/Party.lua
 L["%s done"] = "%s 已完成"
@@ -3162,6 +3164,15 @@ L["New in Forever"] = "Forever 新增"
 -- Maps/RouteLines.lua
 L["Line"] = "线条"
 L["Sparkles"] = "闪光"
+
+-- Quests/Timed.lua
+-- L["%d h"] = ""
+-- L["%s left"] = ""
+-- L["Timed: %s once accepted"] = ""
+-- L["The way to %s takes about %s, longer than the time left"] = ""
+-- L["%s: %d minutes left"] = ""
+-- L["%s: 1 minute left"] = ""
+-- L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"

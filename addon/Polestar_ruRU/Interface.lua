@@ -516,6 +516,8 @@ L["Area opacity"] = "Непрозрачность областей"
 L["How strongly the objective areas tint the map."] = "Насколько сильно области целей закрашивают карту."
 L["Quest marker size"] = "Размер меток заданий"
 L["The size of every quest marker on the world map and the minimap."] = "Размер всех меток заданий на карте мира и мини-карте."
+-- L["Timed quest alerts"] = ""
+-- L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = ""
 
 -- Quests/Party.lua
 L["%s done"] = "%s: готово"
@@ -3162,6 +3164,15 @@ L["New in Forever"] = "Новое в Forever"
 -- Maps/RouteLines.lua
 L["Line"] = "Линия"
 L["Sparkles"] = "Искры"
+
+-- Quests/Timed.lua
+-- L["%d h"] = ""
+-- L["%s left"] = ""
+-- L["Timed: %s once accepted"] = ""
+-- L["The way to %s takes about %s, longer than the time left"] = ""
+-- L["%s: %d minutes left"] = ""
+-- L["%s: 1 minute left"] = ""
+-- L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."

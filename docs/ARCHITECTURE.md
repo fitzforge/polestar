@@ -1538,7 +1538,7 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   first line's item that `ChooseQuestItem` falls back to (its `use` item or
   its quest's log item). Done early, the later step is done or shorter
   when the route gets there, as any objective done ahead.
-- **Timed quests** (Quests/Timed.lua, 0.3.7). While a timer runs, its quest's
+- **Timed quests** (Quests/Timed.lua, 0.3.6). While a timer runs, its quest's
   open goals in the window (card, full and compact, and the While-here
   rows: `UI.GoalLine`, `UI.HereText`) end in "M:SS left" after an hourglass,
   warning colour under `Timed.WARN` (120 s), danger under `Timed.DANGER`
@@ -1553,7 +1553,14 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   its last goal of it) carries "The way to X takes about N min, longer than
   the time left" when `Nav.EstimateTravel` to the route's hand-in says so
   (every `Timed.READ_EVERY` s). An open accept with a `limit` says "Timed:
-  N min once accepted" (`UI.GoalSubline`).
+  N min once accepted" (`UI.GoalSubline`). The arrow shows the same
+  countdown between its distance and its label (`Arrow.SyncTimer` on
+  `QUEST_TIMER` and a new target): its target's quest's (the Engine
+  waypoint's `quest`), else the timer that ends first (a flight or walk on
+  the way to a hand-in has no quest). A failed quest (`C_QuestLog.IsFailed`)
+  loses its countdown at once (`Timed.Countdown`; goals the Engine greys,
+  `lost`, never carry one); the Engine's "failed: abandon it and take it
+  again" and the failure alert say the same thing.
 - **Jumps.** A step with `skipto` (format 5; GUIDE_FORMAT, "Jumps") is
   checked when `computeCurrent` reaches it as the first open step, once the
   quest log can be read (`logReady`): `Own.jump` takes the first jump whose

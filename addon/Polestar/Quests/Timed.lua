@@ -1,4 +1,4 @@
--- Timed quests (0.3.7, a Discord request). While a quest's timer runs:
+-- Timed quests (0.3.6, a Discord request). While a quest's timer runs:
 --   * its time left on each of its open goals the guide window shows (the
 --     step's card, in full or compact mode, and its While-here lines:
 --     UI.GoalLine, UI.HereText): "8:42 left" after the hourglass, in the
@@ -13,6 +13,11 @@
 -- carried by the guide's accept) says how long the quest allows
 -- (UI.GoalSubline). While-here puts a timed quest's lines first and keeps
 -- them while the timer holds every other line (Core/Engine.lua, Own.hereTick).
+-- The arrow shows the same countdown under its distance (Nav/Arrow.lua:
+-- Timed.Countdown of its target's quest, else of Timed.Soonest).
+-- A quest that failed (C_QuestLog.IsFailed) loses its countdown at once; its
+-- goals grey with the Engine's "failed: abandon it and take it again"
+-- (Own.failedQuest) and the alert says the same in chat.
 --
 -- The clock is the client's (Compat.QuestTimers), else, for a quest taken
 -- with a `limit` on the active guide's accept, the accept's time plus that
@@ -26,6 +31,8 @@
 --   Timed.Left(q)          seconds left on quest q's running timer, or nil
 --   Timed.Clock(secs)      "8:42", "1:02:03"
 --   Timed.Badge(goal)      the countdown for an open goal of a running timed quest, or nil
+--   Timed.Countdown(q)     the countdown of quest q's running timer, or nil
+--   Timed.Soonest()        the quest whose running timer ends first, or nil
 --   Timed.LimitText(goal)  "Timed: 10 min once accepted" for an open accept with a `limit`, or nil
 --   Timed.Hint(goal)       the hand-in hint, on the shown step's goal that carries it, or nil
 --   Timed.Update()         read the quest log again and tick (events and the ticker; tests)
@@ -77,8 +84,10 @@ local function duration(secs)
 	return format(L["%d h %d min"], floor(m / 60), m % 60)
 end
 
+-- An open goal of a quest still in play: a goal greyed because its quest
+-- failed or left the log (the Engine's `lost`) carries no countdown.
 local function open(goal)
-	return type(goal) == "table" and goal.status ~= "done" and goal.status ~= "skipped" and goal.status ~= "na"
+	return type(goal) == "table" and goal.status ~= "done" and goal.status ~= "skipped" and goal.status ~= "na" and not goal.lost
 end
 
 -- The hourglass in the colour `role`, at the line's height.
@@ -87,12 +96,24 @@ local function glass(role)
 	return format("|T%s:0:0:0:0:128:128:0:128:0:128:%d:%d:%d|t", Theme.Media(Timed.ICON), floor(r * 255 + 0.5), floor(g * 255 + 0.5), floor(b * 255 + 0.5))
 end
 
-function Timed.Badge(goal)
-	if not open(goal) then return nil end
-	local left = Timed.Left(goal.quest)
-	if not left then return nil end
+function Timed.Countdown(q)
+	local left = Timed.Left(q)
+	if not left or (ns.Compat and ns.Compat.IsQuestFailed and ns.Compat.IsQuestFailed(q)) then return nil end
 	local role = left < Timed.DANGER and "danger" or left < Timed.WARN and "warning" or "text"
 	return glass(role) .. " |c" .. Theme.Hex(role) .. format(L["%s left"], Timed.Clock(left)) .. "|r"
+end
+
+function Timed.Soonest()
+	local best, bestAt
+	for q, d in pairs(deadline) do
+		if not bestAt or d < bestAt then best, bestAt = q, d end
+	end
+	return best
+end
+
+function Timed.Badge(goal)
+	if not open(goal) then return nil end
+	return Timed.Countdown(goal.quest)
 end
 
 function Timed.LimitText(goal)
