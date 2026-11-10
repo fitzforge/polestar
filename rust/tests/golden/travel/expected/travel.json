@@ -6505,6 +6505,8 @@
 		"zeppelin-orgrimmar-undercity: TaxiPath 302 has no points, skipped",
 		"zeppelin-orgrimmar-gromgol: TaxiPath 285 has no points, skipped",
 		"zeppelin-undercity-gromgol: TaxiPath 301 has no points, skipped",
+		"portal-rohashi-spires: an end is on no map, skipped",
+		"portal-valanaar: an end is on no map, skipped",
 		"teleport Teleport: Dalaran (1297659): no destination on a mapped continent, skipped",
 		"inn Thunderbrew Distillery: innkeeper 1247 not in npcs.json",
 		"inn Deepwater Tavern: innkeeper 1464 not in npcs.json",

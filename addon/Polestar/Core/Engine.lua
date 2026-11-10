@@ -4026,7 +4026,9 @@ local TEXT_IS_PLACE = { ["goto"] = true, explore = true }
 -- an NPC of a faction that is not the character's own is one to kill),
 -- `inText` when the text names it. A quest (`kind` "quest") reads in the
 -- client's quote marks: "Turn in “Your Place in the World”" (ns.Quoted).
-local function goalText(goal, verb, subject, detail, kind)
+-- `noBar`: a done goal with no progress bar for its count (ticked by the
+-- route or by hand, its items gone or never bought): "Buy 3 Soothing Spices", #1631.
+local function goalText(goal, verb, subject, detail, kind, noBar)
 	local fromKind = goal.fromKind or "npc"
 	local nameOf = fromKind == "object" and ns.Names.Object or ns.Names.Npc
 	local src = goal.from and {
@@ -4040,7 +4042,7 @@ local function goalText(goal, verb, subject, detail, kind)
 	if kind == "quest" then subject = ns.Quoted(subject) end
 	if verb == "" then return subject, src end
 	if goal.t == "skill" then return verb .. " " .. tostring(subject) .. " " .. detail, src end
-	local counted = goal.count and goal.count > 1 and not tracksProgress(goal)
+	local counted = goal.count and goal.count > 1 and (noBar or not tracksProgress(goal))
 	-- "Kill Grell or Grellkin for Fel Moss", "Collect Oats from Sack of Oats":
 	-- a collect whose source is known says where the item comes from (the
 	-- game's objective only names the item); not an object named as the item
@@ -4091,7 +4093,7 @@ local function goalView(s, g, goal, stepStatus, group)
 	end
 	-- A goal of a quest that left the log, held for the player's answer.
 	local lost = status == "skipped" and not unavail and Own.lostGoal(goal)
-	local text, src = goalText(goal, verb, subject, detail, kind)
+	local text, src = goalText(goal, verb, subject, detail, kind, status == "done" and progress == nil)
 	local need = player and greyNeed(goal)
 	-- A grey accept "Skip grey quests" keeps: the open accept it leads to.
 	local opens = need or nil
