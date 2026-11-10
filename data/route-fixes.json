@@ -9007,6 +9007,15 @@
 				"q": 97954,
 				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, with BrHordeStart): Camping 101 (level 6, 270 XP, needs the profession at accept) from the start's campfire (Eleanor Shackleton, Tirisfal Glades) is handed to Graham Van Talen (4586) on 03-silverpine-forest's Undercity stop at the end (Undead), a step of its own shown only while it is in the log. Players' recordings at the campfires: Durotar Skinning 12 accepts / 9 hand-ins at Thuwd, Tirisfal Mining 13 / 12 at Brom Killian; Forever's quest data gives every variant's ender.",
 				"issue": "-"
+			},
+			{
+				"q": 5887,
+				"after": [
+					"turnin",
+					3942
+				],
+				"reason": "Our comparison, Horde 50-60/07 (0.3.6, BrHorde4060): Salve via Hunting (level 55, 4200 XP the first time; Maybess Riverbreeze at the Emerald Sanctuary, open once Cleansing Felwood 4102 is done in 50-60/02) wants six Corrupted Soul Shards, which the Jaedenar and Shadow Hold cultists drop about one kill in three (Jaedenar Warlock 35%, Darkweaver 34%, Enforcer 34%, Moora 34%, Salia 33%; observed rates). 07 already fights them for Greta's braziers and A Final Blow and walks past Maybess (west side of the Sanctuary) on the way out to Jaedenar and back; the XP comes off the guide's closing grind to 60. Quest data from the classic and Forever quest databases agree; our comparison takes it in Felwood the same way.",
+				"issue": "-"
 			}
 		],
 		"skip": [

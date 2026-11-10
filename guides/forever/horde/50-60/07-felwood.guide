@@ -108,6 +108,11 @@ step The Emerald Sanctuary
   turnin 3942                         -- Eridan Bluewind, inside
   note Eridan's Silver Heart needs an Irontree Heart from northern Felwood and a ride back here. Skip it.
 
+step Maybess Riverbreeze
+  when available 5887
+  tip Maybess stands on the west side of the Sanctuary, the way out to Jaedenar. With Cleansing Felwood done, her Salve via Hunting asks for six Corrupted Soul Shards: the Shadow Council cultists in Jaedenar and Shadow Hold drop them about one kill in three, and you fight dozens of them for Greta.
+  accept 5887                         -- Maybess Riverbreeze
+
 step Dousing the Flames of Protection
   tip Ride north-west to Jaedenar. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.
   tip Careful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended.
@@ -135,6 +140,12 @@ step A Final Blow
   kill 9861 quest 5242.1              -- Below ground
   kill 9860 quest 5242.2              -- Below ground
   collect 13207 quest 5242.3          -- Below ground
+  collect 11515 quest 5887.1          -- Corrupted Soul Shards from the cultists, Salve via Hunting
+
+step Maybess Riverbreeze
+  when onquest 5887
+  tip On the way back south to Greta, Maybess takes the shards on the west side of the Sanctuary.
+  turnin 5887                         -- Maybess Riverbreeze
 
 step Greta Mosshoof
   tip South to the Sanctuary once more.

@@ -10215,3 +10215,17 @@ test('Horde Undercity 45: Yagyin\'s Digest to Bel\'dugur between Luca and Zinge'
 	const zinge = at(list, 'turnin 238', is('turnin', 238));
 	assert.ok(luca < bel && bel < zinge && list[bel].s === list[luca].s && list[zinge].s === list[luca].s, 'Luca, Bel\'dugur, Zinge on one stop');
 });
+
+// Our comparison (0.3.6, Horde 50-60/07): Salve via Hunting (5887, 4200 XP) from Maybess at the Emerald Sanctuary once
+// Cleansing Felwood is done; its Corrupted Soul Shards drop from the Jaedenar and Shadow Hold cultists the guide fights
+// for Greta, and Maybess stands on the way out and back. The XP comes off the closing grind to 60.
+test('Horde Felwood 59: Salve via Hunting on the way to Jaedenar, shards in Shadow Hold, handed in before Greta', { skip }, () => {
+	const fw = goals('forever/horde/50-60/07-felwood.guide');
+	const take = at(fw, 'accept 5887', is('accept', 5887));
+	assert.ok((fw[take].step.when || []).some((p) => p.k === 'available' && !p.neg), 'only when Maybess offers it');
+	assert.ok(take < at(fw, 'interact 176158', (g) => g.t === 'interact' && g.quest === 5165), 'before the braziers');
+	const shards = at(fw, 'collect 11515', (g) => g.t === 'collect' && g.quest === 5887);
+	assert.equal(fw[shards].s, fw[at(fw, 'kill 9861', (g) => g.t === 'kill' && g.quest === 5242)].s, 'with A Final Blow in Shadow Hold');
+	const tin = at(fw, 'turnin 5887', is('turnin', 5887));
+	assert.ok(tin > shards && tin < at(fw, 'turnin 5242', is('turnin', 5242)), 'handed in on the way back to Greta');
+});
