@@ -2792,6 +2792,7 @@ local function fillAlong(E)
 			if b then inStep[b] = true end
 		end
 	end
+	local shown = {}
 	local n, untilStep, mixed = 0, nil, false
 	-- First the quests an update left behind the player (Engine.GetBehind):
 	-- "Still to do: <quest>, back in <zone>, 240 yd".
@@ -2812,7 +2813,9 @@ local function fillAlong(E)
 	for _, s in ipairs(E.GetAlong()) do
 		for _, gv in ipairs(s.goals) do
 			local a, b = alongKeys(gv)
-			if n < ALONG_MAX and not ((a and inStep[a]) or (b and inStep[b])) then
+			local identity = a or b
+			if n < ALONG_MAX and not ((a and inStep[a]) or (b and inStep[b]) or (identity and shown[identity])) then
+				if identity then shown[identity] = true end
 				n = n + 1
 				if not s.untilStep or (untilStep and untilStep ~= s.untilStep) then mixed = true end
 				untilStep = untilStep or s.untilStep
