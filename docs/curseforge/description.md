@@ -4,7 +4,7 @@
 
 **Polestar is a free, open-source guide addon for World of Warcraft: Forever.** Every race, 1 to 60, with a guide window that keeps up with you and an arrow that walks real paths. Every step is the one you'd pick yourself, with nothing pointless in between.
 
-**New in 0.3.0:** the leveling routes are rebuilt from the ground up, every guide has been rebuilt or reviewed for Forever, and the new [Polestar Client](https://polestar.guide/client) installs and updates everything for you.
+**New in 0.3.6:** every leveling route checked again from 1 to 60 and 40-60 reworked for both factions, updating mid-guide keeps your place, Dynamic Questing hands in and picks up on the way, timed quests count down, and Dungeons show the level each one is best at.
 
 ***
 
@@ -67,7 +67,7 @@
 *   **Bags:** junk and keep marks, a warning when they're nearly full.
 *   **XP per hour, time to level** and whether you'll reach the guide's next level on time.
 *   Quest item, target and Hearthstone buttons, selling greys and repairing, the best quest reward, instant quest text, flight map and death helpers.
-*   **Playing with friends:** see where each of them is on the guide and share a quest someone is missing.
+*   **Playing with friends:** see where each of them is on the guide, share a quest someone is missing, and offer your step to the party with "Sync to my guide".
 
 ## Your look
 

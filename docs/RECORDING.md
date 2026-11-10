@@ -225,10 +225,10 @@ Explorer mode (only in Forever's new places; see "Explorer mode")
 
 ## Explorer mode
 
-Explorer mode makes the Recorder note more about the places Forever made
-new, for the zones and dungeons no other source covers yet. It works by
-itself while recording is on and the player is in one of those places, and
-nowhere else.
+Explorer mode (Recorder 0.3.6 and later) makes the Recorder note more about
+the places Forever made new, for the zones and dungeons no other source
+covers yet. It is on by default and works by itself while recording is on
+and the player is in one of those places, and nowhere else.
 
 - **Where** (`Explore.lua`, `NEW_PLACES`, the one list it goes by): the new
   zones by uiMapID and every map inside them (2521 and 2665 Zephras Isle,
@@ -274,7 +274,8 @@ nowhere else.
   from the stored chunk, but rejects a chunk holding more than 64 records of
   kinds it does not know (a busy explorer chunk easily holds more `unitx`).
   So the server learns the kinds first, then a Polestar Client that knows
-  them, and only then does explorer mode data reach the archive.
+  them (0.1.6 and later), and only then does explorer mode data reach the
+  archive.
 
 ## Upload API (`https://data.polestar.guide/v1`)
 
