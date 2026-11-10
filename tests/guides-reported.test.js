@@ -9821,3 +9821,23 @@ test('Blasted Lands (Alliance 52): Petty Squabbles and A Tale of Sorrow on the N
 	assert.ok(everyone(bs[acc]) && everyone(bs[told]) && !bs[acc].step.when, 'for everyone');
 	assert.ok(told < at(bs, 'turnin 3501', is('turnin', 3501)), 'before Kum\'isha and the hearth');
 });
+
+// Horde 12-30 bracket review (0.3.6): Kaya Flathoof waits in Grundig Darkcloud's hut on the Webwinder Path, which the
+// Barrens guide walks past going up and coming back down; her escort to Camp Aparaje runs on the way down, before
+// Xen'Zilla at Malaka'jin, Makaba takes it on the last Seereth stop, and Tammra takes Kaya's Alive at Sun Rock only for
+// a player who carries it.
+test('Horde Barrens 15-21: Protect Kaya on the way down the Webwinder Path, Kaya\'s Alive at Sun Rock', { skip }, () => {
+	const list = goals('forever/horde/02-the-barrens.guide');
+	const ziz = at(list, 'Further Instructions from Ziz', is('accept', 1094));
+	const take = at(list, 'Protect Kaya', is('accept', 6523));
+	const done = at(list, 'the escort', (g) => g.t === 'complete' && g.quest === 6523);
+	const xen = at(list, "Xen'Zilla", is('turnin', 6461));
+	assert.ok(ziz < take && take < done && done < xen, 'Kaya after Ziz, her escort before Xen\'Zilla on the way down');
+	assert.equal(list[take].goal.npc, 11856);
+	const makaba = at(list, 'Makaba takes Protect Kaya', is('turnin', 6523));
+	assert.ok(makaba > xen && makaba < at(list, "Kaya's Alive", is('accept', 6401)), "Makaba hands out Kaya's Alive after the escort");
+	const sun = goals('forever/horde/04-the-barrens.guide');
+	const { step, goal } = sun[at(sun, 'Tammra takes Kaya\'s Alive', is('turnin', 6401))];
+	assert.equal(goal.npc, 11864);
+	assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg && p.q.includes(6401)), "only for a player carrying Kaya's Alive");
+});

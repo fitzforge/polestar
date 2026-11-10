@@ -12,6 +12,8 @@ next forever/horde/07-ashenvale
 # Added here: Wrongly Blamed, Justly Corrected (97250, Grunt Logmar in Camp Taurajo; its camp is a
 # few steps east of Gann Stonespire; `when group 97250`: its Outraged Pillager is a level 23 elite).
 # Left out: The Harvester (897).
+# Kaya's Alive (6401) comes from Makaba with Protect Kaya at the end of forever/horde/02-the-barrens and
+# is handed to Tammra Windfield on the first Sun Rock stop, for players who carry it.
 
 # Horde 12-30 in the order the quest levels fit (2026-11-07): back from Hillsbrad at 24 for the
 # Barrens' and Stonetalon's level 23-28 quests: Sun Rock Retreat and Stonetalon Peak, then the
@@ -71,6 +73,11 @@ step Sun Rock Retreat
   accept 1087                         -- Braelyn Firehand, outside the gate
   getfp "Sun Rock Retreat"
   vendor nearest
+
+step Tammra Windfield
+  when onquest 6401
+  tip Tammra Windfield stands by the bonfire inside Sun Rock: Makaba's news that Kaya is alive is for her.
+  turnin 6401                         -- Tammra Windfield
 
 step Gaea Seeds
   tip The Gaea Seeds lie in the grass around the southern shore of Mirkfallon Lake, north of Sun Rock.

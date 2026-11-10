@@ -8535,6 +8535,24 @@
 				"q": 2801,
 				"reason": "Our comparison, Alliance 50-60 (0.3.6): Petty Squabbles (2783, Alliance, level 57, min 50, 4,500 XP; Ambassador Ardalan 7826 in Nethergarde Keep, Blasted Lands 67.6,19.3) ends at the Fallen Hero of the Horde (7572, Swamp of Sorrows 34.3,66.1), who gives A Tale of Sorrow (2801, 600 XP, listen to him) on the spot. 50-60/01 lands at Nethergarde for Kum'isha and hearths away from the Blasted Lands, so the pair costs about 1,000 yd of riding for 5,100 XP at about 52, before the Winterspring top-up. Quest data and QuestieDB agree on givers and places; our comparison takes both on the same visit.",
 				"issue": "-"
+			},
+			{
+				"q": 6523,
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10): Protect Kaya (level 18, from 12, 1350 XP) from Kaya Flathoof (11856, Stonetalon 73.5,85.6) in Grundig Darkcloud's hut at the bend of the Webwinder Path, which 02-the-barrens walks past going up (Grundig, 6629) and coming back down from Ziz; the escort ends at Camp Aparaje (77.1,90.8) between the hut and Malaka'jin, and Makaba takes it with Kill Grundig Darkcloud on the last Seereth stop. Players' recordings: 6 people, every one completed (levels 18-25), hand-ins at Makaba (11857). Both benchmark guides of our comparison escort her on this walk.",
+				"issue": "-",
+				"after": [
+					"accept",
+					1094
+				]
+			},
+			{
+				"q": 6401,
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10): Kaya's Alive (level 18, 1000 XP) from Makaba with Protect Kaya's hand-in at the end of 02-the-barrens, handed to Tammra Windfield (11864) on 04-the-barrens' first Sun Rock stop, where the route already talks to her (Gaea Seeds 6301).",
+				"issue": "-",
+				"after": [
+					"turnin",
+					6523
+				]
 			}
 		],
 		"skip": [

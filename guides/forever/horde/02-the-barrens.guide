@@ -9,7 +9,11 @@ next forever/horde/05-stonetalon-mountains
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Letter to Jin'Zil (1060), Sample for Helbrim (1358, from Zinge in the Undercity).
+# Added here: Letter to Jin'Zil (1060), Sample for Helbrim (1358, from Zinge in the Undercity),
+# Protect Kaya (6523, Kaya waits in Grundig Darkcloud's hut at the bend of the Webwinder Path, which
+# the route walks past twice; her escort ends at Camp Aparaje on the way back down to Malaka'jin) and
+# Kaya's Alive (6401, from Makaba with the escort's hand-in; Tammra Windfield takes it at Sun Rock in
+# forever/horde/04-the-barrens).
 # Left out: The Harvester (897).
 # Trial at the Field of Giants (1824, Warriors) runs for 30 minutes: it is taken from Ruga on Jorn's stop after the thunder
 # lizards, right before the thunderhawks, the eggs and the antennae, not on the first Camp Taurajo stop.
@@ -36,7 +40,8 @@ next forever/horde/05-stonetalon-mountains
 # Crossroads, Regthar,
 # Hezrul -> Camp Taurajo (bind): Jorn's thunder lizards and thunderhawks -> the Crossroads:
 # Counterattack! -> west to Seereth, Makaba and Malaka'jin -> the Webwinder Path, Ziz Fizziks and
-# Windshear Crag -> back down to Seereth. The next guide goes north to the Mor'shan Rampart and
+# Windshear Crag -> back down: Kaya's escort from Grundig's hut to Camp Aparaje -> Malaka'jin ->
+# Seereth. The next guide goes north to the Mor'shan Rampart and
 # Ashenvale.
 #
 # Orcs and Trolls: Far Watch Post first (Crossroads Conscription from Kargal: they handed him
@@ -64,7 +69,8 @@ next forever/horde/05-stonetalon-mountains
 # Carried on, finished: Report to Kadrak (6541, the next guide's first stop) and The Ashenvale Hunt
 # (6382, Night Run). Carried on, to hand in: Further Instructions (1094), taken from Ziz with the
 # blueprints' hand-in at 21; Sputtervalve stands beside Ratchet's flight master, where
-# forever/horde/04-the-barrens lands at about 26 (830 XP for a few steps).
+# forever/horde/04-the-barrens lands at about 26 (830 XP for a few steps). Kaya's Alive (6401) goes to
+# Tammra Windfield on 04-the-barrens' first Sun Rock stop.
 #
 # Class quests: Warriors take Speak with Ruga / Trial at the Field of Giants / Speak with Thun'grim
 # (1823-1825) on the Orgrimmar trip at 20 and gather the Twitching Antennae at the Field of Giants
@@ -1173,8 +1179,15 @@ step Ziz Fizziks
   turnin 1093                         -- Ziz Fizziks, inside
   accept 1094                         -- Ziz Fizziks: for Sputtervalve, beside Ratchet's flight master at the end of the Barrens & Stonetalon guide
 
+step Kaya Flathoof
+  zone Stonetalon Mountains
+  tip On the way back down the Webwinder Path, Kaya Flathoof is held in Grundig Darkcloud's hut at the bend in the road. Once you take her quest she walks straight off south-east to Camp Aparaje, the burned village, without waiting: stay close, or the quest fails.
+  tip Careful: Three Grimtotems ambush her at the burned village and go for her, not you: pull them off her and kill their caster quickly.
+  accept 6523 @73.5,85.6              -- Kaya Flathoof, inside Grundig's hut
+  complete 6523 @77.1,90.8
+
 step Malaka'jin
-  tip Back down the Webwinder Path: Xen'Zilla stands just outside Malaka'jin, before the village.
+  tip West from the burned village to Malaka'jin: Xen'Zilla stands just outside it, before the village.
   turnin 6461                         -- Xen'Zilla
 
 step Seereth's camp
@@ -1186,4 +1199,6 @@ step Seereth Stonebreak
   tip East along the road to Seereth and Makaba's camp, on the way back out of Stonetalon.
   turnin 1062                         -- Seereth Stonebreak
   turnin 6629                         -- Makaba Flathoof
+  turnin 6523                         -- Makaba Flathoof
+  accept 6401                         -- Makaba Flathoof: keep it, Tammra Windfield at Sun Rock Retreat in the Barrens & Stonetalon guide
   note The next guide goes north-east across the Barrens to the Mor'shan Rampart and Ashenvale.
