@@ -354,6 +354,8 @@ mod ui_quest_unlocks;
 mod ui_route;
 #[path = "ui-scrub.rs"]
 mod ui_scrub;
+#[path = "ui-steplist.rs"]
+mod ui_steplist;
 #[path = "ui-thanks.rs"]
 mod ui_thanks;
 #[path = "ui-transparent.rs"]
