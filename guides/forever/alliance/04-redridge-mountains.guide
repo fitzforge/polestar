@@ -376,7 +376,7 @@ step Stonewatch Keep
 
 step Yowler
   tip From the keep head back west along the lake's north shore and north up the Redridge Canyons. Just south of Render's Valley, Yowler, a level 25 gnoll, walks among the Redridge Alphas and Mystics.
-  collect 3614 quest 126 @22.7,21.6           -- Yowler's Paw
+  collect 3614 quest 126 @22.7,21.6 map 1433 live -- Yowler's Paw
 
 step Render's Valley
   tip From the keep head back west along the lake's north shore and north up the Redridge Canyons to Render's Valley; Lakeshire's hand-ins wait for Keeshan's escort, which ends there. Blackrock Champions camp in the valley.
