@@ -64,11 +64,13 @@
 -- In the game's Quick Keybind Mode they take a key under the cursor, and the
 -- hidden ones show dimmed in their slots until it closes (QoL/QuickBind.lua).
 --
--- The buttons hang off one holder: the bag and hearth above the item, target and rare
--- below. A left-drag on any of them moves the set (out of combat; with
--- ui.lockHud on, only a Shift-drag); the position is per character, so the
--- Hearthstone button, shown only for hearth goals, appears in its slot of the
--- moved set.
+-- The quest item, Hearthstone, target and rare buttons hang off one holder:
+-- the hearth above the item, target and rare below. A left-drag on any of
+-- them moves the set (out of combat; with ui.lockHud on, only a
+-- Shift-drag); the position is per character, so the Hearthstone button,
+-- shown only for hearth goals, appears in its slot of the moved set. The bag
+-- button stands on its own: the same drag moves only it, to its own saved
+-- spot (by default two slots above the item, where it sat in the set).
 
 local ADDON, ns = ...
 local L = ns.L
@@ -93,10 +95,14 @@ local Buttons = {}
 QoL.Buttons = Buttons
 
 -- The holder's spot (it sits where the quest item button does) and each
--- button's slot above (+) or below (-) it, GAP button units apart.
+-- button's slot above (+) or below (-) it, GAP button units apart. The bag
+-- button's own spot, by default where its old slot in the set was (two
+-- above the item), so nothing moves for a player who never dragged them.
 local DEFAULT_POS = { "CENTER", "CENTER", 260, -140 }
 local GAP = 44
-local SLOT = { PolestarBagButton = 2, PolestarHearthButton = 1, PolestarQuestItemButton = 0, PolestarTargetButton = -1, PolestarRareButton = -2 }
+local SLOT = { PolestarHearthButton = 1, PolestarQuestItemButton = 0, PolestarTargetButton = -1, PolestarRareButton = -2 }
+local BAG_LIFT = 2 * GAP
+local BAG_DEFAULT_POS = { DEFAULT_POS[1], DEFAULT_POS[2], DEFAULT_POS[3], DEFAULT_POS[4] + BAG_LIFT }
 
 local function Theme() return ns.Theme end
 
@@ -138,16 +144,36 @@ end
 -- Position and scale (secure)
 ---------------------------------------------------------------------------
 
-local holder, set
+-- relabel: every button's name placed again (placeLabel), once they exist.
+local holder, set, bag, relabel
 
 local function savedPos()
 	local p = QoL.State().buttonPos
 	return type(p) == "table" and p or DEFAULT_POS
 end
 
+local function savedBagPos()
+	local p = QoL.State().bagButtonPos
+	return type(p) == "table" and p or BAG_DEFAULT_POS
+end
+
+-- Before the bag button had its own spot it sat two slots above the moved
+-- set. Once per character: a set moved before then takes the bag button
+-- along to that same place on screen (holder and button share the scale, so
+-- the offsets add up), and from then on the two move apart.
+local function adoptBagPos()
+	local s = QoL.State()
+	if s.bagButtonOwn then return end
+	s.bagButtonOwn = true
+	local p = s.buttonPos
+	if type(p) == "table" and s.bagButtonPos == nil then
+		s.bagButtonPos = { p[1], p[2], p[3], p[4] + BAG_LIFT }
+	end
+end
+
 -- Holder position and scale, and the buttons in their slots. The holder takes
 -- the button scale too, so the saved offsets and the slot spacing scale with
--- the buttons.
+-- the buttons. The bag button on its own spot, at the same scale.
 local function place()
 	QoL.Secure("place", function()
 		local p, s = savedPos(), ns.Get("qol.buttonScale") or 1
@@ -156,20 +182,33 @@ local function place()
 		holder:SetPoint(p[1], UIParent, p[2], p[3], p[4])
 		for i = 1, #set do
 			local b = set[i]
-			b:SetScale(s)
-			b:ClearAllPoints()
-			b:SetPoint("CENTER", holder, "CENTER", 0, SLOT[b:GetName()] * GAP)
+			local slot = SLOT[b:GetName()]
+			if slot then
+				b:SetScale(s)
+				b:ClearAllPoints()
+				b:SetPoint("CENTER", holder, "CENTER", 0, slot * GAP)
+			end
 		end
+		local bp = savedBagPos()
+		bag:SetScale(s)
+		bag:ClearAllPoints()
+		bag:SetPoint(bp[1], UIParent, bp[2], bp[3], bp[4])
 	end)
+	-- An Above name follows whether the bag button stands over the set.
+	if relabel then relabel() end
 end
 
-local moving = false
+-- The frame a drag carries (the holder, or the bag button) and where its
+-- spot is saved.
+local moving
 local function stopMoving()
-	if not moving then return end
-	moving = false
-	holder:StopMovingOrSizing()
-	local point, _, relPoint, x, y = holder:GetPoint(1)
-	if point then QoL.State().buttonPos = { point, relPoint, x, y } end
+	local f = moving
+	if not f then return end
+	moving = nil
+	f:StopMovingOrSizing()
+	local point, _, relPoint, x, y = f:GetPoint(1)
+	if point then QoL.State()[f == bag and "bagButtonPos" or "buttonPos"] = { point, relPoint, x, y } end
+	if relabel then relabel() end
 end
 -- Fires before lockdown begins: a drag still going stops while the set may move.
 ns.RegisterEvent("PLAYER_REGEN_DISABLED", stopMoving)
@@ -202,8 +241,8 @@ local function onDragStart(b)
 	useOnKeyDown(b, true)
 	-- Locked: still a drag, so its release uses nothing, but the set stays.
 	if ns.DragLocked() then return end
-	moving = true
-	holder:StartMoving()
+	moving = b == bag and bag or holder
+	moving:StartMoving()
 end
 
 local function onDragStop(b)
@@ -265,21 +304,29 @@ local LABEL_SIDE = {
 }
 
 -- Above sits over the shown buttons stacked on top of b (the quest item
--- button over the target button, the Hearthstone over that), not in the 8 px
--- gap between them, where it would run into the button above.
+-- button over the target button, the Hearthstone over that, the bag button
+-- while it still stands in its old slot over the set), not in the 8 px gap
+-- between them, where it would run into the button above.
+local function bagOverSet()
+	local p, bp = savedPos(), savedBagPos()
+	return bp[1] == p[1] and bp[2] == p[2] and bp[3] == p[3] and bp[4] == p[4] + BAG_LIFT
+end
+
 local function placeLabel(b)
 	local a = LABEL_SIDE[ns.Get("qol.buttonTextSide")] or LABEL_SIDE.right
 	-- The rare button sits under the target button, whose name has the space
 	-- above: a rare's name goes below instead.
 	if a == LABEL_SIDE.above and b:GetName() == "PolestarRareButton" then a = LABEL_SIDE.below end
 	local to = b
-	if a == LABEL_SIDE.above and set then
-		local slot, moved = SLOT[b:GetName()], true
+	local slot = SLOT[b:GetName()]
+	if a == LABEL_SIDE.above and set and slot then
+		local moved = true
 		while moved do
 			moved = false
 			for i = 1, #set do
 				local o = set[i]
-				if SLOT[o:GetName()] == slot + 1 and o:IsShown() then
+				local oSlot = SLOT[o:GetName()] or (o == bag and bagOverSet() and BAG_LIFT / GAP)
+				if oSlot == slot + 1 and o:IsShown() then
 					to, slot, moved = o, slot + 1, true
 					break
 				end
@@ -1656,8 +1703,8 @@ local function create()
 	holder:SetSize(SIZE, SIZE)
 	holder:SetMovable(true)
 	holder:SetClampedToScreen(true)
-	-- The clamp covers the bag, hearth, target and rare slots too.
-	holder:SetClampRectInsets(0, 0, 2 * GAP, -2 * GAP)
+	-- The clamp covers the hearth, target and rare slots too.
+	holder:SetClampRectInsets(0, 0, GAP, -2 * GAP)
 	itemButton = newItemButton("PolestarQuestItemButton")
 	hearthButton = newItemButton("PolestarHearthButton")
 	-- A starter clicked on the button has been read: the next one takes its place.
@@ -1712,6 +1759,13 @@ local function create()
 		if Space then Space.Press() end
 		applyBag(self)
 	end)
+	-- On its own spot, moved by its own drag (onDragStart).
+	bag = bagButton
+	QoL.Secure("init:bagMove", function()
+		bagButton:SetMovable(true)
+		bagButton:SetClampedToScreen(true)
+	end)
+	adoptBagPos()
 	-- The step key: a binding only, never shown. Press and release both
 	-- reach it and useOnKeyDown stays nil, so the player's key-down setting
 	-- (ActionButtonUseKeyDown) picks which one acts: once, either way.
@@ -1750,7 +1804,8 @@ local function create()
 		set[i]:HookScript("OnShow", placeLabels)
 		set[i]:HookScript("OnHide", placeLabels)
 	end
-	placeLabels()
+	-- place() lays the names out too.
+	relabel = placeLabels
 	place()
 end
 
@@ -1807,8 +1862,9 @@ ns.On("SETTING_CHANGED", function(path)
 end)
 ns.On("GUIDE_SHOWN", function() if itemButton then refreshSoon() end end) -- an instance hide (ns.GuideShown)
 
--- Back to the default spot (options button).
+-- Back to the default spots (options button): the set's and the bag button's.
 function Buttons.ResetPositions()
-	QoL.State().buttonPos = nil
+	local s = QoL.State()
+	s.buttonPos, s.bagButtonPos = nil, nil
 	if itemButton then place() end
 end
