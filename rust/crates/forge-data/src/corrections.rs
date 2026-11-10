@@ -251,20 +251,41 @@ pub fn apply(c: &V, quests: &Obj, npcs: &Obj, objects: &Obj, items: &Obj, sim: b
 	for (id, ci) in c.get("items").entries() {
 		let it = items.get(&id);
 		if it.is_undef() {
-			a.unused.push(format!("items {id}: no such item (an item correction only removes sources)"));
-			entry(&mut a, "items", &id, "unused", "no such item (an item correction only removes sources)".into());
+			a.unused.push(format!("items {id}: no such item (an item correction only changes the sources of an item the data has)"));
+			entry(&mut a, "items", &id, "unused", "no such item (an item correction only changes the sources of an item the data has)".into());
 			continue;
 		}
 		let drops_left = ["npc", "object"].iter().any(|kind| ci.get("removeDrops").get(kind).items().iter().any(|x| !it.get("drops").get(kind).get(&x.to_js_string()).is_undef()));
+		let drops_new = ["npc", "object"].iter().any(|kind| ci.get("addDrops").get(kind).items().iter().any(|x| it.get("drops").get(kind).get(&x.to_js_string()).is_undef()));
 		let vendors_left = ci.get("removeVendors").items().iter().any(|r| it.get("vendors").items().iter().any(|v| r.strict_eq(v)));
-		if drops_left || vendors_left {
+		if drops_left || drops_new || vendors_left {
 			entry(&mut a, "items", &id, "applied", String::new());
 		} else {
-			entry(&mut a, "items", &id, "redundant", "no source it removes is in the merged data".into());
+			entry(&mut a, "items", &id, "redundant", "no source it removes is in the merged data, and every one it adds is".into());
 		}
 		for kind in ["npc", "object"] {
 			for x in ci.get("removeDrops").get(kind).items() {
 				it.get("drops").get(kind).as_obj().map(|o| o.delete(&x.to_js_string()));
+			}
+			// A dropper the sources missed (players' recordings): added with no rate, as the
+			// unrated droppers of the merged data are; one already listed keeps its rate.
+			let add = ci.get("addDrops").get(kind).items();
+			if add.is_empty() {
+				continue;
+			}
+			if it.get("drops").as_obj().is_none() {
+				it.set("drops", Obj::new());
+			}
+			let drops = it.get("drops");
+			if drops.get(kind).as_obj().is_none() {
+				drops.set(kind, Obj::new());
+			}
+			let table = drops.get(kind);
+			for x in add {
+				let key = x.to_js_string();
+				if table.get(&key).is_undef() {
+					table.set(&key, V::Null);
+				}
 			}
 		}
 		// sim-v2: no rated dropper left, no scale either.
@@ -384,6 +405,11 @@ pub fn reassert(c: &V, quests: &Obj, npcs: &Obj, objects: &Obj, items: &Obj, sim
 			for x in ci.get("removeDrops").get(kind).items() {
 				if !it.get("drops").get(kind).get(&x.to_js_string()).is_undef() {
 					out.push(format!("items {id}: drop from {kind} {}", x.to_js_string()));
+				}
+			}
+			for x in ci.get("addDrops").get(kind).items() {
+				if it.get("drops").get(kind).get(&x.to_js_string()).is_undef() {
+					out.push(format!("items {id}: new drop from {kind} {}", x.to_js_string()));
 				}
 			}
 		}
@@ -895,18 +921,21 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 	}
 	for (id, e) in ck.section_ids("items", &c.get("items")) {
 		let at = format!("items.{id}");
-		ck.keys(&at, &e, &["removeDrops", "removeVendors", "source", "note"]);
+		ck.keys(&at, &e, &["removeDrops", "addDrops", "removeVendors", "source", "note"]);
 		ck.note(&at, &e);
 		ck.source(&at, &e);
 		if ck.exists("items", &id) == Some(false) {
-			ck.err(&at, format!("no item {id} in the data (an item correction only removes sources)"));
+			ck.err(&at, format!("no item {id} in the data (an item correction only changes the sources of an item the data has)"));
 		}
-		let rd = e.get("removeDrops");
-		if !rd.is_undef() {
-			ck.keys(&format!("{at}.removeDrops"), &rd, &["npc", "object"]);
+		for field in ["removeDrops", "addDrops"] {
+			let rd = e.get(field);
+			if rd.is_undef() {
+				continue;
+			}
+			ck.keys(&format!("{at}.{field}"), &rd, &["npc", "object"]);
 			for (k, t) in [("npc", "npcs"), ("object", "objects")] {
 				if rd.has(k) {
-					ck.ids(&format!("{at}.removeDrops.{k}"), t, &rd.get(k));
+					ck.ids(&format!("{at}.{field}.{k}"), t, &rd.get(k));
 				}
 			}
 		}
@@ -1618,6 +1647,34 @@ mod tests {
 				("items 41".into(), "redundant"),
 			]
 		);
+	}
+
+	#[test]
+	fn add_drops_lists_droppers_the_sources_missed_with_no_rate_and_keeps_a_known_rate() {
+		// #1602: Carved Centaur Totem (254432) drops from Kolkar and Magram centaurs in players'
+		// recordings; the merged data listed only the Maraudine.
+		let c = parse_json(
+			r#"{ "items": { "50": { "addDrops": { "npc": [8, 9, 10], "object": [30] } }, "51": { "addDrops": { "npc": [9] } },
+				"52": { "addDrops": { "npc": [9] } } } }"#,
+		)
+		.unwrap();
+		let items = parse_json(r#"{ "50": { "id": 50, "drops": { "npc": { "7": null, "8": 25 }, "object": {} } }, "51": { "id": 51 },
+			"52": { "id": 52, "drops": { "npc": { "9": null } } } }"#)
+		.unwrap();
+		let Some(i) = items.as_obj() else { panic!() };
+		let a = apply(&c, &Obj::new(), &Obj::new(), &Obj::new(), i, false);
+		let st: Vec<(String, &str)> = a.entries.iter().map(|e| (format!("{} {}", e.section, e.id), e.state)).collect();
+		assert_eq!(st, vec![("items 50".into(), "applied"), ("items 51".into(), "applied"), ("items 52".into(), "redundant")]);
+		let null = |v: V| matches!(v, V::Null);
+		let npc = i.get("50").get("drops").get("npc");
+		assert_eq!(npc.get("8").as_num(), Some(25.0), "a listed dropper keeps its rate");
+		assert!(null(npc.get("7")) && null(npc.get("9")) && null(npc.get("10")), "the new ones have no rate");
+		assert!(null(i.get("50").get("drops").get("object").get("30")));
+		assert!(null(i.get("51").get("drops").get("npc").get("9")), "an item with no drops gets the table");
+		let ok = findings(Some(r#"{ "items": { "40": { "addDrops": { "npc": [20] }, "source": { "kind": "recording", "ref": "r" }, "note": "n" } } }"#), None, None);
+		assert!(ok.iter().all(|f| !f.contains("items.40")), "{ok:#?}");
+		let bad = findings(Some(r#"{ "items": { "40": { "addDrops": { "creature": [20] }, "source": { "kind": "recording", "ref": "r" }, "note": "n" } } }"#), None, None);
+		assert!(bad.iter().any(|f| f.contains("items.40.addDrops")), "{bad:#?}");
 	}
 
 	#[test]

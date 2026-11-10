@@ -96,7 +96,8 @@ checked against, and says in our own words what was wrong:
   is not in the game out of the data, with every other quest's link to it.
 - `npcs`, `objects`: `set` replaces fields (rank, name, ...); `addSpawns` adds
   `{ "<uiMapID>": { "f": "e" | "l", "pts": [[x, y], ...] } }` in map percent.
-- `items`: `removeDrops` `{ npc: [ids], object: [ids] }` and `removeVendors` `[ids]` drop wrong sources.
+- `items`: `removeDrops` `{ npc: [ids], object: [ids] }` and `removeVendors` `[ids]` drop wrong sources;
+  `addDrops` `{ npc: [ids], object: [ids] }` adds droppers every source missed (with no rate).
 - `mechanics`: by quest id, `params` `[{ kind, ...fields }]` and `steps` `{ "<n>": { set } }`.
 
 `source` is `{ kind, ref }` or a list of them. `kind` is one of `recording` (a Polestar Recorder
