@@ -245,21 +245,19 @@ return {
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5401} Argent Dawn Commission
 	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "Coge una {object:176092} del cajón junto a Derrington para {quest:5096}, que harás a la vuelta. Equípate {quest:5401}: las Piedras de la Plaga solo caen mientras lo llevas puesto.",
 
-	-- Step 50: Janice Felstone
-	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {npc:10778} Janice Felstone
-	["From the {area:152}, follow the road east into the {zone:1422}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "",
+	-- Step 50: Scarlet forward camp
+	["Scarlet forward camp"] = "Campamento avanzado Escarlata",
+	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
+	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Desde {area:152}, sigue el camino hacia el este hasta {zone:1422}. Las tiendas de la Cruzada Escarlata están justo pasada la Granja Piedra Vil, entre {area:199} y {area:200}. Incendia la tienda de mando con la {object:176092} y planta el estandarte de la Plaga.",
+
+	-- Step 51: Janice Felstone
+	-- {npc:10778} Janice Felstone
+	["Back a few steps west to Felstone Farm, the first farm along the road; {npc:10778} waits in the house."] = "Retrocede unos pasos hacia el oeste hasta la Granja Piedra Vil, la primera granja del camino; {npc:10778} espera en la casa.",
 	["Upstairs"] = "",
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, beside the house; inside"] = "",
-	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity
-	["Keep the parcel: {npc:10781} is in the {zone:1458}."] = "",
-
-	-- Step 51: Scarlet forward camp
-	["Scarlet forward camp"] = "Campamento avanzado Escarlata",
-	-- {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
-	["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Las tiendas de la Cruzada Escarlata están entre {area:199} y {area:200}. Incendia la tienda de mando con la {object:176092} y planta el estandarte de la Plaga.",
-	-- {quest:5901} A Plague Upon Thee · {area:2627} Terrordale · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
-	["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Guarda {quest:5901}: sus montículos de termitas están en {area:2627}, de camino a Tirion en la siguiente guía. La siguiente guía empieza con {npc:10739} junto a {area:202}, al sureste de aquí.",
+	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity · {quest:5901} A Plague Upon Thee · {area:2627} Terrordale · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
+	["Keep the parcel: {npc:10781} is in the {zone:1458}. Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Guarda el paquete: {npc:10781} está en {zone:1458}. Guarda {quest:5901}: sus montículos de termitas están en {area:2627}, de camino a Tirion en la siguiente guía. La siguiente guía empieza con {npc:10739} junto a {area:202}, al sureste de aquí.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:2268}"] = "Vuelve a {area:2268}",
@@ -280,6 +278,7 @@ return {
 	-- ["Into {area:490}"] = "Hacia {area:490}",
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "Guarda el cebo: {npc:9684} es de nivel 56 y la segunda vuelta pasa por su guarida.",
 	-- ["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "Guarda {quest:5152}: Marlene vive en {area:197}, en {zone:1422}.",
+	-- ["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Guarda {quest:5901}: sus montículos de termitas están en {area:2627}, de camino a Tirion en la siguiente guía. La siguiente guía empieza con {npc:10739} junto a {area:202}, al sureste de aquí.",
 	-- ["Lashers and Threshers"] = "Latigadores y Trilladores",
 	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Lleva a {npc:9999} hacia el norte hasta {area:541}. Cuando se desmaye, usa {item:11804} con él para despertarlo.",
 	-- ["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "Sal de {zone:1458} y cabalga hacia el este por el camino a través de {area:85} hasta {area:152}, el fuerte de los Renegados en la frontera.",
@@ -298,6 +297,7 @@ return {
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Los Anales están entre los Libros enmohecidos del ayuntamiento de Andorhal; ábrelos hasta dar con el correcto.",
 	-- ["The Gorishi hive"] = "La colmena Gorishi",
 	-- ["The Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "Los Montículos grandes de termitas están por todas las colinas al este de {area:2627}. Usa la {item:15042} en cada montículo que encuentres.",
+	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Las tiendas de la Cruzada Escarlata están entre {area:199} y {area:200}. Incendia la tienda de mando con la {object:176092} y planta el estandarte de la Plaga.",
 	-- ["The book lies in the ruined inn of {area:2627}."] = "El libro está en la posada en ruinas de {area:2627}.",
 	-- ["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "La cabeza de la muñeca y sus dos mitades están en las casas alrededor de {npc:10926}; únelas desde tus bolsas.",
 	-- ["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "El cajón de la expedición está en un campamento abandonado de la jungla oriental.",

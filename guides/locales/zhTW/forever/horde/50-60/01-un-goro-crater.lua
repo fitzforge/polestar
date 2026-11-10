@@ -245,21 +245,19 @@ return {
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5401} Argent Dawn Commission
 	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "從德靈頓旁邊的箱子拿一個{object:176092}，用於{quest:5096}，在回程時完成。裝備{quest:5401}：只有穿戴時才會掉落天譴石。",
 
-	-- Step 50: Janice Felstone
-	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {npc:10778} Janice Felstone
-	["From the {area:152}, follow the road east into the {zone:1422}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "",
+	-- Step 50: Scarlet forward camp
+	["Scarlet forward camp"] = "血色十字軍前進營地",
+	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
+	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "從{area:152}沿著道路向東進入{zone:1422}。血色十字軍的帳篷就在費爾斯通農場過去一點，位於{area:199}和{area:200}之間。用{object:176092}燒掉指揮帳篷，並插上天災戰旗。",
+
+	-- Step 51: Janice Felstone
+	-- {npc:10778} Janice Felstone
+	["Back a few steps west to Felstone Farm, the first farm along the road; {npc:10778} waits in the house."] = "往西回走幾步到費爾斯通農場，也就是沿路的第一座農場；{npc:10778}在屋裡等候。",
 	["Upstairs"] = "樓上",
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, beside the house; inside"] = "",
-	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity
-	["Keep the parcel: {npc:10781} is in the {zone:1458}."] = "",
-
-	-- Step 51: Scarlet forward camp
-	["Scarlet forward camp"] = "血色十字軍前進營地",
-	-- {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
-	["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "血色十字軍的帳篷位於{area:199}和{area:200}之間。用{object:176092}燒掉指揮帳篷，並插上天災戰旗。",
-	-- {quest:5901} A Plague Upon Thee · {area:2627} Terrordale · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
-	["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "保留{quest:5901}：它的白蟻丘在{area:2627}，位於下一份指南前往提里奧的路上。下一份指南從這裡東南方{area:202}旁的{npc:10739}開始。",
+	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity · {quest:5901} A Plague Upon Thee · {area:2627} Terrordale · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
+	["Keep the parcel: {npc:10781} is in the {zone:1458}. Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "保留包裹：{npc:10781}在{zone:1458}。保留{quest:5901}：它的白蟻丘在{area:2627}，位於下一份指南前往提里奧的路上。下一份指南從這裡東南方{area:202}旁的{npc:10739}開始。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:2268}"] = "回到{area:2268}",
@@ -280,6 +278,7 @@ return {
 	-- ["Into {area:490}"] = "進入{area:490}",
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "保留誘餌：{npc:9684}是56級，第二圈路線會經過牠的巢穴。",
 	-- ["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "保留{quest:5152}：瑪萊恩住在{zone:1422}的{area:197}。",
+	-- ["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "保留{quest:5901}：它的白蟻丘在{area:2627}，位於下一份指南前往提里奧的路上。下一份指南從這裡東南方{area:202}旁的{npc:10739}開始。",
 	-- ["Lashers and Threshers"] = "血瓣花鞭笞者與猛擊者",
 	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "帶領{npc:9999}向北前往{area:541}。他昏倒時，對他使用{item:11804}叫醒他。",
 	-- ["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "離開{zone:1458}，沿著道路向東穿過{area:85}前往邊境上的被遺忘者要塞{area:152}。",
@@ -298,6 +297,7 @@ return {
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "歷史書在安多哈爾市政廳的發黴的書籍之中；逐一打開直到找到正確的那本。",
 	-- ["The Gorishi hive"] = "格里什蟲巢",
 	-- ["The Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "大白蟻丘遍布{area:2627}東邊的山丘。對經過的每個蟻丘使用{item:15042}。",
+	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "血色十字軍的帳篷位於{area:199}和{area:200}之間。用{object:176092}燒掉指揮帳篷，並插上天災戰旗。",
 	-- ["The book lies in the ruined inn of {area:2627}."] = "帳本在{area:2627}的廢墟旅店裡。",
 	-- ["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "洋娃娃的腦袋和左右兩側散落在{npc:10926}周圍的房子裡；在背包中將它們組合起來。",
 	-- ["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "探險隊的箱子在東部叢林中一處廢棄的營地裡。",

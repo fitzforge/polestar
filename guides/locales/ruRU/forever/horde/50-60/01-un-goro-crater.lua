@@ -245,21 +245,19 @@ return {
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5401} Argent Dawn Commission
 	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "Возьмите {object:176092} из ящика рядом с Деррингтоном для задания {quest:5096} – выполните его на обратном пути. Наденьте {quest:5401}: камни Плети падают, только пока он надет.",
 
-	-- Step 50: Janice Felstone
-	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {npc:10778} Janice Felstone
-	["From the {area:152}, follow the road east into the {zone:1422}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "",
+	-- Step 50: Scarlet forward camp
+	["Scarlet forward camp"] = "Передовой лагерь Алого ордена",
+	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
+	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "От места {area:152} езжайте по дороге на восток в край {zone:1422}. Палатки Алого ордена стоят сразу за фермой Фелстоунов, между местами {area:199} и {area:200}. Подожгите командную палатку ({object:176092}) и установите знамя Плети.",
+
+	-- Step 51: Janice Felstone
+	-- {npc:10778} Janice Felstone
+	["Back a few steps west to Felstone Farm, the first farm along the road; {npc:10778} waits in the house."] = "Вернитесь немного на запад к ферме Фелстоунов – первой ферме у дороги; {npc:10778} ждет в доме.",
 	["Upstairs"] = "Наверху",
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, beside the house; inside"] = "",
-	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity
-	["Keep the parcel: {npc:10781} is in the {zone:1458}."] = "",
-
-	-- Step 51: Scarlet forward camp
-	["Scarlet forward camp"] = "Передовой лагерь Алого ордена",
-	-- {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
-	["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Палатки Алого ордена стоят между местами {area:199} и {area:200}. Подожгите командную палатку ({object:176092}) и установите знамя Плети.",
-	-- {quest:5901} A Plague Upon Thee · {area:2627} Terrordale · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
-	["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Сохраните задание {quest:5901}: его термитники находятся здесь: {area:2627}, по пути к Тириону в следующем руководстве. Следующее руководство начинается с персонажа {npc:10739} у места {area:202}, к юго-востоку отсюда.",
+	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity · {quest:5901} A Plague Upon Thee · {area:2627} Terrordale · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
+	["Keep the parcel: {npc:10781} is in the {zone:1458}. Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Сохраните посылку: {npc:10781} находится здесь: {zone:1458}. Сохраните задание {quest:5901}: его термитники находятся здесь: {area:2627}, по пути к Тириону в следующем руководстве. Следующее руководство начинается с персонажа {npc:10739} у места {area:202}, к юго-востоку отсюда.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:2268}"] = "Назад: {area:2268}",
@@ -280,6 +278,7 @@ return {
 	-- ["Into {area:490}"] = "В край {area:490}",
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "Сохраните приманку: {npc:9684} – 56-го уровня, а второй круг проходит мимо его логова.",
 	-- ["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "Сохраните задание {quest:5152}: Марлен живет здесь: {area:197}, {zone:1422}.",
+	-- ["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Сохраните задание {quest:5901}: его термитники находятся здесь: {area:2627}, по пути к Тириону в следующем руководстве. Следующее руководство начинается с персонажа {npc:10739} у места {area:202}, к юго-востоку отсюда.",
 	-- ["Lashers and Threshers"] = "Хлыстуны и крепкозубы",
 	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Ведите персонажа {npc:9999} на север сюда: {area:541}. Когда он падает в обморок, используйте на нем предмет {item:11804}, чтобы привести его в чувство.",
 	-- ["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "Покиньте город {zone:1458} и езжайте на восток по дороге через край {area:85} к {area:152} – форту Отрекшихся на границе.",
@@ -298,6 +297,7 @@ return {
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Летопись лежит среди затхлых фолиантов ({object:176150}) в ратуше Андорала; открывайте их, пока не найдете нужный.",
 	-- ["The Gorishi hive"] = "Улей Гориши",
 	-- ["The Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "Большие термитники стоят по всем холмам к востоку от места {area:2627}. Используйте предмет {item:15042} на каждом термитнике по пути.",
+	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Палатки Алого ордена стоят между местами {area:199} и {area:200}. Подожгите командную палатку ({object:176092}) и установите знамя Плети.",
 	-- ["The book lies in the ruined inn of {area:2627}."] = "Книга лежит в разрушенной таверне ({area:2627}).",
 	-- ["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "Голова куклы и две ее половины лежат в домах вокруг {npc:10926}; соедините их в сумках.",
 	-- ["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "Ящик экспедиции стоит в заброшенном лагере в восточных джунглях.",

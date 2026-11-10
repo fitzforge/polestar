@@ -135,8 +135,8 @@ return {
 	-- Step 22: Razor Hill
 	-- {npc:266940} Turroc
 	["{npc:266940}, on the east side of town; inside"] = "{npc:266940}，在城镇东侧的室内。",
-	-- {npc:3706} Tai'jin · {npc:3139} Gar'Thok
-	["{npc:3706}, in the barracks with {npc:3139}"] = "{npc:3706}，在兵营里，和{npc:3139}在一起",
+	-- {npc:3706} Tai'jin · {npc:266940} Turroc
+	["{npc:3706}, in the barracks beside {npc:266940}"] = "{npc:3706}，在兵营里，在{npc:266940}旁边",
 
 	-- Step 23: Razor Hill
 	-- {npc:3191} Cook Torka
@@ -164,10 +164,10 @@ return {
 	-- Step 28: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3147} Furl Scornbrow · {npc:3142} Orgnil Soulscar · {npc:266940} Turroc
 	["Back north-west to {area:362}: {npc:3139} first, then {npc:3147} in the watchtower, then {npc:3142} and {npc:266940} on the way out east to the shore."] = "返回西北方的{area:362}：先找{npc:3139}，然后是瞭望塔里的{npc:3147}，再在向东前往海岸的路上找{npc:3142}和{npc:266940}。",
-	-- {npc:3706} Tai'jin · {npc:3139} Gar'Thok · {item:16606} Juju Hex Robes
-	["{npc:3706}, beside {npc:3139}: the {item:16606}"] = "{npc:3706}，在{npc:3139}旁边：{item:16606}",
 	-- {npc:266940} Turroc
 	["{npc:266940}, inside"] = "{npc:266940}：在屋内",
+	-- {npc:3706} Tai'jin · {npc:266940} Turroc · {item:16606} Juju Hex Robes
+	["{npc:3706}, beside {npc:266940}: the {item:16606}"] = "{npc:3706}，在{npc:266940}旁边：{item:16606}",
 
 	-- Step 29: Scuttle Coast: kill these as you meet them
 	-- {area:373} Scuttle Coast
@@ -375,4 +375,6 @@ return {
 	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "学会{skill:393}后，{npc:265809}还会提供对应的露营 101 任务：交给{zone:1454}的{npc:7088}（下篇指南）。",
 	-- ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears."] = "{npc:265809}在{area:362}南面不远处扎营。坐在他的营火旁（/sit），直到出现{spell:1229451}增益效果。",
 	-- ["{npc:3337}, beside {npc:5810}"] = "{npc:3337}，在{npc:5810}旁边",
+	-- ["{npc:3706}, beside {npc:3139}: the {item:16606}"] = "{npc:3706}，在{npc:3139}旁边：{item:16606}",
+	-- ["{npc:3706}, in the barracks with {npc:3139}"] = "{npc:3706}，在兵营里，和{npc:3139}在一起",
 }

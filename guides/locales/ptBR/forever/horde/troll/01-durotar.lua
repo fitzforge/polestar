@@ -135,8 +135,8 @@ return {
 	-- Step 22: Razor Hill
 	-- {npc:266940} Turroc
 	["{npc:266940}, on the east side of town; inside"] = "{npc:266940}, no lado leste da cidade; lá dentro",
-	-- {npc:3706} Tai'jin · {npc:3139} Gar'Thok
-	["{npc:3706}, in the barracks with {npc:3139}"] = "{npc:3706}, no quartel com {npc:3139}",
+	-- {npc:3706} Tai'jin · {npc:266940} Turroc
+	["{npc:3706}, in the barracks beside {npc:266940}"] = "{npc:3706}, no quartel ao lado de {npc:266940}",
 
 	-- Step 23: Razor Hill
 	-- {npc:3191} Cook Torka
@@ -164,10 +164,10 @@ return {
 	-- Step 28: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3147} Furl Scornbrow · {npc:3142} Orgnil Soulscar · {npc:266940} Turroc
 	["Back north-west to {area:362}: {npc:3139} first, then {npc:3147} in the watchtower, then {npc:3142} and {npc:266940} on the way out east to the shore."] = "De volta ao noroeste até {area:362}: {npc:3139} primeiro, depois {npc:3147} na torre de vigia, depois {npc:3142} e {npc:266940} na saída para leste, rumo à costa.",
-	-- {npc:3706} Tai'jin · {npc:3139} Gar'Thok · {item:16606} Juju Hex Robes
-	["{npc:3706}, beside {npc:3139}: the {item:16606}"] = "{npc:3706}, ao lado de {npc:3139}: o {item:16606}",
 	-- {npc:266940} Turroc
 	["{npc:266940}, inside"] = "{npc:266940}, lá dentro",
+	-- {npc:3706} Tai'jin · {npc:266940} Turroc · {item:16606} Juju Hex Robes
+	["{npc:3706}, beside {npc:266940}: the {item:16606}"] = "{npc:3706}, ao lado de {npc:266940}: o {item:16606}",
 
 	-- Step 29: Scuttle Coast: kill these as you meet them
 	-- {area:373} Scuttle Coast
@@ -373,4 +373,6 @@ return {
 	-- ["With {skill:333} learned, {npc:265809} also offers its Camping 101: {npc:11066} in {zone:1454} (next guide) takes it."] = "Com {skill:333} aprendido, {npc:265809} também oferece a sua Introdução ao acampamento: quem a recebe é {npc:11066}, em {zone:1454} (próximo guia).",
 	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "Com {skill:393} aprendido, {npc:265809} também oferece a sua Introdução ao acampamento: quem a recebe é {npc:7088}, em {zone:1454} (próximo guia).",
 	-- ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears."] = "{npc:265809} acampa logo ao sul de {area:362}. Sente na fogueira dele (/sit) até aparecer o bônus {spell:1229451}.",
+	-- ["{npc:3706}, beside {npc:3139}: the {item:16606}"] = "{npc:3706}, ao lado de {npc:3139}: o {item:16606}",
+	-- ["{npc:3706}, in the barracks with {npc:3139}"] = "{npc:3706}, no quartel com {npc:3139}",
 }

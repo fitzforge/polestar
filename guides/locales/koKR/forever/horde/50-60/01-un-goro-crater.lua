@@ -245,21 +245,19 @@ return {
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5401} Argent Dawn Commission
 	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "{quest:5096}을(를) 위해 델링턴 옆 상자에서 {object:176092}을(를) 챙기세요. 돌아오는 길에 완료합니다. {quest:5401}을(를) 착용하세요. 착용 중에만 스컬지석이 나옵니다.",
 
-	-- Step 50: Janice Felstone
-	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {npc:10778} Janice Felstone
-	["From the {area:152}, follow the road east into the {zone:1422}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "",
+	-- Step 50: Scarlet forward camp
+	["Scarlet forward camp"] = "붉은십자군 전진 야영지",
+	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
+	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "{area:152}에서 길을 따라 동쪽으로 {zone:1422}(으)로 가세요. 붉은십자군의 천막은 펠스톤 농장을 막 지나 {area:199}와(과) {area:200} 사이에 있습니다. {object:176092}(으)로 지휘 천막을 불태우고 스컬지 깃발을 꽂으세요.",
+
+	-- Step 51: Janice Felstone
+	-- {npc:10778} Janice Felstone
+	["Back a few steps west to Felstone Farm, the first farm along the road; {npc:10778} waits in the house."] = "서쪽으로 몇 걸음 돌아가 길가의 첫 번째 농장인 펠스톤 농장으로 가세요. {npc:10778}은(는) 집 안에서 기다립니다.",
 	["Upstairs"] = "위층",
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, beside the house; inside"] = "",
-	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity
-	["Keep the parcel: {npc:10781} is in the {zone:1458}."] = "",
-
-	-- Step 51: Scarlet forward camp
-	["Scarlet forward camp"] = "붉은십자군 전진 야영지",
-	-- {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
-	["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "붉은십자군의 천막은 {area:199}와(과) {area:200} 사이에 있습니다. {object:176092}(으)로 지휘 천막을 불태우고 스컬지 깃발을 꽂으세요.",
-	-- {quest:5901} A Plague Upon Thee · {area:2627} Terrordale · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
-	["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "{quest:5901}은(는) 보관하세요. 흰개미집은 다음 가이드에서 티리온에게 가는 길의 {area:2627}에 있습니다. 다음 가이드는 이곳 남동쪽 {area:202} 옆의 {npc:10739}에게서 시작합니다.",
+	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity · {quest:5901} A Plague Upon Thee · {area:2627} Terrordale · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
+	["Keep the parcel: {npc:10781} is in the {zone:1458}. Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "꾸러미는 보관하세요. {npc:10781}은(는) {zone:1458}에 있습니다. {quest:5901}은(는) 보관하세요. 흰개미집은 다음 가이드에서 티리온에게 가는 길의 {area:2627}에 있습니다. 다음 가이드는 이곳 남동쪽 {area:202} 옆의 {npc:10739}에게서 시작합니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:2268}"] = "{area:2268}(으)로 돌아가기",
@@ -280,6 +278,7 @@ return {
 	-- ["Into {area:490}"] = "{area:490}(으)로",
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "미끼는 보관하세요. {npc:9684}은(는) 레벨 56이며, 두 번째 순회 때 그 소굴을 지납니다.",
 	-- ["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "{quest:5152}은(는) 보관하세요. 말레네는 {zone:1422}의 {area:197}에 삽니다.",
+	-- ["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "{quest:5901}은(는) 보관하세요. 흰개미집은 다음 가이드에서 티리온에게 가는 길의 {area:2627}에 있습니다. 다음 가이드는 이곳 남동쪽 {area:202} 옆의 {npc:10739}에게서 시작합니다.",
 	-- ["Lashers and Threshers"] = "채찍줄기와 덩이줄기",
 	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "{npc:9999}을(를) 북쪽 {area:541}(으)로 데려가세요. 기절하면 {item:11804}을(를) 사용해 깨우세요.",
 	-- ["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "{zone:1458}을(를) 나와 길을 따라 동쪽으로 {area:85}을(를) 지나 경계의 포세이큰 요새인 {area:152}로 가세요.",
@@ -298,6 +297,7 @@ return {
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "연대기는 안돌할 시청의 곰팡이 슨 고서 사이에 있습니다. 맞는 것을 찾을 때까지 열어 보세요.",
 	-- ["The Gorishi hive"] = "고리쉬 벌집",
 	-- ["The Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "큰 흰개미집이 {area:2627} 동쪽 언덕 곳곳에 있습니다. 지나가는 흰개미집마다 {item:15042}을(를) 사용하세요.",
+	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "붉은십자군의 천막은 {area:199}와(과) {area:200} 사이에 있습니다. {object:176092}(으)로 지휘 천막을 불태우고 스컬지 깃발을 꽂으세요.",
 	-- ["The book lies in the ruined inn of {area:2627}."] = "책은 {area:2627}의 무너진 여관에 있습니다.",
 	-- ["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "인형의 머리와 양쪽 몸통은 {npc:10926} 주변 집들에 있습니다. 가방에서 합치세요.",
 	-- ["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "원정대의 상자는 동쪽 정글의 버려진 야영지에 있습니다.",

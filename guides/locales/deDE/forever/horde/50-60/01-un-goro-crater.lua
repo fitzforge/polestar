@@ -245,21 +245,19 @@ return {
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5401} Argent Dawn Commission
 	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "Nimm einen {object:176092} aus der Kiste neben Derrington für {quest:5096}, die du auf dem Rückweg erledigst. Leg die {quest:5401} an: Geißelsteine fallen nur, solange du sie trägst.",
 
-	-- Step 50: Janice Felstone
-	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {npc:10778} Janice Felstone
-	["From the {area:152}, follow the road east into the {zone:1422}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "",
+	-- Step 50: Scarlet forward camp
+	["Scarlet forward camp"] = "Vorgeschobenes Lager des Scharlachroten Kreuzzugs",
+	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
+	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Folge vom {area:152} aus der Straße nach Osten in die {zone:1422}. Die Zelte des Scharlachroten Kreuzzugs stehen gleich hinter dem Hof der Felsteins, zwischen {area:199} und {area:200}. Zünde das Kommandozelt mit {object:176092} an und pflanz das Banner der Geißel auf.",
+
+	-- Step 51: Janice Felstone
+	-- {npc:10778} Janice Felstone
+	["Back a few steps west to Felstone Farm, the first farm along the road; {npc:10778} waits in the house."] = "Ein paar Schritte zurück nach Westen zum Hof der Felsteins, dem ersten Hof an der Straße; {npc:10778} wartet im Haus.",
 	["Upstairs"] = "",
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, beside the house; inside"] = "",
-	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity
-	["Keep the parcel: {npc:10781} is in the {zone:1458}."] = "",
-
-	-- Step 51: Scarlet forward camp
-	["Scarlet forward camp"] = "Vorgeschobenes Lager des Scharlachroten Kreuzzugs",
-	-- {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
-	["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Die Zelte des Scharlachroten Kreuzzugs stehen zwischen {area:199} und {area:200}. Zünde das Kommandozelt mit {object:176092} an und pflanz das Banner der Geißel auf.",
-	-- {quest:5901} A Plague Upon Thee · {area:2627} Terrordale · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
-	["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Behalte {quest:5901}: Die Termitenhügel dafür stehen im {area:2627}, auf dem Ritt zu Tirion im nächsten Guide. Der nächste Guide beginnt mit {npc:10739} beim {area:202}, südöstlich von hier.",
+	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity · {quest:5901} A Plague Upon Thee · {area:2627} Terrordale · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
+	["Keep the parcel: {npc:10781} is in the {zone:1458}. Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Behalte das Paket: {npc:10781} ist in {zone:1458}. Behalte {quest:5901}: Die Termitenhügel dafür stehen im {area:2627}, auf dem Ritt zu Tirion im nächsten Guide. Der nächste Guide beginnt mit {npc:10739} beim {area:202}, südöstlich von hier.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:2268}"] = "Zurück zur {area:2268}",
@@ -280,6 +278,7 @@ return {
 	-- ["Into {area:490}"] = "Hinab in den {area:490}",
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "Behalte den Köder: {npc:9684} ist Stufe 56, und die zweite Runde führt an seinem Unterschlupf vorbei.",
 	-- ["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "Behalte {quest:5152}: Marlene wohnt am {area:197} im Gebiet {zone:1422}.",
+	-- ["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Behalte {quest:5901}: Die Termitenhügel dafür stehen im {area:2627}, auf dem Ritt zu Tirion im nächsten Guide. Der nächste Guide beginnt mit {npc:10739} beim {area:202}, südöstlich von hier.",
 	-- ["Lashers and Threshers"] = "Peitscher und Drescher",
 	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Führe {npc:9999} nach Norden nach {area:541}. Wenn er ohnmächtig wird, benutze {item:11804} an ihm, um ihn zu wecken.",
 	-- ["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "Verlass {zone:1458} und reite auf der Straße nach Osten durch {area:85} zum {area:152}, der Festung der Verlassenen an der Grenze.",
@@ -298,6 +297,7 @@ return {
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Die Annalen liegen zwischen den Modrigen Folianten im Rathaus von Andorhal; öffne sie, bis du den richtigen findest.",
 	-- ["The Gorishi hive"] = "Der Schwarm der Gorishi",
 	-- ["The Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "Die Großen Termitenhügel stehen überall in den Hügeln östlich von {area:2627}. Benutze den {item:15042} an jedem Hügel, an dem du vorbeikommst.",
+	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Die Zelte des Scharlachroten Kreuzzugs stehen zwischen {area:199} und {area:200}. Zünde das Kommandozelt mit {object:176092} an und pflanz das Banner der Geißel auf.",
 	-- ["The book lies in the ruined inn of {area:2627}."] = "Das Buch liegt im zerstörten Gasthaus von {area:2627}.",
 	-- ["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "Der Kopf der Puppe und ihre beiden Seiten liegen in den Häusern um {npc:10926}; füge sie in deinen Taschen zusammen.",
 	-- ["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "Die Kiste der Expedition steht in einem verlassenen Lager im östlichen Dschungel.",

@@ -245,21 +245,19 @@ return {
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5401} Argent Dawn Commission
 	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "Prenez une {object:176092} dans la caisse à côté de Derrington pour {quest:5096}, à faire au retour. Équipez la {quest:5401} : les Pierres du Fléau ne tombent que si vous la portez.",
 
-	-- Step 50: Janice Felstone
-	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {npc:10778} Janice Felstone
-	["From the {area:152}, follow the road east into the {zone:1422}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "",
+	-- Step 50: Scarlet forward camp
+	["Scarlet forward camp"] = "Camp avancé écarlate",
+	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
+	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Depuis la {area:152}, suivez la route vers l'est jusqu'aux {zone:1422}. Les tentes de la Croisade écarlate se dressent juste après la ferme Felstone, entre {area:199} et {area:200}. Incendiez la tente de commandement avec la {object:176092} et plantez la bannière du Fléau.",
+
+	-- Step 51: Janice Felstone
+	-- {npc:10778} Janice Felstone
+	["Back a few steps west to Felstone Farm, the first farm along the road; {npc:10778} waits in the house."] = "Revenez quelques pas à l'ouest jusqu'à la ferme Felstone, la première ferme le long de la route ; {npc:10778} attend dans la maison.",
 	["Upstairs"] = "À l'étage",
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, beside the house; inside"] = "{object:175894}, à côté de la maison ; à l'intérieur",
-	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity
-	["Keep the parcel: {npc:10781} is in the {zone:1458}."] = "Gardez le colis : le {npc:10781} est à {zone:1458}.",
-
-	-- Step 51: Scarlet forward camp
-	["Scarlet forward camp"] = "Camp avancé écarlate",
-	-- {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
-	["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Les tentes de la Croisade écarlate se dressent entre {area:199} et {area:200}. Incendiez la tente de commandement avec les {object:176092} et plantez la bannière du Fléau.",
-	-- {quest:5901} A Plague Upon Thee · {area:2627} Terrordale · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
-	["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Gardez {quest:5901} : ses termitières se trouvent à {area:2627}, sur le trajet du guide suivant vers Tirion. Le guide suivant commence avec {npc:10739} près de {area:202}, au sud-est d'ici.",
+	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity · {quest:5901} A Plague Upon Thee · {area:2627} Terrordale · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
+	["Keep the parcel: {npc:10781} is in the {zone:1458}. Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Gardez le colis : le {npc:10781} est à {zone:1458}. Gardez {quest:5901} : ses termitières se trouvent à {area:2627}, sur le trajet du guide suivant vers Tirion. Le guide suivant commence avec {npc:10739} près de {area:202}, au sud-est d'ici.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:2268}"] = "Retour à la {area:2268}",
@@ -284,7 +282,9 @@ return {
 	-- ["Hearth to {area:976}"] = "Pierre de foyer vers {area:976}",
 	-- ["Into {area:490}"] = "Vers le {area:490}",
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "Gardez l'appât : {npc:9684} est de niveau 56, et la seconde boucle passe par son repaire.",
+	-- ["Keep the parcel: {npc:10781} is in the {zone:1458}."] = "Gardez le colis : le {npc:10781} est à {zone:1458}.",
 	-- ["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "Gardez {quest:5152} : Marlene vit à la {area:197}, dans les {zone:1422}.",
+	-- ["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Gardez {quest:5901} : ses termitières se trouvent à {area:2627}, sur le trajet du guide suivant vers Tirion. Le guide suivant commence avec {npc:10739} près de {area:202}, au sud-est d'ici.",
 	-- ["Lashers and Threshers"] = "Flagellants et Batteurs",
 	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Menez {npc:9999} au nord jusqu'au {area:541}. Quand il s'évanouit, utilisez la {item:11804} sur lui pour le réveiller.",
 	-- ["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "Quittez {zone:1458} et allez vers l'est par la route à travers les {area:85} jusqu'au {area:152}, le fort des Réprouvés à la frontière.",
@@ -306,6 +306,7 @@ return {
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Les annales se trouvent parmi les Tomes moisis ({object:176150}) de l'hôtel de ville d'Andorhal ; ouvrez-les jusqu'à trouver le bon.",
 	-- ["The Gorishi hive"] = "La ruche Gorishi",
 	-- ["The Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "Les Grandes termitières parsèment les collines à l'est de {area:2627}. Utilisez le {item:15042} sur chaque termitière rencontrée.",
+	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Les tentes de la Croisade écarlate se dressent entre {area:199} et {area:200}. Incendiez la tente de commandement avec les {object:176092} et plantez la bannière du Fléau.",
 	-- ["The book lies in the ruined inn of {area:2627}."] = "Le livre est dans l'auberge en ruine de {area:2627}.",
 	-- ["The book lies in the ruined inn of {area:2627}.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "Le livre se trouve dans l'auberge en ruine de {area:2627}.\nLes Grandes termitières se dressent partout dans les collines à l'est de {area:2627}. Utilisez le {item:15042} sur chaque termitière que vous croisez.",
 	-- ["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "La tête de la poupée et ses deux côtés sont dans les maisons autour de {npc:10926} ; assemblez-les depuis vos sacs.",
