@@ -272,8 +272,8 @@ emit({ take = take, carried = carried, title = def.title, steps = describe(def),
 	assert_eq!(out["title"], "Shadowfang Keep: pick up the quests");
 	assert_eq!(out["steps"], json!(from_undercity()));
 	assert_eq!(out["note"], "In your log already: “The Book of Ur”");
-	assert_eq!(out["entrance"], json!([1421, 44.8, 67.8, "Shadowfang Keep"]), "the dungeon's name: the window reads it as Enter Shadowfang Keep");
-	assert_eq!(out["after"], "After the run: choose Hand in the quests at the end of this guide or on the dungeon's page.");
+	assert_eq!(out["entrance"], json!([1421, 44.8, 67.8, "Enter Shadowfang Keep"]));
+	assert_eq!(out["after"], "After the run: open this dungeon's page (/polestar dungeons Shadowfang Keep) and choose Hand in the quests.");
 }
 
 #[test]

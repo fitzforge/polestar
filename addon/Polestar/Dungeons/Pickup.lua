@@ -1145,13 +1145,12 @@ function Dungeons.PickupGuide(key)
 		-- A way in through the other faction's land says so on the step.
 		local enemy = Dungeons.EnemyEntrance and Dungeons.EnemyEntrance(key)
 		if enemy then table.insert(notes, 1, enemy) end
-		last.goals[#last.goals + 1] = { t = "goto", text = d.name, map = e.map, x = e.x, y = e.y, f = e.f == "e" and "e" or nil, entrance = true }
+		last.goals[#last.goals + 1] = { t = "goto", text = L["Enter"] .. " " .. d.name, map = e.map, x = e.x, y = e.y, f = e.f == "e" and "e" or nil, entrance = true }
 	end
 	if #notes > 0 then last.note = table.concat(notes, " ") end
 	-- The hand-in half (Dungeons/Handin.lua) is built after the run, from the
-	-- quests then finished; this guide's own end offers it (UI/GuideFrame), and
-	-- so does the dungeon's page.
-	last.goals[#last.goals + 1] = { t = "note", text = L["After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."] }
+	-- quests then finished; this guide's own end offers it too (UI/GuideFrame).
+	last.goals[#last.goals + 1] = { t = "note", text = format(L["After the run: open this dungeon's page (/polestar dungeons %s) and choose Hand in the quests."], d.name) }
 	steps[#steps + 1] = last
 	return { title = format(L["%s: pick up the quests"], d.name), steps = steps, dungeon = key }
 end
