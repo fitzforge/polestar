@@ -4776,44 +4776,44 @@ fn step_gossip_picks_the_option_the_live_step_names_opens_goods_or_training_for_
 // ---------------------------------------------------------------------------
 
 // The campfire's Boosted Rest from its aura on UNIT_AURA, the Cozy Sleeping Bag's cooldown on BAG_UPDATE_COOLDOWN
-// once it is in the bags; minutes rounded up; "off" only where the row shows anyway; nothing registered with the
-// option off.
+// once it is in the bags; minutes rounded up; "off" only beside the bag, so the line never shows just to say it;
+// nothing registered with the option off.
 #[test]
 fn rest_boosted_rest_minutes_from_the_aura_off_and_the_sleeping_bag_cooldown_from_the_bags() {
 	let out = run(r#"
 		local R = QoL.Rest
-		local function line(w) return table.concat(R.Parts(w), " | ") end
-		emit({ line(true), line(false), R.Left() == nil, R.BagLeft() == nil, QoL.Watching("UNIT_AURA"), QoL.Watching("BAG_UPDATE_COOLDOWN") })
+		local function line() return table.concat(R.Parts(), " | ") end
+		emit({ line(), R.Left() == nil, R.BagLeft() == nil, QoL.Watching("UNIT_AURA"), QoL.Watching("BAG_UPDATE_COOLDOWN") })
 		q.auras[1229451] = { spellId = 1229451, duration = 3600, expirationTime = GetTime() + 2520 }
 		stub.fire("UNIT_AURA", "target")
-		emit(line(true))
+		emit(line())
 		stub.fire("UNIT_AURA", "player")
-		emit({ line(true), math.floor(R.Left() + 0.5) })
+		emit({ line(), math.floor(R.Left() + 0.5) })
 		stub.advance(30)
-		emit(line(true))
+		emit(line())
 		q.auras[1229451] = { spellId = 1229451, duration = 0, expirationTime = 0 }
 		stub.fire("UNIT_AURA", "player")
-		emit(line(true))
+		emit(line())
 		q.auras[1229451] = nil
 		stub.fire("UNIT_AURA", "player")
-		emit({ line(true), line(false) })
+		emit(line())
 		q.addItem(0, 1, 211527, 1)
 		stub.fire("BAG_UPDATE_DELAYED")
-		emit({ line(true), R.BagLeft() })
+		emit({ line(), R.BagLeft() })
 		q.cooldowns[211527] = { GetTime() - 60, 780 }
 		stub.fire("BAG_UPDATE_COOLDOWN")
-		emit(line(false))
+		emit(line())
 		set("boostedRest", false)
-		emit({ #R.Parts(true), QoL.Watching("UNIT_AURA"), QoL.Watching("BAG_UPDATE_COOLDOWN") })
+		emit({ #R.Parts(), QoL.Watching("UNIT_AURA"), QoL.Watching("BAG_UPDATE_COOLDOWN") })
 	"#);
-	assert_eq!(out[0], json!(["Boosted Rest: off", "", true, true, true, true]), "on by default, nothing yet");
-	assert_eq!(out[1], "Boosted Rest: off", "another unit's auras are not read");
+	assert_eq!(out[0], json!(["", true, true, true, true]), "on by default, nothing to say yet");
+	assert_eq!(out[1], "", "another unit's auras are not read");
 	assert_eq!(out[2], json!(["Boosted Rest: 42m", 2520]));
 	assert_eq!(out[3], "Boosted Rest: 42m", "41.5 minutes left reads 42m");
 	assert_eq!(out[4], "Boosted Rest: on", "an aura without an end");
-	assert_eq!(out[5], json!(["Boosted Rest: off", ""]));
+	assert_eq!(out[5], "", "ended, no bag: nothing");
 	assert_eq!(out[6], json!(["Boosted Rest: off | Sleeping bag ready", 0]));
-	assert_eq!(out[7], "Sleeping bag: 12m");
+	assert_eq!(out[7], "Boosted Rest: off | Sleeping bag: 12m");
 	assert_eq!(out[8], json!([0, false, false]), "off: nothing shown, nothing registered");
 }
 

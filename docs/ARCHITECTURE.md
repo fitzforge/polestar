@@ -5109,7 +5109,7 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
 ```lua
 Polestar.QoL.Rest.Left() -> seconds | true | nil      -- Boosted Rest left; true: on without an end given; nil: off
 Polestar.QoL.Rest.BagLeft() -> nil | 0 | seconds      -- Cozy Sleeping Bag: not carried, ready, cooldown left
-Polestar.QoL.Rest.Parts(withOff) -> { text, ... }     -- for the XP row; one reused table; empty with the option off
+Polestar.QoL.Rest.Parts() -> { text, ... }            -- its line under the XP row; one reused table; empty with the option off or nothing to say
 Polestar.QoL.Rest.Refresh(force)                      -- read the aura and the bag again
 -- message QOL_REST_UPDATED(changed): changed false for the minute redraws
 ```
@@ -5117,12 +5117,14 @@ Polestar.QoL.Rest.Refresh(force)                      -- read the aura and the b
 - **What** (`qol.boostedRest`, on by default; Quality of Life > Trackers >
   Experience): the campfire's Boosted Rest (spell 1229451, the buff the
   Great Outdoors quests ask you to /sit for) and the Cozy Sleeping Bag
-  (item 211527), on the guide window's XP row after the pace text:
+  (item 211527), on a short line of their own under the guide window's XP
+  line (`GF.xp.Rest`; the row grows by `GF.XPROW.restH`), so the pace note
+  that almost always shows never pushes them out of sight:
   "Boosted Rest: 42m" (minutes rounded up; "Boosted Rest: on" when the
   aura gives no end), then "Sleeping bag ready" or "Sleeping bag: 12m" when
-  the bag is in your bags. "Boosted Rest: off" only when the row shows
-  anyway, so the option never adds a row of its own; nothing at the maximum
-  level.
+  the bag is in your bags. "Boosted Rest: off" only beside the bag, so the
+  line never shows just to say it; with no XP line it takes that line's
+  place; the row's hover repeats it; nothing at the maximum level.
 - **Reads**: `C_UnitAuras.GetPlayerAuraBySpellID` (`expirationTime`) on
   `UNIT_AURA` for the player, the bag's count and cooldown (Compat) on
   `BAG_UPDATE_COOLDOWN` and `BAG_UPDATE_DELAYED`, registered only while the

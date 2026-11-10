@@ -1492,31 +1492,53 @@ fn xp_pace_from_the_qol_tracker_rate_and_time_to_level_hidden_when_off_or_maxed(
 	assert_eq!(out["h"], true);
 }
 
-// Boosted Rest and the sleeping bag (QoL/Rest.Parts) follow the pace text; "off" is asked for only when the row
-// shows anyway, and QOL_REST_UPDATED redraws it.
+// Boosted Rest and the sleeping bag (QoL/Rest.Parts) on a short line of their own under the XP line, so the pace
+// note (which almost always shows) never pushes them out of sight: the row grows by that line, the line fits the
+// default window's slot (its width less the paddings and the icon), the hover repeats it, and alone it takes the
+// XP line's place. Nothing to say: no line, and no row for it alone.
 #[test]
-fn xp_row_adds_boosted_rest_and_the_sleeping_bag_and_off_only_beside_other_text() {
+fn xp_row_puts_boosted_rest_and_the_sleeping_bag_on_their_own_line_that_fits_the_default_width() {
 	let out = run(r#"
 		local stats = { rate = 3400, maxed = false }
-		local asked
+		local rest = {}
 		Polestar.QoL = {
 			GetXPStats = function() return stats end,
-			XP = { Short = function(n) return string.format("%.1fk", n / 1000) end, Summary = function() return "" end },
-			Rest = { Parts = function(withOff) asked = withOff; return withOff and { "Boosted Rest: off" } or {} end },
+			XP = { Short = function(n) return string.format("%.1fk", n / 1000) end, Summary = function() return "Level 12" end },
+			Rest = { Parts = function() return rest end },
 		}
+		local pace = GF.PaceText
+		GF.PaceText = function() return "Behind by 1.9 levels: step 97 grinds to level 21.5 (~0h 30m)" end
 		uistub.setGuide(uistub.elwynn, 3)
 		Polestar.Fire("QOL_REST_UPDATED", true)
 		local xp = GF.xp
-		emit({ xp.Text:GetText(), asked })
-		Polestar.QoL.GetXPStats = function() return nil end
+		local h1 = xp:GetHeight()
+		local first = { shown = xp:IsShown(), rest = xp.Rest:IsShown() }
+		rest = { "Boosted Rest: 42m", "Sleeping bag: 12m" }
+		local fh = F:GetHeight()
 		Polestar.Fire("QOL_REST_UPDATED", true)
-		emit({ xp:IsShown(), asked })
-		Polestar.QoL.Rest.Parts = function() return { "Boosted Rest: 42m", "Sleeping bag ready" } end
+		local slot = F:GetWidth() - 2 * 14 - 11 - 7
+		stub.RunScript(xp, "OnEnter")
+		local two = { text = xp.Text:GetText() ~= nil and not xp.Text:GetText():find("Boosted", 1, true), rest = xp.Rest:IsShown() and xp.Rest:GetText(),
+			fits = xp.Rest:GetUnboundedStringWidth() <= slot, grew = xp:GetHeight() > h1 and F:GetHeight() > fh, tip = GameTooltip.lines, width = F:GetWidth() }
+		stats = nil
+		GF.PaceText = function() return nil end
+		Polestar.QoL.GetXPStats = function() return nil end
 		Polestar.Fire("QOL_REST_UPDATED", false)
-		emit({ xp:IsShown(), xp.Text:GetText() })"#);
-	assert_eq!(out[0], json!(["3.4k XP/h  \u{b7}  Boosted Rest: off", true]));
-	assert_eq!(out[1], json!([false, false]), "alone, \"off\" makes no row");
-	assert_eq!(out[2], json!([true, "Boosted Rest: 42m  \u{b7}  Sleeping bag ready"]));
+		local alone = { shown = xp:IsShown(), text = xp.Text:GetText(), rest = xp.Rest:IsShown(), h = xp:GetHeight() == h1 }
+		rest = {}
+		Polestar.Fire("QOL_REST_UPDATED", true)
+		GF.PaceText = pace
+		emit({ first = first, two = two, alone = alone, none = xp:IsShown() })"#)
+	.remove(0);
+	assert_eq!(out["first"], json!({ "shown": true, "rest": false }), "nothing to say: the XP line alone");
+	assert_eq!(out["two"]["width"], 340, "the default window width");
+	assert_eq!(out["two"]["text"], true, "not appended to the XP line");
+	assert_eq!(out["two"]["rest"], "Boosted Rest: 42m  \u{b7}  Sleeping bag: 12m");
+	assert_eq!(out["two"]["fits"], true, "the line fits its slot at the default width");
+	assert_eq!(out["two"]["grew"], true, "the row grows by the line");
+	assert!(out["two"]["tip"].as_array().unwrap().iter().any(|l| l == "Boosted Rest: 42m  \u{b7}  Sleeping bag: 12m"), "the hover repeats it: {}", out["two"]["tip"]);
+	assert_eq!(out["alone"], json!({ "shown": true, "text": "Boosted Rest: 42m  \u{b7}  Sleeping bag: 12m", "rest": false, "h": true }), "alone: in the XP line's place");
+	assert_eq!(out["none"], false);
 }
 
 // Where the player stands (GF.PaceText over Levels.Pace, whose sums levels.rs checks): always one line, calm
