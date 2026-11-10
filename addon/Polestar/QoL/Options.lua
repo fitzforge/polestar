@@ -269,6 +269,16 @@ register(QOL, L["Vendors"], L["Trainers"], {
 	{ kind = "toggle", key = "qol.ridingReminder", label = L["Riding reminder"],
 		help = L["At level 40 and 60, if you have not learned riding yet, says the cost in chat (with any Honored discount) and points the arrow at your race's riding trainer when you can afford it. Warlocks and Alliance Paladins are sent to their free-mount quest NPC instead. Once per tier per character."],
 		search = "mount, riding, horse, epic mount, level 40, level 60" },
+	{ kind = "toggle", key = "qol.levelUpSpells", label = L["New spells at level-up"],
+		help = L["When you level up, a card on the guide window shows the class spells you can now train, what they cost together and the nearest class trainer, with a button for the arrow. Not in combat or instances, and not on levels with nothing new."],
+		search = "level up, ding, new spells, trainer, train, ranks, abilities, cost" },
+	{ kind = "toggle", key = "qol.oldRanks", label = L["Old ranks on your bars"],
+		help = L["After training and at login, says which spells on your action bars are a lower rank than the one in your spellbook, with a button that puts the highest rank in the same buttons (out of combat). Macros and items are never touched. Right-click a spell on the card to keep it at its rank; a lower rank you put on a bar yourself is kept too."],
+		search = "rank, old rank, downrank, action bar, upgrade spells, highest rank, buttons" },
+	{ kind = "button", icon = "reset", button = L["Forget"], label = L["Forget kept ranks"],
+		help = L["Lists the spells you kept at a lower rank again."], search = "rank, downrank, keep rank, action bar",
+		disabled = function() return not QoL.On("oldRanks") end,
+		onClick = function() if QoL.Spells then QoL.Spells.ForgetKept(); QoL.Spells.CheckRanks(true) end end },
 })
 
 register(QOL, L["Trackers"], L["Experience"], {

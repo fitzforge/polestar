@@ -42,6 +42,8 @@ local RING = 40
 local ART, ICON, GLYPH = RING - 4, RING - 8, 20
 local STRIPE = 4
 local SLIDE = 0.25
+-- Another heads-up's row of spell icons (UI/SpellCards.lua): this many at most, then "+N more".
+local SPELL, SPELLS_MAX = 26, 8
 local LOGIN_LEVELS = 2 -- on login, chains opened within this many levels
 local CLASS_BIT = { WARRIOR = 1, PALADIN = 2, HUNTER = 4, ROGUE = 8, PRIEST = 16, SHAMAN = 64, MAGE = 128, WARLOCK = 256, DRUID = 1024 }
 local SIDE = { Alliance = "A", Horde = "H" }
@@ -375,6 +377,11 @@ local function build()
 	f.Title = text(f, "name", "personName")
 	f.Giver = text(f, "small", "textDim")
 	f.Route = text(f, "small", "textMuted")
+	-- Another heads-up's spells, a row of icons with the game's tooltips (CT.SpellButton).
+	f.SpellRow = {}
+	f.SpellMore = text(f, "small", "textMuted")
+	f.SpellMore:SetWordWrap(false)
+	f.SpellMore:Hide()
 
 	-- What it brings, in the window's accent chip.
 	f.Badge = CreateFrame("Frame", nil, f)
@@ -471,6 +478,21 @@ function layout(width)
 			fs:SetPoint("TOPLEFT", f, "TOPLEFT", x, -y)
 			y = y + fs:GetStringHeight() + 3
 		end
+	end
+	local spells = CT.current and CT.current.spells
+	if spells and #spells > 0 then
+		local bx = x
+		for i = 1, min(#spells, SPELLS_MAX) do
+			local b = f.SpellRow[i]
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", f, "TOPLEFT", bx, -y)
+			bx = bx + SPELL + 4
+		end
+		if f.SpellMore:IsShown() then
+			f.SpellMore:ClearAllPoints()
+			f.SpellMore:SetPoint("LEFT", f, "TOPLEFT", bx + 2, -(y + SPELL / 2))
+		end
+		y = y + SPELL + 4
 	end
 	y = max(y, PAD + RING) + 10
 	f.Rule:ClearAllPoints()
@@ -571,10 +593,16 @@ end
 -- another heads-up's, which carries its own action instead of a quest:
 -- { head, title, giver, route, badge, icon, class (nil: the accent),
 -- titleColor, iconColor, art, act = { label, run }, more = { label, run },
--- off = { label, run } }. art = { file, l, r, t, b, lift }: a picture
+-- off = { label, run }, spells, spellTip, spellRight, hideAfter, quiet }.
+-- art = { file, l, r, t, b, lift }: a picture
 -- cropped to those texture coordinates, filling the ring, lifted by lift
 -- (0-1) when dark; without it an icon tinted iconColor is a glyph, drawn
--- small on the disc, and an untinted one a full-colour icon.
+-- small on the disc, and an untinted one a full-colour icon. spells = { { id,
+-- icon? } }: a row of icons under the lines (SPELLS_MAX, then "+N
+-- more"), each with the game's spell tooltip, spellTip(tooltip, spell) adding
+-- lines to it, spellRight(spell) run on a right-click.
+-- hideAfter: seconds on screen before it hides itself (not while the
+-- pointer is on it); quiet: no chime.
 -- -> true when shown
 function CT.ShowCard(m)
 	if not (m and window()) then return false end
@@ -614,6 +642,7 @@ function CT.ShowCard(m)
 	f.Giver:SetShown(m.giver ~= nil)
 	f.Route:SetText(m.route or "")
 	f.Route:SetShown(m.route ~= nil)
+	CT.SetSpells(m.spells)
 	f.Badge.Text:SetText(m.badge or "")
 	f.Badge:SetShown(m.badge ~= nil)
 	f.Act:SetShown(m.act ~= nil)
@@ -625,13 +654,75 @@ function CT.ShowCard(m)
 	f.Open:SetShown(m.act == nil and m.guideId ~= nil)
 	f.ShowMe:SetShown(m.act == nil and m.guideId == nil)
 	CT.Place(not wasShown)
-	if not wasShown and f:IsShown() then
+	if not wasShown and f:IsShown() and not m.quiet then
 		local C = CC()
 		if ns.Get("ui.classCardSound") and C.GameSoundOn() and PlaySound then
 			pcall(PlaySound, (SOUNDKIT and SOUNDKIT.IG_QUEST_LIST_COMPLETE) or 878, "SFX")
 		end
 	end
+	if m.hideAfter then
+		local function expire()
+			if CT.current ~= m then return end
+			if f:IsShown() and f.IsMouseOver and f:IsMouseOver() then
+				ns.After(5, expire)
+				return
+			end
+			CT.Hide()
+		end
+		ns.After(m.hideAfter, expire)
+	end
 	return f:IsShown()
+end
+
+-- Spell icon i of the row, made on first use.
+function CT.SpellButton(i)
+	local b = f.SpellRow[i]
+	if b then return b end
+	b = CreateFrame("Button", nil, f)
+	b:SetSize(SPELL, SPELL)
+	b:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	b.Icon = b:CreateTexture(nil, "ARTWORK")
+	b.Icon:SetAllPoints(b)
+	b.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+	b:SetScript("OnEnter", function(self)
+		local m, s = CT.current, self.spell
+		if not (m and s) then return end
+		W.SpellTip(self, s.id, m.spellTip and function(tip) m.spellTip(tip, s) end or nil)
+	end)
+	b:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
+	b:SetScript("OnClick", function(self, button)
+		local m, s = CT.current, self.spell
+		if not (m and s) then return end
+		if button == "RightButton" then
+			if m.spellRight then m.spellRight(s) end
+		else
+			W.SpellClick(s.id)
+		end
+	end)
+	f.SpellRow[i] = b
+	return b
+end
+
+-- The row of spell icons for list (nil: none).
+function CT.SetSpells(list)
+	local n = list and #list or 0
+	local shown = min(n, SPELLS_MAX)
+	for i = 1, shown do
+		local b, s = CT.SpellButton(i), list[i]
+		b.spell = s
+		b.Icon:SetTexture(s.icon or ns.Compat.SpellIcon(s.id) or 134400)
+		b:Show()
+	end
+	for i = shown + 1, #f.SpellRow do
+		f.SpellRow[i].spell = nil
+		f.SpellRow[i]:Hide()
+	end
+	if n > SPELLS_MAX then
+		f.SpellMore:SetText(format(L["+%d more"], n - SPELLS_MAX))
+		f.SpellMore:Show()
+	else
+		f.SpellMore:Hide()
+	end
 end
 
 -- Dismissing a card lets a heads-up that waited for it show

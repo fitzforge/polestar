@@ -501,6 +501,18 @@ its source is in [apps/client](apps/client).
   levels 40 and 60 a **riding reminder** shows the cost of riding and your
   balance, and points the arrow at your riding trainer once you can afford
   it.
+- **New spells at level-up.** When you ding, a quiet card on the guide window
+  shows the class spells you can now train (the game's own tooltip on each
+  icon), what they cost together and whether you can pay it, and the nearest
+  class trainer with a button for the arrow. It goes by itself, stays away in
+  combat and dungeons, and says nothing on levels with nothing new.
+- **Old ranks on your bars.** Action bars keep the exact rank you put on
+  them, so after training (and at login) a card lists the spells on your bars
+  that are a lower rank than your spellbook's ("Renew 2 → 3"), and
+  **Upgrade** puts the highest rank in those same buttons, out of combat.
+  Macros and items are never touched; right-click a spell on the card to keep
+  it at its rank, and a lower rank you put on a bar yourself is kept too.
+  Both under Options > Quality of Life > Vendors > Trainers.
 - **Elite quests with a solo way past.** The leveling routes take elite and
   group quests where they pay, sized from the game's creature data, with the
   group each one wants; skip one and the guide has you grind to the route's
