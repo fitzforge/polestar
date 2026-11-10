@@ -2090,6 +2090,31 @@ test('forever/reputation/centaur-clans.guide: no accept comes before the guide w
 	}
 });
 
+// #1667 (devanpy, Orc Warlock 31, 0.3.6): Enchanted Gold Bloodrobe opens at 31 and sent him to the Burning Exiles
+// (38-39, fire elementals that resist fire) for the Smoldering Coal; he couldn't solo them. A step whose mobs' top level
+// is more than 2 above what the guide can have reached (its opening level, raised by its `level` holds and its accepts'
+// minimum levels) waits for that level first: the Lesser Infernal Stone (Lesser Infernals 36-37) at 35, the coal at 37.
+test('forever/class/warlock/enchanted-gold-bloodrobe.guide: no kill or drop comes before the guide waits for mobs at most 2 levels above (#1667)', { skip }, () => {
+	const G = 'forever/class/warlock/enchanted-gold-bloodrobe.guide';
+	const top = (id) => data.npcs[id] && (data.npcs[id].levelMax || data.npcs[id].level);
+	let reached = compiled(G).minLevel || 1;
+	const seen = {};
+	for (const { goal } of goals(G)) {
+		if (goal.t === 'level') reached = Math.max(reached, goal.level);
+		if (goal.t === 'accept') reached = Math.max(reached, goal.minLevel || 1);
+		const item = goal.t === 'collect' ? data.items[goal.item] : null;
+		// Real droppers only (a drop chance): Xizk Goodstitch "drops" the Fine Gold Thread he hands out (no chance).
+		const droppers = item && item.drops && !(item.vendors || []).length ? Object.entries(item.drops.npc || {}).filter(([, chance]) => typeof chance === 'number').map(([id]) => top(id)).filter(Boolean) : [];
+		const mob = goal.t === 'kill' ? top(goal.npc) : droppers.length ? Math.min(...droppers) : null;
+		if (!mob) continue;
+		seen[goal.item || goal.npc] = reached;
+		assert.ok(mob <= reached + 2, `${goal.t} ${goal.item || goal.npc}: mobs up to ${mob}, the guide waits only for ${reached}`);
+	}
+	assert.equal(seen[6990], 35, 'the Lesser Infernal Stone waits for 35');
+	assert.equal(seen[6991], 37, 'the Smoldering Coal waits for 37');
+	assert.equal(seen[6989], 31, 'the Hatefury vials wait for nothing past the opening 31');
+});
+
 // --- Southshore (never-seen check, 2026-11-08): 4 Alliance people passed Barkeep Kelly and none was offered Talk of the
 // Town (98463); the guide keeps it, optional at both ends, with a tip to skip it.
 test(`Talk of the Town is optional at Southshore and at its Booty Bay hand-in, with a tip to skip it`, { skip }, () => {
