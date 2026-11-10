@@ -1249,7 +1249,9 @@ function Theme.TextShade(parent, fx, fy)
 	return { parts = { mid, tl, tr, bl, br, top, bottom, left, right } }
 end
 
--- The scheme's scrim colour at `alpha`.
+-- The scheme's scrim colour at `alpha`. The alpha is the parts' vertex
+-- alpha: in the client a texture's SetAlpha sets that same value, so a part
+-- is never SetAlpha'd (fold any fade into `alpha`, #1684).
 function Theme.PaintScrim(s, alpha)
 	local r, g, b = Theme.Color("scrim")
 	for i = 1, #s.parts do s.parts[i]:SetVertexColor(r, g, b, alpha) end

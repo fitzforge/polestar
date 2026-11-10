@@ -643,6 +643,52 @@ function UI.GoalLine(goal, questHex)
 	return text
 end
 
+-- A count ("0/6", "3/10", a party member's "2/6") never splits across lines:
+-- the client breaks a wrapped string after "/", which left "0/" at a line's
+-- end and the "6" under it (#1684). UI.SetCounted(fs, text) sets a string's
+-- text and keeps it; UI.FitCounts(fs), once the string's width is set, moves
+-- a count that would start on one line and end on the next whole onto the
+-- next: the spaces before it (and its colour code) become a line break. The
+-- test is the string's own height through the count's first character and
+-- through its last, so it holds whatever the client's break rules are. A
+-- string whose text was set otherwise since is left alone.
+function UI.SetCounted(fs, text)
+	fs.psCounted, fs.psFitted = text, text
+	fs:SetText(text)
+end
+
+function UI.FitCounts(fs)
+	local text = fs.psCounted
+	if type(text) ~= "string" or fs:GetText() ~= fs.psFitted then return end
+	if not text:find("%d/%d") then return end
+	fs:SetText(text)
+	local lh = fs:GetLineHeight()
+	local out = text
+	if lh and lh > 0 and fs:GetStringHeight() > lh * 1.5 then
+		local from = 1
+		while true do
+			local s, e = out:find("%d+/%d+", from)
+			if not s then break end
+			fs:SetText(out:sub(1, s))
+			local before = fs:GetStringHeight()
+			fs:SetText(out:sub(1, e))
+			if fs:GetStringHeight() > before + 0.5 then
+				local b = s
+				if b > 10 and out:sub(b - 10, b - 1):find("^|c%x%x%x%x%x%x%x%x$") then b = b - 10 end
+				local a = b
+				while a > 1 and out:sub(a - 1, a - 1) == " " do a = a - 1 end
+				if a > 1 and a < b and out:sub(a - 1, a - 1) ~= "\n" then
+					out = out:sub(1, a - 1) .. "\n" .. out:sub(b)
+					e = e - (b - a) + 1
+				end
+			end
+			from = e + 1
+		end
+		fs:SetText(out)
+	end
+	fs.psFitted = out
+end
+
 -- Step i of the active guide as the player counts it: steps that do not
 -- exist for the character (another class's or race's, Engine.StepNumber)
 -- left out (#942); whether it is such a step; how many the player sees.

@@ -520,7 +520,7 @@ local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noE
 	end
 	-- The game's looks light the goal to do now with their own art.
 	Theme.KitRowLit(r, current and not done and not skipped and not transparent(), nil, Theme.Metric("guideLitInset", 4))
-	r.Text:SetText(UI.GoalLine(goal, questHex))
+	UI.SetCounted(r.Text, UI.GoalLine(goal, questHex))
 	-- White while it is to be done; done and skipped goals step back. The
 	-- turn-in of a quest whose objectives are still open, pinned (#644),
 	-- ticked by hand (#1135) or worked along the way (#853): the warning
@@ -536,7 +536,7 @@ local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noE
 	end
 	-- An unavailable quest's reason names its giver already.
 	if who and not goal.unavailable then sub = sub and (who .. "  \194\183  " .. sub) or who end
-	r.Sub:SetText(sub or "")
+	UI.SetCounted(r.Sub, sub or "")
 	r.Sub:SetShown(sub ~= nil)
 	-- An unavailable quest's reason, or an accept's notice, is the point of the line: keep it readable.
 	W.Color(r.Sub, (goal.unavailable or goal.noticeText) and "textDim" or "textMuted")
@@ -628,6 +628,7 @@ local function measureRow(r, width)
 	end
 	local tw = max(40, width - TEXT_X - right)
 	r.Text:SetWidth(tw)
+	UI.FitCounts(r.Text)
 	local h = 4 + r.Text:GetStringHeight()
 	local above = r.Text
 	local b = r.psBar
@@ -641,6 +642,7 @@ local function measureRow(r, width)
 	if UI.GearPick then h, above = UI.GearPick.Measure(r, tw, h, above) end
 	if r.Sub:IsShown() then
 		r.Sub:SetWidth(tw)
+		UI.FitCounts(r.Sub)
 		r.Sub:ClearAllPoints()
 		r.Sub:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, -3)
 		h = h + 3 + r.Sub:GetStringHeight()
@@ -2131,6 +2133,7 @@ function GF.LayoutHere(width)
 			r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X, -8)
 			local tw = max(40, width - TEXT_X - right)
 			r.Text:SetWidth(tw)
+			UI.FitCounts(r.Text)
 			r.Sub:ClearAllPoints()
 			r.Sub:SetPoint("TOPLEFT", r.Text, "BOTTOMLEFT", 0, -2)
 			r.Sub:SetWidth(tw)
@@ -2156,6 +2159,7 @@ do
 		if parent == upnext then r.Num:SetPoint("LEFT", r, "TOPLEFT", PAD - 10, -UP_ROW / 2) end
 		r.Icon:SetPoint("LEFT", r, "TOPLEFT", TEXT_X - 2, -UP_ROW / 2)
 		r.Text:SetWidth(width - TEXT_X - 14 - PAD)
+		UI.FitCounts(r.Text)
 		local inset, h = twoLines(r.Text, UP_ROW)
 		r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X - 2 + 13 + 9, -inset)
 		r:SetHeight(h)
@@ -2820,7 +2824,7 @@ local function fillAlong(E)
 				r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = gv.step or s.index, gv.index, s.title or UI.GoalLine(gv), s.pin, nil
 				r.psPlace = gv.map and gv.x and gv.y and true or nil
 				r.Icon:SetTexture(Theme.VerbIcon(gv.t))
-				r.Text:SetText(UI.GoalLine(gv))
+				UI.SetCounted(r.Text, UI.GoalLine(gv))
 				r:Show()
 			end
 		end
@@ -2869,7 +2873,7 @@ function GF.FillHere(E)
 		r.psView = v
 		keys[i] = v.step .. ":" .. v.index
 		r.Icon:SetTexture(Theme.VerbIcon(v.here == "turnin" and "turnin" or v.t))
-		r.Text:SetText((v.here == "turnin" or v.here == "take") and UI.HereText(v) or UI.GoalLine(v))
+		UI.SetCounted(r.Text, (v.here == "turnin" or v.here == "take") and UI.HereText(v) or UI.GoalLine(v))
 		r.Sub:SetText(string.format(v.later and L["Step %d, later in this guide"] or L["Step %d"], UI.StepNo(v.step)))
 		r.Sub:SetShown(not tight)
 		r.Dist:SetText(v.yards and ns.FormatDistance(v.yards, GF.HERE_DIST) or "")
@@ -3643,6 +3647,10 @@ end
 -- later (GF.QueueShades: one OnUpdate, then none), when a string's text,
 -- width or shown state changes; a string's own alpha (the chrome's fade, a
 -- dimmed label) carries to its shade. GF.shades: string -> its shade.
+-- The string's alpha goes into the shade's vertex colour (GF.SHADE * alpha),
+-- never through SetAlpha: in the client a texture's alpha IS its vertex
+-- colour's alpha, so SetAlpha(1) on the parts drew them at full strength,
+-- a black box behind every line (#1684).
 GF.SHADE = 0.2
 GF.SHADE_FEATHER = { x = 30, y = 12 }
 GF.SHADE_INSET = { x = 10, y = 6 }
@@ -3678,13 +3686,10 @@ function GF.ShadeText(fs, on)
 	local y = (jv == "TOP" and "TOP") or (jv == "BOTTOM" and "BOTTOM") or ""
 	local point = (y .. x ~= "") and (y .. x) or "CENTER"
 	m:SetPoint(point, fs, point, x == "LEFT" and ix or x == "RIGHT" and -ix or 0, y == "TOP" and -iy or y == "BOTTOM" and iy or 0)
-	Theme.PaintScrim(s, GF.SHADE)
 	local a = fs:GetAlpha() or 1
+	Theme.PaintScrim(s, GF.SHADE * a)
 	s.shown = true
-	for _, p in ipairs(s.parts) do
-		p:SetAlpha(a)
-		p:Show()
-	end
+	for _, p in ipairs(s.parts) do p:Show() end
 end
 
 function GF.QueueShades()
@@ -3699,7 +3704,7 @@ end
 
 function GF.ShadeAlpha(fs, a)
 	local s = GF.shades[fs]
-	if s and s.shown then for _, p in ipairs(s.parts) do p:SetAlpha(a or 1) end end
+	if s and s.shown then Theme.PaintScrim(s, GF.SHADE * (a or 1)) end
 end
 
 function GF.PaintShades()

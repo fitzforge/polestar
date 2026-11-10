@@ -813,3 +813,77 @@ fn along_the_way_up_next_and_the_next_step_s_line_wrap_to_two_lines() {
 	assert_eq!(out["after"]["text"], "Then: Echo Ridge Mine, the kobold tunnels past the Northshire vineyards");
 	assert!(f(&out["after"]["h"]) > 28.0, "the line grows by its second line: {}", out["after"]);
 }
+
+// #1684 (Hillsbrad's farms, 0.3.6): the client breaks a wrapped line after "/", so "Kill Hillsbrad Farmhand 0/6"
+// read "0/" at the end of the line and "6" under it. A count never splits: it moves whole to the next line, in the
+// goal rows of every kind (a kill, a collect, a `complete` goal's objective lines), While you're here and Along the
+// way, at every window width, compact or not. The check measures each count on screen the way the client lays it
+// out: the string's height through the count's first character and through its last are the same.
+#[test]
+fn a_count_never_splits_across_two_lines_at_any_width() {
+	let out = run(r#"
+		local steps = uistub.guides[uistub.elwynn].steps
+		steps[#steps + 1] = { title = "The farms east of Hillsbrad", goals = {
+			{ t = "kill", verb = "Kill", subject = "Hillsbrad Farmer", subjectKind = "npc", npc = 2264, quest = 567, progress = { cur = 0, max = 6 }, status = "active" },
+			{ t = "kill", verb = "Kill", subject = "Hillsbrad Farmhand", subjectKind = "npc", npc = 2265, quest = 567, progress = { cur = 0, max = 6 }, status = "active" },
+			{ t = "collect", verb = "Collect", subject = "Mountain Lion Blood", subjectKind = "item", item = 3496, quest = 501, progress = { cur = 3, max = 10 }, status = "active" },
+			{ t = "complete", verb = "Complete", subject = "Dangerous!", subjectKind = "quest", quest = 567, status = "active", progress = { cur = 3, max = 16 },
+				objectiveLines = { { text = "Hillsbrad Farmer slain", cur = 0, max = 6 }, { text = "Hillsbrad Farmhand slain", cur = 3, max = 10 } } },
+		} }
+		local n = #steps
+		uistub.along = { { n, { 1, 3 } } }
+		Polestar.Engine.GetWhileHereList = function()
+			return { { step = n, index = 3, t = "collect", verb = "Collect", subject = "Mountain Lion Blood", subjectKind = "item", item = 3496, quest = 501,
+				progress = { cur = 3, max = 10 }, status = "active", yards = 55 } }
+		end
+		uistub.setGuide(uistub.elwynn, 5)
+		local probe = UIParent:CreateFontString()
+		local function walk(f, out)
+			if not f:IsVisible() then return end
+			for _, r in ipairs(f.regions or {}) do
+				if r:GetObjectType() == "FontString" and r:IsShown() and r:GetWordWrap() and (r:GetText() or "") ~= "" then out[#out + 1] = r end
+			end
+			for _, c in ipairs(f.children or {}) do walk(c, out) end
+		end
+		local split, counts, moved = {}, 0, 0
+		local seen = {}
+		local function check(label)
+			local list = {}
+			walk(F, list)
+			for _, fs in ipairs(list) do
+				local text = fs:GetText()
+				probe:SetFont(fs:GetFont())
+				probe:SetWidth(fs:GetWidth())
+				probe:SetMaxLines(fs:GetMaxLines())
+				local from = 1
+				while true do
+					local s, e = text:find("%d+/%d+", from)
+					if not s then break end
+					counts = counts + 1
+					probe:SetText(text:sub(1, s))
+					local h1 = probe:GetStringHeight()
+					probe:SetText(text:sub(1, e))
+					if probe:GetStringHeight() ~= h1 then split[#split + 1] = label .. ": " .. plain(text) end
+					from = e + 1
+				end
+				if fs.psCounted and text ~= fs.psCounted and not seen[fs.psCounted] then
+					seen[fs.psCounted] = true
+					moved = moved + 1
+				end
+			end
+		end
+		for _, compact in ipairs({ false, true }) do
+			Polestar.Set("ui.compact", compact)
+			for width = 260, 560, 10 do
+				Polestar.Set("ui.width", width)
+				uistub.setStep(n)
+				check((compact and "compact " or "") .. width)
+			end
+		end
+		emit({ split = table.concat(split, " | "), counts = counts, moved = moved, here = GF.here:IsShown() })"#)
+	.remove(0);
+	assert_eq!(out["here"], true, "While you're here is on screen");
+	assert_eq!(out["split"], "", "no count starts on one line and ends on the next");
+	assert!(f(&out["counts"]) > 300.0, "the counts on screen were all measured: {}", out["counts"]);
+	assert!(f(&out["moved"]) > 0.0, "some count had to move to the next line at some width: {}", out["moved"]);
+}
