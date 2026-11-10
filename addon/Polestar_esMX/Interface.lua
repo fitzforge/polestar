@@ -613,6 +613,7 @@ L["Ride the elevator up"] = "Sube en el ascensor"
 L["Ride the elevator down"] = "Baja en el ascensor"
 L["Ride the elevator"] = "Toma el ascensor"
 L["%s Inn"] = "Posada de %s"
+-- L["Detour around %s"] = ""
 
 -- QoL/Buttons.lua
 L["Target"] = "Objetivo"
@@ -1848,6 +1849,8 @@ L["Dark"] = "Oscuro"
 L["Keep the bar shown"] = "Mantener la barra visible"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "Con Transparente, las pestañas y la barra de pasos quedan en pantalla en lugar de aparecer solo bajo el cursor."
 L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = "Con Transparente: Suave pone una sombra ligera detrás de cada línea de texto, Oscuro un fondo oscuro detrás de toda la ventana. Desactivado: solo el texto con contorno sobre el mundo."
+-- L["Detour captions"] = ""
+-- L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desactivado en la lista de AddOns"

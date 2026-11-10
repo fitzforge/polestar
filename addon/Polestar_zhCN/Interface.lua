@@ -343,6 +343,7 @@ L["Ride the elevator up"] = "乘坐升降梯上去"
 L["Ride the elevator down"] = "乘坐升降梯下去"
 L["Ride the elevator"] = "乘坐升降梯"
 L["%s Inn"] = "%s旅店"
+-- L["Detour around %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -2190,6 +2191,8 @@ L["Dark"] = "深色"
 L["Keep the bar shown"] = "始终显示栏"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "透明样式下，标签页和步骤栏始终显示在屏幕上，而不是仅在鼠标悬停时显示。"
 L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = "透明样式下：柔和会在每行文字后加一层浅色阴影，深色会在整个窗口后加深色背景。关闭：只有带描边的文字显示在游戏画面上。"
+-- L["Detour captions"] = ""
+-- L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"

@@ -343,6 +343,7 @@ L["Ride the elevator up"] = "Подняться на лифте"
 L["Ride the elevator down"] = "Спуститься на лифте"
 L["Ride the elevator"] = "Проехать на лифте"
 L["%s Inn"] = "Таверна: %s"
+-- L["Detour around %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -2190,6 +2191,8 @@ L["Dark"] = "Тёмная"
 L["Keep the bar shown"] = "Не скрывать панель"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "В прозрачном стиле вкладки и панель шага остаются на экране, а не только под курсором."
 L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = "В стиле «Прозрачный»: «Мягкая» кладет легкую тень под каждую строку текста, «Тёмная» – темную подложку под все окно. «Выкл.»: только текст с обводкой поверх мира."
+-- L["Detour captions"] = ""
+-- L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
