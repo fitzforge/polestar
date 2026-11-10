@@ -9987,13 +9987,6 @@ test('Horde starts: the Priest robe quests on stops the Troll and Undead starts 
 	for (const q of [5648, 5649, 5650, 5651]) assert.ok(rf.include.some((e) => e.q === q), `the route fixes include ${q}`);
 });
 
-// Br3040 (0.3.6, Horde 30-40 → 40-50 seam): Gazlowe offers Goblin Sponsorship (1180, 700 XP) as soon as Pozzik's 1178 is
-// handed in on Horde 30-40/04's Ratchet stop; the guide said "leave it" although 40-50/01 stops in Booty Bay, where
-// Wharfmaster Lozgil takes it and Baron Revilgaz's 1181 follows.
-test('Horde Ratchet 37: Goblin Sponsorship (1180) taken from Gazlowe with 1178, for Booty Bay', { skip }, () => {
-	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
-});
-
 // Br3040 (0.3.6, Horde Stranglethorn 34, flow): the guide came in by zeppelin and walked from Nesingwary's camp all the way
 // down the vale (2,900 yd) to take Booty Bay's quests and flight path, then flew back. It now flies to Ratchet (Gazlowe's
 // 1178 and Dizzywig's 1111 handed in on the way), takes the boat to Booty Bay and walks north once: Goblin Sponsorship
