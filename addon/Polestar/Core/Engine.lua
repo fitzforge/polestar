@@ -3948,6 +3948,9 @@ local function describe(goal, s)
 		local mapName = C.GetMapName(goal.map)
 		local zone, onTo = Own.onThroughZone(s, goal)
 		if zone then return "", L["On through %s to %s"]:format(zone, onTo), "text", mapName end
+		-- A dungeon's way in (`entrance`: the dungeon guides' and Lookup's
+		-- generated goal, its text the dungeon's name): "Enter Wailing Caverns".
+		if goal.entrance and goal.text then return L["Enter"], goal.text, "place", mapName end
 		if place or goal.text then return L["Go to"], place or goal.text, "place", mapName end
 		local lx, ly = liveXY(goal)
 		return L["Go to"], ("%.1f, %.1f"):format(lx or goal.x, ly or goal.y), "place", mapName

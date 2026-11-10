@@ -1079,7 +1079,7 @@ L["Speak with %s"] = "Parler à %s"
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "Donneur de quête"
 L["In your log already: %s"] = "Déjà dans votre journal : %s"
-L["After the run: open this dungeon's page (/polestar dungeons %s) and choose Hand in the quests."] = "Après le donjon : ouvrez sa page (/polestar dungeons %s) et choisissez Rendre les quêtes."
+L["After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."] = "Après le donjon : choisissez Rendre les quêtes à la fin de ce guide ou sur la page du donjon."
 L["%s: pick up the quests"] = "%s : prendre les quêtes"
 L["Pick up the quests from level %d"] = "Prendre les quêtes à partir du niveau %d"
 L["Pick up the quests (%d now · %d at level %d)"] = "Prendre les quêtes (%d maintenant · %d au niveau %d)"
