@@ -370,9 +370,9 @@ step Satyrnaar
 
 step Kayneth Stillwind
   turnin 1011
-  turnin 98417                        -- Maseara Autumnmoon, a few steps east
   tip Optional: Kayneth also offers Insane Druids, three level 32 druids deep in The Dor'Danil Barrow Den, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it.
   accept 1012 optional
+  turnin 98417                        -- Maseara Autumnmoon, a few steps east
 
 # Players' recordings: the barrow's mouth near 75.95,75.45, south of the Forsaken camp; the
 # walking maps lead over the hill above the druids instead (#1336).
