@@ -153,6 +153,7 @@ L["Hand in %s to them: saves a trip back"] = "Entrega %s ahí: te ahorras volver
 L["Hand in %s to them"] = "Entrega %s ahí"
 L["Take %s from them: saves a trip back"] = "Acepta %s ahí: te ahorras volver"
 L["Take %s from %s: saves a trip back"] = "Acepta %s de %s: te ahorras volver"
+L["%s failed: abandon it and take it again"] = "%s fallida: abandónala y vuelve a aceptarla"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Aceptar %s bloquea %s para siempre."

@@ -155,6 +155,7 @@ L["Hand in %s to them: saves a trip back"] = "%s dort abgeben: spart einen Rück
 L["Hand in %s to them"] = "%s dort abgeben"
 L["Take %s from them: saves a trip back"] = "%s dort annehmen: spart einen Rückweg"
 L["Take %s from %s: saves a trip back"] = "%s bei %s annehmen: spart einen Rückweg"
+L["%s failed: abandon it and take it again"] = "%s fehlgeschlagen: brecht die Quest ab und nehmt sie erneut an"
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."

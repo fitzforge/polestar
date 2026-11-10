@@ -164,6 +164,7 @@ L["Hand in %s to them: saves a trip back"] = "Entrega %s ahí: te ahorras regres
 L["Hand in %s to them"] = "Entrega %s ahí"
 L["Take %s from them: saves a trip back"] = "Toma %s ahí: te ahorras regresar"
 L["Take %s from %s: saves a trip back"] = "Toma %s de %s: te ahorras regresar"
+L["%s failed: abandon it and take it again"] = "%s fallida: abandónala y vuelve a aceptarla"
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Requiere Polestar %s o posterior."

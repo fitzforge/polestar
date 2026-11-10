@@ -153,6 +153,7 @@ L["Hand in %s to them: saves a trip back"] = "就地繳交 %s：省一趟回程"
 L["Hand in %s to them"] = "就地繳交 %s"
 L["Take %s from them: saves a trip back"] = "就地接取 %s：省一趟回程"
 L["Take %s from %s: saves a trip back"] = "向 %2$s 接取 %1$s：省一趟回程"
+L["%s failed: abandon it and take it again"] = "%s 已失敗：放棄後重新接取"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "接受 %s 將永久關閉 %s。"
