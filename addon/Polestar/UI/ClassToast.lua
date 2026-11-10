@@ -131,18 +131,43 @@ end
 
 -- How far starter `rec` (a Codex NPC or object) stands from the giver's
 -- point: its nearest spawn on the giver's map, squared; 0 for a giver with no
--- point. -> distance | nil (no spawn there)
+-- point. -> distance, that spawn's height | nil (no spawn there)
 local function giverDistance(rec, giver)
 	if not giver[2] then return 0 end
-	local best
+	local best, z
 	for _, s in ipairs(rec and rec.spawns or {}) do
 		if s.map == giver[2] then
 			local dx, dy = s.x - giver[3], s.y - giver[4]
 			local d = dx * dx + dy * dy
-			if not best or d < best then best = d end
+			if not best or d < best then best, z = d, s.z end
 		end
 	end
-	return best
+	return best, z
+end
+
+-- The giver's height (#1639): the Codex spawn of quest q's start nearest its
+-- point, within a map percent or two; nil when unknown. A giver in a stacked
+-- town (the Undercity's Royal Quarter, Orgrimmar's Cleft of Shadow) is then
+-- sought on its own floor. Never loads the Codex in combat.
+local NEAR_GIVER = 4 -- squared map percent
+local function giverHeight(q, giver)
+	local X = ns.Codex
+	if not (X and X.Quest and giver[2]) then return nil end
+	if not (X.IsLoaded and X.IsLoaded()) and InCombatLockdown and InCombatLockdown() then return nil end
+	local rec = X.Quest(q)
+	local start = rec and rec.start
+	if not start then return nil end
+	local bestD, bestZ
+	for _, id in ipairs(start.npc or {}) do
+		local d, z = giverDistance(X.Npc(id), giver)
+		if d and (not bestD or d < bestD) then bestD, bestZ = d, z end
+	end
+	for _, id in ipairs(start.object or {}) do
+		local d, z = giverDistance(X.Object(id), giver)
+		if d and (not bestD or d < bestD) then bestD, bestZ = d, z end
+	end
+	if bestD and bestD <= NEAR_GIVER and type(bestZ) == "number" then return bestZ end
+	return nil
 end
 
 -- The giver's name in the client's words: the start of quest q (Codex) that
@@ -799,7 +824,7 @@ end
 function CT.ShowMe()
 	local m, N = CT.current, ns.Nav
 	if not (m and m.map and m.x and m.y) then return false end
-	if N and N.SetTarget then N.SetTarget(m.map, m.x, m.y, m.who, "e") end
+	if N and N.SetTarget then N.SetTarget(m.map, m.x, m.y, m.who, "e", nil, giverHeight(m.quest, { nil, m.map, m.x, m.y })) end
 	CT.Hide()
 	return true
 end

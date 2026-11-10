@@ -821,6 +821,34 @@ fn the_giver_is_the_one_for_the_characters_race_and_without_a_class_guide_show_m
 	assert_eq!(out[2], json!({ "target": "Ageron Kargal", "map": 1420, "shown": false }));
 }
 
+// #1639's sweep: "Show me" put the arrow on the giver's map point without a height, so a giver in a
+// stacked town (the Undercity's Royal Quarter, Orgrimmar's Cleft of Shadow) was sought on the nearest
+// floor. The height comes from the Codex spawn of the quest's start nearest the point; a spawn far
+// from it (another of the NPC's spots) or none leaves it unknown, as before.
+#[test]
+fn show_me_carries_the_giver_s_codex_height_so_a_giver_in_a_stacked_town_is_sought_on_its_floor_1639() {
+	let out = run_toast(
+		r#"
+		who("WARLOCK", "Scourge", "Horde", 9)
+		stub.fire("PLAYER_LEVEL_UP", 10)
+		local m = CT.current
+		local spawns = { { map = m.map, x = m.x + 20, y = m.y, z = 99 }, { map = m.map, x = m.x + 0.5, y = m.y, z = -61.4 } }
+		Polestar.Codex = {
+			IsLoaded = function() return true end,
+			Quest = function(q) return q == m.quest and { start = { npc = { 7 } } } or nil end,
+			Npc = function(id) return id == 7 and { id = 7, spawns = spawns } or nil end,
+			Object = function() return nil end,
+		}
+		CT.frame.ShowMe:Click()
+		local near = uistub.target and uistub.target.z
+		spawns[2] = nil
+		CT.Show(m.quest)
+		CT.frame.ShowMe:Click()
+		emit({ near = near, far = uistub.target and uistub.target.z == nil })"#,
+	);
+	assert_eq!(out[0], json!({ "near": -61.4, "far": true }), "the spawn 20 map percent off is another spot, no height for the giver");
+}
+
 // Fitz, 2026-11-05: "NEW WEAPON" crowded the quest's name. With a badge the title starts
 // below the badge (10 down, 20 high) with a gap, never beside or under it.
 #[test]
