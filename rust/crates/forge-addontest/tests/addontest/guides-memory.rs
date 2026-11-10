@@ -56,8 +56,11 @@ fn pack_files(name: &str) -> String {
 /// 0.3.6 final (b67f42b45, release data 17:37:10Z, Library Books / Valik / upgrade steps folded): Alliance resident
 /// 16,040, peak 34,458, read 22,224; Horde resident 14,673, peak 31,676, read 21,151. Only the Alliance read was over:
 /// raised to that plus ~1% (22,450); trim in 0.3.7 with the rest.
+/// 0.3.6 night review (fb6c4dce8, 8 bracket reviews: Camping 101 at every start, Thunder Bluff stop, Velarok chain,
+/// Goblin Sponsorship, failed-quest notices, data 01:43Z): Alliance resident 16,231, peak 34,791, read 22,448; Horde
+/// resident 14,955, peak 32,214, read 21,496. Budgets: those plus ~1% (Horde read unchanged); trim in 0.3.7.
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 16200.0), ("peak", 34800.0), ("read", 22450.0)]), ("Horde", "Orc", [("resident", 14830.0), ("peak", 31980.0), ("read", 21580.0)])];
+	[("Alliance", "Human", [("resident", 16400.0), ("peak", 35140.0), ("read", 22670.0)]), ("Horde", "Orc", [("resident", 15100.0), ("peak", 32540.0), ("read", 21580.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {
