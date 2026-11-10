@@ -6894,6 +6894,26 @@ function Engine.GuideTrainStop()
 	return false
 end
 
+-- Where to train now, the one answer the training reminder banner and the
+-- level-up spell card both give: the guide's own class training stop when it
+-- is at most Engine.TRAIN_GUIDE_NEAR applicable steps from the live step
+-- (the guide takes the player there: no other trainer is named), else the
+-- class trainer the travel planner ranks best on the guide's way
+-- (NearestClassTrainer(true)). Before, the banner named the planner's pick
+-- even with the guide's stop 10 steps ahead: Jen'shan in the Valley of Trials
+-- to a Tauren at the Crossroads whose guide trains in Orgrimmar, the walk
+-- priced straight across the river canyon.
+--   -> { steps, title, guide = true } | { steps (false: none ahead, nil: no
+--      guide), title, trainer (nil: none known) }
+Engine.TRAIN_GUIDE_NEAR = 10
+function Engine.TrainingAdvice()
+	local steps, title = Engine.GuideTrainStop()
+	if type(steps) == "number" and steps <= Engine.TRAIN_GUIDE_NEAR then
+		return { steps = steps, title = title, guide = true }
+	end
+	return { steps = steps, title = title, trainer = Engine.NearestClassTrainer(true) }
+end
+
 -- The active guide sends the character to their class trainer soon: within
 -- TRAIN_LOOKAHEAD steps of the live step.
 local function guideTrainsSoon()

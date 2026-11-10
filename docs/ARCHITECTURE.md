@@ -1271,7 +1271,19 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   within 15 seconds of a nearer one loses to it, and a guide with no route
   ahead gets the nearest one. The UI shows a slim
   banner with Show (temporary `Nav.SetTarget`) and Later, cleared by
-  `CLASS_TRAINED`; Options → Guide → Automation → "Trainer reminders".
+  `CLASS_TRAINED`; Options → Guide → Automation → "Trainer reminders". What
+  the banner names comes from `Engine.TrainingAdvice()`, live at each layout
+  (the level-up spell card asks the same function, so the two always
+  agree): when the guide's own training stop (`Engine.GuideTrainStop`) is at
+  most `Engine.TRAIN_GUIDE_NEAR` (10) applicable steps ahead, the banner
+  names that ("The guide trains you in 10 steps (Orgrimmar).", or "Your
+  guide's current step trains you.") and no other trainer, without Show;
+  otherwise the planner's pick above (the notice's trainer when the engine
+  has none). The route planner prices a walk it has not measured as a
+  straight line × 1.25 (`Nav.EstimateTravel`: walks into a live target are
+  measured by the walking engine, candidates' are not), so a straight line
+  across the Barrens–Durotar river canyon once named Jen'shan in the Valley
+  of Trials to a Tauren at the Crossroads whose guide trained in Orgrimmar.
   With `behavior.offerClassQuests` (default on; QoL/ClassQuests.lua), a
   Class guide that opens for the character (`GuideMatches`, its gate gone,
   `Engine.StartGate`, nothing of it under way) fires `CLASS_QUEST_READY`

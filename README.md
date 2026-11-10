@@ -496,8 +496,9 @@ its source is in [apps/client](apps/client).
   goal's cycle button picks another. In the starting zones, a character who
   already has a profession gets its Camping 101 quest at the campfire too,
   handed in at the trainer on the way.
-- **Class training reminder** every two levels (configurable): the nearest
-  trainer of your class, unless your guide is about to take you there. At
+- **Class training reminder** every two levels (configurable): when your
+  guide trains you within a few steps it says so, else it names the class
+  trainer that fits your route. At
   levels 40 and 60 a **riding reminder** shows the cost of riding and your
   balance, and points the arrow at your riding trainer once you can afford
   it.
