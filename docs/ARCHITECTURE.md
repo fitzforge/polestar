@@ -5026,6 +5026,77 @@ instance): the run is weighed against the Spirit Healer as for a corpse, the
 arrow and the pin read "<dungeon> (your corpse is inside)" and the note "Run
 back to <dungeon>, your corpse is inside: …".
 
+### Quest-starting loot on the item button — QoL/QuestLoot
+
+```lua
+Polestar.QoL.QuestLoot.Current() -> itemID, questID | nil   -- the oldest starter waiting; nil with qol.questLoot off
+Polestar.QoL.QuestLoot.Used(itemID)                        -- clicked on the button: passed over while it stays in the bags
+Polestar.QoL.QuestLoot.Scan()                              -- read the bags now; fires QUEST_LOOT_CHANGED(itemID | nil) on a change
+```
+
+Behind `qol.questLoot` (on by default; Questing → Buttons → Action buttons,
+under the quest item button, and on Quality of Life). A bag slot holds a
+starter when the client says its item begins a quest that is not in the log
+(`C_Container.GetContainerItemQuestInfo`: `questID`, `isActive`;
+`QoL.Client.SlotStartsQuest`), or else the quest database names the quests
+the item starts (`QuestDB.StartedBy`), and `QuestDB.CheckAvailable` (with
+`lowLevel`) says this character can take that quest now: faction, race,
+class, level, not done, not in the log, prerequisites. Race and class are
+only known there, so `questLoot` is one of the settings that load the quest
+database (`QuestDB.IsWanted`), and with it not loaded nothing is offered. An
+item whose minimum level (`GetItemInfo`) is above the character's is passed
+over. Scans run on the next frame after `BAG_UPDATE_DELAYED`,
+`QUEST_ACCEPTED`, `QUEST_REMOVED`, `QUEST_TURNED_IN`, `PLAYER_LEVEL_UP`
+(registered only while on, `QoL.WhileOn`) and `QUESTDB_LOADED`. Per
+character (`QoL.State().questLoot`): `seen` numbers each starter the first
+time a scan finds it, in bag order, and the lowest unread number is
+`Current`; `used` holds the ones clicked on the button. Both drop an item once
+it leaves the bags (`seen` also once its quest can no longer be taken).
+
+The quest item button (QoL/Buttons `refresh`) shows the step's item
+(`ChooseQuestItem`) first and `QuestLoot.Current()` only when that gives
+none. A starter on the button glows: the theme's soft glow in the accent
+behind it, pulsing unless `ui.reduceMotion`. The glow follows the item the
+button holds (a texture, so it may change in combat), while the item itself
+changes through `QoL.Secure` as before. A release on the button with a
+starter on it (`PostClick`, not mid-drag) marks it used, so the next one
+takes its place; the tooltip adds "You can take the quest this item starts.
+Click to read it."
+
+### Dungeon quests only — QoL/InstanceTrack
+
+```lua
+Polestar.QoL.InstanceTrack.Update()   -- read where the character is and apply (next frame after the events)
+Polestar.QoL.InstanceTrack.Saved()    -- { key, watched = { questID, ... } } kept from before the instance, or nil
+Polestar.Dungeons.ForMap(mapID) -> key | nil
+Polestar.QuestDB.SetTracked(set | nil) ; Polestar.QuestDB.Tracked()
+```
+
+Behind `qol.instanceTrack` (on by default; Questing → Quests → Tooltips and
+quest log, and on Quality of Life). Inside a dungeon or raid
+(`Compat.IsInInstance` "party" or "raid") whose instance map
+(`Compat.GetInstanceMapID`) a Dungeons summary carries (`Dungeons.ForMap`),
+the instance's quests are its journal page's (`Dungeons.Quests(key)`). On
+the way in, the game's watch list (`C_QuestLog.GetNumQuestWatches`,
+`GetQuestIDForQuestWatchIndex`) is kept per character
+(`QoL.State().instanceTrack`), every other quest's watch goes
+(`C_QuestLog.RemoveQuestWatch`) and the instance's quests in the log are
+watched (`C_QuestLog.AddQuestWatch`), once per instance and session: a
+quest watched by hand inside stays. Polestar's quest markers follow
+(`QuestDB.SetTracked(set)`: Quests/Tracker.lua builds objective and turn-in
+markers for those quests only; available-quest markers, tooltips and
+nameplates are untouched). Outside an instance, in a battleground, or with
+the setting turned off, the kept list comes back exactly: every watch goes,
+then the kept quests still in the log are watched again in their order, and
+the record is cleared. The record is SavedVariables, so a /reload inside
+keeps it and leaving still restores it; the restore waits until the quest
+log has loaded (`C_QuestLog.GetNumQuestLogEntries` above 0) when the list
+isn't empty. Inside an instance not named yet (the Codex refused in combat,
+a hidden map) nothing changes; `PLAYER_REGEN_ENABLED` and `QUEST_LOG_UPDATE`
+retry. An instance whose page lists no quests is left alone too. Events:
+`PLAYER_ENTERING_WORLD`, `ZONE_CHANGED_NEW_AREA` (while on),
+login, and the `qol.instanceTrack` and `dungeons.enabled` settings.
+
 ### Guide level on the XP bar — QoL/XPMark
 
 ```lua

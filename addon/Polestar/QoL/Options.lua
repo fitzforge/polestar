@@ -88,6 +88,17 @@ function C.itemButton()
 		help = L["A button for the current step's quest item, with count, cooldown and range. Bind it under Key Bindings > AddOns."],
 		search = "use item, quest item, keybind, hotkey, item bar" }
 end
+local function itemButtonOff() return not QoL.On("itemButton") end
+function C.questLoot()
+	return { kind = "toggle", key = "qol.questLoot", label = L["Show quest-starting loot"], disabled = itemButtonOff, child = true,
+		help = L["When you loot an item that starts a quest you can take, it goes on the quest item button with a glow until you click it or take the quest. The step's own item comes first; several wait their turn, oldest first."],
+		search = "quest starter, starts a quest, loot, quest item, glow" }
+end
+function C.instanceTrack()
+	return { kind = "toggle", key = "qol.instanceTrack", label = L["Track only dungeon quests in dungeons"],
+		help = L["Inside a dungeon or raid, the game's quest tracker and Polestar's quest markers show only that instance's quests. The quests you were tracking come back when you leave, even after a reload inside."],
+		search = "dungeon, instance, tracker, objectives, quest watch, raid" }
+end
 function C.stepInteract()
 	return { kind = "toggle", key = "qol.stepInteract", label = L["Step key talks and loots"],
 		help = L["Once the step key has targeted the step's NPC, the next press talks to it; on the corpse of the step's mob, it loots; in the step's quest window, it accepts or completes. Only out of combat, and only on the step the guide is at."],
@@ -100,6 +111,7 @@ end
 
 register(QUESTING, L["Buttons"], L["Action buttons"], {
 	C.itemButton(),
+	C.questLoot(),
 	{ kind = "toggle", key = "qol.bagGlow", label = L["Highlight the step's item in your bags"],
 		help = L["The item the current step uses, or a quest item it collects, glows in your bags (and in Baganator). An item a later step needs gets a lock, so you don't sell it."],
 		search = "bags, glow, quest item, inventory" },
@@ -164,6 +176,7 @@ register(QUESTING, L["Quests"], L["Faster questing"], {
 
 register(QUESTING, L["Quests"], L["Tooltips and quest log"], {
 	C.hideQuestTracker(),
+	C.instanceTrack(),
 	{ kind = "button", button = L["Show"], label = L["Clean up quest log"],
 		help = L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."],
 		onClick = function() ns.Fire("SHOW_QUEST_ROOM") end },
@@ -171,8 +184,8 @@ register(QUESTING, L["Quests"], L["Tooltips and quest log"], {
 
 register(QOL, L["Quests"], L["Faster questing"], { C.autoAccept(), C.autoTurnin(), C.instantQuestText(), C.skipGossip(), C.fastLoot(), C.hideErrors() })
 register(QOL, L["Quests"], L["Quest rewards"], { C.rewardAutoPick(), C.rewardEquip() })
-register(QOL, L["Quests"], L["Action buttons"], { C.itemButton(), C.stepInteract() })
-register(QOL, L["Quests"], L["Tooltips and quest log"], { C.hideQuestTracker() })
+register(QOL, L["Quests"], L["Action buttons"], { C.itemButton(), C.questLoot(), C.stepInteract() })
+register(QOL, L["Quests"], L["Tooltips and quest log"], { C.hideQuestTracker(), C.instanceTrack() })
 
 register(QOL, L["Travel"], L["Flight masters"], {
 	{ kind = "toggle", key = "qol.flightAutoOpen", label = L["Open the flight map"],

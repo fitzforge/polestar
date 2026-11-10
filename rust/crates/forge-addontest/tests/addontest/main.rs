@@ -280,6 +280,8 @@ mod qol;
 mod qol_bagglow;
 #[path = "qol-items.rs"]
 mod qol_items;
+#[path = "qol-loot-track.rs"]
+mod qol_loot_track;
 #[path = "quest-links.rs"]
 mod quest_links;
 #[path = "questdb-memory.rs"]

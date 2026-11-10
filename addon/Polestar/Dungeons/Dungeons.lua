@@ -18,6 +18,7 @@
 --       attune = { A = n, H = n } } }   -- level order, no page decoded
 --       (name and zoneName in the client's language when it has them; map: the instance's Map id)
 --   Dungeons.Get(key) -> { key, name, kind, forever, minLevel, maxLevel, players, map, zone, zoneName, entrance } | nil
+--   Dungeons.ForMap(mapID) -> key | nil   -- the dungeon or raid whose instance map that is (Compat.GetInstanceMapID)
 --   Dungeons.Entrance(key) -> map, x, y, f | nil
 --   Dungeons.BestAt(key) -> level | nil   -- the level it suits best, inside its range: one under the
 --       median level of its encounter bosses, else of all its bosses, else of its quests, else the
@@ -296,6 +297,14 @@ function Dungeons.Get(key)
 	local s = key ~= nil and ready() and summaries[key]
 	if not s then return nil end
 	return summary(key, s)
+end
+
+function Dungeons.ForMap(mapID)
+	if type(mapID) ~= "number" or not ready() then return nil end
+	for key, s in pairs(summaries) do
+		if s.map == mapID then return key end
+	end
+	return nil
 end
 
 -- The level a dungeon suits best (a player asked why Uldaman, 35-47, was "for

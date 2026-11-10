@@ -30,6 +30,8 @@
 --   q.engine.levelFrac = f                      -- with it, a point inside the level (also at the player's level)
 --   q.engine.kept = { [itemID] = step }         -- what Engine.KeptItems answers
 --   q.calls                                     -- { { "UseContainerItem", bag, slot }, { "GetQuestReward", i }, ... }
+--   q.log[questID], q.done[questID], q.watches  -- the quest log, handed-in quests and the game's watch list
+--   q.enterInstance(map[, kind]), q.leaveInstance() -- IsInInstance / GetInstanceInfo, PLAYER_ENTERING_WORLD
 
 local q = {
 	level = 10, xp = 0, xpMax = 1000, rested = nil, maxLevel = 60,
@@ -366,6 +368,55 @@ function C_QuestLog.GetLogIndexForQuestID(questID) if q.specialItems[questID] th
 function GetQuestLogSpecialItemInfo(index)
 	local id = q.specialItems[index]
 	if id then return "|cffffffff|Hitem:" .. id .. "::::::::|h[Quest Item]|h|r", 134400, 1, false end
+end
+
+-- The quest log and the game's watch list (QuestLogDocumentation): q.log[questID] = true while it is in the
+-- log, q.done[questID] = true once handed in, q.watches = { questID, ... } in watch order.
+q.log, q.done, q.watches = {}, {}, {}
+function C_QuestLog.IsOnQuest(id) return q.log[id] == true end
+function C_QuestLog.IsQuestFlaggedCompleted(id) return q.done[id] == true end
+function C_QuestLog.GetNumQuestLogEntries()
+	local n = 0
+	for _ in pairs(q.log) do n = n + 1 end
+	return n
+end
+function C_QuestLog.GetNumQuestWatches() return #q.watches end
+function C_QuestLog.GetQuestIDForQuestWatchIndex(i) return q.watches[i] end
+function C_QuestLog.AddQuestWatch(id)
+	for _, w in ipairs(q.watches) do if w == id then return false end end
+	table.insert(q.watches, id)
+	return true
+end
+function C_QuestLog.RemoveQuestWatch(id)
+	for i, w in ipairs(q.watches) do
+		if w == id then
+			table.remove(q.watches, i)
+			return true
+		end
+	end
+	return false
+end
+
+-- Instances: q.instance = { map, kind ("party", "raid", ...) } inside one, nil outside.
+-- q.enterInstance(map[, kind]) and q.leaveInstance() go through a loading screen (PLAYER_ENTERING_WORLD).
+function IsInInstance()
+	if q.instance then return true, q.instance.kind end
+	return false, "none"
+end
+function GetInstanceInfo()
+	local i = q.instance
+	if not i then return "Eastern Kingdoms", "none", 0, "", 0, 0, false, 0 end
+	return "Instance", i.kind, 1, "Normal", 5, 0, false, i.map
+end
+function q.enterInstance(map, kind)
+	q.instance = { map = map, kind = kind or "party" }
+	stub.fire("PLAYER_ENTERING_WORLD", false, false)
+	stub.runTimers()
+end
+function q.leaveInstance()
+	q.instance = nil
+	stub.fire("PLAYER_ENTERING_WORLD", false, false)
+	stub.runTimers()
 end
 
 ---------------------------------------------------------------------------
