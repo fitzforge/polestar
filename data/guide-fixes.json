@@ -2938,6 +2938,42 @@
 			"issue": 1135
 		},
 		{
+			"id": "timed-apothecary-zamah-848-turnin",
+			"at": {
+				"quest": 848,
+				"goal": "turnin"
+			},
+			"faction": "Horde",
+			"tip": "Sergra by the inn first, then the innkeeper, Helbrim by the north gate, Thork and Darsok on the tower platform, Mankrik by the inn, and Tonga at the south gate on the way out. After the spores Helbrim offers Apothecary Zamah, a delivery to Thunder Bluff within 45 minutes: this route doesn't go there, so leave it (Druids take it on the next Crossroads stop, right before their flight to Thunder Bluff).",
+			"note": "Offered-timed sweep (2026-11-10, Fitz carried it at 42:00 left): Apothecary Helbrim offers Apothecary Zamah (853, 45 minutes, to Zamah 3419 in Thunder Bluff's Pools of Vision) the moment Fungal Spores (848) is handed in. The shared Barrens route never goes to Thunder Bluff except on the Druids' class trip, so a player who takes it on this stop loses it. The tip keeps the stop's walking order and adds the warning. Druids take it on the next Crossroads stop (accept 853 only Druid) and hand it in on the Druid Thunder Bluff step right after it (a hand edit: the route writer has no class-only accepts; tests/guides-reported.test.js pins it).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-10 (timed_recordings.py): on Polestar 0.3.5 and later 4 characters took 853, none handed it in: 2 failed at exactly 45:00, 2 abandoned it within 30 s; on older versions, whose routes went to Thunder Bluff, 17 of 20 handed it in"
+				},
+				{
+					"kind": "tdb",
+					"ref": "quests.json limit 2700 for 853 (the server's TimeAllowed)"
+				}
+			]
+		},
+		{
+			"id": "timed-apothecary-zamah-853-turnin-druids",
+			"at": {
+				"quest": 853,
+				"goal": "turnin"
+			},
+			"faction": "Horde",
+			"tip": "Fly from the Crossroads to Thunder Bluff. Apothecary Zamah waits in the Pools of Vision, the cave under Spirit Rise: hand in the spores there first, while their time runs. Then Turak Runetotem trains you on Elder Rise.",
+			"note": "The Druids' Thunder Bluff step of 02-the-barrens, where they hand in Apothecary Zamah (853, 45 minutes) taken on the Crossroads stop just before (see timed-apothecary-zamah-848-turnin): Zamah (3419) stands in the Pools of Vision under Spirit Rise (Thunder Bluff 22.8,20.9), Turak Runetotem on Elder Rise. The timed hand-in comes first; Teleport: Moonglade follows from Elder Rise, so nothing is walked back.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json: Apothecary Zamah 3419 at Thunder Bluff 22.81,20.89"
+				}
+			]
+		},
+		{
 			"id": "1135-raptor-heads",
 			"at": {
 				"quest": 869,
