@@ -312,7 +312,7 @@ hold:
 | `"onquest"` | `q`: a list of quest ids | any of them is in the log |
 | `"complete"` | `q` | the quest is in the log, ready to turn in |
 | `"turnedin"` | `q` | the quest is handed in |
-| `"available"` | `q`; optional `minLevel`, `pre`, `preAll`, `closedBy` (as on an `accept`) | the quest is not in the log or done, the level is reached, one of `pre` and every one of `preAll` is done, and none of `closedBy` is in the log or done |
+| `"available"` | `q`; optional `minLevel`, `pre`, `preAll`, `closedBy`, `parent` (as on an `accept`) | the quest is not in the log or done, the level is reached, one of `pre` and every one of `preAll` is done, `parent` is in the log, and none of `closedBy` is in the log or done |
 | `"has"` | `item`; optional `n` (default 1) | the bags hold `n` or more |
 | `"upgrade"` | `item` | Polestar's gear advice rates the item an upgrade for the character now (`Gear.IsUpgrade`); an item it cannot judge, or gear advice turned off, counts as one |
 | `"zone"`, `"subzone"` | `name`; optional `area` | the zone (subzone) text reads as the area's name in the client's language, or as `name` |
@@ -547,7 +547,7 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 
 | Verb `t` | Required | Optional |
 |---|---|---|
-| `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `limit`, `pre`, `preAll`, `closedBy`, `preTitles` |
+| `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `limit`, `pre`, `preAll`, `closedBy`, `parent`, `preTitles` |
 | `turnin` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `rewards = { choices = { { item, itemName, quality } }, items = { ... }, xp, money }`, `direct` |
 | `complete` | `quest`, `title` | `objs`, `startItem`, `startItemName` |
 | `abandon` | `quest`, `title` (format 5) | — |
@@ -592,6 +592,7 @@ The fields:
 | `limit` | on an `accept` of a timed quest: the seconds it allows once taken (Dynamic Questing takes it early only when the walk to it still fits). Polestar 0.3.6 and later also say under the accept how long it allows, and count down from the accept with it when the client reports no timer (a delivery quest) |
 | `pre` | prerequisite quest ids, any one suffices; `preAll` every one needed |
 | `closedBy` | quest ids that close this one once taken or done |
+| `parent` | on an `accept` of a child quest: the quest id its giver offers it under, only while that quest is in the log. Polestar 0.3.7 and later pass the accept once the parent is handed in, and while the parent is not in the log and the guide no longer brings it; older Polestar ignores it |
 | `preTitles` | `{ [questId] = title }` for the quests those name |
 | `profLine`, `profName`, `profRank` | on any goal of a quest only characters with a profession can take: its skill line id, name and the rank it needs; the goal is hidden from characters without it |
 | `location` | an inn, flight point or zone name as the game shows it |

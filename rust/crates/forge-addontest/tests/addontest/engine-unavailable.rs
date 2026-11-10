@@ -435,6 +435,74 @@ fn an_accept_closed_for_good_its_breadcrumb_target_or_an_exclusive_quest_taken_o
 	assert_eq!(open["at"], 1);
 }
 
+// #1661: Valik (535) is a child of Infiltration (533): Henchman Valik offers it only while 533 is in the log. Step 2
+// is the Hillsbrad guide's Valik step (`when onquest 533`). ${valik} is step 2's `when`.
+const VALIK: &str = r#"
+Polestar.RegisterGuide({ id = "test/valik", pack = "test", title = "Hillsbrad", faction = "Horde", minLevel = 10, maxLevel = 40, steps = {
+	{ title = "Krusk", goals = { { t = "accept", quest = 533, title = "Infiltration", npc = 2229, npcName = "Krusk", pre = { 498 }, preTitles = { [498] = "The Rescue" }, map = 1413, x = 50, y = 30 } } },
+	{ title = "Henchman Valik", when = ${valik}, goals = {
+		{ t = "accept", quest = 535, title = "Valik", npc = 2333, npcName = "Henchman Valik", parent = 533, preTitles = { [533] = "Infiltration" }, map = 1413, x = 57, y = 69 },
+		{ t = "turnin", quest = 535, title = "Valik", npc = 2333, npcName = "Henchman Valik" },
+	} },
+	{ title = "Krusk", goals = { { t = "turnin", quest = 533, title = "Infiltration", npc = 2229, npcName = "Krusk" } } },
+	{ goals = { { t = "level", level = 40 } } },
+} })"#;
+
+// The guide loaded from the saved variables (`saved`: CharState fields), the quest log read.
+fn valik(when: &str, before: &str, saved: &str, script: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}{before}"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".into(), format!(r#"PolestarCharDB = {{ schema = 1, guide = "test/valik"{saved} }}"#))],
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			&VALIK.replace("${valik}", when),
+			r#"E = Polestar.Engine
+			function brief(i)
+				local out = {}
+				for g, v in ipairs(E.GetStepView(i).goals) do out[g] = v.status .. ":" .. tostring(v.unavailable) .. ":" .. tostring(v.unavailableText) end
+				return out
+			end
+			stub.login(); stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
+			script,
+		]
+		.join("\n"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+const ONQUEST: &str = r#"{ { k = "onquest", q = { 533 } } }"#;
+const SCRIPT: &str = "emit({ at = E.GetLiveStep(), valik = brief(2) })";
+
+#[test]
+fn t_1661_a_child_quest_whose_parent_is_handed_in_is_closed_for_good_even_in_a_step_whose_when_was_stored_as_held() {
+	// The reporter's route passed the Valik step while carrying Infiltration (stored as held), then handed
+	// Infiltration in with the camp's missive: back on the guide, it sent them to "Accept Valik" for good.
+	let held = r#", when = { ["test/valik"] = { [2] = true } }"#;
+	let closed = valik(ONQUEST, "stub.world.complete({ 533 })", held, SCRIPT);
+	let text = "skipped:closed:Only before “Infiltration” is handed in";
+	assert_eq!(closed, json!({ "at": 4, "valik": [text, text] }));
+	// Carrying Infiltration, Valik is the live step as before.
+	let open = valik(ONQUEST, "stub.world.onQuest(533, { 0 })", "", SCRIPT);
+	assert_eq!(open["at"], 2);
+	assert_eq!(open["valik"][0], "active:nil:nil");
+}
+
+#[test]
+fn t_1661_a_child_quest_whose_parent_is_not_in_the_log_and_that_the_route_no_longer_brings_is_passed() {
+	// No `when` on the step (Chapter I to IV in Stranglethorn are written so); Infiltration left out, its
+	// prerequisite The Rescue missing (#1636's player).
+	let out = valik("nil", "", "", SCRIPT);
+	let text = "skipped:pre:Only with “Infiltration” in your quest log";
+	assert_eq!(out, json!({ "at": 4, "valik": [text, text] }));
+	// The Rescue done: Infiltration is the route's own business, and Valik keeps his place behind it.
+	let rescued = valik("nil", "stub.world.complete({ 498 })", "", SCRIPT);
+	assert_eq!(json!([rescued["at"], &rescued["valik"][0]]), json!([1, "pending:nil:nil"]));
+}
+
 #[test]
 fn when_a_mark_moves_the_guide_on_the_guide_window_says_which_quest_was_skipped_and_why_a_normal_completion_says_nothing() {
 	let guide = r#"

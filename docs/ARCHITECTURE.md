@@ -967,7 +967,7 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 
 | `t` | Required | Optional | Done when (Engine) |
 |---|---|---|---|
-| `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `limit`, `pre`, `preAll`, `closedBy`, `preTitles` | on quest **or** completed (or abandoned by the guide); a hand tick never stands for it (#739): the accept stays open with `noticeText` "<title> isn't in your quest log", and its quest's later goals stay (never orphaned by the tick) |
+| `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `limit`, `pre`, `preAll`, `closedBy`, `parent`, `preTitles` | on quest **or** completed (or abandoned by the guide); a hand tick never stands for it (#739): the accept stays open with `noticeText` "<title> isn't in your quest log", and its quest's later goals stay (never orphaned by the tick) |
 | `turnin` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `rewards = { choices = { { item, itemName, quality } }, items = { ... }, xp, money }` (copper), `direct` | completed; `direct` (never accepted, so never orphaned): its QUEST_TURNED_IN during the step (latched) or the completed flag, not the session's turn-ins, so one hand-in of a repeatable closes one goal |
 | `complete` | `quest`, `title` | — | ready for turn-in or completed |
 | `kill` | `target` | `npc`, `count`, `quest`, `oi` | its objective finished (the quest-log line named after `target`, else line `oi`), or quest ready/completed (not while the log lists no objectives yet, right after the accept); without `quest`: manual |
@@ -1004,7 +1004,9 @@ timed quest's seconds once taken, quests.json `limit`: the Forever TDB's
 TimeAllowed, a Forever quest's from a correction), the blocking
 prerequisites `pre` (one of) and `preAll` (every one), `closedBy` (the quest
 its breadcrumb leads to and the quests exclusive with it: once any of them is
-taken or done the giver never offers it again) and `preTitles` (titles of the
+taken or done the giver never offers it again), `parent` (a child quest's
+parent, the data's `parent`: its giver offers it only while the parent is in
+the log, #1661) and `preTitles` (titles of the
 quests those name, for the reason texts). Every goal of a quest only
 characters with a profession can take (quests.json `skill`, `skillLevel`:
 QuestieDB's Forever `requiredSkill`; pfQuest's Classic skill is not used for
@@ -1663,7 +1665,12 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   giver's version of a breadcrumb the guide takes elsewhere, handed in at
   the same NPC (a Tauren Shaman's Call of Water from Thunder Bluff where the
   Barrens takes Orgrimmar's: Islen's next part stays open, not "Requires
-  Call of Water first", #1372). Prerequisites the data lacks (issue #51)
+  Call of Water first", #1372). A child quest's `accept` (`parent`: Valik,
+  offered only while Infiltration is in the log, #1661) is closed for good
+  the same way once its parent is handed in (reason `"closed"`, "Only
+  before <parent> is handed in"), and marked `"pre"` ("Only with <parent>
+  in your quest log") while the parent is not in the log and the guide no
+  longer brings it (the same "still turns in" test). Prerequisites the data lacks (issue #51)
   mark nothing in advance; the giver's window covers them. The mark is live:
   it does not hold the step, the focus or the arrow, and it goes the moment
   the prerequisite is done (the guide then goes back to it), not

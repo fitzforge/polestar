@@ -484,6 +484,7 @@ local function checkGoal(goal)
 	if goal.pre ~= nil and type(goal.pre) ~= "table" then return "bad pre" end
 	if goal.preAll ~= nil and type(goal.preAll) ~= "table" then return "bad preAll" end
 	if goal.closedBy ~= nil and type(goal.closedBy) ~= "table" then return "bad closedBy" end
+	if goal.parent ~= nil and not isNum(goal.parent) then return "bad parent" end
 	if goal.rewards ~= nil then
 		local r = goal.rewards
 		if type(r) ~= "table" then return "bad rewards" end
