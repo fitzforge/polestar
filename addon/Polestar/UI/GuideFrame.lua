@@ -1963,6 +1963,7 @@ function SL.Fonts()
 	for _, fs in ipairs({ person.Where, person.Why, person.Level }) do Theme.Font(fs, c and "cardNote" or "small") end
 	Theme.Font(person.Dist, c and "cardNote" or "small")
 	Theme.Font(card.Tip.Text, c and "cardNote" or "note")
+	Theme.Font(card.Tip.Pager.Label, c and "cardNote" or "small")
 	Theme.Font(after.Text, c and "cardNote" or "label")
 	if GF.xp then Theme.Font(GF.xp.Text, c and "cardNote" or "small") end
 	-- Along the way and Up next: their rows read like the goals, their headings like the notes.
@@ -3218,6 +3219,27 @@ local function stripShown()
 	return strip.psHasTabs and not compact() and GF.On("tabs")
 end
 
+-- The tip's text and glyph for its state: folded, the strip (the tip glyph
+-- and one of the step's tips, "1/2 ›" paging through them when it has
+-- several); opened, every tip under a fold glyph.
+function GF.TipText()
+	local tip = card.Tip
+	local tips = tip.psTips or {}
+	local n = #tips
+	local paged = not tipOpen and n > 1
+	tip.Pager:SetShown(paged)
+	if paged then
+		tip.psPage = min(max(tip.psPage or 1, 1), n)
+		tip.Pager.Label:SetText(string.format("%d/%d \226\128\186", tip.psPage, n))
+		tip.Pager:SetWidth(floor(tip.Pager.Label:GetStringWidth() + 0.5) + 6)
+		tip.Text:SetText(tips[tip.psPage])
+	else
+		tip.Text:SetText(tip.psWhole or "")
+	end
+	W.SetIcon(tip.Toggle, tipOpen and "chevron-up" or "info")
+	W.Color(tip.Toggle.Icon, tipOpen and "icon" or "accent")
+end
+
 -- Measure and place the card's parts; the goals area's own height is left
 -- to fitGoals (its contents, within the cap). -> the card's height without
 -- the goals area
@@ -3317,7 +3339,13 @@ local function layoutCard(width)
 	end
 	local tip = card.Tip
 	if tip:IsShown() then
-		tip.Text:SetWidth(cw - 18)
+		-- Folded, the strip: the text cut to the room the pager leaves, the
+		-- whole tip in the tooltip over it when cut (tip.psFull).
+		local room = cw - 18
+		if tip.Pager:IsShown() then room = room - tip.Pager:GetWidth() - 4 end
+		tip.psFull = nil
+		if not tipOpen and floor(W.TextWidth(tip.Text) + 0.5) > room then tip.psFull = tip.Text:GetText() end
+		tip.Text:SetWidth(room)
 		tip.Text:SetWordWrap(tipOpen)
 		-- Folded, one line is drawn (a note's own line break would show a second one
 		-- the height does not hold); opened, all of it.
@@ -3325,6 +3353,7 @@ local function layoutCard(width)
 		tip.psOpen = tipOpen
 		local th = tipOpen and tip.Text:GetStringHeight() or min(tip.Text:GetStringHeight(), tip.Text:GetLineHeight())
 		local h = floor(SL.TIP + th + SL.TIP + 0.5)
+		tip.Pager:SetHeight(h)
 		-- The step's picture, under the opened tip: as wide as the text
 		-- column, its aspect kept, no taller than PICTURE_MAX_H.
 		local pic = tipOpen and tip.psImage or nil
@@ -4808,7 +4837,8 @@ local function fillCard(sameFocus)
 		area.items[i] = nil
 		i = i + 1
 	end
-	local shown = ns.Get("ui.showNotes") and not compact()
+	-- The tip in the full window and in compact alike (its strip is one line).
+	local shown = ns.Get("ui.showNotes")
 	local note = shown and view.note or nil
 	if note == "" then note = nil end
 	-- The step's picture (a file in its pack's addon folder, Guides.lua): one
@@ -4817,9 +4847,19 @@ local function fillCard(sameFocus)
 	if pic and not card.Tip.Image:SetTexture(pic.texture) then pic = nil end
 	if not pic then card.Tip.Image:SetTexture(nil) end
 	card.Tip.psImage = pic
-	card.Tip.Text:SetText(note or (pic and L["Picture of this spot"]) or "")
-	card.Tip:SetShown(note ~= nil or pic ~= nil)
-	W.SetIcon(card.Tip.Toggle, tipOpen and "chevron-up" or "chevron-down")
+	-- The step's tips, one per line of its note (the strip pages through
+	-- them); a new note starts on its first.
+	local tip = card.Tip
+	if note ~= tip.psNote then tip.psNote, tip.psPage = note, 1 end
+	local tips = {}
+	for line in string.gmatch(note or "", "[^\n]+") do
+		line = line:match("^%s*(.-)%s*$")
+		if line ~= "" then tips[#tips + 1] = line end
+	end
+	tip.psTips = tips
+	tip.psWhole = note or (pic and L["Picture of this spot"]) or ""
+	tip:SetShown(note ~= nil or pic ~= nil)
+	GF.TipText()
 	SL.FillOut(view)
 	return groups, focus
 end
@@ -5169,7 +5209,7 @@ function GF.ApplyStyle()
 	local rules = GF.On("rules")
 	strip.Rule:SetShown(not clear and rules)
 	nav.Rule:SetShown(not clear and rules)
-	for _, part in ipairs({ after, along, upnext.Toggle, GF.xp, GF.party, banner }) do part.Rule:SetAlpha(rules and 1 or 0) end
+	for _, part in ipairs({ after, along, upnext.Toggle, GF.xp, GF.party, banner, card.Tip }) do part.Rule:SetAlpha(rules and 1 or 0) end
 	W.Painter(foot.Line.Track, paintTrack)
 	if GF.here then W.Painter(GF.here.Panel, GF.PaintHerePanel) end
 	if banner and banner.PaintFill then W.Painter(banner.Fill, banner.PaintFill) end
@@ -5550,7 +5590,7 @@ function GF.ApplySkin()
 	card.Tip.Text:SetPoint("TOPLEFT", card.Tip, "TOPLEFT", TEXT_X, -SL.TIP)
 	card.Tip.Toggle:SetPoint("TOPLEFT", card.Tip, "TOPLEFT", PAD - 2, -(SL.TIP - 3))
 	SL.Fonts()
-	for _, part in ipairs({ after, upnext.Toggle, GF.xp }) do
+	for _, part in ipairs({ after, upnext.Toggle, GF.xp, card.Tip }) do
 		part.Rule:SetPoint("TOPLEFT", part, "TOPLEFT", PAD, 0)
 		part.Rule:SetPoint("TOPRIGHT", part, "TOPRIGHT", -PAD, 0)
 	end
@@ -6274,6 +6314,7 @@ local function build()
 	-- The author's tip, one line until opened.
 	local tip = CreateFrame("Button", nil, card)
 	W.Hover(tip, 0.6)
+	tip.Rule = W.Divider(tip)
 	tip.Text = T(tip, SL.card and "cardNote" or "note", "textDim")
 	tip.Text:SetJustifyV("TOP")
 	tip.Text:SetSpacing(3)
@@ -6285,12 +6326,34 @@ local function build()
 	tip.Image:Hide()
 	tip.Toggle:EnableMouse(false)
 	tip.Toggle:SetPoint("TOPLEFT", tip, "TOPLEFT", PAD - 2, -(SL.TIP - 3))
-	tip:SetScript("OnClick", function()
-		tipOpen = not tipOpen
-		W.SetIcon(tip.Toggle, tipOpen and "chevron-up" or "chevron-down")
+	-- "1/2 ›" at the strip's right: the next of the step's tips (GF.TipText).
+	tip.Pager = CreateFrame("Button", nil, tip)
+	tip.Pager.Label = T(tip.Pager, SL.card and "cardNote" or "small", "textMuted")
+	tip.Pager.Label:SetPoint("RIGHT", tip.Pager, "RIGHT", 0, 0)
+	tip.Pager:SetPoint("TOPRIGHT", tip, "TOPRIGHT", -PAD, 0)
+	tip.Pager:Hide()
+	tip.Pager:SetScript("OnClick", function()
+		tip.psPage = (tip.psPage or 1) % max(1, #(tip.psTips or {})) + 1
+		GF.TipText()
 		GF.Layout()
 	end)
-	tip:SetScript("OnEnter", function() GF.HoverIn() end)
+	tip.Pager:SetScript("OnEnter", function(self) W.Color(self.Label, "text"); GF.HoverIn() end)
+	tip.Pager:SetScript("OnLeave", function(self) W.Color(self.Label, "textMuted") end)
+	tip:SetScript("OnClick", function()
+		tipOpen = not tipOpen
+		GF.TipText()
+		GF.Layout()
+	end)
+	-- Over the strip's cut text: the whole tip (layoutCard sets psFull).
+	tip:SetScript("OnEnter", function(self)
+		if self.psFull and GameTooltip then
+			GameTooltip:SetOwner(self, "ANCHOR_TOP")
+			GameTooltip:SetText(self.psFull, 1, 1, 1, 1, true)
+			GameTooltip:Show()
+		end
+		GF.HoverIn()
+	end)
+	tip:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
 	card.Tip = tip
 
 	-- "Then: Gazrog" on the left, "Person 2 of 8" on the right.

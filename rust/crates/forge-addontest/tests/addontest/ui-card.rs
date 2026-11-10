@@ -790,7 +790,8 @@ fn a_look_ahead_line_too_long_for_one_line_wraps_to_two_and_only_past_two_ends_i
 	assert_eq!(f(&house["gap"]), 0.0, "the next item right under it: {house}");
 }
 
-// The compact window of the house look keeps the live goals and one quiet "Then" line: no progress bar, no tip,
+// The compact window of the house look keeps the live goals and one quiet "Then" line: no progress bar, no tip
+// (this step has none; a step's tip is its one-line strip in compact too),
 // the step list button stays.
 #[test]
 fn the_dense_compact_window_is_the_live_goals_and_one_quiet_then_line() {
@@ -808,7 +809,7 @@ fn the_dense_compact_window_is_the_live_goals_and_one_quiet_then_line() {
 	let c = &out["compact"];
 	assert_eq!(strings(&c["items"]).len(), 2, "the live goal and one line: {c}");
 	assert!(strings(&c["items"])[1].starts_with("[Then"), "{c}");
-	assert_eq!((c["foot"].clone(), c["tip"].clone(), c["list"].clone()), (json!(false), json!(false), json!(false)), "no progress bar, no tip, no list button (the step number opens the list): {c}");
+	assert_eq!((c["foot"].clone(), c["tip"].clone(), c["list"].clone()), (json!(false), json!(false), json!(false)), "no progress bar, no tip (the step has none), no list button (the step number opens the list): {c}");
 }
 
 // A player on Discord (0.3.3): "there's some duplication with this way". Opened, a look-ahead line repeated

@@ -292,3 +292,136 @@ fn the_journey_s_then_line_does_not_repeat_the_card_and_its_time_is_at_text_size
 	assert_eq!(out["none"], false, "nothing left to say: {out}");
 	assert_eq!(out["time"], out["dist"], "the time at the distance's size");
 }
+
+/// The tip strip (T4): one line at the card's foot, the tip glyph and the text cut to one line, in the full window
+/// and in compact alike.
+#[test]
+fn the_tip_strip_is_one_line_in_the_full_window_and_in_compact() {
+	for skin in SKINS {
+		let out = run_in(
+			skin,
+			r#"
+			local tip = GF.parts.tip
+			Polestar.Set("ui.notesOpen", false)
+			uistub.guides[uistub.elwynn].steps[3].note = "Stay on the road past the farm"
+			uistub.setGuide(uistub.elwynn, 3)
+			local function look()
+				return { shown = tip:IsShown(), lines = tip.Text:GetMaxLines(), wrap = tip.Text:GetWordWrap(), icon = tip.Toggle.psIconName,
+					h = tip:GetHeight(), one = math.floor(SL.TIP * 2 + tip.Text:GetLineHeight() + 0.5), text = tip.Text:GetText() }
+			end
+			local full = look()
+			Polestar.Set("ui.compact", true)
+			uistub.update()
+			emit({ full = full, compact = look() })"#,
+		)
+		.remove(0);
+		for mode in ["full", "compact"] {
+			let t = &out[mode];
+			assert_eq!(t["shown"], true, "{skin} {mode}: {t}");
+			assert_eq!((t["lines"].clone(), t["wrap"].clone()), (json!(1), json!(false)), "{skin} {mode}: one line");
+			assert_eq!(t["icon"], "info", "{skin} {mode}: the tip glyph");
+			assert_eq!(t["h"], t["one"], "{skin} {mode}: one line's height");
+			assert_eq!(t["text"], "Stay on the road past the farm", "{skin} {mode}");
+		}
+	}
+}
+
+/// A step with two tips pages through them: "1/2 ›" at the strip's right, a click shows the next and wraps round.
+/// Opened, the tip is every tip and no pager; a new step starts on its first tip.
+#[test]
+fn the_tip_strip_pages_through_a_steps_tips() {
+	for skin in SKINS {
+		let out = run_in(
+			skin,
+			r#"
+			local tip = GF.parts.tip
+			Polestar.Set("ui.notesOpen", false)
+			uistub.guides[uistub.elwynn].steps[3].note = "Take the north path\nThe chest is behind the hut"
+			uistub.setGuide(uistub.elwynn, 3)
+			local function look() return { tip.Pager:IsShown(), tip.Pager.Label:GetText() or "", tip.Text:GetText() } end
+			local pages = { look() }
+			tip.Pager:Click(); pages[2] = look()
+			tip.Pager:Click(); pages[3] = look()
+			tip.Pager:Click()
+			tip:Click()
+			local open = { pager = tip.Pager:IsShown(), text = tip.Text:GetText(), icon = tip.Toggle.psIconName }
+			tip:Click()
+			uistub.guides[uistub.elwynn].steps[4].note = "One\nTwo\nThree"
+			uistub.setStep(4)
+			emit({ pages = pages, open = open, next = look() })"#,
+		)
+		.remove(0);
+		assert_eq!(
+			out["pages"],
+			json!([
+				[true, "1/2 \u{203a}", "Take the north path"],
+				[true, "2/2 \u{203a}", "The chest is behind the hut"],
+				[true, "1/2 \u{203a}", "Take the north path"]
+			]),
+			"{skin}"
+		);
+		assert_eq!(out["open"], json!({ "pager": false, "text": "Take the north path\nThe chest is behind the hut", "icon": "chevron-up" }), "{skin}");
+		assert_eq!(out["next"], json!([true, "1/3 \u{203a}", "One"]), "{skin}: a new step's first tip");
+	}
+}
+
+/// A long tip is cut to the strip's one line; hovering it shows the whole tip. A tip that fits has no tooltip.
+#[test]
+fn a_long_tip_is_cut_to_one_line_and_its_whole_text_is_the_tooltip() {
+	for skin in SKINS {
+		let out = run_in(
+			skin,
+			r#"
+			local tip = GF.parts.tip
+			Polestar.Set("ui.notesOpen", false)
+			local long = "Follow the stream up past the old mill and the broken cart, then cross at the ford where the kobolds camp by the mine"
+			uistub.guides[uistub.elwynn].steps[3].note = long
+			uistub.setGuide(uistub.elwynn, 3)
+			local cut = { w = tip.Text:GetWidth(), full = tip.Text:GetUnboundedStringWidth(), lines = tip.Text:GetMaxLines(), h = tip:GetHeight(),
+				one = math.floor(SL.TIP * 2 + tip.Text:GetLineHeight() + 0.5) }
+			GameTooltip.lines = {}
+			tip:GetScript("OnEnter")(tip)
+			cut.tooltip = GameTooltip:IsShown() and GameTooltip:GetOwner() == tip and GameTooltip.lines or false
+			tip:GetScript("OnLeave")(tip)
+			cut.after = GameTooltip:IsShown()
+			uistub.guides[uistub.elwynn].steps[4].note = "Short"
+			uistub.setStep(4)
+			GameTooltip.lines = {}
+			tip:GetScript("OnEnter")(tip)
+			emit({ long = long, cut = cut, short = { full = tip.psFull or false, owner = GameTooltip:IsShown() and GameTooltip:GetOwner() == tip } })"#,
+		)
+		.remove(0);
+		let c = &out["cut"];
+		assert!(c["w"].as_f64().unwrap() < c["full"].as_f64().unwrap(), "{skin}: cut to the strip: {c}");
+		assert_eq!((c["lines"].clone(), c["h"].clone()), (json!(1), c["one"].clone()), "{skin}: one line: {c}");
+		assert_eq!(c["tooltip"], json!([out["long"]]), "{skin}: the whole tip on hover");
+		assert_eq!(c["after"], false, "{skin}: gone on leave");
+		assert_eq!(out["short"], json!({ "full": false, "owner": false }), "{skin}: a tip that fits needs no tooltip");
+	}
+}
+
+/// Step tips off (ui.showNotes) hides the strip, in the full window and in compact.
+#[test]
+fn step_tips_off_hides_the_tip_strip_in_full_and_compact() {
+	for skin in SKINS {
+		let out = run_in(
+			skin,
+			r#"
+			local tip = GF.parts.tip
+			uistub.guides[uistub.elwynn].steps[3].note = "Take the north path\nThe chest is behind the hut"
+			uistub.setGuide(uistub.elwynn, 3)
+			local on = tip:IsShown()
+			Polestar.Set("ui.showNotes", false)
+			uistub.update()
+			local full = tip:IsShown()
+			Polestar.Set("ui.compact", true)
+			uistub.update()
+			local compact = tip:IsShown()
+			Polestar.Set("ui.showNotes", true)
+			uistub.update()
+			emit({ on = on, full = full, compact = compact, back = tip:IsShown() })"#,
+		)
+		.remove(0);
+		assert_eq!(out, json!({ "on": true, "full": false, "compact": false, "back": true }), "{skin}");
+	}
+}

@@ -1081,7 +1081,7 @@ fn settings_apply_live_scale_opacity_lock_compact_upcoming_shown() {
 	assert_eq!(out["movedWhileLocked"], false);
 	let mut compact = out["compact"].clone();
 	compact.as_object_mut().unwrap().remove("h");
-	assert_eq!(compact, json!({ "strip": false, "after": false, "tip": false, "rows": 2, "foot": false }), "compact keeps the navigator and the focus's open goals; the house look drops the progress bar");
+	assert_eq!(compact, json!({ "strip": false, "after": false, "tip": true, "rows": 2, "foot": false }), "compact keeps the navigator, the focus's open goals and the one-line tip strip; the house look drops the progress bar");
 	assert!(f(&out["compact"]["h"]) < f(&out["h0"]), "compact mode is shorter");
 	assert_eq!(out["upcoming"], json!([4, 5, 7, 8]));
 	assert_eq!(out["afterToggle"], false);
