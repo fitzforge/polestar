@@ -131,6 +131,7 @@ warning: Tailoring Alliance trainer "Timothy Worthington": not in npcs.json for 
 warning: Tailoring Horde trainer "Daryl Stack": not in npcs.json for this side
 warning: Tailoring Alliance trainer "Uthrar Threx": not in npcs.json for this side
 warning: Tailoring Alliance trainer "Trianna": not in npcs.json for this side
+warning: Tailoring Alliance trainer "Grondal Moonbreeze": not in npcs.json for this side
 warning: Tailoring Horde trainer "Josephine Lister": not in npcs.json for this side
 warning: Tailoring Horde trainer "Victor Ward": not in npcs.json for this side
 warning: Tailoring Horde trainer "Bowen Brisboise": not in npcs.json for this side
