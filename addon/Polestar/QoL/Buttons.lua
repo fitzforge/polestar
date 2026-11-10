@@ -17,8 +17,10 @@
 --     loaded), passing over corpses; on a step with no such mob, its NPC
 --     goals' NPCs (talk, accept, turn in, train...). The arrow's goal comes
 --     first. After the step's own mobs (or with none), the mobs of the While
---     you're here rows, nearest row first (#1441); never after the step's
---     NPCs. Every click moves the next name to the front. With
+--     you're here rows, nearest row first (#1441). After the step's NPCs
+--     too while the player is within the While you're here radius of one;
+--     farther, the rows' mobs before the NPCs (#1623). Each name takes its
+--     own kind's mark and ping. Every click moves the next name to the front. With
 --     qol.targetPlate (on by default) its icon shows what you do with the
 --     name the next click targets (Buttons.TargetLook: a speech bubble, !,
 --     ?, a sword, a bag, a skull for an elite, rare or boss), the name beside
@@ -40,7 +42,9 @@
 --     a kill or collect's mobs, an NPC goal's NPC by name), else the quest
 --     item. While it targets, or has nothing else to do, the mobs of the
 --     While you're here rows follow the step's own names, nearest row first
---     (behavior.whileHereStepKey, #1316). While the flight map is open on the
+--     (behavior.whileHereStepKey, #1316); on an NPC goal they follow the NPC,
+--     or go before it while the player is farther than the While you're
+--     here radius from the step's NPCs (#1623). While the flight map is open on the
 --     live step, it takes the marked flight instead (QoL/Flight.lua,
 --     Flight.Take). Independent of
 --     the buttons' settings.
@@ -694,6 +698,70 @@ local function addHereGoals(qdb)
 	end
 end
 
+-- The places of the step's open NPC goals (talk, accept, turn in...) as
+-- world points (reused): npcSpots fills them, npcsFar reads them (#1623).
+local npcPts, npcPtN = {}, 0
+local function npcSpots(goals, raws, own)
+	npcPtN = 0
+	local C = ns.Compat
+	for g = 1, own do
+		local gv = goals[g]
+		local rg = raws and raws[g] or gv
+		if QoL.Open(gv) and NPC_VERBS[gv.t] then
+			local p = gv.map and gv or rg
+			local c, wx, wy = C.MapToWorld(p.map, p.x, p.y, p.f)
+			if c then
+				npcPtN = npcPtN + 1
+				local pt = npcPts[npcPtN] or {}
+				npcPts[npcPtN] = pt
+				pt[1], pt[2], pt[3] = c, wx, wy
+			end
+		end
+	end
+end
+
+-- Whether the player stands farther than the While you're here radius
+-- (behavior.whileHereRadius) from every place npcSpots found: false with
+-- none, or while the player's place is unknown.
+local function npcsFar()
+	if npcPtN == 0 then return false end
+	local pc, px, py = ns.Compat.GetPlayerWorldPosition()
+	if not pc then return false end
+	local r = tonumber(ns.Get("behavior.whileHereRadius")) or 180
+	for i = 1, npcPtN do
+		local pt = npcPts[i]
+		if pt[1] == pc and (pt[2] - px) ^ 2 + (pt[3] - py) ^ 2 <= r * r then return false end
+	end
+	return true
+end
+
+-- Set by the target button's and the step key's names while a step's NPCs
+-- and the While you're here rows' mobs share them: npcsFar() as they were
+-- ordered by, so a walk across the radius re-orders them (Buttons' refresh
+-- watches it); nil when no such list is up.
+local farWatch = nil
+
+-- Reverses entries i..j of each list in place (nil entries included).
+local function reverse(i, j, ...)
+	for l = 1, select("#", ...) do
+		local t = select(l, ...)
+		local a, b = i, j
+		while a < b do
+			t[a], t[b] = t[b], t[a]
+			a, b = a + 1, b - 1
+		end
+	end
+end
+
+-- Entries 1..k of each list (n in all) move behind entries k+1..n, each part
+-- in its own order.
+local function moveBehind(k, n, ...)
+	if k <= 0 or k >= n then return end
+	reverse(1, k, ...)
+	reverse(k + 1, n, ...)
+	reverse(1, n, ...)
+end
+
 -- Names for the target button (reused lists): one from each open goal in
 -- guide order, the arrow's goal first, then the next from each, up to
 -- MAX_NAMES, so a goal with many mobs (five creatures drop the Nightsaber
@@ -702,9 +770,11 @@ end
 -- own NPC goals' NPCs (the target button; the step key and its loot check
 -- want mobs only). here: after the step's own mobs (or with none), the mobs
 -- of the While you're here rows the same way, nearest row first (the
--- arrow's row first); never after NPCs, who keep the button (#1441). ->
--- names, verbs, npc ids (nil: not known), marks (true: elite, rare or boss
--- by the guide's data), all by index.
+-- arrow's row first). After the step's NPCs too, while the player is within
+-- the While you're here radius of one of them; farther from all of them,
+-- the rows' mobs come first and the NPCs after (#1441, #1623). -> names,
+-- verbs, npc ids (nil: not known), marks (true: elite, rare or boss by the
+-- guide's data), all by index.
 function Buttons.TargetNames(view, raw, npcs, here)
 	wipe(names)
 	wipe(nameVerb)
@@ -761,11 +831,16 @@ function Buttons.TargetNames(view, raw, npcs, here)
 	end
 	arrowFirst(1)
 	interleave(1, names, nameVerb, nameNpc, nameSpecial, nameSeen)
-	if here and not npcNamed then
-		local first = goalCount + 1
+	if here then
+		local first, before = goalCount + 1, #names
 		addHereGoals(qdb)
 		arrowFirst(first)
 		interleave(first, names, nameVerb, nameNpc, nameSpecial, nameSeen)
+		if npcNamed and #names > before then
+			npcSpots(goals, raws, own)
+			farWatch = npcsFar()
+			if farWatch then moveBehind(before, #names, names, nameVerb, nameNpc, nameSpecial) end
+		end
 	end
 	return names, nameVerb, nameNpc, nameSpecial
 end
@@ -924,9 +999,14 @@ function Buttons.RareCardMacro(name)
 end
 
 -- list, verbs, ids, marks: the names and what Buttons.TargetNames says of
--- each (copies); kind: the mark they take ("npc" for NPC goals' names);
--- namesSig: the names alone, for the chat note.
-local target = { list = {}, verbs = {}, ids = {}, marks = {}, kind = "mob", sig = nil, namesSig = "", cycle = 1 }
+-- each (copies); namesSig: the names alone, for the chat note.
+local target = { list = {}, verbs = {}, ids = {}, marks = {}, sig = nil, namesSig = "", cycle = 1 }
+
+-- The mark and ping the target button's name i (default: the one the next
+-- click tries first) takes: "npc" for an NPC goal's name, else "mob".
+local function targetKind(i)
+	return NPC_VERBS[target.verbs[i or target.cycle]] and "npc" or "mob"
+end
 
 -- Names seen in the world (the target, the mouseover, a nameplate) as an
 -- elite, rare or boss this session, and the faces of the names seen: one
@@ -1042,7 +1122,8 @@ local function applyTarget(b)
 	QoL.Secure("target", function()
 		local list = target.list
 		-- A mob is pinged for the group; an NPC goal's NPC stays where it is.
-		local text = Buttons.TargetMacro(list, target.cycle, Buttons.MarkLine(target.kind), target.kind == "mob" and Buttons.QuestPingLine() or nil)
+		local kind = targetKind()
+		local text = Buttons.TargetMacro(list, target.cycle, Buttons.MarkLine(kind), kind == "mob" and Buttons.QuestPingLine() or nil)
 		b:SetAttribute("type", text and "macro" or nil)
 		b:SetAttribute("macrotext", text)
 		b.applied = list[target.cycle]
@@ -1113,7 +1194,7 @@ local function targetTooltip(b, tip)
 		tip:AddLine(target.list[i], r, g, bl)
 	end
 	if QoL.On("markTarget") and target.list[1] then
-		local right, icon = Buttons.MarkRight(), markSetting(target.kind)
+		local right, icon = Buttons.MarkRight(), markSetting(targetKind())
 		icon = icon == "cycle" and L["a new icon each press"]
 			or ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_" .. icon .. ":0|t " .. (_G["RAID_TARGET_" .. icon] or icon))
 		if right == "set" then
@@ -1261,8 +1342,8 @@ function Buttons.GuideNameMacro(goal, raw)
 end
 
 -- What the step key does now. view, raw: QoL.CurrentStep()'s, when the
--- caller has them. -> "item", itemID | "target", names (reused list) |
--- "npc", name | nil. The route's own goals come first, in guide order, then
+-- caller has them. -> "item", itemID | "target", names (reused list), the
+-- one NPC's name among them or nil | "npc", name | nil. The route's own goals come first, in guide order, then
 -- the optional ones, so an optional accept never takes the key.
 local function stepGoal(view, raw, goals, optional)
 	for g = 1, #goals do
@@ -1305,13 +1386,21 @@ function Buttons.StepAction(view, raw)
 	end
 	-- Targeting, or with nothing else to do: the While you're here rows' mobs
 	-- after the step's own names (#1316; Buttons.HereNames, the target
-	-- button's own helpers). An item, the Hearthstone or an NPC keeps the key.
-	if (kind == "target" or not kind) and ns.Get("behavior.whileHereStepKey") then
+	-- button's own helpers). An NPC: the rows' mobs after it, or before it
+	-- while the player is beyond the While you're here radius of the step's
+	-- NPCs (#1623). An item or the Hearthstone keeps the key.
+	if (kind == "target" or kind == "npc" or not kind) and ns.Get("behavior.whileHereStepKey") then
 		wipe(stepNames)
 		wipe(stepSeen)
-		for i = 1, kind and #value or 0 do
-			stepNames[i], stepSeen[value[i]] = value[i], true
+		local npc = kind == "npc" and value or nil
+		if npc then
+			stepNames[1], stepSeen[npc] = npc, true
+		else
+			for i = 1, kind and #value or 0 do
+				stepNames[i], stepSeen[value[i]] = value[i], true
+			end
 		end
+		local before = #stepNames
 		local here = Buttons.HereNames()
 		for i = 1, #here do
 			if not stepSeen[here[i]] then
@@ -1319,20 +1408,36 @@ function Buttons.StepAction(view, raw)
 				stepNames[#stepNames + 1] = here[i]
 			end
 		end
-		if #stepNames > 0 then return "target", stepNames end
+		if npc and #stepNames > before then
+			npcSpots(goals, raw, #goals)
+			local far = npcsFar()
+			farWatch = far
+			if far then moveBehind(before, #stepNames, stepNames) end
+			return "target", stepNames, npc
+		end
+		if not npc and #stepNames > 0 then return "target", stepNames end
 	end
 	return kind, value
 end
 
-local step = { kind = nil, value = nil, list = {}, sig = nil, cycle = 1 }
+-- npc: the one NPC's name in a "target" list (Buttons.StepAction), or nil.
+local step = { kind = nil, value = nil, list = {}, npc = nil, sig = nil, cycle = 1 }
 -- The mark each kind of step key press puts on.
 local STEP_MARK = { target = "mob", npc = "npc" }
+
+-- The mark the step key's next press puts on: in a "target" list, the kind
+-- of the name it tries first.
+local function stepKind()
+	if step.kind == "target" then return step.list[step.cycle] == step.npc and "npc" or "mob" end
+	return STEP_MARK[step.kind]
+end
 
 local function applyStep(b)
 	QoL.Secure("step", function()
 		local text, item
 		if step.kind == "target" then
-			text = Buttons.TargetMacro(step.list, step.cycle, Buttons.MarkLine("mob"), Buttons.QuestPingLine())
+			local kind = stepKind()
+			text = Buttons.TargetMacro(step.list, step.cycle, Buttons.MarkLine(kind), kind == "mob" and Buttons.QuestPingLine() or nil)
 		elseif step.kind == "npc" then
 			text = Buttons.TargetMacro({ step.value }, 1, Buttons.MarkLine("npc"))
 		elseif step.kind == "item" then
@@ -1451,10 +1556,17 @@ function Buttons.AdvanceMark(kind)
 	return true
 end
 
+-- While the target button's or the step key's names hold the step's NPCs
+-- and the While you're here rows' mobs (farWatch set by them), a check each
+-- second: crossing the radius re-orders them (#1623).
+local FAR_POLL = 1
+local farTicker, farWatched
+
 local function refresh()
 	if not itemButton then return end
 	-- One view of the current step for all three buttons.
 	local view, raw = QoL.CurrentStep()
+	farWatch = nil
 	local guideShown = ns.GuideShown()
 	applyItem(itemButton, QoL.On("itemButton") and guideShown and view and Buttons.ChooseQuestItem(view, raw) or nil)
 	applyItem(hearthButton, QoL.On("hearthButton") and guideShown and view and Buttons.WantsHearth(view) and Client.HEARTHSTONE or nil)
@@ -1473,8 +1585,6 @@ local function refresh()
 		local copy, cv, ci, cm = {}, {}, {}, {}
 		for i = 1, #list do copy[i], cv[i], ci[i], cm[i] = list[i], verbs[i], ids[i], marks[i] end
 		target.list, target.verbs, target.ids, target.marks = copy, cv, ci, cm
-		-- NPC goals' names only come on a step with no mob to name.
-		target.kind = NPC_VERBS[cv[1]] and "npc" or "mob"
 		target.cycle = 1
 		-- The optional chat note, once per new set of names (not for a mark setting).
 		if namesSig ~= target.namesSig then
@@ -1500,11 +1610,11 @@ local function refresh()
 		applyRare(rareButton)
 	end
 
-	local kind, value = nil, nil
-	if view then kind, value = Buttons.StepAction(view, raw) end
-	local stepSig = mark .. (kind == "target" and ("target\n" .. concat(value, "\n")) or (tostring(kind) .. "\n" .. tostring(value)))
+	local kind, value, npc = nil, nil, nil
+	if view then kind, value, npc = Buttons.StepAction(view, raw) end
+	local stepSig = mark .. (kind == "target" and ("target\n" .. tostring(npc) .. "\n" .. concat(value, "\n")) or (tostring(kind) .. "\n" .. tostring(value)))
 	if stepSig ~= step.sig then
-		step.sig, step.kind, step.cycle = stepSig, kind, 1
+		step.sig, step.kind, step.npc, step.cycle = stepSig, kind, npc, 1
 		local copy = {}
 		if kind == "target" then
 			for i = 1, #value do copy[i] = value[i] end
@@ -1513,6 +1623,15 @@ local function refresh()
 		end
 		step.list = copy
 		applyStep(stepButton)
+	end
+	farWatched = farWatch
+	if farWatch ~= nil and not farTicker then
+		farTicker = ns.NewTicker(FAR_POLL, function()
+			if farWatched ~= nil and npcsFar() ~= farWatched then refresh() end
+		end)
+	elseif farWatch == nil and farTicker then
+		farTicker:Cancel()
+		farTicker = nil
 	end
 	applyInteract(Buttons.InteractStage(view, raw))
 
@@ -1561,8 +1680,9 @@ local function create()
 	targetButton:HookScript("PostClick", function(self, _, down)
 		if down or self.dragging then return end
 		local n = #target.list
+		local kind = targetKind()
 		if n > 1 then target.cycle = target.cycle % n + 1 end
-		local marked = Buttons.AdvanceMark(target.kind)
+		local marked = Buttons.AdvanceMark(kind)
 		if n > 1 and not marked then applyTarget(targetButton) end
 	end)
 	rareButton = newButton("PolestarRareButton", rareTooltip)
@@ -1599,8 +1719,9 @@ local function create()
 		end
 		local n = #step.list
 		local names = step.kind == "target" and n > 1
+		local kind = stepKind()
 		if names then step.cycle = step.cycle % n + 1 end
-		local marked = Buttons.AdvanceMark(STEP_MARK[step.kind])
+		local marked = Buttons.AdvanceMark(kind)
 		if names and not marked then applyStep(self) end
 	end)
 	Buttons.item, Buttons.hearth, Buttons.target, Buttons.rare, Buttons.step, Buttons.bag = itemButton, hearthButton, targetButton, rareButton, stepButton, bagButton

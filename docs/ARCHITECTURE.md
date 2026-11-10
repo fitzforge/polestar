@@ -1543,12 +1543,16 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   pings once on the minimap as the line appears. The quest item button falls back to its item
   (QoL/Buttons `ChooseQuestItem`). The target button names the lines' kill
   and collect mobs after the step's own mobs (or alone), one from each line
-  nearest first, the arrow's line first, never after the step's NPCs
-  (QoL/Buttons `TargetNames` with `here`; #1441). The step key, while it
-  targets or has nothing else to do, takes the same names alone
-  (`HereNames`) after the step's own, as many as fit its macro (`StepAction`;
-  `behavior.whileHereStepKey`, on by default; #1316). Both macros change only
-  out of combat (`QoL.Secure`). An item keeps the step key, including the
+  nearest first, the arrow's line first (QoL/Buttons `TargetNames` with
+  `here`; #1441). On a step whose goals are NPCs they come after the NPCs
+  while the player is within `behavior.whileHereRadius` of one of them, and
+  before the NPCs farther off (`npcSpots`/`npcsFar`; #1623); a check each
+  second re-orders them as the player crosses the radius, and each name takes
+  its own kind's mark and ping. The step key, while it targets or has nothing
+  else to do, takes the same names alone (`HereNames`) after the step's own,
+  as many as fit its macro, and on an NPC goal after or before the NPC the
+  same way (`StepAction`; `behavior.whileHereStepKey`, on by default; #1316,
+  #1623). Both macros change only out of combat (`QoL.Secure`). An item keeps the step key, including the
   first line's item that `ChooseQuestItem` falls back to (its `use` item or
   its quest's log item). Done early, the later step is done or shorter
   when the route gets there, as any objective done ahead.
