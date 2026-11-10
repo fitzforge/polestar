@@ -88,8 +88,8 @@ return {
 	["Upstairs"] = "",
 	-- {object:654846} Lost Journal (no name in this language: may be words)
 	["{object:654846}, upstairs"] = "",
-	-- {npc:3595} Shanda · {npc:3600} Laurna Morninglight · {area:186} Dolanaar
-	["{npc:3595}, the priest trainer, on the ramp on the way down: {npc:3600} in {area:186} takes it"] = "{npc:3595}，牧師訓練師，在下樓途中的坡道上：由{area:186}的{npc:3600}接收",
+	-- {npc:3595} Shanda · {area:256} Aldrassil · {npc:3600} Laurna Morninglight · {area:186} Dolanaar
+	["{npc:3595}, the priest trainer, on the second level of {area:256} on the way down: {npc:3600} in {area:186} takes it"] = "{npc:3595}，牧師訓練師，在下樓途中{area:256}的第二層：由{area:186}的{npc:3600}接收",
 
 	-- Step 12: Iverron's Antidote
 	-- {npc:8583} Dirania Silvershine · {area:256} Aldrassil · {npc:8584} Iverron
@@ -511,6 +511,7 @@ return {
 	-- ["{npc:3593}, the warrior trainer"] = "{npc:3593}，戰士訓練師",
 	-- ["{npc:3595}, inside the tree"] = "{npc:3595}，在樹裡",
 	-- ["{npc:3595}, the priest trainer, inside the tree"] = "{npc:3595}，牧師訓練師，在樹裡",
+	-- ["{npc:3595}, the priest trainer, on the ramp on the way down: {npc:3600} in {area:186} takes it"] = "{npc:3595}，牧師訓練師，在下樓途中的坡道上：由{area:186}的{npc:3600}接收",
 	-- ["{npc:4200}'s fish stall is by the docks. Then take the boat to {zone:1453}."] = "{npc:4200}的魚攤在碼頭旁。然後搭船前往{zone:1453}。",
 	-- ["{npc:7318}, in the den"] = "{npc:7318}，在巢穴裡",
 	-- ["{quest:488} and the Starbreeze moonwell"] = "{quest:488}與星風村月井",

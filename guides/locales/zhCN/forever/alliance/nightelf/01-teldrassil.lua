@@ -88,8 +88,8 @@ return {
 	["Upstairs"] = "在楼上",
 	-- {object:654846} Lost Journal (no name in this language: may be words)
 	["{object:654846}, upstairs"] = "{object:654846}：在楼上",
-	-- {npc:3595} Shanda · {npc:3600} Laurna Morninglight · {area:186} Dolanaar
-	["{npc:3595}, the priest trainer, on the ramp on the way down: {npc:3600} in {area:186} takes it"] = "牧师训练师{npc:3595}，在下楼途中的坡道上：交给{area:186}的{npc:3600}",
+	-- {npc:3595} Shanda · {area:256} Aldrassil · {npc:3600} Laurna Morninglight · {area:186} Dolanaar
+	["{npc:3595}, the priest trainer, on the second level of {area:256} on the way down: {npc:3600} in {area:186} takes it"] = "牧师训练师{npc:3595}，在下楼途中{area:256}的第二层：交给{area:186}的{npc:3600}",
 
 	-- Step 12: Iverron's Antidote
 	-- {npc:8583} Dirania Silvershine · {area:256} Aldrassil · {npc:8584} Iverron
@@ -521,6 +521,7 @@ return {
 	-- ["{npc:3593}, the warrior trainer"] = "{npc:3593}，战士训练师",
 	-- ["{npc:3595}, inside the tree"] = "{npc:3595}，在巨树内",
 	-- ["{npc:3595}, the priest trainer, inside the tree"] = "{npc:3595}，牧师训练师，在巨树内",
+	-- ["{npc:3595}, the priest trainer, on the ramp on the way down: {npc:3600} in {area:186} takes it"] = "牧师训练师{npc:3595}，在下楼途中的坡道上：交给{area:186}的{npc:3600}",
 	-- ["{npc:3595}: in at the tree's front entrance and up the ramp"] = "{npc:3595}：从树的正面入口进去，沿斜坡上楼",
 	-- ["{npc:4200}'s fish stall is by the docks. Then take the boat to {zone:1453}."] = "{npc:4200}的鱼摊在码头旁。然后乘船前往{zone:1453}。",
 	-- ["{npc:4217}: Bear Form"] = "{npc:4217}：熊形态",

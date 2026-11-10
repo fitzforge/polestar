@@ -88,8 +88,8 @@ return {
 	["Upstairs"] = "No andar de cima",
 	-- {object:654846} Lost Journal
 	["{object:654846}, upstairs"] = "{object:654846}, no andar de cima",
-	-- {npc:3595} Shanda · {npc:3600} Laurna Morninglight · {area:186} Dolanaar
-	["{npc:3595}, the priest trainer, on the ramp on the way down: {npc:3600} in {area:186} takes it"] = "{npc:3595}, a instrutora de sacerdote, na rampa, na descida: {npc:3600}, em {area:186}, a recebe",
+	-- {npc:3595} Shanda · {area:256} Aldrassil · {npc:3600} Laurna Morninglight · {area:186} Dolanaar
+	["{npc:3595}, the priest trainer, on the second level of {area:256} on the way down: {npc:3600} in {area:186} takes it"] = "{npc:3595}, a instrutora de sacerdote, no segundo nível de {area:256}, na descida: {npc:3600}, em {area:186}, a recebe",
 
 	-- Step 12: Iverron's Antidote
 	-- {npc:8583} Dirania Silvershine · {area:256} Aldrassil · {npc:8584} Iverron
@@ -512,6 +512,7 @@ return {
 	-- ["{npc:3593}, the warrior trainer"] = "{npc:3593}, o instrutor de guerreiro",
 	-- ["{npc:3595}, inside the tree"] = "{npc:3595}, dentro da árvore",
 	-- ["{npc:3595}, the priest trainer, inside the tree"] = "{npc:3595}, a instrutora de sacerdote, dentro da árvore",
+	-- ["{npc:3595}, the priest trainer, on the ramp on the way down: {npc:3600} in {area:186} takes it"] = "{npc:3595}, a instrutora de sacerdote, na rampa, na descida: {npc:3600}, em {area:186}, a recebe",
 	-- ["{npc:4200}'s fish stall is by the docks. Then take the boat to {zone:1453}."] = "A banca de peixe de {npc:4200} fica perto do cais. Depois pegue o barco para {zone:1453}.",
 	-- ["{npc:7318}, in the den"] = "{npc:7318}, na toca",
 	-- ["{npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "{npc:8584} fica um pouco mais a noroeste. {quest:3522} dura cinco minutos: encha o frasco e vá direto até ele.",

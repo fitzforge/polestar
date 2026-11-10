@@ -88,8 +88,8 @@ return {
 	["Upstairs"] = "",
 	-- {object:654846} Lost Journal
 	["{object:654846}, upstairs"] = "",
-	-- {npc:3595} Shanda · {npc:3600} Laurna Morninglight · {area:186} Dolanaar
-	["{npc:3595}, the priest trainer, on the ramp on the way down: {npc:3600} in {area:186} takes it"] = "{npc:3595}, die Priesterlehrerin, auf der Rampe auf dem Weg nach unten: {npc:3600} in {area:186} nimmt sie an",
+	-- {npc:3595} Shanda · {area:256} Aldrassil · {npc:3600} Laurna Morninglight · {area:186} Dolanaar
+	["{npc:3595}, the priest trainer, on the second level of {area:256} on the way down: {npc:3600} in {area:186} takes it"] = "{npc:3595}, die Priesterlehrerin, auf der zweiten Ebene von {area:256} auf dem Weg nach unten: {npc:3600} in {area:186} nimmt sie an",
 
 	-- Step 12: Iverron's Antidote
 	-- {npc:8583} Dirania Silvershine · {area:256} Aldrassil · {npc:8584} Iverron
@@ -518,6 +518,7 @@ return {
 	-- ["{npc:3593}, the warrior trainer"] = "{npc:3593}, die Kriegerlehrerin",
 	-- ["{npc:3595}, inside the tree"] = "{npc:3595}, im Baum",
 	-- ["{npc:3595}, the priest trainer, inside the tree"] = "{npc:3595}, die Priesterlehrerin, im Baum",
+	-- ["{npc:3595}, the priest trainer, on the ramp on the way down: {npc:3600} in {area:186} takes it"] = "{npc:3595}, die Priesterlehrerin, auf der Rampe auf dem Weg nach unten: {npc:3600} in {area:186} nimmt sie an",
 	-- ["{npc:3595}: in at the tree's front entrance and up the ramp"] = "{npc:3595}: durch den Vordereingang des Baums hinein und die Rampe hinauf",
 	-- ["{npc:4200}'s fish stall is by the docks. Then take the boat to {zone:1453}."] = "Der Fischstand von {npc:4200} ist bei den Docks. Nimm dann das Boot nach {zone:1453}.",
 	-- ["{npc:7318}, in the den"] = "{npc:7318}, im Bau",

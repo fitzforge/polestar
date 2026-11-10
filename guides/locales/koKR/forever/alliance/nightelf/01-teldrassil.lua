@@ -88,8 +88,8 @@ return {
 	["Upstairs"] = "",
 	-- {object:654846} Lost Journal
 	["{object:654846}, upstairs"] = "",
-	-- {npc:3595} Shanda · {npc:3600} Laurna Morninglight · {area:186} Dolanaar
-	["{npc:3595}, the priest trainer, on the ramp on the way down: {npc:3600} in {area:186} takes it"] = "내려가는 길에 경사로의 사제 상급자 {npc:3595}: {area:186}의 {npc:3600}에게 가져가세요",
+	-- {npc:3595} Shanda · {area:256} Aldrassil · {npc:3600} Laurna Morninglight · {area:186} Dolanaar
+	["{npc:3595}, the priest trainer, on the second level of {area:256} on the way down: {npc:3600} in {area:186} takes it"] = "내려가는 길에 {area:256} 2층의 사제 상급자 {npc:3595}: {area:186}의 {npc:3600}에게 가져가세요",
 
 	-- Step 12: Iverron's Antidote
 	-- {npc:8583} Dirania Silvershine · {area:256} Aldrassil · {npc:8584} Iverron
@@ -511,6 +511,7 @@ return {
 	-- ["{npc:3593}, the warrior trainer"] = "전사 상급자 {npc:3593}",
 	-- ["{npc:3595}, inside the tree"] = "나무 안의 {npc:3595}",
 	-- ["{npc:3595}, the priest trainer, inside the tree"] = "나무 안의 사제 상급자 {npc:3595}",
+	-- ["{npc:3595}, the priest trainer, on the ramp on the way down: {npc:3600} in {area:186} takes it"] = "내려가는 길에 경사로의 사제 상급자 {npc:3595}: {area:186}의 {npc:3600}에게 가져가세요",
 	-- ["{npc:4200}'s fish stall is by the docks. Then take the boat to {zone:1453}."] = "{npc:4200}의 생선 가판대는 부두 옆에 있습니다. 그다음 배를 타고 {zone:1453}(으)로 가세요.",
 	-- ["{npc:7318}, in the den"] = "굴 안의 {npc:7318}",
 	-- ["{quest:488} and the Starbreeze moonwell"] = "{quest:488}와(과) 별바람 마을 달샘",

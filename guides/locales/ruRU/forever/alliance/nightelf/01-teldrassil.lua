@@ -88,8 +88,8 @@ return {
 	["Upstairs"] = "",
 	-- {object:654846} Lost Journal
 	["{object:654846}, upstairs"] = "",
-	-- {npc:3595} Shanda · {npc:3600} Laurna Morninglight · {area:186} Dolanaar
-	["{npc:3595}, the priest trainer, on the ramp on the way down: {npc:3600} in {area:186} takes it"] = "{npc:3595} – учитель жрецов, на пандусе по пути вниз: задание принимает {npc:3600} ({area:186})",
+	-- {npc:3595} Shanda · {area:256} Aldrassil · {npc:3600} Laurna Morninglight · {area:186} Dolanaar
+	["{npc:3595}, the priest trainer, on the second level of {area:256} on the way down: {npc:3600} in {area:186} takes it"] = "{npc:3595} – учитель жрецов, на втором ярусе древа ({area:256}) по пути вниз: задание принимает {npc:3600} ({area:186})",
 
 	-- Step 12: Iverron's Antidote
 	-- {npc:8583} Dirania Silvershine · {area:256} Aldrassil · {npc:8584} Iverron
@@ -511,6 +511,7 @@ return {
 	-- ["{npc:3593}, the warrior trainer"] = "{npc:3593} – учитель воинов",
 	-- ["{npc:3595}, inside the tree"] = "{npc:3595} – внутри древа",
 	-- ["{npc:3595}, the priest trainer, inside the tree"] = "{npc:3595} – учитель жрецов, внутри древа",
+	-- ["{npc:3595}, the priest trainer, on the ramp on the way down: {npc:3600} in {area:186} takes it"] = "{npc:3595} – учитель жрецов, на пандусе по пути вниз: задание принимает {npc:3600} ({area:186})",
 	-- ["{npc:4200}'s fish stall is by the docks. Then take the boat to {zone:1453}."] = "Рыбный прилавок ({npc:4200}) – у пристани. Затем плывите на корабле сюда: {zone:1453}.",
 	-- ["{npc:7318}, in the den"] = "{npc:7318} – в логове",
 	-- ["{quest:488} and the Starbreeze moonwell"] = "{quest:488} и лунный колодец Деревни Звездного Ветра",
