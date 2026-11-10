@@ -25,7 +25,7 @@ Nav.travel = {
 }
 function Nav.GetRoute() return R.legs, R.legs and R.ci end
 MENU = 0
-Nav.prompts = { MenuItems = function() return { { text = "Mark this leg done" } } end, OpenMenu = function() MENU = MENU + 1 end }
+Nav.prompts = { MenuItems = function() return { { text = "Mark this leg done" } } end, CanSkip = function() return true end, OpenMenu = function() MENU = MENU + 1 end }
 Polestar.Transit = {
 	Now = function() return 1000 + GetTime() end,
 	NextDeparture = function(kind, id, at, side) DEP = { kind, id, side }; return R.wait, R.ride, R.timed end,
@@ -165,6 +165,28 @@ fn collapses_with_a_click_on_the_header_the_totals_stay_the_steps_go() {
 fn clicking_the_current_step_opens_the_skip_menu_a_later_step_does_not() {
 	let out = run("JP.rows[2]:Click(); JP.rows[1]:Click(); emit(MENU)");
 	assert_eq!(out[0], 1);
+}
+
+// #1686: a player sent to Blackfathom Deeps by "Guide me to the entrance" had the journey there in the guide
+// window long after the run, with no way to remove it but marking its legs done, which the route (planned from
+// where she stood) brought back. A journey to a point of your own has an x on its header, "Back to the guide":
+// the point lets go and the journey with it. The guide's own route has none.
+#[test]
+fn a_journey_to_a_point_of_your_own_has_an_x_back_to_the_guide_that_ends_it_the_guide_s_own_route_has_none_1686() {
+	let out = run(r#"
+		local h = JP.head
+		local _, rel = h.Icon:GetPoint(1)
+		local own = { shown = h.Close:IsShown(), tip = h.Close.psTip, chevron = rel == h.Close }
+		local calls = #uistub.calls
+		h.Close:Click()
+		local back = { asked = uistub.calls[calls + 1] and uistub.calls[calls + 1][1] or false, target = uistub.target == nil }
+		Polestar.Fire("ROUTE_CHANGED", R.legs) -- the guide's step has a route of its own
+		local _, rel2 = h.Icon:GetPoint(1)
+		emit({ own = own, back = back, guide = { shown = h.Close:IsShown(), chevron = rel2 == h } })"#);
+	let out = &out[0];
+	assert_eq!(out["own"], json!({ "shown": true, "tip": "Back to the guide", "chevron": true }));
+	assert_eq!(out["back"], json!({ "asked": "BackToGuide", "target": true }));
+	assert_eq!(out["guide"], json!({ "shown": false, "chevron": true }));
 }
 
 #[test]

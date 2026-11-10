@@ -759,19 +759,19 @@ fn nearby_a_trip_ends_at_the_service_or_on_back_to_the_guide_and_the_arrow_is_ba
 		CODEX,
 		r#"
 		local trips = 0
-		Polestar.On("NEARBY_TRIP", function() trips = trips + 1 end)
+		Polestar.On("NAV_TRIP", function() trips = trips + 1 end)
 		Near.Go("repair")
-		local going = Near.Trip()
+		local going = N.Trip()
 		local onTrip = { name = going and going.name, label = going and going.label, override = N.IsOverride() }
 		Polestar.Fire("NAV_ARRIVED", N.GetTarget())
-		local before = Near.Trip() ~= nil
+		local before = N.Trip() ~= nil
 		stub.runTimers()
-		local arrived = { trip = Near.Trip() == nil, override = N.IsOverride(), said = said("At Far Smith: the arrow is back on the guide.") }
+		local arrived = { trip = N.Trip() == nil, override = N.IsOverride(), said = said("At Far Smith: the arrow is back on the guide.") }
 		Near.Go("vendor")
-		local backed = { ended = Near.EndTrip(), trip = Near.Trip() == nil, override = N.IsOverride(), said = said("The arrow is back on the guide."), again = Near.EndTrip() }
+		local backed = { ended = N.EndTrip(), trip = N.Trip() == nil, override = N.IsOverride(), said = said("The arrow is back on the guide."), again = N.EndTrip() }
 		Near.Go("vendor")
 		N.SetTarget(9000, 10, 10, "Elsewhere")
-		emit({ onTrip = onTrip, before = before, arrived = arrived, backed = backed, replaced = Near.Trip() == nil, label = label(), trips = trips })
+		emit({ onTrip = onTrip, before = before, arrived = arrived, backed = backed, replaced = N.Trip() == nil, label = label(), trips = trips })
 	"#,
 	]
 	.concat());
@@ -783,6 +783,64 @@ fn nearby_a_trip_ends_at_the_service_or_on_back_to_the_guide_and_the_arrow_is_ba
 	assert_eq!(out["replaced"], true);
 	assert_eq!(out["label"], "Elsewhere");
 	assert_eq!(out["trips"], 6, "start and end of each of the three trips");
+}
+
+// #1686: "Guide me to the entrance" (Blackfathom Deeps) on a step the run did not change kept the arrow, and the
+// journey in the guide window, on the entrance after the run, until the step changed. A trip to a dungeon's
+// entrance ends through its portal: going in, or coming out when it was started inside. Reaching the door is not
+// the goal. Once over, the arrow is the guide's again and nothing brings the old point back.
+#[test]
+fn a_trip_to_a_dungeon_entrance_ends_through_the_portal_in_or_out_never_at_the_door_and_never_comes_back_1686() {
+	let out = run(r#"
+		nav.setWaypoint({ map = 9000, x = 50, y = 50, label = "Three Corners", stepIndex = 4, goalIndex = 1, kind = "goto", r = 8 })
+		local t = N.SetTarget(9000, 70, 30, "Blackfathom Deeps", nil, "dungeon")
+		local trip = N.StartTrip(t, "Blackfathom Deeps", "Dungeon", "instance")
+		local r = { going = { label = label(), ends = trip.ends, label2 = trip.label, own = N.IsOverride() } }
+		Polestar.Fire("NAV_ARRIVED", t)
+		stub.runTimers()
+		r.door = { label = label(), trip = N.Trip() ~= nil }
+		nav.instance = true
+		stub.fire("PLAYER_ENTERING_WORLD")
+		r.inside = { label = label(), trip = N.Trip() == nil, own = N.IsOverride(), said = said("At Blackfathom Deeps: the arrow is back on the guide.") }
+		nav.instance = false
+		stub.fire("PLAYER_ENTERING_WORLD")
+		stub.runTimers()
+		r.out = { label = label(), own = N.IsOverride() }
+		-- Started inside (the page opened in the dungeon): coming out ends it.
+		nav.instance = true
+		stub.fire("PLAYER_ENTERING_WORLD")
+		N.StartTrip(N.SetTarget(9000, 70, 30, "Blackfathom Deeps", nil, "dungeon"), nil, "Dungeon", "instance")
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		r.stillInside = N.Trip() ~= nil
+		nav.instance = false
+		stub.fire("PLAYER_ENTERING_WORLD")
+		r.left = { label = label(), trip = N.Trip() == nil }
+		emit(r)"#);
+	let out = &out[0];
+	assert_eq!(out["going"], json!({ "label": "Blackfathom Deeps", "ends": "instance", "label2": "Dungeon", "own": true }));
+	assert_eq!(out["door"], json!({ "label": "Blackfathom Deeps", "trip": true }), "the door is not the goal");
+	assert_eq!(out["inside"], json!({ "label": "Three Corners", "trip": true, "own": false, "said": true }));
+	assert_eq!(out["out"], json!({ "label": "Three Corners", "own": false }), "never back after the run");
+	assert_eq!(out["stillInside"], true);
+	assert_eq!(out["left"], json!({ "label": "Three Corners", "trip": true }));
+}
+
+// #1686: the only control the player found was "Mark this leg done", and the route, planned from where she stood,
+// brought each leg back. While the arrow is on a point of your own, its menu (right-click on the arrow, a click
+// on the journey's current step) has "Back to the guide"; the guide's own waypoint has no such row.
+#[test]
+fn back_to_the_guide_is_in_the_arrow_s_menu_for_any_point_of_your_own_and_lets_it_go_1686() {
+	let out = run(r#"
+		nav.setWaypoint({ map = 9000, x = 50, y = 50, label = "Three Corners", stepIndex = 4, goalIndex = 1, kind = "goto", r = 8 })
+		local P = N.prompts
+		local guide = P.MenuItems() == nil
+		N.SetTarget(9000, 70, 30, "Testshire 70, 30")
+		local items = P.MenuItems()
+		local texts = {}
+		for i, e in ipairs(items) do texts[i] = e.text end
+		items[#items].onClick(items[#items])
+		emit({ guide = guide, texts = texts, label = label(), own = N.IsOverride(), said = said("The arrow is back on the guide."), again = N.BackToGuide() })"#);
+	assert_eq!(out[0], json!({ "guide": true, "texts": ["Back to the guide"], "label": "Three Corners", "own": false, "said": true, "again": false }));
 }
 
 #[test]

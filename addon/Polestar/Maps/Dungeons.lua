@@ -51,9 +51,12 @@ local function rangeOf(rec)
 	return lo, hi
 end
 
+-- A trip to the entrance (Nav.StartTrip): it ends through the instance's
+-- portal (#1686), as the Dungeons page's "Guide me to the entrance" does.
 local function waypoint(rec)
 	local N, e = ns.Nav, rec.entrance
-	if N and N.SetTarget then N.SetTarget(e.map, e.x, e.y, rec.name, e.f, "dungeon") end
+	if not (N and N.SetTarget) then return end
+	N.StartTrip(N.SetTarget(e.map, e.x, e.y, rec.name, e.f, "dungeon"), rec.name, rec.kind == "raid" and L["Raid"] or L["Dungeon"], "instance")
 end
 
 local function tooltip(rec, page)

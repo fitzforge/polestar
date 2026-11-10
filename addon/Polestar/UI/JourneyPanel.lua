@@ -15,7 +15,10 @@
 -- while the panel is on screen and nothing runs while it is not. Each step's
 -- time is whole seconds and the header adds up the steps, so the totals
 -- always match what the rows say. Clicking the current step opens the skip
--- menu (Nav/Prompts.lua). Off with nav.journeySteps, collapsed with
+-- menu (Nav/Prompts.lua). While the journey leads to a point of your own
+-- (Nav.IsOverride: "Guide me to the entrance", a map click), the header has
+-- an x, "Back to the guide" (Nav.BackToGuide): the point lets go and the
+-- journey ends (#1686). Off with nav.journeySteps, collapsed with
 -- nav.journeyOpen = false, never in compact mode.
 --
 -- Reads Nav.GetRoute() (legs, current index; leg.kind, label, seconds,
@@ -327,7 +330,7 @@ local function rowEnter(self)
 	local lines = {}
 	if self.Sub:IsShown() then lines[#lines + 1] = self.Sub:GetText() end
 	local P = ns.Nav and ns.Nav.prompts
-	if self.psCurrent and P and P.MenuItems and P.MenuItems() then
+	if self.psCurrent and P and P.CanSkip and P.CanSkip() then
 		lines[#lines + 1] = { L["Click to skip this leg"], Theme.Accent() }
 	end
 	W.Tooltip(self, anchor(), self.Text:GetText() or "", lines)
@@ -391,6 +394,13 @@ local function build()
 	head.Icon:SetSize(12, 12)
 	head.Icon:SetPoint("RIGHT", head, "RIGHT", -PAD, 0)
 	W.Color(head.Icon, "textMuted")
+	-- A point of your own: the x lets it go, and the journey with it.
+	head.Close = W.IconButton(head, "close", 20, L["Back to the guide"], function()
+		local N = ns.Nav
+		if N and N.BackToGuide then N.BackToGuide() end
+	end, 10)
+	head.Close:SetPoint("RIGHT", head, "RIGHT", -(PAD - 6), 0)
+	head.Close:Hide()
 	head.Dist = text(head, "number", "textDim")
 	head.Dist:SetJustifyH("RIGHT")
 	head.Dist:SetPoint("RIGHT", head.Icon, "LEFT", -8, 0)
@@ -503,6 +513,18 @@ function JP.Refresh(force)
 	stamp(legs, ci)
 	if changed then fillStructure(legs, ci) end
 	head.Icon:SetTexture(Theme.Media(open() and "chevron-up" or "chevron-down"))
+	-- The x while the journey leads to a point of your own; the chevron moves over for it.
+	local N = ns.Nav
+	local own = N and N.IsOverride and N.IsOverride() and true or false
+	if head.Close:IsShown() ~= own then
+		head.Close:SetShown(own)
+		head.Icon:ClearAllPoints()
+		if own then
+			head.Icon:SetPoint("RIGHT", head.Close, "LEFT", -2, 0)
+		else
+			head.Icon:SetPoint("RIGHT", head, "RIGHT", -PAD, 0)
+		end
+	end
 	JP.Compute(legs, ci)
 	-- The line under a step only where there is something to say: a known
 	-- departure, a walk's hostile towns (none: no empty line).

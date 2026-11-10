@@ -308,6 +308,31 @@ fn reaching_the_target_switches_to_the_arrived_state_with_hysteresis_one_chime_a
 	assert_eq!(out, json!([["travel", "20 yd", 0], ["arrived", "Arrived", 1, true, false], ["arrived", 1], ["travel", "20 yd", false], ["arrived", 1], 2]));
 }
 
+// A player report (Discord): following a party member, the arrival chime played over and over while you kept up
+// with them, since each look at where they were set a new target and a new target re-arms the arrival. A target
+// that moves (Nav.MoveTarget) stays the same target: one arrival, one chime, while you stay by it.
+#[test]
+fn a_moving_target_keeps_its_arrival_one_chime_while_you_keep_up_a_new_target_chimes_again() {
+	let out = run(r#"
+		local m, x, y = nav.mapPoint(20, 0)
+		local t = N.SetTarget(m, x, y, "Party: Ana")
+		nav.place(15, 0)
+		stub.advance(0.2)
+		local first = #stub.sounds
+		for i = 1, 3 do                    -- she walks on, you keep up
+			nav.place(15 + 3 * i, 0)
+			m, x, y = nav.mapPoint(20 + 3 * i, 0)
+			N.MoveTarget(t, m, x, y)
+			stub.advance(0.2)
+		end
+		local moved = { #stub.sounds, N.GetTarget() == t, A.GetMode(), N.GetTarget().label }
+		m, x, y = nav.mapPoint(31, 0)
+		N.SetTarget(m, x, y, "Party: Ana")
+		stub.advance(0.2)
+		emit({ first = first, moved = moved, renewed = #stub.sounds, refused = N.MoveTarget(t, m, x, y) })"#);
+	assert_eq!(out, json!({ "first": 1, "moved": [1, true, "arrived", "Party: Ana"], "renewed": 2, "refused": false }));
+}
+
 #[test]
 fn a_target_a_floor_above_or_below_is_not_arrived_at_and_the_arrow_shows_up_or_down_until_you_are_on_its_floor() {
 	let out = run(r#"

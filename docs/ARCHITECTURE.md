@@ -2787,6 +2787,13 @@ Polestar.Nav.SetTarget(map, x, y, label, f, stop, z)   -- user picked a goal; ov
                                                         -- z: the height of the NPC or object there, optional (the walk ends on its floor);
                                                         -- returns the override (the target table) or false
 Polestar.Nav.ClearTarget()
+Polestar.Nav.ReleaseTarget()                           -- the point picked by hand lets go; the engine waypoint is guided to again
+Polestar.Nav.IsOverride() -> bool                      -- the arrow is on a point picked by hand ("your own waypoint")
+Polestar.Nav.StartTrip(target, name, label, ends) -> trip | nil   -- SetTarget's target becomes a trip (below); ends "arrive" (default) | "instance"
+Polestar.Nav.Trip() -> { target, name, label, ends, inside } | nil   -- the trip under way, while its target is the one shown
+Polestar.Nav.EndTrip(arrived) -> ok                    -- back to the guide: the trip's target lets go
+Polestar.Nav.BackToGuide() -> ok                       -- any point picked by hand lets go (a trip as EndTrip); false on the guide's own
+Polestar.Nav.MoveTarget(target, map, x, y) -> ok       -- a point of your own that moves (a party member): the same target, its arrival kept (one chime)
 Polestar.Nav.Hold(map, x, y, label, f) -> target | nil  -- the arrow held there over every other target until Unhold (the death helper)
 Polestar.Nav.Unhold()
 Polestar.Nav.IsHeld() -> bool
@@ -2886,8 +2893,6 @@ Polestar.Nav.journey.PlanTo(map, x, y, label, f) -> ok   -- onto the zone under 
 Polestar.Nav.journey.Estimate(from, to, budgeted) -> seconds | nil[, "busy"] -- from, to = { map, x, y, f } (percent); from nil: the player; "busy" only when budgeted (the API)
 Polestar.Nav.nearby.Find(kind, skillLine) -> place, seconds | nil, "kind" | "codex" | "combat" | "none"
 Polestar.Nav.nearby.Go(kind, skillLine) -> ok           -- weapon: skillLine is the weapon skill's line, or nil for any
-Polestar.Nav.nearby.Trip() -> { target, name, label } | nil   -- the trip Go started, while its target is the one shown
-Polestar.Nav.nearby.EndTrip(arrived) -> ok                -- back to the guide: the trip's target lets go
 Polestar.Nav.nearby.Weapons() -> { { line, label, known, level }, ... }   -- the weapons the class can use that a master of its side teaches
 Polestar.Nav.nearby.MenuItems() -> items                  -- the guide window button's list (vendor first; a weapons page)
 Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the player to the cursor on the minimap
@@ -2986,13 +2991,29 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
   `Nearby.Weapons()` (a known weapon, by `Compat.IsPlayerSpell` on its
   skill's spell, and polearms before level 20 are listed and off); off in
   combat.
-- **The trip back to the guide.** `Go` starts a trip (`Nearby.Trip()`) and
-  fires `NEARBY_TRIP(trip)`. `Nav` fires `NAV_ARRIVED(target)` once per
-  arrival; on the trip's target, `EndTrip(true)` releases it and the arrow is
-  back on the guide's step. Any other target (a goal clicked, a map click)
-  ends the trip quietly, and `NEARBY_TRIP(nil)` follows each end. On the
-  way, the guide window shows a banner and the button's list a first entry,
-  both "Back to the guide" (`EndTrip()`).
+- **The trip back to the guide.** `Go` starts a trip (`Nav.StartTrip`, the
+  service's name and kind). `Nav` fires `NAV_ARRIVED(target)` once per
+  arrival; on the trip's target, `Nav.EndTrip(true)` releases it and the
+  arrow is back on the guide's step. Any other target (a goal clicked, a map
+  click) ends the trip quietly. `NAV_TRIP(trip)` fires as a trip starts and
+  `NAV_TRIP(nil)` as it ends. On the way, the guide window shows a banner
+  and the button's list a first entry, both "Back to the guide"
+  (`Nav.EndTrip()`).
+- **Trips are Nav's** (#1686), for every "take me there": nearby services,
+  a dungeon's entrance (the Dungeons page's "Guide me to the entrance" and
+  the world map's dungeon pins, `ends = "instance"`: it ends through the
+  instance's portal, going in, or coming out when it was started inside;
+  reaching the door is not the goal), the training and riding banners'
+  Show (`Class trainer`, `Riding trainer`), the class card's Show me (a
+  quest giver) and a party member picked on the party panel (`Party`: one
+  target moved with them by `Nav.MoveTarget`, so standing by them is one
+  arrival and one chime; it also ends once they leave the party, go offline
+  or have no place the client gives), which end on arrival. A point set on
+  the map, by `/way`, another addon or a goal of another step is the
+  player's own and stays until the step changes or they let it go: the
+  arrow's menu (right-click, or a click on the journey's current step) and
+  the journey panel's header x both say "Back to the guide"
+  (`Nav.BackToGuide`).
 
 ### Hand-off to Shortest Path Forever
 
@@ -4752,7 +4773,8 @@ Polestar.Party.Lacking(q) -> { { name, unit, key, why, blocked }, ... }  -- Miss
 Polestar.Party.ShareFor(goal) -> names | nil        -- who a row's Share reaches; Share(q) shares
 Polestar.Party.UnitInfo(unit, key) -> { level, xp, class, race }
 Polestar.Party.Roster() -> rows                      -- the party panel's (UI/PartyPanel.lua)
-Polestar.Party.PointAt(unit) -> bool                 -- the arrow at a member (Nav.SetTarget, followed every 3 s)
+Polestar.Party.PointAt(unit) -> bool                 -- a trip to a member (Nav.StartTrip, label "Party"), moved with them every 3 s (Nav.MoveTarget);
+                                                     -- ends on arrival, "Back to the guide", or once they leave, go offline or have no place
 Polestar.Party.ItemNeeds(itemID) -> { { name, unit, need }, ... }; NeedText(e)  -- UI/PartyLoot.lua
 Polestar.Party.IsLive() -> bool                     -- PARTY_LIVE (on) fires when it changes
 Polestar.Party.Debug() -> lines                      -- /polestar party debug: prefix, last send and result, messages heard, roster keys
@@ -6850,7 +6872,12 @@ zeppelins, the tram and lifts add a line, "average wait 0:15 · ride 0:10"
 A walk whose engine path enters the other faction's towns (`leg.hubs`) adds
 "Hostile town: Southshore" (names joined by commas) in the warning colour.
 The current row wears the accent glyph and the 2px selection bar; a click
-on it opens the skip menu (`Nav.prompts.OpenMenu`).
+on it opens the skip menu (`Nav.prompts.OpenMenu`), which also has "Back to
+the guide" while the arrow is on a point of the player's own
+(`Nav.IsOverride`). For that point the header carries an x as well, "Back
+to the guide" (`Nav.BackToGuide`): the point lets go and the journey ends
+(#1686). Marking a leg done is no way to end one: the route is planned from
+where the player stands, so a leg not yet walked comes back.
 
 Data: `Nav.GetRoute()` (legs, current index), `Nav.travel.Active()` (more
 than one leg: a lone walk is the arrow's own distance and time, so the panel

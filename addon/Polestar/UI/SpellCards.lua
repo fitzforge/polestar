@@ -55,12 +55,12 @@ SC.RANK_LINES = 4
 
 local waiting = {} -- kind -> notice
 
--- "Show me": the arrow to trainer t (the advice's), as the training
--- reminder's Show aims it.
+-- "Show me": a trip to trainer t (the advice's), as the training reminder's
+-- Show takes it (Nav.StartTrip: it ends there, #1686).
 function SC.ShowTrainer(t)
 	local N = ns.Nav
 	if not (t and t.map and t.x and N and N.SetTarget) then return false end
-	N.SetTarget(t.map, t.x, t.y, t.npcName or L["Class trainer"], t.f, "trainer", t.z)
+	N.StartTrip(N.SetTarget(t.map, t.x, t.y, t.npcName or L["Class trainer"], t.f, "trainer", t.z), nil, L["Class trainer"])
 	CT().Hide()
 	return true
 end
