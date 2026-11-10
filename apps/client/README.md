@@ -90,6 +90,12 @@ the upload API, and the public list of what is never collected.
   looked for every 6 hours (off in Settings) and announced in the tray;
   they install by themselves only if you turn that on, and never while the
   game is running. The Stable channel offers releases, Beta pre-releases too.
+  After each check (and after installing or updating Polestar, whose release
+  ships the file empty) the client writes the newest Polestar releases into
+  `Interface/AddOns/Polestar/ClientInfo.lua` (`src-tauri/src/clientinfo.rs`;
+  releases only, whatever the channel; only when the text changes), so the
+  addon's update card knows what is out and that the client can update it
+  (docs/RECORDING.md "Client info").
 - **Community** installs Community Guides players publish on
   [polestar.guide](https://polestar.guide): installed guides first, then the
   others, searchable by title and author, each with Install, Update, Remove,
