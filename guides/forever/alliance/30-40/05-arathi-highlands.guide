@@ -299,7 +299,7 @@ step Kor'gresh Coldrage
 step Foggy MacKreel
   zone Arathi Highlands
   tip South-west from Kor'gresh's cave to the Thandol Span: Foggy MacKreel stands on a broken section of the bridge; jump down to him from its north end. MacKreel's Moonshine must reach Brewmeister Bilger in Southshore within 15 minutes: go straight back to Refuge Pointe and fly to Southshore.
-  accept 647 only Dwarf,Gnome,NightElf,Skyborne
+  accept 647
 
 step Skuerto
   turnin 693
@@ -313,7 +313,7 @@ step Fly to Southshore
 step Brewmeister Bilger
   zone Hillsbrad Foothills
   tip Off the flight, straight to the Southshore inn.
-  turnin 647 only Dwarf,Gnome,NightElf,Skyborne -- Brewmeister Bilger, below ground
+  turnin 647                          -- Brewmeister Bilger, below ground
 
 step Alterac Mountains
   zone Alterac Mountains

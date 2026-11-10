@@ -5380,7 +5380,8 @@ test(`${ARATHI}: Fyurie's report (#1319): MacKreel's Moonshine is taken after Ko
 	assert.equal(list[turnin].s, list[fly].s + 1, 'handed in in the step right after the flight');
 	assert.ok(list.slice(accept + 1, turnin).every(({ goal }) => goal.t !== 'kill' && goal.t !== 'collect'), 'nothing to kill or collect in between');
 	assert.ok([list[accept].step.note, list[accept].step.tip].flat().filter(Boolean).join(' ').includes('within 15 minutes'), 'the step names the time limit');
-	for (const i of [accept, turnin]) assert.deepEqual([...(list[i].goal.only?.races ?? [])].sort(), ['Dwarf', 'Gnome', 'NightElf', 'Skyborne'], `${list[i].goal.t} 647 keeps its races`);
+	// Br3040 (0.3.6): the race filter it kept came from an old per-race export; every Alliance race may take it.
+	for (const i of [accept, turnin]) assert.ok(!list[i].goal.only?.races, `${list[i].goal.t} 647 is open to every Alliance race`);
 });
 
 // --- Timed-quest check (2026-11-08, #1319's pattern): A Meal Served Cold (212) must be back with Angus Stern in Stormwind
@@ -9919,4 +9920,17 @@ test('Horde Ratchet 37: Goblin Sponsorship (1180) taken from Gazlowe with 1178, 
 	assert.ok(!list[take].goal.optional, 'part of the route');
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
 	assert.ok(rf.include.some((e) => e.q === 1180), 'a route-fix include keeps it');
+});
+
+// Br3040 (0.3.6, Alliance 30-40): Sully Balloo's Letter (637), Sara Balloo's Plea (683) and MacKreel's Moonshine (647) are
+// open to every Alliance race (Forever's server data: race mask 77 for 637, all races for 683 and 647; a Dwarf took 683
+// from Sara Balloo in the recordings), but the guides kept per-race filters from an old per-race route export: Humans
+// never saw 637 or 647, and only Skyborne saw 683, although every race passes the givers on the same stops.
+test('Alliance 30-40: the Balloo letters and MacKreel\'s Moonshine for every Alliance race', { skip }, () => {
+	const wet = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
+	for (const [t, q] of [['accept', 637], ['turnin', 637], ['accept', 683], ['turnin', 683]]) {
+		assert.ok(everyone(wet[at(wet, `${t} ${q}`, is(t, q))]), `${t} ${q} has no race filter`);
+	}
+	const ara = goals('forever/alliance/30-40/05-arathi-highlands.guide');
+	for (const t of ['accept', 'turnin']) assert.ok(everyone(ara[at(ara, `${t} 647`, is(t, 647))]), `${t} 647 has no race filter`);
 });
