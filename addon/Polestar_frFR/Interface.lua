@@ -591,6 +591,8 @@ L["%s asked you to sync to their guide; that prompt can't show with the gamepad 
 -- L["%s is on Polestar %s: your guides can differ. A newer version is out."] = ""
 -- L["%s is on Polestar %s: your guides can differ."] = ""
 -- L["Party sync is on: you and your party see each other's quest progress. Turn it off in Options."] = ""
+-- L["Ask other players' Polestar which version it is"] = ""
+-- L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] = ""
 
 -- Gear/Gear.lua
 L["big upgrade"] = "grosse amélioration"

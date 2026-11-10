@@ -39,7 +39,7 @@
 --   Polestar.Update.Latest()      -> version, behind, source ("client" | "peer") | nil
 --   Polestar.Update.Notice()      -> { kind = "behind", latest, behind, mine } | { kind = "old", weeks } | nil
 --   Polestar.Update.NotePeer(v)   a peer's version (true when it counts)
---   Polestar.Update.Probe(unit), .ProbeTarget(unit), .Listen()  the version probe
+--   Polestar.Update.Probe(unit), .ProbeTarget(unit), .Listen(), .Probing()  the version probe
 --   Polestar.Update.Covers(v)     the card says it, so a peer's chat line need not
 --   Polestar.Update.ReportNote(), .Outdated()  for the report window
 
@@ -58,7 +58,7 @@ U.HELLO_DELAY = 20 -- seconds after login
 U.REPLY_GAP = 300 -- seconds between two guild answers
 U.PREFIX = "Polestar" -- Party.PREFIX
 
-ns.RegisterDefaults("update", { card = true })
+ns.RegisterDefaults("update", { card = true, probe = true })
 
 ---------------------------------------------------------------------------
 -- Versions
@@ -391,19 +391,21 @@ end
 
 -- The version probe: Polestar can't tell that a player it sees runs
 -- Polestar without asking, so it asks a few: a player of your faction you
--- target, mouse over or see the nameplate of, not in your group or guild
--- (those hear the party sync and the guild hello), out of combat, outside
--- instances and the game's messaging lockdown, gets one hidden addon
--- whisper, "PSV1?<version>", to the unit's own name as the game's Whisper
--- writes it (Compat.UnitFullName: "Ana Smith" with the client's surname
--- separator). The client's whisper check (RequestCanLocalWhisperTarget)
--- answers first where it exists: only a player it says can be whispered
--- gets it, so no "not found" line shows. Their Polestar answers
--- "PSV1=<version>" over a whisper, after a moment, once per sender per
--- ANSWER_GAP, never to its own echo; a "=" is never answered. An answer
--- counts only over a whisper from a player probed in the last ASK_WAIT
--- seconds (by Compat.SenderName), once: one answer per probe. Older
--- Polestars don't answer whispers, so silence means nothing.
+-- target or mouse over (never from nameplates, which flood in crowds), not
+-- in your group or guild (those hear the party sync and the guild hello),
+-- while you are out of combat, outside instances, outside cities, inns and
+-- other rest areas (IsResting) and outside the game's messaging lockdown,
+-- gets one hidden addon whisper, "PSV1?<version>", to the unit's own name
+-- as the game's Whisper writes it (Compat.UnitFullName: "Ana Smith" with the
+-- client's surname separator). The client's whisper check
+-- (RequestCanLocalWhisperTarget) answers first where it exists: only a
+-- player it says can be whispered gets it, so no "not found" line shows.
+-- Their Polestar answers "PSV1=<version>" over a whisper, after a moment,
+-- once per sender per ANSWER_GAP and ANSWER_SESSION a session, never to its
+-- own echo; a "=" is never answered. An answer counts only over a whisper
+-- from a player probed in the last ASK_WAIT seconds (by Compat.SenderName),
+-- once: one answer per probe. Older Polestars don't answer whispers, so
+-- silence means nothing.
 -- Messages are read only as ^PSV1([?=])x.y.z$, at most PROBE_BYTES bytes,
 -- major <= 99, minor and patch <= 999; anything else is dropped. A newer
 -- release heard only this way needs two different players' answers before
@@ -411,19 +413,31 @@ end
 -- second-highest of their versions is the one passed on (NotePeer).
 -- Limits: one probe per player per PROBE_AGAIN (PolestarDB.update.probed,
 -- at most PROBE_KEEP players), one per PROBE_GAP seconds, PROBE_SESSION a
--- session, none once a newer release is known. Only while party sharing is
--- on, like the guild hello.
-U.PROBE_GAP = 10
-U.PROBE_SESSION = 30
-U.PROBE_AGAIN = DAY
+-- session. Once the session's probes are spent or a newer release is known,
+-- the unit events are unregistered (until the next login); while they are
+-- registered, a mouseover inside PROBE_GAP returns at the first comparison.
+-- Off, no probes and no answers: party sharing off, update.probe off, or
+-- the kill switch PolestarClientInfo.probe = false (Polestar Client writes
+-- it when the newest release's notes carry "<!-- polestar: probe off -->").
+U.PROBE_GAP = 30
+U.PROBE_SESSION = 10
+U.PROBE_AGAIN = 7 * DAY
 U.PROBE_KEEP = 300
 U.PROBE_BYTES = 24
 U.ASK_WAIT = 60 -- seconds an answer to a probe is accepted
 U.ANSWER_GAP = 60 -- seconds between two answers to one sender
+U.ANSWER_SESSION = 20 -- answers a session at most
 U.HEARD_KEEP = 50
 U.CHECK_WAIT = 30 -- seconds a whisper check's answer is waited for
 local TAG = "PSV1"
-local probe = { sent = 0, at = -math.huge, waiting = {}, asked = {}, answered = {} }
+local probe = { sent = 0, at = -math.huge, waiting = {}, asked = {}, answered = {}, answers = 0 }
+
+-- Probes and their answers may go out: sharing on, from a release build,
+-- update.probe on, and no kill switch from Polestar Client.
+local function probeOn()
+	local c = PolestarClientInfo
+	return sendingOn() and ns.Get("update.probe") and not (type(c) == "table" and c.probe == false) and true or false
+end
 
 -- "PSV1?0.3.7" -> "?", "0.3.7"; nil for anything else.
 function U.ParseProbe(text)
@@ -454,13 +468,13 @@ local function prune(list, t, ttl, keep)
 	end
 end
 
--- Whether a probe may go out now: the cheap checks first, as the mouseover
--- event fires often.
+-- Whether a probe may go out now. The unit events are registered only while
+-- probing is on and a probe is left (U.Listen), so this checks the moment:
+-- the gap first, one comparison, as the mouseover event fires often.
 local function probeDue()
 	if GetTime() - probe.at < U.PROBE_GAP or probe.sent >= U.PROBE_SESSION then return false end
-	if not sendingOn() or U.Latest() then return false end
 	local C = ns.Compat
-	return not (C.InCombat() or C.IsInInstance() or lockdown())
+	return not (C.InCombat() or C.IsInInstance() or lockdown() or (IsResting and IsResting()))
 end
 
 local function readable(v)
@@ -522,7 +536,7 @@ function U.NoteWhisper(name, v)
 end
 
 local function whisperProbe(target)
-	if not sendingOn() or lockdown() then return false end
+	if not probeOn() or lockdown() then return false end
 	local key = ns.Compat.SenderName(target)
 	if key then
 		probe.asked[key] = GetTime()
@@ -562,11 +576,13 @@ end
 function U.AnswerDelay() return 0.5 + math.random() * 2 end
 
 local function answerProbe(sender, key)
-	if not sendingOn() or GetTime() - (probe.answered[key] or -math.huge) < U.ANSWER_GAP then return end
+	if probe.answers >= U.ANSWER_SESSION or not probeOn() then return end
+	if GetTime() - (probe.answered[key] or -math.huge) < U.ANSWER_GAP then return end
 	probe.answered[key] = GetTime()
+	probe.answers = probe.answers + 1
 	prune(probe.answered, GetTime(), U.ANSWER_GAP, U.HEARD_KEEP)
 	ns.After(U.AnswerDelay(), function()
-		if sendingOn() and not lockdown() then sendTo(TAG .. "=" .. mine(), "WHISPER", sender) end
+		if probeOn() and not lockdown() then sendTo(TAG .. "=" .. mine(), "WHISPER", sender) end
 	end)
 end
 
@@ -609,13 +625,13 @@ end
 
 local function probeTarget() U.Probe("target") end
 local function probeMouseover() U.Probe("mouseover") end
-local function probePlate(_, unit) U.Probe(unit) end
 
 -- What Polestar listens to, checked at login, at the hello, when the guild,
--- party sharing or what is known changes, and as the session's probes run
--- out: the guild channel in a guild; whispers while sharing (probes and
--- their answers, our prefix registered); the units to probe while a probe
--- can still go out. Solo with sharing off, nothing.
+-- party sharing, update.probe or what is known changes, and as the
+-- session's probes run out: the guild channel in a guild; whispers while
+-- probing is on (probes and their answers); our prefix with either; the
+-- target and mouseover while probing is on, a probe is left and no newer
+-- release is known. Solo with sharing off, nothing.
 local inGuild, whispers, probing = false, false, false
 function U.Listen()
 	local guild = IsInGuild and IsInGuild() and true or false
@@ -624,22 +640,24 @@ function U.Listen()
 		local set = guild and ns.RegisterEvent or ns.UnregisterEvent
 		set("CHAT_MSG_ADDON", onGuild)
 	end
-	local share = sendingOn()
-	if share ~= whispers then
-		whispers = share
-		local set = share and ns.RegisterEvent or ns.UnregisterEvent
+	local on = probeOn()
+	if on ~= whispers then
+		whispers = on
+		local set = on and ns.RegisterEvent or ns.UnregisterEvent
 		set("CHAT_MSG_ADDON", onWhisper)
 	end
-	if guild or share then prefix() end
-	local wantProbe = share and probe.sent < U.PROBE_SESSION and U.Latest() == nil
+	if guild or on then prefix() end
+	local wantProbe = on and probe.sent < U.PROBE_SESSION and U.Latest() == nil
 	if wantProbe ~= probing then
 		probing = wantProbe
 		local set = wantProbe and ns.RegisterEvent or ns.UnregisterEvent
 		set("PLAYER_TARGET_CHANGED", probeTarget)
 		set("UPDATE_MOUSEOVER_UNIT", probeMouseover)
-		set("NAME_PLATE_UNIT_ADDED", probePlate)
 	end
 end
+
+-- Whether the target and mouseover events are registered (tests).
+function U.Probing() return probing end
 
 ---------------------------------------------------------------------------
 -- Lifecycle
@@ -660,7 +678,7 @@ end)
 
 ns.RegisterEvent("PLAYER_GUILD_UPDATE", function() U.Listen() end)
 ns.On("SETTING_CHANGED", function(path)
-	if path == "party.share" or path == "party" then U.Listen() end
+	if path == "party.share" or path == "party" or path == "update.probe" or path == "update" then U.Listen() end
 end)
 ns.On("UPDATE_KNOWN", function() U.Listen() end)
 -- The whisper check asked for the session's last probe still answers after

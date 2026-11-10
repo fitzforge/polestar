@@ -2146,6 +2146,10 @@ Party.OPTIONS = {
 	controls = {
 		{ kind = "toggle", key = "party.share", label = L["Share my quest progress with my party"], search = SEARCH,
 			help = L["Party members who run Polestar see your counts under their quest goals, your step and your level. Hidden addon messages to your party only; nothing goes to chat."] },
+		-- Core/Update.lua's version probe: off with sharing off too.
+		{ kind = "toggle", key = "update.probe", label = L["Ask other players' Polestar which version it is"], search = SEARCH .. ", update, version, new version",
+			child = true, disabled = function() return not ns.Get("party.share") end,
+			help = L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] },
 		{ kind = "toggle", key = "party.show", label = L["Show my party's progress in the guide"], search = SEARCH,
 			help = L["Their counts under your quest goals, and who lacks a quest you took, with a Share button."] },
 		{ kind = "toggle", key = "party.waitForGroup", label = L["Wait for the group"], search = SEARCH,

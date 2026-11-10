@@ -877,17 +877,17 @@ checks for updates; party members running Polestar (the version party sync
 already sends); guild members running Polestar; and other players of your
 faction you meet. For the guild, Polestar sends one hidden hello with only
 its version number when you log in (at most every half hour), and a guild
-member on a newer release answers with theirs. For players you target,
-mouse over or see the nameplate of (not in your group or guild), Polestar
-sends one hidden addon whisper with its version number, at most once a day
-per player, once every 10 seconds and 30 times a session, never in combat
-or dungeons, and stops once it has heard of a newer release; their Polestar
-answers once with its own. A newer version heard only this way counts once
-two different players have answered with it. Nothing goes to chat, and
-turning party sync's
-sharing off stops all of these. With no source at all, a Polestar first run
-three weeks ago or more says, in the guide window only, that updates come
-often.
+member on a newer release answers with theirs. For players you target or
+mouse over (not in your group or guild), Polestar sends one hidden addon
+whisper with its version number: at most once a week per player, once every
+30 seconds and 10 times a session, never in combat, dungeons, cities or inns,
+and none once it has heard of a newer release. Their Polestar answers once
+with its own (at most 20 answers a session). A newer version heard only this
+way counts once two different players have answered with it. Nothing goes
+to chat. Turning party sync's sharing off stops all of these; **Ask other
+players' Polestar which version it is** (under it, on by default) stops the
+whispers alone. With no source at all, a Polestar first run three weeks ago
+or more says, in the guide window only, that updates come often.
 
 ### With a gamepad
 

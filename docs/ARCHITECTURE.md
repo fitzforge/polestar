@@ -6327,11 +6327,12 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   after 2-12 s unless an answer with that version or newer came first, at
   most every 5 min (`update.replyAt`). Only the version goes out.
   The version probe (no addon can tell another runs Polestar without
-  asking): on `PLAYER_TARGET_CHANGED`, `UPDATE_MOUSEOVER_UNIT` and
-  `NAME_PLATE_UNIT_ADDED`, a player (`UnitIsPlayer`, not you) of your
-  faction, not in your party, raid or guild, whose name and GUID are not
-  secret, while you are out of combat, outside instances and the messaging
-  lockdown (`C_ChatInfo.InChatMessagingLockdown`), is asked once:
+  asking): on `PLAYER_TARGET_CHANGED` and `UPDATE_MOUSEOVER_UNIT` (never
+  nameplates, which flood in crowds), a player (`UnitIsPlayer`, not you) of
+  your faction, not in your party, raid or guild, whose name and GUID are not
+  secret, while you are out of combat, outside instances, outside cities,
+  inns and other rest areas (`IsResting`) and outside the messaging lockdown
+  (`C_ChatInfo.InChatMessagingLockdown`), is asked once:
   `C_ChatInfo.RequestCanLocalWhisperTarget(guid)` first where the client has
   it, and only on `CAN_LOCAL_WHISPER_TARGET_RESPONSE` status 0 (CanWhisper,
   so no "not found" line shows) the addon whisper `PSV1?<version>` on the
@@ -6342,25 +6343,31 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   reads WHISPER only (Party.lua reads PARTY only), and only
   `^PSV1([%?=])(%d+)%.(%d+)%.(%d+)$` at most 24 bytes with major ≤ 99, minor
   and patch ≤ 999; anything else is dropped silently. A `?` is answered
-  `PSV1=<version>` after 0.5-2.5 s, once per sender per 60 s (by
+  `PSV1=<version>` after 0.5-2.5 s, once per sender per 60 s and 20 times a
+  session at most (by
   `Compat.SenderName`), to the `sender` string as it arrived, never our own
   echo; its version is not kept. A `=` counts only from a player probed in
   the last 60 s, once (the entry goes with the answer). A newer release
   heard this way is kept per player (`update.heard`) and told as a peer's
   version (`NotePeer`) only once two different players answered with newer
   releases: the lower of the two highest. Older Polestars don't answer
-  whispers, so silence means nothing. Limits: one probe per player per 24 h
-  (`update.probed`, 300 players, the oldest dropped), one per 10 s, 30 a
-  session, none once a newer release is known (the unit events are then
-  unregistered). Any result but Success (a throttle, the lockdown, an
-  offline target, a trial account) is skipped quietly and not retried.
-  Only while `party.share` is on, from a release build. No SAY, YELL or
-  CHANNEL addon messages: Forever's Mainline client refuses the first two
-  and a custom channel shows in the channel list.
+  whispers, so silence means nothing. Limits: one probe per player per 7 days
+  (`update.probed`, 300 players, the oldest dropped), one per 30 s, 10 a
+  session. Once those are spent or a newer release is known, the target and
+  mouseover events are unregistered until the next login; while registered,
+  a mouseover inside the 30 s returns at its first comparison (1,000 of them
+  allocate nothing: `ui-update.rs`). Any result but Success (a throttle, the
+  lockdown, an offline target, a trial account) is skipped quietly and not
+  retried. Off, no probes and no answers: `party.share` off, `update.probe`
+  off (on by default; Options > Questing > Quests > Group, under sharing), a
+  build that isn't a release, or Polestar Client's kill switch
+  (`PolestarClientInfo.probe = false`, written when the newest release's
+  notes carry `<!-- polestar: probe off -->`). No SAY, YELL or CHANNEL addon
+  messages: Forever's Mainline client refuses the first two and a custom
+  channel shows in the channel list.
   `CHAT_MSG_ADDON` is registered for the guild in a guild and for whispers
-  while sharing from a release build (`PLAYER_GUILD_UPDATE`,
-  `SETTING_CHANGED`); the prefix is registered with either. Solo with sharing
-  off, nothing listens.
+  while probing is on (`PLAYER_GUILD_UPDATE`, `SETTING_CHANGED`); the prefix
+  is registered with either. Solo with probing off, nothing listens.
 - **Hub** (`UI/Picker.lua`, `UI.ShowPicker(opts)`; the window the guide menu
   grew into, `docs/SUITE.md` "UI"). A section rail (`W.Shell` with
   `rail = true`, `W.ShellRail`) at the window's left: the emblem, then one

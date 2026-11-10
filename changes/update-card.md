@@ -9,8 +9,9 @@ section: players
   says so and still shows (once a day) with its option off. The newest
   version comes from Polestar Client when you have it, else from party and
   guild members running Polestar, and from players of your faction you
-  target or pass (one hidden version check each, at most once a day per
-  player; off with party sharing). Never in combat, in dungeons or in the
+  target or mouse over outside cities (one hidden version check each, at
+  most once a week per player and 10 a session; off with party sharing or
+  its own option). Never in combat, in dungeons or in the
   first minutes of a fresh install; the option is under Options > Guide >
   Window.
 - When you report a problem from an older Polestar, the report window asks

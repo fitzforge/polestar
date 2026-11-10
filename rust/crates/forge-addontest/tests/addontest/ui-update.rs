@@ -406,7 +406,7 @@ fn a_player_of_your_faction_you_target_gets_one_tagged_whisper_probe_after_the_c
 		r#"
 		local a = meet("target", { name = "Ana" })
 		emit({ checks = p.checks, sent = whispers(), probed = PolestarDB.update.probed["Ana Smith"] ~= nil })
-		stub.advance(11)
+		stub.advance(31)
 		meet("target", a)
 		meet("mouseover", a)
 		emit({ again = whispers(), checks = #p.checks })
@@ -415,12 +415,12 @@ fn a_player_of_your_faction_you_target_gets_one_tagged_whisper_probe_after_the_c
 	);
 	assert_eq!(out[0], json!({ "checks": ["Player-1-0001"], "sent": ["PSV1?0.3.6 > Ana Smith"], "probed": true }), "named as the game's Whisper names her");
 	assert_eq!(out[1], json!({ "again": {}, "checks": 1 }), "once per player");
-	assert_eq!(out[2], json!({ "plate": ["PSV1?0.3.6 > Pld Smith"] }), "a nameplate counts too");
-	// Probed an hour ago (saved): not again; 25 hours ago: again.
-	let hour = probe_run(r#"meet("target", { name = "Ana" }); emit(whispers())"#, true, &format!("update = {{ probed = {{ [\"Ana Smith\"] = {} }} }}", EPOCH - 3600));
-	assert_eq!(hour[0], json!({}));
-	let day = probe_run(r#"meet("target", { name = "Ana" }); emit(whispers())"#, true, &format!("update = {{ probed = {{ [\"Ana Smith\"] = {} }} }}", EPOCH - 25 * 3600));
-	assert_eq!(day[0], json!(["PSV1?0.3.6 > Ana Smith"]));
+	assert_eq!(out[2], json!({ "plate": {} }), "a nameplate is no trigger (they flood in crowds)");
+	// Probed 6 days ago (saved): not again; 8 days ago: again.
+	let recent = probe_run(r#"meet("target", { name = "Ana" }); emit(whispers())"#, true, &format!("update = {{ probed = {{ [\"Ana Smith\"] = {} }} }}", EPOCH - 6 * DAY));
+	assert_eq!(recent[0], json!({}));
+	let week = probe_run(r#"meet("target", { name = "Ana" }); emit(whispers())"#, true, &format!("update = {{ probed = {{ [\"Ana Smith\"] = {} }} }}", EPOCH - 8 * DAY));
+	assert_eq!(week[0], json!(["PSV1?0.3.6 > Ana Smith"]));
 }
 
 #[test]
@@ -430,19 +430,19 @@ fn probes_go_one_per_10_seconds_up_to_the_sessions_limit_and_the_saved_players_a
 		U.PROBE_KEEP = 2
 		meet("target"); local first = #whispers()
 		stub.advance(3); meet("mouseover"); local gap = #whispers()
-		stub.advance(10); meet("mouseover"); local later = #whispers()
+		stub.advance(30); meet("mouseover"); local later = #whispers()
 		U.PROBE_SESSION = 3
-		stub.advance(11); meet("target"); local third = #whispers()
+		stub.advance(31); meet("target"); local third = #whispers()
 		local kept = {}
 		for k in pairs(PolestarDB.update.probed) do kept[#kept + 1] = k end
 		table.sort(kept)
-		stub.advance(11); meet("target"); local fourth = #whispers()
+		stub.advance(31); meet("target"); local fourth = #whispers()
 		emit({ first = first, gap = gap, later = later, third = third, fourth = fourth, kept = kept })"#,
 	);
 	assert_eq!(
 		out[0],
 		json!({ "first": 1, "gap": 0, "later": 1, "third": 1, "fourth": 0, "kept": ["Plc Smith", "Pld Smith"] }),
-		"3 s after one: none; the session's last still goes out after its whisper check; the oldest saved player goes"
+		"3 s after one: none (30 s apart); the session's last still goes out after its whisper check; the oldest saved player goes"
 	);
 }
 
@@ -453,7 +453,7 @@ fn no_probe_to_the_other_faction_your_group_or_guild_a_hidden_name_in_instances_
 		local out = {}
 		local function try(label, facts, setup, undo)
 			if setup then setup() end
-			stub.advance(11)
+			stub.advance(31)
 			meet("target", facts)
 			out[label] = #whispers()
 			if undo then undo() end
@@ -542,7 +542,7 @@ fn only_answers_to_our_own_probes_count_and_a_newer_release_needs_two_players() 
 		hear("Ana Smith-TestRealm", "PSV1=0.3.8")
 		hear("Zed Fox-TestRealm", "PSV1=0.3.8")
 		local spoof = { latest = U.Latest() or false, ana = PolestarDB.update.heard["Ana Smith"].v, zed = PolestarDB.update.heard["Zed Fox"] or false }
-		stub.advance(11)
+		stub.advance(31)
 		meet("target", { name = "Bob" })
 		stub.advance(61)
 		hear("Bob Smith-TestRealm", "PSV1=0.3.8")
@@ -551,7 +551,7 @@ fn only_answers_to_our_own_probes_count_and_a_newer_release_needs_two_players() 
 		whispers()
 		hear("Cy Smith-TestRealm", "PSV1=0.3.8")
 		local two = { latest = U.Latest() or false, peer = PolestarDB.update.peer }
-		stub.advance(11)
+		stub.advance(31)
 		meet("target")
 		emit({ one = one, spoof = spoof, late = late, two = two, probes = whispers() })"#,
 	);
@@ -565,7 +565,7 @@ fn only_answers_to_our_own_probes_count_and_a_newer_release_needs_two_players() 
 		r#"
 		meet("target", { name = "Ana" })
 		hear("Ana Smith-TestRealm", "PSV1=0.4.0")
-		stub.advance(11)
+		stub.advance(31)
 		meet("target", { name = "Bob" })
 		hear("Bob Smith-TestRealm", "PSV1=0.3.6")
 		emit({ latest = U.Latest() or false, heard = PolestarDB.update.heard and PolestarDB.update.heard["Ana Smith"] and PolestarDB.update.heard["Ana Smith"].v or false, bob = PolestarDB.update.heard["Bob Smith"] or false })"#,
@@ -582,7 +582,7 @@ fn a_refused_probe_or_answer_is_skipped_quietly_and_not_tried_again() {
 		meet("target", { name = "Ana" })
 		local a = { sent = #whispers(), probed = PolestarDB.update.probed["Ana Smith"] ~= nil }
 		p.result = 3
-		stub.advance(11)
+		stub.advance(31)
 		meet("target")
 		p.result = 11
 		hear("Bob Stone-TestRealm", "PSV1?0.3.5")
@@ -590,4 +590,106 @@ fn a_refused_probe_or_answer_is_skipped_quietly_and_not_tried_again() {
 		emit({ a = a, b = #whispers(), messages = #stub.messages })"#,
 	);
 	assert_eq!(out[0], json!({ "a": { "sent": 1, "probed": true }, "b": 2, "messages": 0 }), "one attempt each, nothing in chat");
+}
+
+#[test]
+fn no_probe_in_cities_or_inns_and_the_clients_kill_switch_or_the_setting_stops_probes_and_answers() {
+	let out = probe(
+		r#"
+		local out = {}
+		w.resting = true
+		meet("target")
+		out.resting = #whispers()
+		w.resting = false
+		stub.advance(31)
+		meet("target")
+		out.away = #whispers()
+		-- Polestar Client's kill switch: no probes, no answers, the events gone.
+		PolestarClientInfo = { latest = "0.3.6", checked = time(), releases = { "0.3.6" }, probe = false }
+		U.Listen()
+		stub.advance(31)
+		meet("target")
+		hear("Bob Stone-TestRealm", "PSV1?0.3.5")
+		stub.advance(3)
+		out.kill = { sent = #whispers(), probing = U.Probing() }
+		PolestarClientInfo = nil
+		U.Listen()
+		-- The setting.
+		Polestar.Set("update.probe", false)
+		stub.advance(31)
+		meet("target")
+		hear("Cy Hill-TestRealm", "PSV1?0.3.5")
+		stub.advance(3)
+		out.setting = { sent = #whispers(), probing = U.Probing() }
+		Polestar.Set("update.probe", true)
+		out.back = U.Probing()
+		emit(out)"#,
+	);
+	assert_eq!(
+		out[0],
+		json!({ "resting": 0, "away": 1, "kill": { "sent": 0, "probing": false }, "setting": { "sent": 0, "probing": false }, "back": true }),
+		"a rest area (IsResting) skips; ClientInfo's probe = false and update.probe off send and answer nothing, the events unregistered"
+	);
+}
+
+#[test]
+fn at_most_20_probes_are_answered_a_session() {
+	let out = probe(
+		r#"
+		for i = 1, 25 do hear("Pl" .. i .. " Stone-TestRealm", "PSV1?0.3.5") end
+		stub.advance(3)
+		emit({ answers = #whispers() })"#,
+	);
+	assert_eq!(out[0], json!({ "answers": 20 }));
+}
+
+// 1,000 mouseovers while a probe waits out PROBE_GAP, then 1,000 at the session's limit, through the game's
+// event dispatch with Core's init, Compat and Update.lua alone (Engine and Names have mouseover handlers of their
+// own): no work past the first comparison, no allocation, and at the limit the events are unregistered.
+#[test]
+fn a_thousand_mouseovers_at_the_limit_cost_one_comparison_each_and_allocate_nothing() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_party.lua"],
+		before: r#"setmetatable(stub.addonMeta, { __index = function() return { Version = "0.3.6" } end })"#.into(),
+		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Core/Compat.lua", "Core/Update.lua"])],
+		// Party.lua (and its defaults) isn't loaded: sharing is on as saved.
+		saved: vec![("Polestar".to_string(), "PolestarDB = { schema = 1, settings = { party = { share = true } } }".to_string())],
+		login: true,
+		script: format!(
+			"{PROBE_HEAD}\n{}",
+			r#"
+		local frame
+		for _, f in ipairs(stub.frames) do if f.events and f.events.UPDATE_MOUSEOVER_UNIT then frame = f end end
+		meet("mouseover")           -- the probe goes out: the next ones wait PROBE_GAP
+		local first = #whispers()
+		local work = 0
+		local probeTarget, unitName = U.ProbeTarget, UnitName
+		U.ProbeTarget = function(...) work = work + 1 return probeTarget(...) end
+		UnitName = function(...) work = work + 1 return unitName(...) end
+		local onEvent = frame.scripts.OnEvent
+		for i = 1, 20 do onEvent(frame, "UPDATE_MOUSEOVER_UNIT") end
+		collectgarbage("collect"); collectgarbage("collect")
+		collectgarbage("stop")
+		local base = collectgarbage("count")
+		for i = 1, 1000 do onEvent(frame, "UPDATE_MOUSEOVER_UNIT") end
+		local gap = collectgarbage("count") - base
+		collectgarbage("restart")
+		local inGap = work
+		-- At the session's limit: the events are gone, so a mouseover reaches nothing of Polestar's.
+		U.PROBE_SESSION = 1
+		U.Listen()
+		collectgarbage("collect"); collectgarbage("collect")
+		collectgarbage("stop")
+		base = collectgarbage("count")
+		for i = 1, 1000 do onEvent(frame, "UPDATE_MOUSEOVER_UNIT") end
+		local limit = collectgarbage("count") - base
+		collectgarbage("restart")
+		emit({ first = first, gap = gap, limit = limit, inGap = inGap, atLimit = work - inGap, probing = U.Probing() })"#
+		),
+	});
+	let o = &out[0];
+	assert_eq!(o["first"], 1);
+	assert_eq!((o["inGap"].as_i64(), o["atLimit"].as_i64(), o["probing"].as_bool()), (Some(0), Some(0), Some(false)), "{o}");
+	let (gap, limit) = (o["gap"].as_f64().unwrap(), o["limit"].as_f64().unwrap());
+	assert!(gap < 0.5 && limit < 0.5, "1,000 mouseovers allocated {gap:.2} KiB in the gap and {limit:.2} KiB at the limit");
 }
