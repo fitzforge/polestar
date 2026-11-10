@@ -535,8 +535,8 @@ function layout(f, width)
 	f:SetHeight(floor(y + 0.5))
 end
 
--- Put the card on the window: above its top edge, or under its bottom one
--- when the screen has no room above. animate: slide out from behind it (a
+-- Put the card on the window: above its top edge (and its outside cards), or
+-- under its bottom one when the screen has no room above. animate: slide out from behind it (a
 -- fade under ui.reduceMotion).
 function CT.Place(animate)
 	local w = window()
@@ -555,14 +555,20 @@ function CT.Place(animate)
 	-- As wide as the window, whatever the card's own scale.
 	layout(f, w:GetWidth() / k)
 	local h = f:GetHeight()
+	-- Over the window's outside cards (GuideFrame's Bounds), not behind them.
+	local GF = UI.GuideFrame
+	local box, over = w, 0
+	if GF.Bounds then box, over = GF.Bounds() end
+	box, over = box or w, over or 0
 	local top, room = w:GetTop(), UIParent:GetTop()
+	if top then top = top + over end
 	local s, us = w:GetEffectiveScale() or 1, UIParent:GetEffectiveScale() or 1
 	local above = not (top and room) or (top + h * k) * s <= room * us
 	CT.side = above and "above" or "below"
 	if above then
-		Anim.Anchor(f, "BOTTOMLEFT", w, "TOPLEFT", 0, -1)
+		Anim.Anchor(f, "BOTTOMLEFT", box, "TOPLEFT", 0, -1)
 	else
-		Anim.Anchor(f, "TOPLEFT", w, "BOTTOMLEFT", 0, 1)
+		Anim.Anchor(f, "TOPLEFT", box, "BOTTOMLEFT", 0, 1)
 	end
 	local wasShown = f:IsShown()
 	f:Show()

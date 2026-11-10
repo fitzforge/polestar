@@ -763,7 +763,8 @@ fn the_heads_up_sits_on_the_guide_window_follows_it_and_hides_with_it() {
 		CT.Show(1506)
 		local f, w = CT.frame, GF.frame
 		local p, rel, rp = f:GetPoint(1)
-		emit({ side = CT.side, point = p, rel = rel == w, relPoint = rp, width = f:GetWidth() == w:GetWidth(), behind = f:GetFrameLevel() < w:GetFrameLevel(),
+		-- On the window with its outside cards (none here: its own top).
+		emit({ side = CT.side, point = p, rel = rel == GF.Bounds() and select(2, GF.Bounds()) == 0, relPoint = rp, width = f:GetWidth() == w:GetWidth(), behind = f:GetFrameLevel() < w:GetFrameLevel(),
 			strata = f:GetFrameStrata() == w:GetFrameStrata() })
 		w:Hide()
 		local hidden = f:IsShown()
@@ -778,6 +779,74 @@ fn the_heads_up_sits_on_the_guide_window_follows_it_and_hides_with_it() {
 	assert_eq!(out[0], json!({ "side": "above", "point": "BOTTOMLEFT", "rel": true, "relPoint": "TOPLEFT", "width": true, "behind": true, "strata": true }));
 	assert_eq!(out[1], json!({ "hidden": false, "back": true }));
 	assert_eq!(out[2], json!({ "side": "below", "point": "TOPLEFT", "relPoint": "BOTTOMLEFT" }));
+}
+
+// The outside cards (hint, While you're here, Optional) stand above the window too: the heads-up sits over the
+// stack, a card gap above its top card, never behind it, and follows the stack as it grows and goes.
+#[test]
+fn the_heads_up_stands_over_the_outside_cards_not_behind_them() {
+	let out = run_toast(
+		r#"
+		who("WARLOCK", "Orc", "Horde", 10)
+		uistub.openTabs({ { "test/durotar", 1 } }, 1)
+		local SL, w = GF.stepList, GF.frame
+		Polestar.Set("ui.pos", { 1500, 200 })
+		local function wh(n)
+			local list = {}
+			for i = 1, n do
+				list[i] = { step = 3, index = 1, t = "kill", verb = "Kill", subject = "Scorpid " .. i, subjectKind = "npc", progress = { cur = 0, max = 8 }, yards = 120, status = "active" }
+			end
+			SL.FillWH(n > 0 and list or nil)
+			GF.Layout()
+			stub.advance(0.3)
+		end
+		-- The stub keeps no layout: a frame's bottom and top from its anchors, down to the window (its own y).
+		local function v(p) return p:find("TOP") and 1 or (p:find("BOTTOM") and 0 or 0.5) end
+		local function span(fr)
+			if fr == w or #fr.points == 0 then return fr:GetBottom(), fr:GetTop() end
+			local at = {}
+			for _, p in ipairs(fr.points) do
+				local rb, rt = span(p.rel or fr.parent)
+				at[v(p.point)] = rb + (rt - rb) * v(p.relPoint) + p.y
+			end
+			local h = fr:GetHeight()
+			if at[0] and at[1] then return at[0], at[1] end
+			if at[1] then return at[1] - h, at[1] end
+			return at[0], at[0] + h
+		end
+		local function at()
+			local f, o = CT.frame, SL.out
+			local wTop = select(2, span(w))
+			local top = wTop
+			for _, c in ipairs({ o.opt, o.wh, o.hint }) do
+				if c:IsShown() then top = math.max(top, select(2, span(c))) end
+			end
+			local bottom = span(f)
+			return { side = CT.side, cards = o.h, gap = bottom - top, overWindow = bottom >= wTop - 1, scale = f:GetScale() }
+		end
+		wh(1)
+		CT.Show(1506)
+		stub.advance(0.5)
+		emit(at())
+		wh(3)
+		emit(at())
+		wh(0)
+		emit(at())"#,
+	);
+	for (i, o) in out.iter().enumerate() {
+		assert_eq!(o["side"], "above", "{i}: {o}");
+		assert_eq!(o["overWindow"], true, "{i}: {o}");
+	}
+	let gap = |o: &Value| o["gap"].as_f64().unwrap();
+	// Over the cards with the stack's own gap (less the window's 1px overlap), at one card and at three.
+	assert!(out[0]["cards"].as_f64().unwrap() > 0.0, "{}", out[0]);
+	assert!(gap(&out[0]) >= 0.0, "behind the top card: {}", out[0]);
+	assert!((gap(&out[0]) - 4.0).abs() < 0.5, "{}", out[0]);
+	assert!(out[1]["cards"].as_f64().unwrap() > out[0]["cards"].as_f64().unwrap(), "{}", out[1]);
+	assert!((gap(&out[1]) - 4.0).abs() < 0.5, "it follows the stack up: {}", out[1]);
+	// No cards: back on the window's top edge.
+	assert_eq!(out[2]["cards"].as_f64().unwrap(), 0.0, "{}", out[2]);
+	assert!((gap(&out[2]) + 1.0).abs() < 0.5, "{}", out[2]);
 }
 
 #[test]

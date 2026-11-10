@@ -1692,6 +1692,31 @@ function SL.HideOut()
 	out.wh:Hide()
 	out.h = 0
 	if F.SetClampRectInsets then F:SetClampRectInsets(0, 0, 0, 0) end
+	SL.PlaceBounds()
+end
+
+-- The window with its outside cards: a frame over the window whose top is a
+-- card gap above the stack (the window's own top without cards). A card that
+-- sits on the window's edge (UI/ClassToast.lua) anchors to it, so it stands
+-- over the cards and follows the stack as it grows or shrinks.
+-- -> how far its top stands above the window's
+function SL.PlaceBounds()
+	local h = SL.out and SL.out.h or 0
+	if h > 0 then h = h + SL.OUT_GAP end
+	local b = SL.bounds
+	if b then
+		b:ClearAllPoints()
+		b:SetPoint("TOPLEFT", F, "TOPLEFT", 0, h)
+		b:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 0, 0)
+	end
+	return h
+end
+
+-- -> the frame (SL.PlaceBounds), how far its top stands above the window's | nil before the window is built
+function GF.Bounds()
+	if not F then return nil end
+	if not SL.bounds then SL.bounds = CreateFrame("Frame", nil, F) end
+	return SL.bounds, SL.PlaceBounds()
 end
 
 -- Size and place the cards.
@@ -1818,6 +1843,7 @@ function SL.LayoutOut(width)
 	-- The game keeps the window on the screen with its cards: a positive top
 	-- inset grows the clamp rect upward over them.
 	if F.SetClampRectInsets then F:SetClampRectInsets(0, 0, h, 0) end
+	SL.PlaceBounds()
 end
 
 -- The item's icon, where the client knows it. -> texture | nil
