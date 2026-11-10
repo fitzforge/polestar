@@ -41,13 +41,18 @@ local function names() local out = {} for i, a in ipairs(got) do out[i] = a.name
 "#;
 
 fn run_with(script: &str, at: [i32; 3], settings: Option<&str>) -> Vec<Value> {
+	run_saved(script, at, settings.map(|s| format!("PolestarDB = {{ schema = 1, settings = {{ rares = {s} }} }}")))
+}
+
+/// `saved`: the Lua restoring PolestarDB before ADDON_LOADED (a /reload or relog into that state).
+fn run_saved(script: &str, at: [i32; 3], saved: Option<String>) -> Vec<Value> {
 	let codex = sample_codex();
 	let pack = pack();
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua", "stub_rares.lua"],
 		before: format!("{}\nlocal w = stub.world\n{}\nw.moveTo({}, {}, {})\nw.setLevel(10)\n", pack.stub_lua, maps(&codex), at[0], at[1], at[2]),
 		addons: vec![Addon::files("Polestar", &FILES)],
-		saved: settings.map(|s| ("Polestar".to_string(), format!("PolestarDB = {{ schema = 1, settings = {{ rares = {s} }} }}"))).into_iter().collect(),
+		saved: saved.map(|s| ("Polestar".to_string(), s)).into_iter().collect(),
 		login: true,
 		script: format!("{PRELUDE}{script}"),
 	})
@@ -887,6 +892,37 @@ emit({ f.Target:IsShown(), f.Target.Label:GetText(), s:IsShown(), s:GetAttribute
 	assert_eq!(out[0], json!([true, "Wave", true, "/cleartarget [nocombat]\n/targetexact Fitz Polestar\n/targetexact [noexists] Fitz\n/wave"]));
 }
 
+#[test]
+fn rare_card_the_founder_s_card_shows_his_crest_alone_and_bigger_other_cards_their_tinted_glyph_in_the_ring() {
+	let out = run_card(
+		"",
+		r#"
+Polestar.Codex.Load()
+local f = PolestarRareToast
+local function glyph()
+	local r, g, b, a = f.Glyph:GetVertexColor()
+	local tr, tg, tb = Polestar.Theme.Color(R.ColorName("rare"))
+	local w, h = f.Glyph:GetSize()
+	local _, rel, _, x = f.Name:GetPoint(1)
+	return { f.Glyph:GetTexture(), r == 1 and g == 1 and b == 1 and a == 1, r == tr and g == tg and b == tb,
+		w, h, f.Ring:IsShown() and true or false, rel == f.Ring and x }
+end
+Polestar.Fire("RARE_SPOTTED", { kind = "founder", name = "Fitz Polestar", zone = "Elwynn Forest", button = true })
+emit(glyph())
+-- A rare after him: its own glyph, tinted again.
+Polestar.Fire("RARE_SPOTTED", R.AlertOf({ source = "nameplate", kind = "rare", id = 61, name = "Thuros Lightfingers" }, { map = 1429, x = 88, y = 78 }, true))
+emit(glyph())
+Polestar.Fire("RARE_SPOTTED", { kind = "founder", name = "Fitz Polestar", zone = "Elwynn Forest", button = true })
+-- A theme repaint leaves his emblem untinted.
+Polestar.Theme.Refresh()
+emit(glyph())"#,
+	);
+	let media = |name: &str| format!("Interface\\AddOns\\Polestar\\Media\\UI\\{name}");
+	assert_eq!(out[0], json!([media("founder-emblem"), true, false, 40, 40, false, 12]), "the founder: his crest alone, 40 px, untinted, the text still off the ring's slot");
+	assert_eq!(out[1], json!([media("qol-target"), false, true, 16, 16, true, 12]), "a rare: the crosshair in the ring, in the rare colour");
+	assert_eq!(out[2], json!([media("founder-emblem"), true, false, 40, 40, false, 12]), "still untinted after a theme change");
+}
+
 // ------------------------------------------------------------ the section
 
 #[test]
@@ -1030,7 +1066,7 @@ emit({ during = during, idle = idle, sync = sync, built = decoded > 0, layer = P
 // ------------------------------------------------------------ the founder
 
 #[test]
-fn decide_founder_every_reason_it_stays_quiet_and_the_half_hour() {
+fn decide_founder_every_reason_it_stays_quiet_and_the_day() {
 	let out = run(r#"
 local function d(over, extra)
 	local cfg = { enabled = true, founder = true }
@@ -1049,7 +1085,12 @@ emit({
 	combat = d(nil, { inCombat = true }),
 	stillHere = d(nil, { alerted = 5000 - 40 * 60, present = true }),
 	cooldown = d(nil, { alerted = 5000 - 29 * 60 }),
-	again = d(nil, { alerted = 5000 - 31 * 60 }),
+	sessionDay = d(nil, { now = 90000, alerted = 90000 - 23 * 3600 }),
+	again = d(nil, { now = 90000, alerted = 90000 - 25 * 3600 }),
+	savedDay = d(nil, { last = 1e9 - 23 * 3600, time = 1e9 }),
+	savedAgain = d(nil, { last = 1e9 - 24 * 3600, time = 1e9 }),
+	savedFuture = d(nil, { last = 1e9 + 3600, time = 1e9 }),
+	noTime = d(nil, { last = 1e9 }),
 	name = R.FOUNDER,
 	is = { R.IsFounder("Fitz Polestar"), R.IsFounder("Fitz Polestar-CAMWOW EU5 Realm 8 PvP"), R.IsFounder("Fitz Poletsar"),
 		R.IsFounder("Fitz"), R.IsFounder("fitz polestar"), R.IsFounder("Fitz Polestar Jr"), R.IsFounder(nil) },
@@ -1061,9 +1102,14 @@ emit({
 	assert_eq!(out["self"], json!(["skip", "self"]));
 	assert_eq!(out["instance"], json!(["skip", "instance"]));
 	assert_eq!(out["combat"], json!(["skip", "combat"]));
-	assert_eq!(out["stillHere"], json!(["skip", "stillHere"]), "past the half hour, but he never left");
+	assert_eq!(out["stillHere"], json!(["skip", "stillHere"]), "he never left");
 	assert_eq!(out["cooldown"], json!(["skip", "cooldown"]));
+	assert_eq!(out["sessionDay"], json!(["skip", "cooldown"]), "this session's alert, 23 h ago");
 	assert_eq!(out["again"], json!(["alert"]));
+	assert_eq!(out["savedDay"], json!(["skip", "cooldown"]), "the account's saved alert, 23 h ago");
+	assert_eq!(out["savedAgain"], json!(["alert"]), "a day after the saved alert");
+	assert_eq!(out["savedFuture"], json!(["alert"]), "a saved time in the future holds nothing");
+	assert_eq!(out["noTime"], json!(["alert"]));
 	assert_eq!(out["name"], "Fitz Polestar");
 	assert_eq!(out["is"], json!([true, true, false, false, false, false, false]));
 }
@@ -1071,7 +1117,13 @@ emit({
 /// The observer is a Forever character (a surname); `scene` runs after it, with `fitz(token, o)` showing a player
 /// named Fitz Polestar (o: guid, faction, name, surname) and `founders()` the founder alerts so far.
 fn founder_run(scene: &str) -> Vec<Value> {
-	run(&format!(
+	founder_run_saved(scene, None)
+}
+
+/// `founder_run` after a /reload or relog into `saved` (PolestarDB Lua).
+fn founder_run_saved(scene: &str, saved: Option<String>) -> Vec<Value> {
+	run_saved(
+		&format!(
 		r#"local U = stub.rares
 U.me = {{ "Ana", "Smith" }}
 local function fitz(token, o)
@@ -1085,7 +1137,10 @@ local function founders()
 	return n
 end
 {scene}"#
-	))
+		),
+		[1429, 88, 78],
+		saved,
+	)
 }
 
 #[test]
@@ -1125,7 +1180,7 @@ emit({ nearby = #R.Nearby(), action = { R.FounderSighting("target", "target", "P
 		})
 	);
 	assert_eq!(out[2], json!({ "history": 0 }), "the founder never enters the rares history");
-	assert_eq!(out[3], json!({ "nearby": 0, "action": ["skip", "cooldown"] }), "the one-string name matches too (inside the half hour)");
+	assert_eq!(out[3], json!({ "nearby": 0, "action": ["skip", "cooldown"] }), "the one-string name matches too (inside the day)");
 }
 
 #[test]
@@ -1140,12 +1195,12 @@ emit({ n = founders(), enemy = got[1] and got[1].enemy, row = PolestarRareToast.
 }
 
 #[test]
-fn founder_once_per_half_hour_never_while_he_stays_again_after_he_left_and_the_half_hour_is_up() {
+fn founder_once_a_day_never_while_he_stays_again_after_he_left_and_the_day_is_up() {
 	let out = founder_run(
 		r#"
 fitz("nameplate1")
 stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
-emit(founders())
+emit({ founders(), type(PolestarDB.rares.founderAt) == "number" and PolestarDB.rares.founderAt == time() })
 -- Still in range, seen by other paths: no second alert.
 stub.advance(4)
 fitz("target")
@@ -1157,7 +1212,7 @@ stub.advance(31 * 60)
 fitz("mouseover")
 stub.fire("UPDATE_MOUSEOVER_UNIT")
 emit({ founders(), R.Nearby()[1] })
--- He leaves: off the list within a minute. Back after that, more than half an hour after the alert: due again.
+-- He leaves: off the list within a minute. Back after that, inside the day: quiet.
 U.clear("nameplate1")
 U.clear("mouseover")
 stub.advance(120)
@@ -1165,19 +1220,46 @@ emit(#R.Nearby())
 fitz("nameplate2")
 stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
 emit(founders())
--- Leaves again and comes back ten minutes later: inside the new half hour.
+-- Leaves, back more than a day after the alert: due again.
 U.clear("nameplate2")
-stub.advance(10 * 60)
+stub.advance(24 * 3600)
 fitz("nameplate3")
 stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate3")
+emit(founders())
+-- Leaves again and comes back ten minutes later: inside the new day.
+U.clear("nameplate3")
+stub.advance(10 * 60)
+fitz("nameplate4")
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate4")
 emit(founders())"#,
 	);
-	assert_eq!(out[0], 1);
+	assert_eq!(out[0], json!([1, true]), "alerted once, the time saved account-wide");
 	assert_eq!(out[1], 1, "seen again while in range");
-	assert_eq!(out[2], json!([1, "Fitz Polestar"]), "the half hour passed, but he stayed in range");
+	assert_eq!(out[2], json!([1, "Fitz Polestar"]), "half an hour passed, but he stayed in range");
 	assert_eq!(out[3], 0, "out of sight: off the rare button");
-	assert_eq!(out[4], 2, "left and came back after the half hour");
-	assert_eq!(out[5], 2, "back inside the half hour");
+	assert_eq!(out[4], 1, "left and came back inside the day");
+	assert_eq!(out[5], 2, "back after the day");
+	assert_eq!(out[6], 2, "back inside the new day");
+}
+
+#[test]
+fn founder_a_reload_or_relog_keeps_the_day() {
+	let saved = |ago: i64| Some(format!("PolestarDB = {{ schema = 1, rares = {{ founderAt = time() - {ago} }} }}"));
+	let scene = r#"
+fitz("target")
+stub.fire("PLAYER_TARGET_CHANGED")
+emit(founders())"#;
+	// Alerted an hour before the /reload: this new session stays quiet.
+	assert_eq!(founder_run_saved(scene, saved(3600))[0], 0, "a /reload inside the day");
+	assert_eq!(founder_run_saved(scene, saved(23 * 3600 + 59 * 60))[0], 0, "a relog a minute short of the day");
+	// A day or more since: alerts, and saves the new time.
+	let after = founder_run_saved(&format!("{scene}\nemit(PolestarDB.rares.founderAt == time())"), saved(24 * 3600 + 60));
+	assert_eq!(after, vec![json!(1), json!(true)], "a day after the saved alert");
+	// Due again, but still never in an instance or in combat.
+	let instance = founder_run_saved(&format!("stub.world.inInstance = true\n{scene}"), saved(2 * 24 * 3600));
+	assert_eq!(instance[0], 0, "due, but inside an instance");
+	let combat = founder_run_saved(&format!("stub.inCombat = true\n{scene}"), saved(2 * 24 * 3600));
+	assert_eq!(combat[0], 0, "due, but in combat");
 }
 
 #[test]

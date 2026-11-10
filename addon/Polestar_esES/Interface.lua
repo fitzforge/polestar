@@ -2267,7 +2267,6 @@ L["Rares too low to give experience leave the map."] = "Los raros de nivel demas
 L["Forget rares met on this realm"] = "Olvidar los raros vistos en este reino"
 L["Clears the Seen list, alert cooldowns and the glow on recently seen pins."] = "Borra la lista Vistos, los tiempos de espera de las alertas y el brillo de los marcadores vistos hace poco."
 L["Say when Polestar's founder is nearby"] = "Avisar cuando el fundador de Polestar esté cerca"
-L["When %s comes into sight, a card says so and the rare button targets him and waves. At most once every half hour, never in combat or instances."] = "Cuando %s aparece a la vista, una tarjeta lo indica y el botón de raros lo selecciona y saluda. Como mucho una vez cada media hora, nunca en combate ni en instancias."
 
 -- Rares/View.lua
 L["Seen"] = "Vistos"

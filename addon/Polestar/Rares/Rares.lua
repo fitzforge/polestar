@@ -488,11 +488,25 @@ end
 -- The founder (rares.founder)
 ---------------------------------------------------------------------------
 
--- At most one alert per FOUNDER_EVERY seconds a session, and none again
--- while he stays in range; never in an instance (battlegrounds and arenas
--- too), never in combat, never on his own client.
-local FOUNDER_EVERY = 30 * 60
+-- At most one alert a day per account (FOUNDER_EVERY, in time() seconds,
+-- kept in PolestarDB.rares.founderAt so a /reload or relog doesn't reset
+-- it), and none again while he stays in range; never in an instance
+-- (battlegrounds and arenas too), never in combat, never on his own client.
+local FOUNDER_EVERY = 24 * 60 * 60
 local founderAlerted, founderTimer = nil, false
+
+-- The account's last founder alert (time()), or nil.
+local function founderLast()
+	local root = ns.DB().rares
+	local t = type(root) == "table" and root.founderAt
+	return type(t) == "number" and t or nil
+end
+
+local function founderSave(t)
+	local db = ns.DB()
+	if type(db.rares) ~= "table" then db.rares = {} end
+	db.rares.founderAt = t
+end
 
 function Rares.IsFounder(name)
 	if type(name) ~= "string" then return false end
@@ -505,16 +519,17 @@ function Rares.DecideFounder(ctx)
 	if ctx.self then return "skip", "self" end
 	if ctx.inInstance then return "skip", "instance" end
 	if ctx.inCombat then return "skip", "combat" end
-	if ctx.alerted then
-		if ctx.present then return "skip", "stillHere" end
-		if ctx.now - ctx.alerted < FOUNDER_EVERY then return "skip", "cooldown" end
-	end
+	if ctx.alerted and ctx.present then return "skip", "stillHere" end
+	if ctx.alerted and ctx.now - ctx.alerted < FOUNDER_EVERY then return "skip", "cooldown" end
+	-- A saved time in the future (clock changed) doesn't hold him back forever.
+	local since = ctx.last and ctx.time and ctx.time - ctx.last
+	if since and since >= 0 and since < FOUNDER_EVERY then return "skip", "cooldown" end
 	return "alert", nil
 end
 
 -- While he is listed for the rare button, look again every NEAR_FOR
 -- seconds: still shown (target, mouseover, a nameplate) keeps him, else he
--- has left and the next sighting may alert once the half hour is up.
+-- has left and the next sighting may alert once the day is up.
 local function checkFounder()
 	founderTimer = false
 	local e = nearby.founder
@@ -553,6 +568,7 @@ function Rares.FounderSighting(unit, source, guid)
 	local now = clock()
 	local action, reason = Rares.DecideFounder({
 		get = get, now = now, inCombat = C.InCombat(), inInstance = C.IsInInstance(), alerted = founderAlerted,
+		last = founderLast(), time = time and time() or nil,
 		present = present,
 		self = Rares.IsFounder(C.UnitFullName("player")) or (UnitIsUnit and readable(UnitIsUnit(unit, "player"))) and true or false,
 	})
@@ -560,6 +576,7 @@ function Rares.FounderSighting(unit, source, guid)
 	if action == "alert" or reason == "stillHere" then trackFounder(name, guid) end
 	if action ~= "alert" then return action, reason end
 	founderAlerted = now
+	if time then founderSave(time()) end
 	local mine = readable(UnitFactionGroup("player"))
 	local his = readable(UnitFactionGroup(unit))
 	local Q = ns.QoL

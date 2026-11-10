@@ -2267,7 +2267,6 @@ L["Rares too low to give experience leave the map."] = "等级过低、不给经
 L["Forget rares met on this realm"] = "清除本服务器遇到的稀有"
 L["Clears the Seen list, alert cooldowns and the glow on recently seen pins."] = "清空已见列表、提醒冷却和最近见到标记的高亮。"
 L["Say when Polestar's founder is nearby"] = "Polestar 的创始人在附近时提示"
-L["When %s comes into sight, a card says so and the rare button targets him and waves. At most once every half hour, never in combat or instances."] = "当%s进入视野时，会弹出卡片提示，稀有怪按钮会选中他并挥手。每半小时最多一次，战斗中和副本内不会触发。"
 
 -- Rares/View.lua
 L["Seen"] = "已见"

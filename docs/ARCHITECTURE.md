@@ -6517,11 +6517,13 @@ Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
   two in one string) against `Rares.FOUNDER` exactly; "Fitz Poletsar" or
   "Fitz" alone never match. `DecideFounder`: module or option off, the
   player is the founder (his own client), an instance (battlegrounds and
-  arenas too) or combat → skip; after this session's alert, skip while he
-  is still listed (`stillHere`) or within 30 minutes (`cooldown`; session
-  only, `GetTime`). The alert is `RARE_SPOTTED` with `kind = "founder"`
+  arenas too) or combat → skip; after an alert, skip while he is still
+  listed (`stillHere`) or within 24 hours (`cooldown`; account-wide,
+  `PolestarDB.rares.founderAt` in `time()` seconds, so /reload and relog
+  keep it; a saved time in the future is ignored; this session's `GetTime`
+  alert counts too). The alert is `RARE_SPOTTED` with `kind = "founder"`
   (`enemy` when his faction differs; both factions get it): the toast shows
-  a gold star, "The Polestar founder is nearby!", his name and zone, a
+  his crest alone (`founder-emblem`, 40 px, untinted, no ring; the others keep their tinted glyph in the ring), "The Polestar founder is nearby!", his name and zone, a
   nudge to wave (another line for the other faction), the card's Target
   button (it waves) and no waypoint or section button. Nothing enters the
   history. He is listed in `Nearby()`
