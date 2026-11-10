@@ -7713,6 +7713,19 @@ test('Elwynn: the last Goldshire stop takes Smith Argus with Dughan, before goin
 	assert.equal(list[argus].step, list[escape].step, 'one Goldshire stop');
 });
 
+// #1531 pattern (an item that only drops while you have a quest, listed where you might not have it), swept over
+// every non-leveling guide against the Forever TDB's loot conditions: the Dragonmaw Shinbone (7131) drops only with
+// Dragonmaw Shinbones (1846) in the log (TDB condition on every Dragonmaw orc; players' recordings: 281 Dragonmaw loot
+// windows without the quest, no shinbone). The Warrior's Brutal Armor step that farms them shows only on the quest.
+test('#1531 pattern: Brutal Armor\'s Dragonmaw Shinbone step shows only with Dragonmaw Shinbones in the log', { skip }, () => {
+	const list = goals('forever/class/warrior/brutal-armor.guide');
+	const take = at(list, 'accept 1846', is('accept', 1846));
+	for (const i of list.map((e, k) => k).filter((k) => list[k].goal.t === 'collect' && [7131, 7134].includes(list[k].goal.item))) {
+		assert.ok(take < i, 'Velora gives the quest before the shinbones are farmed');
+		assert.ok([].concat(list[i].step.when || []).some((w) => w.k === 'onquest' && !w.neg), `"${list[i].step.title}" waits for the quest`);
+	}
+});
+
 // --- Triage round 5 (2026-11-08) ---
 
 // Bonesavv77's report (#1241, Orc Warrior 24): Sun Rock Retreat took Braelyn Firehand and the flight path
