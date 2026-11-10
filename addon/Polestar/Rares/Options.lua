@@ -56,7 +56,7 @@ register({
 			help = L["Played through the Master channel."] },
 		{ kind = "toggle", key = "rares.founder", label = L["Say when Polestar's founder is nearby"], disabled = off,
 			search = "founder, fitz, wave, hello, say hi",
-			help = string.format(L["When %s comes into sight, a card says so and the rare button targets him and waves. At most once every half hour, never in combat or instances."], Rares.FOUNDER) },
+			help = string.format(L["When %s comes into sight, a card says so and the rare button targets him and waves. At most once a day, never in combat or instances."], Rares.FOUNDER) },
 		{ kind = "button", button = L["Show"], label = L["Show a sample alert"], disabled = off,
 			help = L["See where the alert sits; drag it to move it."],
 			onClick = function() Rares.ShowSample() end },

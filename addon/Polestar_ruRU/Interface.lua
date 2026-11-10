@@ -2267,7 +2267,6 @@ L["Rares too low to give experience leave the map."] = "Редкие, за ко�
 L["Forget rares met on this realm"] = "Забыть редких этого мира"
 L["Clears the Seen list, alert cooldowns and the glow on recently seen pins."] = "Очищает список «Встречены», перезарядку оповещений и подсветку недавних меток."
 L["Say when Polestar's founder is nearby"] = "Сообщать, когда рядом основатель Polestar"
-L["When %s comes into sight, a card says so and the rare button targets him and waves. At most once every half hour, never in combat or instances."] = "Когда %s появляется в поле зрения, об этом сообщает карточка, а кнопка редкой цели выбирает его и машет. Не чаще раза в полчаса, никогда в бою или в подземельях."
 
 -- Rares/View.lua
 L["Seen"] = "Встречены"

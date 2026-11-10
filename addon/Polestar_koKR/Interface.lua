@@ -2267,7 +2267,6 @@ L["Rares too low to give experience leave the map."] = "경험치를 주지 않�
 L["Forget rares met on this realm"] = "이 서버에서 만난 희귀 기록 삭제"
 L["Clears the Seen list, alert cooldowns and the glow on recently seen pins."] = "목격 목록, 알림 대기시간, 최근 목격 핀의 빛을 지웁니다."
 L["Say when Polestar's founder is nearby"] = "Polestar 창립자가 근처에 있으면 알리기"
-L["When %s comes into sight, a card says so and the rare button targets him and waves. At most once every half hour, never in combat or instances."] = "%s이(가) 시야에 들어오면 카드가 알려 주고, 희귀 버튼이 그를 대상으로 지정해 손을 흔듭니다. 30분에 한 번까지만, 전투 중이나 인스턴스에서는 하지 않습니다."
 
 -- Rares/View.lua
 L["Seen"] = "목격"
