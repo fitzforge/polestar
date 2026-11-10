@@ -217,6 +217,34 @@ fn reset_progress_brings_back_what_an_update_passed() {
 	assert_eq!(out[1]["live"], 2, "{}", out[1]);
 }
 
+// UpgradeMid036 on the final candidate (Skyborne Druid, Zephras Isle): the player skipped 0.3.5's Raan Wildwind
+// step whole; 0.3.6 split it, its training going to a new Zerril Softbreeze step after the Camping 101 steps. The
+// skip went with the first half only, so the training half came back and pulled the live step 14 steps back. A
+// step all of whose goals came from a step the player skipped whole is skipped too.
+#[test]
+fn a_skipped_step_an_update_split_stays_skipped_in_every_part() {
+	let guide = GUIDE.replace(
+		r#"{ title = "Walk", goals"#,
+		r#"{ title = "Split off", goals = { { t = "train", spell = 999, map = M, x = 52, y = 50 } } },
+	{ title = "Walk", goals"#,
+	);
+	let old = saved(r#"skipped = { ["test/up"] = { [3] = true } }"#).replace(r#""accept:102", "goto:1429""#, r#""accept:102,train:999", "goto:1429""#);
+	let script = SCRIPT.replace(r#"[h("accept:102")] = "accept:102""#, r#"[h("accept:102,train:999")] = "accept:102,train:999""#);
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), old)],
+		login: false,
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{guide}\n{script}"),
+	})
+	.remove(0);
+	// 103's hand-in is step 9 now (the split-off step is 5).
+	assert_eq!(out["live"], 9, "the player still at 103's hand-in: {out}");
+	assert_eq!(out["skipped"]["4"], true, "{out}");
+	assert_eq!(out["skipped"]["5"], true, "the split-off half keeps the skip: {out}");
+}
+
 // UpgradeMid036 on the 0.3.6 candidate (Wetlands, a 0.3.5 save at Anilia, step 42, carrying Bloom of the
 // Heavens taken off the route): Menethil's second stop gained that quest's hand-in (new) beside its hand-ins and
 // a vendor check-off the save had there too. The vendor never holds that step (Own.sideVendor), so the player's

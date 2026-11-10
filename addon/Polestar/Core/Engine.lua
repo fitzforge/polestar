@@ -4979,7 +4979,7 @@ end
 -- instead of being dropped; one with nothing in common is dropped.
 function Own.remap(id, map, old, g)
 	local s = ns.CharState()
-	local stepTo, goalTo = Own.legacyMaps(id, map, old, g)
+	local stepTo, goalTo, changedGoals = Own.legacyMaps(id, map, old, g)
 	local function moved(k)
 		if type(k) == "number" then return stepTo(k) end
 		local a, b = tostring(k):match("^(%d+):(%d+)$")
@@ -4991,9 +4991,32 @@ function Own.remap(id, map, old, g)
 		local old = s[field][id]
 		if type(old) == "table" then
 			local out = {}
+			-- A changed step skipped whole whose goals went to another step too (a
+			-- step split in two): that step goes skipped when all of its goals came
+			-- from skipped steps (Skyborne's Raan Wildwind step, whose Zerril
+			-- Softbreeze half came back after an update and pulled the player back).
+			local fromSkip = {}
 			for k, v in pairs(old) do
 				local nk = moved(k)
 				if nk then out[nk] = v end
+				if field == "skipped" and type(k) == "number" and changedGoals then
+					for b = 1, changedGoals(k) do
+						local j, gi = goalTo(k, b)
+						if j and j ~= nk then
+							local f = fromSkip[j] or {}
+							fromSkip[j] = f
+							f[gi] = v
+						end
+					end
+				end
+			end
+			for j, f in pairs(fromSkip) do
+				local all, v = g and g.steps[j] ~= nil, nil
+				for gi in ipairs(all and g.steps[j].goals or NONE) do
+					if f[gi] == nil then all = false break end
+					v = f[gi]
+				end
+				if all and v ~= nil and out[j] == nil then out[j] = v end
 			end
 			s[field][id] = next(out) and out or nil
 		end
@@ -5213,7 +5236,13 @@ function Own.legacyMaps(id, map, old, g)
 		end
 		return topJ, topG
 	end
-	return stepTo, goalTo
+	-- The number of goals of an old step the update changed (0 for one kept or unknown).
+	local function changedGoals(k)
+		if map[k] then return 0 end
+		local list = oldGoals(k)
+		return list and #list or 0
+	end
+	return stepTo, goalTo, changedGoals
 end
 
 -- What Own.remap rewrites for guide id, copied (Own.snapRestore puts it back).
