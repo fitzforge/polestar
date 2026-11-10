@@ -229,7 +229,8 @@ function C_UnitAuras.GetPlayerAuraBySpellID(id) return q.auras[id] end
 -- Bags and items
 ---------------------------------------------------------------------------
 
--- q.items[id] = { name, quality = 0..5, price (sell, copper), classID, spell, noValue, icon }
+-- q.items[id] = { name, quality = 0..5, price (sell, copper), classID, spell, noValue, icon, questID (begins that
+-- quest), questItem (an item for a quest) }
 function q.addItem(bag, slot, id, count)
 	q.bags[bag].slots[slot] = { itemID = id, stackCount = count or 1 }
 end
@@ -249,6 +250,13 @@ end
 C_Container = {}
 function C_Container.GetContainerNumSlots(bag) return q.bags[bag] and q.bags[bag].size or 0 end
 C_Container.GetContainerItemInfo = slotInfo
+-- QuestInfoFields { isQuestItem, questID, isActive } (ContainerDocumentation), from q.items[id].questItem / questID.
+function C_Container.GetContainerItemQuestInfo(bag, slot)
+	local b = q.bags[bag]
+	local s = b and b.slots[slot]
+	local it = s and q.items[s.itemID] or {}
+	return { isQuestItem = it.questItem or false, questID = it.questID, isActive = false }
+end
 function C_Container.UseContainerItem(bag, slot)
 	call("UseContainerItem", bag, slot)
 	local s = q.bags[bag].slots[slot]

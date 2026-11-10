@@ -5095,10 +5095,13 @@ Polestar.QoL.Space.Dismiss()                              -- the banner, until t
   junk → keep → none and says it in chat; the tooltip line comes from
   `Hooks.ItemLines`. Per character, by item ID.
 - **Selling** (`QoL/Vendor.lua`): a slot sells when it is grey or marked
-  junk, has a vendor price, and is not protected. The slot is re-read right
+  junk, has a vendor price, and is not protected, needed by a quest, or a
+  quest's item or quest starter (`Client.SlotQuest`, from
+  `C_Container.GetContainerItemQuestInfo`; #1557). The slot is re-read right
   before it sells, as before.
 - **Junk to delete**: a grey item, or a junk-marked one of common quality or
-  below (an uncommon one sells instead), never a protected one. Cheapest by
+  below (an uncommon one sells instead), never a protected one nor a quest's
+  item or quest starter (`Client.SlotQuest`). Cheapest by
   vendor price × stack; no value is 0, an uncached price goes last.
 - **Two presses.** `Press` arms the cheapest junk for 5 s; a second `Press`
   while that same slot still holds that same item (read again) picks it up

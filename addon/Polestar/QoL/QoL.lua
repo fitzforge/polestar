@@ -342,6 +342,15 @@ function Client.SlotInfo(bag, slot)
 	return nil
 end
 
+-- Whether the slot holds a quest's item or one that begins a quest (#1557: a grey quest starter,
+-- Noboru's Cudgel, was deleted as junk): such an item is never sold or deleted. False on a client
+-- without C_Container.GetContainerItemQuestInfo.
+function Client.SlotQuest(bag, slot)
+	local C = C_Container
+	local info = C and C.GetContainerItemQuestInfo and C.GetContainerItemQuestInfo(bag, slot)
+	return info ~= nil and (info.isQuestItem == true or (info.questID or 0) > 0)
+end
+
 function Client.UseSlot(bag, slot)
 	local C = C_Container
 	if C and C.UseContainerItem then C.UseContainerItem(bag, slot) end

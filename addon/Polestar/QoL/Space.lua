@@ -5,7 +5,8 @@
 --   * the bag button (QoL/Buttons.lua, bindable) comes up, showing the free
 --     slots and the cheapest junk in all the bags, the reagent bag too: a
 --     grey item, or one marked as junk (QoL/Marks.lua) of common quality or
---     below; never one marked to keep or one a later step needs. Its worth
+--     below; never one marked to keep, one a later step needs, or a quest's
+--     item or one that begins a quest (Client.SlotQuest). Its worth
 --     is the vendor price of the stack (an item without one is worth
 --     nothing; one whose price the client
 --     has not loaded yet goes last).
@@ -56,10 +57,11 @@ function Space.Count()
 	return f, t
 end
 
-local function candidate(info)
+local function candidate(info, bag, slot)
 	if not info or info.isLocked or not info.itemID then return false end
 	local Marks = QoL.Marks
 	if Marks.Protected(info.itemID) then return false end
+	if Client.SlotQuest(bag, slot) then return false end -- a quest's item or a quest starter (#1557)
 	if info.quality == Client.QUALITY_POOR then return true end
 	return Marks.Junk(info.itemID) and info.quality ~= nil and info.quality <= Client.QUALITY_COMMON
 end
@@ -70,7 +72,7 @@ function Space.Cheapest()
 	for bag = 0, Client.NumBags() do
 		for slot = 1, Client.NumSlots(bag) do
 			local info = Client.SlotInfo(bag, slot)
-			if candidate(info) then
+			if candidate(info, bag, slot) then
 				local count = info.stackCount or 1
 				local value
 				if info.hasNoValue then
@@ -148,7 +150,7 @@ function Space.Press()
 		armed = nil
 		local info = Client.SlotInfo(j.bag, j.slot)
 		local result = "busy"
-		if info and info.itemID == j.id and candidate(info) and Client.DeleteSlot(j.bag, j.slot) then
+		if info and info.itemID == j.id and candidate(info, j.bag, j.slot) and Client.DeleteSlot(j.bag, j.slot) then
 			ns.Print(format(L["Deleted %s."], itemText(j)))
 			result = "deleted"
 		end
