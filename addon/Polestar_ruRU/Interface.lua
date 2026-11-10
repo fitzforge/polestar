@@ -1394,6 +1394,9 @@ L["Still to do: %s, %s"] = "Осталось сделать: %s, %s"
 L["Still to do: %s"] = "Осталось сделать: %s"
 L["Still to do"] = "Осталось сделать"
 L["Step %d, later in this guide"] = "Шаг %d, дальше в этом руководстве"
+-- L["Polestar Guides is turned off"] = ""
+-- L["It is installed but unticked in the game's AddOns list, so Polestar has no guides to show."] = ""
+-- L["Turn on Polestar Guides and reload"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -1495,6 +1498,7 @@ L["Expand"] = "Развернуть"
 L["Collapse"] = "Свернуть"
 L["The tabs you closed and the last guides you loaded."] = "Закрытые вами вкладки и последние загруженные гайды."
 L["Recently closed"] = "Недавно закрытые"
+-- L["No guides: Polestar Guides is installed but unticked in the game's AddOns list."] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "Питомец"
@@ -1872,6 +1876,8 @@ L["Community guides, explained"] = "Гайды сообщества: подро�
 L["Installed"] = "Установлены"
 L["Read more:"] = "Подробнее:"
 L["Read more: docs/GUIDE_PACKS.md in Polestar's source"] = "Подробнее: docs/GUIDE_PACKS.md в исходниках Polestar"
+-- L["Turn on and reload"] = ""
+-- L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides to show. Turn it on for all your characters and reload?"] = ""
 
 -- UI/Options.lua
 L["Recorder"] = "Запись"

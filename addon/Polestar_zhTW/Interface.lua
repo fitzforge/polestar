@@ -1394,6 +1394,9 @@ L["Still to do: %s, %s"] = "尚未完成：%s，%s"
 L["Still to do: %s"] = "尚未完成：%s"
 L["Still to do"] = "尚未完成"
 L["Step %d, later in this guide"] = "第 %d 步，本指南稍後"
+-- L["Polestar Guides is turned off"] = ""
+-- L["It is installed but unticked in the game's AddOns list, so Polestar has no guides to show."] = ""
+-- L["Turn on Polestar Guides and reload"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"
@@ -1495,6 +1498,7 @@ L["Expand"] = "展開"
 L["Collapse"] = "摺疊"
 L["The tabs you closed and the last guides you loaded."] = "你關閉的分頁與最近載入的指南。"
 L["Recently closed"] = "最近關閉"
+-- L["No guides: Polestar Guides is installed but unticked in the game's AddOns list."] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "小寵物"
@@ -1872,6 +1876,8 @@ L["Community guides, explained"] = "社群指南說明"
 L["Installed"] = "已安裝"
 L["Read more:"] = "閱讀更多："
 L["Read more: docs/GUIDE_PACKS.md in Polestar's source"] = "閱讀更多：Polestar 原始碼中的 docs/GUIDE_PACKS.md"
+-- L["Turn on and reload"] = ""
+-- L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides to show. Turn it on for all your characters and reload?"] = ""
 
 -- UI/Options.lua
 L["Recorder"] = "記錄器"

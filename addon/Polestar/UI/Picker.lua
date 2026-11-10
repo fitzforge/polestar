@@ -1888,7 +1888,7 @@ function P.Render()
 		y = y + ROW_H
 		visibleIds[#visibleIds + 1] = g.id
 	end
-	local empty
+	local empty, turnOn
 	-- The last search's Codex matches go away first; a browse with a query
 	-- draws them again below.
 	if UI.HideLookupRows then UI.HideLookupRows(win.Body) end
@@ -1918,7 +1918,10 @@ function P.Render()
 		if n == 0 and not (query ~= "" and UI.LookupCount and UI.LookupCount() > 0) then
 			if #(ns.Guides and ns.Guides.List and ns.Guides.List() or {}) == 0 then
 				local Pk = UI.Packs
-				if Pk and Pk.OursSwitchedOff() then
+				if Pk and Pk.OwnGuidesOff() then
+					empty = L["No guides: Polestar Guides is installed but unticked in the game's AddOns list."]
+					turnOn = true
+				elseif Pk and Pk.OursSwitchedOff() then
 					empty = L["No guides shown: Polestar's own guides are switched off. Turn them on under Options, Community guides (/polestar packs)."]
 				elseif Pk and Pk.AnySwitchedOff() then
 					empty = L["No guides shown: the community addons are switched off. Turn one on under Options, Community guides (/polestar packs)."]
@@ -2002,6 +2005,16 @@ function P.Render()
 		y = y + 16 + win.Empty:GetStringHeight()
 	else
 		win.Empty:Hide()
+	end
+	-- Polestar Guides unticked in the AddOns list: one click turns it on.
+	if turnOn then
+		W.SetButtonText(win.TurnOn, L["Turn on Polestar Guides and reload"])
+		win.TurnOn:ClearAllPoints()
+		win.TurnOn:SetPoint("TOPLEFT", win.Body, "TOPLEFT", SH.pad, -(y + 12))
+		win.TurnOn:Show()
+		y = y + 12 + win.TurnOn:GetHeight()
+	else
+		win.TurnOn:Hide()
 	end
 	W.ShellWatermark(win, empty ~= nil)
 	W.ShellBody(win, y + 16)
@@ -2118,6 +2131,10 @@ local function build()
 	win.Empty:SetJustifyV("TOP")
 	win.Empty:SetWidth(win.BodyWidth)
 	win.Empty:Hide()
+	win.TurnOn = W.Button(win.Body, "", function()
+		if UI.Packs then UI.Packs.TurnOnOwnGuides() end
+	end, { primary = true })
+	win.TurnOn:Hide()
 	-- Home's "Show all (N)" / "Show fewer" under the Continue cards.
 	win.CardsMore = W.Button(win.Body, "", function()
 		allCards = not allCards

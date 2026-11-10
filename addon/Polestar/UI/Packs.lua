@@ -65,6 +65,98 @@ function P.OursSwitchedOff()
 	return false
 end
 
+-- Polestar Guides installed but turned off in the game's AddOns list. The
+-- list nests it under Polestar (the client groups addons by name and
+-- dependency), and ticking Polestar there does not tick it: after "Disable
+-- All" and ticking Polestar again, or one untick, Polestar opens with no
+-- guides. The empty states and a question at login turn it back on.
+local OWN = "Polestar_Guides"
+
+-- Ours to turn on with it: its race and faction parts and the walking
+-- packs (Polestar_Nav*), never the 0.2.x language folders a hand install
+-- may have left (Polestar_Guides_deDE), nor the Recorder or community addons.
+local function ownPart(name)
+	if name == OWN or name:find("^Polestar_Nav") then return true end
+	return name:find("^Polestar_Guides_") ~= nil and not name:find("_%l%l%u%u$")
+end
+
+-- The installed addons `want` picks that are off for this character:
+-- GetAddOnInfo says DISABLED, or the enable state for its GUID is none.
+local function offAddOns(want)
+	local A = C_AddOns
+	local out = {}
+	if not (A and A.GetNumAddOns and A.GetAddOnInfo) then return out end
+	local C = ns.Compat
+	local guid = UnitGUID and UnitGUID("player")
+	local player = C and C.Readable and C.Readable(guid) or nil
+	for i = 1, A.GetNumAddOns() do
+		local name, _, _, _, reason = A.GetAddOnInfo(i)
+		if type(name) == "string" and want(name) then
+			local off = reason == "DISABLED"
+			if not off and A.GetAddOnEnableState then
+				local ok, state = pcall(A.GetAddOnEnableState, name, player)
+				off = ok and state == 0
+			end
+			if off then out[#out + 1] = name end
+		end
+	end
+	return out
+end
+
+-- Is Polestar Guides installed and turned off in the AddOns list?
+function P.OwnGuidesOff()
+	return #offAddOns(function(name) return name == OWN end) > 0
+end
+
+-- Turn Polestar Guides and its parts back on for every character (no
+-- character given: all of them, as the AddOns list's "All"), then reload.
+-- Returns the addons it turned on.
+function P.TurnOnOwnGuides()
+	local A = C_AddOns
+	if not (A and A.EnableAddOn) then return {} end
+	local names = offAddOns(ownPart)
+	for _, name in ipairs(names) do A.EnableAddOn(name) end
+	if #names > 0 and ReloadUI then ReloadUI() end
+	return names
+end
+
+-- At login, once: ask to turn it on, never in combat (then after it). The
+-- answer is kept per account until the guides are on again, so a player who
+-- keeps them off on purpose is asked once.
+local POPUP = "POLESTAR_GUIDES_OFF"
+local askPending = false
+
+local function ask()
+	if not askPending then return end
+	if ns.Compat.InCombat() then return end
+	askPending = false
+	if not (StaticPopupDialogs and StaticPopup_Show) or not P.OwnGuidesOff() then return end
+	ns.DB().guidesOffAsked = true
+	StaticPopupDialogs[POPUP] = StaticPopupDialogs[POPUP] or {
+		text = "%s",
+		button1 = L["Turn on and reload"],
+		button2 = L["Not now"],
+		OnAccept = function() P.TurnOnOwnGuides() end,
+		timeout = 0,
+		whileDead = true,
+		hideOnEscape = true,
+		preferredIndex = 3,
+	}
+	StaticPopup_Show(POPUP, L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides to show. Turn it on for all your characters and reload?"])
+end
+
+ns.OnLogin(function()
+	local db = ns.DB()
+	if not P.OwnGuidesOff() then
+		db.guidesOffAsked = nil
+		return
+	end
+	if db.guidesOffAsked then return end
+	askPending = true
+	if C_Timer and C_Timer.After then ns.After(2, ask) else ask() end
+end)
+ns.RegisterEvent("PLAYER_REGEN_ENABLED", function() ask() end)
+
 local function count(n, one, many)
 	return n == 1 and one or many:format(n)
 end
@@ -177,6 +269,11 @@ local function newRow(view)
 	row.Enable = W.Button(row, L["Enable and reload"], function()
 		local r = row.psRecord
 		if not (r and r.addon and C_AddOns and C_AddOns.EnableAddOn) then return end
+		-- Ours: with its race and faction parts and the walking packs.
+		if r.addon == OWN then
+			P.TurnOnOwnGuides()
+			return
+		end
 		C_AddOns.EnableAddOn(r.addon)
 		if ReloadUI then ReloadUI() end
 	end, { height = 24 })

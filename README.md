@@ -96,6 +96,14 @@ Good to know:
   `Polestar_Names_deDE` kind (one of each per language): `Polestar_deDE` and
   its siblings replace them, and Polestar reminds you at login while they are
   still there.
+- **"No guides installed" or "Polestar Guides is turned off":** Polestar
+  Guides is unticked in the game's AddOns list. The list shows it indented
+  under Polestar, and ticking Polestar (after **Disable All**, say) does not
+  tick it. Polestar asks once at login, and the guide window and the guide
+  menu have a **Turn on Polestar Guides and reload** button that turns it and
+  its parts back on for all your characters. By hand: tick Polestar Guides
+  and the rows under it, or right-click Polestar in the list and pick the
+  option that enables its whole group.
 - **Memory:** the arrow's walking routes (`Polestar_Nav`) load after login,
   never in combat, and each continent's walking maps load when you get there.
   **Walk real paths** (Options, Arrow & routes) off never loads them.
