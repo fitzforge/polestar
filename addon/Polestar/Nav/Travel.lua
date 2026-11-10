@@ -31,8 +31,10 @@
 -- bound inn, teleport landings, crossing ends, the player) are measured once
 -- per target by the engine (Nav/Walk.lua Walk.Measure, priced for the
 -- player's faction) instead of straight x1.25 (a place the engine finds no
--- walk from keeps its straight estimate): the router's cost chooses (a road
--- costs less than its yards, a slope or the other faction's town more), its
+-- walk from keeps its straight estimate): the router's cost chooses, never
+-- below the walk's own time (a slope or the other faction's town costs more
+-- than its yards; a road's discount picks the road among walks but never
+-- makes a walk beat a faster flight, ride or hearth, #1603), its
 -- yards time the walk and measure the leg. When the measure comes in the
 -- route is planned again and changes only if it now goes another way
 -- (Travel.Remeasured). Every later walk leg takes the yards of its own
@@ -379,7 +381,8 @@ end
 --         walking engine's measure of the walk from that place (the player when
 --         start) to the target (Nav/Walk.lua Walk.Measured): its cost (in
 --         running yards, priced by ground and the player's faction: a road
---         walk costs less than its yards) chooses, its yards time it and
+--         walk costs less than its yards) chooses, never below its yards
+--         (#1603), its yards time it and
 --         measure the leg; false: the engine found no walk from there, so a
 --         portal's end walks on only by the portal (its landing is ground the
 --         game puts the player on, not a deck off its pier; #989); nil keeps
@@ -728,7 +731,10 @@ local function planRoute(p)
 
 	-- The walks to the target the walking engine measured (p.walkCost, Nav/Walk.lua):
 	-- tw[v] = the walk's cost from key vertex v (chooses), ty[v] its yards
-	-- (times and measures it); nil to keep the straight estimate. nw[v]: no
+	-- (times and measures it); nil to keep the straight estimate. The cost is
+	-- never below the yards: flights, rides and the Hearthstone cost their real
+	-- seconds, and a road walk priced at 0.8 of its yards (Roads style: 0.5)
+	-- beat a flight up to a fifth faster (#1603). nw[v]: no
 	-- walk from v to the target at all (a portal's end the engine found no
 	-- walk from, p.noDirect's start): the Rut'theran portal's landing priced
 	-- straight up the tree sent players in Darnassus back down the portal, and
@@ -748,7 +754,8 @@ local function planRoute(p)
 				if walkCost then
 					local cost, yd = walkCost(vc[v], vx[v], vy[v], v == 1)
 					if type(cost) == "number" then
-						tw[v], ty[v] = cost, type(yd) == "number" and yd or cost
+						local y = type(yd) == "number" and yd or cost
+						tw[v], ty[v] = cost > y and cost or y, y
 					elseif cost == false and portalV[v] then
 						nw[v] = true
 					end
@@ -982,11 +989,16 @@ local function planRoute(p)
 				if fl then
 					-- 5 s more to learn a flight master not learnt yet (its "New flight path discovered").
 					local learn = learnV[u] and 5 or 0
+					-- The first hop's take-off at the flight master (talking to it, picking the flight: 6 s
+					-- median from reaching it to take-off in players' recordings, FLIGHT_STOP's 2 included):
+					-- a cost, never a time, so a near tie walks instead of detouring to the flight master.
+					-- Local here: PlanRoute is at Lua 5.1's 60 upvalues.
+					local TAKE_OFF = via[u] == FLY and 0 or 4
 					for i = 1, #fl - 1, 2 do
 						local v = taxiV[fl[i]]
 						if v then
 							local s = fl[i + 1] / FLIGHT_SPEED + FLIGHT_STOP + learn
-							relax(v, du + s, tu + s, FLY, u)
+							relax(v, du + s + TAKE_OFF, tu + s, FLY, u)
 						end
 					end
 				end
