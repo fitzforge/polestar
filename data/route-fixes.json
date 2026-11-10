@@ -12909,8 +12909,7 @@
 			{
 				"a": [
 					"task",
-					1456,
-					0
+					1456
 				],
 				"b": [
 					"turnin",
@@ -12922,16 +12921,15 @@
 			},
 			{
 				"a": [
-					"task",
-					651,
-					1
+					"turnin",
+					642
 				],
 				"b": [
 					"task",
 					691
 				],
 				"faction": "Alliance",
-				"why": "Arathi Highlands (Alliance 30-40/05, 0.3.6, BrAlliance3040, our comparison): the loop from Northfold Manor goes once round: east along the north to the Shards of Myzrael (62.5,33.7), Drywhisker Gorge and the Iridescent Shards (84.3,31.0), back to the Stone of East Binding (66.7,29.7), then south to Witherbark Village (Witch Doctors 61-68,64-77, Shadow Hunters 66-69,78-82) and north-west to Quae (60.2,53.9). The guide went from Northfold to the troll village in the south-east, north to the shards, east to the gorge and south again to Quae: about 540 yd more and the valley crossed twice. The benchmark order loops the same way.",
+				"why": "Arathi Highlands (Alliance 30-40/05, 0.3.6, BrAlliance3040, our comparison): the loop from Northfold Manor goes once round (the Iridescent Shards before the trolls): east along the north to the Shards of Myzrael (62.5,33.7), Drywhisker Gorge and the Iridescent Shards (84.3,31.0), back to the Stone of East Binding (66.7,29.7), then south to Witherbark Village (Witch Doctors 61-68,64-77, Shadow Hunters 66-69,78-82) and north-west to Quae (60.2,53.9). The guide went from Northfold to the troll village in the south-east, north to the shards, east to the gorge and south again to Quae: about 540 yd more and the valley crossed twice. The benchmark order loops the same way.",
 				"source": "BrAlliance3040"
 			},
 			{
@@ -12954,8 +12952,7 @@
 				],
 				"b": [
 					"task",
-					207,
-					0
+					207
 				],
 				"faction": "Alliance",
 				"why": "Stranglethorn's second loop (Alliance 30-40/04b, 0.3.6, BrAlliance3040, our comparison): the Shadowmaw Panthers (level 37) live around Lake Nazferiti (45-51,20-30) and by the Skullsplitter ruins (35-42,32-45), none in the north-west, and the Venture Co. Geologists with the Tumbled Crystals work Lake Nazferiti's shore (42-48,16-24; two stray ones at 28,8). The guide listed both on the north-west tablets' step, so the arrow went from Zul'Kunda south to 36,34 and back north to the Rebel Camp (about 2,500 yd), and the Rebel Camp was visited three times. Now Erlgadin's Panther Mastery is taken at Nesingwary's on the way in, the lake right after Kurzen's Compound, the tablets west and north-west, and every Rebel Camp hand-in on one stop at the end, as our comparison loops it.",
@@ -12964,8 +12961,7 @@
 			{
 				"a": [
 					"task",
-					207,
-					3
+					207
 				],
 				"b": [
 					"turnin",
