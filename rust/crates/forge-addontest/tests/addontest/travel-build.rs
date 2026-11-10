@@ -97,9 +97,8 @@ fn the_committed_traveldata_lua_has_the_forever_ships_on_their_dock_maps() {
 
 // #1674 (Megabite): on the Rohashi Spires after Lorthuna, the next step's turn-in at Elaadrin Evengale in
 // Valanaar said to hearth: the planner knew no way down but walking. The Portal to Valanaar beside her
-// sets the player down beside Elaadrin in five seconds. Zephras Isle (uiMap 2521, continent 2991) is
-// placed by the committed inns' own points (Valanaar 61.64,73.26 = 2239.5,802.5; Shen'dar Village
-// 41.76,44.72 = 3297.9,1908.4), the Hearthstone bound to Valanaar and ready.
+// sets the player down beside Elaadrin in five seconds. Zephras Isle (uiMap 2521, continent 2991) on its
+// live frame (data/forever/map-frames.json), the Hearthstone bound to Valanaar and ready.
 #[test]
 fn from_lorthunas_terrace_to_elaadrin_in_valanaar_the_route_takes_the_portal_down_never_the_hearthstone() {
 	let out = emitted(&RunAddon {
@@ -108,7 +107,7 @@ fn from_lorthunas_terrace_to_elaadrin_in_valanaar_the_route_takes_the_portal_dow
 		login: true,
 		script: r#"
 			local nav = stub.nav
-			nav.maps[2521] = { c = 2991, top = 4956.33, bottom = 1247.85, left = 4231.46, right = -1331.42, name = "Zephras Isle" }
+			nav.maps[2521] = { c = 2991, top = 4956.25, bottom = 1247.917, left = 4231.25, right = -1331.25, name = "Zephras Isle" }
 			nav.faction = "Alliance"
 			nav.items[6948] = 1
 			nav.bind = "Valanaar"

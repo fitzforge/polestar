@@ -89,7 +89,7 @@ local tailoring = {
 	zone = 947, zoneName = "Azeroth", author = "Polestar", version = 1,
 	steps = {
 		{ title = "Apprentice Tailoring", goals = {
-			G("train", { verb = "Train at", subject = "Georgio Bolero", subjectKind = "npc", npc = 1346, map = STORMWIND, x = 53.2, y = 81.6, status = "done",
+			G("train", { verb = "Learn new spells from", subject = "Georgio Bolero", subjectKind = "npc", npc = 1346, map = STORMWIND, x = 53.2, y = 81.6, status = "done",
 				alternatives = 2, candidates = {
 					{ npc = 1346, npcName = "Georgio Bolero", map = STORMWIND, x = 53.2, y = 81.6 },
 					{ npc = 1103, npcName = "Eldrin", map = ELWYNN, x = 79.2, y = 68.4 },

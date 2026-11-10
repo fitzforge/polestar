@@ -10937,3 +10937,17 @@ test('Centaur reputation: a Gelkis player at the end of the Gelkis half goes to 
 	for (const q of [1382, 93227, 1368, 94873]) assert.ok(to(q), `${q} handed in or carried: the recipes`);
 	assert.ok(list.findIndex(({ step }) => step === router) < list.findIndex(({ step }) => step.label === 'magram'), 'before the Magram half');
 });
+
+// SpydaPablo's report (#1676, 0.3.6, Undead Paladin 26): the Barrens & Stonetalon guide ends with a flight
+// to Ratchet for Sputtervalve (1094) and Mahren Skyseer (874, then Isha Awak 873); with none of them in
+// the log the player flew there for nothing and back through the Crossroads for the next guide's flight to
+// Zoram'gar. The flight shows only while one of them is in the log; the guide-fixes record keeps it.
+test("SpydaPablo's report (#1676): the Barrens' last flight to Ratchet is only for its quests", { skip }, () => {
+	const guide = 'forever/horde/04-the-barrens.guide';
+	const step = compiled(guide).steps.find((st) => st.goals.some((g) => g.t === 'fly' && /Ratchet/.test(g.location || '')));
+	assert.ok(step, 'the flight to Ratchet');
+	const gate = (step.when || []).find((p) => p.k === 'onquest' && !p.neg);
+	assert.deepEqual(gate && [].concat(gate.q).sort((a, b) => a - b), [873, 874, 1094]);
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	assert.ok(fixes.some((f) => f.at && f.at.goal === 'fly' && f.at.guide === 'forever/horde/04-the-barrens' && f.at.fly === 'Ratchet' && f.when === 'onquest 1094,874,873'), 'the gate is a guide-fixes record');
+});
