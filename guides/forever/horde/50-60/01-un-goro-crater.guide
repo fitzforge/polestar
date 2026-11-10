@@ -402,17 +402,16 @@ step The Bulwark
   accept 5408 optional
 # ---------------------------------------------------------------- Western Plaguelands
 
-step Janice Felstone
-  zone Western Plaguelands
-  tip From the Bulwark, follow the road east into the Western Plaguelands. Felstone Farm is the first farm along the road; Janice waits in the house.
-  accept 5021                         -- Upstairs
-  turnin 5021                         -- Janice's Parcel, beside the house; inside
-  accept 5023
-  note Keep the parcel: Royal Overseer Bauhaus is in the Undercity.
-
 step Scarlet forward camp
-  tip The Scarlet Crusade's tents stand between Felstone Field and Dalson's Tears. Torch the command tent with the Box of Incendiaries and plant the Scourge banner.
+  zone Western Plaguelands
+  tip From the Bulwark, follow the road east into the Western Plaguelands. The Scarlet Crusade's tents stand just past Felstone Farm, between Felstone Field and Dalson's Tears. Torch the command tent with the Box of Incendiaries and plant the Scourge banner.
   goto 40.7,52.0
   interact 176088
   complete 5096
-  note Keep A Plague Upon Thee: its termite mounds are in Terrordale, on the next guide's ride to Tirion. The next guide starts with Mulgris Deepriver by the Writhing Haunt, south-east of here.
+
+step Janice Felstone
+  tip Back a few steps west to Felstone Farm, the first farm along the road; Janice waits in the house.
+  accept 5021                         -- Upstairs
+  turnin 5021                         -- Janice's Parcel, beside the house; inside
+  accept 5023
+  note Keep the parcel: Royal Overseer Bauhaus is in the Undercity. Keep A Plague Upon Thee: its termite mounds are in Terrordale, on the next guide's ride to Tirion. The next guide starts with Mulgris Deepriver by the Writhing Haunt, south-east of here.

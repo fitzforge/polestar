@@ -10531,7 +10531,9 @@ test('Horde Plaguelands: Darrowshire at 56 in the Eastern Plaguelands guide, not
 	const un = goals('forever/horde/50-60/01-un-goro-crater.guide');
 	assert.ok(!un.some(({ goal }) => [5149, 5152, 5241, 5153, 5154, 5210, 6021, 6164].includes(goal.quest)), 'none of it in 01');
 	assert.ok(!un.some(({ goal }) => goal.t === 'getfp' && /Light's Hope/.test(goal.location || '')), 'no Light\'s Hope flight path in 01');
-	assert.equal(un.filter(({ goal }) => goal.quest).pop().goal.quest, 5096, '01 ends at the Scarlet camp');
+	// The last step is Janice's (talk goals): with the Scarlet camp's `complete 5096` last, the addon's guide-end check
+	// (guides_end_early) saw the end done ahead while Janice's step was still live.
+	assert.equal(un.filter(({ goal }) => goal.quest).pop().goal.quest, 5023, '01 ends at Janice Felstone, after the Scarlet camp');
 	const fel = goals('forever/horde/50-60/02-felwood.guide');
 	const tirion = at(fel, 'accept 5542', is('accept', 5542));
 	const book = at(fel, 'collect 15884', (g) => g.t === 'collect' && g.quest === 6164);
