@@ -4134,6 +4134,10 @@ local function goalView(s, g, goal, stepStatus, group)
 		party = type(goal.group) == "table" and type(goal.group.kind) == "string" and goal.group or nil,
 		-- An escort quest's accept or objective (compiled `escort`).
 		escort = goal.escort == true or nil,
+		-- A dungeon's way in: a dungeon guide's "Enter <dungeon>" (its
+		-- `entrance`) or a leveling guide's dungeon run (`when dungeon`);
+		-- the window says where to find a group (UI.FinderLine).
+		entrance = (goal.entrance == true or Own.dungeonStep(guide.steps[s] or NONE)) or nil,
 		-- A timed quest's accept: the seconds it allows (compiled `limit`,
 		-- quests.json; Quests/Timed.lua says so before it is taken).
 		limit = goal.t == "accept" and goal.limit or nil,
@@ -8710,8 +8714,9 @@ end
 -- is never a pick-up line nor taken for a step past the route's next AHEAD
 -- (its clock would run on the way); in those, only when the route's walk
 -- from this NPC to its hand-in fits LIMIT_SHARE of its time
--- (Own.aheadLimitOk). Only the loaded guide's steps, never another tab's or
--- the next guide's.
+-- (Own.aheadLimitOk). An escort (`escort`) is never one: it starts walking
+-- when taken, so only its own step takes it, with its warning (#1618).
+-- Only the loaded guide's steps, never another tab's or the next guide's.
 --
 -- A While-you're-here hand-in whose NPC the route comes back to after
 -- leading away (Own.hereVisit) is the whole visit when every open goal of
@@ -8792,6 +8797,9 @@ function Own.aheadOk(i, j, a, ready, near)
 	local qlvl = tonumber(a.qlvl)
 	if qlvl and qlvl > (player.level or 1) + Own.HERE_ABOVE then return false, "quest level " .. qlvl .. " too high" end
 	if a.limit and not near then return false, "timed" end
+	-- An escort (compiled `escort`) starts walking the moment it is taken:
+	-- never ahead of its own step, which carries the warning (#1618).
+	if a.escort then return false, "escort" end
 	local u = unavailableFor(a)
 	if u then return false, "unavailable (" .. tostring(u.reason) .. ")" end
 	if ready then

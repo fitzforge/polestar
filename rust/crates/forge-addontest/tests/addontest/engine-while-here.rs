@@ -760,7 +760,8 @@ fn mulgore_fitz_walking_past_seer_graytongue_with_rites_of_the_earthmother_ready
 	let f = data.map_frames.get("forever").get("1412");
 	// pelts: 750's count (10: ready, step 6 live); limit: Grace's seconds (the data's 600 once rebuilt with its
 	// correction; set here so the test does not wait for the data build).
-	let run = |pelts: u32, limit: u32| {
+	let run = |pelts: u32, limit: u32, escort: bool| {
+		let escort = if escort { "true" } else { "nil" };
 		let before = format!(
 			r#"local w = stub.world
 w.addMap(1412, {{ name = "Mulgore", c = {}, left = {}, right = {}, top = {}, bottom = {} }})
@@ -786,7 +787,7 @@ stub.login()
 stub.fire("QUEST_LOG_UPDATE")
 {HELPERS}
 E.SetGuide("forever/horde/tauren/01-mulgore"); flush()
-for _, g in ipairs(E.GetGuide().steps[7].goals) do if g.quest == 95805 then g.limit = {limit} end end
+for _, g in ipairs(E.GetGuide().steps[7].goals) do if g.quest == 95805 then g.limit = {limit}; g.escort = {escort} end end
 stub.fire("QUEST_LOG_UPDATE"); flush()
 local function mg(x, y) w.moveTo(1412, x, y); stub.advance(0.6); stub.advance(0.6) end
 local function state()
@@ -815,7 +816,7 @@ emit({{ camp = camp, report = report, calls = table.concat(calls, ", "), live = 
 		emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], script, ..Default::default() }).remove(0)
 	};
 	let visit = "7:1 Hand in “Rites of the Earthmother” to Seer Graytongue, then take “Grace of An'she and Mu'sha”, “Rite of Strength”: saves a trip back";
-	let fitz = run(10, 600);
+	let fitz = run(10, 600, false);
 	assert_eq!(fitz["report"]["live"], 6, "Grull Hawkwind's step is live: {fitz}");
 	assert_eq!(fitz["report"]["here"], visit, "121 yd from the Seer, the whole visit shows at the shipped settings: {fitz}");
 	assert!(fitz["report"]["credit"].as_f64().is_some_and(|c| c > 43.0), "its credit outweighs the 43 s detour: {fitz}");
@@ -825,13 +826,18 @@ emit({{ camp = camp, report = report, calls = table.concat(calls, ", "), live = 
 	assert_eq!(fitz["live"], 6, "the live step stays: {fitz}");
 	assert!(fitz["arrow"].as_str().unwrap().starts_with("6:"), "the arrow stays on it: {fitz}");
 	assert_eq!(fitz["done"], json!([true, true, true]), "step 7 is done: no trip back: {fitz}");
-	let short = run(10, 120);
+	let short = run(10, 120, false);
 	assert_eq!(short["report"]["here"], "none", "a two-minute Grace: no visit, the bare hand-in 43 s out of the way: {short}");
 	assert_eq!(short["report"]["why"], "out of the way (43 s, over 20 s)", "{short}");
 	assert!(!short["calls"].as_str().unwrap().contains("AcceptQuest 95805"), "Grace not taken ahead: {short}");
-	let cougars = run(6, 600);
+	let cougars = run(6, 600, false);
 	assert_eq!(cougars["report"]["live"], 5, "the cougar step is live: {cougars}");
 	assert_eq!(cougars["report"]["here"], visit, "hunting cougars around the Seer, the visit shows: {cougars}");
+	// #1618 (MattMer, Protect Kaya): an escort is never taken ahead, like a timed quest whose walk does not fit: it
+	// starts walking the moment it is taken, so only its own step, with its warning, takes it.
+	let escort = run(10, 600, true);
+	assert_eq!(escort["report"]["here"], "none", "an escort Grace: no visit offering it: {escort}");
+	assert!(!escort["calls"].as_str().unwrap().contains("AcceptQuest 95805"), "the escort not taken ahead: {escort}");
 }
 
 // The Barrens as shipped: an Orc Warrior at 14, in from Far Watch Post on the road west, 60 yd past Thun'grim Firegaze
