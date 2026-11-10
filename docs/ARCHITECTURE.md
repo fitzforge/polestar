@@ -1215,14 +1215,15 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   current index), plus `search = true` for an area objective. The guide
   window's "Other" button cycles spots (CycleSpot) when the goal has no
   candidates; an area objective's subline reads "<mobs> all over this area: N spots".
+  A click on the step's header (its group's first open located goal) or on a
+  step goal's map pin (Nav/Layers) aims the arrow at that goal (`AimGoal`)
+  rather than setting a point by hand (#1653): `Nav.NextSpot`, a click on the
+  arrow, only moves the Engine's waypoint on, so a point by hand held the
+  arrow on one spot. An Along the way goal's pin still sets a point.
   Cycling a goal of the current step (spots or candidates) aims the arrow at
   that goal (`AimGoal`), whichever goal it pointed at before, and the window
   releases any point picked by hand (`Nav.ReleaseTarget`), so the arrow moves
-  to the chosen spot at once. A click on the step's header (its group's first
-  open located goal) or on a step goal's map pin (Nav/Layers) aims the same
-  way rather than setting a point by hand (#1653: `Nav.NextSpot`, a click on
-  the arrow, only moves the Engine's waypoint on, so a point by hand held the
-  arrow on one spot); an Along the way goal's pin still sets a point.
+  to the chosen spot at once.
 - **Race names.** `"Scourge"` and `"Undead"` are the same race everywhere a race is
   compared (Forever's client name is unconfirmed).
 - **Context-aware Suggest.** `Guides.Suggestions()` orders the leveling guides
