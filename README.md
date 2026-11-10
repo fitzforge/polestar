@@ -179,6 +179,14 @@ change, with the players who reported them):
 - **Dungeons, class and reputation guides.** Pick-up and hand-in guides find
   NPCs the data had placed nowhere; class quest cards say what a chain
   involves (elites, zones, length) before you start it.
+- **Dynamic Questing saves trips.** While you're here also offers pick-ups
+  across the whole guide you have loaded, and at an NPC you pass it hands in
+  and takes what the next steps need.
+- **New helpers.** Timed quests count down and warn you, failed quests say
+  so, Dungeons show the level each one is best at, quests new in Forever
+  carry a small ∞ mark, the minimap button is on for everyone, a Polestar
+  button sits in the Esc menu, and in a party "Sync to my guide" offers your
+  step to the others.
 - **Gear advice** no longer suggests profession tools as weapons or
   overrates multi-school spell damage.
 - **Polestar Client 0.1.6** sends what the Recorder's explorer mode maps in
@@ -226,7 +234,7 @@ change, with the players who reported them):
 > leveling guide to 60 the way a player follows it. Tell us what you find on
 > Forever: every report becomes a fix the next build keeps.
 > Forever's new 30-60 content (Riverglades, Shen'dralas, Mount Hyjal) is not
-> in any data yet; the routes take it in at launch.
+> in the routes yet: the Recorder's explorer mode maps it as players go there.
 
 ## A look inside
 
@@ -432,6 +440,14 @@ its source is in [apps/client](apps/client).
   that quest's goals and points the arrow back at its giver, and asks: go
   back for it, or skip it and what follows. "When you abandon a guide
   quest" (Options, Guide, Automation) can always do one or the other.
+- **Failed quests say so.** A failed escort or timed quest greys its goals
+  with "failed: abandon it and take it again", and the arrow leads to its
+  giver.
+- **Timed quests count down.** Their goals and the arrow show the time left
+  ("M:SS left"); a chat line and a sound come at 5 minutes, at 1 minute and
+  if the quest fails (Options, Questing, Quests, "Timed quest alerts"), and
+  the step says when the way to the hand-in takes longer than the time you
+  have left.
 - **It catches up.** With "Skip grey quests" on, a guide you open on a
   character who already did part of the route goes over what is done to
   where you are: gray quests are left out, and so are green ones behind your
@@ -458,7 +474,13 @@ its source is in [apps/client](apps/client).
   one for the arrow, right-click it to leave it around there (twice: for the
   rest of the zone). A quest ready to hand in shows the same way when its
   NPC is in the town you're in or a few seconds out of your way (20 by
-  default; Options, Guide, Window, "Dynamic Questing").
+  default; Options, Guide, Window, Dynamic Questing, "Hand-ins: how far out
+  of your way"), and at that NPC it also takes the quests the next steps
+  need ("Hand in … then take …: saves a trip back"). Pick-ups count too:
+  walk near someone who gives a quest your guide takes later, anywhere in
+  the guide you have loaded, and a row says "Take “<quest>” from <NPC>:
+  saves a trip back"; talking to an NPC whose quest comes in the next few
+  steps takes it without moving the guide.
 - **Group quests are your call.** At a quest a guide marks as a group quest,
   the guide window asks: Skip it keeps to the solo route, Do it with a group
   takes it on. "Group quests" (Options, Guide, Automation) can answer them
@@ -471,7 +493,9 @@ its source is in [apps/client](apps/client).
   from, when kills stop counting and what the quartermaster sells.
 - **Professions** send you to the nearest trainer, vendor or inn of your own
   faction from where you stand, never into a city of the other faction; a
-  goal's cycle button picks another.
+  goal's cycle button picks another. In the starting zones, a character who
+  already has a profession gets its Camping 101 quest at the campfire too,
+  handed in at the trainer on the way.
 - **Class training reminder** every two levels (configurable): the nearest
   trainer of your class, unless your guide is about to take you there. At
   levels 40 and 60 a **riding reminder** shows the cost of riding and your
@@ -500,7 +524,12 @@ its source is in [apps/client](apps/client).
   a small Polestar button you put anywhere on the screen. Click it to show or
   hide the guide window, right-click it for a short menu, drag it to move it.
   It hides with the window in combat and in dungeons when those are set to
-  hide. The minimap button's switch is there too.
+  hide.
+- **Minimap button**, on for everyone: click it to show or hide the guide
+  window, right-click it for a menu, drag it to move it (Options, Guide,
+  Window, Show and hide turns it off).
+- **Esc menu button**: a Polestar button in the game menu opens the guide
+  menu (Options, Appearance, Windows, Menus, "Button in the game menu").
 
 ### Navigation
 
@@ -511,8 +540,10 @@ its source is in [apps/client](apps/client).
   Hearthstone when they are faster. Each leg has its own caption on the arrow
   ("Fly to Crossroads", "Take the boat to Menethil Harbor", "Hearth to Razor
   Hill").
-- **Trail dots** on the world map and the minimap crawl along the route
-  between its waypoints (Map options can turn them off).
+- **Route lines** on the world map and the minimap show the way to the goal
+  as a line, dots or sparkles, with their own colour, opacity and size;
+  flights show dashed (Options, Guide, Arrow & routes, Line style; a switch
+  takes them off the minimap).
 - **Zone crossings.** Walks between zones go through the real tunnels,
   passes, bridges and gates (Carbonite's zone connections), one waypoint at a
   time ("Go to Ashenvale"): from Sun Rock Retreat to Astranaar through the
@@ -631,6 +662,9 @@ guides you there instead.
   last few targets keep theirs. Your party sees the icons. In a party you
   don't lead, only a mob or NPC with no icon yet gets one, so a mark someone
   else placed stays; in a raid it marks only when you lead or assist.
+- **New in Forever.** Quests Forever added carry a small ∞ mark on their
+  step, in While you're here, in the Codex and in quest tooltips (Options,
+  Guide, Window, "Mark quests new in Forever").
 
 ### Playing in a party
 
@@ -648,8 +682,8 @@ runs solo or in a raid.
   level, XP %, class and race, your step, your guide (and pack) and your
   Polestar version, as hidden addon messages to your party, never to chat.
   Up to v0.3.2 it was off by default and that choice wasn't stored, so if
-  you had it off, this update turns it on once (the chat notice tells you);
-  from this version on, turned off, it stays off.
+  you had it off, 0.3.3 turned it on once (with a chat notice); turned off
+  since then, it stays off.
 - **Wait for the group**: when you finish an objective a party member on the
   same quest still needs ("Waiting on Ana: 3/8 Boar Ribs"), the step and its
   turn-in wait for them (nothing is handed in automatically meanwhile), and
@@ -722,8 +756,12 @@ runs solo or in a raid.
   it; Alt-click an item link for a guide.
 - **Dungeons**: a journal page per dungeon with every quest (where it starts
   and ends, its objective, chain and rewards), the bosses and the entrance.
-  A chip beside each dungeon's name shows how far its quests take you (or
-  its recommended level); hovering it shows the XP and the levels it spans.
+  Each dungeon shows its level range and the level it's best at ("35–47 ·
+  best at 43"); For your level puts the ones that suit you first and marks
+  the rest "Tough at your level", and the hub says what fits your level and
+  when the rest unlock ("N now · M at level X"), with a chat line and a map
+  pin when you reach one. Hovering a dungeon's level chip shows the XP its
+  quests give and the levels they span.
   "Pick up the quests" builds a guide that collects every quest of the
   dungeon you can take, earlier quests first, on the shortest path from where
   you stand to the entrance; after the run, "Hand in the quests" guides you
@@ -828,7 +866,11 @@ compact chunks with no character, realm or account names, and records what
 the guides need most: kill pace and kill XP, drops counted against what your
 quests still needed, which quests each NPC offered you, trainer and vendor
 lists, flight times, item uses and gossip choices
-([docs/RECORDING.md](docs/RECORDING.md), field by field). Recordings replace
+([docs/RECORDING.md](docs/RECORDING.md), field by field). In Forever's new
+zones and dungeons its explorer mode maps more on its own (creature spawns,
+the quest log's map points, dungeon floors, boss pulls, objects opened),
+nothing more about you; `/psrec explore off` turns it off, and Polestar
+Client 0.1.6 or later sends it. Recordings replace
 estimates with Forever facts, feed the Codex what only play shows, and
 `record report` turns them into per-step timings: passes, median and p75
 time, XP per hour, time in combat, deaths and travel, then the slowest

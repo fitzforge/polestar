@@ -226,6 +226,12 @@ version throughout.
    git push origin main next v0.2.0
    ```
 
+   These pushes of `next`, `main` and the tag go past the branch rules on
+   the maintainer's admin bypass, and only with the maintainer's go for that
+   release; git prints "Bypassed rule violations" for them. Any other push
+   that prints it (a branch, a tag deletion) is a mistake: stop and ask
+   before going on.
+
 8. Write the release notes. `forge release notes` drafts all three from the
    version's CHANGELOG.md section into `dist/` (not committed), each
    paragraph and list item joined onto one line, since GitHub shows every
@@ -236,15 +242,43 @@ version throughout.
    ```
 
    It writes `notes-0.2.0.md` (GitHub), `notes-curseforge-0.2.0.md` and
-   `notes-discord-0.2.0.txt` (posts of at most 2,000 characters). Each
-   starts with a `[[REPLACE ...]]` line: write the opening paragraph there.
-   The drafts carry every player and author entry word for word; cut them
+   `notes-discord-0.2.0.txt`. Each starts with a `[[REPLACE ...]]` line:
+   write the opening paragraph there, saying what changes for players. The
+   drafts carry every player and author entry word for word; cut them
    down to what changed for players first (guides, routes, features,
    fixes), then for guide authors, and add the special thanks by hand.
    Hours to 60 are the simulator's model estimates and are written as such,
-   with the world they come from.
+   with the world they come from; any other speed claim says "in our
+   testing". Never "our biggest update yet", "biggest ever", "massive
+   update" or any other size or hype claim, in any of the texts. Promise
+   only what works in the zip that ships, data packs included.
 
-9. Publish the release with the three files from step 4:
+   Then the two Discord texts, built from the final notes (not the
+   fragments), each post under 3,900 characters, covering the addon and
+   the Polestar Client and Recorder together:
+
+   - `dist/discord-announcement-0.2.0.md`: ONE post for the announcements
+     channel: a plain "Polestar 0.2.0 is out" headline, an opening on what
+     changes for players, every player-facing feature in grouped bullets
+     (Routes, Guide window, Arrow and travel, Play together, Quality of
+     life, Polestar Client and Recorder), how to update and where the full
+     notes are.
+   - `dist/notes-discord-0.2.0.txt`: the patch notes in as few posts as
+     fit: post 1 "# Polestar 0.2.0 Patch Notes", the date, the notes'
+     first sentence in bold, the rest of the opening and "## How to
+     update"; then "## For players" over as many posts as it takes; the
+     last post the thanks. Leave out the contributor section.
+
+9. Close the issues the release fixes (its issue list and the milestone's
+   closed-by-PR issues still open) BEFORE publishing: the Discord release
+   notifier tells only the issues already closed when the release is
+   published, and an issue closed afterwards is told "will ship in the next
+   update" and announced again with the next release. Then publish the
+   release with the three files from step 4. The release script
+   (`GO-<version>.sh`) runs these in that order and refuses to publish when
+   the notes, the CurseForge text or the Discord texts contain "biggest
+   update", "biggest ever" or "massive update" (any case), next to its
+   check for other addons' names:
 
    ```sh
    gh release create v0.2.0 --verify-tag --title "Polestar 0.2.0" \
