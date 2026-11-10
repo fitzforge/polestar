@@ -7262,6 +7262,15 @@
 				]
 			},
 			{
+				"q": 126,
+				"reason": "Alliance 12-30 bracket review 0.3.6: Howling in the Hills (level 25, from 15, 2000 XP) from Verner Osgood in Lakeshire, offered once 03-loch-modan's Lakeshire quests are handed in (players' offer windows: offered with A Baying of Gnolls, 124, or Underbelly Scales, 122, done, refused before). Its one objective, Yowler's Paw, comes from Yowler (level 25, not elite), whom players met at Redridge 21-25,20-28 (18 people, 13 killed him; collector spawns 22.6-22.8,21-22) at the top of the Redridge Canyons, which 04-redridge-mountains walks up to Render's Valley for Keeshan; Verner stands between the town hall and the bridge on the way back. Players' recordings: 17 people took it at 19-25, 11 handed it in. Our comparison takes it on the same Redridge visit.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					124
+				]
+			},
+			{
 				"q": 1106,
 				"reason": "Quest volume (2026-11-08): both sides take it since #1204 and #1220. The Alliance hands in Salt Flat Venom (1104) and Hardened Shells (1105) at the Mirage Raceway at 33-34, so Fizzle Brassbolts offers Martek the Exiled there; Martek stands in the Valley of Fangs, which 30-40/06's Badlands loop passes twice at 38-39.",
 				"issue": "-",

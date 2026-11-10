@@ -2446,6 +2446,19 @@ test(`${REDRIDGE} / 05-duskwood: Dusky Crab Cakes taken with Jitters' Growling G
 	assert.ok(jitters > at(dusk, 'turnin 453 (Jitters)', is('turnin', 453)) && jitters < at(dusk, 'turnin 268 (Sven)', is('turnin', 268)), 'handed in on the Raven Hill stop');
 });
 
+// Alliance 12-30 bracket review 0.3.6: Howling in the Hills (126, 2000 XP) from Verner Osgood on the Lakeshire stop; Yowler
+// stands at the top of the Redridge Canyons on the walk up to Render's Valley, Verner on the way back through town.
+test(`${REDRIDGE}: Howling in the Hills taken in Lakeshire, Yowler on the walk to Render's Valley, handed in on the way back`, { skip }, () => {
+	const list = goals(REDRIDGE);
+	const take = at(list, 'accept 126', is('accept', 126));
+	assert.equal(list[take].s, list[at(list, 'turnin 150 (Baren)', is('turnin', 150))].s, 'on the Lakeshire stop with Dockmaster Baren');
+	const paw = at(list, 'collect 3614 quest 126', (g) => g.t === 'collect' && g.item === 3614 && g.quest === 126);
+	assert.ok(located(list[paw]) && list[paw].goal.y < 25, 'Yowler has a point at the top of the canyons');
+	assert.ok(paw > take && paw < at(list, 'kill 435 (Render\'s Valley)', (g) => g.t === 'kill' && g.npc === 435), 'on the walk up to Render\'s Valley');
+	const hand = at(list, 'turnin 126', is('turnin', 126));
+	assert.ok(hand > at(list, 'accept 219 (Keeshan)', is('accept', 219)) && list[hand].s === list[at(list, 'turnin 219', is('turnin', 219))].s, 'handed in on the way back through Lakeshire');
+});
+
 // The sweep for #1348: a Bronze Tube is never a buy that holds a step (every vendor of it keeps one or two),
 // and a goal that must get one sends the player to the Stormwind Auction House, not to a vendor.
 test('Every guide (#1348): no Bronze Tube buy holds a step; a required tube comes from the Auction House', { skip }, () => {

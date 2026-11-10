@@ -108,7 +108,9 @@ next forever/alliance/05-duskwood
 # 115: Marshal Marris offers them only once Blackrock Menace and Blackrock
 # Blockade, 20 and 98387, are handed in, after the keep), Morganth (249), the
 # Speaking of Fortitude and Theocritus' Retrieval chains (343+, 178). Howling in
-# the Hills (126, after A Baying of Gnolls in 03-loch-modan): not taken.
+# the Hills (126, offered once 03-loch-modan's Lakeshire quests are handed in) is
+# taken on the Lakeshire stop: Yowler stands at the top of the Redridge Canyons on
+# the walk up to Render's Valley, and Verner Osgood is on the way back through town.
 
 # ---------------------------------------------------------------- Stormwind and the road
 
@@ -309,6 +311,7 @@ step Lake Everstill's murlocs: kill these as you meet them
 
 step Lakeshire
   tip Cross the long bridge north into town: Dockmaster Baren on the docks, Bailiff Conacher in the town hall, Martie Jainrose in her garden at the west end. Marshal Marris's Blackrock quests and Alther's Mill came with you from your first Redridge visit.
+  accept 126                                  -- Verner Osgood, by the road at the north end of the bridge
   turnin 150                                  -- Dockmaster Baren
   accept 91                                   -- Bailiff Conacher, in the town hall
   accept 180                                  -- The Wanted poster by the inn
@@ -371,6 +374,10 @@ step Stonewatch Keep
 
 # ---------------------------------------------------------------- Render's Valley
 
+step Yowler
+  tip From the keep head back west along the lake's north shore and north up the Redridge Canyons. Just south of Render's Valley, Yowler, a level 25 gnoll, walks among the Redridge Alphas and Mystics.
+  collect 3614 quest 126 @22.7,21.6           -- Yowler's Paw
+
 step Render's Valley
   tip From the keep head back west along the lake's north shore and north up the Redridge Canyons to Render's Valley; Lakeshire's hand-ins wait for Keeshan's escort, which ends there. Blackrock Champions camp in the valley.
   kill 435 quest 128                          -- Blackrock Champion, below ground
@@ -394,6 +401,7 @@ step Back to Lakeshire
   tip Into Lakeshire from the north with Keeshan: Bailiff Conacher and Magistrate Solomon in the town hall, Marshal Marris and Foreman Oslow at the north end of the bridge, then over the bridge to Guard Howe and the gryphons.
   turnin 91                                   -- Bailiff Conacher, in the town hall
   turnin 180                                  -- Magistrate Solomon, in the town hall
+  turnin 126                                  -- Verner Osgood, by the road on the way to the bridge
   turnin 219                                  -- Marshal Marris
   turnin 20
   turnin 98387

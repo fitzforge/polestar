@@ -182,6 +182,8 @@ return {
 	-- Step 29: Lakeshire
 	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {quest:98386} Alther's Mill
 	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "긴 다리를 건너 북쪽 마을로 들어가세요. {npc:381}은(는) 부두에, {npc:900}은(는) 마을 회관에, {npc:342}은(는) 서쪽 끝 자기 정원에 있습니다. {npc:382}의 검은바위부족 퀘스트와 {quest:98386}은(는) 붉은마루 산맥을 처음 방문했을 때 이미 받아 두었습니다.",
+	-- {npc:415} Verner Osgood
+	["{npc:415}, by the road at the north end of the bridge"] = "",
 	-- {npc:900} Bailiff Conacher
 	["{npc:900}, in the town hall"] = "",
 	["The Wanted poster by the inn"] = "여관 옆의 현상수배 전단",
@@ -236,28 +238,35 @@ return {
 	-- plural, as words: Blackrock Shadowcasters = {npc:436} Blackrock Shadowcaster
 	["The keep stands beside the tower. {npc:334} (elite) waits in the keep's top room with two guards and a dragon; Blackrock Shadowcasters (elite) and Sentries stand on its west side, so pull one at a time on the way in, and hug the right wall as you enter his room so you don't pull him at once. Elite: group up if you can."] = "",
 
-	-- Step 40: Render's Valley
+	-- Step 40: Yowler
+	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {npc:518} Yowler
+	-- plural, as words: Redridge Alphas = {npc:445} Redridge Alpha
+	["From the keep head back west along the lake's north shore and north up the {area:95}. Just south of {area:997}, {npc:518}, a level 25 gnoll, walks among the Redridge Alphas and Mystics."] = "",
+
+	-- Step 41: Render's Valley
 	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {area:69} Lakeshire
 	-- plural, as words: Blackrock Champions = {npc:435} Blackrock Champion
 	["From the keep head back west along the lake's north shore and north up the {area:95} to {area:997}; {area:69}'s hand-ins wait for Keeshan's escort, which ends there. Blackrock Champions camp in the valley."] = "",
 	-- {npc:435} Blackrock Champion
 	["{npc:435}, below ground"] = "",
 
-	-- Step 41: Corporal Keeshan
+	-- Step 42: Corporal Keeshan
 	-- {zone:1428} Burning Steppes · {area:69} Lakeshire
 	["Keeshan hides at the very north end of the valley, by the {zone:1428} border. Escort him down to {area:69}; Blackrock orcs ambush you on the way."] = "키샨은 계곡 맨 북쪽 끝, {zone:1428} 경계 근처에 숨어 있습니다. 그를 호위하여 {area:69}까지 내려가세요. 가는 길에 검은바위부족 오크가 습격합니다.",
 	-- {npc:349} Corporal Keeshan
 	["{npc:349}, below ground"] = "",
 
-	-- Step 42: Magistrate Solomon: Gath'Ilzogg
+	-- Step 43: Magistrate Solomon: Gath'Ilzogg
 	-- {npc:344} Magistrate Solomon
 	["{npc:344}, in the town hall"] = "{npc:344}, 마을 회관 안",
 
-	-- Step 44: Back to Lakeshire
+	-- Step 45: Back to Lakeshire
 	-- {area:69} Lakeshire
 	["Back to {area:69}"] = "{area:69}(으)로 돌아가기",
 	-- {area:69} Lakeshire · {npc:900} Bailiff Conacher · {npc:344} Magistrate Solomon · {npc:382} Marshal Marris · {npc:341} Foreman Oslow · {npc:903} Guard Howe
 	["Into {area:69} from the north with Keeshan: {npc:900} and {npc:344} in the town hall, {npc:382} and {npc:341} at the north end of the bridge, then over the bridge to {npc:903} and the gryphons."] = "",
+	-- {npc:415} Verner Osgood
+	["{npc:415}, by the road on the way to the bridge"] = "",
 	-- {npc:903} Guard Howe
 	["{npc:903}, by the gryphons south of the bridge"] = "{npc:903}, 다리 남쪽 그리폰 옆",
 	-- {area:42} Darkshire · {zone:1431} Duskwood
