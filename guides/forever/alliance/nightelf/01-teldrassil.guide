@@ -131,19 +131,28 @@ step Dolanaar
   accept 96606                                -- Lyreena Duskblade
 
 step The Great Outdoors
+  tip With a profession learned, Lyreena also offers its Camping 101, which its trainer takes: alchemy and herbalism beside Zarrin, First Aid with Byancie in the inn, skinning and leatherworking at the Maneweavers' camp on the road west.
   complete 96606 @57.7,56.7                   -- /sit by Lyreena's campfire until you get Boosted Rest
   turnin 96606
   accept 96634
+  accept 97938 optional                       -- Lyreena Duskblade, alchemists: for Cyndra Kindwhisper
+  accept 97944 optional                       -- Lyreena Duskblade, herbalists: for Malorne Bladeleaf
+  accept 97942 optional                       -- Lyreena Duskblade, First Aid: for Byancie
+  accept 97949 optional                       -- Lyreena Duskblade, skinners: for Radnaal Maneweaver
+  accept 97946 optional                       -- Lyreena Duskblade, leatherworkers: for Nadyia Maneweaver
   train Cooking npc 6286                      -- Zarrin, south of the inn: Camping 101 asks you to learn it
   complete 96634 @57.1,61.3
   turnin 96634                                -- Zarrin
   accept 4161                                 -- Zarrin
+  turnin 97938 optional                       -- Cyndra Kindwhisper, beside Zarrin: Camping 101, alchemists
+  turnin 97944 optional                       -- Malorne Bladeleaf, beside Zarrin: Camping 101, herbalists
 
 step Dolanaar
   turnin 928                                  -- Corithras Moonrage, south of the inn
   accept 929
   sethome "Dolanaar" npc 6736                 -- Innkeeper Keldamyr
   turnin 2159                                 -- Innkeeper Keldamyr
+  turnin 97942 optional                       -- Byancie, in the inn: Camping 101, First Aid
   accept 99046                                -- Sentinel Kyra Starsong
   train class
   accept 997                                  -- Syral Bladeleaf
@@ -232,6 +241,8 @@ step The road to Darnassus
 
 step Sentinel Shayla Nightbreeze
   tip West along the road toward the city. Shayla walks this stretch of road, from the arrow south-west to the bend at about 38,54 and back: if she isn't at the arrow, follow the road south-west. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and Gnarlpine Hold's all count.
+  turnin 97949 optional                       -- Radnaal Maneweaver, camped beside the road before Shayla: Camping 101, skinners
+  turnin 97946 optional                       -- Nadyia Maneweaver, beside him: Camping 101, leatherworkers
   accept 490
 
 step Darnassus

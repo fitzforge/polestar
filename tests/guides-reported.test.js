@@ -7611,6 +7611,34 @@ test('Alliance starting zones: the level 5 Priest robe quests ride on stops the 
 	}
 });
 
+// Starting-zone review 0.3.6 (Alliance 1-12): the profession Camping 101 quests from each start campfire (270 XP,
+// one per profession) are optional goals in the campfire step, right after its /sit quest (the addon shows a
+// profession-gated goal only to characters with the profession), and handed in on a stop the guide already makes
+// (route-fixes include). No extra step and no detour.
+test('Alliance starting zones: profession Camping 101s from the campfire, for those with the skill, handed in on existing stops', { skip }, () => {
+	const sets = [
+		['forever/alliance/human/01-elwynn-forest.guide', 95998, [97924, 97922, 97920, 97919, 97916]],
+		['forever/alliance/nightelf/01-teldrassil.guide', 96606, [97938, 97944, 97942, 97949, 97946]],
+		['forever/alliance/dwarf/01-dun-morogh.guide', 96608, [96044, 96047, 96046, 96058]],
+		['forever/alliance/gnome/01-dun-morogh.guide', 96608, [96044, 96047, 96046, 96058]],
+		['forever/alliance/skyborne/01-zephras-isle.guide', 96101, [97963, 97964, 97965, 97967, 97969, 97970, 97971, 97973, 98286]],
+	];
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	for (const [guide, sit, quests] of sets) {
+		const list = goals(guide);
+		const sat = at(list, `${guide}: turnin ${sit}`, is('turnin', sit));
+		for (const q of quests) {
+			assert.ok(fixes.overrides.include.some((r) => r.q === q), `${q} is a route-fixes include`);
+			const take = at(list, `${guide}: accept ${q}`, is('accept', q));
+			const give = at(list, `${guide}: turnin ${q}`, is('turnin', q));
+			assert.ok(sat < take && take < give, `${guide}: ${q} is taken after the /sit quest and handed in later`);
+			assert.equal(list[take].step, list[sat].step, `${guide}: ${q} is offered at the campfire, in its step`);
+			assert.ok(list[take].goal.optional && list[give].goal.optional, `${guide}: ${q} is optional (only characters with the profession)`);
+			assert.ok(!list[give].step.when, `${guide}: ${q}'s hand-in is on a stop everyone makes`);
+		}
+	}
+});
+
 // --- Triage round 5 (2026-11-08) ---
 
 // Bonesavv77's report (#1241, Orc Warrior 24): Sun Rock Retreat took Braelyn Firehand and the flight path

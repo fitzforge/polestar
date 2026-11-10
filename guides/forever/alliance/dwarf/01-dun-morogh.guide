@@ -147,20 +147,26 @@ step Kharanos
   accept 98322                                -- Senir Whitebeard
 
 step The Great Outdoors
-  tip Sit by Eric's campfire (type /sit) and wait for the buff.
+  tip Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with Tognus Flintfire and First Aid with Thamner Pol in Kharanos, mining and engineering at Steelgrill's Depot.
   turnin 96628                                -- Eric Brighthammer: The Adventurer
   accept 96608                                -- Eric Brighthammer
   complete 96608
   turnin 96608
   accept 96629
+  accept 96044 optional                       -- Eric Brighthammer, blacksmiths: for Tognus Flintfire
+  accept 96047 optional                       -- Eric Brighthammer, First Aid: for Thamner Pol
+  accept 96046 optional                       -- Eric Brighthammer, miners: for Yarr Hammerstone
+  accept 96058 optional                       -- Eric Brighthammer, engineers: for Bronk Guzzlegear
 
 step Kharanos
   accept 98321                                -- Tognus Flintfire, below ground
+  turnin 96044 optional                       -- Tognus Flintfire, below ground: Camping 101, blacksmiths
   tip Tharek works the forge west of the distillery.
   accept 400                                  -- Tharek Blackstone
   tip Then go in: Tannok, the innkeeper, Maxan and Ragnar. Gremlock's Cooking lesson waits for the return with the ribs, when the copper is there for it.
   accept 384                                  -- Ragnar Thunderbrew
   turnin 2160                                 -- Tannok Frosthammer, inside
+  turnin 96047 optional                       -- Thamner Pol, inside: Camping 101, First Aid
   accept 99158                                -- Maxan Anvol, upstairs
   turnin 5626 only Priest                     -- Maxan Anvol, upstairs
   accept 5625 only Priest                     -- Maxan Anvol: heal Mountaineer Dolf south of Kharanos
@@ -172,6 +178,8 @@ step Steelgrill's Depot
   accept 313                                  -- Pilot Stonegear
   turnin 400                                  -- Beldin Steelgrill
   accept 5541                                 -- Loslor Rudge, beside him
+  turnin 96046 optional                       -- Yarr Hammerstone: Camping 101, miners
+  turnin 96058 optional                       -- Bronk Guzzlegear, beside him: Camping 101, engineers
 
 # ---------------------------------------------------------------- The Grizzled Den
 

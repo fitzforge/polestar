@@ -171,15 +171,23 @@ step Level 5.77
   level 5.77 grind 40                 -- grind on Kobold Miner
 
 step The lake shore
-  tip Sam Sarsaparilla camps north-east of the inn; Helene Peltskinner, Jason Mathers and Lee Brown stand on the shore of Crystal Lake east of town.
+  tip Sam Sarsaparilla camps north-east of the inn; Helene Peltskinner, Adele Fielder, Jason Mathers and Lee Brown stand on the shore of Crystal Lake east of town. With a profession learned, Sam also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing here on the shore, First Aid and blacksmithing in Goldshire.
   turnin 96627                                -- Sam Sarsaparilla
   accept 95998
   complete 95998 @44.9,63.2                   -- Sit (/sit) by his campfire until you have Boosted Rest
   turnin 95998
   accept 96626
+  accept 97924 optional                       -- Sam Sarsaparilla, skinners: for Helene Peltskinner
+  accept 97922 optional                       -- Sam Sarsaparilla, leatherworkers: for Adele Fielder
+  accept 97920 optional                       -- Sam Sarsaparilla, fishers: for Lee Brown
+  accept 97919 optional                       -- Sam Sarsaparilla, First Aid: for Michelle Belle in the inn
+  accept 97916 optional                       -- Sam Sarsaparilla, blacksmiths: for Smith Argus at the smithy
   accept 91751 optional                       -- Helene Peltskinner: skinners only, the pelts are skinned; inside
+  turnin 97924 optional                       -- Helene Peltskinner: Camping 101, skinners; inside
+  turnin 97922 optional                       -- Adele Fielder: Camping 101, leatherworkers
   accept 99127                                -- Jason Mathers
   accept 99143                                -- Lee Brown
+  turnin 97920 optional                       -- Lee Brown: Camping 101, fishers
 
 step Crystal Lake
   tip The Fishing Traps sit along the west shore of the lake.
@@ -214,6 +222,8 @@ step Goldshire
   turnin 99129                                -- Remy "Two Times"
   accept 99130
   train class
+  turnin 97919 optional                       -- Michelle Belle, in the inn: Camping 101, First Aid
+  turnin 97916 optional                       -- Smith Argus, at the smithy across the road: Camping 101, blacksmiths
   turnin 5624 reward 16605 only Priest        -- Priestess Josetta, upstairs: Friar's Robes of the Light
 
 # ---------------------------------------------------------------- The south: Fargodeep and the farms
