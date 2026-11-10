@@ -7,8 +7,9 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {npc:6266} Menara Voidrender
-	["A rare cloth robe for your 30s, which {npc:6266} makes from the parts you bring her."] = "Um manto de tecido raro para seus 30 e poucos, que {npc:6266} faz com as partes que você trouxer.",
+	-- {npc:6266} Menara Voidrender · {zone:1443} Desolace
+	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile
+	["A rare cloth robe for your 30s, which {npc:6266} makes from the parts you bring her. It opens at 31; its last parts wait for level 35 ({zone:1443}'s infernals, 36-37) and 37 (Arathi's Burning Exiles, 38-39)."] = "",
 
 	-- Step 1: In Search of Menara Voidrender (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
@@ -51,46 +52,53 @@ return {
 	-- {npc:6266} Menara Voidrender · {zone:1443} Desolace
 	["You need no thread yet: {npc:6266} wants demon parts from {zone:1443} next."] = "Você ainda não precisa da linha: {npc:6266} quer partes de demônio de {zone:1443} a seguir.",
 
-	-- Step 9: Desolace demons
-	-- {zone:1443} Desolace
-	["{zone:1443} demons"] = "Demônios de {zone:1443}",
-	-- {area:603} Sargeron · {zone:1443} Desolace · {area:608} Nijel's Point · {area:602} Mannoroc Coven · {spell:686} Shadow Bolt
-	-- plural, as words: Lesser Infernals = {npc:4676} Lesser Infernal · Demon Portal Guardians = {npc:11937} Demon Portal Guardian
-	["The Hatefury satyrs (level 31-32) hold {area:603} in the far north-east of {zone:1443}, past {area:608}: two kills in five give a vial, so plan on about 25. The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south, drop the stone half the time; they resist fire, so use {spell:686} and Corruption."] = "Os sátiros Furiódio (nível 31-32) ocupam {area:603}, no extremo nordeste de {zone:1443}, depois de {area:608}: duas mortes em cinco soltam um frasco, então conte com umas 25. Os Infernais Menores (36-37) e os Guardiões do Portal Demoníaco (38) de {area:602}, ao sul, soltam a pedra em metade das vezes; eles resistem a fogo, então use {spell:686} e Corrupção.",
+	-- Step 9: Hatefury satyrs
+	["Hatefury satyrs"] = "",
+	-- {area:603} Sargeron · {zone:1443} Desolace · {area:608} Nijel's Point
+	["The Hatefury satyrs (level 31-32) hold {area:603} in the far north-east of {zone:1443}, past {area:608}: two kills in five give a vial, so plan on about 25."] = "",
 	["Vials of Hatefury Blood"] = "Ampolas de Sangue de Furiódio",
 
-	-- Step 10: Menara Voidrender again
+	-- Step 10: Mannoroc Coven
+	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {spell:686} Shadow Bolt
+	-- plural, as words: Lesser Infernals = {npc:4676} Lesser Infernal · Demon Portal Guardians = {npc:11937} Demon Portal Guardian
+	["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 35 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "",
+
+	-- Step 11: Menara Voidrender again
 	-- {npc:6266} Menara Voidrender
 	["{npc:6266} again"] = "{npc:6266} de novo",
 
-	-- Step 11: Fine Gold Thread
+	-- Step 12: Fine Gold Thread
 	-- {npc:2670} Xizk Goodstitch · {area:35} Booty Bay · {quest:4785} Fine Gold Thread
 	["Back to {npc:2670} in {area:35}: he offers {quest:4785} as a quest you hand straight back to him. He may show no quest marker; talk to him anyway."] = "De volta a {npc:2670}, em {area:35}: ele oferece {quest:4785} como uma missão que você devolve direto a ele. Pode não ter marcador de missão; fale com ele mesmo assim.",
 
-	-- Step 12: Smoldering Coal
+	-- Step 13: Smoldering Coal
 	-- {area:334} Circle of West Binding · {zone:1417} Arathi Highlands · {spell:686} Shadow Bolt · {area:321} Hammerfall · {item:6265} Soul Shard · {spell:1120} Drain Soul
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Cresting Charms = {item:4481} Cresting Charm · Cresting Exiles = {npc:2761} Cresting Exile
-	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. They resist fire: {spell:686} and Corruption. Below 38 they hit hard; the Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "Os Exilados em Chamas (nível 38-39), elementais de fogo em {area:334}, no oeste de {zone:1417}, soltam o carvão cerca de uma vez em três. Eles resistem a fogo: {spell:686} e Corrupção. Abaixo do nível 38 eles batem forte; os Patuás Pontudos dos Exilados Vagalhantes perto de {area:321} acabam com um deles depois que você o machuca. Faça {item:6265} com {spell:1120} no caminho.",
+	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 37 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "",
 	-- {item:6265} Soul Shard · {spell:1120} Drain Soul
 	["{item:6265}: {spell:1120} on an Exile as it dies"] = "{item:6265}: {spell:1120} num Exilado enquanto ele morre",
 
-	-- Step 13: The Completed Robe
+	-- Step 14: The Completed Robe
 	-- {npc:6266} Menara Voidrender · {item:6265} Soul Shard
 	["Back to {npc:6266} with the thread, the coals and a {item:6265}. Then wait beside her while she works the robe (do not attack her: the quest log calls it a kill), and speak to her again."] = "De volta a {npc:6266} com a linha, os carvões e {item:6265}. Depois espere ao lado dela enquanto ela trabalha na túnica (não ataque: o registro de missões chama isso de morte), e fale com ela de novo.",
 	-- {npc:6266} Menara Voidrender
 	["Wait beside {npc:6266} while she finishes the robe"] = "Espere ao lado de {npc:6266} enquanto ela termina a túnica",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A rare cloth robe for your 30s, which {npc:6266} makes from the parts you bring her."] = "Um manto de tecido raro para seus 30 e poucos, que {npc:6266} faz com as partes que você trouxer.",
 	-- ["At 31 {npc:3326} in the {object:172960} sends you to {npc:6266} in {area:392}."] = "No nível 31, {npc:3326} na {object:172960} manda você até {npc:6266} em {area:392}.",
 	-- ["At 31 {npc:4563} in the {object:36082} sends you to {npc:6266} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}."] = "No nível 31, {npc:4563} no {object:36082} manda você até {npc:6266} em {area:392}. O zepelim de {zone:1420} voa para {zone:1411}.",
 	-- ["At 31 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6266} in {area:392}."] = "No nível 31, {npc:461} no {object:2164}, no {object:2101}, manda você até {npc:6266} em {area:392}.",
 	-- ["At 31 {npc:5172} in {zone:1455} sends you to {npc:6266} in {area:392}."] = "No nível 31, {npc:5172} em {zone:1455} manda você até {npc:6266} em {area:392}.",
 	-- ["Back to {npc:6266} with the thread, the coal and a {item:6265}. Wait while she completes the robe, then speak to her again."] = "De volta a {npc:6266} com a linha, o carvão e um {item:6265}. Espere enquanto ela termina o manto, depois fale com ela de novo.",
 	-- ["Bring {npc:6266} a {item:5770}: tailors sew it from a pattern that drops; otherwise buy one at the Auction House. Her next errand needs a {item:3577}: smelted from {item:2776}, or from the Auction House."] = "Leve a {npc:6266} um {item:5770}: alfaiates o costuram com um molde que cai; senão, compre um na Casa de Leilões. A tarefa seguinte dela exige uma {item:3577}: fundida de {item:2776}, ou da Casa de Leilões.",
+	-- ["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. They resist fire: {spell:686} and Corruption. Below 38 they hit hard; the Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "Os Exilados em Chamas (nível 38-39), elementais de fogo em {area:334}, no oeste de {zone:1417}, soltam o carvão cerca de uma vez em três. Eles resistem a fogo: {spell:686} e Corrupção. Abaixo do nível 38 eles batem forte; os Patuás Pontudos dos Exilados Vagalhantes perto de {area:321} acabam com um deles depois que você o machuca. Faça {item:6265} com {spell:1120} no caminho.",
 	-- ["The Burning Exiles, fire elementals in western {zone:1417}, drop the coal."] = "Os Exilados em Chamas, elementais do fogo no oeste das {zone:1417}, deixam cair o carvão.",
+	-- ["The Hatefury satyrs (level 31-32) hold {area:603} in the far north-east of {zone:1443}, past {area:608}: two kills in five give a vial, so plan on about 25. The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south, drop the stone half the time; they resist fire, so use {spell:686} and Corruption."] = "Os sátiros Furiódio (nível 31-32) ocupam {area:603}, no extremo nordeste de {zone:1443}, depois de {area:608}: duas mortes em cinco soltam um frasco, então conte com umas 25. Os Infernais Menores (36-37) e os Guardiões do Portal Demoníaco (38) de {area:602}, ao sul, soltam a pedra em metade das vezes; eles resistem a fogo, então use {spell:686} e Corrupção.",
 	-- ["The Hatefury satyrs of {area:603}, in north-eastern {zone:1443}, carry the blood; the Lesser Infernals of Mannoroc Coven, in the south, the stone."] = "Os sátiros Furiódio de {area:603}, no nordeste de {zone:1443}, carregam o sangue; os Infernais Menores da Ruínas de Mannoroc, no sul, a pedra.",
 	-- ["Wait for the robe"] = "Espere o manto",
 	-- ["{npc:2670} in {area:35} has the thread for you."] = "{npc:2670} em {area:35} tem a linha para você.",
 	-- ["{npc:2670} sells tailoring supplies in {area:35}. Bring him the {item:3577}."] = "{npc:2670} vende suprimentos de alfaiataria em {area:35}. Leve a ele a {item:3577}.",
 	-- ["{npc:6266} stands in the tower on the hill above {area:392}, beside {npc:6251}."] = "{npc:6266} fica na torre da colina acima de {area:392}, ao lado de {npc:6251}.",
+	-- ["{zone:1443} demons"] = "Demônios de {zone:1443}",
 }

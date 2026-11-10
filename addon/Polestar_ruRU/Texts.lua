@@ -2265,11 +2265,9 @@ t.guides["forever/class/warlock/dread-mage-hat"] = (function() return {
 		["A cloth hat in your late 20s: Zardeth's errand for any Alliance player pays warlocks this extra."] = "Тканевая шляпа ближе к 30-му уровню: за поручение Зардета, доступное любому игроку Альянса, чернокнижники получают её в дополнение.",
 } end)()
 t.guides["forever/class/warlock/enchanted-gold-bloodrobe"] = (function() return {
-		["A rare cloth robe for your 30s, which {npc:6266} makes from the parts you bring her."] = "Редкое тканевое одеяние для 30-х уровней; {npc:6266} создает его из принесенных вами частей.",
 		["Back to {npc:6266}"] = "Назад к {npc:6266}",
 		["Vials of Hatefury Blood"] = "Фиалы крови сатира из клана Ярой Ненависти",
 		["{npc:6266} again"] = "Снова {npc:6266}",
-		["{zone:1443} demons"] = "Демоны: {zone:1443}",
 } end)()
 t.guides["forever/class/warlock/felhunter-alliance"] = (function() return {
 		["At 30 {npc:6120}, in the {object:32383}, sends you to {npc:6251} in {area:392}."] = "На 30-м уровне {npc:6120} ({object:32383}) отправит вас сюда: {npc:6251} ({area:392}).",
@@ -4848,7 +4846,6 @@ t.guides["forever/reputation/cenarion-circle"] = (function() return {
 		["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} стоит на верхнем этаже своего здания: поднимитесь внутри, Стрелка не различает этажи.",
 } end)()
 t.guides["forever/reputation/centaur-clans"] = (function() return {
-		["12 recipes for Carved Centaur Totems at the clan quartermasters, no standing needed"] = "12 рецептов резных тотемов кентавров ({item:254432}) у интендантов кланов, репутация не требуется",
 		["Gelkis and Magram Centaur Reputation"] = "Репутация с кентаврами Гелкис и Маграм",
 		["{npc:5601}'s quest: a clan title and a choice of three rare level 35 weapons"] = "Задание NPC {npc:5601}: звание клана и выбор одного из трех редких видов оружия 35-го уровня",
 		["{zone:1443}'s feuding clans, reworked in Forever: pick one, buy its friendship, and trade totems for recipes."] = "Враждующие кланы зоны {zone:1443}, переработанные в Forever: выберите один, купите его дружбу и обменивайте тотемы на рецепты.",

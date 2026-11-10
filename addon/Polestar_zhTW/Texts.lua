@@ -1901,11 +1901,9 @@ t.guides["forever/class/shaman/spirit-totem"] = (function() return {
 		["{quest:8412} and {quest:8413}"] = "{quest:8412}與{quest:8413}",
 } end)()
 t.guides["forever/class/warlock/enchanted-gold-bloodrobe"] = (function() return {
-		["A rare cloth robe for your 30s, which {npc:6266} makes from the parts you bring her."] = "30多級用的稀有布甲長袍，由{npc:6266}用你帶來的材料製作。",
 		["Back to {npc:6266}"] = "返回{npc:6266}",
 		["Vials of Hatefury Blood"] = "怨怒薩特之血",
 		["{npc:6266} again"] = "再次找{npc:6266}",
-		["{zone:1443} demons"] = "{zone:1443}的惡魔",
 } end)()
 t.guides["forever/class/warlock/felhunter-alliance"] = (function() return {
 		["At 30 {npc:6120}, in the {object:32383}, sends you to {npc:6251} in {area:392}."] = "30級時，{object:32383}的{npc:6120}會派你去找{area:392}的{npc:6251}。",

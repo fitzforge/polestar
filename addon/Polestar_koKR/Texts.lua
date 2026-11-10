@@ -1904,11 +1904,9 @@ t.guides["forever/class/shaman/spirit-totem"] = (function() return {
 		["{quest:8412} and {quest:8413}"] = "{quest:8412} 및 {quest:8413}",
 } end)()
 t.guides["forever/class/warlock/enchanted-gold-bloodrobe"] = (function() return {
-		["A rare cloth robe for your 30s, which {npc:6266} makes from the parts you bring her."] = "30레벨대를 위한 희귀 천 로브. 가져온 재료로 {npc:6266}이(가) 만들어 줍니다.",
 		["Back to {npc:6266}"] = "{npc:6266}에게 돌아가기",
 		["Vials of Hatefury Blood"] = "서릿발분노의 사티로스 피",
 		["{npc:6266} again"] = "다시 {npc:6266}에게",
-		["{zone:1443} demons"] = "{zone:1443}의 악마",
 } end)()
 t.guides["forever/class/warlock/felhunter-alliance"] = (function() return {
 		["At 30 {npc:6120}, in the {object:32383}, sends you to {npc:6251} in {area:392}."] = "30레벨에 {object:32383}의 {npc:6120}이(가) {area:392}의 {npc:6251}에게 보냅니다.",

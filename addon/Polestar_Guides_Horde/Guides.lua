@@ -8315,7 +8315,7 @@ do
 			next = "forever/horde/30-40/02-thousand-needles",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:1057"] = "Thoradin's Wall", ["area:1497"] = "Undercity", ["area:1637"] = "Orgrimmar", ["area:1638"] = "Thunder Bluff", ["area:1639"] = "Elder Rise", ["area:228"] = "Sepulcher", ["area:271"] = "Southshore", ["area:272"] = "Tarren Mill", ["area:277"] = "Foothill Caverns", ["area:279"] = "Dalaran", ["area:2797"] = "Blackfathom Deeps", ["area:287"] = "Hillsbrad", ["area:288"] = "Azurelode Mine", ["area:290"] = "Dun Garok", ["area:313"] = "Northfold Manor", ["area:317"] = "Witherbark Village", ["area:321"] = "Hammerfall", ["area:392"] = "Ratchet", ["area:439"] = "Shimmering Flats", ["area:484"] = "Freewind Post", ["area:796"] = "Scarlet Monastery", ["item:278225"] = "Surgical Spidersilk", ["item:279469"] = "Grimy Key", ["item:3388"] = "Lesser Troll's Blood Elixir", ["item:3703"] = "Southshore Stout", ["item:3708"] = "Helcular's Rod", ["item:3710"] = "Rod of Helcular", ["item:3714"] = "Worn Stone Token", ["item:6637"] = "Water Sapta", ["item:7813"] = "Shard of Water", ["npc:12920"] = "Doctor Gregory Victor", ["npc:15126"] = "Rutherford Twing", ["npc:2216"] = "Apothecary Lydon", ["npc:2229"] = "Krusk", ["npc:2240"] = "Syndicate Footpad", ["npc:2248"] = "Cave Yeti", ["npc:2249"] = "Ferocious Yeti", ["npc:2250"] = "Mountain Yeti", ["npc:2304"] = "Captain Ironhill", ["npc:2305"] = "Foreman Bonds", ["npc:2316"] = "Gol'dir", ["npc:2333"] = "Henchman Valik", ["npc:2335"] = "Magistrate Burnside", ["npc:2410"] = "Magus Wordeen Voidglare", ["npc:2411"] = "Ricter", ["npc:2412"] = "Alina", ["npc:2413"] = "Dermot", ["npc:2414"] = "Kegan Darkmar", ["npc:2419"] = "Deathguard Humbert", ["npc:2425"] = "Varimathras", ["npc:2437"] = "Keeper Bel'varil", ["npc:2448"] = "Clerk Horrace Whitesteed", ["npc:2450"] = "Miner Hackett", ["npc:2559"] = "Highland Strider", ["npc:2562"] = "Boulderfist Ogre", ["npc:2563"] = "Plains Creeper", ["npc:260093"] = "Garen Largo", ["npc:2706"] = "Tor'gan", ["npc:2770"] = "Tallow", ["npc:2771"] = "Drum Fel", ["npc:2792"] = "Gor'mul", ["npc:2851"] = "Urda", ["npc:3033"] = "Turak Runetotem", ["npc:3428"] = "Korran", ["npc:4483"] = "Moktar Krin", ["npc:4485"] = "Belgrom Rockmaul", ["npc:4949"] = "Thrall", ["npc:5895"] = "Minor Manifestation of Water", ["npc:5901"] = "Islen Waterseer", ["object:113791"] = "Brazier of Everfount", ["object:1661"] = "The Undercity", ["object:1728"] = "Dusty Rug", ["object:1729"] = "Tainted Keg", ["object:172957"] = "Valley of Wisdom", ["object:172958"] = "Valley of Honor", ["object:1761"] = "Hillsbrad Proclamation", ["object:1767"] = "Helcular's Grave", ["object:1768"] = "Flame of Azel", ["object:1769"] = "Flame of Veraz", ["object:1770"] = "Flame of Uzel", ["object:36070"] = "War Quarter", ["object:36073"] = "Rogues' Quarter", ["object:36082"] = "Magic Quarter", ["object:36126"] = "Royal Quarter", ["quest:515"] = "Elixir of Agony", ["quest:535"] = "Valik", ["quest:539"] = "Battle of Hillsbrad", ["quest:544"] = "Prison Break In", ["quest:545"] = "Dalaran Patrols", ["quest:547"] = "Humbert's Sword", ["quest:556"] = "Stone Tokens", ["quest:676"] = "The Hammer May Fall", ["quest:677"] = "Call to Arms", ["quest:8263"] = "Defiler's Basic Care Package", ["quest:93680"] = "Key to the City", ["skill:171"] = "Alchemy", ["zone:1416"] = "Alterac Mountains", ["zone:1417"] = "Arathi Highlands", ["zone:1424"] = "Hillsbrad Foothills", ["zone:1454"] = "Orgrimmar", ["zone:1456"] = "Thunder Bluff", ["zone:1458"] = "Undercity", ["zone:1461"] = "Arathi Basin" },
+			names = { ["area:1057"] = "Thoradin's Wall", ["area:1497"] = "Undercity", ["area:1637"] = "Orgrimmar", ["area:1638"] = "Thunder Bluff", ["area:1639"] = "Elder Rise", ["area:228"] = "Sepulcher", ["area:271"] = "Southshore", ["area:272"] = "Tarren Mill", ["area:275"] = "Durnholde Keep", ["area:277"] = "Foothill Caverns", ["area:279"] = "Dalaran", ["area:2797"] = "Blackfathom Deeps", ["area:286"] = "Hillsbrad Fields", ["area:287"] = "Hillsbrad", ["area:288"] = "Azurelode Mine", ["area:290"] = "Dun Garok", ["area:313"] = "Northfold Manor", ["area:317"] = "Witherbark Village", ["area:321"] = "Hammerfall", ["area:392"] = "Ratchet", ["area:439"] = "Shimmering Flats", ["area:484"] = "Freewind Post", ["area:796"] = "Scarlet Monastery", ["item:278225"] = "Surgical Spidersilk", ["item:279469"] = "Grimy Key", ["item:3388"] = "Lesser Troll's Blood Elixir", ["item:3467"] = "Dull Iron Key", ["item:3499"] = "Burnished Gold Key", ["item:3703"] = "Southshore Stout", ["item:3708"] = "Helcular's Rod", ["item:3710"] = "Rod of Helcular", ["item:3714"] = "Worn Stone Token", ["item:6637"] = "Water Sapta", ["item:7813"] = "Shard of Water", ["npc:12920"] = "Doctor Gregory Victor", ["npc:15126"] = "Rutherford Twing", ["npc:2215"] = "High Executor Darthalia", ["npc:2216"] = "Apothecary Lydon", ["npc:2229"] = "Krusk", ["npc:2238"] = "Tog'thar", ["npc:2240"] = "Syndicate Footpad", ["npc:2248"] = "Cave Yeti", ["npc:2249"] = "Ferocious Yeti", ["npc:2250"] = "Mountain Yeti", ["npc:2267"] = "Hillsbrad Peasant", ["npc:2304"] = "Captain Ironhill", ["npc:2305"] = "Foreman Bonds", ["npc:2316"] = "Gol'dir", ["npc:232"] = "Farmer Ray", ["npc:2333"] = "Henchman Valik", ["npc:2335"] = "Magistrate Burnside", ["npc:2403"] = "Farmer Getz", ["npc:2404"] = "Blacksmith Verringtan", ["npc:2410"] = "Magus Wordeen Voidglare", ["npc:2411"] = "Ricter", ["npc:2412"] = "Alina", ["npc:2413"] = "Dermot", ["npc:2414"] = "Kegan Darkmar", ["npc:2419"] = "Deathguard Humbert", ["npc:2425"] = "Varimathras", ["npc:2427"] = "Jailor Eston", ["npc:2428"] = "Jailor Marlgen", ["npc:2437"] = "Keeper Bel'varil", ["npc:2448"] = "Clerk Horrace Whitesteed", ["npc:2450"] = "Miner Hackett", ["npc:2559"] = "Highland Strider", ["npc:2562"] = "Boulderfist Ogre", ["npc:2563"] = "Plains Creeper", ["npc:260093"] = "Garen Largo", ["npc:2706"] = "Tor'gan", ["npc:2770"] = "Tallow", ["npc:2771"] = "Drum Fel", ["npc:2792"] = "Gor'mul", ["npc:2851"] = "Urda", ["npc:3033"] = "Turak Runetotem", ["npc:3428"] = "Korran", ["npc:4483"] = "Moktar Krin", ["npc:4485"] = "Belgrom Rockmaul", ["npc:4949"] = "Thrall", ["npc:5895"] = "Minor Manifestation of Water", ["npc:5901"] = "Islen Waterseer", ["object:113791"] = "Brazier of Everfount", ["object:1661"] = "The Undercity", ["object:1728"] = "Dusty Rug", ["object:1729"] = "Tainted Keg", ["object:172957"] = "Valley of Wisdom", ["object:172958"] = "Valley of Honor", ["object:1736"] = "Shipment of Iron", ["object:1761"] = "Hillsbrad Proclamation", ["object:1767"] = "Helcular's Grave", ["object:1768"] = "Flame of Azel", ["object:1769"] = "Flame of Veraz", ["object:1770"] = "Flame of Uzel", ["object:36070"] = "War Quarter", ["object:36073"] = "Rogues' Quarter", ["object:36082"] = "Magic Quarter", ["object:36126"] = "Royal Quarter", ["quest:515"] = "Elixir of Agony", ["quest:527"] = "Battle of Hillsbrad", ["quest:535"] = "Valik", ["quest:539"] = "Battle of Hillsbrad", ["quest:544"] = "Prison Break In", ["quest:545"] = "Dalaran Patrols", ["quest:547"] = "Humbert's Sword", ["quest:556"] = "Stone Tokens", ["quest:676"] = "The Hammer May Fall", ["quest:677"] = "Call to Arms", ["quest:8263"] = "Defiler's Basic Care Package", ["quest:93680"] = "Key to the City", ["skill:171"] = "Alchemy", ["zone:1416"] = "Alterac Mountains", ["zone:1417"] = "Arathi Highlands", ["zone:1424"] = "Hillsbrad Foothills", ["zone:1454"] = "Orgrimmar", ["zone:1456"] = "Thunder Bluff", ["zone:1458"] = "Undercity", ["zone:1461"] = "Arathi Basin" },
 			written = { ["Fly to the {area:228}. The {object:113791} stands on the hill just south-west of it: beat the Corrupt Manifestation of Water beside it, place its bracers in the brazier, speak to the {npc:5895} and keep the {item:7813} for {npc:5901}. Fly on to {area:272} from the {area:228}."] = "Fly to the Sepulcher. The Brazier of Everfount stands on the hill just south-west of it: beat the Corrupt Manifestation of Water beside it, place its bracers in the brazier, speak to the Minor Manifestation of Water and keep the Shard of Water for Islen. Fly on to Tarren Mill from the Sepulcher.", ["{area:228} flight master"] = "The Sepulcher flight master" },
 			steps = {
 				{
@@ -8460,6 +8460,92 @@ do
 					goals = {
 						{ t = "goto", text = "{zone:1458} flight master", map = 1458, x = 63.1, y = 48.3, f = "e" },
 						{ t = "fly", location = "Tarren Mill", node = 13, area = 272 },
+					},
+				},
+				{
+					title = "{npc:2215}",
+					note = "You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide.",
+					when = { { k = "turnedin", neg = true, q = 529 } },
+					goals = {
+						{ t = "accept", quest = 527, title = "Battle of Hillsbrad", npc = 2215, npcName = "High Executor Darthalia", minLevel = 19, qlvl = 24, map = 1424, x = 62.33, y = 20.45, z = 54.5, f = "e" },
+					},
+				},
+				{
+					title = "{npc:2229}",
+					note = "{npc:2229} wants his two scouts freed from {area:275} before he trusts you with Infiltration.",
+					when = { { k = "turnedin", neg = true, q = 498 } },
+					goals = {
+						{ t = "accept", quest = 498, title = "The Rescue", npc = 2229, npcName = "Krusk", minLevel = 17, qlvl = 22, map = 1424, x = 63.24, y = 20.66, z = 56.3, f = "e", note = "{npc:2229}, inside" },
+					},
+				},
+				{
+					title = "{area:286}",
+					note = "West past the hills to the farms east of {area:287} town. {npc:232} works the field by the northern farmhouse, {npc:2403} the one further south-east; Farmhands and Farmers are everywhere.",
+					when = { { k = "turnedin", neg = true, q = 529 } },
+					goals = {
+						{ t = "kill", quest = 527, title = "Battle of Hillsbrad", target = "Hillsbrad Farmer", npc = 2266, count = 6, oi = 1, map = 1424, x = 36.38, y = 39.77, z = 54.3, f = "e", spotsPacked = "35.3,41,54.5,55,4;35,38,54.4,15,2;34.9,45.9,,38,4;33,35.2,55.5,42,5;30.9,37.6,,56,7", lvl = 24 },
+						{ t = "kill", quest = 527, title = "Battle of Hillsbrad", target = "Hillsbrad Farmhand", npc = 2360, count = 6, oi = 2, map = 1424, x = 36.82, y = 39.58, z = 55.1, f = "e", spotsPacked = "35.1,40.7,54.6,61,11;35.2,38,54.5,15,2;32.5,35.6,,28,3;30.7,37.7,54.6,46,7", lvl = 23 },
+						{ t = "kill", quest = 527, title = "Battle of Hillsbrad", target = "Farmer Ray", npc = 232, count = 1, oi = 3, map = 1424, x = 33.22, y = 34.76, z = 60.4, f = "e" },
+						{ t = "kill", quest = 527, title = "Battle of Hillsbrad", target = "Farmer Getz", npc = 2403, count = 1, oi = 4, map = 1424, x = 35.2, y = 38, f = "e", spotsPacked = "35.5,39.1,,30,4", lvl = 24 },
+					},
+				},
+				{
+					title = "{area:272}",
+					note = "Back east to {area:272}.",
+					when = { { k = "turnedin", neg = true, q = 529 } },
+					goals = {
+						{ t = "turnin", quest = 527, title = "Battle of Hillsbrad", npc = 2215, npcName = "High Executor Darthalia", map = 1424, x = 62.33, y = 20.45, z = 54.5, f = "e" },
+						{ t = "accept", quest = 528, title = "Battle of Hillsbrad", npc = 2215, npcName = "High Executor Darthalia", minLevel = 19, qlvl = 25, pre = { 527 }, preTitles = { [527] = "Battle of Hillsbrad" }, map = 1424, x = 62.33, y = 20.45, z = 54.5, f = "e" },
+					},
+				},
+				{
+					title = "Hillsbrad Peasants",
+					note = "Back to the fields: the Peasants work south of the farmhouses. Careful: A fleeing peasant that reaches the town hall can bring back adds; snares or roots keep them from escaping.",
+					when = { { k = "turnedin", neg = true, q = 529 } },
+					goals = {
+						{ t = "kill", quest = 528, title = "Battle of Hillsbrad", target = "Hillsbrad Peasant", npc = 2267, count = 15, oi = 1, map = 1424, x = 35.41, y = 42.01, z = 55.1, f = "e", spotsPacked = "35,46,45.9,52,9;30.2,41.7,,47,4;35.4,42,55.1,15,1,1;30.8,45.4,53.8,15,1,1", lvl = 25 },
+					},
+				},
+				{
+					title = "{area:272}",
+					when = { { k = "turnedin", neg = true, q = 529 } },
+					goals = {
+						{ t = "turnin", quest = 528, title = "Battle of Hillsbrad", npc = 2215, npcName = "High Executor Darthalia", map = 1424, x = 62.33, y = 20.45, z = 54.5, f = "e" },
+						{ t = "accept", quest = 529, title = "Battle of Hillsbrad", npc = 2215, npcName = "High Executor Darthalia", minLevel = 19, qlvl = 26, pre = { 528 }, preTitles = { [528] = "Battle of Hillsbrad" }, map = 1424, x = 62.33, y = 20.45, z = 54.5, f = "e" },
+					},
+				},
+				{
+					title = "{area:275}",
+					note = "South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.",
+					when = { { k = "turnedin", neg = true, q = 498 } },
+					goals = {
+						{ t = "interact", quest = 498, title = "The Rescue", object = 1721, objName = "Locked ball and chain", oi = 1, map = 1424, x = 75.33, y = 41.5, z = 53.7, f = "e", note = "Drull's ball and chain" },
+						{ t = "interact", quest = 498, title = "The Rescue", object = 1722, objName = "Locked ball and chain", oi = 2, map = 1424, x = 79.79, y = 39.65, z = 92.1, f = "e", note = "{npc:2238}'s ball and chain" },
+					},
+				},
+				{
+					title = "The smithy",
+					note = "West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it.",
+					when = { { k = "turnedin", neg = true, q = 529 } },
+					goals = {
+						{ t = "kill", quest = 529, title = "Battle of Hillsbrad", target = "Blacksmith Verringtan", npc = 2404, count = 1, oi = 1, map = 1424, x = 32.11, y = 44.42, z = 49.4, f = "e" },
+						{ t = "kill", quest = 529, title = "Battle of Hillsbrad", target = "Hillsbrad Apprentice Blacksmith", npc = 2265, count = 4, oi = 2, map = 1424, x = 31.61, y = 44.48, z = 51.6, f = "e", spotsPacked = "31.7,45.5,50,39,6", lvl = 25 },
+						{ t = "collect", quest = 529, title = "Battle of Hillsbrad", item = 3564, itemName = "Shipment of Iron", count = 1, oi = 3, map = 1424, x = 32.01, y = 45.45, f = "e", note = "Inside", from = "Shipment of Iron", fromKind = "object", fromId = 1736 },
+					},
+				},
+				{
+					title = "{npc:2229}",
+					note = "Back to {area:272}.",
+					when = { { k = "turnedin", neg = true, q = 498 } },
+					goals = {
+						{ t = "turnin", quest = 498, title = "The Rescue", npc = 2229, npcName = "Krusk", map = 1424, x = 63.24, y = 20.66, z = 56.3, f = "e", note = "{npc:2229}, inside" },
+					},
+				},
+				{
+					title = "{npc:2215}",
+					when = { { k = "turnedin", neg = true, q = 529 } },
+					goals = {
+						{ t = "turnin", quest = 529, title = "Battle of Hillsbrad", npc = 2215, npcName = "High Executor Darthalia", map = 1424, x = 62.33, y = 20.45, z = 54.5, f = "e" },
 					},
 				},
 				{

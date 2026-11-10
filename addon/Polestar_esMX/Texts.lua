@@ -1906,11 +1906,9 @@ t.guides["forever/class/shaman/spirit-totem"] = (function() return {
 		["{quest:8412} and {quest:8413}"] = "{quest:8412} y {quest:8413}",
 } end)()
 t.guides["forever/class/warlock/enchanted-gold-bloodrobe"] = (function() return {
-		["A rare cloth robe for your 30s, which {npc:6266} makes from the parts you bring her."] = "Una túnica de tela rara para tus 30, que {npc:6266} confecciona con las piezas que le lleves.",
 		["Back to {npc:6266}"] = "Regresa con {npc:6266}",
 		["Vials of Hatefury Blood"] = "Viales de sangre de odio feroz",
 		["{npc:6266} again"] = "{npc:6266} otra vez",
-		["{zone:1443} demons"] = "Demonios de {zone:1443}",
 } end)()
 t.guides["forever/class/warlock/felhunter-alliance"] = (function() return {
 		["At 30 {npc:6120}, in the {object:32383}, sends you to {npc:6251} in {area:392}."] = "A nivel 30, {npc:6120}, en {object:32383}, te envía con {npc:6251} en {area:392}.",
