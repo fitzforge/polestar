@@ -186,7 +186,7 @@ keeps yards for whoever reads it.
 switch). `imports` holds the guides pasted on the Import page, as decoded
 ("The guide registry", imported guides). `settingsUndo` holds the values the
 last settings string replaced, for its Undo (Core/SettingsString.lua; one
-level, cleared by Undo and replaced by the next Apply). `welcomeSeen` (UI/Welcome.lua) is the version of the welcome last
+level, cleared by Undo and by Reset all settings, and replaced by the next Apply). `welcomeSeen` (UI/Welcome.lua) is the version of the welcome last
 seen: in `PolestarDB`, the account has had its welcome (later characters skip
 its Set up and Route style pages); in `PolestarCharDB`, this character has (0 while due).
 `whatsNewSeen` (`PolestarDB`, UI/WhatsNew.lua) is the version of the release notes last shown; a fresh
@@ -1076,10 +1076,19 @@ defaults sit between steps), one of a dropdown's `choices`, a colour's 3 or
 control, or a value that does not fit, is skipped and named, never applied;
 a damaged, truncated or too long string (20,000 characters, 32 KB of
 payload, 500 settings) is refused, and a later prefix or `format` asks for
-a newer Polestar. `Apply` keeps the values it replaces in
-`PolestarDB.settingsUndo` and sets each through `ns.Set` (a value equal
-to its default clears the setting), so every `SETTING_CHANGED` listener
-reacts as to a change by hand; `Undo` sets them back the same way.
+a newer Polestar. A colour source the string turns on turns its rivals off
+(Theme.lua's `RIVALS`, `Theme.SourceRivals`: your own accent turns off
+Class colour and EllesmereUI's), so `Read` lists those as changes too and
+the preview shows all that Apply will change. `Apply` sets each through
+`ns.Set` (a value equal to its default clears the setting), so every
+`SETTING_CHANGED` listener reacts as to a change by hand, and keeps in
+`PolestarDB.settingsUndo` the old value of every shared setting that
+changed, the ones a listener changed included; `Undo` sets them back the
+same way. Reset all settings drops Undo, and resetting one section drops
+that section's keys. A few shared settings follow the other player's
+addons (`nav.tomtom`, `nav.useTomTomArrow`, `ui.matchAccent`,
+`ui.matchFont`); they are checked against the controls like the rest and
+travel with the string.
 
 **Imported guides** (`Core/Import.lua`; the string's format: PACK_FORMAT.md,
 "Import strings"). A guide shared as one line of text and pasted on the

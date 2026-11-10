@@ -582,8 +582,6 @@ local function recorderCommand(arg)
 	if PolestarRecorder_Command then PolestarRecorder_Command(arg) end
 end
 
--- Two widgets side by side in the body's columns at y, sized by
--- layout(widget, width) -> height and both as tall as the taller. -> height
 -- The settings you changed as a settings string, in the copy window.
 function O.ExportSettings()
 	local S = ns.SettingsString
@@ -601,6 +599,8 @@ function O.ExportSettings()
 	return text, n
 end
 
+-- Two widgets side by side in the body's columns at y, sized by
+-- layout(widget, width) -> height and both as tall as the taller. -> height
 local function placePair(view, pair, y, cw, layout)
 	local h = 0
 	for col, w in ipairs(pair) do

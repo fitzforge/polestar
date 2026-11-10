@@ -16,9 +16,13 @@
 -- Reading it checks each value against its control (a toggle's boolean, a
 -- slider's range, a dropdown's choices, a colour's three numbers); a key
 -- this Polestar has no control for, or a value that does not fit, is skipped
--- and named. Applying goes through ns.Set, so every listener reacts as to a
--- change by hand, and keeps the values it replaced for Undo
--- (PolestarDB.settingsUndo, one level).
+-- and named. A colour source the string turns on turns its rivals off
+-- (Theme.SourceRivals: your own accent turns off Class colour), so those are
+-- listed as changes too. Applying goes through ns.Set, so every listener
+-- reacts as to a change by hand, and keeps the old value of every shared
+-- setting that changed, the ones a listener changed included, for Undo
+-- (PolestarDB.settingsUndo, one level; Reset all settings drops it, and
+-- resetting one section drops that section's).
 --
 --   SettingsString.Export()       -> string, the number of settings in it
 --   SettingsString.Pack(json)     -> a payload in the envelope (tests)
@@ -260,20 +264,40 @@ function SS.Read(text)
 	if tree.format > FORMAT then return nil, L["This settings string needs a newer Polestar."] end
 	local portable = SS.Portable()
 	local info = { changes = {}, unchanged = 0, skipped = {} }
+	local inString = {}
 	local n = 0
 	for key, value in pairs(tree.settings) do
 		n = n + 1
 		if n > LIMITS.settings then return nil, I.Damaged() end
-		local c = type(key) == "string" and portable[key]
+		-- `or nil`: a number key (a JSON array) is skipped like any other.
+		local c = type(key) == "string" and portable[key] or nil
 		local v = c and fit(c, value)
 		if v == nil then
 			info.skipped[#info.skipped + 1] = tostring(key)
 		else
+			inString[key] = true
 			local old = ns.Get(key)
 			if same(old, v) then
 				info.unchanged = info.unchanged + 1
 			else
 				info.changes[#info.changes + 1] = { key = key, label = labelOf(c), old = old, new = v, oldText = shown(c, old), newText = shown(c, v) }
+			end
+		end
+	end
+	-- The colour sources Apply turns off as it turns one on: shown before they change.
+	local T = ns.Theme
+	if T and T.SourceRivals then
+		local turned = {}
+		for i = 1, #info.changes do
+			local ch = info.changes[i]
+			for _, rival in ipairs(T.SourceRivals(ch.key, ch.new) or {}) do
+				local c = portable[rival]
+				local old = ns.Get(rival)
+				if c and not inString[rival] and not turned[rival] and T.SourceOn(rival, old) then
+					turned[rival] = true
+					local new = T.SourceOff(rival)
+					info.changes[#info.changes + 1] = { key = rival, label = labelOf(c), old = old, new = new, oldText = shown(c, old), newText = shown(c, new) }
+				end
 			end
 		end
 	end
@@ -303,12 +327,25 @@ local function set(key, v)
 	ns.Set(key, same(v, d) and d or copy(v))
 end
 
+-- Every shared setting's value now (copies).
+local function snapshot(portable)
+	local out = {}
+	for key in pairs(portable) do out[key] = copy(ns.Get(key)) end
+	return out
+end
+
 function SS.Apply(info)
 	if type(info) ~= "table" or type(info.changes) ~= "table" or #info.changes == 0 then return 0 end
-	local undo = {}
-	for _, ch in ipairs(info.changes) do undo[ch.key] = copy(ns.Get(ch.key)) end
-	ns.DB().settingsUndo = undo
+	local portable = SS.Portable()
+	local before = snapshot(portable)
 	for _, ch in ipairs(info.changes) do set(ch.key, ch.new) end
+	-- Undo keeps every setting that changed, not only the string's: a listener
+	-- may have changed others (a colour source turning its rivals off).
+	local undo = {}
+	for key, old in pairs(before) do
+		if not same(old, ns.Get(key)) then undo[key] = old end
+	end
+	ns.DB().settingsUndo = undo
 	return #info.changes
 end
 
@@ -334,4 +371,23 @@ function SS.Undo()
 		end
 	end
 	return n
+end
+
+-- Reset all settings drops Undo; resetting one section drops that section's
+-- keys (ns.ResetSettings fires "" or the section's name).
+if ns.On then
+	ns.On("SETTING_CHANGED", function(path)
+		if type(path) ~= "string" or path:find(".", 1, true) then return end
+		local db = ns.DB()
+		local u = db.settingsUndo
+		if type(u) ~= "table" then return end
+		if path == "" then
+			db.settingsUndo = nil
+			return
+		end
+		for key in pairs(u) do
+			if key:sub(1, #path + 1) == path .. "." then u[key] = nil end
+		end
+		if next(u) == nil then db.settingsUndo = nil end
+	end)
 end

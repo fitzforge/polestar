@@ -199,3 +199,90 @@ fn options_export_settings_opens_the_copy_window_with_the_string_and_how_many_it
 		])
 	);
 }
+
+#[test]
+fn a_colour_source_the_string_turns_on_lists_the_ones_it_turns_off_and_undo_puts_them_back() {
+	let out = run(r#"
+		-- A friend with an accent and a border colour of their own (#1069 review).
+		Polestar.Set("ui.accent", { 0.2, 0.4, 0.6 })
+		Polestar.Set("ui.borderColor", { 0.5, 0.5, 0.5 })
+		local s = SS.Export()
+		-- Here: Class colour and the accent border on.
+		Polestar.ResetSettings()
+		Polestar.Set("ui.classAccent", true)
+		Polestar.Set("ui.borderAccent", true)
+		local function state()
+			return { accent = Polestar.Get("ui.accent"), class = Polestar.Get("ui.classAccent"), match = Polestar.Get("ui.matchAccent"),
+				border = Polestar.Get("ui.borderColor"), borderAccent = Polestar.Get("ui.borderAccent") }
+		end
+		local info = SS.Read(s)
+		local lines = {}
+		for _, ch in ipairs(info.changes) do lines[#lines + 1] = ch.label .. ": " .. ch.oldText .. " -> " .. ch.newText end
+		emit({ lines = lines, unchanged = info.unchanged })
+		emit({ applied = SS.Apply(info), now = state() })
+		emit({ back = SS.Undo(), now = state() })
+	"#);
+	assert_eq!(
+		out[0],
+		json!({
+			"lines": ["Accent border: On -> Off", "Accent colour: Default -> |cff336699#336699|r", "Border colour: Default -> |cff808080#808080|r", "Class colour: On -> Off"],
+			"unchanged": 1,
+		}),
+		"the sources the friend's colours turn off are in the preview; Match EllesmereUI accent is already off here"
+	);
+	assert_eq!(out[1], json!({ "applied": 4, "now": { "accent": [0.2, 0.4, 0.6], "class": false, "match": false, "border": [0.5, 0.5, 0.5], "borderAccent": false } }));
+	assert_eq!(out[2], json!({ "back": 4, "now": { "accent": false, "class": true, "match": false, "border": false, "borderAccent": true } }), "Class colour and the accent border are back on");
+}
+
+#[test]
+fn undo_also_puts_back_a_setting_a_listener_changed_during_apply() {
+	let out = run(r#"
+		-- A listener outside the string's keys: offering class quests off also turns the upcoming steps to 2.
+		Polestar.On("SETTING_CHANGED", function(path, value)
+			if path == "behavior.offerClassQuests" and value == false then Polestar.Set("ui.upcoming", 2) end
+		end)
+		local s = SS.Pack('{"format":1,"settings":{"behavior.offerClassQuests":false}}')
+		Polestar.Set("ui.upcoming", 5)
+		SS.Apply(SS.Read(s))
+		local mid = Polestar.Get("ui.upcoming")
+		SS.Undo()
+		emit({ mid = mid, upcoming = Polestar.Get("ui.upcoming"), offer = Polestar.Get("behavior.offerClassQuests") })
+	"#);
+	assert_eq!(out[0], json!({ "mid": 2, "upcoming": 5, "offer": true }));
+}
+
+#[test]
+fn a_string_whose_settings_are_a_list_is_read_with_its_entries_skipped_not_a_lua_error() {
+	let out = run(r#"
+		local s = SS.Pack('{"format":1,"settings":[true,"ui.combat"]}')
+		local ok, info = pcall(SS.Read, s)
+		emit({ ok = ok, changes = ok and #info.changes or tostring(info), skipped = ok and info.skipped or false })
+		IV.Show()
+		local pasted = pcall(paste, s)
+		emit({ pasted = pasted, skipped = IV.Shown().skipped or false })
+	"#);
+	assert_eq!(out[0], json!({ "ok": true, "changes": 0, "skipped": ["1", "2"] }));
+	assert_eq!(out[1], json!({ "pasted": true, "skipped": "Skipped 2 settings this Polestar does not have or cannot take: 1, 2." }));
+}
+
+#[test]
+fn reset_all_settings_drops_undo_and_resetting_one_section_drops_that_section_s() {
+	let out = run(r#"
+		local s = SS.Pack('{"format":1,"settings":{"ui.combat":"fade","behavior.offerClassQuests":false}}')
+		local function keys()
+			local u, out = Polestar.DB().settingsUndo, {}
+			for k in pairs(u or {}) do out[#out + 1] = k end
+			table.sort(out)
+			return out
+		end
+		SS.Apply(SS.Read(s))
+		local before = keys()
+		Polestar.ResetSettings("ui")
+		emit({ before = before, after = keys(), undo = SS.CanUndo() })
+		Polestar.ResetSettings()
+		IV.Show()
+		emit({ undo = SS.CanUndo(), button = IV.Shown().undo, back = SS.Undo(), offer = Polestar.Get("behavior.offerClassQuests") })
+	"#);
+	assert_eq!(out[0], json!({ "before": ["behavior.offerClassQuests", "ui.combat"], "after": ["behavior.offerClassQuests"], "undo": true }));
+	assert_eq!(out[1], json!({ "undo": false, "button": false, "back": 0, "offer": true }), "Undo after the reset would put the import back on top of it");
+}
