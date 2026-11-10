@@ -35,6 +35,7 @@ sequenceDiagram
 | Issue reopened | the same | "We've reopened this", tag **Tracked**, unlocked |
 | A release published | `discord-release-notify.yml` | ping: "The fix is out in **Polestar 0.2.x**", for every issue closed as completed that the release ships; the issue gets `released:v0.2.x` so it is never told twice. An issue closed by a commit (`Fixes #N`, a merged pull request) ships in the first full release whose tag holds that commit, so a fix merged into `next` waits for the feature release, however many patches go out first. One closed by hand (a patch's fix) ships in the first full release published after it closed. Prereleases do not count as the release before. Each issue from Discord closed as a duplicate of one the release ships (filed from Discord or not; found by GitHub's search for `reason:duplicate` and for a `Duplicate of` comment) gets "The fix for #M, the same bug as yours, is out in **Polestar 0.2.x**" and the same `released:` label, so it too is told once |
 | A prerelease published (`v0.3.0-rc.1`: GitHub's prerelease flag, or a tag with a `-` part) | the same | nothing in the threads, and no `released:` label. The testers channel gets one message pinging the tester role: the tag, the release's link, the player entries from the tag's `changes/` (as many as fit), and a request to report in #bugs. A re-run finds that message (a bot message with the tag in bold, among the channel's last 50) and pings no one again |
+| An issue labelled `known-issue` changes, or a maintainer comments `Known issue:`/`Workaround:` on one; a release; daily; by hand | `discord-known-issues.yml` | the #known-issues board, edited in place (below) |
 
 ## What an issue holds
 
@@ -64,6 +65,72 @@ words, never their Discord id. Their text cannot mention GitHub users, link
 other issues or carry HTML. Say so in the #bugs guidelines, for example:
 "Posts here are copied to our public GitHub issues so we can track them."
 
+## The #known-issues board
+
+One post in #known-issues lists the problems players are likely to hit,
+each with what to do meanwhile. It is written again from GitHub on every
+run, so it never drifts and a run can be repeated at will.
+
+```
+**Known issues in Polestar 0.3.6**
+-# Last updated <date, in the reader's time zone>
+Problems we know about and are fixing, with what to do meanwhile. Something else wrong? Report it in #bugs.
+
+**Westfall**
+- #1234 The guide skips "Bounty on Murlocs" after a hearth. → Click the step back once.
+
+**Fixed in the next update**
+- #1201 ...
+
+**Fixed in 0.3.6 (update to get the fix)**
+- #1188 ...
+```
+
+- **What is listed**: issues labelled `known-issue`. Triage adds the label
+  when an issue is confirmed and players are likely to run into it; it
+  stays on when the issue closes.
+- **The words**: a maintainer's (owner, member, collaborator) comment, or
+  issue body, with the lines `Known issue: <one line for players>` and
+  `Workaround: <one line>` (bold and list markers allowed); the newest of
+  each counts, so a later comment corrects an earlier one. Without a
+  `Known issue:` line the title is used (without `[Bug]`-style prefixes);
+  without a `Workaround:` line the entry has no arrow. Players' comments
+  are never read for these. All text is made inert: no mentions (`@everyone`
+  and `@here` lose their `@`, user, role and channel mentions are dropped),
+  no links (a link to one of this repository's issues becomes `#N`), Markdown
+  escaped, one line, at most 140 characters (160 for the workaround).
+- **Where it goes**: grouped by area: the guide (the first `guide:` label,
+  `guide:02-westfall` as "Westfall"), else Arrow and travel (`navigation`),
+  Guide engine (`engine`), Errors (`lua-error`), Polestar Client
+  (`client`), else Addon. Groups by their newest issue, issues newest first.
+  At most 20; past that a line says how many more and links the label's
+  list on GitHub.
+- **When it leaves**: open with `fix-merged`, or closed as completed after
+  the latest release, it moves to "Fixed in the next update" (it keeps its
+  workaround). Once the latest full release ships it (its `released:` label,
+  or the release notes' rule above for what a release ships), it shows under
+  "Fixed in X" for 7 days after X was published, then drops off. Closed as
+  not planned or duplicate, it drops off at once. At most 10 per fixed
+  section.
+- **The post**: plain messages of under 2000 characters (a bot's limit),
+  embeds suppressed, mentions disabled; a long board takes two or three,
+  split between lines, never after a heading (past three, fewer known issues
+  are shown). The bot's own messages in the channel, oldest first, are the
+  board: each is edited when its text changes (not when only the date
+  would), a new one is posted when the board grows and surplus ones are
+  deleted when it shrinks. Nothing is stored anywhere else. Other people's
+  messages in the channel are left alone; anything the bot itself posts
+  there becomes part of the board.
+- **When it runs**: `discord-known-issues.yml`, on a `known-issue` issue
+  being labelled, unlabelled, closed, reopened or edited (and when the
+  label is removed); a maintainer's comment with either line on one; a
+  release published; daily at 06:17 UTC (drops week-old fixes, catches
+  label changes made by other workflows, which start no runs); and by hand
+  (Actions, Discord known issues, Run workflow). It does nothing while
+  `KNOWN_ISSUES_CHANNEL_ID` is unset. `node tools/discord-bot/known.js
+  --dry-run` prints the board with only `GITHUB_TOKEN` and
+  `GITHUB_REPOSITORY` set.
+
 ## Setting it up
 
 ### 1. Discord
@@ -90,6 +157,10 @@ other issues or carry HTML. Say so in the #bugs guidelines, for example:
    All Roles for the bot in that channel). Copy the channel's id, that is
    `DISCORD_TESTERS_CHANNEL_ID`, and the role's (Server Settings, Roles,
    right-click the role, Copy Role ID), that is `DISCORD_TESTER_ROLE_ID`.
+6. For the known-issues board: in #known-issues (read-only for players),
+   give the bot View Channel, Send Messages and Read Message History (a
+   permission override for the bot's role or the bot). Copy the channel's
+   id: that is `KNOWN_ISSUES_CHANNEL_ID`.
 
 ### 2. GitHub
 
@@ -113,7 +184,8 @@ other issues or carry HTML. Say so in the #bugs guidelines, for example:
    `DISCORD_TOKEN` (the same bot token) and the variable `DISCORD_FORUM_ID`;
    for release candidates, the variables `DISCORD_TESTERS_CHANNEL_ID` and
    `DISCORD_TESTER_ROLE_ID`. Without both, a prerelease's run logs that no
-   one is told and succeeds.
+   one is told and succeeds. For the known-issues board, the variable
+   `KNOWN_ISSUES_CHANNEL_ID`, and the label `known-issue`.
    The issue workflow runs from the repository's default branch (`next`),
    so it works once this folder and `.github/workflows/discord-*.yml` are
    there. A release runs the tagged commit's copy of the release workflow,
@@ -177,21 +249,23 @@ see them but not use them.
 
 ## Working on it
 
-`npm test` runs `tests/discord-bot.test.js` and `tests/discord-links.test.js`
-over in-memory Discord and GitHub. To run the bot, `notify.js` or `links.js`
-against something else, `DISCORD_API` and `GITHUB_API_URL` point the
-clients elsewhere.
+`npm test` runs `tests/discord-bot.test.js`, `tests/discord-links.test.js`
+and `tests/discord-known.test.js` over in-memory Discord and GitHub. To run
+the bot, `notify.js`, `links.js` or `known.js` against something else,
+`DISCORD_API` and `GITHUB_API_URL` point the clients elsewhere.
 
 | File | What it does |
 |---|---|
 | `bot.js` | The service: settings, the gateway, the sync |
 | `notify.js` | The Actions' entry: `issue` (closed, reopened) and `release` |
 | `links.js` | The Actions' entry for pull requests: `event`, and `sweep` for every open one (`--dry-run`) |
+| `known.js` | The Actions' entry for the #known-issues board (`--dry-run` prints it) |
 | `lib/report.js` | The addon's report (`addon/Polestar/UI/Report.lua`) read back into fields |
 | `lib/issue.js` | Issue title, body, labels and comments; the marker; making player text inert |
 | `lib/sync.js` | Posts, follow-ups and edits to issues; the index and the backfill |
 | `lib/notify.js` | Close, reopen and release messages, tags and locks; the testers' ping for a prerelease |
 | `lib/links.js` | Which issues a pull request addresses; the issue's pull requests comment, the overlap warning and their labels |
+| `lib/known.js` | The #known-issues board: which issues, their words made inert, grouping, the fixed sections, splitting and writing in place |
 | `lib/gateway.js`, `lib/discord.js`, `lib/github.js` | The Discord gateway and the two REST APIs; the media branch |
 
 A change to the report's layout in `Report.lua` needs `lib/report.js` and
