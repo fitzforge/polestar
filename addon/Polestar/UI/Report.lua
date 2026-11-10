@@ -28,11 +28,12 @@ local floor, max, min, ipairs, pairs, tostring, type, pcall = math.floor, math.m
 local R = {}
 UI.Report = R
 
--- A Discord message holds 2000 characters. The description, the detail
--- lines and the number of goals and errors are capped; when the report is
--- still longer, R.Text shortens its Addons line, which the Discord bot
--- quotes but does not read.
-R.DESC_MAX = 250
+-- A Discord message holds 2000 characters. The detail lines and the
+-- number of goals and errors are capped; the description, up to DESC_MAX
+-- letters, is always kept whole. When the report is still longer, R.Text
+-- gives up details in a fixed order (cutOrder) and says so on the
+-- block's last line.
+R.DESC_MAX = 1000
 -- Fewer letters than this say nothing a fix can go on: the report waits.
 R.DESC_MIN = 5
 R.TEXT_MAX = 2000
@@ -149,35 +150,43 @@ local function context(on)
 	return table.concat(parts, UI_SEP)
 end
 
+-- The line `line` of kind `kind` (what cutOrder trims by) at the end of
+-- the details; nothing for nil.
+local function add(d, kind, line)
+	if not line then return end
+	local n = #d.lines + 1
+	d.lines[n], d.kinds[n] = line, kind
+end
+
 local function guideLines(d, on)
 	local out, E, guide, index, view = d.lines, ns.Engine, on.guide, on.index, on.view
 	if not guide then
-		out[#out + 1] = L["Guide: none open"]
+		add(d, "guide", L["Guide: none open"])
 		return
 	end
 	local G = ns.Guides
 	local pack = guide.pack and G and G.Pack and G.Pack(guide.pack)
 	local line = (L["Guide: %s (%s)"]):format(on.title, plain(tostring(guide.id)))
 	if pack then line = line .. SEP .. (L["pack %s"]):format(plain(pack.title or pack.id) .. (pack.version and (" " .. plain(pack.version)) or "")) end
-	out[#out + 1] = cut(line)
+	add(d, "guide", cut(line))
 	-- The steps the Engine planned for the character (#1353), for triage only:
 	-- the guide window shows none of this.
 	if guide.fromBase then
-		out[#out + 1] = cut("[planned: " .. (guide.feeders or 0) .. " feeder steps, ~" .. floor((guide.feedCost or 0) / 60 + 0.5) .. " min]")
+		add(d, "planned", cut("[planned: " .. (guide.feeders or 0) .. " feeder steps, ~" .. floor((guide.feedCost or 0) / 60 + 0.5) .. " min]"))
 		local hidden = {}
 		for q, h in pairs(guide.hidden or {}) do hidden[#hidden + 1] = { q = q, h = h } end
 		table.sort(hidden, function(a, b) return a.q < b.q end)
 		for i, e in ipairs(hidden) do
 			if i > 8 then
-				out[#out + 1] = "[hidden: " .. (#hidden - 8) .. " more]"
+				add(d, "planned", "[hidden: " .. (#hidden - 8) .. " more]")
 				break
 			end
 			local h = e.h
-			out[#out + 1] = (plain(h.title or ("#" .. e.q)) .. " [hidden: needs " .. plain(h.needTitle or ("#" .. tostring(h.need))) .. " from " .. plain(h.from or "?") .. "]")
+			add(d, "planned", (plain(h.title or ("#" .. e.q)) .. " [hidden: needs " .. plain(h.needTitle or ("#" .. tostring(h.need))) .. " from " .. plain(h.from or "?") .. "]"))
 		end
 	end
 	if not view then
-		out[#out + 1] = L["Step: none, the guide is complete"]
+		add(d, "step", L["Step: none, the guide is complete"])
 		return
 	end
 	-- The guide's own step index too, which maintainers find the step by.
@@ -194,7 +203,7 @@ local function guideLines(d, on)
 	elseif E.GetLiveStep and not live then
 		step = step .. SEP .. L["the guide is complete"]
 	end
-	out[#out + 1] = cut(step)
+	add(d, "step", cut(step))
 	local wp = E.GetWaypoint and E.GetWaypoint()
 	-- The arrow's goal on this step, when the player picked one other than
 	-- the window's current goal.
@@ -205,10 +214,11 @@ local function guideLines(d, on)
 	d.goals = { first = #out + 1, last = #out + shown, more = #goals - shown }
 	for g = 1, shown do
 		if view.current == g then d.goals.current = #out + 1 end
+		if picked == g then d.goals.arrow = #out + 1 end
 		local mark = (view.current == g and CURRENT) or (picked == g and ARROW) or nil
-		out[#out + 1] = goalLine(goals[g], raws[g], mark, wp)
+		add(d, "goal", goalLine(goals[g], raws[g], mark, wp))
 	end
-	if d.goals.more > 0 then out[#out + 1] = (L["... %d more goals"]):format(d.goals.more) end
+	if d.goals.more > 0 then add(d, "more", (L["... %d more goals"]):format(d.goals.more)) end
 end
 
 local function arrowLine()
@@ -357,15 +367,15 @@ end
 -- from the AddOns folder, a blocked call by the Polestar addon blamed and
 -- when it last came. Polestar's own say which came last (seq); !BugGrabber's,
 -- whose order against them is unknown, count as the newest.
-local function errorLines(out)
+local function errorLines(d)
 	local list, seen = {}, {}
-	local function add(msg, count, seq)
+	local function caught(msg, count, seq)
 		msg = tostring(msg):match("^[^\n]*"):gsub("^Interface[/\\]AddOns[/\\]", "")
 		if seen[msg] then return end
 		seen[msg] = true
 		list[#list + 1] = { text = msg, count = count or 1, seq = seq or math.huge }
 	end
-	for _, e in ipairs(ns.Errors and ns.Errors() or {}) do add(e.msg, e.count, e.seq) end
+	for _, e in ipairs(ns.Errors and ns.Errors() or {}) do caught(e.msg, e.count, e.seq) end
 	for _, b in ipairs(ns.Blocked and ns.Blocked() or {}) do
 		local fn = plain(b.fn) .. (b.where and (" " .. b.where) or "")
 		list[#list + 1] = { text = L["blocked in %s: %s (%s)"]:format(b.addon, fn, b.at), count = b.count, seq = b.seq }
@@ -378,13 +388,13 @@ local function errorLines(out)
 			for _, e in ipairs(db) do
 				if type(e) == "table" and type(e.message) == "string" and e.message:find("AddOns[/\\]Polestar")
 					and (session == nil or e.session == session) then
-					add(e.message, e.counter)
+					caught(e.message, e.counter)
 				end
 			end
 		end
 	end
 	if #list == 0 then
-		out[#out + 1] = L["Errors: none"]
+		add(d, "errors", L["Errors: none"])
 		return
 	end
 	-- Sorted by seq; !BugGrabber's (no seq) keep the order they were added in.
@@ -393,9 +403,9 @@ local function errorLines(out)
 		if a.seq ~= b.seq then return a.seq < b.seq end
 		return a.i < b.i
 	end)
-	out[#out + 1] = L["Errors:"]
+	add(d, "errors", L["Errors:"])
 	for i = max(1, #list - ERRORS_MAX + 1), #list do
-		out[#out + 1] = cut(("  %dx %s"):format(list[i].count, list[i].text))
+		add(d, "error", cut(("  %dx %s"):format(list[i].count, list[i].text)))
 	end
 end
 
@@ -453,10 +463,12 @@ end
 -- and the report for Discord are made from them alone, so they say the
 -- same whatever the guide does while the window is open.
 --   lines     one fact each, in the order the Discord bot reads them
+--   kinds     each line's kind, by its index: what cutOrder trims by
 --   key       the guide and the step, to tell a report on another step
 --   context   the line under the window's title
 --   goals     where the step's goal lines sit in `lines`: first, last, the
---             window's current goal (current), and how many more were not listed
+--             window's current goal (current), the arrow's when it is
+--             another (arrow), and how many more were not listed
 --   names     the other addons' names, for the report's Addons line
 --   addons    the other addons with their versions, for the issue's field
 --   issue     on a step, the facts a "Wrong step" issue names: the guide's
@@ -464,19 +476,20 @@ end
 function R.Details()
 	local on = onScreen()
 	local who = character()
-	local d = { lines = { versions(), who }, context = context(on), names = otherAddons(), addons = otherAddons(true),
+	local d = { lines = {}, kinds = {}, context = context(on), names = otherAddons(), addons = otherAddons(true),
 		key = tostring(on.guide and on.guide.id) .. ":" .. tostring(on.index) }
-	local out = d.lines
+	add(d, "versions", versions())
+	add(d, "character", who)
 	guideLines(d, on)
-	out[#out + 1] = arrowLine()
-	out[#out + 1] = playerLine()
-	out[#out + 1] = routesLine()
-	out[#out + 1] = whileHereLine()
-	out[#out + 1] = packsLine()
-	out[#out + 1] = installLine()
-	errorLines(out)
-	out[#out + 1] = questLogLine()
-	out[#out + 1] = settingsLine()
+	add(d, "arrow", arrowLine())
+	add(d, "where", playerLine())
+	add(d, "routes", routesLine())
+	add(d, "whilehere", whileHereLine())
+	add(d, "packs", packsLine())
+	add(d, "install", installLine())
+	errorLines(d)
+	add(d, "questlog", questLogLine())
+	add(d, "settings", settingsLine())
 	d.tail = logTail()
 	if on.view then
 		d.issue = { guide = oneLine(on.title), index = on.index, step = oneLine(plain(on.view.title or "")), character = who }
@@ -515,8 +528,9 @@ end
 -- layout back (tools/discord-bot/lib/report.js): everything above the code
 -- block is the description it quotes in the issue; in the block, the first
 -- line's shape, the guide line's "(id)", the order of the lines. The
--- rolling log's tail (`tail`) closes the block, under "Log:".
-local function text(description, lines, spot, names, tail)
+-- rolling log's tail (`tail`) follows, under "Log:"; `note`, when given,
+-- closes the block (what was left out to fit).
+local function text(description, lines, spot, names, tail, note)
 	local out = { bold(L["What went wrong:"], described(description)) }
 	if spot then out[#out + 1] = bold(L["Right spot:"], cut(table.concat(spot, SEP))) end
 	if names then out[#out + 1] = bold(L["Addons:"], names) end
@@ -526,6 +540,7 @@ local function text(description, lines, spot, names, tail)
 		out[#out + 1] = L["Log:"]
 		for _, line in ipairs(tail) do out[#out + 1] = "> " .. line end
 	end
+	if note then out[#out + 1] = note end
 	out[#out + 1] = "```"
 	return table.concat(out, "\n")
 end
@@ -538,26 +553,102 @@ local function length(s)
 	return chars + astral
 end
 
--- With no other addons there is no Addons line. The line names every addon
--- while the report fits one Discord message; past it the log's oldest lines
--- go first, then the Addons line is shortened.
+-- The detail lines a report too long for its place gives up, by index, in
+-- the order they go: the Settings line, the Packs line, the goals other
+-- than the window's current one, the two after it and the arrow's (the
+-- furthest after it first, then the ones before it), the quest log, the
+-- errors but the newest; then, so even the longest description fits, the
+-- planned and hidden lines, While here, Install, Routes and the newest
+-- error. Never the versions, the character, the guide and the step, the
+-- current goal, Arrow, Where or the Errors header: the lines the Discord
+-- bot finds the rest by and a fix starts from.
+local function cutOrder(details)
+	local kinds, order = details.kinds, {}
+	local function all(kind, from, to, step)
+		local list = {}
+		for i = 1, #details.lines do if kinds[i] == kind then list[#list + 1] = i end end
+		from, to = from or 1, to or #list
+		if from < 0 then from = #list + from + 1 end
+		if to < 0 then to = #list + to + 1 end
+		for j = from, to, step or 1 do order[#order + 1] = list[j] end
+	end
+	all("settings")
+	all("packs")
+	local g = details.goals
+	if g and g.last >= g.first then
+		local live = g.current or g.first
+		local keep = { [live] = true, [live + 1] = true, [live + 2] = true }
+		if g.arrow then keep[g.arrow] = true end
+		for i = g.last, live + 1, -1 do if not keep[i] then order[#order + 1] = i end end
+		for i = g.first, live - 1 do if not keep[i] then order[#order + 1] = i end end
+	end
+	all("questlog")
+	all("error", 1, -2)
+	all("planned", -1, 1, -1)
+	all("whilehere")
+	all("install")
+	all("routes")
+	all("error", -1, -1)
+	return order
+end
+
+-- The detail lines without the ones in `gone`; goals left out are counted
+-- on one line after the goals, with the ones never listed.
+local function keptLines(details, gone)
+	local g, out, goals = details.goals, {}, 0
+	if g then
+		for i = g.first, g.last do if gone[i] then goals = goals + 1 end end
+	end
+	for i, line in ipairs(details.lines) do
+		if not gone[i] and not (goals > 0 and details.kinds[i] == "more") then out[#out + 1] = line end
+		if goals > 0 and i == g.last then out[#out + 1] = (L["... %d more goals"]):format(goals + g.more) end
+	end
+	return out
+end
+
+-- Fits the report in `fits`: gives up the log's oldest lines (`tail`,
+-- when given), then shortens the Addons line (`names`, when given), then
+-- gives up the detail lines in cutOrder's order, adding `note` as the
+-- block's last line once anything went. The description is never cut.
+local function fitted(description, details, spot, names, tail, note, fits)
+	local lines, n, cutAny = details.lines, names and #names or 0, false
+	local function build()
+		return text(description, lines, spot, n > 0 and cut(names, n) or nil, tail, cutAny and note or nil)
+	end
+	local report = build()
+	while not fits(report) and tail and #tail > 0 do
+		table.remove(tail, 1)
+		cutAny = true
+		report = build()
+	end
+	while not fits(report) and n > 0 do
+		n = n - (length(report) - R.TEXT_MAX)
+		-- Shorter than 20 bytes it names hardly an addon: the line goes.
+		if n < 20 then n = 0 end
+		cutAny = true
+		report = build()
+	end
+	local order, gone = cutOrder(details), {}
+	for k = 1, #order do
+		if fits(report) then break end
+		gone[order[k]] = true
+		cutAny = true
+		lines = keptLines(details, gone)
+		report = build()
+	end
+	return report
+end
+
+-- With no other addons there is no Addons line. The report fits one
+-- Discord message (R.TEXT_MAX): past it the log's oldest lines go first,
+-- then the Addons line is shortened, then the details go in cutOrder's
+-- order, and the block's last line says the report was trimmed.
 function R.Text(description, details, spot)
 	local names = #details.names > 0 and table.concat(details.names, ", ") or nil
 	local tail = {}
 	for i, line in ipairs(details.tail or {}) do tail[i] = line end
-	local report = text(description, details.lines, spot, names, tail)
-	while length(report) > R.TEXT_MAX and #tail > 0 do
-		table.remove(tail, 1)
-		report = text(description, details.lines, spot, names, tail)
-	end
-	local n = names and #names or 0
-	while length(report) > R.TEXT_MAX and n > 0 do
-		n = n - (length(report) - R.TEXT_MAX)
-		-- Shorter than 20 bytes it names hardly an addon: the line goes.
-		if n < 20 then n = 0 end
-		report = text(description, details.lines, spot, n > 0 and cut(names, n) or nil)
-	end
-	return report
+	return fitted(description, details, spot, names, tail, L["(trimmed to fit Discord)"],
+		function(report) return length(report) <= R.TEXT_MAX end)
 end
 
 local function encode(s)
@@ -603,35 +694,17 @@ local function fitEncoded(s, room)
 	return (s:sub(1, n):gsub("[\192-\255][\128-\191]*$", ""))
 end
 
--- The details without the last n goals other than the arrow's, and one line
--- that counts every goal not listed.
-local function withoutGoals(details, n)
-	local g, out, gone, left = details.goals, {}, {}, n
-	for i = g.last, g.first, -1 do
-		if left == 0 then break end
-		if i ~= g.current then gone[i], left = true, left - 1 end
-	end
-	local moreAt = g.more > 0 and g.last + 1
-	for i, line in ipairs(details.lines) do
-		if not gone[i] and i ~= moreAt then out[#out + 1] = line end
-		if i == g.last then out[#out + 1] = ("... %d goals left out to fit the link"):format(n + g.more) end
-	end
-	return out
-end
-
 -- The report for the issue's own field, encoded, in `room` characters of
 -- the link. A CJK report encodes to three times the characters of an
--- English one, so goals after the arrow's go first, then the report is cut
--- with its code block still closed.
+-- English one, so the details go as in the report for Discord (cutOrder);
+-- when even that is too long, the report is cut from its end with its
+-- code block still closed: the details' last lines go, the description
+-- only when it alone is longer than the link holds (a long one in a
+-- non-Latin script, whose every letter encodes to 6 or 9 characters).
 -- The addons have their own field: in the body they would only take room.
 local function bodyField(description, details, spot, room)
-	local report = text(description, details.lines, spot)
-	local g = details.goals
-	local droppable = g and (g.last - g.first + 1 - (g.current and 1 or 0)) or 0
-	for n = 1, droppable do
-		if #encode(report) <= room then break end
-		report = text(description, withoutGoals(details, n), spot)
-	end
+	local report = fitted(description, details, spot, nil, nil, "(trimmed to fit the link)",
+		function(r) return #encode(r) <= room end)
 	if #encode(report) > room then
 		local close = "...\n```"
 		report = fitEncoded(report:sub(1, -5), room - #encode(close)) .. close
@@ -689,7 +762,9 @@ local WIDTH = 440
 local PAD = 24
 local HEAD_H = 56
 local BOX_W = WIDTH - PAD * 2
-local DESC_LINES = 3
+-- The description's well: as tall as its text, from DESC_LINES lines up to
+-- DESC_LINES_MAX; past that the text scrolls in it.
+local DESC_LINES, DESC_LINES_MAX, LINE_H = 3, 7, 16
 local LOGO = 32
 local TEXT_X = PAD + LOGO + 12 -- the Discord block's text column
 
@@ -700,14 +775,28 @@ local function put(obj, x, y)
 	obj:SetPoint("TOPLEFT", F, "TOPLEFT", x, -y)
 end
 
+-- The well as tall as the text, between its least and most lines, and the
+-- box in it as tall as the whole text, for the well to scroll through.
+local function sizeDesc()
+	local e = F.Desc
+	-- A last empty line, after a typed newline, counts too.
+	F.DescMeasure:SetText(((e:GetText() or ""):gsub("\n$", "\n ")))
+	local textH = F.DescMeasure:GetStringHeight()
+	local view = min(max(textH, DESC_LINES * LINE_H), DESC_LINES_MAX * LINE_H) + 16
+	local content = max(view, floor(textH + 16 + 0.5))
+	F.DescWell:SetHeight(view)
+	e:SetHeight(content)
+	W.SetScrollContent(F.DescScroll, content, view)
+end
+
 local function layout()
 	local y = HEAD_H + 12
 	put(F.Context, PAD, y)
 	y = y + F.Context:GetStringHeight() + 16
 	put(F.DescLabel, PAD, y)
 	y = y + F.DescLabel:GetStringHeight() + 6
-	put(F.Desc, PAD, y)
-	y = y + F.Desc:GetHeight() + 12
+	put(F.DescWell, PAD, y)
+	y = y + F.DescWell:GetHeight() + 12
 	put(F.SpotNote, PAD, y)
 	y = y + F.SpotNote:GetStringHeight() + 8
 	put(F.Mark, PAD, y)
@@ -870,30 +959,63 @@ local function startMark()
 	M:Raise()
 end
 
--- The description: the copy box's well and border, editable, its
--- placeholder in textMuted until the player types.
+-- The description: the copy box's well and border (F.DescWell), editable,
+-- its placeholder in textMuted until the player types. The well grows with
+-- the text from DESC_LINES to DESC_LINES_MAX lines; a longer text scrolls
+-- in it (F.DescScroll), following the cursor, so all DESC_MAX letters can
+-- be typed and read back without the window outgrowing the screen.
 local function textArea()
-	local e = CreateFrame("EditBox", nil, F)
+	local well = CreateFrame("Frame", nil, F)
+	well:SetWidth(BOX_W)
+	well:SetHeight(DESC_LINES * LINE_H + 16)
+	Theme.Skin(well, "editbox")
+	F.DescWell = well
+	local sf = W.Scroll(well)
+	sf:SetAllPoints(well)
+	F.DescScroll = sf
+	local e = CreateFrame("EditBox", nil, sf.Child)
+	e:SetPoint("TOPLEFT", sf.Child, "TOPLEFT", 0, 0)
 	e:SetAutoFocus(false)
 	e:SetMultiLine(true)
 	e:SetMaxLetters(R.DESC_MAX)
 	Theme.Font(e, "label")
 	W.Color(e, "text")
 	e:SetWidth(BOX_W)
-	e:SetHeight(DESC_LINES * 16 + 16)
+	e:SetHeight(DESC_LINES * LINE_H + 16)
 	e:SetTextInsets(10, 10, 8, 8)
-	Theme.Skin(e, "editbox")
+	sf.Child:SetWidth(BOX_W)
+	-- The text in the box's font at its inner width, never seen: what the
+	-- well's height is measured on.
+	F.DescMeasure = W.Text(F, "label", "text")
+	F.DescMeasure:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, 0)
+	F.DescMeasure:SetWidth(BOX_W - 20)
+	F.DescMeasure:SetJustifyH("LEFT")
+	F.DescMeasure:SetWordWrap(true)
+	F.DescMeasure:SetNonSpaceWrap(true)
+	F.DescMeasure:SetAlpha(0)
 	e.Placeholder = W.Text(e, "label", "textMuted")
 	e.Placeholder:SetPoint("TOPLEFT", e, "TOPLEFT", 10, -8)
 	e.Placeholder:SetWidth(BOX_W - 20)
 	e.Placeholder:SetJustifyH("LEFT")
 	e.Placeholder:SetWordWrap(true)
 	e.Placeholder:SetText(L["What the guide said, and what you found in the game."])
-	e:SetScript("OnEditFocusGained", function(self) Theme.SetFocused(self, true) end)
-	e:SetScript("OnEditFocusLost", function(self) Theme.SetFocused(self, false) end)
+	e:SetScript("OnEditFocusGained", function() Theme.SetFocused(well, true) end)
+	e:SetScript("OnEditFocusLost", function() Theme.SetFocused(well, false) end)
 	e:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
+	-- The line being typed stays in view: y is the cursor's offset down
+	-- from the box's top, h its height.
+	e:SetScript("OnCursorChanged", function(_, _, y, _, h)
+		local view, at = well:GetHeight(), sf:GetVerticalScroll()
+		local top, bottom = -(y or 0), -(y or 0) + (h or LINE_H) + 8
+		if top < at then
+			W.ScrollTo(sf, top)
+		elseif bottom > at + view then
+			W.ScrollTo(sf, bottom - view)
+		end
+	end)
 	e:SetScript("OnTextChanged", function(self)
 		self.Placeholder:SetShown((self:GetText() or "") == "")
+		sizeDesc()
 		if F.details then compose() end
 	end)
 	return e
