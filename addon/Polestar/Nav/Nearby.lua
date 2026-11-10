@@ -275,7 +275,7 @@ local function rolePlaces(role)
 			for _, s in ipairs(npc.spawns or {}) do
 				local c, wx, wy = C.MapToWorld(s.map, s.x, s.y, s.f)
 				if c then
-					list[#list + 1] = { id = id, name = npc.name, sub = npc.subName, map = s.map, x = s.x, y = s.y, f = s.f, c = c, wx = wx, wy = wy }
+					list[#list + 1] = { id = id, name = npc.name, sub = npc.subName, map = s.map, x = s.x, y = s.y, f = s.f, z = s.z, c = c, wx = wx, wy = wy }
 				end
 			end
 		end
@@ -301,7 +301,7 @@ local function objectPlaces(flag)
 				for _, s in ipairs(o.spawns or {}) do
 					local c, wx, wy = C.MapToWorld(s.map, s.x, s.y, s.f)
 					if c then
-						list[#list + 1] = { id = id, name = L["Mailbox"], map = s.map, x = s.x, y = s.y, f = s.f, c = c, wx = wx, wy = wy }
+						list[#list + 1] = { id = id, name = L["Mailbox"], map = s.map, x = s.x, y = s.y, f = s.f, z = s.z, c = c, wx = wx, wy = wy }
 					end
 				end
 			end
@@ -341,7 +341,7 @@ local function candidates(kind, line)
 				for _, s in ipairs(npc.spawns or {}) do
 					local c, wx, wy = C.MapToWorld(s.map, s.x, s.y, s.f)
 					if c then
-						list[#list + 1] = { id = id, name = npc.name, map = s.map, x = s.x, y = s.y, f = s.f, c = c, wx = wx, wy = wy }
+						list[#list + 1] = { id = id, name = npc.name, map = s.map, x = s.x, y = s.y, f = s.f, z = s.z, c = c, wx = wx, wy = wy }
 					end
 				end
 			end

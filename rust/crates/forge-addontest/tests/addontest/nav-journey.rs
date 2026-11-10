@@ -908,6 +908,43 @@ fn nearby_the_nearest_mailbox_of_the_player_s_side_from_the_codex_s_objects() {
 	assert_eq!(out["alias"], "Mailbox", "/polestar near mail");
 }
 
+// #1639: Nearby services' Reagents sent a Scourge Mage in the Undercity to Thomas Mordan (4562) at the top
+// of the lifts, 18 yd over his spot in the Trade Quarter: the Codex gives his spawn a height (z -43), but the
+// places Nearby built from Codex spawns dropped it, and a target without a height is walked on whichever floor
+// is nearest. Every place from the Codex (by role, mailbox, weapon master) keeps its spawn's height.
+#[test]
+fn nearby_a_codex_spawn_s_height_reaches_the_arrow_so_a_city_npc_under_the_lifts_is_not_sought_on_the_floor_above_1639() {
+	let out = run(&[
+		CODEX,
+		r#"
+		npcs[5].spawns = { { map = 9000, x = 40, y = 50, z = -43 } }
+		npcs[1].spawns[1].z = -61.4
+		Polestar.Codex.Each = function(kind, fn) if kind == "object" then fn(101, "Mailbox") end end
+		Polestar.Codex.Object = function(id)
+			if id == 101 then return { id = 101, name = "Mailbox", mailbox = true, faction = "A", spawns = { { map = 9000, x = 58, y = 50, z = -45.5 } } } end
+		end
+		Polestar.Compat.GetSkillRank = function() return nil end
+		local info = { name = "Testchar", level = 12, faction = "Alliance", class = "ROGUE" }
+		Polestar.Compat.GetPlayerInfo = function() return info end
+		Polestar.Gear = { PROFICIENCY = { ROGUE = { weapons = { [7] = true } } } }
+		local codexNpc = Polestar.Codex.Npc
+		Polestar.Codex.Npc = function(id)
+			if id == 11867 then return { id = id, name = "Woo Ping", faction = "A", spawns = { { map = 9000, x = 60, y = 50, z = 12.5 } } } end
+			return codexNpc(id)
+		end
+		local heights = {}
+		Near.Go("reagents"); heights.reagents = N.GetTarget().z
+		Near.Go("vendor"); heights.vendor = N.GetTarget().z
+		Near.Go("mailbox"); heights.mailbox = N.GetTarget().z
+		Near.Go("weapon", 43); heights.weapon = N.GetTarget().z
+		Near.Go("repair"); heights.none = N.GetTarget().z == nil
+		emit(heights)
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "reagents": -43, "vendor": -61.4, "mailbox": -45.5, "weapon": 12.5, "none": true }), "Far Smith's spawn has no height: none is made up");
+}
+
 #[test]
 fn nearby_the_guide_window_s_list_puts_the_everyday_services_first_then_a_trainer_for_each_profession_the_character_has() {
 	let out = run(&[
