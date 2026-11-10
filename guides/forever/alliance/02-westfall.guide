@@ -244,6 +244,7 @@ step Molsen Farm's Harvest Watchers
   collect 732 quest 38.4                      -- Okra
   collect 255155 optional                     -- Precessive Autocognition Assembly
   accept 92910 optional
+  collect 814 x5 optional                     -- Flask of Oil: keep five for Captain Grayson at the Westfall Lighthouse, later on the route
 
 step The gnoll hills
   tip North to the hills above Jangolode Mine: Riverpaw Gnolls and Scouts (level 11-13) roam there, east toward the Jansen Stead. The gnolls further south and west are 13-19: stay in the north hills.

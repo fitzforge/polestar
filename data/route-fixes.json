@@ -7271,6 +7271,15 @@
 				]
 			},
 			{
+				"q": 103,
+				"reason": "Alliance 12-30 bracket review 0.3.6: Keeper of the Flame (level 16, from 10, 1150 XP) at Captain Grayson, whom 03-loch-modan's Westfall stretch visits at about 20 for Old Murk-Eye (104). Its five Flasks of Oil drop from Westfall's Harvest Watchers without the quest (35%, quest not required), and 02-westfall kills twenty of them for The Killing Fields (9), with a `collect 814 x5 optional` 'keep five' line there. Taken and handed in at once on its own lighthouse step, `when has 814 x5`, so nobody is sent back for flasks. Players' recordings: 10 people took it, 9 handed it in, 6 of them at once with the flasks already in their bags. Our comparison does the same.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					104
+				]
+			},
+			{
 				"q": 1106,
 				"reason": "Quest volume (2026-11-08): both sides take it since #1204 and #1220. The Alliance hands in Salt Flat Venom (1104) and Hardened Shells (1105) at the Mirage Raceway at 33-34, so Fizzle Brassbolts offers Martek the Exiled there; Martek stands in the Valley of Fangs, which 30-40/06's Badlands loop passes twice at 38-39.",
 				"issue": "-",

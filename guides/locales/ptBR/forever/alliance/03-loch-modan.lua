@@ -294,27 +294,32 @@ return {
 	-- {item:3636} Scale of Old Murk-Eye · {npc:391} Old Murk-Eye
 	["{item:3636}: {npc:391}, on the beach north-east of the lighthouse"] = "{item:3636}: {npc:391}, na praia a nordeste do farol",
 
-	-- Step 52: Sentinel Hill
+	-- Step 52: Captain Grayson
+	-- {zone:1436} Westfall · {npc:392} Captain Grayson
+	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
+	["Kept five Flasks of Oil from {zone:1436}'s Harvest Watchers? {npc:392} takes them for his lighthouse fire."] = "",
+
+	-- Step 53: Sentinel Hill
 	-- {area:108} Sentinel Hill · {npc:467} The Defias Traitor
 	["Back north up the road to {area:108}. {npc:467} waits at the foot of the tower ramp; if he is missing, someone is escorting him and he is back within minutes."] = "De volta ao norte pela estrada até {area:108}. {npc:467} espera ao pé da rampa da torre; se ele não estiver lá, alguém o está escoltando e ele volta em poucos minutos.",
 
-	-- Step 53: The Defias Traitor
+	-- Step 54: The Defias Traitor
 	-- {area:20} Moonbrook
 	["Stay with the traitor as he walks south to {area:20}; he does not stop for fights, so clear what follows him. His walk ends at the Defias hideout below {area:20}."] = "Fique com o traidor enquanto ele anda para o sul até {area:20}; ele não para para lutas, então limpe o que vier atrás dele. O trajeto dele termina no esconderijo dos Défias abaixo de {area:20}.",
 	-- {npc:467} The Defias Traitor
 	["{npc:467}, at the foot of the tower ramp"] = "{npc:467}, ao pé da rampa da torre",
 
-	-- Step 54: Sentinel Hill
+	-- Step 55: Sentinel Hill
 	-- {npc:234} Gryan Stoutmantle
 	["Back north to {npc:234} and the gryphons."] = "De volta ao norte até {npc:234} e os grifos.",
 
-	-- Step 55: Lakeshire
+	-- Step 56: Lakeshire
 	-- {npc:415} Verner Osgood · {npc:344} Magistrate Solomon
 	["From the gryphons, over the bridge into town: {npc:415} by the smithy, {npc:344} in the town hall."] = "Dos grifos, atravesse a ponte até a cidade: {npc:415}, junto à ferraria, e {npc:344}, na prefeitura.",
 	-- {npc:344} Magistrate Solomon
 	["{npc:344}, in the town hall"] = "{npc:344}, na prefeitura",
 
-	-- Step 56: Redridge Canyons
+	-- Step 57: Redridge Canyons
 	-- {spell:133} Fireball
 	-- plural, as words: Redridge Brutes = {npc:426} Redridge Brute · Iron Pikes = {item:2856} Iron Pike · Black Dragon Whelps = {npc:441} Black Dragon Whelp
 	["Redridge Brutes and Mystics hold the hills north and north-west of town; both carry the Iron Pikes and Rivets. Black Dragon Whelps nest in the same hills.\nCareful: The whelps cast {spell:133} from range, and the gnolls run for help at low health."] = "Brutamontes e Místicos de Cristarrubra dominam as colinas ao norte e a noroeste da cidade; os dois carregam os Piques Férreos e os Rebites. Dragonetes Negros fazem ninho nas mesmas colinas.\nCuidado: os dragonetes lançam {spell:133} à distância, e os gnolls correm atrás de ajuda quando estão com pouca vida.",
@@ -322,7 +327,7 @@ return {
 	-- plural, as words: Black Dragon Whelps = {npc:441} Black Dragon Whelp
 	["{item:1221}: Black Dragon Whelps"] = "{item:1221}: Dragonetes Negros",
 
-	-- Step 57: Lakeshire
+	-- Step 58: Lakeshire
 	-- {npc:415} Verner Osgood · {npc:341} Foreman Oslow · {npc:381} Dockmaster Baren
 	["Back down into town: {npc:415} by the smithy, {npc:341} at the north end of the bridge, {npc:381} on the docks."] = "De volta à cidade: {npc:415}, junto à ferraria, {npc:341}, na ponta norte da ponte, e {npc:381}, nas docas.",
 	-- {npc:341} Foreman Oslow · {quest:98386} Alther's Mill
@@ -330,13 +335,13 @@ return {
 	-- {npc:381} Dockmaster Baren
 	["{npc:381}, on the docks: the murlocs are for your next Redridge visit"] = "{npc:381}, nas docas: os murlocs ficam para a sua próxima visita a Cristarrubra",
 
-	-- Step 58: Fly to Stormwind
+	-- Step 59: Fly to Stormwind
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {zone:1453} Stormwind
 	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour."] = "De volta a {area:442} para os circuitos do sul de {zone:1439}: o grifo até {zone:1453}, depois o barco a partir do porto.",
 	-- {area:69} Lakeshire
 	["{area:69} flight master"] = "Mestre de voo de {area:69}",
 
-	-- Step 60: Baros Alexston
+	-- Step 61: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:28027} Dwarven District
 	["{npc:1646} stands at the east side of {object:2098}, on the way from the {object:28027} to the harbour."] = "{npc:1646} fica no lado leste de {object:2098}, no caminho de {object:28027} até o porto.",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine

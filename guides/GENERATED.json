@@ -1,10 +1,10 @@
 {
   "about": "Guides written by forge build (`forge guide publish`), each with its SHA-256. Never edit them, or this file: CI fails a pull request that does (tests/generated-guides.test.js). docs/FORGE.md, \"Fixing a generated guide\", says where a fix goes.",
   "files": {
-    "forever/alliance/02-westfall.guide": "3cd96ce64aa5a6c21b15c1742d0d652e18befa815d6c35d41316784d7dacbf7f",
+    "forever/alliance/02-westfall.guide": "bbd884a0f1fc1bf2c685dc7db78aefa05c867bc2533dd3f021474f7f9759057e",
     "forever/alliance/03-darkshore-return.guide": "04340dedc6d3a9ebc379a443a9a303a3ec3f5cf43a48e4eaddbbe0c8a96bb85c",
     "forever/alliance/03-darkshore.guide": "94391e05566139c4dfe6137947daf2270f61719b64fde7902dc089657a065a81",
-    "forever/alliance/03-loch-modan.guide": "0a932448651374375add41b628bc9475f0c00153ac9988e725c67a78eb507bd2",
+    "forever/alliance/03-loch-modan.guide": "b6f10d5990f37c5ac62d5287dcc0cb14c9f8e8907404547732b57b0c5a524929",
     "forever/alliance/04-redridge-mountains.guide": "d1696f857b23944b932129f715607c8681f4492136ef223ac7bc3037fa914b75",
     "forever/alliance/05-duskwood.guide": "cb883c7136c2661b5bdc0383a62fad2dbc603bb193c0650796439d9532dc476a",
     "forever/alliance/06-ashenvale.guide": "04004ba5874b64c2ee04411f60edcfde7cfc1c75c3afceb49f1af891e95c087f",

@@ -43,9 +43,10 @@ next forever/alliance/03-darkshore-return
 # the route reaches Stormpike from the north first (Filthy Paws, 307, has no prerequisite).
 # The tunnel post's trogg chain (224, 237, 263, 217): sixty trogg kills and four trips between
 # the post and Stonesplinter Valley. Bingles (2039, 2038): Find Bingles starts in Ironforge.
-# Mercenaries and Vyrin's Revenge (255, 271): elite. Keeper of the Flame (103): its flasks come
-# from the harvest golems around Sentinel Hill after Captain Grayson gives it, a second
-# lighthouse trip. Messenger to Westfall and Darkshire (143, 145): another round trip each.
+# Mercenaries and Vyrin's Revenge (255, 271): elite. Keeper of the Flame (103): taken and handed
+# in at once on the lighthouse stop, only by a player carrying five Flasks of Oil (a free drop of
+# the Harvest Watchers 02-westfall kills; it says to keep five), never a trip for the flasks.
+# Messenger to Westfall and Darkshire (143, 145): another round trip each.
 # Marshal Marris's Blackrock quests (20, 98387), Alther's Mill (98386) and Murloc Poachers (150,
 # from 20) are taken here, at their givers, and done on the 24 visit (04-redridge-mountains), where
 # level 20-21 quests still give full XP. Givers passed and left for later, by level: A Watchful Eye
@@ -382,6 +383,13 @@ step Westfall Lighthouse
   accept 104                                  -- Captain Grayson
   collect 3636 quest 104 @33.7,83.9 map 1436 live -- Scale of Old Murk-Eye: Old Murk-Eye, on the beach north-east of the lighthouse
   turnin 104                                  -- Captain Grayson
+
+step Captain Grayson
+  when turnedin 65
+  when has 814 x5
+  tip Kept five Flasks of Oil from Westfall's Harvest Watchers? Captain Grayson takes them for his lighthouse fire.
+  accept 103                                  -- Captain Grayson
+  turnin 103
 
 step Sentinel Hill
   when turnedin 65

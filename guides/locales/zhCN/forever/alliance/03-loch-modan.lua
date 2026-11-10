@@ -294,27 +294,32 @@ return {
 	-- {item:3636} Scale of Old Murk-Eye · {npc:391} Old Murk-Eye
 	["{item:3636}: {npc:391}, on the beach north-east of the lighthouse"] = "",
 
-	-- Step 52: Sentinel Hill
+	-- Step 52: Captain Grayson
+	-- {zone:1436} Westfall · {npc:392} Captain Grayson
+	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
+	["Kept five Flasks of Oil from {zone:1436}'s Harvest Watchers? {npc:392} takes them for his lighthouse fire."] = "",
+
+	-- Step 53: Sentinel Hill
 	-- {area:108} Sentinel Hill · {npc:467} The Defias Traitor
 	["Back north up the road to {area:108}. {npc:467} waits at the foot of the tower ramp; if he is missing, someone is escorting him and he is back within minutes."] = "向北沿路返回{area:108}。{npc:467}在通往塔的坡道底部；如果不在，就是有人正在护送他，几分钟内便会回来。",
 
-	-- Step 53: The Defias Traitor
+	-- Step 54: The Defias Traitor
 	-- {area:20} Moonbrook
 	["Stay with the traitor as he walks south to {area:20}; he does not stop for fights, so clear what follows him. His walk ends at the Defias hideout below {area:20}."] = "跟着叛徒向南走到{area:20}；他不会停下来等战斗结束，记得清掉追他的怪。他最后会走到{area:20}下方的迪菲亚藏身处。",
 	-- {npc:467} The Defias Traitor
 	["{npc:467}, at the foot of the tower ramp"] = "{npc:467}，在通往塔的坡道底部",
 
-	-- Step 54: Sentinel Hill
+	-- Step 55: Sentinel Hill
 	-- {npc:234} Gryan Stoutmantle
 	["Back north to {npc:234} and the gryphons."] = "向北返回{npc:234}和狮鹫处。",
 
-	-- Step 55: Lakeshire
+	-- Step 56: Lakeshire
 	-- {npc:415} Verner Osgood · {npc:344} Magistrate Solomon
 	["From the gryphons, over the bridge into town: {npc:415} by the smithy, {npc:344} in the town hall."] = "从狮鹫处过桥进镇：{npc:415}在铁匠铺旁，{npc:344}在镇公所。",
 	-- {npc:344} Magistrate Solomon
 	["{npc:344}, in the town hall"] = "{npc:344}，在市政厅",
 
-	-- Step 56: Redridge Canyons
+	-- Step 57: Redridge Canyons
 	-- {spell:133} Fireball
 	-- plural, as words: Redridge Brutes = {npc:426} Redridge Brute · Iron Pikes = {item:2856} Iron Pike · Black Dragon Whelps = {npc:441} Black Dragon Whelp
 	["Redridge Brutes and Mystics hold the hills north and north-west of town; both carry the Iron Pikes and Rivets. Black Dragon Whelps nest in the same hills.\nCareful: The whelps cast {spell:133} from range, and the gnolls run for help at low health."] = "赤脊山蛮兵和赤脊山秘法师占据镇子北面和西北的山丘，两者都携带铁矛和铁铆钉。黑龙雏龙也栖息在这片山丘。\n小心：雏龙会在远处施放{spell:133}，豺狼人则会在生命值低时逃跑求援。",
@@ -322,7 +327,7 @@ return {
 	-- plural, as words: Black Dragon Whelps = {npc:441} Black Dragon Whelp
 	["{item:1221}: Black Dragon Whelps"] = "{item:1221}：黑龙雏龙掉落",
 
-	-- Step 57: Lakeshire
+	-- Step 58: Lakeshire
 	-- {npc:415} Verner Osgood · {npc:341} Foreman Oslow · {npc:381} Dockmaster Baren
 	["Back down into town: {npc:415} by the smithy, {npc:341} at the north end of the bridge, {npc:381} on the docks."] = "下山回镇：{npc:415}在铁匠铺旁，{npc:341}在桥北端，{npc:381}在码头。",
 	-- {npc:341} Foreman Oslow · {quest:98386} Alther's Mill
@@ -330,13 +335,13 @@ return {
 	-- {npc:381} Dockmaster Baren
 	["{npc:381}, on the docks: the murlocs are for your next Redridge visit"] = "{npc:381}，在码头：鱼人留到下次来赤脊山时再打",
 
-	-- Step 58: Fly to Stormwind
+	-- Step 59: Fly to Stormwind
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {zone:1453} Stormwind
 	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour."] = "返回{area:442}，继续{zone:1439}南部的路线：先乘狮鹫到{zone:1453}，再从港口坐船。",
 	-- {area:69} Lakeshire
 	["{area:69} flight master"] = "{area:69}飞行管理员",
 
-	-- Step 60: Baros Alexston
+	-- Step 61: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:28027} Dwarven District
 	["{npc:1646} stands at the east side of {object:2098}, on the way from the {object:28027} to the harbour."] = "",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine

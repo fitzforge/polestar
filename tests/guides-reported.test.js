@@ -3654,6 +3654,21 @@ test(`${WESTFALL} / ${LOCH_MODAN}: Stormpike's Delivery taken with Elmore's Task
 	assert.ok(hand < at(loch, 'turnin 307 (Filthy Paws)', is('turnin', 307)), 'on the first Algaz Station stop');
 });
 
+// Alliance 12-30 bracket review 0.3.6: Keeper of the Flame (103, 1150 XP): its Flasks of Oil drop from Westfall's Harvest
+// Watchers without the quest; 02-westfall says to keep five, 03-loch-modan's lighthouse stop takes and hands it in at
+// once, only for a player carrying them.
+test(`${WESTFALL} / ${LOCH_MODAN}: Keeper of the Flame's flasks kept from the Harvest Watchers, handed to Captain Grayson on the lighthouse stop`, { skip }, () => {
+	const west = goals(WESTFALL);
+	const keep = at(west, 'collect 814', (g) => g.t === 'collect' && g.item === 814);
+	assert.ok(west[keep].goal.optional && west[keep].s === west[at(west, 'kill 114', (g) => g.t === 'kill' && g.npc === 114)].s, 'an optional keep-five line on the Harvest Watchers step');
+	const loch = goals(LOCH_MODAN);
+	const take = at(loch, 'accept 103', is('accept', 103));
+	const hand = at(loch, 'turnin 103', is('turnin', 103));
+	assert.ok(loch[take].s === loch[hand].s && take < hand, 'taken and handed in on one step');
+	assert.ok((loch[hand].step.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 814), 'only for a player carrying the flasks');
+	assert.equal(loch[hand].s, loch[at(loch, 'turnin 104', is('turnin', 104))].s + 1, 'right after Old Murk-Eye, at the lighthouse');
+});
+
 // --- Handful of Oats (Xaden Ryan, #621): the oats were the first step's last
 // goal, unplaced, so before Saldean's the arrow searched every Sack of Oats
 // in the zone, down to Moonbrook, and the far sacks were empty. They are

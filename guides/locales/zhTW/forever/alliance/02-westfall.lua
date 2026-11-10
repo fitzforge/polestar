@@ -165,6 +165,8 @@ return {
 	["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "",
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
 	["Harvest Watchers"] = "看守傀儡",
+	-- {item:814} Flask of Oil · {npc:392} Captain Grayson · {area:115} Westfall Lighthouse
+	["{item:814}: keep five for {npc:392} at the {area:115}, later on the route"] = "",
 
 	-- Step 30: The gnoll hills
 	["The gnoll hills"] = "豺狼人丘陵",
