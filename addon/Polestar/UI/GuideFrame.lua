@@ -1208,9 +1208,11 @@ end
 -- Tab strip
 ---------------------------------------------------------------------------
 
-local function tabsOf(E)
+-- counts: with each tab's done and total (Engine.GetTabs), which only a tab's
+-- tooltip shows: the strip leaves them out on its every repaint.
+local function tabsOf(E, counts)
 	if not (E and E.GetTabs) then return nil, nil end
-	local ok, tabs, active = pcall(E.GetTabs)
+	local ok, tabs, active = pcall(E.GetTabs, counts)
 	if not ok or type(tabs) ~= "table" then return nil, nil end
 	return tabs, active
 end
@@ -1305,7 +1307,9 @@ local function tabButton(i)
 		self.Close:SetAlpha(1)
 		local lines = {}
 		if self.psMeta and self.psMeta ~= "" then lines[#lines + 1] = self.psMeta end
-		if self.psProgress then lines[#lines + 1] = self.psProgress end
+		local t = (tabsOf(Engine(), true) or {})[self.psIndex]
+		local total = t and (t.total or t.stepCount)
+		if t and t.done and total and total > 0 then lines[#lines + 1] = string.format(L["%d of %d steps done"], t.done, total) end
 		lines[#lines + 1] = { L["Right-click for tab options"], Theme.Accent() }
 		W.Tooltip(self, "ANCHOR_TOP", self.psTitle or "", lines)
 		GF.HoverIn()
@@ -1348,8 +1352,6 @@ function GF.RenderTabs()
 		b.psTitle = t.title or t.guideId
 		local guide = G and G.Get and G.Get(t.guideId)
 		b.psMeta = guide and UI.GuideMeta(guide) or nil
-		local total = t.total or t.stepCount
-		b.psProgress = (t.done and total and total > 0) and string.format(L["%d of %d steps done"], t.done, total) or nil
 		b.Label:SetText(b.psTitle)
 		b.Label:SetWidth(0) -- unbound, to measure the whole title
 		b.psTitleW = floor(b.Label:GetStringWidth() + 1)
