@@ -13,9 +13,9 @@
 -- chime) and gone by itself after HIDE_AFTER seconds. "Turn these off"
 -- sets qol.levelUpSpells off.
 --
--- OLD_RANKS: "2 spells on your bars are an old rank", their icons and
--- "Renew: rank 2 to 3 · Fireball: rank 4 to 5" (plain text: the game's
--- fonts have no arrow); "Upgrade" puts the highest rank in those
+-- OLD_RANKS: "2 spells on your bars are an old rank", their icons and one
+-- line per spell, "Renew: rank 2 to 3" (plain text: the game's fonts have no
+-- arrow; RANK_LINES at most, then "+N more"); "Upgrade" puts the highest rank in those
 -- slots (Spells.Upgrade); a right-click on an icon keeps that spell at its
 -- rank ("Keep this rank", said in its tooltip). "Turn these off" sets
 -- qol.oldRanks off.
@@ -52,6 +52,8 @@ local money = SC.Money
 
 -- The guide's own class training stop counts as near within this many steps.
 SC.GUIDE_STEPS = 10
+-- Old ranks: one line per spell, this many, then "+N more".
+SC.RANK_LINES = 4
 
 local waiting = {} -- kind -> notice
 
@@ -123,14 +125,15 @@ function SC.RanksModel(n)
 	m.head = L["ACTION BARS"]
 	m.title = count == 1 and L["1 spell on your bars is an old rank"] or format(L["%d spells on your bars are an old rank"], count)
 	m.titleColor = "text"
-	local spells, names = {}, {}
+	local spells, lines = {}, {}
 	for i, e in ipairs(n.spells) do
 		spells[i] = { id = e.id, bestId = e.bestId }
-		names[#names + 1] = format(L["%s: rank %d to %d"], e.name or "?", e.have, e.best)
+		if i <= SC.RANK_LINES then lines[i] = format(L["%s: rank %d to %d"], e.name or "?", e.have, e.best) end
 	end
+	if count > SC.RANK_LINES then lines[#lines + 1] = format(L["+%d more"], count - SC.RANK_LINES) end
 	m.spells = spells
 	m.icon = ns.Compat.SpellIcon(spells[1].id) or m.icon
-	m.giver = concat(names, "  \194\183  ")
+	m.giver = concat(lines, "\n")
 	if n.slots > count then m.route = format(L["%d action buttons in all."], n.slots) end
 	m.act = { label = L["Upgrade"], run = function()
 		if S then S.Upgrade() end

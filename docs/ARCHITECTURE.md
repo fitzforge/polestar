@@ -5898,8 +5898,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   nearest class trainer and **Show me** (`Nav.nearby.Go("class")`), and no
   trainer line at all while the guide window's training reminder banner is up;
   quiet (`m.quiet`: no chime), hidden after 30 s (`m.hideAfter`, not while
-  the pointer is on it). The old-ranks line is plain text ("Renew: rank 2 to
-  3"): the game's fonts have no arrow. **Old ranks**: `Spells.OldRanks()` reads action slots
+  the pointer is on it). The old-ranks card lists one spell per line in plain
+  text ("Renew: rank 2 to 3"; the game's fonts have no arrow), 4 at most then
+  "+N more" (`SpellCards.RANK_LINES`). **Old ranks**: `Spells.OldRanks()` reads action slots
   1-180 (every page, the stance and form bars, the side bars, and bar addons
   that use the game's slots); a `spell` action whose name has a higher
   "Rank N" in the player's spellbook (`C_SpellBook`, the pet's left out) is
