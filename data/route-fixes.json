@@ -8577,11 +8577,11 @@
 			{
 				"q": 97284,
 				"after": [
-					"accept",
-					1437
+					"turnin",
+					1465
 				],
-				"reason": "Quest volume (Alliance 30-40 audit (0.3.7, 2026-11-09)): Desolace (30-40/02): Vahlarriel's Vengeance (level 33, from 30, 2650 XP; Vahlarriel Demonslayer at Nijel's Point) asks for four each of the Burning Blade Augurs, Reavers, Adepts and Felsworn in Thunder Axe Fortress, where the guide already goes for Dalinda, Tyranis and the Sceptre of Light. EG live and Forever's quest page agree on giver, ender and objectives, and a collector saw its XP in game.",
-				"issue": "-"
+				"reason": "Quest volume (Alliance 30-40 audit (0.3.7, 2026-11-09)): Desolace (30-40/02): Vahlarriel's Vengeance (level 33, from 30, 2650 XP; Vahlarriel Demonslayer at Nijel's Point) asks for four each of the Burning Blade Augurs, Reavers, Adepts and Felsworn in Thunder Axe Fortress, where the guide already goes for Dalinda, Tyranis and the Sceptre of Light. EG live and Forever's quest page agree on giver, ender and objectives, and a collector saw its XP in game. #1579: she offers it with the third part of Vahlarriel's Search (1438) when the second part (1465, from the Malem chest) is handed back to her (in game, 2026-11-10, and in every recorded window; forever-db correction pre 1465), not with the first part (1437). Players' recordings: offered to 3 people, each in her window after the hand-in of 1465 or later; a level 36 Human with nothing done got only 1437 from her, and the reporter (level 36, 1437 still in the log) found nothing to take.",
+				"issue": "#1579"
 			},
 			{
 				"q": 1111,
@@ -9307,6 +9307,12 @@
 				"q": 1194,
 				"faction": "Alliance",
 				"reason": "Follows Keeping Pace (1190), left out with Martek the Exiled (1106).",
+				"issue": "-"
+			},
+			{
+				"q": 1191,
+				"faction": "Alliance",
+				"reason": "Zamek's Distraction is a step of Keeping Pace (1190; the data's parent 1190, and 1190's objective reads 'Have Zamek create a diversion, then steal Rizzle's plans'): a child quest is taken while its parent is in the log, and the Alliance leaves 1190 out (above), so 40-50/04's Mirage Raceway stop asked for a quest Zamek can't offer (since 0.3.5; found by the offer sweep with #1579; no recordings at Zamek yet). Left out with 1190.",
 				"issue": "-"
 			},
 			{

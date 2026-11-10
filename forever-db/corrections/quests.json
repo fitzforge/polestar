@@ -4794,6 +4794,27 @@
 		],
 		"note": "Stormy Potential (Durotar, Rezlak) is offered once A Simmering Storm 97281 is handed in, and A Simmering Storm starts from the Dull Storm Orb, a chance drop of the Dustwind Storm Witches. Three Orc and Troll players at Rezlak were not offered it (#807). The merged data had no prerequisite, so the routes took it as a must-do at the first Rezlak stop; with it, the writer makes it optional (a chain after a chance drop)."
 	},
+	"97284": {
+		"set": {
+			"pre": [
+				1465
+			],
+			"preAny": [
+				1465
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#1579: the reporter, in game on 2026-11-10: Vahlarriel offered nothing to take with 1437 in the log; once the search part was handed in to her, she gave Vahlarriel's Vengeance together with another Vahlarriel's Search (1438)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (#1579, people counted per IngestAudit): 3 people (2 established) were offered Vahlarriel's Vengeance (97284) by Vahlarriel Demonslayer, each in her window right after handing her Vahlarriel's Search (1465) or later, two of them together with 1438; no window offered it before 1465 was handed in; a level 36 Human with nothing done got only 1437 from her (a direct quest window)"
+			}
+		],
+		"note": "Vahlarriel's Vengeance (Desolace, Vahlarriel Demonslayer at Nijel's Point) comes with the third part of Vahlarriel's Search (1438), when the second part (1465, from the Malem chest) is handed back to her (#1579: in game and in every recorded window). Whether the first part (1437) alone would unlock it can't be told: nobody opened her window between the two hand-ins, and 1437 ends at the chest, so she is next visited with 1465. The merged data had no prerequisite, so the Alliance Desolace guide asked for it together with 1437."
+	},
 	"97289": {
 		"set": {
 			"pre": [

@@ -5537,6 +5537,57 @@ test('forever/alliance/30-40/02-desolace.guide: flow re-order: the Scorpashi ven
 	assert.ok(hides.length === 1 && hides[0].s === kodos.s, 'the hides there, once');
 });
 
+// #1579: the first Nijel's Point step had Vahlarriel's Vengeance taken with the first part of Vahlarriel's Search
+// (1437), but she offers it with the third part (1438) when the Malem chest's part (1465) is handed back to her (the
+// reporter in game, 2026-11-10, and every recorded window).
+test('forever/alliance/30-40/02-desolace.guide: Vahlarriel\'s Vengeance is taken when the Malem chest\'s part of her search is handed back, not with its first part (#1579)', { skip }, () => {
+	const fix = (loadCorrections().quests[97284] || {}).set || {};
+	assert.deepEqual([fix.pre, fix.preAny], [[1465], [1465]], 'forever-db: 97284 comes after 1465');
+	const list = goals('forever/alliance/30-40/02-desolace.guide');
+	const stepOf = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
+	const take = at(list, 'accept 97284', is('accept', 97284));
+	assert.ok(at(list, 'turnin 1437', is('turnin', 1437)) < take, 'after the first part is handed in at the Malem chest');
+	assert.ok(at(list, 'turnin 1465', is('turnin', 1465)) < take, 'after the second part is handed back to Vahlarriel');
+	assert.equal(list[take].s, stepOf('turnin', 1465), 'on the Nijel\'s Point stop that hands her 1465');
+	assert.ok(take < at(list, 'kill 4663 (Burning Blade Augur)', is('kill', 97284)), 'before the cultists in Thunder Axe Fortress');
+	if (((data.quests[97284] || {}).pre || []).includes(1465)) assert.ok((list[take].goal.pre || []).includes(1465), `the accept waits for 1465: ${JSON.stringify(list[take].goal.pre)}`);
+});
+
+// Offer sweep with #1579: Alliance Tanaris (40-50/04) took and handed in Zamek's Distraction (1191) on its Mirage Raceway
+// stop, but 1191 is a step of Keeping Pace (1190, its parent), which the Alliance leaves out, so Zamek never offered it.
+test('forever/alliance/40-50/04-tanaris.guide: no Zamek\'s Distraction without Keeping Pace (offer sweep, #1579)', { skip }, () => {
+	assert.ok(!goals('forever/alliance/40-50/04-tanaris.guide').some(({ goal }) => goal.quest === 1191 || goal.quest === 1190), 'neither 1191 nor its parent 1190 in the Alliance guide');
+	const { overrides } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(overrides.skip.some((r) => r.q === 1191 && r.faction === 'Alliance'), 'route-fixes leaves 1191 out on the Alliance side, with 1190');
+});
+
+// The whole pattern: a child quest (the data's `parent`) is offered only while its parent is in the log, so no leveling
+// guide accepts one unless that guide, or a guide that leads into it, accepts the parent first.
+test('Leveling guides: a child quest is accepted only after its parent (offer sweep, #1579)', { skip }, () => {
+	data = data || loadData(DATA);
+	const guides = allGuides().filter((g) => /^forever\/(alliance|horde)\//.test(g));
+	const read = (g) => fs.readFileSync(path.join(OFFICIAL_DIR, g), 'utf8');
+	const accepts = new Map(guides.map((g) => [g, [...read(g).matchAll(/^\s*accept (\d+)/gm)].map((m) => Number(m[1]))]));
+	const before = new Map(guides.map((g) => [g, new Set()]));
+	for (const g of guides) {
+		const next = (read(g).match(/^next (\S+)/m) || [])[1];
+		if (next && before.has(`${next}.guide`)) before.get(`${next}.guide`).add(g);
+	}
+	const ancestors = (g, seen = new Set()) => {
+		for (const p of before.get(g)) if (!seen.has(p)) { seen.add(p); ancestors(p, seen); }
+		return seen;
+	};
+	const offenders = [];
+	for (const g of guides) {
+		const earlier = new Set([...ancestors(g)].flatMap((p) => accepts.get(p)));
+		accepts.get(g).forEach((q, i) => {
+			const parent = Number((data.quests[q] || {}).parent) || 0;
+			if (parent > 0 && !earlier.has(parent) && !accepts.get(g).slice(0, i).includes(parent)) offenders.push(`${g}: accept ${q} without its parent ${parent}`);
+		});
+	}
+	assert.deepEqual(offenders, [], 'child quests accepted without their parent');
+});
+
 // Flow re-order (2026-11-07): Alliance Stranglethorn 30-40 took Krazek's Cookery only on the second Rebel
 // Camp visit and handed it in on the last Booty Bay stop. Since the 30-40 re-order the Rebel Camp's 37s (Bookie
 // Herod's chain, Krazek's Cookery) are taken on the northern loop (30-40/04b) when it starts.
