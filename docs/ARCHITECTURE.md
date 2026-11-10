@@ -3387,17 +3387,37 @@ with `Path.Find` on the player's continent (from the player's height,
 whenever there is none, the arrow points straight as before. With a path,
 `Nav.Sample` follows it with `Nav/Follow.lua`, which knows nothing of where
 the path came from (the walking engine today, a guide leg's polyline later):
-`Follow.Step(xs, ys, zs, left, n, state, px, py, stop, join, sight)`. The player's place
+`Follow.Step(xs, ys, zs, left, n, state, px, py, stop, join, sight, hill)`. The player's place
 on the path is their projection onto it: the nearest point on a segment
 from the current one to 60 yd further along, so a point passed to one side
 counts as passed, and coming at the path at an angle or walking beside a
 road never holds the arrow on a node. The projection only moves forward;
 a later segment that is not the next one takes over only when 4 yd nearer
 (the far side of a hairpin), and it never moves past a blocking point the
-player has not come within 5 yd of: a point more than 6 yd (`FLOOR_STEP`)
-above or below the one before it (stairs, a ramp, a lift's landing), and,
+player has not come within 5 yd of: a point on another floor than the one
+before it (stairs, a ramp, a lift's landing), and,
 on a piece of a split walk, every point after the last one before its
-chokepoint (`Travel.Aim` passes `leg.seg` as `stop`). From the projection the
+chokepoint (`Travel.Aim` passes `leg.seg` as `stop`). Another floor is more
+than 6 yd (`FLOOR_STEP`) above or below; outdoors (`Walk.Aim` passes `hill`)
+it must also be steeper than 45° (`FLOOR_GRADE`, 1 yd up or down per yard
+across from the point it is measured against). 0.3.7 (Fitz in Desolace: "it
+gets stuck on a point and fixates on it"): the paths are corners joined by
+long straight pieces, so the 6 yd rule alone took a hillside between two
+corners for a floor (14,244 of its 14,588 floors on the baked legs, in 70% of
+them), held the arrow on the first until the player came within 5 yd, and
+left it pointing back at it when they cut it. Indoors any 6 yd is a floor, as
+before; a drop, a lift, a climb and a floor straight overhead are steeper.
+A path that lands late (a search asked when the player strayed, from where
+they stood then) is followed from the player's place on it (`Follow.Catch`,
+called by `Walk.Aim` with the yards walked since the ask): the nearest point
+within those yards plus 60 along and 25 yd of the player, never past `stop`,
+and within 10 yd of their floor when it is known. 0.3.7 (Fitz walking down a
+steep slope: the arrow pointed back until he stopped): each late path started
+behind him with steep corners between, the follower held at the first, he
+strayed again, and the next late path did the same. The arrow's own search is
+urgent (`job.urgent`, Routing/PathJobs.lua): it is sliced before every other
+search but a finished one's answer, never sharing the frame budget with the
+later legs'. From the projection the
 arrow aims at the furthest point along the path within 35 yd of the player
 (`RADIUS`) and 45 yd along it (`AHEAD`), between points, so it slides along
 the path as the player moves. Every path point on the way lies within

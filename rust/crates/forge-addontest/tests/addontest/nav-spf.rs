@@ -398,6 +398,86 @@ fn the_look_ahead_never_aims_onto_another_floor_path_heights_or_past_a_split_wal
 	assert!(num(&split["furthest"]) >= -148.0, "the aim never passes the path point before the bridge (y -148; furthest {})", split["furthest"]);
 }
 
+// The path for the hillside cases: a corner 100 yd on and 10 yd lower (a hillside, not a floor), then on round it.
+const HILLSIDE: &str = r#"
+local pts = { { 0, 0, 0 }, { 0, -100, -10 }, { 60, -180, -20 }, { 60, -400, -30 } }
+local function cut(indoors)
+	nav.indoors = indoors
+	nav.place(0, 0)
+	target(60, -400)
+	N.Sample()
+	answerZ(pts)
+	-- Cutting the corner straight from (0, -60) toward (60, -180), never within 17 yd of it: the worst aim against
+	-- the way walked, and the samples aiming at the corner, once past it.
+	local worst, atCorner = -1, 0
+	local ux, uy = 1 / math.sqrt(5), -2 / math.sqrt(5)
+	for k = 0, 50 do
+		local x, y = 1.2 * k, -60 - 2.4 * k
+		local s = look(x, y, 60, -400)
+		if y < -100 then
+			local l = math.sqrt(s.dx * s.dx + s.dy * s.dy)
+			local back = -(s.dx * ux + s.dy * uy) / l
+			if back > worst then worst = back end
+			if math.abs(x + s.dx) < 1 and math.abs(y + s.dy + 100) < 1 then atCorner = atCorner + 1 end
+		end
+	end
+	return { worst = worst, atCorner = atCorner }
+end
+"#;
+
+#[test]
+fn outdoors_a_hillside_corner_cut_wide_never_holds_the_arrow_back_on_it_indoors_6_yd_is_still_a_floor() {
+	let outdoors = run(&[LOOK, HILLSIDE, "\n\t\temit(cut(false))"].concat());
+	// 0.3.6: a corner 6+ yd lower held the projection until the player came within 5 yd of it, so past it the arrow
+	// pointed back at it (Fitz in Desolace, 0.3.7). Outdoors a slope this gentle is no floor.
+	assert!(num(&outdoors["worst"]) < 0.0, "outdoors the arrow never points back against the way walked (worst {})", outdoors["worst"]);
+	assert_eq!(outdoors["atCorner"], 0, "outdoors it never aims at the corner once past it");
+	// Indoors (a building's stairs, the Undercity's levels) every 6 yd is a floor, as before.
+	let indoors = run(&[LOOK, HILLSIDE, "\n\t\temit(cut(true))"].concat());
+	assert!(num(&indoors["atCorner"]) > 0.0, "indoors the corner 10 yd lower still holds it ({})", indoors["atCorner"]);
+}
+
+#[test]
+fn a_search_landing_100_yd_behind_a_player_running_down_a_steep_slope_is_followed_from_where_they_are_now() {
+	let out = run(&[
+		LOOK,
+		r#"
+		nav.place(0, 0)
+		target(0, -600)
+		N.Sample()
+		answerZ({ { 0, 0, 100 }, { 0, -600, -300 } })
+		stub.advance(3)
+		local before = calls()
+		-- 60 yd off the path: asked again from here.
+		look(60, -100, 0, -600)
+		local asked = calls() - before
+		-- Running on down the slope while it is searched (the old path meanwhile, no other search).
+		for y = -110, -200, -10 do look(60, y, 0, -600) end
+		local again = calls() - before
+		-- It lands: from where it was asked, straight down the slope, 12 yd lower every 10 yd (steeper than 45°:
+		-- each corner a floor by the follower's rule even outdoors), then across to the target.
+		local pts = {}
+		for i = 0, 50 do pts[#pts + 1] = { 60, -100 - 10 * i, 100 - 12 * i } end
+		pts[#pts + 1] = { 0, -600, -500 }
+		answerZ(pts)
+		local s = look(60, -200, 0, -600)
+		local later
+		for y = -201, -230, -1 do later = look(60, y, 0, -600) end
+		emit({ asked = asked, again = again, s = s, later = later, urgent = fake.last().urgent == true })"#,
+	]
+	.concat());
+	assert_eq!(out["asked"], 1, "straying asks once");
+	assert_eq!(out["again"], 1, "no second search while the first runs");
+	assert_eq!(out["urgent"], true, "the arrow's own search is urgent (sliced before the later legs')");
+	// 0.3.6: the follower started at the late path's start, 100 yd back up the slope, held there by the first
+	// steep corner, and pointed back until the player stopped (Fitz, 0.3.7).
+	let (dx, dy) = (num(&out["s"]["dx"]), num(&out["s"]["dy"]));
+	assert!(dy < 0.0 && dx.abs() < 1.0, "at once the arrow points on down the slope (aim {dx}, {dy})");
+	let (lx, ly) = (num(&out["later"]["dx"]), num(&out["later"]["dy"]));
+	assert!(ly < 0.0 && lx.abs() < 1.0, "and keeps doing so (aim {lx}, {ly})");
+	assert!(num(&out["s"]["dist"]) < 500.0, "the yards shown are from the player on, not from the search's start (dist {})", out["s"]["dist"]);
+}
+
 #[test]
 fn straying_more_than_25_yards_from_the_path_asks_again_at_most_every_2_seconds_keeping_the_old_path_meanwhile() {
 	let out = run(r#"

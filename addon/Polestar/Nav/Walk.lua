@@ -14,7 +14,10 @@
 -- player's continent; once the path arrives the arrow aims at its next point.
 -- Straying more than STRAY yards from it (asked again at most every ASK_EVERY
 -- seconds, ASK_FAR_EVERY on a walk of more than ASK_FAR yards), or a new goal, asks again (a stale
--- search is cancelled); nothing is asked for in combat. Hand-made walks win:
+-- search is cancelled); nothing is asked for in combat. The arrow's own search
+-- is urgent (sliced before the later legs' searches), and a path that lands
+-- after the player has walked on is followed from their place on it
+-- (Follow.Catch), not from where it was asked. Hand-made walks win:
 -- a crossing, an approach chain past its mouth (Travel's leg.handmade), and a
 -- guide goal after a guide `goto` (the author's way in, a cave mouth) keep
 -- the straight arrow. No engine, nav.navRouting off, no walking data for the
@@ -280,6 +283,7 @@ local count = 0              -- points in the path (0: none yet)
 local idx = 1                -- the end point of the segment the player is on (Nav/Follow.lua)
 local fstate = {}           -- the follower's state (Nav/Follow.lua's Follow.Step)
 local wanted = false         -- a search is owed (deferred in combat)
+local landX, landY           -- the path just in was searched from here: Walk.Aim catches the follower up to the player (Follow.Catch)
 local askedAt = -huge
 local failed = false
 local failAt, failX, failY = 0, 0, 0
@@ -339,6 +343,7 @@ function Walk.Clear()
 	local had, c, x, y = gc ~= nil, gc, gx, gy
 	cancel()
 	gc, gx, gy, gzFor, gz, count, idx, wanted, failed, hubs, shape = nil, nil, nil, nil, nil, 0, 1, false, false, nil, nil
+	landX, landY = nil, nil
 	Nav.follow.Reset(fstate)
 	if had then
 		restore(c, x, y)
@@ -368,6 +373,7 @@ local function took(points)
 	end
 	idx, shape = 1, nil
 	Nav.follow.Reset(fstate)
+	landX, landY = nil, nil
 end
 
 -- The player's height, when the client gives it on this continent (picks the
@@ -800,6 +806,7 @@ local function ask(P, pc, px, py, flat)
 		if got then
 			failed = false
 			took(points)
+			landX, landY = px, py -- searched from here: the player may be well on by now (Walk.Aim catches up)
 			local h = type(answer) == "table" and answer.hubs
 			hubs = type(h) == "table" and #h > 0 and h or nil
 			if Walk.Split then Walk.Split() end
@@ -824,7 +831,12 @@ local function ask(P, pc, px, py, flat)
 		failed, failAt, failX, failY = true, askedAt, px, py
 		return
 	end
-	if token == mine then job = handle end
+	if token == mine then
+		job = handle
+		-- The walk the arrow is on goes before the later legs' searches (Routing/PathJobs.lua's urgent): while
+		-- the player walks on, every frame it waits is yards it lands behind them.
+		if type(handle) == "table" then handle.urgent = true end
+	end
 	-- No path yet: the walk's shape at once (Path.FindCoarse across clusters), drawn until the path is in.
 	if count == 0 and not shape and P.FindCoarse then
 		local okShape, h = pcall(P.FindCoarse, pc, { x = px, y = py, z = sz }, { x = gx, y = gy, z = z }, function(points)
@@ -902,6 +914,7 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 		local had = count > 0 or shape ~= nil
 		cancel()
 		gc, gx, gy, count, idx, failed, hubs, shape = goalC, goalX, goalY, 0, 1, false, nil, nil
+		landX, landY = nil, nil
 		Nav.follow.Reset(fstate)
 		gzFor, gz = tz, tz or nil
 		askedAt = -huge
@@ -923,7 +936,8 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 	-- Outdoors, the path's first turn near its start (joining a road) may be cut
 	-- (Nav/Follow.lua `join`); indoors every turn is a wall's. Outdoors, with the
 	-- floor under the player known, the follower may aim ahead by sight beside
-	-- the path (open ground; Path.Sight checks the line).
+	-- the path (open ground; Path.Sight checks the line). Outdoors a hillside
+	-- between two corners is no floor change (Follow.lua `hill`).
 	local outdoors = not (IsIndoors and IsIndoors())
 	local join = outdoors and JOIN or nil
 	local look
@@ -931,7 +945,15 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 		sightZ = startZ(pc, px, py)
 		if sightZ ~= nil then sightC, look = pc, sight end
 	end
-	local ax, ay = Nav.follow.Step(ptsX, ptsY, ptsZ, left, count, fstate, px, py, stop, join, look)
+	-- A path just in was searched from where the player stood when it was asked, seconds ago: walking on, they
+	-- may be far along it, past corners the follower would hold behind them (Follow.Catch; 0.3.7, down a slope
+	-- the arrow pointed back at each late path's start until the player stopped).
+	if landX then
+		local mx, my = px - landX, py - landY
+		Nav.follow.Catch(ptsX, ptsY, ptsZ, left, count, fstate, px, py, sqrt(mx * mx + my * my), STRAY, stop, (startZ(pc, px, py)))
+		landX, landY = nil, nil
+	end
+	local ax, ay = Nav.follow.Step(ptsX, ptsY, ptsZ, left, count, fstate, px, py, stop, join, look, outdoors)
 	idx = fstate.idx
 	if not ax then
 		lastLeft = nil
