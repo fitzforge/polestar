@@ -9,10 +9,9 @@
 -- mask), not known yet, and, for a higher rank, only when the rank below is
 -- known or trainable by then (a talent's higher ranks need the talent).
 -- PLAYER_LEVEL_UP fires LEVELUP_SPELLS(notice) when there is any: { level,
--- spells = { { id, rank, cost } }, cost (total), money, trainer
--- (Engine.NearestClassTrainer: nearest by travel time from where the player
--- stands, the trainer Nearby's "Show me" goes to) }. Nothing in an instance; in combat it waits
--- for the fight to end.
+-- spells = { { id, rank, cost } }, cost (total), money } (where to train is
+-- the card's: Engine.TrainingAdvice). Nothing in an instance; in combat it
+-- waits for the fight to end.
 --
 -- Old ranks (Spells.OldRanks): in this client a bar keeps the exact rank put
 -- on it, so a slot holding a spell whose higher rank is in the spellbook
@@ -223,10 +222,7 @@ function Spells.CheckLevel(level)
 	if #list == 0 then return false end
 	local total = 0
 	for _, s in ipairs(list) do total = total + (s.cost or 0) end
-	local E = ns.Engine
-	local t = E and E.NearestClassTrainer and E.NearestClassTrainer()
-	ns.Fire("LEVELUP_SPELLS", { level = level, spells = list, cost = total, money = Client.Money(),
-		trainer = t and { npc = t.npc, npcName = t.npcName, map = t.map, x = t.x, y = t.y } or nil })
+	ns.Fire("LEVELUP_SPELLS", { level = level, spells = list, cost = total, money = Client.Money() })
 	return true
 end
 

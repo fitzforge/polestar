@@ -506,7 +506,7 @@ its source is in [apps/client](apps/client).
   shows the class spells you can now train (the game's own tooltip on each
   icon), what they cost together and whether you can pay it, and where to
   train: your guide's own training stop when it is a few steps away, else the
-  nearest class trainer with a button for the arrow. It goes by itself, stays away in
+  class trainer that fits your route, with a button for the arrow. It goes by itself, stays away in
   combat and dungeons, and says nothing on levels with nothing new.
 - **Old ranks on your bars.** Action bars keep the exact rank you put on
   them, so after training (and at login) a card lists the spells on your bars
