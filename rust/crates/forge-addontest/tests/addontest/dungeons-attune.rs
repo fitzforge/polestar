@@ -503,7 +503,9 @@ emit({ title = def.title, steps = describe(def), goto = { last.goals[2].map, las
 local gid = D.Attune("wailing-caverns", "fang")
 local tabs = {}
 for i, t in ipairs(Polestar.Engine.GetTabs()) do tabs[i] = t.guideId end
-emit({ gid = gid, tabs = tabs })
+local E = Polestar.Engine
+local enter = E.GetStepView(E.GetStepCount()).goals[2]
+emit({ gid = gid, tabs = tabs, enter = enter.text })
 stub.world.complete({ 90002, 90003 })
 local none, why = D.AttuneGuide("wailing-caverns", "fang")
 emit({ none = none == nil, why = why })"#,
@@ -522,9 +524,9 @@ emit({ none = none == nil, why = why })"#,
 	assert_eq!(later["title"], "Wailing Caverns: Fang of the Serpent");
 	let titles: Vec<Value> = list(&later["steps"]).iter().map(|s| s["title"].clone()).collect();
 	assert_eq!(json!(titles), json!(["The Serpent's Trial", "Fang of the Serpent", "Wailing Caverns"]));
-	assert_eq!(later["goto"], json!([1413, 46, 36.4, "Enter Wailing Caverns"]));
+	assert_eq!(later["goto"], json!([1413, 46, 36.4, "Wailing Caverns"]));
 	assert_eq!(later["note"], "Lets you take the serpent's path.");
-	assert_eq!(*opened, json!({ "gid": "lookup/attune/wailing-caverns:fang", "tabs": ["lookup/attune/wailing-caverns:fang"] }));
+	assert_eq!(*opened, json!({ "gid": "lookup/attune/wailing-caverns:fang", "tabs": ["lookup/attune/wailing-caverns:fang"], "enter": "Enter Wailing Caverns" }), "the entrance reads Enter, not Go to Enter");
 	assert_eq!(*finished, json!({ "none": true, "why": "done" }));
 }
 

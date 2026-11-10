@@ -698,7 +698,7 @@ builders.drop = function(ctx, row)
 	if row.chance then step.note = L["Drop chance"] .. " " .. percent(row.chance) end
 	if inst then
 		if located(row) then
-			steps[#steps + 1] = { title = inst.name, goals = { at({ t = "goto", text = L["Enter"] .. " " .. inst.name, entrance = true }, row) } }
+			steps[#steps + 1] = { title = inst.name, goals = { at({ t = "goto", text = inst.name, entrance = true }, row) } }
 		end
 		step.goals[1], step.goals[2] = kill, collect
 	else
@@ -814,7 +814,7 @@ builders["end"] = builders.start
 
 builders.entrance = function(ctx, row)
 	if not located(row) then return nil, "nolocation" end
-	return { { title = ctx.name, goals = { at({ t = "goto", text = L["Enter"] .. " " .. ctx.name, entrance = true }, row) } } }
+	return { { title = ctx.name, goals = { at({ t = "goto", text = ctx.name, entrance = true }, row) } } }
 end
 
 local function entityName(kind, entity)
