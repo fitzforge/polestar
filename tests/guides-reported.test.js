@@ -10205,7 +10205,7 @@ test('Horde Silverpine: Camping 101 hand-ins as plain turn-ins on carrier-only s
 		const { step, goal } = list[at(list, `Camping 101 ${quest}`, is('turnin', quest))];
 		assert.equal(goal.npc, npc, `${quest}: its trainer`);
 		assert.ok(!goal.optional, `${quest}: a plain turn-in, which auto turn-in takes (#1559)`);
-		assert.deepEqual(step.goals.map((g) => g.t), ['turnin'], `${quest}: a step of its own`);
+		assert.deepEqual(step.goals.map((g) => g.t), ['complete', 'turnin'], `${quest}: a step of its own, talk to the trainer then hand in`);
 		assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(quest)), `${quest}: only for a carrier`);
 		assert.ok(step.only.races.includes(race), `${quest}: for the race whose campfire gives it`);
 	}
