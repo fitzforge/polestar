@@ -5537,6 +5537,19 @@ test('forever/alliance/30-40/02-desolace.guide: flow re-order: the Scorpashi ven
 	assert.ok(hides.length === 1 && hides[0].s === kodos.s, 'the hides there, once');
 });
 
+// #1579: the first Nijel's Point step had Vahlarriel's Vengeance taken with the first part of Vahlarriel's Search
+// (1437), but she offers it only after the search has moved on: the recordings show it offered in her window after
+// the Malem chest's part (1465) is handed back to her, and a player with 1437 still in the log found nothing to take.
+test('forever/alliance/30-40/02-desolace.guide: Vahlarriel\'s Vengeance is taken when the Malem chest\'s part of her search is handed back, not with its first part (#1579)', { skip }, () => {
+	const list = goals('forever/alliance/30-40/02-desolace.guide');
+	const stepOf = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
+	const take = at(list, 'accept 97284', is('accept', 97284));
+	assert.ok(at(list, 'turnin 1437', is('turnin', 1437)) < take, 'after the first part is handed in at the Malem chest');
+	assert.ok(at(list, 'turnin 1465', is('turnin', 1465)) < take, 'after the second part is handed back to Vahlarriel');
+	assert.equal(list[take].s, stepOf('turnin', 1465), 'on the Nijel\'s Point stop that hands her 1465');
+	assert.ok(take < at(list, 'kill 4663 (Burning Blade Augur)', is('kill', 97284)), 'before the cultists in Thunder Axe Fortress');
+});
+
 // Flow re-order (2026-11-07): Alliance Stranglethorn 30-40 took Krazek's Cookery only on the second Rebel
 // Camp visit and handed it in on the last Booty Bay stop. Since the 30-40 re-order the Rebel Camp's 37s (Bookie
 // Herod's chain, Krazek's Cookery) are taken on the northern loop (30-40/04b) when it starts.

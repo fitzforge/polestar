@@ -27,7 +27,6 @@ step Nijel's Point
   accept 1454                         -- Kreldig Ungor: the wreck's chest lies below Azore's tower, on the way to Thunder Axe Fortress
   accept 1387                         -- Corporal Melkins
   accept 1437                         -- Vahlarriel Demonslayer
-  accept 97284                        -- Vahlarriel Demonslayer: the Burning Blade in Thunder Axe Fortress, where her search leads
 
 step Malem chest
   tip The chest lies in the ruins south-west of Nijel's Point.
@@ -52,6 +51,7 @@ step Nijel's Point
   zone Desolace
   turnin 1465
   accept 1438
+  accept 97284                        -- Vahlarriel Demonslayer: the Burning Blade in Thunder Axe Fortress, where her search leads
 
 # ---------------------------------------------------------------- Thunder Axe Fortress
 
