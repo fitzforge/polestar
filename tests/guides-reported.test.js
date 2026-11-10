@@ -9841,3 +9841,28 @@ test('Horde Barrens 15-21: Protect Kaya on the way down the Webwinder Path, Kaya
 	assert.equal(goal.npc, 11864);
 	assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg && p.q.includes(6401)), "only for a player carrying Kaya's Alive");
 });
+
+
+
+// Horde 12-30 bracket review (0.3.6): Supplying the Sepulcher (Undead only) runs on stops the Silverpine guide already
+// makes: Podrig and Karos at the first Sepulcher stop, Gordon Wendham and Michael Garrett on the Undercity stop at the
+// end, Return to Podrig on the ride through the Sepulcher in the next Silverpine visit, shown only to a carrier.
+test('Horde Silverpine: Supplying the Sepulcher on the Sepulcher and Undercity stops, Undead only', { skip }, () => {
+	const list = goals('forever/horde/03-silverpine-forest.guide');
+	const order = [is('accept', 6321), is('turnin', 6321), is('accept', 6323), is('turnin', 6323), is('accept', 6322), is('turnin', 6322), is('accept', 6324)];
+	let last = -1;
+	for (const pred of order) {
+		const i = at(list, 'Supplying the Sepulcher chain', pred);
+		assert.ok(i > last, 'the chain in order');
+		const { step, goal } = list[i];
+		assert.deepEqual((goal.only || step.only).races, ['Scourge'], `${goal.t} ${goal.quest}: Undead only`);
+		last = i;
+	}
+	const sepulcher = list[at(list, 'first Sepulcher stop', is('accept', 6321))].step;
+	assert.ok(sepulcher.goals.some((g) => g.t === 'getfp'), 'Podrig on the Sepulcher flight path stop');
+	const uc = list[at(list, 'Undercity stop', is('turnin', 6323))].step;
+	assert.ok(uc.goals.some((g) => g.t === 'turnin' && g.quest === 441), 'Gordon on the Undercity stop with Raleigh');
+	const ride = goals('forever/horde/05-stonetalon-mountains.guide');
+	const { step } = ride[at(ride, 'Return to Podrig', is('turnin', 6324))];
+	assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg && p.q.includes(6324)), 'only for a player carrying the crate');
+});

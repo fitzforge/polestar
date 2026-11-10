@@ -8553,6 +8553,42 @@
 					"turnin",
 					6523
 				]
+			},
+			{
+				"q": 6321,
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10): Supplying the Sepulcher (level 10, Undead only per Forever's quest data, 210 XP) from Deathguard Podrig (6389, 43.4,41.7) to Karos Razok, the bat handler beside him, on 03-silverpine-forest's first Sepulcher stop (the flight path stop). Players' recordings: 6 Undead took it at the Sepulcher (levels 13-17) and handed it to Karos (2226).",
+				"issue": "-",
+				"after": [
+					"accept",
+					437
+				]
+			},
+			{
+				"q": 6323,
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10): Ride to the Undercity (Undead only, 420 XP) from Karos Razok on the same Sepulcher stop, handed to Gordon Wendham (4556, Undercity 61.5,41.8, beside the bat handler) on 03's Undercity stop at the end; the flight it names is not needed (any way into the city completes it). Recordings: 6 people, all handed in to Gordon.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					6321
+				]
+			},
+			{
+				"q": 6322,
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10): Michael Garrett (Undead only, 210 XP) from Gordon Wendham to Michael Garrett, the Undercity bat handler (4551, 63.3,48.6), whose flight path the same stop learns. Recordings: 6 people, all handed in to Garrett.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					6323
+				]
+			},
+			{
+				"q": 6324,
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10): Return to Podrig (Undead only, Gordon's Crate) from Michael Garrett on 03's Undercity stop, handed to Podrig on 05-stonetalon-mountains' Sepulcher stop on the ride to Hillsbrad (a step shown only to a carrier). Grey by then (quest level 10 at about 22): it closes the chain on a stop the route makes anyway.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					6322
+				]
 			}
 		],
 		"skip": [

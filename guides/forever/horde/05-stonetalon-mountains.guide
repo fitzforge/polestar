@@ -52,6 +52,8 @@ next forever/horde/06-hillsbrad-foothills
 # 0.3 hours sooner to 60 on every Horde branch without it).
 #
 # Carried on, finished: Beren's Peril and Watching the Roads (Allister, next guide).
+# Undead: Return to Podrig (6324, Gordon's Crate from the Undercity stop of
+# forever/horde/03-silverpine-forest) goes to Deathguard Podrig on the Sepulcher stop.
 #
 # Class quests: Rogues take Deep Cover (2458, from Shenthul in Orgrimmar at 20) to Taskmaster Fizzule
 # by the Venture Co. tower north of the Sludge Fen on the way north, a short walk east of the road to
@@ -221,6 +223,13 @@ step The Sepulcher
   accept 493                          -- Apothecary Renferrel: Lydon in Tarren Mill, next guide
   accept 95981                        -- Shadow Priest Allister
   accept 516                          -- Shadow Priest Allister: Beren's Peril, south-east of Ambermill
+
+step Deathguard Podrig
+  only Undead
+  zone Silverpine Forest
+  when onquest 6324
+  tip Deathguard Podrig stands just west of the crypt entrance: hand him Gordon's Crate from the Undercity.
+  turnin 6324                         -- Deathguard Podrig
 
 step Silverpine Forest: kill these as you meet them
   zone Silverpine Forest

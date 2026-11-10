@@ -13,6 +13,10 @@ next forever/horde/02-the-barrens
 # Zinge's Delivery and Sample for Helbrim (1359, 1358), The Spirits of Stonetalon (1061), and for
 # the starts that come by zeppelin, The Argent Emissary, The Cult of the Damned, Remnants of War and
 # Delivery to Silverpine Forest (96895, 96897, 96898, 445).
+# Undead only: Supplying the Sepulcher (6321) and Ride to the Undercity (6323), Deathguard Podrig to
+# Karos Razok on the first Sepulcher stop, then Gordon Wendham and Michael Garrett (6322) side by side
+# on the Undercity stop at the end; Return to Podrig (6324) goes back with the ride through the
+# Sepulcher in forever/horde/05-stonetalon-mountains. Forever gives the chain to the Undead alone.
 
 # Horde 12-30 in the order the quest levels fit (2026-11-07): Silverpine Forest comes first, at
 # 12-15, straight from every start. Tirisfal Glades walks south into it; Durotar, Mulgore and
@@ -250,7 +254,10 @@ step The Sepulcher
 step The Sepulcher
   zone Silverpine Forest
   tip The Sepulcher is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; Karos Razok, the bat handler, is just east of it.
+  accept 6321 only Undead             -- Deathguard Podrig
   getfp "The Sepulcher"
+  turnin 6321 only Undead             -- Karos Razok
+  accept 6323 only Undead             -- Karos Razok: Gordon Wendham in the Undercity, at the end of this guide; no need to buy the flight
   accept 477                          -- Shadow Priest Allister
   accept 421
   accept 428                          -- High Executor Hadrec, below ground
@@ -378,7 +385,11 @@ step Tirisfal Glades
 step The Undercity
   zone Undercity
   tip The Undercity lies under the Ruins of Lordaeron, beside the zeppelin towers. Raleigh Andrean stands at the inn by the way down; Alessandro Luca on the way down to the Apothecarium, where Doctor Martin Felben and Apothecary Zinge stand beside Master Apothecary Faranell.
+  turnin 6323 only Undead             -- Gordon Wendham, the weapon merchant beside the bat handler
+  accept 6322 only Undead
   getfp "Undercity"
+  turnin 6322 only Undead             -- Michael Garrett, the bat handler
+  accept 6324 only Undead             -- Michael Garrett: keep Gordon's Crate, Podrig takes it on the ride through the Sepulcher at 22
   turnin 441                          -- Raleigh Andrean
   accept 97891                        -- Alessandro Luca
   turnin 97891                        -- Doctor Martin Felben, in the Apothecarium
