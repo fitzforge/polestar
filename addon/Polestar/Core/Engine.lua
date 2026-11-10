@@ -3935,13 +3935,18 @@ local function describe(goal, s)
 		-- A landing the character has no flight path to: travel there (Own.unknownLanding).
 		return Own.unknownLanding(goal) and L["Go to"] or L["Fly to"], place or N.Taxi(goal.node) or goal.location, "place", nil
 	elseif t == "train" then
+		-- "Learn", not "Train": "Train at <trainer>" read as "grind here" to players of other games (#1669).
 		local _, npcName = npcOf(goal)
 		if goal.skillLine and rankCap(goal) then
 			local name = skillName(goal)
-			return L["Train"], name, "skill", fmt(L["at %s"], npcName)
+			return L["Learn"], name, "skill", fmt(L["from %s"], npcName)
 		end
-		if npcName then return L["Train at"], npcName, "npc", nil end
-		return L["Train at"], L["your trainer"], "text", nil
+		if goal.class or (goal.npc and Engine.IsClassTrainer(goal.npc)) then
+			if npcName then return L["Learn new spells from"], npcName, "npc", nil end
+			return L["Learn new spells from"], L["your class trainer"], "text", nil
+		end
+		if npcName then return L["Learn from"], npcName, "npc", nil end
+		return L["Learn from"], L["your trainer"], "text", nil
 	elseif t == "buy" then
 		local _, npcName = npcOf(goal)
 		return L["Buy"], N.Item(goal.item) or goal.itemName, "item", fmt(L["from %s"], npcName)

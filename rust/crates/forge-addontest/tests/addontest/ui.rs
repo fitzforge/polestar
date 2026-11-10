@@ -1591,7 +1591,7 @@ fn goal_lines_render_the_engine_text_author_overrides_and_counts_survive_the_sub
 		local UI = Polestar.UI
 		local hex = Polestar.Theme.Hex("npc")
 		emit({
-			override = UI.GoalText({ t = "train", verb = "Train at", subject = "your trainer", subjectKind = "text", text = "Learn Charge and Rend", status = "active" }),
+			override = UI.GoalText({ t = "train", verb = "Learn new spells from", subject = "your class trainer", subjectKind = "text", text = "Learn Charge and Rend", status = "active" }),
 			count = UI.GoalText({ t = "kill", verb = "Kill", subject = "Young Wolf", subjectKind = "npc", text = "Kill 5 Young Wolf", status = "active" }),
 			note = UI.GoalText({ t = "note", verb = "", subject = "Watch for patrols", subjectKind = "text", text = "Watch for patrols", status = "pending" }),
 			plain = UI.GoalText({ t = "talk", verb = "Talk to", subject = "Brother Neals", subjectKind = "npc", status = "active" }),
