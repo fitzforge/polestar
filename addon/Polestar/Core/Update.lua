@@ -394,24 +394,65 @@ end
 -- target, mouse over or see the nameplate of, not in your group or guild
 -- (those hear the party sync and the guild hello), out of combat, outside
 -- instances and the game's messaging lockdown, gets one hidden addon
--- whisper, "V?<version>". The client's whisper check
--- (RequestCanLocalWhisperTarget) answers first where it exists: only a
--- player it says can be whispered gets it, so no "not found" line shows.
--- Their Polestar answers "V=<version>" to a probe only, once per sender a
--- session, to the sender exactly as it arrived; a "V=" is never answered.
--- Each side keeps the other's version when it counts (NotePeer). Limits:
--- one probe per player per PROBE_AGAIN (PolestarDB.update.probed, at most
--- PROBE_KEEP players), one per PROBE_GAP seconds, PROBE_SESSION a session,
--- none once a newer release is known. Only while party sharing is on, like
--- the guild hello. The target is named as the game's own Whisper does it
--- (Compat.UnitFullName: "Ana Smith" with the client's surname separator).
+-- whisper, "PSV1?<version>", to the unit's own name as the game's Whisper
+-- writes it (Compat.UnitFullName: "Ana Smith" with the client's surname
+-- separator). The client's whisper check (RequestCanLocalWhisperTarget)
+-- answers first where it exists: only a player it says can be whispered
+-- gets it, so no "not found" line shows. Their Polestar answers
+-- "PSV1=<version>" over a whisper, after a moment, once per sender per
+-- ANSWER_GAP, never to its own echo; a "=" is never answered. An answer
+-- counts only over a whisper from a player probed in the last ASK_WAIT
+-- seconds (by Compat.SenderName), once: one answer per probe. Older
+-- Polestars don't answer whispers, so silence means nothing.
+-- Messages are read only as ^PSV1([?=])x.y.z$, at most PROBE_BYTES bytes,
+-- major <= 99, minor and patch <= 999; anything else is dropped. A newer
+-- release heard only this way needs two different players' answers before
+-- it counts (Update.NoteWhisper; at most HEARD_KEEP players kept): the
+-- second-highest of their versions is the one passed on (NotePeer).
+-- Limits: one probe per player per PROBE_AGAIN (PolestarDB.update.probed,
+-- at most PROBE_KEEP players), one per PROBE_GAP seconds, PROBE_SESSION a
+-- session, none once a newer release is known. Only while party sharing is
+-- on, like the guild hello.
 U.PROBE_GAP = 10
 U.PROBE_SESSION = 30
 U.PROBE_AGAIN = DAY
 U.PROBE_KEEP = 300
-U.ANSWER_SESSION = 100 -- probes answered a session at most
+U.PROBE_BYTES = 24
+U.ASK_WAIT = 60 -- seconds an answer to a probe is accepted
+U.ANSWER_GAP = 60 -- seconds between two answers to one sender
+U.HEARD_KEEP = 50
 U.CHECK_WAIT = 30 -- seconds a whisper check's answer is waited for
-local probe = { sent = 0, at = -math.huge, waiting = {}, answered = {}, answers = 0 }
+local TAG = "PSV1"
+local probe = { sent = 0, at = -math.huge, waiting = {}, asked = {}, answered = {} }
+
+-- "PSV1?0.3.7" -> "?", "0.3.7"; nil for anything else.
+function U.ParseProbe(text)
+	if type(text) ~= "string" or #text > U.PROBE_BYTES then return nil end
+	local kind, a, b, c = text:match("^PSV1([%?=])(%d+)%.(%d+)%.(%d+)$")
+	if not kind then return nil end
+	a, b, c = tonumber(a), tonumber(b), tonumber(c)
+	if a > 99 or b > 999 or c > 999 then return nil end
+	return kind, a .. "." .. b .. "." .. c
+end
+
+-- Drops entries of `list` (key -> time, or { at = time }) older than `ttl`,
+-- then the oldest while more than `keep` are left.
+local function prune(list, t, ttl, keep)
+	local n = 0
+	for k, e in pairs(list) do
+		local at = type(e) == "table" and e.at or e
+		if t - (tonumber(at) or 0) >= ttl then list[k] = nil else n = n + 1 end
+	end
+	while n > keep do
+		local oldest, oldestAt = nil, math.huge
+		for k, e in pairs(list) do
+			local at = tonumber(type(e) == "table" and e.at or e) or 0
+			if at < oldestAt then oldest, oldestAt = k, at end
+		end
+		list[oldest] = nil
+		n = n - 1
+	end
+end
 
 -- Whether a probe may go out now: the cheap checks first, as the mouseover
 -- event fires often.
@@ -455,23 +496,39 @@ local function probed()
 end
 
 local function remember(name)
-	local list, t = probed(), now()
-	list[name] = t
-	local n, oldest, oldestAt = 0, nil, math.huge
-	for k, at in pairs(list) do
-		if t - (tonumber(at) or 0) >= U.PROBE_AGAIN then
-			list[k] = nil
-		else
-			n = n + 1
-			if at < oldestAt then oldest, oldestAt = k, at end
-		end
+	local list = probed()
+	list[name] = now()
+	prune(list, now(), U.PROBE_AGAIN, U.PROBE_KEEP)
+end
+
+-- A newer release a player answered a probe with: kept per player
+-- (PolestarDB.update.heard, HEARD_KEEP at most, PEER_DAYS long); once two
+-- players have answered with newer releases, the lower of the two highest is
+-- told as a peer's version. -> true when it counts
+function U.NoteWhisper(name, v)
+	local m = mine()
+	if not (m and type(name) == "string" and U.Release(v) and newer(v, m) and plausible(v)) then return false end
+	local s = state()
+	if type(s.heard) ~= "table" then s.heard = {} end
+	s.heard[name] = { v = v, at = now() }
+	prune(s.heard, now(), U.PEER_DAYS * DAY, U.HEARD_KEEP)
+	local list = {}
+	for _, e in pairs(s.heard) do
+		if type(e) == "table" and U.Release(e.v) and newer(e.v, m) and plausible(e.v) then list[#list + 1] = e.v end
 	end
-	if n > U.PROBE_KEEP and oldest then list[oldest] = nil end
+	if #list < 2 then return false end
+	table.sort(list, function(a, b) return newer(a, b) end)
+	return U.NotePeer(list[2])
 end
 
 local function whisperProbe(target)
 	if not sendingOn() or lockdown() then return false end
-	return sendTo("V?" .. mine(), "WHISPER", target)
+	local key = ns.Compat.SenderName(target)
+	if key then
+		probe.asked[key] = GetTime()
+		prune(probe.asked, GetTime(), U.ASK_WAIT, U.HEARD_KEEP)
+	end
+	return sendTo(TAG .. "?" .. mine(), "WHISPER", target)
 end
 
 -- Probe the player at `unit` when everything allows. -> true when asked
@@ -501,26 +558,44 @@ local function onWhisperCheck(_, guid, status)
 	if status == can and GetTime() - w.at <= U.CHECK_WAIT then whisperProbe(w.target) end
 end
 
--- A probe's answer: once per sender a session, to the sender as it came.
-local function answerProbe(sender)
-	if probe.answered[sender] or probe.answers >= U.ANSWER_SESSION or not sendingOn() or lockdown() then return end
-	probe.answered[sender] = true
-	probe.answers = probe.answers + 1
-	sendTo("V=" .. mine(), "WHISPER", sender)
+-- Answers a probe after a moment, to the sender as it came.
+function U.AnswerDelay() return 0.5 + math.random() * 2 end
+
+local function answerProbe(sender, key)
+	if not sendingOn() or GetTime() - (probe.answered[key] or -math.huge) < U.ANSWER_GAP then return end
+	probe.answered[key] = GetTime()
+	prune(probe.answered, GetTime(), U.ANSWER_GAP, U.HEARD_KEEP)
+	ns.After(U.AnswerDelay(), function()
+		if sendingOn() and not lockdown() then sendTo(TAG .. "=" .. mine(), "WHISPER", sender) end
+	end)
 end
 
-local function onAddonMessage(_, prefixIn, text, channel, sender)
+-- Whispers on our prefix: probes and their answers only (Party.lua reads
+-- the party channel alone).
+local function onWhisper(_, prefixIn, text, channel, sender)
 	local C = ns.Compat
 	if C.IsSecret(prefixIn) or C.IsSecret(channel) or C.IsSecret(text) or C.IsSecret(sender) then return end
-	if prefixIn ~= U.PREFIX or type(text) ~= "string" or type(sender) ~= "string" then return end
-	if channel == "WHISPER" then
-		local kind, v = text:match("^V([%?=])([^|]*)$")
-		if not kind then return end
-		U.NotePeer(v)
-		if kind == "?" then answerProbe(sender) end
-		return
+	if prefixIn ~= U.PREFIX or channel ~= "WHISPER" or type(sender) ~= "string" then return end
+	local kind, v = U.ParseProbe(text)
+	if not kind or C.SenderIsMe(sender) then return end
+	local key = C.SenderName(sender)
+	if not key then return end
+	if kind == "?" then
+		answerProbe(sender, key)
+	else
+		local at = probe.asked[key]
+		if not at or GetTime() - at > U.ASK_WAIT then return end
+		probe.asked[key] = nil
+		U.NoteWhisper(key, v)
 	end
-	if channel ~= "GUILD" or C.SenderIsMe(sender) then return end
+end
+
+-- The guild hello and its answers.
+local function onGuild(_, prefixIn, text, channel, sender)
+	local C = ns.Compat
+	if C.IsSecret(prefixIn) or C.IsSecret(channel) or C.IsSecret(text) or C.IsSecret(sender) then return end
+	if prefixIn ~= U.PREFIX or channel ~= "GUILD" or type(text) ~= "string" or type(sender) ~= "string" then return end
+	if C.SenderIsMe(sender) then return end
 	local mark, v = text:match("^1([HY])|([^|]*)$")
 	if not mark then return end
 	U.NotePeer(v)
@@ -538,23 +613,25 @@ local function probePlate(_, unit) U.Probe(unit) end
 
 -- What Polestar listens to, checked at login, at the hello, when the guild,
 -- party sharing or what is known changes, and as the session's probes run
--- out: addon messages in a guild or while sharing (guild hellos, probes and
--- their answers); the units to probe while a probe can still go out.
--- Solo with sharing off, neither.
-local listening, probing = false, false
+-- out: the guild channel in a guild; whispers while sharing (probes and
+-- their answers, our prefix registered); the units to probe while a probe
+-- can still go out. Solo with sharing off, nothing.
+local inGuild, whispers, probing = false, false, false
 function U.Listen()
-	local share = ns.Get("party.share") and true or false
-	local want = share or (IsInGuild and IsInGuild() and true or false)
-	if want ~= listening then
-		listening = want
-		if want then
-			prefix()
-			ns.RegisterEvent("CHAT_MSG_ADDON", onAddonMessage)
-		else
-			ns.UnregisterEvent("CHAT_MSG_ADDON", onAddonMessage)
-		end
+	local guild = IsInGuild and IsInGuild() and true or false
+	if guild ~= inGuild then
+		inGuild = guild
+		local set = guild and ns.RegisterEvent or ns.UnregisterEvent
+		set("CHAT_MSG_ADDON", onGuild)
 	end
-	local wantProbe = sendingOn() and probe.sent < U.PROBE_SESSION and U.Latest() == nil
+	local share = sendingOn()
+	if share ~= whispers then
+		whispers = share
+		local set = share and ns.RegisterEvent or ns.UnregisterEvent
+		set("CHAT_MSG_ADDON", onWhisper)
+	end
+	if guild or share then prefix() end
+	local wantProbe = share and probe.sent < U.PROBE_SESSION and U.Latest() == nil
 	if wantProbe ~= probing then
 		probing = wantProbe
 		local set = wantProbe and ns.RegisterEvent or ns.UnregisterEvent
