@@ -68,7 +68,7 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 		emit(out)
 		local keys = {}
 		for _, k in ipairs({ "itemButton", "targetButton", "hearthButton", "buttonScale", "xpTracker", "sellJunk", "autoRepair",
-			"rewardHighlight", "rewardAutoPick", "flightAutoOpen", "flightHighlight", "deathHelper", "instantQuestText",
+			"rewardHighlight", "rewardAutoPick", "flightAutoOpen", "flightHighlight", "flightAutoTake", "deathHelper", "instantQuestText",
 			"skipGossip", "fastLoot", "declineDuels", "repairGuild", "hideErrors", "autoReleasePvP", "declineGuildInvites",
 			"declinePartyStrangers", "acceptPartyFriends", "acceptSummon", "acceptResurrect", "buyGoals", "trainAll",
 			"rewardEquip", "autoBind", "hideQuestTracker", "restock", "itemMarks", "bagSpace", "bagsLow", "wearOffer" }) do keys[k] = Polestar.GetDefault("qol." .. k) end
@@ -95,6 +95,7 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 		assert!(truthy(&c["tab"]) && truthy(&c["section"]));
 	}
 	assert_eq!(defaults["rewardAutoPick"], false, "auto-pick is off by default");
+	assert_eq!(defaults["flightAutoTake"], false, "taking the flight by itself is off by default");
 	assert_eq!(defaults["buyGoals"], false, "buying for the guide is off by default");
 	assert_eq!(defaults["trainAll"], false, "learning at trainers is off by default");
 	assert_eq!(defaults["rewardEquip"], false, "wearing rewards is off by default");
@@ -3926,6 +3927,84 @@ fn flight_the_step_key_takes_the_marked_flight_on_the_live_step_when_the_player_
 	assert_eq!(out[2], json!([0, true]));
 	assert_eq!(out[3], 0);
 	assert_eq!(out[4], 0);
+}
+
+#[test]
+fn flight_auto_take_flies_as_the_map_opens_only_when_on_without_shift_on_the_live_step_to_a_reachable_node_it_can_pay_for() {
+	let out = run(r#"
+		local NODES = { "Stormwind, Elwynn", "Lakeshire, Redridge", "Sentinel Hill, Westfall" }
+		local TAXI = { gossipOptionID = 77, name = "Show me where I can fly.", icon = 132057, orderIndex = 0 }
+		local function open() q.calls = {}; q.openTaxi(NODES); local t = calls("TakeTaxiNode")[1] or 0; stub.fire("TAXIMAP_CLOSED"); return t end
+		q.step({ { t = "fly", location = "Lakeshire" } })
+		q.money = 500
+		q.taxiCosts[2] = 300
+		-- off by default: the map only opens
+		emit(open())
+		set("flightAutoTake", true)
+		emit(open())
+		-- Shift held as the map opens
+		stub.keys.shift = true
+		emit(open())
+		stub.keys.shift = false
+		-- Shift held at the flight master's gossip, let go before the map opens
+		stub.keys.shift = true
+		q.openGossip(1, { options = { TAXI } })
+		stub.keys.shift = false
+		emit(open())
+		-- the next visit without Shift flies again
+		emit(open())
+		-- the same with Open the flight map off: the player picks the taxi option
+		set("flightAutoOpen", false)
+		stub.keys.shift = true
+		q.openGossip(1, { options = { TAXI } })
+		stub.keys.shift = false
+		emit(open())
+		set("flightAutoOpen", true)
+		-- Shift at another NPC's gossip is not the flight master's
+		stub.keys.shift = true
+		q.openGossip(5, { options = { { gossipOptionID = 78, name = "Tell me more.", icon = 132053, orderIndex = 0 } } })
+		stub.keys.shift = false
+		emit(open())
+		-- the window shows another step than the live one
+		q.engine.live = 1
+		q.step({ { t = "fly", location = "Lakeshire" } }, 2)
+		emit(open())
+		q.engine.live = nil
+		-- the node is not reachable from here
+		q.taxiTypes[2] = "DISTANT"
+		emit(open())
+		q.taxiTypes[2] = nil
+		-- no destination the map knows
+		q.step({ { t = "fly", location = "Booty Bay" } })
+		emit(open())
+		q.step({ { t = "fly", location = "Lakeshire" } })
+		-- too dear: nothing taken, the price said
+		q.taxiCosts[2] = 900
+		emit({ open(), printed("Lakeshire") })
+		-- a replan while the map stays open never flies, even once it can pay
+		q.calls = {}
+		q.openTaxi(NODES)
+		q.taxiCosts[2] = 300
+		Polestar.Fire("ROUTE_CHANGED"); stub.runTimers()
+		emit(#calls("TakeTaxiNode"))
+		stub.fire("TAXIMAP_CLOSED")
+		-- no mark, no flight
+		set("flightHighlight", false)
+		emit(open())
+	"#);
+	assert_eq!(out[0], 0, "off by default");
+	assert_eq!(out[1], 2, "on: the marked node, taken as the map opens");
+	assert_eq!(out[2], 0, "Shift held at the map");
+	assert_eq!(out[3], 0, "Shift held at the flight master's gossip");
+	assert_eq!(out[4], 2, "Shift is forgotten once the map closes");
+	assert_eq!(out[5], 0, "Shift at the gossip with Open the flight map off");
+	assert_eq!(out[6], 2, "Shift at a gossip without a taxi option");
+	assert_eq!(out[7], 0, "not on the live step");
+	assert_eq!(out[8], 0, "unreachable node");
+	assert_eq!(out[9], 0, "unknown destination");
+	assert_eq!(out[10], json!([0, true]), "cannot pay: the price is printed");
+	assert_eq!(out[11], 0, "a replan while the map is open");
+	assert_eq!(out[12], 0, "no mark");
 }
 
 #[test]

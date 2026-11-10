@@ -26,6 +26,7 @@ end
 local function repairOff() return not QoL.On("autoRepair") end
 local function markOff() return not QoL.On("markTarget") end
 local function targetOff() return not QoL.On("targetButton") end
+local function flightMarkOff() return not QoL.On("flightHighlight") end
 
 -- The eight raid icons, by the client's names, then a new one each press.
 local function markChoices()
@@ -179,6 +180,8 @@ register(QOL, L["Travel"], L["Flight masters"], {
 		help = L["Talking to a flight master opens the map directly. Hold Shift for the gossip."], search = "flight, taxi, flight path, gryphon, wind rider, fly" },
 	{ kind = "toggle", key = "qol.flightHighlight", label = L["Mark the route's destination"],
 		help = L["Marks where the travel route flies next on the flight map. You still choose the flight."], search = "flight, taxi, flight path, highlight destination" },
+	{ kind = "toggle", key = "qol.flightAutoTake", label = L["Take the marked flight"], disabled = flightMarkOff, child = true,
+		help = L["When the flight map opens, flies to the marked destination. Hold Shift at the flight master to choose yourself."], search = "flight, taxi, flight path, auto fly, take flight" },
 })
 
 register(QOL, L["Travel"], L["Hearthstone"], {

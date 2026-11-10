@@ -4964,13 +4964,21 @@ Polestar.QoL.Bind.OnGossip() -> bool         -- GOSSIP_SHOW (Toggles.lua: after 
 ```lua
 Polestar.QoL.Flight.TakeSlot() -> slot, cost | nil   -- the marked node the step key flies to: map open, the window on the live step, the node reachable (TaxiNodeGetType), cost from TaxiNodeCost
 Polestar.QoL.Flight.Take() -> bool                   -- the press: TakeTaxiNode(slot) when GetMoney covers the cost, else prints what it costs
+Polestar.QoL.Flight.AutoTake() -> bool               -- qol.flightAutoTake: Take() as the map opens, once per open
 ```
 
-- The flight is still only taken by a press of the player's: while the
+- By default the flight is only taken by a press of the player's: while the
   flight map is open and its node is marked (`qol.flightHighlight`), the
   step key (`PolestarStepButton`) has no secure action and its PostClick
   takes the marked flight. Looking at another step than the live one, an
   unreachable node or no mark leaves the key to the step's own action.
+- The one exception is `qol.flightAutoTake` (Travel → Flight masters, off
+  by default, #1621, a child of `qol.flightHighlight`): on `TAXIMAP_OPENED`,
+  after the mark, `Flight.AutoTake` presses for the player once per open
+  (`Flight.Take`: the marked node, the live step, reachable, the cost
+  covered, else the price printed). Shift held now or when a flight
+  master's gossip opened leaves the map to the player; a replan while it is
+  open never flies.
 - `Flight.Highlight` fires `FLIGHT_MARK_CHANGED(slot | nil)` after every
   mark (the map opening, a replan while it is open) and on
   `TAXIMAP_CLOSED`; the buttons refresh on it.

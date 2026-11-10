@@ -609,6 +609,9 @@ function TakeTaxiNode(i) call("TakeTaxiNode", i) end
 -- q.taxiCosts[i]: the copper node i costs (0 when unset).
 q.taxiCosts = {}
 function TaxiNodeCost(i) return q.taxiCosts[i] or 0 end
+-- q.taxiTypes[i]: what TaxiNodeGetType says of node i (nil when unset).
+q.taxiTypes = {}
+function TaxiNodeGetType(i) return q.taxiTypes[i] end
 
 function q.openTaxi(names)
 	q.taxiNodes = names
