@@ -67,11 +67,11 @@ return {
 	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone
 	["{npc:271460} stands in the ruins of {area:205} (use the {item:279996})."] = "",
 
-	-- Step 16: The Villards
-	["The Villards"] = "빌라드 남매",
-	-- {npc:5683} Corma Villard · {area:205} Dun Modr · {area:880} Thandol Span · {npc:271322} Essene Villard · {npc:1075} Rhag Garmason · {quest:87318} Hearts of the Lost
+	-- Step 16: Ebenezer Rustlocke
+	["Ebenezer Rustlocke"] = "에벤에셀 러스트로크",
+	-- {area:205} Dun Modr · {area:880} Thandol Span · {npc:1075} Rhag Garmason
 	-- plural, as words: Dark Iron Saboteurs = {npc:1052} Dark Iron Saboteur
-	["{npc:5683} waits on the road north of {area:205}, towards the {area:880}; {npc:271322} a short walk further north-east, and Ebenezer Rustlocke's corpse lies under the span beside her. Rustlocke's parchment goes back to {npc:1075}.\n{npc:5683} may not offer {quest:87318} yet: if she doesn't, skip it.\nTwo elite Dark Iron Saboteurs stand by the corpse inside the span: pull them one at a time, or loot the corpse and run out."] = "",
+	["North along the road from {area:205} towards the {area:880}: Ebenezer Rustlocke's corpse lies under the span. Rustlocke's parchment goes back to {npc:1075}.\nTwo elite Dark Iron Saboteurs stand by the corpse inside the span: pull them one at a time, or loot the corpse and run out."] = "",
 	-- {object:2652} Ebenezer Rustlocke's Corpse
 	["{object:2652}, inside"] = "",
 	["the same corpse"] = "",
@@ -287,6 +287,7 @@ return {
 	-- ["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one."] = "Goaz Warder들은 웰가의 야영지 바로 서쪽에 있습니다. 그 중 하나 옆에서 그가 준 {item:279996}을(를) 사용하십시오.",
 	-- ["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp."] = "비밀결사대 야영지는 {area:272}(호드) 서쪽, {area:287} 북부의 알터랙 경계에 있습니다. 문서는 야영지 안에 있습니다.",
 	-- ["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}."] = "너덜지느러미멀록이 {area:271} 남서쪽 {area:295}에 몰려 있습니다.",
+	-- ["The Villards"] = "빌라드 남매",
 	-- ["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "다음 단계인 {quest:474}는 정예 족장과 싸워야 합니다. 건너뛰십시오.",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "설인은 {area:271} 북쪽 언덕의 동굴에 삽니다. 남쪽으로 돌아가는 길에 있습니다.",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "서쪽 {area:287} 농장으로 가십시오. {npc:2335}와(과) 원로들이 있는 마을 회관의 장부 탁자에 {item:279386}을(를) 놓으십시오.",

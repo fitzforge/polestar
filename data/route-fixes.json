@@ -2763,23 +2763,11 @@
 					472
 				],
 				"b": [
-					"accept",
-					87318
-				],
-				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
-			},
-			{
-				"a": [
-					"accept",
+					"turnin",
 					631
 				],
-				"b": [
-					"accept",
-					87318
-				],
 				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. Ebenezer Rustlocke's corpse lies on the road north of the camp, so it comes next (#1565: Hearts of the Lost, once taken here, is not in the game)."
 			},
 			{
 				"a": [
@@ -2787,11 +2775,11 @@
 					98310
 				],
 				"b": [
-					"accept",
-					87318
+					"turnin",
+					631
 				],
 				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. Ebenezer Rustlocke's corpse lies on the road north of the camp, so it comes next (#1565: Hearts of the Lost, once taken here, is not in the game)."
 			},
 			{
 				"a": [
@@ -2799,23 +2787,11 @@
 					87491
 				],
 				"b": [
-					"accept",
-					87318
-				],
-				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
-			},
-			{
-				"a": [
 					"turnin",
-					87318
-				],
-				"b": [
-					"task",
-					633
+					631
 				],
 				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Comar and Essene Villard stand on the road from Dun Modr to the Thandol Span (49.9,12.6 and 51.5,9.0), so Hearts of the Lost is taken and handed in on the way north, before the span; the route went over the span to Foggy MacKreel first and came back to them. (#1319: the crossing is anchored on the Cache of Explosives, task 633, since MacKreel's Moonshine moved to 05-arathi-highlands.)"
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. Ebenezer Rustlocke's corpse lies on the road north of the camp, so it comes next (#1565: Hearts of the Lost, once taken here, is not in the game)."
 			},
 			{
 				"a": [
@@ -3562,7 +3538,7 @@
 					98245
 				],
 				"faction": "Alliance",
-				"why": "Final route review (2026-11-07, Alliance Hillsbrad 30-40 and Arathi, #1173): Ebenezer Rustlocke's corpse (51.3,8.0) lies 30 yd from Essene Villard (51.5,9.0), where every race hands in Hearts of the Lost on the walk north from Dun Modr; The Thandol Span is handed in there by every race, before the walk back south to Howin. Humans, who do not cross to Foggy MacKreel, carried it to the Arathi guide and walked from Faldir's Cove back onto the span for it."
+				"why": "Final route review (2026-11-07, Alliance Hillsbrad 30-40 and Arathi, #1173): Ebenezer Rustlocke's corpse (51.3,8.0) lies on the walk north from Dun Modr, before the span; The Thandol Span is handed in there by every race, before the walk back south to Howin. Humans, who do not cross to Foggy MacKreel, carried it to the Arathi guide and walked from Faldir's Cove back onto the span for it."
 			},
 			{
 				"a": [
@@ -7096,10 +7072,6 @@
 			{
 				"q": 97265,
 				"why": "Never-seen check (2026-11-08, 0.3.6; #1314's pattern): Aka'rai (268705, Desolace), giver and ender of Hate the Hatefury, has never been seen in players' recordings, though 2 Horde people passed her spot at 33-34, and nobody has taken or been offered the quest; it stays at Shadowprey as optional (its Sargeron kills and hand-in too), with a tip to skip it if she doesn't offer it"
-			},
-			{
-				"q": 87318,
-				"why": "#1314: Corma Villard offered no Hearts of the Lost to a level-32 Alliance player standing beside her, and nobody in players' recordings has been offered or taken it; another addon's player traces do record it taken and handed in (level 33, 2650 XP), so it likely exists behind a prerequisite we don't know. Optional, with a tip to skip it if she doesn't offer it."
 			},
 			{
 				"q": 98463,

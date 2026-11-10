@@ -7212,5 +7212,51 @@
 			}
 		],
 		"note": "The Barrens Oases (886, Arch Druid Hamuul Runetotem in Thunder Bluff) is only a breadcrumb to The Forgotten Pools (870): Tonga gives 870 without it. The data made it a prerequisite, so the Wailing Caverns pick-up sent players to Hamuul for 886, which the game hides from them once it is grey (refused to everyone from level 16 in recordings, offered up to 14; #1436)."
+	},
+	"87318": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#1314, #1373, #1375, #1423, #1565: five Alliance players at level 32 standing beside Corma Villard (5683) were offered nothing"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09: Corma Villard seen friendly by 17 people (11 established), 0 quest windows with her, 0 runs of 87318, 88757 or 88758; Essene Villard (271322) never seen"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans, builds 1.60.1.70790, 70840 and 70862: 87318 has no data (it had data on the beta builds up to 70450)"
+			}
+		],
+		"note": "Hearts of the Lost (Corma Villard, Wetlands) is not in the live game: it was there in the beta, but no live player has been offered it, Essene Villard who ends it has never been seen, and the live quest scans have nothing for it. The quest leaves the data, and the Wetlands step goes straight to Ebenezer Rustlocke's corpse (#1565). Its follow-ups 88757 and 88758 go with it."
+	},
+	"88757": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09: 0 runs or offers of 88757; its giver and ender Essene Villard (271322) never seen"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans, builds 1.60.1.70790, 70840 and 70862: 88757 has no data"
+			}
+		],
+		"note": "Accessories of the Lost (Essene Villard, Wetlands) follows Hearts of the Lost (87318), which is not in the live game (#1565); neither is this one: nobody has met Essene, and the live quest scans have nothing for it. The quest leaves the data."
+	},
+	"88758": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09: 0 runs or offers of 88758; its giver Essene Villard (271322) never seen, and Corma Villard (5683), its ender, opened no quest window for the 17 people who met her"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans, builds 1.60.1.70790, 70840 and 70862: 88758 has no data"
+			}
+		],
+		"note": "Sentiments of the Lost (Essene Villard to Corma Villard, Wetlands), the last of the Hearts of the Lost chain (87318, #1565), is not in the live game either. The quest leaves the data."
 	}
 }

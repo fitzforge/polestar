@@ -5474,8 +5474,9 @@ test(`${ZEPHRAS_ALLIANCE}: flow re-order: Aetheen and Valreaa before Hanaa, on t
 
 // Flow re-order (2026-11-07): Alliance Hillsbrad 30-40 took only the Captive Fire Elemental at Dun Modr
 // on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr,
-// walking past the Villards twice.
-test(`${HILLSBRAD_ALLIANCE}: flow re-order: Dun Modr in one stop, the Villards on the way north, Ebenezer on the crossing`, { skip }, () => {
+// walking past the Villards twice. #1565: the Villards' Hearts of the Lost is not in the live game, so the
+// step after the camp is Ebenezer Rustlocke's corpse, on the way north.
+test(`${HILLSBRAD_ALLIANCE}: flow re-order: Dun Modr in one stop, Ebenezer on the way north, before the crossing`, { skip }, () => {
 	const list = goals(HILLSBRAD_ALLIANCE);
 	const stepOf = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
 	const dunModr = stepOf('turnin', 472);
@@ -5486,12 +5487,15 @@ test(`${HILLSBRAD_ALLIANCE}: flow re-order: Dun Modr in one stop, the Villards o
 	// #1319: the crossing is the Cache of Explosives (MacKreel's Moonshine moved to the Arathi guide).
 	const span = list[at(list, 'interact 2704 quest 633.1', (g) => g.t === 'interact' && g.quest === 633)].s;
 	assert.ok(stepOf('turnin', 631) > dunModr && stepOf('turnin', 631) < span, 'Ebenezer between Dun Modr and the span');
-	assert.ok(stepOf('accept', 87318) > dunModr && stepOf('accept', 87318) < span, 'the Villards between Dun Modr and the span');
-	assert.equal(stepOf('turnin', 631), stepOf('turnin', 87318), 'Ebenezer handed in beside Essene, before the crossing (final review: every race)');
-	// #1314: Corma Villard did not offer Hearts of the Lost to a player at 32; it stays, optional, with a tip to skip it.
-	const hearts = list.filter(({ goal }) => goal.quest === 87318);
-	assert.ok(hearts.length >= 2 && hearts.every(({ goal }) => goal.optional), '87318 is optional (#1314)');
-	assert.ok([hearts[0].step.note, hearts[0].step.tip].flat().filter(Boolean).join(' ').includes('may not offer Hearts of the Lost'), 'the step says to skip it if she does not offer it');
+	// #1565: Hearts of the Lost (87318) and its follow-ups (88757, 88758) are not in the live game: no guide takes them.
+	assert.ok(!list.some(({ goal }) => [87318, 88757, 88758].includes(goal.quest)), 'no Hearts of the Lost in the Hillsbrad guide (#1565)');
+	const root = path.join(OFFICIAL_DIR, 'forever');
+	const left = [];
+	for (const rel of fs.readdirSync(root, { recursive: true }).filter((f) => f.endsWith('.guide')).sort()) {
+		const guide = parseGuide(fs.readFileSync(path.join(root, rel), 'utf8'), rel, new Diagnostics());
+		for (const g of guide.steps.flatMap((s) => s.goals)) if ([87318, 88757, 88758].includes(g.quest)) left.push(`forever/${rel}:${g.line} ${g.verb} ${g.quest}`);
+	}
+	assert.deepEqual(left, [], 'no guide takes the Hearts of the Lost chain (#1565)');
 	assert.equal(list.filter(({ goal }) => goal.t === 'turnin' && goal.quest === 472).length, 1, 'one Longbraid turn-in');
 });
 

@@ -67,11 +67,11 @@ return {
 	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone
 	["{npc:271460} stands in the ruins of {area:205} (use the {item:279996})."] = "{npc:271460} fica nas ruínas de {area:205} (use {item:279996}).",
 
-	-- Step 16: The Villards
-	["The Villards"] = "Os Villard",
-	-- {npc:5683} Corma Villard · {area:205} Dun Modr · {area:880} Thandol Span · {npc:271322} Essene Villard · {npc:1075} Rhag Garmason · {quest:87318} Hearts of the Lost
+	-- Step 16: Ebenezer Rustlocke
+	["Ebenezer Rustlocke"] = "Ebenezer Ferratranca",
+	-- {area:205} Dun Modr · {area:880} Thandol Span · {npc:1075} Rhag Garmason
 	-- plural, as words: Dark Iron Saboteurs = {npc:1052} Dark Iron Saboteur
-	["{npc:5683} waits on the road north of {area:205}, towards the {area:880}; {npc:271322} a short walk further north-east, and Ebenezer Rustlocke's corpse lies under the span beside her. Rustlocke's parchment goes back to {npc:1075}.\n{npc:5683} may not offer {quest:87318} yet: if she doesn't, skip it.\nTwo elite Dark Iron Saboteurs stand by the corpse inside the span: pull them one at a time, or loot the corpse and run out."] = "{npc:5683} espera na estrada ao norte de {area:205}, em direção a {area:880}; {npc:271322}, um pouco mais ao nordeste, e o cadáver de Ebenezer Ferratranca fica sob o vão, ao lado dela. O pergaminho de Ferratranca volta para {npc:1075}.\n{npc:5683} pode ainda não oferecer {quest:87318}: se ela não oferecer, pule.\nDois Sabotadores Ferro Negro elite ficam junto ao cadáver, dentro do vão: puxe um de cada vez, ou saqueie o cadáver e saia correndo.",
+	["North along the road from {area:205} towards the {area:880}: Ebenezer Rustlocke's corpse lies under the span. Rustlocke's parchment goes back to {npc:1075}.\nTwo elite Dark Iron Saboteurs stand by the corpse inside the span: pull them one at a time, or loot the corpse and run out."] = "Siga ao norte pela estrada de {area:205} em direção a {area:880}: o cadáver de Ebenezer Ferratranca fica sob o vão. O pergaminho de Ferratranca volta para {npc:1075}.\nDois Sabotadores Ferro Negro elite ficam junto ao cadáver, dentro do vão: puxe um de cada vez, ou saqueie o cadáver e saia correndo.",
 	-- {object:2652} Ebenezer Rustlocke's Corpse
 	["{object:2652}, inside"] = "{object:2652}, lá dentro",
 	["the same corpse"] = "o mesmo cadáver",
@@ -287,6 +287,7 @@ return {
 	-- ["Take the {area:2257} from the {object:28027} to {zone:1455}."] = "Pegue o {area:2257} em {object:28027} até {zone:1455}.",
 	-- ["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one."] = "Os Goaz Warders ficam logo a oeste do acampamento de Whelgar: use a {item:279996} que ele lhe deu ao lado de um deles.",
 	-- ["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}."] = "Os murlocs Rancapina lotam {area:295}, a sudoeste de {area:271}.",
+	-- ["The Villards"] = "Os Villard",
 	-- ["The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it."] = "A etapa seguinte, Derrotar Nek'rosh, coloca você contra um chefe elite: pule-a.",
 	-- ["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "A próxima etapa, {quest:474}, joga você contra um chefe elite: pule.",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "Os yetis vivem na caverna nas colinas ao norte de {area:271}, no caminho de volta para o sul.",
@@ -309,5 +310,6 @@ return {
 	-- ["{npc:271462} stands in the south-eastern hills: use the {item:279996} beside it."] = "{npc:271462} fica nas colinas do sudeste: use a {item:279996} ao lado dele.",
 	-- ["{npc:2784}, the {object:171709}"] = "{npc:2784}, {object:171709}",
 	-- ["{npc:5683} waits north of {area:205} by the {area:881}; {npc:271322} a short walk further north-east."] = "{npc:5683} espera ao norte de {area:205}, perto de {area:881}; {npc:271322}, um pouco mais a nordeste.",
+	-- ["{npc:5683} waits on the road north of {area:205}, towards the {area:880}; {npc:271322} a short walk further north-east, and Ebenezer Rustlocke's corpse lies under the span beside her. Rustlocke's parchment goes back to {npc:1075}.\n{npc:5683} may not offer {quest:87318} yet: if she doesn't, skip it.\nTwo elite Dark Iron Saboteurs stand by the corpse inside the span: pull them one at a time, or loot the corpse and run out."] = "{npc:5683} espera na estrada ao norte de {area:205}, em direção a {area:880}; {npc:271322}, um pouco mais ao nordeste, e o cadáver de Ebenezer Ferratranca fica sob o vão, ao lado dela. O pergaminho de Ferratranca volta para {npc:1075}.\n{npc:5683} pode ainda não oferecer {quest:87318}: se ela não oferecer, pule.\nDois Sabotadores Ferro Negro elite ficam junto ao cadáver, dentro do vão: puxe um de cada vez, ou saqueie o cadáver e saia correndo.",
 	-- ["{zone:1455} has no druid trainer: train with {npc:5504} in {zone:1453} before the tram."] = "{zone:1455} não tem instrutor de druidas: treine com {npc:5504} em {zone:1453} antes do metrô.",
 }
