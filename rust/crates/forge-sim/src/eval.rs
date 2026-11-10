@@ -34,6 +34,10 @@ pub const ALONG_FREE_YD: f64 = 60.0;
 /// Seconds before a buy's accept a stop at one of its vendors buys it on the way (route profiles):
 /// an hour of play, the trip into the zone (Ratchet's spices for Dustwallow).
 pub const BUY_AHEAD_SEC: f64 = 3600.0;
+/// The share of a timed quest's limit its hand-in must come within, or it counts as late (route
+/// profiles, Scalars::late, which no kept move adds to): the model's times are a fast player's, so
+/// the route leaves 40% for real play, as the addon does (Own.LIMIT_SHARE).
+pub const TIMED_SHARE: f64 = 0.6;
 /// Pooled kills: another open objective's mobs count as met during a kill work when its site
 /// lies this close to the work's (spawn grounds overlapping: a camp's reach is ~100-200 yd).
 pub const POOL_YD: f64 = 200.0;
@@ -168,11 +172,11 @@ pub struct Scalars {
 	pub noops: u32,
 	/// Class training stops taken.
 	pub trains: u32,
-	/// Timed quests in the log (their legs are walked, `feasible`).
+	/// Timed quests in the log whose legs are walked (`feasible`; a delivery is not: Run::q_delivery).
 	pub timed_active: u32,
-	/// When the latest limit of the timed quests in the log runs out (walk-only until then).
+	/// When the latest limit of those timed quests runs out (walk-only until then).
 	pub timed_until: f64,
-	/// Feasibility violations: a timed quest handed in after its limit.
+	/// Feasibility violations: a timed quest handed in after TIMED_SHARE of its limit.
 	pub late: u32,
 	/// What the time was spent on, for re-pricing under other parameters.
 	pub c: Counters,
@@ -558,16 +562,16 @@ impl<'a> Evaluator<'a> {
 		-1
 	}
 
-	/// timed_until from the timed quests still in the log.
+	/// timed_until from the walked timed quests still in the log (not the deliveries).
 	fn timed_recount(&mut self) {
 		let r = self.run;
-		self.s.timed_until = (0..r.n_quests()).filter(|&x| self.active[x] != 0 && r.q_limit[x] > 0.0).map(|x| self.accept_t[x] + r.q_limit[x]).fold(0.0, f64::max);
+		self.s.timed_until = (0..r.n_quests()).filter(|&x| self.active[x] != 0 && r.q_limit[x] > 0.0 && !r.q_delivery[x]).map(|x| self.accept_t[x] + r.q_limit[x]).fold(0.0, f64::max);
 	}
 
 	fn abandon(&mut self, q: usize) {
 		let r = self.run;
 		self.set(Arr::Active, q, 0.0);
-		if self.t.p.feasible && r.q_limit[q] > 0.0 {
+		if self.t.p.feasible && r.q_limit[q] > 0.0 && !r.q_delivery[q] {
 			self.s.timed_active -= 1;
 			self.timed_recount();
 		}
@@ -1634,8 +1638,11 @@ impl<'a> Evaluator<'a> {
 				self.set(Arr::Active, q, 1.0);
 				if self.t.p.feasible && r.q_limit[q] > 0.0 {
 					self.set(Arr::AcceptT, q, self.s.time);
-					self.s.timed_active += 1;
-					self.s.timed_until = self.s.timed_until.max(self.s.time + r.q_limit[q]);
+					// A delivery's legs fly and sail as any other (the clock runs on a flight too).
+					if !r.q_delivery[q] {
+						self.s.timed_active += 1;
+						self.s.timed_until = self.s.timed_until.max(self.s.time + r.q_limit[q]);
+					}
 				} else if self.t.p.feasible && (r.q_task0[q]..r.q_task1[q]).any(|t| r.buy_ix[t as usize] >= 0) {
 					// (A buy's BUY_AHEAD_SEC counts back from its accept: untimed, it was 0, so any
 					// vendor stood at before counted, c14 Orc's Thousand Needles inn ten levels
@@ -1720,13 +1727,15 @@ impl<'a> Evaluator<'a> {
 				let d = self.s.level as i64 - r.q_level[q] as i64;
 				let xp = self.t.q_full[q] * SHARE[d.clamp(0, 63) as usize] * self.weight.get(q).copied().unwrap_or(1.0);
 				if self.t.p.feasible && r.q_limit[q] > 0.0 {
-					self.s.timed_active -= 1;
-					if self.s.time - self.accept_t[q] > r.q_limit[q] {
+					if !r.q_delivery[q] {
+						self.s.timed_active -= 1;
+					}
+					if self.s.time - self.accept_t[q] > r.q_limit[q] * TIMED_SHARE {
 						self.s.late += 1;
 					}
 				}
 				self.set(Arr::Active, q, 0.0);
-				if self.t.p.feasible && r.q_limit[q] > 0.0 {
+				if self.t.p.feasible && r.q_limit[q] > 0.0 && !r.q_delivery[q] {
 					self.timed_recount();
 				}
 				self.s.open -= 1;
