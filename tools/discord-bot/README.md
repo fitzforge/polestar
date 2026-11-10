@@ -25,8 +25,9 @@ sequenceDiagram
 | What happens | Who does it | What the player sees |
 |---|---|---|
 | A new post | the bot, at once | "Tracked as fitzforge/polestar#N. Replies in this thread, from anyone, are copied to the issue.", tag **Tracked** |
-| Anyone writes in the thread (text, screenshots, a new report) | the bot | nothing; it becomes a comment on the issue, the reporter's marked "(the reporter)". The bot's own messages are not copied. Only the reporter's screenshots are copied to GitHub; other players' are linked on Discord. Each Discord user gets 5 new reports and 20 follow-ups (edits included) an hour; past that, the bot logs them and files them a second after the hour allows (up to 100 waiting; a restart drops the wait, and its backfill files skipped posts). A held post gets one reply, "Thanks! You've sent a few reports this hour; this one will be filed automatically in about N minutes.", which becomes the "Tracked as" reply once it is filed. Server staff (the owner, and roles with Administrator, Manage Server, Manage Messages or Manage Threads) and the users in `RATE_EXEMPT_IDS` have no limits |
+| Anyone writes in the thread (text, screenshots, a new report) | the bot | nothing; it becomes a comment on the issue, the reporter's marked "(the reporter)". What is said before the post is filed (while it waits for the hourly limit) is copied, in order, once it is. The bot's own messages, pins, renames and a sticker or embed alone are not copied. Only the reporter's screenshots are copied to GitHub; other players' are linked on Discord. Each Discord user gets 5 new reports and 20 follow-ups (edits included) an hour; past that, the bot logs them and files them a second after the hour allows (up to 100 waiting; a restart drops the wait, and its backfill and catch-up file skipped posts and copy skipped follow-ups). A held post gets one reply, "Thanks! You've sent a few reports this hour; this one will be filed automatically in about N minutes.", which becomes the "Tracked as" reply once it is filed. Server staff (the owner, and roles with Administrator, Manage Server, Manage Messages or Manage Threads) and the users in `RATE_EXEMPT_IDS` have no limits |
 | The reporter edits the post's first message | the bot | nothing; the issue body is written again |
+| Anyone edits a later message | the bot | nothing; its comment is written again |
 | A pull request addresses the issue for the first time (its title names `#N`, or it says `closes`/`fixes`/`resolves #N`) | `pr-links.yml` | ping: "A fix for this is open (#M). It still has to be reviewed; we'll tell you here when it's fixed.", tag **In progress**. Once per issue: more pull requests, edits and closes tell the thread nothing. On GitHub the issue gets one comment listing its pull requests, kept up to date, and the label `has-pr` (CONTRIBUTING.md, "Before you start") |
 | Issue labelled **needs-info** | `discord-issue-sync.yml` | ping: "We need a little more to go on with this one", quoting the maintainer's last comment on the issue, and "Please answer here in the thread". The answer comes back to the issue as a follow-up. Tags unchanged |
 | Issue closed as **completed** (button, or `Fixes #N` in a commit) | `discord-issue-sync.yml` | ping: "This is fixed and will ship in the next Polestar update", tag **Fixed**, thread locked |
@@ -219,9 +220,15 @@ bot.js refresh` writes every filed issue again from its post (title, body,
 the labels the report gives), then exits.
 
 A restart loses nothing: the bot reads back which posts it filed (a hidden
-marker in each issue body, and its "Tracked as" reply in each thread), files
-the posts made while it was away, and Discord replays what a short drop
-missed. Edits and follow-ups made during a long outage are not carried over.
+marker in each issue body, and its "Tracked as" reply in each thread) and
+which messages each issue has (each comment links its message). On every
+new gateway session (a start, or a drop Discord can't resume) it files the
+open posts made while it was away and copies, oldest first, every message of
+the last week in an open post's thread that its issue lacks (older ones need
+a one-off backfill); Discord replays what a resumed drop missed. A comment
+GitHub fails to take is tried again by the same catch-up 5 minutes later,
+backing off to an hour. A post a player tagged In progress is filed like any
+other: only the status tags moderators set mean a post was handled.
 
 ## Closing from Discord
 

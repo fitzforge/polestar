@@ -195,6 +195,17 @@ test('a marker forged in the report block, or anywhere but the last line, is nev
 	assert.equal(I.issueMarker({ ...issue, labels: [{ name: 'discord' }], pull_request: {} }, null), null);
 });
 
+test("a follow-up comment is read back to its message from the bot's first line only, for its own thread", () => {
+	const comment = (fields) => ({ user: { login: 'fitzforge' }, body: I.followUpComment({ report: parseReport('see https://discord.com/channels/800/1001/42'), author: 'Ann', guild: '800', thread: '1001', message: '5005', ...fields }) });
+	assert.equal(I.followUpMessage(comment({ reporter: true }), '1001', null), '5005');
+	assert.equal(I.followUpMessage(comment({ author: 'x** commented on [Discord](https://discord.com/channels/800/1001/42):' }), '1001', null), '5005', "a name can't point it elsewhere");
+	assert.equal(I.followUpMessage(comment(), '1002', null), null, 'another thread');
+	assert.equal(I.followUpMessage(comment(), '1001', 'polestar-bot[bot]'), null, "not the bot's account");
+	const c = comment();
+	assert.equal(I.followUpMessage({ ...c, body: c.body.replace(I.FOLLOWUP_MARK, '') }, '1001', null), null, 'no mark');
+	assert.equal(I.followUpMessage({ body: `> **x** commented on [Discord](https://discord.com/channels/800/1001/42):\n${I.FOLLOWUP_MARK}` }, '1001', null), null);
+});
+
 test('labels come from a report only in the shape of a real version, guide id or locale', () => {
 	const labels = (details) => I.labelsFor({ details: { errors: [], ...details } });
 	assert.deepEqual(labels({ version: '0.2.5-test.2', guideId: 'forever/alliance/01-elwynn-forest', locale: 'deDE' }), ['discord', 'triage', 'bug', 'v0.2.5-test.2', 'guide:01-elwynn-forest', 'locale:deDE']);
@@ -428,6 +439,125 @@ test("every player's follow-up becomes a comment, the reporter's marked as their
 	assert.match(comments[1].body, /^\*\*someone\*\* \(the reporter\) added on \[Discord\]/);
 	assert.match(comments[1].body, /It happens at step 20 too/);
 	assert.match(comments[1].body, /bug-media\/discord\/1001\/a9-b\.jpg/);
+});
+
+test('what the thread says while its post waits for the hourly limit is copied once the post is filed, in order', async () => {
+	const { discord, github, sync, fire } = clocked();
+	for (const id of ['1001', '1002', '1003', '1004', '1005', '1006']) {
+		discord.post(id, { owner: 'u9', content: 'bug' });
+		await sync.newPost(id);
+	}
+	assert.equal(github.issues.length, 5, 'the sixth waits');
+	await sync.dispatch('MESSAGE_CREATE', discord.say('1006', { author: 'u9', content: 'did the bot miss this' }));
+	await sync.dispatch('MESSAGE_CREATE', discord.say('1006', { author: 'u2', content: 'same here' }));
+	assert.equal(github.commentsByIssue.get(6), undefined, 'no issue to copy to yet');
+	await fire();
+	const bodies = github.commentsByIssue.get(6).map((c) => c.body);
+	assert.equal(bodies.length, 2);
+	assert.match(bodies[0], /^\*\*someone\*\* \(the reporter\) added[\s\S]*did the bot miss this/);
+	assert.match(bodies[1], /^\*\*someone\*\* commented[\s\S]*same here/);
+});
+
+test('after a restart or a new gateway session, follow-ups sent while the bot was away are copied once, oldest first', async () => {
+	const { discord, github, sync } = setup();
+	discord.post('1001', { content: POST });
+	await sync.newPost('1001');
+	await sync.dispatch('MESSAGE_CREATE', discord.say('1001', { author: 'u2', content: 'seen live' }));
+	// Said while the bot was down: no gateway event reaches it.
+	discord.say('1001', { author: 'u1', content: 'still broken after a reload' });
+	discord.say('1001', { author: 'u3', attachments: [{ id: 'a7', filename: 'c.png', content_type: 'image/png', size: 5, url: 'z' }] });
+	discord.say('1001', { author: 'u3' }); // a sticker alone: nothing to copy
+	discord.say('1001', { author: 'u1', content: 'A better title', type: 4 }); // the post renamed
+	const bodies = () => github.commentsByIssue.get(1).map((c) => c.body);
+
+	// The fakes' message ids date from 2015 (Discord's epoch): a clock at 0 keeps them inside the catch-up's week.
+	const again = createSync({ discord, github, media: fakeMedia(), config: { forumId: FORUM, botId: BOT }, log: quietLog, now: () => 0 });
+	await again.loadIndex();
+	await again.dispatch('READY', { user: { id: BOT, username: 'Polestar Bot' } });
+	assert.equal(bodies().length, 3);
+	assert.match(bodies()[0], /seen live/);
+	assert.match(bodies()[1], /\(the reporter\) added[\s\S]*still broken after a reload/);
+	assert.match(bodies()[2], /\[c\.png\]\(https:\/\/discord\.com\/channels\/800\/1001\/\d+\) \(on Discord\)/);
+
+	// The session lost again (READY, not RESUMED), and another restart: nothing twice.
+	await again.dispatch('READY', { user: { id: BOT, username: 'Polestar Bot' } });
+	const third = createSync({ discord, github, media: fakeMedia(), config: { forumId: FORUM, botId: BOT }, log: quietLog, now: () => 0 });
+	await third.loadIndex();
+	await third.backfill();
+	assert.equal(bodies().length, 3);
+});
+
+test("the catch-up copies the last week's missed follow-ups, not older ones (those are a one-off backfill's)", async () => {
+	const discord = fakeDiscord();
+	const github = fakeGitHub();
+	const sync = createSync({ discord, github, media: fakeMedia(), config: { forumId: FORUM, botId: BOT }, log: quietLog, sleep: async () => {}, now: () => Date.parse('2026-11-10T12:00:00Z') });
+	const snowflake = (iso) => String((BigInt(Date.parse(iso)) - 1420070400000n) << 22n);
+	const post = snowflake('2026-10-15T18:00:00Z');
+	discord.post(post, { content: POST });
+	await sync.newPost(post);
+	for (const [iso, content] of [['2026-10-16T09:00:00Z', 'a month ago'], ['2026-11-09T09:00:00Z', 'yesterday']]) {
+		discord.messages.get(post).push({ id: snowflake(iso), type: 0, channel_id: post, content, attachments: [], mentions: [], author: { id: 'u2', username: 'someone' } });
+	}
+	await sync.backfill();
+	assert.deepEqual(github.commentsByIssue.get(1).map((c) => c.body.match(/> (.*)/)[1]), ['yesterday']);
+});
+
+test('a follow-up GitHub failed to take is copied by a catch-up a few minutes later, once', async () => {
+	const { discord, github, sync, timers, fire } = clocked();
+	discord.post('1001', { content: POST });
+	await sync.newPost('1001');
+	const comment = github.comment;
+	let failures = 2;
+	github.comment = async (...a) => {
+		if (failures-- > 0) throw Object.assign(new Error('GitHub POST: 502'), { status: 502 });
+		return comment(...a);
+	};
+	await sync.dispatch('MESSAGE_CREATE', discord.say('1001', { author: 'u2', content: 'me too' }));
+	assert.equal(github.commentsByIssue.get(1), undefined);
+	assert.equal(timers.length, 1);
+	assert.equal(timers[0].at, 5 * 60 * 1000);
+	await fire(); // fails again, then backs off to 10 minutes and copies it
+	assert.equal(github.commentsByIssue.get(1).length, 1);
+	await sync.dispatch('MESSAGE_CREATE', discord.say('1001', { author: 'u2', content: 'and again' }));
+	assert.deepEqual(github.commentsByIssue.get(1).map((c) => /me too/.test(c.body) || /and again/.test(c.body)), [true, true]);
+	assert.equal(github.commentsByIssue.get(1).length, 2);
+});
+
+test('a post its player tagged In progress is filed; a status tag only moderators can set still means handled', async () => {
+	const { discord, github, sync } = setup();
+	discord.channels.get(FORUM).available_tags = [...discord.channels.get(FORUM).available_tags, { id: 't-progress', name: 'In Progress', moderated: false }];
+	discord.post('1001', { name: 'Picked In progress', tags: ['t-progress'] });
+	discord.post('1002', { name: 'Fixed already', tags: ['t-fixed'] });
+	await sync.backfill();
+	assert.deepEqual(github.issues.map((i) => i.title), ['Picked In progress']);
+	assert.deepEqual(discord.channels.get('1001').applied_tags, ['t-tracked'], 'In progress gives way to Tracked');
+});
+
+test("an edited follow-up rewrites its comment; one never copied is copied; link previews change nothing", async () => {
+	const { discord, github, sync } = setup();
+	discord.post('1001', { content: POST });
+	await sync.newPost('1001');
+	const msg = discord.say('1001', { author: 'u2', content: 'Happens at stpe 20' });
+	await sync.dispatch('MESSAGE_CREATE', msg);
+	let writes = 0;
+	const editComment = github.editComment;
+	github.editComment = (...a) => (writes++, editComment(...a));
+	await sync.dispatch('MESSAGE_UPDATE', { ...msg, embeds: [{}] });
+	assert.equal(writes, 0, 'a link preview is not an edit');
+	msg.content = 'Happens at step 20';
+	msg.edited_timestamp = '2026-11-10T20:07:53Z';
+	await sync.dispatch('MESSAGE_UPDATE', msg);
+	await sync.dispatch('MESSAGE_UPDATE', msg);
+	assert.equal(writes, 1, 'written once per change');
+	const away = discord.say('1001', { author: 'u3', content: 'sent while the bot was away' });
+	away.content = 'sent while the bot was away, then edited';
+	away.edited_timestamp = '2026-11-10T20:09:00Z';
+	await sync.dispatch('MESSAGE_UPDATE', away);
+	const bodies = github.commentsByIssue.get(1).map((c) => c.body);
+	assert.equal(bodies.length, 2);
+	assert.match(bodies[0], /Happens at step 20/);
+	assert.doesNotMatch(bodies[0], /stpe/);
+	assert.match(bodies[1], /then edited/);
 });
 
 test('editing the first message rewrites the issue body, once per change', async () => {
