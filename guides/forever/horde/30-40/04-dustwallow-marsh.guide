@@ -9,8 +9,8 @@ next forever/horde/30-40/05-arathi-highlands
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: The Theramore Docks (1202), Parts of the Swarm (1184), Goblin Sponsorship (1178),
-# Wharfmaster Dizzywig (1111).
+# Added here: The Theramore Docks (1202), Parts of the Swarm (1184). Goblin Sponsorship (1178) and
+# Wharfmaster Dizzywig (1111) are handed in at Ratchet on the way to the Booty Bay boat, in 03.
 # Left out: Gizelton Caravan (5943), The Kolkar of Desolace (1362).
 
 # Dustwallow at 37-38, after Stranglethorn (the 2026-11-07 re-order), then a short second
@@ -20,7 +20,7 @@ next forever/horde/30-40/05-arathi-highlands
 # Flow: Grom'gol (where the previous guide ends) -> zeppelin to Orgrimmar (Soothing Spices) -> fly to the Crossroads (Korran) -> fly to Camp Taurajo -> the Shady
 # Rest Inn -> Brackenwall Village (flight path) -> Reethe -> Witch Hill (Stinky) -> the Mirefin
 # murlocs -> Swamplight Manor -> the spiders and venomspitters -> Brackenwall -> Swamplight
-# Manor -> the Theramore docks -> Brackenwall -> fly to Ratchet (Stinky's Mebok, Gazlowe;
+# Manor -> the Theramore docks -> Brackenwall -> fly to Ratchet (Stinky's Mebok;
 # Warriors: The Affray on Fray Island) -> fly to Shadowprey Village -> Mannoroc Coven -> Ghost
 # Walker Post -> the Valley of Spears (Melizza) -> Hornizz -> the Valley of Bones -> Hornizz and
 # Ghost Walker Post -> Shadowprey -> fly to Orgrimmar (Belgrom, Hunter and Shaman training),
@@ -178,12 +178,8 @@ step Fly to Ratchet
 
 step Ratchet
   zone The Barrens
-  tip Gazlowe waits upstairs in the house by the flight master; Mebok Mizzyrix stands below it, towards the docks.
-  turnin 1178                         -- Gazlowe
-  accept 1180                         -- Gazlowe: for Wharfmaster Lozgil in Booty Bay, on the first Booty Bay stop of 40-50
+  tip Mebok Mizzyrix stands below Gazlowe's house by the flight master, towards the docks.
   turnin 1270                         -- Mebok Mizzyrix
-  turnin 1111                         -- Wharfmaster Dizzywig, on the docks
-  note Dizzywig's parts go back to Kravel in the Shimmering Flats, off the route: leave them.
 
 step The Affray
   zone The Barrens

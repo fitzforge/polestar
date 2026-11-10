@@ -7938,7 +7938,7 @@
 					"turnin",
 					1176
 				],
-				"reason": "Horde 30-40 re-order (2026-11-07): Pozzik's Goblin Sponsorship goes to Gazlowe in Ratchet, handed in on 30-40/04-dustwallow-marsh's Ratchet stop (Stinky's Mebok stands beside him).",
+				"reason": "Horde 30-40 re-order (2026-11-07): Pozzik's Goblin Sponsorship goes to Gazlowe in Ratchet, handed in on 30-40/03-stranglethorn-vale's Ratchet stop on the way to the Booty Bay boat (Br3040, 0.3.6; it was 30-40/04's Ratchet stop before).",
 				"issue": ""
 			},
 			{
@@ -8269,7 +8269,7 @@
 					"turnin",
 					1110
 				],
-				"reason": "Quest volume (2026-11-08, Horde 30-40): Wharfmaster Dizzywig (level 36, from 30, 1400 XP) is a delivery: Kravel Koalbeard gives his parts order with Rocket Car Parts' hand-in on 30-40/02's second Mirage Raceway stop, and Dizzywig stands on the Ratchet docks beside Gazlowe, where 30-40/04 already hands in Goblin Sponsorship (1178). No walk added. Recordings: offered to and handed in by Horde characters at 30.",
+				"reason": "Quest volume (2026-11-08, Horde 30-40): Wharfmaster Dizzywig (level 36, from 30, 1400 XP) is a delivery: Kravel Koalbeard gives his parts order with Rocket Car Parts' hand-in on 30-40/02's second Mirage Raceway stop, and Dizzywig stands on the Ratchet docks beside the Booty Bay boat, which 30-40/03 takes (with Gazlowe's 1178) since Br3040's 0.3.6 flow pass. No walk added. Recordings: offered to and handed in by Horde characters at 30.",
 				"issue": "-"
 			},
 			{
@@ -8283,12 +8283,32 @@
 				"issue": "-"
 			},
 			{
+				"q": 1182,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					1181
+				],
+				"reason": "Flow and quest volume (Br3040, 0.3.6, Horde 30-40/03): Baron Revilgaz offers Goblin Sponsorship's third part (level 37, from 29, 2,850 XP) on the Booty Bay stop where the boat from Ratchet lands. Foreman Cozzle (38) and Cozzle's Footlocker stand in the Venture Co. house on Lake Nazferiti, where the guide works the geologists for Hostile Takeover; Revilgaz takes the blueprints on the second Booty Bay stop. Loot data: Cozzle's Key 100% from Foreman Cozzle, the blueprints 100% from the footlocker; a recorded Undead Paladin finished it at 35.",
+				"issue": "-"
+			},
+			{
+				"q": 1183,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					1182
+				],
+				"reason": "Delivery (Br3040 with BrHorde4060, 0.3.6): Baron Revilgaz's next errand goes to Pozzik at the Mirage Raceway, which forever/horde/40-50/02-feralas passes on the way to Tanaris; taken on 30-40/03's second Booty Bay stop with 1182's hand-in.",
+				"issue": "-"
+			},
+			{
 				"q": 1180,
 				"after": [
 					"turnin",
 					1178
 				],
-				"reason": "Quest volume (Br3040, 0.3.6, Horde 30-40 to 40-50 seam): Goblin Sponsorship (level 37, from 29, 700 XP) is Gazlowe's next errand on the same 30-40/04 Ratchet stop that hands in 1178; Wharfmaster Lozgil takes it on 40-50/01's first Booty Bay stop, where Baron Revilgaz's 1181 (290 XP) follows in the same town. Giver, ender and level agree in every source (page, EG, Questie, collector XP). No walk added.",
+				"reason": "Quest volume (Br3040, 0.3.6, Horde 30-40 to 40-50 seam): Goblin Sponsorship (level 37, from 29, 700 XP) is Gazlowe's next errand on the 30-40/03 Ratchet stop that hands in 1178; the boat lands beside Wharfmaster Lozgil in Booty Bay, and Baron Revilgaz's 1181 (290 XP) and 1182 (Cozzle's footlocker at Lake Nazferiti, 2,850 XP, where 03 works the geologists) follow in the same town; 1183 goes to Pozzik on 40-50/02's Raceway stop. Giver, ender and level agree in every source (page, EG, Questie, collector XP). No walk added.",
 				"issue": "-"
 			},
 			{

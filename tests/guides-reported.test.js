@@ -9992,12 +9992,31 @@ test('Horde starts: the Priest robe quests on stops the Troll and Undead starts 
 // Wharfmaster Lozgil takes it and Baron Revilgaz's 1181 follows.
 test('Horde Ratchet 37: Goblin Sponsorship (1180) taken from Gazlowe with 1178, for Booty Bay', { skip }, () => {
 	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
+});
+
+// Br3040 (0.3.6, Horde Stranglethorn 34, flow): the guide came in by zeppelin and walked from Nesingwary's camp all the way
+// down the vale (2,900 yd) to take Booty Bay's quests and flight path, then flew back. It now flies to Ratchet (Gazlowe's
+// 1178 and Dizzywig's 1111 handed in on the way), takes the boat to Booty Bay and walks north once: Goblin Sponsorship
+// 1180-1182 ride along (Lozgil on the pier, Revilgaz upstairs, Cozzle's footlocker by the geologists' lake), 1183 for the Raceway.
+test('Horde Stranglethorn 34: Ratchet and the boat to Booty Bay first, one walk north, Goblin Sponsorship on the way', { skip }, () => {
+	const list = goals(STRANGLETHORN_HORDE);
+	const ratchet = at(list, 'fly Ratchet', (g) => g.t === 'fly' && /Ratchet/.test(g.location || ''));
 	const hand = at(list, 'turnin 1178', is('turnin', 1178));
 	const take = at(list, 'accept 1180', is('accept', 1180));
-	assert.ok(list[take].s === list[hand].s && take > hand, 'on the Gazlowe step, after 1178');
-	assert.ok(!list[take].goal.optional, 'part of the route');
+	assert.ok(ratchet < hand && list[take].s === list[hand].s && take > hand, 'Gazlowe offers 1180 on the 1178 hand-in, in Ratchet');
+	assert.ok(at(list, 'turnin 1111', is('turnin', 1111)) < at(list, 'getfp Booty Bay', (g) => g.t === 'getfp' && /Booty Bay/.test(g.location || '')), 'Dizzywig before the boat');
+	const bb = at(list, 'turnin 1180', is('turnin', 1180));
+	const gromgol = at(list, "getfp Grom'gol", (g) => g.t === 'getfp' && /Grom'gol/.test(g.location || ''));
+	for (const q of [1181, 575, 605, 213, 189, 201]) assert.ok(at(list, `accept ${q}`, is('accept', q)) < gromgol, `${q} taken in Booty Bay before the walk north`);
+	assert.ok(bb < gromgol && at(list, 'accept 1182', is('accept', 1182)) < gromgol, 'Lozgil and Revilgaz on the first Booty Bay stop');
+	const flights = list.filter(({ goal }) => goal.t === 'fly' && /Booty Bay/.test(goal.location || ''));
+	assert.equal(flights.length, 1, 'one flight to Booty Bay, for the hand-ins');
+	const blueprints = at(list, 'blueprints', (g) => g.t === 'collect' && g.item === 5852);
+	assert.ok(blueprints < at(list, 'turnin 1182', is('turnin', 1182)) && at(list, 'turnin 1182', is('turnin', 1182)) < at(list, 'accept 1183', is('accept', 1183)), 'footlocker, then Revilgaz, then 1183');
+	const h04 = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
+	assert.ok(!h04.some(({ goal }) => [1178, 1111, 1180].includes(goal.quest)), 'Dustwallow\'s Ratchet stop keeps only Mebok');
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
-	assert.ok(rf.include.some((e) => e.q === 1180), 'a route-fix include keeps it');
+	for (const q of [1180, 1182, 1183]) assert.ok(rf.include.some((e) => e.q === q), `a route-fix include keeps ${q}`);
 });
 
 // Br3040 (0.3.6, Alliance 30-40): Sully Balloo's Letter (637), Sara Balloo's Plea (683) and MacKreel's Moonshine (647) are

@@ -42,13 +42,45 @@ step Orgrimmar trainers
   tip Train while you are in the city.
   train class
 
-step Zeppelin to Grom'gol
-  zone Durotar
-  goto 50.7,12.9 "Zeppelin to Grom'gol"
+step Fly to Ratchet
+  zone Orgrimmar
+  tip Booty Bay first: the goblins' boat sails there from Ratchet, and every Booty Bay quest is for the north of the vale, which you then walk up into.
+  goto 45.3,63.7 "Orgrimmar flight master"
+  fly "Ratchet"
+  zone The Barrens
+
+step Ratchet
+  zone The Barrens
+  tip Gazlowe waits upstairs in the house by the flight master; Wharfmaster Dizzywig stands on the docks, beside the boat.
+  turnin 1178                         -- Gazlowe, upstairs
+  accept 1180                         -- Gazlowe: for Wharfmaster Lozgil in Booty Bay, where the boat goes
+  turnin 1111                         -- Wharfmaster Dizzywig, on the docks
+  note Dizzywig's parts go back to Kravel in the Shimmering Flats, off the route: leave them.
+
+step Boat to Booty Bay
+  zone The Barrens
+  goto 63.4,38.5 "Boat to Booty Bay"
+
+# ---------------------------------------------------------------- Booty Bay
+
+step Booty Bay
+  zone Stranglethorn Vale
+  tip Wharfmaster Lozgil stands on the pier where the boat docks. Drizzlik's shop is in the building east of the inn; Crank Fizzlebub is on the inn's bottom floor, Baron Revilgaz, Kebok and Krazek upstairs, Gringer the flight master on the upper deck.
+  turnin 1180                         -- Wharfmaster Lozgil, on the pier
+  accept 1181
+  accept 575                          -- Drizzlik, inside
+  vendor nearest
+  accept 605                          -- Crank Fizzlebub, inside, on the bottom floor
+  turnin 1181                         -- Baron Revilgaz, upstairs
+  accept 1182                         -- Baron Revilgaz: Cozzle's footlocker is at Lake Nazferiti, later in this guide
+  accept 213                          -- Kebok, upstairs
+  accept 189                          -- Kebok
+  accept 201                          -- Krazek, upstairs
+  getfp "Booty Bay" npc 2858          -- Gringer
 
 step Grom'gol
   zone Stranglethorn Vale
-  tip The zeppelin lands at the tower on the west side of the camp.
+  tip Leave Booty Bay through the tunnel and follow the road north to Grom'gol, the orc camp on the west side of the vale. Stay on the road: the jungle beside it is above your level.
   accept 568                          -- Commander Aggro'gosh
   accept 638                          -- Nimboya: for Arathi, later on the route
   accept 581                          -- Nimboya
@@ -60,14 +92,16 @@ step Grom'gol
 # re-order; before it, it came straight after Desolace and Hillsbrad).
 #
 # Flow: Shadowprey Village (where the previous guide ends) -> fly to Orgrimmar (Alliance
-# Relations, training) -> zeppelin to Grom'gol (flight path) -> Nesingwary's camp -> young
-# tigers and panthers and the Bloodscalp trolls -> the road south to Booty Bay (flight path)
-# -> fly to Grom'gol -> the river camp (Krazek's investigation) -> Nesingwary -> tigers,
-# panthers and the Venture Co. geologists -> Nesingwary -> elder tigers -> Nesingwary -> the
-# basilisks, raptors and Bloodscalp village -> Nesingwary -> Lashtail raptors -> Grom'gol -> fly
-# to Booty Bay -> fly to Grom'gol -> the Vile Reef and the Bloodscalp ruins -> Grom'gol ->
-# Shadowmaw, the tigresses and the Snapjaw river -> the Mosh'Ogg camp -> Grom'gol, where the
-# next guide takes the zeppelin to Orgrimmar.
+# Relations, training) -> fly to Ratchet (Gazlowe, Dizzywig) -> boat to Booty Bay (flight
+# path, the vale's quests) -> the road north to Grom'gol (flight path) -> Nesingwary's camp,
+# the river (Krazek's investigation) -> young tigers and panthers and the Bloodscalp trolls ->
+# Nesingwary -> tigers, panthers, the Venture Co. geologists and Cozzle's footlocker ->
+# Nesingwary -> elder tigers -> Nesingwary -> the basilisks, raptors and Bloodscalp village ->
+# Nesingwary -> Lashtail raptors -> Grom'gol -> fly to Booty Bay -> fly to Grom'gol -> the Vile
+# Reef and the Bloodscalp ruins -> Grom'gol -> Shadowmaw, the tigresses and the Snapjaw river ->
+# the Mosh'Ogg camp -> Grom'gol, where the next guide takes the zeppelin to Orgrimmar.
+# Before 0.3.6's last pass the guide came in by zeppelin and walked from Nesingwary's camp all
+# the way down the vale to Booty Bay for its quests and flight path (2,900 yd), then flew back.
 #
 # Optional extras:
 # - Crystal in the Mountains (635) starts from the Pendant of Myzrael, a 0.01-0.08% drop from
@@ -92,7 +126,7 @@ step Grom'gol
 
 step Nesingwary's camp
   zone Stranglethorn Vale
-  tip Follow the road north out of Grom'gol; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of The Green Hills of Stranglethorn you loot: Barnil takes them on your next Stranglethorn visit.
+  tip Follow the road north out of Grom'gol; Nesingwary's hunting camp sits on the hill north-east of the river. Krazek wants it investigated: walk among its tents. From here on, keep every page of The Green Hills of Stranglethorn you loot: Barnil takes them on your next Stranglethorn visit.
   accept 583                          -- Barnil Stonepot
   turnin 583                          -- Hemet Nesingwary
   turnin 5762
@@ -100,45 +134,17 @@ step Nesingwary's camp
   accept 194
   accept 185                          -- Ajeck Rouack
   accept 190                          -- Sir S. J. Erlgadin
+  complete 201 @35.65,10.59
 
 step Nesingwary's Expedition: kill these as you meet them
   zone Stranglethorn Vale
-  tip Young Stranglethorn Tigers prowl west of the camp, Young Panthers east of it. Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A Pendant of Myzrael is a very rare drop from them: if one drops, read it. Careful: The troll camps have many patrolling mobs, so other trolls often join a fight.
+  tip River Crocolisks lie along the river below the camp. Young Stranglethorn Tigers prowl west of the camp, Young Panthers east of it. Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A Pendant of Myzrael is a very rare drop from them: if one drops, read it. Careful: The troll camps have many patrolling mobs, so other trolls often join a fight.
+  collect 4053 quest 575
   kill 681 quest 185
   kill 683 quest 190
   collect 3901 quest 581
   collect 4614 x1 optional
   accept 635 optional
-
-# ---------------------------------------------------------------- Booty Bay
-
-step Booty Bay
-  zone Stranglethorn Vale
-  tip Back to the road and follow it south all the way to Booty Bay at the southern tip of the vale, and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. Gringer, the Horde flight master, waits on the inn's upper deck.
-  accept 575                          -- Drizzlik, inside
-  vendor nearest
-  accept 605                          -- Crank Fizzlebub, inside, on the bottom floor
-  accept 213                          -- Kebok, upstairs
-  accept 189                          -- Kebok
-  accept 201                          -- Krazek, upstairs
-  getfp "Booty Bay" npc 2858          -- Gringer
-
-step Fly to Grom'gol
-  zone Stranglethorn Vale
-  goto 26.8,77.0 "Booty Bay flight master"
-  fly "Grom'gol"
-
-step Grom'gol
-  zone Stranglethorn Vale
-  tip Nimboya waits in Grom'gol, near the zeppelin tower.
-  turnin 581                          -- Nimboya
-  accept 582
-
-step The camp by the river
-  zone Stranglethorn Vale
-  tip North up the road again. Nesingwary's camp is the one Krazek wants investigated: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp.
-  collect 4053 quest 575
-  complete 201 @35.65,10.59
 
 step Nesingwary's camp
   turnin 185                          -- Ajeck Rouack
@@ -152,6 +158,12 @@ step Stranglethorn Vale: kill these as you meet them
   kill 682 quest 186
   collect 4106 quest 213
   kill 736 quest 191
+
+step Cozzle's Footlocker
+  zone Stranglethorn Vale
+  tip Foreman Cozzle (38) is inside the Venture Co. house on Lake Nazferiti's west shore, among the geologists: his key opens Cozzle's Footlocker in the same house, which holds the blueprints for Baron Revilgaz.
+  collect 5851 x1 "Cozzle's Key" @42.6,18.4 map 1434 -- from Foreman Cozzle
+  collect 5852 quest 1182 @43.3,20.3 map 1434 -- Fuel Regulator Blueprints, in Cozzle's Footlocker
 
 step Nesingwary's camp
   turnin 191                          -- Sir S. J. Erlgadin
@@ -196,9 +208,11 @@ step Lashtail Raptors
 
 step Grom'gol
   zone Stranglethorn Vale
-  tip Commander Aggro'gosh stands in the middle of Grom'gol, Far Seer Mok'thardin beside the flight master.
+  tip Commander Aggro'gosh stands in the middle of Grom'gol, Nimboya near the zeppelin tower, Far Seer Mok'thardin beside the flight master.
   turnin 568                          -- Commander Aggro'gosh
   accept 569
+  turnin 581                          -- Nimboya
+  accept 582
   accept 570                          -- Far Seer Mok'thardin: the Shadowmaw claws and the tigress fang come at the end of this guide
 
 step Level 35
@@ -215,10 +229,12 @@ step Fly to Booty Bay
 
 step Booty Bay
   zone Stranglethorn Vale
-  tip Drizzlik's shop is in the building east of the inn; Crank Fizzlebub is on the inn's bottom floor, Kebok and Krazek on its top floor beside the flight master.
+  tip Drizzlik's shop is in the building east of the inn; Crank Fizzlebub is on the inn's bottom floor, Baron Revilgaz, Kebok and Krazek upstairs beside the flight master.
   turnin 575                          -- Drizzlik, inside
   accept 577
   turnin 605                          -- Crank Fizzlebub, inside
+  turnin 1182                         -- Baron Revilgaz, upstairs
+  accept 1183                         -- Baron Revilgaz: for Pozzik at the Mirage Raceway, on the way to Tanaris around level 43
   turnin 213                          -- Kebok, upstairs
   turnin 189                          -- Kebok
   turnin 201                          -- Krazek, upstairs
