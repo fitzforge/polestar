@@ -889,10 +889,12 @@ never hands it in, drops it with an `abandon`, or two routes handing it in
 in different guides: no `carriedTo`. There is nothing to write in the guide.
 
 In the game the guide window says under the quest's last such goal in the
-step: "Keep this: you hand it in later in <guide title>" ("Keep this: a
-later guide hands it in" when that guide is not installed). When the player finishes the
-guide, the guide-end window lists the quests still in the log that a later
-guide hands in, under "Carried to later guides", each with that guide; with
+step, on a line of its own after the goal's other line: "Keep this: you hand
+it in later in <guide title> (<levels>)", the guide named with its levels as
+the guide list does ("Keep this: a later guide hands it in" when that guide
+is not installed). When the player finishes the guide, the guide-end window
+lists the quests still in the log that a later guide hands in, under
+"Carried to later guides", each with that guide and its levels; with
 "Continue automatically" the chat says them. "Clean up quest log" never
 lists such a quest as unneeded: it is handed in later, even when that guide
 is not loaded yet.

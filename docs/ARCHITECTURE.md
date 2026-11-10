@@ -2299,7 +2299,8 @@ and both of its values start on `"ask"`.
   them under "Carried to later guides". On the step view a goal's `carriedTo`
   is set once per quest and step (`Own.carriedTo`: its last such goal there
   that applies), and `UI.CarriedLine` reads "Keep this: you hand it in later
-  in <guide>".
+  in <guide> (<levels>)" (`UI.GuideLabel`, as the guide-end window names
+  guides), on its own line after the goal's subline (`UI.GoalSubline`).
 
 #### Tabs (several guides at once)
 
