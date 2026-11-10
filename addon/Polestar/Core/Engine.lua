@@ -8355,7 +8355,7 @@ end
 -- there, as any objective done early does. It never takes the arrow unless
 -- the player clicks it (Engine.AimWhileHere).
 --
--- Candidates (Own.hereBuild, on a step, quest-log, level, zone or setting
+-- Candidates (Own.hereBuild, on a step, quest-log, level, bag, zone or setting
 -- change): open kill, collect, interact and use goals with a place on the
 -- player's map, in every step of the guide after the live step (a later
 -- trip away and back, a flight, a hearth or an instance in between change
@@ -8368,6 +8368,9 @@ end
 --     among them; a later along step is not listed yet and counts like any
 --     step), the quest is not pinned, and the live step has no open goal
 --     for the same objective (Own.nearestField has those);
+--   * a use with its item in the bags, a click with an item its quest needs
+--     for it there (Own.hereCarries: Marla's Grave only with Samuel's
+--     Remains, #1540);
 --   * with mobs at most HERE_ABOVE levels over the player (a spot's `lvl`,
 --     else the goal's), measured to such places only;
 --   * any size: whatever is left (15 quilboars as much as 2), the player is there
@@ -8971,6 +8974,26 @@ function Own.hereXpLoss(s, goal, live)
 	return Lv.Share(Own.herePlanned(s, live, level), q) < Lv.Share(level, q)
 end
 
+-- Whether the bags hold what quest q's clicks need (#1540): one at least of
+-- the items the quest uses without asking for them (QuestDB.UsesOnly:
+-- Samuel's Remains for Marla's Grave, the Sunscale Feather for the
+-- Scytheclaw nests). True for a quest that uses none, and without the quest
+-- database, which alone knows them.
+function Own.hereCarries(q)
+	local Q = ns.QuestDB
+	local r = Q and Q.IsLoaded() and Q.QuestRecord(q)
+	local v = r and r[Q.F.ITEMS]
+	if not v then return true end
+	local C, uses = Compat(), false
+	for _, id in Q.Each(v) do
+		if Q.UsesOnly(q, id) then
+			if C.GetItemCount(id) > 0 then return true end
+			uses = true
+		end
+	end
+	return not uses
+end
+
 -- Whether goal g of later step s, one of Own.hereGoalsOn's for a quest in
 -- the log (an accept: one not taken), is a candidate, as what ("work",
 -- "turnin" or "take"), how many are left (see above), and for a hand-in or a
@@ -9011,6 +9034,7 @@ function Own.hereFits(s, g, goal, live, shown)
 		if other.quest == q and other.oi == goal.oi and Own.HERE_VERBS[other.t] and goalApplies(other) and not goalDone(live, lg, other) then return nil end
 	end
 	if t == "use" and goal.item and C.GetItemCount(goal.item) < 1 then return nil end
+	if t == "interact" and not Own.hereCarries(q) then return nil end
 	if not Own.hereLevelOk(goal, Own.hereTop) then return nil end
 	local left = (max or goal.count or 1) - (cur or 0)
 	if left < 1 then return nil end
@@ -9942,11 +9966,12 @@ function Engine.WhileHereTick(c, px, py)
 end
 
 -- What changes the candidates: the quest log, a turn-in (it opens the
--- quests after it: pick-ups), the level, the player's pins, ticks and
--- skips, a new zone (which also ends the zone stay: dismissed lines may come
--- back), the settings.
+-- quests after it: pick-ups), the level, the bags (the item a use or a
+-- click needs: Own.hereCarries), the player's pins, ticks and skips, a new
+-- zone (which also ends the zone stay: dismissed lines may come back), the
+-- settings.
 function Own.hereChanged() Own.hereDirty = true end
-for _, event in ipairs({ "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_TURNED_IN", "QUEST_LOG_UPDATE", "UNIT_QUEST_LOG_CHANGED", "PLAYER_LEVEL_UP" }) do
+for _, event in ipairs({ "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_TURNED_IN", "QUEST_LOG_UPDATE", "UNIT_QUEST_LOG_CHANGED", "PLAYER_LEVEL_UP", "BAG_UPDATE_DELAYED" }) do
 	ns.RegisterEvent(event, Own.hereChanged)
 end
 -- PLAYER_SKIPPED_QUEST comes after the skip's evaluation: one more.
