@@ -93,10 +93,10 @@ next forever/alliance/05-duskwood
 # the Westfall half pendant for Trial of the Sea Lion (272), only while it is
 # in the log: the lockbox gives the half to no one else (#1386). Train in
 # Stormwind on the way; Shamans take the Deeprun Tram to Ironforge for theirs.
-# Paladins: Human Paladins use the Symbol of Life on Henze Faulk by Stone
-# Cairn Lake on the road east through Elwynn (The Tome of Divinity, 1786 and
-# 1787, from the Stormwind stop of 02-westfall; Redemption at the Stormwind
-# stop of 05-duskwood). At 20 Duthorian Rall (Human) or Tiza Battleforge
+# Paladins: Human Paladins do The Tome of Divinity (1786, 1787) and learn
+# Redemption on 03-loch-modan's Elwynn walk and last Stormwind stop; a
+# Paladin still carrying 1786 or 1787 does Henze Faulk by Stone Cairn Lake
+# here and Redemption at the Stormwind stop of 05-duskwood. At 20 Duthorian Rall (Human) or Tiza Battleforge
 # (Dwarf) starts The Tome of Valor (1793/1794), the way to Verigan's Fist:
 # three dungeons and an escort, the Class guide
 # forever/class/paladin/verigans-fist.
@@ -180,6 +180,7 @@ step Theocritus
 step Henze Faulk
   only Human,Paladin
   zone Elwynn Forest
+  when onquest 1786,1787
   tip On the road east, past the Tower of Azora, head north from the bridge to Stone Cairn Lake. Henze Faulk lies south of the lake: use the Symbol of Life on him. The Defias Rogue Wizards around him carry the Defias Script.
   use 6866 quest 1786.1 @72.6,51.41 map 1429 era only Human -- Use the Symbol of Life on Henze Faulk
   turnin 1786 only Human -- Henze Faulk

@@ -4368,6 +4368,23 @@ test(`${REDRIDGE}: the Henze Faulk step tracks 1786.1 with an objective goal, no
 	}
 });
 
+// Alliance 12-30 bracket review 0.3.6: Human Paladins do Henze Faulk on 03-loch-modan's walk east through Elwynn (the same
+// road 04 walks at about 23) and learn Redemption at the Cathedral on 03's last Stormwind stop, about five levels earlier;
+// 04's and 05's steps stay only for a Paladin still carrying the quests.
+test(`${LOCH_MODAN}: Human Paladins' Tome of Divinity on the Elwynn walk, Redemption on the last Stormwind stop`, { skip }, () => {
+	const list = goals(LOCH_MODAN);
+	const carried = (e, qs) => (e.step.when || []).some((p) => p.k === 'onquest' && !p.neg && qs.every((q) => [].concat(p.q).includes(q)));
+	const henze = at(list, 'use 6866 quest 1786.1', (g) => g.t === 'use' && g.quest === 1786);
+	assert.ok(henze > at(list, 'goto the road east to Redridge', (g) => g.t === 'goto' && Math.abs(g.x - 65.8) < 0.1 && Math.abs(g.y - 74.0) < 0.1) && henze < at(list, 'accept 244 (Three Corners)', is('accept', 244)), 'on the walk east through Elwynn, before Three Corners');
+	assert.ok(carried(list[henze], [1786, 1787]) && list[at(list, 'collect 6846', (g) => g.t === 'collect' && g.item === 6846)].s === list[henze].s, 'the script on the same step, shown while 1786 or 1787 is carried');
+	const gazin = at(list, 'turnin 1788', is('turnin', 1788));
+	assert.ok(carried(list[gazin], [1787, 1788]) && gazin > at(list, 'turnin 97914 (Baros)', is('turnin', 97914)), 'Redemption on the last Stormwind stop, after Baros on Cathedral Square');
+	const red = goals(REDRIDGE);
+	assert.ok(carried(red[at(red, 'use 6866', (g) => g.t === 'use' && g.quest === 1786)], [1786, 1787]), '04\'s Henze step only for a Paladin still carrying it');
+	const dusk = goals('forever/alliance/05-duskwood.guide');
+	assert.ok(carried(dusk[at(dusk, 'turnin 1788', is('turnin', 1788))], [1787, 1788]), '05\'s Cathedral step only for a Paladin still carrying it');
+});
+
 // --- Cozy Sleeping Bag (Hotline, #698): every quest of the chain needs level
 // 14, and a level 13 Horde Paladin was sent to the Barrens for a note it could
 // not take yet. Polestar holds back only Class guides at their gate by itself,

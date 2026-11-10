@@ -37,6 +37,10 @@ next forever/alliance/03-darkshore-return
 # (players' recordings: skins and meat looted in Loch Modan, hand-ins at about 17).
 # Stormpike's Delivery (353), from Grimand Elmore after Elmore's Task on 02-westfall's last Stormwind
 # stop (Humans), is handed to Mountaineer Stormpike on the first Algaz Station stop.
+# Human Paladins: The Tome of Divinity (1786, 1787, from Gazin Tenorm on 02-westfall's last Stormwind stop) on
+# this guide's walk east through Elwynn (Henze Faulk at Stone Cairn Lake, north of the bridge) and Redemption
+# (1788) at the Cathedral of Light on its last Stormwind stop, at about 20-21 instead of 04's Elwynn road and
+# 05's Stormwind stop at about 26 (those steps stay for a Paladin still carrying the quests).
 # Left out:
 # A Dark Threat Looms (161) goes on to Ashlan Stonesmirk at Whelgar's dig, three levels later.
 # Mountaineer Stormpike's Task and Stormpike's Order (1339, 1338): Kadrell's breadcrumb, and
@@ -231,6 +235,16 @@ step Guard Thomas
   when onquest 35
   tip Guard Thomas guards the bridge on this road east, past the Tower of Azora: Marshal Dughan's Further Concerns, from your walk through Goldshire, goes to him.
   turnin 35                                   -- Guard Thomas, on the bridge
+
+step Henze Faulk
+  only Human,Paladin
+  zone Elwynn Forest
+  when onquest 1786,1787
+  tip From the bridge, head north to Stone Cairn Lake. Henze Faulk lies south of the lake: use the Symbol of Life on him. The Defias Rogue Wizards around him carry the Defias Script.
+  use 6866 quest 1786.1 @72.6,51.41 map 1429 era only Human -- Use the Symbol of Life on Henze Faulk
+  turnin 1786 only Human -- Henze Faulk
+  accept 1787 only Human
+  collect 6846 quest 1787.1 only Human -- Defias Script: Defias Rogue Wizards
 
 step Three Corners
   zone Redridge Mountains
@@ -457,6 +471,16 @@ step Baros Alexston
   tip Baros Alexston stands at the east side of Cathedral Square, on the way from the Dwarven District to the harbour.
   turnin 97914                                -- Baros Alexston: Thundris' letter from Auberdine
   accept 97926 optional                       -- For Thundris Windweaver, where the boat lands
+
+step Gazin Tenorm
+  only Human,Paladin
+  zone Stormwind City
+  when onquest 1787,1788
+  tip Gazin Tenorm and Duthorian Rall are in the Cathedral of Light, on Cathedral Square, on the way to the harbour.
+  goto 50.5,47.5 "Cathedral of Light" live
+  turnin 1787 only Human -- Gazin Tenorm
+  accept 1788 only Human
+  turnin 1788 only Human -- Duthorian Rall: Redemption
 
 step Boat to Auberdine
   zone Stormwind City

@@ -62,9 +62,9 @@ next forever/alliance/06-wetlands
 # (2607-2609, Doc Mixilpixil in the Barracks cellar; Wildflowers and a Leaded
 # Vial from Stormwind vendors, a Bronze Tube from the Auction House, the thread
 # in the city), 1,305 XP without leaving Stormwind.
-# Human Paladins hand the Defias Script (1787, from Henze Faulk in
-# 04-redridge-mountains) to Gazin Tenorm at the Stormwind stop and learn
-# Redemption from Duthorian Rall (1788).
+# Human Paladins still carrying the Defias Script (1787: 03-loch-modan does Henze Faulk and
+# Redemption, 04-redridge-mountains is the fallback) hand it to Gazin Tenorm at the Stormwind
+# stop and learn Redemption from Duthorian Rall (1788).
 #
 # Dusky Crab Cakes (93, taken in 04-redridge-mountains with Jitters' Growling Gut's hand-in): its
 # Gooey Spider Legs on the first west trip, handed to Chef Grual on the next Darkshire stop, and
@@ -234,6 +234,7 @@ step Class trainer
 step Gazin Tenorm
   only Human,Paladin
   zone Stormwind City
+  when onquest 1787,1788
   tip On into Stormwind: Gazin Tenorm and Duthorian Rall are in the Cathedral of Light, on the way to the gryphon master.
   goto 50.5,47.5 "Cathedral of Light" live
   turnin 1787 only Human -- Gazin Tenorm
