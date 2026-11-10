@@ -21911,8 +21911,9 @@ do
 				},
 				{
 					title = "Charred and Galvanized Horns",
-					note = "The chimaeras live south-west of {area:460} in the {area:465}: you need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south.",
+					note = "The chimaeras live south-west of {area:460} in the {area:465}; the guide waits for level 26 first. You need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south.",
 					goals = {
+						{ t = "level", level = 26 },
 						{ t = "collect", quest = 1701, title = "Fire Hardened Mail", item = 6839, itemName = "Charred Horn", count = 12, oi = 2, map = 1442, x = 32.99, y = 72.07, f = "e", spotsPacked = "32.1,72.7,,37,2,,27;34.7,70.9,,15,1,,27;36.3,65.5,,15,1;29,65.5,,15,1", lvl = 25, note = "{item:6839}, from the young chimaeras", from = "Fledgling Chimaera", fromKind = "npc", fromAlso = "Young Chimaera", fromId = 4031, fromAlsoId = 4032, fromNpcs = { { npc = 4031, npcName = "Fledgling Chimaera" }, { npc = 4032, npcName = "Young Chimaera" } } },
 						{ t = "collect", quest = 1701, title = "Fire Hardened Mail", item = 6840, itemName = "Galvanized Horn", count = 1, oi = 3, map = 1442, x = 33.64, y = 74.66, f = "e", note = "{item:6840}, from the {npc:6167}", from = "Chimaera Matriarch", fromKind = "npc", fromId = 6167, fromNpcs = { { npc = 6167, npcName = "Chimaera Matriarch" } } },
 					},
@@ -21947,10 +21948,18 @@ do
 				},
 				{
 					title = "{quest:1705}",
-					note = "The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. {npc:6170} (level 32, not elite) carries the {item:6845} (also four in five): he walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. {npc:6170} and the Tainted Ones poison and howl; Vile Fangs cause {spell:3427}.",
+					note = "The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. The Tainted Ones poison and howl; Vile Fangs cause {spell:3427}.",
 					only = { races = { "Human", "Skyborne" } },
 					goals = {
 						{ t = "collect", quest = 1705, title = "Burning Blood", item = 6844, itemName = "Burning Blood", count = 20, oi = 1, map = 1431, x = 64.05, y = 58.91, f = "e", spotsPacked = "61.9,53.4,,40,3,,28;60.9,46.7,,40,4;61.1,40.6,,60,12;66.2,38.9,,40,4,,28;67,47.7,,40,3;65.2,67.3,,40,12;61.3,70.1,,67,7;66.2,76,,40,10;62.3,81.5,,60,12,,31;73.7,77.8,,44,6,,31;72.9,69.2,,40,7,,30;59,26.6,,40,2,,27;63.6,51,,60,7,1;58.8,52.2,,40,4,1,28;66.4,70.1,,40,5,1;65,43.6,,58,6,1;62.5,74.4,,58,13,1;72.2,72.7,,40,9,1,30;63.7,35,,40,4,1,28;61.5,30.7,,54,6,1,28;57.9,29.6,,40,6,1,28", spread = true, lvl = 29, note = "{quest:1705}, from the Nightbane worgen", from = "Nightbane Dark Runner", fromKind = "npc", fromAlso = "Nightbane Vile Fang", fromId = 205, fromAlsoId = 206, fromNpcs = { { npc = 205, npcName = "Nightbane Dark Runner" }, { npc = 206, npcName = "Nightbane Vile Fang" }, { npc = 533, npcName = "Nightbane Shadow Weaver" }, { npc = 898, npcName = "Nightbane Worgen" }, { npc = 920, npcName = "Nightbane Tainted One" } } },
+					},
+				},
+				{
+					title = "{npc:6170}",
+					note = "{npc:6170} (level 32, not elite) carries the {item:6845}, four kills in five; the guide waits for level 30 first. He walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. He poisons and howls.",
+					only = { races = { "Human", "Skyborne" } },
+					goals = {
+						{ t = "level", level = 30 },
 						{ t = "collect", quest = 1705, title = "Burning Blood", item = 6845, itemName = "Burning Rock", count = 1, oi = 2, map = 1431, x = 73.89, y = 77.17, f = "e", note = "{item:6845}, from {npc:6170}", from = "Gutspill", fromKind = "npc", fromId = 6170, fromNpcs = { { npc = 6170, npcName = "Gutspill" } } },
 					},
 				},

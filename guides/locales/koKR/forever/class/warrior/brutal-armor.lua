@@ -36,30 +36,30 @@ return {
 	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill · {quest:1838} Brutal Armor · {item:7587} Thun'grim's Instructions
 	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads: climb the broad ridge on the north or east side. {quest:1838} is a level 30 quest; take it now and gather on the way. {item:7587} list where each material comes from."] = "",
 
-	-- Step 7: Roogug in Razorfen Kraul
-	-- {area:1717} Razorfen Kraul
-	["Roogug in {area:1717}"] = "{area:1717}의 루구그",
-	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {spell:403} Lightning Bolt
-	["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "",
-	-- {item:6841} Vial of Phlogiston
-	["{item:6841}, from Roogug"] = "{item:6841}, 루구그에게서",
-
-	-- Step 8: Windshear Mine
+	-- Step 7: Windshear Mine
 	-- {area:2160} Windshear Mine · {area:461} Windshear Crag · {area:460} Sun Rock Retreat · {spell:116} Frostbolt
 	-- plural, as words: Smoky Iron Ingots = {item:7126} Smoky Iron Ingot
 	["You need 15 Smoky Iron Ingots. The {area:2160} lies at the east end of {area:461}, east of {area:460}; every Windshear kobold (level 19-23) drops an ingot four kills in five. Stonecutters, Geomancers and Overlords run for help when low; Geomancers cast {spell:116}."] = "",
 	-- {item:7126} Smoky Iron Ingot
 	["{item:7126}, from the Windshear kobolds"] = "",
 
-	-- Step 9: Hillsbrad Miners
+	-- Step 8: Hillsbrad Miners
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
 	["Hillsbrad Miners"] = "{npc:2269}",
 	-- {item:7127} Powdered Azurite · {area:271} Southshore · {spell:71} Defensive Stance · {area:272} Tarren Mill
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
-	["You need 10 {item:7127}. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "",
+	["You need 10 {item:7127}. The guide waits for level 25 first. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "",
 	-- {item:7127} Powdered Azurite
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
 	["{item:7127}, from the Hillsbrad Miners"] = "",
+
+	-- Step 9: Roogug in Razorfen Kraul
+	-- {area:1717} Razorfen Kraul
+	["Roogug in {area:1717}"] = "{area:1717}의 루구그",
+	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {spell:403} Lightning Bolt
+	["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. The guide waits for level 26 first. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "",
+	-- {item:6841} Vial of Phlogiston
+	["{item:6841}, from Roogug"] = "{item:6841}, 루구그에게서",
 
 	-- Step 10: Iron Bars
 	-- plural, as words: Iron Bars = {item:3575} Iron Bar

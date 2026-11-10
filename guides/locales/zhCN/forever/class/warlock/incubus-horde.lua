@@ -47,7 +47,7 @@ return {
 	-- Step 8: Fallen Sky Lake
 	-- {area:422} Fallen Sky Lake · {zone:1440} Ashenvale · {area:431} Splintertree Post · {item:190232} Withered Scarf · {npc:3931} Shadethicket Oracle
 	-- plural, as words: Shadethicket Stone Movers = {npc:3782} Shadethicket Stone Mover
-	["{area:422} lies in southern {zone:1440}, south-west of {area:431}. The Shadethicket Stone Movers and Bark Rippers (level 25-26) around the lake drop the {item:190232} about one time in twenty, and the lone {npc:3931} (30) can drop it too: plan on a good number of kills, so come at 25 or later (Forever made this quest level 27); with the succubus already bound you can leave it for your 20s leveling in {zone:1440}. They respawn in five minutes."] = "{area:422} 位于 {zone:1440} 南部、{area:431} 西南方。湖周围的移石沼泽兽和碎木沼泽兽（25-26 级）掉落 {item:190232} 的概率约为二十分之一，独自出现的 {npc:3931}（30 级）也可能掉落：预计需要击杀不少怪物，因此等到 25 级或更高再来（无限将本任务等级改为了 27 级）；若你已经绑定了魅魔，可以留到 20 多级在 {zone:1440} 升级时再做。它们每五分钟刷新。",
+	["{area:422} lies in southern {zone:1440}, south-west of {area:431}. The Shadethicket Stone Movers and Bark Rippers (level 25-27) around the lake drop the {item:190232} about one time in twenty, and the lone {npc:3931} (30) can drop it too: plan on a good number of kills, so the guide waits for level 24 first (Forever made this quest level 27); with the succubus already bound you can leave it for your 20s leveling in {zone:1440}. They respawn in five minutes."] = "",
 
 	-- Step 9: The Binding: incubus (Orgrimmar)
 	-- {quest:65604} The Binding · {zone:1454} Orgrimmar
@@ -97,6 +97,7 @@ return {
 	-- ["Back to {npc:5875} in the {object:172960}. Take the scarf to the summoning circle in {npc:3216}'s tent nearby and defeat the incubus it calls."] = "回到{object:172960}找{npc:5875}。把围巾带到附近{npc:3216}帐篷里的召唤法阵，击败它召唤出的夜魔。",
 	-- ["Incubus (Horde)"] = "夜魔（部落）",
 	-- ["{area:422} lies in southern {zone:1440}, south of {area:431}. The Shadethicket bog beasts around the lake drop the {item:190232}, about one in twenty."] = "{area:422}位于{zone:1440}南部、{area:431}南边。湖边的沼泽兽会掉落{item:190232}，大约二十只掉一次。",
+	-- ["{area:422} lies in southern {zone:1440}, south-west of {area:431}. The Shadethicket Stone Movers and Bark Rippers (level 25-26) around the lake drop the {item:190232} about one time in twenty, and the lone {npc:3931} (30) can drop it too: plan on a good number of kills, so come at 25 or later (Forever made this quest level 27); with the succubus already bound you can leave it for your 20s leveling in {zone:1440}. They respawn in five minutes."] = "{area:422} 位于 {zone:1440} 南部、{area:431} 西南方。湖周围的移石沼泽兽和碎木沼泽兽（25-26 级）掉落 {item:190232} 的概率约为二十分之一，独自出现的 {npc:3931}（30 级）也可能掉落：预计需要击杀不少怪物，因此等到 25 级或更高再来（无限将本任务等级改为了 27 级）；若你已经绑定了魅魔，可以留到 20 多级在 {zone:1440} 升级时再做。它们每五分钟刷新。",
 	-- ["{npc:185333} works as a tailor for the {area:279} wizards at {area:233}, in eastern {zone:1421}. Take her heart."] = "{npc:185333}在{zone:1421}东部的{area:233}为{area:279}的法师们做裁缝。取走她的心脏。",
 	-- ["{npc:185334} works in {area:392}, on the {zone:1413} coast. Take the zeppelin to {zone:1411} and ride or fly on to {area:392}."] = "{npc:185334}在{zone:1413}海岸的{area:392}工作。乘飞艇前往{zone:1411}，再骑行或飞往{area:392}。",
 	-- ["{npc:3363} keeps {object:173018}, east of the {object:172960} along the main street. He asks you to look for his mate, Krilge."] = "{npc:3363}经营着{object:172960}东边主街上的{object:173018}。他请你去寻找他的伴侣。",

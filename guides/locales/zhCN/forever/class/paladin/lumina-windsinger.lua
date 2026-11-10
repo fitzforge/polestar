@@ -111,7 +111,7 @@ return {
 
 	-- Step 17: Old Fire-Eye
 	-- {item:268484} Moonsilver Blade · {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas
-	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): grouping up is encouraged; one player needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "装备 {item:268484}。巨型狼人 {quest:95140} 在 {area:228} 南侧、通往 {area:17065} 大门方向的林地游荡。他是精英（25 级）：建议组队；有玩家需要再找一人帮忙，也有玩家在 25 级时独自击败了他。你用这把剑第一次击中他前，他会受到紫色护盾保护；护盾破裂时会出现提示。",
+	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "",
 	-- {quest:95140} Old Fire-Eye · {item:268484} Moonsilver Blade
 	["{quest:95140}, with the {item:268484} equipped"] = "装备 {item:268484} 后，对付 {quest:95140}",
 
@@ -120,6 +120,7 @@ return {
 	["Back to {npc:259620} in the {area:228} with the {item:268484} (the quest asks for it): she takes it and blesses it with the magic of her people into {item:267369}."] = "带着 {item:268484} 回到 {area:228} 找 {npc:259620}（任务要求携带它）：她会收下，用她族人的魔法祝福它，使其变成 {item:267369}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): grouping up is encouraged; one player needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "装备 {item:268484}。巨型狼人 {quest:95140} 在 {area:228} 南侧、通往 {area:17065} 大门方向的林地游荡。他是精英（25 级）：建议组队；有玩家需要再找一人帮忙，也有玩家在 25 级时独自击败了他。你用这把剑第一次击中他前，他会受到紫色护盾保护；护盾破裂时会出现提示。",
 	-- ["Free her with the key, then stay close while she fights her way out of the keep."] = "用钥匙放她出来，然后在她杀出要塞时紧跟着她。",
 	-- ["No item yet: a Forsaken paladin rescue story; its sequel, the {item:268484}, cannot be finished yet."] = "暂无物品：一段被遗忘者圣骑士的营救故事；其续篇{item:268484}目前还无法完成。",
 	-- ["Once she is clear of {area:235}, Lumina waits for you in the {area:228}. Speak with her again to hear what really happened on the road."] = "离开{area:235}后，卢米娜会在{area:228}等你。再次与她交谈，听听路上到底发生了什么。",

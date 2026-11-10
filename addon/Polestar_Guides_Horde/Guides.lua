@@ -684,9 +684,10 @@ do
 				},
 				{
 					title = "{quest:95140}",
-					note = "Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): grouping up is encouraged; one player needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke.",
+					note = "Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke.",
 					goals = {
 						{ t = "accept", quest = 95140, title = "Old Fire-Eye", npc = 259620, npcName = "Lumina Windsinger", minLevel = 20, qlvl = 26, map = 1421, x = 43.4, y = 40.99, f = "e", note = "{npc:259620}, the {area:228}" },
+						{ t = "level", level = 22 },
 						{ t = "kill", quest = 95140, title = "Old Fire-Eye", target = "Old Fire-Eye", npc = 259897, count = 1, oi = 1, map = 1421, x = 47.91, y = 85.33, f = "e", spotsPacked = "47.91,85.33,,92,9;50.4,87,,53,5,1;49.7,81.7,,40,1,1;52.6,73.4,,40,2,1", lvl = 25, note = "{quest:95140}, with the {item:268484} equipped", group = { kind = "elite", lvl = 25, rank = 1 } },
 					},
 				},
@@ -2889,8 +2890,10 @@ do
 				},
 				{
 					title = "{area:422}",
-					note = "{area:422} lies in southern {zone:1440}, south-west of {area:431}. The Shadethicket Stone Movers and Bark Rippers (level 25-26) around the lake drop the {item:190232} about one time in twenty, and the lone {npc:3931} (30) can drop it too: plan on a good number of kills, so come at 25 or later (Forever made this quest level 27); with the succubus already bound you can leave it for your 20s leveling in {zone:1440}. They respawn in five minutes.",
+					note = "{area:422} lies in southern {zone:1440}, south-west of {area:431}. The Shadethicket Stone Movers and Bark Rippers (level 25-27) around the lake drop the {item:190232} about one time in twenty, and the lone {npc:3931} (30) can drop it too: plan on a good number of kills, so the guide waits for level 24 first (Forever made this quest level 27); with the succubus already bound you can leave it for your 20s leveling in {zone:1440}. They respawn in five minutes.",
+					when = { { k = "onquest", q = { 65610 } } },
 					goals = {
+						{ t = "level", level = 24 },
 						{ t = "collect", quest = 65610, title = "Wish You Were Here", item = 190232, itemName = "Withered Scarf", count = 1, oi = 1, map = 1440, x = 72.4, y = 68.06, f = "e", spotsPacked = "68.6,62.9,,49,1,,26;65,66.5,,50,2,,26;63,71.6,,49,1;59.5,78.9,,49,5;66.8,84,,49,2;79.6,72.4,,90,4;79.2,65.6,,49,2;79,57.9,,49,1,,26;78.7,53.5,,49,1,,26;74.7,46.5,,49,1;71.3,55.3,,53,3;85.6,68.3,,49,4;66.6,64.4,,49,1,1,26;69.8,59.1,,49,2,1;78.4,61.3,,64,3,1,26;81.4,63.4,,63,3,1;66.4,80.9,,74,11,1;84.1,64.9,,49,1,1;61.4,75.8,,49,2,1", spread = true, lvl = 27, fromNpcs = { { npc = 3782, npcName = "Shadethicket Stone Mover" }, { npc = 3784, npcName = "Shadethicket Bark Ripper" } } },
 					},
 				},
@@ -3132,13 +3135,6 @@ do
 					},
 				},
 				{
-					title = "Roogug in {area:1717}",
-					note = "Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops.",
-					goals = {
-						{ t = "collect", quest = 1838, title = "Brutal Armor", item = 6841, itemName = "Vial of Phlogiston", count = 1, oi = 4, map = 1413, x = 42.9, y = 90.2, note = "{item:6841}, from Roogug", group = { kind = "group", size = 5 } },
-					},
-				},
-				{
 					title = "{area:2160}",
 					note = "You need 15 Smoky Iron Ingots. The {area:2160} lies at the east end of {area:461}, east of {area:460}; every Windshear kobold (level 19-23) drops an ingot four kills in five. Stonecutters, Geomancers and Overlords run for help when low; Geomancers cast {spell:116}.",
 					goals = {
@@ -3147,9 +3143,18 @@ do
 				},
 				{
 					title = "Hillsbrad Miners",
-					note = "You need 10 {item:7127}. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west.",
+					note = "You need 10 {item:7127}. The guide waits for level 25 first. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west.",
 					goals = {
+						{ t = "level", level = 25 },
 						{ t = "collect", quest = 1838, title = "Brutal Armor", item = 7127, itemName = "Powdered Azurite", count = 10, oi = 2, map = 1424, x = 30, y = 54.97, f = "e", spotsPacked = "29.7,53.7,,74,9;31.9,54.7,,22,3;28.2,56.5,,53,10;30.9,58.3,,46,7;31.8,52.5,,23,5", lvl = 27, note = "{item:7127}, from the Hillsbrad Miners", from = "Hillsbrad Miner", fromKind = "npc", fromFaction = "A", fromId = 2269, fromNpcs = { { npc = 2269, npcName = "Hillsbrad Miner" } } },
+					},
+				},
+				{
+					title = "Roogug in {area:1717}",
+					note = "Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. The guide waits for level 26 first. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops.",
+					goals = {
+						{ t = "level", level = 26 },
+						{ t = "collect", quest = 1838, title = "Brutal Armor", item = 6841, itemName = "Vial of Phlogiston", count = 1, oi = 4, map = 1413, x = 42.9, y = 90.2, note = "{item:6841}, from Roogug", group = { kind = "group", size = 5 } },
 					},
 				},
 				{

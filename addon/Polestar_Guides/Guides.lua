@@ -1311,9 +1311,10 @@ do
 				},
 				{
 					title = "{quest:1955}",
-					note = "Back at {npc:6546}'s. Kill the critters around the cottage first: they join the fight. Accepting {quest:1955} starts a 3 minute timer, and {npc:6546} calls the {npc:6549} out in her garden: a level 40 elite that resists many spells, roots and slows. Grouping up is encouraged: a mage of 40 may need help or potions, at about 45 it is soloable. You can pull it from range from the dock. The timer keeps running after it dies, so hand the quest in straight away. If time runs out, abandon the quest and take it again; she calls the demon again.",
+					note = "Back at {npc:6546}'s. Hand in the orb now; {quest:1955} waits for level 38. Kill the critters around the cottage first: they join the fight. Accepting {quest:1955} starts a 3 minute timer, and {npc:6546} calls the {npc:6549} out in her garden: a level 40 elite that resists many spells, roots and slows. Grouping up is encouraged: a mage of 40 may need help or potions, at about 45 it is soloable. You can pull it from range from the dock. The timer keeps running after it dies, so hand the quest in straight away. If time runs out, abandon the quest and take it again; she calls the demon again.",
 					goals = {
 						{ t = "turnin", quest = 1954, title = "The Infernal Orb", npc = 6546, npcName = "Tabetha", map = 1445, x = 46.06, y = 57.09, z = 39, f = "e" },
+						{ t = "level", level = 38 },
 						{ t = "accept", quest = 1955, title = "The Exorcism", npc = 6546, npcName = "Tabetha", minLevel = 35, qlvl = 40, limit = 180, pre = { 1954 }, preTitles = { [1954] = "The Infernal Orb" }, map = 1445, x = 46.06, y = 57.09, z = 39, f = "e" },
 						{ t = "kill", quest = 1955, title = "The Exorcism", target = "Demon of the Orb", npc = 6549, count = 1, oi = 1, map = 1445, x = 45.79, y = 56.97, f = "e", note = "{npc:6549} (elite, 40)", group = { kind = "elite", lvl = 40, rank = 1 } },
 						{ t = "turnin", quest = 1955, title = "The Exorcism", npc = 6546, npcName = "Tabetha", map = 1445, x = 46.06, y = 57.09, z = 39, f = "e" },
@@ -1322,8 +1323,9 @@ do
 				},
 				{
 					title = "{quest:1956}",
-					note = "{area:1517} is a dungeon in the northern {zone:1418}: a group of five. Go in by the rear entrance, a cave in {area:1898} south-east of the main entrance (elite dragons fly nearby): the {npc:7023} (level 42 elite) stands just past the first door. At 80, 60, 40 and 20 percent it breaks off an {npc:7209}, an elite too; while a shard lives, both reflect targeted spells, so use area spells and your wand on them. A solo trick: step out through the nearby zone line each time a shard appears; the Sentinel heals but keeps shrinking. It always drops the power source, and takes 2 hours to come back.",
+					note = "{area:1517} is a dungeon in the northern {zone:1418}: a group of five, from level 40 here. Go in by the rear entrance, a cave in {area:1898} south-east of the main entrance (elite dragons fly nearby): the {npc:7023} (level 42 elite) stands just past the first door. At 80, 60, 40 and 20 percent it breaks off an {npc:7209}, an elite too; while a shard lives, both reflect targeted spells, so use area spells and your wand on them. A solo trick: step out through the nearby zone line each time a shard appears; the Sentinel heals but keeps shrinking. It always drops the power source, and takes 2 hours to come back.",
 					goals = {
+						{ t = "level", level = 40 },
 						{ t = "collect", quest = 1956, title = "Power in Uldaman", item = 8053, itemName = "Obsidian Power Source", count = 1, oi = 1, map = 1418, x = 49.1, y = 13.7, f = "e", note = "{item:8053}: {npc:7023}", group = { kind = "elite", lvl = 42, rank = 1 } },
 					},
 				},
@@ -1341,14 +1343,22 @@ do
 				},
 				{
 					title = "{quest:2861} (optional)",
-					note = "At 40 the mage trainers who send you to {npc:6546} ({npc:5497}, Bink, {npc:4568}, {npc:5885}) also have {quest:2861}, a quest any class can do. {npc:6546} then wants the {quest:2846} from {npc:7795}, a level 46 elite naga in {area:978}, the troll dungeon in north-western {zone:1446}: a group of five, level 44-54. She is one of the bosses by the sacred pool, and the tiara always drops. The reward window shows the {item:9527} and the {item:9531}.",
+					note = "At 40 the mage trainers who send you to {npc:6546} ({npc:5497}, Bink, {npc:4568}, {npc:5885}) also have {quest:2861}, a quest any class can do. {npc:6546} then wants the {quest:2846} from {npc:7795}, a level 46 elite naga in {area:978}, the troll dungeon in north-western {zone:1446}: a group of five, level 44-54. The reward window shows the {item:9527} and the {item:9531}.",
 					goals = {
 						{ t = "level", level = 40 },
 						{ t = "accept", quest = 2861, title = "Tabetha's Task", npc = 5885, npcName = "Deino", minLevel = 40, qlvl = 46, closedBy = { 2846 }, preTitles = { [2846] = "Tiara of the Deep" }, map = 1454, x = 38.45, y = 86.13, z = 43, f = "e", optional = true },
 						{ t = "turnin", quest = 2861, title = "Tabetha's Task", npc = 6546, npcName = "Tabetha", map = 1445, x = 46.06, y = 57.09, z = 39, f = "e", optional = true },
 						{ t = "accept", quest = 2846, title = "Tiara of the Deep", npc = 6546, npcName = "Tabetha", minLevel = 40, qlvl = 46, map = 1445, x = 46.06, y = 57.09, z = 39, f = "e", optional = true, group = { kind = "dungeon", map = 209, name = "Zul'Farrak" } },
-						{ t = "collect", quest = 2846, title = "Tiara of the Deep", item = 9234, itemName = "Tiara of the Deep", count = 1, oi = 1, map = 1445, x = 38.7, y = 20, f = "e", optional = true, note = "{quest:2846}: {npc:7795}, {area:978}", group = { kind = "dungeon", map = 209, name = "Zul'Farrak" } },
-						{ t = "turnin", quest = 2846, title = "Tiara of the Deep", npc = 6546, npcName = "Tabetha", map = 1445, x = 46.06, y = 57.09, z = 39, f = "e", optional = true, group = { kind = "dungeon", map = 209, name = "Zul'Farrak" } },
+					},
+				},
+				{
+					title = "{quest:2846} in {area:978}",
+					note = "{area:978}, the troll dungeon in north-western {zone:1446}, needs a group of five; the guide waits for level 44. {npc:7795} is one of the bosses by the sacred pool, and the tiara always drops.",
+					when = { { k = "onquest", q = { 2846 } } },
+					goals = {
+						{ t = "level", level = 44 },
+						{ t = "collect", quest = 2846, title = "Tiara of the Deep", item = 9234, itemName = "Tiara of the Deep", count = 1, oi = 1, map = 1446, x = 38.7, y = 20, f = "e", note = "{quest:2846}: {npc:7795}, {area:978}", group = { kind = "dungeon", map = 209, name = "Zul'Farrak" } },
+						{ t = "turnin", quest = 2846, title = "Tiara of the Deep", npc = 6546, npcName = "Tabetha", map = 1445, x = 46.06, y = 57.09, z = 39, f = "e", group = { kind = "dungeon", map = 209, name = "Zul'Farrak" } },
 					},
 				},
 			},
@@ -2514,9 +2524,10 @@ do
 				},
 				{
 					title = "{npc:6546}",
-					note = "{npc:6546} lives at her farm in the middle of {zone:1445}, south of the road from the {zone:1413} and south-west of Theramore; a spirit healer stands beside it. Deadmire, a level 45 crocolisk, patrols the creeks just north-east. Before you accept Cleansing, clear the spiders and crocolisks around her paddock. Accepting starts a 3-minute timer: she walks to the paddock and lets the {npc:6549} out. It is elite (level 40): grouping up is encouraged; a warlock of about 40 can solo it with Fear or {spell:710} and damage over time, a level 35-38 one brings a friend. The timer keeps running after the kill, so hand in at once. If time runs out, abandon the quest and take it from {npc:6546} again.",
+					note = "{npc:6546} lives at her farm in the middle of {zone:1445}, south of the road from the {zone:1413} and south-west of Theramore; a spirit healer stands beside it. Deadmire, a level 45 crocolisk, patrols the creeks just north-east. Hand in the orb now; Cleansing waits for level 38. Before you accept it, clear the spiders and crocolisks around her paddock. Accepting starts a 3-minute timer: she walks to the paddock and lets the {npc:6549} out. It is elite (level 40): grouping up is encouraged; a warlock of about 40 can solo it with Fear or {spell:710} and damage over time, a level 38 one brings a friend. The timer keeps running after the kill, so hand in at once. If time runs out, abandon the quest and take it from {npc:6546} again.",
 					goals = {
 						{ t = "turnin", quest = 1799, title = "Fragments of the Orb of Orahil", npc = 6546, npcName = "Tabetha", map = 1445, x = 46.06, y = 57.09, z = 39, f = "e" },
+						{ t = "level", level = 38 },
 						{ t = "accept", quest = 4961, title = "Cleansing of the Orb of Orahil", npc = 6546, npcName = "Tabetha", minLevel = 35, qlvl = 40, limit = 180, preAll = { 1799, 4962 }, preTitles = { [1799] = "Fragments of the Orb of Orahil", [4962] = "Shard of a Felhound" }, map = 1445, x = 46.06, y = 57.09, z = 39, f = "e" },
 						{ t = "kill", quest = 4961, title = "Cleansing of the Orb of Orahil", target = "Demon of the Orb", npc = 6549, count = 1, oi = 1, map = 1445, x = 45.79, y = 56.97, f = "e", group = { kind = "elite", lvl = 40, rank = 1 } },
 						{ t = "turnin", quest = 4961, title = "Cleansing of the Orb of Orahil", npc = 6546, npcName = "Tabetha", map = 1445, x = 46.06, y = 57.09, z = 39, f = "e" },
@@ -2639,17 +2650,18 @@ do
 					},
 				},
 				{
-					title = "{area:1763}",
-					note = "{area:1763} lies just south of {area:1997}, west of the road. Of its two caves, {area:1770} is the northern one, further up the hill; the other has no Legionnaires. {area:1770}'s tunnels run north under the hills, and the Jaedenar Legionnaires (level 55) stand in its deeper halls, from the first ramps on toward {npc:9516}'s chamber; they Uppercut anyone in melee. Three kills in four give the essence, but only about eleven spawn: clear your way in and wait out a five-minute respawn if you must. The cultists of {area:1763} and {area:1770} are all hostile.",
-					goals = {
-						{ t = "collect", quest = 7602, title = "Flawless Fel Essence", item = 18622, itemName = "Flawless Fel Essence (Jaedenar)", count = 1, oi = 2, map = 1448, x = 40.01, y = 49.15, f = "e", spotsPacked = "39.3,50,,53,2;36.7,46,,58,3;37.3,54.5,,71,3", lvl = 55, from = "Jaedenar Legionnaire", fromKind = "npc", fromId = 9862, fromNpcs = { { npc = 9862, npcName = "Jaedenar Legionnaire" } } },
-					},
-				},
-				{
 					title = "{zone:1447}",
 					note = "The Legashi satyrs (level 51-53) hold the Legash Encampment on {zone:1447}'s northern coast. Every kind drops the essence three times in four; the satyrs burn mana and the Hellcallers rain fire, so pull them singly.",
 					goals = {
 						{ t = "collect", quest = 7602, title = "Flawless Fel Essence", item = 18624, itemName = "Flawless Fel Essence (Azshara)", count = 1, oi = 1, map = 1447, x = 61.42, y = 20.92, f = "e", spotsPacked = "62.2,24,,40,4;60.9,24.5,,44,9;62.1,26.2,,50,5;66.6,18.6,,44,7;65.7,16.9,,40,6;66.6,15.8,,40,3;68.3,18,,40,2;52,20.6,,40,2;51.5,18.4,,83,9", spread = true, lvl = 53, from = "Legashi Satyr", fromKind = "npc", fromAlso = "Legashi Rogue", fromId = 6200, fromAlsoId = 6201, fromNpcs = { { npc = 6200, npcName = "Legashi Satyr" }, { npc = 6201, npcName = "Legashi Rogue" }, { npc = 6202, npcName = "Legashi Hellcaller" } } },
+					},
+				},
+				{
+					title = "{area:1763}",
+					note = "{area:1763} lies just south of {area:1997}, west of the road. The guide waits for level 53 first: its Legionnaires are 55. Of its two caves, {area:1770} is the northern one, further up the hill; the other has no Legionnaires. {area:1770}'s tunnels run north under the hills, and the Jaedenar Legionnaires (level 55) stand in its deeper halls, from the first ramps on toward {npc:9516}'s chamber; they Uppercut anyone in melee. Three kills in four give the essence, but only about eleven spawn: clear your way in and wait out a five-minute respawn if you must. The cultists of {area:1763} and {area:1770} are all hostile.",
+					goals = {
+						{ t = "level", level = 53 },
+						{ t = "collect", quest = 7602, title = "Flawless Fel Essence", item = 18622, itemName = "Flawless Fel Essence (Jaedenar)", count = 1, oi = 2, map = 1448, x = 37.58, y = 50.21, f = "e", spotsPacked = "39.3,50,,53,2;37.3,54.5,,71,3;36.7,46,,58,3", lvl = 55, from = "Jaedenar Legionnaire", fromKind = "npc", fromId = 9862, fromNpcs = { { npc = 9862, npcName = "Jaedenar Legionnaire" } } },
 					},
 				},
 				{
@@ -3056,9 +3068,24 @@ do
 					},
 				},
 				{
-					title = "The exiles of Arathi",
-					note = "The cauldron wants 8 of each charm, 24 in all, and each exile drops its charm about one kill in three, so plan on some 70 kills. All are level 38-39, not elite, and hit hard at 30-33: bring a friend or come at 35 or more. Burning Exiles (fire) by the {area:334} in the north-west, north-west of {area:320}; Thundering Exiles (air) by the {area:336} south-east of {area:320}, casting {spell:403} from 40 yards; Cresting Exiles (water) by the {area:333}, north-west of {area:321}, with {spell:122}. About a dozen of each, back in under 7 minutes. The charms trade and sell on the auction house; using one banishes another kind of exile for a while (Burning on Thundering, Thundering on Cresting, Cresting on Burning).",
+					title = "{item:3357}",
+					note = "You need 8 {item:3357}. Herbalists pick it by rivers and lakes in the {zone:1437}, {zone:1417} and {zone:1434}; otherwise the auction house. Herb vendors keep only one at a time and restock every two hours: {npc:1302} and {npc:1313} in {zone:1453}, {npc:844} on the road in eastern Elwynn, Jeeda at {area:460} in Stonetalon, Montarr in {zone:1441}. Kurzen Medicine Men in northern Stranglethorn drop one about one kill in twelve.",
 					goals = {
+						{ t = "collect", quest = 1712, title = "Cyclonian", item = 3357, itemName = "Liferoot", count = 8, oi = 1, map = 1416, x = 77.21, y = 64.4, f = "e", spotsPacked = "76.7,63.4,,40,2;72.6,69.3,,40,1;83.5,52.6,,40,2;37.7,20.8,,40,2;36.1,25.4,,40,2;32.3,31.5,,70,7;29.6,39.4,,40,1;26,43.6,,40,2;20.5,49.8,,40,4;16.8,53.5,,40,4;9.2,55.3,,40,2;34.8,9.8,,40,1;74,65.2,,40,1,1;79.4,60.3,,40,2,1;81.1,56.3,,40,2,1;36.8,13.5,,40,4,1;23.6,46.6,,40,2,1;32.2,7.9,,41,6,1;13.6,55.2,,40,3,1", spread = true },
+					},
+				},
+				{
+					title = "Bloodscalp Tusks",
+					note = "You need 30 tusks. Every Bloodscalp troll (level 33-37) of north-west Stranglethorn drops one about one kill in three, so plan on some 80 kills: the camps and ruins north and north-west of {area:117} and around the {area:123} on the coast. They enrage below 30% health and the Warriors disarm; back in 5 minutes.",
+					goals = {
+						{ t = "collect", quest = 1712, title = "Cyclonian", item = 3901, itemName = "Bloodscalp Tusk", count = 30, oi = 2, map = 1434, x = 32.26, y = 17.17, f = "e", spotsPacked = "30.5,17.4,,40,2;30,21.2,,40,2;34.3,14.6,,40,1;31.4,12.2,,40,4;27.5,11.3,,40,4,,35;26.1,12.3,,56,12,,35;24.6,12.7,,64,14,,35;23,10.7,,49,9,,37;21.3,10.2,,40,1,,37;20,11.9,,58,10,,37;20.9,15.4,,40,1,,37;25.8,9.2,,45,15,,35;33.9,16.1,,48,6,1;30.7,19.4,,40,1,1;31.7,14,,40,2,1;33,13.5,,40,3,1;29.4,19.5,,43,8,1;24.9,10.4,,54,19,1,37;22.9,12.6,,46,11,1,35;23.5,9.1,,69,18,1,37;20.6,13.5,,40,5,1,37", spread = true, lvl = 34, fromNpcs = { { npc = 587, npcName = "Bloodscalp Warrior" }, { npc = 588, npcName = "Bloodscalp Scout" }, { npc = 595, npcName = "Bloodscalp Hunter" }, { npc = 597, npcName = "Bloodscalp Berserker" }, { npc = 660, npcName = "Bloodscalp Witch Doctor" }, { npc = 701, npcName = "Bloodscalp Mystic" }, { npc = 671, npcName = "Bloodscalp Headhunter" }, { npc = 694, npcName = "Bloodscalp Axe Thrower" }, { npc = 702, npcName = "Bloodscalp Scavenger" }, { npc = 697, npcName = "Bloodscalp Shaman" }, { npc = 699, npcName = "Bloodscalp Beastmaster" } }, fromNpcsAt = "10;1,10;1;9;6,2,11;6,3,2,11;2,6,3;7,4,3,11;7;4,5,7;5;6,2,3,11;8,1;10;9;9,1;8,10,1;6,2,4,7,3,5,11;2,6,3;4,7,5,11;5,7" },
+					},
+				},
+				{
+					title = "The exiles of Arathi",
+					note = "The cauldron wants 8 of each charm, 24 in all, and each exile drops its charm about one kill in three, so plan on some 70 kills. All are level 38-39, not elite: the guide waits for level 37 first, and a friend helps. Burning Exiles (fire) by the {area:334} in the north-west, north-west of {area:320}; Thundering Exiles (air) by the {area:336} south-east of {area:320}, casting {spell:403} from 40 yards; Cresting Exiles (water) by the {area:333}, north-west of {area:321}, with {spell:122}. About a dozen of each, back in under 7 minutes. The charms trade and sell on the auction house; using one banishes another kind of exile for a while (Burning on Thundering, Thundering on Cresting, Cresting on Burning).",
+					goals = {
+						{ t = "level", level = 37 },
 						{ t = "collect", quest = 1714, title = "Essence of the Exile", item = 4479, itemName = "Burning Charm", count = 8, oi = 2, map = 1417, x = 25.61, y = 30.4, f = "e", spotsPacked = "25.3,30.1,,69,11;26.8,31.7,,25,3", lvl = 39, note = "{item:4479}, from Burning Exiles", fromNpcs = { { npc = 2760, npcName = "Burning Exile" } } },
 						{ t = "collect", quest = 1714, title = "Essence of the Exile", item = 4480, itemName = "Thundering Charm", count = 8, oi = 1, map = 1417, x = 50.39, y = 50.83, f = "e", spotsPacked = "51.5,51.3,,61,8;52.7,49.3,,43,4", lvl = 39, note = "{item:4480}, from Thundering Exiles", fromNpcs = { { npc = 2762, npcName = "Thundering Exile" } } },
 						{ t = "collect", quest = 1714, title = "Essence of the Exile", item = 4481, itemName = "Cresting Charm", count = 8, oi = 3, map = 1417, x = 65.36, y = 31.01, f = "e", spotsPacked = "66.7,29.8,,63,14", lvl = 39, note = "{item:4481}, from Cresting Exiles", fromNpcs = { { npc = 2761, npcName = "Cresting Exile" } } },
@@ -3073,24 +3100,11 @@ do
 					},
 				},
 				{
-					title = "{item:3357}",
-					note = "You need 8 {item:3357}. Herbalists pick it by rivers and lakes in the {zone:1437}, {zone:1417} and {zone:1434}; otherwise the auction house. Herb vendors keep only one at a time and restock every two hours: {npc:1302} and {npc:1313} in {zone:1453}, {npc:844} on the road in eastern Elwynn, Jeeda at {area:460} in Stonetalon, Montarr in {zone:1441}. Kurzen Medicine Men in northern Stranglethorn drop one about one kill in twelve.",
-					goals = {
-						{ t = "collect", quest = 1712, title = "Cyclonian", item = 3357, itemName = "Liferoot", count = 8, oi = 1, map = 1416, x = 79.85, y = 61.46, f = "e", spotsPacked = "79.4,60.3,,40,2;83.5,52.6,,40,2;72.6,69.3,,40,1;36.1,25.4,,40,2;37.7,20.8,,40,2;34.8,9.8,,40,1;32.3,31.5,,70,7;29.6,39.4,,40,1;26,43.6,,40,2;20.5,49.8,,40,4;16.8,53.5,,40,4;9.2,55.3,,40,2;76.7,63.4,,40,2,1;81.1,56.3,,40,2,1;74,65.2,,40,1,1;36.8,13.5,,40,4,1;23.6,46.6,,40,2,1;32.2,7.9,,41,6,1;13.6,55.2,,40,3,1", spread = true },
-					},
-				},
-				{
-					title = "Bloodscalp Tusks",
-					note = "You need 30 tusks. Every Bloodscalp troll (level 33-37) of north-west Stranglethorn drops one about one kill in three, so plan on some 80 kills: the camps and ruins north and north-west of {area:117} and around the {area:123} on the coast. They enrage below 30% health and the Warriors disarm; back in 5 minutes.",
-					goals = {
-						{ t = "collect", quest = 1712, title = "Cyclonian", item = 3901, itemName = "Bloodscalp Tusk", count = 30, oi = 2, map = 1434, x = 32.26, y = 17.17, f = "e", spotsPacked = "30.5,17.4,,40,2;30,21.2,,40,2;34.3,14.6,,40,1;31.4,12.2,,40,4;27.5,11.3,,40,4,,35;26.1,12.3,,56,12,,35;24.6,12.7,,64,14,,35;23,10.7,,49,9,,37;21.3,10.2,,40,1,,37;20,11.9,,58,10,,37;20.9,15.4,,40,1,,37;25.8,9.2,,45,15,,35;33.9,16.1,,48,6,1;30.7,19.4,,40,1,1;31.7,14,,40,2,1;33,13.5,,40,3,1;29.4,19.5,,43,8,1;24.9,10.4,,54,19,1,37;22.9,12.6,,46,11,1,35;23.5,9.1,,69,18,1,37;20.6,13.5,,40,5,1,37", spread = true, lvl = 34, fromNpcs = { { npc = 587, npcName = "Bloodscalp Warrior" }, { npc = 588, npcName = "Bloodscalp Scout" }, { npc = 595, npcName = "Bloodscalp Hunter" }, { npc = 597, npcName = "Bloodscalp Berserker" }, { npc = 660, npcName = "Bloodscalp Witch Doctor" }, { npc = 701, npcName = "Bloodscalp Mystic" }, { npc = 671, npcName = "Bloodscalp Headhunter" }, { npc = 694, npcName = "Bloodscalp Axe Thrower" }, { npc = 702, npcName = "Bloodscalp Scavenger" }, { npc = 697, npcName = "Bloodscalp Shaman" }, { npc = 699, npcName = "Bloodscalp Beastmaster" } }, fromNpcsAt = "10;1,10;1;9;6,2,11;6,3,2,11;2,6,3;7,4,3,11;7;4,5,7;5;6,2,3,11;8,1;10;9;9,1;8,10,1;6,2,4,7,3,5,11;2,6,3;4,7,5,11;5,7" },
-					},
-				},
-				{
 					title = "{quest:1713}",
 					note = "Back to {npc:6176}. Accepting {quest:1713} starts his ritual, and {quest:1712} appears just north of his camp. {quest:1712} is elite (level 40): grouping up is encouraged; it needs a group of two or three around level 40. It deals nature damage (a {item:6052} soaks it), whirls, and {spell:10101} throws you far while it heals itself as you run back: fight with your back to a slope or rock. The {item:6894} always drops. If the fight fails {npc:6176} stops answering: abandon {quest:1713} and take it again for a new summon; the earlier items are not needed again.",
 					goals = {
 						{ t = "turnin", quest = 1712, title = "Cyclonian", npc = 6176, npcName = "Bath'rah the Windwatcher", map = 1416, x = 80.5, y = 66.92, z = 55.4, f = "e", spotsPacked = "79.83,64.72,,46,1" },
+						{ t = "level", level = 38 },
 						{ t = "accept", quest = 1713, title = "The Summoning", npc = 6176, npcName = "Bath'rah the Windwatcher", minLevel = 30, qlvl = 40, pre = { 1712 }, preTitles = { [1712] = "Cyclonian" }, map = 1416, x = 80.5, y = 66.92, z = 55.4, f = "e", spotsPacked = "79.83,64.72,,46,1" },
 						{ t = "kill", target = "Cyclonian", npc = 6239, map = 1416, x = 80.32, y = 62.14, f = "e", group = { kind = "group", size = 3 } },
 						{ t = "collect", quest = 1713, title = "The Summoning", item = 6894, itemName = "Whirlwind Heart", count = 1, oi = 1, map = 1416, x = 80.32, y = 62.14, f = "e", note = "{item:6894}, from {quest:1712}", from = "Cyclonian", fromKind = "npc", fromRank = 1, fromId = 6239, fromNpcs = { { npc = 6239, npcName = "Cyclonian" } }, group = { kind = "elite", lvl = 40, rank = 1 } },

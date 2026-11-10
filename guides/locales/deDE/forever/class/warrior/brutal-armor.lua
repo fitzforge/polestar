@@ -36,30 +36,30 @@ return {
 	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill · {quest:1838} Brutal Armor · {item:7587} Thun'grim's Instructions
 	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads: climb the broad ridge on the north or east side. {quest:1838} is a level 30 quest; take it now and gather on the way. {item:7587} list where each material comes from."] = "Die Hütte von {npc:5878} sitzt auf {area:1699}, östlich der Crossroads: Steig den breiten Grat an der Nord- oder Ostseite hinauf. {quest:1838} ist eine Quest der Stufe 30; nimm sie jetzt an und sammle unterwegs. {item:7587} führt auf, woher jedes Material kommt.",
 
-	-- Step 7: Roogug in Razorfen Kraul
-	-- {area:1717} Razorfen Kraul
-	["Roogug in {area:1717}"] = "Roogug in {area:1717}",
-	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {spell:403} Lightning Bolt
-	["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "Roogug ist ein Elite-Stacheleber (Stufe 28) in {area:1717}, dem Dungeon am Südende des {zone:1413}; ein Dungeon für fünf Spieler: Du brauchst eine Gruppe aus fünf, seine Wachen kommen mit ihm. Nimm drinnen an der ersten Gabelung den linken Weg, überquere die Rankenbrücke über den Schweinepferchen, geh am Raum mit dem großen Kessel vorbei: Er wartet im Raum rechts. Er wirkt {spell:403} und ruft Earth Rumblers. Das Fläschchen fällt immer.",
-	-- {item:6841} Vial of Phlogiston
-	["{item:6841}, from Roogug"] = "{item:6841}, von Roogug",
-
-	-- Step 8: Windshear Mine
+	-- Step 7: Windshear Mine
 	-- {area:2160} Windshear Mine · {area:461} Windshear Crag · {area:460} Sun Rock Retreat · {spell:116} Frostbolt
 	-- plural, as words: Smoky Iron Ingots = {item:7126} Smoky Iron Ingot
 	["You need 15 Smoky Iron Ingots. The {area:2160} lies at the east end of {area:461}, east of {area:460}; every Windshear kobold (level 19-23) drops an ingot four kills in five. Stonecutters, Geomancers and Overlords run for help when low; Geomancers cast {spell:116}."] = "Du brauchst 15 Smoky Iron Ingots. {area:2160} liegt am Ostende von {area:461}, östlich von {area:460}; jeder Windshear-Kobold (Stufe 19-23) lässt bei vier von fünf Kills einen Barren fallen. Stonecutters, Geomancers und Overlords rufen bei niedriger Gesundheit um Hilfe; Geomancers wirken {spell:116}.",
 	-- {item:7126} Smoky Iron Ingot
 	["{item:7126}, from the Windshear kobolds"] = "{item:7126}, von den Windshear-Kobolden",
 
-	-- Step 9: Hillsbrad Miners
+	-- Step 8: Hillsbrad Miners
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
 	["Hillsbrad Miners"] = "Minenarbeiter von Hillsbrad",
 	-- {item:7127} Powdered Azurite · {area:271} Southshore · {spell:71} Defensive Stance · {area:272} Tarren Mill
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
-	["You need 10 {item:7127}. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "Du brauchst 10 {item:7127}. Die Hillsbrad Miners (Stufe 26-27) arbeiten in der Mine in den Hügeln westlich von {area:271} und lassen den Azurit bei vier von fünf Kills fallen; sie kämpfen in {spell:71}, zerreißen deine Rüstung und rufen bei 30 % Gesundheit um Hilfe. Flieg nach {area:272} und geh nach Südwesten.",
+	["You need 10 {item:7127}. The guide waits for level 25 first. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "",
 	-- {item:7127} Powdered Azurite
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
 	["{item:7127}, from the Hillsbrad Miners"] = "{item:7127}, von den Hillsbrad Miners",
+
+	-- Step 9: Roogug in Razorfen Kraul
+	-- {area:1717} Razorfen Kraul
+	["Roogug in {area:1717}"] = "Roogug in {area:1717}",
+	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {spell:403} Lightning Bolt
+	["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. The guide waits for level 26 first. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "",
+	-- {item:6841} Vial of Phlogiston
+	["{item:6841}, from Roogug"] = "{item:6841}, von Roogug",
 
 	-- Step 10: Iron Bars
 	-- plural, as words: Iron Bars = {item:3575} Iron Bar
@@ -109,6 +109,7 @@ return {
 	-- ["Fly to {area:378}. South of the camp the Silithid Mounds dot the {area:390}: the silithid there carry the Twitching Antennae."] = "Flieg nach {area:378}. Südlich des Lagers liegen die Silithid-Buckel verstreut auf dem {area:390}: Die Silithiden dort tragen die Zuckenden Fühler.",
 	-- ["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "Vier Rüstungsteile mit 30 (Halsberge, Helm, Stulpen, Beinschützer) und ein Schild unterwegs.",
 	-- ["Miners smelt Iron Bars from {item:2772} ({skill:186} 125); everyone else buys them at the auction house in {zone:1454}."] = "Bergleute verhütten Eisenbarren aus {item:2772} ({skill:186} 125); alle anderen kaufen sie im Auktionshaus in {zone:1454}.",
+	-- ["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "Roogug ist ein Elite-Stacheleber (Stufe 28) in {area:1717}, dem Dungeon am Südende des {zone:1413}; ein Dungeon für fünf Spieler: Du brauchst eine Gruppe aus fünf, seine Wachen kommen mit ihm. Nimm drinnen an der ersten Gabelung den linken Weg, überquere die Rankenbrücke über den Schweinepferchen, geh am Raum mit dem großen Kessel vorbei: Er wartet im Raum rechts. Er wirkt {spell:403} und ruft Earth Rumblers. Das Fläschchen fällt immer.",
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "Roogug ist ein Elite-Stacheleber in {area:1717}, dem Dungeon am Südende des {zone:1413}; er lässt {item:6841} fallen. {area:1717} ist ein Dungeon: Eine Gruppe wird empfohlen.",
 	-- ["Smoky Iron Ingots from the Windshear kobolds"] = "Rauchige Eisenblöcke von den Kobolden der Scherwindmine",
 	-- ["Sturdy Dragonmaw Shinbones"] = "Stabile Schienbeinknochen ({item:7134})",
@@ -122,6 +123,7 @@ return {
 	-- ["The {npc:6167} roams the south-west of Stonetalon near the Fledgling and Young Chimaeras; she drops the {item:6840}."] = "{npc:6167} streift durch den Südwesten des Steinkrallengebirges nahe den Schimärenjungen und Jungen Schimären; sie lässt {item:6840} fallen.",
 	-- ["Twitching Antennae from the silithid"] = "Zuckende Fühler von den Silithiden",
 	-- ["Uncloven {quest:1842}"] = "Ungespaltene {quest:1842}",
+	-- ["You need 10 {item:7127}. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "Du brauchst 10 {item:7127}. Die Hillsbrad Miners (Stufe 26-27) arbeiten in der Mine in den Hügeln westlich von {area:271} und lassen den Azurit bei vier von fünf Kills fallen; sie kämpfen in {spell:71}, zerreißen deine Rüstung und rufen bei 30 % Gesundheit um Hilfe. Flieg nach {area:272} und geh nach Südwesten.",
 	-- ["{item:6840} from the {npc:6167}"] = "{item:6840} von {npc:6167}",
 	-- ["{item:7127} from the Hillsbrad Miners"] = "{item:7127} von den Minenarbeitern von Hillsbrad",
 	-- ["{npc:5878} camps beside the road east of the {area:380}. {quest:1838} is a level 30 quest; you can take it now and gather for it on the way."] = "{npc:5878} Firegaze lagert an der Straße östlich vom {area:380}. {quest:1838} ist eine Quest der Stufe 30; du kannst sie jetzt annehmen und unterwegs dafür sammeln.",
