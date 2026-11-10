@@ -5,4 +5,4 @@ section: players
   quest now shows under "Still to do" (and While you're here offers it) even
   when its hand-in is still ahead in the guide. After 0.3.6, The Sacred
   Flame's phial steps in Ashenvale went missing this way for players already
-  past Raynewood Retreat (#1595).
+  past Raynewood Retreat (thanks creazy231, #1595).
