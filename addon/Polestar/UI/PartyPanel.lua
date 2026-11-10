@@ -33,12 +33,14 @@ local function hexOf(r, g, b)
 	return ("|cff%02x%02x%02x"):format(math.floor(r * 255 + 0.5), math.floor(g * 255 + 0.5), math.floor(b * 255 + 0.5))
 end
 
+-- The rows to show (Party.Roster), or false when the panel should not show.
 local function wanted()
 	local P = ns.Party
 	if not (ns.Get("party.panel") and P and P.IsLive and P.IsLive()) then return false end
 	if not ns.GuideShown() then return false end
 	if inCombat and ns.Get("ui.combat") == "hide" then return false end
-	return #P.Roster() > 0
+	local list = P.Roster()
+	return #list > 0 and list
 end
 
 local function row(i)
@@ -128,10 +130,11 @@ function PP.RowText(e)
 	return name, level, table.concat(parts, DOT), #needs > 0 and L["Still needs: %s"]:format(table.concat(needs, DOT)) or nil
 end
 
--- Repaint the rows from Party.Roster; without a row, the panel hides.
-function PP.Refresh()
+-- Repaint the rows from Party.Roster (`list`: one just read); without a row,
+-- the panel hides.
+local function refresh(list)
 	if not (F and F:IsShown()) then return end
-	local list = ns.Party.Roster()
+	list = list or ns.Party.Roster()
 	if #list == 0 then return F:Hide() end
 	local y = HEAD_H
 	for i, e in ipairs(list) do
@@ -159,16 +162,19 @@ function PP.Refresh()
 	for i = #list + 1, #F.rows do F.rows[i]:Hide() end
 	F:SetHeight(math.floor(y + PAD - 2 + 0.5))
 end
+-- The ticker and STEP_CHANGED pass arguments of their own: never a list.
+function PP.Refresh() refresh(nil) end
 
 -- Show or hide as the settings, the group and the guide say.
 function PP.Sync()
-	if not wanted() then
+	local list = wanted()
+	if not list then
 		if F then F:Hide() end
 		return
 	end
 	build()
 	F:Show()
-	PP.Refresh()
+	refresh(list)
 	if not ticker and C_Timer and C_Timer.NewTicker then ticker = ns.NewTicker(REFRESH, PP.Refresh) end
 end
 
@@ -230,8 +236,10 @@ local function onLive(on)
 end
 
 ns.On("PARTY_LIVE", onLive)
--- A member who speaks Polestar (or leaves) shows or hides the panel.
+-- A member who speaks Polestar (or leaves) shows or hides the panel; a
+-- member's XP alone comes as PARTY_PANEL (Party.lua panelChanged).
 ns.On("PARTY_PROGRESS", PP.Sync)
+ns.On("PARTY_PANEL", PP.Sync)
 ns.On("STEP_CHANGED", PP.Refresh)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "party.panelPos" then

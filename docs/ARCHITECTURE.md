@@ -4619,6 +4619,10 @@ Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sen
   party` close an open panel (`party.panel` false, kept) or open a closed
   one, and say in chat why it cannot show yet (sync off, no party, guide
   hidden, nobody heard); `/polestar party debug` prints `Party.Debug()`.
+  It repaints on `PARTY_PROGRESS` and on `PARTY_PANEL`, which a "2U|" that
+  moves only the member's XP percent fires instead (the same 0.5 s delay):
+  the XP shows only here, so the guide window and the engine skip that
+  update; a "2U|" that changes nothing fires neither.
 - Loot (UI/PartyLoot.lua, `party.lootNeeds`): on `LOOT_OPENED` and
   `START_LOOT_ROLL`, a line per item a member's counts are short of while
   yours are not (the item's log line from the active guide's collect goals,

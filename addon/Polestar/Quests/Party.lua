@@ -627,6 +627,21 @@ local function progressChanged()
 	end)
 end
 
+-- A change only the party panel shows (a member's XP percent, Party.Roster):
+-- PARTY_PANEL after the same delay, so the panel repaints as soon as it did,
+-- without the guide window's and the engine's update for a change they do
+-- not show. A PARTY_PROGRESS on its way repaints the panel too.
+local panelPending = false
+local function panelChanged()
+	if progressPending or panelPending then return end
+	if not C_Timer then return ns.Fire("PARTY_PANEL") end
+	panelPending = true
+	ns.After(PROGRESS_DELAY, function()
+		panelPending = false
+		ns.Fire("PARTY_PANEL")
+	end)
+end
+
 -- Sync to my guide: when we last asked and whom (answers count from them
 -- for ANSWER_WINDOW seconds), when each member last asked us, and the
 -- request on our prompt ({ key, name, at }).
@@ -1114,8 +1129,17 @@ local function onAddonMessage(_, prefix, text, channel, sender)
 	if u then
 		heard(key, false)
 		if not ns.Get("party.show") then return end
+		local m = members[key]
+		local old = m and m.unit
 		memberFor(key, short).unit = u
-		progressChanged()
+		-- Level, class and race decide what a member can take (whyNot) and
+		-- which steps are theirs (memberWho); the XP percent shows only on
+		-- the party panel; the same unit again changes nothing.
+		if old and old.level == u.level and old.class == u.class and old.race == u.race then
+			if old.xp ~= u.xp then panelChanged() end
+		else
+			progressChanged()
+		end
 		return
 	end
 	local snap, entries, asks = Party.Decode(text)

@@ -442,6 +442,34 @@ emit(fires)"#,
 }
 
 #[test]
+fn party_a_member_s_xp_alone_repaints_only_the_party_panel_and_the_same_unit_again_nothing() {
+	let out = live(&sent(
+		r#"
+local prog, panel = 0, 0
+Polestar.On("PARTY_PROGRESS", function() prog = prog + 1 end)
+Polestar.On("PARTY_PANEL", function() panel = panel + 1 end)
+local function step(text)
+	prog, panel = 0, 0
+	if text then p.receive("Ana-TestRealm", text) end
+	stub.advance(1)
+	return { prog, panel, P.Members()[1] and P.Members()[1].unit and P.Members()[1].unit.xp or false }
+end
+p.join("Ana")
+step()
+emit(step("2U|12|40|1|1")) -- first: who she is
+emit(step("2U|12|43|1|1")) -- a kill's XP
+emit(step("2U|12|43|1|1")) -- the same again (with a snapshot)
+emit(step("2U|13|0|1|1")) -- a level
+emit(step("2U|13|2|8|1")) -- another class: what she can take changes"#,
+	));
+	assert_eq!(out[0], json!([1, 0, 40]), "her first unit refreshes the guide (and the panel with it)");
+	assert_eq!(out[1], json!([0, 1, 43]), "XP alone: the panel, after the same delay; the guide and engine show none of it");
+	assert_eq!(out[2], json!([0, 0, 43]), "nothing new: nothing fires");
+	assert_eq!(out[3], json!([1, 0, 0]), "a level changes what she can take: the guide refreshes");
+	assert_eq!(out[4], json!([1, 0, 2]));
+}
+
+#[test]
 fn party_after_a_reload_in_a_party_it_says_hello_and_answers_the_member_who_answers_once() {
 	let out = not_logged_in(&sent(
 		r#"
