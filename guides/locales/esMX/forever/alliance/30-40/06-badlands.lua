@@ -118,8 +118,8 @@ return {
 	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "",
 
 	-- Step 26: Nijel's Point
-	-- {npc:5638} Kreldig Ungor
-	["{npc:5638}: the wreck is on the north-west coast, at the end of the loop"] = "",
+	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort
+	["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}, si 30-40/02 no la aceptó: el naufragio está debajo de la torre de {npc:11863}",
 
 	-- Step 27: Bibbly F'utzbuckle
 	-- {area:2407} Kormek's Hut
@@ -162,32 +162,41 @@ return {
 
 	-- Step 37: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
-	["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "El cofre del barco naufragado está en la orilla, justo al oeste de la torre de {npc:11863}.",
+	["The wrecked ship's chest lies just south-west of {npc:11863}'s tower."] = "El cofre del barco naufragado está justo al suroeste de la torre de {npc:11863}.",
 
 	-- Step 38: Claim Rackmore's Treasure!
+	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest
+	["{object:177787} lies beside {object:35251}. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787} está junto a {object:35251}. Su llave de plata la sueltan los cangrejos Quebrantaseco alrededor del naufragio; la dorada viene de los nagas Filozante de la costa noroeste, a continuación.",
 	["Underwater"] = "",
 
-	-- Step 39: Nijel's Point
-	-- {area:608} Nijel's Point
-	["Follow the road north to {area:608}."] = "Sigue el camino hacia el norte hasta {area:608}.",
+	-- Step 39: Sar'theris Strand: kill these as you meet them
+	-- {area:598} Sar'theris Strand
+	["{area:598}: kill these as you meet them"] = "",
+	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
+	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Los nagas Filozante ocupan la costa noroeste, al norte de la torre de {npc:11863}; la cartera de Karnitol está en el fondo del mar frente a ella, y cualquier naga puede soltar la llave dorada de Rackmore. Nada hasta {area:2406}, frente a la punta más al norte, y usa {item:15766} en {object:177673}: surge {npc:12369} (38); mátalo para {quest:6027}.",
+	-- {item:15881} Rackmore's Golden Key
+	["{item:15881}, from the Slitherblade naga"] = "{item:15881}, de los nagas Filozante",
+	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words)
+	["{item:15766}, on the {object:177673}"] = "{item:15766}, en {object:177673}",
+
+	-- Step 40: Rackmore's Chest
+	-- {object:177673} Serpent Statue (no name in this language: may be words)
+	["Rackmore's chest lies just south-east of the {object:177673}."] = "El cofre de Rackmore está justo al sureste de {object:177673}.",
+
+	-- Step 43: Nijel's Point
+	-- {area:608} Nijel's Point · {npc:5396} Captain Pentigast · {npc:5638} Kreldig Ungor · {npc:1182} Brother Anton
+	["Follow the road north to {area:608}: {npc:5396} stands at its south end, {npc:5638} in the middle, {npc:1182} to the north."] = "Sigue el camino hacia el norte hasta {area:608}: {npc:5396} está en el extremo sur, {npc:5638} en el centro y {npc:1182} al norte.",
 	-- {npc:5637} Roetten Stonehammer · {zone:1455} Ironforge
 	["for {npc:5637} in {zone:1455}: keep it"] = "para {npc:5637} en {zone:1455}: guárdala",
 	-- {npc:3980} Raleigh the Devout · {area:271} Southshore
 	["for {npc:3980} in {area:271}: keep it"] = "para {npc:3980} en {area:271}: guárdala",
 
-	-- Step 40: Sar'theris Strand: kill these as you meet them
-	-- {area:598} Sar'theris Strand
-	["{area:598}: kill these as you meet them"] = "",
-	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
-	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Los nagas Filozante ocupan la costa noroeste, al norte de la torre de {npc:11863}; la cartera de Karnitol está en el fondo del mar frente a ella. Nada hasta {area:2406}, frente a la punta más al norte, y usa {item:15766} en {object:177673}: surge {npc:12369} (38); mátalo para {quest:6027}.",
-	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words)
-	["{item:15766}, on the {object:177673}"] = "{item:15766}, en {object:177673}",
-
-	-- Step 45: Fly to Theramore
+	-- Step 44: Fly to Theramore
 	["Fly to Theramore"] = "Vuela a Isla Theramore",
 	["The next guide starts in Theramore."] = "La siguiente guía empieza en Isla Theramore.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Follow the road north to {area:608}."] = "Sigue el camino hacia el norte hasta {area:608}.",
 	-- ["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "Sigue el camino hacia el oeste por el norte de {zone:1443} hasta las ruinas de {area:2405}; el cofre del barco naufragado está en la orilla, justo al oeste.",
 	-- ["Greater Rock Elementals"] = "Elementales de piedra mayores",
 	-- ["Lesser Rock Elementals"] = "Elementales de roca inferiores",
@@ -202,11 +211,13 @@ return {
 	-- ["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east."] = "Los ogros Rotapolvo acampan justo al sur del valle; cualquiera de ellos suelta chatarra. Las águilas ratoneras sobrevuelan la llanura al este.",
 	-- ["The Greater Rock Elementals (level 42) walk the far south-west corner below {area:342}; pull them one at a time. The Dustbelcher Wyrmhunters and Maulers at {area:342} also drop scrap."] = "Los Elementales de piedra mayores (nivel 42) recorren el extremo suroeste, debajo de {area:342}; atráelos de uno en uno. Los Cazavermis Rotapolvo y los Aplastadores Rotapolvo de {area:342} también sueltan chatarra.",
 	-- ["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}."] = "Los Elementales de roca inferiores deambulan por {area:1878}, al oeste de {npc:2921}.",
+	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Los nagas Filozante ocupan la costa noroeste, al norte de la torre de {npc:11863}; la cartera de Karnitol está en el fondo del mar frente a ella. Nada hasta {area:2406}, frente a la punta más al norte, y usa {item:15766} en {object:177673}: surge {npc:12369} (38); mátalo para {quest:6027}.",
 	-- ["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south."] = "El esqueleto maltrecho está justo al este de los ogros, en el borde del campamento de troggs Grutacanto; los Cascahuesos y los chamanes de alrededor sueltan las escamas. Theldurin está sentado junto al campamento en ruinas, más al sur.",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit."] = "Los demonios se reúnen en {area:602}, en el sur de {zone:1443}: canes manáfagos (Devoradores de maná, Cazadores de magos y Cazadores Ley), Doncellas abisales y Hermanas abisales, y Capitanes Guardiavil alrededor del foso.",
 	-- ["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "El maestro de vuelo está junto a la puerta de {area:514}; {npc:5083} y {npc:4964} están dentro de la ciudadela.",
 	-- ["The next guide starts in Theramore."] = "La siguiente guía empieza en Isla Theramore.",
 	-- ["The skeleton's next task, Murdaloc, waits until the later {zone:1418} guide at 43."] = "La siguiente tarea del esqueleto, Murdaloc, espera hasta la guía posterior de {zone:1418}, a nivel 43.",
+	-- ["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "El cofre del barco naufragado está en la orilla, justo al oeste de la torre de {npc:11863}.",
 	-- ["Theramore"] = "Isla Theramore",
 	-- ["for the Dustwallow loop in the next guide"] = "para el circuito de Marjal Revolcafango en la siguiente guía",
 	-- ["for {npc:4454} in the {area:439}: the {zone:1446} guide crosses them at 45, keep it"] = "para {npc:4454} en {area:439}: la guía de {zone:1446} pasa por ahí a nivel 45, guárdala",

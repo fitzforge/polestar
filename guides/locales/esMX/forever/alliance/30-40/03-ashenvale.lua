@@ -19,8 +19,8 @@ return {
 	["For {quest:1132} in Theramore's inn, where this guide's boat goes"] = "Para {quest:1132} en la posada de Theramore, adonde va el barco de esta guía",
 
 	-- Step 3: Glorin Steelbrow
-	-- {npc:1217} Glorin Steelbrow
-	["{npc:1217} stands on the upper floor of Menethil's keep."] = "{npc:1217} está en el piso superior del Castillo de Menethil.",
+	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {npc:4963} Mikhail · {npc:5082} Vincent Hyal
+	["{npc:1217} stands in the {area:2104}, south of the keep, where {npc:4963} and {npc:5082} wait too."] = "{npc:1217} está en {area:2104}, al sur del castillo, donde también esperan {npc:4963} y {npc:5082}.",
 	["Inside"] = "",
 
 	-- Step 4: Deepwater Tavern

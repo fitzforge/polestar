@@ -9,6 +9,8 @@ return {
 	-- Step 1: Nijel's Point
 	-- {area:460} Sun Rock Retreat · {area:465} Charred Vale · {zone:1443} Desolace · {area:608} Nijel's Point
 	["Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass."] = "Suivez la route vers l'ouest après {area:460} (Horde), puis au sud-ouest par {area:465} jusqu'en {zone:1443} ; {area:608} se trouve en haut du col.",
+	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
+	["{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}"] = "{npc:5638} : le coffre de l'épave se trouve en contrebas de la tour d'{npc:11863}, sur le chemin de {area:599}",
 	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
 	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
 
@@ -26,12 +28,18 @@ return {
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:11863}'s tower stands on the hill west of {area:599}: take his quest first, the sceptre he wants is in the fortress."] = "La tour d'{npc:11863} se dresse sur la colline à l'ouest de {area:599} : prenez d'abord sa quête, le sceptre qu'il veut est dans la forteresse.",
 
-	-- Step 7: Dalinda Malem
+	-- Step 7: Karnitol's Chest
+	-- {npc:11863} Azore Aldamort · {object:177787} Rackmore's Log
+	["The wrecked ship lies just south-west of {npc:11863}'s tower; its chest sits beside {object:177787}."] = "L'épave du navire se trouve juste au sud-ouest de la tour d'{npc:11863} ; son coffre est posé à côté de {object:177787}.",
+	-- {npc:5638} Kreldig Ungor
+	["For {npc:5638}, at the end of this guide"] = "Pour {npc:5638}, à la fin de ce guide",
+
+	-- Step 8: Dalinda Malem
 	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point
 	["{npc:5644} hides inside the Burning Blade's fortress south-west of {area:608}."] = "{npc:5644} se cache dans la forteresse de la Lame ardente, au sud-ouest de {area:608}.",
 	["Inside"] = "À l'intérieur",
 
-	-- Step 8: Tyranis Malem and the Seer
+	-- Step 9: Tyranis Malem and the Seer
 	-- {npc:5643} Tyranis Malem
 	["{npc:5643} and the Seer"] = "{npc:5643} et le Prophète",
 	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer · {npc:5642} Vahlarriel Demonslayer
@@ -41,7 +49,7 @@ return {
 	-- {quest:5741} Sceptre of Light
 	["{quest:5741}; on the top floor"] = "{quest:5741} ; au dernier étage",
 
-	-- Step 9: Escort Dalinda Malem
+	-- Step 10: Escort Dalinda Malem
 	-- {npc:5644} Dalinda Malem
 	["Escort {npc:5644}"] = "Escortez {npc:5644}",
 	-- {npc:5644} Dalinda Malem
@@ -50,11 +58,11 @@ return {
 	-- {npc:5644} Dalinda Malem · {npc:5642} Vahlarriel Demonslayer · {area:608} Nijel's Point
 	["Lead {npc:5644} out of the fortress; she walks off once you are clear of it. {npc:5642} takes the turn-in at {area:608} at the end of the guide."] = "Faites sortir {npc:5644} de la forteresse ; elle s'en va une fois que vous en êtes sortis. La quête se rend à {npc:5642}, à {area:608}, à la fin du guide.",
 
-	-- Step 10: Smeed Scrabblescrew
+	-- Step 11: Smeed Scrabblescrew
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:596} Kodo Graveyard
 	["{npc:11596}'s camp is on the road south of {area:609}, by the {area:596}."] = "Le camp de {npc:11596} est sur la route au sud de {area:609}, près de {area:596}.",
 
-	-- Step 11: Kodo Graveyard
+	-- Step 12: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher
 	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "",
@@ -63,17 +71,21 @@ return {
 	-- {npc:11596} Smeed Scrabblescrew
 	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
 
-	-- Step 13: Kolkar Village
+	-- Step 14: Kolkar Village
 	-- {area:609} Kolkar Village · {npc:5752} Corporal Melkins
 	["The Kolkar roam the plains around {area:609}; their ears are for {npc:5752}."] = "Les Kolkars parcourent les plaines autour de {area:609} ; leurs oreilles sont pour {npc:5752}.",
 
-	-- Step 15: Fly to Auberdine
+	-- Step 15: Nijel's Point
+	-- {npc:5638} Kreldig Ungor
+	["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638} : la sacoche se trouve au large de la côte nord-ouest, sur la boucle sud à la fin de 30-40 (06-badlands) : gardez-la",
+
+	-- Step 16: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "Prendre un vol pour {area:442}",
 	-- {area:608} Nijel's Point
 	["{area:608} flight master"] = "Maître de vol du {area:608}",
 
-	-- Step 16: Boat to Stormwind Harbor
+	-- Step 17: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "Bateau pour {area:17203}",
 

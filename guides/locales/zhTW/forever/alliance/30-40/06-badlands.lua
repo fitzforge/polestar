@@ -118,8 +118,8 @@ return {
 	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "",
 
 	-- Step 26: Nijel's Point
-	-- {npc:5638} Kreldig Ungor
-	["{npc:5638}: the wreck is on the north-west coast, at the end of the loop"] = "",
+	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort
+	["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}，如果30-40/02沒有接過：船骸就在{npc:11863}的塔下方",
 
 	-- Step 27: Bibbly F'utzbuckle
 	-- {area:2407} Kormek's Hut
@@ -162,32 +162,41 @@ return {
 
 	-- Step 37: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
-	["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "失事船隻的箱子就在{npc:11863}的塔西邊不遠的岸上。",
+	["The wrecked ship's chest lies just south-west of {npc:11863}'s tower."] = "失事船隻的箱子就在{npc:11863}的塔西南方不遠處。",
 
 	-- Step 38: Claim Rackmore's Treasure!
+	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest
+	["{object:177787} lies beside {object:35251}. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787}就在{object:35251}旁邊。他的銀鑰匙由船骸周圍的乾鉗蟹掉落；金鑰匙則來自接下來西北海岸的滑刃納迦。",
 	["Underwater"] = "",
 
-	-- Step 39: Nijel's Point
-	-- {area:608} Nijel's Point
-	["Follow the road north to {area:608}."] = "沿著道路向北前往{area:608}。",
+	-- Step 39: Sar'theris Strand: kill these as you meet them
+	-- {area:598} Sar'theris Strand
+	["{area:598}: kill these as you meet them"] = "",
+	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
+	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "滑刃納迦佔據{npc:11863}高塔北邊的西北海岸；卡尼托的背包就在外海的海底，任何納迦都可能掉落拉克摩爾的金鑰匙。游到最北端外海的{area:2406}，對{object:177673}使用{item:15766}：{npc:12369}（38）會出現；擊殺他取得{quest:6027}。",
+	-- {item:15881} Rackmore's Golden Key
+	["{item:15881}, from the Slitherblade naga"] = "{item:15881}，由滑刃納迦掉落",
+	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words)
+	["{item:15766}, on the {object:177673}"] = "{item:15766}，對{object:177673}使用",
+
+	-- Step 40: Rackmore's Chest
+	-- {object:177673} Serpent Statue (no name in this language: may be words)
+	["Rackmore's chest lies just south-east of the {object:177673}."] = "拉克摩爾的箱子就在{object:177673}東南方不遠處。",
+
+	-- Step 43: Nijel's Point
+	-- {area:608} Nijel's Point · {npc:5396} Captain Pentigast · {npc:5638} Kreldig Ungor · {npc:1182} Brother Anton
+	["Follow the road north to {area:608}: {npc:5396} stands at its south end, {npc:5638} in the middle, {npc:1182} to the north."] = "沿著道路向北前往{area:608}：{npc:5396}站在南端，{npc:5638}在中間，{npc:1182}在北邊。",
 	-- {npc:5637} Roetten Stonehammer · {zone:1455} Ironforge
 	["for {npc:5637} in {zone:1455}: keep it"] = "給{zone:1455}的{npc:5637}：保留此任務",
 	-- {npc:3980} Raleigh the Devout · {area:271} Southshore
 	["for {npc:3980} in {area:271}: keep it"] = "給{area:271}的{npc:3980}：保留此任務",
 
-	-- Step 40: Sar'theris Strand: kill these as you meet them
-	-- {area:598} Sar'theris Strand
-	["{area:598}: kill these as you meet them"] = "",
-	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
-	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "滑刃納迦佔據{npc:11863}高塔北邊的西北海岸；卡尼托的背包就在外海的海底。游到最北端外海的{area:2406}，對{object:177673}使用{item:15766}：{npc:12369}（38）會出現；擊殺他取得{quest:6027}。",
-	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words)
-	["{item:15766}, on the {object:177673}"] = "{item:15766}，對{object:177673}使用",
-
-	-- Step 45: Fly to Theramore
+	-- Step 44: Fly to Theramore
 	["Fly to Theramore"] = "飛往塞拉摩",
 	["The next guide starts in Theramore."] = "下一份指南從塞拉摩開始。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Follow the road north to {area:608}."] = "沿著道路向北前往{area:608}。",
 	-- ["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "沿著道路向西穿過{zone:1443}北部，前往{area:2405}的廢墟；失事船隻的箱子就在廢墟西邊的岸上。",
 	-- ["Greater Rock Elementals"] = "巨型石元素",
 	-- ["Lesser Rock Elementals"] = "次級石元素",
@@ -202,11 +211,13 @@ return {
 	-- ["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east."] = "火煙巨魔就在山谷南邊紮營；他們每一個都會掉落廢料。禿鷲在東邊的平原上空盤旋。",
 	-- ["The Greater Rock Elementals (level 42) walk the far south-west corner below {area:342}; pull them one at a time. The Dustbelcher Wyrmhunters and Maulers at {area:342} also drop scrap."] = "巨型石元素（42級）在{area:342}下方的西南角落走動；一次拉一隻。{area:342}的火煙獵龍者和火煙虐待者也會掉落廢料。",
 	-- ["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}."] = "次級石元素在{npc:2921}西邊的{area:1878}遊蕩。",
+	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "滑刃納迦佔據{npc:11863}高塔北邊的西北海岸；卡尼托的背包就在外海的海底。游到最北端外海的{area:2406}，對{object:177673}使用{item:15766}：{npc:12369}（38）會出現；擊殺他取得{quest:6027}。",
 	-- ["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south."] = "破損的骷髏就在巨魔東邊、石窟穴居人營地的邊緣；周圍的石窟斷骨者和石窟薩滿會掉落碎片。塞爾杜林坐在更南邊的廢棄營地旁。",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit."] = "惡魔聚集在{zone:1443}南部的{area:602}：魔犬（噬法魔犬、法師獵手和靈能獵犬）、地獄魔女和地獄修女，以及坑洞周圍的末日看守隊長。",
 	-- ["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "飛行管理員站在{area:514}的大門旁；{npc:5083}和{npc:4964}在要塞裡面。",
 	-- ["The next guide starts in Theramore."] = "下一份指南從塞拉摩開始。",
 	-- ["The skeleton's next task, Murdaloc, waits until the later {zone:1418} guide at 43."] = "骷髏的下一個任務「莫達洛克」要等到43級的{zone:1418}指南再做。",
+	-- ["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "失事船隻的箱子就在{npc:11863}的塔西邊不遠的岸上。",
 	-- ["Theramore"] = "塞拉摩",
 	-- ["for the Dustwallow loop in the next guide"] = "用於下一份指南的塵泥沼澤環線",
 	-- ["for {npc:4454} in the {area:439}: the {zone:1446} guide crosses them at 45, keep it"] = "給{area:439}的{npc:4454}：{zone:1446}指南會在45級時經過那裡，保留此任務",

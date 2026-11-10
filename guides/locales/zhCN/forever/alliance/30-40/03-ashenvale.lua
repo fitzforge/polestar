@@ -19,8 +19,8 @@ return {
 	["For {quest:1132} in Theramore's inn, where this guide's boat goes"] = "用于塞拉摩旅店的{quest:1132}，本指南的船会开往那里",
 
 	-- Step 3: Glorin Steelbrow
-	-- {npc:1217} Glorin Steelbrow
-	["{npc:1217} stands on the upper floor of Menethil's keep."] = "{npc:1217}站在米奈希尔城堡的上层。",
+	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {npc:4963} Mikhail · {npc:5082} Vincent Hyal
+	["{npc:1217} stands in the {area:2104}, south of the keep, where {npc:4963} and {npc:5082} wait too."] = "{npc:1217}站在城堡南边的{area:2104}里，{npc:4963}和{npc:5082}也在那里等候。",
 	["Inside"] = "在里面",
 
 	-- Step 4: Deepwater Tavern

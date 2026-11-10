@@ -19,8 +19,8 @@ return {
 	["For {quest:1132} in Theramore's inn, where this guide's boat goes"] = "Pour {quest:1132} à l'auberge de Theramore, où va le bateau de ce guide",
 
 	-- Step 3: Glorin Steelbrow
-	-- {npc:1217} Glorin Steelbrow
-	["{npc:1217} stands on the upper floor of Menethil's keep."] = "{npc:1217} se tient à l'étage supérieur du donjon de Menethil.",
+	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {npc:4963} Mikhail · {npc:5082} Vincent Hyal
+	["{npc:1217} stands in the {area:2104}, south of the keep, where {npc:4963} and {npc:5082} wait too."] = "{npc:1217} se tient dans {area:2104}, au sud du donjon, où {npc:4963} et {npc:5082} attendent aussi.",
 	["Inside"] = "À l'intérieur",
 
 	-- Step 4: Deepwater Tavern
@@ -157,7 +157,7 @@ return {
 	-- ["{area:415} flight master"] = "Maître de vol d'{area:415}",
 	-- ["{area:429} satyrs"] = "Satyres de {area:429}",
 	-- ["{area:432}: kill these as you meet them"] = "{area:432} : tuez-les au passage",
-	-- ["{npc:1217} stands on the upper floor of Menethil's keep."] = "{npc:1217} Steelbrow se tient à l'étage supérieur du Donjon de Menethil.",
+	-- ["{npc:1217} stands on the upper floor of Menethil's keep."] = "{npc:1217} se tient à l'étage supérieur du donjon de Menethil.",
 	-- ["{npc:3696} and his guards camp just east of {npc:3897}."] = "{npc:3696} et ses gardes campent juste à l'est de {npc:3897}.",
 	-- ["{npc:3696} and his guards camp just east of {npc:3897}.\nCareful: Wolves and spiders roam near the camp and can join a fight. Some of the wolves come in pairs."] = "{npc:3696} et ses gardes campent juste à l'est de {npc:3897}.\nAttention : des loups et des araignées rôdent près du camp et peuvent se joindre au combat. Certains loups vont par deux.",
 	-- ["{npc:3894}, inside"] = "{npc:3894}, à l'intérieur",
