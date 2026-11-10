@@ -10258,3 +10258,17 @@ test('Horde Felwood 53: Cleansing Felwood taken and handed in on the Sanctuary s
 	const grind = fw.findIndex(({ goal }) => goal.t === 'level' && goal.grind === 7155);
 	assert.ok(tin < ror && fw[grind].s === fw[ror].s + 1, 'Ror, then the Deadwood top-up right after');
 });
+
+// Seam Horde 30-40/40-50 (0.3.6, with the 30-40 owner): Baron Revilgaz's Goblin Sponsorship part 5 (1183, taken on
+// Horde 30-40/03's second Booty Bay stop) goes to Pozzik on 40-50/02's Mirage Raceway stop; The Eighteenth Pilot
+// (1186) is a word with Razzeric beside him. Razzeric's Tweaking (1187) sends you to south Tanaris and back: left out.
+test('Horde Raceway 43: Goblin Sponsorship to Pozzik and The Eighteenth Pilot on the Raceway stop', { skip }, () => {
+	const fl = goals('forever/horde/40-50/02-feralas.guide');
+	const poz = at(fl, 'turnin 1183', is('turnin', 1183));
+	const take = at(fl, 'accept 1186', is('accept', 1186));
+	const raz = at(fl, 'turnin 1186', is('turnin', 1186));
+	const stop = fl[at(fl, 'accept 1190', is('accept', 1190))].s;
+	assert.ok(poz < take && take < raz, 'Pozzik, then Razzeric');
+	for (const i of [poz, take, raz]) assert.equal(fl[i].s, stop, 'on the Raceway stop');
+	assert.ok(!fl.some(({ goal }) => is('accept', 1187)(goal)), "Razzeric's Tweaking is not routed");
+});

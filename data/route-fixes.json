@@ -8942,7 +8942,7 @@
 					"turnin",
 					1180
 				],
-				"reason": "Horde 30-40/40-50 seam (0.3.6, BrHorde4060 with Br3040): Goblin Sponsorship parts 2 and 3 (1180 from Gazlowe in Ratchet, 1181 from Wharfmaster Lozgil to Baron Revilgaz, level 37, 710 + 285 XP) end in Booty Bay: Lozgil is on the docks (26.4,73.6) and Revilgaz on the balcony beside \"Sea Wolf\" MacKinley (27.2,76.9), both on 40-50/01's first Booty Bay stop. Quest data and the open quest database agree on givers, enders and the 1178-1182 chain; players' recordings have the hand-ins. Part 4 (1182, Cozzle's footlocker at Lake Nazferiti) stays off the loop.",
+				"reason": "Horde 30-40/40-50 seam (0.3.6, BrHorde4060 with Br3040): Goblin Sponsorship parts 2 and 3 (1180 from Gazlowe in Ratchet, 1181 from Wharfmaster Lozgil to Baron Revilgaz, level 37, 710 + 285 XP) end in Booty Bay. Horde 30-40/03 now opens with Ratchet and the boat to Booty Bay and hands both in there; 40-50/01's first Booty Bay stop keeps the hand-ins as catch-up for a player still carrying 1180 (Lozgil on the docks 26.4,73.6, Revilgaz on the balcony beside MacKinley 27.2,76.9). Quest data and the open quest database agree on givers, enders and the 1178-1183 chain; players' recordings have the hand-ins. Horde only.",
 				"issue": "-"
 			},
 			{
@@ -9006,6 +9006,15 @@
 					3942
 				],
 				"reason": "Our comparison, Horde 50-60/07 (0.3.6, BrHorde4060): Salve via Hunting (level 55, 4200 XP the first time; Maybess Riverbreeze at the Emerald Sanctuary, open once Cleansing Felwood 4102 is done in 50-60/02) wants six Corrupted Soul Shards, which the Jaedenar and Shadow Hold cultists drop about one kill in three (Jaedenar Warlock 35%, Darkweaver 34%, Enforcer 34%, Moora 34%, Salia 33%; observed rates). 07 already fights them for Greta's braziers and A Final Blow and walks past Maybess (west side of the Sanctuary) on the way out to Jaedenar and back; the XP comes off the guide's closing grind to 60. Quest data from the classic and Forever quest databases agree; our comparison takes it in Felwood the same way.",
+				"issue": "-"
+			},
+			{
+				"q": 1186,
+				"after": [
+					"turnin",
+					1183
+				],
+				"reason": "Horde 30-40/40-50 seam (0.3.6, BrHorde4060 with Br3040; Horde): Goblin Sponsorship part 5 (1183, Baron Revilgaz's blueprints, taken on Horde 30-40/03's second Booty Bay stop) goes to Pozzik on 40-50/02's Mirage Raceway stop, and his The Eighteenth Pilot (1186, 285 XP) is a word with Razzeric beside him. Razzeric's Tweaking (1187) is left out: its Gizmorium crate lies in south Tanaris and goes back to the Raceway, off the loop.",
 				"issue": "-"
 			}
 		],

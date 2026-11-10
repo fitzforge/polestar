@@ -207,6 +207,9 @@ step Mirage Raceway
   tip The road from Freewind Post to Tanaris runs past the Mirage Raceway on the Shimmering Flats: Fizzle Brassbolts is in the gnomes' camp beside the track, Pozzik and Zamek by the goblins' camp. Pozzik first, then Zamek, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to Pozzik.
   turnin 1137                           -- Fizzle Brassbolts: News for Fizzle, from Martek in the Badlands
   accept 1190                           -- Pozzik
+  turnin 1183                           -- Pozzik: the Fuel Regulator Blueprints from Baron Revilgaz, if you carry them
+  accept 1186
+  turnin 1186                           -- Razzeric, beside Pozzik
   accept 1191                           -- Zamek
   turnin 1191
   turnin 1190                           -- Rizzle's Unguarded Plans
