@@ -124,8 +124,20 @@ step The Drag
   zone Orgrimmar
   tip Kor'geld and Yelmak run the alchemy shop in the Drag; Whuut is next door.
   accept 97242                        -- Kor'geld
-  turnin 97905 optional               -- Jandi: Camping 101, from Brakk's campfire in Durotar
-  turnin 97901 optional               -- Jhag: Camping 101, from Brakk's campfire in Durotar
+
+step Jandi
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97905
+  tip Jandi, the herbalism trainer, keeps her shop in the Drag.
+  turnin 97905                        -- Jandi: Camping 101, from Brakk's campfire in Durotar
+
+step Jhag
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97901
+  tip Jhag, the enchanting trainer, works in the Drag.
+  turnin 97901                        -- Jhag: Camping 101, from Brakk's campfire in Durotar
 
 step Valley of Honor
   only Orc,Troll,Tauren,Skyborne
@@ -133,9 +145,27 @@ step Valley of Honor
   tip The cattails and speargrass grow along the water in the Valley of Honor, east of the Drag.
   collect 277278 quest 97242.1
   collect 277279 quest 97242.2
-  turnin 97908 optional               -- Thuwd: Camping 101, from Brakk's campfire in Durotar
-  turnin 97906 optional               -- Karolek: Camping 101, from Brakk's campfire in Durotar
-  turnin 96102 optional               -- Snang: Camping 101, from Brakk's campfire in Durotar
+
+step Thuwd
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97908
+  tip Thuwd, the skinning trainer, stands in the Valley of Honor.
+  turnin 97908                        -- Thuwd: Camping 101, from Brakk's campfire in Durotar
+
+step Karolek
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97906
+  tip Karolek, the leatherworking trainer, works in the Valley of Honor.
+  turnin 97906                        -- Karolek: Camping 101, from Brakk's campfire in Durotar
+
+step Snang
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 96102
+  tip Snang, the tailoring trainer, is in the Valley of Honor.
+  turnin 96102                        -- Snang: Camping 101, from Brakk's campfire in Durotar
 
 step Class trainer
   only Orc,Troll,Tauren,Skyborne,Warrior,Hunter,Rogue,Priest,Shaman,Warlock
@@ -181,7 +211,13 @@ step Kor'geld
   turnin 97242
   accept 97275                        -- Yelmak
   turnin 97275                        -- Whuut
-  turnin 97899 optional               -- Whuut: Camping 101, from Brakk's campfire in Durotar
+
+step Whuut
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97899
+  tip Whuut, the alchemy trainer, stands next door to Kor'geld.
+  turnin 97899                        -- Whuut: Camping 101, from Brakk's campfire in Durotar
 
 step Valley of Wisdom
   only Orc,Troll,Tauren,Skyborne
@@ -402,9 +438,27 @@ step The Undercity
   turnin 1359                         -- Apothecary Zinge, in the Apothecarium
   accept 1358                         -- Apothecary Zinge: Helbrim at the Crossroads, in the next guide
   train class only Paladin            -- Garen Largo, the Undercity's paladin trainer
-  turnin 97959 optional               -- Brom Killian: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
-  turnin 97952 optional               -- Basil Frye: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
-  turnin 97954 optional               -- Graham Van Talen: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
+
+step Brom Killian
+  only Undead
+  zone Undercity
+  when onquest 97959
+  tip Brom Killian, the mining trainer, works in the Undercity.
+  turnin 97959                        -- Brom Killian: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
+
+step Basil Frye
+  only Undead
+  zone Undercity
+  when onquest 97952
+  tip Basil Frye, the blacksmithing trainer, works in the Undercity.
+  turnin 97952                        -- Basil Frye: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
+
+step Graham Van Talen
+  only Undead
+  zone Undercity
+  when onquest 97954
+  tip Graham Van Talen, the engineering trainer, works in the Undercity.
+  turnin 97954                        -- Graham Van Talen: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
 
 step Lady Sylvanas Windrunner
   only Skyborne

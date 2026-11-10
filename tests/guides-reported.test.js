@@ -10191,21 +10191,23 @@ test('Horde Stranglethorn 40: Excelsior from Drizzlik, the elder crocolisk on th
 	assert.equal(stv[tin].s, stv[at(stv, 'turnin 606', is('turnin', 606))].s, "on Shaky Phillipe's stop");
 });
 
-// Horde 12-30 bracket review (0.3.6): the start campfires' Camping 101 profession quests (Brakk in Durotar, Eleanor
-// Shackleton in Tirisfal) end at trainers on the Silverpine guide's Orgrimmar walk and Undercity stop. Each hand-in is
-// an optional goal on the stop where its trainer stands (the convention every start's campfire uses), so nobody
-// without the quest is held.
-test('Horde Silverpine: Camping 101 hand-ins as optional goals on the Orgrimmar walk and the Undercity stop', { skip }, () => {
+// Horde 12-30 bracket review (0.3.6), #1559: the start campfires' Camping 101 profession quests (Brakk in Durotar,
+// Eleanor Shackleton in Tirisfal) end at trainers on the Silverpine guide's Orgrimmar walk and Undercity stop. Optional
+// goals are not taken by auto accept / auto turn-in once the rest of their step is done (#1559), so each hand-in is a
+// plain turn-in on a step of its own, shown only while that quest is in the log: the live step's goal, which auto
+// turn-in hands in at the trainer, and nothing for a player without the quest.
+test('Horde Silverpine: Camping 101 hand-ins as plain turn-ins on carrier-only steps beside the trainers\' stops (#1559)', { skip }, () => {
 	const list = goals('forever/horde/03-silverpine-forest.guide');
-	for (const [quest, npc, zone] of [
-		[97905, 3404, 'Orgrimmar'], [97901, 11066, 'Orgrimmar'], [97908, 7088, 'Orgrimmar'], [97906, 3365, 'Orgrimmar'],
-		[96102, 2855, 'Orgrimmar'], [97899, 11046, 'Orgrimmar'], [97959, 4598, 'Undercity'], [97952, 4605, 'Undercity'], [97954, 4586, 'Undercity'],
+	for (const [quest, npc, race] of [
+		[97905, 3404, 'Orc'], [97901, 11066, 'Orc'], [97908, 7088, 'Orc'], [97906, 3365, 'Orc'],
+		[96102, 2855, 'Orc'], [97899, 11046, 'Orc'], [97959, 4598, 'Scourge'], [97952, 4605, 'Scourge'], [97954, 4586, 'Scourge'],
 	]) {
 		const { step, goal } = list[at(list, `Camping 101 ${quest}`, is('turnin', quest))];
 		assert.equal(goal.npc, npc, `${quest}: its trainer`);
-		assert.ok(goal.optional, `${quest}: optional, nobody is held without it`);
-		assert.ok(step.goals.some((g) => g.t !== 'turnin' || !g.optional), `${quest}: on a stop the guide makes anyway`);
-		assert.ok(new RegExp(zone).test(JSON.stringify(step.zone || step.zones || '')) || step.goals.some((g) => g.npc && g.npc !== npc), `${quest}: in ${zone}`);
+		assert.ok(!goal.optional, `${quest}: a plain turn-in, which auto turn-in takes (#1559)`);
+		assert.deepEqual(step.goals.map((g) => g.t), ['turnin'], `${quest}: a step of its own`);
+		assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(quest)), `${quest}: only for a carrier`);
+		assert.ok(step.only.races.includes(race), `${quest}: for the race whose campfire gives it`);
 	}
 });
 
