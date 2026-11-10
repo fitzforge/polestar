@@ -171,10 +171,10 @@ fn dps_covers_both_weapon_slots_until_meleedps_or_rangeddps_say_otherwise() {
 
 #[test]
 fn unmapped_pawn_stats_are_ignored_and_named_in_order() {
-	let r = weights(r#"( Pawn: v1: "N": Strength=1, FireResist=2, Speed=3, IsMace=1, HasteRating=4, Agility=X, FeralAp=1 )"#);
+	let r = weights(r#"( Pawn: v1: "N": Strength=1, FireResist=2, Speed=3, IsMace=1, SpellPower=4, Agility=X, FeralAp=1 )"#);
 	assert_eq!(r["w"], json!({ "str": 1 }));
 	assert_eq!(r["mapped"], 1);
-	assert_eq!(r["ignored"], json!(["FireResist", "Speed", "IsMace", "HasteRating", "FeralAp", "Agility"]));
+	assert_eq!(r["ignored"], json!(["FireResist", "Speed", "IsMace", "SpellPower", "FeralAp", "Agility"]));
 }
 
 #[test]

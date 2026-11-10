@@ -22,12 +22,14 @@
 --       or more): what the bag arrow adds to IsUpgrade, so a weapon the
 --       weights give no value (a staff for a Druid) still beats a bare hand.
 --   Gear.GetSpec() -> key, label, source ("setting" | "talents" | "default" | "custom")
+--       label "<spec> (adjusted)" while the player has changed its weights
+--       (Adjust.lua; GetWeightsInfo().adjusted is how many)
 --       "custom": an imported Pawn scale (Pawn.lua); key is "custom:<id>", label
 --       "Custom: <name>", and its weights are used as they are, at every level
---   Gear.GetWeights() -> weights (read-only): the spec's band for this level
---       (Gear.WEIGHT_BANDS, generated SpecData.lua), else the authored table;
+--   Gear.GetWeights() -> weights (read-only): the spec's table (Weights.lua);
 --       a small melee weapon DPS weight is added where the spec has none
---       (Feral's is 14x its attack power weight)
+--       (Feral's is 14x its attack power weight), and the player's own
+--       changes on top (Gear.Adjust, Adjust.lua)
 --   Gear.GetWeightsInfo() -> { source, note, upTo, level } of the weights in use
 --   Gear.GetPlayer() -> { class, classID, level, race, raceID, faction } (read-only)
 --   Gear.GetRacial() -> the racial gear traits in use (Gear.RACIALS by raceID) | nil
@@ -52,11 +54,10 @@ local Gear = ns.Gear or {}
 ns.Gear = Gear
 local L = ns.L
 
-local type, tonumber, tostring, pairs, pcall, next = type, tonumber, tostring, pairs, pcall, next
+local type, tonumber, tostring, pairs, ipairs, pcall, next = type, tonumber, tostring, pairs, ipairs, pcall, next
 local floor = math.floor
 
 local CLASSES, WEIGHTS, PROFICIENCY = Gear.CLASSES, Gear.WEIGHTS, Gear.PROFICIENCY
-local BANDS = Gear.WEIGHT_BANDS or {}
 local RACIALS = Gear.RACIALS or {}
 
 ---------------------------------------------------------------------------
@@ -267,14 +268,35 @@ local CLIENT_STATS = {
 	ITEM_MOD_SPELL_HEALING_DONE_SHORT = "heal",
 	ITEM_MOD_MANA_REGENERATION_SHORT = "mp5", ITEM_MOD_POWER_REGEN0_SHORT = "mp5",
 	ITEM_MOD_HEALTH_REGEN_SHORT = "hp5", ITEM_MOD_HEALTH_REGENERATION_SHORT = "hp5",
-	ITEM_MOD_CRIT_RATING_SHORT = "crit", ITEM_MOD_CRIT_MELEE_RATING_SHORT = "crit",
-	ITEM_MOD_HIT_RATING_SHORT = "hit", ITEM_MOD_HIT_MELEE_RATING_SHORT = "hit",
-	ITEM_MOD_CRIT_SPELL_RATING_SHORT = "spellCrit", ITEM_MOD_HIT_SPELL_RATING_SHORT = "spellHit",
-	ITEM_MOD_DEFENSE_SKILL_RATING_SHORT = "defense", ITEM_MOD_DODGE_RATING_SHORT = "dodge",
-	ITEM_MOD_PARRY_RATING_SHORT = "parry", ITEM_MOD_BLOCK_RATING_SHORT = "block",
+	ITEM_MOD_DEFENSE_SKILL_RATING_SHORT = "defense", -- 1 rating = 1 defense skill (combatratings)
 	ITEM_MOD_BLOCK_VALUE_SHORT = "blockValue",
 }
 Gear.CLIENT_STATS = CLIENT_STATS
+
+-- Forever's combat ratings: C_Item.GetItemStats gives an item's rating
+-- points ("+14 critical strike rating" is 14), and Polestar's weights are per
+-- 1%, so a rating is divided by the points per 1% of the client's own table
+-- (gametables/combatratings.txt, build 1.60.1.70862: the same at every level).
+-- Forever unifies hit and crit: a plain crit or hit rating counts for spells
+-- too (the item data reads its ratings the same way).
+-- key -> { Polestar keys, rating per 1% }
+local RATINGS = {
+	ITEM_MOD_CRIT_RATING_SHORT = { { "crit", "spellCrit" }, 14 },
+	ITEM_MOD_CRIT_MELEE_RATING_SHORT = { { "crit" }, 14 },
+	ITEM_MOD_CRIT_RANGED_RATING_SHORT = { { "crit" }, 14 },
+	ITEM_MOD_CRIT_SPELL_RATING_SHORT = { { "spellCrit" }, 14 },
+	ITEM_MOD_HIT_RATING_SHORT = { { "hit", "spellHit" }, 10 },
+	ITEM_MOD_HIT_MELEE_RATING_SHORT = { { "hit" }, 10 },
+	ITEM_MOD_HIT_RANGED_RATING_SHORT = { { "hit" }, 10 },
+	ITEM_MOD_HIT_SPELL_RATING_SHORT = { { "spellHit" }, 10 },
+	ITEM_MOD_HASTE_RATING_SHORT = { { "haste" }, 10 },
+	ITEM_MOD_EXPERTISE_RATING_SHORT = { { "expertise" }, 10 },
+	ITEM_MOD_ARMOR_PENETRATION_RATING_SHORT = { { "armorPen" }, 10 },
+	ITEM_MOD_DODGE_RATING_SHORT = { { "dodge" }, 12 },
+	ITEM_MOD_PARRY_RATING_SHORT = { { "parry" }, 15 },
+	ITEM_MOD_BLOCK_RATING_SHORT = { { "block" }, 5 },
+}
+Gear.RATINGS = RATINGS
 
 -- Stats the client always reports when it reports an item at all; for the
 -- rest (equip bonuses) ItemDB fills what the client left out.
@@ -299,10 +321,15 @@ local function clientStats(link)
 	if not t or next(t) == nil then return nil end
 	local out
 	for k, v in pairs(t) do
-		local key = CLIENT_STATS[k]
-		if key and type(v) == "number" and readable(v) then
-			out = out or {}
-			out[key] = (out[key] or 0) + v
+		if type(v) == "number" and readable(v) then
+			local key, rating = CLIENT_STATS[k], RATINGS[k]
+			if key then
+				out = out or {}
+				out[key] = (out[key] or 0) + v
+			elseif rating then
+				out = out or {}
+				for _, to in ipairs(rating[1]) do out[to] = (out[to] or 0) + v / rating[2] end
+			end
 		end
 	end
 	return out
@@ -364,7 +391,7 @@ Gear.GetItemInfo = itemInfo
 ---------------------------------------------------------------------------
 
 local player = { class = nil, classID = nil, level = 1, race = nil, raceID = nil, faction = nil }
-local specKey, specSource, weights, weightsInfo, customLabel
+local specKey, specSource, weights, weightsInfo, customLabel, adjusted
 local racial
 
 local function refreshPlayer()
@@ -478,22 +505,14 @@ local function withMeleeDps(w, class, key)
 	return c
 end
 
--- The spec's weights at a level: the first band whose upTo covers it (the
--- last band past the end), else the authored table; with a melee DPS weight
--- where the spec has none (below).
+-- The spec's weights: Polestar's own (Weights.lua), checked against
+-- Forever's client tables, the same at every level (#1529: the Classic and
+-- Season of Discovery sim bands SpecData.lua still carries are no longer
+-- used; Forever differs too much from them). `level` is kept for callers
+-- and for weights that may vary by level again. With a melee DPS weight
+-- where the spec has none (above).
 -- -> weights, info { source, note, upTo }
 function Gear.WeightsFor(class, key, level)
-	local bands = BANDS[class] and BANDS[class][key]
-	if bands and #bands > 0 then
-		local pick = bands[#bands]
-		for i = 1, #bands do
-			if level <= bands[i].upTo then
-				pick = bands[i]
-				break
-			end
-		end
-		return withMeleeDps(pick.weights, class, key), pick
-	end
 	local w = WEIGHTS[class] and WEIGHTS[class][key]
 	return withMeleeDps(w, class, key), w and { source = "polestar", upTo = 60 } or nil
 end
@@ -506,7 +525,7 @@ local function resolveSpec()
 		return
 	end
 	local chosen = ns.Get("gear.spec." .. class)
-	customLabel = nil
+	customLabel, adjusted = nil, 0
 	local scale = Gear.Scales.FromSetting(class, chosen)
 	if scale then
 		specKey, specSource, weights = "custom:" .. scale.id, "custom", scale.weights
@@ -520,13 +539,24 @@ local function resolveSpec()
 		specKey, specSource = Gear.DetectSpec(class, player.classID)
 	end
 	weights, weightsInfo = Gear.WeightsFor(class, specKey, player.level)
+	-- The player's own changes on top (Adjust.lua), whichever band is in use.
+	adjusted = Gear.Adjust and Gear.Adjust.Count(class, specKey) or 0
+	if adjusted > 0 and weights then
+		weights = Gear.Adjust.Apply(weights, class, specKey)
+		local info = {}
+		for k, v in pairs(weightsInfo or {}) do info[k] = v end
+		info.adjusted = adjusted
+		weightsInfo = info
+	end
 end
 
 function Gear.GetSpec()
 	if not specSource then resolveSpec() end
 	if specSource == "custom" then return specKey, customLabel, specSource end
 	local spec = specKey and specByKey(player.class, specKey)
-	return specKey, spec and spec.label or nil, specSource
+	local label = spec and spec.label or nil
+	if label and adjusted > 0 then label = (L["%s (adjusted)"]):format(L[label]) end
+	return specKey, label, specSource
 end
 
 function Gear.GetWeights()
@@ -943,6 +973,9 @@ ns.RegisterCommand("gear", function(rest)
 	local sub, arg = rest:match("^(%a+)%s*(.-)%s*$")
 	if sub == "scales" then
 		if ns.UI and ns.UI.ShowScales then ns.UI.ShowScales() else Gear.PrintScales() end
+		return
+	elseif sub == "adjust" then
+		if ns.UI and ns.UI.ShowAdjust then ns.UI.ShowAdjust() end
 		return
 	elseif sub == "import" then
 		if arg ~= "" then

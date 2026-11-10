@@ -511,6 +511,7 @@ fn options_the_gear_advice_on_questing_with_the_class_spec_dropdown_registered_o
 		json!([
 			"gear.enabled=toggle:help",
 			"gear.spec.WARRIOR=dropdown:help",
+			"Adjust weights=button:help",
 			"Manage custom weights=button:help",
 			"gear.tooltip=toggle:help",
 			"gear.bagArrows=toggle:help",

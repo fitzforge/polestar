@@ -17,8 +17,10 @@
 -- and AllResist (Polestar scores no resistance), FeralAp (Polestar's feral
 -- weights read plain attack power and weapon DPS), Speed, MinDamage and
 -- MaxDamage (a weapon's speed and damage range; Polestar scores its DPS), and
--- anything Classic does not have (HasteRating, ExpertiseRating,
--- ArmorPenetration, SpellPower, ...).
+-- what Polestar has no key for (SpellPower, ...).
+--
+-- HasteRating, ExpertiseRating and ArmorPenetration (Forever's ratings, #1529)
+-- map to haste, expertise and armorPen in the same unit as CritRating above.
 
 local ADDON, ns = ...
 
@@ -63,6 +65,9 @@ Gear.PAWN_STATS = {
 	{ pawn = "ParryRating", to = { "parry" } },
 	{ pawn = "BlockRating", to = { "block" } },
 	{ pawn = "BlockValue", to = { "blockValue" } },
+	{ pawn = "HasteRating", to = { "haste" } },
+	{ pawn = "ExpertiseRating", to = { "expertise" } },
+	{ pawn = "ArmorPenetration", to = { "armorPen" } },
 }
 
 -- Keys of a Pawn string that describe the scale, not a stat. Any key whose

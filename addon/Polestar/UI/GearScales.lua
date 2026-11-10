@@ -98,9 +98,11 @@ local STAT_LABEL = {
 	mp5 = L["Mana per 5 seconds"], hp5 = L["Health per 5 seconds"],
 	defense = L["Defense skill"], dodge = L["Dodge (%)"], parry = L["Parry (%)"], block = L["Block (%)"],
 	blockValue = L["Block value"],
+	haste = L["Haste (%)"], expertise = L["Expertise (%)"], armorPen = L["Armor penetration (%)"],
 }
 
 local function nameOf(key) return STAT_LABEL[key] or gear().Pawn.NameOf(key) end
+UI.ScalesStatName = nameOf -- the adjust window (UI/GearAdjust.lua) names stats the same way
 
 -- The weights of a scale as { { key, name, value }, ... } in the order of
 -- Gear.STAT_KEYS (the main stats first, weapon DPS last).
