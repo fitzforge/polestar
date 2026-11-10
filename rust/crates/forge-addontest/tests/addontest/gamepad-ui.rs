@@ -33,6 +33,7 @@ emit({
 	gamepad = Polestar.GamepadUI(),
 	padActive = Polestar.Gamepad.IsActive(),
 	slash = SlashCmdList.POLESTAR ~= nil and SLASH_POLESTAR1 ~= nil,
+	rl = SlashCmdList.POLESTAR_RL ~= nil and SLASH_POLESTAR_RL1 ~= nil,
 	way = SLASH_POLESTARWAY1 ~= nil,
 	recorderSlash = SlashCmdList.POLESTARREC ~= nil,
 	recorderCommand = type(PolestarRecorder_Command),
@@ -69,8 +70,8 @@ fn with_the_keyboard_and_mouse_polestar_registers_its_slash_commands_menu_entrie
 	let r = load(false, None);
 	assert_eq!(r["gamepad"], false);
 	assert_eq!(
-		json!({ "slash": r["slash"], "way": r["way"], "recorderSlash": r["recorderSlash"], "recorderCommand": r["recorderCommand"], "openMap": r["openMap"], "minimapButton": r["minimapButton"] }),
-		json!({ "slash": true, "way": true, "recorderSlash": true, "recorderCommand": "function", "openMap": true, "minimapButton": true })
+		json!({ "slash": r["slash"], "rl": r["rl"], "way": r["way"], "recorderSlash": r["recorderSlash"], "recorderCommand": r["recorderCommand"], "openMap": r["openMap"], "minimapButton": r["minimapButton"] }),
+		json!({ "slash": true, "rl": true, "way": true, "recorderSlash": true, "recorderCommand": "function", "openMap": true, "minimapButton": true })
 	);
 	assert_eq!(r["menus"], 7, "nearby and service filters on the world map and minimap, two quest menus, and the quest log's pin entry");
 	assert!(r["special"].as_f64().unwrap() > 0.0, "its windows close with Escape");
@@ -92,8 +93,8 @@ fn with_the_gamepad_interface_polestar_keeps_to_its_own_windows_and_its_minimap_
 	let r = load(true, None);
 	assert_eq!(r["gamepad"], true);
 	assert_eq!(
-		json!({ "slash": r["slash"], "way": r["way"], "recorderSlash": r["recorderSlash"], "menus": r["menus"], "special": r["special"], "openMap": r["openMap"] }),
-		json!({ "slash": false, "way": false, "recorderSlash": false, "menus": 0, "special": 0, "openMap": false }),
+		json!({ "slash": r["slash"], "rl": r["rl"], "way": r["way"], "recorderSlash": r["recorderSlash"], "menus": r["menus"], "special": r["special"], "openMap": r["openMap"] }),
+		json!({ "slash": false, "rl": false, "way": false, "recorderSlash": false, "menus": 0, "special": 0, "openMap": false }),
 		"no slash command, menu entry, UISpecialFrames entry or world map opened from addon code"
 	);
 	assert_eq!(r["recorderCommand"], "function", "the Recorder's page in Polestar's options still runs its commands");
@@ -132,7 +133,7 @@ const REACHES: &[&str] = &[
 
 // file -> lines that reach, why it is safe with the gamepad interface
 const ALLOWED: &[(&str, usize, &str)] = &[
-	("Polestar/Core/Init.lua", 5, "ns.CloseOnEscape and the /polestar registration, neither with the gamepad interface"),
+	("Polestar/Core/Init.lua", 8, "ns.CloseOnEscape and the /polestar and /rl registrations, none with the gamepad interface"),
 	("Polestar/Core/Compat.lua", 4, "Compat.OpenWorldMap opens nothing with the gamepad interface; Compat.AskAbandonQuest shows the game's abandon dialog only without it"),
 	("Polestar/Dungeons/Dungeons.lua", 1, "through Compat.OpenWorldMap"),
 	("Polestar/Nav/Journey.lua", 6, "the map's canvas click handler and /way, neither with the gamepad interface; wayTaken only reads"),
