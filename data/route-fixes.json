@@ -9114,11 +9114,6 @@
 				"issue": ""
 			},
 			{
-				"q": 1195,
-				"reason": "RevH1 c14 read: The Sacred Flame (level 25) was inserted at Zangen in Thunder Bluff at 28.8 (07-ashenvale:328), after the route's Ashenvale stay, and carried to 55.7 for the phial (the Ashenvale moonwell) and 57.1 for the hand-in: grey XP and an 1100 s detour, and the Eastern Plaguelands hand-in is a check blocker (50-60/05-eastern-plaguelands:170, R5: the Etched Phial use has no line). v1's Ashenvale and Desolace headers leave the chain out. Lift it if the route reaches Thunder Bluff before its Ashenvale stay (taken there at about 25, the phial filled on the Ashenvale visit and handed in at 29, it stays on level)",
-				"issue": ""
-			},
-			{
 				"q": 98298,
 				"reason": "F60: Dalar never offers 98299 (unknown unlock); 98298 needs elite 99",
 				"issue": "#229"
