@@ -4877,7 +4877,7 @@ const forRaceOf = (race) => ({ step, goal }) => [step.only, goal.only].every((o)
 test('Flight path sweep (#964): Druids fly to Thunder Bluff from the Crossroads at 16 and on to Ratchet, not by zeppelin', { skip }, () => {
 	for (const race of ['Tauren', 'Skyborne']) {
 		const barrens = goals('forever/horde/02-the-barrens.guide').filter(forRaceOf(race)).filter(forClass('DRUID'));
-		const mura = at(barrens, `${race}: the Crossroads stop after Echeyakee`, is('turnin', 877));
+		const mura = at(barrens, `${race}: the Crossroads stop after Echeyakee`, is('turnin', 881));
 		const trip = barrens.slice(mura).map(({ goal }) => goal);
 		const out = trip.findIndex((g) => g.t === 'fly' && g.location === 'Thunder Bluff');
 		assert.ok(out >= 0 && trip.slice(out).some((g) => g.t === 'train'), `${race}: flies to Thunder Bluff and trains`);
@@ -5576,19 +5576,36 @@ test(`${BARRENS_12}: flow review: the zhevra toward Ratchet, the prowlers by Reg
 	assert.ok(stepOf('turnin', 845) > stepOf('turnin', 892) && stepOf('accept', 903) === stepOf('turnin', 845), 'The Zhevra handed in and Prowlers taken on the return from Ratchet');
 	assert.ok(work(903) > stepOf('accept', 855), 'the prowlers on the west loop');
 	const eche = work(881);
-	// Since the 0.3.6 bracket review the seed test goes straight on to the Dry Hills (no walk back to Tonga), and the
-	// snapjaws for Altered Beings, taken on the Crossroads stop after Echeyakee, wait for the Verog pass at the oasis.
-	assert.ok(stepOf('accept', 877) < work(875) && work(875) < eche, 'the Stagnant Oasis, the Dry Hills, then Echeyakee');
-	assert.equal(work(880), list.find(({ goal }) => goal.t === 'collect' && goal.quest === 851).s, 'the snapjaws with Verog');
-	const seed = list.find(({ goal }) => goal.t === 'interact' && goal.quest === 877).s;
-	assert.ok(!list.some(({ s, goal }) => s > seed && s < work(875) && goal.t === 'turnin'), 'no walk back to the Crossroads between the seed test and the Dry Hills');
+	// Since #1644 (0.3.7) Tonga's seed test waits for the Verog pass (the Crossroads stop after the Dry Hills loop
+	// takes no 877), and the snapjaws for Altered Beings go with Hezrul at Lushwater: see the #1644 test below.
+	assert.ok(stepOf('accept', 877) < work(875) && work(875) < eche, 'the Dry Hills, then Echeyakee');
 	// Since the Horde 12-30 re-chain Samophlange waits for the Ratchet stop at 18 (no walk from the Sludge Fen
 	// to Ratchet and back to the Razormane camp), and Wenikee's Nugget Slugs go with the second Sludge Fen visit.
 	const fen = stepOf('accept', 858);
 	assert.ok(stepOf('turnin', 902) < stepOf('turnin', 3921) && stepOf('turnin', 3921) < fen && fen < work(3922) && work(3922) < stepOf('turnin', 3922), 'Samophlange at Ratchet, Wenikee around the second Sludge Fen visit');
 	const last = stepOf('turnin', 869);
 	assert.ok(eche < last, 'the raptor heads after Echeyakee');
-	for (const [t, q] of [['turnin', 881], ['turnin', 877], ['accept', 880], ['turnin', 875]]) assert.equal(stepOf(t, q), last, `${t} ${q} on the final Crossroads visit`);
+	for (const [t, q] of [['turnin', 881], ['turnin', 875]]) assert.equal(stepOf(t, q), last, `${t} ${q} on the final Crossroads visit`);
+});
+
+// #1644 (0.3.6, a Scourge Warlock at 17): from the Crossroads the guide walked south-east to the Stagnant Oasis
+// for Tonga's seed test alone, then turned back north-west to the Witchwing Slayers in the Dry Hills (about
+// 1,800 yd out and back). The seed test now goes with Verog, whose Kolkar walk the same oasis on the way south
+// to the Bristlebacks; Tonga takes it on the next Crossroads stop and gives Altered Beings, whose snapjaws are
+// collected at Lushwater Oasis with Hezrul (15 of their 24 spawns), handed in on the stop before Counterattack!.
+test(`${BARRENS_12}: #1644: no oasis trip for the seed test alone; the seed test with Verog, the snapjaws with Hezrul`, { skip }, () => {
+	const list = goals(BARRENS_12);
+	const stepOf = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
+	const task = (t, q) => list[at(list, `${t} quest ${q}`, (g) => g.t === t && g.quest === q)].s;
+	const seed = task('interact', 877);
+	assert.equal(seed, task('collect', 851), 'the seed test on the Verog step');
+	assert.ok(stepOf('accept', 877) < task('collect', 875) && task('collect', 875) < seed, 'the Dry Hills before the seed test');
+	const turnin = stepOf('turnin', 877);
+	assert.ok(seed < turnin && turnin === stepOf('accept', 880), 'Tonga takes the seeds and gives Altered Beings on the next Crossroads stop');
+	const shells = task('collect', 880);
+	assert.equal(shells, task('collect', 852), 'the snapjaws with Hezrul at Lushwater');
+	assert.ok(shells < stepOf('turnin', 880) && stepOf('turnin', 880) === stepOf('turnin', 95774), 'handed to Tonga on the Crossroads stop with Mankrik');
+	assert.ok(!list.some(({ s, goal }) => s > stepOf('accept', 877) && s < task('collect', 875) && goal.t === 'interact' && goal.quest === 877), 'no seed test on the way to the Dry Hills');
 });
 
 // Flow review, Durotar: Warriors walked past Kargal Battlescar, 3 yd from Uzzek, to the thunder lizards
@@ -5888,7 +5905,7 @@ test('forever/horde/03-silverpine-forest.guide: final route review: train before
 	const sayoc = list.findIndex(({ step }) => step.title === 'Sayoc');
 	assert.ok(sayoc >= 0 && sayoc < at(list, 'turnin 97242', is('turnin', 97242)), 'Sayoc on the Valley of Honor stop');
 	const barrens = goals('forever/horde/02-the-barrens.guide');
-	const mura = at(barrens, 'turnin 877', is('turnin', 877));
+	const mura = at(barrens, 'turnin 881 (the Crossroads stop after Echeyakee)', is('turnin', 881));
 	const lake = at(barrens, 'turnin 28', is('turnin', 28));
 	const back = barrens.findIndex(({ step, goal }) => goal.t === 'fly' && goal.location === 'Ratchet' && step.only && step.only.classes && step.only.classes.join() === 'DRUID');
 	assert.ok(mura < at(barrens, 'accept 27', is('accept', 27)) && lake > mura && back > lake, 'Druids train and do the Moonglade trial from the Crossroads, then fly on to Ratchet');
