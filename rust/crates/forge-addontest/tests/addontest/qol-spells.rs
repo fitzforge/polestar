@@ -365,6 +365,23 @@ fn the_old_ranks_card_lists_them_upgrades_and_keeps_a_rank_on_right_click() {
 }
 
 #[test]
+fn the_old_ranks_card_puts_one_spell_per_line_four_at_most() {
+	let out = run_ui(
+		r#"
+		local function e(id, name, have) return { id = id, bestId = id + 1, name = name, have = have, best = have + 1, slots = { id } } end
+		Polestar.Fire("OLD_RANKS", { slots = 2, spells = { e(1978, "Serpent Sting", 2), e(13165, "Aspect of the Hawk", 1) } })
+		emit(card().giver)
+		Polestar.Fire("OLD_RANKS", { slots = 6, spells = { e(1, "Serpent Sting", 2), e(2, "Aspect of the Hawk", 1), e(3, "Arcane Shot", 3),
+			e(4, "Raptor Strike", 4), e(5, "Mend Pet", 2), e(6, "Hunter's Mark", 1) } })
+		emit(card())"#,
+	);
+	assert_eq!(out[0], "Serpent Sting: rank 2 to 3\nAspect of the Hawk: rank 1 to 2");
+	let c = &out[1];
+	assert_eq!(c["giver"], "Serpent Sting: rank 2 to 3\nAspect of the Hawk: rank 1 to 2\nArcane Shot: rank 3 to 4\nRaptor Strike: rank 4 to 5\n+2 more", "{c}");
+	assert_eq!(c["icons"], 6, "every icon still shows (up to 8): {c}");
+}
+
+#[test]
 fn a_card_already_up_goes_first_and_the_level_up_card_follows_it() {
 	let out = run_ui(
 		r#"
