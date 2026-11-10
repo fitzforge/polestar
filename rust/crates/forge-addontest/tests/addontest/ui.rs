@@ -1492,6 +1492,33 @@ fn xp_pace_from_the_qol_tracker_rate_and_time_to_level_hidden_when_off_or_maxed(
 	assert_eq!(out["h"], true);
 }
 
+// Boosted Rest and the sleeping bag (QoL/Rest.Parts) follow the pace text; "off" is asked for only when the row
+// shows anyway, and QOL_REST_UPDATED redraws it.
+#[test]
+fn xp_row_adds_boosted_rest_and_the_sleeping_bag_and_off_only_beside_other_text() {
+	let out = run(r#"
+		local stats = { rate = 3400, maxed = false }
+		local asked
+		Polestar.QoL = {
+			GetXPStats = function() return stats end,
+			XP = { Short = function(n) return string.format("%.1fk", n / 1000) end, Summary = function() return "" end },
+			Rest = { Parts = function(withOff) asked = withOff; return withOff and { "Boosted Rest: off" } or {} end },
+		}
+		uistub.setGuide(uistub.elwynn, 3)
+		Polestar.Fire("QOL_REST_UPDATED", true)
+		local xp = GF.xp
+		emit({ xp.Text:GetText(), asked })
+		Polestar.QoL.GetXPStats = function() return nil end
+		Polestar.Fire("QOL_REST_UPDATED", true)
+		emit({ xp:IsShown(), asked })
+		Polestar.QoL.Rest.Parts = function() return { "Boosted Rest: 42m", "Sleeping bag ready" } end
+		Polestar.Fire("QOL_REST_UPDATED", false)
+		emit({ xp:IsShown(), xp.Text:GetText() })"#);
+	assert_eq!(out[0], json!(["3.4k XP/h  \u{b7}  Boosted Rest: off", true]));
+	assert_eq!(out[1], json!([false, false]), "alone, \"off\" makes no row");
+	assert_eq!(out[2], json!([true, "Boosted Rest: 42m  \u{b7}  Sleeping bag ready"]));
+}
+
 // Where the player stands (GF.PaceText over Levels.Pace, whose sums levels.rs checks): always one line, calm
 // when on pace (up to a level short: Fitz, 0.3.6, a few bars short is no warning) or when a `level` goal ahead
 // grinds the gap, in the warning colour when more than a level short with nothing in the guide making it up;

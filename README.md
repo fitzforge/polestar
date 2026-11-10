@@ -818,6 +818,8 @@ each section says what is missing.
 Quest item, target and Hearthstone buttons; a hearth step while your
 Hearthstone is on cooldown says how long until it is ready and points the
 arrow at the inn; XP per hour and time to level;
+how long the campfire's Boosted Rest lasts and the Cozy Sleeping Bag's
+cooldown, and your party's Boosted Rest in the party panel;
 the level the guide wants you to reach, marked on the game's XP bar;
 selling grays and repairing (optionally from the guild bank first); buying
 what a step of Polestar's own guides asks you to buy (a community guide's

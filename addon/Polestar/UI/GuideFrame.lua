@@ -5057,6 +5057,9 @@ function GF.UpdateXP(stats)
 	if not (type(stats) == "table" and stats.maxed) then
 		local pace = GF.PaceText(stats)
 		if pace then parts[#parts + 1] = pace end
+		-- Boosted Rest and the sleeping bag (QoL/Rest.lua; nothing while its setting is off).
+		local rest = Q and Q.Rest and Q.Rest.Parts(#parts > 0)
+		for i = 1, rest and #rest or 0 do parts[#parts + 1] = rest[i] end
 	end
 	local had = GF.xp.psHas
 	GF.xp.psHas = #parts > 0
@@ -5071,6 +5074,7 @@ function GF.UpdateXP(stats)
 end
 
 ns.On("QOL_XP_UPDATED", whenReady(function(stats) GF.UpdateXP(stats) end))
+ns.On("QOL_REST_UPDATED", whenReady(function() GF.UpdateXP() end))
 ns.OnLogin(function() GF.UpdateXP() end)
 ns.On("STEP_CHANGED", whenReady(function() GF.UpdateXP() end))
 

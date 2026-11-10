@@ -62,6 +62,15 @@
 -- it. It turns a member's "Not on this quest: Ana" into "Ana (already
 -- done)" and keeps Share from offering her the quest.
 --
+-- Boosted Rest: "2B|<seconds left>" ("2B|*" on without an end given, "2B|0"
+-- ended), version 2, which version-1 decoders and 0.3.6's version-2 ones
+-- (DecodeUnit, DecodeAt, DecodeAnswer) drop. A separate message rather
+-- than a field on "2U|", so it adds nothing to clients that ignore it and
+-- leaves "2U|"'s later fields to the Polestar version. Sent when Boosted
+-- Rest starts, ends or is renewed (QoL/Rest.lua's QOL_REST_UPDATED,
+-- debounced) and with every snapshot while it is on; never while it was
+-- never on. Fields after the first are ignored. The party panel shows it.
+--
 -- Group play on top (party.waitForGroup, default on): a goal done for you
 -- that a member still needs holds the live step, its turn-in and the arrow
 -- (Party.Waiting, Party.HoldsQuest; Core/Engine.lua asks); a member in
@@ -302,6 +311,26 @@ function Party.DecodeAnswer(text)
 	if type(text) ~= "string" then return nil end
 	local code = text:match("^" .. UNIT_VERSION .. "A|(.)$")
 	return code and ANSWERS[code] and code or nil
+end
+
+-- Boosted Rest: seconds left (rounded up), true (on, no end given), or nil
+-- (off) -> the "2B|" message.
+function Party.EncodeRest(left)
+	if left == true then return UNIT_VERSION .. "B|*" end
+	if type(left) ~= "number" or left <= 0 then return UNIT_VERSION .. "B|0" end
+	return UNIT_VERSION .. "B|" .. math.min(math.ceil(left), 86400)
+end
+
+-- The "2B|" message -> seconds left, true (on, no end), or false (off); nil
+-- for anything else. What follows the first field is ignored.
+function Party.DecodeRest(text)
+	if type(text) ~= "string" then return nil end
+	local v, rest = text:match("^" .. UNIT_VERSION .. "B|([%d%*]+)(.*)$")
+	if not v or (rest ~= "" and rest:sub(1, 1) ~= "|") then return nil end
+	if v == "*" then return true end
+	local n = tonumber(v)
+	if not n or n > 86400 then return nil end
+	return n > 0 and n or false
 end
 
 ---------------------------------------------------------------------------
@@ -620,6 +649,32 @@ local function onUnit()
 	ns.After(DEBOUNCE, function() sendUnit(false) end)
 end
 
+-- Our Boosted Rest (QoL/Rest.lua): sent when it changes, debounced, and
+-- with every snapshot while it is on; an end only to a party that was told
+-- it was on.
+local restShared = false -- the party last heard it on
+local restPending = false
+local function myRest()
+	local R = ns.QoL and ns.QoL.Rest
+	if not (R and R.Left and ns.QoL.On and ns.QoL.On("boostedRest")) then return nil end
+	return R.Left()
+end
+local function sendRest()
+	restPending = false
+	if not sharing() then return end
+	local left = myRest()
+	if left == nil and not restShared then return end
+	if send({ Party.EncodeRest(left) }) == 1 then restShared = left ~= nil end
+end
+-- QOL_REST_UPDATED(changed): only a real change goes out, not the minute
+-- redraws of the guide window's line.
+local function onRest(changed)
+	if not changed or restPending or not sharing() or not C_Timer then return end
+	restPending = true
+	ns.After(DEBOUNCE, sendRest)
+end
+ns.On("QOL_REST_UPDATED", onRest)
+
 -- The whole log, replacing what the party knows of us; `asks`: and asking
 -- for theirs.
 local function snapshot(asks)
@@ -639,6 +694,7 @@ local function snapshot(asks)
 		owed, lastSnapshotAt = nil, GetTime()
 		sendPos(true)
 		sendUnit(true)
+		if myRest() ~= nil then sendRest() end
 	else
 		owed = { asks = (owed and owed.asks) or asks }
 	end
@@ -1249,6 +1305,14 @@ local function onAddonMessage(_, prefix, text, channel, sender)
 		if not ns.Get("party.show") then return end
 		memberFor(key, short).unit = u
 		noticeVersion(key, short, u.version)
+		progressChanged()
+		return
+	end
+	local rest = Party.DecodeRest(text)
+	if rest ~= nil then
+		heard(key, false)
+		if not ns.Get("party.show") then return end
+		memberFor(key, short).rest = rest and { left = rest, at = GetTime() } or nil
 		progressChanged()
 		return
 	end
@@ -1905,7 +1969,8 @@ end
 -- One row per party member who has spoken Polestar, in party order: { name,
 -- unit, class (file), level, xp (percent), polestar (true), offline, dead,
 -- far, step (their step's title on your guide), otherGuide, needs
--- (stepNeeds of your live step) }. Empty without one.
+-- (stepNeeds of your live step), rest (Boosted Rest: seconds left, true on
+-- without an end, nil off or not sent) }. Empty without one.
 function Party.Roster()
 	local out = {}
 	if not grouped() then return out end
@@ -1937,6 +2002,14 @@ function Party.Roster()
 					row.otherGuide = true
 				end
 				row.needs = stepNeeds(m, view)
+				-- Boosted Rest: seconds left now, or true (on, no end given).
+				local r = m.rest
+				if r and r.left == true then
+					row.rest = true
+				elseif r then
+					local left = r.left - (GetTime() - r.at)
+					row.rest = left > 0 and left or nil
+				end
 			end
 			out[#out + 1] = row
 		end

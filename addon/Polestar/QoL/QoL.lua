@@ -53,6 +53,7 @@ local defaults = {
 	buttonTextSide = "right", -- which side of the button its name sits on
 	xpTracker = true,
 	xpTargetMark = true,     -- the guide's level target on the game's XP bar
+	boostedRest = true,      -- Boosted Rest and the sleeping bag on the XP line, the party's in the party panel
 	sellJunk = true,
 	autoRepair = true,
 	repairGuild = false,     -- guild bank first when the rank allows

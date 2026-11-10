@@ -1598,3 +1598,77 @@ emit(C.SenderIsUnit("Ana Smith-TestRealm", "party1"))"#,
 	assert_eq!(out[4], 0, "no error");
 	assert_eq!(out[5], false, "a secret answer is no");
 }
+
+
+// Boosted Rest (QoL/Rest.lua) as its own "2B|" message: every older decoder drops it, a later version's fields
+// are ignored, a member who never sends it (an older client) shows none, and the panel counts it down.
+#[test]
+fn party_boosted_rest_round_trips_and_older_decoders_drop_it() {
+	let out = run(r#"
+emit({ P.EncodeRest(2519.2), P.EncodeRest(true), P.EncodeRest(nil), P.EncodeRest(0) })
+emit({ P.DecodeRest("2B|2520"), P.DecodeRest("2B|*"), P.DecodeRest("2B|0"), P.DecodeRest("2B|2520|later") })
+emit({ P.Decode("2B|2520") == nil, P.DecodePos("2B|2520") == nil, P.DecodeUnit("2B|2520") == nil, P.DecodeAt("2B|2520") == nil,
+	P.DecodeAnswer("2B|2520") == nil, P.DecodeHello("2B|2520") == nil, P.DecodeRest("2U|12|45|8|1") == nil, P.DecodeRest("2B|x") == nil,
+	P.DecodeRest("2B|2520x") == nil, P.DecodeRest("1B|20") == nil })"#);
+	assert_eq!(out[0], json!(["2B|2520", "2B|*", "2B|0", "2B|0"]));
+	assert_eq!(out[1], json!([2520, true, false, 2520]), "fields after the first are ignored");
+	assert_eq!(out[2], json!([true, true, true, true, true, true, true, true, true, true]));
+}
+
+#[test]
+fn party_boosted_rest_goes_out_on_a_change_only_and_an_end_only_after_it_was_on() {
+	let out = live(&sent(r#"
+local left
+Polestar.QoL = { On = function(k) return k == "boostedRest" end, Rest = { Left = function() return left end } }
+w.onQuest(33, { 8 })
+p.join("Ana"); stub.advance(10)
+p.sent = {}
+Polestar.Fire("QOL_REST_UPDATED", true); stub.advance(3)
+emit(#texts())
+left = 2520
+Polestar.Fire("QOL_REST_UPDATED", false); stub.advance(3)
+emit(#texts())
+Polestar.Fire("QOL_REST_UPDATED", true); stub.advance(3)
+emit(texts()[1])
+p.sent = {}
+left = nil
+Polestar.Fire("QOL_REST_UPDATED", true); stub.advance(3)
+emit(texts()[1])
+p.sent = {}
+Polestar.Fire("QOL_REST_UPDATED", true); stub.advance(3)
+emit(#texts())"#));
+	assert_eq!(out[0], 0, "never on: nothing to say");
+	assert_eq!(out[1], 0, "a minute redraw is no change");
+	assert_eq!(out[2], "2B|2520");
+	assert_eq!(out[3], "2B|0", "it ended: the party that heard it on is told");
+	assert_eq!(out[4], 0, "and only once");
+}
+
+#[test]
+fn party_boosted_rest_of_a_member_shows_on_their_panel_row_and_an_older_client_shows_none() {
+	let out = group(&format!(
+		"{PANEL_GUIDE}{}",
+		r#"
+local PP = Polestar.UI.PartyPanel
+p.join("Ana")
+p.set("Ana", { class = "MAGE", level = 11 })
+p.receive("Ana-TestRealm", "2U|12|45|8|1")
+local function lvl() local _, b = PP.RowText(P.Roster()[1]); return b end
+emit({ P.Roster()[1].rest or false, lvl() })
+p.receive("Ana-TestRealm", "2B|2520")
+stub.advance(60)
+emit({ math.floor(P.Roster()[1].rest + 0.5), lvl() })
+p.receive("Ana-TestRealm", "2B|*")
+emit(lvl())
+p.receive("Ana-TestRealm", "2B|0")
+emit({ P.Roster()[1].rest or false, lvl() })
+p.receive("Ana-TestRealm", "2B|30")
+stub.advance(31)
+emit(P.Roster()[1].rest or false)"#
+	));
+	assert_eq!(out[0], json!([false, "Level 12  \u{b7}  45% XP"]), "an older client sends no \"2B|\": nothing shown");
+	assert_eq!(out[1], json!([2460, "Level 12  \u{b7}  45% XP  \u{b7}  Boosted Rest 41m"]));
+	assert_eq!(out[2], "Level 12  \u{b7}  45% XP  \u{b7}  Boosted Rest");
+	assert_eq!(out[3], json!([false, "Level 12  \u{b7}  45% XP"]));
+	assert_eq!(out[4], false, "run out since it arrived");
+}
