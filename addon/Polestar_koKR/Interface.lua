@@ -1057,7 +1057,7 @@ L["Speak with %s"] = "%s에게 말 걸기"
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "퀘스트 제공자"
 L["In your log already: %s"] = "이미 퀘스트 목록에 있음: %s"
-L["After the run: open this dungeon's page (/polestar dungeons %s) and choose Hand in the quests."] = "공략 후: 이 던전의 페이지(/polestar dungeons %s)를 열고 '퀘스트 제출'을 선택하십시오."
+L["After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."] = "공략 후: 이 가이드의 끝이나 던전 페이지에서 '퀘스트 제출'을 선택하십시오."
 L["%s: pick up the quests"] = "%s: 퀘스트 수락"
 L["Pick up the quests from level %d"] = "레벨 %d부터 퀘스트 수락"
 L["Pick up the quests (%d now · %d at level %d)"] = "퀘스트 수락 (지금 %1$d개 · 레벨 %3$d에 %2$d개)"

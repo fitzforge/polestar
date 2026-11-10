@@ -360,7 +360,7 @@ function Dungeons.AttuneGuide(key, id)
 	if a.note then last.goals[#last.goals + 1] = { t = "note", text = L[a.note] } end
 	local e = d and d.entrance
 	if located(e) then
-		last.goals[#last.goals + 1] = { t = "goto", text = L["Enter"] .. " " .. d.name, map = e.map, x = e.x, y = e.y, f = e.f == "e" and "e" or nil, entrance = true }
+		last.goals[#last.goals + 1] = { t = "goto", text = d.name, map = e.map, x = e.x, y = e.y, f = e.f == "e" and "e" or nil, entrance = true }
 	end
 	if #last.goals > 0 then steps[#steps + 1] = last end
 	return { title = format(L["%s: %s"], d and d.name or key, a.name), steps = steps, dungeon = key }

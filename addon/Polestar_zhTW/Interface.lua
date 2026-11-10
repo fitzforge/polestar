@@ -1057,7 +1057,7 @@ L["Speak with %s"] = "與%s交談"
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "任務給予者"
 L["In your log already: %s"] = "已在任務日誌中：%s"
-L["After the run: open this dungeon's page (/polestar dungeons %s) and choose Hand in the quests."] = "打完後：開啟此地城的頁面（/polestar dungeons %s）並選擇「繳交任務」。"
+L["After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."] = "打完後：在本指南結尾或地城頁面選擇「繳交任務」。"
 L["%s: pick up the quests"] = "%s：接取任務"
 L["Pick up the quests from level %d"] = "從 %d 級起接取任務"
 L["Pick up the quests (%d now · %d at level %d)"] = "接取任務（現在 %d 個 · %d 個在 %d 級）"

@@ -1057,7 +1057,7 @@ L["Speak with %s"] = "Habla con %s"
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "NPC de misiones"
 L["In your log already: %s"] = "Ya está en tu registro: %s"
-L["After the run: open this dungeon's page (/polestar dungeons %s) and choose Hand in the quests."] = "Al terminar la mazmorra: abre su página (/polestar dungeons %s) y elige Entregar las misiones."
+L["After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."] = "Al terminar la mazmorra: elige Entregar las misiones al final de esta guía o en la página de la mazmorra."
 L["%s: pick up the quests"] = "%s: acepta las misiones"
 L["Pick up the quests from level %d"] = "Aceptar las misiones desde el nivel %d"
 L["Pick up the quests (%d now · %d at level %d)"] = "Aceptar las misiones (%d ahora · %d al nivel %d)"

@@ -1057,7 +1057,7 @@ L["Speak with %s"] = "Поговорить: %s"
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "Дающий задание"
 L["In your log already: %s"] = "Уже в журнале: %s"
-L["After the run: open this dungeon's page (/polestar dungeons %s) and choose Hand in the quests."] = "После прохождения: откройте страницу подземелья (/polestar dungeons %s) и выберите «Сдать задания»."
+L["After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."] = "После прохождения: выберите «Сдать задания» в конце этого руководства или на странице подземелья."
 L["%s: pick up the quests"] = "%s: взять задания"
 L["Pick up the quests from level %d"] = "Взять задания с уровня %d"
 L["Pick up the quests (%d now · %d at level %d)"] = "Взять задания (%d сейчас · %d на уровне %d)"
