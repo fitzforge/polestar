@@ -70,11 +70,17 @@ step Gelkis or Magram
   skipto magram when turnedin 93226
   skipto magram when turnedin 1367
   skipto magram when turnedin 94872
-  tip No clan's quests in your log: the guide goes on with the Gelkis, south-west. For the Magram, take their choice quest and Buying Friendship and the guide goes to the Magram half.
-  goto 36.2,79.3 "Gelkis Village"
+  tip No clan's quests in your log: the guide goes on with the Gelkis. For the Magram, take their choice quest and Buying Friendship and the guide goes to the Magram half.
+  goto 66.7,10.9 "Captain Pentigast" only Alliance
+  goto 56.3,59.7 "Gurda Wildmane" only Horde
+
+step Gelkis: the choice quest
+  label gelkis
+  tip The Gelkis half starts with the clan's choice quest from the giver you just handed the totems to: Uthek's quests in Gelkis Village follow from it, and Buying Friendship alone does not open them.
+  accept 1382 only Alliance           -- Strange Alliance, Captain Pentigast
+  accept 1368 only Horde              -- Gelkis Alliance, Gurda Wildmane
 
 step Gelkis Village: Uthek and Molkar
-  label gelkis
   tip Gelkis Village sits in the hills of south-west Desolace; Uthek the Wise stands at its heart. Molkar, the Gelkis quartermaster, is at the south end of the village. Buying Friendship alone takes you from Neutral to Friendly.
   turnin 1382 only Alliance           -- Uthek the Wise: 250
   accept 1384 only Alliance           -- Raid on the Kolkar
