@@ -518,15 +518,45 @@ function Q.EachAvailabilityRef(id, fn)
 	return r[QUEST_SKILL] ~= nil
 end
 
+-- Field `field` of every quest as its record decodes it (a number, or a list
+-- of numbers), read straight from the chunks' text: q -> value, for the
+-- quests that have it. The full-scan indexes below need one or two fields of
+-- every quest; decoding every record for them took about 55 ms and 6 MB of
+-- garbage each, in the frame that first asked (the first item tooltip, loot
+-- line or quest accept of a session).
+local function fieldOfAll(field)
+	local pattern = "^" .. string.rep("[^;]*;", field - 1) .. "([^;]*)"
+	local out = {}
+	store:EachRaw("quests", function(q, payload)
+		if out[q] ~= nil then return end
+		local f = payload:match(pattern)
+		if not f or f == "" then return end
+		if byte(f, 1) == 123 then -- {: a list, read up to its first empty element as Each does
+			local t, m = {}, 0
+			for e in gmatch(sub(f, 2) .. ",", "([^,]*),") do
+				local v = tonumber(e)
+				if v == nil then break end
+				m = m + 1
+				t[m] = v
+			end
+			out[q] = t
+		else
+			out[q] = tonumber(f)
+		end
+	end)
+	return out
+end
+
 -- Quests whose `excl` lists id: taking id closes them. The list is one-way
 -- for about one link in fifteen (282 lists 287, 287 does not list 282), so
--- this reads every record once, the first time it is asked.
+-- this reads every quest's `excl` once, the first time it is asked.
 local closedBy
 function Q.ClosedBy(id)
 	if not closedBy then
 		closedBy = {}
+		local excls = fieldOfAll(QUEST_EXCL)
 		for _, q in ipairs(Q.QuestIds()) do
-			local excl = data.quests[q][QUEST_EXCL]
+			local excl = excls[q]
 			if excl then
 				for _, x in Each(excl) do
 					local list = closedBy[x]
@@ -552,10 +582,10 @@ function Q.FollowUps(id)
 	local ids = Q.QuestIds()
 	if followUpsOf ~= ids then
 		followUps, followUpsOf = {}, ids
+		local pres, preAlls = fieldOfAll(QUEST_PRE), fieldOfAll(QUEST_PRE_ALL)
 		for _, q in ipairs(ids) do
-			local r = data.quests[q]
 			for k = 1, 2 do
-				local refs = r[k == 1 and QUEST_PRE or QUEST_PRE_ALL]
+				local refs = (k == 1 and pres or preAlls)[q]
 				if refs then
 					for _, p in Each(refs) do
 						local list = followUps[p]
@@ -580,8 +610,9 @@ function Q.StartedBy(itemID)
 	local ids = Q.QuestIds()
 	if startedByOf ~= ids then
 		startedBy, startedByOf = {}, ids
+		local items = fieldOfAll(QUEST_START_ITEM)
 		for _, q in ipairs(ids) do
-			for _, it in Each(data.quests[q][QUEST_START_ITEM]) do
+			for _, it in Each(items[q]) do
 				local list = startedBy[it]
 				if not list then
 					list = {}

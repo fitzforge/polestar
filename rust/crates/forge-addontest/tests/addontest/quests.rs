@@ -1712,3 +1712,27 @@ emit({{ look(), centre().focus }})
 	assert_eq!(out[1][1], "focus");
 	assert_eq!(alpha(&out[1][0]), vec![0.6], "the step's quest: full");
 }
+
+// The full-scan indexes (the item tooltip's "Starts a quest", the loot line, closes, follow-ups) read the one
+// field they need from the data's text: no quest record is decoded to build them (that cost ~55 ms and ~6 MB of
+// garbage each on the full database, in the frame that first asked).
+#[test]
+fn the_quest_indexes_are_built_without_decoding_a_record_and_answer_as_before() {
+	let db = fixture();
+	let out = run(
+		&db,
+		r#"
+local mt = getmetatable(Q._data.quests)
+local get, reads = mt.__index, 0
+mt.__index = function(t, id) reads = reads + 1; return get(t, id) end
+local answers = { started = Q.StartedBy(1972), closed14 = Q.ClosedBy(14), closed15 = Q.ClosedBy(15),
+	after783 = Q.FollowUps(783), after33 = Q.FollowUps(33), after60 = Q.FollowUps(60), none = Q.StartedBy(4) or false }
+mt.__index = get
+emit(reads)
+emit(answers)
+"#,
+		"",
+	);
+	assert_eq!(out[0], 0, "no record decoded");
+	assert_eq!(out[1], json!({ "started": [17], "closed14": [15], "closed15": [14], "after783": [7], "after33": [19], "after60": [19], "none": false }));
+}
