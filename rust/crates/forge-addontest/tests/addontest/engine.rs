@@ -463,7 +463,7 @@ fn several_open_field_goals_the_arrow_and_the_mark_lead_to_the_nearest_the_list_
 }
 
 #[test]
-fn the_nearest_field_goal_holds_until_another_is_clearly_nearer_never_in_a_fight_and_moves_on_when_it_is_done() {
+fn the_field_route_keeps_the_left_arm_before_heading_right_and_moves_on_when_it_is_done() {
 	let out = run1(Run {
 		guides: FIELD,
 		before: "w.onQuest(7, { 1 }); w.onQuest(8, { 8 }); w.onQuest(9, { 10 }); w.moveTo(1429, 40, 50)",
@@ -476,9 +476,10 @@ fn the_nearest_field_goal_holds_until_another_is_clearly_nearer_never_in_a_fight
 			local r = { start = E.GetWaypoint().goalIndex }
 			-- 49: the Graverobbers' point 120 yd off, the Doom Weed's area edge 170
 			r.between = at(49)
-			-- 51.5: 195 yd against 95, clearly nearer
+			-- 51.5: the weeds are nearer, but taking them first would force a
+			-- return to the Graverobbers before heading east to Maggot Eye.
 			r.past = at(51.5)
-			-- 50.5: 165 against 125, the Graverobbers not clearly nearer: no flap back
+			-- Ordinary movement keeps the shorter complete trip stable.
 			r.back = at(50.5)
 			-- in a fight beside the Graverobbers the arrow stays, and for 5 s after it (Spots.SETTLE)
 			fighting = true
@@ -494,7 +495,7 @@ fn the_nearest_field_goal_holds_until_another_is_clearly_nearer_never_in_a_fight
 		"#,
 		..Default::default()
 	});
-	assert_eq!(out, json!({ "start": 2, "between": 2, "past": 3, "back": 3, "fight": 3, "settling": 3, "after": 2, "done": 3 }));
+	assert_eq!(out, json!({ "start": 2, "between": 2, "past": 2, "back": 2, "fight": 2, "settling": 2, "after": 2, "done": 3 }));
 }
 
 #[test]

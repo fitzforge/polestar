@@ -82,6 +82,8 @@ mod engine_enter;
 mod engine_failed_quest;
 #[path = "engine-feeders.rs"]
 mod engine_feeders;
+#[path = "engine-field-route.rs"]
+mod engine_field_route;
 #[path = "engine-flights.rs"]
 mod engine_flights;
 #[path = "engine-focus.rs"]
