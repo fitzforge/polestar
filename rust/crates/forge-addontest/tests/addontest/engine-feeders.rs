@@ -385,8 +385,11 @@ fn t_1353_malifax_and_a_player_who_did_the_route_on_the_shipped_ashenvale() {
 	let out = shipped("Horde", "Tauren", "PALADIN", 26, MALIFAX_DONE, "6382", "forever/horde/07-ashenvale");
 	println!("{}", serde_json::to_string_pretty(&out).unwrap());
 	let before = ids(&out["before"]["requires"]);
-	for q in [2, 23, 24, 6621] {
-		assert!(before.contains(&q), "{q} was passed: {before:?}");
+	// The hunt trophies (2, 23, 24) wait in the guide itself for The Ashenvale Hunt (`when turnedin 6383`, #1531,
+	// 58d54acf1): never a Requires line, before the plan or after. 6621 still needs the plan.
+	assert!(before.contains(&6621), "6621 was passed: {before:?}");
+	for q in [2, 23, 24] {
+		assert!(!before.contains(&q), "{q} waits in the guide, no Requires line: {before:?}");
 	}
 	let after = ids(&out["after"]["requires"]);
 	for q in [2, 23, 24, 6621] {
