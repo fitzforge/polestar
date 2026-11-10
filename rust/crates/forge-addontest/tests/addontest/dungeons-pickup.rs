@@ -1904,3 +1904,59 @@ fn a_stop_at_hand_comes_first_out_of_ragefire_chasm_neeru_fireblade_beside_the_p
 	assert_eq!(out["beside"], json!({ "route": ["neeru", "tb", "thrall", "uc"], "cost": 3 + 345 + 300 + 230 }), "Neeru, 3 s away, first");
 	assert_eq!(out["away"], json!({ "route": ["tb", "neeru", "thrall", "uc"], "cost": 300 + 300 + 40 + 230 }), "16 s away is not at hand: the cheapest path");
 }
+
+// Fitz, 0.3.6 (Scourge Warlock 17): the Ruins of Lordaeron's pick-up guide opened with Rear Guard Patrol (99156),
+// an elite group quest out in eastern Tirisfal, with nothing saying why it was there. It is right to be there:
+// Deathguard Kristof offers The Wrath of Rath'mael (92422) only once it is handed in (#849; players' recordings:
+// refused while 99156 was in the log, offered right after its hand-in). Every prerequisite step now says which of
+// the page's quests it is needed for, and a kill of an elite out in the world, or an item one drops, carries the
+// compiled guides' group (the step's "Elite: group advised" line, as in the leveling guides). Here Orders from
+// the Undercity (1010) and The Dalaran Inquiry (1011) come before Arugal Must Die (1014); in the second pack
+// Orders from the Undercity also wants a heart an elite in Silverpine drops, and a claw an ordinary wolf drops.
+#[test]
+fn a_prerequisite_step_says_which_dungeon_quest_it_is_needed_for_and_an_elite_s_drop_says_group_advised() {
+	let script = k(r#"
+local def = D.PickupGuide("{KEY}")
+local notes, groups = {}, {}
+for i, s in ipairs(def.steps) do
+	notes[i] = s.note or false
+	for _, g in ipairs(s.goals) do
+		if g.t == "collect" or g.t == "kill" then groups[tostring(g.item or g.npc)] = g.group or false end
+	end
+end
+D.PickUp("{KEY}")
+local E = Polestar.Engine
+local v = E.GetStepView(1)
+local party = false
+for _, g in ipairs(v.goals) do if g.t == "collect" and g.party then party = g.party end end
+emit({ steps = describe(def), notes = notes, groups = groups, view = { note = v.note or false, party = party } })"#);
+	let plain = run(&default_pack(), &script, Opts::default()).remove(0);
+	assert_eq!(plain["steps"], json!(from_undercity()));
+	assert_eq!(
+		plain["notes"],
+		json!(["Needed for “Arugal Must Die”.", "Needed for “Arugal Must Die”.", false, false, false]),
+		"the two quests before Dalar's, not the givers' steps nor the entrance"
+	);
+	assert_eq!(plain["view"]["note"], "Needed for “Arugal Must Die”.", "the guide window shows it on the step");
+
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mob = |id: i32, name: &str, level: i32, elite: bool| {
+		json!({
+			"id": id, "name": name, "level": level, "levelMax": null, "faction": null, "rare": false, "elite": elite, "boss": false,
+			"instance": null, "roles": [], "spawns": [{ "map": 1421, "x": 50, "y": 50, "f": "e" }],
+		})
+	};
+	c["npcs"]["90601"] = mob(90601, "Riptear", 13, true);
+	c["npcs"]["90603"] = mob(90603, "Worg", 20, false);
+	let item = |id: i32, name: &str, npc: i32| json!({ "id": id, "name": name, "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "drop", "npc": npc, "chance": 100.0 }] });
+	c["items"]["90600"] = item(90600, "Riptear's Heart", 90601);
+	c["items"]["90602"] = item(90602, "Worg Claw", 90603);
+	c["quests"]["1010"]["objectives"] = json!([{ "type": "item", "id": 90600, "count": 1, "text": "Riptear's Heart" }, { "type": "item", "id": 90602, "count": 1, "text": "Worg Claw" }]);
+	let elite = run(&pack_of(&c, &inputs), &script, Opts::default()).remove(0);
+	assert_eq!(elite["steps"][0], json!({ "title": "Orders from the Undercity", "goals": "accept:1010 collect:1010 collect:1010 turnin:1010" }));
+	assert_eq!(elite["groups"]["90600"], json!({ "kind": "elite", "rank": 1, "lvl": 13 }), "the elite's drop");
+	assert_eq!(elite["groups"]["90602"], false, "an ordinary wolf's claw needs no group");
+	assert_eq!(elite["view"]["party"], json!({ "kind": "elite", "rank": 1, "lvl": 13 }), "the engine's view carries it: \"Elite: group advised\"");
+	assert_eq!(elite["notes"][0], "Needed for “Arugal Must Die”.");
+}
