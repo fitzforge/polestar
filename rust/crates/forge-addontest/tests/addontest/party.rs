@@ -1021,7 +1021,7 @@ for _, m in ipairs(stub.messages) do if m:find("A newer version is out", 1, true
 emit({ hello = fromHello, peer = PolestarDB.update.peer, lines = n })"#
 	));
 	let out = run_with(&script, LIVE_STUBS, FILES, true, Some(ON));
-	assert_eq!(out[0], json!({ "hello": "0.3.7", "peer": "0.3.8", "lines": 1 }));
+	assert_eq!(out[0], json!({ "hello": "0.3.7", "peer": "0.3.8", "lines": 2 }), "one line per member on a newer release (#1617)");
 	let told = run_with(&script, LIVE_STUBS, FILES, true, Some("PolestarDB = { schema = 1, settings = { party = { share = true, show = true } }, update = { shown = \"0.3.8\" } }"));
 	assert_eq!(told[0], json!({ "hello": "0.3.7", "peer": "0.3.8", "lines": 0 }), "the card said 0.3.8 is out");
 }
