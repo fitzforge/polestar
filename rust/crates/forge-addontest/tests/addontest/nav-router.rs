@@ -293,6 +293,38 @@ fn format_2_a_horde_player_goes_round_an_alliance_hub_the_alliance_player_and_no
 	close(&only["horde"], (20.0 * (S as f64 - 1.0) + 1.0) * CS, "Horde through the only way");
 }
 
+// Two searches queued together, the second marked urgent (Routing/PathJobs.lua: the walk the arrow is on,
+// Nav/Walk.lua), one slice a frame (a zero budget): which one answers first, and the frames each took.
+fn urgent_order(urgent: bool) -> Value {
+	let map = map_files(&layout(3, Cls::default(), Cls::default()), true, Opts::default());
+	let script = format!(
+		r#"
+local Path = Polestar_NavEngine
+local frames = {{}}
+Path.after = function(fn) frames[#frames + 1] = fn end
+Path.budget = 0
+local A, B = {a}, {b}
+local order = {{}}
+Path.Find({MAP}, A, B, function(points) order[#order + 1] = points and "leg" or "leg failed" end, nil)
+local job = Path.Find({MAP}, B, A, function(points) order[#order + 1] = points and "arrow" or "arrow failed" end, nil)
+job.urgent = {urgent}
+local n = 0
+while #frames > 0 and n < 10000 do n = n + 1 table.remove(frames, 1)() end
+emit({{ order = order }})"#,
+		a = lua(from()),
+		b = lua(to()),
+	);
+	emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], before: map.dofiles(), addons: vec![ours()], script, ..Default::default() }).remove(0)
+}
+
+#[test]
+fn an_urgent_search_the_arrow_s_own_walk_is_sliced_before_one_queued_ahead_of_it() {
+	// 0.3.7: the arrow's re-ask shared the budget with the later legs' searches, and landed seconds late, far
+	// behind a player walking on.
+	assert_eq!(urgent_order(true)["order"], json!(["arrow", "leg"]), "the urgent search answers first");
+	assert_eq!(urgent_order(false)["order"], json!(["leg", "arrow"]), "without it, the order they were queued in");
+}
+
 #[test]
 fn the_fifth_argument_a_boolean_is_waterwalking_a_table_is_opts() {
 	let map = map_files(&layout(4, val(2), Cls::default()), true, Opts::default());
