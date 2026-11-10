@@ -482,7 +482,7 @@ fn target_button_names_the_mobs_at_the_spot_the_arrow_takes_when_a_collect_s_spo
 		local goal = { t = "collect", item = 6067, itemName = "Centaur Ear", quest = 1366, oi = 1,
 			fromNpcs = { { npc = 4638, npcName = "Magram Scout" }, { npc = 4632, npcName = "Kolkar Centaur" }, { npc = 4633, npcName = "Kolkar Scout" },
 				{ npc = 4634, npcName = "Kolkar Mauler" }, { npc = 4635, npcName = "Kolkar Windchaser" },
-				{ npc = 4639, npcName = "Magram Outrunner" }, { npc = 4641, npcName = "Magram Wrangler" }, { npc = 4642, npcName = "Magram Windchaser" } },
+				{ npc = 4639, npcName = "Magram Outrunner" }, { npc = 4640, npcName = "Magram Wrangler" }, { npc = 4641, npcName = "Magram Windchaser" } },
 			fromNpcsAt = "2,3,4,5;7,8,6,1;" }
 		-- The arrow at Kolkar Village (spot 1): its own four.
 		q.engine.spot = 1
