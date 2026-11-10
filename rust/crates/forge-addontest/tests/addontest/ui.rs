@@ -1248,6 +1248,50 @@ fn non_leveling_guides_name_their_category_and_a_place_only_when_the_guide_has_a
 }
 
 #[test]
+fn guide_lookup_button_follows_toolbar_skin_and_transparent_chrome_1528() {
+	let out = run(r#"
+		local nav = GF.parts.nav
+		local B = nav.Lookup
+		assert(type(B) == "table", "the guide window has a Lookup button")
+		local function relOf(f) local _, rel = f:GetPoint(1) return rel end
+		local empty = { shown = B:IsShown(), lookup = relOf(B) == nav.Menu, nearby = relOf(nav.Nearby) == B }
+		uistub.setGuide(uistub.elwynn, 3)
+		local order = { lookup = relOf(B) == nav.Menu, report = relOf(nav.Report) == B, nearby = relOf(nav.Nearby) == nav.Report }
+		local sizes = {}
+		Polestar.Theme._testShowHidden = true
+		for _, skin in ipairs(Polestar.Theme.SkinChoices()) do
+			Polestar.Set("ui.skin", skin.value)
+			sizes[#sizes + 1] = { B:GetWidth() == nav.Menu:GetWidth(), B:GetHeight() == nav.Menu:GetHeight(), B.Icon:GetWidth() == nav.Menu.Icon:GetWidth() }
+		end
+		Polestar.Set("ui.skin", "polestar")
+		Polestar.Set("ui.style", "transparent")
+		local rest = B:GetAlpha()
+		F.IsMouseOver = function() return true end
+		stub.RunScript(B, "OnEnter")
+		stub.advance(.5)
+		local hover = B:GetAlpha()
+		local tip = GameTooltip.lines
+		Polestar.Set("ui.compact", true)
+		local compact = B:IsShown()
+		Polestar.Set("ui.width", 260)
+		local narrow = { lookup = B:IsShown(), title = nav.Title:IsShown() }
+		Polestar.Set("ui.width", 340)
+		local wide = nav.Title:IsShown()
+		emit({ empty = empty, order = order, sizes = sizes, rest = rest, hover = hover, tip = tip, compact = compact, narrow = narrow, wide = wide })"#)
+	.remove(0);
+	assert_eq!(out["empty"], json!({ "shown": true, "lookup": true, "nearby": true }));
+	assert_eq!(out["order"], json!({ "lookup": true, "report": true, "nearby": true }));
+	assert_eq!(out["sizes"].as_array().unwrap().len(), 6);
+	assert!(out["sizes"].as_array().unwrap().iter().all(|s| s == &json!([true, true, true])), "the button follows every skin's metrics");
+	assert_eq!(out["rest"], 0);
+	assert_eq!(out["hover"], 1);
+	assert!(has(&out["tip"], "Lookup"));
+	assert_eq!(out["compact"], true);
+	assert_eq!(out["narrow"], json!({ "lookup": true, "title": false }), "the narrow compact title cannot overlap the controls");
+	assert_eq!(out["wide"], true, "the guide title returns when it has room");
+}
+
+#[test]
 fn the_header_carries_nearby_services_between_skip_and_the_bug_its_menu_points_the_arrow_nothing_in_combat_and_an_option_hides_it() {
 	let out = run(r#"
 		local nav, B = GF.parts.nav, GF.nearbyButton
@@ -1262,9 +1306,9 @@ fn the_header_carries_nearby_services_between_skip_and_the_bug_its_menu_points_t
 			return out
 		end
 		local function relOf(f) local _, rel = f:GetPoint(1) return rel end
-		local noGuide = { shown = B:IsShown(), rel = relOf(B) == nav.Menu }
+		local noGuide = { shown = B:IsShown(), rel = relOf(B) == nav.Lookup }
 		uistub.setGuide(uistub.elwynn, 3)
-		local order = { skip = relOf(nav.Skip) == B, nearby = relOf(B) == nav.Report, report = relOf(nav.Report) == nav.Menu }
+		local order = { skip = relOf(nav.Skip) == B, nearby = relOf(B) == nav.Report, report = relOf(nav.Report) == nav.Lookup }
 		B:Click()
 		local items = texts()
 		for _, r in ipairs(rows()) do if r.Text:GetText() == "Mining trainer" then r:Click() end end
@@ -1288,8 +1332,8 @@ fn the_header_carries_nearby_services_between_skip_and_the_bug_its_menu_points_t
 		skipOff.backOn = relOf(nav.Skip) == B
 		emit({ noGuide = noGuide, order = order, items = items, mining = mining, inn = inn, enabledInCombat = disabled, off = off, skipOff = skipOff })"#)
 	.remove(0);
-	assert_eq!(out["noGuide"], json!({ "shown": true, "rel": true }), "without a guide it sits by the menu");
-	assert_eq!(out["order"], json!({ "skip": true, "nearby": true, "report": true }), "Skip, Nearby, the bug, the menu");
+	assert_eq!(out["noGuide"], json!({ "shown": true, "rel": true }), "without a guide it sits by Lookup");
+	assert_eq!(out["order"], json!({ "skip": true, "nearby": true, "report": true }), "Skip, Nearby, the bug, Lookup, the menu");
 	assert_eq!(out["items"], json!(["Vendor  \u{203a}", "Innkeeper", "Mining trainer", "Weapon master  \u{203a}", "Bank"]));
 	assert_eq!(out["mining"], json!(["NearbyGo", "trainer", 186]));
 	assert_eq!(out["inn"], json!(["NearbyGo", "innkeeper"]));

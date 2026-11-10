@@ -58,6 +58,35 @@ fn cols(sources: &Value, keys: &[&str]) -> Value {
 }
 
 #[test]
+fn guide_lookup_button_opens_lookup_with_search_focus_without_changing_the_guide_1528() {
+	let out = run(r#"
+		local GF = UI.GuideFrame
+		local B = GF.parts.nav.Lookup
+		assert(type(B) == "table", "the guide window has a Lookup button")
+		local function open()
+			B:Click()
+			local result = { shown = lookupShown(), focused = UI.Picker.search:HasFocus(), button = B:IsShown() }
+			PolestarPicker:Hide()
+			return result
+		end
+		local empty = open()
+		uistub.setGuide(uistub.elwynn, 3)
+		local guide, step = Polestar.Engine.GetGuide(), Polestar.Engine.GetStepIndex()
+		local normal = open()
+		Polestar.Set("ui.compact", true)
+		local compact = open()
+		stub.inCombat = true
+		local combat = open()
+		emit({ empty = empty, normal = normal, compact = compact, combat = combat,
+			sameGuide = Polestar.Engine.GetGuide() == guide, sameStep = Polestar.Engine.GetStepIndex() == step })"#);
+	for state in ["empty", "normal", "compact", "combat"] {
+		assert_eq!(out[state], json!({ "shown": true, "focused": true, "button": true }), "{state}");
+	}
+	assert_eq!(out["sameGuide"], true);
+	assert_eq!(out["sameStep"], true);
+}
+
+#[test]
 fn show_lookup_opens_the_hub_at_lookup_on_the_query_results_grouped_by_kind_the_first_selected() {
 	let out = run(r#"
 		Polestar.Lookup.Show("saber")

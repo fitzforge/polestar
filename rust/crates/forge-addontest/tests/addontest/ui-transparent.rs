@@ -135,7 +135,8 @@ fn the_dark_backing_holds_every_string_of_the_step_on_its_solid_middle_and_the_s
 			local body = outside(P.body, GF.veil)
 			for _, s in ipairs(outside(P.foot, GF.veil)) do body[#body + 1] = s end
 			return { bar = table.concat(bar, " | "), body = table.concat(body, " | "), barTexts = #shownTexts(P.strip) + #shownTexts(P.nav),
-				bodyTexts = #shownTexts(P.body) + #shownTexts(P.foot) }
+				bodyTexts = #shownTexts(P.body) + #shownTexts(P.foot), tabs = #shownTexts(P.strip),
+				countShown = P.nav.Steps.Count:IsVisible(), count = P.nav.Steps.Count:GetText() }
 		end
 		local down = check()
 		uistub.setStep(4)
@@ -156,7 +157,16 @@ fn the_dark_backing_holds_every_string_of_the_step_on_its_solid_middle_and_the_s
 	.remove(0);
 	for case in ["down", "hub", "tip", "narrow", "compact", "flipped"] {
 		let c = &out[case];
-		assert!(c["barTexts"].as_u64().unwrap() >= 3, "{case}: the tabs and the step count are on screen");
+		// Compact mode hides the tabs, and at 260px the title yields its space to the toolbar buttons.
+		let compact = case == "compact";
+		assert!(c["barTexts"].as_u64().unwrap() >= if compact { 2 } else { 3 }, "{case}: the toolbar's strings are on screen");
+		assert_eq!(c["countShown"], true, "{case}: the step count stays visible");
+		assert!(c["count"].as_str().unwrap().contains(" / "), "{case}: the step count is populated");
+		if compact {
+			assert_eq!(c["tabs"], 0, "compact: the tab strip is hidden");
+		} else {
+			assert!(c["tabs"].as_u64().unwrap() >= 1, "{case}: the tab strip is populated");
+		}
 		assert!(c["bodyTexts"].as_u64().unwrap() >= 5, "{case}: the step's strings are on screen");
 		assert_eq!(c["bar"], "", "{case}: the tabs and the step bar sit on the bar's backing");
 		assert_eq!(c["body"], "", "{case}: every string of the step sits on the body's backing");
