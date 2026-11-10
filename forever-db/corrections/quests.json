@@ -3463,6 +3463,47 @@
 		],
 		"note": "Mercy Falls on Deaf Ears (Zephras Isle): five ears, not ten."
 	},
+	"93226": {
+		"set": {
+			"start": {
+				"npc": [
+					5396
+				],
+				"object": [],
+				"item": []
+			},
+			"pre": [
+				93224
+			],
+			"preAny": [
+				93224
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-10): Captain Pentigast (5396) offered Buying Friendship: Magram to 2 people (Gnome Priest 32, Gnome Warlock 37) right after they handed in Carved Centaur Totems (93224), and not before it; Gorhak's (253139) window did not offer it to 2 others (Gnome Warlock 37, Night Elf Druid 35) who had not"
+			}
+		],
+		"note": "Buying Friendship: Magram (Alliance) starts with Captain Pentigast at Nijel's Point, as its Gelkis twin does, and is offered once Carved Centaur Totems (93224, Pentigast) is handed in. The merged data had Gorhak as its giver (one dialog capture) and no prerequisite; Gorhak only takes it in."
+	},
+	"93227": {
+		"set": {
+			"pre": [
+				93224
+			],
+			"preAny": [
+				93224
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-10): Captain Pentigast (5396) did not offer Buying Friendship: Gelkis to 4 people before Carved Centaur Totems (93224) was handed in, and offered it to 2 of them right after"
+			}
+		],
+		"note": "Buying Friendship: Gelkis (Alliance) is offered once Carved Centaur Totems (93224) is handed in; the merged data had no prerequisite."
+	},
 	"93797": {
 		"set": {
 			"classes": 128
@@ -3944,6 +3985,40 @@
 			}
 		],
 		"note": "The New Plague (Undercity, Theodore Griffs) is offered once the A Recipe For Death chain (447, 450, 451) is handed in: Pilk, a Tauren Druid, was not offered it at level 16, and was offered it at level 17 once the chain was completed (#867). The merged data had no prerequisite, so the Ruins of Lordaeron pick-up guide sent players to Theodore Griffs before the chain."
+	},
+	"94872": {
+		"set": {
+			"pre": [
+				93225
+			],
+			"preAny": [
+				93225
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-10): Gurda Wildmane (5412) did not offer Buying Friendship: Magram or Gelkis to 2 people (Troll Hunter 32-33, Undead Paladin 33-34) in 15 windows before Carved Centaur Totems (93225) was handed in, and offered both to each of them right after"
+			}
+		],
+		"note": "Buying Friendship: Magram (Horde) is offered by Gurda Wildmane once Carved Centaur Totems (93225, Gurda) is handed in; the merged data had no prerequisite."
+	},
+	"94873": {
+		"set": {
+			"pre": [
+				93225
+			],
+			"preAny": [
+				93225
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-10): Gurda Wildmane (5412) did not offer Buying Friendship: Gelkis or Magram to 2 people (Troll Hunter 32-33, Undead Paladin 33-34) in 15 windows before Carved Centaur Totems (93225) was handed in, and offered both to each of them right after"
+			}
+		],
+		"note": "Buying Friendship: Gelkis (Horde) is offered by Gurda Wildmane once Carved Centaur Totems (93225, Gurda) is handed in; the merged data had no prerequisite."
 	},
 	"94489": {
 		"set": {
