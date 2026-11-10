@@ -1404,6 +1404,26 @@ function Own.feederPlan(g)
 		end
 		return nil
 	end
+	-- Every prerequisite accept a lacks that nothing here brings: each missing
+	-- one of `preAll`, and `pre`'s first when none of them is done or coming.
+	-- (Split Bone Necklace needs Bloody Bone Necklace and The Vile Reef: one
+	-- chain alone opens nothing.)
+	local function blockers(a)
+		local out = {}
+		if type(a.preAll) == "table" then
+			for _, p in ipairs(a.preAll) do
+				if not questDone(p) and not coming(p, 0) then out[#out + 1] = p end
+			end
+		end
+		if type(a.pre) == "table" and #a.pre > 0 then
+			local any = false
+			for _, p in ipairs(a.pre) do
+				if questDone(p) or coming(p, 0) then any = true break end
+			end
+			if not any then out[#out + 1] = a.pre[1] end
+		end
+		return out
+	end
 	local idx, read
 	local chains, list, seen = {}, {}, {}
 	for s, step in ipairs(g.steps) do
@@ -1413,29 +1433,40 @@ function Own.feederPlan(g)
 				if goal.t == "accept" and q and not seen[q] and (goal.pre or goal.preAll) and Guides.Matches(goal.only, player)
 					and not Own.goneIn(g, s, goal) then
 					seen[q] = true
-					local p = not (C.IsOnQuest(q) or questDone(q) or Own.questSkipped(q)) and blocker(goal, 0) or nil
-					for _ = 1, 8 do
-						local a = p and acceptOf(p)
-						if not a then break end
-						p = blocker(a.goal, 0)
-					end
-					if p then
-						if not idx then
+					local roots = not (C.IsOnQuest(q) or questDone(q) or Own.questSkipped(q)) and blockers(goal) or NONE
+					-- One record for the accept, in the chain of each missing root: it
+					-- opens only once every one of them is put in (else it is left out
+					-- with any chain not put in; a root no guide gives keeps its line).
+					local d = #roots > 0 and { q = q, s = s, title = goal.title, whole = true,
+						worth = not goal.optional and not (goal.qlvl and C.IsQuestTrivial(tonumber(goal.qlvl), level)) } or nil
+					for _, root in ipairs(roots) do
+						-- Down to the quest the guide does not take itself (as before).
+						local p = root
+						for _ = 1, 8 do
+							local a = p and acceptOf(p)
+							if not a then break end
+							p = blocker(a.goal, 0)
+						end
+						if p and not idx then
 							idx, read = Own.feederIndex(g)
 							Own.goneSource(g, idx)
 						end
-						local ch = chains[p]
-						if ch == nil then
-							ch = Own.feederChain(p, idx) or false
-							chains[p] = ch
-							if ch then
-								ch.order = #list + 1
-								list[#list + 1] = ch
+						local ch = false
+						if p then
+							ch = chains[p]
+							if ch == nil then
+								ch = Own.feederChain(p, idx) or false
+								chains[p] = ch
+								if ch then
+									ch.order = #list + 1
+									list[#list + 1] = ch
+								end
 							end
 						end
 						if ch then
-							ch.deps[#ch.deps + 1] = { q = q, s = s, title = goal.title,
-								worth = not goal.optional and not (goal.qlvl and C.IsQuestTrivial(tonumber(goal.qlvl), level)) }
+							ch.deps[#ch.deps + 1] = d
+						else
+							d.whole = false
 						end
 					end
 				end
@@ -1510,7 +1541,7 @@ function Own.feederPlan(g)
 	local function opens(ch)
 		local n = 0
 		for _, d in ipairs(ch.deps) do
-			if d.worth then n = n + 1 end
+			if d.worth and d.whole then n = n + 1 end -- an accept another missing root holds opens nothing
 		end
 		return n
 	end

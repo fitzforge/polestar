@@ -397,6 +397,26 @@ fn t_1353_malifax_and_a_player_who_did_the_route_on_the_shipped_ashenvale() {
 	assert_eq!(normal["after"], normal["before"]);
 }
 
+// The fresh-start sweep (EngineReview036, 0.3.6): an Orc 39 loading Stranglethorn Vale (Horde 40-50) with no
+// earlier guides got Bloody Bone Necklace (596) put in as a local feeder for Split Bone Necklace (598), which
+// also needs The Vile Reef (629): the plan followed only the first missing prerequisite, so 598 still read
+// "Requires The Vile Reef" on its accept, its skulls and its hand-in, and the feeder opened nothing. Same for Big
+// Game Hunter (208: 188, 193 and 197). An accept opens only once every missing prerequisite is put in; else it
+// is left out, and a chain no accept can use stays out.
+#[test]
+fn an_accept_missing_several_prerequisites_is_planned_for_all_of_them_or_left_out() {
+	let out = shipped("Horde", "Orc", "WARRIOR", 39, "", "", "forever/horde/40-50/01-stranglethorn-vale");
+	let after = ids(&out["after"]["requires"]);
+	for q in [598, 208] {
+		assert!(!after.contains(&q), "{q} never shows as Requires: {out}");
+	}
+	let hidden = ids(&out["hidden"]);
+	let feeders = lines(&out["feeders"]).join("\n");
+	if hidden.contains(&598) {
+		assert!(!feeders.contains("accept:596"), "no feeder for 598 when 598 is left out: {out}");
+	}
+}
+
 #[test]
 fn t_1353_the_alliance_wetlands_for_a_0_3_4_character_through_duskwood() {
 	let out = shipped("Alliance", "Dwarf", "WARRIOR", 27, WETLANDS_DONE, WETLANDS_LOG, "forever/alliance/06-wetlands");
