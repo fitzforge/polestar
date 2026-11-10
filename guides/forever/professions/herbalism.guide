@@ -44,9 +44,10 @@ step Peacebloom & Silverleaf: Elwynn Forest (1-50)
   only Human
   zone Elwynn Forest
   tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Stunted Silverleaf (1, orange), Wilted Peacebloom (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10. Expect about 60 herbs for these 49 points.
-  goto 53.1,38.6 "Stunted Silverleaf, Wilted Peacebloom" r 30
+  goto 53.2,38.6 "Stunted Silverleaf, Wilted Peacebloom" r 30
   goto 45.8,32.9 "Stunted Silverleaf, Wilted Peacebloom" r 30
   goto 46.1,42.9 "Stunted Silverleaf, Wilted Peacebloom" r 30
+  goto 50.9,46.2 "Stunted Silverleaf, Wilted Peacebloom" r 30
   goto 42.4,56.6 "Peacebloom, Silverleaf" r 30
   goto 35.8,59.4 "Silverleaf, Peacebloom" r 30
   goto 26.3,85.5 "Peacebloom, Silverleaf" r 30
@@ -55,7 +56,6 @@ step Peacebloom & Silverleaf: Elwynn Forest (1-50)
   goto 87.6,80.0 "Silverleaf, Peacebloom" r 30
   goto 62.6,62.7 "Peacebloom, Silverleaf" r 30
   goto 56.9,44.9 "Stunted Silverleaf, Wilted Peacebloom" r 30
-  goto 50.9,46.4 "Stunted Silverleaf, Wilted Peacebloom" r 30
   skill Herbalism 50
 
 step Peacebloom & Silverleaf: Dun Morogh (1-50)
@@ -117,7 +117,7 @@ step Peacebloom & Silverleaf: Durotar (1-50)
   zone Durotar
   tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Stunted Silverleaf (1, orange), Wilted Peacebloom (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10. Expect about 60 herbs for these 49 points.
   goto 44.6,64.6 "Wilted Peacebloom, Stunted Silverleaf" r 30
-  goto 45.1,70.8 "Wilted Peacebloom, Stunted Silverleaf" r 30
+  goto 45.0,70.9 "Wilted Peacebloom, Stunted Silverleaf" r 30
   goto 55.3,66.9 "Silverleaf, Peacebloom" r 30
   goto 52.1,58.4 "Peacebloom, Silverleaf" r 30
   goto 49.5,47.7 "Silverleaf, Peacebloom" r 30
@@ -133,12 +133,12 @@ step Peacebloom & Silverleaf: Durotar (1-50)
 step Peacebloom & Silverleaf: Mulgore (1-50)
   only Tauren
   zone Mulgore
-  tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10. Expect about 60 herbs for these 49 points.
+  tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Stunted Silverleaf (1, orange, rare), Wilted Peacebloom (1, orange, rare), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10. Expect about 60 herbs for these 49 points.
   goto 34.2,35.0 "Silverleaf, Peacebloom" r 30
   goto 34.7,41.1 "Peacebloom, Silverleaf" r 30
   goto 38.0,47.3 "Peacebloom, Silverleaf" r 30
   goto 35.5,60.9 "Silverleaf, Peacebloom" r 30
-  goto 41.1,64.4 "Peacebloom, Silverleaf" r 30
+  goto 46.7,73.6 "Stunted Silverleaf, Earthroot" r 30
   goto 59.0,57.7 "Silverleaf, Peacebloom" r 30
   goto 63.2,58.2 "Silverleaf, Peacebloom" r 30
   goto 65.7,60.3 "Silverleaf, Peacebloom" r 30
