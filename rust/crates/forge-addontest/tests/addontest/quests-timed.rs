@@ -244,7 +244,7 @@ fn a_delivery_ready_at_the_accept_counts_down_from_the_guides_limit_and_its_fail
 	assert!(again.contains("9:59 left") || again.contains("9:58 left"), "taken again, the clock starts afresh: {again}");
 }
 
-// 0.3.7 (Fitz carried Apothecary Zamah with 42:00 left on the Barrens route, which never goes to Thunder Bluff): a
+// 0.3.7 (Apothecary Zamah, taken with 42:00 left on the Barrens route, which never goes to Thunder Bluff): a
 // timed quest no guide step takes counts down from the quest database's limit (QuestDB.TimeLimit, Polestar_QuestDB's
 // 20th quest field) when the client reports no timer, and the guide window's While-here panel opens with a row for it:
 // "Apothecary Zamah  44:59 left / Thunder Bluff ~6 min · this guide doesn't go there". A click points the arrow at

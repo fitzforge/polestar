@@ -10798,7 +10798,7 @@ test('rockzors (#1602): Alliance Desolace takes Carved Centaur Totems with Centa
 	at(south, 'turnin 93224 (06)', is('turnin', 93224));
 });
 
-// Offered-timed sweep (2026-11-10, Fitz carried Apothecary Zamah at 42:00 left): Helbrim offers Apothecary Zamah (853,
+// Offered-timed sweep (2026-11-10, Apothecary Zamah reported in play with 42:00 left): Helbrim offers Apothecary Zamah (853,
 // 45 minutes, to Zamah in Thunder Bluff's Pools of Vision) on the Fungal Spores hand-in, and the shared Barrens route
 // never goes to Thunder Bluff (0.3.5+ recordings: 4 took it, none handed it in). Druids fly there from the next
 // Crossroads stop: they take it on that stop and hand it in first thing on the Thunder Bluff step right after it;

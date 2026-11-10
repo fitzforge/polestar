@@ -179,7 +179,7 @@ fn the_fixture_database_keeps_quest_related_entities_only_in_the_documented_layo
 }
 
 // A timed quest's `limit` (seconds, the server's TimeAllowed) is the record's 20th field, so Polestar can count it
-// down from the accept when the client reports no timer (TimedQuests, 0.3.7: Apothecary Zamah, 2700 s, never
+// down from the accept when the client reports no timer (0.3.7: Apothecary Zamah, 2700 s, never
 // reported one in 24 recorded accepts). No limit, or 0, stays nil and costs nothing (trailing nils are dropped).
 #[test]
 fn a_timed_quest_carries_its_time_limit_in_seconds_and_an_untimed_one_none() {
