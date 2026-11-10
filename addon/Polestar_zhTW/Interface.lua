@@ -1713,8 +1713,8 @@ L["If you finish this quest and the chain before it"] = "如果你完成此任�
 L["You are level %d. Level %d is recommended for the first quest in this chain; from there:"] = "你目前等級 %d。此任務鏈的第一個任務建議等級為 %d；從該等級起："
 L["%s XP with its chain"] = "連同任務鏈共 %s 經驗值"
 L["Waiting:"] = "等待中："
--- L["best at %d"] = ""
--- L["Tough at your level"] = ""
+L["best at %d"] = "最適合 %d 級"
+L["Tough at your level"] = "以你的等級較難"
 
 -- UI/RouteChoice.lua
 L["Right here"] = "就在這裡"

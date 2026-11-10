@@ -1713,8 +1713,8 @@ L["If you finish this quest and the chain before it"] = "Если вы выпо�
 L["You are level %d. Level %d is recommended for the first quest in this chain; from there:"] = "Ваш уровень: %d. Для первого задания этой цепочки рекомендуется уровень %d; начиная с него:"
 L["%s XP with its chain"] = "%s опыта вместе с цепочкой"
 L["Waiting:"] = "Ожидают:"
--- L["best at %d"] = ""
--- L["Tough at your level"] = ""
+L["best at %d"] = "лучше на %d-м уровне"
+L["Tough at your level"] = "Сложно на вашем уровне"
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Прямо здесь"
