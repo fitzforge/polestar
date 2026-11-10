@@ -8733,15 +8733,6 @@
 				"issue": "-"
 			},
 			{
-				"q": 7492,
-				"after": [
-					"turnin",
-					5181
-				],
-				"reason": "Quest volume, Horde 40-60 (2026-11-08): Camp Mojache (level 57, from 54, 1500 XP, Horde): Warcaller Gorlach stands outside Orgrimmar's front gate on 50-60/05's walk from the zeppelin, and Talo Thornhoof a few steps from Camp Mojache's flight master, where 50-60/05 lands at its end. A delivery; Talo's next task (Lethtendris's Web) is in Dire Maul and is left out.",
-				"issue": "-"
-			},
-			{
 				"q": 5234,
 				"after": [
 					"turnin",
@@ -9289,6 +9280,12 @@
 				"q": 6603,
 				"faction": "Horde",
 				"reason": "Horde 40-60 flow pass (0.3.7): Winterspring is played west to east: from the Timbermaw tunnel to Donova at Frostfire Hot Springs first, then Everlook. Trouble in Winterspring! is only Meggi's 580 XP pointer from Everlook to Donova (Threat of the Winterfall needs nothing: the compiled accept has no prerequisite), so it is left out instead of riding east and back west for it.",
+				"issue": "-"
+			},
+			{
+				"q": 7492,
+				"faction": "Horde",
+				"reason": "Flow, Horde 50-60/05 (0.3.6, BrHorde4060): Camp Mojache (level 57, 1500 XP) is Warcaller Gorlach's delivery from Orgrimmar to Talo Thornhoof at Camp Mojache. Since The Super Egg-O-Matic's eggs moved to 40-50/06, 05's only reason to fly Gadgetzan -> Camp Mojache -> Marshal's Refuge was this hand-in, instead of the direct Gadgetzan -> Marshal's Refuge flight on the way to Silithus: about 6 minutes of flying for 1500 XP (about five level-56 kills). Left out; Talo's follow-up is a Dire Maul quest.",
 				"issue": "-"
 			}
 		],

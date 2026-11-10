@@ -9,7 +9,9 @@ next forever/horde/50-60/06-silithus
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Duskwing, Oh How I Hate Thee... (6135), Camp Mojache (7492).
+# Added here: Duskwing, Oh How I Hate Thee... (6135).
+# Left out since the 0.3.6 flow pass: Camp Mojache (7492, Gorlach's 1500 XP delivery to Talo): it cost a flight from
+# Gadgetzan to Camp Mojache and on to Marshal's Refuge instead of the direct flight.
 # Carried in: Defenders of Darrowshire (5211), taken from Carlin after Uncle Carlin at the end of 50-60/01; its spirits
 # are freed at Corin's Crossing and it is handed in with Villains of Darrowshire.
 
@@ -47,7 +49,7 @@ step Light's Hope Chapel
 # Timbermaw Hold to Moonglade (Rabine Saturna) -> Winterspring (Donova,
 # Moontouched Owlbeasts) -> hearth to Thunder Bluff -> fly to Gadgetzan
 # (Sprinkle, Egg-O-Matic, Linken's sword) -> fly to
-# Camp Mojache (hippogryph eggs) -> Silithus.
+# Marshal's Refuge -> Silithus.
 #
 # Super Sticky and Bungle in the Jungle (4504, 4496), which the export turns
 # in at Gadgetzan here, are handed in by the Un'Goro guide at its own
@@ -74,8 +76,7 @@ step Light's Hope Chapel
 # Purity and Wasteland (5527, 1124: Silithus), Linken's Sword (3914) and Are We
 # There, Yeti? (5163).
 # The Super Egg-O-Matic (2741, level 47) is taken in forever/horde/40-50/04-tanaris
-# and handed in at 50 in forever/horde/40-50/06-azshara; the Feralas nests step
-# here is only for a character still carrying it.
+# and handed in at 50 in forever/horde/40-50/06-azshara.
 
 # ---------------------------------------------------------------- The south
 
@@ -171,12 +172,6 @@ step Fly to Undercity
 step Zeppelin to Orgrimmar
   zone Tirisfal Glades
   goto 60.7,58.9 "Zeppelin to Orgrimmar"
-
-step Orgrimmar
-  zone Orgrimmar
-  tip Warcaller Gorlach walks the Valley of Strength and the streets off it: look for him on the way to the flight master's tower; the circle on the map is his walk.
-  accept 7492 @48.2,66.1              -- Warcaller Gorlach: for Talo Thornhoof at Camp Mojache, at the end of this guide
-  goto 45.3,63.7 "Orgrimmar"
 
 step Fly to Bloodvenom Post
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
@@ -293,30 +288,14 @@ step Marvon Rivetseeker
   tip Marvon camps by the Lost Rigger Cove road, south of Gadgetzan.
   turnin 3444
 
-# ---------------------------------------------------------------- Feralas and on to Silithus
-
-step Fly to Camp Mojache
-  zone Tanaris
-  goto 51.6,25.5 "Gadgetzan flight master"
-  fly "Camp Mojache"
-
-step Camp Mojache
-  zone Feralas
-  turnin 7492                         -- Talo Thornhoof, a few steps from the flight master
-  note His next task is for the Dire Maul dungeon: leave it.
-
-step Ruins of Isildien
-  zone Feralas
-  when onquest 2741
-  tip Only if you still carry The Super Egg-O-Matic: ride south from Camp Mojache; the hippogryph nests are in the south of Feralas, each holds an egg for the Egg-O-Matic.
-  collect 8564 quest 2741 @58.0,76.3 map 1444
-
-# ---------------------------------------------------------------- Valor's Rest and Southwind
+# ---------------------------------------------------------------- On to Silithus
 
 step Fly to Marshal's Refuge
-  zone Feralas
-  goto 75.4,44.3 "Camp Mojache flight master"
+  zone Tanaris
+  goto 51.6,25.5 "Gadgetzan flight master"
   fly "Marshal's Refuge"
+
+# ---------------------------------------------------------------- Valor's Rest and Southwind
 
 step Marshal's Refuge
   zone Un'Goro Crater

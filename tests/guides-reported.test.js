@@ -6723,7 +6723,7 @@ const HORDE_VOLUME = {
 	'forever/horde/40-50/06-azshara.guide': [608], // The Bloodsail Buccaneers, at 50
 	'forever/horde/50-60/01-un-goro-crater.guide': [4324, 5241], // Yuka Screwspigot; Uncle Carlin (0.3.7: a message for Light's Hope Chapel)
 	'forever/horde/50-60/03-winterspring.guide': [5083, 5084], // Winterfall Firewater, Falling to Corruption (0.3.7: the flask drops from one Winterfall in ten)
-	'forever/horde/50-60/05-eastern-plaguelands.guide': [7492, 5085, 5086], // Camp Mojache; Mystery Goo; Toxic Horrors
+	'forever/horde/50-60/05-eastern-plaguelands.guide': [5085, 5086], // Mystery Goo; Toxic Horrors
 	'forever/horde/50-60/07-felwood.guide': [5087], // Winterfall Runners
 	'forever/horde/50-60/06-silithus.guide': [5234, 5235, 5236, 5238], // the Bulwark cauldrons to Mission Accomplished!
 };
@@ -9639,17 +9639,18 @@ test('Teldrassil: Shayla\'s steps say she walks the road', { skip }, () => {
 	}
 });
 
-// Position sweep (0.3.6, IngestCheck036's patrol item): Warcaller Gorlach walks Orgrimmar's Valley of Strength (the
-// game's spawn 48.18,66.11, a 262 yd walk); our data put him at 37.68,75.16, where none of the 71 people who met him
-// in the city did, and the goal's note said "outside the front gate".
-test('Orgrimmar (Horde 55): Camp Mojache points at Warcaller Gorlach\'s walk in the Valley of Strength', { skip }, () => {
+// Flow pass (0.3.6, Horde 50-60/05): Camp Mojache (7492, 1500 XP) was the only reason left to fly Gadgetzan -> Camp
+// Mojache -> Marshal's Refuge (the Egg-O-Matic's nests moved to 40-50/06): about 6 minutes of flying for five kills'
+// worth of XP. The guide flies straight from Gadgetzan to Marshal's Refuge on the way to Silithus.
+test('Horde 56: Gadgetzan straight to Marshal\'s Refuge, no Camp Mojache detour for Gorlach\'s delivery', { skip }, () => {
 	const g = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
-	const i = at(g, 'accept 7492', is('accept', 7492));
-	const goal = g[i].goal;
-	assert.ok(goal.map === 1454 && Math.abs(goal.x - 48.2) < 0.3 && Math.abs(goal.y - 66.1) < 0.3, `Gorlach's spawn (${goal.x},${goal.y})`);
-	const src = fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/horde/50-60/05-eastern-plaguelands.guide'), 'utf8');
-	assert.match(src, /tip Warcaller Gorlach walks the Valley of Strength/);
-	assert.doesNotMatch(src, /Gorlach, outside the front gate/);
+	assert.ok(!g.some(({ goal }) => goal.quest === 7492), 'Camp Mojache is not routed');
+	const flights = g.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location);
+	assert.ok(!flights.some((l) => /Camp Mojache/.test(l || '')), `no flight to Camp Mojache (${flights.join(', ')})`);
+	const i = flights.findIndex((l) => /Marshal/.test(l || ''));
+	assert.ok(i > 0 && /Gadgetzan/.test(flights[i - 1] || ''), 'the Marshal\'s Refuge flight follows the Gadgetzan one');
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
+	assert.ok(rf.skip.some((r) => r.q === 7492 && r.faction === 'Horde'), 'a route-fix skip keeps it out');
 });
 
 // Position sweep (0.3.6, IngestCheck036's patrol item): Craven Drok walks the Drag (TDB waypoint path; 46 people met
