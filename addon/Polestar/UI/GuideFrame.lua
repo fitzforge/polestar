@@ -106,7 +106,7 @@ end
 local function readMetrics()
 	local function k(key) return tonumber(ns.Get("guideWindow." .. key)) or 1 end
 	local function px(key) return tonumber(ns.Get("guideWindow." .. key)) or 0 end
-	-- The house look's cards are dense (RestedXP-like): 11.5px goal text, a
+	-- The house look's cards are dense: 11.5px goal text, a
 	-- glyph of 1.15em, rows from 18px; the skins keep their sizes. The
 	-- player's sizes scale from these as from any skin's.
 	local c = Theme.Metric("guideCard", 1) == 1

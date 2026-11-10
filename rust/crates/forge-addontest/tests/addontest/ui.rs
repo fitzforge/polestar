@@ -265,7 +265,7 @@ fn the_house_look_s_then_lines_are_one_small_muted_line_under_the_goals() {
 	}
 }
 
-// The house look's step card is RestedXP-dense: goal text of 11.5px, rows of at most 18, a glyph on every row, the
+// The house look's step card is dense: goal text of 11.5px, rows of at most 18, a glyph on every row, the
 // count at the right (not after the words) and the distance to the arrow's target on its own row and the header.
 #[test]
 fn the_house_look_s_card_is_dense_with_the_count_and_distance_at_the_right() {

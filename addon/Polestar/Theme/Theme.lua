@@ -999,7 +999,7 @@ local ROLES = {
 	goal = { "medium", 14 },        -- the guide window's goal lines
 	name = { "semibold", 15 },     -- the person to talk to now
 	mono = { "medium", 12 },
-	-- The house look's step card (guideCard): RestedXP-dense text.
+	-- The house look's step card (guideCard): dense text (11.5px goals).
 	cardGoal = { "medium", 11.5 },  -- goal rows and the card's lines
 	cardNote = { "medium", 10 },    -- look-ahead, tip, detail, sublines
 	cardName = { "semibold", 12.5 }, -- the person at the top

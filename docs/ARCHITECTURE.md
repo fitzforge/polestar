@@ -5959,7 +5959,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   a ground and a hairline (`SL.Dress`), its goal rows 22 high; a mob or NPC a goal is
   about wears the NPC colour (`UI.GoalText`); the summary lines after the focus are
   quiet, one small line `CARD.quietH` high (`SL.Quiet`, set by `paintLine`). The sizes are
-  RestedXP-dense, read by `readMetrics` for the house look only (fonts `cardGoal`,
+  dense (11.5px goal text, rows of at most 18), read by `readMetrics` for the house look only (fonts `cardGoal`,
   `cardNote`, `cardName` in `Theme.lua`; `SL.TOP`, `SL.BOT`, `SL.IC`, `SL.HEAD`, `SL.TIP`;
   `SL.Fonts` re-fonts the card on a skin change). A goal row's right-hand detail is
   `row.Meta` (`SL.PaintMeta`: the count from `UI.GoalProgress`, "0/1" for a lone kill or
