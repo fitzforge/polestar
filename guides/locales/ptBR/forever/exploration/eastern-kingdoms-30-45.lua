@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Alterac Mountains (1/2)
 	-- {zone:1416} Alterac Mountains · {zone:1424} Hillsbrad Foothills · {zone:1434} Stranglethorn Vale
-	["Starts in the {zone:1416}, north of {zone:1424}, and ends in {zone:1434}. 15 areas to discover here, levels 27-39."] = "",
+	["Starts in the {zone:1416}, north of {zone:1424}, and ends in {zone:1434}. 15 areas to discover here, levels 27-39."] = "Começa em {zone:1416}, ao norte de {zone:1424}, e termina em {zone:1434}. 15 áreas para descobrir aqui, níveis 27-39.",
 	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "Explorar o mapa-múndi inteiro com um personagem é um Desafio de Legado Forever (1 Ponto de Legado para a conta toda).",
 	-- {area:271} Southshore · {zone:1424} Hillsbrad Foothills · {zone:1416} Alterac Mountains
 	["Fly to {area:271} in {zone:1424} and walk north into the {zone:1416}."] = "Voe para {area:271} em {zone:1424} e siga a pé para o norte até {zone:1416}.",
@@ -51,14 +51,14 @@ return {
 
 	-- Step 7: Riverglades (1/2)
 	-- {area:16724} Farholde Keep · {area:16743} Rog'mar
-	["14 areas to discover here, levels 36-44. Flight paths: {area:16724} in the south-east (Alliance), {area:16743} in the middle (Horde)."] = "",
+	["14 areas to discover here, levels 36-44. Flight paths: {area:16724} in the south-east (Alliance), {area:16743} in the middle (Horde)."] = "14 áreas para descobrir aqui, níveis 36-44. Pontos de voo: {area:16724}, no sudeste (Aliança), e {area:16743}, no meio (Horda).",
 	-- {zone:1418} Badlands · {area:345} Agmond's End · {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {area:2417} Blackrock Pass · {area:977} Steamwheedle Port · {zone:1446} Tanaris · {area:16727} Powderfuse Port · {area:17780} Krol'dok Stronghold
-	["From the south of the {zone:1418}, past {area:345}, a way leads down into the {zone:2548} by {area:16685}. (The {zone:2548} also open off northern Redridge through {area:2417}, and a ship runs from {area:977} in {zone:1446} to {area:16727}, the neutral goblin port on its coast.) {area:17780} is an ogre clan's outdoor dungeon."] = "",
+	["From the south of the {zone:1418}, past {area:345}, a way leads down into the {zone:2548} by {area:16685}. (The {zone:2548} also open off northern Redridge through {area:2417}, and a ship runs from {area:977} in {zone:1446} to {area:16727}, the neutral goblin port on its coast.) {area:17780} is an ogre clan's outdoor dungeon."] = "Do sul de {zone:1418}, depois de {area:345}, um caminho desce até {zone:2548}, junto a {area:16685}. ({zone:2548} também se abre pelo norte de Cristarrubra, por {area:2417}, e um navio vai de {area:977}, em {zone:1446}, até {area:16727}, o porto goblin neutro na costa.) {area:17780} é a masmorra ao ar livre de um clã de ogros.",
 
 	-- Step 9: Swamp of Sorrows (1/2)
 	["11 areas to discover here, levels 36-43."] = "11 áreas a descobrir aqui, níveis 36-43.",
 	-- {zone:1435} Swamp of Sorrows · {zone:2548} Riverglades · {area:16725} Wheeler's Grange · {area:16737} Bristle Hills
-	["The {zone:1435} lies south of the {zone:2548}: swim south from {area:16725}, or walk through Redridge Pass, south of the {area:16737}."] = "",
+	["The {zone:1435} lies south of the {zone:2548}: swim south from {area:16725}, or walk through Redridge Pass, south of the {area:16737}."] = "{zone:1435} fica ao sul de {zone:2548}: nade para o sul a partir de {area:16725}, ou ande pela Passagem de Cristarrubra, ao sul de {area:16737}.",
 	-- {area:75} Stonard
 	["{area:75} is the Horde town."] = "{area:75} é a cidade da Horda.",
 	-- {area:75} Stonard
@@ -68,9 +68,9 @@ return {
 	-- {area:35} Booty Bay · {area:392} Ratchet
 	["27 areas to discover here, levels 30-50. {area:35} at the southern tip is a neutral goblin port with a boat to {area:392}."] = "27 áreas a descobrir aqui, níveis 30-50. {area:35}, na ponta sul, é um porto goblin neutro com barco para {area:392}.",
 	-- {zone:1435} Swamp of Sorrows · {zone:1430} Deadwind Pass · {zone:1431} Duskwood · {zone:1434} Stranglethorn Vale
-	["Ride west out of the {zone:1435} through {zone:1430} (level 50+ creatures off the road) into {zone:1431} and take the road south into northern {zone:1434}."] = "",
+	["Ride west out of the {zone:1435} through {zone:1430} (level 50+ creatures off the road) into {zone:1431} and take the road south into northern {zone:1434}."] = "Cavalgue para oeste saindo de {zone:1435}, por {zone:1430} (criaturas de nível 50+ fora da estrada), até {zone:1431} e pegue a estrada para o sul rumo ao norte de {zone:1434}.",
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {area:117} Grom'gol Base Camp
-	["Or take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "",
+	["Or take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "Ou pegue o zepelim de {zone:1454} ou da {zone:1458} até {area:117}.",
 	-- {area:35} Booty Bay
 	["Flight path here: {area:35} (Gyll)."] = "Rota de voo aqui: {area:35} (Gyll).",
 	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words)

@@ -39,6 +39,16 @@ fn class_quest_ready_shows_the_offer_the_guide_why_open_in_a_tab_and_later() {
 }
 
 #[test]
+fn the_banner_shows_the_heads_up_line_between_the_title_and_the_why() {
+	let out = run_ui(
+		r#"
+		Polestar.Fire("CLASS_QUEST_READY", { guideId = "g/storm", title = "Storm", heads = "Long chain: 6 quests across 4 zones", why = "A cloak." })
+		emit(B.Text:GetText())"#,
+	);
+	assert_eq!(out[0], "Class quest ready: Storm\nLong chain: 6 quests across 4 zones\nA cloak.");
+}
+
+#[test]
 fn the_banner_opens_the_guide_in_a_tab_or_asks_again_later_or_is_dismissed_for_good() {
 	let out = run_ui(
 		r#"
@@ -163,6 +173,69 @@ fn the_gated_guide_is_offered_once_its_gate_opens_nothing_with_the_setting_off()
 	assert_eq!(out[1], 2);
 }
 
+// A chain shaped like Cloak of the Divine Storm (opens at 22; six quests over four maps; its objective mobs
+// normal, up to level 29) and the same chain with elites at 28-29 among its objectives.
+const CHAINS: &str = r#"
+local function chain(id, elite)
+	local function kill(q, lvl) return { t = "kill", quest = q, npc = 9, map = 1440, lvl = lvl, group = elite and { kind = "elite", rank = 1, lvl = lvl } or nil } end
+	local g = { id = id, title = id, category = "Class", classes = { "SHAMAN" }, minLevel = 22, why = "A cloak.", steps = {
+		{ goals = { { t = "accept", quest = 11, map = 1439 }, kill(11, 28) } },
+		{ goals = { { t = "accept", quest = 12, map = 1453 }, { t = "accept", quest = 13, map = 1453 }, { t = "accept", quest = 14, map = 1453 } } },
+		{ goals = { { t = "collect", quest = 14, item = 5, map = 1433, spotsPacked = "23.5,12,,111,34,,25;29.5,8.2,,78,15,1,25" } } },
+		{ goals = { { t = "accept", quest = 15, map = 1440 }, kill(15, 29), { t = "accept", quest = 16, map = 1440 } } },
+		{ goals = { { t = "kill", quest = 16, npc = 8, map = 1440, optional = true, lvl = 40 } } },
+	} }
+	guides[#guides + 1] = g
+	byId[id] = g
+end
+local function offeredAt(n)
+	local before = #offers
+	levelUp(n)
+	local o = offers[#offers]
+	return #offers > before and { id = o.guideId, heads = o.heads or false } or false
+end
+"#;
+
+#[test]
+fn a_long_normal_chain_is_offered_when_it_opens_with_its_length_and_its_mobs_level() {
+	let out = run_qol(
+		&(CHAINS.to_string()
+			+ r#"
+		levelUp(20)
+		CQ.Resolve("c/fire")
+		chain("c/storm", false)
+		emit(offeredAt(22))"#),
+	);
+	assert_eq!(out[0], json!({ "id": "c/storm", "heads": "Long chain: 6 quests across 4 zones \u{b7} mobs up to level 29" }), "no wait, the optional level-40 kill aside");
+}
+
+#[test]
+fn an_elite_chain_waits_until_two_levels_below_its_highest_elite_and_says_bring_a_group() {
+	let out = run_qol(
+		&(CHAINS.to_string()
+			+ r#"
+		levelUp(20)
+		CQ.Resolve("c/fire")
+		chain("c/storm", true)
+		emit(offeredAt(22))
+		emit(offeredAt(26))
+		emit(offeredAt(27))"#),
+	);
+	assert_eq!(out[0], json!(false), "not at 22");
+	assert_eq!(out[1], json!(false), "not at 26");
+	assert_eq!(out[2], json!({ "id": "c/storm", "heads": "Long chain: 6 quests across 4 zones \u{b7} elite mobs at 28-29: bring a group" }));
+}
+
+#[test]
+fn a_short_chain_with_low_mobs_has_no_heads_up_line() {
+	let out = run_qol(
+		r#"
+		levelUp(20)
+		emit(offers[1].heads == nil)"#,
+	);
+	assert_eq!(out[0], true);
+}
+
 // ---------------------------------------------------------------------------
 // Section 3: the class-quest card (UI/ClassCard.lua) over a class quest's step
 // ---------------------------------------------------------------------------
@@ -199,7 +272,7 @@ local function card()
 	local row
 	for _, r in ipairs(GF.rows) do
 		local s = r:IsShown() and r.Text:GetText()
-		if s and s:find("Accept |c", 1, true) then row = r.Text break end
+		if s and s:find("Accept \226\128\156|c", 1, true) then row = r.Text break end
 	end
 	return { shown = on, head = on and f.Head:GetText() or nil, title = on and f.Title:GetText() or nil, learn = on and f.Learn:GetText() or nil,
 		badge = on and f.Badge:IsShown() and f.Badge.Text:GetText() or nil, trip = on and f.Trip:GetText() or nil,
@@ -241,7 +314,7 @@ fn a_druid_on_a_druid_only_accept_sees_the_class_card_with_the_reward_spells_ico
 	assert_eq!(druid["learn"], "Learn |cfffe8f2fCat Form|r");
 	let warrior = &out[1];
 	assert_eq!(warrior["shown"], false, "{warrior}");
-	assert_eq!(warrior["row"], "Accept |cffffd673The Great Cat Spirit|r");
+	assert_eq!(warrior["row"], "Accept “|cffffd673The Great Cat Spirit|r”");
 }
 
 // Only the quest data makes a class quest (UI/ClassRewards.lua's class mask), never a line's
@@ -293,7 +366,7 @@ fn a_druid_only_step_of_an_open_quest_shows_no_card_a_data_limited_druid_quest_d
 		emit(card())"#,
 	);
 	assert_eq!(out[0]["shown"], false, "{}", out[0]);
-	assert_eq!(out[0]["row"], "Accept |cffffd673A Bundle of Hides|r");
+	assert_eq!(out[0]["row"], "Accept “|cffffd673A Bundle of Hides|r”");
 	assert_eq!(out[1]["shown"], true, "{}", out[1]);
 	assert_eq!(out[1]["title"], "The Great Cat Spirit");
 }
@@ -332,7 +405,7 @@ fn no_card_for_a_chain_whose_reward_the_character_already_knows() {
 	assert_eq!(out[0]["shown"], true, "{}", out[0]);
 	assert_eq!(out[0]["learn"], "Learn |cfffe8f2fBear Form|r");
 	assert_eq!(out[1]["shown"], false, "{}", out[1]);
-	assert_eq!(out[1]["row"], "Accept |cffffd673Child of Nature|r");
+	assert_eq!(out[1]["row"], "Accept “|cffffd673Child of Nature|r”");
 }
 
 // The same report: ticking the card's box "didn't do anything". The Engine keeps an accept open
@@ -585,7 +658,7 @@ fn open_in_a_new_tab_lands_each_chain_on_its_own_section_of_the_class_guide() {
 		-- The card on the landing step folds the accept in: no row of its own repeats the quest.
 		local CC = Polestar.UI.ClassCard
 		emit({ card = CC.frame:IsShown(), accept = CC.frame.Accept:IsShown() and CC.frame.Accept.Text:GetText() or false,
-			row = uistub.findText(GF.parts.card, "Accept |c") ~= nil })
+			row = uistub.findText(GF.parts.card, "Accept \226\128\156|c") ~= nil })
 		for _, quest in ipairs({ 1485, 1507 }) do
 			E.SelectTab(1)
 			CT.Show(quest)

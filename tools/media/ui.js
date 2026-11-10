@@ -85,6 +85,12 @@ const GLYPHS = {
 		line(8.6, 15.4, 5.2, 18.8, 2.6),
 		dot(4.3, 19.7, 1.9),
 	),
+	// An elite, rare or boss (the target button): a skull, its eyes, nose
+	// and the gaps between its teeth cut out.
+	'icon-elite': subtract(
+		union(dot(12, 10, 8.2), box(12, 17.6, 5, 3.6, 1.2)),
+		union(dot(8.7, 10.6, 2.4), dot(15.3, 10.6, 2.4), poly([[12, 13.2], [13.4, 15.8], [10.6, 15.8]]), line(10.3, 18.8, 10.3, 22, 1.3), line(13.7, 18.8, 13.7, 22, 1.3)),
+	),
 	'icon-collect': union(
 		subtract(dot(12, 15, 6.8), line(9, 9.2, 15, 9.2, 1)),
 		poly([[9.6, 6.2], [14.4, 6.2], [15.2, 9.6], [8.8, 9.6]]),
@@ -615,6 +621,38 @@ function hourglassSand() {
 	return new Canvas(128, 128).fill(sdf.union(top, stream, pile), [1, 1, 1, 1]);
 }
 
+// The "New in Forever" mark beside a quest's name: the ∞ sign in full
+// colour, not tinted. Meant to be noticed when looked for and never to pull
+// the eye from the step: a slim stroke in muted gold, paler at the top, at
+// ~80% opacity; a thin dark rim so it reads on light and dark grounds; a glow
+// inside it barely there. The curve is Gerono's lemniscate (x = a cos t,
+// y = b sin t cos t): its loops narrow to the middle and the strokes cross
+// there at a steep angle, so at 12-14 px it reads as ∞, never as two rings.
+// 32x16, shown at 16x8 (a little under the cap height of the guide's and the
+// tooltips' text), so the client shrinks it by about two at most and needs
+// no mipmaps.
+function forever() {
+	const W = 32, H = 16;
+	const [cx, cy, a, b] = [W / 2, H / 2, 13.6, 11];
+	const pts = [];
+	for (let i = 0; i <= 128; i++) {
+		const t = (i / 128) * Math.PI * 2;
+		pts.push([cx + a * Math.cos(t), cy + b * Math.sin(t) * Math.cos(t)]);
+	}
+	const curve = sdf.union(...pts.slice(1).map((p, i) => sdf.segment(pts[i][0], pts[i][1], p[0], p[1], 0)));
+	const stroke = sdf.offset(curve, 1.05);
+	const lo = [0.74, 0.58, 0.33], hi = [0.93, 0.84, 0.63];
+	const gold = (x, y) => {
+		const t = Math.max(0, Math.min(1, (y - (cy - 5)) / 10));
+		return [hi[0] + (lo[0] - hi[0]) * t, hi[1] + (lo[1] - hi[1]) * t, hi[2] + (lo[2] - hi[2]) * t, 0.8];
+	};
+	const c = new Canvas(W, H);
+	c.fill(sdf.offset(curve, 1.9), [0.07, 0.05, 0.03, 0.55]);
+	c.fill(stroke, gold);
+	c.fill(curve, [1, 0.95, 0.8, 0.12], { feather: 2.5 });
+	return c;
+}
+
 function generate(addonRoot) {
 	const dir = path.join(addonRoot, 'Media', 'UI');
 	const written = [];
@@ -628,6 +666,7 @@ function generate(addonRoot) {
 	written.push(logo().write(path.join(dir, 'logo.tga')));
 	written.push(emblem().write(path.join(dir, 'emblem.tga')));
 	written.push(emblemHot().write(path.join(dir, 'emblem-hot.tga')));
+	written.push(forever().write(path.join(dir, 'icon-forever.tga')));
 	written.push(watermark().write(path.join(dir, 'watermark.tga')));
 	written.push(band().write(path.join(dir, 'band.tga')));
 	written.push(bandStars().write(path.join(dir, 'band-stars.tga')));

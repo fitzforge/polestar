@@ -895,6 +895,34 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 			let d = lv(a) - lv(b);
 			super::util::ord(if d != 0.0 { d } else { a.get("id").num() - b.get("id").num() })
 		});
+		// A quest an unplaced object of this instance starts (Forever's objects list the instance maps they
+		// stand in) is picked up inside: Gnomeregan's Sparklematic 5200, Uldaman's Discs of Norgannon (the
+		// #1380 sweep; a quest the Codex fills in alone had `inside` false whatever its start). The same for
+		// an unplaced NPC the Codex puts in this instance (The Hall of Thanes' Ghostly Attendant), and for
+		// a turn-in at either: Commander Gor'shak and Marshal Windsor in Blackrock Depths, the Altar of
+		// Hakkar in the Sunken Temple, Menethil's Gift in Stratholme are turned in inside.
+		let im = inst.get("map");
+		if let Some(pm) = if im.is_nullish() { m.map(|m| m.id) } else { Some(im.num()) } {
+			let inside = |p: &V| {
+				p.get("map").is_nullish()
+					&& match p.get("kind").as_str() {
+						Some("object") => inp.fv_objects.get(&kstr(&p.get("id"))).get("instances").items().iter().any(|x| x.num() == pm),
+						Some("npc") => codex.npcs.get(&kstr(&p.get("id"))).get("instance").as_str() == Some(k.as_str()),
+						_ => false,
+					}
+			};
+			for q in &quests {
+				let st = q.get("start");
+				if inside(&st) {
+					st.set("inside", true);
+					q.set("inside", true);
+				}
+				let fi = q.get("finish");
+				if inside(&fi) {
+					fi.set("inside", true);
+				}
+			}
+		}
 		let chain = Obj::new();
 		for q in &quests {
 			for cid in q.get("chain").items() {
@@ -1048,8 +1076,19 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 		page.set("map", if !imap.is_nullish() { imap } else { m.map(|m| V::Num(m.id)).unwrap_or(V::Null) });
 		page.set("kind", if inst.get("kind").as_str() == Some("raid") || m.is_some_and(|m| m.raid) { "raid" } else { "dungeon" });
 		page.set("forever", inst.get("forever").truthy());
-		page.set("minLevel", if lv.truthy() { first_nn(&[lv.at(1), lv.at(0)]) } else { V::Null });
-		page.set("maxLevel", if lv.truthy() { first_nn(&[lv.at(2), lv.at(1), lv.at(0)]) } else { V::Null });
+		let min_level = if lv.truthy() { first_nn(&[lv.at(1), lv.at(0)]) } else { V::Null };
+		let mut max_level = if lv.truthy() { first_nn(&[lv.at(2), lv.at(1), lv.at(0)]) } else { V::Null };
+		// An instance whose bosses have no level (Forever's own: Ruins of Lordaeron, The Hall of
+		// Thanes) came out as a one-level range (15-15), so "For your level" dropped it a level past
+		// its minimum. Its quests' highest level is then the top of the range.
+		if !min_level.is_nullish() && (max_level.is_nullish() || max_level.num() <= min_level.num()) {
+			let top = quests.iter().map(|q| q.get("level")).filter(|l| l.truthy()).map(|l| l.num()).fold(f64::NEG_INFINITY, f64::max);
+			if top > min_level.num() {
+				max_level = V::Num(top);
+			}
+		}
+		page.set("minLevel", min_level);
+		page.set("maxLevel", max_level);
 		page.set("players", m.and_then(|m| m.players).map(V::Num).unwrap_or(V::Null));
 		page.set("zone", zone);
 		page.set("zoneName", zname);

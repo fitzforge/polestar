@@ -53,6 +53,13 @@ Polestar_NavEngine = {
 	AreaFormat = function() return fake.areaNames and 3 or nil end,
 	AreaName = function(map, id) return fake.areaNames and fake.areaNames[id] or nil end,
 	ReleaseSurfaces = function() fake.releases = (fake.releases or 0) + 1 end,
+	-- The walking grid's line check (Path.Sight): fake.sight(x1, y1, z1, x2, y2, z2, profile) -> true | false; nil
+	-- without it (no line known: the corridor as before). fake.sights counts the checks.
+	Sight = function(map, x1, y1, z1, x2, y2, z2, profile)
+		fake.sights = (fake.sights or 0) + 1
+		if fake.sight then return fake.sight(x1, y1, z1, x2, y2, z2, profile) end
+		return nil
+	end,
 }
 fake.opts = opts
 function fake.last() return fake.calls[#fake.calls] end
@@ -423,6 +430,43 @@ fn straying_more_than_25_yards_from_the_path_asks_again_at_most_every_2_seconds_
 	heads(&out["after"], (60.0, -200.0), (60.0, -600.0), "along the new path");
 }
 
+// 0.3.5: on a walk of more than 2,000 yd a stray asks again at most every 10 seconds (each ask searches the whole walk;
+// a mounted player cutting corners re-asked every 2 s, ~1 MB of garbage a second); a stray long after the last ask
+// still asks at once, and a shorter walk keeps the 2 seconds (above).
+#[test]
+fn on_a_walk_of_more_than_2000_yards_a_stray_asks_again_at_most_every_10_seconds() {
+	let out = run(r#"
+		local r = {}
+		-- The arrow's own searches only (the planner, whose later walks are searched too, is off).
+		Polestar.Set("nav.travel", false)
+		nav.place(0, 0)
+		target(0, -3000)
+		N.Sample()
+		fake.resolve(0, 0, 0, -1500, 0, -3000)
+		stub.advance(12)
+		nav.place(60, -200)
+		aim()
+		r.first = calls()
+		fake.resolve(60, -200, 60, -1500, 0, -3000)
+		nav.place(120, -300)
+		aim()
+		r.at = calls()
+		stub.advance(3)
+		aim()
+		r.three = calls()
+		stub.advance(8)
+		aim()
+		r.eleven = calls()
+		local job = fake.last()
+		r.from = { floor(job.from.x), floor(job.from.y) }
+		emit(r)"#);
+	assert_eq!(out["first"], 2, "the first stray, 12 s after the last ask: asked at once");
+	assert_eq!(out["at"], 2, "straying again right after: not yet");
+	assert_eq!(out["three"], 2, "3 s later on a 2,800 yd walk: not yet");
+	assert_eq!(out["eleven"], 3, "11 s after the last ask: asked again");
+	assert_eq!(out["from"], json!([120, -300]));
+}
+
 #[test]
 fn c1_c2_a_new_target_cancels_the_stale_search_whose_late_answer_is_dropped_never_reviving_the_old_target() {
 	let out = run(r#"
@@ -718,6 +762,32 @@ fn a_chokepoint_more_than_30_yd_above_or_below_the_path_is_no_stop_one_on_the_pa
 		for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
 		emit(out)"#);
 	assert_eq!(out, json!(["walk|Walk to the Ruins Door cave mouth", "walk|Target"]));
+}
+
+// #1046: a building mouth is named after its area, so the Gallows' End Tavern's door read "Walk to
+// the Brill entrance", the town's way in. With an inn's innkeeper beside it, it is the inn's door.
+#[test]
+fn a_building_mouth_beside_an_inn_s_innkeeper_is_the_inn_s_entrance() {
+	let out = run(r#"
+		nav.useTravelWorld()
+		Polestar.Nav.RegisterTravelData({ inns = { { names = { "Gallows' End Tavern", "Testshire" }, npc = 901, c = 0, wx = 20, wy = -310, map = 9000, x = 50, y = 50, f = "e" } } })
+		PolestarNavChokepoints = { [0] = {
+			{ wx = 0, wy = -300, r = 10, kind = "building", name = "Testshire", zone = "Testshire" },
+			{ wx = 0, wy = -450, r = 10, kind = "building", name = "Westbrook Keep", zone = "Testshire" },
+		} }
+		nav.place(0, 0)
+		target(0, -600)
+		N.Sample()
+		fake.resolve(0, 0, 0, -300, 0, -600)
+		local legs, ci = N.GetRoute()
+		local out = {}
+		for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
+		emit(out)"#);
+	assert_eq!(
+		out,
+		json!(["walk|Walk to the Testshire Inn entrance", "walk|Walk to the Westbrook Keep entrance", "walk|Target"]),
+		"the inn's door says Inn; a building with no innkeeper by it keeps its area's name"
+	);
 }
 
 #[test]
@@ -1500,6 +1570,94 @@ fn review_1_past_50_yd_from_where_it_was_measured_the_player_s_walk_is_never_pri
 	assert!(out["points"].as_array().unwrap().iter().any(|p| p[0] == 300 && p[1] == 400), "from where the player now stands");
 }
 
+// #1053, #1023 (Thunder Bluff: beside Hamuul Runetotem on Elder Rise, beside Nara Wildmane): the player's walk into
+// the target was measured from far away, and within 400 yd of the target (MEASURE_NEAR) it is never measured again.
+// Until 0.3.5 that far measure less the yards moved stood for the player's walk there, so a winding walk measured
+// from another zone still counted thousands of yards beside the target: the route went to a place with a short
+// measured walk in (the lift top across the bridge, Mulgore below) and back, and from there back again. Within 400 yd
+// of the target the player's walk keeps the straight estimate, as for a target set that near.
+#[test]
+fn terrain_beside_a_target_measured_from_far_away_the_player_s_walk_is_straight_never_the_far_measure_less_the_yards_moved_1053() {
+	let out = run_many(
+		&[
+			TERRAIN,
+			r#"
+		local r = {}
+		nav.place(900, 900)
+		target(0, 0)
+		N.Sample()
+		-- A winding walk of 5,000 yd from where the player was; the flight masters' as on the terrain.
+		fake.settle(fake.of(true)[1], function(x, y)
+			if at(x, y, 900, 900) then return 5000 end
+			return terrain(x, y)
+		end)
+		local cost = N.walk.Measured(0, 0, 0, false)
+		r.beside = cost(0, 0, 20, true) or false
+		nav.place(0, 20)
+		T.Replan()
+		local legs, ci = N.GetRoute()
+		r.legs = {}
+		for i = ci, #legs do r.legs[#r.legs + 1] = { legs[i].kind .. "|" .. legs[i].label, legs[i].yards, legs[i].engine or false } end
+		r.batches = #fake.of(true)
+		emit(r)"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out["beside"], false, "20 yd from the target: no measure for the player's walk (was 5,000 less 1,259 moved): {out}");
+	assert_eq!(out["legs"], json!([["walk|Target", 25, false]]), "the walk in at its straight estimate (20 x 1.25), not the far measure's 3,741 yd: {out}");
+	assert_eq!(out["batches"], 1, "and nothing measured again that near: {out}");
+}
+
+// 0.3.5: the player alone walked away from where their walk was measured: only their walk is measured again (a batch
+// of one, from the target, reversed), the other places' measured walks kept. Until 0.3.4 each such replan near the
+// target ran the whole 16-place batch again: 20-70 MB of the router's garbage each time.
+#[test]
+fn the_player_alone_walked_away_only_the_player_s_walk_is_measured_again_the_places_walks_kept() {
+	let out = run_many(
+		&[
+			TERRAIN,
+			r#"
+		local r = {}
+		nav.place(0, 600)
+		target(0, 0)
+		N.Sample()
+		local first = fake.of(true)[1]
+		r.firstN = #first.targets
+		fake.settle(first, terrain)
+		nav.place(300, 400)
+		T.Replan()
+		local many = fake.of(true)
+		local job = many[#many]
+		local pts = {}
+		for _, p in ipairs(job.targets) do pts[#pts + 1] = { floor(p.x + 0.5), floor(p.y + 0.5) } end
+		r.batches, r.points = #many, pts
+		r.from, r.reverse = { floor(job.from.x + 0.5), floor(job.from.y + 0.5) }, job.reverse == true
+		r.style = job.opts.style == first.opts.style
+		fake.settle(job, function() return 600, 590 end)
+		local cost = N.walk.Measured(0, 0, 0, false)
+		r.road = { cost(0, 0, -700) }
+		r.ridge = { cost(0, 0, 300) }
+		r.home = { cost(0, 900, 900) }
+		r.player = { cost(0, 300, 400, true) }
+		T.Replan()
+		r.after = #fake.of(true)
+		emit(r)"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out["firstN"], 4, "the first batch: the player and the three flight masters");
+	assert_eq!(out["batches"], 2, "walked away: measured again");
+	assert_eq!(out["points"], json!([[300, 400]]), "the player's walk alone");
+	assert_eq!(out["from"], json!([0, 0]), "from the target");
+	assert_eq!(out["reverse"], true);
+	assert_eq!(out["style"], true, "with the first batch's opts");
+	assert_eq!(out["road"], json!([750, 750]), "Road Roost's walk kept");
+	assert_eq!(out["ridge"], json!([2000, 2000]), "Ridge Roost's walk kept");
+	assert_eq!(out["home"], json!([1400, 1400]), "Home Roost's walk kept");
+	assert_eq!(out["player"], json!([600, 590]), "the player's new walk and its yards");
+	assert_eq!(out["after"], 2, "planned again from there: no further batch");
+}
+
 // Two gates between West Vale and East Vale: North Gate (600, +-20) and South
 // Gate (-600, +-20). The player (0, 500) in West Vale, the target (100, -500)
 // in East Vale: straight, the north gate is nearer; the engine finds the walk
@@ -1576,6 +1734,61 @@ fn review_3_the_last_walk_to_a_target_after_a_guide_goto_is_never_searched_drawn
 	);
 	assert_eq!(out["finds"], 1, "only the arrow's own walk is searched");
 	assert_eq!(out["last"], json!(["walk", "cost", 2]), "priced by the measure, drawn straight from the mouth");
+}
+
+// #1128 (Fitz, Tirisfal's "The Barrens" step from Orgrimmar): the step before is the zeppelin tower's goto in
+// Tirisfal, reached, so the Barrens goto counted as following a way in and the arrow drew a straight line across
+// Durotar; a hand-set waypoint walked. Only a reached goto on the target's continent within 500 yards is a way in.
+#[test]
+fn a_reached_goto_is_a_way_in_only_on_the_target_s_continent_and_near_it_1128_the_zeppelin_tower_before_the_barrens() {
+	let out = run_many(
+		r#"
+		local m, tx, ty = nav.mapPoint(0, 0)          -- the target
+		local function follows(goto)
+			local guide = { steps = {
+				{ goals = { goto } },
+				{ goals = { { t = "goto", map = m, x = tx, y = ty } } },
+			} }
+			Polestar.Engine.GetGuide = function() return guide end
+			Polestar.Engine.GoalDone = function(s, g) return s == 1 and g == 1 end -- the earlier goto reached
+			return N.walk.FollowsGoto({ map = m, x = tx, y = ty, stepIndex = 2, goalIndex = 1, kind = "goto" })
+		end
+		local _, nx, ny = nav.mapPoint(0, 280)         -- a cave's mouth, 280 yd off
+		local _, fx, fy = nav.mapPoint(0, 900)         -- 900 yd off, same continent
+		emit({
+			near = follows({ t = "goto", map = m, x = nx, y = ny }),
+			far = follows({ t = "goto", map = m, x = fx, y = fy }),
+			other = follows({ t = "goto", map = 9001, x = 50, y = 50 }),
+		})"#,
+	);
+	assert_eq!(out, json!({ "near": true, "far": false, "other": false }));
+}
+
+// #1338 (Jaesais, Cure Poison in Darnassus): a building's door is the way in to an NPC upstairs, and a step
+// often has two goals at that NPC (an optional turn-in before the accept). The goal at the NPC's own spot is no
+// waypoint of its own, so the accept still follows the door; a goal elsewhere in between still ends the way in.
+#[test]
+fn a_way_in_reaches_past_goals_at_the_target_s_own_spot_1338_the_optional_turn_in_before_the_accept() {
+	let out = run_many(
+		r#"
+		local m, tx, ty = nav.mapPoint(0, 0)          -- the NPC upstairs
+		local _, dx, dy = nav.mapPoint(0, 25)         -- the building's door, a guide goto
+		local _, ox, oy = nav.mapPoint(0, 60)         -- another NPC outside
+		local function follows(between)
+			local guide = { steps = {
+				{ goals = { { t = "goto", map = m, x = dx, y = dy } } },
+				{ goals = { between, { t = "accept", map = m, x = tx, y = ty } } },
+			} }
+			Polestar.Engine.GetGuide = function() return guide end
+			Polestar.Engine.GoalDone = function(s, g) return s == 1 and g == 1 end -- the door reached
+			return N.walk.FollowsGoto({ map = m, x = tx, y = ty, stepIndex = 2, goalIndex = 2, kind = "accept" })
+		end
+		emit({
+			same = follows({ t = "turnin", map = m, x = tx, y = ty }),
+			elsewhere = follows({ t = "turnin", map = m, x = ox, y = oy }),
+		})"#,
+	);
+	assert_eq!(out, json!({ "same": true, "elsewhere": false }));
 }
 
 // A boat from Testshire Docks (-900, 0) to Farland Pier (c1: 400, 0); on Farland,
@@ -3203,4 +3416,319 @@ fn a7_outdoors_the_turn_onto_the_road_near_the_path_start_is_cut_the_arrow_aims_
 		emit(r)"#);
 	assert_eq!(out["aim"][0], "travel");
 	assert!(num(&out["aim"][3]) <= -20.0, "aim_y {} should be down the road (≤ -20), not the join at (20, 0)", out["aim"][3]);
+}
+
+// Fitz, 2026-11-07 (0.3.4, Tirisfal, running to the "At War With The Scarlet Crusade" turn-in): running up a hillside
+// beside the path, the arrow pointed 90° back to it while the trail and the target lay ahead and to his right.
+// Nav/Follow.lua's sight: outdoors, with the floor under the player known (fake.surfaces), a player more than 15 and
+// at most 100 yd off the path aims at the furthest point ahead on it they can walk to in a straight line
+// (fake.sight stands in for Path.Sight, the walking grid's line check), and asks for no new path meanwhile. RUN walks
+// the player down -y at x from y0 to y1 a yard at a time, 0.3 s apart (the floor is read every 0.25 s): the largest
+// turn toward the path (x 0; degrees from straight ahead), each aim { x, y, aim x, aim y }, the yards shown at each
+// sample, and the searches asked.
+const RUN: &str = r#"
+fake.surfaces = function() return { 0 } end
+local function run(x, y0, y1)
+	local worst, asked, aims, yards = -180, #fake.calls, {}, {}
+	for y = y0, y1, -1 do
+		nav.place(x, y)
+		stub.advance(0.3)
+		local _, dist, _, dn, dw = N.Sample()
+		if dn then
+			local deg = math.deg(math.atan2(x > 0 and -dn or dn, -dw))
+			if deg > worst then worst = deg end
+			aims[#aims + 1] = { x, y, x + dn, y + dw }
+			yards[#yards + 1] = dist
+		end
+	end
+	return { worst = worst, asked = #fake.calls - asked, aims = aims, yards = yards }
+end
+-- A straight path down -y from (0, 0) to (0, -400), a point every 40 yd; the target at its end.
+local function straight(px, py)
+	nav.place(px, py)
+	target(0, -400)
+	N.Sample()
+	fake.resolve(0,0, 0,-40, 0,-80, 0,-120, 0,-160, 0,-200, 0,-240, 0,-280, 0,-320, 0,-360, 0,-400)
+end
+"#;
+
+fn aims(out: &Value) -> Vec<[f64; 4]> {
+	out["aims"].as_array().unwrap().iter().map(|a| [num(&a[0]), num(&a[1]), num(&a[2]), num(&a[3])]).collect()
+}
+
+#[test]
+fn a8_running_20_to_90_yd_beside_the_path_in_open_ground_the_arrow_never_turns_more_than_45_degrees_back_to_it_and_asks_no_new_path() {
+	for d in [20, 30, 40, 60, 90] {
+		let out = run(&format!(
+			r#"{RUN}
+		fake.sight = function() return true end
+		straight({d}, 0)
+		fake.sights = 0
+		local r = run({d}, 0, -200)
+		r.sights = fake.sights
+		emit(r)"#
+		));
+		let worst = num(&out["worst"]);
+		assert!(worst <= 45.0, "{d} yd beside the path: the arrow turns {worst:.1}° back to it");
+		assert_eq!(out["asked"], 0, "{d} yd beside it in open ground: no new path");
+		assert!(num(&out["sights"]) <= 110.0, "{d} yd: about one line read per 2 yd run ({})", out["sights"]);
+	}
+	// Past 100 yd the corridor holds as before: a new path from where the player is.
+	let far = run(&[RUN, "\n\t\tfake.sight = function() return true end\n\t\tstraight(120, 0)\n\t\temit(run(120, 0, -20))"].concat());
+	assert!(num(&far["asked"]) >= 1.0, "120 yd off: asked again ({})", far["asked"]);
+}
+
+// The screenshot's other half: a path searched again from 40 yd beside the road (roads cost less) runs straight
+// across to it, then down it; the arrow held him to that first piece (RADIUS 35 stopped the aim on it, so the road
+// join could not be cut) and pointed 90° left while he ran on. It aims down the road, and nothing is asked again.
+#[test]
+fn a8_a_path_searched_again_from_40_yd_beside_the_road_runs_across_to_it_first_the_arrow_aims_down_the_road_not_across() {
+	let out = run(&[
+		RUN,
+		r#"
+		fake.sight = function() return true end
+		nav.place(40, -100)
+		target(0, -400)
+		N.Sample()
+		fake.resolve(40,-100, 0,-100, 0,-150, 0,-200, 0,-250, 0,-300, 0,-350, 0,-400)
+		emit(run(40, -100, -140))"#,
+	]
+	.concat());
+	let worst = num(&out["worst"]);
+	assert!(worst <= 45.0, "the arrow turns {worst:.1}° toward the road");
+	assert_eq!(out["asked"], 0, "no new path while the road ahead is in sight");
+}
+
+// A cliff between the player and the path (x 15, the whole way): no line from below it reaches the path, so the
+// corridor holds as before: the arrow turns back to the path and, past 25 yd off it, a new path is asked for.
+#[test]
+fn a9_beside_the_path_below_a_cliff_the_arrow_stays_tight_back_to_the_path_and_a_new_path_is_asked_for() {
+	let out = run(&[
+		RUN,
+		r#"
+		fake.sight = function(x1, y1, z1, x2, y2) return (x1 - 15) * (x2 - 15) > 0 end
+		straight(30, 0)
+		emit(run(30, 0, -60))"#,
+	]
+	.concat());
+	let worst = num(&out["worst"]);
+	assert!(worst > 45.0, "below the cliff the arrow turns back to the path ({worst:.1}°), as before");
+	assert!(num(&out["asked"]) >= 1.0, "30 yd off with nothing in sight: asked again ({})", out["asked"]);
+}
+
+// A river (y -100 to -140) crossed by a bridge (x 0): beside the road on the near bank, 30 yd from it, the arrow
+// aims at the bridge's near end at the most, never across the water to the bridge or the far bank.
+#[test]
+fn a10_beside_the_road_to_a_bridge_the_arrow_aims_at_the_bridge_head_never_across_the_river() {
+	let out = run(&[
+		RUN,
+		r#"
+		-- A line that enters the river is clear only on the bridge.
+		fake.sight = function(x1, y1, z1, x2, y2)
+			local wet = math.min(y1, y2) < -100 and math.max(y1, y2) > -140
+			return not wet or (math.abs(x1) <= 3 and math.abs(x2) <= 3)
+		end
+		nav.place(30, 0)
+		target(0, -300)
+		N.Sample()
+		fake.resolve(0,0, 0,-40, 0,-80, 0,-100, 0,-140, 0,-180, 0,-220, 0,-260, 0,-300)
+		emit(run(30, 0, -95))"#,
+	]
+	.concat());
+	let all = aims(&out);
+	for [x, y, ax, ay] in &all {
+		assert!(*ay >= -100.01, "at ({x}, {y}) the arrow aims across the river at ({ax:.1}, {ay:.1})");
+	}
+	let [_, _, ax, ay] = *all.last().unwrap();
+	assert!(ax.hypot(ay + 100.0) <= 1.0, "on the bank beside it: at the bridge head ({ax:.1}, {ay:.1})");
+	assert_eq!(out["asked"], 0, "the bridge head in sight: no new path");
+}
+
+// A building (x -20 to 20, y -100 to -140) entered by its door at (0, -100), the target inside: running past it
+// 30 yd to the side, the arrow aims at the door at the most, never through a wall or into the room behind it
+// (Path.Sight refuses indoor ground; the threshold at y -100 is outside).
+#[test]
+fn a11_beside_the_path_into_a_building_the_arrow_aims_at_the_door_never_through_a_wall() {
+	let out = run(&[
+		RUN,
+		r#"
+		-- A line ending inside (indoor ground) or crossing the walls is never clear.
+		fake.sight = function(x1, y1, z1, x2, y2)
+			return not (y2 < -100 and y2 > -140 and x2 > -20 and x2 < 20)
+		end
+		nav.place(30, 0)
+		target(-12, -125)
+		N.Sample()
+		fake.resolve(0,0, 0,-40, 0,-80, 0,-100, 0,-125, -12,-125)
+		emit(run(30, 0, -90))"#,
+	]
+	.concat());
+	let all = aims(&out);
+	for [x, y, ax, ay] in &all {
+		let inside = *ay < -100.01 && ax.abs() < 20.0;
+		assert!(!inside, "at ({x}, {y}) the arrow aims through the wall at ({ax:.1}, {ay:.1})");
+	}
+	let [_, _, ax, ay] = *all.last().unwrap();
+	assert!(ax.hypot(ay + 100.0) <= 2.0, "30 yd beside the door: at the door ({ax:.1}, {ay:.1})");
+}
+
+// The largest step back along the path (yards north: the path runs down -y) between one aim and the next.
+fn back_step(all: &[[f64; 4]]) -> f64 {
+	all.windows(2).map(|w| w[1][3] - w[0][3]).fold(0.0, f64::max)
+}
+
+// The walk out of Goldshire on the real maps (nav-e2e c): on the path within its first 50 yd (the road's join), the
+// walking grid closed the long lines now and then (a lamp post, a fence post), and the arrow swung from the
+// corridor's aim ahead back to a point in sight a few yards on. Here the lines longer than 12 yd are closed on every
+// other 6 yd of the walk: the aim never moves back along the path.
+#[test]
+fn a12_on_the_path_near_its_start_a_short_point_in_sight_never_pulls_the_aim_back_behind_the_corridors() {
+	let out = run(&[
+		RUN,
+		r#"
+		fake.sight = function(x1, y1, z1, x2, y2) return math.abs(y2 - y1) <= 12 or math.floor(-y1 / 6) % 2 == 0 end
+		straight(0, 0)
+		emit(run(0, 0, -45))"#,
+	]
+	.concat());
+	let all = aims(&out);
+	let back = back_step(&all);
+	assert!(back <= 1e-6, "the aim went {back:.1} yd back along the path");
+	assert_eq!(out["asked"], 0);
+}
+
+// Beside the path, a step the grid closes for a few yards (a fence post between the player and the path) no longer
+// drops the aim from the point in sight to the corridor's, 18 yd ahead instead of 150: the point last seen stays the
+// aim until it is seen again (or SIGHT_HOLD yards on).
+#[test]
+fn a13_beside_the_path_a_line_closed_for_a_few_yards_holds_the_point_last_seen_the_aim_never_swings_back() {
+	let out = run(&[
+		RUN,
+		r#"
+		fake.sight = function(x1, y1) return not (y1 <= -50 and y1 > -55) end
+		straight(30, 0)
+		emit(run(30, 0, -80))"#,
+	]
+	.concat());
+	let all = aims(&out);
+	let back = back_step(&all);
+	assert!(back <= 1e-6, "the aim went {back:.1} yd back along the path");
+	let worst = num(&out["worst"]);
+	assert!(worst <= 45.0, "the arrow turns {worst:.1}° back to the path");
+	assert_eq!(out["asked"], 0, "no new path meanwhile");
+}
+
+// A player following the arrow beside a path with a bend (0.3.6; Discord after 0.3.5: "facing the wrong direction 90%
+// of the time and just rotates randomly"): east 50 yd, up and over an 80 yd hump, down and east to the target at
+// (300, 0), every line in sight. Following the point in sight brings them back toward the path's climb; 0.3.5 looked
+// for it only while they were more than 15 yd off (BODY), so a player wobbling across 15 yd flipped the arrow 37-57°
+// between it and the corridor's aim, again and again. WOBBLE walks them a yard at a time toward the aim, 0.3 s apart,
+// pushed j yd to a side drawn from a fixed seed (Park-Miller): the largest change of aim between two samples
+// (degrees), how many were over 30°, the yards shown at each sample, and the searches asked.
+const WOBBLE: &str = r#"
+fake.surfaces = function() return { 0 } end
+fake.sight = function() return true end
+local function wobble(j)
+	nav.place(0, 0)
+	target(300, 0)
+	N.Sample()
+	fake.resolve(0,0, 50,0, 100,80, 200,80, 250,0, 300,0)
+	local asked, seed, x, y, last, worst, swings, yards = #fake.calls, 7, 0, 0, nil, 0, 0, {}
+	for _ = 1, 400 do
+		nav.place(x, y)
+		stub.advance(0.3)
+		local state, dist, _, dn, dw = N.Sample()
+		if state ~= "travel" or not dn or dist < 15 then break end
+		yards[#yards + 1] = dist
+		local a = math.deg(math.atan2(dw, dn))
+		if last then
+			local swing = math.abs((a - last + 540) % 360 - 180)
+			if swing > worst then worst = swing end
+			if swing > 30 then swings = swings + 1 end
+		end
+		last = a
+		local d = math.sqrt(dn * dn + dw * dw)
+		local ux, uy = dn / d, dw / d
+		seed = (seed * 16807) % 2147483647
+		local side = j * (2 * seed / 2147483647 - 1)
+		x, y = x + ux - side * uy, y + uy + side * ux
+	end
+	return { worst = worst, swings = swings, yards = yards, asked = #fake.calls - asked }
+end
+"#;
+
+#[test]
+fn a14_following_the_arrow_back_toward_the_path_with_a_wobble_the_arrow_never_flips_between_the_point_in_sight_and_the_corridor() {
+	for j in ["0", "0.5", "1"] {
+		let out = run(&format!("{WOBBLE}\n\t\temit(wobble({j}))"));
+		let worst = num(&out["worst"]);
+		assert!(worst <= 30.0, "wobble {j} yd: the arrow swings {worst:.1}° between two samples ({} times over 30°)", out["swings"]);
+		assert!(out["yards"].as_array().unwrap().len() > 100, "wobble {j} yd: the walk ran ({:?} samples)", out["yards"]);
+	}
+}
+
+// The most the yards shown ever stood above the lowest shown before them: the yards counting up while the player
+// closes on the target.
+fn counted_up(out: &Value) -> f64 {
+	let mut least = f64::INFINITY;
+	let mut up: f64 = 0.0;
+	for y in out["yards"].as_array().unwrap().iter().map(num) {
+		least = least.min(y);
+		up = up.max(y - least);
+	}
+	up
+}
+
+// Discord after 0.3.5: "it also counts up yds instead of counting down sometimes when approaching a destination".
+// Running beside the path with a point ahead in sight, the arrow aims at that point and nothing is searched again
+// (#1107), but the yards went straight to the end of the segment the player projects onto, which can lie behind
+// them (the road's join), then along the path: on #1107's own walk (a8's second) they rose 17 yd over 40 yd run
+// toward the target. They now go the way the arrow points: straight to the point in sight, then along the path.
+#[test]
+fn a15_beside_the_road_with_a_point_ahead_in_sight_the_yards_count_down_as_the_player_runs_toward_the_target() {
+	let out = run(&[
+		RUN,
+		r#"
+		fake.sight = function() return true end
+		nav.place(40, -100)
+		target(0, -400)
+		N.Sample()
+		fake.resolve(40,-100, 0,-100, 0,-150, 0,-200, 0,-250, 0,-300, 0,-350, 0,-400)
+		emit(run(40, -100, -160))"#,
+	]
+	.concat());
+	let up = counted_up(&out);
+	assert!(up <= 1.0, "the yards counted up {up:.1} yd while the player ran 60 yd toward the target");
+	assert_eq!(out["asked"], 0, "no new path while the road ahead is in sight (#1107)");
+}
+
+// Straight at the target past a path that bulges 80 yd to the side (east 80 yd, 100 yd down, back): the arrow aims
+// across at a point in sight on the bulge, and the yards shown never rise as the player closes on the target (0.3.5:
+// 14 yd up while the path swung away), the switch back to the path's own aim included.
+#[test]
+fn a15_running_straight_at_the_target_past_a_bulge_in_the_path_the_yards_never_count_up() {
+	let out = run(&[
+		RUN,
+		r#"
+		fake.sight = function() return true end
+		nav.place(0, -20)
+		target(0, -300)
+		N.Sample()
+		fake.resolve(0,0, 0,-20, 80,-60, 80,-160, 0,-200, 0,-300)
+		emit(run(0, -20, -190))"#,
+	]
+	.concat());
+	let up = counted_up(&out);
+	assert!(up <= 1.0, "the yards counted up {up:.1} yd while the player ran straight at the target");
+}
+
+// a14's walk (following the arrow over the hump with a wobble): the yards never count up, through every switch
+// between the point in sight and the corridor's aim.
+#[test]
+fn a15_following_the_arrow_over_a_bend_with_a_wobble_the_yards_never_count_up() {
+	for j in ["0", "0.5", "1"] {
+		let out = run(&format!("{WOBBLE}\n\t\temit(wobble({j}))"));
+		let up = counted_up(&out);
+		assert!(up <= 1.0, "wobble {j} yd: the yards counted up {up:.1} yd");
+	}
 }

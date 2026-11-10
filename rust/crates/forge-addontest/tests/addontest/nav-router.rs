@@ -1191,3 +1191,73 @@ fn arcs_a_jump_joins_ground_the_grid_leaves_apart_one_way_find_findcost_and_find
 		assert_eq!(back[id]["cost"], "unreachable", "{id}: no way back up the jump");
 	}
 }
+
+// Path.Sight, the arrow's line check beside its path (Nav/Follow.lua): on a block of ground 100 yd across, a line over
+// open ground is clear either way and on a slant; a missing cell (a wall, a cliff edge), water, indoor ground and a
+// town hostile to the player's faction block it; the ends must stand on surfaces within 10 yd of the heights given.
+// Before any search has decoded the tile it is unknown (nil), and it decodes nothing.
+#[test]
+fn sight_the_arrows_line_check_open_ground_walls_water_indoor_ground_hostile_towns_heights_and_undecoded_tiles() {
+	let mid = X0 + S / 2;
+	let mut cells = Cells::new();
+	for x in X0..=X1 {
+		for y in Y0..Y0 + 12 {
+			cells.insert(x * C + y, FixtureCell { val: 1, cls: 0 });
+		}
+	}
+	for y in Y0 + 3..=Y0 + 5 {
+		cells.remove(&(mid * C + y)); // a wall: no ground
+	}
+	cells.insert(mid * C + Y0 + 7, FixtureCell { val: 2, cls: 0 }); // water
+	cells.insert(mid * C + Y0 + 9, FixtureCell { val: 1, cls: 4 }); // indoor ground
+	cells.insert(mid * C + Y0 + 11, FixtureCell { val: 1, cls: 8 }); // inside an Alliance town
+	let map = map_files(&cells, true, Opts::default());
+	let script = format!(
+		r#"
+local Path = Polestar_NavEngine
+local CS, X0, X1, Y0 = {cs}, {X0}, {X1}, {Y0}
+local function w(x, y) return (x + 0.5) * CS, (y + 0.5) * CS end
+local function sight(x1, y1, x2, y2, z1, z2, profile)
+	local ax, ay = w(x1, y1)
+	local bx, by = w(x2, y2)
+	local r = Path.Sight({MAP}, ax, ay, z1, bx, by, z2, profile)
+	if r == nil then return "unknown" end
+	return r
+end
+local out = {{}}
+out.before = sight(X0, Y0 + 1, X1, Y0 + 1, 0)
+out.loadedBefore = Path.IsLoaded({MAP})
+local ax, ay = w(X0, Y0 + 1)
+local bx, by = w(X1, Y0 + 1)
+Path.FindSync({MAP}, {{ x = ax, y = ay }}, {{ x = bx, y = by }})
+local buf = {{}}
+out.surfaces = Path.SurfacesAt({MAP}, ax, ay, buf)
+local z = buf[1]
+out.open = sight(X0, Y0 + 1, X1, Y0 + 1, z)
+out.back = sight(X1, Y0 + 1, X0, Y0 + 1, z)
+out.slant = sight(X0, Y0, X1, Y0 + 2, z)
+out.wall = sight(X0, Y0 + 4, X1, Y0 + 4, z)
+out.water = sight(X0, Y0 + 7, X1, Y0 + 7, z)
+out.indoor = sight(X0, Y0 + 9, X1, Y0 + 9, z)
+out.hubHorde = sight(X0, Y0 + 11, X1, Y0 + 11, z, nil, "Horde")
+out.hubAlliance = sight(X0, Y0 + 11, X1, Y0 + 11, z, nil, "Alliance")
+out.hubNone = sight(X0, Y0 + 11, X1, Y0 + 11, z)
+out.endNear = sight(X0, Y0 + 1, X1, Y0 + 1, z, z + 5)
+out.endFar = sight(X0, Y0 + 1, X1, Y0 + 1, z, z + 40)
+out.startFar = sight(X0, Y0 + 1, X1, Y0 + 1, z + 40)
+out.offData = Path.Sight({MAP}, -50, -50, z, bx, by) == nil
+emit(out)"#,
+		cs = js(CS),
+	);
+	let out = emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], before: map.dofiles(), addons: vec![ours()], script, ..Default::default() }).remove(0);
+	assert_eq!(out["before"], "unknown", "no tile decoded yet: unknown");
+	assert_eq!(out["loadedBefore"], false, "and the check decoded nothing");
+	assert!(out["surfaces"].as_f64().unwrap_or(0.0) >= 1.0, "the search decoded the tile");
+	for k in ["open", "back", "slant", "hubAlliance", "hubNone", "endNear"] {
+		assert_eq!(out[k], true, "{k}: clear");
+	}
+	for k in ["wall", "water", "indoor", "hubHorde", "endFar", "startFar"] {
+		assert_eq!(out[k], false, "{k}: blocked");
+	}
+	assert_eq!(out["offData"], true, "a line leaving the map's data is unknown");
+}

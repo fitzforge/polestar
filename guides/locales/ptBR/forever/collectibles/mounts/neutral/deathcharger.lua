@@ -13,7 +13,7 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "{skill:762} (Profissional)",
 	-- {item:13335} Deathcharger's Reins · {skill:762} Riding
-	["{item:13335} needs level 60 and Journeyman {skill:762} to ride (Forever client). Train it at your race's riding trainer; see the Level 60 mount guides."] = "As {item:13335} exigem nível 60 e {skill:762} (Profissional) para montar (cliente Forever). Treine com o instrutor de montaria da sua raça; veja os guias de montaria de nível 60.",
+	["{item:13335} needs level 60 and Journeyman {skill:762} to ride (Forever client). Train it at your race's riding trainer; see the Level 60 mount guides."] = "As {item:13335} exigem nível 60 e {skill:762} (Profissional) para montar (cliente Forever). Treine com o instrutor de equitação da sua raça; veja os guias de montaria de nível 60.",
 
 	-- Step 2: Stratholme: Baron Rivendare
 	-- {area:2279} Stratholme · {object:175461} Service Entrance (no name in this language: may be words) · {object:175440} Elders' Square (no name in this language: may be words) · {zone:1423} Eastern Plaguelands · {npc:10440} Baron Rivendare

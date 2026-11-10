@@ -111,6 +111,7 @@ Step directives:
 | `only <cond>[,<cond>...]` | The step applies only to matching characters. |
 | `when <predicate>` | The step applies only while the predicate holds when the route reaches it; several `when` lines must all hold. See "Conditions checked during play". |
 | `along [until <label>]` | The route never stops at the step: its goals are done along the way, listed under the steps after it. See "Along the way". |
+| `background` | On an `along until` step: its goals are zone-wide, slow collections worked over the whole stay, each with a finish step before its hand-in. See "Background goals". |
 | `label <name>` | Names the step, for an `along until` or `skipto` before it, or a `when done` anywhere in the guide. |
 | `skipto <label> when <predicate>` | When the route reaches the step and the predicate holds, it skips this step and the ones after it up to the labelled step; several lines may follow one another, and the first that holds decides. See "Jumps". |
 | `tip <text>` | Player-facing step note (compiled to `step.note`). |
@@ -139,15 +140,15 @@ A step must contain at least one goal.
 | `use` | `<itemId> ["Item name"]` | |
 | `destroy` | `<itemId> ["Item name"]` | Delete an item from the bags (a start-zone Hearthstone to free a slot, a quest item that is no use any more). Done once the bags hold none of it, and it stays done for the rest of its step; a character that never held it has it done at once. The guide window reads "Destroy Hearthstone". Pack format 5. |
 | `sethome` | `"Location"` or `nearest` | Inn location as the game names it (the bind location it reports), e.g. `"Goldshire"`. Without `npc` the compiler names the inn's innkeeper, so the arrow leads to them ("What the compiler fills in"); `npc <id>` picks one yourself. `sethome nearest` binds at the nearest own-faction inn when the step comes up. Lint warns about a location no inn has (`polestar find --kind inn`). Completes on every client language: binding at the inn's innkeeper, or a bind location the client names as the inn's area (see "Places by ID"). A player with "Set your home at the guide's inn" on (Quality of Life, Travel; off by default) has Polestar bind and confirm when they talk to that innkeeper (for `nearest`, any innkeeper the compiler listed for it), never at another inn. |
-| `hearth` | `"Location"` | Done when the zone or subzone where you land has that name: an inn's location or the zone it is in, in the client's language when the compiler finds its area ("Places by ID"). Lint warns about any other name. A step with nothing but `hearth` is not shown: hearthing is no step of its own, the guide moves on to the next step, and the arrow's route there takes the Hearthstone when it saves a long haul (the trip without it at least 8 minutes, at least 5 saved), wherever the Hearthstone is bound. Beside other goals, while the Hearthstone is on cooldown (or not in the bags), the goal says how long until it is ready and the arrow leads to that inn on foot, so a "Hearthstone on cooldown?" note is not needed. Where Polestar knows the trip there (walks, flights and boats as the arrow plans them), it says whether to set off now (the trip takes no longer than the wait) or wait for the Hearthstone, and with the Hearthstone ready but the trip under 8 minutes or saving under 5, it suggests travelling there and keeping the Hearthstone, the arrow leading the way. Bound at another inn (as `sethome` tells, from the inns Polestar knows), the goal says where it is bound first, and the arrow leads to the step's inn the same way. None of this holds the step: arriving checks the goal off either way. |
+| `hearth` | `"Location"` | Done when the zone or subzone where you land has that name: an inn's location or the zone it is in, in the client's language when the compiler finds its area ("Places by ID"). Lint warns about any other name. A step with nothing but `hearth` is not shown: hearthing is no step of its own, the guide moves on to the next step, and the arrow's route there takes the Hearthstone when it saves a long haul (the trip without it at least 3 minutes, at least 2 saved), wherever the Hearthstone is bound. Beside other goals, while the Hearthstone is on cooldown (or not in the bags), the goal says how long until it is ready and the arrow leads to that inn on foot, so a "Hearthstone on cooldown?" note is not needed. Where Polestar knows the trip there (walks, flights and boats as the arrow plans them), it says whether to set off now (the trip takes no longer than the wait) or wait for the Hearthstone, and with the Hearthstone ready but the trip under 8 minutes or saving under 5, it suggests travelling there and keeping the Hearthstone, the arrow leading the way. Bound at another inn (as `sethome` tells, from the inns Polestar knows), the goal says where it is bound first, and the arrow leads to the step's inn the same way. None of this holds the step: arriving checks the goal off either way. |
 | `die` | `"Graveyard"` | A deathskip: die on purpose, release and take the Spirit Healer's resurrection at that graveyard (the name is what the guide window shows). Needs `@x,y` at the graveyard's Spirit Healer, which lint checks against the healers' spawns; the arrow leads there. Done once the player is back alive within 40 yards of it, never as a ghost standing there. Only for players who turned on "Use deathskips" (Options, Automation, Guides; off by default, and always off on a Hardcore character): for everyone else the goal does not apply, its step passes and the next step's travel takes them there, so the guide must read right without it. A guide that uses it is written in pack format 5. |
 | `getfp` | `"Location"` | Discover a flight path: the flight point's name (`"Stormwind, Elwynn"`) or its part before the comma (`"Stormwind"`). The compiler adds its taxi node, so it completes on every client language ("Places by ID"), and without `npc` that node's flight master, so the arrow leads to them ("What the compiler fills in"); `npc <id>` picks one yourself. Lint warns about a name no flight point has (`polestar find --kind flight`). |
-| `fly` | `"Location"` | Take a flight: the flight point's town (`"Stormwind"`), as the flight map picks the node by it. Done when the zone or subzone where you land has that name (in the client's language when the compiler finds its area, "Places by ID"); where the landing area is named differently (`"Stormwind City"`), the goal checks off only through a later goal of its step. Lint warns about a name that is no flight point's town, inn location or zone they are in. |
+| `fly` | `"Location"` | Take a flight: the flight point's town (`"Stormwind"`), as the flight map picks the node by it. Done when the zone or subzone where you land has that name (in the client's language when the compiler finds its area, "Places by ID"), or, with the taxi node the compiler adds, on arriving within 30 yards of that flight point's flight master off the taxi, whatever the zone text calls the place (`"Crossroads"` lands in "The Crossroads", `"Stormwind"` in "Stormwind City"; Polestar 0.3.6). Lint warns about a name that is no flight point's town, inn location or zone they are in. |
 | `enter` | `"Location"` | Be in a zone or an area: done once the zone or subzone text reads that name (`"Darnassus"`, `"Goldshire"`; in the client's language when the compiler finds its area, "Places by ID"), and kept once the step had it, so walking on does not reopen it. Coordinates (`@x,y`) only point the arrow there. Lint warns about a name that is no zone or area of the client's tables. |
 | `train` | `[npcId]`, `<Profession> [Rank]`, or `class` | `train First Aid` / `train Mining Expert`: the nearest own-faction trainer of that profession and rank (`Apprentice`, `Journeyman`, `Expert`, `Artisan`; ranks taught by a book or quest point at its vendor or quest giver). Without a rank: the highest rank whose minimum skill (0/50/125/225) the last earlier `skill` (or `craft … until`) target for that profession in the guide reaches, Apprentice when there is none, and always above a rank the guide already trained. `train class`: the nearest trainer of the player's class. Resolved at runtime from the player's faction and position. |
 | `buy` | `<itemId> ["Item name"]` | Use `xN` for quantity. Add `nearest` to send the player to the closest own-faction vendor selling it. |
-| `vendor` | `[npcId]` or `nearest` | Sell junk / repair; `nearest` picks the closest own-faction vendor. |
-| `level` | `<N>`, `<N>.<fraction>` or `<N>+<XP>` | Reach level N (grind if needed). `level 12.5` reaches halfway through level 12 and `level 12+2500` 2500 XP into it (converted to a share of the level with the 1.12 XP table): done at level 12 with that share of the level's XP, or at any later level, and the guide window reads "Reach level 12 (50%)" with the XP still to earn under it ("1,240 XP to go"; any `level` goal shows this). The XP bar's guide mark puts its tick at that share of the bar while the character is in that level. The share is kept to whole percent; one that rounds to 0% or 100% is an error (write `level 12` or `level 13`), as is XP past the level's total; `level 12.0` is plain level 12. A guide that uses either form is written in pack format 4 (see "Conditions checked during play"). |
+| `vendor` | `[npcId]` or `nearest` | Sell junk / repair; `nearest` picks the closest own-faction vendor. Done when that merchant's window opens during the step; for `nearest`, also any merchant who repairs within 250 yards of one of its vendors (the same town: Polestar 0.3.6). A `vendor <npcId>` (a mount vendor, say) counts only at that NPC. Beside other goals of the step it is a stop on the way, not work: the step is done once those are, sold or not (Polestar 0.3.5). A step of only `vendor` goals waits for the window. |
+| `level` | `<N>`, `<N>.<fraction>` or `<N>+<XP>` | Reach level N (grind if needed). `level 12.5` reaches halfway through level 12 and `level 12+2500` 2500 XP into it (converted to a share of the level with the 1.12 XP table): done at level 12 with that share of the level's XP, or at any later level, and the guide window reads "Reach level 12 (50%)" with the XP still to earn under it ("1,240 XP to go"; any `level` goal shows this). The XP bar's guide mark puts its tick at that share of the bar while the character is in that level. The share is kept to whole percent; one that rounds to 0% or 100% is an error (write `level 12` or `level 13`), as is XP past the level's total; `level 12.0` is plain level 12. A guide that uses either form is written in pack format 4 (see "Conditions checked during play"). `level 35 grind 686` names the mob the level is reached on (an npc id): the compiler places the goal at that mob's spawn areas (as a `kill`'s, without the alternatives), and the arrow leads to the nearest of them, not to a `goto` before it in the step, which only leads where the mob has no known spawns (the compiler warns). The step's text stays the author's (`-- grind on Lashtail Raptor`). |
 | `money` | `<amount>` | Hold that much money: copper (`money 350`) or `1g50s` / `7s` / `25c`. Done once the bags hold it, and it stays done for the rest of its step if the money is spent before the step's other goals are done; the guide window reads "Have at least 1s 50c". For "loot until you can afford it"; pack format 5. |
 | `wait` | `<seconds>` | A countdown in the step: `wait 30 "the boat docks"`. It starts once every goal before it in the step is done and is done when the time is up (1 to 3600 seconds); the guide window shows the time left as a draining line. For a boat, an event or a speech to sit through. |
 | `task` | `"<text>"` | Something to do that Polestar cannot see (a logout skip, a tame, an emote): it holds the step until the player ticks it in the guide window; with `optional` it never holds it. Quotes optional when nothing follows the text. A task has a place with `@x,y` for the arrow. In an `along` step it never checks off (see "Along the way"). Pack format 5. |
@@ -200,6 +201,7 @@ Modifiers, in any order after the positional arguments:
 | `"text"` | Display text override (for `goto`: the label). A quoted token directly after the entity id of `kill`, `talk`, `interact`, `train` or `vendor` (like `collect`/`use`/`buy`) names that entity instead, for new Forever content missing from the data. |
 | `r <yards>` | Arrival radius (`goto`, default 8). |
 | `lvl <N>` | Minimum level shown on an `accept`. |
+| `grind <npcId>` | On `level`: the mob the level is reached on; the arrow leads to its nearest spawn area. |
 | `optional` | Never blocks the step. |
 | `group [N]` | Needs a group, of `N` players (2–40) when given (`kill 1234 group 3`, `accept 7583 group 5`). The guide window says "Group of 3 advised" (or "Group advised") under the goal. Overrides what the compiler derives: see "Group content". |
 | `only <cond>[,<cond>...]` | Goal applies only to matching characters. |
@@ -371,8 +373,11 @@ the other way round.
 
 Put `when group` on the quest's accept step: when it fails, the quest's
 turn-in and objective goals later in the guide go with it, as for any
-accept that does not apply. A solo way to the same objective is a step with
-`when !group`:
+accept that does not apply. Don't mark the goals of a `when group` (or
+`when dungeon`) step `optional`: only a player who chose it follows the step,
+and a step of optional goals only is done at once, so that player would get
+no arrow (lint: an error in our guides, a warning in other packs). A solo way
+to the same objective is a step with `when !group`:
 
 ```
 step Arachnophobia
@@ -482,6 +487,59 @@ A label names one step: letters, digits, `-` and `_`, in the case written
 (`label Camp` is not `camp`), once per guide.
 
 A pack with `along` or `label` is written in pack format 4, like `when`.
+
+### Background goals
+
+Some collections are slow and spread over the whole zone: an item one mob
+in four drops, from mobs that roam everywhere the route goes. A step of
+their own sends the player to farm them in one place, while the route passes
+the same mobs all the time anyway. `background` on an `along until` step
+marks such goals: they are listed under the current step from the quest's
+accept until the step that hands it in (the label), with their progress, and
+they never hold the route.
+
+Each quest objective in a `background` step needs a **finish step** before
+its hand-in: a plain step that works the same objective at the densest spot
+nearby. A player who already has the count passes it at once (its goal is
+done; for an item, `when !has <item> x<count>` keeps the step out of the
+route altogether); one who is short is sent there to finish before the
+hand-in.
+
+```
+step The Crossroads
+  accept 844
+
+step Plainstrider Beaks as you go
+  along until q844
+  background
+  tip Plainstriders roam the plains all over the Barrens.
+  collect 5087 quest 844.1
+
+step Razormane camp
+  tip Plainstriders here count toward the beaks.
+  kill 3267 quest 871.1
+
+step Finish the Plainstrider Beaks
+  when !has 5087 x7
+  collect 5087 quest 844.1 @50,21
+
+step The Crossroads
+  label q844
+  turnin 844
+```
+
+Keep `background` for real slogs, where the players' recordings show either
+many kills for the count (a low drop rate) or a long search between kills
+(sparse or contested mobs: minutes between kills of the droppers), with the
+dropping mobs spread along the route. Anything one area finishes quickly
+stays a step of its own. Put the finish step where players get the most
+kills a minute, not merely where the spawns are densest. For the generated
+guides, a `background` record in `data/guide-fixes.json` writes all of this
+(docs/FORGE.md, "Fixing a generated guide").
+
+`background` changes nothing in the compiled guide: Polestar reads the step
+as the along step it is, so a pack with it is written in pack format 4, like
+`along`.
 
 ## Jumps
 
@@ -763,8 +821,12 @@ getfp goals got a taxi node").
 
 Every goal that needs a group says so in the guide window, under the goal
 (once per card when several goals share it), and a guide with such a goal on
-its route (not `optional`) carries a "Group" chip in the guide menu. The
-compiler writes `group` on the goal, first match wins:
+the route every player follows carries a "Group" chip in the guide menu: not
+an `optional` goal, not one in a step with `when group <quest>` or `when
+dungeon "<Name>"` (only a player who chose the group way follows it) or of a
+quest accepted only in such a step, and not the turn-in of a dungeon or raid
+quest (the run was the group content). The compiler writes `group` on the
+goal, first match wins:
 
 1. the author's `group [N]`: `{ kind = "group", size = N }` ("Group of N
    advised"; "Group advised" without `N`);
@@ -778,8 +840,8 @@ compiler writes `group` on the goal, first match wins:
    "Raid: Molten Core");
 3. elite work, the same test as the Leveling-guide elite rule (Validation): a
    `kill` of an npc of rank 1–3 hostile to a side the goal applies to, or a
-   `collect` whose every located dropper is one: `{ kind = "elite", rank }`
-   ("Elite: group advised", "Rare elite: group advised", "Boss: group
+   `collect` whose every located dropper is one: `{ kind = "elite", rank, lvl }`
+   (`lvl`: the elites' highest level, when known; "Elite: group advised", "Rare elite: group advised", "Boss: group
    advised").
 
 The instances come from the Forever client's `Map.csv`, `AreaTable.csv` and
@@ -827,6 +889,9 @@ Errors:
   label, or a label on its own step or an earlier one; a `when done` naming no
   label of the guide, or `done` on a `next` line
 - a `skipto` line without a label, `when` and one predicate
+- `background` on a step without `along until <label>`, or a quest objective
+  in a `background` step with no finish step (a later step, not an along one,
+  working the same objective) before the step that hands its quest in
 - `era`/`live` on a goal without typed coordinates
 - an `image` path that is absolute, leaves the pack folder (`..`), uses `\`,
   names a file other than `.tga` or `.blp`, or has a character other than
@@ -846,6 +911,13 @@ Errors:
 - `accept` for a quest whose `races`/`classes` exclude every character the
   step or goal can apply to
 - coordinates outside 0–100
+- `quest Q.O` that names no line of the quest's objectives in the data (past
+  them; the error lists them as `7.1 = kill Kobold Vermin x10`), or a `kill`,
+  `talk`, `interact` or `collect … quest Q.O` whose own target is another of
+  the quest's objectives, whatever kind the one it names is (`kill <npc> quest
+  Q.1` where Q.1 is an item and the npc is Q.2): the goal would count the wrong
+  quest-log line. Objective lists change when the game's do, so lint with a
+  current `data/forever`
 - required elite work in a `Leveling` guide (a warning in other packs; elite work may appear there only as
   an `optional` extra, with the tip `<Target> is elite: grouping up is advised.`, or in a step
   with `when group <quest>`, which only a player who chose the group way follows):
@@ -888,15 +960,14 @@ Warnings:
 - explicit coordinates more than 50 yards from every known spawn of the entity
 - ids missing from data but given explicit names/coordinates (new Forever content)
 - objective-capable goals with no coordinates
-- `quest Q.O` past the quest's objectives (the warning lists them as
-  `7.1 = kill Kobold Vermin x10`), or an objective goal whose target is none
-  of the quest's objectives
-- a `collect … quest Q.O` whose objective is not an item (a nest to visit):
-  the quest log never counts the item there. For an item the quest uses
-  without counting it (a feather for the nests, a carcass that lures a
-  beast), here or on another item's objective, drop `quest` so the step
-  counts the bags (while the quest database is loaded, the addon counts the
-  bags for such an item anyway)
+- `quest Q.O` on a quest the data lists no objectives for (drop the `.O`), or
+  an objective goal whose target is none of the quest's objectives
+- a `collect … quest Q.O` whose objective is not an item (a nest to visit)
+  while the item is none of the quest's objectives: the quest log never counts
+  the item there. For an item the quest uses without counting it (a feather for
+  the nests, a carcass that lures a beast), here or on another item's
+  objective, drop `quest` so the step counts the bags (while the quest database
+  is loaded, the addon counts the bags for such an item anyway)
 - a `craft` before any `learn` of that spell earlier in the chain (free starter
   recipes excepted); `until <N>` past the recipe's grey skill
 - a coordinate on a map other than the step's zone that the guide never sets as
@@ -1109,7 +1180,20 @@ player's faction instead.
 ```
 
 `nearest` and `train class` pick the trainer or vendor at runtime, by the
-player's faction and where they stand. A `task` is for what Polestar cannot
+player's faction and where they stand. `train class` keeps to its step's
+`zone` when that zone has a trainer of the player's class (Polestar 0.3.7):
+write the training step in the town the route trains in (`zone Orgrimmar`, not
+`zone Durotar`), and a trainer within 100 yards of the player still counts
+as here. A `vendor` ticks when the merchant's window opens during its step
+(`vendor nearest`: any merchant who repairs in the same town, within 250 yards
+of one of its vendors, Polestar 0.3.6; a `vendor <npcId>` only that NPC's);
+beside other goals that hold the step (hand-ins,
+kills, travel) it never holds the step itself, so a player who has nothing to
+sell is not kept there once the rest is done (Polestar 0.3.5). It is listed
+while the step is live and the arrow leads there in its turn. A step whose
+only goals are `vendor` waits for the merchant window (or a tick or skip):
+write the stop as its own step only when the player must sell or repair
+there. A `task` is for what Polestar cannot
 see: the player ticks it; `abandon` and `destroy` check themselves against the quest log and the bags; a `note` never holds the step at all.
 
 ### Professions: `train`, `learn`, `craft`, `skill`

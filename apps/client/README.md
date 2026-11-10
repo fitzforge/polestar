@@ -34,6 +34,25 @@ the upload API, and the public list of what is never collected.
   (its opt-out is unknown). With sharing off, the Recording section's "Help
   improve Polestar's guides" page (what is shared, what never is) offers
   "Start sharing" again.
+- **Explorer mode** (Settings). The Recorder's explorer mode (more about the
+  game world in Forever's new zones and dungeons, docs/RECORDING.md) is on
+  unless the player turns it off here. Until the switch is used the client
+  writes no flag and the Recorder decides; from then on Ack.lua carries
+  `PolestarRecorderExplore = true|false`, which the Recorder reads at login
+  or /reload. What we send's "Never sent" tab says what explorer mode adds.
+- **Connecting** (`net.rs`). Requests go out the normal way: the system's
+  DNS, certificate checks and proxy. Only requests to the recording server
+  fall back when that can't connect: IPv4 only; the bundled Mozilla
+  certificate authorities added to the system's verifier (only after a
+  certificate from an authority the system doesn't know, or where it has
+  none; the system still checks revocation and distrust); a DNS-over-HTTPS
+  lookup of `data.polestar.guide` / `polestar.guide` (never another name) at
+  Cloudflare (1.1.1.1, 1.0.0.1) and Google (8.8.8.8), which then see the
+  lookup and the PC's IP address. The first that connects is kept for the
+  recording server until the next start, and Status names it. When the
+  environment's proxy itself can't be reached, that one request goes without
+  it (never kept). The recording server's client follows no redirects and is
+  https only; GitHub's is https only. Certificates are always checked.
 - **Client updates** are looked for at launch and every 6 hours (Settings >
   About also has "Check for client updates"). One waiting shows as a banner
   in the title strip at the top of every page, "A new Polestar Client is
@@ -41,7 +60,14 @@ the upload API, and the public list of what is never collected.
   <version>**, which downloads it, checks its signature, installs it and
   restarts the app (`src-tauri/src/update.rs`); Settings > About has the same
   button. The banner takes no room from the page and goes once the client is
-  the newest.
+  the newest. Each copy downloads the kind of file it was installed from
+  (`release/latest-json.sh`): an AppImage replaces itself, a `.deb` copy
+  installs the new `.deb` with `dpkg -i` after asking for the password
+  (pkexec), the Windows and macOS copies run their installers.
+- **A package upgrade by hand** (Linux, `sudo apt install ./<new>.deb`) puts
+  the new client in place of the old one while the old one keeps running in
+  the tray. Starting the client then quits the old copy and starts the new
+  one, instead of bringing the old window back (`src-tauri/src/relaunch.rs`).
 - **Addons** lists Polestar, Polestar Recorder and LibForeverData: the
   version installed, the newest release on
   [GitHub](https://github.com/fitzforge/polestar/releases) (Polestar and the

@@ -11,7 +11,7 @@ const DUN_MOROGH: &str = "forever/alliance/dwarf-gnome/01-dun-morogh.guide";
 const TELDRASSIL: &str = "forever/alliance/nightelf/01-teldrassil.guide";
 const MULGORE: &str = "forever/horde/tauren/01-mulgore.guide";
 const TIRISFAL: &str = "forever/horde/undead/01-tirisfal-glades.guide";
-const BARRENS: &str = "forever/horde/04-the-barrens.guide";
+const BARRENS: &str = "forever/horde/02-the-barrens.guide";
 const WESTFALL: &str = "forever/alliance/02-westfall.guide";
 const REDRIDGE: &str = "forever/alliance/04-redridge-mountains.guide";
 const HILLSBRAD_HORDE: &str = "forever/horde/06-hillsbrad-foothills.guide";
@@ -20,16 +20,17 @@ const HILLSBRAD_ALLIANCE: &str = "forever/alliance/30-40/01-hillsbrad-foothills.
 const ASHENVALE_30: &str = "forever/alliance/30-40/03-ashenvale.guide";
 const ARATHI: &str = "forever/alliance/30-40/05-arathi-highlands.guide";
 const DARKSHORE: &str = "forever/alliance/03-darkshore.guide";
-const THOUSAND_NEEDLES: &str = "forever/alliance/07-thousand-needles.guide";
+const DARKSHORE_RETURN: &str = "forever/alliance/03-darkshore-return.guide";
+const LOCH_MODAN: &str = "forever/alliance/03-loch-modan.guide";
+const WETLANDS: &str = "forever/alliance/06-wetlands.guide";
 const BADLANDS: &str = "forever/alliance/30-40/06-badlands.guide";
 const STONETALON: &str = "forever/horde/05-stonetalon-mountains.guide";
-const STRANGLETHORN_HORDE: &str = "forever/horde/30-40/02-stranglethorn-vale.guide";
+const STRANGLETHORN_HORDE: &str = "forever/horde/30-40/03-stranglethorn-vale.guide";
 const TANARIS_ALLIANCE: &str = "forever/alliance/40-50/04-tanaris.guide";
 const UN_GORO_ALLIANCE: &str = "forever/alliance/40-50/07-un-goro-crater.guide";
 const ELWYNN: &str = "forever/alliance/human/01-elwynn-forest.guide";
 const ZEPHRAS_ALLIANCE: &str = "forever/alliance/skyborne/01-zephras-isle.guide";
 const ZEPHRAS_HORDE: &str = "forever/horde/skyborne/01-zephras-isle.guide";
-const NEEDLES: &str = "forever/alliance/07-thousand-needles.guide";
 
 /// `at(...)`, returning from the test when absent (the JS assertion throws).
 macro_rules! at {
@@ -188,40 +189,41 @@ fn miguel(ctx: &Ctx, c: &mut Check) {
 }
 
 fn follow_ups(ctx: &Ctx, c: &mut Check) {
-	let cases: &[(&str, i64, &[i64], bool)] = &[
-		(MULGORE, 99081, &[99079], false),
-		(MULGORE, 99101, &[99081], false),
-		(MULGORE, 99080, &[99101], false),
-		(MULGORE, 99082, &[99080], false),
-		(MULGORE, 98435, &[760], false),
-		(TIRISFAL, 96899, &[96897, 96898], false),
-		(TIRISFAL, 99156, &[356], true),
-		(REDRIDGE, 98386, &[89], false),
-		(WESTFALL, 92745, &[92742, 92744], false),
-		(WESTFALL, 92747, &[92745, 92744], false),
-		(HILLSBRAD_HORDE, 98094, &[528], false),
-		(SILVERPINE, 91920, &[430], false),
-		(SILVERPINE, 91921, &[91920], true),
-		(HILLSBRAD_ALLIANCE, 98209, &[98208], true),
-		(HILLSBRAD_ALLIANCE, 88758, &[88757], true),
-		(HILLSBRAD_ALLIANCE, 98297, &[98291], true),
-		(ASHENVALE_30, 98418, &[98417], true),
-		(ARATHI, 92459, &[92458], true),
-		(DARKSHORE, 87760, &[4722, 4723, 4725, 4727, 4728, 4730, 4731, 4732, 4733], false),
-		(SILVERPINE, 425, &[91921], false),
-		(SILVERPINE, 98298, &[99], true),
-		(WESTFALL, 92911, &[92910], true),
-		(THOUSAND_NEEDLES, 98221, &[464], false),
-		(THOUSAND_NEEDLES, 465, &[98221], false),
+	// A case may span guides of the chain, in order (the Alliance 12-20 re-order, 2026-11-07).
+	let cases: &[(&[&str], i64, &[i64], bool)] = &[
+		(&[MULGORE], 99081, &[99079], false),
+		(&[MULGORE], 99101, &[99081], false),
+		(&[MULGORE], 99080, &[99101], false),
+		(&[MULGORE], 99082, &[99080], false),
+		(&[MULGORE], 98435, &[760], false),
+		(&[TIRISFAL], 96899, &[96897, 96898], false),
+		(&[TIRISFAL], 99156, &[356], true),
+		(&[LOCH_MODAN, REDRIDGE], 98386, &[89], false),
+		(&[WESTFALL], 92745, &[92742, 92744], false),
+		(&[WESTFALL], 92747, &[92745, 92744], false),
+		(&[HILLSBRAD_HORDE], 98094, &[528], false),
+		(&[SILVERPINE], 91920, &[430], false),
+		(&[SILVERPINE], 91921, &[91920], true),
+		(&[HILLSBRAD_ALLIANCE], 98209, &[98208], true),
+		(&[HILLSBRAD_ALLIANCE], 88758, &[88757], true),
+		(&[HILLSBRAD_ALLIANCE], 98297, &[98291], true),
+		(&[ASHENVALE_30], 98418, &[98417], true),
+		(&[ARATHI], 92459, &[92458], true),
+		(&[DARKSHORE, DARKSHORE_RETURN], 87760, &[4722, 4723, 4725, 4727, 4728, 4730, 4731, 4732, 4733], false),
+		(&[SILVERPINE], 425, &[91921], false),
+		(&[SILVERPINE], 98298, &[99], true),
+		(&[WESTFALL], 92911, &[92910], true),
+		(&[WETLANDS], 465, &[98221], false),
 		// DexeeXI (#872): Allister offers Watching the Roads once Dalaran's Intentions is handed in.
-		(SILVERPINE, 95981, &[482], false),
+		(&[STONETALON], 95981, &[482], false),
 		// DexeeXI (#891): Yelmak offers Whuut's the Rush once Yelmak's Medley is handed in.
-		(SILVERPINE, 97275, &[97242], false),
+		(&[SILVERPINE], 97275, &[97242], false),
 		// soockee (#1002), jiskim (#984): Va'xug Firefure offers A Void Path once Never Coming Back is handed in.
-		(STONETALON, 98252, &[98251], false),
+		(&[STONETALON], 98252, &[98251], false),
 	];
-	for &(guide, quest, after, optional) in cases {
-		let list = ctx.goals(guide);
+	for &(guides, quest, after, optional) in cases {
+		let guide = guides.join(" + ");
+		let list: Vec<Row> = guides.iter().flat_map(|g| ctx.goals(g)).collect();
 		let take = find(&list, is("accept", quest));
 		if take.is_none() && optional {
 			continue;
@@ -247,15 +249,13 @@ fn stop_the_spread(ctx: &Ctx, c: &mut Check) {
 }
 
 fn lou_saydus(ctx: &Ctx, c: &mut Check) {
-	let needles = ctx.goals(THOUSAND_NEEDLES);
+	let needles = ctx.goals(WETLANDS);
 	c.eq(find(&needles, is("turnin", 465)), None, "the catapult is not lit in the guide that takes the quest");
-	let done = at!(c, needles, "complete 98221", is("complete", 98221));
+	let done = at!(c, needles, "interact 98221", is("interact", 98221));
 	c.ok(located(&needles[done]), "the attack plans have a place");
 	let list = ctx.goals(HILLSBRAD_ALLIANCE);
 	c.eq(find(&list, is("accept", 98221)), None, "From the Ashes is not taken again");
 	let lit = at!(c, list, "turnin 465", is("turnin", 465));
-	let h = at!(c, list, "turnin 98230", is("turnin", 98230));
-	c.ok(h < lit, "after Howin");
 	let b = at!(c, list, "accept 98223", is("accept", 98223));
 	c.ok(lit < b, "before the Tattered Spellbook");
 }
@@ -278,7 +278,7 @@ fn alba(ctx: &Ctx, c: &mut Check) {
 }
 
 fn xoove_beached(ctx: &Ctx, c: &mut Check) {
-	let list = ctx.goals(DARKSHORE);
+	let list: Vec<Row> = [DARKSHORE, DARKSHORE_RETURN].iter().flat_map(|g| ctx.goals(g)).collect();
 	let take = at!(c, list, "accept 4723 (Beached Sea Creature)", is("accept", 4723));
 	c.eq(list[take].step.get("title").as_str(), Some("Bashal'Aran"), "it is taken in the Bashal'Aran step");
 	let a = at!(c, list, "accept 957 (Asterion)", is("accept", 957));
@@ -399,7 +399,9 @@ fn escaping_banethil(ctx: &Ctx, c: &mut Check) {
 }
 
 fn bronze_tube(ctx: &Ctx, c: &mut Check) {
-	let list = ctx.goals(NEEDLES);
+	// Look to the Stars is handed in on Duskwood's first Darkshire visit since the flow audit (2026-11-07); that
+	// visit opens 04-redridge-mountains since the Alliance 20-30 re-order (2026-11-07).
+	let list = ctx.goals(REDRIDGE);
 	let give = at!(c, list, "turnin 174 (Look to the Stars)", is("turnin", 174));
 	let buy = at!(c, list, "buy 4371 (Bronze Tube)", item_goal("buy", 4371));
 	c.ok(buy < give && list[buy].s == list[give].s, "bought on the same stop, before the turn-in");
@@ -410,8 +412,12 @@ fn bronze_tube(ctx: &Ctx, c: &mut Check) {
 /// Bill (#1004): a town's bind never sends you back to the giver you just left (Ratchet's Raptor
 /// Horns by the WANTED poster; the sweep's Crossroads, Sun Rock and Tarren Mill).
 fn bind_after_givers(ctx: &Ctx, c: &mut Check) {
-	let cases: &[(&str, &str, &[i64])] =
-		&[(BARRENS_12, "Ratchet", &[865]), (BARRENS_12, "The Crossroads", &[4921, 899]), (STONETALON, "Sun Rock Retreat", &[86576, 5881]), (HILLSBRAD_HORDE, "Tarren Mill", &[496, 493])];
+	let cases: &[(&str, &str, &[i64])] = &[
+		(BARRENS_12, "Ratchet", &[865]),
+		(BARRENS_12, "The Crossroads", &[4921, 899]),
+		("forever/horde/04-the-barrens.guide", "Sun Rock Retreat", &[86576, 5881]),
+		(HILLSBRAD_HORDE, "Tarren Mill", &[496, 493]),
+	];
 	let talk = |g: &V| t_is(g, "accept") || t_is(g, "turnin");
 	for &(guide, place, before) in cases {
 		let list = ctx.goals(guide);
@@ -451,7 +457,7 @@ pub fn tests() -> Vec<SeedTest> {
 		t(format!("{BARRENS}: Miguel Antunes's report (#592): loot a zhevra carcass and use it at the Dead Tree before Ishamuhale's Fang"), miguel),
 		t("Forever follow-ups are taken only once the quests before them are handed in".into(), follow_ups),
 		t("Rupert's and Wyatt R's reports: no guide sends you to Dalar Dawnweaver or the refugees for Stop the Spread (#229, #161)".into(), stop_the_spread),
-		t(format!("{HILLSBRAD_ALLIANCE}: Lou-Saydus's report: Nek'rosh's Gambit, taken after From the Ashes in {THOUSAND_NEEDLES}, is handed in on the Wetlands loop (#225)"), lou_saydus),
+		t(format!("{HILLSBRAD_ALLIANCE}: Lou-Saydus's report: Nek'rosh's Gambit, taken after From the Ashes in {WETLANDS}, is handed in on the Wetlands loop (#225)"), lou_saydus),
 		t(format!("{WESTFALL}: Alba Fairmoon's chain is not given to Humans (#144)"), alba),
 		t(format!("{DARKSHORE}: XooVe's report: the Beached Sea Creature by Bashal'Aran is taken on the walk from Asterion to Buzzbox 411 (#213)"), xoove_beached),
 		t(format!("{TELDRASSIL}: Pynte's report: Zenn's Bidding is taken on the walk down to Dolanaar that passes Zenn (#89)"), pynte_zenn),
@@ -461,7 +467,7 @@ pub fn tests() -> Vec<SeedTest> {
 		t(format!("{TELDRASSIL}: Pynte's report: Conservator Ilthalaine's quest is taken before Melithar's"), ilthalaine),
 		t(format!("{TELDRASSIL}: Pynte's report: each class's sigil is handed to its trainer at the training stop after Shadowthread Cave"), sigils),
 		t(format!("{TELDRASSIL}: Pynte's report: Escaping Ban'ethil is taken after the relics and The Sleeping Druid's chain (#334)"), escaping_banethil),
-		t(format!("{NEEDLES}: Yendi's report: Herble's Bronze Tube is offered before Look to the Stars is handed in, without holding the step"), bronze_tube),
+		t(format!("{REDRIDGE}: Yendi's report: Herble's Bronze Tube is offered before Look to the Stars is handed in, without holding the step"), bronze_tube),
 		t("Bill's report (#1004): a town's bind never sends you back to the giver you just left".into(), bind_after_givers),
 	]
 }

@@ -5,12 +5,12 @@ faction Horde
 race Troll
 levels 1-12
 zone Durotar
-next forever/horde/02-the-barrens
+next forever/horde/03-silverpine-forest
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: The Admiral's Orders (831), Neeru Fireblade (829), Meats to Orgrimmar (6365).
+# Added here: The Admiral's Orders (831), Neeru Fireblade (829).
 
 # ---------------------------------------------------------------- Valley of Trials
 
@@ -58,10 +58,6 @@ step The Den
   turnin 97279                        -- Kzan Thornslash, at the back of the cave; below ground
   accept 4402                         -- Galgar, by the cooking fire
 
-step Scorpid Worker Tail on the way
-  along until q789
-  collect 4862 quest 789.1
-
 step Hana'zua
   tip Hana'zua lies wounded at the foot of the hills north-west of the Den.
   accept 790
@@ -71,24 +67,20 @@ step Hana'zua
 # of their own after it, the writer's hub tour turned 789 and 4402 in at the
 # Den on the way to the peons and the Vile Familiars, then came back to the
 # Den for 5441 and 792 (c17 01-durotar:211-227, judge dup-trip).
-step Cactus Apple on the way
-  along until q4402
-  collect 11583 quest 4402.1 -- Cactus Apple along the way to Back to the Den
-
 step Valley of Trials: kill these as you meet them
-  label q789
   zone Durotar
   tip Sarkoth, a large scorpid, prowls the slope south of Hana'zua among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.
   tip The Vile Familiars swarm the slope below the Burning Blade Coven, the cave on the valley's north side.
   collect 4862 quest 789.1
+  collect 11583 quest 4402.1
   collect 4905 quest 790.1
   turnin 790
   accept 804
   kill 3101 quest 792.1 only !Warlock
   collect 6487 quest 1485.1 only Warlock
 
-step Back to the Den
-  label q4402
+step Galgar
+  tip Galgar stands just outside the Den's entrance.
   turnin 4402                         -- Galgar
 
 step Class trainer
@@ -148,6 +140,7 @@ step Zureetha Fargaze
   turnin 1516 only Shaman -- Canaga Earthcaller
   accept 1517 only Shaman
   turnin 6394
+  accept 5649 only Troll,Priest       -- Ken'jai, the priest trainer at the Den: for Tai'jin in Razor Hill
 
 step Call of Earth
   only Shaman
@@ -175,19 +168,31 @@ step Sen'jin Village
   accept 826                          -- Master Gadrin
   accept 823
   accept 97223                        -- Xar'Ti
+  accept 786                          -- Lar Prowltusk
   kill 266850 quest 96821.1
   kill 266849 quest 96821.2
 
 step Brakk's campfire
-  tip Brakk camps just south of Razor Hill. Sit by his campfire (/sit) until the Boosted Rest buff appears.
+  tip Brakk camps just south of Razor Hill. Sit by his campfire (/sit) until the Boosted Rest buff appears. With a profession learned, Brakk also offers its Camping 101, which its trainer takes: in Razor Hill or in Orgrimmar at the start of the next guide.
   turnin 96652                        -- Brakk
   accept 96604
   complete 96604 @52.1,47.4
   turnin 96604
   accept 96655
+  accept 97907 optional               -- Brakk: for Krunn
+  accept 97902 optional               -- Brakk: for Mukdrak
+  accept 97903 optional               -- Brakk: for Rawrk
+  accept 97908 optional               -- Brakk: for Thuwd
+  accept 97906 optional               -- Brakk: for Karolek
+  accept 96102 optional               -- Brakk: for Snang
+  accept 97905 optional               -- Brakk: for Jandi
+  accept 97901 optional               -- Brakk: for Jhag
+  accept 97899 optional               -- Brakk: for Whuut
 
 step Razor Hill
   accept 96822                        -- Turroc, on the east side of town; inside
+  turnin 5649 only Troll,Priest       -- Tai'jin, in the barracks beside Turroc
+  accept 5648 only Troll,Priest
   turnin 823                          -- Orgnil Soulscar
   accept 784
   turnin 96821                        -- Gar'Thok
@@ -203,6 +208,9 @@ step Razor Hill
   turnin 2161                         -- Innkeeper Grosk, inside
   sethome "Razor Hill"
   accept 791                          -- Furl Scornbrow, in the watchtower
+  turnin 97907 optional               -- Krunn: Camping 101: Mining
+  turnin 97902 optional               -- Mukdrak: Camping 101: Engineering
+  turnin 97903 optional               -- Rawrk: Camping 101: First Aid
 
 step Prickly pears
   tip The prickly pears grow among the quilboar huts just west of town.
@@ -210,6 +218,11 @@ step Prickly pears
 
 step Cook Torka
   turnin 96825
+
+step Grunt Kor'ja
+  only Troll,Priest
+  tip Grunt Kor'ja kneels behind the rocks just off the road south of Razor Hill, on your way to the keep. Cast Lesser Heal (Rank 2) on her, then Power Word: Fortitude: Rank 1 of Lesser Heal does not count.
+  kill 12430 quest 5648.1 "Heal and fortify Grunt Kor'ja" @53.1,46.5
 
 step Tiragarde Keep
   tip The keep stands on the coast south-east of Razor Hill. The raiders' axe, bow and shield lie on its outskirts. Sailors and marines drop the Canvas Scraps. Lieutenant Benedict waits at the top of the keep; his key opens the chest beside him, which holds the Aged Envelope.
@@ -224,51 +237,44 @@ step Tiragarde Keep
   collect 275716 quest 96822.2 @57.4,56.4
 
 step Razor Hill
-  turnin 96822                        -- Turroc, inside
-  accept 806
+  tip Back north-west to Razor Hill: Gar'Thok first, then Furl in the watchtower, then Orgnil and Turroc on the way out east to the shore.
   turnin 784                          -- Gar'Thok
   turnin 830 optional
   accept 831
-
-step Razor Hill
   accept 825
   turnin 791                          -- Furl Scornbrow
+  accept 806                          -- Orgnil Soulscar
+  turnin 96822                        -- Turroc, inside
+  turnin 5648 only Troll,Priest       -- Tai'jin, beside Turroc: the Juju Hex Robes
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
-
-step Sen'jin Village
-  accept 786                          -- Lar Prowltusk
 
 # ---------------------------------------------------------------- The coast and Sen'jin
 step Scuttle Coast: kill these as you meet them
   zone Durotar
-  tip Makrura and surf crawlers line the beaches north-east of Sen'jin.
+  tip Makrura and surf crawlers line the beaches north-east of Sen'jin; the Taillasher eggs sit in nests along the beach.
   tip The gnomish toolboxes lie in the wreckage along the shore east and south-east of Razor Hill. Follow the shore south to Sen'jin.
+  collect 4863 quest 825.1            -- Underwater
   collect 4888 quest 818.2
   collect 4887 quest 818.1            -- Underwater
-  collect 4863 quest 825.1            -- Underwater
+  collect 4890 quest 815.1
 
 step Bloodtalon Matriarch
-  tip Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.
+  tip Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there; Durotar Tigers roam the isle and the shore south of Sen'jin.
   collect 277128 quest 97223.1
-
-step Forgotten Loa Idol on the way
-  along until q97225
-  collect 277135 quest 97225.1 -- Forgotten Loa Idol along the way to Sen'jin Village
+  collect 4892 quest 817.1
 
 step Echo Isles: kill these as you meet them
   zone Durotar
   tip Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. Zalazane and Minshina's cage are on the southernmost isle.
-  tip Wade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach.
+  tip Wade back west to the shore south of Sen'jin when the isles are done.
   complete 96873 optional
   kill 3206 quest 826.2
   kill 3207 quest 826.1
-  collect 4890 quest 815.1
-  collect 4892 quest 817.1
+  collect 277135 quest 97225.1
   collect 4866 quest 826.3
   collect 4864 quest 808.1 @67.4,87.8
 
 step Sen'jin Village
-  label q97225
   turnin 96873 optional               -- Pa'zula
   turnin 817                          -- Vel'rin Fang
   turnin 818                          -- Master Vornal
@@ -297,16 +303,11 @@ step Razor Hill
   turnin 825                          -- Gar'Thok
   turnin 815                          -- Cook Torka
 
-step On the way
-  along until q837
-  kill 3111 quest 837.1
-  kill 3112 quest 837.2
-
 step Level 10
   when level<10
   tip Top up here to level 10: Conscript of the Horde, at Razor Hill, needs level 10.
   goto 50.1,49.0 map 1411 "Razormane Quilboar"
-  level 10                          -- grind on Razormane Quilboar
+  level 10 grind 3111               -- grind on Razormane Quilboar
 
 step Razor Hill
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
@@ -317,19 +318,53 @@ step Razor Hill
   accept 5654 only Troll,Priest       -- Tai'jin, for Ur'kyo in Orgrimmar: keep it
   accept 2983 only Shaman -- Swart
 
+step Far Watch Post
+  only Shaman
+  zone The Barrens
+  tip West over the Southfury River bridge: Kargal Battlescar stands at Far Watch Post above it, on your way to Kranal Fiss.
+  turnin 840                          -- Kargal Battlescar
+
 step The Barrens
   only Shaman
   zone The Barrens
-  goto 56.0,19.9 "The Barrens"
+  goto 56.0,19.9 "Kranal Fiss"
+
+# Turn in a carried alternative here before starting the shared ritual;
+# do not add a trip to a different trainer for an uncarried breadcrumb.
+
+step
+  only Shaman
+  when onquest 1522
+  zone The Barrens
+  turnin 1522
+
+step
+  only Shaman
+  when onquest 1523
+  zone The Barrens
+  turnin 1523
+
+step
+  only Shaman
+  when onquest 2984
+  zone The Barrens
+  turnin 2984
 
 step Kranal Fiss
   only Shaman
   zone The Barrens
   tip West over the Southfury River bridge, past Far Watch Post and on along the ridge: Kranal Fiss stands alone above the Razormane camp.
   turnin 2983
+  accept 1524
+
+step Telf Joolam
+  only Shaman
+  zone Durotar
+  tip Back over the bridge and south along the Durotar bank of the river to where a narrow trail climbs the mountain: Telf keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail.
+  turnin 1524
+  accept 1525
 
 step Razormane Grounds
-  label q837
   zone Durotar
   tip Quilboars and scouts hold the huts west of town; dustrunners and battleguards hold the camps farther west.
   kill 3111 quest 837.1
@@ -352,6 +387,7 @@ step Drygulch Ravine
   kill 3118 quest 835.2
   collect 277661 "Dull Storm Orb" optional
   accept 97281 optional
+  collect 6652 quest 1525.2 only Shaman
 
 step Deathskip to Northern Durotar
   zone Durotar
@@ -407,19 +443,19 @@ step Druid trainer
   train class only Druid -- Sheal Runetotem in Mulgore; Razor Hill has no druid trainer
 
 step Razor Hill
+  tip Back to Razor Hill: Gar'Thok, then Orgnil.
   turnin 837                          -- Gar'Thok
   turnin 6062 only Hunter             -- Thotar
   accept 6083 only Hunter
   turnin 806                          -- Orgnil Soulscar
   accept 828
-  tip Back south to Razor Hill.
   turnin 99049                        -- Orgnil Soulscar
   accept 99051
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
 
 step Spitelash naga
-  tip Back east to the shore north of Heglan. Spitelash Scouts and Attendants hold the beach below Drygulch Ravine. Hunters: tame a Surf Crawler on the beach.
-  collect 286008 quest 99051.1
+  tip North-east to the beach below Drygulch Ravine, north of Heglan: Spitelash Scouts and Attendants hold it. Hunters: tame a Surf Crawler on the beach.
+  collect 286008 quest 99051.1 @58.9,27.0
   kill 3107 quest 6083.1 "Tame Surf Crawler" only Hunter -- Tame it with the Taming Rod
 
 step Margoz
@@ -430,7 +466,7 @@ step Margoz
 step Orgrimmar
   only Warlock
   zone Orgrimmar
-  goto 48.3,45.3 "Orgrimmar"
+  goto 48.3,45.3 "Gan'rul Bloodeye"
 
 step Gan'rul Bloodeye
   only Warlock
@@ -450,7 +486,7 @@ step Hanashi
 step Back to Durotar
   only Warlock
   zone Durotar
-  goto 53.1,9.4 "Durotar"
+  goto 53.1,9.4 "Skull Rock"
 
 # Skull Rock's mouth: players report the entrance near 55,10 (quest 827); Gazz'uz
 # stands at its back (52.6,8.8).
@@ -469,113 +505,57 @@ step Tablet of Verga
   tip The Burning Blade Stash stands in Skull Rock, among the cultists you just fought.
   collect 6535 quest 1501.1
 
-step Into Orgrimmar
-  only Warlock
-  zone Orgrimmar
-  goto 52.5,84.4 "Into Orgrimmar"
-
-step Orgrimmar
-  only Warlock
-  zone Orgrimmar
-  goto 48.3,45.3 "Orgrimmar"
-
-step The Binding
-  only Warlock
-  zone Orgrimmar
-  tip Back to Gan'rul in the Cleft of Shadow. Use the Glyphs of Summoning on the summoning circle there and defeat the voidwalker to bind it.
-  turnin 1501                         -- Gan'rul Bloodeye
-  accept 1504
-  use 7464 @49.3,50.0                 -- Glyphs of Summoning
-  kill 5676 quest 1504.1
-  turnin 1504                         -- Gan'rul Bloodeye: Summon Voidwalker
-
-step Back to Durotar
-  only Warlock
-  zone Durotar
-  goto 56.4,20.0 "Durotar"
-
 step Margoz
   zone Durotar
   turnin 827
   accept 829
 
-step Durotar
-  only Hunter
-  zone Durotar
-  goto 51.9,43.5 "Durotar"
-
-step Into Orgrimmar
-  only Hunter
-  zone Orgrimmar
-  goto 52.5,84.4 "Into Orgrimmar"
-
-step Orgrimmar
-  only Hunter
-  zone Orgrimmar
-  goto 66.0,18.5 "Orgrimmar"
-
-step The Barrens
-  only Warrior
-  zone The Barrens
-  goto 61.4,21.1 "The Barrens"
-
-# ---------------------------------------------------------------- To the Crossroads
-
-step Uzzek
-  only Warrior
-  zone The Barrens
-  tip Follow the road west from Razor Hill over the Southfury River bridge; Uzzek stands at Far Watch Post, just above it on the Barrens side.
-  turnin 1505                         -- Uzzek
-  accept 1498
-
-step Thunder lizards across the river
-  only Warrior
-  zone Durotar
-  tip Thunder Lizards and Lightning Hides graze on Thunder Ridge across the bridge; any of them can drop a Singed Scale.
-  collect 6486 quest 1498.1
-
-step Uzzek
-  only Warrior
-  zone The Barrens
-  turnin 1498
-  accept 1502
-
-step The Barrens
-  zone The Barrens
-  goto 62.3,19.4 "The Barrens"
-
-step Far Watch Post
-  zone The Barrens
-  tip Follow the road west from Razor Hill over the Southfury River bridge; Far Watch Post sits just above it on the Barrens side.
-  turnin 840                          -- Kargal Battlescar
-  accept 842
-
-step Zargh
-  accept 6365
-  turnin 842
-  turnin 6365
-  accept 6384
-  getfp "Crossroads"
-
 step Razor Hill
-  zone Durotar
   tip Back to Razor Hill.
   turnin 99051                        -- Orgnil Soulscar
   turnin 6083 only Hunter             -- Thotar
   accept 6082 only Hunter
-  kill 3126 quest 6082.1 "Tame Armored Scorpid" only Hunter -- Tame it with the Taming Rod
-  turnin 6082 only Hunter -- Thotar: Tame Beast
 
-step Thotar
+step Razor Hill
+  when group 99052
+  accept 99052                        -- Orgnil Soulscar: Aggor the Young, an elite sea giant
+
+step Aggor the Young
+  when group 99052
+  tip Aggor the Young, a young sea giant, walks Durotar's north coast, north of the naga beach. Aggor the Young is elite: grouping up is advised.
+  collect 286009 quest 99052.1        -- Aggor's Belt
+  turnin 99052                        -- Orgnil Soulscar, back in Razor Hill
+
+step Armored Scorpid
   only Hunter
-  zone Durotar
   tip Armored Scorpids crawl over the plains west of Razor Hill. Tame one, then return to Thotar.
+  kill 3126 quest 6082.1 "Tame Armored Scorpid" -- Tame it with the Taming Rod
+  turnin 6082                         -- Thotar: Tame Beast
   accept 6081                         -- Thotar: Ormak Grimshot in Orgrimmar teaches Beast Training
+
+step Far Watch Post
+  when onquest 840
+  zone The Barrens
+  tip West from Razor Hill over the Southfury River bridge: Kargal Battlescar and Uzzek stand together at Far Watch Post above it. From there the road north through Durotar leads to Orgrimmar.
+  turnin 840                          -- Kargal Battlescar
+  turnin 1505 only Warrior            -- Uzzek
+  accept 1498 only Warrior
+
+step Thunder lizards on the way north
+  only Warrior
+  zone Durotar
+  tip Thunder Lizards and Lightning Hides graze on Thunder Ridge, beside the road north to Orgrimmar; any of them can drop a Singed Scale. Uzzek takes it when the next guide passes Far Watch Post.
+  collect 6486 quest 1498.1
+
+step Orgrimmar
+  only Hunter
+  zone Orgrimmar
+  goto 66.0,18.5 "Ormak Grimshot"
 
 step Ormak Grimshot
   only Hunter
   zone Orgrimmar
-  tip Follow the road north from Razor Hill to Orgrimmar's main gate, just west of Skull Rock. Ormak Grimshot stands with the hunter trainers in the Valley of Honor.
+  tip Follow the road north from Far Watch Post to Orgrimmar's main gate, just west of Skull Rock. Ormak Grimshot stands with the hunter trainers in the Valley of Honor.
   turnin 6081                         -- Ormak Grimshot: Beast Training
 
 step Hanashi
@@ -586,14 +566,20 @@ step Hanashi
   tip While you're here: learn Staves from Hanashi (Valley of Honor, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most.
   train 2704                          -- Hanashi
 
-step Razor Hill
-  zone Durotar
-  when group 99052
-  accept 99052 optional               -- Orgnil Soulscar: Aggor the Young, an elite sea giant
+step To Orgrimmar
+  zone Orgrimmar
+  tip Follow the road north from Far Watch Post to Orgrimmar's main gate. The next guide starts in Orgrimmar: Neeru Fireblade takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for Tirisfal Glades and Silverpine Forest. The Barrens come after Silverpine.
+  goto 55.6,72.3 "Orgrimmar's Valley of Strength"
 
-step Aggor the Young
-  zone Durotar
-  when group 99052
-  tip Aggor the Young, a young sea giant, walks Durotar's north coast, north of the naga beach. Aggor the Young is elite: grouping up is advised.
-  collect 286009 quest 99052.1 optional -- Aggor's Belt
-  turnin 99052 optional               -- Orgnil Soulscar, back in Razor Hill
+# Warlocks bind the voidwalker on this arrival in Orgrimmar, with Neeru Fireblade in the same Cleft of
+# Shadow (forever/horde/03-silverpine-forest), not on a trip of its own from Skull Rock and back to
+# Margoz in the middle of the guide (final route review, 0.3.6).
+step The Binding
+  only Warlock
+  zone Orgrimmar
+  tip Gan'rul Bloodeye stands in the Cleft of Shadow, the canyon under the Valley of Strength. Hand him the Tablet of Verga, then use the Glyphs of Summoning on the summoning circle beside him and defeat the voidwalker to bind it.
+  turnin 1501                         -- Gan'rul Bloodeye
+  accept 1504
+  use 7464 @49.3,50.0                 -- Glyphs of Summoning
+  kill 5676 quest 1504.1
+  turnin 1504                         -- Gan'rul Bloodeye: Summon Voidwalker

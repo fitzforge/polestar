@@ -7,11 +7,11 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Wintersaber Trainers Reputation"] = "",
+	["Wintersaber Trainers Reputation"] = "Репутация: Укротители ледопардов",
 	-- {spell:17229} Winterspring Frostsaber · {zone:1452} Winterspring
-	["The {spell:17229}: 840 quest turn-ins in {zone:1452}, with Timbermaw reputation on the side."] = "",
+	["The {spell:17229}: 840 quest turn-ins in {zone:1452}, with Timbermaw reputation on the side."] = "{spell:17229}: 840 сдач заданий в зоне {zone:1452}, попутно репутация у Древобрюхов.",
 	-- {area:1769} Timbermaw Hold · {item:21383} Winterfall Spirit Beads · {quest:5201} Winterfall Intrusion
-	["{area:1769} reputation on the side: 50 and about 4 {item:21383} per {quest:5201}"] = "",
+	["{area:1769} reputation on the side: 50 and about 4 {item:21383} per {quest:5201}"] = "Попутная репутация ({area:1769}): 50 и около 4 шт. {item:21383} за задание {quest:5201}",
 
 	-- Step 1: Rivern Frostwind
 	-- {npc:10618} Rivern Frostwind · {area:2241} Frostsaber Rock · {zone:1452} Winterspring · {faction:589} Wintersaber Trainers · {quest:4970} Frostsaber Provisions

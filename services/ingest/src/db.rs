@@ -24,8 +24,8 @@
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
 
-use polestar_recording::api::{AdminContributor, ExportLine, MeResponse, Rejected, Stats, StatsDay, Tombstone, UploadResponse};
-use rusqlite::types::ValueRef;
+use polestar_recording::api::{AdminContributor, ExportLine, MeResponse, Rejected, Stats, StatsDay, StatsReject, Tombstone, UploadResponse};
+use rusqlite::types::{Value, ValueRef};
 use rusqlite::{params, Connection, OptionalExtension};
 
 const SCHEMA: &str = "
@@ -120,6 +120,12 @@ CREATE TABLE IF NOT EXISTS quest_counts (
 	quest INTEGER PRIMARY KEY,
 	n INTEGER NOT NULL
 );
+CREATE TABLE IF NOT EXISTS rejects (
+	day INTEGER NOT NULL,
+	class TEXT NOT NULL,
+	n INTEGER NOT NULL,
+	PRIMARY KEY (day, class)
+) WITHOUT ROWID;
 DROP TABLE IF EXISTS install_maps;
 ";
 
@@ -157,6 +163,10 @@ pub const PRUNE_BATCH: usize = 2000;
 pub const SEQ_MEMORY: i64 = 1000;
 /// Days of per-day counts kept, for `/v1/stats` `last30`.
 const STATS_DAYS: i64 = 30;
+/// Reason classes counted per UTC day; rejects of further classes count under [`OTHER_CLASS`], so
+/// an uploader making up reasons cannot grow the table.
+pub const MAX_REJECT_CLASSES: i64 = 100;
+const OTHER_CLASS: &str = "other";
 
 const DAY: i64 = 86_400;
 
@@ -197,11 +207,12 @@ pub struct NewChunk {
 	pub quests: BTreeSet<u32>,
 }
 
-/// One chunk of an upload after decoding: stored, or rejected with a reason.
+/// One chunk of an upload after decoding: stored, or rejected with a reason (sent back) and its
+/// class (counted; [`crate::recording::reason_class`]).
 #[derive(Debug, Clone)]
 pub enum Prepared {
 	Ok(Box<NewChunk>),
-	Rejected(Rejected),
+	Rejected(Rejected, String),
 }
 
 /// What an upload did.
@@ -281,6 +292,20 @@ const PER_CONTRIBUTOR: [&str; 6] = ["chunks", "totals", "kinds", "days", "instal
 fn bump(tx: &Connection, key: &str, delta: i64) -> rusqlite::Result<()> {
 	if delta != 0 {
 		tx.execute("INSERT INTO settings (key, value) VALUES (?1, ?2) ON CONFLICT (key) DO UPDATE SET value = value + ?2", params![key, delta])?;
+	}
+	Ok(())
+}
+
+/// Counts rejected chunks per UTC day and reason class (no contributor, no value), and logs each
+/// class, so a validator rule that turns real game values away shows within minutes. Past
+/// [`MAX_REJECT_CLASSES`] classes in a day, a new class counts as [`OTHER_CLASS`].
+fn count_rejects(tx: &Connection, today: i64, classes: &[String]) -> rusqlite::Result<()> {
+	for class in classes {
+		let known: bool = tx.query_row("SELECT COUNT(*) > 0 FROM rejects WHERE day = ?1 AND class = ?2", params![today, class], |r| r.get(0))?;
+		let full = !known && tx.query_row("SELECT COUNT(*) FROM rejects WHERE day = ?1", [today], |r| r.get::<_, i64>(0))? >= MAX_REJECT_CLASSES;
+		let class = if full { OTHER_CLASS } else { class.as_str() };
+		tx.execute("INSERT INTO rejects (day, class, n) VALUES (?1, ?2, 1) ON CONFLICT (day, class) DO UPDATE SET n = n + 1", params![today, class])?;
+		tracing::info!("rejected chunk: {class}");
 	}
 	Ok(())
 }
@@ -454,7 +479,9 @@ impl Db {
 	/// unless one of `networks` (today's HMAC of a network, with its cap) already registered its
 	/// cap of contributors today. Each network's count goes up by one.
 	#[allow(clippy::too_many_arguments)]
-	pub fn register(&mut self, hash: &str, challenge: &str, expires: i64, now: i64, networks: &[(&str, u32)], cohort: &str) -> rusqlite::Result<Registration> {
+	/// A new contributor, counted against each of `networks`' daily caps; `blocked` (a maintainer's
+	/// test identity) from the start.
+	pub fn register(&mut self, hash: &str, challenge: &str, expires: i64, now: i64, networks: &[(&str, u32)], cohort: &str, blocked: bool) -> rusqlite::Result<Registration> {
 		let today = now.div_euclid(DAY);
 		let tx = self.conn.transaction()?;
 		for &(network, cap) in networks {
@@ -470,7 +497,7 @@ impl Db {
 		for &(network, _) in networks {
 			tx.execute("INSERT INTO registrations (day, network, n) VALUES (?1, ?2, 1) ON CONFLICT (day, network) DO UPDATE SET n = n + 1", params![today, network])?;
 		}
-		tx.execute("INSERT INTO contributors (hash, first_seen, last_seen, bytes_today, day, cohort) VALUES (?1, ?2, ?2, 0, ?3, ?4)", params![hash, now, today, cohort])?;
+		tx.execute("INSERT INTO contributors (hash, first_seen, last_seen, bytes_today, day, cohort, blocked) VALUES (?1, ?2, ?2, 0, ?3, ?4, ?5)", params![hash, now, today, cohort, blocked])?;
 		tx.commit()?;
 		Ok(Registration::Done(cohort.to_owned()))
 	}
@@ -514,11 +541,8 @@ impl Db {
 			return Ok(UploadOutcome::OverDailyCap);
 		}
 		if let Some(cohort) = cohort {
-			let others: i64 = tx.query_row(
-				"SELECT COALESCE(SUM(bytes_today), 0) FROM contributors WHERE cohort = ?1 AND day = ?2 AND hash != ?3",
-				params![cohort, today, contributor],
-				|r| r.get(0),
-			)?;
+			let others: i64 =
+				tx.query_row("SELECT COALESCE(SUM(bytes_today), 0) FROM contributors WHERE cohort = ?1 AND day = ?2 AND hash != ?3", params![cohort, today, contributor], |r| r.get(0))?;
 			if (others.max(0) as u64).saturating_add(used).saturating_add(body_len) > cohort_cap {
 				return Ok(UploadOutcome::OverCohortCap);
 			}
@@ -529,17 +553,26 @@ impl Db {
 		let known_install: bool = tx.query_row("SELECT COUNT(*) > 0 FROM installs WHERE contributor = ?1 AND install = ?2", [contributor, install], |r| r.get(0))?;
 		let installs: i64 = tx.query_row("SELECT COUNT(*) FROM installs WHERE contributor = ?1", [contributor], |r| r.get(0))?;
 		if !known_install && installs >= MAX_INSTALLS {
+			let mut classes = Vec::new();
 			for p in prepared {
 				response.rejected.push(match p {
-					Prepared::Rejected(r) => r,
-					Prepared::Ok(chunk) => Rejected { seq: chunk.seq, reason: format!("more than {MAX_INSTALLS} installs sent with this token") },
+					Prepared::Rejected(r, class) => {
+						classes.push(class);
+						r
+					}
+					Prepared::Ok(chunk) => {
+						classes.push("more than N installs sent with this token".into());
+						Rejected { seq: chunk.seq, reason: format!("more than {MAX_INSTALLS} installs sent with this token") }
+					}
 				});
 			}
+			count_rejects(&tx, today, &classes)?;
 			tx.commit()?;
 			return Ok(UploadOutcome::Done(response));
 		}
 		let mut quest_room = MAX_QUESTS - tx.query_row("SELECT quests FROM totals WHERE contributor = ?1", [contributor], |r| r.get::<_, i64>(0)).optional()?.unwrap_or(0);
 		let (mut quests_added, mut quests_new, mut new_days) = (0i64, 0i64, 0i64);
+		let mut reject_classes = Vec::new();
 		{
 			let mut seen = tx.prepare("INSERT OR IGNORE INTO seqs (contributor, install, seq) VALUES (?1, ?2, ?3)")?;
 			let mut insert_chunk = tx.prepare(
@@ -562,8 +595,9 @@ impl Db {
 			)?;
 			for p in prepared {
 				let chunk = match p {
-					Prepared::Rejected(r) => {
+					Prepared::Rejected(r, class) => {
 						response.rejected.push(r);
+						reject_classes.push(class);
 						continue;
 					}
 					Prepared::Ok(chunk) => chunk,
@@ -615,6 +649,7 @@ impl Db {
 		}
 		tx.execute("UPDATE totals SET quests = quests + ?2, upload_days = upload_days + ?3 WHERE contributor = ?1", params![contributor, quests_added, new_days])?;
 		bump(&tx, "quests", quests_new)?;
+		count_rejects(&tx, today, &reject_classes)?;
 		tx.commit()?;
 		Ok(UploadOutcome::Done(response))
 	}
@@ -660,7 +695,9 @@ impl Db {
 		let last30 = stmt
 			.query_map([since], |r| Ok(StatsDay { day: civil_date(r.get(0)?), chunks: r.get::<_, i64>(1)? as u64, contributors: r.get::<_, i64>(2)? as u64 }))?
 			.collect::<rusqlite::Result<Vec<_>>>()?;
-		Ok(Stats { contributors: contributors as u64, chunks: chunks as u64, records, quests: quests.max(0) as u64, last30 })
+		let mut stmt = self.conn.prepare("SELECT day, class, n FROM rejects WHERE day >= ?1 ORDER BY day, n DESC, class")?;
+		let rejects = stmt.query_map([since], |r| Ok(StatsReject { day: civil_date(r.get(0)?), reason: r.get(1)?, chunks: r.get::<_, i64>(2)? as u64 }))?.collect::<rusqlite::Result<Vec<_>>>()?;
+		Ok(Stats { contributors: contributors as u64, chunks: chunks as u64, records, quests: quests.max(0) as u64, last30, rejects })
 	}
 
 	/// Chunks with `id > after`, oldest first, at most `limit` and (after the first) at most
@@ -708,6 +745,61 @@ impl Db {
 		Ok(page)
 	}
 
+	/// The suspect chunks held: (id, received, text, reasons).
+	pub fn suspect_chunks(&self) -> rusqlite::Result<Vec<(i64, i64, String, String)>> {
+		let mut stmt = self.conn.prepare("SELECT id, received, text, COALESCE(reasons, '') FROM chunks WHERE suspect = 1 ORDER BY id")?;
+		let rows = stmt.query_map([], |r| Ok((r.get(0)?, r.get(1)?, stored_text(r.get_ref(2)?)?, r.get(3)?)))?;
+		rows.collect()
+	}
+
+	/// A held suspect chunk that passes the plausibility checks now ([`crate::recording::recheck`]):
+	/// stored as if it had passed when it arrived (its quests, its UTC day, the contributor's
+	/// plausible count and upload days), under a new id, so the next export after the maintainer's
+	/// cursor carries it. `received` and the text stay as they were. False when the chunk is no
+	/// longer held as suspect.
+	pub fn clear_suspect(&mut self, id: i64, quests: &BTreeSet<u32>, now: i64) -> rusqlite::Result<bool> {
+		let tx = self.conn.transaction()?;
+		type Row = (String, String, i64, i64, Option<i64>, Option<String>, String, Value, i64, Option<i64>);
+		let row: Option<Row> = tx
+			.query_row("SELECT contributor, install, seq, received, build, locale, uploader, text, flagged, epoch FROM chunks WHERE id = ?1 AND suspect = 1", [id], |r| {
+				Ok((r.get(0)?, r.get(1)?, r.get(2)?, r.get(3)?, r.get(4)?, r.get(5)?, r.get(6)?, r.get(7)?, r.get(8)?, r.get(9)?))
+			})
+			.optional()?;
+		let Some((contributor, install, seq, received, build, locale, uploader, text, flagged, epoch)) = row else { return Ok(false) };
+		tx.execute("DELETE FROM chunks WHERE id = ?1", [id])?;
+		tx.execute(
+			"INSERT INTO chunks (contributor, install, seq, received, build, locale, uploader, text, flagged, epoch, suspect, reasons)
+			 VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, 0, NULL)",
+			params![contributor, install, seq, received, build, locale, uploader, text, flagged, epoch],
+		)?;
+		tx.execute("UPDATE totals SET plausible = plausible + 1 WHERE contributor = ?1", [&contributor])?;
+		let mut room = MAX_QUESTS - tx.query_row("SELECT quests FROM totals WHERE contributor = ?1", [&contributor], |r| r.get::<_, i64>(0)).optional()?.unwrap_or(0);
+		let (mut added, mut new) = (0i64, 0i64);
+		for q in quests {
+			if room <= 0 {
+				break;
+			}
+			if tx.execute("INSERT OR IGNORE INTO quests (contributor, quest) VALUES (?1, ?2)", params![contributor, q])? > 0 {
+				room -= 1;
+				added += 1;
+				new += tx.execute("INSERT OR IGNORE INTO quest_counts (quest, n) VALUES (?1, 0)", [q])? as i64;
+				tx.execute("UPDATE quest_counts SET n = n + 1 WHERE quest = ?1", [q])?;
+			}
+		}
+		// Per-day rows older than the stats window may have been deleted: such a day is not counted
+		// again.
+		let day = received.div_euclid(DAY);
+		let mut new_day = 0i64;
+		if day >= now.div_euclid(DAY) - STATS_DAYS {
+			new_day = tx.execute("INSERT OR IGNORE INTO days (contributor, day, chunks) VALUES (?1, ?2, 0)", params![contributor, day])? as i64;
+			tx.execute("UPDATE days SET chunks = chunks + 1 WHERE contributor = ?1 AND day = ?2", params![contributor, day])?;
+		}
+		tx.execute("UPDATE totals SET quests = quests + ?2, upload_days = upload_days + ?3 WHERE contributor = ?1", params![contributor, added, new_day])?;
+		bump(&tx, "quests", new)?;
+		tx.commit()?;
+		Ok(true)
+	}
+
 	/// Records that the maintainer has stored every export line up to `upto` (clamped to the
 	/// highest chunk id there is); returns the acknowledged id.
 	pub fn ack(&mut self, upto: i64) -> rusqlite::Result<i64> {
@@ -737,6 +829,7 @@ impl Db {
 		tx.execute("DELETE FROM day_salt WHERE day < ?1", [today])?;
 		tx.execute("DELETE FROM registrations WHERE day < ?1", [today])?;
 		tx.execute("DELETE FROM days WHERE day < ?1", [today - STATS_DAYS])?;
+		tx.execute("DELETE FROM rejects WHERE day < ?1", [today - STATS_DAYS])?;
 		tx.execute(
 			"DELETE FROM seqs WHERE seq < (SELECT i.seq FROM installs i WHERE i.contributor = seqs.contributor AND i.install = seqs.install) - ?1
 				AND NOT EXISTS (SELECT 1 FROM chunks c WHERE c.contributor = seqs.contributor AND c.install = seqs.install AND c.seq = seqs.seq)",
@@ -859,6 +952,24 @@ mod tests {
 	}
 
 	#[test]
+	fn reject_classes_are_capped_per_day_and_pruned_with_the_days() {
+		let mut db = Db::open_in_memory().unwrap();
+		let now = 20_000 * DAY + 100;
+		let classes: Vec<String> = (0..MAX_REJECT_CLASSES + 5).map(|i| format!("rule {}", (b'a' + (i % 26) as u8) as char).repeat(1 + i as usize / 26)).collect();
+		let tx = db.conn.transaction().unwrap();
+		count_rejects(&tx, 20_000, &classes).unwrap();
+		count_rejects(&tx, 20_000, &classes[..1]).unwrap();
+		tx.commit().unwrap();
+		let rejects = db.stats(now).unwrap().rejects;
+		assert_eq!(rejects.len() as i64, MAX_REJECT_CLASSES + 1, "the cap plus `other`");
+		let count = |reason: &str| rejects.iter().find(|r| r.reason == reason).map(|r| r.chunks);
+		assert_eq!((count("rule a"), count("rule b"), count(OTHER_CLASS)), (Some(2), Some(1), Some(5)));
+		assert_eq!(rejects[0].reason, OTHER_CLASS, "the most rejected class first");
+		db.housekeeping(now + (STATS_DAYS + 1) * DAY).unwrap();
+		assert!(db.stats(now + (STATS_DAYS + 1) * DAY).unwrap().rejects.is_empty());
+	}
+
+	#[test]
 	fn adds_new_columns_to_an_old_database() {
 		let conn = Connection::open_in_memory().unwrap();
 		conn.execute_batch(
@@ -919,7 +1030,7 @@ mod tests {
 	fn db_with(contributors: &[&str]) -> Db {
 		let mut db = Db::open_in_memory().unwrap();
 		for (i, c) in contributors.iter().enumerate() {
-			assert_eq!(db.register(c, &format!("ch{i}"), NOW + 600, NOW, &[(&format!("net{i}"), 3)], "0123456789abcdef").unwrap(), Registration::Done("0123456789abcdef".to_owned()));
+			assert_eq!(db.register(c, &format!("ch{i}"), NOW + 600, NOW, &[(&format!("net{i}"), 3)], "0123456789abcdef", false).unwrap(), Registration::Done("0123456789abcdef".to_owned()));
 		}
 		db
 	}
@@ -953,7 +1064,7 @@ mod tests {
 	#[test]
 	fn a_registration_counts_against_every_network_it_is_in() {
 		let mut db = Db::open_in_memory().unwrap();
-		let reg = |db: &mut Db, i: u32, nets: &[(&str, u32)]| db.register(&format!("h{i}"), &format!("ch{i}"), NOW + 600, NOW, nets, "c").unwrap();
+		let reg = |db: &mut Db, i: u32, nets: &[(&str, u32)]| db.register(&format!("h{i}"), &format!("ch{i}"), NOW + 600, NOW, nets, "c", false).unwrap();
 		assert!(matches!(reg(&mut db, 0, &[("a48", 3), ("wide", 2)]), Registration::Done(_)));
 		assert!(matches!(reg(&mut db, 1, &[("b48", 3), ("wide", 2)]), Registration::Done(_)));
 		assert_eq!(reg(&mut db, 2, &[("c48", 3), ("wide", 2)]), Registration::OverCap, "the wide network is full");
@@ -976,6 +1087,32 @@ mod tests {
 		db.housekeeping(NOW + 40 * DAY).unwrap();
 		assert_eq!(count(&db, "SELECT COUNT(*) FROM days"), 0);
 		assert_eq!(db.export(0, 10, false).unwrap()[0].upload_days, 2);
+	}
+
+	#[test]
+	fn a_cleared_suspect_chunk_counts_and_comes_after_the_export_cursor() {
+		let mut db = db_with(&["a"]);
+		send(&mut db, "a", "i", NOW, vec![chunk(1, [], false)]);
+		send(&mut db, "a", "i", NOW + DAY, vec![chunk(2, [364], true), chunk(3, [], false)]);
+		// The maintainer has pulled and acknowledged everything exported so far.
+		let cursor = db.export(0, 10, false).unwrap().last().unwrap().id;
+		assert_eq!(db.ack(cursor).unwrap(), cursor);
+		let held = db.suspect_chunks().unwrap();
+		assert_eq!((held.len(), held[0].1), (1, NOW + DAY));
+		assert!(db.clear_suspect(held[0].0, &BTreeSet::from([364]), NOW + 2 * DAY).unwrap());
+		assert!(!db.clear_suspect(held[0].0, &BTreeSet::new(), NOW + 2 * DAY).unwrap(), "only once");
+		assert!(db.suspect_chunks().unwrap().is_empty());
+		let after = db.export(cursor, 10, false).unwrap();
+		assert_eq!((after.len(), after[0].seq, after[0].received, after[0].suspect), (1, 2, NOW + DAY, false));
+		assert_eq!(count(&db, "SELECT plausible FROM totals WHERE contributor = 'a'"), 3);
+		assert_eq!(count(&db, "SELECT quests FROM totals WHERE contributor = 'a'"), 1);
+		assert_eq!(count(&db, "SELECT n FROM quest_counts WHERE quest = 364"), 1);
+		assert_eq!(count(&db, "SELECT chunks FROM days WHERE contributor = 'a' AND day = (SELECT MAX(day) FROM days)"), 2);
+		// Day 2 already had chunk 3: no new upload day.
+		assert_eq!(after[0].upload_days, 2);
+		// Not pruned with what was acknowledged before it.
+		assert_eq!(db.prune_batch(NOW + 30 * DAY).unwrap(), 2);
+		assert_eq!(db.chunks_held().unwrap(), 1);
 	}
 
 	#[test]

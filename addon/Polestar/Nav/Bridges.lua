@@ -1,6 +1,7 @@
 -- Mirrors the target to other navigation systems:
 --   TomTom (nav.tomtom): one waypoint, replaced whenever the target changes;
---     nav.useTomTomArrow hands the arrow over to TomTom's.
+--     nav.useTomTomArrow hands the arrow over to TomTom's, on the target's
+--     continent (Nav.TomTomArrowGuides).
 --   Blizzard's user waypoint (nav.blizzardWaypoint, off by default):
 --     C_Map.SetUserWaypoint plus C_SuperTrack, cleared only if we set it.
 --     With Waypoint UI loaded (its public WaypointUIAPI.Navigation), which
@@ -64,6 +65,20 @@ function Nav.UsingTomTomArrow()
 	return ns.Get("nav.tomtom") and ns.Get("nav.useTomTomArrow") and tomtom() ~= nil or false
 end
 
+-- TomTom's arrow measures nothing to a waypoint on another continent and
+-- hides itself there (#1325: Durotar to Loch Modan showed no arrow at all).
+-- So it guides only while the player stands on the target's continent;
+-- elsewhere Polestar's own arrow and its route (a zeppelin, a boat) do. An
+-- unknown position or target stays TomTom's. Allocation-free (the arrow asks
+-- every sample).
+function Nav.TomTomArrowGuides()
+	if not Nav.UsingTomTomArrow() then return false end
+	local tc = Nav.GetTargetWorld()
+	local C = ns.Compat
+	local pc = C and C.GetPlayerWorldPosition and C.GetPlayerWorldPosition()
+	return tc == nil or pc == nil or tc == pc
+end
+
 local function syncTomTom(target)
 	local T = tomtom()
 	if tomtomUid then
@@ -123,7 +138,7 @@ local function questTrackable(target)
 	return q
 end
 
--- With Waypoint UI: true when the target is shown through it.
+-- With Waypoint UI: "quest" or "pin" when the target is shown through it.
 local function syncWaypointUI(W, target)
 	local ST = C_SuperTrack
 	local q = questTrackable(target)
@@ -137,7 +152,7 @@ local function syncWaypointUI(W, target)
 			ST.SetSuperTrackedQuestID(q)
 		end
 		questSet = q
-		return true
+		return "quest"
 	end
 	local map, x, y = Nav.LiveCoords(target)
 	if not map or (C_Map and C_Map.CanSetUserWaypointOnMap and not C_Map.CanSetUserWaypointOnMap(map)) then return false end
@@ -147,11 +162,11 @@ local function syncWaypointUI(W, target)
 	local L = wuiLast
 	if wuiSet and L and L.label == target.label and L.map == map and math.abs(L.x - x) < 0.05 and math.abs(L.y - y) < 0.05
 		and W.IsUserNavigationFlagged(FLAG) then
-		return true
+		return "pin"
 	end
 	W.NewUserNavigation({ name = target.label, mapID = map, x = x, y = y, flags = FLAG, suppressAudio = true })
 	wuiSet, wuiLast = true, { label = target.label, map = map, x = x, y = y }
-	return true
+	return "pin"
 end
 
 local retrying = false
@@ -171,8 +186,13 @@ local function syncBlizzard(target)
 		end)
 	end
 	-- Waypoint UI loaded: the tracked quest or a named pin, through it.
-	if on and W and syncWaypointUI(W, target) then
-		blizzardSet = false -- Waypoint UI replaced any plain pin of ours
+	local shown = on and W and syncWaypointUI(W, target)
+	if shown then
+		-- A named pin replaces a plain one of ours (Waypoint UI sets the game's
+		-- pin itself); a tracked quest does not, so ours is cleared (a target
+		-- set as a plain pin before Waypoint UI's API was ready).
+		if blizzardSet and shown == "quest" and C_Map and C_Map.ClearUserWaypoint then C_Map.ClearUserWaypoint() end
+		blizzardSet = false
 		return
 	end
 	if wuiSet or questSet then clearWaypointUI(W) end

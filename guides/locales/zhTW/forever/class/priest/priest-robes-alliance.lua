@@ -24,7 +24,7 @@ return {
 	-- {npc:12423} Guard Roberts · {area:87} Goldshire · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude
 	["{npc:12423} kneels by a tree on the lake shore east of {area:87}, off the road: walk along the shore, the minimap misses him from the road. Cast {spell:613} (Rank 2) on him first, then {spell:1243}. Rank 1 of {spell:613} does not count; drag Rank 2 onto your bar from the spellbook (or cast both from the spellbook if an action bar addon gets in the way). He walks off once both land and is back in about 3 minutes."] = "",
 	-- {npc:12423} Guard Roberts
-	["Heal and fortify {npc:12423}"] = "",
+	["Heal and fortify {npc:12423}"] = "治療並強化{npc:12423}",
 
 	-- Step 4: Priestess Josetta
 	-- {item:16605} Friar's Robes of the Light
@@ -44,7 +44,7 @@ return {
 	-- {npc:12427} Mountaineer Dolf · {area:131} Kharanos · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude
 	["{npc:12427} kneels on a ridge between two low walls just south of {area:131}, across the road from the hunter pet trainer: if the road starts going downhill, you have passed him. Cast {spell:613} (Rank 2) on him first, then {spell:1243}; he speaks after each spell. Rank 1 of {spell:613} does not count."] = "",
 	-- {npc:12427} Mountaineer Dolf
-	["Heal and fortify {npc:12427}"] = "",
+	["Heal and fortify {npc:12427}"] = "治療並強化{npc:12427}",
 
 	-- Step 8: Maxan Anvol
 	-- {area:2102} Thunderbrew Distillery · {npc:1226} Maxan Anvol · {item:16605} Friar's Robes of the Light
@@ -64,7 +64,7 @@ return {
 	-- {npc:12429} Sentinel Shaya · {area:259} Lake Al'Ameth · {area:186} Dolanaar · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude
 	["{npc:12429} kneels on the rocks at the edge of {area:259}, about 100 yards south of {area:186}, with no quest mark over her. Cast {spell:613} (Rank 2) on her first, then {spell:1243}; she runs off toward the lake once both land and is back in about 5 minutes. Rank 1 of {spell:613} does not count."] = "",
 	-- {npc:12429} Sentinel Shaya
-	["Heal and fortify {npc:12429}"] = "",
+	["Heal and fortify {npc:12429}"] = "治療{npc:12429}並施放耐力",
 
 	-- Step 12: Laurna Morninglight
 	-- {area:186} Dolanaar · {npc:3600} Laurna Morninglight · {item:16604} Moon Robes of Elune

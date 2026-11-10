@@ -5,7 +5,7 @@ faction Horde
 race Tauren
 levels 1-12
 zone Mulgore
-next forever/horde/02-the-barrens
+next forever/horde/03-silverpine-forest
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -19,19 +19,19 @@ step Camp Narache
   accept 747                          -- Grull Hawkwind
   accept 752                          -- Chief Hawkwind, inside
 
-step On the way
-  along until q747
-  collect 4739 quest 747.1 -- Plainstrider Meat along the way to Grull Hawkwind
-  collect 4740 quest 747.2 -- Plainstrider Feather along the way to Grull Hawkwind
-
 step Greatmother Hawkwind
   tip Greatmother Hawkwind sits by the tent on the camp's eastern edge; the Water Pitcher stands next to her.
   turnin 752
   accept 753
   collect 4755 quest 753.1            -- Water Pitcher
 
+step Camp Narache: kill these as you meet them
+  zone Mulgore
+  tip Plainstriders roam the mesa all around the camp: take their meat and feathers on the way back to Grull.
+  collect 4739 quest 747.1            -- Plainstrider Meat
+  collect 4740 quest 747.2            -- Plainstrider Feather
+
 step Grull Hawkwind
-  label q747
   turnin 747
   accept 750
   accept 3091 only Warrior            -- Grull Hawkwind: Simple Note
@@ -69,14 +69,11 @@ step The shrine of An'she and Mu'sha
 
 # ---------------------------------------------------------------- Brambleblade Ravine
 
-step On the way
-  along until q780
-  collect 4848 quest 780.1 -- Battleboar Snout along the way to Camp Narache
-  collect 4849 quest 780.2 -- Battleboar Flank along the way to Camp Narache
-
 step Red Cloud Mesa: kill these as you meet them
   zone Mulgore
   tip Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. Chief Sharptusk Thornmantle stands at its eastern end, and the Dirt-stained Map lies on the ground in the camp.
+  collect 4848 quest 780.1            -- Battleboar Snout
+  collect 4849 quest 780.2            -- Battleboar Flank
   collect 4770 quest 757.1            -- Bristleback Belt
   collect 10459 quest 3376.1          -- Chief Sharptusk Thornmantle's Head
   collect 4851                        -- Below ground
@@ -88,7 +85,6 @@ step Deathskip to Red Cloud Mesa
   die "Red Cloud Mesa" @42.6,78.1 map 1412
 
 step Camp Narache
-  label q780
   zone Mulgore
   tip Back west to the camp.
   turnin 780                          -- Grull Hawkwind
@@ -120,12 +116,22 @@ step Call of Earth
 # ---------------------------------------------------------------- Bloodhoof Village
 
 step Kaga Wildhoof
-  tip Follow the road north out of Red Cloud Mesa. Kaga Wildhoof waits on the road just south of Bloodhoof Village; /sit by her campfire until you get Boosted Rest.
+  tip Follow the road north out of Red Cloud Mesa. Kaga Wildhoof waits on the road just south of Bloodhoof Village; /sit by her campfire until you get Boosted Rest. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof or on the Thunder Bluff stop.
   turnin 96659
   accept 96605
   complete 96605 @46.2,67.3 live      -- /sit by Kaga's campfire until you get Boosted Rest
   turnin 96605
   accept 96661
+  accept 97936 optional               -- Kaga Wildhoof: for Yonn Deepcut
+  accept 97934 optional               -- Kaga Wildhoof: for Chaw Stronghide
+  accept 97931 optional               -- Kaga Wildhoof: for Vira Younghoof
+  accept 97932 optional               -- Kaga Wildhoof: for Uthan Stillwater
+  accept 97933 optional               -- Kaga Wildhoof: for Komin Winterhoof
+  accept 97935 optional               -- Kaga Wildhoof: for Brek Stonehoof
+  accept 97927 optional               -- Kaga Wildhoof: for Kray
+  accept 97928 optional               -- Kaga Wildhoof: for Thrag Stonehoof
+  accept 97929 optional               -- Kaga Wildhoof: for Mot Dawnstrider
+  accept 97937 optional               -- Kaga Wildhoof: for Vhan
 
 step Bloodhoof Village
   accept 743                          -- Ruul Eagletalon
@@ -145,100 +151,82 @@ step Bloodhoof Village
   accept 96130                        -- Yaw Sharpmane
   accept 766                          -- Maur Raincaller
 
-step On the way
-  along until q761
-  collect 4769 quest 761.1
-  collect 4804 quest 766.1
-  collect 4807 quest 766.4
-  collect 4809 quest 771.2
-
 step Bloodhoof Village
   train Cooking npc 3067              -- Pyall Silentstride: Camping 101 asks you to learn it
   complete 96661 @44.92,61.67 map 1412 live
   turnin 96661                        -- Pyall Silentstride
   accept 746
+  turnin 97936 optional               -- Yonn Deepcut, beside Pyall: Camping 101: Skinning
+  turnin 97934 optional               -- Chaw Stronghide, beside Pyall: Camping 101: Leatherworking
+  turnin 97931 optional               -- Vira Younghoof: Camping 101: First Aid
+  turnin 97932 optional               -- Uthan Stillwater: Camping 101: Fishing
 
 step Poison Water
-  label q761
   tip Prairie Wolves and Adult Plainstriders roam the plains around the village.
   collect 4758 quest 748.1            -- Prairie Wolf Paw
   collect 4769 quest 761.1
   collect 4807 quest 766.4
   collect 4759 quest 748.2            -- Plainstrider Talon
+  collect 4806 quest 766.3            -- Plainstrider Scale
   collect 4804 quest 766.1
   collect 4809 quest 771.2
   collect 4808 quest 771.1                    -- Well Stone, 170 yd east
 
 step Bloodhoof Village
   train class
-
-step Mull Thunderhorn
-  turnin 748
+  turnin 748                          -- Mull Thunderhorn
   accept 754
+  turnin 761                          -- Harken Windtotem
+  turnin 771                          -- Zarlman Two-Moons
+  accept 772
 
 step Winterhoof Water Well
-  tip The well lies south-east of the village.
+  tip The well lies south-east of the village. Morin Cloudstalker camps beside it, and Longwalker Malah stands on the Rolling Plains a little east.
   use 5411 quest 754.1 @53.7,66.2     -- Winterhoof Cleansing Totem
+  accept 749                          -- Morin Cloudstalker walks around here: look inside the circle on the map
+  turnin 99079                        -- Longwalker Malah
+  accept 99081
 
-step Mull Thunderhorn
-  turnin 754
+step Bloodhoof Village
+  turnin 754                          -- Mull Thunderhorn
   accept 756
+  turnin 99081                        -- Brave Wildrunner walks around Bloodhoof Village: look inside the circle on the map
+  accept 99101                        -- Brave Wildrunner
+  turnin 99101                        -- Baine Bloodhoof
+  accept 99080
 
 # ---------------------------------------------------------------- Thunderhorn Water Well
-
-step Thunderhorn Water Well
-  tip The well lies north of the village. Well Stones sit around the well, Ambercorn lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for Mazzranache and Swoop Hunting; the plainstriders also drop the Tender Strider Meat for Kyle.
-  collect 4809 quest 771.2            -- Ambercorn
-  collect 4808 quest 771.1
 
 step Mulgore: kill these as you meet them
   zone Mulgore
   tip Chakuyak, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it.
   collect 4801 quest 756.1            -- Stalker Claws
   collect 4802 quest 756.2            -- Cougar Claws
+  collect 4805 quest 766.2            -- Flatland Cougar Femur
   collect 270302 quest 96130.1        -- Chakuyak's Pelt
 
 step Bloodhoof Village
   turnin 756                          -- Mull Thunderhorn
   accept 758
+  turnin 766                          -- Maur Raincaller
   turnin 96130                        -- Yaw Sharpmane
   tip Ahab stands at the north edge of the village. Kyle wants Tender Strider Meat from plainstriders.
   accept 99411
 
 step Thunderhorn Water Well
+  tip The well lies north of the village. Adult Plainstriders graze around it: they drop the Tender Strider Meat for Kyle.
   use 5415 quest 758.1 @44.6,45.4     -- Thunderhorn Cleansing Totem
-  collect 4808 quest 771.1            -- Well Stone
-  collect 4806 quest 766.3            -- Plainstrider Scale
-  collect 4805 quest 766.2            -- Flatland Cougar Femur
-  collect 4804 quest 766.1            -- Prairie Wolf Heart
+  collect 287505                      -- Tender Strider Meat
 
 step Bloodhoof Village
-  turnin 771                          -- Zarlman Two-Moons
-  accept 772
+  use 287505 quest 99411.1 @47.8,63.1 -- Kyle the Frenzied runs around the village: give him the Tender Strider Meat
+  turnin 99411                        -- Ahab Wheathoof, at the north end of the village
   turnin 758                          -- Mull Thunderhorn
   accept 759
-  use 287505 quest 99411.1            -- Kyle the Frenzied runs around the village: give him the Tender Strider Meat
-  turnin 99411                        -- Ahab Wheathoof, at the north end of the village
-
-step Morin Cloudstalker
-  tip Morin camps by the Winterhoof Water Well south-east of Bloodhoof.
-  accept 749                          -- Morin Cloudstalker walks around here: look inside the circle on the map
-
-step Longwalker Malah
-  tip Malah stands on the Rolling Plains a little east of the well.
-  turnin 99079
-  accept 99081
-
-# ---------------------------------------------------------------- The eastern plains
-
-step Swoop Hunting
-  tip Swoops glide over the plains all around Bloodhoof.
-  collect 4769 quest 761.1            -- Trophy Swoop Quill
 
 step Galak Camp: kill these as you meet them
   zone Mulgore
   tip Prairie Wolf Alphas roam among the wolves on the plains around Malah and the Galak camp to the east.
-  collect 4807 quest 766.4            -- Swoop Gizzard
   collect 4803 quest 759.1            -- Prairie Alpha Tooth
 
 step The Ravaged Caravan
@@ -246,15 +234,9 @@ step The Ravaged Caravan
   turnin 749
   accept 751
 
-step Bloodhoof Village
-  turnin 761                          -- Harken Windtotem
-  turnin 759                          -- Mull Thunderhorn
+step Mull Thunderhorn
+  turnin 759
   accept 760
-  turnin 99081                        -- Brave Wildrunner walks around Bloodhoof Village: look inside the circle on the map
-  accept 99101                        -- Brave Wildrunner
-  turnin 99101                        -- Baine Bloodhoof
-  accept 99080
-  turnin 766
 
 step Morin Cloudstalker
   tip Back south-east to the Winterhoof Water Well.
@@ -350,7 +332,7 @@ step Red Rocks
 
 step Thunder Bluff
   zone Thunder Bluff
-  goto 60.3,51.7 "Thunder Bluff"
+  goto 60.3,51.7 "Cairne's tent"
 
 # ---------------------------------------------------------------- Thunder Bluff
 
@@ -365,6 +347,7 @@ step Traditions of the Bluff
   zone Thunder Bluff
   tip Eylah Sunhorn wants tauren incense: buy its four parts from Nida the herbalist, Nata the enchanting supplier, Mahu the leatherworking supplier and Naal the cooking supplier, then combine them into Prepared Incense.
   accept 97485                        -- Eylah Sunhorn
+  accept 744                          -- Eyahn Eagletalon, beside Eylah
   buy 278079 x1 npc 3014              -- Bundle of Herbs, from Nida Winterhoof
   buy 278080 x1 npc 3012              -- Bundle of Dried Cedar Twigs, from Nata Dawnstrider
   buy 278081 x1 npc 3005              -- Sinew Thread, from Mahu
@@ -372,7 +355,12 @@ step Traditions of the Bluff
   sethome "Thunder Bluff" npc 6746 only Druid -- Innkeeper Pala, at the south end of the central rise: the hearth from Moonglade brings you back here
   accept 5926 only Druid              -- Innkeeper Pala: Heeding the Call, for Turak on Elder Rise
   getfp "Thunder Bluff" npc 2995      -- Tal
-  accept 744
+  turnin 97933 optional               -- Komin Winterhoof: Camping 101: Herbalism
+  turnin 97935 optional               -- Brek Stonehoof: Camping 101: Mining
+  turnin 97927 optional               -- Kray: Camping 101: Alchemy
+  turnin 97928 optional               -- Thrag Stonehoof: Camping 101: Blacksmithing
+  turnin 97929 optional               -- Mot Dawnstrider: Camping 101: Enchanting
+  turnin 97937 optional               -- Vhan: Camping 101: Tailoring
 
 step Hunter Rise
   zone Thunder Bluff
@@ -423,6 +411,8 @@ step Preparation for Ceremony
 
 step Clarice Foster
   zone Thunder Bluff
+  tip Clarice Foster stands in the Pools of Vision, the cave under Spirit Rise: go down inside, the arrow cannot tell the floors apart.
+  level 12
   accept 264
   accept 1523 only Shaman -- Xanis Flameweaver, a few steps from Clarice Foster on Spirit Rise
 
@@ -466,14 +456,10 @@ step The Moonkin Stone
   use 15710 @71.7,65.0                -- Cenarion Lunardust
   complete 6002
 
-step Back to The Barrens
-  only Druid
-  zone The Barrens
-  goto 52.2,31.0 "The Barrens"
-
 # ---------------------------------------------------------------- The Crossroads
 
 step Into Mulgore
+  only !Druid
   zone Mulgore
   goto 42.1,20.2 "Into Mulgore"
 
@@ -481,25 +467,23 @@ step Into The Barrens
   zone The Barrens
   goto 41.9,58.6 "Into The Barrens"
 
-step The Barrens
+step Kirge Sternhorn
   zone The Barrens
-  goto 52.2,31.0 "The Barrens"
+  tip Kirge Sternhorn stands at Camp Taurajo, where the road from Mulgore meets the Gold Road north to the Crossroads.
+  accept 854                          -- Kirge Sternhorn: for Thork at the Crossroads
 
 step The Crossroads
   zone The Barrens
-  tip Leave Mulgore by the south-eastern pass and follow the road to the Crossroads. Sergra Darkthorn stands by the inn, Tonga Runetotem at the south gate. The Barrens guide starts here.
-  turnin 860                          -- Sergra Darkthorn
+  goto 52.2,31.0 "The Crossroads"
+
+step The Crossroads
+  zone The Barrens
+  tip Leave Mulgore by the south-eastern pass and follow the road to the Crossroads. Tonga Runetotem stands at the south gate, Sergra Darkthorn by the inn, Devrak on the tower platform. The Crossroads' own quests come after Silverpine Forest, in the Barrens guide.
   turnin 886                          -- Tonga Runetotem
-  tip The Crossroads is your base for this guide. Everyone you need stands within a few steps of the inn.
+  turnin 860                          -- Sergra Darkthorn
+  turnin 854                          -- Thork, by the wind rider tower
   getfp "Crossroads" npc 3615         -- Devrak, the wind rider master
-  sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
-  accept 870                          -- Tonga Runetotem
-  accept 867                          -- Darsok Swiftdagger: the harpies come later, in the Dry Hills
-  accept 5041
-  accept 871                          -- Thork
-  accept 1492
-  accept 848                          -- Apothecary Helbrim
-  accept 869                          -- Gazrog
+
 # ---------------------------------------------------------------- The Crossroads
 
 step Jahan Hawkwing
@@ -525,3 +509,8 @@ step Jahan Hawkwing
   only Druid
   zone The Barrens
   turnin 6364                         -- Jahan Hawkwing
+
+step To Orgrimmar
+  zone Orgrimmar
+  tip From the Crossroads follow the road north-east to Far Watch Post, cross the Southfury River into Durotar and keep north to Orgrimmar's main gate. The next guide starts in Orgrimmar and takes the zeppelin to Tirisfal Glades and Silverpine Forest.
+  goto 55.6,72.3 "Orgrimmar's Valley of Strength"

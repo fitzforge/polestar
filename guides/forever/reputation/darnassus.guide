@@ -8,7 +8,7 @@ zone Teldrassil
 keywords Darnassus, Raedon Duskstriker, cloth quartermaster, Craftsmen's Terrace, Additional Runecloth, Wool, Silk, Mageweave, Runecloth, nightsaber, Swift Frostsaber, grey quests, Shadowglen, Dolanaar, Auberdine, Morrowgrain, Un'Goro Soil, Evergreen Pouch, Mathrengyl Bearwalker, The True Masters
 reward text Exalted with Darnassus: in Classic, other races may buy the nightsabers
 reward text Morrowgrain to Darnassus: 50 reputation for every 10 Morrowgrain, as often as you like
-reward text About 3,700 Darnassus reputation from low-level quests in Teldrassil and Darkshore (in Classic, a fifth of it at 60)
+reward text About 3,700 Darnassus reputation from low-level quests in Teldrassil and Darkshore
 why Cloth, Morrowgrain and the Teldrassil and Darkshore hubs: the quests pay most while you level.
 
 # Built from Forever's quest data (the reputation each quest pays, as Forever's
@@ -21,8 +21,6 @@ why Cloth, Morrowgrain and the Teldrassil and Darkshore hubs: the quests pay mos
 # Runecloth (7801) pays 50 for 20 Runecloth and repeats. Bands: Friendly 6000,
 # Honored 12000, Revered 21000. Morrowgrain to Darnassus (3803) pays 50 for 10
 # Morrowgrain and repeats, after the Morrowgrain research chain (3763-3785).
-# Low-level quests: in Classic a quest 6+ levels below you pays a fifth less per
-# level, down to a fifth; one Forever beta report saw full pay at level 30.
 # The quest hubs are optional: each hub's first step carries a label, the
 # steps after it run only when it was done (`when done`), so skipping the
 # first step skips the hub. The Crown of the Earth chain is left out: its
@@ -42,7 +40,9 @@ why Cloth, Morrowgrain and the Teldrassil and Darkshore hubs: the quests pay mos
 # ASSUMED: the Evergreen Pouch can be used once every 10 minutes (Classic;
 # Forever's data has no cooldown for it). In-game check: the pouch's cooldown
 # after one use.
-# INGAME: grey-quest rep at 60 (Classic: a fifth from 9 levels below; one Forever beta report: full, quest 456 at level 30 paid 100)
+# Low-level quests pay their full reputation in Forever at any level: in players' recordings every
+# quest turn-in 10 to 29 levels above the quest paid all of it (72 turn-ins, over 40 people, 2026-11-09),
+# as one beta report said (quest 456 at level 30). Classic cut it to a fifth.
 # INGAME: reputation discount (Classic: 10% at Honored with the vendor's faction; Forever guide sites report 5% at Friendly rising to 20% at Exalted, another says unannounced). Check a city vendor's price at Friendly and at Honored.
 # Legacy Diplomat adds up to 10% to every gain; the numbers here leave it out.
 # No race has a reputation bonus in Forever (Diplomacy is gone).
@@ -55,81 +55,10 @@ step Raedon Duskstriker, the cloth quartermaster
   accept 7792
   turnin 7792
 
-step A Donation of Silk
-  tip Silk Cloth drops from humanoids level 23 to 40: the satyrs and furbolgs of Ashenvale, the Thistlefur and Foulweald camps, the Grimtotem of Stonetalon.
-  level 26
-  collect 4306 x60 nearest
-  accept 7798
-  turnin 7798
-
-step A Donation of Mageweave
-  tip Mageweave Cloth drops from humanoids level 35 to 50: the Hatecrest naga and Gordunni ogres of Feralas, the Dunemaul ogres of Tanaris.
-  level 40
-  collect 4338 x60 nearest
-  accept 7799
-  turnin 7799
-
-step A Donation of Runecloth
-  tip Runecloth drops from humanoids level 50 and up: the Deadwood furbolgs of Felwood, the Winterfall furbolgs of Winterspring, the Scourge cultists of the Plaguelands. Keep any Runecloth past the first 60 for Additional Runecloth.
-  level 50
-  collect 14047 x60 nearest
-  accept 7800
-  turnin 7800
-
-step Morgan's Vigil: Dragonkin Menace
-  zone Burning Steppes
-  tip Helendis Riverhorn at Morgan's Vigil, in the south-east of the Burning Steppes, starts The True Masters: 175 Darnassus reputation for two quests (level 54: in Classic 140 at 60), and the chain goes on to Stormwind Keep for 175 Stormwind. The Black Broodlings and the Black Drake live on the slopes north of the Vigil; the Black Dragonspawn and Black Wyrmkin west of it, in the middle of the zone.
-  level 55
-  accept 4182                         -- Dragonkin Menace, +100
-  kill 7047 x15 quest 4182.1          -- Black Broodling
-  kill 7040 x10 quest 4182.2          -- Black Dragonspawn
-  kill 7044 quest 4182.3              -- Black Drake
-  kill 7041 x4 quest 4182.4           -- Black Wyrmkin
-  turnin 4182
-  accept 4183                         -- The True Masters, +75
-
-step Lakeshire: Magistrate Solomon
-  zone Redridge Mountains
-  tip Magistrate Solomon waits in the town hall of Lakeshire; his next quest takes you to Stormwind Keep (the Stormwind guide follows it). Other Darnassus quests at this level, for when you pass by: Erelas Ambersky in Rut'theran Village has a wildkin chain into Winterspring (325 in all, with Ranshalla's escort), Arei's escort in Felwood pays 150 after the Emerald Sanctuary's chain, Mulgris Deepriver at the Writhing Haunt in the Western Plaguelands 100 for the Glyphed Oaken Branch, and Put Her Down in Upper Blackrock Spire 100 with a group.
-  turnin 4183
-
-step Morrowgrain (optional)
-  label dn-morrowgrain
-  zone Darnassus
-  tip Morrowgrain to Darnassus takes 10 Morrowgrain for 50, as often as you like, and pays in full at 60. The chain before it is level 50 (in Classic a fifth at 60): 220 at full. Innkeeper Saelienne sends you to Arch Druid Fandral Staghelm in the Cenarion Enclave; he wants 20 Un'Goro Soil. (The innkeepers of Stormwind and Ironforge give the same start.)
-  accept 3763                         -- Assisting Arch Druid Staghelm, +10
-  turnin 3763                         -- Arch Druid Fandral Staghelm
-  accept 3764                         -- Un'Goro Soil, +100
-
-step Un'Goro Crater: Un'Goro Soil
-  when done dn-morrowgrain
-  zone Un'Goro Crater
-  tip Dig Un'Goro Soil from the dirt mounds all over the crater; most of the crater's beasts and the Gorishi silithids drop it too, about one kill in three. Take far more than 20: every pouch use takes 2, about 18 for each 10 Morrowgrain.
-  collect 11018 x20 quest 3764.1      -- Un'Goro Soil
-
-step Darnassus: Morrowgrain Research
-  when done dn-morrowgrain
-  zone Darnassus
-  tip Jenal, beside Fandral in the Cenarion Enclave, takes the soil. Mathrengyl Bearwalker sells the Evergreen Pouch and Packets of Tharlendris Seeds. With a seed packet and 2 Un'Goro Soil in your bags, use the pouch to grow an Evergreen Herb Casing and open it: about one casing in three holds Morrowgrain (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things.
-  turnin 3764                         -- Jenal
-  accept 3781                         -- Morrowgrain Research, +10
-  turnin 3781                         -- Mathrengyl Bearwalker
-  accept 3785                         -- Morrowgrain Research, +100
-  buy 11020 npc 4217                  -- Evergreen Pouch
-  buy 11022 x10 npc 4217              -- Packet of Tharlendris Seeds
-  collect 11040 x10 quest 3785.1 @35.4,8.4 -- Morrowgrain: grow it here and open the casings
-  turnin 3785
-
-step Morrowgrain to Darnassus
-  when done dn-morrowgrain
-  tip Every 10 Morrowgrain: 50 reputation at Mathrengyl Bearwalker. Keep the pouch and buy seeds as you go. It is slow: about 9 casings, 90 minutes of pouch waits, 18 Un'Goro Soil and 9 seed packets for each hand-in, a little over 30 reputation an hour, so run it beside the Runecloth. Quintis Jonespyre at Feathermoon Stronghold in Feralas takes Morrowgrain at the same rate, 25 for 5, after his own quest.
-  collect 11040 x10 optional @35.4,8.4 -- Morrowgrain
-  turnin 3803 direct optional         -- Mathrengyl Bearwalker: Morrowgrain to Darnassus, +50
-
 step Shadowglen
   label dn-shadowglen
   zone Teldrassil
-  tip Optional: the Night Elf start glade in north-east Teldrassil, about 1,050 reputation (210 at a fifth) in 30 minutes at 60. The givers stand around Aldrassil, the great tree. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub.
+  tip Optional: the Night Elf start glade in north-east Teldrassil, about 1,050 reputation in 30 minutes at 60. The givers stand around Aldrassil, the great tree. Forever pays these old quests in full at any level. Skip this step to skip the hub.
   accept 456
   accept 458
   turnin 458
@@ -182,7 +111,7 @@ step Shadowglen: last hand-in
 step Dolanaar
   label dn-dolanaar
   zone Teldrassil
-  tip Optional: the village on the road to Darnassus, about 1,250 reputation (250 at a fifth) in 45 minutes at 60. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub.
+  tip Optional: the village on the road to Darnassus, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub.
   turnin 2159 optional
   accept 475
   accept 2438
@@ -222,6 +151,12 @@ step Dolanaar: first hand-in
   turnin 87288
   turnin 487
 
+# Players' recordings: the Ban'ethil Barrow Den's mouth near 44.3,57.9, on its north-east side
+# (18 people walked in there); the walking maps have no way into the barrow (#1336).
+step Dolanaar: the Ban'ethil Barrow Den's entrance
+  when done dn-dolanaar
+  goto 44.3,57.9 live "Ban'ethil Barrow Den"
+
 step Dolanaar: the relics and Ferocitas
   when done dn-dolanaar
   tip The four relics of Wakening lie in the Ban'ethil Barrow Den, south-west of Dolanaar; Ferocitas and the Gnarlpine Mystics camp east of the village.
@@ -244,7 +179,7 @@ step Dolanaar: Ursal the Mauler
 step Auberdine
   label dn-auberdine
   zone Darkshore
-  tip Optional: Auberdine in Darkshore, a boat trip from Rut'theran Village, about 1,400 reputation (280 at a fifth) in an hour at 60. The givers stand along the town's street and pier. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub.
+  tip Optional: Auberdine in Darkshore, a boat trip from Rut'theran Village, about 1,400 reputation in an hour at 60. The givers stand along the town's street and pier. Forever pays these old quests in full at any level. Skip this step to skip the hub.
   accept 984
   accept 2118
   accept 958
@@ -257,7 +192,7 @@ step Auberdine: the coast and the woods
   when done dn-auberdine
   tip The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the Cliffspring Falls cave to the north-east.
   complete 984
-  kill 2164 quest 2118.1              -- Rabid Thistle Bear
+  kill 2164 quest 2118.1 "Capture a Rabid Thistle Bear" -- Rabid Thistle Bear: use Tharnariun's Hope on it and lead it back to Tharnariun
   collect 5360 x7 quest 958.1         -- Highborne Relic
   complete 954 @44.28,36.37           -- the blue aura in the ruins of Bashal'Aran
   collect 12242 quest 3524.1          -- Sea Creature Bones
@@ -311,9 +246,118 @@ step Auberdine: the seal, the Den Mother and the pelts
   turnin 2139
   turnin 986
 
+step A Donation of Silk
+  zone Darnassus
+  tip Silk Cloth drops from humanoids level 23 to 40: the satyrs and furbolgs of Ashenvale, the Thistlefur and Foulweald camps, the Grimtotem of Stonetalon.
+  level 26
+  collect 4306 x60 nearest
+  accept 7798
+  turnin 7798
+
+step A Donation of Mageweave
+  zone Darnassus
+  tip Mageweave Cloth drops from humanoids level 35 to 50: the Hatecrest naga and Gordunni ogres of Feralas, the Dunemaul ogres of Tanaris.
+  level 40
+  collect 4338 x60 nearest
+  accept 7799
+  turnin 7799
+
+step A Donation of Runecloth
+  zone Darnassus
+  tip Runecloth drops from humanoids level 50 and up: the Deadwood furbolgs of Felwood, the Winterfall furbolgs of Winterspring, the Scourge cultists of the Plaguelands. Keep any Runecloth past the first 60 for Additional Runecloth.
+  level 50
+  collect 14047 x60 nearest
+  accept 7800
+  turnin 7800
+
+step Morgan's Vigil: Dragonkin Menace
+  zone Burning Steppes
+  tip Helendis Riverhorn at Morgan's Vigil, in the south-east of the Burning Steppes, starts The True Masters: 175 Darnassus reputation for two quests (level 54: in Classic 140 at 60), and the chain goes on to Stormwind Keep for 175 Stormwind. The Black Broodlings and the Black Drake live on the slopes north of the Vigil; the Black Dragonspawn and Black Wyrmkin west of it, in the middle of the zone.
+  level 55
+  accept 4182                         -- Dragonkin Menace, +100
+  kill 7047 x15 quest 4182.1          -- Black Broodling
+  kill 7040 x10 quest 4182.2          -- Black Dragonspawn
+  kill 7044 quest 4182.3              -- Black Drake
+  kill 7041 x4 quest 4182.4           -- Black Wyrmkin
+  turnin 4182
+  accept 4183                         -- The True Masters, +75
+
+step Lakeshire: Magistrate Solomon
+  zone Redridge Mountains
+  tip Magistrate Solomon waits in the town hall of Lakeshire; his next quest takes you to Stormwind Keep (the Stormwind guide follows it). Other Darnassus quests at this level, for when you pass by: Erelas Ambersky in Rut'theran Village has a wildkin chain into Winterspring (325 in all, with Ranshalla's escort), Arei's escort in Felwood pays 150 after the Emerald Sanctuary's chain, Mulgris Deepriver at the Writhing Haunt in the Western Plaguelands 100 for the Glyphed Oaken Branch, and Put Her Down in Upper Blackrock Spire 100 with a group.
+  turnin 4183
+
+# Fandral and Mathrengyl stand upstairs in the druids' building of the Cenarion Enclave, and the
+# walking maps have no way up inside it: the arrow led onto a ledge outside, behind the wall (#1338).
+# Before the first of them in a visit, a goto at the building's door on its south side, 35.8,11.6
+# (players' recordings walk in there), makes the arrow point straight at him from there.
+step Morrowgrain (optional)
+  label dn-morrowgrain-start
+  zone Darnassus
+  tip Morrowgrain to Darnassus takes 10 Morrowgrain for 50, as often as you like, and pays in full at 60. The chain before it is level 50: 220. Innkeeper Saelienne sends you to Arch Druid Fandral Staghelm in the Cenarion Enclave; he wants 20 Un'Goro Soil. (The innkeepers of Stormwind and Ironforge give the same start.)
+  accept 3763                         -- Assisting Arch Druid Staghelm, +10
+
+step Cenarion Enclave
+  when done dn-morrowgrain-start
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
+
+step Morrowgrain (optional)
+  label dn-morrowgrain
+  when done dn-morrowgrain-start
+  zone Darnassus
+  turnin 3763                         -- Arch Druid Fandral Staghelm
+  accept 3764                         -- Un'Goro Soil, +100
+
+step Un'Goro Crater: Un'Goro Soil
+  when done dn-morrowgrain
+  zone Un'Goro Crater
+  tip Dig Un'Goro Soil from the dirt mounds all over the crater; most of the crater's beasts and the Gorishi silithids drop it too, about one kill in three. Take far more than 20: every pouch use takes 2, about 18 for each 10 Morrowgrain.
+  collect 11018 x20 quest 3764.1      -- Un'Goro Soil
+
+step Darnassus: Morrowgrain Research
+  when done dn-morrowgrain
+  zone Darnassus
+  tip Jenal, beside Fandral in the Cenarion Enclave, takes the soil. Mathrengyl Bearwalker sells the Evergreen Pouch and Packets of Tharlendris Seeds. With a seed packet and 2 Un'Goro Soil in your bags, use the pouch to grow an Evergreen Herb Casing and open it: about one casing in three holds Morrowgrain (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things.
+  turnin 3764                         -- Jenal
+
+step Cenarion Enclave
+  when done dn-morrowgrain
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
+
+step Darnassus: Morrowgrain Research
+  when done dn-morrowgrain
+  zone Darnassus
+  tip Jenal, beside Fandral in the Cenarion Enclave, takes the soil. Mathrengyl Bearwalker sells the Evergreen Pouch and Packets of Tharlendris Seeds. With a seed packet and 2 Un'Goro Soil in your bags, use the pouch to grow an Evergreen Herb Casing and open it: about one casing in three holds Morrowgrain (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things.
+  accept 3781                         -- Morrowgrain Research, +10
+
+step Cenarion Enclave
+  when done dn-morrowgrain
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
+
+step Darnassus: Morrowgrain Research
+  when done dn-morrowgrain
+  zone Darnassus
+  tip Jenal, beside Fandral in the Cenarion Enclave, takes the soil. Mathrengyl Bearwalker sells the Evergreen Pouch and Packets of Tharlendris Seeds. With a seed packet and 2 Un'Goro Soil in your bags, use the pouch to grow an Evergreen Herb Casing and open it: about one casing in three holds Morrowgrain (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things.
+  turnin 3781                         -- Mathrengyl Bearwalker
+  accept 3785                         -- Morrowgrain Research, +100
+  buy 11020 npc 4217                  -- Evergreen Pouch
+  buy 11022 x10 npc 4217              -- Packet of Tharlendris Seeds
+  collect 11040 x10 quest 3785.1 @35.4,8.4 -- Morrowgrain: grow it here and open the casings
+  turnin 3785
+
+step Morrowgrain to Darnassus
+  when done dn-morrowgrain
+  tip Every 10 Morrowgrain: 50 reputation at Mathrengyl Bearwalker. Keep the pouch and buy seeds as you go. It is slow: about 9 casings, 90 minutes of pouch waits, 18 Un'Goro Soil and 9 seed packets for each hand-in, a little over 30 reputation an hour, so run it beside the Runecloth. Quintis Jonespyre at Feathermoon Stronghold in Feralas takes Morrowgrain at the same rate, 25 for 5, after his own quest.
+  goto 35.8,11.6 "Cenarion Enclave" optional
+  collect 11040 x10 optional @35.4,8.4 -- Morrowgrain
+  turnin 3803 direct optional         -- Mathrengyl Bearwalker: Morrowgrain to Darnassus, +50
+
 step Additional Runecloth to Honored
   zone Darnassus
-  tip Additional Runecloth: 50 reputation for 20 Runecloth, as often as you like. After the four first donations a Human, Dwarf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 Runecloth (Night Elves start 900 higher: 88 turn-ins; Skyborne start at Neutral 500, so 7,900 away: 158, two fewer after Exploring the Alliance). The True Masters and the Morrowgrain chain above take 8 turn-ins off, and every 10 Morrowgrain you hand in counts as one more; each hub you did takes 20 to 28 more off if it paid in full. More quests pay Darnassus, in full while they are no more than 5 levels below you: the rest of Darkshore (about 3,400 more), Astranaar in Ashenvale (about 3,900) and Feathermoon in Feralas (about 1,700). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your Runecloth at once.
+  tip Additional Runecloth: 50 reputation for 20 Runecloth, as often as you like. After the four first donations a Human, Dwarf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 Runecloth (Night Elves start 900 higher: 88 turn-ins; Skyborne start at Neutral 500, so 7,900 away: 158, two fewer after Exploring the Alliance). The True Masters and the Morrowgrain chain above take 8 turn-ins off, and every 10 Morrowgrain you hand in counts as one more; each hub you did takes 20 to 28 more off. More quests pay Darnassus, in full while they are no more than 5 levels below you: the rest of Darkshore (about 3,400 more), Astranaar in Ashenvale (about 3,900) and Feathermoon in Feralas (about 1,700). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your Runecloth at once.
   collect 14047 x20 optional nearest
   turnin 7801 direct optional
   rep 69 Honored

@@ -5,6 +5,10 @@
 //! read with `dofile` (written to a scratch folder first).
 
 use std::path::Path;
+use std::sync::atomic::{AtomicUsize, Ordering};
+
+/// One number per `measure` call, so each call gets scratch paths of its own (see `measure`).
+static CALLS: AtomicUsize = AtomicUsize::new(0);
 
 use mlua::{Lua, LuaOptions, StdLib};
 
@@ -22,7 +26,13 @@ fn lua_string(s: &str) -> String {
 
 /// files: the pack's (name, text); order: TOC order of the Lua files.
 pub fn measure(codex_lua: &Path, order: &[String], files: &[(String, String)]) -> Result<Memory, String> {
-	let pid = std::process::id();
+	// The scratch folder and script are named by the process AND this call, not by the process alone.
+	// `cargo test` runs tests as threads of one process, so two tests that build a pack at the same time
+	// (e.g. codex::buildcodex_writes_deterministic_json_… and codex::buildcodex_gives_each_npc_place_…)
+	// used to share `polestar-codex-pack-{pid}`: one call's `remove_dir_all` below deleted the files the
+	// other was about to `dofile`, and the test failed now and then with "cannot open
+	// /tmp/polestar-codex-pack-<pid>/Spells1.lua" (or Meta.lua), depending on which thread got there first.
+	let pid = format!("{}-{}", std::process::id(), CALLS.fetch_add(1, Ordering::Relaxed));
 	let dir = std::env::temp_dir().join(format!("polestar-codex-pack-{pid}"));
 	let _ = std::fs::remove_dir_all(&dir);
 	std::fs::create_dir_all(&dir).map_err(|e| e.to_string())?;

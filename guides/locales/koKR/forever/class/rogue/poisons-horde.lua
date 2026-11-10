@@ -27,8 +27,8 @@ return {
 	["{quest:2458}: keep the {item:8051}"] = "{quest:2458}: {item:8051}을(를) 보관하세요",
 
 	-- Step 3: Taskmaster Fizzule
-	-- {area:380} Crossroads · {area:382} Sludge Fen · {item:8051} Flare Gun · {npc:3401} Shenthul
-	["Fly to the {area:380} and head north to the Venture Co. tower above the {area:382}. Fizzule stands under a tree east of the tower, outside it, and is hostile until signalled. Target him from about 50 yards and fire the {item:8051} twice, then walk up in front of him and /salute. In any other order he attacks. Lost the {item:8051}? Abandon and retake from {npc:3401}."] = "",
+	-- {area:382} Sludge Fen · {item:8051} Flare Gun · {npc:3401} Shenthul
+	["Fly to the Crossroads and head north to the Venture Co. tower above the {area:382}. Fizzule stands under a tree east of the tower, outside it, and is hostile until signalled. Target him from about 50 yards and fire the {item:8051} twice, then walk up in front of him and /salute. In any other order he attacks. Lost the {item:8051}? Abandon and retake from {npc:3401}."] = "",
 	-- {item:8051} Flare Gun
 	["{item:8051}, twice, at Fizzule"] = "",
 
@@ -36,7 +36,7 @@ return {
 	-- {item:8066} Fizzule's Whistle · {npc:7287} Foreman Silixiz · {spell:921} Pick Pocket
 	["Keep {item:8066} in your bags and use it on him every time you come near, or he turns hostile. {npc:7287} (level 22) walks by the tower: hug the wall, stealth up behind him and {spell:921} the key. Killing him does not give it; if his pockets are empty, kill him and wait 4 1/2 minutes for him to come back."] = "",
 	-- {item:8072} Silixiz's Tower Key
-	["{item:8072}: Pick Pocket Foreman Silixiz"] = "",
+	["Pick Pocket Foreman Silixiz for {item:8072}"] = "",
 
 	-- Step 5: The Venture Co. tower
 	["The Venture Co. tower"] = "",
@@ -49,16 +49,16 @@ return {
 	-- Step 6: Back to Shenthul
 	-- {npc:3401} Shenthul
 	["Back to {npc:3401}"] = "{npc:3401}에게 돌아가기",
-	-- {zone:1454} Orgrimmar · {area:392} Ratchet · {area:380} Crossroads · {item:8072} Silixiz's Tower Key · {area:263} Cleft · {item:2928} Dust of Decay · {item:6947} Instant Poison
+	-- {zone:1454} Orgrimmar · {area:392} Ratchet · {item:8072} Silixiz's Tower Key · {area:263} Cleft · {item:2928} Dust of Decay · {item:6947} Instant Poison
 	-- plural, as words: Empty Vials = {item:3371} Empty Vial
-	["Fly back to {zone:1454} ({area:392} or the {area:380}; dying at the tower and taking the spirit healer's way back to the {area:380} is quicker). Keep {item:8072} afterwards. Before you leave the {area:263}, buy {item:2928} and Empty Vials from Rekkul: once Hinott teaches Poisons, each batch of {item:6947} takes one of each."] = "",
+	["Fly back to {zone:1454} ({area:392} or the Crossroads; dying at the tower and taking the spirit healer's way back to the Crossroads is quicker). Keep {item:8072} afterwards. Before you leave the {area:263}, buy {item:2928} and Empty Vials from Rekkul: once Hinott teaches Poisons, each batch of {item:6947} takes one of each."] = "",
 
 	-- Step 7: Serge Hinott
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {zone:1421} Silverpine Forest · {area:287} Hillsbrad · {area:272} Tarren Mill · {npc:2391} Serge Hinott · {npc:2216} Apothecary Lydon · {npc:3401} Shenthul · {item:6947} Instant Poison
 	["Take the zeppelin from {zone:1454} to the {zone:1458} and follow the road south through {zone:1421} into {area:287}, to {area:272}. {npc:2391} works in the building next to the flight path, beside {npc:2216}, a wagon outside. If you lost the Sample of Zanzil's Mixture, abandon and retake from {npc:3401}. Stay beside him for about a minute while he brews the cure; if it never finishes, abandon and retake from him. Then open Poisons from your spellbook to make {item:6947} from Rekkul's dust and vials, and use it on your weapon."] = "",
 	["Wait for the cure"] = "해독제 기다리기",
 	-- {npc:2391} Serge Hinott
-	["{npc:2391}: Poisons"] = "",
+	["{npc:2391}: Poisons"] = "{npc:2391}: 독 조제",
 	-- {item:8095} Hinott's Oil · {spell:9810} Touch of Zanzil
 	["{item:8095}: clears the {spell:9810}"] = "",
 

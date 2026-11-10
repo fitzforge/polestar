@@ -13,27 +13,21 @@ next forever/alliance/40-50/05-the-hinterlands
 
 step Thousand Needles
   zone Thousand Needles
-  goto 78.1,77.1 "Thousand Needles"
+  goto 78.1,77.1 "Mirage Raceway"
 
 # ---------------------------------------------------------------- The Shimmering Flats
 
 step Mirage Raceway
   zone Thousand Needles
-  tip The Mirage Raceway lies on the Shimmering Flats in south-east Thousand Needles. Fizzle Brassbolts and Pozzik are in the camps beside the track.
-  turnin 1137                         -- Fizzle Brassbolts
+  tip The Mirage Raceway lies on the Shimmering Flats in south-east Thousand Needles: Fizzle Brassbolts is in the gnomes' camp beside the track, Zamek by the goblin camp.
   turnin 2769
-  tip Zamek stands by the goblin camp.
-  accept 1190                         -- Pozzik
+  turnin 1137                         -- Fizzle Brassbolts: News for Fizzle, from Martek in the Badlands
   accept 1191                         -- Zamek
   turnin 1191                         -- He runs off to keep Rizzle busy
-  tip While Zamek keeps Rizzle talking, his plans lie unguarded in the gnome camp across the track.
-  turnin 1190                         -- Rizzle's Unguarded Plans, inside
-  accept 1194
-  turnin 1194
 
 step Tanaris
   zone Tanaris
-  goto 51.6,26.8 "Tanaris"
+  goto 51.6,26.8 "Gadgetzan"
 
 # ---------------------------------------------------------------- Gadgetzan
 
@@ -43,13 +37,13 @@ step Gadgetzan
   turnin 2864                         -- Tran'rek, north side of town
   accept 3362                         -- Tran'rek
   accept 992                          -- Senior Surveyor Fizzledowser
-  accept 2605                         -- Marin Noggenfogger
   getfp "Gadgetzan" npc 7823          -- Bera Stonehammer
-  sethome "Gadgetzan" npc 7733        -- Innkeeper Fizzgrimble
+  accept 2605                         -- Marin Noggenfogger
   accept 1690                         -- Chief Engineer Bilgewhizzle, by the water tower
   accept 1707                         -- Spigot Operator Luglunket, next to him
-  accept 3022                         -- Curgle Cranklehop: his crate goes to Rut'theran Village, later
+  sethome "Gadgetzan" npc 7733        -- Innkeeper Fizzgrimble
   accept 5863                         -- Andi Lynn
+  accept 3022                         -- Curgle Cranklehop: his crate goes to Rut'theran Village, later
 
 # ---------------------------------------------------------------- Steamwheedle Port
 
@@ -98,7 +92,7 @@ step Lost Rigger Cove: kill these as you meet them
 
 step Steamwheedle Port
   turnin 2873                         -- Stoley, inside
-  note Stoley's next delivery goes back to Booty Bay: skip it.
+  accept 2874                         -- "Sea Wolf" MacKinley in Booty Bay: the route takes you there at the end of the Hinterlands guide, keep it
   turnin 2875                         -- Security Chief Bilgewhizzle, inside
   turnin 8366
   turnin 8365                         -- Haughty Modiste
@@ -140,7 +134,7 @@ step Dunemaul Compound
   kill 5474 quest 5863                -- Dunemaul Brute
   kill 5472 quest 5863                -- Dunemaul Enforcer
   kill 12046 x1 quest 5863            -- Gor'marok the Ravager, below ground
-  level 47.06                          -- grind on Dunemaul Brute
+  level 47.06 grind 5474               -- grind on Dunemaul Brute
 
 step Thistleshrub Valley: kill these as you meet them
   zone Tanaris
@@ -157,16 +151,15 @@ step Tooga's escort
   turnin 1560                         -- Torta
 
 step Gadgetzan
-  tip Ride back west to Gadgetzan.
+  tip Ride back west to Gadgetzan: Andi Lynn stands on the east side of town, where you come in.
+  turnin 5863                         -- Andi Lynn
   turnin 2605                         -- Marin Noggenfogger
   accept 2606
-  turnin 82                           -- Alchemist Pestlezugg, inside
-  note Sprinkle's next ingredient grows in the Hinterlands, and the route never brings it back: skip it.
-  accept 10                           -- Senior Surveyor Fizzledowser
+  turnin 3362                         -- Tran'rek
   turnin 2606                         -- Sprinkle
   accept 2641
-  turnin 3362                         -- Tran'rek
-  turnin 5863                         -- Andi Lynn, on the east side of town
+  turnin 82                           -- Alchemist Pestlezugg, inside
+  accept 10                           -- Senior Surveyor Fizzledowser
 
 # ---------------------------------------------------------------- The south
 
@@ -205,9 +198,14 @@ step Fly to Aerie Peak
   fly "Aerie Peak"
   zone The Hinterlands
 
+step Aerie Peak
+  zone The Hinterlands
+  accept 2989                         -- Gryphon Master Talonaxe, beside the flight master
+  accept 2877                         -- Fraggar Thundermantle, inside
+
 step The Hinterlands
   zone The Hinterlands
-  goto 26.9,48.6 "The Hinterlands"
+  goto 26.9,48.6 "Rhapsody Shindigger"
 
 step Rhapsody Shindigger
   turnin 1452

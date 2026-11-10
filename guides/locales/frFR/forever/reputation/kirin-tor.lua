@@ -20,7 +20,7 @@ return {
 
 	-- Step 2: An Alarming Request
 	-- {npc:247264} Emissary Jacques · {faction:2740} Kirin Tor · {area:271} Southshore · {npc:246748} Archmage Modera · {area:1338} Lordamere Lake · {area:279} Dalaran
-	["{npc:247264} of the {faction:2740} waits in {area:271}. He sends you to {npc:246748}'s image by the shore of {area:1338}, outside {area:279}'s walls. The {faction:2740} quests start at level 24 to 30 and pay full reputation while they are at most 5 levels below you; in Classic a quest 6+ levels below you pays less (a fifth at 60)."] = "L'{npc:247264} du {faction:2740} attend à {area:271}. Il vous envoie auprès de l'image de l'{npc:246748}, au bord du {area:1338}, hors des murs de {area:279}. Les quêtes du {faction:2740} commencent au niveau 24 à 30 et rapportent toute leur réputation tant qu'elles sont au plus 5 niveaux sous le vôtre ; dans Classic, une quête de 6 niveaux ou plus sous le vôtre rapporte moins (un cinquième au niveau 60).",
+	["{npc:247264} of the {faction:2740} waits in {area:271}. He sends you to {npc:246748}'s image by the shore of {area:1338}, outside {area:279}'s walls. The {faction:2740} quests start at level 24 to 30 and pay full reputation at any level in Forever."] = "",
 
 	-- Step 3: Archmage Modera's image
 	-- {npc:246748} Archmage Modera
@@ -75,4 +75,7 @@ return {
 	["The {item:285327}"] = "Le {item:285327}",
 	-- {npc:32287} Archmage Alvareaux · {npc:28776} Elizabeth Ross · {area:279} Dalaran · {item:285327} Kirin Tor Tabard
 	["{npc:32287} and {npc:28776}, the tabard vendor in {area:279}, sell the {item:285327} at Exalted for 25g."] = "L'{npc:32287} et {npc:28776}, la vendeuse de tabards de {area:279}, vendent le {item:285327} à Exalté pour 25 po.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:247264} of the {faction:2740} waits in {area:271}. He sends you to {npc:246748}'s image by the shore of {area:1338}, outside {area:279}'s walls. The {faction:2740} quests start at level 24 to 30 and pay full reputation while they are at most 5 levels below you; in Classic a quest 6+ levels below you pays less (a fifth at 60)."] = "L'{npc:247264} du {faction:2740} attend à {area:271}. Il vous envoie auprès de l'image de l'{npc:246748}, au bord du {area:1338}, hors des murs de {area:279}. Les quêtes du {faction:2740} commencent au niveau 24 à 30 et rapportent toute leur réputation tant qu'elles sont au plus 5 niveaux sous le vôtre ; dans Classic, une quête de 6 niveaux ou plus sous le vôtre rapporte moins (un cinquième au niveau 60).",
 }

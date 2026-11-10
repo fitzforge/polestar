@@ -49,20 +49,8 @@ step Orgrimmar
 
 # ---------------------------------------------------------------- The Barrens
 
-step Fly to the Crossroads
-  zone The Barrens
-  fly "Crossroads"
-
-step Dokimi's crates
-  tip Dokimi stands in the Crossroads. Open each crate she hands you and bring back what is inside.
-  accept 91899
-  complete 91899
-  turnin 91899
-  accept 91904
-  complete 91904
-  turnin 91904
-
 step Fly to Ratchet
+  zone The Barrens
   fly "Ratchet"
 
 step Liv Rizzlefix
@@ -75,6 +63,17 @@ step Islen Waterseer
   turnin 5158
   accept 5159
   note Cleansed Water goes to the Emerald Sanctuary in Felwood: keep it for later.
+
+# Re-seeded for flow in 0.3.5: the crates come after Ratchet, so the ride
+# north ends at the Crossroads, where the flight to Orgrimmar leaves.
+step Dokimi's crates
+  tip Ride north up the road to the Crossroads; Dokimi stands there. Open each crate she hands you and bring back what is inside. Fly on to Orgrimmar from the Crossroads.
+  accept 91899
+  complete 91899
+  turnin 91899
+  accept 91904
+  complete 91904
+  turnin 91904
 
 # ---------------------------------------------------------------- Orgrimmar
 
@@ -164,6 +163,3 @@ step Owen Thadd
   accept 79095 optional               -- Only with The Apothecary's Metaphysical Primer from Brill's alchemy shop in your bags (the Library Books guide)
   turnin 79095 optional
 
-step Prompt Potion Runner
-  accept 97891                        -- Alessandro Luca
-  turnin 97891                        -- Doctor Martin Felben, in the Apothecarium

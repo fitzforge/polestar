@@ -174,15 +174,12 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Cross the {area:881} in northern {zone:1437} into the {zone:1417} (level 30+ creatures off the road), follow the road west past {area:320} and on into {zone:1424}."] = "穿過{zone:1437}北部的{area:881}進入{zone:1417}（道路外有30級以上的怪物），沿著道路向西經過{area:320}，繼續前往{zone:1424}。",
-	-- ["Flight path here: {area:228} ({npc:2226})."] = "此處的飛行路線：{area:228}（{npc:2226}）。",
 	-- ["From {area:925} take the tunnel west into {zone:1426}. {area:131} and {zone:1455}'s gates are Alliance ground."] = "從{area:925}穿過隧道向西進入{zone:1426}。{area:131}和{zone:1455}的城門是聯盟的地盤。",
 	-- ["From {area:925}, the road north through the {area:836} pass leads into the {zone:1437}."] = "從{area:925}沿著道路向北穿過{area:836}山口，進入{zone:1437}。",
-	-- ["Horde guards: touch the edge of {area:228} and move on"] = "部落衛兵：碰到{area:228}的邊緣就離開",
 	-- ["Leave {zone:1426} east through the gate tunnel; it opens into {zone:1432} at {area:925}."] = "穿過城門隧道向東離開{zone:1426}；隧道在{area:925}通往{zone:1432}。",
 	-- ["Redridge starts at {area:1002}, where the roads from {zone:1429} and {zone:1431} meet."] = "赤脊山從{area:1002}開始，也就是{zone:1429}和{zone:1431}的道路交會處。",
 	-- ["Take the {area:2257} from {zone:1453}'s {object:28027} to {zone:1455} (or fly to {zone:1455}), then leave the city through its gates."] = "從{zone:1453}的{object:28027}搭乘{area:2257}前往{zone:1455}（或飛往{zone:1455}），然後從城門離開城市。",
 	-- ["The {area:228}"] = "{area:228}",
-	-- ["{zone:1429} is north of {zone:1436} and {zone:1431}. {area:87}, {area:9} and {zone:1453}'s gates are Alliance ground with guards."] = "{zone:1429}在{zone:1436}和{zone:1431}的北邊。{area:87}、{area:9}和{zone:1453}的城門是有衛兵的聯盟地盤。",
 	-- ["{zone:1431} is east of {zone:1436} and south of {zone:1429}. Its road runs east to {area:42}."] = "{zone:1431}在{zone:1436}的東邊、{zone:1429}的南邊。它的道路向東通往{area:42}。",
 	-- ["{zone:1436} borders {zone:1429} to the west: follow the road out past the {area:120}."] = "{zone:1436}在{zone:1429}的西邊：沿著道路經過{area:120}出去。",
 }

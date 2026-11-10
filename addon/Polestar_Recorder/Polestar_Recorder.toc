@@ -21,7 +21,7 @@
 ## Notes-zhTW: 在遊戲時記錄任務、路線與世界資料，用於撰寫 Polestar 指南。/psrec
 ## Author: Polestar
 ## X-License: GPL-3.0-only
-## Version: 0.3.4
+## Version: 0.3.5
 ## Category: Polestar
 ## Group: Polestar
 ## SavedVariables: PolestarRecorderDB
@@ -39,6 +39,7 @@ Locales\ruRU.lua
 Locales\koKR.lua
 Locales\zhCN.lua
 Locales\zhTW.lua
+Explore.lua
 Quests.lua
 World.lua
 Finds.lua

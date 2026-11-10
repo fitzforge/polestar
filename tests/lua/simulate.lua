@@ -152,11 +152,24 @@ while guard < 4000 do
 	if not i or left() then break end
 	visited[i] = true
 	local view = E.GetStepView(i)
-	local open
+	-- A goal waiting for a level (an accept above the character's level, and
+	-- its work with it): the simulated player gains no XP, so it reaches that
+	-- level here, as a player has by then; the guide brings the quest back.
+	local need = 0
 	for _, g in ipairs(view.goals) do
-		if g.status ~= "done" and g.status ~= "na" and not g.optional and g.t ~= "note" then open = g; break end
+		if g.unavailable == "level" then need = math.max(need, tonumber((g.unavailableText or ""):match("(%d+)")) or w.level + 1) end
 	end
-	if not open then
+	local open
+	-- A vendor check-off beside other work (g.side) is left alone, as by a
+	-- player with nothing to sell: it must never hold the step.
+	for _, g in ipairs(view.goals) do
+		if g.status ~= "done" and g.status ~= "na" and not g.optional and not g.side and g.t ~= "note" then open = g; break end
+	end
+	if need > w.level then
+		w.setLevel(need)
+		stub.advance(0.6)
+		if left() then break end
+	elseif not open then
 		stub.advance(0.6)
 		if left() then break end
 		if E.GetStepIndex() == i then stuck = { step = i, title = view.title, why = "no open goal but the step did not advance" }; break end

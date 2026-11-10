@@ -28,10 +28,10 @@ return {
 	["Back to {npc:6446}"] = "Retour auprès de {npc:6446}",
 
 	-- Step 5: Tazan's Key
-	-- {quest:1859} Therzok · {npc:6466} Gamon · {object:172982} Valley of Strength · {item:7208} Tazan's Key · {item:7209} Tazan's Satchel
-	["{quest:1859} hands the satchel back: now open it. {npc:6466} (level 12) kneels by the innkeeper in the inn in the {object:172982}; stealth up and pick his pocket for {item:7208} (do not kill him: the key almost never drops). Players often kill him, so you may wait up to 5 minutes for him. Then use the key on {item:7209} in your bags. If you have trained Pick Lock, you can pick the satchel's lock instead."] = "",
+	-- {quest:1859} Therzok · {npc:6466} Gamon · {object:172982} Valley of Strength · {item:7208} Tazan's Key · {item:7209} Tazan's Satchel · {spell:1804} Pick Lock
+	["{quest:1859} hands the satchel back: now open it. {npc:6466} (level 12) kneels by the innkeeper in the inn in the {object:172982}; stealth up and pick his pocket for {item:7208} (do not kill him: the key almost never drops). Players often kill him, so you may wait up to 5 minutes for him. Then use the key on {item:7209} in your bags. If you have trained {spell:1804}, you can pick the satchel's lock instead."] = "{quest:1859} vous rend la sacoche : ouvrez-la maintenant. {npc:6466} (niveau 12) est agenouillé près de l'aubergiste, dans l'auberge de {object:172982} ; camouflez-vous et faites-lui les poches pour obtenir {item:7208} (ne le tuez pas : la clé ne tombe presque jamais). Les joueurs le tuent souvent, vous devrez donc peut-être l'attendre jusqu'à 5 minutes. Utilisez ensuite la clé sur {item:7209} dans vos sacs. Si vous avez appris {spell:1804}, vous pouvez plutôt crocheter la serrure de la sacoche.",
 	-- {item:7208} Tazan's Key
-	["{item:7208}: Pick Pocket Gamon"] = "{item:7208} : Vol à la tire sur Gamon",
+	["Pick Pocket Gamon for {item:7208}"] = "",
 	-- {item:7209} Tazan's Satchel
 	["{item:7209}, once you have the key"] = "{item:7209}, une fois la clé en main",
 	-- {item:7295} Tazan's Logbook
@@ -74,11 +74,11 @@ return {
 	-- ["At 10 {npc:3170}, the rogue trainer in {area:362}, sends you to {quest:1859} in {zone:1454}."] = "Au niveau 10, {npc:3170}, le maître des voleurs de {area:362}, vous envoie voir {quest:1859} à {zone:1454}.",
 	-- ["Tazan"] = "Tazan",
 	-- ["{item:7208}: Gamon"] = "{item:7208} : Gamon",
+	-- ["{item:7208}: Pick Pocket Gamon"] = "{item:7208} : Vol à la tire sur Gamon",
 	-- ["{item:7209}: Tazan"] = "{item:7209} : Tazan",
 	-- ["{npc:6466} drinks in the inn in the {object:172982}. Pick his pocket for {item:7208}, then open {item:7209}."] = "{npc:6466} boit à l'auberge de la {object:172982}. Faites-lui les poches pour obtenir la {item:7208}, puis ouvrez la {item:7209}.",
 	-- ["{npc:6467} sends the ledger on to {npc:2425} in the Hall of the Dark Lady, the {object:36126}."] = "{npc:6467} transmet le registre à {npc:2425}, dans la salle de la Dame noire, le {object:36126}.",
 	-- ["{npc:6494} stands on the {zone:1413} coast south of {area:392}. Kill him for his satchel."] = "{npc:6494} se tient sur la côte des {zone:1413} au sud de {area:392}. Tuez-le pour prendre sa sacoche.",
 	-- ["{npc:6497} stands north-east of the {area:228}. Take his Letter of Introduction from him."] = "{npc:6497} se tient au nord-est du {area:228}. Prenez-lui sa lettre d'introduction.",
 	-- ["{npc:6522}'s ledger sits on the bookshelf beside him."] = "Le registre de {npc:6522} se trouve sur l'étagère à côté de lui.",
-	-- ["{quest:1859} hands the satchel back: now open it. {npc:6466} (level 12) kneels by the innkeeper in the inn in the {object:172982}; stealth up and pick his pocket for {item:7208} (do not kill him: the key almost never drops). Players often kill him, so you may wait up to 5 minutes for him. Then use the key on {item:7209} in your bags. If you have trained {spell:1804}, you can pick the satchel's lock instead."] = "{quest:1859} vous rend la sacoche : ouvrez-la maintenant. {npc:6466} (niveau 12) est agenouillé près de l'aubergiste, dans l'auberge de {object:172982} ; camouflez-vous et faites-lui les poches pour obtenir {item:7208} (ne le tuez pas : la clé ne tombe presque jamais). Les joueurs le tuent souvent, vous devrez donc peut-être l'attendre jusqu'à 5 minutes. Utilisez ensuite la clé sur {item:7209} dans vos sacs. Si vous avez appris {spell:1804}, vous pouvez plutôt crocheter la serrure de la sacoche.",
 }

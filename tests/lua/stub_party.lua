@@ -29,6 +29,9 @@
 --   p.lockdown = true                 -- C_ChatInfo.InChatMessagingLockdown answers
 --   p.instance = true                 -- the group is an instance group (IsInGroup(LE_PARTY_CATEGORY_INSTANCE))
 --   p.noLinks = true                  -- GetQuestLink gives nothing (else "|cffffff00|Hquest:<id>:0|h[<title>]|h|r")
+--   p.show("CHAT_MSG_PARTY", text, "Ana-TestRealm")  -- a chat line through the registered message
+--                                     -- filters: the text the chat frame shows, or nil when dropped
+--   p.loot(itemID, name[, count])     -- CHAT_MSG_LOOT for your loot (LOOT_ITEM_SELF[_MULTIPLE] with p.itemLink(id, name))
 
 local party = { members = {}, sent = {}, result = 0, onQuest = {}, inRaid = false, prefixes = {}, shared = {}, pushable = {}, chat = {}, lockdown = false, instance = false }
 stub.party = party
@@ -163,6 +166,34 @@ function C_ChatInfo.SendChatMessage(text, chatType, languageID, target)
 	table.insert(party.chat, { text = text, chatType = chatType, at = GetTime() })
 end
 function C_ChatInfo.InChatMessagingLockdown() return party.lockdown end
+
+-- ChatFrameFilters.lua (Blizzard_ChatFrameBase): a callback returns true to
+-- drop the line, or false and the arguments to show it with them.
+party.filters = {}
+ChatFrameUtil = ChatFrameUtil or {}
+function ChatFrameUtil.AddMessageEventFilter(event, callback)
+	party.filters[event] = party.filters[event] or {}
+	table.insert(party.filters[event], callback)
+end
+function party.show(event, text, author)
+	local args = { text, author }
+	for _, f in ipairs(party.filters[event] or {}) do
+		local r = { f(nil, event, args[1], args[2]) }
+		if r[1] then return nil end
+		if r[2] then args = { r[2], r[3] } end
+	end
+	return args[1]
+end
+
+-- GlobalStrings (the Forever client's enUS), and your loot as the client says it.
+LOOT_ITEM_SELF = "You receive loot: %s"
+LOOT_ITEM_SELF_MULTIPLE = "You receive loot: %sx%d"
+function party.itemLink(id, name) return "|cffffffff|Hitem:" .. id .. "::::::::1:::::::|h[" .. name .. "]|h|r" end
+function party.loot(id, name, count)
+	local link = party.itemLink(id, name)
+	local text = count and LOOT_ITEM_SELF_MULTIPLE:format(link, count) or LOOT_ITEM_SELF:format(link)
+	stub.fire("CHAT_MSG_LOOT", text, "Testchar", "", "", "Testchar", "", 0, 0, "", 0, 1, "Player-1-0001")
+end
 
 -- The client's quest link (Blizzard_UIPanels_Game Mainline QuestMapFrame's
 -- shift-click: GetQuestLink(questID)), for a quest in the log.

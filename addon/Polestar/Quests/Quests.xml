@@ -1,4 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="NewQuests.lua"/>
+	<Script file="NewQuestIds.lua"/>
 	<Script file="QuestDB.lua"/>
 	<Script file="Tracker.lua"/>
 	<Script file="Tooltips.lua"/>

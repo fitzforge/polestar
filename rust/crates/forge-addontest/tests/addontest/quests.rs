@@ -12,7 +12,7 @@ use serde_json::{json, Value};
 
 // The map marker layers are off by default; these tests exercise them, so the
 // default saved profile turns them on.
-const MARKERS_ON: &str = "PolestarDB = { schema = 1, settings = { qol = { mapObjectives = true, minimapObjectives = true, objectiveAreas = true, turnInMarkers = true, availableQuests = true } } }";
+const MARKERS_ON: &str = "PolestarDB = { schema = 1, settings = { qol = { mapObjectives = true, minimapObjectives = true, turnInMarkers = true, availableQuests = true } } }";
 
 const BEFORE: &str = r#"
 local w = stub.world
@@ -636,6 +636,33 @@ emit(sq.hoverUnit(6, true))         -- GUID is a secret value (combat): no lines
 	assert_eq!(out[5], json!(["?"]));
 }
 
+// The "New in Forever" mark (Quests/NewQuests.lua): a quest Forever added carries its ∞ after its name on the quest
+// lines of a mob's and an item's tooltip ("Starts a quest" too); ui.newInForever off takes it away. Kobold Camp
+// Cleanup (7) and A Strange Note (1972's) stand in for Forever's quests here.
+#[test]
+fn a_forever_quest_s_tooltip_lines_carry_the_new_in_forever_mark() {
+	let db = fixture();
+	let out = run(
+		&db,
+		r#"
+local note = Q.StartedBy(1972)[1]
+Polestar.NewQuests.Register(6, string.format("%06d%06d", math.min(7, note), math.max(7, note)))
+w.accept(7, { { text = "Kobold Vermin slain: 0/10", type = "monster", required = 10 } })
+w.accept(60, { { text = "Large Candle: 0/8", type = "item", required = 8 } })
+stub.advance(0.3)
+emit(sq.hoverUnit(6))
+emit(sq.hoverItem(1972))
+Polestar.Set("ui.newInForever", false)
+emit(sq.hoverUnit(6))
+"#,
+		"w.complete({ 783 })",
+	);
+	let mark = " |TInterface\\AddOns\\Polestar\\Media\\UI\\icon-forever:8:16:0:0|t";
+	assert_eq!(out[0], json!(["?", format!("Kobold Camp Cleanup{mark}: | Kill Kobold Vermin 0/10"), "Kobold Candles: | Large Candle 0/8"]));
+	assert_eq!(out[1], json!(["?", format!("Starts a quest: | A Strange Note{mark}")]));
+	assert_eq!(out[2], json!(["?", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10", "Kobold Candles: | Large Candle 0/8"]));
+}
+
 // An item a quest still needs is marked in the bags and named on its tooltip
 // until the quest is handed in: through the log, and (not accepted yet) through
 // the running guide's steps from the live one on.
@@ -756,9 +783,11 @@ emit({ Q.IsItemNeeded(4536), sq.hoverItem(4536), deleteText() })
 "#,
 		"",
 	);
+	// Applejack Still (91736) is a quest Forever added: its tooltip line carries the "New in Forever" mark.
+	let mark = " |TInterface\\AddOns\\Polestar\\Media\\UI\\icon-forever:8:16:0:0|t";
 	assert_eq!(
 		out[0],
-		json!([true, ["?", "Applejack Still: | 1/1 (not accepted)"], "Do you want to destroy Shiny Red Apple?//Needed for: Applejack Still"]),
+		json!([true, ["?", format!("Applejack Still{mark}: | 1/1 (not accepted)")], "Do you want to destroy Shiny Red Apple?//Needed for: “Applejack Still”"]),
 		"bought at the Stonefield Farm: the still ahead needs them"
 	);
 	assert_eq!(out[1], json!([true]), "at the still");
@@ -803,7 +832,7 @@ emit(show("DELETE_GOOD_ITEM"))
 "#,
 		"w.complete({ 783 })",
 	);
-	assert_eq!(out[0], json!(["Do you want to destroy X?//Needed for: Kobold Candles", 124]));
+	assert_eq!(out[0], json!(["Do you want to destroy X?//Needed for: “Kobold Candles”", 124]));
 	assert_eq!(out[1], json!(["Do you want to destroy X?", 100]), "an item no quest needs: dialog untouched");
 	assert_eq!(out[2], json!(["Do you want to destroy X?", 100]), "quest handed in: dialog untouched");
 }
@@ -1006,7 +1035,8 @@ emit({ sq.pins.layers["quests.available"] == nil, #Q.GetAvailableQuests() })
 		"w.complete({ 783 })",
 	);
 	let opts = json!({ "world": true, "minimap": false, "edge": false, "scale": 1 });
-	assert_eq!(out[0], json!([opts, opts]));
+	let objectives = json!({ "world": true, "minimap": false, "edge": false, "scale": 1, "minimapAreas": true });
+	assert_eq!(out[0], json!([objectives, opts]), "objective areas would follow the layer onto the minimap");
 	assert_eq!(out[1], true);
 	assert_eq!(out[2], json!([true, 0]));
 }
@@ -1242,7 +1272,7 @@ fn registers_its_settings_on_the_questing_page_and_its_markers_on_the_map_page()
 	let out = run(
 		&db,
 		r#"
-local keys = { "questDB", "mapObjectives", "minimapObjectives", "objectiveAreas", "turnInMarkers", "availableQuests",
+local keys = { "questDB", "mapObjectives", "minimapObjectives", "objectiveSpots", "objectiveAreaAlpha", "questMarkerSize", "turnInMarkers", "availableQuests",
 	"lowLevelQuests", "questLevelWindow", "questTooltips", "nameplateIcons", "nameplateIconSide", "questLevels", "guideHighlight", "guideDim" }
 local d, mine = {}, {}
 for _, k in ipairs(keys) do d[k] = Polestar.GetDefault("qol." .. k); mine["qol." .. k] = true end
@@ -1270,7 +1300,7 @@ emit(other)
 	assert_eq!(
 		out[0],
 		json!({
-			"questDB": true, "mapObjectives": false, "minimapObjectives": false, "objectiveAreas": false, "turnInMarkers": false,
+			"questDB": true, "mapObjectives": false, "minimapObjectives": false, "objectiveSpots": "groups", "objectiveAreaAlpha": 0.6, "questMarkerSize": 1, "turnInMarkers": false,
 			"availableQuests": false, "lowLevelQuests": false, "questLevelWindow": 5, "questTooltips": true, "nameplateIcons": false,
 			"nameplateIconSide": "left", "questLevels": true, "guideHighlight": true, "guideDim": false,
 		})
@@ -1283,9 +1313,11 @@ emit(other)
 			"qol.questLevelWindow+help",
 			"qol.lowLevelQuests+help",
 			"qol.mapObjectives+help",
-			"qol.objectiveAreas+help",
+			"qol.objectiveSpots+help",
+			"qol.objectiveAreaAlpha+help",
 			"qol.turnInMarkers+help",
 			"qol.minimapObjectives+help",
+			"qol.questMarkerSize+help",
 			"qol.guideHighlight+help",
 			"qol.guideDim+help",
 		])
@@ -1405,7 +1437,7 @@ emit({ Q.WhyUnavailable(18) or "ok", Q.IsAvailable(18) })"#;
 
 // Pin selection: what ends up in each layer and how it looks.
 #[test]
-fn pin_selection_objective_areas_turn_in_toggle_and_the_guide_step_highlighted_with_the_rest_dimmed() {
+fn pin_selection_turn_in_toggle_and_the_guide_step_highlighted_with_the_rest_dimmed() {
 	let db = fixture();
 	let out = run(
 		&db,
@@ -1425,9 +1457,6 @@ local function look(name)
 	return out
 end
 emit(look("quests.objectives"))
-Polestar.Set("qol.objectiveAreas", false); stub.advance(0.3)
-emit(look("quests.objectives"))
-Polestar.Set("qol.objectiveAreas", true)
 -- a guide whose current step kills for quest 7
 local E = Polestar.Engine
 E.GetGuide = function() return { id = "test", steps = { { goals = { { t = "kill", quest = 7, target = "Kobold Vermin" } } } } } end
@@ -1448,16 +1477,14 @@ emit(sq.pins.layers["quests.turnin"] == nil)
 	let num = |p: &Value, k: &str| p[k].as_f64();
 	let ring = |p: &Value| truthy(&p["ring"]);
 	let list = |v: &Value| arr(v).clone();
-	let (areas, no_areas, focus, dim, off) = (list(&out[0]), list(&out[1]), &out[2], &out[3], &out[4]);
-	// Kobold Vermin: two camps spread over yards (areas), one tight pair (none).
-	assert_eq!(areas.len(), 3);
+	let (spots, focus, dim, off) = (list(&out[0]), &out[1], &out[2], &out[3]);
+	// Kobold Vermin: two camps and a far one, too few to group: three markers.
+	assert_eq!(spots.len(), 3);
 	assert!(
-		areas.iter().all(|p| p["h"] == "Kobold Vermin" && p["focus"] == "none" && !ring(p) && truthy(&p["mark"]) && num(p, "size") == Some(kill) && num(p, "mini") == Some(kill_mini)),
+		spots.iter().all(|p| p["h"] == "Kobold Vermin" && p["focus"] == "none" && !ring(p) && truthy(&p["mark"]) && num(p, "size") == Some(kill) && num(p, "mini") == Some(kill_mini)),
 		"a map mark (glyph in its medallion), 16 px on the world map, 14 on the minimap"
 	);
-	assert!(areas.iter().filter(|p| truthy(&p["area"])).count() >= 1, "spread clusters get an area");
-	assert!(areas.iter().all(|p| truthy(&p["area"]) == !p["radius"].is_null()), "area only where the cluster radius reaches MIN_AREA");
-	assert!(no_areas.iter().all(|p| !truthy(&p["area"])), "qol.objectiveAreas off: no areas");
+	assert!(spots.iter().all(|p| !truthy(&p["area"])), "a lone spot is a marker, no disc under it");
 	let (f_obj, f_turn, f_avail) = (list(&focus[0]), list(&focus[1]), list(&focus[2]));
 	assert!(
 		f_obj.iter().all(|p| p["focus"] == "focus" && ring(p) && num(p, "size") == Some(kill * 1.3) && num(p, "mini") == Some(kill_mini * 1.3)),
@@ -1473,7 +1500,7 @@ emit(sq.pins.layers["quests.turnin"] == nil)
 	assert!(d_turn.iter().all(|p| p["focus"] == "dim" && truthy(&p["mark"]) && num(p, "a").is_some_and(|a| (a - 0.6).abs() < 1e-9)), "qol.guideDim: everything else recedes to 0.6");
 	assert!(d_avail.iter().all(|p| p["focus"] == "dim"));
 	assert!(off0.iter().all(|p| p["focus"] == "none" && !ring(p)) && off1.iter().all(|p| p["focus"] == "none" && num(p, "a") == Some(1.0)), "no guide: plain look");
-	assert_eq!(out[5], true, "qol.turnInMarkers off clears the turn-in layer");
+	assert_eq!(out[4], true, "qol.turnInMarkers off clears the turn-in layer");
 }
 
 #[test]
@@ -1493,4 +1520,192 @@ emit({ Q.IsLoaded(), sq.loadCalls, Q.IsRunning() })
 	);
 	assert_eq!(out[0], json!([false, 0, false]));
 	assert_eq!(out[1], json!([true, 1, true]));
+}
+
+// Objective spots (#1085): the fixture plus quest 9600, "Forager Cull", whose
+// Murloc Forager (9600) spawns in seven clusters on Elwynn's map (3000 yd
+// wide, 30 yd per percent): a chain of four 120 yd apart (their discs 70 yd
+// apart, within the 90 yd link), a pair the same way, and one alone.
+fn spots_db() -> QuestDb {
+	let data = data_with(|raw| {
+		let npcs = raw.get_mut("npcs.json").unwrap();
+		let mut npc = npcs["40"].clone();
+		npc["id"] = json!(9600);
+		npc["name"] = json!("Murloc Forager");
+		npc["spawns"] = json!({ "1429": { "f": "e", "pts": [[20, 80], [24, 80], [28, 80], [32, 80], [60, 90], [64, 90], [85, 20]] } });
+		npcs["9600"] = npc;
+		let quests = raw.get_mut("quests.json").unwrap();
+		let mut q = quests["7"].clone();
+		q["id"] = json!(9600);
+		q["title"] = json!("Forager Cull");
+		q["pre"] = json!([]);
+		q["objectives"] = json!([{ "type": "kill", "id": 9600, "count": 5, "text": "Murloc Forager" }]);
+		quests["9600"] = q;
+	});
+	build_db(data.path())
+}
+
+// The objective layer split into markers (spots: how many a region's marker
+// stands for) and areas (alpha relative to the accent's), with its opts.
+const SPOTS_LOOK: &str = r#"
+local function look()
+	local icons, areas = {}, {}
+	local accent = Q.Color("accent")
+	for _, p in ipairs(layer("quests.objectives")) do
+		if p.hull then
+			areas[#areas + 1] = { only = p.areaOnly == true, corners = #p.hull / 2, accent = p.color[1] == accent.r and p.color[2] == accent.g and p.color[3] == accent.b,
+				a = math.floor(p.color[4] / accent.a * 1000 + 0.5) / 1000 }
+		else
+			icons[#icons + 1] = { h = p.header, spots = p.spots or 1, size = p.size, mini = p.minimapSize }
+		end
+	end
+	table.sort(icons, function(a, b) return a.spots > b.spots end)
+	local l = sq.pins.layers["quests.objectives"]
+	return { icons = icons, areas = areas, opts = l and l.opts }
+end
+local function centre()
+	for _, p in ipairs(layer("quests.objectives")) do if p.spots then return p end end
+end
+"#;
+
+#[test]
+fn objective_spots_three_or_more_close_together_draw_one_accent_area_with_one_marker_lone_spots_and_pairs_stay_markers_each_option_changes_the_look() {
+	let db = spots_db();
+	let out = run(
+		&db,
+		&format!(
+			r#"{SPOTS_LOOK}
+w.accept(9600, {{ {{ text = "Murloc Forager slain: 0/5", type = "monster", required = 5 }} }})
+stub.advance(0.3)
+emit(look())
+emit(sq.pinTooltip(centre()))
+Polestar.Set("qol.objectiveAreaAlpha", 0.3); stub.advance(0.3)
+emit(look())
+Polestar.Set("qol.questMarkerSize", 1.5); stub.advance(0.3)
+emit(look())
+Polestar.Set("qol.objectiveSpots", "icons"); stub.advance(0.3)
+emit(look())
+Polestar.Set("qol.objectiveSpots", "areas"); stub.advance(0.3)
+emit(look())
+Polestar.Set("qol.minimapObjectives", false); stub.advance(0.3)
+emit(look().opts)
+"#
+		),
+		r#"w.titles[9600] = "Forager Cull""#,
+	);
+	let icons = |v: &Value| arr(&v["icons"]);
+	let areas = |v: &Value| arr(&v["areas"]);
+	let spots = |v: &Value| icons(v).iter().map(|p| p["spots"].as_i64().unwrap()).collect::<Vec<_>>();
+	let alpha = |v: &Value| areas(v).iter().map(|a| a["a"].as_f64().unwrap()).collect::<Vec<_>>();
+	let (groups, tip, faint, big, only_icons, only_areas) = (&out[0], arr(&out[1]), &out[2], &out[3], &out[4], &out[5]);
+	// Default "groups": the chain of four is one area and one marker; the pair and the lone spot stay markers.
+	assert_eq!(spots(groups), vec![4, 1, 1, 1], "{groups}");
+	assert_eq!(areas(groups).len(), 1);
+	let group_areas = areas(groups);
+	let area = &group_areas[0];
+	assert!(truthy(&area["only"]) && truthy(&area["accent"]) && area["corners"].as_i64().unwrap() >= 8, "a soft polygon in the accent, no pin of its own: {area}");
+	assert_eq!(alpha(groups), vec![0.6], "qol.objectiveAreaAlpha's default");
+	assert!(icons(groups).iter().all(|p| p["h"] == "Murloc Forager" && p["size"] == 16.0 && p["mini"] == 14.0), "the region's marker looks like any other: {groups}");
+	assert_eq!(groups["opts"]["minimapAreas"], true, "areas on the minimap too");
+	assert_eq!(groups["opts"]["minimap"], true);
+	assert!(tip.iter().any(|l| *l == "Murloc Forager") && tip.iter().any(|l| *l == "Forager Cull") && tip.iter().any(|l| *l == "  Murloc Forager: 0/5"), "its tooltip as a spot's: {tip:?}");
+	// Area opacity.
+	assert_eq!(alpha(faint), vec![0.3]);
+	assert_eq!(spots(faint), vec![4, 1, 1, 1]);
+	// Quest marker size: every marker, both surfaces.
+	assert!(icons(big).iter().all(|p| p["size"] == 24.0 && p["mini"] == 21.0), "{big}");
+	// Icons only: every spot its own marker, no areas, none on the minimap.
+	assert_eq!(spots(only_icons), vec![1; 7]);
+	assert!(areas(only_icons).is_empty());
+	assert!(only_icons["opts"]["minimapAreas"].is_null());
+	// Areas only: every region an area (chain, pair, lone), no markers.
+	assert!(icons(only_areas).is_empty(), "{only_areas}");
+	assert_eq!(areas(only_areas).len(), 3);
+	assert!(areas(only_areas).iter().all(|a| truthy(&a["only"]) && truthy(&a["accent"])));
+	// Minimap markers off: the layer and its areas leave the minimap.
+	assert_eq!(out[6]["minimap"], false);
+}
+
+#[test]
+fn objective_spot_regions_group_only_the_objectives_a_quest_log_change_brought_never_on_a_setting_a_step_change_or_a_kill_count() {
+	let db = spots_db();
+	let out = run(
+		&db,
+		r#"
+w.accept(9600, { { text = "Murloc Forager slain: 0/5", type = "monster", required = 5 } })
+stub.advance(0.3)
+local function area() for _, p in ipairs(layer("quests.objectives")) do if p.hull then return p end end end
+local first = area()
+local calls, of = 0, Polestar.Regions.Of
+Polestar.Regions.Of = function(...) calls = calls + 1; return of(...) end
+for _, mode in ipairs({ "icons", "areas", "groups" }) do Polestar.Set("qol.objectiveSpots", mode); stub.advance(0.3) end
+Polestar.Set("qol.objectiveAreaAlpha", 0.4); stub.advance(0.3)
+Polestar.Set("qol.questMarkerSize", 0.8); stub.advance(0.3)
+Polestar.Fire("STEP_CHANGED", 1); stub.advance(0.3)
+emit(calls)
+w.progress(9600, 1, 2); stub.advance(0.3)
+emit(calls)
+w.accept(7, { { text = "Kobold Vermin slain: 0/10", type = "monster", required = 10 } })
+stub.advance(0.3)
+emit(calls)
+w.abandon(7); stub.advance(0.3)
+emit({ calls, area() == first })
+"#,
+		"w.complete({ 783 })",
+	);
+	assert_eq!(out[0], 0, "settings and a step change only restyle");
+	assert_eq!(out[1], 0, "a kill count alone");
+	assert_eq!(out[2], 1, "a quest came: only its objective is grouped (7's kobolds); 9600's foragers keep theirs");
+	assert_eq!(out[3], json!([1, true]), "a quest left: nothing grouped, the foragers' area is the same pin");
+}
+
+#[test]
+fn with_the_objective_and_turn_in_markers_off_a_quest_log_change_builds_no_marker_and_groups_no_spot() {
+	let db = spots_db();
+	let out = run_saved(
+		&db,
+		r#"
+local calls, of = 0, Polestar.Regions.Of
+Polestar.Regions.Of = function(...) calls = calls + 1; return of(...) end
+local rebuilds = Q.stats.rebuilds
+w.accept(9600, { { text = "Murloc Forager slain: 0/5", type = "monster", required = 5 } })
+stub.advance(0.3)
+Polestar.Fire("STEP_CHANGED", 1); stub.advance(0.3)
+emit({ Q.stats.rebuilds - rebuilds, calls, sq.pins.layers["quests.objectives"] == nil, Q.ObjectivesForNpc(9600) ~= nil })
+Polestar.Set("qol.mapObjectives", true); stub.advance(0.3)
+emit({ Q.stats.rebuilds - rebuilds, calls, #layer("quests.objectives") > 0 })
+"#,
+		"",
+		"PolestarDB = { schema = 1, settings = { qol = { mapObjectives = false, minimapObjectives = false, turnInMarkers = false, questTooltips = true } } }",
+	);
+	assert_eq!(out[0], json!([0, 0, true, true]), "no markers or regions; the tooltip index still knows the forager");
+	assert_eq!(out[1], json!([1, 1, true]), "turned on: built and grouped once");
+}
+
+#[test]
+fn objective_areas_fade_with_their_marker_under_guide_dim_and_a_step_quest_s_stay_full() {
+	let db = spots_db();
+	let out = run(
+		&db,
+		&format!(
+			r#"{SPOTS_LOOK}
+w.accept(9600, {{ {{ text = "Murloc Forager slain: 0/5", type = "monster", required = 5 }} }})
+Polestar.Set("qol.guideDim", true)
+local E = Polestar.Engine
+E.GetGuide = function() return {{ id = "test", steps = {{ {{ goals = {{ {{ t = "kill", quest = 7, target = "Kobold Vermin" }} }} }} }} }} end
+E.GetStepIndex = function() return 1 end
+Polestar.Fire("STEP_CHANGED", 1); stub.advance(0.3)
+emit({{ look(), centre().focus }})
+E.GetGuide = function() return {{ id = "test", steps = {{ {{ goals = {{ {{ t = "kill", quest = 9600, target = "Murloc Forager" }} }} }} }} }} end
+Polestar.Fire("STEP_CHANGED", 1); stub.advance(0.3)
+emit({{ look(), centre().focus }})
+"#
+		),
+		"",
+	);
+	let alpha = |v: &Value| arr(&v["areas"]).iter().map(|a| a["a"].as_f64().unwrap()).collect::<Vec<_>>();
+	assert_eq!(out[0][1], "dim");
+	assert_eq!(alpha(&out[0][0]), vec![0.36], "another quest's: 0.6 x the dim 0.6");
+	assert_eq!(out[1][1], "focus");
+	assert_eq!(alpha(&out[1][0]), vec![0.6], "the step's quest: full");
 }

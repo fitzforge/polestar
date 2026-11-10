@@ -12,7 +12,8 @@
 -- walk the arrow is on right now (the player to the current walk leg's end,
 -- or to the target) is searched asynchronously with Path.Find on the
 -- player's continent; once the path arrives the arrow aims at its next point.
--- Straying more than STRAY yards from it, or a new goal, asks again (a stale
+-- Straying more than STRAY yards from it (asked again at most every ASK_EVERY
+-- seconds, ASK_FAR_EVERY on a walk of more than ASK_FAR yards), or a new goal, asks again (a stale
 -- search is cancelled); nothing is asked for in combat. Hand-made walks win:
 -- a crossing, an approach chain past its mouth (Travel's leg.handmade), and a
 -- guide goal after a guide `goto` (the author's way in, a cave mouth) keep
@@ -30,7 +31,8 @@
 -- a race part's Legs.lua) needs no search: for a new goal that the current
 -- step's leg ends at, with the player within STRAY yards of the leg, the
 -- arrow follows the leg from the player's place on it (takeBaked). Straying
--- from it asks for a search as from any path (the re-plan); a goal the leg
+-- from it (more than STRAY yards, with no point ahead on it in sight across
+-- open ground: Nav/Follow.lua) asks for a search as from any path (the re-plan); a goal the leg
 -- does not end at (a walk leg's end before a flight, a hand-set target) is
 -- searched as before.
 --
@@ -118,12 +120,19 @@
 --     aim along the path (the furthest point within 35 yd of the player and
 --     45 yd along it, sliding between points, stopped at a corner, another
 --     floor and path point `stop`, a piece of a split walk's last point
---     before its chokepoint); and the yards left along the path from the
---     player's place on it plus their way to it; nil = straight at the goal.
---     Allocation-free once the path is in.
+--     before its chokepoint; outdoors, beside the path in open ground up to
+--     100 yd from it, the furthest point ahead up to 150 yd along it the
+--     player can walk to straight, Path.Sight checking the line); and the
+--     yards left along the path from the
+--     player's place on it plus their way to it (through the point in sight
+--     when the arrow aims at one); nil = straight at the goal.
+--     Allocation-free once the path is in. Strays more than STRAY yards off
+--     the path ask for a new one, unless the aim is such a point in sight.
 --   Walk.Progress(c, x, y) -> along, off | nil: at the last Aim for that goal,
 --     the yards along the path from its start to the player's place on it,
 --     and the yards between the player and that place
+--   Walk.SightAim() -> c, wx, wy | nil: the last Aim's point when it was in
+--     sight beside the path (the route line's walk starts toward it)
 --   Walk.Left(c, x, y) -> yards left along the path to that goal at the last Aim | nil
 --   Walk.Passed(c, x, y, seg) -> the player is past segment `seg` of that goal's path
 --   Walk.Stops(pc, px, py) -> stops, total: the chokepoints along the path
@@ -177,6 +186,7 @@ local PACK = "Polestar_Nav"
 local STRAY = 25            -- yards off the path: ask again
 local JOIN = 50             -- yards from a path's start: its first turn there, outdoors, is joining a road (Nav/Follow.lua)
 local ASK_EVERY = 2         -- seconds between asks for the same goal
+local ASK_FAR, ASK_FAR_EVERY = 2000, 10 -- yards left along the path past which a stray is asked again at most this often
 local GOAL_MOVED = 1        -- yards: the goal is another one
 local FAIL_RETRY, FAIL_MOVED = 15, 25 -- a failed search is asked again this late, this far away
 local Z_OFF = 30            -- yards: a path ending this far above or below the goal's height missed its floor
@@ -686,6 +696,22 @@ local function startZ(pc, px, py)
 	return z, z ~= nil
 end
 
+-- The follower's line check (Nav/Follow.lua `sight`): can the player at (x1, y1)
+-- walk straight to the path point (x2, y2, z2: false where unknown), from the
+-- height and on the continent Walk.Aim set (sightC, sightZ)? Path.Sight on
+-- the walking grid, for the player's faction; false on an error, and while the
+-- line crosses a cluster the router has not decoded (nil: it decodes nothing).
+-- One function for every Aim, so passing it allocates nothing.
+local sightC, sightZ
+local sightAimC, sightAimX, sightAimY -- the arrow's last aim when it was by sight (Walk.SightAim)
+local function sight(x1, y1, x2, y2, z2)
+	local P = Nav.Path
+	local C = ns.Compat
+	local profile = C and C.GetPlayerFaction and C.GetPlayerFaction() or nil
+	local ok, clear = pcall(P.Sight, sightC, x1, y1, sightZ, x2, y2, z2 or nil, profile)
+	return ok and clear == true
+end
+
 -- While the floor is unknown indoors: the candidate floors (a new list) the player stands on one of, checked within
 -- FRESH seconds and read within NEAR yards; nil otherwise. A search from the player starts only on surfaces near them
 -- (Path.Find's from.floors): in the Undercity its canals and streets, never the roofs or the Ruins over them.
@@ -895,24 +921,49 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 	if count == 0 then return nil end
 
 	-- Outdoors, the path's first turn near its start (joining a road) may be cut
-	-- (Nav/Follow.lua `join`); indoors every turn is a wall's.
-	local join = not (IsIndoors and IsIndoors()) and JOIN or nil
-	local ax, ay = Nav.follow.Step(ptsX, ptsY, ptsZ, left, count, fstate, px, py, stop, join)
+	-- (Nav/Follow.lua `join`); indoors every turn is a wall's. Outdoors, with the
+	-- floor under the player known, the follower may aim ahead by sight beside
+	-- the path (open ground; Path.Sight checks the line).
+	local outdoors = not (IsIndoors and IsIndoors())
+	local join = outdoors and JOIN or nil
+	local look
+	if outdoors and P.Sight then
+		sightZ = startZ(pc, px, py)
+		if sightZ ~= nil then sightC, look = pc, sight end
+	end
+	local ax, ay = Nav.follow.Step(ptsX, ptsY, ptsZ, left, count, fstate, px, py, stop, join, look)
 	idx = fstate.idx
 	if not ax then
 		lastLeft = nil
 		return nil
 	end
-	-- Yards left: straight to the end of the segment the player is on, then along the path.
-	local ix, iy = ptsX[idx] or ptsX[count], ptsY[idx] or ptsY[count]
-	local dx, dy = ix - px, iy - py
-	lastLeft = sqrt(dx * dx + dy * dy) + left[idx <= count and idx or count]
+	-- Yards left: straight to the end of the segment the player is on, then along the path; with the arrow on a
+	-- point in sight beside the path (Nav/Follow.lua's S.aimAlong), straight to that point, then along the path from
+	-- it. (The segment's end may lie behind a player running beside the path, and 0.3.5's yards then counted up
+	-- while they closed on the target.)
+	local aimAlong = fstate.aimAlong
+	local dx, dy
+	if aimAlong then
+		dx, dy = ax - px, ay - py
+		lastLeft = sqrt(dx * dx + dy * dy) + (left[1] - aimAlong)
+	else
+		local ix, iy = ptsX[idx] or ptsX[count], ptsY[idx] or ptsY[count]
+		dx, dy = ix - px, iy - py
+		lastLeft = sqrt(dx * dx + dy * dy) + left[idx <= count and idx or count]
+	end
 	-- Re-ask only when the player has strayed from the path: walking beside it,
-	-- or coming at it from the side, is the follower's to handle. (A stale path
+	-- or coming at it from the side, is the follower's to handle, and so is
+	-- running up to Follow.OPEN yards beside it with a point ahead on it in
+	-- sight (fstate.sighted: open ground). (A stale path
 	-- left behind the player cannot hold the arrow back: the follower's
 	-- projection moves on with the player, and past WINDOW yards the player is
 	-- off the path and STRAY asks again.)
-	if fstate.off > STRAY and token == nil and not wanted and GetTime() - askedAt >= ASK_EVERY then ask(P, pc, px, py) end
+	-- On a long walk (ASK_FAR yards left) a stray asks again at most every ASK_FAR_EVERY seconds: each ask searches the
+	-- whole walk again, and a mounted player cutting corners strayed every few seconds (a search every 4-5 s, ~1 MB of
+	-- garbage a second). A stray that long after the last ask still asks at once.
+	local every = lastLeft > ASK_FAR and ASK_FAR_EVERY or ASK_EVERY
+	if fstate.sighted then sightAimC, sightAimX, sightAimY = pc, ax, ay end
+	if fstate.off > STRAY and not fstate.sighted and token == nil and not wanted and GetTime() - askedAt >= every then ask(P, pc, px, py) end
 	return pc, ax, ay, lastLeft
 end
 
@@ -931,6 +982,14 @@ end
 function Walk.Progress(c, x, y)
 	if not isGoal(c, x, y) or fstate.off == nil then return nil end
 	return fstate.along, fstate.off
+end
+
+-- The arrow's aim at the last Aim when it was a point ahead on the path in
+-- sight beside it (Nav/Follow.lua, open ground): c, wx, wy; else nil. The
+-- route line's walk starts from the player toward it (Maps/RouteLines.lua).
+function Walk.SightAim()
+	if count == 0 or not fstate.sighted then return nil end
+	return sightAimC, sightAimX, sightAimY
 end
 
 -- Has the player gone past segment `seg` of the path to (c, x, y)?
@@ -954,9 +1013,15 @@ end
 --     snapped off the ground): those keep their straight estimate.
 --   The player's measure holds within START_NEAR yards of where it was taken;
 --     farther, the player's walk is measured again with the next plan (once
---     per replan), and until it lands it is that measure less the yards
---     moved, never less than the straight distance (x1.0: a walk is never
---     priced dearer for having come closer).
+--     per replan; alone, a batch of one, when the measure has every other
+--     place: remeasureStart), and until it lands it is that measure less the
+--     yards moved, never less than the straight distance (x1.0: a walk is
+--     never priced dearer for having come closer). Within MEASURE_NEAR of the
+--     target, where nothing is measured again, the straight estimate instead:
+--     a winding walk measured from far away, less the yards moved, still
+--     counted thousands of yards beside the target, and the route went to a
+--     place with a short measured walk in and back (#1053, Thunder Bluff's
+--     Elder Rise: to the north lift's top and back, round and round).
 --   Fixed per target and kept for the last MEASURE_KEEP targets, so plans
 --     never flip-flop on them: a target is measured again only when its plan
 --     has a place the measure lacks (a flight master learned, a new bind, the
@@ -977,7 +1042,8 @@ end
 --     still draws the walk. A batch costs about a second of router work and
 --     a guide sets a near waypoint at every turn-in, so measuring those
 --     stuttered the frame rate for little: a hearth or a flight seldom beats
---     a walk that short. A target measured from farther keeps its measure.
+--     a walk that short. A target measured from farther keeps its measure,
+--     the player's own walk in it only within START_NEAR of where it was taken.
 ---------------------------------------------------------------------------
 
 local MEASURE_YARDS = 3000  -- straight yards from the target: places farther keep the estimate
@@ -1034,7 +1100,8 @@ end
 -- no walk from there (unreachable, or off its maps), or nil for the straight
 -- estimate. The player's walk measured more than START_NEAR yards away is
 -- that walk's yards less the yards moved, never below the straight distance,
--- its cost scaled alike (and no answer when none was found).
+-- its cost scaled alike (and no answer when none was found); within
+-- MEASURE_NEAR of the target, where it is not measured again, no answer.
 local function measuredCost(e, c, wx, wy, start)
 	if c ~= e.c then return nil end
 	local costs, yards = e.costs, e.yards
@@ -1056,6 +1123,7 @@ local function measuredCost(e, c, wx, wy, start)
 	if moved <= START_NEAR then return m, y end
 	dx, dy = e.x - wx, e.y - wy
 	local least = sqrt(dx * dx + dy * dy)
+	if least < MEASURE_NEAR then return nil end
 	local rate = y > 0 and m / y or 1
 	y = y - moved
 	if y < least then y = least end
@@ -1069,11 +1137,26 @@ function Walk.Measured(c, x, y, water)
 	return e and e.lookup
 end
 
+-- A measure landed: kept (either way: a target whose measure found nothing is
+-- not asked again), and the plan told when it found walks.
+local function measured(mine, found)
+	measuring = nil
+	if found then
+		mine.lookup = function(wc, wx, wy, start) return measuredCost(mine, wc, wx, wy, start) end
+	end
+	storeMeasure(mine)
+	local T = Nav.travel
+	local tc, tx, ty = Nav.GetTargetWorld()
+	if found and tc and T and T.Remeasured and sameTarget(mine, tc, tx, ty, mine.water) then T.Remeasured() end
+	pumpLegs()
+end
+
 -- One FindMany for a measure: from the target (at height z, when it has one) to
 -- its places, reversed. A batch with the height that finds nothing is asked once
 -- more without it.
 local function batch(P, mine, z)
 	local pts, water = mine.pts, mine.water
+	mine.z, mine.o = z, mine.o or opts(water, mine.c, nil, nil, mine.x, mine.y, mine.sx, mine.sy)
 	local ok, handle = pcall(P.FindMany, mine.c, { x = mine.x, y = mine.y, z = z }, pts, function(costs, _, answer)
 		if measuring ~= mine then return end
 		mine.job = nil
@@ -1084,23 +1167,80 @@ local function batch(P, mine, z)
 			if type(costs[i]) == "number" then found = true end
 		end
 		if not found and z then return batch(P, mine, nil) end
-		measuring, mine.costs = nil, costs
-		-- Kept either way: a target whose measure found nothing is not asked again.
-		if found then
-			mine.lookup = function(wc, wx, wy, start) return measuredCost(mine, wc, wx, wy, start) end
-		end
-		storeMeasure(mine)
-		local T = Nav.travel
-		local tc, tx, ty = Nav.GetTargetWorld()
-		if found and tc and T and T.Remeasured and sameTarget(mine, tc, tx, ty, water) then T.Remeasured() end
-		pumpLegs()
-	end, opts(water, mine.c, nil, nil, mine.x, mine.y, mine.sx, mine.sy), true)
+		mine.costs = costs
+		measured(mine, found)
+	end, mine.o, true)
 	if not ok then
 		if z then return batch(P, mine, nil) end
 		measuring = nil
 		return
 	end
 	if measuring == mine then mine.job = handle end
+end
+
+-- Two batches' opts alike (Walk's opts: the danger table compared by its entries).
+local function sameOpts(a, b)
+	if not (a and b) or a.waterWalking ~= b.waterWalking or a.profile ~= b.profile or a.style ~= b.style or a.homeHub ~= b.homeHub then return false end
+	local da, db = a.danger, b.danger
+	if da == db then return true end
+	if type(da) ~= "table" or type(db) ~= "table" then return false end
+	for k, v in pairs(da) do
+		if db[k] ~= v then return false end
+	end
+	for k, v in pairs(db) do
+		if da[k] ~= v then return false end
+	end
+	return true
+end
+
+-- The player alone has walked away from where their walk into e's target was
+-- measured: only their walk is measured again (a batch of one, from the target
+-- at the height and with the opts e's batch found its walks with), the other
+-- places' walks kept: a batch's walks are each the cheapest from its place, so
+-- the player's move changes none of theirs, and the 16-place batch measured
+-- again cost 20-70 MB of garbage per replan near the target. Only when another
+-- place's walk was found (the batch measured again would then find walks at the
+-- same height, not ask once more without it). -> started.
+local function remeasureStart(P, e, c, x, y, water, p)
+	if not (e.lookup and e.costs and e.pts) or e.z ~= targetZ(c, x, y) then return false end
+	local other = false
+	for i = 1, #e.pts do
+		if i ~= e.si and type(e.costs[i]) == "number" then other = true end
+	end
+	if not other then return false end
+	local o = opts(water, c, nil, nil, x, y, p.wx, p.wy)
+	if not sameOpts(o, e.o) then return false end
+	local z = p.z or (startZ(c, p.wx, p.wy)) or nil
+	local pt = { x = p.wx, y = p.wy, z = z, floors = z == nil and startFloors(c, p.wx, p.wy) or nil }
+	local pts, costs, yards = {}, {}, e.yards and {} or nil
+	for i, q in ipairs(e.pts) do
+		pts[i], costs[i] = q, e.costs[i]
+		if yards then yards[i] = e.yards[i] end
+	end
+	local si = e.si or #pts + 1
+	pts[si], costs[si] = pt, nil
+	if yards then yards[si] = nil end
+	local mine = { c = c, x = x, y = y, water = water, pts = pts, si = si, sx = pt.x, sy = pt.y, z = e.z, o = o, costs = costs, yards = yards }
+	measuring = mine
+	local ok, handle = pcall(P.FindMany, c, { x = x, y = y, z = e.z }, { pt }, function(got, _, answer)
+		if measuring ~= mine then return end
+		mine.job = nil
+		local m = type(got) == "table" and got[1]
+		costs[si] = (type(m) == "number" or m == false) and m or false
+		local yd = type(answer) == "table" and type(answer.yards) == "table" and answer.yards[1] or nil
+		if yards then yards[si] = yd == nil and false or yd end
+		local found = false
+		for i = 1, #pts do
+			if type(costs[i]) == "number" then found = true end
+		end
+		measured(mine, found)
+	end, o, true)
+	if not ok then
+		measuring = nil
+		return false
+	end
+	if measuring == mine then mine.job = handle end
+	return true
 end
 
 -- Measure the walks into the target (c, x, y) from the plan's places (Travel's
@@ -1151,18 +1291,19 @@ function Walk.Measure(c, x, y, water, places)
 	if not others then return end
 	local e = findMeasure(c, x, y, water)
 	if e then
-		local missing = false
+		local start, other = nil, false
 		for _, p in ipairs(pick) do
 			if p.start then
 				-- The player was out of reach, or has walked away from where their walk was measured.
 				local dx, dy = p.wx - (e.sx or p.wx), p.wy - (e.sy or p.wy)
-				if not e.si or dx * dx + dy * dy > START_NEAR * START_NEAR then missing = true end
+				if not e.si or dx * dx + dy * dy > START_NEAR * START_NEAR then start = p end
 			elseif not placeIndex(e, p.wx, p.wy) then
-				missing = true
+				other = true
+				break
 			end
-			if missing then break end
 		end
-		if not missing then return end
+		if not (start or other) then return end
+		if start and not other and remeasureStart(P, e, c, x, y, water, start) then return end
 	end
 	-- The places picked, the player's walk, and those the last measure had.
 	local pts, si = {}, nil
@@ -1662,13 +1803,30 @@ end
 ---------------------------------------------------------------------------
 
 local gotoTarget, gotoStep, gotoGoal
+-- yards: a way in this far or nearer the target leads into it (a cave's
+-- mouth and the cave); a goto farther off, or on another continent, is the
+-- last trip's end, not a way in (the zeppelin tower before the Barrens, #1128)
+local WAY_IN_YD = 500
+-- yards: a goal this near the target stands at its spot (another quest of the
+-- same NPC, an optional turn-in before the accept): no waypoint of its own, so
+-- the way in before it still leads to the target (#1338)
+local SAME_SPOT_YD = 3
+
+-- The goal's point in world yards: c, wx, wy | nil.
+local function worldOf(t)
+	local C = ns.Compat
+	if not (C and C.MapToWorld and t.map and t.x and t.y) then return nil end
+	return C.MapToWorld(t.map, t.x, t.y, t.f)
+end
 
 -- The guide's last located goal before this target is a `goto` the player
 -- has reached (Engine.GoalDone): the author's way in (a cave's mouth), so
 -- the arrow goes straight from there. Until then the target is walked like
 -- any other, so a goal aimed at ahead of its way in never leads onto the
--- hill above the cave (#914). The goto is found once per target; its state
--- is asked every time.
+-- hill above the cave (#914). Only a goto on the target's continent within
+-- WAY_IN_YD of it is a way in. Goals at the target's own spot (SAME_SPOT_YD)
+-- are looked past. The goto is found once per target; its state is asked
+-- every time.
 function Walk.FollowsGoto(target)
 	if target ~= gotoTarget then
 		gotoTarget, gotoStep, gotoGoal = target, nil, nil
@@ -1677,6 +1835,7 @@ function Walk.FollowsGoto(target)
 		local guide = E and E.GetGuide and E.GetGuide()
 		local steps = type(guide) == "table" and guide.steps
 		if type(steps) ~= "table" then return false end
+		local bc, bx, by = worldOf(target)
 		local s, g = target.stepIndex, target.goalIndex - 1
 		while s >= 1 and not gotoStep do
 			local goals = steps[s] and steps[s].goals
@@ -1685,9 +1844,13 @@ function Walk.FollowsGoto(target)
 				for k = g, 1, -1 do
 					local goal = goals[k]
 					if type(goal) == "table" and goal.map ~= nil and goal.x ~= nil then
-						if goal.t == "goto" then gotoStep, gotoGoal = s, k end
-						s = 0
-						break
+						local ac, ax, ay = worldOf(goal)
+						local d2 = ac and ac == bc and (ax - bx) ^ 2 + (ay - by) ^ 2 or nil
+						if goal.t == "goto" or not (d2 and d2 <= SAME_SPOT_YD * SAME_SPOT_YD) then
+							if goal.t == "goto" and d2 and d2 <= WAY_IN_YD * WAY_IN_YD then gotoStep, gotoGoal = s, k end
+							s = 0
+							break
+						end
 					end
 				end
 			end
@@ -1754,7 +1917,7 @@ local function build()
 		for i = ci, #legs do
 			local leg = legs[i]
 			local from, to = leg.from, leg.to
-			local pts = {}
+			local pts, straight = {}, nil
 			local P = leg.parent
 			if P ~= lastParent then
 				lastParent, prevSeg = P, 0
@@ -1786,6 +1949,7 @@ local function build()
 				elseif not walkPoints(pts, to.c, to.wx, to.wy) and not (i == ci and shapePoints(pts, to.c, to.wx, to.wy)) then
 					if i == ci and pc == from.c then pt(pts, pc, px, py) else pt(pts, from.c, from.wx, from.wy) end
 					pt(pts, to.c, to.wx, to.wy)
+					straight = true
 				end
 			elseif leg.kind == "fly" and leg.stops then
 				for _, node in ipairs(leg.stops) do pt(pts, node.c, node.wx, node.wy) end
@@ -1796,7 +1960,8 @@ local function build()
 				pt(pts, from.c, from.wx, from.wy)
 				pt(pts, to.c, to.wx, to.wy)
 			end
-			out[#out + 1] = { kind = KIND[leg.kind] or leg.kind, pts = pts, current = i == ci, choke = leg.choke }
+			-- straight: a walk drawn straight, no walking path known for it (the route lines draw it paler; display only).
+			out[#out + 1] = { kind = KIND[leg.kind] or leg.kind, pts = pts, current = i == ci, choke = leg.choke, straight = straight }
 		end
 	else
 		local tc, tx, ty = Nav.GetTargetWorld()
@@ -1805,8 +1970,10 @@ local function build()
 			if not walkPoints(pts, tc, tx, ty) and not shapePoints(pts, tc, tx, ty) and pc == tc then
 				pt(pts, pc, px, py)
 				pt(pts, tc, tx, ty)
+				out[1] = { kind = "walk", pts = pts, current = true, straight = true }
+			elseif #pts > 0 then
+				out[1] = { kind = "walk", pts = pts, current = true }
 			end
-			if #pts > 0 then out[1] = { kind = "walk", pts = pts, current = true } end
 		end
 	end
 	return { legs = out }

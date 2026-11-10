@@ -134,6 +134,32 @@ fn quest_objectives_normalize_to_text_type_finished_numfulfilled_numrequired() {
 }
 
 #[test]
+fn issue_1327_a_quest_timer_runs_while_a_log_quest_has_time_allowed_and_is_neither_ready_nor_failed() {
+	let out = run(r#"
+		local allowed, ready, failed = { [29] = 1800 }, false, false
+		C_QuestLog.GetNumQuestLogEntries = function() return 2, 2 end
+		C_QuestLog.GetInfo = function(i) return ({ { questID = 0, isHeader = true }, { questID = 29 } })[i] end
+		C_QuestLog.GetTimeAllowed = function(q) return allowed[q], 10 end
+		C_QuestLog.IsOnQuest = function() return true end
+		C_QuestLog.ReadyForTurnIn = function() return ready end
+		C_QuestLog.IsComplete = function() return ready end
+		C_QuestLog.IsFailed = function() return failed end
+		local r = { running = C.QuestTimerRunning() }
+		ready = true
+		r.ready = C.QuestTimerRunning()
+		ready, failed = false, true
+		r.failed = C.QuestTimerRunning()
+		failed, allowed[29] = false, nil
+		r.untimed = C.QuestTimerRunning()
+		allowed[29] = 1800
+		C_QuestLog.GetTimeAllowed = nil
+		r.noApi = C.QuestTimerRunning()
+		emit(r)
+	"#);
+	assert_eq!(out, json!({ "running": true, "ready": false, "failed": false, "untimed": false, "noApi": false }));
+}
+
+#[test]
 fn getnpcid_parses_creature_and_object_guids_and_ignores_players() {
 	let out = run(r#"
 		w.units.npc = "Creature-0-4372-0-17-197-00001A2B3C"
@@ -404,4 +430,20 @@ fn item_tip_color_is_the_tooltips_title_colour_and_nil_until_the_item_is_loaded(
 	assert_eq!(out["kept"], json!([0, 0.5, 1]), "kept for the session");
 	assert_eq!(out["none"], json!({}), "a client without C_TooltipInfo");
 	assert_eq!(out["notNumber"], json!({}));
+}
+
+// The frFR Forever client's kill objectives: "%1$s : %2$d/%3$d |4personnage tué:personnages tués;", the space
+// before the colon sometimes a no-break one. The label is the name alone: no counts, no grammar escape (raw
+// "|4…;" in the step window, the tracker or party chat), so it matches the guide's name exactly.
+#[test]
+fn an_frfr_kill_objective_labels_as_its_name_without_the_counts_or_the_grammar_escape() {
+	let out = run(r#"emit({
+		C.ObjectiveLabel("Jeune loup : 3/10 |4personnage tué:personnages tués;"),
+		C.ObjectiveLabel("Jeune loup\194\160: 1/1 |4personnage tué:personnages tués;"),
+		C.ObjectiveLabel("Voyant novice des Sculpte-vents tué: 6/6"),
+		C.ObjectiveLabel(" : 0/8 |4personnage tué:personnages tués;"),
+		C.ObjectiveLabel("Peau de sanglier\194\160: 2/6"),
+		C.ObjectiveLabel("Kobold Vermin slain: 3/10"),
+	})"#);
+	assert_eq!(out, json!(["Jeune loup", "Jeune loup", "Voyant novice des Sculpte-vents tué", "", "Peau de sanglier", "Kobold Vermin"]));
 }

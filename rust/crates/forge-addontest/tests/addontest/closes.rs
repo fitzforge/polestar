@@ -59,7 +59,7 @@ fn off_by_default_the_guide_quest_is_accepted_and_nothing_is_said() {
 #[test]
 fn on_offering_a_quest_that_closes_another_for_good_names_it_and_leaves_the_accept_to_the_player() {
 	let out = run("", vec![core()], &warn_offer());
-	assert_eq!(out, json!({ "accepted": {}, "said": ["Taking Sven's Revenge closes Deliveries to Sven for good."] }));
+	assert_eq!(out, json!({ "accepted": {}, "said": ["Taking “Sven's Revenge” closes “Deliveries to Sven” for good."] }));
 }
 
 #[test]
@@ -79,13 +79,13 @@ fn the_warning_stands_without_quest_automation_and_a_quest_the_game_accepts_itse
 			w.questDetail(311, 95, { title = "Sven's Revenge", auto = true })"#
 		.replace("OFFER", OFFER);
 	let out = run("", vec![core()], &script);
-	assert_eq!(out, json!({ "accepted": {}, "said": ["Taking Sven's Revenge closes Deliveries to Sven for good."] }));
+	assert_eq!(out, json!({ "accepted": {}, "said": ["Taking “Sven's Revenge” closes “Deliveries to Sven” for good."] }));
 }
 
 #[test]
 fn a_night_elf_loses_the_night_elf_quest_too() {
 	let out = run(r#"w.race, w.raceName = "NightElf", "Night Elf""#, vec![core()], &warn_offer());
-	assert_eq!(out["said"], json!(["Taking Sven's Revenge closes Deliveries to Sven, Elune's Grace for good."]));
+	assert_eq!(out["said"], json!(["Taking “Sven's Revenge” closes “Deliveries to Sven”, “Elune's Grace” for good."]));
 }
 
 const SILITHUS: &str = r#"Polestar.RegisterGuide({
@@ -118,7 +118,7 @@ fn a_guide_for_the_other_faction_never_counts_a_horde_character_offered_8280_is_
 	});
 	let out = &out[0];
 	assert_eq!(out["closes"], json!([8276]));
-	assert_eq!(out["said"], json!(["Taking Securing the Supply Lines closes Taking Back Silithus for good."]));
+	assert_eq!(out["said"], json!(["Taking “Securing the Supply Lines” closes “Taking Back Silithus” for good."]));
 }
 
 #[test]
@@ -140,7 +140,7 @@ fn the_quest_database_adds_the_quests_no_guide_takes_read_the_way_its_links_poin
 		.replace("OFFER", OFFER);
 	let script = format!("{}{script}", forge_addontest::questdb::ADD_RECORDS_LUA);
 	let out = run("", vec![Addon::name("Polestar")], &script);
-	assert_eq!(out["said"], json!(["Taking Frostmane Hold closes Senir's Observations for good.", "Taking Sven's Revenge closes Deliveries to Sven for good."]));
+	assert_eq!(out["said"], json!(["Taking “Frostmane Hold” closes “Senir's Observations” for good.", "Taking “Sven's Revenge” closes “Deliveries to Sven” for good."]));
 }
 
 #[test]

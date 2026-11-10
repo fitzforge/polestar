@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Shylenai
 	-- {npc:8665} Shylenai · {area:1659} Craftsmen's Terrace · {zone:1457} Darnassus · {item:280803} Eagle Owl
-	["{npc:8665}, the owl trainer, stands on the {area:1659} in {zone:1457}, beside the food and general goods vendors. She sells three owls (50s each); the {item:280803} is new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	["{npc:8665}, the owl trainer, stands on the {area:1659} in {zone:1457}, beside the food and general goods vendors. She sells three owls (50s each); the {item:280803} is new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "猫头鹰训练师 {npc:8665} 站在 {zone:1457} 的 {area:1659}，就在食物和杂货商人旁。她出售三种猫头鹰（每种 50 银币）；{item:280803} 是无限新增的。每件宠物物品使用后都会学会对应的小伙伴；学会后，目标仍会保持勾选。",
 	-- {item:8500} Great Horned Owl
 	["{item:8500}, 50s"] = "{item:8500}，50银",
 	-- {item:8501} Hawk Owl

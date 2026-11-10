@@ -7,18 +7,18 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Gelkis and Magram Centaur Reputation"] = "",
+	["Gelkis and Magram Centaur Reputation"] = "Репутация с кентаврами Гелкис и Маграм",
 	-- {zone:1443} Desolace
-	["{zone:1443}'s feuding clans, reworked in Forever: pick one, buy its friendship, and trade totems for recipes."] = "",
+	["{zone:1443}'s feuding clans, reworked in Forever: pick one, buy its friendship, and trade totems for recipes."] = "Враждующие кланы зоны {zone:1443}, переработанные в Forever: выберите один, купите его дружбу и обменивайте тотемы на рецепты.",
 	-- plural, as words: Carved Centaur Totems = {item:254432} Carved Centaur Totem
-	["12 recipes for Carved Centaur Totems at the clan quartermasters, no standing needed"] = "",
+	["12 recipes for Carved Centaur Totems at the clan quartermasters, no standing needed"] = "12 рецептов резных тотемов кентавров ({item:254432}) у интендантов кланов, репутация не требуется",
 	-- {npc:5601} Khan Jehn
-	["{npc:5601}'s quest: a clan title and a choice of three rare level 35 weapons"] = "",
+	["{npc:5601}'s quest: a clan title and a choice of three rare level 35 weapons"] = "Задание NPC {npc:5601}: звание клана и выбор одного из трех редких видов оружия 35-го уровня",
 
 	-- Step 1: Pick your clan
 	["Pick your clan"] = "",
 	-- {zone:1443} Desolace · {npc:5396} Captain Pentigast · {area:608} Nijel's Point · {quest:1382} Strange Alliance · {quest:1385} Brutal Politics · {npc:5412} Gurda Wildmane · {quest:1368} Gelkis Alliance · {quest:1367} Magram Alliance
-	["The Gelkis (south-west {zone:1443}) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now, and the choice quests no longer cost the other clan anything. Alliance: {npc:5396} at {area:608} offers {quest:1382} (Gelkis) and {quest:1385} (Magram). Horde: {npc:5412}, east of Shadowprey, offers {quest:1368} and {quest:1367}. Take the one of your clan and its Buying Friendship (3,000 for carrying a tote of totems), then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it jumps to the Magram half. Do the clan's quests by level 50 if you can: in Classic a quest pays less once it is 6 or more levels below you, down to a fifth."] = "",
+	["The Gelkis (south-west {zone:1443}) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now, and the choice quests no longer cost the other clan anything. Alliance: {npc:5396} at {area:608} offers {quest:1382} (Gelkis) and {quest:1385} (Magram). Horde: {npc:5412}, east of Shadowprey, offers {quest:1368} and {quest:1367}. Take the one of your clan and its Buying Friendship (3,000 for carrying a tote of totems), then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it jumps to the Magram half. Forever pays these quests in full at any level."] = "",
 	-- {quest:1382} Strange Alliance
 	["{quest:1382}: Gelkis"] = "",
 	["Take the quests of one clan"] = "",

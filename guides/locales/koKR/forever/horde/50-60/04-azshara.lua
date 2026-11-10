@@ -11,119 +11,127 @@ return {
 	["{npc:8659}, the {object:172960}"] = "{object:172960}의 {npc:8659}",
 	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172957} Valley of Wisdom · {zone:1451} Silithus
 	["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{object:172957}의 {npc:15188}: {zone:1451}을(를) 위해 보관하세요",
+	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {zone:1447} Azshara · {npc:8576} Ag'tor Bloodfist · {area:1237} Valormok
+	["{npc:4485}, {object:172958}: carried from the first {zone:1447} visit, else take it here for {npc:8576} in {area:1237}"] = "",
 
 	-- Step 2: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "{area:392}(으)로 날아가기",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",
 
-	-- Step 3: Dokimi's crates
-	-- {npc:256386} Dokimi
-	["{npc:256386}'s crates"] = "{npc:256386}의 상자",
-	-- {npc:256386} Dokimi · {area:380} Crossroads
-	["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386}은(는) {area:380}에 서 있습니다. 그녀가 건네는 상자를 하나씩 열어 안에 든 것을 가져가세요.",
-
-	-- Step 4: Liv Rizzlefix
+	-- Step 3: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
 	["Liv's workshop is at the north end of {area:392}'s docks; {object:149036} stands inside it."] = "리브의 작업장은 {area:392} 부두 북쪽 끝에 있으며, {object:149036}은(는) 그 안에 있습니다.",
 	["Inside"] = "",
 
-	-- Step 5: Islen Waterseer
+	-- Step 4: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["{npc:5901} camps on the shore just north of {area:392}."] = "{npc:5901}은(는) {area:392} 바로 북쪽 해안에 야영하고 있습니다.",
 	-- {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Cleansed Water goes to the {area:2479} in {zone:1448}: keep it for later."] = "정화된 물은 {zone:1448}의 {area:2479}(으)로 갑니다. 나중을 위해 보관하세요.",
 
-	-- Step 6: Hearth to Orgrimmar
-	-- {area:1637} Orgrimmar
-	["Hearth to {area:1637}"] = "",
+	-- Step 5: Dokimi's crates
+	-- {npc:256386} Dokimi
+	["{npc:256386}'s crates"] = "{npc:256386}의 상자",
+	-- {npc:256386} Dokimi · {area:1237} Valormok
+	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "",
 
-	-- Step 7: Vehena
-	-- {object:172961} Valley of Spirits
-	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
-
-	-- Step 8: Rashona Straglash
-	-- {object:172958} Valley of Honor
-	["In the {object:172958}."] = "{object:172958}에 있습니다.",
-	-- {item:14047} Runecloth
-	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
-
-	-- Step 9: Fly to Valormok
+	-- Step 6: Fly to Valormok
 	-- {area:1237} Valormok
 	["Fly to {area:1237}"] = "{area:1237}(으)로 날아가기",
+	["Crossroads flight master"] = "",
 
-	-- Step 11: Ruins of Eldarath
+	-- Step 8: Ruins of Eldarath
 	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "동쪽 해안의 폐허로 가세요. 해안을 따라 있는 조수 웅덩이에서 큘리의 약병 네 개를 채우세요. 원한의꼬리일족 나가가 그 사이를 순찰합니다.",
 
-	-- Step 12: Thalassian Base Camp
+	-- Step 9: Thalassian Base Camp
 	-- {area:1227} Bay of Storms
 	["The blood elves camp on the cliffs in the north-east, by the {area:1227}."] = "블러드 엘프는 북동쪽 {area:1227} 옆 절벽에 야영하고 있습니다.",
 
-	-- Step 13: Magus Rimtori's camp
+	-- Step 10: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "{npc:8578}의 야영지",
 	-- {object:151286} Kaldorei Tome of Summoning
 	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "",
 
-	-- Step 14: Ag'tor Bloodfist
+	-- Step 11: Ag'tor Bloodfist
 	-- {area:1237} Valormok
 	["Ride back west to {area:1237}."] = "서쪽의 {area:1237}(으)로 돌아가세요.",
 
-	-- Step 15: Fly to Orgrimmar
+	-- Step 12: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
 	-- {area:1237} Valormok
 	["{area:1237} flight master"] = "",
 
-	-- Step 16: Paladin trainer
+	-- Step 13: Paladin trainer
 	["Paladin trainer"] = "",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
 
-	-- Step 17: Orgrimmar
+	-- Step 14: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Fly to {zone:1454} and train."] = "",
 
-	-- Step 18: Belgrom Rockmaul
+	-- Step 15: Belgrom Rockmaul
 	-- {zone:1454} Orgrimmar · {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
-	["Fly to {zone:1454}; {npc:4485} is in the {object:172958}."] = "",
+	["Fly to {zone:1454}; {npc:4485} is in the {object:172958}."] = "{zone:1454}(으)로 날아가세요. {npc:4485}은(는) {object:172958}에 있습니다.",
 
-	-- Step 19: Into Durotar
+	-- Step 16: Into Durotar
 	-- {zone:1411} Durotar
 	["Into {zone:1411}"] = "",
 
-	-- Step 20: Zeppelin to Undercity
+	-- Step 17: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "",
 
-	-- Step 21: Prompt Potion Runner
-	-- {npc:11044} Doctor Martin Felben
-	["{npc:11044}, in the Apothecarium"] = "연금술 실험실의 {npc:11044}",
+	-- Step 18: Chemist Cuely
+	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
+	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "",
 	-- {npc:8393} Thersa Windsong
 	["{npc:8393}, beside him"] = "그 옆의 {npc:8393}",
 
-	-- Step 22: The Undercity
-	-- {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1458} Undercity · {object:36126} Royal Quarter
-	["Take the zeppelin from the tower outside {zone:1454} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "",
+	-- Step 19: The Undercity
+	-- {object:36126} Royal Quarter
+	["Lady Sylvanas holds the {object:36126}."] = "실바나스 여왕은 {object:36126}에 있습니다.",
 
-	-- Step 23: Royal Quarter
+	-- Step 22: Jeremiah Payson
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "근처의 {npc:8403}",
+
+	-- Step 23: Jeremiah Payson
 	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
 	["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050}은(는) {zone:1422}의 {npc:10778}에게 돌아갑니다. 보관하세요.",
+
+	-- Step 24: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "",
 
+	-- Step 26: The Bulwark
+	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
+	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "",
+
+	-- Step 28: Felstone Field
+	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
+	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
+	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "",
+
+	-- Step 29: Janice Felstone
+	["Upstairs"] = "위층",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Both {item:14047} donations are handed in later in the route: start saving {item:14047}."] = "{item:14047} 기부 두 개는 나중에 경로 중 완료합니다. {item:14047}을(를) 모으기 시작하세요.",
 	-- ["Fly to the {area:380}"] = "{area:380}(으)로 날아가기",
-	-- ["Fly to {area:1637}; {npc:4485} is in the {object:172958}."] = "{area:1637}(으)로 날아가세요. {npc:4485}은(는) {object:172958}에 있습니다.",
+	-- ["In the {object:172958}."] = "{object:172958}에 있습니다.",
 	-- ["In the {object:172961}. Have the Wool, Silk and Mageweave in your bags."] = "{object:172961}에 있습니다. 양모 옷감, 비단 옷감, 마법 옷감을 가방에 넣어 두세요.",
 	-- ["Open {object:149036} for the {item:10556}"] = "{object:149036}을(를) 열어 {item:10556} 얻기",
 	-- ["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus."] = "림토리의 야영지는 주 야영지 동쪽 끝에 있습니다. 그곳에서 {object:151286}을(를) 읽은 뒤 마법사를 처치하세요.",
 	-- ["The zeppelin tower stands just north-east of {zone:1454}'s main gate; take the {zone:1458} zeppelin."] = "비행선 탑은 {zone:1454} 정문 바로 북동쪽에 있습니다. {zone:1458}행 비행선을 타세요.",
 	-- ["Zeppelin to the {zone:1458}"] = "{zone:1458}행 비행선",
 	-- ["Zeppelin tower"] = "비행선 탑",
+	-- ["{npc:11044}, in the Apothecarium"] = "연금술 실험실의 {npc:11044}",
+	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386}은(는) {area:380}에 서 있습니다. 그녀가 건네는 상자를 하나씩 열어 안에 든 것을 가져가세요.",
+	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050}은(는) {area:28}의 {npc:10778}에게 돌아갑니다. 보관하세요.",
 }

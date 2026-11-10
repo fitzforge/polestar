@@ -20,14 +20,19 @@ L["trail on: %s (stops by itself after %d min; /psrec trail off to end)"] = "ras
 L["trail off: %s, %d points"] = "rastro desactivado: %s, %d puntos"
 L["no trail running"] = "no hay ningún rastro activo"
 L["usage: /psrec trail on [label] | trail off"] = "uso: /psrec trail on [nombre] | trail off"
--- L["%d chunks waiting for the uploader (about %d KiB of %d KiB)"] = ""
--- L["last chunk the uploader confirmed: %d (newest: %d)"] = ""
--- L["the uploader has not confirmed a chunk yet (newest: %d)"] = ""
--- L["install id: %s"] = ""
--- L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off | clear"] = ""
--- L["mark not recorded (not in the world yet)"] = ""
--- L["every recording not yet uploaded was deleted"] = ""
--- L["this deletes every recording not yet uploaded. Type |cffffd100/psrec clear confirm|r within %d seconds to proceed."] = ""
+L["%d chunks waiting for the uploader (about %d KiB of %d KiB)"] = "%d bloques esperando al cargador (unos %d KiB de %d KiB)"
+L["last chunk the uploader confirmed: %d (newest: %d)"] = "último bloque confirmado por el cargador: %d (más reciente: %d)"
+L["the uploader has not confirmed a chunk yet (newest: %d)"] = "el cargador aún no ha confirmado ningún bloque (más reciente: %d)"
+L["install id: %s"] = "id de instalación: %s"
+L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off | clear"] = "comandos: /psrec on | off | ui | mark <texto> | trail on [nombre] | trail off | clear"
+L["mark not recorded (not in the world yet)"] = "marca no registrada (aún no estás en el mundo)"
+L["every recording not yet uploaded was deleted"] = "se borraron todas las grabaciones aún no subidas"
+L["this deletes every recording not yet uploaded. Type |cffffd100/psrec clear confirm|r within %d seconds to proceed."] = "esto borra todas las grabaciones aún no subidas. Escribe |cffffd100/psrec clear confirm|r en menos de %d segundos para continuar."
+L["/reload or log out to send what's recorded"] = "/reload o cierra sesión para enviar lo grabado"
+L["explorer mode: %s (/psrec explore on | off)"] = "modo explorador: %s (/psrec explore on | off)"
+L["usage: /psrec explore on | off"] = "uso: /psrec explore on | off"
+L["explorer mode %s"] = "modo explorador %s"
+L["In Forever's new zones and dungeons the Recorder notes the creatures, your path, quest map points, dungeon floors, boss pulls, where quest givers stand and the objects you open in more detail. Nothing new about you."] = "En las zonas y calabozos nuevos de Forever, el Recorder registra con más detalle las criaturas, tu camino, los puntos de misión del mapa, los pisos de los calabozos, los pulls de jefes, dónde están los PNJ que dan misiones y los objetos que abres. Nada nuevo sobre ti."
 
 -- Trail.lua
 L["trail stopped after %d min: %s, %d points"] = "rastro detenido tras %d min: %s, %d puntos"
@@ -63,8 +68,11 @@ L["Recorder: start or stop the position trail"] = "Recorder: iniciar o detener e
 L["Recorder: show or hide the window"] = "Recorder: mostrar u ocultar la ventana"
 
 -- Recorder.lua
--- L["recordings from the previous Recorder (schema 1) were removed; recording now uses schema 2"] = ""
--- L["on, because sharing is on in Polestar Client. /psrec off to stop."] = ""
+L["recordings from the previous Recorder (schema 1) were removed; recording now uses schema 2"] = "se eliminaron las grabaciones del Recorder anterior (esquema 1); ahora la grabación usa el esquema 2"
+L["on, because sharing is on in Polestar Client. /psrec off to stop."] = "activada, porque compartir está activado en Polestar Client. /psrec off para detenerla."
+
+-- Explore.lua
+L["recording more detail here to map this new zone (/psrec explore off to stop)"] = "grabando más detalle aquí para mapear esta zona nueva (/psrec explore off para detenerlo)"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["this client exposes no talent tree API"] = "este cliente no ofrece API de árbol de talentos"
@@ -94,3 +102,4 @@ L["Recorder: show or hide the window"] = "Recorder: mostrar u ocultar la ventana
 -- L["legacy"] = "legado"
 -- L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off | maps | talents | legacy | factions | skills | clear"] = "comandos: /psrec on | off | ui | mark <texto> | trail on [nombre] | trail off | maps | talents | legacy | factions | skills | clear"
 -- L["trail stopped: the session's trail cap is reached (%s, %d points)"] = "rastro detenido: se alcanzó el límite de rastro de la sesión (%s, %d puntos)"
+-- L["In Forever's new zones and near their new dungeons the Recorder notes creatures and positions in more detail. Everywhere it also notes quest map points, dungeon floors, boss pulls, the area each quest giver stands in and the objects you open. Nothing new about you."] = "En las zonas nuevas de Forever y cerca de sus calabozos nuevos, el Recorder registra criaturas y posiciones con más detalle. En todas partes registra también los puntos de misión del mapa, los pisos de los calabozos, los pulls de jefes, el área donde está cada PNJ que da misiones y los objetos que abres. Nada nuevo sobre ti."

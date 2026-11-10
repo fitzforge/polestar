@@ -86,8 +86,6 @@ return {
 	-- ["14 areas to discover here, levels 41-49."] = "이곳에서 발견할 지역 14곳, 레벨 41-49.",
 	-- ["Continue west into {zone:1431}, north to {zone:1433} and take the pass north out of Redridge into the {zone:1428}; {area:2418} (Alliance) is near the top."] = "서쪽 {zone:1431}(으)로, 북쪽 {zone:1433}(으)로 계속 간 뒤 붉은마루 산맥 북쪽 고개를 넘어 {zone:1428}(으)로 가십시오. {area:2418}(얼라이언스)은(는) 고개 꼭대기 근처에 있습니다.",
 	-- ["Cross {area:254} from the western {zone:1428} into the {zone:1427}: stay on the chain path inside, past the dungeon entrances."] = "{zone:1428} 서부에서 {area:254}을(를) 가로질러 {zone:1427}(으)로 가십시오: 안에서는 사슬 통로를 따라 던전 입구들을 지나치십시오.",
-	-- ["Fly to {area:3317} if you have it; otherwise fly to {area:272} and walk east from {zone:1424} into the {zone:1425}."] = "{area:3317} 비행 경로가 있으면 그곳으로 비행하고, 없으면 {area:272}(으)로 비행한 뒤 {zone:1424}에서 동쪽 {zone:1425}(으)로 걸어가십시오.",
-	-- ["Fly to {area:348} if you have it; otherwise fly to {area:271} and walk north-east from {zone:1424} into the {zone:1425}."] = "{area:348} 비행 경로가 있으면 그곳으로 비행하고, 없으면 {area:271}(으)로 비행한 뒤 {zone:1424}에서 북동쪽 {zone:1425}(으)로 걸어가십시오.",
 	-- ["Go back north through the {zone:1435} and west into {zone:1430}."] = "{zone:1435}을(를) 지나 북쪽으로 되돌아간 뒤 서쪽 {zone:1430}(으)로 가십시오.",
 	-- ["Starts where the 30-45 guide ends, in the {zone:1435}. The last area of this guide completes the {zone:1415} map. 9 areas to discover here, levels 46-63."] = "30-45 가이드가 끝나는 {zone:1435}에서 시작합니다. 이 가이드의 마지막 지역으로 {zone:1415} 지도가 완성됩니다. 이곳에서 발견할 지역 9곳, 레벨 46-63.",
 	-- ["The {zone:1419} are south of the {zone:1435}; the road arrives at {area:1438} (Alliance)."] = "{zone:1419}은(는) {zone:1435} 남쪽에 있습니다. 길은 {area:1438}(얼라이언스)에 닿습니다.",

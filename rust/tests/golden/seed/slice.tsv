@@ -18,7 +18,7 @@ not ok	Horde Call of Fire: hand in the carried trainer lead at Kranal before sta
 not ok	Horde poisons: the mainline contact instructions use the supplied flare gun before saluting Fizzule
 not ok	Hotline's report: Walton and Vrang's quests come in the order the game offers them
 not ok	Hotline's report: a Paladin heals the Injured Deathguard before turning in Rediscovering the Light
-not ok	Nittepitte's report (#453): Making Do is optional in Redridge and Ashenvale, and taken only after Expanding Horizons is handed in
+not ok	Nittepitte's report (#453): Making Do is optional in Redridge and on the way back through Auberdine, and taken only after Expanding Horizons is handed in
 not ok	Phear's report (#395): on Zephras Isle, The Wounds of Betrayal and Standing Our Ground lead to each objective, in both guides
 not ok	Phear's report: a kill or collect leads to the camp that holds its mobs, not a stray one or two far from it
 ok	Pynte's report (#404): guides played below riding level never tell you to ride somewhere
@@ -38,20 +38,20 @@ not ok	forever/alliance/02-westfall.guide: Alba Fairmoon's chain is not given to
 not ok	forever/alliance/02-westfall.guide: Pynte's report (#416): the farm quests and Report to Gryan Stoutmantle are taken on the road in, before Sentinel Hill
 not ok	forever/alliance/02-westfall.guide: Smuve's report (#298): the Molsen Farm step does not wait for the Precessive Autocognition Assembly; with one, it is handed in at Saldean's
 not ok	forever/alliance/02-westfall.guide: Xaden Ryan's report (#621): the oats are gathered in the Jansen Stead's fields on the way back, not searched over the zone on the road in
+not ok	forever/alliance/03-darkshore-return.guide: the Grizzled Scalps are collected in the step at the Grove, where the bears are and Buzzbox 525 takes them
 not ok	forever/alliance/03-darkshore.guide: Deadshot's report (#560): How Big a Threat? points at the furbolg camp by the bears, not the one north-east of Auberdine
 not ok	forever/alliance/03-darkshore.guide: Twerkjob's report: The Red Crystal leads the arrow to the crystal on the eastern ridge (#241)
 not ok	forever/alliance/03-darkshore.guide: Wogi's report: with Skip grey quests on, a Human at 20 leaves out the grey quests, keeps the Buzzbox chain, and one on the route's level keeps them all
 not ok	forever/alliance/03-darkshore.guide: XooVe's report (#216): a grey quest Skip grey quests keeps says which quest it opens
 not ok	forever/alliance/03-darkshore.guide: XooVe's report (#302): The Blackwood Corrupted fills the bowl and gathers the three samples before the Talisman, never uses the empty bowl after the filled one is collected, and uses the bowl where Xabraxxis comes
 not ok	forever/alliance/03-darkshore.guide: XooVe's report: the Beached Sea Creature by Bashal'Aran is taken on the walk from Asterion to Buzzbox 411 (#213)
-not ok	forever/alliance/03-darkshore.guide: the Grizzled Scalps are collected in the step at the Grove, where the bears are and Buzzbox 525 takes them
-not ok	forever/alliance/04-redridge-mountains.guide: Avtom's report (#280): Iron Pike and Iron Rivet lead to the gnolls that drop them, not to the rare Ribchaser's camp among the Mongrels
+not ok	forever/alliance/03-loch-modan.guide: Avtom's report (#280): Iron Pike and Iron Rivet lead to the gnolls that drop them, not to the rare Ribchaser's camp among the Mongrels
 not ok	forever/alliance/04-redridge-mountains.guide: Tazul's report (#340): the Battleworn Axes lead to the Blackrock camps east of Stonewatch Keep, not to Alther's Mill
+not ok	forever/alliance/04-redridge-mountains.guide: Yendi's report: Herble's Bronze Tube is offered before Look to the Stars is handed in, without holding the step
 not ok	forever/alliance/06-ashenvale.guide: Ioney's report (#524): Unrequited Love is handed to Tarrel Rockweaver before In Search of the Excavation Team, and taken in Auberdine before the boat
 not ok	forever/alliance/06-ashenvale.guide: Ioney's report (#614): Sida's Bag is searched for at Ironbeard's Tomb, not at the oozes across the Wetlands
-not ok	forever/alliance/06-ashenvale.guide: Ioney's report (#617): the grind to 28 comes after the Menethil hand-ins, before Pilot Longbeard, with no walk to Ironforge between the hearth and the grind
-not ok	forever/alliance/07-thousand-needles.guide: Yendi's report: Herble's Bronze Tube is offered before Look to the Stars is handed in, without holding the step
-not ok	forever/alliance/30-40/01-hillsbrad-foothills.guide: Lou-Saydus's report: Nek'rosh's Gambit, taken after From the Ashes in forever/alliance/07-thousand-needles.guide, is handed in on the Wetlands loop (#225)
+not ok	forever/alliance/06-wetlands.guide: Ioney's report (#617): Pilot Longbeard (level 28) is taken after the Wetlands hand-ins, a top-up to 28 only between them, and the 20-24 guide has no grind for it
+not ok	forever/alliance/30-40/01-hillsbrad-foothills.guide: Lou-Saydus's report: Nek'rosh's Gambit, taken after From the Ashes in forever/alliance/06-wetlands.guide, is handed in on the Wetlands loop (#225)
 not ok	forever/alliance/30-40/01-hillsbrad-foothills.guide: the same pattern as #365, the Soothing Spices for Chef Jessen: asked for again on the step that hands in 555
 not ok	forever/alliance/30-40/06-badlands.guide: the same pattern as #89: Book of the Ancients is taken from Azore on the way to Karnitol's Chest, not on a walk back from it
 not ok	forever/alliance/40-50/01-stranglethorn-vale.guide: the same pattern as #365, the Soothing Spices for "Swamp Eye" Jarl, from Theramore: asked for again on the step that hands in 1218
@@ -103,16 +103,16 @@ not ok	forever/alliance/nightelf/01-teldrassil.guide: the same pattern as #365, 
 not ok	forever/class/warlock/incubus-horde.guide: Phyz's report (#412): Avelina's and Isaac's hearts each read their own line of Hearts of the Lovers
 not ok	forever/collectibles/mounts/alliance/paladin-charger.guide: the same pattern as #365, the Enriched Manna Biscuits for Merideth Carlson, from Chillwind Camp: asked for again on the step that hands in 7645
 not ok	forever/collectibles/mounts/neutral/warlock-dreadsteed.guide: the same pattern as #365, the Xorothian Stardust for Gorzeeki Wildeyes, from Ur'dan in Felwood: asked for again on the step that hands in 7625
+not ok	forever/horde/02-the-barrens.guide: Fitz's report: Jorn Skyseer is passed by while The Angry Scytheclaws is missing, and open once it is done
+not ok	forever/horde/02-the-barrens.guide: Miguel Antunes's report (#592): loot a zhevra carcass and use it at the Dead Tree before Ishamuhale's Fang
 not ok	forever/horde/04-the-barrens.guide: Fitz's report (#273): the Savannah Lion Hide arrow stays in the Dry Hills with the traps, never by Ratchet
 not ok	forever/horde/04-the-barrens.guide: Fitz's report (#274): the Dry Hills step also collects the Raptor Horns, in the Dry Hills, before the Ratchet turn-in
-not ok	forever/horde/04-the-barrens.guide: Fitz's report: Jorn Skyseer is passed by while The Angry Scytheclaws is missing, and open once it is done
-not ok	forever/horde/04-the-barrens.guide: Miguel Antunes's report (#592): loot a zhevra carcass and use it at the Dead Tree before Ishamuhale's Fang
 not ok	forever/horde/05-stonetalon-mountains.guide: #246: Kadrak's goals are on the Barrens' map, and the Ashenvale steps after them on Ashenvale's
 not ok	forever/horde/05-stonetalon-mountains.guide: Hotline's report (#278): the Bundle of Reports is opened at Kadrak, before the Warsong Scout
 not ok	forever/horde/05-stonetalon-mountains.guide: the Warsong update goals name the scouts who hand them over, from the data
 not ok	forever/horde/07-ashenvale.guide: the arrow reaches the target through the cave mouth at 14.5,14.2
-not ok	forever/horde/30-40/04-dustwallow-marsh.guide: Syrael's report (#575): the ghost-o-plasm points at the Valley of Bones, after the Kodo Graveyard
-not ok	forever/horde/30-40/04-dustwallow-marsh.guide: the same pattern as #365, the Soothing Spices for "Swamp Eye" Jarl, bought in Ratchet in the Arathi guide: asked for again on the step that hands in 1218
+not ok	forever/horde/30-40/04-dustwallow-marsh.guide: Syrael's report (#575): the ghost-o-plasm points at the Valley of Bones, after Melizza
+not ok	forever/horde/30-40/04-dustwallow-marsh.guide: the same pattern as #365, the Soothing Spices for "Swamp Eye" Jarl, bought in Orgrimmar at the start of the Dustwallow guide: asked for again on the step that hands in 1218
 not ok	forever/horde/orc-troll/01-durotar.guide: AndarKerran's report: A Pain in the Neck is not offered to a Troll Warrior without Enchanting, and is to an enchanter
 ok	forever/horde/orc-troll/01-durotar.guide: Gruko's report (#240): Thazz'ril's Pick and Yarrog are done on one trip into the Burning Blade Coven, for every class
 ok	forever/horde/orc-troll/01-durotar.guide: Tom's report: Cutting Teeth is turned in and Sting of the Scorpid and Galgar's Cactus Apple Surprise accepted before Sarkoth

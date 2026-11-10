@@ -296,8 +296,9 @@ first.
 | `forge data talents build` | `addon/Polestar/Talents/Builds.lua`; `check` fails when it is out of date or a plan breaks a rule | the plans in `talents/forever/*.json` and the Forever client's trait tables at a pinned build |
 | `forge data maps build` | `addon/Polestar/Maps/ZoneLevels.lua` | `data/forever` (npcs, zones, map frames) |
 | `forge data maps overlays` | `addon/Polestar/UI/ZoneArtOverlays.lua` | the Forever client's map-art tables at a pinned build |
+| `forge data newquests` | `addon/Polestar/Quests/NewQuestIds.lua` (the "New in Forever" mark's ids; `--check` fails when it is out of date) | `data/forever/quests.json` and the QuestV2 tables of a pinned Classic Era and Forever build: a quest neither pfQuest nor the Era client holds is new |
 
-`itemdb`, `talents` and `maps overlays` fetch a missing table into `data/sources` unless `--offline`;
+`itemdb`, `talents`, `maps overlays` and `newquests` fetch a missing table into `data/sources` unless `--offline`;
 `codex`, `professions` and `travel` read the cache only: `forge data sources --only builders` fills it.
 
 Codex and gear are addon side products. They are not route inputs.
@@ -403,7 +404,9 @@ built data (`--data`, default `data/forever`), and reports, with the JSON path o
 - the shape: unknown sections or fields, wrong types, map points outside 0 to 100, a missing `note`,
   `source` (or a `source.kind` outside the list) or `reason`; the note-fix records in `notes.json`;
 - ids: every quest, NPC, object and item an entry names must be in the built data, or be created by
-  a correction in the same file;
+  a correction in the same file. A `remove: true` record is the exception: its quest is absent from
+  any build that applied it. A remove whose quest the sources no longer have shows as `redundant` in
+  the build's fixes ledger;
 - conflicts: a key written twice in one object (JSON keeps only the last), a quest both included and
   skipped, a step reverted for a skipped quest, a public mechanic that a correction overrides.
 

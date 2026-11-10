@@ -37,6 +37,9 @@ UI.ClassToast = CT
 
 local PAD = 14
 local RING = 40
+-- In the ring: a picture (another heads-up's art) fills it inside a 2px rim,
+-- an icon sits on the disc, a glyph sits small in its middle.
+local ART, ICON, GLYPH = RING - 4, RING - 8, 20
 local STRIPE = 4
 local SLIDE = 0.25
 local LOGIN_LEVELS = 2 -- on login, chains opened within this many levels
@@ -122,6 +125,45 @@ end
 local function giverFor(s, p)
 	local i = s and s.r and p and s.r[(p.race or "") .. ":" .. (SIDE[p.faction] or "")]
 	return i and s.g[i] or nil
+end
+
+-- How far starter `rec` (a Codex NPC or object) stands from the giver's
+-- point: its nearest spawn on the giver's map, squared; 0 for a giver with no
+-- point. -> distance | nil (no spawn there)
+local function giverDistance(rec, giver)
+	if not giver[2] then return 0 end
+	local best
+	for _, s in ipairs(rec and rec.spawns or {}) do
+		if s.map == giver[2] then
+			local dx, dy = s.x - giver[3], s.y - giver[4]
+			local d = dx * dx + dy * dy
+			if not best or d < best then best = d end
+		end
+	end
+	return best
+end
+
+-- The giver's name in the client's words: the start of quest q (Codex) that
+-- stands nearest its point, named by Polestar.Names; else ClassRewards' own
+-- (the data's English) name.
+local function giverName(q, giver)
+	local N, X = ns.Names, ns.Codex
+	local rec = N and N.Localised() and X and X.Quest and X.Quest(q)
+	local start = rec and rec.start
+	if not start then return giver[1] end
+	local bestId, bestNpc, bestD
+	for _, id in ipairs(start.npc or {}) do
+		local d = giverDistance(X.Npc(id), giver)
+		if d and (not bestD or d < bestD) then bestId, bestNpc, bestD = id, true, d end
+	end
+	for _, id in ipairs(start.object or {}) do
+		local d = giverDistance(X.Object(id), giver)
+		if d and (not bestD or d < bestD) then bestId, bestNpc, bestD = id, false, d end
+	end
+	if not bestId then return giver[1] end
+	local name
+	if bestNpc then name = N.Npc(bestId) else name = N.Object(bestId) end
+	return name or giver[1]
 end
 
 local routeStep -- below, before Model
@@ -227,9 +269,9 @@ function CT.Model(q)
 	local m = { quest = q, reward = reward, class = p.class, level = s[1] }
 	m.head = format(L["LEVEL %d · %s"], s[1], UI.ClassName(p.class):upper())
 	m.title = name and format(L["%s ready"], CT.ShortName(name)) or UI.ClassName(p.class)
-	local where = giver[2] and UI.MapName(giver[2])
-	m.giver = where and format(L["Get it from %s, %s."], giver[1], where) or format(L["Get it from %s."], giver[1])
-	m.map, m.x, m.y, m.who = giver[2], giver[3], giver[4], giver[1]
+	local where, who = giver[2] and UI.MapName(giver[2]), giverName(q, giver)
+	m.giver = where and format(L["Get it from %s, %s."], who, where) or format(L["Get it from %s."], who)
+	m.map, m.x, m.y, m.who = giver[2], giver[3], giver[4], who
 	local step, title = routeStep(q, C.ChainOf(q), p)
 	if step then
 		m.step = step
@@ -309,13 +351,23 @@ local function build()
 	f.Disc:SetPoint("CENTER", f.Ring, "CENTER", 0, 0)
 	W.Color(f.Disc, "panelAlt")
 	f.Icon = f:CreateTexture(nil, "ARTWORK", nil, 2)
-	f.Icon:SetSize(RING - 8, RING - 8)
+	f.Icon:SetSize(ICON, ICON)
 	f.Icon:SetPoint("CENTER", f.Ring, "CENTER", 0, 0)
+	-- A dark picture's lift: the same picture added over it at its art.lift
+	-- (colour + colour * lift), since a vertex colour can't go above 1.
+	f.Lift = f:CreateTexture(nil, "ARTWORK", nil, 3)
+	f.Lift:SetPoint("CENTER", f.Ring, "CENTER", 0, 0)
+	f.Lift:SetBlendMode("ADD")
+	f.Lift:Hide()
+	-- The round crop: as large as the icon or the picture, never smaller
+	-- than an icon, so a glyph keeps its corners.
 	if f.CreateMaskTexture and f.Icon.AddMaskTexture then
 		f.Mask = f:CreateMaskTexture()
 		f.Mask:SetTexture(Theme.Media("circle"), "CLAMPTOBLACKADDITIONAL", "CLAMPTOBLACKADDITIONAL")
-		f.Mask:SetAllPoints(f.Icon)
+		f.Mask:SetPoint("CENTER", f.Ring, "CENTER", 0, 0)
+		f.Mask:SetSize(ICON, ICON)
 		f.Icon:AddMaskTexture(f.Mask)
+		f.Lift:AddMaskTexture(f.Mask)
 	end
 
 	-- The window's type: the small header, the name in the NPC colour, muted lines.
@@ -518,8 +570,11 @@ end
 -- Paint and place the card for model m: a class quest's (CT.Model) or
 -- another heads-up's, which carries its own action instead of a quest:
 -- { head, title, giver, route, badge, icon, class (nil: the accent),
--- titleColor, iconColor, act = { label, run }, more = { label, run },
--- off = { label, run } }.
+-- titleColor, iconColor, art, act = { label, run }, more = { label, run },
+-- off = { label, run } }. art = { file, l, r, t, b, lift }: a picture
+-- cropped to those texture coordinates, filling the ring, lifted by lift
+-- (0-1) when dark; without it an icon tinted iconColor is a glyph, drawn
+-- small on the disc, and an untinted one a full-colour icon.
 -- -> true when shown
 function CT.ShowCard(m)
 	if not (m and window()) then return false end
@@ -527,8 +582,26 @@ function CT.ShowCard(m)
 	local wasShown = f:IsShown() and CT.current ~= nil
 	CT.current = m
 	paint(m.class)
-	f.Icon:SetTexture(m.icon)
-	if m.iconColor then
+	local art = m.art
+	local size = art and ART or (m.iconColor and GLYPH) or ICON
+	f.Icon:SetSize(size, size)
+	if f.Mask then f.Mask:SetSize(max(size, ICON), max(size, ICON)) end
+	if art then
+		f.Icon:SetTexture(art.file)
+		f.Icon:SetTexCoord(art.l, art.r, art.t, art.b)
+	else
+		f.Icon:SetTexture(m.icon)
+		f.Icon:SetTexCoord(0, 1, 0, 1)
+	end
+	local lift = art and art.lift
+	if lift then
+		f.Lift:SetTexture(art.file)
+		f.Lift:SetTexCoord(art.l, art.r, art.t, art.b)
+		f.Lift:SetSize(size, size)
+		f.Lift:SetAlpha(lift)
+	end
+	f.Lift:SetShown(lift ~= nil)
+	if m.iconColor and not art then
 		W.Color(f.Icon, m.iconColor)
 	else
 		W.Uncolor(f.Icon)

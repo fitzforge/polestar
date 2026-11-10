@@ -54,6 +54,31 @@ const CASES = [
 		mouth: { map: 1420, x: 12.9, y: 65.7 }, // players' notes on quest 99152: "entrance is in a burned house at 13,65", "these NPCs can be found underground"
 		tip: /basement under the ruined house/,
 	},
+	...[3940, 3941, 3942].map((npc) => ({
+		// Bennistrov (#1336): Insane Druids' arrow led over the hill above The Dor'Danil Barrow Den, not into it.
+		// (Optional since #1415's vWL4; the entrance step stays, as #1336 and #1341 promised.)
+		guide: 'forever/alliance/06-wetlands.guide',
+		target: (g) => g.t === 'kill' && g.quest === 1012 && g.npc === npc, // Taneel Darkwood, Uthil Mooncall, Mavoris Cloudsbreak
+		mouth: { map: 1440, x: 75.95, y: 75.45 }, // players' recordings: where 2 people walked in and out of the barrow; the reporter stood there
+		tip: /inside The Dor'Danil Barrow Den[^.]*go in at its mouth/,
+	})),
+	...[
+		(g) => g.t === 'collect' && g.item === 3405, // Raven Claw Talisman, the first relic chest
+		(g) => g.t === 'accept' && g.quest === 2541, // The Sleeping Druid, from Oben Rageclaw in its depths
+	].map((target) => ({
+		// #1336 sweep (Pynte, #583): the walking maps have no way into the Ban'ethil Barrow Den, so the arrow crossed the hill.
+		guide: 'forever/alliance/nightelf/01-teldrassil.guide',
+		target,
+		mouth: { map: 1438, x: 44.3, y: 57.9 }, // players' recordings: where 18 people walked into the barrow
+		tip: /sleeps in its depths, and the four relic chests sit in the lower rooms/,
+	})),
+	{
+		// The same barrow in the Darnassus reputation guide's Dolanaar hub (#1336 sweep).
+		guide: 'forever/reputation/darnassus.guide',
+		target: (g) => g.t === 'collect' && g.item === 3405, // Raven Claw Talisman
+		mouth: { map: 1438, x: 44.3, y: 57.9 },
+		tip: /relics of Wakening lie in the Ban'ethil Barrow Den/,
+	},
 ];
 
 let data;

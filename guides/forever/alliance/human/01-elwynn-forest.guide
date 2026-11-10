@@ -10,6 +10,7 @@ next forever/alliance/02-westfall
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
+# Added here: Elmore's Task (1097), from Smith Argus in Goldshire (02-westfall hands it in).
 # Left out: Cloth and Leather Armor (59).
 
 # ---------------------------------------------------------------- Northshire Valley
@@ -95,9 +96,6 @@ step The vineyards and Garrick Padfoot
   collect 11119 quest 3904                    -- Milly's Harvest
   collect 182 quest 6                         -- Garrick's Head: Garrick Padfoot
 
-step Northshire Abbey
-  turnin 6                                    -- Deputy Willem
-
 step Milly Osworth
   turnin 3904
   accept 3905
@@ -108,7 +106,7 @@ step Kelsey Fargo
 
 step Kelsey Fargo
   when group 91752
-  accept 91752 optional
+  accept 91752
 
 step Inside Echo Ridge Mine
   tip Kobold Laborers work the tunnels inside the mine. Shinyfinder Narf waits down the second turn on the right.
@@ -117,71 +115,88 @@ step Inside Echo Ridge Mine
 step Inside Echo Ridge Mine
   when group 91752
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Shinyfinder Narf (level 3 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
-  collect 247886 quest 91752 optional group 2 -- Shinyfinder Narf
+  collect 247886 quest 91752 group 2          -- Shinyfinder Narf
 
 step Northshire Abbey
   tip Mages: Khelden Bremen, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart.
+  turnin 6                                    -- Deputy Willem, at the Abbey steps
   turnin 21                                   -- Marshal McBride, inside
   accept 54
   accept 96627
   train class
+  accept 5623 only Priest                     -- Priestess Anetta, the priest trainer: Priestess Josetta in Goldshire takes it
   turnin 3905                                 -- Brother Neals, upstairs
   accept 2158                                 -- Falkhaan Isenstrider, by the stables south of the Abbey
 
 step Northshire Abbey
   when group 91752
-  turnin 91752 optional
-  accept 91758 optional
-  turnin 91758 optional                       -- Tordrin Sternblade
-  accept 91772 optional                       -- his kobold tracker shows the kobolds to click on the road to Goldshire
+  turnin 91752
+  accept 91758
+  turnin 91758                                -- Tordrin Sternblade
+  accept 91772                                -- his kobold tracker shows the kobolds to click on the road to Goldshire
 
 step Level 5.48
   when !group 91752
   when level<5.48
   tip If you skipped The Big Picture, grind here to level 5.48 to stay on the route's plan.
   goto 48.9,28.1 map 1429 "Kobold Laborer"
-  level 5.48                          -- grind on Kobold Laborer
+  level 5.48 grind 80                 -- grind on Kobold Laborer
 
 # ---------------------------------------------------------------- Goldshire and Crystal Lake
 
 step Goldshire
-  tip Follow the road south out of the valley to Goldshire. Innkeeper Farley is in the Lion's Pride Inn; Marshal Dughan stands outside the smithy across the road, William Pestle at the inn's front and Remy "Two Times" by the road south of it.
-  turnin 2158                                 -- Innkeeper Farley, inside
-  accept 60                                   -- William Pestle, inside
-  accept 47                                   -- Remy "Two Times"
-  sethome "Goldshire" npc 295
+  tip Follow the road south out of the valley to Goldshire. Marshal Dughan stands outside the smithy on the west side of the road, Remy "Two Times" by the road south of it, and Innkeeper Farley and William Pestle in the Lion's Pride Inn across the road.
+  turnin 54                                   -- Marshal Dughan
   accept 62
-  turnin 54
+  accept 47                                   -- Remy "Two Times"
+  turnin 2158                                 -- Innkeeper Farley, inside
+  sethome "Goldshire" npc 295
+  accept 60                                   -- William Pestle, inside
+  turnin 5623 only Priest                     -- Priestess Josetta, upstairs
+  accept 5624 only Priest                     -- Priestess Josetta: heal Guard Roberts at Crystal Lake
 
 step Goldshire
   when group 91752
-  turnin 91772 optional                       -- Marshal Dughan
+  turnin 91772                                -- Marshal Dughan
 
 step Goldshire
   when group 91775
-  accept 91775 optional
+  accept 91775
 
 step Level 5.77
   when !group 91752
   when level<5.77
   tip If you skipped The Big Picture, grind here to level 5.77 to stay on the route's plan.
   goto 41.7,78.0 map 1429 "Kobold Miner"
-  level 5.77                          -- grind on Kobold Miner
+  level 5.77 grind 40                 -- grind on Kobold Miner
 
 step The lake shore
-  tip Sam Sarsaparilla camps north-east of the inn; Helene Peltskinner, Jason Mathers and Lee Brown stand on the shore of Crystal Lake east of town.
+  tip Sam Sarsaparilla camps north-east of the inn; Helene Peltskinner, Adele Fielder, Jason Mathers and Lee Brown stand on the shore of Crystal Lake east of town. With a profession learned, Sam also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing here on the shore, First Aid and blacksmithing in Goldshire.
   turnin 96627                                -- Sam Sarsaparilla
   accept 95998
   complete 95998 @44.9,63.2                   -- Sit (/sit) by his campfire until you have Boosted Rest
   turnin 95998
   accept 96626
+  accept 97924 optional                       -- Sam Sarsaparilla, skinners: for Helene Peltskinner
+  accept 97922 optional                       -- Sam Sarsaparilla, leatherworkers: for Adele Fielder
+  accept 97920 optional                       -- Sam Sarsaparilla, fishers: for Lee Brown
+  accept 97919 optional                       -- Sam Sarsaparilla, First Aid: for Michelle Belle in the inn
+  accept 97916 optional                       -- Sam Sarsaparilla, blacksmiths: for Smith Argus at the smithy
   accept 91751 optional                       -- Helene Peltskinner: skinners only, the pelts are skinned; inside
+  turnin 97924 optional                       -- Helene Peltskinner: Camping 101, skinners; inside
+  turnin 97922 optional                       -- Adele Fielder: Camping 101, leatherworkers
   accept 99127                                -- Jason Mathers
   accept 99143                                -- Lee Brown
+  turnin 97920 optional                       -- Lee Brown: Camping 101, fishers
 
 step Crystal Lake
   tip The Fishing Traps sit along the west shore of the lake.
   collect 286205 quest 99127                  -- Half-Eaten Fish
+
+step Guard Roberts
+  only Priest
+  tip Guard Roberts kneels wounded by a tree on the west shore of Crystal Lake, among the Fishing Traps. Cast Lesser Heal (Rank 2) on him, then Power Word: Fortitude: Rank 1 of Lesser Heal does not count. He walks off once both land and is back in about 3 minutes.
+  kill 12423 quest 5624.1 "Heal and fortify Guard Roberts"
 
 step Jason Mathers
   turnin 99127
@@ -189,7 +204,7 @@ step Jason Mathers
 
 step Crystal Lake: kill these as you meet them
   zone Elwynn Forest
-  tip Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp.
+  tip Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp. Careful: the murlocs stand close together, so a fight easily pulls two or three at once: pull them one at a time from the edge of the camp, and don't chase one into the next group.
   kill 735 quest 99128                        -- Murloc Streamrunner
   kill 285 quest 99128                        -- Murloc
   collect 286209 quest 99143                  -- Shiny Junk
@@ -207,10 +222,9 @@ step Goldshire
   turnin 99129                                -- Remy "Two Times"
   accept 99130
   train class
-
-step Duskweed Petal on the way
-  along until q99130
-  collect 286214 quest 99130
+  turnin 97919 optional                       -- Michelle Belle, in the inn: Camping 101, First Aid
+  turnin 97916 optional                       -- Smith Argus, at the smithy across the road: Camping 101, blacksmiths
+  turnin 5624 reward 16605 only Priest        -- Priestess Josetta, upstairs: Friar's Robes of the Light
 
 # ---------------------------------------------------------------- The south: Fargodeep and the farms
 
@@ -237,7 +251,6 @@ step Billy Maclure
   accept 86
 
 step Elwynn Forest: kill these as you meet them
-  label q99130
   zone Elwynn Forest
   tip Overgrown Duskweed grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood.
   tip Stonetusk Boars graze between the vineyards and the farm.
@@ -271,8 +284,8 @@ step The Maclure Vineyards: kill these as you meet them
 step The Maclure Vineyards: kill these as you meet them
   when group 91775
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Nimsy (level 6 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
-  collect 248001 quest 91775 optional group 2 -- Lost Books: Kobold Miners and Tunnelers
-  collect 248002 quest 91775 optional group 2 -- Fun with Elementals: Nimsy
+  collect 248001 quest 91775 group 2          -- Lost Books: Kobold Miners and Tunnelers
+  collect 248002 quest 91775 group 2          -- Fun with Elementals: Nimsy
 
 step Goldtooth
   tip Goldtooth is inside the Fargodeep Mine, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a Westfall Deed now and then: right-click it.
@@ -299,14 +312,14 @@ step Goldshire
 
 step Goldshire
   when group 91775
-  turnin 91775 optional
+  turnin 91775
 
 step Level 8.39
   when !group 91775
   when level<8.39
   tip If you skipped Book Return, grind here to level 8.39 to stay on the route's plan.
   goto 41.7,78.0 map 1429 "Kobold Miner"
-  level 8.39                          -- grind on Kobold Miner
+  level 8.39 grind 40                 -- grind on Kobold Miner
 
 step Class trainer
   only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock
@@ -320,6 +333,16 @@ step Druid trainer
   only Druid
   train class only Druid -- Sheldras Moontree in Stormwind City; Goldshire has no druid trainer
 
+step Jason Mathers
+  tip Head east out of Goldshire along the lake shore. Jason Mathers stands on the shore north-east of town.
+  turnin 99131
+
+step Crystal Lake: kill these as you meet them
+  zone Elwynn Forest
+  tip The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the Tower of Azora; Prowlers further east give pelts too.
+  collect 1256 quest 112                      -- Crystal Kelp Fronds
+  collect 247877 quest 91751 optional         -- Rough Wolf Pelts
+
 step The Tower of Azora
   tip Hamish Bergwort and Blixie Fitzwink stand at the foot of the tower.
   accept 91725                                -- Blixie Fitzwink
@@ -332,26 +355,19 @@ step The bridge
   accept 52
   accept 91733                                -- Ormin Pelford
 
-step Prowler on the way
-  along until q52
-  kill 118 quest 52
-
 step Downstream and Princess
-  label q52
   tip The Waterlogged Saw, Axe and Toolbox lie in the river south of the bridge. Princess, a big boar, roots in the Brackwell Pumpkin Patch west of the river with her Porcine Entourage: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: Croaky is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional.
   collect 247813 quest 91733                  -- Waterlogged Saw
   kill 118 quest 52                           -- Prowler
   kill 822 quest 52                           -- Young Forest Bear
+  collect 1006 quest 88                       -- Brass Collar: Princess
   collect 247818 quest 91733                  -- Waterlogged Toolbox
   collect 247817 quest 91733                  -- Waterlogged Axe
 
-step Downstream and Princess
+step Croaky
   when group 91740
-  collect 247826 x1 optional                  -- Croaky's Head: Croaky
-
-step Downstream and Princess
-  when group 91740
-  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Croaky's Head needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
+  tip Croaky is a level 11 elite on the murloc shore south of the bridge: grouping up is encouraged, look for people to do it with. Croaky's Head needs a group of 2. Skip it if you are alone: the route has you grind the XP back. Right-click the head for its quest.
+  collect 247826 x1                           -- Croaky's Head: Croaky
   accept 91740 optional
 
 step Ridgepoint Tower
@@ -363,7 +379,7 @@ step Level 8.85
   when level<8.85
   tip If you skipped Croaky's Head, grind here to level 8.85 to stay on the route's plan.
   goto 78.1,62.1 map 1429 "Prowler"
-  level 8.85                          -- grind on Prowler
+  level 8.85 grind 118                -- grind on Prowler
 
 step Ormin Pelford
   turnin 91733
@@ -380,9 +396,6 @@ step A half-eaten body
   tip It lies by the river north-west of the logging camp.
   turnin 37
   accept 45
-
-step Downstream and Princess
-  collect 1006 quest 88                       -- Brass Collar: Princess
 
 step Stone Cairn Lake
   tip Defias Rogue Wizards camp on the shores of Stone Cairn Lake; they drop the Red Linen Bandanas too. Rolf's corpse lies in the murloc village on the north-east shore.
@@ -411,14 +424,12 @@ step The Tower of Azora
   accept 91724
   turnin 91725                                -- Blixie Fitzwink
 
-step Guard Thomas
-  turnin 71
-  accept 39
-
 # ---------------------------------------------------------------- The east again
 
 step Guard Thomas
   tip Follow the road east past the Tower of Azora to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it.
+  turnin 71
+  accept 39
   kill 118 quest 52 @75.5,76.5 map 1429 -- Prowler
   turnin 52
 
@@ -434,55 +445,27 @@ step The Tower of Azora
   tip Follow the hills south to the tower, on the road west.
   turnin 91724                                -- Hamish Bergwort
 
-# ---------------------------------------------------------------- The east
-
-step Crystal Lake: kill these as you meet them
-  zone Elwynn Forest
-  tip The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the Tower of Azora; Prowlers further east give pelts too.
-  collect 1256 quest 112                      -- Crystal Kelp Fronds
-  collect 247877 quest 91751 optional         -- Rough Wolf Pelts
-
 # ---------------------------------------------------------------- Goldshire, the farms and Westbrook
 
 step Goldshire
-  tip Follow the road west back to Goldshire; Helene and Jason stand on the lake shore before town. Priestess Josetta (priests), Zaldimar Wefhellt (mages) and Keryn Sylvius (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
+  tip Follow the road west back to Goldshire; Helene stands on the lake shore before town. Priestess Josetta (priests), Zaldimar Wefhellt (mages) and Keryn Sylvius (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 91751 optional                       -- Helene Peltskinner, inside
-  turnin 99131                                -- Jason Mathers
   train class
   turnin 112                                  -- William Pestle, inside
   turnin 39                                   -- Marshal Dughan, while William brews
   turnin 76
   accept 239
-  accept 114                                  -- William Pestle
+  accept 1097                                 -- Smith Argus, at the smithy beside Dughan: Grimand Elmore in Stormwind takes it (02-westfall)
+  accept 114                                  -- William Pestle, back in the inn
   accept 94774 only Priest                    -- Priestess Josetta: High Priestess Laurena in Stormwind takes it
   accept 1860 only Mage                       -- Zaldimar Wefhellt: Jennea Cannon in Stormwind takes it
   accept 94792 only Hunter -- Josephine Carson
-
-step Westbrook Garrison
-  tip Back south to the Westbrook Garrison, by the road to Westfall. Deputy Rainer stands outside the barracks, Sergeant De Vries beside him.
-  turnin 239
-
-# ---------------------------------------------------------------- To Westfall
-
-step Westbrook Garrison
-  zone Elwynn Forest
-  tip Follow the road west to the Westbrook Garrison, on the way into Westfall. Deputy Rainer stands outside the barracks.
-  accept 109 npc 963                          -- Deputy Rainer: for Gryan Stoutmantle at Sentinel Hill
-  accept 11
-
-step Elwynn Forest
-  zone Elwynn Forest
-  goto 44.5,66.3 "Elwynn Forest"
-
-step Goldshire
-  tip Follow the road west back to Goldshire. Priestess Josetta (priests), Zaldimar Wefhellt (mages) and Keryn Sylvius (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   accept 1685 only Warlock                    -- Remen Marcot: Gakin the Darkbinder in Stormwind takes it
-  train class
 
 step Stormwind City
   only Mage
   zone Stormwind City
-  goto 38.6,79.3 "Stormwind City"
+  goto 38.6,79.3 "Jennea Cannon"
 
 step Jennea Cannon
   only Mage
@@ -494,7 +477,7 @@ step Jennea Cannon
 step Stormwind City
   only Warlock
   zone Stormwind City
-  goto 25.3,78.6 "Stormwind City"
+  goto 25.3,78.6 "Gakin the Darkbinder"
 
 # ---------------------------------------------------------------- Warlocks: Stormwind and east Elwynn
 
@@ -537,20 +520,7 @@ step The Binding
 step Back to Elwynn Forest
   only Mage,Warlock
   zone Elwynn Forest
-  goto 26.4,87.5 "Elwynn Forest"
-
-step Forest's Edge
-  zone Elwynn Forest
-  tip Riverpaw Runts and Outrunners hold the hills south of the garrison, along the Westfall border.
-  collect 782 quest 11                        -- Painted Gnoll Armbands
-
-step Westbrook Garrison
-  turnin 11                                   -- Deputy Rainer
-
-step Elwynn Forest
-  only Hunter
-  zone Elwynn Forest
-  goto 41.2,66.3 "Elwynn Forest"
+  goto 42.2,70.5 "Goldshire"
 
 step Taming the Beast
   zone Elwynn Forest
@@ -584,7 +554,21 @@ step The Applejack Still
   turnin 91736 optional
   collect 247824 x1 @24.6,58.0                -- Thunder Applejack, from the still
 
+# ---------------------------------------------------------------- To Westfall
+
 step Westbrook Garrison
-  tip Sergeant De Vries stands inside the barracks. He has An Apple Treat only while you carry the Thunder Applejack: talk to him and it goes straight to the hand-in.
+  zone Elwynn Forest
+  tip Follow the road south to the Westbrook Garrison, on the way into Westfall. Deputy Rainer stands outside the barracks; Sergeant De Vries stands inside. He has An Apple Treat only while you carry the Thunder Applejack: talk to him and it goes straight to the hand-in.
+  turnin 239                                  -- Deputy Rainer
+  accept 109 npc 963                          -- Deputy Rainer: for Gryan Stoutmantle at Sentinel Hill
+  accept 11
   accept 91738                                -- Sergeant De Vries: he wants your Thunder Applejack; inside
   turnin 91738
+
+step Forest's Edge
+  zone Elwynn Forest
+  tip Riverpaw Runts and Outrunners hold the hills south of the garrison, along the Westfall border.
+  collect 782 quest 11                        -- Painted Gnoll Armbands
+
+step Westbrook Garrison
+  turnin 11                                   -- Deputy Rainer

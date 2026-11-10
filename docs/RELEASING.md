@@ -100,7 +100,7 @@ version throughout.
    forge data questdb
    forge data itemdb && forge data gear
    forge data sources --only builders && forge data codex   # release-safe inputs only
-   forge release credits                     # Guiding Stars: data/credits.json + merged PRs (needs gh)
+   forge release credits                     # Guiding Stars: data/credits.json + merged or folded PRs + issues (needs gh)
    forge guide lint
    forge guide compile
    ```
@@ -111,8 +111,33 @@ version throughout.
    folders (`Polestar_<locale>`: guide texts and names) are committed; rebuild
    their names with `forge data names` when the data changed.
 
+   `forge i18n guides sync` and `forge guide compile` read the client's
+   AreaTable from `data/sources/wago/<build>/AreaTable.csv`, found beside
+   the reference data (`<data>/../sources`). Without it they still run, but
+   place names stop being `{area:N}` tokens: sync then rewrites every
+   language's guide-text keys and moves their translations to the "No longer
+   in the guide" blocks (0.3.5 shipped that way). Run them in a checkout
+   where `data/forever` is a real folder (not a symlink into a tree without
+   `sources`) and `data/sources` holds the AreaTable; compile prints
+   `areas: N of M place goals got an area (AreaTable <build>)`. Before
+   packing, compare each `addon/Polestar_<locale>/Texts.lua`'s entry count
+   with the last release's: a large drop means translations went missing.
+
    Before `credits`, add new Ko-fi supporters to `data/credits.json`
-   (names only, highest total first; amounts are never stored).
+   (names only, highest total first; amounts are never stored). The bug
+   reporters column counts a reporter's useful reports from the issues: the
+   Discord name the bot filed it under ("**Reported by <name> on
+   [Discord](...)**"), else the GitHub login that opened it. A report counts
+   when it is labelled `confirmed` or `fix-merged`, or was closed as completed
+   by a fix (a pull request that closed it, a `released:*` label, or a
+   maintainer's comment saying it's fixed); never one closed as a duplicate or
+   not planned, labelled `duplicate`, `invalid`, `wontfix` or `resolution:*`,
+   still labelled `needs-info` or `stale`, or a feature request (`enhancement`
+   without `bug`). The top 40 by count show, ties to whoever reported first.
+   Check the printed list before committing it: add anyone who asks to be left
+   out, by login or name, to `exclude` (the maintainer's Discord name is
+   there too), and map a person's second name (a Discord name and a GitHub
+   login) onto one with `names`.
 
 3. Run the whole suite with the data built (nothing skips for missing data
    now):
@@ -124,7 +149,7 @@ version throughout.
 4. Pack and check the archives:
 
    ```sh
-   rm -rf dist && forge release pack
+   rm -rf dist && forge release pack     # stops naming any guide whose legs are stale; add --bake --grid <canon grid> --leffe <Leffe's maps> to bake them
    (cd dist && sha256sum -c SHA256SUMS)
    unzip -l dist/Polestar-0.2.0.zip      # Polestar_Codex/ with its LICENSE-DATA.txt, and Polestar_Nav/ with its LICENSE and CREDITS.md, are listed
    forge nav check                       # Polestar_Nav's walking maps match its PACK.json

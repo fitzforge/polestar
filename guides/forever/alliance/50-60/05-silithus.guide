@@ -31,14 +31,6 @@ step Fly to Stormwind
   fly "Stormwind"
   zone Stormwind City
 
-# ---------------------------------------------------------------- Ironforge
-
-step Ironforge
-  only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-  zone Ironforge
-  tip Take the Deeprun Tram to Ironforge.
-  train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-
 # ---------------------------------------------------------------- Stormwind
 
 step Stormwind City
@@ -70,11 +62,11 @@ step Ironforge
   accept 7807 optional                -- Bubulo Acerbus, by the tram
   accept 7808 optional
   accept 7809 optional
-  turnin 3701                         -- Royal Historian Archesonus
   accept 7802 optional                -- Mistina Steelshield
   accept 7803 optional
   accept 7804 optional
   accept 7261                         -- Lieutenant Rotimer
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 step Fly to Light's Hope Chapel
   zone Ironforge
@@ -84,12 +76,9 @@ step Fly to Light's Hope Chapel
 
 step Light's Hope Chapel
   turnin 5181                         -- Carlin Redpath
-
-step Light's Hope Chapel
-  zone Eastern Plaguelands
-  tip Ride on north to Chillwind Camp and fly to Light's Hope Chapel.
-  turnin 5168                         -- Carlin Redpath
+  turnin 5168
   accept 5206
+  accept 5281                         -- Caretaker Alen, by the graves south of the chapel: Egan is in Terrordale, keep it
 
 step Scourge Champions
   tip Scourge Champions (59) roam the Noxious Glade, north of Light's Hope Chapel. Pass Carlin's Mystic Crystal over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time.

@@ -14,6 +14,7 @@ mod itemdb;
 mod kb;
 mod luachunks;
 mod names;
+mod newquests;
 mod professions;
 mod publish;
 mod questdb;

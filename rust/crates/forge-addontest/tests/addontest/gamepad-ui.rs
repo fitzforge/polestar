@@ -7,8 +7,8 @@
 //!
 //! Two checks:
 //!   * loaded with each style, Polestar registers its slash commands, its tracking menu entries and its
-//!     Escape-closable windows only with the keyboard and mouse, opens the world map only then, and with the
-//!     gamepad shows the minimap button by default (its way in);
+//!     Escape-closable windows only with the keyboard and mouse, opens the world map only then, and shows the
+//!     minimap button by default with either (with the gamepad, its way in);
 //!   * every line of addon code that reaches into the game's UI (REACHES) is in a file listed in ALLOWED with
 //!     its count and reason. A new one fails here: guard it with ns.GamepadUI() (or keep it out of the game's
 //!     UI), then list it.
@@ -70,7 +70,7 @@ fn with_the_keyboard_and_mouse_polestar_registers_its_slash_commands_menu_entrie
 	assert_eq!(r["gamepad"], false);
 	assert_eq!(
 		json!({ "slash": r["slash"], "way": r["way"], "recorderSlash": r["recorderSlash"], "recorderCommand": r["recorderCommand"], "openMap": r["openMap"], "minimapButton": r["minimapButton"] }),
-		json!({ "slash": true, "way": true, "recorderSlash": true, "recorderCommand": "function", "openMap": true, "minimapButton": false })
+		json!({ "slash": true, "way": true, "recorderSlash": true, "recorderCommand": "function", "openMap": true, "minimapButton": true })
 	);
 	assert_eq!(r["menus"], 7, "nearby and service filters on the world map and minimap, two quest menus, and the quest log's pin entry");
 	assert!(r["special"].as_f64().unwrap() > 0.0, "its windows close with Escape");
@@ -83,7 +83,7 @@ fn the_keyboard_and_mouse_interface_wins_over_a_style_cvar_left_at_gamepad() {
 	let r = load(false, Some("1"));
 	assert_eq!(
 		json!({ "gamepad": r["gamepad"], "padActive": r["padActive"], "slash": r["slash"], "recorderSlash": r["recorderSlash"], "minimapButton": r["minimapButton"] }),
-		json!({ "gamepad": false, "padActive": false, "slash": true, "recorderSlash": true, "minimapButton": false })
+		json!({ "gamepad": false, "padActive": false, "slash": true, "recorderSlash": true, "minimapButton": true })
 	);
 }
 
@@ -143,10 +143,12 @@ const ALLOWED: &[(&str, usize, &str)] = &[
 	("Polestar/QoL/QoL.lua", 2, "dialogs closed for the player (QoL.ClosePopup), never with the gamepad interface (its focus owns them)"),
 	("Polestar/Quests/DeleteWarning.lua", 2, "a line added to the delete dialog, never with the gamepad interface (its focus owns the dialogs)"),
 	("Polestar/Quests/SellWarning.lua", 4, "the buyback question, never with the gamepad interface (its focus owns the dialogs)"),
+	("Polestar/Quests/Party.lua", 4, "the party's sync-to-my-guide prompt, never with the gamepad interface (its focus owns the dialogs; chat says so instead)"),
 	("Polestar/QoL/Toggles.lua", 3, "the error-message setting, which does nothing with the gamepad interface"),
+	("Polestar/UI/GameMenu.lua", 1, "the game menu's Polestar button closes the menu (HideUIPanel); never with the gamepad interface, which gets no button"),
 	("Polestar/UI/Options.lua", 2, "closing the game's Settings panel, never with the gamepad interface or in combat"),
 	("Polestar/UI/Gamepad.lua", 3, "a window's override bindings, only with the keyboard and mouse interface; the gamepad interface's focused window only read (a field, never a call)"),
-	("Polestar/QoL/Buttons.lua", 3, "the step key's interact stage binds its keys over, never with the gamepad interface"),
+	("Polestar/QoL/Buttons.lua", 4, "the step key's interact stage binds its keys over, never with the gamepad interface; Buttons.PingLine only reads the client's /ping word (SLASH_PING1, a string) for a macro the player's own click runs"),
 	("Polestar_Recorder/Commands.lua", 3, "/psrec, not with the gamepad interface"),
 	("Polestar_Recorder/Panel.lua", 1, "the Recorder window's Escape entry, not with the gamepad interface"),
 ];

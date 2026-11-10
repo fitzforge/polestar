@@ -23,24 +23,25 @@ return {
 	["Horde fly to {area:272}, Alliance to {area:271}. The trail to the manor is hard to see: it starts behind the plateau north of {area:275}, east of {area:272}, climbs into the hills and bends twice to a small tunnel. A chest sits in the tunnel: do not open it. Cast {spell:1846} near it and walk up close; that is the Rite of Cunning (it comes back after 5 minutes). Opening the chest calls Milton, an elite rogue of about level 32. Through the tunnel lies {area:3486}: {npc:6707} is upstairs inside. Do not attack anyone at the manor: it costs {npc:13936} reputation."] = "",
 	-- {spell:1846} Detect Traps
 	["Rite of Cunning: {spell:1846} beside the tunnel chest"] = "",
+	-- {npc:6766} Ravenholdt Guard · {quest:6701} Syndicate Emblems
+	["{npc:6766}: {quest:6701}, repeatable; take it now, the emblems are quest items"] = "",
 
 	-- Step 3: Lord Tomas
 	-- {npc:266216} Lord Tomas · {area:275} Durnholde Keep · {npc:13085} Myrokos Silentform · {quest:6701} Syndicate Emblems
 	-- plural, as words: Syndicate Rogues = {npc:2260} Syndicate Rogue
 	["{npc:266216} is inside {area:275}, the Syndicate fortress south of the manor; he can stand in any of fifteen spots in the keep, so search. Quick and quiet, says {npc:13085}. Pick the pockets of the level 20-21 Syndicate Rogues, Shadow Mages and Watchmen on your way: they carry {quest:6701} for the guards' repeatable reputation quest."] = "",
-	-- {item:17124} Syndicate Emblem · {spell:921} Pick Pocket
-	["{item:17124}, by {spell:921}"] = "",
+	-- {quest:6701} Syndicate Emblems
+	["Pick Pocket Syndicate members for {quest:6701}"] = "",
 
 	-- Step 4: Myrokos Silentform
-	-- {npc:6766} Ravenholdt Guard · {quest:6701} Syndicate Emblems
-	["{npc:6766}: {quest:6701}, repeatable"] = "{npc:6766}: {quest:6701}, repetible",
-	["one emblem each time, 100 reputation"] = "",
+	-- {npc:6766} Ravenholdt Guard
+	["{npc:6766}: one emblem each time, 100 reputation"] = "",
 
 	-- Step 5: What's the Big Idea?
 	-- {npc:13085} Myrokos Silentform · {area:280} Strahnbrad · {zone:1416} Alterac Mountains · {spell:921} Pick Pocket
 	["In your mid 30s {npc:13085} has two more jobs; take both. Barton leads a Syndicate scouting party at {area:280}, in the east of the {zone:1416}, inside one of the houses with stealthed Syndicate around him. Pick his pocket for the report and do not kill him: he does not drop it. If you are lower than him he sees through stealth; Master of Deception helps, or Distract him, Vanish and come in from behind. {spell:921} can miss several times in a row."] = "",
-	-- {item:275482} Barton's Scouting Report · {spell:921} Pick Pocket
-	["{item:275482}: {spell:921} on Barton"] = "",
+	-- {item:275482} Barton's Scouting Report
+	["Pick Pocket Barton for {item:275482}"] = "",
 
 	-- Step 6: Covert Extraction
 	-- {npc:13085} Myrokos Silentform · {area:281} Ruins of Alterac · {zone:1416} Alterac Mountains
@@ -85,4 +86,5 @@ return {
 	-- ["Rite of Cunning"] = "Rite of Cunning",
 	-- ["{item:275482}: pickpocket Barton"] = "{item:275482}: roba del bolsillo a Barton",
 	-- ["{npc:266216} is inside {area:275}, the Syndicate fortress in eastern {area:287}, south of the manor. Quick and quiet, says {npc:13085}."] = "{npc:266216} está dentro de {area:275}, la fortaleza de la Hermandad en el este de {area:287}, al sur de la mansión. Rápido y en silencio, dice {npc:13085}.",
+	-- ["{npc:6766}: {quest:6701}, repeatable"] = "{npc:6766}: {quest:6701}, repetible",
 }

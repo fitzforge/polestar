@@ -23,40 +23,40 @@ return {
 	-- Step 3: Dun Morogh (1/3)
 	["18 areas to discover here, levels 4-12."] = "Hier gibt es 18 Gebiete zu entdecken, Stufe 4-12.",
 	-- {area:2257} Deeprun Tram · {zone:1453} Stormwind City · {object:28027} Dwarven District · {zone:1455} Ironforge
-	["Take the {area:2257} from {zone:1453}'s {object:28027} to {zone:1455}, then leave the city through its gates."] = "",
+	["Take the {area:2257} from {zone:1453}'s {object:28027} to {zone:1455}, then leave the city through its gates."] = "Nimm die {area:2257} vom {object:28027} in {zone:1453} nach {zone:1455} und verlasse die Stadt dann durch ihre Tore.",
 
 	-- Step 6: Loch Modan (1/2)
 	["11 areas to discover here, levels 10-18."] = "Hier gibt es 11 Gebiete zu entdecken, Stufe 10-18.",
 	-- {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:924} Valley of Kings
-	["Leave {zone:1426} east through the South Gate tunnel; it opens into {zone:1432} by the dwarf king statues of the {area:924}."] = "",
+	["Leave {zone:1426} east through the South Gate tunnel; it opens into {zone:1432} by the dwarf king statues of the {area:924}."] = "Verlasse {zone:1426} nach Osten durch den Tunnel am Südtor; er mündet in {zone:1432} bei den Zwergenkönig-Statuen im {area:924}.",
 	-- {area:144} Thelsamar · {npc:1572} Thorgrum Borrelson
 	["Flight path here: {area:144} ({npc:1572})."] = "Flugroute hier: {area:144} ({npc:1572}).",
 
 	-- Step 8: Westfall (1/2)
 	["14 areas to discover here, levels 9-18."] = "Hier gibt es 14 Gebiete zu entdecken, Stufe 9-18.",
 	-- {area:144} Thelsamar · {zone:1453} Stormwind City · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {zone:1429} Elwynn Forest · {area:120} Westbrook Garrison · {zone:1436} Westfall
-	["Fly from {area:144} to {zone:1453} if you have its flight path; otherwise ride back to {zone:1455} and take the {area:2257}. Walk west out of {zone:1429} past the {area:120} into {zone:1436}."] = "",
+	["Fly from {area:144} to {zone:1453} if you have its flight path; otherwise ride back to {zone:1455} and take the {area:2257}. Walk west out of {zone:1429} past the {area:120} into {zone:1436}."] = "Fliege von {area:144} nach {zone:1453}, wenn du die Flugroute dorthin hast; sonst reite zurück nach {zone:1455} und nimm die {area:2257}. Geh von {zone:1429} aus nach Westen, am {area:120} vorbei, nach {zone:1436}.",
 	-- {area:108} Sentinel Hill
 	["Flight path here: {area:108} (Thor)."] = "Flugroute hier: {area:108} (Thor).",
 
 	-- Step 10: Redridge Mountains (1/2)
 	["11 areas to discover here, levels 15-24."] = "Hier gibt es 11 Gebiete zu entdecken, Stufe 15-24.",
 	-- {zone:1429} Elwynn Forest · {area:88} Eastvale Logging Camp · {area:1002} Three Corners · {zone:1431} Duskwood
-	["Go back east through {zone:1429}: the road past the {area:88} enters Redridge at {area:1002}, where the roads from {zone:1429} and {zone:1431} meet."] = "",
+	["Go back east through {zone:1429}: the road past the {area:88} enters Redridge at {area:1002}, where the roads from {zone:1429} and {zone:1431} meet."] = "Geh durch {zone:1429} zurück nach Osten: Die Straße am {area:88} vorbei führt bei {area:1002} ins Rotkammgebirge, wo sich die Straßen aus {zone:1429} und {zone:1431} treffen.",
 	-- {area:69} Lakeshire · {npc:931} Ariena Stormfeather
 	["Flight path here: {area:69} ({npc:931})."] = "Flugroute hier: {area:69} ({npc:931}).",
 
 	-- Step 12: Duskwood (1/2)
 	["13 areas to discover here, levels 10-30."] = "Hier gibt es 13 Gebiete zu entdecken, Stufe 10-30.",
 	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire
-	["From {area:1002} take the road south into {zone:1431}; {area:42} is east along its main road. Most of Duskwood is level 24-30: come with Redridge behind you."] = "",
+	["From {area:1002} take the road south into {zone:1431}; {area:42} is east along its main road. Most of Duskwood is level 24-30: come with Redridge behind you."] = "Nimm von {area:1002} aus die Straße nach Süden in den {zone:1431}; {area:42} liegt weiter östlich an der Hauptstraße. Der Großteil des Dämmerwalds ist Stufe 24-30: Komm erst, wenn du das Rotkammgebirge hinter dir hast.",
 	-- {area:42} Darkshire · {npc:2409} Felicia Maline
 	["Flight path here: {area:42} ({npc:2409})."] = "Flugroute hier: {area:42} ({npc:2409}).",
 
 	-- Step 14: Wetlands (1/2)
 	["15 areas to discover here, levels 20-30."] = "Hier gibt es 15 Gebiete zu entdecken, Stufe 20-30.",
 	-- {area:42} Darkshire · {area:144} Thelsamar · {zone:1432} Loch Modan · {area:836} Dun Algaz · {zone:1437} Wetlands
-	["Fly from {area:42} to {area:144} in {zone:1432} and ride north through the {area:836} pass into the {zone:1437}."] = "",
+	["Fly from {area:42} to {area:144} in {zone:1432} and ride north through the {area:836} pass into the {zone:1437}."] = "Fliege von {area:42} nach {area:144} in {zone:1432} und reite durch den Pass {area:836} nach Norden in die {zone:1437}.",
 	-- {area:150} Menethil Harbor · {npc:1571} Shellei Brondir
 	["Flight path here: {area:150} ({npc:1571})."] = "Flugroute hier: {area:150} ({npc:1571}).",
 	-- {area:1038} Dragonmaw Gates · {area:1037} Grim Batol
@@ -65,7 +65,7 @@ return {
 	-- Step 16: Hillsbrad Foothills (1/2)
 	["12 areas to discover here, levels 20-31."] = "Hier gibt es 12 Gebiete zu entdecken, Stufe 20-31.",
 	-- {area:150} Menethil Harbor · {area:271} Southshore
-	["Take the boat from {area:150} to {area:271}."] = "",
+	["Take the boat from {area:150} to {area:271}."] = "Nimm das Boot von {area:150} nach {area:271}.",
 	-- {area:271} Southshore · {npc:2432} Darla Harris
 	["Flight path here: {area:271} ({npc:2432})."] = "Flugroute hier: {area:271} ({npc:2432}).",
 	-- {area:272} Tarren Mill
@@ -129,7 +129,7 @@ return {
 
 	-- Step 34: Dun Morogh (1/3)
 	-- {area:925} Algaz Station · {area:807} North Gate Pass · {zone:1426} Dun Morogh · {area:131} Kharanos · {zone:1455} Ironforge
-	["From {area:925} take the {area:807} tunnel west into {zone:1426}. {area:131} and {zone:1455}'s gates are Alliance ground."] = "",
+	["From {area:925} take the {area:807} tunnel west into {zone:1426}. {area:131} and {zone:1455}'s gates are Alliance ground."] = "Nimm von {area:925} aus den Tunnel {area:807} nach Westen in {zone:1426}. {area:131} und die Tore von {zone:1455} sind Allianzgebiet.",
 
 	-- Step 35: Dun Morogh (2/3)
 	-- {area:809} Gates of Ironforge
@@ -174,15 +174,12 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Cross the {area:881} in northern {zone:1437} into the {zone:1417} (level 30+ creatures off the road), follow the road west past {area:320} and on into {zone:1424}."] = "Überquere den {area:881} im Norden des {zone:1437} ins {zone:1417} (abseits der Straße Kreaturen ab Stufe 30), folge der Straße nach Westen am Ort {area:320} vorbei und weiter ins {zone:1424}.",
-	-- ["Flight path here: {area:228} ({npc:2226})."] = "Flugroute hier: {area:228} ({npc:2226}).",
 	-- ["From {area:925} take the tunnel west into {zone:1426}. {area:131} and {zone:1455}'s gates are Alliance ground."] = "Nimm von {area:925} den Tunnel nach Westen nach {zone:1426}. {area:131} und die Tore von {zone:1455} sind Allianzgebiet.",
 	-- ["From {area:925}, the road north through the {area:836} pass leads into the {zone:1437}."] = "Von {area:925} führt die Straße nach Norden durch den Pass {area:836} ins {zone:1437}.",
-	-- ["Horde guards: touch the edge of {area:228} and move on"] = "Hordewachen: Streife nur den Rand des Gebiets {area:228} und zieh weiter",
 	-- ["Leave {zone:1426} east through the gate tunnel; it opens into {zone:1432} at {area:925}."] = "Verlass {zone:1426} nach Osten durch den Tortunnel; er öffnet sich bei {area:925} nach {zone:1432}.",
 	-- ["Redridge starts at {area:1002}, where the roads from {zone:1429} and {zone:1431} meet."] = "Das Rotkammgebirge beginnt bei {area:1002}, wo sich die Straßen aus {zone:1429} und {zone:1431} treffen.",
 	-- ["Take the {area:2257} from {zone:1453}'s {object:28027} to {zone:1455} (or fly to {zone:1455}), then leave the city through its gates."] = "Nimm die Bahn ({area:2257}) vom {object:28027} in {zone:1453} nach {zone:1455} (oder flieg nach {zone:1455}) und verlass die Stadt durch ihre Tore.",
 	-- ["The {area:228}"] = "{area:228}",
-	-- ["{zone:1429} is north of {zone:1436} and {zone:1431}. {area:87}, {area:9} and {zone:1453}'s gates are Alliance ground with guards."] = "Der {zone:1429} liegt nördlich von {zone:1436} und {zone:1431}. {area:87}, {area:9} und die Tore von {zone:1453} sind Allianzgebiet mit Wachen.",
 	-- ["{zone:1431} is east of {zone:1436} and south of {zone:1429}. Its road runs east to {area:42}."] = "{zone:1431} liegt östlich von {zone:1436} und südlich von {zone:1429}. Die Straße führt nach Osten nach {area:42}.",
 	-- ["{zone:1436} borders {zone:1429} to the west: follow the road out past the {area:120}."] = "{zone:1436} grenzt im Westen an {zone:1429}: Folge der Straße hinaus an der {area:120} vorbei.",
 }

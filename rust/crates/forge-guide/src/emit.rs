@@ -79,9 +79,11 @@ pub const WHEN_KEYS: [&str; 17] = ["k", "neg", "op", "n", "frac", "q", "item", "
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 73] = [
+pub const GOAL_KEYS: [&str; 76] = [
 	"t",
 	"class",
+	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
+	"zone",
 	"spell",
 	"spellName",
 	"faction",
@@ -107,12 +109,17 @@ pub const GOAL_KEYS: [&str; 73] = [
 	"rankMax",
 	"level",
 	"frac",
+	// A `level` goal's mob (`grind <npc>`): its spawn areas are the goal's `spots`.
+	"grind",
 	"money",
 	"untilSkill",
 	"reagents",
 	"location",
 	"minLevel",
 	"qlvl",
+	// An `accept`'s time limit in seconds (the data's quest `limit`): Dynamic Questing takes a timed quest early
+	// only when the route's walk to it still fits.
+	"limit",
 	"pre",
 	"preAll",
 	"closedBy",

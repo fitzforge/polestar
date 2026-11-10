@@ -387,6 +387,12 @@ local function localTitle(kind, id, fallback)
 	return S and S.LocalName and S.LocalName(kind, id) or fallback
 end
 
+-- The "New in Forever" mark after a quest's name (NewQuests.Mark), else "".
+local function questMark(s)
+	local NQ = ns.NewQuests
+	return s.kind == "quest" and NQ and NQ.Mark(s.id) or ""
+end
+
 -- One result on a row: icon (the item's own, else the kind's glyph), the
 -- name in its colour (a chip saying why when it cannot be got: the name keeps
 -- its full colour), the subtitle right. note: the right-hand text.
@@ -403,7 +409,7 @@ local function paintResult(r, res, note, width, on)
 	else
 		setGlyph(r.Icon, KIND[res.kind] and KIND[res.kind].icon or "search", on and "accent" or "textDim")
 	end
-	r.Title:SetText(localTitle(res.kind, res.id, res.title or tostring(res.id)))
+	r.Title:SetText(localTitle(res.kind, res.id, res.title or tostring(res.id)) .. questMark(res))
 	paintName(r.Title, res.kind, res.quality)
 	local blocked = STATUS_TEXT[res.status] ~= nil
 	local chipW = paintStatus(r.Status, res.status)
@@ -759,6 +765,8 @@ local function factsFor(s, entity, list)
 			local z = UI.MapName(e.zone) or (codexRecord("zone", e.zone) or {}).name
 			add(L["Zone"], z)
 		end
+		local new = ns.NewQuests and ns.NewQuests.TooltipText(s.id)
+		add(L["Origin"], new, "accent")
 	elseif k == "instance" then
 		add(L["Type"], e.kind == "raid" and L["Raid"] or L["Dungeon"])
 		local lv = type(e.levels) == "table" and UI.LevelRange(e.levels[2] or e.levels[1], e.levels[3])
@@ -888,7 +896,7 @@ local function renderDetails(loaded, reason)
 		Theme.Border(d.Well, ir, ig, ib, 0.18)
 	end
 	d.Well:Show()
-	d.Title:SetText(title)
+	d.Title:SetText(title .. questMark(s))
 	paintName(d.Title, s.kind, quality)
 	d.Title:Show()
 	local sub = s.subtitle
@@ -1624,8 +1632,10 @@ end
 ns.On("GUIDES_REGISTERED", guidesChanged)
 ns.On("PACKS_CHANGED", guidesChanged)
 -- Search ranks by the suggestion source's guides: a new source ranks anew.
+-- The "New in Forever" mark shows or goes on the pages at once.
 ns.On("SETTING_CHANGED", function(path)
 	if path == "behavior.suggestFrom" or path == "behavior" or path == "" then guidesChanged() end
+	if path == "ui.newInForever" then LK.Render() end
 end)
 -- Quality colours are lifted against the ground and the icon's hairline is
 -- set by hand: a scheme change paints them again.

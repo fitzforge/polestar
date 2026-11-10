@@ -7,10 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Ravenholdt Reputation"] = "",
-	["The assassins' guild: Forever's new rogue quests, then Syndicate kills and Heavy Junkboxes to Exalted."] = "",
+	["Ravenholdt Reputation"] = "Репутация: Черный Ворон",
+	["The assassins' guild: Forever's new rogue quests, then Syndicate kills and Heavy Junkboxes to Exalted."] = "Гильдия убийц: новые задания для разбойников в Forever, затем убийство членов Синдиката и Тяжелые сейфы до уровня «Превознесение».",
 	-- {faction:349} Ravenholdt
-	["{faction:349} reputation (no vendor or reward in Forever's data)"] = "",
+	["{faction:349} reputation (no vendor or reward in Forever's data)"] = "Репутация {faction:349} (в данных Forever нет торговца и наград)",
 
 	-- Step 1: The Manor, Ravenholdt
 	-- {item:17126} Elegant Letter · {area:275} Durnholde Keep · {npc:6707} Fahrad
@@ -35,7 +35,7 @@ return {
 	-- {area:280} Strahnbrad
 	["Barton hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "",
 	-- {item:275482} Barton's Scouting Report
-	["{item:275482}: pickpocket Barton"] = "",
+	["{item:275482}: pickpocket Barton"] = "{item:275482}: обчистите карманы Бартона",
 
 	-- Step 5: Northfold Manor: a uniform
 	-- {area:313} Northfold Manor
@@ -59,7 +59,7 @@ return {
 
 	-- Step 8: Back to Myrokos Silentform
 	-- {npc:13085} Myrokos Silentform
-	["Back to {npc:13085}"] = "",
+	["Back to {npc:13085}"] = "Назад к {npc:13085}",
 	-- {quest:96782} Covert Extraction · {quest:96781} What's the Big Idea?
 	["{quest:96782}, after {quest:96781}"] = "",
 

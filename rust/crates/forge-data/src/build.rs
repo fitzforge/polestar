@@ -28,6 +28,8 @@ pub struct Options {
 	pub root: PathBuf,
 	pub sources: PathBuf,
 	pub recordings: PathBuf,
+	/// data/recorded/quests.json (`forge record learn`): its trusted prerequisites and minimum levels.
+	pub recorded: PathBuf,
 	pub pfquest: Option<PathBuf>,
 	/// QuestieDB folder; None builds without it.
 	pub questie: Option<PathBuf>,
@@ -189,6 +191,7 @@ impl Options {
 			root: root.to_path_buf(),
 			sources: root.join("data").join("sources"),
 			recordings: root.join("data").join("recordings"),
+			recorded: root.join(crate::learn::DIR).join(crate::learn::FILE),
 			pfquest: None,
 			questie: None,
 			corrections: crate::corrections::locate(root),
@@ -592,6 +595,8 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	let rec = apply_recordings(
 		&crate::recordings::Db { quests: &norm.quests, npcs: &norm.npcs, objects: &norm.objects, items: &norm.items, zones: &zones, factions: &factions, instances: &instances },
 		&recordings,
+		// Corrections stay the last word: the overlay puts every corrected value back.
+		&corrections,
 		recordings.min_voters,
 		so_,
 		&live,
@@ -612,6 +617,36 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			"players' recordings list different objectives for quest(s) {}: the data's objectives kept",
 			rec.objective_conflicts.iter().map(i64::to_string).collect::<Vec<_>>().join(", ")
 		));
+	}
+	if !rec.overruled.is_empty() {
+		warnings.push(format!("players' recordings disagree with {} corrected value(s), corrections kept: {}", rec.overruled.len(), rec.overruled.join("; ")));
+	}
+	// The learned layer's trusted prerequisites and minimum levels (data/recorded/quests.json; its
+	// provisional facts never reach this data), then the corrections again: they are the last word.
+	let learned = crate::learn::load(&o.recorded)?;
+	let mut learned_fields = 0usize;
+	for (id, r) in learned.entries() {
+		let q = norm.quests.get(&id);
+		if !q.truthy() {
+			continue;
+		}
+		let corrected = corrections.get("quests").get(&id).get("set");
+		if crate::learn::apply_prereqs(&q, &r, &corrected, false) {
+			crate::recordings::tag_field(&q, "pre", true);
+			learned_fields += 1;
+		}
+		if let Some(l) = crate::learn::min_level(&r, &corrected).filter(|l| q.get("minLevel").as_num() != Some(*l as f64)) {
+			q.set("minLevel", l as f64);
+			crate::recordings::tag_field(&q, "minLevel", true);
+			learned_fields += 1;
+		}
+	}
+	if learned_fields > 0 {
+		log(&format!("learned layer: {learned_fields} quest fields from {}", o.recorded.display()));
+		let back = crate::corrections::reassert(&corrections, &norm.quests, &norm.npcs, &norm.objects, &norm.items, sim);
+		if !back.is_empty() {
+			warnings.push(format!("the learned layer disagrees with {} corrected value(s), corrections kept: {}", back.len(), back.join("; ")));
+		}
 	}
 	lap("recordings");
 	// Forever's gathering nodes from the TDB's sniffs that our sources lack (Zephras Isle, nodes Forever

@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	["Warsong Gulch Reputation"] = "Репутация: Ущелье Песни Войны",
-	["Flag captures and Marks of Honor raise it; Exalted gives a Legacy Point and epic bracers and legs."] = "",
-	["Master of Warsong Gulch: a Legacy Point at Exalted"] = "",
+	["Flag captures and Marks of Honor raise it; Exalted gives a Legacy Point and epic bracers and legs."] = "Репутацию дают захваты флагов и почетные знаки; Превознесение дает очко наследия, эпические наручи и поножи.",
+	["Master of Warsong Gulch: a Legacy Point at Exalted"] = "Мастер Ущелья Песни Войны: очко наследия при Превознесении",
 
 	-- Step 1: Sentinel Farsong
 	-- {zone:1460} Warsong Gulch · {npc:14733} Sentinel Farsong

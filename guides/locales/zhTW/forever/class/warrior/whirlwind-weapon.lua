@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {spell:2458} Berserker Stance · {spell:1680} Whirlwind
-	["{spell:2458} at 30 and a {spell:1680} axe, sword or warhammer at 40."] = "",
+	["{spell:2458} at 30 and a {spell:1680} axe, sword or warhammer at 40."] = "30級學會{spell:2458}，40級獲得一把{spell:1680}斧、劍或戰錘。",
 
 	-- Step 1: The Islander (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens
@@ -95,5 +95,4 @@ return {
 	-- ["{item:6894} from {quest:1712}"] = "{item:6894}，來自{quest:1712}",
 	-- ["{npc:6176} camps in the south-east of {zone:1416}, above {zone:1424}; his cauldron stands beside him. He asks for a {item:3357}, a {item:3901} and the {quest:1714}, which his cauldron brews from three charms."] = "{npc:6176}在{zone:1416}東南部、{zone:1424}上方紮營；他的大鍋爐就在旁邊。他要一個{item:3357}、一個{item:3901}和{quest:1714}，後者由他的大鍋爐用三個護符熬製。",
 	-- ["{quest:1712} waits just north of {npc:6176}'s camp and carries the {item:6894}. {quest:1712} is elite: grouping up is advised."] = "{quest:1712}就在{npc:6176}營地北邊等著，身上帶著{item:6894}。{quest:1712}是精英：建議組隊。",
-	-- ["{spell:2458} at 30 and a {spell:1680} axe, sword or warhammer at 40."] = "30級學會{spell:2458}，40級獲得一把{spell:1680}斧、劍或戰錘。",
 }

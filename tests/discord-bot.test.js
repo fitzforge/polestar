@@ -203,13 +203,123 @@ test("only the thread owner's screenshots are copied; reports and follow-ups are
 	await sync.message(discord.say('1001', { author: 'u2', content: 'an hour later' }));
 	assert.equal(github.commentsByIssue.get(1).length, 22);
 
-	for (const id of ['1002', '1003', '1004', '1005']) {
+	for (const id of ['1002', '1003', '1004', '1005', '1006', '1007']) {
 		discord.post(id, { owner: 'u9', content: 'bug' });
 		await sync.newPost(id);
 	}
-	discord.post('1006', { owner: 'u8', content: 'bug' });
-	await sync.newPost('1006');
-	assert.deepEqual(github.issues.map((i) => i.body.match(/channels\/800\/(\d+)/)[1]), ['1001', '1002', '1003', '1004', '1006'], "u9's fourth report in an hour is not filed");
+	discord.post('1008', { owner: 'u8', content: 'bug' });
+	await sync.newPost('1008');
+	assert.deepEqual(github.issues.map((i) => i.body.match(/channels\/800\/(\d+)/)[1]), ['1001', '1002', '1003', '1004', '1005', '1006', '1008'], "u9's sixth report in an hour is not filed yet");
+});
+
+// A bot on a clock the test moves, its timers run by hand: fire() moves the
+// clock to each due timer in turn and awaits what it starts.
+function clocked(config = {}) {
+	let t = 0;
+	const timers = [];
+	const discord = fakeDiscord();
+	const github = fakeGitHub();
+	const sync = createSync({ discord, github, media: fakeMedia(), config: { forumId: FORUM, botId: BOT, ...config }, log: quietLog, sleep: async () => {}, now: () => t, setTimer: (fn, ms) => timers.push({ at: t + ms, fn }) });
+	async function fire() {
+		while (timers.length) {
+			timers.sort((a, b) => a.at - b.at);
+			const { at, fn } = timers.shift();
+			t = Math.max(t, at);
+			fn();
+			for (let i = 0; i < 20; i++) await new Promise((r) => setImmediate(r));
+		}
+	}
+	return { discord, github, sync, timers, fire, tick: (ms) => (t += ms) };
+}
+
+const filedThreads = (github) => github.issues.map((i) => i.body.match(/channels\/800\/(\d+)/)[1]);
+
+test("server staff have no hourly limits: an admin's or moderator's sixth report and 21st follow-up go through", async () => {
+	const { discord, github, sync, timers } = clocked();
+	discord.members.set('fitz', ['r-admin']);
+	discord.members.set('mod', ['r-mod']);
+	discord.members.set('player', []);
+	const fitz = ['1001', '1002', '1003', '1004', '1005', '1006'];
+	for (const id of fitz) {
+		discord.post(id, { owner: 'fitz', content: 'bug' });
+		await sync.newPost(id);
+	}
+	assert.deepEqual(filedThreads(github), fitz, "the admin's sixth report is filed");
+	for (const id of ['1011', '1012', '1013', '1014', '1015', '1016']) {
+		discord.post(id, { owner: 'mod', content: 'bug' });
+		await sync.newPost(id);
+	}
+	assert.equal(github.issues.length, 12, "a moderator's too");
+	assert.ok(discord.sent.every((s) => !I.isHeldReply(s.content)), 'staff are never told to wait');
+	for (let i = 0; i < 25; i++) await sync.message(discord.say('1001', { author: 'fitz', content: `note ${i}` }));
+	for (let i = 0; i < 25; i++) await sync.message(discord.say('1001', { author: 'player', content: `me too ${i}` }));
+	assert.equal(github.commentsByIssue.get(1).length, 25 + 20, "the admin's follow-ups all go through, the player's stop at 20");
+	assert.equal(timers.length, 5, "the player's five skipped follow-ups wait for a retry");
+});
+
+test('the server owner and RATE_EXEMPT_IDS have no hourly limits either', async () => {
+	const { discord, github, sync } = clocked({ exemptIds: ['listed'] });
+	for (const [i, owner] of ['owner', 'listed'].flatMap((o) => Array(6).fill(o)).entries()) {
+		discord.post(String(2001 + i), { owner, content: 'bug' });
+		await sync.newPost(String(2001 + i));
+	}
+	assert.equal(github.issues.length, 12);
+});
+
+test("a player's sixth report in an hour is told when it will be filed, filed by the retry, and the reply becomes the issue link", async () => {
+	const { discord, github, sync, timers, fire, tick } = clocked();
+	const ids = ['1001', '1002', '1003', '1004', '1005', '1006'];
+	for (const id of ids) {
+		discord.post(id, { owner: 'u9', content: 'bug' });
+		await sync.newPost(id);
+		tick(60 * 1000);
+	}
+	assert.deepEqual(filedThreads(github), ids.slice(0, 5));
+	assert.equal(timers.length, 1);
+	assert.equal(timers[0].at, 60 * 60 * 1000 + 1000, 'retried a second after the first report of the hour ages out');
+	const told = discord.sent.filter((s) => s.channel === '1006');
+	assert.deepEqual(told.map((s) => s.content), ["Thanks! You've sent a few reports this hour; this one will be filed automatically in about 55 minutes."]);
+	await sync.newPost('1006'); // seen again (a THREAD_UPDATE): one retry waiting, told once
+	assert.equal(timers.length, 1);
+	assert.equal(discord.sent.filter((s) => s.channel === '1006').length, 1);
+	await fire();
+	assert.deepEqual(filedThreads(github), ids, 'filed by the retry, no restart needed');
+	assert.equal(discord.sent.filter((s) => s.channel === '1006').length, 1, 'no second reply');
+	const thread = discord.messages.get('1006').filter((m) => m.author.bot);
+	assert.equal(thread.length, 1);
+	assert.match(thread[0].content, /^Tracked as \[fitzforge\/polestar#6\]/, 'the held reply now links the issue');
+	assert.deepEqual(discord.channels.get('1006').applied_tags, ['t-tracked']);
+
+	for (let i = 0; i < 22; i++) await sync.message(discord.say('1001', { author: 'u2', content: `spam ${i}` }));
+	assert.equal(github.commentsByIssue.get(1).length, 20);
+	await fire();
+	const bodies = github.commentsByIssue.get(1).map((c) => c.body);
+	assert.equal(bodies.length, 22, 'the two skipped follow-ups are copied later');
+	assert.match(bodies[21], /spam 21/);
+});
+
+test('after a restart, a held post is filed by the backfill into the same reply', async () => {
+	const { discord, github, sync } = clocked();
+	for (const id of ['1001', '1002', '1003', '1004', '1005', '1006']) {
+		discord.post(id, { owner: 'u9', content: 'bug' });
+		await sync.newPost(id);
+	}
+	assert.ok(I.isHeldReply(discord.messages.get('1006').at(-1).content));
+	const again = createSync({ discord, github, media: fakeMedia(), config: { forumId: FORUM, botId: BOT }, log: quietLog });
+	await again.loadIndex();
+	await again.backfill();
+	assert.equal(github.issues.length, 6);
+	const bot = discord.messages.get('1006').filter((m) => m.author.bot);
+	assert.equal(bot.length, 1);
+	assert.match(bot[0].content, /polestar#6/);
+});
+
+test('skipped work waiting for a retry is capped', async () => {
+	const { discord, sync, timers } = clocked();
+	discord.post('1001', { content: POST });
+	await sync.newPost('1001');
+	for (let i = 0; i < 130; i++) await sync.message(discord.say('1001', { author: 'u2', content: `spam ${i}` }));
+	assert.equal(timers.length, 100);
 });
 
 test('a new post is filed once, answered in its thread and tagged Tracked', async () => {

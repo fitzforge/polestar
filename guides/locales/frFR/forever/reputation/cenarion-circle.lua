@@ -64,8 +64,8 @@ return {
 	-- Step 8: Silithus quests at Cenarion Hold
 	-- {zone:1451} Silithus · {area:3425} Cenarion Hold
 	["{zone:1451} quests at {area:3425}"] = "Quêtes de {zone:1451} à {area:3425}",
-	-- {quest:8280} Securing the Supply Lines · {quest:8275} Taking Back Silithus · {npc:15196} Deathclasp · {npc:15174} Calandrath · {quest:8307} Desert Recipe · {item:20452} Smoked Desert Dumplings
-	["Now cash in the one-time quests: about 1,700 reputation alone, 2,400 with the group quests. They are level 55 to 60, so they pay in full at 60. {quest:8280} needs {quest:8275} first. {npc:15196} is an elite scorpid with two guards (group of 2 or 3). {npc:15174}'s {quest:8307} is for Cooks: its recipe makes the {item:20452} he wants."] = "Encaissez maintenant les quêtes uniques : environ 1 700 de réputation seul, 2 400 avec les quêtes de groupe. Elles sont de niveau 55 à 60 et rapportent donc tout au niveau 60. {quest:8280} demande d'abord {quest:8275}. {npc:15196} est un scorpide élite avec deux gardes (groupe de 2 ou 3). {quest:8307} de {npc:15174} est pour les cuisiniers : sa recette fait les {item:20452} qu'il demande.",
+	-- {quest:8280} Securing the Supply Lines · {quest:8275} Taking Back Silithus · {npc:15196} Deathclasp · {npc:15174} Calandrath · {quest:8307} Desert Recipe · {item:20452} Smoked Desert Dumplings · {npc:15189} Beetix Ficklespragg
+	["Now cash in the one-time quests: about 1,700 reputation alone, 2,400 with the group quests. They are level 55 to 60, so they pay in full at 60. {quest:8280} needs {quest:8275} first. {npc:15196} is an elite scorpid with two guards (group of 2 or 3). {npc:15174}'s {quest:8307} is for Cooks: its recipe makes the {item:20452} he wants. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:15191} Windcaller Proudhorn · {quest:8275} Taking Back Silithus
 	["{npc:15191}, after {quest:8275}"] = "{npc:15191}, après {quest:8275}",
 	-- {npc:15196} Deathclasp
@@ -82,6 +82,8 @@ return {
 
 	-- Step 10: Back at the Hold
 	["Back at the Hold"] = "De retour au Fort",
+	-- {npc:15189} Beetix Ficklespragg
+	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 
 	-- Step 11: Stonelash and Dredge Crushers
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
@@ -96,6 +98,8 @@ return {
 	-- Step 12: Noggle Ficklespragg and Proudhorn
 	-- {npc:15190} Noggle Ficklespragg
 	["{npc:15190} and Proudhorn"] = "{npc:15190} et Proudhorn",
+	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
+	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "",
 
 	-- Step 13: The Ravaged Twilight Camp
 	-- {area:3100} Ravaged Twilight Camp
@@ -120,8 +124,8 @@ return {
 
 	-- Step 18: Bronzebeard's Encampment
 	["Bronzebeard's Encampment"] = "Le campement de Bronzebeard",
-	-- {zone:1451} Silithus · {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper · {quest:8304} Dearest Natalia · {item:20379} Noggle's Satchel · {npc:15196} Deathclasp
-	["The dwarves' camp in the south of {zone:1451}. Talk {npc:15171} and {npc:15170} through their whole stories for {quest:8304}. {item:20379} lies on the mountain south-east of the camp. {npc:15196} lives up the trail east of the camp: an elite, and his Knock Away can throw you off the cliff."] = "",
+	-- {zone:1451} Silithus · {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper · {quest:8304} Dearest Natalia · {item:20379} Noggle's Satchel · {npc:15196} Deathclasp · {spell:10101} Knock Away
+	["The dwarves' camp in the south of {zone:1451}. Talk {npc:15171} and {npc:15170} through their whole stories for {quest:8304}. {item:20379} lies on the mountain south-east of the camp. {npc:15196} lives up the trail east of the camp: an elite, and his {spell:10101} can throw you off the cliff."] = "Le camp des nains au sud de {zone:1451}. Écoutez {npc:15171} et {npc:15170} raconter toute leur histoire pour {quest:8304}. La {item:20379} se trouve sur la montagne au sud-est du camp. {npc:15196} vit en haut du sentier à l'est du camp : un élite, et son {spell:10101} peut vous projeter du haut de la falaise.",
 	-- {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper
 	["{npc:15171} and {npc:15170}"] = "{npc:15171} et {npc:15170}",
 	-- {item:20385} Deathclasp's Pincer
@@ -130,6 +134,8 @@ return {
 	-- Step 19: Back to Cenarion Hold with news
 	-- {area:3425} Cenarion Hold
 	["Back to {area:3425} with news"] = "Retour à {area:3425} avec des nouvelles",
+	-- {npc:15190} Noggle Ficklespragg
+	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	["Natalia, elite: group up"] = "Natalia, élite : formez un groupe",
 
 	-- Step 20: Rubbings and brains
@@ -178,7 +184,7 @@ return {
 	-- Step 28: Quests elsewhere
 	["Quests elsewhere"] = "Quêtes ailleurs",
 	-- {faction:609} Cenarion Circle · {zone:1414} Kalimdor · {npc:10739} Mulgris Deepriver · {zone:1422} Western Plaguelands · {area:2100} Maraudon · {quest:1123} Rabine Saturna · {item:18501} Felvine Shard · {area:2577} Dire Maul
-	["The {faction:609}'s other quests are spread over {zone:1414} and the Plaguelands. In Classic a quest pays less once it is 6 or more levels below you (a fifth less per level, down to a fifth): at 60, The Wildlife Suffers Too ({npc:10739}, {zone:1422}, levels 54 and 56) would pay 60 and 75 instead of 75 and 75, and Corruption of Earth and Seed ({area:2100}, level 51) 30 instead of 150. Your first turn-in shows which rule Forever uses. Shards of the Felvine ({quest:1123}, level 60, the {item:18501} from Alzzin in {area:2577}) pays 150 and its Reliquary 100 at any level."] = "Les autres quêtes du {faction:609} sont réparties sur {zone:1414} et les Maleterres. Dans Classic, une quête rapporte moins une fois qu'elle est 6 niveaux ou plus sous le vôtre (un cinquième de moins par niveau, jusqu'à un cinquième) : au niveau 60, La faune et la flore souffrent aussi ({npc:10739}, {zone:1422}, niveaux 54 et 56) rapporterait 60 et 75 au lieu de 75 et 75, et Corruption de la terre et de la graine ({area:2100}, niveau 51) 30 au lieu de 150. Votre première remise montre quelle règle Forever applique. Fragment de la Gangrevigne ({quest:1123}, niveau 60, le {item:18501} d'Alzzin dans {area:2577}) rapporte 150 et son Reliquaire 100 à n'importe quel niveau.",
+	["The {faction:609}'s other quests are spread over {zone:1414} and the Plaguelands. Forever pays them in full at any level: The Wildlife Suffers Too ({npc:10739}, {zone:1422}, levels 54 and 56) 75 and 75, Corruption of Earth and Seed ({area:2100}, level 51) 150. Shards of the Felvine ({quest:1123}, level 60, the {item:18501} from Alzzin in {area:2577}) pays 150 and its Reliquary 100 at any level."] = "",
 	-- {zone:1422} Western Plaguelands · {area:2100} Maraudon
 	["Do the {zone:1422} and {area:2100} quests while you level; at 60 they may pay a fraction."] = "Faites les quêtes de {zone:1422} et de {area:2100} pendant que vous montez de niveau ; au niveau 60, elles ne rapportent peut-être qu'une fraction.",
 
@@ -255,7 +261,8 @@ return {
 	-- ["From here on, the {area:3454} raid and the Abyssal Council turn-ins (crests, signets, scepters) carry most of the reputation."] = "À partir d'ici, le raid {area:3454} et les remises du Conseil abyssal (blasons, chevalières, sceptres) apportent l'essentiel de la réputation.",
 	-- ["Keep farming the Twilight camps. Wearing the Twilight Trappings (the Twilight cultist set plus a Medallion of Station, from {npc:15282}'s Medallion of Station quest) lets you summon Abyssal Templars at the Wind Stones; their Abyssal Crests go to {npc:15306}."] = "Continuez à farmer les camps du crépuscule. Porter la tenue du crépuscule (l'ensemble de sectateur du crépuscule plus un Médaillon de statut de sectateur du crépuscule, de la quête Le médaillon de statut de {npc:15282}) permet d'invoquer des Templiers abyssaux aux Pierres des vents ; leurs Blasons abyssaux vont à {npc:15306}.",
 	-- ["Keep running the {area:3454} and turning in Abyssal Council insignia until Exalted."] = "Continuez les {area:3454} et les remises d'insignes du Conseil abyssal jusqu'à Exalté.",
-	-- ["The dwarves' camp in the south of {zone:1451}. Talk {npc:15171} and {npc:15170} through their whole stories for {quest:8304}. {item:20379} lies on the mountain south-east of the camp. {npc:15196} lives up the trail east of the camp: an elite, and his {spell:10101} can throw you off the cliff."] = "Le camp des nains au sud de {zone:1451}. Écoutez {npc:15171} et {npc:15170} raconter toute leur histoire pour {quest:8304}. La {item:20379} se trouve sur la montagne au sud-est du camp. {npc:15196} vit en haut du sentier à l'est du camp : un élite, et son {spell:10101} peut vous projeter du haut de la falaise.",
+	-- ["Now cash in the one-time quests: about 1,700 reputation alone, 2,400 with the group quests. They are level 55 to 60, so they pay in full at 60. {quest:8280} needs {quest:8275} first. {npc:15196} is an elite scorpid with two guards (group of 2 or 3). {npc:15174}'s {quest:8307} is for Cooks: its recipe makes the {item:20452} he wants."] = "Encaissez maintenant les quêtes uniques : environ 1 700 de réputation seul, 2 400 avec les quêtes de groupe. Elles sont de niveau 55 à 60 et rapportent donc tout au niveau 60. {quest:8280} demande d'abord {quest:8275}. {npc:15196} est un scorpide élite avec deux gardes (groupe de 2 ou 3). {quest:8307} de {npc:15174} est pour les cuisiniers : sa recette fait les {item:20452} qu'il demande.",
+	-- ["The {faction:609}'s other quests are spread over {zone:1414} and the Plaguelands. In Classic a quest pays less once it is 6 or more levels below you (a fifth less per level, down to a fifth): at 60, The Wildlife Suffers Too ({npc:10739}, {zone:1422}, levels 54 and 56) would pay 60 and 75 instead of 75 and 75, and Corruption of Earth and Seed ({area:2100}, level 51) 30 instead of 150. Your first turn-in shows which rule Forever uses. Shards of the Felvine ({quest:1123}, level 60, the {item:18501} from Alzzin in {area:2577}) pays 150 and its Reliquary 100 at any level."] = "Les autres quêtes du {faction:609} sont réparties sur {zone:1414} et les Maleterres. Dans Classic, une quête rapporte moins une fois qu'elle est 6 niveaux ou plus sous le vôtre (un cinquième de moins par niveau, jusqu'à un cinquième) : au niveau 60, La faune et la flore souffrent aussi ({npc:10739}, {zone:1422}, niveaux 54 et 56) rapporterait 60 et 75 au lieu de 75 et 75, et Corruption de la terre et de la graine ({area:2100}, niveau 51) 30 au lieu de 150. Votre première remise montre quelle règle Forever applique. Fragment de la Gangrevigne ({quest:1123}, niveau 60, le {item:18501} d'Alzzin dans {area:2577}) rapporte 150 et son Reliquaire 100 à n'importe quel niveau.",
 	-- ["Twilight's Hammer cultists hold the camps in western {zone:1451}. {quest:8320} and Stonecallers mix here; any cultist can drop an {item:20404}. Every cultist kill also counts toward the {faction:609}. The Geolords count for {quest:8320} only if you are 60 and took it."] = "Les sectateurs du Marteau du crépuscule tiennent les camps de l'ouest de {zone:1451}. {quest:8320} et Invocateurs des pierres s'y mêlent ; tout sectateur peut laisser un {item:20404}. Chaque sectateur tué compte aussi pour le {faction:609}. Les Géoseigneurs ne comptent pour {quest:8320} que si vous êtes niveau 60 et avez pris la quête.",
 	-- ["{area:3425} is the walled town in north-central {zone:1451}. Bor and {npc:15270} stand together inside. The {faction:609} starts out Neutral. Forever's Legacy Diplomat perk increases reputation gains."] = "{area:3425} est la ville fortifiée au centre-nord de {zone:1451}. Bor et {npc:15270} se tiennent ensemble à l'intérieur. Le {faction:609} commence à Neutre. L'atout Diplomate de l'Héritage de Forever augmente les gains de réputation.",
 	-- ["{faction:609} to Exalted"] = "{faction:609} jusqu'à Exalté",

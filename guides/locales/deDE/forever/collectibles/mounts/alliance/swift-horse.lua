@@ -13,15 +13,15 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "Geselle: {skill:762}",
 	-- {npc:4732} Randal Hunter · {npc:384} Katie Hunter · {area:88} Eastvale Logging Camp · {zone:1429} Elwynn Forest · {skill:762} Riding · {faction:72} Stormwind
-	["{npc:4732} and {npc:384}'s horse pen are at {area:88} in eastern {zone:1429}. At 60 {npc:4732} teaches Journeyman {skill:762} to Humans for 1,000g (10% less at Honored with {faction:72}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift horse costs 200g here."] = "",
+	["{npc:4732} and {npc:384}'s horse pen are at {area:88} in eastern {zone:1429}. At 60 {npc:4732} teaches Journeyman {skill:762} to Humans for 1,000g (10% less at Honored with {faction:72}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift horse costs 200g here."] = "{npc:4732} und das Pferdegehege von {npc:384} liegen bei {area:88} im Osten von {zone:1429}. Auf Stufe 60 lehrt {npc:4732} Menschen {skill:762} (Geselle) für 1.000g (10% weniger bei Wohlwollend mit {faction:72}); laut Blizzard gehört ein Reittier dazu. Andere Rassen lernen es beim Reitlehrer ihrer eigenen Rasse. Jedes schnelle Pferd kostet hier 200g.",
 	-- {npc:4732} Randal Hunter
 	["{npc:4732}, riding trainer"] = "{npc:4732}, Reitlehrer",
 
 	-- Step 2: Horse Riding for other races
 	-- {spell:824} Horse Riding
-	["{spell:824} for other races"] = "",
+	["{spell:824} for other races"] = "{spell:824} für andere Rassen",
 	-- {spell:824} Horse Riding · {skill:762} Riding · {npc:4732} Randal Hunter · {faction:72} Stormwind
-	["Any Alliance race can buy these horses, but riding one also takes {spell:824}, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "",
+	["Any Alliance race can buy these horses, but riding one also takes {spell:824}, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "Jede Allianzrasse kann diese Pferde kaufen, aber um eines zu reiten, braucht man auch {spell:824}, das nur Menschen mit {skill:762} bekommen. {npc:4732} lehrt es andere Rassen, sobald sie bei {faction:72} Ehrfürchtig sind (der Ruf-Guide für Stormwind zeigt den Weg). Bis dahin kaufe für diesen Charakter kein Pferd.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Wähle eine Farbe",

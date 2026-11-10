@@ -64,7 +64,7 @@ return {
 	-- Step 11: Moonglade
 	["1 area to discover here, level 15."] = "이곳에서 발견할 지역 1곳, 레벨 15.",
 	-- {area:1769} Timbermaw Hold · {zone:1448} Felwood · {zone:1450} Moonglade · {spell:18960} Teleport: Moonglade · {area:2361} Nighthaven
-	["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: {spell:18960}). {area:2361} is neutral."] = "",
+	["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: {spell:18960}). {area:2361} is neutral."] = "{zone:1448} 북부의 {area:1769} 굴을 지나 {zone:1450}(으)로 가세요(드루이드: {spell:18960}). {area:2361}은(는) 중립 지역입니다.",
 	-- {zone:1450} Moonglade
 	["Flight path here: {zone:1450} (Sindrayl)."] = "이곳의 비행 경로: {zone:1450}(신드라일).",
 	-- {zone:1450} Moonglade
@@ -87,6 +87,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["9 areas to discover here."] = "이곳에서 발견할 지역 9곳.",
-	-- ["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: {spell:18960}). {area:2361} is neutral."] = "{zone:1448} 북부의 {area:1769} 굴을 지나 {zone:1450}(으)로 가세요(드루이드: {spell:18960}). {area:2361}은(는) 중립 지역입니다.",
 	-- ["{zone:1451} is west of {zone:1449}. {area:3425} is neutral."] = "{zone:1451}은(는) {zone:1449} 서쪽에 있습니다. {area:3425}은(는) 중립입니다.",
 }

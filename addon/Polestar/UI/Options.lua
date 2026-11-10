@@ -207,14 +207,56 @@ local BUILTIN = {
 			child = true, disabled = function() return not ns.Get("ui.showNotes") end },
 		{ kind = "slider", key = "ui.upcoming", label = L["Upcoming steps"], min = 0, max = 6, step = 1, format = "%d", help = L["How many steps the Up next list holds; 0 turns it off."] },
 		{ kind = "toggle", key = "ui.upcomingOpen", label = L["Expand Up next"], help = L["Start with the upcoming steps listed instead of collapsed."] },
+		{ kind = "toggle", key = "ui.newInForever", label = L["Mark quests new in Forever"],
+			help = L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."],
+			search = "new in forever, infinity, new quest, forever quest, mark, badge" },
+	} },
+	-- Core/Engine.lua, Dynamic Questing (Own.hereBuild): quick objectives of later steps close by, in the guide
+	-- window's "While you're here" panel. The setting keys keep their behavior.whileHere* names.
+	{ page = GUIDE, tab = L["Window"], section = L["Dynamic Questing"], controls = {
+		{ kind = "toggle", key = "behavior.whileHere", label = L["Dynamic Questing"],
+			help = L["Suggests objectives from later steps when you are near them, from your quest log and what is around you. They show under the step in a \"While you're here\" panel: click one to point the arrow there; right-click to dismiss it around here (dismissed twice, it stays away for the zone)."],
+			search = "while you're here, nearby objective, grab it now, on the way, later step, opportunistic, detour" },
+		{ kind = "slider", key = "behavior.whileHereRadius", label = L["How close"], min = 60, max = 400, step = 10,
+			format = function(v) return ns.FormatDistance(v) end,
+			help = L["How near its spawn area must be for a suggestion to show. It goes again a little further out."],
+			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
+		{ kind = "toggle", key = "behavior.whileHereTurnins", label = L["Include nearby hand-ins"],
+			help = L["Also a quest ready to hand in whose NPC is a little out of your way, when the guide hands it in later."],
+			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
+		{ kind = "slider", key = "behavior.whileHereTurninSeconds", label = L["Hand-ins: how far out of your way"], min = 0, max = 60, step = 5,
+			format = function(v) return L["%d s"]:format(v) end,
+			help = L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."],
+			search = "hand in, turn in, detour, out of the way, seconds, nearby hand-ins",
+			child = true, disabled = function() return not (ns.Get("behavior.whileHere") and ns.Get("behavior.whileHereTurnins")) end },
+		{ kind = "toggle", key = "behavior.whileHereSound", label = L["Sound for a new suggestion"],
+			help = L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."],
+			search = "chime, sound, audio, ding, alert",
+			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
+		{ kind = "toggle", key = "behavior.whileHereStepKey", label = L["Step key targets their mobs"],
+			help = L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."],
+			search = "step key, target, targetexact, keybind, binding",
+			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
 	} },
 	{ page = GUIDE, tab = L["Window"], section = L["Combat"], controls = {
 		{ kind = "dropdown", key = "ui.combat", label = L["In combat"], help = L["What the window does while you fight."], search = "hide in combat, fade in combat, fighting",
 			choices = { { value = "show", label = L["Keep visible"] }, { value = "fade", label = L["Fade out"] }, { value = "hide", label = L["Hide"] } } },
 	} },
-	{ page = GUIDE, tab = L["Window"], section = L["Dungeons"], controls = {
-		{ kind = "dropdown", key = "ui.instance", label = L["In dungeons"], help = L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."],
+	{ page = GUIDE, tab = L["Window"], section = L["Dungeons and battlegrounds"], controls = {
+		{ kind = "dropdown", key = "ui.instance", label = L["In dungeons and battlegrounds"],
+			help = L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. The minimap button, the key binding or /polestar opens it there until you leave."],
+			search = "dungeon, raid, battleground, arena, instance, hide, pvp, healer",
 			choices = { { value = "show", label = L["Keep visible"] }, { value = "hide", label = L["Hide"] } } },
+	} },
+	-- Ways to show and hide the window without typing: UI/Launcher.lua's floating button, and the minimap
+	-- button (Maps/MinimapButton.lua; also on Map and Quality of Life), next to the rules above.
+	{ page = GUIDE, tab = L["Window"], section = L["Show and hide"], controls = {
+		{ kind = "toggle", key = "ui.launcher", label = L["Floating button"],
+			help = L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."],
+			search = "launcher, floating icon, floating button, show, hide, toggle, open polestar, quick" },
+		{ kind = "toggle", key = "maps.minimapButton", label = L["Minimap button"],
+			help = L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."],
+			search = "minimap icon, minimap button, hide button, launcher" },
 	} },
 	{ page = GUIDE, tab = L["Window"], section = L["Position"], controls = {
 		{ kind = "toggle", key = "ui.locked", label = L["Lock window"], help = L["Prevents moving and resizing."], search = "lock, move, drag, resize, unlock" },
@@ -246,16 +288,22 @@ local BUILTIN = {
 			child = true, disabled = function() return not ns.Get("nav.travel") end }),
 		H({ kind = "toggle", key = "nav.navRouting", label = L["Walk real paths"], help = L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."],
 			search = "pathfinding, pathing, router, walking, avoid cliffs, mountains, fps, frame rate, performance, lag, stutter, cpu, slow" }),
-		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap: dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
+		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
 			search = "path line, route on map, sparkles, dots",
 			gear = { tip = L["Line style"], onClick = function() if UI.ShowLineStyle then UI.ShowLineStyle() end end } }),
+		H({ kind = "dropdown", key = "nav.lineStyle", label = L["Line style"],
+			help = L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."],
+			search = "route style, solid line, path line, dots, sparkles, breadcrumbs",
+			choices = ns.RouteLines and ns.RouteLines.STYLE_CHOICES or {},
+			needs = function() return ns.RouteLines end,
+			child = true, disabled = function() return not ns.Get("nav.routeLines") end }),
 		{ kind = "toggle", key = "nav.shareTransit", label = L["Share boat times"], help = L["Riding a boat, zeppelin, tram or lift times it; your guild and group get those times and you get theirs, so the arrow can say when the next one leaves."],
 			search = "boat, zeppelin, tram, ship, transport, schedule" },
 	} },
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Other waypoints"], controls = {
 		H({ kind = "toggle", key = "nav.blizzardWaypoint", label = L["Blizzard waypoint"], help = L["Also set the game's own map pin and tracking."], search = "map pin, waypoint, user waypoint, supertrack" }),
 		H({ kind = "toggle", key = "nav.tomtom", label = L["Mirror to TomTom"], help = L["Adds the target as a TomTom waypoint when TomTom is loaded."], search = "waypoints, tomtom" }),
-		H({ kind = "toggle", key = "nav.useTomTomArrow", label = L["Use TomTom's arrow"], help = L["Hides Polestar's arrow in favour of TomTom's."],
+		H({ kind = "toggle", key = "nav.useTomTomArrow", label = L["Use TomTom's arrow"], help = L["Hides Polestar's arrow in favour of TomTom's, except on the way to another continent, where TomTom's arrow cannot point."],
 			child = true, disabled = function() return not ns.Get("nav.tomtom") end }),
 	} },
 	{ page = GUIDE, tab = L["Automation"], section = L["Quests"], controls = {
@@ -271,6 +319,12 @@ local BUILTIN = {
 			help = L["Elite and escort quests the guides mark for a group. Ask at each, or answer them all: with a group (a party levelling together) or skip them (solo). Discovery, Group quests changes one."],
 			choices = { { value = "ask", label = L["Ask me at each"] }, { value = "do", label = L["Do them with a group"] }, { value = "skip", label = L["Skip them"] } },
 			needs = function() local E = ns.Engine; return E and E.GroupQuests and #E.GroupQuests() > 0 end },
+		-- A quest the route had passed that leaves the log (Engine Own.holdLost,
+		-- #1365): the guide window asks, or the answer is always the same.
+		{ kind = "dropdown", key = "behavior.lostQuests", label = L["When you abandon a guide quest"],
+			help = L["Ask me: the guide stays on its step, leads you back to the quest giver, and the guide window asks. Or always go back for the quest, or always skip it and the quests that follow from it; chat says which."],
+			choices = { { value = "ask", label = L["Ask me"] }, { value = "back", label = L["Always go back for it"] }, { value = "skip", label = L["Always skip it"] } },
+			search = "abandon, abandoned quest, dropped quest, failed quest, quest log, go back, skip" },
 	} },
 	{ page = GUIDE, tab = L["Automation"], section = L["Guides"], controls = {
 		{ kind = "toggle", key = "behavior.autoSelectGuide", label = L["Pick a guide for me"], help = L["Opens the suggested guide when no tab is open."], search = "auto guide, choose guide, suggested guide" },
@@ -376,6 +430,13 @@ local BUILTIN = {
 	{ page = LOOK, tab = L["Windows"], section = L["Guide window"], controls = {
 		{ kind = "dropdown", key = "ui.style", label = L["Style"], help = L["Transparent drops every background and border; text is outlined and the controls appear when you hover the window."],
 			choices = { { value = "standard", label = L["Standard"] }, { value = "transparent", label = L["Transparent"] } } },
+		{ kind = "dropdown", key = "ui.backing", label = L["Backing"], child = true, disabled = function() return ns.Get("ui.style") ~= "transparent" end,
+			help = L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."],
+			search = "transparent, background, shade, dark, readable, contrast",
+			choices = { { value = "soft", label = L["Soft"] }, { value = "dark", label = L["Dark"] }, { value = "none", label = L["Off"] } } },
+		{ kind = "toggle", key = "ui.barShown", label = L["Keep the bar shown"], child = true, disabled = function() return ns.Get("ui.style") ~= "transparent" end,
+			help = L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."],
+			search = "transparent, bar, header, readable, always, show" },
 		{ kind = "slider", key = "ui.scale", label = L["Window scale"], min = 0.6, max = 1.6, step = 0.05, format = percent, search = "size, bigger, smaller, zoom" },
 		{ kind = "slider", key = "ui.width", label = L["Width"], min = 260, max = 560, step = 10, format = "%d", search = "wide, wider, size" },
 		{ kind = "slider", key = "ui.opacity", label = L["Window opacity"], min = 0.3, max = 1, step = 0.05, format = percent, search = "transparency, alpha, see through",
@@ -384,6 +445,9 @@ local BUILTIN = {
 	{ page = LOOK, tab = L["Windows"], section = L["Menus"], controls = {
 		{ kind = "slider", key = "ui.menuScale", label = L["Menu scale"], min = 0.7, max = 1.4, step = 0.05, format = percent, release = true,
 			help = L["The guide menu and this window; applies when you let go. Right-click to reset."] },
+		{ kind = "toggle", key = "ui.gameMenuButton", label = L["Button in the game menu"],
+			help = L["A Polestar button in the game menu (Esc) that opens the guide menu."],
+			search = "game menu, escape, esc, main menu, button, open polestar" },
 	} },
 	{ page = LOOK, tab = L["Arrow"], section = L["Arrow"], controls = {
 		H({ kind = "dropdown", key = "nav.arrowStyle", label = L["Arrow style"], choices = { { value = "skin", label = L["The skin's arrow"] }, { value = "3d", label = L["3D"] }, { value = "flat", label = L["Flat"] },
@@ -418,6 +482,10 @@ local BUILTIN = {
 		{ kind = "toggle", key = "nav.worldPins", label = L["Guide pins on the world map"], search = "map pins, icons, markers, waypoint, world map",
 			help = L["The arrow's target, the stops of its travel route, the step's other goals, the areas their mobs and objects spawn in, and the route lines."] },
 		{ kind = "toggle", key = "nav.minimapPins", label = L["Guide pin on the minimap"], help = L["The arrow's target, the areas it spawns in, and the route line."], search = "map pins, icons, markers, waypoint, minimap" },
+		H({ kind = "toggle", key = "nav.minimapRoute", label = L["Route line on the minimap"],
+			help = L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map. Its colour, opacity and size: the gear beside Guide > Arrow & routes > Route lines."],
+			search = "route line, path, dots, minimap, herbs, gathering, mining, clutter",
+			disabled = function() return not ns.Get("nav.minimapPins") end }),
 		{ kind = "toggle", key = "nav.upcomingPins", label = L["Numbered pins for the steps ahead"],
 			help = L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] },
 		H({ kind = "toggle", key = "nav.trailDots", label = L["Trail dots along the travel route"],
@@ -477,6 +545,12 @@ add({ page = L["Integrations"], section = "EllesmereUI", controls = {
 	{ kind = "toggle", key = "ui.matchFont", label = L["Match EllesmereUI font"],
 		help = L["Follow EllesmereUI's font, live. Choosing another font turns this off."],
 		needs = function() return Theme.IsEllesmere() end },
+} }, true)
+add({ page = L["Integrations"], section = "Spoken", controls = {
+	{ kind = "toggle", key = "behavior.spokenDelay", label = L["Wait for Spoken"],
+		help = L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."],
+		search = "voice, narration, read aloud, dialogue, delay",
+		needs = function() return ns.Compat.AddOnPresent("Spoken_Quests") end },
 } }, true)
 
 ---------------------------------------------------------------------------
@@ -683,6 +757,8 @@ local function buildAbout(view)
 		.. hex .. "/polestar help|r   " .. L["every command"])
 	local welcome = W.Button(view, L["Show the welcome again"], function() ns.Fire("SHOW_WELCOME") end)
 	view.Welcome = welcome
+	local whatsNew = W.Button(view, L["What's new"], function() ns.Fire("SHOW_WHATSNEW") end)
+	view.WhatsNew = whatsNew
 	local credH, credText = block(L["Credits"], L["Inter typeface by The Inter Project Authors, SIL Open Font License 1.1."] .. "\n"
 		.. L["Wordmark set in Cinzel by The Cinzel Project Authors, SIL Open Font License 1.1."] .. "\n"
 		.. L["Quest and map data includes pfQuest by shagu (MIT License)."] .. "\n"
@@ -745,11 +821,14 @@ local function buildAbout(view)
 			pair[2]:ClearAllPoints()
 			pair[2]:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 			y = y + pair[2]:GetStringHeight() + 8
-			-- The welcome again, under the commands that it introduces.
+			-- The welcome and what's new again, under the commands that
+			-- they introduce.
 			if pair[1] == cmdH then
 				y = y + 4
 				welcome:ClearAllPoints()
 				welcome:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
+				whatsNew:ClearAllPoints()
+				whatsNew:SetPoint("LEFT", welcome, "RIGHT", 8, 0)
 				y = y + welcome:GetHeight() + 12
 			end
 		end
@@ -764,7 +843,7 @@ end
 
 add({ page = L["Community guides"], key = "guidepacks", icon = "layers", order = 70, subtitle = L["Guides made by other players: switch them on or off, and choose where suggestions come from."],
 	custom = UI.Packs.Build, dot = UI.Packs.HasProblems }, true)
-add({ page = L["Guiding Stars"], key = "thanks", icon = "star", order = 80, subtitle = L["Celebrating the supporters and contributors behind Polestar."],
+add({ page = L["Guiding Stars"], key = "thanks", icon = "star", order = 80, subtitle = L["Celebrating the supporters, contributors and bug reporters behind Polestar."],
 	custom = UI.Thanks.Build }, true)
 add({ page = REC, key = "recorder", icon = "record", order = 90, subtitle = L["The data recorder for guide authors."], custom = buildRecorder }, true)
 add({ page = ABOUT, key = "about", icon = "info", order = 100, subtitle = L["Why Polestar exists, its commands and its credits."], custom = buildAbout }, true)

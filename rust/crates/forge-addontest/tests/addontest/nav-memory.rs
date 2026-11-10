@@ -33,7 +33,20 @@ use forge_addontest::{emitted, Addon, RunAddon};
 /// (the clusters of the earlier walks still held) is 42,952 / 29,201 and "rest" (just after the searches) 32,813 /
 /// 29,023; "idle" (after the minute's rest) is the old at-rest figure, 19,848 / 22,479. Live rose 3,500 KiB to
 /// 43,500 and rest 11,000 to 33,500; idle holds the old 22,500.
-const BUDGET: [(&str, f64); 6] = [("loadResident", 22500.0), ("loadPeak", 25100.0), ("live", 43500.0), ("allocated", 92000.0), ("rest", 33500.0), ("idle", 22500.0)];
+/// 0.3.5 (2026-11-07, the long-walk memory fixes; NEEDS FITZ'S OK for the rise): a finished search's scratch (the
+/// abstract A*'s tables, the heap, the grid trees) is the next search's and stays Path.spareSeconds (15 s) after the
+/// queue empties, so a walk asked again fills the same tables instead of growing new ones (a long walk off the drawn
+/// line: 0.91-1.19 MB/s of garbage down to 0.22-0.30). Eastern Kingdoms: allocated 91,361 -> 65,692 (budget lowered
+/// 92,000 -> 66,000); "live" 42,952 -> 57,165 and "rest" 32,813 -> 52,486 (the batch's and the walks' scratch held
+/// until spareSeconds); idle unchanged 19,848. Kalimdor unchanged. Live rose 14,000 KiB to 57,500 and rest 19,500 to
+/// 53,000.
+const BUDGET: [(&str, f64); 6] = [("loadResident", 22500.0), ("loadPeak", 25100.0), ("live", 57500.0), ("allocated", 66000.0), ("rest", 53000.0), ("idle", 22500.0)];
+/// Milliseconds the searches' clock (Path.clock) moves at each read. The searches slice under Path.budget (3 ms) as
+/// in the client, but on this clock rather than the machine's CPU time, which made about 600 KiB of "allocated" (each
+/// slice's garbage) depend on the machine: a slower CI runner read 66,091 KiB where the same searches give 65,654 on
+/// Fitz's machine. 0.2 ms a read reproduces his machine's slicing (1,386 slices on Eastern Kingdoms against 1,375-1,388
+/// on the CPU clock; allocated 65,659 KiB), every run, everywhere (0.3.5, 2026-11-07).
+const CLOCK_STEP: f64 = 0.2;
 
 const WALKS: [(u32, [f64; 3], [f64; 3]); 5] = [
 	(0, [-8911.708, -130.583, 81.024], [-8680.25, -113.229, 91.141]),
@@ -83,6 +96,12 @@ for _, name in ipairs({ "DecodeBase64", "DecompressString" }) do
 	end
 end
 function FULL() collectgarbage("collect") collectgarbage("collect") return collectgarbage("count") end
+-- Lua's string table doubles its bucket array when the strings interned pass a power of two: a one-off 64 KiB (or
+-- more) that lands inside "allocated" or outside it depending on how many strings were interned before, so ten more
+-- names anywhere in the loaded code flip allocated between 65,055 and 65,119 KiB with no search allocating more
+-- (Eastern Kingdoms, a fixed clock). Grown once here, before BASE, it never doubles mid-figure.
+PRESIZED = {}
+for i = 1, 131072 do PRESIZED[i] = "presize " .. i end
 BASE = FULL()
 EXCLUDED = 0
 collectgarbage("stop")"#;
@@ -106,9 +125,12 @@ local loadPeak = collectgarbage("count") - BASE - EXCLUDED
 collectgarbage("restart")
 local loadResident = FULL() - BASE
 local Path = Polestar_NavEngine
-local frames = {{}}
-Path.after = function(fn) frames[#frames + 1] = fn end
-Path.clock = function() return os.clock() * 1000 end
+local frames, slices = {{}}, 0
+Path.after = function(fn) slices = slices + 1 frames[#frames + 1] = fn end
+-- The searches run sliced under Path.budget as in the client, on a clock that moves CLOCK_STEP ms at every read
+-- instead of the machine's CPU time: each slice's garbage counts, and the same slices every run on every machine.
+local now = 0
+Path.clock = function() now = now + {CLOCK_STEP} return now end
 EXCLUDED = 0
 collectgarbage("stop")
 local allocated, live, last, answers = 0, 0, collectgarbage("count"), 0
@@ -130,7 +152,7 @@ allocated = allocated + collectgarbage("count") - last - EXCLUDED
 collectgarbage("restart")
 local rest = FULL() - BASE
 stub.advance(Path.restSeconds + 1)
-emit({{ loadResident = loadResident, loadPeak = loadPeak, live = live, allocated = allocated, rest = rest, idle = FULL() - BASE, answers = answers }})"#,
+emit({{ loadResident = loadResident, loadPeak = loadPeak, live = live, allocated = allocated, rest = rest, idle = FULL() - BASE, answers = answers, slices = slices }})"#,
 		walks = walks.join(", "),
 	)
 }
@@ -148,6 +170,8 @@ fn t_693_polestar_nav_stays_within_its_memory_budget_loading_the_maps_searching_
 		let got = emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], before: BEFORE.into(), addons: vec![Addon::name("Polestar_Nav")], script: script(map), ..Default::default() }).remove(0);
 		let want = WALKS.iter().filter(|w| w.0 == map).count() + usize::from(map == 0);
 		assert_eq!(got["answers"], want as i64, "map {map}: every walk and the batch answered: {got}");
+		let slices = got["slices"].as_f64().unwrap_or(0.0);
+		assert!(slices > 4.0 * want as f64, "map {map}: the searches ran sliced ({slices} slices for {want})");
 		let kib: Vec<(String, f64)> = BUDGET.iter().map(|(k, _)| (k.to_string(), got[*k].as_f64().unwrap().round())).collect();
 		eprintln!("nav memory, map {map} (KiB): {kib:?}");
 		for ((k, budget), (_, v)) in BUDGET.iter().zip(&kib) {

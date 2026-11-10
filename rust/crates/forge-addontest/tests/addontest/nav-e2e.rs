@@ -636,6 +636,9 @@ fn c_walking_the_path_point_by_point_moves_the_aim_forward_along_it_never_asks_t
 	assert_eq!(out["final"], "arrived");
 }
 
+// A stray with nothing ahead on the path in sight (Path.Sight answering false everywhere: walls, a cliff): more than
+// 25 yd off asks again. In open ground with a point ahead in sight, up to 100 yd off asks nothing (Nav/Follow.lua's
+// sight, #1107; nav-spf a8-a13).
 #[test]
 fn d_30_yards_off_the_path_asks_once_after_the_2_s_throttle_keeping_the_old_path_meanwhile_the_arrow_follows_the_new_path() {
 	skip_unless_ready!();
@@ -644,6 +647,7 @@ fn d_30_yards_off_the_path_asks_once_after_the_2_s_throttle_keeping_the_old_path
 		local r = {}
 		place(1429, GOLDSHIRE[1], GOLDSHIRE[2], GOLDSHIRE[3])
 		local f = guide()
+		E.Sight = function() return false end -- nothing in sight
 		local a, b = f.points[1], f.points[2]
 		-- Up to 40 yd along the first segment (at most half of it), then 35 yd off it, square to it, on the side
 		-- farther from the rest of the path.
@@ -782,6 +786,36 @@ fn z1_a_guide_goal_at_andron_gant_is_walked_to_his_floor_with_his_height_without
 	assert!(out["withoutZ"]["z"].is_null(), "the same point set by hand has no height");
 	assert_eq!(out["withoutZ"]["asked"], 2);
 	assert!((f(&out["withoutZ"]["endZ"]) - end_z).abs() <= 4.0, "and ends on his floor as well, by the lift ({})", out["withoutZ"]["endZ"]);
+}
+
+// #1024 (Pilk): Apothecary Zamah stands in the Pools of Vision, under Spirit Rise in Thunder Bluff (her spawn
+// height 112; the shaman trainers' hut right above her at 138). On the shipped maps her point has four surfaces:
+// Spirit Rise (138, outdoors), the Pools of Vision (112 and 126, indoors) and a roof (158). Walked to from the
+// flight master with her height the path ends in the Pools; without it (the pick-up guide's goals had none) it
+// ends up on Spirit Rise, out of the cave.
+#[test]
+fn z1_a_walk_to_apothecary_zamah_with_her_height_ends_in_the_pools_of_vision_without_it_on_spirit_rise_above_1024() {
+	skip_unless_ready!();
+	let script = r#"
+local Path = Polestar_NavEngine
+local ZAMAH = { -995.4, 278.6, 112 } -- her CMaNGOS spawn (the Forever server's agrees)
+local FLIGHT = { -1196.8, 29.1 }     -- Thunder Bluff's flight master, on the mesa
+local s, a, n = {}, {}, nil
+for _ = 1, 50 do n = Path.SurfacesAt(1, ZAMAH[1], ZAMAH[2], s, a); if n then break end; stub.advance(0.1) end
+local surfaces = {}
+for i = 1, n or 0 do surfaces[i] = { z = s[i], area = Path.AreaName(1, a[i]) or false } end
+local function lastZ(z)
+	local pts = Path.FindSync(1, { x = FLIGHT[1], y = FLIGHT[2] }, { x = ZAMAH[1], y = ZAMAH[2], z = z })
+	return pts and #pts >= 3 and pts[#pts - 1].z or false
+end
+emit({ surfaces = surfaces, withZ = lastZ(ZAMAH[3]), withoutZ = lastZ(nil) })"#;
+	let out = emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], addons: vec![Addon::name("Polestar_Nav")], script: script.into(), ..Default::default() }).remove(0);
+	eprintln!("{out}");
+	let pools: Vec<f64> = out["surfaces"].as_array().unwrap().iter().filter(|s| s["area"] == "The Pools of Vision").map(|s| f(&s["z"])).collect();
+	assert!(pools.iter().any(|z| (z - 112.0).abs() <= 4.0), "her point has the Pools of Vision's floor at her height: {}", out["surfaces"]);
+	let (with_z, without_z) = (f(&out["withZ"]), f(&out["withoutZ"]));
+	assert!((with_z - 112.0).abs() <= 8.0, "with her height the walk ends in the Pools of Vision ({with_z})");
+	assert!(without_z > 130.0, "without it, on Spirit Rise above her ({without_z})");
 }
 
 #[test]
@@ -1894,6 +1928,64 @@ fn lifts_the_walk_on_from_thunder_bluffs_lift_crossing_is_the_engines_drawn_alon
 	assert_eq!(out["after"]["current"], true, "off the lift, the walk to the target is the arrow's");
 	assert!(f(&out["after"]["n"]) > 2.0, "drawn along its path ({} points)", out["after"]["n"]);
 	assert_eq!(out["aim"]["measured"], true, "and the arrow follows the path, not a straight line");
+}
+
+// #1053 (troders, beside Arch Druid Hamuul Runetotem in his hut on Elder Rise: the arrow 358 yd, the journey 720 yd,
+// back over the bridge and round again) and #1023 (Pilk, beside Nara Wildmane): the turn-in came up in the Barrens, so
+// the player's walk to Hamuul was measured from there (thousands of yards, through Mulgore and up a lift), and within
+// 400 yd of a target nothing is measured again. That far measure less the yards moved stood for the player's walk in
+// Thunder Bluff, dearer than a walk to the north lift's top and the measured walk in from there; at the lift top the
+// walk went back to the hut, and at the hut back to the lift top. Within 400 yd the player's walk is straight.
+#[test]
+fn a_turn_in_set_in_the_barrens_walked_to_from_thunder_bluffs_flight_master_arrives_beside_hamuul_runetotem_never_back_to_the_lift_1053() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Horde"
+		w.setLevel(17)
+		local HAMUUL = { -1049.0, -303.7 } -- 1456 78.6,28.6
+		local function route()
+			local legs, ci = N.GetRoute()
+			local list = {}
+			for i = ci or 1, #(legs or {}) do list[#list + 1] = legs[i].kind .. "|" .. legs[i].label end
+			return list
+		end
+		-- At Tonga Runetotem in the Barrens (the step's accept): the turn-in comes up and is measured from there.
+		local _, bx, by = C.MapToWorld(1413, 52.3, 31.9, "e")
+		place(1413, bx, by, 0)
+		for _ = 1, 40 do stub.advance(0.05); aim() end
+		Polestar.Fire("WAYPOINT_CHANGED", { map = 1456, x = 78.6, y = 28.6, f = "e", label = "Hamuul Runetotem", kind = "turnin", r = 5 })
+		for _ = 1, 600 do aim(); stub.advance(0.05) end
+		local r = { measured = N.walk.Measured(1, HAMUUL[1], HAMUUL[2], false) ~= nil }
+		-- Flown to Thunder Bluff, 365 yd from him.
+		place(1456, -1197.2, 29.7, 0)
+		for _ = 1, 100 do aim(); stub.advance(0.05) end
+		r.landed = route()
+		-- Along the arrow's path into the hut (indoors there), then at the report's spot (78.28,28.52) beside him.
+		local f = finds[#finds]
+		local _, x0, y0 = C.GetPlayerWorldPosition()
+		for _, p in ipairs(f and f.points or {}) do
+			local k = math.max(1, math.ceil(dist(x0, y0, p.x, p.y) / 2))
+			for i = 1, k do
+				local x, y = x0 + (p.x - x0) * i / k, y0 + (p.y - y0) * i / k
+				w.indoors = dist(x, y, HAMUUL[1], HAMUUL[2]) < 12
+				place(1456, x, y, 0)
+				stub.advance(0.3)
+				aim()
+			end
+			x0, y0 = p.x, p.y
+		end
+		w.indoors = true
+		place(1456, -1048.45, -300.38, 0)
+		for _ = 1, 200 do aim(); stub.advance(0.05) end
+		r.beside = { state = aim().state, route = route() }
+		emit(r)"#,
+		true,
+	);
+	assert_eq!(out["measured"], true, "the walk to Hamuul was measured from the Barrens");
+	assert_eq!(out["landed"], serde_json::json!(["walk|Hamuul Runetotem"]), "from the flight master, the walk to him: not by the north lift's top");
+	assert_eq!(out["beside"]["state"], "arrived", "beside him in his hut, arrived");
+	assert_eq!(out["beside"]["route"], serde_json::json!(["walk|Hamuul Runetotem"]), "with nothing to walk back to");
 }
 
 // Ironforge's gate (Fitz, 2026-10-23, a Tauren after a /reload at the gate): the client says outdoors in the gate's

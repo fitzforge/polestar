@@ -8,9 +8,10 @@
 return {
 	-- Guide
 	-- {spell:118} Polymorph
-	["A new look for {spell:118}: it turns the target into a pig rather than a sheep."] = "",
+	["A new look for {spell:118}: it turns the target into a pig rather than a sheep."] = "{spell:118}的新外觀：把目標變成豬而不是綿羊。",
 
-	-- Step 1: Sanath Lim-yo
+	-- Step 1: Xylem's tower
+	["Xylem's tower"] = "",
 	-- {area:3137} Talrendis Point · {area:1237} Valormok · {npc:8395} Sanath Lim-yo · {npc:8379} Archmage Xylem · {zone:1447} Azshara · {area:1221} Ruins of Eldarath
 	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below {npc:8379}'s tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Dismount, and he teleports you up; a trail climbs to the Archmage at the top of the tower."] = "",
 
@@ -33,12 +34,10 @@ return {
 	-- {npc:8395} Sanath Lim-yo
 	["Back to {npc:8395} and up to the tower."] = "回到{npc:8395}處，然後上塔。",
 	-- {npc:8379} Archmage Xylem · {spell:118} Polymorph
-	["{npc:8379}: {spell:118} (pig)"] = "",
+	["{npc:8379}: {spell:118} (pig)"] = "{npc:8379}：{spell:118}（豬）",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["A new look for {spell:118}: it turns the target into a pig rather than a sheep."] = "{spell:118}的新外觀：把目標變成豬而不是綿羊。",
 	-- ["Carry the {item:23250} back to the {area:1221}. Polymorph a Spitelash naga and wait a few seconds: it splits into small Polymorph Clones. Kill the clones quickly; the shell collects their essence."] = "把{item:23250}帶回{area:1221}。對一隻惡鞭納迦施放變形術並等幾秒：牠會分裂成小型的變形複製。迅速擊殺這些複製體；貝殼會收集它們的精華。",
 	-- ["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below {npc:8379}'s tower: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. He teleports you up to the Archmage."] = "飛往{area:3137}（聯盟）或{area:1237}（部落）。{npc:8395}在{npc:8379}的塔下紮營：從{area:1221}處{zone:1447}主要道路的岔路口，直直往北走到懸崖。他會把你傳送到大法師那裡。",
 	-- ["Krellian hides behind his Spitelash guards in the {area:1223}, the biggest building in the middle of the {area:1221}. He drops the {item:23250}."] = "克雷利安躲在{area:1221}中央最大的建築{area:1223}裡，在他的惡鞭守衛後方。他會掉落{item:23250}。",
-	-- ["{npc:8379}: {spell:118} (pig)"] = "{npc:8379}：{spell:118}（豬）",
 }

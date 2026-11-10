@@ -73,6 +73,7 @@ fn inputs(rows: &Value) -> Result<Inputs, String> {
 		professions: V::obj(),
 		trainers: V::obj(),
 		instances: V::Null,
+		spawnz: V::Null,
 		dungeons: V::Null,
 	};
 	Ok(Inputs {
@@ -81,6 +82,7 @@ fn inputs(rows: &Value) -> Result<Inputs, String> {
 		rarescanner: None,
 		local_extras: false,
 		recorded: V::obj(),
+		learned: Default::default(),
 		client: None,
 		web: None,
 		curated: Vec::new(),

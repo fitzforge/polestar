@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Ravenholdt reputation and experience at 50; Classic's item choice may be gone on Forever."] = "",
+	["Ravenholdt reputation and experience at 50; Classic's item choice may be gone on Forever."] = "Репутация у Черного Ворона и опыт на 50-м уровне; в Forever выбора предмета из Classic может не быть.",
 	["Ravenholdt reputation"] = "Репутация у Черного Ворона",
 
 	-- Step 1: A Simple Request (Alliance)

@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["A one-use stone that makes you much stronger against undead for 10 minutes; the old item choice may be gone in Forever."] = "",
+	["A one-use stone that makes you much stronger against undead for 10 minutes; the old item choice may be gone in Forever."] = "Одноразовый камень, который на 10 минут делает вас намного сильнее против нежити; прежнего выбора предметов в Forever может уже не быть.",
 
 	-- Step 1: Lord Grayson Shadowbreaker
 	-- {npc:928} Lord Grayson Shadowbreaker · {area:3197} Chillwind Camp · {zone:1422} Western Plaguelands · {npc:5149} Brandur Ironhammer · {zone:1455} Ironforge
@@ -22,12 +22,12 @@ return {
 	["{area:3197} is the Alliance camp at the south end of the {zone:1422}, north of the Alterac foothills. {npc:10838} commands it; {npc:10840} stands in the same camp."] = "",
 
 	-- Step 4: The Argent Dawn Commission
-	-- {item:12846} Argent Dawn Commission
-	["The {item:12846}"] = "",
-	-- {item:12846} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:2268} Light's Hope Chapel
-	["The Scourge drop no Scourgestones unless you wear an {item:12846}. {npc:10840} gives you one through her quest, {item:12846}, which you hand in straight away (if you already have one from {area:2268}, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones."] = "",
-	-- {item:12846} Argent Dawn Commission
-	["{item:12846}: equip it"] = "",
+	-- {quest:5401} Argent Dawn Commission
+	["The {quest:5401}"] = "",
+	-- {quest:5401} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:2268} Light's Hope Chapel
+	["The Scourge drop no Scourgestones unless you wear an {quest:5401}. {npc:10840} gives you one through her quest, {quest:5401}, which you hand in straight away (if you already have one from {area:2268}, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones."] = "",
+	-- {quest:5401} Argent Dawn Commission
+	["the {quest:5401} trinket: equip it"] = "",
 
 	-- Step 5: Minion's Scourgestones
 	-- plural, as words: Minion's Scourgestones = {item:12840} Minion's Scourgestone

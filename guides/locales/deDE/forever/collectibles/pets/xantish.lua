@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Xan'tish
 	-- {npc:8404} Xan'tish · {object:172961} Valley of Spirits · {item:280703} Jungle Boa
-	["{npc:8404}, the snake vendor, walks with his three snakes: from the {object:172961} north along the city's west side to the battleground emissaries and back. The waypoint is where his walk starts; if he is not there, follow the road north. He sells four snakes (50s each); the {item:280703} is new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	["{npc:8404}, the snake vendor, walks with his three snakes: from the {object:172961} north along the city's west side to the battleground emissaries and back. The waypoint is where his walk starts; if he is not there, follow the road north. He sells four snakes (50s each); the {item:280703} is new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:8404}, der Schlangenhändler, geht mit seinen drei Schlangen spazieren: von der {object:172961} nach Norden an der Westseite der Stadt entlang zu den Schlachtfeld-Gesandten und zurück. Der Wegpunkt ist der Beginn seines Wegs; ist er nicht da, folge der Straße nach Norden. Er verkauft vier Schlangen (je 50s); die {item:280703} ist neu in Forever. Jeder Haustiergegenstand lehrt seinen Begleiter, wenn du ihn benutzt; die Ziele bleiben danach abgehakt.",
 	-- {item:10360} Black Kingsnake
 	["{item:10360}, 50s"] = "{item:10360}, 50s",
 	-- {item:10361} Brown Snake

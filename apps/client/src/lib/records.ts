@@ -55,6 +55,12 @@ const KINDS: Record<string, string> = {
 	craft: 'Crafted',
 	achieve: 'Achievement',
 	step: 'Guide step',
+	unitx: 'Creature spawn seen',
+	poi: 'Quest map point',
+	imap: 'Dungeon floor',
+	engage: 'Boss pull',
+	where: 'Where a quest giver stands',
+	open: 'Object opened',
 };
 
 const FIELDS: Record<string, string> = {
@@ -107,6 +113,16 @@ const FIELDS: Record<string, string> = {
 	title: 'title',
 	objectiveText: 'objective',
 	detailText: 'text',
+	uiMapId: 'map',
+	groupId: 'map group',
+	floor: 'floor',
+	done: 'ready to hand in',
+	subzoneText: 'area',
+	indoors: 'indoors',
+	instanceId: 'dungeon',
+	encounterId: 'boss',
+	difficulty: 'difficulty',
+	spellId: 'spell',
 };
 
 export const kindName = (kind: string): string => KINDS[kind] ?? kind;

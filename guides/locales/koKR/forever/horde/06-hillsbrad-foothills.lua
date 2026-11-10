@@ -9,17 +9,12 @@ return {
 	-- Step 1: Tarren Mill
 	-- {area:272} Tarren Mill
 	["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272}은(는) 이 가이드의 거점입니다. 귀환석으로 이곳에 두 번 돌아옵니다. 모두 마을 광장 주변에 있습니다.",
-	["Inside"] = "",
 	-- {item:7768} Empty Red Waterskin · {object:107045} Spring Well
 	["Fill the {item:7768} at the {object:107045} beside the inn"] = "여관 옆의 {object:107045}에서 {item:7768}을(를) 채우세요",
-	-- {npc:2388} Innkeeper Shay
-	["{npc:2388}: the last guide binds here, so this usually ticks at once"] = "{npc:2388}: 이전 가이드에서 이곳에 귀환 지점을 정하므로 보통 바로 완료됩니다",
 	-- {object:556670} WANTED
-	["The {object:556670} poster by the inn"] = "",
+	["The {object:556670} poster by the inn"] = "여관 옆의 {object:556670} 게시판",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "",
-	-- {quest:567} Dangerous!
-	["The {quest:567} poster: its targets come up along the way; inside"] = "",
 
 	-- Step 2: Serge Hinott
 	-- {quest:2479} Hinott's Assistance · {npc:2391} Serge Hinott · {area:272} Tarren Mill
@@ -34,201 +29,201 @@ return {
 	-- plural, as words: Gray Bears = {npc:2351} Gray Bear · Forest Moss Creepers = {npc:2350} Forest Moss Creeper · Starving Mountain Lions = {npc:2384} Starving Mountain Lion
 	["West of Tarren Mill, Gray Bears, Forest Moss Creepers and Starving Mountain Lions roam the hills on the way down to the farms. The creepers drop {item:3477} rarely; you need only one."] = "타렌 밀농장 서쪽, 농장으로 내려가는 길의 언덕에 회색곰, 숲이끼거미, 굶주린 산사자가 돌아다닙니다. 숲이끼거미는 {item:3477}을(를) 드물게 떨어뜨리며, 하나만 있으면 됩니다.",
 
-	-- Step 4: Tarren Mill
+	-- Step 4: Hillsbrad Fields
+	-- {area:287} Hillsbrad · {npc:232} Farmer Ray · {npc:2403} Farmer Getz · {npc:2451} Farmer Kalaba
+	["The farms east of {area:287} town. {npc:232} works the field by the northern farmhouse, {npc:2403} the one further south-east; Farmhands and Farmers are everywhere. {npc:2451} tends the field south of the farms."] = "{area:287} 마을 동쪽의 농장입니다. {npc:232}은(는) 북쪽 농가 옆 밭에서, {npc:2403}은(는) 더 남동쪽 밭에서 일합니다. 힐스브래드 농노와 힐스브래드 농부는 곳곳에 있습니다. {npc:2451}은(는) 농장 남쪽 밭을 돌봅니다.",
+
+	-- Step 5: Mountain Lion Blood
+	["Careful: When one lion is attacked, nearby lions come to its aid, and the Vicious Black Bears sharing those fields can also join the fight."] = "",
+
+	-- Step 6: Tarren Mill
 	-- {npc:2216} Apothecary Lydon
 	["{npc:2216}, inside"] = "",
 	-- {npc:2230} Umpi
 	["{npc:2230}, next to Lydon; inside"] = "",
+	-- {quest:567} Dangerous!
+	["The {quest:567} poster: Kalaba with the peasants, Wilkes at the smithy; the clerk and the miner on the visit at about 30; inside"] = "",
 
-	-- Step 5: Tarren Mill
-	-- {area:272} Tarren Mill
-	["Follow the road east along the river, then north-east up into the hills to {area:272}."] = "",
-
-	-- Step 6: Mountain Lion Blood
-	["Careful: When one lion is attacked, nearby lions come to its aid, and the Vicious Black Bears sharing those fields can also join the fight."] = "",
-
-	-- Step 7: Hillsbrad Fields
-	-- {area:287} Hillsbrad · {npc:232} Farmer Ray · {npc:2403} Farmer Getz · {npc:2451} Farmer Kalaba
-	["The farms east of {area:287} town. {npc:232} works the field by the northern farmhouse, {npc:2403} the one further south-east; Farmhands and Farmers are everywhere. {npc:2451} tends the field south of the farms."] = "{area:287} 마을 동쪽의 농장입니다. {npc:232}은(는) 북쪽 농가 옆 밭에서, {npc:2403}은(는) 더 남동쪽 밭에서 일합니다. 힐스브래드 농노와 힐스브래드 농부는 곳곳에 있습니다. {npc:2451}은(는) 농장 남쪽 밭을 돌봅니다.",
-	-- {npc:2451} Farmer Kalaba · {area:286} Hillsbrad Fields
-	["{npc:2451} walks around {area:286}: look inside the circle on the map"] = "",
-
-	-- Step 9: Stanley
+	-- Step 7: Stanley
 	-- {npc:2274} Stanley · {npc:232} Farmer Ray · {area:286} Hillsbrad Fields
 	["{npc:2274} is {npc:232}'s dog, at the northern farmhouse in {area:286}."] = "{npc:2274}은(는) {npc:232}의 개로, {area:286}의 북쪽 농가에 있습니다.",
 
-	-- Step 10: Hillsbrad Fields: kill these as you meet them
+	-- Step 8: Hillsbrad Fields: kill these as you meet them
 	-- {area:286} Hillsbrad Fields
 	["{area:286}: kill these as you meet them"] = "",
 	-- {area:287} Hillsbrad
 	["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping."] = "",
 	-- {item:3692} Hillsbrad Human Skull
 	["{item:3692}: the Peasants in the fields"] = "{item:3692}: 들판의 힐스브래드 소작농",
+	-- {npc:2451} Farmer Kalaba · {area:286} Hillsbrad Fields
+	["{npc:2451} walks around {area:286}: look inside the circle on the map"] = "",
 
-	-- Step 11: Hearth to Tarren Mill
-	-- {area:272} Tarren Mill
-	["Hearth to {area:272}"] = "",
-
-	-- Step 12: Tarren Mill
+	-- Step 9: Tarren Mill
 	-- {npc:2215} High Executor Darthalia · {npc:270438} Deathstalker Masoj
 	["{npc:2215}: orders for {npc:270438}, on the way to Durnholde"] = "{npc:2215}: 던홀드로 가는 길에 있는 {npc:270438}에게 전할 명령",
+	-- {npc:2216} Apothecary Lydon · {item:3502} Mudsnout Blossoms
+	["{npc:2216}, inside: the {item:3502} grow south-west of Durnholde, on the walk there"] = "",
 
-	-- Step 13: Durnholde Keep: kill these as you meet them
+	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
 	["{area:275}: kill these as you meet them"] = "",
-	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {area:272} Tarren Mill
-	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "",
+	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key · {area:272} Tarren Mill
+	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "드럴과 {npc:2238}은(는) {area:275} 안뜰 건물 안에 사슬로 묶여 있습니다. 자물쇠를 열려면 열쇠가 필요합니다. {npc:2427}이(가) {item:3467}을(를), {npc:2428}이(가) {item:3499}을(를) 가지고 있으며, 둘 다 요새 안에 있습니다. 이들을 처치한 뒤 자물쇠 두 개를 모두 여세요.\n{area:272}에서 남동쪽으로 {area:275}(으)로 가는 길의 언덕으로 가세요. 길목의 야영지에는 비밀결사대 도적과 비밀결사대 경비병이 있습니다.",
 	-- {npc:2261} Syndicate Watchman
 	["{npc:2261} walks around here: look inside the circle on the map"] = "",
 	["Drull's ball and chain"] = "드럴의 족쇄",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "{npc:2238}의 족쇄",
 
-	-- Step 14: Mudsnout Blossoms
-	-- {item:3502} Mudsnout Blossoms
-	["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "던홀드 남서쪽, 강 위 언덕에 {item:3502}이(가) 자랍니다.",
-
-	-- Step 15: Deathstalker Masoj
+	-- Step 11: Deathstalker Masoj
 	-- {area:290} Dun Garok
-	["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Masoj는 던홀드 남쪽, 꽃이 있는 곳으로 내려가는 길의 {area:290} 위 언덕에 숨어 있습니다.",
+	["Masoj hides on the hillside above {area:290}, south-west of Durnholde, on the way down to the blossoms."] = "Masoj는 던홀드 남서쪽, 꽃이 있는 곳으로 내려가는 길의 {area:290} 위 언덕에 숨어 있습니다.",
+	-- {npc:270438} Deathstalker Masoj · {quest:98094} Scout Support
+	["{npc:270438}, once {quest:98094} is in"] = "",
 
-	-- Step 16: The smithy
+	-- Step 12: Mudsnout Blossoms
+	-- {item:3502} Mudsnout Blossoms
+	["Just south of Masoj, the {item:3502} grow on the hillsides above the river."] = "Masoj 바로 남쪽, 강 위 언덕에 {item:3502}이(가) 자랍니다.",
+
+	-- Step 13: The southern peak
+	["The southern peak"] = "",
+	-- {area:290} Dun Garok
+	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, south-east of the blossoms: use a vial at the top."] = "Masoj는 세 봉우리에 연금술사 약병을 놓기를 원합니다. 남쪽 봉우리는 꽃이 있는 곳 남동쪽, {area:290} 위의 언덕 꼭대기입니다. 꼭대기에서 약병을 사용하세요.",
+
+	-- Step 14: The smithy
 	["The smithy"] = "대장간",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes
 	["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the street north of it."] = "대장간은 {area:287} 마을 한가운데에 있습니다. {npc:2404}와(과) 견습생들이 화로에서 일하고, {object:1736}은(는) 그 옆에 쌓여 있습니다. {npc:2449}은(는) 그 북쪽 거리를 걸어 다닙니다.",
+	["Inside"] = "",
+
+	-- Step 15: The western peak
+	["The western peak"] = "",
+	-- {area:287} Hillsbrad
+	["From {area:287} town climb the mountain to the north, right up to its top on the Alterac border: the western vial goes there, not on the lower slope."] = "",
+
+	-- Step 16: Back to Tarren Mill
+	-- {area:272} Tarren Mill
+	["Back to {area:272}"] = "{area:272}(으)로 돌아가기",
+	-- {area:272} Tarren Mill
+	["East along the foothills, then down into {area:272}."] = "",
 
 	-- Step 17: Tarren Mill
 	-- {npc:2055} Master Apothecary Faranell · {zone:1458} Undercity
 	["{npc:2055}, in the {zone:1458}"] = "{zone:1458}의 {npc:2055}",
 
-	-- Step 18: Town hall
-	["Town hall"] = "마을 회관",
-	-- {area:287} Hillsbrad · {npc:2335} Magistrate Burnside · {npc:2448} Clerk Horrace Whitesteed
-	["The town hall is on the west side of {area:287}. {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "마을 회관은 {area:287} 서쪽에 있습니다. {npc:2335} (30)와(과) {npc:2448}은(는) 힐스브래드 마을의 기록부와 함께 안에 있고, 힐스브래드 선언문은 그 옆에 붙어 있습니다. 힐스브래드 원로는 마을을 돌아다닙니다.",
-	-- {object:1761} Hillsbrad Proclamation
-	["{object:1761}, inside"] = "",
+	-- Step 18: The northern peak
+	["The northern peak"] = "",
+	-- {area:272} Tarren Mill
+	["The northern peak rises south-east of {area:272}, on the way down towards Durnholde."] = "",
 
-	-- Step 20: Azurelode Mine
-	-- {area:288} Azurelode Mine · {area:287} Hillsbrad · {npc:2305} Foreman Bonds · {npc:2450} Miner Hackett
-	["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "{area:288}은(는) {area:287} 마을 남쪽에 있습니다. 힐스브래드 광부가 갱도에서 일하고, {npc:2305} (30)와(과) {npc:2450} (29)은(는) 깊숙한 곳에 있습니다.",
-	-- {area:288} Azurelode Mine
-	["Inside {area:288}"] = "",
+	-- Step 19: Deathstalker Masoj
+	-- {area:290} Dun Garok
+	["Back down to Masoj on the hillside above {area:290}."] = "",
 
-	-- Step 24: To the Undercity
-	-- {zone:1458} Undercity
-	["To the {zone:1458}"] = "",
-	-- {area:380} Crossroads · {zone:1454} Orgrimmar · {area:85} Tirisfal Glades · {zone:1458} Undercity · {area:153} Ruins of Lordaeron · {object:36078} Trade Quarter
-	["Head east to the {area:380} and fly to {zone:1454}. Take the zeppelin from the towers outside {zone:1454} to {area:85}; the {zone:1458} lies below the {area:153}. The bat handler is in the {object:36078}."] = "",
-	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter · {quest:93739} Exploring the Horde
-	["Speak with {npc:10181}, in the {object:36126}: {quest:93739}"] = "",
-	-- {npc:10181} Lady Sylvanas Windrunner
-	["Talk to {npc:10181}"] = "",
+	-- Step 20: The Sepulcher
+	-- {area:272} Tarren Mill · {area:228} The Sepulcher · {npc:2121} Shadow Priest Allister
+	["Walk back up to {area:272} and fly to the {area:228}: {npc:2121} stands by the crypt entrance."] = "",
+	-- {area:272} Tarren Mill
+	["{area:272} flight master"] = "",
 
-	-- Step 25: Aelthalyste
+	-- Step 21: Fly to the Undercity
+	-- {area:1497} Undercity
+	["Fly to the {area:1497}"] = "",
+	-- {npc:2226} Karos Razok · {area:1497} Undercity
+	["Fly on from {npc:2226}, the bat handler just east of the crypt, to the {area:1497}."] = "",
+
+	-- Step 22: Aelthalyste
 	-- {npc:4606} Aelthalyste · {object:36070} War Quarter
-	["{npc:4606} stands in the {object:36070}."] = "",
+	["{npc:4606} stands in the {object:36070}."] = "{npc:4606}은(는) {object:36070}에 서 있습니다.",
 
-	-- Step 26: Master Apothecary Faranell
+	-- Step 23: Master Apothecary Faranell
 	-- {npc:2055} Master Apothecary Faranell
 	["{npc:2055}, in the Apothecarium"] = "연금술 실험실의 {npc:2055}",
 	-- {area:287} Hillsbrad
 	["Keep it: the {area:287} coast, later on the route"] = "보관하세요: 경로 후반의 {area:287} 해안",
 
-	-- Step 27: Archibald
+	-- Step 24: Archibald
 	-- {spell:202} Two-Handed Swords · {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Warrior fastest."] = "",
 
-	-- Step 28: Archibald
+	-- Step 25: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Polearms from {npc:11870} ({object:36070}, 1 gold); two-handers level a Warrior fastest."] = "",
 
-	-- Step 29: Archibald
+	-- Step 26: Archibald
 	-- {spell:202} Two-Handed Swords · {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Paladin fastest."] = "",
 
-	-- Step 30: Archibald
+	-- Step 27: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Polearms from {npc:11870} ({object:36070}, 1 gold); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
-	-- Step 31: Archibald
+	-- Step 28: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Swords from {npc:11870} ({object:36070}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "",
 
+	-- Step 29: Trial of the Sea Lion
+	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
+	["Cast {spell:18960}. Join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
+	["{item:15885}: use a half at the {area:2362}"] = "{item:15885}: {area:2362}에서 조각을 사용하십시오",
+
+	-- Step 30: Aquatic Form
+	-- {quest:31} Aquatic Form · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
+	["Take {quest:31} from {npc:11802}, who stands upstairs in his building. Then {npc:11798} in {area:2361} flies druids to {area:1638}: {npc:3033} is on {area:1639}."] = "",
+	-- {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven
+	["{npc:11798} in {area:2361} flies druids there"] = "{area:2361}의 {npc:11798}이(가) 드루이드를 그곳으로 태워 줍니다",
+
+	-- Step 31: Back to the Crossroads
+	["Back to the Crossroads"] = "",
+	-- {npc:3033} Turak Runetotem · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
+	["Train with {npc:3033}. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "{npc:3033}에게 기술을 배우세요. 다시 날아가기 전에, 와이번 조련사에서 동쪽으로 조금 걸어가면 있는 {npc:3024}와(과) {npc:4721}에게서 다음 가이드들의 이동 경로에서 진행할 퀘스트 두 개를 받으세요. 그런 다음 다음 가이드가 시작되는 크로스로드로 날아가세요.",
+	-- {npc:3024} Tah Winterhoof · {quest:97538} Pigments for Paints · {area:464} Mirkfallon Lake
+	["{npc:3024}: {quest:97538}, the Mirkweed in {area:464} by Sun Rock"] = "{npc:3024}: {quest:97538}, 태양바위 근처 {area:464}의 어둠잡초",
+	-- {npc:4721} Zangen Stonehoof · {quest:1195} The Sacred Flame · {zone:1440} Ashenvale
+	-- plural, as words: Laughing Sisters = {npc:4054} Laughing Sister
+	["{npc:4721}: {quest:1195}, the phial from {zone:1440}'s Laughing Sisters"] = "{npc:4721}: {quest:1195}, {zone:1440}의 웃음짓는 자매에게서 얻는 약병",
+
 	-- Step 32: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["Zeppelin to {zone:1454}"] = "",
+	["Zeppelin to {zone:1454}"] = "{zone:1454}행 비행선",
+
+	-- Step 33: Orgrimmar
+	-- {zone:1454} Orgrimmar
+	["The middle of {zone:1454}"] = "",
 
 	-- Step 34: Orgrimmar
-	-- {zone:1458} Undercity · {zone:1454} Orgrimmar
-	["Take the zeppelin from the towers outside the {zone:1458} to {zone:1454} and train before you fly on."] = "{zone:1458} 바깥 탑에서 비행선을 타고 {zone:1454}(으)로 가서, 다시 날아가기 전에 기술을 배우세요.",
-
-	-- Step 35: Camp Taurajo
-	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {area:378} Camp Taurajo
-	["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:378}."] = "{zone:1454}에서({zone:1458} 바깥 탑에서 비행선) {area:378}(으)로 날아가세요.",
-
-	-- Step 37: Brine
-	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:359} Bael Modan
-	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}, on the way to {area:359}."] = "{npc:5899}의 오두막은 {area:378} 남쪽, {area:359}(으)로 가는 길에 있는 가시멧돼지 물웅덩이 위 능선에 있습니다.",
-	-- {npc:5899} Brine · {area:272} Tarren Mill
-	["{npc:5899}: the red waterskin from {area:272}"] = "{npc:5899}: {area:272}에서 채운 빨간 물주머니",
-	-- {npc:5899} Brine · {zone:1440} Ashenvale
-	["{npc:5899}: the blue waterskin is filled in {zone:1440}, next guide"] = "{npc:5899}: 파란 물주머니는 다음 가이드에서 {zone:1440}에서 채웁니다",
-
-	-- Step 38: Tear of the Moons
-	-- {area:359} Bael Modan · {npc:3421} Feegly the Exiled · {object:3646} General Twinbraid's Strongbox
-	["Follow the road south to the dwarf dig site at {area:359}. {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "길을 따라 남쪽의 {area:359} 드워프 발굴지로 가세요. {npc:3421}은(는) 발굴지 남쪽 가장자리에 숨어 있고, {object:3646}은(는) 발굴 구덩이 바닥에 있습니다.",
-	-- {object:3646} General Twinbraid's Strongbox
-	["{object:3646}; below ground"] = "",
-
-	-- Step 39: Great Lift
-	-- {npc:12576} Grish Longrunner · {area:1718} Great Lift
-	["South-west of Bael Modan, {npc:12576} waits at the top of the {area:1718}."] = "",
-
-	-- Step 40: The Great Lift
-	-- {area:1718} Great Lift
-	["The {area:1718}"] = "",
-	-- {zone:1456} Thunder Bluff · {area:378} Camp Taurajo · {area:1718} Great Lift · {area:17} The Barrens
-	["Fly from {zone:1456} to {area:378} and take the road south to the {area:1718} at the bottom of the {area:17}."] = "",
-	-- {npc:10079} Brave Moonhorn
-	["{npc:10079}, at the top of the lift"] = "",
-
-	-- Step 41: Hearth to Camp Taurajo
-	-- {area:378} Camp Taurajo
-	["Hearth to {area:378}"] = "",
-
-	-- Step 42: Fly to Ratchet
-	-- {area:392} Ratchet
-	["Fly to {area:392}"] = "",
-	-- {area:378} Camp Taurajo
-	["{area:378} flight master"] = "",
-
-	-- Step 43: Ratchet
-	-- {npc:3442} Sputtervalve · {area:392} Ratchet
-	["{npc:3442}, by the docks in {area:392}"] = "{area:392} 부두 옆의 {npc:3442}",
-
-	-- Step 44: Merchant Coast
-	-- {area:378} Camp Taurajo · {area:392} Ratchet · {quest:874} Mahren Skyseer
-	["Hearth to {area:378} and fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "귀환석으로 {area:378}에 간 뒤 {area:392}(으)로 날아가세요. {quest:874}은(는) {area:392} 북쪽 해안에 야영하고 있습니다.",
-
-	-- Step 45: Isha Awak
-	-- {quest:873} Isha Awak · {area:391} Merchant Coast · {npc:3388} Mahren Skyseer
-	["{quest:873}, a big threshadon, swims in the shallows off the {area:391}, east of {npc:3388}."] = "큰 쓰레샤돈인 {quest:873}은(는) {npc:3388} 동쪽, {area:391} 앞바다 얕은 곳에서 헤엄칩니다.",
+	["Train before you fly on: the next guide flies from here to the Crossroads."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "드럴과 {npc:2238}은(는) {area:275} 안뜰 건물 안에 사슬로 묶여 있습니다. 자물쇠 두 개를 모두 여세요.",
+	-- ["Follow the road south to the dwarf dig site at {area:359}. {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "길을 따라 남쪽의 {area:359} 드워프 발굴지로 가세요. {npc:3421}은(는) 발굴지 남쪽 가장자리에 숨어 있고, {object:3646}은(는) 발굴 구덩이 바닥에 있습니다.",
 	-- ["From {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "{area:272}에서 남동쪽으로 {area:275}(으)로 가는 길의 언덕으로 가세요. 길목의 야영지에는 비밀결사대 도적과 비밀결사대 경비병이 있습니다.",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:1638} and train on {area:1639}, then fly on to {area:378}."] = "{zone:1454}에서({zone:1458} 바깥 탑에서 비행선) {area:1638}(으)로 날아가 {area:1639}에서 기술을 배운 뒤 {area:378}(으)로 날아가세요.",
+	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:378}."] = "{zone:1454}에서({zone:1458} 바깥 탑에서 비행선) {area:378}(으)로 날아가세요.",
+	-- ["Hearth to {area:378} and fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "귀환석으로 {area:378}에 간 뒤 {area:392}(으)로 날아가세요. {quest:874}은(는) {area:392} 북쪽 해안에 야영하고 있습니다.",
+	-- ["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Masoj는 던홀드 남쪽, 꽃이 있는 곳으로 내려가는 길의 {area:290} 위 언덕에 숨어 있습니다.",
 	-- ["No Gallywix yet? The Class guide Poisons (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "아직 갤리윅스를 처치하지 않았나요? 직업 가이드 독 조제 (호드)에서 셴툴부터 연계 퀘스트를 다시 진행하며, 갤리윅스는 파티와 함께 처치합니다.",
 	-- ["No Gallywix yet? The Class guide {spell:2842} (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "아직 갤리윅스를 처치하지 않았나요? 직업 가이드 {spell:2842} (호드)에서 셴툴부터 연계 퀘스트를 다시 진행하며, 갤리윅스는 파티와 함께 처치합니다.",
 	-- ["Only if Gallywix fell in the {zone:1413} (Mission: Possible But Not Probable): {npc:2391} stands in {area:272}. Wait beside him while he brews the cure, then take your reward: Poisons."] = "{zone:1413}에서 갤리윅스를 처치했을 때만(미션 임파서블: 잘하면 가능): {npc:2391}은(는) {area:272}에 있습니다. 해독제를 만드는 동안 옆에서 기다린 뒤 보상을 받으세요: 독 조제.",
 	-- ["Only if Gallywix fell in the {zone:1413} (Mission: Possible But Not Probable): {npc:2391} stands in {area:272}. Wait beside him while he brews the cure, then take your reward: {spell:2842}."] = "{zone:1413}에서 갤리윅스를 처치했을 때만(미션 임파서블: 잘하면 가능): {npc:2391}은(는) {area:272}에 있습니다. 해독제를 만드는 동안 옆에서 기다린 뒤 보상을 받으세요: {spell:2842}.",
 	-- ["Peasants and skulls"] = "소작농과 해골",
 	-- ["South-west of Bael Modan, {npc:12576} waits at the top of the {area:485}."] = "바엘 모단 남서쪽, {area:485} 꼭대기에서 {npc:12576}이(가) 기다립니다.",
+	-- ["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "던홀드 남서쪽, 강 위 언덕에 {item:3502}이(가) 자랍니다.",
 	-- ["Syndicate camps"] = "비밀결사대 야영지",
+	-- ["Take the zeppelin from the towers outside the {zone:1458} to {zone:1454} and train before you fly on."] = "{zone:1458} 바깥 탑에서 비행선을 타고 {zone:1454}(으)로 가서, 다시 날아가기 전에 기술을 배우세요.",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "힐스브래드 소작농은 농가 남쪽 밭에서 일합니다. {area:287}의 인간은 모두 해골을 떨어뜨리며, 힐스브래드 소작농이 가장 자주 떨어뜨립니다.",
 	-- ["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {item:3564} is stacked beside it. {npc:2449} walks the street north of it."] = "대장간은 {area:287} 마을 한가운데에 있습니다. {npc:2404}와(과) 견습생들이 화로에서 일하고, {item:3564}은(는) 그 옆에 쌓여 있습니다. {npc:2449}은(는) 그 북쪽 거리를 걸어 다닙니다.",
-	-- ["The {object:1763} poster by the inn"] = "여관 옆의 {object:1763} 게시판",
+	-- ["The town hall is on the west side of {area:287}. {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "마을 회관은 {area:287} 서쪽에 있습니다. {npc:2335} (30)와(과) {npc:2448}은(는) 힐스브래드 마을의 기록부와 함께 안에 있고, 힐스브래드 선언문은 그 옆에 붙어 있습니다. 힐스브래드 원로는 마을을 돌아다닙니다.",
+	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "{area:288}은(는) {area:287} 마을 남쪽에 있습니다. 힐스브래드 광부가 갱도에서 일하고, {npc:2305} (30)와(과) {npc:2450} (29)은(는) 깊숙한 곳에 있습니다.",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "{quest:567} 게시판: 대상은 가는 길에 나옵니다",
+	-- ["Town hall"] = "마을 회관",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "{area:272} 여관에 귀환 지점을 정한 상태로 도착합니다. 모두 마을 광장 주변에 있습니다.",
 	-- ["{npc:2230}, next to Lydon"] = "라이던 옆의 {npc:2230}",
+	-- ["{npc:2388}: the last guide binds here, so this usually ticks at once"] = "{npc:2388}: 이전 가이드에서 이곳에 귀환 지점을 정하므로 보통 바로 완료됩니다",
+	-- ["{npc:3442}, by the docks in {area:392}"] = "{area:392} 부두 옆의 {npc:3442}",
+	-- ["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}, on the way to {area:359}."] = "{npc:5899}의 오두막은 {area:378} 남쪽, {area:359}(으)로 가는 길에 있는 가시멧돼지 물웅덩이 위 능선에 있습니다.",
+	-- ["{npc:5899}: the blue waterskin is filled in {zone:1440}, next guide"] = "{npc:5899}: 파란 물주머니는 다음 가이드에서 {zone:1440}에서 채웁니다",
+	-- ["{npc:5899}: the red waterskin from {area:272}"] = "{npc:5899}: {area:272}에서 채운 빨간 물주머니",
+	-- ["{quest:873}, a big threshadon, swims in the shallows off the {area:391}, east of {npc:3388}."] = "큰 쓰레샤돈인 {quest:873}은(는) {npc:3388} 동쪽, {area:391} 앞바다 얕은 곳에서 헤엄칩니다.",
 }

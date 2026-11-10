@@ -27,6 +27,8 @@ pub const MAX_LOOTS_PER_MINUTE: usize = 60;
 /// Most `gather` and most `refuse` records in any 60 seconds (the addon writes at most 20 and 10).
 pub const MAX_GATHERS_PER_MINUTE: usize = 30;
 pub const MAX_REFUSES_PER_MINUTE: usize = 30;
+/// Most `open` records (world objects opened) in any 60 seconds (the addon writes at most 20).
+pub const MAX_OPENS_PER_MINUTE: usize = 30;
 /// Largest group: a raid of 40.
 pub const MAX_GROUP: i64 = 40;
 /// Quest, creature, object and item ids are below this.
@@ -34,7 +36,13 @@ pub const MAX_ID: u64 = 1_000_000;
 /// Fastest believable movement between two `pos` records on one map, in yards a second (a
 /// mounted player runs 14; taxis fly about 32). Measured on the canonical map sizes of
 /// [`crate::maps_table`] only, never on sizes an uploader sends; other maps are not checked.
+/// One faster jump on its own is a teleport the game made (the spirit healer after a release, a
+/// portal such as Rut'theran's, a quest teleport) and passes; two in a row, or
+/// [`MAX_JUMPS`] in one chunk, are flagged.
 pub const MAX_YARDS_PER_SECOND: f64 = 100.0;
+/// Most single jumps faster than [`MAX_YARDS_PER_SECOND`] one chunk (at most 5 minutes of play) may
+/// hold.
+pub const MAX_JUMPS: usize = 2;
 
 /// What the server knows about the chunk's install before this chunk.
 #[derive(Clone, Debug, Default)]
@@ -49,7 +57,7 @@ pub struct Context {
 #[derive(Clone, Debug, PartialEq)]
 pub struct Issue {
 	/// Short rule name (`epoch`, `span`, `seq`, `level`, `kill-xp`, `kill-rate`, `loot-rate`,
-	/// `gather-rate`, `refuse-rate`, `group`, `id`, `speed`).
+	/// `gather-rate`, `refuse-rate`, `open-rate`, `group`, `id`, `speed`).
 	pub rule: &'static str,
 	pub detail: String,
 }
@@ -121,8 +129,17 @@ pub fn check_chunk(chunk: &Chunk, ctx: &Context) -> Vec<Issue> {
 	let mut spawns = Vec::new();
 	let mut gathers = Vec::new();
 	let mut refuses = Vec::new();
+	let mut opens = Vec::new();
 	// The last `pos`: (map, x, y in percent, t).
 	let mut last_pos: Option<(u32, f64, f64, f64)> = None;
+	// The jump of the last `pos` segment when it was one, and how many jumps the chunk holds so far:
+	// one jump is a teleport (spirit healer, portal, quest teleport), a speed hack keeps going.
+	let mut jump: Option<String> = None;
+	let mut jumps = 0;
+	// Kills of creatures another player tagged (`tapped` 1), and their `spawn` records, are what a
+	// crowd around the player kills (the launch rush): they don't count towards the player's own kill
+	// rate. A `spawn` with no `kill` before it in the chunk counts.
+	let mut own_kill = true;
 	for r in &chunk.records {
 		for field in ID_FIELDS {
 			if let Some(id) = r.ids(field).into_iter().find(|id| *id >= MAX_ID) {
@@ -140,7 +157,10 @@ pub fn check_chunk(chunk: &Chunk, ctx: &Context) -> Vec<Issue> {
 				}
 			}
 			Kind::Kill => {
-				kills.push(r.t);
+				own_kill = r.int("tapped") != Some(1);
+				if own_kill {
+					kills.push(r.t);
+				}
 				let mob = r.int("level").filter(|l| *l > 0);
 				let level = match (player_level, mob) {
 					(Some(p), Some(m)) => p.max(m),
@@ -156,30 +176,49 @@ pub fn check_chunk(chunk: &Chunk, ctx: &Context) -> Vec<Issue> {
 				}
 			}
 			Kind::Loot => loots.push(r.t),
-			Kind::Spawn => spawns.push(r.t),
+			Kind::Spawn => {
+				if own_kill {
+					spawns.push(r.t);
+				}
+			}
 			Kind::Gather => gathers.push(r.t),
 			Kind::Refuse => refuses.push(r.t),
+			Kind::Open => opens.push(r.t),
 			Kind::Group => {
 				if let Some(size) = r.int("size").filter(|s| *s > MAX_GROUP) {
 					issue("group", format!("group of {size}"));
 				}
 			}
-			Kind::Taxi | Kind::Land | Kind::Death | Kind::Revive | Kind::Zone | Kind::Ride | Kind::Enter | Kind::Cast => last_pos = None,
+			Kind::Taxi | Kind::Land | Kind::Death | Kind::Revive | Kind::Zone | Kind::Ride | Kind::Enter | Kind::Cast => {
+				last_pos = None;
+				jump = None;
+			}
 			Kind::Pos => {
 				let Some(p) = r.pos() else {
 					last_pos = None;
+					jump = None;
 					continue;
 				};
 				let (x, y) = p.percent();
+				let mut fast = None;
 				if let (Some((map, lx, ly, lt)), Some((w, h))) = (last_pos, maps_table::size(p.map)) {
 					if map == p.map {
 						let yards = ((x - lx) * w / 100.0).hypot((y - ly) * h / 100.0);
 						let seconds = (r.t - lt).max(1.0);
 						if yards / seconds > MAX_YARDS_PER_SECOND {
-							issue("speed", format!("{yards:.0} yd in {:.1} s on map {map}", r.t - lt));
+							fast = Some(format!("{yards:.0} yd in {:.1} s on map {map}", r.t - lt));
 						}
 					}
 				}
+				if let Some(f) = &fast {
+					jumps += 1;
+					if let Some(first) = &jump {
+						issue("speed", format!("{first}, then {f}"));
+					} else if jumps > MAX_JUMPS {
+						issue("speed", format!("{jumps} jumps in one chunk, the last {f}"));
+					}
+				}
+				jump = fast;
 				last_pos = Some((p.map, x, y, r.t));
 			}
 			_ => {}
@@ -191,6 +230,7 @@ pub fn check_chunk(chunk: &Chunk, ctx: &Context) -> Vec<Issue> {
 		("loot-rate", "loot windows", loots, MAX_LOOTS_PER_MINUTE),
 		("gather-rate", "gathers", gathers, MAX_GATHERS_PER_MINUTE),
 		("refuse-rate", "refusals", refuses, MAX_REFUSES_PER_MINUTE),
+		("open-rate", "objects opened", opens, MAX_OPENS_PER_MINUTE),
 	] {
 		times.sort_by(f64::total_cmp);
 		let n = busiest_minute(&times);
@@ -291,6 +331,28 @@ mod tests {
 	}
 
 	#[test]
+	fn explorer_records_pass_and_objects_opened_are_rate_limited() {
+		// An explorer-mode stretch: spawns seen, a quest's map point, the inside of an instance, a pull.
+		let c = chunk(concat!(
+			"pos\t10\t1420\t1000\t1000\t0\t70\n",
+			"unitx\t11\t1501\t000043F59F\t1420\t1010\t1000\n",
+			"poi\t12\t364\t0\t1420\t9000\t9000\n",
+			"pos\t50\t1420\t1300\t1400\t0\t70\n",
+			"where\t51\tc\t1568\tDeathknell\t0\n",
+			"open\t52\t3365\t1420\t1300\t1400\to\t500123\n",
+			"imap\t60\t2943\t2681\t\t\n",
+			"engage\t61\t3301\t1\t5\n",
+		));
+		assert_eq!(check_chunk(&c, &ctx()), []);
+		let opens = |n: usize| (0..n).map(|i| format!("open\t{}\t3365\t1420\t1300\t1400\t\t\n", 10 + i * 10)).collect::<String>();
+		assert_eq!(rules(&chunk(&opens(MAX_OPENS_PER_MINUTE)), &ctx()), [] as [&str; 0]);
+		assert_eq!(rules(&chunk(&opens(MAX_OPENS_PER_MINUTE + 1)), &ctx()), ["open-rate"]);
+		// Their ids are held below a million like every other record's.
+		assert_eq!(rules(&chunk("unitx\t5\t1000000\t1A\t\t\t\n"), &ctx()), ["id"]);
+		assert_eq!(rules(&chunk("open\t5\t3365\t\t\t\to\t1000000\n"), &ctx()), ["id"]);
+	}
+
+	#[test]
 	fn kills_and_loot_per_minute() {
 		let kills = |n: usize, every: usize| (0..n).map(|i| format!("kill\t{}\t1501\t13\tn\t\t\t\t50\t\t0\t\n", i * every)).collect::<String>();
 		assert_eq!(rules(&chunk(&kills(MAX_KILLS_PER_MINUTE, 1)), &ctx()), [] as [&str; 0]);
@@ -334,24 +396,55 @@ mod tests {
 
 	#[test]
 	fn position_jumps() {
-		// Map 1420 is 4518.75 x 3012.5 yd: 20% across in 1 s is 904 yd/s.
+		// Map 1420 is 4518.75 x 3012.5 yd: 20% across in 1 s is 904 yd/s, and back again.
 		let jump = "pos\t10\t1420\t1000\t1000\t0\t70\npos\t20\t1420\t3000\t1000\t0\t70\n";
-		assert_eq!(rules(&chunk(jump), &ctx()), ["speed"]);
+		let hack = "pos\t10\t1420\t1000\t1000\t0\t70\npos\t20\t1420\t3000\t1000\t0\t70\npos\t30\t1420\t1000\t1000\t0\t70\n";
+		assert_eq!(rules(&chunk(hack), &ctx()), ["speed"]);
+		// One jump alone is a teleport the game made.
+		assert_eq!(rules(&chunk(jump), &ctx()), [] as [&str; 0]);
 		// 2% across in 3 s is 30 yd/s.
 		assert_eq!(rules(&chunk("pos\t10\t1420\t1000\t1000\t0\t70\npos\t40\t1420\t1200\t1000\t0\t70\n"), &ctx()), [] as [&str; 0]);
 		// An uploader's own map record changes nothing: sizes come from the canonical table.
 		let tiny = "map\t0\t1420\t3\t1415\t0\t1\t1\t0\t0\n";
-		assert_eq!(rules(&chunk(&format!("{tiny}{jump}")), &ctx()), ["speed"]);
+		assert_eq!(rules(&chunk(&format!("{tiny}{hack}")), &ctx()), ["speed"]);
 		// A map not in the table: nothing to measure, whatever its map record says.
-		let unknown = "map\t0\t99999\t3\t1415\t0\t1000\t1000\t0\t0\npos\t10\t99999\t1000\t1000\t0\t70\npos\t20\t99999\t3000\t1000\t0\t70\n";
+		let unknown = "map\t0\t99999\t3\t1415\t0\t1000\t1000\t0\t0\npos\t10\t99999\t1000\t1000\t0\t70\npos\t20\t99999\t3000\t1000\t0\t70\npos\t30\t99999\t1000\t1000\t0\t70\n";
 		assert_eq!(rules(&chunk(unknown), &ctx()), [] as [&str; 0]);
-		// A taxi, death or zone change in between.
-		for between in ["taxi\t15\t1\t2\n", "death\t15\t\t\t\t\t\n", "zone\t15\t1420\t2000\t1000\tDurotar\t\n"] {
-			let c = chunk(&format!("pos\t10\t1420\t1000\t1000\t0\t70\n{between}pos\t20\t1420\t3000\t1000\t0\t70\n"));
+		// A taxi, death or zone change in between starts the measure again.
+		for between in ["taxi\t25\t1\t2\n", "death\t25\t\t\t\t\t\n", "zone\t25\t1420\t2000\t1000\tDurotar\t\n"] {
+			let c = chunk(&format!("{jump}{between}pos\t30\t1420\t1000\t1000\t0\t70\n"));
 			assert_eq!(rules(&c, &ctx()), [] as [&str; 0], "{between}");
 		}
 		// Another map in between is not a jump on one map.
 		assert_eq!(rules(&chunk("pos\t10\t1420\t1000\t1000\t0\t70\npos\t15\t1411\t5000\t5000\t0\t70\npos\t20\t1420\t1000\t1100\t0\t70\n"), &ctx()), [] as [&str; 0]);
+	}
+
+	#[test]
+	fn teleports_the_game_makes_pass() {
+		// Released after a death: dead at the corpse, then a ghost at the spirit healer 345 yd away
+		// 3.2 s later (Dun Morogh, 1426; a recorded case the old rule withheld).
+		let release = "death\t1969\t1426\t4112\t4958\t271530\t8\npos\t2009\t1426\t4112\t4958\t36\t0\npos\t2041\t1426\t4711\t5501\t32\t88\npos\t2081\t1426\t4711\t5408\t32\t88\n";
+		assert_eq!(rules(&chunk(release), &ctx()), [] as [&str; 0]);
+		// The Rut'theran portal to Darnassus: 2,022 yd across Teldrassil (1438) in 2.1 s.
+		let portal = "pos\t1694\t1438\t5621\t9067\t0\t71\npos\t1734\t1438\t5604\t8992\t0\t71\npos\t1755\t1438\t2360\t5554\t16\t25\npos\t1765\t1438\t2370\t5560\t0\t71\n";
+		assert_eq!(rules(&chunk(portal), &ctx()), [] as [&str; 0]);
+		// Two teleports in one chunk, with walking between, still pass; a third is flagged.
+		let walk_back = "pos\t1800\t1438\t2380\t5570\t0\t71\npos\t1820\t1438\t5604\t8992\t0\t71\npos\t1830\t1438\t5610\t9000\t0\t71\n";
+		assert_eq!(rules(&chunk(&format!("{portal}{walk_back}")), &ctx()), [] as [&str; 0]);
+		let again = "pos\t1850\t1438\t2360\t5554\t0\t71\n";
+		assert_eq!(rules(&chunk(&format!("{portal}{walk_back}{again}")), &ctx()), ["speed"]);
+	}
+
+	#[test]
+	fn kills_others_tagged_do_not_count_towards_the_kill_rate() {
+		// The launch rush: 60 kills in a minute around the player, 41 of them tagged by others.
+		let kill = |t: usize, tapped: u8| format!("kill\t{t}\t1501\t1\tn\t\t\t\t\t\t{tapped}\t\nspawn\t{t}\t1501\t00{t:04X}\t\t\t\n");
+		let rush: String = (0..60).map(|i| kill(i * 10, u8::from(i % 3 != 0))).collect();
+		assert_eq!(rules(&chunk(&rush), &ctx()), [] as [&str; 0]);
+		// 41 of the player's own in a minute are too many, with or without others' around them.
+		let own: String = (0..41).map(|i| kill(i * 10, 0)).collect();
+		assert_eq!(rules(&chunk(&own), &ctx()), ["kill-rate"]);
+		assert_eq!(rules(&chunk(&format!("{own}{rush}")), &ctx()), ["kill-rate"]);
 	}
 
 	#[test]

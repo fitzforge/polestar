@@ -23,6 +23,7 @@
 --   q.addItem(bag, slot, itemID, count)        -- q.items[id] = { quality, price, classID, spell, noValue }
 --   q.combat(true|false)                        -- PLAYER_REGEN_DISABLED / ENABLED
 --   q.click(frame, down)                        -- OnClick + PostClick (button "LeftButton")
+--   q.mouseClick(frame[, mouse]), q.keyClick(frame) -- stub.mouseClick / stub.keyClick into q.ran
 --   q.gainXP(n)                                 -- UnitXP moves, PLAYER_XP_UPDATE (levels up past xpMax)
 --   q.xpBar(shown)                              -- the game's XP bar frames (StatusTrackingBarManager); returns the experience bar
 --   q.engine.levelTarget = N                    -- what Engine.LevelTarget answers above the player's level
@@ -51,7 +52,7 @@ local q = {
 	loot = 0,
 	specialItems = {}, -- questID -> itemID (quest log special item)
 	engine = { step = nil, view = nil, guide = nil, waypoint = nil },
-	nav = { target = nil, sets = {}, releases = 0, clears = 0, route = nil, ci = 1, boundInn = nil },
+	nav = { target = nil, sets = {}, releases = 0, clears = 0, unholds = 0, route = nil, ci = 1, boundInn = nil },
 	pins = {},
 	cooldowns = {},
 	inRange = nil,
@@ -99,6 +100,12 @@ function q.click(f, down)
 	stub.RunScript(f, "PostClick", "LeftButton", down)
 end
 
+-- The client's mouse click (stub.mouseClick, wow_stub.lua); q.ran lists what
+-- secure buttons ran.
+q.ran = {}
+function q.mouseClick(f, mouse) return stub.mouseClick(f, q.ran, mouse) end
+function q.keyClick(f) return stub.keyClick(f, q.ran) end
+
 ---------------------------------------------------------------------------
 -- Player, XP, death
 ---------------------------------------------------------------------------
@@ -109,19 +116,45 @@ function UnitXPMax(unit) if unit == "player" then return q.xpMax end end
 function GetXPExhaustion() return q.rested end
 function GetMaxPlayerLevel() return q.maxLevel end
 function UnitIsGhost(unit) return unit == "player" and q.ghost end
-function UnitExists(unit) if unit == "target" then return q.target end return unit == "player" end
--- q.target as a table { name, npc, dead, hostile, player }: the target the
--- step key's interact stage reads.
-local function targetOf(unit) return unit == "target" and type(q.target) == "table" and q.target or nil end
+function UnitExists(unit)
+	if unit == "target" then return q.target end
+	if q.units[unit] then return true end
+	return unit == "player"
+end
+-- q.target as a table { name, npc, dead, hostile, player, class }: the target the
+-- step key's interact stage reads. q.units[token]: other units the same way
+-- (mouseover, nameplateN).
+q.units = {}
+local function targetOf(unit)
+	if unit == "target" then return type(q.target) == "table" and q.target or nil end
+	return q.units[unit]
+end
 function UnitIsDead(unit) local t = targetOf(unit) return t and t.dead or false end
 function UnitIsPlayer(unit) local t = targetOf(unit) return t and t.player or false end
 function UnitCanAttack(_, unit) local t = targetOf(unit) return t and t.hostile or false end
 function UnitIsFriend(_, unit) local t = targetOf(unit) return t and t.friend or false end
+function UnitClassification(unit) local t = targetOf(unit) return t and t.class or "normal" end
 local unitName = UnitName
 function UnitName(unit)
 	local t = targetOf(unit)
 	if t then return t.name end
 	return unitName(unit)
+end
+-- Portraits: the texture keeps the name of the unit it was drawn from;
+-- q.portraits lists every draw.
+q.portraits = {}
+function SetPortraitTexture(tex, unit)
+	local t = targetOf(unit)
+	tex.portraitOf = t and t.name
+	q.portraits[#q.portraits + 1] = { unit = unit, name = t and t.name }
+end
+C_NamePlate = C_NamePlate or {}
+function C_NamePlate.GetNamePlates()
+	local out = {}
+	for token in pairs(q.units) do
+		if token:find("^nameplate") then out[#out + 1] = { namePlateUnitToken = token } end
+	end
+	return out
 end
 -- Key bindings: q.bindings[command] = { key, ... }; override bindings land in
 -- q.overrides[key] = command ("CLICK <button>:LeftButton" for a click).
@@ -273,9 +306,9 @@ function C_Item.GetItemCount(id)
 	return n
 end
 function C_Item.GetItemIconByID(id) return (q.items[id] and q.items[id].icon) or 134400 end
-function C_Item.IsItemInRange(_, unit)
-	local t = targetOf(unit)
-	if stub.inCombat and not (t and t.friend) then error("ADDON_ACTION_BLOCKED: IsItemInRange", 2) end
+-- The game blocks it in combat whatever the target (#871 on an enemy, #1198 on a friend).
+function C_Item.IsItemInRange()
+	if stub.inCombat then error("ADDON_ACTION_BLOCKED: IsItemInRange", 2) end
 	return q.inRange
 end
 function C_Item.IsUsableItem(id) return true end
@@ -737,7 +770,21 @@ function Nav.SetTarget(map, x, y, label, f)
 	local t = { map = map, x = x, y = y, label = label, f = f, kind = "manual" }
 	q.nav.target = t
 	table.insert(q.nav.sets, t)
-	return true
+	return t
+end
+-- Nav.Hold (the death helper): the target until Nav.Unhold, which brings back
+-- the one from before (q.nav.under).
+function Nav.Hold(map, x, y, label, f)
+	local t = { map = map, x = x, y = y, label = label, f = f, kind = "manual" }
+	if not q.nav.held then q.nav.under = q.nav.target end
+	q.nav.held, q.nav.target = t, t
+	table.insert(q.nav.sets, t)
+	return t
+end
+function Nav.Unhold()
+	if not q.nav.held then return end
+	q.nav.unholds = q.nav.unholds + 1
+	q.nav.target, q.nav.held, q.nav.under = q.nav.under, nil, nil
 end
 function Nav.GetTarget() return q.nav.target end
 function Nav.ReleaseTarget()

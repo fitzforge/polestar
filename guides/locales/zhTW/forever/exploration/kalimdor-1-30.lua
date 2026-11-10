@@ -107,8 +107,8 @@ return {
 	-- Step 22: The Barrens (1/4)
 	-- {area:814} Southfury River · {zone:1411} Durotar · {zone:1413} The Barrens · {area:385} Northwatch Hold
 	["Cross the {area:814} bridges west out of {zone:1411} into the {zone:1413}. {area:385} in the east is an Alliance fort."] = "渡過{area:814}的橋向西離開{zone:1411}進入{zone:1413}。東邊的{area:385}是聯盟要塞。",
-	-- {area:392} Ratchet · {area:380} The Crossroads · {area:378} Camp Taurajo · {npc:10378} Omusa Thunderhorn
-	["Flight paths here: {area:392} (Bragok), {area:380} (Devrak), {area:378} ({npc:10378})."] = "此處的飛行路線：{area:392}（布萊格）、{area:380}（迪弗拉克）、{area:378}（{npc:10378}）。",
+	-- {area:392} Ratchet · {area:378} Camp Taurajo · {npc:10378} Omusa Thunderhorn
+	["Flight paths here: {area:392} (Bragok), Crossroads (Devrak), {area:378} ({npc:10378})."] = "",
 
 	-- Step 26: Mulgore (1/2)
 	-- {area:378} Camp Taurajo · {zone:1412} Mulgore
@@ -162,11 +162,8 @@ return {
 	["Flight path here: {area:484} (Nyse)."] = "此處的飛行路線：{area:484}（奈瑟）。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Cross the {area:814} bridges west out of {zone:1411} into the {zone:1413}. {area:385} in the east is an Alliance fort."] = "渡過{area:814}的橋向西離開{zone:1411}進入{zone:1413}。東邊的{area:385}是聯盟要塞。",
-	-- ["Cross the {area:814} east from the northern {zone:1413} into {zone:1411}: Horde country, with guards at {area:362}, {area:367} and {zone:1454}."] = "從{zone:1413}北部向東渡過{area:814}進入{zone:1411}：這是部落的地盤，{area:362}、{area:367}和{zone:1454}有衛兵。",
 	-- ["Flight path here: {zone:1456} (Tal)."] = "此處的飛行路線：{zone:1456}（塔爾）。",
 	-- ["Flight paths here: {area:392} (Bragok), {area:380} (Devrak), {area:378} ({npc:10378})."] = "此處的飛行路線：{area:392}（布萊格）、{area:380}（迪弗拉克）、{area:378}（{npc:10378}）。",
-	-- ["Fly to {area:378} and walk south through the {zone:1413} to the {area:485} down into {zone:1441}."] = "飛往{area:378}，向南穿過{zone:1413}前往{area:485}，往下進入{zone:1441}。",
 	-- ["From the southern {zone:1413} take the {area:485} down into {zone:1441}. {area:484} is a Horde town."] = "從{zone:1413}南部搭{area:485}往下進入{zone:1441}。{area:484}是部落城鎮。",
 	-- ["Go back into the {zone:1413} and west through {area:1702} into the {zone:1442}. {area:460} is the Horde town; {area:467} in the north is Alliance."] = "回到{zone:1413}，向西穿過{area:1702}進入{zone:1442}。{area:460}是部落城鎮；北部的{area:467}屬於聯盟。",
 	-- ["Go back west across the {zone:1413}; the road west from {area:378} climbs into {zone:1412}, tauren country with guards at {area:222} and {zone:1456}."] = "向西回到{zone:1413}；從{area:378}向西的道路爬升進入{zone:1412}，這是牛頭人的地盤，{area:222}和{zone:1456}有衛兵。",

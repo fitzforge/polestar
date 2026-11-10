@@ -20,8 +20,9 @@ reward text Forever's new Silithus patterns for Tailors, Leatherworkers and Blac
 # price from Forever's client item table. Neutral to Exalted is 42,000 reputation; druids start at Neutral
 # 2,000 (the client's faction table). No race gets a reputation bonus in Forever; the Legacy perk Diplomat
 # adds up to 10%. Numbers below are without it.
-# INGAME: Do quests 6 or more levels below you still pay full reputation in Forever? In Classic they pay a
-# fifth less per level past 5, down to a fifth; one beta report had a low quest paying in full.
+# Low-level quests pay their full reputation in Forever at any level: in players' recordings every
+# quest turn-in 10 to 29 levels above the quest paid all of it (72 turn-ins, over 40 people, 2026-11-09),
+# as one beta report said (quest 456 at level 30). Classic cut it to a fifth.
 # Forever changes: the Classic Silithus crafting patterns of Aendel Windspear (Dreamscale, Spitfire,
 # Sandstalker, Bramblewood) and Vargus (Obsidian belts, Ironvine) are not in Forever's client; Forever adds 24
 # patterns instead (Friendly and Honored, 7g 50s each). Forever's data names Mishta for the tailoring ones and
@@ -202,13 +203,19 @@ step The New Frontier, Thunder Bluff
   turnin 1000 optional                -- Arch Druid Hamuul Runetotem
   accept 1123 optional
 
+# Fandral and Mathrengyl stand upstairs in the druids' building, and the walking maps have no way up
+# inside it: the arrow led onto a ledge outside, behind the wall (#1338). The goto at the building's
+# door on its south side, 35.8,11.6 (players' recordings walk in there), makes the arrow point straight
+# at Fandral from there.
 step The New Frontier, Darnassus
   only Alliance
   zone Darnassus
   tip Optional: Rabine Saturna's chain pays 525 Cenarion reputation over seven quests of level 55 to 57, full at 60. Herald Moonstalker sends you to Arch Druid Fandral Staghelm, who sends you to Mathrengyl Bearwalker, who sends you to Rabine Saturna in Nighthaven, Moonglade.
   accept 1047 optional                -- Herald Moonstalker
+  goto 35.8,11.6 "Cenarion Enclave" optional
   turnin 1047 optional                -- Arch Druid Fandral Staghelm
   accept 6761 optional
+  goto 35.8,11.6 "Cenarion Enclave" optional
   turnin 6761 optional                -- Mathrengyl Bearwalker
   accept 6762 optional
 
@@ -241,7 +248,7 @@ step Umber in Nighthaven
   turnin 1185 optional
 
 step Quests elsewhere
-  tip The Cenarion Circle's other quests are spread over Kalimdor and the Plaguelands. In Classic a quest pays less once it is 6 or more levels below you (a fifth less per level, down to a fifth): at 60, The Wildlife Suffers Too (Mulgris Deepriver, Western Plaguelands, levels 54 and 56) would pay 60 and 75 instead of 75 and 75, and Corruption of Earth and Seed (Maraudon, level 51) 30 instead of 150. Your first turn-in shows which rule Forever uses. Shards of the Felvine (Rabine Saturna, level 60, the Felvine Shard from Alzzin in Dire Maul) pays 150 and its Reliquary 100 at any level.
+  tip The Cenarion Circle's other quests are spread over Kalimdor and the Plaguelands. Forever pays them in full at any level: The Wildlife Suffers Too (Mulgris Deepriver, Western Plaguelands, levels 54 and 56) 75 and 75, Corruption of Earth and Seed (Maraudon, level 51) 150. Shards of the Felvine (Rabine Saturna, level 60, the Felvine Shard from Alzzin in Dire Maul) pays 150 and its Reliquary 100 at any level.
   note Do the Western Plaguelands and Maraudon quests while you level; at 60 they may pay a fraction.
 
 step Encrypted Twilight Texts to Revered

@@ -12,7 +12,10 @@
 --   Codex.IsLoaded() ; Codex.Meta()
 --   Codex.Item(id) / Npc(id) / Object(id) / Quest(id) / Instance(key) / Zone(id) / Faction(id)
 --       (a quest's `xp`: its full XP reward, nil when not known or the pack predates it;
---       an event objective's `map`, `x`, `y`, `f`: where it is done, when known)
+--       an event objective's `map`, `x`, `y`, `f`: where it is done, when known;
+--       a talk objective's `id`: the NPC to speak to, absent from packs before it;
+--       an NPC's or object's spawns { map, x, y, f, z }: z the height of its
+--       spawn there, nil when not known or the pack predates it)
 --   Codex.FollowUps(questId) -> { quest, ... }   -- the quests whose pre or preAny names it
 --   Codex.Spell(spellId) -> { id, kind, item, name, class } | nil
 --   Codex.Name(kind, id) -> name | nil   -- no decoding; "item" spans every item kind,
@@ -160,7 +163,8 @@ local SOURCE = {
 local BOOL_FIELD = { limited = true, choice = true }
 local STRING_FIELD = { instance = true }
 
-local OBJECTIVE = { k = "kill", i = "item", o = "object", e = "event" }
+-- s: a talk-to objective (an NPC to speak to); `t` alone is the tame flag.
+local OBJECTIVE = { k = "kill", i = "item", o = "object", e = "event", s = "talk" }
 
 ---------------------------------------------------------------------------
 -- Decoding helpers
@@ -224,17 +228,29 @@ local function decodeSource(field)
 	return src
 end
 
--- "map,f,x,y,x,y" groups (fields first..n of t) -> flat { { map, x, y, f } }
-local function decodeSpawns(t, first, n)
+-- "map,f,x,y,x,y" groups (fields first..n of t) -> flat { { map, x, y, f, z } }.
+-- heights: the record's "z" field without its letter, one height per point in
+-- the same order ("" for none), or nil; z is the height of the entity's spawn
+-- at that place (#1024: the arrow then walks to its floor).
+local function decodeSpawns(t, first, n, heights)
 	local out = {}
+	local zs = heights and split(heights, ",")
 	for i = first, n do
 		local g, m = split(t[i], ",")
 		local map, f = tonumber(g[1]), g[2] ~= "" and g[2] or nil
 		for k = 3, m - 1, 2 do
-			out[#out + 1] = { map = map, x = tonumber(g[k]) / 10, y = tonumber(g[k + 1]) / 10, f = f }
+			local p = #out + 1
+			out[p] = { map = map, x = tonumber(g[k]) / 10, y = tonumber(g[k + 1]) / 10, f = f, z = zs and tonumber(zs[p]) or nil }
 		end
 	end
 	return out
+end
+
+-- The record's spawn heights field (the last of t..n when it starts with "z"):
+-- its text without the letter, and the new n.
+local function heightsField(t, n)
+	if n >= 1 and sub(t[n], 1, 1) == "z" then return sub(t[n], 2), n - 1 end
+	return nil, n
 end
 
 ---------------------------------------------------------------------------
@@ -265,6 +281,8 @@ local function decodeNpc(group, id, s)
 	local t, n = split(s, ";")
 	local title
 	if n >= 8 and sub(t[n], 1, 1) == "t" then title, n = unesc(sub(t[n], 2)), n - 1 end
+	local heights
+	heights, n = heightsField(t, n)
 	local flags = t[4] or ""
 	local roles = {}
 	if t[6] and t[6] ~= "" then
@@ -282,7 +300,7 @@ local function decodeNpc(group, id, s)
 		roles = roles,
 		subName = title,
 		loot = numbers(t[7]),
-		spawns = decodeSpawns(t, 8, n),
+		spawns = decodeSpawns(t, 8, n, heights),
 	}
 end
 
@@ -294,8 +312,10 @@ local function decodeObject(group, id, s)
 		if faction == "" then faction = nil end
 		n = n - 1
 	end
+	local heights
+	heights, n = heightsField(t, n)
 	return { id = id, name = nameOf(group, id), treasure = t[1] == "1", mailbox = mailbox,
-		faction = faction, loot = numbers(t[2]), spawns = decodeSpawns(t, 3, n) }
+		faction = faction, loot = numbers(t[2]), spawns = decodeSpawns(t, 3, n, heights) }
 end
 
 local function decodeQuest(group, id, s)

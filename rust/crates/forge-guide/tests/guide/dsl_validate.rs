@@ -484,12 +484,57 @@ fn a_next_guide_whose_races_leave_out_the_characters_says_why_its_turnins_do_not
 }
 
 #[test]
-fn an_objective_index_past_the_quests_objectives_names_them_with_a_hint() {
+fn an_objective_index_past_the_quests_objectives_is_an_error_naming_them_with_a_hint() {
 	let src = guide_text(&["step S", "  accept 7", "  kill 6 quest 7.2", "  turnin 7"]);
-	let d = diags(compile(&src).diag.warnings(), r"objective\(s\) in data").remove(0);
+	let r = compile(&src);
+	assert!(diags(r.diag.warnings(), r"objective\(s\) in data").is_empty(), "an index past the list is not only a warning");
+	let d = diags(r.diag.errors(), r"objective\(s\) in data").remove(0);
 	assert_eq!(d.line as usize, line_of(&src, "  kill 6 quest 7.2"));
 	assert_eq!(d.message, "quest 7 has 1 objective(s) in data, not 2: 7.1 = kill Kobold Vermin x10");
 	assert_eq!(d.hint.as_deref(), Some("write `quest 7.<n>` with one of these (`polestar find 7` lists them)"));
+}
+
+#[test]
+fn an_objective_index_on_a_quest_the_data_lists_no_objectives_for_is_only_a_warning() {
+	let data = data_plus(json!({ "9706": like7(json!({ "id": 9706, "title": "Unknown lines", "pre": [], "objectives": [] })) }), Value::Null, Value::Null);
+	let src = guide_text(&["step S", "  accept 9706", "  kill 6 quest 9706.1", "  turnin 9706"]);
+	let r = compile_with(&src, &data);
+	assert!(diags(r.diag.errors(), r"objective\(s\) in data").is_empty(), "{}", r.text);
+	let d = diags(r.diag.warnings(), r"objective\(s\) in data").remove(0);
+	assert_eq!(d.message, "quest 9706 has 0 objective(s) in data, not 1");
+	assert_eq!(d.hint.as_deref(), Some("drop the `.1`: write `quest 9706`"));
+}
+
+/// Tyr's Watch (91317) and A Moon-Kissed Blade (95036) shipped kill and collect lines numbered against an
+/// older objective list: a kill on the item's line and the item on a kill's line follow the wrong quest-log
+/// line, whatever kind the named objective is.
+#[test]
+fn an_objective_index_that_names_an_objective_of_another_kind_while_the_target_is_another_objective_is_an_error() {
+	let data = data_plus(
+		json!({ "9705": like7(json!({ "id": 9705, "title": "Tusk and vermin", "pre": [], "objectives": [{ "type": "item", "id": 95101, "count": 1 }, { "type": "kill", "id": 6, "count": 8 }] })) }),
+		Value::Null,
+		tusks(),
+	);
+	let src = guide_text(&["step S", "  accept 9705", "  kill 6 quest 9705.1", "  collect 95101 quest 9705.2", "  turnin 9705"]);
+	let r = compile_with(&src, &data);
+	assert!(diags(r.diag.warnings(), r"9705\.\d is").is_empty(), "a swapped index is not only a warning: {}", r.text);
+	assert_eq!(
+		triples(diags(r.diag.errors(), r"9705\.\d is")),
+		vec![
+			(
+				line_of(&src, "  kill 6 quest 9705.1"),
+				"quest 9705.1 is collect Kobold Tusk x1, not this npc; Kobold Vermin is 9705.2".to_string(),
+				Some("write `quest 9705.2`, or `quest 9705` to take the index from the npc".to_string())
+			),
+			(
+				line_of(&src, "  collect 95101 quest 9705.2"),
+				"quest 9705.2 is kill Kobold Vermin x8, not this item; Kobold Tusk is 9705.1".to_string(),
+				Some("write `quest 9705.1`, or `quest 9705` to take the index from the item".to_string())
+			),
+		]
+	);
+	let fixed = compile_with(&guide_text(&["step S", "  accept 9705", "  kill 6 quest 9705.2", "  collect 95101 quest 9705.1", "  turnin 9705"]), &data);
+	assert!(diags(fixed.diag.errors(), r"9705\.\d is|objective\(s\) in data").is_empty() && diags(fixed.diag.warnings(), r"9705\.\d is").is_empty(), "{}", fixed.text);
 }
 
 fn tusks() -> Value {
@@ -710,7 +755,7 @@ fn elite_data() -> Data {
 }
 
 fn elite_tip(target: &str) -> String {
-	format!("in a Leveling guide put the goal in a step with `when group <quest>` (the player chooses it) or make it `optional`, with the tip \"{target} is elite: grouping up is advised.\"")
+	format!("in a Leveling guide put the goal in a step with `when group <quest>` (the player chooses it), not optional there, or make it `optional` in a step for everyone, with the tip \"{target} is elite: grouping up is advised.\"")
 }
 
 #[test]
@@ -727,6 +772,45 @@ fn elite_work_in_a_leveling_guide_killing_a_hostile_elite_is_an_error_unless_opt
 	let group = guide_text(&["step S", "  when group 7", "  kill 95003", "", "step T", "  when !group 7", "  kill 95003"]);
 	let last = group.split('\n').collect::<Vec<_>>().iter().rposition(|l| *l == "  kill 95003").unwrap() + 1;
 	assert_eq!(only(&compile_with(&group, &data).errors, "elite"), vec![format!("test.guide:{last}: `kill` npc 95003 (Elite Kobold) is elite; {}", elite_tip("Elite Kobold"))]);
+}
+
+#[test]
+fn a_group_or_dungeon_step_of_optional_goals_only_is_an_error_in_our_pack_and_a_warning_in_others() {
+	// The Monogrammed Sash, Margol's Horn: a step of optional goals only is done at once, so the player who
+	// chose the group way got no arrow. One goal that holds, notes only, or the solo way (`!group`) is fine.
+	let src = guide_text(&[
+		"step Asked",
+		"  when group 7",
+		"  collect 95100 x1 optional",
+		"  accept 7 optional",
+		"",
+		"step Held",
+		"  when group 7",
+		"  accept 7",
+		"  accept 783 optional",
+		"",
+		"step Solo",
+		"  when !group 7",
+		"  accept 7 optional",
+		"",
+		"step Talk",
+		"  when group 7",
+		"  note Ask around for a group.",
+		"",
+		"step Run",
+		"  when dungeon \"Ragefire Chasm\"",
+		"  turnin 783 optional",
+	]);
+	let msg = |what: &str, at: &str| {
+		format!("test.guide:{}: every goal of this `{what}` step is `optional`: a step of optional goals only is done at once, so the player who chose it gets no arrow; drop `optional` (only that player sees the step)", line_of(&src, at))
+	};
+	let want = vec![msg("when group 7", "  collect 95100 x1 optional"), msg("when dungeon", "  turnin 783 optional")];
+	let data = elite_data();
+	let ours = compile_with(&src, &data);
+	assert_eq!(only(&ours.errors, "every goal of this"), want, "{}", ours.text);
+	let theirs = compile_files(&[("test.guide", &src)], &data, Some("someone"));
+	assert!(only(&theirs.errors, "every goal of this").is_empty(), "{}", theirs.text);
+	assert_eq!(only(&theirs.warnings, "every goal of this"), want, "{}", theirs.text);
 }
 
 #[test]
@@ -828,11 +912,13 @@ fn a_collect_bound_to_the_line_of_another_item_on_a_quest_that_only_uses_its_ite
 }
 
 #[test]
-fn a_collect_bound_to_a_line_that_is_not_an_item_when_the_item_is_another_objective_of_the_quest_the_hint_names_its_index() {
+fn a_collect_bound_to_a_line_that_is_not_an_item_when_the_item_is_another_objective_of_the_quest_is_an_error_naming_its_index() {
 	let src = guide_text(&["step S", "  accept 9704", "  collect 95101 quest 9704.1", "  turnin 9704"]);
-	let w = diags(compile_with(&src, &used_item_data()).diag.warnings(), "not an item");
+	let r = compile_with(&src, &used_item_data());
+	assert!(diags(r.diag.warnings(), "not an item|9704\\.1 is").is_empty(), "{}", r.text);
+	let e = diags(r.diag.errors(), r"9704\.1 is");
 	assert_eq!(
-		w.iter().map(|x| (x.message.clone(), x.hint.clone())).collect::<Vec<_>>(),
-		[("quest 9704.1 is interact Kobold Crate x1, not an item".to_string(), Some("write `quest 9704.2`, or `quest 9704` to take the index from the item".to_string()))]
+		e.iter().map(|x| (x.message.clone(), x.hint.clone())).collect::<Vec<_>>(),
+		[("quest 9704.1 is interact Kobold Crate x1, not this item; Kobold Tusk is 9704.2".to_string(), Some("write `quest 9704.2`, or `quest 9704` to take the index from the item".to_string()))]
 	);
 }

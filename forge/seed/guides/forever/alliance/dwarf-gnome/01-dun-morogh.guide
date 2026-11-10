@@ -18,6 +18,12 @@ next forever/alliance/02-westfall
 # North Gate Outpost -> back west past Amberstill Ranch ->
 # Ironforge (training) and the tram to Stormwind.
 #
+# Hand fix (flow audit, 2026-11-07): at the Gol'Bolar Quarry the Bonesnappers
+# are killed with the Skullthumpers they share the quarry with, and Those
+# Blasted Troggs!, The Public Servant and the powder keg are handed in on the
+# first return, before Helm's Bed Lake's powder and spies, where the walk
+# passes; the published guides stopped at the quarry up to six times.
+#
 # Order changes against the export:
 # - Felix's parts and the Mornbrew errand (3361, 3364, 3365) are finished
 #   before leaving Coldridge Valley instead of walking back for Nori.
@@ -309,6 +315,7 @@ step Thunderbrew Distillery
   buy 2894 x1 npc 1247                        -- Rhapsody Malt, from Innkeeper Belm
   accept 99158                                -- Maxan Anvol
   accept 384                                  -- Ragnar Thunderbrew
+  accept 98321                                -- Tognus Flintfire, in the cellar
   train class                                 -- Last: some classes' trainers stand outside
 
 step Steelgrill's Depot
@@ -317,24 +324,6 @@ step Steelgrill's Depot
   accept 5541                                 -- Loslor Rudge, beside him
   accept 317                                  -- Pilot Bellowfiz
   accept 313                                  -- Pilot Stonegear
-
-step Boars and bears
-  tip Crag Boars and Young Black Bears roam the fields around Kharanos and the depot.
-  collect 2886 quest 384.1                    -- Crag Boar Rib
-  collect 769 quest 317.1                     -- Chunk of Boar Meat
-  collect 6952 quest 317.2                    -- Thick Bear Fur
-
-step Kharanos
-  tip Back in the distillery: Gremlock Pilsnor teaches Cooking, then the ribs go to Ragnar.
-  train Cooking npc 1699                      -- Gremlock Pilsnor: Camping 101 asks you to learn it
-  complete 96629 @47.7,52.3
-  turnin 96629                                -- Gremlock Pilsnor
-  turnin 384                                  -- Ragnar Thunderbrew
-  accept 98321                                -- Tognus Flintfire
-
-step Steelgrill's Depot
-  turnin 317                                  -- Pilot Bellowfiz
-  accept 318
 
 # ---------------------------------------------------------------- The Grizzled Den
 
@@ -360,10 +349,23 @@ step Rumbleshot's Ammo
   collect 13850 quest 5541.1                  -- Rumbleshot's Ammo: the Ammo Crate
   turnin 5541                                 -- Hegnar Rumbleshot
 
+step Boars and bears
+  tip Crag Boars and Young Black Bears roam the fields from Rumbleshot's camp north-east to Kharanos and the depot: kill them on the walk back.
+  collect 2886 quest 384.1                    -- Crag Boar Rib
+  collect 769 quest 317.1                     -- Chunk of Boar Meat
+  collect 6952 quest 317.2                    -- Thick Bear Fur
+
 step Kharanos and the depot
+  tip Back in the distillery: Gremlock Pilsnor teaches Cooking, then the ribs go to Ragnar.
+  train Cooking npc 1699                      -- Gremlock Pilsnor: Camping 101 asks you to learn it
+  complete 96629 @47.7,52.3
+  turnin 96629                                -- Gremlock Pilsnor
+  turnin 384                                  -- Ragnar Thunderbrew
   turnin 98321                                -- Tognus Flintfire
   turnin 98323                                -- Senir Whitebeard
   accept 287                                  -- Senir Whitebeard
+  turnin 317                                  -- Pilot Bellowfiz, at the depot
+  accept 318
   turnin 313                                  -- Pilot Stonegear, at the depot
   accept 412                                  -- Razzle Sprysprocket, by the depot
 
@@ -384,7 +386,7 @@ step Brewnall Village
 step Frostmane Hold
   tip Frostmane Hold is the troll cave in the hills south-west of Brewnall Village. Ice Claw Bears, Elder Crag Boars and Snow Leopards you kill on the way count for Rejold. Kill Headhunters at its mouth and walk through to its far end.
   kill 1123 quest 287                         -- Frostmane Headhunter
-  goto 22.8,52.1 "Frostmane Hold"
+  goto 21.3,54.2 "Frostmane Hold"
   complete 287
 
 step Gnomes, bears and leopards
@@ -443,7 +445,8 @@ step Kharanos
   tip Back east through Kharanos: the class quests here wait for level 10.
   accept 6064 only Hunter                     -- Grif Wildheart, at the smithy
   accept 94449 only Shaman                    -- Ingrid Dunwald: Bruegs Kindleborn by the South Gate takes it
-  accept 5637 only Priest,Dwarf               -- Maxan Anvol: High Priestess Laurena in Stormwind takes it
+  level 10 only Priest
+  accept 5637 only Priest,Dwarf               -- Maxan Anvol: High Priest Rohan in Ironforge takes it
   accept 94824 only Priest,Gnome              -- Maxan Anvol: High Priestess Mims in Ironforge takes it
 
 step Taming the Beast
@@ -522,19 +525,21 @@ step Gol'Bolar Quarry
   accept 432                                  -- Foreman Stonebrow
 
 step The quarry troggs
-  tip Rockjaw Skullthumpers fill the quarry; Rockjaw Ambushers by Helm's Bed Lake drop the Empty Powder Keg.
+  tip Rockjaw Skullthumpers, Bonesnappers and Ambushers share the quarry and the slopes north of it; the Ambushers drop the Empty Powder Keg.
   kill 1115 quest 432                         -- Rockjaw Skullthumper
+  kill 1117 quest 433                         -- Rockjaw Bonesnapper
   collect 268548                              -- Empty Powder Keg
   accept 95213
 
-step Quarrymaster Thesten
+step Gol'Bolar Quarry
+  turnin 432                                  -- Foreman Stonebrow
+  turnin 433                                  -- Senator Mehr Stonehallow
   turnin 95213                                -- Quarrymaster Thesten
   accept 95214
 
 step Helm's Bed Lake
-  tip Rockjaw Ambushers by Helm's Bed Lake, north of the quarry, and Rockjaw Backbreakers further east drop the Stolen Blasting Powder. Rockjaw Bonesnappers prowl the quarry and the lake; Dark Iron Spies sneak around the lake shore. One spy drops the Dark Iron Map.
+  tip Rockjaw Ambushers by Helm's Bed Lake, north of the quarry, and Rockjaw Backbreakers further east drop the Stolen Blasting Powder. Dark Iron Spies sneak around the lake shore east of the quarry; one of them drops the Dark Iron Map.
   collect 267415 quest 95214.1                -- Stolen Blasting Powder
-  kill 1117 quest 433                         -- Rockjaw Bonesnapper
   kill 6123 quest 96390                       -- Dark Iron Spy
   collect 274268                              -- Dark Iron Map
   accept 96391
@@ -545,10 +550,8 @@ step Leopards and boars
   collect 267416 quest 95217.2 optional       -- Toughened Boar Hide
 
 step Gol'Bolar Quarry
-  turnin 432                                  -- Foreman Stonebrow
   turnin 95217 optional                       -- Frast Dokner
   turnin 95214                                -- Quarrymaster Thesten
-  turnin 433                                  -- Senator Mehr Stonehallow
 
 step Earthseer Farsen
   turnin 96390

@@ -14,7 +14,10 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { SOURCES } = require('../lib/paths');
-const { pickBuild, cachedTable } = require('../lib/data/wago');
+const { pickBuild, cachedTable, fetchText } = require('../lib/data/wago');
+
+// The client tables this reads (and caches under data/sources/wago/<build>/).
+const TABLES = ['UiTextureAtlas', 'UiTextureAtlasElement', 'UiTextureAtlasMember', 'UiTextureAtlasElementSliceData'];
 
 // The atlas elements the Blizzard skin draws (Theme/Kits.lua names them).
 const ELEMENTS = [
@@ -129,20 +132,18 @@ function toLua(art, build, slices = {}) {
 	return lines.join('\n');
 }
 
-async function generate(addonRoot) {
-	const { build } = await pickBuild({ sourcesDir: SOURCES, product: 'forever' });
-	const get = async (url) => {
-		const res = await fetch(url, { headers: { 'user-agent': 'polestar-media' } });
-		if (!res.ok) throw new Error(`GET ${url}: HTTP ${res.status}`);
-		return res.text();
-	};
+// offline: no request to wago.tools; the newest cached Forever build holding
+// every one of TABLES. Online, that build is also the fallback when
+// wago.tools' build list is unreachable. sourcesDir, fetchImpl: for tests.
+async function generate(addonRoot, { offline = false, sourcesDir = SOURCES, fetchImpl = globalThis.fetch } = {}) {
+	const { build, warnings } = await pickBuild({ sourcesDir, product: 'forever', tables: TABLES, offline, fetchImpl });
+	for (const w of warnings) console.warn(`game-art: ${w}`);
+	const get = (url) => fetchText(fetchImpl, url, { userAgent: 'polestar-media' });
 	const tables = {};
-	for (const t of ['UiTextureAtlas', 'UiTextureAtlasElement', 'UiTextureAtlasMember', 'UiTextureAtlasElementSliceData']) {
-		tables[t] = await cachedTable({ sourcesDir: SOURCES, build, table: t, get });
-	}
+	for (const t of TABLES) tables[t] = await cachedTable({ sourcesDir, build, table: t, offline, get });
 	const file = path.join(addonRoot, OUT);
 	fs.writeFileSync(file, toLua(retailArt(tables), build, sliceData(tables, SLICED)));
 	return [file];
 }
 
-module.exports = { name: 'game-art', generate, retailArt, sliceData, toLua, ELEMENTS, SLICED };
+module.exports = { name: 'game-art', generate, retailArt, sliceData, toLua, ELEMENTS, SLICED, TABLES };

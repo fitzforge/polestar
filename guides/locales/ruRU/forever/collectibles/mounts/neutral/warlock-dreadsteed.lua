@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Warlock Dreadsteed"] = "Конь погибели чернокнижника",
-	["Your epic mount at 60, summoned anywhere: no epic horse to buy and no 1,000g Journeyman Riding needed."] = "",
+	["Your epic mount at 60, summoned anywhere: no epic horse to buy and no 1,000g Journeyman Riding needed."] = "Ваше эпическое средство передвижения на 60-м уровне, призывается где угодно: не нужно покупать эпического коня и платить 1000 з. за навык верховой езды (подмастерье).",
 
 	-- Step 1: Mor'zul Bloodbringer (Stormwind)
 	-- {npc:5520} Spackle Thornberry · {object:2164} Slaughtered Lamb · {quest:7562} Mor'zul Bloodbringer · {zone:1428} Burning Steppes

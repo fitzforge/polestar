@@ -39,6 +39,9 @@ local function sortedLog()
 	return ids
 end
 
+-- Forever's client answers 0 (Compat.GetLogCap: its log holds 40).
+function C_QuestLog.GetMaxNumQuestsCanAccept() return 0 end
+
 function C_QuestLog.GetNumQuestLogEntries()
 	local n = #sortedLog()
 	return n + (n > 0 and 1 or 0), n -- one header line when the log is not empty
@@ -148,7 +151,8 @@ function sq.removePlate(unit)
 end
 
 ---------------------------------------------------------------------------
--- Polestar.Pins fake (contract: SetLayer / ClearLayer / SetLayerVisible)
+-- Polestar.Pins fake (contract: SetLayer / ClearLayer / SetLayerVisible; a pin at map, x, y or
+-- at the additive world position c, wx, wy)
 ---------------------------------------------------------------------------
 
 local pins = { layers = {}, calls = {}, visible = {} }
@@ -158,7 +162,10 @@ function pins.SetLayer(layer, list, opts)
 	assert(type(layer) == "string", "layer must be a string")
 	assert(type(list) == "table", "pins must be a table")
 	for i, p in ipairs(list) do
-		assert(type(p.map) == "number" and type(p.x) == "number" and type(p.y) == "number", "pin " .. i .. " needs map, x, y")
+		local onMap = type(p.map) == "number" and type(p.x) == "number" and type(p.y) == "number"
+		local inWorld = p.c ~= nil and type(p.wx) == "number" and type(p.wy) == "number"
+		assert(onMap or inWorld, "pin " .. i .. " needs map, x, y or c, wx, wy")
+		assert(p.hull == nil or (type(p.hull) == "table" and #p.hull >= 6 and #p.hull % 2 == 0), "pin hull must be wx, wy pairs of 3 or more corners")
 		assert(p.f == nil or p.f == "e" or p.f == "l", "pin frame must be nil, 'e' or 'l'")
 		assert(p.tooltip == nil or type(p.tooltip) == "string" or type(p.tooltip) == "function", "bad tooltip")
 		assert(p.area == nil or (type(p.area) == "number" and p.area > 0), "pin area must be a positive number of yards")

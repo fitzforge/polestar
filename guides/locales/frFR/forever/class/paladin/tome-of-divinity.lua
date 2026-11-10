@@ -45,9 +45,9 @@ return {
 	["Back to the Cathedral. {npc:6171} gives you the {item:6866}; {npc:6173} lies wounded by the altar of the same hall. Keep the symbol: you need it on {npc:6172}. If you lose it, {npc:6171} gives you another (The {item:6866})."] = "Retour à la cathédrale. {npc:6171} vous donne le {item:6866} ; {npc:6173} est allongé, blessé, près de l'autel de la même salle. Gardez le symbole : vous en avez besoin sur {npc:6172}. Si vous le perdez, {npc:6171} vous en donne un autre (Le {item:6866}).",
 
 	-- Step 8: Henze Faulk
-	-- {npc:6172} Henze Faulk · {area:56} Heroes' Vigil · {area:86} Stone Cairn Lake · {item:6866} Symbol of Life
+	-- {npc:6172} Henze Faulk · {area:56} Heroes' Vigil · {area:86} Stone Cairn Lake · {item:6866} Symbol of Life · {spell:116} Frostbolt
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["{npc:6172} lies dead on {area:56}, the island in {area:86} in eastern Elwynn, on top of one of the mounds around the stone circle. Target his body and use the {item:6866} to raise him, then speak to him. If another paladin just raised him, his body is back within about three minutes. The Defias Rogue Wizards on the island (level 9-10) cast Frostbolt from far off: they stand apart, so pull one at a time."] = "",
+	["{npc:6172} lies dead on {area:56}, the island in {area:86} in eastern Elwynn, on top of one of the mounds around the stone circle. Target his body and use the {item:6866} to raise him, then speak to him. If another paladin just raised him, his body is back within about three minutes. The Defias Rogue Wizards on the island (level 9-10) cast {spell:116} from far off: they stand apart, so pull one at a time."] = "{npc:6172} gît mort sur le {area:56}, l'île du {area:86}, dans l'est de la forêt d'Elwynn, au sommet de l'un des tertres autour du cercle de pierres. Ciblez son corps et utilisez le {item:6866} pour le ranimer, puis parlez-lui. Si un autre paladin vient de le ranimer, son corps revient en trois minutes environ. Les Sorciers-voleurs défias de l'île (niveau 9-10) lancent {spell:116} de loin : ils se tiennent à l'écart les uns des autres, attirez-les donc un par un.",
 	-- {item:6866} Symbol of Life · {npc:6172} Henze Faulk
 	["{item:6866} on {npc:6172}'s body"] = "{item:6866} sur le corps de {npc:6172}",
 
@@ -101,7 +101,4 @@ return {
 	-- Step 19: Redemption
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6178} Muiredon Battleforge · {npc:6179} Tiza Battleforge · {spell:7328} Redemption
 	["Back up to the {object:32386}: {npc:6178} takes the script, {npc:6179} teaches you {spell:7328}."] = "Remontez à la salle des Mystères : {npc:6178} prend le texte, {npc:6179} vous apprend {spell:7328}.",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{npc:6172} lies dead on {area:56}, the island in {area:86} in eastern Elwynn, on top of one of the mounds around the stone circle. Target his body and use the {item:6866} to raise him, then speak to him. If another paladin just raised him, his body is back within about three minutes. The Defias Rogue Wizards on the island (level 9-10) cast {spell:116} from far off: they stand apart, so pull one at a time."] = "{npc:6172} gît mort sur le {area:56}, l'île du {area:86}, dans l'est de la forêt d'Elwynn, au sommet de l'un des tertres autour du cercle de pierres. Ciblez son corps et utilisez le {item:6866} pour le ranimer, puis parlez-lui. Si un autre paladin vient de le ranimer, son corps revient en trois minutes environ. Les Sorciers-voleurs défias de l'île (niveau 9-10) lancent {spell:116} de loin : ils se tiennent à l'écart les uns des autres, attirez-les donc un par un.",
 }

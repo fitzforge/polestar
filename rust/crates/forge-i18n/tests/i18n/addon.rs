@@ -47,8 +47,12 @@ fn each_shipped_language_loads_before_the_code_that_reads_l_at_load() {
 	let locales = shipped();
 	let st = locale_state(root(), &polestar(), &locales, None).unwrap();
 	for l in &locales {
+		// The client loads the language folder when Core/Locale.lua asks (stub_packs.lua).
+		let folder = forge_guide::toc::language_addon(l);
+		let files = forge_addontest::run::toc_files(&folder).unwrap().iter().map(|f| forge_addontest::lua_string(&f.to_string_lossy())).collect::<Vec<_>>().join(", ");
 		let out = emitted(&RunAddon {
-			before: format!("function GetLocale() return \"{l}\" end"),
+			stubs: vec!["stub_packs.lua"],
+			before: format!("function GetLocale() return \"{l}\" end\nstub.packs.{folder} = {{ {files} }}"),
 			addons: core(&["Core/Core.xml"]),
 			script: "emit(BINDING_NAME_POLESTAR_TOGGLE)".into(),
 			..RunAddon::default()

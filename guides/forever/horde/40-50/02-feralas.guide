@@ -9,11 +9,12 @@ next forever/horde/40-50/03-feralas
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: A Threat in Feralas (2981).
+# Added here: A Threat in Feralas (2981), News for Fizzle (1137), Keeping Pace (1190), Zamek's Distraction (1191),
+# Rizzle's Schematics (1194).
 
 step Swamp of Sorrows
   zone Swamp of Sorrows
-  goto 46.1,54.7 "Swamp of Sorrows"
+  goto 46.1,54.7 "Stonard"
 
 step Fly to Grom'gol
   zone Swamp of Sorrows
@@ -27,24 +28,24 @@ step Zeppelin to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  goto 51.5,45.6 "Orgrimmar"
+  goto 51.5,45.6 "The middle of Orgrimmar"
 # Route from the Polestar route simulator's Horde consensus (Tauren export),
 # visits 33-38, levels 42.5-44: Tanaris, Feralas, then the way back east.
 # Checked by lint, not play-tested on Forever yet. Era + known Forever quests
 # only.
 #
-# Flow: Misty Reed Post (where the previous guide ends) -> fly Stonard to
-# Grom'gol -> zeppelin to Orgrimmar (training, riding; Druids and Paladins:
+# Flow: the Harborage (where the previous guide ends) -> ride to Stonard, fly
+# to Grom'gol -> zeppelin to Orgrimmar (training, riding; Druids and Paladins:
 # Thunder Bluff for training; Warlocks: Ratchet for the Felsteed) -> fly
 # Freewind Post -> Gadgetzan (flight path) -> eastern
-# Wastewander camps -> Gadgetzan -> southern Wastewander camps ->
-# Steamwheedle Port -> Lost Rigger Cove -> Steamwheedle Port -> Gadgetzan ->
+# Wastewander camps -> Gadgetzan -> Steamwheedle Port -> Lost Rigger Cove ->
+# southern Wastewander camps -> Steamwheedle Port (every hand-in) -> Gadgetzan ->
 # fly Freewind Post -> Camp Mojache (flight path, bind) -> Woodpaw north camp
 # and the Gordunni Outpost -> Mojache -> sprite darters and Woodpaw alphas ->
-# Mojache -> Grimtotem camp, the Woodpaw battle map and the southern Gordunni
-# ruins -> Mojache -> the Writhing Deep -> Mojache -> Rogue Vale screechers
-# -> the Forgotten Coast (distress beacon) -> OOX-22/FE's escort -> hearth
-# to Camp Mojache -> fly Orgrimmar (Ripple Recovery, training) -> zeppelin
+# Mojache -> Grimtotem camp and the Woodpaw battle map -> Mojache -> one
+# sweep west: the Writhing Deep, the southern Gordunni ruins and, with the
+# distress beacon, OOX-22/FE's escort from Feral Scar Vale -> Mojache (every
+# hand-in) -> fly Orgrimmar (Ripple Recovery, training) -> zeppelin
 # to Grom'gol -> fly Stonard, where the next guide starts.
 #
 # Deviations from the simulator's order:
@@ -52,9 +53,9 @@ step Orgrimmar
 #   south of town before Steamwheedle Port, so Lost Rigger Cove is one sweep
 #   and the visit ends at the Gadgetzan flight master.
 # - Feralas: hub-batched loops out of Camp Mojache (north; west and south;
-#   the Writhing Deep); the screechers, the beacon and OOX-22/FE's escort in
-#   one trip west. The hearthstone to Camp Mojache is used after the escort
-#   (it ends on the far west coast) instead of before it.
+#   then one sweep from the Writhing Deep west to Feral Scar Vale, re-ordered
+#   for flow in 0.3.5). The beacon drops from any Feralas mob, so there is no
+#   ride to the Forgotten Coast for it.
 # - Binds: Gadgetzan, Thunder Bluff, the Undercity, Grom'gol and Booty Bay
 #   are dropped: each is replaced before any hearth uses it. Camp Mojache is
 #   kept for the hearth after the escort.
@@ -78,10 +79,11 @@ step Orgrimmar
 # Brill), all optional.
 #
 # Accepted here, finished later on the route: Screecher Spirits (3520,
-# Steamwheedle Port, around 46.7), Deliver to MacKinley (2874) in Booty Bay
+# Steamwheedle Port: the screechers on the next Feralas visit, Yeh'kinya at the
+# end of Tooga's escort), Deliver to MacKinley (2874) in Booty Bay
 # around level 50, A Strange Request (3121), A Grim Discovery (2976) and The
 # Gordunni Orb (3002) in Orgrimmar at 45, Ripple Recovery (650) in the
-# Hinterlands.
+# Hinterlands, Improved Quality (7734) on the next Feralas visit.
 #
 # Optional: Find OOX-22/FE! (2766) and Rescue OOX-22/FE! (2767): the distress
 # beacon drops about one kill in forty; the reward waits in Booty Bay.
@@ -111,15 +113,112 @@ step Belgrom Rockmaul
   zone Orgrimmar
   accept 2981
 
+step Riding at 40
+  only Troll
+  zone Durotar
+  when level>=40
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Xar'Ti in Sen'jin Village, a short ride south of Orgrimmar down the Durotar road, with Zjolnir's raptors (20 gold each) beside him. Ride back to Orgrimmar's flight master afterwards.
+  train 7953 optional                   -- Xar'Ti, riding trainer
+  note "Raptors: Zjolnir, beside Xar'Ti in Sen'jin Village."
+
+step Fly to Thunder Bluff
+  only Druid,Paladin
+  zone Orgrimmar
+  goto 45.3,63.7 "Orgrimmar flight master"
+  fly "Thunder Bluff"
+
+step Fly to Thunder Bluff
+  only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  zone Orgrimmar
+  when level>=40
+  goto 45.3,63.7 "Orgrimmar flight master"
+  fly "Thunder Bluff"
+
+step Thunder Bluff
+  only Druid,Paladin
+  zone Thunder Bluff
+  tip Your trainer is in Thunder Bluff: Turak Runetotem (Druids) on Elder Rise, Alodan the Hopeful (Paladins).
+  train class
+
+step Mulgore
+  only Tauren
+  zone Mulgore
+  when level>=40
+  goto 46.8,62.0 "Bloodhoof Village" live
+
+step Riding at 40
+  only Tauren
+  zone Mulgore
+  when level>=40
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Kar Stormsinger in Bloodhoof Village, with Harb Clawhoof's kodos (20 gold each) beside him. Ride back up to Thunder Bluff's flight master afterwards.
+  train 3690 optional                   -- Kar Stormsinger, riding trainer
+  note "Kodos: Harb Clawhoof, beside Kar Stormsinger in Bloodhoof Village."
+
 step Fly to Freewind Post
+  only Druid,Paladin
+  zone Thunder Bluff
+  goto 46.7,49.9 "Thunder Bluff flight master"
+  fly "Freewind Post"
+  zone Thousand Needles
+
+step Fly to Freewind Post
+  only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  zone Thunder Bluff
+  when level>=40
+  goto 46.7,49.9 "Thunder Bluff flight master"
+  fly "Freewind Post"
+  zone Thousand Needles
+
+step Ratchet for the Felsteed
+  only Warlock
+  zone Orgrimmar
+  tip Fly from Orgrimmar to Ratchet; Strahad Farsan stands on the hill above the docks.
+  goto 45.3,63.7 "Orgrimmar flight master"
+  fly "Ratchet"
+  zone The Barrens
+  turnin 3631                           -- Strahad Farsan
+  accept 4490
+  turnin 4490
+
+step Fly to Freewind Post
+  only Warlock
+  zone The Barrens
+  goto 63.1,37.1 "Ratchet flight master"
+  fly "Freewind Post"
+  zone Thousand Needles
+
+step Fly to Freewind Post
+  only Orc,Troll,Undead,Skyborne,Warrior,Hunter,Rogue,Priest,Shaman,Mage
   zone Orgrimmar
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Freewind Post"
   zone Thousand Needles
 
-step Tanaris
+step Fly to Freewind Post
+  only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage
+  zone Orgrimmar
+  when level<40
+  goto 45.3,63.7 "Orgrimmar flight master"
+  fly "Freewind Post"
+  zone Thousand Needles
+
+step Mirage Raceway
+  zone Thousand Needles
+  tip The road from Freewind Post to Tanaris runs past the Mirage Raceway on the Shimmering Flats: Fizzle Brassbolts is in the gnomes' camp beside the track, Pozzik and Zamek by the goblins' camp. Pozzik first, then Zamek, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to Pozzik.
+  turnin 1137                           -- Fizzle Brassbolts: News for Fizzle, from Martek in the Badlands
+  accept 1190                           -- Pozzik
+  turnin 1183                           -- Pozzik: the Fuel Regulator Blueprints from Baron Revilgaz, if you carry them
+  accept 1186
+  turnin 1186                           -- Razzeric, beside Pozzik
+  accept 1191                           -- Zamek
+  turnin 1191
+  turnin 1190                           -- Rizzle's Unguarded Plans
+  accept 1194
+  turnin 1194                           -- Pozzik
+
+step To Gadgetzan
   zone Tanaris
-  goto 50.2,27.5 "Tanaris"
+  goto 50.2,27.5 "Gadgetzan"
 
 step Gadgetzan
   zone Tanaris
@@ -131,132 +230,6 @@ step Gadgetzan
   accept 1707                           -- Spigot Operator Luglunket
 
 # ---------------------------------------------------------------- Gadgetzan and the Wastewander
-
-step Fly to Thunder Bluff
-  only Tauren
-  zone Tanaris
-  when level>=40
-  goto 51.6,25.5 "Gadgetzan flight master"
-  fly "Thunder Bluff"
-
-step Mulgore
-  only Tauren
-  zone Mulgore
-  when level>=40
-  goto 46.8,62.0 "Mulgore" live
-
-step Riding at 40
-  only Tauren
-  zone Mulgore
-  when level>=40
-  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Kar Stormsinger in Bloodhoof Village, with Harb Clawhoof's kodos (20 gold each) beside him. Another race's trainer (Kildar in Orgrimmar) teaches you only once you are Exalted with his city.
-  train 3690 optional                   -- Kar Stormsinger, riding trainer
-  note "Kodos: Harb Clawhoof, beside Kar Stormsinger in Bloodhoof Village."
-
-step Fly to Orgrimmar
-  only Undead
-  zone Tanaris
-  when level>=40
-  goto 51.6,25.5 "Gadgetzan flight master"
-  fly "Orgrimmar"
-
-step Zeppelin to Undercity
-  only Undead
-  zone Durotar
-  when level>=40
-  goto 50.8,13.5 "Zeppelin to Undercity"
-
-step Riding at 40
-  only Undead
-  zone Tirisfal Glades
-  when level>=40
-  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Velma Warnam in Brill, with Zachariah Post's skeletal horses (20 gold each) beside her. Another race's trainer (Kildar in Orgrimmar) teaches you only once you are Exalted with his city.
-  train 4773 optional                   -- Velma Warnam, riding trainer
-  note "Skeletal horses: Zachariah Post, beside Velma Warnam in Brill."
-
-step Zeppelin to Orgrimmar
-  only Undead,Paladin,Druid
-  zone Tirisfal Glades
-  when level>=40
-  goto 60.7,58.9 "Zeppelin to Orgrimmar"
-
-step Fly to Gadgetzan
-  only Undead,Paladin,Druid
-  zone Orgrimmar
-  when level>=40
-  goto 45.3,63.8 "Orgrimmar flight master"
-  fly "Gadgetzan"
-
-step Gadgetzan flight master
-  only Druid,Paladin
-  zone Tanaris
-  goto 51.6,25.5 "Gadgetzan flight master" only Orc,Skyborne,Troll,Undead
-  goto 51.6,25.5 "Gadgetzan flight master" only Tauren,Paladin
-
-step Thunder Bluff
-  only Druid,Paladin
-  zone Thunder Bluff
-  tip Your trainer is in Thunder Bluff: Turak Runetotem (Druids) on Elder Rise, Alodan the Hopeful (Paladins). Fly there from Gadgetzan, then back to Gadgetzan.
-  fly "Thunder Bluff"
-  train class
-
-step Zeppelin to Orgrimmar
-  only Undead,Warlock
-  zone Tirisfal Glades
-  when level>=40
-  goto 60.7,58.9 "Zeppelin to Orgrimmar"
-
-step Fly to Gadgetzan
-  only Undead,Warlock
-  zone Orgrimmar
-  when level>=40
-  goto 45.3,63.8 "Orgrimmar flight master"
-  fly "Gadgetzan"
-
-step Gadgetzan flight master
-  only Warlock
-  zone Tanaris
-  goto 51.6,25.5 "Gadgetzan flight master"
-
-step Ratchet for the Felsteed
-  only Warlock
-  zone The Barrens
-  fly "Ratchet"
-  turnin 3631                           -- Strahad Farsan
-  accept 4490
-  turnin 4490
-
-step Back to Gadgetzan
-  only Druid,Paladin
-  zone Thunder Bluff
-  goto 46.7,49.9 "Thunder Bluff flight master"
-  fly "Gadgetzan"
-
-step Back to Gadgetzan
-  only Warlock
-  zone The Barrens
-  goto 63.1,37.1 "Ratchet flight master"
-  fly "Gadgetzan"
-
-step Fly to Gadgetzan
-  only Tauren
-  zone Thunder Bluff
-  when level>=40
-  goto 46.6,49.9 "Thunder Bluff flight master" only !Druid
-  fly "Gadgetzan"
-
-step Zeppelin to Orgrimmar
-  only Undead
-  zone Tirisfal Glades
-  when level>=40
-  goto 60.7,58.9 "Zeppelin to Orgrimmar" only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Druid
-
-step Fly to Gadgetzan
-  only Undead
-  zone Orgrimmar
-  when level>=40
-  goto 45.3,63.8 "Orgrimmar flight master" only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Druid
-  fly "Gadgetzan"
 
 step Noonshade Ruins: kill these as you meet them
   zone Tanaris
@@ -283,6 +256,7 @@ step Steamwheedle Port
   accept 8366                           -- Security Chief Bilgewhizzle, inside
   turnin 2872                           -- Stoley, inside
   accept 2873
+  accept 3520                           -- Yeh'kinya: the screechers live in Feralas, on the next Feralas visit
 
 step Lost Rigger Cove: kill these as you meet them
   zone Tanaris
@@ -308,6 +282,14 @@ step Waterspring Field: kill these as you meet them
   kill 5615 quest 1691.1
   collect 8723 quest 2781.1 @61.8,38.2
 
+step Steamwheedle Port
+  tip Ride north-east back to the port: Stoley, the Haughty Modiste and the Security Chief take what Lost Rigger Cove gave you. Gadgetzan is west of it.
+  turnin 8365                           -- Haughty Modiste
+  turnin 2873                           -- Stoley, inside
+  accept 2874                           -- for Booty Bay, around level 50
+  turnin 2875                           -- Security Chief Bilgewhizzle, inside
+  turnin 8366
+
 step Gadgetzan
   turnin 1878
   turnin 2781                           -- Chief Engineer Bilgewhizzle
@@ -322,7 +304,7 @@ step Fly to Freewind Post
 
 step Feralas
   zone Feralas
-  goto 75.7,44.3 "Feralas"
+  goto 75.7,44.3 "Camp Mojache"
 
 step Camp Mojache
   zone Feralas
@@ -360,7 +342,7 @@ step Camp Mojache
   turnin 2862                           -- Hadoken Swiftstrider
   accept 2863                           -- Alpha Strike: one hour from now
   turnin 2975                           -- Rok Orhan walks around Camp Mojache: look inside the circle on the map
-  turnin 2978 optional
+  turnin 2978
   accept 2979
   accept 2980
   turnin 2987                           -- Orwin Gizzmick
@@ -389,58 +371,49 @@ step Woodpaw battle map
   turnin 2902
   accept 2903
 
-step Ruins of Isildien: kill these as you meet them
-  zone Feralas
-  tip Ride south-west to the ogre ruins below Feral Scar Vale. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb.
-  kill 5234 quest 2980.3              -- Gordunni Mauler walks around Ruins of Isildien: look inside the circle on the map
-  kill 5240 quest 2980.2
-  kill 5236 quest 2980.1
-  collect 9371 quest 2979.1
-
 step Camp Mojache
   turnin 2974                           -- Krueg Skullsplitter
   accept 2976                           -- for Orgrimmar, around level 45
   turnin 2903                           -- Hadoken Swiftstrider
   accept 7730
   accept 7731
-  turnin 2980                         -- Rok Orhan walks around Camp Mojache: look inside the circle on the map
-  turnin 2979 optional -- Rok Orhan
-  accept 3002                           -- for Orgrimmar, around level 45
 
 step The Writhing Deep
   tip The Zukk'ash hive burrows into the hills south-east of the camp; Stinglasher waits in its deepest chamber.
   collect 18961 quest 7730.1
   collect 18962 quest 7731.1 @75.6,60.9
 
-step Camp Mojache
-  turnin 7730                           -- Hadoken Swiftstrider
-  turnin 7731
-  vendor nearest
-  accept 7732                           -- Hadoken Swiftstrider: for Zilzibin Drumlore in Orgrimmar, around level 50
-
-step Feralas
+step Ruins of Isildien: kill these as you meet them
   zone Feralas
-  goto 23.7,55.5 "Feralas"
+  tip Ride west from the hive to the ogre ruins below Feral Scar Vale. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb.
+  kill 5234 quest 2980.3              -- Gordunni Mauler walks around Ruins of Isildien: look inside the circle on the map
+  kill 5240 quest 2980.2
+  kill 5236 quest 2980.1
+  collect 9371 quest 2979.1
 
-step The Forgotten Coast
-  tip Keep riding west to the coast. The Coast Crawl Deepseers and Snapclaws on the beaches drop OOX-22/FE's distress beacon about one kill in forty: if one drops, use it to start the quest.
-  collect 8705 "OOX-22/FE Distress Beacon" optional
-  accept 2766 optional
-
-step Feralas
-  zone Feralas
-  goto 53.4,55.7 "Feralas"
+step Feral Scar Vale yetis
+  tip North-west of the ruins, the yetis den in Feral Scar Vale; every yeti there can drop a thick hide.
+  collect 8973 quest 2822.1
 
 step Homing Robot OOX-22/FE
-  tip Only with the distress beacon: the robot sits in a small cave on the north side of Feral Scar Vale. Escort it to the dock on the Forgotten Coast; yetis and gorillas ambush you on the way. Its reward waits in Booty Bay for a later visit.
+  tip Only with the distress beacon: any beast, gnoll or ogre in Feralas can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of Feral Scar Vale, just north-west of the ruins. Escort it to the dock on the Forgotten Coast; yetis and gorillas ambush you on the way. Its reward waits in Booty Bay for a later visit.
   tip Careful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock.
+  collect 8705 "OOX-22/FE Distress Beacon" optional
+  accept 2766 optional
   turnin 2766 optional
   accept 2767 optional
   complete 2767 optional
 
-step Feralas
-  zone Feralas
-  goto 75.4,44.3 "Feralas"
+step Camp Mojache
+  turnin 7730                           -- Hadoken Swiftstrider
+  turnin 7731
+  vendor nearest
+  turnin 2822                           -- Jangdor Swiftstrider, inside
+  accept 7734                           -- the Rage Scar yetis, on the next visit to Feralas
+  accept 7732                           -- Hadoken Swiftstrider: for Zilzibin Drumlore in Orgrimmar
+  turnin 2980                         -- Rok Orhan walks around Camp Mojache: look inside the circle on the map
+  turnin 2979                           -- Rok Orhan
+  accept 3002                           -- for Orgrimmar, around level 45
 
 step Fly to Orgrimmar
   zone Feralas
@@ -452,14 +425,15 @@ step Fly to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  tip Fly to Orgrimmar. The Droffers brothers run their shop in the Drag.
-  accept 649                            -- Dran Droffers
-  turnin 649                            -- Malton Droffers
-  accept 650                            -- for the Hinterlands, around level 48
-  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-  tip Valley of Honor, then the Cleft of Shadow and the Valley of Spirits.
+  tip Fly to Orgrimmar. From the flight master: the Cleft of Shadow, then the Drag, then the Valley of Honor.
   turnin 3121                           -- Neeru Fireblade, Cleft of Shadow
   accept 3122
+  turnin 7732                           -- Zilzibin Drumlore, the Drag
+  accept 649                            -- Dran Droffers, the Drag
+  turnin 649                            -- Malton Droffers
+  accept 650                            -- for the Hinterlands, around level 48
+  turnin 2976                           -- Belgrom Rockmaul, Valley of Honor
+  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 step Orgrimmar
   zone Orgrimmar

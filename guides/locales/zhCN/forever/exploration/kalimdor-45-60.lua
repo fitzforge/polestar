@@ -13,7 +13,7 @@ return {
 	-- Step 1: Tanaris (1/3)
 	-- {zone:1446} Tanaris · {zone:1445} Dustwallow Marsh · {zone:1414} Kalimdor
 	["Starts in {zone:1446}, south of {zone:1445}. The last area of this guide completes the {zone:1414} map. 20 areas to discover here, levels 40-50."] = "从{zone:1445}南边的{zone:1446}开始。本指南的最后一个区域将完成{zone:1414}地图。这里有20个区域待发现，40-50级。",
-	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "在一个角色上探索整张世界地图是一项 Forever 传承挑战（1点账号通用传承点数）。",
+	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "在一个角色上探索整张世界地图是一项 无限 传承挑战（1点账号通用传承点数）。",
 	-- {zone:1446} Tanaris · {zone:1445} Dustwallow Marsh · {zone:1441} Thousand Needles · {area:976} Gadgetzan
 	["{zone:1446} is south of {zone:1445} and {zone:1441}. {area:976} is a neutral goblin town."] = "{zone:1446}位于{zone:1445}和{zone:1441}南边。{area:976}是中立的地精城镇。",
 	-- {area:976} Gadgetzan · {npc:7823} Bera Stonehammer
@@ -31,7 +31,7 @@ return {
 	-- Step 5: Silithus
 	["7 areas to discover here, level 55."] = "这里有7个区域待发现，55级。",
 	-- {zone:1451} Silithus · {zone:1449} Un'Goro Crater · {area:3425} Cenarion Hold
-	["{zone:1451} is west of {zone:1449}, through the pass in its north-west. {area:3425} is neutral."] = "",
+	["{zone:1451} is west of {zone:1449}, through the pass in its north-west. {area:3425} is neutral."] = "{zone:1451}位于{zone:1449}西侧，穿过其西北方的山口即可到达。{area:3425}是中立地区。",
 	-- {area:3425} Cenarion Hold · {npc:15177} Cloud Skydancer
 	["Flight path here: {area:3425} ({npc:15177})."] = "飞行路线：{area:3425}（{npc:15177}）。",
 	-- {area:3425} Cenarion Hold · {npc:15178} Runk Windtamer
@@ -64,7 +64,7 @@ return {
 	-- Step 11: Moonglade
 	["1 area to discover here, level 15."] = "这里有1个区域待发现，15级。",
 	-- {area:1769} Timbermaw Hold · {zone:1448} Felwood · {zone:1450} Moonglade · {spell:18960} Teleport: Moonglade · {area:2361} Nighthaven
-	["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: {spell:18960}). {area:2361} is neutral."] = "",
+	["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: {spell:18960}). {area:2361} is neutral."] = "穿过{zone:1448}北部的{area:1769}隧道前往{zone:1450}（德鲁伊：{spell:18960}）。{area:2361}是中立区域。",
 	-- {zone:1450} Moonglade
 	["Flight path here: {zone:1450} (Sindrayl)."] = "飞行路线：{zone:1450}（辛德拉尔）。",
 	-- {zone:1450} Moonglade
@@ -81,12 +81,11 @@ return {
 	["Flight path here: {area:2255} (Yugrek)."] = "飞行路线：{area:2255}（尤格雷克）。",
 
 	-- Step 14: Mount Hyjal (1/2)
-	["9 areas to discover here. Its creatures are level 54-60."] = "",
+	["9 areas to discover here. Its creatures are level 54-60."] = "这里有 9 个区域可供探索。生物等级为 54-60 级。",
 	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring · {area:2256} Darkwhisper Gorge
-	["{zone:2482} is reached from {zone:1452} through {area:2256} in the south. It is Forever's endgame leveling zone."] = "从{zone:1452}经由南部的{area:2256}到达{zone:2482}。这是 Forever 的终局升级地区。",
+	["{zone:2482} is reached from {zone:1452} through {area:2256} in the south. It is Forever's endgame leveling zone."] = "从{zone:1452}经由南部的{area:2256}到达{zone:2482}。这是 无限 的终局升级地区。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["9 areas to discover here."] = "这里有9个区域待发现。",
-	-- ["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: {spell:18960}). {area:2361} is neutral."] = "穿过{zone:1448}北部的{area:1769}隧道前往{zone:1450}（德鲁伊：{spell:18960}）。{area:2361}是中立区域。",
 	-- ["{zone:1451} is west of {zone:1449}. {area:3425} is neutral."] = "{zone:1451}位于{zone:1449}西边。{area:3425}是中立的。",
 }

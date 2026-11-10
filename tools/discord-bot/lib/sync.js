@@ -12,6 +12,7 @@
 const { parseReport } = require('./report');
 const I = require('./issue');
 const { statusTags, withStatus } = require('./discord');
+const { isStaff } = require('./commands');
 
 const DISCORD_EPOCH = 1420070400000n;
 
@@ -24,10 +25,11 @@ function safeName(name) {
 	return String(name || 'file').replace(/[^\w.-]+/g, '_').slice(-80);
 }
 
-// At most `limit` uses per key in any `windowMs`: take(key) is true when one is left.
+// At most `limit` uses per key in any `windowMs`: take(key) is true when one
+// is left; freeAt(key) is when the next one frees up.
 function rateLimit(limit, windowMs, now) {
 	const uses = new Map();
-	return function take(key) {
+	function take(key) {
 		const t = now();
 		const recent = (uses.get(key) || []).filter((at) => t - at < windowMs);
 		if (recent.length >= limit) {
@@ -37,24 +39,87 @@ function rateLimit(limit, windowMs, now) {
 		recent.push(t);
 		uses.set(key, recent);
 		return true;
+	}
+	take.freeAt = (key) => {
+		const recent = uses.get(key) || [];
+		return recent.length ? recent[0] + windowMs : now();
 	};
+	return take;
 }
 
 const HOUR = 60 * 60 * 1000;
-// Per Discord user: new reports, and follow-ups and edits, an hour.
-const LIMITS = { posts: 3, followUps: 20 };
+// Per Discord user: new reports, and follow-ups and edits, an hour. Server
+// staff and RATE_EXEMPT_IDS have none. What is skipped is tried again once
+// the user's window frees up, at most MAX_DEFERRED things waiting at once.
+const LIMITS = { posts: 5, followUps: 20 };
+const MAX_DEFERRED = 100;
+const GUILD_TTL = 10 * 60 * 1000;
 
-function createSync({ discord, github, media, config, log = console, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), now = Date.now }) {
+function createSync({ discord, github, media, config, log = console, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), now = Date.now, setTimer = (fn, ms) => setTimeout(fn, ms).unref() }) {
 	const { forumId, since = null } = config;
+	const exemptIds = new Set(config.exemptIds || []);
 	const takePost = rateLimit(LIMITS.posts, HOUR, now);
 	const takeFollowUp = rateLimit(LIMITS.followUps, HOUR, now);
+	const guilds = new Map(); // guild id -> { guild: { id, owner_id, roles }, at }
+	const deferred = new Set(); // keys of skipped work waiting for its retry
 	const repo = github.repo;
 	const issues = new Map(); // thread id -> issue number
 	const threads = new Map(); // channel id -> channel (threads, and others as { id, parent_id: null })
 	const seen = new Map(); // thread id -> starter content signature last written
+	const held = new Map(); // thread id -> the bot's "will be filed in about N minutes" reply
 	const queues = new Map();
 	let forum = null;
 	let botId = config.botId || null;
+
+	// The guild's owner and roles, from GUILD_CREATE or the API, kept a while.
+	async function guildInfo(id) {
+		const hit = guilds.get(id);
+		if (hit && now() - hit.at < GUILD_TTL) return hit.guild;
+		const g = await discord.getGuild(id);
+		const guild = { id: g.id, owner_id: g.owner_id, roles: g.roles || [] };
+		guilds.set(id, { guild, at: now() });
+		return guild;
+	}
+
+	// Whether a user has no hourly limits: listed in RATE_EXEMPT_IDS, or server
+	// staff by their roles (`member`: the gateway's, else fetched).
+	async function exempt(guildId, userId, member) {
+		if (exemptIds.has(userId)) return true;
+		if (!guildId) return false;
+		try {
+			const guild = await guildInfo(guildId);
+			if (guild.owner_id === userId) return true;
+			const roles = member && member.roles ? member.roles : (await discord.getMember(guildId, userId)).roles;
+			return isStaff(guild, userId, roles);
+		} catch (err) {
+			if (err.status !== 403 && err.status !== 404) log.warn(`limits: roles of ${userId} not read: ${err.message}`);
+			return false;
+		}
+	}
+
+	// One use of `take` for the user, unless they are exempt (asked only when
+	// the limit holds, so most messages cost no lookup).
+	async function allowed(take, guildId, userId, member) {
+		return take(userId) || exempt(guildId, userId, member);
+	}
+
+	// Skipped work run again when the user's window frees up: once per key,
+	// and no more than MAX_DEFERRED waiting. True when a retry is waiting.
+	function retryLater(key, take, userId, fn) {
+		if (deferred.has(key)) return true;
+		if (deferred.size >= MAX_DEFERRED) {
+			log.warn(`limits: ${MAX_DEFERRED} skipped already waiting, ${key} not retried`);
+			return false;
+		}
+		deferred.add(key);
+		setTimer(() => {
+			deferred.delete(key);
+			Promise.resolve()
+				.then(fn)
+				.catch((err) => log.error(`retry ${key}:`, err.message));
+		}, Math.max(1000, take.freeAt(userId) - now() + 1000));
+		return true;
+	}
 
 	function serial(id, fn) {
 		const prev = queues.get(id) || Promise.resolve();
@@ -93,6 +158,10 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 		const messages = await discord.getMessages(threadId, 100);
 		for (const m of messages) {
 			if (!m.author || !m.author.bot || (botId && m.author.id !== botId)) continue;
+			if (I.isHeldReply(m.content)) {
+				if (!held.has(threadId)) held.set(threadId, m.id);
+				continue;
+			}
 			const n = I.readTrackedReply(m.content, repo);
 			if (n) {
 				issues.set(threadId, n);
@@ -185,8 +254,15 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			if (await issueFor(threadId)) return null;
 			const message = await starter(threadId);
 			if (!message || message.author.bot) return null;
-			if (!takePost(message.author.id)) {
-				log.warn(`${threadId}: ${message.author.id} filed ${LIMITS.posts} reports this hour, not filed`);
+			if (!(await allowed(takePost, thread.guild_id, message.author.id))) {
+				log.warn(`${threadId}: ${message.author.id} filed ${LIMITS.posts} reports this hour, filed when the hour allows`);
+				const waiting = retryLater(`post ${threadId}`, takePost, message.author.id, () => newPost(threadId));
+				// Told once, so the player knows it isn't lost.
+				if (waiting && !held.has(threadId)) {
+					const minutes = (takePost.freeAt(message.author.id) - now()) / 60000;
+					const reply = await discord.send(threadId, I.heldReply(minutes));
+					held.set(threadId, reply && reply.id);
+				}
 				return null;
 			}
 
@@ -198,12 +274,28 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			seen.set(threadId, signature(message));
 			log.info(`filed #${issue.number} for "${thread.name}" (${threadId})`);
 
-			await discord.send(threadId, I.trackedReply(repo, issue.number));
+			await trackedReply(threadId, issue.number);
 			if (tags.tracked) {
 				await discord.editThread(threadId, { applied_tags: withStatus(thread.applied_tags, tags, 'tracked') });
 			}
 			return issue.number;
 		});
+	}
+
+	// "Tracked as #N": the held reply edited into it when there is one, else a new reply.
+	async function trackedReply(threadId, number) {
+		const text = I.trackedReply(repo, number);
+		const heldId = held.get(threadId);
+		held.delete(threadId);
+		if (heldId) {
+			try {
+				await discord.editMessage(threadId, heldId, text);
+				return;
+			} catch (err) {
+				if (err.status !== 404) throw err;
+			}
+		}
+		await discord.send(threadId, text);
 	}
 
 	// A message in a thread: the post itself, or a follow-up, the reporter's
@@ -219,8 +311,9 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			if (!n) return null;
 			const report = parseReport(I.discordToText(m.content, m.mentions));
 			if (!report.description && !report.details && !(m.attachments || []).length) return null;
-			if (!takeFollowUp(m.author.id)) {
-				log.warn(`#${n}: ${m.author.id} sent ${LIMITS.followUps} follow-ups this hour, ${m.id} not copied`);
+			if (!(await allowed(takeFollowUp, thread.guild_id, m.author.id, m.member))) {
+				log.warn(`#${n}: ${m.author.id} sent ${LIMITS.followUps} follow-ups this hour, ${m.id} copied when the hour allows`);
+				retryLater(`message ${m.id}`, takeFollowUp, m.author.id, () => message(m));
 				return null;
 			}
 			const reporter = m.author.id === thread.owner_id;
@@ -243,8 +336,9 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			if (!n) return null;
 			const message = await discord.getMessage(m.id, m.id);
 			if (seen.get(m.id) === signature(message)) return null;
-			if (!takeFollowUp(message.author.id)) {
-				log.warn(`#${n}: ${message.author.id} edited too often this hour, edit not copied`);
+			if (!(await allowed(takeFollowUp, thread.guild_id, message.author.id))) {
+				log.warn(`#${n}: ${message.author.id} edited too often this hour, edit copied when the hour allows`);
+				retryLater(`edit ${m.id}`, takeFollowUp, message.author.id, () => edit(m));
 				return null;
 			}
 			const fresh = await getThread(m.id, true);
@@ -318,6 +412,13 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			case 'GUILD_CREATE':
 				for (const c of d.channels || []) threads.set(c.id, { id: c.id, parent_id: null });
 				for (const t of d.threads || []) threads.set(t.id, { ...t, guild_id: d.id });
+				if (d.roles) guilds.set(d.id, { guild: { id: d.id, owner_id: d.owner_id, roles: d.roles }, at: now() });
+				return null;
+			case 'GUILD_UPDATE':
+			case 'GUILD_ROLE_CREATE':
+			case 'GUILD_ROLE_UPDATE':
+			case 'GUILD_ROLE_DELETE':
+				guilds.delete(d.guild_id || d.id);
 				return null;
 			case 'THREAD_CREATE':
 			case 'THREAD_UPDATE':

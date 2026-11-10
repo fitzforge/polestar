@@ -1,7 +1,8 @@
 //! `forge data codex` (the port of the JS `codex build`), offline: data/forever/*.json + the Forever
 //! client's cached wago.tools tables + the cached web facts + the recorded item sources
-//! (data/codex/recorded.json) + Polestar's guides and curated tables -> data/forever/codex/*.json
-//! and the pack
+//! (data/codex/recorded.json) + what players' recordings teach about Forever-new quests
+//! (data/recorded/quests.json: prerequisites and objective spots, `crate::learn`) + Polestar's guides
+//! and curated tables -> data/forever/codex/*.json and the pack
 //! addon/Polestar_Codex. Byte for byte the JS build's output. `--local-extras` (`Options::local_extras`)
 //! also merges the installed AtlasLoot and RareScanner and dungeons.json, skips the web facts, and
 //! marks the build local (this machine only).
@@ -13,6 +14,7 @@
 pub mod atlasloot;
 pub mod attune;
 pub mod client;
+pub mod heights;
 pub mod instances;
 pub mod journal;
 pub mod memory;
@@ -108,6 +110,8 @@ pub struct Forever {
 	pub map_frames: V,
 	pub meta: V,
 	pub instances: V,
+	/// spawnz.json (the NPCs' and objects' spawn heights; null when absent): the places' `z` (heights.rs).
+	pub spawnz: V,
 	/// dungeons.json (a --local-extras build only; null otherwise).
 	pub dungeons: V,
 }
@@ -120,6 +124,9 @@ pub struct Inputs {
 	pub local_extras: bool,
 	/// Item sources from players' recordings: data/codex/recorded.json (`recorded::load`).
 	pub recorded: V,
+	/// What players' recordings teach about Forever-new quests: data/recorded/quests.json (`forge
+	/// record learn`), with the corrections it never overrides.
+	pub learned: crate::learn::Snapshot,
 	pub client: Option<ClientFacts>,
 	/// The cached web facts: { npc, object, item, spell, listed }.
 	pub web: Option<V>,
@@ -410,6 +417,7 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 		map_frames: or_obj(j("map-frames.json", true)?),
 		meta: or_obj(j("meta.json", true)?),
 		instances: or_obj(j("instances.json", true)?),
+		spawnz: j("spawnz.json", true)?,
 		dungeons: if opts.local_extras { j("dungeons.json", true)? } else { V::Null },
 	};
 	// Forever's cached web facts, release builds only.
@@ -481,6 +489,7 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 		rarescanner,
 		local_extras: opts.local_extras,
 		recorded: recorded::load(&lib.join(recorded::FILE))?,
+		learned: crate::learn::Snapshot::load(&opts.root)?,
 		client: Some(cl),
 		web,
 		curated: curated_collects(&texts),
@@ -571,6 +580,14 @@ fn sources_meta(inputs: &Inputs) -> V {
 	if let Some(s) = recorded::source_meta(&inputs.recorded) {
 		out.push(s);
 	}
+	let nl = inputs.learned.quests.len();
+	if nl > 0 {
+		out.push(source(
+			"Polestar Recorder sessions (data/recorded/quests.json): Forever-new quests' prerequisites and objective spots",
+			V::str(&format!("{nl} quests")),
+			V::str("Facts only (quest ids, levels, positions); counts of players, no player data"),
+		));
+	}
 	let nj = inputs.journal_quests.len();
 	if nj > 0 {
 		out.push(source(
@@ -650,6 +667,10 @@ pub fn build_inputs(opts: &Options, inputs: &Inputs) -> Result<Output, String> {
 fn build_from(opts: &Options, inputs: &Inputs, t0: Instant, log: &dyn Fn(&str)) -> Result<Output, String> {
 	log("merging");
 	let m = merge::merge_codex(inputs);
+	let sz = &inputs.forever.spawnz;
+	let placed =
+		heights::add_heights(&V::Obj(m.npcs.clone()), &sz.get("npc"), &inputs.forever.map_frames) + heights::add_heights(&V::Obj(m.objects.clone()), &sz.get("object"), &inputs.forever.map_frames);
+	log(&format!("{placed} NPC and object places with a spawn height"));
 	let (counts, coverage) = summarize(&m);
 	let cl = inputs.client.as_ref();
 	let meta = Obj::new();

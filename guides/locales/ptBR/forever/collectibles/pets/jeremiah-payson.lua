@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Jeremiah Payson
 	-- {npc:8403} Jeremiah Payson · {zone:1458} Undercity
-	["{npc:8403} sells three cockroaches in the {zone:1458} (50s each, 1g 50s for all three); the Plagued and Undercity Cockroaches are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	["{npc:8403} sells three cockroaches in the {zone:1458} (50s each, 1g 50s for all three); the Plagued and Undercity Cockroaches are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:8403} vende três baratas na {zone:1458} (50s cada, 1g 50s pelas três); as Baratas Pestilentas e da Cidade Baixa são novas no Forever. Cada item de mascote ensina o companheiro quando você o usa; as metas continuam marcadas depois.",
 	-- {item:10393} Cockroach
 	["{item:10393}, 50s"] = "{item:10393}, 50s",
 	["50s"] = "50s",

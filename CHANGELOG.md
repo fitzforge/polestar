@@ -1,5 +1,1162 @@
 # Changelog
 
+## 0.3.5 (2026-11-08)
+
+### For players
+
+- Pick-up, hand-in and attunement guides now lead the arrow to the right
+  floor: Apothecary Zamah, in the Pools of Vision under Spirit Rise in
+  Thunder Bluff, was pointed to from the top of Spirit Rise, out of the
+  cave. The mage portal guide also says Birgitte Cranston stands down in
+  the Pools of Vision with the mage trainers, not on Spirit Rise. (thanks
+  Pilk)
+- The guide window now stays out of the way in dungeons, raids, battlegrounds
+  and arenas by default, with its action buttons and alerts: /polestar or the
+  key binding shows it there until you leave. The first time it hides, one
+  chat line says so. If you already picked "Hide" it stays as is; if you
+  want it on screen, set Options > Guide > Window, "In dungeons and
+  battlegrounds", to Keep visible. (thanks Tangens)
+- Standing beside a quest giver no longer sends you on a walk away and back
+  again: next to Arch Druid Hamuul Runetotem or Nara Wildmane on Thunder
+  Bluff's Elder Rise, the arrow pointed back over the bridge to the lift (or
+  down to Mulgore) and, once you got there, back to the hut, over and over.
+  It happened when the step came up far away, in the Barrens or Mulgore.
+  (thanks troders and Pilk)
+- The Barrens (Horde): Hezrul Bloodmark's step says he walks the west shore
+  of Lushwater Oasis, so if he isn't at the arrow you know where to look.
+  (thanks GuardMoony)
+- Dungeon pick-up guides no longer send you for a quest whose earlier quest
+  needs a higher level: Fury in the Depths waits until you can take The Dark
+  Iron War (level 25) first, instead of leading you to Motley Garmason, who
+  refuses it. (thanks Jamemba)
+- Quest objective markers no longer pile up over the map (#1085): three or
+  more of a goal's spots close together now show as one soft shaded area in
+  your theme's colour with one marker in the middle, on the world map and the
+  minimap; lone spots keep their marker. Options > Map > Guide & quests >
+  Quest markers has the choice (Areas for groups, Icons only, Areas only), an
+  Area opacity slider and a Quest marker size slider. The old Objective areas
+  toggle is replaced by this choice. (thanks VenoMan)
+- Horde Ashenvale: only Warriors are sent to Alonso at Mystral Lake. His
+  Dragonslayer quests are for Warriors, and other classes found no one
+  there. (thanks soockee)
+- A "use this item" goal with no quest of its own (the Runes of Summoning for
+  the Warlock's voidwalker, a Sapta, a flare gun) now counts as done once the
+  quest work after it in the step is, so the step moves on instead of waiting
+  for a tick. (thanks Fitz)
+- Horde Hillsbrad: Mountain Lion Blood is collected on the walk back from
+  Hillsbrad Fields to Tarren Mill, not as a stop of its own on the way down,
+  so the few, contested lions don't hold you up twice. (thanks Rohkin)
+- Arrow: at the top of a zeppelin tower (the Undercity's, for Orgrimmar) the
+  "Take the zeppelin" prompt now comes up where you stand, as it does at a
+  boat's pier; it used to wait until you stood within 5 yards of one spot on
+  the platform. (thanks Fitz)
+- Arrow: a guide waypoint after a trip (Tirisfal's "The Barrens" after the
+  zeppelin) is walked along the path again, not drawn as a straight line
+  because the zeppelin tower's waypoint came before it. (thanks Fitz)
+- Rogue class guides: items that come by Pick Pocket say so on the goal
+  ("Pick Pocket a Venture Co. Logger for a Venture Co. Work Order") instead
+  of telling you to kill the NPC, in The Horn of Xelthos, the Blade of Cunning,
+  Poisons and Ravenholdt guides. (thanks Erá)
+- The Barrens: the Raptor Heads and Plainstrider Beaks no longer have a step
+  of their own right after the Crossroads. Raptors are few and often taken by
+  other players, and only one plainstrider in four drops a beak, so you
+  collect both on the way: the guide window shows your counts under the
+  current step from the Crossroads on. Sergra takes the beaks on the stop
+  after the Razormane camp, and Gazrog the heads on the stop after
+  Echeyakee. If you are still short then, one step first sends you where
+  players get the most kills (plainstriders north of the Crossroads, raptors
+  around Echeyakee's lair); if you already have them all, it never comes up.
+  (thanks Fitz)
+- Ticking a quest goal done by hand no longer treats the quest as complete.
+  The guide moves on as before, but the quest's hand-in waits until the game
+  counts the objective, says why in its line, and the arrow no longer leads
+  you to the quest giver early.
+- The arrow no longer stops at a waypoint with nothing to do before leading
+  on to the work: The Barrens' Zhevra and Savannah Prowlers lead straight to
+  the nearest of them, Feralas' forest walkers too, and Eastern Plaguelands'
+  Corin's Crossing step points at Corin's Crossing instead of Nathanos's
+  camp. (thanks Fitz)
+- Horde Hillsbrad: Valuable Vantages now has its three vials, each on its own
+  peak, before you go back to Deathstalker Masoj; the guide used to ask you
+  to hand it in right after taking it. (thanks Konky88 and soockee; the prerequisite as
+  iamthecountofmontecrypto-a11y found in #1161)
+- Rogue: The Eye of Bhossca waits for level 30, when C's letter arrives in a
+  capital city's mailbox after the horn job; the guide and the class-quest
+  heads-up offered it at 25, when the Dead Drop has nothing yet. (thanks Erá)
+- Travel: a flight master you haven't learnt yet now counts as a way to
+  fly out. Polestar walks you to it, you learn it there, and you fly on to
+  a flight path you already have. Standing in Ironforge's Great Forge with
+  Menethil Harbor learnt, the way to Dun Modr is now a flight to Menethil
+  Harbor, no longer the long walk through Dun Morogh and Loch Modan.
+  (thanks WHOLF)
+- The quest item button no longer causes "blocked in Polestar: UNKNOWN()"
+  errors in combat with a friendly target, such as a flight master. Its
+  red out-of-range tint now waits until the fight ends, whatever you
+  target. (thanks Konky88)
+- Polestar's buttons (target, quest item, Hearthstone, rare, bag) show a
+  bound key the way the action bars do: M4 instead of "Mouse Button 4",
+  MwU for the wheel, and modifiers as one letter (sM5 for Shift and mouse
+  button 5). The label stays inside the button and no longer runs over the
+  mob's name. (thanks czak)
+- Dun Morogh (Dwarf, Gnome): the Frostmane Troll Whelps for The Troll Cave are
+  part of the Coldridge Valley step with Felix's parts again, so the guide
+  waits on the slopes until both are done instead of sending you to Grelin
+  with the whelps still short.
+- Dungeon pick-up guides take an open breadcrumb of a quest chain on the way,
+  right before the quest it leads to: for Excavation Site: Wetlands, The
+  Greenwarden in Menethil Harbor before Tramping Paws at Rethiel. Taking the
+  follow-up first passes the breadcrumb.
+- Pick-up guides now send you to the NPC a quest asks you to speak to
+  before you hand it in: the Ragefire Chasm guide had you hand in Hidden
+  Enemies to Thrall without visiting Neeru Fireblade in the Cleft of
+  Shadow. The same goes for every quest whose objective is to speak to
+  someone, in the pick-up guides and quest lookups. (thanks dwood-97,
+  Hnrq and kjk-kjkmeg)
+- 30-40 (both sides): every written grind step says where to grind and names a
+  dungeon you can run with a group instead; Stranglethorn's second Alliance
+  visit tells you about the level 36 top-up before the Skullsplitter trolls.
+- Winterspring (Alliance): the level 55 top-up before Everlook grinds the
+  Winterfall furbolgs at Frostfire Hot Springs, which raises your Timbermaw
+  reputation, instead of naming Timbermaw furbolgs, which would lower it.
+- Mulgore (Tauren Druids): after the Moonkin Stone the guide carries on
+  east through the pass to the Crossroads. It no longer sends you to the
+  Crossroads, back into Mulgore and out to the Crossroads again.
+- Alliance 12-20: Darkshore is now played in two parts around a trip to the
+  Eastern Kingdoms at 18-20: Loch Modan from the north (the dam, the loch's
+  toolbox, Ironband's Excavation, the Farstrider Lodge's hunts, Ylva's
+  banner), out through Ironforge, then Redridge's 15-20 quests while they
+  still give full XP, the Defias chain from Wiley the Black through Sentinel
+  Hill, Stormwind and Moonbrook, and the lighthouse's Old Murk-Eye; the
+  gryphon to Stormwind and the boat take you back to Auberdine for
+  Darkshore's southern loops and Kerlonian's escort into Ashenvale. Marshal
+  Marris's Blackrock quests, Alther's Mill and Murloc Poachers are taken on
+  that first Redridge visit and done on the second, at 24. Dwarves and Gnomes
+  walk east Elwynn in one loop on the way to Westfall (Guard Thomas, the
+  Eastvale Logging Camp, the Tower of Azora, the Jasperlode Mine). Ashenvale
+  no longer starts with a grind. In Westfall, Humans take Scout Galiaan's
+  quest beside Thor and walk Stormwind's errand in a shorter order.
+- Guide end: Redridge's guide (Alliance 23-25) now ends once its last
+  hand-ins are done; it waited for a visit to a vendor. Sell-and-repair stops
+  in the Alliance 12-20 guides are optional.
+- Alliance 12-30: the level ranges in the guide list match where players actually are in each guide (for example
+  Westfall 13-17 instead of 11-15, the Wetlands 27-30 instead of 26-30).
+- The Alliance route from 20 to 30 now goes Ashenvale and Stonetalon, then the
+  first Wetlands visit, then Duskwood and Redridge together: Duskwood's first
+  loop, one Redridge loop, then Duskwood's second loop. You reach Redridge at
+  its level, so the grind to 23 at the Blackrock camps is gone (thanks to the
+  player who reported on Discord that Redridge left you two levels short of
+  Duskwood). The same Redridge loop brings Tharil'zun, Shadow Magic,
+  Gath'Ilzogg, Incinerator Gar'im and Lieutenant Fangore, with a tip to group
+  up for the elites. After Stonewatch Keep you go on to Render's Valley and
+  walk Keeshan down to Lakeshire, then hand in everything on one pass through
+  town. Bellygrub is killed on the way to Martie's first visit, and Duskwood
+  asks for level 23 before Worgen in the Woods.
+- Fewer stops in a town for a single quest. Darkshore ends heading south from
+  Volcor: his escort goes to Terenthis when the boat stops in Auberdine. Fall
+  of Dun Modr is handed in on the later Dun Modr stop, not on a walk north for
+  it alone. Ashenvale's Astranaar hand-ins wait for the stop after the Zoram
+  Strand. Ormer gives his second raptor quest when you hand in the first.
+  Speaking of Fortitude, a walk into Stormwind Keep for 195 XP, is left out.
+  Astranaar and Menethil are visited in walking order.
+- After the second Wetlands visit the boat takes you straight on to
+  Ashenvale's 27-32 quests (they used to wait until 33-34). Making Do goes to
+  Thundris on the way, and the grind to 28 before Pilot Longbeard is gone.
+  From the Ashes is taken with War Banners, its attack plans fetched at the
+  Angerfang camp on the walk east from the dig, and both are handed in on one
+  Menethil stop, so there's no walk back east for the plans. Lightforge Ingots
+  is no longer offered at 27, since it needs The Lost Ingots first.
+- The Alliance route from 30 to 40 now takes the zones in the order their
+  quest levels fit: Wetlands and Hillsbrad, then one boat trip to Theramore
+  for the Mirage Raceway in Thousand Needles and the Shady Rest quests, then
+  Stranglethorn's first loop, Desolace, Stranglethorn's northern loop, the
+  Swamp of Sorrows, Arathi and Alterac, and the Badlands with Desolace's
+  south loop. The Mirage Raceway used to have a boat trip of its own at 30,
+  and Desolace came at 32, where you had to grind for its quests. The long
+  grinds in Desolace and Stranglethorn are gone.
+- Quests far above your level are no longer taken early and carried for
+  hours: The Karnitol Shipwreck waits for Desolace's south loop, Ironband
+  Wants You! for the last Ironforge stop before Loch Modan, Skullsplitter
+  Tusks for the 40-50 Stranglethorn guide, and Bookie Herod's chain and
+  Krazek's Cookery for Stranglethorn's northern loop.
+- New on the way: Highperch Venom, Hardened Shells, Load Lightening and A Bump
+  in the Road.
+- Hillsbrad (Alliance 30-38): Bartolo's Yeti Fur Cloak is optional and says it
+  also needs a Hillman's Cloak (Leatherworking) and a Bolt of Woolen Cloth
+  (Tailoring), which no vendor sells; the yeti cave is only for players who
+  took it.
+- Wetlands & Hillsbrad (Alliance 30-32): the Ironforge stops are called Hall
+  of Explorers and King Magni Bronzebeard; they were both called Deeprun Tram,
+  which this visit doesn't take.
+- Thousand Needles (Alliance 32-33): from the Mirage Raceway the guide takes
+  the road south to Gadgetzan and flies to Theramore, instead of walking back
+  through the Barrens.
+- Alliance 40-60: every "grind to level" step now ends with the dungeon you can run with a group instead (Uldaman,
+  Zul'Farrak, Maraudon, the Sunken Temple, Blackrock Depths, Lower Blackrock Spire, Scholomance or Stratholme, by level).
+- Alliance 40-60: after Azshara the route stops at Chillwind Camp in the Western Plaguelands on its way from the
+  Hinterlands (Clear the Way, the Felstone Field cauldron, Janice Felstone), then goes on to the Burning Steppes.
+  Quests five or more levels above you are now taken on a later visit to the same quest giver instead of making you
+  grind first: Skulk Rock Clean-up, The Altar of Zul, Tran'rek, Super Sticky, The Smoldering Ruins of Thaurissan,
+  Jaron Stoneshaper's chain in Winterspring and The Restless Souls. On the way to the Eastern Plaguelands, Chillwind
+  Camp and Mulgris now hand out the Western Plaguelands quests you used to ride past. New on the way: ... and Bugs.
+- Alliance 40-60: tips and notes left from an older order now match where you are: Vital Supplies is for Watchmaster
+  Sorigal in Darkshire (not Nethergarde Keep), the Ironforge stop before the Badlands no longer starts with a tram
+  ride you already took, Sigrun Ironhew at Hammertoe's Digsite is one stop, Feralas no longer says you end at the
+  dock before the Thalanaar hand-in, Felwood's way in from Astranaar is on its first stop, and Un'Goro's
+  Ironforge training step no longer says "Bind".
+- Alliance 56-58: the guide's title now names Un'Goro Crater and Silithus, where a quarter of its quests are.
+- Alliance route 20-30: Ashenvale, Stonetalon and the first Wetlands quests
+  now come right after Darkshore, at about 20-24, when they are your level,
+  and Redridge and Duskwood follow at a level that fits them instead of two
+  levels short. The higher Wetlands quests (the Third Fleet, Ormer's Revenge,
+  Fall of Dun Modr, War Banners), Pilot Longbeard in Ironforge and The
+  Missing Diplomat in Stormwind move to a new guide after Duskwood, so the
+  Wetlands are one visit at 27-29 and the old grind to 28 before Ironforge is
+  gone. The Zoram Strand is back in Ashenvale now that its naga are your
+  level.
+- Badlands (Alliance 38-39): Lotwil's last test says its bracers come only
+  from the Greater Rock Elementals (42-44) in the south-west, and is optional;
+  the notes on Lucien's crafted bracers and on Murdaloc now say what they
+  mean.
+- Alliance 30-40: Fizzle Brassbolts now gives Martek the Exiled at the Mirage
+  Raceway, since you hand in both his quests there. Martek and Indurium are
+  done on the Badlands loop the route already walks, and News for Fizzle goes
+  back to him on the Mirage Raceway stop at 45.
+- Stranglethorn Vale (Alliance 33-35): after the flight to Sentinel Hill, the
+  basilisk step says the way leads south out of Westfall to the Crystalvein
+  Mine in Stranglethorn's north-west; it said to walk back north.
+- Western Plaguelands (Horde, 57-59): Chromie's Counting Out Time is taken and done in Andorhal on your
+  first visit to her, instead of on a return later in the guide.
+- Arathi Highlands (Alliance): Worth Its Weight in Gold is done in one visit to Witherbark Village, where
+  the trolls are, instead of a few tusks west of Refuge Pointe and a second trip for the knife.
+- Arathi Highlands guide (Alliance, 37-39): The Lost Caravan's tip in the Swamp
+  of Sorrows now says the wrecked caravan's chest is beside Galen Goodward's cage
+  at the north end of the Fallow Sanctuary, where the arrow already leads, not
+  near Watcher Biggs.
+- Arathi Highlands (both sides): Sunken Treasure's escort tip now says the
+  professor walks up to the cave above Faldir's Cove, where two water
+  elementals ambush him; it said naga attacked on the shore.
+- The arrow no longer asks for sharp turns back to the trail when you run
+  beside it. In open ground, up to about 100 yards from the drawn path, it
+  points ahead to a spot on the path you can run to in a straight line, and
+  the route line joins the path there; it no longer plans the walk again
+  while you do. Beside a cliff, a river crossed by a bridge or a building's
+  walls it still leads you back to the path the way it did.
+- The arrow no longer swings back for a moment when you run beside the path
+  or onto it: something small in the way, like a lamp post or a fence post,
+  no longer makes it point at a spot behind the one it was showing.
+- Ashenvale, Wetlands & Stonetalon (Alliance, 20-24): from Menethil Harbor the guide takes the gryphon to Ironforge
+  instead of walking through Dun Algaz, Loch Modan and Dun Morogh; you have both flight paths since your first trip east.
+- Ashenvale, Wetlands & Stonetalon (Alliance, 20-24): the way through the Talondeep Path into Stonetalon is on the step
+  that walks it, not on Kaela and Gaxim's after you've arrived, and Ziz Fizziks' hand-in and his Super Reaper 6000 are
+  one stop at his hut.
+- Ashenvale (Horde): Broodmother Valraxx is elite, so The Broodmother is asked
+  as a group quest at the Earthen Ring camp.
+- Ashenvale and Thousand Needles (Horde): Sharptalon's claw on the way north
+  from Torek's fight to Splintertree Post instead of a walk back south; Tauren
+  and Skyborne fly from Zoram'gar straight to Thunder Bluff for the Earthen
+  Ring; Test of Strength is offered by Dorn only once Test of Endurance is in,
+  so the guide asks for it there; the Whitereach Post step is named for where
+  you stand.
+- Auberdine (Alliance): The Family and the Fishing Pole is offered only to characters who have Fishing; before, the
+  guide offered it to everyone, and most players without Fishing took it and later abandoned it.
+- Azshara & The Barrens (Horde, 56): the Undercity stop no longer asks for Prompt Potion Runner, a level 16
+  errand the Hillsbrad guide now does on its Undercity visit.
+- Azshara, Feralas & Stranglethorn Vale (Horde, 50-51): the Orgrimmar stop after the flight from Valormok
+  no longer tells you to take the zeppelin, and the Camp Mojache stop no longer says the next guide starts
+  there (the muisek chain, Zorbin and Gadgetzan still follow).
+- Badlands (Alliance, 39-40): Agmond's End (the skeleton, the ogres, the
+  buzzards, the troggs and Theldurin) is one sweep from the Valley of Fangs
+  before you go west to Lotwil, instead of a walk to Lotwil for his quest alone
+  and back; his Lesser Rock Elementals also give Ghak's shards, and the Indurium
+  flakes are no longer an "along the way" list.
+- Badlands (Alliance, 30-40): Indurium and Barbecued Buzzard Wings are handed to Martek and Rigglefuzz on the walk from
+  the Ancient Chest back south to Theldurin, which passes their camp, instead of in the 40-50 Badlands guide.
+- Badlands (Horde): Jarkal's Badlands Reagent Run is taken in Kargath before
+  the Lesser Rock Elementals, so its Rock Elemental Shards drop while you
+  collect Lotwil's Small Stone Shards; Rigglefuzz's Buzzard Wings are collected
+  with the troggs on the way to Agmond's End, and Rigglefuzz and Martek take the
+  wings and the flakes as you pass the Valley of Fangs on the way north to the
+  Uldaman chest.
+- The Barrens 12-16: the zhevra hooves come on the road out to Ratchet
+  instead of a walk north of the Crossroads and back, the prowler claws on
+  the western loop by Regthar where the prowlers roam instead of a walk east
+  of their own, and the last loop goes round once (Lushwater, the Dry Hills,
+  Wenikee and the Sludge Fen, then Echeyakee on the way home), with
+  everything handed in on the final Crossroads visit in walking order.
+- The Barrens 12-16 no longer sends Orcs and Trolls to Ratchet for its
+  flight path and straight back: it is learned on the Ratchet visit. Kolkar
+  Leaders is taken with Centaur Bracers at Regthar and Barak Kodobane killed
+  on the same loop; Orc and Troll Warriors and Shamans clear Thork's
+  quilboar and crates while they are in the Razormane camp anyway; no step
+  is an "along the way" list. In the 19-23 guide Raptor Horns is handed in
+  on the first Ratchet stop when it is done, and Warriors hand Speak with
+  Thun'grim in on the last Crossroads loop instead of walking there and back
+  from Camp Taurajo.
+- The Barrens (Horde, 19): Mebok offers Raptor Horns only from level 13, so
+  players who reached Ratchet at 12 now take it on the first Ratchet stop at
+  19.
+- The Barrens (Horde, 19-23): Ratchet in walking order from the flight master,
+  with the grind for those who skip Bruuz on the way south instead of between
+  the town's quest givers; the Silithid eggs on the walk south to Gann,
+  Sulhasa's Field to Clear taken with Gann's first quest and its lizards and
+  stalkers on the plain by Blackthorn Ridge, instead of a walk back north to
+  the Field of Giants and two more trips to Sulhasa.
+- The Barrens (Horde, 56): after the flight to Ratchet, Liv Rizzlefix and Islen Waterseer come first and the
+  ride north ends at Dokimi's crates in the Crossroads, whose flight goes on to Orgrimmar, instead of riding
+  to the Crossroads and back to Ratchet.
+- The Barrens: the quest data now knows the order of Vrang Wildgore's and
+  Walton's chain (The Hermit Tanner after both of Vrang's quests, then
+  Trouble in the Valley, then Unwelcome Guests), as players' recordings show
+  it, so lookups and pick-up guides no longer offer a step early.
+- Bug reports: an action the game blocked from Polestar now says which line
+  of Polestar made it, so "blocked in Polestar: UNKNOWN()" can be traced.
+  Another author's addon whose folder starts with "Polestar_" is no longer
+  counted as Polestar's.
+- The arrow says Walk to the Brill Inn entrance (and the same at every inn's
+  door) instead of naming only the town, and it leads to Deathguard
+  Bartholomew where he waits beside Dillinger, not to the middle of his walk
+  to the graveyard (thanks Fitz).
+- Burning Steppes (Alliance): the medallions and relics are listed in the steps that do them, and the trip to
+  Mountaineer Pebblebitty is only for players doing The Horn of the Beast.
+- Burning Steppes (Alliance, 50-53): the top-up to level 52 is done once, on the Dreadmaul Rock ogres on the way
+  from Morgan's Vigil to Flame Crest, instead of a short top-up there and a ride back to the same ogres after the
+  Flame Crest accepts.
+- Stranglethorn Vale and the Hinterlands (Alliance, 40-50): Vital Supplies goes to Watchmaster Sorigal when you
+  land in Darkshire on the way into the Swamp of Sorrows. His Crate of Power Stones, which lasts an hour, is now
+  taken at Darkshire on the way to the Blasted Lands and goes straight to Nethergarde Keep; before, it was taken at
+  the start of the Hinterlands guide and ran out long before the keep.
+- Darkshore: Auberdine is walked in one direction on the first visit (from the pier up to Hollee and Thundris, then down the main street to Gwennyth and Gubber by the beach) and on the visit after Bashal'Aran (Thundris and the moonwell right after Terenthis, Gubber last on the way out). The two Beached Sea Creatures of the second loop are now taken on the fourth loop, with the remains by Murkdeep's camp and on the walk north from the Grove, instead of a walk down the coast and back.
+- Darkshore: Fruit of the Sea goes to Gubber Blump on the Auberdine visit right after Cliffspring Falls, where the crab chunks come from, instead of a whole loop later.
+- Druid Cat Form chain (Tauren and Skyborne): Polestar's quest data now
+  knows each step's quest needs the one before it, as the server's own
+  quest records have it, so the quest lookup and pick-up guides show the
+  chain in order and never suggest a later step early.
+- Desolace (Alliance): the Scorpashi venom comes from the scorpids around the Kodo Graveyard while you round
+  up the kodos, instead of a stop of its own at Kormek's Hut and a walk back for the last hides.
+- Desolace & Hillsbrad (Horde): Blackmoore's Legacy's hand-in says where Krusk stands in Tarren Mill, not "head back
+  south to Tarren Mill" while you are already there.
+- Desolace & Hillsbrad (Horde): Druids and Paladins train in Thunder Bluff at 30 on the way to Sun Rock Retreat.
+  At 32 Druids fly from Shadowprey Village to Thunder Bluff and on to Orgrimmar, and Undead Paladins train with Garen
+  Largo in the Undercity before the flight to Tarren Mill, with no flight back to the Undercity. The potion shopping
+  tip and the Shamans' Sepulcher trip come before Tarren Mill too.
+- Desolace (Horde): Other Fish to Fry is handed to Drulzegar Skraghook in
+  Shadowprey Village right after you kill the naga, instead of being carried
+  into the Dustwallow guide, which sent you back to the naga and handed it in
+  hours later.
+- Dun Morogh (Dwarf, Gnome): after the gryphon from Thelsamar, Ironforge is one round of the city: Golnir and the
+  flight path in the Great Forge, Tinker Town's mailbox, the Forlorn Cavern, the Mystic Ward, the High Seat, the
+  Military Ward and the tram, each class trained where the round passes its trainer. Before, the guide sent you to
+  Tinker Town first, back to the Great Forge, and across the city four more times.
+- Dun Morogh (Dwarf, Gnome): the guide ends with a loop through Loch Modan
+  from the South Gate tunnel: the tunnel post's trogg quests, Kadrell's Stout
+  and Rat Catching, Vidra's sausages, Stormpike's task and Filthy Paws, and
+  Honor Students for every class, with its flight to Ironforge. Monty's rats
+  and his letter to Nipsy are done on the tram, and Stormpike's Order is
+  handed in at the Stormwind end. The grind at the snow leopards is gone.
+- Dun Morogh (Dwarf): the Scalding Mornbrew is taken last at Grelin's camp, after the troll whelps, so its five minutes run only on the walk to Anvilmar. Both Dun Morogh guides: Stocking Jetsteam and The Grizzled Den go to the two pilots on one Steelgrill's Depot stop after the den, with the boars and bears killed on the walk back from Rumbleshot's camp, instead of two trips to the depot.
+- Dun Morogh (Dwarf and Gnome): the Gol'Bolar Quarry's Skullthumpers and
+  Bonesnappers are killed in one step, and Foreman Stonebrow, Senator Mehr and
+  Quarrymaster Thesten take their quests on the first return, before Helm's
+  Bed Lake, instead of a quarry stop for each hand-in. Back in Kharanos after
+  Rumbleshot, Senir, Tognus and the distillery are one stop with one Rhapsody
+  Malt, and Razzle's cogs and gears are collected with the Leper Gnomes instead
+  of being listed along the whole walk west.
+- The heads-up that a dungeon has opened up now shows the dungeon's own
+  picture in its ring, the loading screen art you see on the way in
+  (Ragefire Chasm's lava, the Deadmines' ship), instead of a flat purple
+  circle. A dungeon without a picture shows the dungeon doorway icon.
+- Dungeons: Ruins of Lordaeron and The Hall of Thanes show under "For your
+  level" for their whole level range, not only at their first level. Their
+  quests now set the top of the range.
+- Dungeons: an instance whose entrance is in the other faction's land says so
+  in a warning colour, on its card, its page, the dungeon heads-up and the
+  arrow: Ruins of Lordaeron for the Alliance (outside the Undercity), The Hall
+  of Thanes for the Horde (in Ironforge), and Ragefire Chasm and the Stockade.
+  The heads-up for one leads with the dungeon's page instead of picking up
+  its quests.
+- Durotar (Orc and Troll): Warriors hand Conscript of the Horde to Kargal
+  Battlescar, beside Uzzek, on their first stop at Far Watch Post instead of
+  walking past him and back. Troll Durotar also takes Lar Prowltusk's Kolkar
+  quest on the first visit to Sen'jin Village, visits Razor Hill once after
+  Tiragarde Keep, and gathers the eggs and tiger fur where the coast walk
+  meets them.
+- Durotar and The Barrens (Orc and Troll Shamans): Kranal Fiss's Call of Fire
+  and Telf Joolam's are taken at 10 on the trip across the river, and the
+  Reagent Pouch drops in Drygulch Ravine on the north loop, instead of a
+  second walk to Kranal, Telf and northern Durotar from the Crossroads.
+- Durotar (Orc and Troll Warriors): Conscript of the Horde is handed in once,
+  on the first Far Watch stop; the last Far Watch step no longer asks for it
+  again.
+- Duskwood (Alliance, 29-30): The Weathered Grave and Morgan Ladimore, two talk-only quests on the Duskwood return, are
+  in the guide for every race from level 28; they were shown to Dwarves and Skyborne only.
+- Duskwood flows in one direction more often: Darkshire's first visit goes
+  round the town from the flight master in walking order and hands Look to
+  the Stars in at once (Herble's Bronze Tube is beside Viktori), Blind Mary
+  takes its second part on the Embalmer chain's visit, and you no longer walk
+  back north into Darkshire from the Tranquil Gardens for The Night Watch
+  alone: it's handed in on the next big visit, its Skeletal Horrors with the
+  Rot Blossoms and its Fiends on the cemetery walk to Jitters. The Totem's
+  spider venom comes from the spiders you kill at the Hushed Bank instead of
+  a walk back west from the Yorgen Farmstead, the level-27 worgen wait for
+  the Duskwood return, and no step is an along-the-way list.
+- Duskwood: Elaine Carevin's Raven Hill and Jitters' Growling Gut are done on
+  the first Duskwood loop: Jitters is on the Raven Hill stop, Chef Grual on
+  the way back through Darkshire.
+- Eastern Plaguelands (Alliance, 58): at Light's Hope Chapel both Darrowshire hand-ins go to Carlin Redpath in one
+  visit, then Caretaker Alen, instead of Carlin, Alen and Carlin again under a tip about riding to Chillwind Camp.
+- Eastern Plaguelands (Horde): Corin's Crossing is done on the ride south from Quel'Lithien Lodge, so all
+  three of Nathanos Blightcaller's quests are handed in on one visit, and The Everlook Report goes to
+  Argent Officer Garush at the Bulwark on the way in.
+- Elwynn Forest flows in one direction more often: the first Goldshire stop
+  goes from Marshal Dughan to Remy to the inn on your way out to the lake,
+  Baited for Success is handed to Jason Mathers and the kelp collected on the
+  walk east instead of on the walk back, Princess is fought with the river's
+  Downstream search instead of on a second trip south, and the end no longer
+  walks from Goldshire to Westbrook, back to Goldshire and out again: Maybell,
+  the Stonefield Farm, the Applejack Still, then Westbrook Garrison and its
+  gnolls, on the road to Westfall. No step is an along-the-way list.
+- Northshire: Milly's Harvest goes back to Milly right after the grapes and Garrick Padfoot, and Garrick's head goes to Deputy Willem on the Abbey visit after Echo Ridge Mine, instead of a walk back to the Abbey between Garrick and Milly.
+- Eastern Plaguelands, Winterspring & Tanaris (Horde, 56-57): only Druids and Paladins fly from Bloodvenom
+  Post to Thunder Bluff and back to train; everyone else stays in Felwood (the guide sent every class on
+  the round trip). The Thunder Bluff cloth donations are handed to Rumstag Proudstrider when you take
+  them in the Winterspring guide, if you carry the cloth. The Plaguebats and Carrion Grubs are goals of
+  the hills step instead of lists along the way.
+- Felwood (Alliance): Laris's ooze jars are filled on the southern loop, the Cursed Oozes in Jadefire Glen and the
+  Tainted Oozes at Jaedenar, among the satyrs and cultists you kill there, instead of on stops of their own later.
+- Felwood & Western Plaguelands (Horde, 53-55): Kirsta Deepshadow's Unfinished
+  Business is taken before the level top-up on Northridge's Scarlets, so the
+  Scarlets you grind count for it. The guide had you grind there first and
+  walk up to Kirsta afterwards.
+- Felwood, Moonglade & Winterspring (Horde, 59-60): while you are still in Felwood the guide no longer
+  asks for a level top-up on Winterspring's furbolgs, a ride through Timbermaw Hold and back; the top-up
+  waits for Winterspring, where the route goes anyway.
+- Felwood, Moonglade & Winterspring (Horde, 59-60): Donova Snowden is one
+  stop, with the way there through the Timbermaw tunnel on it; the tip sat on
+  a second Donova step after you had already arrived.
+- Feralas (Alliance): a player under 45 takes the boat to the coast before the level-45 grind in Feral Scar Vale,
+  instead of grinding on the mainland and riding back to Feathermoon's dock for the boat; the way to the Grimtotem
+  camp is described from Thalanaar, where the flight lands.
+- Feralas (Alliance): Lord Shalzaru on the Isle of Dread closes the southern mainland loop and you swim back to
+  Feathermoon for all its hand-ins at once, instead of a boat trip out and back for him alone. The Groddoc livers
+  come from the apes around Feral Scar Vale on that loop.
+- Feralas (Horde, 43-45): the last trip out of Camp Mojache is one sweep west, from the Writhing Deep to
+  the Ruins of Isildien and Feral Scar Vale, with one return to the camp for every hand-in. There is no ride
+  to the Forgotten Coast for OOX-22/FE's beacon: any beast, gnoll or ogre in Feralas can drop it.
+- Feralas, Dustwallow Marsh & Swamp of Sorrows (Horde, 45-47): the Pool of Tears comes on the ride east,
+  before Misty Reed Post, instead of a ride from Misty Reed to the pool and back. Natural Materials is
+  gathered in two stays (the sprite darters and a forest walker west of Camp Mojache, then the
+  hippogryphs). The Thick Yeti Hides are gathered on your first Feralas visit, so Improved Quality's Rage
+  Scar yetis are done on the way back from the Northspring harpies and handed in before you fly on.
+- Feralas & Tanaris (Horde, 43-45): Stoley, the Haughty Modiste and the
+  Security Chief get what Lost Rigger Cove gave you on the ride back to
+  Gadgetzan, and Yeh'kinya's Screecher Spirits is taken there. The 45-47 guide
+  no longer flies from Brackenwall Village to Gadgetzan and rides to
+  Steamwheedle Port and back for them: it flies straight to Camp Mojache.
+- Feralas (Horde, 43-45): Zukk'ash Report goes to Zilzibin Drumlore on the Orgrimmar stop at the end of
+  the guide, which passes him, instead of being carried to the Azshara guide.
+- Feralas (Horde, 43-45): the OOX-22/FE distress beacon is listed again in the robot's step, so the guide
+  shows it when it drops.
+- Flights: the arrow no longer sends you to a town where nothing is left to
+  do just to take another flight from there. A flight step now leads to
+  the flight's end, so the travel route flies there in one go from the
+  nearest flight master that reaches it; when the work at a stop on the
+  way is already done or skipped, the guide flies you on directly; and
+  when a flight path you know is clearly quicker for the next work
+  (Thunder Bluff for the Earthen Ring instead of Camp Taurajo), the route
+  takes it. The Hinterlands (Horde) flies from Thorium Point straight to
+  Tarren Mill, Druids and Paladins in the Eastern Plaguelands fly from
+  Orgrimmar to Thunder Bluff first, Shamans in Desolace fly from Freewind
+  Post straight to Sun Rock Retreat, and Druids in the Barrens fly from
+  Ratchet straight to Thunder Bluff for training. (thanks Bennistrov and
+  Konky88)
+- The guide menu scrolls better with lots of guides, community guides
+  included: the guide list has a scroll bar you can see and drag (it was
+  hidden behind the details pane), and the sidebar, the list and the
+  details stay where you scrolled them when you pick a guide or your guide
+  updates, instead of jumping back to the top.
+- The arrow takes your Hearthstone sooner: a trip of over 3 minutes that
+  hearthing shortens by at least 2 now hearths (it was 8 and 5), so routes no
+  longer walk long ways home with the stone ready (thanks Fitz, #1096).
+- Wetlands & Hillsbrad Foothills (Alliance, 30-40): Druids train with Sheldras Moontree on the walk from the Mage
+  Quarter to the Stormwind harbour, instead of between Elling Trias's hand-in and his next quest.
+- Wetlands & Hillsbrad Foothills (Alliance, 30-40): Dun Modr is one stop on the way north (Longbraid the
+  Grim, Rhag Garmason, Roggo Harlbarrow and the Heart of Modr), the Villards come next on the road to the
+  Thandol Span, and Ebenezer Rustlocke is handed in as you cross the span to Foggy MacKreel.
+- Wetlands & Hillsbrad Foothills (Alliance, 30-40): Gleaning Our Future is a group quest. Golm, Ados, Neru and Modr,
+  whose hearts it asks for, are level 32 elites; their steps show only when you choose to group for it, with a tip
+  that says so.
+- Wetlands & Hillsbrad Foothills (Alliance, 30-40): Warriors take The Islander from Wu Shen on the Dashel Stonefist
+  stop in Old Town, instead of walking to Old Town first and back to the Trade District. The Ironforge stop's tip
+  says where Stormpike, Karnik and Roetten stand, not to take the tram you didn't need.
+- Hillsbrad (Alliance, 30-40): Southshore is picked up in one pass from the
+  boat, Farren gives Reassignment when you hand in Stormwind Ho!, the Syndicate
+  Footpads and Thieves are killed at the camp with the documents instead of a
+  detour into north-west Alterac and back, and in Stormwind Elling Trias is
+  visited on the way to the Mage Quarter and the harbour.
+- Wetlands & Hillsbrad Foothills (Alliance, 30-40): every race hands The Thandol Span in at Ebenezer Rustlocke's corpse,
+  beside Essene Villard on the walk north from Dun Modr. Humans no longer carry it to the Arathi guide and walk from
+  Faldir's Cove back onto the span for it.
+- Horde Hillsbrad no longer walks you from Tarren Mill to the Hillsbrad
+  fields and back five times in a row for Battle of Hillsbrad: parts 4 and 5,
+  whose Magistrate Burnside and Foreman Bonds are level 30, come on the
+  Tarren Mill visit at about 32, with the town hall after the yeti caves and
+  the Azurelode Mine on the way to Dalaran's crater.
+- Hillsbrad Foothills (Horde): Prompt Potion Runner is taken from Alessandro
+  Luca and handed to Doctor Martin Felben beside Faranell on the Undercity
+  visit, and the walk from the western peak back to Tarren Mill has its own
+  step.
+- Hillsbrad Foothills (Horde): no second bind step at Tarren Mill on the way
+  to Hillsbrad Fields, and the Undercity visit's tip no longer tells Skyborne
+  to fly from the Crossroads.
+- The Hinterlands (Alliance, 40-50): Uldaman Reagent Run is taken from Ghak in Thelsamar where the flight lands,
+  so Loch Modan is crossed once each way (Thelsamar, Ironband, the Uldaman dig, Ironband, Thelsamar), and the
+  flight to Booty Bay after Nethergarde is only for players doing The Monogrammed Sash.
+- The Hinterlands (Horde, 48-50): Separation Anxiety, Kidnapped Elder
+  Torntusk! and Dark Vessels are group quests. They send you into Jintha'Alor,
+  where every troll is elite, and the guide had you go alone at about 48. Now
+  the guide asks whether you have a group; alone, you skip them and the level
+  top-up after Revantusk Village makes up the experience.
+- The Hinterlands (Horde, 48-50): the Silvermane Stalkers and the Vilebranch scalpers are goals of the
+  temples step instead of lists along the way, and the Revantusk Village stop in the middle of the guide
+  no longer says the next guide starts there.
+- The Barrens at 19: Egg Hunt is taken from Korran on the last Crossroads stop
+  before the Field of Giants, not at 17, so it no longer sits in your log
+  through the whole stay.
+- The Barrens at 21: Jorn Skyseer takes the thunderhawk wings on the walk back
+  north after the Silithid eggs (and, for Warriors, beside Ruga), instead of a
+  walk back into Camp Taurajo between the hawks and the eggs.
+- Hillsbrad Foothills at 22: the bears and creepers, Hillsbrad Fields and the
+  lions are one walk west; Lydon and Umpi take Elixir of Suffering on the
+  Tarren Mill stop after the fields, not on an extra trip back up the hill.
+- Silverpine Forest at 13: the Decrepit Ferry's boat is handed in on the shore
+  walk from the murlocs to Ambermill, and Hadrec takes Rot Hide Clues on the
+  Sepulcher stop after Ambermill, instead of a separate trip to the ferry.
+- Texts: Regthar's watch post is west of the Crossroads; The Binding's note
+  points to the next guide's Orgrimmar stop; Deathguard Bartholomew stays beside
+  Dillinger in Brill; the Skyborne Druid's Cat Form trip is in the Barrens
+  guide at about 21.
+- Ashenvale at 21: The Warsong Reports is left out. Its walk east of Night Run
+  and back to Kadrak after Thistlefur cost more time than its XP brings; you
+  now fly from Splintertree to Orgrimmar right after Yama Snowhoof.
+- Grind steps say you can run a dungeon of your level with a group instead
+  (Thousand Needles: Blackfathom Deeps, Razorfen Kraul or Scarlet Monastery).
+- Durotar (Orc, Troll): Conscript of the Horde is handed to Kargal at Far Watch
+  Post at the end of the Durotar guide, so it no longer sits in your log through
+  Silverpine Forest. Warriors hand Veteran Uzzek in there too and take the
+  Thunder Ridge lizards on the road north to Orgrimmar.
+- The Barrens at 18-19: from Ratchet the walk goes south-west to Sergra's
+  raptor nests and Gazrog's stolen silver, takes Gazlowe's Stolen Booty
+  crates on the beach, clears Northwatch Hold and walks Gilthares back to
+  Ratchet, then flies to the Crossroads. The escort no longer ends in Ratchet
+  only to send you straight back south past Northwatch, and the first Ratchet
+  stop no longer walks down the beach a second time for the booty.
+- The Crossroads, Sun Rock Retreat and Camp Taurajo visits list their quest
+  givers in walking order, so the arrow no longer crosses the town to the
+  same person twice.
+- The Horde route from 12 to 30 now takes the zones in the order their quest
+  levels fit: Silverpine Forest first at 12-15, straight from every start
+  (Tirisfal Glades walks south into it; Durotar, Mulgore and Zephras Isle go
+  by Orgrimmar and the zeppelin), then the Barrens and Stonetalon's road in
+  one stay at 15-21, Ashenvale and the ride through Silverpine to Hillsbrad at
+  21-22, Hillsbrad at 22-24, the Barrens and Sun Rock Retreat at 24-26, and
+  Ashenvale and Thousand Needles at 26-30. The grind to 19 in Silverpine and
+  the second walk through the Barrens' north are gone.
+- Orgrimmar's own quests (Meal Appeal, Yelmak's Medley, Rocks to Rests) are
+  done on the walk in from the main gate, and the Silverpine stay ends in the
+  Undercity with Raleigh, Prompt Potion Runner and Zinge's delivery, whose
+  sample goes to Helbrim at the Crossroads.
+- In the Barrens, the quests are taken the first time the walk meets their
+  giver: Miner's Fortune at the first Ratchet stop, Verog at Regthar's first
+  stop, Mankrik's two, Egg Hunt and Report to Kadrak at the Crossroads stop at
+  17, Ziz Fizziks with Samophlange. The Orgrimmar training trip comes after
+  Agama'gor, at 20, where the level-20 class quests are offered. Seereth's,
+  Makaba's and Xen'Zilla's quests ride with the road into Stonetalon at 20.
+- Ashenvale's first visit does Thistlefur Village and Hold (Troll Charm,
+  Between a Rock and a Thistlefur, Freedom to Ruul) and Vorsha the Lasher
+  from Zoram'gar at 21,
+  instead of carrying them through Stonetalon and Hillsbrad. Stonetalon
+  Standstill is left out.
+- Silverpine at 12-15 leaves out Fenris Isle (its gnolls are 15-22) and the
+  grey deliveries Mura Runetotem and Ride to Orgrimmar; Further Instructions is
+  left out too. Thousand Needles' top-up before Roguefeather Den is two short
+  steps that skip themselves once you are past them.
+- Undead Paladins, who learn Thunder Bluff's flight path with Alodan's
+  training, fly from Zoram'gar to Thunder Bluff for the Earthen Ring instead
+  of to Camp Taurajo and the walk through Mulgore.
+- Horde 30-40 now goes through the zones in the order their quest levels fit,
+  instead of Desolace at 30 with top-ups at Sargeron and on the coast to
+  reach its quests' levels:
+  - Hillsbrad and a first Arathi visit (30-33): the Tarren Mill quests, with
+    Helcular's Revenge finished at Southshore's graveyard, then Hammerfall's
+    first quests and the Witherbark trolls.
+  - The Shimmering Flats (33-34): every Mirage Raceway quest in one visit
+    (Rocket Car Parts and Salt Flat Venom used to be done alone at 29),
+    with Hardened Shells, Load Lightening, A Bump in the Road and Moktar
+    Krin's silithid dig.
+  - Desolace's 33-36 quests (34-35), with the Book of the Ancients, the
+    Hand of Iruxos and Aka'rai's Hate the Hatefury; its 38-40 quests
+    (Melizza, the ghost-o-plasm, the portals, the centaur totems) on a short
+    stop from Ratchet after Dustwallow.
+  - Stranglethorn (36-37), Dustwallow (37-38), then Alterac with the
+    Perenolde manor and the rest of Arathi (38-39), and the Badlands (39-40),
+    from where you fly to Booty Bay for the 40-50 guides.
+- Martek the Exiled is taken at the raceway once Hardened Shells is in:
+  Fizzle Brassbolts offers it only then, so the 27-30 guide no longer asks
+  for it after Salt Flat Venom alone, when he does not offer it.
+- Stolen Freewind Supplies is done with Stop the Screeching in the
+  Roguefeather harpy den.
+- Where the band runs short, a few short "until level N" steps at camps the
+  route already passes (Arathi's Boulderfist camp, the Shimmering Flats, the
+  Mosh'Ogg camp, the Mirefin murlocs), each skipped once you are past that
+  level, with a dungeon you can run instead where one is near. Optional
+  dungeon and group quests are offered on the way: Rig Wars in Gnomeregan,
+  the last Battle of Hillsbrad and Humbert's Sword at Dun Garok, and the
+  Stromgarde quests in Arathi.
+- Horde 30-40 (Shaman): Call of Air is taken from Searn Firewarder on the
+  Orgrimmar stop at about 31, before the flight to Freewind Post. It was on
+  the stop at 29, a level before Searn offers it.
+- Hillsbrad & Arathi (Horde 30-32): the level 31 top-up no longer says
+  Hammerfall's quests start at 31 (they are 32-36), and the level 30 top-up by
+  Tarren Mill suggests the Scarlet Monastery's Graveyard if you have a group.
+- Horde 40-60 no longer asks you to take quests the game won't offer yet, or
+  ones far above you:
+  - Stranglethorn Fever comes on the Booty Bay stop after the Wild Shore,
+    Stoley's Debt with Return to MacKinley, and Tran'rek on the last Booty Bay
+    stop. All three need level 40 and used to be on the stop where you land
+    from Kargath, just under it.
+  - The Strength of Corruption comes from Talo Thornhoof on the Camp Mojache
+    stop at about 49, not at 46.
+  - Secret Communication is taken and handed in on the same Cenarion Hold
+    stop: the texts drop without the quest.
+- The top-up steps now aim where the next quest needs you:
+  - Zul'Kunda: 41, for Speaking with Gan'zulah.
+  - Azshara: 50, for March of the Silithid.
+  - Un'Goro: 52, for The Rise of the Machines in Kargath.
+  - Silithus: a new step to 58 before Dearest Natalia.
+- Horde 40-60: every level top-up step names the dungeon to run instead with
+  a group, for example the Maraudon dungeon in the Hinterlands, the Sunken
+  Temple or Blackrock Depths dungeon in Felwood and the Western Plaguelands,
+  and the Scholomance or Stratholme dungeon near 59. The long grinds on the
+  Bloodscalps in Stranglethorn and on the Deadwood furbolgs in Felwood say so
+  too.
+- Horde 40-50, riding at 40: Trolls learn to ride at Sen'jin Village from the Orgrimmar stop at the start of
+  the Feralas guide, instead of a trip from Stonard by flight and boat to Durotar and back in the middle of
+  the Swamp of Sorrows; Undead learn it in Brill on the Undercity stop of the next Feralas guide, instead of
+  a loop from Gadgetzan through Orgrimmar and Tirisfal and back; Taurens, Druids and Paladins fly from
+  Orgrimmar to Thunder Bluff (riding in Bloodhoof Village, class training) and on to Freewind Post, and
+  Warlocks take the Felsteed in Ratchet from Orgrimmar, instead of flying back from Gadgetzan.
+- Horde 40-60: tips that pointed the wrong way now match the route. The
+  Ironjaw Basilisks are on the road north of Booty Bay, back towards Grom'gol;
+  the Altar of Zul is south-west of Valorwind Lake in the Hinterlands; Rogue
+  Vale's screechers are just north of Zorbin's dock in Feralas; and Felstone
+  Farm is reached from the Bulwark, where the step before leaves you.
+- Winterspring and Azshara (Horde, 55-56): the Orgrimmar Wool, Silk and
+  Mageweave donations are handed in when you take them at the end of the
+  Winterspring guide, if you carry the cloth, as the Thunder Bluff ones are.
+  The Azshara guide flies from the Crossroads straight on to Valormok instead
+  of landing in Orgrimmar again to hand them in.
+- Horde Ashenvale & Thousand Needles: Stonetalon Standstill's elementals and
+  gazebo are done at Mystral Lake while you hunt Tideress, instead of a walk
+  back to the lake later; Shamans fill Brine's waterskin at the fountain in
+  Ursangous's ruins (no walk back to Zoram'gar) and hand it to Brine on the
+  road from Camp Taurajo to the Great Lift (no flight back from Freewind
+  Post); Splintertree Post and Freewind Post are walked through once, with
+  their inns entered once; after Roguefeather Den, Freewind's hand-ins come
+  before Dorn Plainstalker on the way out to the Shimmering Flats.
+- Stranglethorn Vale and the Swamp of Sorrows (Horde, 39-47): Cortello's Riddle is optional: its scroll lies
+  on the Bloodsail ships, crewed by pirates of 42-45 at about level 41. Its later parts show only if you
+  have the part before.
+- Silithus (Horde, 57-59): Pawn Captures Queen tells you where to use the Gorishi Queen Lure.
+- Stranglethorn Vale (Horde 34-37): the tips put the tigers and panthers
+  around and west of Nesingwary's camp and the Venture Co. camp by Lake
+  Nazferiti, south-east of it, where they are; the step you land in from the
+  zeppelin is called Grom'gol, not a flight.
+- The Barrens: Counterattack! at Regthar on the last Crossroads stop. Orcs and
+  Trolls take Doras's errand in Orgrimmar back to Zargh.
+- Silverpine Forest: Arugal's Folly from Dalar, the spellbooks at Valgan's Field on the walk north.
+- Stonetalon Mountains: Time To Strike (Deathstalker Lesh, on the road into Hillsbrad) is a regular step,
+  no longer optional.
+- Tirisfal Glades (Undead): Hilda's and Ephram's quests are regular steps, no longer optional, and Johaan's
+  delivery goes to Renferrel on the first Sepulcher stop.
+- The guide menu's section rail keeps its labels (Guides, Lookup, Dungeons
+  and the rest) after a fresh start of the game, also with EllesmereUI's
+  font; they could be left blank until a /reload. The version line at the
+  foot of the guide menu and the settings no longer runs under the Discord
+  mark or puts the Beta badge over "Reset page".
+- The level line in the guide window now always says where you stand, not
+  only when a grind step is ahead: on pace; behind, by how many levels or
+  bars, and what the guide does about it (a step that grinds it, with about
+  how long at your XP an hour); or, when nothing in the guide makes it up,
+  which quest ahead will be too hard and how long to grind before it. A step
+  whose quest is 3 or more levels above you says so under its title ("Level
+  25 quest: you're 19.7"). Thanks to a player on Discord.
+- Polestar now tells you at login when its folders come from different
+  versions, naming each one, for example Polestar_Guides_Orc or
+  Polestar_Nav_EK left from an older zip, even folders it loads only for
+  another race or language. Delete every Polestar folder and install again
+  with the Polestar Client, the CurseForge app or the latest zip. The bug
+  report shows it too.
+- Mulgore: Bloodhoof's finished quests are handed in on the visit that walks
+  past them (Swoop Hunting and Rite of Vision with Poison Water, Mazzranache
+  with Thunderhorn Totem), Morin's caravan and Longwalker Malah come with the
+  Winterhoof well trip instead of a second walk out, Preparation for Ceremony
+  is taken beside Eylah in Thunder Bluff, and the "along the way" lists are
+  plain steps.
+- Mulgore: arriving at the Crossroads, both of Tonga Runetotem's quests at
+  the south gate come first, then the rest of the town in walking order, so
+  you no longer cross the town three times.
+- On a non-English client, the guide window names a quest's objectives in
+  your language before you take it (or reads "Complete <quest>" when an
+  objective has no name to give), as do the pace line's quest and the
+  class-quest card's giver.
+- The arrow uses much less memory and CPU on long walks: when you ride off
+  the drawn line, the walking router now reuses its work between searches,
+  asks for the walk again less often, and near the target measures only your
+  own walk again instead of every flight master's. A long walk off the line
+  makes about a fifth of the garbage it did in 0.3.4, which is what pushed
+  Polestar_Nav's AddOn Memory figure up.
+- Night Elf Darkshore crosses the sea once: Bashal'Aran's last part (the
+  Ancient Flame at Ameth'Aran, then Asterion) is done on the second loop,
+  before the boat to Stormwind, instead of a trip back from Goldshire and a
+  second boat out. The Plagued Lands bear is captured south of Auberdine on
+  the way to the furbolg camp, instead of north of the red crystal with a long
+  walk back south.
+  Washed Ashore is handed to Gwennyth on the walk back from the Long Wash at
+  the end of Teldrassil, the first NPC on the way into Auberdine.
+- Night Elves (Alliance, 18-20): Further Concerns, from Marshal Dughan at the end of the Night Elf Darkshore guide, is
+  handed to Guard Thomas on his bridge as the walk to Redridge passes it, instead of being carried to the Duskwood and
+  Redridge visit at about 24.
+- Objective counters in a few class quests point at the right objective: A
+  Moon-Kissed Blade, The Tarnished and Storm, Earth, and Fire, and Defending
+  the Dead at Gloomrise.
+- Step changes are quicker: quest objective markers and their spot areas
+  (#1085) are worked out only while they show on a map, a quest log change
+  works out only the new quest's areas instead of every quest's, spawn areas
+  are grouped about a third faster, and the guide window redraws just its
+  tabs when a step moves on instead of laying itself out a second time.
+- Quests the guides asked for before their giver offers them, found in
+  players' recordings: Karl Boran's Return the Statuette is taken once the
+  old Return the Statuette is handed in to him, so Captain Stoutfist's A
+  Friend of the Family comes after it (thanks Fyurie); Lightforge Ingots is no
+  longer asked for in the Wetlands, since Glorin Steelbrow offers it only after
+  The Lost Ingots (thanks Fyurie); Duskwood takes Worgen in the Woods on the
+  second Darkshire visit, from level 23 (thanks L10NH34R7); The Broodmother is taken from Muln Earthfury
+  once Defending the Dead is handed in, in the Ashenvale and Thunder Bluff
+  guides (thanks DexeeXI); and a Skyborne takes Journey to the Crossroads from
+  Thrall after handing him Welcome to Azeroth. Crimson Crate Delivery is no
+  longer taken in Menethil, since James Halloran offers it only after Crocs of
+  the Sky (thanks Fyurie). Warriors in Stormwind are told to go straight to
+  Harry Burlguard if Ilsa Corbin doesn't offer A Warrior's Training.
+- Orc Durotar: Lar Prowltusk's Kolkar quest is taken on the first visit to
+  Sen'jin Village, so you no longer walk back there from Razor Hill after
+  Tiragarde Keep; the coast is walked once from Razor Hill south to the Echo
+  Isles, Razor Hill's hand-ins after the keep are in walking order, and the
+  egg and tiger fur lists are plain steps.
+- Paladin and Shaman class quests: the Tome of Divinity, the Tome of Valor and
+  the replacement Saptas no longer come back as undone after a reload. Their
+  givers hand them straight back, a quest the game never marks completed, so
+  the guide kept sending Paladins who had done Redemption back to its start.
+- Party chat lines start with a star now and name the quest first: "[Plagued
+  Lands] Plagued Hide 5/5, Rabid Wolves 8/8" and "[Plagued Lands] is ready to
+  turn in". Objectives finished together go out as one line, and a new line
+  tells your party when you loot an item that starts a quest. Party members
+  with Polestar see Polestar's own star on these lines, and your own lines
+  stay out of your chat. Options > Questing > Quests > Group has the new
+  switches: quest-starting loot, your own lines in your chat, hiding other
+  players' Polestar lines, and speaking only when someone in the party
+  doesn't have Polestar.
+- Hovering a quest in the guide window now shows what it leads to: the next
+  part of its chain ("The Defias Brotherhood (part 2 of 7)") and where the
+  chain ends, and quests other people give that need it ("Red Silk Bandanas,
+  from Scout Riell"). Skip and Skip this quest list the later quests that go
+  with them, and a quest the guide left out because you skipped the one it
+  needs tells you which. (thanks to a player on Discord)
+- Redridge flows in one direction more often: after Lakeshire's first stop
+  you head straight out west to Guard Parker and the gnoll hills instead of
+  swimming east for the Sunken Chest first, and on the way back the town is
+  crossed once, east to west: Deputy Feldon by the gryphons, the chest in
+  the lake with the murlocs around it for the fins and sunfish, Foreman Oslow
+  at the bridge, Dockmaster Baren on the docks, Martie Jainrose's garden, then
+  the Brutes just north of it for the Iron Pikes. The sunfish are no longer
+  listed in the gnoll hills, where nothing drops them, and no step is an
+  along-the-way list.
+- Russian and Simplified Chinese: the whole interface is translated again,
+  Polestar Recorder too, along with every guide's title and menu folder and
+  the step texts of Elwynn Forest, Westfall and First Aid.
+- Searing Gorge (Alliance, 48-49): the way in from Thelsamar (through the Badlands, past Kargath) is now described on
+  the first stop, the Grimesilt outhouse, and Thorium Point's step tells you to ride north-west across the Cauldron
+  from there.
+- Searing Gorge (Alliance): Suntara Stones is taken from Dorius right before his escort at the end of the guide
+  (taken at the start, the escort failed on the way to Thorium Point); Caught! is handed in at the outhouse right
+  after the geologists; the Taskmasters, Slavers and Incendosaurs are steps where they live, not lists to keep in mind.
+- Searing Gorge (Horde): Caught! is handed in at the Wooden Outhouse right after the geologists, instead
+  of a ride back to the dig site at the end, and the Smithing Tuyere comes from the same Steamsmiths as the
+  Thorium Plated Daggers.
+- Silithus (Alliance): class training is in the Ironforge stop instead of a tram ride to Ironforge and back before
+  Stormwind, and the last city visit is one Stormwind stop and one Ironforge stop instead of Ironforge, Stormwind,
+  Ironforge, Stormwind.
+- Alliance 58-60 (Silithus, Felwood, Winterspring & the Plaguelands): the Felwood stop now starts from Talrendis
+  Point, where the flight lands; Everlook no longer asks for the flight you just took; Ranshalla's escort is no longer
+  said to come later (it is next); the Dire Maul note points at the guide's solo grind in Terrordale.
+- Silithus (Alliance): Noggle's Lost Satchel is taken from Noggle, who stands beside Beetix, when you hand in
+  Noggle's Last Hope, instead of on the next Cenarion Hold stop.
+- Silithus (Horde, 57-59): Dearest Natalia's step says to question Frankal
+  Stonebridge and Rutgar Glyphshaper at Bronzebeard's Encampment instead of
+  showing only two kills, and the level top-up before it names Commander
+  Mar'alith, who gives it. Two notes that said to skip quests the guide had
+  just taken (Dearest Natalia and Skeletal Fragments) are gone; Mar'alith's
+  note now names the follow-up to skip, Into the Maw of Madness.
+- Silithus & the Plaguelands (Horde, 57-59): the Stonelash Flayer stingers are no longer listed along the
+  way ahead of the dunes step that gathers them; the Marshal's Refuge tip that broke off at "J.D." reads
+  whole again; and the Bulwark stop in the middle of the guide no longer says the next guide starts in the
+  Undercity.
+- Silverpine Forest (Horde, 16-19): the Orgrimmar training comes before the
+  zeppelin instead of after the walk to Silverpine; Paladins train in Brill on
+  the way from the zeppelin towers, Druids fly to Thunder Bluff and Moonglade
+  from the Crossroads at the end of The Barrens instead of riding the zeppelin
+  back from the Sepulcher, Paladins learn axes from Sayoc on the Valley of
+  Honor stop, and a stray swimming tip at the Sepulcher is gone.
+- Silverpine Forest: on the Sepulcher stop after Ambermill, Return to Quinn
+  (Again) is taken from Apothecary Renferrel as you hand in Wild Eyes, before
+  Dalar Dawnweaver, instead of walking back to Renferrel for it.
+- Silverpine Forest: after Fenris Isle the guide goes south along the lake
+  shore (where it has you grind) to Ambermill and Beren's Peril, then hands
+  everything in on one Sepulcher stop, Journey to Hillsbrad included, before
+  the road north. You no longer walk back to the Sepulcher between the island
+  and Ambermill, nor out to the lake shore and back for Journey to Hillsbrad
+  alone; Beren's Peril is taken with Ambermill Investigations.
+- Swamp of Sorrows (Horde, 45-47): the Sawtooth Snapper Claws are a goal of the coast step with the
+  Monstrous Crawlers instead of a list along the way, and two leftover lines are gone: a tip at Misty
+  Reed Post saying the next guide starts there, and a note about keeping The Sunken Temple, which you
+  don't have yet at that point.
+- Feralas (Horde, 45-47): the last Camp Mojache stop goes Jangdor, Uzer'i, Talo in the order you ride in.
+- A new setting, Wait for Spoken (Options, Integrations), holds each automatic
+  quest accept, turn-in and reward pick for 200 ms, so the Spoken addon has
+  time to read the window. On by default while Spoken is installed (thanks
+  uNBEx).
+- A step's tip now starts on one line, so the guide window doesn't open on a
+  wall of text: click the tip to read it in full. To have every tip open all
+  the time, turn on Options > Guide > Window, "Expand step tips".
+- Stonetalon Mountains (Horde): at Beren's Peril the Note Scrap is handed in
+  at the Offering Stone first, which then offers The Tortured Soul and The
+  Offering of Blood; the guide asked for The Tortured Soul before the stone
+  offers it. The walk to Malaka'jin no longer sends you back to the Crossroads
+  from Seereth Stonebreak.
+- Stranglethorn Vale (Alliance, 40-43): Nesingwary's last hunts (Tethis, King Bangalash), or the solo top-ups on the
+  Cold Eye Basilisks, now come after the Crystalvein Mine and before the last Booty Bay stop, instead of a ride back
+  north from Booty Bay and south again to fly.
+- Stranglethorn Vale (Alliance, 30-40): the haunted island is reached from the Crystalvein Mine on the first jungle
+  loop and handed in on the Booty Bay return, so the water elementals and the Snapjaw crocolisks are done on the
+  northern loop and handed in on the last Booty Bay stop. No more round trip from Booty Bay to the river for the skins,
+  or walk from Booty Bay back to the island, on to Westfall and a flight back. Druids train in Stormwind after the
+  flight there, instead of a trip through Ironforge that ended at Menethil's flight master, and the level-40 Jungle
+  Stalkers are no longer a list to keep in mind at 36.
+- Stranglethorn Vale (Alliance, 30-40): Krazek's Cookery is taken on the first Rebel Camp visit and handed
+  to Krazek on the first Booty Bay stop, with Favor for Krazek, instead of waiting for the second visits.
+- Stranglethorn Vale (Alliance, 40-50): the Jungle Stalkers for Raptor Mastery are killed with the Cold Eye
+  basilisks on the jungle loop, and Hemet Nesingwary takes the quest on the ride to the Rebel Camp, instead of a
+  trip back north from Booty Bay for it.
+- Stranglethorn Vale (Alliance, 40-50): Night Elves learn to ride from the first Stormwind stop instead of
+  walking from the Swamp of Sorrows to Stormwind and back; Dwarves and Gnomes learn it on the way out of Ironforge
+  instead of riding back from the Badlands; only Humans go by Darkshire to Booty Bay (everyone else lands there by
+  boat and no longer flies to Darkshire and back); the Mistvale Giblets come with the Gorilla Fangs; and the flight
+  to Stormwind leaves from Booty Bay.
+- Stranglethorn Vale (Horde, 39-43): the flight from Kargath goes to Grom'gol
+  first, for Kin'weelay, the Jungle Stalkers and Far Seer Mok'thardin, and on
+  to Booty Bay from there. The guide flew to Booty Bay, then to Grom'gol and
+  back again. The arrow also goes straight from Booty Bay to the Bloodsail
+  cove instead of out into the jungle first.
+- Stranglethorn Vale (Horde, 30-40): after the flight into Grom'gol, the step says where Nimboya stands instead of
+  "follow the road south to Grom'gol".
+- Stranglethorn Vale (Horde, 30-40): the six "along the way" lists are gone; each
+  of their goals is in the step that already does the work, and the Shadowmaw
+  Panthers are no longer listed on the Savage Coast, where none live.
+- Stranglethorn Vale (Horde, 39-43): Scaring Shaky is taken from "Sea Wolf" MacKinley on your first
+  Booty Bay stop, with Stoley's Debt, instead of on the next one.
+- Stranglethorn Vale (Horde, 39-43): the Aged Gorilla Sinew is gathered with Unbagwa's gorilla fangs in
+  Mistvale Valley, not on the Wild Shore step, and the guide no longer opens with a stray vendor stop in
+  Ratchet or a note about Tarren Mill that belonged to an earlier guide.
+- Stranglethorn Vale & Swamp of Sorrows (Horde, 39-43): the way into the swamp
+  no longer tells you to go north into Duskwood after the Duskwood stop, and
+  Stonard is one stop: Dar's two quests, the flight path, Helgrum, the bind and
+  Fel'zerul, without a second step that said you start there.
+- Swamp of Sorrows (Horde, 39-43 and 45-47): the first visit is one pass.
+  Galen's strongbox comes on the way back west and Magtoor at the Harborage
+  last; there is no ride to Misty Reed Post for Lack of Surplus alone. Tok'Kar
+  takes the crocolisk flanks on the second visit, which goes to Misty Reed Post
+  anyway.
+- Tanaris (Alliance, 45-47): Sprinkle's Secret Ingredient no longer comes with a note telling you to skip it; the
+  route takes it, the ingredient is picked up in the Hinterlands and Sprinkle gets it on the next Gadgetzan stop.
+- Tanaris & Searing Gorge (Horde, 47-48): the Noxious Lair comes before Tooga's escort, so the escort
+  ends at Steamwheedle Port with its hand-in instead of a ride back west to the lair and east again, and
+  the arrow points to Torta during the escort. In the Searing Gorge the taskmasters, slavers and golems are
+  killed on the ride from Thorium Point down to Kalaran, where you cross them, and the lava spiders are a
+  goal of the Cauldron step, instead of lists along the way; and two tips that still spoke of Kargath and of the
+  next guide starting at Thorium Point are corrected.
+- Teldrassil: Ferocitas' necklace and Tallonkai's Jewel are looted on the same
+  visit to his camp as the Gnarlpine Mystics, and Tallonkai takes the jewel as
+  you pass back through Dolanaar, instead of a second walk east to the camp and back
+  after Lake Al'Ameth. The guide no longer ends with a boat to Stormwind
+  before the Night Elf Darkshore guide.
+- Teldrassil walks you back and forth less: The Balance of Nature's north kills,
+  the Webwood Venom Sacs and Iverron are one trip from Aldrassil (no walk back to
+  Conservator Ilthalaine in between); the Fel Cones are picked on the road east
+  to Zenn instead of a trip of their own before the west loop; you train on the
+  Dolanaar stop instead of coming back for it; Dolanaar's NPCs come in walking
+  order; the Amethyst Phial is filled on your first visit to the Oracle Glade's
+  moonwell; Warriors take Nessa Shadowsong's quest on their first walk into
+  Darnassus; and the two "along the way" lists are normal steps.
+- Teldrassil: Sentinel Shayla's fang bounty is handed in on the road west to
+  the Oracle Glade, the Strange Fronded Plant is taken on the walk north to
+  Lady Sathrah, and the last owl in Darnassus is placed on the walk south from
+  the Cenarion Enclave, so the island's west side is no longer walked twice.
+- Teldrassil: the west loop goes into Darnassus once, on the road past
+  Sentinel Shayla Nightbreeze, for Rellian's Tumors, The Temple of the Moon,
+  Tears of the Moon and Eyes of the Sentinels; the Gnarlpine fangs, the
+  timberlings, Lady Sathrah and Mist are done on the loops you already walk,
+  and Sathrah's Sacrifice and the owls finish on the last city visit.
+- Teldrassil: the tip for handing Zenn's Bidding to Zenn now matches the walk (he is reached from Dolanaar, before Starbreeze Village and the lake).
+- Theramore: The Black Shield goes on to Caz Twosprocket and back to Captain
+  Vimes on the same Theramore stop.
+- Thunder Bluff reputation: The Broodmother is taken from Muln Earthfury as
+  Defending the Dead goes in, before Mazu'kon's and Yorn's hand-ins.
+- Tirisfal Glades: characters already level 7 on the first pass through Brill take
+  Carolai Anise's, Coleman Farthing's and Gretchen Dedmar's quests there, and at
+  level 10 The Argent Emissary on the Brill stop after the north loop, handed to
+  Hadric at Deathguard Linnea's camp right after; anyone below the level takes them
+  on the next visit as before.
+- Tirisfal Glades flows in one direction now: out of Deathknell you take
+  Fields of Grief and Calvin's letter at the Solliden farmhouse, pick the
+  pumpkins next to it and take Gordo's Task on the road; Brill is entered past
+  Dillinger, Bartholomew, Holland and Eleanor's camp before the square, where
+  Zygand and Johaan take everything you carry; Linnea's camp comes next, then
+  one west loop that fights Calvin's duel on the way to the Crusader's
+  Outpost, and the hides for Shelene are collected from the darkhounds, bats
+  and murlocs those loops already kill. No step is an along-the-way list any
+  more (thanks Fitz).
+- Tirisfal Glades: Warriors take Ulag the Cleaver from Deathguard Dillinger
+  when they hand him The Mills Overrun, instead of coming back to him.
+- Sun Rock Retreat (Horde): Tammra Windfield comes before Braelyn Firehand
+  and the flight master, so you no longer walk back across the town to her.
+  (thanks Bonesavv77)
+- Kodo Roundup (Desolace): the tip says to talk to each tamed kodo at
+  Smeed's camp, which counts it and lets you tame the next, one at a time.
+  (thanks Gray)
+- Duskwood: the arrow looks for the Pygmy Venom Web Spiders on the Hushed
+  Bank west of Raven Hill, where most of them are, and the tip no longer puts
+  them east of the cemetery. (thanks jkhjkhjk778787)
+- City of Dalaran pick-up guide: Heart of Disruption waits until level 30,
+  after the quest that leads to it (Blood in the Streets for the Horde, An
+  Alarming Request for the Alliance); Image of Archmage Modera doesn't offer
+  it before that. (thanks JonnyDisco and rockzors)
+- Troll Durotar no longer walks you from the Crossroads back to Razor Hill
+  and then back to the Crossroads: Threat from Below is handed to Orgnil on
+  the way from Margoz to Far Watch Post, as in the Orc guide, and the
+  Crossroads quests are all taken on the stop you arrive at. Hunters are no
+  longer sent to Ormak in Orgrimmar before they have his quest. The Durotar
+  "along the way" lists are steps (Orc and Troll).
+- Un'Goro Crater (Alliance, 40-50): the Lar'korwi glands and the wrecked raft are done right after Torwa, at the
+  foot of the ramp, before the ride north to Marshal's Refuge, instead of a ride back south-east for them later.
+- Un'Goro Crater (Alliance, 40-50): the pylon loop goes one way round, down the east side, the Gorishi hive, the
+  south-west and the Western Pylon, then north to the refuge; in Ironforge, Tymor comes before Archesonus on the
+  way round the city.
+- Un'Goro Crater (Horde, 51-53): in the Undercity Harbinger Balthazad, beside the bat master, comes first,
+  before Oran Snakewrithe; the pterrordax step is titled and explained for the pterrordax instead of the
+  Gorishi hive; the Kargath stop and the Hunter and Shaman training trip no longer speak of the Grom'gol
+  zeppelin (you arrive by the boat to Powderfuse Port); and the note calling Pawn Captures Queen an elite
+  quest to skip is gone, since the guide takes it (the hive queen is a normal creature in Forever's data).
+- Un'Goro Crater: Marin Noggenfogger's elixir is handed in on the Gadgetzan
+  stop, straight after Delivery for Marin.
+- A "Sell and repair" line no longer keeps you on a step once its hand-ins
+  and other work are done: if you have nothing to sell, the guide moves on
+  without a visit to the vendor. This also lets Redridge Mountains end at
+  "Back to Lakeshire" as it should. A step that is only a vendor stop still
+  waits until you open the vendor's window, or skip it.
+- Westfall: at the Stormwind stop, the Nightcrawlers for Fishin' Time are bought with the Shiny Bauble in one stop, after Woo Ping, instead of two visits to Catherine Leland.
+- Westfall's first loop from Sentinel Hill is one loop: the Molsen Farm
+  fields (the Defias for the Militia, the Harvest Watchers, the livers, snouts
+  and vulture meat), the north hills and coast, the Jansen Stead's oats and
+  well, then every hand-in at Saldean's Farm at once on the way back to the
+  hill. It no longer comes back to Saldean's in the middle for two hand-ins,
+  and Dwarves, Gnomes, Night Elves and Skyborne fill the Jansen Stead's well
+  vial with the oats instead of on a walk of its own. No along-the-way list.
+- Westfall and the start guides: Humble Beginnings is taken from Baros
+  Alexston on each race's walk through Stormwind (Humans on Thor's free flight
+  from Sentinel Hill, with Continue to Stormwind, Dungar Longdrink and Return
+  to Lewis), its compass is picked up at the Alexston Farmstead on the west
+  loop, and it is handed in with Elmore's Task (from Smith Argus in Goldshire)
+  on the Stormwind visit before the boat, where Borgus Steelhand gives
+  Business in Auberdine for his brother. Night Elves also take Philmor's Favor
+  and Gatehouse Goods between the harbour and the flight master.
+- Wetlands: Einar Stonegrip's Daily Delivery is taken on the road between
+  Howin Kindfeather and Rethiel and handed to James Halloran on the next
+  Menethil stop.
+- Wetlands: Daily Delivery is handed to James Halloran after Captain
+  Stoutfist's last quest, on the way to the boat, instead of between two of
+  Stoutfist's.
+- Alliance Wetlands: the guide no longer asks for quests the givers don't
+  offer yet. Rethiel the Greenwarden's Carnage now comes after Fen Creeper.
+  Prospector Whelgar's Gleaning Our Future comes after Understanding Our
+  Present, and For Further Study after Gleaning Our Future, on the Dun Modr
+  visit. Sara Balloo's Plea comes after Sully Balloo's Letter.
+- These quests are now left out, because their givers won't offer them on
+  the route: Tharil'zun and Shadow Magic (Redridge); Martek the Exiled and
+  its sequels (Thousand Needles, both factions; Indurium in the Badlands;
+  News for Fizzle, Keeping Pace and Rizzle's Schematics at the Mirage
+  Raceway); and Greater Friend of the Library (Stormwind; it stays in the
+  Library Books guide). Kurzen's Mystery (Stranglethorn) is now taken once
+  Bad Medicine and The Second Rebellion are handed in.
+- Wetlands & Hillsbrad: the Thandol Span chain goes on past Rustlocke's
+  corpse: his parchment goes back to Rhag Garmason in Dun Modr, the Dark Iron
+  cache is destroyed at the span's Arathi end beside Foggy MacKreel, and
+  Rhag's Plea to the Alliance is handed to Captain Nials at Refuge Pointe.
+- Dynamic Questing's suggestions have their own small "While you're here"
+  panel under the step, in your accent colour, dulled so the text stays easy
+  to read: each suggestion is written like the step's own goals ("Kill
+  Kobold Vermin 8/10", the target in its colour) with its step under it, and
+  its own distance and close button on the right. Long suggestions wrap onto
+  a second line instead of being cut off.
+- Dynamic Questing: when you pass through the area of a later step's
+  objective whose quest is already in your log, a "While you're here" panel
+  slides in under the current step with that objective, for example "Kill
+  Kobold Vermin 3/15, step 14, 45 yd". Any later step of the guide counts,
+  also one after the guide has taken you to another zone and back, and it
+  goes by where you
+  are, not where the arrow points: chasing slow drops past another step's
+  objective catches it. Up to three show at once, the one you can only do
+  around here (a pool, a camp) before mobs found all over the zone. A mob it
+  needs that you can see (its nameplate, your target) counts too, wherever
+  its usual spawns are. A suggestion stays while you are near its mobs, however
+  long. Grab it now and
+  that step is done or shorter when you get there. Click a suggestion to point
+  the arrow there; right-click it (or its close button) and it stays away
+  until you have left the area and a couple of minutes have passed, then
+  comes back when you are near again; dismissed twice it stays away for the rest of the
+  zone. Walk away and it goes, and comes back when you meet
+  its mobs again. A soft chime plays and its mark on the minimap
+  pulses so you know to look (at the minimap's edge when it is further
+  out), and the quest item button offers its item when the step has none.
+  A quest ready to hand in to someone standing right there shows the same
+  way. With the guide window hidden, one small toast says it. Never in
+  dungeons, on flights or boats, or during timed and escort quests.
+  Options, Guide, Window, "Dynamic Questing" turns it off, sets how close
+  (60 to 400 yards, 180 by default), the hand-ins and the sound. A bug
+  report says what the panel shows, or why it shows nothing.
+- Winterspring (Alliance): all four Kel'Theril relic fragments are picked up on the first pass by the lake. In the
+  Eastern Plaguelands, Defenders of Darrowshire goes to Carlin Redpath on the last Light's Hope stop with the
+  Scourgestones, without a ride back to the chapel in between.
+- Winterspring (Alliance, 53-56): after the top-up to 55 the guide no longer suggests the Sunken Temple or more yetis
+  to reach level 54.
+- Winterspring (Alliance): Speak to Salfa is handed in where Timbermaw Hold's tunnel comes out, and the Winterfall
+  camp's furbolgs for Threat of the Winterfall are a step by the hot springs instead of a list.
+- Winterspring (Horde, 55-56): Morrowgrain Research and Morrowgrain to Thunder Bluff are optional at
+  Bashana Runetotem: they want ten Morrowgrain, which the Evergreen Pouch grows one slow try at a time,
+  and the guide had you accept, finish and hand them in on the spot. The Raging Owlbeasts' tip no longer
+  sends you west when you ride east, the Den Watchers and owlbeasts are no longer listed along the way,
+  and Bashana's step loses a warning about Gorishi silithids that belonged in Un'Goro.
+- Winterspring (Horde): Speak to Salfa is handed in where Timbermaw Hold's tunnel comes out, and
+  Winterfall Activity taken there, instead of on a ride back west from Everlook.
+- Western Plaguelands (Alliance): the Temporal Parasites are drawn out on the Andorhal visit for the Annals of
+  Darrowshire, instead of a second trip to Andorhal later.
+- Western Plaguelands (Alliance): A Gnome's Assistance goes to J.D. Collie on the first Marshal's Refuge stop,
+  beside Linken, and the Scarlet Knights, Carrion Grubs and Super Sticky tar are in the steps that do them.
+- Felwood & Western Plaguelands (Horde, 53-55): coming in from Tarren Mill, Auntie Marlene is handed in at
+  Sorrow Hill before the ride north to Mulgris at the Writhing Haunt (the order went to Mulgris and back
+  south); Kirsta's Scarlets are no longer a list along the way; and the Bloodvenom Post flight path is
+  learned at the Bloodvenom Post stop, not in the step for the optional Blood Red Key.
+- Zephras Isle (Alliance): after the Ursera den, Aetheen and Valreaa take their hand-ins first and Hanaa Nightwind comes on the way south to Shen'dar, instead of a walk back north to the grove.
+- Zephras Isle walks you back and forth less. Both factions: Fendaal
+  Windstone's Al'Aketh Assassins are done where the road to Valanaar passes
+  him, not on a later trip back. Alliance: Taleen's A Little Beauty and
+  Ealaane's two quests are taken on your first visit to Shen'dar and
+  Valanaar, a Druid hands The Great Ursera Spirit to Urs'endris on the
+  watchtower trip, and the last Valanaar stop starts where the portal sets you
+  down. Horde: you sit by Raan's campfire when you first reach Shen'dar
+  instead of walking back from the hippogryph nests, Aamelia's farm is finished
+  before the trip north for the construct parts, and the Windsong Lake quests
+  are one sweep. The four "along the way" lists are normal steps.
+- Zephras Isle (Horde): Valreaa's and Aetheen's hand-ins in Thendal Village
+  come before Hanaa Nightwind, whose camp is on the road south to Shen'dar,
+  so you no longer walk back north to the village after her.
+
+### For guide authors
+
+- New step line `background`, on an `along until <label>` step: its goals are
+  slow, zone-wide collections worked over the whole stay. Each quest
+  objective in it needs a finish step before the step that hands its quest
+  in, and the lint says so if it is missing. See docs/GUIDE_FORMAT.md,
+  "Background goals".
+- `polestar playtest --honest` no longer crashes on a `when complete`,
+  `when turnedin`, `when available` or `when group` line, and it opens a held
+  container for the items in it (A Small Pack's compass, map and key in
+  Un'Goro) instead of reporting them as having no source.
+- Lint: a flight to a stop where nothing is left to do, followed straight
+  away by another flight, is reported (an error in Polestar's own guides);
+  fly to the second flight's end instead.
+- A `vendor` goal beside other goals of its step no longer holds the step:
+  the step is done once those are, with or without the merchant window. It
+  is still listed while the step is live, the arrow still leads to it in
+  its turn, and opening the merchant still ticks it. A step whose only
+  goals are `vendor` waits for the merchant window as before. The playtest
+  and the guide-end check play such a vendor the same way (they leave it
+  alone).
+
+### For contributors
+
+- `forge data check-corrections` no longer reports a `remove: true` quest
+  correction as "no quest in the data": the build itself takes that quest
+  out, so its absence is the record working. A correction that sets fields
+  on a missing quest, or links to a removed one, is still an error.
+- CI no longer downloads the client tables from wago.tools on every run: a
+  weekly workflow caches them, the texture and data-corrections checks read
+  the cache offline, and the texture check runs only when a generator or its
+  inputs change. `polestar media --offline` reads the cached tables only, and
+  a wago.tools 429 or 5xx is retried before it fails a download.
+- The Discord bug bot takes 5 reports an hour from each player (was 3), and a
+  report held past that now gets a reply in its thread saying when it will be
+  filed; the reply turns into the issue link once it is.
+- The Discord bug bot no longer holds server staff (administrators and
+  moderators, by their roles) to the hourly report and follow-up limits;
+  `RATE_EXEMPT_IDS` exempts more users. A player's report or follow-up past
+  the limit is filed once the hour allows instead of at the bot's next start.
+- Recording server: a single teleport the game makes (the spirit healer
+  after a release, the Rut'theran portal, a quest teleport) and kills other
+  players had tagged no longer mark a recording as suspect, so these sessions
+  reach the data. Movement faster than 100 yards a second twice in a row, or
+  more than twice in five minutes, is still flagged. Recordings held back by
+  the old checks are checked again when the server starts.
+- `tools/lib/route/prereq-order.js` plays every leveling path (each start and
+  each `next` option) as every race and class it is for, with group quests
+  both answered and skipped, and reports an accept whose blocking
+  prerequisites that path hasn't handed in yet. Lint's check counts a hand-in
+  on any branch into a guide. `tests/guides-reported.test.js` runs it over
+  all guides, so a guide that takes a quest before its chain fails the tests.
+
+### Forge
+
+- A `background` record in data/guide-fixes.json makes a slow, zone-wide
+  collection a goal of the whole stay: the writer lists the objective on the
+  way from the quest's accept to the step that hands it in, puts a finish
+  step at the record's point right before it (`when !has <item> x<count>`
+  for an item), and adds the record's mention to the steps between that pass
+  the dropping mobs. `forge data check-corrections` checks the record.
+- Forge now writes three of 0.3.4's hand edits itself. A v1 goto 200 yd or
+  more from the kill or collect after it is dropped (the Barrens' Zhevra,
+  Feralas' forest walkers). A repeatable quest its giver takes back on the
+  spot becomes a `direct` turn-in (The Tome of Divinity). The seed points
+  Eastern Plaguelands' Corin's Crossing step at the town.
+- Players' recordings never override our corrections: the data build puts
+  every corrected value back after the recordings overlay, lists each value
+  the recordings disagreed with in its warnings, and the knowledge base ranks
+  corrections above recordings. A correction's value is now copied into the
+  record, so a later stage can no longer edit the correction itself.
+- `forge record resession` re-reads every archived upload into the session
+  files, so record kinds an older forge skipped (refusals, group size, spawns,
+  gathering, failed quests) come back without a new pull.
+- The recordings folder's `config.json` takes an `exclude` list of
+  contributors the maintainer's audit rejected: their sessions never count and
+  never make their cohort count.
+
 ## 0.3.4 (2026-11-06)
 
 ### For players

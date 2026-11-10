@@ -2,15 +2,60 @@
 guide forever/horde/30-40/04-dustwallow-marsh
 title Dustwallow Marsh & Desolace
 faction Horde
-levels 38-39
+levels 36-38
 zone Dustwallow Marsh
-next forever/horde/40-50/01-stranglethorn-vale
+next forever/horde/30-40/05-arathi-highlands
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: The Theramore Docks (1202).
+# Added here: The Theramore Docks (1202), Parts of the Swarm (1184). Goblin Sponsorship (1178) and
+# Wharfmaster Dizzywig (1111) are handed in at Ratchet on the way to the Booty Bay boat, in 03.
 # Left out: Gizelton Caravan (5943), The Kolkar of Desolace (1362).
+
+# Dustwallow at 37-38, after Stranglethorn (the 2026-11-07 re-order), then a short second
+# Desolace visit for the zone's 38-40 quests (the 33-36 ones are in
+# forever/horde/30-40/02-thousand-needles).
+#
+# Flow: Grom'gol (where the previous guide ends) -> zeppelin to Orgrimmar (Soothing Spices) -> fly to the Crossroads (Korran) -> fly to Camp Taurajo -> the Shady
+# Rest Inn -> Brackenwall Village (flight path) -> Reethe -> Witch Hill (Stinky) -> the Mirefin
+# murlocs -> Swamplight Manor -> the spiders and venomspitters -> Brackenwall -> Swamplight
+# Manor -> the Theramore docks -> Brackenwall -> fly to Ratchet (Stinky's Mebok;
+# Warriors: The Affray on Fray Island) -> fly to Shadowprey Village -> Mannoroc Coven -> Ghost
+# Walker Post -> the Valley of Spears (Melizza) -> Hornizz -> the Valley of Bones -> Hornizz and
+# Ghost Walker Post -> Shadowprey -> fly to Orgrimmar (Belgrom, Hunter and Shaman training),
+# where the next guide takes the Undercity zeppelin.
+#
+# Class training: Hunters and Shamans in Orgrimmar at the end; Druids in Thunder Bluff on the
+# flight from Shadowprey to Orgrimmar; everyone else in the Undercity at the start of the next
+# guide.
+
+# ---------------------------------------------------------------- Orgrimmar and the Crossroads
+
+step Zeppelin to Orgrimmar
+  zone Stranglethorn Vale
+  goto 31.4,29.9 "Zeppelin to Orgrimmar"
+
+step Orgrimmar
+  zone Orgrimmar
+  goto 51.5,45.6 "The middle of Orgrimmar"
+
+step Orgrimmar
+  zone Orgrimmar
+  buy 3713 x3 nearest                 -- Soothing Spices, for "Swamp Eye" Jarl
+  accept 1718 only Warrior            -- Sorek, Valley of Honor: for Fray Island, later in this guide (offered from level 30)
+
+step Fly to the Crossroads
+  zone Orgrimmar
+  goto 45.3,63.7 "Orgrimmar flight master"
+  fly "Crossroads"
+  zone The Barrens
+
+step Korran
+  zone The Barrens
+  tip Korran stands beside the Crossroads flight master.
+  turnin 1148                         -- Korran
+  accept 1184                         -- for Belgrom Rockmaul in Orgrimmar, at the end of this guide
 
 step Fly to Camp Taurajo
   zone The Barrens
@@ -19,7 +64,9 @@ step Fly to Camp Taurajo
 
 step Dustwallow Marsh
   zone Dustwallow Marsh
-  goto 29.7,47.6 "Dustwallow Marsh"
+  goto 29.7,47.6 "Shady Rest Inn"
+
+# ---------------------------------------------------------------- The Shady Rest Inn
 
 step Shady Rest Inn
   zone Dustwallow Marsh
@@ -28,25 +75,11 @@ step Shady Rest Inn
   accept 1251
   accept 1269
 
-step The Barrens
-  only Warrior
-  zone The Barrens
-  goto 68.6,49.2 "The Barrens"
-
-step The Affray
-  zone The Barrens
-  only Warrior
-  tip Head south along the coast from Ratchet to Fray Island. Klannoc Macleod stands by the arena: step on the grate to start the fight; the challengers come one at a time, then Big Will (33).
-  turnin 1718                         -- Klannoc Macleod
-  accept 1719
-  complete 1719
-  turnin 1719                         -- Klannoc Macleod: Berserker Stance
-
 # ---------------------------------------------------------------- Brackenwall Village
 
 step Dustwallow Marsh
   zone Dustwallow Marsh
-  goto 35.1,38.3 "Dustwallow Marsh"
+  goto 35.1,38.3 "Brackenwall Village"
 
 step Brackenwall Village
   zone Dustwallow Marsh
@@ -56,40 +89,17 @@ step Brackenwall Village
   turnin 1251
   accept 1321
   turnin 1268
-  accept 1166                           -- Overlord Mok'Morokk
   getfp "Brackenwall Village"
   accept 1201                         -- Nazeer Bloodpike
   turnin 1321                         -- Do'gol
   accept 1322
-  accept 1168                           -- Tharg
-  accept 1169                           -- Draz'Zilb, below ground
 
 # ---------------------------------------------------------------- Dustwallow Marsh
 
 step Questioning Reethe
   tip Ogron waits in the Quagmire east of the village. Follow him to Reethe and keep him alive through the fight that breaks out.
   accept 1273
-  complete 1273
-
-step Brackenwall Village flight master
-  only Druid,Paladin
-  zone Dustwallow Marsh
-  goto 35.6,31.8 "Brackenwall Village flight master"
-
-step Thunder Bluff
-  only Druid,Paladin
-  zone Thunder Bluff
-  tip Your trainer is in Thunder Bluff: fly there (no flight path there yet? fly to Camp Taurajo and head west through Mulgore), then on to Brackenwall Village.
-  fly "Thunder Bluff"
-  train class
-
-step Back to Brackenwall Village
-  only Druid,Paladin
-  zone Thunder Bluff
-  goto 46.7,49.9 "Thunder Bluff flight master"
-  fly "Brackenwall Village"
-  zone Dustwallow Marsh
-  goto 46.9,17.5 "Dustwallow Marsh"
+  complete 1273 @42.6,38.1 map 1445
 
 # ---------------------------------------------------------------- Witch Hill
 
@@ -107,7 +117,7 @@ step Swamp Eye Jarl
   tip Jarl lives in the Swamplight Manor south-east of Witch Hill.
   accept 1238                         -- Loose Dirt, beside the manor
   accept 1218                         -- "Swamp Eye" Jarl
-  buy 3713 x3 nearest                 -- Soothing Spices, for "Swamp Eye" Jarl
+  buy 3713 x3 nearest                 -- Soothing Spices, if you did not buy them in Orgrimmar
   turnin 1218
   accept 1206
 
@@ -141,16 +151,24 @@ step Swamp Eye Jarl
   turnin 1203 optional
 
 step The Theramore Docks
+  tip South-east from the manor to Theramore Isle: the Captain's Footlocker lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57.
   collect 5882 quest 1202.1 @71.5,51.2 map 1445 -- Underwater
 
 step Brackenwall Village
+  tip Head back west to Brackenwall with the head: Mudcrush Durtfeet stands at the south edge of the village where the road comes in, Nazeer Bloodpike in the village.
   turnin 1177                         -- Mudcrush Durtfeet
-
-step Nazeer Bloodpike
-  turnin 1202
-  tip Head back west to Brackenwall with the head.
+  turnin 1202                         -- Nazeer Bloodpike
   turnin 1239                         -- Nazeer Bloodpike
-  accept 1240                         -- For Kin'weelay at Grom'gol, in the next guide
+  accept 1240                         -- For Kin'weelay at Grom'gol, in forever/horde/40-50/01-stranglethorn-vale
+
+step Level 37.5
+  when level<37.5
+  zone Dustwallow Marsh
+  tip Desolace's last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5. Or, with a group, run the Razorfen Downs dungeon or the Scarlet Monastery dungeon (Armory) instead.
+  goto 31.4,22.2 map 1445 "Darkmist cavern"
+  level 37.5 grind 4377               -- grind on Darkmist Lurker
+
+# ---------------------------------------------------------------- Ratchet
 
 step Fly to Ratchet
   zone Dustwallow Marsh
@@ -159,9 +177,20 @@ step Fly to Ratchet
   zone The Barrens
 
 step Ratchet
-  zone Dustwallow Marsh
-  sethome "Ratchet"
+  zone The Barrens
+  tip Mebok Mizzyrix stands below Gazlowe's house by the flight master, towards the docks.
   turnin 1270                         -- Mebok Mizzyrix
+
+step The Affray
+  zone The Barrens
+  only Warrior
+  tip Head south along the coast from Ratchet to Fray Island. Klannoc Macleod stands by the arena: step on the grate to start the fight; the challengers come one at a time, then Big Will (33).
+  turnin 1718                         -- Klannoc Macleod
+  accept 1719
+  complete 1719 @68.6,48.7 map 1413
+  turnin 1719                         -- Klannoc Macleod: Berserker Stance
+
+# ---------------------------------------------------------------- Desolace, the second visit
 
 step Fly to Shadowprey Village
   zone The Barrens
@@ -169,90 +198,99 @@ step Fly to Shadowprey Village
   fly "Shadowprey Village"
   zone Desolace
 
-step Desolace
+step Shadowprey Village
   zone Desolace
-  goto 33.9,53.5 "Desolace"
+  tip Taiga Wisemane stands in the village.
+  accept 5581                         -- Taiga Wisemane
+
+step Portals of the Legion
+  zone Desolace
+  tip Head east to Mannoroc Coven. With the Hand of Iruxos from Taiga in your bags, open a demon portal's ring: a Demon Portal Guardian (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake.
+  goto 52.0,78.0 "Mannoroc Coven"
+  complete 5581
+
+step Ghost Walker Post
+  zone Desolace
+  tip North to the post; Gurda Wildmane stands beside Felgur.
+  accept 93225                        -- Gurda Wildmane
+
+step Valley of Spears
+  zone Desolace
+  tip West of the post, the Maraudine centaurs hold the Valley of Spears. Every Maraudine can drop a Carved Centaur Totem and an ear for Felgur's Centaur Bounty.
+  collect 254432 x5 quest 93225.1
+  collect 6067 quest 1366
 
 step Melizza Brimbuzzle
-  tip Head north-east to the Valley of Spears. Melizza is held in the Maraudine centaur camp; free her and escort her out east of the valley.
+  zone Desolace
+  tip Melizza is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.
   tip Careful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help.
   accept 6132
   complete 6132
 
-step Kodo Graveyard
+step Hornizz Brimbuzzle
+  zone Desolace
   tip Hornizz waits at the goblin camp on the west side of the Kodo Graveyard.
   turnin 6132
   accept 6134
 
-step Kormek's Hut
-  tip Head north up the road to the hut by the road north of the graveyard.
-  accept 5501                         -- Bibbly F'utzbuckle
-
-step Ghost Walker Post
-  tip Felgur Twocuts and Gurda Wildmane stand in the post just west of Smeed's camp.
-  accept 93225                        -- Gurda Wildmane
-
-step Kodo bones
-  tip Pick up the kodo bones scattered across the graveyard.
-  collect 13703 quest 5501
-
-step Kormek's Hut
-  turnin 5501                         -- Bibbly F'utzbuckle
-
-step Burning Blade Seer
-  tip The Seer stands on the south side of Thunder Axe Fortress, east of Ethel Rethor. Clear the cultists around it first.
-  collect 15750 quest 5741 @55.2,30.1 -- On the top floor
-
-step Thunder Axe Fortress
-  tip The Burning Blade hold the fortress north-west of Kormek's Hut. Use the Demon Pick on the Demon Spirit in the fortress to get the Demon Box.
-  collect 13542 quest 5381
-
-step Ethel Rethor
-  turnin 5741                         -- Azore Aldamort
-  note His next errand is not on this route.
-  accept 6027                         -- Azore Aldamort
-
-# ---------------------------------------------------------------- The coast
-
-step Slitherblade coast
-  tip The Slitherblade naga hold the coast north of Ethel Rethor, up to Sar'theris Strand. Lord Kragaru guards the Book of the Ancients at the far northern tip.
-  kill 4712 quest 6143.3              -- Underwater
-  kill 4711 quest 6143.2              -- Slitherblade Naga walks around Sar'theris Strand: look inside the circle on the map
-  kill 4714 quest 6143.1              -- Slitherblade Myrmidon walks around Sar'theris Strand: look inside the circle on the map
-  collect 15803 quest 6027
-
-step Azore Aldamort
-  turnin 6027
-
-step Maraudine totems
-  tip Head south from Ethel Rethor into the Valley of Spears. The Maraudine Scouts, Wranglers, Maulers, Windchasers and Marauders (36-39) drop the Carved Centaur Totems.
-  collect 254432 x5 quest 93225.1
-
-step Shadowprey Village
-  tip Head on south-west to Shadowprey.
-  turnin 6143                         -- Drulzegar Skraghook
-  turnin 5381                         -- Taiga Wisemane
-  accept 5581
-
-step Portals of the Legion
-  tip Head east to Mannoroc Coven. Use the Rod of Banishing by each demon portal to close six of them.
-  tip Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake.
-  goto 52.0,78.0 "Mannoroc Coven"
-  complete 5581
-
 step The Valley of Bones
-  tip Head south-east from the coven to the bone fields of the Valley of Bones, where Undead Ravagers roam. At the far south-east, use the Crate of Ghost Magnets to draw the Magrami Spectres: they drop the ghost-o-plasm.
+  zone Desolace
+  tip Head south-east to the bone fields of the Valley of Bones, where Undead Ravagers roam. At the far south-east, use the Crate of Ghost Magnets to draw the Magrami Spectres: they drop the ghost-o-plasm.
   use 15848 quest 6134.1 @63.5,91.6 map 1443
   collect 15849 quest 6134            -- Ghost-o-plasm
 
-step Ghost Walker Post
-  tip Head north to Gurda Wildmane at Ghost Walker Post.
-  turnin 93225                        -- Gurda Wildmane
-
 step Hornizz Brimbuzzle
-  tip Hornizz waits at the goblin camp on the west side of the Kodo Graveyard.
+  zone Desolace
+  tip North to the goblin camp on the west side of the Kodo Graveyard.
   turnin 6134
 
+step Ghost Walker Post
+  zone Desolace
+  turnin 1366                         -- Felgur Twocuts
+  turnin 93225                        -- Gurda Wildmane
+
 step Shadowprey
+  zone Desolace
+  tip West to Shadowprey.
   turnin 5581                         -- Taiga Wisemane
-  note The next guide takes you back to Stranglethorn Vale.
+
+# ---------------------------------------------------------------- Orgrimmar
+
+step Thunder Bluff
+  only Druid
+  zone Thunder Bluff
+  tip Fly from Shadowprey Village to Thunder Bluff and train with Turak Runetotem on Elder Rise; fly on to Orgrimmar from there.
+  fly "Thunder Bluff"
+  train class
+
+step Fly to Orgrimmar
+  only !Druid
+  zone Desolace
+  goto 21.6,74.0 "Shadowprey Village flight master"
+  fly "Orgrimmar"
+  zone Orgrimmar
+
+step Back to Orgrimmar
+  only Druid
+  zone Thunder Bluff
+  goto 46.7,49.9 "Thunder Bluff flight master"
+  fly "Orgrimmar"
+  zone Orgrimmar
+
+step Belgrom Rockmaul
+  zone Orgrimmar
+  tip Belgrom Rockmaul stands in the Valley of Honor.
+  turnin 1184                         -- Belgrom Rockmaul
+
+step Nogg
+  when complete 2841
+  zone Orgrimmar
+  tip Nogg's workshop is in the Valley of Honor beside Belgrom: hand in Rig Wars if you ran Gnomeregan.
+  turnin 2841                         -- Nogg
+
+step Orgrimmar trainers
+  only Hunter,Shaman
+  zone Orgrimmar
+  tip Train while you are in the city; everyone else trains in the Undercity, next.
+  train class
+  note The next guide takes the Undercity zeppelin from the tower outside the main gate.

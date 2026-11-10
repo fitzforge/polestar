@@ -13,8 +13,8 @@ return {
 	["{spell:7328} to raise fallen allies, plus a weapon and a shield for a new Forsaken paladin."] = "쓰러진 아군을 되살리는 {spell:7328}와(과), 새내기 포세이큰 성기사를 위한 무기와 방패입니다.",
 
 	-- Step 1: Aramis Hammerhand
-	-- {npc:1569} Shadow Priest Sarvis · {item:282423} Consecrated Scroll · {npc:244808} Aramis Hammerhand · {npc:259377} Injured Deathguard · {area:154} Deathknell · {spell:635} Holy Light
-	["{npc:1569} gives you a {item:282423} after The Mindless Ones: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "",
+	-- {npc:1569} Shadow Priest Sarvis · {item:282423} Consecrated Scroll · {quest:364} The Mindless Ones · {npc:244808} Aramis Hammerhand · {npc:259377} Injured Deathguard · {area:154} Deathknell · {spell:635} Holy Light
+	["{npc:1569} gives you a {item:282423} after {quest:364}: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "",
 	-- {npc:259377} Injured Deathguard · {spell:635} Holy Light
 	["Heal 5 {npc:259377} with {spell:635}"] = "",
 
@@ -33,8 +33,8 @@ return {
 	["At 8 {npc:246152} in {area:159} sends you to the order's keep on the west coast. {quest:91317} in {area:16881} and the crypt under it hit hard at 8-9: come at 10 or later."] = "",
 
 	-- Step 5: Bandarion Keep
-	-- {area:16602} Bandarion Keep · {area:156} Solliden Farmstead · {npc:246349} Breton Samuels · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {npc:267009} Hadric Harlson · {area:159} Brill
-	["{area:16602} stands on the bluffs north-west of the {area:156} (the road west starts near 29,46). {npc:246349} waits at the gate. {npc:246389}, the keep's trainer, and {npc:259190}, its stable master, stand at the forest's edge just south of him. They only have work for you from level 10 and after A Righteous Cause from Leonid at the keep, the end of {npc:267009}'s chain that starts south-east of {area:159}; take their quests when you see them."] = "",
+	-- {area:16602} Bandarion Keep · {area:156} Solliden Farmstead · {npc:246349} Breton Samuels · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {npc:267009} Hadric Harlson · {area:159} Brill
+	["{area:16602} stands on the bluffs north-west of the {area:156} (the road west starts near 29,46). {npc:246349} waits at the gate. {npc:246389}, the keep's trainer, and {npc:259190}, its stable master, stand at the forest's edge just south of him. They only have work for you from level 10 and after {quest:96896} from Leonid at the keep, the end of {npc:267009}'s chain that starts south-east of {area:159}; take their quests when you see them."] = "",
 
 	-- Step 6: Murlocs at the Gates
 	-- {area:16881} Shadowvale
@@ -45,8 +45,8 @@ return {
 	["Vile Fin Seers x8"] = "",
 
 	-- Step 7: Touring the Grounds
-	-- {npc:246349} Breton Samuels · {npc:246389} Hilda the Breaker · {npc:246393} Jorin Croge · {npc:246378} Danitha Morr · {npc:246394} Ander Solliden
-	["{npc:246349} gives you a weapon, then sends you round the keep to speak with four of its people: {npc:246389} just south of the gate, {npc:246393} and {npc:246378} inside the keep, and {npc:246394}, the lookout, who walks the road south-east of the keep. Pick the conversation option with each."] = "",
+	-- {npc:246349} Breton Samuels · {npc:246389} Hilda the Breaker · {npc:246394} Ander Solliden · {npc:246393} Jorin Croge · {npc:246378} Danitha Morr
+	["{npc:246349} gives you a weapon, then sends you round the keep to speak with four of its people: {npc:246389} just south of the gate, {npc:246394}, the lookout, who walks the road south-east of the keep, then {npc:246393} and {npc:246378} inside the keep. Pick the conversation option with each."] = "",
 	-- {npc:246349} Breton Samuels · {item:246164} Skullthumper · {item:246165} Driftwood Smasher
 	["{npc:246349}: {item:246164} or {item:246165}"] = "",
 
@@ -90,28 +90,30 @@ return {
 	-- {npc:246378} Danitha Morr · {npc:259431} Rudolph Gelhardt
 	["{npc:246378} hands you {npc:259431}'s head for Sylvanas: keep it in your bags, it is what you hand in."] = "",
 
-	-- Step 14: Hilda the Breaker and Ephram Barbaro
-	-- {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro
-	["{npc:246389} and {npc:259190}"] = "",
+	-- Step 14: Hilda the Breaker
 	-- {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro
 	["{npc:246389} and {npc:259190} wait at the forest's edge south of the gate."] = "",
 
-	-- Step 15: A Lesson in Divinity
+	-- Step 15: Ephram Barbaro
+	-- {npc:259190} Ephram Barbaro · {npc:246389} Hilda the Breaker
+	["{npc:259190} waits at the forest's edge south of the gate, a few steps west of {npc:246389}."] = "",
+
+	-- Step 16: A Lesson in Divinity
 	-- {npc:246378} Danitha Morr · {item:2589} Linen Cloth · {zone:1458} Undercity
 	["{npc:246378} offers the first Lesson in Divinity at level 12. Bring 10 {item:2589} if you have it: the {zone:1458} asks for it next."] = "",
 
-	-- Step 16: The Undercity
+	-- Step 17: The Undercity
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter · {npc:257648} Tanis Alderwood · {object:36078} Trade Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:10181} holds court in the {object:36126}; {npc:257648} begs in the {object:36078}."] = "{area:159}에서 남쪽으로 걸어 {area:153}(으)로 간 뒤 {zone:1458}(으)로 내려가십시오. {npc:10181}은(는) {object:36126}에, {npc:257648}은(는) {object:36078}에서 구걸하고 있습니다.",
 
-	-- Step 17: Linen Cloth
+	-- Step 18: Linen Cloth
 	-- {npc:257648} Tanis Alderwood · {item:2589} Linen Cloth
 	-- plural, as words: Scarlet Zealots = {npc:1537} Scarlet Zealot
 	["{npc:257648} needs 10 {item:2589}. Humanoids drop it: the Scarlet Zealots and Friars of the glades about three kills in ten. The Undercity Auction House sells it too."] = "",
 	-- {item:2589} Linen Cloth
 	["{item:2589} x10"] = "",
 
-	-- Step 19: The Symbol of Life
+	-- Step 20: The Symbol of Life
 	-- {item:6866} Symbol of Life
 	["The {item:6866}"] = "{item:6866}",
 	-- {area:16602} Bandarion Keep · {npc:246378} Danitha Morr · {item:6866} Symbol of Life · {npc:257655} Deathguard Billmuth
@@ -119,18 +121,18 @@ return {
 	-- {npc:257655} Deathguard Billmuth
 	["{npc:257655}, downstairs"] = "",
 
-	-- Step 20: Deathguard Falgan
+	-- Step 21: Deathguard Falgan
 	-- {area:812} Venomweb Vale · {item:6866} Symbol of Life
 	-- plural, as words: Scarlet Crusaders = {npc:239036} Scarlet Crusader
 	["{area:812} is at the far east end of the glades, a long walk. Falgan lies dead among the Scarlet Crusaders there: target his body and use the {item:6866}, then talk to him at once, as he does not stay alive long. If he is already up (another player), just talk to him; if he died again, raise him again."] = "",
 
-	-- Step 21: The Scarlet attack plans
+	-- Step 22: The Scarlet attack plans
 	["The Scarlet attack plans"] = "붉은십자군 공격 계획",
 	-- {area:812} Venomweb Vale
 	-- plural, as words: Scarlet Zealots = {npc:1537} Scarlet Zealot
 	["The Scarlet Zealots (level 8-9), Friars (9-10) and Tarnished around {area:812} carry the attack plans. They run for help at low health and respawn in five minutes."] = "",
 
-	-- Step 22: Redemption
+	-- Step 23: Redemption
 	-- {area:16602} Bandarion Keep · {npc:246378} Danitha Morr · {spell:7328} Redemption
 	["Back to {area:16602}, across the whole glades: Billmuth downstairs takes the plans, then {npc:246378}, back upstairs in the keep, teaches you {spell:7328}."] = "",
 	-- {npc:246378} Danitha Morr · {spell:7328} Redemption

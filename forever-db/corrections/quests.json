@@ -19,6 +19,29 @@
 		},
 		"note": "Trial of the Lake (Druid Aquatic Form, Alliance) is open to Night Elf and Skyborne Druids. The merged data had Night Elf only, while Trial of the Sea Lion (272) before it already allows Skyborne, so Skyborne druids stopped halfway."
 	},
+	"90": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 1015,
+					"count": 10,
+					"text": "Lean Wolf Flank"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: one objective, Lean Wolf Flank (1015) x10"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 6 people ran Seasoned Wolf Kabobs from Chef Grual (272): every accept (5) listed one line, Lean Wolf Flank x10, and the 4 hand-ins came after the tenth flank"
+			}
+		],
+		"note": "Seasoned Wolf Kabobs (Duskwood): only ten Lean Wolf Flanks; Forever dropped the Stormwind Seasoning Herbs the merged data still asked for."
+	},
 	"151": {
 		"set": {
 			"start": {
@@ -108,6 +131,35 @@
 			}
 		],
 		"note": "Children's Week: starts with Orphan Matron Battlewail (npc 14451) and ends with Orcish Orphan (npc 14444); as its giver the merged data also listed Ambassador Berrybuck (npc 271); as its ender the merged data also listed Ambassador Berrybuck (npc 271)."
+	},
+	"287": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 1123,
+					"count": 5,
+					"text": "Frostmane Headhunter"
+				},
+				{
+					"type": "event",
+					"id": 97,
+					"count": null,
+					"text": "Fully explore Frostmane Hold",
+					"map": 1426,
+					"f": "e",
+					"x": 21.3,
+					"y": 54.2
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 17 completions of the explore line, averaging Dun Morogh 21.28,54.15 (spread 21.1-21.5, 53.9-54.7)"
+			}
+		],
+		"note": "Frostmane Hold (Dun Morogh): the 'Fully explore Frostmane Hold' line completes about 100 yd further into the cave, at 21.3,54.2; the data's 22.8,52.06 stopped the arrow short of it."
 	},
 	"311": {
 		"set": {
@@ -323,6 +375,19 @@
 		],
 		"note": "Serpentbloom (Wailing Caverns) rewards 3,300 XP on Forever; the merged data had 1,350, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
 	},
+	"990": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-09): Sentinel Selarin (3694) offered Trek to Ashenvale in 25 windows to 17 people (5 established), levels 15-22, none with Escape Through Force (994) or Through Stealth (995) in the log or handed in (e.g. a level-15 Human Hunter and a level-15 Dwarf Shaman)"
+			}
+		],
+		"note": "Trek to Ashenvale has no prerequisite on Forever: Sentinel Selarin offers it from level 15 to anyone. The merged data made it follow Volcor's escorts (994/995, pfQuest and QuestieDB), so the route took it only after the escort, at 28."
+	},
 	"994": {
 		"set": {
 			"escort": true
@@ -426,6 +491,58 @@
 			}
 		],
 		"note": "Arugal Must Die (Shadowfang Keep) rewards 8,850 XP on Forever; the merged data had 3,300, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"1045": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 3932,
+					"count": 4,
+					"text": "Bloodtooth Guard"
+				},
+				{
+					"type": "item",
+					"id": 5388,
+					"count": 1,
+					"text": "Ran Bloodtooth's Skull"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: objectives Bloodtooth Guard (3932) x4 and Ran Bloodtooth's Skull (5388) x1"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 1 person: the log listed 'Bloodtooth Guard slain' x4 and 'Ran Bloodtooth's Skull' x1 at the accept; line 1 ticked on four Bloodtooth Guard kills, line 2 on the Ran Bloodtooth (3696) kill"
+			}
+		],
+		"note": "Raene's Cleansing (Ashenvale, Krolg's part): kill four Bloodtooth Guards and bring Ran Bloodtooth's Skull, which Ran Bloodtooth drops. The merged data asked for four kills of Ran Bloodtooth himself (he is one NPC) and had no skull."
+	},
+	"1046": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 5462,
+					"count": 1,
+					"text": "Dartol's Rod of Transformation"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: objectives Ran Bloodtooth's Skull (5388, its start item) and Dartol's Rod of Transformation (5462) x1"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 1 person: the log listed only 'Dartol's Rod of Transformation' x1 at the accept from Krolg, and the quest was handed in to Raene Wolfrunner (3691)"
+			}
+		],
+		"note": "Raene's Cleansing (Ashenvale, back to Raene): the one objective is Dartol's Rod of Transformation, which Krolg gives you; the skull is the quest's starting item, not a second objective."
 	},
 	"1098": {
 		"set": {
@@ -1445,6 +1562,39 @@
 		},
 		"note": "Aquatic Form (Druid Aquatic Form, Alliance) is open to Night Elf and Skyborne Druids. The merged data had Night Elf only, while Trial of the Sea Lion (272) before it already allows Skyborne, so Skyborne druids stopped halfway."
 	},
+	"5321": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 13536,
+					"count": 1,
+					"text": "Horn of Awakening"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": null,
+					"text": "Escort Kerlonian Evershade on the road south to his bag",
+					"map": 1439,
+					"f": "e",
+					"x": 41.6,
+					"y": 89.9
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 10 completions; the escort line ends 11 times at Darkshore 41.61,89.90 on average, on the road south; 9 turn-ins to Liladris Moonriver at Maestra's Post (27.22,35.63)"
+			},
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), build 70862: the objective reads 'Escort Kerlonian Evershade on the road south to his bag', the quest text sends you to Liladris Moonriver 'south along the road to find his bag in Darkshore'"
+			}
+		],
+		"note": "The Sleeper Has Awakened: Kerlonian's escort ends at his bag on the road at the southern edge of Darkshore (41.6,89.9), not at Maestra's Post in Ashenvale as the data had; the turn-in is still Liladris Moonriver at Maestra's Post."
+	},
 	"5511": {
 		"set": {
 			"start": {
@@ -1676,6 +1826,23 @@
 		],
 		"note": "The Eastern Plagues (Alliance, 60): find the three SI:7 Insignias and the Blightcaller's place. The merged data also listed Nathanos Blightcaller (npc 11878, a level 62 elite) as a kill, a credit only one source has; the world then made it an elite kill and the planner a group quest. It is done alone at 57-59; Nathanos is the next quest's story (The Blightcaller Cometh tells Bolvar of him)."
 	},
+	"6383": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-10): Senani Thunderheart (12696) gave The Ashenvale Hunt to 33 people with no refusal, 23 of them with no Ashenvale Hunt breadcrumb (6382) ever taken or handed in"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "quest_template 6383: no PrevQuestId; 6382, 235 and 742 are breadcrumbs pointing at it"
+			}
+		],
+		"note": "The Ashenvale Hunt has no prerequisite on Forever: Senani Thunderheart at Splintertree Post offers it to any Horde player from level 20. The merged data listed Thork's breadcrumb (6382) as a prerequisite beside the two breadcrumbs it already marked, so a player who never took the breadcrumb was told to fetch it first, and Ursangous, Sharptalon and Shadumbra drop their trophies only once 6383 is handed in (#1531)."
+	},
 	"6641": {
 		"set": {
 			"escort": true
@@ -1711,7 +1878,14 @@
 	"6981": {
 		"set": {
 			"xp": 5150,
-			"objectives": []
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 3442,
+					"count": 1,
+					"text": "Speak with someone in Ratchet about the Glowing Shard"
+				}
+			]
 		},
 		"source": [
 			{
@@ -1725,9 +1899,13 @@
 			{
 				"kind": "client",
 				"ref": "quest cache, build 1.60.1.70450"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08 of 6981, 30 people (15 established): the quest log lists one line at the accept, Speak with someone in Ratchet about the Glowing Shard (an event line); for each of the 25 people who completed it, it completed as Sputtervalve's (3442) window opened in Ratchet, and all who handed it in did so at Falla Sagewind (8418)"
 			}
 		],
-		"note": "The Glowing Shard (Wailing Caverns) rewards 5,150 XP on Forever; the merged data had 2,650, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394. The quest asks only for the item that starts it (10441); the extra kill objective was wrong."
+		"note": "The Glowing Shard (Wailing Caverns) rewards 5,150 XP on Forever; the merged data had 2,650, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394. The extra kill objective was wrong; the quest log's one line is to speak with Sputtervalve in Ratchet, done after the run on the way to Falla Sagewind, so the dungeon's hand-in guide routes it there (#1326)."
 	},
 	"7042": {
 		"set": {
@@ -2195,6 +2373,138 @@
 		],
 		"note": "Hearts of the Lovers (Horde Warlock incubus, Godrick Farsan) needs both hearts, Avelina's Heart first, then Isaac's Heart: in game, with Avelina's heart in the bags the guide passed the Isaac Pearson step, so the log's first line is Avelina's (issue #412). QuestieDB lists only Isaac's Heart."
 	},
+	"78089": {
+		"set": {
+			"pre": [
+				78088
+			],
+			"preAny": [
+				78088
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 3 people (1 established) took Advice From Stormwind (78089) from Delgren the Purifier, each after handing A Strange Artifact (78088) in to him; he did not offer it to 3 people (1 established) who still had 78088 in the log"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all 78088"
+			}
+		],
+		"note": "The Paladin Cloak of the Divine Storm chain: Delgren the Purifier's Advice From Stormwind (78089) follows A Strange Artifact (78088), handed in to him. The merged data had no prerequisite."
+	},
+	"78090": {
+		"set": {
+			"pre": [
+				78089
+			],
+			"preAny": [
+				78089
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 3 people (1 established) took A Second Opinion (78090) from Katherine the Pure, each after handing Advice From Stormwind (78089) in to her; she did not offer it to 4 people (1 established) who could take it but had not handed 78089 in"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all 78089"
+			}
+		],
+		"note": "The Paladin Cloak of the Divine Storm chain: Katherine the Pure's A Second Opinion (78090) follows Advice From Stormwind (78089), handed in to her. The merged data had no prerequisite."
+	},
+	"78091": {
+		"set": {
+			"pre": [
+				78090
+			],
+			"preAny": [
+				78090
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (IngestCheck036, 2026-11-09 pull, people counted per IngestAudit): Ursula Deline did not offer Earning Your Salt (78091) to 3 people (1 established) who could take it while A Second Opinion (78090) was still in their log, and all 3 took it right after handing 78090 in to her"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 78090"
+			}
+		],
+		"note": "The Paladin Cloak of the Divine Storm chain: Ursula Deline's Earning Your Salt (78091) follows A Second Opinion (78090), handed in to her. The merged data had no prerequisite; the rest of the chain (78089, 78090, 78092) already had theirs."
+	},
+	"78092": {
+		"set": {
+			"pre": [
+				78091
+			],
+			"preAny": [
+				78091
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 2 people (1 established) took It Must Be Destroyed (78092) from Ursula Deline, each after handing Earning Your Salt (78091) in to her; she did not offer it to 2 people (1 established) who could take it but had not handed 78091 in"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all 78091"
+			}
+		],
+		"note": "The Paladin Cloak of the Divine Storm chain: Ursula Deline's It Must Be Destroyed (78092) follows her Earning Your Salt (78091). The merged data had no prerequisite."
+	},
+	"78132": {
+		"set": {
+			"classes": 1
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "issues #383, #396 (Dwarf Paladins) and #1117 (Tauren Shaman): Alonso is not there for them at Mystral Lake"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "maintainer decision 2026-10-19 (data/rules.json H20a, PR #388): Warrior-only, both factions"
+			}
+		],
+		"note": "Dragonslayer's Helm (Alonso, Mystral Lake in Ashenvale) is a Warrior quest: Paladins and a Shaman found no Alonso there. The merged data lists no class, and the class lock lived only in data/rules.json, which Forge does not read, so the generated Horde Ashenvale guide sent every class to him (#1117)."
+	},
+	"78133": {
+		"set": {
+			"classes": 1
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "issues #383, #396 (Dwarf Paladins) and #1117 (Tauren Shaman): Alonso is not there for them at Mystral Lake"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "maintainer decision 2026-10-19 (data/rules.json H20b, PR #388): Warrior-only, both factions"
+			}
+		],
+		"note": "Dragonslayer's Shield, Alonso's second quest, is a Warrior quest like Dragonslayer's Helm (78132)."
+	},
+	"78134": {
+		"set": {
+			"classes": 1
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "issues #383, #396 (Dwarf Paladins) and #1117 (Tauren Shaman): Alonso is not there for them at Mystral Lake"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "maintainer decision 2026-10-19 (data/rules.json H20c, PR #388): Warrior-only, both factions"
+			}
+		],
+		"note": "Dragonslayer's Lance, Alonso's third quest, is a Warrior quest like Dragonslayer's Helm (78132)."
+	},
 	"78261": {
 		"set": {
 			"classes": 8
@@ -2223,13 +2533,90 @@
 					259023
 				],
 				"object": []
+			},
+			"objectives": [
+				{
+					"type": "item",
+					"id": 274046,
+					"count": 5,
+					"text": "Twisted Water Totem"
+				},
+				{
+					"type": "item",
+					"id": 274045,
+					"count": 5,
+					"text": "Twisted Earth Totem"
+				},
+				{
+					"type": "item",
+					"id": 274044,
+					"count": 5,
+					"text": "Twisted Fire Totem"
+				},
+				{
+					"type": "item",
+					"id": 274047,
+					"count": 5,
+					"text": "Twisted Air Totem"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives StorageIndex"
+			},
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): objectives"
 			}
+		],
+		"note": "Storm, Earth, and Fire is shared by the Horde and Alliance Shaman chains: it ends at both the Horde's Rau Cliffrunner (npc 4722) and Veyric Thunderhame (npc 259023) in Arathi, who starts it and whose words its text and progress text are; forever/class/shaman/call-of-air-alliance hands it in to Veyric. Kept so a sweep against giver data that names only one side does not drop Veyric again. Its objectives in the game's order are the Water, Earth, Fire and Air totems (the world database and players' caches agree); the merged data listed Fire, Air, Earth, Water, so the guide's `quest 79358.N` lines counted the wrong totem's line."
+	},
+	"79361": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 274046,
+					"count": 5,
+					"text": "Twisted Water Totem"
+				},
+				{
+					"type": "item",
+					"id": 274045,
+					"count": 5,
+					"text": "Twisted Earth Totem"
+				},
+				{
+					"type": "item",
+					"id": 274044,
+					"count": 5,
+					"text": "Twisted Fire Totem"
+				},
+				{
+					"type": "item",
+					"id": 274047,
+					"count": 5,
+					"text": "Twisted Air Totem"
+				}
+			]
 		},
-		"source": {
-			"kind": "factoruide",
-			"ref": "Factoruide row sources: questie"
-		},
-		"note": "Storm, Earth, and Fire is shared by the Horde and Alliance Shaman chains: it ends at both the Horde's Rau Cliffrunner (npc 4722) and Veyric Thunderhame (npc 259023) in Arathi, who starts it and whose words its text and progress text are; forever/class/shaman/call-of-air-alliance hands it in to Veyric. Kept so a sweep against giver data that names only one side does not drop Veyric again."
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives StorageIndex"
+			},
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): objectives"
+			}
+		],
+		"note": "Storm, Earth, and Fire (the Horde Shaman chain's copy) lists the Water, Earth, Fire and Air totems in that order, as the Alliance copy (79358) does (the world database and players' caches agree). The merged data listed Air first and Water last, so forever/class/shaman/call-of-air-horde counted the Air totems on the Water line and the Water totems on the Air line."
 	},
 	"79535": {
 		"set": {
@@ -2246,6 +2633,18 @@
 			"ref": "Factoruide row sources: questie"
 		},
 		"note": "Basilisks: Should Petrification be Feared?: ends with Owen Thadd (npc 211022) and Garion Wendell (npc 211033); as its ender the merged data lacked Garion Wendell (npc 211033)."
+	},
+	"78676": {
+		"set": {
+			"minLevel": 30
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "issue #1160 (Erá): offered at 30, not at 25, after the horn job; the guide's 2026-10-21 notes: two players got C's invitation at 30 after a city visit"
+			}
+		],
+		"note": "The Eye of Bhossca (C's second job, the Dead Drop near Pyrewood Village) comes with C's letter, which arrives in a capital city's mailbox at level 30 once the horn job is done; only then does the Dead Drop offer it. The merged data lists a minimum of 25, so the Rogue guide and the class-quest heads-up offered it five levels early."
 	},
 	"79192": {
 		"set": {
@@ -2424,6 +2823,128 @@
 		},
 		"note": "Necromancy 101: ends with Jennea Cannon (npc 5497) and Oran Snakewrithe (npc 7825); as its ender the merged data lacked Oran Snakewrithe (npc 7825)."
 	},
+	"91317": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 270435,
+					"count": 1,
+					"text": "Rudolph Gelhardt's Head"
+				},
+				{
+					"type": "kill",
+					"id": 259434,
+					"count": 8,
+					"text": "Tarnished Drudge"
+				},
+				{
+					"type": "kill",
+					"id": 259433,
+					"count": 6,
+					"text": "Tarnished Zealot"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives StorageIndex"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (6 runs): the log lists the head first, then 8 Tarnished Drudges and 6 Tarnished Zealots; Drudge kills tick line 2, Zealot kills line 3, the head line 1"
+			}
+		],
+		"note": "The Tarnished (Tyr's Watch, Paladin): the quest log lists Rudolph Gelhardt's Head first, then the Tarnished Drudges and the Tarnished Zealots. The merged data had the head last, so forever/class/paladin/tyrs-watch counted the Drudges on the head's line, the Zealots on the Drudges' and the head on the Zealots'."
+	},
+	"91859": {
+		"set": {
+			"pre": [
+				91858
+			],
+			"preAny": [
+				91858
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 6 people (3 established) took A Curious Pair (91859) from Trevan Rol, each after handing Diplomatic Incident (91858) in to Trevan; Trevan's windows did not offer it to 4 people (1 established) who could take it but had not handed 91858 in"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 91858"
+			}
+		],
+		"note": "The Lumina Windsinger chain (Undead Paladins): Trevan Rol's A Curious Pair (91859) follows Diplomatic Incident (91858), handed in to Trevan. The merged data had no prerequisite."
+	},
+	"91860": {
+		"set": {
+			"pre": [
+				91859
+			],
+			"preAny": [
+				91859
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 6 people (3 established) took A Grim Fate (91860) from Deathguard Baldren, each after handing A Curious Pair (91859) in to him; nobody took it without"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 91859"
+			}
+		],
+		"note": "The Lumina Windsinger chain (Undead Paladins): Deathguard Baldren's A Grim Fate (91860) follows A Curious Pair (91859), handed in to him. The merged data had no prerequisite."
+	},
+	"91861": {
+		"set": {
+			"pre": [
+				91860
+			],
+			"preAny": [
+				91860
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 7 people (4 established) took Into Fenris Keep (91861) from the Charred Remains, each after handing A Grim Fate (91860) in to them; nobody took it without"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 91860"
+			}
+		],
+		"note": "The Lumina Windsinger chain (Undead Paladins): Into Fenris Keep (91861), from the Charred Remains, follows A Grim Fate (91860), handed in to them. The merged data had no prerequisite."
+	},
+	"91899": {
+		"set": {
+			"minLevel": 1
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.10 (Forever) and EG Link's caches (1.60.1.70338) both give minimum level 1"
+			}
+		],
+		"note": "A Sealed Crate: recordings suggest 18, unconfirmed; review 0.3.7. Pinned at 1 for 0.3.6 so data/recorded's learned minimum level does not apply until a second source agrees."
+	},
+	"91900": {
+		"set": {
+			"minLevel": 1
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.10 (Forever) and EG Link's caches (1.60.1.70450) both give minimum level 1"
+			}
+		],
+		"note": "A Sealed Crate: recordings suggest 24, unconfirmed; review 0.3.7. Pinned at 1 for 0.3.6 so data/recorded's learned minimum level does not apply until a second source agrees."
+	},
 	"91901": {
 		"set": {
 			"start": {
@@ -2468,6 +2989,23 @@
 			"ref": "quest_template_addon PrevQuestID"
 		},
 		"note": "Return to Quinn (Again) (Silverpine, Apothecary Renferrel) comes after Wild Eyes 91920, whose new potion it brings back. QuestieDB has no prerequisite."
+	},
+	"92457": {
+		"set": {
+			"pre": [
+				92432
+			],
+			"preAny": [
+				92432
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 5 people (2 established) took Starving Arcane (92457) from the Image of Archmage Modera; the 4 whose accepts were recorded took it within two minutes of handing An Alarming Request (92432) in to her. Her windows did not offer it to 4 people (2 established) who could take it but had not handed 92432 in; a level 30 Night Elf Warrior was refused it before taking 92432 and offered it right after handing it in"
+			}
+		],
+		"note": "The Kirin Tor chain: the Image of Archmage Modera offers Starving Arcane (92457) once An Alarming Request (92432), which sends you to her, is handed in. The merged data had no prerequisite."
 	},
 	"92595": {
 		"set": {
@@ -2876,6 +3414,29 @@
 		},
 		"note": "The Strange Hermit: the objective (\"Learn more about the Strange Hermit\") ticks as the player talks to him, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
 	},
+	"93165": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 258771,
+					"count": 5,
+					"text": "Al'Aketh Cultist's Ear"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: objective item 258771 x5"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 13 people took Mercy Falls on Deaf Ears from Vayn Moongaze (254151); the log asked for 5 at the accept and every one handed it in at 5/5"
+			}
+		],
+		"note": "Mercy Falls on Deaf Ears (Zephras Isle): five ears, not ten."
+	},
 	"93797": {
 		"set": {
 			"classes": 128
@@ -3202,6 +3763,27 @@
 		],
 		"note": "Call of Fire (Dun Morogh, Dwarf Shaman) lists Fire Tar first, then the Reagent Pouch. The merged data had the two the other way round, so `quest 94466.1` named the pouch."
 	},
+	"95034": {
+		"set": {
+			"pre": [
+				96204
+			],
+			"preAny": [
+				96204
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 7 people (4 established) took The Debt (95034) from Lumina Windsinger (npc 259620), each after handing The Windshaper's Wrath (96204) in to her; she did not offer it to 5 people (2 established) who still had 96204 in the log"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link: The Windshaper's Wrath (96204) leads on to The Debt (95034) in the quest's series"
+			}
+		],
+		"note": "The Lumina Windsinger chain (Undead Paladins): The Debt (95034) follows The Windshaper's Wrath (96204), handed in to Lumina Windsinger (npc 259620). The merged data had no prerequisite."
+	},
 	"95036": {
 		"set": {
 			"pre": [
@@ -3209,13 +3791,49 @@
 			],
 			"preAny": [
 				95034
+			],
+			"objectives": [
+				{
+					"type": "item",
+					"id": 267454,
+					"count": 1,
+					"text": "Trevan's Weapon Notes"
+				},
+				{
+					"type": "item",
+					"id": 6994,
+					"count": 1,
+					"text": "Whitestone Oak Lumber"
+				},
+				{
+					"type": "item",
+					"id": 267361,
+					"count": 1,
+					"text": "Enchanted Silver Ingot"
+				},
+				{
+					"type": "item",
+					"id": 272448,
+					"count": 1,
+					"text": "Purified Kor Gem"
+				}
 			]
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (20261105T164302Z-2a82cac44db7bb61-3larxebwnkcp-mhbaorogqr, 20261105T180948Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz): npc 259620 refuses 95036 while 95034 is in the log and offers it on 95034's turn-in, at the same level"
-		},
-		"note": "A Moon-Kissed Blade (the Moonsilver Blade chain before Old Fire-Eye, Shadowfang Keep) comes after The Debt (95034): a level 21 Undead paladin was refused it at the giver while The Debt was in the log, and took it a second after handing The Debt in, still level 21. The merged data had no prerequisite."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261105T164302Z-2a82cac44db7bb61-3larxebwnkcp-mhbaorogqr, 20261105T180948Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz): npc 259620 refuses 95036 while 95034 is in the log and offers it on 95034's turn-in, at the same level"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (4 runs): the log has four lines; line 1 (\"Collect the note from Trevan\") ticks at Trevan Rol's window, line 2 on a Goblin Woodcarver's loot"
+			},
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): objectives"
+			}
+		],
+		"note": "A Moon-Kissed Blade (the Moonsilver Blade chain before Old Fire-Eye, Shadowfang Keep) comes after The Debt (95034): a level 21 Undead paladin was refused it at the giver while The Debt was in the log, and took it a second after handing The Debt in, still level 21. The merged data had no prerequisite. Its quest log has four lines: Trevan's Weapon Notes, the Whitestone Oak Lumber, the Enchanted Silver Ingot and the Purified Kor Gem. The merged data listed only the lumber and the ingot, so forever/class/paladin/lumina-windsinger counted the lumber on the notes' line and the ingot on the lumber's."
 	},
 	"95111": {
 		"set": {
@@ -3239,13 +3857,31 @@
 			],
 			"preAny": [
 				95111
+			],
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Watch Ott craft the blade"
+				}
 			]
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (20261105T173728Z-2a82cac44db7bb61-0pv36jv9vm2s-z3eglcvv4z, 20261105T180948Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz): npc 3539 does not offer 95125 while 95111 is in the log and offers it on 95111's turn-in, at the same level"
-		},
-		"note": "Ott's Masterwork (Moonsilver Blade chain, Shadowfang Keep) comes after An Underrated Talent (95111): Ott did not offer it to two Undead paladins (levels 23 and 26) while 95111 was in their log, and both took it within two seconds of handing 95111 in. The merged data had no prerequisite."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261105T173728Z-2a82cac44db7bb61-0pv36jv9vm2s-z3eglcvv4z, 20261105T180948Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz): npc 3539 does not offer 95125 while 95111 is in the log and offers it on 95111's turn-in, at the same level"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: one objective, 'Watch Ott craft the blade' (a server credit, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 5 people: the log listed 'Watch Ott craft the blade' x1 at the accept from Ott (3539); it ticked while they waited by him, with no kill, and they handed it in to him"
+			}
+		],
+		"note": "Ott's Masterwork (Moonsilver Blade chain, Shadowfang Keep) comes after An Underrated Talent (95111): Ott did not offer it to two Undead paladins (levels 23 and 26) while 95111 was in their log, and both took it within two seconds of handing 95111 in. The merged data had no prerequisite. Ott's Masterwork: its one objective is to wait by Ott while he forges the blade (an event, not a kill)."
 	},
 	"95126": {
 		"set": {
@@ -3330,8 +3966,42 @@
 		},
 		"note": "The Quarry's Smith (Dun Morogh, blacksmiths) asks for 12 Copper Bars, then 4 Toughened Boar Hides, so the hide is objective 2. The merged data listed only the hide, so `quest 95217.1` named it. Found by TP1186 in #727."
 	},
+	"95495": {
+		"set": {
+			"xp": 140,
+			"pre": [
+				95494,
+				95507
+			],
+			"preAll": [
+				95494,
+				95507
+			],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: Vrang Wildgore's window left The Hermit Tanner out for 4 people with only Bruised Pride and Lion Hides (95494) handed in, 5 with only Vrang's Game (95507) and 16 with neither; all 11 people who took it had handed in both first"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 95507 (sniffed Forever row, build 70124)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all [95494, 95507]"
+			},
+			{
+				"kind": "recording",
+				"ref": "Horde 1-30 audit (#1414), xp: 17 hand-ins at a full-XP level paid 140 XP (QuestieDB 1.0.13's traces: 135); the data had 340"
+			}
+		],
+		"note": "The Hermit Tanner (Barrens, Vrang Wildgore) is offered only once both of Vrang's quests are handed in, Bruised Pride and Lion Hides (95494) and Vrang's Game (95507): in players' recordings Vrang left it out for people who had handed in only one of them, and everyone who took it had handed in both. The server's quest records name 95507 as its previous quest; the merged data had no prerequisite."
+	},
 	"95508": {
 		"set": {
+			"xp": 1350,
 			"objectives": [
 				{
 					"type": "kill",
@@ -3339,6 +4009,12 @@
 					"count": 1,
 					"text": "Assist Walton"
 				}
+			],
+			"pre": [
+				95621
+			],
+			"preAny": [
+				95621
 			]
 		},
 		"source": [
@@ -3349,9 +4025,77 @@
 			{
 				"kind": "factoruide",
 				"ref": "Factoruide row sources: manual"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: Walton's window left Unwelcome Guests out for 12 people while Trouble in the Valley (95621) was in their log and offered it once 95621 was handed in; all 11 people who took it had handed 95621 in first"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all [95621]"
+			},
+			{
+				"kind": "recording",
+				"ref": "Horde 1-30 audit (#1414), xp: 16 hand-ins at a full-XP level paid 1350 XP (QuestieDB 1.0.13's traces: 1350); the data had 1000"
 			}
 		],
-		"note": "Unwelcome Guests (Barrens) has one objective, Assist Walton (1), credited by Terry Longdrink (npc 261367). QuestieDB has no objectives."
+		"note": "Unwelcome Guests (Barrens) has one objective, Assist Walton (1), credited by Terry Longdrink (npc 261367). QuestieDB has no objectives. Walton offers it only once Trouble in the Valley (95621) is handed in: players' recordings show him leaving it out while 95621 is in the log and offering it right after the hand-in, and a second, independent quest database has the same link; the merged data had no prerequisite."
+	},
+	"95621": {
+		"set": {
+			"pre": [
+				95495
+			],
+			"preAny": [
+				95495
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: Walton's window left Trouble in the Valley out for 12 people while The Hermit Tanner (95495) was in their log; all 11 people who took it had handed 95495 in first"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all [95495]"
+			}
+		],
+		"note": "Trouble in the Valley (Barrens, Walton) is offered only once The Hermit Tanner (95495) is handed in to Walton: players' recordings show him leaving it out while 95495 is still in the log, and a second, independent quest database has the same link; the merged data had no prerequisite."
+	},
+	"95682": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 275045,
+					"count": 2,
+					"text": "Dragonmaw Saboteur"
+				},
+				{
+					"type": "kill",
+					"id": 275044,
+					"count": 4,
+					"text": "Dragonmaw Warder"
+				},
+				{
+					"type": "item",
+					"id": 284844,
+					"count": 1,
+					"text": "Dragonmaw Dispatch"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: objectives 275045 x2, 275044 x4, item 284844 x1"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 7 people took Open the Maw from the Deathstalker Agent (13155); the log listed two kills (x2, x4) and one item (x1) at the accept, and their lines ticked to 2/2 and 4/4"
+			}
+		],
+		"note": "Open the Maw: kill two Dragonmaw Saboteurs and four Dragonmaw Warders and take the Dragonmaw Dispatch. The merged data had no objectives."
 	},
 	"95737": {
 		"set": {
@@ -3377,6 +4121,47 @@
 			"ref": "issue #65"
 		},
 		"note": "Her Name Is Olgra (Barrens, Mankrik) comes after Lost in Battle 4921, once you have found her body: in game Mankrik did not offer it beside Lost in Battle (issue #65). QuestieDB has no prerequisite."
+	},
+	"95883": {
+		"set": {
+			"pre": [
+				95884
+			],
+			"preAny": [
+				95884
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings to 2026-11-07 (offer audit of the local archive): the Offering Stone offered The Tortured Soul 15 times to 7 characters, each time with The Offering Stone (95884) handed in, every one of them in the window of that hand-in; never before it"
+		},
+		"note": "The Offering Stone in Beren's Peril offers The Tortured Soul once the Note Scrap's quest, The Offering Stone (95884), is handed in to it. Our data had no prerequisite, so the guide asked for The Tortured Soul before the Note Scrap (#1175)."
+	},
+	"95885": {
+		"set": {
+			"pre": [
+				95883
+			],
+			"preAny": [
+				95883
+			],
+			"objectives": [
+				{ "type": "event", "id": null, "count": 1, "text": "Willingly offer blood" },
+				{ "type": "event", "id": null, "count": 1, "text": "Release Tortured Soul" },
+				{ "type": "kill", "id": 212753, "count": 1, "text": "Tortured Soul" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-07 (offer audit of the local archive): the Offering Stone offered The Offering of Blood 9 times to 6 characters, each time with The Tortured Soul (95883) handed in, 5 of them in the window of that hand-in; never before it"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08 of 95885, 12 people (4 established): the quest log lists two lines at the accept, Willingly offer blood and Release Tortured Soul; each of the 9 people who finished it cast the offering at the stone (spell 426754) a few seconds after the accept, with no item looted, and the kill of the elite Tortured Soul (212753) ticked line 3 and completed the quest"
+			}
+		],
+		"note": "The Offering of Blood follows The Tortured Soul at the Offering Stone in Beren's Peril; our data had no prerequisite (#1175). The stone hands over a Tortured Soul (210713) with the quest; used beside the stone, it makes the offering and summons the elite Tortured Soul (212753), whose kill is the quest log's third line. Our data had only the kill, as line 1, so the guide waited on the wrong line. The first two lines are scripted credits with no object of their own, kept as events at the stone."
 	},
 	"95981": {
 		"set": {
@@ -3415,6 +4200,12 @@
 					"count": 1,
 					"text": "Gain the Boosted Rest buff"
 				}
+			],
+			"pre": [
+				96627
+			],
+			"preAny": [
+				96627
 			]
 		},
 		"source": [
@@ -3429,9 +4220,17 @@
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings (20261104T231149Z-7c557f2702b0b70b-dkguk8rpp6a8-jgsaalrgm7, 20261104T231242Z-c5f8cae2cfaaa29a-ed9qx2wn8ian-17xk7hel2s, 20261104T231324Z-48ad08dd58b6409a-7edg0cgrs6gg-abe9o8ext8): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 22 people (9 established) were refused it at their level before The Adventurer was handed in; 23 (9 established) were offered and took it after; none took it without"
+			},
+			{
+				"kind": "tdb",
+				"ref": "ForeverTDB (advocaite/TrinityCore forever b6ae12c2) quest_template_addon PrevQuestID 96627"
 			}
 		],
-		"note": "The Great Outdoors: starts with Sam Sarsaparilla (npc 263399); as its giver the merged data also listed William Pestle (npc 253). The Great Outdoors (Elwynn Forest, Sam Sarsaparilla): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+		"note": "The Great Outdoors: starts with Sam Sarsaparilla (npc 263399); as its giver the merged data also listed William Pestle (npc 253). The Great Outdoors (Elwynn Forest, Sam Sarsaparilla): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96627) is handed in at the same camp, so it now needs it; our data had no prerequisite."
 	},
 	"96101": {
 		"set": {
@@ -3448,13 +4247,50 @@
 					"count": 1,
 					"text": "Gain the Boosted Rest buff"
 				}
+			],
+			"pre": [
+				96638
+			],
+			"preAny": [
+				96638
 			]
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (20261104T231158Z-e0f702625a494e4c-lheb1o7i0m1g-k92q1ls4tu, 20261104T231706Z-d06f192cd2893c2c-sklrl4cy2cll-x6hnz051ox, 20261104T232121Z-5cb2d0b39f961aef-jkjmx18lujvv-5mpnaby7ge): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261104T231158Z-e0f702625a494e4c-lheb1o7i0m1g-k92q1ls4tu, 20261104T231706Z-d06f192cd2893c2c-sklrl4cy2cll-x6hnz051ox, 20261104T232121Z-5cb2d0b39f961aef-jkjmx18lujvv-5mpnaby7ge): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 12 people (4 established) were refused it before The Adventurer was handed in; 12 (4 established) were offered and took it after; 1 person (not established) took it without a recorded hand-in, which may predate the recording"
+			},
+			{
+				"kind": "tdb",
+				"ref": "ForeverTDB (advocaite/TrinityCore forever b6ae12c2) quest_template_addon PrevQuestID 96638"
+			}
+		],
+		"note": "The Great Outdoors (Zephras Isle, Raan Wildwind): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96638) is handed in at the same camp, so it now needs it; our data had no prerequisite."
+	},
+	"96204": {
+		"set": {
+			"pre": [
+				91862
+			],
+			"preAny": [
+				91862
+			]
 		},
-		"note": "The Great Outdoors (Zephras Isle, Raan Wildwind): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 7 people (4 established) took The Windshaper's Wrath (96204) from Lumina Windsinger, each after handing her Lumina Windsinger (91862); nobody took it without"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 91862"
+			}
+		],
+		"note": "The Lumina Windsinger chain (Undead Paladins): her The Windshaper's Wrath (96204) follows her Lumina Windsinger (91862). The merged data had no prerequisite."
 	},
 	"96243": {
 		"set": {
@@ -3472,6 +4308,61 @@
 			"ref": "Factoruide row sources: questie"
 		},
 		"note": "Call of Earth: starts with Eldrun Stormbreaker (npc 258098) and Ingrid Dunwald (npc 258113); as its giver the merged data lacked Ingrid Dunwald (npc 258113)."
+	},
+	"96259": {
+		"set": {
+			"xp": 2350,
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 264079,
+					"count": 10,
+					"text": "Gloomrise Hatchling"
+				},
+				{
+					"type": "kill",
+					"id": 264083,
+					"count": 5,
+					"text": "Gloomrise Soldier"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: the log lists 10 Gloomrise Hatchlings, then 5 Gloomrise Soldiers; Hatchling kills tick line 1, Soldier kills line 2"
+			},
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): objectives"
+			},
+			{
+				"kind": "recording",
+				"ref": "Horde 1-30 audit (#1414), xp: 9 hand-ins at a full-XP level paid 2350 XP (QuestieDB 1.0.13's traces: 2350); the data had 2450"
+			}
+		],
+		"note": "Defending the Dead (Gloomrise, north of Thunder Bluff): the quest log lists the Gloomrise Hatchlings first, then the Gloomrise Soldiers. The merged data had them the other way round, so forever/horde/07-ashenvale and forever/reputation/thunder-bluff counted the Soldiers on the Hatchlings' line and the Hatchlings on the Soldiers'."
+	},
+	"96264": {
+		"set": {
+			"pre": [
+				94789
+			],
+			"preAny": [
+				94789
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 2 people (1 established) took Elemental Aid (96264) from Veyric Thunderhame, each after handing Call of Air (94789) in to Veyric; Veyric's windows did not offer it to 2 people (1 established) who still had 94789 in the log"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 94789"
+			}
+		],
+		"note": "The Shaman Call of Air chain (Alliance): Veyric Thunderhame's Elemental Aid (96264) follows Call of Air (94789), handed in to Veyric. The merged data had no prerequisite."
 	},
 	"96390": {
 		"set": {
@@ -3527,7 +4418,15 @@
 					265002
 				],
 				"object": []
-			}
+			},
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 261306,
+					"count": 1,
+					"text": "Faldrim Anvilmar"
+				}
+			]
 		},
 		"source": [
 			{
@@ -3537,9 +4436,17 @@
 			{
 				"kind": "tdb",
 				"ref": "world DB: start; world DB: end"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70790: one objective, Faldrim Anvilmar (261306) x1"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 40 people ran An Ancient Grudge: all 34 recorded accepts listed one line, 'Faldrim Anvilmar slain' x1, and 17 ticks came with a kill of 261306"
 			}
 		],
-		"note": "An Ancient Grudge (The Hall of Thanes) starts and ends inside with the Ghostly Attendant 265002. QuestieDB has no giver or ender."
+		"note": "An Ancient Grudge (The Hall of Thanes) starts and ends inside with the Ghostly Attendant 265002. QuestieDB has no giver or ender. An Ancient Grudge: kill Faldrim Anvilmar. The merged data had no objective."
 	},
 	"96604": {
 		"set": {
@@ -3660,13 +4567,29 @@
 					"count": 1,
 					"text": "Gain the Boosted Rest buff"
 				}
+			],
+			"pre": [
+				96628
+			],
+			"preAny": [
+				96628
 			]
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (20261104T231032Z-b914dc197bb56706-fzetkz4ki3yp-c8wxu40hc8, 20261104T232008Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261104T232848Z-28c07733fef17d53-mnvhmrdot3xh-8k3axghh9n): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
-		},
-		"note": "The Great Outdoors (Dun Morogh, Eric Brighthammer): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261104T231032Z-b914dc197bb56706-fzetkz4ki3yp-c8wxu40hc8, 20261104T232008Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261104T232848Z-28c07733fef17d53-mnvhmrdot3xh-8k3axghh9n): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 17 people (5 established) were refused it before The Adventurer was handed in; 18 (6 established) were offered and took it after; none took it without"
+			},
+			{
+				"kind": "tdb",
+				"ref": "ForeverTDB (advocaite/TrinityCore forever b6ae12c2) quest_template_addon PrevQuestID 96628"
+			}
+		],
+		"note": "The Great Outdoors (Dun Morogh, Eric Brighthammer): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96628) is handed in at the same camp, so it now needs it; our data had no prerequisite."
 	},
 	"96655": {
 		"set": {
@@ -3740,6 +4663,7 @@
 	},
 	"96825": {
 		"set": {
+			"xp": 550,
 			"start": {
 				"npc": [
 					3191
@@ -3748,10 +4672,16 @@
 				"item": []
 			}
 		},
-		"source": {
-			"kind": "factoruide",
-			"ref": "Factoruide row sources: questie"
-		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "recording",
+				"ref": "Horde 1-30 audit (#1414), xp: 20 hand-ins at a full-XP level paid 550 XP (QuestieDB 1.0.13's traces: 540); the data had 410"
+			}
+		],
 		"note": "This Fruit Could Bite Back: starts with Cook Torka (npc 3191); as its giver the merged data also listed Grimtak (npc 3881)."
 	},
 	"96897": {
@@ -3798,6 +4728,23 @@
 		],
 		"note": "Forgotten Loa Idols (Sen'jin Village, Master Vornal) is offered once Report to Sen'jin Village 805 is handed in: a Troll Shaman with 805 complete but not handed in was not offered it (#796), and every recorded player took it only after handing 805 in. No quest data names this prerequisite, so the Orc and Troll routes asked for it one goal before the hand-in."
 	},
+	"97265": {
+		"set": {
+			"end": {
+				"npc": [
+					268705
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: ender npc 268705"
+			}
+		],
+		"note": "Hate the Hatefury: Aka'rai (npc 268705), who gives it by the path into Shadowprey Village, also takes it back (the quest text sends you back to Aka'rai). The merged data had no ender, so no guide could hand it in."
+	},
 	"97275": {
 		"set": {
 			"pre": [
@@ -3821,6 +4768,7 @@
 	},
 	"97282": {
 		"set": {
+			"xp": 850,
 			"pre": [
 				97281
 			],
@@ -3840,6 +4788,10 @@
 			{
 				"kind": "in-game-check",
 				"ref": "#807"
+			},
+			{
+				"kind": "recording",
+				"ref": "Horde 1-30 audit (#1414), xp: 19 hand-ins at a full-XP level paid 850 XP (QuestieDB 1.0.13's traces: 840); the data had 875"
 			}
 		],
 		"note": "Stormy Potential (Durotar, Rezlak) is offered once A Simmering Storm 97281 is handed in, and A Simmering Storm starts from the Dull Storm Orb, a chance drop of the Dustwind Storm Witches. Three Orc and Troll players at Rezlak were not offered it (#807). The merged data had no prerequisite, so the routes took it as a must-do at the first Rezlak stop; with it, the writer makes it optional (a chain after a chance drop)."
@@ -3896,13 +4848,31 @@
 			],
 			"preAny": [
 				97291
+			],
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Hissing Serum administered"
+				}
 			]
 		},
-		"source": {
-			"kind": "tdb",
-			"ref": "quest_template_addon PrevQuestID"
-		},
-		"note": "Unending Torment (97292) is step 5 of the chain 97288 -> 97289 -> 97290 -> 97291 -> 97292: Faranell's Hissing Serum is made from 97291's reagents. QuestieDB has no prerequisite."
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: objectives 'Hissing Serum administered' (a server credit, amount 1) and the start item 281327"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 23 people took Unending Torment from Master Apothecary Faranell (2055) with 'Hissing Serum administered' x1; it ticked as they cast 1310681, the Hissing Serum's use"
+			}
+		],
+		"note": "Unending Torment (97292) is step 5 of the chain 97288 -> 97289 -> 97290 -> 97291 -> 97292: Faranell's Hissing Serum is made from 97291's reagents. QuestieDB has no prerequisite. Unending Torment (97292): its one objective is to use the Hissing Serum (an event). The merged data had no objective."
 	},
 	"97903": {
 		"set": {
@@ -3942,6 +4912,62 @@
 		],
 		"note": "Making Do (Stormwind, Baros Alexston) is offered only after Expanding Horizons 97914 is handed to him: in game, a player without the letter was not offered it (issue #453). The merged data had no prerequisite; the route held only through route-fixes pairs."
 	},
+	"98059": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Sealed Company Request delivered to Hillsbrad council",
+					"map": 1424,
+					"f": "l",
+					"x": 29.68,
+					"y": 41.65
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: one objective, 'Sealed Company Request delivered to Hillsbrad council' (a server credit, amount 1), start item 279386"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 4 people took Hillsbrad's Hoard from Captain McManus (251493) at Southshore 46.5,50.2 with that one objective; 3 of them completed it while using the Sealed Company Request (spell 1306693) at Hillsbrad 29.73,41.65, 29.58,42.65 and 29.68,41.64, and handed it in to McManus"
+			}
+		],
+		"note": "Hillsbrad's Hoard (Southshore, Captain McManus): you deliver the Sealed Company Request he gives you by using it at the Hillsbrad council, in the Hillsbrad Fields west of Southshore (about 29.7,41.7). The merged data had no objective, so the guide accepted and handed it in on the spot."
+	},
+	"98071": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Fallrook Varietal delivered to Dun Garok"
+				},
+				{
+					"type": "item",
+					"id": 279389,
+					"count": 1,
+					"text": "Sack of Homebrew Hops"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70840: objectives 'Fallrook Varietal delivered to Dun Garok' (a server credit, amount 1) and Sack of Homebrew Hops (279389) x1"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 1 person took Brewer's Trade from Brewmeister Bilger (2705); the log listed the same two lines at the accept"
+			}
+		],
+		"note": "Brewer's Trade: deliver the Fallrook Varietal to Dun Garok and bring a Sack of Homebrew Hops. The merged data had no objectives."
+	},
 	"98072": {
 		"set": {
 			"pre": [
@@ -3962,6 +4988,27 @@
 			}
 		],
 		"note": "Crocs of the Sky (Menethil Harbor, James Halloran) is offered once Apprentice's Duties 471, from the same NPC, is handed in. Its text is a last favor after the earlier ones (\"You're quite the go-getter! I have just one more favor to ask\") and says the whelps are beyond his apprentice, the one mauled skinning crocolisks in Apprentice's Duties; its required level, 19, sits with that chain (471 needs 18), not with Highland Hides (24). The merged data had no prerequisite, so the Alliance route took it at Menethil (06-ashenvale:330) long before Apprentice's Duties (:447)."
+	},
+	"98191": {
+		"set": {
+			"pre": [
+				98190
+			],
+			"preAny": [
+				98190
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 5 people (3 established) took A Friend of the Family (98191) from Highlord Bolvar Fordragon, each after handing Captain Stoutfist's A Friend of the Family (98190) in to him; his windows did not offer it to 6 people (4 established) who could take it but had not handed 98190 in (5 with it still in the log, 2 who never had it)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all 98190"
+			}
+		],
+		"note": "Highlord Bolvar Fordragon's A Friend of the Family (98191, the statuette for Lord Grayson Shadowbreaker) follows Captain Stoutfist's A Friend of the Family (98190), handed in to him. The merged data had no prerequisite, so a player who skipped 98190 or never got it was still sent to Bolvar for 98191 (#1354)."
 	},
 	"98219": {
 		"set": {
@@ -3986,26 +5033,72 @@
 	},
 	"98221": {
 		"set": {
-			"pre": [
-				464
-			],
-			"preAny": [
-				464
+			"pre": [],
+			"preAny": [],
+			"objectives": [
+				{ "type": "object", "id": 671481, "count": 1, "text": "Attack Plan: Menethil Harbor destroyed" },
+				{ "type": "object", "id": 671486, "count": 1, "text": "Attack Plan: Thelsamar destroyed" },
+				{ "type": "object", "id": 671483, "count": 1, "text": "Attack Plan: Southshore destroyed" },
+				{ "type": "object", "id": 671487, "count": 1, "text": "Attack Plan: Ironforge destroyed" }
 			]
 		},
-		"source": {
-			"kind": "in-game-check",
-			"ref": "issue #225"
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T193041Z-4f169629ddd9bab0-t26uhm3w7m17-mffu95onan, 20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds): both characters who took From the Ashes accepted it from Captain Stoutfist right after War Banners (464), on the same visit, before handing War Banners in; one had not done Report to Captain Stoutfist (473) either"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "issue #225"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings of 98221 (8 people at the accept): the quest log lists four object objectives, Attack Plan: Menethil Harbor, Thelsamar, Southshore and Ironforge destroyed, and each ticks as the player clicks that plan (20261107T061701Z-de3dc8531bec2328-l5tenxxtuasy-ry63289xsu, 20261107T192842Z-a390bd97e7ffa6cd-4fpgjqho68g2-wyxt85n88o, 20261107T213524Z-55228f803fde9043-cl1d80l1edsq-q4fdu4tnrs)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1312"
+			}
+		],
+		"note": "From the Ashes (Wetlands, Captain Stoutfist) is offered together with War Banners (464), not after its hand-in: both recorded characters took the two at once. Issue #225 reported that Stoutfist offered From the Ashes instead of Nek'rosh's Gambit (465) once War Banners was handed in, which is 465's prerequisite on 98221 (kept in its own correction), not a prerequisite of 98221 on 464. With the two taken together, the attack plans are fetched in the Dragonmaw camp on the walk east from the dig, and both are handed in on one Menethil stop (06-wetlands), instead of a walk back east for the plans after War Banners. Its four objectives are the four Attack Plans (objects 671481, 671486, 671483, 671487), each clicked in the camp north and north-east of the dig; the data had none (#1312)."
+	},
+	"98230": {
+		"set": {
+			"pre": [
+				474
+			],
+			"preAny": [
+				474
+			]
 		},
-		"note": "From the Ashes (Wetlands, Captain Stoutfist) is the Forever step between War Banners 464 and Nek'rosh's Gambit 465: the player in issue #225 reported it in game as the next quest in the chain after War Banners. The merged data had no prerequisite, so only route-fixes pairs held it after 464, and the writer's hub tour, which reads the data, moved its accept before the War Banners hand-in (c13 07-thousand-needles:224)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: Captain Stoutfist refused This Land Was Their Land to 9 people who could take it (4 established), none of whom had handed in Defeat Nek'rosh (474); the one character it was offered to (20261107T061701Z-de3dc8531bec2328-l5tenxxtuasy-ry63289xsu) was still refused it with War Banners, From the Ashes and Nek'rosh's Gambit done, again right after handing in Old Habits (98223), and offered it 0.1 s after handing in Defeat Nek'rosh"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1299"
+			}
+		],
+		"note": "This Land Was Their Land (Wetlands, Captain Stoutfist, for Howin Kindfeather) is offered only once Defeat Nek'rosh (474) is handed in; the data named no prerequisite, so 0.3.5 sent players to take it on their first Menethil visit, where Stoutfist doesn't offer it (#1299). Defeat Nek'rosh is a group quest, so the guides take this one only on the group branch, after Nek'rosh's head is handed in."
 	},
 	"98252": {
 		"set": {
+			"xp": 925,
 			"pre": [
 				98251
 			],
 			"preAny": [
 				98251
+			],
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Eye of Kilrogg guided to the road"
+				}
 			]
 		},
 		"source": [
@@ -4016,12 +5109,25 @@
 			{
 				"kind": "factoruide",
 				"ref": "98252 pre_all [98251]"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: one objective, 'Eye of Kilrogg guided to the road' (a server credit, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 14 people took A Void Path with 'Eye of Kilrogg guided to the road' x1 and handed it in to the Eye of Kilrogg (271181)"
+			},
+			{
+				"kind": "recording",
+				"ref": "Horde 1-30 audit (#1414), xp: 14 hand-ins at a full-XP level paid 925 XP (QuestieDB 1.0.13's traces: 920); the data had 1300"
 			}
 		],
-		"note": "A Void Path (Ashenvale, Va'xug Firefure) is offered once Never Coming Back 98251, from the same giver, is handed in. Two players at Va'xug with Never Coming Back still in the log were not offered it (#1002 at level 25, #984 at 23), and the quest chain in the game's data has Never Coming Back as the step before it. The merged data had no prerequisite, so the Stonetalon guide took both at once (horde/05-stonetalon-mountains, step Va'xug Firefure)."
+		"note": "A Void Path (Ashenvale, Va'xug Firefure) is offered once Never Coming Back 98251, from the same giver, is handed in. Two players at Va'xug with Never Coming Back still in the log were not offered it (#1002 at level 25, #984 at 23), and the quest chain in the game's data has Never Coming Back as the step before it. The merged data had no prerequisite, so the Stonetalon guide took both at once (horde/05-stonetalon-mountains, step Va'xug Firefure). A Void Path: its one objective is to steer the Eye of Kilrogg to the road (an event)."
 	},
 	"98094": {
 		"set": {
+			"xp": 1000,
 			"pre": [
 				528
 			],
@@ -4029,10 +5135,16 @@
 				528
 			]
 		},
-		"source": {
-			"kind": "in-game-check",
-			"ref": "issue #148"
-		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "issue #148"
+			},
+			{
+				"kind": "recording",
+				"ref": "Horde 1-30 audit (#1414), xp: 10 hand-ins at a full-XP level paid 1000 XP (QuestieDB 1.0.13's traces: 1000); the data had 2000"
+			}
+		],
 		"note": "Scout Support (Hillsbrad, High Executor Darthalia, for Deathstalker Masoj) is offered only after Battle of Hillsbrad part II 528: in game Darthalia did not offer it with 527 turned in and 528 open (issue #148). QuestieDB has no prerequisite."
 	},
 	"98319": {
@@ -4080,7 +5192,15 @@
 	},
 	"98341": {
 		"set": {
-			"classes": 1024
+			"classes": 1024,
+			"pre": [
+				98340,
+				98393
+			],
+			"preAny": [
+				98340,
+				98393
+			]
 		},
 		"source": [
 			{
@@ -4090,9 +5210,82 @@
 			{
 				"kind": "factoruide",
 				"ref": "Factoruide row: class mask 1024 (Druid)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 98340 (sniffed Forever row, build 70124)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any [98340, 98393]"
 			}
 		],
-		"note": "The Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, first quest) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it."
+		"note": "The Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, first quest) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it. Dendrite Starblaze offers it once the opening The Great Cat Spirit is handed in: the Horde one from Turak Runetotem (98340) or the Alliance one from Mathrengyl Bearwalker (98393). The server's quest records (build 70124) name 98340 as its previous quest and a second, independent quest database lists both openers; the merged data had no prerequisite (20-60 data-fill pass)."
+	},
+	"98394": {
+		"set": {
+			"pre": [
+				98393
+			],
+			"preAny": [
+				98393
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 5 people (2 established) took The Great Cat Spirit (98394) from Dendrite Starblaze, each after handing Mathrengyl Bearwalker's The Great Cat Spirit (98393) in to her; she did not offer it to 5 people (2 established) who still had 98393 in the log"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all 98393"
+			}
+		],
+		"note": "The Druid cat form chain: Dendrite Starblaze's The Great Cat Spirit (98394) follows the one Mathrengyl Bearwalker gives (98393), handed in to her. The merged data had no prerequisite, so a Druid who skipped 98393 was still sent to her for 98394."
+	},
+	"98396": {
+		"set": {
+			"pre": [
+				98394
+			],
+			"preAny": [
+				98394
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 5 people (2 established) took The Great Cat Spirit (98396) from the Great Cat Spirit, each after handing the previous The Great Cat Spirit (98394) in to it; nobody took it without"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all 98394"
+			}
+		],
+		"note": "The Druid cat form chain: the Great Cat Spirit's own The Great Cat Spirit (98396) follows the one Dendrite Starblaze sends to it (98394), handed in to it. The merged data had no prerequisite, so the guide could not tell 98396 was gone once 98394 was skipped."
+	},
+	"98397": {
+		"set": {
+			"pre": [
+				98731,
+				98738
+			],
+			"preAny": [
+				98731,
+				98738
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 6 people (2 established) took To Darnassus (98397) from Dendrite Starblaze, each after handing her one of the two blessings: 5 Blessings of the Great Cat Spirit (98731), 1 Skyborne Druid Blessings of the Great Windborne Cat Spirit (98738); she did not offer it to 8 people (3 established) who could take it but had handed in neither"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 98731, 98738"
+			}
+		],
+		"note": "The Druid cat form chain ends with To Darnassus (98397), which Dendrite Starblaze offers once one of the two blessings is handed in to her: Blessings of the Great Cat Spirit (98731) or, for Skyborne Druids, Blessings of the Great Windborne Cat Spirit (98738). The merged data had no prerequisite."
 	},
 	"98404": {
 		"set": {
@@ -4110,9 +5303,36 @@
 		],
 		"note": "The Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, the three relics) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it."
 	},
+	"98731": {
+		"set": {
+			"pre": [
+				98396
+			],
+			"preAny": [
+				98396
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 5 people (2 established) took Blessings of the Great Cat Spirit (98731), each after handing The Great Cat Spirit (98396) in to the Great Cat Spirit; nobody took it without"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all 98396"
+			}
+		],
+		"note": "The Druid cat form chain: Blessings of the Great Cat Spirit (98731) follows The Great Cat Spirit (98396), both at the Great Cat Spirit. The merged data had no prerequisite, so the guide could not tell 98731 was gone once 98396 was skipped."
+	},
 	"98738": {
 		"set": {
-			"classes": 1024
+			"classes": 1024,
+			"pre": [
+				98404
+			],
+			"preAny": [
+				98404
+			]
 		},
 		"source": [
 			{
@@ -4122,9 +5342,82 @@
 			{
 				"kind": "factoruide",
 				"ref": "Factoruide row: class mask 1024 (Druid)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 98404 (sniffed Forever row, build 70124)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all [98404]"
 			}
 		],
-		"note": "Blessings of the Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, after the relics) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it."
+		"note": "Blessings of the Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, after the relics) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it. The Avatar of Saeyleenan offers it once the relics quest (98404) is handed in: the server's quest records (build 70124) name 98404 as its previous quest and a second, independent quest database agrees; the merged data had no prerequisite (20-60 data-fill pass)."
+	},
+	"98342": {
+		"set": {
+			"pre": [
+				98405
+			],
+			"preAny": [
+				98405
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 98405 (sniffed Forever row, build 70124)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all [98405]"
+			}
+		],
+		"note": "The Great Cat Spirit (the Tauren Druids' Cat Form chain, the trial at the Great Cat Spirit in Moonglade) is offered by the Great Cat Spirit once The Great Cat Spirit from Dendrite Starblaze (98405) is handed in to it: the server's quest records (build 70124) name 98405 as its previous quest and a second, independent quest database agrees. The merged data had no prerequisite (20-60 data-fill pass)."
+	},
+	"98739": {
+		"set": {
+			"pre": [
+				98342
+			],
+			"preAny": [
+				98342
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 98342 (sniffed Forever row, build 70124)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all [98342]"
+			}
+		],
+		"note": "Blessings of the Great Cat Spirit (the Tauren Druids' Cat Form chain) is offered by the Great Cat Spirit once its trial (98342) is handed in: the server's quest records (build 70124) name 98342 as its previous quest and a second, independent quest database agrees. The merged data had no prerequisite (20-60 data-fill pass)."
+	},
+	"98362": {
+		"set": {
+			"pre": [
+				98739,
+				98738
+			],
+			"preAny": [
+				98739,
+				98738
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 98739 (sniffed Forever row, build 70124)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any [98739, 98738]"
+			}
+		],
+		"note": "To Thunder Bluff (the Horde Druids' Cat Form chain, back to Turak Runetotem) is offered by Dendrite Starblaze once the chain's blessing is handed in to him: Blessings of the Great Cat Spirit (98739, Tauren) or Blessings of the Great Windborne Cat Spirit (98738, Skyborne). The server's quest records (build 70124) name 98739 as its previous quest and a second, independent quest database lists both blessings; the merged data had no prerequisite (20-60 data-fill pass)."
 	},
 	"98601": {
 		"set": {
@@ -4196,6 +5489,7 @@
 	},
 	"99080": {
 		"set": {
+			"xp": 875,
 			"pre": [
 				99101
 			],
@@ -4211,6 +5505,10 @@
 			{
 				"kind": "in-game-check",
 				"ref": "issue #112"
+			},
+			{
+				"kind": "recording",
+				"ref": "Horde 1-30 audit (#1414), xp: 10 hand-ins at a full-XP level paid 875 XP (QuestieDB 1.0.13's traces: 880); the data had 775"
 			}
 		],
 		"note": "Drive Them Out (Mulgore, Baine Bloodhoof) comes after Our Ancient Enemy 99101, in the chain Longwalker Malah 99079 -> Grim Tidings 99081 -> Our Ancient Enemy 99101 -> Drive Them Out 99080 -> The High Chieftain 99082. In game Our Ancient Enemy was not offered before Longwalker Malah and Grim Tidings (issue #112). QuestieDB has no prerequisite."
@@ -4238,6 +5536,7 @@
 	},
 	"99082": {
 		"set": {
+			"xp": 90,
 			"pre": [
 				99080
 			],
@@ -4253,6 +5552,10 @@
 			{
 				"kind": "in-game-check",
 				"ref": "issue #112"
+			},
+			{
+				"kind": "recording",
+				"ref": "Horde 1-30 audit (#1414), xp: 8 hand-ins at a full-XP level paid 90 XP (QuestieDB 1.0.13's traces: 90); the data had 80"
 			}
 		],
 		"note": "The High Chieftain (Mulgore, Baine Bloodhoof) comes after Drive Them Out 99080, in the chain Longwalker Malah 99079 -> Grim Tidings 99081 -> Our Ancient Enemy 99101 -> Drive Them Out 99080 -> The High Chieftain 99082. In game Our Ancient Enemy was not offered before Longwalker Malah and Grim Tidings (issue #112). QuestieDB has no prerequisite."
@@ -4294,6 +5597,31 @@
 			"ref": "Factoruide row sources: questie"
 		},
 		"note": "Lost in the Shadows (Durotar) is an escort: one event objective, Escort Pal'juh out of Kolkar Crag (1), with no map point, so the event runs where it starts (Pal'juh 275811). QuestieDB has no objectives."
+	},
+	"99128": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 285,
+					"count": 7,
+					"text": "Murloc"
+				},
+				{
+					"type": "kill",
+					"id": 735,
+					"count": 4,
+					"text": "Murloc Streamrunner"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 20 sessions list Slimy Menace's lines as Murloc x7 first, then Murloc Streamrunner x4"
+			}
+		],
+		"note": "Slimy Menace (Elwynn Forest): the quest log's first line is the 7 Murlocs, the second the 4 Murloc Streamrunners; the data had them the other way round, so the guide's goals read the wrong lines."
 	},
 	"99130": {
 		"set": {
@@ -4392,6 +5720,52 @@
 		},
 		"note": "The Wrath of Rath'mael (Deathguard Kristof, Tirisfal) is offered once the Rear Guard Patrol chain from Deathguard Linnea is handed in: Rear Guard Patrol 356, then 99156, which needs 356 itself. At level 15 with 356 still in the log, Pilk was not offered it; once the chain was done, Kristof offered it (#849). No quest data names this prerequisite, so the Ruins of Lordaeron pick-up guide sent players straight to Kristof."
 	},
+	"92458": {
+		"set": {
+			"pre": [
+				92432
+			],
+			"preAny": [
+				92432
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#1235, #1239: an Alliance Warlock at level 28 found the City of Dalaran quests that lead in through An Alarming Request need level 30"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB: An Alarming Request (92432) is the breadcrumb that leads to Heart of Disruption"
+			}
+		],
+		"note": "Heart of Disruption (Alliance; Image of Archmage Modera, Silverpine Forest) comes after An Alarming Request (92432, level 30, Emissary Jacques in Hillsbrad), as the Horde's Heart of Disruption (96984) comes after Blood in the Streets (92434). Our data had the breadcrumb as optional and the quest open from 24, so the City of Dalaran pick-up guide sent level 28 characters to Modera for a quest she does not offer them. Safe either way: if only the level held it back, the guide still takes An Alarming Request at 30 on the way to her."
+	},
+	"96984": {
+		"set": {
+			"pre": [
+				92434
+			],
+			"preAny": [
+				92434
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#1250: an Orc Hunter at level 28 by Image of Archmage Modera, her window without Heart of Disruption"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: Modera's window left 96984 out for an Orc Warrior at 30 with Blood in the Streets (92434) still in the log, and both players who took 96984 had handed in 92434 to her first (2 people, 0 established)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 92434"
+			}
+		],
+		"note": "Heart of Disruption (Horde; Image of Archmage Modera, Silverpine Forest) is offered once Blood in the Streets (92434, level 30, from Hillsbrad) is handed in to her. Our data had Blood in the Streets as an optional breadcrumb and the quest open from 24, so the City of Dalaran pick-up guide sent level 28 characters to Modera for a quest she does not offer them."
+	},
 	"92514": {
 		"set": {
 			"objectives": [
@@ -4429,15 +5803,29 @@
 					12920
 				],
 				"object": []
-			}
+			},
+			"pre": [
+				97539
+			],
+			"preAny": [
+				97539
+			]
 		},
 		"source": [
 			{
 				"kind": "tdb",
 				"ref": "server data: quest giver and ender seen as Doctor Gregory Victor (npc 12920)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 2 people (1 established) took Ward Restocking (92519) from Doctor Gregory Victor, each after handing Silky Sutures (97539) in to him; he did not offer it to 2 people (none established) who could take it but had not handed 97539 in"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all 97539"
 			}
 		],
-		"note": "Ward Restocking: given and taken by Doctor Gregory Victor at Hammerfall (Arathi 73.41,36.89); the merged data had no giver or ender, so the world left it out (RouteAudit B2)."
+		"note": "Ward Restocking: given and taken by Doctor Gregory Victor at Hammerfall (Arathi 73.41,36.89); the merged data had no giver or ender, so the world left it out (RouteAudit B2). He offers it once his Silky Sutures (97539) is handed in to him (#1354 sweep); the merged data had no prerequisite."
 	},
 	"97539": {
 		"set": {
@@ -4848,5 +6236,983 @@
 			}
 		],
 		"note": "Desperate Prayer (Priestess Alathea's letter) is a Dwarf priest spell in Forever and High Priest Rohan in Ironforge's Hall of Mysteries teaches it: the server's race mask is Dwarf only and every letter's objective now names Rohan. The merged data kept the Classic Human and Dwarf races and High Priestess Laurena in Stormwind as the ender; Humans learn Divine Grace from Laurena instead (94773-94779)."
+	},
+	"98095": {
+		"set": {
+			"pre": [
+				98094
+			],
+			"preAny": [
+				98094
+			],
+			"objectives": [
+				{ "type": "event", "id": null, "count": 1, "text": "Western vial placed", "map": 1416, "f": "l", "x": 38.37, "y": 87.21 },
+				{ "type": "event", "id": null, "count": 1, "text": "Northern vial placed", "map": 1424, "f": "l", "x": 72.3, "y": 31.16 },
+				{ "type": "event", "id": null, "count": 1, "text": "Southern vial placed", "map": 1424, "f": "l", "x": 73.78, "y": 72.73 }
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261105T173728Z-2a82cac44db7bb61, 20261107T053108Z-0d2765f9112b8dda): the log lists Western, Northern and Southern vial placed at the accept; each line ticked where the player stood: Southern at Hillsbrad 73.68,72.86 and 73.87,72.59, Northern at 72.6,32.08 and 72.0,30.24, Western in Alterac 38.37,87.21. Both players were offered it right after handing in Scout Support (98094) and took it then (the prerequisite as PR #1161 proposed)"
+		},
+		"note": "Valuable Vantages (Deathstalker Masoj, Hillsbrad) follows Scout Support (98094), handed in to him: place an Apothecary Vial on three peaks, then return to him. The merged data had no objectives and no prerequisite, so the Horde Hillsbrad guide handed the quest in right after taking it (#1150, #1051)."
+	},
+	"98189": {
+		"set": {
+			"pre": [
+				286
+			],
+			"preAny": [
+				286
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T193041Z-4f169629ddd9bab0-t26uhm3w7m17-mffu95onan, 20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds): Karl Boran's window offers 98189 0.0-0.2 s after Return the Statuette (286) is handed in to him, at the same level; no recorded window offered it before 286 was handed in"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1113"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1118"
+			}
+		],
+		"note": "Karl Boran's Return the Statuette (98189, for Captain Stoutfist) follows the old Return the Statuette (286): he offers it only once 286 is handed in to him. Without the prerequisite the guide sent players to him on their first Menethil stop, and on to Stoutfist for A Friend of the Family (98190), before either was possible."
+	},
+	"98190": {
+		"set": {
+			"pre": [
+				98189
+			],
+			"preAny": [
+				98189
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T193041Z-4f169629ddd9bab0-t26uhm3w7m17-mffu95onan, 20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261107T102931Z-a390bd97e7ffa6cd-4fpgjqho68g2-wyxt85n88o): ten Captain Stoutfist windows before Return the Statuette (98189) was handed in to him (levels 24-27, three characters) offered War Banners and From the Ashes but never A Friend of the Family; both characters who handed 98189 in were offered 98190 in the window that followed and took it"
+			}
+		],
+		"note": "Captain Stoutfist's A Friend of the Family (98190, the statuette for Bolvar Fordragon) follows Return the Statuette (98189), handed in to him. The merged data had no prerequisite, so a route could send players to him for it before Karl Boran's statuette."
+	},
+	"98216": {
+		"set": {
+			"pre": [
+				299
+			],
+			"preAll": [
+				299
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#1206: Prospector Whelgar did not offer Understanding Our Present to a level 27 Night Elf with Uncovering the Past (299) in the log at 0/4"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T233256Z-4097d25bec050b9e-n5e3yzzku7wu-8ncu7zo2te, 20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds): refused to a level 25 Human without 299; the one window that offered it (level 28 Dwarf) is at Whelgar, where that character handed 299 in, with the log list still showing 299"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest links: pre_all 299 for 98216"
+			}
+		],
+		"note": "Prospector Whelgar's Understanding Our Present (98216) follows Uncovering the Past (299), handed in to him. The merged data had no prerequisite, so the guide offered it together with 299."
+	},
+	"98283": {
+		"set": {
+			"pre": [
+				275
+			],
+			"preAll": [
+				275
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T193041Z-4f169629ddd9bab0-t26uhm3w7m17-mffu95onan, 20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, character 73c640aba1a5bada): twelve Rethiel the Greenwarden windows before Fen Creeper (275) was handed in (levels 24-30, three characters) refused Carnage; the Night Elf was offered it in the first window after handing 275 in, and both characters who took it (levels 24 and 30) took it after 275's hand-in"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest links: pre_all 275 for 98283"
+			}
+		],
+		"note": "Rethiel the Greenwarden's Carnage (98283) ends his chain: he offers it only once Fen Creeper (275), after Tramping Paws (276) and Gnoll Hunt (277), is handed in. The merged data had no prerequisite, so the guide sent players to him for it on their first visit."
+	},
+	"98310": {
+		"set": {
+			"pre": [
+				98216
+			],
+			"preAll": [
+				98216
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261106T233256Z-4097d25bec050b9e-n5e3yzzku7wu-8ncu7zo2te): Prospector Whelgar's windows at levels 25 and 28 refused Gleaning Our Future and For Further Study to both characters, neither of whom had handed in Understanding Our Present (98216)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest links: pre_all 98216 for 98310"
+			}
+		],
+		"note": "Prospector Whelgar's Gleaning Our Future (98310) follows Understanding Our Present (98216), handed in to him. The merged data had no prerequisite, so the guide offered it on the first visit to the dig."
+	},
+	"98313": {
+		"set": {
+			"pre": [
+				98310
+			],
+			"preAll": [
+				98310
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261106T233256Z-4097d25bec050b9e-n5e3yzzku7wu-8ncu7zo2te): Prospector Whelgar's windows at levels 25 and 28 refused For Further Study to both characters, who had handed in neither Understanding Our Present (98216) nor Gleaning Our Future (98310)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest links: pre_all 98310 for 98313"
+			}
+		],
+		"note": "Prospector Whelgar's For Further Study (98313, for Historian Karnik in Ironforge) ends his chain, after Gleaning Our Future (98310). The merged data had no prerequisite, so the guide offered it on the first visit to the dig."
+	},
+	"526": {
+		"set": {
+			"pre": [
+				324
+			],
+			"preAny": [
+				324
+			],
+			"excl": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon: PrevQuestID 324 for 526 (324 follows 321, 321 follows 270), ExclusiveGroup 0"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "Lightforge Ingots follows The Lost Ingots (324)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-07: no window of Glorin Steelbrow ever offered 526; the one level-29 character who opened his window (20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds) was offered Lightforge Iron (321), the start of the chain"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1116"
+			}
+		],
+		"note": "Glorin Steelbrow offers Lightforge Ingots only after The Lost Ingots (324), the end of the Lightforge Iron chain (321, 324). Our data had no prerequisite and made it exclusive with 324 instead, so the 20-30 route took it in the Wetlands where nobody can be offered it."
+	},
+	"96261": {
+		"set": {
+			"pre": [
+				96259
+			],
+			"preAny": [
+				96259
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T155909Z-2a82cac44db7bb61-0pv36jv9vm2s-z3eglcvv4z, 20261107T053108Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz): Muln Earthfury's quest list leaves 96261 out while Defending the Dead (96259) is in the log, and offers it 0.1-0.2 s after 96259 is handed in to him, at the same level, with A Darker Truth (96294) still in the log"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1083"
+			}
+		],
+		"note": "Muln Earthfury offers The Broodmother only once Defending the Dead (96259) is handed in to him; before that his list shows Defending the Dead alone. The guides took both together at the Earthen Ring camp."
+	},
+	"98240": {
+		"set": {
+			"pre": [
+				98072
+			],
+			"preAny": [
+				98072
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-07: James Halloran's quest list left 98240 out for 3 characters at levels 24-28 without Crocs of the Sky (98072) done (20261106T193041Z-4f169629ddd9bab0-t26uhm3w7m17-mffu95onan, a390bd97e7ffa6cd at 26, 0508863063f76280 at 27-28); no window ever offered it"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any [98072]"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1134"
+			}
+		],
+		"note": "James Halloran offers Crimson Crate Delivery only after his Crocs of the Sky (98072), the last of his three favours (484, 471, 98072). Our data had no prerequisite, so the route took it on the first Menethil stop."
+	},
+	"515": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 3388,
+					"count": 1,
+					"text": "Lesser Troll's Blood Elixir"
+				},
+				{
+					"type": "item",
+					"id": 3509,
+					"count": 5,
+					"text": "Daggerspine Scale"
+				},
+				{
+					"type": "item",
+					"id": 3510,
+					"count": 5,
+					"text": "Torn Fin Eye"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: the objective list at accept reads \"Lesser Troll's Blood Elixir\" x1 for 3 characters (0d2765f9, efd9e8c2, 17072fda); the line ticked 1/1 for 2 (0d2765f9, who handed the quest in to Apothecary Lydon, and 0c579934)"
+			},
+			{
+				"kind": "client",
+				"ref": "item 3388's name in client 1.60.1 (70862): Lesser Troll's Blood Elixir"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1322 (screenshot, client 70862: \"1/1 Lesser Troll's Blood Elixir (Complete)\")"
+			}
+		],
+		"note": "Elixir of Agony: the objective is item 3388, which the game calls Lesser Troll's Blood Elixir; our objective text kept the old name, Strong Troll's Blood Potion, and the guide named the wrong elixir. The quest's own text still says Strong (the game's inconsistency, reported to Blizzard); the objective is what counts."
+	},
+	"94217": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 264017,
+					"count": 1,
+					"text": "Craftsman's Writ: Lesser Troll's Blood Elixir"
+				},
+				{
+					"type": "item",
+					"id": 3388,
+					"count": 1,
+					"text": "Lesser Troll's Blood Elixir"
+				}
+			]
+		},
+		"source": {
+			"kind": "client",
+			"ref": "item 3388's name in client 1.60.1 (70862): Lesser Troll's Blood Elixir"
+		},
+		"note": "Craftsman's Writ: Lesser Troll's Blood Elixir wants item 3388, the Lesser Troll's Blood Elixir its title names; our objective text kept the item's old name, Strong Troll's Blood Potion (#1322)."
+	},
+	"94218": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 264018,
+					"count": 1,
+					"text": "Craftsman's Writ: Elixir of Defense"
+				},
+				{
+					"type": "item",
+					"id": 8951,
+					"count": 1,
+					"text": "Elixir of Defense"
+				}
+			]
+		},
+		"source": {
+			"kind": "client",
+			"ref": "item names in client 1.60.1 (70862): 8951 Elixir of Defense; 13445 is the Elixir of Greater Defense"
+		},
+		"note": "Craftsman's Writ: Elixir of Defense wants item 8951, the Elixir of Defense its title names; our objective text kept the item's old name, Elixir of Greater Defense, which is now another item (13445)."
+	},
+	"94219": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 264019,
+					"count": 1,
+					"text": "Craftsman's Writ: Draught of Water Breathing"
+				},
+				{
+					"type": "item",
+					"id": 5996,
+					"count": 1,
+					"text": "Draught of Water Breathing"
+				}
+			]
+		},
+		"source": {
+			"kind": "client",
+			"ref": "item 5996's name in client 1.60.1 (70862): Draught of Water Breathing"
+		},
+		"note": "Craftsman's Writ: Draught of Water Breathing wants item 5996, the Draught of Water Breathing its title names; our objective text kept the item's old name, Elixir of Water Breathing."
+	},
+	"288": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 2594,
+					"count": 1,
+					"text": "Flagon of Dwarven Honeymead"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: the objective list at accept reads \"Flagon of Dwarven Honeymead\" x1 for 7 of 10 people (enUS clients)"
+			},
+			{
+				"kind": "client",
+				"ref": "item 2594's name in client 1.60.1 (70862): Flagon of Dwarven Honeymead"
+			}
+		],
+		"note": "The Third Fleet wants item 2594, which the game calls Flagon of Dwarven Honeymead; our objective text kept the old name, Flagon of Mead, and the Wetlands guide's buy note named it so (#1322's sweep)."
+	},
+	"98405": {
+		"set": {
+			"pre": [
+				98340
+			],
+			"preAny": [
+				98340
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 3 people (3 established) were refused it before The Great Cat Spirit (98340) was handed in; all 3 were offered and took it after"
+			},
+			{
+				"kind": "tdb",
+				"ref": "ForeverTDB (advocaite/TrinityCore forever b6ae12c2) quest_template_addon PrevQuestID 98340"
+			}
+		],
+		"note": "The Great Cat Spirit (98405, Tauren druids) is offered at the Great Cat Spirit in Moonglade only after Turak Runetotem's The Great Cat Spirit (98340) is handed in there. Our data had no prerequisite."
+	},
+	"98042": {
+		"set": {
+			"pre": [
+				949
+			],
+			"preAny": [
+				949
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: 19 people took It's All Fun and Games Until... (98042) at the Twilight Tome (object 12666), every one seconds after handing The Twilight Camp (949) in there, none before it (sessions 20261104T232008Z to 20261108T001845Z)"
+		},
+		"note": "It's All Fun and Games Until... starts at the Twilight Tome in the Master's Glaive, which offers it only once The Twilight Camp (949) is handed in to it. The merged data had no prerequisite, so the guide sent players to the tome for it before that hand-in, when there was nothing to take (#1352)."
+	},
+	"95507": {
+		"set": {
+			"xp": 1000
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 22 hand-ins of 95507 at a full-XP level (player level up to quest level 18 + 5) paid 1000 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 1000 XP"
+			}
+		],
+		"note": "Vrang's Game pays 1000 XP, not 1350: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"95805": {
+		"set": {
+			"xp": 360,
+			"limit": 600
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 13 hand-ins of 95805 at a full-XP level (player level up to quest level 4 + 5) paid 360 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 355 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB Forever quest 95805's objective text: carry the incense to the shrine before it burns to ash in ten minutes"
+			}
+		],
+		"note": "Grace of An'she and Mu'sha pays 360 XP, not 180: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414). It allows ten minutes (600 s) from the Seer to the shrine, as its objective says; the Forever TDB has no record of it, so the data had no limit and Dynamic Questing could not tell whether taking it early still leaves time for the walk."
+	},
+	"96130": {
+		"set": {
+			"xp": 340
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 12 hand-ins of 96130 at a full-XP level (player level up to quest level 5 + 5) paid 340 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 335 XP"
+			}
+		],
+		"note": "Chakuyak pays 340 XP, not 230: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"96241": {
+		"set": {
+			"xp": 2350
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 9 hand-ins of 96241 at a full-XP level (player level up to quest level 30 + 5) paid 2350 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 2350 XP"
+			}
+		],
+		"note": "Talkin' bout Toxins, Mon pays 2350 XP, not 2450: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"96260": {
+		"set": {
+			"xp": 1750
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 9 hand-ins of 96260 at a full-XP level (player level up to quest level 30 + 5) paid 1750 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 1750 XP"
+			}
+		],
+		"note": "Stronger than Steel pays 1750 XP, not 2450: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"97242": {
+		"set": {
+			"xp": 110
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 14 hand-ins of 97242 at a full-XP level (player level up to quest level 15 + 5) paid 110 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 105 XP"
+			}
+		],
+		"note": "Yelmak's Medley pays 110 XP, not 800: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"97246": {
+		"set": {
+			"xp": 110
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 17 hand-ins of 97246 at a full-XP level (player level up to quest level 15 + 5) paid 110 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 105 XP"
+			}
+		],
+		"note": "Meal Appeal pays 110 XP, not 800: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"97249": {
+		"set": {
+			"xp": 110
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 17 hand-ins of 97249 at a full-XP level (player level up to quest level 15 + 5) paid 110 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 105 XP"
+			}
+		],
+		"note": "Favorite Food pays 110 XP, not 1050: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"97253": {
+		"set": {
+			"xp": 1050
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 49 hand-ins of 97253 at a full-XP level (player level up to quest level 14 + 5) paid 1050 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 1050 XP"
+			}
+		],
+		"note": "Parts and Pieces pays 1050 XP, not 975: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"97326": {
+		"set": {
+			"xp": 550
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 16 hand-ins of 97326 at a full-XP level (player level up to quest level 15 + 5) paid 550 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 540 XP"
+			}
+		],
+		"note": "Rocks to Rests pays 550 XP, not 800: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"98251": {
+		"set": {
+			"xp": 1400
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 14 hand-ins of 98251 at a full-XP level (player level up to quest level 23 + 5) paid 1400 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 1400 XP"
+			}
+		],
+		"note": "Never Coming Back pays 1400 XP, not 1750: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"99048": {
+		"set": {
+			"xp": 80
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 20 hand-ins of 99048 at a full-XP level (player level up to quest level 11 + 5) paid 80 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 80 XP"
+			}
+		],
+		"note": "A Missing Hand pays 80 XP, not 90: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"99049": {
+		"set": {
+			"xp": 390
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 18 hand-ins of 99049 at a full-XP level (player level up to quest level 9 + 5) paid 390 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 390 XP"
+			}
+		],
+		"note": "Threat from Below pays 390 XP, not 880: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"99052": {
+		"set": {
+			"xp": 1100
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 14 hand-ins of 99052 at a full-XP level (player level up to quest level 12 + 5) paid 1100 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 1100 XP"
+			}
+		],
+		"note": "Threat from Below pays 1100 XP, not 900: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"99108": {
+		"set": {
+			"xp": 270
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 12 hand-ins of 99108 at a full-XP level (player level up to quest level 6 + 5) paid 270 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 270 XP"
+			}
+		],
+		"note": "Sparring Match pays 270 XP, not 550: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"503": {
+		"set": {
+			"objectives": [
+				{ "type": "item", "id": 3704, "count": 1, "text": "Rusted Iron Key" },
+				{ "type": "event", "id": 178, "count": null, "text": "Find where Gol'dir is being held", "map": 1416, "f": "e", "x": 60.6, "y": 43.8 }
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: two objectives, Rusted Iron Key (3704) x1 and area trigger 178"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09: 4 people accepted Gol'dir from Krusk; every accept listed two lines, the key and 'Find where Gol'dir is being held'. The one recorded run ticked the key at Alterac 61.65,40.42 and the find line at 60.67,43.86, then handed in to Gol'dir (2316) at 60.01,43.83"
+			}
+		],
+		"note": "Gol'dir (Alterac Mountains): two objectives, the Rusted Iron Key and finding where Gol'dir is held. The merged data also asked to kill Gol'dir (2316), the prisoner who takes the hand-in, so the hand-in looked impossible."
+	},
+	"95748": {
+		"set": {
+			"start": {
+				"npc": [
+					2519
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					2519
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "start npc 2519, end npc 2519"
+			}
+		],
+		"note": "The Gurubashi Legends of Old (Forever, Horde): Kin'weelay at Grom'gol gives it and takes the Third Troll Legend back. The merged data had no giver or ender, so the arrow had nowhere to point."
+	},
+	"95770": {
+		"set": {
+			"pre": [
+				95748
+			],
+			"preAny": [
+				95748
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-09): Kin'weelay (2519) offered Locating the Lost City to 2 people only after they handed The Gurubashi Legends of Old (95748) in; Kin'weelay's windows while 95748 was in their log listed nothing new. Both found the cavern entrance at Stranglethorn 21.7-22.0,27.1-28.1 within 3 minutes and handed it in to Kin'weelay (3,150 XP)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 95748"
+			}
+		],
+		"note": "Locating the Lost City (Forever, Horde): Kin'weelay at Grom'gol offers it once The Gurubashi Legends of Old is handed in; the cavern entrance is under the Vile Reef, west of Grom'gol. The merged data had no prerequisite."
+	},
+	"91209": {
+		"set": {
+			"pre": [
+				90902
+			],
+			"preAny": [
+				90902
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 10 people (5 established) took Continue Your Training (91209) from Aramis Hammerhand within two seconds of Coming to Terms (91208), each before handing 91208 in"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 91208"
+			}
+		],
+		"note": "The Forsaken Paladin's Continue Your Training (91209) comes with Coming to Terms (91208) from Aramis Hammerhand in Deathknell: it is offered once Rediscovering the Light (90902) is handed in, alongside 91208, not after it. The merged data read the world database's link to 91208 as a hand-in first, which every player's accept contradicts."
+	},
+	"1962": {
+		"set": {
+			"start": {
+				"npc": [
+					4576
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 2 people (an Undead and a Troll Mage) were offered Spellfire Robes (1962) by Josef Gregorian right after handing Gathering Materials (1961) in to him, and handed it in to him; Rhiannon Davis never offered it in any recorded window"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0, wowf builds to 1.60.1.70862: the quest's only giver and taker is Josef Gregorian (npc 4576)"
+			}
+		],
+		"note": "Spellfire Robes, the Horde mage robe, comes from Josef Gregorian in the Undercity's tailor shop once he has the materials. The merged data named Rhiannon Davis beside him as its only giver."
+	},
+	"1462": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID -1520 (taken while 1520 is in the log)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db quest_template PrevQuestId -1520"
+			}
+		],
+		"note": "The replacement sapta (1462) is offered while quest 1520 is in the log, not after it is handed in: both world databases give the prerequisite as in the log. The merged data read it as a hand-in first, and the guide linter flagged the class guides' replacement steps; the corrections cannot name a quest that must be in the log, so the prerequisite is dropped and the guides' steps wait for the quest in the log themselves."
+	},
+	"1463": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID -1517 (taken while 1517 is in the log)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db quest_template PrevQuestId -1517"
+			}
+		],
+		"note": "The replacement sapta (1463) is offered while quest 1517 is in the log, not after it is handed in: both world databases give the prerequisite as in the log. The merged data read it as a hand-in first, and the guide linter flagged the class guides' replacement steps; the corrections cannot name a quest that must be in the log, so the prerequisite is dropped and the guides' steps wait for the quest in the log themselves."
+	},
+	"1464": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID -1526 (taken while 1526 is in the log)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db quest_template PrevQuestId -1526"
+			}
+		],
+		"note": "The replacement sapta (1464) is offered while quest 1526 is in the log, not after it is handed in: both world databases give the prerequisite as in the log. The merged data read it as a hand-in first, and the guide linter flagged the class guides' replacement steps; the corrections cannot name a quest that must be in the log, so the prerequisite is dropped and the guides' steps wait for the quest in the log themselves."
+	},
+	"2842": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID -2841 (taken while Rig Wars is in the log)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db quest_template PrevQuestId -2841"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08): 2 people took Chief Engineer Scooty (2842) with Rig Wars (2841) still in the log, none after handing it in"
+			}
+		],
+		"note": "Chief Engineer Scooty is offered while Rig Wars is in the log, not after it is handed in: both world databases give the prerequisite as in the log, and players took it that way. The merged data read it as a hand-in; the corrections cannot name a quest that must be in the log, so the prerequisite is dropped."
+	},
+	"79362": {
+		"set": {
+			"races": 4294967373,
+			"classes": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 4 people (2 established) took Grant's Shield (79362) from Grant's Mace: a Night Elf Priest, a Dwarf Shaman, a Gnome Priest and a Human Paladin; 3 handed it in to Sirra Von'Indi in Darkshire"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide web row: classes any, side both"
+			}
+		],
+		"note": "Grant's Shield is a Duskwood quest started by an item (Grant's Mace) for any Alliance class and race, not a Dwarf Shaman quest: the merged data had the Shaman class and the Dwarf race from one source, which kept it out of every guide."
+	},
+	"79363": {
+		"set": {
+			"races": 4294967373,
+			"classes": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 2 people took or handed in Silvia's Sword (79363), a Gnome Priest and a Dwarf Paladin, at Sirra Von'Indi in Darkshire"
+			},
+			{
+				"kind": "recording",
+				"ref": "its pair Grant's Shield (79362): 4 people of four classes and races (correction 79362)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide web row: classes any, side both"
+			}
+		],
+		"note": "Silvia's Sword, the Duskwood pair of Grant's Shield (both from items, both handed in to Sirra Von'Indi), is open to any Alliance class and race; the merged data had the Shaman class and the Dwarf race."
+	},
+	"98517": {
+		"set": {
+			"classes": 64
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0, wowf build 1.60.1.70840: quest record categoryId -82 (the Shaman quest sort)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13: zoneOrSort -82 (Shaman)"
+			}
+		],
+		"note": "Call of Fire (98517), Swart's pointer that sends a Horde Skyborne shaman back to Sessaria Skystride or Aarnor Galestrike on Zephras Isle, is a Shaman quest. The merged data had no class limit, so it counted as open to every Skyborne class."
+	},
+	"6061": {
+		"set": {
+			"pre": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 0 for 6061 (the breadcrumbs 6065/6066/6067 sit in their own exclusive group and lead to it)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 2 people took Taming the Beast (6061) from Yaw Sharpmane with none of The Hunter's Path breadcrumbs (6065/6066/6067) taken or handed in anywhere in that character's recorded history"
+			}
+		],
+		"note": "The first Taming the Beast (6061, Yaw Sharpmane) needs no The Hunter's Path breadcrumb: those only point the way. The merged data listed the breadcrumbs as prerequisites."
+	},
+	"6062": {
+		"set": {
+			"pre": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 0 for 6062 (the breadcrumbs 6068/6069/6070 sit in their own exclusive group and lead to it)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 4 people took Taming the Beast (6062) from Thotar with none of The Hunter's Path breadcrumbs (6068/6069/6070) taken or handed in anywhere in that character's recorded history"
+			}
+		],
+		"note": "The first Taming the Beast (6062, Thotar) needs no The Hunter's Path breadcrumb: those only point the way. The merged data listed the breadcrumbs as prerequisites."
+	},
+	"6063": {
+		"set": {
+			"pre": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 0 for 6063 (the breadcrumbs 6071/6072/6073/6721/6722 sit in their own exclusive group and lead to it)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 4 people took Taming the Beast (6063) from Dazalar with none of The Hunter's Path breadcrumbs (6071/6072/6073/6721/6722) taken or handed in anywhere in that character's recorded history"
+			}
+		],
+		"note": "The first Taming the Beast (6063, Dazalar) needs no The Hunter's Path breadcrumb: those only point the way. The merged data listed the breadcrumbs as prerequisites."
+	},
+	"6064": {
+		"set": {
+			"pre": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 0 for 6064 (the breadcrumbs 6074/6075/6076 sit in their own exclusive group and lead to it)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db quest_template PrevQuestId 0 for 6064"
+			}
+		],
+		"note": "The first Taming the Beast (6064, Grif Wildheart) needs no The Hunter's Path breadcrumb: those only point the way. The merged data listed the breadcrumbs as prerequisites."
+	},
+	"97287": {
+		"set": {
+			"end": {
+				"npc": [
+					269127
+				],
+				"object": []
+			},
+			"minLevel": 24,
+			"objectiveText": "Speak with the Image of Archmage Modera near Dalaran."
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 3 people took Shrewd Negotiations from Magus Wordeen Voidglare with the log line 'Speak with the Image of Archmage Modera near Dalaran.', and the 2 who finished it handed it in to her (npc 269127), all established"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.10 (Forever) gives minimum level 24; EG Link's caches have no quest record for it"
+			}
+		],
+		"note": "Shrewd Negotiations (Horde, Magus Wordeen Voidglare in Tarren Mill) ends at the Image of Archmage Modera outside the City of Dalaran, not at Archmage Celindra inside the city. Minimum level: recordings suggest 31, unconfirmed; review 0.3.7. Pinned at 24 for 0.3.6 so data/recorded's learned minimum level does not apply until a second source agrees."
+	},
+	"870": {
+		"set": {
+			"pre": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: Tonga Runetotem offered The Forgotten Pools to 50 people (levels 11-24) who had never had The Barrens Oases (886), and refused it only to the 7 still carrying 886 (it is turned in to her first)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon: 870 PrevQuestID 0 (no prerequisite)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db quest_template: 870 PrevQuestId 0"
+			}
+		],
+		"note": "The Barrens Oases (886, Arch Druid Hamuul Runetotem in Thunder Bluff) is only a breadcrumb to The Forgotten Pools (870): Tonga gives 870 without it. The data made it a prerequisite, so the Wailing Caverns pick-up sent players to Hamuul for 886, which the game hides from them once it is grey (refused to everyone from level 16 in recordings, offered up to 14; #1436)."
 	}
 }

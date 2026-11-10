@@ -274,10 +274,20 @@ local warning, warnUntil -- the warning being said (Travel.TakeWarning) and unti
 local style = "3d"    -- nav.arrowStyle
 local shownFrame = -1 -- sheet frame on screen (-1 = none yet)
 
+-- A target's own warning (Nav.SetTarget's `warning`: a dungeon whose way in
+-- lies in the other faction's land) stays under the label while it is the
+-- target; the walk's hostile-town warning (`warning`) comes after it.
+local function withTargetWarning(text)
+	local t = Nav.GetTarget()
+	local tw = t and t.warning
+	if not tw then return text end
+	return text ~= "" and (text .. "\n" .. tw) or tw
+end
+
 -- The route's label line: the current leg's instruction, and under it the
 -- walk's "Hostile town" warning while it is being said.
 local function routeLabel(T)
-	local text = T.CurrentLabel() or ""
+	local text = withTargetWarning(T.CurrentLabel() or "")
 	if not warning then return text end
 	return text ~= "" and (text .. "\n" .. warning) or warning
 end
@@ -444,9 +454,10 @@ local function applyStyle(new)
 	tint(tintR, tintG, tintB)
 end
 
--- Shortest Path Forever's own arrow guides while the target is handed to it (Nav/Handoff.lua).
+-- Shortest Path Forever's own arrow guides while the target is handed to it (Nav/Handoff.lua),
+-- TomTom's while it is used and can point at the target (Nav.TomTomArrowGuides).
 local function shouldShow()
-	return ns.Get("nav.arrow") and not Nav.HiddenWithGuide() and Nav.GetTarget() ~= nil and not Nav.UsingTomTomArrow() and not Nav.HandedOff()
+	return ns.Get("nav.arrow") and not Nav.HiddenWithGuide() and Nav.GetTarget() ~= nil and not Nav.TomTomArrowGuides() and not Nav.HandedOff()
 end
 
 local function showSeconds(secs)
@@ -488,7 +499,7 @@ local function syncLabel(T, routed)
 	if routeSeen ~= -1 then
 		routeSeen = -1
 		local target = Nav.GetTarget()
-		local text = target and target.label or ""
+		local text = withTargetWarning(target and target.label or "")
 		if warning then text = text ~= "" and (text .. "\n" .. warning) or warning end
 		labelText:SetText(text)
 	end

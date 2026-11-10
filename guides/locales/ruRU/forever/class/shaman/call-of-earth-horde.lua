@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {quest:1516} Call of Earth
-	["{quest:1516} (Horde)"] = "",
+	["{quest:1516} (Horde)"] = "{quest:1516} (Орда)",
 	-- {item:5175} Earth Totem · {spell:8071} Stoneskin Totem
-	["Your {item:5175}: without it no earth totem can be cast. {spell:8071} comes with it at level 4."] = "",
+	["Your {item:5175}: without it no earth totem can be cast. {spell:8071} comes with it at level 4."] = "Ваш {item:5175}: без него нельзя использовать ни один тотем земли. Вместе с ним на 4-м уровне становится доступен {spell:8071}.",
 
 	-- Step 1: Canaga Earthcaller
 	-- {npc:5887} Canaga Earthcaller · {area:363} Valley of Trials

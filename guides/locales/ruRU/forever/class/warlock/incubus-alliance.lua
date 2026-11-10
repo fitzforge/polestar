@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Succubus and Incubus (Alliance)"] = "",
-	["At 20: the succubus and Forever's incubus, its male twin, each with a soul pouch for your shards."] = "",
+	["Succubus and Incubus (Alliance)"] = "Суккуб и инкуб (Альянс)",
+	["At 20: the succubus and Forever's incubus, its male twin, each with a soul pouch for your shards."] = "На 20-м уровне: суккуб и инкуб Forever – её двойник мужского пола, – и к каждому сумка для осколков души.",
 
 	-- Step 1: Gakin's Summons (Gnomes)
 	-- {quest:1717} Gakin's Summons

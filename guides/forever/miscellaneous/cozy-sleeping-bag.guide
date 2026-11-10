@@ -33,6 +33,11 @@ zone Westfall
 #   the same in the Era and live frames), dgc1980's safe spot in #563: the
 #   straight arrow from the report's 42.08,32.49 runs through Honor's Stand
 #   (about 39.4,29.7), a Horde post. The walking maps' path passes there too.
+# - The way off the dam: players' recordings (2026-11-09 pull). From the
+#   ledge most players drop into the river below the dam (Wetlands); 22
+#   contributors died at its waterfall, about 65.0,77.4 and 66.7,75.1 (map
+#   1437), while those who left it on the west bank (about 67,81 to 61,73)
+#   lived and took the road north over Thandol Span.
 # Not play-tested on Forever yet.
 
 step The note in Westfall
@@ -62,10 +67,16 @@ step Its twin in Westfall
   turnin 79007
   accept 79192 object 424010
 
+# Only for an Alliance player who is not yet in Stonetalon: once there (on foot or by the Stonetalon Peak flight)
+# the detour round the Horde post serves no purpose (#1496).
+step Round Honor's Stand
+  only Alliance
+  when !zone "Stonetalon Mountains"
+  goto 40.2,24.88 map 1413 "North of Honor's Stand" r 30 -- The road west runs through Honor's Stand, a Horde post; this way goes round it.
+
 step Stonetalon Mountains
   zone Stonetalon Mountains
   tip The next hideout is a small camp in the hills north-west of Sun Rock Retreat, in the middle of the Stonetalon Mountains. Leave the road where a path climbs west into the hills and follow it to the camp; the Pocket Litter lies on a crate beside its tent.
-  goto 40.2,24.88 map 1413 "North of Honor's Stand" r 30 only Alliance -- The road west runs through Honor's Stand, a Horde post; this way goes round it.
   goto 50.9,52.3 "Path into the hills"
   turnin 79192
   accept 79980
@@ -83,6 +94,7 @@ step The dam in Loch Modan
 
 step Thoradin's Wall
   zone Hillsbrad Foothills
+  tip Careful: off the dam's ledge you land in the river below it, in the Wetlands. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over Thandol Span into Arathi.
   tip At the gate in Thoradin's Wall between Arathi and Hillsbrad, turn north and follow the wall on the Hillsbrad side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through.
   goto 87.5,47.7 "Fallen cart"
 

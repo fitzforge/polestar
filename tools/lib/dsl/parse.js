@@ -42,7 +42,7 @@ const HEADER_KEYS = ['guide', 'title', 'levels', 'zone', 'faction', 'race', 'cla
 // and interact goals (resolve.js, applyLoop).
 // `skipto <label> when <predicate>`: when the route reaches the step and the
 // predicate holds, it jumps to the labelled step (resolve.js, checkLabels).
-const STEP_KEYS = ['zone', 'only', 'tip', 'image', 'when', 'label', 'along', 'skipto', 'loop'];
+const STEP_KEYS = ['zone', 'only', 'tip', 'image', 'when', 'label', 'along', 'background', 'skipto', 'loop'];
 
 // `group [N]`: the goal needs a group (of N players), shown in the guide window.
 const COMMON = ['text', 'optional', 'only', 'group'];
@@ -73,7 +73,8 @@ const MODS = {
 	train: [...COMMON, ...COORDS, 'npc', 'gossip'],
 	buy: [...COMMON, ...COORDS, 'npc', 'count', 'nearest'],
 	vendor: [...COMMON, ...COORDS, 'npc', 'gossip'],
-	level: [...COMMON],
+	// `grind <npcId>`: the mob a level is reached on; the arrow leads to its nearest spawn area.
+	level: [...COMMON, 'grind'],
 	// `money <amount>`: hold that much; `task "<text>"`: done when the player ticks it.
 	money: ['text', 'optional', 'only'],
 	task: ['optional', 'only', ...COORDS],
@@ -90,8 +91,8 @@ const MODS = {
 	wait: ['text', 'optional', 'only'],
 };
 const VERBS = Object.keys(MODS);
-const MOD_LABEL = { at: '@x,y', count: 'xN', text: '"text"', until: 'until <N>', criteria: 'criteria <n>', frame: 'era`/`live', xp: 'xp <N>', money: 'money <amount>', group: 'group [N]' };
-const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'reward', 'choose', 'xp', 'money', 'group', 'direct', 'gossip'];
+const MOD_LABEL = { at: '@x,y', count: 'xN', text: '"text"', until: 'until <N>', criteria: 'criteria <n>', frame: 'era`/`live', xp: 'xp <N>', money: 'money <amount>', group: 'group [N]', grind: 'grind <npcId>' };
+const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'reward', 'choose', 'xp', 'money', 'group', 'direct', 'gossip', 'grind'];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN = 2;
 const GROUP_MAX = 40;
@@ -330,6 +331,17 @@ function parseGuide(text, file, diag) {
 					continue;
 				}
 				step.alongLine = ln;
+			} else if (kw === 'background') {
+				if (step.background) {
+					err(ln, 'duplicate `background` in step');
+					continue;
+				}
+				if (toks.length !== 1) {
+					err(ln, '`background` takes nothing');
+					continue;
+				}
+				step.background = true;
+				step.backgroundLine = ln;
 			} else if (kw === 'skipto') {
 				const usage = '`skipto` needs a label and a predicate: skipto <label> when <predicate>';
 				if (toks.length < 4 || toks[1].quoted || toks[2].quoted || toks[2].text.toLowerCase() !== 'when') {
@@ -957,6 +969,14 @@ function parseGoal(verb, line, lex, ln, err, warn) {
 				const v = intArg(i + 1, 'level');
 				if (v === null) return null;
 				goal.minLevel = v;
+				i += 2;
+				continue;
+			}
+			case 'grind': {
+				if (!use('grind')) return null;
+				const v = intArg(i + 1, 'npc id');
+				if (v === null) return null;
+				goal.grind = v;
 				i += 2;
 				continue;
 			}

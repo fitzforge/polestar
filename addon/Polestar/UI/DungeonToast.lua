@@ -1,7 +1,9 @@
 -- The dungeon heads-up (#836): the class quest heads-up's card (UI/ClassToast.lua)
 -- for a dungeon whose quests have opened to this character. "LEVEL 18 ·
 -- DUNGEON", "Ragefire Chasm is open to you", how many quests there are to
--- pick up and where, and what they are worth ("+1.4 LEVELS", Dungeons.QuestXP);
+-- pick up and where, and what they are worth ("+1.4 LEVELS", Dungeons.QuestXP),
+-- in its ring the dungeon's own picture (Dungeons/Art.lua: its loading
+-- screen), or the dungeon glyph for one without;
 -- "Pick up the quests" opens the dungeon's pickup guide in a new tab
 -- (Dungeons.PickUp), so the leveling guide keeps its own; "Open in
 -- Dungeons" opens the dungeon's page in the hub's Dungeons section
@@ -94,7 +96,8 @@ function DT.Candidates(level, mode, questId)
 			local plan = Dg.PickupPlan(d.key)
 			local take = plan and #plan.take or 0
 			if take > 0 and (plan.later == 0 or take >= MIN_OPEN) then
-				out[#out + 1] = { key = d.key, name = d.name, zoneName = d.zoneName, minLevel = min, maxLevel = max, take = take, level = level }
+				out[#out + 1] = { key = d.key, name = d.name, zoneName = d.zoneName, minLevel = min, maxLevel = max, take = take, level = level,
+					pickLabel = Dg.PickupLabel and Dg.PickupLabel(plan) or nil }
 			end
 		end
 	end
@@ -105,9 +108,11 @@ function DT.Candidates(level, mode, questId)
 	return out
 end
 
--- What the card says for candidate c.
+-- What the card says for candidate c. Its ring wears the dungeon's own
+-- picture (Dungeons.Art: its loading screen), else the dungeon glyph.
 function DT.Model(c)
-	local m = { dungeon = c.key, icon = Theme.Media("icon-dungeon"), iconColor = "dungeon", titleColor = "text" }
+	local Dg = D()
+	local m = { dungeon = c.key, art = Dg.Art and Dg.Art(c.key), icon = Theme.Media("icon-dungeon"), iconColor = "dungeon", titleColor = "text" }
 	m.head = format(L["LEVEL %d · DUNGEON"], c.level)
 	m.title = format(L["%s is open to you"], c.name)
 	local quests = c.take == 1 and L["1 quest to pick up"] or format(L["%d quests to pick up"], c.take)
@@ -116,12 +121,18 @@ function DT.Model(c)
 	if range then where[#where + 1] = format(L["Levels %s"], range) end
 	if c.zoneName then where[#where + 1] = c.zoneName end
 	m.giver = table.concat(where, "  \194\183  ")
+	-- A way in through the other faction's land (Dungeons.EnemyEntrance): it
+	-- says so in the warning colour and leads with the dungeon's page, where the
+	-- player decides; the pick-up guide is the second button.
+	local enemy = Dg.EnemyEntrance and Dg.EnemyEntrance(c.key, SIDE[player().faction or ""])
+	if enemy then m.giver = m.giver .. "\n|c" .. Theme.Hex("warning") .. enemy .. "|r" end
 	-- What its quests are worth, as on the dungeon's page (Dungeons.QuestXP).
-	local Dg, LT = D(), UI.LevelTip
+	local LT = UI.LevelTip
 	local xs = Dg.QuestXP and Dg.QuestXP(c.key)
 	if xs and not xs.maxed and (xs.levels or 0) > 0 and LT and LT.Text then m.badge = LT.Text(xs.levels):upper() end
-	m.act = { label = L["Pick up the quests"], run = function() return DT.PickUp(c.key) end }
-	m.more = { label = L["Open in Dungeons"], run = function() return DT.SeePage(c.key) end }
+	local pick = { label = c.pickLabel or L["Pick up the quests"], run = function() return DT.PickUp(c.key) end }
+	local page = { label = L["Open in Dungeons"], run = function() return DT.SeePage(c.key) end }
+	if enemy then m.act, m.more = page, pick else m.act, m.more = pick, page end
 	m.off = { label = L["Turn these off"], run = DT.TurnOff }
 	return m
 end

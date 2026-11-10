@@ -23,6 +23,8 @@ ns.RegisterDefaults("ui", {
 	barsBottom = false, -- with growUp: tabs and navigator at the bottom, by the pinned edge
 	compact = false,
 	style = "standard", -- "standard" | "transparent"
+	backing = "soft", -- transparent: "soft" (a light shade behind each line) | "dark" (a dark backing) | "none" (GuideFrame GF.SHADE, GF.VEIL)
+	barShown = false, -- transparent: the tabs and the step bar stay shown instead of only under the cursor
 	scale = 1,
 	opacity = 1,
 	bgOpacity = 0.94, -- the ground of every Polestar window
@@ -32,9 +34,9 @@ ns.RegisterDefaults("ui", {
 	upcoming = 0, -- Up next is off by default (the reading flow names the next person instead)
 	upcomingOpen = false, -- when on, upcoming steps start listed instead of collapsed
 	showNotes = true,
-	notesOpen = true, -- a step's tip starts in full; off, it starts on one line (players asked for it open)
+	notesOpen = false, -- a step's tip starts on one line until clicked; on, it starts in full (Fitz, 2026-11-07: the full tip was a wall of text)
 	combat = "show", -- "show" | "fade" | "hide"; steady by default, a fade on every pull distracts
-	instance = "show", -- "show" | "hide": in dungeons and raids, until the player opens it there
+	instance = "hide", -- "show" | "hide": in dungeons, raids, battlegrounds and arenas, until the player opens it there; hidden by default, a healer asked for it out of the way
 	reduceMotion = false,
 	classCardSound = true, -- the class-quest card's and the class quest heads-up's chime (UI/ClassCard.lua, UI/ClassToast.lua)
 	skin = "polestar", -- "polestar" (the house style, the default) | "halo" | "hearth" | "forever" | "blizzard" | "classic" (Polestar.Theme, "Skins")
@@ -56,6 +58,7 @@ ns.RegisterDefaults("ui", {
 	band = true, -- the starlit header band
 	shadow = true, -- the window drop shadow
 	pickerFaction = "auto", -- "auto" | "Alliance" | "Horde" | "All"
+	-- pickerCollapsed = { [folder id] = true }: the guide menu's Browse folders folded away (UI.Picker.IsCollapsed)
 	-- pos = { left, top } once the window has been moved
 })
 
@@ -214,12 +217,63 @@ local function objectiveText(goal, counters)
 	return text
 end
 
+-- The quote mark closing a quest name in running text (ns.Quoted, in any
+-- client language), with the space some languages put before it.
+local CLOSE_QUOTES = { '"', "\226\128\157", "\226\128\156", "\194\187", "\194\171", "\227\128\141", "\227\128\143" }
+local QUOTE_GAPS = { "", " ", "\194\160", "\226\128\175" }
+local function pastQuote(text, b)
+	for _, gap in ipairs(QUOTE_GAPS) do
+		for _, q in ipairs(CLOSE_QUOTES) do
+			local s = gap .. q
+			if text:sub(b + 1, b + #s) == s then return b + #s end
+		end
+	end
+	return b
+end
+
+-- The goal's quest name in `text` coloured `hex` (nil: left as it is) and
+-- the "New in Forever" mark after it, past its closing quote mark
+-- (NewQuests.Mark: a quest Forever added, while ui.newInForever is on).
+local function paintSubject(goal, text, hex)
+	local subject = goal.subject
+	if type(subject) ~= "string" or subject == "" then return text end
+	local NQ = ns.NewQuests
+	local mark = goal.subjectKind == "quest" and goal.quest and NQ and NQ.Mark(goal.quest) or ""
+	if not hex and mark == "" then return text end
+	local a, b = text:find(subject, 1, true)
+	if not a then return text end
+	local name = hex and ("|c" .. hex .. subject .. "|r") or subject
+	if mark == "" then return text:sub(1, a - 1) .. name .. text:sub(b + 1) end
+	local e = pastQuote(text, b)
+	return text:sub(1, a - 1) .. name .. text:sub(b + 1, e) .. mark .. text:sub(e + 1)
+end
+
+-- `text` (a goal's line without colours) with the "New in Forever" mark
+-- after its quest's name, when it has one.
+function UI.MarkQuestName(goal, text)
+	return paintSubject(goal, text, nil)
+end
+
+-- A "While you're here" line's text (Engine's `hereText`), a turn-in's or a
+-- quest to take's name marked after it when Forever added the quest.
+function UI.HereText(v)
+	local text = v.hereText or ""
+	local NQ, title = ns.NewQuests, v.hereTitle
+	if not (v.here == "turnin" or v.here == "take") or not NQ or type(title) ~= "string" or title == "" then return text end
+	local mark = NQ.Mark(v.quest)
+	if mark == "" then return text end
+	local _, b = text:find(title, 1, true)
+	if not b then return text end
+	return text:sub(1, b) .. mark .. text:sub(b + 1)
+end
+
 -- The goal's main line. The Engine's `text` is the truth (it carries author
 -- overrides and counts such as "Kill 5 Young Wolf"); the subject is coloured
 -- by its kind wherever it appears in that text (a quest's in `questHex`, an
--- "ffrrggbb", when given: the class-quest card's class colour). Done goals
--- render plain (the row colours them muted). A `complete` goal: its
--- objectives (objectiveText).
+-- "ffrrggbb", when given: the class-quest card's class colour), a quest
+-- Forever added marked after its name (paintSubject). Done goals render
+-- plain (the row colours them muted). A `complete` goal: its objectives
+-- (objectiveText).
 function UI.GoalText(goal, questHex)
 	local objectives = objectiveText(goal, false)
 	if objectives then return objectives end
@@ -232,13 +286,9 @@ function UI.GoalText(goal, questHex)
 			text = (subject ~= "" and subject) or verb or ""
 		end
 	end
-	if goal.status == "done" then return text end
-	local kind = KIND_COLOR[goal.subjectKind]
-	if not kind or type(subject) ~= "string" or subject == "" then return text end
-	local a, b = text:find(subject, 1, true)
-	if not a then return text end
-	local hex = (kind == "quest" and questHex) or Theme.Hex(kind)
-	return text:sub(1, a - 1) .. "|c" .. hex .. subject .. "|r" .. text:sub(b + 1)
+	local kind = goal.status ~= "done" and KIND_COLOR[goal.subjectKind]
+	if not kind then return paintSubject(goal, text, nil) end
+	return paintSubject(goal, text, (kind == "quest" and questHex) or Theme.Hex(kind))
 end
 
 -- The goal's main line without colour codes (skipped goals).
@@ -338,6 +388,58 @@ function UI.GoalRewards(goal)
 	if type(r.money) == "number" and r.money > 0 then parts[#parts + 1] = money(r.money) end
 	if #parts == 0 then return nil end
 	return table.concat(parts, "  \194\183  ")
+end
+
+-- What doing a quest opens up (Unlocks.For), as tooltip lines appended to
+-- `lines`: "Leads to" with up to UNLOCKS_SHOWN follow-ups ("The Defias
+-- Brotherhood (part 2 of 7)", "Solomon's Law, from Magistrate Solomon"),
+-- "+N more", then the chain's last quest and its reward. Nothing when the
+-- quest opens nothing known.
+local UNLOCKS_SHOWN = 4
+local function unlockLabel(e)
+	local label = ns.Quoted(e.title)
+	if e.part then label = format(L["%s (part %d of %d)"], label, e.part, e.of) end
+	if e.giver then label = format(L["%s, from %s"], label, e.giver) end
+	return label
+end
+function UI.UnlockLines(quest, lines)
+	local U = ns.Unlocks
+	local u = U and U.For(quest)
+	if not u then return lines end
+	for i, e in ipairs(u.next) do
+		if i > UNLOCKS_SHOWN then
+			lines[#lines + 1] = { left = "", right = format(L["+%d more"], #u.next - UNLOCKS_SHOWN) }
+			break
+		end
+		lines[#lines + 1] = { left = i == 1 and L["Leads to"] or "", right = unlockLabel(e) }
+	end
+	local last = u.last
+	if last then
+		lines[#lines + 1] = { left = L["Chain ends with"], right = format(L["%s (part %d)"], ns.Quoted(last.title), last.part) }
+		local rewards = last.rewards and UI.GoalRewards({ rewards = last.rewards })
+		if rewards then lines[#lines + 1] = { left = L["Final reward"], right = rewards } end
+	end
+	return lines
+end
+
+-- Engine.SkipLoses' list as one line: "Skipping also skips: A, B, C, D and 2
+-- more", the parts of a series under one title ("The People's Militia (2
+-- parts)"); nil for none.
+function UI.SkipLosesText(list)
+	if type(list) ~= "table" or #list == 0 then return nil end
+	local titles, count = {}, {}
+	for _, e in ipairs(list) do
+		if not count[e.title] then titles[#titles + 1] = e.title end
+		count[e.title] = (count[e.title] or 0) + 1
+	end
+	local names = {}
+	for i = 1, math.min(#titles, UNLOCKS_SHOWN) do
+		local t = titles[i]
+		names[i] = count[t] > 1 and format(L["%s (%d parts)"], ns.Quoted(t), count[t]) or ns.Quoted(t)
+	end
+	local text = table.concat(names, ", ")
+	if #titles > UNLOCKS_SHOWN then text = format(L["%s and %d more"], text, #titles - UNLOCKS_SHOWN) end
+	return format(L["Skipping also skips: %s"], text)
 end
 
 -- An area objective (mobs spread over a wide area, `spread` with its spot
@@ -513,7 +615,7 @@ function UI.GoalLine(goal, questHex)
 	local plain = goal.status == "done" or goal.status == "skipped"
 	local text = objectiveText(goal, goal.status ~= "skipped")
 	if not text then
-		text = plain and UI.PlainGoalText(goal) or UI.GoalText(goal, questHex)
+		text = plain and UI.MarkQuestName(goal, UI.PlainGoalText(goal)) or UI.GoalText(goal, questHex)
 		local count = UI.GoalProgress(goal)
 		if count and goal.status ~= "skipped" then
 			local p = goal.progress

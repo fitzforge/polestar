@@ -25,6 +25,7 @@ end
 
 local function repairOff() return not QoL.On("autoRepair") end
 local function markOff() return not QoL.On("markTarget") end
+local function targetOff() return not QoL.On("targetButton") end
 
 -- The eight raid icons, by the client's names, then a new one each press.
 local function markChoices()
@@ -103,15 +104,24 @@ register(QUESTING, L["Buttons"], L["Action buttons"], {
 		help = L["The item the current step uses, or a quest item it collects, glows in your bags (and in Baganator). An item a later step needs gets a lock, so you don't sell it."],
 		search = "bags, glow, quest item, inventory" },
 	{ kind = "toggle", key = "qol.targetButton", label = L["Target button"],
-		help = L["Targets the current step's mobs by name; each click moves to the next name. Bindable."], search = "target macro, find mob, keybind, hotkey" },
+		help = L["Targets the current step's mobs by name, or the NPCs it sends you to when it has no mob; each click moves to the next name. Bindable."], search = "target macro, find mob, keybind, hotkey" },
+	{ kind = "toggle", key = "qol.targetPlate", label = L["Show who it targets"], disabled = targetOff, child = true,
+		help = L["The target button's icon shows what you do next: talk, accept, turn in, kill or loot, a skull for an elite, rare or boss, or their face once you have seen them. Their name sits beside it, green for a friendly NPC, red for a mob, gold for an elite or rare, with small icons for the names after it."],
+		search = "target icon, target name, portrait, npc name, elite, boss" },
+	{ kind = "toggle", key = "qol.targetAnnounce", label = L["Name new targets in chat"], disabled = targetOff, child = true,
+		help = L["When the target button's names change, one line in chat lists them (\"Targeting: ...\"). Only you see it."],
+		search = "target chat, announce target, targeting" },
 	{ kind = "toggle", key = "qol.guideNameTarget", label = L["Click objectives to target"],
 		help = L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] },
 	{ kind = "toggle", key = "qol.rareButton", label = L["Rare button"],
 		help = L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."], search = "rare elite, target rare, keybind" },
 	C.hearthButton(),
 	{ kind = "toggle", key = "qol.markTarget", label = L["Mark what they target"],
-		help = L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."],
+		help = L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."],
 		search = "raid marker, raid icon, skull, star, mark target" },
+	{ kind = "toggle", key = "qol.pingTarget", label = L["Ping what they target"],
+		help = L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."],
+		search = "ping, ping target, group ping" },
 	{ kind = "dropdown", key = "qol.markMob", label = L["Icon on mobs"], choices = markChoices, disabled = markOff,
 		help = L["A new one each press skips the NPCs' icon and leaves a mob that has one as it is."], search = "raid marker, raid icon, skull" },
 	{ kind = "dropdown", key = "qol.markNpc", label = L["Icon on NPCs"], choices = markChoices, disabled = markOff,

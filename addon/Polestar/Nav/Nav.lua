@@ -39,6 +39,7 @@ ns.RegisterDefaults("nav", {
 	hideArrowWithGuide = false,
 	worldPins = true,
 	minimapPins = true,
+	minimapRoute = true, -- the route line (or trail) on the minimap; off keeps the pin (Maps/RouteLines.lua, Nav/Layers.lua)
 	trailDots = true,
 	openmapDots = true, -- the trail on OpenMap's stitched map (Nav/Pins.lua; OpenMap's menu switch)
 	tomtom = true,
@@ -169,7 +170,8 @@ end
 local engineWp    -- last waypoint announced by the Engine
 local override    -- point picked with Nav.SetTarget, kept until the step changes
 local dismissed   -- engine waypoint hidden by ClearTarget until the Engine moves on
-local target      -- what we guide to: override, else engine waypoint
+local hold        -- point held with Nav.Hold (the way back to your corpse), over everything until Nav.Unhold
+local target      -- what we guide to: hold, else override, else engine waypoint
 local tC, tX, tY  -- target in world space (nil until resolvable)
 local tZ         -- its height: the target's `z` (a guide goal, candidate or spawn area at an NPC or object), else nil
 local arrived = false
@@ -211,7 +213,10 @@ local function announce()
 end
 
 local function apply(shouldAnnounce)
-	local new = override or (not dismissed and engineWp) or nil
+	local new = hold or override or (not dismissed and engineWp) or nil
+	-- Held: a step, the guide's waypoint or a picked point changing under the
+	-- hold changes nothing shown (no replan, no second chime) until Nav.Unhold.
+	if hold and new == target then return end
 	target = new
 	arrived = false
 	resolve()
@@ -227,7 +232,9 @@ end
 -- ("dungeon", "trainer", "innkeeper", "flightmaster"; Nav/Handoff.lua), optional.
 -- `z`: the height of the NPC or object there (a guide goal's or candidate's
 -- compiled `z`), optional, so the walk ends on its floor.
-function Nav.SetTarget(map, x, y, label, f, stop, z)
+-- `warning`: a line the arrow shows under the label while this is the target
+-- (a dungeon entrance in the other faction's land), optional.
+function Nav.SetTarget(map, x, y, label, f, stop, z, warning)
 	map, x, y = tonumber(map), tonumber(x), tonumber(y)
 	if not (map and x and y) then return false end
 	local Engine = ns.Engine
@@ -235,13 +242,44 @@ function Nav.SetTarget(map, x, y, label, f, stop, z)
 		map = map, x = x, y = y, f = f,
 		z = type(z) == "number" and z or nil,
 		label = (label and label ~= "") and label or L["Waypoint"],
+		warning = type(warning) == "string" and warning ~= "" and warning or nil,
 		kind = "manual",
 		stop = type(stop) == "string" and stop or nil,
 		r = Nav.DEFAULT_RADIUS,
 		stepIndex = Engine and Engine.GetStepIndex and Engine.GetStepIndex() or nil,
 	}
 	apply(true)
-	return true
+	return override
+end
+
+-- The arrow held on one point (QoL/Death.lua: the way back to your corpse or
+-- the Spirit Healer) over every other target until Nav.Unhold: the guide's
+-- step and waypoint changes, and points picked by hand or set by other
+-- addons, go on underneath and show again once it lets go (a picked point
+-- only while the step is the same, as always). Returns the held target, or
+-- nil for a bad point.
+function Nav.Hold(map, x, y, label, f)
+	map, x, y = tonumber(map), tonumber(x), tonumber(y)
+	if not (map and x and y) then return nil end
+	hold = {
+		map = map, x = x, y = y, f = f,
+		label = (label and label ~= "") and label or L["Waypoint"],
+		kind = "manual",
+		r = Nav.DEFAULT_RADIUS,
+	}
+	apply(true)
+	return hold
+end
+
+-- Lets go of the held point: the target is what it would have been without it.
+function Nav.Unhold()
+	if not hold then return end
+	hold = nil
+	apply(true)
+end
+
+function Nav.IsHeld()
+	return hold ~= nil
 end
 
 -- Drops the override; the engine's waypoint stays dismissed until the Engine
@@ -510,6 +548,7 @@ ns.On("SETTING_CHANGED", function(path)
 		Nav.Refresh() -- the travel button (and the arrow, Nav.HiddenWithGuide) go and come back with the guide
 	end
 end)
+ns.On("GUIDE_SHOWN", function() Nav.Refresh() end) -- an instance hide (ns.GuideShown)
 
 local function situationChanged()
 	if target and not tC then resolve() end
@@ -573,13 +612,12 @@ function Nav.HandoffOption(c)
 end
 
 -- Whether hiding the guide window (ui.shown) hides the arrow now: only with
--- nav.hideArrowWithGuide on, and never on the way back to your corpse or a
--- Spirit Healer (QoL/Death.lua). The travel button goes with the window
--- either way (Nav/Prompts.lua).
+-- nav.hideArrowWithGuide on, and never while the arrow is held (Nav.Hold: the
+-- way back to your corpse or a Spirit Healer). The travel button goes with
+-- the window either way (Nav/Prompts.lua).
 function Nav.HiddenWithGuide()
 	if ns.GuideShown() or not ns.Get("nav.hideArrowWithGuide") then return false end
-	local D = ns.QoL and ns.QoL.Death
-	return not (D and D.Guides and D.Guides(target))
+	return hold == nil
 end
 
 -- A command that asked for the arrow while the guide hides it still takes

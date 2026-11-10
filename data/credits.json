@@ -2,25 +2,50 @@
 	"supporters": [
 		"Xaden Ryan",
 		"defect",
+		"Jeor",
 		"Tor",
 		"MrBackus",
 		"Kodikat",
 		"vblinden",
 		"Gray",
+		"Bob",
+		"Hiegard",
 		"dgc1980",
 		"Peter",
 		"Gem",
 		"EpicTibbles",
 		"Kevin S",
+		"WMX",
+		"Varun",
 		"FurTrade",
 		"hub_by",
 		"Comicus",
 		"Pynte",
 		"Justin",
-		"Zhandroid"
+		"Zhandroid",
+		"Thomas Barre",
+		"ausZNN",
+		"P",
+		"s u p r x m x",
+		"JesusCena",
+		"Undrende",
+		"Wolfstriked",
+		"Saerel",
+		"bitspirit3",
+		"LucaNerlich"
 	],
 	"exclude": [
-		"fitzforge"
+		"fitzforge",
+		"Fitz | Polestar",
+		"Twerkjob",
+		"butthole"
 	],
-	"names": {}
+	"names": {
+		"YamanNekon": "山猫",
+		"AURUM": "AurumTitanos",
+		"Conjure": "c0njure",
+		"tor": "Tor",
+		"defect": "bigdefect",
+		"Deadshot": "Deadshot0330"
+	}
 }

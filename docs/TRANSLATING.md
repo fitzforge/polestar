@@ -15,11 +15,13 @@ notes). The list, with each language's status and translators, is
 `rust/crates/forge-guide/src/locales.rs` (and `tools/lib/i18n/locales.js` beside it for the JS tools).
 
 - **reviewed**: written or checked by a native speaker. The tools never fill
-  or rewrite its translations. German (`deDE`, thecodingcortex), Latin
+  or rewrite its translations. German (`deDE`, Cortexyn), Latin
   American Spanish (`esMX`, CDVolvik), French (`frFR`, Yendi).
 - **ai**: made by a machine. On that client, Options > About says so and
   links to the Discord. Spanish of Spain (`esES`), Korean (`koKR`), Brazilian
-  Portuguese (`ptBR`), Russian (`ruRU`), Chinese (`zhCN`, `zhTW`).
+  Portuguese (`ptBR`), Russian (`ruRU`), Chinese (`zhCN`, `zhTW`). An AI-made
+  language may name translators who reviewed part of it (`zhCN`: 山猫, the
+  Westfall guide).
 
 Spain's and Latin America's clients use different words for game terms
 (mazmorra, calabozo), so `esES` and `esMX` are separate files. English clients
@@ -27,15 +29,17 @@ Spain's and Latin America's clients use different words for game terms
 
 ## The file
 
-Each language has one file, `addon/Polestar/Locales/<locale>.lua`, and one
-for the optional Recorder's few chat lines,
-`addon/Polestar_Recorder/Locales/<locale>.lua`, written the same way:
+Each language has one file, `Interface.lua` in its language folder
+`addon/Polestar_<locale>` (only a client in that language loads the folder),
+and one for the optional Recorder's few chat lines,
+`addon/Polestar_Recorder/Locales/<locale>.lua`, written the same way (the
+Recorder's starts with `local _, ns = ...` and the plain locale check):
 
 ```lua
 -- German (deDE). ...
 
-local _, ns = ...
-if not (GetLocale and GetLocale() == "deDE") then return end
+local ns = Polestar
+if not (ns and GetLocale and GetLocale() == "deDE") then return end
 local L = ns.L
 
 -- Core/Commands.lua
@@ -52,6 +56,10 @@ L["Toggle guide window"] = "Guide-Fenster ein-/ausblenden"
   headers stay as you wrote them.
 - A key `"context: text"` (`"boss: Chest"`) is one meaning of a word: translate
   the text after the colon, in that meaning.
+- `"quote marks: “%s”"` is how a quest's name sits in a sentence ("Turn
+  in “Your Place in the World”"): write your language's quote marks around
+  the `%s` („%s“, « %s » with no-break spaces, «%s», 「%s」). Use marks the
+  game font draws; the shipped files show which.
 - The block at the end, `-- No longer in the code (its English changed or it
   went away): reuse or delete.`, keeps your translations of texts the code no
   longer has, commented out. When the English of a text changed, its new key
@@ -301,7 +309,7 @@ hand-written ones (Polestar, Polestar_Nav, Polestar_ItemDB,
 Polestar_Recorder) carry the same lines, and the forge-i18n tests check
 that every TOC under `addon/` has all nine and that they match. Our guides'
 race parts (`Polestar_Guides_<race>`, class chains and baked legs) fill one
-title and notes with the race's name as `addon/Polestar/Locales/` has it.
+title and notes with the race's name as the interface files (`addon/Polestar_<locale>/Interface.lua`) have it.
 
 ## Guide texts
 

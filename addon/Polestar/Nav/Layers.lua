@@ -13,7 +13,8 @@
 -- leg's start where the mode changes, and its end), broken at a Hearthstone (a jump, not a
 -- path) and across continents; without a route, straight to the target (both surfaces).
 -- nav.worldPins / nav.minimapPins switch Nav's layers on each surface; nav.trailDots the trail,
--- which stands in only while Maps/RouteLines.lua draws no route (nav.routeLines off).
+-- which stands in only while Maps/RouteLines.lua draws no route (nav.routeLines off), and
+-- nav.minimapRoute keeps it off the minimap.
 
 local ADDON, ns = ...
 local Nav = ns.Nav
@@ -27,6 +28,7 @@ Nav.layers = Layers
 
 local TARGET, ROUTE, GOALS, SPOTS = "nav.target", "nav.route", "nav.goals", "nav.spots"
 local AREAS, GOAL_AREAS = "nav.areas", "nav.goalAreas"
+local HERE, HERE_AREAS = "nav.here", "nav.hereAreas"
 
 local function color(name)
 	local r, g, b = Nav.RGB(name)
@@ -134,10 +136,11 @@ local function updateRoute(world)
 	Pins.SetLayer(ROUTE, pins, { world = true, minimap = false, scale = 0.9 })
 end
 
-local function updateGoals(world)
+-- view: the current step's Engine.GetStepView (index), fetched once per
+-- Layers.Update for this and the areas.
+local function updateGoals(world, index, view)
 	local Engine = ns.Engine
-	local index = world and Engine and Engine.GetStepIndex and Engine.GetStepIndex()
-	local view = index and Engine.GetStepView and Engine.GetStepView(index)
+	if not world then view = nil end
 	if not (view and view.goals) then
 		Pins.ClearLayer(GOALS)
 		return
@@ -145,7 +148,8 @@ local function updateGoals(world)
 	local target = Nav.GetTarget()
 	local pins = {}
 	-- The step's goals, then the Along the way list's (Engine.GetAlong: along
-	-- steps and pinned quests, #644).
+	-- steps and pinned quests, #644). The While you're here line has its own
+	-- layer (updateHere).
 	local list = view.goals
 	if Engine.GetAlong then
 		list = {}
@@ -180,170 +184,39 @@ end
 
 -- Spawn regions: the places a goal's mobs or objects spawn (compiled
 -- `spots`: centres with the radius that covers their spawns) grouped into
--- regions, each the convex hull of its spots' discs (REGION_PAD wider) as a
--- REGION_SIDES-gon around it. Spots whose discs come within REGION_LINK yards
--- of each other join, nearest first, while the region stays at most
--- REGION_MAX_SPAN across: where the player hunts, not one camp at a time, and
--- a long coast of spawns is a chain of regions, not one hull over the sea.
--- Every polygon side is tangent to the hull, so the polygon covers every
--- spawn. Built once per goal (the compiled guide never changes):
--- regions = { { c, wx, wy (its centre), hull = { wx1, wy1, ... }, n (spawns), alt (only
+-- regions by Polestar.Regions (Nav/Regions.lua). Built once per goal (the
+-- compiled guide never changes):
+-- regions = { { c, wx, wy (its centre), hull = { wx1, wy1, ... }, members, n (spawns), alt (only
 -- places the arrow does not pick by itself) }, ... }, nil without spots or a map frame.
--- A region narrower than REGION_SMALL yards is an 8-gon (a handful of pixels
--- on the world map), the others REGION_SIDES-gons.
--- REGION_WORK caps the spot pairs one goal's grouping compares (the sweep and
--- the joins together); the sweep of the busiest built-in goal (438 spots)
--- compares about 11,000. A goal past it, only a crafted guide (an import
--- string), draws no regions instead of freezing the game on a quadratic
--- grouping.
-local REGION_SIDES, REGION_SMALL = 16, 200
-local REGION_LINK = 90
-local REGION_MAX_SPAN = 700
-local REGION_PAD = 10
-local REGION_MIN_RADIUS = 15
-local REGION_WORK = 50000
+-- A goal with too many spots to group (Regions.WORK; only a crafted guide,
+-- an import string) draws no regions.
 local regionCache = setmetatable({}, { __mode = "k" })
-local sides = {}
-for _, k in ipairs({ 8, REGION_SIDES }) do
-	local t = { n = k, cos = {}, sin = {}, det = math.sin(2 * math.pi / k) }
-	for i = 1, k do
-		local a = 2 * math.pi * (i - 1) / k
-		t.cos[i], t.sin[i] = math.cos(a), math.sin(a)
-	end
-	sides[k] = t
-end
-
--- The polygon whose sides touch the hull of the discs (members of cs, xs,
--- ys, rs listed in group, span yards across) from outside.
-local function regionOf(group, span, cs, xs, ys, rs, spots)
-	local t = sides[span < REGION_SMALL and 8 or REGION_SIDES]
-	local K, cosK, sinK = t.n, t.cos, t.sin
-	local h = {}
-	for k = 1, K do
-		local ux, uy, best = cosK[k], sinK[k], -math.huge
-		for _, i in ipairs(group) do
-			local v = xs[i] * ux + ys[i] * uy + rs[i]
-			if v > best then best = v end
-		end
-		h[k] = best
-	end
-	-- Corner k: where side k meets side k + 1.
-	local hull, sx, sy, m = {}, 0, 0, 0
-	for k = 1, K do
-		local j = k % K + 1
-		local x = (h[k] * sinK[j] - h[j] * sinK[k]) / t.det
-		local y = (h[j] * cosK[k] - h[k] * cosK[j]) / t.det
-		if m == 0 or math.abs(x - hull[2 * m - 1]) > 0.5 or math.abs(y - hull[2 * m]) > 0.5 then
-			m = m + 1
-			hull[2 * m - 1], hull[2 * m] = x, y
-			sx, sy = sx + x, sy + y
-		end
-	end
-	local n, alt = 0, true
-	for _, i in ipairs(group) do
-		n = n + (tonumber(spots[i].n) or 0)
-		if not spots[i].alt then alt = false end
-	end
-	return { c = cs[group[1]], wx = sx / m, wy = sy / m, hull = hull, n = n, alt = alt }
-end
 
 local function regionsOf(goal)
 	local cached = regionCache[goal]
 	if cached ~= nil then return cached or nil end
-	local work = 0
-	local function tooMuch()
-		regionCache[goal] = false
-		ns.Debug("spawn regions: a goal's", #goal.spots, "spots are too many to group; no regions drawn")
-		return nil
-	end
 	local C = ns.Compat
 	local spots = goal.spots
-	if not (C and C.MapToWorld and type(spots) == "table" and goal.map) then return nil end
+	if not (C and C.MapToWorld and ns.Regions and type(spots) == "table" and goal.map) then return nil end
 	local cs, xs, ys, rs = {}, {}, {}, {}
-	local groupOf, members, span = {}, {}, {}
 	for i, s in ipairs(spots) do
 		local c, wx, wy = C.MapToWorld(goal.map, s.x, s.y, goal.f)
 		if not c then return nil end -- not resolvable yet: try again later
-		cs[i], xs[i], ys[i] = c, wx, wy
-		rs[i] = math.max(tonumber(s.r) or 0, REGION_MIN_RADIUS) + REGION_PAD
-		groupOf[i], members[i], span[i] = i, { i }, 2 * rs[i]
+		cs[i], xs[i], ys[i], rs[i] = c, wx, wy, tonumber(s.r) or 0
 	end
-	local function across(i, j)
-		local dx, dy = xs[i] - xs[j], ys[i] - ys[j]
-		return math.sqrt(dx * dx + dy * dy) + rs[i] + rs[j]
+	local regions = ns.Regions.Of(cs, xs, ys, rs)
+	if not regions then
+		regionCache[goal] = false
+		ns.Debug("spawn regions: a goal's", #spots, "spots are too many to group; no regions drawn")
+		return nil
 	end
-	-- Pairs close enough to join, nearest (smallest gap between discs) first:
-	-- a sweep along wx (no pair further apart than the widest reach), each
-	-- pair one number (the gap in hundredths of a yard, then i, then j), so
-	-- the sort compares plain numbers.
-	local n, order, maxR = #spots, {}, 0
-	for i = 1, n do
-		order[i] = i
-		if rs[i] > maxR then maxR = rs[i] end
-	end
-	table.sort(order, function(a, b)
-		if xs[a] ~= xs[b] then return xs[a] < xs[b] end
-		return a < b
-	end)
-	local reach, B, bias = 2 * maxR + REGION_LINK, n + 1, math.ceil(2 * maxR * 100) + 1
-	local near = {}
-	for a = 1, n do
-		local i = order[a]
-		for b = a + 1, n do
-			local j = order[b]
-			if xs[j] - xs[i] > reach then break end
-			work = work + 1
-			if work > REGION_WORK then return tooMuch() end
-			if cs[i] == cs[j] then
-				local gap = across(i, j) - 2 * (rs[i] + rs[j])
-				if gap <= REGION_LINK then
-					local lo, hi = math.min(i, j), math.max(i, j)
-					near[#near + 1] = (math.floor(gap * 100 + 0.5) + bias) * B * B + lo * B + hi
-				end
-			end
+	for _, rg in ipairs(regions) do
+		local n, alt = 0, true
+		for _, i in ipairs(rg.members) do
+			n = n + (tonumber(spots[i].n) or 0)
+			if not spots[i].alt then alt = false end
 		end
-	end
-	table.sort(near)
-	-- Groups found too wide together stay apart: groups only grow.
-	local apart = {}
-	local function keepApart(a, b)
-		apart[a] = apart[a] or {}
-		apart[b] = apart[b] or {}
-		apart[a][b], apart[b][a] = true, true
-	end
-	for _, key in ipairs(near) do
-		local a, b = groupOf[math.floor(key / B) % B], groupOf[key % B]
-		if a ~= b and not (apart[a] and apart[a][b]) then
-			local s = math.max(span[a], span[b])
-			for _, i in ipairs(members[a]) do
-				for _, j in ipairs(members[b]) do
-					work = work + 1
-					if work > REGION_WORK then return tooMuch() end
-					local d = across(i, j)
-					if d > s then s = d end
-				end
-				if s > REGION_MAX_SPAN then break end
-			end
-			if s <= REGION_MAX_SPAN then
-				if a > b then a, b = b, a end
-				for _, j in ipairs(members[b]) do
-					groupOf[j] = a
-					table.insert(members[a], j)
-				end
-				members[b], span[a] = nil, s
-				for c in pairs(apart[b] or {}) do keepApart(a, c) end
-			else
-				keepApart(a, b)
-			end
-		end
-	end
-	local regions = {}
-	for i = 1, #spots do
-		local group = members[i]
-		if group then
-			table.sort(group)
-			regions[#regions + 1] = regionOf(group, span[i], cs, xs, ys, rs, spots)
-		end
+		rg.n, rg.alt = n, alt
 	end
 	regionCache[goal] = regions
 	return regions
@@ -367,10 +240,9 @@ local function sameSig(sig)
 	return true
 end
 
-local function updateAreas(world, minimap)
+local function updateAreas(world, minimap, index, view)
 	local Engine = ns.Engine
-	local index = (world or minimap) and Engine and Engine.GetStepIndex and Engine.GetStepIndex()
-	local view = index and Engine.GetStepView and Engine.GetStepView(index)
+	if not (world or minimap) then view = nil end
 	local guide = view and view.goals and Engine.GetGuide and Engine.GetGuide()
 	local step = guide and guide.steps and guide.steps[index]
 	local ar, ag, ab = Nav.RGB("arrow")
@@ -388,7 +260,9 @@ local function updateAreas(world, minimap)
 				sig[#sig + 1], sig[#sig + 2] = regions, v.index == tg
 			end
 		end
-		-- The Along the way list's goals (along steps, pinned quests: #644).
+		-- The Along the way list's goals (along steps, pinned quests: #644), and
+		-- the While you're here line's once the arrow leads there (before, its
+		-- own layer draws it: updateHere).
 		if Engine.GetAlong and Engine.AlongGoal then
 			for _, s in ipairs(Engine.GetAlong()) do
 				for _, v in ipairs(s.goals) do
@@ -400,6 +274,14 @@ local function updateAreas(world, minimap)
 						sig[#sig + 1], sig[#sig + 2] = regions, mine
 					end
 				end
+			end
+			local nearby = Engine.GetWhileHere and Engine.GetWhileHere()
+			local goal = nearby and Engine.AlongGoal(nearby.step, nearby.index)
+			local regions = goal and goal.map and goal.spots and regionsOf(goal)
+			local mine = regions and target and target.stepIndex == nearby.step and target.goalIndex == nearby.index
+			if mine then
+				shown[#shown + 1], shown[#shown + 2] = regions, mine
+				sig[#sig + 1], sig[#sig + 2] = regions, mine
 			end
 		end
 	end
@@ -428,6 +310,68 @@ local function updateAreas(world, minimap)
 	end
 end
 
+-- The While you're here lines (Engine.GetWhileHereList) on both surfaces
+-- until the arrow leads to one: each one's mark in the accent with a soft
+-- glow, clamped to the minimap's rim with the edge pointer when it is off it
+-- (an edge layer), and their spawn areas in the accent on the minimap too, so
+-- the minimap shows what the lines and their chime point at. A mark pings
+-- once as its line appears (Pins `ping`: the line's `appeared`; a line coming
+-- back has a new one). Set again only when the lines, their colour or the
+-- surfaces changed.
+local hereSig = {}
+local function updateHere(world, minimap)
+	local Engine = ns.Engine
+	local all = Engine and Engine.GetWhileHereList and Engine.GetWhileHereList() or {}
+	local target = Nav.GetTarget()
+	local lines = {}
+	for i, v in ipairs(all) do
+		if v.map and v.x and v.y and not (target and target.stepIndex == v.step and target.goalIndex == v.index) then
+			lines[#lines + 1] = { v = v, i = i }
+		end
+	end
+	local r, g, b = Nav.RGB("accent")
+	local s = hereSig
+	local same = s.n == #lines and s.r == r and s.g == g and s.b == b and s.world == world and s.minimap == minimap
+	for k, e in ipairs(lines) do
+		if same and (s[k] ~= e.v.appeared or s["i" .. k] ~= e.i) then same = false end
+	end
+	if same then return end
+	s.n, s.r, s.g, s.b, s.world, s.minimap = #lines, r, g, b, world, minimap
+	for k, e in ipairs(lines) do s[k], s["i" .. k] = e.v.appeared, e.i end
+	if #lines == 0 or not (world or minimap) then
+		Pins.ClearLayer(HERE)
+		Pins.ClearLayer(HERE_AREAS)
+		return
+	end
+	local pins, areas = {}, {}
+	for _, e in ipairs(lines) do
+		local v, i = e.v, e.i
+		local text = v.hereText
+		pins[#pins + 1] = {
+			map = v.map, x = v.x, y = v.y, f = v.f, icon = "map:pin", color = { r, g, b, 1 }, glow = true, priority = 40,
+			ping = v.appeared, label = text,
+			tooltip = function(tip)
+				tip:SetText(L["While you're here:"] .. " " .. (text or ""))
+				tip:AddLine(L["Click to point the arrow here"], 0.7, 0.7, 0.7)
+			end,
+			onClick = function(button)
+				if button == "LeftButton" and Engine.AimWhileHere then Engine.AimWhileHere(i) end
+			end,
+		}
+		local goal = Engine.AlongGoal and Engine.AlongGoal(v.step, v.index)
+		local regions = goal and goal.map and goal.spots and regionsOf(goal)
+		for _, rg in ipairs(regions or {}) do
+			areas[#areas + 1] = { c = rg.c, wx = rg.wx, wy = rg.wy, hull = rg.hull, areaOnly = true, color = { r, g, b, rg.alt and 0.4 or 0.75 } }
+		end
+	end
+	Pins.SetLayer(HERE, pins, { world = world, minimap = minimap, edge = true })
+	if #areas > 0 then
+		Pins.SetLayer(HERE_AREAS, areas, { world = world, minimap = minimap, minimapAreas = true })
+	else
+		Pins.ClearLayer(HERE_AREAS)
+	end
+end
+
 -- The trail's runs: the player, then from the current leg on each leg's start
 -- (unless it walks there) and end; a Hearthstone starts a new run at the inn.
 -- Route lines, when they draw, show the way instead; Shortest Path Forever's
@@ -435,6 +379,8 @@ end
 local function updateTrail(world, minimap)
 	local target = Nav.GetTarget()
 	local lines = ns.RouteLines and ns.RouteLines.Active()
+	-- "Route line on the minimap" off takes the trail off it too; the pin stays.
+	minimap = minimap and ns.Get("nav.minimapRoute") ~= false
 	if lines or Nav.HandedOff() or not (target and ns.Get("nav.trailDots") and (world or minimap)) then
 		Pins.ClearTrail()
 		return
@@ -471,11 +417,17 @@ end
 
 function Layers.Update()
 	local world, minimap = surfaces()
+	-- The step's view, built once for the goals and the areas (a view is
+	-- built afresh on every Engine.GetStepView).
+	local Engine = ns.Engine
+	local index = (world or minimap) and Engine and Engine.GetStepIndex and Engine.GetStepIndex()
+	local view = index and Engine.GetStepView and Engine.GetStepView(index)
 	updateTarget(world, minimap)
 	updateRoute(world)
-	updateGoals(world)
+	updateGoals(world, index, view)
 	updateSpots(world)
-	updateAreas(world, minimap)
+	updateAreas(world, minimap, index, view)
+	updateHere(world, minimap)
 	updateTrail(world, minimap)
 end
 
@@ -492,6 +444,7 @@ Layers.OnTheme = Layers.Update
 
 ns.On("STEP_UPDATED", Layers.Update)
 ns.On("ROUTE_CHANGED", Layers.Update)
+ns.On("WHILE_HERE_CHANGED", Layers.Update)
 ns.On("ROUTE_ADVANCED", onAdvanced)
 ns.On("NAV_ROUTE_GEOMETRY", function()
 	local world, minimap = surfaces()

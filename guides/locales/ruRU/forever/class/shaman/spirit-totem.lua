@@ -10,7 +10,7 @@ return {
 	-- {quest:8412} Spirit Totem · {quest:8413} Da Voodoo
 	["{quest:8412} and {quest:8413}"] = "{quest:8412} и {quest:8413}",
 	-- {area:1417} Sunken Temple
-	["Experience and gold at 50, ending in the {area:1417}; the Classic item choice may be gone in Forever."] = "",
+	["Experience and gold at 50, ending in the {area:1417}; the Classic item choice may be gone in Forever."] = "Опыт и золото на 50-м уровне, финал – здесь: {area:1417}; в Forever выбора предметов из Classic может не быть.",
 	["Experience and gold"] = "Опыт и золото",
 
 	-- Step 1: Sagorne Creststrider

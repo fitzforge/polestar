@@ -120,7 +120,7 @@ fn a_brewnall_hub_shows_the_first_person_s_goal_and_one_line_for_each_other_pers
 	assert_eq!(calm["person"], "Gretta Ganter");
 	assert_eq!(
 		strings(&calm["items"]),
-		["Gretta's errand", "[Then: Marleth Barleybrew  ·  Accept Bitter Rivals]", "[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]", "[Then out here: 7 kills and items]",],
+		["Gretta's errand", "[Then: Marleth Barleybrew  ·  Accept “Bitter Rivals”]", "[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]", "[Then out here: 7 kills and items]",],
 		"the person to talk to now in full; every other person and the field work on one line: one or two goals named, more counted"
 	);
 	assert!(calm["items"].as_array().unwrap().len() <= 5);
@@ -153,7 +153,7 @@ fn a_summary_line_opens_its_person_s_goals_in_place_a_second_click_or_the_focus_
 		strings(&out["opened"]),
 		[
 			"Gretta's errand",
-			"[Then: Marleth Barleybrew  ·  Accept Bitter Rivals]",
+			"[Then: Marleth Barleybrew  ·  Accept “Bitter Rivals”]",
 			"[Then: Rejold Barleybrew]+",
 			"Evershine",
 			"The Perfect Stout",
@@ -164,7 +164,7 @@ fn a_summary_line_opens_its_person_s_goals_in_place_a_second_click_or_the_focus_
 	);
 	assert_eq!(
 		strings(&out["closed"]),
-		["Gretta's errand", "[Then: Marleth Barleybrew  ·  Accept Bitter Rivals]", "[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]", "[Then out here: 7 kills and items]"]
+		["Gretta's errand", "[Then: Marleth Barleybrew  ·  Accept “Bitter Rivals”]", "[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]", "[Then out here: 7 kills and items]"]
 	);
 	assert_eq!(out["person"], "Marleth Barleybrew");
 	assert_eq!(
@@ -198,13 +198,13 @@ fn a_person_whose_goals_another_person_splits_reads_on_one_summary_line() {
 	.remove(0);
 	assert_eq!(
 		strings(&out["ahead"]),
-		["Deep Ocean, Vast Sea", "[Then: Thundris Windweaver  ·  3 quests]", "[Then: Sentinel Elissa Starbreeze  ·  Accept The Tower of Althalaxx]"],
+		["Deep Ocean, Vast Sea", "[Then: Thundris Windweaver  ·  3 quests]", "[Then: Sentinel Elissa Starbreeze  ·  Accept “The Tower of Althalaxx”]"],
 		"Thundris's three accepts on his one line, before the person who splits them"
 	);
 	assert_eq!(out["person"], "Sentinel Elissa Starbreeze");
 	assert_eq!(
 		strings(&out["between"]),
-		["[Gorbold Steelhand]", "The Tower of Althalaxx", "[Then: Thundris Windweaver  ·  Accept Tools of the Highborne]"],
+		["[Gorbold Steelhand]", "The Tower of Althalaxx", "[Then: Thundris Windweaver  ·  Accept “Tools of the Highborne”]"],
 		"Thundris still has a quest to give: not a done person, one line for him"
 	);
 	assert_eq!(
@@ -476,18 +476,18 @@ fn past_three_persons_the_rest_of_a_hub_share_one_more_line_that_opens_and_close
 		stub.RunScript(lineFor("more people"), "OnClick", "LeftButton")
 		emit({ closed = closed, opened = opened, deeper = deeper, again = items() })"#)
 	.remove(0);
-	let closed = ["Quest 1", "[Then: Bram  ·  Accept Quest 2]", "[Then: Cora  ·  Accept Quest 3]", "[Then: Dain  ·  Accept Quest 4]", "[+ 4 more people  ·  2 quests, 1 hand-in, 1 task]"];
+	let closed = ["Quest 1", "[Then: Bram  ·  Accept “Quest 2”]", "[Then: Cora  ·  Accept “Quest 3”]", "[Then: Dain  ·  Accept “Quest 4”]", "[+ 4 more people  ·  2 quests, 1 hand-in, 1 task]"];
 	assert_eq!(strings(&out["closed"]), closed, "only the goals that apply and are still open are counted");
 	assert_eq!(
 		strings(&out["opened"]),
 		[
 			"Quest 1",
-			"[Then: Bram  ·  Accept Quest 2]",
-			"[Then: Cora  ·  Accept Quest 3]",
-			"[Then: Dain  ·  Accept Quest 4]",
+			"[Then: Bram  ·  Accept “Quest 2”]",
+			"[Then: Cora  ·  Accept “Quest 3”]",
+			"[Then: Dain  ·  Accept “Quest 4”]",
 			"[+ 4 more people  ·  2 quests, 1 hand-in, 1 task]+",
-			"[Then: Edda  ·  Accept Quest 5]",
-			"[Then: Finn  ·  Accept Quest 6, Turn in Old Quest]",
+			"[Then: Edda  ·  Accept “Quest 5”]",
+			"[Then: Finn  ·  Accept “Quest 6”, Turn in “Old Quest”]",
 			"[Gil]",
 			"[Then: Hale  ·  Talk to Hale]",
 		]
@@ -514,7 +514,7 @@ fn a_summary_line_names_one_or_two_goals_and_counts_three_or_more() {
 		uistub.update()
 		emit({ two = two, rejold = rejold, quest = Polestar.Theme.Hex("quest"), three = items() })"#)
 	.remove(0);
-	assert_eq!(strings(&out["two"]), ["[Gretta Ganter]", "Bitter Rivals", "[Then: Rejold Barleybrew  ·  Turn in Evershine, Accept A Favor for Evershine]", "[Then out here: Kill Snow Leopards]"]);
+	assert_eq!(strings(&out["two"]), ["[Gretta Ganter]", "Bitter Rivals", "[Then: Rejold Barleybrew  ·  Turn in “Evershine”, Accept “A Favor for Evershine”]", "[Then out here: Kill Snow Leopards]"]);
 	assert!(text(&out["rejold"]).contains(&format!("|c{}Evershine|r", text(&out["quest"]))), "the quest in the quest colour: {}", out["rejold"]);
 	assert_eq!(
 		strings(&out["three"]),
@@ -633,23 +633,23 @@ fn the_focus_person_s_later_goals_read_with_the_focus_not_on_a_line_of_their_own
 	assert_eq!(out["focus"]["person"], "Thundris Windweaver");
 	assert_eq!(
 		strings(&out["focus"]["items"]),
-		["Bashal'Aran", "Expanding Horizons", "Tools of the Highborne", "[Then: Naram Longclaw  ·  Sell junk at Naram Longclaw]", "[Then: Gorbold Steelhand  ·  Accept Deep Ocean, Vast Sea]"],
+		["Bashal'Aran", "Expanding Horizons", "Tools of the Highborne", "[Then: Naram Longclaw  ·  Sell junk at Naram Longclaw]", "[Then: Gorbold Steelhand  ·  Accept “Deep Ocean, Vast Sea”]"],
 		"all three of his accepts under him, the vendor after"
 	);
 	assert_eq!(
 		strings(&out["took"]),
-		["[1 done]", "Bashal'Aran", "Expanding Horizons", "[Then: Naram Longclaw  ·  Sell junk at Naram Longclaw]", "[Then: Gorbold Steelhand  ·  Accept Deep Ocean, Vast Sea]"],
+		["[1 done]", "Bashal'Aran", "Expanding Horizons", "[Then: Naram Longclaw  ·  Sell junk at Naram Longclaw]", "[Then: Gorbold Steelhand  ·  Accept “Deep Ocean, Vast Sea”]"],
 		"one of them taken folds with the focus's done goals"
 	);
 	assert_eq!(out["naram"]["person"], "Naram Longclaw");
 	assert_eq!(
 		strings(&out["naram"]["items"]),
-		["Naram Longclaw", "[Then: Thundris Windweaver  ·  Accept Tools of the Highborne]", "[Then: Gorbold Steelhand  ·  Accept Deep Ocean, Vast Sea]"],
+		["Naram Longclaw", "[Then: Thundris Windweaver  ·  Accept “Tools of the Highborne”]", "[Then: Gorbold Steelhand  ·  Accept “Deep Ocean, Vast Sea”]"],
 		"once his first goals are done and the focus moves on, what he still has reads after it as before"
 	);
 	assert_eq!(
 		strings(&out["trip"]),
-		["The Vineyard Walk", "[Then out here: Kill Kobold Vermin]", "[Then: Marshal McBride  ·  Turn in The Vineyard Walk]"],
+		["The Vineyard Walk", "[Then out here: Kill Kobold Vermin]", "[Then: Marshal McBride  ·  Turn in “The Vineyard Walk”]"],
 		"with field work between, the hand-in is a later visit"
 	);
 }
@@ -686,7 +686,7 @@ fn a_complete_goal_reads_as_its_objectives_with_use_item_first() {
 		"the game's objective, the item to use first, the guide's note under it"
 	);
 	assert_eq!(out["hunt"]["text"], "Plainstrider Meat  3/7\nPlainstrider Feathers  7/7", "a line per objective, each with its count, not the sum");
-	assert_eq!(out["humble"]["text"], "Complete A Humble Task", "no objective text: the old label");
+	assert_eq!(out["humble"]["text"], "Complete “A Humble Task”", "no objective text: the old label");
 }
 
 // The Warlock's "The Binding" in Stormwind, as a player on Discord saw it in 0.3.3: Gakin the Darkbinder, then the
@@ -738,7 +738,7 @@ fn a_look_ahead_line_too_long_for_one_line_wraps_to_two_and_only_past_two_ends_i
 	assert_eq!(f(&here["h"]), f(&out["lineH"]) + f(&out["one"]), "the row is one line taller: {here}");
 	assert_eq!(f(&here["gap"]), 0.0, "the next item starts right under the taller row: {here}");
 	let gakin = &out["gakin"];
-	assert_eq!(gakin["text"], "Then: Gakin the Darkbinder  \u{b7}  Turn in The Binding");
+	assert_eq!(gakin["text"], "Then: Gakin the Darkbinder  \u{b7}  Turn in “The Binding”");
 	assert_eq!(gakin["cut"], false, "Gakin's line is whole too: {gakin}");
 	let long = &out["long"];
 	assert_eq!(long["lines"], 2, "never more than two lines: {long}");
@@ -760,7 +760,7 @@ fn an_opened_look_ahead_line_names_only_the_place_or_person_and_no_goal_reads_tw
 		emit({{ here = here, gakin = items() }})"#
 	))
 	.remove(0);
-	assert_eq!(strings(&out["here"]), ["Surena Caledon", "[Then out here]+", "Bloodstone Choker", "Summoned Voidwalker", "[Then: Gakin the Darkbinder  \u{b7}  Turn in The Binding]"]);
+	assert_eq!(strings(&out["here"]), ["Surena Caledon", "[Then out here]+", "Bloodstone Choker", "Summoned Voidwalker", "[Then: Gakin the Darkbinder  \u{b7}  Turn in “The Binding”]"]);
 	assert_eq!(strings(&out["gakin"]), ["Surena Caledon", "[Then out here: Use Bloodstone Choker, Kill Summoned Voidwalker]", "[Then: Gakin the Darkbinder]+", "The Binding"]);
 	for case in ["here", "gakin"] {
 		let items = strings(&out[case]);

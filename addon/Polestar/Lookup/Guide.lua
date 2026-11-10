@@ -27,6 +27,21 @@
 --   Lookup.QuestStep(quest, from, opts) -> step   -- accept, objectives, turn-in
 --       opts.inside(kind, id): where an NPC or object without a known spawn
 --       is; with it the step is always whole (see questStep)
+--   Lookup.AcceptPre(goal, quest) -> goal
+--       an accept goal with the Codex quest's prerequisites as a compiled
+--       guide's accept carries them (all of `pre` as preAll, one of `preAny`
+--       as pre, without those of another faction, race or class while one
+--       is left; their titles as preTitles), so the Engine tells "Requires X
+--       first" when the route no longer brings X, and a giver's window that
+--       does not list the quest for that reason passes it (#1406: Gryan
+--       Stoutmantle's The Defias Brotherhood after The Defias Traitor's step
+--       was skipped)
+--   Lookup.SpawnZ(kind, id, point) -> z | nil
+--       the height of NPC or object `id`'s Codex spawn at point { map, x, y, f }
+--       (kind "npc" | "object"): its spawn on that map and frame nearest the
+--       point, within SPAWN_Z_YARDS. A goal at an NPC or object carries its
+--       spawn's height as `z`, so the arrow walks to its floor (#1024: Apothecary
+--       Zamah in the Pools of Vision, under Spirit Rise)
 --
 -- Generated guides are not saved. A tab holding one survives /reload: at
 -- ADDON_LOADED (before the Engine reopens saved tabs at login) every saved
@@ -141,11 +156,34 @@ local function frame(f)
 	return f == "e" and "e" or nil
 end
 
+-- A goal at point p: its map, x, y, f, and z, the height of the spawn p is
+-- (Codex spawns carry it, #1024).
 local function at(goal, p)
 	if p and p.map and p.x and p.y then
-		goal.map, goal.x, goal.y, goal.f = p.map, p.x, p.y, frame(p.f)
+		goal.map, goal.x, goal.y, goal.f, goal.z = p.map, p.x, p.y, frame(p.f), p.z
 	end
 	return goal
+end
+
+local SPAWN_Z_YARDS = 15
+
+function Lookup.SpawnZ(kind, id, p)
+	local C = Codex()
+	if not (C and p and p.map and p.x and p.y) then return nil end
+	local rec = (kind == "npc" and C.Npc(id)) or (kind == "object" and C.Object(id)) or nil
+	if not (rec and rec.spawns) then return nil end
+	local toWorld, f = ns.Compat.MapToWorld, frame(p.f)
+	local c0, px, py = toWorld(p.map, p.x, p.y, f)
+	if not c0 then return nil end
+	local best, bestD
+	for _, s in ipairs(rec.spawns) do
+		if s.z and s.map == p.map and frame(s.f) == f then
+			local c, wx, wy = toWorld(s.map, s.x, s.y, f)
+			local d = c == c0 and ((wx - px) ^ 2 + (wy - py) ^ 2) ^ 0.5 or nil
+			if d and d <= SPAWN_Z_YARDS and (not bestD or d < bestD) then best, bestD = s.z, d end
+		end
+	end
+	return best
 end
 
 local function located(p)
@@ -275,10 +313,15 @@ end
 
 -- Quests to do in order to get questId, prerequisites first: every one of
 -- `pre`, and of `preAny` (unless one is done) the first this character can
--- take. Done prerequisites are left out. The chain is whole however long
--- (Alba Fairmoon's to The State of the Mines is ten quests): a cut would drop
--- the first quests to do. Each quest is visited once, so the walk ends.
-local function questChain(questId, player)
+-- take, else the first it can take once it has the level (Fury in the Depths
+-- waits on The Dark Iron War, level 25: leaving that out sent a level 23 to
+-- a giver who refused, #1076). Done prerequisites are left out. The chain is
+-- whole however long (Alba Fairmoon's to The State of the Mines is ten
+-- quests): a cut would drop the first quests to do. Each quest is visited
+-- once, so the walk ends. avoid(id), optional: a `preAny` alternative it
+-- names is passed over while another can be taken (a dungeon pick-up keeps
+-- to one alternative of an exclusive group).
+local function questChain(questId, player, avoid)
 	local C = Codex()
 	local order, seen = {}, {}
 	local function visit(qid, depth)
@@ -295,19 +338,54 @@ local function questChain(questId, player)
 				if ns.Compat.IsQuestCompleted(pid) then done = true; break end
 			end
 			if not done then
-				for _, pid in ipairs(any) do
-					local pq = C.Quest(pid)
-					if pq and not Lookup.QuestBlock(pq, player) then
-						visit(pid, depth + 1)
-						break
+				local function choose(skip)
+					local pick, later
+					for _, pid in ipairs(any) do
+						local pq = not (skip and avoid(pid)) and C.Quest(pid) or nil
+						local why = pq and Lookup.QuestBlock(pq, player)
+						if pq and not why then pick = pid; break end
+						if why == "level" and not later then later = pid end
 					end
+					return pick or later
 				end
+				local pick = avoid and choose(true) or choose(false)
+				if pick then visit(pick, depth + 1) end
 			end
 		end
 		order[#order + 1] = q
 	end
 	visit(questId, 0)
 	return order
+end
+
+function Lookup.AcceptPre(goal, q)
+	local all, any = q and q.pre or nil, q and q.preAny or nil
+	local titles
+	local function title(id)
+		local r = Codex().Quest(id)
+		if r and r.title then
+			titles = titles or {}
+			titles[id] = r.title
+		end
+	end
+	if type(all) == "table" and #all > 0 then
+		goal.preAll = all
+		for _, id in ipairs(all) do title(id) end
+	end
+	if type(any) == "table" and #any > 0 then
+		-- One of them: the character's own (The Dalaran Inquiry's Word from
+		-- Dalaran is the Alliance's, Orders from the Undercity the Horde's).
+		local p, own = Lookup.PlayerInfo(), {}
+		for _, id in ipairs(any) do
+			local r = Codex().Quest(id)
+			local why = r and Lookup.QuestBlock(r, p)
+			if not (why == "faction" or why == "race" or why == "class") then own[#own + 1] = id end
+		end
+		goal.pre = #own > 0 and own or any
+		for _, id in ipairs(goal.pre) do title(id) end
+	end
+	goal.preTitles = titles
+	return goal
 end
 
 local function endGoal(t, q, e)
@@ -388,7 +466,7 @@ local function questStep(q, from, isTarget, opts)
 	end
 	if not finish or not (giver or startItem) then
 		if isTarget then return nil, "nolocation" end
-		return { title = q.title, goals = { { t = "note", text = L["First do the quest"] .. " " .. q.title } } }
+		return { title = q.title, goals = { { t = "note", text = L["First do the quest"] .. " " .. ns.Quoted(q.title) } } }
 	end
 	local goals = {}
 	local accept
@@ -398,6 +476,7 @@ local function questStep(q, from, isTarget, opts)
 		accept = { t = "accept", quest = q.id, title = q.title, item = startItem, itemName = itemName(startItem) }
 	end
 	accept.minLevel = q.minLevel
+	Lookup.AcceptPre(accept, q)
 	goals[1] = accept
 	local here = giver and giver.spawn or from
 	local event = nil
@@ -419,6 +498,17 @@ local function questStep(q, from, isTarget, opts)
 			if source then mark(s, name) end
 			goals[#goals + 1] = spawnSpots(at({ t = "collect", item = o.id, itemName = name,
 				quest = q.id, oi = oi, count = count, title = q.title }, s), spawns)
+		elseif o.type == "talk" and o.id then
+			-- Speak to an NPC (Hidden Enemies: Neeru Fireblade): the engine counts it by the
+			-- quest's objective line, so it holds the step until done.
+			local npc = C.Npc(o.id)
+			local who = (npc and npc.name) or o.text or npcName(o.id)
+			local s = npc and Lookup.Nearest(npc.spawns, here)
+			if not s and inside then
+				s = inside("npc", o.id)
+				mark(s, who)
+			end
+			goals[#goals + 1] = at({ t = "talk", npc = o.id, npcName = who, quest = q.id, oi = oi, title = q.title }, s)
 		elseif o.type == "object" and o.id then
 			local obj = C.Object(o.id)
 			local objName = (obj and obj.name) or o.text or (L["Object"] .. " " .. o.id)
@@ -733,7 +823,10 @@ local function register(def)
 end
 
 -- Opens guideId in a tab. A generated guide already open is reloaded in its
--- own tab (the tab holds the guide table it was opened with).
+-- own tab (the tab holds the guide table it was opened with). Six tabs open:
+-- nil, "tabs" (its callers say "Six tabs is the limit"), as the guide menu
+-- and the class heads-up do; the active tab, often the leveling guide, is
+-- never replaced (#1328).
 local function openTab(guideId, rebuilt)
 	local E = ns.Engine
 	if not (E and ns.IsLoggedIn()) then return nil, "login" end
@@ -744,15 +837,13 @@ local function openTab(guideId, rebuilt)
 				E.SelectTab(i)
 				return guideId
 			end
-			E.CloseTab(i)
+			E.CloseTab(i, true)
 			local index = E.OpenTab(guideId, true)
 			if index and index ~= i then E.MoveTab(index, i) end
 			return index and guideId or nil, index == nil and "tabs" or nil
 		end
 	end
 	if E.OpenTab(guideId, true) then return guideId end
-	-- Every tab is in use: replace the active tab's guide.
-	if E.SetGuide(guideId) then return guideId end
 	return nil, "tabs"
 end
 

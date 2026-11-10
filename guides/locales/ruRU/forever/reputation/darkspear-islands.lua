@@ -7,9 +7,9 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Darkspear Islands Reputation"] = "",
-	["Forever's new battleground: its gear comes for every bracket from 30, and Exalted gives a Legacy Point."] = "",
-	["Master of Darkspear Islands: a Legacy Point at Exalted"] = "",
+	["Darkspear Islands Reputation"] = "Репутация: Острова Черного Копья",
+	["Forever's new battleground: its gear comes for every bracket from 30, and Exalted gives a Legacy Point."] = "Новое поле боя Forever: снаряжение доступно для всех диапазонов уровней начиная с 30-го, а «Превознесение» дает очко наследия.",
+	["Master of Darkspear Islands: a Legacy Point at Exalted"] = "Мастер Островов Черного Копья: очко наследия при «Превознесении»",
 
 	-- Step 1: Merchant Coast
 	-- {zone:2524} Darkspear Islands · {zone:1445} Dustwallow Marsh · {area:391} Merchant Coast · {area:392} Ratchet · {npc:275276} Nizook Boof

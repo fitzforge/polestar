@@ -19,7 +19,7 @@ return {
 
 	-- Step 2: Cain Firesong (Brill)
 	-- {npc:2128} Cain Firesong · {area:159} Brill · {area:2119} Gallows' End Tavern · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {quest:1884} Ju-Ju Heaps · {quest:1883} Speak with Un'thuwa · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {area:368} Echo Isles
-	["At 10 {npc:2128}, the {area:159} mage trainer in the {area:2119}, sends you to {npc:4568} in the {zone:1458}. Taking it shuts out {quest:1884}; if {quest:1883} (from {zone:1454} or {zone:1456}) is in your log, abandon it first or {npc:2128} cannot give you this one. (A Troll who took this one in {area:159} follows the Balnir steps; an Undead who took {quest:1884} in Sen'jin, the {area:368} steps.)"] = "Au niveau 10, {npc:2128}, le maître des mages de {area:159} à la {area:2119}, vous envoie voir {npc:4568} à {zone:1458}. L'accepter vous ferme {quest:1884} ; si {quest:1883} (d'{zone:1454} ou des {zone:1456}) est dans votre journal, abandonnez-la d'abord, sinon {npc:2128} ne peut pas vous donner celle-ci. (Un troll qui a pris celle-ci à {area:159} suit les étapes de Balnir ; un mort-vivant qui a pris {quest:1884} au village de Sen'jin, celles des {area:368}.)",
+	["At 10 {npc:2128}, the {area:159} mage trainer upstairs in the {area:2119}, sends you to {npc:4568} in the {zone:1458}. Taking it shuts out {quest:1884}; if {quest:1883} (from {zone:1454} or {zone:1456}) is in your log, abandon it first or {npc:2128} cannot give you this one. (A Troll who took this one in {area:159} follows the Balnir steps; an Undead who took {quest:1884} in Sen'jin, the {area:368} steps.)"] = "",
 
 	-- Step 3: The Ju-Ju Heaps
 	-- {quest:1884} Ju-Ju Heaps
@@ -50,6 +50,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A staff or an orb at 10 for Horde mages, worth a short trip back to the {area:368}."] = "Un bâton ou un orbe au niveau 10 pour les mages de la Horde, qui vaut un petit retour aux {area:368}.",
+	-- ["At 10 {npc:2128}, the {area:159} mage trainer in the {area:2119}, sends you to {npc:4568} in the {zone:1458}. Taking it shuts out {quest:1884}; if {quest:1883} (from {zone:1454} or {zone:1456}) is in your log, abandon it first or {npc:2128} cannot give you this one. (A Troll who took this one in {area:159} follows the Balnir steps; an Undead who took {quest:1884} in Sen'jin, the {area:368} steps.)"] = "Au niveau 10, {npc:2128}, le maître des mages de {area:159} à la {area:2119}, vous envoie voir {npc:4568} à {zone:1458}. L'accepter vous ferme {quest:1884} ; si {quest:1883} (d'{zone:1454} ou des {zone:1456}) est dans votre journal, abandonnez-la d'abord, sinon {npc:2128} ne peut pas vous donner celle-ci. (Un troll qui a pris celle-ci à {area:159} suit les étapes de Balnir ; un mort-vivant qui a pris {quest:1884} au village de Sen'jin, celles des {area:368}.)",
 	-- ["Un'thuwa stands in {area:367}, on the {zone:1411} coast south of {area:362}."] = "Un'Thuwa se tient au {area:367}, sur la côte de {zone:1411} au sud de {area:362}.",
 	-- ["Wade across to the {area:368}, south-east of Sen'jin. Zalazane placed the heaps among his huts on the main isle: click a heap to destroy it."] = "Traversez à gué jusqu'aux {area:368}, au sud-est du Village de Sen'jin. Zalazane a placé les tas parmi ses huttes sur l'île principale : cliquez sur un tas pour le détruire.",
 }

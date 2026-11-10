@@ -7,80 +7,76 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Ratchet
-	-- {area:3425} Cenarion Hold · {area:392} Ratchet
-	["Ride back to {area:3425} and fly to {area:392}."] = "",
+	-- {area:541} Marshal's Refuge · {area:392} Ratchet
+	["Fly from {area:541} to {area:392}."] = "",
 	-- {npc:8496} Liv Rizzlefix
 	["{npc:8496}, inside"] = "",
 
 	-- Step 2: Boat to Booty Bay
 	-- {area:35} Booty Bay
-	["Boat to {area:35}"] = "",
+	["Boat to {area:35}"] = "Barco a {area:35}",
 
 	-- Step 3: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "",
+	["Fly to {zone:1453}"] = "Vuela a {zone:1453}",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "",
 
-	-- Step 4: Ironforge
-	-- {area:2257} Deeprun Tram · {zone:1455} Ironforge
-	["Take the {area:2257} to {zone:1455}."] = "",
-
-	-- Step 5: Stormwind
+	-- Step 4: Stormwind
 	-- {area:392} Ratchet · {area:35} Booty Bay · {zone:1453} Stormwind
-	["Take the boat from {area:392} to {area:35} and fly to {zone:1453}."] = "",
+	["Take the boat from {area:392} to {area:35} and fly to {zone:1453}."] = "Toma el barco de {area:392} a {area:35} y vuela a {zone:1453}.",
 	-- {npc:3520} Ol' Emma
-	["{npc:3520}, who walks the canals"] = "",
+	["{npc:3520}, who walks the canals"] = "{npc:3520}, que recorre los canales",
 	-- {npc:10778} Janice Felstone
-	["For {npc:10778}: keep it"] = "",
+	["For {npc:10778}: keep it"] = "Para {npc:10778}: guárdala",
 
-	-- Step 6: Stormwind Keep
+	-- Step 5: Stormwind Keep
 	-- {npc:332} Master Mathias Shaw
-	["{npc:332}, in SI:7"] = "",
+	["{npc:332}, in SI:7"] = "{npc:332}, en el IV:7",
 	-- {quest:6184} Flint Shadowmore · {area:3197} Chillwind Camp
-	["{quest:6184} at {area:3197}: keep it"] = "",
+	["{quest:6184} at {area:3197}: keep it"] = "{quest:6184} en {area:3197}: guárdala",
 
-	-- Step 7: Tram to Ironforge
+	-- Step 6: Tram to Ironforge
 	-- {zone:1455} Ironforge
 	["Tram to {zone:1455}"] = "",
 
-	-- Step 8: Ironforge
-	["Its jars are filled on the next Un'Goro visit"] = "",
+	-- Step 7: Ironforge
+	["Its jars are filled on the next Un'Goro visit"] = "Sus tarros se llenan en la próxima visita a Un'Goro",
 	-- {npc:14724} Bubulo Acerbus
-	["{npc:14724}, by the tram"] = "",
+	["{npc:14724}, by the tram"] = "{npc:14724}, junto al tranvía",
 
-	-- Step 9: Fly to Light's Hope Chapel
+	-- Step 8: Fly to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
-	["Fly to {area:2268}"] = "",
+	["Fly to {area:2268}"] = "Vuela a {area:2268}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
-	-- Step 11: Light's Hope Chapel
-	-- {area:3197} Chillwind Camp · {area:2268} Light's Hope Chapel
-	["Ride on north to {area:3197} and fly to {area:2268}."] = "",
+	-- Step 9: Light's Hope Chapel
+	-- {npc:11038} Caretaker Alen · {area:2627} Terrordale
+	["{npc:11038}, by the graves south of the chapel: Egan is in {area:2627}, keep it"] = "",
 
-	-- Step 12: Scourge Champions
+	-- Step 10: Scourge Champions
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
-	["Scourge Champions"] = "",
+	["Scourge Champions"] = "Campeones de la Plaga ({npc:8529})",
 	-- {area:2270} Noxious Glade · {area:2268} Light's Hope Chapel · {npc:11063} Carlin Redpath · {item:13156} Mystic Crystal
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
-	["Scourge Champions (59) roam the {area:2270}, north of {area:2268}. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time."] = "",
+	["Scourge Champions (59) roam the {area:2270}, north of {area:2268}. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time."] = "Los campeones de la Plaga (59) deambulan por {area:2270}, al norte de {area:2268}. Pasa el {item:13156} de {npc:11063} sobre cada uno que mates: los cráneos que resuenan son los que quiere. Atráelos de uno en uno.",
 	-- {item:13155} Resonating Skull
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
-	["{item:13155}, from the Scourge Champions"] = "",
+	["{item:13155}, from the Scourge Champions"] = "{item:13155}, de los campeones de la Plaga",
 
-	-- Step 13: Light's Hope Chapel
-	["Chromie in Andorhal: keep it"] = "",
+	-- Step 11: Light's Hope Chapel
+	["Chromie in Andorhal: keep it"] = "Cromi en Andorhal: guárdala",
 
-	-- Step 14: Infiltrator Hameya
+	-- Step 12: Infiltrator Hameya
 	-- {area:2277} Plaguewood · {area:2273} Zul'Mashar
 	["Ride north to the {area:2277}'s north-eastern edge.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "",
 
-	-- Step 15: The Undercroft
+	-- Step 13: The Undercroft
 	-- {area:2261} The Undercroft · {npc:11886} Mercutio Filthgorger
 	["Ride south-west to the {area:2261}. The mound of dirt lies inside. {npc:11886} is elite: grouping up is advised.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "",
 	-- {item:14613} Taelan's Hammer · {npc:11886} Mercutio Filthgorger
-	["{item:14613}, from {npc:11886}"] = "",
+	["{item:14613}, from {npc:11886}"] = "{item:14613}, de {npc:11886}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Chromie in Andorhal: keep it"] = "Cromi en Andorhal: guárdala",
@@ -104,9 +100,7 @@ return {
 	-- ["Ride south-west to the {area:2261}. The mound of dirt lies inside. {npc:11886} is elite: grouping up is advised."] = "Cabalga al suroeste hasta {area:2261}. El montón de tierra está dentro. {npc:11886} es élite: se recomienda ir en grupo.",
 	-- ["Ride south-west to {npc:7771}'s camp at the {area:1938}."] = "Cabalga al suroeste hasta el campamento de {npc:7771} en {area:1938}.",
 	-- ["Scourge Champions"] = "Campeones de la Plaga",
-	-- ["Scourge Champions (59) roam the {area:2270}, north of {area:2268}. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time."] = "Los campeones de la Plaga (59) deambulan por {area:2270}, al norte de {area:2268}. Pasa el {item:13156} de {npc:11063} sobre cada uno que mates: los cráneos que resuenan son los que quiere. Atráelos de uno en uno.",
 	-- ["Sixty {item:2592}, if you carry them"] = "Sesenta de {item:2592}, si los llevas",
-	-- ["Take the boat from {area:392} to {area:35} and fly to {zone:1453}."] = "Toma el barco de {area:392} a {area:35} y vuela a {zone:1453}.",
 	-- ["Take the {area:2257} to {zone:1455}."] = "Toma el {area:2257} a {zone:1455}.",
 	-- ["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}."] = "Las bestias de alquitrán se revuelcan en {area:538}; los elementales de fuego de {area:537}, en el centro, llevan la ceniza; las avispas Gorishi de {area:540}, en el sur, llevan la glándula. Cualquier criatura del cráter puede soltar {item:11018}.",
 	-- ["The crater"] = "El cráter",
@@ -123,5 +117,4 @@ return {
 	-- ["{npc:3520}, who walks the canals"] = "{npc:3520}, que recorre los canales",
 	-- ["{npc:9299} waits at the graveyard just east of town; the gravestone stands nearby."] = "{npc:9299} espera en el cementerio justo al este del pueblo; la lápida está cerca.",
 	-- ["{quest:3444} is in {area:392}"] = "{quest:3444} está en {area:392}",
-	-- ["{quest:6184} at {area:3197}: keep it"] = "{quest:6184} en {area:3197}: guárdala",
 }

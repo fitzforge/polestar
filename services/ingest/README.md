@@ -26,6 +26,11 @@ their own client. What protects the data instead:
   (many /48s from one provider or tunnel broker), and 10 register requests a
   minute.
   The counts are kept in the database, so a restart does not reset them.
+  The maintainer's own test identities (smoke tests, end-to-end runs) are
+  registered with the maintainer key as the bearer on both register
+  requests: they use no network's count, and they are registered blocked, so
+  their uploads are answered as anyone's (and counted in their `/v1/me`) but
+  never exported or counted in `/v1/stats`. A wrong key is refused (401).
 - **Cohorts.** A contributor's cohort is the first 16 hex digits of an HMAC
   of its network under a key derived from `INGEST_SECRET` and the UTC month
   (`YYYY-MM`), so every registration from one network in one month shares
@@ -38,7 +43,10 @@ their own client. What protects the data instead:
   chunk whose values could not come from a real session (`plausible` in the
   recording library: clock, seq, levels, kill XP, kill and loot rates, ids,
   movement speed) is stored marked suspect, answered as accepted, and left
-  out of the export. Movement speed is measured on the canonical map sizes
+  out of the export. At startup the suspect chunks held are checked again
+  under the current rules (`recording::recheck`): one flagged only for speed
+  or kill rate that passes now is stored as plausible, under a new id so the
+  next pull gets it. Movement speed is measured on the canonical map sizes
   built into the library (`maps_table.rs`), never on sizes an uploader
   sends; maps not in it are not speed-checked.
 - **The maintainer can block a contributor.** A blocked contributor's
@@ -114,6 +122,13 @@ archive: the archive is the maintainer's `data/recordings`, which
   still answered `duplicate` and not stored twice. Seqs more than 1000 below
   their install's highest are forgotten once their chunk is gone (the addon
   never holds chunks that old).
+- `rejects`: per UTC day, how many chunks were rejected under each reason
+  class: the reason without what was sent (the quoted value dropped,
+  numbers as `N`: `turnin: field money: bad value`), never the contributor.
+  At most 100 classes a day (more count as `other`), kept 30 days, public in
+  `/v1/stats` `rejects`; each reject also logs `rejected chunk: <class>`. A
+  validator rule that turns real game values away shows here within
+  minutes.
 - `settings`: the acknowledged export id, the distinct-quest total and the
   database's `instance` id (random, made once; on every export line, so
   forge restarts its cursor when the database is restored or replaced).
