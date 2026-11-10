@@ -2547,6 +2547,15 @@ local function setEmpty(kind)
 		W.SetButtonText(empty.Secondary, L["Community guides"])
 		empty.Secondary.psAction = function() UI.ShowOptions("guidepacks") end
 		empty.Secondary:Show()
+	elseif kind == "noguides" and UI.Packs and UI.Packs.OwnGuidesOff() then
+		-- Polestar Guides installed but unticked in the AddOns list: one
+		-- click turns it on (with its parts) and reloads.
+		empty.Title:SetText(L["Polestar Guides is turned off"])
+		empty.Text:SetText(L["It is installed but unticked in the game's AddOns list, so Polestar has no guides to show."])
+		W.SetButtonText(empty.Primary, L["Turn on Polestar Guides and reload"])
+		empty.Primary:SetWidth(math.max(168, math.floor(empty.Primary.Label:GetStringWidth() + 32.5)))
+		empty.Primary.psAction = function() UI.Packs.TurnOnOwnGuides() end
+		empty.Primary:Show()
 	elseif kind == "noguides" and UI.Packs and UI.Packs.AnySwitchedOff() then
 		-- Installed but switched off on the Community guides page.
 		empty.Title:SetText(L["No guides shown"])

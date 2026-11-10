@@ -568,6 +568,9 @@ L["Step %d, later in this guide"] = "Schritt %d, später in diesem Leitfaden"
 -- L["How to update"] = ""
 -- L["Your guide's current step trains you."] = ""
 -- L["Search quests, NPCs, items, mounts and guides."] = ""
+-- L["Polestar Guides is turned off"] = ""
+-- L["It is installed but unticked in the game's AddOns list, so Polestar has no guides to show."] = ""
+-- L["Turn on Polestar Guides and reload"] = ""
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"
@@ -646,6 +649,7 @@ L["Expand"] = "Ausklappen"
 L["Collapse"] = "Einklappen"
 L["The tabs you closed and the last guides you loaded."] = "Die Tabs, die du geschlossen hast, und die zuletzt geladenen Guides."
 L["Recently closed"] = "Zuletzt geschlossen"
+-- L["No guides: Polestar Guides is installed but unticked in the game's AddOns list."] = ""
 
 -- UI/Report.lua
 L["skipped"] = "übersprungen"
@@ -1824,6 +1828,8 @@ L["Community addon version: %s"] = "Version des Community-Addons: %s"
 L["Polestar version: %s"] = "Polestar-Version: %s"
 L["Client build: %s (%s)"] = "Client-Build: %s (%s)"
 L["Problems:"] = "Probleme:"
+-- L["Turn on and reload"] = ""
+-- L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides to show. Turn it on for all your characters and reload?"] = ""
 
 -- UI/Report.lua (the report text itself stays English: the maintainers read it)
 L["What the guide said, and what you found in the game."] = "Was der Guide gesagt hat und was du im Spiel gefunden hast."

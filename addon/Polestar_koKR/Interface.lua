@@ -1420,6 +1420,9 @@ L["Step %d, later in this guide"] = "%d단계, 이 가이드 뒷부분"
 -- L["How to update"] = ""
 -- L["Your guide's current step trains you."] = ""
 -- L["Search quests, NPCs, items, mounts and guides."] = ""
+-- L["Polestar Guides is turned off"] = ""
+-- L["It is installed but unticked in the game's AddOns list, so Polestar has no guides to show."] = ""
+-- L["Turn on Polestar Guides and reload"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -1521,6 +1524,7 @@ L["Expand"] = "펼치기"
 L["Collapse"] = "접기"
 L["The tabs you closed and the last guides you loaded."] = "닫은 탭과 최근에 불러온 가이드입니다."
 L["Recently closed"] = "최근에 닫음"
+-- L["No guides: Polestar Guides is installed but unticked in the game's AddOns list."] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "애완동물"
@@ -1899,6 +1903,8 @@ L["Community guides, explained"] = "커뮤니티 가이드 설명"
 L["Installed"] = "설치됨"
 L["Read more:"] = "자세히:"
 L["Read more: docs/GUIDE_PACKS.md in Polestar's source"] = "자세히: Polestar 소스의 docs/GUIDE_PACKS.md"
+-- L["Turn on and reload"] = ""
+-- L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides to show. Turn it on for all your characters and reload?"] = ""
 
 -- UI/Options.lua
 L["Recorder"] = "기록기"

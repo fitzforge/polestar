@@ -1420,6 +1420,9 @@ L["Step %d, later in this guide"] = "Paso %d, más adelante en esta guía"
 -- L["How to update"] = ""
 -- L["Your guide's current step trains you."] = ""
 -- L["Search quests, NPCs, items, mounts and guides."] = ""
+-- L["Polestar Guides is turned off"] = ""
+-- L["It is installed but unticked in the game's AddOns list, so Polestar has no guides to show."] = ""
+-- L["Turn on Polestar Guides and reload"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascensor a %s"
@@ -1521,6 +1524,7 @@ L["Expand"] = "Desplegar"
 L["Collapse"] = "Plegar"
 L["The tabs you closed and the last guides you loaded."] = "Las pestañas que cerraste y las últimas guías que cargaste."
 L["Recently closed"] = "Cerradas recientemente"
+-- L["No guides: Polestar Guides is installed but unticked in the game's AddOns list."] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "Mascota"
@@ -1899,6 +1903,8 @@ L["Community guides, explained"] = "Guías de la comunidad, explicadas"
 L["Installed"] = "Instalados"
 L["Read more:"] = "Más información:"
 L["Read more: docs/GUIDE_PACKS.md in Polestar's source"] = "Más información: docs/GUIDE_PACKS.md en el código fuente de Polestar"
+-- L["Turn on and reload"] = ""
+-- L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides to show. Turn it on for all your characters and reload?"] = ""
 
 -- UI/Options.lua
 L["Recorder"] = "Recorder"
