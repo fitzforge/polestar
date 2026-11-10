@@ -332,6 +332,7 @@ step Ratchet
   accept 887                          -- Gazlowe, upstairs
   accept 97253                        -- Wrenix the Wretched
   accept 894                          -- Sputtervalve: the console is in the Sludge Fen, later
+  getfp "Ratchet" only Orc,Skyborne,Tauren,Troll,Undead -- Bragok, beside Sputtervalve
   accept 895                          -- WANTED poster
   accept 865                          -- Mebok Mizzyrix
   sethome "Ratchet"
@@ -359,7 +360,6 @@ step Ratchet
 step Fly to Crossroads
   zone The Barrens
   goto 63.1,37.1 "Ratchet flight master"
-  getfp "Ratchet" only Orc,Skyborne,Tauren,Troll,Undead
   fly "Crossroads"
 
 step The Crossroads

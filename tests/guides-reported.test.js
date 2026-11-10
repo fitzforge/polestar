@@ -1347,6 +1347,21 @@ test(`${BARRENS_12}: Orcs and Trolls learn Ratchet's flight path on the Ratchet 
 	}
 });
 
+// First-visit flight paths (2026-11-10, Fitz in game at Ratchet): Bragok stands 16 yd from Sputtervalve on the
+// first Ratchet stop, and the getfp waited for the fly step after the beach; Omusa Thunderhorn stands 54 yd from
+// Kirge Sternhorn, where Tauren leave Mulgore, and the path waited for the Barrens' Camp Taurajo stop.
+test("First-visit flight paths: Ratchet's is learned beside Sputtervalve on the first stop, Camp Taurajo's at Kirge for Tauren", { skip }, () => {
+	for (const race of ['Orc', 'Troll', 'Tauren', 'Scourge', 'Skyborne']) {
+		const forRace = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes(race));
+		const list = goals(BARRENS_12).filter(forRace);
+		const fp = at(list, `${race}: getfp Ratchet`, (g) => g.t === 'getfp' && g.location === 'Ratchet');
+		assert.equal(list[fp].s, list[at(list, 'accept 894', is('accept', 894))].s, `${race}: on Sputtervalve's step`);
+	}
+	const mulgore = goals(MULGORE);
+	const fp = at(mulgore, 'getfp Camp Taurajo', (g) => g.t === 'getfp' && g.location === 'Camp Taurajo');
+	assert.equal(mulgore[fp].s, mulgore[at(mulgore, 'accept 854', is('accept', 854))].s, "on Kirge Sternhorn's step");
+});
+
 test(`${BARRENS_12}: Kolkar Leaders is taken, worked and handed in on Regthar's first loop, with Centaur Bracers`, { skip }, () => {
 	const list = goals(BARRENS_12);
 	const bracers = at(list, 'accept 855', is('accept', 855));

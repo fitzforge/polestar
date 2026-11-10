@@ -541,6 +541,7 @@ step Kirge Sternhorn
   zone The Barrens
   tip Kirge Sternhorn stands at Camp Taurajo, where the road from Mulgore meets the Gold Road north to the Crossroads.
   accept 854                          -- Kirge Sternhorn: for Thork at the Crossroads
+  getfp "Camp Taurajo" npc 10378      -- Omusa Thunderhorn, beside Kirge
 
 step The Crossroads
   zone The Barrens
