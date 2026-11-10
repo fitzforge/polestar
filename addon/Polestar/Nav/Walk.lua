@@ -85,7 +85,14 @@
 --     subzone two levels share, or none, leaves it to movement.
 --   Follow: the surface nearest the floor, never more than RISE (4) yards
 --     above it (a ramp or stairs at mount speed, plus a jump); any drop (a
---     fall). None: unknown.
+--     fall). None (a cell with no surface at or below the floor plus RISE:
+--     a blocked cell at a cliff's foot, or one whose only surface is the
+--     ridge above): the floor is kept while the player is within KEEP (25,
+--     the router's snap reach) yards of where it was last on a surface, so a
+--     search from there starts on the ground walked in on, not on a ridge
+--     the router snaps to without a height (#1650: beside the Stonewrought
+--     Dam that ridge joins only Grim Batol, a 5,600 yd walk through the
+--     Wetlands for 400 along the dam); farther: unknown.
 --   Unknown again: another continent; more than JUMP (30) yards since the
 --     last read (a hearth, teleport, landing, loading screen); moving after
 --     more than FRESH (2) seconds without a check; on a taxi, a transport
@@ -399,6 +406,7 @@ local EVERY = 0.25    -- seconds between checks
 local JUMP = 30       -- yards between checks: a hearth, a teleport, a landing, a loading screen
 local FRESH = 2       -- seconds: a floor checked longer ago is not used (and moving after such a gap loses it)
 local NEAR = 5        -- yards from where the floor was read: farther, it is not used
+local KEEP = 25       -- yards from where the floor was last on a surface that it is kept over cells with none to follow (the router's SNAP 6 cells of 4.2 yd)
 local ZTOL = 10       -- Routing/PathGrid.lua's ZTOL: surfaces this close the router stands on alike
 local LIFT = 8        -- yards from a lift (Transit.LiftNear): it changes level without moving
 local INDOOR = 2      -- Path.SURFACE_INDOOR
@@ -411,6 +419,7 @@ local floorZ          -- the floor's height (nil: unknown)
 local cand, candMiss, candN = {}, {}, 0 -- while the floor is unknown and seed cannot tell: the floors the player may be on, and reads each has missed (reused)
 local candIndoor = false  -- the candidates are the indoor surfaces (the client said indoors): the player is on one of them
 local fC, fX, fY, fAt, fGhost = nil, 0, 0, -huge, false -- the last check: continent, point read, time, ghost
+local onX, onY = 0, 0     -- where the known floor was last on a surface of a read (KEEP counts from there)
 local aimAt               -- GetTime of the last Walk.Aim (nil: the reader's cluster released)
 local flatAt              -- GetTime of the last ask sent without a start height (nil: none owed a re-ask)
 local floorAsk = false    -- the floor became known soon after that ask: ask once more with it (Ruling 36b)
@@ -457,7 +466,8 @@ local function seed(n)
 end
 
 -- A known floor from the n surfaces read: the one nearest it, never more
--- than RISE above it (any drop is a fall); none: unknown.
+-- than RISE above it (any drop is a fall); none: nil (track keeps the floor
+-- within KEEP yards of where it was last on a surface).
 local function follow(n)
 	local best, gap = nil, huge
 	for i = 1, n do
@@ -658,7 +668,10 @@ local function track(P, pc, px, py)
 			floorZ = seed(n)
 			if floorZ == nil then candidates(n) end
 		end
-		if floorZ ~= nil and flatAt and now - flatAt <= REASK then flatAt, floorAsk = nil, true end
+		if floorZ ~= nil then
+			onX, onY = px, py
+			if flatAt and now - flatAt <= REASK then flatAt, floorAsk = nil, true end
+		end
 		-- Still unknown, indoors: a path asked without a height that starts on no candidate floor left (the
 		-- entrance hall over the Trade Quarter, ruled out a few steps on) is asked again from those left.
 		if floorZ == nil and flatAt and candIndoor and count > 1 and type(ptsZ[2]) == "number" then
@@ -670,9 +683,20 @@ local function track(P, pc, px, py)
 		end
 	else
 		-- Known: followed, unless the client's subzone names another floor here (a floor found by elimination on
-		-- the wrong level, or a fall the follow missed).
+		-- the wrong level, or a fall the follow missed). A read with no surface to follow keeps the floor within
+		-- KEEP yards of where it was last on one (a cliff's foot, a ridge-only cell, #1650); farther, unknown.
 		local z = named(P, pc, n)
-		if z ~= nil and abs(z - floorZ) > ZTOL then floorZ = z else floorZ = follow(n) end
+		if z ~= nil and abs(z - floorZ) > ZTOL then
+			floorZ, onX, onY = z, px, py
+		else
+			local f = follow(n)
+			if f ~= nil then
+				floorZ, onX, onY = f, px, py
+			else
+				local ox, oy = px - onX, py - onY
+				if ox * ox + oy * oy > KEEP * KEEP then floorZ = nil end
+			end
+		end
 	end
 end
 

@@ -594,6 +594,58 @@ fn b_where_the_straight_line_is_blocked_thelsamar_to_the_stonewrought_dam_the_ar
 	assert!(d <= len + 0.5 && d > len - second - 0.5, "the yards shown ({d:.1}) are the detour's ({len:.1})");
 }
 
+// #1650 (Rheuz): from the Suspicious Barrel at the Stonewrought Dam's east end, the walk back west to Chief Engineer
+// Hinderweir VII (Loch Modan, Era 46.05,13.61, his height 310.3). A few yards north-east of the barrel the maps have
+// no surface at the dam's level (the slope's foot), and the nearest surface without a height is the ridge above,
+// which the maps join only to Grim Batol: searched from there with no height, the walk went round through the
+// Wetlands and back in through Dun Algaz (5,600 yd). The walking floor keeps the dam's height over those cells.
+#[test]
+fn the_walk_from_the_suspicious_barrel_to_hinderweir_keeps_the_dams_height_off_its_edge_400_yd_along_the_dam_never_round_by_grim_batol_1650() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		Polestar.Set("nav.travel", false)
+		local _, bx, by = C.MapToWorld(1432, 56.05, 13.24, "e")
+		local _, sx, sy = C.MapToWorld(1432, 57.5, 13, "e")
+		place(1432, bx, by, 0)
+		local function hinderweir()
+			-- A new goal searches at once from where the player stands.
+			N.ClearTarget()
+			stub.advance(0.05)
+			local n0 = #finds
+			N.SetTarget(1432, 46.05, 13.61, "Chief Engineer Hinderweir VII", "e", nil, 310.3)
+			aim()
+			local n = 0
+			while not (#finds > n0 and finds[#finds].done) and n < 400 do stub.advance(0.05); aim(); n = n + 1 end
+			local f = finds[#finds]
+			local north = -math.huge
+			for _, p in ipairs(f.points or {}) do if p.x > north then north = p.x end end
+			return { z = f.from[3], yards = length(f.points or {}), north = north, finds = #finds }
+		end
+		-- At the barrel with the target set a few seconds (the arrow's Walk.Aim reads the floor; the dam's cells
+		-- there hold more than one level, so walking the first steps settles it), then north-east off the dam's edge.
+		hinderweir()
+		for _ = 1, 20 do stub.advance(0.3); aim() end
+		local r = {}
+		local steps = 20
+		for i = 1, steps do
+			place(1432, bx + (sx - bx) * i / steps, by + (sy - by) * i / steps, 0)
+			stub.advance(0.3)
+			aim()
+		end
+		r.edge = hinderweir()
+		r.barrelX = bx
+		emit(r)"#,
+		false,
+	);
+	let ez = &out["edge"]["z"];
+	assert!(ez.is_number(), "off the dam's edge the walk starts at a height, never without one ({ez})");
+	assert!((f(ez) - 308.0).abs() <= 8.0, "the dam's height (302-314), not the ridge's (340): {ez}");
+	let yards = f(&out["edge"]["yards"]);
+	assert!(yards < 600.0, "about 400 yd along the dam, not 5,600 round by Grim Batol ({yards:.0} yd)");
+	assert!(f(&out["edge"]["north"]) < f(&out["barrelX"]) + 100.0, "no point of the walk goes north over the ridge");
+}
+
 #[test]
 fn c_walking_the_path_point_by_point_moves_the_aim_forward_along_it_never_asks_the_engine_again_and_arrives() {
 	skip_unless_ready!();

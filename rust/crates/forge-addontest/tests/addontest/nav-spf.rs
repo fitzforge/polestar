@@ -3019,6 +3019,37 @@ fn t_234_floor_climbs_a_ramp_onto_a_bridge_falls_off_its_side_to_the_ground_and_
 	assert_eq!(out, json!({ "seed": 40, "bridge": 60, "fell": 40, "under": 40 }));
 }
 
+// #1650: off a ledge's edge onto cells with no surface at the floor's level (a blocked cell at a cliff's foot, then
+// cells whose only surface is a ridge 35 yd above), the floor is kept within 25 yd of where it was last on a
+// surface, so the search starts on the ledge, not on the ridge the router snaps to without a height. Farther on the
+// ridge's cells the floor is lost and seeds on the ridge; back down, it follows the drop to the ledge.
+#[test]
+fn t_1650_floor_kept_over_cells_with_no_surface_at_its_level_within_25_yd_of_the_last_one_farther_lost_and_seeded_again() {
+	let out = run(&[
+		FLOORS,
+		r#"
+		local r = {}
+		fake.surfaces = function(map, x, y)
+			if y <= -20 and y > -24 then return {} end
+			if y <= -24 then return { 75 } end
+			return { 40 }
+		end
+		nav.place(0, 50)
+		r.seed = startZ()
+		walk(0, -22)
+		r.blocked = startZ()
+		walk(0, -40)
+		r.ridgeNear = startZ()
+		walk(0, -60)
+		r.ridgeFar = startZ()
+		walk(0, 0)
+		r.back = startZ()
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out, json!({ "seed": 40, "blocked": 40, "ridgeNear": 40, "ridgeFar": 75, "back": 40 }));
+}
+
 #[test]
 fn t_234_floor_a_jump_of_30_yd_another_continent_or_a_stale_floor_no_reading_for_2_s_while_moving_is_unknown_again() {
 	let out = run(&[
