@@ -2870,7 +2870,7 @@ function GF.FillHere(E)
 		keys[i] = v.step .. ":" .. v.index
 		r.Icon:SetTexture(Theme.VerbIcon(v.here == "turnin" and "turnin" or v.t))
 		r.Text:SetText((v.here == "turnin" or v.here == "take") and UI.HereText(v) or UI.GoalLine(v))
-		r.Sub:SetText(string.format(L["Step %d"], UI.StepNo(v.step)))
+		r.Sub:SetText(string.format(v.later and L["Step %d, later in this guide"] or L["Step %d"], UI.StepNo(v.step)))
 		r.Sub:SetShown(not tight)
 		r.Dist:SetText(v.yards and ns.FormatDistance(v.yards, GF.HERE_DIST) or "")
 		r:Show()

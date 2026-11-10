@@ -1379,9 +1379,10 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   changed them (`Own.hereDirty`: a step change of the active tab, another
   guide, the quest log, the level, a new zone, the `behavior.whileHere*`
   settings): the open kill, collect, interact and use goals with a place on
-  the player's map in every step of the guide after the live step (a trip
-  away and back, a flight or a hearth in between change nothing; goals on
-  other maps never count), each for a quest in the log and not ready, for
+  the player's continent, whatever zone map it is on, in every step of the
+  loaded guide after the live step (a trip away and back, a flight or a hearth
+  in between change nothing; never another tab's guide or the next guide; Fitz,
+  0.3.6: no zone of the guide stops it), each for a quest in the log and not ready, for
   the character (`stepApplies`, `goalApplies`), not skipped, not shown
   already (an open goal for the same objective in a listed along step,
   background goals included, `Own.hereShown`, or a pinned quest: Along the
@@ -1439,28 +1440,41 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   of the steps between, `Own.herePlanned`), it may be `HERE_XP` (2) times
   the seconds out of the way.
   Accepts ahead (`Own.aheadWants`, Automation): at an NPC's window,
-  auto-accept also takes an accept of that NPC (`npc`) in the route's next
-  `AHEAD` steps for the character, so the route need not come back; the goal
-  then reads done, the live step and the arrow stay. Only when
+  auto-accept also takes an accept of that NPC (`npc`) in any later step of
+  the loaded guide for the character, so the route need not come back; the
+  goal then reads done, the live step and the arrow stay. Only when
   `Own.aheadOk`: the step and goal apply and are not skipped, no unanswered
   group question in the step, no `optional` accept, a `group` (elite,
   dungeon) one only after the player said "do", the quest not skipped,
-  closed, dropped by an `abandon` of the guide or above the character's
-  level, the log keeping `LOG_SPARE` (2) slots free (`Own.logRoom`, of
-  `Compat.GetLogCap`: Forever's client answers 0 to
-  `GetMaxNumQuestsCanAccept`, and its log holds 40), and a
-  timed quest (`limit`) only when the route's walk from the NPC to its
-  hand-in (open goals with a place in order, `GOAL_SECONDS` (10) each)
-  fits `LIMIT_SHARE` (0.6) of its time (`Own.aheadLimitOk`; no hand-in in
-  the guide or one on another continent: not taken). The same check runs
-  on the window the game opens after a hand-in (a follow-up: Thork's The
-  Disruption Ends after Disrupt the Attacks). With auto-accept off, such a
-  quest whose prerequisites are done (`Own.READY_NONE`) is a line of its
-  own while the player stands within `HERE_AT` of its NPC (kind "take",
-  not one the route reaches next, `Own.hereSoon`): "Take X from Y: saves a
-  trip back".
-  A build reads only the goals on the player's map: `Own.hereGoalsOn` indexes
-  each guide's goals with a quest and a place by map once (weak per guide).
+  closed, dropped by an `abandon` of the guide, below its `minLevel` or more
+  than `HERE_ABOVE` (2) levels over the character (`qlvl`), the log keeping
+  `LOG_SPARE` (2) slots free (`Own.logRoom`, of `Compat.GetLogCap`: Forever's
+  client answers 0 to `GetMaxNumQuestsCanAccept`, and its log holds 40), and
+  a timed quest (`limit`) only in the route's next `AHEAD` (5) steps and when
+  the route's walk from the NPC to its hand-in (open goals with a place in
+  order, `GOAL_SECONDS` (10) each) fits `LIMIT_SHARE` (0.6) of its time
+  (`Own.aheadLimitOk`; no hand-in in the guide or one on another continent:
+  not taken). The same check runs on the window the game opens after a
+  hand-in (a follow-up: Thork's The Disruption Ends after Disrupt the
+  Attacks). Each quest a gossip, greeting or quest window offers that
+  auto-accept leaves gets a debug-log line saying why (`Engine.AcceptRefusal`).
+  Pick-ups (Fitz on 0.3.6, walking past Thork with The Disruption Ends open
+  since Disrupt the Attacks went in earlier): with
+  `behavior.whileHereTurnins`, whatever the auto-accept setting, such an
+  accept whose prerequisites are done (`Own.READY_NONE`), never a timed one,
+  is a line of its own, kind "take": "Take X from Y: saves a trip back",
+  weighed as a hand-in (the same seconds, town, `HERE_FAR`, `HERE_SOON` and
+  walk rules), one per quest and none an NPC's whole visit names, at most
+  `HERE_TAKES` (2) of the `HERE_SHOW` lines. Clicked, the arrow points at
+  the NPC; with auto-accept on, talking to them takes it (`Own.hereWants`
+  "take"); taken, the line goes. A turn-in (`QUEST_TURNED_IN`) builds the
+  candidates again, so the follow-up comes up where the player stands.
+  Lines of the route's next `AHEAD` steps (`near`) rank and list before
+  those further on, which read "Step N, later in this guide".
+  A build reads the goals on the player's continent: `Own.hereGoalsOn`
+  indexes each guide's goals with a quest and a place by continent once
+  (weak per guide; again `HERE_INDEX_RETRY` (10) s on while a goal's map is
+  not known yet).
   The arrival poll measures at most `HERE_MAX` of them (`Own.hereList`): all
   when that many fit, else the nearest (`Own.herePick`, again each
   `HERE_REPICK` yards the player moves). It (`Own.hereTick`, allocation-free:
