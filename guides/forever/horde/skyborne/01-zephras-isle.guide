@@ -140,6 +140,13 @@ step Shen'dar Village
   complete 96101 @41.73,44.78         -- /sit by Raan's campfire until you get Boosted Rest
   turnin 96101                        -- Raan Wildwind
   accept 96646
+  accept 97971 optional               -- Raan Wildwind
+  accept 97965 optional               -- Raan Wildwind
+  accept 97969 optional               -- Raan Wildwind
+  accept 97970 optional               -- Raan Wildwind
+  accept 97963 optional               -- Raan Wildwind
+  accept 97964 optional               -- Raan Wildwind
+  accept 97967 optional               -- Raan Wildwind
   turnin 92514                        -- Constable Aonda
   accept 92517
   accept 92516                        -- Teeri Wellwind
@@ -150,25 +157,18 @@ step Shen'dar Village
   complete 96646 @43.85,43.9
   turnin 96646                        -- Zerril Softbreeze
   accept 92553                        -- Zerril Softbreeze
-  accept 97971 optional               -- Raan Wildwind
   complete 97971 optional @43.29,43.37 map 2521 live
   turnin 97971 optional               -- Mendalass Tattermend
-  accept 97965 optional               -- Raan Wildwind
   complete 97965 optional @43.08,46.31 map 2521 live
   turnin 97965 optional               -- Naleeia Tattermend
-  accept 97969 optional               -- Raan Wildwind
   complete 97969 optional @44.68,44.52 map 2521 live
   turnin 97969 optional               -- Indari Sunseam
-  accept 97970 optional               -- Raan Wildwind
   complete 97970 optional @44.77,44.56 map 2521 live
   turnin 97970 optional               -- Messana Crestwind
-  accept 97963 optional               -- Raan Wildwind
   complete 97963 optional @43.69,43.42 map 2521 live
   turnin 97963 optional               -- Nyassa Swiftdraught
-  accept 97964 optional               -- Raan Wildwind
   complete 97964 optional @44.88,44.37 map 2521 live
   turnin 97964 optional               -- Aedi Thriceforged
-  accept 97967 optional               -- Raan Wildwind
   complete 97967 optional @45.02,48.44 map 2521 live
   turnin 97967 optional               -- Fenn Fairweather
 
