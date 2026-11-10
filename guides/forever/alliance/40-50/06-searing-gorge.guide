@@ -49,7 +49,7 @@ step Dorius Stonetender
   accept 3367
   complete 3367
   turnin 3367                         -- Singed Letter
-  accept 3368                         -- For Curator Thorius in Ironforge, later
+  accept 3368                         -- For Curator Thorius in Ironforge, at the end of this guide
 
 # ---------------------------------------------------------------- Thorium Point
 
@@ -220,6 +220,22 @@ step Fly to Ironforge
   fly "Ironforge"
   zone Ironforge
 
+step Hall of Explorers
+  accept 3448                         -- Historian Karnik
+  turnin 3368                         -- Curator Thorius
+  accept 4512                         -- Laris Geardawdle: the oozes are in Felwood, keep it
+
+step Mystic Ward
+  turnin 3448                         -- Tymor
+  accept 3449                         -- Four rune rubbings in Azshara: keep it
+  accept 3450
+
 step Class trainer
   only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+
+step Xiggs Fuselighter
+  tip Xiggs waits in the Military Ward.
+  turnin 3450
+  accept 3451
+  turnin 3451

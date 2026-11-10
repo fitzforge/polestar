@@ -10330,3 +10330,28 @@ test('Dustwallow Marsh (Alliance 40): Mudrock Soup and Bugs handed in with Stink
 	const manor = at(list, 'accept 1218', is('accept', 1218));
 	assert.ok(!list.slice(sentry, manor).some(({ step }) => step.title === 'Theramore'), 'Sentry Point straight on to Swamplight Manor');
 });
+
+// Flow review, Alliance 49-51 (0.3.6): the Searing Gorge guide ends in Ironforge, where the Un'Goro guide's last stop
+// came back for Curator Thorius (3368), Karnik/Tymor/Xiggs (3448-3451) and Laris (4512), all open at 48, after a hearth
+// to Thelsamar and before Menethil, the boat and Auberdine to Astranaar. Those are now handed in and taken on the Searing
+// Gorge guide's Ironforge stop, and only Priests and Mages (Cenarion Aid 8254, Magecraft 8250: level 50) still go back;
+// everyone else flies from Marshal's Refuge to Astranaar and trains on the next guide's Ironforge stop.
+test('Searing Gorge and Un\'Goro (Alliance 49-50): the Ironforge quests on the first Ironforge stop, a flight to Astranaar after Un\'Goro', { skip }, () => {
+	const sg = goals('forever/alliance/40-50/06-searing-gorge.guide');
+	const flyIF = at(sg, 'fly to Ironforge', (g) => g.t === 'fly' && g.location === 'Ironforge');
+	for (const [t, q] of [['turnin', 3368], ['accept', 3448], ['accept', 4512], ['turnin', 3448], ['accept', 3449], ['turnin', 3451]]) {
+		assert.ok(at(sg, `${t} ${q}`, is(t, q)) > flyIF, `${t} ${q} on the Ironforge stop`);
+	}
+	const ug = goals('forever/alliance/40-50/07-un-goro-crater.guide');
+	assert.ok(!ug.some(({ goal }) => [3368, 3448, 3449, 3450, 3451, 4512].includes(goal.quest)), 'none left for Un\'Goro');
+	const warrior = ug.filter(forClass('WARRIOR'));
+	const astra = warrior.findIndex(({ goal }) => goal.t === 'fly' && goal.location === 'Astranaar');
+	const refuge = warrior.findIndex(({ goal }) => goal.t === 'turnin' && goal.quest === 4321);
+	assert.ok(astra > refuge, 'Warriors fly to Astranaar after the refuge');
+	assert.ok(!warrior.slice(refuge, astra).some(({ goal }) => ['fly', 'hearth'].includes(goal.t) || goal.text === 'Stoutlager Inn'), 'with no hearth or Ironforge trip before it');
+	const priest = ug.filter(forClass('PRIEST'));
+	assert.ok(priest.some(({ goal }) => goal.t === 'accept' && goal.quest === 8254) && priest.some(({ goal }) => goal.t === 'train'), 'Priests still go to Ironforge for Cenarion Aid and train');
+	const bs = goals('forever/alliance/50-60/01-burning-steppes.guide').filter(forClass('WARRIOR'));
+	const train = bs.findIndex(({ goal }) => goal.t === 'train');
+	assert.ok(train > bs.findIndex(({ goal }) => goal.t === 'fly' && goal.location === 'Ironforge'), 'Warriors train on the Burning Steppes guide\'s Ironforge stop');
+});
