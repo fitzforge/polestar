@@ -5200,6 +5200,22 @@
 					"ref": "data/forever/npcs.json 5396, 5638, 1182"
 				}
 			]
+		},
+		{
+			"id": "ba3040-menethil-glorin-in-the-tavern",
+			"faction": "Alliance",
+			"at": {
+				"quest": 270,
+				"goal": "turnin"
+			},
+			"tip": "Glorin stands in the Deepwater Tavern, south of the keep, where Mikhail and Vincent Hyal wait too.",
+			"note": "BrAlliance3040 (0.3.6, Alliance 30-40/03): the tip sent the player to the upper floor of Menethil Keep. Glorin Steelbrow (1217) spawns at 10.6,60.6, in the Deepwater Tavern beside Mikhail (4963, 10.6,60.8), whom the next step visits; Captain Stoutfist (2104) is the one in the keep (9.9,57.5). 06-wetlands already says Glorin is in the tavern.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/npcs.json 1217, 4963, 2104 spawns"
+				}
+			]
 		}
 	]
 }

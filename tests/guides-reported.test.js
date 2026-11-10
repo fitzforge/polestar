@@ -10433,3 +10433,15 @@ test('Alliance Desolace: the Karnitol chest on the first visit, one Nijel\'s Poi
 	assert.ok(kreldig.every((i) => i > satchel && sth[i].s === sth[kreldig[kreldig.length - 1]].s), "Kreldig's hand-ins on one stop after the coast");
 	assert.ok(!sth.some(({ goal }) => is('accept', 1456)(goal)), 'the satchel errand comes from 02');
 });
+
+// BrAlliance3040 (0.3.6, Alliance 30-40/03): Glorin Steelbrow spawns in the Deepwater Tavern (10.6,60.6), beside Mikhail,
+// whom the next step visits; the tip sent players up Menethil Keep, where Captain Stoutfist stands.
+test('Alliance Menethil 32: Glorin Steelbrow is in the Deepwater Tavern, not the keep', () => {
+	const guide = 'forever/alliance/30-40/03-ashenvale.guide';
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.id === 'ba3040-menethil-glorin-in-the-tavern');
+	assert.ok(rec, 'the tip is a record');
+	const tips = stepTips(guide, /^\s+turnin 270\b/);
+	assert.deepEqual(tips, [rec.tip]);
+	assert.match(tips[0], /Deepwater Tavern/);
+	assert.doesNotMatch(tips[0], /keep\./);
+});

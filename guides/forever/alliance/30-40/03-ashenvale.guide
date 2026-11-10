@@ -30,7 +30,7 @@ step Red Jack Flint
 
 step Glorin Steelbrow
   zone Wetlands
-  tip Glorin stands on the upper floor of Menethil's keep.
+  tip Glorin stands in the Deepwater Tavern, south of the keep, where Mikhail and Vincent Hyal wait too.
   turnin 270                          -- Inside
   accept 321
 
