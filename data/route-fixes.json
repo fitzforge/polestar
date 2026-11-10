@@ -7779,6 +7779,34 @@
 				"issue": "-"
 			},
 			{
+				"q": 5649,
+				"reason": "BrHordeStart 0.3.6: Troll Priest robe pair, In Favor of Spirituality (90 XP) from Ken'jai at the Den on the last Valley of Trials stop (players are 5 there: 28 of 30 recorded Orcs/Trolls hand in 6394 at 5) to Tai'jin in the Razor Hill barracks on the first Razor Hill stop, then Garments of Spirituality (5648, 270 XP, Juju Hex Robes): Grunt Kor'ja (53.1,46.5) on the walk south to Tiragarde Keep, handed in on the next Razor Hill stop beside Gar'Thok. Our comparison takes them there; the Alliance pairs went into their starts the same night. Recordings (game facts): 2 of 2 recorded Troll Priests did the pair (accept at 5 at the Den, robe at 6).",
+				"issue": "-"
+			},
+			{
+				"q": 5648,
+				"reason": "BrHordeStart 0.3.6: Garments of Spirituality, see 5649.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					5649
+				]
+			},
+			{
+				"q": 5651,
+				"reason": "BrHordeStart 0.3.6: Undead Priest robe pair, In Favor of Darkness (90 XP) from Dark Cleric Duesten in the Deathknell church after Meven Korgal (players are 5 there: 41 of 42 recorded hand in 381 at 5) to Dark Cleric Beryl upstairs in Gallows' End Tavern on the first Brill stop, then Garments of Darkness (5650, 270 XP, Acolyte's Sacrificial Robes): Deathguard Kel (59.2,46.5) by the graveyard's north gate on the walk north, handed in on the next Brill stop upstairs with Gretchen. Our comparison takes them there. Recordings (game facts): 9 recorded Undead Priests took the pair (accept at 5, robe at 5-8).",
+				"issue": "-"
+			},
+			{
+				"q": 5650,
+				"reason": "BrHordeStart 0.3.6: Garments of Darkness, see 5651.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					5651
+				]
+			},
+			{
 				"q": 1359,
 				"reason": "Flow coverage, 2026-11-07: Zinge's Delivery (level 15, from 10) is offered by Apothecary Renferrel at the Sepulcher, and Apothecary Zinge stands in the Undercity's Apothecarium, which the Silverpine stay passes at its end (Horde 12-30 re-chain (2026-11-07)); recorded players take it (6 accepts, 6 hand-ins). Solo in Forever's quest data.",
 				"issue": "-",

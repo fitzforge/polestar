@@ -9882,3 +9882,28 @@ test('Tauren Mulgore: Journey to the Crossroads from Kirge at Camp Taurajo, hand
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
 	assert.ok(rf.include.some((e) => e.q === 854), 'the route fixes include Journey to the Crossroads');
 });
+
+// BrHordeStart (0.3.6): the level 5 Priest robe pairs ride on stops the Troll and Undead starts already make, as the
+// Alliance starts' do: the trainer's letter at 5, the town trainer's heal-and-fortify quest on a guard by the road,
+// the robe on the next town stop. Recorded Priests of both races did them (Troll 2 of 2, Undead 9).
+test('Horde starts: the Priest robe quests on stops the Troll and Undead starts already make', { skip }, () => {
+	const cases = [
+		['forever/horde/troll/01-durotar.guide', 5649, 5648, 12430, 'turnin 6394', is('turnin', 6394), 'turnin 96821', is('turnin', 96821), 'turnin 784', is('turnin', 784)],
+		['forever/horde/undead/01-tirisfal-glades.guide', 5651, 5650, 12428, 'turnin 382', is('turnin', 382), 'turnin 407', is('turnin', 407), 'turnin 375', is('turnin', 375)],
+	];
+	for (const [file, letter, garments, guard, dLabel, dPred, tLabel, tPred, rLabel, rPred] of cases) {
+		const list = goals(file);
+		const take = at(list, `accept ${letter}`, is('accept', letter));
+		assert.ok(at(list, dLabel, dPred) < take, `${file}: the letter comes on the last start-area stop, at 5`);
+		const hand = at(list, `turnin ${letter}`, is('turnin', letter));
+		assert.equal(list[hand].s, list[at(list, tLabel, tPred)].s, `${file}: handed to the town trainer on the first town stop`);
+		const next = at(list, `accept ${garments}`, is('accept', garments));
+		const heal = at(list, `heal ${guard}`, (g) => g.t === 'kill' && g.quest === garments && g.npc === guard);
+		const robe = at(list, `turnin ${garments}`, is('turnin', garments));
+		assert.ok(hand <= next && next < heal && heal < robe, `${file}: letter, guard, robe in order`);
+		assert.equal(list[robe].s, list[at(list, rLabel, rPred)].s, `${file}: the robe on the next town stop`);
+		for (const i of [take, hand, next, heal, robe]) assert.ok([list[i].step.only, list[i].goal.only].some((o) => o && o.classes && o.classes.length === 1 && o.classes[0] === 'PRIEST'), `${file}: Priests only`);
+	}
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
+	for (const q of [5648, 5649, 5650, 5651]) assert.ok(rf.include.some((e) => e.q === q), `the route fixes include ${q}`);
+});

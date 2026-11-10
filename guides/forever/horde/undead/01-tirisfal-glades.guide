@@ -128,6 +128,12 @@ step Executor Arren
   accept 383
   accept 96656
 
+step Dark Cleric Duesten
+  only Priest
+  tip Dark Cleric Duesten, the priest trainer in the church, sends you to Dark Cleric Beryl in Brill. Train Lesser Heal (Rank 2) from him now: the wounded guard Beryl sends you to needs it.
+  train class
+  accept 5651                         -- Dark Cleric Duesten: for Dark Cleric Beryl in Brill
+
 # ---------------------------------------------------------------- To Brill
 
 # Out of Deathknell the road passes Calvin Montague, Deathguard Simmer, the
@@ -216,6 +222,8 @@ step Gallows' End Tavern
   turnin 96658
   turnin 407                          -- The Captured Scarlet Zealot, in the inn's cellar
   train class                         -- The Brill trainers are in the inn (Austil de Mon downstairs, the rest upstairs); Shari Stilwell, the Paladin trainer, by the square
+  turnin 5651 only Priest             -- Dark Cleric Beryl, upstairs
+  accept 5650 only Priest
 
 step Coleman Farthing and Gretchen Dedmar
   when level>=7
@@ -288,6 +296,11 @@ step Brill
 
 # ---------------------------------------------------------------- North loop
 
+step Deathguard Kel
+  only Priest
+  tip Deathguard Kel kneels by the north gate of Brill's graveyard, on your way north. Cast Lesser Heal (Rank 2) on him, then Power Word: Fortitude: Fortitude first does not count.
+  kill 12428 quest 5650.1 "Heal and fortify Deathguard Kel" @59.2,46.5
+
 step Tirisfal Glades: kill these as you meet them
   zone Tirisfal Glades
   tip Greater Duskbats fly over the fields around Brill and along the road north: Gretchen wants their pelts, Shelene their wings.
@@ -317,6 +330,7 @@ step Brill
   accept 359
   buy 2320 npc 2118                   -- Coarse Thread from Abigail Shiel, for Gretchen
   turnin 375                          -- Gretchen Dedmar, upstairs
+  turnin 5650 only Priest             -- Dark Cleric Beryl, upstairs: the Acolyte's Sacrificial Robes
   train class
 
 step Deathguard Terrence

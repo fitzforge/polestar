@@ -140,6 +140,7 @@ step Zureetha Fargaze
   turnin 1516 only Shaman -- Canaga Earthcaller
   accept 1517 only Shaman
   turnin 6394
+  accept 5649 only Troll,Priest       -- Ken'jai, the priest trainer at the Den: for Tai'jin in Razor Hill
 
 step Call of Earth
   only Shaman
@@ -184,6 +185,8 @@ step Razor Hill
   turnin 823                          -- Orgnil Soulscar
   accept 784
   turnin 96821                        -- Gar'Thok
+  turnin 5649 only Troll,Priest       -- Tai'jin, in the barracks with Gar'Thok
+  accept 5648 only Troll,Priest
   accept 815
 
 # ---------------------------------------------------------------- Razor Hill and the north
@@ -204,6 +207,11 @@ step Prickly pears
 step Cook Torka
   turnin 96825
 
+step Grunt Kor'ja
+  only Troll,Priest
+  tip Grunt Kor'ja kneels behind the rocks just off the road south of Razor Hill, on your way to the keep. Cast Lesser Heal (Rank 2) on her, then Power Word: Fortitude: Rank 1 of Lesser Heal does not count.
+  kill 12430 quest 5648.1 "Heal and fortify Grunt Kor'ja" @53.1,46.5
+
 step Tiragarde Keep
   tip The keep stands on the coast south-east of Razor Hill. The raiders' axe, bow and shield lie on its outskirts. Sailors and marines drop the Canvas Scraps. Lieutenant Benedict waits at the top of the keep; his key opens the chest beside him, which holds the Aged Envelope.
   collect 275717 quest 96822.3 @56.6,53.0
@@ -219,6 +227,7 @@ step Tiragarde Keep
 step Razor Hill
   tip Back north-west to Razor Hill: Gar'Thok first, then Furl in the watchtower, then Orgnil and Turroc on the way out east to the shore.
   turnin 784                          -- Gar'Thok
+  turnin 5648 only Troll,Priest       -- Tai'jin, beside Gar'Thok: the Juju Hex Robes
   turnin 830 optional
   accept 831
   accept 825
