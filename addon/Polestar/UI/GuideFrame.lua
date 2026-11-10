@@ -2458,7 +2458,7 @@ function GF.Layout()
 	local skipW = nav.Skip:IsShown() and nav.Skip:GetWidth() + 4 or 0
 	local reportW = nav.Report:IsShown() and nav.Report:GetWidth() or 0
 	local nearbyW = nav.Nearby:IsShown() and nav.Nearby:GetWidth() or 0
-	nav.Title:SetWidth(max(40, width - PAD - (steps and nav.Steps:GetWidth() + 12 or 0) - 24 - 8 - 8 - skipW - reportW - nearbyW))
+	nav.Title:SetWidth(max(40, width - PAD - (steps and nav.Steps:GetWidth() + 12 or 0) - 24 - 8 - 8 - (nav.Close:IsShown() and 18 or 0) - skipW - reportW - nearbyW))
 	card:SetWidth(width)
 
 	local y = 0
@@ -3846,6 +3846,17 @@ function GF.ApplyStyle()
 	W.Painter(GF.veil, GF.PaintVeil)
 	W.Painter(band.Veil, GF.PaintVeil)
 	nav.TitleBar:SetShown(not clear and skin == "hearth")
+	nav.Close:Hide()
+	-- A registered skin's own title (Theme.SkinHook "guideTitle"), after the
+	-- house state above: it may show the title bar (`bar`) and the close
+	-- square (`close`), hide the band and set `menuRight`, the menu's inset
+	-- from the right edge (room for the close square). The rule then takes
+	-- the bar's line (GF.PaintRule).
+	local title = GF.TitleParts(nav.TitleBar, nav.Close, nav.Rule, band)
+	if not clear then Theme.SkinHook("guideTitle", nav, title) end
+	nav.Menu:ClearAllPoints()
+	nav.Menu:SetPoint("RIGHT", nav, "RIGHT", -(tonumber(title.menuRight) or 8), 0)
+	GF.PaintRule(nav.Rule)
 	-- Blizzard's damage meter header bar under the tabs.
 	Theme.KitStrip(strip, not clear)
 	-- The quest tracker's header behind the focus (Forever, Blizzard).
@@ -4154,12 +4165,33 @@ function GF.PaintStatus(frac, pctText)
 	b.Pct:SetShown(GF.On("progressPct"))
 end
 
+-- What the guideTitle hook gets (the live window and the Looks preview).
+function GF.TitleParts(bar, close, rule, band)
+	return { bar = bar, close = close, rule = rule, band = band, menuRight = 8 }
+end
+
+-- The rule under the navigator: Halo's gold one; a title bar's line (Hearth's,
+-- or a skin's that shows the bar); the game's looks their separator.
+function GF.PaintRule(t)
+	local k = Theme.SkinKey()
+	if k == "halo" then
+		t:SetVertexColor(Theme.Color("accentLine"))
+	elseif k == "hearth" or nav.TitleBar:IsShown() then
+		t:SetVertexColor(Theme.Color("titleLine"))
+	elseif Theme.Kit() then
+		t:SetVertexColor(Theme.Color("separator"))
+	else
+		t:SetVertexColor(Theme.Wash("divider"))
+	end
+	t:SetHeight(Theme.Pixel(nav))
+end
+
 function GF.ApplySkin()
 	if not F then return end
 	readMetrics()
 	GF.ApplyFonts()
 	local skin = Theme.SkinKey()
-	skinShown = skin
+	skinShown = Theme.SkinId()
 	F.psGuide = true
 	Theme.Repaint(F)
 	strip:SetHeight(TAB_H)
@@ -4192,19 +4224,7 @@ function GF.ApplySkin()
 	nav.Steps:SetPoint("LEFT", nav, "LEFT", PAD - 6, 0)
 	-- Rules: Halo's gold one under the navigator; Hearth's title bar line; the
 	-- game's looks their separator.
-	W.Painter(nav.Rule, function(t)
-		local k = Theme.SkinKey()
-		if k == "halo" then
-			t:SetVertexColor(Theme.Color("accentLine"))
-		elseif k == "hearth" then
-			t:SetVertexColor(Theme.Color("titleLine"))
-		elseif Theme.Kit() then
-			t:SetVertexColor(Theme.Color("separator"))
-		else
-			t:SetVertexColor(Theme.Wash("divider"))
-		end
-		t:SetHeight(Theme.Pixel(nav))
-	end)
+	W.Painter(nav.Rule, GF.PaintRule)
 	-- Hearth: the person's name over a gold separator.
 	person.Rule:SetShown(skin == "hearth")
 	-- The focus parts at the skin's paddings.
@@ -4282,7 +4302,7 @@ end
 
 -- A skin chosen while the window shows: its sizes, then a fresh layout.
 Theme.OnChanged(function()
-	if F and skinShown and skinShown ~= Theme.SkinKey() then
+	if F and skinShown and skinShown ~= Theme.SkinId() then
 		GF.ApplySkin()
 		GF.ApplyStyle()
 	end
@@ -4678,6 +4698,22 @@ local function build()
 		end
 	end)
 	nav.TitleBar:Hide()
+	-- A skin's close square at the title bar's right (the guideTitle hook shows it).
+	nav.Close = CreateFrame("Button", nil, nav)
+	nav.Close:SetSize(18, 18)
+	nav.Close:SetPoint("RIGHT", nav, "RIGHT", -5, 0)
+	W.Fill(nav.Close, "closeFill", "BACKGROUND", -3)
+	local closeGlyph = W.Tex(nav.Close, "ARTWORK", "close", "closeGlyph")
+	closeGlyph:SetSize(10, 10)
+	closeGlyph:SetPoint("CENTER", nav.Close, "CENTER", 0, 0)
+	W.Painter(nav.Close, function(b) Theme.Border(b, Theme.Color("closeEdge")) end)
+	nav.Close:SetScript("OnEnter", function(self) W.Tooltip(self, tooltipAnchor(), L["Hide window"]) end)
+	nav.Close:SetScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)
+	nav.Close:SetScript("OnClick", function()
+		ns.Set("ui.shown", false)
+		ns.Print(L["Guide window hidden. Type /polestar to bring it back."])
+	end)
+	nav.Close:Hide()
 	nav.Steps = CreateFrame("Frame", nil, nav)
 	nav.Steps:SetSize(100, 24)
 	nav.Steps:SetPoint("LEFT", nav, "LEFT", PAD - 6, 0)

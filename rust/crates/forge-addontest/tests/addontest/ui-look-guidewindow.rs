@@ -298,3 +298,48 @@ fn the_settings_window_has_the_guide_window_page_with_its_controls() {
 		assert!(keys.contains(&k), "{k} on the Window tab: {:?}", keys);
 	}
 }
+
+// A registered skin's `guideTitle` hook dresses the navigator: the title bar and the close square shown, the band
+// hidden, the menu moved in for the square, the rule in titleLine. The transparent window and the other skins keep
+// the house title.
+#[test]
+fn a_registered_skin_s_guide_title_hook_dresses_the_navigator() {
+	let out = run(r##"
+		local T = Polestar.Theme
+		local ok, why = T.RegisterSkin("titled", { name = "Titled", addon = "Test_Titled", base = "polestar",
+			tokens = { titleLine = "#43331E", closeFill = "#9C211D" },
+			hooks = { guideTitle = function(nav, parts)
+				parts.bar:Show()
+				parts.close:Show()
+				parts.band:Hide()
+				parts.menuRight = 26
+			end } })
+		uistub.openTabs(TABS, 1)
+		local function title()
+			local _, _, _, mx = P.nav.Menu:GetPoint(1)
+			local r, g, b = P.nav.Rule:GetVertexColor()
+			return { bar = P.nav.TitleBar:IsShown(), close = P.nav.Close:IsShown(), band = P.band:IsShown(), menu = mx,
+				rule = string.format("%02x%02x%02x", r * 255 + 0.5, g * 255 + 0.5, b * 255 + 0.5) }
+		end
+		local house = title()
+		Polestar.Set("ui.skin", "titled")
+		local titled = title()
+		local f = Polestar.UI.GuideWindowPreview(UIParent)
+		f:Layout(900)
+		titled.previewBar, titled.previewClose = f.Nav.TitleBar:IsShown(), f.Nav.Close:IsShown()
+		Polestar.Set("ui.style", "transparent")
+		local clear = title()
+		Polestar.Set("ui.style", "standard")
+		Polestar.Set("ui.skin", "polestar")
+		emit({ ok = ok, why = why or false, house = house, titled = titled, clear = clear, back = title() })"##);
+	assert_eq!(out["ok"], true, "registered: {}", out["why"]);
+	let h = &out["house"];
+	assert_eq!((h["bar"].clone(), h["close"].clone(), h["band"].clone(), h["menu"].clone()), (json!(false), json!(false), json!(true), json!(-8)), "the house title: {h}");
+	let t = &out["titled"];
+	assert_eq!((t["bar"].clone(), t["close"].clone(), t["band"].clone(), t["menu"].clone()), (json!(true), json!(true), json!(false), json!(-26)), "the hook's title: {t}");
+	assert_eq!(t["rule"], "43331e", "the rule under a title bar in titleLine");
+	assert_eq!((t["previewBar"].clone(), t["previewClose"].clone()), (json!(true), json!(true)), "the Looks preview runs the same hook");
+	let c = &out["clear"];
+	assert_eq!((c["bar"].clone(), c["close"].clone(), c["band"].clone()), (json!(false), json!(false), json!(false)), "the transparent window draws no title: {c}");
+	assert_eq!(out["back"], out["house"], "back on the house skin, its own title");
+}
