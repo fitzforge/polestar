@@ -11,6 +11,9 @@ next forever/alliance/05-duskwood
 # into this file.
 # Added here: A Free Lunch (129), Blackrock Blockade (98387); on Duskwood's first loop Raven Hill (163)
 # and Jitters' Growling Gut (5), with Jitters on the Raven Hill stop and Chef Grual on the way back.
+# Chef Grual's follow-up Dusky Crab Cakes (93) is taken with 5's hand-in (handed in at once by a
+# player already carrying six Gooey Spider Legs, a free drop of Duskwood's spiders); 05-duskwood
+# finishes it on its west loop and hands Return to Jitters (240) to Jitters at Raven Hill.
 
 # Duskwood and Redridge, first half (about 23 to 25.6). Since 2026-11-07
 # Duskwood and Redridge are played together, so Redridge comes at 23+ where
@@ -246,6 +249,7 @@ step The Hushed Bank: kill these as you meet them
   kill 213 quest 226                      -- Starving Dire Wolf
   kill 539 quest 245 @10.6,55.4 map 1431 era -- Pygmy Venom Web Spider
   collect 1130 quest 101                  -- Vial of Spider Venom: Pygmy Venom Web Spiders, Venom Web Spiders and Green Recluses
+  collect 2251 x6 optional                -- Gooey Spider Leg: keep the ones these spiders drop, for Chef Grual in Darkshire
 
 step Abercrombie
   tip The hermit's shack stands in the woods north-east of the Raven Hill Cemetery.
@@ -272,6 +276,9 @@ step Yorgen Farmstead
 step Darkshire
   turnin 96139                            -- Sirra Von'Indi, inside
   turnin 5                                -- Chef Grual, in the Scarlet Raven Tavern
+  accept 93                               -- Chef Grual: six Gooey Spider Legs, which Duskwood's spiders drop even without the quest
+  turnin 93 optional                      -- Already carrying six? Hand them in now
+  accept 240 optional                     -- For Jitters, at Raven Hill on the next Duskwood loop
   turnin 56                               -- Commander Althea Ebonlocke
   accept 57
   level 23

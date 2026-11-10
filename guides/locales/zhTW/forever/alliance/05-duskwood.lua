@@ -28,7 +28,14 @@ return {
 	-- Step 5: Abercrombie
 	["Head west along the road once more."] = "",
 
-	-- Step 7: Back to Darkshire
+	-- Step 6: Gooey Spider Legs
+	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
+	["Gooey Spider Legs"] = "",
+	-- {npc:311} Sven Yorgen
+	-- plural, as words: Carrion Recluses = {npc:949} Carrion Recluse · Venom Web Spiders = {npc:217} Venom Web Spider · Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider · Green Recluses = {npc:569} Green Recluse
+	["Carrion Recluses lurk in the woods on the way west, and Venom Web Spiders, Pygmy Venom Web Spiders and Green Recluses crawl just south of {npc:311}'s camp: each can drop a leg."] = "",
+
+	-- Step 8: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "回到{area:42}",
 	-- {area:42} Darkshire
@@ -40,45 +47,51 @@ return {
 	-- {npc:273} Tavernkeep Smitts
 	["{npc:273}, in the tavern"] = "{npc:273}，在旅店裡",
 
-	-- Step 8: Rot Blossoms
+	-- Step 9: Chef Grual
+	-- {npc:272} Chef Grual
+	["{npc:272} is in the Scarlet Raven Tavern too."] = "",
+	-- {npc:288} Jitters · {area:94} Raven Hill
+	["For {npc:288}, at {area:94} on the way west"] = "",
+
+	-- Step 10: Rot Blossoms
 	-- plural, as words: Rot Blossoms = {item:1598} Rot Blossom
 	["Rot Blossoms"] = "腐敗之花",
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
 	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Rot Blossoms = {item:1598} Rot Blossom
 	["Skeletal Horrors walk the hillside between {area:42} and the {area:121}, south-east of town; they drop the Rot Blossoms."] = "恐怖骸骨在城鎮東南方、{area:42}與{area:121}之間的山坡上走動；牠們會掉落腐敗之花。",
 
-	-- Step 10: Abercrombie
+	-- Step 12: Abercrombie
 	["Head west to the hermit once more."] = "",
 
-	-- Step 11: Ghoul Ribs
+	-- Step 13: Ghoul Ribs
 	-- plural, as words: Ghoul Ribs = {item:884} Ghoul Rib
 	["Ghoul Ribs"] = "食屍鬼的肋骨",
 	-- {area:492} Raven Hill Cemetery · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms
 	-- plural, as words: Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Brain Eaters = {npc:570} Brain Eater
 	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "",
 
-	-- Step 13: Raven Hill Cemetery: kill these as you meet them
+	-- Step 15: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
 	["{area:492}: kill these as you meet them"] = "",
 	-- {area:94} Raven Hill · {npc:522} Mor'Ladim
 	-- plural, as words: Skeletal Fiends = {npc:531} Skeletal Fiend · Skeletal Horrors = {npc:202} Skeletal Horror
 	["Head south through the cemetery towards {area:94}. Skeletal Fiends and Skeletal Horrors walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "",
 
-	-- Step 14: Jitters
+	-- Step 16: Jitters
 	-- {npc:288} Jitters · {area:94} Raven Hill
 	["{npc:288} hides in the house at the west end of {area:94}."] = "{npc:288}躲在{area:94}西端的房子裡。",
 
-	-- Step 15: Sven's Camp
+	-- Step 18: Sven's Camp
 	-- {zone:1453} Stormwind · {area:150} Menethil Harbor · {zone:1437} Wetlands
 	["Next: training, then the flight from {zone:1453} to {area:150} for the {zone:1437}."] = "",
 
-	-- Step 17: Agent Kearnen
+	-- Step 20: Agent Kearnen
 	-- {area:94} Raven Hill · {zone:1436} Westfall · {npc:7024} Agent Kearnen · {npc:7053} Klaven Mortwake · {npc:7051} Malformed Defias Drone
 	["Head west along the road out of {area:94} into {zone:1436}. {npc:7024} watches {npc:7053}'s tower from the hills just inside the border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "",
 	-- {item:7908} Klaven Mortwake's Journal
 	["{item:7908}, in the chest"] = "{item:7908}，在箱子裡",
 
-	-- Step 18: Master Mathias Shaw
+	-- Step 21: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {object:2100} Old Town
 	["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "",
 	-- {npc:332} Master Mathias Shaw · {item:18160} Recipe: Thistle Tea
@@ -92,35 +105,35 @@ return {
 	-- {item:4371} Bronze Tube · {object:2096} Trade District · {npc:5519} Billibub Cogspinner
 	["{item:4371}: the Auction House, {object:2096}; {npc:5519} keeps one and is nearly always sold out"] = "",
 
-	-- Step 19: Elwynn Forest
+	-- Step 22: Elwynn Forest
 	-- {area:94} Raven Hill · {area:87} Goldshire · {zone:1453} Stormwind
 	["North from {area:94} through Elwynn: {area:87} is on the road to {zone:1453}."] = "",
 
-	-- Step 20: Class trainer
+	-- Step 23: Class trainer
 	["Class trainer"] = "",
 	["Level 22 and 24 spells"] = "22和24級法術",
 
-	-- Step 21: Gazin Tenorm
+	-- Step 24: Gazin Tenorm
 	-- {zone:1453} Stormwind · {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall
 	["On into {zone:1453}: {npc:6173} and {npc:6171} are in the Cathedral of Light, on the way to the gryphon master."] = "",
 	["Cathedral of Light"] = "光明大教堂",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171}：救贖",
 
-	-- Step 22: Stormwind
+	-- Step 25: Stormwind
 	-- {zone:1453} Stormwind · {object:28027} Dwarven District
 	["{zone:1453}'s {object:28027}"] = "",
 
-	-- Step 23: Tram to Ironforge
+	-- Step 26: Tram to Ironforge
 	-- {zone:1455} Ironforge
 	["Tram to {zone:1455}"] = "",
 
-	-- Step 24: Shaman training
+	-- Step 27: Shaman training
 	["Shaman training"] = "薩滿訓練",
 	-- {zone:1453} Stormwind · {area:2257} Deeprun Tram · {object:28027} Dwarven District · {zone:1455} Ironforge · {npc:258098} Eldrun Stormbreaker
 	["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "{zone:1453}沒有薩滿訓練師：從{object:28027}搭乘{area:2257}前往{zone:1455}，向{npc:258098}學習，然後搭地鐵回來。",
 
-	-- Step 25: Rogue training
+	-- Step 28: Rogue training
 	["Rogue training"] = "",
 	-- {zone:1453} Stormwind
 	["Train here, in {zone:1453}, before you go on."] = "",

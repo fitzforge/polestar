@@ -129,6 +129,8 @@ return {
 	-- {item:1130} Vial of Spider Venom
 	-- plural, as words: Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider · Venom Web Spiders = {npc:217} Venom Web Spider · Green Recluses = {npc:569} Green Recluse
 	["{item:1130}: Pygmy Venom Web Spiders, Venom Web Spiders and Green Recluses"] = "{item:1130}: Veneracnas Pigmeias, Venaracnas e Reclusas Verdes",
+	-- {item:2251} Gooey Spider Leg · {npc:272} Chef Grual · {area:42} Darkshire
+	["{item:2251}: keep the ones these spiders drop, for {npc:272} in {area:42}"] = "",
 
 	-- Step 20: Abercrombie
 	-- {area:492} Raven Hill Cemetery
@@ -153,6 +155,12 @@ return {
 	["{npc:268}, inside"] = "{npc:268}, lá dentro",
 	-- {npc:272} Chef Grual
 	["{npc:272}, in the Scarlet Raven Tavern"] = "{npc:272}, na Scarlet Raven Tavern",
+	-- {npc:272} Chef Grual · {zone:1431} Duskwood
+	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
+	["{npc:272}: six Gooey Spider Legs, which {zone:1431}'s spiders drop even without the quest"] = "",
+	["Already carrying six? Hand them in now"] = "",
+	-- {npc:288} Jitters · {quest:163} Raven Hill · {zone:1431} Duskwood
+	["For {npc:288}, at {quest:163} on the next {zone:1431} loop"] = "",
 	-- {npc:663} Calor
 	["{npc:663}, by the town hall"] = "{npc:663}, junto à prefeitura",
 

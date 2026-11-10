@@ -2423,6 +2423,29 @@ test(`${REDRIDGE}: uNBEx's report (#1348): the Bronze Tube comes from the Stormw
 	assert.ok(list[ah].s < list[take].s, 'on a stop before Darkshire, where Look to the Stars is taken');
 });
 
+// Alliance 12-30 bracket review 0.3.6: Dusky Crab Cakes (93, 780 XP) is Chef Grual's follow-up to Jitters' Growling Gut
+// (5), handed to him on 04's last Darkshire stop; its Gooey Spider Legs drop from Duskwood's spiders without the quest, so
+// many players hand it in at once. Return to Jitters (240, 975 XP) ends at Jitters, on 05's Raven Hill stop.
+test(`${REDRIDGE} / 05-duskwood: Dusky Crab Cakes taken with Jitters' Growling Gut's hand-in, Return to Jitters handed in at Raven Hill`, { skip }, () => {
+	const red = goals(REDRIDGE);
+	const grual = at(red, 'turnin 5', is('turnin', 5));
+	const take = at(red, 'accept 93', is('accept', 93));
+	assert.ok(take > grual && red[take].s === red[grual].s, 'taken from Chef Grual right after Jitters\' Growling Gut');
+	const now = at(red, 'turnin 93', is('turnin', 93));
+	assert.ok(red[now].s === red[take].s && red[now].goal.optional, 'handed in at once only when already complete: never holds the stop');
+	const onquest = (e, q) => (e.step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(q));
+	const dusk = goals('forever/alliance/05-duskwood.guide');
+	const legs = at(dusk, 'collect 2251 quest 93', (g) => g.t === 'collect' && g.item === 2251 && g.quest === 93);
+	const hand = at(dusk, 'turnin 93', is('turnin', 93));
+	const back = at(dusk, 'accept 240', is('accept', 240));
+	const jitters = at(dusk, 'turnin 240', is('turnin', 240));
+	assert.ok(onquest(dusk[legs], 93) && onquest(dusk[hand], 93), 'the legs and Chef Grual only for a character carrying it');
+	assert.ok(legs < at(dusk, 'turnin 230 (Sven)', is('turnin', 230)), 'the legs on the first west trip, before Sven\'s camp');
+	assert.ok(hand > at(dusk, 'turnin 266 (Smitts)', is('turnin', 266)) && hand < at(dusk, 'collect 1598 (Rot Blossoms)', (g) => g.t === 'collect' && g.item === 1598), 'handed to Chef Grual on the next Darkshire stop, in the tavern');
+	assert.ok(back > hand && onquest(dusk[jitters], 240), 'Return to Jitters only for a character carrying it');
+	assert.ok(jitters > at(dusk, 'turnin 453 (Jitters)', is('turnin', 453)) && jitters < at(dusk, 'turnin 268 (Sven)', is('turnin', 268)), 'handed in on the Raven Hill stop');
+});
+
 // The sweep for #1348: a Bronze Tube is never a buy that holds a step (every vendor of it keeps one or two),
 // and a goal that must get one sends the player to the Stormwind Auction House, not to a vendor.
 test('Every guide (#1348): no Bronze Tube buy holds a step; a required tube comes from the Auction House', { skip }, () => {

@@ -7244,6 +7244,24 @@
 				]
 			},
 			{
+				"q": 93,
+				"reason": "Alliance 12-30 bracket review 0.3.6: Dusky Crab Cakes (level 20, from 17, 780 XP) is Chef Grual's follow-up to Jitters' Growling Gut (5), which 04-redridge-mountains hands him on its last Darkshire stop. Its six Gooey Spider Legs drop from Duskwood's spiders without the quest (31-34% from Pygmy Venom Web Spiders, Venom Web Spiders, Green Recluses and Carrion Recluses, quest not required), so players carry some from Eight-Legged Menaces and the venom vials: in players' recordings 16 people took it, 13 handed it in, 6 of them at once with all six legs already in their bags. Taken with 5's hand-in (handed in at once when complete), finished on 05-duskwood's first west trip past the spiders south of Sven's camp, handed to Chef Grual in the tavern on the next Darkshire stop.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					5
+				]
+			},
+			{
+				"q": 240,
+				"reason": "Alliance 12-30 bracket review 0.3.6: Return to Jitters (level 20, from 17, 975 XP) follows Dusky Crab Cakes (93) at Chef Grual and ends at Jitters, whom 05-duskwood's Raven Hill stop visits for Supplies from Darkshire (453): a hand-in on a stop the route already makes (players' recordings: 14 people took it, 11 handed it to Jitters).",
+				"issue": "-",
+				"after": [
+					"turnin",
+					93
+				]
+			},
+			{
 				"q": 1106,
 				"reason": "Quest volume (2026-11-08): both sides take it since #1204 and #1220. The Alliance hands in Salt Flat Venom (1104) and Hardened Shells (1105) at the Mirage Raceway at 33-34, so Fizzle Brassbolts offers Martek the Exiled there; Martek stands in the Valley of Fangs, which 30-40/06's Badlands loop passes twice at 38-39.",
 				"issue": "-",
