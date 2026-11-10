@@ -224,6 +224,10 @@ return {
 	["{npc:1356}, {npc:2916} and {npc:5637} stand in the {object:32356}, north-east of the flight master."] = "{npc:1356}, {npc:2916} e {npc:5637} ficam no {object:32356}, a nordeste do mestre de voo.",
 	["Level 30 and 32 spells"] = "Feitiços de nível 30 e 32",
 
+	-- Step 50: Sara Balloo
+	-- {npc:2695} Sara Balloo · {zone:1455} Ironforge
+	["{npc:2695}: for King Magni, on the same {zone:1455} stop"] = "{npc:2695}: para o Rei Magni, na mesma parada em {zone:1455}",
+
 	-- Step 52: King Magni Bronzebeard
 	-- {npc:2784} King Magni Bronzebeard · {object:171709} High Seat
 	["{npc:2784}, the {object:171709}"] = "{npc:2784}, {object:171709}",

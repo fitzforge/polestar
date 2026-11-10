@@ -34,25 +34,29 @@ return {
 	-- {npc:4198} Braelyn Firehand
 	["{npc:4198}, outside the gate"] = "{npc:4198}，在大门外",
 
-	-- Step 5: Gaea Seeds
+	-- Step 5: Tammra Windfield
+	-- {npc:11864} Tammra Windfield
+	["{npc:11864} stands by the bonfire inside Sun Rock: Makaba's news that Kaya is alive is for her."] = "{npc:11864}站在烈日石居内的篝火旁：玛卡巴带来的卡娅还活着的消息正是要告诉她的。",
+
+	-- Step 6: Gaea Seeds
 	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed
 	["Gaea Seeds"] = "盖亚之种",
 	-- {area:464} Mirkfallon Lake
 	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed
 	["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock.\nCareful: Pridewings around the lake can aggro as a linked group."] = "盖亚之种散布在烈日石居以北、{area:464} 南岸周围的草丛中。\n小心：湖边的雄翼双足飞龙可能会整群联动进入战斗。",
 
-	-- Step 6: Stonetalon Mountains: kill these as you meet them
+	-- Step 7: Stonetalon Mountains: kill these as you meet them
 	-- {zone:1442} Stonetalon Mountains
 	["{zone:1442}: kill these as you meet them"] = "{zone:1442}：沿途击杀以下目标",
 	-- {area:467} Stonetalon Peak
 	-- plural, as words: Antlered Coursers = {npc:4018} Antlered Courser · Sap Beasts = {npc:4020} Sap Beast · Twilight Runners = {npc:4067} Twilight Runner · Fey Dragons = {npc:4016} Fey Dragon
 	["Follow the road north toward {area:467}. Antlered Coursers graze along the way; the Sap Beasts, Twilight Runners and Fey Dragons roam the woods below the Peak, and the Cenarion druids hold the grove there."] = "沿道路向北朝{area:467}前进。巨角鹿沿途吃草；腐蚀兽、夜行虎和灵龙在山峰下方的树林中游荡，塞纳里奥德鲁伊占据那里的树林。",
 
-	-- Step 7: Sun Rock Retreat
+	-- Step 8: Sun Rock Retreat
 	-- {npc:4198} Braelyn Firehand · {zone:1440} Ashenvale
 	["{npc:4198}'s next quest, Ordanus, is on the Alliance side of {zone:1440}. Skip it."] = "{npc:4198}的下一个任务“奥达努斯”在{zone:1440}的联盟一方。跳过。",
 
-	-- Step 8: The Charred Vale: kill these as you meet them
+	-- Step 9: The Charred Vale: kill these as you meet them
 	-- {area:465} The Charred Vale
 	["{area:465}: kill these as you meet them"] = "{area:465}：沿途遇到就击杀",
 	-- {area:465} The Charred Vale · {item:16312} Incendrites
@@ -63,21 +67,21 @@ return {
 	-- plural, as words: Gaea Dirt Mounds = {object:177929} Gaea Dirt Mound
 	["Gaea Dirt Mounds"] = "盖亚土堆",
 
-	-- Step 9: Sun Rock Retreat
+	-- Step 10: Sun Rock Retreat
 	-- {npc:11861} Mor'rogal · {npc:11862} Tsunaman
 	["{npc:11861}, beside {npc:11862}"] = "{npc:11861}，在{npc:11862}旁边",
 	-- {npc:11862} Tsunaman
 	["{npc:11862}, up on the ledge"] = "{npc:11862}，在上方的岩架上",
 
-	-- Step 10: Malaka'jin
+	-- Step 11: Malaka'jin
 	-- {area:1076} Webwinder Path · {area:2539} Malaka'jin
 	["Head back down the {area:1076} to {area:2539}."] = "沿 {area:1076} 下行，返回 {area:2539}。",
 
-	-- Step 11: To Camp Taurajo
+	-- Step 12: To Camp Taurajo
 	-- {area:378} Camp Taurajo
 	["To {area:378}"] = "",
 
-	-- Step 12: Camp Taurajo
+	-- Step 13: Camp Taurajo
 	-- {area:2539} Malaka'jin · {area:378} Camp Taurajo
 	["From {area:2539} follow the road east to Seereth's camp, then south-east across the plains to {area:378}."] = "从 {area:2539} 沿路向东到希雷斯的营地，再向东南穿过平原，前往 {area:378}。",
 	-- {npc:3433} Tatternack Steelforge
@@ -85,14 +89,14 @@ return {
 	-- {npc:3430} Mangletooth
 	["{npc:3430}, in the cage"] = "{npc:3430}，在笼子里",
 
-	-- Step 13: Grunt Logmar
+	-- Step 14: Grunt Logmar
 	-- {npc:5911} Grunt Logmar · {npc:268623} Outraged Pillager
 	-- plural, as words: Encroaching Soldiers = {npc:268622} Encroaching Soldier
 	["{npc:5911} stands by the flight master. His {npc:268623} (23) is elite: grouping up is advised; the two Encroaching Soldiers are not."] = "",
 	-- {npc:5911} Grunt Logmar · {npc:3341} Gann Stonespire
 	["{npc:5911}: the soldiers and the pillager camp just east of {npc:3341}, on the way south"] = "",
 
-	-- Step 15: Brine
+	-- Step 16: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:359} Bael Modan
 	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}, on the way to {area:359}."] = "{npc:5899}的小屋在{area:378}南边野猪人水坑上方的山脊上，就在前往{area:359}的路上。",
 	-- {npc:5899} Brine · {area:272} Tarren Mill
@@ -100,7 +104,7 @@ return {
 	-- {npc:5899} Brine · {zone:1440} Ashenvale
 	["{npc:5899}: the blue waterskin is filled in {zone:1440}, next guide"] = "{npc:5899}：蓝色水袋在{zone:1440}装满，见下一个指南",
 
-	-- Step 16: Gann Stonespire
+	-- Step 17: Gann Stonespire
 	-- {npc:3341} Gann Stonespire · {area:359} Bael Modan · {npc:14242} Sulhasa
 	["{npc:3341} walks the road south toward {area:359}, between about 46,75 and 46,81: if he isn't at the arrow, follow the road until you meet him. {npc:14242} sits up in the tree just east of the road at 47.9,77.5."] = "",
 	-- {npc:3341} Gann Stonespire · {area:1701} Blackthorn Ridge
@@ -108,48 +112,48 @@ return {
 	-- {npc:14242} Sulhasa · {npc:3341} Gann Stonespire
 	["{npc:14242}, up in the tree just east of {npc:3341}"] = "{npc:14242}，在{npc:3341}正东的树上",
 
-	-- Step 17: Wrongly Blamed, Justly Corrected
+	-- Step 18: Wrongly Blamed, Justly Corrected
 	-- {npc:14242} Sulhasa · {npc:268623} Outraged Pillager
 	-- plural, as words: Encroaching Soldiers = {npc:268622} Encroaching Soldier
 	["A few steps east of {npc:14242}'s tree, a small camp: two Encroaching Soldiers and the {npc:268623} for Logmar. The {npc:268623} is elite: grouping up is advised."] = "",
 
-	-- Step 18: Bael Modan
+	-- Step 19: Bael Modan
 	-- {area:359} Bael Modan · {npc:3392} Prospector Khazgorm
 	["South of Gann, the Bael'dun dwarves dig at {area:359}. Excavators and Foremen work the pit; {npc:3392} (26) carries the journal: pull him alone.\nCareful: Excavators (level 21-22) and Foremen (level 22-23) run off for help once they fall to 15% health, so more dwarves can join the fight."] = "加恩·石塔以南，巴尔丹矮人正在{area:359}挖掘。挖掘工和工头在坑中工作；{npc:3392}（26级）带着日志：单独把他引出来。\n小心：挖掘工（21-22级）和工头（22-23级）在生命值降至15%时会逃跑求援，可能引来更多矮人参战。",
 	-- {npc:3375} Bael'dun Foreman · {area:359} Bael Modan
 	["{npc:3375} walks around {area:359}: look inside the circle on the map"] = "{npc:3375}在{area:359}附近巡逻，请在地图标出的圆圈内寻找",
 
-	-- Step 19: Blackthorn Ridge
+	-- Step 20: Blackthorn Ridge
 	-- {area:1701} Blackthorn Ridge · {npc:3436} Kuz · {npc:3434} Nak · {npc:3435} Lok Orcbane · {npc:5859} Hagg Taurenbane · {quest:885} Washte Pawne · {spell:1752} Sinister Strike
 	-- plural, as words: Razormane Stalkers = {npc:3457} Razormane Stalker
 	["West of Gann, the Razormane hold {area:1701}. {npc:3436} is on the east side, {npc:3434} to the south, {npc:3435} at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; {npc:5859}, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. {quest:885}, a rare red wind serpent, flies over the ridge: its feather starts a quest.\nCareful: Razormane Stalkers move around in stealth and hit with {spell:1752}, so they can join a fight without warning."] = "加恩·石塔西边的 {area:1701} 被钢鬃野猪人占据。{npc:3436} 在东侧，{npc:3434} 在南边，{npc:3435} 在最西端。洛克·奥克班恩（25 级）和战狂（24-25 级）比你高几级；稀有精英 {npc:5859} 有时会沿山脊巡逻：别招惹它。探路者和钢鬃捕猎者掉落 钢鬃背刺匕首，先知掉落 烧焦的钢鬃魔杖，战狂掉落 钢鬃大盾。{quest:885} 是一条稀有红色风蛇，会在山脊上空飞行：它的羽毛可以开启任务。\n小心：钢鬃捕猎者会潜行移动，并使用 {spell:1752} 攻击，可能毫无预警地加入战斗。",
 
-	-- Step 20: Field to Clear
+	-- Step 21: Field to Clear
 	-- {npc:3341} Gann Stonespire · {npc:3238} Stormhide
 	-- plural, as words: Hecklefang Stalkers = {npc:4128} Hecklefang Stalker
 	["On the way back east to {npc:3341}: Hecklefang Stalkers and {npc:3238} lizards roam the plain between the ridge and his camp."] = "向东返回 {npc:3341} 处的途中：乱齿捕猎者和 {npc:3238} 蜥蜴在山脊与他营地之间的平原游荡。",
 	-- {npc:4128} Hecklefang Stalker · {area:1156} Southern Barrens
 	["{npc:4128} walks around {area:1156}: look inside the circle on the map"] = "{npc:4128}在{area:1156}附近巡逻，请在地图标出的圆圈内寻找",
 
-	-- Step 22: Bael'dun fortress
+	-- Step 23: Bael'dun fortress
 	["Bael'dun fortress"] = "巴尔丹城堡",
 	-- plural, as words: Bael'dun Soldiers = {npc:3376} Bael'dun Soldier
 	["The Bael'dun Soldiers, Riflemen and Officers guard the fortress on the east side of the dig; all three items drop from them.\nCareful: Riflemen (level 24-25) Shoot from 5-30 yd, so nearby ones can join a fight from range."] = "巴尔丹士兵、巴尔丹火枪手 和 巴尔丹军官 守卫着挖掘场东侧的堡垒；它们会掉落全部三种物品。\n小心：巴尔丹火枪手（24—25级）的射击射程为5—30码，附近的敌人可能从远处加入战斗。",
 
-	-- Step 24: The flying machine
+	-- Step 25: The flying machine
 	["The flying machine"] = "飞行器",
 	-- {item:5021} Explosive Stick of Gann · {npc:3341} Gann Stonespire
 	["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "矮人的飞行器停在挖掘场内的平台上。对它使用{npc:3341}给你的{item:5021}。",
 
-	-- Step 26: Great Lift
+	-- Step 27: Great Lift
 	-- {area:1718} Great Lift
 	["The top of the {area:1718}"] = "",
 
-	-- Step 27: Great Lift
+	-- Step 28: Great Lift
 	-- {npc:12576} Grish Longrunner · {area:1718} Great Lift
 	["South-west of Bael Modan, {npc:12576} waits at the top of the {area:1718}."] = "巴尔莫丹西南方，{npc:12576} 在 {area:1718} 顶端等待。",
 
-	-- Step 28: The Great Lift
+	-- Step 29: The Great Lift
 	-- {area:1718} Great Lift
 	["The {area:1718}"] = "{area:1718}",
 	-- {npc:10079} Brave Moonhorn · {area:1718} Great Lift · {npc:12576} Grish Longrunner
@@ -157,34 +161,34 @@ return {
 	-- {npc:10079} Brave Moonhorn
 	["{npc:10079}, at the top of the lift"] = "{npc:10079}，在升降梯顶部",
 
-	-- Step 31: Grunt Logmar
+	-- Step 32: Grunt Logmar
 	-- {npc:5911} Grunt Logmar
 	["{npc:5911}, beside the flight master"] = "",
 
-	-- Step 32: Fly to Crossroads
+	-- Step 33: Fly to Crossroads
 	-- {area:378} Camp Taurajo
 	["{area:378} flight master"] = "{area:378}的飞行管理员",
 
-	-- Step 33: The Crossroads
+	-- Step 34: The Crossroads
 	-- {npc:3429} Thork
 	["{npc:3429}, at the top of the tower"] = "{npc:3429}，在塔顶",
 
-	-- Step 34: Fly to Ratchet
+	-- Step 35: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "飞往{area:392}",
 	["Crossroads flight master"] = "十字路口飞行管理员",
 
-	-- Step 35: Sputtervalve
+	-- Step 36: Sputtervalve
 	-- {npc:3442} Sputtervalve
 	["{npc:3442} stands beside the flight master you land at."] = "{npc:3442}站在你降落处的飞行管理员旁边。",
 	-- {npc:3442} Sputtervalve · {quest:1094} Further Instructions · {npc:4201} Ziz Fizziks
 	["{npc:3442}: {quest:1094}, from {npc:4201}"] = "{npc:3442}：{quest:1094}，来自{npc:4201}",
 
-	-- Step 36: Merchant Coast
+	-- Step 37: Merchant Coast
 	-- {quest:874} Mahren Skyseer · {area:392} Ratchet
 	["{quest:874} camps on the shore just north of {area:392}'s flight master."] = "{quest:874} 在 {area:392} 飞行管理员北边不远处的海岸扎营。",
 
-	-- Step 37: Isha Awak
+	-- Step 38: Isha Awak
 	-- {quest:873} Isha Awak · {area:391} Merchant Coast · {npc:3388} Mahren Skyseer
 	["{quest:873}, a big threshadon, swims in the shallows off the {area:391}, east of {npc:3388}."] = "{quest:873}是一头巨大的鱼龙，在{area:391}外的浅水中游动，位于{npc:3388}东边。",
 

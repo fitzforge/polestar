@@ -110,8 +110,8 @@ return {
 	-- Step 22: Ratchet
 	-- {npc:3391} Gazlowe · {npc:3446} Mebok Mizzyrix
 	["{npc:3391} waits upstairs in the house by the flight master; {npc:3446} stands below it, towards the docks."] = "",
-	-- {npc:3391} Gazlowe · {area:35} Booty Bay
-	["{npc:3391}'s next errand takes you to {area:35}, off this part of the route: leave it."] = "",
+	-- {npc:3391} Gazlowe · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
+	["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}: für {npc:4631} in {area:35}, beim ersten Halt in {area:35} in 40-50",
 	-- {quest:1111} Wharfmaster Dizzywig
 	["{quest:1111}, on the docks"] = "",
 	-- {area:439} Shimmering Flats

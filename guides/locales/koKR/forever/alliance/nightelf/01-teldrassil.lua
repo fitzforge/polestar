@@ -88,6 +88,8 @@ return {
 	["Upstairs"] = "",
 	-- {object:654846} Lost Journal
 	["{object:654846}, upstairs"] = "",
+	-- {npc:3595} Shanda · {npc:3600} Laurna Morninglight · {area:186} Dolanaar
+	["{npc:3595}, the priest trainer, on the ramp on the way down: {npc:3600} in {area:186} takes it"] = "내려가는 길에 경사로의 사제 상급자 {npc:3595}: {area:186}의 {npc:3600}에게 가져가세요",
 
 	-- Step 12: Iverron's Antidote
 	-- {npc:8583} Dirania Silvershine · {area:256} Aldrassil · {npc:8584} Iverron
@@ -120,6 +122,8 @@ return {
 	["{npc:3567}, upstairs"] = "",
 	-- {npc:3600} Laurna Morninglight
 	["{npc:3600}, inside"] = "",
+	-- {npc:3600} Laurna Morninglight · {npc:12429} Sentinel Shaya · {area:259} Lake Al'Ameth
+	["{npc:3600}: heal {npc:12429} by {area:259}"] = "{npc:3600}: {area:259} 옆의 {npc:12429} 치유하기",
 
 	-- Step 18: Dolanaar
 	-- {npc:2151} Moon Priestess Amara
@@ -156,28 +160,34 @@ return {
 	-- {npc:2080} Denalan · {quest:922} Rellian Greenspyre · {zone:1457} Darnassus
 	["{npc:2080}: {quest:922} in {zone:1457} takes it"] = "{npc:2080}: {zone:1457}의 {quest:922}에게 가져가세요",
 
-	-- Step 24: Fel Rock's mouth
+	-- Step 23: Sentinel Shaya
+	-- {npc:12429} Sentinel Shaya · {area:259} Lake Al'Ameth · {area:186} Dolanaar · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude
+	["{npc:12429} kneels wounded on the rocks at the north edge of {area:259}, on the walk back to {area:186}, with no quest mark over her. Cast {spell:613} (Rank 2) on her, then {spell:1243}: Rank 1 of {spell:613} does not count. She runs off once both land and is back in about 5 minutes."] = "{npc:12429}은(는) {area:186}(으)로 돌아가는 길, {area:259} 북쪽 가장자리 바위 위에 다친 채 무릎을 꿇고 있으며 머리 위에 퀘스트 표시가 없습니다. 그녀에게 {spell:613}(2레벨)을 시전한 뒤 {spell:1243}을(를) 시전하세요. 1레벨 {spell:613}은(는) 인정되지 않습니다. 두 주문이 모두 적용되면 그녀는 달려가 버리며, 약 5분 후에 돌아옵니다.",
+	-- {npc:12429} Sentinel Shaya
+	["Heal and fortify {npc:12429}"] = "{npc:12429}을(를) 치유하고 인내력 강화하기",
+
+	-- Step 25: Fel Rock's mouth
 	-- {area:258} Fel Rock
 	["{area:258}'s mouth"] = "{area:258} 입구",
 
-	-- Step 25: Fel Rock
+	-- Step 26: Fel Rock
 	-- {npc:2038} Lord Melenas
 	["{npc:2038} waits inside the cave, at the bottom or up on the ledge; keep to the right."] = "{npc:2038}은(는) 동굴 안 바닥이나 바위턱 위에서 기다립니다. 오른쪽으로 계속 가세요.",
 	-- {npc:2038} Lord Melenas
 	["{npc:2038}; below ground"] = "",
 
-	-- Step 26: The road to Darnassus
+	-- Step 27: The road to Darnassus
 	-- {zone:1457} Darnassus
 	["The road to {zone:1457}"] = "{zone:1457}(으)로 가는 길",
 	-- {area:258} Fel Rock
 	-- plural, as words: Gnarlpine Ambushers = {npc:2152} Gnarlpine Ambusher
 	["Gnarlpine Ambushers hide along the road west of {area:258}."] = "나무옹이일족 복병이 {area:258} 서쪽 길을 따라 숨어 있습니다.",
 
-	-- Step 27: Sentinel Shayla Nightbreeze
+	-- Step 28: Sentinel Shayla Nightbreeze
 	-- {area:261} Gnarlpine Hold
 	["West along the road toward the city. Shayla walks this stretch of road, from the arrow south-west to the bend at about 38,54 and back: if she isn't at the arrow, follow the road south-west. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and {area:261}'s all count."] = "길을 따라 도시 쪽 서쪽으로 가세요. 샤일라는 화살표 위치에서 남서쪽으로 약 38,54의 굽은 길까지 이 구간을 오갑니다. 화살표 위치에 없으면 길을 따라 남서쪽으로 가세요. 모든 나무옹이일족 펄볼그가 송곳니를 떨어뜨립니다. 이 길의 복병, 지하굴과 {area:261}의 펄볼그 모두 해당됩니다.",
 
-	-- Step 28: Darnassus
+	-- Step 29: Darnassus
 	-- {quest:922} Rellian Greenspyre · {area:1658} Cenarion Enclave · {npc:7316} Sister Aquinne · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade · {item:279378} Lunar Pendant
 	["Into the city through the gate. {quest:922} is just south of the {area:1658} at the north end, {npc:7316} in the west, {npc:7313} and {npc:8396} in the Temple of the Moon at the south end. On the way back out, use Dalia's {item:279378} at the bank and at the city gate; the other two owls wait for your last visit."] = "",
 	-- {npc:7313} Priestess A'moora
@@ -188,11 +198,11 @@ return {
 	["{item:279378}: the bank, on the way out"] = "",
 	["the city gate"] = "",
 
-	-- Step 29: Ban'ethil Barrow Den's entrance
+	-- Step 30: Ban'ethil Barrow Den's entrance
 	-- {area:262} Ban'ethil Barrow Den
 	["{area:262}'s entrance"] = "",
 
-	-- Step 30: Ban'ethil Barrow Den
+	-- Step 31: Ban'ethil Barrow Den
 	-- {npc:275744} Sentinel Lynessa Duskblossom · {npc:7317} Oben Rageclaw
 	["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms. Its furbolgs drop Shayla's fangs."] = "",
 	-- {item:5220} Gnarlpine Fang
@@ -204,51 +214,51 @@ return {
 	-- {npc:7318} Rageclaw · {area:736} Ban'ethil Hollow
 	["{npc:7318}, in the den; walks around {area:736}: look inside the circle on the map"] = "",
 
-	-- Step 31: Escaping Ban'ethil
+	-- Step 32: Escaping Ban'ethil
 	-- {npc:275744} Sentinel Lynessa Duskblossom · {npc:2081} Sentinel Kyra Starsong · {area:186} Dolanaar
 	["Escort {npc:275744} out of the barrow; {npc:2081} in {area:186} takes the report."] = "{npc:275744}을(를) 지하굴 밖으로 호위하세요. 보고는 {area:186}의 {npc:2081}에게 하세요.",
 	["Walk Lynessa out and keep her alive"] = "리네사를 데리고 나오며 살려 두세요",
 	-- {area:736} Ban'ethil Hollow
 	["{area:736}, outside the barrow"] = "지하굴 밖의 {area:736}",
 
-	-- Step 32: The Pools of Arlithrien
+	-- Step 33: The Pools of Arlithrien
 	-- {area:478} Pools of Arlithrien
 	["The {area:478}"] = "{area:478}",
 	["South-west of the barrow. The moonwell sits by the pools."] = "지하굴 남서쪽입니다. 달샘은 웅덩이 옆에 있습니다.",
 	-- {item:5621} Tourmaline Phial
 	["Use the {item:5621} at the moonwell"] = "달샘에서 {item:5621}을(를) 사용하세요",
 
-	-- Step 33: Gnarlpine Hold
+	-- Step 34: Gnarlpine Hold
 	-- {object:6751} Strange Fruited Plant
 	["South of the pools. The {object:6751} grows by the Hold; the furbolgs around it drop the rest of the fangs."] = "",
 
-	-- Step 35: Seek Redemption!
+	-- Step 36: Seek Redemption!
 	-- {area:186} Dolanaar · {npc:2150} Zenn Foulhoof · {npc:7234} Ferocitas the Dream Eater
 	-- plural, as words: Fel Cones = {object:1673} Fel Cone
 	["Fel Cones lie under the trees all around {area:186} and {npc:2150}: pick them up on the road east and hand them to {npc:2150} on the way to {npc:7234}."] = "",
 
-	-- Step 36: Ferocitas the Dream Eater
+	-- Step 37: Ferocitas the Dream Eater
 	-- {npc:7234} Ferocitas the Dream Eater · {area:260} Starbreeze Village · {item:8049} Gnarlpine Necklace
 	-- plural, as words: Gnarlpine Mystics = {npc:7235} Gnarlpine Mystic
 	["Gnarlpine Mystics and {npc:7234} camp north-east of {area:260}. {npc:7234} drops the {item:8049}: open it for the jewel.\nCareful: {npc:7234} waits near the camp fire with mystics around him, so pulling him without adds is hard."] = "",
 	-- {item:8049} Gnarlpine Necklace · {npc:7234} Ferocitas the Dream Eater
 	["{item:8049}, from {npc:7234}"] = "",
 
-	-- Step 37: Dolanaar
+	-- Step 38: Dolanaar
 	-- {area:264} Oracle Glade · {area:186} Dolanaar · {npc:3567} Tallonkai Swiftroot
 	["The road west to the {area:264} runs through {area:186}: hand {npc:3567} the jewel on the way."] = "",
 	-- {npc:3567} Tallonkai Swiftroot · {quest:932} Twisted Hatred · {npc:272116} Xethorr the Wicked · {area:264} Oracle Glade
 	-- plural, as words: Befouled Webwoods = {npc:272096} Befouled Webwood
 	["{npc:3567}: {quest:932}'s Befouled Webwoods and the elite {npc:272116}'s moss, on the walk to the {area:264}"] = "{npc:3567}: {area:264}(으)로 가는 길에 {quest:932}의 오염된 나무그물거미와 정예 {npc:272116}의 이끼",
 
-	-- Step 38: Befouled Webwoods
+	-- Step 39: Befouled Webwoods
 	-- plural, as words: Befouled Webwoods = {npc:272096} Befouled Webwood
 	["Befouled Webwoods"] = "오염된 나무그물거미",
 	-- {area:264} Oracle Glade · {npc:272116} Xethorr the Wicked · {item:281023} Mature Fel Moss
 	-- plural, as words: Befouled Webwoods = {npc:272096} Befouled Webwood
 	["North-west of Dolanaar, on the way to the {area:264}, Befouled Webwoods creep through the woods; {npc:272116} prowls at their east edge and carries the {item:281023}.\n{npc:272116} is elite (level 12): grouping up is advised. Clear the webwoods around him first and pull him on his own."] = "돌라나르 북서쪽, {area:264}(으)로 가는 길의 숲에 오염된 나무그물거미가 기어 다닙니다. {npc:272116}은(는) 그 동쪽 끝을 배회하며 {item:281023}을(를) 지니고 있습니다.\n{npc:272116}은(는) 정예(12레벨)이므로 파티를 맺는 것이 좋습니다. 먼저 주변의 거미를 처치한 뒤 그를 따로 끌어내세요.",
 
-	-- Step 39: The Wellspring River
+	-- Step 40: The Wellspring River
 	-- {area:265} Wellspring River
 	["The {area:265}"] = "",
 	-- {area:265} Wellspring River
@@ -257,7 +267,7 @@ return {
 	-- {item:5170} Mossy Tumor
 	["{item:5170}: timberlings"] = "",
 
-	-- Step 40: Oracle Glade
+	-- Step 41: Oracle Glade
 	-- {object:6752} Strange Fronded Plant
 	["The moonwell is in the middle of the glade. The {object:6752} grows at its north end."] = "달샘은 숲 한가운데에 있습니다. {object:6752}은(는) 북쪽 끝에 자랍니다.",
 	-- {npc:3519} Sentinel Arynia Cloudsbreak
@@ -265,7 +275,7 @@ return {
 	-- {item:18152} Amethyst Phial
 	["Use the {item:18152} at the moonwell"] = "달샘에서 {item:18152}을(를) 사용하세요",
 
-	-- Step 41: Bloodfeather harpies
+	-- Step 42: Bloodfeather harpies
 	["Bloodfeather harpies"] = "붉은깃털일족 하피",
 	-- {quest:938} Mist
 	["The Bloodfeather harpies nest on the slopes west and north of the glade. {quest:938}, an injured sabercat, lies by the glade's west wall among them: lead her back to Sentinel Arynia at the moonwell before her time runs out.\nCareful: The harpies stand packed together, so extra ones often join a fight. Casters are mixed in among them."] = "",
@@ -274,34 +284,34 @@ return {
 	-- {quest:938} Mist
 	["Lead {quest:938} to the moonwell"] = "",
 
-	-- Step 42: Sentinel Arynia Cloudsbreak
+	-- Step 43: Sentinel Arynia Cloudsbreak
 	["Back to the moonwell."] = "달샘으로 돌아가세요.",
 
-	-- Step 43: The named harpies
+	-- Step 44: The named harpies
 	["The named harpies"] = "이름 있는 하피",
 	-- {npc:272034} Hatescreech · {npc:272044} Windmistress Gaedress · {npc:272046} Witchmother Arysa
 	["{npc:272034} and {npc:272044} fly just west of the moonwell, {npc:272046} further north."] = "{npc:272034}와(과) {npc:272044}은(는) 달샘 바로 서쪽에, {npc:272046}은(는) 더 북쪽에 날아다닙니다.",
 
-	-- Step 44: Lady Sathrah
+	-- Step 45: Lady Sathrah
 	-- {object:6752} Strange Fronded Plant · {npc:272046} Witchmother Arysa · {area:266} Wellspring Lake · {npc:7319} Lady Sathrah
 	["The {object:6752} grows at the glade's north end, on the way: then north of {npc:272046}, along the island's northern edge by {area:266}, {npc:7319}, a level 12 spider, lurks."] = "",
 
-	-- Step 45: Sentinel Arynia again
+	-- Step 46: Sentinel Arynia again
 	["Sentinel Arynia again"] = "다시 파수꾼 아리니아 클라우드브레이크",
 	-- {object:673378} Oracle Tree Bark
 	["{object:673378}, just west of the moonwell"] = "달샘 바로 서쪽의 {object:673378}",
 	-- {object:673378} Oracle Tree Bark · {zone:1457} Darnassus
 	["the same {object:673378}: Fandral in {zone:1457} takes it"] = "",
 
-	-- Step 46: Sentinel Shayla Nightbreeze
+	-- Step 47: Sentinel Shayla Nightbreeze
 	-- {area:186} Dolanaar
 	["South from the glade toward Ursal: Shayla walks the road west of {area:186}, from where the path down from the glade meets it south-west to the bend at about 38,54 and back."] = "숲에서 남쪽으로 우르살 쪽으로 가세요. 샤일라는 {area:186} 서쪽 길을 오갑니다. 숲에서 내려오는 길이 만나는 곳에서 남서쪽으로 약 38,54의 굽은 길까지 오갑니다.",
 
-	-- Step 47: Ursal the Mauler
+	-- Step 48: Ursal the Mauler
 	-- {area:478} Pools of Arlithrien
 	["Walk south along the west side of the island. Ursal prowls the far south, below the {area:478}.\nCareful: Gnarlpine of roughly level 9-12 crowd the camp and sit close together, so it is easy to pull several at once. Take them on singly before you engage Ursal."] = "",
 
-	-- Step 48: Dolanaar
+	-- Step 49: Dolanaar
 	-- {area:186} Dolanaar
 	["North-east from Ursal's den, back to {area:186}."] = "우르살의 굴에서 북동쪽으로 {area:186}에 돌아가세요.",
 	-- {npc:6094} Byancie
@@ -319,24 +329,24 @@ return {
 	-- {npc:3598} Kyra Windblade · {quest:1684} Elanaria · {zone:1457} Darnassus
 	["{npc:3598}, the warrior trainer: {quest:1684} in {zone:1457} takes it"] = "",
 
-	-- Step 49: Tallonkai Swiftroot
+	-- Step 50: Tallonkai Swiftroot
 	-- {npc:3567} Tallonkai Swiftroot · {npc:272116} Xethorr the Wicked
 	["Back upstairs to {npc:3567} with the webwoods done and {npc:272116}'s moss."] = "거미를 처치하고 {npc:272116}의 이끼를 챙겨 위층의 {npc:3567}에게 돌아가세요.",
 
-	-- Step 50: Lake Al'Ameth
+	-- Step 51: Lake Al'Ameth
 	-- {npc:2080} Denalan
 	-- plural, as words: Lasher Sproutlings = {npc:275703} Lasher Sproutling
 	["South-east of Dolanaar, to {npc:2080}. Lasher Sproutlings wander around him on the shore."] = "돌라나르 남동쪽의 {npc:2080}에게 가세요. 덩굴손 묘목이 물가에서 그 주변을 돌아다닙니다.",
 	-- {object:7510} Sprouted Frond
 	["{object:7510}, beside him"] = "그 옆의 {object:7510}",
 
-	-- Step 51: Dolanaar again
+	-- Step 52: Dolanaar again
 	-- {area:186} Dolanaar
 	["{area:186} again"] = "다시 {area:186}",
 	-- {npc:6094} Byancie · {item:159} Refreshing Spring Water · {npc:6736} Innkeeper Keldamyr
 	["{npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "",
 
-	-- Step 52: Taming the Beast
+	-- Step 53: Taming the Beast
 	-- {item:15908} Taming Rod · {area:186} Dolanaar
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker · Nightsaber Stalkers = {npc:2043} Nightsaber Stalker · Strigid Screechers = {npc:1996} Strigid Screecher
 	["Each of Dazalar's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "다잘라의 퀘스트마다 {item:15908}을(를) 줍니다. 그가 말한 야수에게 사용한 뒤 {area:186}의 그에게 막대를 가져가세요. 나무그물 늑대거미는 마을 주변을 기어 다니고, 긴발톱 흑호와 비명소리 스트리기드 올빼미는 마을 남쪽 숲을 돌아다닙니다.",
@@ -349,25 +359,25 @@ return {
 	-- {npc:4146} Jocaste · {zone:1457} Darnassus
 	["{npc:4146} in {zone:1457} takes it"] = "{zone:1457}의 {npc:4146}에게 가져가세요",
 
-	-- Step 53: Sentinel Eralya Leafshadow
+	-- Step 54: Sentinel Eralya Leafshadow
 	-- {area:186} Dolanaar · {zone:1457} Darnassus
 	["Take the road north-west from {area:186} again; she still lies beside it, on the way to {zone:1457}."] = "다시 {area:186}에서 북서쪽 길로 가세요. 그녀는 아직 {zone:1457}(으)로 가는 길가에 누워 있습니다.",
 
-	-- Step 54: Into Darnassus
+	-- Step 55: Into Darnassus
 	-- {zone:1457} Darnassus
 	["Into {zone:1457}"] = "",
 	-- {npc:4241} Mydrannul · {area:1659} Craftsmen's Terrace
 	["{npc:4241}, on the {area:1659} just inside the city"] = "",
 
-	-- Step 56: Elanaria
+	-- Step 57: Elanaria
 	-- {quest:1684} Elanaria · {area:1660} Warrior's Terrace
 	["{quest:1684} stands on the {area:1660}, just inside the city."] = "",
 
-	-- Step 57: Vorlus Vilehoof
+	-- Step 58: Vorlus Vilehoof
 	-- {quest:1683} Vorlus Vilehoof · {area:736} Ban'ethil Hollow · {quest:1684} Elanaria
 	["Back out of the city gate and east along the road: {quest:1683} stands south of it, by {area:736}. Bring his horn back to {quest:1684}."] = "",
 
-	-- Step 59: Darnassus
+	-- Step 60: Darnassus
 	-- {zone:1457} Darnassus · {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace · {area:3425} Cenarion Hold · {npc:4241} Mydrannul · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:922} Rellian Greenspyre · {npc:4092} Lariia · {npc:7999} Tyrande Whisperwind · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade
 	["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "",
 	-- {npc:4088} Elanaria · {area:1660} Warrior's Terrace · {spell:71} Defensive Stance
@@ -375,15 +385,15 @@ return {
 	-- {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace
 	["{item:279378}: the inn on the {area:1659}"] = "",
 
-	-- Step 61: Darnassus
+	-- Step 62: Darnassus
 	-- {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave
 	["{npc:3516}, in the {area:1658}"] = "{area:1658}의 {npc:3516}",
 
-	-- Step 62: Cenarion Enclave
+	-- Step 63: Cenarion Enclave
 	-- {npc:4146} Jocaste · {area:1658} Cenarion Enclave · {spell:5149} Beast Training
 	["{npc:4146}, in the {area:1658}: {spell:5149}"] = "{area:1658}의 {npc:4146}: {spell:5149}",
 
-	-- Step 64: Cenarion Enclave
+	-- Step 65: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["{npc:4217}, in the {area:1658}"] = "{area:1658}의 {npc:4217}",
 	-- {area:3425} Cenarion Hold
@@ -397,69 +407,69 @@ return {
 	-- {npc:11401} Priestess Alathea
 	["{npc:11401}, in the Temple of the Moon: Starshards"] = "달의 신전의 {npc:11401}: 별조각",
 
-	-- Step 65: Ilyenia Moonfire
+	-- Step 66: Ilyenia Moonfire
 	-- {npc:11866} Ilyenia Moonfire · {area:1660} Warrior's Terrace
 	["While you're here: learn Staves from {npc:11866} ({area:1660}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
-	-- Step 66: Ilyenia Moonfire
+	-- Step 67: Ilyenia Moonfire
 	-- {npc:11866} Ilyenia Moonfire · {area:1660} Warrior's Terrace
 	["While you're here: learn Staves from {npc:11866} ({area:1660}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
 
-	-- Step 67: Portal to Teldrassil
+	-- Step 68: Portal to Teldrassil
 	-- {quest:940} Teldrassil
 	["Portal to {quest:940}"] = "",
 
-	-- Step 68: Rut'theran Village
+	-- Step 69: Rut'theran Village
 	-- {area:702} Rut'theran Village · {npc:10118} Nessa Shadowsong · {npc:3838} Vesprystus · {quest:6342} Flight to Auberdine · {area:442} Auberdine · {npc:4200} Laird
 	["Take the portal down to {area:702}. {npc:10118} stands on the dock, {npc:3838} by the hippogryphs. Once you have {quest:6342}, talk to {npc:3838} again and choose the flight to {area:442}: it is free and lands beside {npc:4200}. If the flight map opens instead, close it and talk to him again holding Shift."] = "",
 	-- {npc:3838} Vesprystus · {quest:6342} Flight to Auberdine
 	["talk to {npc:3838} again: free with {quest:6342}"] = "",
 
-	-- Step 69: Auberdine
+	-- Step 70: Auberdine
 	-- {npc:3841} Caylais Moonfeather · {npc:4200} Laird
 	["Learn the flight path from {npc:3841} where you land. {npc:4200}'s fish stall is just north of her, by the docks.\nThe boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "",
 	["The WANTED poster outside the inn"] = "여관 밖의 현상수배 포스터",
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart"] = "",
 
-	-- Step 70: Return to Nessa
+	-- Step 71: Return to Nessa
 	-- {area:702} Rut'theran Village · {npc:3841} Caylais Moonfeather · {item:16263} Laird's Response · {npc:10118} Nessa Shadowsong · {area:442} Auberdine
 	["Fly back to {area:702} from {npc:3841}, hand {item:16263} to {npc:10118} on the dock, then fly back to {area:442}."] = "",
 
-	-- Step 71: The Long Wash
+	-- Step 72: The Long Wash
 	-- {quest:983} Buzzbox 827 · {object:175207} Beached Sea Creature
 	-- plural, as words: Tide Crawlers = {npc:2232} Tide Crawler · Darkshore Threshers = {npc:2185} Darkshore Thresher
 	["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "왕바닷게는 마을 아래 해안을 따라 기어다니고, {quest:983}은(는) 부두 바로 남쪽 해변에 서 있습니다. 어둠의해안 트레샤돈은 얕은 물에서 헤엄칩니다. {object:175207}은(는) 마을 바로 남쪽 해안에 놓여 있습니다.",
 	-- plural, as words: Crawler Legs = {item:5385} Crawler Leg · Tide Crawlers = {npc:2232} Tide Crawler
 	["Crawler Legs: the Tide Crawlers"] = "",
 
-	-- Step 72: Auberdine
+	-- Step 73: Auberdine
 	-- {npc:3649} Thundris Windweaver
 	["{npc:3649}, north end of the village"] = "{npc:3649}, 마을 북쪽 끝",
 
-	-- Step 73: Gubber Blump
+	-- Step 74: Gubber Blump
 	-- {npc:10216} Gubber Blump · {item:12238} Darkshore Grouper
 	["Fishers only: {npc:10216} stands on the pier. His {item:12238} is fished from the pier itself."] = "",
 	-- {npc:10216} Gubber Blump
 	["{npc:10216}, on the pier"] = "",
 
-	-- Step 74: Moonglade
+	-- Step 75: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5929} Great Bear Spirit · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
 	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Then {npc:11800} in {area:2361} flies Druids straight to {area:702}, no flight path needed. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {quest:5929} Great Bear Spirit
 	["Speak with the {quest:5929}"] = "{quest:5929}와(과) 대화하세요",
 
-	-- Step 75: Back to Darnassus
+	-- Step 76: Back to Darnassus
 	-- {npc:10118} Nessa Shadowsong · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["{npc:10118} stands on the Rut'theran dock where you land. Then take the portal up to {npc:4217} in the {area:1658}."] = "",
 
-	-- Step 78: The Moonkin Stone
+	-- Step 79: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
 	["The {object:177525}"] = "{object:177525}",
 	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
 	["Go back down to {area:702} and fly to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "{area:702}(으)로 다시 내려가 {area:442}(으)로 날아가세요. {object:177525}은(는) 마을 바로 동쪽 언덕에 있습니다. 그곳에서 {item:15208}을(를) 사용하고, 초승달발톱을 물리친 뒤 {npc:12144}와(과) 대화하세요.",
 
-	-- Step 79: Body and Heart
+	-- Step 80: Body and Heart
 	-- {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine
 	["Fly to {area:702} once more and take the portal up to {npc:4217}, then fly back to {area:442}."] = "",
 

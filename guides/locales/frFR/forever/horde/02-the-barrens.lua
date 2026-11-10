@@ -654,13 +654,21 @@ return {
 	-- {npc:4201} Ziz Fizziks · {npc:3442} Sputtervalve · {area:392} Ratchet · {zone:1413} The Barrens
 	["{npc:4201}: for {npc:3442}, beside {area:392}'s flight master at the end of the {zone:1413} & Stonetalon guide"] = "{npc:4201} : pour {npc:3442}, à côté du maître de vol de {area:392}, à la fin du guide {zone:1413} et Serres-Rocheuses",
 
-	-- Step 163: Malaka'jin
-	-- {area:1076} Webwinder Path · {npc:12816} Xen'Zilla · {area:2539} Malaka'jin
-	["Back down the {area:1076}: {npc:12816} stands just outside {area:2539}, before the village."] = "",
+	-- Step 163: Kaya Flathoof
+	-- {area:1076} Webwinder Path · {npc:11856} Kaya Flathoof · {npc:11858} Grundig Darkcloud · {area:2538} Camp Aparaje
+	["On the way back down the {area:1076}, {npc:11856} is held in {npc:11858}'s hut at the bend in the road. Once you take her quest she walks straight off south-east to {area:2538}, the burned village, without waiting: stay close, or the quest fails.\nCareful: Three Grimtotems ambush her at the burned village and go for her, not you: pull them off her and kill their caster quickly."] = "En redescendant {area:1076}, {npc:11856} est retenue dans la hutte de {npc:11858}, au tournant de la route. Une fois sa quête acceptée, elle part directement vers le sud-est jusqu'à {area:2538}, le village incendié, sans vous attendre : restez près d'elle, sinon la quête échoue.\nAttention : trois Totem sinistre lui tendent une embuscade au village incendié et s'en prennent à elle, pas à vous : détournez-les d'elle et tuez vite leur lanceur de sorts.",
+	-- {npc:11856} Kaya Flathoof · {npc:11858} Grundig Darkcloud
+	["{npc:11856}, inside {npc:11858}'s hut"] = "{npc:11856}, dans la hutte de {npc:11858}",
 
-	-- Step 165: Seereth Stonebreak
+	-- Step 164: Malaka'jin
+	-- {area:2539} Malaka'jin · {npc:12816} Xen'Zilla
+	["West from the burned village to {area:2539}: {npc:12816} stands just outside it, before the village."] = "À l'ouest du village incendié, jusqu'à {area:2539} : {npc:12816} se tient juste à l'extérieur, avant le village.",
+
+	-- Step 166: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
 	["East along the road to {npc:4049} and {npc:11857}'s camp, on the way back out of Stonetalon."] = "",
+	-- {npc:11857} Makaba Flathoof · {npc:11864} Tammra Windfield · {area:460} Sun Rock Retreat · {zone:1413} The Barrens
+	["{npc:11857}: keep it, {npc:11864} at {area:460} in the {zone:1413} & Stonetalon guide"] = "{npc:11857} : gardez-la, {npc:11864} à {area:460}, dans le guide {zone:1413} et Serres-Rocheuses",
 	-- {zone:1413} The Barrens · {area:1703} Mor'shan Rampart · {zone:1440} Ashenvale
 	["The next guide goes north-east across the {zone:1413} to the {area:1703} and {zone:1440}."] = "",
 

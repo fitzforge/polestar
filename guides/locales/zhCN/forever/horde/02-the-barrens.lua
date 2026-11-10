@@ -654,19 +654,28 @@ return {
 	-- {npc:4201} Ziz Fizziks · {npc:3442} Sputtervalve · {area:392} Ratchet · {zone:1413} The Barrens
 	["{npc:4201}: for {npc:3442}, beside {area:392}'s flight master at the end of the {zone:1413} & Stonetalon guide"] = "{npc:4201}：交给{area:392}飞行管理员旁的{npc:3442}，在{zone:1413}和石爪山脉指南结尾时交",
 
-	-- Step 163: Malaka'jin
-	-- {area:1076} Webwinder Path · {npc:12816} Xen'Zilla · {area:2539} Malaka'jin
-	["Back down the {area:1076}: {npc:12816} stands just outside {area:2539}, before the village."] = "沿{area:1076}返回下方：{npc:12816}就在{area:2539}外、进村之前。",
+	-- Step 163: Kaya Flathoof
+	-- {area:1076} Webwinder Path · {npc:11856} Kaya Flathoof · {npc:11858} Grundig Darkcloud · {area:2538} Camp Aparaje
+	["On the way back down the {area:1076}, {npc:11856} is held in {npc:11858}'s hut at the bend in the road. Once you take her quest she walks straight off south-east to {area:2538}, the burned village, without waiting: stay close, or the quest fails.\nCareful: Three Grimtotems ambush her at the burned village and go for her, not you: pull them off her and kill their caster quickly."] = "沿{area:1076}返回下山的路上，{npc:11856}被关在道路拐弯处{npc:11858}的小屋里。接受她的任务后，她会立即向东南直奔被烧毁的村庄{area:2538}，不会等你：紧跟着她，否则任务失败。\n小心：三个恐怖图腾会在被烧毁的村庄伏击她，并且只攻击她而不是你：把它们从她身上拉开，尽快击杀其中的施法者。",
+	-- {npc:11856} Kaya Flathoof · {npc:11858} Grundig Darkcloud
+	["{npc:11856}, inside {npc:11858}'s hut"] = "{npc:11856}，在{npc:11858}的小屋里",
 
-	-- Step 165: Seereth Stonebreak
+	-- Step 164: Malaka'jin
+	-- {area:2539} Malaka'jin · {npc:12816} Xen'Zilla
+	["West from the burned village to {area:2539}: {npc:12816} stands just outside it, before the village."] = "从被烧毁的村庄向西前往{area:2539}：{npc:12816}就在村外、进村之前。",
+
+	-- Step 166: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
 	["East along the road to {npc:4049} and {npc:11857}'s camp, on the way back out of Stonetalon."] = "离开石爪山脉的路上，沿道路向东到{npc:4049}和{npc:11857}的营地。",
+	-- {npc:11857} Makaba Flathoof · {npc:11864} Tammra Windfield · {area:460} Sun Rock Retreat · {zone:1413} The Barrens
+	["{npc:11857}: keep it, {npc:11864} at {area:460} in the {zone:1413} & Stonetalon guide"] = "{npc:11857}：先留着，{zone:1413}和石爪山脉指南中交给{area:460}的{npc:11864}",
 	-- {zone:1413} The Barrens · {area:1703} Mor'shan Rampart · {zone:1440} Ashenvale
 	["The next guide goes north-east across the {zone:1413} to the {area:1703} and {zone:1440}."] = "下一份指南向东北穿过{zone:1413}，前往{area:1703}和{zone:1440}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end."] = "沿海滩往回走，经过海盗营地：一箱靴子和装着镜片的易碎品箱在营地南端。",
 	-- ["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end.\nSunscale raptors here count toward the heads."] = "沿海滩往回走，经过海盗营地：一箱靴子和装着镜片的易碎品箱在营地南端。\n这里的赤鳞迅猛龙也算在头的数量里。",
+	-- ["Back down the {area:1076}: {npc:12816} stands just outside {area:2539}, before the village."] = "沿{area:1076}返回下方：{npc:12816}就在{area:2539}外、进村之前。",
 	-- ["Burning Blade Cultists hold {area:1898} in northern {area:14}; they drop the {item:6652}. The {item:5026} comes from the Razormane on your next visit to their camp."] = "火刃祭司占据{area:14}北部的{area:1898}；它们掉落{item:6652}。{item:5026}在你下次去钢鬃营地时从钢鬃野猪人身上获得。",
 	-- ["Cast {spell:18960}. Tauren: join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "施放{spell:18960}。牛头人：先在湖西北岸的{area:2362}合并两半坠饰，再去{area:2361}找{npc:11802}。{npc:11802}站在建筑楼上：从室内上楼，箭头无法区分楼层。",
 	-- ["East of Ziz, the Venture Company is clear-cutting {area:461}; one of the Operators carries the blueprints. {npc:4276} mines in the small mine on the east side: stay with him while he mines, Venture Co. thugs come for him.\nCareful: The kobolds arrive in waves. The first wave is melee fighters, and the second adds casters to the mix. Regular mobs in the mine respawn quickly and can join the fight while the waves are coming. A group is recommended."] = "风险投资公司正在 菲兹克斯 东面的{area:461}大肆伐木；其中一名操作员携带蓝图。{npc:4276}在东侧的小矿洞采矿：采矿期间守在他身旁，风险投资公司的打手会来袭击他。\n小心：狗头人会分批到来。第一波是近战敌人，第二波还会加入施法者。矿洞里的普通怪刷新很快，可能在抵御波次时加入战斗。建议组队。",

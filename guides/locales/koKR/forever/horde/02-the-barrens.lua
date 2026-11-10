@@ -654,13 +654,21 @@ return {
 	-- {npc:4201} Ziz Fizziks · {npc:3442} Sputtervalve · {area:392} Ratchet · {zone:1413} The Barrens
 	["{npc:4201}: for {npc:3442}, beside {area:392}'s flight master at the end of the {zone:1413} & Stonetalon guide"] = "{npc:4201}: {zone:1413} & 돌발톱 산맥 가이드 마지막에 {area:392} 비행 조련사 옆의 {npc:3442}에게",
 
-	-- Step 163: Malaka'jin
-	-- {area:1076} Webwinder Path · {npc:12816} Xen'Zilla · {area:2539} Malaka'jin
-	["Back down the {area:1076}: {npc:12816} stands just outside {area:2539}, before the village."] = "",
+	-- Step 163: Kaya Flathoof
+	-- {area:1076} Webwinder Path · {npc:11856} Kaya Flathoof · {npc:11858} Grundig Darkcloud · {area:2538} Camp Aparaje
+	["On the way back down the {area:1076}, {npc:11856} is held in {npc:11858}'s hut at the bend in the road. Once you take her quest she walks straight off south-east to {area:2538}, the burned village, without waiting: stay close, or the quest fails.\nCareful: Three Grimtotems ambush her at the burned village and go for her, not you: pull them off her and kill their caster quickly."] = "{area:1076}을(를) 따라 다시 내려가는 길에, {npc:11856}은(는) 길 굽이의 {npc:11858} 오두막에 갇혀 있습니다. 퀘스트를 받으면 그녀는 기다리지 않고 곧장 남동쪽의 불탄 마을 {area:2538}(으)로 걸어갑니다. 가까이 있으십시오. 그렇지 않으면 퀘스트가 실패합니다.\n주의: 불탄 마을에서 그림토템 셋이 매복해 있다가 당신이 아닌 그녀를 공격합니다. 그녀에게서 떼어내고 주문시전자를 빨리 처치하십시오.",
+	-- {npc:11856} Kaya Flathoof · {npc:11858} Grundig Darkcloud
+	["{npc:11856}, inside {npc:11858}'s hut"] = "{npc:11856}, {npc:11858}의 오두막 안",
 
-	-- Step 165: Seereth Stonebreak
+	-- Step 164: Malaka'jin
+	-- {area:2539} Malaka'jin · {npc:12816} Xen'Zilla
+	["West from the burned village to {area:2539}: {npc:12816} stands just outside it, before the village."] = "불탄 마을에서 서쪽 {area:2539}(으)로 가십시오. {npc:12816}은(는) 마을 바로 바깥, 마을 앞에 있습니다.",
+
+	-- Step 166: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
 	["East along the road to {npc:4049} and {npc:11857}'s camp, on the way back out of Stonetalon."] = "",
+	-- {npc:11857} Makaba Flathoof · {npc:11864} Tammra Windfield · {area:460} Sun Rock Retreat · {zone:1413} The Barrens
+	["{npc:11857}: keep it, {npc:11864} at {area:460} in the {zone:1413} & Stonetalon guide"] = "{npc:11857}: 보관하십시오. {zone:1413} & 돌발톱 산맥 가이드의 {area:460}에 있는 {npc:11864}",
 	-- {zone:1413} The Barrens · {area:1703} Mor'shan Rampart · {zone:1440} Ashenvale
 	["The next guide goes north-east across the {zone:1413} to the {area:1703} and {zone:1440}."] = "",
 

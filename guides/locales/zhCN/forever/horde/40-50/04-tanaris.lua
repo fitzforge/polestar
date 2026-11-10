@@ -61,7 +61,8 @@ return {
 	["Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and {spell:686}. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less."] = "小心：暗影法师（42-43级）会在脱战时召唤虚空行者，使用献祭和{spell:686}攻击。窃贼会缴械，潜行者会潜行移动，刺客则会在你生命值不超过20%时使用斩杀。",
 
 	-- Step 14: Gadgetzan
-	["Use the Model 4711-FTZ Power Source Bilgewhizzle gave you: a two-hour timer starts"] = "",
+	-- {quest:654} Tanaris Field Sampling
+	["Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts {quest:654}, a two-hour timer, so use it on the way back north from Scrimshank's hive."] = "保留比格维兹给你的4711-FTZ型能量源：它会开始{quest:654}，限时两小时，所以在从斯克林谢尔的虫巢向北返回的途中再使用。",
 
 	-- Step 15: Gadgetzan
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
@@ -69,19 +70,21 @@ return {
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}：在屋内",
 
-	-- Step 16: Tanaris Field Sampling
-	-- {area:976} Gadgetzan
-	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
-	["Just south of {area:976} the Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "",
-
-	-- Step 18: Scrimshank's gear
+	-- Step 17: Scrimshank's gear
 	["Scrimshank's gear"] = "谢申克的勘探设备",
 	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "再往南，初级勘探员斯克林杰的装备在一个森提帕尔虫巢的入口处。\n注意：装备旁有一只虫子守着。隧道内有许多虫子巡逻，其中一些为50级，因此战斗时经常会引来额外的敌人。",
 
-	-- Step 19: OOX-17/TN
+	-- Step 18: OOX-17/TN
 	["OOX-17/TN"] = "OOX-17/TN",
 	-- {area:977} Steamwheedle Port · {area:35} Booty Bay
 	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "仅在持有求救信标时进行：OOX-17/TN 位于斯克林谢尔的虫巢东南方。护送它向北前往 {area:977}；奖励要到 {area:35} 找奥格索普领取。\n小心：护送途中有两次伏击。刚开始不久会有三只 47 级蝎子袭来。快到终点、靠近海滩时，会有三名废土人类袭击：一名法师和两名刺客，约 44 级。",
+
+	-- Step 19: Tanaris Field Sampling
+	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source
+	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
+	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "向北返回，在{area:976}南边不远处，现在使用{item:8524}：两小时计时开始。疱爪土狼、玻璃皮蜥蜴和巨钳蝎猎手共同栖息在这片沙丘上。它们都可能掉落未检测的样本：使用它，样本要么通过检测成为合格样本，要么就此损失。持续击杀，直到每种各有八份。",
+	-- {item:8524} Model 4711-FTZ Power Source
+	["Use the {item:8524}"] = "使用{item:8524}",
 
 	-- Step 20: Gadgetzan
 	-- {npc:5204} Apothecary Zinge · {zone:1458} Undercity

@@ -195,64 +195,76 @@ return {
 	["Ends with {quest:4808} in {area:2255}, {zone:1452}: keep it"] = "在{zone:1452}{area:2255}的{quest:4808}处结束：留着",
 
 	-- Step 48: Cyrus Therepentous
+	-- {item:10569} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
+	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "打开来自{zone:1427}的{item:10569}，取出其中的{item:10575}，然后告诉{npc:9459}你带来了功绩的证明：无需与幼龙战斗。",
 	["Below ground"] = "在地下",
+	-- {item:10575} Black Dragonflight Molt
+	["{item:10575}, from the hoard"] = "{item:10575}：从宝藏中获取",
 
-	-- Step 49: A Taste of Flame
+	-- Step 50: A Taste of Flame
 	-- {npc:9461} Frenzied Black Drake
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:9461} is a level 54 elite: most classes solo it at level 56, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:9461}是 54 级精英，多数职业到 56 级可以尝试单独击败，但可能仍需帮助。独自一人时可跳过，路线会安排刷怪补回经验。",
 
-	-- Step 51: Level 52.08
+	-- Step 52: Level 52.08
 	["Level 52.08"] = "等级 52.08",
 	-- {quest:4022} A Taste of Flame · {area:1417} Sunken Temple · {area:2100} Maraudon
 	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "如果跳过了{quest:4022}，就在这里刷到52.08级，以跟上路线进度。也可以组队去{area:1417}副本或{area:2100}副本。",
 	-- {npc:9690} Ember Worg
 	["grind on {npc:9690}"] = "反复击杀{npc:9690}补足经验",
 
-	-- Step 52: Blackrock Stronghold
+	-- Step 53: Blackrock Stronghold
 	-- {npc:9176} Gor'tesh · {area:254} Blackrock Mountain · {area:251} Flame Crest
 	["{npc:9176} and the Blackrock orcs hold the camps and the stronghold at the foot of {area:254}, west of {area:251}. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty.\nCareful: {npc:9176} has a guard linked to him that joins the fight, and a second soldier patrols close by; clear the patrol before pulling."] = "{npc:9176}和黑石兽人占据{area:251}以西、{area:254}山脚的营地与要塞。逐个拉怪，所有兽人和座狼均有几率掉落勋章，持续击杀直到收集五十枚。\n注意：{npc:9176}有一名联动守卫，会一同参战；附近还有第二名士兵巡逻，拉怪前先清理巡逻者。",
 	-- {item:11467} Blackrock Medallion
 	["{item:11467}; inside"] = "{item:11467}：在屋内",
 
-	-- Step 53: Morgan's Vigil
+	-- Step 54: Morgan's Vigil
 	["Ride back east along the road to the Vigil."] = "沿道路向东骑回守望堡。",
 
-	-- Step 54: Dreadmaul Rock
+	-- Step 55: Dreadmaul Rock
 	-- {area:249} Dreadmaul Rock
 	["Climb to the top of {area:249} and plant the head in the soft dirt mound."] = "爬到{area:249}顶端，把头颅插在松软的土堆上。",
 
-	-- Step 56: Fly to Nethergarde Keep
+	-- Step 57: Fly to Nethergarde Keep
 	-- {area:1438} Nethergarde Keep
 	["Fly to {area:1438}"] = "飞往{area:1438}",
 	-- {area:2418} Morgan's Vigil
 	["{area:2418} flight master"] = "{area:2418}的飞行管理员",
 
-	-- Step 57: Kum'isha the Collector
+	-- Step 58: Ambassador Ardalan
+	-- {area:1438} Nethergarde Keep
+	["Ardalan is inside {area:1438}."] = "阿尔达兰在{area:1438}里面。",
+
+	-- Step 59: Fallen Hero of the Horde
+	-- {zone:1419} Blasted Lands · {zone:1435} Swamp of Sorrows · {npc:10996} Fallen Hero · {area:75} Stonard
+	["Ride north out of the {zone:1419} into the {zone:1435}: the {npc:10996} stands by the road from the {zone:1419}. Keep clear of {area:75}, the Horde town to the north-east. Listen to his tale, then ride back south to Kum'isha."] = "向北骑出{zone:1419}，进入{zone:1435}：{npc:10996}站在从{zone:1419}过来的道路旁。远离东北方的部落城镇{area:75}。听完他的故事后，向南骑回库米沙处。",
+
+	-- Step 60: Kum'isha the Collector
 	-- {area:2517} Rise of the Defiler · {zone:1419} Blasted Lands · {npc:7664} Razelikh the Defiler · {spell:2691} Mana Burn · {spell:8255} Strong Cleave · {object:141891} Razelikh's Tear (no name in this language: may be words) · {spell:10854} Flames of Chaos
 	-- plural, as words: Imperfect Draenethyst Fragments = {item:10593} Imperfect Draenethyst Fragment
 	["Kum'isha waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have.\nCareful: Felcular, {npc:7664} and Ilifar are all level 60 elites. Razelikh casts {spell:2691}, {spell:8255} and Decimate, and as its health drops it adds {object:141891}, {spell:10854} and then Enrage at 15%."] = "收藏家库米沙在城堡西南侧山丘的{area:2517}等候。沿途{zone:1419}的怪物会掉落不完美的德莱尼水晶碎片，将收集到的交给她。\n注意：费尔库拉、{npc:7664}和伊利法尔都是 60 级精英。污染者拉瑟莱克会施放{spell:2691}、{spell:8255}和屠杀；生命值降低后还会陆续使用{object:141891}、{spell:10854}，并在 15% 时激怒。",
 	-- {npc:7363} Kum'isha the Collector
 	["{npc:7363} walks around here: look inside the circle on the map"] = "{npc:7363}在附近巡逻，请在地图标示的圆圈内寻找",
 
-	-- Step 65: Royal Historian Archesonus
+	-- Step 68: Royal Historian Archesonus
 	-- {object:171709} High Seat
 	["Archesonus stands beside King Magni in the {object:171709}: the relics you read in the Steppes are his."] = "阿克瑟努斯站在{object:171709}中麦格尼国王旁边：你在燃烧平原阅读的圣物都是他要的。",
 
-	-- Step 66: Fly to Menethil Harbor
+	-- Step 69: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "飞往{area:150}",
 
-	-- Step 68: Fly to Rut'theran Village
+	-- Step 71: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "飞往{area:702}",
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "{area:442}的飞行管理员",
 
-	-- Step 69: Rut'theran Village
+	-- Step 72: Rut'theran Village
 	-- {zone:1452} Winterspring
 	["The wildkin are in {zone:1452}: keep it"] = "枭兽在{zone:1452}：留着",
 
-	-- Step 71: Darnassus
+	-- Step 74: Darnassus
 	-- {area:702} Rut'theran Village · {zone:1457} Darnassus · {npc:9047} Jenal · {area:1658} Cenarion Enclave
 	["The portal in {area:702} leads up to {zone:1457}: {npc:9047} waits in the {area:1658}, in the north of the city."] = "{area:702}的传送门通往{zone:1457}：{npc:9047}在城市北部的{area:1658}等候。",
 	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave
@@ -260,11 +272,11 @@ return {
 	-- {zone:1455} Ironforge
 	["{zone:1455} has no druid trainer"] = "{zone:1455}没有德鲁伊训练师",
 
-	-- Step 72: Portal to Teldrassil
+	-- Step 75: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "通往{zone:1438}的传送门",
 
-	-- Step 73: Daryn Lightwind
+	-- Step 76: Daryn Lightwind
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907}在楼上，就在{npc:7916}上方：从室内上楼，箭头无法区分楼层。",
 
