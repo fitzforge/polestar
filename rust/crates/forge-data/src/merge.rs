@@ -371,9 +371,21 @@ fn merge_object(pf: Option<&V>, q: Obj, ctx: &Ctx) -> Obj {
 			out.set("roles", sorted_roles(roles));
 		}
 	}
-	if ctx.sim {
-	} else if q_roles.iter().any(|r| r == "mailbox") {
-		out.set("faction", q.get("faction"));
+	// A mailbox's side (#1526): QuestieDB's where it has one, else pfQuest's. The knowledge-base build
+	// (the release's) reads no side from QuestieDB, so its mailboxes have pfQuest's alone; before, none,
+	// and Nearby's Mailbox found none. Only mailboxes carry a pfQuest side (normalize.rs).
+	if q.has("faction") {
+		let (qf, pff) = (q.get("faction"), pf.get("faction"));
+		out.set(
+			"faction",
+			if qf.truthy() {
+				qf
+			} else if pff.is_nullish() {
+				V::Null
+			} else {
+				pff
+			},
+		);
 	} else if pf.has("faction") && !pf.get("faction").is_undef() {
 		out.set("faction", pf.get("faction"));
 	}

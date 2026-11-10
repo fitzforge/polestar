@@ -161,6 +161,17 @@ fn normalize_spawn_table(
 		if !rl.is_empty() {
 			rec.set("roles", strs(&rl));
 		}
+		// A mailbox's side from pfQuest (`fac`, else its mailbox list's side: the neutral towns' have no
+		// `fac`): the merge falls back on it where QuestieDB has none (#1526).
+		if !is_npc && rl.contains(&"mailbox") {
+			let mut side = faction(&r.get("fac"));
+			if side.is_nullish() {
+				side = raw.meta.get("mailbox").and_then(|m| m.get(&-id)).map_or(V::Null, faction);
+			}
+			if !side.is_nullish() {
+				rec.set("faction", side);
+			}
+		}
 		rec.set("spawns", spawns);
 		out.set(&id.to_string(), rec);
 		if let Some(m) = main_map(&coords, resolve) {
