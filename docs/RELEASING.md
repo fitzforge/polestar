@@ -96,7 +96,7 @@ version throughout.
 
    ```sh
    forge release version 0.2.0
-   forge data build --kb                     # fetches the sources first (forge data sources)
+   forge data build --kb --questie <AddOns folder of the QuestieDB to use>   # fetches the sources first (forge data sources)
    forge data questdb
    forge data itemdb && forge data gear
    forge data sources --only builders && forge data codex   # release-safe inputs only
@@ -110,6 +110,16 @@ version throughout.
    before `forge release pack`, or the zip goes out without it. The language
    folders (`Polestar_<locale>`: guide texts and names) are committed; rebuild
    their names with `forge data names` when the data changed.
+
+   Pass `--questie` explicitly on a release build. Without it the build
+   picks the first QuestieDB it finds among the installed clients, so a
+   client update or a second install (Forever moved from the
+   `_classic_beta_` folder to its own `_forever_` product on 2026-11-08) can
+   change the quest data under a release without any change in the
+   repository. Use the QuestieDB version the last release's Codex records in
+   `Polestar_Codex/Meta.lua`, unless the release moves to a newer one on
+   purpose; the data build's statistics check stops a build whose QuestieDB
+   changed underneath it.
 
    `forge i18n guides sync` and `forge guide compile` read the client's
    AreaTable from `data/sources/wago/<build>/AreaTable.csv`, found beside

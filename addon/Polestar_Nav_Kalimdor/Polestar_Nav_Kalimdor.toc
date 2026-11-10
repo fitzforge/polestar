@@ -20,7 +20,7 @@
 ## Title-zhTW: Polestar 導航（卡林多）
 ## Notes-zhTW: Polestar 箭頭使用的卡林多步行地圖，來自 Leffe 的導航地圖。在該大陸上按需載入。
 ## Author: Polestar; walking maps: Leffe's navigation maps
-## Version: 0.3.5
+## Version: 0.3.6
 ## Category: Polestar
 ## Group: Polestar
 ## LoadOnDemand: 1
