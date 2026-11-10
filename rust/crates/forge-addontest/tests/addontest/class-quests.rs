@@ -295,7 +295,7 @@ fn run_card_hearth(script: &str) -> Vec<Value> {
 }
 
 // The house look: every class-quest card is one goal-style row (the kind glyph, the quest's name in the quest colour,
-// a faint "Druid · Lv 20" tag, a small square "NEW ABILITY" tag, the tick box), a muted second line with what is
+// a faint "DRUID · LV 20" tag, a small square "NEW ABILITY" tag, the tick box), a muted second line with what is
 // learnt and where the quest is accepted; no portrait, no step count, no explainer (it is the tooltip).
 #[test]
 fn the_house_look_s_class_card_is_one_tight_row_with_the_explainer_in_its_tooltip() {
@@ -320,7 +320,7 @@ fn the_house_look_s_class_card_is_one_tight_row_with_the_explainer_in_its_toolti
 	let o = &out[0];
 	assert_eq!(o["mouse"], true, "the house look's row takes the mouse for its tooltip");
 	assert_eq!(out[1], json!({ "halo": false, "hearth": false, "polestar": true }), "only the house look's row takes the mouse");
-	assert_eq!(o["card"]["head"], "Druid · Lv 20");
+	assert_eq!(o["card"]["head"], "DRUID · LV 20", "the head is a section label: small caps");
 	assert_eq!((o["ring"].clone(), o["trip"].clone(), o["only"].clone(), o["stripe"].clone()), (json!(false), json!(false), json!(false), json!(false)), "{o}");
 	assert_eq!((o["kind"].clone(), o["badge"].clone(), o["fill"].clone(), o["learn"].clone()), (json!(true), json!(true), json!(false), json!(true)), "{o}");
 	assert_eq!((f(&o["tsize"]), f(&o["asize"])), (11.5, 10.0), "{o}");
@@ -838,12 +838,12 @@ fn the_heads_up_stands_over_the_outside_cards_not_behind_them() {
 		assert_eq!(o["overWindow"], true, "{i}: {o}");
 	}
 	let gap = |o: &Value| o["gap"].as_f64().unwrap();
-	// Over the cards with the stack's own gap (less the window's 1px overlap), at one card and at three.
+	// Over the cards with the stack's own gap (the house look's 4, less the window's 1px overlap), at one card and at three.
 	assert!(out[0]["cards"].as_f64().unwrap() > 0.0, "{}", out[0]);
 	assert!(gap(&out[0]) >= 0.0, "behind the top card: {}", out[0]);
-	assert!((gap(&out[0]) - 4.0).abs() < 0.5, "{}", out[0]);
+	assert!((gap(&out[0]) - 3.0).abs() < 0.5, "{}", out[0]);
 	assert!(out[1]["cards"].as_f64().unwrap() > out[0]["cards"].as_f64().unwrap(), "{}", out[1]);
-	assert!((gap(&out[1]) - 4.0).abs() < 0.5, "it follows the stack up: {}", out[1]);
+	assert!((gap(&out[1]) - 3.0).abs() < 0.5, "it follows the stack up: {}", out[1]);
 	// No cards: back on the window's top edge.
 	assert_eq!(out[2]["cards"].as_f64().unwrap(), 0.0, "{}", out[2]);
 	assert!((gap(&out[2]) + 1.0).abs() < 0.5, "{}", out[2]);

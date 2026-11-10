@@ -4,7 +4,7 @@
 //! as the step card words them, six at most then "+N more", wrapping and growing to fit; done goals and steps are
 //! ticked as progress comes in while it is open. The live step is marked; a click on a card looks at that step
 //! and closes the list. The list is in every look, the compact window too. The step card's dress (its own ground,
-//! the 18px goal rows; no tab, the navigator numbers the step) belongs to the house look: the other looks keep the
+//! the 16px goal rows; no tab, the navigator numbers the step) belongs to the house look: the other looks keep the
 //! plain card and 24px rows, transparent drops the ground.
 
 use forge_addontest::dsl::{compile_with, fixture_data, write_our_test_pack, TestPack};
@@ -208,7 +208,7 @@ fn the_step_list_swaps_the_card_for_every_step_marks_the_live_one_and_a_click_lo
 	// Progress while open: the done step ticked and plain; in the live one, the done goal ticked.
 	let (first, second) = (&progress["cards"][0], &progress["cards"][1]);
 	// A finished step (not the one looked at) is one muted line: its number, title and tick, no goals.
-	assert_eq!((first["done"].clone(), first["coloured"].clone(), first["h"].clone()), (json!(true), json!(false), json!(20)), "{first}");
+	assert_eq!((first["done"].clone(), first["coloured"].clone(), first["h"].clone()), (json!(true), json!(false), json!(18)), "{first}");
 	assert_eq!(first["tab"], "1 \u{b7} Deputy Willem");
 	assert!(f_len(&first["lines"]) == 0, "{first}");
 	assert_eq!((second["done"].clone(), second["icons"].clone()), (json!(false), json!(["verb", "tick", "verb"])));
@@ -223,7 +223,7 @@ fn the_step_list_swaps_the_card_for_every_step_marks_the_live_one_and_a_click_lo
 	assert_eq!(clicked["setting"], false);
 
 	// The house look's step card: its own ground, denser goal rows, no tab (the navigator numbers the step).
-	assert_eq!(closed["dress"], json!({ "ground": true, "row": 18 }));
+	assert_eq!(closed["dress"], json!({ "ground": true, "row": 16 }));
 
 	// The game's looks and Halo: the list too, in place of the card (no button, the step number opens it).
 	for (i, skin) in ["hearth", "forever", "blizzard", "classic", "halo"].iter().enumerate() {

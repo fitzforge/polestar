@@ -515,7 +515,8 @@ end
 -- quest colour, no class stripe, the kind glyph.
 function CC.Dress(on, goal)
 	Theme.Font(F.Title, on and "cardGoal" or "title")
-	Theme.Font(F.Head, on and "cardNote" or "small")
+	-- The head is a section label in the house look's row (GF.SectionLabel).
+	Theme.Font(F.Head, on and "cardLabel" or "small")
 	Theme.Font(F.Accept.Text, on and "cardNote" or "small")
 	Theme.Font(F.Learn, on and "cardNote" or "label")
 	Theme.Font(F.Badge.Text, on and "cardNote" or "caption")
@@ -533,7 +534,7 @@ function CC.Dress(on, goal)
 		W.Color(F.Kind, "textDim")
 		W.Color(F.Title, "quest")
 		local G = GF()
-		W.Color(F.Head, G and G.stepList and G.stepList.Muted and G.stepList.Muted() or "textMuted")
+		W.Color(F.Head, G and G.LabelInk and G.LabelInk() or "textMuted")
 		W.Color(F.Learn, "textDim")
 	end
 end
@@ -566,7 +567,7 @@ function CC.Fill(guide, index, view)
 	-- the card reaches the window.
 	F:EnableMouse(dense)
 	if dense then
-		F.Head:SetText(level and format(L["%s · Lv %d"], className, level) or className)
+		F.Head:SetText((level and format(L["%s · Lv %d"], className, level) or className):upper())
 	else
 		F.Head:SetText(level and format(L["%s · LEVEL %d"], className:upper(), level) or className:upper())
 	end

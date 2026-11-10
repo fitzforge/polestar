@@ -475,16 +475,16 @@ fn the_outside_cards_hold_the_optional_goals_and_the_hint_above_the_window() {
 	assert_eq!(both["lines"][0]["meta"], "3/8", "the count, not the spots: {both}");
 	assert_eq!(both["lines"][0]["alt"], false, "no next-spot icon");
 	assert_eq!(out["skipped"][0], "SkipGoal", "Skip is the goal's own skip action: {}", out["skipped"]);
-	// Order and gaps: the Optional card 10 above the window, the hint card 5 above it.
+	// Order and gaps: the Optional card 10 above the window, the hint card 4 above it (the house look).
 	assert_eq!((both["opt"]["rel"].clone(), f(&both["opt"]["y"])), (json!("window"), 10.0), "{both}");
-	assert_eq!((both["hint"]["rel"].clone(), f(&both["hint"]["y"])), (json!("optional"), 5.0), "{both}");
+	assert_eq!((both["hint"]["rel"].clone(), f(&both["hint"]["y"])), (json!("optional"), 4.0), "{both}");
 	assert_eq!((both["bar"]["before"].clone(), both["bar"]["aimed"].clone(), both["bar"]["after"].clone()), (json!(false), json!(true), json!(false)), "the bar marks the targeted optional row: {both}");
 	assert_eq!(both["bar"]["w"], 2);
 	assert_eq!((both["tipIn"].clone(), both["tipShown"].clone()), (json!(false), json!(true)), "the tip stays in the card, below the goals");
 	assert_eq!(both["hint"]["shown"], true, "a note goal makes the hint card");
 	assert_eq!(both["notes"], 1);
 	assert!(!strings_of(&both["rows"]).iter().any(|r| r.contains("vendor")), "the note left the card: {both}");
-	assert_eq!(f(&both["outH"]), 10.0 + f(&both["opt"]["h"]) + 5.0 + f(&both["hint"]["h"]));
+	assert_eq!(f(&both["outH"]), 10.0 + f(&both["opt"]["h"]) + 4.0 + f(&both["hint"]["h"]));
 	// A step with neither: no cards.
 	assert_eq!((out["none"]["opt"]["shown"].clone(), out["none"]["hint"]["shown"].clone()), (json!(false), json!(false)), "{}", out["none"]);
 	assert_eq!(f(&out["none"]["outH"]), 0.0);
@@ -1649,7 +1649,7 @@ fn the_header_carries_nearby_services_between_skip_and_the_bug_its_menu_points_t
 		local function relOf(f) local _, rel = f:GetPoint(1) return rel end
 		local noGuide = { shown = B:IsShown(), rel = relOf(B) == nav.Menu }
 		uistub.setGuide(uistub.elwynn, 3)
-		local order = { skip = relOf(nav.Skip) == B, list = relOf(nav.List) == B, nearby = relOf(B) == nav.Report, report = relOf(nav.Report) == nav.Menu }
+		local order = { skip = relOf(nav.Skip) == B, list = relOf(nav.List) == B, nearby = relOf(B) == nav.Menu, report = nav.Report:IsShown() }
 		B:Click()
 		local items = texts()
 		for _, r in ipairs(rows()) do if r.Text:GetText() == "Mining trainer" then r:Click() end end
@@ -1665,22 +1665,22 @@ fn the_header_carries_nearby_services_between_skip_and_the_bug_its_menu_points_t
 		stub.inCombat = false
 		Polestar.Set("nav.nearbyButton", false)
 		local off = B:IsShown()
-		-- Off, Skip moves up to the bug, and stays there on the next step.
-		local skipOff = { now = relOf(nav.Skip) == nav.Report }
+		-- Off, Skip moves up to the menu (the bug is in it), and stays there on the next step.
+		local skipOff = { now = relOf(nav.Skip) == nav.Menu }
 		uistub.setGuide(uistub.elwynn, 4)
-		skipOff.nextStep = relOf(nav.Skip) == nav.Report
+		skipOff.nextStep = relOf(nav.Skip) == nav.Menu
 		Polestar.Set("nav.nearbyButton", true)
 		skipOff.backOn = relOf(nav.Skip) == B
 		emit({ noGuide = noGuide, order = order, items = items, mining = mining, inn = inn, enabledInCombat = disabled, off = off, skipOff = skipOff })"#)
 	.remove(0);
 	assert_eq!(out["noGuide"], json!({ "shown": true, "rel": true }), "without a guide it sits by the menu");
-	assert_eq!(out["order"], json!({ "skip": true, "list": true, "nearby": true, "report": true }), "Skip, Nearby, the bug, the menu (the step list has no button: the step number opens it)");
+	assert_eq!(out["order"], json!({ "skip": true, "list": true, "nearby": true, "report": false }), "Skip, Nearby, the menu, the bug in it (the step list has no button: the step number opens it)");
 	assert_eq!(out["items"], json!(["Vendor  \u{203a}", "Innkeeper", "Mining trainer", "Weapon master  \u{203a}", "Bank"]));
 	assert_eq!(out["mining"], json!(["NearbyGo", "trainer", 186]));
 	assert_eq!(out["inn"], json!(["NearbyGo", "innkeeper"]));
 	assert_eq!(out["enabledInCombat"], 0, "in combat every entry is off");
 	assert_eq!(out["off"], false);
-	assert_eq!(out["skipOff"], json!({ "now": true, "nextStep": true, "backOn": true }), "with the button off, the step list (and Skip) sits by the bug");
+	assert_eq!(out["skipOff"], json!({ "now": true, "nextStep": true, "backOn": true }), "with the button off, the step list (and Skip) sits by the menu");
 }
 
 #[test]
@@ -2684,7 +2684,7 @@ fn looking_at_another_step_than_the_live_one_offers_the_way_back_a_skipped_step_
 		N.Next:Click()
 		local ahead = { B:IsShown(), B.Text:GetText(), B.Jump.Label:GetText() }
 		local _, size = B.Text:GetFont()
-		local quiet = { h = B:GetHeight(), size = size, wrap = B.Text:GetWordWrap(), inline = select(2, B.Jump:GetPoint(1)) == B.Text }
+		local quiet = { h = B:GetHeight(), size = size, wrap = B.Text:GetWordWrap(), inline = select(2, B.Jump:GetPoint(1)) == B.Close }
 		B.Jump:Click()
 		local back = lastCall("Goto")
 		uistub.live = 4
@@ -2695,7 +2695,7 @@ fn looking_at_another_step_than_the_live_one_offers_the_way_back_a_skipped_step_
 		emit({ ahead = ahead, quiet = quiet, back = back, skipped = skipped, unskip = lastCall("Unskip") })"#)
 	.remove(0);
 	assert_eq!(out["ahead"], json!([true, "Looking ahead \u{b7} guide at step 3", "Back to step 3"]));
-	// The house look: one quiet row of 18, 10px type, the link on the same line.
+	// The house look: one quiet row of 18, 10px type, the link on the same line, by the close.
 	assert_eq!(out["quiet"], json!({ "h": 18, "size": 10, "wrap": false, "inline": true }));
 	assert_eq!(out["back"], json!(["Goto", 3]));
 	assert_eq!(out["skipped"], json!(["You skipped this step.", "Unskip it", false]));
@@ -2991,22 +2991,22 @@ fn floating_button_hover_is_a_quarter_strong_accent_disc_even_with_its_regions_a
 	}
 }
 
-/// A notice with no link to offer (the bags banner with no junk to delete) ends at its text with the same inset
-/// above and below, instead of keeping the link row's room.
+/// A notice with no link to offer (the bags banner with no junk to delete) is the one-line strip, its text cut to
+/// one line, with no room kept for a link.
 #[test]
-fn a_notice_without_a_link_is_no_taller_than_its_text_and_its_insets() {
+fn a_notice_without_a_link_is_no_taller_than_its_one_line_strip() {
 	let out = run(r#"
 		local B = GF.parts.banner
 		Polestar.QoL = Polestar.QoL or {}
 		Polestar.QoL.Space = { Banner = function() return { free = 0 } end }
 		uistub.setGuide(uistub.elwynn, 2)
 		GF.Render()
-		emit({ shown = B:IsShown(), link = B.Jump:IsShown(), height = B:GetHeight(), text = B.Text:GetStringHeight() })"#)
+		emit({ shown = B:IsShown(), link = B.Jump:IsShown(), height = B:GetHeight(), lines = B.Text:GetMaxLines() })"#)
 	.remove(0);
 	assert_eq!(out["shown"], true, "{out}");
 	assert_eq!(out["link"], false, "{out}");
-	let (h, t) = (out["height"].as_f64().unwrap(), out["text"].as_f64().unwrap());
-	assert!((h - (t + 18.0)).abs() <= 1.0, "9 above, 9 below the text, no link row: height {h}, text {t}");
+	assert_eq!(out["height"], 18, "the house look's one-line strip, no link row: {out}");
+	assert_eq!(out["lines"], 1, "{out}");
 }
 
 /// The transparent window draws no ground, the notice's included; the standard window keeps the card's.

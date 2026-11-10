@@ -635,6 +635,7 @@ end
 -- The tokens the skins added, in the house style: what each one stands for
 -- there, so a module may read them in any skin.
 local HOUSE_EXTRA = {
+	-- textOff: the house resolves its own, a step under textMuted.
 	textOff = "textMuted", title = "text", link = "npc", todo = "accent", later = "warning", arrive = "success",
 	manual = "item", skipped = "spell", separator = "divider", rowLine = "divider", veil = "bg", veilWindow = "bg",
 	menuBg = "panel", control = "panelAlt", icon = "textDim", iconHover = "text", buttonText = "text",
@@ -775,6 +776,10 @@ local function resolve(id, schemeKey)
 	out.arrowText = { liftTo(lightest, out.text, out.arrow) }
 	out.arrowNearText = { liftTo(lightest, out.text, out.arrowNear) }
 	out.arrowText[4], out.arrowNearText[4] = 1, 1
+	-- The quietest text (section labels): the muted text a third of the way
+	-- to the ground, as the skins' own textOff sits under their textMuted.
+	local m, g = out.textMuted, out.bg
+	out.textOff = out.textOff or { m[1] + (g[1] - m[1]) / 3, m[2] + (g[2] - m[2]) / 3, m[3] + (g[3] - m[3]) / 3, 1 }
 	for name, from in pairs(HOUSE_EXTRA) do
 		if not out[name] then out[name] = copy(out[from]) end
 	end
@@ -998,6 +1003,7 @@ local ROLES = {
 	cardGoal = { "medium", 11.5 },  -- goal rows and the card's lines
 	cardNote = { "medium", 10 },    -- look-ahead, tip, detail, sublines
 	cardName = { "semibold", 12.5 }, -- the person at the top
+	cardLabel = { "semibold", 9 },   -- section labels (Optional, Journey): small caps, wayfinding only
 }
 
 -- Fira Sans (SIL OFL 1.1), the Halo skin's face: Latin, Greek and Cyrillic.

@@ -529,7 +529,7 @@ fn on_a_flight_nothing_shows_and_a_line_from_before_takeoff_comes_back_quietly()
 	assert_eq!(out[3], json!({ "rows": "2:1", "chimes": 1, "pinging": false }), "landed after five minutes: back, quietly");
 }
 
-// The house look: "While you're here" is an outside card above the Optional card, one 18px row per suggestion
+// The house look: "While you're here" is an outside card above the Optional card, one 16px row per suggestion
 // (the line on one line, its step, count and distance muted at the right, a small dismiss square), not the block in
 // the window; the dismiss and a click work as before.
 #[test]
@@ -561,7 +561,7 @@ fn in_the_house_look_while_you_re_here_is_an_outside_card_with_a_row_per_suggest
 	assert_eq!(a["label"], "WHILE YOU'RE HERE");
 	assert!(a["rows"].as_array().unwrap().len() >= 2, "a row each: {a}");
 	for r in a["rows"].as_array().unwrap() {
-		assert_eq!(r["h"], 18, "{r}");
+		assert_eq!(r["h"], 16, "{r}");
 		assert_eq!(r["close"], true);
 		assert!(is_match(text(&r["meta"]), r"Step \d+"), "the step it is needed: {r}");
 	}

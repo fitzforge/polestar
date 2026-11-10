@@ -64,7 +64,7 @@ fn at_their_defaults_the_look_settings_leave_the_window_as_the_skin_draws_it() {
 			accent = { Polestar.Theme.Color("accent") }, mark = { firstRow().Mark:GetVertexColor() }, fill = { P.line.Fill:GetVertexColor() } })"#);
 	assert_eq!(
 		out["metrics"],
-		json!({ "pad": 12, "tabH": 28, "navH": 34, "progH": 14, "icon": 13, "textX": 32, "check": 13, "rowPad": 0, "upRow": 18, "upToggle": 22, "glyphY": 9 }),
+		json!({ "pad": 12, "tabH": 26, "navH": 30, "progH": 14, "icon": 13, "textX": 32, "check": 13, "rowPad": 0, "upRow": 18, "upToggle": 22, "glyphY": 8 }),
 		"the house style's dense step card sizes, as before the look settings"
 	);
 	assert_eq!(out["before"], out["after"], "re-setting every default repaints nothing differently");
@@ -73,17 +73,17 @@ fn at_their_defaults_the_look_settings_leave_the_window_as_the_skin_draws_it() {
 	assert_eq!(b["rowText"], 11.5, "goal text at the cardGoal role's size");
 	assert_eq!(b["name"], 12.5, "the person at the cardName role's size");
 	assert_eq!(b["tip"], 10, "the tip at the cardNote role's size");
-	assert_eq!(b["iconY"], -9, "the goal glyph on the dense row's first line");
+	assert_eq!(b["iconY"], -8, "the goal glyph on the dense row's first line");
 	assert_eq!(b["markW"], 2, "the 2px target bar");
 	assert_eq!(b["markA"], 1);
 	assert_eq!(b["line"], 4, "the house look's 4px progress line");
-	assert_eq!(b["strip"], 28);
-	assert_eq!(b["nav"], 34);
+	assert_eq!(b["strip"], 26);
+	assert_eq!(b["nav"], 30);
 	assert_eq!(b["foot"], true);
 	assert_eq!(b["pct"], true);
 	assert_eq!(b["steps"], true);
 	assert_eq!(b["skip"], true);
-	assert_eq!(b["report"], true);
+	assert_eq!(b["report"], false, "the bug report is in the ⋯ menu; the option puts it on the navigator");
 	assert_eq!(b["bgColor"], false, "the shared ground");
 	assert_eq!(b["bgAlpha"], false);
 	assert_eq!(b["noBorder"], false);
@@ -125,8 +125,8 @@ fn sizes_text_and_spacing_apply_to_the_live_window_at_once() {
 	assert_eq!(n(&out["rows"]["rowH"]), n(&b["rowH"]) + 7.0, "goal spacing adds room above and below each goal");
 	assert_eq!(out["glyph"]["icon"], 26, "goal glyphs at 200%");
 	assert_eq!(out["check"]["check"], 20, "tick boxes at 150%");
-	assert_eq!(out["tabs"]["strip"], 42, "the tab bar at 150%");
-	assert_eq!(out["nav"]["nav"], 51, "the step bar at 150%");
+	assert_eq!(out["tabs"]["strip"], 39, "the tab bar at 150%");
+	assert_eq!(out["nav"]["nav"], 45, "the step bar at 150%");
 	assert_eq!(out["line"]["line"], 8, "the progress line's thickness");
 	assert!(n(&out["goal"]["height"]) > n(&b["height"]), "the window grows with its content");
 	assert_eq!(out["back"], out["base"], "back to the defaults, the window is as it was");
@@ -173,7 +173,7 @@ fn parts_colours_ground_and_border_follow_their_settings() {
 	assert_eq!(h["foot"], false, "no progress bar");
 	assert_eq!(
 		h["height"].as_f64().unwrap(),
-		b["height"].as_f64().unwrap() - 28.0 - 14.0,
+		b["height"].as_f64().unwrap() - 26.0 - 14.0,
 		"the window loses the tab bar's and the progress bar's height"
 	);
 	assert_eq!(out["noPct"]["pct"], false);

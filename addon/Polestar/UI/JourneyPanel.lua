@@ -329,13 +329,13 @@ local function all()
 end
 
 -- The sizes of the house look's dense card (the same rule as the goal rows:
--- 11.5px text, rows of 17), or the skin's.
+-- 11.5px text, rows of 15), or the skin's.
 local function metrics()
 	local d = dense()
 	local G = GF()
 	PAD = G and G.Pad and G.Pad() or (d and 12 or 14)
 	TEXT_X = PAD + (d and 13 + 7 or 15 + 10)
-	HEAD_H, DEST_H, ROW_H, SUB_H, MORE_H = d and 20 or 30, d and 15 or 22, d and 17 or 24, d and 11 or 14, d and 14 or 20
+	HEAD_H, DEST_H, ROW_H, SUB_H, MORE_H = d and 18 or 30, d and 15 or 22, d and 15 or 24, d and 11 or 14, d and 12 or 20
 	TIME_W = d and 44 or 56
 	NUM_X, NUM_W = d and PAD - 2 or PAD - 10, d and 14 or 22
 	ICON_S, ICON_GAP = d and 11 or 13, d and 6 or 9
@@ -403,10 +403,13 @@ end
 -- The header's parts at the current sizes.
 function JP.PlaceHead()
 	local d = dense()
-	Theme.Font(head.Label, d and "cardNote" or "small")
+	-- The label in small caps (GF.SectionLabel).
+	local G = GF()
+	if G and G.SectionLabel then G.SectionLabel(head.Label, "small") else Theme.Font(head.Label, d and "cardNote" or "small") end
 	Theme.Font(head.Dist, d and "cardNote" or "number")
 	Theme.Font(head.Dot, d and "cardNote" or "number")
-	Theme.Font(head.Time, d and "cardGoal" or "number")
+	-- The time at the distance's size: the row under it carries the step.
+	Theme.Font(head.Time, d and "cardNote" or "number")
 	head:SetHeight(HEAD_H)
 	head.Label:ClearAllPoints()
 	head.Label:SetPoint("LEFT", head, "LEFT", PAD, 0)
@@ -475,7 +478,7 @@ local function build()
 	head.Rule:SetPoint("TOPLEFT", head, "TOPLEFT", PAD, 0)
 	head.Rule:SetPoint("TOPRIGHT", head, "TOPRIGHT", -PAD, 0)
 	head.Label = text(head, "small", "textMuted")
-	head.Label:SetText(L["Journey"])
+	head.Label:SetText(string.upper(L["Journey"]))
 	head.Icon = head:CreateTexture(nil, "ARTWORK")
 	W.Color(head.Icon, "textMuted")
 	head.Dist = text(head, "number", "textDim")
@@ -505,7 +508,8 @@ local function build()
 		hoverIn()
 	end)
 	head:SetScript("OnLeave", function(self)
-		W.Color(self.Label, "textMuted")
+		local G = GF()
+		W.Color(self.Label, G and G.LabelInk and G.LabelInk() or "textMuted")
 		W.HideTooltip(self)
 	end)
 	JP.head = head
@@ -534,6 +538,25 @@ local function journeyLook(prop, fallback)
 	local v = TR and TR.Get("journey", prop)
 	if v == nil then return fallback end
 	return v
+end
+
+-- Text without colour codes, to compare what two lines say.
+function JP.Plain(t)
+	return ((t or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""))
+end
+
+-- What the window already says, as plain text: the first `shown` rows and
+-- the step card's title (GF.parts.person).
+function JP.Said(shown)
+	local said = {}
+	for i = 1, shown do
+		local r = rows[i]
+		if r then said[JP.Plain(r.Text:GetText())] = true end
+	end
+	local G = GF()
+	local p = G and G.parts and G.parts.person
+	if p and p:IsShown() and p.Name then said[JP.Plain(p.Name:GetText())] = true end
+	return said
 end
 
 -- Labels, glyphs and colours: only when the steps themselves change.
@@ -577,10 +600,22 @@ local function fillStructure(legs, ci)
 		local left = n - shown
 		if dense() and not all() then
 			-- "then Take the tram to Ironforge, Go to Dun Morogh (+5)": the next two, the rest counted.
+			-- No repeats: a step the window already says (a row above, the
+			-- step card's title) is left out; a line left with nothing goes.
+			local said = JP.Said(shown)
 			local names = {}
-			for i = shown + 1, math.min(n, shown + 2) do names[#names + 1] = JP.StepText(legs[ci + i - 1]) end
-			local rest = left - #names
-			more:SetText(format(L["then %s"], table.concat(names, ", ")) .. (rest > 0 and (" (+" .. rest .. ")") or ""))
+			for i = shown + 1, math.min(n, shown + 2) do
+				local t = JP.StepText(legs[ci + i - 1])
+				if not said[JP.Plain(t)] then names[#names + 1] = t end
+			end
+			local rest = left - math.min(left, 2)
+			if #names == 0 and rest == 0 then
+				more:Hide()
+			elseif #names == 0 then
+				more:SetText(rest == 1 and L["1 more step"] or format(L["%d more steps"], rest))
+			else
+				more:SetText(format(L["then %s"], table.concat(names, ", ")) .. (rest > 0 and (" (+" .. rest .. ")") or ""))
+			end
 		else
 			more:SetText(left == 1 and L["1 more step"] or format(L["%d more steps"], left))
 		end

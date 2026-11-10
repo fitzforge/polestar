@@ -343,6 +343,8 @@ mod ui_look_guidewindow;
 mod ui_look_theme;
 #[path = "ui-look-toasts.rs"]
 mod ui_look_toasts;
+#[path = "ui-window-tweaks.rs"]
+mod ui_window_tweaks;
 #[path = "ui-lookup.rs"]
 mod ui_lookup;
 #[path = "ui-movers.rs"]
