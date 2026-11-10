@@ -8409,7 +8409,6 @@
 			},
 			{
 				"q": 6161,
-				"faction": "Horde",
 				"after": [
 					"accept",
 					6027
@@ -8419,7 +8418,6 @@
 			},
 			{
 				"q": 1182,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					1181
@@ -8429,7 +8427,6 @@
 			},
 			{
 				"q": 1183,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					1182
@@ -8835,7 +8832,6 @@
 			},
 			{
 				"q": 1181,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					1180
@@ -8845,7 +8841,6 @@
 			},
 			{
 				"q": 628,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					577
