@@ -5103,6 +5103,13 @@ test('Kolbi on Discord (#1695): Helcular\'s Rod is farmed on the Foothill Cavern
 	}
 });
 
+test('Danger at the spot (#1575, #1695): the Syndicate missives fallback at 29 warns that the Syndicate are well above you', { skip }, () => {
+	// The guide's start (route level 29.4) among 32-35 Syndicate; recordings: 4 people died there at about 32.
+	const steps = goals('forever/horde/30-40/01-hillsbrad-foothills.guide').filter(({ goal }) => goal.t === 'collect' && goal.quest === 533);
+	assert.ok(steps.length > 0, 'the missive fallback is in the guide');
+	for (const { step } of steps) assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Careful: at 29-30 they are well above you[^.]*Wizards \(34-35\)/, `"${step.title}" warns`);
+});
+
 test('Level fit (#977): the Rogues\' Venture Co. tower (drones 25, Gallywix a 23 elite) shows from level 23, not at the route\'s 20', { skip }, () => {
 	// Horde 12-30 re-chain: Fizzule is visited at 21 on the walk north to Kadrak; the tower work itself is left
 	// to the Class guide Poisons (Horde). Any tower work in a leveling guide shows from 23.

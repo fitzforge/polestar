@@ -4670,16 +4670,20 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Only if Valik's missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one.",
-			"note": "Horde 30-40 audit (2026-11-09): the tip gave the Syndicate Footpads and Thieves as 32-33; the data has Footpad 2240 at 32-33 and Thief 2241 at 33-34. Since Valik's report (2026-11-09): Henchman Valik's reward for the stout is the Syndicate Missive itself (535's reward item 3601; 2 of the 5 recorded Infiltration completions ticked at his camp), so the drop is the fallback.",
+			"tip": "Only if Valik's missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 29-30 they are well above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge.",
+			"note": "Horde 30-40 audit (2026-11-09): the tip gave the Syndicate Footpads and Thieves as 32-33; the data has Footpad 2240 at 32-33 and Thief 2241 at 33-34. Since Valik's report (2026-11-09): Henchman Valik's reward for the stout is the Syndicate Missive itself (535's reward item 3601; 2 of the 5 recorded Infiltration completions ticked at his camp), so the drop is the fallback. Danger-at-the-spot sweep (#1575, #1695): the step comes at the guide's start, at a route level of 29.4, among about 80 spawns of 32-35 Syndicate; players' recordings show 4 people dying there at about 32 to the Footpads, so the tip says to pull singly.",
 			"source": [
 				{
 					"kind": "pfquest",
-					"ref": "npcs.json 2240 level 32-33, 2241 level 33-34"
+					"ref": "npcs.json 2240 level 32-33, 2241 level 33-34, 2319 Syndicate Wizard 34-35"
 				},
 				{
 					"kind": "eg",
 					"ref": "EG Link live creature records 2240, 2241"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-11: 533.1 ticks by 17 people at 29-34 (median 32); 4 people died within 60 yd of the step's point at about 32, a Syndicate Footpad among the foes"
 				}
 			]
 		},
