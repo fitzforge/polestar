@@ -785,9 +785,12 @@ emit({ Q.IsItemNeeded(4536), sq.hoverItem(4536), deleteText() })
 	);
 	// Applejack Still (91736) is a quest Forever added: its tooltip line carries the "New in Forever" mark.
 	let mark = " |TInterface\\AddOns\\Polestar\\Media\\UI\\icon-forever:8:16:0:0|t";
+	// The apples' count is the data's: 4 in a build that has it (Forever's quest data), else the objective reads 1/1.
+	let quests: Value = serde_json::from_str(&std::fs::read_to_string(root().join("data/forever/quests.json")).unwrap()).unwrap();
+	let n = quests["91736"]["objectives"][0]["count"].as_u64().unwrap_or(1).min(4);
 	assert_eq!(
 		out[0],
-		json!([true, ["?", format!("Applejack Still{mark}: | 1/1 (not accepted)")], "Do you want to destroy Shiny Red Apple?//Needed for: “Applejack Still”"]),
+		json!([true, ["?", format!("Applejack Still{mark}: | {n}/{n} (not accepted)")], "Do you want to destroy Shiny Red Apple?//Needed for: “Applejack Still”"]),
 		"bought at the Stonefield Farm: the still ahead needs them"
 	);
 	assert_eq!(out[1], json!([true]), "at the still");
