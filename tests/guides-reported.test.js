@@ -5073,6 +5073,19 @@ test('Recordings (starting-zone review 0.3.6): Crystal Lake\'s murloc step warns
 	}
 });
 
+test('Tincho on Discord (#1575): the Flame of Uzel step warns about the higher yetis and Frostmaw at the flame', { skip }, () => {
+	// Reached at about 30-31 on the 29-33 Hillsbrad guide; recordings: Giant/Mountain Yetis (32-34) in pairs and the rare Frostmaw (37) at the flame.
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8'));
+	assert.ok(fixes.fixes.some((f) => f.at && f.at.quest === 553 && f.at.objective === 3 && /Frostmaw/.test(f.tip || '')), 'the tip is a guide-fixes record');
+	const uzel = goals('forever/horde/30-40/01-hillsbrad-foothills.guide').filter(({ goal }) => goal.quest === 553 && goal.oi === 3 && goal.t !== 'accept' && goal.t !== 'turnin');
+	assert.ok(uzel.length > 0, 'the Flame of Uzel is lit in the Hillsbrad guide');
+	for (const { step } of uzel) {
+		const text = [step.note, step.tip].flat().filter(Boolean).join(' ');
+		assert.match(text, /Frostmaw, a rare yeti \(37\)/, `"${step.title}" names Frostmaw and his level`);
+		assert.match(text, /Yetis \(32-34\)[^.]*in pairs/, `"${step.title}" names the yetis and that they come in pairs`);
+	}
+});
+
 test('Level fit (#977): the Rogues\' Venture Co. tower (drones 25, Gallywix a 23 elite) shows from level 23, not at the route\'s 20', { skip }, () => {
 	// Horde 12-30 re-chain: Fizzule is visited at 21 on the walk north to Kadrak; the tower work itself is left
 	// to the Class guide Poisons (Horde). Any tower work in a leveling guide shows from 23.

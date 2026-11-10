@@ -250,6 +250,7 @@ step Foothill Caverns
 step Flame of Uzel
   zone Hillsbrad Foothills
   tip The third flame burns in the smaller cave up in the hills north of the caverns.
+  tip Careful: Giant and Mountain Yetis (32-34) stand around the flame, often in pairs, and Frostmaw, a rare yeti (37), roams nearby. At 30-31 they are over your level: pull the yetis one at a time from the cave mouth before you use the Rod, and watch for Frostmaw before you go in.
   use 3710 quest 553.3 @41.7,6.4 map 1424 -- Flame of Uzel
 
 step Alterac Mountains
