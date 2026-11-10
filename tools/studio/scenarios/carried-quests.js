@@ -12,7 +12,7 @@
 const GUIDE = 'forever/alliance/30-40/02-desolace';
 const BADLANDS = 'forever/alliance/30-40/06-badlands';
 
-const STEP = `local E = Polestar.Engine
+const STEP = (title, extra = '') => `local E = Polestar.Engine
 -- The quest first: taking it can move steps in the engine's route plan.
 stub.world.accept(5741, { { "Sceptre of Light", 1 } }, "The Sceptre of Light")
 stub.advance(1)
@@ -27,9 +27,10 @@ end
 -- The step's place as the engine orders them (its route plan may move steps).
 for i = 1, #g.steps do
 	local v = E.GetStepView(i)
-	if v and v.title == "Tyranis and the Seer" then at = i; break end
+	if v and v.title == "${title}" then at = i; break end
 end
-assert(at, "no Tyranis step")
+assert(at, "no step ${title}")
+${extra}
 E.Goto(at)
 stub.advance(0.5)
 studio.clearHeadsUps()
@@ -68,7 +69,15 @@ module.exports = {
 	shots: {
 		'keep-line': {
 			title: 'Under "Collect Sceptre of Light": "Keep this: you hand it in later in Badlands"',
-			lua: STEP,
+			lua: STEP('Tyranis and the Seer'),
+		},
+		'keep-only': {
+			title: 'A goal with no other note: only the keep line under it ("Sceptre of Light" without its "on the top floor" note)',
+			lua: STEP('Tyranis and the Seer', `for _, st in ipairs(E.GetGuide().steps) do
+	for _, goal in ipairs(st.goals) do
+		if goal.quest == 5741 then goal.note, goal.comment, goal.where = nil, nil, nil end
+	end
+end`),
 		},
 		'end-three': {
 			title: 'The guide end with three carried quests',
