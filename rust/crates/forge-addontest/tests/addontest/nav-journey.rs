@@ -624,6 +624,33 @@ fn nearby_rank_estimates_only_the_nearest_few_and_the_quickest_by_route_wins_ove
 	assert_eq!(out[0], json!({ "best": 3, "s": 5, "asked": [1, 2, 3, 4, 5, 6], "none": true, "straight": 1, "s2": 10 }));
 }
 
+// Fitz in Orgrimmar on 0.3.6: Nearby services' First Aid trainer walked him out of the gate into
+// Durotar and back in. The Codex lists Arnok (3373) on Orgrimmar's map (34.2,84.6) and again on
+// Durotar's (41.6,9.2), the inner map first; the Durotar copy lies 2 yd nearer to most of the city,
+// and a target on Durotar's map is walked through the gate crossing. The first listed copy wins.
+#[test]
+fn nearby_rank_keeps_a_city_npc_on_the_city_map_not_its_zone_copy_a_yard_nearer() {
+	let out = run(r#"
+		local Near = N.nearby
+		local city = { id = 3373, c = 1, wx = 1482.5, wy = -4160.3, map = 1454, x = 34.2, y = 84.6 }
+		local zone = { id = 3373, c = 1, wx = 1484.0, wy = -4162.1, map = 1411, x = 41.6, y = 9.2 }
+		local rawrk = { id = 5943, c = 1, wx = 331.3, wy = -4828.4, map = 1411, x = 54.2, y = 41.9 }
+		local here = { c = 1, wx = 1600, wy = -4400 } -- the Drag: the copy is the nearer by line
+		local best = Near.Rank({ city, zone, rawrk }, here, function(p) return p.id == 3373 and 60 or 400 end)
+		-- Two spawns of one NPC on one map still go by distance; a spawn on another map 160 yd off is no copy.
+		local a = { id = 7, c = 1, wx = 1500, wy = -4200, map = 1454 }
+		local b = { id = 7, c = 1, wx = 1550, wy = -4300, map = 1454 }
+		local far = { id = 8, c = 1, wx = 1500, wy = -4200, map = 1454 }
+		local farZone = { id = 8, c = 1, wx = 1560, wy = -4350, map = 1411 }
+		emit({
+			map = best.map,
+			sameMap = Near.Rank({ a, b }, here, function() return 1 end) == b,
+			notCopy = Near.Rank({ far, farZone }, here, function() return 1 end) == farZone,
+		})
+	"#);
+	assert_eq!(out[0], json!({ "map": 1454, "sameMap": true, "notCopy": true }));
+}
+
 #[test]
 fn nearby_no_codex_combat_and_nothing_known_each_say_their_own_line_c14() {
 	let out = run(&[

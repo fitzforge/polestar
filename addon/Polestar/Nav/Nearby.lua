@@ -27,7 +27,8 @@
 -- once per session.
 --
 -- Ranking: the nearest spawn of each NPC by straight line, the player's
--- continent first; the RANKED nearest of those get the route planner's
+-- continent first (of one spawn listed on a city's and its zone's map, the
+-- city's); the RANKED nearest of those get the route planner's
 -- estimate (Journey.Estimate: flights, boats, the Hearthstone) and the
 -- quickest wins.
 --
@@ -48,6 +49,7 @@ ns.RegisterDefaults("nav", { nearbyMenu = true, nearbyButton = true })
 
 local RANKED = 6
 local RUN_SPEED = 7
+local SAME_PLACE = 50 -- yards: one spawn on two maps (the Codex's SAME_PLACE)
 local RIDING = 762 -- Compat.SKILL_LINES' riding: no trainer role
 local FACTION = { Alliance = "A", Horde = "H" }
 
@@ -384,6 +386,11 @@ end
 -- player's continent first), the RANKED nearest of those estimated, the
 -- quickest returned with its seconds (a straight-line run when the planner
 -- has no answer on this continent; nil when nothing could be measured).
+-- One place on two maps (the Codex lists a city's NPC on the city's map and
+-- again on its zone's, the inner map first: forge-data codex/spawns.rs) is
+-- the first one listed, never the copy a yard or two nearer: a target on
+-- Durotar's map sends the route planner out of Orgrimmar's gate and back in
+-- to reach Arnok in the Valley of Spirits.
 function Nearby.Rank(places, here, estimate)
 	local nearest, tier, dist = {}, {}, {}
 	for _, p in ipairs(places) do
@@ -393,7 +400,9 @@ function Nearby.Rank(places, here, estimate)
 			if p.c == here.c then t = 0 end
 		end
 		local held = nearest[p.id]
-		if not held or t < tier[held] or (t == tier[held] and d < dist[held]) then
+		local copy = held and held.map ~= p.map and held.c == p.c
+			and (p.wx - held.wx) ^ 2 + (p.wy - held.wy) ^ 2 <= SAME_PLACE * SAME_PLACE
+		if not copy and (not held or t < tier[held] or (t == tier[held] and d < dist[held])) then
 			if held then tier[held], dist[held] = nil, nil end
 			nearest[p.id] = p
 			tier[p], dist[p] = t, d
