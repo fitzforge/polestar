@@ -8273,6 +8273,16 @@
 				"issue": "-"
 			},
 			{
+				"q": 6161,
+				"faction": "Horde",
+				"after": [
+					"accept",
+					6027
+				],
+				"reason": "Quest volume and flow (Br3040, 0.3.6, Horde 30-40/02): Claim Rackmore's Treasure (level 36, from 30, 2,800 XP). Rackmore's Log (36.1,30.4) lies beside Azore's tower; the silver key drops (15%) from the Drysnap crabs on the clam beds (31-35,27-35), the golden key (55%) from every Slitherblade on Sar'theris Strand, and Rackmore's Chest (30.0,8.7) stands beside the Serpent Statue. The coast is now walked once, north after Thunder Axe Fortress (log, clams, strand, statue and chest, back to Azore), as both comparison routes do, about 500 yd shorter than the old coast-first order that went north twice. Every source agrees (page, Questie, TDB loot, any race); three recorded players of three races completed it.",
+				"issue": "-"
+			},
+			{
 				"q": 1180,
 				"after": [
 					"turnin",

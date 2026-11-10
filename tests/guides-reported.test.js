@@ -10076,3 +10076,21 @@ test('Horde Silverpine: Camping 101 hand-ins only for carriers, on the Orgrimmar
 		assert.ok(step.only.races.includes(race), `${quest}: for the race whose campfire gives it`);
 	}
 });
+
+// Br3040 (0.3.6, Horde Desolace 34): Claim Rackmore's Treasure (6161, 2,800 XP) was left out although its log, both keys
+// and its chest lie on the coast the guide works: the silver key from the clam beds' Drysnap crabs, the golden key from the
+// Slitherblade naga, the chest beside the Serpent Statue. The coast is now one walk north after Thunder Axe Fortress.
+test('Horde Desolace 34: Rackmore\'s Treasure on one walk north along the coast, after Thunder Axe Fortress', { skip }, () => {
+	const list = goals('forever/horde/30-40/02-thousand-needles.guide');
+	const book = at(list, 'accept 6027', is('accept', 6027));
+	const take = at(list, 'accept 6161', is('accept', 6161));
+	const silver = at(list, 'silver key', (g) => g.t === 'collect' && g.item === 15878);
+	const gold = at(list, 'golden key', (g) => g.t === 'collect' && g.item === 15881);
+	const chest = at(list, 'turnin 6161', is('turnin', 6161));
+	assert.ok(at(list, 'turnin 5741', is('turnin', 5741)) < take && book < take, 'after the Sceptre is back with Azore');
+	assert.ok(take < silver && silver < gold && gold < chest, 'log, crabs, naga, chest');
+	assert.ok(at(list, 'interact 177784 (clams)', (g) => g.t === 'interact' && g.object === 177784) > take, 'the clams come after the log');
+	assert.equal(list[chest].s, list[at(list, 'use 15766 (statue)', (g) => g.t === 'use' && g.item === 15766)].s, 'the chest on the statue step');
+	assert.ok(chest < at(list, 'turnin 6027', is('turnin', 6027)), 'before Azore takes the book');
+	assert.ok(list.every(({ goal }) => !goal.only), 'no race or class filter');
+});
