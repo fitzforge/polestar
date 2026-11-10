@@ -109,7 +109,7 @@ step Tenaron Stormgrip
   turnin 921                          -- Upstairs
   accept 928
   accept 96630                                -- Lost Journal, upstairs
-  accept 5622 only Priest                     -- Shanda, the priest trainer, on the ramp on the way down: Laurna Morninglight in Dolanaar takes it
+  accept 5622 only Priest                     -- Shanda, the priest trainer, on the second level of Aldrassil on the way down: Laurna Morninglight in Dolanaar takes it
 
 step Iverron's Antidote
   tip Take the antidote from Dirania Silvershine at the foot of Aldrassil only now, on the way down: it lasts five minutes. Iverron waits north-west, by the cave: go straight on to him.
