@@ -1181,7 +1181,7 @@ player's faction instead.
 
 `nearest` and `train class` pick the trainer or vendor at runtime, by the
 player's faction and where they stand. `train class` keeps to its step's
-`zone` when that zone has a trainer of the player's class (Polestar 0.3.7):
+`zone` when that zone has a trainer of the player's class (Polestar 0.3.6):
 write the training step in the town the route trains in (`zone Orgrimmar`, not
 `zone Durotar`), and a trainer within 100 yards of the player still counts
 as here. A `vendor` ticks when the merchant's window opens during its step
