@@ -74,6 +74,7 @@ step Ruins of Stardust fountain
   collect 7770 quest 1534.1
 
 step Ursangous
+  when turnedin 6383
   tip Follow the main road east past Astranaar (Alliance: keep to the road). Ursangous, a big grizzly, roams the Ruins of Stardust south of the road, west of Mystral Lake. His paw starts the next hunt quest.
   collect 16303
   accept 23 item 16303
@@ -100,6 +101,7 @@ step Torek's Assault
   complete 6544
 
 step Sharptalon
+  when turnedin 6383
   tip Sharptalon, a big nightsaber, prowls the woods south-east of the Warsong lumber camp, on the way north to Splintertree. Her claw starts the next hunt quest.
   collect 16305
   accept 2 item 16305
@@ -109,6 +111,12 @@ step Sharptalon
 step Splintertree Post
   turnin 6544                         -- Ertog Ragetusk
   accept 6441                         -- Pixel
+
+step Senani Thunderheart
+  when !turnedin 6383
+  tip Senani Thunderheart keeps the hunt board at Night Run, by the flight master: take The Ashenvale Hunt and hand it straight back. Ursangous, Sharptalon and Shadumbra drop their trophies only after it.
+  accept 6383                         -- Senani Thunderheart
+  turnin 6383
 
 step Splintertree Post
   when onquest 23
@@ -126,6 +134,7 @@ step Felmusk satyrs
   collect 5481 quest 6441
 
 step Shadumbra
+  when turnedin 6383
   tip Shadumbra, a shadow panther, stalks the woods around Raynewood Retreat, west of the Felmusk camp. Her head starts the next hunt quest.
   collect 16304
   accept 24 item 16304
@@ -153,10 +162,30 @@ step Mystral Lake
   goto 48.9,69.6 "Gazebo"
   complete 25
 
+step Ursangous
+  when turnedin 6383
+  when !onquest 23
+  when !turnedin 23
+  tip West of Mystral Lake, Ursangous, a big grizzly, roams the Ruins of Stardust: his paw now drops for you.
+  collect 16303 @39.8,65.2
+  accept 23 item 16303
+
+step Sharptalon
+  when turnedin 6383
+  when !onquest 2
+  when !turnedin 2
+  tip On the way back north-east to Splintertree: Sharptalon prowls the woods south-east of the Warsong lumber camp.
+  collect 16305 @75.0,70.1
+  accept 2 item 16305
+
 step Splintertree Post
-  turnin 2 optional -- Senani Thunderheart
+  when onquest 2,23,24
+  turnin 23 optional                  -- Senani Thunderheart
+  turnin 2 optional                   -- Senani Thunderheart
   turnin 24 optional
-  accept 247
+
+step Splintertree Post
+  accept 247                          -- Senani Thunderheart, once all three hunts are in
   turnin 247
   turnin 6441                         -- Pixel
 

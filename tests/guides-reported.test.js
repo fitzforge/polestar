@@ -10487,3 +10487,23 @@ test('Alliance Stranglethorn 35: Lake Nazferiti after Kurzen\'s Compound, the ta
 	assert.equal(new Set(rebel).size, 1, 'every Rebel Camp hand-in on one stop');
 	assert.ok(rebel[0] > Math.max(...tablets), 'after the last tablet');
 });
+
+// #1531 (Discord, Undead Warlock 27): Ursangous, Sharptalon and Shadumbra drop their trophies only once The Ashenvale
+// Hunt (6383) is handed in (loot conditions); a player who skipped the Ashenvale & Silverpine guide's Splintertree stop
+// was sent hunting for nothing. The hunt steps now wait for 6383, Senani gives it on the first Splintertree stop to a
+// player without it, and the two hunts passed before that stop come round again near Mystral Lake and on the way back.
+test('#1531: the Ashenvale hunt trophies only after The Ashenvale Hunt, offered at Splintertree to a player without it', { skip }, () => {
+	const list = goals(ASHENVALE_HORDE);
+	const hunt = (q) => list.filter(({ goal }) => goal.t === 'collect' && goal.item === q);
+	for (const item of [16303, 16305, 16304]) {
+		const found = hunt(item);
+		assert.ok(found.length >= 1, `${item} is hunted`);
+		for (const { step } of found) assert.ok((step.when || []).some((p) => p.k === 'turnedin' && !p.neg && [].concat(p.q).includes(6383)), `${item}: only once The Ashenvale Hunt is handed in`);
+	}
+	const senani = at(list, 'Senani gives 6383', is('accept', 6383));
+	assert.ok((list[senani].step.when || []).some((p) => p.k === 'turnedin' && p.neg && [].concat(p.q).includes(6383)), 'only for a player without it');
+	assert.equal(list[senani].s, list[at(list, 'and takes it back', is('turnin', 6383))].s, 'taken and handed back on one step');
+	assert.ok(senani < at(list, 'Shadumbra', (g) => g.t === 'collect' && g.item === 16304), 'before Shadumbra');
+	const late = hunt(16303).map((e) => list.indexOf(e)).filter((i) => i > senani);
+	assert.ok(late.length === 1 && late[0] < at(list, 'the hunts handed in', is('turnin', 2)), 'Ursangous comes round again after Splintertree, before the hand-in');
+});

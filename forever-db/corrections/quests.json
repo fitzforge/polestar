@@ -1826,6 +1826,23 @@
 		],
 		"note": "The Eastern Plagues (Alliance, 60): find the three SI:7 Insignias and the Blightcaller's place. The merged data also listed Nathanos Blightcaller (npc 11878, a level 62 elite) as a kill, a credit only one source has; the world then made it an elite kill and the planner a group quest. It is done alone at 57-59; Nathanos is the next quest's story (The Blightcaller Cometh tells Bolvar of him)."
 	},
+	"6383": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-10): Senani Thunderheart (12696) gave The Ashenvale Hunt to 33 people with no refusal, 23 of them with no Ashenvale Hunt breadcrumb (6382) ever taken or handed in"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "quest_template 6383: no PrevQuestId; 6382, 235 and 742 are breadcrumbs pointing at it"
+			}
+		],
+		"note": "The Ashenvale Hunt has no prerequisite on Forever: Senani Thunderheart at Splintertree Post offers it to any Horde player from level 20. The merged data listed Thork's breadcrumb (6382) as a prerequisite beside the two breadcrumbs it already marked, so a player who never took the breadcrumb was told to fetch it first, and Ursangous, Sharptalon and Shadumbra drop their trophies only once 6383 is handed in (#1531)."
+	},
 	"6641": {
 		"set": {
 			"escort": true
