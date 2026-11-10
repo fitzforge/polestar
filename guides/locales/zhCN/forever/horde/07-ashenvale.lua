@@ -226,8 +226,6 @@ return {
 	["{npc:4877}, the trade supplies vendor: the Screeching harpies of {area:487}; inside the inn"] = "{npc:4877}，商业用品商人：{area:487}的尖啸的鹰身人；在旅店里",
 	-- {npc:4877} Jandia
 	["{npc:4877}: her stolen supplies lie in the same harpy den"] = "{npc:4877}：她被偷的物资也在同一处鹰身人巢穴",
-	-- {npc:11116} Innkeeper Abeqwa · {npc:4877} Jandia
-	["{npc:11116}, beside {npc:4877}"] = "{npc:11116}，在{npc:4877}旁边",
 
 	-- Step 51: Rau Cliffrunner
 	-- {npc:4722} Rau Cliffrunner · {area:484} Freewind Post · {npc:4721} Zangen Stonehoof
@@ -259,6 +257,10 @@ return {
 	["{npc:2986} stands on a mesa top east of the Galak camps. For the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "{npc:2986}站在加拉克营地东边的一座石柱顶上。做{quest:1149}时，从他旁边的木板尽头走下去：你会安全落地。",
 	-- {npc:2986} Dorn Plainstalker
 	["{npc:2986}, below ground"] = "{npc:2986}：在地下",
+
+	-- Step 56: Freewind Post
+	-- {npc:11116} Innkeeper Abeqwa · {npc:4877} Jandia
+	["{npc:11116}, beside {npc:4877}"] = "{npc:11116}，在{npc:4877}旁边",
 
 	-- Step 58: Darkcloud Pinnacle
 	-- {area:2097} Darkcloud Pinnacle
