@@ -1,7 +1,9 @@
 //! The client info file (docs/RECORDING.md "Client info"): `Interface/AddOns/Polestar/ClientInfo.lua`,
 //! written by Polestar Client from the release list it checks for addon updates, so the addon's update
 //! card (addon/Polestar/Core/Update.lua) knows the newest release:
-//! `PolestarClientInfo = { latest, released, checked, releases = { newest first } }`.
+//! `PolestarClientInfo = { latest, released, checked, releases = { newest first }, probe = false? }`.
+//! `probe = false` is the kill switch for the addon's version probe: written when the newest release's
+//! notes carry [`PROBE_OFF`] (an HTML comment, so the notes don't show it).
 //! Only releases count (no pre-releases, whatever the client's channel), and only versions that are
 //! digits and dots, so nothing but a version string reaches the Lua file. The game reads addon files
 //! only when it loads them (login, /reload) and never writes them, so the file can be written at any
@@ -15,6 +17,8 @@ use crate::addons::Release;
 pub const FILE_NAME: &str = "ClientInfo.lua";
 /// The releases listed, newest first: enough to count how far behind any recent build is.
 const MAX_RELEASES: usize = 20;
+/// In the newest release's notes: the addon stops its version probe (whispers to other players).
+pub const PROBE_OFF: &str = "<!-- polestar: probe off -->";
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Info {
@@ -26,6 +30,8 @@ pub struct Info {
 	pub checked: i64,
 	/// Release versions, newest first, at most MAX_RELEASES.
 	pub releases: Vec<String>,
+	/// False when the newest release's notes turn the addon's version probe off.
+	pub probe: bool,
 }
 
 /// A version as the file may carry it: x.y.z (more parts allowed), digits and dots only.
@@ -67,6 +73,7 @@ pub fn info<'a>(releases: impl IntoIterator<Item = &'a Release>, checked: i64) -
 		released: newest.published_at.as_deref().and_then(unix_seconds),
 		checked,
 		releases: stable.iter().take(MAX_RELEASES).map(|r| r.version.clone()).collect(),
+		probe: !newest.body.contains(PROBE_OFF),
 	})
 }
 
@@ -81,6 +88,9 @@ pub fn render(info: &Info) -> String {
 	text.push_str(&format!("\tchecked = {},\n", info.checked));
 	let list: Vec<String> = info.releases.iter().map(|v| format!("\"{v}\"")).collect();
 	text.push_str(&format!("\treleases = {{ {} }},\n", list.join(", ")));
+	if !info.probe {
+		text.push_str("\tprobe = false,\n");
+	}
 	text.push_str("}\n");
 	text
 }
@@ -148,7 +158,7 @@ mod tests {
 		let info = info(&list, 1_794_400_000).unwrap();
 		assert_eq!(
 			info,
-			Info { latest: "0.3.7".into(), released: Some(1_794_312_000), checked: 1_794_400_000, releases: vec!["0.3.7".into(), "0.3.6".into(), "0.3.5".into()] }
+			Info { latest: "0.3.7".into(), released: Some(1_794_312_000), checked: 1_794_400_000, releases: vec!["0.3.7".into(), "0.3.6".into(), "0.3.5".into()], probe: true }
 		);
 		assert_eq!(
 			render(&info),
@@ -161,10 +171,23 @@ mod tests {
 	}
 
 	#[test]
+	fn the_newest_releases_notes_can_turn_the_version_probe_off() {
+		let mut newest = release("0.3.8", false, None);
+		newest.body = format!("Fixes.\n\n{PROBE_OFF}\n");
+		let info = info(&[newest, release("0.3.7", false, None)], 5).unwrap();
+		assert!(!info.probe);
+		assert!(render(&info).ends_with("\treleases = { \"0.3.8\", \"0.3.7\" },\n\tprobe = false,\n}\n"), "{}", render(&info));
+		// Only the newest release's notes count.
+		let mut old = release("0.3.7", false, None);
+		old.body = PROBE_OFF.to_owned();
+		assert!(super::info(&[release("0.3.8", false, None), old], 5).unwrap().probe);
+	}
+
+	#[test]
 	fn the_file_is_written_into_the_polestar_folder_only_when_it_changes() {
 		let root = std::env::temp_dir().join(format!("polestar-clientinfo-{}", std::process::id()));
 		let dir = root.join("Polestar");
-		let info = Info { latest: "0.3.7".into(), released: None, checked: 100, releases: vec!["0.3.7".into(), "0.3.6".into()] };
+		let info = Info { latest: "0.3.7".into(), released: None, checked: 100, releases: vec!["0.3.7".into(), "0.3.6".into()], probe: true };
 		assert!(!write(&dir, &info).unwrap(), "no Polestar folder: nothing written");
 		std::fs::create_dir_all(&dir).unwrap();
 		// The release's empty file is replaced.

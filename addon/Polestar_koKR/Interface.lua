@@ -588,6 +588,8 @@ L["You asked a moment ago: wait %d seconds."] = "방금 요청했습니다: %d�
 L["The game didn't send it: try again in a moment."] = "게임이 보내지 않았습니다: 잠시 후 다시 시도하십시오."
 L["Asked your party to sync to your step. Each of them chooses."] = "파티에 내 단계로 동기화하자고 요청했습니다. 각 파티원이 선택합니다."
 L["%s asked you to sync to their guide; that prompt can't show with the gamepad interface."] = "%s 님이 자신의 가이드에 동기화하자고 요청했습니다. 게임패드 인터페이스에서는 이 확인 창을 표시할 수 없습니다."
+-- L["Ask other players' Polestar which version it is"] = ""
+-- L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] = ""
 
 -- Gear/Gear.lua
 L["big upgrade"] = "큰 향상"

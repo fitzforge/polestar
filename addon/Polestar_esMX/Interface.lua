@@ -2331,6 +2331,8 @@ L["You asked a moment ago: wait %d seconds."] = "Lo pediste hace un momento: esp
 L["The game didn't send it: try again in a moment."] = "El juego no lo envió: inténtalo de nuevo en un momento."
 L["Asked your party to sync to your step. Each of them chooses."] = "Le pediste a tu grupo sincronizarse con tu paso. Cada uno decide."
 L["%s asked you to sync to their guide; that prompt can't show with the gamepad interface."] = "%s te pidió sincronizarte con su guía; ese aviso no puede mostrarse con la interfaz de control."
+-- L["Ask other players' Polestar which version it is"] = ""
+-- L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascensor a %s"

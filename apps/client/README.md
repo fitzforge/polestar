@@ -95,7 +95,9 @@ the upload API, and the public list of what is never collected.
   `Interface/AddOns/Polestar/ClientInfo.lua` (`src-tauri/src/clientinfo.rs`;
   releases only, whatever the channel; only when the text changes), so the
   addon's update card knows what is out and that the client can update it
-  (docs/RECORDING.md "Client info").
+  (docs/RECORDING.md "Client info"). A newest release whose notes carry
+  `<!-- polestar: probe off -->` adds `probe = false`, which stops the
+  addon's version probe.
 - **Community** installs Community Guides players publish on
   [polestar.guide](https://polestar.guide): installed guides first, then the
   others, searchable by title and author, each with Install, Update, Remove,

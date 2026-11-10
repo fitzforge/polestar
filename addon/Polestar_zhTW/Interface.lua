@@ -588,6 +588,8 @@ L["You asked a moment ago: wait %d seconds."] = "你剛才已詢問過：請等�
 L["The game didn't send it: try again in a moment."] = "遊戲未送出訊息：請稍後再試。"
 L["Asked your party to sync to your step. Each of them chooses."] = "已邀請隊伍同步至你的步驟。由每位隊員自行決定。"
 L["%s asked you to sync to their guide; that prompt can't show with the gamepad interface."] = "%s 邀請你同步至對方的指南；使用控制器介面時無法顯示該提示。"
+-- L["Ask other players' Polestar which version it is"] = ""
+-- L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] = ""
 
 -- Gear/Gear.lua
 L["big upgrade"] = "大幅提升"

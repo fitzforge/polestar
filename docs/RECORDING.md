@@ -121,6 +121,12 @@ PolestarClientInfo = {
 }
 ```
 
+`probe = false` follows `releases` when the newest release's notes carry
+`<!-- polestar: probe off -->` (an HTML comment, so the notes don't show it):
+the addon's kill switch for its version probe, the hidden whispers to other
+players (docs/ARCHITECTURE.md "Update notices"). Without it the probe
+follows the player's settings.
+
 `latest` is the newest release, `released` when GitHub published it and
 `checked` when the client looked (Unix seconds), `releases` up to 20
 release versions, newest first. Only releases count, never pre-releases,
