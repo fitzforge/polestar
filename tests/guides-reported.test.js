@@ -5548,8 +5548,28 @@ test('forever/alliance/30-40/04b-stranglethorn-vale.guide: flow re-order: Krazek
 	assert.equal(stepOf('accept', 627), stepOf('turnin', 210), 'Favor for Krazek taken there');
 	// Alliance 30-40 audit (0.3.7): the first loop now takes Krazek's Cookery from Kaleb and hands it to Krazek, and turns
 	// in Herod's records; 04b's lines stay for players who load it fresh. Favor for Krazek
-	// (Arathi's kobolds) still waits for 04b.
+	// (Arathi's Lesser Bloodstone Deposits) still waits for 04b.
 	assert.ok(!goals('forever/alliance/30-40/04-stranglethorn-vale.guide').some(({ goal }) => goal.quest === 627), 'Favor for Krazek not on the first loop at 33-34');
+});
+
+// #1550: the ore is mined with Mining 75 or obtained from another player, not looted from kobolds.
+// These generated guides pick up the checkout records on the maintainer's next Forge build.
+test("Fyurie's report (#1550): Favor for Krazek never holds the route, while Myzrael still does", { skip }, () => {
+	const guides = [
+		'forever/alliance/30-40/04b-stranglethorn-vale.guide',
+		'forever/alliance/30-40/05-arathi-highlands.guide',
+		'forever/alliance/40-50/01-stranglethorn-vale.guide',
+	];
+	for (const guide of guides) {
+		const krazek = goals(guide).filter(({ goal }) => goal.quest === 627);
+		assert.ok(krazek.length, `${guide}: Favor for Krazek remains available`);
+		assert.ok(krazek.every(({ goal }) => goal.optional), `${guide}: taking, collecting and handing in the ore never hold the route`);
+	}
+	const gorge = goals(guides[1]);
+	const ore = gorge.find(({ goal }) => goal.t === 'collect' && goal.item === 4278 && goal.quest === 627);
+	const motes = gorge.find(({ goal }) => goal.t === 'collect' && goal.item === 4435 && goal.quest === 642);
+	assert.ok(ore && motes && ore.s === motes.s, 'ore and motes stay on the same gorge visit');
+	assert.ok(!motes.goal.optional, 'collecting the Motes of Myzrael still holds the step');
 });
 
 // Flow re-order (2026-11-07): Alliance Arathi took the tusks and pouches from the few Witherbark west of

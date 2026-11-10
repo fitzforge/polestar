@@ -1361,7 +1361,7 @@ fn check_places(ck: &mut Ck, d: &V) {
 }
 
 /// data/guide-fixes.json: `{ about, fixes: [{ id, at: { quest, goal: accept | turnin | complete |
-/// objective, objective? }, tip | level (after?, only?) | along: false | early | when, note, source, issue, pr }] }`. `along: false` (an
+/// objective, objective? }, tip | goalNote | optional: true | level (after?, only?) | along: false | early | when, note, source, issue, pr }] }`. `along: false` (an
 /// objective goal only): the writer never lists the objective "on the way" before its step. `after: true`
 /// (a level gate only): the gate goes right after the anchor goal, not before it. `only` (a level gate only): a
 /// class or race list the gate holds (`level N only Priest`), the others pass. `early: { after: { quest, goal:
@@ -1384,7 +1384,21 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	let mut slots: Vec<(String, String)> = Vec::new();
 	for (i, r) in list.items().iter().enumerate() {
 		let at = format!("fixes[{i}]");
-		ck.keys(&at, r, &["id", "at", "tip", "level", "after", "only", "along", "early", "when", "background", "faction", "note", "source", "issue", "pr"]);
+		ck.keys(&at, r, &["id", "at", "tip", "goalNote", "optional", "level", "after", "only", "along", "early", "when", "background", "faction", "note", "source", "issue", "pr"]);
+		for field in ["optional", "goalNote"] {
+			let v = r.get(field);
+			if !v.is_undef() {
+				if ["tip", "level", "along", "early", "when", "background", if field == "optional" { "goalNote" } else { "optional" }].iter().any(|k| !r.get(k).is_undef()) {
+					ck.err(format!("{at}.{field}"), "a goal modifier or note uses a separate record");
+				}
+				if field == "optional" && !matches!(v, V::Bool(true)) {
+					ck.err(format!("{at}.optional"), "`optional` is true (the anchored goal never holds the route)");
+				}
+				if field == "goalNote" && (!has_text(&v) || v.as_str().is_some_and(|t| t.contains(['\n', '\r']))) {
+					ck.err(format!("{at}.goalNote"), "a goal note is one line of text");
+				}
+			}
+		}
 		let after = r.get("after");
 		if !after.is_undef() && (!matches!(after, V::Bool(true)) || r.get("level").is_undef()) {
 			ck.err(format!("{at}.after"), "`after` is true, on a level gate");
@@ -1417,6 +1431,8 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 		let (tip, level, along, early, when) = (r.get("tip"), r.get("level"), r.get("along"), r.get("early"), r.get("when"));
 		let background = r.get("background");
 		let kind = match (tip.is_undef(), level.is_undef()) {
+			(true, true) if !r.get("optional").is_undef() => "optional",
+			(true, true) if !r.get("goalNote").is_undef() => "goalNote",
 			(true, true) if !background.is_undef() && when.is_undef() && early.is_undef() && along.is_undef() => {
 				check_background(ck, &at, &background);
 				if a.get("goal").as_str() != Some("objective") {
@@ -1471,7 +1487,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				"level"
 			}
 			_ => {
-				ck.err(&at, "a guide fix sets a `tip`, a `level` gate, a `when`, `along: false`, `early` or `background`");
+				ck.err(&at, "a guide fix sets a `tip`, `goalNote`, `optional: true`, a `level` gate, a `when`, `along: false`, `early` or `background`");
 				"?"
 			}
 		};
@@ -1695,6 +1711,25 @@ mod tests {
 	}
 
 	#[test]
+	fn optional_guide_fixes_are_checked() {
+		let src = r#""source": { "kind": "in-game-check", "ref": "issue 1550" }, "note": "checked""#;
+		let good = format!(r#"{{ "fixes": [ {{ "id": "optional", "at": {{ "quest": 10, "goal": "objective", "objective": 1 }}, "optional": true, {src} }} ] }}"#);
+		assert_eq!(record_findings(None, Some(&good)), Vec::<String>::new());
+		for value in ["false", "1", "\"true\"", "null"] {
+			let bad = good.replace("\"optional\": true", &format!("\"optional\": {value}"));
+			assert!(record_findings(None, Some(&bad)).iter().any(|f| f.contains("optional")), "{value}");
+		}
+		let mixed = good.replace("\"optional\": true", "\"optional\": true, \"tip\": \"A tip.\"");
+		assert!(record_findings(None, Some(&mixed)).iter().any(|f| f.contains("optional")));
+		let note = good.replace("\"optional\": true", "\"goalNote\": \"Mine the deposits.\"");
+		assert_eq!(record_findings(None, Some(&note)), Vec::<String>::new());
+		for value in ["false", "null", "\"\"", "\"two\\nlines\"", "\"two\\rlines\""] {
+			let bad = note.replace("\"Mine the deposits.\"", value);
+			assert!(record_findings(None, Some(&bad)).iter().any(|f| f.contains("goalNote")), "{value}");
+		}
+	}
+
+	#[test]
 	fn places_and_guide_fixes_are_checked() {
 		let src = r#""source": { "kind": "in-game-check", "ref": "issue 1" }, "note": "checked""#;
 		let p = format!(
@@ -1729,7 +1764,7 @@ mod tests {
 			"places[3].faction: \"Both\" is not Alliance or Horde",
 			"places[3].at.frame: map 2521 has no Era bounds",
 			"fixes[0].at.goal",
-			"fixes[0]: a guide fix sets a `tip`, a `level` gate, a `when`, `along: false`, `early` or `background`",
+			"fixes[0]: a guide fix sets a `tip`, `goalNote`, `optional: true`, a `level` gate, a `when`, `along: false`, `early` or `background`",
 			"fixes[1].after: `after` is true, on a level gate",
 			"fixes[2].when: \"onquest 12\": `level>=N`",
 			"fixes[3].background.title: one line of text",

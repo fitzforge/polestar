@@ -1,6 +1,51 @@
 {
-	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), or a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
+	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), or a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
+		{
+			"id": "1550-krazek-pickup-mining-advice",
+			"faction": "Alliance",
+			"at": { "quest": 627, "goal": "accept" },
+			"goalNote": "Krazek, upstairs: this optional quest needs four Lesser Bloodstone Ore. Mine Lesser Bloodstone Deposits in Arathi Highlands with Mining 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore.",
+			"note": "Fyurie's report #1550 and the maintainer's data check: Lesser Bloodstone Ore comes from deposits, not the Drywhisker kobolds. Explain Mining 75 and the alternatives at pickup, replacing the incorrect goal note.",
+			"source": { "kind": "in-game-check", "ref": "#1550: Fyurie's Mining 75 report and fitzforge's confirmation of the deposit-only source" },
+			"issue": 1550
+		},
+		{
+			"id": "1550-krazek-gorge-mining-advice",
+			"faction": "Alliance",
+			"at": { "quest": 627, "goal": "objective", "objective": 1 },
+			"tip": "The Drywhisker kobolds dig in the gorge east of Hammerfall (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need Mining 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them.",
+			"note": "#1550: repeat the Mining requirement and alternatives at collection without losing the shared Myzrael step's directions and fleeing-kobold warning.",
+			"source": { "kind": "in-game-check", "ref": "#1550: Fyurie's report and fitzforge's confirmation; current Drywhisker Gorge step for the unchanged directions and warning" },
+			"issue": 1550
+		},
+		{
+			"id": "1550-krazek-optional-pickup",
+			"faction": "Alliance",
+			"at": { "quest": 627, "goal": "accept" },
+			"optional": true,
+			"note": "#1550: players who cannot obtain the ore may leave Favor for Krazek untaken without holding the Booty Bay stop.",
+			"source": { "kind": "in-game-check", "ref": "#1550: fitzforge confirms nothing else in the Arathi guide needs this quest" },
+			"issue": 1550
+		},
+		{
+			"id": "1550-krazek-optional-ore",
+			"faction": "Alliance",
+			"at": { "quest": 627, "goal": "objective", "objective": 1 },
+			"optional": true,
+			"note": "#1550: a player without Mining 75 or another source of ore must not be held in Drywhisker Gorge; the Myzrael collection stays required.",
+			"source": { "kind": "in-game-check", "ref": "#1550: Mining 75 requirement and fitzforge's confirmed workaround of skipping the ore line" },
+			"issue": 1550
+		},
+		{
+			"id": "1550-krazek-optional-handin",
+			"faction": "Alliance",
+			"at": { "quest": 627, "goal": "turnin" },
+			"optional": true,
+			"note": "#1550: skipping the ore must not hold the later Booty Bay hand-in stop; players who obtained it can still hand it in there.",
+			"source": { "kind": "in-game-check", "ref": "#1550: fitzforge confirms this quest can be skipped independently of the rest of the route" },
+			"issue": 1550
+		},
 		{
 			"id": "elwynn-crystal-lake-murloc-packs-99128",
 			"faction": "Alliance",

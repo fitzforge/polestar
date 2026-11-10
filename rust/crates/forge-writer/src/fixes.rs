@@ -13,8 +13,10 @@
 //!   compiler places a written objective from the data. `label` sets the objective line's goal text.
 //! - **guide-fixes**: step content that is neither data nor route, at a goal's step:
 //!   `{ id, at: { quest, goal: "accept" | "turnin" | "complete" | "objective", objective? }, tip }`
-//!   sets the step's `tip`; `level: N` puts a `level N` gate right before the anchor goal (with
-//!   `after: true`, right after it: the hand-ins at the anchor count towards the level; with `only`, a
+//!   sets the step's `tip`; `goalNote` replaces only the goal's inline note; `optional: true` marks
+//!   only the goal optional, including its along copies (each change uses a separate record).
+//!   `level: N` puts a `level N` gate right before the anchor goal (with `after: true`, right after
+//!   it: the hand-ins at the anchor count towards the level; with `only`, a
 //!   class or race list, the gate holds only those players: `level N only Priest`). `background` (on an objective,
 //!   #1135) makes a slow, zone-wide collection a goal of the whole stay: listed on the way from the
 //!   quest's accept to its hand-in, with a finish step before the hand-in (apply_background).
@@ -359,6 +361,26 @@ fn along_step(lines: &[String], s: (usize, usize)) -> bool {
 
 fn apply_fix(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> {
 	let mut changed = Vec::new();
+	// Goal modifiers and notes cover every copy, including one listed along the way; unlike a
+	// step tip they must not change the other quests that happen to share this step.
+	if r["optional"] == true || r["goalNote"].is_string() {
+		for &i in found {
+			let (code, rest) = split_comment(&lines[i]);
+			let line = if let Some(note) = r["goalNote"].as_str() {
+				format!("{} -- {note}", trim_end(code))
+			} else {
+				if code.split('"').step_by(2).any(|s| re!(r"(?:^|\s)optional(?:\s|$)").is_match(s)) {
+					continue;
+				}
+				format!("{} optional{rest}", trim_end(code))
+			};
+			if lines[i] != line {
+				lines[i] = line;
+				changed.push(i);
+			}
+		}
+		return changed;
+	}
 	// A tip or gate is for the goal's own step: an along step's copy of it (an `early` take) keeps its
 	// own, unless the goal has no other line.
 	let own: Vec<usize> = found.iter().copied().filter(|&i| !step_of(lines, i).is_some_and(|s| along_step(lines, s))).collect();
@@ -765,6 +787,10 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			"along"
 		} else if r.get("when").is_some() {
 			"when"
+		} else if r.get("optional").is_some() {
+			"optional"
+		} else if r.get("goalNote").is_some() {
+			"goalNote"
 		} else {
 			"level"
 		};
@@ -772,7 +798,7 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			file: "guide-fixes",
 			r,
 			slot: format!("{anchor:?} {kind}"),
-			want: format!("{}{}{}{}{}{}{}", r["tip"], r["level"], r["only"], r["along"], r["early"], r["when"], r["background"]),
+			want: format!("{}{}{}{}{}{}{}{}{}", r["tip"], r["level"], r["only"], r["along"], r["early"], r["when"], r["background"], r["optional"], r["goalNote"]),
 			anchor,
 		});
 	}
@@ -904,6 +930,68 @@ mod tests {
 		let (again, rows) = run(&out, places, json!({}), &[3505, 90902, 99141, 1]);
 		assert_eq!(again, out);
 		assert_eq!(rows.iter().map(|r| r.state.as_str()).collect::<Vec<_>>(), ["redundant", "redundant", "redundant", "stale", "not for this start"]);
+	}
+
+	#[test]
+	fn fyuries_krazek_report_1550_is_kept_by_the_checkout_records() {
+		let all: Value = serde_json::from_str(include_str!("../../../../data/guide-fixes.json")).unwrap();
+		let fixes = json!({ "fixes": all["fixes"].as_array().unwrap().iter().filter(|r| r["issue"] == 1550).cloned().collect::<Vec<_>>() });
+		let mut tree = BTreeMap::from([
+			("pickup.guide".to_string(), include_str!("../../../../guides/forever/alliance/30-40/04b-stranglethorn-vale.guide").to_string()),
+			("gorge.guide".to_string(), include_str!("../../../../guides/forever/alliance/30-40/05-arathi-highlands.guide").to_string()),
+			("handin.guide".to_string(), include_str!("../../../../guides/forever/alliance/40-50/01-stranglethorn-vale.guide").to_string()),
+		]);
+		let files: Vec<_> = tree.keys().cloned().collect();
+		let quests = HashSet::from([627, 642]);
+		let records = Records { guide_fixes: Some(&fixes), ..Records::default() };
+		let rows = apply(&mut tree, &files, &quests, Some("Alliance"), records, None);
+		let out = tree.values().cloned().collect::<Vec<_>>().join("\n");
+		assert!(rows.iter().all(|r| ["applied", "redundant"].contains(&r.state.as_str())), "{rows:?}");
+		for verb in ["accept", "collect", "turnin"] {
+			let found: Vec<_> =
+				out.lines().filter(|l| l.trim_start().starts_with(verb) && if verb == "collect" { l.contains("quest 627") } else { l.split_whitespace().nth(1) == Some("627") }).collect();
+			assert!(!found.is_empty(), "{verb}: the optional quest stays in the guide");
+			assert!(found.iter().all(|l| split_comment(l).0.contains("optional")), "{found:?}");
+		}
+		assert!(out.lines().any(|l| l.contains("collect 4435 quest 642") && !split_comment(l).0.contains("optional")), "Myzrael remains required");
+		assert!(!out.contains("the ore drops from Drywhisker kobolds"));
+		assert!(!out.contains("They drop both the motes and Krazek's ore"));
+		assert!(out.contains("Kobolds at 30%, Surveyors and Diggers at 15%"));
+		let before = tree.clone();
+		let rows = apply(&mut tree, &files, &quests, Some("Alliance"), records, None);
+		assert_eq!(tree, before);
+		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
+	}
+
+	#[test]
+	fn a_goal_note_fix_replaces_only_the_anchored_goals_note() {
+		let seed = "step Booty Bay\n  tip Keep the tavern directions.\n  accept 627 -- The ore drops from kobolds.\n  accept 600 -- Crank Fizzlebub\n";
+		let fixes = json!({ "fixes": [{ "id": "pickup", "at": { "quest": 627, "goal": "accept" }, "goalNote": "The deposits need Mining 75; buy four ore or ask a miner otherwise." }] });
+		let (out, rows) = run(seed, json!({}), fixes.clone(), &[627]);
+		assert_eq!(out, "step Booty Bay\n  tip Keep the tavern directions.\n  accept 627 -- The deposits need Mining 75; buy four ore or ask a miner otherwise.\n  accept 600 -- Crank Fizzlebub\n");
+		assert_eq!(rows[0].state, "applied");
+		let (again, rows) = run(&out, json!({}), fixes, &[627]);
+		assert_eq!(again, out);
+		assert_eq!(rows[0].state, "redundant");
+	}
+
+	#[test]
+	fn optional_fixes_leave_other_goals_required_and_cover_along_copies() {
+		let seed = "step On the way\n  along until gorge\n  collect 4278 quest 627\n\nstep Booty Bay\n  accept 627 only Alliance -- Krazek\n  accept 600\n\nstep Gorge\n  label gorge\n  collect 4278 \"optional ore\" quest 627 -- Mine it\n  collect 4435 quest 642\n\nstep Return\n  turnin 627\n  turnin 669\n";
+		let fixes = json!({ "fixes": [
+			{ "id": "take", "at": { "quest": 627, "goal": "accept" }, "optional": true },
+			{ "id": "ore", "at": { "quest": 627, "goal": "objective", "objective": 1 }, "optional": true },
+			{ "id": "hand", "at": { "quest": 627, "goal": "turnin" }, "optional": true }
+		] });
+		let (out, rows) = run(seed, json!({}), fixes.clone(), &[627, 642]);
+		assert!(out.contains("  collect 4278 quest 627 optional\n"), "{out}");
+		assert!(out.contains("  accept 627 only Alliance optional -- Krazek\n  accept 600\n"), "{out}");
+		assert!(out.contains("  collect 4278 \"optional ore\" quest 627 optional -- Mine it\n  collect 4435 quest 642\n"), "{out}");
+		assert!(out.contains("  turnin 627 optional\n  turnin 669\n"), "{out}");
+		assert!(rows.iter().all(|r| r.state == "applied"), "{rows:?}");
+		let (again, rows) = run(&out, json!({}), fixes, &[627, 642]);
+		assert_eq!(again, out);
+		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
 	}
 
 	#[test]
