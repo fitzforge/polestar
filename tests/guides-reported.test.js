@@ -9965,3 +9965,18 @@ test('Horde Tanaris 46: Tanaris Field Sampling started after Scrimshank, handed 
 	const tin = at(tan, 'turnin 654', is('turnin', 654));
 	assert.equal(tan[tin].s, tan[sample].s + 1, 'handed in on the next step');
 });
+
+// Our comparison (0.3.6, Horde 40-50/01): Excelsior (628, 2850 XP) from Drizzlik with the Snapjaw skins on the first
+// Booty Bay stop; the Elder Saltwater Crocolisk (level 38 elite, shared spawns) lives on the coast the route walks from
+// Zul'Kunda back to Grom'gol, so its skin is an optional goal there and goes in on the next Booty Bay stop.
+test('Horde Stranglethorn 40: Excelsior from Drizzlik, the elder crocolisk on the Zul\'Kunda coast, optional', { skip }, () => {
+	const stv = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
+	const take = at(stv, 'accept 628', is('accept', 628));
+	assert.equal(stv[take].s, stv[at(stv, 'turnin 577', is('turnin', 577))].s, 'with the Snapjaw skins');
+	const skin = at(stv, 'collect 4105', (g) => g.t === 'collect' && g.quest === 628);
+	assert.ok(stv[skin].goal.optional, 'the croc may be down: optional');
+	assert.equal(stv[skin].s, stv[at(stv, 'collect 2007', (g) => g.t === 'collect' && g.quest === 95748)].s, "on the Zul'Kunda step");
+	const tin = at(stv, 'turnin 628', is('turnin', 628));
+	assert.ok(tin > skin && stv[tin].goal.optional, 'handed in on the next Booty Bay stop, optional');
+	assert.equal(stv[tin].s, stv[at(stv, 'turnin 606', is('turnin', 606))].s, "on Shaky Phillipe's stop");
+});

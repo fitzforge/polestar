@@ -8641,6 +8641,16 @@
 				],
 				"reason": "Horde 30-40/40-50 seam (0.3.6, BrHorde4060 with Br3040): Goblin Sponsorship parts 2 and 3 (1180 from Gazlowe in Ratchet, 1181 from Wharfmaster Lozgil to Baron Revilgaz, level 37, 710 + 285 XP) end in Booty Bay: Lozgil is on the docks (26.4,73.6) and Revilgaz on the balcony beside \"Sea Wolf\" MacKinley (27.2,76.9), both on 40-50/01's first Booty Bay stop. Quest data and the open quest database agree on givers, enders and the 1178-1182 chain; players' recordings have the hand-ins. Part 4 (1182, Cozzle's footlocker at Lake Nazferiti) stays off the loop.",
 				"issue": "-"
+			},
+			{
+				"q": 628,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					577
+				],
+				"reason": "Our comparison, Horde 40-50/01 (0.3.6, BrHorde4060): Excelsior (level 38, 2850 XP) is offered by Drizzlik when the Snapjaw skins (577) go in on the first Booty Bay stop. Its Elder Crocolisk Skin drops (100%) from the Elder Saltwater Crocolisk, a level 38 elite that shares the ordinary crocolisks' spawns on the coast between Zul'Kunda and Grom'gol (25.4,19.2 / 29.3,22.3 / 29.8,25.5), which the route walks from the Bloodscalp ruins back to Grom'gol; the skin is optional (the croc may be down) and goes back to Drizzlik on the next Booty Bay stop. Quest and spawn data from the classic and the Forever quest databases agree.",
+				"issue": "-"
 			}
 		],
 		"skip": [
