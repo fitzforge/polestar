@@ -290,7 +290,7 @@ step Fly to Booty Bay
 
 step Booty Bay
   zone Stranglethorn Vale
-  turnin 627                          -- Krazek, upstairs
+  turnin 627 optional -- Krazek, upstairs
   accept 622                          -- for Corporal Kaleb at the Rebel Camp, on the northern loop
   accept 617                          -- Privateer Bloads
   turnin 669                          -- Fleet Master Seahorn, top floor

@@ -182,9 +182,8 @@ step Shards of Myzrael
 
 step Drywhisker Gorge: kill these as you meet them
   zone Arathi Highlands
-  tip The Drywhisker kobolds dig in the gorge east of Hammerfall (Horde); skirt the town to the north. They drop both the motes and Krazek's ore.
-  tip Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them.
-  collect 4278 quest 627              -- Lesser Bloodstone Ore
+  tip The Drywhisker kobolds dig in the gorge east of Hammerfall (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need Mining 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them.
+  collect 4278 quest 627 optional -- Lesser Bloodstone Ore
   collect 4435 quest 642                      -- Mote of Myzrael from Drywhisker Kobold, Drywhisker Surveyor and Drywhisker Digger, by this stop
 
 step Iridescent Shards
