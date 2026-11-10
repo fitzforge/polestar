@@ -7843,6 +7843,141 @@
 				]
 			},
 			{
+				"q": 97936,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97934,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97931,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97932,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97933,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97935,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97927,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97928,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97929,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97937,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97907,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the orc+troll/01-durotar (Brakk) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97902,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the orc+troll/01-durotar (Brakk) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97903,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the orc+troll/01-durotar (Brakk) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97955,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97953,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97957,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97951,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97960,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97958,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97961,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97971,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97965,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97969,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97970,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97963,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97964,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
+				"q": 97967,
+				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"issue": "-"
+			},
+			{
 				"q": 1359,
 				"reason": "Flow coverage, 2026-11-07: Zinge's Delivery (level 15, from 10) is offered by Apothecary Renferrel at the Sepulcher, and Apothecary Zinge stands in the Undercity's Apothecarium, which the Silverpine stay passes at its end (Horde 12-30 re-chain (2026-11-07)); recorded players take it (6 accepts, 6 hand-ins). Solo in Forever's quest data.",
 				"issue": "-",

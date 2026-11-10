@@ -188,6 +188,56 @@ step Eleanor Shackleton
   accept 96658
   turnin 86784
 
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  tip With First Aid learned, Eleanor also offers its Camping 101: Nurse Neela in the Brill inn takes it.
+  accept 97955 optional               -- Eleanor: for Nurse Neela
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  tip With Enchanting learned, Eleanor also offers its Camping 101: Vance Undergloom in the Brill inn takes it.
+  accept 97953 optional               -- Eleanor: for Vance Undergloom
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  tip With Herbalism learned, Eleanor also offers its Camping 101: Faruza in Brill takes it.
+  accept 97957 optional               -- Eleanor: for Faruza
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  tip With Alchemy learned, Eleanor also offers its Camping 101: Carolai Anise in Brill takes it.
+  accept 97951 optional               -- Eleanor: for Carolai Anise
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  tip With Skinning learned, Eleanor also offers its Camping 101: Rand Rhobart at Deathguard Linnea's camp takes it.
+  accept 97960 optional               -- Eleanor: for Rand Rhobart
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  tip With Leatherworking learned, Eleanor also offers its Camping 101: Shelene Rhobart at Deathguard Linnea's camp takes it.
+  accept 97958 optional               -- Eleanor: for Shelene Rhobart
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  tip With Tailoring learned, Eleanor also offers its Camping 101: Bowen Brisboise on the road west of Brill takes it.
+  accept 97961 optional               -- Eleanor: for Bowen Brisboise
+
+step Camping 101: Mining
+  when skill Mining 1
+  tip With Mining learned, Eleanor also offers its Camping 101: Brom Killian in the Undercity (next guide) takes it.
+  accept 97959 optional               -- Eleanor: for Brom Killian
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  tip With Blacksmithing learned, Eleanor also offers its Camping 101: Basil Frye in the Undercity (next guide) takes it.
+  accept 97952 optional               -- Eleanor: for Basil Frye
+
+step Camping 101: Engineering
+  when skill Engineering 1
+  tip With Engineering learned, Eleanor also offers its Camping 101: Graham Van Talen in the Undercity (next guide) takes it.
+  accept 97954 optional               -- Eleanor: for Graham Van Talen
+
 step Brill
   tip Apothecary Johaan is in the apothecary's house on the west side of the square, Executor Zygand in front of the inn with the Wanted poster beside him, Magistrate Sevren in the town hall on the square's north side. The inn comes last, in one go.
   turnin 365                          -- Apothecary Johaan, inside
@@ -200,6 +250,16 @@ step Brill
   accept 99141
   accept 398                          -- The Wanted poster by the inn
   accept 358                          -- Magistrate Sevren, in the town hall
+
+step Faruza
+  when onquest 97957
+  complete 97957 optional @59.79,52.12 map 1420
+  turnin 97957 optional               -- Faruza, beside Johaan: Camping 101: Herbalism
+
+step Carolai Anise
+  when onquest 97951
+  complete 97951 optional @59.43,52.19 map 1420
+  turnin 97951 optional               -- Carolai Anise, beside Johaan: Camping 101: Alchemy
 
 step Carolai Anise
   when level>=7
@@ -225,6 +285,16 @@ step Gallows' End Tavern
   turnin 5651 only Priest             -- Dark Cleric Beryl, upstairs
   accept 5650 only Priest
 
+step Nurse Neela
+  when onquest 97955
+  complete 97955 optional @61.82,52.83 map 1420
+  turnin 97955 optional               -- Nurse Neela, by the bar: Camping 101: First Aid
+
+step Vance Undergloom
+  when onquest 97953
+  complete 97953 optional @61.77,51.56 map 1420
+  turnin 97953 optional               -- Vance Undergloom: Camping 101: Enchanting
+
 step Coleman Farthing and Gretchen Dedmar
   when level>=7
   tip Still in the inn: from level 7 Coleman Farthing on the ground floor and Gretchen Dedmar upstairs offer their quests; below 7 they wait for the next Brill visit.
@@ -238,6 +308,16 @@ step Deathguard Linnea's camp
   accept 97558                        -- Shelene Rhobart
   accept 356                          -- Deathguard Linnea
 
+step Rand Rhobart
+  when onquest 97960
+  complete 97960 optional @65.58,60.03 map 1420
+  turnin 97960 optional               -- Rand Rhobart, beside Shelene: Camping 101: Skinning
+
+step Shelene Rhobart
+  when onquest 97958
+  complete 97958 optional @65.43,60.12 map 1420
+  turnin 97958 optional               -- Shelene Rhobart: Camping 101: Leatherworking
+
 # ---------------------------------------------------------------- West loop
 
 step Deathguard Dillinger
@@ -250,6 +330,11 @@ step Cold Hearth Manor: kill these as you meet them
   collect 2855 quest 404.1
   collect 2858 quest 367.1
   collect 278243 quest 97558.2
+
+step Bowen Brisboise
+  when onquest 97961
+  complete 97961 optional @52.59,55.52 map 1420
+  turnin 97961 optional               -- Bowen Brisboise, by the road west of Brill: Camping 101: Tailoring
 
 step Gordo
   tip Gordo walks the long road west of Brill, past Cold Hearth Manor, and back: the arrow follows his road west until you meet him.
