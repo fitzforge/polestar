@@ -4804,6 +4804,13 @@ function Own.routedField(s, list, c, px, py, top, cur, low, curD)
 		end
 	end
 	Own.fieldTours[step] = nil
+	-- Fewer than two goals to tour: the nearest-goal rule, without building
+	-- the point list on every poll.
+	local count = 0
+	for i in ipairs(list) do
+		if eligible[i] then count = count + 1 end
+	end
+	if count < 2 then return nil end
 	local points, ids, fixed = {}, {}, nil
 	for i, g in ipairs(list) do
 		if eligible[i] then
@@ -4815,7 +4822,6 @@ function Own.routedField(s, list, c, px, py, top, cur, low, curD)
 			if g == cur then fixed = #points end
 		end
 	end
-	if #points < 2 then return nil end
 	local start, finish = { x = px, y = py }, Own.fieldExit(s, list, c)
 	local order, _, cost = R.Plan(points, start, finish)
 	if not order then return nil end
