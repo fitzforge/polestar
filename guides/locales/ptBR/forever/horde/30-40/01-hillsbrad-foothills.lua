@@ -144,8 +144,8 @@ return {
 
 	-- Step 33: Helcular's Rod
 	-- {area:277} Foothill Caverns · {area:272} Tarren Mill
-	-- plural, as words: Ferocious Yetis = {npc:2249} Ferocious Yeti
-	["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod."] = "A sudoeste, os Yetis das Cavernas e Yetis Ferozes (30-32) enchem {area:277}, nas colinas a oeste de {area:272}; cerca de um em cada dezesseis carrega o bastão.",
+	-- plural, as words: Ferocious Yetis = {npc:2249} Ferocious Yeti · Giant Yetis = {npc:2251} Giant Yeti
+	["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs."] = "",
 
 	-- Step 34: Level 30
 	["Level 30"] = "Nível 30",
@@ -336,6 +336,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Follow the road north out of {area:272} into the Alterac foothills. {quest:535} waits by the Syndicate camp; hand him the stout."] = "Siga a estrada para o norte saindo de {area:272} até o sopé de Alterac. {quest:535} espera perto do acampamento da Camarilha; entregue-lhe a cerveja.",
+	-- ["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod."] = "A sudoeste, os Yetis das Cavernas e Yetis Ferozes (30-32) enchem {area:277}, nas colinas a oeste de {area:272}; cerca de um em cada dezesseis carrega o bastão.",
 	-- ["The Syndicate Footpads and Thieves (32-34) around the camps west of the road carry the missives; about one in three drops one."] = "Os Salteadores e Ladrões da Camarilha (32-34) em volta dos acampamentos a oeste da estrada levam as missivas; cerca de um em três deixa cair uma.",
 	-- ["The keg stands with a few others at the Syndicate camp on the south-east coast of {area:287}."] = "O barril fica com alguns outros no acampamento da Camarilha na costa sudeste de {area:287}.",
 	-- ["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate."] = "A fortaleza orc no extremo leste da estrada. {npc:2851}, a mestre dos mantícoras, fica junto ao portão.",

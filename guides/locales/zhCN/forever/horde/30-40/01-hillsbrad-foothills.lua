@@ -144,8 +144,8 @@ return {
 
 	-- Step 33: Helcular's Rod
 	-- {area:277} Foothill Caverns · {area:272} Tarren Mill
-	-- plural, as words: Ferocious Yetis = {npc:2249} Ferocious Yeti
-	["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod."] = "",
+	-- plural, as words: Ferocious Yetis = {npc:2249} Ferocious Yeti · Giant Yetis = {npc:2251} Giant Yeti
+	["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs."] = "",
 
 	-- Step 34: Level 30
 	["Level 30"] = "30 级",
