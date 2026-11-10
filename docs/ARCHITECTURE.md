@@ -4257,6 +4257,32 @@ entrance lists and graph strings (`metadata` reads an entrance's cell, layer and
 Since the walking floor (#234) the cluster `Path.SurfacesAt` reads (the player's) stays decoded at rest while
 the arrow runs: one cluster; none without a target or 2 s after the arrow's last update.
 
+**A walk inside one cluster** (`Path.lua` run) skips the start's endpoint tree when it can. Each end's tree is a
+Dijkstra over its whole cluster to the entrances; the goal's is kept (`connect`), but the arrow asks again from a
+new start every few steps, and a moving start never reused its own: each ask flooded the cluster again, 15,000 to
+60,000 expansions for a quest objective a few yards off (measured in game, 0.3.5). Any walk that leaves the cluster
+comes back through an entrance e, so it costs at least the straight yards from a start surface's own cell to e at
+the cheapest yard (the abstract search's lower bound) plus the goal tree's exact cost from e. With no lift in the
+cluster, each start surface's A* to the goal runs first with the least of those as its limit (`search`'s `limit`:
+it stops once past it); when every surface reaches the goal under it, that walk's cost is the cheapest there is and
+the full search is skipped. A surface that cannot (a rock top the grid cannot leave, which its tree would move:
+`settle`) sends the search the full way. The cost is always the full search's; a tie between the direct walk and
+one through an entrance on it may draw the other line (`Path.direct = false` runs the full search always:
+`nav-maps.rs`, eleven asks walking in from 60 yards, 236,359 expansions down to about 20,500 from cold caches).
+
+A short walk across a cluster border (up to `BOUNDED_YARDS`, 400: most round the Crossroads, where four clusters
+meet) keeps the goal's full tree but grows the start's only as far as it must: each surface's Dijkstra stops past a
+cost R (`connectWithin`, `search`'s `limit` without a goal), the abstract search runs on the entrances it met, and a
+walk it finds for at most R stands (any other leaves through an entrance beyond R, so costs more). R starts at 1.25
+times the straight yards plus 25; a walk dearer than R gets one more try with R that cost, and none found or a second
+miss takes the full tree, so a far or unreachable goal never pays a growing tree. A surface whose tree is complete
+and met no entrance goes through `connect` (settle) as in `connectPoint`. The trees are the job's own (`trees.B`, in
+the scratch `pump` swaps): searches take turns, and one job's tree is never rewritten under another's. Measured with
+`Path.direct = false` as the reference: 80 random walks of 150-1,650 yd on both continents in every style cost the
+same, at 1 % fewer expansions (2 of 80 over 5 % more, the worst 38,715 to 59,379); the arrow's re-asks round
+objectives take a few hundred to a few thousand instead of 20,000-60,000 (`nav-maps.rs`: three asks across the
+Crossroads border under 25,000 against 78,944; walks queued together taking turns; starts without a height).
+
 **A map is used whole.** `API.lua` drops a map whose packed tables hold
 fewer entries than its `counts` (a part file missing from the folder, or one
 that failed to load), and every map when the client lacks
