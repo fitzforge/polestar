@@ -145,6 +145,7 @@ step Razormane camp: Thork's quilboar
   only Orc,Troll,Warrior,Shaman
   zone The Barrens
   tip While you are in the camp: Thork's Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.
+  tip Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time.
   kill 3267 quest 871.1
   kill 3268 quest 871.2
   kill 3265 quest 871.3
@@ -215,6 +216,7 @@ step Plainstrider Beaks as you go
 step Razormane camp
   tip In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.
   tip Plainstriders here count toward the beaks.
+  tip Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time.
   kill 3267 quest 871.1
   kill 3268 quest 871.2
   collect 12708 quest 5041.1 @58.8,25.8
@@ -279,6 +281,7 @@ step Thunder lizards across the river
   only Tauren,Warrior
   zone Durotar
   tip Thunder Lizards and Lightning Hides graze just across the bridge below Far Watch Post.
+  tip Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.
   collect 6486 quest 1498.1 only Tauren
 
 step Durotar
@@ -408,6 +411,7 @@ step Samophlange
 
 step The Disruption Ends
   tip Back to the Razormane camp. Geomancers and Defenders hold its eastern half; Kreenig Snarlsnout walks among them.
+  tip Careful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near Kreenig: pull Kreenig and the quilboar away from them one at a time.
   kill 3266 quest 872.2
   kill 3269 quest 872.1
   collect 5063 quest 872.3 @58.5,27.0

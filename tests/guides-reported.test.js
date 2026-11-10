@@ -5073,6 +5073,53 @@ test('Recordings (starting-zone review 0.3.6): Crystal Lake\'s murloc step warns
 	}
 });
 
+// Danger-at-the-spot sweep (#1575): every leveling guide's kill/collect/use goal against the mobs around it (spawn data),
+// the route's level there (the calibrated level model) and players' recordings (deaths at the spot, the levels the goal
+// was done at). The clear cases are warned about at the step, each with a guide-fixes record, in every leveling guide
+// that holds the goal.
+test('Danger at the spot (#1575): the steps players died at among elites say so, in every leveling guide holding the goal', { skip }, () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	const cases = [
+		// [quest, objective, what the tip names, leveling guides holding the goal]
+		[91723, 1, /Mother Fang \(7-10\)[^.]*elites/, ['forever/alliance/human/01-elwynn-forest.guide', 'forever/alliance/02-westfall.guide']],
+		[87, 1, /Nimsy \(6\)[^.]*elite/, ['forever/alliance/human/01-elwynn-forest.guide']],
+		[21, 1, /Shinyfinder Narf \(3\) is elite/, ['forever/alliance/human/01-elwynn-forest.guide']],
+		[806, 1, /Halikor, a level 12 elite/, ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']],
+		[1498, 1, /Halikor, a level 12 elite/, ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide', 'forever/horde/02-the-barrens.guide']],
+		[5041, 1, /Flesheaters and Berserkers \(18-19\) are elites/, ['forever/horde/02-the-barrens.guide']],
+		[872, 1, /Flesheaters and Berserkers \(18-19\) are elites/, ['forever/horde/02-the-barrens.guide']],
+		[966, 1, /Voidcallers \(28-29\)[^.]*Athrikus Narassin \(31\)/, ['forever/alliance/03-darkshore.guide']],
+	];
+	for (const [quest, oi, says, files] of cases) {
+		assert.ok(fixes.some((f) => f.at && f.at.quest === quest && f.at.objective === oi && says.test(f.tip || '')), `${quest}.${oi}: the tip is a guide-fixes record`);
+		for (const file of files) {
+			const here = goals(file).filter(({ goal }) => goal.quest === quest && goal.oi === oi && goal.t !== 'accept' && goal.t !== 'turnin');
+			assert.ok(here.length > 0, `${file}: ${quest}.${oi} is worked`);
+			for (const { step } of here) assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), says, `${file}, "${step.title}": the step warns`);
+		}
+	}
+});
+
+test('Danger at the spot (#1575): goals an item several mobs drop point at the ones at the route\'s level, not a camp 4+ levels over (#1695\'s pattern)', { skip }, () => {
+	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places;
+	for (const [file, quest, oi, box, notFrom] of [
+		// Yeti Fur (Alliance, route level 31): the Foothill Caverns' Cave and Ferocious Yetis, not the northern cave's 32-34 yetis and Greench (36 elite).
+		['forever/alliance/30-40/01-hillsbrad-foothills.guide', 565, 4, [42, 47, 25, 34], [2250, 2251]],
+		// The Burning of Spirits (route level 33): Thunder Axe Fortress' cultists (30-33), not the Mannoroc Coven's Summoners and Invokers (38-40).
+		['forever/horde/30-40/02-thousand-needles.guide', 1435, 1, [52, 58, 21, 34], [4668, 4705]],
+	]) {
+		assert.ok(places.some((p) => p.quest === quest && p.objective === oi && p.at), `${quest}.${oi}: the point is a places.json record`);
+		const here = goals(file).filter(({ goal }) => goal.t === 'collect' && goal.quest === quest && goal.oi === oi);
+		assert.ok(here.length > 0, `${file}: ${quest}.${oi} is collected`);
+		for (const { goal } of here) {
+			const [x0, x1, y0, y1] = box;
+			for (const p of [goal, ...(goal.spots || [])]) assert.ok(p.x >= x0 && p.x <= x1 && p.y >= y0 && p.y <= y1, `${quest}.${oi}: every point is at the camp meant (${p.x},${p.y})`);
+			const from = (goal.fromNpcs || []).map((n) => n.npc);
+			for (const id of notFrom) assert.ok(!from.includes(id), `${quest}.${oi}: npc ${id} is not a target (${from.join(', ')})`);
+		}
+	}
+});
+
 test('Level fit (#977): the Rogues\' Venture Co. tower (drones 25, Gallywix a 23 elite) shows from level 23, not at the route\'s 20', { skip }, () => {
 	// Horde 12-30 re-chain: Fizzule is visited at 21 on the walk north to Kadrak; the tower work itself is left
 	// to the Class guide Poisons (Horde). Any tower work in a leveling guide shows from 23.
