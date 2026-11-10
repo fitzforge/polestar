@@ -22,11 +22,19 @@ fn guide() -> String {
 	let mining = r#"profLine = 186, profName = "Mining", profRank = 1"#;
 	let steps = [
 		r#"{ title = "Brakk's campfire", goals = { { t = "accept", quest = 96655, title = "Camping 101: Cooking" } } }"#.to_string(),
-		format!(r#"{{ title = "Camping 101: Skinning", when = {{ {{ k = "skill", name = "Skinning", n = 1, skillLine = 393 }} }}, goals = {{ {{ t = "accept", quest = 97908, title = "Camping 101: Skinning", {skinning} }} }} }}"#),
-		format!(r#"{{ title = "Camping 101: Mining", when = {{ {{ k = "skill", name = "Mining", n = 1, skillLine = 186 }} }}, goals = {{ {{ t = "accept", quest = 97907, title = "Camping 101: Mining", {mining} }} }} }}"#),
-		format!(r#"{{ title = "Krunn", when = {{ {{ k = "onquest", q = {{ 97907 }} }} }}, goals = {{ {{ t = "complete", quest = 97907, title = "Camping 101", {mining} }}, {{ t = "turnin", quest = 97907, title = "Camping 101: Mining", {mining} }} }} }}"#),
+		format!(
+			r#"{{ title = "Camping 101: Skinning", when = {{ {{ k = "skill", name = "Skinning", n = 1, skillLine = 393 }} }}, goals = {{ {{ t = "accept", quest = 97908, title = "Camping 101: Skinning", {skinning} }} }} }}"#
+		),
+		format!(
+			r#"{{ title = "Camping 101: Mining", when = {{ {{ k = "skill", name = "Mining", n = 1, skillLine = 186 }} }}, goals = {{ {{ t = "accept", quest = 97907, title = "Camping 101: Mining", {mining} }} }} }}"#
+		),
+		format!(
+			r#"{{ title = "Krunn", when = {{ {{ k = "onquest", q = {{ 97907 }} }} }}, goals = {{ {{ t = "complete", quest = 97907, title = "Camping 101", {mining} }}, {{ t = "turnin", quest = 97907, title = "Camping 101: Mining", {mining} }} }} }}"#
+		),
 		r#"{ title = "Away", goals = { { t = "accept", quest = 33, title = "Quest 33" } } }"#.to_string(),
-		format!(r#"{{ title = "Thuwd", when = {{ {{ k = "onquest", q = {{ 97908 }} }} }}, goals = {{ {{ t = "complete", quest = 97908, title = "Camping 101", {skinning} }}, {{ t = "turnin", quest = 97908, title = "Camping 101: Skinning", {skinning} }} }} }}"#),
+		format!(
+			r#"{{ title = "Thuwd", when = {{ {{ k = "onquest", q = {{ 97908 }} }} }}, goals = {{ {{ t = "complete", quest = 97908, title = "Camping 101", {skinning} }}, {{ t = "turnin", quest = 97908, title = "Camping 101: Skinning", {skinning} }} }} }}"#
+		),
 		r#"{ title = "Onward", goals = { { t = "accept", quest = 34, title = "Quest 34" } } }"#.to_string(),
 	];
 	format!(
@@ -78,7 +86,10 @@ fn t_1559_a_skinner_and_miner_takes_both_camping_101s_at_the_campfire_and_hands_
 	let closed = calls.iter().position(|c| c.starts_with("CloseQuest") || c.contains("CloseGossip")).unwrap_or(usize::MAX);
 	assert!(accepts.iter().all(|&i| i < closed), "Cooking and both profession quests taken before the window closes: {calls:?}");
 	assert!(at("C_GossipInfo.SelectActiveQuest 97907 nil") < at("GetQuestReward 97907 0"), "Mining handed in at Krunn in Razor Hill: {calls:?}");
-	assert!(at("GetQuestReward 97907 0") < at("C_GossipInfo.SelectActiveQuest 97908 nil") && at("C_GossipInfo.SelectActiveQuest 97908 nil") < at("GetQuestReward 97908 0"), "Skinning handed in at Thuwd in Orgrimmar: {calls:?}");
+	assert!(
+		at("GetQuestReward 97907 0") < at("C_GossipInfo.SelectActiveQuest 97908 nil") && at("C_GossipInfo.SelectActiveQuest 97908 nil") < at("GetQuestReward 97908 0"),
+		"Skinning handed in at Thuwd in Orgrimmar: {calls:?}"
+	);
 }
 
 #[test]
@@ -96,4 +107,61 @@ fn t_1559_a_character_without_the_profession_is_not_held_by_it() {
 		),
 	);
 	assert_eq!(out["calls"], json!(["C_GossipInfo.SelectAvailableQuest 96655 nil", "AcceptQuest 96655 nil", "live 5 nil"]), "past the profession steps, on Away: {out}");
+}
+
+// The Alliance starts are written the same way (BrAllianceStart, #1559): Eric Brighthammer's campfire in Kharanos
+// (Dun Morogh, Dwarves and Gnomes) gives Cooking (96629) and, to a character with First Aid, its Camping 101 (96047),
+// handed in to Thamner Pol in the Thunderbrew Distillery on a step gated `when onquest 96047`.
+const ERIC: i32 = 265813;
+const THAMNER: i32 = 2326;
+
+fn alliance_guide() -> String {
+	let first_aid = r#"profLine = 129, profName = "First Aid", profRank = 1"#;
+	let steps = [
+		r#"{ title = "The Great Outdoors", goals = { { t = "accept", quest = 96629, title = "Camping 101: Cooking" } } }"#.to_string(),
+		format!(
+			r#"{{ title = "Camping 101: First Aid", when = {{ {{ k = "skill", name = "First Aid", n = 1, skillLine = 129 }} }}, goals = {{ {{ t = "accept", quest = 96047, title = "Camping 101: First Aid", {first_aid} }} }} }}"#
+		),
+		r#"{ title = "Kharanos", goals = { { t = "accept", quest = 400, title = "Quest 400" } } }"#.to_string(),
+		format!(
+			r#"{{ title = "Thamner Pol", when = {{ {{ k = "onquest", q = {{ 96047 }} }} }}, goals = {{ {{ t = "complete", quest = 96047, title = "Camping 101", {first_aid} }}, {{ t = "turnin", quest = 96047, title = "Camping 101: First Aid", {first_aid} }} }} }}"#
+		),
+		r#"{ title = "Steelgrill's Depot", goals = { { t = "accept", quest = 317, title = "Quest 317" } } }"#.to_string(),
+	];
+	format!(
+		"\n{TEST_PACK}\n{TEST_SOURCE}\nPolestar.RegisterGuide({{\n\tid = \"test/camping-a\", pack = \"test\", title = \"Camping\", minLevel = 1, maxLevel = 20,\n\tsteps = {{ {} }},\n}})",
+		steps.join(",\n")
+	)
+}
+
+#[test]
+fn t_1559_alliance_eric_brighthammer_gives_first_aid_s_camping_101_with_cooking_and_thamner_pol_takes_it() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: r#"w = stub.world; w.addMap(1426, { name = "Dun Morogh", c = 0, left = 2000, right = -2000, top = 1000, bottom = -2000 }); w.moveTo(1426, 46.7, 53.9)
+w.learnSkill(129, "First Aid", 1, 75)"#
+			.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		script: format!(
+			r#"{}
+stub.login()
+			w.gossip({ERIC}, {{ available = {{ {{ questID = 96629 }}, {{ questID = 96047 }} }} }})
+			-- after the accept the game shows his quests again
+			w.gossip({ERIC}, {{ available = {{ {{ questID = 96047 }} }} }})
+			stub.runTimers()
+			w.close(); stub.advance(2); stub.runTimers()
+			w.accept(400, {{}}, "Quest 400"); stub.advance(2); stub.runTimers()
+			w.onQuest(96047, {{}})
+			w.gossip({THAMNER}, {{ active = {{ {{ questID = 96047, isComplete = true }} }} }})
+			stub.runTimers(){TAIL}"#,
+			alliance_guide()
+		),
+		..Default::default()
+	})
+	.remove(0);
+	let calls = out["calls"].as_array().unwrap().iter().map(|c| c.as_str().unwrap().to_string()).collect::<Vec<_>>();
+	let at = |s: &str| calls.iter().position(|c| c == s).unwrap_or_else(|| panic!("{s} in {calls:?}"));
+	let closed = calls.iter().position(|c| c.starts_with("CloseQuest") || c.contains("CloseGossip")).unwrap_or(usize::MAX);
+	assert!(at("AcceptQuest 96629 nil") < closed && at("AcceptQuest 96047 nil") < closed, "Cooking and First Aid taken at Eric before any close: {calls:?}");
+	assert!(at("C_GossipInfo.SelectActiveQuest 96047 nil") < at("GetQuestReward 96047 0"), "First Aid handed in at Thamner Pol: {calls:?}");
 }
