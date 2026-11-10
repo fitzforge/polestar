@@ -5258,6 +5258,14 @@ Polestar.Lookup.QuestStep(quest, from) -> step         -- accept, objectives, tu
 Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the quest's pre (preAll), preAny (pre, the character's own) and preTitles
 ```
 
+- **Quest steps** (`Lookup.QuestStep`): a collect goal names who gives the
+  item as a compiled goal does (`from`, `fromId`, `fromKind`, `fromRank`,
+  `fromFaction`, `fromAlso`, `fromAlsoId`): of the Codex sources with a
+  spawn, both when there are at most two, else one at 50% or more (and a
+  second of its kind at 50%), so Hidden Enemies reads "Kill Burning Blade
+  Fanatic or Burning Blade Apprentice for Lieutenant's Insignia" (#1589). A
+  talk objective's step note says to click through the NPC's dialogue until
+  the quest's line is done (#1590, Neeru Fireblade).
 - **Codex records** use the field names of `data/forever/codex/*.json` (see
   Toolchain, "Codex"); the pack holds one compact string per record plus an
   id → name table per group, so search never decodes records, and decoded
@@ -5435,7 +5443,11 @@ giver markers show the same giver.
 `Dungeons.PickupGuide(key)` orders them as the cheapest path by
 `ns.TravelCost` from where the player stands, through every stop, to the
 entrance (`Dungeons.PlanStops(stops, from, finish, travel) -> order, cost`:
-an exact search over the stops done and the last one, up to 12 stops; above
+the stops at hand first, those no more than `AT_HAND` (15 s) of travel from
+the player, nearest-next, as a stop beside the player costs at most twice
+that over the cheapest path (#1593: out of Ragefire Chasm beside Neeru
+Fireblade, the hand-in guide went to Thunder Bluff first); then an exact
+search over the stops done and the last one, up to 12 stops; above
 that nearest-next, then single stops moved while the path gets shorter). A
 nearest-next walk with the entrance only appended left a city and came back
 to it (Thunder Bluff, Orgrimmar, the Undercity, back to Orgrimmar for
@@ -5445,8 +5457,9 @@ its chain (a full quest step, `Lookup.QuestStep`, from its giver nearest the
 player; the player then stands at its turn-in), and a giver once per set of
 prerequisites its quests wait on (one step with an accept per quest; the
 giver comes up again for a quest still waiting, and visits to the same giver
-in a row are one step). The last step lists the carried quests as notes,
-goes to the entrance and says where the hand-in guide is (a note naming
+in a row are one step). The last step names the carried quests in one line,
+its note (#1591: not a row each above the way in), goes to the entrance and
+says where the hand-in guide is (a note naming
 `/polestar dungeons <name>`). Nothing to take: nil, "nothing". The route is
 kept per character (`CharState().dungeonPickup[key]`, the stop keys in
 order) and used when the guide is rebuilt without a position
