@@ -10462,3 +10462,28 @@ test('Alliance Arathi: Northfold, the shards and the gorge, the eastern circle, 
 	assert.equal(trolls, east + 1, 'Witherbark right after the eastern circle');
 	assert.equal(quae, trolls + 1, 'Quae right after the village');
 });
+
+// Our comparison (0.3.6, BrAlliance3040, Alliance 30-40/04b): the Shadowmaw Panthers live around Lake Nazferiti and by
+// the Skullsplitter ruins, the Tumbled Crystals' geologists on Lake Nazferiti's shore, none of them by the north-west
+// tablets, where the guide listed them (the arrow went from Zul'Kunda south to 36,34 and back north), and the Rebel Camp
+// was visited three times. Panther Mastery is now taken on the way in, the lake worked right after Kurzen's Compound,
+// and the Rebel Camp's hand-ins made on one stop after the tablets.
+test('Alliance Stranglethorn 35: Lake Nazferiti after Kurzen\'s Compound, the tablets west, the Rebel Camp once at the end', { skip }, () => {
+	const list = goals('forever/alliance/30-40/04b-stranglethorn-vale.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	const take = stepOf('accept 192', is('accept', 192));
+	const kurzen = stepOf('kill 938', (g) => g.t === 'kill' && g.quest === 574);
+	const panthers = stepOf('kill 684', (g) => g.t === 'kill' && g.quest === 192);
+	const crystals = stepOf('collect 4106', (g) => g.t === 'collect' && g.item === 4106);
+	const tablets = list.filter(({ goal }) => goal.t === 'collect' && goal.quest === 207).map(({ s }) => s);
+	assert.ok(take < kurzen && kurzen < panthers, 'Panther Mastery before the compound, the panthers after it');
+	assert.equal(crystals, panthers, 'the crystals and the panthers on the Lake Nazferiti step');
+	assert.equal(panthers, kurzen + 1, 'right after the compound');
+	assert.ok(tablets.every((s) => s > panthers), 'the tablets after the lake');
+	for (const { goal } of list.filter(({ goal }) => (goal.t === 'kill' && goal.quest === 192) || (goal.t === 'collect' && goal.item === 4106))) {
+		assert.ok(goal.map === 1434 && goal.x > 40 && goal.y > 15 && goal.y < 30, `${goal.t} ${goal.quest} at Lake Nazferiti (${goal.x},${goal.y})`);
+	}
+	const rebel = list.filter(({ goal }) => (goal.t === 'turnin' && [329, 330, 331, 574, 207].includes(goal.quest)) || is('accept', 205)(goal)).map(({ s }) => s);
+	assert.equal(new Set(rebel).size, 1, 'every Rebel Camp hand-in on one stop');
+	assert.ok(rebel[0] > Math.max(...tablets), 'after the last tablet');
+});

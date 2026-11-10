@@ -5265,6 +5265,122 @@
 					"ref": "data/forever/npcs.json 2712"
 				}
 			]
+		},
+		{
+			"id": "ba3040-stv-erlgadin-on-the-way-in",
+			"faction": "Alliance",
+			"at": {
+				"quest": 192,
+				"goal": "accept"
+			},
+			"tip": "South along the road: the hunters' tents stand just west of it.",
+			"note": "BrAlliance3040 (0.3.6, 30-40/04b): Panther Mastery is taken at Nesingwary's on the way in from the Rebel Camp, so the Shadowmaw Panthers at Lake Nazferiti can be killed right after Kurzen's Compound (route-fixes pairs).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/npcs.json 684 spawns on map 1434"
+				}
+			]
+		},
+		{
+			"id": "ba3040-stv-herod-from-nesingwary",
+			"faction": "Alliance",
+			"at": {
+				"quest": 200,
+				"goal": "turnin"
+			},
+			"tip": "East to Kurzen's Compound: Herod's records lie in a hut on its west side.",
+			"note": "BrAlliance3040 (0.3.6, 30-40/04b): the compound is reached from Nesingwary's camp now; the records (object at 43.7,9.4) lie on its west side.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "guide compile: turnin 200 at 43.67,9.37"
+				}
+			]
+		},
+		{
+			"id": "ba3040-stv-lake-nazferiti-crystals-and-panthers",
+			"faction": "Alliance",
+			"at": {
+				"quest": 213,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "South from the compound to Lake Nazferiti: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it.",
+			"note": "BrAlliance3040 (0.3.6, 30-40/04b): Venture Co. Geologist (1096) spawns 42-48,16-24 (two at 28,8); Shadowmaw Panther (684) 45-51,20-30 and 35-42,32-45. Both were listed on the north-west tablets' step, where there are none but two geologists (the Horde guide had the same fault, fixed in #1109).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/npcs.json 1096, 684 spawns on map 1434"
+				}
+			]
+		},
+		{
+			"id": "ba3040-stv-tablets-west-from-the-lake",
+			"faction": "Alliance",
+			"at": {
+				"quest": 207,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.",
+			"note": "BrAlliance3040 (0.3.6, 30-40/04b): the tablets are visited after Lake Nazferiti: Moon Over the Vale 29.5,19.1, Gri'lek 24.8,22.9, Fall of Gurubashi 23.0,12.0, The Emperor's Tomb 24.7,8.9.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "guide compile: collect 2005-2008 points"
+				}
+			]
+		},
+		{
+			"id": "ba3040-stv-haunted-island-by-the-second-tablet",
+			"faction": "Alliance",
+			"at": {
+				"quest": 601,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The haunted island lies just off the shore west of the second tablet: the Lesser Water Elementals rise from the water around it.",
+			"note": "BrAlliance3040 (0.3.6, 30-40/04b): the tip said to follow the coast north to the island, but the island (22.5,23.1) is just west of Gri'lek's tablet (24.8,22.9), the step before.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "guide compile: collect 3923 at 22.53,23.13"
+				}
+			]
+		},
+		{
+			"id": "ba3040-stv-zulkunda-last-tablets",
+			"faction": "Alliance",
+			"at": {
+				"quest": 207,
+				"goal": "objective",
+				"objective": 3
+			},
+			"tip": "North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop.",
+			"note": "BrAlliance3040 (0.3.6, 30-40/04b): the third and fourth tablets (23.0,12.0 and 24.7,8.9) are the Ruins of Zul'Kunda, north of the haunted island.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "guide compile: collect 2007, 2008 points"
+				}
+			]
+		},
+		{
+			"id": "ba3040-stv-rebel-camp-one-stop",
+			"faction": "Alliance",
+			"at": {
+				"quest": 329,
+				"goal": "turnin"
+			},
+			"tip": "East to the Rebel Camp, on the way back to Nesingwary's camp.",
+			"note": "BrAlliance3040 (0.3.6, 30-40/04b): The Spy Revealed! chain, Special Forces and Kurzen's Mystery go in on one Rebel Camp stop after the tablets instead of a walk back from Kurzen's Compound.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever/npcs.json Rebel Camp NPCs"
+				}
+			]
 		}
 	]
 }
