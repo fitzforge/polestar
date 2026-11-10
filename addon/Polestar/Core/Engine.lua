@@ -3392,7 +3392,12 @@ local function place()
 					if goal and blocks(goal) and isQuestGoal(goal) and goalApplies(goal) then
 						if (goal.t == "accept" or goal.direct) and greyNeed(goal) == false then return true end
 						if not gated(goal) and not unavailableFor(goal) then
-							return goalDone(t, g, goal) and true or (q ~= nil and (C.IsOnQuest(q) or questDone(q))) or false
+							-- A hand-in of a quest in the log is still to do where its NPC
+							-- stands: carrying the quest is no sign the player went there
+							-- (Horde Stranglethorn 40-50: Fly to Grom'gol passed for a
+							-- hand-in of 1240 there).
+							if goalDone(t, g, goal) then return true end
+							return q ~= nil and (questDone(q) or (goal.t ~= "turnin" and C.IsOnQuest(q))) or false
 						end
 					end
 				end

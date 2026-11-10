@@ -1413,7 +1413,8 @@ impl<'a> Sim<'a> {
 					if self.goal_done(t, g).done {
 						return true;
 					}
-					return goal.quest.is_some_and(|q| self.w.on_quest(q) || self.quest_done(q));
+					// A hand-in of a quest in the log is still to do where its NPC stands: no sign the player went there.
+					return goal.quest.is_some_and(|q| self.quest_done(q) || (goal.t != T::Turnin && self.w.on_quest(q)));
 				}
 			}
 		}

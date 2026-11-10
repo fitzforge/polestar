@@ -143,3 +143,40 @@ fn a_group_quest_waiting_for_its_answer_holds_no_travel_before_it() {
 	// The sethome passes; the group quest's step asks its question (as everywhere), then Back.
 	assert_eq!(out["live"], "Logmar", "{out}");
 }
+
+// SkipAheadSweep on the 0.3.6 candidate (horde/40-50/01-stranglethorn-vale, every race and class from the route,
+// 84/84 states): placement passed "Fly to Grom'gol" because the next quest work after it, the hand-in of 1240 at
+// Grom'gol, was "under way": the quest is in the log. A hand-in still to do is no sign the player went there, so the
+// travel to it holds (leadsToDone; the judge's leads_to_done the same). Here: 300 taken and handed in before (the
+// progress), 301 carried and ready, its hand-in after the flight.
+const CARRIED: &str = r#"
+Polestar.RegisterGuide({ id = "test/carried", pack = "test", title = "Carried", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Take 300", goals = { { t = "accept", quest = 300, title = "Quest 300", map = 1429, x = 40, y = 40 } } },
+	{ title = "Fly to the camp", goals = { { t = "goto", map = 1429, x = 45, y = 45, text = "flight master" }, { t = "fly", location = "Camp" } } },
+	{ title = "Camp", goals = { { t = "turnin", quest = 301, title = "Quest 301", map = 1429, x = 70, y = 70 } } },
+	{ title = "Hand in 300", goals = { { t = "turnin", quest = 300, title = "Quest 300", map = 1429, x = 72, y = 70 } } },
+	{ title = "On", goals = { { t = "accept", quest = 302, title = "Quest 302", map = 1429, x = 75, y = 70 } } },
+} })
+"#;
+
+#[test]
+fn a_flight_to_the_hand_in_of_a_carried_quest_is_no_step_behind_the_player() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: r#"local w = stub.world
+w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+w.moveTo(1429, 40, 40)
+w.complete({ 300 })
+w.onQuest(301, { { required = 1, fulfilled = 1 } })"#
+			.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		script: format!(
+			"{}\n{}\n{CARRIED}\nE = Polestar.Engine\nstub.login(); stub.advance(0.25)\nE.SetGuide(\"test/carried\"); stub.advance(0.25)\nstub.fire(\"QUEST_LOG_UPDATE\"); stub.advance(11)\nemit({{ live = E.GetLiveStep() }})",
+			forge_addontest::TEST_PACK,
+			forge_addontest::TEST_SOURCE
+		),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["live"], 2, "the flight to 301's hand-in holds: {out}");
+}
