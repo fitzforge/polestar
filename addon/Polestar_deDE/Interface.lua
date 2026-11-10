@@ -53,9 +53,10 @@ L["Use the route's Hearthstone or teleport"] = "Ruhestein oder Teleport der Rout
 L["Browse the guide with the gamepad"] = "Guide mit dem Gamepad durchgehen"
 L["Open the guide menu"] = "Guide-Menü öffnen"
 L["Open Polestar options"] = "Polestar-Optionen öffnen"
+L["Browse guide (gamepad)"] = "Guide blättern (Gamepad)"
+L["Delete cheapest junk"] = "Billigsten Plunder löschen"
 L["Open the Gamepad page: button names and bindings"] = "Seite „Gamepad“ öffnen: Tastennamen und Belegungen"
 L["Target rare"] = "Rare anvisieren"
-L["Make bag room: delete the cheapest junk (press twice)"] = "Platz in den Taschen schaffen: den billigsten Plunder löschen (zweimal drücken)"
 L["Next waypoint"] = "Nächster Wegpunkt"
 L["Previous waypoint"] = "Vorheriger Wegpunkt"
 L["List the quests in your log the route never hands in"] = "Die Quests in deinem Questlog auflisten, die die Route nie abgibt"
@@ -2638,6 +2639,9 @@ L["Hearth"] = "Herd"
 L["Blizzard"] = "Blizzard"
 L["Classic"] = "Classic"
 L["WoW Forever"] = "WoW Forever"
+
+-- QoL/QuickBind.lua
+L["Not needed right now: shown so you can bind it."] = "Gerade nicht gebraucht: angezeigt, damit du eine Taste belegen kannst."
 
 -- QoL/Buttons.lua
 L["Click again for the next name. Shift-drag to move."] = "Klick noch einmal für den nächsten Namen. Halte Umschalt gedrückt und zieh, um es zu verschieben."

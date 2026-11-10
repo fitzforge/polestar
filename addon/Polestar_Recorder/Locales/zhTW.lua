@@ -64,8 +64,8 @@ L["level %d+"] = "%d級以上"
 L["Every spot is done."] = "所有地點都已完成。"
 L["%s: %d points, %s, %d yd"] = "%s：%d 個點，%s，%d 碼"
 L["None yet."] = "還沒有。"
-L["Recorder: start or stop the position trail"] = "記錄器：開始或停止位置軌跡"
-L["Recorder: show or hide the window"] = "記錄器：顯示或隱藏視窗"
+L["Recorder: trail on/off"] = "記錄器：軌跡開關"
+L["Recorder window"] = "記錄器視窗"
 
 -- Recorder.lua
 L["recordings from the previous Recorder (schema 1) were removed; recording now uses schema 2"] = "舊版 Recorder（schema 1）的記錄已移除；記錄現在使用 schema 2"

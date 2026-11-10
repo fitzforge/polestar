@@ -212,9 +212,10 @@ L["Open the Community guides page"] = "打开社区指南页面"
 L["Browse the guide with the gamepad"] = "用手柄浏览指南"
 L["Open the guide menu"] = "打开指南菜单"
 L["Open Polestar options"] = "打开 Polestar 选项"
+L["Browse guide (gamepad)"] = "手柄浏览指南"
+L["Delete cheapest junk"] = "摧毁最便宜的垃圾"
 L["Open the Gamepad page: button names and bindings"] = "打开手柄页面：按钮名称和绑定"
 L["Target rare"] = "选中稀有怪"
-L["Make bag room: delete the cheapest junk (press twice)"] = "腾出背包空间：摧毁最便宜的垃圾（按两次）"
 L["Next waypoint"] = "下一个路径点"
 L["Previous waypoint"] = "上一个路径点"
 L["List the quests in your log the route never hands in"] = "列出任务日志中路线永远不会交还的任务"
@@ -749,6 +750,9 @@ L["Instance limits, runs and lockouts (instances clear: forget them)"] = "副本
 L["%dh %02dm"] = "%d小时%02d分"
 L["%dm"] = "%d分"
 L["%ds"] = "%d秒"
+
+-- QoL/QuickBind.lua
+L["Not needed right now: shown so you can bind it."] = "当前不需要：显示出来以便你绑定按键。"
 
 -- QoL/Buttons.lua
 L["Target"] = "目标"

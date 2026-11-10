@@ -212,9 +212,10 @@ L["Open the Community guides page"] = "Abrir la página Guías de la comunidad"
 L["Browse the guide with the gamepad"] = "Recorrer la guía con el mando"
 L["Open the guide menu"] = "Abrir el menú de la guía"
 L["Open Polestar options"] = "Abrir las opciones de Polestar"
+L["Browse guide (gamepad)"] = "Recorrer guía (mando)"
+L["Delete cheapest junk"] = "Borrar basura más barata"
 L["Open the Gamepad page: button names and bindings"] = "Abrir la página Mando: nombres de botones y asignaciones"
 L["Target rare"] = "Seleccionar raro"
-L["Make bag room: delete the cheapest junk (press twice)"] = "Haz sitio en las bolsas: borra la basura más barata (pulsa dos veces)"
 L["Next waypoint"] = "Siguiente punto de ruta"
 L["Previous waypoint"] = "Punto de ruta anterior"
 L["List the quests in your log the route never hands in"] = "Mostrar las misiones de tu registro que la ruta nunca entrega"
@@ -749,6 +750,9 @@ L["Instance limits, runs and lockouts (instances clear: forget them)"] = "Límit
 L["%dh %02dm"] = "%dh %02dm"
 L["%dm"] = "%dm"
 L["%ds"] = "%ds"
+
+-- QoL/QuickBind.lua
+L["Not needed right now: shown so you can bind it."] = "Ahora no hace falta: se muestra para que puedas asignarle una tecla."
 
 -- QoL/Buttons.lua
 L["Target"] = "Objetivo"

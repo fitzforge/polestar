@@ -64,8 +64,8 @@ L["level %d+"] = "nivel %d+"
 L["Every spot is done."] = "Todos los puntos están hechos."
 L["%s: %d points, %s, %d yd"] = "%s: %d puntos, %s, %d m"
 L["None yet."] = "Ninguno todavía."
-L["Recorder: start or stop the position trail"] = "Recorder: iniciar o detener el rastro de posición"
-L["Recorder: show or hide the window"] = "Recorder: mostrar u ocultar la ventana"
+L["Recorder: trail on/off"] = "Recorder: rastro sí/no"
+L["Recorder window"] = "Ventana del Recorder"
 
 -- Recorder.lua
 L["recordings from the previous Recorder (schema 1) were removed; recording now uses schema 2"] = "se eliminaron las grabaciones del Recorder anterior (esquema 1); ahora la grabación usa el esquema 2"

@@ -8,11 +8,16 @@ local ADDON, ns = ...
 local L = ns.L
 local Engine = ns.Engine
 
-BINDING_HEADER_POLESTAR = "Polestar"
+-- Options > Keybindings lists them in a "Polestar" section of their own
+-- (Bindings.xml's category, the Recorder's too), whose rows are only ~22
+-- characters wide: short names. The settings search matches a binding's
+-- name and its search tags, never its section, so each carries the tag
+-- BINDING_TAG_POLESTAR: "polestar" finds them all.
+BINDING_TAG_POLESTAR = "Polestar"
 BINDING_NAME_POLESTAR_TOGGLE = L["Toggle guide window"]
 BINDING_NAME_POLESTAR_NEXT = L["Next step"]
 BINDING_NAME_POLESTAR_PREV = L["Previous step"]
-BINDING_NAME_POLESTAR_FOCUS = L["Browse the guide with the gamepad"]
+BINDING_NAME_POLESTAR_FOCUS = L["Browse guide (gamepad)"]
 BINDING_NAME_POLESTAR_MENU = L["Open the guide menu"]
 BINDING_NAME_POLESTAR_OPTIONS = L["Open Polestar options"]
 BINDING_NAME_POLESTAR_REPORT = L["Report a problem"]
@@ -26,9 +31,9 @@ _G["BINDING_NAME_CLICK PolestarQuestItemButton:LeftButton"] = L["Use quest item"
 _G["BINDING_NAME_CLICK PolestarTargetButton:LeftButton"] = L["Target quest mob"]
 _G["BINDING_NAME_CLICK PolestarRareButton:LeftButton"] = L["Target rare"]
 _G["BINDING_NAME_CLICK PolestarHearthButton:LeftButton"] = L["Use Hearthstone"]
-_G["BINDING_NAME_CLICK PolestarStepButton:LeftButton"] = L["Step action: NPC, quest item, mob or Hearthstone"]
-_G["BINDING_NAME_CLICK PolestarTravelButton:LeftButton"] = L["Use the route's Hearthstone or teleport"]
-_G["BINDING_NAME_CLICK PolestarBagButton:LeftButton"] = L["Make bag room: delete the cheapest junk (press twice)"]
+_G["BINDING_NAME_CLICK PolestarStepButton:LeftButton"] = L["Use the step button"]
+_G["BINDING_NAME_CLICK PolestarTravelButton:LeftButton"] = L["Use the travel button"]
+_G["BINDING_NAME_CLICK PolestarBagButton:LeftButton"] = L["Delete cheapest junk"]
 
 -- Entry points for Bindings.xml (and Polestar's gamepad chords, UI/Gamepad.lua).
 ns.Bindings = {
