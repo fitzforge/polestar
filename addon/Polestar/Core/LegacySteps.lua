@@ -1201,7 +1201,6 @@ ns.LegacyStepsLoad = function() return {
 		[2534916565] = "collect:4503,level:51",
 		[2606777489] = "turnin:5149,accept:5152,note:",
 		[2688206219] = "turnin:4504,turnin:4496,note:,accept:4507",
-		[2914112146] = "goto:1422,interact:176088,complete:5096",
 		[3363650883] = "getfp:10583,accept:4284,accept:3882,accept:3883,accept:3881,accept:4145",
 		[3680007130] = "collect:12886,collect:12887,collect:12888,collect:5149",
 		[3774191374] = "goto:1449,level:51",
