@@ -2899,8 +2899,9 @@ goalDone = function(s, g, goal)
 		if areaName and (same(loc, areaName(want and want.area)) or same(loc, areaName(goal.area))) then return true end
 		return same(loc, goal.location)
 	elseif t == "enter" then
-		-- In the zone or area: its zone or subzone text (inPlace).
-		return inPlace(goal)
+		-- In the zone or area: its zone or subzone text (inPlace), on the
+		-- ground: a taxi passing over it is not there, landing in it is.
+		return inPlace(goal) and not C.IsOnTaxi()
 	elseif t == "hearth" or t == "fly" then
 		-- A hearth is done in its place however the player got there (a flight
 		-- that lands in the town counts), but only on the ground: a taxi passing

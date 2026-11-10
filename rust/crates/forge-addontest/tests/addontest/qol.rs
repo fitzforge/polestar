@@ -1401,6 +1401,43 @@ fn hearth_button_hides_during_a_flight_and_comes_back_on_landing_while_the_heart
 	assert_eq!(out[6], json!([false, false]));
 }
 
+// The same class for the quest item: the client refuses item spells on a taxi and says nothing about which
+// item would work there, so on a flight the quest item button goes and the step key never offers an item (a
+// use goal's or the fallback quest item); on landing both come back, held to the end of a fight. The bag glow
+// still marks the item (Buttons.ChooseQuestItem is unchanged).
+#[test]
+fn quest_item_button_and_step_key_item_are_hidden_during_a_flight_and_back_on_landing() {
+	let out = run(r#"
+		local b, B = PolestarQuestItemButton, QoL.Buttons
+		local taxi = false
+		UnitOnTaxi = function(unit) return unit == "player" and taxi end
+		local function keyItem() local k, v = B.StepAction(); return k == "item" and v or false end
+		q.items[900] = { name = "Torch" }
+		q.addItem(0, 1, 900, 1)
+		q.step({ { t = "use", item = 900, quest = 7 } })
+		emit({ b:IsShown(), b:GetAttribute("item"), keyItem() })
+		taxi = true
+		stub.fire("PLAYER_CONTROL_LOST"); stub.runTimers()
+		emit({ b:IsShown(), b:GetAttribute("item") or false, keyItem(), B.ChooseQuestItem() })
+		taxi = false
+		stub.fire("PLAYER_CONTROL_GAINED"); stub.runTimers()
+		emit({ b:IsShown(), b:GetAttribute("item"), keyItem() })
+		taxi = true
+		stub.fire("PLAYER_CONTROL_LOST"); stub.runTimers()
+		q.combat(true)
+		taxi = false
+		stub.fire("PLAYER_CONTROL_GAINED"); stub.runTimers()
+		emit(b:IsShown())
+		q.combat(false)
+		emit(b:IsShown())
+	"#);
+	assert_eq!(out[0], json!([true, "item:900", 900]));
+	assert_eq!(out[1], json!([false, false, false, 900]), "on a taxi: no button, no step key item; the choice itself stands");
+	assert_eq!(out[2], json!([true, "item:900", 900]), "back on landing");
+	assert_eq!(out[3], false, "no secure Show in combat");
+	assert_eq!(out[4], true, "shown once the fight ends");
+}
+
 // The client's choice in SecureActionButton_OnClick (SecureTemplates.lua) for an addon button: act on the press
 // when useOnKeyDown (nil: the ActionButtonUseKeyDown CVar) says so, else on the release.
 const ACTS: &str = r#"
