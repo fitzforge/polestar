@@ -210,6 +210,20 @@ function followUpComment(msg) {
 	return out.join('\n');
 }
 
+// The Discord message a follow-up comment was copied from, or null: read
+// from the comment's first line (the bot's own, before any player text) and
+// only when the comment ends in the follow-up mark and links `thread`.
+// `login`: the bot's GitHub account (BOT_GITHUB_LOGIN), checked against the
+// comment's author when set, as for the issue marker.
+const FOLLOWUP_HEAD = /^\*\*.*\*\* (?:\(the reporter\) added|commented) on \[Discord\]\(https:\/\/discord\.com\/channels\/\d+\/(\d+)\/(\d+)\):$/;
+function followUpMessage(comment, thread, login = (process.env.BOT_GITHUB_LOGIN || '').trim() || null) {
+	if (!comment || (login && !(comment.user && comment.user.login === login))) return null;
+	const text = String(comment.body || '').trimEnd();
+	if (!text.endsWith(FOLLOWUP_MARK)) return null;
+	const m = FOLLOWUP_HEAD.exec(text.split('\n', 1)[0]);
+	return m && m[1] === thread ? m[2] : null;
+}
+
 // The bot's reply in the thread once the issue exists, and that reply read back.
 function trackedReply(repo, number) {
 	return `Tracked as [${repo}#${number}](<https://github.com/${repo}/issues/${number}>). Replies in this thread, from anyone, are copied to the issue. We'll reply here when it's fixed.`;
@@ -244,6 +258,7 @@ module.exports = {
 	labelInfo,
 	issueBody,
 	followUpComment,
+	followUpMessage,
 	trackedReply,
 	readTrackedReply,
 	heldReply,
