@@ -11,8 +11,8 @@ return {
 	["Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass."] = "Siga a estrada para o oeste, passando por {area:460} (Horda), e para o sudoeste por {area:465} até {zone:1443}; {area:608} fica no alto do desfiladeiro.",
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}"] = "{npc:5638}: o baú do naufrágio fica abaixo da torre de {npc:11863}, no caminho para {area:599}",
-	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
-	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "{npc:5642}: a Lâmina Ardente em {area:599}, para onde a busca dela leva",
+	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
+	["{npc:5396}, beside {npc:5752}"] = "",
 
 	-- Step 2: Malem chest
 	["Malem chest"] = "Baú de Malem",
@@ -23,6 +23,10 @@ return {
 	-- {area:603} Sargeron · {area:608} Nijel's Point
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue · Hatefury Tricksters = {npc:4671} Hatefury Trickster
 	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "Os sátiros Furiódio ocupam as ruínas de {area:603}, a leste de {area:608}.\nCuidado: os Errantes Furiódio surgem furtivos, e os Trapaceiros Furiódio podem envenenar a cada golpe.",
+
+	-- Step 5: Nijel's Point
+	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
+	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "{npc:5642}: a Lâmina Ardente em {area:599}, para onde a busca dela leva",
 
 	-- Step 6: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress

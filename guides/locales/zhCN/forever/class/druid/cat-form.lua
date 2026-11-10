@@ -11,8 +11,8 @@ return {
 	["Your stealth and melee form: in Forever this chain gives {spell:768} at 20, not the trainer."] = "你的潜行与近战形态：在 无限 中，{spell:768}在20级由这条任务线给予，而不是训练师。",
 
 	-- Step 1: Cenarion Enclave
-	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {zone:1457} Darnassus · {spell:18960} Teleport: Moonglade · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village · {npc:11802} Dendrite Starblaze · {area:493} Moonglade
-	["{npc:4217} stands in the {area:1658}. Skyborne far from {zone:1457}: cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up. No Aquatic Form yet? Take A Lesson to Learn from him too: it also goes to {npc:11802}, and its Trial of the Lake (the Aquatic Form guide) is in the same {area:493}."] = "{npc:4217} 站在 {area:1658}。天裔角色若离 {zone:1457} 很远：施放 {spell:18960}，搭乘 {area:2361} 中部 {npc:11800} 的航班（她会将德鲁伊送到 {area:702}，无需解锁飞行路线），然后通过传送门上去。还没有水栖形态？也向他接受“必修的课程”：这个任务同样要找 {npc:11802}，后续的“湖中试炼”（见水栖形态指南）也在同一个 {area:493} 完成。",
+	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {zone:1457} Darnassus · {spell:18960} Teleport: Moonglade · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village · {spell:1066} Aquatic Form · {npc:11802} Dendrite Starblaze · {area:493} Moonglade
+	["{npc:4217} stands in the {area:1658}. Skyborne far from {zone:1457}: cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up. No {spell:1066} yet? Take A Lesson to Learn from him too: it also goes to {npc:11802}, and its Trial of the Lake (the {spell:1066} guide) is in the same {area:493}."] = "",
 
 	-- Step 3: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
@@ -34,8 +34,8 @@ return {
 	["Take the portal up to {npc:4217}, upstairs in the {area:1658}: he teaches you {spell:768}."] = "通过传送门上去，在{area:1658}楼上找{npc:4217}：他会教你{spell:768}。",
 
 	-- Step 8: The Great Cat Spirit
-	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:11802} Dendrite Starblaze · {area:493} Moonglade
-	["{npc:3033} stands in the druids' hut on {area:1639}. No Aquatic Form yet? Take A Lesson to Learn from him too: it also goes to {npc:11802}, and its Trial of the Lake (the Aquatic Form guide) is in the same {area:493}."] = "{npc:3033}站在{area:1639}的德鲁伊小屋内。还没学会水栖形态？也从他那里接受“必修的课程”：同样是去找{npc:11802}，后续的“湖中试炼”（水栖形态指南）也在同一个{area:493}。",
+	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:1066} Aquatic Form · {npc:11802} Dendrite Starblaze · {area:493} Moonglade
+	["{npc:3033} stands in the druids' hut on {area:1639}. No {spell:1066} yet? Take A Lesson to Learn from him too: it also goes to {npc:11802}, and its Trial of the Lake (the {spell:1066} guide) is in the same {area:493}."] = "",
 
 	-- Step 9: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
@@ -63,7 +63,9 @@ return {
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}."] = "施放{spell:18960}。{npc:11802}在{area:2361}。",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "施放{spell:18960}。{npc:11802}在{area:2361}；如果还没有那里的飞行路线，顺便学会。",
 	-- ["Take the portal up to {npc:4217} in the {area:1658}."] = "乘传送门上到{area:1658}找{npc:4217}。",
+	-- ["{npc:3033} stands in the druids' hut on {area:1639}. No Aquatic Form yet? Take A Lesson to Learn from him too: it also goes to {npc:11802}, and its Trial of the Lake (the Aquatic Form guide) is in the same {area:493}."] = "{npc:3033}站在{area:1639}的德鲁伊小屋内。还没学会水栖形态？也从他那里接受“必修的课程”：同样是去找{npc:11802}，后续的“湖中试炼”（水栖形态指南）也在同一个{area:493}。",
 	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033}站在{area:1639}。",
+	-- ["{npc:4217} stands in the {area:1658}. Skyborne far from {zone:1457}: cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up. No Aquatic Form yet? Take A Lesson to Learn from him too: it also goes to {npc:11802}, and its Trial of the Lake (the Aquatic Form guide) is in the same {area:493}."] = "{npc:4217} 站在 {area:1658}。天裔角色若离 {zone:1457} 很远：施放 {spell:18960}，搭乘 {area:2361} 中部 {npc:11800} 的航班（她会将德鲁伊送到 {area:702}，无需解锁飞行路线），然后通过传送门上去。还没有水栖形态？也向他接受“必修的课程”：这个任务同样要找 {npc:11802}，后续的“湖中试炼”（见水栖形态指南）也在同一个 {area:493} 完成。",
 	-- ["{npc:4217} stands in the {area:1658}. Skyborne without the Rut'theran flight path: take the boat from {area:442}."] = "{npc:4217}站在{area:1658}。没有鲁瑟兰村飞行路线的天裔：从{area:442}乘船。",
 	-- ["{quest:98342} (Tauren) waits on the southern hill above the bridge, the {npc:272054} (Skyborne) south of the twin bridges. The relics lie in the {area:2363} east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue. A relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98342}（牛头人）在桥上方的南边山丘等候，{npc:272054}（天裔）在双桥南边。圣物位于湖东边的{area:2363}：解除变形，点击入口处的雕像获得五分钟潜行，避开里面的灵魂，每种圣物各拿一件；{item:280680}在白色猎豹雕像脚下。其他玩家正在拾取时圣物不会给你战利品：稍等片刻再试。",
 	-- ["{quest:98394} (Night Elves) waits on the southern hill above the bridge, the {npc:272054} (Skyborne) south of the twin bridges. The relics lie in the {area:2363} east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue. A relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98394}（暗夜精灵）在桥上方的南边山丘等候，{npc:272054}（天裔）在双桥南边。圣物位于湖东边的{area:2363}：解除变形，点击入口处的雕像获得五分钟潜行，避开里面的灵魂，每种圣物各拿一件；{item:280680}在白色猎豹雕像脚下。其他玩家正在拾取时圣物不会给你战利品：稍等片刻再试。",

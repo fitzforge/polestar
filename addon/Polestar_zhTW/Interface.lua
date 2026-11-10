@@ -971,6 +971,14 @@ L["The target button and the step key ping the mob they target, so your group se
 -- L["When you loot an item that starts a quest you can take, it goes on the quest item button with a glow until you click it or take the quest. The step's own item comes first; several wait their turn, oldest first."] = ""
 -- L["Track only dungeon quests in dungeons"] = ""
 -- L["Inside a dungeon or raid, the game's quest tracker and Polestar's quest markers show only that instance's quests. The quests you were tracking come back when you leave, even after a reload inside."] = ""
+-- L["New spells at level-up"] = ""
+-- L["When you level up, a card on the guide window shows the class spells you can now train, what they cost together and the nearest class trainer, with a button for the arrow. Not in combat or instances, and not on levels with nothing new."] = ""
+-- L["Old ranks on your bars"] = ""
+-- L["After training and at login, says which spells on your action bars are a lower rank than the one in your spellbook, with a button that puts the highest rank in the same buttons (out of combat). Macros and items are never touched. Right-click a spell on the card to keep it at its rank; a lower rank you put on a bar yourself is kept too."] = ""
+-- L["Forget kept ranks"] = ""
+-- L["Lists the spells you kept at a lower rank again."] = ""
+-- L["Boosted Rest status"] = ""
+-- L["How long the campfire's Boosted Rest lasts and the Cozy Sleeping Bag's cooldown, under the guide window's XP line; your party's Boosted Rest in the party panel."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "僅限聯盟"
@@ -1023,6 +1031,7 @@ L["Drop chance"] = "掉落機率"
 L["Enter"] = "進入"
 L["Choose this reward:"] = "選擇此獎勵："
 L["Lookup"] = "查詢"
+-- L["%s: click through what they say until the quest's line is done."] = ""
 
 -- Lookup/Spotter.lua
 L["From"] = "來自"
@@ -1078,6 +1087,8 @@ L["%s: level %d, needs %s first"] = "%s：%d 級，需先完成 %s"
 L["%s: level %d"] = "%s：%d 級"
 L["Comes back at level %d: %s"] = "%2$s：%1$d 級時再出現"
 L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = "%d 級：現在可以接取 %s。任務給予者已在地圖上標出；再次接取任務即可將其加入指南。"
+-- L["Leads to %s."] = ""
+-- L["Needed for %s."] = ""
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "尚未完成：%s"
@@ -1407,6 +1418,8 @@ L["Still to do: %s"] = "尚未完成：%s"
 L["Still to do"] = "尚未完成"
 L["Step %d, later in this guide"] = "第 %d 步，本指南稍後"
 -- L["How to update"] = ""
+-- L["Your guide's current step trains you."] = ""
+-- L["Search quests, NPCs, items, mounts and guides."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"
@@ -2283,6 +2296,7 @@ L["Rares too low to give experience leave the map."] = "等級太低、不給經
 L["Forget rares met on this realm"] = "忘記在此伺服器遇到的稀有"
 L["Clears the Seen list, alert cooldowns and the glow on recently seen pins."] = "清除「已見」清單、提醒冷卻與最近見到之標記的光暈。"
 L["Say when Polestar's founder is nearby"] = "Polestar 的創始人在附近時提示"
+-- L["When %s comes into sight, a card says so and the rare button targets him and waves. At most once a day, never in combat or instances."] = ""
 
 -- Rares/View.lua
 L["Seen"] = "已見"
@@ -3118,6 +3132,8 @@ L["No one else in your party has been heard running Polestar yet. The panel open
 L["The party panel comes back after combat."] = "隊伍面板會在戰鬥結束後恢復。"
 L["Sync to my guide"] = "同步至我的指南"
 L["Asks your party to move to your step. Each of them gets a prompt; nothing changes for anyone who declines."] = "邀請隊伍移至你的步驟。每位隊員都會收到提示；拒絕的人不會有任何變動。"
+-- L["Boosted Rest"] = ""
+-- L["Boosted Rest %dm"] = ""
 
 -- UI/DungeonToast.lua
 L["LEVEL %d · DUNGEON"] = "%d 級 · 地城"
@@ -3219,6 +3235,37 @@ L["Right-click: hide this until the timer ends."] = "右鍵：隱藏直到計時
 -- L["This Polestar is %d weeks old: updates come often, check for a newer one."] = ""
 -- L["Polestar %s is out: you're on %s, %d updates behind."] = ""
 -- L["Polestar %s is out: you're on %s."] = ""
+
+-- QoL/Rest.lua
+-- L["Boosted Rest: on"] = ""
+-- L["Boosted Rest: %s"] = ""
+-- L["Boosted Rest: off"] = ""
+-- L["Sleeping bag ready"] = ""
+-- L["Sleeping bag: %s"] = ""
+
+-- QoL/Spells.lua
+-- L["Empty the cursor first, then press Upgrade again."] = ""
+-- L["Upgraded %d action button to the highest rank."] = ""
+-- L["Upgraded %d action buttons to the highest rank."] = ""
+-- L["Upgrading your action buttons after combat."] = ""
+
+-- UI/SpellCards.lua
+-- L["1 new spell to train"] = ""
+-- L["%d new spells to train"] = ""
+-- L["Cost %s: you can pay for all of them."] = ""
+-- L["Cost %s: you have %s."] = ""
+-- L["Class trainer: %s, %s."] = ""
+-- L["Class trainer: %s."] = ""
+-- L["Training cost: %s"] = ""
+-- L["Level-up spell cards are off. Turn them back on under Options > Quality of Life > Vendors > Trainers."] = ""
+-- L["ACTION BARS"] = ""
+-- L["1 spell on your bars is an old rank"] = ""
+-- L["%d spells on your bars are an old rank"] = ""
+-- L["%s: rank %d to %d"] = ""
+-- L["%d action buttons in all."] = ""
+-- L["Upgrade"] = ""
+-- L["Right-click: keep this rank on your bars"] = ""
+-- L["Old rank cards are off. Turn them back on under Options > Quality of Life > Vendors > Trainers."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。關閉「已安裝時以 Shortest Path Forever 導引」（「選項」>「箭頭與路線」）即可使用 Polestar 的箭頭。"

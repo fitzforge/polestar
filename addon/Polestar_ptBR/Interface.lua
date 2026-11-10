@@ -971,6 +971,14 @@ L["The target button and the step key ping the mob they target, so your group se
 -- L["When you loot an item that starts a quest you can take, it goes on the quest item button with a glow until you click it or take the quest. The step's own item comes first; several wait their turn, oldest first."] = ""
 -- L["Track only dungeon quests in dungeons"] = ""
 -- L["Inside a dungeon or raid, the game's quest tracker and Polestar's quest markers show only that instance's quests. The quests you were tracking come back when you leave, even after a reload inside."] = ""
+-- L["New spells at level-up"] = ""
+-- L["When you level up, a card on the guide window shows the class spells you can now train, what they cost together and the nearest class trainer, with a button for the arrow. Not in combat or instances, and not on levels with nothing new."] = ""
+-- L["Old ranks on your bars"] = ""
+-- L["After training and at login, says which spells on your action bars are a lower rank than the one in your spellbook, with a button that puts the highest rank in the same buttons (out of combat). Macros and items are never touched. Right-click a spell on the card to keep it at its rank; a lower rank you put on a bar yourself is kept too."] = ""
+-- L["Forget kept ranks"] = ""
+-- L["Lists the spells you kept at a lower rank again."] = ""
+-- L["Boosted Rest status"] = ""
+-- L["How long the campfire's Boosted Rest lasts and the Cozy Sleeping Bag's cooldown, under the guide window's XP line; your party's Boosted Rest in the party panel."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Só Aliança"
@@ -1023,6 +1031,7 @@ L["Drop chance"] = "Chance de saque"
 L["Enter"] = "Entrar"
 L["Choose this reward:"] = "Escolha esta recompensa:"
 L["Lookup"] = "Consulta"
+-- L["%s: click through what they say until the quest's line is done."] = ""
 
 -- Lookup/Spotter.lua
 L["From"] = "De"
@@ -1078,6 +1087,8 @@ L["%s: level %d, needs %s first"] = "%s: nível %d, precisa de %s antes"
 L["%s: level %d"] = "%s: nível %d"
 L["Comes back at level %d: %s"] = "Volta no nível %d: %s"
 L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = "Nível %d: agora você pode pegar %s. Quem dá a missão está marcado no seu mapa; pegue as missões de novo para adicioná-la ao guia."
+-- L["Leads to %s."] = ""
+-- L["Needed for %s."] = ""
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "Ainda não concluída: %s"
@@ -1408,6 +1419,8 @@ L["Still to do: %s"] = "Ainda a fazer: %s"
 L["Still to do"] = "Ainda a fazer"
 L["Step %d, later in this guide"] = "Passo %d, mais adiante neste guia"
 -- L["How to update"] = ""
+-- L["Your guide's current step trains you."] = ""
+-- L["Search quests, NPCs, items, mounts and guides."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Elevador para %s"
@@ -2283,6 +2296,7 @@ L["Rares too low to give experience leave the map."] = "Raros baixos demais para
 L["Forget rares met on this realm"] = "Esquecer raros vistos neste reino"
 L["Clears the Seen list, alert cooldowns and the glow on recently seen pins."] = "Limpa a lista Vistos, as recargas de alerta e o brilho nos marcadores vistos há pouco."
 L["Say when Polestar's founder is nearby"] = "Avisar quando o fundador do Polestar estiver por perto"
+-- L["When %s comes into sight, a card says so and the rare button targets him and waves. At most once a day, never in combat or instances."] = ""
 
 -- Rares/View.lua
 L["Seen"] = "Vistos"
@@ -3118,6 +3132,8 @@ L["No one else in your party has been heard running Polestar yet. The panel open
 L["The party panel comes back after combat."] = "O painel do grupo volta depois do combate."
 L["Sync to my guide"] = "Sincronizar com meu guia"
 L["Asks your party to move to your step. Each of them gets a prompt; nothing changes for anyone who declines."] = "Pede ao seu grupo que vá para a sua etapa. Cada um recebe um aviso; nada muda para quem recusar."
+-- L["Boosted Rest"] = ""
+-- L["Boosted Rest %dm"] = ""
 
 -- UI/DungeonToast.lua
 L["LEVEL %d · DUNGEON"] = "NÍVEL %d · MASMORRA"
@@ -3219,6 +3235,37 @@ L["Right-click: hide this until the timer ends."] = "Clique direito: ocultar at�
 -- L["This Polestar is %d weeks old: updates come often, check for a newer one."] = ""
 -- L["Polestar %s is out: you're on %s, %d updates behind."] = ""
 -- L["Polestar %s is out: you're on %s."] = ""
+
+-- QoL/Rest.lua
+-- L["Boosted Rest: on"] = ""
+-- L["Boosted Rest: %s"] = ""
+-- L["Boosted Rest: off"] = ""
+-- L["Sleeping bag ready"] = ""
+-- L["Sleeping bag: %s"] = ""
+
+-- QoL/Spells.lua
+-- L["Empty the cursor first, then press Upgrade again."] = ""
+-- L["Upgraded %d action button to the highest rank."] = ""
+-- L["Upgraded %d action buttons to the highest rank."] = ""
+-- L["Upgrading your action buttons after combat."] = ""
+
+-- UI/SpellCards.lua
+-- L["1 new spell to train"] = ""
+-- L["%d new spells to train"] = ""
+-- L["Cost %s: you can pay for all of them."] = ""
+-- L["Cost %s: you have %s."] = ""
+-- L["Class trainer: %s, %s."] = ""
+-- L["Class trainer: %s."] = ""
+-- L["Training cost: %s"] = ""
+-- L["Level-up spell cards are off. Turn them back on under Options > Quality of Life > Vendors > Trainers."] = ""
+-- L["ACTION BARS"] = ""
+-- L["1 spell on your bars is an old rank"] = ""
+-- L["%d spells on your bars are an old rank"] = ""
+-- L["%s: rank %d to %d"] = ""
+-- L["%d action buttons in all."] = ""
+-- L["Upgrade"] = ""
+-- L["Right-click: keep this rank on your bars"] = ""
+-- L["Old rank cards are off. Turn them back on under Options > Quality of Life > Vendors > Trainers."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Seta e rotas) para usar a seta do Polestar."

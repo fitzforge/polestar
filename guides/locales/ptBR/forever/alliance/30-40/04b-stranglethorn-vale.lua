@@ -101,8 +101,9 @@ return {
 	["For Archmage Ansirem in {zone:1416}"] = "Para o Arquimago Ansirem, em {zone:1416}",
 	-- {npc:773} Krazek
 	["{npc:773}, upstairs"] = "{npc:773}, no andar de cima",
-	-- {npc:773} Krazek · {zone:1417} Arathi Highlands
-	["{npc:773}: the ore drops from Drywhisker kobolds in {zone:1417}, next"] = "{npc:773}: o minério cai dos kobolds Bigodesseco em {zone:1417}, a seguir",
+	-- {npc:773} Krazek · {item:4278} Lesser Bloodstone Ore · {zone:1417} Arathi Highlands · {skill:186} Mining
+	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
+	["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}, lá dentro",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley \"Lobo do Mar\", no último andar",
@@ -112,5 +113,6 @@ return {
 	-- ["Herod's records lie in a hut on the west side of {area:101}, east of the {area:99}."] = "Os registros de Herodes ficam numa cabana no lado oeste de {area:101}, a leste de {area:99}.",
 	-- ["Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on {area:37} carries the Tumbled Crystals."] = "Percorra as ruínas trolls do norte e do centro: cada uma guarda uma tabuleta de pedra das lendas trolls. Panteras Umbragorja rondam furtivas na selva ao redor; o acampamento da Empreendimentos S.A. em {area:37} carrega os Cristais Rolados.",
 	-- ["Mauren, from Stonetalon"] = "Mauren, da Cordilheira das Torres de Pedra",
+	-- ["{npc:773}: the ore drops from Drywhisker kobolds in {zone:1417}, next"] = "{npc:773}: o minério cai dos kobolds Bigodesseco em {zone:1417}, a seguir",
 	-- ["{zone:1434}: kill these as you meet them"] = "{zone:1434}: vá matando estes pelo caminho",
 }

@@ -141,7 +141,8 @@ return {
 	["Back into the yeti caves west of {area:272} with the {item:3710}. The path splits just inside: the {object:1768} burns on the upper level to the right, the {object:1769} on the lower level to the left, past more yetis."] = "De volta às cavernas dos yetis a oeste de {area:272} com o {item:3710}. O caminho se divide logo na entrada: {object:1768} queima no nível de cima, à direita, e {object:1769} no nível de baixo, à esquerda, depois de mais yetis.",
 
 	-- Step 28: Flame of Uzel
-	["The third flame burns in the smaller cave up in the hills north of the caverns."] = "A terceira chama queima na caverna menor, no alto das colinas ao norte das cavernas.",
+	-- plural, as words: Mountain Yetis = {npc:2250} Mountain Yeti
+	["The third flame burns in the smaller cave up in the hills north of the caverns.\nCareful: Giant and Mountain Yetis (32-34) stand around the flame, often in pairs, and Frostmaw, a rare yeti (37), roams nearby. At 30-31 they are over your level: pull the yetis one at a time from the cave mouth before you use the Rod, and watch for Frostmaw before you go in."] = "",
 
 	-- Step 29: Alterac Mountains
 	-- {area:279} Dalaran
@@ -303,4 +304,5 @@ return {
 	-- ["The Syndicate Footpads and Thieves (32-34) around the camps west of the road carry the missives; about one in three drops one."] = "Os Salteadores e Ladrões da Camarilha (32-34) em volta dos acampamentos a oeste da estrada levam as missivas; cerca de um em três deixa cair uma.",
 	-- ["The keg stands with a few others at the Syndicate camp on the south-east coast of {area:287}."] = "O barril fica com alguns outros no acampamento da Camarilha na costa sudeste de {area:287}.",
 	-- ["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate."] = "A fortaleza orc no extremo leste da estrada. {npc:2851}, a mestre dos mantícoras, fica junto ao portão.",
+	-- ["The third flame burns in the smaller cave up in the hills north of the caverns."] = "A terceira chama queima na caverna menor, no alto das colinas ao norte das cavernas.",
 }

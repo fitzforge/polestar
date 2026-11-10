@@ -113,6 +113,8 @@ return {
 	["{npc:3391}, upstairs"] = "{npc:3391}, oben",
 	-- {npc:3442} Sputtervalve · {area:382} Sludge Fen
 	["{npc:3442}: the console is in the {area:382}, later"] = "{npc:3442}: Die Konsole ist in {area:382}, später",
+	-- {npc:16227} Bragok · {npc:3442} Sputtervalve
+	["{npc:16227}, beside {npc:3442}"] = "",
 	-- {object:3972} WANTED
 	["{object:3972} poster"] = "Plakat „{object:3972}“",
 	-- {quest:1492} Wharfmaster Dizzywig
@@ -172,61 +174,59 @@ return {
 	["Sunscale raptors here count toward the heads."] = "",
 
 	-- Step 48: The Crossroads
-	-- {npc:3338} Sergra Darkthorn · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:3432} Mankrik · {npc:3448} Tonga Runetotem
-	["{npc:3338} by the inn first, then the innkeeper, Helbrim by the north gate, {npc:3429} and {npc:3449} on the tower platform, {npc:3432} by the inn, and {npc:3448} at the south gate on the way out."] = "",
+	-- {npc:3338} Sergra Darkthorn · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:3432} Mankrik · {npc:3448} Tonga Runetotem · {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {area:383} Dry Hills · {quest:853} Apothecary Zamah · {zone:1456} Thunder Bluff
+	["{npc:3338} by the inn first, then the innkeeper, Helbrim by the north gate, {npc:3429} and {npc:3449} on the tower platform, {npc:3432} by the inn, and {npc:3448} at the south gate last. His seed test waits for the {npc:3395} pass at the {area:388}: go straight on north-west to the {area:383}. After the spores Helbrim offers {quest:853}, a delivery to {zone:1456} within 45 minutes: this route doesn't go there, so leave it (Druids take it on the next Crossroads stop, right before their flight to {zone:1456})."] = "",
 	-- {npc:3432} Mankrik
 	["{npc:3432}: his wife lies at the north edge of the Bristleback camps, later"] = "",
+	-- {npc:3448} Tonga Runetotem · {area:388} Stagnant Oasis · {npc:3395} Verog the Dervish
+	["{npc:3448}: the bubbling fissure at the {area:388}, on the {npc:3395} pass"] = "",
 
-	-- Step 49: The Stagnant Oasis
-	-- {npc:3448} Tonga Runetotem · {area:383} Dry Hills
-	["South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank; {npc:3448} takes the result on the next Crossroads stop, so carry on north-west to the {area:383} from here."] = "Südöstlich vom Wegekreuz. Teste die Samen an der blubbernden Spalte am Ostufer der Oase; {npc:3448} nimmt das Ergebnis beim nächsten Halt am Wegekreuz entgegen, also geh von hier weiter nach Nordwesten zu {area:383}.",
-	["Underwater"] = "",
-
-	-- Step 50: Harpy Lieutenants
+	-- Step 49: Harpy Lieutenants
 	-- {area:383} Dry Hills
 	-- plural, as words: Witchwing Slayers = {npc:3278} Witchwing Slayer
 	["North-west to the {area:383}: the Witchwing Slayers hold their western end; they wear the rings.\nCareful: Some stealthed harpy ambushers wait in the area and stay hidden until you get close. A level 19 elite harpy also patrols there."] = "",
 
-	-- Step 52: Raptor Horns
+	-- Step 51: Raptor Horns
 	-- {quest:881} Echeyakee · {area:383} Dry Hills · {item:5055} Intact Raptor Horn · {npc:3446} Mebok Mizzyrix · {area:392} Ratchet
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
 	["On the way east to {quest:881}: Sunscale Scytheclaws prowl the plains east of the {area:383}; any of them can drop an {item:5055} for {npc:3446} in {area:392}."] = "",
 
-	-- Step 53: Echeyakee
+	-- Step 52: Echeyakee
 	-- {quest:881} Echeyakee
 	["South-east on the way back to the Crossroads: {quest:881}, a white lion, prowls the plains north of the Razormane camp.\nCareful: Savannah Huntresses roam around the lair. They respawn quickly and often join the fight alongside {quest:881}, so clear them out before you blow the horn.\nSunscale raptors here count toward the heads."] = "",
 
-	-- Step 54: Finish the Raptor Heads
+	-- Step 53: Finish the Raptor Heads
 	-- plural, as words: Raptor Heads = {item:5062} Raptor Head
 	["Finish the Raptor Heads"] = "",
 	-- {quest:881} Echeyakee
 	-- plural, as words: Sunscale Lashtails = {npc:3254} Sunscale Lashtail
 	["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "",
 
-	-- Step 55: The Crossroads
-	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3448} Tonga Runetotem · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork
-	["In from the north gate: {npc:3464} first, {npc:3338} by the inn, {npc:3448} at the south gate, then up to {npc:3449} and {npc:3429} on the tower platform, where the flight master stands."] = "",
+	-- Step 54: The Crossroads
+	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork
+	["In from the north gate: {npc:3464} first, {npc:3338} by the inn, then up to {npc:3449} and {npc:3429} on the tower platform, where the flight master stands."] = "",
 	-- {npc:3464} Gazrog · {quest:3281} Stolen Silver · {area:385} Northwatch Hold
 	["{npc:3464}: the {quest:3281}, in a raptor nest north-west of {area:385}"] = "",
+	-- {npc:3390} Apothecary Helbrim · {zone:1456} Thunder Bluff
+	["{npc:3390}: 45 minutes, for Zamah on the {zone:1456} step next"] = "",
 	-- {npc:3338} Sergra Darkthorn
 	["{npc:3338}: the raptor nests south of the Crossroads"] = "",
-	-- {npc:3448} Tonga Runetotem · {area:388} Stagnant Oasis · {npc:3395} Verog the Dervish
-	-- plural, as words: Oasis Snapjaws = {npc:3461} Oasis Snapjaw
-	["{npc:3448}: the Oasis Snapjaws at the {area:388}, with {npc:3395}"] = "{npc:3448}: die Oasenschnappkiefer an der {area:388}, mit {npc:3395}",
 	-- {npc:3449} Darsok Swiftdagger · {quest:876} Serena Bloodfeather · {area:383} Dry Hills
 	["{npc:3449}, on the tower: {quest:876} leads the harpies in the {area:383}"] = "",
 	-- {npc:3429} Thork · {area:1703} Mor'shan Rampart
 	["{npc:3429}, on the tower, from level 17. Keep it: Kadrak at the {area:1703}, next guide"] = "",
 
-	-- Step 56: Thunder Bluff
-	-- {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
-	["Fly from the Crossroads to {area:1638}: {npc:3033} trains you on {area:1639}."] = "",
+	-- Step 55: Thunder Bluff
+	-- {area:1638} Thunder Bluff · {quest:853} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
+	["Fly from the Crossroads to {area:1638}. {quest:853} waits in the {area:2197}, the cave under {area:1640}: hand in the spores there first, while their time runs. Then {npc:3033} trains you on {area:1639}."] = "",
+	-- {quest:853} Apothecary Zamah · {area:2197} Pools of Vision
+	["{quest:853}, in the {area:2197}"] = "",
 
-	-- Step 57: Moonglade
+	-- Step 56: Moonglade
 	-- {spell:18960} Teleport: Moonglade
 	["Cast {spell:18960}"] = "",
 
-	-- Step 58: Trial of the Lake
+	-- Step 57: Trial of the Lake
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {quest:28} Trial of the Lake
 	-- plural, as words: Shrine Baubles = {item:15877} Shrine Bauble
 	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. The Shrine Baubles lie on the bed of {area:656} and fade within minutes: swim one straight to the {area:2362} on the north-west shore, use it there and speak to {npc:11799}. {quest:28} runs on a timer: no teleport or Hearthstone until {npc:11799} has it."] = "",
@@ -243,55 +243,55 @@ return {
 	-- {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven
 	["{npc:11798} in {area:2361} flies druids there"] = "{npc:11798} in {area:2361} fliegt Druiden dorthin",
 
-	-- Step 59: Fly to Ratchet
+	-- Step 58: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Flieg nach {area:392}",
 	-- {zone:1456} Thunder Bluff · {area:392} Ratchet
 	["Fly from {zone:1456} straight on to {area:392}."] = "",
 
-	-- Step 60: Fly to Ratchet
+	-- Step 59: Fly to Ratchet
 	["Crossroads flight master"] = "",
 
-	-- Step 62: Ratchet
+	-- Step 61: Ratchet
 	-- {npc:3446} Mebok Mizzyrix · {object:3972} WANTED · {area:392} Ratchet
 	["{npc:3446}, beside the {object:3972} poster: take it now if he did not offer it on the first {area:392} stop"] = "",
 
-	-- Step 63: Ratchet
+	-- Step 62: Ratchet
 	-- {npc:3446} Mebok Mizzyrix · {object:3972} WANTED
 	["{npc:3446}, beside the {object:3972} poster"] = "",
 
-	-- Step 65: Ratchet
+	-- Step 64: Ratchet
 	-- {npc:3442} Sputtervalve · {quest:1483} Ziz Fizziks · {area:1076} Webwinder Path
 	["{npc:3442}: keep it, {quest:1483} is on the {area:1076} in Stonetalon, at the end of this guide"] = "",
 	-- {npc:3442} Sputtervalve · {npc:9316} Wenikee Boltbucket · {area:382} Sludge Fen
 	["{npc:3442}: {npc:9316} stands on the road north of the Crossroads, on the way to the {area:382}"] = "",
 
-	-- Step 66: Bruuz
+	-- Step 65: Bruuz
 	-- {npc:209797} Bruuz
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:209797} (level 20 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 67: Ratchet
+	-- Step 66: Ratchet
 	-- {npc:3391} Gazlowe
 	["{npc:3391} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 
-	-- Step 68: Raptor nests
+	-- Step 67: Raptor nests
 	["Raptor nests"] = "Raptornester",
 	-- {area:392} Ratchet · {area:1697} Raptor Grounds · {item:5165} Sunscale Feather
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
 	["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "Von {area:392} nach Südwesten über die Ebenen zu {area:1697}: Die drei Nester liegen zusammen südwestlich der Oase; Bluthornsensenklauen bewachen sie. Jedes Nest braucht {item:5165}: Töte Raptoren der Bluthorn (die meisten lassen eine fallen), bis du drei hast, und benutze dann an jedem Nest eine Feder.",
 
-	-- Step 69: Raptor Grounds: kill these as you meet them
+	-- Step 68: Raptor Grounds: kill these as you meet them
 	-- {area:1697} Raptor Grounds
 	["{area:1697}: kill these as you meet them"] = "",
 	-- {area:1697} Raptor Grounds · {npc:3446} Mebok Mizzyrix · {area:392} Ratchet · {area:385} Northwatch Hold
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
 	["Sunscale Scytheclaws hunt the plains around the {area:1697}; they drop the horns. {npc:3446} takes them when the escort brings you back to {area:392}.\nSouth-east toward the coast: the stolen silver lies in a raptor nest north-west of {area:385}."] = "",
 
-	-- Step 70: Stolen Booty
+	-- Step 69: Stolen Booty
 	-- {area:385} Northwatch Hold
 	["East to the beach, at the south end of the pirate camp: the crate of boots and the fragile crate with the lens sit there, a short walk north of {area:385}."] = "",
 
-	-- Step 71: Northwatch Hold: kill these as you meet them
+	-- Step 70: Northwatch Hold: kill these as you meet them
 	-- {area:385} Northwatch Hold
 	["{area:385}: kill these as you meet them"] = "",
 	-- {area:385} Northwatch Hold · {npc:3393} Captain Fairmount
@@ -300,27 +300,27 @@ return {
 	["On the top floor"] = "",
 	["Upstairs"] = "",
 
-	-- Step 72: Free From the Hold
+	-- Step 71: Free From the Hold
 	-- {npc:3465} Gilthares Firebough · {area:392} Ratchet
 	["{npc:3465} is chained inside the hold. Talk to him to start the escort and stay close: Theramore soldiers attack on the way out. He walks you back to {area:392}."] = "{npc:3465} ist in der Feste angekettet. Sprich mit ihm, um die Eskorte zu starten, und bleib dicht dran: Soldaten von Theramore greifen auf dem Weg hinaus an. Er führt dich zurück nach {area:392}.",
 
-	-- Step 79: Dreadmist Peak
+	-- Step 78: Dreadmist Peak
 	-- {area:384} Dreadmist Peak · {item:15842} Empty Dreadmist Peak Sampler · {object:19464} Dreadmist Peak Pool (no name in this language: may be words) · {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
 	["Head north from the Crossroads to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the Crossroads. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "",
 	-- {item:2449} Earthroot · {npc:3490} Hula'mahi
 	["{item:2449} from {npc:3490}; herbalists pick it on the plains"] = "{item:2449} von {npc:3490}; Kräuterkundige pflücken es auf den Ebenen",
 
-	-- Step 80: Kolkar camp
+	-- Step 79: Kolkar camp
 	["Kolkar camp"] = "",
 	-- {npc:3389} Regthar Deathgate · {item:2449} Earthroot
 	-- plural, as words: Lost Barrens Kodos = {npc:3234} Lost Barrens Kodo
 	["Lost Barrens Kodos roam the plains around the Kolkar camp north-west of {npc:3389}; herbalists pick {item:2449} there too."] = "",
 
-	-- Step 81: Vrang Wildgore
+	-- Step 80: Vrang Wildgore
 	-- {area:383} Dry Hills · {npc:3682} Vrang Wildgore · {npc:261366} Walton
 	["North to the {area:383}. {npc:3682} camps below the hills; {npc:261366}, the hermit on the ridge behind him, has work for you only once {npc:3682} sends you up."] = "Nach Norden zu {area:383}. {npc:3682} lagert unterhalb der Hügel; {npc:261366}, der Einsiedler auf dem Kamm hinter ihm, hat erst Arbeit für dich, wenn {npc:3682} dich hinaufschickt.",
 
-	-- Step 82: The Barrens: kill these as you meet them
+	-- Step 81: The Barrens: kill these as you meet them
 	-- {quest:876} Serena Bloodfeather
 	-- plural, as words: Savannah Patriarchs = {npc:3241} Savannah Patriarch · Sprung Traps = {object:640104} Sprung Trap
 	["Savannah Patriarchs roam the plains east of the hills, and the Sprung Traps lie among them. {quest:876} leads the Witchwing harpies in the hills to the west.\nCareful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols."] = "",
@@ -328,141 +328,144 @@ return {
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
 	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions"] = "{quest:865}, falls noch offen: Bluthornsensenklauen streifen zwischen den Löwen umher",
 
-	-- Step 85: Trouble in the Valley
+	-- Step 84: Trouble in the Valley
 	-- {npc:262119} Corporal Adamore · {npc:261366} Walton
 	["{npc:262119} and his marines hold the wrecked caravan south of {npc:261366}. The marines are linked: pulling one calls the rest. Pull from the edge and run; they leash short, so you can thin the camp one at a time before tackling the Corporal."] = "{npc:262119} und seine Marinesoldaten halten die zerstörte Karawane südlich von {npc:261366}. Die Marinesoldaten sind verbunden: Pullst du einen, rufst du den Rest. Zieh vom Rand und lauf; sie lassen schnell ab, sodass du das Lager einzeln ausdünnen kannst, bevor du den Korporal angehst.",
 
-	-- Step 86: Walton
+	-- Step 85: Walton
 	-- {npc:261366} Walton · {npc:261367} Terry Longdrink · {area:21} Kul Tiras
 	["Assist {npc:261366}: stay by him when {npc:261367} and the {area:21} marines come up the ridge"] = "Hilf {npc:261366}: Bleib bei ihm, wenn {npc:261367} und die Marinesoldaten von {area:21} den Kamm heraufkommen",
 
-	-- Step 87: Wenikee Boltbucket
+	-- Step 86: Wenikee Boltbucket
 	-- {npc:261366} Walton · {area:382} Sludge Fen · {npc:9316} Wenikee Boltbucket
 	["East from {npc:261366} toward the {area:382}: {npc:9316} stands at the camp on the road north of the Crossroads."] = "",
 
-	-- Step 88: Ignition
+	-- Step 87: Ignition
 	-- {npc:3439} Wizzlecrank's Shredder · {area:382} Sludge Fen · {npc:3445} Supervisor Lugwizzle
 	["{npc:3439} stands inside the Venture Co. camp in the {area:382}; {npc:3445} carries the key."] = "",
 
-	-- Step 89: Strange Lockbox
+	-- Step 88: Strange Lockbox
 	-- {object:177792} Strange Lockbox · {area:382} Sludge Fen · {item:15883} Half Pendant of Aquatic Agility · {quest:30} Trial of the Sea Lion
 	["The {object:177792} lies at the north edge of the {area:382}, by the Venture Co. tower. It holds the {item:15883} for {quest:30}."] = "{object:177792} liegt am Nordrand von {area:382}, beim Turm der Venture Co. Darin ist {item:15883} für {quest:30}.",
 
-	-- Step 90: The Escape
+	-- Step 89: The Escape
 	-- {npc:3442} Sputtervalve · {area:392} Ratchet
 	["Wizzlecrank drives his shredder out of the camp: stay with him and kill whatever attacks him. {npc:3442} takes it in {area:392}.\nCareful: The route leads west and climbs a ramp. Once you reach the top, two Venture Company mobs ambush you."] = "",
 
-	-- Step 91: Nugget Slugs
+	-- Step 90: Nugget Slugs
 	-- {area:382} Sludge Fen
 	["The tool buckets with the slugs lie around the Venture Co. drill site in the {area:382}."] = "",
 
-	-- Step 92: Boulder Lode Mine
+	-- Step 91: Boulder Lode Mine
 	-- {item:5097} Cats Eye Emerald
 	-- plural, as words: Venture Co. Overseers = {npc:3286} Venture Co. Overseer
 	["The Venture Co. Overseers and Enforcers at the mine in the north-east corner of the zone drop the {item:5097}."] = "Die Vorarbeiter und Vollstrecker der Venture Co. an der Mine in der Nordostecke des Gebiets lassen {item:5097} fallen.",
 
-	-- Step 93: Wenikee Boltbucket
+	-- Step 92: Wenikee Boltbucket
 	-- {npc:9316} Wenikee Boltbucket
 	["West from the mine to {npc:9316}'s camp, then south down the road to the Crossroads."] = "",
 	-- {quest:3923} Rilli Greasygob · {zone:1454} Orgrimmar · {object:172958} Valley of Honor
 	["Keep it: {quest:3923} is in {zone:1454}'s {object:172958}, on the {zone:1454} trip at 20"] = "",
 
-	-- Step 94: the Crossroads
+	-- Step 93: the Crossroads
 	["the Crossroads"] = "",
 	-- {npc:3449} Darsok Swiftdagger · {npc:3448} Tonga Runetotem
 	["South down the road to the Crossroads: {npc:3449} stands on the tower platform, {npc:3448} at the south gate."] = "",
 	-- {item:15826} Curative Animal Salve
 	["He gives you the {item:15826}"] = "Er gibt dir {item:15826}",
 
-	-- Step 95: Verog the Dervish
+	-- Step 94: Verog the Dervish
 	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {npc:3448} Tonga Runetotem
-	-- plural, as words: Oasis Snapjaws = {npc:3461} Oasis Snapjaw
-	["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Oasis Snapjaws crawl in the water around it: their shells are for {npc:3448}."] = "{npc:3395} läuft zwischen den Kolkar an der {area:388} südöstlich vom Wegekreuz herum. Oasenschnappkiefer kriechen im Wasser drumherum: Ihre Panzer sind für {npc:3448}.",
+	["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "",
+	["Underwater"] = "",
 	-- {npc:12296} Sickly Gazelle · {item:15826} Curative Animal Salve
 	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "",
 	-- {npc:12296} Sickly Gazelle
 	["Cure {npc:12296}"] = "",
 
-	-- Step 96: Bristleback camps
+	-- Step 95: Bristleback camps
 	["Bristleback camps"] = "Lager der Borstennacken",
 	-- {area:378} Camp Taurajo · {area:458} Gold Road · {npc:3432} Mankrik · {npc:3430} Mangletooth · {quest:883} Lakota'mani
 	["The Bristleback quilboar camps spread over the plains north of {area:378}, either side of the {area:458}. {npc:3432}'s wife lies at their north edge, on your way south. Leave the quilboar for now: {npc:3430} in {area:378} wants the same camps cleared. {quest:883}, a grey kodo, sometimes wanders here: his hoof starts a quest."] = "",
 
-	-- Step 97: Camp Taurajo
+	-- Step 96: Camp Taurajo
 	-- {area:458} Gold Road · {area:378} Camp Taurajo
 	["Follow the {area:458} south to {area:378}."] = "Folge der {area:458} nach Süden zum {area:378}.",
 	-- {npc:3430} Mangletooth
 	["{npc:3430}, in the cage"] = "{npc:3430}, im Käfig",
 
-	-- Step 98: Bramblescar
+	-- Step 97: Bramblescar
 	-- {npc:3432} Mankrik · {npc:3430} Mangletooth · {item:5075} Blood Shard
 	["Back north into the Bristleback camps. Any Bristleback can drop a tusk for {npc:3432}, so collect them while you kill these for {npc:3430}. Keep one {item:5075}."] = "",
 
-	-- Step 101: The Crossroads
+	-- Step 100: The Crossroads
 	-- {area:458} Gold Road · {npc:3448} Tonga Runetotem · {npc:3432} Mankrik · {npc:3428} Korran · {item:5075} Blood Shard · {npc:3430} Mangletooth · {area:378} Camp Taurajo
 	["North up the {area:458} to the Crossroads: {npc:3448} at the south gate, {npc:3432} by the inn, {npc:3428} west of the north gate. Keep the {item:5075}: {npc:3430} takes it on the next stop in {area:378}."] = "Die {area:458} hinauf nach Norden zum Wegekreuz: {npc:3448} am Südtor, {npc:3432} beim Gasthaus, {npc:3428} westlich des Nordtors. Behalte {item:5075}: {npc:3430} nimmt ihn beim nächsten Halt im {area:378} entgegen.",
+	-- {npc:3448} Tonga Runetotem · {area:387} Lushwater Oasis · {npc:3396} Hezrul Bloodmark · {zone:1454} Orgrimmar
+	-- plural, as words: Oasis Snapjaws = {npc:3461} Oasis Snapjaw
+	["{npc:3448}: the Oasis Snapjaws at {area:387}, with {npc:3396} after the {zone:1454} trip"] = "",
 	-- {npc:3432} Mankrik · {quest:95774} Her Name Is Olgra · {quest:4921} Lost in Battle
 	["{npc:3432} offers {quest:95774} once {quest:4921} is handed in"] = "{npc:3432} bietet {quest:95774} an, sobald {quest:4921} abgegeben ist",
 	-- {npc:3428} Korran · {area:390} Field of Giants · {area:378} Camp Taurajo · {zone:1454} Orgrimmar
 	["{npc:3428}: the eggs are in the {area:390}, south of {area:378}, after the {zone:1454} trip"] = "",
 
-	-- Step 102: Fly to Orgrimmar
+	-- Step 101: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Flieg nach {area:1637}",
 	-- {area:1637} Orgrimmar · {npc:3615} Devrak
 	["Train your level 20 ranks in {area:1637} now: fly from {npc:3615} on the Crossroads' tower."] = "",
 
-	-- Step 103: Orgrimmar
+	-- Step 102: Orgrimmar
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom
 	["{npc:3354} is in the {object:172958}, {npc:5892} in the {object:172957}."] = "",
 
-	-- Step 104: Valley of Honor
+	-- Step 103: Valley of Honor
 	-- {quest:3923} Rilli Greasygob · {object:172958} Valley of Honor
 	["{quest:3923} stands by the {object:172958}'s water, east of the Drag."] = "",
 
-	-- Step 105: Shenthul
+	-- Step 104: Shenthul
 	-- {quest:2458} Deep Cover · {npc:7233} Taskmaster Fizzule · {area:382} Sludge Fen
 	["{quest:2458}: {npc:7233}, by the {area:382} on the next guide's walk north"] = "",
 
-	-- Step 106: Orgrimmar class quests
+	-- Step 105: Orgrimmar class quests
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} class quests"] = "Klassenquests in {zone:1454}",
 	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits
 	["{npc:6018} stands in the {object:172961} on the city's west side."] = "{npc:6018} steht im {object:172961} auf der Westseite der Stadt.",
 
-	-- Step 107: Gan'rul Bloodeye
+	-- Step 106: Gan'rul Bloodeye
 	-- {object:172960} Cleft of Shadow · {object:172982} Valley of Strength
 	["The {object:172960} is the canyon under the {object:172982}."] = "{object:172960} ist die Schlucht unter dem {object:172982}.",
 	-- {npc:5909} Cazul
 	["{npc:5909}, a few steps away"] = "{npc:5909}, ein paar Schritte entfernt",
 
-	-- Step 108: Ur'kyo
+	-- Step 107: Ur'kyo
 	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits
 	["{npc:6018} stands in the {object:172961}, on the city's west side."] = "{npc:6018} steht im {object:172961}, auf der Westseite der Stadt.",
 	-- {npc:6018} Ur'kyo · {npc:4606} Aelthalyste · {zone:1458} Undercity
 	["{npc:6018}: {npc:4606} in the {zone:1458}, two guides on"] = "{npc:6018}: {npc:4606} in {zone:1458}, zwei Guides weiter",
 
-	-- Step 109: Thunder Bluff
+	-- Step 108: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
 	["Fly from the Crossroads to {area:1638} and train your level 20 ranks: {npc:3033} is on {area:1639}."] = "",
 
-	-- Step 110: Fly to Ratchet
+	-- Step 109: Fly to Ratchet
 	-- {zone:1456} Thunder Bluff · {area:392} Ratchet
 	["Fly from {zone:1456} on to {area:392}."] = "",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
-	-- Step 111: Fly to Ratchet
+	-- Step 110: Fly to Ratchet
 	-- {area:392} Ratchet · {object:172982} Valley of Strength
 	["Fly on to {area:392} from Doras on the tower in the {object:172982}."] = "",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Flugmeister: {zone:1454}",
 
-	-- Step 113: Islen Waterseer
+	-- Step 112: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["{npc:5901} waits on the hill south of {area:392}, on your way north."] = "{npc:5901} wartet auf dem Hügel südlich von {area:392}, auf deinem Weg nach Norden.",
 
-	-- Step 114: Ishamuhale
+	-- Step 113: Ishamuhale
 	-- {quest:882} Ishamuhale · {item:10338} Fresh Zhevra Carcass · {object:147538} Dead Tree (no name in this language: may be words) · {area:392} Ratchet
 	["{quest:882}, a big Sunscale raptor, only comes to a fresh kill: loot a {item:10338} from a zhevra, then use it at the {object:147538} north-west of {area:392}, north of the road to the Crossroads, and be ready when he arrives."] = "",
 	-- {item:10338} Fresh Zhevra Carcass
@@ -471,28 +474,29 @@ return {
 	-- {object:147538} Dead Tree (no name in this language: may be words) · {quest:882} Ishamuhale
 	["At the {object:147538}: summons {quest:882}"] = "Am toten Baum: beschwört {quest:882}",
 
-	-- Step 115: Gazrog
+	-- Step 114: Gazrog
 	-- {npc:3464} Gazrog
 	["{npc:3464}, by the Crossroads' north gate"] = "",
 
-	-- Step 118: Ken'zigla
+	-- Step 117: Ken'zigla
 	-- {npc:4197} Ken'zigla · {area:2539} Malaka'jin · {npc:3389} Regthar Deathgate
 	["{npc:4197} lives in {area:2539}, the troll village just inside Stonetalon at the end of the road west from {npc:3389}."] = "{npc:4197} lebt in {area:2539}, dem Trolldorf gleich hinter der Grenze zum Steinkrallengebirge, am Ende der Straße westlich von {npc:3389}.",
 
-	-- Step 119: To Regthar Deathgate
+	-- Step 118: To Regthar Deathgate
 	-- {npc:3389} Regthar Deathgate
 	["To {npc:3389}"] = "",
 
-	-- Step 121: Hezrul Bloodmark
-	-- {npc:3396} Hezrul Bloodmark · {area:387} Lushwater Oasis · {npc:3389} Regthar Deathgate
-	["{npc:3396} leads the Kolkar on the west shore of {area:387}, south of {npc:3389}. He walks that shore, from about 46,36 in the north to 46,42 in the south: if he isn't at the arrow, follow the shore until you meet him. Hand his head to {npc:3389} on your last Crossroads stop."] = "",
+	-- Step 120: Hezrul Bloodmark
+	-- {npc:3396} Hezrul Bloodmark · {area:387} Lushwater Oasis · {npc:3389} Regthar Deathgate · {npc:3448} Tonga Runetotem
+	-- plural, as words: Oasis Snapjaws = {npc:3461} Oasis Snapjaw
+	["{npc:3396} leads the Kolkar on the west shore of {area:387}, south of {npc:3389}. He walks that shore, from about 46,36 in the north to 46,42 in the south: if he isn't at the arrow, follow the shore until you meet him. Hand his head to {npc:3389} on your last Crossroads stop. Oasis Snapjaws crawl in the oasis' water there: their shells are for {npc:3448}."] = "",
 
-	-- Step 122: Olgra's Adornments
+	-- Step 121: Olgra's Adornments
 	-- {area:458} Gold Road · {area:378} Camp Taurajo · {item:277277} Olgra's Adornments · {npc:3432} Mankrik
 	-- plural, as words: Razormane Raiders = {npc:268624} Razormane Raider
 	["On the way back down the {area:458} to {area:378}: the Razormane Raiders among the Bristleback camps, either side of the road north of the camp, carry {item:277277}. Hand them to {npc:3432} on your last Crossroads stop."] = "",
 
-	-- Step 123: Camp Taurajo
+	-- Step 122: Camp Taurajo
 	-- {area:458} Gold Road · {area:378} Camp Taurajo
 	["Down the {area:458} to {area:378} again."] = "Die {area:458} wieder hinunter zum {area:378}.",
 	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
@@ -500,30 +504,30 @@ return {
 	-- {npc:6394} Ruga Ragetotem
 	["{npc:6394}, inside"] = "",
 
-	-- Step 125: Grunt Dogran
+	-- Step 124: Grunt Dogran
 	["Dogran is chained up in the quilboar camp west of the road."] = "Dogran ist im Stacheleberlager westlich der Straße angekettet.",
 	-- {npc:5875} Gan'rul Bloodeye · {zone:1454} Orgrimmar
 	["Keep it: {npc:5875} in {zone:1454}, on the next guide's {zone:1454} stop"] = "",
 
-	-- Step 126: Enraged Thunder Lizards
+	-- Step 125: Enraged Thunder Lizards
 	-- {area:378} Camp Taurajo · {quest:884} Owatanka
 	-- plural, as words: Thunderheads = {npc:3239} Thunderhead
 	["Thunderheads graze on the plains just south of {area:378}. {quest:884}, a blue thunder lizard, roams among them: his Tailspike starts a quest."] = "Donnerköpfe grasen auf den Ebenen gleich südlich vom {area:378}. {quest:884}, eine blaue Donnerechse, streift zwischen ihnen umher: Ihr Schwanzstachel startet eine Quest.",
 
-	-- Step 127: Jorn Skyseer
+	-- Step 126: Jorn Skyseer
 	-- {quest:1824} Trial at the Field of Giants · {npc:6394} Ruga Ragetotem
 	["Warriors: take {quest:1824} from {npc:6394} now, not earlier: it runs for 30 minutes from the accept. The thunderhawks and the eggs come first, the antennae last, then straight back to {npc:6394}."] = "",
 
-	-- Step 128: Cry of the Thunderhawk
+	-- Step 127: Cry of the Thunderhawk
 	-- plural, as words: Thunderhawk Cloudscrapers = {npc:3424} Thunderhawk Cloudscraper
 	["Thunderhawk Cloudscrapers circle over the same plains south of the camp."] = "Donnerfalkenwolkenkitzler kreisen über denselben Ebenen südlich des Lagers.",
 
-	-- Step 129: Field of Giants
+	-- Step 128: Field of Giants
 	-- {area:390} Field of Giants
 	-- plural, as words: Silithid Mounds = {object:3685} Silithid Mound · Silithid Swarmers = {npc:3252} Silithid Swarmer
 	["South of Camp Taurajo, the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them.\nCareful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit."] = "",
 
-	-- Step 130: Brine
+	-- Step 129: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {item:7766} Empty Brown Waterskin
 	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "",
 	-- {item:7766} Empty Brown Waterskin
@@ -531,137 +535,137 @@ return {
 	-- {object:107045} Spring Well · {area:272} Tarren Mill · {area:287} Hillsbrad
 	["Keep it: the {object:107045} is beside {area:272}, on the {area:287} guide"] = "",
 
-	-- Step 131: Twitching Antennae
+	-- Step 130: Twitching Antennae
 	["Twitching Antennae"] = "Zuckende Fühler",
 	-- {area:390} Field of Giants · {npc:3387} Jorn Skyseer · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo · {npc:4196} Silithid Swarm · {npc:5781} Silithid Creeper Egg
 	-- plural, as words: Silithid Swarmers = {npc:3252} Silithid Swarmer · Silithid Creepers = {npc:3250} Silithid Creeper
 	["The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the {area:390}' mounds, just south of {npc:3387}'s thunderhawks, until you have five, then take them straight to {npc:6394} in {area:378}.\nCareful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds."] = "",
 	["Twitching Antennae from the silithid"] = "Zuckende Fühler von den Silithiden",
 
-	-- Step 132: Camp Taurajo
+	-- Step 131: Camp Taurajo
 	-- {area:378} Camp Taurajo · {npc:3387} Jorn Skyseer · {npc:6394} Ruga Ragetotem
 	["Back north into {area:378} on the way to the Crossroads: {npc:3387} takes the thunderhawk wings. Warriors: {npc:6394} first, before the antennae fade."] = "",
 
-	-- Step 133: The Crossroads
-	-- {area:458} Gold Road · {npc:3432} Mankrik · {npc:3428} Korran
-	["North up the {area:458} to the Crossroads: {npc:3432} stands by the inn, {npc:3428} west of the north gate."] = "",
+	-- Step 132: The Crossroads
+	-- {area:458} Gold Road · {npc:3448} Tonga Runetotem · {npc:3432} Mankrik · {npc:3428} Korran
+	["North up the {area:458} to the Crossroads: {npc:3448} at the south gate, {npc:3432} by the inn, {npc:3428} west of the north gate."] = "",
 
-	-- Step 134: Thun'grim Firegaze
+	-- Step 133: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze
 	["{npc:5878} camps beside the road east of the Crossroads."] = "",
 	-- {quest:1838} Brutal Armor · {area:1717} Razorfen Kraul
 	["He offers {quest:1838} next (1838, level 30): it needs {area:1717} and sends you all over Kalimdor and the Eastern Kingdoms. The Warrior class guide {quest:1838} covers it."] = "Als Nächstes bietet er {quest:1838} an (1838, Stufe 30): Sie erfordert {area:1717} und schickt dich durch ganz Kalimdor und die Östlichen Königreiche. Der Kriegerklassen-Guide {quest:1838} deckt sie ab.",
 
-	-- Step 136: Counterattack!
+	-- Step 135: Counterattack!
 	-- {npc:3389} Regthar Deathgate · {npc:9456} Warlord Krom'zar
 	["Speak to {npc:3389} again to start the attack: the Kolkar charge the bunkers just west of him in waves. Fight beside the grunts until {npc:9456} (elite, 20) arrives with two bodyguards, usually from the south, then click the banner over his body."] = "",
 
-	-- Step 138: Thunder Bluff
+	-- Step 137: Thunder Bluff
 	-- {npc:246344} Alodan the Hopeful · {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:2995} Tal
 	["{npc:246344} teaches Paladins in {area:1638}. You have no flight path there yet: fly to {area:378}, head west through {zone:1412} and up a lift, and take the flight path from {npc:2995} on the central rise."] = "{npc:246344} lehrt Paladine in {area:1638}. Du hast dort noch keinen Flugpunkt: Flieg nach {area:378}, geh nach Westen durch {zone:1412} und einen Aufzug hinauf und nimm den Flugpunkt bei {npc:2995} auf der mittleren Anhöhe.",
 
-	-- Step 140: The Great Cat Spirit
+	-- Step 139: The Great Cat Spirit
 	-- {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
 	["Fly to {area:1638} to train: {npc:3033} is on {area:1639}."] = "Flieg zum Trainieren nach {area:1638}: {npc:3033} ist auf der {area:1639}.",
 
-	-- Step 141: Moonglade
+	-- Step 140: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
 	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "Wirke {spell:18960}. {npc:11802} steht oben in seinem Gebäude in {area:2361}: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden.",
 
-	-- Step 143: Moonglade
+	-- Step 142: Moonglade
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
 	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
 
-	-- Step 144: Moonglade
+	-- Step 143: Moonglade
 	-- {npc:11802} Dendrite Starblaze · {npc:3033} Turak Runetotem
 	["{npc:11802}: the welcome from {npc:3033}"] = "{npc:11802}: der Willkommensgruß von {npc:3033}",
 
-	-- Step 145: The Stormrage Barrow Dens
+	-- Step 144: The Stormrage Barrow Dens
 	-- {area:2363} Stormrage Barrow Dens
 	["The {area:2363}"] = "",
 	-- {npc:11957} Great Cat Spirit · {npc:272054} Avatar of Saeyleenan · {item:280680} Relic of the Silent Shadow
 	["Tauren: the {npc:11957} waits on the southern hill above the bridge. Skyborne: the {npc:272054} stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue."] = "Tauren: {npc:11957} wartet auf dem südlichen Hügel über der Brücke. Himmelsgeborene: {npc:272054} steht südlich der Zwillingsbrücken. Dann die Grabhügel östlich des Sees: Verlass deine Gestalt, klick die Statue am Eingang an für fünf Minuten Verstohlenheit, halte dich von den Geistern darin fern und nimm von jedem Relikt eins; {item:280680} liegt am Fuß der weißen Katzenstatue.",
 
-	-- Step 148: Back to the Crossroads
+	-- Step 147: Back to the Crossroads
 	["Back to the Crossroads"] = "",
 	-- {npc:3389} Regthar Deathgate
 	["Fly back to the Crossroads; the road west to Stonetalon starts at {npc:3389}'s bunkers."] = "",
 
-	-- Step 149: Seereth Stonebreak's camp
+	-- Step 148: Seereth Stonebreak's camp
 	-- {npc:4049} Seereth Stonebreak
 	["{npc:4049}'s camp"] = "",
 
-	-- Step 150: Seereth Stonebreak
+	-- Step 149: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
 	["{npc:4049} and {npc:11857} share the camp on the road west to Stonetalon."] = "",
 	-- {npc:4049} Seereth Stonebreak · {area:461} Windshear Crag
 	["{npc:4049}: the Venture loggers at {area:461}"] = "",
 
-	-- Step 151: Grimtotem camp
+	-- Step 150: Grimtotem camp
 	["Grimtotem camp"] = "Lager der Grimmtotem",
 	-- {npc:11857} Makaba Flathoof
 	["The Grimtotem camp is just north of {npc:11857}, a short walk off the road: Ruffians and Mercenaries stand among the tents."] = "",
 
-	-- Step 152: Makaba Flathoof
+	-- Step 151: Makaba Flathoof
 	-- {npc:11857} Makaba Flathoof
 	["Back down to {npc:11857}."] = "",
 	-- {npc:11858} Grundig Darkcloud · {area:1076} Webwinder Path
 	["{npc:11858} waits up the {area:1076}"] = "",
 
-	-- Step 153: To Malaka'jin
+	-- Step 152: To Malaka'jin
 	-- {area:2539} Malaka'jin
 	["To {area:2539}"] = "",
 
-	-- Step 154: Malaka'jin
+	-- Step 153: Malaka'jin
 	-- {npc:4049} Seereth Stonebreak · {area:2539} Malaka'jin
 	["Follow the road on west from {npc:4049} into Stonetalon. The troll village of {area:2539} sits at the entrance of the canyon."] = "",
 	-- {npc:12816} Xen'Zilla · {area:1076} Webwinder Path
 	["{npc:12816}: the spiders along the {area:1076}"] = "",
 
-	-- Step 155: Webwinder Path: kill these as you meet them
+	-- Step 154: Webwinder Path: kill these as you meet them
 	-- {area:1076} Webwinder Path
 	["{area:1076}: kill these as you meet them"] = "",
 	-- {area:2539} Malaka'jin · {npc:11858} Grundig Darkcloud
 	-- plural, as words: Grimtotem Brutes = {npc:11912} Grimtotem Brute · Deepmoss Creepers = {npc:4005} Deepmoss Creeper
 	["North up the road from {area:2539}: {npc:11858} and his Grimtotem Brutes hold the bend in the road, and the Deepmoss Creepers and Venomspitters lurk in the webs on both sides of the path all the way up."] = "",
 
-	-- Step 156: Ziz Fizziks
+	-- Step 155: Ziz Fizziks
 	-- {area:1076} Webwinder Path · {quest:1483} Ziz Fizziks · {area:461} Windshear Crag
 	["The road climbs north as the {area:1076}. {quest:1483} has a hut where the road forks east to {area:461}."] = "Die Straße steigt als {area:1076} nach Norden an. {quest:1483} hat eine Hütte, wo die Straße nach Osten zum {area:461} abzweigt.",
 	-- {quest:1483} Ziz Fizziks
 	["{quest:1483}, inside"] = "",
 
-	-- Step 157: Windshear Crag
+	-- Step 156: Windshear Crag
 	-- {area:461} Windshear Crag
 	["East of Ziz, the Venture Company is clear-cutting {area:461}; one of the Operators carries the blueprints."] = "",
 	-- plural, as words: Venture Co. Loggers = {npc:3989} Venture Co. Logger
 	["Venture Co. Loggers, all over the clear-cut"] = "",
 
-	-- Step 158: Piznik
+	-- Step 157: Piznik
 	-- {npc:4276} Piznik · {area:2160} Windshear Mine
 	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} on the east side of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "",
 	-- {npc:4276} Piznik
 	["{npc:4276}, below ground"] = "",
 
-	-- Step 159: Ziz Fizziks: Gerenzo's Orders
+	-- Step 158: Ziz Fizziks: Gerenzo's Orders
 	-- {npc:4201} Ziz Fizziks
 	["{npc:4201}, inside"] = "",
 
-	-- Step 160: Ziz Fizziks
+	-- Step 159: Ziz Fizziks
 	-- {npc:4201} Ziz Fizziks · {npc:3442} Sputtervalve · {area:392} Ratchet · {zone:1413} The Barrens
 	["{npc:4201}: for {npc:3442}, beside {area:392}'s flight master at the end of the {zone:1413} & Stonetalon guide"] = "{npc:4201}: für {npc:3442}, neben dem Flugmeister von {area:392}, am Ende des Guides für {zone:1413} & Steinkrallengebirge",
 
-	-- Step 161: Kaya Flathoof
+	-- Step 160: Kaya Flathoof
 	-- {area:1076} Webwinder Path · {npc:11856} Kaya Flathoof · {npc:11858} Grundig Darkcloud · {area:2538} Camp Aparaje
 	["On the way back down the {area:1076}, {npc:11856} is held in {npc:11858}'s hut at the bend in the road. Once you take her quest she walks straight off south-east to {area:2538}, the burned village, without waiting: stay close, or the quest fails.\nCareful: Three Grimtotems ambush her at the burned village and go for her, not you: pull them off her and kill their caster quickly."] = "Auf dem Rückweg den {area:1076} hinunter wird {npc:11856} in der Hütte von {npc:11858} an der Straßenbiegung festgehalten. Sobald du ihre Quest annimmst, läuft sie ohne zu warten direkt nach Südosten zum {area:2538}, dem niedergebrannten Dorf: Bleib dicht bei ihr, sonst schlägt die Quest fehl.\nVorsicht: Drei Grimmtotem lauern ihr im niedergebrannten Dorf auf und greifen sie an, nicht dich: Zieh sie von ihr weg und töte schnell ihren Zauberwirker.",
 	-- {npc:11856} Kaya Flathoof · {npc:11858} Grundig Darkcloud
 	["{npc:11856}, inside {npc:11858}'s hut"] = "{npc:11856}, in der Hütte von {npc:11858}",
 
-	-- Step 162: Malaka'jin
+	-- Step 161: Malaka'jin
 	-- {area:2539} Malaka'jin · {npc:12816} Xen'Zilla
 	["West from the burned village to {area:2539}: {npc:12816} stands just outside it, before the village."] = "Vom niedergebrannten Dorf nach Westen nach {area:2539}: {npc:12816} steht gleich davor, noch vor dem Dorf.",
 
-	-- Step 164: Seereth Stonebreak
+	-- Step 163: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
 	["East along the road to {npc:4049} and {npc:11857}'s camp, on the way back out of Stonetalon."] = "",
 	-- {npc:11857} Makaba Flathoof · {npc:11864} Tammra Windfield · {area:460} Sun Rock Retreat · {zone:1413} The Barrens
@@ -683,6 +687,7 @@ return {
 	-- ["Plainstriders and raptors"] = "Ebenenschreiter und Raptoren",
 	-- ["Raptor nests"] = "Raptornester",
 	-- ["South to {npc:3389}'s watch post on the Kolkar border."] = "Nach Süden zu {npc:3389}s Wachposten an der Grenze zu den Kolkar.",
+	-- ["South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank; {npc:3448} takes the result on the next Crossroads stop, so carry on north-west to the {area:383} from here."] = "Südöstlich vom Wegekreuz. Teste die Samen an der blubbernden Spalte am Ostufer der Oase; {npc:3448} nimmt das Ergebnis beim nächsten Halt am Wegekreuz entgegen, also geh von hier weiter nach Nordwesten zu {area:383}.",
 	-- ["South-east of the {area:380}. Test the seeds at the bubbling fissure on the oasis' east bank."] = "Südöstlich von {area:380}. Teste die Samen an der blubbernden Spalte am Ostufer der Oase.",
 	-- ["Southsea beach"] = "Strand der Südmeerfreibeuter",
 	-- ["The Savannah Prowlers hunt the plains between town and the Razormane camp to the east. In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end."] = "Die Savannenstreuner jagen auf den Ebenen zwischen dem Ort und dem Lager der Grimmhauer im Osten. Im Lager halten Wassersucher und Dornenwirker die westliche Hälfte, Jäger die Mitte; die Vorratskisten stehen am östlichen Ende.",
@@ -701,7 +706,9 @@ return {
 	-- ["Zhevra Runners graze north and east of town."] = "Zhevra-Läufer grasen nördlich und östlich des Orts.",
 	-- ["{area:380} is your base for this guide. Everyone you need stands within a few steps of the inn."] = "{area:380} ist deine Basis für diesen Guide. Alle, die du brauchst, stehen nur wenige Schritte vom Gasthaus entfernt.",
 	-- ["{item:15885}: use a half at the {area:2362}"] = "{item:15885}: Benutze eine Hälfte beim {area:2362}",
+	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Oasis Snapjaws crawl in the water around it: their shells are for {npc:3448}."] = "{npc:3395} läuft zwischen den Kolkar an der {area:388} südöstlich vom Wegekreuz herum. Oasenschnappkiefer kriechen im Wasser drumherum: Ihre Panzer sind für {npc:3448}.",
 	-- ["{npc:3442} in {area:392}: later, on the way"] = "{npc:3442} in {area:392}: später, auf dem Weg",
+	-- ["{npc:3448}: the Oasis Snapjaws at the {area:388}, with {npc:3395}"] = "{npc:3448}: die Oasenschnappkiefer an der {area:388}, mit {npc:3395}",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, der Windreitermeister",
 	-- ["{npc:5878} camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878} lagert an der Straße von {area:380} nach {area:392}. {object:58369} steht im Süden des Lagers der Grimmhauer gleich nördlich von ihm.",
 	-- ["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "{npc:5900} wartet am Flussufer südlich von {area:379}, jenseits der Brücke.",

@@ -101,8 +101,9 @@ return {
 	["For Archmage Ansirem in {zone:1416}"] = "Для верховного мага Ансарема (зона {zone:1416})",
 	-- {npc:773} Krazek
 	["{npc:773}, upstairs"] = "",
-	-- {npc:773} Krazek · {zone:1417} Arathi Highlands
-	["{npc:773}: the ore drops from Drywhisker kobolds in {zone:1417}, next"] = "",
+	-- {npc:773} Krazek · {item:4278} Lesser Bloodstone Ore · {zone:1417} Arathi Highlands · {skill:186} Mining
+	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
+	["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",

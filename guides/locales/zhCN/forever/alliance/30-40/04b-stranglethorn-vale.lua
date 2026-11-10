@@ -101,8 +101,9 @@ return {
 	["For Archmage Ansirem in {zone:1416}"] = "交给{zone:1416}的大法师安斯雷姆",
 	-- {npc:773} Krazek
 	["{npc:773}, upstairs"] = "{npc:773}：在楼上",
-	-- {npc:773} Krazek · {zone:1417} Arathi Highlands
-	["{npc:773}: the ore drops from Drywhisker kobolds in {zone:1417}, next"] = "{npc:773}：矿石由接下来{zone:1417}的枯须狗头人掉落",
+	-- {npc:773} Krazek · {item:4278} Lesser Bloodstone Ore · {zone:1417} Arathi Highlands · {skill:186} Mining
+	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
+	["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}：在屋内",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”马克基雷，位于最顶层",
@@ -112,5 +113,6 @@ return {
 	-- ["Herod's records lie in a hut on the west side of {area:101}, east of the {area:99}."] = "赫罗德的档案在{area:101}西侧的一间小屋中，位于{area:99}以东。",
 	-- ["Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on {area:37} carries the Tumbled Crystals."] = "绕行北部和中部的巨魔废墟：每处都有一块记载巨魔传说的石板。深喉猎豹潜行在周围的丛林中；{area:37}的风险投资公司营地携带打磨过的水晶。",
 	-- ["Mauren, from Stonetalon"] = "Mauren，从石爪山脉来的任务",
+	-- ["{npc:773}: the ore drops from Drywhisker kobolds in {zone:1417}, next"] = "{npc:773}：矿石由接下来{zone:1417}的枯须狗头人掉落",
 	-- ["{zone:1434}: kill these as you meet them"] = "{zone:1434}：沿途击杀以下目标",
 }

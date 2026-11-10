@@ -351,6 +351,8 @@ return {
 	["{npc:3418} stands at {area:378}, where the road from {zone:1412} meets the {area:458} north to the Crossroads."] = "{npc:3418} стоит здесь: {area:378} – там, где дорога из края {zone:1412} выходит на тракт {area:458}, ведущий на север к Перекрестку.",
 	-- {npc:3418} Kirge Sternhorn · {npc:3429} Thork
 	["{npc:3418}: for {npc:3429} at the Crossroads"] = "{npc:3418}: для персонажа {npc:3429} на Перекрестке",
+	-- {npc:10378} Omusa Thunderhorn · {npc:3418} Kirge Sternhorn
+	["{npc:10378}, beside {npc:3418}"] = "",
 
 	-- Step 83: The Crossroads
 	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens

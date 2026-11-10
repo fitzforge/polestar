@@ -141,7 +141,8 @@ return {
 	["Back into the yeti caves west of {area:272} with the {item:3710}. The path splits just inside: the {object:1768} burns on the upper level to the right, the {object:1769} on the lower level to the left, past more yetis."] = "",
 
 	-- Step 28: Flame of Uzel
-	["The third flame burns in the smaller cave up in the hills north of the caverns."] = "",
+	-- plural, as words: Mountain Yetis = {npc:2250} Mountain Yeti
+	["The third flame burns in the smaller cave up in the hills north of the caverns.\nCareful: Giant and Mountain Yetis (32-34) stand around the flame, often in pairs, and Frostmaw, a rare yeti (37), roams nearby. At 30-31 they are over your level: pull the yetis one at a time from the cave mouth before you use the Rod, and watch for Frostmaw before you go in."] = "",
 
 	-- Step 29: Alterac Mountains
 	-- {area:279} Dalaran

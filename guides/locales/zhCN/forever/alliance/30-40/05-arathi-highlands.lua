@@ -119,8 +119,9 @@ return {
 	-- Step 29: Drywhisker Gorge: kill these as you meet them
 	-- {area:318} Drywhisker Gorge
 	["{area:318}: kill these as you meet them"] = "{area:318}：沿途击杀以下目标",
-	-- {area:321} Hammerfall
-	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop both the motes and Krazek's ore.\nCareful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "枯须狗头人在部落城镇{area:321}以东峡谷采掘，从城镇北侧绕过。它们会掉落微粒和克拉兹克所需的矿石。\n注意：各种狗头人低血量时都会逃跑求援：普通狗头人于 30%，勘测员和掘地工于 15% 生命值逃跑，可能引来更多敌人。",
+	-- {area:321} Hammerfall · {skill:186} Mining
+	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
+	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need {skill:186} 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "",
 	-- {item:4435} Mote of Myzrael · {npc:2572} Drywhisker Kobold · {npc:2573} Drywhisker Surveyor · {npc:2574} Drywhisker Digger
 	["{item:4435} from {npc:2572}, {npc:2573} and {npc:2574}, by this stop"] = "从这一站附近的{npc:2572}、{npc:2573}和{npc:2574}身上获取{item:4435}",
 
@@ -307,6 +308,7 @@ return {
 	-- ["Summon Succubus"] = "召唤魅魔",
 	-- ["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it."] = "破碎岭食人魔占据着{area:280}以北的山丘。再往北，一个破旧的木箱里装着{item:3706}；{quest:537}的{npc:2320}就站在旁边。",
 	-- ["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop both the motes and Krazek's ore."] = "枯须狗头人在{area:321}（部落）以东的峡谷里挖掘；从北边绕过镇子。它们会掉落微粒和克拉兹克要的矿石。",
+	-- ["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop both the motes and Krazek's ore.\nCareful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "枯须狗头人在部落城镇{area:321}以东峡谷采掘，从城镇北侧绕过。它们会掉落微粒和克拉兹克所需的矿石。\n注意：各种狗头人低血量时都会逃跑求援：普通狗头人于 30%，勘测员和掘地工于 15% 生命值逃跑，可能引来更多敌人。",
 	-- ["The Syndicate hold the farm north-west of {area:320}. A {npc:217589} crawls about the farm: catch one with {npc:217412}'s Entomology Starter Kit, then tick it off."] = "辛迪加占据着{area:320}西北的农场。一只{npc:217589}在农场里爬来爬去：用{npc:217412}的昆虫学入门套装捕捉一只，然后勾掉此项。",
 	-- ["The Syndicate hold the farm north-west of {area:320}. A {npc:217589} crawls about the farm: catch one with {npc:217412}'s Entomology Starter Kit, then tick it off.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "辛迪加占据{area:320}西北侧农场。{npc:217589}在农场内爬行，用{npc:217412}的昆虫学入门工具包捕捉一只，再勾选完成。\n注意：辛迪加路霸为 30–31 级，非战斗状态下能施放潜行，常常很难发现。",
 	-- ["The Witherbark trolls live in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley."] = "枯木巨魔住在{area:314}以南的山丘；枯木巫医在村子里，枯木暗影猎手守在山谷尽头。",

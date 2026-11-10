@@ -49,13 +49,13 @@ return {
 	-- Step 6: Back to Shenthul
 	-- {npc:3401} Shenthul
 	["Back to {npc:3401}"] = "回到{npc:3401}处",
-	-- {zone:1454} Orgrimmar · {area:392} Ratchet · {item:8072} Silixiz's Tower Key · {area:263} Cleft · {item:2928} Dust of Decay · {item:6947} Instant Poison
+	-- {zone:1454} Orgrimmar · {area:392} Ratchet · {item:8072} Silixiz's Tower Key · {area:263} Cleft · {item:2928} Dust of Decay · {spell:8681} Instant Poison
 	-- plural, as words: Empty Vials = {item:3371} Empty Vial
-	["Fly back to {zone:1454} ({area:392} or the Crossroads; dying at the tower and taking the spirit healer's way back to the Crossroads is quicker). Keep {item:8072} afterwards. Before you leave the {area:263}, buy {item:2928} and Empty Vials from Rekkul: once Hinott teaches Poisons, each batch of {item:6947} takes one of each."] = "飞回{zone:1454}（从{area:392}或十字路口起飞；在塔边死亡，再通过灵魂医者回到十字路口更快）。之后保留{item:8072}。离开{area:263}前，向雷库尔购买{item:2928}和空瓶：希诺特教会你制毒后，每制作一份{item:6947}都要各用一个。",
+	["Fly back to {zone:1454} ({area:392} or the Crossroads; dying at the tower and taking the spirit healer's way back to the Crossroads is quicker). Keep {item:8072} afterwards. Before you leave the {area:263}, buy {item:2928} and Empty Vials from Rekkul: once Hinott teaches Poisons, each batch of {spell:8681} takes one of each."] = "",
 
 	-- Step 7: Serge Hinott
-	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {zone:1421} Silverpine Forest · {area:287} Hillsbrad · {area:272} Tarren Mill · {npc:2391} Serge Hinott · {npc:2216} Apothecary Lydon · {npc:3401} Shenthul · {item:6947} Instant Poison
-	["Take the zeppelin from {zone:1454} to the {zone:1458} and follow the road south through {zone:1421} into {area:287}, to {area:272}. {npc:2391} works in the building next to the flight path, beside {npc:2216}, a wagon outside. If you lost the Sample of Zanzil's Mixture, abandon and retake from {npc:3401}. Stay beside him for about a minute while he brews the cure; if it never finishes, abandon and retake from him. Then open Poisons from your spellbook to make {item:6947} from Rekkul's dust and vials, and use it on your weapon."] = "从 {zone:1454} 乘飞艇前往 {zone:1458}，再沿道路向南穿过 {zone:1421}，进入 {area:287}，前往 {area:272}。{npc:2391} 在飞行点旁的建筑中工作，就在 {npc:2216} 旁边，屋外有一辆货车。若弄丢了赞吉尔的药剂样品，放弃任务，再从 {npc:3401} 处重新接受。待在他身边约一分钟，等他调配解药；如果一直无法完成，放弃任务，再从他那里重新接受。随后在法术书中打开毒药，用雷库尔的粉尘和瓶子制作 {item:6947}，并将其涂在武器上。",
+	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {zone:1421} Silverpine Forest · {area:287} Hillsbrad · {area:272} Tarren Mill · {npc:2391} Serge Hinott · {npc:2216} Apothecary Lydon · {npc:3401} Shenthul · {spell:8681} Instant Poison
+	["Take the zeppelin from {zone:1454} to the {zone:1458} and follow the road south through {zone:1421} into {area:287}, to {area:272}. {npc:2391} works in the building next to the flight path, beside {npc:2216}, a wagon outside. If you lost the Sample of Zanzil's Mixture, abandon and retake from {npc:3401}. Stay beside him for about a minute while he brews the cure; if it never finishes, abandon and retake from him. Then open Poisons from your spellbook to make {spell:8681} from Rekkul's dust and vials, and use it on your weapon."] = "",
 	["Wait for the cure"] = "等待解药",
 	-- {npc:2391} Serge Hinott
 	["{npc:2391}: Poisons"] = "{npc:2391}：毒药",
@@ -64,10 +64,12 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 20 {npc:3401} stands in the {object:172960}, the canyon under the {object:172982}. Target him and type /salute."] = "20级时，{npc:3401}站在{object:172982}下方的峡谷{object:172960}中。选中他并输入/salute。",
+	-- ["Fly back to {zone:1454} ({area:392} or the Crossroads; dying at the tower and taking the spirit healer's way back to the Crossroads is quicker). Keep {item:8072} afterwards. Before you leave the {area:263}, buy {item:2928} and Empty Vials from Rekkul: once Hinott teaches Poisons, each batch of {item:6947} takes one of each."] = "飞回{zone:1454}（从{area:392}或十字路口起飞；在塔边死亡，再通过灵魂医者回到十字路口更快）。之后保留{item:8072}。离开{area:263}前，向雷库尔购买{item:2928}和空瓶：希诺特教会你制毒后，每制作一份{item:6947}都要各用一个。",
 	-- ["Fly back to {zone:1454}."] = "飞回{zone:1454}。",
 	-- ["Fly to the {area:380} and ride north to the Venture Co. tower north of the {area:382}. In sight of the tower, fire the {item:8051} twice, then /salute {npc:7233} before he attacks you."] = "飞往{area:380}，向北骑到{area:382}以北的风险投资公司塔楼。在能看到塔楼的地方发射两次{item:8051}，然后在{npc:7233}攻击你之前对他使用/salute。",
 	-- ["Forever teaches {spell:2842} through this chain, not the trainer; the {item:7676} recipe comes with it."] = "Forever通过这条任务线而不是训练师来传授{spell:2842}；同时附带{item:7676}配方。",
 	-- ["Stay stealthed. {npc:7287} carries the tower key; Gallywix (elite) and his lockbox are at the top of the tower. Kill two each of the drones, patrollers and lookouts around it."] = "保持潜行。{npc:7287}带着塔楼钥匙；加里维克斯（精英）和他的保险箱在塔顶。在塔周围的风险投资公司雄蜂、巡逻员和看守各击杀两个。",
+	-- ["Take the zeppelin from {zone:1454} to the {zone:1458} and follow the road south through {zone:1421} into {area:287}, to {area:272}. {npc:2391} works in the building next to the flight path, beside {npc:2216}, a wagon outside. If you lost the Sample of Zanzil's Mixture, abandon and retake from {npc:3401}. Stay beside him for about a minute while he brews the cure; if it never finishes, abandon and retake from him. Then open Poisons from your spellbook to make {item:6947} from Rekkul's dust and vials, and use it on your weapon."] = "从 {zone:1454} 乘飞艇前往 {zone:1458}，再沿道路向南穿过 {zone:1421}，进入 {area:287}，前往 {area:272}。{npc:2391} 在飞行点旁的建筑中工作，就在 {npc:2216} 旁边，屋外有一辆货车。若弄丢了赞吉尔的药剂样品，放弃任务，再从 {npc:3401} 处重新接受。待在他身边约一分钟，等他调配解药；如果一直无法完成，放弃任务，再从他那里重新接受。随后在法术书中打开毒药，用雷库尔的粉尘和瓶子制作 {item:6947}，并将其涂在武器上。",
 	-- ["Take the zeppelin from {zone:1454} to the {zone:1458} and ride south through {zone:1421} to {area:272} in {area:287}. {npc:2391} stands in {area:272}; wait beside him while he brews the cure."] = "从{zone:1454}乘飞艇前往{zone:1458}，向南骑行穿过{zone:1421}，到达{area:287}的{area:272}。{npc:2391}站在{area:272}；在他旁边等他调制解药。",
 	-- ["{item:8051}, twice, in sight of the tower"] = "{item:8051}，在能看到塔楼处发射两次",
 	-- ["{spell:2842} (Horde)"] = "{spell:2842}（部落）",

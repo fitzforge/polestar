@@ -141,7 +141,8 @@ return {
 	["Back into the yeti caves west of {area:272} with the {item:3710}. The path splits just inside: the {object:1768} burns on the upper level to the right, the {object:1769} on the lower level to the left, past more yetis."] = "带上 {item:3710}，回到 {area:272} 西侧的雪人洞穴。刚进洞就有岔路：{object:1768} 在右侧上层，{object:1769} 在左侧下层，需穿过更多雪人。",
 
 	-- Step 28: Flame of Uzel
-	["The third flame burns in the smaller cave up in the hills north of the caverns."] = "第三处火焰在这些洞穴北侧山上的一个小洞穴里。",
+	-- plural, as words: Mountain Yetis = {npc:2250} Mountain Yeti
+	["The third flame burns in the smaller cave up in the hills north of the caverns.\nCareful: Giant and Mountain Yetis (32-34) stand around the flame, often in pairs, and Frostmaw, a rare yeti (37), roams nearby. At 30-31 they are over your level: pull the yetis one at a time from the cave mouth before you use the Rod, and watch for Frostmaw before you go in."] = "",
 
 	-- Step 29: Alterac Mountains
 	-- {area:279} Dalaran
@@ -308,5 +309,6 @@ return {
 	-- ["The Syndicate Footpads and Thieves (32-33) around the camps west of the road carry the missives; about one in three drops one."] = "道路西边营地周围的辛迪加劫匪和辛迪加窃贼（32-33级）携带信件；大约三分之一会掉落。",
 	-- ["The keg stands with a few others at the Syndicate camp on the south-east coast of {area:287}."] = "酒桶和另外几个酒桶一起放在{area:287}东南海岸的辛迪加营地里。",
 	-- ["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate."] = "道路东端的兽人要塞。双足飞龙管理员{npc:2851}站在大门旁。",
+	-- ["The third flame burns in the smaller cave up in the hills north of the caverns."] = "第三处火焰在这些洞穴北侧山上的一个小洞穴里。",
 	-- ["{quest:515} needs a Strong Troll's Blood Potion, an {skill:171} item: buy one at the auction house if you can (or ask an alchemist). No potion: skip the Elixir steps in {area:287}."] = "{quest:515} 需要一瓶 Strong Troll's Blood Potion，这是 {skill:171} 制作的物品：尽量从拍卖行购买（或找炼金师制作）。没有药剂就跳过 {area:287} 的苦楚药剂系列步骤。",
 }
