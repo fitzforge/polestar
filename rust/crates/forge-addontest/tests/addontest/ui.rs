@@ -2511,6 +2511,38 @@ fn an_escort_quest_s_open_goal_says_the_npc_may_have_to_respawn_in_the_dungeon_c
 	assert_eq!(out["starter"], true, "an item-started escort reads as its accept, line included");
 }
 
+// 0.3.7 (Fitz, option 4A): a dungeon's way in says where to find a group, with the player's key for the client's group
+// finder (TOGGLEGROUPFINDER) as the client names it, else without a key; once per card, never once done, inside an
+// instance or in a full party.
+#[test]
+fn a_dungeon_entrance_says_need_a_group_with_the_group_finder_key_not_inside_or_in_a_full_party() {
+	let out = run(r#"
+		local key, inside, members = "I", false, 0
+		function GetBindingKey(action) if action == "TOGGLEGROUPFINDER" then return key end end
+		function GetBindingText(k) return k == "CTRL-G" and "Ctrl-G" or k end
+		function IsInInstance() return inside end
+		function GetNumSubgroupMembers() return members end
+		local function line(goal, noFinder) return UI.GoalSubline(goal, nil, nil, nil, nil, noFinder) or false end
+		local enter = { t = "goto", text = "Enter Wailing Caverns", status = "active", entrance = true }
+		local out = { hex = Polestar.Theme.Hex("dungeon"), open = line(enter), again = line(enter, true),
+			done = line({ t = "goto", status = "done", entrance = true }), plain = line({ t = "goto", status = "active" }) }
+		members = 3; out.three = line(enter)
+		members = 4; out.full = line(enter)
+		members = 0; inside = true; out.inside = line(enter)
+		inside = false; key = "CTRL-G"; out.named = line(enter)
+		key = nil; out.unbound = line(enter)
+		emit(out)"#)
+	.remove(0);
+	let hex = text(&out["hex"]).to_string();
+	assert_eq!(out["open"], format!("|c{hex}Need a group? Press I for the group finder.|r").as_str());
+	assert_eq!(out["three"], out["open"], "a party of four still may want a fifth");
+	assert_eq!(out["named"], format!("|c{hex}Need a group? Press Ctrl-G for the group finder.|r").as_str());
+	assert_eq!(out["unbound"], format!("|c{hex}Need a group? Open the group finder.|r").as_str());
+	for k in ["again", "done", "plain", "full", "inside"] {
+		assert_eq!(out[k], false, "{k}: {out}");
+	}
+}
+
 #[test]
 fn a_collect_whose_line_already_names_its_source_has_no_source_line_under_it_author_text_keeps_it() {
 	let out = run(r#"

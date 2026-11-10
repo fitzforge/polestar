@@ -315,7 +315,9 @@ tables ("Ragefire Chasm", "Deadmines") or an area of that name on its map
 from the same tables as "Group content" (below); a name that is no dungeon
 there (a typo, a raid) warns, and the step's `when dungeon` then never holds.
 Without the client tables (no `sources` folder beside the data) the name is
-not checked.
+not checked. Outside an instance and short of a full party, the guide
+window says under a dungeon run's step "Need a group? Press I for the group
+finder." (the player's own key for it).
 
 **Gear upgrades.** `when upgrade <item>` is for a step that is worth doing
 only when the item beats what the character wears: buying a better weapon,
@@ -869,6 +871,8 @@ set by `forever-db/corrections/quests.json` with its source: `true` for an
 escort worded otherwise ("Protect Volcor until you reach the road"), `false`
 for a quest whose text wrongly says escort (Lost! 4492 carries the objective
 of the escort after it). There is no modifier: a wrong label is a data fix.
+While you're here never offers an escort's accept ahead of its own step
+("Take X: saves a trip back"): the NPC walks off the moment it is taken.
 
 ## Validation
 

@@ -946,10 +946,23 @@ has `group`) is the guide menu's "Group" chip.
 
 Escort quests (GUIDE_FORMAT, "Escort quests"): `escort = true` on an escort
 quest's accept, `complete` and objective goals, derived by
-`tools/lib/dsl/escort.js`. Display only: the Engine carries it into the goal
-view as `escort` and the guide window says it under the goal
-(`UI.EscortLine`: "Escort: if the NPC is not there, wait for it to
-respawn"), once per card. Older Polestar ignores it.
+`tools/lib/dsl/escort.js`. The Engine carries it into the goal view as
+`escort` and the guide window says it under the goal (`UI.EscortLine`:
+"Escort: if the NPC is not there, wait for it to respawn"), once per card.
+While you're here never takes an escort's accept ahead of its own step
+(`Own.aheadOk`: no "Take X: saves a trip back" line, no early auto-accept),
+since the NPC walks off the moment it is taken (#1618). Older Polestar
+ignores it.
+
+A dungeon's way in: the goal view's `entrance` is set on a dungeon guide's
+"Enter <dungeon>" goal (Dungeons pick-up and attunement guides, Lookup's
+instance and entrance guides: the generated goal's `entrance = true`) and
+on every goal of a leveling guide's dungeon run (`when dungeon`,
+`Own.dungeonStep`). The guide window says under it, once per card
+(`UI.FinderLine`), "Need a group? Press I for the group finder." with the
+player's key for the client's TOGGLEGROUPFINDER binding (`GetBindingKey`,
+named by `GetBindingText`), or "Need a group? Open the group finder."
+without one; never inside an instance or in a full party.
 
 A guide's `reward` (format 2; GUIDE_FORMAT, `reward`) lists what its goal
 gives: `{ item, itemName, quality, choice }`, `{ spell, spellName }` or
