@@ -6181,7 +6181,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `UI.ShowReport()` or `SHOW_REPORT`): the guide window's bug (in the
   navigator while a guide is open), its menu's "Report a problem" and
   `/polestar report` open it on the step on screen. The player types what
-  went wrong (250 letters); the report is `UI.Report.Text(description,
+  went wrong (`UI.Report.DESC_MAX`, 1000 letters, in a box that grows from
+  three lines to seven, then scrolls); the report is `UI.Report.Text(description,
   details, spot)`: their words after "**What went wrong:**", then as bold
   lines under it the right spot when one is marked ("**Right spot:**") and
   the other addons that are loaded, names only, quest, map and guide addons
@@ -6219,8 +6220,14 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   block, under the player's words, bold lines for the right spot when one
   is marked and the other addons that are loaded (quest, map and guide
   addons first, then A to Z). Every line is cut at 100 bytes, and when the
-  report is still longer than one Discord message (2000 characters) the
-  Addons line is shortened, then dropped, never a line the bot reads. The
+  report is still longer than one Discord message (2000 characters) it
+  gives up, in order, the log's oldest lines, the Addons line (shortened,
+  then dropped), Settings, Packs, the goals other than the current one, the
+  two after it and the arrow's (furthest first), the quest log, the errors
+  but the newest, then the planned and hidden lines, While here, Install,
+  Routes and the newest error, and closes the block with "(trimmed to fit
+  Discord)". The description is never cut, nor the versions, character,
+  guide, step, current goal, Arrow, Where or Errors lines the bot reads. The
   Discord bot (`tools/discord-bot`) takes the code block for the details
   and everything above it, the bold lines included, as the description it
   quotes in the issue.
@@ -6241,8 +6248,11 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   with the version and the addons. The report in the issue leaves out the
   Addons line and, in a Wrong step issue, the Right spot line: each has its
   own field. The whole link stays under `UI.Report.LINK_MAX` (GitHub
-  refuses one much longer): the report loses goals after the arrow's, then
-  is cut, and the addons field lists as many as fit after a line that
+  refuses one much longer): the report gives up details in the same order,
+  ending "(trimmed to fit the link)", then is cut from its end (the
+  description only when it alone is longer than the link holds: a long
+  Cyrillic or Chinese one, 6 or 9 characters a letter once encoded), and
+  the addons field lists as many as fit after a line that
   counts them. Copy report and Open on GitHub wait until the description
   holds `UI.Report.DESC_MIN` characters. The game opens no links and has no
   clipboard for addons, so every text to take away is selected for Ctrl+C.

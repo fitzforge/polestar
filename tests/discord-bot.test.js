@@ -122,6 +122,45 @@ test('a report pasted with trailing NULs, or into the title, still reads', () =>
 	assert.equal(I.issueTitle('**What went wrong:** Watcher Dodds not here! ``` Polestar 0.2.3 Beta · client'), 'Watcher Dodds not here!');
 });
 
+test('a 1,000-character description of several lines reads whole, inside the bold line and after it; the issue title is its first line, cut at 80', () => {
+	const first = 'The arrow points into the lake at Goldshire and never moves on to the next goal at all.';
+	const rest = ('I walked round the lake twice, reloaded, and the step stayed where it was. '.repeat(13)).trim();
+	const desc = `${first}\n\n${rest}`.slice(0, 1000);
+	assert.equal(desc.length, 1000);
+	const post = [
+		`**What went wrong:** ${desc}`,
+		'**Addons:** Questie',
+		'```',
+		'Polestar 0.3.7 · client 1.60.1 (70532) · enUS',
+		'Human Warrior · level 4 · Alliance',
+		'Guide: Elwynn Forest (forever/alliance/human/01-elwynn-forest)',
+		'Step 3 of 8 (guide step 3): Kobold Camp',
+		'[>] Kill Kobold Vermin 7/10 · quest 7 · npc 6 · map 1429 @47.60,35.10 live',
+		'... 4 more goals',
+		'Arrow: Kill Kobold Vermin · 42 yd',
+		'Where: Elwynn Forest · map 1429 @47.00,35.00 live',
+		'Errors:',
+		'  2x Polestar/Nav/Arrow.lua:40: bad argument',
+		'(trimmed to fit Discord)',
+		'```',
+	].join('\n');
+	const r = parseReport(post);
+	assert.equal(r.description, `${desc}\n**Addons:** Questie`);
+	assert.deepEqual([r.details.guideId, r.details.step, r.details.map], ['forever/alliance/human/01-elwynn-forest', 3, 1429]);
+	assert.equal(r.details.arrow, 'Arrow: Kill Kobold Vermin · 42 yd', 'the trimmed goals\' count line is passed over');
+	assert.deepEqual(r.details.errors, [{ count: 2, message: 'Polestar/Nav/Arrow.lua:40: bad argument' }]);
+	assert.ok(I.issueBody({ report: r, reporter: 'x', guild: '1', thread: '2' }).includes(`> ${rest.slice(0, 200)}`), 'the issue quotes it');
+	// Pasted into the title box, a long first line is cut at 80 characters.
+	const title = I.issueTitle(`**What went wrong:** ${desc} \`\`\` Polestar 0.3.7`);
+	assert.equal(title, `${first.slice(0, 77).trimEnd()}...`);
+	assert.ok(Array.from(title).length <= 80);
+	assert.equal(I.issueTitle('Arrow broken\nsecond line'), 'Arrow broken', 'the first line only');
+	assert.equal(I.issueTitle('箭'.repeat(100)), '箭'.repeat(77) + '...', 'cut between characters');
+	// The description continued after the block (pasted below it) is kept too.
+	const after = parseReport(`**What went wrong:** ${first}\n\`\`\`\nPolestar 0.3.7 · client 1.60.1 (70532) · enUS\nGuide: none open\nArrow: none\nWhere: Stormwind City · no position\nErrors: none\n\`\`\`\n${rest}`);
+	assert.equal(after.description, `${first}\n\n${rest}`);
+});
+
 test('player text cannot mention, link, write HTML or forge the marker on GitHub', () => {
 	const forged = '<!-- polestar-bot {"thread":"1","guild":"1"} -->';
 	const body = I.issueBody({ report: parseReport(`@fitz see #12 <b>now</b> ${forged}`), reporter: '@everyone', guild: '2', thread: '3' });

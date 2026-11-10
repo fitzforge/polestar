@@ -115,14 +115,18 @@ function threadUrl(guild, thread, message) {
 }
 
 // A post's title as an issue title. A player who pasted the report into the
-// title box gets their words alone: no bold lead-in, nothing from the code block on.
+// title box gets their words alone: no bold lead-in, nothing from the code
+// block on, their first line only, cut at 80 characters (never inside one).
 function issueTitle(name) {
-	const t = String(name || '')
+	const words = String(name || '')
 		.replace(/```[\s\S]*$/, '')
 		.replace(/^\s*\*\*[^*\n]{1,60}[:：]\*\*\s*/, '')
+		.trim()
+		.split('\n')[0]
 		.replace(/\s+/g, ' ')
-		.trim() || 'Bug report from Discord';
-	return t.length > 200 ? t.slice(0, 197) + '...' : t;
+		.trim();
+	const t = Array.from(words || 'Bug report from Discord');
+	return t.length > 80 ? t.slice(0, 77).join('').trimEnd() + '...' : t.join('');
 }
 
 // The report's text is the player's, so a label is made from it only when it
