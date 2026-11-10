@@ -7464,8 +7464,8 @@ test('The Barrens (Horde 15-21): after Brewmaster Drohn the flight to the Crossr
 // Horde 12-30 re-chain (2026-11-07): Silverpine Forest 12-15, the Barrens and Stonetalon's road 15-21,
 // Ashenvale and the Silverpine ride 21-22, Hillsbrad 22-24, the Barrens and Sun Rock 24-26, Ashenvale and
 // Thousand Needles 26-30. A quest whose objectives are not done yet never rides out of the guide (the zone
-// stay) that takes it into the next one, for any start: a delivery or a finished quest may wait for its
-// hand-in, and class quests and optional tours may run on, but zone work is done in its stay. On the old
+// stay) that takes it into the next one, for any start: a delivery (also one whose only objective is speaking to
+// its ender) or a finished quest may wait for its hand-in, and class quests and optional tours may run on, but zone work is done in its stay. On the old
 // chain Troll Charm, Between a Rock and a Thistlefur and Stonetalon Standstill rode from the 23 Ashenvale
 // visit through Stonetalon and Hillsbrad to the 27 one.
 test('Horde 1-30: no unfinished zone quests carried into the next zone', { skip }, () => {
@@ -7479,11 +7479,17 @@ test('Horde 1-30: no unfinished zone quests carried into the next zone', { skip 
 		const list = chain.flatMap((g) => goals(g).map((e) => ({ ...e, g })))
 			.filter(({ step, goal }) => fits(step.only) && fits(goal.only) && !cls(step.only) && !cls(goal.only));
 		const classQuest = (q) => !!(data.quests[q] && data.quests[q].classes);
+		// A delivery whose only objective is speaking to the NPC who takes it (the campfires' profession
+		// Camping 101s for the Orgrimmar and Undercity trainers, #1559): its `complete` is the hand-in visit.
+		const delivery = (q) => {
+			const d = data.quests[q];
+			return !!(d && d.objectives && d.objectives.length && d.objectives.every((o) => o.type === 'kill' && (d.end.npc || []).includes(o.id)));
+		};
 		const lastWork = new Map();
 		list.forEach(({ goal }, i) => { if (WORK.has(goal.t) && goal.quest != null && !goal.optional) lastWork.set(goal.quest, i); });
 		const open = new Map();
 		list.forEach(({ goal, g }, i) => {
-			if (goal.t === 'accept' && !goal.optional && !classQuest(goal.quest)) open.set(goal.quest, g);
+			if (goal.t === 'accept' && !goal.optional && !classQuest(goal.quest) && !delivery(goal.quest)) open.set(goal.quest, g);
 			if (goal.t === 'turnin') open.delete(goal.quest);
 			const nextG = list[i + 1] && list[i + 1].g;
 			if (nextG && nextG !== g) {
