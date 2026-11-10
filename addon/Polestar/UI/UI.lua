@@ -509,6 +509,23 @@ function UI.EscortLine(goal)
 	return "|c" .. Theme.Hex("dungeon") .. L["Escort: if the NPC is not there, wait for it to respawn"] .. "|r"
 end
 
+-- A dungeon's way in (the goal view's `entrance`: a dungeon guide's "Enter
+-- <dungeon>" step, a leveling guide's `when dungeon` run): where to find a
+-- group, with the player's key for the client's group finder
+-- (TOGGLEGROUPFINDER, named as the client names it: "I"), else without a
+-- key. Nil once done or skipped, inside an instance, or in a full party.
+function UI.FinderLine(goal)
+	if goal.entrance ~= true or goal.status == "done" or goal.status == "skipped" then return nil end
+	if IsInInstance and IsInInstance() then return nil end
+	if (GetNumSubgroupMembers and GetNumSubgroupMembers() or 0) >= 4 then return nil end
+	local key = GetBindingKey and GetBindingKey("TOGGLEGROUPFINDER")
+	if key == "" then key = nil end
+	local named = key and GetBindingText and GetBindingText(key)
+	if type(named) == "string" and named ~= "" then key = named end
+	local text = key and format(L["Need a group? Press %s for the group finder."], key) or L["Need a group? Open the group finder."]
+	return "|c" .. Theme.Hex("dungeon") .. text .. "|r"
+end
+
 -- How to get the item a quest starts from, on the quest's one line (the
 -- goal's `starter`): "Runed Scroll: kill Aean Swiftriver (rare elite)", then
 -- "Runed Scroll: in your bags, right-click it". An item lying there as an
@@ -560,7 +577,8 @@ end
 -- `noParty`: the group line already shows on a goal above (said once per card).
 -- `noMissing`: so do the party members who lack this goal's quest.
 -- `noEscort`: the escort line already shows on a goal above (once per card).
-function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort)
+-- `noFinder`: so does the group finder line (UI.FinderLine).
+function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort, noFinder)
 	if goal.unavailable then return UI.GoalDetail(goal) end
 	local parts = {}
 	-- An accept the game does not confirm says so first (not in the quest
@@ -576,6 +594,8 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort)
 	if party then parts[#parts + 1] = party end
 	local escort = not noEscort and UI.EscortLine(goal)
 	if escort then parts[#parts + 1] = escort end
+	local finder = not noFinder and UI.FinderLine(goal)
+	if finder then parts[#parts + 1] = finder end
 	local starter = UI.StarterLine(goal)
 	if starter then parts[#parts + 1] = starter end
 	-- A hearth goal while the Hearthstone waits, or while travelling there

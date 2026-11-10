@@ -1092,7 +1092,7 @@ function Dungeons.PickupGuide(key)
 		-- A way in through the other faction's land says so on the step.
 		local enemy = Dungeons.EnemyEntrance and Dungeons.EnemyEntrance(key)
 		if enemy then last.note = enemy end
-		last.goals[#last.goals + 1] = { t = "goto", text = L["Enter"] .. " " .. d.name, map = e.map, x = e.x, y = e.y, f = e.f == "e" and "e" or nil }
+		last.goals[#last.goals + 1] = { t = "goto", text = L["Enter"] .. " " .. d.name, map = e.map, x = e.x, y = e.y, f = e.f == "e" and "e" or nil, entrance = true }
 	end
 	-- The hand-in half (Dungeons/Handin.lua) is built after the run, from the
 	-- quests then finished; this guide's own end offers it too (UI/GuideFrame).
