@@ -893,7 +893,7 @@ emit({ f.Target:IsShown(), f.Target.Label:GetText(), s:IsShown(), s:GetAttribute
 }
 
 #[test]
-fn rare_card_the_founder_s_card_shows_his_emblem_in_its_own_colours_other_cards_their_tinted_glyph() {
+fn rare_card_the_founder_s_card_shows_his_crest_alone_and_bigger_other_cards_their_tinted_glyph_in_the_ring() {
 	let out = run_card(
 		"",
 		r#"
@@ -902,7 +902,10 @@ local f = PolestarRareToast
 local function glyph()
 	local r, g, b, a = f.Glyph:GetVertexColor()
 	local tr, tg, tb = Polestar.Theme.Color(R.ColorName("rare"))
-	return { f.Glyph:GetTexture(), r == 1 and g == 1 and b == 1 and a == 1, r == tr and g == tg and b == tb }
+	local w, h = f.Glyph:GetSize()
+	local _, rel, _, x = f.Name:GetPoint(1)
+	return { f.Glyph:GetTexture(), r == 1 and g == 1 and b == 1 and a == 1, r == tr and g == tg and b == tb,
+		w, h, f.Ring:IsShown() and true or false, rel == f.Ring and x }
 end
 Polestar.Fire("RARE_SPOTTED", { kind = "founder", name = "Fitz Polestar", zone = "Elwynn Forest", button = true })
 emit(glyph())
@@ -915,9 +918,9 @@ Polestar.Theme.Refresh()
 emit(glyph())"#,
 	);
 	let media = |name: &str| format!("Interface\\AddOns\\Polestar\\Media\\UI\\{name}");
-	assert_eq!(out[0], json!([media("founder-emblem"), true, false]), "the founder: his emblem, untinted");
-	assert_eq!(out[1], json!([media("qol-target"), false, true]), "a rare: the crosshair in the rare colour");
-	assert_eq!(out[2], json!([media("founder-emblem"), true, false]), "still untinted after a theme change");
+	assert_eq!(out[0], json!([media("founder-emblem"), true, false, 40, 40, false, 12]), "the founder: his crest alone, 40 px, untinted, the text still off the ring's slot");
+	assert_eq!(out[1], json!([media("qol-target"), false, true, 16, 16, true, 12]), "a rare: the crosshair in the ring, in the rare colour");
+	assert_eq!(out[2], json!([media("founder-emblem"), true, false, 40, 40, false, 12]), "still untinted after a theme change");
 }
 
 // ------------------------------------------------------------ the section

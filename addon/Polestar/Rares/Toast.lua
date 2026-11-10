@@ -26,8 +26,8 @@
 -- the rare button and its key; the fight's end arms it again.
 --
 -- The founder's alert (alert.kind "founder", Rares.FounderSighting) has the
--- same card: his emblem (founder-emblem, in its own colours, where the
--- others have their tinted glyph), "The Polestar founder is nearby!", his name and the
+-- same card: his crest alone (founder-emblem, 40 px, untinted, no ring, where
+-- the others have their tinted glyph in the ring), "The Polestar founder is nearby!", his name and the
 -- zone, and in the row a nudge to wave; its Target button targets him and
 -- waves (QoL.Buttons.FounderMacro, as the rare button does).
 --
@@ -53,6 +53,7 @@ Rares.Toast = T
 local WIDTH, MAX_W, BAND_H, ROW_H = 368, 520, 56, 48
 local PAD = 16
 local RING = 32
+local GLYPH, FOUNDER_CREST = 16, 40
 local TEXT_X = PAD + RING + 12
 local DOT = "  \194\183  "
 local DEFAULT = { "TOP", 0, -132 }
@@ -266,7 +267,7 @@ local function build()
 	f.Ring:SetSize(RING, RING)
 	f.Ring:SetPoint("LEFT", head, "LEFT", PAD - 1, 0)
 	f.Glyph = W.Tex(head, "OVERLAY", "qol-target", "rare")
-	f.Glyph:SetSize(16, 16)
+	f.Glyph:SetSize(GLYPH, GLYPH)
 	f.Glyph:SetPoint("CENTER", f.Ring, "CENTER", 0, 0)
 
 	f.Name = W.Text(head, "title", "title") -- the transport banner's title colour too (gold in the game's looks)
@@ -340,14 +341,19 @@ function T.Show(a)
 	if not f then build() end
 	current = a
 	local founder = a.kind == "founder"
+	-- The founder: his crest alone, untinted, a little over the ring's size
+	-- (the ring stays the hidden anchor, so the text doesn't move).
 	if founder then
 		f.Glyph:SetTexture(Theme.Media("founder-emblem"))
+		f.Glyph:SetSize(FOUNDER_CREST, FOUNDER_CREST)
 		W.Uncolor(f.Glyph)
 		f.Glyph:SetVertexColor(1, 1, 1, 1)
 	else
 		f.Glyph:SetTexture(Theme.Media(a.kind == "treasure" and "icon-treasure" or "qol-target"))
+		f.Glyph:SetSize(GLYPH, GLYPH)
 		W.Color(f.Glyph, Rares.ColorName(a.kind))
 	end
+	f.Ring:SetShown(not founder)
 	W.Color(f.Ring, Rares.ColorName(a.kind))
 	f.Name:SetText(founder and L["The Polestar founder is nearby!"] or a.name or "")
 	f.Facts:SetText(T.Facts(a))
