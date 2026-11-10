@@ -9310,6 +9310,12 @@
 				"issue": "-"
 			},
 			{
+				"q": 1191,
+				"faction": "Alliance",
+				"reason": "Zamek's Distraction is a step of Keeping Pace (1190; the data's parent 1190, and 1190's objective reads 'Have Zamek create a diversion, then steal Rizzle's plans'): a child quest is taken while its parent is in the log, and the Alliance leaves 1190 out (above), so 40-50/04's Mirage Raceway stop asked for a quest Zamek can't offer (since 0.3.5; found by the offer sweep with #1579; no recordings at Zamek yet). Left out with 1190.",
+				"issue": "-"
+			},
+			{
 				"q": 79536,
 				"faction": "Alliance",
 				"reason": "Prerequisite order (2026-11-07, Wetlands report): Garion Wendell offers Greater Friend of the Library only once Friend of the Library (78150) is handed in, which only the Library Books guide (miscellaneous/library-books) does; the leveling route offered it to everyone. Left to that guide.",
