@@ -2,6 +2,19 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), or a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "elwynn-crystal-lake-murloc-packs-99128",
+			"faction": "Alliance",
+			"at": { "quest": 99128, "goal": "objective", "objective": 1 },
+			"tip": "Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp. Careful: the murlocs stand close together, so a fight easily pulls two or three at once: pull them one at a time from the edge of the camp, and don't chase one into the next group.",
+			"note": "Slimy Menace (99128) and Bottles and Baubles (99143) at Crystal Lake's murloc camp, at about level 6-7 on the route: the deadliest spot of Elwynn in the recordings. A caution, not a route change (the later lake visit our comparison makes is a 0.3.7 item).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "deaths at Elwynn 48-59,61-71 (the murloc camp), all versions: 30 deaths of 17 people, 21 of them to Murlocs (285, level 6-7) and Murloc Streamrunners (735); 0.3.5+ players: 7 deaths of 4 people, 26 minutes median on the lake's kill and hand-in steps (IngestCheck036 deathsteps)"
+				}
+			]
+		},
+		{
 			"id": "1089-auberdine-selarin-respawns",
 			"faction": "Alliance",
 			"at": { "quest": 990, "goal": "accept" },

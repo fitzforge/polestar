@@ -196,7 +196,7 @@ step Jason Mathers
 
 step Crystal Lake: kill these as you meet them
   zone Elwynn Forest
-  tip Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp.
+  tip Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp. Careful: the murlocs stand close together, so a fight easily pulls two or three at once: pull them one at a time from the edge of the camp, and don't chase one into the next group.
   kill 735 quest 99128                        -- Murloc Streamrunner
   kill 285 quest 99128                        -- Murloc
   collect 286209 quest 99143                  -- Shiny Junk

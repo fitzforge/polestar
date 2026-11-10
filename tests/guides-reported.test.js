@@ -4994,6 +4994,18 @@ test("Recordings (#977): Croaky's Head, a level 11 elite's drop, is collected on
 	}
 });
 
+test('Recordings (starting-zone review 0.3.6): Crystal Lake\'s murloc step warns that the murlocs pull in groups', { skip }, () => {
+	// 30 recorded deaths of 17 people at Elwynn's murloc camp (Slimy Menace 99128, about level 6-7 on the route).
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8'));
+	assert.ok(fixes.fixes.some((f) => f.at && f.at.quest === 99128 && /one at a time/.test(f.tip || '')), 'the tip is a guide-fixes record');
+	const list = goals('forever/alliance/human/01-elwynn-forest.guide');
+	const kills = list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 99128);
+	assert.ok(kills.length > 0, 'the murlocs are killed in Elwynn');
+	for (const { step } of kills) {
+		assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /one at a time/, `"${step.title}" warns about pulling several murlocs`);
+	}
+});
+
 test('Level fit (#977): the Rogues\' Venture Co. tower (drones 25, Gallywix a 23 elite) shows from level 23, not at the route\'s 20', { skip }, () => {
 	// Horde 12-30 re-chain: Fizzule is visited at 21 on the walk north to Kadrak; the tower work itself is left
 	// to the Class guide Poisons (Horde). Any tower work in a leveling guide shows from 23.
