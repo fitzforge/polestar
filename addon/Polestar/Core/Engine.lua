@@ -2686,13 +2686,28 @@ end
 -- asks they read as skipped (greyed, never the current goal, the arrow's or
 -- a map pin's) without being skipped: the step still waits on them, and the
 -- arrow leads back to the giver (Own.lostAim). Taking the quest again, or an
--- answer, ends the hold and brings them back.
+-- answer, ends the hold and brings them back. So does a quest in the log
+-- that failed (an escort lost, a timer run out: Own.failedQuest): its goals
+-- cannot be done until it is abandoned and taken again, so they are greyed
+-- with "failed: abandon it and take it again" and the arrow leads to its
+-- giver; the step waits as before.
 function Own.lostGoal(goal)
 	local q = goal.quest
 	if not q or goal.t == "accept" then return false end
+	if Own.failedQuest(q) then return true end
 	local all = ns.CharState().lostQuests
 	local mine = all and guide and all[guide.id]
 	return mine ~= nil and mine[q] ~= nil
+end
+
+-- Whether quest q is in the log and failed. Noted (Own.wasFailed) so that
+-- abandoning it to take it again sends the route back to its giver without
+-- asking (Own.holdLost): that is what the failed line told the player to do.
+Own.wasFailed = {}
+function Own.failedQuest(q)
+	if not Compat().IsQuestFailed(q) then return false end
+	Own.wasFailed[q] = true
+	return true
 end
 
 -- Whether a later, non-optional quest goal of step s (after goal g) that
@@ -4035,7 +4050,8 @@ local function goalView(s, g, goal, stepStatus, group)
 		-- An open accept the game does not confirm: ticked but not in the
 		-- quest log, or not listed by its giver (Own.acceptNotice); a goal
 		-- of a quest that left the log (Own.lostGoal), greyed while asked.
-		noticeText = Own.acceptNotice(s, g, goal, status) or (lost and L["%s isn't in your quest log"]:format(ns.Quoted(questTitle(goal)))) or nil,
+		noticeText = Own.acceptNotice(s, g, goal, status) or (lost and (Own.failedQuest(goal.quest)
+			and L["%s failed: abandon it and take it again"] or L["%s isn't in your quest log"]):format(ns.Quoted(questTitle(goal)))) or nil,
 		lost = lost or nil,
 		skippedGrey = need == false or nil,
 		keptGrey = opens and opens.quest or nil,
@@ -4353,6 +4369,25 @@ function Own.lostAim()
 	return nil
 end
 
+-- Step s's quest that failed in the log (Own.failedQuest), with nothing else
+-- open in the step: the arrow leads to its giver, where it is taken again
+-- once abandoned (the accept nearest before s, else the first in the guide,
+-- pointed at although it reads done). Nil when no accept has a place.
+function Own.failedAim(s)
+	for _, goal in ipairs(guide.steps[s].goals) do
+		local q = goal.quest
+		if q and goal.t ~= "accept" and goalApplies(goal) and Own.failedQuest(q) then
+			local list, best = layoutOf(guide).accepts[q] or NONE, nil
+			for _, a in ipairs(list) do -- in step order
+				if stepApplies(a.step) and (a.s <= s or not best) then best = a end
+			end
+			local wp = best and waypointOf(tonumber(best.key:match(":(%d+)$")), best.goal, nil, best.s, true)
+			if wp then return wp end
+		end
+	end
+	return nil
+end
+
 -- The arrow's goal: the one the player chose in the current step (a row
 -- click, the next spot), while it is open and its quest is not waiting for
 -- its accept in the step (Own.acceptFirst); else the current goal's own place;
@@ -4396,7 +4431,7 @@ local function findWaypoint()
 	if fly then return fly end
 	local groups, focus = stepGroups(current)
 	local grp = focus and groups[focus]
-	if not grp then return nil end
+	if not grp then return current == computed and Own.failedAim(current) or nil end
 	local cg, header = Own.currentGoal(current, groups, focus)
 	if cg and goals[cg].t == "turnin" then
 		local wp = Own.alongAim(goals[cg].quest)
@@ -6646,10 +6681,14 @@ function Own.holdLost(from, to)
 				local q = goal.quest
 				if goal.t == "accept" and q and blocks(goal) and goalApplies(goal) and not goalDone(s, g, goal)
 					and Own.removed[q] and not C.IsOnQuest(q) and not questDone(q) and not Own.questSkipped(q) then
-					if answer == "back" or answer == "skip" then
+					-- Abandoned after it failed (Own.wasFailed): to take it again, as
+					-- its failed line said, so the route goes back without asking.
+					local a = Own.wasFailed[q] and "back" or answer
+					Own.wasFailed[q] = nil
+					if a == "back" or a == "skip" then
 						Own.removed[q] = nil
-						Own.lostSaid[#Own.lostSaid + 1] = { q, questTitle(goal), answer }
-						if answer == "skip" then
+						Own.lostSaid[#Own.lostSaid + 1] = { q, questTitle(goal), a }
+						if a == "skip" then
 							if type(st.skippedQuests) ~= "table" then st.skippedQuests = {} end
 							st.skippedQuests[q] = true
 							held = true
@@ -8872,7 +8911,7 @@ function Own.hereBuild()
 				-- A quest's work an update passed behind the player (Engine.GetBehind) too.
 				local back = Own.behindGoal(goal)
 				if s > live or back then
-					if C.IsOnQuest(goal.quest) or (goal.t == "accept" and s > live and Own.hereTakes) then
+					if (C.IsOnQuest(goal.quest) and not C.IsQuestFailed(goal.quest)) or (goal.t == "accept" and s > live and Own.hereTakes) then
 						if s ~= at then at, ok = s, stepApplies(steps[s]) and not isSkipped(s) end
 						local kind, left, soon = nil, nil, false
 						if ok or back then kind, left, soon = Own.hereFits(s, g, goal, live, shown) end
@@ -10639,7 +10678,7 @@ ns.RegisterEvent("QUEST_REMOVED", function(_, questID)
 end)
 ns.RegisterEvent("QUEST_ACCEPTED", function(_, a, b)
 	local q = type(b) == "number" and b or a
-	if type(q) == "number" then Own.removed[q] = nil end
+	if type(q) == "number" then Own.removed[q], Own.wasFailed[q] = nil, nil end
 end)
 
 ns.RegisterEvent("UNIT_QUEST_LOG_CHANGED", function(_, unit)

@@ -327,6 +327,15 @@ function Compat.IsQuestReadyForTurnIn(questID)
 	return false
 end
 
+-- Whether questID is in the log and failed (an escort lost, a timer run out,
+-- an event's NPC killed): C_QuestLog.IsFailed, which Forever's client answers
+-- (the Recorder's `fail` events come from it). False without the API.
+function Compat.IsQuestFailed(questID)
+	local QL = C_QuestLog
+	if not (QL and QL.IsFailed and QL.IsOnQuest and QL.IsOnQuest(questID)) then return false end
+	return QL.IsFailed(questID) and true or false
+end
+
 function Compat.GetQuestObjectives(questID)
 	if not (C_QuestLog and C_QuestLog.GetQuestObjectives) then return nil end
 	local raw = C_QuestLog.GetQuestObjectives(questID)

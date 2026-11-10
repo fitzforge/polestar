@@ -1694,6 +1694,17 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   or skipping it otherwise forgets the hold (`Own.pruneLost`). A step the
   player brings back (Unskip, Goto) asks nothing unless its quest left the
   log.
+- **Quests that failed in the log** (an escort lost, a timer run out, an
+  event's NPC killed: `Compat.IsQuestFailed`, C_QuestLog.IsFailed, which
+  Forever answers: the Recorder's `fail` events) can't be done until they
+  are abandoned and taken again. Their goals other than the accept read as
+  lost (`Own.lostGoal` via `Own.failedQuest`): greyed with "<quest> failed:
+  abandon it and take it again", never the current goal, the focus, a map
+  pin, the arrow's or a While-you're-here line; the step still waits on
+  them. Other open work of the step leads; with none, the arrow leads to the
+  quest's giver (`Own.failedAim`: its accept nearest before the step).
+  Abandoning it (`Own.wasFailed`) sends the route back to the giver without
+  asking, whatever `behavior.lostQuests` says, with the chat line.
 - **Room in the quest log** (`Core/RoutePlan.lua`; nothing is ever
   abandoned for the player). `RoutePlan.Unneeded()` lists the log's quests
   the selected route never hands in (`GetTurnIn` status `missed`, `skipped`
