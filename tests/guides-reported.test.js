@@ -9866,3 +9866,19 @@ test('Horde Silverpine: Supplying the Sepulcher on the Sepulcher and Undercity s
 	const { step } = ride[at(ride, 'Return to Podrig', is('turnin', 6324))];
 	assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg && p.q.includes(6324)), 'only for a player carrying the crate');
 });
+
+// BrHordeStart (0.3.6): Tauren leave Mulgore by the road through Camp Taurajo to the Crossroads; Kirge Sternhorn
+// stands on it with Journey to the Crossroads (854, Tauren only, 230 XP) for Thork, who is on the Crossroads stop the
+// guide already makes. 7 of 7 recorded Tauren on that road took it and handed it in; Plainstrider Menace (844) was
+// still offered afterwards.
+test('Tauren Mulgore: Journey to the Crossroads from Kirge at Camp Taurajo, handed to Thork on the Crossroads stop', { skip }, () => {
+	const list = goals('forever/horde/tauren/01-mulgore.guide');
+	const take = at(list, 'accept 854', is('accept', 854));
+	const into = at(list, 'goto Into The Barrens', (g) => g.t === 'goto' && /Into The Barrens/.test(g.label || g.text || ''));
+	const hand = at(list, 'turnin 854', is('turnin', 854));
+	assert.ok(into < take && take < hand, 'taken on the road into the Barrens, before the Crossroads');
+	assert.equal(list[hand].s, list[at(list, 'turnin 886', is('turnin', 886))].s, 'handed in on the Crossroads stop with Tonga and Sergra');
+	assert.ok(everyone(list[take]) && everyone(list[hand]), 'every Tauren class walks this road');
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
+	assert.ok(rf.include.some((e) => e.q === 854), 'the route fixes include Journey to the Crossroads');
+});

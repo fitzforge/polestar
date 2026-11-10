@@ -447,6 +447,11 @@ step Into The Barrens
   zone The Barrens
   goto 41.9,58.6 "Into The Barrens"
 
+step Kirge Sternhorn
+  zone The Barrens
+  tip Kirge Sternhorn stands at Camp Taurajo, where the road from Mulgore meets the Gold Road north to the Crossroads.
+  accept 854                          -- Kirge Sternhorn: for Thork at the Crossroads
+
 step The Crossroads
   zone The Barrens
   goto 52.2,31.0 "The Crossroads"
@@ -456,6 +461,7 @@ step The Crossroads
   tip Leave Mulgore by the south-eastern pass and follow the road to the Crossroads. Tonga Runetotem stands at the south gate, Sergra Darkthorn by the inn, Devrak on the tower platform. The Crossroads' own quests come after Silverpine Forest, in the Barrens guide.
   turnin 886                          -- Tonga Runetotem
   turnin 860                          -- Sergra Darkthorn
+  turnin 854                          -- Thork, by the wind rider tower
   getfp "Crossroads" npc 3615         -- Devrak, the wind rider master
 
 # ---------------------------------------------------------------- The Crossroads

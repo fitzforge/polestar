@@ -7774,6 +7774,11 @@
 				]
 			},
 			{
+				"q": 854,
+				"reason": "BrHordeStart 0.3.6: Journey to the Crossroads (Tauren only, level 12, from 9; 230 XP) from Kirge Sternhorn at Camp Taurajo (44.9,58.6), on the road the end of tauren/01-mulgore already walks from the Mulgore pass to the Crossroads, handed to Thork by the wind rider tower there, on the same Crossroads stop (Tonga, Sergra, Devrak). Recordings (game facts, 0.3.1-0.3.4): 7 of 7 recorded Tauren who walked that road took it at Kirge and handed it to Thork (230 XP), and Sergra still offered Plainstrider Menace (844) afterwards (854's `excl` 844 only closes 854 once 844 is taken). Our comparison also takes it there.",
+				"issue": "-"
+			},
+			{
 				"q": 1359,
 				"reason": "Flow coverage, 2026-11-07: Zinge's Delivery (level 15, from 10) is offered by Apothecary Renferrel at the Sepulcher, and Apothecary Zinge stands in the Undercity's Apothecarium, which the Silverpine stay passes at its end (Horde 12-30 re-chain (2026-11-07)); recorded players take it (6 accepts, 6 hand-ins). Solo in Forever's quest data.",
 				"issue": "-",
