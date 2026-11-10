@@ -8,7 +8,9 @@ section: players
   guide window stays until you update. Two or more updates behind, the card
   says so and still shows (once a day) with its option off. The newest
   version comes from Polestar Client when you have it, else from party and
-  guild members running Polestar. Never in combat, in dungeons or in the
+  guild members running Polestar, and from players of your faction you
+  target or pass (one hidden version check each, at most once a day per
+  player; off with party sharing). Never in combat, in dungeons or in the
   first minutes of a fresh install; the option is under Options > Guide >
   Window.
 - When you report a problem from an older Polestar, the report window asks

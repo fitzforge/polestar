@@ -357,3 +357,169 @@ fn the_guild_hello_says_the_version_once_a_newer_member_answers_once_and_a_newer
 	);
 	assert_eq!(off[0], json!({ "sent": {}, "latest": "0.3.8" }));
 }
+
+// The version probe: Core alone, the party stub's strangers (tests/lua/stub_party.lua `p.stranger`) and its
+// addon channel, this build 0.3.6 from its TOC, the player a Forever character with a surname.
+fn probe_run(script: &str, share: bool, extra: &str) -> Vec<Value> {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_party.lua"],
+		before: r#"setmetatable(stub.addonMeta, { __index = function() return { Version = "0.3.6" } end })"#.into(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), format!("PolestarDB = {{ schema = 1, settings = {{ party = {{ share = {share} }} }}, {extra} }}"))],
+		login: true,
+		script: format!("{PROBE_HEAD}\n{script}"),
+	})
+}
+
+fn probe(script: &str) -> Vec<Value> {
+	probe_run(script, true, "")
+}
+
+const PROBE_HEAD: &str = r#"local p, U, w = stub.party, Polestar.Update, stub.world
+local baseName = UnitName
+function UnitName(unit) if unit == "player" then return "Testchar", "Brightwood" end return baseName(unit) end
+local function whispers()
+	local out = {}
+	for _, m in ipairs(p.sent) do if m.chatType == "WHISPER" then out[#out + 1] = m.text .. " > " .. tostring(m.target) end end
+	p.sent = {}
+	return out
+end
+local n = 0
+-- A stranger at `unit` (a new name and GUID each unless given), then the event that shows them.
+local function meet(unit, facts)
+	n = n + 1
+	facts = facts or {}
+	facts.name, facts.surname = facts.name or ("Pl" .. string.char(96 + n)), facts.surname or "Smith"
+	facts.faction, facts.guid = facts.faction or "Alliance", facts.guid or ("Player-1-000" .. n)
+	p.stranger(unit, facts)
+	if unit == "target" then stub.fire("PLAYER_TARGET_CHANGED")
+	elseif unit == "mouseover" then stub.fire("UPDATE_MOUSEOVER_UNIT")
+	else stub.fire("NAME_PLATE_UNIT_ADDED", unit) end
+	stub.advance(0.2)
+	return facts
+end"#;
+
+#[test]
+fn a_player_of_your_faction_you_target_gets_one_hidden_whisper_probe_after_the_clients_whisper_check() {
+	let out = probe(
+		r#"
+		local a = meet("target", { name = "Ana" })
+		emit({ checks = p.checks, sent = whispers(), probed = PolestarDB.update.probed["Ana Smith"] ~= nil })
+		stub.advance(11)
+		meet("target", a)
+		meet("mouseover", a)
+		emit({ again = whispers(), checks = #p.checks })
+		meet("nameplate3")
+		emit({ plate = whispers() })"#,
+	);
+	assert_eq!(out[0], json!({ "checks": ["Player-1-0001"], "sent": ["V?0.3.6 > Ana Smith"], "probed": true }), "named as the game's Whisper names her");
+	assert_eq!(out[1], json!({ "again": {}, "checks": 1 }), "once per player");
+	assert_eq!(out[2], json!({ "plate": ["V?0.3.6 > Pld Smith"] }), "a nameplate counts too");
+	// Probed an hour ago (saved): not again; 25 hours ago: again.
+	let hour = probe_run(r#"meet("target", { name = "Ana" }); emit(whispers())"#, true, &format!("update = {{ probed = {{ [\"Ana Smith\"] = {} }} }}", EPOCH - 3600));
+	assert_eq!(hour[0], json!({}));
+	let day = probe_run(r#"meet("target", { name = "Ana" }); emit(whispers())"#, true, &format!("update = {{ probed = {{ [\"Ana Smith\"] = {} }} }}", EPOCH - 25 * 3600));
+	assert_eq!(day[0], json!(["V?0.3.6 > Ana Smith"]));
+}
+
+#[test]
+fn probes_go_one_per_10_seconds_up_to_the_sessions_limit_and_the_saved_players_are_capped() {
+	let out = probe(
+		r#"
+		U.PROBE_KEEP = 2
+		meet("target"); local first = #whispers()
+		stub.advance(3); meet("mouseover"); local gap = #whispers()
+		stub.advance(10); meet("mouseover"); local later = #whispers()
+		U.PROBE_SESSION = 3
+		stub.advance(11); meet("target"); local third = #whispers()
+		local kept = {}
+		for k in pairs(PolestarDB.update.probed) do kept[#kept + 1] = k end
+		table.sort(kept)
+		stub.advance(11); meet("target"); local fourth = #whispers()
+		emit({ first = first, gap = gap, later = later, third = third, fourth = fourth, kept = kept })"#,
+	);
+	assert_eq!(
+		out[0],
+		json!({ "first": 1, "gap": 0, "later": 1, "third": 1, "fourth": 0, "kept": ["Plc Smith", "Pld Smith"] }),
+		"3 s after one: none; the session's last still goes out after its whisper check; the oldest saved player goes"
+	);
+}
+
+#[test]
+fn no_probe_to_the_other_faction_your_group_or_guild_a_hidden_name_in_instances_combat_or_lockdown() {
+	let out = probe(
+		r#"
+		local out = {}
+		local function try(label, facts, setup, undo)
+			if setup then setup() end
+			stub.advance(11)
+			meet("target", facts)
+			out[label] = #whispers()
+			if undo then undo() end
+		end
+		try("horde", { faction = "Horde" })
+		try("grouped", { grouped = true })
+		try("guild", { guild = true })
+		try("secret", { secret = true })
+		try("instance", nil, function() w.inInstance = true end, function() w.inInstance = false end)
+		try("combat", nil, function() stub.inCombat = true end, function() stub.inCombat = false end)
+		try("lockdown", nil, function() p.lockdown = true end, function() p.lockdown = false end)
+		try("wrongFaction", { guid = "Player-1-0999" }, function() p.whisperStatus["Player-1-0999"] = 3 end)
+		try("ok", nil)
+		C_ChatInfo.RequestCanLocalWhisperTarget = nil
+		try("noCheck", nil)
+		emit(out)"#,
+	);
+	assert_eq!(
+		out[0],
+		json!({ "horde": 0, "grouped": 0, "guild": 0, "secret": 0, "instance": 0, "combat": 0, "lockdown": 0, "wrongFaction": 0, "ok": 1, "noCheck": 1 }),
+		"the client's check saying WrongFaction stops it; a client without the check sends at once"
+	);
+	let off = probe_run(r#"meet("target"); emit({ sent = whispers(), checks = #p.checks })"#, false, "");
+	assert_eq!(off[0], json!({ "sent": {}, "checks": 0 }), "party sharing off: no probes");
+}
+
+#[test]
+fn a_probe_is_answered_once_to_its_sender_an_answer_never_and_a_newer_release_stops_the_probes() {
+	let out = probe(
+		r#"
+		p.receive("Bob Stone-TestRealm", "V?0.3.5", "WHISPER")
+		p.receive("Bob Stone-TestRealm", "V?0.3.5", "WHISPER")
+		p.receive("Cy Hill-TestRealm", "V=0.3.5", "WHISPER")
+		p.receive("Dee Moor-TestRealm", "1H|0.3.5", "WHISPER")
+		emit({ sent = whispers(), latest = U.Latest() or false })
+		-- Pre-releases, dev builds and made-up versions never count; a newer release does.
+		p.receive("Eve Dale-TestRealm", "V?0.3.7-rc1", "WHISPER")
+		p.receive("Fay Rook-TestRealm", "V=dev", "WHISPER")
+		p.receive("Gil Wood-TestRealm", "V=9.9.9", "WHISPER")
+		local before = U.Latest() or false
+		whispers()
+		p.receive("Hal Ford-TestRealm", "V=0.3.7", "WHISPER")
+		local latest = U.Latest() or false
+		stub.advance(11)
+		meet("target")
+		emit({ before = before, latest = latest, peer = PolestarDB.update.peer, probes = whispers() })"#,
+	);
+	assert_eq!(out[0], json!({ "sent": ["V=0.3.6 > Bob Stone-TestRealm"], "latest": false }), "the sender's own string, once");
+	assert_eq!(out[1], json!({ "before": false, "latest": "0.3.7", "peer": "0.3.7", "probes": {} }));
+	let off = probe_run(r#"p.receive("Bob Stone-TestRealm", "V?0.3.5", "WHISPER"); emit({ sent = #p.sent })"#, false, "");
+	assert_eq!(off[0], json!({ "sent": 0 }), "party sharing off: no answer");
+}
+
+#[test]
+fn a_refused_probe_or_answer_is_skipped_quietly_and_not_tried_again() {
+	let out = probe(
+		r#"
+		stub.messages = {}
+		p.result = 12 -- TargetOffline
+		meet("target", { name = "Ana" })
+		local a = { sent = #whispers(), probed = PolestarDB.update.probed["Ana Smith"] ~= nil }
+		p.result = 3 -- AddonMessageThrottle
+		stub.advance(11)
+		meet("target")
+		p.result = 11 -- AddOnMessageLockdown
+		p.receive("Bob Stone-TestRealm", "V?0.3.5", "WHISPER")
+		emit({ a = a, b = #whispers(), messages = #stub.messages })"#,
+	);
+	assert_eq!(out[0], json!({ "a": { "sent": 1, "probed": true }, "b": 2, "messages": 0 }), "one attempt each, nothing in chat");
+}

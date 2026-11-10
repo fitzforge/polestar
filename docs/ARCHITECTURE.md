@@ -197,7 +197,8 @@ install (`ns.IsNewAccount()`: no saved `PolestarDB` as Polestar loaded) is set t
 `update` (`PolestarDB`, Core/Update.lua) is what the update notices keep: `firstRun` (when this account
 first ran Polestar; 0 for one from before), `since = { version, at }` (when this build was first run),
 `peer`, `peerAt` (a player's newer release and when it was heard), `snooze` (Got it, until), `shown`,
-`shownAt` (the card's last version and time), `helloAt`, `replyAt` (the guild hello's).
+`shownAt` (the card's last version and time), `helloAt`, `replyAt` (the guild hello's), `probed` (the
+version probe's players, name -> when, at most 300).
 `dungeons` (per character) holds the dungeons this character runs in leveling
 guides, by the instance's Map id (`Engine.ChooseDungeon`, `when dungeon`).
 `behavior.suggestFrom` (default `"guides"`) is the pack suggestions come from.
@@ -5888,8 +5889,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   of a newer release, most trusted first: Polestar Client's
   `PolestarClientInfo` (the Polestar folder's `ClientInfo.lua`, shipped as
   `nil`; docs/RECORDING.md "Client info": `latest`, `released`, `checked`,
-  `releases`); a party member's version (Party.lua's hello and `1P|`) or a
-  guild member's (the guild hello below), counted when it parses as x.y.z,
+  `releases`); a party member's version (Party.lua's hello and `1P|`), a
+  guild member's (the guild hello below) or a stranger's (the version probe
+  below), counted when it parses as x.y.z,
   is newer than ours and at most one minor version ahead (`9.9.9`, `999.0`,
   `0.3.8-rc1` and `dev` never count), kept 7 days, overruled by a Client
   check made after it was heard. `Update.Latest()` gives the newest, how
@@ -5929,7 +5931,31 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   (`update.helloAt`); a member on a newer release answers `1Y|<version>`
   after 2-12 s unless an answer with that version or newer came first, at
   most every 5 min (`update.replyAt`). Only the version goes out.
-  `CHAT_MSG_ADDON` is registered only while in a guild (`PLAYER_GUILD_UPDATE`).
+  The version probe (no addon can tell another runs Polestar without
+  asking): on `PLAYER_TARGET_CHANGED`, `UPDATE_MOUSEOVER_UNIT` and
+  `NAME_PLATE_UNIT_ADDED`, a player (`UnitIsPlayer`, not you) of your
+  faction, not in your party, raid or guild, whose name and GUID are not
+  secret, while you are out of combat, outside instances and the messaging
+  lockdown (`C_ChatInfo.InChatMessagingLockdown`), is asked once:
+  `C_ChatInfo.RequestCanLocalWhisperTarget(guid)` first where the client has
+  it, and only on `CAN_LOCAL_WHISPER_TARGET_RESPONSE` status 0 (CanWhisper,
+  so no "not found" line shows) the addon whisper `V?<version>` on Party's
+  prefix, to the name as the game's Whisper builds it
+  (`Compat.UnitFullName`: "Ana Smith" with the client's
+  `CHARACTERNAME_SURNAME_SEPARATOR`; `RegionalUniqueNamesEnabled()` is not
+  read, as other addons found it off on Forever). The receiver keeps the
+  version when it counts and answers `V=<version>` to a probe only, once per
+  sender a session (100 at most), to the `sender` string as it arrived; a
+  `V=` is never answered. Limits: one probe per player per 24 h
+  (`update.probed`, 300 players, the oldest dropped), one per 10 s, 30 a
+  session, none once a newer release is known (the unit events are then
+  unregistered). Any result but Success (a throttle, the lockdown, an
+  offline target, a trial account) is skipped quietly and not retried.
+  Only while `party.share` is on, from a release build. No SAY, YELL or
+  CHANNEL addon messages: Forever's Mainline client refuses the first two
+  and a custom channel shows in the channel list.
+  `CHAT_MSG_ADDON` is registered in a guild or while `party.share` is on
+  (`PLAYER_GUILD_UPDATE`, `SETTING_CHANGED`); solo with sharing off, not at all.
 - **Hub** (`UI/Picker.lua`, `UI.ShowPicker(opts)`; the window the guide menu
   grew into, `docs/SUITE.md` "UI"). A section rail (`W.Shell` with
   `rail = true`, `W.ShellRail`) at the window's left: the emblem, then one
