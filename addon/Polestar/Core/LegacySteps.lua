@@ -248,6 +248,7 @@ ns.LegacyStepsLoad = function() return {
 		[2475914921] = "accept:631",
 		[2475914960] = "accept:647",
 		[2475915088] = "accept:683",
+		[2834063452] = "accept:87318,turnin:87318,turnin:631,accept:632",
 		[3329375164] = "accept:87491",
 		[3330594645] = "accept:98230",
 		[3368967155] = "turnin:293,turnin:269,accept:270",
