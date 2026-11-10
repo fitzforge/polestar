@@ -5716,8 +5716,10 @@ end
 -- of a quest the player carries that the guide has nowhere from their place
 -- on passes too, and the quest is noted behind (CharState().behind[id]): a
 -- "Still to do" row (Engine.GetBehind) and While-here offer it; the place
--- stays. With the quest log in, the update's note is spent; what it added
--- ahead of the player stays.
+-- stays. A hand-in ahead is no work: the quest's work is still behind (The
+-- Sacred Flame's phial in Ashenvale, its hand-in at Thunder Bluff, #1595).
+-- With the quest log in, the update's note is spent; what it added ahead of
+-- the player stays.
 Own.goneGen = 0
 Own.goneCache = setmetatable({}, { __mode = "k" })
 function Own.passAdded()
@@ -5771,11 +5773,12 @@ function Own.passAdded()
 			end
 		end
 	end
-	-- Held quests whose work the guide still has from there on.
+	-- Held quests whose work the guide still has from there on (a hand-in is
+	-- not work, #1595).
 	local later = {}
 	for j = P, #steps do
 		for _, goal in ipairs(steps[j].goals) do
-			if goal.quest and goal.t ~= "accept" then later[goal.quest] = true end
+			if goal.quest and goal.t ~= "accept" and goal.t ~= "turnin" then later[goal.quest] = true end
 		end
 	end
 	local function held(j, g, goal)
