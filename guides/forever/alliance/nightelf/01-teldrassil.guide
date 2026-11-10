@@ -109,6 +109,7 @@ step Tenaron Stormgrip
   turnin 921                          -- Upstairs
   accept 928
   accept 96630                                -- Lost Journal, upstairs
+  accept 5622 only Priest                     -- Shanda, the priest trainer, on the ramp on the way down: Laurna Morninglight in Dolanaar takes it
 
 step Iverron's Antidote
   tip Take the antidote from Dirania Silvershine at the foot of Aldrassil only now, on the way down: it lasts five minutes. Iverron waits north-west, by the cave: go straight on to him.
@@ -151,6 +152,8 @@ step Dolanaar
   accept 2438                         -- Upstairs
   accept 932                                  -- Tallonkai Swiftroot, upstairs
   accept 98391                                -- Laurna Morninglight, inside
+  turnin 5622 only Priest                     -- Laurna Morninglight
+  accept 5621 only Priest                     -- Laurna Morninglight: heal Sentinel Shaya by Lake Al'Ameth
 
 step Dolanaar
   tip Moon Priestess Amara patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her.
@@ -190,6 +193,11 @@ step Lake Al'Ameth
   accept 922                                  -- Denalan: Rellian Greenspyre in Darnassus takes it
   turnin 919
 
+step Sentinel Shaya
+  only Priest
+  tip Sentinel Shaya kneels wounded on the rocks at the north edge of Lake Al'Ameth, on the walk back to Dolanaar, with no quest mark over her. Cast Lesser Heal (Rank 2) on her, then Power Word: Fortitude: Rank 1 of Lesser Heal does not count. She runs off once both land and is back in about 5 minutes.
+  kill 12429 quest 5621.1 "Heal and fortify Sentinel Shaya"
+
 step Dolanaar
   turnin 4161                                 -- Zarrin
   turnin 929                                  -- Corithras Moonrage
@@ -201,6 +209,7 @@ step Dolanaar
   turnin 476                                  -- Athridas Bearmantle
   accept 483
   train class
+  turnin 5621 reward 16604 only Priest        -- Laurna Morninglight: Moon Robes of Elune
 
 # ---------------------------------------------------------------- West: Fel Rock to Gnarlpine Hold
 

@@ -117,6 +117,11 @@ step Grelin Whitebeard
   turnin 218
   accept 282
 
+step Branstock Khalder
+  only Priest
+  tip Anvilmar is on the way north from Grelin's camp to the tunnel: Branstock Khalder, the priest trainer inside, sends priests of level 5 to Maxan Anvol in Kharanos.
+  accept 5626                                 -- Branstock Khalder, inside Anvilmar
+
 step Call of Earth
   only Shaman
   tip Back to Teo Hammerstorm in Anvilmar. He gives you the Earth Sapta: take the rubble-marked path that climbs west from the south of the valley to the Spirit Stone on the ridge, drink the Sapta beside it and speak to the Minor Manifestation of Earth, then bring its Rough Quartz back to Teo.
@@ -157,6 +162,8 @@ step Kharanos
   accept 384                                  -- Ragnar Thunderbrew
   turnin 2160                                 -- Tannok Frosthammer, inside
   accept 99158                                -- Maxan Anvol, upstairs
+  turnin 5626 only Priest                     -- Maxan Anvol, upstairs
+  accept 5625 only Priest                     -- Maxan Anvol: heal Mountaineer Dolf south of Kharanos
   train class                                 -- Last: some classes' trainers stand outside
 
 step Steelgrill's Depot
@@ -201,6 +208,11 @@ step Dun Morogh: kill these as you meet them
   collect 2886 quest 384.1                    -- Crag Boar Rib
   collect 769 quest 317.1                     -- Chunk of Boar Meat
 
+step Mountaineer Dolf
+  only Priest
+  tip Mountaineer Dolf kneels wounded on the ridge between two low walls just south of Kharanos, across the road from the hunter pet trainer, on the walk back from Rumbleshot's camp. Cast Lesser Heal (Rank 2) on him, then Power Word: Fortitude: Rank 1 of Lesser Heal does not count.
+  kill 12427 quest 5625.1 "Heal and fortify Mountaineer Dolf"
+
 step Kharanos
   tip Senir stands by Eric's campfire in front of the Thunderbrew Distillery; Tognus Flintfire is in the cellar west of it.
   turnin 98323                                -- Senir Whitebeard
@@ -214,6 +226,7 @@ step Thunderbrew Distillery
   complete 96629 @47.7,52.3
   turnin 96629                                -- Gremlock Pilsnor
   turnin 384                                  -- Ragnar Thunderbrew
+  turnin 5625 reward 16605 only Priest        -- Maxan Anvol, upstairs: Friar's Robes of the Light
   sethome "Thunderbrew Distillery"    -- Upstairs
 
 step Kharanos and the depot

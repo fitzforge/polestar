@@ -124,6 +124,7 @@ step Northshire Abbey
   accept 54
   accept 96627
   train class
+  accept 5623 only Priest                     -- Priestess Anetta, the priest trainer: Priestess Josetta in Goldshire takes it
   turnin 3905                                 -- Brother Neals, upstairs
   accept 2158                                 -- Falkhaan Isenstrider, by the stables south of the Abbey
 
@@ -151,6 +152,8 @@ step Goldshire
   turnin 2158                                 -- Innkeeper Farley, inside
   sethome "Goldshire" npc 295
   accept 60                                   -- William Pestle, inside
+  turnin 5623 only Priest                     -- Priestess Josetta, upstairs
+  accept 5624 only Priest                     -- Priestess Josetta: heal Guard Roberts at Crystal Lake
 
 step Goldshire
   when group 91752
@@ -182,6 +185,11 @@ step Crystal Lake
   tip The Fishing Traps sit along the west shore of the lake.
   collect 286205 quest 99127                  -- Half-Eaten Fish
 
+step Guard Roberts
+  only Priest
+  tip Guard Roberts kneels wounded by a tree on the west shore of Crystal Lake, among the Fishing Traps. Cast Lesser Heal (Rank 2) on him, then Power Word: Fortitude: Rank 1 of Lesser Heal does not count. He walks off once both land and is back in about 3 minutes.
+  kill 12423 quest 5624.1 "Heal and fortify Guard Roberts"
+
 step Jason Mathers
   turnin 99127
   accept 99128
@@ -206,6 +214,7 @@ step Goldshire
   turnin 99129                                -- Remy "Two Times"
   accept 99130
   train class
+  turnin 5624 reward 16605 only Priest        -- Priestess Josetta, upstairs: Friar's Robes of the Light
 
 # ---------------------------------------------------------------- The south: Fargodeep and the farms
 

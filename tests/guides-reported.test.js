@@ -7502,6 +7502,36 @@ test('Alliance quest volume follow-up: the added quests ride on walks the route 
 	assert.ok(first(wet, is('turnin', 469)) > first(wet, is('accept', 465)), 'Wetlands: Halloran after Stoutfist');
 });
 
+// Starting-zone review 0.3.6 (Alliance 1-12): the level 5 Priest robe chains ride on stops the start guides
+// already make: the trainer's letter on the start area's last stop at 5, the town trainer on the first town
+// stop (with a quest everyone takes there), the wounded NPC on a walk the route makes, the robe on the next
+// stop at the town trainer. Priests only (route-fixes include 5621-5626).
+test('Alliance starting zones: the level 5 Priest robe quests ride on stops the route already makes', { skip }, () => {
+	const chains = [
+		['forever/alliance/human/01-elwynn-forest.guide', 5623, 5624, is('accept', 60)],
+		['forever/alliance/dwarf/01-dun-morogh.guide', 5626, 5625, is('accept', 99158)],
+		['forever/alliance/gnome/01-dun-morogh.guide', 5626, 5625, is('accept', 99158)],
+		['forever/alliance/nightelf/01-teldrassil.guide', 5622, 5621, is('accept', 98391)],
+	];
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	for (const [guide, letter, garments, townGoal] of chains) {
+		for (const q of [letter, garments]) assert.ok(fixes.overrides.include.some((r) => r.q === q), `${q} is a route-fixes include`);
+		const list = goals(guide);
+		const take = at(list, `${guide}: accept ${letter}`, is('accept', letter));
+		const deliver = at(list, `${guide}: turnin ${letter}`, is('turnin', letter));
+		const accept = at(list, `${guide}: accept ${garments}`, is('accept', garments));
+		const heal = at(list, `${guide}: heal the wounded NPC`, (g) => g.t === 'kill' && g.quest === garments);
+		const robe = at(list, `${guide}: turnin ${garments}`, is('turnin', garments));
+		assert.ok(take < deliver && deliver < accept && accept < heal && heal < robe, `${guide}: letter, town trainer, wounded NPC, robe in that order`);
+		for (const i of [take, deliver, accept, heal, robe]) {
+			assert.ok(forClass('PRIEST')(list[i]) && !forClass('WARRIOR')(list[i]), `${guide}: ${list[i].goal.t} ${list[i].goal.quest} is for Priests only`);
+		}
+		const town = at(list, `${guide}: the town stop`, townGoal);
+		assert.equal(list[deliver].step, list[town].step, `${guide}: the letter goes in on the town stop everyone makes`);
+		assert.ok(list.slice(heal + 1, robe).some(everyone), `${guide}: the robe waits for the next town stop, no trip back for it`);
+	}
+});
+
 // --- Triage round 5 (2026-11-08) ---
 
 // Bonesavv77's report (#1241, Orc Warrior 24): Sun Rock Retreat took Braelyn Firehand and the flight path
