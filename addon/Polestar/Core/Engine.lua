@@ -2989,11 +2989,12 @@ end
 
 local function stepDone(s)
 	-- The route passes over an along step (Own.alongListed), a hearth-only
-	-- one (Own.hearthOnly: the arrow's route hearths when it pays) and a
-	-- travel step the route flies past (Own.flightPassed).
+	-- one (Own.hearthOnly: the arrow's route hearths when it pays), a
+	-- travel step the route flies past (Own.flightPassed) and a walk to a
+	-- stop that holds nothing for the character (Own.stopEmpty).
 	if guide.steps[s].along or Own.hearthOnly(guide.steps[s]) then return true end
 	if Own.groupPending(guide.steps[s]) then return false end -- waits for the player's answer
-	return Own.goalsDone(s) or Own.flightPassed(s)
+	return Own.goalsDone(s) or Own.flightPassed(s) or Own.stopEmpty(s)
 end
 
 -- `when done <label>` (format 5): the step so labelled applies and its goals
@@ -7900,6 +7901,9 @@ end
 --     Camp Taurajo), or a stop whose own work is behind the player. Judged
 --     once when the route reaches the step (Own.flightJudged), until the
 --     character learns a flight path.
+--   * a walk passes when the stop it leads to holds nothing for this
+--     character: their steps there up to their next travel step all done
+--     or not applying now, whatever comes after (#1596, Own.stopEmpty).
 -- A flight step whose landing the character has no flight path to yet (a
 -- guide loaded mid-level that flies where they have never been) leads, with
 -- the planner on, to the landing as travel: its arrow and its goal read "Go
@@ -8049,6 +8053,83 @@ function Own.flightPassed(s)
 	if Own.flightOn(s) then return true end
 	local v = Own.flyVerdict(s)
 	return v ~= nil and v.passed
+end
+
+-- Step `step`'s travel as written for the character, done or not: "fly" or
+-- "walk" when every goal for them (notes aside) is a goto or a fly; else nil.
+function Own.writtenTravel(step)
+	local kind
+	for _, goal in ipairs(step.goals) do
+		local t = goal.t
+		if t ~= "note" and Guides.Matches(goal.only, player) then
+			if t == "fly" then
+				kind = "fly"
+			elseif t == "goto" then
+				kind = kind or "walk"
+			else
+				return nil
+			end
+		end
+	end
+	return kind
+end
+
+-- Step n has optional work still to do for the character (a riding trainer,
+-- a vendor): a stop made for it, which a walk there keeps.
+function Own.optionalOpen(n)
+	for g, goal in ipairs(guide.steps[n].goals) do
+		if goal.optional and goal.t ~= "note" and goalApplies(goal) and not unavailableFor(goal)
+			and not Own.goalSkipped(n, g) and not goalDone(n, g, goal) then
+			return true
+		end
+	end
+	return false
+end
+
+-- A walk to a stop that holds nothing for the character (#1596): walk step s
+-- (or a run of walks) is followed by steps of their own written with work (a
+-- hand-in, a flight path, training), and every one of them, up to their next
+-- travel step, is done or does not apply now (a false `when`, a flight path
+-- known, quests not in the log); optional work still open keeps the stop.
+-- The walk passes and the route leads to that travel step or the work after
+-- it (Camp Taurajo's Tear of the Moons, not Thunder Bluff's empty rise). Steps
+-- for other classes and races, and notes alone, are no stop: a walk followed
+-- only by those holds as written (it is the way on), as does a walk with no
+-- travel step after its stop (the guide's end). With the planner leading
+-- (Own.plannerFlies: the next leg may be a boat or a zeppelin), once the
+-- quest log can be read (work would read done before).
+function Own.stopEmpty(s)
+	if not (logReady and guide and Own.plannerFlies()) then return false end
+	local steps = guide.steps
+	if Own.writtenTravel(steps[s]) ~= "walk" or Own.transitKind(s) ~= "walk" then return false end
+	local stop = false
+	for n = s + 1, #steps do
+		local step = steps[n]
+		if not (Own.hiddenStep(step) or isSkipped(n)) then
+			local kind = Own.writtenTravel(step)
+			if kind then
+				if stepApplies(step) then
+					if stop then return true end
+					-- A walk right after: one run, judged by the stop after it. A
+					-- flight right after is Own.flightOn's.
+					if kind == "fly" then return false end
+				end
+			else
+				local work = false
+				for _, goal in ipairs(step.goals) do
+					if goal.t ~= "note" and Guides.Matches(goal.only, player) then
+						work = true
+						break
+					end
+				end
+				if work then
+					if stepApplies(step) and (Own.groupPending(step) or not Own.goalsDone(n) or Own.optionalOpen(n)) then return false end
+					stop = true
+				end
+			end
+		end
+	end
+	return false
 end
 
 -- The route reached flight step s (computeCurrent): judge it once against
