@@ -651,6 +651,8 @@ Enum.PlayerInteractionType = { Binder = 20 }
 C_PlayerInteractionManager = {}
 function C_PlayerInteractionManager.ConfirmationInteraction(t) call("ConfirmationInteraction", t) end
 function C_PlayerInteractionManager.ClearInteraction(t) call("ClearInteraction", t) end
+-- q.binderGone: the bind interaction ended (the popup cancelled, the innkeeper left behind).
+function C_PlayerInteractionManager.IsValidNPCInteraction() return not q.binderGone end
 
 TaxiFrame = CreateFrame("Frame", "TaxiFrame", UIParent)
 TaxiFrame.shown = false
