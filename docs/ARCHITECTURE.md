@@ -5155,10 +5155,20 @@ Polestar.QoL.Space.Dismiss()                              -- the banner, until t
   and calls `DeleteCursorItem` (restricted: only from a press, as the
   client's own delete dialog does). Nothing on the cursor beforehand, or the
   pickup would swap it in. A changed slot or a late second press arms again.
-  The bag button (`PolestarBagButton`, slot above the Hearthstone, bindable
-  as `CLICK PolestarBagButton:LeftButton`) and the banner's "Delete it" link
+  The bag button (`PolestarBagButton`, bindable as
+  `CLICK PolestarBagButton:LeftButton`) and the banner's "Delete it" link
   both call it; the button's action runs in its `PostClick`, with no secure
   attribute.
+- **Bag button position.** Apart from the quest item, Hearthstone, target
+  and rare buttons (one holder, `QoL.State().buttonPos`), the bag button has
+  its own spot, `QoL.State().bagButtonPos` (per character; unset: two slots
+  above the quest item's default spot, `CENTER` 260, -52, where it sat in the
+  set), at the same `qol.buttonScale`. A drag on it moves only it, with the
+  set's rules (out of combat; with `ui.lockHud` only a Shift-drag,
+  `ns.DragLocked`), and a drag on the set leaves it. Reset button positions
+  clears both. Once per character (`bagButtonOwn`), a set moved before the
+  bag button had its own spot hands it that old slot (the set's position
+  plus 88), so it stays where it was on screen.
 - **Updates**: `BAG_UPDATE_DELAYED` and `ITEM_MARKS`, coalesced; the free
   count always, the cheapest junk only while the bags are low. `BAG_SPACE`
   goes out when the count, the junk or the armed state changes (the button

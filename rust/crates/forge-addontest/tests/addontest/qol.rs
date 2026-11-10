@@ -1488,6 +1488,158 @@ fn action_buttons_the_set_comes_back_where_it_was_left_after_a_reload() {
 	assert_eq!(out[0], json!(["TOPLEFT", "TOPLEFT", 40, -60]));
 }
 
+// The bag button (delete the cheapest junk) stands on its own spot: its own drag, its own saved position, the
+// reset with the set's, and by default where its old slot two above the quest item was.
+const BAG_MOVE: &str = r#"
+local bag = PolestarBagButton
+bag:SetScript("OnClick", secureClick)
+bag.IsMouseOver = function(self) return self.over == true end
+-- Press, drag (the user carries the button to x, y), release: whether the bag
+-- button moved and whether the set's holder moved with it.
+local function bagDrag(x, y)
+	R(bag, "OnDragStart", "LeftButton")
+	local started, carried = bag.moving, holder.moving
+	if started then bag:ClearAllPoints(); bag:SetPoint("CENTER", UIParent, "CENTER", x, y) end
+	R(bag, "OnDragStop", "LeftButton")
+	stub.runTimers()
+	return { started == true, carried == true }
+end
+local function bagSpot() local p, rel, rp, x, y = bag:GetPoint(1); return { p, rp, x, y, rel == UIParent } end
+"#;
+
+#[test]
+fn bag_button_by_default_stands_where_its_slot_over_the_set_was_at_the_set_scale() {
+	let out = run(&[
+		ACTS,
+		BAG_MOVE,
+		r#"
+		emit({ bagSpot(), spot(), PolestarCharDB.qol.bagButtonPos or false, PolestarCharDB.qol.bagButtonOwn == true })
+		set("buttonScale", 1.25)
+		emit({ bag:GetScale(), holder:GetScale(), bagSpot() })
+	"#,
+	]
+	.concat());
+	assert_eq!(
+		out[0],
+		json!([["CENTER", "CENTER", 260, -52, true], ["CENTER", "CENTER", 260, -140], false, true]),
+		"two slots (88) above the item's default spot, on UIParent; nothing saved"
+	);
+	assert_eq!(out[1], json!([1.25, 1.25, ["CENTER", "CENTER", 260, -52, true]]), "scaled with the set, so its screen spot scales the same");
+}
+
+#[test]
+fn bag_button_its_drag_moves_only_it_and_the_sets_drag_leaves_it_both_saved_reset_together() {
+	let out = run(&[
+		ACTS,
+		BAG_MOVE,
+		r#"
+		q.items[900] = { name = "Torch" }
+		q.addItem(0, 1, 900, 1)
+		q.step({ { t = "use", item = 900, quest = 7 }, { t = "kill", target = "Wolf" } })
+		emit({ bagDrag(-400, 200), bagSpot(), spot(), PolestarCharDB.qol.bagButtonPos, PolestarCharDB.qol.buttonPos or false })
+		emit({ drag(target, 100, -50), spot(), bagSpot() })
+
+		-- locked: a plain drag carries nothing, a Shift-drag the bag button only
+		Polestar.Set("ui.lockHud", true)
+		emit({ bagDrag(0, 0), bagSpot() })
+		stub.keys.shift = true
+		emit({ bagDrag(-350, 180), bagSpot(), spot() })
+		stub.keys.shift = false
+		Polestar.Set("ui.lockHud", false)
+
+		-- in combat: no move
+		q.combat(true)
+		emit({ bagDrag(0, 0), bagSpot() })
+		q.combat(false)
+
+		QoL.Buttons.ResetPositions()
+		emit({ bagSpot(), spot(), PolestarCharDB.qol.bagButtonPos or false, PolestarCharDB.qol.buttonPos or false })
+	"#,
+	]
+	.concat());
+	assert_eq!(
+		out[0],
+		json!([[true, false], ["CENTER", "CENTER", -400, 200, true], ["CENTER", "CENTER", 260, -140], ["CENTER", "CENTER", -400, 200], false]),
+		"the bag button's drag carries it alone and saves its own spot"
+	);
+	assert_eq!(out[1], json!([[true, 0, "false"], ["CENTER", "CENTER", 100, -50], ["CENTER", "CENTER", -400, 200, true]]), "the set's drag leaves the bag button");
+	assert_eq!(out[2], json!([[false, false], ["CENTER", "CENTER", -400, 200, true]]), "locked, no Shift: stays");
+	assert_eq!(out[3], json!([[true, false], ["CENTER", "CENTER", -350, 180, true], ["CENTER", "CENTER", 100, -50]]), "locked, Shift held: moves");
+	assert_eq!(out[4], json!([[false, false], ["CENTER", "CENTER", -350, 180, true]]), "in combat: no drag");
+	assert_eq!(
+		out[5],
+		json!([["CENTER", "CENTER", 260, -52, true], ["CENTER", "CENTER", 260, -140], false, false]),
+		"Reset button positions puts both back"
+	);
+}
+
+#[test]
+fn bag_button_comes_back_where_it_was_left_after_a_reload() {
+	let out = run_with(
+		&[ACTS, BAG_MOVE, " emit({ bagSpot(), spot() })"].concat(),
+		"",
+		Some(r#"PolestarCharDB = { qol = { bagButtonOwn = true, buttonPos = { "CENTER", "CENTER", 0, 0 }, bagButtonPos = { "TOPLEFT", "TOPLEFT", 40, -60 } } }"#),
+	);
+	assert_eq!(out[0], json!([["TOPLEFT", "TOPLEFT", 40, -60, true], ["CENTER", "CENTER", 0, 0]]));
+}
+
+#[test]
+fn bag_button_a_set_moved_before_it_had_its_own_spot_keeps_it_in_place_once_then_they_part() {
+	// Saved before the bag button had its own spot: only the set's position.
+	let out = run_with(
+		&[
+			ACTS,
+			BAG_MOVE,
+			r#"
+			emit({ bagSpot(), PolestarCharDB.qol.bagButtonPos, PolestarCharDB.qol.bagButtonOwn == true })
+			emit({ drag(target, 0, 0), spot(), bagSpot() })
+		"#,
+		]
+		.concat(),
+		"",
+		Some(r#"PolestarCharDB = { qol = { buttonPos = { "TOPLEFT", "TOPLEFT", 40, -360 } } }"#),
+	);
+	assert_eq!(
+		out[0],
+		json!([["TOPLEFT", "TOPLEFT", 40, -272, true], ["TOPLEFT", "TOPLEFT", 40, -272], true]),
+		"its old slot over the moved set (88 above), saved as its own"
+	);
+	assert_eq!(out[1], json!([[true, 0, "false"], ["CENTER", "CENTER", 0, 0], ["TOPLEFT", "TOPLEFT", 40, -272, true]]), "then the set moves alone");
+
+	// A character already past that step whose set moved after a reset: the bag button keeps its default spot.
+	let out = run_with(
+		&[ACTS, BAG_MOVE, " emit({ bagSpot(), PolestarCharDB.qol.bagButtonPos or false })"].concat(),
+		"",
+		Some(r#"PolestarCharDB = { qol = { bagButtonOwn = true, buttonPos = { "TOPLEFT", "TOPLEFT", 40, -360 } } }"#),
+	);
+	assert_eq!(out[0], json!([["CENTER", "CENTER", 260, -52, true], false]));
+}
+
+#[test]
+fn bag_button_an_above_name_stacks_over_it_only_while_it_stands_in_its_old_slot() {
+	let out = run(&[
+		ACTS,
+		BAG_MOVE,
+		r#"
+		q.items[900] = { name = "Torch" }
+		q.items[6948] = { name = "Hearthstone" }
+		q.addItem(0, 1, 900, 1)
+		q.addItem(0, 2, 6948, 1)
+		q.step({ { t = "hearth", location = "Goldshire" }, { t = "use", item = 900, quest = 7 }, { t = "kill", target = "Wolf" } })
+		set("buttonTextSide", "above")
+		local function over() local _, rel = target.Label:GetPoint(1); return rel == bag and "bag" or rel == hearth and "hearth" or rel == item and "item" or "other" end
+		local shown = { item:IsShown(), hearth:IsShown() }
+		bag:Show()
+		emit({ shown, over() })
+		bagDrag(-400, 200)
+		emit(over())
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!([[true, true], "bag"]), "default: the bag button is still the top of the stack");
+	assert_eq!(out[1], "hearth", "moved away: the name sits over the Hearthstone");
+}
+
 // The target button shows who it targets (qol.targetPlate, #1387): its icon the action of the name the next click
 // targets, the name in its kind's colour, the names after it as small icons, faces of elites and NPCs once seen.
 const LOOK: &str = r#"
