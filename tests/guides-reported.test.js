@@ -6033,7 +6033,8 @@ test('forever/horde/07-ashenvale.guide: final route review: Sharptalon on the wa
 	const list = goals(ASHENVALE_HORDE);
 	assert.ok(at(list, 'accept 2', is('accept', 2)) < at(list, 'turnin 6544', is('turnin', 6544)), 'Sharptalon before Splintertree');
 	const tb = list.find(({ goal }) => goal.t === 'fly' && goal.location === 'Thunder Bluff' && !goal.only);
-	assert.ok(tb && tb.step.only && tb.step.only.races.includes('Tauren') && tb.step.only.races.includes('Skyborne'), 'Tauren and Skyborne fly to Thunder Bluff from Zoram\'gar');
+	// Since the 0.3.6 bracket review the Barrens & Stonetalon guide teaches every race the path, so the flight is everyone's.
+	assert.ok(tb && (!tb.step.only || (tb.step.only.races.includes('Tauren') && tb.step.only.races.includes('Skyborne'))), 'Tauren and Skyborne fly to Thunder Bluff from Zoram\'gar');
 	// #1424: no forced Camp Taurajo flight from Zoram'gar; the others reach the Earthen Ring as travel, and every Camp
 	// Taurajo flight comes after its quests (the one from Thunder Bluff).
 	const ring = at(list, 'accept 96260', is('accept', 96260));
@@ -10271,4 +10272,33 @@ test('Horde Raceway 43: Goblin Sponsorship to Pozzik and The Eighteenth Pilot on
 	assert.ok(poz < take && take < raz, 'Pozzik, then Razzeric');
 	for (const i of [poz, take, raz]) assert.equal(fl[i].s, stop, 'on the Raceway stop');
 	assert.ok(!fl.some(({ goal }) => is('accept', 1187)(goal)), "Razzeric's Tweaking is not routed");
+});
+
+// Horde 12-30 bracket review (0.3.6, measured): Thunder Bluff at the start of the Barrens & Stonetalon guide gives
+// Pigments for Paints and The Sacred Flame, worked on walks the route already makes (Mirkfallon Lake by Sun Rock;
+// Raynewood and the moonwell before Mystral Lake; Splithoof Hold by the Galak camps) and handed in on Ashenvale &
+// Thousand Needles' Thunder Bluff and Freewind stops. Druids take them at the end of Hillsbrad, already in Thunder
+// Bluff. Every work and hand-in step after the stop is shown only to a carrier. Shredding Machines rides the same
+// opening: Seereth on the road west, the XT robots by Ziz, Seereth again on the way back east.
+test('Horde 24-30: Thunder Bluff stop for Pigments and The Sacred Flame, carriers only after it; Shredding Machines on the Webwinder road', { skip }, () => {
+	const b = goals('forever/horde/04-the-barrens.guide');
+	const tb = at(b, 'the Thunder Bluff stop', is('accept', 1195));
+	assert.equal(b[tb].goal.npc, 4721);
+	assert.ok(at(b, 'Tah', is('accept', 97538)) < at(b, 'the flight on to the Crossroads', (g) => g.t === 'fly' && /Crossroads/.test(g.dest || g.name || g.to || JSON.stringify(g))), 'both quests before the flight to the Crossroads');
+	const carrier = (list, i, q) => assert.ok((list[i].step.when || []).some((p) => (p.k === 'onquest' || p.k === 'complete') && !p.neg && [].concat(p.q).includes(q)), `${list[i].goal.t} ${q}: only for a carrier`);
+	carrier(b, at(b, 'Mirkweed Pods', (g) => g.t === 'collect' && g.item === 278201), 97538);
+	assert.ok(at(b, 'Mirkweed Pods', (g) => g.t === 'collect' && g.item === 278201) > at(b, 'Gaea Seeds', (g) => g.t === 'collect' && g.item === 16205), 'the pods with the Gaea Seeds\' shore');
+	const s1 = at(b, 'Seereth gives 1068', is('accept', 1068));
+	const xt = at(b, 'XT:9', (g) => g.t === 'kill' && g.npc === 4074);
+	const s2 = at(b, 'Seereth takes 1068', is('turnin', 1068));
+	assert.ok(s1 < at(b, "Jin'Zil", is('accept', 1058)) && xt < at(b, 'Sun Rock', is('accept', 6393)) && s2 > at(b, "Jin'Zil's hand-in", is('turnin', 1058)), 'Seereth on the way in, the XTs on the way up, Seereth on the way out');
+	const a = goals('forever/horde/07-ashenvale.guide');
+	const phial = at(a, 'the moonwell', (g) => g.t === 'collect' && g.item === 5868);
+	assert.ok(at(a, 'Shadumbra', (g) => g.t === 'collect' && g.item === 16304) < phial && phial < at(a, 'Tideress', (g) => g.t === 'collect' && g.item === 16408), 'the phial between Raynewood and Mystral Lake');
+	carrier(a, phial, 1195);
+	for (const [q, what] of [[1195, 'turnin'], [97538, 'turnin'], [1196, 'turnin'], [1197, 'turnin']]) carrier(a, at(a, `${what} ${q}`, is(what, q)), q);
+	carrier(a, at(a, 'the Cloven Hoof', (g) => g.t === 'collect' && g.item === 5869), 1197);
+	const h = goals('forever/horde/06-hillsbrad-foothills.guide');
+	const { step } = h[at(h, 'Druids in Thunder Bluff', is('accept', 1195))];
+	assert.ok(step.only && step.only.classes && step.only.classes.includes('DRUID'), 'Druids, already in Thunder Bluff');
 });

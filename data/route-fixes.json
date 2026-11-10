@@ -9016,6 +9016,43 @@
 				],
 				"reason": "Horde 30-40/40-50 seam (0.3.6, BrHorde4060 with Br3040; Horde): Goblin Sponsorship part 5 (1183, Baron Revilgaz's blueprints, taken on Horde 30-40/03's second Booty Bay stop) goes to Pozzik on 40-50/02's Mirage Raceway stop, and his The Eighteenth Pilot (1186, 285 XP) is a word with Razzeric beside him. Razzeric's Tweaking (1187) is left out: its Gizmorium crate lies in south Tanaris and goes back to the Raceway, off the loop.",
 				"issue": "-"
+			},
+			{
+				"q": 97538,
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, measured): Pigments for Paints (Forever, level 26, from 20, 2100 XP) from Tah Winterhoof (3024, Thunder Bluff 54.1,47.0) on 04-the-barrens' new Thunder Bluff stop (06's Thunder Bluff step for Druids); its 30 Mirkweed Pods come from the Mirkweed on the floor of Mirkfallon Lake (objects 667362/667364, 46.9-50.0,37.3-42.7) beside 04's Gaea Seeds shore, handed in on 07-ashenvale's Thunder Bluff stop. Players' recordings: 14 accepts at Tah, 8 people 30/30 and handed in; Forever's quest data agrees. Travel (travel route): Orgrimmar to Malaka'jin by Thunder Bluff 13:45 with its flight path / 20:56 without (Camp Taurajo and Mulgore) vs 8:40 direct; knowing the path saves 4:20 on 07's Zoram'gar to Skywatcher leg. With The Sacred Flame, 7,590 XP for about 8 min (flight path) / 15.5 min (without) of travel plus about 19 min on objectives, against 34 min of grind at the calibrated rate (sim 18.9k XP/h at 28, x1.4). Our comparison: the primary benchmark makes this Thunder Bluff stop at 24.",
+				"issue": "-"
+			},
+			{
+				"q": 1195,
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, measured): The Sacred Flame part 1 (level 25, from 20, 2550 XP) from Zangen Stonehoof (4721, Thunder Bluff 55.0,51.4) on the same stop; the Etched Phial (5867, 20% from Laughing Sisters 4054 at Raynewood 58-61,51-60, beside 07's Shadumbra step) is filled at the Ashenvale Moonwell (object 20806, 60.2,72.9) on the way to Mystral Lake, and handed in on 07's Thunder Bluff stop. Recordings: 16 accepts at Zangen, 9 completed and handed in, 5 abandons (pre-0.3.6 routes that never passed Raynewood).",
+				"issue": "-"
+			},
+			{
+				"q": 1196,
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, measured): The Sacred Flame part 2 (590 XP) from Zangen on 07's Thunder Bluff stop to Rau Cliffrunner (4722, Freewind Post 46.1,51.7) on 07's first Freewind stop. Recordings: 9 accepts at Zangen, 8 hand-ins at Rau.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					1195
+				]
+			},
+			{
+				"q": 1197,
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, measured): The Sacred Flame part 3 (2350 XP) from Rau: the Filled Etched Phial doused on the Ancient Brazier (object 20807, Thousand Needles 42.0,31.5, Splithoof Hold, Galak Flame Guards 7404 at 30) a short walk north of 07's Galak camps (39-49,37-41) before Dorn's mesa, handed in on the Freewind stop after Dorn. Recordings: 9 people, all completed and handed in.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					1196
+				]
+			},
+			{
+				"q": 1068,
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, measured): Shredding Machines (level 23, from 13, 1850 XP, needs Goblin Invaders 1062 from 02-the-barrens) from Seereth Stonebreak (4049) on 04's road west past his camp; XT:9 (4074, 64.1,56.6) and XT:4 (4073, 67.2,46.7) roam east of Ziz Fizziks on the way up the Webwinder Path (travel route: +3:23 walking over Ziz to Sun Rock, plus two kills, 5 min respawn); handed in on the walk back east from Malaka'jin to Camp Taurajo, which passes his camp. About 330 XP/min against about 225 for grind at 24 (calibrated). Recordings: 9 people, 5 completed; Forever's quest data agrees.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					1062
+				]
 			}
 		],
 		"skip": [

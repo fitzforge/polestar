@@ -260,8 +260,10 @@ step Back to the Crossroads
   only Tauren,Druid
   zone Thunder Bluff
   when zone "Thunder Bluff"
-  tip Train with Turak Runetotem, then fly on to the Crossroads, where the next guide starts.
+  tip Train with Turak Runetotem. Before you fly on, Tah Winterhoof and Zangen Stonehoof, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts.
   train class
+  accept 97538                        -- Tah Winterhoof: Pigments for Paints, the Mirkweed in Mirkfallon Lake by Sun Rock
+  accept 1195 optional                -- Zangen Stonehoof: The Sacred Flame, the phial from Ashenvale's Laughing Sisters
   fly "Crossroads"
 
 step Zeppelin to Orgrimmar
