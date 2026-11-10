@@ -3,9 +3,9 @@
 //! of every step (the along step, which has no number, is left out). A card names its people and a line per goal
 //! as the step card words them, six at most then "+N more", wrapping and growing to fit; done goals and steps are
 //! ticked as progress comes in while it is open. The live step is marked; a click on a card looks at that step
-//! and closes the list. The list belongs to the house look, the compact window too: the game's looks and Halo
-//! hide its button and never show it. So does the step card's dress (its own ground, the 18px goal rows; no tab,
-//! the navigator numbers the step): the other looks keep the plain card and 24px rows, transparent drops the ground.
+//! and closes the list. The list is in every look, the compact window too. The step card's dress (its own ground,
+//! the 18px goal rows; no tab, the navigator numbers the step) belongs to the house look: the other looks keep the
+//! plain card and 24px rows, transparent drops the ground.
 
 use forge_addontest::dsl::{compile_with, fixture_data, write_our_test_pack, TestPack};
 use forge_addontest::{emitted, Addon, RunAddon};
@@ -123,8 +123,12 @@ const SCRIPT: &str = r#"
 					Polestar.Set("ui.stepList", true)
 					stub.advance(0.3)
 					local s = GF.stepList
-					emit({ skin = skin, button = GF.listButton:IsShown(), list = s.frame:IsShown(), card = GF.parts.card:IsShown(), dress = dress() })
+					local o = { skin = skin, button = GF.listButton:IsShown(), list = s.frame:IsShown(), card = GF.parts.card:IsShown() }
+					-- The card's dress, back on the card.
 					Polestar.Set("ui.stepList", false)
+					stub.advance(0.3)
+					o.dress = dress()
+					emit(o)
 				end
 				Polestar.Set("ui.skin", "polestar")
 				Polestar.Set("ui.style", "transparent")
@@ -164,7 +168,7 @@ const SCRIPT: &str = r#"
 				emit({ compact = true, open = open, clicked = compactSnap(), step = E.GetStepIndex() })"#;
 
 #[test]
-fn the_step_list_swaps_the_card_for_every_step_marks_the_live_one_and_a_click_looks_at_a_step_the_game_s_looks_have_none() {
+fn the_step_list_swaps_the_card_for_every_step_marks_the_live_one_and_a_click_looks_at_a_step_in_every_look() {
 	let pack = compile_pack();
 	let lines: Vec<String> = pack.scripts.iter().map(|f| format!("assert(loadfile({}))(\"Polestar_Guides\", ns)", serde_json::to_string(f).unwrap())).collect();
 	let loads = format!("do local ns = {{}}\n{}\nend", lines.join("\n"));
@@ -221,12 +225,12 @@ fn the_step_list_swaps_the_card_for_every_step_marks_the_live_one_and_a_click_lo
 	// The house look's step card: its own ground, denser goal rows, no tab (the navigator numbers the step).
 	assert_eq!(closed["dress"], json!({ "ground": true, "row": 18 }));
 
-	// The game's looks and Halo: no button, no list, the card stays.
+	// The game's looks and Halo: the list too, in place of the card (no button, the step number opens it).
 	for (i, skin) in ["hearth", "forever", "blizzard", "classic", "halo"].iter().enumerate() {
 		let o = &out[4 + i];
 		assert_eq!(o["skin"], *skin);
-		assert_eq!((o["button"].clone(), o["list"].clone(), o["card"].clone()), (json!(false), json!(false), json!(true)), "{skin}");
-		// Their step card is unchanged: no ground, the 24px goal rows.
+		assert_eq!((o["button"].clone(), o["list"].clone(), o["card"].clone()), (json!(false), json!(true), json!(false)), "{skin}");
+		// Their step card keeps its own dress: no ground, the 24px goal rows.
 		assert_eq!(o["dress"]["ground"], false, "{skin}");
 		assert!(o["dress"]["row"].as_f64().unwrap() >= 24.0, "{skin}: {}", o["dress"]["row"]);
 	}

@@ -300,14 +300,40 @@ fn a_saved_skin_whose_addon_is_missing_draws_polestar_keeps_the_choice_and_appli
 }
 
 #[test]
+fn a_skin_s_own_window_border_token_edges_its_windows_under_the_player_s_border_colour() {
+	let out = run(r##"
+		local out = {}
+		for _, base in ipairs({ "polestar", "hearth" }) do
+			local id = "edged" .. base
+			out[base] = { reg = T.RegisterSkin(id, { name = "Edged", addon = "Test_Edged", base = base, tokens = { windowBorder = "#5e4a2c" } }) }
+			Polestar.Set("ui.skin", id)
+			out[base].own = hexOf(T.Palette().windowBorder)
+			Polestar.Set("ui.borderColor", { 0.2, 0.4, 0.6 })
+			out[base].player = hexOf(T.Palette().windowBorder)
+			Polestar.Set("ui.borderColor", false)
+		end
+		Polestar.Set("ui.skin", "polestar")
+		out.house = hexOf(T.Palette().windowBorder) == hexOf(T.Palette().border)
+		emit(out)"##);
+	for base in ["polestar", "hearth"] {
+		let o = &out[base];
+		assert_eq!(o["reg"], true, "{base}");
+		assert_eq!(o["own"], "5e4a2c", "the skin's windowBorder on base {base}");
+		assert_eq!(o["player"], "336699", "the player's border colour wins on base {base}");
+	}
+	assert_eq!(out["house"], true, "the house style keeps its hairline");
+}
+
+#[test]
 fn api_version_and_capabilities_say_what_this_polestar_offers() {
 	let out = run(r##"
 		emit({ v = T.API_VERSION, skins = T.HasCapability("skins"), schemes = T.HasCapability("schemes"),
 			window = T.HasCapability("surfaces.window"), toast = T.HasCapability("surfaces.toast"),
 			arrow = T.HasCapability("surfaces.arrow"), pin = T.HasCapability("surfaces.pin"), fonts = T.HasCapability("fonts"),
+			title = T.HasCapability("surfaces.guideTitle"),
 			nope = T.HasCapability("surfaces.nope"), odd = T.HasCapability(nil), n = #T.Capabilities() })"##);
 	assert_eq!(out["v"], 1);
-	for k in ["skins", "schemes", "window", "toast", "arrow", "pin", "fonts"] {
+	for k in ["skins", "schemes", "window", "toast", "arrow", "pin", "fonts", "title"] {
 		assert_eq!(out[k], true, "{k}");
 	}
 	assert_eq!((out["nope"].clone(), out["odd"].clone()), (json!(false), json!(false)));

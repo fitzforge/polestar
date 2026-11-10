@@ -581,6 +581,10 @@ local function goalRow(i)
 		W.HideTooltip(b)
 	end)
 	r.Share:Hide()
+	-- At the skin's size from the start (a row made after ApplySkin), its art
+	-- painted to that size.
+	r.Check:SetSize(CHECK, CHECK)
+	Theme.Repaint(r.Check)
 	placeCheck(r)
 	-- "Other": the next-nearest trainer, vendor, inn or farm spot; for a goal
 	-- with spawn areas, the next spot. The arrow follows the goal there: the
@@ -1349,7 +1353,9 @@ SL.TABH = 14 -- the "Step N" line
 SL.MINV = 120 -- the list's least height
 SL.ONEH = 20 -- a finished step's one line
 
-function SL.Enabled() return SL.card end
+-- The step list and the outside cards are in every look; the skin sets their sizes.
+SL.OUT = true
+function SL.Enabled() return true end
 function SL.On() return SL.Enabled() and ns.Get("ui.stepList") and true or false end
 
 -- The step card's dress (the house look): its own dark ground with a hairline,
@@ -1453,7 +1459,7 @@ end
 -- The goals that live outside the card: authored notes (hint card) and
 -- optional goals (Optional card).
 function SL.Outside(goal)
-	return SL.card and (goal.optional or goal.t == "note") and true or false
+	return SL.OUT and (goal.optional or goal.t == "note") and true or false
 end
 
 function SL.OptRow(i)
@@ -1637,12 +1643,15 @@ function SL.FillOut(v)
 				local r = SL.OptRow(n)
 				local done, dismissed = goal.status == "done", goal.dismissed
 				r.psGoal = goal
-				r.Icon:SetTexture(done and Theme.Media("check") or (dismissed and Theme.Media("skip")) or Theme.VerbIcon(goal.t))
+				-- The collect that stands for a quest its item starts reads as that
+				-- quest's accept, as in the card (UI.ReadingGoal).
+				local shown = UI.ReadingGoal(v, goal)
+				r.Icon:SetTexture(done and Theme.Media("check") or (dismissed and Theme.Media("skip")) or Theme.VerbIcon(shown.t))
 				W.Color(r.Icon, done and "success" or "textDim")
-				r.Text:SetText((done or dismissed) and UI.PlainGoalText(goal) or UI.GoalText(goal))
+				r.Text:SetText((done or dismissed) and UI.PlainGoalText(shown) or UI.GoalText(shown))
 				W.Color(r.Text, (done or dismissed) and SL.Muted() or "text")
 				-- How many: the goal's count ("0/8"), nothing when it has none.
-				local p = goal.progress
+				local p = shown.progress
 				local count = type(p) == "table" and type(p.max) == "number" and p.max > 0 and string.format("%d/%d", p.cur or 0, p.max) or nil
 				r.Meta:SetText(count or "")
 				W.Color(r.Meta, (done or (count and (p.cur or 0) >= p.max)) and "success" or SL.Muted())
@@ -1704,7 +1713,7 @@ end
 function SL.LayoutOut(width)
 	local out = SL.out
 	if not out then return end
-	if not SL.card then return SL.HideOut() end
+	if not SL.OUT then return SL.HideOut() end
 	local hint, opt = out.hint, out.opt
 	local pad = SL.OUT_PAD
 	local hy = 5
@@ -3476,16 +3485,19 @@ local function placeBars(showFoot)
 	-- as the other falls over the same band (Theme.Scrim), centred on that edge.
 	local v, bv = GF.veil, band.Veil
 	local o = (GF.VEIL_FEATHER + v.psClear) / 2
+	-- A foot shorter than the house's 26 (the dense card's 14) keeps its
+	-- percent on the solid middle: the body's backing reaches further out.
+	local e = 8 + max(0, 26 - PROG_H)
 	v:ClearAllPoints()
 	bv:ClearAllPoints()
 	if flip then
-		v:SetPoint("TOPLEFT", F, "TOPLEFT", -14, 8)
+		v:SetPoint("TOPLEFT", F, "TOPLEFT", -14, e)
 		v:SetPoint("BOTTOMRIGHT", nav, "TOPRIGHT", 14, -o)
 		bv:SetPoint("TOPLEFT", nav, "TOPLEFT", -14, o)
 		bv:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 14, -8)
 	else
 		v:SetPoint("TOPLEFT", nav, "BOTTOMLEFT", -14, o)
-		v:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 14, -8)
+		v:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 14, -e)
 		bv:SetPoint("TOPLEFT", F, "TOPLEFT", -14, 8)
 		bv:SetPoint("BOTTOMRIGHT", nav, "BOTTOMRIGHT", 14, -o)
 	end
@@ -3542,7 +3554,7 @@ function GF.Layout()
 	SL.wantShown = listOn
 	SL.frame:SetShown(listOn)
 	-- Compact is one surface with the navigator: no inner card ground or border.
-	SL.Dressed(SL.card and not transparent() and not compact(), SL.card and not transparent())
+	SL.Dressed(SL.card and not transparent() and not compact(), not transparent())
 	if listOn then
 		card:Hide()
 		after:Hide()
@@ -4046,8 +4058,8 @@ function GF.FillHere(E)
 	local tight = compact()
 	local here = GF.here
 	local body = here.Body
-	-- The house look: an outside card (SL.FillWH), not the block in the window.
-	if SL.card then
+	-- An outside card (SL.FillWH), not the block in the window.
+	if SL.OUT then
 		here.psKey = nil
 		here:Hide()
 		SL.FillWH(list)
@@ -4112,7 +4124,7 @@ end
 
 -- WHILE_HERE_MOVED (yards, i): only row i's distance changed.
 function GF.HereMoved(yards, i)
-	if SL.card and SL.out then
+	if SL.OUT and SL.out then
 		local wr = SL.out.wh.Rows[i or 1]
 		if wr and wr.psView and type(yards) == "number" then
 			SL.WHMeta(wr, yards)
@@ -4988,11 +5000,18 @@ function GF.ApplyStyle()
 	band.Veil:SetShown(backing)
 	W.Painter(GF.veil, GF.PaintVeil)
 	W.Painter(band.Veil, GF.PaintVeil)
-	nav.TitleBar:SetShown(not clear and (skin == "hearth" or skin == "brass"))
-	-- Brass: the title bar's small red close square (the Hide window of the menu).
-	nav.Close:SetShown(not clear and skin == "brass")
+	nav.TitleBar:SetShown(not clear and skin == "hearth")
+	nav.Close:Hide()
+	-- A registered skin's own title (Theme.SkinHook "guideTitle"), after the
+	-- house state above: it may show the title bar (`bar`) and the close
+	-- square (`close`), hide the band and set `menuRight`, the menu's inset
+	-- from the right edge (room for the close square). The rule then takes
+	-- the bar's line (GF.PaintRule).
+	local title = GF.TitleParts(nav.TitleBar, nav.Close, nav.Rule, band)
+	if not clear then Theme.SkinHook("guideTitle", nav, title) end
 	nav.Menu:ClearAllPoints()
-	nav.Menu:SetPoint("RIGHT", nav, "RIGHT", (not clear and skin == "brass") and -26 or -8, 0)
+	nav.Menu:SetPoint("RIGHT", nav, "RIGHT", -(tonumber(title.menuRight) or 8), 0)
+	GF.PaintRule(nav.Rule)
 	-- Blizzard's damage meter header bar under the tabs.
 	Theme.KitStrip(strip, not clear)
 	-- The quest tracker's header behind the focus (Forever, Blizzard).
@@ -5223,7 +5242,11 @@ end
 function GF.Metrics()
 	readMetrics()
 	return { pad = PAD, tabH = TAB_H, navH = NAV_H, progH = PROG_H, icon = ICON, textX = TEXT_X, rowMin = ROW_MIN,
-		check = CHECK, rowPad = ROW_PAD, checkIn = CHECK_IN, upRow = UP_ROW, upToggle = UP_TOGGLE, glyphY = GF.GlyphY(), lineH = CARD.lineH }
+		check = CHECK, rowPad = ROW_PAD, checkIn = CHECK_IN, upRow = UP_ROW, upToggle = UP_TOGGLE, glyphY = GF.GlyphY(), lineH = CARD.lineH,
+		-- The step card (SL): dense or the skin's, its row and header insets.
+		card = SL.card, top = SL.TOP, bot = SL.BOT, ic = SL.IC, subgap = SL.SUBGAP, head = SL.HEAD, headB = SL.HEADB,
+		tip = SL.TIP, cardTop = SL.CARDTOP, ind = SL.IND, markGap = SL.MARK_GAP, edge = SL.EDGE, personIconY = GF.PersonIconY(),
+		outNear = SL.OUT_NEAR, outPad = SL.OUT_PAD }
 end
 
 ---------------------------------------------------------------------------
@@ -5306,12 +5329,33 @@ function GF.PaintStatus(frac, pctText)
 	b.Pct:SetShown(GF.On("progressPct"))
 end
 
+-- What the guideTitle hook gets (the live window and the Looks preview).
+function GF.TitleParts(bar, close, rule, band)
+	return { bar = bar, close = close, rule = rule, band = band, menuRight = 8 }
+end
+
+-- The rule under the navigator: Halo's gold one; a title bar's line (Hearth's,
+-- or a skin's that shows the bar); the game's looks their separator.
+function GF.PaintRule(t)
+	local k = Theme.SkinKey()
+	if k == "halo" then
+		t:SetVertexColor(Theme.Color("accentLine"))
+	elseif k == "hearth" or nav.TitleBar:IsShown() then
+		t:SetVertexColor(Theme.Color("titleLine"))
+	elseif Theme.Kit() then
+		t:SetVertexColor(Theme.Color("separator"))
+	else
+		t:SetVertexColor(Theme.Wash("divider"))
+	end
+	t:SetHeight(Theme.Pixel(nav))
+end
+
 function GF.ApplySkin()
 	if not F then return end
 	readMetrics()
 	GF.ApplyFonts()
 	local skin = Theme.SkinKey()
-	skinShown = skin
+	skinShown = Theme.SkinId()
 	F.psGuide = true
 	Theme.Repaint(F)
 	strip:SetHeight(TAB_H)
@@ -5344,19 +5388,7 @@ function GF.ApplySkin()
 	nav.Steps:SetPoint("LEFT", nav, "LEFT", PAD - 6, 0)
 	-- Rules: Halo's gold one under the navigator; Hearth's title bar line; the
 	-- game's looks their separator.
-	W.Painter(nav.Rule, function(t)
-		local k = Theme.SkinKey()
-		if k == "halo" then
-			t:SetVertexColor(Theme.Color("accentLine"))
-		elseif k == "hearth" or k == "brass" then
-			t:SetVertexColor(Theme.Color("titleLine"))
-		elseif Theme.Kit() then
-			t:SetVertexColor(Theme.Color("separator"))
-		else
-			t:SetVertexColor(Theme.Wash("divider"))
-		end
-		t:SetHeight(Theme.Pixel(nav))
-	end)
+	W.Painter(nav.Rule, GF.PaintRule)
 	-- Hearth: the person's name over a gold separator.
 	person.Rule:SetShown(skin == "hearth")
 	-- The focus parts at the skin's paddings.
@@ -5445,7 +5477,7 @@ end
 
 -- A skin chosen while the window shows: its sizes, then a fresh layout.
 Theme.OnChanged(function()
-	if F and skinShown and skinShown ~= Theme.SkinKey() then
+	if F and skinShown and skinShown ~= Theme.SkinId() then
 		GF.ApplySkin()
 		GF.ApplyStyle()
 	end
@@ -5841,7 +5873,7 @@ local function build()
 		end
 	end)
 	nav.TitleBar:Hide()
-	-- Brass: the small red close square at the title bar's right (ApplyStyle shows it).
+	-- A skin's close square at the title bar's right (the guideTitle hook shows it).
 	nav.Close = CreateFrame("Button", nil, nav)
 	nav.Close:SetSize(18, 18)
 	nav.Close:SetPoint("RIGHT", nav, "RIGHT", -5, 0)

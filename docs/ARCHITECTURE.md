@@ -5952,9 +5952,10 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   sped up. `GF.ApplyLook(key)` redraws only what a key touches;
   `GF.Metrics()` hands the sizes to the page's preview, which lays out a
   demo step card by them in its own frame, never the live window.
-- **Step cards and the step list** (`UI/GuideFrame.lua`, the `SL` table): the house
-  look alone (`Theme.Metric("guideCard", 1)`; Halo's and Hearth's sizes set it to 0 and
-  the game's looks inherit them, so they are unchanged). The step card is dressed with
+- **Step cards and the step list** (`UI/GuideFrame.lua`, the `SL` table): the dense
+  card is the house look's (`Theme.Metric("guideCard", 1)`; Halo's and Hearth's sizes set
+  it to 0 and the game's looks inherit them); the step list (`SL.Enabled`) and the outside
+  cards (`SL.OUT`) are in every look. The step card is dressed with
   a ground and a hairline (`SL.Dress`), its goal rows 22 high; a mob or NPC a goal is
   about wears the NPC colour (`UI.GoalText`); the summary lines after the focus are
   quiet, one small line `CARD.quietH` high (`SL.Quiet`, set by `paintLine`). The sizes are

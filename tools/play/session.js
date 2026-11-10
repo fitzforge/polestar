@@ -9,7 +9,9 @@
 // run, dumps the visible frames and draws them with tools/preview/render.js,
 // returning the SVG, the hit map (tools/play/public/hit.js) and the state.
 // `packs`: other guide packs' built folders (absolute), loaded by their TOC
-// after Polestar_Guides, as the client loads them.
+// after Polestar_Guides, as the client loads them. The skin addons in the
+// tree (addon/Polestar_Skin_*) load after Polestar, so their skins are in the
+// picker.
 //
 //   const s = new Session({ dataDir, artDir, config, packs });
 //   await s.start();
@@ -308,6 +310,10 @@ end`);
 		// The local crossings addon loads with Polestar in the client when it is built.
 		if (fs.existsSync(path.join(ROOT, 'addon', 'Polestar_Travel', 'Polestar_Travel.toc'))) {
 			lines.push(`__load("Polestar_Travel", { ${tocFiles('Polestar_Travel').map(luaString).join(', ')} }, {})`);
+		}
+		// The skin addons in the tree (addon/Polestar_Skin_*) load after Polestar, as the client loads a dependent.
+		for (const name of fs.readdirSync(path.join(ROOT, 'addon')).filter((n) => n.startsWith('Polestar_Skin_')).sort()) {
+			if (fs.existsSync(path.join(ROOT, 'addon', name, `${name}.toc`))) lines.push(`__load(${luaString(name)}, { ${tocFiles(name).map(luaString).join(', ')} }, {})`);
 		}
 		for (const dir of this.packs) lines.push(`__load(${luaString(path.basename(dir))}, { ${dirFiles(dir).map(luaString).join(', ')} }, {})`);
 		lines.push('stub.login()', 'stub.advance(1)', 'play.serve()');

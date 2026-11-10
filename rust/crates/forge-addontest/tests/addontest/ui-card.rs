@@ -96,8 +96,9 @@ fn run(script: &str) -> Vec<Value> {
 	run_with(script, "")
 }
 
-/// The game's looks keep the plain card (24px lines, "Then out here" folded). The house look's dense card, its
-/// field work open under the goals, has its own tests.
+/// The game's looks keep the plain card (24px lines, "Then out here" folded); the optional goals sit in the Optional
+/// card above the window, as in every look. The house look's dense card, its field work open under the goals, has its
+/// own tests.
 fn run_hearth(script: &str) -> Vec<Value> {
 	run(&format!("Polestar.Set(\"ui.skin\", \"hearth\")\n{script}"))
 }
@@ -139,7 +140,7 @@ fn a_brewnall_hub_shows_the_first_person_s_goal_and_one_line_for_each_other_pers
 		uistub.setGuide(uistub.elwynn, brewnall())
 		stub.advance(1)
 		local P = GF.parts
-		local calm = { person = P.person.Name:GetText(), items = items(), after = P.after:IsShown(), h = F:GetHeight() }
+		local calm = { person = P.person.Name:GetText(), items = items(), after = P.after:IsShown(), h = F:GetHeight(), optional = GF.stepList.out.opt.psN }
 		Polestar.Set("ui.wholeStep", true)
 		local whole = { items = items(), after = plain(P.after.Text:GetText()), persons = P.after.Count:GetText(), h = F:GetHeight() }
 		Polestar.Set("ui.wholeStep", false)
@@ -149,13 +150,14 @@ fn a_brewnall_hub_shows_the_first_person_s_goal_and_one_line_for_each_other_pers
 	assert_eq!(calm["person"], "Gretta Ganter");
 	assert_eq!(
 		strings(&calm["items"]),
-		["Gretta's errand", "[Then: Marleth Barleybrew  ·  Accept “Bitter Rivals”]", "[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]", "[Then out here: 7 kills and items]",],
+		["Gretta's errand", "[Then: Marleth Barleybrew  ·  Accept “Bitter Rivals”]", "[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]", "[Then out here: 4 kills and items]",],
 		"the person to talk to now in full; every other person and the field work on one line: one or two goals named, more counted"
 	);
 	assert!(calm["items"].as_array().unwrap().len() <= 5);
+	assert_eq!(calm["optional"], 3, "the three optional kills are in the Optional card, not counted in the field work");
 	assert_eq!(calm["after"], false, "the lines already say who comes next");
-	// "Show the whole step": the list as before, with "Then:" and the count of persons.
-	assert_eq!(out["whole"]["items"].as_array().unwrap().len(), 13);
+	// "Show the whole step": the list as before, with "Then:" and the count of persons (the ten goals not optional).
+	assert_eq!(out["whole"]["items"].as_array().unwrap().len(), 10);
 	assert!(!strings(&out["whole"]["items"]).iter().any(|s| s.starts_with('[')), "no summary lines");
 	assert_eq!(out["whole"]["after"], "Then: Marleth Barleybrew");
 	assert_eq!(out["whole"]["persons"], "Person 1 of 3");
@@ -187,18 +189,18 @@ fn a_summary_line_opens_its_person_s_goals_in_place_a_second_click_or_the_focus_
 			"Evershine",
 			"The Perfect Stout",
 			"A Favor for Evershine",
-			"[Then out here: 7 kills and items]",
+			"[Then out here: 4 kills and items]",
 		],
 		"a look ahead: Rejold's goals right under his line, which then names only him"
 	);
 	assert_eq!(
 		strings(&out["closed"]),
-		["Gretta's errand", "[Then: Marleth Barleybrew  ·  Accept “Bitter Rivals”]", "[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]", "[Then out here: 7 kills and items]"]
+		["Gretta's errand", "[Then: Marleth Barleybrew  ·  Accept “Bitter Rivals”]", "[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]", "[Then out here: 4 kills and items]"]
 	);
 	assert_eq!(out["person"], "Marleth Barleybrew");
 	assert_eq!(
 		strings(&out["moved"]),
-		["[Gretta Ganter]", "Bitter Rivals", "[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]", "[Then out here: 7 kills and items]"],
+		["[Gretta Ganter]", "Bitter Rivals", "[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]", "[Then out here: 4 kills and items]"],
 		"the next person opens by itself; the one opened by hand closes; the person done is one line"
 	);
 }
@@ -352,7 +354,9 @@ fn goals_done_together_fold_one_after_another_a_beat_apart_into_one_count() {
 			end
 		end)
 		stub.advance(1)
-		emit({ before = before, mid = mid, after = items(), folding = GF.Folding() })"#)
+		local opt = {}
+		for i = 1, GF.stepList.out.opt.psN do opt[i] = GF.stepList.out.opt.Rows[i].psGoal.subject end
+		emit({ before = before, mid = mid, after = items(), optional = opt, folding = GF.Folding() })"#)
 	.remove(0);
 	assert_eq!(strings(&out["before"])[0], "[Gretta Ganter, Marleth Barleybrew, Rejold Barleybrew]", "the persons done: one line");
 	let mid: Vec<f64> = out["mid"].as_array().unwrap().iter().map(f).collect();
@@ -360,8 +364,9 @@ fn goals_done_together_fold_one_after_another_a_beat_apart_into_one_count() {
 	assert!(mid[0] > 0.0, "one movement, not one after the other finished: {mid:?}");
 	assert_eq!(
 		strings(&out["after"]),
-		["[Gretta Ganter, Marleth Barleybrew, Rejold Barleybrew]", "[3 done]", "Ice Claw Bear", "Elder Crag Boar", "Snow Leopard", "Gyromechanic Gear", "Frostmane Hold"]
+		["[Gretta Ganter, Marleth Barleybrew, Rejold Barleybrew]", "[3 done]", "Gyromechanic Gear", "Frostmane Hold"]
 	);
+	assert_eq!(out["optional"], json!(["Ice Claw Bear", "Elder Crag Boar", "Snow Leopard"]), "the optional kills stay in the Optional card");
 	assert_eq!(out["folding"], false);
 }
 

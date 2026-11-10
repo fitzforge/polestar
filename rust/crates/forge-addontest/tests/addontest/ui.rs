@@ -404,10 +404,10 @@ fn a_two_line_tip_sits_inside_the_card_folded_and_opened_at_every_scale() {
 	}
 }
 
-// The house look's outside cards: the Optional card (the optional goals leave the main card; spots, Skip) nearest the
-// window, the hint card (the guide's note goals in the quest colour) above it, same width,
+// The outside cards, in every look: the Optional card (the optional goals leave the main card; spots, Skip) nearest
+// the window, the hint card (the guide's note goals in the quest colour) above it, same width,
 // anchored to the window's top corners (so they follow it), gaps of 5 and 10, none in the step list view, the
-// transparent window has no grounds and the other looks keep the old layout.
+// transparent window has no grounds.
 #[test]
 fn the_outside_cards_hold_the_optional_goals_and_the_hint_above_the_window() {
 	let out = run(r#"
@@ -488,17 +488,19 @@ fn the_outside_cards_hold_the_optional_goals_and_the_hint_above_the_window() {
 	// A step with neither: no cards.
 	assert_eq!((out["none"]["opt"]["shown"].clone(), out["none"]["hint"]["shown"].clone()), (json!(false), json!(false)), "{}", out["none"]);
 	assert_eq!(f(&out["none"]["outH"]), 0.0);
-	// Transparent: no grounds. The list view: no cards. Another look: no cards, the goal back in the card, the tip too.
+	// Transparent: no grounds. The list view: no cards. Another look: the same cards, the goal out of the card, the tip in it.
 	assert_eq!(out["both"]["ground"], true);
 	assert_eq!(out["transparent"]["ground"], false);
 	assert_eq!((out["listed"]["opt"]["shown"].clone(), out["listed"]["hint"]["shown"].clone()), (json!(false), json!(false)));
 	let hearth = &out["hearth"];
-	assert_eq!((hearth["opt"]["shown"].clone(), hearth["hint"]["shown"].clone(), hearth["tipIn"].clone()), (json!(false), json!(false), json!(false)), "{hearth}");
-	assert!(strings_of(&hearth["rows"]).contains(&"Tough Wolf Meat".to_string()), "{hearth}");
+	assert_eq!((hearth["opt"]["shown"].clone(), hearth["hint"]["shown"].clone(), hearth["tipIn"].clone()), (json!(true), json!(true), json!(false)), "{hearth}");
+	assert_eq!((hearth["opt"]["rel"].clone(), hearth["hint"]["rel"].clone()), (json!("window"), json!("optional")), "{hearth}");
+	assert!(!strings_of(&hearth["rows"]).contains(&"Tough Wolf Meat".to_string()), "{hearth}");
+	assert!(!strings_of(&hearth["rows"]).iter().any(|r| r.contains("vendor")), "{hearth}");
 }
 
 // The outside cards carry the palette's own dark window ground, not the chip wash (a light ink at a few percent):
-// under every look that has them, and the transparent window draws none.
+// under every look (the house one, Halo, Hearth and a game look), and the transparent window draws none.
 #[test]
 fn the_outside_cards_ground_is_dark_in_every_look_and_gone_in_the_transparent_window() {
 	let out = run(r#"
@@ -513,7 +515,7 @@ fn the_outside_cards_ground_is_dark_in_every_look_and_gone_in_the_transparent_wi
 		uistub.setGuide(uistub.elwynn, 3)
 		uistub.goal(3, 4).optional = true
 		uistub.update()
-		for _, skin in ipairs({ "polestar", "halo", "hearth", "brass" }) do
+		for _, skin in ipairs({ "polestar", "halo", "hearth", "forever" }) do
 			Polestar.Set("ui.skin", skin)
 			uistub.update()
 			ground(skin)
@@ -527,7 +529,8 @@ fn the_outside_cards_ground_is_dark_in_every_look_and_gone_in_the_transparent_wi
 	for r in out.as_array().unwrap() {
 		if r["tag"] == "transparent" {
 			assert_eq!(r["shown"], false, "no ground over the world: {r}");
-		} else if r["opt"] == true {
+		} else {
+			assert_eq!(r["opt"], true, "every look has the Optional card: {r}");
 			assert!(f(&r["lum"]) < 0.3, "a dark ground, not the wash's light ink: {r}");
 			assert!(f(&r["a"]) >= 0.94, "opaque enough for its text: {r}");
 		}
@@ -2422,7 +2425,7 @@ fn an_area_objective_says_its_mobs_are_all_over_the_area_and_its_row_button_move
 
 // The Engine flags a quest started by an item (the collect stands for it, `starterOf`; the accept is `folded`)
 // and a "Go to" that names the step (`header`). The window shows one line, the quest, saying how the item is
-// got; the header stands for the Go to and carries the arrow's mark.
+// got; the header stands for the Go to and carries the arrow's mark. Optional, that one line is in the Optional card.
 #[test]
 fn a_quest_started_by_a_dropped_item_reads_as_one_line_the_quest_the_go_to_naming_the_step_is_the_header() {
 	let out = run_hearth(r#"
@@ -2431,8 +2434,8 @@ fn a_quest_started_by_a_dropped_item_reads_as_one_line_the_quest_the_go_to_namin
 			{ title = "Field of Giants", goals = {
 				{ t = "goto", verb = "Go to", subject = "Field of Giants", subjectKind = "place", text = "Go to Field of Giants", header = true, map = 1429, x = 44.7, y = 70.7, status = "active" },
 				{ t = "collect", verb = "Collect", subject = "Runed Scroll", subjectKind = "item", item = 10621, note = "Aean Swiftriver", map = 1429, x = 46, y = 70, status = "active",
-					starter = scroll, starterOf = 3, source = scroll.source, optional = true },
-				{ t = "accept", verb = "Accept", subject = "The Runed Scroll", subjectKind = "quest", quest = 3513, item = 10621, note = "Keep it: Kadrak", folded = true, status = "active", optional = true },
+					starter = scroll, starterOf = 3, source = scroll.source },
+				{ t = "accept", verb = "Accept", subject = "The Runed Scroll", subjectKind = "quest", quest = 3513, item = 10621, note = "Keep it: Kadrak", folded = true, status = "active" },
 			} },
 		} }
 		uistub.guides[fog.id] = fog
@@ -2452,16 +2455,30 @@ fn a_quest_started_by_a_dropped_item_reads_as_one_line_the_quest_the_go_to_namin
 		uistub.update()
 		local held = {}
 		for _, r in ipairs(visibleRows()) do held[#held + 1] = r.Sub:GetText() end
-		emit({ rows = rows, header = P.person.Name:GetText(), headerMark = headerMark, held = held })"#)
+		-- Optional, the quest leaves the card for the Optional card: one row there too, the Go to back in the card.
+		g2.status, g2.starter, g2.starterOf, g2.folded, g2.optional = "active", scroll, 3, nil, true
+		g3.folded, g3.starter, g3.optional = true, nil, true
+		uistub.update()
+		local O = GF.stepList.out.opt
+		local opt = {}
+		for i = 1, O.psN or 0 do opt[i] = { index = O.Rows[i].psGoal.index, text = O.Rows[i].Text:GetText():gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""), icon = O.Rows[i].Icon:GetTexture():match("([%w-]+)$"), count = O.Rows[i].Meta:GetText() } end
+		local card = {}
+		for _, r in ipairs(visibleRows()) do card[#card + 1] = r.psGoal.index end
+		emit({ rows = rows, header = P.person.Name:GetText(), headerMark = headerMark, held = held, optional = { opt = opt, card = card, shown = O:IsShown() } })"#)
 	.remove(0);
 	assert_eq!(
 		out["rows"],
-		json!([{ "text": "Accept “The Runed Scroll”  optional", "sub": "Runed Scroll: kill Aean Swiftriver (rare elite)  \u{b7}  Keep it: Kadrak", "icon": "icon-accept", "index": 2 }]),
-		"one row: the quest, worded as the accept and tagged optional, acting as the collect (index 2)"
+		json!([{ "text": "Accept “The Runed Scroll”", "sub": "Runed Scroll: kill Aean Swiftriver (rare elite)  \u{b7}  Keep it: Kadrak", "icon": "icon-accept", "index": 2 }]),
+		"one row: the quest, worded as the accept, acting as the collect (index 2)"
 	);
 	assert_eq!(out["header"], "Field of Giants");
 	assert_eq!(out["headerMark"], true, "the arrow on the Go to marks the header");
 	assert_eq!(out["held"], json!(["Runed Scroll: in your bags, right-click it  \u{b7}  Keep it: Kadrak"]));
+	assert_eq!(
+		out["optional"],
+		json!({ "opt": [{ "index": 2, "text": "Accept “The Runed Scroll”", "icon": "icon-accept", "count": "" }], "card": [1], "shown": true }),
+		"optional: one row in the Optional card (the collect standing for the quest, worded as its accept), the Go to the card's only row"
+	);
 }
 
 // `when group` (Engine.GroupQuestion): the banner asks at the group quest the live step waits on; Skip it is
@@ -2566,38 +2583,53 @@ fn the_training_banner_says_how_many_steps_ahead_the_guide_trains_the_class_or_t
 	);
 }
 
-// The player's own word (owner feedback): an optional goal says so in the warning colour and skips in one
-// click; Skip in the navigator skips the step with an undo in the banner; a skipped step shown later offers to
-// unskip it; looking at another step than the live one offers the way back.
+// The player's own word (owner feedback): an optional goal says so (its row in the Optional card, under that label)
+// and skips in one click; Skip in the navigator skips the step with an undo in the banner; a skipped step shown later
+// offers to unskip it; looking at another step than the live one offers the way back.
 #[test]
-fn an_optional_goal_is_tagged_in_the_warning_colour_and_skips_in_one_click_then_reads_skipped_with_an_undo() {
+fn an_optional_goal_sits_in_the_optional_card_and_skips_in_one_click_then_reads_skipped_with_an_undo() {
 	let out = run_hearth(r#"
 		uistub.setGuide(uistub.elwynn, 3)
 		local g = uistub.goal(3, 4)
 		g.optional = true
 		uistub.update()
-		local r = rowFor("Tough Wolf Meat")
-		local before = { text = r.Text:GetText(), skip = r.Skip:IsShown() and r.Skip.Label:GetText(), check = r.Check:IsShown() }
+		local O = GF.stepList.out.opt
+		local function optRow()
+			for i = 1, O.psN or 0 do
+				local r = O.Rows[i]
+				if r.psGoal and r.psGoal.subject == "Tough Wolf Meat" then return r end
+			end
+		end
+		local function read(r)
+			local cr, cg, cb = r.Text:GetTextColor()
+			local mr, mg, mb = Polestar.Theme.Color("textMuted")
+			return { text = r.Text:GetText(), skip = r.Skip:IsShown() and r.Skip.Label:GetText(), icon = r.Icon:GetTexture():match("([%w-]+)$"),
+				muted = math.abs(cr - mr) < 0.002 and math.abs(cg - mg) < 0.002 and math.abs(cb - mb) < 0.002 }
+		end
+		local r = optRow()
+		local before = read(r)
+		before.label, before.inCard = O.Label:GetText(), rowFor("Tough Wolf Meat") ~= nil
 		r.Skip:Click()
 		local call = lastCall("SkipGoal")
-		r = rowFor("Tough Wolf Meat")
-		local after = { text = r.Text:GetText(), skip = r.Skip:IsShown() and r.Skip.Label:GetText(), check = r.Check:IsShown(),
-			icon = r.Icon:GetTexture():match("([%w-]+)$") }
+		r = optRow()
+		local after = read(r)
 		r.Skip:Click()
-		emit({ warning = Polestar.Theme.Hex("warning"), muted = Polestar.Theme.Hex("textMuted"), before = before, call = call, after = after,
-			back = rowFor("Tough Wolf Meat").psGoal.status })"#)
+		emit({ before = before, call = call, after = after, back = optRow().psGoal.status })"#)
 	.remove(0);
-	let before_text = text(&out["before"]["text"]);
-	assert!(before_text.ends_with(&format!("|c{}optional|r", text(&out["warning"]))), "{before_text}");
-	assert_eq!(out["before"]["skip"], "Skip");
-	assert_eq!(out["before"]["check"], true, "it ticks like any goal");
+	let before = &out["before"];
+	assert_eq!(before["label"], "OPTIONAL", "the card says it is optional: {before}");
+	assert_eq!(before["inCard"], false, "not a row of the step card: {before}");
+	assert!(text(&before["text"]).contains("Tough Wolf Meat"), "{before}");
+	assert_eq!((before["skip"].clone(), before["muted"].clone()), (json!("Skip"), json!(false)), "{before}");
 	assert_eq!(out["call"], json!(["SkipGoal", 3, 4]));
-	let after_text = text(&out["after"]["text"]);
-	assert!(after_text.ends_with(&format!("|c{}skipped|r", text(&out["muted"]))), "{after_text}");
-	assert_eq!(json!([out["after"]["skip"].clone(), out["after"]["check"].clone(), out["after"]["icon"].clone()]), json!(["Undo", false, "skip"]));
+	let after = &out["after"];
+	assert_eq!(json!([after["skip"].clone(), after["icon"].clone(), after["muted"].clone()]), json!(["Undo", "skip", true]), "skipped: muted, the skip glyph, Undo: {after}");
 	assert_eq!(out["back"], "active", "Undo brings it back");
 }
 
+// Past the required goals the Engine names an optional one current before the area's Go to: the window paints what
+// it names. The optional goal is in the Optional card, so no row of the step card takes the accent: not the done
+// goal, not the Go to the header stands for.
 #[test]
 fn the_current_goal_is_the_one_the_engine_names_past_the_required_goals_an_optional_one_leads_before_the_area_s_go_to() {
 	let out = run_hearth(r#"
@@ -2609,10 +2641,20 @@ fn the_current_goal_is_the_one_the_engine_names_past_the_required_goals_an_optio
 		uistub.update()
 		local accent = Polestar.Theme.Hex("accent")
 		local function hex(t) local r, g, b = t:GetVertexColor(); return string.format("ff%02x%02x%02x", r * 255 + 0.5, g * 255 + 0.5, b * 255 + 0.5) end
-		emit({ accent = accent, wolf = hex(rowFor("Tough Wolf Meat").Icon), kobold = hex(rowFor("Kobold Vermin").Icon) })"#)
+		local rows, lit = {}, {}
+		for _, r in ipairs(visibleRows()) do
+			rows[#rows + 1] = r.psGoal.subject
+			if hex(r.Icon) == accent then lit[#lit + 1] = r.psGoal.subject end
+		end
+		local O = GF.stepList.out.opt
+		local opt = {}
+		for i = 1, O.psN or 0 do opt[i] = O.Rows[i].psGoal.subject end
+		emit({ current = Polestar.Engine.GetStepView(3).current, rows = rows, lit = #lit, opt = opt })"#)
 	.remove(0);
-	assert_eq!(out["wolf"], out["accent"], "the optional wolf meat is current");
-	assert_ne!(out["kobold"], out["accent"]);
+	assert_eq!(out["current"], 4, "the Engine names the optional wolf meat");
+	assert_eq!(out["opt"], json!(["Tough Wolf Meat"]), "it is in the Optional card: {out}");
+	assert_eq!(out["rows"], json!(["Kobold Vermin"]), "the card: the done goal, the header for the Go to: {out}");
+	assert_eq!(out["lit"], 0, "no row of the card takes the accent: {out}");
 }
 
 #[test]
@@ -2787,7 +2829,7 @@ fn guide_complete_up_next_names_where_the_hand_off_goes_now_and_asks_for_a_guide
 }
 
 #[test]
-fn the_wheel_over_the_step_number_scrubs_through_the_steps_shift_by_ten_back_on_the_live_step_after_a_pause_and_a_click_lists_the_steps_around() {
+fn the_wheel_over_the_step_number_scrubs_through_the_steps_shift_by_ten_back_on_the_live_step_after_a_pause_and_a_click_opens_the_step_list() {
 	let out = run_hearth(r#"
 		uistub.setGuide(uistub.elwynn, 3)
 		uistub.live = 3
@@ -2804,12 +2846,15 @@ fn the_wheel_over_the_step_number_scrubs_through_the_steps_shift_by_ten_back_on_
 		stub.keys.shift = false
 		seen[#seen + 1] = at()
 		stub.RunScript(hit, "OnMouseUp", "LeftButton")
+		stub.advance(0.3)
+		local SL = GF.stepList
 		local rows = {}
-		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then rows[#rows + 1] = r.Text:GetText():match("^%d+") end end
-		emit({ seen = seen, rows = rows })
+		for i = 1, SL.n do local r = SL.rows[i]; if r:IsShown() then rows[#rows + 1] = r.psIndex end end
+		emit({ seen = seen, rows = rows, list = SL.frame:IsShown(), card = GF.parts.card:IsShown(), setting = Polestar.Get("ui.stepList") })
 	"#);
 	assert_eq!(out[0]["seen"], json!([4, 2, 3, 8]), "down looks on, up back; after the pause the live step; Shift goes ten, to the last");
-	assert_eq!(out[0]["rows"], json!(["3", "4", "5", "7", "8"]), "step 6 is the Mage's alone and is left out");
+	assert_eq!((out[0]["list"].clone(), out[0]["card"].clone(), out[0]["setting"].clone()), (json!(true), json!(false), json!(true)), "a click opens the step list in place of the card: {}", out[0]);
+	assert_eq!(out[0]["rows"], json!([1, 2, 3, 4, 5, 7, 8]), "every step; step 6 is the Mage's alone and is left out");
 }
 
 // #1030 (soulrocha): pointing at the goals' scroll bar and away wakes it without a Lua error. Its OnEnter and OnLeave

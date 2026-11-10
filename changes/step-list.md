@@ -17,7 +17,8 @@ section: players
   above; finished steps are one line and every card carries its title.
   The list shows every step of the guide as a scrolling list of cards: each names who to talk
   to and every goal, with their counts and ticks, and a click looks at that
-  step. The step's title row holds its zone at the right and its goals sit one step in; the XP row and the progress bar are one tight pair. Compact mode is two lines of card without the progress bar. Only the
-  default Polestar look changes.
+  step. The step's title row holds its zone at the right and its goals sit one step in; the XP row and the progress bar are one tight pair. Compact mode is two lines of card without the progress bar. The dense card is
+  the default Polestar look's; the step list and the cards above the window are
+  in every look.
 - When the guide window's goals scroll under its height cap, the view no longer
   cuts a wrapped "Then:" line in half.

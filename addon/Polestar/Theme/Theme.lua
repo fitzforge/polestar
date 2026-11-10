@@ -237,44 +237,8 @@ SKIN_PALETTES.classic = gamePalette({
 	separator = hex("969696", 0.45), divider = hex("969696", 0.45), accentLine = hex("969696", 0.6),
 	border = hex("696969"), windowEdge = hex("696969"), hover = hex("FFFFFF", 0.08), selected = hex("FFD100", 0.14),
 })
--- "brass": Polestar's own square window and controls in a muted antique
--- brass on warm brown-black (the Forever-enhanced look: a thin bronze frame,
--- a title bar, a small red close square), with the tight step cards. The one
--- accent is the brass, on the live bar, the selection and the progress; quest
--- names are a paler brass. Sans (Inter), no serif, no shadow, no glow. It
--- starts from Halo's token set (every token a skin has to name) and takes the
--- grounds, ink and rules as its own; the mockup's dim greys (#7D735F, 4:1)
--- are lifted to textMuted #9A8F78, which holds the 4.5:1 floor.
-local function brassPalette()
-	local p = {}
-	for k, v in pairs(SKIN_PALETTES.halo) do p[k] = v end
-	local over = {
-		bg = hex("17110C", 0.97), bgBottom = hex("17110C", 0.97), panel = hex("120D09"), panelAlt = hex("1D150D"),
-		sidebar = hex("120D09"), footer = hex("17110C"), sky = hex("2A1F14"), skyBottom = hex("1D150D"),
-		text = hex("ECEBE6"), textDim = hex("C4BBA6"), textMuted = hex("9A8F78"), textOff = hex("847A66"),
-		title = hex("ECEBE6"), scrim = hex("0D0A07"), onAccent = hex("17110C"), shadow = hex("000000", 0.6),
-		accent = hex("B99A58"),
-		veil = hex("17110C", 0.97), veilWindow = hex("17110C", 0.97), menuBg = hex("120D09"),
-		inputBg = hex("0D0A07"), control = hex("1D150D"),
-		accentLine = hex("B99A58", 0.35), padSelect = hex("B99A58", 0.12), chipAccent = hex("B99A58", 0.16),
-		separator = hex("43331E"), rowLine = hex("35291A"), titleLine = hex("43331E"),
-		border = hex("43331E"), windowEdge = hex("5E4A2C"), divider = hex("35291A"), hover = hex("B99A58", 0.1),
-		selected = hex("B99A58", 0.14), toggle = hex("3A2D1C"), track = hex("0D0A07"), progress = hex("0D0A07"),
-		chip = hex("120D09"), box = hex("4A3A28"), thumb = hex("D9C9A0"), swatch = hex("FFFFFF", 0.25),
-		watermark = hex("FFFFFF", 0.028), mover = hex("B99A58", 0.12),
-		closeFill = hex("9C211D"), closeEdge = hex("4D0E0C"), closeGlyph = hex("FFFFFF"),
-		success = hex("7FCB8A"), arrive = hex("7FCB8A"), todo = hex("B99A58"), warning = hex("E0A84E"),
-		later = hex("E0A84E"), danger = hex("E58A7A"), manual = hex("B79CF0"), skipped = hex("7DB8C4"),
-		icon = hex("C4BBA6"), iconHover = hex("ECEBE6"), buttonText = hex("ECEBE6"), personName = hex("8EC1FF"),
-		tabRest = hex("C4BBA6"), rowLabel = hex("ECEBE6"), navRest = hex("C4BBA6"),
-		link = hex("8EC1FF"), npc = hex("8EC1FF"), quest = hex("C9AD6E"), item = hex("B79CF0"), place = hex("E0A27A"),
-	}
-	for k, v in pairs(over) do p[k] = v end
-	return p
-end
-SKIN_PALETTES.brass = brassPalette()
 Theme.SKIN_PALETTES = SKIN_PALETTES
-Theme.SKIN_ORDER = { "polestar", "halo", "hearth", "forever", "blizzard", "classic", "brass" }
+Theme.SKIN_ORDER = { "polestar", "halo", "hearth", "forever", "blizzard", "classic" }
 -- Skins hidden from the picker while their issues are fixed. A saved value
 -- naming a hidden skin resolves to the house style at load; the raw saved
 -- value is left alone so the player's choice restores when the skin returns.
@@ -675,7 +639,11 @@ local HOUSE_EXTRA = {
 	manual = "item", skipped = "spell", separator = "divider", rowLine = "divider", veil = "bg", veilWindow = "bg",
 	menuBg = "panel", control = "panelAlt", icon = "textDim", iconHover = "text", buttonText = "text",
 	personName = "npc", tabRest = "textDim", rowLabel = "text", navRest = "textDim",
+	-- A close square a skin shows on the guide window's title (the guideTitle hook).
+	closeFill = "danger", closeEdge = "border", closeGlyph = "text",
 }
+-- Those a non-house skin falls back on too.
+local SKIN_EXTRA = { "closeFill", "closeEdge", "closeGlyph" }
 
 -- A skin's palette, with the player's own accent, window border and arrow
 -- colours over it.
@@ -705,7 +673,10 @@ local function resolveSkin(skin)
 	elseif get("ui.borderAccent") then
 		out.windowBorder = { r, g, b, 0.8 }
 	else
-		out.windowBorder = copy(out.windowEdge or out.border)
+		out.windowBorder = copy(out.windowBorder or out.windowEdge or out.border)
+	end
+	for _, name in ipairs(SKIN_EXTRA) do
+		if not out[name] then out[name] = copy(out[HOUSE_EXTRA[name]] or out.text) end
 	end
 	local far, near = get("nav.arrowColor"), get("nav.arrowNearColor")
 	out.arrow = isColor(far) and { far[1], far[2], far[3], 1 } or copy(out.accent)
@@ -782,14 +753,15 @@ local function resolve(id, schemeKey)
 	ownColours(out)
 	ownDepth(out)
 	-- The window border: the player's own colour > the accent
-	-- (ui.borderAccent, at the focus ring's 80%) > the scheme's hairline.
+	-- (ui.borderAccent, at the focus ring's 80%) > a registered skin's own
+	-- windowBorder token > the scheme's hairline.
 	local edge = get("ui.borderColor")
 	if isColor(edge) then
 		out.windowBorder = { edge[1], edge[2], edge[3], 1 }
 	elseif get("ui.borderAccent") then
 		out.windowBorder = { r, g, b, 0.8 }
 	else
-		out.windowBorder = copy(out.border)
+		out.windowBorder = copy(out.windowBorder or out.border)
 	end
 	-- The waypoint arrow, its route stops and the map's target pin: the
 	-- player's own colour > the accent while far; the player's own > success
@@ -1044,7 +1016,7 @@ local FAMILIES = { opensans = OPEN_SANS, inter = FACES, fira = FIRA }
 
 -- The font a skin starts with (ui.font "skin", the default): the house
 -- style and the others use the game's, Halo uses Fira Sans.
-local SKIN_FONT = { polestar = "game", halo = "fira", hearth = "game", forever = "game", blizzard = "game", classic = "game", brass = "inter" }
+local SKIN_FONT = { polestar = "game", halo = "fira", hearth = "game", forever = "game", blizzard = "game", classic = "game" }
 
 -- A skin's own sizes, where they differ from the ladder above (the handoff's
 -- typography: DIRECTION_B_HALO.md §2, the same in DIRECTION_A_BLIZZARD.md §2).
@@ -1070,7 +1042,7 @@ local METRICS = {
 		guidePad = 12, guideIconGap = 9, guideTabs = 28, guideNav = 32, guideNavBtn = 22, guideNavIcon = 12,
 		guideIconBtnW = 24, guideIconBtnH = 22, guideIcon = 13, guideRow = 22, guideCheck = 16,
 		guideProgress = 3, guideGrip = 8, guideFoot = 17, guideUpRow = 20, guideUpToggle = 26, guideNavGap = 2,
-		guideCard = 0, -- the step cards (list and main card) are the house look's alone
+		guideCard = 0, -- the dense step card is the house look's (the step list and outside cards are in every look)
 	},
 	hearth = {
 		row = 28, menuRow = 22, menuPad = 6, menuWidth = 260, servicesWidth = 290,
@@ -1091,8 +1063,6 @@ for _, k in ipairs({ "forever", "blizzard", "classic" }) do
 	SKIN_ROLES[k] = SKIN_ROLES.hearth
 end
 METRICS.forever = setmetatable({ guidePad = 18, guideLitInset = 10, guideRowPad = 4, guideCheckIn = 10, guideCheckMiddle = true }, { __index = METRICS.hearth })
--- Brass keeps the house sizes (square Polestar controls) and the tight step cards.
-METRICS.brass = { guideCard = 1 }
 Theme.METRICS = METRICS
 
 function Theme.Metric(key, house)
@@ -1984,27 +1954,6 @@ local SKIN_PAINT = {
 			Theme.Border(d.box, Theme.Color("box"))
 		end,
 	},
-	-- Muted brass: the house controls on warm tokens, and a window with the
-	-- ground and the bronze frame (windowBorder, the player's own colour or
-	-- thickness winning) and no drop shadow.
-	brass = {
-		window = function(f)
-			if f.psBare then return bare(f) end
-			local r, g, b = Theme.Color("bg")
-			-- The options and hub windows (a shell: f.psSidebar) carry settings text
-			-- over the game world, so their content ground is solid whatever the
-			-- ground opacity the guide window is set to.
-			local alpha = f.psSidebar and 1 or f.psBgAlpha or Theme.GroundAlpha()
-			fill(f):SetVertexColor(r, g, b, alpha)
-			local shown, size = Theme.WindowBorder()
-			if shown then
-				local br, bg, bb, ba = Theme.Color("windowBorder")
-				Theme.Border(f, br, bg, bb, ba, nil, size)
-			else
-				hideBorder(f)
-			end
-		end,
-	},
 }
 Theme.SKIN_PAINT = SKIN_PAINT
 -- The paint helpers Theme/GameSkins.lua builds the game's looks from.
@@ -2148,7 +2097,7 @@ function Theme.Refresh()
 		refreshAgain = false
 		return Theme.Refresh()
 	end
-	-- A new face (a skin with its own font, such as Brass's Inter, or the
+	-- A new face (a skin with its own font, such as a registered skin's Inter, or the
 	-- player's pick) leaves strings blank in Forever the same way.
 	local face = Theme.FontSpec("body")
 	local faceChanged = face ~= lastFace
@@ -2343,7 +2292,7 @@ Theme.API_VERSION = 1
 -- themselves and hand to a skin's hook (Theme.SkinHook).
 local PAINT_KINDS = { window = true, guide = true, toast = true, panel = true, sidebar = true, inset = true, button = true,
 	dropdown = true, tile = true, editbox = true, checkbox = true, tab = true, close = true, scrollbar = true }
-local HOOKS = { arrow = true, pin = true }
+local HOOKS = { arrow = true, pin = true, guideTitle = true }
 local SKIN_MEDIA = { band = true, bandStars = true, medallion = true }
 local ARROW_STYLES = { ["3d"] = true, flat = true, halo = true, hearth = true }
 local MAP_ICONS = { polestar = true, halo = true, hearth = true }
@@ -2628,7 +2577,6 @@ local BUILTIN_SKIN_LABEL = {
 	forever = function() return ns.L["WoW Forever"] end,
 	blizzard = function() return ns.L["Blizzard"] end,
 	classic = function() return ns.L["Classic"] end,
-	brass = function() return ns.L["Brass"] end,
 }
 
 local function readFont(font, id)
@@ -2947,7 +2895,7 @@ for _, id in ipairs({ "dusk", "night", "graphite" }) do
 	local ok, why = registerScheme(id, { tokens = SCHEMES[id] }, true)
 	if not ok then error("Polestar scheme " .. id .. ": " .. tostring(why)) end
 end
-for _, id in ipairs({ "polestar", "halo", "hearth", "forever", "blizzard", "classic", "brass" }) do
+for _, id in ipairs({ "polestar", "halo", "hearth", "forever", "blizzard", "classic" }) do
 	local ok, why = registerSkin(id, { tokens = id ~= "polestar" and SKIN_PALETTES[id] or nil }, true)
 	if not ok then error("Polestar skin " .. id .. ": " .. tostring(why)) end
 end

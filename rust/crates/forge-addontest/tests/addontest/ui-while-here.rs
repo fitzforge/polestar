@@ -1,6 +1,7 @@
-//! "While you're here" in the guide window (addon/Polestar/UI/GuideFrame.lua, fillHere), the toast while the window
-//! is hidden (UI/WhileHere.lua), the maps (Nav/Layers.lua), and its options (UI/Options.lua), end to end: the real
-//! addon in the stub world with a guide registered in Lua. The engine side is in engine-while-here.rs.
+//! "While you're here" over the guide window (addon/Polestar/UI/GuideFrame.lua, SL.FillWH: the outside card above
+//! the window, in every look), the toast while the window is hidden (UI/WhileHere.lua), the maps (Nav/Layers.lua),
+//! and its options (UI/Options.lua), end to end: the real addon in the stub world with a guide registered in Lua.
+//! The engine side is in engine-while-here.rs.
 
 use forge_addontest::{emitted, is_match, text, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
@@ -33,14 +34,13 @@ Polestar.RegisterGuide({
 const HELPERS: &str = r#"
 local w = stub.world
 local E, GF = Polestar.Engine, Polestar.UI.GuideFrame
-local H = GF.parts.here
+local H = GF.stepList.out.wh
 local function plain(s) return ((s or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
-local function top(f) local _, _, _, _, y = f:GetPoint(1); return y end
 local function row(i) return H.Rows[i or 1] end
 local function line()
-	local r = row(1)
-	return { shown = H:IsShown(), text = r and plain(r.Text:GetText()) or false, label = H.Label:GetText(), sub = r and r.Sub:GetText() or false,
-		dist = r and r.Dist:GetText() or false, top = H:IsShown() and top(H) or false, after = GF.parts.after:IsShown() and top(GF.parts.after) or false }
+	local r = H:IsShown() and row(1)
+	return { shown = H:IsShown(), text = r and plain(r.Text:GetText()) or false, label = H.Label:GetText(), meta = r and r.Meta:GetText() or false,
+		inWindow = GF.parts.here:IsShown() }
 end
 local function toast()
 	local t = PolestarWhileHereToast
@@ -54,7 +54,7 @@ fn run(before_login: &str, script: &str) -> Vec<Value> {
 	run_with(&format!("{before_login}\nPolestar.Set(\"behavior.whileHereRadius\", 60)"), "", script)
 }
 
-/// The block in the window, as the game's looks keep it; the house look has the outside card (`run_in`).
+/// Hearth: a look other than the house one (`run_in`); the outside card is in every look.
 fn run_with(before_login: &str, setup: &str, script: &str) -> Vec<Value> {
 	run_in("hearth", before_login, setup, script)
 }
@@ -70,132 +70,70 @@ fn run_in(skin: &str, before_login: &str, setup: &str, script: &str) -> Vec<Valu
 	})
 }
 
+// The line comes as a row of the outside card above the window, under its own label: the goal's line, then its
+// step, count and distance at the right. A click leads the arrow there; a right-click dismisses it and the card goes.
 #[test]
-fn the_line_slides_in_between_the_goals_and_then_a_click_points_the_arrow_a_right_click_dismisses_it() {
+fn the_line_shows_in_the_card_above_the_window_then_a_click_points_the_arrow_a_right_click_dismisses_it() {
 	let out = run(
 		"",
 		r#"
 		emit(line())
-		w.moveTo(1429, 47.6, 37.6); stub.advance(0.55)
-		local sliding = { Polestar.Anim.IsRunning(H.Body, "alpha"), Polestar.Anim.IsRunning(H.Body, "offsetX") }
-		stub.advance(0.5)
-		emit({ line = line(), sliding = sliding, alpha = H.Body:GetAlpha(), toast = toast() })
+		w.moveTo(1429, 47.6, 37.6); stub.advance(1.1)
+		local p, rel, rp, _, y = H:GetPoint(1)
+		emit({ line = line(), toast = toast(), aboveWindow = rel == GF.frame and p == "BOTTOMLEFT" and rp == "TOPLEFT" and y > 0 })
 		local R = row(1)
 		R:GetScript("OnClick")(R, "LeftButton"); stub.advance(0.2)
 		local t = Polestar.Nav.GetTarget()
 		emit(t and { t.stepIndex, t.goalIndex } or false)
-		R:GetScript("OnClick")(R, "RightButton"); stub.advance(0.05)
-		local leaving = { H:IsShown(), Polestar.Anim.IsRunning(H.Body, "alpha") }
-		stub.advance(0.4)
+		R:GetScript("OnClick")(R, "RightButton"); stub.advance(0.6)
 		t = Polestar.Nav.GetTarget()
-		emit({ leaving = leaving, shown = H:IsShown(), engine = E.GetWhileHere() == nil, target = t and { t.stepIndex, t.goalIndex } or false })
+		emit({ shown = H:IsShown(), engine = E.GetWhileHere() == nil, target = t and { t.stepIndex, t.goalIndex } or false })
 	"#,
 	);
 	assert_eq!(out[0]["shown"], false, "nothing close by");
 	let shown = &out[1];
 	assert_eq!(shown["line"]["shown"], true);
-	assert_eq!(shown["line"]["label"], "While you're here", "the panel's own label");
-	assert_eq!(shown["line"]["text"], "Kill Kobold Vermin  8/10", "the row reads as the step's goal rows");
-	assert_eq!(shown["line"]["sub"], "Step 2");
-	assert_eq!(shown["line"]["dist"], "50 yd");
-	assert!(shown["line"]["after"].is_number(), "\"Then:\" shows: {shown}");
-	assert!(shown["line"]["top"].as_f64().unwrap() > shown["line"]["after"].as_f64().unwrap(), "the line sits above \"Then:\": {shown}");
-	assert_eq!(shown["sliding"], json!([true, true]), "it slides in as it fades in");
-	assert_eq!(shown["alpha"], 1);
+	assert_eq!(shown["line"]["label"], "WHILE YOU'RE HERE", "the card's own label");
+	assert_eq!(shown["line"]["text"], "Kill Kobold Vermin", "the goal's line");
+	assert_eq!(shown["line"]["meta"], "Step 2  8/10  50 yd", "its step, count and distance at the right");
+	assert_eq!(shown["line"]["inWindow"], false, "no block in the window");
+	assert_eq!(shown["aboveWindow"], true, "the card sits above the window: {shown}");
 	assert_eq!(shown["toast"], false, "the window shows it: no toast");
 	assert_eq!(out[2], json!([2, 1]), "a click leads the arrow to the vermin");
 	let gone = &out[3];
-	assert_eq!(gone["leaving"], json!([true, true]), "it fades out before the window closes the gap");
 	assert_eq!(gone["shown"], false);
 	assert_eq!(gone["engine"], true);
 	assert_eq!(gone["target"], json!([1, 1]), "the arrow is back on the step's wolves");
 }
 
-// Fitz, 0.3.5: the line was an amber strip cut mid-word ("Collect Fungal Spores fr…"). It is its own section now: a
-// panel in the player's accent, dulled into the window ground so the text still reads at 7:1, following an accent
-// change live, with a "While you're here" label, then the suggestion as a goal row, its glyph, distance and close
-// button on the first line; in a narrow window the text wraps onto another line and the panel grows, never cut.
+// Fitz, 0.3.5: in the transparent style the panel was a solid box over the world. There the card draws no ground or
+// lines, its text outlined like the window's other text; back in the standard style it takes its ground again.
 #[test]
-fn the_suggestion_is_a_goal_row_in_a_dulled_accent_panel_that_follows_the_accent_and_wraps_in_a_narrow_window_never_cut() {
+fn in_the_transparent_style_the_card_draws_no_ground_and_its_text_is_outlined_not_an_opaque_box() {
 	let out = run(
 		"",
 		r#"
 		w.moveTo(1429, 47.6, 37.6); stub.advance(1.1)
-		local T = Polestar.Theme
-		local R = row(1)
-		local function rgb(t) local r, g, b = t:GetVertexColor(); return { r, g, b } end
-		local function cy(r) local _, _, _, _, y = r:GetPoint(1); return y end
-		local function at(width)
-			local h = GF.LayoutHere(width)
-			return { h = h, lines = R.Text:GetNumLines(), cut = R.Text:IsTruncated(), text = plain(R.Text:GetText()) }
-		end
-		local function ground()
-			local p = rgb(H.Panel)
-			local r, g, b = T.AccentGround(GF.HERE_TINT)
-			local br, bg, bb = T.Color("bg")
-			return { panel = p, want = { r, g, b }, bg = { br, bg, bb }, contrast = T.Contrast({ T.Color("text") }, p) }
-		end
-		local own = ground()
-		Polestar.Set("ui.accent", { 0.2, 0.75, 0.3 })
-		local green = ground()
-		Polestar.Set("ui.accent", { 1, 0.95, 0.6 })
-		local pale = ground()
-		-- The stub measures the colour codes as characters too: 600 holds the line on one.
-		emit({ own = own, green = green, pale = pale, firstLine = { cy(R.Icon), cy(R.Close) }, wide = at(600), narrow = at(200) })"#,
-	);
-	let o = &out[0];
-	for k in ["own", "green", "pale"] {
-		let g = &o[k];
-		assert_eq!(g["panel"], g["want"], "{k}: the panel is the accent dulled into the ground: {o}");
-		assert_ne!(g["panel"], g["bg"], "{k}: tinted, not the plain ground");
-		assert!(g["contrast"].as_f64().unwrap() >= 7.0, "{k}: the text reads at 7:1 on it: {o}");
-	}
-	assert_ne!(o["own"]["panel"], o["green"]["panel"], "a new accent repaints it live");
-	assert_eq!(o["firstLine"][0], o["firstLine"][1], "the glyph and the close button share the first line");
-	assert_eq!(o["wide"]["lines"], 1, "{o}");
-	assert!(o["narrow"]["lines"].as_i64().unwrap() >= 2, "a narrow window wraps the text: {o}");
-	for w in ["wide", "narrow"] {
-		assert_eq!(o[w]["cut"], false, "{w}: never cut: {o}");
-		assert_eq!(o[w]["text"], "Kill Kobold Vermin  8/10");
-	}
-	assert!(o["narrow"]["h"].as_f64().unwrap() > o["wide"]["h"].as_f64().unwrap(), "the panel grows with the text: {o}");
-}
-
-// Fitz, 0.3.5: in the transparent style the panel was a solid box over the world. There it is a light tint of
-// the accent, well below opaque, its text outlined like the window's other text; back in the standard style it
-// takes its dulled accent ground again.
-#[test]
-fn in_the_transparent_style_the_panel_is_a_light_accent_tint_with_outlined_text_not_an_opaque_box() {
-	let out = run(
-		"",
-		r#"
-		w.moveTo(1429, 47.6, 37.6); stub.advance(1.1)
-		local T = Polestar.Theme
-		local function paint() local r, g, b, a = H.Panel:GetVertexColor(); return { r, g, b, a } end
-		local solid = paint()
+		local function dress() return { ground = H.Ground:IsShown(), base = H.Base:IsShown(), line = H.Lines[1]:IsShown() } end
+		local solid = dress()
 		Polestar.Set("ui.style", "transparent"); stub.advance(0.1)
-		local clear, outlined = paint(), select(3, row(1).Text:GetFont())
+		local clear, outlined = dress(), select(3, row(1).Text:GetFont())
 		Polestar.Set("ui.style", "standard"); stub.advance(0.1)
-		local ar, ag, ab = T.Accent()
-		emit({ solid = solid, clear = clear, accent = { ar, ag, ab }, outlined = outlined, back = paint(), shown = H:IsShown() })"#,
+		emit({ solid = solid, clear = clear, outlined = outlined, back = dress(), shown = H:IsShown() })"#,
 	);
 	let o = &out[0];
 	assert_eq!(o["shown"], true);
-	let alpha = |k: &str| o[k][3].as_f64().unwrap();
-	assert!(alpha("solid") > 0.8, "the standard style keeps its ground: {o}");
-	assert!(alpha("clear") <= 0.25, "transparent: a light tint, well below opaque: {o}");
-	for i in 0..3 {
-		assert!((o["clear"][i].as_f64().unwrap() - o["accent"][i].as_f64().unwrap()).abs() < 1e-6, "the tint is the accent: {o}");
-	}
-	assert!(o["outlined"].as_str().unwrap().contains("OUTLINE"), "its text is outlined over the world: {o}");
+	assert_eq!(o["solid"], json!({ "ground": true, "base": true, "line": true }), "the standard style keeps its ground: {o}");
+	assert_eq!(o["clear"], json!({ "ground": false, "base": false, "line": false }), "transparent: no box over the world: {o}");
+	assert!(o["outlined"].as_str().unwrap_or("").contains("OUTLINE"), "its text is outlined over the world: {o}");
 	assert_eq!(o["back"], o["solid"], "back in the standard style it takes its ground again");
 }
 
-// Fitz, 0.3.5: several suggestions close by (Engine.GetWhileHereList) are rows of the one panel, under its one
-// label, in the engine's order, each with its own distance and close button; a click on a row aims at that one, a
-// right-click or its close button dismisses only that one, and the panel goes with the last.
+// Fitz, 0.3.5: several suggestions close by (Engine.GetWhileHereList) are rows of the one card, under its one
+// label, in the engine's order, each with its own step, distance and close button; a click on a row aims at that
+// one, a right-click or its close button dismisses only that one, and the card goes with the last.
 #[test]
-fn two_suggestions_are_two_rows_of_one_panel_each_aiming_and_dismissing_its_own() {
+fn two_suggestions_are_two_rows_of_one_card_each_aiming_and_dismissing_its_own() {
 	let out = run_with(
 		"",
 		r#"Polestar.Set("behavior.whileHereRadius", 150)"#,
@@ -206,14 +144,14 @@ fn two_suggestions_are_two_rows_of_one_panel_each_aiming_and_dismissing_its_own(
 			for i, r in ipairs(H.Rows) do
 				if r:IsShown() then
 					local v = E.GetWhileHereList()[i]
-					out[#out + 1] = { text = plain(r.Text:GetText()), sub = r.Sub:GetText(), dist = r.Dist:GetText(), step = v and v.step or false }
+					out[#out + 1] = { text = plain(r.Text:GetText()), meta = r.Meta:GetText(), close = r.Close:IsShown(), step = v and v.step or false }
 				end
 			end
 			return out
 		end
 		local labels = 0
-		for _, region in ipairs({ H.Body:GetRegions() }) do
-			if region.GetText and region:GetText() == "While you're here" then labels = labels + 1 end
+		for _, region in ipairs({ H:GetRegions() }) do
+			if region.GetText and region:GetText() == "WHILE YOU'RE HERE" then labels = labels + 1 end
 		end
 		local first = { rows = rows(), list = #E.GetWhileHereList(), labels = labels }
 		local second = H.Rows[2]
@@ -230,33 +168,23 @@ fn two_suggestions_are_two_rows_of_one_panel_each_aiming_and_dismissing_its_own(
 	);
 	let o = &out[0];
 	assert_eq!(o["first"]["list"], 2, "the vermin and the candles are both in reach: {o}");
-	assert_eq!(o["first"]["labels"], 1, "one label for the panel");
+	assert_eq!(o["first"]["labels"], 1, "one label for the card");
 	let rows = o["first"]["rows"].as_array().unwrap();
 	assert_eq!(rows.len(), 2, "{o}");
 	let texts: Vec<&str> = rows.iter().map(|r| r["text"].as_str().unwrap()).collect();
-	assert!(texts.contains(&"Kill Kobold Vermin  8/10") && texts.contains(&"Collect Large Candle  1/3"), "{texts:?}");
+	assert!(texts.contains(&"Kill Kobold Vermin") && texts.contains(&"Collect Large Candle"), "{texts:?}");
 	for r in rows {
-		assert!(r["dist"].as_str().unwrap().ends_with(" yd"), "each row has its own distance: {r}");
-		assert_eq!(r["sub"], format!("Step {}", r["step"]), "{r}");
+		let meta = r["meta"].as_str().unwrap();
+		assert!(meta.starts_with(&format!("Step {}  ", r["step"])), "its step first: {r}");
+		assert!(meta.ends_with(" yd"), "each row has its own distance: {r}");
+		assert_eq!(r["close"], true, "{r}");
 	}
 	assert_eq!(o["aimed"], o["aimAt"], "a click on the second row aims at its step: {o}");
 	let left = o["after"]["rows"].as_array().unwrap();
 	assert_eq!((o["after"]["list"].as_i64(), left.len()), (Some(1), 1), "a right-click dismisses only its row: {o}");
 	assert_ne!(left[0]["step"], o["gone"], "the other row stays: {o}");
 	assert_eq!(o["after"]["shown"], true);
-	assert_eq!(o["last"], json!({ "shown": false, "list": 0 }), "the last row's close button takes the panel with it");
-}
-
-#[test]
-fn reduced_motion_the_line_fades_in_without_sliding() {
-	let out = run(
-		r#"Polestar.Set("ui.reduceMotion", true)"#,
-		r#"
-		w.moveTo(1429, 47.6, 37.6); stub.advance(0.55)
-		emit({ H:IsShown(), Polestar.Anim.IsRunning(H.Body, "offsetX"), Polestar.Anim.IsRunning(H.Body, "alpha") })
-	"#,
-	);
-	assert_eq!(out, vec![json!([true, false, true])]);
+	assert_eq!(o["last"], json!({ "shown": false, "list": 0 }), "the last row's close button takes the card with it");
 }
 
 #[test]
@@ -281,10 +209,10 @@ fn with_the_window_hidden_one_small_toast_says_it_once() {
 	assert_eq!(out[2], json!({ "again": "Kill Kobold Vermin, 2 more  \u{b7}  50 yd", "after": false, "engine": true }));
 }
 
-// Fitz, 0.3.5: in the compact window the panel did not show at all. It shows in every mode and style of the window,
-// normal and compact, standard and transparent, growing down, growing up and with the bars at the bottom: two
-// suggestions are two visible rows with their text, distance and close button, inside the window; compact drops
-// the "Step N" line. With the window on screen no toast says them.
+// Fitz, 0.3.5: in the compact window the panel did not show at all. The card shows in every mode and style of the
+// window, normal and compact, standard and transparent, growing down, growing up and with the bars at the bottom:
+// two suggestions are two visible rows with their text, step and distance and close button, on the window's top
+// edge. With the window on screen no toast says them.
 #[test]
 fn two_suggestions_show_as_two_rows_in_every_window_mode_and_style() {
 	let out = run_with(
@@ -305,13 +233,15 @@ fn two_suggestions_show_as_two_rows_in_every_window_mode_and_style() {
 					local rows = {}
 					for i, r in ipairs(H.Rows) do
 						if r:IsVisible() then
-							rows[#rows + 1] = { text = plain(r.Text:GetText()) ~= "", dist = r.Dist:IsVisible() and r.Dist:GetText() ~= "",
-								close = r.Close:IsVisible(), step = r.Sub:IsVisible(), h = r:GetHeight() > 0 }
+							local meta = r.Meta:IsVisible() and r.Meta:GetText() or ""
+							rows[#rows + 1] = { text = plain(r.Text:GetText()) ~= "", dist = meta:find(" yd$") ~= nil,
+								close = r.Close:IsVisible(), step = meta:find("^Step %d+") ~= nil, h = r:GetHeight() > 0 }
 						end
 					end
-					local _, _, _, _, y = H:GetPoint(1)
+					local p, rel, rp, _, y = H:GetPoint(1)
 					out[#out + 1] = { mode = (compact and "compact" or "normal") .. "/" .. style .. "/" .. grow, list = #E.GetWhileHereList(),
-						panel = H:IsVisible() and H:GetHeight() > 0, inside = -y + H:GetHeight() <= F:GetHeight(), rows = rows, toast = toast() }
+						panel = H:IsVisible() and H:GetHeight() > 0, onTop = rel == F and p == "BOTTOMLEFT" and rp == "TOPLEFT" and y > 0,
+						rows = rows, toast = toast() }
 				end
 			end
 		end
@@ -322,20 +252,19 @@ fn two_suggestions_show_as_two_rows_in_every_window_mode_and_style() {
 	for r in runs {
 		let mode = r["mode"].as_str().unwrap();
 		assert_eq!(r["list"], 2, "{mode}: two suggestions in reach: {r}");
-		assert_eq!(r["panel"], true, "{mode}: the panel shows: {r}");
-		assert_eq!(r["inside"], true, "{mode}: inside the window: {r}");
+		assert_eq!(r["panel"], true, "{mode}: the card shows: {r}");
+		assert_eq!(r["onTop"], true, "{mode}: on the window's top edge: {r}");
 		assert_eq!(r["toast"], false, "{mode}: the window shows them, no toast");
 		let rows = r["rows"].as_array().unwrap();
 		assert_eq!(rows.len(), 2, "{mode}: two visible rows: {r}");
-		let step = !mode.starts_with("compact");
 		for row in rows {
-			assert_eq!(row, &json!({ "text": true, "dist": true, "close": true, "step": step, "h": true }), "{mode}: {r}");
+			assert_eq!(row, &json!({ "text": true, "dist": true, "close": true, "step": true, "h": true }), "{mode}: {r}");
 		}
 	}
 }
 
 // The minimap shows what the line points at: its mark and spawn area in the accent on both surfaces (its own
-// layers), until a click hands it to the arrow's own layers.
+// layers), until a click on its row hands it to the arrow's own layers.
 #[test]
 fn the_maps_and_the_minimap_show_its_mark_and_spawn_area_until_the_arrow_takes_it() {
 	let out = run(
@@ -619,7 +548,7 @@ fn in_the_house_look_while_you_re_here_is_an_outside_card_with_a_row_per_suggest
 			rows[#rows + 1] = { text = plain(r.Text:GetText()), meta = r.Meta:GetText(), h = r:GetHeight(), close = r.Close:IsShown() }
 		end
 		local p, rel, rp, _, y = wh:GetPoint(1)
-		emit({ shown = wh:IsShown(), rows = rows, old = H:IsShown(), y = y, label = wh.Label:GetText(), outH = SL.out.h })
+		emit({ shown = wh:IsShown(), rows = rows, old = GF.parts.here:IsShown(), y = y, label = wh.Label:GetText(), outH = SL.out.h })
 		local first = wh.Rows[1]
 		first:GetScript("OnClick")(first, "RightButton"); stub.advance(0.6)
 		emit({ left = wh.psN or 0 })

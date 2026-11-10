@@ -697,7 +697,7 @@ fn skins_polestar_by_default_halo_and_hearth_bring_their_tokens_fonts_sizes_and_
 		out.savedForever = T.SkinKey()
 		emit(out)"#);
 	assert_eq!(out["key"], "polestar");
-	assert_eq!(out["choices"], json!(["polestar", "halo", "hearth", "forever", "blizzard", "classic", "brass"]));
+	assert_eq!(out["choices"], json!(["polestar", "halo", "hearth", "forever", "blizzard", "classic"]));
 	assert_eq!(out["houseRow"], 40);
 	assert_eq!(out["houseHero"], 26, "the house ladder is unchanged");
 	let h = &out["halo"];

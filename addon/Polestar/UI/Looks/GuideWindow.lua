@@ -81,10 +81,11 @@ local function buildPreview(view)
 	end
 
 	-- A string of the window: its role and colour as the window's, `group`
-	-- its size setting (GF.SIZE_KEYS), `spacing` its own line spacing.
-	local function text(parent, role, color, group, spacing)
+	-- its size setting (GF.SIZE_KEYS), `spacing` its own line spacing,
+	-- `dense` its role in the house look's dense step card.
+	local function text(parent, role, color, group, spacing, dense)
 		local fs = W.Text(parent, role, color)
-		fs.psGroup, fs.psSpacing = group, spacing
+		fs.psGroup, fs.psSpacing, fs.psRole, fs.psDense = group, spacing, role, dense
 		f.texts[#f.texts + 1] = fs
 		return fs
 	end
@@ -101,6 +102,19 @@ local function buildPreview(view)
 	gw.Veil:SetPoint("TOPLEFT", gw, "TOPLEFT", -14, 8)
 	gw.Veil:SetPoint("BOTTOMRIGHT", gw, "BOTTOMRIGHT", 14, -8)
 	f.Window = gw
+
+	-- The step card's dress (the house look) and the hint card above the
+	-- window (an outside card, every look): GF.stepList.Dress at the first paint.
+	local box = CreateFrame("Frame", nil, gw)
+	box:SetFrameLevel(gw:GetFrameLevel())
+	f.Card = box
+	local hint = CreateFrame("Frame", nil, gw)
+	hint.Text = text(hint, "cardGoal", "quest")
+	hint.Text:SetWordWrap(true)
+	hint.Text:SetJustifyH("LEFT")
+	hint.Text:SetJustifyV("TOP")
+	hint.Text:SetText(L["Elite: group advised"])
+	f.Hint = hint
 
 	-- Tab strip: one active tab.
 	local strip = CreateFrame("Frame", nil, gw)
@@ -140,6 +154,18 @@ local function buildPreview(view)
 	nav.SkipIcon:SetSize(11, 11)
 	nav.Skip = text(nav, "small", "textDim", "bar")
 	nav.Skip:SetText(L["Skip"])
+	-- A skin's title bar and close square (the guideTitle hook shows them).
+	nav.TitleBar = W.Tex(nav, "BACKGROUND", nil, "sky", -4)
+	nav.TitleBar:SetPoint("TOPLEFT", nav, "TOPLEFT", 4, 0)
+	nav.TitleBar:SetPoint("BOTTOMRIGHT", nav, "BOTTOMRIGHT", -4, 1)
+	nav.Close = CreateFrame("Frame", nil, nav)
+	nav.Close:SetSize(18, 18)
+	nav.Close:SetPoint("RIGHT", nav, "RIGHT", -5, 0)
+	W.Fill(nav.Close, "closeFill", "BACKGROUND", -3)
+	nav.Close.Glyph = W.Tex(nav.Close, "ARTWORK", "close", "closeGlyph")
+	nav.Close.Glyph:SetSize(10, 10)
+	nav.Close.Glyph:SetPoint("CENTER", nav.Close, "CENTER", 0, 0)
+	W.Painter(nav.Close, function(b) Theme.Border(b, Theme.Color("closeEdge")) end)
 	f.Nav = nav
 
 	-- The focus: who to talk to.
@@ -147,9 +173,9 @@ local function buildPreview(view)
 	person.Icon = person:CreateTexture(nil, "ARTWORK")
 	person.Icon:SetTexture(Theme.VerbIcon("talk"))
 	W.Color(person.Icon, "textDim")
-	person.Name = text(person, "name", "npc", "title")
+	person.Name = text(person, "name", "npc", "title", nil, "cardName")
 	person.Name:SetText(L["Marshal Dughan"])
-	person.Where = text(person, "small", "textDim", "detail")
+	person.Where = text(person, "small", "textDim", "detail", nil, "cardNote")
 	person.Where:SetText(L["Goldshire"])
 	f.Person = person
 
@@ -166,11 +192,11 @@ local function buildPreview(view)
 		r.Icon = r:CreateTexture(nil, "ARTWORK")
 		r.Icon:SetTexture(done and Theme.Media("check") or Theme.VerbIcon(goal.t))
 		W.Color(r.Icon, done and "success" or (goal.current and "accent" or "textDim"))
-		r.Text = text(r, "goal", done and "textMuted" or "text", "goal", 0)
+		r.Text = text(r, "goal", done and "textMuted" or "text", "goal", 0, "cardGoal")
 		r.Text:SetWordWrap(true)
 		r.Text:SetJustifyH("LEFT")
 		r.Text:SetJustifyV("TOP")
-		r.Sub = text(r, "small", "textMuted", "detail", 0)
+		r.Sub = text(r, "small", "textMuted", "detail", 0, "cardNote")
 		r.Sub:SetWordWrap(true)
 		r.Sub:SetJustifyH("LEFT")
 		r.Sub:SetJustifyV("TOP")
@@ -187,7 +213,7 @@ local function buildPreview(view)
 	local tip = CreateFrame("Frame", nil, gw)
 	tip.Toggle = W.Tex(tip, "ARTWORK", "chevron-down", "textDim")
 	tip.Toggle:SetSize(10, 10)
-	tip.Text = text(tip, "note", "textDim", "note", 3)
+	tip.Text = text(tip, "note", "textDim", "note", 3, "cardNote")
 	tip.Text:SetJustifyH("LEFT")
 	tip.Text:SetWordWrap(false)
 	tip.Text:SetText(L["Kobolds drop Gold Dust too: keep what you loot on the way."])
@@ -196,7 +222,7 @@ local function buildPreview(view)
 	-- Up next: its toggle and one row.
 	local up = CreateFrame("Frame", nil, gw)
 	up.Rule = W.Divider(up)
-	up.Label = text(up, "small", "textMuted", "up")
+	up.Label = text(up, "small", "textMuted", "up", nil, "cardNote")
 	up.Label:SetText(L["Up next"])
 	up.Chevron = W.Tex(up, "ARTWORK", "chevron-down", "textMuted")
 	up.Chevron:SetSize(12, 12)
@@ -208,7 +234,7 @@ local function buildPreview(view)
 	up.Icon:SetTexture(Theme.VerbIcon("turnin"))
 	up.Icon:SetSize(13, 13)
 	W.Color(up.Icon, "textMuted")
-	up.Text = text(up, "label", "textDim", "up")
+	up.Text = text(up, "label", "textDim", "up", nil, "cardGoal")
 	up.Text:SetJustifyH("LEFT")
 	up.Text:SetWordWrap(false)
 	f.Up = up
@@ -239,7 +265,9 @@ local function buildPreview(view)
 		local isCompact = ns.Get("ui.compact") and true or false
 		local outline = clear and G.Outline()
 		local gap = G.Num("lineSpacing")
+		local dense = M.card
 		for _, fs in ipairs(self.texts) do
+			if fs.psDense then Theme.Font(fs, dense and fs.psDense or fs.psRole) end
 			if Theme.SetFontScale then Theme.SetFontScale(fs, fs.psGroup and G.Num(G.SIZE_KEYS[fs.psGroup]) or 1) end
 			Theme.SetOutline(fs, outline)
 			if fs.psSpacing and fs.SetSpacing then fs:SetSpacing(fs.psSpacing + gap) end
@@ -292,7 +320,18 @@ local function buildPreview(view)
 		nav.Title:SetShown((not showStrip or not steps) and G.On("guideTitle"))
 		nav.Title:ClearAllPoints()
 		nav.Title:SetPoint("LEFT", nav, "LEFT", steps and (x0 + 48 + cw + 8) or pad, 0)
-		local right = 8
+		-- The skin's title (GuideFrame's ApplyStyle): the house state, then its hook.
+		nav.TitleBar:SetShown(not clear and Theme.SkinKey() == "hearth")
+		nav.Close:Hide()
+		gw.Band:SetShown(not clear and Theme.SkinKey() == "polestar")
+		local title = G.TitleParts(nav.TitleBar, nav.Close, nav.Rule, gw.Band)
+		if not clear and Theme.SkinHook then Theme.SkinHook("guideTitle", nav, title) end
+		if nav.TitleBar:IsShown() then
+			nav.Rule:SetVertexColor(Theme.Color("titleLine"))
+		else
+			nav.Rule:SetVertexColor(Theme.Wash("divider"))
+		end
+		local right = tonumber(title.menuRight) or 8
 		nav.Menu:SetPoint("CENTER", nav, "RIGHT", -(right + 12), 0)
 		right = right + 24
 		local report = G.On("reportButton")
@@ -315,60 +354,93 @@ local function buildPreview(view)
 		y = y + M.navH
 		local barsH = y
 
-		-- The focus.
+		-- The step card: in the house look its own ground and hairline (SL.Dress).
+		local dressed = dense and not clear and not isCompact
+		if dense then y = y + M.cardTop end
+		local cardY = y
+
+		-- The focus (GuideFrame's person layout): in the house look the zone
+		-- sits muted at the title's right, on its line.
 		local nameW = w - pad * 2 - M.icon - 10
-		person.Name:SetWidth(nameW)
-		person.Where:SetWidth(nameW)
 		person:ClearAllPoints()
 		person:SetPoint("TOPLEFT", gw, "TOPLEFT", 0, -y)
 		person:SetPoint("TOPRIGHT", gw, "TOPRIGHT", 0, -y)
 		person.Icon:SetSize(M.icon + 1, M.icon + 1)
-		person.Icon:SetPoint("TOPLEFT", person, "TOPLEFT", pad - 1, -(11 + floor((G.Num("titleSize") - 1) * 7 + 0.5)))
-		person.Name:SetPoint("TOPLEFT", person, "TOPLEFT", textX, -10)
-		person.Where:SetPoint("TOPLEFT", person.Name, "BOTTOMLEFT", 0, -3)
-		local ph = floor(10 + person.Name:GetStringHeight() + 3 + person.Where:GetStringHeight() + 8 + 0.5)
+		person.Icon:SetPoint("TOPLEFT", person, "TOPLEFT", pad - 1, -M.personIconY)
+		person.Name:SetPoint("TOPLEFT", person, "TOPLEFT", textX, -M.head)
+		person.Where:ClearAllPoints()
+		local ph
+		if dense then
+			local whereW = floor(person.Where:GetStringWidth() + 0.5) + 2
+			person.Where:SetWidth(whereW)
+			person.Where:SetJustifyH("RIGHT")
+			person.Where:SetPoint("TOPRIGHT", person, "TOPRIGHT", -pad, -M.head - 1)
+			person.Name:SetWidth(max(40, nameW - whereW - 8))
+			ph = floor(M.head + person.Name:GetStringHeight() + M.headB + 0.5)
+		else
+			person.Name:SetWidth(nameW)
+			person.Where:SetWidth(nameW)
+			person.Where:SetJustifyH("LEFT")
+			person.Where:SetPoint("TOPLEFT", person.Name, "BOTTOMLEFT", 0, -M.subgap)
+			ph = floor(M.head + person.Name:GetStringHeight() + M.subgap + 1 + person.Where:GetStringHeight() + M.headB + 0.5)
+		end
 		person:SetHeight(ph)
 		y = y + ph
 
-		-- The goals (measureRow's sizes).
-		local tw = max(40, w - textX - (pad + M.check + 4 + M.checkIn))
+		-- The goals (measureRow's sizes): one step in under the title in the house look.
+		local ind = M.ind
+		local tw = max(40, w - textX - ind - (pad + M.check + 4 + M.checkIn))
+		local markX = max(0, pad + ind - 2 - M.markGap)
 		for _, r in ipairs(self.Rows) do
 			r.Text:SetWidth(tw)
 			r.Sub:SetWidth(tw)
-			local h = 4 + r.Text:GetStringHeight()
-			if r.Sub:IsShown() then h = h + 3 + r.Sub:GetStringHeight() end
-			h = max(M.rowMin, floor(h + 6 + M.rowPad * 2 + 0.5))
+			local h = M.top + r.Text:GetStringHeight()
+			if r.Sub:IsShown() then h = h + M.subgap + r.Sub:GetStringHeight() end
+			h = max(M.rowMin, floor(h + M.bot + M.rowPad * 2 + 0.5))
 			r:ClearAllPoints()
 			r:SetPoint("TOPLEFT", gw, "TOPLEFT", 0, -y)
 			r:SetPoint("TOPRIGHT", gw, "TOPRIGHT", 0, -y)
 			r:SetHeight(h)
+			r.Mark:ClearAllPoints()
+			r.Mark:SetPoint("TOPLEFT", r, "TOPLEFT", markX, -3)
+			r.Mark:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", markX, 3)
 			r.Icon:SetSize(M.icon, M.icon)
-			r.Icon:SetPoint("CENTER", r, "TOPLEFT", pad + M.icon / 2, -M.glyphY)
-			r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", textX, -4 - M.rowPad)
-			r.Sub:SetPoint("TOPLEFT", r.Text, "BOTTOMLEFT", 0, -3)
+			r.Icon:SetPoint("CENTER", r, "TOPLEFT", pad + ind + M.icon / 2, -M.glyphY)
+			r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", textX + ind, -M.top - M.rowPad)
+			r.Sub:SetPoint("TOPLEFT", r.Text, "BOTTOMLEFT", 0, -M.subgap)
 			r.Check:SetSize(M.check, M.check)
 			r.Check:ClearAllPoints()
-			r.Check:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(pad - 3 + M.checkIn), -3 - M.rowPad)
+			r.Check:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(pad - 3 + M.checkIn), dense and -(M.ic - M.check / 2) or -3 - M.rowPad)
 			r.Check.psOnWorld = clear
 			Theme.Repaint(r.Check)
 			G.PaintMark(r.Mark)
 			y = y + h
 		end
 
-		-- The tip, one line.
+		-- The tip, one line, at the bottom of the card.
 		local showTip = not isCompact and ns.Get("ui.showNotes") ~= false
 		tip:SetShown(showTip)
 		if showTip then
-			tip.Text:SetWidth(w - pad * 2 - 18)
+			tip.Text:SetWidth(w - textX - pad - 4)
 			local th = min(tip.Text:GetStringHeight(), tip.Text:GetLineHeight())
-			local h = floor(6 + th + 6 + 0.5)
+			local h = floor(M.tip + th + M.tip + 0.5)
 			tip:ClearAllPoints()
 			tip:SetPoint("TOPLEFT", gw, "TOPLEFT", 0, -(y + 2))
 			tip:SetPoint("TOPRIGHT", gw, "TOPRIGHT", 0, -(y + 2))
 			tip:SetHeight(h)
-			tip.Toggle:SetPoint("TOPLEFT", tip, "TOPLEFT", pad + 2, -7)
-			tip.Text:SetPoint("TOPLEFT", tip, "TOPLEFT", textX, -6)
+			tip.Toggle:SetPoint("TOPLEFT", tip, "TOPLEFT", pad - 2, -(M.tip - 3))
+			tip.Text:SetPoint("TOPLEFT", tip, "TOPLEFT", textX, -M.tip)
 			y = y + 2 + h
+		end
+		if dense then y = y + 3 end
+		box:ClearAllPoints()
+		box:SetPoint("TOPLEFT", gw, "TOPLEFT", 0, -cardY)
+		box:SetPoint("TOPRIGHT", gw, "TOPRIGHT", 0, -cardY)
+		box:SetHeight(max(1, y - cardY))
+		if not rawget(box, "Ground") and G.stepList and G.stepList.Dress then G.stepList.Dress(box, M.edge) end
+		if rawget(box, "Ground") then
+			box.Ground:SetShown(dressed)
+			for i = 1, 4 do box.Lines[i]:SetShown(dressed) end
 		end
 		y = y + 6
 
@@ -417,9 +489,27 @@ local function buildPreview(view)
 		end
 		gw:SetHeight(y)
 
-		-- The band behind the bars (Standard, the house skin), the transparent
-		-- style's backing, the bars that wait for the cursor.
-		gw.Band:SetShown(not clear and Theme.SkinKey() == "polestar")
+		-- The hint card above the window (SL.LayoutOut's sizes), as wide as it.
+		local hp = M.outPad
+		hint.Text:SetWidth(w - hp * 2)
+		hint.Text:ClearAllPoints()
+		hint.Text:SetPoint("TOPLEFT", hint, "TOPLEFT", hp, -5)
+		local hintH = 5 + floor(hint.Text:GetStringHeight() + 0.5) + 5
+		hint:ClearAllPoints()
+		hint:SetPoint("BOTTOMLEFT", gw, "TOPLEFT", 0, M.outNear)
+		hint:SetPoint("BOTTOMRIGHT", gw, "TOPRIGHT", 0, M.outNear)
+		hint:SetHeight(hintH)
+		if not rawget(hint, "Ground") and G.stepList and G.stepList.Dress then G.stepList.Dress(hint, 0, 0, true) end
+		if rawget(hint, "Ground") then
+			hint.Ground:SetShown(not clear)
+			hint.Base:SetShown(not clear)
+			for i = 1, 4 do hint.Lines[i]:SetShown(not clear) end
+		end
+		local above = hintH + M.outNear
+
+		-- The band behind the bars (Standard, the house skin, unless the skin's
+		-- title hides it), the transparent style's backing, the bars that wait
+		-- for the cursor.
 		gw.Band:SetHeight(barsH)
 		gw.Band:SetTexCoord(Theme.BandCoords(w - 2, barsH, 30))
 		local veil = G.Backing()
@@ -429,16 +519,16 @@ local function buildPreview(view)
 		for _, fs in ipairs(self.texts) do G.ShadeText(fs, soft and fs:IsVisible()) end
 		local bars = (not clear or self.psHover or ns.Get("ui.barShown")) and 1 or 0
 		strip:SetAlpha(bars)
-		for _, t in ipairs({ nav.Prev, nav.Count, nav.Next, nav.Title, nav.Menu, nav.Report, nav.Nearby, nav.Skip, nav.SkipIcon }) do t:SetAlpha(bars) end
+		for _, t in ipairs({ nav.Prev, nav.Count, nav.Next, nav.Title, nav.Menu, nav.Report, nav.Nearby, nav.Skip, nav.SkipIcon, nav.TitleBar, nav.Close }) do t:SetAlpha(bars) end
 		gw:SetAlpha((ns.Get("ui.opacity") or 1) * (self.psHover and 1 or G.Num("idleAlpha")))
 
 		-- The window at its own scale, smaller only to fit the stage.
 		local s = tonumber(ns.Get("ui.scale")) or 1
-		local fit = min(1, (width - 32) / (w * s), (PREVIEW_H - TOP - 12) / (max(1, y) * s))
+		local fit = min(1, (width - 32) / (w * s), (PREVIEW_H - TOP - 12) / (max(1, y + above) * s))
 		local k = s * fit
 		gw:SetScale(k)
 		gw:ClearAllPoints()
-		gw:SetPoint("TOP", self, "TOP", 0, -TOP / k)
+		gw:SetPoint("TOP", self, "TOP", 0, -TOP / k - above)
 		self.psScale = k
 	end
 

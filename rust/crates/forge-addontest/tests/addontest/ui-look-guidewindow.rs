@@ -64,19 +64,19 @@ fn at_their_defaults_the_look_settings_leave_the_window_as_the_skin_draws_it() {
 			accent = { Polestar.Theme.Color("accent") }, mark = { firstRow().Mark:GetVertexColor() }, fill = { P.line.Fill:GetVertexColor() } })"#);
 	assert_eq!(
 		out["metrics"],
-		json!({ "pad": 14, "tabH": 28, "navH": 34, "progH": 26, "icon": 15, "textX": 39, "check": 18, "rowPad": 0, "upRow": 24, "upToggle": 30, "glyphY": 12 }),
-		"the house style's sizes, as before the look settings"
+		json!({ "pad": 12, "tabH": 28, "navH": 34, "progH": 14, "icon": 13, "textX": 32, "check": 13, "rowPad": 0, "upRow": 18, "upToggle": 22, "glyphY": 9 }),
+		"the house style's dense step card sizes, as before the look settings"
 	);
 	assert_eq!(out["before"], out["after"], "re-setting every default repaints nothing differently");
 	assert_eq!(out["stored"], true, "a value equal to its default is never stored");
 	let b = &out["before"];
-	assert_eq!(b["rowText"], 14, "goal text at the goal role's size");
-	assert_eq!(b["name"], 15, "the person at the name role's size");
-	assert_eq!(b["tip"], 12, "the tip at the note role's size");
-	assert_eq!(b["iconY"], -12, "the goal glyph where it always sat");
+	assert_eq!(b["rowText"], 11.5, "goal text at the cardGoal role's size");
+	assert_eq!(b["name"], 12.5, "the person at the cardName role's size");
+	assert_eq!(b["tip"], 10, "the tip at the cardNote role's size");
+	assert_eq!(b["iconY"], -9, "the goal glyph on the dense row's first line");
 	assert_eq!(b["markW"], 2, "the 2px target bar");
 	assert_eq!(b["markA"], 1);
-	assert_eq!(b["line"], 3, "the 3px progress line");
+	assert_eq!(b["line"], 4, "the house look's 4px progress line");
 	assert_eq!(b["strip"], 28);
 	assert_eq!(b["nav"], 34);
 	assert_eq!(b["foot"], true);
@@ -112,18 +112,19 @@ fn sizes_text_and_spacing_apply_to_the_live_window_at_once() {
 			back = snapshot() })"#);
 	let b = &out["base"];
 	let n = |v: &Value| v.as_f64().unwrap();
-	assert_eq!(out["goal"]["rowText"], 21, "goals at 150%: {}", out["goal"]);
+	assert_eq!(out["goal"]["rowText"], 17.5, "goals at 150% of 11.5: {}", out["goal"]);
 	assert!(n(&out["goal"]["rowH"]) > n(&b["rowH"]), "the row grows with its text");
 	assert!(n(&out["goal"]["iconY"]) < n(&b["iconY"]), "the glyph follows the larger first line down");
 	assert_eq!(out["goal"]["name"], b["name"], "only the goals change size");
-	assert_eq!(out["title"]["name"], 21, "the person at 140%");
+	assert_eq!(out["title"]["name"], 17.5, "the person at 140% of 12.5");
 	assert_eq!(out["title"]["rowText"], b["rowText"]);
-	assert_eq!(out["note"]["tip"], 18, "the tip at 150%");
+	assert_eq!(out["note"]["tip"], 15, "the tip at 150% of 10");
 	assert_eq!(out["bar"]["count"], 18, "the step number at 150%");
 	assert_eq!(n(&out["pad"]["rowTextX"]), n(&b["rowTextX"]) + 6.0, "inner padding moves the text in");
-	assert_eq!(n(&out["rows"]["rowH"]), n(&b["rowH"]) + 8.0, "goal spacing adds room above and below each goal");
-	assert_eq!(out["glyph"]["icon"], 30, "goal glyphs at 200%");
-	assert_eq!(out["check"]["check"], 27, "tick boxes at 150%");
+	// The dense row's text is 16.5px tall, held up to the 18px least height; 4px above and below grow it to 25.
+	assert_eq!(n(&out["rows"]["rowH"]), n(&b["rowH"]) + 7.0, "goal spacing adds room above and below each goal");
+	assert_eq!(out["glyph"]["icon"], 26, "goal glyphs at 200%");
+	assert_eq!(out["check"]["check"], 20, "tick boxes at 150%");
 	assert_eq!(out["tabs"]["strip"], 42, "the tab bar at 150%");
 	assert_eq!(out["nav"]["nav"], 51, "the step bar at 150%");
 	assert_eq!(out["line"]["line"], 8, "the progress line's thickness");
@@ -172,7 +173,7 @@ fn parts_colours_ground_and_border_follow_their_settings() {
 	assert_eq!(h["foot"], false, "no progress bar");
 	assert_eq!(
 		h["height"].as_f64().unwrap(),
-		b["height"].as_f64().unwrap() - 28.0 - 26.0,
+		b["height"].as_f64().unwrap() - 28.0 - 14.0,
 		"the window loses the tab bar's and the progress bar's height"
 	);
 	assert_eq!(out["noPct"]["pct"], false);
@@ -260,15 +261,15 @@ fn the_preview_lays_out_a_step_card_by_the_windows_numbers_without_touching_the_
 	assert_eq!(out["h"], 290);
 	let b = &out["before"];
 	let a = &out["after"];
-	assert_eq!(b["text"], 14, "the preview's goals at the goal role's size");
-	assert_eq!(b["name"], 15);
-	assert_eq!(b["x"], 39, "its text at the window's TEXT_X");
+	assert_eq!(b["text"], 11.5, "the preview's goals at the cardGoal role's size, as the live card");
+	assert_eq!(b["name"], 12.5);
+	assert_eq!(b["x"], 42, "its text at the window's TEXT_X, one step (10) in under the title");
 	assert_eq!(b["mark"], 2);
 	assert_eq!(b["w"], 340, "the window's own width");
 	assert!(b["line"].as_str().unwrap().contains("3/8"), "the demo goal drawn by UI.GoalLine: {}", b["line"]);
-	assert_eq!(a["text"], 21, "goal size follows");
-	assert_eq!(a["name"], 21, "person size follows");
-	assert_eq!(a["x"], 45, "padding follows");
+	assert_eq!(a["text"], 17.5, "goal size follows");
+	assert_eq!(a["name"], 17.5, "person size follows");
+	assert_eq!(a["x"], 48, "padding follows");
 	assert_eq!(a["mark"], 5, "the target bar follows");
 	assert_eq!(a["strip"], false);
 	assert_eq!(a["foot"], false);
@@ -276,7 +277,7 @@ fn the_preview_lays_out_a_step_card_by_the_windows_numbers_without_touching_the_
 	assert!(a["rowH"].as_f64().unwrap() > b["rowH"].as_f64().unwrap());
 	assert_eq!(out["rows"], true, "no row added to the live window");
 	assert_eq!(out["window"], true, "the preview draws its own window");
-	assert_eq!(out["liveText"], 21, "the live window followed the same setting");
+	assert_eq!(out["liveText"], 17.5, "the live window followed the same setting");
 }
 
 #[test]
@@ -297,4 +298,53 @@ fn the_settings_window_has_the_guide_window_page_with_its_controls() {
 	for k in ["ui.style", "ui.backing", "ui.barShown", "ui.scale", "ui.width", "ui.opacity", "guideWindow.idleAlpha", "guideWindow.bgOpacity"] {
 		assert!(keys.contains(&k), "{k} on the Window tab: {:?}", keys);
 	}
+}
+
+// A registered skin on the house base takes the dense card and can size its roles (`fontSizes.cardGoal`), and its
+// `guideTitle` hook dresses the navigator: the title bar and the close square shown, the band hidden, the menu
+// moved in for the square, the rule in titleLine. The transparent window and the other skins keep the house title.
+#[test]
+fn a_registered_skin_sizes_the_card_s_roles_and_its_guide_title_hook_dresses_the_navigator() {
+	let out = run(r##"
+		local T = Polestar.Theme
+		local ok, why = T.RegisterSkin("titled", { name = "Titled", addon = "Test_Titled", base = "polestar", fontSizes = { cardGoal = 13 },
+			tokens = { titleLine = "#43331E", closeFill = "#9C211D" },
+			hooks = { guideTitle = function(nav, parts)
+				parts.bar:Show()
+				parts.close:Show()
+				parts.band:Hide()
+				parts.menuRight = 26
+			end } })
+		uistub.openTabs(TABS, 1)
+		local function title()
+			local _, _, _, mx = P.nav.Menu:GetPoint(1)
+			local r, g, b = P.nav.Rule:GetVertexColor()
+			return { bar = P.nav.TitleBar:IsShown(), close = P.nav.Close:IsShown(), band = P.band:IsShown(), menu = mx,
+				goal = size(firstRow().Text), rule = string.format("%02x%02x%02x", r * 255 + 0.5, g * 255 + 0.5, b * 255 + 0.5) }
+		end
+		local house = title()
+		Polestar.Set("ui.skin", "titled")
+		local titled = title()
+		titled.card = GF.Metrics().card
+		local f = Polestar.UI.GuideWindowPreview(UIParent)
+		f:Layout(900)
+		titled.previewBar, titled.previewClose = f.Nav.TitleBar:IsShown(), f.Nav.Close:IsShown()
+		Polestar.Set("ui.style", "transparent")
+		local clear = title()
+		Polestar.Set("ui.style", "standard")
+		Polestar.Set("ui.skin", "polestar")
+		emit({ ok = ok, why = why or false, house = house, titled = titled, clear = clear, back = title() })"##);
+	assert_eq!(out["ok"], true, "registered: {}", out["why"]);
+	let h = &out["house"];
+	assert_eq!((h["bar"].clone(), h["close"].clone(), h["band"].clone(), h["menu"].clone()), (json!(false), json!(false), json!(true), json!(-8)), "the house title: {h}");
+	assert_eq!(h["goal"], 11.5);
+	let t = &out["titled"];
+	assert_eq!(t["card"], true, "a skin on the house base takes the dense card");
+	assert_eq!(t["goal"], 13, "fontSizes.cardGoal sizes the card's goals");
+	assert_eq!((t["bar"].clone(), t["close"].clone(), t["band"].clone(), t["menu"].clone()), (json!(true), json!(true), json!(false), json!(-26)), "the hook's title: {t}");
+	assert_eq!(t["rule"], "43331e", "the rule under a title bar in titleLine");
+	assert_eq!((t["previewBar"].clone(), t["previewClose"].clone()), (json!(true), json!(true)), "the Looks preview runs the same hook");
+	let c = &out["clear"];
+	assert_eq!((c["bar"].clone(), c["close"].clone(), c["band"].clone()), (json!(false), json!(false), json!(false)), "the transparent window draws no title: {c}");
+	assert_eq!(out["back"], out["house"], "back on the house skin, its own title");
 }
