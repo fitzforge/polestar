@@ -47,7 +47,7 @@ Polestar.QuestDB = {
 }
 local function bags() stub.fire("BAG_UPDATE_DELAYED"); stub.runTimers() end
 local function shown()
-	return { b:GetAttribute("item") or "nil", b:IsShown() and true or false, (b.Glow and b.Glow:IsShown()) and true or false }
+	return { b:GetAttribute("item") or "nil", b:IsShown() and true or false, (b.questGlow and b.questGlow:IsShown()) and true or false }
 end
 q.step({ { t = "kill", target = "Wolf", quest = 5, oi = 1 } })
 "#;

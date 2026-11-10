@@ -1344,8 +1344,7 @@ local function onAddonMessage(_, prefix, text, channel, sender)
 		heard(key, false)
 		if not ns.Get("party.show") then return end
 		memberFor(key, short).rest = rest and { left = rest, at = GetTime() } or nil
-		-- Boosted Rest shows only on the party panel.
-		panelChanged()
+		progressChanged()
 		return
 	end
 	local snap, entries, asks = Party.Decode(text)
