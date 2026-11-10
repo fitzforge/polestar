@@ -5369,8 +5369,8 @@
 				"goal": "objective",
 				"objective": 3
 			},
-			"tip": "Careful: two Giant Yetis (33) stand right by the flame, Skhowl, a rare yeti (36), roams the slope just south of the cave on the way up from the caverns, and Crushridge ogres (34-35) come down to it from Alterac. At 30-31 that is three to five levels over you: clear the yetis one at a time from the cave mouth before you use the Rod, and if an ogre stands at the flame, pull it away alone or bring a friend.",
-			"note": "Helcular's Revenge (553): the Flame of Uzel's cave in the hills north of the Foothill Caverns is reached at about 30-31 on the 29-33 Hillsbrad guide, and the mobs at the flame are higher: Giant Yetis (33) beside it, the rare Skhowl (36) about 40 yd south, and Crushridge ogres (34-35), one of which a player met there at 30.8. A caution, not a route change: the 38-39 Alterac visit never goes back to Southshore's graveyard for the hand-in, and the other two flames are in the caverns earlier in this guide. First case of the danger-at-the-spot check (#1575).",
+			"tip": "Careful: Giant and Mountain Yetis (32-34) stand around the flame, often in pairs, and Frostmaw, a rare yeti (37), roams nearby. At 30-31 they are over your level: pull the yetis one at a time from the cave mouth before you use the Rod, and watch for Frostmaw before you go in.",
+			"note": "Helcular's Revenge (553): the Flame of Uzel's cave in the hills north of the Foothill Caverns is reached at about 30-31 on the 29-33 Hillsbrad guide, and the mobs at the flame are higher. Players' recordings (13 charges of 553.3, recorded on the Alterac map at 37.5,66.3-67.3, the same spot as Hillsbrad 41.7,6.4 across the zone border) show Giant Yetis 2251 (33-34) and Mountain Yetis 2250 (32-33) at the flame, pulled in pairs, and the rare Frostmaw 4504 (37) nearby (6 of those runs); the one recorded death there followed a two-yeti pull. Crushridge ogres were seen near the flame by one person in the whole archive (Tincho's report among them) and Skhowl by one, so the tip leaves them out. A caution, not a route change: the 38-39 Alterac visit never goes back to Southshore's graveyard for the hand-in, and the other two flames are in the caverns earlier in this guide. First case of the danger-at-the-spot check (#1575).",
 			"source": [
 				{
 					"kind": "in-game-check",
@@ -5379,6 +5379,10 @@
 				{
 					"kind": "tdb",
 					"ref": "creature spawns within 45 yd of gameobject 1770 (Flame of Uzel, 263.4,-267.7): 2251 Giant Yeti x3 (level 33), 2452 Skhowl (rare, 36); npc levels 2252 Crushridge Ogre 34-35, 2253 Crushridge Brute 35"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec.py, 2026-11-10: 13 runs of 553.3; hostiles within 4 map units of the charge (Alterac 37.5,66.8), 10 min before to 3 min after: 2251 (17 sightings by people, killed by 7), 2250 (11, killed by 3), 4504 Frostmaw (6, killed by 3); 1 death after a 2251+2250 pull; archive-wide within 6 units: 2252 by 1 person, 2253 by none, 2452 by 1"
 				}
 			],
 			"issue": 1575
