@@ -4918,6 +4918,30 @@
 			{
 				"a": [
 					"task",
+					1387,
+					0
+				],
+				"b": [
+					"task",
+					93224,
+					0
+				],
+				"why": "#1602 (rockzors, Alliance Desolace): Carved Centaur Totems drop from the Kolkar and Magram centaurs as well as the Maraudine (players' recordings, forever-db correction of item 254432), so the totems come with Centaur Bounty's ears at Kolkar Village: one field step for both."
+			},
+			{
+				"a": [
+					"turnin",
+					1387
+				],
+				"b": [
+					"turnin",
+					93224
+				],
+				"why": "#1602: Captain Pentigast (66.7,10.9) stands beside Corporal Melkins (66.7,10.9) at Nijel's Point: both hand-ins on one stop."
+			},
+			{
+				"a": [
+					"task",
 					3361,
 					1
 				],
@@ -8583,6 +8607,15 @@
 				],
 				"reason": "Quest volume (Alliance 30-40 audit (0.3.7, 2026-11-09)): Desolace (30-40/02): Vahlarriel's Vengeance (level 33, from 30, 2650 XP; Vahlarriel Demonslayer at Nijel's Point) asks for four each of the Burning Blade Augurs, Reavers, Adepts and Felsworn in Thunder Axe Fortress, where the guide already goes for Dalinda, Tyranis and the Sceptre of Light. EG live and Forever's quest page agree on giver, ender and objectives, and a collector saw its XP in game. #1579: she offers it with the third part of Vahlarriel's Search (1438) when the second part (1465, from the Malem chest) is handed back to her (in game, 2026-11-10, and in every recorded window; forever-db correction pre 1465), not with the first part (1437). Players' recordings: offered to 3 people, each in her window after the hand-in of 1465 or later; a level 36 Human with nothing done got only 1437 from her, and the reporter (level 36, 1437 still in the log) found nothing to take.",
 				"issue": "#1579"
+			},
+			{
+				"q": 93224,
+				"after": [
+					"accept",
+					1387
+				],
+				"reason": "#1602 (rockzors, 0.3.6): Carved Centaur Totems (level 40, from 30, 2350 XP; Captain Pentigast beside Corporal Melkins at Nijel's Point) wants five Carved Centaur Totems. Players' recordings (build 70862, 41 drops, 5 contributors) have them dropping from six Kolkar and seven Magram kinds, not only the Maraudine the merged data listed (forever-db correction of item 254432, addDrops), so the first Desolace visit (30-40/02, 35-36) takes it with Centaur Bounty and hands it in on the same stop instead of the south loop's Valley of Spears (30-40/06, 38-39). The hand-edited 30-40/06 keeps its accept, collect and hand-in for a player who loads it fresh.",
+				"issue": "#1602"
 			},
 			{
 				"q": 1111,

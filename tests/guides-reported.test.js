@@ -10727,3 +10727,31 @@ test('Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its o
 		assert.ok(magram, `${quest}: a Magram Village spot names the Magram Windchaser and Wrangler, no Kolkar`);
 	}
 });
+
+// rockzors (#1602, 0.3.6): "include Carved Centaur Totems with the Centaur Bounty quest". Players' recordings
+// (build 70862, 41 drops, 5 contributors) have Carved Centaur Totem (254432) dropping from six Kolkar and seven
+// Magram kinds; the merged data listed only the Maraudine, so the quest waited for the south loop's Valley of
+// Spears (30-40/06). A forever-db correction adds the droppers and the first visit takes it with Centaur Bounty.
+test('rockzors (#1602): Alliance Desolace takes Carved Centaur Totems with Centaur Bounty at Kolkar Village', { skip }, () => {
+	const kolkar = [4632, 4633, 4634, 4635, 4636, 4637];
+	const magram = [4638, 4639, 4640, 4641, 4642, 4643, 4645];
+	const corr = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'items.json'), 'utf8'))['254432'];
+	assert.ok(corr, 'the drops are a correction');
+	assert.deepEqual(corr.addDrops.npc, [...kolkar, ...magram]);
+	assert.ok([corr.source].flat().some((s) => s.kind === 'recording'), 'cites the recordings');
+	data = data || loadData(DATA);
+	const droppers = Object.keys(data.items[254432]?.drops?.npc || {}).map(Number);
+	assert.ok(kolkar.every((n) => droppers.includes(n)), 'the data has the Kolkar droppers (rebuild data/forever with forge data build so the correction applies)');
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.overrides.include.some((e) => e.q === 93224 && e.after?.[0] === 'accept' && e.after?.[1] === 1387), 'the route record');
+	const list = goals('forever/alliance/30-40/02-desolace.guide');
+	const step = (what, pred) => list[at(list, what, pred)].s;
+	assert.equal(step('accept 93224', is('accept', 93224)), step('accept 1387', is('accept', 1387)), 'Pentigast with Melkins');
+	const totems = at(list, 'collect 254432', (g) => g.t === 'collect' && g.quest === 93224);
+	assert.equal(list[totems].s, step('collect 6067', (g) => g.t === 'collect' && g.quest === 1387), 'the totems with the ears');
+	const handIn = at(list, 'turnin 93224', is('turnin', 93224));
+	assert.ok(handIn > totems && list[handIn].s === step('turnin 1387', is('turnin', 1387)), 'both hand-ins on the last Nijel\'s Point stop');
+	const south = goals('forever/alliance/30-40/06-badlands.guide');
+	at(south, 'accept 93224 (06 keeps it for a fresh start)', is('accept', 93224));
+	at(south, 'turnin 93224 (06)', is('turnin', 93224));
+});
