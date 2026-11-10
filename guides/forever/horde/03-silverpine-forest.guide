@@ -125,12 +125,46 @@ step The Drag
   tip Kor'geld and Yelmak run the alchemy shop in the Drag; Whuut is next door.
   accept 97242                        -- Kor'geld
 
+step Jandi
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97905
+  tip Jandi, the herbalism trainer, keeps her shop in the Drag.
+  turnin 97905                        -- Jandi: Camping 101, from Brakk's campfire in Durotar
+
+step Jhag
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97901
+  tip Jhag, the enchanting trainer, works in the Drag.
+  turnin 97901                        -- Jhag: Camping 101, from Brakk's campfire in Durotar
+
 step Valley of Honor
   only Orc,Troll,Tauren,Skyborne
   zone Orgrimmar
   tip The cattails and speargrass grow along the water in the Valley of Honor, east of the Drag.
   collect 277278 quest 97242.1
   collect 277279 quest 97242.2
+
+step Thuwd
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97908
+  tip Thuwd, the skinning trainer, stands in the Valley of Honor.
+  turnin 97908                        -- Thuwd: Camping 101, from Brakk's campfire in Durotar
+
+step Karolek
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97906
+  tip Karolek, the leatherworking trainer, works in the Valley of Honor.
+  turnin 97906                        -- Karolek: Camping 101, from Brakk's campfire in Durotar
+
+step Snang
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 96102
+  turnin 96102                        -- Snang: Camping 101, from Brakk's campfire in Durotar
 
 step Class trainer
   only Orc,Troll,Tauren,Skyborne,Warrior,Hunter,Rogue,Priest,Shaman,Warlock
@@ -176,6 +210,12 @@ step Kor'geld
   turnin 97242
   accept 97275                        -- Yelmak
   turnin 97275                        -- Whuut
+
+step Whuut
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97899
+  turnin 97899                        -- Whuut: Camping 101, from Brakk's campfire in Durotar
 
 step Valley of Wisdom
   only Orc,Troll,Tauren,Skyborne
@@ -389,13 +429,31 @@ step The Undercity
   accept 6322 only Undead
   getfp "Undercity"
   turnin 6322 only Undead             -- Michael Garrett, the bat handler
-  accept 6324 only Undead             -- Michael Garrett: keep Gordon's Crate, Podrig takes it on the ride through the Sepulcher at 22
+  accept 6324 only Undead             -- Michael Garrett: keep Gordon's Crate, Podrig takes it on the next stop at the Sepulcher, at 22
   turnin 441                          -- Raleigh Andrean
   accept 97891                        -- Alessandro Luca
   turnin 97891                        -- Doctor Martin Felben, in the Apothecarium
   turnin 1359                         -- Apothecary Zinge, in the Apothecarium
   accept 1358                         -- Apothecary Zinge: Helbrim at the Crossroads, in the next guide
   train class only Paladin            -- Garen Largo, the Undercity's paladin trainer
+
+step Brom Killian
+  only Undead
+  zone Undercity
+  when onquest 97959
+  turnin 97959                        -- Brom Killian: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
+
+step Basil Frye
+  only Undead
+  zone Undercity
+  when onquest 97952
+  turnin 97952                        -- Basil Frye: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
+
+step Graham Van Talen
+  only Undead
+  zone Undercity
+  when onquest 97954
+  turnin 97954                        -- Graham Van Talen: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
 
 step Lady Sylvanas Windrunner
   only Skyborne

@@ -10043,3 +10043,21 @@ test('Horde Stranglethorn 40: Excelsior from Drizzlik, the elder crocolisk on th
 	assert.ok(tin > skin && stv[tin].goal.optional, 'handed in on the next Booty Bay stop, optional');
 	assert.equal(stv[tin].s, stv[at(stv, 'turnin 606', is('turnin', 606))].s, "on Shaky Phillipe's stop");
 });
+
+// Horde 12-30 bracket review (0.3.6): the start campfires' Camping 101 profession quests (Brakk in Durotar, Eleanor
+// Shackleton in Tirisfal) end at trainers on the Silverpine guide's Orgrimmar walk and Undercity stop. Each hand-in is
+// its own step, shown only to a player carrying that quest, on the stop where its trainer stands.
+test('Horde Silverpine: Camping 101 hand-ins only for carriers, on the Orgrimmar walk and the Undercity stop', { skip }, () => {
+	const list = goals('forever/horde/03-silverpine-forest.guide');
+	for (const [quest, npc, race] of [
+		[97905, 3404, 'Orc'], [97901, 11066, 'Orc'], [97908, 7088, 'Orc'],
+		[97906, 3365, 'Orc'], [96102, 2855, 'Orc'], [97899, 11046, 'Orc'],
+		[97959, 4598, 'Scourge'], [97952, 4605, 'Scourge'], [97954, 4586, 'Scourge'],
+	]) {
+		const { step, goal } = list[at(list, `Camping 101 ${quest}`, is('turnin', quest))];
+		assert.equal(goal.npc, npc, `${quest}: its trainer`);
+		assert.equal(step.goals.length, 1, `${quest}: a step of its own`);
+		assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg && p.q.includes(quest)), `${quest}: only for a carrier`);
+		assert.ok(step.only.races.includes(race), `${quest}: for the race whose campfire gives it`);
+	}
+});
