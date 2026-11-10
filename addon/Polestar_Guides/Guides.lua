@@ -6874,10 +6874,17 @@ do
 					},
 				},
 				{
+					title = "Round {area:1702}",
+					only = { factions = { "Alliance" } },
+					when = { { k = "zone", neg = true, name = "Stonetalon Mountains", area = 406 } },
+					goals = {
+						{ t = "goto", text = "North of Honor's Stand", map = 1413, x = 40.2, y = 24.88, f = "e", r = 30, note = "The road west runs through {area:1702}, a Horde post; this way goes round it." },
+					},
+				},
+				{
 					title = "{zone:1442}",
 					note = "The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent.",
 					goals = {
-						{ t = "goto", text = "North of Honor's Stand", map = 1413, x = 40.2, y = 24.88, f = "e", r = 30, only = { factions = { "Alliance" } }, note = "The road west runs through {area:1702}, a Horde post; this way goes round it." },
 						{ t = "goto", text = "Path into the hills", map = 1442, x = 50.9, y = 52.3, f = "e" },
 						{ t = "turnin", quest = 79192, title = "Stepping Stones", object = 424005, objName = "Pocket Litter", map = 1442, x = 40.76, y = 52.57, f = "e" },
 						{ t = "accept", quest = 79980, title = "Scramble", object = 424005, objName = "Pocket Litter", minLevel = 14, qlvl = 24, pre = { 79192 }, preTitles = { [79192] = "Stepping Stones" }, map = 1442, x = 40.76, y = 52.57, f = "e" },
