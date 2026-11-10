@@ -142,7 +142,7 @@ function wrap(fonts, font, text, width) {
 	for (const para of text.split('\n')) {
 		let line = '';
 		for (const word of para.split(/\s+/).filter(Boolean)) {
-			const pieces = CJK.test(word) ? word.match(PIECES) : [word];
+			const pieces = CJK.test(word) ? word.match(PIECES) : word.includes('/') ? word.split(/(?<=\/)/).filter(Boolean) : [word];
 			pieces.forEach((piece, i) => {
 				const cand = line ? line + (i === 0 ? ' ' : '') + piece : piece;
 				if (line && measure(fonts, font, cand) > width + 0.01) {
