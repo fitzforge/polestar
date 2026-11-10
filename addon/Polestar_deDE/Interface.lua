@@ -563,6 +563,7 @@ L["Still to do: %s, %s"] = "Noch offen: %s, %s"
 L["Still to do: %s"] = "Noch offen: %s"
 L["Still to do"] = "Noch offen"
 L["Step %d, later in this guide"] = "Schritt %d, später in diesem Leitfaden"
+-- L["How to update"] = ""
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"
@@ -1277,6 +1278,8 @@ L["Dark"] = "Dunkel"
 L["Keep the bar shown"] = "Leiste immer anzeigen"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "Bei Transparent bleiben die Tabs und die Schrittleiste sichtbar, statt nur unter dem Mauszeiger zu erscheinen."
 L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = "Bei Transparent: Weich legt einen leichten Schatten hinter jede Textzeile, Dunkel eine dunkle Unterlegung hinter das ganze Fenster. Aus: nur der umrandete Text über der Welt."
+-- L["Tell me when a newer Polestar is out"] = ""
+-- L["At login, a card on the guide window says a newer Polestar is out and how to update; Got it keeps it away for a day. A line in the guide window stays until you update. Two or more updates behind, both show even with this off (the card at most once a day)."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"
@@ -3161,6 +3164,29 @@ L["The way to %s takes about %s, longer than the time left"] = "Der Weg zu %s da
 L["%s: %d minutes left"] = "%s: noch %d Minuten"
 L["%s: 1 minute left"] = "%s: noch 1 Minute"
 L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = "%s fehlgeschlagen: Die Zeit ist abgelaufen. Brecht sie im Questlog ab und nehmt sie erneut an."
+
+-- Core/Update.lua
+-- L["(outdated: latest %s)"] = ""
+-- L["You're on an old Polestar (%s): please update first, your problem may already be fixed."] = ""
+-- L["Polestar %s is the newest release."] = ""
+-- L["No newer Polestar is known. Polestar Client, the CurseForge app or the releases page say for sure."] = ""
+-- L["Show the update card when a newer Polestar is out"] = ""
+
+-- UI/UpdateCard.lua
+-- L["Polestar Client can update it for you: open it, press Update, then restart the game or /reload."] = ""
+-- L["Update it with the CurseForge app or Polestar Client (or the zip from GitHub), then restart the game or /reload."] = ""
+-- L["POLESTAR UPDATE"] = ""
+-- L["Check for a newer Polestar"] = ""
+-- L["This Polestar is %d weeks old: updates come often."] = ""
+-- L["Polestar %s is out"] = ""
+-- L["You're on %s, %d updates behind: fixes for the quests and arrow issues players report are in the newer versions."] = ""
+-- L["You're on %s."] = ""
+-- L["Polestar %s: what's new"] = ""
+-- L["Polestar releases"] = ""
+-- L["The link is selected for you: copy it with Ctrl+C (Cmd+C on a Mac) and open it in your browser."] = ""
+-- L["This Polestar is %d weeks old: updates come often, check for a newer one."] = ""
+-- L["Polestar %s is out: you're on %s, %d updates behind."] = ""
+-- L["Polestar %s is out: you're on %s."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."

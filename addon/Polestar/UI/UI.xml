@@ -14,6 +14,7 @@
 	<Script file="ClassCard.lua"/>
 	<Script file="ClassToast.lua"/>
 	<Script file="DungeonToast.lua"/>
+	<Script file="UpdateCard.lua"/>
 	<Script file="JourneyPanel.lua"/>
 	<Script file="GamepadGuide.lua"/>
 	<Script file="GearPick.lua"/>

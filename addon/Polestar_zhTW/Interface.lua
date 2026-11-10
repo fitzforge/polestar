@@ -1394,6 +1394,7 @@ L["Still to do: %s, %s"] = "尚未完成：%s，%s"
 L["Still to do: %s"] = "尚未完成：%s"
 L["Still to do"] = "尚未完成"
 L["Step %d, later in this guide"] = "第 %d 步，本指南稍後"
+-- L["How to update"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"
@@ -2190,6 +2191,8 @@ L["Dark"] = "深色"
 L["Keep the bar shown"] = "持續顯示列"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "使用透明樣式時，分頁與步驟列會持續顯示在畫面上，而不是只在滑鼠指向時顯示。"
 L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = "透明樣式下：柔和會在每行文字後加一層淺色陰影，深色會在整個視窗後加深色底襯。關閉：只有帶描邊的文字顯示在遊戲畫面上。"
+-- L["Tell me when a newer Polestar is out"] = ""
+-- L["At login, a card on the guide window says a newer Polestar is out and how to update; Got it keeps it away for a day. A line in the guide window stays until you update. Two or more updates behind, both show even with this off (the card at most once a day)."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"
@@ -3176,6 +3179,29 @@ L["The way to %s takes about %s, longer than the time left"] = "前往 %s 約需
 L["%s: %d minutes left"] = "%s：剩餘 %d 分鐘"
 L["%s: 1 minute left"] = "%s：剩餘 1 分鐘"
 L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = "%s 已失敗：時間已到。請在任務日誌中放棄後重新接取。"
+
+-- Core/Update.lua
+-- L["(outdated: latest %s)"] = ""
+-- L["You're on an old Polestar (%s): please update first, your problem may already be fixed."] = ""
+-- L["Polestar %s is the newest release."] = ""
+-- L["No newer Polestar is known. Polestar Client, the CurseForge app or the releases page say for sure."] = ""
+-- L["Show the update card when a newer Polestar is out"] = ""
+
+-- UI/UpdateCard.lua
+-- L["Polestar Client can update it for you: open it, press Update, then restart the game or /reload."] = ""
+-- L["Update it with the CurseForge app or Polestar Client (or the zip from GitHub), then restart the game or /reload."] = ""
+-- L["POLESTAR UPDATE"] = ""
+-- L["Check for a newer Polestar"] = ""
+-- L["This Polestar is %d weeks old: updates come often."] = ""
+-- L["Polestar %s is out"] = ""
+-- L["You're on %s, %d updates behind: fixes for the quests and arrow issues players report are in the newer versions."] = ""
+-- L["You're on %s."] = ""
+-- L["Polestar %s: what's new"] = ""
+-- L["Polestar releases"] = ""
+-- L["The link is selected for you: copy it with Ctrl+C (Cmd+C on a Mac) and open it in your browser."] = ""
+-- L["This Polestar is %d weeks old: updates come often, check for a newer one."] = ""
+-- L["Polestar %s is out: you're on %s, %d updates behind."] = ""
+-- L["Polestar %s is out: you're on %s."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。關閉「已安裝時以 Shortest Path Forever 導引」（「選項」>「箭頭與路線」）即可使用 Polestar 的箭頭。"

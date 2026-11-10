@@ -1395,8 +1395,9 @@ end
 -- then a Class guide that just opened (QoL/ClassQuests.lua), then the bags
 -- nearly full while the step collects (QoL/Space.lua: delete the cheapest
 -- junk, two clicks), then gear worth wearing from loot or a merchant
--- (QoL/Wear.lua: Wear it, Not this one). Taking or dismissing one lets the
--- next through.
+-- (QoL/Wear.lua: Wear it, Not this one), last a newer Polestar or an old
+-- build (UI/UpdateCard.lua: Update; shown with no guide open too). Taking
+-- or dismissing one lets the next through.
 ---------------------------------------------------------------------------
 
 local SKIPPED_SECONDS = 20 -- how long the "Skipped …" notices stay
@@ -1485,6 +1486,10 @@ local function bannerNotice()
 	if bags then return "bags", bags end
 	local wear = Q and Q.Wear and Q.Wear.Offer and Q.Wear.Offer()
 	if wear then return "wear", wear end
+	-- A newer Polestar (UI/UpdateCard.lua): last, so it waits for every other.
+	local UC = UI.UpdateCard
+	local up = UC and UC.Banner and UC.Banner()
+	if up then return "update", up end
 	return nil
 end
 GF.BannerNotice = bannerNotice
@@ -1847,6 +1852,11 @@ function GF.LayoutBanner(width)
 		local w = placeLink(banner.Jump, L["Wear it"], 0, -4)
 		placeLink(banner.Later, L["Not this one"], w + 10, -4)
 		banner.Close:Show()
+	elseif kind == "update" then
+		banner.Icon:SetTexture(Theme.Media("reset"))
+		banner.Text:SetText(UI.UpdateCard.BannerText(n))
+		placeLink(banner.Jump, n.kind == "old" and L["How to update"] or L["Update"], 0, -4)
+		banner.Close:SetShown(n.closable)
 	end
 	local h = floor(9 + banner.Text:GetStringHeight() + 4 + 18 + 9 + 0.5)
 	banner:SetHeight(h)
@@ -1918,6 +1928,8 @@ function GF.TakeBanner()
 		ns.QoL.Space.Press()
 	elseif kind == "wear" then
 		ns.QoL.Wear.Take()
+	elseif kind == "update" then
+		UI.UpdateCard.Show(true)
 	end
 	GF.Layout()
 end
@@ -1969,6 +1981,8 @@ function GF.DismissBanner(later)
 		ns.QoL.Space.Dismiss()
 	elseif kind == "wear" then
 		ns.QoL.Wear.Dismiss()
+	elseif kind == "update" then
+		UI.UpdateCard.DismissBanner()
 	elseif kind == "ended" then
 		notices.endSeen = n.guideId
 	elseif kind then
@@ -2355,9 +2369,10 @@ function GF.Layout()
 	card:SetWidth(width)
 
 	local y = 0
-	-- With no guide open, only the tab just closed (its Reopen) shows.
+	-- With no guide open, only the tab just closed (its Reopen) and a newer
+	-- Polestar show.
 	local kind = bannerNotice()
-	if kind and ((state ~= "noguide" and state ~= "noguides") or kind == "closedTab") then
+	if kind and ((state ~= "noguide" and state ~= "noguides") or kind == "closedTab" or kind == "update") then
 		y = stack(banner, y, GF.LayoutBanner(width))
 		banner:Show()
 	else

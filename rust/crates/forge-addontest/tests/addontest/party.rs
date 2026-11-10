@@ -965,6 +965,31 @@ emit(n)"#
 	assert_eq!(out[0], 2, "one line for Polestar, one for the pack, each once");
 }
 
+// A member's release version tells the update notices (Core/Update.lua), from their hello or their "1P|"; once
+// the update card has shown for that version (PolestarDB.update.shown), the chat line says nothing more.
+#[test]
+fn party_a_members_newer_release_tells_the_update_notices_and_the_chat_line_is_left_out_once_the_card_said_it() {
+	let script = sent(&format!(
+		"{ON_GUIDE}{}",
+		r#"
+stub.messages = {}
+Polestar.version = "0.3.6"
+p.quiet.Ben = true
+p.join("Ben")
+p.receive("Ben-TestRealm", "1Y|0.3.7")
+local fromHello = PolestarDB.update and PolestarDB.update.peer or false
+p.join("Ana")
+p.receive("Ana-TestRealm", "1P|8|0.3.8|test|3|test/g")
+local n = 0
+for _, m in ipairs(stub.messages) do if m:find("A newer version is out", 1, true) then n = n + 1 end end
+emit({ hello = fromHello, peer = PolestarDB.update.peer, lines = n })"#
+	));
+	let out = run_with(&script, LIVE_STUBS, FILES, true, Some(ON));
+	assert_eq!(out[0], json!({ "hello": "0.3.7", "peer": "0.3.8", "lines": 1 }));
+	let told = run_with(&script, LIVE_STUBS, FILES, true, Some("PolestarDB = { schema = 1, settings = { party = { share = true, show = true } }, update = { shown = \"0.3.8\" } }"));
+	assert_eq!(told[0], json!({ "hello": "0.3.7", "peer": "0.3.8", "lines": 0 }), "the card said 0.3.8 is out");
+}
+
 // Group play: on by default, the "2U|" unit message, sharing with the reason a member cannot take a
 // quest, the party panel's rows and the loot a member still needs. The wait itself, with a real guide:
 // party-group.rs.

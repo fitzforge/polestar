@@ -154,6 +154,11 @@ Messages:
 | `TOGGLE_PICKER` / `TOGGLE_OPTIONS` | — | key bindings and gamepad chords (`POLESTAR_MENU`, `POLESTAR_OPTIONS`) → UI: open, or close when open |
 | `TOGGLE_FOCUS` | — | `POLESTAR_FOCUS` → UI/GamepadGuide.lua (focus mode) |
 
+`UPDATE_KNOWN` (latest version) is fired by Core/Update.lua when a newer
+release than any known becomes known during a session (a party or guild
+member's version): the guide window's update line and the update card look
+again ("Update notices", under UI).
+
 Modules fire their own (`TABS_CHANGED`, `ROUTE_*`, `TRAIN_DUE`,
 `CLASS_TRAINED`, `GUIDE_OUTLEVELED`, `QUESTDB_*`, `CODEX_LOADED`,
 `ITEMDB_LOADED`, `GEAR_UPDATED`, `FLIGHT_STARTED`/`FLIGHT_ENDED`,
@@ -189,6 +194,10 @@ seen: in `PolestarDB`, the account has had its welcome (later characters skip
 its Set up and Route style pages); in `PolestarCharDB`, this character has (0 while due).
 `whatsNewSeen` (`PolestarDB`, UI/WhatsNew.lua) is the version of the release notes last shown; a fresh
 install (`ns.IsNewAccount()`: no saved `PolestarDB` as Polestar loaded) is set to the newest without them.
+`update` (`PolestarDB`, Core/Update.lua) is what the update notices keep: `firstRun` (when this account
+first ran Polestar; 0 for one from before), `since = { version, at }` (when this build was first run),
+`peer`, `peerAt` (a player's newer release and when it was heard), `snooze` (Got it, until), `shown`,
+`shownAt` (the card's last version and time), `helloAt`, `replyAt` (the guild hello's).
 `dungeons` (per character) holds the dungeons this character runs in leveling
 guides, by the instance's Map id (`Engine.ChooseDungeon`, `when dungeon`).
 `behavior.suggestFrom` (default `"guides"`) is the pack suggestions come from.
@@ -268,7 +277,8 @@ the saved view for the current guide), `guide <id>`, `status`, `tabs`,
 `packs` (Options at Community guides), `gamepad` (Options at Gamepad), `where`, `questlog` (`SHOW_QUEST_ROOM`), `report` (`SHOW_REPORT`),
 `discord` (`SHOW_DISCORD`), `debug`; Nav adds `arrow`, `way` and `route`;
 modules add theirs (`xp`, `gear`, `instances`, `dungeons`, `lookup`, `mount`,
-`rares`, `talents`, `alts`, `questdb`, `import` (`SHOW_IMPORT`, Core/Import.lua)).
+`rares`, `talents`, `alts`, `questdb`, `import` (`SHOW_IMPORT`, Core/Import.lua),
+`update` (the update card, Core/Update.lua)).
 
 `where` prints the player's map and position as two guide lines, `zone map
 <uiMapID>` and `goto <x>,<y> live` (two decimals, the client's live frame,
@@ -4625,7 +4635,10 @@ Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sen
   else the quest database's objectives when they number as the member's
   counts), under the loot window.
 - A member on a newer Polestar, or a newer version of a guide pack you have,
-  is said once a session each in chat.
+  is said once a session each in chat; the Polestar line is left out when
+  the update card has said that version is out, or will this session
+  (`Update.Covers`). Every member's Polestar version (the hello's, `1P|`'s)
+  goes to `Update.NotePeer` ("Update notices", under UI).
 
 ### Party chat: quest progress said in the party — Quests/PartyChat.lua
 
@@ -5871,6 +5884,52 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   the waiting checks run in order until one shows a card.
   `/polestar dungeontoast [dungeon]` shows it again ("Nothing to pick up" for
   a dungeon with no quest to take now).
+- **Update notices** (`Core/Update.lua`, `UI/UpdateCard.lua`). What is known
+  of a newer release, most trusted first: Polestar Client's
+  `PolestarClientInfo` (the Polestar folder's `ClientInfo.lua`, shipped as
+  `nil`; docs/RECORDING.md "Client info": `latest`, `released`, `checked`,
+  `releases`); a party member's version (Party.lua's hello and `1P|`) or a
+  guild member's (the guild hello below), counted when it parses as x.y.z,
+  is newer than ours and at most one minor version ahead (`9.9.9`, `999.0`,
+  `0.3.8-rc1` and `dev` never count), kept 7 days, overruled by a Client
+  check made after it was heard. `Update.Latest()` gives the newest, how
+  many releases behind (the Client's `releases` newer than ours; else from
+  the numbers: 0.3.5 to 0.3.7 is 2, a new minor version its patch + 1) and
+  its source. Our own dev build hears nothing. With nothing known and no
+  Client check of the last 7 days vouching for this build, one first run 21
+  days ago or more (`update.since`) is "old".
+  The card is the class quest heads-up's (`UI.ClassToast.ShowCard`, the
+  model's `later = { label, run }` renaming Later): "POLESTAR UPDATE",
+  "Polestar 0.3.7 is out", "You're on 0.3.6." (two or more behind: "You're
+  on 0.3.5, 2 updates behind: fixes for the quests and arrow issues players
+  report are in the newer versions."), how to update (with `ClientInfo.lua`
+  present: Polestar Client can do it), **What's new** (the release's GitHub
+  page in the copy window; the game's own notes are this build's) and **Got
+  it** (`update.snooze`, 24 h). It shows at every login, 10 s in, while a
+  newer release is known, or once one becomes known later in the session
+  (`UPDATE_KNOWN`); once a session; never in combat, in an instance, over
+  another heads-up or in the first 120 s of a fresh install
+  (`update.firstRun`): it waits for `PLAYER_REGEN_ENABLED`,
+  `PLAYER_ENTERING_WORLD`, `HEADS_UP_HIDDEN` or the end of those seconds.
+  `update.card` (Options > Guide > Window, on by default) turns it off,
+  except two or more behind: then it shows at most once a day
+  (`update.shownAt`). The guide window's last banner (`update`, shown with
+  no guide open too): "Polestar 0.3.7 is out: you're on 0.3.6." with
+  **Update** (the card, at any time), closable for the session one behind,
+  never two or more behind, when `update.card` is off hidden only one
+  behind; the old build's "This Polestar is 3 weeks old: updates come often,
+  check for a newer one." with **How to update** (the card's how-to),
+  closable, off with `update.card`. The report window (UI/Report.lua) opens
+  with "You're on an old Polestar (0.3.6): please update first, your problem
+  may already be fixed." and its version line reads "0.3.6 Beta (outdated:
+  latest 0.3.7)" while a newer release is known. `/polestar update` shows
+  the card. The guild hello: in a guild, with `party.share` on, a release
+  build sends `1H|<version>` on the GUILD addon channel (Party's prefix;
+  Party.lua reads only PARTY) 20 s after login, at most every 30 min
+  (`update.helloAt`); a member on a newer release answers `1Y|<version>`
+  after 2-12 s unless an answer with that version or newer came first, at
+  most every 5 min (`update.replyAt`). Only the version goes out.
+  `CHAT_MSG_ADDON` is registered only while in a guild (`PLAYER_GUILD_UPDATE`).
 - **Hub** (`UI/Picker.lua`, `UI.ShowPicker(opts)`; the window the guide menu
   grew into, `docs/SUITE.md` "UI"). A section rail (`W.Shell` with
   `rail = true`, `W.ShellRail`) at the window's left: the emblem, then one

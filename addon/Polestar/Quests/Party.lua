@@ -742,13 +742,18 @@ local function apply(m, entries, snap)
 end
 
 -- Once a session each: a member runs a newer Polestar, or a newer version of
--- a guide pack you have.
+-- a guide pack you have. The update card (UI/UpdateCard.lua) says the first
+-- when it has shown, or will this session, for that version (Update.Covers):
+-- then the chat line is left out.
 local toldNewer = {}
 local function noticeNewer(name, pos)
 	local L = ns.L
+	local U = ns.Update
 	if not toldNewer[""] and Party.Newer(pos.addon, ns.version) then
 		toldNewer[""] = true
-		ns.Print(L["%s has Polestar %s; you have %s. A newer version is out."]:format(name, pos.addon, tostring(ns.version)))
+		if not (U and U.Covers(pos.addon)) then
+			ns.Print(L["%s has Polestar %s; you have %s. A newer version is out."]:format(name, pos.addon, tostring(ns.version)))
+		end
 	end
 	local G = ns.Guides
 	local mine = pos.pack ~= "" and G and G.Pack and G.Pack(pos.pack)
@@ -1070,7 +1075,9 @@ local function onAddonMessage(_, prefix, text, channel, sender)
 		if not short then return end
 	end
 	diag.matched = diag.matched + 1
-	local mark = Party.DecodeHello(text)
+	local mark, version = Party.DecodeHello(text)
+	-- Every member's Polestar version tells the update notices (Core/Update.lua).
+	if mark and ns.Update then ns.Update.NotePeer(version) end
 	if mark == "H" then
 		-- A hello (they joined, logged in or reloaded): a sharer answers with
 		-- its snapshot, asking theirs; anyone else with a bare answer.
@@ -1086,6 +1093,7 @@ local function onAddonMessage(_, prefix, text, channel, sender)
 		return
 	end
 	local pos = Party.DecodePos(text)
+	if pos and ns.Update then ns.Update.NotePeer(pos.addon) end
 	if pos then
 		heard(key, false)
 		if not ns.Get("party.show") then return end

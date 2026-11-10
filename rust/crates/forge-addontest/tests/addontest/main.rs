@@ -358,6 +358,8 @@ mod ui_scrub;
 mod ui_thanks;
 #[path = "ui-transparent.rs"]
 mod ui_transparent;
+#[path = "ui-update.rs"]
+mod ui_update;
 #[path = "ui-welcome.rs"]
 mod ui_welcome;
 #[path = "ui-whatsnew.rs"]
