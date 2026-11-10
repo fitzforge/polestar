@@ -8089,13 +8089,17 @@ end
 -- A walk to a stop that holds nothing for the character (#1596): walk step s
 -- (or a run of walks) is followed by steps of their own written with work (a
 -- hand-in, a flight path, training), and every one of them, up to their next
--- travel step, is done or does not apply now (a false `when`, a flight path
--- known, quests not in the log); optional work still open keeps the stop.
--- The walk passes and the route leads to that travel step or the work after
--- it (Camp Taurajo's Tear of the Moons, not Thunder Bluff's empty rise). Steps
--- for other classes and races, and notes alone, are no stop: a walk followed
--- only by those holds as written (it is the way on), as does a walk with no
--- travel step after its stop (the guide's end). With the planner leading
+-- travel step, is done, skipped or does not apply now (a false `when`, a
+-- flight path known, quests not in the log); optional work still open keeps
+-- the stop. A skipped step counts like one that does not apply: the route
+-- stores a `when` that fails as it passes a step (Own.latchWhen, "skipped"),
+-- so the same stop reads empty on the next evaluation and after a reload
+-- (Horde Felwood 50-60's Runecloth turn-ins, 0.3.7 skip-ahead gate). The walk
+-- passes and the route leads to that travel step or the work after it (Camp
+-- Taurajo's Tear of the Moons, not Thunder Bluff's empty rise). Steps for
+-- other classes and races, and notes alone, are no stop: a walk followed only
+-- by those holds as written (it is the way on), as does a walk with no travel
+-- step after its stop (the guide's end). With the planner leading
 -- (Own.plannerFlies: the next leg may be a boat or a zeppelin), once the
 -- quest log can be read (work would read done before).
 function Own.stopEmpty(s)
@@ -8105,10 +8109,10 @@ function Own.stopEmpty(s)
 	local stop = false
 	for n = s + 1, #steps do
 		local step = steps[n]
-		if not (Own.hiddenStep(step) or isSkipped(n)) then
+		if not Own.hiddenStep(step) then
 			local kind = Own.writtenTravel(step)
 			if kind then
-				if stepApplies(step) then
+				if stepApplies(step) and not isSkipped(n) then
 					if stop then return true end
 					-- A walk right after: one run, judged by the stop after it. A
 					-- flight right after is Own.flightOn's.
@@ -8123,7 +8127,10 @@ function Own.stopEmpty(s)
 					end
 				end
 				if work then
-					if stepApplies(step) and (Own.groupPending(step) or not Own.goalsDone(n) or Own.optionalOpen(n)) then return false end
+					if stepApplies(step) and not isSkipped(n)
+						and (Own.groupPending(step) or not Own.goalsDone(n) or Own.optionalOpen(n)) then
+						return false
+					end
 					stop = true
 				end
 			end
