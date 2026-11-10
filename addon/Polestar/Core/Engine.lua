@@ -8682,10 +8682,12 @@ function Engine.GetStepView(i)
 			end
 		end
 	end
-	-- A "Go to" naming the step's own place repeats a field group's header.
+	-- A "Go to" naming the step's own place repeats a field group's header;
+	-- a dungeon's "Enter" (`entrance`) does not, and carries the group
+	-- finder line (UI.FinderLine).
 	for g, gv in ipairs(goals) do
 		local grp = groups[groupOf[g]]
-		if gv.t == "goto" and step.title and step.goals[g].text == step.title and grp and grp.kind == "here" then
+		if gv.t == "goto" and not gv.entrance and step.title and step.goals[g].text == step.title and grp and grp.kind == "here" then
 			gv.header = true
 		end
 	end
