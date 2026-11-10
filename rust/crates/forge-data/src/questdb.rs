@@ -12,7 +12,7 @@
 //!
 //!   quests[id]  = { title, level, minLevel, races, classes, faction, start, finish,
 //!                   startItem, pre, excl, objectives, zone, events, skill, holiday,
-//!                   preAll, raceHigh, items }
+//!                   preAll, raceHigh, items, limit }
 //!     races     the race mask's low 32 bits (the Era races), for bit.band
 //!     raceHigh  the mask's Skyborne bits as a number: +1 High Order (Alliance,
 //!               mask bit 2^32), +2 Windshaper (Horde, 2^33). 3 for a pfQuest-only
@@ -23,6 +23,10 @@
 //!     items     the items the quest hands over (QuestieDB's sourceItemId and
 //!               requiredSourceItems: Bethor's Scroll for Thule Ravenclaw), one
 //!               id or a list; never its rewards
+//!     limit     a timed quest's time allowed once taken, in seconds (quests.json
+//!               `limit`, the server's TimeAllowed); nil when it has none. Polestar
+//!               counts it down from the accept when the client reports no timer
+//!               (Quests/Timed.lua)
 //!     pre / preAll  blocking prerequisites (forge-guide prereqs, breadcrumbs
 //!               dropped): one of `pre` must be done, and every one of `preAll`
 //!     objectives  flat triples kind, id, count: kind 1 kill (npc), 2 item, 3 object,
@@ -372,6 +376,10 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 				one_or_list(&pre_all),
 				if races.truthy() { Val::Num(if is_forever { race_parts(races.num()).1 } else { 3.0 }) } else { Val::Nil },
 				one_or_list(&handed),
+				match finite(&q.get("limit")) {
+					Some(l) if l > 0.0 => Val::Num(l),
+					_ => Val::Nil,
+				},
 			],
 		);
 	}
@@ -622,7 +630,7 @@ fn emit_files(db: &Db, meta: &V, root: &Path) -> Vec<(String, String)> {
 	frame.push("\t} })".into());
 	frame.push("end".into());
 	files.push(("MapFrames.lua".into(), frame.join("\n") + "\n"));
-	files.push(("Quests.lua".into(), data_file("quests", &db.quests, "title, level, minLevel, races, classes, faction, start, finish, startItem, pre (one of), excl, objectives, zone, events, skill, holiday, preAll (every one), raceHigh, items (handed over)")));
+	files.push(("Quests.lua".into(), data_file("quests", &db.quests, "title, level, minLevel, races, classes, faction, start, finish, startItem, pre (one of), excl, objectives, zone, events, skill, holiday, preAll (every one), raceHigh, items (handed over), limit (seconds)")));
 	files.push(("Npcs.lua".into(), data_file("npcs", &db.npcs, "name, then per map: uiMapID, frame (0 Era, 1 live), cluster count, x, y, radius (yd) per cluster")));
 	files.push(("Objects.lua".into(), data_file("objects", &db.objects, "name, then per map: uiMapID, frame (0 Era, 1 live), cluster count, x, y, radius (yd) per cluster")));
 	files.push(("Items.lua".into(), data_file("items", &db.items, "name, NPC source count, (npc, chance)..., object source count, (object, chance)..., vendors...")));

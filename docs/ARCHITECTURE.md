@@ -1588,8 +1588,9 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   is `Compat.QuestTimers` (the old `GetQuestTimers` with
   `GetQuestIndexForTimer`, else `C_QuestLog.GetTimeAllowed` total less
   elapsed, ready quests included: the hand-in is timed too), else the
-  accept's server time plus the guide accept's `limit`
-  (`CharState().timedAccepts`); each deadline only moves earlier. A chat line
+  accept's server time plus the `limit` of the guide's accept, else of the
+  quest database (`QuestDB.TimeLimit`: Polestar_QuestDB's 20th quest field,
+  quests.json's `limit`; 0.3.7) (`CharState().timedAccepts`); each deadline only moves earlier. A chat line
   and a Master-channel sound at 5 and 1 minutes left and when the quest
   fails (`qol.questTimerAlerts`); the shown step's turn-in of the quest (else
   its last goal of it) carries "The way to X takes about N min, longer than
@@ -1602,7 +1603,18 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   the way to a hand-in has no quest). A failed quest (`C_QuestLog.IsFailed`)
   loses its countdown at once (`Timed.Countdown`; goals the Engine greys,
   `lost`, never carry one); the Engine's "failed: abandon it and take it
-  again" and the failure alert say the same thing.
+  again" and the failure alert say the same thing. A running timer whose
+  hand-in the active guide does not make from the live step on (0.3.7:
+  Apothecary Zamah on the Barrens route) opens the While-here panel with a
+  row of its own above the others (`Timed.OffRoute`, `GF.FillHere`):
+  "<quest>  M:SS left", under it "<zone> ~N min · this guide doesn't go
+  there" (the Codex ender's nearest spawn, `Lookup.QuestEnd`;
+  `Nav.EstimateTravel` each `Timed.READ_EVERY` s; danger colour when longer
+  than the time left); the panel's label reads "Timed quest" when no other
+  row shows. A click points the arrow there (`Timed.AimOff`: `Nav.SetTarget`
+  with the spawn's `z`), a right-click hides it until the timer ends
+  (`Timed.MuteOff`). In combat such rows never come or go (`GF.offs` is
+  kept; `PLAYER_REGEN_ENABLED` catches up).
 - **Jumps.** A step with `skipto` (format 5; GUIDE_FORMAT, "Jumps") is
   checked when `computeCurrent` reaches it as the first open step, once the
   quest log can be read (`logReady`): `Own.jump` takes the first jump whose

@@ -140,13 +140,13 @@ end
 local QUEST_TITLE, QUEST_LEVEL, QUEST_MIN, QUEST_RACES, QUEST_CLASSES, QUEST_FACTION = 1, 2, 3, 4, 5, 6
 local QUEST_START, QUEST_FINISH, QUEST_START_ITEM, QUEST_PRE, QUEST_EXCL, QUEST_OBJ = 7, 8, 9, 10, 11, 12
 local QUEST_ZONE, QUEST_EVENTS, QUEST_SKILL, QUEST_HOLIDAY, QUEST_PRE_ALL, QUEST_RACE_HIGH = 13, 14, 15, 16, 17, 18
-local QUEST_ITEMS = 19
+local QUEST_ITEMS, QUEST_LIMIT = 19, 20
 Q.F = {
 	TITLE = QUEST_TITLE, LEVEL = QUEST_LEVEL, MIN = QUEST_MIN, RACES = QUEST_RACES, CLASSES = QUEST_CLASSES,
 	FACTION = QUEST_FACTION, START = QUEST_START, FINISH = QUEST_FINISH, START_ITEM = QUEST_START_ITEM,
 	PRE = QUEST_PRE, EXCL = QUEST_EXCL, OBJ = QUEST_OBJ, ZONE = QUEST_ZONE, EVENTS = QUEST_EVENTS,
 	SKILL = QUEST_SKILL, HOLIDAY = QUEST_HOLIDAY, PRE_ALL = QUEST_PRE_ALL, RACE_HIGH = QUEST_RACE_HIGH,
-	ITEMS = QUEST_ITEMS,
+	ITEMS = QUEST_ITEMS, LIMIT = QUEST_LIMIT,
 }
 Q.KIND = { "kill", "item", "object", "event" }
 
@@ -154,6 +154,16 @@ function Q.QuestRecord(id) return data.quests[id] end
 function Q.NpcRecord(id) return data.npcs[id] end
 function Q.ObjectRecord(id) return data.objects[id] end
 function Q.ItemRecord(id) return data.items[id] end
+
+-- A timed quest's time allowed once taken, in seconds (the server's, from
+-- quests.json's `limit`), or nil: untimed, or the database not loaded (this
+-- never loads it). Quests/Timed.lua counts it down from the accept when the
+-- client reports no timer.
+function Q.TimeLimit(id)
+	local r = id and data.meta and data.quests[id]
+	local limit = r and r[QUEST_LIMIT]
+	return type(limit) == "number" and limit > 0 and limit or nil
+end
 
 -- Whether quest questID hands over item itemID when it is taken (Bethor's
 -- Scroll for Thule Ravenclaw; never a reward). Allocation-free.
@@ -276,6 +286,7 @@ local FACTIONS = { "Alliance", "Horde" }
 --   start = { npc = {}, object = {}, item = {} }, finish = { npc = {}, object = {} },
 --   pre = { ids } (any one completed unlocks it), preAll = { ids } (every one
 --   needed; breadcrumbs are in neither), excl = { ids }, zone, skill, holiday,
+--   limit (seconds a timed quest allows once taken, or nil),
 --   objectives = { { kind = "kill"|"item"|"object"|"event", id, count, map, x, y, f }, ... } }
 function Q.GetQuest(id)
 	local r = data.quests[id]
@@ -288,7 +299,7 @@ function Q.GetQuest(id)
 		start = { npc = sn, object = so, item = idList(r[QUEST_START_ITEM]) },
 		finish = { npc = fn, object = fo },
 		pre = idList(r[QUEST_PRE]), preAll = idList(r[QUEST_PRE_ALL]), excl = idList(r[QUEST_EXCL]),
-		zone = r[QUEST_ZONE], skill = r[QUEST_SKILL], holiday = r[QUEST_HOLIDAY],
+		zone = r[QUEST_ZONE], skill = r[QUEST_SKILL], holiday = r[QUEST_HOLIDAY], limit = r[QUEST_LIMIT],
 		objectives = {},
 	}
 	local obj, ev = r[QUEST_OBJ], r[QUEST_EVENTS]

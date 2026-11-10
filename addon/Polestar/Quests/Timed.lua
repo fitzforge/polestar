@@ -18,14 +18,24 @@
 -- A quest that failed (C_QuestLog.IsFailed) loses its countdown at once; its
 -- goals grey with the Engine's "failed: abandon it and take it again"
 -- (Own.failedQuest) and the alert says the same in chat.
+-- A running timer whose hand-in the active guide's route does not make from
+-- the live step on (0.3.7: Fitz carried Apothecary Zamah, offered by a giver
+-- the Barrens route visits, with 42:00 left) gets a line of its own at the top
+-- of the guide window's While-here panel (UI/GuideFrame.lua, GF.FillHere):
+-- "Apothecary Zamah 42:00 left", under it "Thunder Bluff ~6 min · this guide
+-- doesn't go there". Its ender is the quest's (the Codex) nearest spawn
+-- (Lookup.QuestEnd), the minutes Nav.EstimateTravel's from where the player
+-- is; a click points the arrow there (Timed.AimOff: Nav.SetTarget with the
+-- spawn's height), a right-click hides it until the timer ends (Timed.MuteOff).
 --
 -- The clock is the client's (Compat.QuestTimers), else, for a quest taken
--- with a `limit` on the active guide's accept, the accept's time plus that
--- limit (fromData). A quest's deadline is kept from its first reading on and
--- only ever moves earlier, so a client whose elapsed time stands still
--- between quest log updates does not stretch it; it is dropped when the
--- quest leaves the log, fails or the timer ends. One ticker, each second,
--- only while a timer runs.
+-- with a `limit` (the active guide's accept, else the quest database's,
+-- Polestar_QuestDB: QuestDB.TimeLimit, so a timed quest no guide takes counts
+-- down too), the accept's time plus that limit (fromData). A quest's deadline
+-- is kept from its first reading on and only ever moves earlier, so a client
+-- whose elapsed time stands still between quest log updates does not stretch
+-- it; it is dropped when the quest leaves the log, fails or the timer ends.
+-- One ticker, each second, only while a timer runs.
 --
 -- API:
 --   Timed.Left(q)          seconds left on quest q's running timer, or nil
@@ -35,6 +45,10 @@
 --   Timed.Soonest()        the quest whose running timer ends first, or nil
 --   Timed.LimitText(goal)  "Timed: 10 min once accepted" for an open accept with a `limit`, or nil
 --   Timed.Hint(goal)       the hand-in hint, on the shown step's goal that carries it, or nil
+--   Timed.OffRoute(out)    the running timers the route does not hand in, soonest first (fills `out`, wiped)
+--   Timed.OffText(q)       an off-route timer's line and subline, or nil
+--   Timed.AimOff(q)        the arrow to its ender; true when it could
+--   Timed.MuteOff(q)       its line hidden until its timer ends
 --   Timed.Update()         read the quest log again and tick (events and the ticker; tests)
 -- Message: QUEST_TIMER each second a timer runs (the guide window repaints its countdowns).
 
@@ -61,6 +75,8 @@ local deadline = {} -- questID -> GetTime() its timer ends
 local prevLeft = {} -- questID -> seconds left at the last tick: an alert fires as its mark passes
 local way = {} -- questID -> { secs, name }: the way to its hand-in, last estimated
 local hintAt = {} -- questID -> index of the shown step's goal that carries the hint
+local off = {} -- questID -> its ender { name, zone, map, x, y, f, z, secs } while the route does not hand it in; false: none known
+local muted = {} -- questID -> true: its off-route line hidden until the timer ends
 local ticker, lastRead = nil, nil
 
 function Timed.Left(q)
@@ -157,14 +173,49 @@ end
 ---------------------------------------------------------------------------
 
 -- The route's hand-in of quest q from the live step on (a turn-in goal for
--- this character, with a place), or nil.
-local function turninOf(E, guide, q)
+-- this character, with a place; `anyPlace`: with or without one), or nil.
+local function turninOf(E, guide, q, anyPlace)
 	for i = E.GetLiveStep() or 1, #guide.steps do
 		for g, goal in ipairs(guide.steps[i].goals) do
-			if goal.t == "turnin" and goal.quest == q and goal.map and goal.x and goal.y and E.Applies(i, g) then return goal end
+			if goal.t == "turnin" and goal.quest == q and (anyPlace or (goal.map and goal.x and goal.y)) and E.Applies(i, g) then return goal end
 		end
 	end
 	return nil
+end
+
+-- Quest q's ender as an off-route line places it: the nearest spawn of the
+-- quest's ender (the Codex's `end`, Lookup.QuestEnd by straight line), its
+-- height for the arrow, its zone's name; then the way there from where the
+-- player stands (Nav.EstimateTravel, as the hint's). False when the Codex
+-- knows no place for it; nothing kept while the Codex could not load (a
+-- later reading tries again).
+local function offPlace(q, nav)
+	local o = off[q]
+	if o == nil then
+		local Codex, Lk, C = ns.Codex, ns.Lookup, ns.Compat
+		local rec = Codex and Codex.Quest and Codex.Quest(q)
+		if not rec then
+			if Codex and Codex.IsLoaded and Codex.IsLoaded() then off[q] = false end
+			return
+		end
+		local e = Lk and Lk.QuestEnd and Lk.QuestEnd(rec["end"], ns.PlayerPoint and ns.PlayerPoint() or nil, nil, true)
+		local s = e and e.spawn
+		if not (s and s.map and s.x and s.y) then
+			off[q] = false
+			return
+		end
+		local z = s.z
+		if z == nil and Lk.SpawnZ then z = Lk.SpawnZ(e.npc and "npc" or "object", e.npc or e.object, s) end
+		o = { name = e.name or "", map = s.map, x = s.x, y = s.y, f = s.f, z = z, zone = C and C.MapName and C.MapName(s.map) or "" }
+		off[q] = o
+	end
+	if not (o and nav and nav.EstimateTravel) then return end
+	local ok, secs, busy = pcall(nav.EstimateTravel, nil, { map = o.map, x = o.x, y = o.y, f = o.f }, true)
+	if ok and type(secs) == "number" then
+		o.secs = secs
+	elseif not (ok and busy == "busy") then
+		o.secs = nil
+	end
 end
 
 -- The shown step's goal that carries quest q's hint: its turn-in there, else
@@ -188,23 +239,82 @@ local function measure()
 	for q in pairs(way) do
 		if not deadline[q] then way[q] = nil end
 	end
+	for q in pairs(off) do
+		if not deadline[q] then off[q], muted[q] = nil, nil end
+	end
 	for q in pairs(hintAt) do hintAt[q] = nil end
-	if not (guide and E.GetLiveStep and E.GetLiveStep()) then return end
+	if not (guide and E.GetLiveStep and E.GetLiveStep()) then
+		for q in pairs(off) do off[q] = nil end
+		return
+	end
 	local shown = E.GetStepIndex and E.GetStepIndex()
 	for q in pairs(deadline) do
 		hintAt[q] = hintGoal(guide, shown, q)
-		local goal = hintAt[q] and nav and nav.EstimateTravel and turninOf(E, guide, q)
-		if goal then
-			local ok, secs, busy = pcall(nav.EstimateTravel, nil, { map = goal.map, x = goal.x, y = goal.y, f = goal.f }, true)
-			if ok and type(secs) == "number" then
-				way[q] = { secs = secs, name = (goal.npc and ns.Names and ns.Names.Npc and ns.Names.Npc(goal.npc)) or goal.npcName or "" }
-			elseif not (ok and busy == "busy") then
+		if not turninOf(E, guide, q, true) then
+			way[q] = nil
+			offPlace(q, nav)
+		else
+			off[q] = nil
+			local goal = hintAt[q] and nav and nav.EstimateTravel and turninOf(E, guide, q)
+			if goal then
+				local ok, secs, busy = pcall(nav.EstimateTravel, nil, { map = goal.map, x = goal.x, y = goal.y, f = goal.f }, true)
+				if ok and type(secs) == "number" then
+					way[q] = { secs = secs, name = (goal.npc and ns.Names and ns.Names.Npc and ns.Names.Npc(goal.npc)) or goal.npcName or "" }
+				elseif not (ok and busy == "busy") then
+					way[q] = nil
+				end
+			else
 				way[q] = nil
 			end
-		else
-			way[q] = nil
 		end
 	end
+end
+
+---------------------------------------------------------------------------
+-- Timers the route does not hand in
+---------------------------------------------------------------------------
+
+local function byDeadline(a, b) return deadline[a] < deadline[b] end
+
+function Timed.OffRoute(out)
+	out = out or {}
+	for i = #out, 1, -1 do out[i] = nil end
+	for q, o in pairs(off) do
+		if o and deadline[q] and not muted[q] and not (ns.Compat and ns.Compat.IsQuestFailed and ns.Compat.IsQuestFailed(q)) then out[#out + 1] = q end
+	end
+	table.sort(out, byDeadline)
+	return out
+end
+
+function Timed.OffText(q)
+	local o, countdown = off[q], Timed.Countdown(q)
+	if not (o and countdown) then return nil end
+	local C = ns.Compat
+	local name = (C and C.GetQuestTitle and C.GetQuestTitle(q)) or ("#" .. q)
+	local place = o.zone ~= "" and o.zone or o.name
+	local sub
+	if o.secs then
+		sub = format(L["%s ~%s · this guide doesn't go there"], place, duration(o.secs))
+		-- Longer than the time left: in the danger colour, as the hint on a step.
+		if o.secs > (Timed.Left(q) or 0) then sub = "|c" .. Theme.Hex("danger") .. sub .. "|r" end
+	else
+		sub = format(L["%s · this guide doesn't go there"], place)
+	end
+	return name .. "  " .. countdown, sub
+end
+
+function Timed.AimOff(q)
+	local o, nav = off[q], ns.Nav
+	if not (o and nav and nav.SetTarget) then return false end
+	local C = ns.Compat
+	local label = o.name ~= "" and o.name or (C and C.GetQuestTitle and C.GetQuestTitle(q)) or nil
+	return nav.SetTarget(o.map, o.x, o.y, label, o.f, nil, o.z) and true or false
+end
+
+function Timed.MuteOff(q)
+	if not (q and off[q]) then return false end
+	muted[q] = true
+	return true
 end
 
 ---------------------------------------------------------------------------
@@ -214,17 +324,21 @@ end
 local tick
 
 -- The `limit` of quest q on an accept of the active guide (quests.json, by
--- the compile), or nil.
+-- the compile), else the quest database's (QuestDB.TimeLimit: quests.json's
+-- too, for the timed quests no guide takes), or nil.
 local function limitOf(q)
 	local E = ns.Engine
 	local guide = E and E.GetGuide and E.GetGuide()
-	if not guide then return nil end
-	for _, step in ipairs(guide.steps) do
-		for _, goal in ipairs(step.goals) do
-			if goal.t == "accept" and goal.quest == q and type(goal.limit) == "number" and goal.limit > 0 then return goal.limit end
+	if guide then
+		for _, step in ipairs(guide.steps) do
+			for _, goal in ipairs(step.goals) do
+				if goal.t == "accept" and goal.quest == q and type(goal.limit) == "number" and goal.limit > 0 then return goal.limit end
+			end
 		end
 	end
-	return nil
+	local Q = ns.QuestDB
+	local limit = Q and Q.TimeLimit and Q.TimeLimit(q)
+	return type(limit) == "number" and limit > 0 and limit or nil
 end
 
 -- Quests taken with a `limit` (CharState().timedAccepts[q] = { at = server
@@ -267,7 +381,7 @@ local function read()
 			local failed = QL and QL.IsFailed and QL.IsFailed(q)
 			if failed == nil and deadline[q] <= lastRead then failed = C.IsOnQuest(q) end
 			if failed then alert(format(L["%s failed: its time ran out. Abandon it in the quest log and take it again."], title(q))) end
-			deadline[q], prevLeft[q], way[q] = nil, nil, nil
+			deadline[q], prevLeft[q], way[q], off[q], muted[q] = nil, nil, nil, nil, nil
 		end
 	end
 	for q, left in pairs(reading) do
@@ -321,14 +435,16 @@ end
 ns.On("STEP_CHANGED", function() measureDue(true) end)
 
 -- A quest taken again starts its clock afresh; one with a `limit` keeps its
--- accept's time for the clock from the data.
+-- accept's time for the clock from the data. The ways (and an off-route
+-- line's place) are measured on the first tick, not up to READ_EVERY later.
 ns.RegisterEvent("QUEST_ACCEPTED", function(_, a, b)
 	local q = type(b) == "number" and b > 0 and b or a
 	if type(q) == "number" then
-		deadline[q], prevLeft[q] = nil, nil
+		deadline[q], prevLeft[q], off[q], muted[q] = nil, nil, nil, nil
 		local limit = limitOf(q)
 		accepts()[q] = limit and { at = GetServerTime(), limit = limit } or nil
 	end
+	lastMeasure = nil
 	Timed.Update()
 end)
 for _, event in ipairs({ "QUEST_LOG_UPDATE", "QUEST_REMOVED", "PLAYER_ENTERING_WORLD" }) do

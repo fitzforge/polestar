@@ -3186,6 +3186,11 @@ L["The way to %s takes about %s, longer than the time left"] = "Путь до %s
 L["%s: %d minutes left"] = "%s: осталось %d мин."
 L["%s: 1 minute left"] = "%s: осталась 1 минута"
 L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = "%s провалено: время вышло. Откажитесь от задания в журнале и возьмите его снова."
+L["%s ~%s · this guide doesn't go there"] = "%s ~%s · этот гайд туда не ведёт"
+L["%s · this guide doesn't go there"] = "%s · этот гайд туда не ведёт"
+L["Timed quest"] = "Задание на время"
+L["This guide's route doesn't hand this quest in: go there yourself before the time runs out, or let it go."] = "Маршрут этого гайда не сдаёт это задание: доберитесь сами, пока не вышло время, или оставьте его."
+L["Right-click: hide this until the timer ends."] = "Правый клик: скрыть до конца таймера."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."

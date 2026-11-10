@@ -3186,6 +3186,11 @@ L["The way to %s takes about %s, longer than the time left"] = "前往 %s 約需
 L["%s: %d minutes left"] = "%s：剩餘 %d 分鐘"
 L["%s: 1 minute left"] = "%s：剩餘 1 分鐘"
 L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = "%s 已失敗：時間已到。請在任務日誌中放棄後重新接取。"
+L["%s ~%s · this guide doesn't go there"] = "%s ~%s · 此指南不去那裡"
+L["%s · this guide doesn't go there"] = "%s · 此指南不去那裡"
+L["Timed quest"] = "限時任務"
+L["This guide's route doesn't hand this quest in: go there yourself before the time runs out, or let it go."] = "此指南的路線不會交這個任務：請在時間耗盡前自行前往，或放棄它。"
+L["Right-click: hide this until the timer ends."] = "右鍵：隱藏直到計時結束。"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。關閉「已安裝時以 Shortest Path Forever 導引」（「選項」>「箭頭與路線」）即可使用 Polestar 的箭頭。"

@@ -3186,6 +3186,11 @@ L["The way to %s takes about %s, longer than the time left"] = "%s까지 가는 
 L["%s: %d minutes left"] = "%s: %d분 남음"
 L["%s: 1 minute left"] = "%s: 1분 남음"
 L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = "%s 실패: 시간이 다 되었습니다. 퀘스트 목록에서 포기하고 다시 받으세요."
+L["%s ~%s · this guide doesn't go there"] = "%s ~%s · 이 가이드는 그곳에 가지 않습니다"
+L["%s · this guide doesn't go there"] = "%s · 이 가이드는 그곳에 가지 않습니다"
+L["Timed quest"] = "시간 제한 퀘스트"
+L["This guide's route doesn't hand this quest in: go there yourself before the time runs out, or let it go."] = "이 가이드의 경로는 이 퀘스트를 완료하지 않습니다: 시간이 다 되기 전에 직접 가거나 포기하세요."
+L["Right-click: hide this until the timer ends."] = "오른쪽 클릭: 타이머가 끝날 때까지 숨기기."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."
