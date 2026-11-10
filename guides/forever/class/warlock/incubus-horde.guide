@@ -108,7 +108,9 @@ step The Binding: succubus (Orgrimmar)
 
 step Fallen Sky Lake
   zone Ashenvale
-  tip Fallen Sky Lake lies in southern Ashenvale, south-west of Splintertree Post. The Shadethicket Stone Movers and Bark Rippers (level 25-26) around the lake drop the Withered Scarf about one time in twenty, and the lone Shadethicket Oracle (30) can drop it too: plan on a good number of kills, so come at 25 or later (Forever made this quest level 27); with the succubus already bound you can leave it for your 20s leveling in Ashenvale. They respawn in five minutes.
+  when onquest 65610
+  tip Fallen Sky Lake lies in southern Ashenvale, south-west of Splintertree Post. The Shadethicket Stone Movers and Bark Rippers (level 25-27) around the lake drop the Withered Scarf about one time in twenty, and the lone Shadethicket Oracle (30) can drop it too: plan on a good number of kills, so the guide waits for level 24 first (Forever made this quest level 27); with the succubus already bound you can leave it for your 20s leveling in Ashenvale. They respawn in five minutes.
+  level 24
   collect 190232 quest 65610.1        -- Withered Scarf
 
 step The Binding: incubus (Orgrimmar)

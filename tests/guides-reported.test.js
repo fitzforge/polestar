@@ -2115,6 +2115,38 @@ test('forever/class/warlock/enchanted-gold-bloodrobe.guide: no kill or drop come
 	assert.equal(seen[6989], 31, 'the Hatefury vials wait for nothing past the opening 31');
 });
 
+// The #1667 sweep over every class guide: no kill or drop of mobs more than 4 levels above what the guide can have
+// reached by then (its opening level, its `level` holds, its accepts' minimum levels). The holds wait for the mobs' top
+// level less 2, or lower where players' recordings show it done lower (Old Fire-Eye at 22). Two steps are left as they
+// are, on purpose: Toxic Test (a single stab of a Devilsaur with the barb, no kill: the credit counts as it lands) and
+// the Venture Co. tower (Forever teaches Poisons through that chain at 20, and the tower is built for openers that kill
+// a drone in one blow).
+test('class guides: no kill or drop of mobs more than 4 levels above what the guide has reached (#1667 sweep)', { skip }, () => {
+	const top = (id) => data.npcs[id] && (data.npcs[id].levelMax || data.npcs[id].level);
+	const LEFT = new Set(['forever/class/druid/bloodpetal-poison.guide 6498', 'forever/class/rogue/poisons-horde.guide 7310']);
+	const at = {};
+	for (const G of allGuides().filter((g) => g.startsWith('forever/class/'))) {
+		let reached = compiled(G).minLevel || 1;
+		for (const { step, goal } of goals(G)) {
+			if (goal.t === 'level') reached = Math.max(reached, goal.level);
+			if (goal.t === 'accept') reached = Math.max(reached, goal.minLevel || 1);
+			const item = goal.t === 'collect' ? data.items[goal.item] : null;
+			// Droppers with a real chance (1% or more): a quest giver "drops" the item he hands out, and a stray kobold
+			// drops an exile's charm one time in two hundred.
+			const droppers = item && item.drops && !(item.vendors || []).length ? Object.entries(item.drops.npc || {}).filter(([, chance]) => typeof chance === 'number' && chance >= 1).map(([id]) => top(id)).filter(Boolean) : [];
+			const mob = goal.t === 'kill' ? top(goal.npc) : droppers.length ? Math.min(...droppers) : null;
+			if (!mob) continue;
+			at[`${G} ${step.title}`] = reached;
+			if (LEFT.has(`${G} ${goal.npc || goal.item}`)) continue;
+			assert.ok(mob <= reached + 4, `${G}, ${step.title}: ${goal.t} ${goal.item || goal.npc}, mobs up to ${mob}, the guide waits only for ${reached}`);
+		}
+	}
+	assert.equal(at['forever/class/warrior/whirlwind-weapon.guide The exiles of Arathi'], 37, 'the exiles wait for 37');
+	assert.equal(at['forever/class/warrior/whirlwind-weapon.guide The Summoning'], 38, 'Cyclonian waits for 38');
+	assert.equal(at['forever/class/paladin/lumina-windsinger.guide Old Fire-Eye'], 22, 'Old Fire-Eye waits for 22, as players did him');
+	assert.equal(at['forever/class/mage/celestial-orb.guide The Exorcism'], 38, 'the Demon of the Orb waits for 38');
+});
+
 // --- Southshore (never-seen check, 2026-11-08): 4 Alliance people passed Barkeep Kelly and none was offered Talk of the
 // Town (98463); the guide keeps it, optional at both ends, with a tip to skip it.
 test(`Talk of the Town is optional at Southshore and at its Booty Bay hand-in, with a tip to skip it`, { skip }, () => {
