@@ -7639,6 +7639,17 @@ test('Alliance starting zones: profession Camping 101s from the campfire, for th
 	}
 });
 
+// Starting-zone review 0.3.6: Elwynn's last Goldshire stop goes Dughan, Smith Argus beside him, then back into the
+// inn for William Pestle's The Escape (after the #613 brewing scene) and the inn's class letters: one pass.
+test('Elwynn: the last Goldshire stop takes Smith Argus with Dughan, before going back into the inn for William Pestle', { skip }, () => {
+	const list = goals('forever/alliance/human/01-elwynn-forest.guide');
+	const dughan = at(list, 'turnin 39', is('turnin', 39));
+	const argus = at(list, 'accept 1097', is('accept', 1097));
+	const escape = at(list, 'accept 114', is('accept', 114));
+	assert.ok(dughan < argus && argus < escape, 'Dughan, Argus, then William');
+	assert.equal(list[argus].step, list[escape].step, 'one Goldshire stop');
+});
+
 // --- Triage round 5 (2026-11-08) ---
 
 // Bonesavv77's report (#1241, Orc Warrior 24): Sun Rock Retreat took Braelyn Firehand and the flight path

@@ -9368,6 +9368,19 @@
 		"pairs": [
 			{
 				"a": [
+					"accept",
+					1097
+				],
+				"b": [
+					"accept",
+					114
+				],
+				"faction": "Alliance",
+				"why": "Starting-zone review 0.3.6 (Elwynn's last Goldshire stop): Smith Argus's smithy stands beside Marshal Dughan, outside; William Pestle is in the inn with the class trainers. Dughan, Argus, then back into the inn for The Escape and the inn's class letters is one pass; the old order went inn, Dughan, inn, smithy (and back into the inn for Priests and Mages). The brewing scene after Collecting Kelp (#613) only gets longer.",
+				"source": "BrAllianceStart 0.3.6"
+			},
+			{
+				"a": [
 					"turnin",
 					98398
 				],

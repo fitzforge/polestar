@@ -455,8 +455,8 @@ step Goldshire
   turnin 39                                   -- Marshal Dughan, while William brews
   turnin 76
   accept 239
-  accept 114                                  -- William Pestle
-  accept 1097                                 -- Smith Argus, at the smithy: Grimand Elmore in Stormwind takes it (02-westfall)
+  accept 1097                                 -- Smith Argus, at the smithy beside Dughan: Grimand Elmore in Stormwind takes it (02-westfall)
+  accept 114                                  -- William Pestle, back in the inn
   accept 94774 only Priest                    -- Priestess Josetta: High Priestess Laurena in Stormwind takes it
   accept 1860 only Mage                       -- Zaldimar Wefhellt: Jennea Cannon in Stormwind takes it
   accept 94792 only Hunter -- Josephine Carson
