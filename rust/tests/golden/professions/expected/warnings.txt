@@ -40,6 +40,7 @@ warning: Leatherworking Horde trainer "Hahrana Ironhide": not in npcs.json for t
 warning: Leatherworking Alliance trainer "Drakk Stonehand": not in npcs.json for this side
 warning: Leatherworking Horde trainer "Hahrana Ironhide": not in npcs.json for this side
 warning: Leatherworking Alliance trainer "Darianna": not in npcs.json for this side
+warning: Leatherworking Alliance trainer "Nadyia Maneweaver": not in npcs.json for this side
 warning: Leatherworking Horde trainer "Chaw Stronghide": not in npcs.json for this side
 warning: Alchemy Alliance trainer "Tally Berryfizz": not in npcs.json for this side
 warning: Alchemy Alliance trainer "Ainethil": not in npcs.json for this side
@@ -129,8 +130,7 @@ warning: Tailoring Horde trainer "Daryl Stack": not in npcs.json for this side
 warning: Tailoring Alliance trainer "Timothy Worthington": not in npcs.json for this side
 warning: Tailoring Horde trainer "Daryl Stack": not in npcs.json for this side
 warning: Tailoring Alliance trainer "Uthrar Threx": not in npcs.json for this side
-warning: Tailoring Alliance trainer "Sinda": not in npcs.json for this side
-warning: Tailoring Alliance trainer "Nadyia Maneweaver": not in npcs.json for this side
+warning: Tailoring Alliance trainer "Trianna": not in npcs.json for this side
 warning: Tailoring Horde trainer "Josephine Lister": not in npcs.json for this side
 warning: Tailoring Horde trainer "Victor Ward": not in npcs.json for this side
 warning: Tailoring Horde trainer "Bowen Brisboise": not in npcs.json for this side
