@@ -1223,7 +1223,10 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   Cycling a goal of the current step (spots or candidates) aims the arrow at
   that goal (`AimGoal`), whichever goal it pointed at before, and the window
   releases any point picked by hand (`Nav.ReleaseTarget`), so the arrow moves
-  to the chosen spot at once.
+  to the chosen spot at once. `Engine.SpotIndexOf(goal)` gives the index of
+  the spot the arrow takes for a guide goal (the chosen one, else the nearest
+  to the player), changing nothing: a collect with `fromNpcsAt` has the
+  target button name that spot's own mobs (#1616).
 - **Race names.** `"Scourge"` and `"Undead"` are the same race everywhere a race is
   compared (Forever's client name is unconfirmed).
 - **Context-aware Suggest.** `Guides.Suggestions()` orders the leveling guides

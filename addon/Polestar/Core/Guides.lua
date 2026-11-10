@@ -476,6 +476,8 @@ local function checkGoal(goal)
 	if goal.fromFaction ~= nil and goal.fromFaction ~= "A" and goal.fromFaction ~= "H" and goal.fromFaction ~= "AH" then
 		return "bad fromFaction"
 	end
+	-- Per spot, places in fromNpcs (`fromNpcsAt`, "1,2;3;;4"): digits, commas and semicolons only.
+	if goal.fromNpcsAt ~= nil and not (isStr(goal.fromNpcsAt) and goal.fromNpcsAt:find("^[%d,;]*$")) then return "bad fromNpcsAt" end
 	for _, key in ipairs(KEYS.goalRanks) do
 		if goal[key] ~= nil and not isNum(goal[key]) and not isStr(goal[key]) then return "bad " .. key end
 	end

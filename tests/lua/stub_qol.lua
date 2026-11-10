@@ -771,6 +771,8 @@ function Engine.GetLiveStep() return q.engine.live or q.engine.step end
 function Engine.GetStepView(i) if i == q.engine.step then return q.engine.view end end
 function Engine.GetGuide() return q.engine.guide end
 function Engine.GetWaypoint() return q.engine.waypoint end
+-- q.engine.spot: the index of the spot the arrow takes for any goal (Engine.SpotIndexOf), nil: none.
+function Engine.SpotIndexOf() return q.engine.spot end
 function Engine.IsClassTrainer(npc) return npc ~= nil and q.classTrainers[npc] == true end
 -- The Engine's rule: a located goal at its npc, `sethome nearest` at a candidate.
 function Engine.IsSethomeInnkeeper(goal, npc)

@@ -613,6 +613,31 @@ fn cyclespot_moves_an_area_objective_on_by_hand_to_the_next_spot_or_a_chosen_one
 	assert_eq!(out, json!({ "next": 2, "afterNext": 40, "held": 40, "chosen": 3, "afterChosen": 80, "none": false }));
 }
 
+// #1616: the target button names the mobs of the spot the arrow takes; SpotIndexOf reads it without moving it.
+#[test]
+fn spotindexof_gives_the_spot_the_arrow_takes_else_the_nearest_and_changes_nothing_1616() {
+	let out = run1(Run {
+		guides: SEARCH,
+		before: "w.onQuest(7, { 12 }); w.moveTo(1429, 20, 50)",
+		script: r#"
+			E.SetGuide("test/search"); flush()
+			local goal = E.GetGuide().steps[1].goals[1]
+			local r = { picked = E.SpotIndexOf(goal) }
+			E.CycleSpot(1, 1, 3)
+			r.chosen = E.SpotIndexOf(goal)
+			r.arrow = E.GetWaypoint().spot
+			-- A goal nothing picked a spot for: the nearest to the player, still unpicked after.
+			local other = { t = "collect", map = 1429, x = 80, y = 50, spots = { { x = 80, y = 50, r = 10 }, { x = 25, y = 50, r = 10 } } }
+			r.nearest = E.SpotIndexOf(other)
+			r.still = E.SpotIndexOf(other)
+			r.none = E.SpotIndexOf({ t = "kill" }) or false
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!({ "picked": 1, "chosen": 3, "arrow": 3, "nearest": 2, "still": 2, "none": false }));
+}
+
 #[test]
 fn another_place_the_target_spawns_alt_is_never_picked_on_its_own_moving_on_by_hand_reaches_it_and_every_other_place() {
 	// Camps at 40 and 60 along y = 50, and another place at 30 (alt), radius 30 each. The player stands inside

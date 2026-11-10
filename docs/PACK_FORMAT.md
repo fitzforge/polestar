@@ -552,12 +552,12 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 | `complete` | `quest`, `title` | `objs`, `startItem`, `startItemName` |
 | `abandon` | `quest`, `title` (format 5) | — |
 | `destroy` | `item`, `itemName` (format 5) | — |
-| `kill` | `target` | `title`, `npc`, `count`, `quest`, `oi`, `spread` |
-| `collect` | `item`, `itemName` | `title`, `count`, `quest`, `oi`, `spread`, `from`, `fromAlso`, `fromId`, `fromAlsoId`, `fromKind`, `fromRank`, `fromFaction`, `fromNpcs`, `npc`, `npcName`, `candidates` |
+| `kill` | `target` | `title`, `npc`, `count`, `quest`, `oi`, `spread`, `fromNpcs` |
+| `collect` | `item`, `itemName` | `title`, `count`, `quest`, `oi`, `spread`, `from`, `fromAlso`, `fromId`, `fromAlsoId`, `fromKind`, `fromRank`, `fromFaction`, `fromNpcs`, `fromNpcsAt`, `npc`, `npcName`, `candidates` |
 | `goto` | `map`, `x`, `y` | `text`, `r`, `area` |
 | `talk` | `npc`, `npcName` | `gossip` |
 | `interact` | `object`, `objName` | `title`, `quest`, `oi`, `spread` |
-| `use` | `item`, `itemName` | `title`, `quest`, `oi` |
+| `use` | `item`, `itemName` | `title`, `quest`, `oi`, `fromNpcs` |
 | `sethome` | `location`, or `candidates` | `npc`, `npcName`, `area` |
 | `hearth` | `location` | `area` |
 | `die` | `location`, `map`, `x`, `y` (format 5) | `f` |
@@ -616,7 +616,8 @@ The fields:
 | `from`, `fromAlso`, `fromKind`, `fromRank`, `fromFaction` | a `collect`'s main source: name, a second source of the same kind dropping it at 50% or more, `"npc"` or `"object"`, rank (1 elite, 2 rare elite, 3 boss, 4 rare), faction `"A"`, `"H"` or `"AH"` |
 | `fromId`, `fromAlsoId` | the ids of `from` and `fromAlso` (of kind `fromKind`): Polestar names them in the client's language (`Polestar.Names`), keeping `from`/`fromAlso` where it has no name; older Polestar ignores them |
 | `npc`, `npcName` | a `collect` whose guide names the NPC who hands the item over (`npc <id>`), for an item nothing drops: the target button targets them first. The farm spot a `collect … nearest` goal settles on carries the same pair |
-| `fromNpcs` | a `collect`'s source creatures where the goal stands: `{ { npc, npcName } }`, the one its point belongs to first, then the other likely sources there, at most 5 (GUIDE_FORMAT.md, "What the compiler fills in"). Newer Polestar gives them to the target button, named in the client's language by their ids, before the item's own droppers from the quest database, whose drop chances rank them over the whole world. Older Polestar ignores them, so it does not change the format |
+| `fromNpcs` | a `collect`'s source creatures where the goal stands: `{ { npc, npcName } }`, the one its point belongs to first, then the other likely sources there, at most 5 (GUIDE_FORMAT.md, "What the compiler fills in"); with `fromNpcsAt`, the sources at its other spots follow, up to 32. On a `kill`, every creature its quest objective credits when the data lists several, its own first; on a `use`, the creatures its item works on, those the objective of the quest handing it over credits (Kodo Roundup's Aged, Dying and Ancient Kodos), at most 5 each. Newer Polestar gives them to the target button, named in the client's language by their ids, before the item's own droppers from the quest database, whose drop chances rank them over the whole world (a `kill`'s and a `use`'s from Polestar 0.3.7). Older Polestar ignores them, so it does not change the format |
+| `fromNpcsAt` | a `collect` whose spots hold sources its point's `fromNpcs` left out: per spot, in `spots` order, the 1-based places in `fromNpcs` of the sources spawning there, most spawns first, separated by `,`, spots by `;` (`"1,2;3,4;;5"`, empty for a spot with none). Polestar 0.3.7 and later name the mobs of the spot the arrow takes alone on the target button (Centaur Bounty's spots run through every centaur tribe's camps). Older Polestar ignores it in a pack; an import string carrying it needs 0.3.7 or later (older Import refuses keys it does not know) |
 | `candidates` | smart targets: `{ { npc, npcName, map, x, y, z, f, faction, races, classes, lvl, rate, spawns } }` (`z` optional, see `z`); Polestar picks the nearest usable one at runtime |
 | `rewards` | `{ choices = { { item, itemName, quality } }, items = { ... }, xp, money }` (money in copper) |
 | `direct` | `true` on a `turnin`: the quest is handed in straight from the giver's window and never enters the quest log, so the goal needs no `accept` before it and carries no objectives. Polestar counts it done on the hand-in itself and stores that, so a repeatable stays done after a reload |
