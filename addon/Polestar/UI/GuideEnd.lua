@@ -63,19 +63,12 @@ local function inCombat()
 	return InCombatLockdown and InCombatLockdown() or false
 end
 
--- "Durotar (1–12)"
-local function label(g)
-	local lv = UI.LevelRange(g.minLevel, g.maxLevel)
-	local title = g.title or g.id
-	return lv and (title .. " (" .. lv .. ")") or title
-end
-
 -- What the window says for GUIDE_END's info, or nil (no such guide).
 function GE.Model(info)
 	local G, E = ns.Guides, Engine()
 	local g = info and info.guideId and G and G.Get(info.guideId)
 	if not g then return nil end
-	local m = { id = g.id, label = label(g), undone = info.undone or 0, live = info.live }
+	local m = { id = g.id, label = UI.GuideLabel(g), undone = info.undone or 0, live = info.live }
 	m.complete = m.live == nil or m.undone == 0
 	local choice = info.choose and E and E.GetRouteChoice and E.GetRouteChoice(g.id)
 	if choice and #choice.options >= 2 then
@@ -84,7 +77,7 @@ function GE.Model(info)
 		local nextGuide = info.next and G.Get(info.next)
 		if nextGuide then
 			m.next = nextGuide
-			m.nextLabel = label(nextGuide)
+			m.nextLabel = UI.GuideLabel(nextGuide)
 		end
 	end
 	m.carried = E and E.CarriedQuests and E.CarriedQuests(g.id) or {}
@@ -310,7 +303,7 @@ local function layout(m)
 				break
 			end
 			local later = G and G.Get(c.guideId)
-			lines[i] = later and later.title and format(L["%s · %s"], c.title, later.title) or c.title
+			lines[i] = later and format(L["%s · %s"], c.title, UI.GuideLabel(later)) or c.title
 		end
 		F.CarriedHead:SetText(L["Carried to later guides"])
 		F.CarriedHead:ClearAllPoints()

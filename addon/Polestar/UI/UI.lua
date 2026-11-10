@@ -509,16 +509,26 @@ function UI.EscortLine(goal)
 	return "|c" .. Theme.Hex("dungeon") .. L["Escort: if the NPC is not there, wait for it to respawn"] .. "|r"
 end
 
+-- A guide as the guide list names it, with its levels: "Badlands &
+-- Desolace (37–38)"; just the title (or id) when it has none.
+function UI.GuideLabel(g)
+	local title = g.title or g.id
+	local lv = UI.LevelRange(g.minLevel, g.maxLevel)
+	return lv and (title .. " (" .. lv .. ")") or title
+end
+
 -- Quest work a later guide hands in (the goal's `carriedTo`, Engine
 -- Own.carriedTo: once per step): "Keep this: you hand it in later in
--- Badlands" ("Keep this: a later guide hands it in" when that guide is not installed). Nil once
--- the goal is skipped.
+-- Badlands & Desolace (37–38)", the guide with its levels so it reads as a
+-- later guide ("Keep this: a later guide hands it in" when that guide is not
+-- installed). Nil once the goal is skipped. UI.GoalSubline puts it on a line
+-- of its own, after the goal's other subline.
 function UI.CarriedLine(goal)
 	local to = goal.carriedTo
 	if type(to) ~= "string" or goal.status == "skipped" then return nil end
 	local G = ns.Guides
 	local later = G and G.Get and G.Get(to)
-	if later and later.title then return format(L["Keep this: you hand it in later in %s"], later.title) end
+	if later then return format(L["Keep this: you hand it in later in %s"], UI.GuideLabel(later)) end
 	return L["Keep this: a later guide hands it in"]
 end
 
@@ -562,14 +572,14 @@ end
 
 -- The one line under a goal in the reading flow, only when it changes what
 -- the player does: why a quest is unavailable, that the goal needs a group,
--- that it is an escort, how to get the item a quest starts from, that a
--- later guide hands the quest in (keep it), which later
+-- that it is an escort, how to get the item a quest starts from, which later
 -- quest a grey accept "Skip grey quests" keeps opens, whom an item is got
 -- from, that an area objective's mobs are all over its area, which mobs a
 -- farm spot is, where a chosen trainer/vendor is, the goal's own note (a
 -- `complete` goal's objectives are its main line), and an open turn-in's
--- rewards. The rest of the detail ("for Kobold Camp Cleanup")
--- lives in the tooltip.
+-- rewards; then, on a line of its own, that a later guide hands the quest
+-- in (UI.CarriedLine: keep it). The rest of the detail ("for Kobold Camp
+-- Cleanup") lives in the tooltip.
 -- `shownMap`: a zone the window already names above (the person's), not repeated.
 -- `noParty`: the group line already shows on a goal above (said once per card).
 -- `noMissing`: so do the party members who lack this goal's quest.
@@ -592,8 +602,6 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort)
 	if escort then parts[#parts + 1] = escort end
 	local starter = UI.StarterLine(goal)
 	if starter then parts[#parts + 1] = starter end
-	local carried = UI.CarriedLine(goal)
-	if carried then parts[#parts + 1] = carried end
 	-- A hearth goal while the Hearthstone waits, or while travelling there
 	-- is about as fast: what to do (#576).
 	if goal.hearthText then parts[#parts + 1] = goal.hearthText end
@@ -620,9 +628,17 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort)
 	local together = ns.Party and ns.Party.Line(goal, noMissing)
 	if together then parts[#parts + 1] = together end
 	local rewards = goal.t == "turnin" and goal.status ~= "done" and goal.status ~= "skipped" and UI.GoalRewards(goal) or nil
-	if #parts == 0 then return rewards end
-	local line = table.concat(parts, "  \194\183  ")
-	return rewards and (line .. "  \194\183  " .. rewards) or line
+	local line
+	if #parts > 0 then
+		line = table.concat(parts, "  \194\183  ")
+		if rewards then line = line .. "  \194\183  " .. rewards end
+	else
+		line = rewards
+	end
+	-- To keep the quest: a line of its own, after the rest.
+	local carried = UI.CarriedLine(goal)
+	if carried then line = line and (line .. "\n" .. carried) or carried end
+	return line
 end
 
 -- A goal's line in the reading flow: the text with its counter right after it
