@@ -2610,6 +2610,7 @@ Polestar.Nav.StartTrip(target, name, label, ends) -> trip | nil   -- SetTarget's
 Polestar.Nav.Trip() -> { target, name, label, ends, inside } | nil   -- the trip under way, while its target is the one shown
 Polestar.Nav.EndTrip(arrived) -> ok                    -- back to the guide: the trip's target lets go
 Polestar.Nav.BackToGuide() -> ok                       -- any point picked by hand lets go (a trip as EndTrip); false on the guide's own
+Polestar.Nav.MoveTarget(target, map, x, y) -> ok       -- a point of your own that moves (a party member): the same target, its arrival kept (one chime)
 Polestar.Nav.Hold(map, x, y, label, f) -> target | nil  -- the arrow held there over every other target until Unhold (the death helper)
 Polestar.Nav.Unhold()
 Polestar.Nav.IsHeld() -> bool
@@ -2820,12 +2821,16 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
   the world map's dungeon pins, `ends = "instance"`: it ends through the
   instance's portal, going in, or coming out when it was started inside;
   reaching the door is not the goal), the training and riding banners'
-  Show (`Class trainer`, `Riding trainer`) and the class card's Show me (a
-  quest giver), which end on arrival. A point set on the map, by `/way`,
-  another addon or a goal of another step is the player's own and stays
-  until the step changes or they let it go: the arrow's menu (right-click,
-  or a click on the journey's current step) and the journey panel's header
-  x both say "Back to the guide" (`Nav.BackToGuide`).
+  Show (`Class trainer`, `Riding trainer`), the class card's Show me (a
+  quest giver) and a party member picked on the party panel (`Party`: one
+  target moved with them by `Nav.MoveTarget`, so standing by them is one
+  arrival and one chime; it also ends once they leave the party, go offline
+  or have no place the client gives), which end on arrival. A point set on
+  the map, by `/way`, another addon or a goal of another step is the
+  player's own and stays until the step changes or they let it go: the
+  arrow's menu (right-click, or a click on the journey's current step) and
+  the journey panel's header x both say "Back to the guide"
+  (`Nav.BackToGuide`).
 
 ### Hand-off to Shortest Path Forever
 
@@ -4523,7 +4528,8 @@ Polestar.Party.Lacking(q) -> { { name, unit, key, why, blocked }, ... }  -- Miss
 Polestar.Party.ShareFor(goal) -> names | nil        -- who a row's Share reaches; Share(q) shares
 Polestar.Party.UnitInfo(unit, key) -> { level, xp, class, race }
 Polestar.Party.Roster() -> rows                      -- the party panel's (UI/PartyPanel.lua)
-Polestar.Party.PointAt(unit) -> bool                 -- the arrow at a member (Nav.SetTarget, followed every 3 s)
+Polestar.Party.PointAt(unit) -> bool                 -- a trip to a member (Nav.StartTrip, label "Party"), moved with them every 3 s (Nav.MoveTarget);
+                                                     -- ends on arrival, "Back to the guide", or once they leave, go offline or have no place
 Polestar.Party.ItemNeeds(itemID) -> { { name, unit, need }, ... }; NeedText(e)  -- UI/PartyLoot.lua
 Polestar.Party.IsLive() -> bool                     -- PARTY_LIVE (on) fires when it changes
 Polestar.Party.Debug() -> lines                      -- /polestar party debug: prefix, last send and result, messages heard, roster keys

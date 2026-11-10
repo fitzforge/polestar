@@ -306,6 +306,24 @@ function Nav.IsOverride()
 	return override ~= nil and target == override
 end
 
+-- A point of your own that moves (a party member followed, Quests/Party.lua):
+-- the same target at its new place, so a trip on it goes on and an arrival
+-- stays one arrival, one chime, until the player is well apart again
+-- (Nav.Sample). A new target each time re-armed the arrival, and following
+-- someone you stood beside chimed every few seconds. The route is planned
+-- again. False when `t` is not the arrow's own target.
+function Nav.MoveTarget(t, map, x, y)
+	map, x, y = tonumber(map), tonumber(x), tonumber(y)
+	if not (t and map and x and y and Nav.IsOverride() and target == t) then return false end
+	t.map, t.x, t.y = map, x, y
+	resolve()
+	local T = Nav.travel
+	if T and T.Replan then T.Replan() end
+	notify("OnTarget", target)
+	announce()
+	return true
+end
+
 -- World position of the target: continentID, wx, wy, then its height when
 -- it has one (an Engine waypoint's `z`; a hand-set target has none). nil if unresolved.
 function Nav.GetTargetWorld()
