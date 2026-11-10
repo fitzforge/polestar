@@ -324,7 +324,11 @@ fn a_registered_skin_s_guide_title_hook_dresses_the_navigator() {
 		local house = title()
 		Polestar.Set("ui.skin", "titled")
 		local titled = title()
-		local f = Polestar.UI.GuideWindowPreview(UIParent)
+		local before, wasShown = #stub.messages, Polestar.Get("ui.shown")
+		P.nav.Close:Click()
+		titled.closed = { was = wasShown, shown = Polestar.Get("ui.shown"), printed = table.concat(stub.messages, "\n", before + 1) }
+		Polestar.Set("ui.shown", true)
+		local f =Polestar.UI.GuideWindowPreview(UIParent)
 		f:Layout(900)
 		titled.previewBar, titled.previewClose = f.Nav.TitleBar:IsShown(), f.Nav.Close:IsShown()
 		Polestar.Set("ui.style", "transparent")
@@ -338,6 +342,9 @@ fn a_registered_skin_s_guide_title_hook_dresses_the_navigator() {
 	let t = &out["titled"];
 	assert_eq!((t["bar"].clone(), t["close"].clone(), t["band"].clone(), t["menu"].clone()), (json!(true), json!(true), json!(false), json!(-26)), "the hook's title: {t}");
 	assert_eq!(t["rule"], "43331e", "the rule under a title bar in titleLine");
+	let x = &t["closed"];
+	assert_eq!((x["was"].clone(), x["shown"].clone()), (json!(true), json!(false)), "the close square hides the window: {x}");
+	assert!(x["printed"].as_str().unwrap_or("").contains("Type /polestar to bring it back."), "and says how to bring it back: {x}");
 	assert_eq!((t["previewBar"].clone(), t["previewClose"].clone()), (json!(true), json!(true)), "the Looks preview runs the same hook");
 	let c = &out["clear"];
 	assert_eq!((c["bar"].clone(), c["close"].clone(), c["band"].clone()), (json!(false), json!(false), json!(false)), "the transparent window draws no title: {c}");
