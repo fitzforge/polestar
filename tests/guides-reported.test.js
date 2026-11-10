@@ -2566,7 +2566,8 @@ test('Sato\'s report: the Skysight and Read Ley Line objectives tell you to cast
 test(`${ZEPHRAS_HORDE}: Sato's report: Welcome to Shen'dar Village follows its objectives, and is taken before Illaya's talk`, { skip }, () => {
 	const list = goals(ZEPHRAS_HORDE);
 	assert.ok(at(list, 'accept 92514', is('accept', 92514)) < at(list, 'talk 251902 quest 92595.1 (Illaya)', is('talk', 92595)), 'taken before the talk to Illaya for The Windshapers, which counts for it too');
-	const step = list[at(list, 'turnin 92514', is('turnin', 92514))].s;
+	// The step with the two talks (the village round's first step; Raan's profession Camping 101s split it, #1559).
+	const step = list[at(list, 'talk for 92514', (g) => g.t === 'talk' && g.quest === 92514)].s;
 	assert.deepEqual(list.filter(({ s, goal }) => s === step && goal.t === 'talk' && !goal.quest).map(({ goal }) => goal.npc), [], 'no bare talk goal that only counts during the step');
 	const objectives = (illaya, coriella) => stepView(ZEPHRAS_HORDE, SKYBORNE_HORDE, step, `w.complete({ 92595 })
 		w.onQuest(92514, { { required = 1, fulfilled = ${illaya} }, { required = 1, fulfilled = ${coriella} } })`)
@@ -10227,10 +10228,12 @@ test('Horde Desolace 34: Rackmore\'s Treasure on one walk north along the coast,
 });
 
 // BrHordeStart (0.3.6): every Horde start campfire also offers a profession Camping 101 (270 XP, needs the skill at
-// accept). Each variant is an optional accept in the campfire step (hidden without the profession); the hand-in sits on a stop the route makes
+// accept). Each variant is a required accept on a step of its own gated `when skill <Prof> 1` right after the campfire
+// (#1559: Automation never takes an optional accept, and the step read done once Cooking was taken); its hand-in a
+// required turn-in on a carrier-only step (`when onquest`) where the trainer stands on a stop the route makes
 // (Orgrimmar and Undercity trainers: 03-silverpine-forest). Recordings: Tirisfal First Aid 14 accepts, Mining 13,
 // Durotar Skinning 12, Mulgore Skinning 7.
-test('Horde starts: the profession Camping 101 quests, optional in the campfire step, handed in on stops the route makes', { skip }, () => {
+test('Horde starts: the profession Camping 101 quests, each on its profession\'s own step after the campfire, handed in on carrier-only steps', { skip }, () => {
 	const starts = {
 		'forever/horde/tauren/01-mulgore.guide': [96661, [97936, 97934, 97931, 97932, 97933, 97935, 97927, 97928, 97929, 97937], []],
 		'forever/horde/orc/01-durotar.guide': [96655, [97907, 97902, 97903], [97908, 97906, 96102, 97905, 97901, 97899]],
@@ -10244,9 +10247,13 @@ test('Horde starts: the profession Camping 101 quests, optional in the campfire 
 		for (const q of [...here, ...later]) {
 			const take = at(list, `${file}: accept ${q}`, is('accept', q));
 			assert.ok(take > cook, `${file}: ${q} after the Cooking variant`);
-			assert.ok(list[take].goal.optional && list[take].s === list[cook].s, `${file}: ${q} an optional goal in the campfire step`);
+			assert.ok(!list[take].goal.optional && list[take].goal.profLine, `${file}: ${q} a required accept that carries its profession`);
+			assert.ok((list[take].step.when || []).some((p) => p.k === 'skill' && !p.neg && p.skillLine === list[take].goal.profLine), `${file}: ${q} on a step for its profession`);
 			const hand = list.findIndex(({ goal }) => goal.t === 'turnin' && goal.quest === q);
-			if (here.includes(q)) assert.ok(hand > take, `${file}: ${q} handed in later in the guide`);
+			if (here.includes(q)) {
+				assert.ok(hand > take && !list[hand].goal.optional, `${file}: ${q} handed in later in the guide, a required turn-in`);
+				assert.ok((list[hand].step.when || []).some((p) => p.k === 'onquest' && !p.neg && p.q.includes(q)), `${file}: ${q} handed in on a carrier-only step`);
+			}
 			else assert.equal(hand, -1, `${file}: ${q} goes to the next guide's trainer`);
 		}
 	}

@@ -1212,7 +1212,20 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				let prog = prof_progress.borrow().iter().find(|(k, _)| *k == line).map(|(_, v)| v.clone());
 				let rank = goal.get("profRank").num();
 				let ok = prog.as_ref().is_some_and(|p| p.get("target").num() >= rank || (p.get("rank").num() >= 1.0 && rank <= 1.0));
-				if !ok {
+				// A step gated `when skill <profession> <n>` shows only to characters at that rank, and one
+				// gated `when onquest <the goal's quest>` only to those who took it (the profession is no
+				// longer in doubt): the goal is meant for them alone, as an `optional` one is, but stays
+				// required for them, so Automation takes and hands it in.
+				let quest = goal.get("quest");
+				let gated = step.get("when").items().iter().any(|p| {
+					!p.get("neg").truthy()
+						&& match p.get("k").as_str() {
+							Some("skill") => p.get("skillLine").num() == line && p.get("n").num() >= rank,
+							Some("onquest") => quest.truthy() && p.get("q").items().iter().any(|q| q.num() == quest.num()),
+							_ => false,
+						}
+				});
+				if !ok && !gated {
 					let pname = if goal.get("profName").truthy() { goal.get("profName").to_js_string() } else { format!("skill {}", goal.get("profLine")) };
 					let prof = format!("{} {}", pname, goal.get("profRank"));
 					let title = if goal.get("title").truthy() { goal.get("title").to_js_string() } else { "untitled".into() };

@@ -7,6 +7,8 @@ mod automation;
 mod automation_accept_off;
 #[path = "automation-close-skipped.rs"]
 mod automation_close_skipped;
+#[path = "automation-profession-quests.rs"]
+mod automation_profession_quests;
 #[path = "automation-spoken.rs"]
 mod automation_spoken;
 #[path = "class-quests.rs"]

@@ -343,6 +343,14 @@ fn every_goal_of_a_quest_that_needs_a_profession_carries_it_a_leveling_guide_war
 	assert_eq!(warns("Leveling", &["  train Mining", "  accept 7"]), 1);
 	assert_eq!(warns("Leveling", &["  skill Mining 50", "  accept 7"]), 0);
 	assert_eq!(warns("Class", &steps), 0);
+	// A step gated on the profession at the quest's rank or above: only its holders see it, so no warning.
+	assert_eq!(warns("Leveling", &["  when skill Mining 50", "  accept 7"]), 0);
+	assert_eq!(warns("Leveling", &["  when skill Mining 1", "  accept 33"]), 0);
+	assert_eq!(warns("Leveling", &["  when skill Mining 1", "  accept 7"]), 1);
+	assert_eq!(warns("Leveling", &["  when !skill Mining 50", "  accept 7"]), 1);
+	// A hand-in step gated on carrying the quest: no warning; on carrying another quest: the warning stays.
+	assert_eq!(warns("Leveling", &["  when onquest 7", "  turnin 7"]), 0);
+	assert_eq!(warns("Leveling", &["  when onquest 33", "  turnin 7"]), 1);
 	// Guides.lua carries the new fields.
 	let pack = compile_files(&[("test.guide", &t.replacen("guide t/", "guide test/", 1))], &data, Some("test"));
 	assert_match(&emit(&pack.guides), r#"profLine = 186, profName = "Mining", profRank = 50"#);
