@@ -293,6 +293,7 @@ t.guides["forever/alliance/05-duskwood"] = (function() return {
 		["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "{zone:1453} n'a pas de maître chaman : prenez {area:2257} depuis {object:28027} jusqu'à {zone:1455}, entraînez-vous auprès de {npc:258098}, puis reprenez le tram pour revenir.",
 } end)()
 t.guides["forever/alliance/06-ashenvale"] = (function() return {
+		["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest: it gives you the {item:13536}. Use the horn to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow it again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "Revenez vers le nord depuis la glaive (Druides : vers le sud par la route depuis {area:442}) jusqu'au {area:448}, où {npc:11218} dort à côté d'Arbal. Prenez sa quête : elle vous donne {item:13536}. Utilisez le cor pour le réveiller et menez-le vers le sud par la route jusqu'à son sac, à la lisière sud de {zone:1439} ; sonnez à nouveau du cor chaque fois qu'il s'endort. Continuez ensuite jusqu'à {npc:11219}, au {area:413}.\nAttention : des embuscades scriptées de trois monstres chacune attaquent le long de la route.",
 		["Below ground"] = "Sous terre",
 		["Boat to {area:150}"] = "Bateau pour {area:150}",
 		["Cave Stalkers and Leech Stalkers fill {area:1021}, the cave south-east of the excavation site."] = "Les Traqueuses des grottes et les Traqueuses sanguines peuplent le {area:1021}, la grotte au sud-est des excavations.",
@@ -348,7 +349,6 @@ t.guides["forever/alliance/06-ashenvale"] = (function() return {
 		["{npc:3987} (25) leads the Thistlefur furbolgs at the camp north of {area:415}. Clear his guards first, one at a time.\nCareful: The furbolgs near him usually join in when he is pulled. Killing the ones along his path first lets you fight him alone."] = "{npc:3987} (niveau 25) dirige les furbolgs Crin-de-Chardon du camp au nord d'{area:415}. Éliminez d'abord ses gardes, un par un.\nAttention : les furbolgs proches de lui se joignent généralement au combat quand vous l'attirez. Tuer d'abord ceux qui sont sur son chemin vous permet de l'affronter seul.",
 		["{npc:4201}, inside"] = "{npc:4201}, à l'intérieur",
 		["{npc:6122}: {npc:6244} in the {zone:1413} takes it, later"] = "{npc:6122} : à rendre plus tard à {npc:6244}, dans {zone:1413}",
-		["{object:176634}, beside him"] = "{object:176634}, à côté de lui",
 		["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009} arpente la pointe nord de la {area:414} avec des gardes Irequeue.",
 		["{quest:1010}, from the plant bundles"] = "{quest:1010}, sur les bottes de plantes",
 } end)()

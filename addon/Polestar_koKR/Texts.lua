@@ -202,6 +202,7 @@ t.guides["forever/alliance/05-duskwood"] = (function() return {
 		["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "{zone:1453}에는 주술사 상급자가 없습니다. {object:28027}에서 {area:2257}을(를) 타고 {zone:1455}(으)로 가서 {npc:258098}에게 훈련을 받은 뒤, 지하철을 타고 돌아오세요.",
 } end)()
 t.guides["forever/alliance/06-ashenvale"] = (function() return {
+		["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest: it gives you the {item:13536}. Use the horn to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow it again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "글레이브에서 다시 북쪽으로 (드루이드: {area:442}에서 길을 따라 남쪽으로) {area:448}까지 가세요. {npc:11218}이(가) 아발 옆에서 잠들어 있습니다. 그의 퀘스트를 받으면 {item:13536}을(를) 얻습니다. 뿔피리를 사용해 그를 깨우고, 길을 따라 남쪽으로 {zone:1439} 남쪽 끝에 있는 그의 가방까지 데려가세요. 그가 잠들 때마다 뿔피리를 다시 부세요. 그런 다음 {area:413}의 {npc:11219}에게 가세요.\n주의: 길을 따라 세 마리씩 이루어진 매복 무리가 정해진 대로 습격합니다.",
 		["Below ground"] = "지하",
 		["Boat to {area:150}"] = "배를 타고 {area:150}(으)로",
 		["Cave Stalkers and Leech Stalkers fill {area:1021}, the cave south-east of the excavation site."] = "긴다리동굴거미와 긴다리흡혈거미가 발굴 현장 남동쪽 동굴인 {area:1021}에 가득합니다.",

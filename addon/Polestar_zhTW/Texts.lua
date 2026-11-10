@@ -202,6 +202,7 @@ t.guides["forever/alliance/05-duskwood"] = (function() return {
 		["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "{zone:1453}沒有薩滿訓練師：從{object:28027}搭乘{area:2257}前往{zone:1455}，向{npc:258098}學習，然後搭地鐵回來。",
 } end)()
 t.guides["forever/alliance/06-ashenvale"] = (function() return {
+		["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest: it gives you the {item:13536}. Use the horn to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow it again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "從戰刃處往北返回（德魯伊：從{area:442}沿道路向南）到{area:448}，{npc:11218}睡在阿爾巴旁邊。接下他的任務：會給你{item:13536}。使用號角叫醒他，沿道路向南帶他到{zone:1439}南緣他的袋子處；每當他睡著就再吹一次號角。然後繼續前往{area:413}找{npc:11219}。\n注意：沿路會有固定劇情的伏擊，每次三隻怪。",
 		["Below ground"] = "地下",
 		["Boat to {area:150}"] = "搭船前往{area:150}",
 		["Cave Stalkers and Leech Stalkers fill {area:1021}, the cave south-east of the excavation site."] = "洞穴捕獵者和吸血捕獵者遍布挖掘場東南方的洞穴{area:1021}。",

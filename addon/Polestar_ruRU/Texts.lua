@@ -290,6 +290,7 @@ t.guides["forever/alliance/05-duskwood"] = (function() return {
 		["{zone:1453}'s {object:28027}"] = "{zone:1453}: {object:28027}",
 } end)()
 t.guides["forever/alliance/06-ashenvale"] = (function() return {
+		["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest: it gives you the {item:13536}. Use the horn to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow it again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "Возвращайтесь на север от глефы (друиды: на юг по дороге от места {area:442}) сюда: {area:448}, где рядом с Арбалом спит {npc:11218}. Возьмите его задание: оно дает вам предмет {item:13536}. Используйте рог, чтобы разбудить его, и ведите его на юг по дороге к его сумке на южной окраине зоны {zone:1439}; трубите в рог снова каждый раз, когда он засыпает. Затем идите к NPC {npc:11219} ({area:413}).\nОсторожно: на дороге нападают засады по три противника.",
 		["Below ground"] = "Под землей",
 		["Boat to {area:150}"] = "Корабль: {area:150}",
 		["Cave Stalkers and Leech Stalkers fill {area:1021}, the cave south-east of the excavation site."] = "Пещерные ловцы и ловцы-кровопийцы заполняют {area:1021}, пещеру к юго-востоку от раскопок.",

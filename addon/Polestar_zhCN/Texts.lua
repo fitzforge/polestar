@@ -473,6 +473,7 @@ t.guides["forever/alliance/05-duskwood"] = (function() return {
 		["{zone:1453}'s {object:28027}"] = "{zone:1453}的{object:28027}",
 } end)()
 t.guides["forever/alliance/06-ashenvale"] = (function() return {
+		["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest: it gives you the {item:13536}. Use the horn to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow it again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "从巨刃处向北返回（德鲁伊：从{area:442}沿路向南），前往{area:448}，{npc:11218}睡在Arbal旁边。接下他的任务，任务会给你{item:13536}。用号角唤醒他，带他沿路向南走到{zone:1439}南部边缘他的背包处；每当他睡着时，就再吹一次号角。然后继续前往{area:413}找{npc:11219}。\n小心：途中会触发伏击，每波三只怪物。",
 		["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins."] = "向北穿过{area:1276}返回：星尘灌木长在{area:421}西边的废墟里。",
 		["Below ground"] = "在地下",
 		["Boat to {area:150}"] = "乘船前往{area:150}",
@@ -548,7 +549,6 @@ t.guides["forever/alliance/06-ashenvale"] = (function() return {
 		["{npc:4080} and {npc:4077} camp on the {area:1076}, south-west of the mine."] = "{npc:4080}和{npc:4077}的营地位于矿洞西南方的{area:1076}。",
 		["{npc:4201}, inside"] = "{npc:4201}：在屋内",
 		["{npc:6122}: {npc:6244} in the {zone:1413} takes it, later"] = "{npc:6122}：之后交给{zone:1413}的{npc:6244}",
-		["{object:176634}, beside him"] = "他旁边的{object:176634}",
 		["{object:2164} is in the {object:2101}. Warlocks: {npc:6122} is in its cellar."] = "{object:2164}位于{object:2101}。术士：{npc:6122}在其地下室。",
 		["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009}带着怒尾卫兵在{area:414}北端巡逻。",
 		["{quest:1010}, from the plant bundles"] = "{quest:1010}，来自植物束",
