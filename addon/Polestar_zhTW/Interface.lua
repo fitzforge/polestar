@@ -1393,6 +1393,7 @@ L["back in %s"] = "返回 %s"
 L["Still to do: %s, %s"] = "尚未完成：%s，%s"
 L["Still to do: %s"] = "尚未完成：%s"
 L["Still to do"] = "尚未完成"
+L["Step %d, later in this guide"] = "第 %d 步，本指南稍後"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"

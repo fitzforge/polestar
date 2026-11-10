@@ -1432,6 +1432,7 @@ L["back in %s"] = "de regreso en %s"
 L["Still to do: %s, %s"] = "Pendiente: %s, %s"
 L["Still to do: %s"] = "Pendiente: %s"
 L["Still to do"] = "Pendiente"
+L["Step %d, later in this guide"] = "Paso %d, más adelante en esta guía"
 
 -- UI/Lookup.lua
 L["Loading the Codex\226\128\166"] = "Cargando el Codex…"

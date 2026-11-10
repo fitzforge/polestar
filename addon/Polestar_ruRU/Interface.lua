@@ -1393,6 +1393,7 @@ L["back in %s"] = "обратно: %s"
 L["Still to do: %s, %s"] = "Осталось сделать: %s, %s"
 L["Still to do: %s"] = "Осталось сделать: %s"
 L["Still to do"] = "Осталось сделать"
+L["Step %d, later in this guide"] = "Шаг %d, дальше в этом руководстве"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"

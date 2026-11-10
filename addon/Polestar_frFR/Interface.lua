@@ -1394,6 +1394,7 @@ L["back in %s"] = "de retour à %s"
 L["Still to do: %s, %s"] = "Encore à faire : %s, %s"
 L["Still to do: %s"] = "Encore à faire : %s"
 L["Still to do"] = "Encore à faire"
+L["Step %d, later in this guide"] = "Étape %d, plus loin dans ce guide"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascenseur vers %s"

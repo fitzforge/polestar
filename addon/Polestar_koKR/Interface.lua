@@ -1393,6 +1393,7 @@ L["back in %s"] = "%s(으)로 돌아가서"
 L["Still to do: %s, %s"] = "아직 남은 일: %s, %s"
 L["Still to do: %s"] = "아직 남은 일: %s"
 L["Still to do"] = "아직 남은 일"
+L["Step %d, later in this guide"] = "%d단계, 이 가이드 뒷부분"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"

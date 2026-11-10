@@ -562,6 +562,7 @@ L["back in %s"] = "zurück in %s"
 L["Still to do: %s, %s"] = "Noch offen: %s, %s"
 L["Still to do: %s"] = "Noch offen: %s"
 L["Still to do"] = "Noch offen"
+L["Step %d, later in this guide"] = "Schritt %d, später in diesem Leitfaden"
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"

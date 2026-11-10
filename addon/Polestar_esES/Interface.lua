@@ -1393,6 +1393,7 @@ L["back in %s"] = "de vuelta en %s"
 L["Still to do: %s, %s"] = "Pendiente: %s, %s"
 L["Still to do: %s"] = "Pendiente: %s"
 L["Still to do"] = "Pendiente"
+L["Step %d, later in this guide"] = "Paso %d, más adelante en esta guía"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascensor a %s"
