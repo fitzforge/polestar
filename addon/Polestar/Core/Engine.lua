@@ -5552,23 +5552,39 @@ function Own.snapRestore(id, snap)
 	end
 end
 
+-- Whether the pack update since the save changed guide g itself: the pack's
+-- version differs from the one the save's shape came with, and so does the
+-- guide's own shape (the guide as registered, never as planned for the
+-- character: CharState().ownShapes). A guide a pack update left as it was
+-- keeps everything as is, though its planned shape (feeders in, steps left
+-- out) differs from the save's. A save from before own shapes were stored
+-- has none: a version change counts as an update for each of its guides once,
+-- as before, and the passes it holds stay (Own.passAdded).
+function Own.updated(g)
+	local s = ns.CharState()
+	local saved = type(s.shapeVersions) == "table" and s.shapeVersions[g.id] or nil
+	if saved == Own.packVersion(g) then return false end
+	local own = type(s.ownShapes) == "table" and s.ownShapes[g.id]
+	return own ~= shapeOf(g.base or g)
+end
+
 local function checkShape(g)
 	local s = ns.CharState()
 	if type(s.shapes) ~= "table" then s.shapes = {} end
 	if type(s.stepKeys) ~= "table" then s.stepKeys = {} end
 	if type(s.shapeVersions) ~= "table" then s.shapeVersions = {} end
+	if type(s.ownShapes) ~= "table" then s.ownShapes = {} end
 	local h = shapeOf(g)
 	local stored = s.shapes[g.id]
-	local ver = Own.packVersion(g)
 	if stored ~= nil and stored ~= h then
 		local old = s.stepKeys[g.id]
 		-- Saved before step keys existed: nothing to match them by, all dropped.
 		local map = type(old) == "table" and Own.matchSteps(old, Own.stepKeys(g)) or {}
-		-- An update of the pack (the save's shape came from another version):
-		-- its new steps behind the player pass for them (Own.passAdded). Once:
-		-- the save is stamped with this version below. Any error in that
-		-- mapping puts the save back and restores it by kept steps alone.
-		local upgrade = s.shapeVersions[g.id] ~= ver and type(old) == "table"
+		-- An update that changed the guide (Own.updated): its new steps behind
+		-- the player pass for them (Own.passAdded). Once: the save is stamped
+		-- with this version below. Any error in that mapping puts the save
+		-- back and restores it by kept steps alone.
+		local upgrade = type(old) == "table" and Own.updated(g)
 		local snap = upgrade and Own.snapState(g.id)
 		if not upgrade or not Own.safely("mapping", g.id, function()
 			Own.noteAdded(g, map, old)
@@ -5582,7 +5598,8 @@ local function checkShape(g)
 		if type(s.guideEnds) == "table" then s.guideEnds[g.id] = nil end
 	end
 	s.shapes[g.id] = h
-	s.shapeVersions[g.id] = ver
+	s.shapeVersions[g.id] = Own.packVersion(g)
+	s.ownShapes[g.id] = shapeOf(g.base or g)
 	if stored ~= h or type(s.stepKeys[g.id]) ~= "table" then
 		local copy = {}
 		for i, k in ipairs(Own.stepKeys(g)) do copy[i] = k end
@@ -5653,6 +5670,13 @@ function Own.noteAdded(g, map, old)
 	end
 	local s = ns.CharState()
 	if type(s.added) ~= "table" then s.added = {} end
+	-- What earlier updates passed (CharState().gone, behind) is set aside
+	-- until this update's pass, which starts from it (Own.passAdded); an
+	-- update coming before the last one's pass keeps the first set.
+	if type(s.passedBefore) ~= "table" then s.passedBefore = {} end
+	if not s.passedBefore[g.id] then
+		s.passedBefore[g.id] = { gone = type(s.gone) == "table" and s.gone[g.id] or nil, behind = type(s.behind) == "table" and s.behind[g.id] or nil }
+	end
 	local mine = s.added[g.id] or {}
 	local keys = Own.stepKeys(g)
 	-- Quest goals an earlier release had optional only that block now
@@ -5782,18 +5806,26 @@ end
 -- the player stays.
 Own.goneGen = 0
 Own.goneCache = setmetatable({}, { __mode = "k" })
+-- What earlier updates passed stays passed: a second update never brings
+-- back what the first passed (0.3.5 -> 0.3.6 -> 0.3.7). This pass adds to it,
+-- and drops of it only a step at or after the player's place in the new
+-- guide whose quest work is open there and whose quest is not handed in
+-- (Own.backInPlay).
 function Own.passAdded()
 	local s = ns.CharState()
 	local added = type(s.added) == "table" and s.added[guide.id]
 	if not added then return end
-	-- Worked out afresh while the note lasts: before the quest log is in,
-	-- quests carried and travel done are not known yet (a pass then is
-	-- provisional; the one with the log in decides).
-	if type(s.gone) == "table" and s.gone[guide.id] then
-		s.gone[guide.id] = nil
-		Own.goneGen = Own.goneGen + 1
-	end
-	if type(s.behind) == "table" then s.behind[guide.id] = nil end
+	-- Worked out afresh while the note lasts, from what earlier updates
+	-- passed (CharState().passedBefore, set aside by Own.noteAdded): before
+	-- the quest log is in, quests carried and travel done are not known yet
+	-- (a pass then is provisional; the one with the log in decides).
+	local id = guide.id
+	local before = type(s.passedBefore) == "table" and s.passedBefore[id] or nil
+	if type(s.gone) ~= "table" then s.gone = {} end
+	if type(s.behind) ~= "table" then s.behind = {} end
+	s.gone[id] = before and Own.deepCopy(before.gone) or nil
+	s.behind[id] = before and Own.deepCopy(before.behind) or nil
+	Own.goneGen = Own.goneGen + 1
 	local C, steps = Compat(), guide.steps
 	local sk = skippedFor(guide.id)
 	local P = #steps + 1
@@ -5876,35 +5908,77 @@ function Own.passAdded()
 			end
 		end
 	end
-	if next(gone) then
-		if type(s.gone) ~= "table" then s.gone = {} end
-		s.gone[guide.id] = gone
-		Own.goneGen = Own.goneGen + 1
+	-- With what earlier updates passed: of it, what the new guide has back in
+	-- play from the player's place on goes (Own.backInPlay); the rest stays.
+	local all = s.gone[id] or {}
+	for j = P, #steps do
+		local e = Own.stepIn(all, j)
+		if e and Own.backInPlay(j, e) then
+			all[keys[j]] = nil
+			local bk = Own.baseKey(guide, j)
+			if bk then all[bk] = nil end
+		end
 	end
-	if next(behind) then
-		if type(s.behind) ~= "table" then s.behind = {} end
-		s.behind[guide.id] = behind
+	for k, e in pairs(gone) do
+		local was = all[k]
+		if was == true or e == true then
+			all[k] = true
+		elseif type(was) == "table" then
+			for x in pairs(e) do was[x] = true end
+		else
+			all[k] = e
+		end
 	end
+	local carried = s.behind[id] or {}
+	for q in pairs(carried) do
+		if later[q] then carried[q] = nil end
+	end
+	for q in pairs(behind) do carried[q] = true end
+	s.gone[id] = next(all) and all or nil
+	s.behind[id] = next(carried) and carried or nil
+	Own.goneGen = Own.goneGen + 1
 	if logReady then
-		s.added[guide.id] = nil
-		-- A quest ahead that needed what passed: planned again (Own.replan).
+		s.added[id] = nil
+		if type(s.passedBefore) == "table" then s.passedBefore[id] = nil end
+		-- A quest ahead that needed what this update passed: planned again
+		-- (Own.replan).
 		if next(gone) then
-			local id = guide.id
 			ns.After(0, function() Own.safely("replan", id, Own.replan, id) end)
 		end
 	end
 end
 
+-- Whether step j of the loaded guide, which an earlier update passed (entry
+-- e of CharState().gone: true for the step, else goal id -> true), is back in
+-- play: a quest goal of it that was passed is open (not done) and its quest is
+-- not handed in. Only asked for a step at or after the player's place.
+function Own.backInPlay(j, e)
+	local C = Compat()
+	for g, goal in ipairs(guide.steps[j].goals) do
+		if goal.quest and (e == true or e[Own.goalId(goal)] == true) and Guides.Matches(goal.only, player)
+			and not C.IsQuestCompleted(goal.quest) and not goalDone(j, g, goal) then
+			return true
+		end
+	end
+	return false
+end
+
 -- Runs f(...) for the update's mapping of guide `id`; an error drops what the
--- update noted for it (the plain restore: kept steps only), says one line in
--- the debug log (/polestar report) and shows none. -> true when f ran clean.
+-- update noted for it (the plain restore: kept steps only, with what earlier
+-- updates passed while it is set aside), says one line in the debug log
+-- (/polestar report) and shows none. -> true when f ran clean.
 function Own.safely(what, id, f, ...)
 	local ok, err = pcall(f, ...)
 	if ok then return true end
 	ns.Log("upgrade " .. what .. " failed, plain restore: " .. tostring(err):match("^[^\n]*"))
 	local s = ns.CharState()
-	for _, field in ipairs({ "added", "gone", "behind" }) do
+	local before = id and type(s.passedBefore) == "table" and s.passedBefore[id] or nil
+	for _, field in ipairs({ "added", "gone", "behind", "passedBefore" }) do
 		if id and type(s[field]) == "table" then s[field][id] = nil end
+	end
+	if before then
+		if type(s.gone) == "table" then s.gone[id] = before.gone end
+		if type(s.behind) == "table" then s.behind[id] = before.behind end
 	end
 	Own.goneGen = Own.goneGen + 1
 	return false
@@ -5998,16 +6072,17 @@ end
 -- An update replaced most of guide g's steps: it keeps fewer than half of
 -- those the character's save knew (0.3.5 reused leveling guide ids for
 -- other parts of the route, #1328). Read before checkShape stores the new
--- shape. Only an update: a save stamped with the pack's own version saw
--- none, and its shape is the guide as planned for the character (feeders
--- in, quests waiting on earlier guides left out), whose step keys differ
--- from the guide as registered (a /reload moved a fresh-start tab).
+-- shape. Only an update that changed the guide (Own.updated): a save stamped
+-- with the pack's own version saw none, and its shape is the guide as
+-- planned for the character (feeders in, quests waiting on earlier guides
+-- left out), whose step keys differ from the guide as registered (a /reload
+-- moved a fresh-start tab).
 function Own.reworked(g)
 	local s = ns.CharState()
 	local stored = type(s.shapes) == "table" and s.shapes[g.id]
 	local old = type(s.stepKeys) == "table" and s.stepKeys[g.id]
 	if not stored or stored == shapeOf(g) or type(old) ~= "table" or #old == 0 then return false end
-	if type(s.shapeVersions) == "table" and s.shapeVersions[g.id] == Own.packVersion(g) then return false end
+	if not Own.updated(g) then return false end
 	local kept = 0
 	for _ in pairs(Own.matchSteps(old, Own.stepKeys(g))) do kept = kept + 1 end
 	return kept * 2 < #old
@@ -11467,7 +11542,7 @@ function Engine.ResetProgress()
 	state.when[guide.id] = nil
 	if type(state.skipStored) == "table" then state.skipStored[guide.id] = nil end
 	-- What an update passed or left behind (Own.passAdded) comes back too.
-	for _, f in ipairs({ "added", "gone", "behind" }) do
+	for _, f in ipairs({ "added", "gone", "behind", "passedBefore" }) do
 		if type(state[f]) == "table" then state[f][guide.id] = nil end
 	end
 	Own.goneGen = Own.goneGen + 1

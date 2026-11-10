@@ -232,9 +232,13 @@ written by `tools/legacy-steps.js` from earlier releases' guides), so a
 check-off goes to the goal with the same verb and quest (or item, landing),
 a skip and the saved view to the step sharing most of its quest goals
 (`Own.remap`, `Own.legacyMaps`). `shapeVersions` holds the pack version a
-guide's shape was saved with.
+guide's shape was saved with, `ownShapes` the shape of the guide as
+registered (never as planned for the character) then.
 An update never moves a player back (#1353 upgrade): when a guide's shape
-came from another version of its pack, `Own.noteAdded` notes what the update
+came from another version of its pack and the guide itself changed (its own
+shape, the guide as registered, differs from `ownShapes`: `Own.updated`; a
+guide a pack update left as it was keeps everything as is, though its shape
+as planned for the character differs), `Own.noteAdded` notes what the update
 added (steps none of whose quest goals the old guide had there, goals it did
 not have or had only further on, and goals of a carried quest an earlier
 release had optional only: `required` in LegacySteps.lua), and the first
@@ -257,6 +261,13 @@ line to the debug log (`/polestar report`) instead of a Lua error;
 LegacySteps.lua is a function whose table is built only for that mapping and
 dropped at the first `QUEST_LOG_UPDATE`; Reset progress clears `gone` and
 `behind`, and none of them binds the step arrows, Skip or the guide list.
+What earlier updates passed stays passed through the next one (0.3.5 ->
+0.3.6 -> 0.3.7): `Own.noteAdded` sets the save's `gone` and `behind` aside
+(`passedBefore`), and the new pass starts from them and adds to them; of
+them it drops only a step at or after the player's place whose passed quest
+work is open and whose quest is not handed in (`Own.backInPlay`). A save from
+before `ownShapes` existed counts a version change as an update of each of
+its guides once, as before, and keeps its passes.
 A saved tab of a leveling guide that kept fewer than half of those steps
 (`Own.reworked`: an update reused the id for another part of the route, as
 0.3.5 did for Horde 04-06, #1328) moves, at the first `QUEST_LOG_UPDATE`
