@@ -338,6 +338,65 @@ function Nav.LiveCoords(point)
 end
 
 ---------------------------------------------------------------------------
+-- Trips: a place the player asked to be taken to (a nearby service, a
+-- dungeon's entrance, a trainer or quest giver a card or banner shows). A
+-- trip is a point picked by hand (Nav.SetTarget) that ends once its goal is
+-- reached, and the arrow is back on the guide's step: `ends` "arrive" at
+-- the arrival (after it is drawn), "instance" (a dungeon's entrance) on
+-- going through an instance's portal, in, or out when it was started
+-- inside (#1686: the way to Blackfathom Deeps outlived the run). Any other
+-- target (a step change, a goal clicked, a map click) ends it too, without
+-- a word. The guide window shows it ("On the way to <name> (<label>).")
+-- with "Back to the guide" (Nav.EndTrip). NAV_TRIP(trip | nil) fires as one
+-- starts or ends.
+---------------------------------------------------------------------------
+
+local trip
+
+local function inInstance()
+	local C = ns.Compat
+	return C and C.IsInInstance and C.IsInInstance() and true or false
+end
+
+-- `t`: what Nav.SetTarget just returned; `name`: the place, said on arrival;
+-- `label`: what it is ("Repair", "Dungeon"). -> the trip, or nil when `t`
+-- is not the arrow's own waypoint.
+function Nav.StartTrip(t, name, label, ends)
+	if not (t and Nav.IsOverride() and target == t) then return nil end
+	trip = { target = t, name = name or t.label, label = label, ends = ends == "instance" and "instance" or "arrive", inside = inInstance() }
+	ns.Fire("NAV_TRIP", trip)
+	return trip
+end
+
+-- The trip under way: { target, name, label, ends, inside }, or nil.
+function Nav.Trip()
+	if trip and not (Nav.IsOverride() and target == trip.target) then trip = nil end
+	return trip
+end
+
+-- Back to the guide: the trip's target lets go. `arrived`: said as "At <name>".
+-- False when there is no trip.
+function Nav.EndTrip(arrived)
+	local t = Nav.Trip()
+	if not t then return false end
+	trip = nil
+	Nav.ReleaseTarget()
+	ns.Print(arrived and string.format(L["At %s: the arrow is back on the guide."], t.name) or L["The arrow is back on the guide."])
+	ns.Fire("NAV_TRIP", nil)
+	return true
+end
+
+-- Any point picked by hand lets go, a trip as its banner's link ends it (the
+-- arrow's menu, the journey's header). False when the arrow is the guide's.
+function Nav.BackToGuide()
+	if Nav.EndTrip() then return true end
+	if not Nav.IsOverride() then return false end
+	Nav.ReleaseTarget()
+	ns.Print(L["The arrow is back on the guide."])
+	return true
+end
+
+---------------------------------------------------------------------------
 -- Situation sampling. Allocation-free: called from throttled OnUpdates.
 --
 -- Nav.Sample() -> state, distance, relAngle, dNorth, dWest, measured
@@ -519,12 +578,22 @@ local function settleStep()
 end
 
 ns.On("WAYPOINT_CHANGED", function(wp)
+	-- Another target took over: the trip is over, without a word.
+	if trip and not Nav.Trip() then ns.Fire("NAV_TRIP", nil) end
 	if firing then return end -- our own announcement
 	if dismissed and not samePoint(wp, engineWp) then dismissed = false end
 	engineWp = wp
 	if override then return end
 	pendingStep = false
 	apply(false)
+end)
+
+-- There: a trip to a place goes back to the guide, after the arrival is drawn.
+ns.On("NAV_ARRIVED", function(t)
+	if not (trip and trip.target == t and trip.ends == "arrive") then return end
+	ns.After(0, function()
+		if trip and trip.target == t then Nav.EndTrip(true) end
+	end)
 end)
 
 local function stepMoved()
@@ -552,6 +621,9 @@ ns.On("GUIDE_SHOWN", function() Nav.Refresh() end) -- an instance hide (ns.Guide
 
 local function situationChanged()
 	if target and not tC then resolve() end
+	-- Through an instance's portal: a trip to a dungeon's entrance is over.
+	local t = Nav.Trip()
+	if t and t.ends == "instance" and inInstance() ~= t.inside then Nav.EndTrip(true) end
 	Nav.Refresh()
 end
 for _, event in ipairs({

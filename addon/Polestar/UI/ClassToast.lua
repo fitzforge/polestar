@@ -686,11 +686,12 @@ function CT.Open()
 	return true
 end
 
--- "Show me": the arrow to the giver for the character's race.
+-- "Show me": a trip to the giver for the character's race (Nav.StartTrip:
+-- it ends there, and the guide window offers the way back on the way).
 function CT.ShowMe()
 	local m, N = CT.current, ns.Nav
 	if not (m and m.map and m.x and m.y) then return false end
-	if N and N.SetTarget then N.SetTarget(m.map, m.x, m.y, m.who, "e") end
+	if N and N.SetTarget then N.StartTrip(N.SetTarget(m.map, m.x, m.y, m.who, "e"), nil, L["Quest giver"]) end
 	CT.Hide()
 	return true
 end

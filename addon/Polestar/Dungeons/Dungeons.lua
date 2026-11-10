@@ -45,7 +45,7 @@
 --       how: "kill" (an objective), "item" (drops an objective item), "starts" (drops the item
 --       that starts it), "involved" (DungeonJournal names it for the quest)
 --   Dungeons.Open(key|nil)   -- fires SHOW_DUNGEON(key); the hub section listens
---   Dungeons.GuideTo(key) -> ok ; Dungeons.GuideToPoint(point, label[, stop]) -> ok   (Nav)
+--   Dungeons.GuideTo(key) -> ok ; Dungeons.GuideToPoint(point, label[, stop[, warning[, what]]]) -> ok   (a trip, Nav.StartTrip)
 --   Dungeons.ShowOnMap(key) -> ok   -- the world map on the entrance's zone
 --   Dungeons.Find(text) -> key | nil   -- by name (the client's language or English) or key
 --   Dungeons.Register(group, a, b)  -- pack files only
@@ -479,18 +479,25 @@ function Dungeons.Open(key)
 	return true
 end
 
--- `stop`: Nav.SetTarget's stop kind ("dungeon" for an entrance); `warning`:
--- the line the arrow shows under the label (Dungeons.EnemyEntrance).
-function Dungeons.GuideToPoint(point, label, stop, warning)
+-- The arrow to `point`. `stop`: Nav.SetTarget's stop kind; "dungeon" (an
+-- entrance) makes it a trip (Nav.StartTrip, "Back to the guide" on the way)
+-- that ends through the instance's portal (#1686), labelled `what`
+-- ("Dungeon", "Raid"). `warning`: the line the arrow shows under the label
+-- (Dungeons.EnemyEntrance). Any other point (a giver, a turn-in) stays the
+-- arrow's until the step changes, as a point set on the map does.
+function Dungeons.GuideToPoint(point, label, stop, warning, what)
 	local Nav = ns.Nav
 	if not (type(point) == "table" and point.map and point.x and point.y and Nav and Nav.SetTarget) then return false end
-	return Nav.SetTarget(point.map, point.x, point.y, label or point.name, point.f, stop, nil, warning) and true or false
+	local t = Nav.SetTarget(point.map, point.x, point.y, label or point.name, point.f, stop, nil, warning)
+	if not t then return false end
+	if stop == "dungeon" then Nav.StartTrip(t, label or point.name, what or L["Dungeon"], "instance") end
+	return true
 end
 
 function Dungeons.GuideTo(key)
 	local d = Dungeons.Get(key)
 	if not (d and d.entrance) then return false end
-	return Dungeons.GuideToPoint(d.entrance, d.name, "dungeon", Dungeons.EnemyEntrance(key))
+	return Dungeons.GuideToPoint(d.entrance, d.name, "dungeon", Dungeons.EnemyEntrance(key), d.kind == "raid" and L["Raid"] or L["Dungeon"])
 end
 
 -- Through Compat.OpenWorldMap: the client's C_Map opener, never in combat

@@ -1188,13 +1188,13 @@ fn on_the_way_to_a_nearby_service_a_banner_and_the_nearby_menu_offer_the_way_bac
 		local B = GF.parts.banner
 		local before = B:IsShown()
 		uistub.trip = { name = "Innkeeper Farley", label = "Innkeeper" }
-		Polestar.Fire("NEARBY_TRIP", uistub.trip)
+		Polestar.Fire("NAV_TRIP", uistub.trip)
 		local shown = { B:IsShown(), B.Text:GetText(), B.Jump.Label:GetText(), B.Close:IsShown() }
 		GF.nearbyButton:Click()
 		local first = PolestarMenu.rows[1].Text:GetText()
 		W.HideMenu()
 		B.Jump:Click()
-		local ended = lastCall("NearbyEndTrip") ~= nil
+		local ended = lastCall("EndTrip") ~= nil
 		emit({ before = before, shown = shown, first = first, ended = ended, after = B:IsShown() })"#)
 	.remove(0);
 	assert_eq!(out["before"], false);
@@ -2118,7 +2118,7 @@ fn a_group_quest_banner_asks_skip_it_or_do_it_with_a_group_and_cannot_be_dismiss
 }
 
 #[test]
-fn train_due_shows_a_training_banner_after_the_out_levelled_offer_show_points_the_arrow_later_dismisses() {
+fn train_due_shows_a_training_banner_after_the_out_levelled_offer_show_takes_the_player_there_on_a_trip_later_dismisses() {
 	let out = run(r#"
 		uistub.openTabs(TABS, 1)
 		local B = GF.parts.banner
@@ -2130,10 +2130,12 @@ fn train_due_shows_a_training_banner_after_the_out_levelled_offer_show_points_th
 		local second = { text = B.Text:GetText(), show = B.Jump.Label:GetText(), later = B.Later:IsShown(), close = B.Close:IsShown() }
 		B.Jump:Click()
 		local target = lastCall("SetTarget")
-		local afterShow, aimed = B:IsShown(), { uistub.target.stop, uistub.target.z }
+		local trip = lastCall("StartTrip")
+		local afterShow, aimed = { B:IsShown(), B.Text:GetText(), B.Jump.Label:GetText() }, { uistub.target.stop, uistub.target.z }
+		B.Jump:Click() -- back to the guide
 		Polestar.Fire("TRAIN_DUE", 14, trainer)
 		B.Later:Click()
-		emit({ first = first, second = second, target = target, aimed = aimed, afterShow = afterShow, afterLater = B:IsShown() })"#)
+		emit({ first = first, second = second, target = target, trip = trip, aimed = aimed, afterShow = afterShow, afterLater = B:IsShown() })"#)
 	.remove(0);
 	assert_eq!(out["first"], "Jump to Westfall", "the out-levelled offer goes first");
 	assert_eq!(
@@ -2147,7 +2149,8 @@ fn train_due_shows_a_training_banner_after_the_out_levelled_offer_show_points_th
 	);
 	assert_eq!(out["target"], json!(["SetTarget", 1453, 79.6, 70.2, "Ander Germaine"]));
 	assert_eq!(out["aimed"], json!(["trainer", 96.5]), "the trainer's stop kind and height (#180)");
-	assert_eq!(out["afterShow"], false);
+	assert_eq!(out["trip"], json!(["StartTrip", "Ander Germaine", "Class trainer"]), "a trip: it ends at the trainer (#1686)");
+	assert_eq!(out["afterShow"], json!([true, "On the way to Ander Germaine (Class trainer).", "Back to the guide"]));
 	assert_eq!(out["afterLater"], false);
 }
 
