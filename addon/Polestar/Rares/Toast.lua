@@ -26,7 +26,8 @@
 -- the rare button and its key; the fight's end arms it again.
 --
 -- The founder's alert (alert.kind "founder", Rares.FounderSighting) has the
--- same card: a gold star, "The Polestar founder is nearby!", his name and the
+-- same card: his emblem (founder-emblem, in its own colours, where the
+-- others have their tinted glyph), "The Polestar founder is nearby!", his name and the
 -- zone, and in the row a nudge to wave; its Target button targets him and
 -- waves (QoL.Buttons.FounderMacro, as the rare button does).
 --
@@ -339,8 +340,14 @@ function T.Show(a)
 	if not f then build() end
 	current = a
 	local founder = a.kind == "founder"
-	f.Glyph:SetTexture(Theme.Media(founder and "star" or a.kind == "treasure" and "icon-treasure" or "qol-target"))
-	W.Color(f.Glyph, Rares.ColorName(a.kind))
+	if founder then
+		f.Glyph:SetTexture(Theme.Media("founder-emblem"))
+		W.Uncolor(f.Glyph)
+		f.Glyph:SetVertexColor(1, 1, 1, 1)
+	else
+		f.Glyph:SetTexture(Theme.Media(a.kind == "treasure" and "icon-treasure" or "qol-target"))
+		W.Color(f.Glyph, Rares.ColorName(a.kind))
+	end
 	W.Color(f.Ring, Rares.ColorName(a.kind))
 	f.Name:SetText(founder and L["The Polestar founder is nearby!"] or a.name or "")
 	f.Facts:SetText(T.Facts(a))

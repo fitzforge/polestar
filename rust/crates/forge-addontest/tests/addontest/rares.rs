@@ -892,6 +892,34 @@ emit({ f.Target:IsShown(), f.Target.Label:GetText(), s:IsShown(), s:GetAttribute
 	assert_eq!(out[0], json!([true, "Wave", true, "/cleartarget [nocombat]\n/targetexact Fitz Polestar\n/targetexact [noexists] Fitz\n/wave"]));
 }
 
+#[test]
+fn rare_card_the_founder_s_card_shows_his_emblem_in_its_own_colours_other_cards_their_tinted_glyph() {
+	let out = run_card(
+		"",
+		r#"
+Polestar.Codex.Load()
+local f = PolestarRareToast
+local function glyph()
+	local r, g, b, a = f.Glyph:GetVertexColor()
+	local tr, tg, tb = Polestar.Theme.Color(R.ColorName("rare"))
+	return { f.Glyph:GetTexture(), r == 1 and g == 1 and b == 1 and a == 1, r == tr and g == tg and b == tb }
+end
+Polestar.Fire("RARE_SPOTTED", { kind = "founder", name = "Fitz Polestar", zone = "Elwynn Forest", button = true })
+emit(glyph())
+-- A rare after him: its own glyph, tinted again.
+Polestar.Fire("RARE_SPOTTED", R.AlertOf({ source = "nameplate", kind = "rare", id = 61, name = "Thuros Lightfingers" }, { map = 1429, x = 88, y = 78 }, true))
+emit(glyph())
+Polestar.Fire("RARE_SPOTTED", { kind = "founder", name = "Fitz Polestar", zone = "Elwynn Forest", button = true })
+-- A theme repaint leaves his emblem untinted.
+Polestar.Theme.Refresh()
+emit(glyph())"#,
+	);
+	let media = |name: &str| format!("Interface\\AddOns\\Polestar\\Media\\UI\\{name}");
+	assert_eq!(out[0], json!([media("founder-emblem"), true, false]), "the founder: his emblem, untinted");
+	assert_eq!(out[1], json!([media("qol-target"), false, true]), "a rare: the crosshair in the rare colour");
+	assert_eq!(out[2], json!([media("founder-emblem"), true, false]), "still untinted after a theme change");
+}
+
 // ------------------------------------------------------------ the section
 
 #[test]

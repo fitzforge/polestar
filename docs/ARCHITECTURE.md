@@ -6523,7 +6523,7 @@ Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
   keep it; a saved time in the future is ignored; this session's `GetTime`
   alert counts too). The alert is `RARE_SPOTTED` with `kind = "founder"`
   (`enemy` when his faction differs; both factions get it): the toast shows
-  a gold star, "The Polestar founder is nearby!", his name and zone, a
+  his emblem (`founder-emblem`, untinted; the others keep their tinted glyph), "The Polestar founder is nearby!", his name and zone, a
   nudge to wave (another line for the other faction), the card's Target
   button (it waves) and no waypoint or section button. Nothing enters the
   history. He is listed in `Nearby()`
