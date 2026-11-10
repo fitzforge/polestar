@@ -4389,7 +4389,12 @@ entrance lists and graph strings (`metadata` reads an entrance's cell, layer and
 2026-10-25), Eastern Kingdoms / Kalimdor: 18.3 / 22.4 MB loaded, 39.8 / 29.2 MB at most while searching, 91.4 /
 7.9 MB allocated in all, 19.8 / 22.5 MB at rest (the grid's maps, both continents: 35.3, 84.5, 163.6 and 40.7).
 Since the walking floor (#234) the cluster `Path.SurfacesAt` reads (the player's) stays decoded at rest while
-the arrow runs: one cluster; none without a target or 2 s after the arrow's last update.
+the arrow runs: one cluster; none without a target or 2 s after the arrow's last update. Its surfaces' areas
+(maps format 3) are read from the cluster's area string from a checkpoint every 256 nodes (`PathGrid.lua`
+`areaMarks`, built under the frame budget by the `Path.Prefetch` that decodes the cluster, dropped with it), not
+from the string's start: a city cluster's floor nodes lie tens of thousands of nodes in, and the scan from the start
+cost 2-15 ms a read in Orgrimmar and the Undercity (up to 40 ms), every quarter second while the player walked
+indoors (#1682).
 
 **A walk inside one cluster** (`Path.lua` run) skips the start's endpoint tree when it can. Each end's tree is a
 Dijkstra over its whole cluster to the entrances; the goal's is kept (`connect`), but the arrow asks again from a

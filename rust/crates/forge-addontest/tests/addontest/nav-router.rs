@@ -1108,6 +1108,59 @@ out.noname = Path.AreaName({MAP}, 0) or "nil""#
 	assert_eq!(old["canals"], json!({ "n": 1, "area": 0, "name": "nil" }));
 }
 
+/// A cluster's area string read deep in: every node its own row id (no runs to skip), but one long run in the middle.
+fn deep_area(node: usize) -> u32 {
+	if (6000..6600).contains(&node) {
+		141153
+	} else {
+		100 + (node % 37) as u32 * 3 + (node / 1000) as u32
+	}
+}
+
+// #1682: Walk.lua reads the surfaces with their areas every quarter second while the player walks; in a city cluster
+// the floor nodes lie tens of thousands of nodes into the area string, and each read scanned it from its start (up to
+// 40 ms a read in the Undercity). From the last checkpoint before the node (at most a checkpoint's 256 nodes to scan),
+// a read deep in stays within a small multiple of one at the very start, and gives the same row ids. Measured here
+// (lua5.1, 200 reads 16,383 nodes in): 500 ms scanned from the start, 8 ms from a checkpoint, 0.2-0.3 ms at node 0.
+#[test]
+fn path_surfacesat_s_areas_deep_in_a_cluster_read_from_a_checkpoint_not_the_string_s_start_and_read_the_same_rows() {
+	let spots: Vec<(usize, usize)> = (0..C).step_by(9).flat_map(|gx| [(gx, 3), (gx, 64), (gx, C - 1)]).chain([(0, 0), (C - 1, C - 1), (47, 0), (47, 1), (46, C - 1)]).collect();
+	let cells: Cells = spots.iter().map(|&(gx, gy)| (gx * C + gy, FixtureCell { val: 1, cls: 0 })).collect();
+	let nodes = |_k: usize| (0..C * C).map(deep_area).collect::<Vec<u32>>();
+	let cs = js(CS);
+	let list = spots.iter().map(|(gx, gy)| format!("{{ {gx}, {gy} }}")).collect::<Vec<_>>().join(", ");
+	let tail = format!(
+		r#"
+local t, a = {{}}, {{}}
+local function read(gx, gy) return Path.SurfacesAt({MAP}, (gx + 0.5) * {cs}, (gy + 0.5) * {cs}, t, a) end
+read(0, 0)
+while #frames > 0 do table.remove(frames, 1)() end
+out.rows = {{}}
+for i, s in ipairs({{ {list} }}) do
+	local n = read(s[1], s[2])
+	out.rows[i] = n == 1 and a[1] or ("n=" .. tostring(n))
+end
+local function cost(gx, gy)
+	local best = math.huge
+	for _ = 1, 5 do
+		local t0 = os.clock()
+		for _ = 1, 200 do read(gx, gy) end
+		best = math.min(best, os.clock() - t0)
+	end
+	return best
+end
+out.near, out.deep = cost(0, 0), cost({last}, {last})"#,
+		last = C - 1
+	);
+	let map = map_files(&cells, true, Opts::default());
+	with_areas(&map, 1, &nodes, &[(141153, "Canals")]);
+	let got = route_with(ours(), &map, &[], from(), to(), &tail);
+	let want: Vec<Value> = spots.iter().map(|&(gx, gy)| json!(deep_area(gx * C + gy))).collect();
+	assert_eq!(got["rows"], json!(want), "every spot's row id, as the string says");
+	let (near, deep) = (got["near"].as_f64().unwrap(), got["deep"].as_f64().unwrap());
+	assert!(deep < near * 200.0, "a read {} nodes in costs {:.3} ms against {:.3} ms at the start (200 reads)", C * C - 1, deep * 1000.0, near * 1000.0);
+}
+
 #[test]
 fn path_surfacesat_at_a_cluster_edge_keeps_a_and_b_goes_once_the_router_has_rested() {
 	let got = reader_route(&format!(
