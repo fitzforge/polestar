@@ -31,7 +31,7 @@ next forever/horde/05-stonetalon-mountains
 # Flow: Orgrimmar -> Far Watch Post (Orcs and Trolls: Kargal, Uzzek) -> the Crossroads (flight
 # path, bind) -> the Razormane camp -> the Crossroads -> Ratchet (Southsea beach) -> the oases and
 # Regthar -> the Dry Hills -> the Sludge Fen console -> the Razormane camp -> the Crossroads ->
-# the Stagnant and Lushwater oases -> the Dry Hills -> Echeyakee -> the Crossroads -> Ratchet
+# the Stagnant Oasis -> the Dry Hills -> Echeyakee -> the Crossroads -> Ratchet
 # (Samophlange handed in): the Raptor Grounds' nests and the silver -> Gazlowe's Stolen Booty on
 # the beach -> Northwatch Hold and Gilthares' escort back to Ratchet -> fly to the Crossroads ->
 # the Dry Hills (Vrang, Walton) -> Wenikee -> the Sludge Fen shredder
@@ -457,19 +457,10 @@ step The Crossroads
 # ---------------------------------------------------------------- South and Ratchet
 
 step The Stagnant Oasis
-  tip South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank.
+  tip South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank; Tonga takes the result on the next Crossroads stop, so carry on north-west to the Dry Hills from here.
   interact 3737 quest 877.1           -- Underwater
 
-step The Crossroads
-  tip Back west along the road.
-  turnin 877                          -- Tonga Runetotem
-  accept 880
-
-# ---------------------------------------------------------------- One loop: south-west, the Dry Hills, north, back south
-
-step Lushwater Oasis
-  tip Oasis Snapjaws crawl around Lushwater Oasis, south-west of the Crossroads, and around the Stagnant Oasis.
-  collect 5098 quest 880.1
+# ---------------------------------------------------------------- One loop: north-west, the Dry Hills, east, back south
 
 step Harpy Lieutenants
   tip North-west to the Dry Hills: the Witchwing Slayers hold their western end; they wear the rings.
@@ -504,7 +495,8 @@ step The Crossroads
   accept 3281                         -- Gazrog: the Stolen Silver, in a raptor nest north-west of Northwatch Hold
   turnin 881                          -- Sergra Darkthorn
   accept 905                          -- Sergra Darkthorn: the raptor nests south of the Crossroads
-  turnin 880                          -- Tonga Runetotem
+  turnin 877                          -- Tonga Runetotem
+  accept 880                          -- Tonga Runetotem: the Oasis Snapjaws at the Stagnant Oasis, with Verog
   turnin 875                          -- Darsok Swiftdagger
   accept 876                          -- Darsok Swiftdagger, on the tower: Serena Bloodfeather leads the harpies in the Dry Hills
   accept 6541                         -- Thork, on the tower, from level 17. Keep it: Kadrak at the Mor'shan Rampart, next guide
@@ -743,8 +735,9 @@ step the Crossroads
 
 step Verog the Dervish
   zone The Barrens
-  tip Verog walks among the Kolkar at the Stagnant Oasis south-east of the Crossroads.
+  tip Verog walks among the Kolkar at the Stagnant Oasis south-east of the Crossroads. Oasis Snapjaws crawl in the water around it: their shells are for Tonga.
   collect 5023 quest 851.1
+  collect 5098 quest 880.1
   kill 12296 quest 6129.1 "Cure Sickly Gazelle" only Tauren,Druid -- Sickly Gazelle: use the Curative Animal Salve on them; they roam the plains all around the Crossroads
 
 step Bristleback camps
@@ -777,7 +770,8 @@ step Agama'gor
 
 step The Crossroads
   zone The Barrens
-  tip North up the Gold Road to the Crossroads: Mankrik stands by the inn, Korran west of the north gate. Keep the Blood Shard: Mangletooth takes it on the next stop in Camp Taurajo.
+  tip North up the Gold Road to the Crossroads: Tonga Runetotem at the south gate, Mankrik by the inn, Korran west of the north gate. Keep the Blood Shard: Mangletooth takes it on the next stop in Camp Taurajo.
+  turnin 880                          -- Tonga Runetotem
   turnin 899                          -- Mankrik
   turnin 4921
   accept 95774                        -- Mankrik offers Her Name Is Olgra once Lost in Battle is handed in
