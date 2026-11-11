@@ -446,6 +446,7 @@ A fix goes into a record the next build applies, whoever builds:
 | the check that pins it | `tests/guides-reported.test.js` |
 | an arrow point: where an objective is done, or where a giver or ender stands; a road the target walks; an objective that needs its own goal line | `data/places.json` |
 | a step's tip, a goal's note (`goalNote`), an optional goal (`optional: true`), a `level` gate before a goal, or a `when` (`level>=N`: the goal's step shows only from that level; `onquest Q,...`: only while one of the quests is in the log; on a flight step with `at: { guide, goal: "fly", fly }`) | `data/guide-fixes.json` |
+| who a goal is for by race (`races`: `"all"` drops a stale race filter, a list sets one), on one goal or on every goal of the quest (`at.goal: "quest"`) | `data/guide-fixes.json` |
 
 Places and guide fixes are anchored on a quest's goal, never on a line or a step, and the writer
 applies them to the guides it writes, last:
@@ -483,7 +484,9 @@ line of an objective the quest no longer has goes (#859).
     "early": { "after": { "quest": 8, "goal": "accept" }, "title": "Gordo on the road to Brill", "when": "level>=5", "tip": "…" }, "…": "…" },
   { "id": "1135-plainstrider-beaks", "at": { "quest": 844, "goal": "objective", "objective": 1 },
     "background": { "title": "Plainstrider Beaks as you go", "tip": "…", "mobs": [3244, 3245, 3246], "mention": "…",
-      "finish": { "title": "Finish the Plainstrider Beaks", "tip": "…", "map": 1413, "x": 53.4, "y": 26.5 } }, "…": "…" } ] }
+      "finish": { "title": "Finish the Plainstrider Beaks", "tip": "…", "map": 1413, "x": 53.4, "y": 26.5 } }, "…": "…" },
+  { "id": "races-637-sully-balloos-letter", "faction": "Alliance", "at": { "quest": 637, "goal": "quest" }, "races": "all", "…": "…" },
+  { "id": "races-109-furlbrow-accept", "faction": "Alliance", "at": { "quest": 109, "goal": "accept" }, "races": "Human,NightElf,Skyborne", "…": "…" } ] }
 ```
 
 `at.goal` is `accept`, `turnin`, `complete` or `objective` (with `at.objective`); `tip` sets the
@@ -504,6 +507,18 @@ for the count, or a long search between kills of sparse or contested droppers, w
 along the route; `finish` is where players got the most kills a minute. A place with the same numbers as a goal's
 typed point but another map is applied (the map typed too). A place or guide fix with
 `"faction": "Alliance"` (or `"Horde"`) holds for that side's routes only.
+
+`races` sets who a goal is for by race: the race part of each anchored goal line's own `only` list.
+`"all"` drops it (classes stay, and an `only` left empty goes); a list (`"Human,NightElf,Skyborne"`)
+replaces it. A line whose own `only` names no race is left as it is, since its step's `only` decides
+who sees it: of Report to Gryan Stoutmantle's two Westfall accepts (109), Farmer Furlbrow's carries
+`only Human` and becomes `only Human,NightElf,Skyborne`, while Marshal Dughan's, in a Dwarf and Gnome
+step, stays. With `at.goal: "quest"` the record covers every goal line of the quest (its accept,
+objectives and hand-in), the form for an old per-race filter on a quest every race takes: Sully
+Balloo's Letter above, which the guides once showed to Dwarves, Gnomes, Night Elves and Skyborne only.
+A quest with a quest-wide `races` record has no other. The writer applies `races` in its fix pass,
+again after the shared route re-gates the shared guides by the starts that take each quest, and last
+on every guide it writes, so the old list never comes back.
 
 Each record says why, in our own words, and names its issue (`#647`) or pull request; a correction,
 place or guide fix also has its `source`. `forge data check-corrections` checks all five files. A record fix shows in the guides

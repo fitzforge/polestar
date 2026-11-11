@@ -1442,6 +1442,9 @@ fn check_places(ck: &mut Ck, d: &V) {
 /// (an `along until … background` step right after the quest's accept) until the step that hands the
 /// quest in, puts a finish step at `finish` right before it (passed at once when the count is reached),
 /// and gives each step in between whose points lie near a spawn of `mobs` the tip `mention`.
+/// `races: "all" | "<race>,<race>"` (alone on its record): the race part of the anchored goal lines'
+/// own `only` lists (`all` drops it; classes stay); `at: { quest, goal: quest }` anchors it on every
+/// goal line of the quest, and then no other `races` record names the quest.
 fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	ck.keys("", d, &["about", "_about", "fixes"]);
 	let list = d.get("fixes");
@@ -1451,13 +1454,15 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	}
 	let mut ids = rustc_hash::FxHashSet::default();
 	let mut slots: Vec<(String, String)> = Vec::new();
+	// (Per quest with `races` records: whether one is quest-wide, how many there are, the first's path.)
+	let mut races_of: std::collections::BTreeMap<String, (bool, usize, String)> = std::collections::BTreeMap::new();
 	for (i, r) in list.items().iter().enumerate() {
 		let at = format!("fixes[{i}]");
-		ck.keys(&at, r, &["id", "at", "tip", "goalNote", "optional", "level", "after", "only", "along", "early", "when", "background", "faction", "note", "source", "issue", "pr"]);
+		ck.keys(&at, r, &["id", "at", "tip", "goalNote", "optional", "level", "after", "only", "along", "early", "when", "background", "races", "faction", "note", "source", "issue", "pr"]);
 		for field in ["optional", "goalNote"] {
 			let v = r.get(field);
 			if !v.is_undef() {
-				if ["tip", "level", "along", "early", "when", "background", if field == "optional" { "goalNote" } else { "optional" }].iter().any(|k| !r.get(k).is_undef()) {
+				if ["tip", "level", "along", "early", "when", "background", "races", if field == "optional" { "goalNote" } else { "optional" }].iter().any(|k| !r.get(k).is_undef()) {
 					ck.err(format!("{at}.{field}"), "a goal modifier or note uses a separate record");
 				}
 				if field == "optional" && !matches!(v, V::Bool(true)) {
@@ -1488,13 +1493,18 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 		}
 		match a.get("goal").as_str() {
 			Some("accept" | "turnin" | "complete") => {}
+			Some("quest") => {
+				if r.get("races").is_undef() {
+					ck.err(format!("{at}.at.goal"), "a quest anchor carries `races` only");
+				}
+			}
 			Some("fly") => {
 				for k in ["guide", "fly"] {
 					if !has_text(&a.get(k)) {
 						ck.err(format!("{at}.at.{k}"), "a flight anchor names its guide id and the `fly` place");
 					}
 				}
-				let others = ["tip", "level", "along", "early", "background"].iter().any(|k| !r.get(k).is_undef());
+				let others = ["tip", "level", "along", "early", "background", "races"].iter().any(|k| !r.get(k).is_undef());
 				if !a.get("quest").is_undef() || r.get("when").is_undef() || others {
 					ck.err(format!("{at}.at"), "a flight anchor carries a `when` only, and no quest");
 				}
@@ -1509,13 +1519,33 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 					}
 				}
 			}
-			_ => ck.err(format!("{at}.at.goal"), format!("{}: accept, turnin, complete, objective or fly", show(&a.get("goal")))),
+			_ => ck.err(format!("{at}.at.goal"), format!("{}: accept, turnin, complete, objective, quest or fly", show(&a.get("goal")))),
 		}
 		let (tip, level, along, early, when) = (r.get("tip"), r.get("level"), r.get("along"), r.get("early"), r.get("when"));
-		let background = r.get("background");
+		let (background, races) = (r.get("background"), r.get("races"));
+		if !races.is_undef() && [&tip, &level].iter().any(|v| !v.is_undef()) {
+			ck.err(&at, "a `races` fix uses a record of its own");
+		}
 		let kind = match (tip.is_undef(), level.is_undef()) {
 			(true, true) if !r.get("optional").is_undef() => "optional",
 			(true, true) if !r.get("goalNote").is_undef() => "goalNote",
+			(true, true) if !races.is_undef() => {
+				if [&background, &when, &early, &along].iter().any(|v| !v.is_undef()) {
+					ck.err(&at, "a `races` fix uses a record of its own");
+				}
+				let ok = races.as_str().is_some_and(|s| {
+					let s = s.trim();
+					s.eq_ignore_ascii_case("all") || (!s.is_empty() && s.split(',').all(|x| RACE_NAMES.contains(&x.trim())))
+				});
+				if !ok {
+					ck.err(format!("{at}.races"), format!("{}: `all` or a list of races ({})", show(&races), RACE_NAMES.join(", ")));
+				}
+				let q = num_str(a.get("quest").num());
+				let e = races_of.entry(q).or_insert((false, 0, at.clone()));
+				e.0 |= a.get("goal").as_str() == Some("quest");
+				e.1 += 1;
+				"races"
+			}
 			(true, true) if !background.is_undef() && when.is_undef() && early.is_undef() && along.is_undef() => {
 				check_background(ck, &at, &background);
 				if a.get("goal").as_str() != Some("objective") {
@@ -1578,7 +1608,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				"level"
 			}
 			_ => {
-				ck.err(&at, "a guide fix sets a `tip`, `goalNote`, `optional: true`, a `level` gate, a `when`, `along: false`, `early` or `background`");
+				ck.err(&at, "a guide fix sets a `tip`, `goalNote`, `optional: true`, a `level` gate, a `when`, `along: false`, `early`, `background` or `races`");
 				"?"
 			}
 		};
@@ -1589,7 +1619,15 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 		}
 		slots.push((slot, id));
 	}
+	for (q, (wide, n, at)) in races_of {
+		if wide && n > 1 {
+			ck.err(&at, format!("quest {q} has a quest-wide `races` fix and {} more: one race list per quest", n - 1));
+		}
+	}
 }
+
+/// The race names an `only` list writes (a guide fix's `races`).
+const RACE_NAMES: [&str; 9] = ["Human", "Dwarf", "Gnome", "NightElf", "Skyborne", "Orc", "Troll", "Tauren", "Undead"];
 
 /// A guide fix's `background` (check_guide_fixes).
 fn check_background(ck: &mut Ck, at: &str, b: &V) {
@@ -1910,7 +1948,7 @@ mod tests {
 			"places[3].faction: \"Both\" is not Alliance or Horde",
 			"places[3].at.frame: map 2521 has no Era bounds",
 			"fixes[0].at.goal",
-			"fixes[0]: a guide fix sets a `tip`, `goalNote`, `optional: true`, a `level` gate, a `when`, `along: false`, `early` or `background`",
+			"fixes[0]: a guide fix sets a `tip`, `goalNote`, `optional: true`, a `level` gate, a `when`, `along: false`, `early`, `background` or `races`",
 			"fixes[1].after: `after` is true, on a level gate",
 			"fixes[2].when: no quest 12 in the data",
 			"fixes[4].at.guide: a flight anchor names its guide id",
@@ -1920,6 +1958,28 @@ mod tests {
 			"fixes[3].background.mobs[0]",
 			"fixes[3].background.finish.x: a map percent",
 			"fixes[3].at.goal: a `background` fix is on an objective goal",
+		] {
+			assert!(has(s), "{s}: {f:#?}");
+		}
+	}
+
+	#[test]
+	fn races_guide_fixes_are_checked() {
+		let src = r#""source": { "kind": "recording", "ref": "r" }, "note": "checked""#;
+		let good = format!(
+			r#"{{ "fixes": [ {{ "id": "r-1", "faction": "Alliance", "at": {{ "quest": 10, "goal": "quest" }}, "races": "all", {src} }}, {{ "id": "r-2", "at": {{ "quest": 11, "goal": "accept" }}, "races": "Human,NightElf,Skyborne", {src} }}, {{ "id": "r-3", "at": {{ "quest": 11, "goal": "turnin" }}, "races": "Dwarf,Gnome,NightElf,Skyborne", {src} }} ] }}"#
+		);
+		assert_eq!(record_findings(None, Some(&good)), Vec::<String>::new());
+		let bad = format!(
+			r#"{{ "fixes": [ {{ "id": "r-1", "at": {{ "quest": 10, "goal": "quest" }}, "races": "Elf", {src} }}, {{ "id": "r-2", "at": {{ "quest": 10, "goal": "turnin" }}, "races": "all", {src} }}, {{ "id": "r-3", "at": {{ "quest": 11, "goal": "quest" }}, "tip": "A tip.", {src} }}, {{ "id": "r-4", "at": {{ "quest": 11, "goal": "accept" }}, "races": "all", "tip": "A tip.", {src} }} ] }}"#
+		);
+		let f = record_findings(None, Some(&bad));
+		let has = |s: &str| f.iter().any(|x| x.contains(s));
+		for s in [
+			"fixes[0].races: \"Elf\": `all` or a list of races",
+			"fixes[0]: quest 10 has a quest-wide `races` fix and 1 more: one race list per quest",
+			"fixes[2].at.goal: a quest anchor carries `races` only",
+			"fixes[3]: a `races` fix uses a record of its own",
 		] {
 			assert!(has(s), "{s}: {f:#?}");
 		}

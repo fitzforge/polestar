@@ -1,5 +1,5 @@
 {
-	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), or a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
+	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). at: { quest, goal: accept | turnin | complete | objective | quest, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
 			"id": "1550-krazek-pickup-mining-advice",
@@ -5361,7 +5361,7 @@
 				"goal": "accept"
 			},
 			"tip": "Rackmore's Log lies beside Karnitol's Chest. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next.",
-			"note": "BrAlliance3040 (0.3.6): Claim Rackmore's Treasure! was Dwarf-only in 30-40/06 (a filter from an old per-race export; the quest's race mask is all races, and Scourge, Orc and Skyborne characters took it in the recordings). Silver key 15878: Drysnap Crawler/Pincer (11562/11563, 15%), which also spawn at 31-35,27-35 by the wreck; golden key 15881: every Slitherblade naga (4711-4719, 55%) of Sar'theris Strand, where the satchel and the Serpent Statue already take the route. No guide-fixes field holds a race filter: tests/guides-reported.test.js pins that the goals have none.",
+			"note": "BrAlliance3040 (0.3.6): Claim Rackmore's Treasure! was Dwarf-only in 30-40/06 (a filter from an old per-race export; the quest's race mask is all races, and Scourge, Orc and Skyborne characters took it in the recordings). Silver key 15878: Drysnap Crawler/Pincer (11562/11563, 15%), which also spawn at 31-35,27-35 by the wreck; golden key 15881: every Slitherblade naga (4711-4719, 55%) of Sar'theris Strand, where the satchel and the Serpent Statue already take the route. The record races-6161-rackmores-treasure keeps its goals for every race.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -5643,6 +5643,130 @@
 				{
 					"kind": "recording",
 					"ref": "players' in-game recordings to 2026-11-10: the Shadowy Assassin seen by 5 people and killed by 4 in all, at spots spread around Southshore's edge (Hillsbrad 47-55, 54-62)"
+				}
+			]
+		},
+		{
+			"id": "races-637-sully-balloos-letter",
+			"faction": "Alliance",
+			"at": {
+				"quest": 637,
+				"goal": "quest"
+			},
+			"races": "all",
+			"note": "Sully Balloo's Letter (637, 2,450 XP) is for every Alliance race, and every race passes the envelope at the Cache of Explosives (30-40/01) and Sara Balloo in Ironforge. Its lines carried `only Dwarf,Gnome,NightElf,Skyborne` from an old per-race route export, so Humans never saw it; 0.3.6 took the filter off by hand.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 637 races: every Alliance race"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "quest 637 races 77 (the Classic Alliance mask)"
+				}
+			]
+		},
+		{
+			"id": "races-683-sara-balloos-plea",
+			"faction": "Alliance",
+			"at": {
+				"quest": 683,
+				"goal": "quest"
+			},
+			"races": "all",
+			"note": "Sara Balloo's Plea (683, 1,200 XP), from Sara Balloo for King Magni on the same Ironforge stop as 637's hand-in, is for every Alliance race, and a Dwarf took it from her in players' recordings. Its lines carried `only Skyborne` from an old per-race route export; 0.3.6 took the filter off by hand.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 683 races: every Alliance race"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "quest 683 races 77 (the Classic Alliance mask)"
+				},
+				{
+					"kind": "recording",
+					"ref": "a Dwarf took 683 from Sara Balloo (players' recordings, 0.3.6 review)"
+				}
+			]
+		},
+		{
+			"id": "races-647-mackreels-moonshine",
+			"faction": "Alliance",
+			"at": {
+				"quest": 647,
+				"goal": "quest"
+			},
+			"races": "all",
+			"note": "MacKreel's Moonshine (647, 3,050 XP), Foggy MacKreel's errand to Brewmeister Bilger on the Arathi guide's stops (30-40/05), is for every Alliance race. Its lines carried `only Dwarf,Gnome,NightElf,Skyborne` from an old per-race route export, so Humans never saw it; 0.3.6 took the filter off by hand.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 647 races: every Alliance race"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "quest 647 races 77 (the Classic Alliance mask)"
+				}
+			]
+		},
+		{
+			"id": "races-6161-rackmores-treasure",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6161,
+				"goal": "quest"
+			},
+			"races": "all",
+			"note": "Claim Rackmore's Treasure! (6161, 2,800 XP) is for every race, and Scourge, Orc and Skyborne characters took it in players' recordings. The Alliance guide (30-40/06) carried `only Dwarf` on its accept, keys and hand-in from an old per-race route export; 0.3.6 took the filter off by hand.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 6161 races: any"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings: 6161 taken by Scourge, Orc and Skyborne characters (3 people)"
+				}
+			]
+		},
+		{
+			"id": "races-109-furlbrow-accept",
+			"faction": "Alliance",
+			"at": {
+				"quest": 109,
+				"goal": "accept"
+			},
+			"races": "Human,NightElf,Skyborne",
+			"note": "Report to Gryan Stoutmantle (109) is for every Alliance race and has several givers: Humans take it from Deputy Rainer in their Elwynn guide, Dwarves and Gnomes from Marshal Dughan in Westfall's Goldshire step (no race list of its own: the step's decides, so this record leaves it). Farmer Furlbrow (237), the first stop on the road into Westfall, gives it to Night Elves and Skyborne, who pass neither, and to a Human who skipped Rainer: 500-625 XP at 14.5-16. His accept was `only Human`; 0.3.6 opened it by hand.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 109 races: every Alliance race; givers 233, 237, 240, 261, 294, 963; ender 234"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "quest 109 races 77 (the Classic Alliance mask)"
+				}
+			]
+		},
+		{
+			"id": "races-109-sentinel-hill-handin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 109,
+				"goal": "turnin"
+			},
+			"races": "Dwarf,Gnome,NightElf,Skyborne",
+			"note": "Report to Gryan Stoutmantle (109): Humans hand it in on Westfall's first Sentinel Hill stop (a Human step, no race list on the line, so this record leaves it); everyone else on the second, which was `only Dwarf,Gnome`, so Night Elves and Skyborne who took it from Farmer Furlbrow had nothing to hand it to. 0.3.6 opened it to them by hand.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 109 races: every Alliance race; ender 234"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "quest 109 races 77 (the Classic Alliance mask)"
 				}
 			]
 		}

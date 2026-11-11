@@ -392,6 +392,7 @@ from a website.
 | A quest step's or note's wording, place or confidence in the public database | `forever-db/corrections/notes.json` | `forge data publish` |
 | How a quest is done beyond its objectives: an item summons the target, an object must be clicked, the giver offers the next quest after a short scene | `data/mechanics-public.json` | `forge data build --kb` (`mechanics.json`), then `forge build` and `forge data pack` |
 | Whether the route takes a quest: always (`include`), never (`skip`), or undo one of the cut's edits (`revert`); an order players asked for (`deliberate`) | `data/route-fixes.json` | the routes stage, from the checkout being built (or the file `POLESTAR_ROUTE_FIXES` names) |
+| A hand edit to a generated guide's steps that is neither a fact nor a route choice: a tip, a gate, who a goal is for by race | `data/guide-fixes.json` (arrow points: `data/places.json`) | the guides stage's fix pass, every build ([FORGE.md](../FORGE.md#fixing-a-generated-guide)) |
 
 A data mistake belongs in the data files, not in the overrides: every tool then sees the fix.
 
@@ -484,6 +485,28 @@ When the guides should keep a quest the cut leaves out (players take it here, is
 exact `revert` line for each edit. An order players asked for (this before that, these together)
 goes under `deliberate`. The next routes stage honours them;
 [routes.md](routes.md#11-overrides) has the full format.
+
+### A hand edit to a generated guide: `data/guide-fixes.json`
+
+A generated guide fixed by hand keeps its fix only if a record says it, or the next build writes the
+old step again. Each record is anchored on a quest's goal (`at: { quest, goal }`); the kinds and
+their fields are in the file's `about` and in [FORGE.md](../FORGE.md#fixing-a-generated-guide). One
+worked example per kind added in 0.3.8:
+
+**Who a goal is for by race (`races`).** Sully Balloo's Letter (637) is for every Alliance race, but
+its accept and hand-in carried `only Dwarf,Gnome,NightElf,Skyborne` from an old per-race export, so
+Humans never saw it:
+
+```json
+{ "id": "races-637-sully-balloos-letter", "faction": "Alliance",
+  "at": { "quest": 637, "goal": "quest" }, "races": "all",
+  "note": "…", "source": [{ "kind": "questie", "ref": "quest 637 races: every Alliance race" }] }
+```
+
+`"all"` drops the race part of each goal line's own `only` (classes stay); a list such as
+`"Human,NightElf,Skyborne"` replaces it. `goal: "quest"` covers every goal line of the quest; `accept`,
+`turnin`, `complete` or `objective` covers that goal's lines only, for a quest whose lines differ per
+giver. A line with no race in its own `only` is left alone (its step's `only` decides).
 
 ## The knowledge base
 

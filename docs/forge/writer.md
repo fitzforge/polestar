@@ -45,7 +45,7 @@ A route is only as good as the way the addon plays it, so the writer writes for 
 | walk store | `walks-<faction>.bin`, walking yards between world points (around hills, not straight lines) | beside the world file |
 | v1's guides | a guides folder holding `forever/` | `<root>/guides` |
 | game data | `quests.json`, `npcs.json`, `objects.json`, `items.json`, `zones.json`, `map-frames.json` and the compiler's data | `<root>/data/forever` |
-| fix records | `data/places.json` (arrow points, roads, objectives' own lines) and `data/guide-fixes.json` (tips, level gates, `when` lines: a goal's step shown only from `level>=N`) | `<checkout>/data/` (`--checkout`, default `--root`) |
+| fix records | `data/places.json` (arrow points, roads, objectives' own lines) and `data/guide-fixes.json` (tips, level gates, `when` lines: a goal's step shown only from `level>=N`; `races`: who a goal is for by race, applied again after the shared adopt and last) | `<checkout>/data/` (`--checkout`, default `--root`) |
 
 Each `order` item is one event: `t` is `accept`, `turnin`, `task` (work on an
 objective), `train`, `level` (with its fractional grind `target`) or `ride`

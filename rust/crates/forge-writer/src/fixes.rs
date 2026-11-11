@@ -23,6 +23,13 @@
 //!   `at: { guide, goal: "fly", fly }` anchors on a flight step instead (`fly "<fly>"` in the guide
 //!   whose `guide` line is `guide`; #1676): a `when` there shows the flight only while it holds
 //!   (`when onquest 1094,874`: the trip is for those quests).
+//!   `races` sets who a goal is for by race: the race part of each anchored goal line's own `only`
+//!   list (`"all"`: every race, so the race part goes; `"Dwarf,Gnome"`: those races; classes stay). A
+//!   line with no race in its own `only` keeps none: its step's `only` decides. `at: { quest, goal:
+//!   "quest" }` anchors it on every goal line of the quest (the old per-race filters left on the
+//!   Balloo letters, 637 and 683, and MacKreel's Moonshine, 647, which every Alliance race takes). It
+//!   is applied here, again after the shared adopt re-gates the shared guides (shared::adopt) and last
+//!   on every written guide ([`apply_races`]), so no later pass brings an old race list back.
 //!
 //! A record with `faction` ("Alliance" or "Horde") applies only to that faction's routes (a quest both
 //! sides do whose fix holds for one). Every record carries `source` ({ kind, ref }), `issue` and `note`;
@@ -71,6 +78,8 @@ enum Anchor {
 	/// A bare `complete Q` (or `complete Q.N`).
 	Complete(u32),
 	Objective(u32, u32),
+	/// Every goal line of the quest (a `races` record's `goal: "quest"`).
+	Quest(u32),
 	/// A `fly "<place>"` step (in the record's `at.guide` only).
 	Fly(String),
 }
@@ -79,7 +88,7 @@ impl Anchor {
 	/// The anchor's quest (None: a flight step).
 	fn quest(&self) -> Option<u32> {
 		match *self {
-			Anchor::Giver(q) | Anchor::Ender(q) | Anchor::Complete(q) | Anchor::Objective(q, _) => Some(q),
+			Anchor::Giver(q) | Anchor::Ender(q) | Anchor::Complete(q) | Anchor::Objective(q, _) | Anchor::Quest(q) => Some(q),
 			Anchor::Fly(_) => None,
 		}
 	}
@@ -89,6 +98,7 @@ impl Anchor {
 			Anchor::Ender(q) => format!("turnin {q}"),
 			Anchor::Complete(q) => format!("complete {q}"),
 			Anchor::Objective(q, n) => format!("objective {q}.{n}"),
+			Anchor::Quest(q) => format!("quest {q}"),
 			Anchor::Fly(p) => format!("fly \"{p}\""),
 		}
 	}
@@ -121,6 +131,7 @@ fn fix_anchor(r: &Value) -> Option<Anchor> {
 		"turnin" => Some(Anchor::Ender(q)),
 		"complete" => Some(Anchor::Complete(q)),
 		"objective" => Some(Anchor::Objective(q, at["objective"].as_u64()? as u32)),
+		"quest" => Some(Anchor::Quest(q)),
 		_ => None,
 	}
 }
@@ -142,6 +153,7 @@ fn anchor_lines(lines: &[String], a: &Anchor) -> Vec<usize> {
 		Anchor::Ender(q) => find(&|c| re!(r"^\s+turnin\s+(\d+)(?:\s|$)").captures(c).is_some_and(|m| m[1] == *q.to_string())),
 		Anchor::Complete(q) => find(&|c| re!(r"^\s+complete\s+(\d+)(?:\.\d+)?(?:\s|$)").captures(c).is_some_and(|m| m[1] == *q.to_string())),
 		Anchor::Fly(p) => find(&|c| re!(r#"^\s+fly\s+"([^"]*)""#).captures(c).is_some_and(|m| m[1] == **p)),
+		&Anchor::Quest(q) => find(&|c| crate::guide::is_goal(c) && crate::apply::quest_of(c) == Some(q)),
 		&Anchor::Objective(q, n) => {
 			let (qs, full) = (q.to_string(), format!("{q}.{n}"));
 			// The objective's own goal lines; else the quest's bare `complete`; else, for the first
@@ -692,6 +704,79 @@ fn apply_background(lines: &mut Vec<String>, r: &Value, data: Option<&Data>) -> 
 	(0..lines.len()).filter(|&i| objective_line(&lines[i], q, n) || mention_tip.as_deref() == Some(lines[i].trim())).collect()
 }
 
+/// A `races` record's races: None for `"all"` (every race), else the list. Not a `races` record:
+/// None outside.
+fn races_value(r: &Value) -> Option<Option<Vec<String>>> {
+	let v = r["races"].as_str()?.trim();
+	if v.eq_ignore_ascii_case("all") {
+		return Some(None);
+	}
+	Some(Some(v.split(',').map(|x| x.trim().to_string()).filter(|x| !x.is_empty()).collect()))
+}
+
+/// Whether a name in an `only` list is a race's (Scourge is the Undead's file name).
+fn is_race(name: &str) -> bool {
+	crate::apply::ALL_RACES.iter().any(|r| r.eq_ignore_ascii_case(name)) || name.eq_ignore_ascii_case("Scourge")
+}
+
+/// A goal `line` with the race part of its own `only` list set to `races` (None: every race, so the
+/// race part goes); its classes and factions stay, and a list left empty goes with its `only`. None
+/// when the line's own `only` names no race: its step's `only` decides who sees it.
+pub fn with_races(line: &str, races: Option<&[String]>) -> Option<String> {
+	let (code, rest) = split_comment(line);
+	let m = re!(r"^(.*?)\s+only\s+([!A-Za-z,]+)(\s+optional)?\s*$").captures(code)?;
+	let names: Vec<&str> = m[2].split(',').map(str::trim).filter(|x| !x.is_empty()).collect();
+	if !names.iter().any(|x| is_race(x)) {
+		return None;
+	}
+	let list: Vec<String> = races.unwrap_or(&[]).iter().cloned().chain(names.iter().filter(|x| !is_race(x)).map(|x| x.to_string())).collect();
+	let (head, optional) = (&m[1], m.get(3).map_or("", |x| x.as_str()));
+	Some(if list.is_empty() { format!("{head}{optional}{rest}") } else { format!("{head} only {}{optional}{rest}", list.join(",")) })
+}
+
+/// A `races` record on the anchored lines `found`. -> the changed lines.
+fn apply_races_fix(lines: &mut [String], found: &[usize], r: &Value) -> Vec<usize> {
+	let Some(races) = races_value(r) else { return Vec::new() };
+	let mut changed = Vec::new();
+	for &i in found {
+		let Some(new) = with_races(&lines[i], races.as_deref()) else { continue };
+		if new != lines[i] {
+			lines[i] = new;
+			changed.push(i);
+		}
+	}
+	changed
+}
+
+/// This side's `races` records on `text` (no state kept): run on the shared guides after the shared
+/// adopt's re-gating (shared::tag_audiences writes each quest's lines with its accept's or its
+/// starts' races, the old filter among them) and last on every written guide.
+pub fn apply_races(text: &str, rec: &Records, faction: Option<&str>) -> String {
+	let recs: Vec<&Value> = rec
+		.guide_fixes
+		.and_then(|d| d["fixes"].as_array())
+		.into_iter()
+		.flatten()
+		.filter(|r| r.get("races").is_some() && guide_is(text, r))
+		.filter(|r| !r["faction"].as_str().zip(faction).is_some_and(|(a, b)| !a.eq_ignore_ascii_case(b)))
+		.collect();
+	if recs.is_empty() {
+		return text.to_string();
+	}
+	let mut lines: Vec<String> = text.split('\n').map(str::to_string).collect();
+	let mut changed = false;
+	for r in recs {
+		let Some(a) = fix_anchor(r) else { continue };
+		let found = anchor_lines(&lines, &a);
+		changed |= !apply_races_fix(&mut lines, &found, r).is_empty();
+	}
+	if changed {
+		lines.join("\n")
+	} else {
+		text.to_string()
+	}
+}
+
 /// A line apply_fix drops once every found line is done.
 const GONE: &str = "\u{0}";
 
@@ -811,6 +896,8 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			"optional"
 		} else if r.get("goalNote").is_some() {
 			"goalNote"
+		} else if r.get("races").is_some() {
+			"races"
 		} else {
 			"level"
 		};
@@ -818,7 +905,7 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			file: "guide-fixes",
 			r,
 			slot: format!("{anchor:?} {kind}{}", r["at"]["guide"].as_str().map_or(String::new(), |g| format!(" in {g}"))),
-			want: format!("{}{}{}{}{}{}{}{}{}", r["tip"], r["level"], r["only"], r["along"], r["early"], r["when"], r["background"], r["optional"], r["goalNote"]),
+			want: format!("{}{}{}{}{}{}{}{}{}{}", r["tip"], r["level"], r["only"], r["along"], r["early"], r["when"], r["background"], r["optional"], r["goalNote"], r["races"]),
 			anchor,
 		});
 	}
@@ -872,6 +959,8 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 				apply_background(&mut lines, x.r, data)
 			} else if x.r.get("early").is_some() {
 				apply_early(&mut lines, &found, x.r)
+			} else if x.r.get("races").is_some() {
+				apply_races_fix(&mut lines, &found, x.r)
 			} else {
 				apply_fix(&mut lines, &found, x.r)
 			};
@@ -1313,5 +1402,41 @@ mod tests {
 			"guide forever/a\nzone The Barrens\n\nstep The Crossroads\n  accept 869\n\nstep Raptor Heads as you go\n  along until q869\n  background\n  collect 5062 quest 869.1\n\n# ---- East\n\nstep Echeyakee\n  goto 55.8,17.1\n\nstep Finish the Raptor Heads\n  when !has 5062 x12\n  collect 5062 quest 869.1 @56,15 map 1413 era\n\nstep The Crossroads\n  label q869\n  turnin 869\n"
 		);
 		assert_eq!(rows.iter().map(|r| r.state.as_str()).collect::<Vec<_>>(), ["applied"]);
+	}
+
+	#[test]
+	fn a_races_fix_sets_who_a_quests_goals_are_for() {
+		// Sully Balloo's Letter and Sara Balloo's Plea (637, 683) kept per-race filters from an old
+		// export (Humans never saw 637, only Skyborne 683), though every Alliance race takes them (race
+		// masks, players' recordings). Report to Gryan Stoutmantle (109): Night Elves and Skyborne take it
+		// from Farmer Furlbrow, whose accept carries a list; Marshal Dughan's, in a Dwarf and Gnome step,
+		// carries none and keeps it so.
+		let seed = "guide forever/a\nzone Westfall\n\nstep Goldshire\n  only Dwarf,Gnome\n  accept 109\n\nstep The Jansen Stead\n  accept 109 npc 237 only Human -- Farmer Furlbrow\n\nstep The Cache of Explosives\n  accept 637 optional only Dwarf,Gnome,NightElf,Skyborne\n\nstep Historian Karnik\n  turnin 637 only Dwarf,Gnome,NightElf,Skyborne\n  accept 683 only Skyborne\n  turnin 683 only Skyborne\n";
+		let fixes = json!({ "fixes": [
+			{ "id": "balloo-637", "faction": "Alliance", "at": { "quest": 637, "goal": "quest" }, "races": "all" },
+			{ "id": "balloo-683", "faction": "Alliance", "at": { "quest": 683, "goal": "quest" }, "races": "all" },
+			{ "id": "gryan-109", "faction": "Alliance", "at": { "quest": 109, "goal": "accept" }, "races": "Human,NightElf,Skyborne" }
+		] });
+		let records = Records { places: None, guide_fixes: Some(&fixes) };
+		let go = |text: &str| {
+			let mut tree = BTreeMap::from([("forever/a.guide".to_string(), text.to_string())]);
+			let rows = apply(&mut tree, &["forever/a.guide".into()], &HashSet::new(), Some("Alliance"), records, None);
+			(tree["forever/a.guide"].clone(), rows.into_iter().map(|r| r.state).collect::<Vec<_>>())
+		};
+		let (out, states) = go(seed);
+		assert_eq!(
+			out,
+			"guide forever/a\nzone Westfall\n\nstep Goldshire\n  only Dwarf,Gnome\n  accept 109\n\nstep The Jansen Stead\n  accept 109 npc 237 only Human,NightElf,Skyborne -- Farmer Furlbrow\n\nstep The Cache of Explosives\n  accept 637 optional\n\nstep Historian Karnik\n  turnin 637\n  accept 683\n  turnin 683\n"
+		);
+		assert_eq!(states, ["applied", "applied", "applied"]);
+		let (again, states) = go(&out);
+		assert_eq!(again, out, "applied again: nothing left to do");
+		assert_eq!(states, ["redundant", "redundant", "redundant"]);
+		// The last pass on every written guide does the same, for its side only.
+		assert_eq!(apply_races(seed, &records, Some("Alliance")), out);
+		assert_eq!(apply_races(seed, &records, Some("Horde")), seed);
+		// A class in the list stays; a list left empty goes with its `only`.
+		assert_eq!(with_races("  turnin 1786 only Human,Paladin -- Henze Faulk", None).as_deref(), Some("  turnin 1786 only Paladin -- Henze Faulk"));
+		assert_eq!(with_races("  train class only Paladin", None), None);
 	}
 }

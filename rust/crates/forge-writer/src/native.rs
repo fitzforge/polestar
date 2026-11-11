@@ -220,6 +220,7 @@ pub fn run_paths(pin: &PathInputs, opts: &RunOpts, cache: &SharedCache) -> Resul
 		}
 		r
 	});
+	let records = crate::fixes::Records { places: places.as_ref(), guide_fixes: guide_fixes.as_ref() };
 	let rinp = crate::RunInputs {
 		route: own_route.as_ref().unwrap_or(&route),
 		guides: &guides,
@@ -236,7 +237,7 @@ pub fn run_paths(pin: &PathInputs, opts: &RunOpts, cache: &SharedCache) -> Resul
 		floors: floors.as_ref().map(|f| f as &dyn crate::tips::Floors),
 		heights: heights.as_ref(),
 		notes: notes.as_ref(),
-		records: crate::fixes::Records { places: places.as_ref(), guide_fixes: guide_fixes.as_ref() },
+		records,
 	};
 	tm.lap(&scope, "load");
 	let canon_name = crate::shared::canonical(&route).unwrap_or_default();
@@ -314,7 +315,8 @@ pub fn run_paths(pin: &PathInputs, opts: &RunOpts, cache: &SharedCache) -> Resul
 					own_shared.push(rel);
 				}
 			}
-			crate::shared::adopt(&mut ro.tree, &canon_tree, &guides, by_quest, faction.len(), &join, &races_for, &route_files, &own_shared, &mut finish);
+			let fix_races = |t: &str| crate::fixes::apply_races(t, &records, route.faction.as_deref());
+			crate::shared::adopt(&mut ro.tree, &canon_tree, &guides, by_quest, faction.len(), &join, &races_for, &fix_races, &route_files, &own_shared, &mut finish);
 			ro.log.extend(tlog);
 			ro.log.push(format!("shared route: the faction's shared guides from {canon_name}'s run ({} starts, {} events in the shared order)", faction.len(), tail.len()));
 			for (s, qs) in left_out {
@@ -344,7 +346,8 @@ pub fn run_paths(pin: &PathInputs, opts: &RunOpts, cache: &SharedCache) -> Resul
 		// (One `only` list on a goal the passes, the shared route's adopt among them, gave two.)
 		crate::post::one_only(&mut one);
 		let [text] = one;
-		ro.tree.insert(rel.clone(), text);
+		// (Last, the race lists the `races` guide fixes set: no pass after them.)
+		ro.tree.insert(rel.clone(), crate::fixes::apply_races(&text, &records, route.faction.as_deref()));
 	}
 	// (The titles: the zones each guide as written quests in, docs/forge/writer.md "Guide titles".)
 	crate::titles::guide_titles(&mut ro.tree, &written, &|z| gdata.zone_by_name.contains_key(&z.to_lowercase()));
