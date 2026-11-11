@@ -45,7 +45,7 @@ A route is only as good as the way the addon plays it, so the writer writes for 
 | walk store | `walks-<faction>.bin`, walking yards between world points (around hills, not straight lines) | beside the world file |
 | v1's guides | a guides folder holding `forever/` | `<root>/guides` |
 | game data | `quests.json`, `npcs.json`, `objects.json`, `items.json`, `zones.json`, `map-frames.json` and the compiler's data | `<root>/data/forever` |
-| fix records | `data/places.json` (arrow points, roads, objectives' own lines) and `data/guide-fixes.json` (tips, level gates, `when` lines: a goal's step shown only from `level>=N`) | `<checkout>/data/` (`--checkout`, default `--root`) |
+| fix records | `data/places.json` (arrow points, roads, objectives' own lines) and `data/guide-fixes.json` (tips, level gates, `when` lines: a goal's step shown only from `level>=N`; `races`: who a goal is for by race, applied again after the shared adopt and last; `follows`, `split`, `step`: where a goal or a whole step goes, after the other records; `way`: where the walk to a step ends, after those) | `<checkout>/data/` (`--checkout`, default `--root`) |
 
 Each `order` item is one event: `t` is `accept`, `turnin`, `task` (work on an
 objective), `train`, `level` (with its fractional grind `target`) or `ride`
@@ -870,6 +870,15 @@ portals and hearths. A lift counts as part of the walk.
   is still written. In the step it arrives for, v1's own `getfp` for everyone
   is the route's: written where v1 has it, not first in the step (Sentinel
   Hill's after the tower's quests, #727).
+- A flight path is learnt on the first visit to its flight master (#1611,
+  `post::first_visit_flight_paths`, after every pass that moves steps): a
+  `getfp` goes into the first step before it, in play order, with a goal
+  within 60 yd of the flight master, right after the goal nearest it (Ratchet's
+  beside Sputtervalve on the Barrens' first Ratchet stop, not on the fly step
+  after the beach loop). It moves when that step is for all its players, else
+  it is copied there for that step's players and stays for the others (Camp
+  Taurajo's at Kirge Sternhorn, 54 yd from Omusa Thunderhorn, in the Tauren's
+  Mulgore guide; the Barrens' Camp Taurajo stop keeps it for everyone else).
 - v1's step that only learns a flight path, over the sea from where the route
   is, gets no crossing (v1's Ratchet stop between Theramore and Booty Bay, which
   the route reaches by air): the route learns that flight path where its own way
@@ -1292,6 +1301,12 @@ checkout's own `addon/Polestar_Guides`.
   pass moved it with `--no-engine`, `--no-route-legs` or one of the `--no-…`
   rule flags.
 - **Lint warnings about stale translations**: expected for changed lines. See above.
+- **`apply-route: warning: <guide>:<line>: the travel step "…" ends … yd from the
+  other faction's flight master at …`**: a walk (a step whose goals only travel)
+  ends within 120 yd of a flight master of the other faction whose town is not
+  shared by both (Chillwind Camp or Southshore on a Horde route, Tarren Mill on an
+  Alliance one). Move its end with a `way` guide fix (FORGE.md, "Fixing a
+  generated guide").
 - **Changing the writer**: run [the writer gate](#the-writer-gate) before it
   merges. Placement is in `src/apply.rs`, the passes in
   `src/post.rs`, travel repair in `src/travel.rs`, engine lines in

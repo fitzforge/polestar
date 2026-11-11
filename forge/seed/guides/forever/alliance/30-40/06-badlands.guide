@@ -9,7 +9,10 @@ next forever/alliance/40-50/01-stranglethorn-vale
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Claim Rackmore's Treasure! (6161), The Karnitol Shipwreck (1456).
+# Added here: Claim Rackmore's Treasure! (6161, every race), The Karnitol Shipwreck (1456).
+# Since 0.3.6 the wreck's chest is opened and handed in on the first Desolace visit (30-40/02), so the satchel is
+# dived for on the one trip to the north-west coast, Rackmore's chest is opened right after the Serpent Statue, and
+# Nijel's Point is visited once at the end instead of in the middle of the loop as well.
 # Since 2026-11-07 Theramore's first quests are handed in on the Dustwallow Marsh crossing at 33-34 (30-40/03): the
 # boat lands in Theramore only for the flight to Nijel's Point.
 
@@ -161,7 +164,7 @@ step Nijel's Point
   turnin 6141                         -- Brother Anton
   accept 261
   accept 1466
-  accept 1454                         -- Kreldig Ungor: the wreck is on the north-west coast, at the end of the loop
+  accept 1454                         -- Kreldig Ungor, if 30-40/02 didn't take it: the wreck lies below Azore's tower
   accept 93224                        -- Captain Pentigast
 
 # ---------------------------------------------------------------- Desolace: the south loop
@@ -171,10 +174,14 @@ step Bibbly F'utzbuckle
   accept 5501
 
 step Kodo Graveyard
-  tip Hornizz stands at the edge of the Kodo Graveyard, south-west of Kormek's Hut; Kodo Bones lie among the skeletons. A Flesh Picker crawls about the graveyard: catch one with the Entomology Starter Kit, then tick it off.
+  tip Hornizz stands at the edge of the Kodo Graveyard, south-west of Kormek's Hut; Kodo Bones lie among the skeletons.
   collect 13703 quest 5501            -- Kodo Bone
-  kill 217590                         -- Flesh Picker: catch it, for My Little Friends
   accept 6134                         -- Hornizz Brimbuzzle
+
+step Flesh Picker
+  when onquest 93176
+  tip A Flesh Picker crawls about the Kodo Graveyard: catch one with the tool from Amaryllis Webb's Entomology Starter Kit.
+  collect 213567 "Flesh Picker Specimen" @48.1,57.1
 
 step Maraudine centaurs
   tip The Maraudine centaurs hold the Valley of Spears west of the graveyard; every kind drops the totems.
@@ -211,33 +218,26 @@ step Azore Aldamort
   accept 6027
 
 step Karnitol's Chest
-  tip The wrecked ship's chest lies on the shore just west of Azore's tower.
+  tip The wrecked ship's chest lies just south-west of Azore's tower.
   turnin 1454                         -- Karnitol's Chest
   accept 1455
 
 step Claim Rackmore's Treasure!
-  accept 6161 only Dwarf
-  collect 15878 quest 6161.1 @34.7,33.5 map 1443 only Dwarf -- Underwater
-
-step Nijel's Point
-  tip Follow the road north to Nijel's Point.
-  turnin 1466                         -- Kreldig Ungor
-  turnin 1455                         -- Kreldig Ungor
-  accept 1467                         -- for Roetten Stonehammer in Ironforge: keep it
-  accept 1456
-  turnin 93224                        -- Captain Pentigast
-  turnin 261                          -- Brother Anton
-  accept 1052                         -- for Raleigh the Devout in Southshore: keep it
+  tip Rackmore's Log lies beside Karnitol's Chest. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next.
+  accept 6161
+  collect 15878 quest 6161.1 @34.7,33.5 map 1443 -- Underwater
 
 step Sar'theris Strand: kill these as you meet them
   zone Desolace
-  tip Lord Kragaru, a centaur chieftain, camps on the north-west coast, north of Azore's tower.
+  tip The Slitherblade naga hold the north-west coast north of Azore's tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to Ranazjar Isle off the far northern tip and use the Gem of the Serpent on the Serpent Statue: Lord Kragaru (38) rises; kill him for the Book of the Ancients.
   collect 6245 quest 1456.1 @33.2,10.5 map 1443 -- Underwater
+  collect 15881 quest 6161.2 @30.0,12.2 map 1443 -- Rackmore's Golden Key, from the Slitherblade naga
+  use 15766 quest 6027.1 @28.2,6.7 map 1443 -- Gem of the Serpent, on the Serpent Statue
   collect 15803 quest 6027            -- Book of the Ancients
 
-step Claim Rackmore's Treasure!
-  collect 15881 quest 6161.2 @36.3,23.1 map 1443 only Dwarf
-  turnin 6161 only Dwarf
+step Rackmore's Chest
+  tip Rackmore's chest lies just south-east of the Serpent Statue.
+  turnin 6161                         -- Rackmore's Chest
 
 step Azore Aldamort
   turnin 6027
@@ -245,9 +245,16 @@ step Azore Aldamort
 step Kormek's Hut
   turnin 5501                         -- Bibbly F'utzbuckle
 
-step Kreldig Ungor
+step Nijel's Point
+  tip Follow the road north to Nijel's Point: Captain Pentigast stands at its south end, Kreldig Ungor in the middle, Brother Anton to the north.
+  turnin 93224                        -- Captain Pentigast
+  turnin 1466                         -- Kreldig Ungor
+  turnin 1455                         -- Kreldig Ungor
   turnin 1456
-  accept 1457
+  accept 1457                         -- for Roetten Stonehammer in Ironforge: keep it
+  accept 1467                         -- for Roetten Stonehammer in Ironforge: keep it
+  turnin 261                          -- Brother Anton
+  accept 1052                         -- for Raleigh the Devout in Southshore: keep it
 
 step Fly to Theramore
   zone Dustwallow Marsh
