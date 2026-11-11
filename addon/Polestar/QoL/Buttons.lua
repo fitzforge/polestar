@@ -707,9 +707,13 @@ local function paintFace(b)
 	if b.psKind == "target" then
 		paintTarget(b)
 	else
-		if b.psKind == "rare" then color(b.Icon, "quest") end
-		color(b.Label, "textDim")
-		outlineLabel(b, false)
+		-- A rare in the house look wears Rare Ember on its glyph and name, the
+		-- name outlined as the target plate's so the colour holds on warm
+		-- ground (Theme.House "rareEmber"); elsewhere the quest colour, textDim.
+		local ember = b.psKind == "rare" and T and T.House("rareEmber")
+		if b.psKind == "rare" then color(b.Icon, ember and "rare" or "quest") end
+		color(b.Label, ember and "rare" or "textDim")
+		outlineLabel(b, ember and true or false)
 		placeLabel(b)
 	end
 	skinHook(b)

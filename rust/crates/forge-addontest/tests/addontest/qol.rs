@@ -1415,16 +1415,35 @@ fn rare_button_the_founder_in_front_targets_him_by_full_name_then_first_name_and
 	assert_eq!(out[3], json!(["nil"]));
 }
 
+// The rare button in the house look wears Rare Ember on its glyph and name, the name outlined as the target plate's
+// so the colour holds on warm ground, apart from the red Target button. Every other look keeps the quest gold glyph
+// and the textDim name, unoutlined: Halo, and a skin registered on the house look with nothing of its own.
 #[test]
-fn rare_button_its_icon_is_gold_apart_from_the_red_target_button() {
+fn rare_button_wears_rare_ember_in_the_house_look_and_the_quest_gold_elsewhere_apart_from_the_red_target_button() {
 	let out = run(r#"
-		emit({ PolestarRareButton.Icon:GetVertexColor() })
-		emit({ PolestarTargetButton.Icon:GetVertexColor() })
-		emit({ Polestar.Theme.Color("quest") })
+		local T, B, b = Polestar.Theme, Polestar.QoL.Buttons, PolestarRareButton
+		local function face()
+			B.Paint(b)
+			return { icon = { b.Icon:GetVertexColor() }, label = { b.Label:GetTextColor() }, outline = select(3, b.Label:GetFont()) or "",
+				rare = { T.Color("rare") }, quest = { T.Color("quest") }, dim = { T.Color("textDim") }, target = { PolestarTargetButton.Icon:GetVertexColor() } }
+		end
+		emit(face())
+		Polestar.Set("ui.skin", "halo")
+		emit(face())
+		T.RegisterSkin("plain", { name = "Plain", addon = "Test_Plain" })
+		Polestar.Set("ui.skin", "plain")
+		emit(face())
 	"#);
-	let (rare, target, gold) = (&out[0], &out[1], &out[2]);
-	assert_eq!(head(rare, 3), head(gold, 3), "the quest gold");
-	assert_ne!(head(rare, 3), head(target, 3), "not the Target button color");
+	let house = &out[0];
+	assert_eq!(head(&house["icon"], 3), head(&house["rare"], 3), "the house look: Rare Ember on the glyph");
+	assert_eq!(head(&house["label"], 3), head(&house["rare"], 3), "and on the name");
+	assert!(house["outline"].as_str().unwrap().contains("OUTLINE"), "the name outlined: {house}");
+	assert_ne!(head(&house["icon"], 3), head(&house["target"], 3), "not the Target button color");
+	for (look, f) in [("halo", &out[1]), ("a skin on the house look", &out[2])] {
+		assert_eq!(head(&f["icon"], 3), head(&f["quest"], 3), "{look}: the quest gold, as before");
+		assert_eq!(head(&f["label"], 3), head(&f["dim"], 3), "{look}: the name in textDim");
+		assert_eq!(f["outline"], "", "{look}: unoutlined");
+	}
 }
 
 #[test]

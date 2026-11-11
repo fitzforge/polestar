@@ -140,6 +140,7 @@ House.ROLES = ROLES
 --   openSections the guide window's body sections go without hairlines
 --   loneTab      a lone guide tab takes the room its title needs
 --   well         a tick box's well: shade at this share
+--   rareEmber    the rare button's glyph and name in Rare Ember, outlined
 ---------------------------------------------------------------------------
 
 local TOKENS = {
@@ -153,6 +154,7 @@ local TOKENS = {
 	openSections = true,
 	loneTab = true,
 	well = 0.12,
+	rareEmber = true,
 }
 
 ---------------------------------------------------------------------------
