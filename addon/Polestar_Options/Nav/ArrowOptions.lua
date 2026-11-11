@@ -368,7 +368,7 @@ local SPECS = {
 			} },
 		{ kind = "slider", key = "nav.arrowLabelLines", label = L["Label lines"], min = 0, max = 2, step = 1, new = NEW,
 			format = function(v) v = floor(v + 0.5); return v == 0 and L["Off"] or tostring(v) end,
-			search = "label lines, target name, destination, hide label, wrap",
+			search = "label lines, target name, destination, hide label, wrap, hide text, step text, objective text, quest text under the arrow, text under arrow, arrow text",
 			help = L["How many lines the goal's name or the route's next leg may take. Off hides it."] },
 		{ kind = "slider", key = "nav.arrowEtaSize", label = L["Arrival time"], min = 0.5, max = 2.5, step = 0.05, format = percent, new = NEW,
 			search = "eta size, time size, arrival time size, smaller text, text size, font size",

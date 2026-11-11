@@ -66,7 +66,9 @@ return {
 		["nav.arrowLabelSize"] = function() return font(A.labelText)[2] end,
 		["nav.arrowLabelColor"] = function() return textColour(A.labelText) end,
 		["nav.arrowLabelWidth"] = function() return A.labelText:GetWidth() end,
-		["nav.arrowLabelLines"] = function() return { A.labelText:GetMaxLines(), A.labelText:IsShown() } end,
+		-- Off (0): the goal's text under the arrow goes, the dial and the distance stay (nav-arrow-look.rs pins the
+		-- whole of it).
+		["nav.arrowLabelLines"] = { value = 0, probe = function() return { A.labelText:IsShown(), A.distText:IsShown(), A.dial:IsShown() } end },
 		["nav.arrowEtaSize"] = function() return font(A.etaText)[2] end,
 		-- Walking toward the goal at 10 yd/s: the arrival time shows, or not.
 		["nav.arrowEta"] = function()

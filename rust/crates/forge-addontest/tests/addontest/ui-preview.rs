@@ -392,6 +392,30 @@ fn the_hearthstone_s_two_buttons_sit_side_by_side_each_lights_its_own_and_a_sear
 	}
 }
 
+// A player asked how to hide the text under the arrow and keep the arrow and its distance: Arrow > Label lines,
+// Off. A search in the words players use finds that row first ("step text" also names the guide window's step
+// card, which comes first there, the row right after it).
+#[test]
+fn a_search_for_the_text_under_the_arrow_finds_label_lines() {
+	let out = run(r#"
+		local out = {}
+		for _, q in ipairs({ "hide text", "step text", "objective text", "quest text under the arrow", "hide label",
+			"text under arrow", "arrow text" }) do
+			local at = false
+			for i, r in ipairs(O.Search(q)) do
+				for _, c in ipairs(r.controls or {}) do
+					if c.key == "nav.arrowLabelLines" and not at then at = i end
+				end
+			end
+			out[q] = at
+		end
+		emit(out)"#);
+	for q in ["hide text", "objective text", "quest text under the arrow", "hide label", "text under arrow", "arrow text"] {
+		assert_eq!(out[q], 1, "{q}: Label lines in the first result: {out}");
+	}
+	assert_eq!(out["step text"], 2, "step text: Label lines right after the guide window's step card: {out}");
+}
+
 // A stage repaints on its own settings at once while it shows, on its next show when it was hidden, and not on
 // other settings (one with no look: a scale or a theme setting repaints every stage through Theme.Refresh).
 #[test]
