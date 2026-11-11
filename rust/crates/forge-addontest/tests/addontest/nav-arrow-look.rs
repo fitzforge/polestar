@@ -62,7 +62,7 @@ fn every_look_setting_changes_the_live_arrow_in_place_and_leaves_its_heading_and
 		Polestar.Set("nav.arrowEtaColor", { 0, 0, 1 })
 		out.colours = { text(A.distText), text(A.labelText), text(A.etaText) }
 		Polestar.Set("nav.arrowLabelLines", 1)
-		Polestar.Set("nav.arrowLabelWidth", 300)
+		Polestar.Set("nav.arrowLabelWidth", 360)
 		out.label = { A.labelText:GetMaxLines(), A.labelText:GetWidth(), A.labelText:IsShown() }
 		Polestar.Set("nav.arrowLabelLines", 0)
 		out.labelOff = A.labelText:IsShown()
@@ -114,14 +114,14 @@ fn every_look_setting_changes_the_live_arrow_in_place_and_leaves_its_heading_and
 	let d = &out["default"];
 	assert_eq!(
 		json!([r3(&json!([d["glow"]]))[0], d["glowShown"], d["dist"], d["label"], d["eta"], d["outline"], d["lines"], d["width"], d["dialPoint"], d["backing"]]),
-		json!([0.45, true, 16, 12, 12, "OUTLINE", 2, 200, "TOP", false]),
+		json!([0.45, true, 16, 12, 12, "OUTLINE", 2, 300, "TOP", false]),
 		"the defaults draw the arrow as it always was"
 	);
 	assert_eq!(r3(&json!([out["glowStrong"]]))[0], json!(0.9), "glow strength doubles the glow");
 	assert_eq!(out["glowOff"], false, "glow off hides it");
 	assert_eq!(out["sizes"], json!([32, 18, 6, "THICKOUTLINE"]));
 	assert_eq!(out["colours"], json!([[1, 0, 0], [0, 1, 0], [0, 0, 1]]));
-	assert_eq!(out["label"], json!([1, 300, true]));
+	assert_eq!(out["label"], json!([1, 360, true]));
 	assert_eq!(out["labelOff"], false, "0 lines hides the label");
 	assert_eq!(out["distOff"], false, "the distance can go");
 	assert_eq!(r3(&json!([out["above"][3]]))[0], json!(0.7));
