@@ -172,7 +172,6 @@ L["Step action: NPC, quest item, mob or Hearthstone"] = "단계 행동: NPC, 퀘
 L["Use the route's Hearthstone or teleport"] = "경로의 귀환석 또는 순간이동 사용"
 L["No guide selected. Use /polestar guides to pick one."] = "선택한 가이드가 없습니다. /polestar guides로 고르십시오."
 L["Show the guide window"] = "가이드 창 표시"
-L["Hide the guide window"] = "가이드 창 숨기기"
 L["Choose a guide"] = "가이드 선택"
 L["Open settings"] = "설정 열기"
 L["Debug output"] = "디버그 출력"
@@ -223,6 +222,11 @@ L["Nothing to skip: the guide has no step open."] = "건너뛸 것이 없습니�
 L["Reopen closed tab"] = "닫은 탭 다시 열기"
 L["No closed tab to reopen."] = "다시 열 닫은 탭이 없습니다."
 L["Reopen the last guide tab you closed"] = "마지막으로 닫은 가이드 탭 다시 열기"
+L["Hide/show Polestar"] = "Polestar 숨기기/표시"
+L["Hiding Polestar keeps the arrow."] = "Polestar를 숨겨도 화살표는 남깁니다."
+L["Hiding Polestar hides the arrow too."] = "Polestar를 숨기면 화살표도 숨깁니다."
+L["Polestar is hidden: /polestar hide or the minimap button shows it again."] = "Polestar가 숨겨졌습니다: /polestar hide 또는 미니맵 버튼으로 다시 표시합니다."
+L["Hide or show everything Polestar shows (hide arrow: keep the arrow when hidden)"] = "Polestar가 표시하는 모든 것을 숨기거나 표시합니다 (hide arrow: 숨길 때 화살표 유지)"
 
 -- Theme/Theme.lua
 L["Dusk"] = "황혼"
@@ -253,6 +257,7 @@ L["Point the arrow at x y on your current map (no argument clears it)"] = "현�
 L["Shortest Path Forever is guiding a journey of its own. Polestar's arrow comes back when it ends."] = "Shortest Path Forever가 자체 여정을 안내 중입니다. 여정이 끝나면 Polestar의 화살표가 돌아옵니다."
 L["Shortest Path Forever is guiding. Turn off \"Hand guiding to Shortest Path Forever\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever가 안내 중입니다. Polestar의 화살표를 사용하려면 \"Shortest Path Forever에 안내 맡기기\"(설정, 연동)를 끄세요."
 L["The guide is hidden and \"Hide the arrow with the guide\" is on, so the arrow is hidden too: /polestar show brings them back."] = "가이드가 숨겨져 있고 '가이드와 함께 화살표 숨기기'가 켜져 있어 화살표도 숨겨졌습니다: /polestar show로 다시 표시합니다."
+L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the minimap button's menu keeps it."] = "Polestar가 숨겨져 화살표도 숨겨졌습니다: 미니맵 버튼 메뉴의 '숨길 때 화살표 유지'를 켜면 화살표가 남습니다."
 
 -- Nav/Arrow.lua
 L["Search here"] = "여기서 찾기"
@@ -693,9 +698,9 @@ L["Classic Era allows 30 new instances per 24 hours per account; 0 ignores the d
 L["Clear instance history"] = "인스턴스 기록 삭제"
 L["Forgets recorded entries and runs (the server's own limit is not affected)."] = "기록된 입장과 회차를 지웁니다 (서버 자체 제한에는 영향 없음)."
 L["Minimap button"] = "미니맵 버튼"
-L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "미니맵 가장자리에 있는 Polestar 버튼입니다. 클릭하면 가이드를 표시하거나 숨기고, 우클릭하면 설정, 드래그하면 이동합니다."
 L["Forget"] = "삭제"
 L["Minimap"] = "미니맵"
+L["A Polestar button on the edge of the minimap. Click to hide or show Polestar, right-click for a menu, drag to move it."] = "미니맵 가장자리에 있는 Polestar 버튼입니다. 클릭하면 Polestar를 숨기거나 표시하고, 우클릭하면 메뉴, 드래그하면 이동합니다."
 
 -- Maps/WorldMap.lua
 L["Player"] = "플레이어"
@@ -1375,8 +1380,6 @@ L["The rest of this guide follows from a skipped step"] = "이 가이드의 나�
 L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."] = "%s을(를) 건너뛰었는데 이후 단계에 그 퀘스트가 필요합니다. 계속하려면 건너뛰기를 되돌리거나, 그 단계를 직접 하십시오: 가이드가 거기서 이어집니다."
 L["Undo the skip"] = "건너뛰기 되돌리기"
 L["Take %s first"] = "먼저 %s 수락"
-L["Click the minimap button or press %s to show it."] = "미니맵 버튼을 클릭하거나 %s 키를 누르면 표시됩니다."
-L["Click the minimap button to show it."] = "미니맵 버튼을 클릭하면 표시됩니다."
 L["Press %s to show it."] = "%s 키를 누르면 표시됩니다."
 L["Turn on the minimap button or bind a key to show it."] = "미니맵 버튼을 켜거나 단축키를 지정하면 표시할 수 있습니다."
 L["Press %s or type /polestar to show it."] = "%s 키를 누르거나 /polestar를 입력하면 표시됩니다."
@@ -1394,6 +1397,8 @@ L["Still to do: %s, %s"] = "아직 남은 일: %s, %s"
 L["Still to do: %s"] = "아직 남은 일: %s"
 L["Still to do"] = "아직 남은 일"
 L["Step %d, later in this guide"] = "%d단계, 이 가이드 뒷부분"
+L["Press %s, or right-click the minimap button and pick Guide window, to show it."] = "%s 키를 누르거나, 미니맵 버튼을 우클릭해 '가이드 창'을 고르면 표시됩니다."
+L["Right-click the minimap button and pick Guide window to show it."] = "미니맵 버튼을 우클릭해 '가이드 창'을 고르면 표시됩니다."
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -2172,10 +2177,8 @@ L["Hand-ins: how far out of your way"] = "제출: 경로에서 벗어나는 거�
 L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."] = "제출 NPC까지 갔다가 경로로 돌아오는 데 더 걸어도 되는 시간(초)입니다. 지금 있는 마을의 제출은 항상 표시되며, 0이면 그것만 표시합니다."
 L["Route line on the minimap"] = "미니맵 경로선"
 L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map. Its colour, opacity and size: the gear beside Guide > Arrow & routes > Route lines."] = "미니맵에 목표까지의 길을 표시합니다. 끄면 미니맵의 가이드 핀과 지도의 경로선은 남습니다. 색, 불투명도, 크기: 가이드 > 화살표 및 경로 > 경로선 옆의 톱니바퀴."
-L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. The minimap button, the key binding or /polestar opens it there until you leave."] = "던전, 공격대, 전장, 투기장에서 창과 버튼, 알림이 어떻게 동작하는지 정합니다. 미니맵 버튼, 단축키, 또는 /polestar로 떠날 때까지 거기서 열 수 있습니다."
 L["Show and hide"] = "표시 및 숨기기"
 L["Floating button"] = "떠 있는 버튼"
-L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = "화면 어디에나 둘 수 있는 작은 Polestar 버튼입니다. 클릭하면 가이드를 표시하거나 숨기고, 오른쪽 클릭하면 메뉴, 끌면 이동합니다. 전투와 던전에서 숨기기로 설정되어 있으면 창과 함께 숨겨집니다."
 L["Step key targets their mobs"] = "단계 키가 제안의 몹 대상 지정"
 L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."] = "단계 키가 현재 단계의 몹 다음으로, 제안의 몹도 가까운 순서대로 대상 지정합니다. 전투 중이 아닐 때만 바뀝니다."
 L["Mark quests new in Forever"] = "Forever 신규 퀘스트 표시"
@@ -2190,6 +2193,9 @@ L["Dark"] = "진하게"
 L["Keep the bar shown"] = "바 항상 표시"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "투명 스타일에서 탭과 단계 바가 커서를 올렸을 때만이 아니라 항상 화면에 표시됩니다."
 L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = "투명 스타일에서: 옅게는 각 텍스트 줄 뒤에 옅은 그림자를, 진하게는 창 전체 뒤에 어두운 배경을 깝니다. 끔: 외곽선 있는 텍스트만 게임 화면 위에 표시됩니다."
+L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. Guide window in the minimap button's menu, the key binding or /polestar opens it there until you leave."] = "던전, 공격대, 전장, 투기장에서 창과 버튼, 알림이 어떻게 동작하는지 정합니다. 미니맵 버튼 메뉴의 '가이드 창', 단축키, 또는 /polestar로 떠날 때까지 거기서 열 수 있습니다."
+L["A small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = "화면 어디에나 둘 수 있는 작은 Polestar 버튼입니다. 클릭하면 Polestar를 숨기거나 표시하고, 오른쪽 클릭하면 메뉴, 끌면 이동합니다. 전투와 던전에서 숨기기로 설정되어 있으면 창과 함께 숨겨집니다."
+L["Hiding Polestar leaves the arrow, its travel button and its arrival sound. This character only."] = "Polestar를 숨겨도 화살표와 그 이동 버튼, 도착 소리는 남습니다. 이 캐릭터에만 적용됩니다."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -2406,10 +2412,14 @@ L["Balance"] = "조화"
 L["Feral"] = "야성"
 
 -- Maps/MinimapButton.lua
-L["Click: show or hide the guide"] = "클릭: 가이드 표시/숨기기"
 L["Right-click: menu"] = "우클릭: 메뉴"
 L["Drag: move it around the minimap"] = "드래그: 미니맵 주위로 이동"
-L["Show window"] = "창 표시"
+L["Polestar is hidden: click to show"] = "Polestar가 숨겨져 있습니다: 클릭하면 표시"
+L["Click: hide Polestar"] = "클릭: Polestar 숨기기"
+L["Hide arrow"] = "화살표 숨기기"
+L["Show Polestar"] = "Polestar 표시"
+L["Hide Polestar"] = "Polestar 숨기기"
+L["Keep the arrow when hidden"] = "숨길 때 화살표 유지"
 
 -- UI/Gamepad.lua
 L["D-pad up"] = "방향 패드 위"
@@ -3251,3 +3261,11 @@ L["%s failed: its time ran out. Abandon it in the quest log and take it again."]
 -- L["%d bars"] = "%d칸"
 -- L["On pace, but %s (%d) at step %d is hard: you'll be %s; grind ~%s first"] = "진행은 순조롭지만 %s (%d) %d단계가 어렵습니다: 그때 내 레벨 %s. 먼저 ~%s 사냥"
 -- L["On pace, but %s (%d) at step %d is hard: you'll be %s; reach %d first"] = "진행은 순조롭지만 %s (%d) %d단계가 어렵습니다: 그때 내 레벨 %s. 먼저 %d 도달"
+-- L["Hide the guide window"] = "가이드 창 숨기기"
+-- L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "미니맵 가장자리에 있는 Polestar 버튼입니다. 클릭하면 가이드를 표시하거나 숨기고, 우클릭하면 설정, 드래그하면 이동합니다."
+-- L["Click the minimap button or press %s to show it."] = "미니맵 버튼을 클릭하거나 %s 키를 누르면 표시됩니다."
+-- L["Click the minimap button to show it."] = "미니맵 버튼을 클릭하면 표시됩니다."
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. The minimap button, the key binding or /polestar opens it there until you leave."] = "던전, 공격대, 전장, 투기장에서 창과 버튼, 알림이 어떻게 동작하는지 정합니다. 미니맵 버튼, 단축키, 또는 /polestar로 떠날 때까지 거기서 열 수 있습니다."
+-- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = "화면 어디에나 둘 수 있는 작은 Polestar 버튼입니다. 클릭하면 가이드를 표시하거나 숨기고, 오른쪽 클릭하면 메뉴, 끌면 이동합니다. 전투와 던전에서 숨기기로 설정되어 있으면 창과 함께 숨겨집니다."
+-- L["Click: show or hide the guide"] = "클릭: 가이드 표시/숨기기"
+-- L["Show window"] = "창 표시"

@@ -172,7 +172,6 @@ L["Step action: NPC, quest item, mob or Hearthstone"] = "Действие шаг
 L["Use the route's Hearthstone or teleport"] = "Камень возвращения или телепорт маршрута"
 L["No guide selected. Use /polestar guides to pick one."] = "Гайд не выбран. Выберите его через /polestar guides."
 L["Show the guide window"] = "Показать окно гайда"
-L["Hide the guide window"] = "Скрыть окно гайда"
 L["Choose a guide"] = "Выбрать гайд"
 L["Open settings"] = "Открыть настройки"
 L["Debug output"] = "Отладочный вывод"
@@ -223,6 +222,11 @@ L["Nothing to skip: the guide has no step open."] = "Нечего пропуск
 L["Reopen closed tab"] = "Вернуть закрытую вкладку"
 L["No closed tab to reopen."] = "Нет закрытых вкладок, которые можно вернуть."
 L["Reopen the last guide tab you closed"] = "Вернуть последнюю закрытую вкладку гайда"
+L["Hide/show Polestar"] = "Скрыть/показать Polestar"
+L["Hiding Polestar keeps the arrow."] = "Скрытие Polestar оставляет стрелку."
+L["Hiding Polestar hides the arrow too."] = "Скрытие Polestar скрывает и стрелку."
+L["Polestar is hidden: /polestar hide or the minimap button shows it again."] = "Polestar скрыт: /polestar hide или кнопка у миникарты вернёт его."
+L["Hide or show everything Polestar shows (hide arrow: keep the arrow when hidden)"] = "Скрыть или показать всё, что показывает Polestar (hide arrow: оставлять стрелку при скрытии)"
 
 -- Theme/Theme.lua
 L["Dusk"] = "Сумерки"
@@ -253,6 +257,7 @@ L["Point the arrow at x y on your current map (no argument clears it)"] = "На�
 L["Shortest Path Forever is guiding a journey of its own. Polestar's arrow comes back when it ends."] = "Shortest Path Forever ведет свой собственный путь. Стрелка Polestar вернется, когда он закончится."
 L["Shortest Path Forever is guiding. Turn off \"Hand guiding to Shortest Path Forever\" (Options, Integrations) to use Polestar's arrow."] = "Сейчас ведет Shortest Path Forever. Чтобы использовать стрелку Polestar, отключите \"Передать ведение Shortest Path Forever\" (Настройки, Интеграции)."
 L["The guide is hidden and \"Hide the arrow with the guide\" is on, so the arrow is hidden too: /polestar show brings them back."] = "Гайд скрыт, и включено «Скрывать стрелку вместе с гайдом», поэтому стрелка тоже скрыта: /polestar show вернёт их."
+L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the minimap button's menu keeps it."] = "Polestar скрыт, а с ним и стрелка: «Оставлять стрелку при скрытии» в меню кнопки у миникарты оставит её."
 
 -- Nav/Arrow.lua
 L["Search here"] = "Ищите здесь"
@@ -693,9 +698,9 @@ L["Classic Era allows 30 new instances per 24 hours per account; 0 ignores the d
 L["Clear instance history"] = "Очистить историю подземелий"
 L["Forgets recorded entries and runs (the server's own limit is not affected)."] = "Забывает записанные входы и проходы (лимит сервера не меняется)."
 L["Minimap button"] = "Кнопка у миникарты"
-L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "Кнопка Polestar на краю миникарты. Щелчок показывает или скрывает гайд, правый щелчок открывает настройки, перетаскивание перемещает ее."
 L["Forget"] = "Забыть"
 L["Minimap"] = "Миникарта"
+L["A Polestar button on the edge of the minimap. Click to hide or show Polestar, right-click for a menu, drag to move it."] = "Кнопка Polestar на краю миникарты. Щелчок скрывает или показывает Polestar, правый щелчок открывает меню, перетаскивание перемещает её."
 
 -- Maps/WorldMap.lua
 L["Player"] = "Игрок"
@@ -1375,8 +1380,6 @@ L["The rest of this guide follows from a skipped step"] = "Остаток гай
 L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."] = "Вы пропустили %s, а следующим шагам нужны его задания. Отмените пропуск, чтобы продолжить, или выполните этот шаг сами: гайд продолжит оттуда."
 L["Undo the skip"] = "Отменить пропуск"
 L["Take %s first"] = "Сначала возьмите %s"
-L["Click the minimap button or press %s to show it."] = "Щелкните кнопку у миникарты или нажмите %s, чтобы показать его."
-L["Click the minimap button to show it."] = "Щелкните кнопку у миникарты, чтобы показать его."
 L["Press %s to show it."] = "Нажмите %s, чтобы показать его."
 L["Turn on the minimap button or bind a key to show it."] = "Включите кнопку у миникарты или назначьте клавишу, чтобы показать его."
 L["Press %s or type /polestar to show it."] = "Нажмите %s или введите /polestar, чтобы показать его."
@@ -1394,6 +1397,8 @@ L["Still to do: %s, %s"] = "Осталось сделать: %s, %s"
 L["Still to do: %s"] = "Осталось сделать: %s"
 L["Still to do"] = "Осталось сделать"
 L["Step %d, later in this guide"] = "Шаг %d, дальше в этом руководстве"
+L["Press %s, or right-click the minimap button and pick Guide window, to show it."] = "Нажмите %s или щёлкните правой кнопкой по кнопке у миникарты и выберите «Окно гайда», чтобы показать его."
+L["Right-click the minimap button and pick Guide window to show it."] = "Щёлкните правой кнопкой по кнопке у миникарты и выберите «Окно гайда», чтобы показать его."
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -2172,10 +2177,8 @@ L["Hand-ins: how far out of your way"] = "Сдача: насколько в ст
 L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."] = "Сколько секунд лишнего пути может стоить сдача: до НИП и обратно на маршрут. Сдача в городе, где вы находитесь, показывается всегда; 0 — только такие."
 L["Route line on the minimap"] = "Линия маршрута на миникарте"
 L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map. Its colour, opacity and size: the gear beside Guide > Arrow & routes > Route lines."] = "Путь к цели на миникарте. Если выключено, на миникарте остается метка гайда, а линия — на карте мира. Цвет, непрозрачность и размер: шестеренка рядом с Гайд > Стрелка и маршруты > Линии маршрута."
-L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. The minimap button, the key binding or /polestar opens it there until you leave."] = "Что делают окно, его кнопки и оповещения в подземельях, рейдах, на полях боя и аренах. Кнопка у миникарты, назначенная клавиша или /polestar открывает его там до вашего выхода."
 L["Show and hide"] = "Показ и скрытие"
 L["Floating button"] = "Плавающая кнопка"
-L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = "Маленькая кнопка Polestar, которую можно разместить в любом месте экрана. Щелчок показывает или скрывает гайд, ПКМ — меню, перетаскивание перемещает ее. Она скрывается вместе с окном в бою и в подземельях, если для них выбрано «Скрыть»."
 L["Step key targets their mobs"] = "Клавиша шага выбирает их противников"
 L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."] = "Клавиша шага также выбирает целью противников из подсказок, ближайших первыми, после противников текущего шага. Цель меняется только вне боя."
 L["Mark quests new in Forever"] = "Отмечать задания, новые в Forever"
@@ -2190,6 +2193,9 @@ L["Dark"] = "Тёмная"
 L["Keep the bar shown"] = "Не скрывать панель"
 L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."] = "В прозрачном стиле вкладки и панель шага остаются на экране, а не только под курсором."
 L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = "В стиле «Прозрачный»: «Мягкая» кладет легкую тень под каждую строку текста, «Тёмная» – темную подложку под все окно. «Выкл.»: только текст с обводкой поверх мира."
+L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. Guide window in the minimap button's menu, the key binding or /polestar opens it there until you leave."] = "Что делают окно, его кнопки и оповещения в подземельях, рейдах, на полях боя и аренах. «Окно гайда» в меню кнопки у миникарты, назначенная клавиша или /polestar открывает его там до вашего выхода."
+L["A small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = "Маленькая кнопка Polestar, которую можно разместить в любом месте экрана. Щелчок скрывает или показывает Polestar, ПКМ — меню, перетаскивание перемещает её. Она скрывается вместе с окном в бою и в подземельях, если для них выбрано «Скрыть»."
+L["Hiding Polestar leaves the arrow, its travel button and its arrival sound. This character only."] = "При скрытии Polestar остаются стрелка, её кнопка пути и звук прибытия. Только для этого персонажа."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -2406,10 +2412,14 @@ L["Balance"] = "Баланс"
 L["Feral"] = "Сила зверя"
 
 -- Maps/MinimapButton.lua
-L["Click: show or hide the guide"] = "Щелчок: показать или скрыть гайд"
 L["Right-click: menu"] = "Правый щелчок: меню"
 L["Drag: move it around the minimap"] = "Перетаскивание: перемещение вокруг миникарты"
-L["Show window"] = "Показать окно"
+L["Polestar is hidden: click to show"] = "Polestar скрыт: щёлкните, чтобы показать"
+L["Click: hide Polestar"] = "Щелчок: скрыть Polestar"
+L["Hide arrow"] = "Скрыть стрелку"
+L["Show Polestar"] = "Показать Polestar"
+L["Hide Polestar"] = "Скрыть Polestar"
+L["Keep the arrow when hidden"] = "Оставлять стрелку при скрытии"
 
 -- UI/Gamepad.lua
 L["D-pad up"] = "Крестовина вверх"
@@ -3260,3 +3270,11 @@ L["%s failed: its time ran out. Abandon it in the quest log and take it again."]
 -- L["%d bars"] = "Полосок: %d"
 -- L["On pace, but %s (%d) at step %d is hard: you'll be %s; grind ~%s first"] = "Темп в норме, но %s (%d) на шаге %d будет трудным: у вас будет %s; сначала набейте ~%s"
 -- L["On pace, but %s (%d) at step %d is hard: you'll be %s; reach %d first"] = "Темп в норме, но %s (%d) на шаге %d будет трудным: у вас будет %s; сначала достигните %d"
+-- L["Hide the guide window"] = "Скрыть окно гайда"
+-- L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "Кнопка Polestar на краю миникарты. Щелчок показывает или скрывает гайд, правый щелчок открывает настройки, перетаскивание перемещает ее."
+-- L["Click the minimap button or press %s to show it."] = "Щелкните кнопку у миникарты или нажмите %s, чтобы показать его."
+-- L["Click the minimap button to show it."] = "Щелкните кнопку у миникарты, чтобы показать его."
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. The minimap button, the key binding or /polestar opens it there until you leave."] = "Что делают окно, его кнопки и оповещения в подземельях, рейдах, на полях боя и аренах. Кнопка у миникарты, назначенная клавиша или /polestar открывает его там до вашего выхода."
+-- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = "Маленькая кнопка Polestar, которую можно разместить в любом месте экрана. Щелчок показывает или скрывает гайд, ПКМ — меню, перетаскивание перемещает ее. Она скрывается вместе с окном в бою и в подземельях, если для них выбрано «Скрыть»."
+-- L["Click: show or hide the guide"] = "Щелчок: показать или скрыть гайд"
+-- L["Show window"] = "Показать окно"
