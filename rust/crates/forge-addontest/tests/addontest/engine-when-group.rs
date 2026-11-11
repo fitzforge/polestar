@@ -202,9 +202,7 @@ fn a_group_quest_the_answer_skips_is_said_when_the_route_passes_its_steps_once_a
 #[test]
 fn a_group_quest_skipped_at_the_guide_windows_question_passes_without_a_notice_1547() {
 	// The live step asks about quest 7 (GROUP_GUIDE); the player's Skip it passes it and its turn-in at once.
-	let out = run(opts(
-		r#"local n = 0; Polestar.On("STEP_SKIPPED", function() n = n + 1 end); E.AnswerGroup(7, "skip"); flush(); flush(); emit({ at = at(), notices = n })"#,
-	));
+	let out = run(opts(r#"local n = 0; Polestar.On("STEP_SKIPPED", function() n = n + 1 end); E.AnswerGroup(7, "skip"); flush(); flush(); emit({ at = at(), notices = n })"#));
 	assert_eq!(out[0], json!({ "at": 3, "notices": 0 }));
 }
 
