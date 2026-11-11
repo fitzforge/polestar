@@ -1592,7 +1592,7 @@ fn a_tab_s_preview_is_built_on_first_show_pinned_over_the_scrolling_rows_capped_
 	assert_eq!(n(&first["viewH"]), n(&first["room"]) - 200.0, "and scroll in the room left");
 	assert_eq!(first["caption"], "Elwynn Forest, zoomed out");
 	assert_eq!(first["label"], "Preview");
-	assert_eq!(n(&out["capped"]["h"]), (n(&out["capped"]["room"]) * 0.45).floor(), "a taller preview is capped");
+	assert_eq!(n(&out["capped"]["h"]), (n(&out["capped"]["room"]) * 0.55).floor(), "a taller preview is capped at 55% of the body");
 	assert_eq!(out["gone"], json!({ "h": 0, "slot": false }), "a page without one gives the room back");
 	assert_eq!(out["built"], 2, "each tab's preview built once");
 }

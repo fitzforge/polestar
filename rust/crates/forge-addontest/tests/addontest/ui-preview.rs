@@ -97,6 +97,79 @@ fn a_painted_scene_has_no_backdrop_chip_and_a_cropped_one_fades_out_at_the_stage
 	assert_eq!(out["foot"], false, "scrolled to the window's end: nothing to fade");
 }
 
+// The preview is the page's hero: on every Look page the stage stands on a backdrop at least 40% of the window's
+// height across the slot, the page's scene centred on it, over the zone you stand in until another backdrop is
+// picked (the map pins' and route lines' paintings keep their plain ground).
+#[test]
+fn every_look_page_s_preview_is_the_hero_at_least_40_percent_of_the_window_over_the_zone_you_stand_in() {
+	let out = run(r#"
+		local out, win = {}, PolestarOptions
+		for _, key in ipairs({ "theme", "guidewindow", "arrow", "mappins", "routelines", "buttons", "alerts", "trackers" }) do
+			local f, host = shown(key)
+			local H = f.Hero
+			local above, below = H:GetTop() - f:GetTop(), f:GetBottom() - H:GetBottom()
+			out[key] = { hero = math.floor(H:GetHeight() / win:GetHeight() * 1000 + 0.5) / 1000, inSlot = host:GetHeight() >= H:GetHeight() - 0.5,
+				centred = math.abs(above - below) <= 1.5 or (above <= 0.5 and below <= 0.5), backdrop = P.BackdropOf(f) }
+		end
+		emit(out)"#);
+	for key in ["theme", "guidewindow", "arrow", "mappins", "routelines", "buttons", "alerts", "trackers"] {
+		let p = &out[key];
+		assert!(p["hero"].as_f64().unwrap() >= 0.399, "{key}: the stage is {} of the window", p["hero"]);
+		assert_eq!(p["inSlot"], true, "{key}: the hero fills its slot");
+		assert_eq!(p["centred"], true, "{key}: the scene is centred on the hero");
+		let ground = if key == "mappins" || key == "routelines" { "ground" } else { "world" };
+		assert_eq!(p["backdrop"], ground, "{key}: the zone you stand in by default");
+	}
+}
+
+// A surface of the scene stands on a soft floor shadow (s:Floor): under its foot, wider than it, dark, on the
+// hero's floor layer (over the backdrop, under the surface).
+#[test]
+fn a_surface_stands_on_a_soft_floor_shadow_under_its_foot() {
+	let out = run(r#"
+		local s = P.Stage(UIParent, { height = 200 })
+		s:SetWidth(600)
+		s:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 100, -100)
+		s:Show()
+		local box = CreateFrame("Frame", nil, s)
+		box:SetSize(200, 100)
+		box:SetPoint("TOPLEFT", s, "TOPLEFT", 50, -40)
+		local t = s:Floor(box)
+		local _, _, _, a = t:GetVertexColor()
+		emit({ under = t:GetTop() >= box:GetBottom() and t:GetBottom() < box:GetBottom(), wider = t:GetWidth() > box:GetWidth(),
+			dark = a >= 0.4, layer = t:GetParent() == s.FloorLayer, again = s:Floor(box) == t })"#);
+	assert_eq!(out, json!({ "under": true, "wider": true, "dark": true, "layer": true, "again": true }));
+}
+
+// The pointer on a setting's row lights the parts of the preview it changes: every hotspot of that setting and
+// every part the page lights for it (s:Light), an accent outline and wash; the others stay dark, and off the row
+// the lights go out.
+#[test]
+fn hovering_a_row_lights_the_parts_of_the_preview_its_setting_changes_and_leaving_puts_them_out() {
+	let out = run(r#"
+		local f, host = shown("arrow", "Look")
+		local rows = O.Controls("arrow", "Look")
+		local function lit(key)
+			local n = 0
+			for _, b in ipairs(host.psByKey[key] or {}) do
+				if b.psLit and b.Wash and b.Wash:IsShown() then n = n + 1 end
+			end
+			return n
+		end
+		stub.RunScript(rows["nav.arrowScale"], "OnEnter")
+		local on = { scale = lit("nav.arrowScale"), ring = lit("nav.arrowRingColor") }
+		stub.RunScript(rows["nav.arrowScale"], "OnLeave")
+		local off = lit("nav.arrowScale")
+		local own = f:Light("nav.arrowAlpha", f.Dials[1].holder)
+		stub.RunScript(rows["nav.arrowAlpha"], "OnEnter")
+		emit({ on = on, off = off, own = lit("nav.arrowAlpha"), made = #own })"#);
+	assert!(out["on"]["scale"].as_i64().unwrap() >= 1, "the setting's part lit: {}", out["on"]);
+	assert_eq!(out["on"]["ring"], 0, "another setting's part stays dark");
+	assert_eq!(out["off"], 0, "off the row the lights go out");
+	assert_eq!(out["made"], 1);
+	assert_eq!(out["own"], 1, "a part the page lights for a setting");
+}
+
 // A stage repaints on its own settings at once while it shows, on its next show when it was hidden, and not on
 // other settings (one with no look: a scale or a theme setting repaints every stage through Theme.Refresh).
 #[test]
