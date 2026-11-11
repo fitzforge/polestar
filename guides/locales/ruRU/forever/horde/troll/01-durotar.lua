@@ -260,7 +260,7 @@ return {
 	["{area:369}: kill these as you meet them"] = "",
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak · {area:362} Razor Hill · {npc:3099} Dire Mottled Boar · {item:15908} Taming Rod
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
-	["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nFizzle holds the Burning Blade camp on {area:369}, north-west of {area:362}. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "",
+	["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nFizzle holds the Burning Blade camp on {area:369}, north-west of {area:362}. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Рокочущие ящерицы и бурешкуры пасутся здесь: {area:369}, чуть западнее и юго-западнее NPC {npc:3293}.\nПшикс удерживает лагерь клана Пылающего Клинка ({area:369}), к северо-западу от места {area:362}. Охотникам: по пути приручите вепря ({npc:3099}), используя {item:15908}.\nОсторожно: Пшикса окружают сектанты Пылающего Клинка, некоторые связаны и нападают парами, и они быстро возрождаются.\nОсторожно: Халикор, элитный противник 12-го уровня, бродит среди ящериц ({area:369}): высматривайте его, прежде чем нападать.",
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "Приручите его предметом {item:15908}",
 
@@ -352,7 +352,7 @@ return {
 	["Thunder lizards on the way north"] = "",
 	-- {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:6486} Singed Scale · {npc:5810} Uzzek · {area:379} Far Watch Post
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
-	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "",
+	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Рокочущие ящерицы и бурешкуры пасутся здесь: {area:369}, у дороги на север к городу {zone:1454}; {item:6486} может упасть с любого. {npc:5810} примет ее, когда следующий гайд будет проходить мимо заставы {area:379}.\nОсторожно: Халикор, элитный противник 12-го уровня, бродит среди ящериц ({area:369}): высматривайте его, прежде чем нападать.",
 
 	-- Step 88: Ormak Grimshot
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor

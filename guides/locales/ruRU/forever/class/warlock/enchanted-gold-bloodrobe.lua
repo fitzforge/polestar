@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {npc:6266} Menara Voidrender
-	["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 35 and 37."] = "",
+	["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 35 and 37."] = "Редкое тканевое одеяние для 30-х уровней от NPC {npc:6266}; последние его части ждут 35-го и 37-го уровней.",
 
 	-- Step 1: In Search of Menara Voidrender (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
@@ -52,15 +52,15 @@ return {
 	["You need no thread yet: {npc:6266} wants demon parts from {zone:1443} next."] = "",
 
 	-- Step 9: Hatefury satyrs
-	["Hatefury satyrs"] = "",
+	["Hatefury satyrs"] = "Сатиры из племени Ярой Ненависти",
 	-- {area:603} Sargeron · {zone:1443} Desolace · {area:608} Nijel's Point
-	["The Hatefury satyrs (level 31-32) hold {area:603} in the far north-east of {zone:1443}, past {area:608}: two kills in five give a vial, so plan on about 25."] = "",
+	["The Hatefury satyrs (level 31-32) hold {area:603} in the far north-east of {zone:1443}, past {area:608}: two kills in five give a vial, so plan on about 25."] = "Сатиры из племени Ярой Ненависти (31-32 уровень) занимают {area:603} на крайнем северо-востоке зоны {zone:1443}, дальше места {area:608}: флакон падает в двух случаях из пяти, так что рассчитывайте примерно на 25 убийств.",
 	["Vials of Hatefury Blood"] = "Фиалы крови сатира из клана Ярой Ненависти",
 
 	-- Step 10: Mannoroc Coven
 	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {spell:686} Shadow Bolt
 	-- plural, as words: Lesser Infernals = {npc:4676} Lesser Infernal · Demon Portal Guardians = {npc:11937} Demon Portal Guardian
-	["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 35 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "",
+	["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 35 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "Младшие инферналы (36-37) и стражи портала демонов (38) на юге зоны {zone:1443} ({area:602}) роняют камень в половине случаев. Сначала гайд ждет 35-го уровня: на 31-м они слишком сильны для одиночки. Они устойчивы к огню, так что используйте {spell:686} и «Порчу».",
 
 	-- Step 11: Menara Voidrender again
 	-- {npc:6266} Menara Voidrender
@@ -70,12 +70,12 @@ return {
 	-- {npc:2670} Xizk Goodstitch · {area:35} Booty Bay · {quest:4785} Fine Gold Thread
 	["Back to {npc:2670} in {area:35}: he offers {quest:4785} as a quest you hand straight back to him. He may show no quest marker; talk to him anyway."] = "",
 	-- {npc:2670} Xizk Goodstitch · {quest:4785} Fine Gold Thread
-	["{npc:2670}: {quest:4785}, handed straight back (#1699 sweep)"] = "",
+	["{npc:2670}: {quest:4785}, handed straight back (#1699 sweep)"] = "{npc:2670}: {quest:4785}, сдается сразу обратно (проверка #1699)",
 
 	-- Step 13: Smoldering Coal
 	-- {area:334} Circle of West Binding · {zone:1417} Arathi Highlands · {spell:686} Shadow Bolt · {area:321} Hammerfall · {item:6265} Soul Shard · {spell:1120} Drain Soul
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Cresting Charms = {item:4481} Cresting Charm · Cresting Exiles = {npc:2761} Cresting Exile
-	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 37 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "",
+	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 37 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "Пылающие изгои (38-39 уровень), огненные элементали у места {area:334} на западе зоны {zone:1417}, роняют уголь примерно в одном случае из трех. Сначала гайд ждет 37-го уровня: раньше они бьют слишком сильно для одиночки. Они устойчивы к огню: {spell:686} и «Порча». Обереги Гребня с морских изгоев у места {area:321} добивают раненого изгоя. По пути сделайте {item:6265} с помощью {spell:1120}.",
 	-- {item:6265} Soul Shard · {spell:1120} Drain Soul
 	["{item:6265}: {spell:1120} on an Exile as it dies"] = "",
 

@@ -56,21 +56,21 @@ return {
 	["Keep east on the road. {npc:12858} waits south-west of the Warsong lumber camp. He and his grunts storm the {area:2360}: let them take aggro and stay with {npc:12858} until {npc:12860} is dead."] = "Продолжайте идти по дороге на восток. {npc:12858} ждет к юго-западу от Лесозаготовок Песни Войны. Он со своими бойцами штурмует {area:2360}: дайте им принять удар на себя и держитесь рядом с NPC {npc:12858}, пока {npc:12860} не погибнет.",
 
 	-- Step 11: Warsong lumber camp
-	["Warsong lumber camp"] = "",
+	["Warsong lumber camp"] = "Лесозаготовки Песни Войны",
 	-- {area:2360} Silverwing Outpost · {npc:12867} Kuray'bin
-	["From the {area:2360} head north-east to the Warsong lumber camp on the road: {npc:12867} stands there."] = "",
+	["From the {area:2360} head north-east to the Warsong lumber camp on the road: {npc:12867} stands there."] = "От места {area:2360} идите на северо-восток к Лесозаготовкам Песни Войны у дороги: там стоит {npc:12867}.",
 
 	-- Step 12: Ashenvale Outrunners
 	-- {quest:6503} Ashenvale Outrunners
-	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "",
+	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "Ночные эльфы из задания {quest:6503} (23-24) рыщут в лесах к югу и юго-востоку от лагеря лесорубов; они скрываются, так что смотрите в оба.",
 
 	-- Step 13: Sharptalon
 	-- {npc:12676} Sharptalon
-	["{npc:12676}, a big nightsaber, prowls the same woods further east, on the way north to Splintertree. Her claw starts the next hunt quest."] = "",
+	["{npc:12676}, a big nightsaber, prowls the same woods further east, on the way north to Splintertree. Her claw starts the next hunt quest."] = "{npc:12676}, большая ночная саблезубая кошка, рыщет в тех же лесах восточнее, по пути на север к Заставе Расщепленного Дерева. Ее коготь начинает следующее охотничье задание.",
 
 	-- Step 14: Warsong lumber camp
 	-- {npc:12867} Kuray'bin
-	["Back to {npc:12867} at the lumber camp, on the road north to Splintertree."] = "",
+	["Back to {npc:12867} at the lumber camp, on the road north to Splintertree."] = "Назад к NPC {npc:12867} в лагерь лесорубов, на дороге на север к Заставе Расщепленного Дерева.",
 
 	-- Step 16: Senani Thunderheart
 	-- {npc:12696} Senani Thunderheart · {area:428} Night Run · {quest:6383} The Ashenvale Hunt · {npc:12678} Ursangous · {npc:12676} Sharptalon · {npc:12677} Shadumbra
@@ -248,7 +248,7 @@ return {
 	-- Step 56: Galak centaurs
 	["Galak centaurs"] = "Кентавры из племени Галак",
 	-- {npc:10617} Galak Messenger · {area:2237} Whitereach Post
-	["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks a long path between the camps: if you meet him, kill him, his note starts a quest for {area:2237}. Don't wait for him."] = "",
+	["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks a long path between the camps: if you meet him, kill him, his note starts a quest for {area:2237}. Don't wait for him."] = "Лагеря Галак заполняют каньон к северу от заставы Вольного Ветра; разведчики, пастухи и ветроловки есть в каждом лагере. Одинокий {npc:10617} ходит между лагерями длинным маршрутом: если встретите его, убейте – его записка начинает задание для места {area:2237}. Не ждите его специально.",
 	-- {npc:10617} Galak Messenger · {quest:4881} Assassination Plot
 	["{npc:10617}'s {quest:4881}, if you meet him"] = "{quest:4881} от {npc:10617}, если встретите его",
 

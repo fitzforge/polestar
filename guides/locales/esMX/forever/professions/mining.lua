@@ -28,7 +28,7 @@ return {
 
 	-- Step 4: Chunk of Amber & Large Chunk of Amber: Teldrassil (1-50)
 	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every {object:656332} (1, orange), {object:656333} (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "",
+	["Mine every {object:656332} (1, orange), {object:656333} (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Extrae cada nodo de {object:656332} (1, naranja) y {object:656333} (1, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 50. Funde en una forja cuando se llenen tus bolsas: {spell:2657} (naranja hasta 25, gris a 70) también da puntos. Nivel de la zona: 1-10. Cuenta con unos 60 nodos para estos 49 puntos.",
 
 	-- Step 5: Copper: Zephras Isle (1-50)
 	-- {zone:2521} Zephras Isle
@@ -44,7 +44,7 @@ return {
 	-- {zone:1412} Mulgore
 	["Copper: {zone:1412} (1-50)"] = "Cobre: {zone:1412} (1-50)",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, orange), Poor Copper (1, orange, rare) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "",
+	["Mine every Copper (1, orange), Poor Copper (1, orange, rare) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Extrae cada nodo de Cobre (1, naranja) y Poor Copper (1, naranja, raro) que encuentres y recorre los puntos de ruta hasta {skill:186} 50. Funde en una forja cuando se llenen tus bolsas: {spell:2657} (naranja hasta 25, gris a 70) también da puntos. Nivel de la zona: 1-10. Cuenta con unos 60 nodos para estos 49 puntos.",
 
 	-- Step 8: Copper & Poor Copper: Tirisfal Glades (1-50)
 	-- {zone:1420} Tirisfal Glades
@@ -69,9 +69,9 @@ return {
 
 	-- Step 12: Chunk of Amber & Large Chunk of Amber: Teldrassil (50-65) cont.
 	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {zone:1438} Teldrassil
-	["{object:656332} & {object:656333}: {zone:1438} (50-65) cont."] = "",
+	["{object:656332} & {object:656333}: {zone:1438} (50-65) cont."] = "{object:656332} y {object:656333}: {zone:1438} (50-65) cont.",
 	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every {object:656332} (1, yellow), {object:656333} (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "",
+	["Mine every {object:656332} (1, yellow), {object:656333} (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "Extrae cada nodo de {object:656332} (1, amarillo) y {object:656333} (1, amarillo) que encuentres y recorre los puntos de ruta hasta {skill:186} 65. Funde en una forja cuando se llenen tus bolsas: {spell:2657} (naranja hasta 25, gris a 70) también da puntos. Nivel de la zona: 1-10. Cuenta con unos 80 nodos para estos 15 puntos.",
 
 	-- Step 13: Copper: Zephras Isle (50-65) cont.
 	-- {zone:2521} Zephras Isle
@@ -87,7 +87,7 @@ return {
 	-- {zone:1412} Mulgore
 	["Copper: {zone:1412} (50-65) cont."] = "Cobre: {zone:1412} (50-65) cont.",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, yellow), Poor Copper (1, yellow, rare) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "",
+	["Mine every Copper (1, yellow), Poor Copper (1, yellow, rare) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "Extrae cada nodo de Cobre (1, amarillo) y Poor Copper (1, amarillo, raro) que encuentres y recorre los puntos de ruta hasta {skill:186} 65. Funde en una forja cuando se llenen tus bolsas: {spell:2657} (naranja hasta 25, gris a 70) también da puntos. Nivel de la zona: 1-10. Cuenta con unos 80 nodos para estos 15 puntos.",
 
 	-- Step 16: Copper & Poor Copper: Tirisfal Glades (50-65) cont.
 	-- {zone:1420} Tirisfal Glades
@@ -137,7 +137,7 @@ return {
 	-- {skill:186} Mining · {spell:3307} Smelt Iron
 	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points."] = "",
 	["Iron, Tin"] = "",
-	["Lesser Bloodstone"] = "",
+	["Lesser Bloodstone"] = "Sangrita inferior",
 
 	-- Step 24: Iron: Arathi Highlands (155-175)
 	-- {zone:1417} Arathi Highlands

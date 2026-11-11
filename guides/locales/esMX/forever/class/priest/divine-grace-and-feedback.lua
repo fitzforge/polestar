@@ -26,7 +26,7 @@ return {
 
 	-- Step 3: Divine Grace: High Priestess Laurena
 	-- {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {object:2098} Cathedral Square · {quest:94773} Divine Grace · {spell:6788} Weakened Soul · {spell:13908} Desperate Prayer
-	["At 10, go to {npc:376} at the altar of the Cathedral of Light, in {zone:1453}'s {object:2098}, and take her quest: she teaches {quest:94773} on the spot. No letter needed; one from another trainer works too (next steps). {quest:94773} instantly heals a friend below half health and clears {spell:6788}, so you can shield them again (5-minute cooldown); it does not work on yourself. Human priests do not get {spell:13908} in Forever: this is their spell instead."] = "",
+	["At 10, go to {npc:376} at the altar of the Cathedral of Light, in {zone:1453}'s {object:2098}, and take her quest: she teaches {quest:94773} on the spot. No letter needed; one from another trainer works too (next steps). {quest:94773} instantly heals a friend below half health and clears {spell:6788}, so you can shield them again (5-minute cooldown); it does not work on yourself. Human priests do not get {spell:13908} in Forever: this is their spell instead."] = "A nivel 10, ve con {npc:376} al altar de la Catedral de la Luz, en {object:2098} de {zone:1453}, y toma su misión: te enseña {quest:94773} en el acto. No hace falta carta; una de otro instructor también sirve (pasos siguientes). {quest:94773} sana al instante a un aliado por debajo de la mitad de salud y elimina {spell:6788}, para que puedas volver a escudarlo (5 minutos de reutilización); no funciona en ti. Los sacerdotes humanos no obtienen {spell:13908} en Forever: este es su hechizo en su lugar.",
 
 	-- Step 4: Divine Grace: Josetta's letter
 	-- {quest:94774} Divine Grace

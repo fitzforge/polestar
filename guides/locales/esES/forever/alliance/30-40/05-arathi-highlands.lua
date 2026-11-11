@@ -29,9 +29,9 @@ return {
 
 	-- Step 7: Fallow Sanctuary
 	-- {area:76} Fallow Sanctuary · {npc:256028} The Lost One · {quest:1392} Noboru the Cudgel · {npc:1776} Magtoor
-	["East along the road to the {area:76}. {npc:256028} mobs drop the crystals. {quest:1392} walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for {npc:1776}. Don't wait for him."] = "",
+	["East along the road to the {area:76}. {npc:256028} mobs drop the crystals. {quest:1392} walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for {npc:1776}. Don't wait for him."] = "Al este por el camino hasta {area:76}. Los {npc:256028} sueltan los cristales. {quest:1392} recorre un largo camino por las ruinas: si te lo encuentras, mátalo; su garrote inicia una misión para {npc:1776}. No lo esperes.",
 	-- {quest:1392} Noboru the Cudgel
-	["from {quest:1392}: he walks a path through the ruins"] = "",
+	["from {quest:1392}: he walks a path through the ruins"] = "de {quest:1392}: recorre un camino por las ruinas",
 
 	-- Step 8: The Lost Caravan
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
@@ -94,9 +94,9 @@ return {
 
 	-- Step 22: Shadowy Assassin
 	-- {npc:2434} Shadowy Assassin · {area:271} Southshore · {npc:2276} Magistrate Henry Maleb
-	["A {npc:2434} lurks stealthed on the edge of {area:271}, and few players find him. If you spot him, kill him and read the contract he carries: {npc:2276} takes it. Don't wait for him: the rest of this step doesn't need him."] = "",
+	["A {npc:2434} lurks stealthed on the edge of {area:271}, and few players find him. If you spot him, kill him and read the contract he carries: {npc:2276} takes it. Don't wait for him: the rest of this step doesn't need him."] = "Un {npc:2434} acecha en sigilo en las afueras de {area:271}, y pocos jugadores lo encuentran. Si lo ves, mátalo y lee el contrato que lleva: se lo queda {npc:2276}. No lo esperes: el resto de este paso no lo necesita.",
 	-- {npc:2434} Shadowy Assassin
-	["{npc:2434}, if you spot him"] = "",
+	["{npc:2434}, if you spot him"] = "{npc:2434}, si lo ves",
 	-- {npc:2276} Magistrate Henry Maleb
 	["{npc:2276}, inside"] = "",
 
@@ -125,7 +125,7 @@ return {
 	["{area:318}: kill these as you meet them"] = "",
 	-- {area:321} Hammerfall · {skill:186} Mining
 	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
-	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need {skill:186} 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "",
+	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need {skill:186} 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "Los kóbolds Mostacho Seco excavan en el desfiladero al este de {area:321} (Horda); rodea el pueblo por el norte. Sueltan las Motas de Myzrael, no el mineral de Krazek. Los Depósitos de Petrosangre inferior requieren {skill:186} 75: extrae cuatro de mineral, cómpralos en la casa de subastas o pídeselos a un amigo minero. El objetivo del mineral es opcional; sigue con Myzrael si no puedes conseguirlo. Cuidado: todos los tipos de kóbold huyen en busca de ayuda cuando tienen poca salud (los kóbolds al 30%, los peritos y los cavadores al 15%), lo que puede atraer a más.",
 	-- {item:4435} Mote of Myzrael · {npc:2572} Drywhisker Kobold · {npc:2573} Drywhisker Surveyor · {npc:2574} Drywhisker Digger
 	["{item:4435} from {npc:2572}, {npc:2573} and {npc:2574}, by this stop"] = "",
 
