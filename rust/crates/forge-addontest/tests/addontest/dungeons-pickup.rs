@@ -2035,11 +2035,12 @@ emit({ steps = describe(def), notes = notes, accepts = accepts, groups = groups,
 	assert_eq!(head(&elite["accepts"][0]), "Needed for “Arugal Must Die”.");
 }
 
-// The prerequisites' time on the pick-up guide's first goal is rough: whole 5 minutes, at least 5, hours past 60.
+// The prerequisites' time on the pick-up guide's first goal is rough: whole 5 minutes, at least 5, hours past 60,
+// a whole hour alone.
 #[test]
 fn the_prerequisites_time_reads_in_whole_five_minutes_at_least_five() {
-	let out = run(&default_pack(), "emit({ D.PrereqTime(0), D.PrereqTime(400), D.PrereqTime(1000), D.PrereqTime(4200), D.PrereqTime(nil) })", Opts::default()).remove(0);
-	assert_eq!(out, json!(["5 min", "5 min", "15 min", "1 h 10 min", "5 min"]));
+	let out = run(&default_pack(), "emit({ D.PrereqTime(0), D.PrereqTime(400), D.PrereqTime(1000), D.PrereqTime(4200), D.PrereqTime(nil), D.PrereqTime(3550) })", Opts::default()).remove(0);
+	assert_eq!(out, json!(["5 min", "5 min", "15 min", "1 h 10 min", "5 min", "1 h"]));
 }
 
 // An objective's rough time: a kill per count; an item the kills its best drop chance takes; anything else a use.

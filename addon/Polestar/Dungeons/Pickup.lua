@@ -1171,9 +1171,10 @@ function Dungeons.PrereqSeconds(step, rec, pos)
 	return t
 end
 
--- Seconds as "about" minutes: to 5 minutes, at least 5. -> text
+-- Seconds as "about" minutes: to 5 minutes, at least 5; whole hours alone ("1 h"). -> text
 function Dungeons.PrereqTime(seconds)
 	local m = math.max(5, math.floor(((tonumber(seconds) or 0) / 60 + 2.5) / 5) * 5)
+	if m >= 60 and m % 60 == 0 then return format(L["%d h"], m / 60) end
 	if m >= 60 then return format(L["%d h %d min"], math.floor(m / 60), m % 60) end
 	return format(L["%d min"], m)
 end
