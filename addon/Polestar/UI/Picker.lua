@@ -596,10 +596,11 @@ end
 -- "Suggested for you": every leveling guide for the player's level, best
 -- first (Guides.Suggestions), open ones included (their row says "Tab N"),
 -- so the list always answers "what fits me now"; then where the open tabs
--- lead (`next` and route choices) once the player is within two levels of
--- them (a level 2 player in a 1-12 guide is not sent on to a 12-19 one).
+-- lead (`next` and route choices) once the player is one level below them
+-- (Fitz, 2026-11-10: suggestions come one level early, not several; a level
+-- 10 player in a 1-12 guide is not sent on to a 12-19 one).
 -- Finished guides are left out.
-local FOLLOW_REACH = 2 -- levels below a follow-up's minimum at which it shows
+local FOLLOW_REACH = 1 -- levels below a follow-up's minimum at which it shows
 
 local function suggestions(byId, tabs, openIndex)
 	local G, C = ns.Guides, ns.Compat
