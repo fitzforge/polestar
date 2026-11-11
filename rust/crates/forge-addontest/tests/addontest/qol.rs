@@ -274,6 +274,25 @@ fn secure_buttons_key_labels_are_short_and_stay_inside_the_button() {
 	assert_eq!(out[0], json!(["M4", "TOPRIGHT", false, "sM5", "caMwU", "MwD", "F", "sNum 5", true]));
 }
 
+// #688: with the gamepad interface on, a button bound in its own binding context runs the target button, not a key
+// under it: the label names the key Polestar.Gamepad.BindingKeys says runs it in play (its chords never run a
+// secure click).
+#[test]
+fn secure_buttons_key_label_names_the_key_that_runs_it_in_play_from_the_gamepad_module() {
+	let out = run(r#"
+		local TARGET = "CLICK PolestarTargetButton:LeftButton"
+		GetBindingText = function(key) return key end
+		q.bindings[TARGET] = { "BUTTON4" }
+		Polestar.Gamepad = {
+			IsChord = function(key) return key:find("+", 1, true) ~= nil end,
+			BindingKeys = function(action) return action == TARGET and { "PADLTRIGGER+PAD1", "PAD3", "BUTTON4" } or {} end,
+		}
+		stub.fire("UPDATE_BINDINGS")
+		emit({ PolestarTargetButton.Hotkey:GetText() })
+	"#);
+	assert_eq!(out[0], json!(["PAD3"]));
+}
+
 #[test]
 fn secure_buttons_an_above_name_sits_over_a_quest_item_button_shown_above_the_target_button() {
 	let out = run(r#"
