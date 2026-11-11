@@ -5744,7 +5744,9 @@ popup, which holds the gamepad until B. `O.Controls(page, tab)` maps keys to
 widgets, extras and header switches included; `O.MoreControls()` those of the
 open popup. A custom page builds the same parts with `W.SectionCard`,
 `W.CompactRow`, `W.HeaderSwitch`, `W.InlineSwatch`, `W.InlineToggle` and
-`W.Cog`. The first open shows one line over the first card ("Hover a setting
+`W.Cog` (all but `W.CompactRow`, which Quick settings shares, are the
+settings' addon's own: `Polestar_Options/UI/Controls.lua`, with `W.Swatch`,
+`W.Cards`, `W.ActionRow` and `W.ActionTile`). The first open shows one line over the first card ("Hover a setting
 for what it does. Right-click resets it.") until its close button
 (`PolestarDB.optionsIntro`). Search results stand in a card per page, tab and
 section, the best first, the chevron to the row in a gutter inside the card;
