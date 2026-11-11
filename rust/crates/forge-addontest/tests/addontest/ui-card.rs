@@ -517,7 +517,8 @@ fn where_the_goals_area_s_floor_outranks_the_cap_it_still_ends_on_a_whole_row() 
 		r#"{EVERY_KIND}
 		local steps = uistub.guides[uistub.elwynn].steps
 		local k = steps[everyKind()]
-		k.goals = {{ k.goals[1], k.goals[2], k.goals[17] }}
+		k.goals = {{ k.goals[1], k.goals[17], k.goals[2] }}
+		k.goals[2].optional = nil
 		uistub.setGuide(uistub.elwynn, #steps)
 		Polestar.Set("ui.maxHeight", 0.3)
 		local bad, floored, wrapped = {{}}, 0, 0
