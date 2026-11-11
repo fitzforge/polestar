@@ -732,6 +732,7 @@ local function planRoute(p)
 	-- Explicit walk links: crossing pairs, chain neighbours, attachments.
 	local extra = {}
 	local onCross = {} -- [far end vertex] = true: the start is on that crossing
+	local dockIn = {} -- [dock vertex] = true: inside a chain, reached through it only
 	local function link(u, v)
 		if not (u and v) then return end
 		local l = extra[u]
@@ -788,10 +789,20 @@ local function planRoute(p)
 		if startIn then near(startIn, function(v) link(1, v) end) end
 		if targetIn then near(targetIn, function(v) link(v, 2) end) end
 		if startIn and targetIn and startIn.chain == targetIn.chain then link(1, 2) end
+		-- A dock inside a chain (the Deeprun Tram's Stormwind end, down its building past the door, #1242) is
+		-- reached like an inside target: through its nearest node and that node's neighbours only.
+		for v in pairs(dockOf) do
+			local e = dockEnd[v]
+			local nd = covered[vc[v]] and insideChain(vc[v], vx[v], vy[v], e.z, true)
+			if nd then
+				dockIn[v] = true
+				near(nd, function(u) link(u, v); link(v, u) end)
+			end
+		end
 	end
-	-- Vertices only explicit links reach: chain nodes past a mouth, an inside start or target.
+	-- Vertices only explicit links reach: chain nodes past a mouth, an inside start, target or dock.
 	local function sealed(v)
-		return vkind[v] == DARK or (v == 1 and startIn ~= nil) or (v == 2 and targetIn ~= nil)
+		return vkind[v] == DARK or (v == 1 and startIn ~= nil) or (v == 2 and targetIn ~= nil) or dockIn[v] == true
 	end
 
 	-- The walks to the target the walking engine measured (p.walkCost, Nav/Walk.lua):

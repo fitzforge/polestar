@@ -4192,7 +4192,12 @@ walk stays inside one zone; between zones it goes only through
   Undercity's way in and out is one such chain, `undercity-south-lift` (from
   Fitz's own walk): Tirisfal's front door, the corridor and the entrance hall
   to the south lift's top and bottom landings, both ends mouths; the other
-  lifts serve walks inside the city;
+  lifts serve walks inside the city. A boat, zeppelin, tram or portal end
+  inside a chain is reached the same way, through its nearest node: the
+  Deeprun Tram's Stormwind end lies down its building, under the Keep's Royal
+  Gallery, and `deeprun-tram-stormwind` (from players' recorded walks in)
+  takes the walk to the building's door first, not across from the street to
+  the point under the Keep (#1242);
 - an area: a box of a zone's map no walk joins to the rest of the zone. It is
   a zone of its own, reached by no crossing, only by portals, ships and
   flights. Rut'theran Village, `rutheran-village`, lies on Teldrassil's map at
