@@ -374,6 +374,8 @@ function Methods.SetValue(self, v)
 	self.value = v
 	RunScript(self, "OnValueChanged", v, false)
 end
+function Methods.SetNumeric(self, v) self.numeric = v end
+function Methods.SetMaxLetters(self, n) self.maxLetters = n end
 function Methods.GetValue(self) return self.value or 0 end
 function Methods.SetMinMaxValues(self, lo, hi) self.minValue, self.maxValue = lo, hi end
 function Methods.GetMinMaxValues(self) return self.minValue or 0, self.maxValue or 1 end

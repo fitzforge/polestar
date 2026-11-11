@@ -166,6 +166,17 @@ local function borderOff() return not ns.Get("ui.border") end
 -- no starlit band and no drop shadow (Theme.lua, "Skins").
 local function houseOnly() return Theme.SkinKey() ~= "polestar" end
 local function px(v) return string.format(L["%d px"], floor(v + 0.5)) end
+-- The height limit (a share of the screen) with its pixels beside it.
+local function screenH() return UIParent:GetHeight() * UIParent:GetEffectiveScale() end
+local function heightText(v)
+	-- The slider reports its value on the 1% step; a typed or dragged height between two steps shows as kept.
+	local kept = tonumber(ns.Get("ui.maxHeight"))
+	if kept and math.abs(kept - v) < 0.005 then v = kept end
+	return L["px"] .. "  \194\183  " .. percent(v)
+end
+local function heightPx() return floor((tonumber(ns.Get("ui.maxHeight")) or 0.5) * screenH() + 0.5) end
+-- Typed pixels, kept between 30% and 100% of the screen (as dragging does).
+local function setHeightPx(n) ns.Set("ui.maxHeight", math.min(1, math.max(0.3, n / screenH()))) end
 -- Guidance options with no effect while Shortest Path Forever guides (Nav/Handoff.lua).
 local function H(c)
 	local N = ns.Nav
@@ -200,8 +211,15 @@ local BUILTIN = {
 		{ kind = "toggle", key = "ui.compact", label = L["Compact mode"], help = L["Only the header and the current step's goals."], search = "minimal, small, smaller window, simple" },
 		{ kind = "toggle", key = "ui.wholeStep", label = L["Show the whole step"],
 			help = L["Every goal of the step at once, finished ones kept, instead of one person at a time with the others on one line each."] },
-		{ kind = "slider", key = "ui.maxHeight", label = L["Maximum height"], min = 0.3, max = 0.9, step = 0.05, format = percent,
-			help = L["How tall the window may grow, as a share of the screen. A longer step scrolls."] },
+		{ kind = "dropdown", key = "ui.heightMode", label = L["Window height"], search = "height, fixed, resize, size, automatic, taller, shorter",
+			help = L["Fixed: the window is always the height below; drag its grip to resize it like any window. Follows the step: it grows with the step up to that height. Automatic: it grows into all the free room on screen."],
+			choices = { { value = "fixed", label = L["Fixed"] }, { value = "fit", label = L["Follows the step"] }, { value = "auto", label = L["Automatic"] } } },
+		{ kind = "slider", key = "ui.maxHeight", label = L["Height"], min = 0.3, max = 1, step = 0.01, format = heightText, edit = { get = heightPx, set = setHeightPx }, search = "height, pixels, px, resize, taller, shorter, type",
+			help = L["In pixels and as a share of the screen: type it in the box, or drag the grip at the window's corner. Changing it under Automatic switches to Fixed. A longer step scrolls."] },
+		{ kind = "dropdown", key = "ui.footAt", label = L["Progress bar"], child = true, disabled = function() return ns.Get("ui.heightMode") ~= "fixed" end,
+			help = L["With a Fixed height: right under the last goal, the free room past it (above the goals with Grow upward), or on the window's edge."],
+			search = "progress bar, bottom, under goals, fixed height",
+			choices = { { value = "goals", label = L["Under the last goal"] }, { value = "edge", label = L["On the window's edge"] } } },
 		{ kind = "toggle", key = "ui.showNotes", label = L["Step tips"], help = L["The author's tip under the goals, one line until clicked."] },
 		{ kind = "toggle", key = "ui.notesOpen", label = L["Expand step tips"], help = L["Start each step with its tip in full instead of one line."],
 			child = true, disabled = function() return not ns.Get("ui.showNotes") end },
@@ -996,7 +1014,7 @@ local function makeControl(parent, c)
 		w = W.Toggle(parent, labelOf(c), c.key, c.help, nil, (c.gear or c.get or c.set) and { gear = c.gear, get = c.get, set = c.set } or nil)
 	elseif c.kind == "slider" then
 		local opts
-		if c.release or c.get or c.set then opts = { release = c.release, get = c.get, set = c.set } end
+		if c.release or c.get or c.set or c.edit then opts = { release = c.release, get = c.get, set = c.set, edit = c.edit } end
 		w = W.Slider(parent, c.label, c.key, c.min or 0, c.max or 1, c.step or 0.1, c.format, c.help, nil, opts)
 	elseif c.kind == "dropdown" then
 		local choices = type(c.choices) == "function" and function() return choicesOf(c) end or choicesOf(c)

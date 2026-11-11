@@ -426,16 +426,16 @@ fn along_the_way_leaves_out_goals_the_step_on_screen_lists_itself() {
 }
 
 #[test]
-fn the_options_offer_show_the_whole_step_and_a_maximum_height_in_guide_window() {
+fn the_options_offer_show_the_whole_step_and_a_window_height_in_guide_window() {
 	let out = run(r#"
 		UI.ShowOptions("guide")
 		local O = UI.Options
 		local widgets = O.Controls("guide", "Window")
 		local found = {}
-		for _, q in ipairs({ "whole step", "maximum height" }) do
+		for _, q in ipairs({ "whole step", "window height", "height" }) do
 			for _, g in ipairs(O.Search(q)) do
 				for _, c in ipairs(g.controls) do
-					if c.key == "ui.wholeStep" or c.key == "ui.maxHeight" then
+					if c.key == "ui.wholeStep" or c.key == "ui.maxHeight" or c.key == "ui.heightMode" then
 						found[c.key] = { title = g.title, kind = c.kind, min = c.min, max = c.max, label = c.label }
 					end
 				end
@@ -447,7 +447,8 @@ fn the_options_offer_show_the_whole_step_and_a_maximum_height_in_guide_window() 
 	assert_eq!(out["defaults"], json!({ "whole": false, "max": 0.5 }), "one person at a time and half the screen by default");
 	assert_eq!(out["widgets"], json!({ "whole": true, "max": true }));
 	assert_eq!(out["found"]["ui.wholeStep"], json!({ "title": "Guide  \u{b7}  Window", "kind": "toggle", "label": "Show the whole step" }));
-	assert_eq!(out["found"]["ui.maxHeight"], json!({ "title": "Guide  \u{b7}  Window", "kind": "slider", "min": 0.3, "max": 0.9, "label": "Maximum height" }));
+	assert_eq!(out["found"]["ui.maxHeight"], json!({ "title": "Guide  \u{b7}  Window", "kind": "slider", "min": 0.3, "max": 1, "label": "Height" }));
+	assert_eq!(out["found"]["ui.heightMode"], json!({ "title": "Guide  \u{b7}  Window", "kind": "dropdown", "label": "Window height" }));
 	assert!(is_match(text(&out["found"]["ui.maxHeight"]["title"]), "Window$"));
 }
 
