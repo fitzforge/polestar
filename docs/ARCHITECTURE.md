@@ -6390,7 +6390,12 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   of the screen's height (0.5; 0.3 to 0.9 in Options > Guide > Window, in
   the window's own units, so its scale and the UI scale count), the goals
   area giving up the difference (never below 72 px), the header, the tip
-  and everything under the card staying whole. With Grow upward the cap is
+  and everything under the card staying whole. Past the cap the goals area
+  ends on a whole goal or line, never inside one (a wrapped goal's second
+  line was cut in half under the tip): the bottom of the last one that fits,
+  or, where that is under the 72 px floor, the bottom of the one the cap
+  cuts (unless that passes the cap by more than 72 px); while goals fold it
+  keeps its height and settles once they are done. With Grow upward the cap is
   also the height from the pinned bottom edge to the top of the screen (the
   game would otherwise move the window down, bottom edge and all, #666);
   when even the shortest goals area does not fit there, the body clips its

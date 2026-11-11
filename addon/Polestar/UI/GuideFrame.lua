@@ -786,12 +786,41 @@ do
 	end
 	GF.BarWake = barWake
 
+	-- The goals area's height past the cap `limit`: whole items from the top,
+	-- so the cap never cuts a line in half (a wrapped goal's second line
+	-- half hidden under the tip, the window looking finished while a goal
+	-- is out of sight). The bottom of the last item that fits; when that is
+	-- under CARD.minView, the floor (which already outranks the cap) grows to
+	-- the bottom of the item the cap cuts, unless that passes the cap by more
+	-- than the floor itself: then the cap stays and the item scrolls.
+	local function wholeItems(limit)
+		local y, down, items, hs = 0, 0, area.items, area.h
+		for i = 1, area.n do
+			y = y + hs[i] * (items[i].psK or 1)
+			if y > limit + 0.5 then
+				if down >= CARD.minView - 0.5 then return down end
+				return y <= limit + CARD.minView and y or limit
+			end
+			down = y
+		end
+		return limit
+	end
+
 	-- Size the goals area to its contents within the cap, then the card, the
 	-- frames under it and the window to that. Runs every frame a row folds,
-	-- so it only sets sizes and points.
+	-- so it only sets sizes and points. Past the cap the area ends on a whole
+	-- item (wholeItems); while goals fold it keeps that height, shrinking
+	-- only to the content, and settles on the next layout after the folds.
 	function fitGoals()
 		local content = contentHeight()
-		local viewH = min(content, max(CARD.minView, fit.room))
+		local limit = max(CARD.minView, fit.room)
+		local viewH = min(content, limit)
+		if fold.n > 0 and goals.psWhole then
+			viewH = min(content, goals.psViewH)
+		else
+			goals.psWhole = content > limit + 0.5
+			if goals.psWhole then viewH = wholeItems(limit) end
+		end
 		goals:SetHeight(max(0.01, viewH))
 		goals.psContentH, goals.psViewH = content, viewH
 		W.SetScrollContent(goals, content, viewH)
