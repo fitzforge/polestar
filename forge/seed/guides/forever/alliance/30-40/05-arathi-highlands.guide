@@ -175,24 +175,17 @@ step Hay Weevil
   tip Hay Weevils crawl about the north end of Northfold Manor's farm: catch one with the tool from Amaryllis Webb's Entomology Starter Kit.
   collect 213568 "Hay Weevil Specimen" @31.3,27.2
 
-step Witherbark Village
-  tip A few Witherbark trolls camp south of Northfold, on the way; the main village lies in the hills south of Go'Shek Farm in the south-east, where the Witch Doctors stand and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk.
-  collect 4503 quest 691.1            -- Witherbark Tusk
-  collect 4522 quest 691.2            -- Witherbark Medicine Pouch
-  collect 5040 quest 691.3            -- Shadow Hunter Knife; below ground
-
 # ---------------------------------------------------------------- The Myzrael story
 
 step Shards of Myzrael
-  tip Head north past Go'Shek Farm; the shards glitter on the hill by the Circle of East Binding.
+  tip East from Northfold Manor across the north of the Highlands; the shards glitter on the hill by the Circle of East Binding, north of Go'Shek Farm.
   turnin 635 optional                 -- Only if Gluggle gave you the pendant in Stranglethorn
   accept 642
 
 step Drywhisker Gorge: kill these as you meet them
   zone Arathi Highlands
-  tip The Drywhisker kobolds dig in the gorge east of Hammerfall (Horde); skirt the town to the north. They drop both the motes and Krazek's ore.
-  tip Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them.
-  collect 4278 quest 627              -- Lesser Bloodstone Ore
+  tip The Drywhisker kobolds dig in the gorge east of Hammerfall (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need Mining 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them.
+  collect 4278 quest 627 optional -- Lesser Bloodstone Ore
   collect 4435 quest 642                      -- Mote of Myzrael from Drywhisker Kobold, Drywhisker Surveyor and Drywhisker Digger, by this stop
 
 step Iridescent Shards
@@ -205,15 +198,31 @@ step Stones of Binding
   tip Careful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East.
   collect 4484 quest 651.2            -- Cresting Key: Stone of East Binding
 
+step Witherbark Village
+  tip South from the Stone of East Binding, past Go'Shek Farm, to Witherbark Village in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk.
+  collect 4503 quest 691.1            -- Witherbark Tusk
+  collect 4522 quest 691.2            -- Witherbark Medicine Pouch
+  collect 5040 quest 691.3            -- Shadow Hunter Knife; below ground
+
 # ---------------------------------------------------------------- Go'Shek Farm
 
 step Quae
-  tip Head back north-east past Refuge Pointe; Quae and Kinelory camp in the hills north of Go'Shek Farm.
+  tip North-west out of the Witherbark valley; Quae and Kinelory camp in the hills just north of Go'Shek Farm.
   turnin 659
   accept 658
 
 step Forsaken Courier
-  tip The courier walks the road west of Go'Shek Farm with two guards; pull them off the road.
+  tip The courier walks the road from Go'Shek Farm west across the Highlands, as far as about 24,45, and back, with two guards: the arrow follows the road west until you meet him. Pull them off the road.
+  loop
+  goto 61.3,59.4
+  goto 57.8,62.5
+  goto 52.5,61.5
+  goto 45.4,58.6
+  goto 40.3,54.8
+  goto 35.6,52.5
+  goto 32.0,51.9
+  goto 27.8,49.3
+  goto 24.4,44.7
   collect 4482 quest 658              -- Sealed Folder
 
 step Circle of Outer Binding
@@ -292,7 +301,7 @@ step Kor'gresh Coldrage
 step Foggy MacKreel
   zone Arathi Highlands
   tip South-west from Kor'gresh's cave to the Thandol Span: Foggy MacKreel stands on a broken section of the bridge; jump down to him from its north end. MacKreel's Moonshine must reach Brewmeister Bilger in Southshore within 15 minutes: go straight back to Refuge Pointe and fly to Southshore.
-  accept 647 only Dwarf,Gnome,NightElf,Skyborne
+  accept 647
 
 step Skuerto
   turnin 693
@@ -306,7 +315,7 @@ step Fly to Southshore
 step Brewmeister Bilger
   zone Hillsbrad Foothills
   tip Off the flight, straight to the Southshore inn.
-  turnin 647 only Dwarf,Gnome,NightElf,Skyborne -- Brewmeister Bilger, below ground
+  turnin 647                          -- Brewmeister Bilger, below ground
 
 step Alterac Mountains
   zone Alterac Mountains
@@ -316,7 +325,7 @@ step Alterac Mountains
 
 step Gavin's Naze
   zone Alterac Mountains
-  tip Follow the road north out of Southshore into the mountains. Mountain lions roam the slopes; the Syndicate in Strahnbrad wear the signet rings, and Baron Vardus walks the manor grounds on the north side of town.
+  tip Follow the road north out of Southshore into the mountains. Mountain lions roam the slopes; the Syndicate in Strahnbrad wear the signet rings. Baron Vardus (40) turns up in one spot at a time: the cellar of Strahnbrad's inn, or one of the Syndicate tent camps in the uplands north and north-west of the village.
   kill 2407 quest 564.2 @44.2,76.7 map 1416 -- Hulking Mountain Lion
   kill 2406 quest 564.1 @32.1,82.8 map 1416 -- Mountain Lion
 
@@ -331,6 +340,7 @@ step Ruins of Alterac: kill these as you meet them
 step Ruins of Alterac: kill these as you meet them
   when group 543
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Grel'borg the Miser is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.
+  tip Grel'borg walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path.
   collect 3684 quest 543.1 @35.6,54.4 map 1416
 
 step Strahnbrad: kill these as you meet them

@@ -570,7 +570,11 @@ only after the maintainer's build; a report check it does not deliver is listed 
 **The seed.** Forge starts from `forge/seed/guides`: the leveling guides as they were when Forge
 took them over, cut once by `forge guide seed` (a later cut resets every route's baseline, so it
 needs `--force`). With a seed in the checkout, `forge build` reads `guides/` with each generated
-guide replaced by its seed, never its own earlier output. After a build of every start the maintainer
+guide replaced by its seed, never its own earlier output. Contributors never edit the seed: a fix
+goes into the records above. When the maintainer edits a generated guide by hand, the same hunk goes
+into the seed in that commit (the writer keeps the seed's titles, tips, notes and goal comments) and
+what the writer recomputes (the order, who a line is for, travel, the step a goal is on) into records;
+`forge/seed/SEED.json` is re-hashed with it. After a build of every start the maintainer
 writes the result into the checkout with `forge guide publish --from <out>/guides` (the shared route
 once per faction, each start's own guides, one copy per race where two races share a start folder,
 one `legs.json`; header and `GENERATED.json`: docs/forge/routes.md, "Publishing every start"), then

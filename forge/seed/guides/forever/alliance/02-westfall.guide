@@ -13,7 +13,11 @@ next forever/alliance/03-darkshore
 # Alexston Farmstead on the west loop, handed in on the Stormwind visit before the boat. Humans
 # take Thor's flight to Stormwind on the first Sentinel Hill visit for Continue to Stormwind (6281),
 # Dungar Longdrink (6261) and Return to Lewis (6285), and hand Elmore's Task (1097) to Grimand
-# Elmore before the boat. Business in Auberdine (97894) is taken from Borgus Steelhand on that visit.
+# Elmore before the boat, taking his Stormpike's Delivery (353) for the Algaz Station in 03-loch-modan.
+# Business in Auberdine (97894) is taken from Borgus Steelhand on that visit.
+# On the Thor flight's Stormwind visit (about 13), Human Warriors do Defensive Stance (1638-1665: Ilsa Corbin,
+# Harry Burlguard and Bartleby stand in Old Town by Osric's shop) and Human Priests hand Divine Grace (94774) to
+# High Priestess Laurena across Cathedral Square from Baros, instead of a trip at the end of the guide.
 # Added 2026-11-07 (Alliance 12-20 zone order): east Elwynn for Dwarves and Gnomes, on the walk from
 # Goldshire to Westfall at about 13.5-14.5 (Humans do it in their start guide; Night Elves and Skyborne
 # arrive at 14.5, where its level 9-10 quests turn grey before the loop ends): A Fishy Peril (40,
@@ -92,6 +96,7 @@ step Jasperlode Mine: kill these as you meet them
   only Dwarf,Gnome
   zone Elwynn Forest
   tip The mine is south-west of the gnoll camps. Mining Tools lie near the entrance; Kobold Geomancers hold the tunnels.
+  tip Careful: Mother Fang (7-10), the Mine Spiders (7-9) and Geosculptor Yip (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend.
   collect 247816 quest 91732                  -- Mining Tools
   kill 476 quest 91723                        -- Kobold Geomancer walks around Jasperlode Mine: look inside the circle on the map
 
@@ -137,7 +142,7 @@ step Goldshire
 step The Jansen Stead
   zone Westfall
   tip Follow the road from Elwynn into Westfall: the Furlbrows sit by their burned farm, the first one on the road. Pick up oats from any Sack of Oats you pass on the loop: the rest are gathered in the fields here on the way back.
-  accept 109 npc 237 only Human -- Farmer Furlbrow; Humans took it from Deputy Rainer in Elwynn
+  accept 109 npc 237 only Human,NightElf,Skyborne -- Farmer Furlbrow: Humans may have it already from Deputy Rainer in Elwynn
 
 step Westfall
   only Dwarf,Gnome,Skyborne
@@ -194,7 +199,7 @@ step Osric Strang
 step Sentinel Hill
   zone Westfall
   tip Gryan Stoutmantle and Captain Danuvin stand at the top of the stone tower. Quartermaster Lewis is in the tower, Scout Galiaan on the south side of the hill, next to the inn and Thor the gryphon master.
-  turnin 109 only Dwarf,Gnome                 -- Gryan Stoutmantle: from Deputy Rainer at Westbrook
+  turnin 109 only Dwarf,Gnome,NightElf,Skyborne -- Gryan Stoutmantle
   accept 12
   accept 102                                  -- Captain Danuvin
   turnin 6285 only Human                      -- Quartermaster Lewis, inside: back from Stormwind
@@ -243,6 +248,7 @@ step Molsen Farm's Harvest Watchers
   collect 732 quest 38.4                      -- Okra
   collect 255155 optional                     -- Precessive Autocognition Assembly
   accept 92910 optional
+  collect 814 x5 optional                     -- Flask of Oil: keep five for Captain Grayson at the Westfall Lighthouse, later on the route
 
 step The gnoll hills
   tip North to the hills above Jangolode Mine: Riverpaw Gnolls and Scouts (level 11-13) roam there, east toward the Jansen Stead. The gnolls further south and west are 13-19: stay in the north hills.
@@ -354,6 +360,7 @@ step Defensive Stance
 
 step Stormwind City
   only Human,Priest
+  when onquest 94774
   zone Stormwind City
   goto 49.5,44.6 "Stormwind City" live
 
@@ -420,6 +427,7 @@ step Stormwind
   getfp "Stormwind"
   buy 2449 x5 npc 1313 optional only NightElf,Druid -- Earthroot for Gathering the Cure (6123) in Darkshore: Maria Lumere, Alchemy Supplies; herbalists pick it there instead
   turnin 1097 only Human                      -- Grimand Elmore, Dwarven District
+  accept 353 only Human                       -- Grimand Elmore: his package for Mountaineer Stormpike in Loch Modan, later on the route
   accept 97894                                -- Borgus Steelhand, Dwarven District: for his brother in Auberdine
   turnin 399                                  -- Baros Alexston, Cathedral Square
   turnin 1861 only Gnome,Human,Skyborne,Mage choose 9513 7508      -- Jennea Cannon, Wizard's Sanctum: Mirror Lake

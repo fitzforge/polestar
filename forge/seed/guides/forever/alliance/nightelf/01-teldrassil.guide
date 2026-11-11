@@ -13,6 +13,9 @@ next forever/alliance/nightelf/02-darkshore
 # Added here: Grove of the Ancients (952); Bounty: Gnarlpine Furbolg (490), Tumors (923), The Temple
 # of the Moon (2519), Tears of the Moon (2518), Sathrah's Sacrifice (2520), Eyes of the Sentinels
 # (98067) and Mist (938), with an early Darnassus visit on the west loop.
+# Also added: Tallonkai's second Twisted Hatred (98403), a group quest (Xethorr the Wicked is a level 12 elite), its
+# webwoods and Xethorr on the walk from Dolanaar to the Oracle Glade; Shayla's bounty (490) is handed in on the walk south
+# from the glade to Ursal, which is shorter for everyone (306 yd less without the webwoods).
 
 # ---------------------------------------------------------------- Shadowglen
 
@@ -96,7 +99,7 @@ step Aldrassil
   turnin 920                                  -- Tenaron Stormgrip, at the top of the tree
   accept 921
 
-step The moonwell and Iverron
+step The moonwell
   tip The moonwell sits north of Aldrassil.
   use 5185 quest 921.1 @60.0,33.0 map 1438
   collect 5184 quest 921.1 @60.0,33.0         -- Use the Crystal Phial at the moonwell
@@ -106,6 +109,7 @@ step Tenaron Stormgrip
   turnin 921                          -- Upstairs
   accept 928
   accept 96630                                -- Lost Journal, upstairs
+  accept 5622 only Priest                     -- Shanda, the priest trainer, on the second level of Aldrassil on the way down: Laurna Morninglight in Dolanaar takes it
 
 step Iverron's Antidote
   tip Take the antidote from Dirania Silvershine at the foot of Aldrassil only now, on the way down: it lasts five minutes. Iverron waits north-west, by the cave: go straight on to him.
@@ -127,13 +131,51 @@ step Dolanaar
   accept 96606                                -- Lyreena Duskblade
 
 step The Great Outdoors
+  tip With a profession learned, Lyreena also offers its Camping 101, which its trainer takes: alchemy and herbalism beside Zarrin, First Aid with Byancie in the inn, skinning and leatherworking at the Maneweavers' camp on the road west.
   complete 96606 @57.7,56.7                   -- /sit by Lyreena's campfire until you get Boosted Rest
   turnin 96606
   accept 96634
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  accept 97938                                -- Lyreena Duskblade: for Cyndra Kindwhisper, beside Zarrin
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  accept 97944                                -- Lyreena Duskblade: for Malorne Bladeleaf, beside Zarrin
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  accept 97942                                -- Lyreena Duskblade: for Byancie in the inn
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  accept 97949                                -- Lyreena Duskblade: for Radnaal Maneweaver, by the road west
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  accept 97946                                -- Lyreena Duskblade: for Nadyia Maneweaver, by the road west
+
+step Zarrin
   train Cooking npc 6286                      -- Zarrin, south of the inn: Camping 101 asks you to learn it
   complete 96634 @57.1,61.3
   turnin 96634                                -- Zarrin
   accept 4161                                 -- Zarrin
+
+step Cyndra Kindwhisper
+  when onquest 97938
+  complete 97938 @57.64,60.8                  -- talk to the trainer
+  turnin 97938                                -- Cyndra Kindwhisper, beside Zarrin
+
+step Malorne Bladeleaf
+  when onquest 97944
+  complete 97944 @57.72,60.64                 -- talk to the trainer
+  turnin 97944                                -- Malorne Bladeleaf, beside Zarrin
+
+step Byancie
+  when onquest 97942
+  complete 97942 @55.29,56.82                 -- talk to the trainer
+  turnin 97942                                -- Byancie, in the inn
 
 step Dolanaar
   turnin 928                                  -- Corithras Moonrage, south of the inn
@@ -148,6 +190,8 @@ step Dolanaar
   accept 2438                         -- Upstairs
   accept 932                                  -- Tallonkai Swiftroot, upstairs
   accept 98391                                -- Laurna Morninglight, inside
+  turnin 5622 only Priest                     -- Laurna Morninglight
+  accept 5621 only Priest                     -- Laurna Morninglight: heal Sentinel Shaya by Lake Al'Ameth
 
 step Dolanaar
   tip Moon Priestess Amara patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her.
@@ -187,6 +231,11 @@ step Lake Al'Ameth
   accept 922                                  -- Denalan: Rellian Greenspyre in Darnassus takes it
   turnin 919
 
+step Sentinel Shaya
+  only Priest
+  tip Sentinel Shaya kneels wounded on the rocks at the north edge of Lake Al'Ameth, on the walk back to Dolanaar, with no quest mark over her. Cast Lesser Heal (Rank 2) on her, then Power Word: Fortitude: Rank 1 of Lesser Heal does not count. She runs off once both land and is back in about 5 minutes.
+  kill 12429 quest 5621.1 "Heal and fortify Sentinel Shaya"
+
 step Dolanaar
   turnin 4161                                 -- Zarrin
   turnin 929                                  -- Corithras Moonrage
@@ -198,6 +247,7 @@ step Dolanaar
   turnin 476                                  -- Athridas Bearmantle
   accept 483
   train class
+  turnin 5621 reward 16604 only Priest        -- Laurna Morninglight: Moon Robes of Elune
 
 # ---------------------------------------------------------------- West: Fel Rock to Gnarlpine Hold
 
@@ -218,8 +268,18 @@ step The road to Darnassus
   tip Gnarlpine Ambushers hide along the road west of Fel Rock.
   kill 2152 quest 487.1
 
+step Radnaal Maneweaver
+  when onquest 97949
+  complete 97949 @42.09,49.96                 -- talk to the trainer
+  turnin 97949                                -- Radnaal Maneweaver, camped beside the road before Shayla
+
+step Nadyia Maneweaver
+  when onquest 97946
+  complete 97946 @41.88,49.44                 -- talk to the trainer
+  turnin 97946                                -- Nadyia Maneweaver, beside Radnaal
+
 step Sentinel Shayla Nightbreeze
-  tip West along the road to the city gate: Shayla stands beside it. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and Gnarlpine Hold's all count.
+  tip West along the road toward the city. Shayla walks this stretch of road, from the arrow south-west to the bend at about 38,54 and back: if she isn't at the arrow, follow the road south-west. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and Gnarlpine Hold's all count.
   accept 490
 
 step Darnassus
@@ -300,13 +360,18 @@ step Ferocitas the Dream Eater
 step Dolanaar
   tip The road west to the Oracle Glade runs through Dolanaar: hand Tallonkai the jewel on the way.
   turnin 2459                                 -- Tallonkai Swiftroot, upstairs
+  accept 98403 optional                       -- Tallonkai Swiftroot: Twisted Hatred's Befouled Webwoods and the elite Xethorr's moss, on the walk to the Oracle Glade
 
-step Sentinel Shayla Nightbreeze
-  tip West along the road from Dolanaar: Shayla still stands beside it, before the turn north to the glade.
-  turnin 490
+step Befouled Webwoods
+  when group 98403
+  when onquest 98403
+  tip North-west of Dolanaar, on the way to the Oracle Glade, Befouled Webwoods creep through the woods; Xethorr the Wicked prowls at their east edge and carries the Mature Fel Moss.
+  tip Xethorr the Wicked is elite (level 12): grouping up is advised. Clear the webwoods around him first and pull him on his own.
+  kill 272096 quest 98403.1                   -- Befouled Webwood
+  collect 281023 quest 98403.2                -- Mature Fel Moss: Xethorr the Wicked
 
 step The Wellspring River
-  tip North from the road the path to the glade crosses the Wellspring River: the timberlings along it drop the Mossy Tumors.
+  tip West from the webwoods to the Wellspring River, then north along it to the glade: the timberlings along its banks drop the Mossy Tumors.
   collect 5170 quest 923.1                    -- Mossy Tumor: timberlings
 
 step The Oracle Glade
@@ -349,6 +414,10 @@ step Sentinel Arynia again
   turnin 98398                                -- Oracle Tree Bark, just west of the moonwell
   accept 940 object 673378                    -- the same Oracle Tree Bark: Fandral in Darnassus takes it
 
+step Sentinel Shayla Nightbreeze
+  tip South from the glade toward Ursal: Shayla walks the road west of Dolanaar, from where the path down from the glade meets it south-west to the bend at about 38,54 and back.
+  turnin 490
+
 step Ursal the Mauler
   tip Walk south along the west side of the island. Ursal prowls the far south, below the Pools of Arlithrien.
   tip Careful: Gnarlpine of roughly level 9-12 crowd the camp and sit close together, so it is easy to pull several at once. Take them on singly before you engage Ursal.
@@ -368,6 +437,11 @@ step Dolanaar
   accept 935                                  -- Fandral in Darnassus takes it
   accept 5925 only Druid                      -- Kal: Mathrengyl Bearwalker in Darnassus takes it
   accept 1684 only Warrior                    -- Kyra Windblade, the warrior trainer: Elanaria in Darnassus takes it
+
+step Tallonkai Swiftroot
+  when complete 98403
+  tip Back upstairs to Tallonkai Swiftroot with the webwoods done and Xethorr's moss.
+  turnin 98403                                -- Tallonkai Swiftroot, upstairs
 
 step Lake Al'Ameth
   tip South-east of Dolanaar, to Denalan. Lasher Sproutlings wander around him on the shore.
