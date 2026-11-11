@@ -10,7 +10,9 @@
 // a manual run's stand-in); needs DISCORD_TOKEN, GITHUB_TOKEN and
 // GITHUB_REPOSITORY, and checks threads against DISCORD_FORUM_ID when set.
 // A prerelease pings DISCORD_TESTER_ROLE_ID in DISCORD_TESTERS_CHANNEL_ID,
-// and tells no one when either is unset.
+// and tells no one when either is unset. NOTIFY_ISSUES (a manual release
+// run's "1390 1402"): exactly the issues the release ships, for those closed
+// after its run.
 
 const fs = require('node:fs');
 const { required } = require('./lib/config');
@@ -32,7 +34,8 @@ async function main(mode) {
 	const testersChannel = (env.DISCORD_TESTERS_CHANNEL_ID || '').trim();
 	const testerRole = (env.DISCORD_TESTER_ROLE_ID || '').trim();
 	const testers = testersChannel && testerRole ? { channel: testersChannel, role: testerRole } : null;
-	const { failed } = await onRelease({ discord, github, event, forumId, testers });
+	const issues = (env.NOTIFY_ISSUES || '').match(/\d+/g) || [];
+	const { failed } = await onRelease({ discord, github, event, forumId, testers, issues: issues.map(Number) });
 	return failed ? 1 : 0;
 }
 
