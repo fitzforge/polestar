@@ -159,7 +159,7 @@ fn parts_colours_ground_and_border_follow_their_settings() {
 		Polestar.Set("guideWindow.border", false)
 		local ground = snapshot()
 		Polestar.Set("guideWindow.rules", false)
-		local rules = { strip = P.strip.Rule:IsShown(), after = P.after.Rule:GetAlpha() }
+		local rules = { strip = P.strip.Rule:IsShown(), after = P.after.Rule:IsShown() }
 		emit({ base = base, hidden = hidden, noPct = noPct, painted = painted, noMark = noMark, ground = ground, rules = rules,
 			vertex = { F.psSkin.bg:GetVertexColor() } })"#);
 	let b = &out["base"];
@@ -183,7 +183,7 @@ fn parts_colours_ground_and_border_follow_their_settings() {
 	let v = out["vertex"].as_array().unwrap();
 	assert_eq!(v[0], 0.2, "the skin paints this window's own ground: {:?}", v);
 	assert_eq!(v[3], 0.5);
-	assert_eq!(out["rules"], json!({ "strip": false, "after": 0 }), "dividers off");
+	assert_eq!(out["rules"], json!({ "strip": false, "after": false }), "dividers off");
 }
 
 #[test]

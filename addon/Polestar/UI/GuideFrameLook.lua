@@ -214,11 +214,12 @@ function GF.ApplyStyle()
 	Theme.KitStrip(strip, not clear)
 	-- The quest tracker's header behind the focus (Forever, Blizzard).
 	Theme.KitHeader(person, not clear)
-	-- The hairlines between the window's parts (guideWindow.rules).
+	-- The hairlines between the window's parts (guideWindow.rules): shown or hidden, never SetAlpha (their
+	-- strength is their colour's alpha, which SetAlpha replaces).
 	local rules = GF.On("rules")
 	strip.Rule:SetShown(not clear and rules)
 	nav.Rule:SetShown(not clear and rules)
-	for _, part in ipairs({ after, along, upnext.Toggle, GF.xp, GF.party, banner }) do part.Rule:SetAlpha(rules and 1 or 0) end
+	for _, part in ipairs({ after, along, upnext.Toggle, GF.xp, GF.party, banner }) do part.Rule:SetShown(rules) end
 	W.Painter(foot.Line.Track, paintTrack)
 	if GF.here then W.Painter(GF.here.Panel, GF.PaintHerePanel) end
 	local outline = clear and GF.Outline()
