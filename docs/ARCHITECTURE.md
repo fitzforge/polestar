@@ -7167,7 +7167,9 @@ standing }`, `tools`, `focus`, `races`, `classes`, `skillUps`. A trainer recipe'
 profession trainer lists (the extract's `professionSpells`: the lowest skill and
 price any sniffed list asks), when one teaches it (a sniffed list beats a recipe item for the
 same spell: Elixir of Minor Fortitude) and the client does not give it
-with the skill (`AcquireMethod` 1); else, when an older (Classic) list in the same
+with the skill (`AcquireMethod` 1); else the skill a player's trainer window showed on Forever, for
+the few recipes in forge-data's `CHECKED_LEARN` (`learnedAtFrom: "in-game"`: Thick Leather, Cured
+Thick Hide and Thick Armor Kit at 175, #1553); else, when an older (Classic) list in the same
 DB teaches it (`professionSpellsClassic`), Classic's learn skill moved by as much as
 Forever moved the recipe's yellow rank from Era's (`learnedAtEstimated`,
 `learnedAtFrom: "classic"`, no `cost`: the sniffed lists keep Classic's learn-to-yellow
