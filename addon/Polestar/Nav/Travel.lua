@@ -1241,7 +1241,7 @@ end
 -- (the Engine's "Learn the flight path" lines): their nodes into `out`
 -- (cleared first, reused). -> out
 function Nav.UnknownTaxiOn(c, out)
-	refreshFaction()
+	if playerFaction == 0 then refreshFaction() end
 	local known, n = knownNodes(), 0
 	for _, node in ipairs(taxiList) do
 		if node.c == c and not known[node.id] and allowed(node.faction, playerFaction, node.class) then
