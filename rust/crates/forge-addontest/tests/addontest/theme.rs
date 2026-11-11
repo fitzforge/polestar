@@ -9,15 +9,19 @@ const FILES: &[&str] = &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml"];
 const OPEN_SANS_REGULAR: &str = "Interface\\AddOns\\Polestar\\Media\\Fonts\\OpenSans-Regular.ttf";
 const OPEN_SANS_BOLD: &str = "Interface\\AddOns\\Polestar\\Media\\Fonts\\OpenSans-Bold.ttf";
 
-fn run_with(script: &str, before: &str) -> Value {
+fn run_files(files: &[&str], script: &str, before: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		before: before.into(),
-		addons: vec![Addon::files("Polestar", FILES)],
+		addons: vec![Addon::files("Polestar", files)],
 		script: format!("uistub.install()\nstub.login()\nlocal T, W = Polestar.Theme, Polestar.Widgets\n{script}"),
 		..Default::default()
 	})
 	.remove(0)
+}
+
+fn run_with(script: &str, before: &str) -> Value {
+	run_files(FILES, script, before)
 }
 
 fn run(script: &str) -> Value {
@@ -868,7 +872,8 @@ fn skins_wow_forever_draws_the_client_s_atlas_blizzard_the_retail_sheet_classic_
 		out.blizzardCorner = f.psSkin.kit.metalArt[1].texture
 		Polestar.Set("ui.skin", "classic")
 		out.classic = state()
-		out.classicEdge = f.psSkin.kit.dialog.backdrop and f.psSkin.kit.dialog.backdrop.edgeFile
+		out.classicEdge = f.psSkin.kit.dialogArt and f.psSkin.kit.dialogArt[1]:IsShown() and f.psSkin.kit.dialogArt[1].texture
+		out.classicPlate = f.psSkin.kit.plate:IsShown() and f.psSkin.kit.plate.texture
 		Polestar.Set("ui.skin", "polestar")
 		out.back = state()
 		out.houseGame = T.GameSkin()
@@ -886,7 +891,8 @@ fn skins_wow_forever_draws_the_client_s_atlas_blizzard_the_retail_sheet_classic_
 	assert_eq!(out["forever"]["metal"], true);
 	assert_eq!(out["blizzard"]["metal"], true);
 	assert_eq!(json!({ "metal": out["classic"]["metal"].clone(), "dialog": out["classic"]["dialog"].clone() }), json!({ "metal": false, "dialog": true }), "Classic: the dialog box, no metal");
-	assert_eq!(out["classicEdge"], "Interface\\DialogFrame\\UI-DialogBox-Border");
+	assert_eq!(out["classicEdge"], "Interface\\DialogFrame\\UI-DialogBox-Border", "Classic: the dialog border drawn piece by piece from its edge file");
+	assert_eq!(out["classicPlate"], "Interface\\DialogFrame\\UI-DialogBox-Header", "Classic: the header plate on the top edge");
 	assert_eq!(out["back"], out["house"], "back to the house style, as it was");
 	assert_eq!(out["houseGame"], false);
 }
@@ -975,6 +981,103 @@ fn skins_forever_hover_plates_use_add_blend_306c() {
 	assert_eq!(out["cardBlend"], "ADD", "cardLit ADD");
 	assert_eq!(out["navBlend"], "ADD", "navHover ADD");
 	assert_eq!(out["platBlend"], "ADD", "plateLit ADD");
+}
+
+// Classic (Theme/GameSkins.lua, 0.3.7): the vanilla files composed as the client composes them, every backdrop
+// drawn piece by piece from its edge file (no BackdropTemplate frame, so the previews draw it too). The settings
+// window wears the dialog box with its header plate and its boxed sidebar; the guide window is a chat frame (the
+// tooltip tile under the chat tab's rim, its tabs cut from the chat tab sheet, the XP bar's purple progress in the
+// cast bar's frame); a toast and a menu are the game's tooltip; the slider wears its own border; the palette
+// keeps the text ladder legible; back in the house style every piece is hidden.
+#[test]
+fn skins_classic_draws_the_dialog_box_the_chat_frame_and_the_tooltip_from_the_vanilla_files_with_no_backdrop_frames() {
+	// Nav too: its transport alert is the toast it checks (uistub.realNav: the stub's Nav stands in for it).
+	let out = run_files(&["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "UI/UI.xml"], r#"
+		T._testShowHidden = true
+		local GF = Polestar.UI.GuideFrame
+		Polestar.Set("ui.skin", "classic")
+		local out = { pal = T.Palette(), bg = { T.Color("bg") } }
+		local function shown(t) return t ~= nil and t:IsShown() and (t.texture or true) or false end
+		-- the settings window: the dialog box, its plate, the boxed sidebar
+		Polestar.UI.ShowOptions("guide")
+		local f = PolestarOptions
+		local k = f.psSkin.kit
+		out.dialog = { edge = shown(k.dialogArt and k.dialogArt[5]), coords = k.dialogArt and #k.dialogArt[5].texCoord, tile = shown(k.dialogTile),
+			plate = shown(k.plate), title = k.title:GetText(), close = k.closeButton:IsShown(), shellClose = f.Close:IsShown() }
+		local sk = f.Sidebar.psSkin.kit
+		out.sidebar = { edge = shown(sk.tipEdge and sk.tipEdge[1]), tile = shown(sk.tipBg), grey = sk.tipEdge and { sk.tipEdge[1]:GetVertexColor() } }
+		-- no BackdropTemplate frame anywhere in the kits
+		local backdrops = 0
+		for _, fr in ipairs(stub.frames) do if rawget(fr, "backdrop") then backdrops = backdrops + 1 end end
+		out.backdrops = backdrops
+		-- the guide window: the chat frame
+		uistub.openTabs({ { uistub.elwynn, 3 }, { uistub.tailoring, 2 } }, 1)
+		local g = PolestarGuideFrame
+		local gk = g.psSkin.kit
+		out.guide = { rim = gk.rim ~= nil and gk.rim[1]:IsShown() and gk.rim[1].texture, tipEdge = shown(gk.tipEdge and gk.tipEdge[1]),
+			tile = g.psSkin.bg.texture, tiled = g.psSkin.bg:GetHorizTile() }
+		local function tab(b)
+			local tk = b.psSkin and b.psSkin.kit or {}
+			return { art = shown(tk.tabArt and tk.tabArt[2]), alpha = tk.tab and tk.tab:GetAlpha(), h = tk.tab and tk.tab:GetHeight() }
+		end
+		out.tabs = { active = tab(GF.tabs[1]), rest = tab(GF.tabs[2]) }
+		local bar = GF.parts.foot.Status
+		out.bar = { fill = bar:GetStatusBarTexture().texture, color = { bar:GetStatusBarTexture():GetVertexColor() },
+			frame = shown(bar.psSkin.kit.statusNine and bar.psSkin.kit.statusNine[1]) }
+		-- a toast: the tooltip; a menu: the tooltip in the panel colour
+		uistub.realNav.alerts.ShowSample()
+		local a = PolestarAlert.psSkin.kit
+		-- the chat tab's rim is eight pieces in the kit store (a house rim, a single texture, is not it)
+		local chatRim = type(a.rim) == "table" and a.rim[1] ~= nil and a.rim[1].IsShown and a.rim[1]:IsShown() or false
+		out.toast = { tipEdge = shown(a.tipEdge and a.tipEdge[1]), rim = chatRim }
+		stub.RunScript(GF.menuButton, "OnClick", "LeftButton")
+		local m = PolestarMenu.psSkin.kit
+		out.menu = { edge = shown(m.tipEdge and m.tipEdge[1]), tile = shown(m.tipBg) }
+		-- a slider row in the settings window: its own border and tile, the round thumb
+		local slider
+		for _, fr in ipairs(stub.frames) do if rawget(fr, "Slider") and rawget(fr, "Thumb") and fr.psSkin and fr.psSkin.kit and fr.psSkin.kit.trackEdge then slider = fr end end
+		out.slider = slider and { edge = shown(slider.psSkin.kit.trackEdge[1]), tile = shown(slider.psSkin.kit.trackTile), tiled = slider.psSkin.kit.trackTile:GetHorizTile(), thumb = slider.Thumb.texture } or false
+		-- back to the house style: every piece hidden
+		Polestar.Set("ui.skin", "polestar")
+		local function anyShown(t)
+			if type(t) ~= "table" then return false end
+			if t.IsShown then return t:IsShown() end
+			for _, v in pairs(t) do if anyShown(v) then return true end end
+			return false
+		end
+		out.back = { options = anyShown(k), guide = anyShown(gk), toast = anyShown(a) }
+		emit(out)"#, "");
+	assert_legible("classic", &out["pal"]);
+	assert_eq!(round(&out["bg"]), vec![0.051, 0.051, 0.11, 0.92], "the tooltip's navy as its tile draws it");
+	assert_eq!(out["dialog"]["edge"], "Interface\\DialogFrame\\UI-DialogBox-Border", "the dialog border's top edge");
+	assert_eq!(out["dialog"]["coords"], 8, "the top edge lies on its side in the strip: the corner form of SetTexCoord");
+	assert_eq!(out["dialog"]["tile"], "Interface\\DialogFrame\\UI-DialogBox-Background");
+	assert_eq!(out["dialog"]["plate"], "Interface\\DialogFrame\\UI-DialogBox-Header");
+	assert_eq!(out["dialog"]["title"], "Polestar");
+	assert_eq!(json!({ "close": out["dialog"]["close"].clone(), "shell": out["dialog"]["shellClose"].clone() }), json!({ "close": true, "shell": false }));
+	assert_eq!(out["sidebar"]["edge"], "Interface\\Tooltips\\UI-Tooltip-Border", "the sidebar is the options list's box");
+	assert_eq!(out["sidebar"]["tile"], "Interface\\Tooltips\\UI-Tooltip-Background");
+	assert_eq!(round(&out["sidebar"]["grey"]), vec![0.4, 0.4, 0.4, 1.0], "at 40 % grey");
+	assert_eq!(out["backdrops"], 0, "no BackdropTemplate frames");
+	assert_eq!(out["guide"]["rim"], "Interface\\ChatFrame\\ChatFrameTab", "the chat tab's rim round the guide window");
+	assert_eq!(out["guide"]["tipEdge"], false, "no tooltip border on the guide window");
+	assert_eq!(out["guide"]["tile"], "Interface\\Tooltips\\UI-Tooltip-Background");
+	assert_eq!(out["guide"]["tiled"], true, "the tile repeats");
+	assert_eq!(out["tabs"]["active"]["art"], "Interface\\ChatFrame\\ChatFrameTab", "the strip's tabs are chat tabs");
+	assert_eq!(out["tabs"]["active"]["alpha"], 1.0);
+	assert_eq!(out["tabs"]["rest"]["alpha"], 0.55, "the resting tabs fade as the chat frame's do");
+	assert!(out["tabs"]["active"]["h"].as_f64().unwrap() > out["tabs"]["rest"]["h"].as_f64().unwrap(), "the active tab stands taller");
+	assert_eq!(out["bar"]["fill"], "Interface\\TargetingFrame\\UI-StatusBar");
+	assert_eq!(round(&out["bar"]["color"]), vec![0.58, 0.0, 0.55, 1.0], "the XP bar's purple");
+	assert_eq!(out["bar"]["frame"], "Interface\\CastingBar\\UI-CastingBar-Border", "in the cast bar's frame");
+	assert_eq!(out["toast"], json!({ "tipEdge": "Interface\\Tooltips\\UI-Tooltip-Border", "rim": false }), "a toast is a tooltip");
+	assert_eq!(out["menu"]["edge"], "Interface\\Tooltips\\UI-Tooltip-Border", "a menu is a tooltip");
+	assert_eq!(out["menu"]["tile"], "Interface\\Tooltips\\UI-Tooltip-Background");
+	assert_eq!(out["slider"]["edge"], "Interface\\Buttons\\UI-SliderBar-Border", "the options slider's border");
+	assert_eq!(out["slider"]["tile"], "Interface\\Buttons\\UI-SliderBar-Background");
+	assert_eq!(out["slider"]["tiled"], true);
+	assert_eq!(out["slider"]["thumb"], "Interface\\Buttons\\UI-SliderBar-Button-Horizontal");
+	assert_eq!(out["back"], json!({ "options": false, "guide": false, "toast": false }), "back in the house style, every piece is hidden");
 }
 
 // #306 in game (Forever, after the border fix): the guide window's progress bar showed no fill, its frame

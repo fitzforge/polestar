@@ -231,11 +231,17 @@ SKIN_PALETTES.blizzard = gamePalette({
 	separator = hex("FFD100", 0.35), divider = hex("FFFFFF", 0.15), accentLine = hex("FFD100", 0.45),
 	border = hex("404040"), windowEdge = hex("404040"), hover = hex("FFFFFF", 0.08), selected = hex("FFD100", 0.14),
 })
+-- Classic: the game's tooltip colour (TOOLTIP_DEFAULT_BACKGROUND_COLOR,
+-- 0.09 0.09 0.19, as its grey tile draws it) under the guide window and the
+-- toasts, the dialog box's black over it on the big windows; gold labels
+-- (GameFontNormal), the quest log's gold title highlight for selection and
+-- its silver one under the cursor; the resting chat tab's muted gold.
 SKIN_PALETTES.classic = gamePalette({
-	bg = hex("101010", 0.85), bgBottom = hex("101010", 0.85), sidebar = hex("000000", 0),
-	icon = hex("FFD100"), iconHover = hex("FFFFFF"), tabRest = hex("FFD100"), rowLabel = hex("FFD100"), navRest = hex("FFD100"),
-	separator = hex("969696", 0.45), divider = hex("969696", 0.45), accentLine = hex("969696", 0.6),
-	border = hex("696969"), windowEdge = hex("696969"), hover = hex("FFFFFF", 0.08), selected = hex("FFD100", 0.14),
+	bg = hex("0D0D1C", 0.92), bgBottom = hex("0D0D1C", 0.92), panel = hex("171730", 0.95), menuBg = hex("171730", 0.95), sidebar = hex("000000", 0),
+	icon = hex("FFD100"), iconHover = hex("FFFFFF"), tabRest = hex("B8A14F"), rowLabel = hex("FFD100"), navRest = hex("FFD100"),
+	separator = hex("969696", 0.35), divider = hex("969696", 0.25), accentLine = hex("969696", 0.6),
+	border = hex("696969"), windowEdge = hex("696969"), hover = hex("FFD100", 0.1), selected = hex("FFD100", 0.14),
+	control = hex("000000", 0.4), inputBg = hex("000000", 0.6), chip = hex("000000", 0.5),
 })
 Theme.SKIN_PALETTES = SKIN_PALETTES
 Theme.SKIN_ORDER = { "polestar", "halo", "hearth", "forever", "blizzard", "classic" }

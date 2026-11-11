@@ -794,7 +794,12 @@ function uistub.install(opts)
 	-- (the Community guides page): Polestar.Guides = uistub.realGuides.
 	if Polestar.Guides ~= Guides then uistub.realGuides = Polestar.Guides end
 	Polestar.Guides = Guides
-	if not opts.noNav then Polestar.Nav = Nav end
+	-- So does the real Nav, for tests that load it (its transport banner):
+	-- uistub.realNav.alerts.
+	if not opts.noNav then
+		if Polestar.Nav ~= Nav then uistub.realNav = Polestar.Nav end
+		Polestar.Nav = Nav
+	end
 	-- Whether another addon is there: the real check, over the C_AddOns stub.
 	if Polestar.Compat ~= Compat then Compat.AddOnPresent = Polestar.Compat.AddOnPresent end
 	Polestar.Compat = Compat

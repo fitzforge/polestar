@@ -3025,8 +3025,9 @@ change hides them:
   included, with the Settings tabs on the Settings divider at the strip's
   foot (each tab's outline stops `tabClear` under the window's edge and
   `tabGap` in from its sides, so it closes as a tab does: #312), Blizzard's
-  black body under a fade with the damage meter's header bar, Classic's
-  tooltip tile under the chat tab's rim;
+  black body under a fade with the damage meter's header bar, Classic's chat
+  frame (the tooltip tile in the window colour under the chat tab's rim, its
+  tabs cut from the chat tab sheet) with a toast as the game's tooltip;
 - atlases the client draws sliced (UiTextureAtlasElementSliceData) are cut at
   the same margins (`ns.GameArtSlice`).
 
@@ -3035,8 +3036,16 @@ Sources: `forever` names atlas elements (the Forever client draws its own
 which still ships with the client but which SetAtlas does not draw there, by
 file ID and coordinates from `Theme/GameArt.lua` (generated with the slice
 margins by `node tools/polestar.js media game-art`, tools/media/game-art.js);
-`classic` names the vanilla files (the dialog box and tooltips through
-BackdropTemplate).
+`classic` names the vanilla files, composed as InterfaceOptionsFrame and the
+chat frame compose them: the dialog box's tile and 32-unit border with the
+header plate on its top edge round the big windows, the options list's box
+(a tooltip border at 40 % grey) for the sidebar, panels and cards, the game's
+tooltip for menus and toasts, the options slider's border, the input box, the
+quest log's gold and silver title highlights, and the XP bar's purple in the
+cast bar's frame. Every backdrop is drawn piece by piece (`Theme.KitEdge`
+cuts the edge file as BackdropTemplate does, the top and bottom edges in the
+corner form of SetTexCoord), never through a BackdropTemplate frame, so the
+previews draw it and nothing sits between a window and its content.
 
 No client art is copied into the addon; the kits name files and atlases. With
 POLESTAR_CLIENT_ART holding the client's UI textures decoded to <fileID>.tga
