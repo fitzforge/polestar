@@ -1,0 +1,30 @@
+## Interface: 16001
+## Title: Polestar Skin: Waymark
+## Notes: A skin for Polestar that follows the land you're levelling in: the continent's own loading screen behind the header, its colour on the accent, the arrow and the map pins.
+## Title-deDE: Polestar-Design: Waymark
+## Notes-deDE: Ein Design für Polestar, das dem Land folgt, in dem du levelst: der Ladebildschirm des Kontinents hinter der Kopfzeile, seine Farbe auf Akzent, Pfeil und Kartennadeln.
+## Title-esES: Polestar, tema: Waymark
+## Notes-esES: Un tema para Polestar que sigue la tierra donde subes de nivel: la pantalla de carga del continente tras la cabecera, su color en el acento, la flecha y los marcadores del mapa.
+## Title-esMX: Polestar, tema: Waymark
+## Notes-esMX: Un tema para Polestar que sigue la tierra donde subes de nivel: la pantalla de carga del continente tras la cabecera, su color en el acento, la flecha y los marcadores del mapa.
+## Title-frFR: Polestar, habillage : Waymark
+## Notes-frFR: Un habillage pour Polestar qui suit la terre où vous montez de niveau : l'écran de chargement du continent derrière l'en-tête, sa couleur sur l'accent, la flèche et les repères de la carte.
+## Title-koKR: Polestar 스킨: Waymark
+## Notes-koKR: 레벨업하는 땅을 따라가는 Polestar 스킨: 머리글 뒤의 대륙 로딩 화면, 강조색과 화살표와 지도 표시에 그 대륙의 색.
+## Title-ptBR: Polestar, tema: Waymark
+## Notes-ptBR: Um tema para o Polestar que acompanha a terra onde você sobe de nível: a tela de carregamento do continente atrás do cabeçalho, sua cor no destaque, na seta e nos marcadores do mapa.
+## Title-ruRU: Polestar, оформление: Waymark
+## Notes-ruRU: Оформление для Polestar, которое следует за землёй, где вы качаетесь: экран загрузки континента за заголовком, его цвет на акценте, стрелке и метках карты.
+## Title-zhCN: Polestar 皮肤：Waymark
+## Notes-zhCN: 随你升级所在之地变化的 Polestar 皮肤：标题后方是大陆的载入画面，强调色、箭头和地图标记取其颜色。
+## Title-zhTW: Polestar 皮膚：Waymark
+## Notes-zhTW: 隨你升級所在之地變化的 Polestar 皮膚：標題後方是大陸的載入畫面，強調色、箭頭和地圖標記取其顏色。
+## Author: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+## Version: 0.3.6
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+
+Waymark.lua

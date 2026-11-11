@@ -29,6 +29,7 @@ commented example, [`addon/Polestar_Skin_Example`](../addon/Polestar_Skin_Exampl
 - [Saved choices, load order, late registration](#saved-choices-load-order-late-registration)
 - [Versions and capabilities](#versions-and-capabilities)
 - [Walkthrough: Moonlit](#walkthrough-moonlit)
+- [Nine more to read: the skins in the download](#nine-more-to-read-the-skins-in-the-download)
 - [Rationale, compared with Details!](#rationale-compared-with-details)
 
 ## Quick start
@@ -459,6 +460,29 @@ To make your own: copy the folder, rename the folder and its `.toc`, change
 the ids (`moonlit`), names and colours, and register what you need. Start
 with a scheme; add a skin when you want fonts, painters or another look as
 the base.
+
+## Nine more to read: the skins in the download
+
+Beside Moonlit, the release carries nine complete skins, each an addon of
+its own (`addon/Polestar_Skin_<Name>`) that a player turns on in the game's
+AddOns list, and each built only through this API. Each shows one more thing
+the API can do; they are the best place to copy from.
+
+| Skin | What it is | What it shows |
+|---|---|---|
+| **Vellum** (`Polestar_Skin_Vellum`) | A page of the quest log: dark ink on mottled parchment, a sealing-wax accent, the game's font | A **light** skin: every token given (grounds, ladder, all sixteen subject colours as inks) and still held to the legibility floors; a texture of the skin's own (`Media/paper.tga`) tinted at paint time; painters for window, panel, sidebar, inset and editbox; a preset that puts the arrow's words on a plate |
+| **Lumen** (`Polestar_Skin_Lumen`) | Head-up: no frame, a cyan line and a tick at each corner, Fira Sans a size down, the flat arrow | A skin that is mostly a **frame treatment** from Polestar's white texture; a `guide` painter beside `window` (the ticks stay while the window is transparent); `fontSizes` for the whole ladder; a preset that turns the house chrome off |
+| **Beacon** (`Polestar_Skin_Beacon`) | High contrast: black grounds, white Open Sans a size up, a yellow accent, strong edges | A **scheme and a skin from one addon**; washes raised through tokens; a 2-unit focus ring on fields; a preset that grows the arrow, the pins and the route line |
+| **Aurora** (`Polestar_Skin_Aurora`) | Polestar's night a step further: a teal-over-violet aurora in the band, grounds that deepen toward the foot, champagne gold | A skin that **extends** the house style: `kit.gradient` for the ground, the `haze` token for the band's light, nothing else changed |
+| **Hairline** (`Polestar_Skin_Hairline`) | Flat and pixel-exact: near-black panels, a one-pixel black outline, condensed type (Barlow Semi Condensed), the class colour as the accent | Tokens doing most of the frame; a font of the skin's own given as files; `media.dart` / `media.dartEdge` for an arrow of its own; `shadow = false`; a preset asking for `ui.classAccent` |
+| **Umbra** (`Polestar_Skin_Umbra`) | Dark mode: neutral charcoal, a steel accent, the subjects a quarter of the way to grey; Flat, or the game's own looks dimmed | A scheme and a skin from **one table of colours**; `variants` that change the base look; `artTint` darkening and greying a game look's art |
+| **Waymark** (`Polestar_Skin_Waymark`) | The land you're levelling in: the continent's loading screen behind the header, its colour on the accent, the arrow's glow and the pins | `resolve(ctx)` choosing tokens from where the character is; `kit.gameArt` and `kit.crossfade` for the client's own picture (named, never copied) |
+| **Lanterns** (`Polestar_Skin_Lanterns`) | Ten moods, each a pair of colours: tinted grounds and two soft lights in opposite corners | `variants` as colourings of one skin; the `accent2` token and `kit.glow`; a two-tone progress line in the `guideProgress` hook |
+| **Sheen** (`Polestar_Skin_Sheen`) | Soft glass: translucent panels, a wide shadow, a sheen on every top edge, the class colour running into the accent | `shadow` of the skin's own; `resolve(ctx)` for the class colour; `kit.glow` for the sheen; a gradient across the progress line in `guideProgress` |
+
+Their art is drawn in code (`node tools/polestar.js media skin-addons`,
+`tools/media/skin-addons.js`) or is the player's own client's (Waymark's
+loading screens, by path); Hairline's typeface is OFL (`THIRD_PARTY.md`).
 
 ## Rationale, compared with Details!
 

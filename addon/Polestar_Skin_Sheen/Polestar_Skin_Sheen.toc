@@ -1,0 +1,30 @@
+## Interface: 16001
+## Title: Polestar Skin: Sheen
+## Notes: Soft glass for Polestar: translucent panels, a wide shadow, a sheen on every top edge, your class colour running into the accent.
+## Title-deDE: Polestar-Design: Sheen
+## Notes-deDE: Weiches Glas für Polestar: durchscheinende Flächen, ein breiter Schatten, ein Glanz an jeder Oberkante, deine Klassenfarbe, die in den Akzent übergeht.
+## Title-esES: Polestar, tema: Sheen
+## Notes-esES: Cristal suave para Polestar: paneles translúcidos, una sombra amplia, un brillo en cada borde superior, el color de tu clase fundiéndose con el acento.
+## Title-esMX: Polestar, tema: Sheen
+## Notes-esMX: Cristal suave para Polestar: paneles translúcidos, una sombra amplia, un brillo en cada borde superior, el color de tu clase fundiéndose con el acento.
+## Title-frFR: Polestar, habillage : Sheen
+## Notes-frFR: Du verre doux pour Polestar : panneaux translucides, une ombre large, un reflet sur chaque bord supérieur, la couleur de votre classe qui se fond dans l'accent.
+## Title-koKR: Polestar 스킨: Sheen
+## Notes-koKR: Polestar를 위한 부드러운 유리: 반투명 패널, 넓은 그림자, 모든 윗변의 광택, 강조색으로 이어지는 직업 색상.
+## Title-ptBR: Polestar, tema: Sheen
+## Notes-ptBR: Vidro suave para o Polestar: painéis translúcidos, uma sombra ampla, um brilho em cada borda superior, a cor da sua classe se fundindo ao destaque.
+## Title-ruRU: Polestar, оформление: Sheen
+## Notes-ruRU: Мягкое стекло для Polestar: полупрозрачные панели, широкая тень, блик на каждой верхней кромке, цвет вашего класса, переходящий в акцент.
+## Title-zhCN: Polestar 皮肤：Sheen
+## Notes-zhCN: Polestar 的柔和玻璃：半透明面板，宽阔阴影，每条上边缘的光泽，职业颜色渐变为强调色。
+## Title-zhTW: Polestar 皮膚：Sheen
+## Notes-zhTW: Polestar 的柔和玻璃：半透明面板，寬闊陰影，每條上邊緣的光澤，職業顏色漸變為強調色。
+## Author: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+## Version: 0.3.6
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+
+Sheen.lua
