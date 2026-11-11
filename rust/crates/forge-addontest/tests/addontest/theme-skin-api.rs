@@ -1240,3 +1240,39 @@ fn a_variant_s_card_shows_its_own_second_accent_and_glow_beside_the_accent() {
 		assert_eq!((out[k]["accent2"].clone(), out[k]["glow"].clone()), (json!(false), json!(false)), "{k}: the accent bar alone");
 	}
 }
+
+// A variant drawn from another look, picked while its skin is in use and the guide window shows: the window is
+// dressed again in that look (the game looks' status bar in place of the house's progress line) and back, though
+// the skin in use stays the same.
+#[test]
+fn a_variant_drawn_from_another_look_dresses_the_open_guide_window_in_it_and_back() {
+	let out = run_ui(
+		r##"
+		local T = Polestar.Theme
+		local foot = GF.parts.foot
+		local ok, why = T.RegisterSkin("duo", { name = "Duo", addon = "Test_Duo", defaultVariant = "flat", variants = {
+			{ id = "flat", name = "Flat" },
+			{ id = "forever", name = "On WoW Forever", base = "forever" },
+			{ id = "blizzard", name = "On Blizzard", base = "blizzard" },
+		} })
+		uistub.openTabs(TABS, 1)
+		local function look()
+			local bar = rawget(foot, "Status")
+			return { key = T.SkinKey(), line = foot.Line:IsShown(), bar = bar and bar:IsShown() or false }
+		end
+		Polestar.Set("ui.skin", "duo")
+		local out = { ok = ok, why = why or false, flat = look() }
+		Polestar.Set("ui.skinVariants.duo", "forever")
+		out.forever = look()
+		Polestar.Set("ui.skinVariants.duo", "blizzard")
+		out.blizzard = look()
+		Polestar.Set("ui.skinVariants.duo", "flat")
+		out.back = look()
+		emit(out)"##,
+	);
+	assert_eq!(out["ok"], true, "registered: {}", out["why"]);
+	assert_eq!(out["flat"], json!({ "key": "polestar", "line": true, "bar": false }));
+	assert_eq!(out["forever"], json!({ "key": "forever", "line": false, "bar": true }), "dressed as WoW Forever: its status bar");
+	assert_eq!(out["blizzard"], json!({ "key": "blizzard", "line": false, "bar": true }));
+	assert_eq!(out["back"], out["flat"], "back to the house's progress line");
+}
