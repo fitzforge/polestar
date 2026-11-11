@@ -706,10 +706,11 @@ local GUIDE = {
 	-- (no other fill under it), cut at its slices so its light keeps its
 	-- height and its corners their round, the slices at three quarters so
 	-- the light falls over the tab strip and the navigator (60 units, the
-	-- meter's header), at the window's opacity. The toasts and cards: a
-	-- black body under the alert toasts' frame (its rail's outer edge one
-	-- unit outside: the corner art's rail starts 3 in, so 4 out). Both at
-	-- the window's own level: the content draws over them.
+	-- meter's header), at the window's opacity: the window's own textures,
+	-- under every part on it (the heads-up card on the window too). The
+	-- toasts and cards: a black body under the alert toasts' frame (its
+	-- rail's outer edge one unit outside: the corner art's rail starts 3 in,
+	-- so 4 out), at the window's own level: the content draws over it.
 	blizzard = function(f, kit)
 		local a = opacity(f)
 		hideKey(f, "band")
@@ -720,7 +721,7 @@ local GUIDE = {
 		if f.psGuide then
 			P.fill(f):Hide()
 			hideKey(f, "toastArt")
-			local p = sliced(f, "meterArt", kit, kit.meter, o, nil, "BACKGROUND", 0, false, 0.75)
+			local p = sliced(f, "meterArt", kit, kit.meter, f, nil, "BACKGROUND", -8, false, 0.75)
 			for i = 1, 9 do p[i]:SetAlpha(0.96 * a) end
 		else
 			body(f, 0, 0, 0, 0.96 * a)
@@ -1102,7 +1103,7 @@ local function paints(name)
 		window = function(f)
 			if f.psBare then
 				P.bare(f)
-				for _, key in ipairs({ "edge", "band", "dialog", "dialogArt", "dialogTile", "frame", "metal", "crown", "streaks" }) do hideKey(f, key) end
+				for _, key in ipairs({ "edge", "band", "dialog", "dialogArt", "dialogTile", "frame", "metal", "crown", "streaks", "meterArt" }) do hideKey(f, key) end
 				return
 			end
 			P.hideBorder(f)
