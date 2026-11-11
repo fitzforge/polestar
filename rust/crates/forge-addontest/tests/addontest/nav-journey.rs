@@ -412,9 +412,10 @@ fn tomtom_stand_in_the_global_is_taken_at_login_and_an_addon_s_own_tomtom_compat
 	assert_eq!(out[1], json!({ "theirs": true, "answering": false }));
 }
 
-// A TomTom 4.3.12-shaped fake (its SetCrazyArrow, ClearWaypoint and RemoveWaypoint called through the table,
-// AddWaypoint pointing the arrow when crazy).
+// A TomTom 4.3.12-shaped fake, the addon itself loaded (its SetCrazyArrow, ClearWaypoint and RemoveWaypoint
+// called through the table, AddWaypoint pointing the arrow when crazy).
 const REAL_TOMTOM: &str = r#"
+stub.addonsLoaded.TomTom = true
 TomTom = { valid = {}, adds = {} }
 function TomTom:SetCrazyArrow(uid) self.arrow = uid end
 function TomTom:ClearWaypoint(uid) self.valid[uid] = nil end
