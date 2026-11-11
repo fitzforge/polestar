@@ -210,3 +210,16 @@ test('class quests the data left open are locked to their class, and Magma or La
 	assert.ok('races' in lava && lava.races === null, 'Magma or Lava?: no race limit');
 	assert.deepEqual(lava.end, { npc: [5497, 7825], object: [] }, 'its enders stay');
 });
+
+test('QuestieDB 1.0.14 race lists narrower than the server keep the server\'s races: Zephras Isle, both Skyborne, the Horde Skyborne village, Call of Fire, the Horde Shaman chain', () => {
+	const races = (id) => (corrections.quests[id] && 'races' in corrections.quests[id].set ? corrections.quests[id].set.races : undefined);
+	const SKYBORNE = 2 ** 32 + 2 ** 33;
+	const HORDE = 2 + 16 + 32 + 128 + 2 ** 33;
+	const ALLIANCE = 1 + 4 + 8 + 64 + 2 ** 32;
+	const zephras = [92460, 92461, 92462, 92463, 92472, 92516, 92550, 92553, 92682, 92685, 93160, 93165, 93317, 93320, 93926, 93951, 94486, 94489, 94568, 94897, 96101];
+	assert.deepEqual(zephras.filter((id) => races(id) !== null), [], 'the Zephras Isle quests both Skyborne starts take have no race limit');
+	assert.deepEqual([92474, 94003, 94006, 98404].map(races), [SKYBORNE, SKYBORNE, SKYBORNE, SKYBORNE], 'Alliance and Horde Skyborne');
+	assert.deepEqual([92514, 92595].map(races), [HORDE, HORDE], "Welcome to Shen'dar Village and The Windshapers: the Horde, not Tauren only");
+	assert.deepEqual([94449, 94466, 94467, 94468, 97916].map(races), [ALLIANCE, ALLIANCE, ALLIANCE, ALLIANCE, ALLIANCE], 'Call of Fire and Camping 101: Blacksmithing: the Alliance');
+	assert.deepEqual([79361, 79442].map(races), [HORDE, HORDE], 'the Horde Shaman Call of Air chain: Horde Skyborne Shamans too');
+});
