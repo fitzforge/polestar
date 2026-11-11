@@ -2370,3 +2370,59 @@ fn zone_danger_566_tarren_mill_to_brill_at_level_24_with_no_flight_path_known_wa
 	assert!(out["yards"]["1420"].as_f64().unwrap_or(0.0) > 0.0, "to Tirisfal: {}", out["yards"]);
 	assert_eq!(out["yards"]["1422"].as_f64().unwrap_or(0.0), 0.0, "no yard of Western Plaguelands (51-57): {}", out["yards"]);
 }
+
+// #1543: Darkcloud Pinnacle, Thousand Needles. Lakota Windsong (10646, 37.95,26.45, z 83.7) stands on the pinnacle's
+// top, which the walking maps join to the Barrens' plateau past the Great Lift's top (the climb from the canyon floor
+// over the rope bridges is a TravelData chain). From the Barrens' side of the lift (44.64,89.30, MrM00se's place,
+// 380 yd from her: too near for the engine to measure the walk) the planner's zone rule (the Barrens to Thousand
+// Needles: through a crossing) sent the player down the lift, and from its foot the arrow's walk led up it again.
+// A Horde player at level 28: from there the walk on to her, neither the crossing nor the lift; from the pinnacle's
+// top one walk; from the canyon floor and the lift's foot, a route that ends with the walk to her and never takes
+// the crossing back down.
+#[test]
+fn darkcloud_pinnacle_from_the_great_lifts_top_the_route_to_lakota_windsong_walks_on_never_back_down_the_lift_1543() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.setLevel(28)
+		w.faction = "Horde"
+		local function legs()
+			local out = {}
+			local L, ci = N.GetRoute()
+			for i = ci or 1, #(L or {}) do
+				local l = L[i]
+				out[#out + 1] = l.kind .. "|" .. tostring(l.label) .. (l.crossing and ("|" .. l.crossing) or "")
+			end
+			return out
+		end
+		local function plan(map, x, y, z)
+			w.moveTo(map, x, y)
+			w.z = z
+			for _ = 1, 10 do aim(); stub.advance(0.05) end
+			N.SetTarget(1441, 37.95, 26.45, "Lakota Windsong", "e", nil, 83.7)
+			for _ = 1, 300 do aim(); stub.advance(0.05) end
+			return legs()
+		end
+		emit({
+			top = plan(1441, 38.11, 26.87, 83),
+			barrens = plan(1413, 44.64, 89.30, 90),
+			floor = plan(1441, 31.2, 36.72, -46),
+			lift = plan(1441, 31.92, 24.22, -44),
+		})"#,
+		true,
+	);
+	let legs = |k: &str| strs(&out[k]);
+	assert_eq!(legs("top"), ["walk|Lakota Windsong"], "on the pinnacle: one walk");
+	let barrens = legs("barrens");
+	assert!(barrens.last().is_some_and(|x| x == "walk|Lakota Windsong"), "from the lift's top: on to her ({barrens:?})");
+	assert!(
+		!barrens.iter().any(|x| x.starts_with("lift|") || x.ends_with("|carbonite-the-barrens--thousand-needles")),
+		"from the lift's top: along the plateau, not back down the lift ({barrens:?})"
+	);
+	for k in ["floor", "lift"] {
+		let l = legs(k);
+		assert!(!l.is_empty(), "{k}: a route");
+		assert!(l.last().is_some_and(|x| x == "walk|Lakota Windsong"), "{k}: on to her ({l:?})");
+		assert!(!l.iter().any(|x| x.ends_with("|carbonite-the-barrens--thousand-needles")), "{k}: never the crossing back down ({l:?})");
+	}
+}

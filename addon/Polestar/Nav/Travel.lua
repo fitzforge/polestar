@@ -812,6 +812,33 @@ local function planRoute(p)
 		end
 	end
 
+	-- A target this near the start (straight yards) over a zone border the
+	-- crossing data closes is walked to straight all the same. The walking
+	-- engine measures no walk that near (Walk.lua's MEASURE_NEAR) and the
+	-- arrow's own search draws it, so the border's crossing is no better a
+	-- guess: from the Great Lift's top on the Barrens' plateau, Lakota Windsong
+	-- on Darkcloud Pinnacle (Thousand Needles) is a walk along the plateau, but
+	-- the crossing sent players down the lift, and from its foot the arrow's
+	-- walk led up it again (#1543). Not when the engine found no walk from the
+	-- player (p.noDirect): the crossing again. Nor when a chain joins the two
+	-- zones: its hand-made way is the one where the walking maps fail (the
+	-- Undercity's south lift). NEAR_CROSS is local here: PlanRoute is at Lua
+	-- 5.1's 60 upvalues.
+	local nearCross
+	if zoned and not nw[1] and not sealed(1) and not sealed(2) and vc[1] == vc[2] and not zonesWalk(vzone[1], vzone[2]) then
+		local NEAR_CROSS = 400
+		local d = yards(vc[1], vx[1], vy[1], vc[2], vx[2], vy[2])
+		if d < NEAR_CROSS then nearCross = d * walkRate end
+		for _, ch in ipairs(nearCross and chains or {}) do
+			local a, b = false, false
+			for _, nd in ipairs(ch.nodes) do
+				local z = chainV[nd] and vzone[chainV[nd]]
+				if z == vzone[1] then a = true elseif z == vzone[2] then b = true end
+			end
+			if a and b then nearCross = nil end
+		end
+	end
+
 	-- Dijkstra with a binary heap (lazy deletion), ordered by cost; tm = real seconds.
 	local dist, tm, prev, via, done = {}, {}, {}, {}, {}
 	for i = 1, n do dist[i] = huge end
@@ -964,6 +991,7 @@ local function planRoute(p)
 					end
 				end
 				walkTo(free[cu], u, du, tu, xu, yu)
+				if u == 1 and nearCross then straight(1, 2, nearCross, du, tu) end
 			end
 			local ex = extra[u]
 			if ex then
