@@ -5,6 +5,7 @@
 //! (SpellEffect 24) or enchants one (53). yellow/grey are the trivial ranks, green their floored
 //! mean. The orange threshold comes from the recipe item (RequiredSkillRank), 1 for recipes known
 //! with the skill, else the skill a sniffed Forever trainer list asks for it (with its cost), else
+//! the skill a player's trainer window showed (CHECKED_LEARN, learnedAtFrom "in-game"), else
 //! MinSkillLineRank, else Classic's trainer skill moved as far as Forever moved the yellow rank
 //! (learnedAtEstimated, learnedAtFrom "classic"), else yellow (learnedAtEstimated). AcquireMethod 3
 //! (retired) and Season of Discovery recipes are left out.
@@ -33,6 +34,36 @@ pub const PROFESSIONS: [(i64, &str); 12] = [
 
 pub const SOD_SPELL_MIN: i64 = 400000;
 const ESTIMATE_GAP: i64 = 0;
+
+/// Learn skills a player's trainer window showed on Forever, for recipes no sniffed list teaches: spell, skill,
+/// where it was seen. They win over the Classic-based estimate, which these show can be too early (#1553: Una's
+/// window, Thunder Bluff, 2026-11-10: Thick Leather and Cured Thick Hide at 175 and Dusky Bracers at 170, where the
+/// estimate said 155; Thick Armor Kit 175 and Guardian Gloves 165 as estimated).
+const CHECKED_LEARN: [(i64, i64, &str); 5] = [
+	(20650, 175, "#1553"), // Thick Leather
+	(10482, 175, "#1553"), // Cured Thick Hide
+	(10487, 175, "#1553"), // Thick Armor Kit
+	(7156, 165, "#1553"),  // Guardian Gloves
+	(9201, 170, "#1553"),  // Dusky Bracers
+];
+
+/// The learn skill a player's trainer window showed for `spell` (CHECKED_LEARN), if any.
+fn checked_learn(spell: i64) -> Option<i64> {
+	CHECKED_LEARN.iter().find(|(s, ..)| *s == spell).map(|&(_, skill, _)| skill)
+}
+
+#[cfg(test)]
+mod checked_learn_tests {
+	use super::*;
+
+	// #1553: the leg the Leatherworking guide planned on Thick Leather at 155 could not be done; these hold the
+	// skills Forever's trainer asks, so a rebuilt professions.json (and a guide drafted from it) keeps them.
+	#[test]
+	fn thick_leather_and_its_kin_keep_the_skill_forevers_trainer_asks_1553() {
+		assert_eq!([20650, 10482, 10487, 7156, 9201].map(checked_learn), [Some(175), Some(175), Some(175), Some(165), Some(170)]);
+		assert_eq!(checked_learn(2152), None, "Light Armor Kit: no check, the build's own source stands");
+	}
+}
 
 const GOBLIN_ENGINEER: i64 = 20222;
 const GNOMISH_ENGINEER: i64 = 20219;
@@ -150,6 +181,10 @@ pub struct Ctx<'a> {
 	pub currency: &'a FxHashSet<(i64, i64)>,
 	/// The sniffed profession trainer lists by creature: creature -> the spells it teaches.
 	pub trainer_lists: &'a FxHashMap<i64, Vec<i64>>,
+	/// The skill a trainer's "Train me." option asks for: creature -> (skill line, skill).
+	pub trainer_skill: &'a FxHashMap<i64, (i64, f64)>,
+	/// Every profession trainer list (sniffed or Classic) by creature: creature -> the spells it teaches.
+	pub trainer_any: &'a FxHashMap<i64, Vec<i64>>,
 }
 
 impl Ctx<'_> {
@@ -335,6 +370,10 @@ fn extract_recipe(ix: &Ix, row: &Ability, ctx: &Ctx) -> Result<Recipe, &'static 
 			learned_at = (rank as i64).max(1);
 			r.set("learnedAt", num(learned_at));
 			r.set("cost", num(cost as i64));
+		} else if let Some(skill) = checked_learn(spell) {
+			learned_at = skill;
+			r.set("learnedAt", num(learned_at));
+			r.set("learnedAtFrom", "in-game");
 		} else if row.min_rank > 1 {
 			learned_at = row.min_rank;
 			r.set("learnedAt", num(learned_at));
@@ -668,6 +707,20 @@ pub fn extract(t: &Tables, ctx: &Ctx) -> Extracted {
 					// Who teaches it: every creature whose sniffed list has a spell that teaches the rank,
 					// on the sides its faction serves (Zephras Isle's trainers are in no curated list).
 					if rk.get("trainers").truthy() {
+						// A curated trainer whose lists don't teach the rank isn't the rank's (Narv
+						// Hidecrafter: Journeyman Leatherworking, not Apprentice); one with no list at all
+						// (Forever's junior trainers) stays.
+						let lists = rk.get("trainers");
+						for side in lists.keys() {
+							let keep: Vec<f64> = lists
+								.get(&side)
+								.items()
+								.iter()
+								.map(|v| v.num())
+								.filter(|&c| ctx.trainer_any.get(&(c as i64)).is_none_or(|l| l.iter().any(|t| *t == s || teaches(t))))
+								.collect();
+							lists.set(&side, crate::jsv::nums(&keep));
+						}
 						for (creature, spells) in ctx.trainer_lists {
 							if spells.iter().any(teaches) {
 								add_trainer(&rk.get("trainers"), &tr.trainers, ctx, *creature);
@@ -691,7 +744,22 @@ pub fn extract(t: &Tables, ctx: &Ctx) -> Extracted {
 		prof.set("name", name.as_str());
 		prof.set("kind", kind);
 		prof.set("ranks", ranks);
+		// The skill each trainer of the profession starts training at, where it asks for one
+		// (`trainerSkill`, creature -> skill): the guides' training and learn steps point only at the
+		// trainers who teach at the step's skill (#1708: Doctor Herbert Halsey trains Alchemy from 125).
+		let skill = Obj::new();
+		let mut gated: Vec<(i64, f64)> = ctx.trainer_skill.iter().filter(|(_, &(l, _))| l == id).map(|(&c, &(_, k))| (c, k)).collect();
+		gated.sort_by_key(|&(c, _)| c);
+		for (c, k) in gated {
+			let listed = ["Alliance", "Horde"].iter().any(|s| tr.trainers.get(s).items().iter().any(|v| v.num() == c as f64));
+			if listed {
+				skill.set(&c.to_string(), V::Num(k));
+			}
+		}
 		prof.set("trainers", tr.trainers);
+		if !skill.is_empty() {
+			prof.set("trainerSkill", skill);
+		}
 		if !tr.main.is_empty() {
 			let main = Obj::new();
 			for (side, npc) in tr.main {
