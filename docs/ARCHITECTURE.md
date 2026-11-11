@@ -436,9 +436,11 @@ How each surface hides:
   arrows and glow, the quest bag marks, quest levels, nameplate icons, the
   quest tracker's captions (Questie), the talent overlay, the XP bar mark,
   the reward marks, the flight map's node mark (the step key still flies
-  there), the restock button, tooltip lines (`Hooks.decorate`), item clicks,
-  and Polestar's entries in the quest log, map tracking and minimap menus:
-  each asks `Hidden()` and redraws on `POLESTAR_HIDDEN`.
+  there), the restock button, the trainer window's Train All button, tooltip
+  lines (`Hooks.decorate`), item clicks, and Polestar's entries in the quest
+  log, map tracking and minimap menus: each asks `Hidden()` and redraws on
+  `POLESTAR_HIDDEN`. The Quick Keybind Mode shows none of Polestar's buttons
+  while it is hidden (`mayForce`), and its key catcher hangs off the layer.
 - Sounds go through `Polestar.PlaySound` / `PlaySoundFile`: silent while
   hidden; one passed `arrow` (the arrival chime) is silent only while
   `ArrowHidden()`. Toasts and banners showing as Polestar hides are taken
@@ -5469,7 +5471,8 @@ consumes what it reads and never runs in a fight: `PLAYER_REGEN_DISABLED`
 hides it.
 
 `force` buttons (the quest item, Hearthstone, Target, rare and bag buttons;
-each only while its option is on, `enabled`) show while the window is open
+each only while its option is on, `enabled`, and never while Polestar is
+hidden, see "Hiding Polestar") show while the window is open
 even when the guide hides them (`wanted`: a secure `type` attribute, the bag
 button's `junk`), at 0.45 alpha, with `icon()` standing in for an item icon
 and the binding's name as the label. A 0.2 s check while the window is open

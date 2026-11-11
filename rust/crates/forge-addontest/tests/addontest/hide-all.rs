@@ -315,9 +315,15 @@ fn the_minimap_button_the_compartment_the_key_and_polestar_hide_each_toggle_it()
 	assert_eq!(out["hiddenTip"], "Polestar is hidden: click to show");
 	assert_eq!(out["shownTip"], "Click: hide Polestar");
 	assert_eq!(out["label"], "Hide/show Polestar");
-	// The key binding, in Polestar's section of the Key Bindings (the header is on its first binding).
+	// The key binding, in Polestar's own category of the Key Bindings, right after the window's toggle.
 	let xml = std::fs::read_to_string(addons_dir().join("Polestar/Bindings.xml")).unwrap();
-	assert!(is_match(&xml, r#"(?s)header="POLESTAR".*<Binding name="POLESTAR_HIDE" category="ADDONS">\s*Polestar\.Bindings\.Hide\(\)\s*</Binding>"#), "{xml}");
+	assert!(
+		is_match(
+			&xml,
+			r#"(?s)<Binding name="POLESTAR_TOGGLE"[^>]*>\s*Polestar\.Bindings\.Toggle\(\)\s*</Binding>\s*<Binding name="POLESTAR_HIDE" category="Polestar"[^>]*>\s*Polestar\.Bindings\.Hide\(\)\s*</Binding>"#
+		),
+		"{xml}"
+	);
 }
 
 // While hidden, the guide window's toggle (its key, /polestar, the menu's Guide window) brings Polestar back
@@ -533,6 +539,7 @@ const SURFACES: &[(&str, &str, usize, &str, &str)] = &[
 	("Polestar/QoL/Rewards.lua", "button", 1, "Hidden", "the quest reward marks: off while hidden"),
 	("Polestar/Talents/Overlay.lua", "button", 1, "Hidden", "the talent marks: off while hidden"),
 	("Polestar/Talents/Overlay.lua", "m", 2, "Hidden", "their ring and badge, under the mark"),
+	("Polestar/QoL/Trainer.lua", "ClassTrainerFrame", 1, "Hidden", "the Train All button on the trainer window: off while hidden"),
 ];
 
 // Marks Polestar puts on the game's frames without a frame of their own (textures on the game's buttons,
@@ -622,7 +629,8 @@ fn every_frame_polestar_makes_on_the_game_s_ui_hides_with_polestar_and_is_listed
 
 #[test]
 fn every_sound_polestar_plays_goes_through_polestar_play_sound() {
-	let call = regex::Regex::new(r"(^|[^.\w])PlaySound(File)?\s*\(").unwrap();
+	// A direct call, or one handed to pcall.
+	let call = regex::Regex::new(r"(^|[^.\w])PlaySound(File)?\s*[(,]").unwrap();
 	let mut direct = Vec::new();
 	for (file, lines) in polestar_code() {
 		if file == "Polestar/Core/Init.lua" {
