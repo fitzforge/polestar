@@ -2262,6 +2262,8 @@ L["Under a walk in the journey, say when it goes round a town of the other facti
 L["Manual check-offs and skips, current guide, from your last quest progress on."] = "目前指南中，從最近一次任務進度起的手動勾選與跳過。"
 L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "從你最近一次任務進度起，你在 %s 中手動勾選與跳過的步驟將被清除。已完成的任務仍保持完成，指南也會停留在這些任務所對應的位置。"
 L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "從你最近一次任務進度起，你在目前指南中手動勾選與跳過的步驟將被清除。已完成的任務仍保持完成，指南也會停留在這些任務所對應的位置。"
+-- L["Danger lines"] = ""
+-- L["On the world map and the minimap, draw the straight way through the other faction's town that a walk goes round as a red dashed line, and on the world map name it: \"Danger: Southshore\". It only shows it: the route and the arrow stay as they are. Needs route lines."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"
@@ -3264,6 +3266,7 @@ L["New in Forever"] = "Forever 新增"
 -- Maps/RouteLines.lua
 L["Line"] = "線條"
 L["Sparkles"] = "閃光"
+-- L["Danger: %s"] = ""
 
 -- Quests/Timed.lua
 L["%d h"] = "%d 小時"
