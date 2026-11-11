@@ -103,19 +103,19 @@ step Sleebo Fizzlespout
   turnin 96067
 
 step Powderfuse Port
-  tip East down the road to Powderfuse Port, the goblins' harbour. Friz Frazzlespark keeps a stall at the west end of the docks; Gray Dawnbright, Innkeeper Zizplink and Gritta Chumwater are at the inn, Fimbo Greasemitz cooks beside it, and Wharfmaster Whizzbuzz works the north pier. On the way out, Kor'gar and Krikshank by Friz's stall have Zizplink's degreaser and old poison.
+  tip East down the road to Powderfuse Port, the goblins' harbour. Friz Frazzlespark keeps a stall at the west end of the docks; Gray Dawnbright, Innkeeper Zizplink and Gritta Chumwater are at the inn, Fimbo Greasemitz cooks beside it, and Wharfmaster Whizzbuzz works the north pier. Zizplink's drink needs three things the port's traders sell: the chum from Gritta, the degreaser and the old poison from Kor'gar and Krikshank, just north of Friz's stall.
   turnin 94928                          -- Friz Frazzlespark
   accept 95288                          -- Smuggler's Paradise
   accept 95059                          -- Frazzlespark's Crate: for Demar Brant in Farholde Keep, keep it
   turnin 95961                          -- Gray Dawnbright
   accept 95988                          -- Innkeeper Zizplink: Goes Down Smooth
-  collect 271657 quest 95988.2 npc 260487  -- Fresh Chum, from Gritta Chumwater by the inn
+  buy 271657 npc 260487                 -- Fresh Chum, from Gritta Chumwater by the inn
   accept 95121                          -- Fimbo Greasemitz: A Taste of the Sea
   accept 95254 @78.5,53.9               -- The WANTED! poster by the inn: Trapclaw
   accept 95118                          -- Wharfmaster Whizzbuzz: Saltwater Savages
   accept 95119                          -- Unfriendly Competition
-  collect 271653 quest 95988.3 npc 260565  -- Goblin Degreaser, from Kor'gar
-  collect 271654 quest 95988.4 npc 260560  -- Expired Poison, from Krikshank
+  buy 271653 npc 260565                 -- Goblin Degreaser, from Kor'gar
+  buy 271654 npc 260560                 -- Expired Poison, from Krikshank
 
 step WANTED: Old Rot-Chum
   when group 95120
@@ -182,6 +182,12 @@ step Tessa Dawnbright
   tip Back west to Tessa Dawnbright by the orchard.
   turnin 95975
 
-step On to Theramore
-  tip The next guide starts in Theramore: fly from Gretchen Mayberry to Menethil Harbor (by way of Thelsamar), and take the boat across from there.
+step Fly to Menethil Harbor
+  tip The next guide starts in Theramore: Gretchen Mayberry flies to Menethil Harbor by way of Thelsamar, and the boat crosses to Theramore from there.
   goto 60.6,81.6 "Gretchen Mayberry, gryphon master"
+  fly "Menethil Harbor"
+  zone Wetlands
+
+step Boat to Theramore
+  zone Wetlands
+  goto 5.13,63.61 "Boat to Theramore"
