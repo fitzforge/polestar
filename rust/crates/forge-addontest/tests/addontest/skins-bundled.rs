@@ -136,7 +136,7 @@ emit(out)
 }
 
 // The arrow's lines are drawn over the 3D world, never on a skin's ground. Vellum's dark ink vanished there over a
-// night zone (the distance read at 1.1:1); on a light skin Polestar draws them in the skin's paper, outlined and
+// night zone (its label read at 1.1:1); on a light skin Polestar draws them in the skin's paper, outlined and
 // shadowed in its ink. Every bundled skin's distance and label read at 7:1 on a night zone (#16191f, a dark zone's
 // ground as the renders show it), its secondary line at 4.5:1, and the shadow is darker than the text.
 #[test]
