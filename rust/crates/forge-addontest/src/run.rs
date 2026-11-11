@@ -23,8 +23,9 @@ pub fn stubs_dir() -> PathBuf {
 }
 
 /// Polestar's own load-on-demand addons besides the walking maps' parts, which [`run_addon`] loads from their
-/// TOC when the addon asks (C_AddOns.LoadAddOn): the settings window.
-pub const LOAD_ON_DEMAND: &[&str] = &["Polestar_Options"];
+/// TOC when the addon asks (C_AddOns.LoadAddOn): the settings window, and the Skin API's checks (with the first
+/// skin or scheme another addon registers).
+pub const LOAD_ON_DEMAND: &[&str] = &["Polestar_Options", "Polestar_SkinAPI"];
 
 /// An addon to load, as the client loads it.
 #[derive(Clone, Debug)]
@@ -192,8 +193,9 @@ end"
 	);
 	// The load-on-demand addons, loaded as the client loads them, when asked (a test's own stub.packs entry for
 	// one, stub_packs.lua, wins): the walking maps' part addons (Polestar_Nav_EK, _Kalimdor: Routing/PathGrid.lua
-	// asks for one the first time it searches its continent) and the settings window (Polestar_Options:
-	// UI/OptionsLoader.lua asks for it the first time the settings open).
+	// asks for one the first time it searches its continent), the settings window (Polestar_Options:
+	// UI/OptionsLoader.lua asks for it the first time the settings open) and the Skin API's checks
+	// (Polestar_SkinAPI: Theme/SkinApi.lua asks for them with the first skin or scheme another addon registers).
 	let mut parts = Vec::new();
 	for part in forge_nav::pack::PARTS.iter().map(|(_, p)| *p).chain(LOAD_ON_DEMAND.iter().copied()) {
 		if opts.addons.iter().any(|a| a.addon_name() == part) {

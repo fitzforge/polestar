@@ -162,6 +162,21 @@ const TEXT = {
 			zhTW: '在遊戲時記錄任務、路線與世界資料，用於撰寫 Polestar 指南。/psrec',
 		},
 	},
+	// The Skin API's checks for another addon's skin or scheme: loaded with the first one registered.
+	Polestar_SkinAPI: {
+		title: { deDE: 'Polestar: Design-Schnittstelle', esES: 'Polestar: API de temas', esMX: 'Polestar: API de temas', frFR: 'Polestar : API des habillages', koKR: 'Polestar 스킨 API', ptBR: 'Polestar: API de temas', ruRU: 'Polestar: API оформлений', zhCN: 'Polestar 皮肤接口', zhTW: 'Polestar 皮膚介面' },
+		notes: {
+			deDE: 'Teil von Polestar: die Prüfungen, die ein Design aus einem anderen Addon durchläuft. Wird geladen, wenn du eines verwendest.',
+			esES: 'Parte de Polestar: las comprobaciones por las que pasa un tema de otro addon. Se carga cuando usas uno.',
+			esMX: 'Parte de Polestar: las comprobaciones por las que pasa un tema de otro addon. Se carga cuando usas uno.',
+			frFR: "Fait partie de Polestar : les vérifications que passe un habillage venu d'un autre addon. Chargé quand vous en utilisez un.",
+			koKR: 'Polestar의 일부: 다른 애드온의 스킨이 거치는 검사. 스킨을 사용할 때 불러옵니다.',
+			ptBR: 'Parte do Polestar: as verificações pelas quais passa um tema de outro addon. Carregado quando você usa um.',
+			ruRU: 'Часть Polestar: проверки, которые проходит оформление из другого аддона. Загружается, когда вы его используете.',
+			zhCN: 'Polestar 的组成部分：其他插件提供的皮肤需通过的检查。使用皮肤时加载。',
+			zhTW: 'Polestar 的一部分：其他插件提供的皮膚需通過的檢查。使用皮膚時載入。',
+		},
+	},
 	// The Skin API's example (docs/SKINS-API.md): in the repository only, never in a release.
 	Polestar_Skin_Example: {
 		title: { deDE: 'Polestar: Design-Beispiel', esES: 'Polestar: tema de ejemplo', esMX: 'Polestar: tema de ejemplo', frFR: "Polestar : habillage d'exemple", koKR: 'Polestar 스킨 예제', ptBR: 'Polestar: tema de exemplo', ruRU: 'Polestar: пример оформления', zhCN: 'Polestar 皮肤示例', zhTW: 'Polestar 皮膚範例' },

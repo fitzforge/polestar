@@ -194,6 +194,22 @@ static TEXT: &[(&str, [&str; 9], [&str; 9])] = &[
 			"在遊戲時記錄任務、路線與世界資料，用於撰寫 Polestar 指南。/psrec",
 		],
 	),
+	// The Skin API's checks for another addon's skin or scheme: loaded with the first one registered.
+	(
+		"Polestar_SkinAPI",
+		["Polestar: Design-Schnittstelle", "Polestar: API de temas", "Polestar: API de temas", "Polestar : API des habillages", "Polestar 스킨 API", "Polestar: API de temas", "Polestar: API оформлений", "Polestar 皮肤接口", "Polestar 皮膚介面"],
+		[
+			"Teil von Polestar: die Prüfungen, die ein Design aus einem anderen Addon durchläuft. Wird geladen, wenn du eines verwendest.",
+			"Parte de Polestar: las comprobaciones por las que pasa un tema de otro addon. Se carga cuando usas uno.",
+			"Parte de Polestar: las comprobaciones por las que pasa un tema de otro addon. Se carga cuando usas uno.",
+			"Fait partie de Polestar : les vérifications que passe un habillage venu d'un autre addon. Chargé quand vous en utilisez un.",
+			"Polestar의 일부: 다른 애드온의 스킨이 거치는 검사. 스킨을 사용할 때 불러옵니다.",
+			"Parte do Polestar: as verificações pelas quais passa um tema de outro addon. Carregado quando você usa um.",
+			"Часть Polestar: проверки, которые проходит оформление из другого аддона. Загружается, когда вы его используете.",
+			"Polestar 的组成部分：其他插件提供的皮肤需通过的检查。使用皮肤时加载。",
+			"Polestar 的一部分：其他插件提供的皮膚需通過的檢查。使用皮膚時載入。",
+		],
+	),
 	// The Skin API's example (docs/SKINS-API.md): in the repository only, never in a release.
 	(
 		"Polestar_Skin_Example",

@@ -280,8 +280,10 @@ C_Map.GetMapArtID = function(id) local m = ART[id]; return m and m.artID end`);
 		if (fs.existsSync(path.join(ROOT, 'addon', 'Polestar_Nav', 'Polestar_Nav.toc'))) {
 			lines.push(`stub.packs.Polestar_Nav = { ${tocFiles('Polestar_Nav').map(luaString).join(', ')} }`);
 		}
-		// The settings window loads on demand too: the first time the settings open (UI/OptionsLoader.lua).
+		// The settings window loads on demand too: the first time the settings open (UI/OptionsLoader.lua);
+		// so do the Skin API's checks, with the first skin or scheme another addon registers (Theme/SkinApi.lua).
 		lines.push(`stub.packs.Polestar_Options = { ${tocFiles('Polestar_Options').map(luaString).join(', ')} }`);
+		lines.push(`stub.packs.Polestar_SkinAPI = { ${tocFiles('Polestar_SkinAPI').map(luaString).join(', ')} }`);
 		lines.push(d.metrics);
 		dof(path.join(ROOT, 'tools', 'preview', 'stub.lua'));
 		lines.push('preview.enableTooltips()');
