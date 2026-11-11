@@ -220,11 +220,11 @@ fn every_look_page_setting_lights_a_part_of_its_tab_s_preview() {
 }
 
 // A setting that paints every surface lights every surface it paints: the pointer on Theme > Accent lights, in the
-// scene, the guide window's open tab (underline and icon), the current goal's bar and glyph, the progress bar, the
-// heads-up card's stripe, ring, headline, badge and primary button, the rare alert's primary button and time bar and
-// the arrow; and the settings window's own accent parts as they show: the emblem, the open page's row, the open tab's
-// underline (not the others'), the sliders' fills and the switches that are on. A part the accent does not paint
-// stays dark.
+// scene, the guide window's open tab (underline and icon), the current goal's bar and glyph, the progress bar (while
+// the hero's crop shows it), the heads-up card's stripe, ring, headline, badge and primary button, the rare alert's
+// primary button and time bar and the arrow; and the settings window's own accent parts as they show: the emblem,
+// the open page's row, the open tab's underline (not the others'), the sliders' fills and the switches that are on.
+// A part the accent does not paint, or one the crop left out, stays dark.
 #[test]
 fn the_accent_row_lights_every_surface_the_accent_paints_in_the_scene_and_in_the_settings_window() {
 	let out = run(r#"
@@ -242,7 +242,7 @@ fn the_accent_row_lights_every_surface_the_accent_paints_in_the_scene_and_in_the
 		local G, heads, toast, win = f.Scene, f.Heads, f.Toast, PolestarOptions
 		local scene = {
 			tab = lit[G.Strip.Bar] and lit[G.Strip.Icon], goal = lit[G.Rows[2].Mark] and lit[G.Rows[2].Icon],
-			progress = lit[G.Foot.Line], stripe = lit[heads.Stripe] and lit[heads.Ring] and lit[heads.Head] and lit[heads.Badge],
+			progress = (lit[G.Foot.Line] == true) == (G.Foot:GetAlpha() > 0), stripe = lit[heads.Stripe] and lit[heads.Ring] and lit[heads.Head] and lit[heads.Badge],
 			primaries = lit[heads.Act] and lit[toast.Waypoint], timer = lit[toast.Timer], arrow = false,
 			dark = not lit[G.Rows[3].Text] and not lit[G.Person.Name],
 		}
@@ -286,9 +286,9 @@ fn the_accent_row_lights_every_surface_the_accent_paints_in_the_scene_and_in_the
 
 // The Buttons hero and the single alerts stand in the world they act in: the button set with the mob the target
 // button names (your target: its ring, and its raid mark while Mark target is on) and the rare the rare button
-// names; the rare alert and the transport banner at the top with the arrow under them and the guide window's edge
-// at the right, run on past the hero and faded there, the rare in the world at its level; While you're here with no
-// guide window (it comes while the window is hidden) and two of the mobs it names, your target among them. The mobs
+// names; the rare alert and the transport banner at the top with the arrow under them and the guide window whole
+// at the right, cropped at the hero's foot, the rare in the world at its level; While you're here with no guide
+// window (it comes while the window is hidden) and two of the mobs it names, your target among them. The mobs
 // light with the settings that act on them; a narrow page leaves the guide window out and keeps the card.
 #[test]
 fn the_buttons_and_single_alert_heroes_stand_in_the_world_they_act_in() {
@@ -308,13 +308,19 @@ fn the_buttons_and_single_alert_heroes_stand_in_the_world_they_act_in() {
 		for key, tab in pairs({ rare = "Rare alert", transport = "Transport alert", whilehere = "While you're here" }) do
 			local s, h = shown("alerts", tab)
 			local w = s.World
-			local a = { guide = w.G ~= nil and w.G:IsShown(), fade = s.FadeRight:IsShown(), arrow = w.arrow ~= nil and w.arrow.holder:IsShown(),
+			-- The window inside the stage: its box reaches 40 px (its shadow's room) past its right edge.
+			local whole = false
+			if w.G and w.G:IsShown() then
+				local _, _, _, x = w.G:GetPoint(1)
+				whole = x + w.G:GetWidth() - 40 <= s.psWidth + 0.5
+			end
+			local a = { guide = w.G ~= nil and w.G:IsShown(), whole = whole, arrow = w.arrow ~= nil and w.arrow.holder:IsShown(),
 				card = s.Card:IsShown() }
 			if w.left then a.rare = w.left:IsShown() and w.left.Name:GetText() == s.Card.Name:GetText() and s.Card.Facts:GetText():find(w.left.Level:GetText(), 1, true) ~= nil end
 			if w.pair then a.pair = w.pair[1]:IsShown() and w.pair[2]:IsShown() and rawget(w.pair[1], "Ring") ~= nil and rawget(w.pair[2], "Ring") == nil end
 			if key == "rare" then
 				s:Layout(420, s.psHeight)
-				a.narrow = { guide = w.G:IsShown(), fade = s.FadeRight:IsShown(), card = s.Card:IsShown() }
+				a.narrow = { guide = w.G:IsShown(), card = s.Card:IsShown() }
 				a.lit = h.psByKey["rares.alerts"] ~= nil
 			end
 			alerts[key] = a
@@ -324,10 +330,10 @@ fn the_buttons_and_single_alert_heroes_stand_in_the_world_they_act_in() {
 	assert_eq!(
 		out["alerts"],
 		json!({
-			"rare": { "guide": true, "fade": true, "arrow": true, "card": true, "rare": true,
-				"narrow": { "guide": false, "fade": false, "card": true }, "lit": true },
-			"transport": { "guide": true, "fade": true, "arrow": true, "card": true },
-			"whilehere": { "guide": false, "fade": false, "arrow": false, "card": true, "pair": true },
+			"rare": { "guide": true, "whole": true, "arrow": true, "card": true, "rare": true,
+				"narrow": { "guide": false, "card": true }, "lit": true },
+			"transport": { "guide": true, "whole": true, "arrow": true, "card": true },
+			"whilehere": { "guide": false, "whole": false, "arrow": false, "card": true, "pair": true },
 		})
 	);
 }

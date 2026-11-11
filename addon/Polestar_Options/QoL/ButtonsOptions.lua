@@ -629,6 +629,17 @@ if O and O.PresetCards and O.Ref then
 				b:SetPoint("CENTER", g, "CENTER", o[1], o[2])
 				x0, x1, y0, y1 = min(x0, o[1] - h), max(x1, o[1] + h), min(y0, o[2] - h), max(y1, o[2] + h)
 			end
+			-- The target's name beside it, on its side: the card holds it too.
+			local tb, o = g.faces[3], at.target
+			local lw, side, h = tb.Label:GetStringWidth() + 6, ns.Get("qol.buttonTextSide"), Buttons.Size("target") / 2
+			if side == "left" then
+				x0 = min(x0, o[1] - h - lw)
+			elseif side == "above" or side == "below" then
+				x0, x1 = min(x0, o[1] - lw / 2), max(x1, o[1] + lw / 2)
+				if side == "above" then y1 = max(y1, o[2] + h + NAME_H) else y0 = min(y0, o[2] - h - NAME_H) end
+			else
+				x1 = max(x1, o[1] + h + lw)
+			end
 			-- The set at 45% of its scale (so a bigger set shows bigger), smaller
 			-- only when it would not fit the card.
 			local s = (tonumber(ns.Get("qol.buttonScale")) or 1) * 0.45

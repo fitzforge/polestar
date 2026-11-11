@@ -6594,7 +6594,9 @@ on a whole physical pixel), `s:Hot`, `s:Light`, and `s:Animate(fn)` (runs
 only while the stage shows). A page that crops its scene (the Guide window
 page's window, scrolled to the part a hovered row edits) calls
 `s:SetCut(true)` while the scene runs past the stage's foot, and the stage
-fades it out over its last 28 px (`s:SetCutRight` at its right edge). A
+fades it out over its last 28 px. A cropped guide window (its own page's or
+a scene's) leaves out a part the crop would cut through (no text cut in two
+at the foot or, scrolled, the top), its ground running on under the fade. A
 scene's world: `P.Mob(s, opts)` draws a mob as the game shows one, its
 nameplate (name, health bar, level, a raid mark) over its spot on the ground
 (its ring while it is your target, or in a colour of the scene's), placed
@@ -6610,8 +6612,8 @@ target button names, your target with its ring and its raid mark while Mark
 target is on, and the rare the rare button names, further off), the
 floating and the minimap button; Alerts & toasts, the rare alert and the
 transport banner at the top of the world, the arrow under them pointing to
-what they are about and the guide window's edge at the right, run on past
-the hero (the rare in the world beside it), While you're here with two of
+what they are about and the guide window at the right, cropped at the
+hero's foot (the rare in the world beside them), While you're here with two of
 the mobs it names and no guide window (it comes while the window is
 hidden), the heads-up and class quest cards each alone, every one together
 on Essentials (the alerts in their line while they line up); Trackers, each

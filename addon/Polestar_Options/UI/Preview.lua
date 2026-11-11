@@ -63,8 +63,7 @@
 --                  returns false
 --   s.Content      the frame the page's parts go on (above the backdrop)
 --   s:SetCut(cut)  the page's scene runs past the stage's foot (cropped):
---                  it fades out over the last CUT_FADE px while cut is true;
---                  s:SetCutRight(cut) the same at its right edge
+--                  it fades out over the last CUT_FADE px while cut is true
 --   P.Mob(s, opts) a mob in the world under the scene: its nameplate and its
 --                  spot on the ground (the target's ring), m:Stand(x, y, k)
 --
@@ -248,7 +247,6 @@ local function paintEdges(s)
 	-- A scene cropped at the stage's foot (s:SetCut) fades into the ground
 	-- over its last pixels, so the cut reads as the scene going on below.
 	gradient(s.Fade, "VERTICAL", r, g, b, 0.92, 0)
-	gradient(s.FadeRight, "HORIZONTAL", r, g, b, 0, 0.92)
 	for _, t in pairs(rawget(s, "psFloors") or {}) do
 		t:SetVertexColor(0, 0, 0, FLOOR_ALPHA)
 	end
@@ -388,16 +386,7 @@ function P.Stage(parent, opts)
 	s.Fade:SetPoint("BOTTOMRIGHT", s, "BOTTOMRIGHT", 0, 0)
 	s.Fade:SetHeight(CUT_FADE)
 	s.Fade:Hide()
-	-- The same at the stage's right edge, for a surface running past it (the
-	-- guide window at the screen's side: s:SetCutRight(true)).
-	s.FadeRight = over:CreateTexture(nil, "OVERLAY")
-	s.FadeRight:SetTexture(Theme.Media("white"))
-	s.FadeRight:SetPoint("TOPRIGHT", s, "TOPRIGHT", 0, 0)
-	s.FadeRight:SetPoint("BOTTOMRIGHT", s, "BOTTOMRIGHT", 0, 0)
-	s.FadeRight:SetWidth(CUT_FADE)
-	s.FadeRight:Hide()
 	function s:SetCut(cut) self.Fade:SetShown(cut and true or false) end
-	function s:SetCutRight(cut) self.FadeRight:SetShown(cut and true or false) end
 	function s:Floor(frame, pad) return floorOf(self, frame, pad) end
 	function s:NoFloor(frame) return P.NoFloor(self, frame) end
 	function s:Light(key, ...) return P.Light(self, key, ...) end
@@ -856,8 +845,15 @@ function P.LightEach(s, key, fn, ring)
 	return rec
 end
 
+-- Shown, and not faded out (a part a crop left out has its alpha at 0).
 local function showing(region)
-	return not (region.IsVisible and not region:IsVisible())
+	if region.IsVisible and not region:IsVisible() then return false end
+	local f = region
+	while f do
+		if f.GetAlpha and f:GetAlpha() <= 0.001 then return false end
+		f = f.GetParent and f:GetParent()
+	end
+	return true
 end
 
 -- The frame that shows a hotspot or a light (a light's made now if need be).

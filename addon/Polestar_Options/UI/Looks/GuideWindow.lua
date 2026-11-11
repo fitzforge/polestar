@@ -354,6 +354,9 @@ local function buildWindow(f, top)
 		y = y + M.navH
 		local barsH = y
 		at.person = y
+		-- Each part's span down the window (window units), for the crop.
+		local spans = {}
+		local function span(part, y0, y1) spans[#spans + 1] = { part, y0, y1 } end
 
 		-- The focus.
 		local nameW = w - pad * 2 - M.icon - 10
@@ -368,6 +371,7 @@ local function buildWindow(f, top)
 		person.Where:SetPoint("TOPLEFT", person.Name, "BOTTOMLEFT", 0, -3)
 		local ph = floor(10 + person.Name:GetStringHeight() + 3 + person.Where:GetStringHeight() + 8 + 0.5)
 		person:SetHeight(ph)
+		span(person, y, y + ph)
 		y = y + ph
 
 		-- The goals (measureRow's sizes).
@@ -393,6 +397,7 @@ local function buildWindow(f, top)
 			r.Check.psOnWorld = clear
 			Theme.Repaint(r.Check)
 			G.PaintMark(r.Mark)
+			span(r, y, y + h)
 			y = y + h
 		end
 
@@ -410,6 +415,7 @@ local function buildWindow(f, top)
 			tip:SetHeight(h)
 			tip.Toggle:SetPoint("TOPLEFT", tip, "TOPLEFT", pad + 2, -7)
 			tip.Text:SetPoint("TOPLEFT", tip, "TOPLEFT", textX, -6)
+			span(tip, y + 2, y + 2 + h)
 			y = y + 2 + h
 		end
 		y = y + 6
@@ -433,6 +439,7 @@ local function buildWindow(f, top)
 			up.Icon:SetPoint("LEFT", up, "TOPLEFT", textX - 2, mid)
 			up.Text:SetWidth(w - textX - 14 - pad)
 			up.Text:SetPoint("LEFT", up, "TOPLEFT", textX - 2 + 13 + 9, mid)
+			span(up, y, y + h)
 			y = y + h
 		end
 
@@ -456,6 +463,7 @@ local function buildWindow(f, top)
 			foot.Line.Track:SetVertexColor(tr, tg, tb, clear and 0.15 or ta)
 			G.PaintProgressFill(foot.Line.Fill)
 			W.SetProgress(foot.Line, 0.38, lw)
+			span(foot, y, y + M.progH)
 			y = y + M.progH
 		end
 		gw:SetHeight(y)
@@ -494,6 +502,13 @@ local function buildWindow(f, top)
 		gw:ClearAllPoints()
 		gw:SetPoint("TOPLEFT", self, "TOPLEFT", snap(gw, (width / k - w) / 2), snap(gw, -top / k + scroll - drop))
 		self.psScale, self.psScroll = k, scroll
+		-- A part the crop would cut through is left out: no text cut in two
+		-- at the hero's foot (or its top, scrolled), the window's ground
+		-- running on under the fade.
+		local seen = scroll + (self.psHeight - top) / k
+		for _, sp in ipairs(spans) do
+			sp[1]:SetAlpha((sp[2] >= scroll - 0.5 and sp[3] <= seen + 0.5) and 1 or 0)
+		end
 		-- A window running past the stage's foot fades out there, no shadow
 		-- under it; one that fits stands on its shadow.
 		local cut = y - scroll > room + 0.5
