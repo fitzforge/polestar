@@ -220,7 +220,99 @@ async function postIn(discord, thread, content, users) {
 // reporter answers in the thread, and the bot carries the answer back.
 function questionMessage({ repo, issue, owner, note }) {
 	const ping = owner ? `<@${owner}> ` : '';
+	if (note === null) return `${ping}We need a little more to go on with this one: please answer the question above here in the thread. (${issueLink(repo, issue.number)})`;
 	return `${ping}We need a little more to go on with this one:\n${quote(clip(note, MAX_REASON))}\nPlease answer here in the thread. (${issueLink(repo, issue.number)})`;
+}
+
+// A maintainer's reply relayed to the thread: a maintainer's comment that is
+// not one the bots write (a copied Discord follow-up, a pull request list)
+// nor a bare `Duplicate of #M` (the close says that).
+function isReply(c) {
+	if (!c || !maintainerComments([c]).length || c.body.includes('<!-- polestar-bot')) return false;
+	return Boolean(c.body.replace(/<!--[\s\S]*?-->/g, '').replace(/^[ \t]*duplicate of #\d+[ \t]*\.?[ \t]*$/gim, '').trim());
+}
+
+// A comment's link: what its relayed message carries, and how the bot
+// finds that message again.
+const commentUrl = (repo, issue, c) => c.html_url || `https://github.com/${repo}/issues/${issue.number}#issuecomment-${c.id}`;
+const commentKey = (c) => `#issuecomment-${c.id}>`;
+
+// GitHub Markdown as Discord shows it: HTML comments and tags dropped,
+// headings bold, images and links as links without previews, #N linked to
+// the issue; bullets, bold, quotes and code kept (code blocks untouched).
+function discordText(repo, markdown) {
+	const prose = (t) => t
+		.replace(/<br\s*\/?>/gi, '\n')
+		.replace(/<\/?(?:details|summary|p|div|span|sub|sup|kbd|b|strong|i|em|ins|del|picture|source)\b[^>]*>/gi, '')
+		.replace(/<img\b[^>]*\bsrc="([^"]+)"[^>]*>/gi, '[image](<$1>)')
+		.replace(/!\[([^\]]*)\]\(<?([^)\s>]+)>?(?:\s+"[^"]*")?\)/g, (_, alt, url) => `[image${alt ? `: ${alt}` : ''}](<${url}>)`)
+		.replace(/(^|[^!\]])\[([^\]\n]+)\]\(([^)<\s]+)(?:\s+"[^"]*")?\)/g, '$1[$2](<$3>)')
+		.replace(/^#{1,6}[ \t]+(.+?)[ \t]*#*[ \t]*$/gm, '**$1**')
+		.replace(/(^|[\s(])(https?:\/\/[^\s<>)]+)/g, '$1<$2>')
+		.replace(/(^|[\s(])#(\d+)\b/g, (_, pre, n) => `${pre}[#${n}](<https://github.com/${repo}/issues/${n}>)`);
+	return String(markdown || '')
+		.replace(/\r\n/g, '\n')
+		.replace(/<!--[\s\S]*?-->/g, '')
+		.split(/(```[\s\S]*?```|`[^`\n]+`)/)
+		.map((part, i) => (i % 2 ? part : prose(part)))
+		.join('')
+		.replace(/\n{3,}/g, '\n\n')
+		.trim();
+}
+
+// A maintainer's reply as the thread hears it, under Discord's 2000
+// characters: cut at a line or word, a code block closed, and the link to
+// the full reply.
+function replyMessage({ repo, issue, comment, owner }) {
+	const url = commentUrl(repo, issue, comment);
+	const head = `${owner ? `<@${owner}> ` : ''}Reply on GitHub ([#${issue.number}](<${url}>)):\n`;
+	let text = discordText(repo, comment.body);
+	if (head.length + text.length > MAX_MESSAGE) {
+		const tail = `\n… full reply: <${url}>`;
+		const room = MAX_MESSAGE - head.length - tail.length - 4;
+		let cut = text.slice(0, room);
+		const at = Math.max(cut.lastIndexOf('\n'), cut.lastIndexOf(' '));
+		if (at > room * 0.6) cut = cut.slice(0, at);
+		cut = cut.trimEnd();
+		if ((cut.match(/```/g) || []).length % 2) cut += '\n```';
+		text = cut + tail;
+	}
+	return head + text;
+}
+
+// The ids of the comments already relayed to a thread (its newest 100 messages).
+async function relayedIn(discord, thread) {
+	const out = new Set();
+	for (const m of await discord.getMessages(thread.id, 100)) {
+		if (!m.author || !m.author.bot) continue;
+		for (const [, id] of String(m.content || '').matchAll(/#issuecomment-(\d+)>/g)) out.add(id);
+	}
+	return out;
+}
+
+// A maintainer's comment on an issue filed from Discord: posted in its
+// thread, pinging the reporter; edited there when the comment is edited.
+// Only maintainers' (author_association), never the bots' own; a re-run or
+// an edit of a comment never relayed posts nothing new.
+async function onComment({ discord, github, event, forumId, log = console }) {
+	const { action, issue, comment } = event;
+	if ((action !== 'created' && action !== 'edited') || !issue || issue.pull_request || !isReply(comment)) return false;
+	const thread = await threadOf(discord, issue, forumId, log);
+	if (!thread) return false;
+	const content = replyMessage({ repo: github.repo, issue, comment, owner: thread.owner_id });
+	const key = commentKey(comment);
+	const posted = (await discord.getMessages(thread.id, 100)).find((m) => m.author && m.author.bot && String(m.content || '').includes(key));
+	if (posted) {
+		if (action !== 'edited' || posted.content === content) return false;
+		if (thread.thread_metadata && thread.thread_metadata.archived) await discord.editThread(thread.id, { archived: false });
+		await discord.editMessage(thread.id, posted.id, content);
+		log.info(`#${issue.number}: reply ${comment.id} edited in thread ${thread.id}`);
+		return true;
+	}
+	if (action === 'edited') return false;
+	await postIn(discord, thread, content, thread.owner_id ? [thread.owner_id] : []);
+	log.info(`#${issue.number}: reply ${comment.id} posted in thread ${thread.id}`);
+	return true;
 }
 
 async function onIssue({ discord, github, event, forumId, log = console }) {
@@ -232,20 +324,23 @@ async function onIssue({ discord, github, event, forumId, log = console }) {
 	if (!thread) return false;
 	const comments = action === 'reopened' ? [] : await github.comments(issue.number);
 	const users = thread.owner_id ? [thread.owner_id] : [];
+	// The maintainer's last word, unless the thread has it already as a relayed reply.
+	const last = maintainerComments(comments)[0];
+	const fresh = !last || !(await relayedIn(discord, thread)).has(String(last.id));
 	if (asking) {
 		const note = maintainerNote(comments);
 		if (!note) {
 			log.info(`#${issue.number}: needs-info with no maintainer comment to relay`);
 			return false;
 		}
-		await postIn(discord, thread, questionMessage({ repo: github.repo, issue, owner: thread.owner_id, note }), users);
+		await postIn(discord, thread, questionMessage({ repo: github.repo, issue, owner: thread.owner_id, note: fresh ? note : null }), users);
 		log.info(`#${issue.number} needs-info: asked in thread ${thread.id}`);
 		return true;
 	}
 	const dup = action === 'closed' ? await duplicateTarget(github, issue, comments) : null;
-	const duplicate = dup && { of: dup.of, target: dup.of ? await duplicateStatus(github, dup.of) : null, note: duplicateNote(comments) };
+	const duplicate = dup && { of: dup.of, target: dup.of ? await duplicateStatus(github, dup.of) : null, note: fresh ? duplicateNote(comments) : null };
 	const released = action === 'closed' && !dup && issue.state_reason === 'completed' ? await releasedIn(github, issue) : null;
-	const msg = issueMessage({ repo: github.repo, issue, action, owner: thread.owner_id, comments, duplicate, released });
+	const msg = issueMessage({ repo: github.repo, issue, action, owner: thread.owner_id, comments: fresh ? comments : [], duplicate, released });
 	await postIn(discord, thread, msg.content, users);
 	const forum = await discord.getChannel(thread.parent_id);
 	await discord.editThread(thread.id, { applied_tags: withStatus(thread.applied_tags, statusTags(forum), msg.role), locked: msg.locked });
@@ -534,4 +629,4 @@ async function onRelease({ discord, github, event, forumId, testers = null, issu
 	return { told, failed };
 }
 
-module.exports = { onIssue, onRelease, onProgress, issueMessage, releaseMessage, progressMessage, candidateMessage, shippedBy, shipCheck, isPrerelease, isAddonRelease, maintainerNote, threadOf, postIn };
+module.exports = { onIssue, onComment, onRelease, onProgress, issueMessage, releaseMessage, replyMessage, discordText, isReply, relayedIn, progressMessage, candidateMessage, shippedBy, shipCheck, isPrerelease, isAddonRelease, maintainerNote, threadOf, postIn };
