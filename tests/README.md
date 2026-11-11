@@ -42,6 +42,11 @@ change; the client tables it reads come from the Actions cache that
 `addon/Polestar/Media` and `docs/preview` are refreshed by the maintainer
 (`polestar regen`).
 
+The whole suite, the guide playtests and the gates also run on GitHub on any
+pushed branch, started by hand once per batch of work (the `ondemand-*.yml`
+workflows), optionally with reference data built there from public sources:
+[docs/CI.md](../docs/CI.md).
+
 ## Layers
 
 The test files sit side by side in this folder; the name says the subject,

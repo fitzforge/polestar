@@ -1,0 +1,380 @@
+name: On-demand suites
+
+# The full test suites on a branch, started by hand (one run per batch of work, not per commit) or
+# from ondemand-batch.yml: what ci.yml and forge.yml's check job run on a pull request, for a branch
+# that has none yet. The Node suite in four shards, the Rust workspace (format, lints, tests and the
+# documented commands) without the addon's Lua tests, those tests (forge-addontest, four test threads)
+# in a job of their own, and CI's changelog, translations and previews checks. The guide pack's
+# memory budgets are measured alone, in ondemand-gates.yml.
+#
+# data: none (the default) runs them as CI does: the tests that read data/forever skip with a reason.
+# data: public builds data/forever from public sources first (.github/actions/public-data), so those
+# tests run too, against data close to the release data but not equal to it: a failure there counts
+# when the same run on the base passes, or when it is about the change itself.
+#
+#   gh workflow run ondemand-suites.yml --ref <branch>
+#   gh workflow run ondemand-suites.yml --ref next -f ref=<branch> -f data=public
+# docs/CI.md has the details; docs/RELEASING.md the security rules. No secret, no write access.
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch or tag of this repository to test (empty = the branch the run was started on)
+        type: string
+        default: ""
+      data:
+        description: "none: data tests skip, as in CI; public: build data/forever from public sources first"
+        type: choice
+        options: [none, public]
+        default: none
+      node:
+        description: Node suite (four shards)
+        type: boolean
+        default: true
+      rust:
+        description: Rust workspace (fmt, clippy, tests without forge-addontest, documented commands)
+        type: boolean
+        default: true
+      addontest:
+        description: The addon's Lua tests (forge-addontest)
+        type: boolean
+        default: true
+      checks:
+        description: Changelog fragments, translations, previews
+        type: boolean
+        default: true
+  workflow_call:
+    inputs:
+      sha:
+        description: The commit to test, resolved by ondemand-batch.yml
+        type: string
+        required: true
+      data:
+        type: string
+        default: none
+      node:
+        type: boolean
+        default: true
+      rust:
+        type: boolean
+        default: true
+      addontest:
+        type: boolean
+        default: true
+      checks:
+        type: boolean
+        default: true
+
+# No token scope at the top: each job asks for what it needs (every job here: reading the repository).
+permissions: {}
+
+# One run per branch at a time; a newer start waits (and replaces an older waiting one).
+concurrency:
+  group: ondemand-suites-${{ inputs.sha || inputs.ref || github.ref }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: "0"
+  RUST_BACKTRACE: "1"
+
+jobs:
+  # The code under test pinned (.github/actions/ondemand-ref), forge for the Node tests
+  # (tests/helpers/cli.js, $FORGE) and, with data: public, data/forever. Both go to the jobs below
+  # through a cache entry of this run only (its key holds the run id; read back by that exact key,
+  # never by a prefix): the data is not an artifact.
+  prep:
+    name: forge and data
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    outputs:
+      sha: ${{ steps.ref.outputs.sha }}
+    steps:
+      - name: Inputs
+        env:
+          DATA: ${{ inputs.data }}
+        run: |
+          case "$DATA" in none|public) ;; *) echo "::error::data must be none or public"; exit 1 ;; esac
+          echo "data: $DATA" >> "$GITHUB_STEP_SUMMARY"
+
+      # This workflow's own actions, from its own commit: the code under test may predate them.
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ github.sha }}
+          path: .ondemand
+          sparse-checkout: .github/actions
+          persist-credentials: false
+
+      - name: Ref
+        id: ref
+        uses: ./.ondemand/.github/actions/ondemand-ref
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+          sha: ${{ inputs.sha }}
+
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ steps.ref.outputs.sha }}
+          path: code
+          persist-credentials: false
+
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          workspaces: code/rust
+          shared-key: ondemand-forge
+
+      - name: Build forge
+        working-directory: code/rust
+        run: cargo build --profile quick --locked -p forge
+
+      - name: Public data
+        if: inputs.data == 'public'
+        uses: ./.ondemand/.github/actions/public-data
+        with:
+          forge: ${{ github.workspace }}/code/rust/target/quick/forge
+          root: code
+
+      # Without data: public there is no data/forever, as in CI (the entry holds only the binary).
+      - uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            code/rust/target/quick/forge
+            code/data/forever
+          key: ondemand-suites-${{ github.run_id }}-${{ github.run_attempt }}
+
+  node:
+    name: Node suite ${{ matrix.shard }}/4
+    needs: prep
+    if: inputs.node
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ needs.prep.outputs.sha }}
+          path: code
+          persist-credentials: false
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      - name: Install Lua 5.1
+        run: sudo apt-get update -q && sudo apt-get install -y -q lua5.1
+
+      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            code/rust/target/quick/forge
+            code/data/forever
+          key: ondemand-suites-${{ github.run_id }}-${{ github.run_attempt }}
+          fail-on-cache-miss: true
+
+      # Without data/forever the tests that read it skip, naming the missing file. With it, two files at
+      # a time: a large guide or sim test holds 2-3 GB. The TAP report goes to the logs artifact.
+      - name: Test
+        working-directory: code
+        env:
+          FORGE: ${{ github.workspace }}/code/rust/target/quick/forge
+          SHARD: ${{ matrix.shard }}
+          JOBS: ${{ inputs.data == 'public' && 2 || 3 }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/logs"
+          node --test --test-shard="$SHARD/4" --test-concurrency="$JOBS" \
+            --test-reporter=spec --test-reporter-destination=stdout \
+            --test-reporter=tap --test-reporter-destination="$RUNNER_TEMP/logs/node-$SHARD.tap" \
+            "tests/**/*.test.js"
+
+      - name: Logs
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: logs-suites-node-${{ matrix.shard }}
+          path: ${{ runner.temp }}/logs/
+          retention-days: 14
+          if-no-files-found: ignore
+
+  rust:
+    name: Rust workspace
+    needs: prep
+    if: inputs.rust
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: code/rust
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ needs.prep.outputs.sha }}
+          path: code
+          persist-credentials: false
+
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+          components: rustfmt, clippy
+
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          workspaces: code/rust
+          shared-key: ondemand-workspace
+
+      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            code/rust/target/quick/forge
+            code/data/forever
+          key: ondemand-suites-${{ github.run_id }}-${{ github.run_attempt }}
+          fail-on-cache-miss: true
+
+      - name: Format
+        run: mkdir -p "$RUNNER_TEMP/logs" && cargo fmt --all --check
+
+      - name: Clippy
+        if: ${{ !cancelled() }}
+        run: cargo clippy --workspace --all-targets --profile quick --locked -- -D warnings 2>&1 | tee "$RUNNER_TEMP/logs/clippy.log"
+
+      - name: Test
+        if: ${{ !cancelled() }}
+        run: cargo test --profile quick --workspace --locked --exclude forge-addontest 2>&1 | tee "$RUNNER_TEMP/logs/workspace-tests.log"
+
+      - name: Documented commands
+        if: ${{ !cancelled() }}
+        run: |
+          cargo build --profile quick --locked -p forge
+          scripts/doc-commands.sh target/quick/forge 2>&1 | tee "$RUNNER_TEMP/logs/doc-commands.log"
+
+      - name: Logs
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: logs-suites-rust
+          path: ${{ runner.temp }}/logs/
+          retention-days: 14
+          if-no-files-found: ignore
+
+  # Four test threads (each test runs the addon in its own Lua 5.1 process); the guide pack's memory
+  # budgets are measured alone in ondemand-gates.yml, so they are skipped here.
+  addontest:
+    name: Addon tests (forge-addontest)
+    needs: prep
+    if: inputs.addontest
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: code/rust
+    env:
+      RUST_TEST_THREADS: "4"
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ needs.prep.outputs.sha }}
+          path: code
+          persist-credentials: false
+
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          workspaces: code/rust
+          shared-key: ondemand-addontest
+
+      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            code/rust/target/quick/forge
+            code/data/forever
+          key: ondemand-suites-${{ github.run_id }}-${{ github.run_attempt }}
+          fail-on-cache-miss: true
+
+      - name: Test
+        run: |
+          mkdir -p "$RUNNER_TEMP/logs"
+          cargo test --profile quick --locked -p forge-addontest -- --skip guides_memory 2>&1 | tee "$RUNNER_TEMP/logs/addontest.log"
+
+      - name: Failures
+        if: failure()
+        run: |
+          {
+            echo "### forge-addontest failures"
+            echo '```'
+            grep -E '^test .* FAILED$|^test result:' "$RUNNER_TEMP/logs/addontest.log" | head -n 100
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Logs
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: logs-suites-addontest
+          path: ${{ runner.temp }}/logs/
+          retention-days: 14
+          if-no-files-found: ignore
+
+  checks:
+    name: Changelog, translations, previews
+    needs: prep
+    if: inputs.checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: code
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ needs.prep.outputs.sha }}
+          path: code
+          persist-credentials: false
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      - name: Install Lua 5.1
+        run: sudo apt-get update -q && sudo apt-get install -y -q lua5.1
+
+      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            code/rust/target/quick/forge
+            code/data/forever
+          key: ondemand-suites-${{ github.run_id }}-${{ github.run_attempt }}
+          fail-on-cache-miss: true
+
+      - name: Changelog fragments
+        run: rust/target/quick/forge changelog check --root .
+
+      - name: Translations
+        if: ${{ !cancelled() }}
+        run: rust/target/quick/forge i18n check --root .
+
+      - name: Previews build clean
+        if: ${{ !cancelled() }}
+        run: node tools/polestar.js preview
