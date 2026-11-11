@@ -306,6 +306,34 @@ fn the_preview_paints_from_the_theme_and_follows_a_change_live() {
 	assert_eq!(out["narrowToast"], false, "a narrow page keeps the guide window and the arrow");
 }
 
+// The game looks frame a big window with a title (WoW Forever's and Blizzard's bar, Classic's header plate
+// on the top edge); the preview's guide window wears the guide window's own paint, so no window title sits
+// over the preview's caption and the guide's tab.
+#[test]
+fn in_every_game_look_the_preview_s_guide_window_wears_the_guide_window_s_paint_no_window_title_over_the_caption() {
+	let out = run(r#"
+		local function titled(frame)
+			for _, r in ipairs({ frame:GetRegions() }) do
+				if r.GetText and r:IsShown() and r:GetText() == "Polestar" then return true end
+			end
+			for _, c in ipairs({ frame:GetChildren() }) do
+				if c:IsShown() and titled(c) then return true end
+			end
+			return false
+		end
+		local out = {}
+		for _, skin in ipairs({ "polestar", "forever", "blizzard", "classic" }) do
+			Polestar.Set("ui.skin", skin)
+			local f = Polestar.UI.ThemePreview(UIParent)
+			f:Layout(900)
+			out[skin] = { skin = T.SkinKey(), titled = titled(f.Guide) }
+		end
+		emit(out)"#);
+	for skin in ["polestar", "forever", "blizzard", "classic"] {
+		assert_eq!(out[skin], json!({ "skin": skin, "titled": false }), "{skin}: the preview's guide window carries no window title");
+	}
+}
+
 #[test]
 fn a_skin_with_a_preset_offers_apply_and_undo_under_the_skin_cards_which_set_and_put_back_its_settings() {
 	let out = run(r#"

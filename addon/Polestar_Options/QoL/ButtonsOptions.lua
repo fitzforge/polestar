@@ -47,11 +47,10 @@ local STAGE_H, TOP, BOTTOM, CAPTION_Y = 216, 30, 50, 30
 -- theme changes, only while shown (else on the next show). f:Layout(width)
 -- places it across the whole column.
 local function stage(view, repaint)
-	local f = CreateFrame("Frame", nil, view)
-	f:SetHeight(STAGE_H)
-	if f.SetClipsChildren then f:SetClipsChildren(true) end
-	local ground = W.Fill(f, "scrim", "BACKGROUND", -8)
-	W.Painter(f, function(self) Theme.Border(self, Theme.Wash("divider")) end)
+	-- The settings window's preview stage: the buttons over the world they
+	-- sit on, the zone you stand in.
+	local f = ns.UI.Preview.Stage(view, { height = STAGE_H, backdrop = "world" })
+	local ground = f.Back
 	local dirty = true
 	local function paint()
 		dirty = false
@@ -182,9 +181,10 @@ local function buildActionPreview(view)
 		local s = tonumber(ns.Get("qol.buttonScale")) or 1
 		s = min(s, room / (y1 - y0), (colW * 0.6) / (x1 - x0))
 		local cx, cy = width * 0.3, -(TOP + room / 2)
+		local snap = ns.UI.Preview.Snap
 		group:SetScale(s)
 		group:ClearAllPoints()
-		group:SetPoint("CENTER", f, "TOPLEFT", cx / s - (x0 + x1) / 2, cy / s - (y0 + y1) / 2)
+		group:SetPoint("CENTER", f, "TOPLEFT", snap(group, cx / s - (x0 + x1) / 2), snap(group, cy / s - (y0 + y1) / 2))
 		group:SetAlpha(Buttons.Alpha(false))
 		idle:ClearAllPoints()
 		idle:SetPoint("BOTTOM", f, "BOTTOMLEFT", cx, CAPTION_Y)
@@ -193,7 +193,7 @@ local function buildActionPreview(view)
 		local cs = min(tonumber(ns.Get("qol.buttonScale")) or 1, room / Buttons.Size("item"))
 		single:SetScale(cs)
 		single:ClearAllPoints()
-		single:SetPoint("CENTER", f, "TOPLEFT", fx / cs, cy / cs)
+		single:SetPoint("CENTER", f, "TOPLEFT", snap(single, fx / cs), snap(single, cy / cs))
 		combat:ClearAllPoints()
 		combat:SetPoint("CENTER", single, "CENTER", 0, 0)
 		single:SetAlpha(Buttons.Alpha(true))

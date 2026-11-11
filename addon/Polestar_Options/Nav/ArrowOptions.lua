@@ -31,7 +31,7 @@ local function arrowOff() return not ns.Get("nav.arrow") end
 -- The preview
 ---------------------------------------------------------------------------
 
-local STAGE_H, CAPTION_H, TOP = 168, 18, 26
+local STAGE_H, CAPTION_H, TOP = 176, 18, 34
 -- The demo: heading (radians), yards and seconds for each state.
 local STATES = {
 	{ state = "travel", angle = 0.6, dist = 420, eta = 95, caption = L["On its way"] },
@@ -45,14 +45,12 @@ local function clamp(v, lo, hi, default)
 end
 
 local function buildPreview(view)
-	local f = CreateFrame("Frame", nil, view)
-	f:SetHeight(STAGE_H)
-	if f.SetClipsChildren then f:SetClipsChildren(true) end
-	-- The ground: the deepest ground and the inner hairline, as the Theme
-	-- page's. The window draws "Preview", the caption and "Live" over it.
-	W.Fill(f, "scrim", "BACKGROUND", -8)
-	W.Painter(f, function(self) Theme.Border(self, Theme.Wash("divider")) end)
-	-- No caption over it: each dial says its state under it.
+	-- The settings window's preview stage (UI.Preview.Stage): the dials over
+	-- the world the arrow floats over, the zone you stand in. The window
+	-- draws "Preview" and "Live" over it; no caption: each dial says its
+	-- state under it.
+	local Preview = ns.UI.Preview
+	local f = Preview.Stage(view, { height = STAGE_H, backdrop = "world" })
 
 	local lk = {}
 	local cols = {}
@@ -83,14 +81,15 @@ local function buildPreview(view)
 		local s = clamp(ns.Get("nav.arrowScale"), 0.5, 2, 1)
 		s = min(s, colW / Arrow.WIDTH, (STAGE_H - TOP - CAPTION_H - 8) / Arrow.HEIGHT)
 		local alpha = clamp(ns.Get("nav.arrowAlpha"), 0.1, 1, 1)
+		local snap = Preview.Snap
 		for i, c in ipairs(cols) do
 			local cx = pad + colW * (i - 0.5)
 			c.holder:SetScale(s)
 			c.holder:SetAlpha(alpha)
 			c.holder:ClearAllPoints()
-			c.holder:SetPoint("TOP", f, "TOPLEFT", cx / s, -TOP / s)
+			c.holder:SetPoint("TOP", f, "TOPLEFT", snap(c.holder, cx / s), snap(c.holder, -TOP / s))
 			c.caption:ClearAllPoints()
-			c.caption:SetPoint("BOTTOM", f, "BOTTOMLEFT", cx, 10)
+			c.caption:SetPoint("BOTTOM", f, "BOTTOMLEFT", snap(f, cx), 10)
 		end
 	end
 	-- Every dial in its state with the current values, through the arrow's own paint.
