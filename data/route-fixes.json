@@ -4891,6 +4891,18 @@
 				],
 				"faction": "Alliance",
 				"why": "#1833: Daggerfang (Twisting the Knife) patrols the same shore as the Loch Crocolisks; taken after A Hunter's Challenge is handed in, with Crocolisk Hunting (see the 258 -> 385 pair)."
+			},
+			{
+				"a": [
+					"turnin",
+					1055
+				],
+				"b": [
+					"task",
+					1022
+				],
+				"faction": "Alliance",
+				"why": "#1866: the Howling Vale's Terrowulf packs (28-30) and their rare Packlord (32) stand round the Tome of Mel'Thandris (The Howling Vale, 1022), read on the first visit to Shael'dryn's moonwell: players' recordings show it read at levels 28-32 (median 29), and 2 people died in the vale, at 28 and 29. The route comes back to the moonwell after the south-east (the Hidden Shrine, 1055), where the same recordings show players handing in 1055 at 29-30 (5 of 6; one at 24), and the vale's tunnel is beside it on the way west to Astranaar: the tome is read then, with no extra stop."
 			}
 		],
 		"notes": [

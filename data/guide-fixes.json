@@ -5738,6 +5738,32 @@
 				}
 			],
 			"issue": 1833
+		},
+		{
+			"id": "1866-howling-vale-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1022,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Take the tunnel into the Howling Vale; the tome lies in the ruins at its west end. Careful: Terrowulf Fleshrippers and Shadow Weavers (28-30) stand in tight packs around the tome, and the Terrowulf Packlord, a level 32 rare, walks the vale. Pull the wolves one at a time from the tunnel and let the Packlord pass first.",
+			"note": "#1866: the step gave no warning. The step's earlier tip (the tunnel, the ruins at the west end) is kept in this one. The tome is read on the later Shael'dryn visit (route-fixes deliberate.pairs turnin 1055 -> task 1022).",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature_classic_level: Terrowulf Fleshripper (3789) 28-29, Shadow Weaver (3791) 29-30, Packlord (3792) 32; creature_template Classification 4 (rare) for 3792; its one spawn MovementType 2 (waypoint path)"
+				},
+				{
+					"kind": "questie",
+					"ref": "QuestieDB Forever spawns (data/forever npcs.json): 10 Fleshrippers and 3 Shadow Weavers in the vale, 49.7-52.0,37.8-39.6, around the Tome of Mel'Thandris (object 19027, 50.49,39.13)"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (to 2026-11-11): 10 tome reads by 9 people at levels 28-32, the walk in from the north-east (about 54.9,34.3 then 53.0,37.4); 2 people died in the vale, at 28 and 29"
+				}
+			],
+			"issue": 1866
 		}
 	]
 }
