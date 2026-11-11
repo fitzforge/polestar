@@ -5,4 +5,4 @@ section: players
   skin and colours, its arrow, its map pin). Click one to see who uses it and
   how many settings it changes before you switch; Use switches. Making and
   pasting profile strings has its own Share tab, where you pick which
-  profile to share.
+  profile to share (thanks mcclaskiem, #1069).
