@@ -361,6 +361,8 @@ mod ui_dungeons;
 mod ui_game_menu;
 #[path = "ui-guide-end.rs"]
 mod ui_guide_end;
+#[path = "ui-headsup-card.rs"]
+mod ui_headsup_card;
 #[path = "ui-import.rs"]
 mod ui_import;
 #[path = "ui-journey.rs"]
