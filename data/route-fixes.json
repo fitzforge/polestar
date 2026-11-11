@@ -6848,6 +6848,18 @@
 				"why": "Roaming-NPC sweep (0.3.7, with #1542): Noboru the Cudgel starts from Noboru's Cudgel (6196), which only Noboru the Cudgel (5477) drops: one creature that walks a 56-node waypoint path through the Fallow Sanctuary ruins in the Swamp of Sorrows (Forever's server data: MovementType 2, path 810054770, about 220 x 540 yd). A required collect and accept held the Alliance 'Fallow Sanctuary' step (alliance/30-40/05-arathi-highlands) until he came by. Optional for the cudgel and the accept (take it if you meet him); the hand-in at Magtoor stays a plain goal for whoever carries it. Alliance only: the Horde route goes for him on a step of its own (overrides.include 1392, horde/40-50/01-stranglethorn-vale)."
 			},
 			{
+				"q": 522,
+				"why": "#1542: Assassin's Contract starts from the contract (3668) that only the Shadowy Assassin (2434) drops: one stealthed mob on the edge of Southshore (players' recordings to 2026-11-10: seen by 5 people and killed by 4 in all, at spots spread from 47,62 to 55,54 on Hillsbrad's map). A required kill, collect and accept held the Southshore step of alliance/30-40/05-arathi-highlands until he showed up. Optional (take it if you spot him); the hand-in at Magistrate Henry Maleb stays a plain goal for whoever carries it."
+			},
+			{
+				"q": 523,
+				"why": "#1542: Baron's Demise follows Assassin's Contract (522), whose start drops only from the stealthed Shadowy Assassin; optional with it, so the route does not count on it. Its Strahnbrad objective and Southshore hand-in stay plain goals for whoever carries it."
+			},
+			{
+				"q": 4881,
+				"why": "Roaming-NPC sweep (0.3.7, with #1542): Assassination Plot starts from the note (12564) that only the Galak Messenger (10617) drops: one centaur who walks a waypoint path of about 1,300 yd between the Galak camps (Forever's server data: MovementType 2, path 810106170, 66 nodes). horde/07-ashenvale makes the note and the accept optional (0.3.6) and hands it in at Kanati Greycloud only for whoever carries it; this record keeps it that way."
+			},
+			{
 				"q": 565,
 				"why": "Final route review 0.3.5 (Alliance 30-40): Bartolo's Yeti Fur Cloak needs a Hillman's Cloak (3719, Leatherworking) and a Bolt of Woolen Cloth (2997, Tailoring) besides the yeti fur and Fine Thread; no vendor sells either (Forever's item data: no vendors), and the route has no step that gets them. Optional, so the route does not count on it and the yeti cave is only for players who take it."
 			},

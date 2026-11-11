@@ -10604,3 +10604,20 @@ test('forever/alliance/30-40/05-arathi-highlands.guide: Noboru\'s cudgel and que
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.optional;
 	assert.ok(rf.some((e) => e.q === 1392), 'route-fixes deliberate.optional 1392');
 });
+
+// #1542: Assassin's Contract (3668, starts 522) drops only from the Shadowy Assassin (2434), one stealthed mob on
+// Southshore's edge that few players find, and the Southshore step held until he came: his kill, the contract and both
+// quests of the chain (522, then Baron's Demise 523) are optional now, so home and Magistrate Henry Maleb's hand-in and
+// next quest finish the step. Whoever carries a quest of the chain still hands it in.
+test('Alliance Arathi Highlands: the Shadowy Assassin never holds the Southshore step (#1542)', { skip }, () => {
+	const list = goals('forever/alliance/30-40/05-arathi-highlands.guide');
+	const { step } = list[at(list, 'kill 2434', (g) => g.t === 'kill' && g.npc === 2434)];
+	const chain = (g) => (g.t === 'kill' && g.npc === 2434) || (g.t === 'collect' && g.item === 3668) || (g.t === 'accept' && [522, 523].includes(g.quest));
+	assert.equal(step.goals.filter(chain).length, 4, 'the kill, the contract and both accepts are on the step');
+	for (const g of step.goals.filter(chain)) assert.ok(g.optional, `${g.t} ${g.quest || g.npc || g.item} never holds the step`);
+	for (const g of step.goals.filter((g) => !chain(g) && g.t !== 'turnin')) assert.ok(!g.optional, `${g.t} ${g.quest || g.location || ''} still does`);
+	assert.ok(step.goals.some((g) => g.t === 'turnin' && g.quest === 525 && !g.optional), 'Maleb still takes Further Mysteries');
+	for (const q of [522, 523]) assert.ok(!list[at(list, `turnin ${q}`, is('turnin', q))].goal.optional, `whoever carries ${q} hands it in`);
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.optional;
+	for (const q of [522, 523]) assert.ok(rf.some((e) => e.q === q), `route-fixes deliberate.optional ${q}`);
+});
