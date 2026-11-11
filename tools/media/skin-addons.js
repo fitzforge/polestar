@@ -5,6 +5,12 @@
 //   Polestar_Skin_Vellum/Media/paper.tga  the parchment grain: tileable value
 //       noise in four octaves, white with luminance 0.82-0.99, tinted in game
 //       with the paper colour (the player's ground colour applies)
+//   Polestar_Skin_Aurora/Media/curtain.tga  the aurora in the guide window's
+//       band: a ribbon whose bright hem folds across the width, rays rising
+//       from it green-teal at the hem turning violet as they climb, clear
+//       below the hem; drawn additively, in its own colours
+//   Polestar_Skin_Aurora/Media/veil.tga  the same light for a window with no
+//       band: the rays alone, brightest at the top edge, fading downward
 
 const path = require('node:path');
 const { Canvas } = require('../lib/tga');
@@ -47,9 +53,69 @@ function paper(size = 512) {
 	return c;
 }
 
+// Aurora's curtain: light only (drawn additively), so its alpha is how bright
+// each point glows. The hem's height folds slowly across the width; the rays
+// above it are noise stretched upward (one value per column), brightest at
+// the hem and fading as they rise; a narrow glow falls below the hem.
+const mix = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
+function curtain(w = 512, h = 128) {
+	const fold1 = valueNoise(w, 4, 19), fold2 = valueNoise(w, 9, 29);
+	const ray1 = valueNoise(w, 56, 7), ray2 = valueNoise(w, 150, 13), swell = valueNoise(w, 6, 31);
+	const HEM = [0.5, 1, 0.84], TEAL = [0.2, 0.95, 0.7], VIOLET = [0.56, 0.36, 1], ORCHID = [0.8, 0.4, 0.98];
+	const c = new Canvas(w, h);
+	for (let x = 0; x < w; x++) {
+		const u = (x + 0.5) / w;
+		const hem = 0.54 + (fold1(x, 0) - 0.5) * 0.3 + (fold2(x, 0) - 0.5) * 0.14;
+		const ray = (0.4 + 0.4 * ray1(x, 0) + 0.2 * ray2(x, 0)) * (0.68 + 0.32 * swell(x, 0));
+		for (let y = 0; y < h; y++) {
+			const above = hem - (y + 0.5) / h; // > 0 above the hem
+			const i = above >= 0
+				? ray * (0.25 + 0.75 * Math.exp(-above / 0.32)) + 0.22 * Math.exp(-((above / 0.05) ** 2)) * (0.6 + 0.4 * ray)
+				: Math.exp(-((above / 0.08) ** 2)) * (0.3 + 0.35 * ray);
+			const t = Math.max(0, Math.min(1, above / 0.4));
+			let col = mix(TEAL, VIOLET, t * t * (3 - 2 * t));
+			if (Math.abs(above) < 0.05) col = mix(HEM, col, Math.abs(above) / 0.05);
+			col = mix(col, ORCHID, 0.35 * u * t);
+			const p = (y * w + x) * 4;
+			c.px[p] = col[0];
+			c.px[p + 1] = col[1];
+			c.px[p + 2] = col[2];
+			c.px[p + 3] = Math.max(0, Math.min(1, i));
+		}
+	}
+	return c;
+}
+
+// Aurora's veil, for windows with no band (cards, toasts, menus, dialogs):
+// the rays alone, brightest at the top edge and fading to nothing by the
+// foot, teal and violet in turn across the width. Light only, like the
+// curtain.
+function veil(w = 256, h = 64) {
+	const ray1 = valueNoise(w, 40, 43), ray2 = valueNoise(w, 96, 47), hue = valueNoise(w, 5, 53);
+	const TEAL = [0.2, 0.95, 0.7], VIOLET = [0.56, 0.36, 1];
+	const c = new Canvas(w, h);
+	for (let x = 0; x < w; x++) {
+		const ray = 0.45 + 0.35 * ray1(x, 0) + 0.2 * ray2(x, 0);
+		const k = hue(x, 0);
+		const col = mix(TEAL, VIOLET, k * k * (3 - 2 * k));
+		for (let y = 0; y < h; y++) {
+			const p = (y * w + x) * 4;
+			c.px[p] = col[0];
+			c.px[p + 1] = col[1];
+			c.px[p + 2] = col[2];
+			c.px[p + 3] = ray * (1 - (y + 0.5) / h) ** 1.8;
+		}
+	}
+	return c;
+}
+
 function generate(addonRoot) {
 	const addons = path.dirname(addonRoot);
-	return [paper().write(path.join(addons, 'Polestar_Skin_Vellum', 'Media', 'paper.tga'))];
+	return [
+		paper().write(path.join(addons, 'Polestar_Skin_Vellum', 'Media', 'paper.tga')),
+		curtain().write(path.join(addons, 'Polestar_Skin_Aurora', 'Media', 'curtain.tga')),
+		veil().write(path.join(addons, 'Polestar_Skin_Aurora', 'Media', 'veil.tga')),
+	];
 }
 
 module.exports = { name: 'skin-addons', generate };

@@ -85,7 +85,24 @@ local function hudFrame(frame, kit)
 	return own
 end
 
--- Show the frame at `alpha` (the ticks at full, the top line a little less).
+-- The light each corner tick throws: a small glow in the accent, light
+-- only (kit.glow, kept in the frame's store with the ticks).
+local function cornerGlows(frame, kit, r, g, b, alpha)
+	for _, corner in ipairs(CORNERS) do
+		kit.glow(frame, { key = "tick" .. corner, point = corner, size = 28, color = { r, g, b, alpha }, layer = "BORDER", sub = 2 })
+	end
+end
+
+local function hideGlows(frame, kit)
+	local own = kit.store(frame)
+	for _, corner in ipairs(CORNERS) do
+		local t = own["glow:tick" .. corner]
+		if t then t:Hide() end
+	end
+end
+
+-- Show the frame at `alpha` (the ticks at full, the top line a little less,
+-- the corners' light softer still).
 local function showHud(frame, kit, alpha)
 	local own = hudFrame(frame, kit)
 	local r, g, b = Theme.Accent()
@@ -95,6 +112,7 @@ local function showHud(frame, kit, alpha)
 	end
 	own.line:SetVertexColor(r, g, b, alpha * 0.55)
 	own.line:Show()
+	cornerGlows(frame, kit, r, g, b, alpha * 0.3)
 end
 
 local function hideHud(frame, kit)
@@ -102,6 +120,7 @@ local function hideHud(frame, kit)
 	if not own.ticks then return end
 	for i = 1, #own.ticks do own.ticks[i]:Hide() end
 	own.line:Hide()
+	hideGlows(frame, kit)
 end
 
 local PAINT = {
@@ -114,7 +133,7 @@ local PAINT = {
 		showHud(frame, kit, 0.9)
 	end,
 	-- The guide window: the same, but while transparent the ticks stay as
-	-- faint marks of the window's extent and the line goes.
+	-- marks of the window's extent, with their light, and the line goes.
 	guide = function(frame, base, kit)
 		base(frame)
 		if frame.psBare then
@@ -122,10 +141,11 @@ local PAINT = {
 			local own = hudFrame(frame, kit)
 			local r, g, b = Theme.Accent()
 			for i = 1, #own.ticks do
-				own.ticks[i]:SetVertexColor(r, g, b, 0.4)
+				own.ticks[i]:SetVertexColor(r, g, b, 0.65)
 				own.ticks[i]:Show()
 			end
 			own.line:Hide()
+			cornerGlows(frame, kit, r, g, b, 0.2)
 			return
 		end
 		showHud(frame, kit, 0.9)
@@ -136,6 +156,7 @@ local PAINT = {
 		if frame.psBare then return kit.bare(frame) end
 		local own = hudFrame(frame, kit)
 		for i = 1, #own.ticks do own.ticks[i]:Hide() end
+		hideGlows(frame, kit)
 		local r, g, b = Theme.Accent()
 		own.line:SetVertexColor(r, g, b, 0.6)
 		own.line:Show()
