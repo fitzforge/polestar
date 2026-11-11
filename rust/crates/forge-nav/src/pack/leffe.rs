@@ -477,20 +477,7 @@ fn cluster(meta: &Meta, k: u32, c: &Cluster, g: &Graph, fields: &FxHashMap<&str,
 			rec.push_str(&enc((g.row_comp[r] as f64).min(4095.0), 2)?);
 			rec.push_str(&enc(list.len() as f64, 1)?);
 			for e in list {
-				erec.push_str(&enc(((g.e_dx[e] + 1) * 3 + g.e_dy[e] + 1) as f64, 1)?);
-				erec.push_str(&enc(g.e_ent[e] as f64, 2)?);
-				for s in 0..3 {
-					let w = js_round(g.e_cost[3 * e + s] as f64);
-					if w > COST_MAX {
-						o.clamped += 1;
-					}
-					erec.push_str(&enc(w.clamp(0.0, COST_MAX), 3)?);
-				}
-				let y = js_round(g.e_yards[e] as f64);
-				if y > YARDS_MAX {
-					o.clamped += 1;
-				}
-				erec.push_str(&enc(y.clamp(0.0, YARDS_MAX), 2)?);
+				edge_record(g, e, &mut o.clamped, &mut erec)?;
 			}
 		}
 		rec.push_str(&erec);
@@ -498,6 +485,29 @@ fn cluster(meta: &Meta, k: u32, c: &Cluster, g: &Graph, fields: &FxHashMap<&str,
 		o.graph = Some(rec);
 	}
 	Ok(o)
+}
+
+/// Edge `e` of his graph as the in-game graph field's record (PathGrid.lua's edgeValue, format 2): the cluster offset,
+/// the entrance, the three profiles' costs, then the yards. His PMG4 keeps a cost and a yards for each profile
+/// (`3 * e + profile`); the record has one yards, the profile-free way's, as our grid's maps take theirs (hpa.rs: the
+/// none profile's search). The engine's walk search stops a way past 8 times the straight line plus 2,000 yd of these
+/// yards. A value past its field is clamped and counted.
+fn edge_record(g: &Graph, e: usize, clamped: &mut usize, out: &mut String) -> Result<(), String> {
+	out.push_str(&enc(((g.e_dx[e] + 1) * 3 + g.e_dy[e] + 1) as f64, 1)?);
+	out.push_str(&enc(g.e_ent[e] as f64, 2)?);
+	for s in 0..3 {
+		let w = js_round(g.e_cost[3 * e + s] as f64);
+		if w > COST_MAX {
+			*clamped += 1;
+		}
+		out.push_str(&enc(w.clamp(0.0, COST_MAX), 3)?);
+	}
+	let y = js_round(g.e_yards[3 * e + NONE] as f64);
+	if y > YARDS_MAX {
+		*clamped += 1;
+	}
+	out.push_str(&enc(y.clamp(0.0, YARDS_MAX), 2)?);
+	Ok(())
 }
 
 /// A node's exact place: his f32 geometry where the motion refines it, else its cell's centre and height.
@@ -626,4 +636,33 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid) -> Result<(Maps, BTreeSet
 		return Err(format!("leffe: map {map}: no surface matched an area of ours (is the grid the same client build?)"));
 	}
 	Ok((maps, used, st))
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	/// A record's values as PathGrid.lua's edgeValue reads them: offset(1), entrance(2), the costs (3 each), yards(2).
+	fn values(rec: &str) -> Vec<u64> {
+		let n = |a: usize, w: usize| rec.as_bytes()[a..a + w].iter().fold(0u64, |v, &c| v * 64 + B64.iter().position(|&b| b == c).unwrap() as u64);
+		vec![n(0, 1), n(1, 2), n(3, 3), n(6, 3), n(9, 3), n(12, 2)]
+	}
+
+	/// The yards of a record were his edge list's `e`-th yards, another edge's (he keeps three a edge), so every walk's
+	/// yards were wrong and the walk search's detour cutoff dropped ways that exist (#1238: from Old Town to the
+	/// Stormwind flight master, "unreachable").
+	#[test]
+	fn an_edge_record_carries_its_own_profile_free_yards() {
+		// Two edges, a cost and a yards for each profile (Alliance, Horde, none), as his PMG4 keeps them.
+		let g =
+			Graph { e_dx: vec![0, 1], e_dy: vec![1, 0], e_ent: vec![7, 9], e_cost: vec![10.0, 11.0, 12.0, 40.0, 41.0, 42.0], e_yards: vec![13.0, 14.0, 15.0, 43.0, 44.0, 45.0], ..Default::default() };
+		let mut clamped = 0;
+		for (e, want) in [(0, [5, 7, 10, 11, 12, 15]), (1, [7, 9, 40, 41, 42, 45])] {
+			let mut rec = String::new();
+			edge_record(&g, e, &mut clamped, &mut rec).unwrap();
+			assert_eq!(rec.len(), 14, "a format 2 record");
+			assert_eq!(values(&rec), want, "edge {e}: offset, entrance, the three costs, the none profile's yards");
+		}
+		assert_eq!(clamped, 0);
+	}
 }
