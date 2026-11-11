@@ -11,7 +11,7 @@
 -- the arrow, a toast and the two kinds of button, all drawn by the widget kit
 -- from the theme in use (built the first time the tab shows).
 
-local ADDON, ns = ...
+local ns = Polestar
 local Theme, W = ns.Theme, ns.Widgets
 local L = ns.L
 local floor, max, min, ipairs = math.floor, math.max, math.min, ipairs

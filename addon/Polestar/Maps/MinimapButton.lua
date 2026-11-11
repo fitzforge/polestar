@@ -99,7 +99,7 @@ function Maps.ShowMenu(anchor)
 		{ text = shown and L["Hide window"] or L["Show window"], icon = "window", onClick = function() ns.Fire("TOGGLE_FRAME") end },
 		{ text = L["Guides"], icon = "guides", onClick = function() ns.Fire("SHOW_PICKER") end },
 		{ text = L["Lookup"], icon = "search", onClick = function() ns.Fire("SHOW_LOOKUP") end },
-		{ text = L["Options"], icon = "sliders", onClick = function() ns.Fire("SHOW_OPTIONS") end },
+		{ text = L["Settings"], icon = "sliders", onClick = function() ns.Fire("SHOW_OPTIONS") end },
 		{ separator = true },
 		{ text = L["Report a problem"], icon = "bug", onClick = function() ns.Fire("SHOW_REPORT") end },
 	}, { point = "TOPRIGHT", relPoint = "BOTTOMLEFT", x = 4, y = 4 })

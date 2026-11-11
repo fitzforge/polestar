@@ -18,9 +18,12 @@
 -- default is left out rather than shown dead. Nothing is built before the
 -- window first opens, a page tab only when first shown.
 --
--- A Blizzard Settings category ("Polestar") opens this window.
+-- This file is the settings window's own addon, Polestar_Options (load on
+-- demand): Polestar/UI/OptionsLoader.lua loads it on the first
+-- UI.ShowOptions (and holds ui.optionsSize's default and the Blizzard
+-- Settings category), so none of this is in memory before the window opens.
 
-local ADDON, ns = ...
+local ns = Polestar
 local UI, Theme, W, Anim = ns.UI, ns.Theme, ns.Widgets, ns.Anim
 local L = ns.L
 local floor, max, min, ipairs, pairs, type = math.floor, math.max, math.min, ipairs, pairs, type
@@ -2510,7 +2513,6 @@ end
 ---------------------------------------------------------------------------
 
 local BASE_W, BASE_H, MIN_W, MIN_H, EDGE = 1300, 946, 860, 560, 16
-ns.RegisterDefaults("ui", { optionsSize = false })
 
 -- -> the default size, in UIParent units
 function O.DefaultSize()
@@ -2555,21 +2557,11 @@ local function applySize()
 	return true
 end
 
-local function renderRail()
-	local P = UI.Picker
-	local foot = P and P.FootItems and P.FootItems() or { { key = "Options", label = L["Options"], icon = "sliders", tip = L["Options"] } }
-	W.ShellRail(win, P and P.RailItems and P.RailItems() or {}, foot, "Options", function(key)
-		if P and P.ShowSection then P.ShowSection(key) end
-		UI.ShowPicker()
-	end)
-end
-
 -- Lay everything on screen out again where it is (a new size or font): the
--- rail, the sidebar, the page on screen and its preview, the scroll kept.
+-- sidebar, the page on screen and its preview, the scroll kept.
 local function relayout()
 	if not (win and win:IsShown()) then return end
 	W.ShellLayout(win)
-	renderRail()
 	O.RefreshNav()
 	if query ~= "" then
 		renderSearch()
@@ -2610,11 +2602,12 @@ local function refreshMarks()
 	if active ~= footerProfile then renderFooter(query == "" and current or nil) end
 end
 
--- The settings are the hub's Options section in their own shell: the same
--- rail, Options marked, so any section is one click back.
+-- The settings window is a window of its own, beside the hub, not in its
+-- place: no hub rail, the lockup with "Settings" under it, its own tree;
+-- dragged by its header (or sidebar), kept on the screen.
 local function build()
 	win = W.Shell("PolestarOptions", {
-		rail = true, title = GUIDE, scalePath = "ui.menuScale", searchPlaceholder = L["Search settings"],
+		title = GUIDE, tagline = L["Settings"], scalePath = "ui.menuScale", searchPlaceholder = L["Search settings"],
 		headerSearch = true,
 		onSearch = function(text)
 			if (text or "") == query then return end
@@ -2685,21 +2678,16 @@ local function build()
 	end
 end
 
+-- Open the settings window (the hub, open or not, stays where it is).
 function UI.ShowOptions(section)
 	if not win then build() end
-	local hub = UI.Picker and UI.Picker.frame
-	if hub and hub:IsShown() then
-		if not win:IsShown() then UI.Picker.TakePlace(win, hub) end
-		hub:Hide()
-	end
 	applySize()
 	win:Show()
-	renderRail()
 	O.Select(section or (current and current.key) or pageList[1].key)
 end
 
--- A new font measures every label, value and description anew: the rail,
--- the sidebar and the page on screen are laid out again where they are
+-- A new font measures every label, value and description anew: the
+-- sidebar and the page on screen are laid out again where they are
 -- (other tabs lay out when selected).
 W.OnFontChanged(relayout)
 
@@ -2751,55 +2739,3 @@ end
 
 -- Every module's registrations, now and later.
 W.OnOptionsRegistered(function(spec) add(spec, false) end)
-
----------------------------------------------------------------------------
--- Blizzard Settings: a "Polestar" entry under AddOns that opens our window.
----------------------------------------------------------------------------
-
-local function registerSettingsCategory()
-	if not (Settings and Settings.RegisterCanvasLayoutCategory and Settings.RegisterAddOnCategory) then return end
-	local canvas = CreateFrame("Frame")
-	canvas:Hide()
-	-- The About lockup at 48: the emblem's ink on the canvas's 16 edge, the
-	-- wordmark (1:1) and the tagline centred on it, then the pitch.
-	local emblem = W.Tex(canvas, "ARTWORK", "emblem", "accent")
-	emblem:SetSize(48, 48)
-	emblem:SetPoint("TOPLEFT", canvas, "TOPLEFT", 16 - 7, -16)
-	local word = W.Tex(canvas, "ARTWORK", "wordmark", "text")
-	word:SetSize(256, 32)
-	word:SetPoint("TOPLEFT", canvas, "TOPLEFT", 66 - 3, -14)
-	local tag = W.Text(canvas, "note", "textDim")
-	tag:SetText(L["A community project"])
-	tag:SetPoint("TOPLEFT", canvas, "TOPLEFT", 66, -48)
-	local stage = W.Chip(canvas)
-	stage:SetPoint("LEFT", tag, "RIGHT", 8, 0)
-	W.SetStageChip(stage)
-	local sub = W.Text(canvas, "note", "textDim")
-	sub:SetText(L["Leveling guides for World of Warcraft: Forever."])
-	sub:SetPoint("TOPLEFT", canvas, "TOPLEFT", 16, -80)
-	local open = W.Button(canvas, L["Open Polestar settings"], function()
-		-- Closing the game's Settings panel is protected in combat: from addon
-		-- code it would fail and blame Polestar. Leave it open then, and with
-		-- the gamepad interface, whose focus a panel closed from addon code
-		-- leaves blocked (ns.GamepadUI): B closes it.
-		local panel = SettingsPanel
-		if panel and panel.IsShown and panel:IsShown() and HideUIPanel then
-			if ns.GamepadUI() then
-				ns.Print(L["Close the game menu to see Polestar's settings."])
-			elseif InCombatLockdown and InCombatLockdown() then
-				ns.Print(L["Close the game menu to see Polestar's settings (it cannot be closed for you in combat)."])
-			else
-				HideUIPanel(panel)
-			end
-		end
-		UI.ShowOptions()
-	end, { primary = true })
-	open:SetPoint("TOPLEFT", sub, "BOTTOMLEFT", 0, -16)
-	local ok, category = pcall(Settings.RegisterCanvasLayoutCategory, canvas, "Polestar")
-	if ok and category then
-		pcall(Settings.RegisterAddOnCategory, category)
-		UI.settingsCategory = category
-	end
-end
-
-ns.OnInit(registerSettingsCategory)

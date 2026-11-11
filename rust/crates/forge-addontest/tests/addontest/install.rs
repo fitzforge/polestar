@@ -38,6 +38,7 @@ const RELEASE: &[&str] = &[
 	"Polestar_Nav",
 	"Polestar_Nav_EK",
 	"Polestar_Nav_Kalimdor",
+	"Polestar_Options",
 	"Polestar_deDE",
 	"Polestar_zhCN",
 ];

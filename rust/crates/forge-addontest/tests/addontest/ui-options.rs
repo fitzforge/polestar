@@ -29,7 +29,7 @@ fn run_opts(script: &str, install: &str, before: &str, between: &str) -> Value {
 		stubs: vec!["stub_ui.lua"],
 		before: before.into(),
 		addons: vec![Addon::files("Polestar", &FILES)],
-		script: format!("{between}\nuistub.install({install})\nstub.login()\nlocal UI, O = Polestar.UI, Polestar.UI.Options\n{HELPERS}\n{script}"),
+		script: format!("{between}\nuistub.install({install})\nstub.login()\nPolestar.UI.LoadOptions()\nlocal UI, O = Polestar.UI, Polestar.UI.Options\n{HELPERS}\n{script}"),
 		..Default::default()
 	})
 	.remove(0)
@@ -284,7 +284,7 @@ fn old_page_keys_open_the_page_and_tab_that_hold_their_settings_now() {
 	let mods = emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", &MODS)],
-		script: "uistub.install()\nstub.login()\nlocal UI, O = Polestar.UI, Polestar.UI.Options".to_string()
+		script: "uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\nlocal UI, O = Polestar.UI, Polestar.UI.Options".to_string()
 			+ r#"
 		local out = {}
 		for _, k in ipairs({ "quests", "gear", "lookup", "dungeons", "rares", "qualityoflife" }) do
@@ -882,38 +882,29 @@ fn hiding_a_window_mid_drag_on_its_scroll_bar_ends_the_drag() {
 	assert_eq!(out, json!({ "dragging": true, "after": false }));
 }
 
-// From the settings there must be a way back: the hub's rail stays, Options marked, and a section returns to
-// the hub. Each window opens where the other stood, so the rail does not jump between them.
+// The settings are a window of their own (Fitz, architecture v3): no hub rail; the lockup says "Settings"; the hub's
+// Options opens it beside the hub, which stays; the hub's own sections never close it; it moves by its header.
 #[test]
-fn the_settings_carry_the_hub_rail_a_section_goes_back_to_the_hub_in_the_same_place() {
+fn the_settings_window_is_its_own_window_no_hub_rail_the_hub_stays_and_it_moves_by_its_header() {
 	let out = run(r#"
-		local function rail(f)
-			local out = {}
-			for _, b in ipairs(f.railButtons) do if b:IsShown() then out[#out + 1] = b.psKey .. (b.Bar:IsShown() and "*" or "") end end
-			return out
-		end
-		local function place(f) local p, rel, rp, x, y = f:GetPoint(1) return { p, rel == UIParent, rp, x, y } end
 		local function railButton(f, key) for _, b in ipairs(f.railButtons) do if b:IsShown() and b.psKey == key then return b end end end
 		UI.ShowPicker()
-		local hub, settings = PolestarPicker, nil
-		hub.x, hub.y = 200, 100
+		local hub = PolestarPicker
 		railButton(hub, "Options"):Click()
-		settings = PolestarOptions
-		local opened = { shown = settings:IsShown(), hubHidden = not hub:IsShown(), rail = rail(settings), at = place(settings) }
-		settings.x, settings.y = 300, 50
-		railButton(settings, "Guides"):Click()
-		emit({ opened = opened, height = settings:GetHeight(), back = { shown = hub:IsShown(), settingsHidden = not settings:IsShown(), at = place(hub),
-			section = UI.Picker.ActiveSection() and UI.Picker.ActiveSection().key or "Guides" } })"#);
+		local settings = PolestarOptions
+		local opened = { shown = settings:IsShown(), hub = hub:IsShown(), rail = rawget(settings, "Rail") == nil and #settings.railButtons == 0,
+			tagline = settings.Tagline:GetText(), main = settings.psMainW, width = settings:GetWidth() - settings.psSidebar - 2 }
+		UI.ShowPicker()
+		local back = { settings = settings:IsShown(), hub = hub:IsShown() }
+		stub.RunScript(settings.Header, "OnDragStart")
+		emit({ opened = opened, back = back, moving = rawget(settings, "moving") == true })"#);
 	assert_eq!(out["opened"]["shown"], true);
-	assert_eq!(out["opened"]["hubHidden"], true);
-	let rail = &out["opened"]["rail"];
-	assert!(includes(rail, "Guides") && includes(rail, "Options*"), "rail: {rail}");
-	assert_eq!(out["opened"]["at"], json!(["TOPLEFT", true, "BOTTOMLEFT", 200, 100 + 680]));
-	assert_eq!(out["back"]["shown"], true);
-	assert_eq!(out["back"]["settingsHidden"], true);
-	// The settings window is taller than the hub: their top-left corners meet.
-	assert_eq!(out["back"]["at"], json!(["TOPLEFT", true, "BOTTOMLEFT", 300, 50 + n(&out["height"]) as i64]));
-	assert_eq!(out["back"]["section"], "Guides");
+	assert_eq!(out["opened"]["hub"], true, "the hub stays");
+	assert_eq!(out["opened"]["rail"], true, "no hub rail");
+	assert_eq!(out["opened"]["tagline"], "Settings");
+	assert_eq!(out["opened"]["main"], out["opened"]["width"], "the rail's width goes to the page");
+	assert_eq!(out["back"], json!({ "settings": true, "hub": true }), "the hub's sections leave the settings open");
+	assert_eq!(out["moving"], true, "dragged by its header");
 }
 
 // The page subtitle wraps between the main column's pads, two lines at most, the rest cut with an ellipsis; the
@@ -2046,4 +2037,28 @@ fn every_look_page_keeps_the_layout_rules_at_defaults() {
 	);
 	assert!(n(&out["seen"]) >= 8.0, "the Look pages' tabs walked: {}", out["seen"]);
 	assert_eq!(out["bad"], "", "layout rules broken:\n{}", out["bad"].as_str().unwrap_or_default());
+}
+
+// /ps is short for /polestar: "/ps options" opens the settings window as "/polestar options" does.
+#[test]
+fn slash_ps_options_opens_the_settings_window() {
+	let out = run(r#"
+		local before = PolestarOptions ~= nil and PolestarOptions:IsShown()
+		SlashCmdList.POLESTAR("options")
+		emit({ before = before, alias = SLASH_POLESTAR3, shown = PolestarOptions ~= nil and PolestarOptions:IsShown() })"#);
+	assert_eq!(out, json!({ "before": false, "alias": "/ps", "shown": true }));
+}
+
+// Move frames works with the settings window open: the window stays (the frames' boxes over it, the window dragged
+// aside if one sits under it), and Lock leaves it as it was.
+#[test]
+fn move_frames_leaves_the_settings_window_open() {
+	let out = run(r#"
+		UI.ShowOptions("guide")
+		footerButton("Move frames"):Click()
+		local during = { unlocked = Polestar.Movers.IsUnlocked(), settings = PolestarOptions:IsShown() }
+		Polestar.Movers.Lock()
+		emit({ during = during, after = { unlocked = Polestar.Movers.IsUnlocked(), settings = PolestarOptions:IsShown() } })"#);
+	assert_eq!(out["during"], json!({ "unlocked": true, "settings": true }));
+	assert_eq!(out["after"], json!({ "unlocked": false, "settings": true }));
 }

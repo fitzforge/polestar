@@ -264,6 +264,8 @@ mod nav_trail;
 mod nav_transit;
 #[path = "new-in-forever.rs"]
 mod new_in_forever;
+#[path = "options-memory.rs"]
+mod options_memory;
 #[path = "pack-race-parts.rs"]
 mod pack_race_parts;
 #[path = "packs-parity.rs"]
@@ -369,6 +371,8 @@ mod ui_picker_packs;
 mod ui_picker_scroll;
 #[path = "ui-quest-unlocks.rs"]
 mod ui_quest_unlocks;
+#[path = "ui-quick-settings.rs"]
+mod ui_quick_settings;
 #[path = "ui-route.rs"]
 mod ui_route;
 #[path = "ui-scrub.rs"]

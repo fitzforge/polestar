@@ -148,22 +148,45 @@ fn lua_files(dir: &Path, skip: &Path, out: &mut Vec<PathBuf>) -> Result<(), Stri
 	Ok(())
 }
 
-/// The keys of the addon in `addon_dir` (an absolute path) with where each is used, in the order the
-/// addon loads its files (TOC, XML manifests; a folder without a TOC, a test's, in name order), then
-/// the keys from data. `root`: the checkout (its data/codex/attunements.json).
-pub fn extract_keys(root: &Path, addon_dir: &Path) -> Result<Keys, String> {
+/// The load-on-demand folders whose interface strings are an addon's own: they share its locale files
+/// (addon/Polestar_<locale>/Interface.lua for Polestar), grouped by their paths inside their own folder.
+/// Polestar_Options is Polestar's settings window, loaded on first open.
+pub const PARTS: &[(&str, &[&str])] = &[("Polestar", &["Polestar_Options"])];
+
+/// The keys of the .lua files under `dir` (its `Locales` folder skipped) into `keys`, each use under its
+/// path inside `dir`, in the order the folder loads them (TOC, XML manifests; a folder without a TOC, a
+/// test's, in name order).
+fn scan(dir: &Path, keys: &mut Keys) -> Result<(), String> {
 	let mut all = Vec::new();
-	lua_files(addon_dir, &addon_dir.join("Locales"), &mut all)?;
-	let name = addon_dir.file_name().map(|n| n.to_string_lossy().into_owned()).unwrap_or_default();
-	let order: Vec<PathBuf> = if addon_dir.join(format!("{name}.toc")).exists() { forge_addontest::run::dir_files(addon_dir)? } else { Vec::new() };
+	lua_files(dir, &dir.join("Locales"), &mut all)?;
+	let name = dir.file_name().map(|n| n.to_string_lossy().into_owned()).unwrap_or_default();
+	let order: Vec<PathBuf> = if dir.join(format!("{name}.toc")).exists() { forge_addontest::run::dir_files(dir)? } else { Vec::new() };
 	let mut files: Vec<&PathBuf> = order.iter().filter(|f| all.contains(f)).collect();
 	files.extend(all.iter().filter(|f| !order.contains(f)));
-	let mut keys = Keys::default();
 	for f in files {
-		let rel = f.strip_prefix(addon_dir).unwrap_or(f).to_string_lossy().replace('\\', "/");
+		let rel = f.strip_prefix(dir).unwrap_or(f).to_string_lossy().replace('\\', "/");
 		let src = std::fs::read_to_string(f).map_err(|e| format!("{}: {e}", f.display()))?;
 		for (key, line) in keys_in_source(&src, &rel)? {
 			keys.add(key, Use { file: rel.clone(), line, data: false });
+		}
+	}
+	Ok(())
+}
+
+/// The keys of the addon in `addon_dir` (an absolute path) with where each is used, in the order the
+/// addon loads its files (TOC, XML manifests; a folder without a TOC, a test's, in name order), then
+/// its load-on-demand parts' ([`PARTS`], beside it), then the keys from data. `root`: the checkout (its
+/// data/codex/attunements.json).
+pub fn extract_keys(root: &Path, addon_dir: &Path) -> Result<Keys, String> {
+	let mut keys = Keys::default();
+	scan(addon_dir, &mut keys)?;
+	let name = addon_dir.file_name().map(|n| n.to_string_lossy().into_owned()).unwrap_or_default();
+	if let (Some((_, parts)), Some(parent)) = (PARTS.iter().find(|(a, _)| *a == name), addon_dir.parent()) {
+		for part in *parts {
+			let dir = parent.join(part);
+			if dir.is_dir() {
+				scan(&dir, &mut keys)?;
+			}
 		}
 	}
 	let data = |file: &str| Use { file: file.into(), line: 0, data: true };

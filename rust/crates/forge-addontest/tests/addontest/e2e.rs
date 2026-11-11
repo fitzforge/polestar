@@ -296,6 +296,7 @@ fn the_map_page_gathers_every_map_setting_from_its_modules_into_the_declared_tab
 		addons: vec![Addon::name("Polestar")],
 		script: r#"
 			stub.login()
+			Polestar.UI.LoadOptions()
 			local O = Polestar.UI.Options
 			Polestar.UI.ShowOptions("map")
 			local tabs = {}

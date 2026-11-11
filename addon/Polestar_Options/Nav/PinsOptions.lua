@@ -22,7 +22,7 @@
 -- shown, and nothing runs while idle (the target's pulse is the client's
 -- animation, as on the maps). Nothing is built until a tab first shows.
 
-local ADDON, ns = ...
+local ns = Polestar
 local Nav = ns.Nav
 local Pins = ns.Pins
 local Upcoming = Nav and Nav.upcoming
@@ -35,8 +35,8 @@ local floor, min, max, sqrt = math.floor, math.min, math.max, math.sqrt
 
 local PAGE = L["Map pins"]
 local NEW = "0.3.7"
-local NAV_MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\Nav\\"
-local MAP_MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\Map\\"
+local NAV_MEDIA = "Interface\\AddOns\\Polestar\\Media\\Nav\\"
+local MAP_MEDIA = "Interface\\AddOns\\Polestar\\Media\\Map\\"
 
 local function percent(v) return floor(v * 100 + 0.5) .. "%" end
 local function seconds(v) return string.format(L["%.1f s"], v) end

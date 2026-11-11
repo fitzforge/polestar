@@ -71,7 +71,7 @@ test('the built data addons (Polestar_QuestDB, Polestar_ItemDB, Polestar_Codex) 
 	assert.equal(result, 0, out);
 	assert.match(out, /note: Polestar_ItemDB not built \(no Polestar_ItemDB\/Polestar_ItemDB\.toc\); skipping it/);
 	assert.match(out, /note: Polestar_Codex not built \(no Polestar_Codex\/Polestar_Codex\.toc\); skipping it/);
-	assert.deepEqual(fs.readdirSync(dest).sort(), ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_QuestDB', 'OtherAddon'].sort());
+	assert.deepEqual(fs.readdirSync(dest).sort(), ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_Options', 'Polestar_QuestDB', 'OtherAddon'].sort());
 	fakeAddons(src, ['Polestar_ItemDB', 'Polestar_Codex']);
 	const dry = await quiet(() => install.run(['--dest', dest, '--addons', src, '--dry-run'], {}));
 	assert.match(dry.out, /would replace Polestar_QuestDB[\s\S]*would add Polestar_ItemDB[\s\S]*would add Polestar_Codex/);
@@ -82,7 +82,7 @@ test('--dest copies only the Polestar folders, replacing old copies and leaving 
 	const dest = liveAddOns();
 	const { result, out } = await quiet(() => install.run(['--dest', dest, '--addons', src], {}));
 	assert.equal(result, 0, out);
-	assert.deepEqual(fs.readdirSync(dest).sort(), ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'OtherAddon'].sort());
+	assert.deepEqual(fs.readdirSync(dest).sort(), ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_Options', 'OtherAddon'].sort());
 	const after = snapshot(dest);
 	assert.equal(after['OtherAddon/OtherAddon.toc'], 'other\n');
 	assert.equal(after['Polestar/old-file.lua'], undefined, 'old copy replaced, not merged');
@@ -168,7 +168,7 @@ test('auto-detected installs create Interface/AddOns when the client has none ye
 	const src = compiledAddons();
 	const { result, out } = await quiet(() => install.run(['--addons', src], { HOME: home }, NO_NATIVE));
 	assert.equal(result, 0, out);
-	assert.deepEqual(fs.readdirSync(path.join(client, 'Interface', 'AddOns')).sort(), ['Polestar', 'Polestar_Guides', 'Polestar_Nav']);
+	assert.deepEqual(fs.readdirSync(path.join(client, 'Interface', 'AddOns')).sort(), ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_Options']);
 	const none = await quiet(() => install.run(['--addons', src], { HOME: tmpdir() }, NO_NATIVE));
 	assert.equal(none.result, 1);
 	assert.match(none.out, /no World of Warcraft: Forever client found/);
@@ -202,8 +202,8 @@ test('install with beta + wowf clients installs into both; --client picks one; u
 	// Installs for real into both.
 	const real = await quiet(() => install.run(['--addons', src], { HOME: home }, NO_NATIVE));
 	assert.equal(real.result, 0, real.out);
-	assert.deepEqual(fs.readdirSync(path.join(beta, 'Interface', 'AddOns')).sort(), ['Polestar', 'Polestar_Guides', 'Polestar_Nav']);
-	assert.deepEqual(fs.readdirSync(path.join(stress, 'Interface', 'AddOns')).sort(), ['Polestar', 'Polestar_Guides', 'Polestar_Nav']);
+	assert.deepEqual(fs.readdirSync(path.join(beta, 'Interface', 'AddOns')).sort(), ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_Options']);
+	assert.deepEqual(fs.readdirSync(path.join(stress, 'Interface', 'AddOns')).sort(), ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_Options']);
 
 	// --client _forever_ picks only the stress-test client.
 	const pickFolder = await quiet(() => install.run(['--addons', src, '--dry-run', '--client', '_forever_'], { HOME: home }, NO_NATIVE));
@@ -394,7 +394,7 @@ test('auto-detect finds native Windows and macOS installs by .flavor.info (platf
 	// install itself takes the same injection.
 	const { result, out } = await quiet(() => install.run(['--addons', compiledAddons()], { HOME: home }, { platform: 'win32', root: winRoot }));
 	assert.equal(result, 0, out);
-	assert.deepEqual(fs.readdirSync(path.join(win, 'Interface', 'AddOns')).sort(), ['Polestar', 'Polestar_Guides', 'Polestar_Nav']);
+	assert.deepEqual(fs.readdirSync(path.join(win, 'Interface', 'AddOns')).sort(), ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_Options']);
 	const macRoot = tmpdir();
 	const mac = flavorClient(path.join(macRoot, 'Applications', 'World of Warcraft'), '_classic_era_', 'wow_forever');
 	assert.deepEqual(detectAddonsDirs(home, { platform: 'darwin', root: macRoot }).map((f) => f.client), [mac]);

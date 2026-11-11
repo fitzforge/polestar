@@ -205,7 +205,7 @@ fn page(script: &str) -> Value {
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", &PAGE_FILES)],
 		script: format!(
-			"uistub.install({{ noNav = true }})\nstub.login()\nlocal UI, O, W, R = Polestar.UI, Polestar.UI.Options, Polestar.Widgets, Polestar.RouteLines\n{script}"
+			"uistub.install({{ noNav = true }})\nstub.login()\nPolestar.UI.LoadOptions()\nlocal UI, O, W, R = Polestar.UI, Polestar.UI.Options, Polestar.Widgets, Polestar.RouteLines\n{script}"
 		),
 		..Default::default()
 	})

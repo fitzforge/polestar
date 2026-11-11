@@ -22,7 +22,7 @@
 -- repaints on its own settings only while shown, and runs an OnUpdate only
 -- while it shows sparkles (never under Reduce motion).
 
-local ADDON, ns = ...
+local ns = Polestar
 local R, Strokes = ns.RouteLines, ns.RouteStrokes
 -- Without the route lines (no Nav) there is nothing to set.
 if not (R and Strokes and R.Look) then return end
@@ -206,7 +206,7 @@ end
 ---------------------------------------------------------------------------
 
 local CARD_WALK = { at(0.08, 0.74), at(0.34, 0.32), at(0.62, 0.66), at(0.88, 0.30) }
-local SPARKLE_TEXTURE = "Interface\\AddOns\\" .. ADDON .. "\\Media\\Nav\\sparkle"
+local SPARKLE_TEXTURE = "Interface\\AddOns\\Polestar\\Media\\Nav\\sparkle"
 local cardArts = {} -- every card picture drawn, for repaints
 
 local function paintCard(d)
@@ -333,7 +333,7 @@ local function buildPreview(host)
 	mmFrame:SetSize(MM, MM)
 	f.MinimapFrame = mmFrame
 	local disc = mmFrame:CreateTexture(nil, "BACKGROUND")
-	disc:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\Nav\\pin-fill")
+	disc:SetTexture("Interface\\AddOns\\Polestar\\Media\\Nav\\pin-fill")
 	-- pin-fill's disc covers 42 of its 64 pixels.
 	disc:SetSize(MM * 64 / 42, MM * 64 / 42)
 	disc:SetPoint("CENTER", mmFrame, "CENTER", 0, 0)

@@ -120,6 +120,20 @@ const TEXT = {
 			zhTW: 'Polestar 的一部分：為箭頭提供步行路線，採用 Polestar 自己的尋路，源自 Shortest Path Forever 的尋路（Cillian Berragan，github.com/cjber/shortest-path-forever，經其許可使用）。按需載入。',
 		},
 	},
+	Polestar_Options: {
+		title: { deDE: 'Polestar-Einstellungen', esES: 'Polestar: configuración', esMX: 'Polestar: configuración', frFR: 'Polestar : réglages', koKR: 'Polestar 설정', ptBR: 'Polestar: opções', ruRU: 'Polestar: настройки', zhCN: 'Polestar 设置', zhTW: 'Polestar 設定' },
+		notes: {
+			deDE: 'Teil von Polestar: das Einstellungsfenster, seine Darstellungsseiten und ihre Vorschauen. Wird geladen, wenn du die Einstellungen öffnest.',
+			esES: 'Parte de Polestar: la ventana de configuración, sus páginas de aspecto y sus vistas previas. Se carga al abrir la configuración.',
+			esMX: 'Parte de Polestar: la ventana de configuración, sus páginas de aspecto y sus vistas previas. Se carga al abrir la configuración.',
+			frFR: 'Fait partie de Polestar : la fenêtre des réglages, ses pages d\'apparence et leurs aperçus. Chargé à l\'ouverture des réglages.',
+			koKR: 'Polestar의 일부: 설정 창과 모양 페이지, 그 미리 보기. 설정을 열 때 불러옵니다.',
+			ptBR: 'Parte do Polestar: a janela de opções, suas páginas de aparência e as prévias delas. Carregado ao abrir as opções.',
+			ruRU: 'Часть Polestar: окно настроек, его страницы оформления и их предпросмотр. Загружается при открытии настроек.',
+			zhCN: 'Polestar 的组成部分：设置窗口、外观页面及其预览。打开设置时加载。',
+			zhTW: 'Polestar 的一部分：設定視窗、外觀頁面及其預覽。開啟設定時載入。',
+		},
+	},
 	Polestar_QuestDB: {
 		title: { deDE: 'Polestar Quest-Datenbank', esES: 'Polestar: base de datos de misiones', esMX: 'Polestar: base de datos de misiones', frFR: 'Polestar : base de données des quêtes', koKR: 'Polestar 퀘스트 데이터베이스', ptBR: 'Polestar: banco de dados de missões', ruRU: 'Polestar: база заданий', zhCN: 'Polestar 任务数据库', zhTW: 'Polestar 任務資料庫' },
 		notes: {

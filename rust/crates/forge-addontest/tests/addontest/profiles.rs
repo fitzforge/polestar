@@ -387,6 +387,7 @@ fn the_profiles_page_lists_switches_creates_deletes_after_asking_exports_and_imp
 		script: r#"uistub.install()
 		stub.login()
 		local P, UI = Polestar.Profiles, Polestar.UI
+		UI.LoadOptions()
 		local PV = UI.Profiles
 		local function row(name) for _, r in ipairs(PV.view.Rows) do if r:IsShown() and r.psName == name then return r end end end
 		UI.ShowOptions("profiles")

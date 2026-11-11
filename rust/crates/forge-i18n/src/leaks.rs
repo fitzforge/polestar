@@ -675,7 +675,8 @@ fn packs_lua(root: &Path, locale: &str, scene: &Scene) -> Result<String, String>
 	if scene.recorder {
 		return Ok(String::new());
 	}
-	let mut names: Vec<String> = ["Polestar_QuestDB", "Polestar_Codex", "Polestar_ItemDB"].iter().map(|x| x.to_string()).collect();
+	// The settings window (Polestar_Options) loads on its first opening, as in the client.
+	let mut names: Vec<String> = ["Polestar_QuestDB", "Polestar_Codex", "Polestar_ItemDB", "Polestar_Options"].iter().map(|x| x.to_string()).collect();
 	// The walking map (Polestar_Nav) plans paths in the background, seconds of Lua each step: only the
 	// scenes about travel load it.
 	if scene.nav {

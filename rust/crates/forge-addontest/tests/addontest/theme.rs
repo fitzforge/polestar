@@ -543,6 +543,7 @@ fn every_texture_the_ui_shows_and_every_goal_verb_icon_exists_as_a_valid_tga() {
 		uistub.complete(); collect()
 		Polestar.Engine.SetGuide(nil); collect()
 		UI.ShowPicker(); collect()
+		UI.LoadOptions()
 		for _, p in ipairs(UI.Options.Pages()) do
 			UI.ShowOptions(p.key); collect()
 			for _, t in ipairs(p.tabs) do UI.Options.Select(p.key, t); collect() end

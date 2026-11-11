@@ -46,10 +46,12 @@ local function drawn()
 end
 "#;
 
+// The Map pins page is the settings window's (Polestar_Options): its file, after the pins' own.
 fn run(script: &str) -> Value {
+	let page = forge_addontest::run::addons_dir().join("Polestar_Options/Nav/PinsOptions.lua").to_string_lossy().into_owned();
 	emitted(&RunAddon {
 		stubs: vec!["stub_nav.lua"],
-		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Theme/Theme.xml", "Nav/Nav.xml"])],
+		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Theme/Theme.xml", "Nav/Nav.xml", &page])],
 		login: true,
 		script: format!("{PRELUDE}{script}"),
 		..Default::default()
@@ -320,7 +322,7 @@ fn page(script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", &PAGE_FILES)],
-		script: format!("uistub.install({{ noNav = true }})\nstub.login()\nlocal UI, O, W = Polestar.UI, Polestar.UI.Options, Polestar.Widgets\n{script}"),
+		script: format!("uistub.install({{ noNav = true }})\nstub.login()\nPolestar.UI.LoadOptions()\nlocal UI, O, W = Polestar.UI, Polestar.UI.Options, Polestar.Widgets\n{script}"),
 		..Default::default()
 	})
 	.remove(0)
