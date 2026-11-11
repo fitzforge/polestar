@@ -1,5 +1,5 @@
 {
-	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at: { map, x, y, frame? }, label?, title? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge), after those. at: { quest, goal: accept | turnin | complete | objective | quest, objective?, guide? } (guide: that guide only). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
+	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest, objective?, guide? } (guide: that guide only). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
 			"id": "1550-krazek-pickup-mining-advice",
@@ -6084,6 +6084,542 @@
 				{
 					"kind": "recording",
 					"ref": "players' recordings, 0.3.5 and later: 6 people at the Dalaran crater camp, 3 of them fighting it with the travel step live, 2 deaths"
+				}
+			]
+		},
+		{
+			"id": "arathi-guile-of-the-raptor-hand-in-at-hammerfall",
+			"faction": "Horde",
+			"at": {
+				"quest": 702,
+				"goal": "turnin",
+				"guide": "forever/horde/30-40/05-arathi-highlands"
+			},
+			"follows": {
+				"quest": 678,
+				"goal": "turnin"
+			},
+			"note": "30-40/05 (Horde 38-39): Guile of the Raptor's last two parts (702 to Gor'mul, then 847 back to Tor'gan, 2,850 XP) were written into the 'Boulderfist quests for a group' step, gated `when group 679`, so a player who skips the Stromgarde ogres never handed them in. They go on the Hammerfall stop right after Drum Fel's hand-in (678); only the elite ogre quests (679, 680) stay on the group step. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 702 ender Gor'mul (2792, 72.64,33.93), quest 847 giver Gor'mul and ender Tor'gan (2706, 74.72,36.29): both at Hammerfall, Arathi Highlands"
+				}
+			]
+		},
+		{
+			"id": "arathi-guile-of-the-raptor-847-accept",
+			"faction": "Horde",
+			"at": {
+				"quest": 847,
+				"goal": "accept",
+				"guide": "forever/horde/30-40/05-arathi-highlands"
+			},
+			"follows": {
+				"quest": 702,
+				"goal": "turnin"
+			},
+			"note": "30-40/05 (Horde 38-39): Gor'mul gives Guile of the Raptor's last part (847) right after 702's hand-in, on the Hammerfall stop (arathi-guile-of-the-raptor-hand-in-at-hammerfall). 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 847 giver Gor'mul (2792), Hammerfall"
+				}
+			]
+		},
+		{
+			"id": "arathi-guile-of-the-raptor-847-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 847,
+				"goal": "turnin",
+				"guide": "forever/horde/30-40/05-arathi-highlands"
+			},
+			"follows": {
+				"quest": 847,
+				"goal": "accept"
+			},
+			"note": "30-40/05 (Horde 38-39): Tor'gan, in Hammerfall with Gor'mul, takes 847 on the same stop (arathi-guile-of-the-raptor-hand-in-at-hammerfall). 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 847 ender Tor'gan (2706, 74.72,36.29), giver Gor'mul (2792, 72.64,33.93)"
+				}
+			]
+		},
+		{
+			"id": "booty-bay-excelsior-after-fin-fizracket",
+			"faction": "Horde",
+			"at": {
+				"quest": 628,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"follows": {
+				"quest": 348,
+				"goal": "turnin"
+			},
+			"note": "40-50/01 (Horde): talk goals are taken in written order, and Drizzlik's Excelsior hand-in (628) sat between Shaky Phillipe's 606 and 607, so the arrow went from the docks to Drizzlik inside and back to Shaky. Drizzlik stands by MacKinley and Fin Fizracket at the stop's east end: the hand-in comes after Fin's (348), the stop's last talk goal. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs 2495 Drizzlik 28.29,77.59; 2486 Fin Fizracket 27.61,76.74; 2501 \"Sea Wolf\" MacKinley 27.78,77.07 (Stranglethorn Vale)"
+				}
+			]
+		},
+		{
+			"id": "undercity-beldugur-between-luca-and-zinge",
+			"faction": "Horde",
+			"at": {
+				"quest": 728,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/03-feralas"
+			},
+			"follows": {
+				"quest": 238,
+				"goal": "accept"
+			},
+			"note": "40-50/03 (Horde 45, the Undercity): Zinge's errand runs Zinge, Alessandro Luca, Zinge, and Keeper Bel'dugur stands between Luca and Zinge, but Yagyin's Digest (728) was the stop's last goal: a second walk across the city after Zinge. It goes right after Luca's errand (238 taken), on the walk back to Zinge, about a third shorter. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs 7683 Alessandro Luca 58.61,54.68; 2934 Keeper Bel'dugur 53.74,54.46 (ender of 728); 5204 Apothecary Zinge 50.14,67.97 (Undercity)"
+				}
+			]
+		},
+		{
+			"id": "forest-song-insane-druids-before-maseara",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98417,
+				"goal": "turnin",
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"follows": {
+				"quest": 1012,
+				"goal": "accept"
+			},
+			"note": "06-wetlands (Alliance 29-30), Kayneth Stillwind's Forest Song stop: the optional Insane Druids (1012) came after Vengeful Trail's hand-in to Maseara Autumnmoon (98417), 73 yd east, so the arrow went Kayneth, Maseara, back to Kayneth. Kayneth's hand-in and her offer go together, then Maseara. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs 3848 Kayneth Stillwind 85.24,44.71 (giver and ender of 1012); 221269 Maseara Autumnmoon 86.24,45.86 (ender of 98417), Ashenvale"
+				}
+			]
+		},
+		{
+			"id": "cenarion-hold-secret-communication-second-stop",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8318,
+				"goal": "accept",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"follows": {
+				"quest": 8281,
+				"goal": "accept"
+			},
+			"note": "50-60/04 (Alliance): Secret Communication (8318) needs level 57, and the level model reaches the first Cenarion Hold stop just under it, so taking it there made the model grind 15 minutes first and the route's last hand-in fell after 60. Bor Wildmane gives it on the second stop, after Stepping Up Security (8281). 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 8318 minLevel 57, giver and ender Bor Wildmane (15306, 48.57,37.78 Silithus)"
+				}
+			]
+		},
+		{
+			"id": "razor-hill-taijin-letter-beside-turroc",
+			"faction": "Horde",
+			"at": {
+				"quest": 5649,
+				"goal": "turnin",
+				"guide": "forever/horde/orc-troll/01-durotar"
+			},
+			"follows": {
+				"quest": 96822,
+				"goal": "accept"
+			},
+			"note": "01-durotar (Troll Priests): Tai'jin stands in the barracks on Razor Hill's east side, beside Turroc and 124 yd from Gar'Thok. The letter's hand-in (In Favor of Spirituality, 5649) and the robe quest (5648) come right after Turroc's accept (96822) on the first Razor Hill stop, not between Gar'Thok's goals. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs 3706 Tai'jin 54.26,42.93 (ender of 5649, giver and ender of 5648); 266940 Turroc 53.95,42.59; 3139 Gar'Thok 51.95,43.5 (Durotar)"
+				}
+			]
+		},
+		{
+			"id": "razor-hill-taijin-robes-accept",
+			"faction": "Horde",
+			"at": {
+				"quest": 5648,
+				"goal": "accept",
+				"guide": "forever/horde/orc-troll/01-durotar"
+			},
+			"follows": {
+				"quest": 5649,
+				"goal": "turnin"
+			},
+			"note": "01-durotar (Troll Priests): Garments of Spirituality (5648) right after its letter's hand-in, at Tai'jin (razor-hill-taijin-letter-beside-turroc). 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 5648 giver Tai'jin (3706), who takes 5649"
+				}
+			]
+		},
+		{
+			"id": "razor-hill-taijin-robes-beside-turroc",
+			"faction": "Horde",
+			"at": {
+				"quest": 5648,
+				"goal": "turnin",
+				"guide": "forever/horde/orc-troll/01-durotar"
+			},
+			"follows": {
+				"quest": 96822,
+				"goal": "turnin"
+			},
+			"note": "01-durotar (Troll Priests): on the Razor Hill stop after the keep, the robe's hand-in (5648) comes right after Turroc's (96822), on the same east side, not between Gar'Thok's. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs 3706 Tai'jin 54.26,42.93; 266940 Turroc 53.95,42.59; 3139 Gar'Thok 51.95,43.5 (Durotar)"
+				}
+			]
+		},
+		{
+			"id": "way-laurena-walk-with-divine-grace",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94774,
+				"goal": "turnin",
+				"guide": "forever/alliance/02-westfall"
+			},
+			"way": {
+				"when": "onquest 94774"
+			},
+			"note": "02-westfall: Human Priests walked to High Priestess Laurena in Stormwind's cathedral for Divine Grace (94774, taken in Elwynn) whether they carried it or not; the walk is for whoever does, as the hand-in step already was. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 94774 giver Priestess Josetta (377, Elwynn Forest), ender High Priestess Laurena (376, 49.53,44.6 Stormwind City)"
+				}
+			]
+		},
+		{
+			"id": "way-kearnen-walk-with-mathias-and-the-defias",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2360,
+				"goal": "turnin",
+				"guide": "forever/alliance/05-duskwood"
+			},
+			"way": {
+				"when": "onquest 2360"
+			},
+			"note": "05-duskwood: Rogues walked back to Agent Kearnen in Westfall for Mathias and the Defias (2360, from Stormwind) whether they carried it or not; the walk is for whoever does. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 2360 giver Master Mathias Shaw (332, Stormwind City), ender Agent Kearnen (7024, 68.49,70.08 Westfall)"
+				}
+			]
+		},
+		{
+			"id": "way-telf-joolam-walk-with-call-of-fire",
+			"faction": "Horde",
+			"at": {
+				"quest": 1525,
+				"goal": "turnin",
+				"guide": "forever/horde/02-the-barrens"
+			},
+			"way": {
+				"when": "onquest 1525"
+			},
+			"note": "02-the-barrens: Orc and Troll Shamans crossed the river to Telf Joolam in Durotar for Call of Fire (1525) whether they carried it or not; the walk is for whoever does. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 1525 giver and ender Telf Joolam (5900, 38.55,58.96 Durotar)"
+				}
+			]
+		},
+		{
+			"id": "way-brine-walk-with-call-of-water",
+			"faction": "Horde",
+			"at": {
+				"quest": 1536,
+				"goal": "turnin",
+				"guide": "forever/horde/04-the-barrens"
+			},
+			"way": {
+				"when": "onquest 1536"
+			},
+			"note": "04-the-barrens: Shamans walked to Brine for Call of Water (1536) whether they carried it or not; the walk is for whoever does. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 1536 giver and ender Brine (5899, 43.42,77.41 The Barrens)"
+				}
+			]
+		},
+		{
+			"id": "way-klannoc-walk-with-the-islander",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1718,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/01-stranglethorn-vale"
+			},
+			"way": {
+				"when": "onquest 1718"
+			},
+			"note": "40-50/01 (Alliance): Warriors walked to Klannoc Macleod at the Barrens' Affray for The Islander (1718, taken in an earlier guide) whether they carried it or not; the walk is for whoever does. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 1718 ender Klannoc Macleod (6236, 68.62,49.16 The Barrens)"
+				}
+			]
+		},
+		{
+			"id": "way-ogtinc-walk-with-cenarion-aid",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8254,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/01-burning-steppes"
+			},
+			"way": {
+				"when": "onquest 8254"
+			},
+			"note": "50-60/01 (Alliance): Priests walked to Ogtinc in Azshara for Cenarion Aid (8254, taken in an earlier guide) whether they carried it or not; the walk is for whoever does. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 8254 ender Ogtinc (8405, 42.4,42.62 Azshara)"
+				}
+			]
+		},
+		{
+			"id": "way-ogtinc-walk-with-of-coursers-we-know",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8255,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/01-burning-steppes"
+			},
+			"way": {
+				"when": "onquest 8255"
+			},
+			"note": "50-60/01 (Alliance): the Priests' second walk to Ogtinc, for Of Coursers We Know (8255), only with the quest in the log. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 8255 giver and ender Ogtinc (8405, 42.4,42.62 Azshara)"
+				}
+			]
+		},
+		{
+			"id": "way-xylem-walk-with-magic-dust",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8251,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/01-burning-steppes"
+			},
+			"way": {
+				"when": "onquest 8251"
+			},
+			"note": "50-60/01 (Alliance): Mages walked to Archmage Xylem in Azshara for Magic Dust (8251) whether they carried it or not; the walk is for whoever does. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 8251 giver and ender Archmage Xylem (8379, 29.25,40.21 Azshara)"
+				}
+			]
+		},
+		{
+			"id": "way-of-lost-honor-lake-walk",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5845,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/50-60/06-silithus"
+			},
+			"way": {
+				"when": "onquest 5845"
+			},
+			"note": "50-60/06 (Alliance 58-60): the walk to the lake for Of Lost Honor (5845), Tirion Fordring's optional quest, was made by every player; it is for whoever took it. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 5845 giver and ender Tirion Fordring (1855)"
+				}
+			]
+		},
+		{
+			"id": "way-pebblebitty-walk-with-the-horn",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3181,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/01-burning-steppes"
+			},
+			"way": {
+				"when": "onquest 3181"
+			},
+			"note": "50-60/01 (Alliance 52): the group walk to Mountaineer Pebblebitty in Loch Modan for The Horn of the Beast (3181) held only for the group choice; it holds for players carrying the quest too, since Margol's Horn (the item that starts it) may never have dropped. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 3181 starts from item 10000 (Margol's Horn), ender Mountaineer Pebblebitty (3836, 18.18,84.01 Loch Modan)"
+				}
+			]
+		},
+		{
+			"id": "way-musty-scroll-walk-with-cortellos-riddle",
+			"faction": "Horde",
+			"at": {
+				"quest": 625,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/03-feralas"
+			},
+			"way": {
+				"when": "onquest 625"
+			},
+			"note": "40-50/03 (Horde): the Dustwallow walk to the Musty Scroll for Cortello's Riddle (625), an optional chain started from a scroll object, was made by every player; it is for whoever carries the quest, as the scroll's step already was. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 625 starts from object 2553 and ends at object 2555 (Dustwallow Marsh)"
+				}
+			]
+		},
+		{
+			"id": "levels-horde-hillsbrad-arathi-top-33",
+			"faction": "Horde",
+			"at": {
+				"goal": "levels",
+				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
+			},
+			"levels": {
+				"top": 33
+			},
+			"note": "Hillsbrad & Arathi (Horde 30-40/01): players leave it at 33 and its quests' median level is 33 (p90 34), while the route ends it at 32; the guide window calls a guide outgrown at its top + 2 and offers another, so the header says 29-33. 0.3.6 hand edit.",
+			"issue": 1466,
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings, 0.3.5 and later: 4 people leave the guide at 33.0 (p25 33.0)"
+				}
+			]
+		},
+		{
+			"id": "levels-alliance-wetlands-hillsbrad-top-33",
+			"faction": "Alliance",
+			"at": {
+				"goal": "levels",
+				"guide": "forever/alliance/30-40/01-hillsbrad-foothills"
+			},
+			"levels": {
+				"top": 33
+			},
+			"note": "Wetlands & Hillsbrad (Alliance 30-40/01): players leave it at 33.2 and its quests' median level is 32 (p90 34), while the route ends it at 32: the header says 30-33. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings, 0.3.5 and later: 3 people leave the guide at 33.2 (p25 32.7)"
+				}
+			]
+		},
+		{
+			"id": "levels-horde-ashenvale-silverpine-top-23",
+			"faction": "Horde",
+			"at": {
+				"goal": "levels",
+				"guide": "forever/horde/05-stonetalon-mountains"
+			},
+			"levels": {
+				"top": 23
+			},
+			"note": "Ashenvale & Silverpine (Horde 05): players start it at 23.6, so with a top of 22 the outgrown banner came at 24 for about half of them; the level model ends it at 22.5-23.5, and the guide plans Ashenvale Outrunners for 22-23: the header says 21-23. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings, 0.3.5 and later: 4 people start the guide at 23.6 (p25 23.2)"
+				}
+			]
+		},
+		{
+			"id": "levels-horde-hillsbrad-top-25",
+			"faction": "Horde",
+			"at": {
+				"goal": "levels",
+				"guide": "forever/horde/06-hillsbrad-foothills"
+			},
+			"levels": {
+				"top": 25
+			},
+			"note": "Hillsbrad (Horde 06): players start it at 25.7, so with a top of 24 the outgrown banner came at 26; the level model ends it at 24.6-25.4: the header says 22-25. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings, 0.3.5 and later: 5 people start the guide at 25.7"
+				}
+			]
+		},
+		{
+			"id": "levels-dun-morogh-top-14",
+			"faction": "Alliance",
+			"at": {
+				"goal": "levels",
+				"guide": "forever/alliance/dwarf-gnome/01-dun-morogh"
+			},
+			"levels": {
+				"top": 14
+			},
+			"note": "Dun Morogh (Dwarf, Gnome): the level model, calibrated on players' recordings, has every Dwarf and Gnome start leaving it at 13.3-14.0, all classes, while the header said 1-12; recorded exits are too few here to measure. Elwynn 1-11, Teldrassil 1-12 and Zephras 1-14 already fit their players' exits. 0.3.6 hand edit.",
+			"issue": 1415,
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "the level model on players' recordings: Dwarf and Gnome starts leave Dun Morogh at 13.3-14.0"
+				}
+			]
+		},
+		{
+			"id": "razor-hill-taijin-letter-note",
+			"faction": "Horde",
+			"at": {
+				"quest": 5649,
+				"goal": "turnin",
+				"guide": "forever/horde/orc-troll/01-durotar"
+			},
+			"goalNote": "Tai'jin, in the barracks beside Turroc",
+			"note": "01-durotar (Troll Priests): the letter's hand-in says where Tai'jin stands, in the barracks on Razor Hill's east side beside Turroc, not with Gar'Thok (razor-hill-taijin-letter-beside-turroc). 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs 3706 Tai'jin 54.26,42.93; 266940 Turroc 53.95,42.59 (Durotar)"
+				}
+			]
+		},
+		{
+			"id": "razor-hill-taijin-robes-note",
+			"faction": "Horde",
+			"at": {
+				"quest": 5648,
+				"goal": "turnin",
+				"guide": "forever/horde/orc-troll/01-durotar"
+			},
+			"goalNote": "Tai'jin, beside Turroc: the Juju Hex Robes",
+			"note": "01-durotar (Troll Priests): the robe's hand-in names Tai'jin beside Turroc and the reward, the Juju Hex Robes (razor-hill-taijin-robes-beside-turroc). 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs 3706 Tai'jin 54.26,42.93; 266940 Turroc 53.95,42.59 (Durotar); quest 5648 reward item 16606 Juju Hex Robes"
 				}
 			]
 		}

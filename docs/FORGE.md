@@ -448,10 +448,12 @@ A fix goes into a record the next build applies, whoever builds:
 | a step's tip, a goal's note (`goalNote`), an optional goal (`optional: true`), a `level` gate before a goal, or a `when` (`level>=N`: the goal's step shows only from that level; `onquest Q,...`: only while one of the quests is in the log; on a flight step with `at: { guide, goal: "fly", fly }`) | `data/guide-fixes.json` |
 | who a goal is for by race (`races`: `"all"` drops a stale race filter, a list sets one), on one goal or on every goal of the quest (`at.goal: "quest"`) | `data/guide-fixes.json` |
 | where a goal or a step goes: right after another goal (`follows`), a step split before a goal (`split`), a whole step moved or copied after another goal's step, into another guide too (`step`) | `data/guide-fixes.json` |
-| where the walk to a step ends (`way`): off a town of the other faction, or at a camp's edge | `data/guide-fixes.json` |
+| where the walk to a step ends (`way`): off a town of the other faction, or at a camp's edge; who makes the walk (`way.when`): only whoever carries the quest it leads to | `data/guide-fixes.json` |
+| a guide's top level in its header (`levels`, on `at: { goal: "levels", guide }`): where players leave it, when that is above where the route ends it | `data/guide-fixes.json` |
 
-Places and guide fixes are anchored on a quest's goal, never on a line or a step, and the writer
-applies them to the guides it writes, last:
+Places and guide fixes are anchored on a quest's goal (a `when` on a flight step and `levels` on a
+guide's header name the guide instead), never on a line or a step, and the writer applies them to
+the guides it writes, last:
 
 A `goalNote` record replaces the anchored goal's `--` note without changing
 the step's tip or other goals. An `optional: true` record makes only the
@@ -551,7 +553,10 @@ are for.
 players): its last `goto` takes `way.at` (`{ map, x, y, frame }`) and `way.label`, the step
 `way.title`. The writer applies it after the records that move steps. It is how a walk is kept out of
 a town of the other faction: the walk from Tarren Mill to Marlene Redpath once ended in the middle of
-the Alliance's Chillwind Camp.
+the Alliance's Chillwind Camp. `way.when` (a condition, or a list) holds every travel-only step of the
+walk: a class's walk to a class quest taken in an earlier guide is made only with the quest in the log
+(`"way": { "when": "onquest 94774" }` on Divine Grace's hand-in: Human Priests without it no longer
+walk to Laurena in Stormwind's cathedral).
 
 ```json
 { "id": "way-sorrow-hill-not-chillwind-camp", "faction": "Horde", "at": { "quest": 5152, "goal": "turnin" },
@@ -562,6 +567,12 @@ Every build warns about such walks: a travel step whose `goto` ends within 120 y
 the other faction (one in a town both factions use, such as Booty Bay, aside) prints `apply-route:
 warning: <guide>:<line>: the travel step "…" ends … yd from the other faction's flight master at …`.
 A quest goal is never warned about: it stands where the quest is done.
+
+`levels` raises a guide's top level in its header (`levels 29-32` reads `levels 29-33` for
+`"levels": { "top": 33 }`): the writer ends the range where the route ends the guide, and the guide
+window calls a guide outgrown at its top + 2, so a top under the level players leave at offers them
+another guide too early. A top at or under the route's changes nothing. The anchor is the guide, not a
+goal: `"at": { "goal": "levels", "guide": "forever/horde/30-40/01-hillsbrad-foothills" }`.
 
 Each record says why, in our own words, and names its issue (`#647`) or pull request; a correction,
 place or guide fix also has its `source`. `forge data check-corrections` checks all five files. A record fix shows in the guides

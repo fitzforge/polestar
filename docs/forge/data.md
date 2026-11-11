@@ -561,6 +561,30 @@ The walk is the travel-only step right before the anchored goal's step; its last
 point and the label (`way.title` retitles the step). A build warns about every walk that ends within
 120 yd of a flight master of the other faction; this record moves it.
 
+**Who makes a walk (`way.when`).** Rogues walked back from Duskwood to Agent Kearnen in Westfall for
+Mathias and the Defias (2360) whether they carried it or not; the walk is now for whoever does:
+
+```json
+{ "id": "way-kearnen-walk-with-the-quest", "faction": "Alliance", "at": { "quest": 2360, "goal": "turnin" },
+  "way": { "when": "onquest 2360" }, … }
+```
+
+Every travel-only step of the walk gets each condition (a string, or a list of them: `["!complete
+7836", "!complete 7824"]`) after its `only` and `when` lines; one it already has is not repeated. A
+record may set `at` and `when` both.
+
+**A guide's top level (`levels`).** Hillsbrad & Arathi (Horde 30-40/01) said 29-32, and the guide
+window calls a guide outgrown at its top + 2, but players leave it at 33 (players' recordings, four
+people) and half its quests are 32-33:
+
+```json
+{ "id": "levels-horde-hillsbrad-arathi-top-33", "at": { "goal": "levels", "guide": "forever/horde/30-40/01-hillsbrad-foothills" },
+  "levels": { "top": 33 }, … }
+```
+
+The header's `levels A-B` reads `A-33` when 33 is above B; the bottom is the route's. The anchor is
+the guide (its id, as in its `guide` line), not a goal.
+
 ## The knowledge base
 
 The knowledge base (KB) is what `--kb` adds. For every fact, one row per (kind, id, field), such as

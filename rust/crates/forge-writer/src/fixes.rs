@@ -95,14 +95,16 @@ enum Anchor {
 	Quest(u32),
 	/// A `fly "<place>"` step (in the record's `at.guide` only).
 	Fly(String),
+	/// The guide's header `levels` line (a `levels` record, in its `at.guide`).
+	Levels,
 }
 
 impl Anchor {
-	/// The anchor's quest (None: a flight step).
+	/// The anchor's quest (None: a flight step, a guide's header).
 	fn quest(&self) -> Option<u32> {
 		match *self {
 			Anchor::Giver(q) | Anchor::Ender(q) | Anchor::Complete(q) | Anchor::Objective(q, _) | Anchor::Quest(q) => Some(q),
-			Anchor::Fly(_) => None,
+			Anchor::Fly(_) | Anchor::Levels => None,
 		}
 	}
 	fn describe(&self) -> String {
@@ -113,6 +115,7 @@ impl Anchor {
 			Anchor::Objective(q, n) => format!("objective {q}.{n}"),
 			Anchor::Quest(q) => format!("quest {q}"),
 			Anchor::Fly(p) => format!("fly \"{p}\""),
+			Anchor::Levels => "levels".into(),
 		}
 	}
 }
@@ -137,6 +140,9 @@ fn fix_anchor(r: &Value) -> Option<Anchor> {
 	let at = &r["at"];
 	if at["goal"].as_str() == Some("fly") {
 		return at["fly"].as_str().filter(|p| !p.is_empty()).map(|p| Anchor::Fly(p.to_string()));
+	}
+	if at["goal"].as_str() == Some("levels") {
+		return at["guide"].as_str().filter(|g| !g.is_empty()).map(|_| Anchor::Levels);
 	}
 	let q = at["quest"].as_u64()? as u32;
 	match at["goal"].as_str()? {
@@ -166,6 +172,7 @@ fn anchor_lines(lines: &[String], a: &Anchor) -> Vec<usize> {
 		Anchor::Ender(q) => find(&|c| re!(r"^\s+turnin\s+(\d+)(?:\s|$)").captures(c).is_some_and(|m| m[1] == *q.to_string())),
 		Anchor::Complete(q) => find(&|c| re!(r"^\s+complete\s+(\d+)(?:\.\d+)?(?:\s|$)").captures(c).is_some_and(|m| m[1] == *q.to_string())),
 		Anchor::Fly(p) => find(&|c| re!(r#"^\s+fly\s+"([^"]*)""#).captures(c).is_some_and(|m| m[1] == **p)),
+		Anchor::Levels => lines.iter().take_while(|l| !is_step(l.as_str())).position(|l| l.starts_with("levels ")).into_iter().collect(),
 		&Anchor::Quest(q) => find(&|c| crate::guide::is_goal(c) && crate::apply::quest_of(c) == Some(q)),
 		&Anchor::Objective(q, n) => {
 			let (qs, full) = (q.to_string(), format!("{q}.{n}"));
@@ -1059,31 +1066,77 @@ fn apply_step(tree: &mut BTreeMap<String, String>, files: &[String], r: &Value, 
 /// same players) ends at `way.at` (its last `goto` takes the point, with `way.label`), with `way.title`
 /// as its title: a walk kept out of a town of the other faction (from Tarren Mill to Sorrow Hill, not
 /// into the Alliance's Chillwind Camp), or stopped at a camp's edge (the Dalaran crater's eastern rim,
-/// not Ricter's spawn among linked guards). -> the changed lines.
-fn apply_way(lines: &mut [String], found: &[usize], r: &Value) -> Vec<usize> {
+/// not Ricter's spawn among linked guards). With `way.when` (a condition, or a list) every travel-only
+/// step of that walk gets the conditions, after its `only` and `when` lines: a class's walk to a class
+/// quest taken in an earlier guide, made only by whoever carries it (`onquest 94774`, Laurena in
+/// Stormwind's cathedral).
+/// -> the changed lines.
+fn apply_way(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> {
 	let w = &r["way"];
-	let Some(at) = at_of(&w["at"]) else { return Vec::new() };
+	let at = at_of(&w["at"]);
+	let when: Vec<&str> = match &w["when"] {
+		Value::Array(a) => a.iter().filter_map(Value::as_str).collect(),
+		v => v.as_str().into_iter().collect(),
+	};
 	let mut seen: FxHashSet<usize> = FxHashSet::default();
+	// (From the last step, so a `when` put in leaves the steps before where they are.)
+	let mut steps: Vec<(usize, usize)> = found.iter().filter_map(|&i| step_body(lines, i)).filter(|st| seen.insert(st.0)).collect();
+	steps.sort_unstable_by(|a, b| b.cmp(a));
+	let mut changed = Vec::new();
+	for st in steps {
+		let walks = ways_before(lines, st);
+		if let (Some(at), Some(&walk)) = (&at, walks.last()) {
+			if let Some(g) = (walk.0 + 1..walk.1).rev().find(|&k| re!(r"^\s+goto\s").is_match(&lines[k])) {
+				let mut line = lines[g].clone();
+				if !(typed_point(&line).is_some_and(|p| close(p, (at.x, at.y))) && typed_map(&line) == Some(at.map)) {
+					line = placed(&line, at);
+				}
+				if let Some(label) = w["label"].as_str() {
+					let (code, rest) = split_comment(&line);
+					line = if code.contains('"') { labelled(&line, label) } else { format!("{} \"{label}\"{rest}", trim_end(code)) };
+				}
+				if line != lines[g] {
+					lines[g] = line;
+					changed.push(g);
+				}
+				if let Some(title) = w["title"].as_str().map(|t| format!("step {t}")).filter(|t| *t != lines[walk.0]) {
+					lines[walk.0] = title;
+					changed.push(walk.0);
+				}
+			}
+		}
+		for &(s, e) in walks.iter().rev() {
+			let ind = goals_in(lines, (s, e)).first().map_or("  ".to_string(), |&k| lines[k][..lines[k].len() - lines[k].trim_start().len()].to_string());
+			let mut e = e;
+			for cond in &when {
+				let line = format!("{ind}when {cond}");
+				if (s + 1..e).any(|k| trim(&lines[k]) == trim(&line)) {
+					continue;
+				}
+				let mut k = s + 1;
+				while k < e && re!(r"^\s+(only|when)\s").is_match(&lines[k]) {
+					k += 1;
+				}
+				lines.insert(k, line);
+				changed.push(k);
+				e += 1;
+			}
+		}
+	}
+	changed
+}
+
+/// A `levels` record: the guide's header `levels A-B` reads `A-<levels.top>` when that top is above B:
+/// the level players are at when they leave the guide, above where the route ends it (the guide window
+/// calls a guide outgrown at its top + 2 and offers another). -> the changed lines.
+fn apply_levels(lines: &mut [String], found: &[usize], r: &Value) -> Vec<usize> {
+	let Some(top) = r["levels"]["top"].as_u64() else { return Vec::new() };
 	let mut changed = Vec::new();
 	for &i in found {
-		let Some(st) = step_body(lines, i).filter(|st| seen.insert(st.0)) else { continue };
-		let Some(&walk) = ways_before(lines, st).last() else { continue };
-		let Some(g) = (walk.0 + 1..walk.1).rev().find(|&k| re!(r"^\s+goto\s").is_match(&lines[k])) else { continue };
-		let mut line = lines[g].clone();
-		if !(typed_point(&line).is_some_and(|p| close(p, (at.x, at.y))) && typed_map(&line) == Some(at.map)) {
-			line = placed(&line, &at);
-		}
-		if let Some(label) = w["label"].as_str() {
-			let (code, rest) = split_comment(&line);
-			line = if code.contains('"') { labelled(&line, label) } else { format!("{} \"{label}\"{rest}", trim_end(code)) };
-		}
-		if line != lines[g] {
-			lines[g] = line;
-			changed.push(g);
-		}
-		if let Some(title) = w["title"].as_str().map(|t| format!("step {t}")).filter(|t| *t != lines[walk.0]) {
-			lines[walk.0] = title;
-			changed.push(walk.0);
+		let Some((lo, hi)) = re!(r"^levels\s+(\d+)\s*-\s*(\d+)\s*$").captures(&lines[i]).and_then(|m| Some((m[1].parse::<u64>().ok()?, m[2].parse::<u64>().ok()?))) else { continue };
+		if top > hi {
+			lines[i] = format!("levels {lo}-{top}");
+			changed.push(i);
 		}
 	}
 	changed
@@ -1218,6 +1271,8 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			"step"
 		} else if r.get("way").is_some() {
 			"way"
+		} else if r.get("levels").is_some() {
+			"levels"
 		} else {
 			"level"
 		};
@@ -1227,7 +1282,7 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			file: "guide-fixes",
 			r,
 			slot: format!("{anchor:?} {kind}{}{to}", r["at"]["guide"].as_str().map_or(String::new(), |g| format!(" in {g}"))),
-			want: format!("{}{}{}{}{}{}{}{}{}{}{}{}{}{}", r["tip"], r["level"], r["only"], r["along"], r["early"], r["when"], r["background"], r["optional"], r["goalNote"], r["races"], r["follows"], r["split"], r["step"], r["way"]),
+			want: format!("{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}", r["tip"], r["level"], r["only"], r["along"], r["early"], r["when"], r["background"], r["optional"], r["goalNote"], r["races"], r["follows"], r["split"], r["step"], r["way"], r["levels"]),
 			anchor,
 		});
 	}
@@ -1312,6 +1367,8 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 				apply_split(&mut lines, &found, x.r)
 			} else if x.r.get("way").is_some() {
 				apply_way(&mut lines, &found, x.r)
+			} else if x.r.get("levels").is_some() {
+				apply_levels(&mut lines, &found, x.r)
 			} else {
 				apply_fix(&mut lines, &found, x.r)
 			};
@@ -1902,5 +1959,40 @@ mod tests {
 		let (again, states) = fix_all(&[("forever/a.guide", &out[0])], &fixes);
 		assert_eq!(again[0], out[0]);
 		assert_eq!(states, ["redundant", "stale"]);
+	}
+
+	#[test]
+	fn a_way_fix_holds_a_class_walk_for_whoever_carries_the_quest() {
+		// Human Priests walked to High Priestess Laurena in Stormwind's cathedral with or without Divine
+		// Grace (94774) in their log; the walk is only for whoever carries it, on both visits that have
+		// it. A walk that already has the condition keeps one.
+		let seed = "guide forever/a\nzone Westfall\n\nstep Stormwind City\n  only Human,Priest\n  zone Stormwind City\n  goto 49.5,44.6 \"High Priestess Laurena\" live\n\nstep High Priestess Laurena\n  only Human,Priest\n  turnin 94774 only Human -- Divine Grace\n\nstep Sentinel Hill\n  turnin 109\n\nstep Stormwind City\n  only Human,Priest\n  when onquest 94774\n  zone Stormwind City\n  goto 49.5,44.6 \"High Priestess Laurena\" live\n\nstep High Priestess Laurena\n  only Human,Priest\n  turnin 94774 only Human -- Divine Grace\n";
+		let fixes = json!({ "fixes": [
+			{ "id": "laurena-walk", "faction": "Alliance", "at": { "quest": 94774, "goal": "turnin" }, "way": { "when": "onquest 94774" } }
+		] });
+		let (out, states) = fix_all(&[("forever/a.guide", seed)], &fixes);
+		assert_eq!(out[0], seed.replacen("  only Human,Priest\n  zone Stormwind City", "  only Human,Priest\n  when onquest 94774\n  zone Stormwind City", 1));
+		assert_eq!(states, ["applied"]);
+		let (again, states) = fix_all(&[("forever/a.guide", &out[0])], &fixes);
+		assert_eq!(again[0], out[0]);
+		assert_eq!(states, ["redundant"]);
+	}
+
+	#[test]
+	fn a_levels_fix_raises_a_guides_top_level() {
+		// Players leave Hillsbrad & Arathi at 33 while the route ends it at 32: the header says 29-33, so
+		// the guide window does not call it outgrown a level early. A top at or under the route's leaves
+		// the header; a guide not written here is not this start's.
+		let seed = "guide forever/a\ntitle Hillsbrad Foothills & Arathi Highlands\nlevels 29-32\n\nstep Tarren Mill\n  accept 509\n";
+		let fixes = json!({ "fixes": [
+			{ "id": "top-33", "at": { "goal": "levels", "guide": "forever/a" }, "levels": { "top": 33 } },
+			{ "id": "elsewhere", "at": { "goal": "levels", "guide": "forever/b" }, "levels": { "top": 40 } }
+		] });
+		let (out, states) = fix_all(&[("forever/a.guide", seed)], &fixes);
+		assert_eq!(out[0], seed.replace("levels 29-32", "levels 29-33"));
+		assert_eq!(states, ["applied", "not for this start"]);
+		let low = json!({ "fixes": [{ "id": "top-31", "at": { "goal": "levels", "guide": "forever/a" }, "levels": { "top": 31 } }] });
+		let (same, states) = fix_all(&[("forever/a.guide", seed)], &low);
+		assert_eq!((same[0].as_str(), states), (seed, vec!["redundant".to_string()]));
 	}
 }
