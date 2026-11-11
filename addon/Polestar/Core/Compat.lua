@@ -548,6 +548,23 @@ function Compat.GetActiveQuests(source)
 	return out
 end
 
+-- Whether the open gossip window has an option that is no service: neither
+-- the goods (VendorGossipIcon, fileID 132060), training (TrainerGossipIcon,
+-- 132058), the inn's bind (BinderGossipIcon, 132052) nor the flight map
+-- (TaxiGossipIcon, 132057), told by the option's icon, never its text. Such
+-- a chat option can lead to a quest the window's list leaves out: Sovik
+-- gives Chief Engineer Scooty only from his (#1762). False when the client
+-- cannot say.
+local SERVICE_ICONS = { [132060] = true, [132058] = true, [132052] = true, [132057] = true }
+function Compat.GossipHasChat()
+	local G = C_GossipInfo
+	if not (G and G.GetOptions) then return false end
+	for _, o in ipairs(G.GetOptions() or {}) do
+		if not SERVICE_ICONS[o.overrideIconID or o.icon] then return true end
+	end
+	return false
+end
+
 -- Classic grey level (no XP from quests at or below it), used when the
 -- client gives no trivial range.
 local function greyLevel(level)

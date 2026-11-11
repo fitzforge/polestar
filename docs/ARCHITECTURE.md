@@ -750,6 +750,7 @@ Compat.IsQuestReadyForTurnIn(questID)  -> bool
 Compat.GetQuestObjectives(questID)     -> { { text, type, finished, numFulfilled, numRequired }, ... } | nil
 Compat.GetQuestTitle(questID)          -> string | nil (client cache; may be nil)
 Compat.GetOfferedQuests(source)        -> { questID, ... } | nil   (source "gossip" | "greeting" | "detail")
+Compat.GossipHasChat()                 -> bool   (the open gossip has an option that is no goods, training, bind or flight one)
 Compat.IsQuestTrivial(qlvl, level)     -> bool   (grey for that level)
 Compat.GetItemCount(itemID, includeBank) -> number   (includeBank: the bank's too)
 Compat.GetItemQuality(itemID)          -> 0..7 | nil (nil while not cached)
@@ -1654,7 +1655,13 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   the arrow stay on that giver, and its view's `noticeText` reads "Not
   offered by <giver>? Report it with /polestar" (`Own.notListed`, for the
   session, until that giver's window lists the quest or it is taken; never
-  saved). The player can still skip it (Skip this quest). Nor is a refusal
+  saved). From a gossip window with a chat option (`Compat.GossipHasChat`:
+  an option whose icon is not the goods, training, bind or flight one) it
+  reads "Not in <giver>'s quest list: try a chat option, or report it with
+  /polestar if none offers it": the quest can sit behind that option (Sovik
+  gives Chief Engineer Scooty only from his, #1762), and the quest's detail
+  window opened from it clears the line. The player can still skip it (Skip
+  this quest). Nor is a refusal
   while the missing prerequisite is in the log ready to hand in
   (`Own.preReady`): the window shows before the hand-in that opens the quest
   (Regthar Deathgate offers Verog the Dervish once Kolkar Leaders is in,

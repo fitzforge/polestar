@@ -118,6 +118,7 @@ L["Hearthstone ready in %s: walk to the inn, or wait for it"] = "炉石将在 %s
 L["Hearthstone ready in %s"] = "炉石将在 %s 后就绪"
 L["%s isn't in your quest log"] = "%s 不在你的任务日志中"
 L["Not offered by %s? Report it with /polestar"] = "%s 不提供？请用 /polestar 报告"
+L["Not in %s's quest list: try a chat option, or report it with /polestar if none offers it"] = "%s 的任务列表中没有：试试对话选项，若都没有，请用 /polestar 报告"
 L["The inn is only %s away: travel there and keep the Hearthstone"] = "旅店仅 %s 路程：走过去，保留炉石"
 L["Hearthstone ready in %s; the trip takes %s: set off now"] = "炉石 %s 后就绪；路程需 %s：现在出发"
 L["Hearthstone ready in %s, sooner than the %s trip: wait for it"] = "炉石 %s 后就绪，比 %s 的路程更快：等待炉石"

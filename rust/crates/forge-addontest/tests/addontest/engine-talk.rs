@@ -163,8 +163,8 @@ fn a_giver_who_does_not_offer_the_quest_never_skips_it_the_line_asks_for_a_repor
 	let out = run(r#"
 		local w = stub.world
 		local r = {}
-		-- Bartholomew's chat without his quest (#741: the server's giver offers nothing).
-		w.gossip(1742, { options = { { name = "Hello." } } }); flush(); w.close(); flush()
+		-- Bartholomew's window without his quest (#741: the server's giver offers nothing).
+		w.gossip(1742, {}); flush(); w.close(); flush()
 		r.after = brief()
 		r.notice = E.GetStepView(1).goals[1].noticeText
 		r.step = E.GetStepIndex()
@@ -176,7 +176,7 @@ fn a_giver_who_does_not_offer_the_quest_never_skips_it_the_line_asks_for_a_repor
 		emit(r)
 	"#);
 	assert_eq!(out["after"], json!(["active", "active", "active", "active"]), "not skipped: still to do");
-	assert_eq!(out["notice"], "Not offered by Deathguard Bartholomew? Report it with /polestar");
+	assert_eq!(out["notice"], "Not offered by Deathguard Bartholomew? Report it with /polestar", "no chat option to try");
 	assert_eq!(out["step"], 1);
 	assert_eq!(out["arrow"], 1, "the arrow stays on Bartholomew");
 	assert_eq!(out["listed"], false);

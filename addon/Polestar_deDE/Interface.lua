@@ -120,6 +120,7 @@ L["Hearthstone ready in %s: walk to the inn, or wait for it"] = "Ruhestein berei
 L["Hearthstone ready in %s"] = "Ruhestein bereit in %s"
 L["%s isn't in your quest log"] = "%s ist nicht in deinem Questlog"
 L["Not offered by %s? Report it with /polestar"] = "Wird nicht von %s angeboten? Melde es mit /polestar"
+L["Not in %s's quest list: try a chat option, or report it with /polestar if none offers it"] = "Nicht in der Questliste von %s: Versuche eine Gesprächsoption oder melde es mit /polestar, wenn keine sie anbietet"
 L["The inn is only %s away: travel there and keep the Hearthstone"] = "Das Gasthaus ist nur %s entfernt: Reise dorthin und behalte den Ruhestein"
 L["Hearthstone ready in %s; the trip takes %s: set off now"] = "Ruhestein bereit in %s; die Reise dauert %s: Brich jetzt auf"
 L["Hearthstone ready in %s, sooner than the %s trip: wait for it"] = "Ruhestein bereit in %s, früher als die Reise von %s: Warte darauf"
