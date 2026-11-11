@@ -7854,6 +7854,26 @@
 		],
 		"note": "Sentiments of the Lost (Essene Villard to Corma Villard, Wetlands), the last of the Hearts of the Lost chain (87318, #1565), is not in the live game either. The quest leaves the data."
 	},
+	"79365": {
+		"set": {
+			"races": 8589934770
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 1 Horde Skyborne player (1 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: none in 1.0.10 to 1.0.13, ORC + TAUREN + TROLL in 1.0.14"
+			}
+		],
+		"note": "With Wind Beneath Your Wings (Horde Shaman, new in QuestieDB 1.0.14) is open to every Horde race that can be a Shaman, Horde Skyborne included: Forever's server sets the Horde races on it (players' caches) and a Horde Skyborne Shaman took it in recordings. QuestieDB lists Orc, Tauren and Troll only, which closed it to Horde Skyborne Shamans."
+	},
 	"79442": {
 		"set": {
 			"races": 8589934770
