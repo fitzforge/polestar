@@ -794,6 +794,28 @@ function Compat.OpenWorldMap(uiMapID)
 	return pcall(open, uiMapID) and true or false
 end
 
+-- Opening the quest log at a quest: the client's QuestMapFrame_OpenToQuestDetails
+-- (Blizzard_UIPanels_Game/Mainline/QuestMapFrame.lua, which Forever's client
+-- loads; its own objective tracker opens a quest with it): the map with its
+-- quest log, that quest's details shown. It opens the world map, so under the
+-- same rules as Compat.OpenWorldMap: never in combat, never with the gamepad
+-- interface. Callers check the quest is in the log (Compat.IsOnQuest).
+--   Compat.CanOpenQuestLog() -> bool ; Compat.OpenQuestLog(questID) -> opened
+local function questLogOpener()
+	if ns.GamepadUI() then return nil end
+	return QuestMapFrame_OpenToQuestDetails
+end
+
+function Compat.CanOpenQuestLog()
+	return questLogOpener() ~= nil
+end
+
+function Compat.OpenQuestLog(questID)
+	local open = questLogOpener()
+	if not open or type(questID) ~= "number" or Compat.InCombat() then return false end
+	return pcall(open, questID) and true or false
+end
+
 -- The continent-type uiMap (Enum.UIMapType.Continent = 2) a map belongs to,
 -- found through C_Map.GetMapInfo's parentMapID chain; nil when unknown.
 -- Works for maps with no world bounds (no registered Era frame).

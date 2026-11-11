@@ -12,4 +12,5 @@
 	<Script file="Options.lua"/>
 	<Script file="Party.lua"/>
 	<Script file="PartyChat.lua"/>
+	<Script file="QuestLogLink.lua"/>
 </Ui>

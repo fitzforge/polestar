@@ -517,7 +517,8 @@ reloads the UI when it changes). With it on, Polestar:
 - puts no window in `UISpecialFrames` (`CloseOnEscape`), which the
   gamepad's menus read and close;
 - opens no world map (`Compat.OpenWorldMap`; a dungeon page has no "Show
-  on map") and adds no canvas click handler to it (Nav/Journey);
+  on map") or quest log (`Compat.OpenQuestLog`; no "Show in quest log"
+  entry) and adds no canvas click handler to it (Nav/Journey);
 - never closes the game's Settings panel for "Open Polestar settings"
   (UI/Options: the chat says to close it);
 - hooks no button the gamepad's navigation moves over: no Polestar line on
@@ -853,7 +854,10 @@ through `Compat.OpenWorldMap(uiMapID)` (`C_Map.OpenWorldMap`, the global
 `Compat.CanOpenWorldMap()` says whether it can): the global opener called
 from addon code taints the map frame (NAV_QA C3), and
 `rust/crates/forge-addontest/tests/addontest/compat.rs` rejects any other code that opens or moves the world
-map. Routing the rest keeps Forever specifics in few places and lets other modules' tests
+map. The quest log, the world map's side panel, opens only through
+`Compat.OpenQuestLog(questID)` (the client's `QuestMapFrame_OpenToQuestDetails`,
+under the same rules; `Compat.CanOpenQuestLog()`), and the same test rejects its
+openers elsewhere. Routing the rest keeps Forever specifics in few places and lets other modules' tests
 replace Compat with a fake.
 
 Coordinates: map percent `x, y` in **0–100**. World coordinates follow

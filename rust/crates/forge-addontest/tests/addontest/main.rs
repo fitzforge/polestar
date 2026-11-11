@@ -307,6 +307,8 @@ mod questdb_memory;
 mod quests;
 #[path = "quests-levels.rs"]
 mod quests_levels;
+#[path = "quests-log-link.rs"]
+mod quests_log_link;
 #[path = "quests-timed.rs"]
 mod quests_timed;
 #[path = "quoted-quest-names.rs"]

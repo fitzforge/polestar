@@ -379,8 +379,17 @@ fn walk(dir: &Path, root: &Path, bare: &[Regex], comment: &Regex, found: &mut Ve
 
 #[test]
 fn c3_nav_qa_no_addon_code_outside_core_compat_lua_opens_or_moves_the_world_map_itself_openworldmap_toggleworldmap_showuipanel_worldmapframe_worldmapframe_setmapid() {
-	let bare: Vec<Regex> =
-		[r"(^|[^.:\w])OpenWorldMap\b", r"(^|[^.:\w])ToggleWorldMap\s*\(", r"ShowUIPanel\s*\(\s*WorldMapFrame\b", r"WorldMapFrame\s*:\s*SetMapID\s*\("].iter().map(|p| Regex::new(p).unwrap()).collect();
+	let bare: Vec<Regex> = [
+		r"(^|[^.:\w])OpenWorldMap\b",
+		r"(^|[^.:\w])ToggleWorldMap\s*\(",
+		r"ShowUIPanel\s*\(\s*WorldMapFrame\b",
+		r"WorldMapFrame\s*:\s*SetMapID\s*\(",
+		// The quest log is the world map's side panel: its openers open the map too (Compat.OpenQuestLog).
+		r"(^|[^.:\w])(OpenQuestLog|ToggleQuestLog|QuestMapFrame_OpenToQuestDetails)\b",
+	]
+	.iter()
+	.map(|p| Regex::new(p).unwrap())
+	.collect();
 	let comment = Regex::new(r"--.*$").unwrap();
 	let root = addons_dir();
 	let mut found = Vec::new();
