@@ -1280,7 +1280,8 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   current zone first, then the nearest by travel; ties keep the race's own
   chain. `Suggest()` is its first. The hub's Home lists all of them under
   "Suggested for you", open ones included (marked with their tab), then an
-  open guide's follow-up once the player is within two levels of it.
+  open guide's follow-up once the player is one level below it (0.3.7; it
+  was two).
 - **Out-levelled guides.** When the player's level exceeds the active guide's
   `maxLevel` by 2 or more, the Engine fires `GUIDE_OUTLEVELED(guideId,
   suggestedId)` once per guide per session, once the guide is placed (a
@@ -1335,7 +1336,11 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   `Engine.StartGate`, nothing of it under way) fires `CLASS_QUEST_READY`
   on level-up, a turn-in or login, and the banner offers it in a tab (Later:
   again at a higher level; dismissed: never; `CharState().flags.classOffered`),
-  one at a time; Options → Guide → Automation → "Offer class quests".
+  one at a time; Options → Guide → Automation → "Offer class quests". Since
+  0.3.7 it waits for one level below the chain's first quest's level
+  (`ClassQuests.QUEST_MARGIN`; the accept's compiled `qlvl`), not for the
+  game's first offer 3-5 levels earlier; the guide list opens it from its
+  gate as before.
 - **Conditions checked during play.** A step with `when` (format 4;
   GUIDE_FORMAT, "Conditions checked during play") applies only while every
   predicate holds (`Own.whenFails`, `Own.predicateHolds`): the level, quests
@@ -5847,7 +5852,7 @@ GuideTo, GuideToPoint, ShowOnMap; `SHOW_DUNGEON`). `dungeons build` writes no
 guides.
 
 The pick-up guide is built in game (`addon/Polestar/Dungeons/Pickup.lua`):
-`Dungeons.PickupPlan(key)` takes the page's quests that apply to the character
+`Dungeons.PickupPlan(key, offer)` takes the page's quests that apply to the character
 (faction, race and class masks through `Lookup.QuestBlock`, the page's class
 list), not done, not in the log (those are `carried`), not closed for good (a
 quest of the page's `closedBy` done or in the log: a breadcrumb whose quest is
@@ -6341,14 +6346,20 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   page in the hub), **Later** and **Turn these off**
   (`dungeons.headsUp` off; also under Options > Discovery > Dungeons). It
   tells a dungeon, not a raid, with quests for the character's faction, the
-  character's level in its range, whose pickup plan has a quest to take now
+  character's level in its range, whose pickup plan by the offer rule
+  (`Dungeons.PickupPlan(key, true)`: a quest more than one level above the
+  character waits for its level less one, `Dungeons.OfferLevel`; 0.3.7, the
+  game gives many 3-5 levels early) has a quest to take now
   and none left for later levels or at least 3 to take; once per dungeon per
   character (`CharState().dungeonToastSeen`, set once the card is on screen
   or dismissed: a card waiting for the hidden guide window is told when the
-  window shows it); of several, the one whose range
-  began last. It checks 1.5 s after `PLAYER_LEVEL_UP`, so the class quest
+  window shows it); of several, the one that came due last (its range's
+  start or its first quest's offer level). Its **Pick up the quests** opens
+  the guide by the same rule (`Dungeons.PickUp(key, true)`, kept in
+  `CharState().pickupOffer` for the rebuild after /reload); the page's own
+  button picks up everything the game gives. It checks 1.5 s after `PLAYER_LEVEL_UP`, so the class quest
   heads-up has the card first; 4 s after login, then only for a dungeon
-  whose range began within the last two levels; and 1.5 s after
+  that came due within the last two levels; and 1.5 s after
   `QUEST_TURNED_IN` of a quest on a dungeon's page (a prerequisite whose
   follow-ups there may open), then only for that dungeon. Only the level-up
   check loads the Codex: the login one waits for `CODEX_LOADED` (a level-up

@@ -1282,16 +1282,17 @@ fn on_a_narrow_window_the_chip_goes_under_the_header_and_the_buttons_wrap_inside
 	assert_eq!(out[1], json!({ "chip": "TOPLEFT", "oneLine": true, "badge": "+25% OF A LEVEL", "rows": [["act"], ["more"], ["later", "off"]], "fits": true }), "under them at the narrowest");
 }
 
-// Fitz's design for #836: the card comes at the level-up that opens the dungeon's quests. With Leaders of the
-// Fang (914, Horde, from 18) not yet taken, 16 is below Wailing Caverns' range and at 17 one of its three quests
-// still waits for a later level (two to take: not enough to tell); at 18 all three are open.
+// Fitz's design for #836, offered from one level below the quests' level (Fitz, 2026-11-10: the game gives many
+// 3-5 levels early, and the cards stacked up there). With Leaders of the Fang (914, Horde, level 22, the game gives
+// it from 18) not yet taken, 16 is below Wailing Caverns' range; from 17 to 20 one of its three quests still waits
+// (two to take: not enough to tell); at 21, one below Leaders of the Fang's level, all three are offered.
 #[test]
-fn the_card_comes_at_the_level_up_that_opens_the_dungeons_quests_not_before() {
+fn the_card_comes_one_level_below_the_dungeons_quests_level_not_when_the_game_first_gives_them() {
 	let out = run(&format!(
 		r#"{HEADS_UP}
 		log[914] = nil
 		local seen = {{}}
-		for _, n in ipairs({{ 16, 17, 18 }}) do
+		for _, n in ipairs({{ 16, 17, 18, 20, 21 }}) do
 			uistub.player.level = n
 			levelUp(n)
 			local c = card()
@@ -1299,7 +1300,28 @@ fn the_card_comes_at_the_level_up_that_opens_the_dungeons_quests_not_before() {
 		end
 		emit(seen)"#
 	));
-	assert_eq!(out[0], json!([false, false, "3 quests to pick up  ·  Levels 17–24  ·  The Barrens"]));
+	assert_eq!(out[0], json!([false, false, false, false, "3 quests to pick up  ·  Levels 17–24  ·  The Barrens"]));
+}
+
+// The heads-up's guide picks up by the same rule, its waiting quest coming back at its offer level; the dungeon's
+// page still picks up everything the game gives (Fitz: "still openable early from the menus").
+#[test]
+fn the_heads_up_s_pick_up_plan_waits_for_one_level_below_a_quest_s_level_the_page_s_does_not() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		log[914] = nil
+		local D = Polestar.Dungeons
+		local function ids(list) local t = {{}} for _, x in ipairs(list) do t[#t + 1] = (x.quest or x).id end table.sort(t) return t end
+		local offer, page = D.PickupPlan("wailing-caverns", true), D.PickupPlan("wailing-caverns")
+		local w = offer.waiting[1]
+		emit({{ offer = ids(offer.take), waiting = {{ w.quest.id, w.level }}, later = offer.later, page = ids(page.take), pageLater = page.later }})"#
+	));
+	assert_eq!(out[0]["waiting"], json!([914, 21]), "Leaders of the Fang, level 22: from 21");
+	assert_eq!(out[0]["later"], 1);
+	assert_eq!(out[0]["pageLater"], 0);
+	let (offer, page) = (out[0]["offer"].as_array().unwrap(), out[0]["page"].as_array().unwrap());
+	assert!(!offer.contains(&json!(914)) && page.contains(&json!(914)), "{offer:?} {page:?}");
+	assert_eq!(offer.len() + 1, page.len());
 }
 
 // The player's faction only: the Deadmines' one quest is the Alliance's, Leaders of the Fang the Horde's.
@@ -1308,9 +1330,10 @@ fn only_dungeons_with_quests_for_the_characters_faction_are_told_and_counted_for
 	let out = run(&format!(
 		r#"{HEADS_UP}
 		log[914] = nil
+		uistub.player.level = 21
 		local function list()
 			local t = {{}}
-			for _, c in ipairs(DT.Candidates(20, "levelup")) do t[#t + 1] = {{ c.key, c.take }} end
+			for _, c in ipairs(DT.Candidates(21, "levelup")) do t[#t + 1] = {{ c.key, c.take }} end
 			return t
 		end
 		emit({{ horde = list() }})
