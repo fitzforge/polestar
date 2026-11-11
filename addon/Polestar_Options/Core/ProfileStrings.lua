@@ -9,6 +9,9 @@
 local ns = Polestar
 local L = ns.L
 local P = ns.Profiles
+-- Without core's profiles (a part of Polestar loaded alone) there is no
+-- string to make or read.
+if not (P and P.Parts) then return end
 
 local type, pairs, ipairs, next, tostring, tonumber, pcall, select = type, pairs, ipairs, next, tostring, tonumber, pcall, select
 local byte, char, format, sub, gsub, find, lower = string.byte, string.char, string.format, string.sub, string.gsub, string.find, string.lower
