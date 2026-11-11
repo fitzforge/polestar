@@ -4110,6 +4110,7 @@ L["The quest item, Hearthstone, target and rare buttons, the travel button under
 -- L["On"] = ""
 -- L["Every setting here at its default."] = ""
 -- L["A look in one click: it sets the settings it names and puts the others of these looks back to their defaults. Right-click goes back to the defaults."] = ""
+
 -- Theme/SkinApi.lua
 -- L["The skin %s (from %s) could not be added: %s. Polestar's own look stands in."] = ""
 
