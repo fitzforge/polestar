@@ -106,7 +106,8 @@ check("skin hairline", Theme.RegisterSkin("hairline", {
 	-- Condensed faces want a touch more size to keep their x-height.
 	fontSizes = { body = 14, goal = 15, label = 13, note = 13, small = 12, caption = 12, number = 13 },
 	textShadow = { 1, -1, 1 },
-	arrow = "flat",
+	-- A dart of its own (media.dart, media.dartEdge) on the skins' dart style.
+	arrow = "halo",
 	media = { dart = HOME .. "Media\\dart", dartEdge = HOME .. "Media\\dart-edge" },
 	shadow = false,
 	mapIcons = "polestar",
