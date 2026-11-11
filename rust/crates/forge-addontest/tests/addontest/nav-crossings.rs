@@ -696,4 +696,42 @@ fn a_walk_never_stops_at_a_crossing_s_end_it_does_not_cross_kargath_from_the_bad
 	assert!(gorge.iter().any(|l| l.ends_with("|carbonite-searing-gorge--badlands")), "into Searing Gorge through the gate: {gorge:?}");
 }
 
+// #1694: the data lists Gorrik on the Badlands' map (4.0,44.8) and again on Searing Gorge's (83.2,35.8), the same
+// spot; Nearby services took the Searing Gorge copy, and the planner walked a target on Searing Gorge's map
+// through the gate into Searing Gorge and back. A target's zone is where the walking maps put its point: Kargath is
+// in the Badlands, one walk. A city's map keeps its target, whatever they say under it: they put the Undercity's
+// halls in Tirisfal, and a walk from Brill to Aelthalyste (Undercity 49.3,17.1) still goes in by the Undercity's way.
+#[test]
+fn a_target_on_the_next_zone_s_map_is_in_the_zone_the_walking_maps_put_it_in_a_city_s_stays_in_the_city_1694() {
+	let out = run_raw(
+		r#"
+			local N = Polestar.Nav
+			local zone
+			N.danger.ZoneAt = function(c) return c == 0 and zone or nil end
+			local function plan(from, map, wx, wy, label, cost)
+				local legs = N.PlanRoute({ c = 0, map = from[1], wx = from[2], wy = from[3], faction = 2, speed = 7,
+					target = { c = 0, map = map, wx = wx, wy = wy, label = label },
+					walkCost = cost and function(_, _, _, start) if start then return cost, cost end end or nil })
+				local out = {}
+				for _, l in ipairs(legs or {}) do out[#out + 1] = l.kind .. "|" .. l.label .. (l.crossing and ("|" .. l.crossing) or "") end
+				return out
+			end
+			local badlands, brill = { 1418, -6718.75, -3322.9 }, { 1420, 2252.9, 236.2 }
+			local r = {}
+			zone = 1418
+			r.copy = plan(badlands, 1427, -6632.5, -2179.3, "Gorrik", 2188)
+			zone = nil
+			r.unknown = plan(badlands, 1427, -6632.5, -2179.3, "Gorrik", 2188)
+			zone = 1420
+			r.city = plan(brill, 1458, 1768.5, 400.2, "Aelthalyste")
+			zone = nil
+			r.cityPlain = plan(brill, 1458, 1768.5, 400.2, "Aelthalyste")
+			emit(r)"#,
+	);
+	assert_eq!(out["copy"], json!(["walk|Gorrik"]), "the walking maps put it in the Badlands: one walk");
+	let unknown: Vec<&str> = out["unknown"].as_array().unwrap().iter().map(|l| l.as_str().unwrap()).collect();
+	assert!(unknown.iter().any(|l| l.ends_with("|carbonite-searing-gorge--badlands")), "without the walking maps, the map's zone: {unknown:?}");
+	assert_eq!(out["city"], out["cityPlain"], "the Undercity's map keeps its target");
+	assert_ne!(out["city"], json!(["walk|Aelthalyste"]), "into the Undercity by its way, not a walk to the ground above");
+}
 // KEPT IN JS:

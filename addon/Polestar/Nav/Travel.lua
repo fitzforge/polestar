@@ -445,10 +445,37 @@ end
 -- overlap widely: the Blackfathom Deeps entrance lies in Ashenvale's and in
 -- Felwood's, Felwood's the smaller, and a player in its cave was walked to the
 -- Felwood crossing or sent to hearth (#1359).
-local function zoneOf(map, c, wx, wy)
+-- A target (`target`) on a zone's map whose point the walking maps put in
+-- another zone the data knows is in that one: the data lists a border NPC on
+-- both zones' maps, and a target on the wrong one was walked through the
+-- crossing into it and back (Kargath's flight master on Searing Gorge's map,
+-- through the Searing Gorge gate, #1694). A city's map keeps its target (one
+-- at most INNER_MAX yards across, or inside the other zone's frame): the
+-- walking maps put the Undercity's halls in Tirisfal, the ground above them.
+local INNER_MAX = 1500
+-- Zone frame z is a city's (at most INNER_MAX across) or inside o's; true when either has no frame.
+local function inner(z, o)
+	local zl, zr, zt, zb = z.left, z.right, z.top, z.bottom
+	local ol, orr, ot, ob = o.left, o.right, o.top, o.bottom
+	if not (zl and zr and zt and zb and ol and orr and ot and ob) then return true end
+	if zl > zr then zl, zr = zr, zl end
+	if zt > zb then zt, zb = zb, zt end
+	if zr - zl <= INNER_MAX and zb - zt <= INNER_MAX then return true end
+	if ol > orr then ol, orr = orr, ol end
+	if ot > ob then ot, ob = ob, ot end
+	return zl >= ol and zr <= orr and zt >= ot and zb <= ob
+end
+local function zoneOf(map, c, wx, wy, target)
 	if map then
 		local z = zoneInfo[map]
-		if z and z.c == c then return map end
+		if z and z.c == c then
+			if not target then return map end
+			local D = Nav.danger
+			local at = D and D.ZoneAt and D.ZoneAt(c, wx, wy)
+			local o = at and at ~= map and zoneInfo[at]
+			if not o or o.c ~= c or inner(z, o) then return map end
+			return at
+		end
 		if wildZone[map] then return nil end
 	end
 	local D = Nav.danger
@@ -577,6 +604,8 @@ local function planRoute(p)
 	end
 	add(START, p.c, p.wx, p.wy, nil, p.map)
 	add(TARGET, tg.c, tg.wx, tg.wy, tg, tg.map)
+	-- The target's zone is where the walking maps put its point (zoneOf's `target`, #1694).
+	if covered[tg.c] then vzone[2] = zoneOf(tg.map, tg.c, tg.wx, tg.wy, true) end
 	-- learnV[v]: a flight master of the player's not learnt yet, on the start's or the target's continent. Talking
 	-- to it learns it and opens its flight map, so it is walked to and flown from like a known one, never flown to
 	-- (its flights go only to known ones): Ironforge's beside a player who has Menethil Harbor (#1174).
