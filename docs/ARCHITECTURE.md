@@ -205,8 +205,12 @@ first ran Polestar; 0 for one from before), `since = { version, at }` (when this
 `shownAt` (the card's last version and time), `helloAt`, `replyAt` (the guild hello's), `probed` (the
 version probe's players, name -> when, at most 300), `heard` (players' answers to our probes, name -> `{ v,
 at }`, at most 50, 7 days).
-`dungeons` (per character) holds the dungeons this character runs in leveling
-guides, by the instance's Map id (`Engine.ChooseDungeon`, `when dungeon`).
+`dungeons` (per character) holds this character's answer per dungeon in leveling
+guides, by the instance's Map id: true runs it, false skips it (`Engine.ChooseDungeon`, `when dungeon`);
+`dungeonRoute` (per character, "ask" | "run" | "skip") answers the rest ("Dungeons in my route",
+`Engine.SetDungeonRoute`); none stored reads as "skip", the solo route. Unanswered with "ask", the first
+`when dungeon` step with work now holds the route (`Engine.DungeonQuestion`); `Engine.DungeonSoon` is a chosen
+run a few open steps ahead (start looking for a group) and `Engine.SkipDungeon` answers "skip" at the run.
 `behavior.suggestFrom` (default `"guides"`) is the pack suggestions come from.
 Modules keep their own keys beside these (`rares`, `instances`, `names`, `alts` account-wide;
 `ui`, `routes`, `classTrainLevel`, `classTrainVisit`, `qol`, `flightTimes`,
@@ -1492,10 +1496,11 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   test: level, `pre`/`preAll` through `missingPre`, `closedBy`), the money
   held (`Compat.GetMoney`, copper), an item count in the bags, the zone or subzone text, the bind location (place
   names as the area's name in the client's language, `Compat.GetAreaName`,
-  else as written), the dungeons the player chose to run
-  (`Engine.DungeonChosen(map)`: `CharState().dungeons[map]`, set by
-  `Engine.ChooseDungeon(map, on)` from the Options' "Dungeons in leveling
-  guides", none by default; a predicate without `map` never holds),
+  else as written), the dungeons the player runs
+  (`Engine.DungeonChosen(map)`: the answer for that dungeon, `CharState().dungeons[map]`
+  true or false through `Engine.ChooseDungeon(map, answer)`, else `CharState().dungeonRoute`,
+  Skip by default; with "ask" a `when dungeon` step holds while it has work now, `Own.whenFails` and
+  `Own.dungeonPending`; a predicate without `map` never holds),
   Polestar's gear advice on an item (`Own.isUpgrade`: `Gear.IsUpgrade`,
   counted as an upgrade when the advice is off or cannot judge the item), a
   profession's rank (`Compat.GetSkillRank` by skill line, else by name; not
