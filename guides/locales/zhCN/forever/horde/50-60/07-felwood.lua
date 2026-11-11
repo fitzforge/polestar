@@ -61,8 +61,8 @@ return {
 	["Corrupted Soul Shards from the cultists, {quest:5887}"] = "从信徒身上收集腐化的灵魂碎片，{quest:5887}",
 
 	-- Step 13: Maybess Riverbreeze
-	-- {npc:10922} Greta Mosshoof · {npc:9529} Maybess Riverbreeze
-	["On the way back south to {npc:10922}, {npc:9529} takes the shards on the west side of the Sanctuary."] = "在向南返回{npc:10922}的路上，在翡翠圣地西侧把碎片交给{npc:9529}。",
+	-- {npc:9529} Maybess Riverbreeze
+	["On the way back south to Greta, {npc:9529} takes the shards on the west side of the Sanctuary."] = "",
 
 	-- Step 14: Greta Mosshoof
 	["South to the Sanctuary once more."] = "再次向南前往翡翠圣地。",
@@ -156,6 +156,7 @@ return {
 	-- ["Back into the Timbermaw tunnel and take the {area:618} exit; {npc:9298} camps by the hot springs just outside."] = "回到木喉隧道，走{area:618}出口；{npc:9298}就在出口外的温泉旁扎营。",
 	-- ["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {area:361}. The {area:2479} is the druids' camp just past the border."] = "飞往{area:431}，沿道路向西北离开{zone:1440}进入{area:361}。{area:2479}是刚过边界的德鲁伊营地。",
 	-- ["From the {zone:1458}, take the zeppelin from the tower outside the city to {zone:1454}."] = "在{zone:1458}城外的塔上乘飞艇前往{zone:1454}。",
+	-- ["On the way back south to {npc:10922}, {npc:9529} takes the shards on the west side of the Sanctuary."] = "在向南返回{npc:10922}的路上，在翡翠圣地西侧把碎片交给{npc:9529}。",
 	-- ["Only if you carry {quest:5087}: the runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate."] = "仅当你有{quest:5087}时：信使们成小群地沿着从{area:1769}到{area:2244}的道路行走；在{npc:9298}附近的路边等候，在他们经过时杀死他们。每个都带着一个箱子。",
 	-- ["Only if you carry {quest:5087}: the runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "仅在接有 {quest:5087} 时进行：信使以小队形式沿道路从 {area:1769} 前往 {area:2244}；在 {npc:9298} 附近路边等待，经过时击杀。每名都携带一个箱子。\n小心：交还任务后会出现三四名56—57级冬泉伏兵攻击你；可以骑乘、潜行或使用 {spell:5384} 逃脱。之后它们会聚集在湖边，你就能接下一个任务。",
 	-- ["Only if {npc:9298} gave you {quest:5086}: ride north up the {area:361} road to {area:1767}; the {quest:5086} ooze between the trees."] = "仅当{npc:9298}给了你{quest:5086}时：沿{area:361}的道路向北骑往{area:1767}；{quest:5086}在树木之间蠕动。",

@@ -158,8 +158,8 @@ return {
 	["{npc:15624}: 25 (and 25 Cenarion Circle)"] = "{npc:15624}: 25 (e 25 com o Círculo Cenariano)",
 
 	-- Step 26: Keeper Remulos
-	-- {quest:8735} The Nightmare's Corruption · {zone:1440} Ashenvale · {zone:1444} Feralas · {zone:1425} Hinterlands · {npc:15625} Twilight Corrupter · {zone:1431} Duskwood
-	["{quest:8735} wants a fragment from each of the four Dragons of Nightmare portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "{quest:8735} quer um fragmento de cada um dos quatro portais dos Dragões do Pesadelo: dragonídeos elite nos portais de {zone:1440}, {zone:1444} e {zone:1425} (5% cada) e {npc:15625} em {zone:1431}. Conteúdo de raide.",
+	-- {quest:8735} The Nightmare's Corruption · {npc:235289} Dragons of Nightmare · {zone:1440} Ashenvale · {zone:1444} Feralas · {zone:1425} Hinterlands · {npc:15625} Twilight Corrupter · {zone:1431} Duskwood
+	["{quest:8735} wants a fragment from each of the four {npc:235289} portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "",
 	["10 (and 100 Cenarion Circle)"] = "10 (e 100 com o Círculo Cenariano)",
 
 	-- Step 27: The Ashenvale portal
@@ -257,4 +257,7 @@ return {
 	["At Exalted, {npc:15192} gives the last ring of your path: The Protector of Kalimdor, The Qiraji Conqueror or The Grand Invoker. Bring the Revered ring; 100 reputation."] = "Em Exaltado, {npc:15192} dá o último anel do seu caminho: O protetor de Kalimdor, O conquistador de Qiraji ou O grande evocador. Leve o anel de Reverenciado; 100 de reputação.",
 	-- {npc:15192} Anachronos
 	["{npc:15192}: the Exalted ring quest of your path"] = "{npc:15192}: a missão do anel de Exaltado do seu caminho",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{quest:8735} wants a fragment from each of the four Dragons of Nightmare portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "{quest:8735} quer um fragmento de cada um dos quatro portais dos Dragões do Pesadelo: dragonídeos elite nos portais de {zone:1440}, {zone:1444} e {zone:1425} (5% cada) e {npc:15625} em {zone:1431}. Conteúdo de raide.",
 }

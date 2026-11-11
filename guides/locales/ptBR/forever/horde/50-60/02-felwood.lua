@@ -158,8 +158,8 @@ return {
 	-- Step 35: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
 	["The {area:1763} moonwell"] = "O poço lunar de {area:1763}",
-	-- {area:1763} Jaedenar · {npc:10922} Greta Mosshoof
-	["Back north to {area:1763}. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "De volta ao norte, até {area:1763}. Encha o cantil de {npc:10922} no poço lunar corrompido no meio do acampamento do sul.",
+	-- {area:1763} Jaedenar
+	["Back north to {area:1763}. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp."] = "",
 
 	-- Step 36: Rakaiah
 	-- {npc:9518} Rakaiah · {area:1763} Jaedenar · {npc:11020} Remains of Trey Lightforge
@@ -262,6 +262,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "De volta a {area:1762}, os furbolgs Lenha Morta (53-54) ficam perto do túnel e cada morte aumenta sua reputação com os Presamatos.",
+	-- ["Back north to {area:1763}. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "De volta ao norte, até {area:1763}. Encha o cantil de {npc:10922} no poço lunar corrompido no meio do acampamento do sul.",
 	-- ["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "Cuidado: os Vigias do Covil são nível 53-54; chamam aliados num raio de 25 metros quando ficam abaixo de 50% de vida e saem correndo atrás de ajuda abaixo de 15%.",
 	-- ["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Cuidado: os Vigias do Covil têm nível 53-54; chamam aliados num raio de 25 m quando ficam abaixo de 50% de vida e fogem atrás de ajuda abaixo de 15%.\nAbaixo do nível 54.54, continue lutando contra os Lenha Morta aqui depois da contagem de {npc:15395}: as entregas em {area:1769} e em {area:2479} levam você ao nível 55. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1417}.",
 	-- ["Diseased Grizzlies"] = "Ursos-cinzentos Doentes",
