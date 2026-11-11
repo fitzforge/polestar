@@ -913,3 +913,27 @@ fn no_frame_polestar_puts_on_the_world_map_looks_like_a_button_to_the_gamepad_s_
 	assert!(num(&out["scanned"]) >= 6.0, "the pins, area, region, trail and the view's frame were scanned ({})", out["scanned"]);
 	assert_eq!(out["clicks"], json!(["LeftButton", "MiddleButton"]));
 }
+
+#[test]
+fn minimap_pins_move_on_every_rendered_frame_while_the_view_changes_at_a_high_frame_rate() {
+	// The game redraws the minimap every frame; a pin laid out less often lags
+	// the terrain under it and jumps to catch up (jitter at 60+ fps).
+	let out = run(r#"
+		Pins.SetLayer("quests", { at(100, 0) }, { world = false, minimap = true })
+		stub.advance(1)                                  -- settle
+		nav.place(1, 0); stub.advance(0.1)               -- walking wakes the driver
+		local r = { awake = Pins.driver:IsShown() }
+		local draws = Pins.stats.draws
+		for i = 1, 24 do                                 -- 24 frames at 144 fps, a step each
+			nav.place(1 + i * 0.05, 0)
+			stub.RunScript(Pins.driver, "OnUpdate", 1 / 144)
+		end
+		r.draws = Pins.stats.draws - draws
+		draws = Pins.stats.draws
+		for _ = 1, 24 do stub.RunScript(Pins.driver, "OnUpdate", 1 / 144) end -- standing still
+		r.stillDraws = Pins.stats.draws - draws
+		emit(r)"#);
+	assert_eq!(out["awake"], true);
+	assert_eq!(out["draws"], 24, "one layout per rendered frame while moving");
+	assert_eq!(out["stillDraws"], 0, "nothing redrawn while the view holds still");
+}

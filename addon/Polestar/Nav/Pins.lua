@@ -43,8 +43,9 @@
 -- Cost model: the minimap is only touched when something it depends on
 -- changed (position, facing on a rotating minimap, zoom, size, layers). A
 -- 10 Hz watcher compares those scalars; while they keep changing a driver
--- frame repositions pins at most 30 times a second and hides itself after
--- 0.3 s of stillness, so standing still costs no per-frame work at all.
+-- frame repositions pins on every rendered frame, as the game redraws the
+-- minimap (a slower rate lags the terrain and jitters), and hides itself
+-- after 0.3 s of stillness, so standing still costs no per-frame work at all.
 -- Movement events wake the driver at once. Layer changes redraw once on the
 -- next frame however many layers changed in this one. Each layer indexes its
 -- pins by continent and by CELL-yard grid square, so a redraw visits the
@@ -112,7 +113,6 @@ local PIN_ZOOM = {
 -- full while clear of it, ARROW_FADE once one of the two lies inside the other.
 local ARROW_R, ARROW_FADE = 9, 0.3
 local WATCH_INTERVAL = 0.1
-local DRIVE_INTERVAL = 1 / 30
 local IDLE_AFTER = 0.3
 local MINIMAP_REACH = 1.0 -- fraction of the view radius a non-edge pin may sit at
 local CELL = 500 -- yards per grid square of a layer's minimap index
@@ -2276,11 +2276,11 @@ local function sample(force)
 	return true
 end
 
-local idle, accum = 0, 0
+local idle = 0
 
 local function wake()
 	if driver and not driver:IsShown() then
-		idle, accum = 0, 0
+		idle = 0
 		driver:Show()
 	end
 end
@@ -2290,14 +2290,10 @@ local function ensureMinimap()
 	driver = CreateFrame("Frame", nil, UIParent)
 	driver:Hide()
 	driver:SetScript("OnUpdate", ns.Safe(function(self, elapsed)
-		accum = accum + elapsed
-		if accum < DRIVE_INTERVAL then return end
-		local step = accum
-		accum = 0
 		if sample(false) then
 			idle = 0
 		else
-			idle = idle + step
+			idle = idle + elapsed
 			if idle >= IDLE_AFTER then self:Hide() end
 		end
 	end))
