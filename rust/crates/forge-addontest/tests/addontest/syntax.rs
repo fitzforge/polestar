@@ -75,9 +75,9 @@ fn main_chunk_locals(src: &[u8]) -> usize {
 		lua.load(&prefixed[..]).into_function().is_ok()
 	};
 	assert!(fits(0), "the file must compile");
-	let (mut lo, mut hi) = (0, 200); // fits(lo); the answer lies in lo..hi
+	let (mut lo, mut hi): (usize, usize) = (0, 200); // fits(lo); the answer lies in lo..hi
 	while lo < hi {
-		let mid = (lo + hi + 1) / 2;
+		let mid = (lo + hi).div_ceil(2);
 		if fits(mid) {
 			lo = mid;
 		} else {
