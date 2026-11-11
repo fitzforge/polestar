@@ -746,10 +746,15 @@ end
 
 -- The built-in look the skin in use is drawn from: the skin itself for the
 -- six built in, the look a registered skin extends (its base, or its
--- variant's). Modules that vary their own art by skin key it by this.
+-- variant's). Modules that vary their own art by skin key it by this. The
+-- game's looks and Hearth are drawn by their part (Polestar_Looks): with the
+-- part missing or disabled, Polestar's own look stands in, whole (not the
+-- look's sizes and controls on Polestar's frames).
 function Theme.SkinKey()
 	local s = SKINS[Theme.SkinId()]
-	return s and baseOf(s) or "polestar"
+	local key = s and baseOf(s) or "polestar"
+	if (GAME_SKINS[key] or key == "hearth") and Theme.LoadLooks and not Theme.LoadLooks(key) then return "polestar" end
+	return key
 end
 
 -- Whether the skin in use (or the built-in look `key`) is drawn in the

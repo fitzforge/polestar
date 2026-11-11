@@ -1331,3 +1331,29 @@ fn the_game_looks_and_hearth_load_on_demand_the_first_time_one_is_painted_and_on
 	);
 	assert_eq!(out["back"], json!({ "loads": 1, "kit": false }));
 }
+
+// The game looks' part missing or turned off in the AddOns list (Polestar_Looks): picking one of them keeps
+// Polestar's own look whole (its sizes, its controls: a switch keeps its pill), never the look's controls on
+// Polestar's frames with nothing drawn where the look's art would be.
+#[test]
+fn without_the_game_looks_part_polestar_s_own_look_stands_in_whole() {
+	let out = run(r#"
+		local load = C_AddOns.LoadAddOn
+		function C_AddOns.LoadAddOn(name, ...)
+			if name == "Polestar_Looks" then return false, "DISABLED" end
+			return load(name, ...)
+		end
+		local sw = W.Switch(UIParent, function() return true end, function() end)
+		Polestar.Set("ui.skin", "blizzard")
+		sw:Refresh()
+		local out = { id = T.SkinId(), key = T.SkinKey(), game = T.GameSkin(), kit = T.Kit() ~= nil,
+			pill = sw.Track.parts[1]:IsShown(), knob = sw.Knob:IsShown() }
+		Polestar.Set("ui.skin", "hearth")
+		out.hearth = T.SkinKey()
+		emit(out)"#);
+	assert_eq!(out["id"], "blizzard", "the choice is kept for when the part is back");
+	assert_eq!(
+		json!({ "key": out["key"], "game": out["game"], "kit": out["kit"], "pill": out["pill"], "knob": out["knob"], "hearth": out["hearth"] }),
+		json!({ "key": "polestar", "game": false, "kit": false, "pill": true, "knob": true, "hearth": "polestar" })
+	);
+}
