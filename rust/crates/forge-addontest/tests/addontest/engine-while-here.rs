@@ -702,11 +702,12 @@ fn never_a_hand_in_on_another_floor() {
 	assert_eq!(out, vec![json!(["none", "turned away (another floor; checked again in 15 s or 25 yd)"]), json!("4:1 Hand in “A Fishy Peril” to Marshal Dughan 10")]);
 }
 
-// A hand-in the route reaches anyway in its next two steps, without leading away first, is left to it: the arrow
-// leads east to the wolves at 44 (60 yd past Dughan, on the way), and his hand-in is the next step, or the step after
-// next is at Dughan (an accept). Standing at him (10 yd, within 0.3.5's 30) it shows all the same. A step that leads
-// away first (a walk 900 yd south) or a live step that does (the wolves 660 yd west, Fitz walking past Seer
-// Graytongue with Grull 530 yd north) leaves it to the detour rule; a step at him three steps on does not count.
+// A hand-in the route walks to about now, without leading away first, is left to it: the arrow leads east to the
+// wolves at 44 (60 yd past Dughan, on the way), and his hand-in is the next step, or the step after next is at Dughan
+// (an accept), or a step at him comes after two with nothing for this character (88 is not in the log: the route
+// passes them; 0.3.7 counts the walk, not the steps). Standing at him (10 yd, within 0.3.5's 30) it shows all the
+// same. A step that leads away first (a walk 900 yd south) or a live step that does (the wolves 660 yd west, Fitz
+// walking past Seer Graytongue with Grull 530 yd north) leaves it to the detour rule.
 #[test]
 fn a_hand_in_the_route_reaches_next_without_leading_away_shows_only_at_its_npc() {
 	let script = r#"
@@ -723,10 +724,31 @@ fn a_hand_in_the_route_reaches_next_without_leading_away_shows_only_at_its_npc()
 	assert_eq!(errand, vec![json!(["4:1:turnin:0", "none", left]), json!("4:1 Hand in “A Fishy Peril” to Marshal Dughan 10")], "the step after next is at Dughan");
 	assert_eq!(away[0], json!(["4:1:turnin:0", "4:1 Hand in “A Fishy Peril” to Marshal Dughan 60"]), "the walk south first");
 	assert_eq!(behind, vec![json!(["2:1:turnin:0", "none", "out of the way (21 s, over 20 s)"]), json!("2:1 Hand in “A Fishy Peril” to Marshal Dughan 10")], "the wolves 660 yd west first");
-	assert_eq!(later[0], json!(["5:1:turnin:0", "5:1 Hand in “A Fishy Peril” to Marshal Dughan 60"]), "three steps on");
+	assert_eq!(later[0], json!(["5:1:turnin:0", "none", left]), "two steps with nothing to do, then a step at him");
 	// A quest named after its NPC: the plain line does not name him twice.
 	let namesake = run_turnins(&turnins(44.0, &[], r#", title = "Marshal Dughan""#), script);
 	assert_eq!(namesake[1], json!("2:1 Hand in “Marshal Dughan” to them 10"), "{namesake:?}");
+}
+
+// 0.3.7 (the Dynamic Questing audits): "soon" is measured by walking, not by "the next 2 steps" (27 hand-ins waited
+// while the route walked 150 yd and more away first and came back). The wolves at 47 are 150 yd east of Dughan: the
+// route walks there and then back to his hand-in (the very next step), so from 60 yd west of him, on the way east,
+// the hand-in shows now. Three errands 30 yd from him (another NPC's accepts) before his hand-in keep the route by
+// him: it is left to the guide, three steps on or not.
+const NEAR_ERRAND: &str = r#"{ title = "Errand", goals = { { t = "accept", quest = 107, title = "Errand", npc = 241, npcName = "Errand Giver", map = 1429, x = 43.0, y = 35.1 } } }"#;
+
+#[test]
+fn a_hand_in_waits_for_the_route_by_its_walk_not_by_its_steps() {
+	let script = r#"
+		at(40.0, 35.1)
+		local soon = "none"
+		for _, c in ipairs(E.GetWhileHereCandidates()) do if c.kind == "turnin" then soon = c.soon end end
+		emit({ soon, here() })
+	"#;
+	let away = run_turnins(&turnins(47.0, &[], ""), script);
+	assert_eq!(away, vec![json!([false, "2:1 Hand in “A Fishy Peril” to Marshal Dughan 60"])], "the route walks 150 yd away first");
+	let town = run_turnins(&turnins(44.0, &[NEAR_ERRAND, NEAR_ERRAND, NEAR_ERRAND], ""), script);
+	assert_eq!(town, vec![json!([true, "none"])], "the route stays by him for three steps");
 }
 
 // Fitz on 0.3.6 (build f5fbd242a), his /polestar report: a level 3 Tauren Warrior on Mulgore's step 6 of 51 (Grull
@@ -1661,4 +1683,150 @@ fn dismissing_an_objective_several_steps_hold_hides_every_copy() {
 		out,
 		vec![json!("3:3:20 5:5:25 4:2:30"), json!(true), json!("3:3:20 5:5:25"), json!("3:3:55 5:5:55"), json!("3:3:55 5:5:55")]
 	);
+}
+
+// Flight paths you pass (Fitz, 2026-11-10): a friendly flight master within the radius whose flight path the
+// character hasn't learned is a line of its own, "Learn the flight path at Goldshire", under it the later step that
+// learns it; a click leads the arrow there. Not one of the other faction (Horde Camp), of another class (a Druid
+// grove for this Warrior), already known, or out of reach (Neutral Post, 1,200 yd off). Learning it ("New flight path
+// discovered") ends the line and ticks the guide's later getfp goal for it while the live step stays; the setting
+// turns the lines off. Nav as the addon loads it, its taxi nodes the test's.
+const FLY_GUIDE: &str = r#"
+Polestar.RegisterGuide({ id = "test/fly", pack = "test", title = "Fly", minLevel = 1, maxLevel = 10, steps = {
+	{ title = "Wolves", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 60 } } },
+	{ title = "Goldshire flight path", goals = { { t = "getfp", location = "Goldshire", node = 2, npc = 352, npcName = "Dungar Longdrink", map = 1429, x = 50, y = 40 } } },
+} })
+"#;
+
+const FLY_NODES: &str = r#"
+ERR_NEWTAXIPATH = "New flight path discovered!"
+Polestar.Nav.RegisterTravelData({ build = "test", taxi = {
+	{ 2, 0, -300, 0, 1429, 50, 40, 1, "Goldshire, Elwynn Forest" },
+	{ 3, 0, -320, 30, 1429, 49, 41, 2, "Horde Camp, Elwynn Forest" },
+	{ 4, 0, -1100, 900, 1429, 20, 80, 3, "Neutral Post, Elwynn Forest" },
+	{ 5, 0, -300, 60, 1429, 48, 40, 3, "Grove, Elwynn Forest", "DRUID" },
+} }, true)
+Polestar.Set("behavior.whileHereRadius", 60)
+-- The travel data's points are on the game's frame ("e"): this world's Elwynn is that frame too.
+Polestar.MapFrames.era[1429] = { c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 }
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)
+-- The flight path lines shown: { row, step, index, t, text, sub } each, or "none".
+function fly()
+	local out = {}
+	for i, v in ipairs(E.GetWhileHereList()) do
+		if v.here == "flight" then out[#out + 1] = { i, v.step, v.index, v.t, v.hereText, v.hereSub } end
+	end
+	return #out > 0 and out or "none"
+end
+"#;
+
+fn run_fly(script: &str) -> Vec<Value> {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.into(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml"])],
+		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/fly" }"#.into())],
+		script: [TEST_PACK, TEST_SOURCE, FLY_GUIDE, HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, FLY_NODES, script].join("\n"),
+		..Default::default()
+	})
+}
+
+#[test]
+fn a_flight_master_passed_whose_flight_path_is_not_learned_is_a_line_and_learning_it_ticks_the_guides_step() {
+	let out = run_fly(
+		r#"
+		at(49.6, 40.6)                                  -- 17 yd from Goldshire's flight master
+		local rows = fly()
+		local first = type(rows) == "table" and rows[1] or nil
+		emit({ rows = rows, aim = first and E.AimWhileHere(first[1]) or false, wp = wp(), tip = first and E.GetWhileHereList()[first[1]].hereTip or false })
+		stub.fire("UI_INFO_MESSAGE", 0, ERR_NEWTAXIPATH); flush(); at(49.6, 40.6)
+		emit({ rows = fly(), done = E.GoalDone(2, 1), live = E.GetLiveStep(), wp = wp() })
+		at(20.4, 80.4)                                  -- the Neutral Post: no later step learns it
+		emit(fly())
+		Polestar.Set("behavior.whileHereFlights", false); flush(); at(20.4, 80.6)
+		emit(fly())
+	"#,
+	);
+	assert_eq!(
+		out[0],
+		json!({
+			"rows": [[1, -2, 2, "getfp", "Learn the flight path at Goldshire", "Step 2"]],
+			"aim": true,
+			"wp": "-2:2",
+			"tip": "Step 2 learns this flight path later; learned now, that step is done when you get there."
+		}),
+		"not the Horde Camp's, not the Druids' grove"
+	);
+	assert_eq!(out[1], json!({ "rows": "none", "done": true, "live": 1, "wp": "1:1" }), "learned: the line goes, step 2 is done, the arrow back on the guide");
+	assert_eq!(out[2], json!([[1, -2, 4, "getfp", "Learn the flight path at Neutral Post", "Flight path"]]));
+	assert_eq!(out[3], json!("none"), "the setting off");
+}
+
+// A flight path already learned (the flight map, or the world map's nodes after a login: Nav's known set) never
+// shows; nor in a fight.
+#[test]
+fn a_known_flight_path_never_shows_nor_one_in_a_fight() {
+	let out = run_fly(
+		r#"
+		stub.inCombat = true; at(49.6, 40.6); emit(fly())
+		stub.inCombat = false; at(49.6, 40.6); emit(fly())
+		Polestar.CharState().flags.taxi[2] = true
+		stub.fire("TAXIMAP_OPENED"); flush(); at(49.6, 40.6)
+		emit(fly())
+	"#,
+	);
+	assert_eq!(out, vec![json!("none"), json!([[1, -2, 2, "getfp", "Learn the flight path at Goldshire", "Step 2"]]), json!("none")]);
+}
+
+// Fitz-style, on the addon's own travel data (Nav/TravelData.lua): a Dwarf walking through Thelsamar on Loch Modan's
+// way in, its flight path not learned, sees "Learn the flight path at Thelsamar", the guide's later getfp step under
+// it; a Tauren passing Sun Rock Retreat in Stonetalon sees Sun Rock's; neither sees the other side's. The maps'
+// frames are the game's (data/forever/map-frames.json).
+fn run_real_fly(race: &str, faction: &str, map: u32, x: f64, y: f64, node: u32, place: &str) -> Vec<Value> {
+	let before = format!(
+		r#"{WORLD}
+w.addMap(1432, {{ name = "Loch Modan", c = 0, left = -1993.75, right = -4752.083, top = -4487.5, bottom = -6327.083 }})
+w.addMap(1442, {{ name = "Stonetalon Mountains", c = 1, left = 3245.833, right = -1637.5, top = 2916.667, bottom = -339.583 }})
+w.race, w.raceName, w.faction, w.level = "{race}", "{race}", "{faction}", 20
+w.moveTo({map}, {x}, {y})
+"#
+	);
+	let guide = format!(
+		r#"Polestar.RegisterGuide({{ id = "test/real", pack = "test", title = "Real", minLevel = 1, maxLevel = 60, steps = {{
+	{{ title = "Wolves", goals = {{ {{ t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 60 }} }} }},
+	{{ title = "{place}", goals = {{ {{ t = "getfp", location = "{place}", node = {node}, map = {map}, x = {x}, y = {y} }} }} }},
+}} }})"#
+	);
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before,
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml"])],
+		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/real" }"#.into())],
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			&guide,
+			HELPERS,
+			"stub.login()",
+			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
+			&format!(
+				r#"w.moveTo({map}, {x} + 0.2, {y} + 0.2); stub.advance(0.6); stub.advance(0.6)
+local out = {{}}
+for _, v in ipairs(E.GetWhileHereList()) do if v.here == "flight" then out[#out + 1] = v.hereText .. " | " .. v.hereSub end end
+emit(#out > 0 and out or "none")"#
+			),
+		]
+		.join("\n"),
+		..Default::default()
+	})
+}
+
+#[test]
+fn a_dwarf_through_thelsamar_and_a_tauren_past_sun_rock_retreat_are_told_to_learn_the_flight_path() {
+	let dwarf = run_real_fly("Dwarf", "Alliance", 1432, 33.94, 50.79, 8, "Thelsamar");
+	assert_eq!(dwarf, vec![json!(["Learn the flight path at Thelsamar | Step 2"])]);
+	let tauren = run_real_fly("Tauren", "Horde", 1442, 45.16, 59.89, 29, "Sun Rock Retreat");
+	assert_eq!(tauren, vec![json!(["Learn the flight path at Sun Rock Retreat | Step 2"])]);
+	let dwarf_at_sun_rock = run_real_fly("Dwarf", "Alliance", 1442, 45.16, 59.89, 29, "Sun Rock Retreat");
+	assert_eq!(dwarf_at_sun_rock, vec![json!("none")], "the Horde's flight master");
 }

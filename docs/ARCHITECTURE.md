@@ -967,7 +967,7 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 | `hearth` | `location` | `area` | zone or subzone equals the client's name of `area` (without one, `location`), else manual; latched once it lands in its live step. A step whose only goals are `hearth` is hidden and passed over (`Own.hearthOnly`, see "Steps the character has"). Its view's `hearthText` (`Own.hearthPlan`): with the Hearthstone waiting or missing, the time left and, where `Nav.EstimateTravel(nil, inn, nil, true)` knows the trip, "set off now" (trip ≤ wait + its 15 s cast) or "wait for it"; ready, "travel there" when the trip is within `Nav.HEARTH_SECONDS + Nav.HEARTH_MARGIN` or under `Nav.HEARTH_MIN_TRIP` (the planner's own long-haul rule), the arrow then leading to the inn as while it waits |
 | `die` | `location`, `map`, `x`, `y` | — | back alive (never a ghost) within `Own.DIE_RADIUS` (40 yd) of the Spirit Healer; applies only while `Own.deathskips()`: `behavior.deathskips` on (Options, Automation > Guides, "Use deathskips"; off by default) and not Hardcore (`C_GameRules.IsHardcoreActive`), else its step passes |
 | `getfp` | `location` | `npc`, `npcName`, `node`, `area` | with `node`: that taxi node among the known ones (`flags.taxi`, recorded by Nav/Travel.lua from the flight map); without: taxi map opened at a flight master of that name (persisted in `flags.fp`); else manual |
-| `fly` | `location` | `area`, `node` | as `hearth`, including the in-step latch (`node`: the flight point, named in the client's language where no `area` names the place) |
+| `fly` | `location` | `area`, `node` | as `hearth`, including the in-step latch (`node`: the flight point, named in the client's language where no `area` names the place). On a travel step (`Own.transitKind`: open goals all `fly`/`goto`) its last open `fly` or `goto` goal's view carries `purposeText` (0.3.7, #1588, `Own.travelPurpose`), shown under it: the first of the next `PURPOSE_STEPS` (6) steps with open quest work for the character, "For Sputtervalve's quests" (one NPC or object taking or handing in), "For quests from X and Y" (two; "X, Y and more"), else the quests whose objectives it does ("For “The Tear of the Moons”"); only on the live or viewed step |
 | `enter` | `location` | `area`, `map`, `x`, `y` | zone or subzone equals the client's name of `area` (without one, `location`), as `hearth` without the hearthstone: the in-step latch keeps it once its live step had it (`latchable`, so passing it keeps it too); the coordinates only make its waypoint |
 | `train` | — | `npc`, `npcName`, `text` | a spell learned (LEARNED_SPELL_IN_SKILL_LINE) while the trainer's window is open during this step: that NPC (`npc`), one of the candidates for the character's class (`candidates` with `classes`), or, for `train class`, a class trainer of the character's class; the window opening alone is no check-off (Fitz); else manual |
 | `buy` | `item`, `itemName` | `count`, `npc`, `npcName` | item count ≥ `count` (default 1) |
@@ -1421,12 +1421,18 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   `HERE_REPICK` yards moved, at another waypoint or a new setting, never
   quiet for the zone. It goes once out of town with its detour past
   `HERE_CLEAR` times the seconds and `HERE_SLACK` (10) more, or past
-  `HERE_CLEAR` times `HERE_FAR`. One the route reaches anyway in its next
-  `HERE_SOON` (2) steps for the character without leading away first
-  (`Own.hereSoon`: the hand-in's own step, or an open goal at the same NPC
-  or object, and no open goal with a place of the live step or a step
-  before it past `HERE_FAR` from the NPC, `Own.hereAway`) is left to the
-  guide, which sends the player there in a moment, unless the player stands
+  `HERE_CLEAR` times `HERE_FAR`. One the route walks to about now is left
+  to the guide (`Own.hereSoon`, by walking since 0.3.7, no longer "the next
+  2 steps": the Dynamic Questing audits counted 27 hand-ins held back while
+  the route walked 150 yd and more away first): following the open goals
+  with a place from the live step on, in order, the route gets to the
+  hand-in's own step or an open goal at the same NPC or object with every
+  place on the way within `HERE_SOON_NEAR` (100) yards of the NPC, at most
+  `HERE_SOON_SECONDS` (60) of walking between them, within
+  `HERE_SOON_STEPS` (8) steps; a place further out or on another continent,
+  or an open `level`, `fly`, `hearth`, `wait` or `die` goal with no place
+  (`HERE_SOON_AWAY`), leads away first. The guide sends the player there in
+  a moment, unless the player stands
   at the NPC: within `HERE_AT` (30) yards a hand-in shows whatever its step
   or detour (0.3.5's reach; with the seconds above 0 or in town), and stays
   while there (`Own.hereAt`); a "soon" one goes past `HERE_CLEAR` times
@@ -1471,7 +1477,7 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   `behavior.whileHereTurnins`, whatever the auto-accept setting, such an
   accept whose prerequisites are done (`Own.READY_NONE`), never a timed one,
   is a line of its own, kind "take": "Take X from Y: saves a trip back",
-  weighed as a hand-in (the same seconds, town, `HERE_FAR`, `HERE_SOON` and
+  weighed as a hand-in (the same seconds, town, `HERE_FAR`, `Own.hereSoon` and
   walk rules), one per quest and none an NPC's whole visit names, at most
   `HERE_TAKES` (2) of the `HERE_SHOW` lines. Clicked, the arrow points at
   the NPC; with auto-accept on, talking to them takes it (`Own.hereWants`
@@ -1483,6 +1489,26 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   indexes each guide's goals with a quest and a place by continent once
   (weak per guide; again `HERE_INDEX_RETRY` (10) s on while a goal's map is
   not known yet).
+  Flight paths passed (0.3.7, Fitz; `behavior.whileHereFlights`, on by
+  default, Options' "Flight paths you pass"): a friendly flight master
+  (`Nav.UnknownTaxiOn`: the travel data's nodes on the player's continent
+  for the character's faction or neutral, and its class, that Nav does not
+  know, those learnt while Polestar was off included, #1308) within the
+  radius is a line of its own, kind "flight": "Learn the flight path at
+  Thelsamar" (the node's name in the client's language before the comma),
+  under it the later step whose `getfp` learns it ("Step 25"), else "Flight
+  path"; a click leads the arrow there (the waypoint's step is `FLY_STEP`,
+  -2, which no guide step has). One at a time, after the quest lines (it
+  joins only while fewer than `HERE_SHOW` show), measured to the flight
+  master as an objective is (`HERE_RADIAL`: the radius, `HERE_CLEAR`, the
+  walk check), with the lines' dismiss, expiry and blocks; not while a timed
+  quest's clock runs. Candidates: `Own.hereFly` (`Own.hereFlyBuild`, with
+  each build), each travel-data node's goal (at the node's own world point)
+  and entry kept while the node is (`Own.hereFlyOf`, weak by node), so a
+  dismiss holds across builds. Learning it (the flight map, "New flight path
+  discovered", `TAXI_NODE_STATUS_CHANGED`: Nav marks the node known, a build
+  follows) ends the line and ticks the guide's later `getfp` goal for that
+  flight master (`fpKnown`), as an early pick-up does; the live step stays.
   The arrival poll measures at most `HERE_MAX` of them (`Own.hereList`): all
   when that many fit, else the nearest (`Own.herePick`, again each
   `HERE_REPICK` yards the player moves). It (`Own.hereTick`, allocation-free:

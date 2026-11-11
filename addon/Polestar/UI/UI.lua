@@ -270,6 +270,18 @@ function UI.HereText(v)
 	return timer and (text .. "  " .. timer) or text
 end
 
+-- A "While you're here" line's line under it ("Step 14", "Step 14, later in
+-- this guide"), or with `tip` its tooltip's sentence on why doing it now
+-- pays: the Engine's own words when it gives them (`hereSub`, `hereTip`: a
+-- flight path line's), else its step's (`firstStep`: the earliest step that
+-- holds the objective).
+function UI.HereStep(v, tip)
+	if tip then
+		return v.hereTip or format(L["Step %d does this later; done now, that step is shorter or skipped when you get there."], UI.StepNo(v.firstStep or v.step))
+	end
+	return v.hereSub or format(v.later and L["Step %d, later in this guide"] or L["Step %d"], UI.StepNo(v.firstStep or v.step))
+end
+
 -- The goal's main line. The Engine's `text` is the truth (it carries author
 -- overrides and counts such as "Kill 5 Young Wolf"); the subject is coloured
 -- by its kind wherever it appears in that text (a quest's in `questHex`, an
@@ -552,7 +564,8 @@ end
 -- that it is an escort, how to get the item a quest starts from, which later
 -- quest a grey accept "Skip grey quests" keeps opens, whom an item is got
 -- from, that an area objective's mobs are all over its area, which mobs a
--- farm spot is, where a chosen trainer/vendor is, the goal's own note (a
+-- farm spot is, where a chosen trainer/vendor is, what a travel step's
+-- flight or walk leads to, the goal's own note (a
 -- `complete` goal's objectives are its main line), and an open turn-in's
 -- rewards. The rest of the detail ("for Kobold Camp Cleanup")
 -- lives in the tooltip.
@@ -581,6 +594,8 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort)
 	-- A hearth goal while the Hearthstone waits, or while travelling there
 	-- is about as fast: what to do (#576).
 	if goal.hearthText then parts[#parts + 1] = goal.hearthText end
+	-- A travel step's flight or walk: the work it leads to (#1588).
+	if goal.purposeText then parts[#parts + 1] = goal.purposeText end
 	-- A level goal: the XP still to earn.
 	if goal.xpLeft then parts[#parts + 1] = format(L["%s XP to go"], thousands(goal.xpLeft)) end
 	-- A grey accept "Skip grey quests" keeps, and the quest it opens.
