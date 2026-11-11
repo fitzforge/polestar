@@ -203,7 +203,7 @@ end
 -- chunk stays well inside Lua 5.1's cap on locals.
 local KEYS = {
 	only = { "classes", "races", "factions" },
-	goalNumbers = { "skillLine", "untilSkill", "yellow", "grey", "criteria", "level", "profLine", "profRank", "lvl", "grind", "limit" },
+	goalNumbers = { "skillLine", "untilSkill", "yellow", "grey", "criteria", "level", "profLine", "profRank", "lvl", "grind", "limit", "xp" },
 	goalRanks = { "rank", "qlvl" },
 	rewardLists = { "items", "choices" },
 	guideMaps = { "names", "written" },
@@ -486,6 +486,7 @@ local function checkGoal(goal)
 	if goal.pre ~= nil and type(goal.pre) ~= "table" then return "bad pre" end
 	if goal.preAll ~= nil and type(goal.preAll) ~= "table" then return "bad preAll" end
 	if goal.closedBy ~= nil and type(goal.closedBy) ~= "table" then return "bad closedBy" end
+	if goal.endNpcs ~= nil and type(goal.endNpcs) ~= "table" then return "bad endNpcs" end
 	if goal.parent ~= nil and not isNum(goal.parent) then return "bad parent" end
 	if goal.rewards ~= nil then
 		local r = goal.rewards

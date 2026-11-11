@@ -80,7 +80,7 @@ pub const WHEN_KEYS: [&str; 18] = ["k", "neg", "op", "n", "frac", "q", "item", "
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 81] = [
+pub const GOAL_KEYS: [&str; 83] = [
 	"t",
 	"class",
 	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
@@ -127,6 +127,10 @@ pub const GOAL_KEYS: [&str; 81] = [
 	"pre",
 	"preAll",
 	"closedBy",
+	// On an accept something closes for good: the NPCs the quest is handed in to and its XP (the data's), for the
+	// missable-quest line (Core/Closes.lua).
+	"endNpcs",
+	"xp",
 	// A child quest's parent (the data's `parent`): its giver offers it only while the parent is in the log (#1661).
 	"parent",
 	"preTitles",
