@@ -304,6 +304,9 @@ function GF.PaintTab(b)
 		b.Bar:Hide()
 		W.Color(b.Label, b.psActive and "title" or "tabRest")
 	end
+	-- A skin's own tab (Skin API 2, hooks.guideTab(button, parts, active)):
+	-- after the house painted it, on every render of the strip and repaint.
+	Theme.SkinHook("guideTab", b, b.psParts, b.psActive)
 end
 
 -- The progress bar: the house and Halo's slim line with its percent right of

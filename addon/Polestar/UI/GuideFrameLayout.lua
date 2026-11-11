@@ -30,6 +30,23 @@ local function stripShown()
 	return strip.psHasTabs and not compact() and GF.On("tabs")
 end
 
+-- A part a skin places itself (Skin API 2, hooks.guidePlace(name, frame,
+-- width, height)): laid out and shown, it is handed to the skin before the
+-- window places it; the answer true keeps it out of the window (a card of
+-- the skin's own above it). A part the skin moved under a frame of its own
+-- goes back under its own once no skin claims it.
+local function claimed(name, frame, width, h)
+	local home = frame.psHome
+	if not home then
+		home = frame:GetParent()
+		frame.psHome = home
+	end
+	local ran, mine = Theme.SkinHookValue("guidePlace", name, frame, width, h)
+	if ran and mine == true then return true end
+	if frame:GetParent() ~= home then frame:SetParent(home) end
+	return false
+end
+
 -- Measure and place the card's parts; the goals area's own height is left
 -- to fitGoals (its contents, within the cap). -> the card's height without
 -- the goals area
@@ -125,10 +142,12 @@ local function layoutCard(width)
 			tip.Image:Hide()
 		end
 		tip:SetHeight(h)
-		tip:ClearAllPoints()
-		tip:SetPoint("TOPLEFT", goals, "BOTTOMLEFT", 0, -2)
-		tip:SetPoint("TOPRIGHT", goals, "BOTTOMRIGHT", 0, -2)
-		y = y + 2 + h
+		if not claimed("tip", tip, width, h) then
+			tip:ClearAllPoints()
+			tip:SetPoint("TOPLEFT", goals, "BOTTOMLEFT", 0, -2)
+			tip:SetPoint("TOPRIGHT", goals, "BOTTOMRIGHT", 0, -2)
+			y = y + 2 + h
+		end
 	end
 	return y + 6
 end
@@ -228,6 +247,13 @@ local function stack(frame, y, h)
 		fit.below[fit.n], fit.rel[fit.n] = frame, y - fit.from
 	end
 	return y + h
+end
+
+-- `frame` stacked at y, unless the skin places it itself (claimed): it is
+-- part `name` of hooks.guidePlace. -> the new y
+local function place(name, frame, y, h, width)
+	if claimed(name, frame, width, h) then return y end
+	return stack(frame, y, h)
 end
 
 -- The tallest the window may be: ui.maxHeight of the screen's height, in
@@ -360,8 +386,8 @@ function GF.Layout()
 	-- Polestar show.
 	local kind = bannerNotice()
 	if kind and ((state ~= "noguide" and state ~= "noguides") or kind == "closedTab" or kind == "update") then
-		y = stack(banner, y, GF.LayoutBanner(width))
 		banner:Show()
+		y = place("banner", banner, y, GF.LayoutBanner(width), width)
 	else
 		banner:Hide()
 		banner.Jump.psDefault = nil
@@ -387,23 +413,23 @@ function GF.Layout()
 		fit.from = y
 		y = stackJourney(y, width)
 		-- "While you're here": between the step's goals and "Then:".
-		if GF.here:IsShown() then y = stack(GF.here, y, GF.LayoutHere(width)) end
-		if after:IsShown() then y = stack(after, y, layoutAfter(width)) end
-		if along:IsShown() then y = stack(along, y, layoutAlong(width)) end
-		if upnext:IsShown() then y = stack(upnext, y, layoutUpnext(width)) end
+		if GF.here:IsShown() then y = place("here", GF.here, y, GF.LayoutHere(width), width) end
+		if after:IsShown() then y = place("after", after, y, layoutAfter(width), width) end
+		if along:IsShown() then y = place("along", along, y, layoutAlong(width), width) end
+		if upnext:IsShown() then y = place("upnext", upnext, y, layoutUpnext(width), width) end
 	else
 		y = stack(empty, y, layoutEmpty(width))
 		y = stackJourney(y, width)
 	end
 	if GF.party.psText and not isCompact and state == "steps" and not list then
 		GF.party:Show()
-		y = stack(GF.party, y, GF.party:GetHeight())
+		y = place("party", GF.party, y, GF.party:GetHeight(), width)
 	else
 		GF.party:Hide()
 	end
 	if GF.xp.psHas and not isCompact and state == "steps" and not list then
 		GF.xp:Show()
-		y = stack(GF.xp, y, GF.xp:GetHeight())
+		y = place("xp", GF.xp, y, GF.xp:GetHeight(), width)
 	else
 		GF.xp:Hide()
 	end
