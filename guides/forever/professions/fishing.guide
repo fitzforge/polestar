@@ -99,14 +99,14 @@ step Fishing: Zephras Isle (1-50)
   goto 63.3,75.7 live "Valanaar shore" r 25
   skill Fishing 50
 
+# ---------------------------------------------------------------- Fishing 50-125
+section Fishing 50-125
+
 step Journeyman Fishing
   tip Journeyman Fishing raises the cap to 150; it needs skill 50 and character level 10 (Forever's sniffed trainer lists ask for that level), and costs 5s. The arrow picks the nearest Fishing trainer of your faction. Fish Bowl, Forever's camping item for Fishing (from skill 20, 1s or free from Camping 101: Fishing), is a Raw Brilliant Smallfish in an Empty Vial: it gives no skill, but placed beside a campfire it gives everyone at the camp a buff for an hour.
   level 10
   train Fishing Journeyman
   learn 1229745
-
-# ---------------------------------------------------------------- Fishing 50-125
-section Fishing 50-125
 
 step Fishing: Westfall (50-125)
   only Human,Skyborne,Alliance

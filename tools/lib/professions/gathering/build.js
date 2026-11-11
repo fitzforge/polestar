@@ -139,8 +139,10 @@ function plan(ctx, prof) {
 		const merged = mergePicks(picks);
 		const recipes = rankAtStart ? atStart : atStart.filter((r) => worthTrip(ctx, prof, r, merged));
 		const skipped = atStart.filter((r) => !recipes.includes(r));
-		if (rankAtStart) out.push({ kind: 'train', rank: rankAtStart, recipes });
-		else if (recipes.length) out.push({ kind: 'recipes', recipes, at: band.from });
+		// A rank or recipes trained at the band's start open the band: under its banner (and section),
+		// so a player whose skill is in the band but lacks the rank is held at its trainer there.
+		if (rankAtStart) out.push({ kind: 'train', rank: rankAtStart, recipes, band });
+		else if (recipes.length) out.push({ kind: 'recipes', recipes, at: band.from, band });
 		let from = band.from;
 		for (const stop of [...splits.map((r) => r.learnAt), band.to]) {
 			const soon = [...(from === band.from ? skipped : []), ...within.filter((r) => r.learnedAt > from && r.learnedAt < stop)];
@@ -252,6 +254,13 @@ function render(ctx, prof) {
 	L.push('');
 	for (const c of prof.header) L.push(c ? `# ${c}` : '#');
 	let lastBand = null;
+	const banner = (band) => {
+		const key = `${band.from}-${band.to}`;
+		if (lastBand === key) return;
+		L.push('');
+		L.push(`# ---------------------------------------------------------------- ${prof.skill} ${key}`);
+		lastBand = key;
+	};
 	for (const e of entries) {
 		if (e.kind === 'learn') {
 			const ap = rankInfo(ctx, prof.skill, 'Apprentice');
@@ -261,6 +270,7 @@ function render(ctx, prof) {
 			L.push(`  train ${prof.skill} Apprentice`);
 			if (prof.tool) L.push(`  buy ${prof.tool.item} x1 nearest`);
 		} else if (e.kind === 'train') {
+			if (e.band) banner(e.band);
 			const info = rankInfo(ctx, prof.skill, e.rank.name) || {};
 			const camp = e.rank.name === 'Journeyman' && prof.camp ? ctx.data.recipe(prof.camp) : null;
 			const learnt = [...e.recipes, ...(camp ? [camp.recipe] : [])];
@@ -273,18 +283,14 @@ function render(ctx, prof) {
 			L.push(`  train ${prof.skill} ${e.rank.name}`);
 			for (const r of learnt) L.push(`  learn ${r.spell}`);
 		} else if (e.kind === 'recipes') {
+			if (e.band) banner(e.band);
 			L.push('');
 			L.push(`step ${e.recipes.map((r) => r.name).join(' & ')}`);
 			L.push(`  tip At ${e.at} a ${prof.skill} trainer teaches ${e.recipes.map(recipeLine).join(' and ')}: ${prof.recipesWhy}`);
 			for (const r of e.recipes) L.push(`  learn ${r.spell}`);
 		} else {
 			const zn = zoneName(ctx, e.zone);
-			const key = `${e.band.from}-${e.band.to}`;
-			if (lastBand !== key) {
-				L.push('');
-				L.push(`# ---------------------------------------------------------------- ${prof.skill} ${key}`);
-				lastBand = key;
-			}
+			banner(e.band);
 			const nodes = nodeSummary(prof, e.points, e.from, e.to);
 			const z = ZONES[e.zone];
 			L.push('');

@@ -80,11 +80,12 @@ fn a_profession_guide_starts_at_the_player_s_skill_asks_only_for_what_is_still_n
 		r.heading = { E.GetSection(1).title, E.GetSection(1).state, E.GetSection(8).state }
 	"#);
 	assert_eq!(out["new"], json!({ "at": 1, "text": "Train First Aid", "max": false, "section": "First Aid 1-40", "state": "current" }));
-	assert_eq!(out["at20"], json!({ "at": 2, "text": "Collect 22 Linen Cloth", "max": 22, "section": "First Aid 1-40", "state": "current" }));
+	// The count is the progress's max (a tracked collect names no count in its text).
+	assert_eq!(out["at20"], json!({ "at": 2, "text": "Collect Linen Cloth", "max": 22, "section": "First Aid 1-40", "state": "current" }));
 	assert_eq!(out["cloth"]["at"], 3);
 	assert_eq!(out["at45"], json!({ "at": 5, "text": "Craft Heavy Linen Bandage", "max": 50, "section": "First Aid 40-50", "state": "current" }));
 	assert_eq!(out["passed"], json!(["done", "done"]));
-	assert_eq!(out["capped"], json!({ "at": 6, "text": "Train First Aid Journeyman", "max": false, "section": "First Aid 50-75", "state": "done" }));
+	assert_eq!(out["capped"], json!({ "at": 6, "text": "Train First Aid", "max": false, "section": "First Aid 50-75", "state": "done" }));
 	assert_eq!(out["trained"]["at"], false);
 	assert_eq!(out["heading"], json!(["First Aid 1-40", "done", "done"]));
 }
@@ -98,7 +99,8 @@ fn materials_shrink_with_each_skill_up_and_a_later_range_reads_ahead() {
 		w.skillUp(129, 70); flush(); r.at70 = snap()
 	"#);
 	// 50-75 with Heavy Linen Bandage (yellow 50, grey 100): 2 cloth a craft, 76 for the range.
-	assert_eq!(out["at50"]["text"], "Collect 76 Linen Cloth");
+	assert_eq!(out["at50"]["text"], "Collect Linen Cloth");
+	assert_eq!(out["at50"]["max"], 76);
 	assert_eq!(out["at50"]["section"], "First Aid 50-75");
 	assert_eq!(out["ahead"], "done");
 	let at60 = out["at60"]["max"].as_f64().unwrap();
@@ -156,7 +158,9 @@ fn every_profession_guide_starts_at_the_range_the_skill_is_in_at_0_mid_way_and_n
 		assert_eq!(new["at"], 1, "{file} at 0: {new}");
 		assert_eq!(new["title"], new["first"], "{file} at 0: {new}");
 		assert_eq!(new["state"], "current", "{file} at 0: {new}");
-		for (rank, max) in [(140, 150), (290, 300)] {
+		// 60 of 75: Journeyman (from 50) not trained yet; its step, where the guide holds, is under the
+		// range 60 is in, not the one the skill has passed.
+		for (rank, max) in [(60, 75), (140, 150), (290, 300)] {
 			let v = shipped(file, line, name, rank, max);
 			let (from, to) = (v["from"].as_f64().unwrap_or(-1.0), v["to"].as_f64().unwrap_or(-1.0));
 			assert!(from <= rank as f64 && (rank as f64) < to, "{file} at {rank}: the live step is under {v}");

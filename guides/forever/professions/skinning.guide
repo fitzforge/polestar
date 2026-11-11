@@ -162,13 +162,13 @@ step Beasts 1-9: Tirisfal Glades (1-50)
   goto 35.4,60.7 "Mangy Duskbat, Duskbat" r 30
   skill Skinning 50
 
+# ---------------------------------------------------------------- Skinning 50-100
+section Skinning 50-100
+
 step Journeyman Skinning
   tip Journeyman Skinning raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest Skinning trainer of your faction. Camp Chair, Forever's camping item for Skinning, is taught from skill 20 (1s, or free from Camping 101: Skinning): three Light Leather and two Simple Wood each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour.
   train Skinning Journeyman
   learn 1229517
-
-# ---------------------------------------------------------------- Skinning 50-100
-section Skinning 50-100
 
 step Beasts 10-16: Westfall (50-100)
   only Human,Skyborne,Alliance
@@ -327,12 +327,12 @@ step Beasts 21-23: Hillsbrad Foothills (100-125)
   goto 54.3,30.9 "Starving Mountain Lion, Gray Bear" r 30
   skill Skinning 125
 
+# ---------------------------------------------------------------- Skinning 125-150
+section Skinning 125-150
+
 step Expert Skinning
   tip Expert Skinning raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest Skinning trainer of your faction.
   train Skinning Expert
-
-# ---------------------------------------------------------------- Skinning 125-150
-section Skinning 125-150
 
 step Beasts 21-27: Hillsbrad Foothills (125-150)
   only Human,Dwarf,Gnome,Skyborne,Alliance
@@ -445,12 +445,12 @@ step Beasts 30-39: Stranglethorn Vale (175-200)
   goto 30.2,9.1 "Stranglethorn Tiger, Panther" r 30
   skill Skinning 200
 
+# ---------------------------------------------------------------- Skinning 200-225
+section Skinning 200-225
+
 step Artisan Skinning
   tip Artisan Skinning raises the cap to 300; it needs skill 200 and no character level, and costs 5g: train it as soon as you reach 200. The arrow picks the nearest Skinning trainer of your faction.
   train Skinning Artisan
-
-# ---------------------------------------------------------------- Skinning 200-225
-section Skinning 200-225
 
 step Beasts 35-41: Swamp of Sorrows (200-225)
   zone Swamp of Sorrows

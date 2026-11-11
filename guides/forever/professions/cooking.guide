@@ -128,13 +128,13 @@ step Charred Wolf Meat (1-50)
   tip Charred Wolf Meat is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own Basic Campfire.
   craft 2538 until 50
 
+# ---------------------------------------------------------------- Cooking 50-130
+section Cooking 50-130
+
 step Journeyman Cooking
   tip Journeyman Cooking raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest Cooking trainer of your faction; training costs 5s.
   level 10
   train Cooking Journeyman
-
-# ---------------------------------------------------------------- Cooking 50-130
-section Cooking 50-130
 
 step Coyote Steak: ingredients
   only Human,Skyborne,Alliance

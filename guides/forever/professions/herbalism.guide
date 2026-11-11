@@ -167,13 +167,13 @@ step Peacebloom & Silverleaf: Tirisfal Glades (1-50)
   goto 31.6,70.5 "Stunted Silverleaf, Wilted Peacebloom" r 30
   skill Herbalism 50
 
+# ---------------------------------------------------------------- Herbalism 50-100
+section Herbalism 50-100
+
 step Journeyman Herbalism
   tip Journeyman Herbalism raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest Herbalism trainer of your faction. Incense Candle, Forever's camping item for Herbalism, is taught from skill 20 (1s, or free from Camping 101: Herbalism): a Peacebloom and a Silverleaf each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour.
   train Herbalism Journeyman
   learn 1229705
-
-# ---------------------------------------------------------------- Herbalism 50-100
-section Herbalism 50-100
 
 step Mageroyal & Briarthorn: Westfall (50-100)
   only Human,Skyborne,Alliance
@@ -340,12 +340,12 @@ step Stranglekelp & Bruiseweed: Hillsbrad Foothills (100-125)
   goto 41.0,39.7 "Bruiseweed, Briarthorn" r 30
   skill Herbalism 125
 
+# ---------------------------------------------------------------- Herbalism 125-160
+section Herbalism 125-160
+
 step Expert Herbalism
   tip Expert Herbalism raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest Herbalism trainer of your faction.
   train Herbalism Expert
-
-# ---------------------------------------------------------------- Herbalism 125-160
-section Herbalism 125-160
 
 step Stranglekelp & Kingsblood: Stranglethorn Vale (125-160)
   zone Stranglethorn Vale

@@ -452,8 +452,9 @@ const cooking = {
 			{ who: G['orc-troll'], zone: 1411, spell: roastBoar, from: 1, to: 50 },
 			{ who: G.tauren, zone: 1412, spell: charredWolf, from: 1, to: 50 },
 			{ who: G.undead, zone: 1420, spell: charredWolf, from: 1, to: 50 },
-			{ rank: 'Journeyman' },
+			// Journeyman opens 50-130 (a player past 50 who lacks it is held at its trainer there).
 			{ section: 'Cooking 50-130' },
+			{ rank: 'Journeyman' },
 			{ who: westfall, zone: 1436, spell: 2541, from: 50, to: 90, learn: 'trainer', tip: 'Coyotes roam the middle of Westfall; Salma Saldean on the farm north of Sentinel Hill also gives Westfall Stew and Goretusk Liver Pie quests that use what you loot here.' },
 			{ who: westfall, zone: 1436, spell: crabCake, from: 90, to: 130, learn: 'trainer', tip: 'Crawlers line the whole Westfall coast. Cook it to 130, where Curiously Tasty Omelet takes over.' },
 			{ who: G['dwarf-gnome'], zone: 1432, spell: 8607, from: 50, to: 80, learn: 'vendor', tip: 'Black bears roam the hills of Loch Modan.' },

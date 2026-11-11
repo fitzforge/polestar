@@ -295,13 +295,13 @@ step Copper & Poor Copper: Tirisfal Glades (50-65) cont.
   goto 33.9,55.0 "Poor Copper, Copper" r 30
   skill Mining 65
 
+# ---------------------------------------------------------------- Mining 65-125
+section Mining 65-125
+
 step Smelt Bronze & Smelt Tin
   tip At 65 a Mining trainer teaches Smelt Bronze (2s; grey at 115) and Smelt Tin (50c; grey at 75): smelting at a forge raises Mining too, so smelt what you mine.
   learn 2659
   learn 3304
-
-# ---------------------------------------------------------------- Mining 65-125
-section Mining 65-125
 
 step Incendicite & Tin: Wetlands (65-125)
   only Human,Dwarf,Gnome,Skyborne,Alliance
@@ -375,13 +375,13 @@ step Tin: Hillsbrad Foothills (65-125)
   goto 57.5,10.2 "Tin, Copper" r 30
   skill Mining 125
 
+# ---------------------------------------------------------------- Mining 125-155
+section Mining 125-155
+
 step Expert Mining
   tip Expert Mining raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest Mining trainer of your faction. Learn Smelt Iron (5s; orange to 130, grey at 140) on the same visit: smelting at a forge raises Mining too, so smelt what you mine.
   train Mining Expert
   learn 3307
-
-# ---------------------------------------------------------------- Mining 125-155
-section Mining 125-155
 
 step Iron: Arathi Highlands (125-155)
   zone Arathi Highlands
