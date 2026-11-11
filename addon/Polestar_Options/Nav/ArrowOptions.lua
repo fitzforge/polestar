@@ -31,7 +31,10 @@ local function arrowOff() return not ns.Get("nav.arrow") end
 -- The preview
 ---------------------------------------------------------------------------
 
-local STAGE_H, CAPTION_H, TOP = 176, 18, 34
+-- The stage's height when the window gives it none (a preview laid out on
+-- its own); the caption's line under each arrow; the chrome's row over the
+-- scene and its room at the foot; the gap from an arrow's shadow to its caption.
+local STAGE_H, CAPTION_H, TOP, BOTTOM, GAP = 176, 18, 34, 12, 20
 -- The demo: heading (radians), yards and seconds for each state.
 local STATES = {
 	{ state = "travel", angle = 0.6, dist = 420, eta = 95, caption = L["On its way"] },
@@ -45,10 +48,10 @@ local function clamp(v, lo, hi, default)
 end
 
 local function buildPreview(view)
-	-- The settings window's preview stage (UI.Preview.Stage): the dials over
-	-- the world the arrow floats over, the zone you stand in. The window
-	-- draws "Preview" and "Live" over it; no caption: each dial says its
-	-- state under it.
+	-- The settings window's preview stage (UI.Preview.Stage): the arrows
+	-- over the world they float over, the zone you stand in, each on a soft
+	-- shadow. The window draws "Preview" and "Live" over it; no caption:
+	-- each arrow says its state under it.
 	local Preview = ns.UI.Preview
 	local f = Preview.Stage(view, { height = STAGE_H, backdrop = "world" })
 
@@ -64,7 +67,36 @@ local function buildPreview(view)
 	end
 	f.Dials = cols
 
-	local width, dirty = 0, true
+	-- The pointer on a setting's row lights the parts it changes; a click on
+	-- a dial or a line of text finds its row.
+	local d1, d2, d3 = cols[1].dial, cols[2].dial, cols[3].dial
+	f:Hot(d1.dial, "nav.arrowScale")
+	f:Hot(d2.dial, "nav.arrowNearColor")
+	f:Hot(d3.dial, "nav.arrowRingColor")
+	f:Hot(d1.distText, "nav.arrowDistSize")
+	f:Hot(d1.labelText, "nav.arrowLabelSize")
+	f:Hot(d1.etaText, "nav.arrowEtaSize")
+	local holders = { cols[1].holder, cols[2].holder, cols[3].holder }
+	local dials, travel = { d1.dial, d2.dial, d3.dial }, { d1.dial, d2.dial }
+	local dist, eta = { d1.distText, d2.distText }, { d1.etaText, d2.etaText }
+	local labels = { d1.labelText, d2.labelText, d3.labelText }
+	local texts = { d1.distText, d1.labelText, d1.etaText, d2.distText, d2.labelText, d2.etaText }
+	for key, parts in pairs({
+		["nav.arrow"] = holders, ["nav.arrowStyle"] = dials, ["nav.arrowScale"] = holders, ["nav.arrowAlpha"] = holders,
+		["nav.arrowColor"] = { d1.dial }, ["nav.arrowNearColor"] = { d3.dial }, ["nav.arrowNearRange"] = { d2.dial },
+		["nav.arrowTurn"] = travel, ["nav.arrowRingColor"] = { d3.dial }, ["nav.arrowPulse"] = { d3.dial },
+		["nav.arrowGlowStrength"] = dials, ["nav.arrowGlow"] = dials, ["nav.arrivalSound"] = { d3.dial },
+		["nav.hideArrowWithGuide"] = holders, ["nav.arrowNoTarget"] = holders, ["nav.arrowCombatAlpha"] = holders,
+		["nav.arrowDistSize"] = dist, ["nav.arrowDistance"] = dist, ["nav.arrowDistColor"] = dist, ["nav.distanceUnit"] = dist,
+		["nav.arrowLabelSize"] = labels, ["nav.arrowLabelColor"] = labels, ["nav.arrowLabelLines"] = labels, ["nav.arrowLabelWidth"] = labels,
+		["nav.arrowEtaSize"] = eta, ["nav.arrowEta"] = eta, ["nav.arrowEtaColor"] = eta,
+		["nav.arrowTextPos"] = texts, ["nav.arrowFont"] = texts, ["nav.arrowOutline"] = texts,
+		["nav.arrowBacking"] = texts, ["nav.arrowBackingAlpha"] = texts,
+	}) do
+		f:Light(key, unpack(parts))
+	end
+
+	local width, height, dirty = 0, STAGE_H, true
 	local pulseT = 0
 	local function animating()
 		return lk.pulse and cols[3].dial.ring:IsShown() or (lk.pulse and cols[3].dial.skinRing:IsShown() and not cols[3].dial.skinCheck:IsShown())
@@ -74,22 +106,30 @@ local function buildPreview(view)
 		Arrow.PulseDial(cols[3].dial, pulseT)
 		if not animating() then f:SetScript("OnUpdate", nil) end
 	end
+	-- The three arrows side by side at their true size (the arrow's Size on
+	-- the game's UI scale), smaller only where three would not fit across
+	-- or in the hero's height; the group in the middle, a shadow under each.
 	local function place()
 		if width <= 0 then return end
 		local pad = 32
 		local colW = (width - 2 * pad) / 3
-		local s = clamp(ns.Get("nav.arrowScale"), 0.5, 2, 1)
-		s = min(s, colW / Arrow.WIDTH, (STAGE_H - TOP - CAPTION_H - 8) / Arrow.HEIGHT)
+		local s = clamp(ns.Get("nav.arrowScale"), 0.5, 2, 1) * f:TrueScale()
+		s = min(s, colW / Arrow.WIDTH, max(0.2, (height - TOP - BOTTOM - GAP - CAPTION_H) / Arrow.HEIGHT))
 		local alpha = clamp(ns.Get("nav.arrowAlpha"), 0.1, 1, 1)
 		local snap = Preview.Snap
+		local tall = Arrow.HEIGHT * s
+		local top = TOP + max(0, floor((height - TOP - BOTTOM - (tall + GAP + CAPTION_H)) / 2))
 		for i, c in ipairs(cols) do
 			local cx = pad + colW * (i - 0.5)
 			c.holder:SetScale(s)
 			c.holder:SetAlpha(alpha)
 			c.holder:ClearAllPoints()
-			c.holder:SetPoint("TOP", f, "TOPLEFT", snap(c.holder, cx / s), snap(c.holder, -TOP / s))
+			c.holder:SetPoint("TOP", f, "TOPLEFT", snap(c.holder, cx / s), snap(c.holder, -top / s))
+			-- The shadow about as wide as the dial and its text, not the
+			-- label's whole line.
+			f:Floor(c.holder, -floor(max(0, Arrow.WIDTH * s - 150) / 2))
 			c.caption:ClearAllPoints()
-			c.caption:SetPoint("BOTTOM", f, "BOTTOMLEFT", snap(f, cx), 10)
+			c.caption:SetPoint("TOP", f, "TOPLEFT", snap(f, cx), -snap(f, top + tall + GAP))
 		end
 	end
 	-- Every dial in its state with the current values, through the arrow's own paint.
@@ -119,30 +159,14 @@ local function buildPreview(view)
 	end)
 	f:SetScript("OnHide", function() f:SetScript("OnUpdate", nil) end)
 
-	-- Click a part of the preview to find its row (the window's hotspots,
-	-- f:Hotspot or O.PreviewHotspot): each dial to its colour, the text lines
-	-- to their size rows. Registered once, on the first layout, when the
-	-- window has given the frame its methods.
-	local hot = false
-	local HOTSPOTS = {
-		{ 1, "dial", "nav.arrowScale" }, { 2, "dial", "nav.arrowNearColor" }, { 3, "dial", "nav.arrowRingColor" },
-		{ 1, "distText", "nav.arrowDistSize" }, { 1, "labelText", "nav.arrowLabelSize" }, { 1, "etaText", "nav.arrowEtaSize" },
-	}
-	local function hotspots()
-		local O = ns.UI and ns.UI.Options
-		local add = f.Hotspot and function(region, key) f:Hotspot(region, key) end
-			or (O and O.PreviewHotspot and function(region, key) O.PreviewHotspot(f, region, key) end)
-		if not add then return end
-		hot = true
-		for _, h in ipairs(HOTSPOTS) do add(cols[h[1]].dial[h[2]], h[3]) end
-	end
-
-	function f:Layout(w)
+	-- -> the hero's height (the window's; STAGE_H laid out alone), the
+	-- arrows across `w`.
+	function f:Layout(w, h)
 		self:SetWidth(w)
-		width = w
+		width, height = w, h or STAGE_H
+		self.psHeight = height
 		if dirty then paint() else place() end
-		if not hot then hotspots() end
-		return STAGE_H
+		return height
 	end
 	return f
 end

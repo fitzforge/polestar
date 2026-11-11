@@ -70,7 +70,8 @@ local BUILD = {
 }
 
 -- The game's XP bar, drawn plainly, with the guide's real mark on it, in
--- stage s. -> { bar, mark, Layout(width), Refresh(), Place(y) }
+-- stage s. -> { bar, mark, Refresh(), Item() (one of the stage's surfaces) }
+local MARK_ROOM = 20 -- the mark's label over the bar
 local function xpBar(s)
 	local Mk = ns.QoL and ns.QoL.XPMark
 	local x = {}
@@ -85,71 +86,250 @@ local function xpBar(s)
 	fill:SetPoint("TOPLEFT", bar, "TOPLEFT", 0, 0)
 	fill:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", 0, 0)
 	fill:SetVertexColor(0.58, 0.0, 0.55, 1) -- the game's XP purple
+	fill:SetWidth(BAR_W * 0.58)
 	local rested = bar:CreateTexture(nil, "BORDER")
 	rested:SetTexture(Theme.Media("white"))
 	rested:SetPoint("TOPLEFT", fill, "TOPRIGHT", 0, 0)
 	rested:SetPoint("BOTTOMLEFT", fill, "BOTTOMRIGHT", 0, 0)
 	rested:SetVertexColor(0.0, 0.39, 0.88, 0.5)
+	rested:SetWidth(BAR_W * 0.12)
 	local mark = Mk and Mk.NewDemo and Mk.NewDemo(bar)
 	x.bar, x.mark = bar, mark
 	if mark then
-		UI.Toasts.Hot(s, mark.Tick, "trackers.xp.tickWidth")
-		UI.Toasts.Hot(s, mark.Label, "trackers.xp.labelSize")
-	end
-	function x.Layout(width)
-		bar:SetWidth(min(BAR_W, width - 60))
-		fill:SetWidth(bar:GetWidth() * 0.58)
-		rested:SetWidth(bar:GetWidth() * 0.12)
+		s:Hot(mark.Tick, "trackers.xp.tickWidth")
+		s:Hot(mark.Label, "trackers.xp.labelSize")
+		s:Light("qol.xpTargetMark", mark.Tick, mark.Label)
+		s:Light("trackers.xp.tickColor", mark.Tick, mark.Label)
+		s:Light("trackers.xp.label", mark.Label)
+		s:Light("trackers.xp.outline", mark.Label)
 	end
 	function x.Refresh()
 		if mark then Mk.FillDemo(mark, Mk.Label(12, 14), nil) end
 	end
-	function x.Place(y)
-		bar:ClearAllPoints()
-		bar:SetPoint("CENTER", s, "CENTER", 0, y)
+	function x.Item()
+		local t = s:TrueScale()
+		return { w = BAR_W * t, h = (12 + MARK_ROOM) * t, foot = bar,
+			place = function(k, left, top)
+				local g = t * k
+				bar:SetScale(g)
+				bar:ClearAllPoints()
+				bar:SetPoint("TOPLEFT", s, "TOPLEFT", left / g, -(top / g + MARK_ROOM))
+			end }
 	end
 	return x
 end
 
--- One tracker's stage: the sandbox tracker, fitted; the instance tracker's
--- tab shows the XP bar with the guide's mark under it (both its tab's).
-local HEIGHT = { flight = 130, instances = 200, party = 260 }
+-- The journey as the guide window lists it (UI/JourneyPanel.lua: header,
+-- destination, a row per leg, in the window's paint and type): a made-up
+-- route of three legs, as many listed as Steps listed allows and the rest
+-- counted on one line, numbered or not; faint while the journey is off.
+local J_W, J_PAD, J_HEAD, J_DEST, J_ROW, J_MORE = 280, 14, 30, 22, 24, 20
+local J_TEXT_X = J_PAD + 15 + 10 -- the guide window's goal text edge
+local J_LEGS = {
+	{ glyph = "icon-goto", text = format(L["Walk to %s"], L["Sentinel Hill"]), secs = 72 },
+	{ glyph = "icon-fly", text = format(L["Fly to %s"], L["Menethil Harbor"]), secs = 580 },
+	{ glyph = "icon-goto", text = format(L["Walk to %s"], L["Menethil Harbor"]), secs = 45 },
+}
+local function clock(secs)
+	local JP = UI.JourneyPanel
+	if JP and JP.FormatTime then return JP.FormatTime(secs) end
+	return format("%d:%02d", floor(secs / 60), secs % 60)
+end
 
-local function trackerStage(view, kind)
+local function journey(s)
+	local j = {}
+	local f = CreateFrame("Frame", nil, s)
+	f.psGuide = true
+	Theme.Skin(f, "window")
+	f:SetWidth(J_W)
+	j.frame = f
+	local head = W.Text(f, "small", "textMuted")
+	head:SetText(L["Journey"])
+	head:SetPoint("LEFT", f, "TOPLEFT", J_PAD, -J_HEAD / 2)
+	local total, secs = W.Text(f, "number", "text"), 0
+	for _, leg in ipairs(J_LEGS) do secs = secs + leg.secs end
+	total:SetPoint("RIGHT", f, "TOPRIGHT", -J_PAD, -J_HEAD / 2)
+	local rule = W.Divider(f)
+	rule:SetPoint("TOPLEFT", f, "TOPLEFT", J_PAD, -J_HEAD)
+	rule:SetPoint("TOPRIGHT", f, "TOPRIGHT", -J_PAD, -J_HEAD)
+	local dest = W.Text(f, "label", "textDim")
+	dest:SetPoint("LEFT", f, "TOPLEFT", J_PAD, -(J_HEAD + J_DEST / 2))
+	local list = CreateFrame("Frame", nil, f)
+	list:SetPoint("TOPLEFT", f, "TOPLEFT", 0, -(J_HEAD + J_DEST))
+	list:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, -(J_HEAD + J_DEST))
+	j.rows = {}
+	for i, leg in ipairs(J_LEGS) do
+		local current = i == 1
+		local r = CreateFrame("Frame", nil, list)
+		r:SetHeight(J_ROW)
+		r.Bar = W.Tex(r, "ARTWORK", nil, "accent")
+		r.Bar:SetWidth(2)
+		r.Bar:SetPoint("TOPLEFT", r, "TOPLEFT", 0, -3)
+		r.Bar:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", 0, 3)
+		r.Bar:SetShown(current)
+		r.Num = W.Text(r, "number", current and "textDim" or "textMuted")
+		r.Num:SetJustifyH("RIGHT")
+		r.Num:SetWidth(22)
+		r.Num:SetPoint("LEFT", r, "TOPLEFT", J_PAD - 10, -J_ROW / 2)
+		r.Num:SetText(tostring(i))
+		r.Icon = W.Tex(r, "ARTWORK", leg.glyph, current and "accent" or "textMuted")
+		r.Icon:SetSize(13, 13)
+		r.Icon:SetPoint("LEFT", r, "TOPLEFT", J_TEXT_X - 2, -J_ROW / 2)
+		r.Text = W.Text(r, "label", current and "text" or "textDim")
+		r.Text:SetPoint("LEFT", r.Icon, "RIGHT", 9, 0)
+		r.Time = W.Text(r, "number", current and "text" or "textMuted")
+		r.Time:SetJustifyH("RIGHT")
+		r.Time:SetPoint("RIGHT", r, "TOPRIGHT", -J_PAD, -J_ROW / 2)
+		r.Time:SetText(clock(leg.secs))
+		j.rows[i] = r
+	end
+	local more = W.Text(list, "small", "textMuted")
+	s:Light("nav.journeySteps", f)
+	s:Light("trackers.journey.rows", list)
+	local nums = {}
+	for i, r in ipairs(j.rows) do nums[i] = r.Num end
+	s:Light("trackers.journey.numbers", unpack(nums))
+	function j.Refresh()
+		total:SetText(clock(secs))
+		dest:SetText(format(L["To %s"], "|c" .. Theme.Hex("place") .. L["Menethil Harbor"] .. "|r"))
+		local most = max(1, floor(tonumber(TR.Get("journey", "rows")) or #J_LEGS))
+		local shown = min(#J_LEGS, most)
+		local numbers = TR.Get("journey", "numbers") ~= false
+		for i, r in ipairs(j.rows) do
+			local leg = J_LEGS[i]
+			r.Text:SetText(leg.text)
+			r.Num:SetShown(numbers)
+			r:ClearAllPoints()
+			r:SetPoint("TOPLEFT", list, "TOPLEFT", 0, -(i - 1) * J_ROW)
+			r:SetPoint("TOPRIGHT", list, "TOPRIGHT", 0, -(i - 1) * J_ROW)
+			r:SetShown(i <= shown)
+		end
+		local left = #J_LEGS - shown
+		more:SetShown(left > 0)
+		more:ClearAllPoints()
+		more:SetPoint("LEFT", list, "TOPLEFT", J_TEXT_X, -(shown * J_ROW + J_MORE / 2))
+		if left > 0 then more:SetText(left == 1 and L["1 more step"] or format(L["%d more steps"], left)) end
+		local h = shown * J_ROW + (left > 0 and J_MORE or 0)
+		list:SetHeight(h)
+		f:SetHeight(J_HEAD + J_DEST + h + 8)
+		f:SetAlpha(ns.Get("nav.journeySteps") and 1 or 0.35)
+	end
+	function j.Item()
+		local k0 = (tonumber(ns.Get("ui.scale")) or 1) * s:TrueScale()
+		return { w = J_W * k0, h = f:GetHeight() * k0, foot = f, caption = j.Caption,
+			place = function(k, left, top)
+				local g = k0 * k
+				f:SetScale(g)
+				f:ClearAllPoints()
+				f:SetPoint("TOPLEFT", s, "TOPLEFT", left / g, -top / g)
+			end }
+	end
+	return j
+end
+
+-- A tracker as one of the stage's surfaces: at its true size (its Scale on
+-- the game's UI scale), its place its fight look's (Anim.Anchor).
+local function trackerItem(s, kind, f, caption)
+	local k0 = num(kind, "scale", 0.4, 2.5) * s:TrueScale()
+	return { w = f:GetWidth() * k0, h = f:GetHeight() * k0, foot = f, caption = caption,
+		place = function(k, left, top)
+			local g = k0 * k
+			f:SetScale(g)
+			Anim.Anchor(f, "TOPLEFT", s, "TOPLEFT", left / g, -top / g)
+		end }
+end
+
+-- What lights each tracker with a setting's row: its whole panel, its bar,
+-- its main line, its other lines; its switch's own.
+local PANEL_KEYS = { "scale", "width", "alpha", "bgAlpha", "bg", "borderSize", "border", "combat", "instance" }
+local SWITCH = { flight = { "maps.flightTimer" }, instances = { "maps.instances", "maps.instanceDisplay" }, party = { "party.panel" } }
+local function lightTracker(s, kind, f, fight)
+	local t, k = f.psTracker, "trackers." .. kind .. "."
+	for _, key in ipairs(PANEL_KEYS) do s:Light(k .. key, f) end
+	for _, key in ipairs(SWITCH[kind] or {}) do s:Light(key, f) end
+	if fight then
+		s:Light(k .. "combat", fight)
+		s:Light(k .. "instance", fight)
+	end
+	if t.bar then
+		for _, key in ipairs({ "barHeight", "bar", "barColor" }) do s:Light(k .. key, t.bar) end
+	end
+	-- Lines a panel makes as it fills (the party panel's rows) light the panel.
+	local titles = #t.titles > 0 and t.titles or { f }
+	local bodies = #t.bodies > 0 and t.bodies or { f }
+	s:Light(k .. "titleSize", unpack(titles))
+	s:Light(k .. "outline", unpack(titles))
+	s:Light(k .. "bodySize", unpack(bodies))
+	if kind == "flight" then s:Light("trackers.flight.format", t.titles[1]) end
+end
+
+-- A stage of trackers: kinds (their sandbox panels), with the journey and
+-- the XP bar when asked, all at their true size on soft shadows; the first
+-- panel's fight look behind a button when it has a fight rule.
+local HEIGHT = { flight = 130, instances = 200, party = 260 }
+local NAMES = { flight = L["Flight timer"], instances = L["Instance tracker"], party = L["Party panel"] }
+
+local function trackerStage(view, kinds, opts)
 	local TS = UI.Toasts
-	local s = TS.NewStage(view, HEIGHT[kind])
+	local first = kinds[1]
+	local s = TS.NewStage(view, HEIGHT[first])
 	stages[s] = true
-	local f = BUILD[kind] and BUILD[kind](s)
-	s.Tracker = f
-	local xp = kind == "instances" and xpBar(s) or nil
-	s.XP = xp
-	function s:Refresh()
-		if not f then return end
-		f.psFit = nil
-		TR.ApplyLook(f)
-		f:Fill()
-		TS.FitInto(self, f, f:GetWidth(), f:GetHeight(), num(kind, "scale", 0.4, 2.5))
-		f:SetAlpha(num(kind, "alpha", 0.1, 1))
-		if xp then
-			-- The tracker over the bar: up by a third of the room under the chrome.
-			local k = f:GetScale()
-			Anim.Anchor(f, "CENTER", self, "CENTER", 0, 26 / k)
-			xp.Refresh()
-			xp.Place(-44)
+	local panels, caps = {}, {}
+	for _, kind in ipairs(kinds) do
+		local f = BUILD[kind] and BUILD[kind](s)
+		if f then
+			f:Show()
+			panels[kind] = f
+			if opts.captions then
+				caps[kind] = W.Text(s, "small", "textMuted")
+				caps[kind]:SetJustifyH("CENTER")
+				caps[kind]:SetText(NAMES[kind])
+			end
 		end
 	end
+	local f = panels[first]
+	s.Tracker = f
+	local j = opts.journey and journey(s) or nil
+	if j and opts.captions then
+		j.Caption = W.Text(s, "small", "textMuted")
+		j.Caption:SetJustifyH("CENTER")
+		j.Caption:SetText(L["Journey"])
+	end
+	local xp = opts.xp and xpBar(s) or nil
+	s.XP, s.Journey = xp, j
+	function s:Refresh()
+		local items = {}
+		for _, kind in ipairs(kinds) do
+			local p = panels[kind]
+			if p then
+				p.psFit = nil
+				TR.ApplyLook(p)
+				p:Fill()
+				p:SetAlpha(num(kind, "alpha", 0.1, 1))
+				items[#items + 1] = trackerItem(self, kind, p, caps[kind])
+			end
+		end
+		if j then
+			j.Refresh()
+			items[#items + 1] = j.Item()
+		end
+		if xp then
+			xp.Refresh()
+			items[#items + 1] = xp.Item()
+		end
+		if #items > 0 then self:SideBySide(items, { bottom = rawget(self, "Play") and 40 or 12 }) end
+	end
 	if f then
-		f:Show()
-		local t, k = f.psTracker, "trackers." .. kind .. "."
-		TS.Hot(s, f, k .. "scale")
-		if t.bar then TS.Hot(s, t.bar, k .. "barHeight") end
-		TS.Hot(s, t.titles[1], k .. "titleSize")
-		TS.Hot(s, t.bodies[1], k .. "bodySize")
+		local t, k = f.psTracker, "trackers." .. first .. "."
+		s:Hot(f, k .. "scale")
+		if t.bar then s:Hot(t.bar, k .. "barHeight") end
+		s:Hot(t.titles[1], k .. "titleSize")
+		s:Hot(t.bodies[1], k .. "bodySize")
 		-- Play: its fight look, faded or gone, for a moment.
-		if TR.Get(kind, "combat") then
+		if not opts.captions and TR.Get(first, "combat") then
 			s.Play = W.Button(s, L["In a fight"], function()
-				local rule = TR.Get(kind, "combat")
-				local a = num(kind, "alpha", 0.1, 1)
+				local rule = TR.Get(first, "combat")
+				local a = num(first, "alpha", 0.1, 1)
 				local to = rule == "hide" and 0 or rule == "fade" and a * FADED or a
 				Anim.To(f, "alpha", a, to, Anim.SLOW, "out", function()
 					ns.After(1.2, function() Anim.To(f, "alpha", f:GetAlpha(), a, Anim.SLOW, "out") end)
@@ -160,19 +340,21 @@ local function trackerStage(view, kind)
 	else
 		s.psNote = (L["Not loaded"])
 	end
-	function s:Layout(width)
+	for kind, p in pairs(panels) do lightTracker(s, kind, p, kind == first and rawget(s, "Play") or nil) end
+	function s:Layout(width, height)
 		self:SetWidth(width)
-		self.psWidth = width
-		if xp then xp.Layout(width) end
+		self.psWidth, self.psHeight = width, height or HEIGHT[first]
 		self:Refresh()
 		return self.psHeight
 	end
 	return s
 end
 
--- tab: "flight" | "instances" (with the XP bar) | "party"
+-- tab: "flight" (with the journey) | "instances" (with the XP bar) |
+-- "party" | "all" (Essentials: every tracker, the journey and the XP bar)
 function TR.Preview(view, tab)
-	return trackerStage(view, tab)
+	if tab == "all" then return trackerStage(view, { "flight", "instances", "party" }, { journey = true, xp = true, captions = true }) end
+	return trackerStage(view, { tab }, { journey = tab == "flight", xp = tab == "instances" })
 end
 
 ---------------------------------------------------------------------------
@@ -411,7 +593,7 @@ if O and O.PresetCards and O.Ref then
 	}
 	local function off(key) return function() return not ns.Get(key) end end
 	local ESSENTIALS = L["Essentials"]
-	register({ tab = ESSENTIALS, lead = true, section = L["Presets"], preview = function(view) return TR.Preview(view, "flight") end,
+	register({ tab = ESSENTIALS, lead = true, section = L["Presets"], preview = function(view) return TR.Preview(view, "all") end,
 		controls = { O.PresetCards({ presets = PRESETS }) } })
 	register({ tab = ESSENTIALS, section = L["Trackers"], jump = { tab = TRAVEL, section = L["Flight timer"] }, controls = {
 		R("slider", "trackers.flight.scale", { label = L["Flight timer"], disabled = off("maps.flightTimer"), extras = { R("toggle", "maps.flightTimer") } }),
