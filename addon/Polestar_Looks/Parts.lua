@@ -49,19 +49,21 @@ METRICS.classic = setmetatable({ guideTabCloseRest = 1 }, { __index = GAME_METRI
 -- (dartArt: in the art's own colours while far, tinted up close and when
 -- the player picks an arrow colour; no Polestar edge round it) and the
 -- medallion under the map pins' glyphs (while the map icons follow the
--- skin). WoW Forever: its quest arrow and the campaign quest's shield;
--- Blizzard: the retail navigation arrow and quest marker; Classic: the
--- vanilla minimap arrow on the minimap's dark disc. The client's art sits
--- in a margin of its own (its shadow), so a part is drawn dartScale or
--- medallionScale times its square: its picture is then Polestar's size (a
--- dart 0.82 of its square tall, a medallion the whole of it; the
--- quest arrow's is 0.62, the minimap arrow's 0.56, the quest marker's 0.62,
--- the shield's 0.72).
+-- skin). WoW Forever: its quest arrow on the campaign quest's shield;
+-- Blizzard: the world map's arrow, the client's sharpest (64 px: the
+-- navigation arrow is 22 by 18, soft at this size), on the quest marker;
+-- Classic: the vanilla world map's arrow on the minimap's dark disc. Every
+-- dart is square art pointing straight up, as Polestar's: it turns about
+-- its centre by the heading alone. The client's art sits in a margin of
+-- its own (its outline and shadow, which read as ground), so a part is
+-- drawn dartScale or medallionScale times its square: what shows of it is
+-- then Polestar's size (a dart's picture is 0.82 of its square tall, a
+-- medallion the whole of it).
 local PARTS = {
 	forever = { dart = "atlas:Minimap-QuestArrow", dartArt = true, dartScale = 1.3,
 		medallion = "atlas:UI-QuestPoiCampaign-QuestNumber", medallionScale = 1.35 },
-	blizzard = { dart = "atlas:Navigation-Tracked-Arrow", dartArt = true, medallion = "atlas:UI-QuestPoi-QuestNumber", medallionScale = 1.55 },
-	classic = { dart = "Interface\\Minimap\\MinimapArrow", dartArt = true, dartScale = 1.45, medallion = "Interface\\Minimap\\UI-Minimap-Background" },
+	blizzard = { dart = "atlas:UI-WorldMapArrow", dartArt = true, dartScale = 1.1, medallion = "atlas:UI-QuestPoi-QuestNumber", medallionScale = 1.55 },
+	classic = { dart = "Interface\\WorldMap\\WorldMapArrow", dartArt = true, dartScale = 1.2, medallion = "Interface\\Minimap\\UI-Minimap-Background" },
 }
 for id, media in pairs(PARTS) do
 	local s = I.SKINS[id]

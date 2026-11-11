@@ -372,11 +372,8 @@ local function dialTint(d, r, g, b, lk)
 		local k = tex == skinDart and skinDartScale or 1
 		if d.dartTex ~= tex or d.dartScale ~= k then
 			d.dartTex, d.dartScale = tex, k
-			-- An atlas dart keeps its own proportions within the dart's square.
-			local w, h = ns.Theme.SetArt(d.dart, tex)
-			local m = w and h and max(w, h)
-			local sz = DART * k
-			if m and m > 0 then d.dart:SetSize(sz * w / m, sz * h / m) else d.dart:SetSize(sz, sz) end
+			ns.Theme.SetArt(d.dart, tex)
+			d.dart:SetSize(DART * k, DART * k)
 		end
 		if baked then d.dart:SetVertexColor(1, 1, 1, 1) else d.dart:SetVertexColor(r, g, b, 1) end
 		local edge = skinDartEdge or (UI_DIR .. "dart-edge")

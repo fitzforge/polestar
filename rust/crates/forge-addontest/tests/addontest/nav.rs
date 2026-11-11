@@ -479,24 +479,21 @@ fn a_skin_s_own_dart_and_edge_stand_in_for_polestar_s_tinted_never_the_baked_gol
 }
 
 // The game's looks draw their own waypoint arrow and map pins from the client's own art, through the parts a skin
-// addon gives (Skin API 2's media, read by Theme.SkinMedia; Polestar_Looks/Parts.lua): Classic the vanilla minimap
-// arrow on the minimap's dark disc, WoW Forever its quest arrow and the campaign quest's shield, Blizzard the
-// retail navigation arrow and quest marker. Each dart shows in its own colours with no edge while far, and is
-// tinted up close and in the player's own arrow colour. The client's art sits in a margin of its own, so each part
-// is drawn larger than its square where the picture would come out smaller than Polestar's (WoW Forever's arrow and
-// shield, Classic's arrow, Blizzard's marker), and an atlas keeps its proportions (the client's sizes stand in
-// here). Polestar's own look, Hearth and a skin addon keep theirs: a skin on a game look's base draws its own parts,
-// or Polestar's where it brings none.
+// addon gives (Skin API 2's media, read by Theme.SkinMedia; Polestar_Looks/Parts.lua): Classic the vanilla world
+// map's arrow on the minimap's dark disc, WoW Forever its quest arrow and the campaign quest's shield, Blizzard the
+// world map's arrow at the client's best resolution and the quest marker. Each dart shows in its own colours with
+// no edge while far, and is tinted up close and in the player's own arrow colour. Every look's art points straight
+// up, as Polestar's dart does, so each dart turns by the heading alone, with no offset of its own (up, a quarter
+// right, right). The client's art sits in a margin of its own, so each part is drawn larger or smaller than its
+// square to show at Polestar's size. Polestar's own look, Hearth and a skin addon keep theirs: a skin on a game
+// look's base draws its own parts, or Polestar's where it brings none.
 #[test]
 fn each_game_look_draws_its_own_arrow_and_map_pins_from_the_client_s_art_and_polestar_hearth_and_skin_addons_keep_theirs() {
 	let out = run_themed(
 		r#"
 		local function rgb(t) local r, g, b = t:GetVertexColor() return string.format("%.2f,%.2f,%.2f", r, g, b) end
 		local function file(t) return (t:GetTexture() or ""):match("([^\\]+)$") end
-		-- The client's own sizes of the looks' atlases (the stub has no atlas table).
-		local SIZES = { ["Minimap-QuestArrow"] = { 32, 32 }, ["Navigation-Tracked-Arrow"] = { 22, 18 } }
-		C_Texture = C_Texture or {}
-		C_Texture.GetAtlasInfo = function(n) local s = SIZES[n]; return s and { width = s[1], height = s[2] } or nil end
+		local function art(t) return t:GetAtlas() or file(t) end
 		local function look()
 			local pin = targetPin()
 			local w, h = A.dart:GetSize()
@@ -523,6 +520,21 @@ fn each_game_look_draws_its_own_arrow_and_map_pins_from_the_client_s_art_and_pol
 		stub.advance(0.2)
 		out.own = look()
 		Polestar.Set("nav.arrowColor", nil)
+		-- The turn: a sandbox dial (the arrow's own paint, on the arrow's own frame) at three headings, each look's
+		-- dart against Polestar's (the files first: the stub's SetTexture leaves an atlas set before it standing).
+		local d, lk = A.BuildDial(PolestarNavArrow), A.ReadLook({})
+		out.turn = {}
+		for _, k in ipairs({ "polestar", "classic", "forever", "blizzard" }) do
+			Polestar.Set("ui.skin", k)
+			stub.advance(0.2)
+			A.ReadSkin()
+			local off = {}
+			for _, a in ipairs({ 0, -math.pi / 4, -math.pi / 2 }) do
+				A.PaintDial(d, lk, "hearth", "travel", a, 500)
+				off[#off + 1] = string.format("%.4f", d.dart:GetRotation() - a)
+			end
+			out.turn[k] = art(d.dart) .. " " .. table.concat(off, " ")
+		end
 		local T = Polestar.Theme
 		local ok1 = T.RegisterSkin("darts", { name = "Darts", addon = "Test", base = "classic", media = { dart = "Interface\\AddOns\\Test\\my-dart" } })
 		local ok2 = T.RegisterSkin("plain", { name = "Plain", addon = "Test", base = "blizzard" })
@@ -544,8 +556,8 @@ fn each_game_look_draws_its_own_arrow_and_map_pins_from_the_client_s_art_and_pol
 	);
 	assert_eq!(
 		pick("classic", &["style", "dart", "tint", "edge", "medal", "size", "medalScale"]),
-		json!({ "style": "hearth", "dart": "MinimapArrow", "tint": WHITE, "edge": false, "medal": "UI-Minimap-Background", "size": "78.3x78.3", "medalScale": "1.00" }),
-		"Classic: the vanilla minimap arrow (1.45 times the square) on the minimap's dark disc"
+		json!({ "style": "hearth", "dart": "WorldMapArrow", "tint": WHITE, "edge": false, "medal": "UI-Minimap-Background", "size": "64.8x64.8", "medalScale": "1.00" }),
+		"Classic: the vanilla world map's arrow (1.2 times the square) on the minimap's dark disc"
 	);
 	assert_eq!(
 		pick("forever", &["dartAtlas", "tint", "edge", "medalAtlas", "size", "medalScale"]),
@@ -554,10 +566,20 @@ fn each_game_look_draws_its_own_arrow_and_map_pins_from_the_client_s_art_and_pol
 	);
 	assert_eq!(
 		pick("blizzard", &["dartAtlas", "tint", "edge", "medalAtlas", "size", "medalScale"]),
-		json!({ "dartAtlas": "Navigation-Tracked-Arrow", "tint": WHITE, "edge": false, "medalAtlas": "UI-QuestPoi-QuestNumber", "size": "54.0x44.2", "medalScale": "1.55" }),
-		"Blizzard: the retail navigation arrow (22 x 18, kept) and the quest marker, drawn larger"
+		json!({ "dartAtlas": "UI-WorldMapArrow", "tint": WHITE, "edge": false, "medalAtlas": "UI-QuestPoi-QuestNumber", "size": "59.4x59.4", "medalScale": "1.55" }),
+		"Blizzard: the world map's arrow at 64 px (1.1 times the square) and the quest marker, drawn larger"
 	);
-	assert_eq!(out["near"]["dartAtlas"], "Navigation-Tracked-Arrow");
+	assert_eq!(
+		out["turn"],
+		json!({
+			"polestar": "dart-gold 0.0000 0.0000 0.0000",
+			"forever": "Minimap-QuestArrow 0.0000 0.0000 0.0000",
+			"blizzard": "UI-WorldMapArrow 0.0000 0.0000 0.0000",
+			"classic": "WorldMapArrow 0.0000 0.0000 0.0000"
+		}),
+		"each look's dart turns by the heading alone, as Polestar's: no offset of its own"
+	);
+	assert_eq!(out["near"]["dartAtlas"], "UI-WorldMapArrow");
 	assert_ne!(out["near"]["tint"], WHITE, "up close the look's dart takes the arrival colour");
 	assert_eq!(out["own"]["tint"], "0.20,0.60,1.00", "and the player's own arrow colour");
 	assert_eq!(out["ok"], json!([true, true]));
