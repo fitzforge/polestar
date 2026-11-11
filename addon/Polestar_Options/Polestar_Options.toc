@@ -28,6 +28,7 @@
 ## X-License: GPL-3.0-only
 ## X-Website: https://github.com/fitzforge/polestar
 
+UI\Controls.lua
 UI\Options.lua
 UI\Profiles.lua
 UI\Looks\Theme.lua
