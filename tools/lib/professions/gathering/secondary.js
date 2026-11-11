@@ -222,7 +222,9 @@ function renderRank(ctx, P, e, L) {
 		? `it is a book, ${itemName(ctx, info.book.item)}${bookPrice ? ` (${money(bookPrice)})` : ''}; the arrow picks its nearest seller for your faction. Buy it and read it`
 		: `the arrow picks the nearest ${P.skill} trainer of your faction${info.cost ? `; training costs ${money(info.cost)}` : ''}`;
 	const train = info.book ? `train ${P.skill} ${e.rank} "Buy and read ${itemName(ctx, info.book.item)} (${e.rank} ${P.skill})"` : `train ${P.skill} ${e.rank}`;
-	const lines = [`tip ${e.rank} ${P.skill} raises the cap to ${info.max}; it needs skill ${info.minSkill} and character level ${info.minLevel}: ${how}.${e.tip ? ` ${e.tip}` : ''}`, `level ${info.minLevel}`, train];
+	// Forever's Cooking and First Aid Journeyman ask no character level (professions.json minLevel 0).
+	const level = info.minLevel > 0 ? ` and character level ${info.minLevel}` : ' and no character level';
+	const lines = [`tip ${e.rank} ${P.skill} raises the cap to ${info.max}; it needs skill ${info.minSkill}${level}: ${how}.${e.tip ? ` ${e.tip}` : ''}`, ...(info.minLevel > 0 ? [`level ${info.minLevel}`] : []), train];
 	for (const extra of e.alsoBuy || []) lines.push(`buy ${extra} x1 nearest`);
 	for (const sp of e.learn || []) lines.push(`learn ${sp}`);
 	step(L, `${e.rank} ${P.skill}`, lines);
@@ -237,7 +239,9 @@ function renderGuide(ctx, P) {
 		else if (e.apprentice) {
 			const ap = rankInfo(ctx, P.skill, 'Apprentice');
 			const apTip = typeof P.apprenticeTip === 'function' ? P.apprenticeTip(ctx) : P.apprenticeTip;
-			step(L, `Learn ${P.skill}`, [`tip Any ${P.skill} trainer of your faction teaches Apprentice ${P.skill} (character level 5${ap && ap.cost ? `, ${money(ap.cost)}` : ''}); the arrow picks the nearest.${apTip ? ` ${apTip}` : ''}`, 'level 5', `train ${P.skill} Apprentice`]);
+			// Forever's Cooking and First Aid Apprentice ask no level (Classic's 5): professions.json says 1.
+			const apLevel = ap && ap.minLevel > 1 ? ap.minLevel : 0;
+			step(L, `Learn ${P.skill}`, [`tip Any ${P.skill} trainer of your faction teaches Apprentice ${P.skill} (${apLevel ? `character level ${apLevel}` : 'any character level'}${ap && ap.cost ? `, ${money(ap.cost)}` : ''}); the arrow picks the nearest.${apTip ? ` ${apTip}` : ''}`, ...(apLevel ? [`level ${apLevel}`] : []), `train ${P.skill} Apprentice`]);
 		} else if (e.rank) renderRank(ctx, P, e, L);
 		else if (e.bandage) renderBandage(ctx, P, e, L);
 		else if (e.raw) step(L, e.title, e.raw);
