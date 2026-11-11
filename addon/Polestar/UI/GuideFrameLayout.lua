@@ -348,7 +348,7 @@ function GF.Layout()
 	local reportW = nav.Report:IsShown() and nav.Report:GetWidth() or 0
 	local nearbyW = nav.Nearby:IsShown() and nav.Nearby:GetWidth() or 0
 	local lookupW = nav.Lookup:GetWidth()
-	local titleW = width - PAD - (steps and nav.Steps:GetWidth() + 12 or 0) - 24 - 8 - 8 - skipW - reportW - nearbyW - lookupW
+	local titleW = width - PAD - (steps and nav.Steps:GetWidth() + 12 or 0) - 24 - 8 - 8 - (nav.Close:IsShown() and 18 or 0) - skipW - reportW - nearbyW - lookupW
 	-- At the minimum width the controls take the row; the title must not sit
 	-- behind Skip (notably in compact mode, where the tab strip is hidden).
 	nav.Title:SetShown((not showStrip or not steps) and GF.On("guideTitle") and nav.Title:GetText() ~= nil and nav.Title:GetText() ~= "" and titleW >= 40)

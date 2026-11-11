@@ -31,7 +31,7 @@ Theme.API_VERSION = 1
 -- themselves and hand to a skin's hook (Theme.SkinHook).
 local PAINT_KINDS = { window = true, guide = true, toast = true, panel = true, sidebar = true, inset = true, button = true,
 	dropdown = true, tile = true, editbox = true, checkbox = true, tab = true, close = true, scrollbar = true }
-local HOOKS = { arrow = true, pin = true }
+local HOOKS = { arrow = true, pin = true, guideTitle = true }
 local SKIN_MEDIA = { band = true, bandStars = true, medallion = true }
 local ARROW_STYLES = { ["3d"] = true, flat = true, halo = true, hearth = true }
 local MAP_ICONS = { polestar = true, halo = true, hearth = true }

@@ -199,6 +199,17 @@ function GF.ApplyStyle()
 	W.Painter(GF.veil, GF.PaintVeil)
 	W.Painter(band.Veil, GF.PaintVeil)
 	nav.TitleBar:SetShown(not clear and skin == "hearth")
+	nav.Close:Hide()
+	-- A registered skin's own title (Theme.SkinHook "guideTitle"), after the
+	-- house state above: it may show the title bar (`bar`) and the close
+	-- square (`close`), hide the band and set `menuRight`, the menu's inset
+	-- from the right edge (room for the close square). The rule then takes
+	-- the bar's line (GF.PaintRule).
+	local title = GF.TitleParts(nav.TitleBar, nav.Close, nav.Rule, band)
+	if not clear then Theme.SkinHook("guideTitle", nav, title) end
+	nav.Menu:ClearAllPoints()
+	nav.Menu:SetPoint("RIGHT", nav, "RIGHT", -(tonumber(title.menuRight) or 8), 0)
+	GF.PaintRule(nav.Rule)
 	-- Blizzard's damage meter header bar under the tabs.
 	Theme.KitStrip(strip, not clear)
 	-- The quest tracker's header behind the focus (Forever, Blizzard).
@@ -335,12 +346,33 @@ function GF.PaintStatus(frac, pctText)
 	b.Pct:SetShown(GF.On("progressPct"))
 end
 
+-- What the guideTitle hook gets (the live window and the Looks preview).
+function GF.TitleParts(bar, close, rule, band)
+	return { bar = bar, close = close, rule = rule, band = band, menuRight = 8 }
+end
+
+-- The rule under the navigator: Halo's gold one; a title bar's line (Hearth's,
+-- or a skin's that shows the bar); the game's looks their separator.
+function GF.PaintRule(t)
+	local k = Theme.SkinKey()
+	if k == "halo" then
+		t:SetVertexColor(Theme.Color("accentLine"))
+	elseif k == "hearth" or nav.TitleBar:IsShown() then
+		t:SetVertexColor(Theme.Color("titleLine"))
+	elseif Theme.Kit() then
+		t:SetVertexColor(Theme.Color("separator"))
+	else
+		t:SetVertexColor(Theme.Wash("divider"))
+	end
+	t:SetHeight(Theme.Pixel(nav))
+end
+
 function GF.ApplySkin()
 	if not F then return end
 	GF.ReadMetrics()
 	GF.ApplyFonts()
 	local skin = Theme.SkinKey()
-	skinShown = skin
+	skinShown = Theme.SkinId()
 	F.psGuide = true
 	Theme.Repaint(F)
 	strip:SetHeight(TAB_H)
@@ -372,19 +404,7 @@ function GF.ApplySkin()
 	nav.Steps:SetPoint("LEFT", nav, "LEFT", PAD - 6, 0)
 	-- Rules: Halo's gold one under the navigator; Hearth's title bar line; the
 	-- game's looks their separator.
-	W.Painter(nav.Rule, function(t)
-		local k = Theme.SkinKey()
-		if k == "halo" then
-			t:SetVertexColor(Theme.Color("accentLine"))
-		elseif k == "hearth" then
-			t:SetVertexColor(Theme.Color("titleLine"))
-		elseif Theme.Kit() then
-			t:SetVertexColor(Theme.Color("separator"))
-		else
-			t:SetVertexColor(Theme.Wash("divider"))
-		end
-		t:SetHeight(Theme.Pixel(nav))
-	end)
+	W.Painter(nav.Rule, GF.PaintRule)
 	-- Hearth: the person's name over a gold separator.
 	person.Rule:SetShown(skin == "hearth")
 	-- The focus parts at the skin's paddings.
@@ -462,7 +482,7 @@ end
 
 -- A skin chosen while the window shows: its sizes, then a fresh layout.
 Theme.OnChanged(function()
-	if F and skinShown and skinShown ~= Theme.SkinKey() then
+	if F and skinShown and skinShown ~= Theme.SkinId() then
 		GF.ApplySkin()
 		GF.ApplyStyle()
 	end

@@ -56,7 +56,8 @@ Within one `API_VERSION`, these keep their meaning and shape:
   `psGuide`, `psLight`, `psTextButton`, `psFocused`, `psSelected`), and the
   **paint kit**'s functions and arguments.
 - The **hooks** `arrow(frame, style)` and `pin(pin)`, and when they are
-  called.
+  called; `guideTitle(nav, parts)` and the parts it names, where
+  `surfaces.guideTitle` is offered.
 - `onApply(id)`, `onLeave(id)`, and when they are called.
 - The **legibility** floors (7:1 and 4.5:1), the correction behaviour and
   `strict`.
