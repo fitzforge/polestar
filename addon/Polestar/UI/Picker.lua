@@ -445,7 +445,7 @@ end
 local function tabsInfo()
 	local E = ns.Engine
 	if not (E and E.GetTabs) then return nil, nil end
-	local ok, tabs, active = pcall(E.GetTabs)
+	local ok, tabs, active = pcall(E.GetTabs, true) -- with done and total: the tab cards' progress
 	if not ok or type(tabs) ~= "table" then return nil, nil end
 	return tabs, active
 end

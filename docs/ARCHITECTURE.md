@@ -2448,7 +2448,8 @@ and both of its values start on `"ask"`.
 #### Tabs (several guides at once)
 
 ```lua
-Polestar.Engine.GetTabs() -> { { guideId, title, category, stepIndex, stepCount, done, total, complete }, ... }, activeIndex
+Polestar.Engine.GetTabs([counts]) -> { { guideId, title, category, stepIndex, stepCount, done, total, complete }, ... }, activeIndex
+                                     -- done, total only with counts (the done rules over each tab's steps: the tab tooltip, the guide menu)
 Polestar.Engine.OpenTab(guideId [, activate])  -> index   -- already open: just activates it (when activate ~= false)
 Polestar.Engine.CloseTab(index [, quiet])                  -- the last tab may be closed (no guide); quiet: Polestar's own close
 Polestar.Engine.ClosedTabs() -> { { guideId, title, at }, ... }   -- newest first, registered and not open
@@ -5654,9 +5655,13 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
   their turn-ins' XP from the Codex, their kills and loot at the mobs'
   levels, from where the character is). A span's entries are kept, by the
   guide's table, the span and who the character is (level, class, race,
-  faction), until a turn-in, a level, or a guide, pack or Codex change
-  (`Levels.Invalidate`): the line is asked on every `PLAYER_XP_UPDATE`, and a
-  kill's XP only reruns `Levels.Run` over them. It also looks for the first open
+  faction), until a turn-in, a level or a guide change (`Levels.Invalidate`):
+  the line is asked on every `PLAYER_XP_UPDATE`, and a kill's XP only reruns
+  `Levels.Run` over them. Each step's own rows (its turn-ins' records, its
+  kills' and loot's mobs, from the Codex) are kept per guide and class, race
+  and faction until a guide, pack or Codex change, for the last 8 of them: a
+  step change moves every span's start, and a new span only sums those rows
+  (whether a quest is done is asked then). It also looks for the first open
   quest before the target (not a turn-in or a talk) that will be 3 or more
   levels above the character when the route gets there (`hard`; its level
   from the guide's `qlvl`, else the Codex, else the client). The guide
