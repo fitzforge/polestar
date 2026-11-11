@@ -271,6 +271,26 @@ local function routesLine()
 	return cut((L["Routes: %s"]):format(table.concat(parts, SEP)))
 end
 
+-- The travel plan from the current leg on (Nav.GetRoute): each leg's caption
+-- and time, "(maybe)" on a flight to a flight master the character may not
+-- have (#1795: the first flight map there settles it); no line without a plan
+-- (the arrow leads straight). The words stay English like Routes; after
+-- Routes, so Arrow, Where and Routes keep their places for the bug bot.
+-- Longer than the other lines (LINE_MAX): a plan of several legs reads whole.
+local function travelLine()
+	local N = ns.Nav
+	local legs, ci
+	if N and N.GetRoute then legs, ci = N.GetRoute() end
+	if not legs then return nil end
+	local parts = {}
+	for i = ci or 1, #legs do
+		local leg = legs[i]
+		local s = floor((leg.seconds or 0) + 0.5)
+		parts[#parts + 1] = ("%s %d:%02d%s"):format(plain(leg.label or leg.kind or "?"), floor(s / 60), s % 60, leg.maybe and " (maybe)" or "")
+	end
+	return cut((L["Travel: %s"]):format(table.concat(parts, SEP)), 300)
+end
+
 -- The "While you're here" line (Engine.WhileHereState): the lines shown
 -- (each: what, quest, step, distance; "; " between them) or "none", the
 -- radius, a hand-in's seconds out of the way and how many candidates there
@@ -492,6 +512,7 @@ function R.Details()
 	add(d, "arrow", arrowLine())
 	add(d, "where", playerLine())
 	add(d, "routes", routesLine())
+	add(d, "travel", travelLine())
 	add(d, "whilehere", whileHereLine())
 	add(d, "packs", packsLine())
 	add(d, "install", installLine())
@@ -566,7 +587,7 @@ end
 -- than the window's current one, the two after it and the arrow's (the
 -- furthest after it first, then the ones before it), the quest log, the
 -- errors but the newest; then, so even the longest description fits, the
--- planned and hidden lines, While here, Install, Routes and the newest
+-- planned and hidden lines, While here, Travel, Install, Routes and the newest
 -- error. Never the versions, the character, the guide and the step, the
 -- current goal, Arrow, Where or the Errors header: the lines the Discord
 -- bot finds the rest by and a fix starts from.
@@ -594,6 +615,7 @@ local function cutOrder(details)
 	all("error", 1, -2)
 	all("planned", -1, 1, -1)
 	all("whilehere")
+	all("travel")
 	all("install")
 	all("routes")
 	all("error", -1, -1)

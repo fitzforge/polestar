@@ -107,6 +107,30 @@ test('the report says how the arrow routes: the route style, then only the routi
 	assert.equal(out.unknown, 'Routes: balanced · real paths off · travel planner off', 'a style the router reads as Balanced is reported as Balanced');
 });
 
+test('the report lists the travel plan from the current leg: each caption and time, "(maybe)" on a flight to a flight master the character may not have, no line without a plan (#1795)', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		local function travel()
+			UI.ShowReport()
+			for line in PolestarReport.Box:GetText():gmatch("[^\\n]+") do
+				if line:find("^Travel: ") then return line end
+			end
+		end
+		local r = { none = travel() }
+		Polestar.Nav.GetRoute = function()
+			return {
+				{ kind = "walk", label = "Walked already", seconds = 5 },
+				{ kind = "walk", label = "Walk to the flight master", seconds = 83 },
+				{ kind = "fly", label = "Fly to Astranaar", seconds = 185.4, maybe = true },
+				{ kind = "walk", label = "Delgren the Purifier", seconds = 40 },
+			}, 2
+		end
+		r.plan = travel()
+		emit(r)`);
+	assert.equal(out.none, undefined, 'no plan: no line');
+	assert.equal(out.plan, 'Travel: Walk to the flight master 1:23 · Fly to Astranaar 3:05 (maybe) · Delgren the Purifier 0:40');
+});
+
 // The longest report a player can send: every line at its cap in `word`'s
 // script under `locale`, the description at its most letters (or
 // `opts.descLen`), 40 addons and a marked right spot. Returns the report for

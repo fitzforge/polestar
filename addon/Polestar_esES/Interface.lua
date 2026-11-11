@@ -381,6 +381,7 @@ L["%s Inn"] = "Posada de %s"
 L["Detour around %s"] = "Rodeo para evitar %s"
 L["Walk to the airship dock"] = "Camina hasta el muelle de la aeronave"
 L["Take the airship to %s"] = "Toma la aeronave a %s"
+-- L["Learn the flight path at %s, then fly to %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -1918,6 +1919,7 @@ L["Log:"] = "Registro:"
 L["Step %d of %d (guide step %d): %s"] = "Paso %d de %d (paso %d de la guía): %s"
 L["Install: %s"] = "Instalación: %s"
 L["While here: %s"] = "Ya que estás: %s"
+-- L["Travel: %s"] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desactivado en la lista de addons"

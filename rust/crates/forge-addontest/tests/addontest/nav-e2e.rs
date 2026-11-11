@@ -1940,6 +1940,8 @@ fn far_waypoints_from_mulgore_below_thunder_bluff_to_stonetalon_every_walk_leg_f
 			r#"
 		w.setLevel(20)
 		w.faction = "Horde"
+		-- A flight map has opened in Kalimdor and listed none: every leg walks (no flight it may have, #1795).
+		Polestar.CharState().flags.taxiSeen = { [1] = true }
 		place(1412, -975, -107, nil)
 		N.SetTarget(1442, 47.5, 61.5, "Stonetalon", "e")
 		emit(shapes())"#
@@ -2433,7 +2435,8 @@ fn acceptance_dolanaar_auberdine_from_auberdine_to_dolanaar_no_walk_leg_joins_th
 }
 
 /// A Horde character at `level` with no flight path known walks from Tarren Mill (Hillsbrad 60.79,19.92) to
-/// `to` (uiMapID, x, y, name): the planned legs' kinds and the yards each zone's ground takes of the walk legs
+/// `to` (uiMapID, x, y, name): a flight map has opened in the Eastern Kingdoms and listed none (flags.taxiSeen), so
+/// no flight master there is one it may have (#1795). The planned legs' kinds and the yards each zone's ground takes of the walk legs
 /// (by uiMapID, the router's own zone field every 20 yd), and Nav.danger.Mult at that level for Alterac Mountains.
 /// `p10`: price every zone from its P10 as before #1490 (Maps.GetZoneLevels without the danger floor).
 fn tarren_mill_walk(level: u32, to: (u32, f64, f64, &str), p10: bool) -> Value {
@@ -2449,6 +2452,7 @@ fn tarren_mill_walk(level: u32, to: (u32, f64, f64, &str), p10: bool) -> Value {
 		local c, wx, wy = C.MapToWorld(1424, 60.79, 19.92, "e")
 		place(1424, wx, wy)
 		Polestar.CharState().flags.taxi = {{}}
+		Polestar.CharState().flags.taxiSeen = {{ [0] = true }}
 		N.SetTarget({}, {}, {}, "{}", "e")
 		for _ = 1, 600 do stub.advance(0.05); aim() end
 		local legs, ci = N.GetRoute()

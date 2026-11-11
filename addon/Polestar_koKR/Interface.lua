@@ -381,6 +381,7 @@ L["%s Inn"] = "%s 여관"
 L["Detour around %s"] = "%s 우회"
 L["Walk to the airship dock"] = "비행선 승강장까지 걸어가기"
 L["Take the airship to %s"] = "비행선 타고 이동: %s"
+-- L["Learn the flight path at %s, then fly to %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -1918,6 +1919,7 @@ L["Log:"] = "기록:"
 L["Step %d of %d (guide step %d): %s"] = "%d단계 / %d (가이드 %d단계): %s"
 L["Install: %s"] = "설치: %s"
 L["While here: %s"] = "온 김에: %s"
+-- L["Travel: %s"] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "애드온 목록에서 꺼짐"

@@ -48,6 +48,8 @@ fn nav() -> Addon {
 	Addon::files("Polestar", &["Core/Init.lua", "Nav/Nav.xml"])
 }
 
+// The character has opened a flight map on both of the travel world's continents (flags.taxiSeen): a flight master
+// Polestar doesn't know there is one it lacks, as these tests were written for. The #1795 tests say otherwise.
 fn run_with(script: &str, flight_yards: Option<i32>, before: String) -> Value {
 	let yards = flight_yards.map_or_else(|| "nil".to_string(), |y| y.to_string());
 	emitted(&RunAddon {
@@ -55,7 +57,7 @@ fn run_with(script: &str, flight_yards: Option<i32>, before: String) -> Value {
 		before,
 		addons: vec![nav()],
 		login: true,
-		script: format!("{PRELUDE}\nnav.faction = \"Alliance\"\nnav.useTravelWorld({yards})\n{script}"),
+		script: format!("{PRELUDE}\nnav.faction = \"Alliance\"\nPolestar.CharState().flags.taxiSeen = {{ [0] = true, [1] = true }}\nnav.useTravelWorld({yards})\n{script}"),
 		..Default::default()
 	})
 	.remove(0)
@@ -63,6 +65,11 @@ fn run_with(script: &str, flight_yards: Option<i32>, before: String) -> Value {
 
 fn run(script: &str) -> Value {
 	run_with(script, None, String::new())
+}
+
+// The addon's own travel data (Nav/TravelData.lua), no fixture world.
+fn run_real(script: &str) -> Value {
+	emitted(&RunAddon { stubs: vec!["stub_nav.lua"], addons: vec![nav()], login: true, script: script.to_string(), ..Default::default() }).remove(0)
 }
 
 #[test]
@@ -406,6 +413,7 @@ fn opening_the_flight_map_records_known_nodes_and_re_plans() {
 #[test]
 fn flight_masters_not_known_count_as_missing_only_once_a_flight_map_opened_on_their_continent_1795() {
 	let out = run(r#"
+		Polestar.CharState().flags.taxiSeen = {}                    -- no flight map opened anywhere yet
 		local function unknown()
 			local ids = {}
 			for _, node in ipairs(N.UnknownTaxiOn(0, {})) do ids[#ids + 1] = node.id end
@@ -451,6 +459,132 @@ fn the_seen_continents_start_from_the_flight_paths_already_known_1795() {
 		"West Hold known: a flight map opened on its continent"
 	);
 	assert_eq!(run_saved("PolestarCharDB = { schema = 1 }"), json!({ "seen": false, "unknown": "", "kept": true }));
+}
+
+// #1795, the plan: on a continent where no flight map has opened yet for this character, a flight master Polestar
+// doesn't know may be one the character learnt before Polestar ran. The plan flies there like a known one (each
+// landing there costing 60 s more, never forbidden) and the leg says so (`maybe`); Auberdine to Astranaar is this,
+// here West Hold to East Hold. Once a flight map has opened on that continent without East Hold, the character lacks
+// it: walked, as before.
+#[test]
+fn an_unseen_continent_plans_a_flight_to_a_flight_master_the_player_may_have_1795() {
+	let out = run(r#"
+		local flags = Polestar.CharState().flags
+		local function maybe()
+			for _, l in ipairs(N.GetRoute() or {}) do if l.kind == "fly" then return l.maybe == true end end
+			return false
+		end
+		known(1)
+		flags.taxiSeen = {}
+		nav.place(0, 600)                                          -- 190 yd from West Hold
+		target(0, -780, "Kobolds")
+		local r = { unseen = route(), maybe = maybe() }
+		flags.taxiSeen = { [0] = true }
+		target(0, -780, "Kobolds")
+		r.seen = route()
+		emit(r)"#);
+	assert_eq!(out["unseen"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]));
+	assert_eq!(out["maybe"], true, "the flight lands where the player may not have the flight path");
+	assert_eq!(out["seen"], json!(["walk|Kobolds"]), "a flight map opened there without East Hold: walked");
+}
+
+// The first flight map on that continent settles it, even when it adds no flight path: West Hold's map, without East
+// Hold, turns the planned flight into the walk at once (recordTaxiMap reports the continent newly seen).
+#[test]
+fn the_first_flight_map_on_a_continent_settles_a_maybe_flight_1795() {
+	let out = run(r#"
+		known(1)
+		Polestar.CharState().flags.taxiSeen = {}
+		nav.place(0, 600)
+		target(0, -780, "Kobolds")
+		local before = route()
+		nav.taxiMap = { mapID = 1415, nodes = { 1 } }
+		stub.fire("TAXIMAP_OPENED", 1)
+		emit({ before = before, after = route() })"#);
+	assert_eq!(out["before"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]));
+	assert_eq!(out["after"], json!(["walk|Kobolds"]));
+}
+
+// Not a flight master in a zone far above the character: one whose zone's level range starts more than 5 levels above
+// (this character is level 10) is not one it may have. Zone levels come from the Maps module (Maps/ZoneLevels.lua).
+#[test]
+fn a_flight_master_in_a_zone_far_above_the_character_is_not_one_it_may_have_1795() {
+	let out = run(r#"
+		known(1)
+		Polestar.CharState().flags.taxiSeen = {}
+		local zone = 30
+		Polestar.Maps = { GetZoneLevels = function(map) if map == 9000 then return zone, zone + 10 end end }
+		nav.place(0, 600)
+		target(0, -780, "Kobolds")
+		local far = route()
+		zone = 15
+		target(0, -780, "Kobolds")
+		emit({ far = far, near = route() })"#);
+	assert_eq!(out["far"], json!(["walk|Kobolds"]), "a zone from level 30: never been there at 10");
+	assert_eq!(out["near"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]), "from 15: maybe");
+}
+
+// A flight path learnt with the game's "New flight path discovered" (at its flight master, within 60 yd) is known:
+// planned like one seen on a flight map.
+#[test]
+fn a_flight_path_learnt_by_the_new_flight_path_message_is_known() {
+	let out = run(r#"
+		ERR_NEWTAXIPATH = "New flight path discovered!"
+		known(1)
+		nav.place(0, 600)
+		target(0, -780, "Kobolds")
+		local before = route()
+		nav.place(0, -770)                                         -- 30 yd from East Hold's flight master
+		stub.fire("UI_INFO_MESSAGE", 0, ERR_NEWTAXIPATH)
+		local learnt = Polestar.CharState().flags.taxi[2] == true
+		nav.place(0, 600)
+		target(0, -780, "Kobolds")
+		emit({ before = before, learnt = learnt, after = route() })"#);
+	assert_eq!(out["before"], json!(["walk|Kobolds"]));
+	assert_eq!(out["learnt"], true);
+	assert_eq!(out["after"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]));
+}
+
+// A flight master the player stands next to (here 50 yd off) and hasn't learnt: talking to it learns it (10 s), so the
+// plan starts the flight there, to a flight path it knows (#1174's rule, kept), and the flight leg says so.
+#[test]
+fn a_flight_starts_at_an_unlearnt_flight_master_the_player_stands_next_to() {
+	let out = run(r#"
+		known(2)
+		nav.place(0, 740)                                          -- 50 yd from West Hold's flight master, not learnt
+		target(0, -780, "Kobolds")
+		emit(route())"#);
+	assert_eq!(out, json!(["walk|Walk to the flight master", "fly|Learn the flight path at West Hold, then fly to East Hold", "walk|Kobolds"]));
+}
+
+// #1795, from a player's recording: a Horde Skyborne Druid at level 14 walked north from Camp Taurajo to the
+// Crossroads, passing Camp Taurajo's flight master about 100 yd off without learning it (the flight map it opened at
+// the Crossroads didn't list it), while it knew the Crossroads' flight path: about six minutes on foot. Learning Camp
+// Taurajo's there (10 s) and flying takes about two: the plan walks to that flight master, and the flight leg says
+// "Learn the flight path at Camp Taurajo, then fly to Crossroads". The real travel data; the recording's spots on the
+// Barrens' map (1413), through the shipped frame: 43.50,58.43 and 51.67,30.96.
+#[test]
+fn walking_past_a_flight_master_not_learnt_to_near_a_known_one_learns_it_and_flies_1795() {
+	let legs = run_real(
+		r#"
+		local legs = Polestar.Nav.PlanRoute({
+			c = 1, map = 1413,
+			wx = 1612.5 + (-5143.75 - 1612.5) * 0.5843,
+			wy = 2622.917 + (-7510.417 - 2622.917) * 0.4350,
+			target = {
+				c = 1, map = 1413, label = "The Crossroads",
+				wx = 1612.5 + (-5143.75 - 1612.5) * 0.3096,
+				wy = 2622.917 + (-7510.417 - 2622.917) * 0.5167,
+			},
+			faction = 2, known = { [22] = true, [23] = true, [25] = true },
+		})
+		emit(legs)"#,
+	);
+	let pairs: Vec<Value> = legs.as_array().unwrap().iter().map(|l| json!([l["kind"], l["label"]])).collect();
+	assert_eq!(Value::Array(pairs), json!([["walk", "Walk to the flight master"], ["fly", "Learn the flight path at Camp Taurajo, then fly to Crossroads"], ["walk", "The Crossroads"]]));
+	assert_eq!(legs[0]["to"]["id"], 77, "Camp Taurajo's flight master");
+	let total = legs[0]["seconds"].as_f64().unwrap() + legs[0]["rest"].as_f64().unwrap();
+	assert!(total < 180.0, "about two minutes, against six on foot ({total} s)");
 }
 
 #[test]

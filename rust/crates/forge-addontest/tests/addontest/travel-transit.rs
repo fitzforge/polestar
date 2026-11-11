@@ -34,12 +34,14 @@ local function leg(kind)
 end
 "#;
 
+// The character has opened a flight map on both of the travel world's continents (flags.taxiSeen): a flight master
+// Polestar doesn't know there is one it lacks (#1795's flights to ones it may have are in travel.rs).
 fn run(script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_nav.lua"],
 		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Nav/Nav.xml"])],
 		login: true,
-		script: format!("{PRELUDE}\nnav.faction = \"Alliance\"\nnav.useTravelWorld()\n{script}"),
+		script: format!("{PRELUDE}\nnav.faction = \"Alliance\"\nPolestar.CharState().flags.taxiSeen = {{ [0] = true, [1] = true }}\nnav.useTravelWorld()\n{script}"),
 		..Default::default()
 	})
 	.remove(0)
@@ -521,45 +523,11 @@ fn t_2_3_no_flight_leg_lands_at_or_passes_through_an_unknown_flight_master_the_k
 		r.stops = stopsOf()
 		emit(r)"#);
 	// Middle Post unknown: never flown to or through (North -> Middle -> South); walked to,
-	// learnt there and flown from (#1174).
-	assert_eq!(out["unknownMiddle"], json!(["walk|Walk to the flight master", "fly|Fly to South Post", "walk|South"]));
+	// learnt there and flown from (#1174), the flight leg saying so.
+	assert_eq!(out["unknownMiddle"], json!(["walk|Walk to the flight master", "fly|Learn the flight path at Middle Post, then fly to South Post", "walk|South"]));
 	assert_eq!(out["unknownStops"], json!([2, 3]), "Middle Post unknown: no flight through it");
 	assert_eq!(out["known"], json!(["walk|Walk to the flight master", "fly|Fly to South Post", "walk|South"]));
 	assert_eq!(out["stops"], json!([1, 2, 3]));
-}
-
-// A flight path learnt while Polestar was not running: the world map's flight points (C_TaxiMap.GetTaxiNodesForMap,
-// isUndiscovered) make it known on the next loading screen, with no flight map opened (#1308: from Ironforge the
-// arrow walked to the Wetlands until the flight map there showed Menethil Harbor). A client that reads no node as
-// undiscovered, or gives no such field, is not trusted.
-#[test]
-fn a_flight_path_learnt_without_polestar_counts_from_the_world_map_on_a_loading_screen() {
-	let out = run(r#"
-		local r = {}
-		local nodes
-		C_TaxiMap.GetTaxiNodesForMap = function(mapID)
-			if mapID ~= 9000 then return {} end
-			return nodes
-		end
-		local function reload(list)
-			known()
-			nodes = list
-			stub.fire("PLAYER_ENTERING_WORLD")
-			target(0, -780, "Kobolds")
-			return route()
-		end
-		nav.place(0, 600)
-		r.none = reload({})
-		r.world = reload({ { nodeID = 1, isUndiscovered = false }, { nodeID = 2, isUndiscovered = false }, { nodeID = 3, isUndiscovered = true } })
-		r.saved = { Polestar.CharState().flags.taxi[1] == true, Polestar.CharState().flags.taxi[2] == true, Polestar.CharState().flags.taxi[3] == true }
-		r.allKnown = reload({ { nodeID = 1, isUndiscovered = false }, { nodeID = 2, isUndiscovered = false } })
-		r.noField = reload({ { nodeID = 1 }, { nodeID = 2 }, { nodeID = 3 } })
-		emit(r)"#);
-	assert_eq!(out["none"], json!(["walk|Kobolds"]), "East Hold unknown: walked");
-	assert_eq!(out["world"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]));
-	assert_eq!(out["saved"], json!([true, true, false]), "only the discovered nodes, saved");
-	assert_eq!(out["allKnown"], json!(["walk|Kobolds"]), "no node read as undiscovered: not trusted");
-	assert_eq!(out["noField"], json!(["walk|Kobolds"]));
 }
 
 #[test]

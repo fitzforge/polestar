@@ -48,8 +48,11 @@ local function crossings(extra)
 end
 "#;
 
+// The character has opened a flight map on both continents (flags.taxiSeen): a flight master Polestar doesn't know is
+// one it lacks, as these walks were written for (#1795's flights to ones it may have are in travel.rs).
 fn run_raw(script: &str) -> Value {
-	emitted(&RunAddon { stubs: vec!["stub_nav.lua"], addons: vec![nav()], login: true, script: script.to_string(), ..Default::default() }).remove(0)
+	let script = format!("Polestar.CharState().flags.taxiSeen = {{ [0] = true, [1] = true }}\n{script}");
+	emitted(&RunAddon { stubs: vec!["stub_nav.lua"], addons: vec![nav()], login: true, script, ..Default::default() }).remove(0)
 }
 
 fn run(script: &str) -> Value {
@@ -315,8 +318,8 @@ fn moving_more_than_50_yd_re_plans_once_the_plan_is_30_s_old_at_most_once_a_seco
 	assert_eq!(out["after"], 1);
 }
 
-// Standing at a flight master not learnt yet, the plan already flies out of it (learnt there, #1174);
-// the game's "New flight path discovered" saves it, and only that message does.
+// Standing at a flight master not learnt yet, the plan already flies out of it (learnt there, #1174), the flight leg
+// saying so; the game's "New flight path discovered" saves it, and only that message does.
 #[test]
 fn learning_a_flight_path_saves_it_and_the_flight_out_stays() {
 	let out = run(r#"
@@ -329,8 +332,8 @@ fn learning_a_flight_path_saves_it_and_the_flight_out_stays() {
 		local other = { route = route(), saved = Polestar.CharState().flags.taxi[1] == true }
 		stub.fire("UI_INFO_MESSAGE", 0, ERR_NEWTAXIPATH)
 		emit({ before = before, other = other, after = route(), saved = Polestar.CharState().flags.taxi[1] == true })"#);
-	assert_eq!(out["before"], json!(["fly|Fly to East Hold", "walk|Target"]));
-	assert_eq!(out["other"], json!({ "route": ["fly|Fly to East Hold", "walk|Target"], "saved": false }));
+	assert_eq!(out["before"], json!(["fly|Learn the flight path at West Hold, then fly to East Hold", "walk|Target"]));
+	assert_eq!(out["other"], json!({ "route": ["fly|Learn the flight path at West Hold, then fly to East Hold", "walk|Target"], "saved": false }));
 	assert_eq!(out["after"], json!(["fly|Fly to East Hold", "walk|Target"]));
 	assert_eq!(out["saved"], true);
 }

@@ -6758,8 +6758,9 @@ end
 -- (#1530: a flight to the Crossroads landed but never ended its step, the
 -- zone text reading "The Crossroads" and the goal "Crossroads"; so with
 -- Stormwind, Grom'gol, Theramore, Feathermoon), with a place; else nil.
+-- The known landing first: the common case asks Nav once.
 function Own.landingNode(goal)
-	local node = Own.unknownLanding(goal) or (goal.node and ns.Nav and ns.Nav.GetTaxiNode and Own.knownLanding(goal))
+	local node = (goal.node and ns.Nav and ns.Nav.GetTaxiNode and Own.knownLanding(goal)) or Own.unknownLanding(goal) or Own.maybeLanding(goal)
 	return node and node.map and node.x and node.y and node or nil
 end
 Own.LANDING_RADIUS = 30 -- yards around the flight master: where the taxi sets the player down
@@ -8871,7 +8872,9 @@ end
 -- the planner on, to the landing as travel: its arrow and its goal read "Go
 -- to", the route walks, sails or takes the flights the character knows, and
 -- the goal is done on arriving there or once that flight path is learned
--- (Own.unknownLanding, Own.landingReached).
+-- (Own.unknownLanding, Own.landingReached). A landing it may have though
+-- Polestar doesn't know it (Nav.TaxiMaybe: no flight map opened on that
+-- continent yet, #1795) stays a flight: the planner flies there at a cost.
 -- With the planner off the guide's steps hold as written.
 ---------------------------------------------------------------------------
 
@@ -8924,12 +8927,23 @@ function Own.knownLanding(goal)
 	return node and nav.GetKnownTaxiNodes()[goal.node] and node or nil
 end
 
--- The landing node of a `fly` goal the character does not know, while the
--- planner leads (see above); else nil.
+-- The landing node of a `fly` goal the character does not know and may not
+-- have (Nav.TaxiMaybe), while the planner leads (see above); else nil.
 function Own.unknownLanding(goal)
 	if not (goal and goal.t == "fly" and goal.node and Own.plannerFlies()) then return nil end
 	local nav = ns.Nav
-	if nav.GetKnownTaxiNodes()[goal.node] then return nil end
+	if nav.GetKnownTaxiNodes()[goal.node] or (nav.TaxiMaybe and nav.TaxiMaybe(goal.node)) then return nil end
+	local node = nav.GetTaxiNode(goal.node)
+	return node and node.map and node.x and node.y and node or nil
+end
+
+-- The landing node of a `fly` goal the character may have though Polestar
+-- doesn't know it (Nav.TaxiMaybe, #1795), while the planner leads; else nil.
+-- Led to and arrived at like a known landing (Own.flyAimed, Own.landingNode).
+function Own.maybeLanding(goal)
+	if not (goal and goal.t == "fly" and goal.node and Own.plannerFlies()) then return nil end
+	local nav = ns.Nav
+	if not (nav.TaxiMaybe and nav.TaxiMaybe(goal.node)) then return nil end
 	local node = nav.GetTaxiNode(goal.node)
 	return node and node.map and node.x and node.y and node or nil
 end
@@ -9139,7 +9153,7 @@ end
 function Own.flyAimed(s)
 	if not (Own.plannerFlies() and Own.transitKind(s) == "fly") then return nil end
 	local goal, g = Own.flyGoal(s)
-	local node = Own.knownLanding(goal) or Own.unknownLanding(goal)
+	local node = Own.knownLanding(goal) or Own.maybeLanding(goal) or Own.unknownLanding(goal)
 	if not (node and node.map and node.x and node.y) then return nil end
 	return goal, g, node
 end
@@ -11546,14 +11560,9 @@ function Own.hereFlyView(e)
 	return v
 end
 
--- A flight path learnt (the flight map, "New flight path discovered", the
--- world map's nodes changing): Nav marks it known in its own handler; the
--- build after ends its line.
+-- A flight path learnt (the flight map, "New flight path discovered"): Nav
+-- marks it known in its own handler; the build after ends its line.
 ns.RegisterEvent("TAXIMAP_OPENED", function()
-	Own.hereDirty = true
-	requestUpdate()
-end)
-ns.RegisterEvent("TAXI_NODE_STATUS_CHANGED", function()
 	Own.hereDirty = true
 	requestUpdate()
 end)

@@ -365,6 +365,34 @@ fn a_flight_to_a_landing_the_character_never_learned_leads_there_as_travel_and_i
 	);
 }
 
+// #1795: a landing the character may have though Polestar doesn't know it (Nav.TaxiMaybe: no flight map opened on that
+// continent yet) stays a flight: "Fly to Menethil Harbor", led to its end like a known one, for the planner to fly
+// there at a cost; landing there ends the step, as a known landing does (#1530); the first flight map settles it.
+#[test]
+fn a_flight_to_a_landing_the_character_may_have_stays_a_flight_and_ends_on_landing_1795() {
+	let out = run(
+		MENETHIL,
+		&format!(
+			r#"{MENETHIL_NAV}
+			KNOWN = {{ [2] = true }}
+			Polestar.Nav.TaxiMaybe = function(id) return id == 7 end
+			E.SetGuide("test/menethil"); flush()
+			local r = {{ maybe = at() }}
+			stub.world.moveTo(1437, 9.5, 59.7); stub.advance(1)
+			r.landed = at()
+			emit(r)
+			"#
+		),
+	);
+	assert_eq!(
+		out,
+		json!({
+			"maybe": [1, 1437, "fly", "Fly to Menethil Harbor"],
+			"landed": [2, 1437, "getfp", "Get the flight path at Menethil Harbor"],
+		})
+	);
+}
+
 // 0.3.5's Wetlands "Fly to Astranaar" for a player whose Darkshore work around it was skipped: the step is only the
 // walk to Auberdine's flight master and the flight. Flying to Astranaar from another flight master (here Stonetalon
 // Peak), or getting there any other way when Astranaar is unknown, finishes the whole step, the walk to Auberdine's

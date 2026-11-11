@@ -1805,7 +1805,7 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   each build), each travel-data node's goal (at the node's own world point)
   and entry kept while the node is (`Own.hereFlyOf`, weak by node), so a
   dismiss holds across builds. Learning it (the flight map, "New flight path
-  discovered", `TAXI_NODE_STATUS_CHANGED`: Nav marks the node known, a build
+  discovered": Nav marks the node known, a build
   follows) ends the line and ticks the guide's later `getfp` goal for that
   flight master (`fpKnown`), as an early pick-up does; the live step stays.
   The arrival poll measures at most `HERE_MAX` of them (`Own.hereList`): all
@@ -4059,17 +4059,15 @@ The planner is Dijkstra over the player, the target, known flight masters,
 docks, walk-in portals (one way, `portals` in TravelData), the bound inn,
 class teleports, learned path nodes and crossing waypoints. A flight master
 of the player's faction not learnt yet, on the start's or the target's
-continent, is a vertex too: walked to, learnt there (5 s) and flown from to
-known ones, never flown to and never walked on from (no walk measure from it;
-otherwise Rut'theran's would beat the Darnassus portal, #989) (#1174:
-Ironforge's, beside a player who knows Menethil Harbor). The known flight
-masters (`flags.taxi`) come from the flight map when one opens, the game's
-"New flight path discovered", and the world map's flight points
-(`C_TaxiMap.GetTaxiNodesForMap`, a node's `isUndiscovered`), read on every
-loading screen and on `TAXI_NODE_STATUS_CHANGED`, so a flight path learnt
-while Polestar was not running counts before the next flight map (#1308);
-a client that reads no node as undiscovered is not trusted (on Forever every
-node reads discovered, so that read adds nothing there). A continent counts
+continent, is a vertex too: walked to, learnt there (10 s: talking to it, its
+"New flight path discovered") and flown from to known ones, never flown to
+and never walked on from (no walk measure from it; otherwise Rut'theran's
+would beat the Darnassus portal, #989) (#1174: Ironforge's, beside a player
+who knows Menethil Harbor); its flight leg reads "Learn the flight path at X,
+then fly to Y". The known flight
+masters (`flags.taxi`) come from the flight map when one opens and the game's
+"New flight path discovered" (the world map's flight points can't add any:
+on Forever they mark every node discovered, #1795). A continent counts
 as seen (`flags.taxiSeen`, `{ [continent] = true }`, per character;
 `Nav.GetTaxiSeen`) once a flight map opened there listed a discovered node of
 it: that map lists every flight path the character has there. On a seen
@@ -4079,7 +4077,17 @@ another Polestar can't tell, so While-here's "Learn the flight path" lines
 (`Maps.BuildTravelPins`, `o.seen`) stay away there (#1795). The set is made
 once from the continents of the nodes `flags.taxi` already holds (each came
 from a flight map there), so a character that opened one keeps its lines; it
-waits for the travel data. It orders by
+waits for the travel data. On a continent not seen (the start's or the
+target's), a flight master the
+character may have (`maybeTaxi`, `Nav.TaxiMaybe`: its faction's or neutral,
+its class's, in a zone whose level range starts at most 5 levels above the
+character's, a capital's having none) is a vertex like a known one, each
+landing there costing 60 s more (a cost, never a time); a flight leg through
+one carries `maybe`, and a `fly` step landing there keeps "Fly to", led to
+and arrived at like a known landing (`Own.maybeLanding`, not
+`Own.unknownLanding`). The first flight map on that continent settles it:
+`recordTaxiMap` reports a continent newly seen as a change, so the plan is
+made again. It orders by
 a cost (the Hearthstone carries a `HEARTH_MARGIN` of 120 s on top of its
 time, a teleport a `TELEPORT_MARGIN` of 60 s) and keeps the real seconds of every leg apart, so
 `seconds`/`rest` (the arrow's ETA) stay honest. Caps: 20000 pops, 40 ms,
@@ -7791,7 +7799,10 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `fastest`, `balanced` or `roads`, in English) and only the routing settings
   away from their defaults (`real paths off`, `travel planner off`, `handed
   to Shortest Path Forever`), after Where so the bug bot still finds Arrow and
-  Where by position and reads this line by its style word; "While here:"
+  Where by position and reads this line by its style word; "Travel:" with
+  the travel plan's legs from the current one (`Nav.GetRoute`: each leg's
+  caption and m:ss, "(maybe)" on a flight to a flight master the character
+  may not have), none without a plan; "While here:"
   (`Engine.WhileHereState`, English words) with the line shown (its text,
   quest, step, yards) or "none", the radius, a hand-in's seconds out of the
   way ("hand-ins 20 s", or off) and the count of candidates, and

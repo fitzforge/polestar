@@ -657,9 +657,13 @@ local function planRoute(p)
 	if covered[tg.c] then vzone[2] = Travel.ZoneOf(tg.map, tg.c, tg.wx, tg.wy, true) end
 	-- learnV[v]: a flight master of the player's not learnt yet, on the start's or the target's continent. Talking
 	-- to it learns it and opens its flight map, so it is walked to and flown from like a known one, never flown to
-	-- (its flights go only to known ones): Ironforge's beside a player who has Menethil Harbor (#1174).
-	local taxiV, learnV = {}, {}
-	local skip = p.skip
+	-- (its flights go only to known ones): Ironforge's beside a player who has Menethil Harbor (#1174). Its flight
+	-- leg reads "Learn the flight path at X, then fly to Y".
+	-- maybeV[v]: one the player may have though Polestar doesn't know it (p.maybe: on a continent no flight map
+	-- has opened on yet, p.seen, #1795), on the start's or the target's continent: flown to and from like a known
+	-- one, each landing there costing more (MAYBE, below), never forbidden; the first flight map there settles it.
+	local taxiV, learnV, maybeV = {}, {}, {}
+	local skip, maybe, seen, level = p.skip, p.maybe, p.seen, p.level
 	for _, node in ipairs((walkOnly or p.noFlights) and {} or taxiList) do
 		if skip and skip.taxi[node.id] then
 			-- skipped: never flown from or through
@@ -667,7 +671,12 @@ local function planRoute(p)
 			-- the other faction's, or another class's
 		elseif known[node.id] or node.class then
 			taxiV[node.id] = add(TAXI, node.c, node.wx, node.wy, node, node.map)
-		elseif node.c == p.c or node.c == tg.c then
+		elseif node.c ~= p.c and node.c ~= tg.c then
+			-- on another continent: not on the way
+		elseif maybe and seen and maybe(node, seen, level) then
+			local v = add(TAXI, node.c, node.wx, node.wy, node, node.map)
+			taxiV[node.id], maybeV[v] = v, true
+		else
 			learnV[add(TAXI, node.c, node.wx, node.wy, node, node.map)] = true
 		end
 	end
@@ -1126,18 +1135,21 @@ local function planRoute(p)
 			if kind == TAXI then
 				local fl = flights[vref[u].id]
 				if fl then
-					-- 5 s more to learn a flight master not learnt yet (its "New flight path discovered").
-					local learn = learnV[u] and 5 or 0
+					-- 10 s more to learn a flight master not learnt yet (talking to it, its "New flight path discovered").
+					local learn = learnV[u] and 10 or 0
 					-- The first hop's take-off at the flight master (talking to it, picking the flight: 6 s
 					-- median from reaching it to take-off in players' recordings, FLIGHT_STOP's 2 included):
 					-- a cost, never a time, so a near tie walks instead of detouring to the flight master.
 					-- Local here: PlanRoute is at Lua 5.1's 60 upvalues.
 					local TAKE_OFF = via[u] == FLY and 0 or 4
+					-- A landing at a flight master the player may not have (maybeV): a cost, never a time.
+					-- If the flight map at take-off doesn't list it, the plan is made again from there.
+					local MAYBE = 60
 					for i = 1, #fl - 1, 2 do
 						local v = taxiV[fl[i]]
 						if v then
 							local s = fl[i + 1] / FLIGHT_SPEED + FLIGHT_STOP + learn
-							relax(v, du + s + TAKE_OFF, tu + s, FLY, u)
+							relax(v, du + s + TAKE_OFF + (maybeV[v] and MAYBE or 0), tu + s, FLY, u)
 						end
 					end
 				end
@@ -1275,7 +1287,11 @@ local function planRoute(p)
 			end
 		elseif how == FLY then
 			local stops = {}
-			for k = i, j do stops[#stops + 1] = vref[chain[k]] end
+			for k = i, j do
+				stops[#stops + 1] = vref[chain[k]]
+				-- A stop the player may not have (maybeV): the first flight map there settles it.
+				if k > i and maybeV[chain[k]] then leg.maybe = true end
+			end
 			leg.stops = stops
 		end
 		if how == WALK then
@@ -1299,7 +1315,11 @@ local function planRoute(p)
 			end
 		elseif how == FLY then
 			leg.kind = "fly"
-			leg.label = format(L["Fly to %s"], Travel.TaxiName(vref[to], true))
+			if learnV[u] then
+				leg.label = format(L["Learn the flight path at %s, then fly to %s"], Travel.TaxiName(vref[u], true), Travel.TaxiName(vref[to], true))
+			else
+				leg.label = format(L["Fly to %s"], Travel.TaxiName(vref[to], true))
+			end
 		elseif how == RIDE then
 			local t = dockOf[u]
 			leg.kind = t.kind
@@ -1377,6 +1397,18 @@ local function seenSet()
 	return seen
 end
 
+-- A flight master the character may have though Polestar doesn't know it (#1795): on a
+-- continent no flight map has opened on yet for it (`seen` lacks it), in a zone whose level
+-- range starts at most 5 levels above the character's (a capital's has none), so never one
+-- far beyond where it has been. The planner flies to it at a cost (planRoute's maybeV) and
+-- the first flight map on that continent settles it. Faction and class are the caller's.
+local function maybeTaxi(node, seen, level)
+	if seen[node.c] then return false end
+	local M = ns.Maps
+	local min = level and M and M.GetZoneLevels and M.GetZoneLevels(node.map)
+	return not min or min <= level + 5
+end
+
 local playerFaction = 0
 local function refreshFaction()
 	local C = ns.Compat
@@ -1386,7 +1418,7 @@ local function refreshFaction()
 end
 
 -- Marks the nodes named `name` the character may fly from known, and with `seen`
--- their continent seen. -> true when a node was added.
+-- their continent seen. -> true when a node was added or a continent newly seen.
 local function markByName(known, name, seen)
 	local ids = name and taxiByName[lower(name)]
 	if not ids then return false end
@@ -1394,7 +1426,10 @@ local function markByName(known, name, seen)
 	for _, id in ipairs(ids) do
 		local node = taxi[id]
 		if allowed(node.faction, playerFaction, node.class) then
-			if seen then seen[node.c] = true end
+			if seen and not seen[node.c] then
+				seen[node.c] = true
+				added = true
+			end
 			if not known[id] then
 				known[id] = true
 				added = true
@@ -1423,6 +1458,16 @@ end
 -- Continents a flight map has opened on for this character: { [continent] = true } (read-only).
 function Nav.GetTaxiSeen()
 	return seenSet()
+end
+
+-- Whether the character may have flight master `id` though Polestar doesn't know it (maybeTaxi). -> boolean
+function Nav.TaxiMaybe(id)
+	local node = id and taxi[id]
+	if not node or node.class or knownNodes()[id] then return false end
+	if playerFaction == 0 then refreshFaction() end
+	if not allowed(node.faction, playerFaction, node.class) then return false end
+	local D = Nav.danger
+	return maybeTaxi(node, seenSet(), D and D.Level())
 end
 
 -- The flight masters on continent c this character may fly from (its
@@ -1459,7 +1504,8 @@ end
 local DISCOVERED_TYPE = { CURRENT = true, REACHABLE = true, UNREACHABLE = true }
 
 -- The flight map lists the nodes this character knows on that continent: each
--- is known, and its continent seen (seenSet).
+-- is known, and its continent seen (seenSet). -> true when a node was added or
+-- the continent newly seen (its maybe nodes, planRoute's maybeV, are settled).
 local function recordTaxiMap()
 	refreshFaction()
 	local known, seen = knownSet(), seenSet()
@@ -1472,7 +1518,10 @@ local function recordTaxiMap()
 				local id = type(info) == "table" and info.nodeID
 				local node = id and taxi[id]
 				if node and discoveredState(info.state) then
-					seen[node.c] = true
+					if not seen[node.c] then
+						seen[node.c] = true
+						added = true
+					end
 					if not known[id] then
 						known[id] = true
 						added = true
@@ -1484,46 +1533,6 @@ local function recordTaxiMap()
 	if NumTaxiNodes and TaxiNodeName and TaxiNodeGetType then
 		for i = 1, NumTaxiNodes() or 0 do
 			if DISCOVERED_TYPE[TaxiNodeGetType(i)] and markByName(known, TaxiNodeName(i), seen) then added = true end
-		end
-	end
-	return added
-end
-
--- The world map's flight points list what this character has discovered
--- anywhere, with no flight master open (C_TaxiMap.GetTaxiNodesForMap, each
--- node's isUndiscovered, as the client's own world map reads them), so a
--- flight path learnt while Polestar was not running counts before the next
--- flight map opens (#1308). Read once per zone map that has a flight master
--- in the travel data; only adds, like the flight map. A client that reads
--- no node at all as undiscovered is not trusted: every character has some.
--- -> true when a node was added.
-function Travel.RecordWorldTaxi()
-	local get = C_TaxiMap and C_TaxiMap.GetTaxiNodesForMap
-	if not get then return false end
-	local seen, found, anyUndiscovered = {}, {}, false
-	for _, node in ipairs(taxiList) do
-		local mapID = node.map
-		if mapID and not seen[mapID] then
-			seen[mapID] = true
-			local ok, list = pcall(get, mapID)
-			if ok and type(list) == "table" then
-				for _, info in ipairs(list) do
-					local id = type(info) == "table" and info.nodeID
-					if id and info.isUndiscovered == true then
-						anyUndiscovered = true
-					elseif id and info.isUndiscovered == false and taxi[id] then
-						found[#found + 1] = id
-					end
-				end
-			end
-		end
-	end
-	if not anyUndiscovered then return false end
-	local known, added = knownSet(), false
-	for _, id in ipairs(found) do
-		if not known[id] then
-			known[id] = true
-			added = true
 		end
 	end
 	return added
@@ -1935,6 +1944,8 @@ local function plan(target)
 		target = { c = tc, wx = twx, wy = twy, z = tz, label = target.label, map = target.map, x = target.x, y = target.y, f = target.f, kind = target.kind },
 		faction = playerFaction,
 		known = knownNodes(),
+		-- Flight masters the player may have though Polestar doesn't know them (#1795).
+		seen = seenSet(), level = Nav.danger and Nav.danger.Level(), maybe = maybeTaxi,
 		-- Walk edges are priced unmounted: straight lines may cross water, and a
 		-- mount's speed would make swimming a sea look faster than the boat.
 		-- planSpeed (the live speed) only scales the ETA of the current walk.
@@ -2066,6 +2077,7 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 		target = { c = tc, wx = twx, wy = twy, map = to.map },
 		faction = playerFaction,
 		known = knownNodes(),
+		seen = seenSet(), level = Nav.danger and Nav.danger.Level(), maybe = maybeTaxi,
 		speed = RUN_SPEED,
 		hearth = inn,
 		hearthName = bindName,
@@ -3025,13 +3037,6 @@ ns.RegisterEvent("TAXIMAP_OPENED", function()
 	if recordTaxiMap() then Travel.Replan() end
 end)
 ns.RegisterEvent("UI_INFO_MESSAGE", onInfoMessage)
--- The world map's discovered flight points: on login and every loading
--- screen, and when the client says a node's status changed (#1308).
-local function onWorldTaxi()
-	if Travel.RecordWorldTaxi() then Travel.Replan() end
-end
-ns.RegisterEvent("PLAYER_ENTERING_WORLD", onWorldTaxi)
-ns.RegisterEvent("TAXI_NODE_STATUS_CHANGED", onWorldTaxi)
 
 ns.OnLogin(function()
 	refreshFaction()

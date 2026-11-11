@@ -642,6 +642,7 @@ L["%s Inn"] = "Posada de %s"
 L["Detour around %s"] = "Rodeo para evitar %s"
 L["Walk to the airship dock"] = "Camina hasta el muelle de la aeronave"
 L["Take the airship to %s"] = "Toma la aeronave a %s"
+-- L["Learn the flight path at %s, then fly to %s"] = ""
 
 -- QoL/QuickBind.lua
 L["Not needed right now: shown so you can bind it."] = "Ahora no se necesita: se muestra para que puedas asignarle una tecla."
@@ -2070,6 +2071,7 @@ L["Log:"] = "Registro:"
 L["Step %d of %d (guide step %d): %s"] = "Paso %d de %d (paso %d de la guía): %s"
 L["Install: %s"] = "Instalación: %s"
 L["While here: %s"] = "Mientras estás aquí: %s"
+-- L["Travel: %s"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Justo aquí"

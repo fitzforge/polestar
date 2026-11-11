@@ -381,6 +381,7 @@ L["%s Inn"] = "Таверна: %s"
 L["Detour around %s"] = "Обход: %s"
 L["Walk to the airship dock"] = "Идти к причалу воздушного корабля"
 L["Take the airship to %s"] = "Воздушный корабль до %s"
+-- L["Learn the flight path at %s, then fly to %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -1918,6 +1919,7 @@ L["Log:"] = "Журнал:"
 L["Step %d of %d (guide step %d): %s"] = "Шаг %d из %d (шаг гайда %d): %s"
 L["Install: %s"] = "Установка: %s"
 L["While here: %s"] = "Пока вы здесь: %s"
+-- L["Travel: %s"] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "отключен в списке модификаций"

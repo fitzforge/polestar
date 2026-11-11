@@ -322,6 +322,7 @@ L["%s Inn"] = "Gasthaus %s"
 L["Detour around %s"] = "Umweg um %s"
 L["Walk to the airship dock"] = "Lauf zum Luftschiffanleger"
 L["Take the airship to %s"] = "Nimm das Luftschiff nach %s"
+-- L["Learn the flight path at %s, then fly to %s"] = ""
 
 -- QoL/Options.lua
 L["Experience"] = "Erfahrung"
@@ -1921,6 +1922,7 @@ L["Log:"] = "Protokoll:"
 L["Step %d of %d (guide step %d): %s"] = "Schritt %d von %d (Guide-Schritt %d): %s"
 L["Install: %s"] = "Installation: %s"
 L["While here: %s"] = "Wenn du schon hier bist: %s"
+-- L["Travel: %s"] = ""
 
 -- Maps/Instances.lua
 L["Instance history cleared."] = "Instanzverlauf gelöscht."
