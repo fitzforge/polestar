@@ -194,6 +194,7 @@ never in saved variables.
 | `Launcher.lua` | `UI.Launcher` | The optional floating Polestar button: show or hide the window, menu, drag |
 | `GearPick.lua` | `UI.GearPick` | The reward pick under a turn-in goal |
 | `Picker.lua` | `UI.Picker` | The hub: its section rail, sidebar and search, and its built-in Guides section (the guide menu); defines `UI.RegisterSection` |
+| `Planner.lua` | `UI.Planner` | The Guide Planner: the selected guide as a timeline in the guide menu's list pane, where a quest's tick hides it and the route closes up |
 | `QuestLinks.lua` | (local) | Quest log and objective tracker menu entries: open the guide search at that quest, with its matching steps |
 | `Lookup.lua` | `UI.Lookup` | The hub's Lookup section |
 | `Dungeons.lua` | `UI.DungeonsSection` | The hub's Dungeons section |

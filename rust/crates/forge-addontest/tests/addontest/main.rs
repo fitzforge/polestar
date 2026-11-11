@@ -116,6 +116,8 @@ mod engine_notyet;
 mod engine_packs;
 #[path = "engine-pin.rs"]
 mod engine_pin;
+#[path = "engine-plan.rs"]
+mod engine_plan;
 #[path = "engine-professions.rs"]
 mod engine_professions;
 #[path = "engine-review.rs"]
@@ -348,6 +350,8 @@ mod ui_picker_levels;
 mod ui_picker_packs;
 #[path = "ui-picker-scroll.rs"]
 mod ui_picker_scroll;
+#[path = "ui-planner.rs"]
+mod ui_planner;
 #[path = "ui-quest-unlocks.rs"]
 mod ui_quest_unlocks;
 #[path = "ui-route.rs"]

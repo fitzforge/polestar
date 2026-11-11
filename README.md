@@ -404,6 +404,11 @@ its source is in [apps/client](apps/client).
 - **Skip a quest.** Right-click a quest's line, Skip this quest: the guide
   drops it and the quests that follow from it, in every guide, and the
   banner's Undo brings them back. Skip, at the top, passes the whole step.
+- **Plan a guide before you play it.** Guide Planner, in the guide menu's
+  details, shows the selected guide step by step: where you are, what is
+  done, what comes. Clear a quest's tick to leave it out: the quests that
+  need it go with it, steps with nothing left drop out, and the summary
+  says how much quest XP that costs. Set the tick to bring it back.
 - **Abandoned a quest by mistake?** The guide stays on its step, greys out
   that quest's goals and points the arrow back at its giver, and asks: go
   back for it, or skip it and what follows. "When you abandon a guide

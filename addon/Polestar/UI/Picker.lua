@@ -1203,6 +1203,10 @@ local function buildDetails()
 	d.NewTab = W.Button(d, L["Open in new tab"], function() load(P.Selected(), true) end, { height = 32, icon = "plus" })
 	d.NewTab:SetPoint("BOTTOMRIGHT", d, "BOTTOMRIGHT", -DPAD, DPAD)
 	d.Load:SetPoint("BOTTOMLEFT", d, "BOTTOMLEFT", DPAD, DPAD)
+	-- The Guide Planner (UI/Planner.lua): the guide step by step in the list's
+	-- place; the same button goes back.
+	d.Plan = W.Button(d, L["Guide Planner"], function() UI.Planner.Toggle(P.Selected()) end, { height = 32, icon = "layers" })
+	d.Plan:SetPoint("BOTTOMLEFT", d, "BOTTOMLEFT", DPAD, DPAD + 32 + 8)
 
 	-- Nothing selected yet.
 	d.EmptyTitle = W.Text(d, "display", "text")
@@ -1261,7 +1265,7 @@ local function renderDetails(byId, tabs, active)
 	local id = P.Selected()
 	local g = id and byId[id]
 	local E = ns.Engine
-	local parts = { d.Star, d.Title, d.ProgLabel, d.ProgPct, d.Prog, d.FactRule, d.Scroll, d.Load, d.NewTab, d.Credits, d.Source }
+	local parts = { d.Star, d.Title, d.ProgLabel, d.ProgPct, d.Prog, d.FactRule, d.Scroll, d.Load, d.NewTab, d.Plan, d.Credits, d.Source }
 	if not g then
 		d.psArt = ZoneArt.Paint(d.Art, nil, nil, nil, 1)
 		for _, p in ipairs(parts) do p:Hide() end
@@ -1471,7 +1475,7 @@ local function renderDetails(byId, tabs, active)
 	if credits or source then y = y + 10 end
 
 	-- Pitch, pros, cons.
-	local bottom = DPAD + 32 + 16
+	local bottom = DPAD + 32 + 8 + 32 + 16 -- Load, the planner's button over it
 	d.Scroll:ClearAllPoints()
 	d.Scroll:SetPoint("TOPLEFT", d, "TOPLEFT", DPAD, -y)
 	d.Scroll:SetPoint("BOTTOMRIGHT", d, "BOTTOMRIGHT", -DPAD + 10, bottom)
@@ -1555,6 +1559,10 @@ local function renderDetails(byId, tabs, active)
 		setButtonWidth(d.Load, inner)
 		setPrimary(d.Load, true)
 	end
+	local planning = UI.Planner.IsOpen()
+	d.Plan.psFixedWidth = inner
+	W.SetButtonText(d.Plan, planning and L["Back to the guides"] or L["Guide Planner"])
+	d.Plan.psTip = planning and L["Show the guide list again."] or L["See every step of this guide and leave out the quests you don't want."]
 	P.detail = { id = g.id, art = d.psArt, state = state, tab = tabIndex, label = label, frac = frac, facts = shownFacts,
 		reward = #shownRewards > 0 and shownRewards or nil, credits = credits, source = source }
 end
@@ -1788,6 +1796,7 @@ function P.Render()
 	renderRail()
 	sectionLayout(active)
 	if active then
+		UI.Planner.Close(true)
 		sectionNav(active)
 		navTips("All")
 		renderSection(active)
@@ -2006,7 +2015,9 @@ function P.Render()
 	W.ShellWatermark(win, empty ~= nil)
 	W.ShellBody(win, y + 16)
 	renderDetails(byId, tabs, active)
-	P.shown = { view = view, guides = ng, folders = nf, cards = nc }
+	-- The Guide Planner takes the list's pane while it is open.
+	UI.Planner.Place(win, MID_W)
+	P.shown = { view = view, guides = ng, folders = nf, cards = nc, planner = UI.Planner.IsOpen() or nil }
 end
 
 -- Searching: keep the selection among the results, so Enter loads what
@@ -2020,6 +2031,7 @@ end
 function P.SetView(v)
 	view = v or "home"
 	section = nil
+	UI.Planner.Close(true) -- a tab or a category is the list's
 	if view ~= "browse" and query ~= "" then
 		query = ""
 		if win then win.Search:SetText("") end
@@ -2071,6 +2083,7 @@ local function onSearch(text)
 	-- searching narrows it.
 	if query == "" and text ~= "" then category = "All" end
 	query = text
+	UI.Planner.Close(true) -- a search is for the list
 	if not (win and win:IsShown()) then return end
 	if query ~= "" then view = "browse" end
 	W.ScrollTo(win.Scroll, 0)
