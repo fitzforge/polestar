@@ -1726,15 +1726,15 @@
 			},
 			{
 				"a": [
-					"turnin",
-					6482
+					"accept",
+					6544
 				],
 				"b": [
 					"accept",
 					6503
 				],
 				"faction": "Horde",
-				"why": "PaceCheck (Discord report, 2026-11-08): Ashenvale Outrunners (level 24, Outrunners 23-24) was the first Ashenvale step at 21, where the level model has every start but Skyborne at 21.2-21.7, so the guide window's pace line read \"Behind: Ashenvale Outrunners (24) at step 4 ... reach 22 first\" for players on the route's own pace. It is taken on the way back, at the lumber camp just south of Splintertree after Freedom to Ruul's hand-in, at 22-23"
+				"why": "Route review (0.3.7, Discord 2026-11-09: Ashenvale & Silverpine 21-22 sent level ~21 players into level-24 quests): Ashenvale Outrunners (level 24, Outrunners 23-24) was taken on the way back from Thistlefur at 22-23 (0.3.6's move), still 1-1.5 levels under it. It waits for the second Ashenvale visit at 26 (forever/horde/07-ashenvale): Kuray'bin's lumber camp lies between Torek (6544, south-west of it) and Sharptalon (south-east), so it is taken after Torek's assault and the Outrunners are killed in Sharptalon's woods. Calibrated level model: taken at 26.6-27.2 on every start, the guide 6 min shorter, 60 0.03 h sooner. Both benchmark guides do it on their 26-28 Ashenvale visit"
 			},
 			{
 				"a": [
@@ -1742,11 +1742,23 @@
 					6503
 				],
 				"b": [
-					"accept",
-					493
+					"turnin",
+					6544
 				],
 				"faction": "Horde",
-				"why": "LeftReady c17 read (shared Horde, Ashenvale): the Ashenvale Outrunners are killed beside Kuray'bin, but the hand-in once came 4.7 levels later as a step of its own (07-ashenvale.guide:232, left-ready on all 5 starts). Hand it in on the spot, before the flight to Orgrimmar and the Sepulcher (Journey to Hillsbrad Foothills)"
+				"why": "Route review (0.3.7), with the rule that a hand-in 4.7 levels later is a step of its own: the Ashenvale Outrunners are killed near Kuray'bin and handed in on the spot, on the walk north from Sharptalon's woods, before Splintertree's hand-ins"
+			},
+			{
+				"a": [
+					"turnin",
+					95805
+				],
+				"b": [
+					"turnin",
+					750
+				],
+				"faction": "Horde",
+				"why": "Route review (0.3.7): Mulgore bounced cougar hills -> north to Grull (The Hunt Continues) -> back south to Seer Graytongue, whose tent (42.5,90.1) stands inside the Mountain Cougars' hills (41-55, 82-92). The Seer (755 in, 757 and the timed 95805 out) and the shrine's Ritual Fire (56.6,88.7, at the east end of the same hills) come at the end of the cougar hunt (the pelts on the way south), then Grull and the battleboars. A benchmark guide also takes the Seer and the shrine before Grull's hand-in"
 			},
 			{
 				"a": [
@@ -6896,6 +6908,14 @@
 		],
 		"optional": [
 			{
+				"q": 1392,
+				"why": "Roaming-NPC sweep: Noboru the Cudgel starts from Noboru's Cudgel (6196), which only Noboru the Cudgel (5477) drops: one creature that walks a 56-node waypoint path through the Fallow Sanctuary ruins in the Swamp of Sorrows (Forever's server data: MovementType 2, path 810054770, about 220 x 540 yd). A required collect and accept held the 'Fallow Sanctuary' step (alliance/30-40/05-arathi-highlands) until he came by. Optional for the cudgel and the accept (take it if you meet him); the hand-in at Magtoor stays a plain goal for whoever carries it."
+			},
+			{
+				"q": 4881,
+				"why": "Discord question (2026-11-09): Assassination Plot starts from the Assassination Note (12564), which only the Galak Messenger (10617) drops: one creature that walks a waypoint path about 1,300 yd long between the Galak camps of Thousand Needles (Forever's server data: MovementType 2, path 810106170, 66 nodes). Optional for the note and the accept (take it if you meet him); Kanati Greycloud's hand-in at Whitereach Post has its own step for whoever carries it, so it is never carried past."
+			},
+			{
 				"q": 565,
 				"why": "Final route review 0.3.5 (Alliance 30-40): Bartolo's Yeti Fur Cloak needs a Hillman's Cloak (3719, Leatherworking) and a Bolt of Woolen Cloth (2997, Tailoring) besides the yeti fur and Fine Thread; no vendor sells either (Forever's item data: no vendors), and the route has no step that gets them. Optional, so the route does not count on it and the yeti cave is only for players who take it."
 			},
@@ -11521,13 +11541,13 @@
 			{
 				"a": [
 					"turnin",
-					533
+					553
 				],
 				"b": [
-					"task",
-					539
+					"accept",
+					535
 				],
-				"why": "#1079: Infiltration is handed to Krusk on the Tarren Mill stop between the town hall and the mine, where the walk passes him, not 26 minutes later"
+				"why": "#1466 (0.3.7, replaces #1079's 'Infiltration handed in on the first Tarren Mill return'): Infiltration (533, level 34) was worked at 30 on every start, its Syndicate Footpads and Thieves 32-34, and the pace line called it hard (Steffen's report). Valik's errand (535: his reward is the missive) and the fallback missive drops come on the way back from Southshore's graveyard (Helcular's Revenge, 553) to Tarren Mill, at about 31-32, as a benchmark guide does it after Dalaran; Krusk takes 533 with the Dalaran hand-ins"
 			},
 			{
 				"a": [
@@ -11575,14 +11595,14 @@
 			},
 			{
 				"a": [
-					"turnin",
-					533
+					"task",
+					544
 				],
 				"b": [
 					"task",
-					539
+					533
 				],
-				"why": "#1079: Infiltration is handed to Krusk on the Tarren Mill stop between the town hall and the mine, where the walk passes him, not 26 minutes later"
+				"why": "#1466 (0.3.7, replaces #1079's 'Infiltration handed in on the first Tarren Mill return'): the Syndicate missive comes after the Dalaran crater's Bloodstone pieces (Prison Break In, 544), on the walk back from Southshore to Tarren Mill; Valik's own pair (turnin 535 before task 533) keeps the errand first"
 			},
 			{
 				"a": [

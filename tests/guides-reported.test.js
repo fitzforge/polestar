@@ -555,6 +555,22 @@ test(`${MULGORE}: A Task Unfinished at Antur Fallow starts the cougar hunt, with
 	assert.ok(hunt < at(list, 'turnin 750', is('turnin', 750)), 'the hunt ends at Grull');
 });
 
+// Route review (0.3.7): the cougar hunt went round Seer Graytongue's tent, north to Grull, then back south
+// to the Seer. The hunt now goes south to the Seer (her tent stands at the foot of the cougars' hills) and on to the
+// shrine's Ritual Fire, then back up to Grull.
+test(`${MULGORE}: Seer Graytongue and the shrine during the cougar hunt, no walk back south from Grull`, { skip }, () => {
+	const list = goals(MULGORE);
+	const antur = at(list, 'accept 1656', is('accept', 1656));
+	const seer = at(list, 'turnin 755', is('turnin', 755));
+	const shrine = at(list, 'turnin 95805', is('turnin', 95805));
+	const grull = at(list, 'turnin 750', is('turnin', 750));
+	const boars = at(list, 'Battleboar Snout', (g) => g.t === 'collect' && g.quest === 780);
+	assert.ok(antur < seer && seer < shrine && shrine < grull && grull < boars, 'Antur, the Seer, the shrine, Grull, then the battleboars');
+	assert.ok(list.slice(antur, seer).some(({ goal }) => goal.t === 'collect' && goal.quest === 750), 'the pelts on the way south to the Seer');
+	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
+	assert.ok(pairs.some((p) => p.a[0] === 'turnin' && p.a[1] === 95805 && p.b[0] === 'turnin' && p.b[1] === 750), 'a route-fixes pair keeps the order');
+});
+
 // Flow audit, Mulgore: the walk passed Bloodhoof's NPCs with finished quests and came back for them
 // (Swoop Hunting and Rite of Vision on a later visit, Mazzranache two visits later), walked out to
 // Morin Cloudstalker and Longwalker Malah a second time, and took Preparation for Ceremony after the
@@ -1434,7 +1450,8 @@ test(`${BARRENS}: Rohkin's report (#957): Mankrik's tusks are collected with Tri
 // Hillsbrad Fields -> Tarren Mill five times, the last two for Magistrate Burnside and Foreman Bonds (both
 // level 30) at 25-27. Parts 4 and 5 (532, 539) and Dangerous!'s clerk and miner come on the Tarren Mill
 // visit at 30-32 (30-40/01-hillsbrad-foothills since the 2026-11-07 Horde 30-40 re-order): the town hall
-// after the yeti caves, Infiltration and Helcular's Revenge handed in on the Tarren Mill stop between, then
+// after the yeti caves, Helcular's Revenge handed in on the Tarren Mill stop between (Infiltration waits for the
+// last Tarren Mill stop since #1466: the #1466 case after Valik's), then
 // the flames, Dalaran's crater and the mine on one sweep south-west to Southshore's graveyard.
 test('forever/horde/06-hillsbrad-foothills.guide: Battle of Hillsbrad parts 4 and 5 wait for the Tarren Mill visit at 32', { skip }, () => {
 	const early = goals('forever/horde/06-hillsbrad-foothills.guide');
@@ -1449,7 +1466,7 @@ test('forever/horde/06-hillsbrad-foothills.guide: Battle of Hillsbrad parts 4 an
 	const bonds = idx('Foreman Bonds', (g) => g.t === 'kill' && g.quest === 539 && g.npc === 2305);
 	const dalaran = idx('the first Bloodstone piece', (g) => g.t === 'collect' && g.quest === 544);
 	assert.ok(accept < rod && rod < hall && hall < back && back < dalaran && dalaran < bonds, 'Tarren Mill, the yetis, the town hall, Tarren Mill, Dalaran, the mine');
-	for (const q of [533, 552]) assert.equal(list[idx(`turnin ${q}`, is('turnin', q))].s, list[back].s, `${q} is handed in on the Tarren Mill stop between`);
+	assert.equal(list[idx('turnin 552', is('turnin', 552))].s, list[back].s, '552 is handed in on the Tarren Mill stop between');
 	for (const q of [539, 567]) assert.ok(idx(`turnin ${q}`, is('turnin', q)) > bonds, `${q} is handed in after the mine`);
 });
 
@@ -3172,8 +3189,9 @@ test(`${STONETALON_HORDE}: #246: Kadrak's goals are on the Barrens' map, and the
 	// (The Warsong Reports, 6543, is left out since the final route review; Kadrak keeps Report to Kadrak.)
 	const kadrak = list[at(list, 'turnin 6541', is('turnin', 6541))].goal;
 	assert.equal(kadrak.map, 1413, `${kadrak.t} ${kadrak.quest} is on The Barrens (1413), not ${kadrak.map}`);
-	const outrunners = list[at(list, 'the Ashenvale Outrunners', (g) => g.t === 'kill' && g.npc === 12856)].goal;
-	assert.equal(outrunners.map, 1440, 'the Outrunners are still in Ashenvale');
+	// (Ashenvale Outrunners, the old anchor here, waits for the 26 visit since 0.3.7.)
+	const senani = list[at(list, 'turnin 6382', is('turnin', 6382))].goal;
+	assert.equal(senani.map, 1440, 'Senani at Splintertree is still in Ashenvale');
 });
 
 // Tirion's quests have two givers in the data: Tirion Fordring (1855) at his
@@ -5175,11 +5193,11 @@ test('Kolbi on Discord (#1695): Helcular\'s Rod is farmed on the Foothill Cavern
 	}
 });
 
-test('Danger at the spot (#1575, #1695): the Syndicate missives fallback at 29 warns that the Syndicate are well above you', { skip }, () => {
-	// The guide's start (route level 29.4) among 32-35 Syndicate; recordings: 4 people died there at about 32.
+test('Danger at the spot (#1575, #1695): the Syndicate missives fallback warns that the Syndicate are above you', { skip }, () => {
+	// 32-35 Syndicate, worked at about 31-32 since #1466 (29.4 before); recordings: 4 people died there at about 32.
 	const steps = goals('forever/horde/30-40/01-hillsbrad-foothills.guide').filter(({ goal }) => goal.t === 'collect' && goal.quest === 533);
 	assert.ok(steps.length > 0, 'the missive fallback is in the guide');
-	for (const { step } of steps) assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Careful: at 29-30 they are well above you[^.]*Wizards \(34-35\)/, `"${step.title}" warns`);
+	for (const { step } of steps) assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Careful: at 31-32 they are still above you[^.]*Wizards \(34-35\)/, `"${step.title}" warns`);
 });
 
 // Danger-at-the-spot sweep (#1575): every leveling guide's kill/collect/use goal against the mobs around it (spawn data),
@@ -6238,24 +6256,26 @@ test('forever/horde/05-stonetalon-mountains.guide: final route review: the Note 
 	assert.ok(!/back to the Crossroads/.test(jinzil.note || ''), 'no walk back to the Crossroads');
 });
 
-// Discord report (2026-11-08): "Ashenvale & Silverpine is labeled 21-22 but the steps tell me I'm behind for not being
-// level 24". Ashenvale Outrunners (level 24, its Outrunners 23-24) was the first Ashenvale step, at 21, where the level
-// model has every start but Skyborne at 21.2-21.7: the pace line's "Behind: Ashenvale Outrunners (24) ... reach 22 first"
-// for players on the route's own pace. It waits for the way back, after Ruul's hand-in at Splintertree (22-23), and is
-// still handed in on the spot, before the flight to Orgrimmar.
-test(`${STONETALON}: Discord report: Ashenvale Outrunners on the way back from Thistlefur, not at 21 on the way in`, { skip }, () => {
-	const list = goals(STONETALON);
-	const senani = at(list, 'turnin 6382', is('turnin', 6382));
-	const ruul = at(list, 'turnin 6482', is('turnin', 6482));
+// Discord reports (2026-11-08, 2026-11-09): "Ashenvale & Silverpine is labeled 21-22 but the steps tell me I'm behind for
+// not being level 24". Ashenvale Outrunners (level 24, its Outrunners 23-24) was the first Ashenvale step at 21, then
+// (0.3.6) the step after Ruul's hand-in at 22-23, still 1-1.5 levels under it on the level model. 0.3.7:
+// it waits for the second Ashenvale visit at 26, at Kuray'bin's lumber camp between Torek's assault and Sharptalon's
+// woods, and is handed in on the spot before Splintertree.
+test(`${STONETALON}: Discord reports: Ashenvale Outrunners waits for the 26 Ashenvale visit, taken by Torek and Sharptalon`, { skip }, () => {
+	assert.ok(!goals(STONETALON).some(({ goal }) => goal.quest === 6503), 'not on the first Ashenvale visit at 21');
+	const list = goals(ASHENVALE_HORDE);
+	const torek = at(list, 'accept 6544', is('accept', 6544));
 	const take = at(list, 'accept 6503', is('accept', 6503));
 	const kill = list.findIndex(({ goal }) => goal.t === 'kill' && goal.quest === 6503);
+	const claw = at(list, 'collect 16305', (g) => g.t === 'collect' && g.item === 16305);
 	const hand = at(list, 'turnin 6503', is('turnin', 6503));
-	const fly = list.findIndex(({ goal }, i) => i > hand && goal.t === 'fly');
-	assert.ok(senani < ruul && ruul < take && take < kill && kill < hand, 'Senani, Thistlefur and Ruul first, then the Outrunners');
-	assert.ok(fly > hand && list[fly].goal.location === 'Orgrimmar', 'handed in before the flight to Orgrimmar');
+	const ertog = at(list, 'turnin 6544', is('turnin', 6544));
+	assert.ok(torek < take && take < kill && kill < hand && hand < ertog, 'Torek, Kuray\'bin, the Outrunners, Kuray\'bin, then Splintertree');
+	assert.ok(kill < claw && list[claw].s - list[kill].s === 1, 'the Outrunners in the woods right before Sharptalon\'s');
 	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
-	assert.ok(pairs.some((p) => p.a[0] === 'turnin' && p.a[1] === 6482 && p.b[0] === 'accept' && p.b[1] === 6503), 'a route-fixes pair keeps the order');
-	assert.ok(!pairs.some((p) => p.a[0] === 'turnin' && p.a[1] === 6503 && p.b[0] === 'turnin' && p.b[1] === 6382), 'no pair puts it before Senani');
+	const pair = (a, b) => pairs.some((p) => p.a[0] === a[0] && p.a[1] === a[1] && p.b[0] === b[0] && p.b[1] === b[1]);
+	assert.ok(pair(['accept', 6544], ['accept', 6503]) && pair(['turnin', 6503], ['turnin', 6544]), 'route-fixes pairs keep the order');
+	assert.ok(!pair(['turnin', 6482], ['accept', 6503]) && !pair(['turnin', 6503], ['accept', 493]), 'no pair holds it on the first visit');
 });
 
 // Thin-data audit (#1317): The Offering of Blood's quest log has three lines, Willingly offer blood, Release Tortured
@@ -9552,6 +9572,27 @@ test("Valik's report: Valik only with Infiltration in the log, handed in at once
 	assert.ok(at(list, 'turnin 535', is('turnin', 535)) < at(list, 'collect 3601', (g) => g.t === 'collect' && g.item === 3601), 'Valik before the missive drops');
 });
 
+// Steffen's report (#1466): Infiltration (533, level 34; Syndicate 32-34) was worked at 30, right after the first Tarren
+// Mill stop, on every start, and the pace line called it hard. It is still accepted there (Valik offers his errand only
+// while it is in the log), but Valik and the missive come on the way back from Southshore's graveyard, after Dalaran,
+// at about 31-32, and Krusk takes it with the Dalaran hand-ins. Valik's gate (above) keeps working.
+test("#1466: Infiltration is accepted at 30 but Valik and the missive wait for the walk back from Southshore", { skip }, () => {
+	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	const take = at(list, 'accept 533', is('accept', 533));
+	const town = at(list, 'Magistrate Burnside', (g) => g.t === 'kill' && g.quest === 532 && g.npc === 2335);
+	const dalaran = at(list, 'the first Bloodstone piece', (g) => g.t === 'collect' && g.quest === 544);
+	const grave = at(list, 'turnin 553', is('turnin', 553));
+	const valik = at(list, 'accept 535', is('accept', 535));
+	const missive = at(list, 'collect 3601', (g) => g.t === 'collect' && g.item === 3601);
+	const hand = at(list, 'turnin 533', is('turnin', 533));
+	const dalaranIn = at(list, 'turnin 544', is('turnin', 544));
+	assert.ok(take < town && town < dalaran && dalaran < grave && grave < valik && valik < missive && missive < hand, 'accepted first, worked after Southshore');
+	assert.equal(list[hand].s, list[dalaranIn].s, 'Krusk takes it on the Tarren Mill stop with the Dalaran hand-ins');
+	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides.pairs;
+	assert.ok(!pairs.some((p) => p.a[0] === 'turnin' && p.a[1] === 533 && p.b[1] === 539), 'no #1079 pair hands it in before the mine');
+	assert.ok(pairs.some((p) => p.a[0] === 'turnin' && p.a[1] === 553 && p.b[0] === 'accept' && p.b[1] === 535), 'a route-fixes pair keeps Valik after Southshore');
+});
+
 // Players' recordings (2026-11-09 pull): after Eagle's Fist (79975) on the Stonewrought Dam's ledge, most players drop
 // into the river below it and follow the arrow north; 22 contributors died at its waterfall (Wetlands about 65.0,77.4),
 // while those who left the river on its west bank lived and took the road over Thandol Span. The step that is live
@@ -9581,6 +9622,13 @@ test('Horde Thousand Needles: the Galak Messenger never holds the centaur step',
 	for (const { step, goal } of list.filter(({ goal }) => goal.quest === 4966 || (goal.t === 'turnin' && goal.quest === 4881))) {
 		assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg), `${goal.t} ${goal.quest}: only while the plot's quest chain is in the log`);
 	}
+	// The decision is kept in records (a rebuild writes it back), and the step says not to wait for him.
+	const optional = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.optional;
+	assert.ok(optional.some((o) => o.q === 4881), 'a route-fixes record keeps 4881 optional');
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	assert.ok(fixes.some((f) => f.at && f.at.quest === 4841 && /Don't wait for him/.test(f.tip || '')), 'the tip is a guide-fixes record');
+	const { step } = list[at(list, 'the Galak camps', (g) => g.t === 'kill' && g.quest === 4841)];
+	assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Don't wait for him/);
 });
 
 // Final route review (0.3.6): the Tauren Shaman's first Telf Joolam step said he waits on the riverbank; he keeps his
@@ -11063,4 +11111,41 @@ test("SpydaPablo's report (#1676): the Barrens' last flight to Ratchet is only f
 	assert.deepEqual(gate && [].concat(gate.q).sort((a, b) => a - b), [873, 874, 1094]);
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
 	assert.ok(fixes.some((f) => f.at && f.at.goal === 'fly' && f.at.guide === 'forever/horde/04-the-barrens' && f.at.fly === 'Ratchet' && f.when === 'onquest 1094,874,873'), 'the gate is a guide-fixes record');
+});
+
+// Roaming-NPC sweep: the Alliance 'Fallow Sanctuary' step waited for Noboru the Cudgel (5477), who walks a 56-node path
+// through the ruins: his cudgel and Noboru the Cudgel (1392) are optional; the hand-in at Magtoor stays a plain goal.
+test('forever/alliance/30-40/05-arathi-highlands.guide: Noboru\'s cudgel and quest are optional, the hand-in is not', { skip }, () => {
+	const list = goals('forever/alliance/30-40/05-arathi-highlands.guide');
+	assert.ok(list[at(list, 'collect 6196', (g) => g.t === 'collect' && g.item === 6196)].goal.optional, 'the cudgel never holds the step');
+	assert.ok(list[at(list, 'accept 1392', is('accept', 1392))].goal.optional, 'nor its accept');
+	assert.ok(!list[at(list, 'turnin 1392', is('turnin', 1392))].goal.optional, 'Magtoor takes it from whoever carries it');
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.optional;
+	assert.ok(rf.some((e) => e.q === 1392), 'route-fixes deliberate.optional 1392');
+});
+// Discord (Bright and others, 2026-11-09): Hillsbrad & Arathi is labelled 29-32 (29-33 since #1660) but most of its quests are 32-34 ("the
+// group one"). The label is the character level the route plays it at (it chains with Thousand Needles' 32); the
+// guide says up front that its quests run higher on purpose, and how hard its camps hit.
+test('forever/horde/30-40/01-hillsbrad-foothills.guide: Discord: the guide says why its quests run above its 29-33 label', { skip }, () => {
+	const g = compiled('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	assert.deepEqual([g.minLevel, g.maxLevel], [29, 33], 'the label stays the route\'s character levels');
+	assert.match(g.pitch || '', /32-34/, 'the pitch names the quest levels');
+	assert.match(g.pitch || '', /one at a time/);
+});
+
+
+// Route review (0.3.7), label vs quest levels: Un'Goro Crater is labelled 49-50 but works level 51-53
+// quests (the calibrated level model: Lar'korwi, the pylons and the expedition at +3.3 to +4.0), and Stranglethorn's
+// second visit 35-36 works Troll Witchery (40) at 36. The label stays the route's character level; the guide says
+// up front why its quests run higher and how hard the mobs hit (as Horde Hillsbrad & Arathi).
+test('Alliance Un\'Goro and Stranglethorn 35-36: the guide says why its quests run above its label', { skip }, () => {
+	for (const [file, lo, hi, levels] of [
+		['forever/alliance/40-50/07-un-goro-crater.guide', 49, 50, /51-53/],
+		['forever/alliance/30-40/04b-stranglethorn-vale.guide', 35, 36, /37-41/],
+	]) {
+		const g = compiled(file);
+		assert.deepEqual([g.minLevel, g.maxLevel], [lo, hi], `${file}: the label stays the route's character levels`);
+		assert.match(g.pitch || '', levels, `${file}: the pitch names the quest levels`);
+		assert.match(g.pitch || '', /one at a time/);
+	}
 });

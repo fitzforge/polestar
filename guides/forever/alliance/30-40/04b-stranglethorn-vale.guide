@@ -5,6 +5,7 @@ faction Alliance
 levels 35-36
 zone Stranglethorn Vale
 next forever/alliance/30-40/05-arathi-highlands
+pitch For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. Troll Witchery's Skullsplitter trolls are 39-42, so pull them one at a time.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
