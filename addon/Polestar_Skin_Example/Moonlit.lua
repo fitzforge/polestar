@@ -211,6 +211,25 @@ check("skin moonlit", Theme.RegisterSkin("moonlit", {
 		guideAnchor = function()
 			return nil
 		end,
+		-- Each tab of the window's strip, after Polestar painted it; parts:
+		-- selected (the active tab's wash), bar (its line), label, range,
+		-- icon, close. A moonlit line along the top of the tab in view.
+		guideTab = function(button, parts, active)
+			moonline(button, "moon", "accent2", 0.7):SetShown(active)
+		end,
+		-- A part of the window about to be placed ("tip", "banner", "here",
+		-- "after", "along", "upnext", "party", "xp"), laid out and shown:
+		-- true takes it out of the window for the skin to place (a card of
+		-- its own above the window). Moonlit keeps every part where it is.
+		guidePlace = function(name, frame, width, height)
+			return false
+		end,
+		-- The window's menu, made anew at each opening: entries may be
+		-- added, removed or reordered. Moonlit names itself at the end.
+		guideMenu = function(items, button)
+			items[#items + 1] = { separator = true }
+			items[#items + 1] = { text = "Moonlit", icon = "star", disabled = true }
+		end,
 		-- The cards on the guide window: "headsup" (a class quest or dungeon
 		-- heads-up) and "classcard" (the class quest card in the window);
 		-- parts: titles, bodies (the strings Polestar sizes), accents.

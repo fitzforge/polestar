@@ -463,6 +463,60 @@ fn a_skin_s_own_dart_and_edge_stand_in_for_polestar_s_tinted_never_the_baked_gol
 	assert_eq!(out["back"], json!({ "tex": "dart-gold", "edge": "dart-edge" }));
 }
 
+// Skin API 2's arrow and pin tokens and masks: a skin's glow token lights the flat arrow's glow and the arrival
+// halo (the player's own ring colour still wins there); its pinRing and pinFill colour the Polestar pin's rim and
+// fill where neither the pin nor the player gives one (nav.medalColor still wins), and its pinFill / pinRim masks
+// stand in for the pin's disc and rim art; Polestar's own look takes them all back.
+#[test]
+fn a_skin_s_glow_and_pin_tokens_and_masks_reach_the_arrow_and_the_pins_under_the_player_s_own_colours() {
+	let out = run_themed(
+		r##"
+		local T = Polestar.Theme
+		local function hex(r, g, b) return string.format("%02x%02x%02x", math.floor(r * 255 + 0.5), math.floor(g * 255 + 0.5), math.floor(b * 255 + 0.5)) end
+		local function rgb(t) return hex(t:GetVertexColor()) end
+		local function tex(t) return (t:GetTexture() or ""):match("([^\\]+)$") end
+		local ok, why = T.RegisterSkin("lamp", { name = "Lamp", addon = "Test", base = "polestar",
+			tokens = { glow = "#ff8000", pinRing = "#00ff00", pinFill = "#0000ff" },
+			media = { pinFill = "Interface\\AddOns\\Test\\square-fill", pinRim = "Interface\\AddOns\\Test\\square-rim" } })
+		Polestar.Set("nav.arrowStyle", "flat")
+		target(300, 400)
+		stub.advance(0.2)
+		Polestar.Set("ui.skin", "lamp")
+		stub.advance(0.2)
+		local f = CreateFrame("Frame")
+		Pins.BuildLook(f)
+		local function look() Pins.ApplyLook(f, { text = "2" }, 16) end
+		look()
+		local lamp = { ok = ok, why = why or false, glow = rgb(A.glow), fill = rgb(f.fill), rim = rgb(f.ring), fillTex = tex(f.fill),
+			backTex = tex(f.back), rimTex = tex(f.ring) }
+		Polestar.Set("nav.medalColor", { 1, 1, 1 })
+		look()
+		lamp.ownRim = rgb(f.ring)
+		Polestar.Set("nav.medalColor", false)
+		nav.place(299, 399)
+		stub.advance(0.2)
+		lamp.halo = rgb(A.halo)
+		nav.place(300, 0)
+		stub.advance(0.2)
+		Polestar.Set("ui.skin", "polestar")
+		stub.advance(0.2)
+		look()
+		emit({ lamp = lamp, back = { fill = rgb(f.fill), rim = rgb(f.ring), fillTex = tex(f.fill), rimTex = tex(f.ring),
+			glowSkin = T.SkinToken("glow") ~= nil }, accent = hex(T.Accent()) })"##,
+	);
+	let lamp = &out["lamp"];
+	assert_eq!(lamp["ok"], true, "{}", lamp["why"]);
+	assert_eq!(lamp["glow"], "ff8000", "the flat arrow's glow in the skin's glow");
+	assert_eq!(lamp["halo"], "ff8000", "the arrival halo too");
+	assert_eq!((lamp["fill"].as_str(), lamp["rim"].as_str()), (Some("0000ff"), Some("00ff00")), "the pin's fill and rim in the skin's");
+	assert_eq!((lamp["fillTex"].as_str(), lamp["backTex"].as_str(), lamp["rimTex"].as_str()), (Some("square-fill"), Some("square-fill"), Some("square-rim")));
+	assert_eq!(lamp["ownRim"], "ffffff", "the player's medallion colour wins");
+	let back = &out["back"];
+	assert_eq!(back["fill"], out["accent"], "Polestar's pin in the accent again");
+	assert_eq!((back["rim"].as_str(), back["fillTex"].as_str(), back["rimTex"].as_str()), (Some("ffffff"), Some("pin-fill"), Some("pin")));
+	assert_eq!(back["glowSkin"], false);
+}
+
 #[test]
 fn chosen_arrow_colours_far_and_near_both_styles_and_the_arrival_ring_the_target_pin_follows_dark_picks_stay_legible() {
 	let out = run_themed(

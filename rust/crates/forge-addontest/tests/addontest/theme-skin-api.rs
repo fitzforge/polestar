@@ -1,13 +1,15 @@
-//! The Skin API (Theme.lua, "The Skin API"; docs/SKINS-API.md): another addon adds a colour scheme and a skin
+//! The Skin API (Theme/SkinApi.lua, Theme/Theme.lua; docs/skins): another addon adds a colour scheme and a skin
 //! with no change to Polestar. The repository's example (addon/Polestar_Skin_Example, "Moonlit") registers,
-//! shows in the pickers with its addon's name and repaints Polestar in its tokens, font and painters; specs that
-//! would break the UI or the text's legibility are refused with the reason (or, for grounds too light, corrected
-//! and said so); a skin whose painter or hook raises is noted once and Polestar's own look stands in for the
-//! session, the saved choice kept; a saved skin whose addon is gone (or loads late) waits for it. The example is
-//! never in a release, and the install check leaves skin addons alone.
+//! shows in the pickers with its addon's name and repaints Polestar in its tokens, font and painters, and its
+//! hooks run on every surface a skin can reach (the guide window, the arrow, the pins, the cards, the toasts,
+//! the buttons) and their pieces go with it; specs that would break the UI or the text's legibility are refused
+//! with the reason (or, for grounds too light, corrected and said so); a skin whose painter or hook raises is
+//! noted once and Polestar's own look stands in for the session, the saved choice kept; a saved skin whose addon
+//! is gone (or loads late) waits for it, and one whose addon loads on demand is loaded; a spec written for an
+//! older Skin API keeps working. The example is never in a release, and the install check leaves skin addons alone.
 
 use forge_addontest::run::addons_dir;
-use forge_addontest::{emitted, Addon, RunAddon};
+use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
 
 // Core and Theme are all the Skin API needs (Theme/Theme.xml loads Theme.lua, GameSkins.lua, the widgets); its
@@ -15,8 +17,12 @@ use serde_json::{json, Value};
 // load with the settings window (Polestar_Options/Theme/SkinPicker.lua).
 const FILES: &[&str] = &["Core/Core.xml", "Theme/Theme.xml"];
 
+fn picker() -> Addon {
+	Addon::files("Polestar_Options", &["Theme/SkinPicker.lua"])
+}
+
 fn run_full(script: &str, example: bool, saved: &str) -> Value {
-	let mut addons = vec![Addon::files("Polestar", FILES), Addon::files("Polestar_Options", &["Theme/SkinPicker.lua"])];
+	let mut addons = vec![Addon::files("Polestar", FILES), picker()];
 	if example {
 		addons.push(Addon::name("Polestar_Skin_Example"));
 	}
@@ -45,7 +51,8 @@ fn the_example_addon_registers_moonlit_and_applying_it_repaints_polestar_in_its_
 		for i, c in ipairs(T.SkinChoices()) do out.skins[i] = { c.value, c.text, c.addon or false } end
 		for i, c in ipairs(T.SchemeChoices()) do out.schemes[i] = { c.value, c.text, c.addon or false } end
 		local info = T.SkinInfo("moonlit")
-		out.info = { info.name, info.addon, info.base, info.scheme, info.builtin }
+		out.info = { info.name, info.addon, info.base, info.scheme, info.builtin, info.api, T.SchemeInfo("moonlit").api }
+		out.variants = T.SkinVariants("moonlit")
 		local win = CreateFrame("Frame")
 		win:SetSize(300, 200)
 		T.Skin(win, "window")
@@ -60,9 +67,15 @@ fn the_example_addon_registers_moonlit_and_applying_it_repaints_polestar_in_its_
 		out.hero = select(2, T.FontSpec("hero"))
 		out.fs = (fs:GetFont())
 		out.ground = hexOf({ win.psSkin.bg:GetVertexColor() })
-		local moon = win.psSkin.kit and win.psSkin.kit.api and win.psSkin.kit.api.moon
+		-- The painter's own pieces: in its store, one per skin (kit.store).
+		local moon = win.psSkin.kit and win.psSkin.kit.api and win.psSkin.kit.api.moonlit and win.psSkin.kit.api.moonlit.moon
 		out.moon = moon and moon:IsShown() or false
 		out.arrow, out.icons = T.SkinArrowStyle(), T.SkinMapIcons()
+		-- Its tokens over the scheme, in its default variant and then the other.
+		out.full = { T.SkinVariant("moonlit"), hexOf({ T.SkinToken("glow") }), hexOf({ T.SkinToken("pinRing") }), hexOf({ T.SkinToken("pinFill") }) }
+		Polestar.Set("ui.skinVariants.moonlit", "new")
+		out.new = { T.SkinVariant("moonlit"), hexOf({ T.SkinToken("glow") }), hexOf({ T.SkinToken("pinRing") }), hexOf({ T.SkinToken("pinFill") }) }
+		Polestar.Set("ui.skinVariants.moonlit", nil)
 		-- The player's own accent still wins over the scheme's moonlight.
 		Polestar.Set("ui.accent", { 0.2, 0.6, 1 })
 		out.ownAccent = hexOf(T.Palette().accent)
@@ -97,7 +110,10 @@ fn the_example_addon_registers_moonlit_and_applying_it_repaints_polestar_in_its_
 	let schemes: Vec<&str> = out["schemes"].as_array().unwrap().iter().map(|s| s[0].as_str().unwrap()).collect();
 	assert_eq!(schemes, ["dusk", "night", "graphite", "moonlit"]);
 	assert_eq!(out["schemes"][3], json!(["moonlit", "Moonlit", "Polestar_Skin_Example"]));
-	assert_eq!(out["info"], json!(["Moonlit", "Polestar_Skin_Example", "polestar", "moonlit", false]));
+	assert_eq!(out["info"], json!(["Moonlit", "Polestar_Skin_Example", "polestar", "moonlit", false, 2, 2]), "written for Skin API 2");
+	assert_eq!(out["variants"], json!([{ "id": "full", "name": "Full moon", "desc": "Silver moonlight." }, { "id": "new", "name": "New moon", "desc": "A darker night, the moonlight blue." }]));
+	assert_eq!(out["full"], json!(["full", "c8d4ff", "dfe4f7", "8fa3ff"]), "the skin's own tokens");
+	assert_eq!(out["new"], json!(["new", "6f8dff", "9fb4ff", "8fa3ff"]), "the variant's tokens over the skin's, the rest kept");
 	assert_eq!((out["id"].as_str(), out["key"].as_str()), (Some("moonlit"), Some("polestar")), "SkinKey: the built-in look it extends");
 	assert_eq!(out["bg"], "12142a", "the scheme's own grounds, as given (legible as they are)");
 	assert_eq!(out["sky"], "2b3060");
@@ -158,6 +174,15 @@ fn invalid_specs_are_refused_with_the_reason_and_grounds_too_light_are_darkened_
 		out.strict = try(S, "light2", scheme(grey, { strict = true }))
 		out.dark = try(S, "dark", scheme({ text = "#303030", textDim = "#303030", textMuted = "#303030" }))
 		out.notListed = #T.SchemeChoices()
+		-- What a scheme may not give, and messages that say the limit.
+		out.author = try(S, "a9", scheme(nil, { author = string.rep("x", 41) }))
+		out.gameToken = try(S, "a10", scheme({ bgBottom = "#101010" }))
+		out.edgeToken = try(S, "a11", scheme({ windowEdge = "#101010" }))
+		out.glowScheme = try(S, "a12", scheme({ glow = "#ffffff" }))
+		-- White text reads on these grounds; Polestar's own dungeon violet does not.
+		local mid = { bg = "#383838", panel = "#383838", panelAlt = "#383838", sidebar = "#383838", footer = "#383838", sky = "#202020",
+			textDim = "#cccccc", textMuted = "#a8a8a8" }
+		out.subjects = try(S, "a13", scheme(mid, { strict = true }))
 		local skin = function(extra)
 			local s = { name = "Y", addon = "Test" }
 			for k, v in pairs(extra or {}) do s[k] = v end
@@ -172,6 +197,13 @@ fn invalid_specs_are_refused_with_the_reason_and_grounds_too_light_are_darkened_
 		out.arrow = try(K, "b7", skin({ arrow = "spiral" }))
 		out.skinDup = try(K, "halo", skin())
 		out.skinOk = try(K, "pink", skin({ base = "halo", tokens = { accent = "#ff00ff" }, scheme = nil }))
+		out.sizes = try(K, "b8", skin({ fontSizes = { hero = 50 } }))
+		out.role = try(K, "b9", skin({ fontSizes = { heor = 20 } }))
+		out.skinTokens = try(K, "b10", skin({ tokens = { accent2 = "#a0b0ff", glow = "#ffffff", pinRing = "#ffffff", pinFill = "#ff0000" } }))
+		out.hookName = try(K, "b11", skin({ hooks = { cards = function() end } }))
+		out.hooks = try(K, "b12", skin({ hooks = { card = function() end, toast = function() end, actionButton = function() end } }))
+		out.media = try(K, "b13", skin({ media = { pinFill = "Interface\\AddOns\\Test\\fill", pinRim = "Interface\\AddOns\\Test\\rim" } }))
+		out.version = try(K, "b14", skin({ version = string.rep("1", 41) }))
 		Polestar.Set("ui.skin", "pink")
 		out.pink = { T.SkinKey(), hexOf(T.Palette().accent), hexOf(T.Palette().bg) }
 		emit(out)"##);
@@ -197,8 +229,19 @@ fn invalid_specs_are_refused_with_the_reason_and_grounds_too_light_are_darkened_
 	assert!(note.contains("reads") && note.contains("darkened"), "{note}");
 	assert_ne!(out["lightBg"], "8a8a8a", "the stored grounds are the corrected ones");
 	assert_eq!(out["lightLegible"], true);
-	refused("strict", "on ");
-	assert!(out["strict"]["msg"].as_str().unwrap().contains(":1, needs "), "{}", out["strict"]);
+	refused("strict", ":1, needs ");
+	refused("author", "author must be a string of 40 characters at most");
+	refused("gameToken", "tokens.bgBottom belongs to a skin");
+	refused("edgeToken", "tokens.windowEdge belongs to a skin");
+	refused("glowScheme", "tokens.glow belongs to a skin");
+	refused("subjects", "is too light for Polestar's subject colours (");
+	refused("sizes", "fontSizes.hero must be a number from 6 to 40");
+	refused("role", "unknown fontSizes \"heor\"");
+	assert_eq!(out["skinTokens"], json!({ "ok": true, "msg": false }), "the skin-only tokens are known");
+	refused("hookName", "unknown hooks \"cards\"");
+	assert_eq!(out["hooks"], json!({ "ok": true, "msg": false }), "the cards', toasts' and buttons' hooks");
+	assert_eq!(out["media"], json!({ "ok": true, "msg": false }), "the pins' masks");
+	refused("version", "version must be a string of 40 characters at most");
 	refused("dark", "even with the grounds at their darkest");
 	assert_eq!(out["notListed"], 6, "dusk, night, graphite, the example's moonlit, plain, light: no refused one listed");
 	refused("base", "base must be one of Polestar's skins");
@@ -355,19 +398,25 @@ fn the_close_square_tokens_fall_back_on_danger_border_and_text_on_every_base() {
 #[test]
 fn api_version_and_capabilities_say_what_this_polestar_offers() {
 	let out = run(r##"
-		emit({ v = T.API_VERSION, skins = T.HasCapability("skins"), schemes = T.HasCapability("schemes"),
-			window = T.HasCapability("surfaces.window"), toast = T.HasCapability("surfaces.toast"),
-			arrow = T.HasCapability("surfaces.arrow"), pin = T.HasCapability("surfaces.pin"), fonts = T.HasCapability("fonts"),
-			preset = T.HasCapability("preset"), light = T.HasCapability("lightSchemes"), title = T.HasCapability("surfaces.guideTitle"),
-			variants = T.HasCapability("variants"), resolve = T.HasCapability("resolve"), shadow = T.HasCapability("shadow"),
-			artTint = T.HasCapability("artTint"), dart = T.HasCapability("media.dart"), parts = T.HasCapability("guideParts"),
-			nope = T.HasCapability("surfaces.nope"), odd = T.HasCapability(nil), n = #T.Capabilities() })"##);
+		local caps = {}
+		for _, c in ipairs({ "skins", "schemes", "surfaces.window", "surfaces.toast", "surfaces.arrow", "surfaces.pin", "fonts", "preset",
+			"lightSchemes", "surfaces.guideTitle", "variants", "resolve", "shadow", "artTint", "media.dart", "guideParts",
+			"surfaces.card", "surfaces.actionButton", "surfaces.guideRow", "surfaces.guideLayout", "surfaces.guideRender",
+			"surfaces.guideProgress", "surfaces.guideAnchor", "media.pins", "arrow.parts", "pin.parts", "tokens.accent2", "tokens.glow",
+			"tokens.pins", "skins.installed", "theme.functions", "kit.color", "kit.glow", "kit.tintArt" }) do
+			if not T.HasCapability(c) then caps[#caps + 1] = c end
+		end
+		emit({ v = T.API_VERSION, missing = table.concat(caps, ","), nope = T.HasCapability("surfaces.nope"), odd = T.HasCapability(nil),
+			n = #T.Capabilities(), surfaces = T.SkinSurfaces() })"##);
 	assert_eq!(out["v"], 2);
-	for k in ["skins", "schemes", "window", "toast", "arrow", "pin", "fonts", "preset", "light", "title", "variants", "resolve", "shadow", "artTint", "dart", "parts"] {
-		assert_eq!(out[k], true, "{k}");
-	}
+	assert_eq!(out["missing"], "", "every capability of Skin API 2");
 	assert_eq!((out["nope"].clone(), out["odd"].clone()), (json!(false), json!(false)));
-	assert!(out["n"].as_u64().unwrap() >= 20);
+	assert!(out["n"].as_u64().unwrap() >= 40);
+	assert_eq!(
+		out["surfaces"]["hooks"],
+		json!(["actionButton", "arrow", "card", "guideAnchor", "guideLayout", "guideMenu", "guidePlace", "guideProgress", "guideRender", "guideRow", "guideTab", "guideTitle", "pin", "toast"])
+	);
+	assert_eq!(out["surfaces"]["paint"], json!(["button", "checkbox", "close", "dropdown", "editbox", "guide", "inset", "panel", "scrollbar", "sidebar", "tab", "tile", "toast", "window"]));
 }
 
 // A skin's preset: the settings it recommends, checked against Polestar's own (the key exists, the value has its
@@ -654,4 +703,438 @@ fn a_resolver_is_asked_with_the_player_s_context_and_a_new_zone_repaints_only_wh
 	assert_eq!(out["sameContinent"], json!([0, "ff0000", 1413]), "asked again, the same answer: no repaint");
 	assert_eq!(out["newContinent"], json!([1, "00ff00", "Eastern Kingdoms"]), "a new answer: one repaint");
 	assert_eq!(out["plain"], json!([0, 0]), "no resolver in use: nothing asked, nothing repainted");
+}
+
+// A skin written for Skin API 1 (the API's preview in Polestar 0.3.7's development: the Moonlit example as it was
+// then, `api = 1`) registers on Skin API 2 and paints as it did: its scheme, font, painter, arrow and icons; its
+// arrow hook, written for two arguments, takes the call that now hands over the arrow's parts too.
+#[test]
+fn a_skin_written_for_skin_api_1_registers_and_paints_as_it_did() {
+	let out = run_full(
+		r##"
+		local ok1, why1 = T.RegisterScheme("moon1", { api = 1, name = "Moonlit", addon = "Test_Old", author = "Polestar", version = "1.0",
+			desc = "Cool indigo grounds under a silver text ladder.",
+			tokens = { bg = "#12142af7", panel = "#161937fa", panelAlt = "#1f2347", sidebar = "#0d0f20", footer = "#0f1124", sky = "#2b3060",
+				text = "#f2f3fa", textDim = "#c3c7de", textMuted = "#9ca1c0", star = "#e8ecff", scrim = "#06071a", onAccent = "#0e1022" },
+			accent = "#afc0ff", washes = { border = 0.1, divider = 0.1, selected = 0.12 } })
+		local painted, hooked = 0, nil
+		local ok2, why2 = T.RegisterSkin("moon1", { api = 1, name = "Moonlit", addon = "Test_Old", author = "Polestar", version = "1.0",
+			base = "polestar", scheme = "moon1", font = "fira", fontSizes = { hero = 24 }, arrow = "halo", mapIcons = "halo",
+			paint = { window = function(frame, base, kit)
+				base(frame)
+				local own = kit.store(frame)
+				if not own.moon then
+					own.moon = frame:CreateTexture(nil, "BORDER")
+					own.moon:SetTexture(T.Media("white"))
+				end
+				own.moon:Show()
+				painted = painted + 1
+			end },
+			hooks = { arrow = function(frame, style) hooked = style end } })
+		local win = CreateFrame("Frame")
+		win:SetSize(300, 200)
+		T.Skin(win, "window")
+		Polestar.Set("ui.skin", "moon1")
+		local ran = T.SkinHook("arrow", win, "flat", {})
+		emit({ ok = { ok1, ok2 }, why = { why1 or false, why2 or false }, api = { T.SkinInfo("moon1").api, T.SchemeInfo("moon1").api },
+			id = T.SkinId(), bg = hexOf(T.Palette().bg), accent = hexOf(T.Palette().accent), body = (T.FontSpec("body")),
+			hero = select(2, T.FontSpec("hero")), painted = painted > 0, ran = ran, hooked = hooked or false,
+			arrow = T.SkinArrowStyle(), icons = T.SkinMapIcons() })"##,
+		false,
+		"",
+	);
+	assert_eq!(out["ok"], json!([true, true]), "{}", out["why"]);
+	assert_eq!(out["api"], json!([1, 1]), "the version it was written for, kept");
+	assert_eq!(out["id"], "moon1");
+	assert_eq!((out["bg"].as_str(), out["accent"].as_str()), (Some("12142a"), Some("afc0ff")));
+	assert!(out["body"].as_str().unwrap().ends_with("FiraSans-Medium.ttf"), "{}", out["body"]);
+	assert_eq!(out["hero"], 24.0);
+	assert_eq!(out["painted"], true, "its painter ran");
+	assert_eq!((out["ran"].clone(), out["hooked"].clone()), (json!(true), json!("flat")), "its two-argument arrow hook ran");
+	assert_eq!((out["arrow"].as_str(), out["icons"].as_str()), (Some("halo"), Some("halo")));
+}
+
+// The whole addon in the stubbed world with the example skin (a Shaman at Call of Water: the guide window, its class
+// quest card, the arrow): every hook a skin can have (Theme.SkinSurfaces) runs on its live surface and puts the
+// skin's piece there; the cards are the heads-up card and the class quest card, the toasts the rare alert and the
+// transport banner, the buttons every action button and the floating one, the pins a step pin and a map mark. With
+// Polestar's own look again, every piece goes.
+const WORLD: &str = r#"
+local w = stub.world
+w.addMap(1413, { name = "The Barrens", c = 1, left = 2000, right = -4000, top = 1000, bottom = -5000 })
+w.race, w.raceName = "Orc", "Orc"
+w.class, w.className = "SHAMAN", "Shaman"
+w.faction = "Horde"
+w.level = 21
+w.moveTo(1413, 61.99, 39.41)
+for _, q in ipairs({ 1530, 1535 }) do w.titles[q] = "Call of Water" end
+w.complete({ 1528 })
+w.onQuest(1530, {}, "Call of Water")
+"#;
+
+const GUIDE: &str = r#"
+local function brine(t, q, extra)
+	local g = { t = t, quest = q, title = "Call of Water", npc = 5899, npcName = "Brine", map = 1413, x = 43.42, y = 77.41 }
+	for k, v in pairs(extra or {}) do g[k] = v end
+	return g
+end
+Polestar.RegisterGuide({
+	id = "test/class/call-of-water", pack = "test", title = "Call of Water (Horde)", category = "Class", classes = { "SHAMAN" },
+	faction = "Horde", minLevel = 20, maxLevel = 23,
+	steps = {
+		{ title = "Islen Waterseer", goals = {
+			{ t = "accept", quest = 1530, title = "Call of Water", npc = 5901, npcName = "Islen Waterseer", map = 1413, x = 65.8, y = 43.8, minLevel = 20, qlvl = 22 },
+		} },
+		{ title = "Brine", goals = {
+			brine("turnin", 1530),
+			brine("accept", 1535, { minLevel = 20, qlvl = 22, pre = { 1530 }, preTitles = { [1530] = "Call of Water" } }),
+		} },
+		{ title = "The Quilboar Watering Hole", goals = {
+			{ t = "use", item = 7766, itemName = "Empty Brown Waterskin", quest = 1535, oi = 1, title = "Call of Water", map = 1413, x = 44.3, y = 76.8 },
+		} },
+	},
+})
+"#;
+
+#[test]
+fn every_hook_of_the_example_skin_runs_on_its_live_surface_and_its_pieces_go_with_it() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.into(),
+		addons: vec![Addon::name("Polestar"), Addon::name("Polestar_Skin_Example")],
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			GUIDE,
+			"stub.login()",
+			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
+			r##"
+local T, E, GF = Polestar.Theme, Polestar.Engine, Polestar.UI.GuideFrame
+-- Which hooks ran (a hook that ran answers true), for which kind of card, toast, button and pin, and the frame
+-- each kind was handed in.
+local fired, kinds, byKind = {}, { card = {}, toast = {}, actionButton = {}, pin = {} }, {}
+local hook, hookValue = T.SkinHook, T.SkinHookValue
+T.SkinHook = function(surface, ...)
+	local ran = hook(surface, ...)
+	if ran then
+		fired[surface] = true
+		local frame, b, c = ...
+		local kind = tostring(surface == "pin" and c or b)
+		if kinds[surface] then
+			kinds[surface][kind] = true
+			byKind[surface .. ":" .. kind] = frame
+		end
+	end
+	return ran
+end
+T.SkinHookValue = function(surface, ...)
+	local ran, v = hookValue(surface, ...)
+	if ran then fired[surface] = true end
+	return ran, v
+end
+Polestar.Set("behavior.autoAccept", false)
+Polestar.Set("ui.launcher", true)
+E.SetGuide("test/class/call-of-water"); stub.advance(3)
+-- The skin, chosen with the window on screen.
+Polestar.Set("ui.skin", "moonlit")
+stub.advance(0.5)
+-- The heads-up card on the window; the toasts.
+local CT = Polestar.UI.ClassToast
+CT.ShowCard({ head = "LEVEL 21 · SHAMAN", title = "Call of Water", act = { label = "Go", run = function() end } })
+Polestar.Rares.Toast.Show({ kind = "rare", name = "Mother Fang", map = 1413, x = 50, y = 50 })
+Polestar.Nav.alerts.ShowSample()
+-- A step pin and a map mark, by the pins' own code (as the map layers draw theirs).
+local P = Polestar.Pins
+local stepPin, markPin = CreateFrame("Frame", nil, UIParent), CreateFrame("Frame", nil, UIParent)
+P.BuildLook(stepPin)
+P.BuildLook(markPin)
+P.ApplyLook(stepPin, { text = "3" }, 16)
+P.ApplyLook(markPin, { icon = "map:quest" }, 16)
+-- The window's tab strip, and its menu opened and closed.
+GF.RenderTabs()
+GF.OpenMenu(T.GuideParts().nav.Menu)
+Polestar.Widgets.HideMenu()
+stub.advance(0.5)
+-- The skin's pieces (its own store on each frame: kit.store), seen while it is in use.
+local kit = T.SkinKit
+local function own(frame, key) return frame and kit.store(frame)[key] or nil end
+local parts = T.GuideParts()
+local pieces = {
+	title = own(parts.nav, "moon"), progress = own(parts.foot, "done"), rule = own(parts.body, "rule"),
+	arrow = own(Polestar.Nav.arrow.dial, "glow:moon"), headsup = own(byKind["card:headsup"], "moon"), classcard = own(byKind["card:classcard"], "moon"),
+	rare = own(PolestarRareToast, "moon"), transport = own(PolestarAlert, "moon"), item = own(PolestarQuestItemButton, "moon"),
+	target = own(PolestarTargetButton, "moon"), launcher = own(PolestarLauncher, "moon"),
+}
+local bars = 0
+for _, r in ipairs(GF.rows) do
+	local b = own(r, "bar")
+	if b and b:IsShown() then bars = bars + 1 end
+end
+local shadowed = stepPin.text.shadowColor ~= nil
+local shown, missing = {}, {}
+for k, t in pairs(pieces) do
+	if t then shown[k] = t:IsShown() else missing[#missing + 1] = k end
+end
+table.sort(missing)
+-- Polestar's own look again: every piece goes.
+Polestar.Set("ui.skin", "polestar")
+stub.advance(0.5)
+local after = {}
+for k, t in pairs(pieces) do after[k] = t:IsShown() end
+local ran = {}
+for name in pairs(fired) do ran[#ran + 1] = name end
+table.sort(ran)
+local kindLists = {}
+for surface, set in pairs(kinds) do
+	local list = {}
+	for k in pairs(set) do list[#list + 1] = k end
+	table.sort(list)
+	kindLists[surface] = table.concat(list, ",")
+end
+emit({ ran = table.concat(ran, ","), hooks = table.concat(T.SkinSurfaces().hooks, ","), kinds = kindLists, shown = shown,
+	missing = table.concat(missing, ","), after = after, bars = bars, shadowed = shadowed })"##,
+		]
+		.join("\n"),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["ran"], out["hooks"], "every hook of the API ran on its surface");
+	let has = |surface: &str, kinds: &[&str]| {
+		let seen: Vec<&str> = out["kinds"][surface].as_str().unwrap_or("").split(',').collect();
+		for k in kinds {
+			assert!(seen.contains(k), "{surface}: {k} not among {seen:?}");
+		}
+	};
+	has("card", &["headsup", "classcard"]);
+	has("toast", &["rare", "transport"]);
+	has("actionButton", &["item", "hearth", "target", "rare", "bag", "launcher"]);
+	has("pin", &["pin", "mark"]);
+	assert_eq!(out["missing"], "", "every surface got its piece");
+	for (k, v) in out["shown"].as_object().unwrap() {
+		assert_eq!(v, &json!(true), "{k}: the skin's piece shows while it is in use");
+	}
+	assert!(out["bars"].as_u64().unwrap() >= 1, "the current goal's row has its bar");
+	assert_eq!(out["shadowed"], true, "the step pin's number has its shadow");
+	for (k, v) in out["after"].as_object().unwrap() {
+		assert_eq!(v, &json!(false), "{k}: gone with Polestar's own look");
+	}
+}
+
+// Installed skin addons (## X-Polestar-Skin): listed whether loaded or not. One that loads on demand loads at login
+// when the saved skin is its own, when the player picks one of its skins, and when the settings list the skins;
+// one the client will not load is listed with the client's reason and never loaded.
+#[test]
+fn installed_skin_addons_are_listed_and_load_on_demand_when_saved_picked_or_listed() {
+	let out = emitted(&RunAddon {
+		before: r##"
+stub.addons = {
+	{ name = "Polestar" },
+	{ name = "Test_Ember", title = "Ember" },
+	{ name = "Test_Glass", title = "Glass", notes = "A glass skin." },
+	{ name = "Test_Mist", title = "Mist" },
+	{ name = "Test_Off", title = "Off", reason = "DISABLED" },
+	{ name = "Test_Plain", title = "Plain" },
+}
+stub.addonMeta["Test_Ember"] = { ["X-Polestar-Skin"] = "ember, ember-dark" }
+stub.addonMeta["Test_Glass"] = { ["X-Polestar-Skin"] = "glass" }
+stub.addonMeta["Test_Mist"] = { ["X-Polestar-Skin"] = "mist" }
+stub.addonMeta["Test_Off"] = { ["X-Polestar-Skin"] = "off" }
+-- What each addon registers when the client loads it.
+fakeSkins = {
+	Test_Ember = function()
+		Polestar.Theme.RegisterSkin("ember", { api = 2, name = "Ember", addon = "Test_Ember", base = "hearth" })
+		Polestar.Theme.RegisterSkin("ember-dark", { api = 2, name = "Ember, dark", addon = "Test_Ember", base = "hearth", tokens = { bg = "#100804" } })
+	end,
+	Test_Glass = function() Polestar.Theme.RegisterSkin("glass", { api = 2, name = "Glass", addon = "Test_Glass", base = "halo" }) end,
+	Test_Mist = function() Polestar.Theme.RegisterSkin("mist", { api = 2, name = "Mist", addon = "Test_Mist", base = "polestar" }) end,
+}
+loads = {}
+local load = C_AddOns.LoadAddOn
+function C_AddOns.LoadAddOn(name)
+	local fn = fakeSkins[name]
+	if fn and not stub.addonsLoaded[name] then
+		loads[#loads + 1] = name
+		stub.addonsLoaded[name] = true
+		fn()
+		return true, nil
+	end
+	return load(name)
+end"##
+			.into(),
+		addons: vec![Addon::files("Polestar", FILES)],
+		// The world (the player's race, class, zone...): the login handlers before the Skin API's need it.
+		stubs: vec!["stub_world.lua"],
+		saved: vec![("Polestar".into(), r##"PolestarDB = { schema = 1, settings = { ui = { skin = "ember" } } }"##.into())],
+		login: true,
+		script: r##"
+local T = Polestar.Theme
+local out = { login = { T.SkinId(), table.concat(loads, ",") } }
+local list = {}
+for _, rec in ipairs(T.InstalledSkins()) do list[#list + 1] = { rec.addon, table.concat(rec.ids, ","), rec.loaded, rec.reason or false } end
+out.installed = list
+-- Picked: its addon loads, and the pick shows.
+Polestar.Set("ui.skin", "glass")
+out.picked = { T.SkinId(), T.SkinKey(), table.concat(loads, ",") }
+-- Listed: the rest load, so every skin is in the picker; the one that cannot load is not.
+local values = {}
+for _, c in ipairs(T.SkinChoices()) do values[#values + 1] = c.value end
+out.choices = table.concat(values, ",")
+out.loads = table.concat(loads, ",")
+out.off = { T.LoadSkinAddon("off") }
+out.nobody = { T.LoadSkinAddon("nobody") }
+out.again = { T.LoadSkinAddon("glass") }
+emit(out)"##
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["login"], json!(["ember", "Test_Ember"]), "the saved skin's addon loaded at login, and the choice shows");
+	assert_eq!(
+		out["installed"],
+		json!([["Test_Ember", "ember,ember-dark", true, false], ["Test_Glass", "glass", false, false], ["Test_Mist", "mist", false, false], ["Test_Off", "off", false, "DISABLED"]]),
+		"every addon that declares skins, loaded or not; an addon without the line is not one"
+	);
+	assert_eq!(out["picked"], json!(["glass", "halo", "Test_Ember,Test_Glass"]));
+	assert_eq!(out["choices"], "polestar,halo,hearth,forever,blizzard,classic,ember,ember-dark,glass,mist");
+	assert_eq!(out["loads"], "Test_Ember,Test_Glass,Test_Mist", "each loaded once");
+	assert_eq!(out["off"], json!([false, "DISABLED"]));
+	assert_eq!(out["nobody"], json!([false, "no installed addon declares it (## X-Polestar-Skin)"]));
+	assert_eq!(out["again"], json!([true]), "registered already");
+}
+
+// A skin the player chose (saved) that its addon registers with a spec Polestar refuses: one chat line, naming the
+// skin, its addon and the reason, so it reaches the skin's author; nothing for a refused skin the player did not
+// choose, and nothing twice.
+#[test]
+fn a_chosen_skin_that_is_refused_says_so_once_naming_its_addon() {
+	let out = run_full(
+		r##"
+		local ok, why = T.RegisterSkin("brass", { name = "Brass", addon = "Test_Brass", tokens = { bgg = "#000000" } })
+		T.RegisterSkin("brass", { name = "Brass", addon = "Test_Brass", tokens = { bgg = "#000000" } })
+		T.RegisterSkin("other", { name = "Other", addon = "Test_Other", tokens = { bgg = "#000000" } })
+		local brass, other, line = 0, 0, false
+		for _, m in ipairs(stub.messages) do
+			if m:find("Test_Brass", 1, true) then brass = brass + 1; line = m end
+			if m:find("Test_Other", 1, true) then other = other + 1 end
+		end
+		emit({ ok = ok, why = why, brass = brass, other = other, line = line, id = T.SkinId() })"##,
+		false,
+		r##"PolestarDB = { schema = 1, settings = { ui = { skin = "brass" } } }"##,
+	);
+	assert_eq!(out["ok"], false);
+	assert_eq!((out["brass"].clone(), out["other"].clone()), (json!(1), json!(0)), "once, and only for the chosen skin");
+	let line = out["line"].as_str().unwrap();
+	assert!(line.contains("brass") && line.contains("unknown token \"bgg\""), "{line}");
+	assert_eq!(out["id"], "polestar", "Polestar's own look stands in");
+}
+
+// The game looks draw their art through Theme.TintArt: a skin's artTint (tint, brightness, desaturation) lies over
+// every piece while that skin is in use and is drawn from a game look; otherwise each piece is drawn as given.
+#[test]
+fn a_skin_s_art_tint_lies_over_the_game_looks_art_drawn_through_tint_art_and_goes_with_it() {
+	let out = run(r##"
+		local t = CreateFrame("Frame"):CreateTexture()
+		local function rgb() local r, g, b, a = t:GetVertexColor() return { hexOf({ r, g, b }), math.floor(a * 100 + 0.5) } end
+		T.TintArt(t, 1, 0.82, 0, 0.9)
+		local out = { plain = rgb(), plainMark = t.psArtTinted or false }
+		T.RegisterSkin("dim", { name = "Dim", addon = "Test", base = "forever", artTint = { tint = { 0.5, 0.5, 1 }, brightness = -0.5 } })
+		T.RegisterSkin("flat", { name = "Flat", addon = "Test", base = "polestar", artTint = { tint = { 0.5, 0.5, 1 } } })
+		Polestar.Set("ui.skin", "dim")
+		T.TintArt(t, 1, 0.82, 0, 0.9)
+		out.dim, out.dimMark = rgb(), t.psArtTinted or false
+		T.TintArt(t)
+		out.white = rgb()
+		Polestar.Set("ui.skin", "flat")
+		T.TintArt(t, 1, 0.82, 0, 0.9)
+		out.flat, out.flatMark = rgb(), t.psArtTinted or false
+		emit(out)"##);
+	assert_eq!(out["plain"], json!(["ffd100", 90]), "no skin: as given");
+	assert_eq!(out["plainMark"], false);
+	assert_eq!(out["dim"], json!(["403400", 90]), "tinted and darkened: 1 x 0.5 x 0.5, 0.82 x 0.5 x 0.5, 0");
+	assert_eq!(out["dimMark"], true);
+	assert_eq!(out["white"], json!(["404080", 100]), "white art takes the tint itself");
+	assert_eq!(out["flat"], json!(["ffd100", 90]), "a skin on the house style has no game art to tint");
+	assert_eq!(out["flatMark"], false);
+}
+
+// The guide window on the fake Engine (tests/lua/stub_ui.lua) with the real Core + Theme + UI manifests.
+const UI_FILES: [&str; 3] = ["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml"];
+
+fn run_ui(script: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", &UI_FILES)],
+		script: format!(
+			"uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\nlocal GF = Polestar.UI.GuideFrame\nlocal F = PolestarGuideFrame\nlocal TABS = {{ {{ uistub.elwynn, 3 }}, {{ uistub.tailoring, 2 }}, {{ uistub.stormwindRep, 2 }} }}\nlocal function firstRow()\n\tfor _, r in ipairs(GF.rows) do if r:IsShown() and r.psGoal then return r end end\nend\n{script}"
+		),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+fn n(v: &Value) -> f64 {
+	v.as_f64().unwrap_or_else(|| panic!("not a number: {v}"))
+}
+
+// Skin API 2's guide window hooks: a skin dresses each goal row once painted (guideRow), takes room of its own
+// under the window's parts (guideLayout: the window grows by its answer), hears every render with the step on
+// screen (guideRender), paints its own progress (guideProgress) and gives the heads-up card the frame to sit on
+// (guideAnchor). Without the skin, nothing of it stays.
+#[test]
+fn a_registered_skin_s_guide_window_hooks_dress_rows_add_room_follow_renders_and_anchor_the_heads_up() {
+	let out = run_ui(
+		r##"
+		local T = Polestar.Theme
+		local seen = { rows = 0, renders = 0 }
+		local cards
+		local ok, why = T.RegisterSkin("dense", { name = "Dense", addon = "Test_Dense", base = "polestar",
+			hooks = {
+				guideRow = function(row, goal, info)
+					seen.rows = seen.rows + 1
+					row.psDense = goal.t .. (info.current and ":current" or "")
+				end,
+				guideLayout = function(parts, width, y)
+					cards = cards or CreateFrame("Frame", nil, parts.window)
+					cards:ClearAllPoints()
+					cards:SetPoint("BOTTOMLEFT", parts.window, "TOPLEFT", 0, 0)
+					cards:SetSize(width, 30)
+					seen.layoutY = y
+					return 20
+				end,
+				guideRender = function(view, parts) seen.renders = seen.renders + 1; seen.step = view and view.index or false; seen.parts = parts.window == F end,
+				guideProgress = function(foot, frac) seen.frac = frac end,
+				guideAnchor = function() return cards end,
+			} })
+		uistub.openTabs(TABS, 1)
+		local before = math.floor(F:GetHeight() + 0.5)
+		Polestar.Set("ui.skin", "dense")
+		GF.Render()
+		local after = math.floor(F:GetHeight() + 0.5)
+		local r = firstRow()
+		local CT = Polestar.UI.ClassToast
+		CT.ShowCard({ head = "LEVEL 10", title = "Something ready", act = { label = "Go", run = function() end } })
+		local _, rel = CT.frame:GetPoint(1)
+		local onCards = rel == cards
+		CT.Hide()
+		Polestar.Set("ui.skin", "polestar")
+		GF.Render()
+		emit({ ok = ok, why = why or false, before = before, after = after, dense = r.psDense or false, rows = seen.rows > 0,
+			renders = seen.renders > 0, step = seen.step, parts = seen.parts, frac = seen.frac ~= nil, layoutY = seen.layoutY ~= nil,
+			onCards = onCards, back = math.floor(F:GetHeight() + 0.5), v = T.API_VERSION,
+			caps = { T.HasCapability("surfaces.guideRow"), T.HasCapability("surfaces.guideLayout"), T.HasCapability("surfaces.guideRender"),
+				T.HasCapability("surfaces.guideProgress"), T.HasCapability("surfaces.guideAnchor"), T.HasCapability("guideParts") } })"##,
+	);
+	assert_eq!(out["ok"], true, "registered: {}", out["why"]);
+	assert_eq!(out["v"], 2);
+	assert_eq!(out["caps"], json!([true, true, true, true, true, true]));
+	assert_eq!(
+		(out["rows"].clone(), out["renders"].clone(), out["parts"].clone(), out["frac"].clone(), out["layoutY"].clone()),
+		(json!(true), json!(true), json!(true), json!(true), json!(true)),
+		"{out}"
+	);
+	assert!(out["dense"].as_str().unwrap_or("").len() > 1, "the row was dressed: {}", out["dense"]);
+	assert_eq!(out["step"], 3, "the step on screen");
+	assert_eq!(n(&out["after"]) - n(&out["before"]), 20.0, "the window grew by the skin's room");
+	assert_eq!(out["onCards"], true, "the heads-up card sits on the skin's frame");
+	assert_eq!(out["back"], out["before"], "back on the house skin, its own height");
 }

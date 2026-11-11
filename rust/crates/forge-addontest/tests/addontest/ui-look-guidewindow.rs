@@ -386,67 +386,6 @@ fn a_registered_skin_s_guide_title_hook_dresses_the_navigator() {
 	assert_eq!(out["back"], out["house"], "back on the house skin, its own title");
 }
 
-// Skin API 2's guide window hooks: a skin dresses each goal row once painted (guideRow), takes room of its own
-// under the window's parts (guideLayout: the window grows by its answer), hears every render with the step on
-// screen (guideRender), paints its own progress (guideProgress) and gives the heads-up card the frame to sit on
-// (guideAnchor). Without the skin, nothing of it stays.
-#[test]
-fn a_registered_skin_s_guide_window_hooks_dress_rows_add_room_follow_renders_and_anchor_the_heads_up() {
-	let out = run(r##"
-		local T = Polestar.Theme
-		local seen = { rows = 0, renders = 0 }
-		local cards
-		local ok, why = T.RegisterSkin("dense", { name = "Dense", addon = "Test_Dense", base = "polestar",
-			hooks = {
-				guideRow = function(row, goal, info)
-					seen.rows = seen.rows + 1
-					row.psDense = goal.t .. (info.current and ":current" or "")
-				end,
-				guideLayout = function(parts, width, y)
-					cards = cards or CreateFrame("Frame", nil, parts.window)
-					cards:ClearAllPoints()
-					cards:SetPoint("BOTTOMLEFT", parts.window, "TOPLEFT", 0, 0)
-					cards:SetSize(width, 30)
-					seen.layoutY = y
-					return 20
-				end,
-				guideRender = function(view, parts) seen.renders = seen.renders + 1; seen.step = view and view.index or false; seen.parts = parts.window == F end,
-				guideProgress = function(foot, frac) seen.frac = frac end,
-				guideAnchor = function() return cards end,
-			} })
-		uistub.openTabs(TABS, 1)
-		local before = math.floor(F:GetHeight() + 0.5)
-		Polestar.Set("ui.skin", "dense")
-		GF.Render()
-		local after = math.floor(F:GetHeight() + 0.5)
-		local r = firstRow()
-		local CT = Polestar.UI.ClassToast
-		CT.ShowCard({ head = "LEVEL 10", title = "Something ready", act = { label = "Go", run = function() end } })
-		local _, rel = CT.frame:GetPoint(1)
-		local onCards = rel == cards
-		CT.Hide()
-		Polestar.Set("ui.skin", "polestar")
-		GF.Render()
-		emit({ ok = ok, why = why or false, before = before, after = after, dense = r.psDense or false, rows = seen.rows > 0,
-			renders = seen.renders > 0, step = seen.step, parts = seen.parts, frac = seen.frac ~= nil, layoutY = seen.layoutY ~= nil,
-			onCards = onCards, back = math.floor(F:GetHeight() + 0.5), v = T.API_VERSION,
-			caps = { T.HasCapability("surfaces.guideRow"), T.HasCapability("surfaces.guideLayout"), T.HasCapability("surfaces.guideRender"),
-				T.HasCapability("surfaces.guideProgress"), T.HasCapability("surfaces.guideAnchor"), T.HasCapability("guideParts") } })"##);
-	assert_eq!(out["ok"], true, "registered: {}", out["why"]);
-	assert_eq!(out["v"], 2);
-	assert_eq!(out["caps"], json!([true, true, true, true, true, true]));
-	assert_eq!(
-		(out["rows"].clone(), out["renders"].clone(), out["parts"].clone(), out["frac"].clone(), out["layoutY"].clone()),
-		(json!(true), json!(true), json!(true), json!(true), json!(true)),
-		"{out}"
-	);
-	assert!(out["dense"].as_str().unwrap_or("").len() > 1, "the row was dressed: {}", out["dense"]);
-	assert_eq!(out["step"], 3, "the step on screen");
-	assert_eq!(n(&out["after"]) - n(&out["before"]), 20.0, "the window grew by the skin's room");
-	assert_eq!(out["onCards"], true, "the heads-up card sits on the skin's frame");
-	assert_eq!(out["back"], out["before"], "back on the house skin, its own height");
-}
-
 fn n(v: &Value) -> f64 {
 	v.as_f64().unwrap_or_else(|| panic!("not a number: {v}"))
 }
