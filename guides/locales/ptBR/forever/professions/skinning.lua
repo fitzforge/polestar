@@ -17,7 +17,7 @@ return {
 	["Beasts 1-9: {zone:1429} (1-50)"] = "Feras 1-9: {zone:1429} (1-50)",
 	-- {npc:1922} Gray Forest Wolf · {npc:525} Mangy Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:69} Timber Wolf · {npc:822} Young Forest Bear · {npc:299} Young Wolf · {skill:393} Skinning · {npc:6306} Helene Peltskinner
 	-- plural, as words: Rough Wolf Pelts = {item:247877} Rough Wolf Pelt
-	["Kill and skin {npc:1922} (7), {npc:525} (5), Prowler (9), {npc:524} (7), {npc:113} (5), {npc:69} (2), {npc:822} (8), {npc:299} (1) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest here needs {skill:393}: Rough Wolf Pelts (level 8, {npc:6306}). Zone level 1-10. Expect about 60 beasts for these 49 points."] = "",
+	["Kill and skin {npc:1922} (7), {npc:525} (5), Prowler (9), {npc:524} (7), {npc:113} (5), {npc:69} (2), {npc:822} (8), {npc:299} (1) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest here needs {skill:393}: Rough Wolf Pelts (level 8, {npc:6306}). Zone level 1-10. Expect about 60 beasts for these 49 points."] = "Mate e esfole {npc:1922} (7), {npc:525} (5), Predador (9), {npc:524} (7), {npc:113} (5), {npc:69} (2), {npc:822} (8) e {npc:299} (1) ao longo do circuito até {skill:393} 50; saqueie cada cadáver e depois esfole, e esfole as feras de nível mais alto que a sua perícia permitir. Uma fera de nível L exige perícia (L-10)x10 até o nível 20 e Lx5 acima disso. Uma missão daqui exige {skill:393}: Pelagem de Lobo Áspera (nível 8, {npc:6306}). Nível da zona 1-10. Espere cerca de 60 feras para esses 49 pontos.",
 	-- {npc:822} Young Forest Bear
 	["{npc:822}, Prowler"] = "{npc:822}, Predador",
 	-- {npc:822} Young Forest Bear
@@ -42,10 +42,10 @@ return {
 	-- {npc:250928} Highlands Ursera · {npc:251284} Hippogryph Protector · {npc:251291} Hippogryph Youth · {npc:250873} Juvenile Vuldren · {npc:251707} Ornery Galestrider · {npc:250926} Scrawny Ursera · {npc:256092} Shadowgale Shriekling · {npc:253282} Shriekling Fledgling · {npc:250937} Ursera Scavenger · {npc:250874} Vuldren Alpha · {npc:254588} Windsong Crawler · {skill:393} Skinning
 	["Kill and skin Cloudrunner (6), Galestrider (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:250873} (1), {npc:251707} (8), Prideclaw (5), {npc:250926} (3), {npc:256092} (10), {npc:253282} (8), {npc:250937} (4), Vuldren (6), {npc:250874} (10), {npc:254588} (8) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-15. Expect about 60 beasts for these 49 points."] = "Mate e esfole Correnuvens (6), Vagaventos (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:250873} (1), {npc:251707} (8), Garraltiva (5), {npc:250926} (3), {npc:256092} (10), {npc:253282} (8), {npc:250937} (4), Vuldren (6), {npc:250874} (10) e {npc:254588} (8) ao longo do circuito até {skill:393} 50; saqueie cada cadáver e depois esfole, e esfole as feras de nível mais alto que a sua perícia permitir. Uma fera de nível L exige perícia (L-10)x10 até o nível 20 e Lx5 acima disso. Nível da zona 1-15. Espere cerca de 60 feras para esses 49 pontos.",
 	-- {npc:251291} Hippogryph Youth
-	["{npc:251291}, Prideclaw"] = "",
+	["{npc:251291}, Prideclaw"] = "{npc:251291}, Garraltiva",
 	["Prideclaw, Vuldren"] = "Garraltiva, Vuldren",
 	["Prideclaw, Galestrider"] = "Garraltiva, Vagaventos",
-	["Galestrider, Vuldren"] = "",
+	["Galestrider, Vuldren"] = "Vagaventos, Vuldren",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -63,7 +63,7 @@ return {
 	["Battleboar, {npc:2961}"] = "Javaliço, {npc:2961}",
 	-- {npc:2961} Mountain Cougar
 	["{npc:2961}, Plainstrider"] = "{npc:2961}, Pinote",
-	["Plainstrider"] = "",
+	["Plainstrider"] = "Pinote",
 
 	-- Step 8: Beasts 1-9: Tirisfal Glades (1-50)
 	-- {zone:1420} Tirisfal Glades
@@ -106,7 +106,7 @@ return {
 	-- {zone:1439} Darkshore
 	["Beasts 11-19: {zone:1439} (50-100)"] = "Feras 11-19: {zone:1439} (50-100)",
 	-- {npc:2070} Moonstalker Runt · {npc:2163} Thistle Bear · {npc:2164} Rabid Thistle Bear · {npc:2165} Grizzled Thistle Bear · {npc:2237} Moonstalker Sire · {npc:3823} Ghostpaw Runner · {npc:2071} Moonstalker Matriarch · {skill:393} Skinning
-	["Kill and skin {npc:2070} (11), {npc:2163} (11), {npc:2164} (13), Moonstalker (14), {npc:2165} (16, needs 60), {npc:2237} (17, needs 70), {npc:3823} (19, needs 90), {npc:2071} (19, needs 90) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points."] = "",
+	["Kill and skin {npc:2070} (11), {npc:2163} (11), {npc:2164} (13), Moonstalker (14), {npc:2165} (16, needs 60), {npc:2237} (17, needs 70), {npc:3823} (19, needs 90), {npc:2071} (19, needs 90) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points."] = "Mate e esfole {npc:2070} (11), {npc:2163} (11), {npc:2164} (13), Espreitaluna (14), {npc:2165} (16, exige 60), {npc:2237} (17, exige 70), {npc:3823} (19, exige 90) e {npc:2071} (19, exige 90) ao longo do circuito até {skill:393} 100; saqueie cada cadáver e depois esfole, e esfole as feras de nível mais alto que a sua perícia permitir. Uma fera de nível L exige perícia (L-10)x10 até o nível 20 e Lx5 acima disso. Nível da zona 10-20. Espere cerca de 120 feras para esses 50 pontos.",
 	-- {npc:2164} Rabid Thistle Bear
 	["{npc:2164}, Moonstalker"] = "{npc:2164}, Espreitaluna",
 	-- {npc:2165} Grizzled Thistle Bear

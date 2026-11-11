@@ -169,7 +169,7 @@ return {
 	-- Step 31: The Tower of Althalaxx
 	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale · {npc:3660} Athrikus Narassin
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
-	["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}.\nCareful: Dark Strand Voidcallers (28-29) with their voidwalkers and {npc:3660} (31) stand in the tower itself: take the parchments from the Fanatics south of it and keep away from the tower."] = "",
+	["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}.\nCareful: Dark Strand Voidcallers (28-29) with their voidwalkers and {npc:3660} (31) stand in the tower itself: take the parchments from the Fanatics south of it and keep away from the tower."] = "À l'est de Bigobox 323, {npc:3661} se cache au pied de la tour parmi les Fanatiques de la Rive noire. Gardez sa lettre pour Delgren le Purificateur en {zone:1440}.\nAttention : des Anéantisseurs de la Rive noire (28-29) avec leurs marcheurs du Vide et {npc:3660} (31) se tiennent dans la tour même : prenez les parchemins sur les Fanatiques au sud de la tour et restez à l'écart de celle-ci.",
 	-- {item:5348} Worn Parchment
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic
 	["{item:5348}: Dark Strand Fanatics"] = "{item:5348} : Fanatiques de la Rive noire",

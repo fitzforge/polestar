@@ -88,7 +88,7 @@ return {
 	["The storyline and {npc:254151}'s first quest leave you at Friendly with 2100 to spare. Honored is 3900 more: four turn-ins of five ears up to level 18, twenty from level 22. Friendly opens 32 of {npc:254151}'s patterns, in two colours, Cloudy and Azure: Blacksmithing Skyforged Wristguards and Chain (skill 50, 9s 50c), Gauntlets and Greaves (55, 11s); Leatherworking Gustwoven and Windraveled bracers and belts (50) and gloves and boots (55); Tailoring Stormsewn Cuffs and Cord (50), Handwraps and Shoes (55). They bind when you buy them, so buy them on the crafter."] = "A história e a primeira missão de {npc:254151} deixam você em Amigável com 2100 de sobra. Honrado fica a mais 3900: quatro entregas de cinco orelhas até o nível 18, vinte a partir do nível 22. Amigável abre 32 moldes de {npc:254151}, em duas cores, Neblinosa e Lazúli: Ferraria, Munhequeiras e Corrente da Forja Celeste (perícia 50, 9s 50c), Manoplas e Grevas (55, 11s); Couraria, braçadeiras e cintos Tecidos com Lufadas e Desfiados pelo Vento (50) e luvas e botas (55); Alfaiataria, Manilhas e Cordão Costurados a Tempestade (50), Mitenes e Sapatos (55). Eles se tornam vinculados ao serem comprados, então compre-os no artesão.",
 	["five ears per turn-in"] = "cinco orelhas por entrega",
 	-- {quest:93459} More Al'Aketh Ears · {npc:254151} Vayn Moongaze
-	["{quest:93459}: 1000 reputation, handed in from {npc:254151}'s window"] = "",
+	["{quest:93459}: 1000 reputation, handed in from {npc:254151}'s window"] = "{quest:93459}: 1000 de reputação, entregue pela janela de {npc:254151}",
 	-- {npc:254151} Vayn Moongaze
 	["{npc:254151}'s patterns"] = "Os moldes de {npc:254151}",
 

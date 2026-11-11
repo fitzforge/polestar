@@ -28,7 +28,7 @@ return {
 
 	-- Step 4: Chunk of Amber & Large Chunk of Amber: Teldrassil (1-50)
 	-- {object:656332} Chunk of Amber (no name in this language: may be words) · {object:656333} Large Chunk of Amber (no name in this language: may be words) · {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every {object:656332} (1, orange), {object:656333} (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "",
+	["Mine every {object:656332} (1, orange), {object:656333} (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Minere todos os nós de {object:656332} (1, laranja) e {object:656333} (1, laranja) que encontrar e percorra os pontos de passagem até {skill:186} 50. Funda em uma forja quando as bolsas encherem: {spell:2657} (laranja até 25, cinza em 70) também dá pontos. Nível da zona 1-10. Espere cerca de 60 nós para esses 49 pontos.",
 
 	-- Step 5: Copper: Zephras Isle (1-50)
 	-- {zone:2521} Zephras Isle
@@ -44,7 +44,7 @@ return {
 	-- {zone:1412} Mulgore
 	["Copper: {zone:1412} (1-50)"] = "Cobre: {zone:1412} (1-50)",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, orange), Poor Copper (1, orange, rare) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "",
+	["Mine every Copper (1, orange), Poor Copper (1, orange, rare) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Minere todos os nós de Cobre (1, laranja) e Cobre Pobre (1, laranja, raro) que encontrar e percorra os pontos de passagem até {skill:186} 50. Funda em uma forja quando as bolsas encherem: {spell:2657} (laranja até 25, cinza em 70) também dá pontos. Nível da zona 1-10. Espere cerca de 60 nós para esses 49 pontos.",
 
 	-- Step 8: Copper & Poor Copper: Tirisfal Glades (1-50)
 	-- {zone:1420} Tirisfal Glades
@@ -69,9 +69,9 @@ return {
 
 	-- Step 12: Chunk of Amber & Large Chunk of Amber: Teldrassil (50-65) cont.
 	-- {object:656332} Chunk of Amber (no name in this language: may be words) · {object:656333} Large Chunk of Amber (no name in this language: may be words) · {zone:1438} Teldrassil
-	["{object:656332} & {object:656333}: {zone:1438} (50-65) cont."] = "",
+	["{object:656332} & {object:656333}: {zone:1438} (50-65) cont."] = "{object:656332} e {object:656333}: {zone:1438} (50-65) cont.",
 	-- {object:656332} Chunk of Amber (no name in this language: may be words) · {object:656333} Large Chunk of Amber (no name in this language: may be words) · {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every {object:656332} (1, yellow), {object:656333} (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "",
+	["Mine every {object:656332} (1, yellow), {object:656333} (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "Minere todos os nós de {object:656332} (1, amarelo) e {object:656333} (1, amarelo) que encontrar e percorra os pontos de passagem até {skill:186} 65. Funda em uma forja quando as bolsas encherem: {spell:2657} (laranja até 25, cinza em 70) também dá pontos. Nível da zona 1-10. Espere cerca de 80 nós para esses 15 pontos.",
 
 	-- Step 13: Copper: Zephras Isle (50-65) cont.
 	-- {zone:2521} Zephras Isle
@@ -87,7 +87,7 @@ return {
 	-- {zone:1412} Mulgore
 	["Copper: {zone:1412} (50-65) cont."] = "Cobre: {zone:1412} (50-65) cont.",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, yellow), Poor Copper (1, yellow, rare) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "",
+	["Mine every Copper (1, yellow), Poor Copper (1, yellow, rare) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "Minere todos os nós de Cobre (1, amarelo) e Cobre Pobre (1, amarelo, raro) que encontrar e percorra os pontos de passagem até {skill:186} 65. Funda em uma forja quando as bolsas encherem: {spell:2657} (laranja até 25, cinza em 70) também dá pontos. Nível da zona 1-10. Espere cerca de 80 nós para esses 15 pontos.",
 
 	-- Step 16: Copper & Poor Copper: Tirisfal Glades (50-65) cont.
 	-- {zone:1420} Tirisfal Glades
@@ -137,7 +137,7 @@ return {
 	-- {skill:186} Mining · {spell:3307} Smelt Iron
 	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points."] = "Minere todos os nós de Estanho (65, verde), Pedra-sangrenta Inferior (75, verde), Prata (75, verde, raro) e Ferro (125, laranja) que encontrar e percorra os pontos de passagem até {skill:186} 155. Funda em uma forja quando as bolsas encherem: {spell:3307} (laranja até 130, cinza em 140) também dá pontos. Nível da zona 30-40. Espere cerca de 50 nós para esses 30 pontos.",
 	["Iron, Tin"] = "Ferro, Estanho",
-	["Lesser Bloodstone"] = "",
+	["Lesser Bloodstone"] = "Pedra-sangrenta Inferior",
 
 	-- Step 24: Iron: Arathi Highlands (155-175)
 	-- {zone:1417} Arathi Highlands

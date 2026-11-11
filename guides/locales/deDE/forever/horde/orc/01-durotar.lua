@@ -256,7 +256,7 @@ return {
 	["{area:369}: kill these as you meet them"] = "",
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak · {area:362} Razor Hill · {npc:3099} Dire Mottled Boar · {item:15908} Taming Rod
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
-	["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nFizzle holds the Burning Blade camp on {area:369}, north-west of {area:362}. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "",
+	["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nFizzle holds the Burning Blade camp on {area:369}, north-west of {area:362}. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Donnerechsen und Blitzechsen grasen auf {area:369}, gleich westlich und südwestlich von {npc:3293}.\nFizzle hält das Lager der Brennenden Klinge auf {area:369}, nordwestlich von {area:362}. Jäger: Zähm unterwegs mit {item:15908} einen {npc:3099}.\nVorsicht: Kultisten der Brennenden Klinge umgeben Fizzle, manche verbunden, sodass sie zu zweit angreifen, und sie respawnen schnell.\nVorsicht: Halikor, eine Elite der Stufe 12, streift zwischen den Echsen über {area:369}: Achte auf ihn, bevor du pullst.",
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "Zähm ihn mit {item:15908}",
 
@@ -348,7 +348,7 @@ return {
 	["Thunder lizards on the way north"] = "",
 	-- {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:6486} Singed Scale · {npc:5810} Uzzek · {area:379} Far Watch Post
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
-	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "",
+	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Donnerechsen und Blitzechsen grasen auf {area:369}, neben der Straße nach Norden nach {zone:1454}; jede kann {item:6486} fallen lassen. {npc:5810} nimmt sie an, wenn der nächste Guide am {area:379} vorbeikommt.\nVorsicht: Halikor, eine Elite der Stufe 12, streift zwischen den Echsen über {area:369}: Achte auf ihn, bevor du pullst.",
 
 	-- Step 87: Ormak Grimshot
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor

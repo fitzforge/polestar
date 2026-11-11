@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Riggle Bassbait
 	-- {item:276275} Bitter Baitling · {item:274026} Extravagant Extravaganza Coin · {area:35} Booty Bay · {npc:15077} Riggle Bassbait · {quest:8193} Master Angler · {skill:356} Fishing
-	["The {item:276275} costs one {item:274026}, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the {area:35} docks by {npc:15077} when it starts. {quest:8193} is not a quest you take: {npc:15077} takes the fish straight from his window when you bring them. Bring your best {skill:356} skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in {area:35}."] = "",
+	["The {item:276275} costs one {item:274026}, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the {area:35} docks by {npc:15077} when it starts. {quest:8193} is not a quest you take: {npc:15077} takes the fish straight from his window when you bring them. Bring your best {skill:356} skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in {area:35}."] = "Der {item:276275} kostet einen {item:274026}, den Preis für den Sieg im Stranglethorn Fishing Extravaganza. Der Wettbewerb läuft sonntags von 14 bis 16 Uhr Serverzeit: Sei bei seinem Start an den Docks von {area:35} bei {npc:15077}. {quest:8193} ist keine Quest, die du annimmst: {npc:15077} nimmt die Fische direkt über sein Fenster an, wenn du sie bringst. Bring deine beste {skill:356}-Fertigkeit und Köder mit, damit kein Fisch entkommt, ein Reittier und leere Taschen, und binde deinen Ruhestein in {area:35}.",
 
 	-- Step 2: Schools of Tastyfish
 	["Schools of Tastyfish"] = "Schwärme von Tastyfish",

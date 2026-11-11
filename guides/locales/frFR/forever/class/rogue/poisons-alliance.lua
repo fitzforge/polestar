@@ -38,7 +38,7 @@ return {
 
 	-- Step 5: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {item:7676} Thistle Tea · {spell:8681} Instant Poison · {item:2928} Dust of Decay · {item:3371} Empty Vial · {npc:1325} Jasper Fel · {npc:1326} Sloan McCoy · {object:2100} Old Town
-	["Head north through Elwynn to {zone:1453}; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the {item:7676} recipe. Poisons are made, not bought: each batch of {spell:8681} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."] = "",
+	["Head north through Elwynn to {zone:1453}; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the {item:7676} recipe. Poisons are made, not bought: each batch of {spell:8681} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."] = "Remontez vers le nord à travers la forêt d'Elwynn jusqu'à {zone:1453} ; Mathias Shaw est à l'étage du SI:7. Il vous apprend les poisons et vous donne la recette du {item:7676}. Les poisons se fabriquent, ils ne s'achètent pas : chaque fournée de {spell:8681} demande une {item:2928} et une {item:3371}, que {npc:1325} et {npc:1326} vendent dans la {object:2100}, à côté du SI:7. Achetez une pile de chaque, ouvrez Poisons depuis votre grimoire pour les fabriquer, puis appliquez un poison sur votre arme.",
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}: Poisons"] = "{npc:332} : Poisons",
 

@@ -25,7 +25,7 @@ return {
 	-- Step 4: Splintertree Post
 	-- {area:431} Splintertree Post · {npc:12696} Senani Thunderheart · {area:428} Night Run · {npc:12867} Kuray'bin · {zone:1440} Ashenvale
 	-- plural, as words: Ashenvale Outrunners = {npc:12856} Ashenvale Outrunner
-	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers Ashenvale Outrunners: leave it for the next {zone:1440} visit, at 26."] = "",
+	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers Ashenvale Outrunners: leave it for the next {zone:1440} visit, at 26."] = "{area:431} liegt gleich nördlich die Straße hinauf. Von Süden kommend sind zuerst der Flugmeister und das Jagdbrett von {npc:12696} bei {area:428} dran, dann die Händler. {npc:12867} im Holzfällerlager bietet „Die Kundschafter von Ashenvale“ an: Heb sie dir für den nächsten Besuch in {zone:1440} auf, mit 26.",
 	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
 	["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 26."] = "",
 
@@ -86,7 +86,7 @@ return {
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Flieg nach {area:1637}",
 	-- {area:431} Splintertree Post · {area:1637} Orgrimmar
-	["Out of the inn to the {area:431} flight master and fly to {area:1637}."] = "",
+	["Out of the inn to the {area:431} flight master and fly to {area:1637}."] = "Raus aus dem Gasthaus zum Flugmeister von {area:431} und flieg nach {area:1637}.",
 	-- {area:431} Splintertree Post
 	["{area:431} flight master"] = "",
 
