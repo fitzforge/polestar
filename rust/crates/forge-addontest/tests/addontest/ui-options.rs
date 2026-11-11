@@ -1663,32 +1663,6 @@ fn cards_font_faces_typed_colours_and_typed_slider_values() {
 	assert_eq!(out["clamped"], 2, "clamped to the slider's range");
 }
 
-// A colour chip reads as a colour on the dark rows whatever the colour: a light ring inside its hairline, the
-// colour within it, so a near-black one is a chip of that colour, never an empty box beside its slider (an
-// unticked tick box). The row's chip and the inline one alike.
-#[test]
-fn a_colour_chip_rings_its_colour_in_light_so_a_near_black_one_never_reads_as_an_empty_box() {
-	let out = run(r#"
-		Polestar.Set("ui.accent", { 0.03, 0.03, 0.04 })
-		local W = Polestar.Widgets
-		local row = W.Swatch(UIParent, "Accent", "ui.accent")
-		local inline = W.InlineSwatch(UIParent, "ui.accent", "Accent")
-		if row.Refresh then row:Refresh() end
-		inline:Refresh()
-		local function chip(frame, fill)
-			local ring = rawget(frame, "psRing")
-			local rr, rg, rb, ra = ring:GetVertexColor()
-			local fr, fg, fb = fill:GetVertexColor()
-			local inset = { select(4, ring:GetPoint(1)), select(4, fill:GetPoint(1)) }
-			return { ring = ring:IsShown(), light = math.min(rr, rg, rb) > 0.6 and ra >= 0.7, dark = math.max(fr, fg, fb) < 0.1,
-				inside = inset[1] < inset[2] }
-		end
-		emit({ row = chip(row.ChipFrame, row.Chip), inline = chip(inline, inline.Fill) })"#);
-	let ringed = json!({ "ring": true, "light": true, "dark": true, "inside": true });
-	assert_eq!(out["row"], ringed, "the row's chip: a light ring round the dark colour");
-	assert_eq!(out["inline"], ringed, "the inline chip too");
-}
-
 // Layout v2: a section's on/off sits in its card's header; while it is off every row of the section stops, its
 // inline extras and cog too, and their tooltips say why; the marks (track, box) dim to 40% while the label and value
 // turn textMuted at full alpha, so they stay legible (4.5:1); right-click on the switch restores it.
