@@ -21,7 +21,7 @@ const { blockingPrereqs, closedByOf } = require('../data/prereqs');
 const { clusterPoints, scaleOf } = require('../questdb/cluster');
 const { groupOf, isElite, isRare, hostileTo, dungeonNamed } = require('./group');
 const { escortOf } = require('./escort');
-const { goalHeight, spotHeight } = require('./heights');
+const { goalHeight, spotHeight, gotoHeights } = require('./heights');
 const { goalArea, goalNode, goalInnkeeper, goalFlightMaster } = require('./places');
 const { areaNamed } = require('../data/areas');
 const { levelRange } = require('./when');
@@ -999,6 +999,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		!(goal.quest !== undefined && onlyOptIn.get(goal.quest) === true) &&
 		!(goal.t === 'turnin' && (goal.group.kind === 'dungeon' || goal.group.kind === 'raid'));
 	if (guide.steps.some((s) => !optIn(s) && s.goals.some(needs))) guide.group = true;
+	gotoHeights(data, guide.steps);
 	checkLabels(ast.steps, err);
 	checkAlongGoals(guide.steps, warn);
 	checkBackground(ast.steps, guide.steps, err);
