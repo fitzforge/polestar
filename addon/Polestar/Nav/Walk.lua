@@ -1586,9 +1586,11 @@ pumpShapes = function()
 	local ok, handle = pcall(P.FindCoarse, from.c, { x = from.wx, y = from.wy, z = from.z }, { x = to.wx, y = to.wy, z = z }, function(points, reason, answer)
 		if shapeToken ~= mine then return end
 		shapeToken, shapeJob, shapeKey = nil, nil, nil
-		-- Never over the walk's own path (its search may have answered first).
+		-- Never over the walk's own answer (its search may have answered first):
+		-- its path, or false when it found none (indexing that false raised
+		-- "attempt to index local 'was'"). Only a cluster's sketch is replaced.
 		local was = legPaths[nextKey]
-		if was == nil or was.cluster then
+		if was == nil or (was and was.cluster) then
 			local e = { coarse = true, n = 0, cluster = not whole and reason == "cluster" or nil }
 			if type(points) == "table" then
 				e.xs, e.ys, e.n, e.yards = line(points)

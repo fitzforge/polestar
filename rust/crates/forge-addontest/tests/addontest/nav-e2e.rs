@@ -2422,3 +2422,40 @@ fn camp_taurajo_to_feegly_walks_south_never_flies_back_to_the_crossroads_1728() 
 	assert!(f(&out["straight"]) > 3000.0, "the Crossroads lies past the measure's own reach: {out}");
 	assert!(f(&out["crossroads"][1]) > f(&out["player"][1]), "the Crossroads' walk in, measured, is the longer: {out}");
 }
+
+// A later walk's own search that finds nothing (its answer kept as `false`) while that walk's sketch
+// (Path.FindCoarse) is still out: the sketch's answer indexed the `false` and raised "attempt to index local
+// 'was' (a boolean value)" (Nav/Walk.lua pumpShapes, found replaying players' walks). The sketch never goes over the
+// walk's own answer, a failed one included.
+#[test]
+fn a_later_walks_failed_search_answered_before_its_sketch_is_kept_and_raises_no_error() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.setLevel(20)
+		w.faction = "Horde"
+		local held, failed = {}, 0
+		local realFind = E.Find
+		E.FindCoarse = function(map, from, to, callback) held[#held + 1] = callback return { held = true } end
+		E.Find = function(map, from, to, callback, opts)
+			local _, px, py = C.GetPlayerWorldPosition()
+			if math.sqrt((from.x - px) ^ 2 + (from.y - py) ^ 2) < 30 then return realFind(map, from, to, callback, opts) end
+			failed = failed + 1
+			C_Timer.After(0, function() callback(nil) end)
+			return { failed = true }
+		end
+		place(1412, -975, -107, nil)
+		N.SetTarget(1442, 47.5, 61.5, "Stonetalon", "e")
+		for _ = 1, 600 do aim(); stub.advance(0.05) end
+		local errors = {}
+		for _, cb in ipairs(held) do
+			local ok, err = pcall(cb, nil, "none")
+			if not ok then errors[#errors + 1] = tostring(err) end
+		end
+		for _ = 1, 20 do aim(); stub.advance(0.05) end
+		emit({ held = #held, failed = failed, errors = errors })"#,
+		false,
+	);
+	assert!(f(&out["held"]) >= 1.0 && f(&out["failed"]) >= 1.0, "a sketch out and a later walk's search failed: {out}");
+	assert!(out["errors"].as_array().map_or(out["errors"] == serde_json::json!({}), |a| a.is_empty()), "no Lua error: {out}");
+}
