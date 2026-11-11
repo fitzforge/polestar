@@ -4292,17 +4292,16 @@ test('forever/alliance/03-darkshore.guide: Deadshot\'s report (#560): How Big a 
 // dgc1980 (#563), Alliance: on Cozy Sleeping Bag's Stonetalon step the arrow
 // pointed straight from the Barrens (1413 42.08,32.49) at the path into the
 // Stonetalon hills, a line through Honor's Stand, the Horde post on the road
-// west. Alliance now go by the reporter's safe spot north of it
-// (40.20,24.88; 1413's Era and live frames are the same). The post is the
-// shipped walking maps' hostile hub, so the straight arrow of every leg, from
-// the report's spot to the safe spot and on to the path, keeps out of it.
+// west. Since #1813 Alliance come in from the north (the Talondeep Path), and
+// every straight arrow of theirs from that waypoint to the path keeps out of
+// Honor's Stand and Sun Rock Retreat, the shipped walking maps' hostile hubs.
 
-test("forever/miscellaneous/cozy-sleeping-bag.guide: dgc1980's report (#563): Alliance go round Honor's Stand on the way to Stonetalon, Horde go straight", { skip }, () => {
+test("forever/miscellaneous/cozy-sleeping-bag.guide: dgc1980's report (#563): Alliance keep out of Honor's Stand on the way to Stonetalon, Horde go straight", { skip }, () => {
 	const list = goals('forever/miscellaneous/cozy-sleeping-bag.guide');
 	const hills = at(list, 'the path into the hills', (g) => g.t === 'goto' && g.map === 1442);
 	const step = list[hills].s;
-	// The safe spot is its own step just before the hills since #1496 (skipped once in Stonetalon).
-	const before = list.filter(({ s, goal }, i) => (s === step || s === step - 1) && i < hills && goal.t === 'goto' && (s === step || goal.map === 1413));
+	// The way in is its own step just before the hills since #1496 (skipped once in Stonetalon).
+	const before = list.filter(({ s, goal }, i) => (s === step || s === step - 1) && i < hills && goal.t === 'goto');
 	const side = (faction) => ({ step: st, goal }) => [st.only, goal.only].every((o) => !o || !o.factions || o.factions.includes(faction));
 	const alliance = before.filter(side('Alliance'));
 	const horde = before.filter(side('Horde'));
@@ -4312,19 +4311,19 @@ test("forever/miscellaneous/cozy-sleeping-bag.guide: dgc1980's report (#563): Al
 		script: `
 local out = {}
 for _, h in ipairs(PolestarPathData[1].hubs) do
-	if h.id == "horde-honors-stand" then
-		for i, d in ipairs(h.disks) do out[i] = { d[1], d[2], d[3] } end
+	if h.id == "horde-honors-stand" or h.id == "horde-sun-rock-retreat" then
+		for _, d in ipairs(h.disks) do out[#out + 1] = { d[1], d[2], d[3], h.id } end
 	end
 end
 emit(out)`,
 	}).emitted;
-	assert.ok(hubs.length > 0, "the walking maps know Honor's Stand");
+	for (const id of ['horde-honors-stand', 'horde-sun-rock-retreat']) assert.ok(hubs.some((d) => d[3] === id), `the walking maps know ${id}`);
 	// A map point in the world frame the maps use: x north, y west.
 	const world = ({ map, x, y }) => {
 		const f = data.eraFrame(map);
 		return { x: f.top + ((f.bottom - f.top) * y) / 100, y: f.left + ((f.right - f.left) * x) / 100 };
 	};
-	// How far (yd) the line from a to b stays outside the hub's disks.
+	// How far (yd) the line from a to b stays outside the hubs' disks.
 	const clear = (a, b) => {
 		const [p, q] = [world(a), world(b)];
 		const dx = q.x - p.x;
@@ -4335,28 +4334,45 @@ emit(out)`,
 			return Math.hypot(p.x + dx * t - x, p.y + dy * t - y) - r;
 		}));
 	};
-	const stops = [{ map: 1413, x: 42.08, y: 32.49 }, ...alliance.map(({ goal }) => goal), list[hills].goal];
+	assert.ok(alliance.length > 0, 'Alliance get a waypoint before the path');
+	const stops = [...alliance.map(({ goal }) => goal), list[hills].goal];
 	for (let i = 1; i < stops.length; i++) {
 		const [a, b] = [stops[i - 1], stops[i]];
 		const off = clear(a, b);
-		assert.ok(off > 50, `the arrow from ${a.x},${a.y} to ${b.x},${b.y} (map ${b.map}) passes ${Math.round(off)} yd outside Honor's Stand`);
+		assert.ok(off > 50, `the arrow from ${a.x},${a.y} (map ${a.map}) to ${b.x},${b.y} (map ${b.map}) passes ${Math.round(off)} yd outside Honor's Stand and Sun Rock Retreat`);
 	}
-	assert.equal(alliance.length, 1, 'Alliance get one waypoint before the path');
-	assert.ok(yards(alliance[0].goal, { map: 1413, x: 40.2, y: 24.88 }) <= 30, "it is the reporter's safe spot");
 	assert.equal(horde.length, 0, 'Horde get none');
+});
+
+// #1813 (Alliance, Cozy Sleeping Bag): the Barrens' way into Stonetalon runs through Honor's Stand, and the road
+// on to the hills past Malaka'jin and Sun Rock Retreat. Players' recordings of Stepping Stones (79192, Alliance):
+// about 40 runs, most entering Stonetalon from the Barrens at 83.5,97, 7 people dead at Honor's Stand (one of them
+// after the old "North of Honor's Stand" detour) and one in Sun Rock; the 3 runs by the Talondeep Path and the 3
+// off the Stonetalon Peak flight lost nobody there. Alliance now come in from the north: the Talondeep Path's
+// Ashenvale mouth, with no waypoint left in the Barrens.
+test("forever/miscellaneous/cozy-sleeping-bag.guide: #1813: Alliance come into Stonetalon from the north, by the Talondeep Path", { skip }, () => {
+	const list = goals('forever/miscellaneous/cozy-sleeping-bag.guide');
+	const hills = at(list, 'the path into the hills', (g) => g.t === 'goto' && g.map === 1442);
+	const plank = at(list, 'accept 79192 at the Barrens plank', (g) => is('accept', 79192)(g) && g.object === 417072);
+	const alliance = list.filter(({ step, goal }, i) => i > plank && i < hills && goal.t === 'goto' && [step.only, goal.only].some((o) => o && o.factions && o.factions.includes('Alliance')));
+	assert.ok(!alliance.some(({ goal }) => goal.map === 1413), 'no Alliance waypoint in the Barrens');
+	const talondeep = alliance.find(({ goal }) => goal.map === 1440 && yards(goal, { map: 1440, x: 42.4, y: 71.0 }) <= 40);
+	assert.ok(talondeep, "Alliance go by the Talondeep Path's Ashenvale mouth");
+	assert.ok((talondeep.step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Stonetalon Mountains'), 'only while the character is not yet in Stonetalon');
+	assert.match([].concat(talondeep.step.note || []).join(' '), /Stonetalon Peak/, 'the tip names the Stonetalon Peak flight');
 });
 
 // shatteredeagle (#1496), Alliance: the "North of Honor's Stand" safe spot was the first goal of
 // the Stonetalon step, so a character already in Stonetalon (on foot or off the Stonetalon Peak
-// flight) was sent 3,114 yd back to the Barrens. The safe spot is now its own Alliance step that
-// applies only while the character is not yet in the Stonetalon Mountains.
-test("forever/miscellaneous/cozy-sleeping-bag.guide: shatteredeagle's report (#1496): the Honor's Stand detour only applies before Stonetalon", { skip }, () => {
+// flight) was sent 3,114 yd back to the Barrens. The way in (since #1813 the Talondeep Path) is its
+// own Alliance step that applies only while the character is not yet in the Stonetalon Mountains.
+test("forever/miscellaneous/cozy-sleeping-bag.guide: shatteredeagle's report (#1496): the Alliance way in only applies before Stonetalon", { skip }, () => {
 	const list = goals('forever/miscellaneous/cozy-sleeping-bag.guide');
-	const safe = list[at(list, "the safe spot north of Honor's Stand", (g) => g.t === 'goto' && g.map === 1413 && yards(g, { map: 1413, x: 40.2, y: 24.88 }) <= 30)];
+	const way = list[at(list, 'the Alliance way into Stonetalon', (g) => g.t === 'goto' && g.map === 1440)];
 	const hills = list[at(list, 'the path into the hills', (g) => g.t === 'goto' && g.map === 1442)];
-	assert.notEqual(safe.s, hills.s, 'the safe spot is not a goal of the Stonetalon step');
-	assert.ok((safe.step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Stonetalon Mountains'), 'its step applies only outside the Stonetalon Mountains');
-	assert.deepEqual((safe.step.only || safe.goal.only || {}).factions, ['Alliance'], 'Alliance only');
+	assert.notEqual(way.s, hills.s, 'the way in is not a goal of the Stonetalon step');
+	assert.ok((way.step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Stonetalon Mountains'), 'its step applies only outside the Stonetalon Mountains');
+	assert.deepEqual((way.step.only || way.goal.only || {}).factions, ['Alliance'], 'Alliance only');
 	assert.ok(!(hills.step.when || []).some((p) => p.k === 'zone'), 'the Stonetalon step itself applies wherever the character is');
 });
 
@@ -9689,6 +9705,24 @@ test("forever/miscellaneous/cozy-sleeping-bag.guide: the step after the dam's no
 	assert.match(tip, /waterfall/, tip);
 	assert.match(tip, /west bank/, tip);
 	assert.match(tip, /Thandol Span/, tip);
+});
+
+// The same recordings (the 0.3.7 audit's waterfall row): the tip alone left players following the arrow down the
+// river, and they kept dying at the waterfall (Wetlands about 65.0,77.4 and 66.7,75.1). The survivors' tracks leave
+// the river at about 64.4,79.4 and go on along the west bank by 62.2,76.8; those who died turned back north-east
+// into the river there. The step after the dam's note now walks that bank before the road north.
+test("forever/miscellaneous/cozy-sleeping-bag.guide: off the dam's ledge the arrow leads out of the river on its west bank, before the waterfall", { skip }, () => {
+	const guide = 'forever/miscellaneous/cozy-sleeping-bag.guide';
+	const list = goals(guide);
+	const dam = at(list, 'accept 79975', is('accept', 79975));
+	const cart = at(list, 'the fallen cart', (g) => g.t === 'goto' && /cart/i.test(g.text || ''));
+	const bank = list.slice(dam + 1, cart).filter(({ goal }) => goal.t === 'goto' && goal.map === 1437);
+	assert.equal(bank.length, 2, 'two gotos on the Wetlands bank before the cart');
+	assert.ok(yards(bank[0].goal, { map: 1437, x: 64.4, y: 79.4 }) <= 20, 'first where the survivors leave the river');
+	assert.ok(yards(bank[1].goal, { map: 1437, x: 62.2, y: 76.8 }) <= 20, 'then along the west bank');
+	for (const fall of [{ map: 1437, x: 65.0, y: 77.4 }, { map: 1437, x: 66.7, y: 75.1 }]) {
+		for (const { goal } of bank) assert.ok(goal.x < fall.x, `${goal.x},${goal.y} lies west of the waterfall at ${fall.x},${fall.y}`);
+	}
 });
 
 // Discord question (2026-11-09, Horde Thousand Needles): the Galak centaurs step waited for the Galak Messenger, a lone
