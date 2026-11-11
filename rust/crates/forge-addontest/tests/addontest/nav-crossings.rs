@@ -499,7 +499,8 @@ fn thunder_bluff_to_camp_taurajo_walks_to_the_nearby_flight_master_without_leavi
 // #237: on the Gold Road north out of the Barrens the real crossing's two ends (Nav/TravelData.lua,
 // carbonite-ashenvale--the-barrens) are about 510 yd apart. Past the Barrens end, a plan made again before the
 // client says Ashenvale (a subzone change, or 50 yd walked once the plan is 30 s old) must keep heading north,
-// not send the player back to the Barrens end.
+// not send the player back to the Barrens end. At the report's spot Kadrak is 209 yd on, near enough to be walked
+// to straight over the zone border (#1543): the plan heads for him, short of the Ashenvale end.
 #[test]
 fn the_barrens_to_ashenvale_road_plans_made_between_the_crossing_s_ends_keep_heading_north_237() {
 	let out = run_raw(
@@ -540,19 +541,23 @@ fn the_barrens_to_ashenvale_road_plans_made_between_the_crossing_s_ends_keep_hea
 			stub.fire("ZONE_CHANGED")
 			r.zone = first()
 			r.far = { far.wx, far.wy }
+			local _, kx, ky = N.GetTargetWorld()
+			r.kadrak = { kx, ky }
 			emit(r)"#,
 	);
 	assert_eq!(json!([out["ends"][0], out["ends"][1]]), json!([true, true]), "the route goes through the crossing");
 	assert!(out["ends"][2].as_f64().unwrap() > 400.0, "the crossing's ends are far apart ({} yd)", out["ends"][2]);
 	assert_eq!(out["back"], "", "walking north, no plan sends the player back to the Barrens end (the wx where one did)");
-	assert_eq!(out["zone"], out["far"], "a subzone change between the ends keeps heading for the Ashenvale end");
+	assert_eq!(out["zone"], out["kadrak"], "a subzone change between the ends keeps heading north: on to Kadrak, 209 yd away");
+	assert!(out["far"][0].as_f64().unwrap() > out["kadrak"][0].as_f64().unwrap(), "Kadrak stands short of the Ashenvale end");
 }
 
 // #1359: in the cave before Blackfathom Deeps the client puts the player on Kalimdor's map (1414), on no zone's.
 // Zone frames are rectangles: that spot lies in Ashenvale's and in Felwood's, Felwood's the smaller, so the planner
 // placed the player in Felwood, 46 yd from a Sapphire of Aku'Mai in Ashenvale, and sent them to Felwood's crossing or
 // to hearth to Camp Taurajo. The client's zone under that spot of the continent map, else the walking maps' zone at
-// it, places the player in Ashenvale: one walk. The real travel data (Nav/TravelData.lua) and the report's spot.
+// it, places the player in Ashenvale: one walk. Placed by the frames alone it is one walk too since #1543: a goal
+// that near is walked to straight over a zone border. The real travel data (Nav/TravelData.lua) and the report's spot.
 #[test]
 fn a_player_the_client_puts_on_the_continent_map_walks_in_the_zone_it_stands_in_not_the_smallest_frame_1359() {
 	let out = run_raw(
@@ -594,8 +599,7 @@ fn a_player_the_client_puts_on_the_continent_map_walks_in_the_zone_it_stands_in_
 			r.client = route()
 			emit(r)"#,
 	);
-	let first = out["frames"][0].as_str().unwrap_or_default();
-	assert!(first.starts_with("hearth|Hearth to Camp Taurajo"), "placed by the frames alone, as the report: Felwood ({first})");
+	assert_eq!(out["frames"], json!(["walk|Sapphire"]), "placed by the frames alone in Felwood, 46 yd from the goal: one walk all the same");
 	assert_eq!(out["grid"], json!(["walk|Sapphire"]), "the walking maps' zone: Ashenvale, one walk");
 	assert_eq!(out["again"], out["frames"], "the same plan without it");
 	assert_eq!(out["client"], json!(["walk|Sapphire"]), "the client's zone under the spot: Ashenvale, one walk");
@@ -603,8 +607,9 @@ fn a_player_the_client_puts_on_the_continent_map_walks_in_the_zone_it_stands_in_
 
 // #1359's sweep: other cave and dungeon spots a continent-map reading put in a neighbouring zone frame, each 40 yd
 // from a guide goal (north of it), with the Hearthstone ready at the faction's capital and every flight known. By the
-// frames alone the plans hearth, take the portal or fly; placed by the walking maps' zone or by the client's zone
-// under the spot, each is one walk.
+// frames alone the plans hearth, took the portal or flew; placed by the walking maps' zone or by the client's zone
+// under the spot, each is one walk, and since #1543 by the frames alone too (a goal 40 yd away over a zone border is
+// walked to straight).
 #[test]
 fn cave_and_dungeon_spots_on_the_continent_map_walk_to_a_goal_40_yd_away_1359_sweep() {
 	let out = run_raw(
@@ -662,7 +667,7 @@ fn cave_and_dungeon_spots_on_the_continent_map_walk_to_a_goal_40_yd_away_1359_sw
 	);
 	for (i, got) in out.as_array().unwrap().iter().enumerate() {
 		let walk = format!("walk|Goal {}", i + 1);
-		assert_ne!(got["frames"], walk.as_str(), "case {}: by the frames alone, not one walk", i + 1);
+		assert_eq!(got["frames"], walk.as_str(), "case {}: by the frames alone, one walk too", i + 1);
 		assert_eq!(got["grid"], walk.as_str(), "case {}: the walking maps' zone", i + 1);
 		assert_eq!(got["client"], walk.as_str(), "case {}: the client's zone under the spot", i + 1);
 	}

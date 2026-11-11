@@ -4221,6 +4221,16 @@ walk stays inside one zone; between zones it goes only through
   or dock goes through Darnassus and the portal (#1761), and one up takes the
   portal back (#989).
 
+One exception: the start walks straight to a target within 400 yd over a
+closed zone border (#1543). The walking engine measures no walk that near
+(`Walk.lua` `MEASURE_NEAR`) and the arrow's own search draws it, so the
+border's crossing is no better a guess: on the Barrens' side of the Great
+Lift, Lakota Windsong on Darkcloud Pinnacle is a walk along the plateau, and
+the crossing sent players down the lift and its foot's walk up it again. Not
+when the engine found no walk from the player (`noDirect`), not from or to a
+chain's inside, and not when a chain joins the two zones (its hand-made way
+stays the way: the Undercity's south lift).
+
 A point's zone is its uiMap when the crossing data knows that zone (the area
 whose box holds it, if the map has one); a zone
 the data lists as `wild` (no crossing data, e.g. the zones only Forever has)
