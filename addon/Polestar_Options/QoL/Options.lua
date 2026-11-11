@@ -136,16 +136,14 @@ end
 -- The Buttons page's rows of the pair (QoL/ButtonsOptions.lua, loaded after).
 QoL.HearthOptions = { hearth = C.hearthButton, travel = C.castPrompt, hearthHelp = HEARTH_HELP }
 
--- Questing > Buttons: the action buttons (the Hearthstone's two side by
--- side), then what the target button and the step key target and how they
--- mark it.
-local actionRows = hearthPair({
-	C.itemButton(),
-	C.questLoot(),
-	{ kind = "toggle", key = "qol.bagGlow", label = L["Highlight the step's item in your bags"],
-		help = L["The item the current step uses, or a quest item it collects, glows in your bags (and in Baganator). An item a later step needs gets a lock, so you don't sell it."],
-		search = "bags, glow, quest item, inventory" },
-})
+-- Questing > Buttons: the action buttons (the quest item button and its
+-- quest-starting loot on one line, the Hearthstone's two side by side on
+-- the next: rows lie two to a line, so the pair starts a line), then what
+-- the target button and the step key target and how they mark it.
+local actionRows = hearthPair({ C.itemButton(), C.questLoot() })
+actionRows[#actionRows + 1] = { kind = "toggle", key = "qol.bagGlow", label = L["Highlight the step's item in your bags"],
+	help = L["The item the current step uses, or a quest item it collects, glows in your bags (and in Baganator). An item a later step needs gets a lock, so you don't sell it."],
+	search = "bags, glow, quest item, inventory" }
 for _, c in ipairs({
 	{ kind = "toggle", key = "qol.rareButton", label = L["Rare button"],
 		help = L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."], search = "rare elite, target rare, keybind" },
