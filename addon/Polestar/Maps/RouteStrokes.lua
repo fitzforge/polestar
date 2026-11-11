@@ -428,6 +428,8 @@ local function modeOf(path)
 	end
 	if kind == "walk" then return lined and "line" or "dots" end
 	if kind == "flight" and lined then return "dash" end
+	-- The way round a hostile town (RouteLines, nav.dangerLine): dashed in every style.
+	if kind == "danger" then return "dash" end
 	return "solid"
 end
 

@@ -160,6 +160,8 @@
 --     current, choke }, ... } } or nil without a target or while handed off
 --     (Nav.HandedOff); NAV_ROUTE_GEOMETRY on change.
 --     kind: walk | flight | boat | zeppelin | tram | portal | hearth | teleport | lift.
+--     danger (a walk that goes round a hostile town; display only): { { name, c, x1, y1, x2, y2 }, ... }, the
+--     stretch of the straight way through each town the walk left (leg.hubs.avoided), for the route lines' red dashes.
 --
 -- Every search goes with opts { waterWalking, profile, style, danger }: the
 -- player's faction (Compat.GetPlayerFaction; none when neutral or unread),
@@ -1977,6 +1979,21 @@ local function ownLine(legs, i, ci, P)
 	return lp
 end
 
+-- The straight stretches through the towns a walk leg goes round (leg.hubs.avoided's seg), on continent c.
+local function dangerOf(leg, c)
+	local avoided = leg.kind == "walk" and type(leg.hubs) == "table" and leg.hubs.avoided
+	if type(avoided) ~= "table" then return nil end
+	local list
+	for _, town in ipairs(avoided) do
+		local s = town.seg
+		if c and type(s) == "table" and #s == 4 then
+			list = list or {}
+			list[#list + 1] = { name = town.name, c = c, x1 = s[1], y1 = s[2], x2 = s[3], y2 = s[4] }
+		end
+	end
+	return list
+end
+
 local function build()
 	local out = {}
 	local E = engine()
@@ -2034,7 +2051,7 @@ local function build()
 				pt(pts, to.c, to.wx, to.wy)
 			end
 			-- straight: a walk drawn straight, no walking path known for it (the route lines draw it paler; display only).
-			out[#out + 1] = { kind = KIND[leg.kind] or leg.kind, pts = pts, current = i == ci, choke = leg.choke, straight = straight }
+			out[#out + 1] = { kind = KIND[leg.kind] or leg.kind, pts = pts, current = i == ci, choke = leg.choke, straight = straight, danger = dangerOf(leg, from.c) }
 		end
 	else
 		local tc, tx, ty = Nav.GetTargetWorld()

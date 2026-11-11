@@ -910,6 +910,32 @@ local function enters(a, b, disks)
 	return first
 end
 
+-- The stretch of the segment from a to b inside any of disks ({ x, y, r } each): the first fraction along it that is
+-- inside one and the last, within 0..1; nil when it is inside none.
+local function spanIn(a, b, disks)
+	local dx, dy = b.x - a.x, b.y - a.y
+	local A = dx * dx + dy * dy
+	if A <= 0 then
+		return nil
+	end
+	local first, last
+	for _, d in ipairs(disks) do
+		local fx, fy = a.x - d[1], a.y - d[2]
+		local B = 2 * (fx * dx + fy * dy)
+		local disc = B * B - 4 * A * (fx * fx + fy * fy - d[3] * d[3])
+		if disc >= 0 then
+			local root = sqrt(disc)
+			local t0, t1 = (-B - root) / (2 * A), (-B + root) / (2 * A)
+			t0, t1 = t0 < 0 and 0 or t0, t1 > 1 and 1 or t1
+			if t0 < t1 then
+				first = (not first or t0 < first) and t0 or first
+				last = (not last or t1 > last) and t1 or last
+			end
+		end
+	end
+	return first, last
+end
+
 -- The hubs (metadata D.hubs) hostile to profile that the drawn line enters: a point of it inside one of the hub's
 -- disks. -> { { id, name, areaId }, ... }, each hub once, in path order; {} without hubs or a profile.
 local function hubsOn(hubs, points, profile)
@@ -945,7 +971,8 @@ end
 -- The hostile hubs the walk goes round (display only; nothing here prices or changes the path): the ones the straight
 -- line between its ends would enter and the drawn line does not (it is not in entered, hubsOn's list), and that the
 -- drawn line passes within AVOID_NEAR yards of, so a bend the ground forced elsewhere is not called a detour.
--- -> { { id, name, areaId, x, y }, ... } in the order the straight line meets them (x, y: the town's place); {} without
+-- -> { { id, name, areaId, x, y, seg }, ... } in the order the straight line meets them (x, y: the town's place; seg:
+-- { x1, y1, x2, y2 }, the stretch of the straight line inside the town, the way the walk did not take); {} without
 -- hubs, a profile or a line.
 local AVOID_NEAR = 100
 
@@ -998,7 +1025,10 @@ local function hubsAvoided(hubs, points, profile, entered)
 			sx, sy, n = sx + d[1], sy + d[2], n + 1
 		end
 		-- x, y: the town's place (the mean of its disks' centres), for the walk piece that passes it
-		out[#out + 1] = { id = hit.hub.id, name = hit.hub.name, areaId = hit.hub.areaId, x = n > 0 and sx / n or nil, y = n > 0 and sy / n or nil }
+		local a, b = points[1], points[#points]
+		local t0, t1 = spanIn(a, b, hit.hub.disks or {})
+		local seg = t0 and { a.x + (b.x - a.x) * t0, a.y + (b.y - a.y) * t0, a.x + (b.x - a.x) * t1, a.y + (b.y - a.y) * t1 } or nil
+		out[#out + 1] = { id = hit.hub.id, name = hit.hub.name, areaId = hit.hub.areaId, x = n > 0 and sx / n or nil, y = n > 0 and sy / n or nil, seg = seg }
 	end
 	return out
 end

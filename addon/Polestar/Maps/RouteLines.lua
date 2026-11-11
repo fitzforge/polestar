@@ -42,6 +42,12 @@
 -- tracking blips and quest marks into the minimap's own picture, under every
 -- frame laid over it, so no frame level puts the line under them.
 --
+-- nav.dangerLine (off by default) adds, under the walk, the way the walk did
+-- not take: the stretch of the straight line through each hostile town it goes
+-- round, as a red dashed line, labelled "Danger: <town>" on the world map. Only
+-- the re-routed walks carry one (geometry leg.danger); display only, in the
+-- line and dots styles (the sparkle style draws none).
+--
 -- nav.lineStyle picks the look: "line" (the default for a new account) draws
 -- each walk as one continuous line nav.lineWidth px thick over a soft
 -- shadow, chevrons on the world map and the walked stretch fading behind the
@@ -65,7 +71,7 @@ local Nav, Strokes, Sparkle = ns.Nav, ns.RouteStrokes, ns.RouteSparkle
 -- Without Nav there is no route (and no nav.* setting to show).
 if not (Nav and Nav.GetRouteGeometry and Strokes) then return end
 
-local type, ipairs, pairs, abs, cos, sin, floor, pcall = type, ipairs, pairs, math.abs, math.cos, math.sin, math.floor, pcall
+local type, ipairs, pairs, abs, cos, sin, floor, pcall, format = type, ipairs, pairs, math.abs, math.cos, math.sin, math.floor, pcall, string.format
 
 local RouteLines = {}
 ns.RouteLines = RouteLines
@@ -76,7 +82,8 @@ ns.RegisterDefaults("nav", { routeLines = true, lineStyle = "line", lineWidth = 
 	minimapLineSize = 0.5, minimapDotsSize = 0.8, minimapSparkleSize = 1.5,
 	-- The window's slider's key; it reads and writes the size of the style in
 	-- use. A size saved here before the sizes were per style is moved to all three.
-	minimapRouteSize = 1 })
+	minimapRouteSize = 1,
+	dangerLine = false })
 if Sparkle then ns.RegisterDefaults("nav", Sparkle.DEFAULTS) end
 
 -- The styles, in the order the welcome and Options offer them.
@@ -128,7 +135,7 @@ local LIVE_REACH = 60
 local JUMP = { hearth = true, teleport = true, portal = true }
 
 -- Theme tokens per leg kind (the same as the travel pins': Maps/TravelPins.lua).
-local TOKEN = { walk = "arrow", flight = "success", boat = "npc", zeppelin = "place", tram = "object", lift = "object" }
+local TOKEN = { walk = "arrow", flight = "success", boat = "npc", zeppelin = "place", tram = "object", lift = "object", danger = "danger" }
 local colors = {}
 for kind in pairs(TOKEN) do colors[kind] = { 1, 1, 1 } end
 local under = { 0.02, 0.03, 0.06 }
@@ -159,6 +166,7 @@ ns.OnInit(keepDots)
 ---------------------------------------------------------------------------
 
 local paths = {}          -- Strokes.Path per drawable leg, in travel order
+local dangers = {}        -- the danger stretches drawn (nav.dangerLine): { c, x1, y1, x2, y2, name, later }, for the world map's labels
 local marks = {}          -- world map stop marks: c, wx, wy, radius (px), ...
 local markCount = 0
 local goalC, goalX, goalY -- the route's end
@@ -198,12 +206,14 @@ end
 
 local function rebuild()
 	for i = #paths, 1, -1 do paths[i] = nil end
+	for i = #dangers, 1, -1 do dangers[i] = nil end
 	markCount, goalC, live = 0, nil, nil
 	local geometry = Nav and Nav.GetRouteGeometry and Nav.GetRouteGeometry()
 	local legs = type(geometry) == "table" and geometry.legs or nil
 	if not legs then return end
 	local data = Nav.GetTravelData and Nav.GetTravelData()
 	local seenCurrent = false
+	local wantDanger, danger = ns.Get("nav.dangerLine") and true or false, dangers
 	for _, leg in ipairs(legs) do
 		local pts = type(leg.pts) == "table" and leg.pts or {}
 		local later = seenCurrent and not leg.current
@@ -215,6 +225,14 @@ local function rebuild()
 				for i, p in ipairs(pts) do nodes[i] = nodeAt(data, p[1], p[2], p[3]) end
 			end
 			paths[#paths + 1] = Strokes.Path(leg.kind, pts, later, ns.FlightTracks, nodes, leg.straight)
+			-- The way round a hostile town: its straight stretch through the town, drawn after the legs.
+			if wantDanger and type(leg.danger) == "table" then
+				for _, d in ipairs(leg.danger) do
+					if type(d) == "table" and d.c and d.x1 and d.y1 and d.x2 and d.y2 and (d.x1 ~= d.x2 or d.y1 ~= d.y2) then
+						danger[#danger + 1] = { c = d.c, x1 = d.x1, y1 = d.y1, x2 = d.x2, y2 = d.y2, name = d.name, later = later }
+					end
+				end
+			end
 		end
 		local last = pts[#pts]
 		if last then
@@ -225,6 +243,9 @@ local function rebuild()
 		end
 	end
 	if markCount > 0 then marks[markCount * 4] = GOAL_MARK end
+	for _, d in ipairs(dangers) do
+		paths[#paths + 1] = Strokes.Path("danger", { { d.c, d.x1, d.y1 }, { d.c, d.x2, d.y2 } }, d.later)
+	end
 end
 
 -- The player's world position, or nil when unknown or unreadable (secret:
@@ -307,7 +328,12 @@ end
 local function rebuildRuns()
 	for i = #runs, 1, -1 do runs[i], runFrom[i] = nil, nil end
 	if not sparkling then return end
-	for i, run in ipairs(Sparkle.Paths(paths, sparkleStyle.later)) do runs[i] = run end
+	-- The sparkles follow the walks and rides; the danger stretches are no way.
+	local ways = {}
+	for _, path in ipairs(paths) do
+		if path.kind ~= "danger" then ways[#ways + 1] = path end
+	end
+	for i, run in ipairs(Sparkle.Paths(ways, sparkleStyle.later)) do runs[i] = run end
 	sparkleProgress()
 end
 
@@ -444,7 +470,54 @@ local function newOwner(owner)
 	-- Per sparkle: its colour (the table, and the revision it was set at:
 	-- route colours change in place with the theme) and whether its halo shows.
 	owner.stars, owner.halos, owner.sparkles, owner.tints, owner.tinted, owner.glows = {}, {}, 0, {}, {}, {}
+	owner.labels, owner.labelsShown = {}, 0
 	return owner
+end
+
+---------------------------------------------------------------------------
+-- Danger labels: "Danger: <town>" at the middle of each danger stretch on the
+-- world map (nav.dangerLine), one pooled text each, created on demand and only
+-- ever hidden. The text keeps its size on screen while the canvas zooms under it.
+---------------------------------------------------------------------------
+
+local LABEL_SIZE, LABEL_RISE = 11, 4
+
+-- b: the map's bounds (c, left, top, kx, ky), or nil to hide every label.
+local function paintLabels(pin, b, width, height, zoom)
+	local labels, shown = pin.labels, 0
+	if b then
+		local T = ns.Theme
+		local size = LABEL_SIZE / (zoom > 0 and zoom or 1)
+		for _, d in ipairs(dangers) do
+			if d.c == b.c and d.name then
+				shown = shown + 1
+				local fs = labels[shown]
+				if not fs then
+					fs = pin:CreateFontString(nil, "OVERLAY")
+					labels[shown] = fs
+				end
+				if fs.size ~= size then
+					fs.size = size
+					if T and T.SetFace then
+						T.SetFace(fs, (T.FontSpec("body")), size, "OUTLINE")
+					elseif not fs:GetFont() then
+						fs:SetFontObject("GameFontNormalSmall")
+					end
+				end
+				local mx = ((d.y1 + d.y2) / 2 - b.left) * b.kx
+				local my = ((d.x1 + d.x2) / 2 - b.top) * b.ky
+				fs:ClearAllPoints()
+				fs:SetPoint("BOTTOM", pin, "TOPLEFT", mx * width, -my * height + LABEL_RISE / (zoom > 0 and zoom or 1))
+				fs:SetText(format(L["Danger: %s"], d.name))
+				local c = colors.danger
+				fs:SetTextColor(c[1], c[2], c[3])
+				fs:SetAlpha(d.later and Strokes.LATER_ALPHA or 1)
+				fs:Show()
+			end
+		end
+	end
+	for i = shown + 1, pin.labelsShown do labels[i]:Hide() end
+	pin.labelsShown = shown
 end
 
 ---------------------------------------------------------------------------
@@ -710,6 +783,7 @@ local function drawWorld(pin)
 			paint(pin, worldStrokes)
 		end
 		drawWorldSparkles(pin)
+		paintLabels(pin, nil)
 		pin.revision = revision
 		return
 	end
@@ -719,6 +793,7 @@ local function drawWorld(pin)
 	if not b then
 		worldStrokes.n = 0
 		paint(pin, worldStrokes)
+		paintLabels(pin, nil)
 		return
 	end
 	local width, height = view.width, view.height
@@ -749,6 +824,7 @@ local function drawWorld(pin)
 	v.from, v.fromIndex, v.fromC, v.fromX, v.fromY = live ~= nil, live, liveC, liveX, liveY
 	Strokes.Map(worldStrokes, paths, v)
 	paint(pin, worldStrokes)
+	paintLabels(pin, b, width, height, zoom)
 	pin.revision = revision
 end
 
@@ -1081,7 +1157,7 @@ end)
 
 local WATCH = {
 	["nav.routeLines"] = true, ["nav.worldPins"] = true, ["nav.minimapPins"] = true, ["nav.minimapRoute"] = true,
-	["nav"] = true, [""] = true, ["nav.lineStyle"] = true, ["nav.sparkleLater"] = true,
+	["nav"] = true, [""] = true, ["nav.lineStyle"] = true, ["nav.sparkleLater"] = true, ["nav.dangerLine"] = true,
 	-- Reduce motion turns sparkles into dots.
 	["ui"] = true, ["ui.reduceMotion"] = true,
 }

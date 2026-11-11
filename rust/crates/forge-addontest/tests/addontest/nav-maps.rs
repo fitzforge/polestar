@@ -962,6 +962,14 @@ emit(got)"#,
 	assert_eq!(avoided.len(), 1);
 	assert_eq!((&avoided[0]["id"], &avoided[0]["name"], &avoided[0]["areaId"]), (&json!("alliance-southshore"), &json!("Southshore"), &json!(271)));
 	assert!(avoided[0]["x"].is_number() && avoided[0]["y"].is_number(), "the town has a place, for the walk piece that passes it");
+	// The straight way the walk did not take: the stretch of the line from start to goal inside the town, in the walk's
+	// own direction (the route lines draw it red).
+	let seg: Vec<f64> = avoided[0]["seg"].as_array().expect("a straight stretch through the town").iter().map(|v| v.as_f64().unwrap()).collect();
+	assert_eq!(seg.len(), 4);
+	let (x1, y1, x2, y2) = (seg[0], seg[1], seg[2], seg[3]);
+	assert!(x1 < -500.0 && x2 < x1 && x2 > -1200.0, "inside the walk, in its direction: {seg:?}");
+	assert!(((y2 - y1) / (x2 - x1) - (-540.0 - -560.0) / (-1200.0 - -500.0)).abs() < 1e-6, "on the straight line between its ends: {seg:?}");
+	assert!(((y1 - -560.0) / (x1 - -500.0) - (-540.0 - -560.0) / (-1200.0 - -500.0)).abs() < 1e-6, "on the straight line between its ends: {seg:?}");
 	assert_eq!(got["alliance"]["avoided"], json!({}), "the Alliance's own town is no detour");
 	assert_eq!(got["into"]["hubs"], json!([{ "id": "alliance-southshore", "name": "Southshore", "areaId": 271 }]));
 	assert_eq!(got["into"]["avoided"], json!({}), "a town the walk enters is not one it goes round");

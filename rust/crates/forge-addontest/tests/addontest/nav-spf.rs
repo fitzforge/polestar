@@ -2427,7 +2427,7 @@ fn detours_a_split_walk_shows_the_detour_on_the_one_piece_that_passes_the_town_e
 		"{}{}{}",
 		r#"
 		fake.hubs = { { id = 13, name = "Tarren Mill" } }
-		fake.avoided = { { id = 12, name = "Southshore", x = 0, y = -300 } }
+		fake.avoided = { { id = 12, name = "Southshore", x = 0, y = -300, seg = { 0, -280, 0, -320 } } }
 		"#,
 		split(),
 		r#"
@@ -2442,10 +2442,24 @@ fn detours_a_split_walk_shows_the_detour_on_the_one_piece_that_passes_the_town_e
 				if T.HubText(legs[i]) then entered = entered + 1 end
 			end
 		end
-		emit({ walks = walks, shown = shown, entered = entered, text = T.AvoidText(legs[shown[1] or 1]) or false, label = shown[1] and legs[shown[1]].label or false })"#
+		-- The route lines' red dashes: the same one piece carries the town's straight stretch.
+		local danger, drawn = {}, nil
+		local geometry = N.GetRouteGeometry()
+		for i, g in ipairs(geometry and geometry.legs or {}) do
+			if g.danger then
+				danger[#danger + 1] = i
+				drawn = g.danger[1]
+			end
+		end
+		emit({ walks = walks, shown = shown, entered = entered, text = T.AvoidText(legs[shown[1] or 1]) or false, label = shown[1] and legs[shown[1]].label or false,
+			geometry = geometry ~= nil, danger = danger, drawn = drawn or false })"#
 	));
 	assert_eq!(out["walks"], 4, "the bridge, the cave, the lift's foot and the target");
 	assert_eq!(out["shown"], json!([2]), "once, on the piece from the bridge to the cave mouth, which passes (0, -300)");
+	assert_eq!(out["geometry"], true);
+	assert_eq!(out["danger"].as_array().map(|d| d.len()), Some(1), "the route lines draw the stretch once, on one piece");
+	assert_eq!(out["drawn"]["name"], "Southshore");
+	assert_eq!((&out["drawn"]["x1"], &out["drawn"]["y1"], &out["drawn"]["x2"], &out["drawn"]["y2"]), (&json!(0), &json!(-280), &json!(0), &json!(-320)));
 	assert_eq!(out["text"], "Detour around Southshore");
 	assert_eq!(out["entered"], 4, "the town the path enters stays on every piece");
 }
