@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {quest:205} Troll Witchery
-	["For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. {quest:205}'s Skullsplitter trolls are 39-42, so pull them one at a time."] = "",
+	["For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. {quest:205}'s Skullsplitter trolls are 39-42, so pull them one at a time."] = "Для персонажей 35-36 уровня, но несколько заданий здесь 37-41 уровня: намеренно, ради опыта. Тролли из племени Дробителей Черепов в задании {quest:205} – 39-42 уровня, так что выманивайте их по одному.",
 
 	-- Step 1: Collin Mauren
 	-- {object:2164} Slaughtered Lamb
@@ -107,7 +107,7 @@ return {
 	["{npc:773}, upstairs"] = "",
 	-- {npc:773} Krazek · {item:4278} Lesser Bloodstone Ore · {zone:1417} Arathi Highlands · {skill:186} Mining
 	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
-	["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "",
+	["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "{npc:773} – наверху: для этого необязательного задания нужно четыре шт. {item:4278}. Добывайте руду из малых месторождений кровавого камня в зоне {zone:1417} с навыком {skill:186} 75, купите ее на аукционе или попросите друга-шахтера. Кобольды ее не роняют; пропустите задание, если не можете достать руду.",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",

@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:279} Dalaran
-	["For characters of 29 to 33, but most quests here are level 32-34, a few up to 36: on purpose, for their experience. The Syndicate, {area:279}'s guards and the Boulderfist ogres are 31-35, so pull them one at a time."] = "",
+	["For characters of 29 to 33, but most quests here are level 32-34, a few up to 36: on purpose, for their experience. The Syndicate, {area:279}'s guards and the Boulderfist ogres are 31-35, so pull them one at a time."] = "Para personajes de nivel 29 a 33, pero la mayoría de las misiones de aquí son de nivel 32-34, y algunas de hasta 36: a propósito, por su experiencia. La Hermandad, los guardias de {area:279} y los ogros Puño de Roca son de nivel 31-35, así que atráelos de uno en uno.",
 
 	-- Step 1: Freewind Post flight master
 	-- {area:484} Freewind Post
@@ -94,17 +94,17 @@ return {
 
 	-- Step 19: High Executor Darthalia
 	-- {area:287} Hillsbrad · {quest:527} Battle of Hillsbrad
-	["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "",
+	["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "No hiciste los primeros encargos de Darthalia, de la guía de {area:287} 22-25: ahora van primero. Están unos niveles por debajo de ti y son rápidos, y abren el resto de {quest:527} en esta guía.",
 
 	-- Step 20: Krusk
 	-- {npc:2229} Krusk · {area:275} Durnholde Keep
-	["{npc:2229} wants his two scouts freed from {area:275} before he trusts you with Infiltration."] = "",
+	["{npc:2229} wants his two scouts freed from {area:275} before he trusts you with Infiltration."] = "{npc:2229} quiere que liberes a sus dos exploradores de {area:275} antes de confiarte “Infiltración”.",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "",
 
 	-- Step 21: Hillsbrad Fields
 	-- {area:287} Hillsbrad · {npc:232} Farmer Ray · {npc:2403} Farmer Getz
-	["West past the hills to the farms east of {area:287} town. {npc:232} works the field by the northern farmhouse, {npc:2403} the one further south-east; Farmhands and Farmers are everywhere."] = "",
+	["West past the hills to the farms east of {area:287} town. {npc:232} works the field by the northern farmhouse, {npc:2403} the one further south-east; Farmhands and Farmers are everywhere."] = "Al oeste, pasando las colinas, hasta las granjas al este del pueblo de {area:287}. {npc:232} trabaja el campo junto a la casa de la granja del norte, y {npc:2403}, el que está más al sureste; hay Mozos de labranza y Granjeros por todas partes.",
 
 	-- Step 22: Tarren Mill
 	-- {area:272} Tarren Mill
@@ -112,12 +112,12 @@ return {
 
 	-- Step 23: Hillsbrad Peasants
 	-- plural, as words: Hillsbrad Peasants = {npc:2267} Hillsbrad Peasant
-	["Hillsbrad Peasants"] = "",
-	["Back to the fields: the Peasants work south of the farmhouses. Careful: A fleeing peasant that reaches the town hall can bring back adds; snares or roots keep them from escaping."] = "",
+	["Hillsbrad Peasants"] = "Campesinos de Trabalomas",
+	["Back to the fields: the Peasants work south of the farmhouses. Careful: A fleeing peasant that reaches the town hall can bring back adds; snares or roots keep them from escaping."] = "Regresa a los campos: los Campesinos trabajan al sur de las casas de la granja. Cuidado: un campesino que huye y llega al ayuntamiento puede volver con refuerzos; las ralentizaciones o los enraizamientos evitan que escapen.",
 
 	-- Step 25: Durnholde Keep
 	-- {npc:2238} Tog'thar · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key
-	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "",
+	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "Al sureste del Molino Tarren. Drull y {npc:2238} están encadenados en los edificios del patio de la fortaleza: {npc:2427} lleva la {item:3467} y {npc:2428}, la {item:3499}, ambos dentro de la fortaleza. Mátalos y luego abre ambos candados.",
 	["Drull's ball and chain"] = "Bola y cadena de Drull",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "Bola y cadena de {npc:2238}",
@@ -125,12 +125,12 @@ return {
 	-- Step 26: The smithy
 	["The smithy"] = "La herrería",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron
-	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it."] = "",
+	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it."] = "Al oeste por las laderas hasta el pueblo de {area:287}: la herrería está en el centro. {npc:2404} y sus aprendices trabajan en la forja; el {object:1736} está apilado a su lado.",
 	["Inside"] = "",
 
 	-- Step 27: Krusk
 	-- {area:272} Tarren Mill
-	["Back to {area:272}."] = "",
+	["Back to {area:272}."] = "Regresa a {area:272}.",
 
 	-- Step 29: Tarren Mill
 	-- {item:3703} Southshore Stout · {npc:2333} Henchman Valik
@@ -139,7 +139,7 @@ return {
 	-- Step 30: Helcular's Rod
 	-- {area:277} Foothill Caverns · {area:272} Tarren Mill
 	-- plural, as words: Ferocious Yetis = {npc:2249} Ferocious Yeti · Giant Yetis = {npc:2251} Giant Yeti
-	["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs."] = "",
+	["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs."] = "Al suroeste, los Yetis de las cuevas y los Yetis feroces (30-32) llenan {area:277}, en las colinas al oeste de {area:272}; más o menos uno de cada dieciséis lleva la vara. Quédate en estas cavernas: los Yetis monteses y Yetis gigantes (32-34) de la cueva más al norte también la llevan, pero a nivel 29-30 pegan fuerte y van en parejas.",
 
 	-- Step 31: Level 30
 	["Level 30"] = "",
@@ -171,7 +171,7 @@ return {
 
 	-- Step 35: Flame of Uzel
 	-- plural, as words: Mountain Yetis = {npc:2250} Mountain Yeti
-	["The third flame burns in the smaller cave up in the hills north of the caverns.\nCareful: Giant and Mountain Yetis (32-34) stand around the flame, often in pairs, and Frostmaw, a rare yeti (37), roams nearby. At 30-31 they are over your level: pull the yetis one at a time from the cave mouth before you use the Rod, and watch for Frostmaw before you go in."] = "",
+	["The third flame burns in the smaller cave up in the hills north of the caverns.\nCareful: Giant and Mountain Yetis (32-34) stand around the flame, often in pairs, and Frostmaw, a rare yeti (37), roams nearby. At 30-31 they are over your level: pull the yetis one at a time from the cave mouth before you use the Rod, and watch for Frostmaw before you go in."] = "La tercera llama arde en la cueva más pequeña, arriba en las colinas al norte de las cavernas.\nCuidado: Yetis gigantes y Yetis monteses (32-34) rodean la llama, a menudo en parejas, y Faucehielo, un yeti raro (37), deambula cerca. A nivel 30-31 están por encima de tu nivel: atrae a los yetis de uno en uno desde la boca de la cueva antes de usar la Vara, y ubica a Faucehielo antes de entrar.",
 
 	-- Step 36: Alterac Mountains
 	-- {area:279} Dalaran
@@ -209,17 +209,17 @@ return {
 
 	-- Step 43: Henchman Valik
 	-- {area:271} Southshore · {area:272} Tarren Mill · {quest:535} Valik · {npc:2229} Krusk
-	["From {area:271} head north past {area:272} and follow the road on into the Alterac foothills. {quest:535} waits by the Syndicate camp. He offers his errand only while you carry {npc:2229}'s Infiltration: hand him the stout at once, and his reward is the Syndicate Missive Krusk wants. A missive from the Syndicate here does the same: with one in your bags the guide passes {quest:535}."] = "",
+	["From {area:271} head north past {area:272} and follow the road on into the Alterac foothills. {quest:535} waits by the Syndicate camp. He offers his errand only while you carry {npc:2229}'s Infiltration: hand him the stout at once, and his reward is the Syndicate Missive Krusk wants. A missive from the Syndicate here does the same: with one in your bags the guide passes {quest:535}."] = "Desde {area:271}, ve al norte pasando {area:272} y sigue el camino hasta las estribaciones de Alterac. {quest:535} espera junto al campamento de la Hermandad. Solo ofrece su encargo mientras lleves “Infiltración” de {npc:2229}: dale la cerveza de inmediato, y su recompensa es la Misiva de la Hermandad que quiere Krusk. Una misiva de la Hermandad de aquí sirve igual: con una en tus bolsas, la guía omite a {quest:535}.",
 
 	-- Step 44: Syndicate missives
 	["Syndicate missives"] = "Misivas de la Hermandad",
 	-- {quest:535} Valik
 	-- plural, as words: Syndicate Footpads = {npc:2240} Syndicate Footpad
-	["Only if {quest:535}'s missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 31-32 they are still above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge."] = "",
+	["Only if {quest:535}'s missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 31-32 they are still above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge."] = "Solo si no conseguiste la misiva de {quest:535}: los Asaltantes de caminos de la Hermandad ({npc:2240}) y Ladrones (32-34) alrededor de los campamentos al oeste del camino también llevan misivas; uno de cada tres suelta una. Cuidado: a nivel 31-32 todavía están por encima de ti y están muy juntos, con Zahoríes (34-35) entre ellos: atráelos de uno en uno desde el borde del campamento.",
 
 	-- Step 45: Tarren Mill
 	-- {area:272} Tarren Mill
-	["Head back south down the road to {area:272}."] = "",
+	["Head back south down the road to {area:272}."] = "Regresa al sur por el camino hasta {area:272}.",
 	-- {npc:2437} Keeper Bel'varil
 	["{npc:2437}, inside"] = "",
 	-- {npc:2410} Magus Wordeen Voidglare
