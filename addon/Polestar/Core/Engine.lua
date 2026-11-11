@@ -7388,6 +7388,44 @@ function Own.queueSkips(s)
 	end
 end
 
+-- Group quests (`when group`) the route passed because the player's answer
+-- is "skip" are said like the quests passed as unavailable, never silently
+-- (#1547: a player who had set group quests to skip saw The Broodmother's
+-- four steps go by with nothing said). The steps from `from` (the old live
+-- step) up to `to` whose `when` fails on its group predicate (whether or not
+-- latchPassed has stored them skipped already: it has, by now): each quest
+-- once per guide for the session (Own.groupSaid). Not one the player just
+-- answered at the guide window's question (Own.groupAsked), nor one done,
+-- skipped or not open (Own.groupOpen: the route passes it whatever the
+-- answer). The text says where the answer came from: one quest's (Discovery,
+-- Group quests) or every group quest's (Options).
+Own.groupAsked, Own.groupSaid = {}, {}
+function Own.queueGroupSkips(from, to)
+	local steps = guide.steps
+	local said = Own.groupSaid[guide.id] or {}
+	Own.groupSaid[guide.id] = said
+	local last = math.min(to or #steps + 1, #steps + 1) - 1
+	for s = from, last do
+		local step = steps[s]
+		local p = step and not step.along and Guides.Matches(step.only, player) and Own.whenFails(step)
+		local q = p and p.k == "group" and not p.neg and p.q
+		if q and not said[q] and not Own.groupAsked[q] and Own.groupAnswer(q) == "skip" and Own.groupOpen(step, q) then
+			said[q] = true
+			local queue = Own.skipQueue[guide.id]
+			if not queue then
+				queue = { from = s, skips = {}, seen = {} }
+				Own.skipQueue[guide.id] = queue
+			end
+			if not queue.seen[q] then
+				queue.seen[q] = true
+				local one = ns.CharState().groupQuests[q] == "skip"
+				queue.skips[#queue.skips + 1] = { quest = q, title = titleOfQuest(q), reason = "group",
+					text = one and L["Group quest you chose to skip (Discovery, Group quests)"] or L["Group quest: Options, Automation, Group quests skips them all"] }
+			end
+		end
+	end
+end
+
 -- The live step went back from `to` to `from`: hold it at `to` for every
 -- accept in between whose quest left the log (not done, not skipped), and
 -- ask (Engine.LostQuestion). A held quest back in the log, done or skipped
@@ -7700,7 +7738,10 @@ local function evaluateLoaded(active)
 	-- STEP_SKIPPED(fromStep, toStep, { { quest, title, reason, text }, ... }),
 	-- before STEP_CHANGED, so the window shows it with the step.
 	if active and not wasPlacing then
-		if wasComputed and (not computed or computed > wasComputed) then Own.queueSkips(wasComputed) end
+		if wasComputed and (not computed or computed > wasComputed) then
+			Own.queueSkips(wasComputed)
+			Own.queueGroupSkips(wasComputed, computed)
+		end
 		if oldPin and pin ~= oldPin and oldPin ~= wasComputed and (not newCurrent or newCurrent > oldPin) then Own.queueSkips(oldPin) end
 		local q = Own.skipQueue[guide.id]
 		if q and not pin then
@@ -8382,6 +8423,9 @@ function Engine.GroupAnswer(q) return Own.groupAnswer(q) end
 
 function Engine.AnswerGroup(q, answer)
 	if type(q) ~= "number" or (answer ~= nil and answer ~= "do" and answer ~= "skip") then return end
+	-- The question the live step waits on, answered: the window just showed it, so
+	-- passing its steps needs no notice (Own.queueGroupSkips).
+	if Engine.GroupQuestion() == q then Own.groupAsked[q] = true end
 	ns.CharState().groupQuests[q] = answer
 	requestUpdate()
 end
