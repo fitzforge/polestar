@@ -2,11 +2,12 @@
 //! to. The guide window was skinned before it was marked the guide window, so its first paint was the big windows'
 //! (Polestar_Looks/GameSkins.lua BIG: a "Polestar" title bar and a drag strip 500 levels over the window), which
 //! nothing took away: the strip lay over the bottom row of the card above the window (Later, Turn these off; the
-//! level-up spells, old ranks and update cards too). Against the real Core + Theme + UI manifests and the fake Engine
-//! (tests/lua/stub_ui.lua).
+//! level-up spells, old ranks and update cards too). And the banner's close in the game's looks: at its own 24 unit
+//! target the red button stood larger than the card's and anything round it. Against the real Core + Theme + UI
+//! manifests and the fake Engine (tests/lua/stub_ui.lua).
 
 use forge_addontest::{emitted, Addon, RunAddon};
-use serde_json::Value;
+use serde_json::{json, Value};
 
 const FILES: [&str; 3] = ["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml"];
 
@@ -36,8 +37,9 @@ stub.login()
 stub.advance(1)
 local T, GF, CT = Polestar.Theme, Polestar.UI.GuideFrame, Polestar.UI.ClassToast
 local F = GF.frame
--- A card with a bottom row above the window.
+-- A card with a bottom row above the window, and a closed tab's banner ("Closed …", Reopen) on it.
 uistub.openTabs({ { uistub.elwynn, 3 } }, 1)
+Polestar.Fire("TAB_CLOSED", uistub.tailoring)
 CT.ShowCard({ head = "ACTION BARS", title = "1 spell on your bars is an old rank", quiet = true,
 	act = { label = "Upgrade", run = function() end }, later = { label = "Later" }, off = { label = "Turn these off", run = function() end } })
 stub.advance(1)
@@ -122,6 +124,17 @@ for _, o in ipairs(stub.frames) do
 		out.card[name] = over(o)
 	end
 end
+-- The banner's and the card's close buttons: the button, the kit's art on it (false: none, the glyph alone) and
+-- the glyph when it shows.
+local function close(b)
+	local k = b.psSkin and b.psSkin.kit
+	local n = k and k.closeN
+	return { size = { b:GetWidth(), b:GetHeight() }, art = (n and n:IsShown() and n:GetAlpha() > 0) and n:GetWidth() or false,
+		glyph = b.Icon:GetAlpha() > 0 and b.Icon:GetWidth() or false }
+end
+local B = GF.parts.banner
+out.banner = B:IsShown() and B.psKind or false
+out.closes = { card = close(f.Close), banner = close(B.Close) }
 emit(out)
 "#;
 
@@ -152,6 +165,27 @@ fn a_game_look_saved_at_login_draws_the_guide_window_s_own_frame_and_the_card_ab
 		for (button, covers) in card {
 			assert_eq!(covers, "", "{look}: nothing that takes the mouse lies over the card's {button}");
 		}
+	}
+}
+
+#[test]
+fn in_the_game_s_looks_the_banner_s_close_is_drawn_as_the_card_s() {
+	for look in ["forever", "blizzard", "classic"] {
+		let out = login(look);
+		assert_eq!(out["banner"], "closedTab", "{look}: the closed tab's banner shows");
+		let closes = &out["closes"];
+		assert_eq!(closes["banner"], closes["card"], "{look}: the banner's close at the card's size, with the card's art and glyph");
+	}
+}
+
+#[test]
+fn polestar_s_own_look_keeps_the_banner_s_24_unit_close_and_its_glyph() {
+	let out = login("polestar");
+	assert_eq!(out["big"], "");
+	assert_eq!(out["banner"], "closedTab");
+	assert_eq!(out["closes"]["banner"], json!({ "size": [24, 24], "art": false, "glyph": 12 }));
+	for (button, covers) in out["card"].as_object().unwrap() {
+		assert_eq!(covers, "", "nothing over the card's {button}");
 	}
 }
 

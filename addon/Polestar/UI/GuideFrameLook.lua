@@ -415,6 +415,13 @@ function GF.ApplySkin()
 			W.SetFramed(b, "icon")
 		end
 	end
+	-- The banner's close: in the game's looks the card's (their close at the
+	-- icon buttons' size; at its own 24 unit target it stood larger than
+	-- anything round it); elsewhere that 24 unit target and 12 unit glyph.
+	local kit = Theme.Kit()
+	banner.Close:SetSize(kit and iw or 24, kit and ih or 24)
+	banner.Close.Icon:SetSize(kit and ig or 12, kit and ig or 12)
+	Theme.KitIconButton(banner.Close)
 	nav.Skip:SetHeight(nb)
 	nav.Steps:SetHeight(nb)
 	nav.Steps:SetPoint("LEFT", nav, "LEFT", PAD - 6, 0)
