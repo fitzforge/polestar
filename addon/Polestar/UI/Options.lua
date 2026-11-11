@@ -400,7 +400,7 @@ local BUILTIN = {
 				if Theme.IsEllesmere() then ns.Set("ui.matchFont", false) end
 			end },
 		{ kind = "slider", key = "ui.textSize", label = L["Text size"], min = 0.8, max = 1.4, step = 0.05, format = percent, search = "font size, bigger text, smaller text, readability",
-			help = L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] },
+			help = L["The size of Polestar's text, apart from the window scale. The guide window has its own, under Windows. Changes at once. Right-click to reset."] },
 		{ kind = "toggle", key = "ui.reduceMotion", label = L["Reduce motion"], help = L["No sliding or popping; fades stay short."],
 			search = "animations, motion sickness, fps, frame rate, performance, lag, stutter, cpu, slow" },
 		{ kind = "toggle", key = "ui.classCardSound", label = L["Class quest chime"],
@@ -438,6 +438,8 @@ local BUILTIN = {
 			help = L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."],
 			search = "transparent, bar, header, readable, always, show" },
 		{ kind = "slider", key = "ui.scale", label = L["Window scale"], min = 0.6, max = 1.6, step = 0.05, format = percent, search = "size, bigger, smaller, zoom" },
+		{ kind = "slider", key = "ui.guideTextSize", label = L["Text size"], min = 0.8, max = 1.4, step = 0.05, format = percent, search = "font size, bigger text, smaller text, readability, guide text",
+			help = L["The size of the guide window's text, apart from its scale and the rest of Polestar's text. Changes at once. Right-click to reset."] },
 		{ kind = "slider", key = "ui.width", label = L["Width"], min = 260, max = 560, step = 10, format = "%d", search = "wide, wider, size" },
 		{ kind = "slider", key = "ui.opacity", label = L["Window opacity"], min = 0.3, max = 1, step = 0.05, format = percent, search = "transparency, alpha, see through",
 			help = L["The whole guide window, text included. The background's own opacity is under Colour & type."] },

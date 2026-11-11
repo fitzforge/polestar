@@ -936,16 +936,47 @@ function Theme.FontKey()
 end
 
 -- The text size against every role's own (ui.textSize, 0.8 to 1.4): the
--- window scale leaves the text as it is, this only the text.
-function Theme.TextScale()
-	local v = tonumber(get("ui.textSize")) or 1
+-- window scale leaves the text as it is, this only the text. `key` names
+-- another setting of the same kind (a window's own, Theme.TextScope).
+function Theme.TextScale(key)
+	local v = tonumber(get(key or "ui.textSize")) or 1
 	return math.max(0.8, math.min(1.4, v))
 end
 
-function Theme.FontSpec(role)
+-- A window whose text takes its own size setting instead of ui.textSize
+-- (the guide window: ui.guideTextSize). Every string under `frame` follows it.
+local textScopes = setmetatable({}, { __mode = "k" })
+function Theme.TextScope(frame, key)
+	if type(frame) == "table" then textScopes[frame] = key end
+end
+
+-- The size setting a string follows: its scoped window's, else nil. Found
+-- from the scoped windows down (their own child frames), never by walking up
+-- from the string: Polestar's strings on the world map would read the map's
+-- frames (Nav/MapCanvas reads only what it must there). A parent seen
+-- outside every scope stays outside: the guide window reparents nothing.
+local scopedFrames = setmetatable({}, { __mode = "k" })
+local unscoped = setmetatable({}, { __mode = "k" })
+local function markScope(frame, key)
+	scopedFrames[frame] = key
+	for _, child in ipairs({ frame:GetChildren() }) do markScope(child, key) end
+end
+local function scopeOf(region)
+	local p = region.GetParent and region:GetParent()
+	if not p then return nil end
+	local key = scopedFrames[p]
+	if key or unscoped[p] then return key end
+	for frame, k in pairs(textScopes) do markScope(frame, k) end
+	key = scopedFrames[p]
+	if not key then unscoped[p] = true end
+	return key
+end
+
+-- `scale` (optional): the text size to use instead of ui.textSize's.
+function Theme.FontSpec(role, scale)
 	local own = SKIN_ROLES[Theme.SkinKey()]
 	local spec = (own and own[role]) or ROLES[role] or ROLES.body
-	local size = math.floor(spec[2] * Theme.TextScale() * 2 + 0.5) / 2
+	local size = math.floor(spec[2] * (scale or Theme.TextScale()) * 2 + 0.5) / 2
 	if Theme.FollowsEllesmereFont() and S.GetFont then
 		local ok, path, flag = pcall(S.GetFont)
 		if ok and type(path) == "string" then return path, size, flag or "" end
@@ -1036,7 +1067,8 @@ end
 local retextQueued = false
 
 local function paintFont(fs, role)
-	local path, size, flags = Theme.FontSpec(role)
+	local scope = scopeOf(fs)
+	local path, size, flags = Theme.FontSpec(role, scope and Theme.TextScale(scope))
 	local text = fs.GetText and fs:GetText()
 	local script = Theme.ScriptFont(text)
 	scripted[fs] = script or false
@@ -1824,7 +1856,7 @@ function Theme.RetextLater(frame)
 end
 
 local LOOKS = {
-	["ui.accent"] = true, ["ui.font"] = true, ["ui.textSize"] = true, ["ui.skin"] = true, ["ui.scheme"] = true, ["ui.bgColor"] = true, ["ui.bgOpacity"] = true,
+	["ui.accent"] = true, ["ui.font"] = true, ["ui.textSize"] = true, ["ui.guideTextSize"] = true, ["ui.skin"] = true, ["ui.scheme"] = true, ["ui.bgColor"] = true, ["ui.bgOpacity"] = true,
 	["ui.brightness"] = true, ["ui.matchAccent"] = true, ["ui.classAccent"] = true, ["ui.matchFont"] = true,
 	["ui.border"] = true, ["ui.borderColor"] = true, ["ui.borderAccent"] = true, ["ui.borderSize"] = true,
 	["ui.band"] = true, ["ui.shadow"] = true, ["nav.arrowColor"] = true, ["nav.arrowNearColor"] = true, ["nav.mapIcons"] = true,
@@ -1875,6 +1907,13 @@ end
 local function migrate()
 	local db = ns.DB and ns.DB()
 	local ui = db and db.settings and db.settings.ui
+	-- Before the guide window had its own text size, ui.textSize sized it
+	-- too: it keeps that size until the player sets its own. Once only
+	-- (guideTextSizeV), so a guide size reset later stays at the default.
+	if db and db.guideTextSizeV ~= 1 then
+		if type(ui) == "table" and ui.guideTextSize == nil and tonumber(ui.textSize) then ui.guideTextSize = ui.textSize end
+		db.guideTextSizeV = 1
+	end
 	if type(ui) ~= "table" then return end
 	local c = ui.accent
 	if isColor(c) then

@@ -4450,6 +4450,8 @@ end
 local function build()
 	readMetrics()
 	F = CreateFrame("Frame", "PolestarGuideFrame", UIParent)
+	-- Its text follows the guide window's own size (Windows > Guide window).
+	Theme.TextScope(F, "ui.guideTextSize")
 	F:SetFrameStrata("MEDIUM")
 	F:SetClampedToScreen(true)
 	F:SetMovable(true)
