@@ -447,8 +447,7 @@ step Lake Al'Ameth
   tip South-east of Dolanaar, to Denalan. Lasher Sproutlings wander around him on the shore.
   turnin 930                                  -- Denalan
   turnin 931
-  accept 2399                                 -- Sprouted Frond, beside him
-  turnin 2399
+  turnin 2399 direct
   collect 286017 quest 99050.1                -- Dewy Lasher Frond
 
 step Dolanaar again

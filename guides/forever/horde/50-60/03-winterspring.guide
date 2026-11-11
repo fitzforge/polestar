@@ -174,17 +174,13 @@ step Talo Thornhoof
 
 # ---------------------------------------------------------------- Feralas
 
-step Gregan Brewspewer
-  tip Gregan Brewspewer, a dwarf, camps in the Lower Wilds north-west of Camp Mojache. He brews the Videre Elixir only from an Evoroot you bring him.
-  accept 4041
-
 step Evoroot
   tip The Evoroot grows inside a ruined building north of Gregan's camp, east of the harpies' Ruins of Ravenwind: climb in through the broken part of its wall.
-  collect 11242 quest 4041.1 @44.5,10.2 map 1444
+  collect 11242 @44.5,10.2 map 1444
 
 step The Videre Elixir
   tip Back south to Gregan. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by Gadgetzan later.
-  turnin 4041                           -- Gregan Brewspewer
+  turnin 4041 direct -- Gregan Brewspewer
   collect 11243 quest 3909.1            -- Videre Elixir, Gregan's reward
 
 step Desolace
@@ -202,12 +198,9 @@ step Fly to Thunder Bluff
 step Bluff Runner Windstrider
   accept 1000
   tip Bluff Runner Windstrider and Rumstag Proudstrider stand on Hunter Rise. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.
-  accept 7820 optional
-  turnin 7820 optional
-  accept 7821 optional
-  turnin 7821 optional
-  accept 7822 optional
-  turnin 7822 optional
+  turnin 7820 direct optional
+  turnin 7821 direct optional
+  turnin 7822 direct optional
 
 step Elder Rise
   turnin 3761                         -- Ghede
@@ -224,9 +217,8 @@ step Bashana Runetotem
   accept 3786 optional
   complete 3786 optional
   turnin 3786
-  accept 3804 optional
-  complete 3804 optional
-  turnin 3804
+  collect 11040 x10 optional
+  turnin 3804 direct
 
 step Fly to Orgrimmar
   zone Thunder Bluff
@@ -236,22 +228,14 @@ step Fly to Orgrimmar
 step Vehena
   zone Orgrimmar
   tip In the Valley of Spirits. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.
-  accept 7833 optional
-  turnin 7833 optional
-  accept 7834 optional
-  turnin 7834 optional
-  accept 7835 optional
-  turnin 7835 optional
-  accept 7836 optional
+  turnin 7833 direct optional
+  turnin 7834 direct optional
+  turnin 7835 direct optional
 
 step Rashona Straglash
   tip In the Valley of Honor.
-  accept 7826 optional
-  turnin 7826 optional
-  accept 7827 optional
-  turnin 7827 optional
-  accept 7831 optional
-  turnin 7831 optional
-  accept 7824 optional
+  turnin 7826 direct optional
+  turnin 7827 direct optional
+  turnin 7831 direct optional
   note Both Runecloth donations are handed in later in the route: save sixty Runecloth for each if you want them.
 

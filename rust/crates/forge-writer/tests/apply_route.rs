@@ -3517,6 +3517,70 @@ fn a_repeatable_its_giver_takes_back_at_the_same_stop_is_a_direct_turnin() {
 }
 
 #[test]
+fn a_quest_handed_in_on_the_spot_is_never_accepted_or_tracked() {
+	// #1699: Essence of the Exile (1714) at Bath'rah's Cauldron and the Scourgestones (5510) are handed in
+	// on the spot (quests.json `direct`, the server's QuestType 0): never in the log, so an accept never
+	// ticks and held its step, and the objectives bound to it never counted. The accepts go (a step left
+	// with nothing goes too), the turn-ins are direct (the accept's `only` with them), the objective lines
+	// are plain collects (with the quest's count) and a `complete` becomes the collects of its items.
+	// Ordinary quests keep theirs.
+	let quests: BTreeMap<u32, forge_writer::input::Quest> = serde_json::from_value(json!({
+		"1714": { "title": "Essence of the Exile", "direct": true, "objectives": [{ "type": "item", "id": 4480, "count": 8 }] },
+		"5510": { "title": "Minion's Scourgestones", "direct": true, "repeatable": true },
+		"3804": { "title": "Morrowgrain to Thunder Bluff", "direct": true, "objectives": [{ "type": "item", "id": 11040, "count": 10 }] },
+		"1712": { "title": "Cyclonian", "objectives": [{ "type": "item", "id": 6851, "count": 1 }] }
+	}))
+	.unwrap();
+	let data = Data { quests, ..Data::default() };
+	let mut files = vec![
+		[
+			"step Light's Hope Chapel",
+			"  accept 5510 only Human              -- Argent Officer",
+			"",
+			"step Bath'rah",
+			"  accept 1712",
+			"  accept 1714 object 89931            -- Bath'rah's Cauldron",
+			"",
+			"step The exiles",
+			"  collect 4480 quest 1714.1 optional @50.4,50.8 -- Thundering Charm",
+			"  collect 12840 quest 5510.1",
+			"  collect 6851 quest 1712.3",
+		]
+		.join("\n"),
+		[
+			"step The cauldron",
+			"  accept 5510",
+			"  turnin 5510",
+			"  turnin 1714 object 89931            -- Bath'rah's Cauldron",
+			"  accept 3804 optional",
+			"  complete 3804 optional              -- Bashana",
+			"  turnin 3804 optional",
+			"  turnin 1712",
+		]
+		.join("\n"),
+		["step Nafien", "  when complete 3804", "  when onquest 1714", "  turnin 1712"].join("\n"),
+	];
+	forge_writer::post::direct_hand_ins(&mut files, &data);
+	assert_eq!(
+		files[0].split('\n').collect::<Vec<_>>(),
+		vec!["step Bath'rah", "  accept 1712", "", "step The exiles", "  collect 4480 x8 optional @50.4,50.8 -- Thundering Charm", "  collect 12840", "  collect 6851 quest 1712.3",]
+	);
+	assert_eq!(
+		files[1].split('\n').collect::<Vec<_>>(),
+		vec![
+			"step The cauldron",
+			"  turnin 5510 direct",
+			"  turnin 1714 direct object 89931 -- Bath'rah's Cauldron",
+			"  collect 11040 x10 optional -- Bashana",
+			"  turnin 3804 direct optional",
+			"  turnin 1712",
+		]
+	);
+	// `when complete` reads as the bags holding what it asks for, `when onquest` as the quest being open.
+	assert_eq!(files[2].split('\n').collect::<Vec<_>>(), vec!["step Nafien", "  when has 11040 x10", "  when available 1714", "  turnin 1712"]);
+}
+
+#[test]
 fn a_goal_with_two_only_words_gets_one_list() {
 	// The 2026-11-07 candidate: Continue to Stormwind's hand-in came out of a step for every class but
 	// Rogues into Osric Strang's step and was cut to Humans as well: `turnin 6281 only !Rogue only Human`,

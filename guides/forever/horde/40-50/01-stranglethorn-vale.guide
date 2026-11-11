@@ -181,18 +181,14 @@ step The Bloodsail ships
 
 # ---------------------------------------------------------------- North through the jungle
 
-step Witch Doctor Unbagwa
-  tip Take the road north out of Booty Bay; Unbagwa sits on a hill in Mistvale Valley, east of the road.
-  accept 349                          -- Inside Spirit Den
-
 step Mistvale gorillas
   tip The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang.
-  collect 2799 quest 349.1
+  collect 2799 x10
   collect 3862 quest 571 @33.0,66.1 map 1434
 
 step Witch Doctor Unbagwa
   tip Hand Unbagwa the fangs and stay by him: he calls three waves of gorillas, then Mokk. Fight them one at a time.
-  turnin 349                          -- Inside Spirit Den
+  turnin 349 direct -- Inside Spirit Den
   collect 2797 quest 348.1
 
 step Mistvale gorillas

@@ -23,6 +23,7 @@ step Mirage Raceway
   turnin 2769
   turnin 1137                         -- Fizzle Brassbolts: News for Fizzle, from Martek in the Badlands
 
+
 step Tanaris
   zone Tanaris
   goto 51.6,26.8 "Gadgetzan"
@@ -64,7 +65,6 @@ step Noonshade Ruins: kill these as you meet them
 
 step Gadgetzan
   turnin 1707                         -- Spigot Operator Luglunket
-  accept 1878
   turnin 1690                         -- Chief Engineer Bilgewhizzle
   accept 1691
 
@@ -72,7 +72,7 @@ step Waterspring Field
   tip The tougher Wastewander rogues, shadow mages and assassins camp south-east of Gadgetzan, south of the bandits. Leave Caliph Scorpidsting in the middle of the southern camp for later.
   tip Careful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.
   kill 5617 quest 1691                -- Wastewander Shadow Mage
-  collect 8483 quest 1878
+  collect 8483 x5
   kill 5615 quest 1691                -- Wastewander Rogue
   kill 5623 quest 1691                -- Wastewander Assassin
 
@@ -97,10 +97,10 @@ step Steamwheedle Port
 
 step Noonshade Ruins
   tip Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower.
-  collect 8483 quest 1878             -- Wastewander Water Pouch
+  collect 8483 x5 -- Wastewander Water Pouch
 
 step Gadgetzan
-  turnin 1878                         -- Spigot Operator Luglunket
+  turnin 1878 direct -- Spigot Operator Luglunket
   turnin 1691                         -- Chief Engineer Bilgewhizzle
 
 step The pool by Sandsorrow Watch

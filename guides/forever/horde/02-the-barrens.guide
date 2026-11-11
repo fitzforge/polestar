@@ -830,8 +830,7 @@ step Ur'kyo
   zone Orgrimmar
   only Priest
   tip Ur'kyo stands in the Valley of Spirits, on the city's west side.
-  accept 5680 only Troll              -- Ur'kyo
-  turnin 5680 only Troll              -- Ur'kyo: Shadowguard
+  turnin 5680 direct only Troll -- Ur'kyo: Shadowguard
   accept 5646 only Undead             -- Ur'kyo: Aelthalyste in the Undercity, two guides on
 
 step Thunder Bluff

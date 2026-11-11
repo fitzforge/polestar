@@ -19,19 +19,14 @@ step Chillwind Camp
 step Argent Officer Pureheart
   when !turnedin 5503
   tip No Argent Dawn Commission yet (Light's Hope gives it on the Winterspring guide's way through)? Pureheart gives you one here: the scourgestone quests need it.
-  accept 5401                         -- Argent Officer Pureheart
-  turnin 5401
-
-step Argent Officer Pureheart
-  accept 5402                         -- Argent Officer Pureheart
-  accept 5403
+  turnin 5401 direct
 
 step Sorrow Hill: kill these as you meet them
   zone Western Plaguelands
   tip Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones.
   tip Careful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.
   tip Careful: The Eye of Naxxramas (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts.
-  collect 12840 quest 5402.1          -- Minion's Scourgestone
+  collect 12840 x20 -- Minion's Scourgestone
 
 step Marlene Redpath
   tip Marlene's farmhouse stands on the hill east of the camp; Joseph Redpath's monument is just north of it.
@@ -42,28 +37,25 @@ step Marlene Redpath
 # ---------------------------------------------------------------- The Writhing Haunt and Dalson's Tears
 step Dalson's Tears
   tip Ride north-west to the Dalson farm. The diary lies in the barn; a wandering skeleton carries the outhouse key, and Farmer Dalson waits in the outhouse with the cabinet key.
-  accept 5058                         -- Mrs. Dalson's Diary, inside
-  turnin 5058
-  accept 5059                         -- Outhouse
-  accept 5060                         -- Inside
+  turnin 5058 direct
 
 step The Writhing Haunt: kill these as you meet them
   zone Western Plaguelands
-  collect 12841 quest 5403.1          -- Invader's Scourgestone
+  collect 12841 x10 -- Invader's Scourgestone
   kill 1817 quest 4984.1              -- Diseased Wolf
 
 step Dalson's Tears
-  collect 12738 quest 5059.1 @47.7,49.9 map 1422 -- Dalson Outhouse Key
-  turnin 5059
-  collect 12739 quest 5060.1 @48.2,49.7 map 1422 -- Dalson Cabinet Key
-  turnin 5060                         -- Locked Cabinet, in the farmhouse; inside
+  collect 12738 @47.7,49.9 map 1422 -- Dalson Outhouse Key
+  turnin 5059 direct
+  collect 12739 @48.2,49.7 map 1422 -- Dalson Cabinet Key
+  turnin 5060 direct -- Locked Cabinet, in the farmhouse; inside
 
 # ---------------------------------------------------------------- The cauldrons
 
 step Chillwind Camp
   tip Ride back south to the camp.
-  turnin 5402                         -- Argent Officer Pureheart
-  turnin 5403
+  turnin 5402 direct -- Argent Officer Pureheart
+  turnin 5403 direct
 
 step The Andorhal watchtowers
   tip Use the Beacon Torch at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp.
@@ -208,8 +200,7 @@ step Chillwind Camp
   tip Ride south-west to the camp.
   turnin 5226                         -- High Priestess MacDonnell
   turnin 211 optional
-  accept 5237
-  turnin 5237                         -- Commander Ashlam Valorfist
+  turnin 5237 direct -- Commander Ashlam Valorfist
   turnin 5537                         -- Alchemist Arbington
   accept 5538                         -- Krinkle Goodsteel in Gadgetzan: keep it
   vendor nearest
@@ -356,9 +347,8 @@ step Darnassus
   train class only Druid              -- Ironforge, where the next guide trains, has no druid trainer
   accept 3785 optional                -- Ten Morrowgrain from the Evergreen Pouch
   turnin 3785 optional
-  accept 3803 optional
   turnin 6761                         -- Mathrengyl Bearwalker
-  turnin 3803 optional
+  turnin 3803 direct optional
   accept 6762                         -- Rabine Saturna in Moonglade: keep it
 
 step Portal to Teldrassil
@@ -404,7 +394,6 @@ step Zorbin Fandazzle
 step Gregan Brewspewer
   tip Gregan's camp lies north of the Twin Colossals. He brews the Videre Elixir from an Evoroot: take his errand for one.
   turnin 4142
-  accept 4041
 
 step Rockbiter
   tip The giant Rockbiter sits just north-west of Gregan's camp.
@@ -412,7 +401,7 @@ step Rockbiter
 
 step Evoroot
   tip The Evoroot grows inside a ruined building north of Rockbiter: climb in through the break in its wall from the ledge beside it.
-  collect 11242 quest 4041.1 @44.5,10.2 map 1444 -- Evoroot
+  collect 11242 @44.5,10.2 map 1444 -- Evoroot
 
 step Shay Leafrunner
   tip Ride west into the Ravenwind Ruins: Shay hides in the small round building at the back. Open the chest beside her for Shay's Bell: it lasts 15 minutes, like the quest.
@@ -427,7 +416,7 @@ step Wandering Shay
 
 step Gregan Brewspewer
   tip Back to Gregan's camp, just south-east of Rockbiter: the Evoroot buys three Videre Elixirs. Keep them: Donova takes one, and Gaeriyan in Gadgetzan shows himself only to someone who has drunk one.
-  turnin 4041
+  turnin 4041 direct
   collect 11243 quest 3909.1          -- Videre Elixir
 
 step Feralas

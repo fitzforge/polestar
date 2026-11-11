@@ -5508,6 +5508,8 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 			*t = dup_tips(t.split('\n').map(str::to_string).collect()).join("\n");
 		}
 	}
+	// After every pass that adds or moves accepts: a quest handed in on the spot is never accepted (#1699).
+	post::direct_hand_ins(&mut texts, data);
 	for t in texts.iter_mut() {
 		if cx.route_travel {
 			*t = hub_steps(&cx, t.split('\n').map(str::to_string).collect()).join("\n");
