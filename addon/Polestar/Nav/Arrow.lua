@@ -1224,6 +1224,7 @@ Arrow.DIAL, Arrow.WIDTH, Arrow.HEIGHT = DIAL, WIDTH, DIAL + TEXT_H
 Arrow.BuildDial = buildDial          -- (parent) -> dial: `parent` is WIDTH x HEIGHT
 Arrow.ReadLook = readLook            -- (t) -> t: the look settings as the live arrow reads them
 Arrow.PulseDial = dialPulse          -- (dial, seconds): one frame of the arrival's animation
+Arrow.ReadSkin = readSkinDart       -- (): the skin's dart, edge and glow read again (a picker card draws another skin's)
 
 -- Paint a sandbox dial in one state: "travel" (pointing `angle` radians,
 -- `dist` yards from a goal of the default radius, with `eta` seconds) or

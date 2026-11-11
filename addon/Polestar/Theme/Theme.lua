@@ -614,6 +614,11 @@ local function ownDepth(out)
 end
 
 local P -- the resolved palette; rebuilt on the next read after a change
+-- A skin drawn on a picker card while another is in use (the settings'
+-- Polestar_Options/Theme/SkinPicker.lua): its id and palette answer for the
+-- live ones while the card is painted; nothing is switched, saved or
+-- repainted.
+local drawing = {}
 
 -- The skin chosen (ui.skin) as it is drawn: a registered skin (built in or
 -- added by another addon through the Skin API, docs/SKINS-API.md) that has
@@ -622,6 +627,7 @@ local P -- the resolved palette; rebuilt on the next read after a change
 -- style; the raw saved value is kept, so the choice comes back when the skin
 -- returns or its addon registers it later in the session.
 function Theme.SkinId()
+	if drawing.id then return drawing.id end
 	local k = get("ui.skin")
 	if SKINS[k] and not FAILED[k] and (Theme._testShowHidden or not HIDDEN_SKINS[k]) then return k end
 	return "polestar"
@@ -985,6 +991,7 @@ end
 
 -- The whole resolved palette (read-only), e.g. for tests and the options.
 function Theme.Palette()
+	if drawing.pal then return drawing.pal end
 	if not P then P = resolve() end
 	return P
 end
@@ -2589,6 +2596,9 @@ local function paint(frame, kind)
 	end
 	if ok and registered then ok, err = pcall(finishPaint, s, frame, kind, base) end
 	if not ok then
+		-- On a picker card the skin is only drawn: the base look's paint
+		-- stands in there, and the skin is judged where it is in use.
+		if drawing.id then return pcall(fn, frame) end
 		failSkin(id, err)
 		-- Outside a refresh, failSkin's own refresh has repainted the frame.
 		if refreshing then paint(frame, kind) end
@@ -2876,7 +2886,6 @@ end
 ns.ThemeInternal = {
 	ART = ART,
 	BRAND = BRAND,
-	DEFAULT_ACCENT = DEFAULT_ACCENT,
 	FAILED = FAILED,
 	FAMILIES = FAMILIES,
 	HOUSE_EXTRA = HOUSE_EXTRA,
@@ -2897,7 +2906,6 @@ ns.ThemeInternal = {
 	failSkin = failSkin,
 	floor = floor,
 	format = format,
-	gameFont = gameFont,
 	get = get,
 	ipairs = ipairs,
 	isColor = isColor,
@@ -2912,5 +2920,11 @@ ns.ThemeInternal = {
 	field = field,
 	variantOf = variantOf,
 	previewing = previewing,
+	-- A picker card's skin (SkinPicker.lua): drawing.id / .pal answer for the
+	-- live ones while the card is painted with these, which keep no frame
+	-- or string for the live repaint.
+	drawing = drawing,
+	paint = paint,
+	paintFont = paintFont,
 	provide = function(tokens, font) readTokens, readFont = tokens, font end,
 }

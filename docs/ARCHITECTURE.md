@@ -2945,6 +2945,16 @@ demand: the checks a spec goes through, loaded by the first
 `Theme.RegisterScheme` / `Theme.RegisterSkin` call and handed back as
 `ThemeInternal.register`) and `Polestar_Options/Theme/SkinPicker.lua` (with
 the settings window: the picker's cards and the presets applied and undone).
+A card is a small guide window and the arrow built from frames and painted
+with Theme.lua's own paint and font calls (`ThemeInternal.paint`,
+`paintFont`, which register nothing for the live repaint) while
+`ThemeInternal.drawing` names the card's skin and palette: `Theme.SkinId`
+and `Theme.Palette` answer with them, so every painter, metric, font, kit
+part and the arrow's dial (`Nav.ReadPalette`, `Arrow.ReadSkin` before and
+after) draw that skin whatever skin is in use; a painter that raises there
+stands down to the base look's paint without failing the skin. The cards
+draw again after every repaint (`Theme.OnChanged`; a card off screen when
+it shows next).
 The checks validate a spec (fields, ids, colours, variants, shadow, art tint,
 preset, and the legibility floors above: grounds too close to the text are
 moved, or the spec refused with `strict`) and fill the same tables the
@@ -2985,7 +2995,9 @@ dial), label lines and width, a backing plate, opacity in combat, and a faint
 ring with no goal (`nav.arrowNoTarget` "dim", mode `idle`, no OnUpdate work).
 Region construction is `Arrow.BuildDial(parent)`; the paint functions take a
 dial, so the page's preview builds sandbox dials and paints them through
-`Arrow.PaintDial` / `Arrow.PulseDial` with no target, sampling or Nav hook.
+`Arrow.PaintDial` / `Arrow.PulseDial` with no target, sampling or Nav hook;
+the skin picker's cards paint theirs in another skin after `Nav.ReadPalette`
+and `Arrow.ReadSkin` (the colours, the skin's dart and glow, read again).
 
 **The game's looks** (Theme/GameSkins.lua) draw Polestar in the client's art,
 the three looks EllesmereUI offers on the Forever client (its visual spec

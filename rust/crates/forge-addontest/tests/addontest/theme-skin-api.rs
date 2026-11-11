@@ -80,14 +80,6 @@ fn the_example_addon_registers_moonlit_and_applying_it_repaints_polestar_in_its_
 		Polestar.Set("ui.accent", { 0.2, 0.6, 1 })
 		out.ownAccent = hexOf(T.Palette().accent)
 		Polestar.Set("ui.accent", nil)
-		-- A picker card draws another skin without touching the live one.
-		local card = CreateFrame("Frame")
-		card:SetSize(120, 72)
-		T.DrawSkinCard(card, "halo")
-		out.card = hexOf({ card.psSkinCard.ground:GetVertexColor() })
-		T.DrawSchemeCard(card, "night")
-		out.schemeCard = hexOf({ card.psSkinCard.ground:GetVertexColor() })
-		out.stillMoonlit = T.SkinId() == "moonlit" and hexOf(T.Palette().bg) == out.bg
 		-- The Moonlit scheme alone, under Polestar's own skin.
 		Polestar.Set("ui.skin", "polestar")
 		out.moonAfter = moon:IsShown()
@@ -127,9 +119,6 @@ fn the_example_addon_registers_moonlit_and_applying_it_repaints_polestar_in_its_
 	assert_eq!(out["moon"], true, "its window painter ran");
 	assert_eq!((out["arrow"].as_str(), out["icons"].as_str()), (Some("halo"), Some("halo")));
 	assert_eq!(out["ownAccent"], "3399ff");
-	assert_eq!(out["card"], "080604", "Halo's ground on the card");
-	assert_eq!(out["schemeCard"], "0a0d16", "Night's ground on the card");
-	assert_eq!(out["stillMoonlit"], true);
 	assert_eq!(out["moonAfter"], false, "its pieces hidden when another skin paints the window");
 	assert_eq!(out["house"], "181d2d", "Dusk again");
 	assert_eq!(out["schemeOnly"], json!(["12142a", "afc0ff", "moonlit"]));
@@ -571,10 +560,10 @@ stub.addonMeta["Polestar_Skin_Moonlit"] = { Version = "1.0" }"##
 
 // Skin API 2: one design in several versions (spec.variants). Each variant is checked as the skin is (its fields,
 // its base, its grounds' legibility); the player's pick is kept per skin (ui.skinVariants.<id>) and repaints at
-// once; a variant may draw the skin from another look (its base: the game's art, its own dart); a card draws a
-// variant without touching the live one; a pick the skin no longer has falls back on its default.
+// once; a variant may draw the skin from another look (its base: the game's art, its own dart); a pick the skin no
+// longer has falls back on its default. (Its card: the picker's tests below.)
 #[test]
-fn a_skin_s_variants_are_checked_picked_per_skin_drawn_on_their_own_cards_and_may_change_the_look_it_is_drawn_from() {
+fn a_skin_s_variants_are_checked_picked_per_skin_and_may_change_the_look_it_is_drawn_from() {
 	let out = run(r##"
 		local function spec(extra)
 			local s = { name = "V", addon = "Test" }
@@ -605,13 +594,6 @@ fn a_skin_s_variants_are_checked_picked_per_skin_drawn_on_their_own_cards_and_ma
 		Polestar.Set("ui.skin", "duo")
 		out.list = T.SkinVariants("duo")
 		out.flat = { T.SkinVariant("duo"), T.SkinKey(), T.GameSkin(), hexOf(T.Palette().accent), T.SkinMedia("dart") or false }
-		local card = CreateFrame("Frame")
-		card:SetSize(120, 72)
-		T.DrawSkinCard(card, "duo", "forever")
-		out.card = hexOf({ card.psSkinCard.ground:GetVertexColor() })
-		T.DrawSkinCard(card, "forever")
-		out.foreverCard = hexOf({ card.psSkinCard.ground:GetVertexColor() })
-		out.stillFlat = { T.SkinVariant("duo"), T.SkinKey(), hexOf(T.Palette().accent) }
 		local repaints = 0
 		T.OnChanged(function() repaints = repaints + 1 end)
 		Polestar.Set("ui.skinVariants.duo", "forever")
@@ -646,8 +628,6 @@ fn a_skin_s_variants_are_checked_picked_per_skin_drawn_on_their_own_cards_and_ma
 	assert_eq!(out["ok"], json!({ "ok": true, "msg": false }));
 	assert_eq!(out["list"], json!([{ "id": "flat", "name": "Flat", "desc": "Polestar's own frames" }, { "id": "forever", "name": "WoW Forever, dimmed" }]));
 	assert_eq!(out["flat"], json!(["flat", "polestar", false, "ff00ff", false]), "the default variant: the house style in its accent");
-	assert_eq!(out["card"], out["foreverCard"], "the variant's card: drawn on WoW Forever's ground");
-	assert_eq!(out["stillFlat"], json!(["flat", "polestar", "ff00ff"]), "a card leaves the live skin alone");
 	assert_eq!(out["forever"], json!(["forever", "forever", true, "Interface\\AddOns\\Test\\dart", 1]), "the pick repaints once, drawn from the game's art with the variant's own dart");
 	assert_eq!(out["otherSkin"], 1, "another skin's pick repaints nothing");
 	assert_eq!(out["gone"], "flat");
@@ -1212,32 +1192,154 @@ fn a_part_a_skin_places_itself_leaves_the_guide_window_s_height_and_comes_back_w
 	assert_eq!(out["off"], out["house"], "Polestar's own look: the house layout");
 }
 
+// The settings window's Theme page with its picker's cards as a player gets them: the arrow (Nav, with Maps) for
+// their dials, the real Nav in place of the UI stub's, and the example skin. `cards(key)`: a card row's cards by
+// value (the Variant row has no key: its label).
+const CARD_FILES: [&str; 5] = ["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "Maps/Maps.xml", "UI/UI.xml"];
+
+fn run_cards(script: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", &CARD_FILES), Addon::name("Polestar_Skin_Example")],
+		script: format!(
+			"uistub.install({{ noNav = true }})\nstub.login()\nPolestar.UI.LoadOptions()\nlocal T, UI, O = Polestar.Theme, Polestar.UI, Polestar.UI.Options\nlocal function hexOf(c) return string.format(\"%02x%02x%02x\", math.floor(c[1] * 255 + 0.5), math.floor(c[2] * 255 + 0.5), math.floor(c[3] * 255 + 0.5)) end\nlocal function cards(key) return O.Controls(\"theme\")[key].psCardBy end\n{script}"
+		),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+// Each skin's card is a small guide window and the arrow, drawn by that skin's own painters, fonts, palette and
+// arrow while Polestar's own look is in use: the band and the house's progress line on Polestar's own look, Halo's
+// veil and Fira Sans, the game's status bar on the game's looks, a skin from another addon in its font and arrow;
+// each scheme's card is Polestar's own look in that scheme. The live look is left as it was.
+#[test]
+fn the_picker_s_cards_draw_each_skin_s_guide_window_and_arrow_as_it_draws_them_whatever_skin_is_in_use() {
+	let out = run_cards(
+		r##"
+		local arrow = hexOf({ Polestar.Nav.RGB("arrow") })
+		UI.ShowOptions("theme")
+		local function card(by, id)
+			local p = by[id].Art.psSkinCard
+			local bg = p.win.psSkin.bg
+			return { look = p.win.psSkin.skin, face = (p.person.Name:GetFont()):match("[^\\]+$"), band = p.sky:IsShown(),
+				bar = p.foot.Status:IsShown(), dial = p.dial.style, ground = bg and bg:IsShown() and hexOf({ bg:GetVertexColor() }) or false }
+		end
+		local out = {}
+		for _, id in ipairs({ "polestar", "halo", "hearth", "forever", "blizzard", "classic", "moonlit" }) do out[id] = card(cards("ui.skin"), id) end
+		for _, id in ipairs({ "dusk", "night", "graphite", "moonlit" }) do out["scheme " .. id] = card(cards("ui.scheme"), id) end
+		out.live = { T.SkinId(), PolestarGuideFrame.psSkin.skin, (T.FontSpec("name")):match("[^\\]+$"), hexOf({ Polestar.Nav.RGB("arrow") }) == arrow }
+		emit(out)"##,
+	);
+	let row = |k: &str| json!([out[k]["look"], out[k]["face"], out[k]["band"], out[k]["bar"], out[k]["dial"]]);
+	assert_eq!(row("polestar"), json!(["polestar", "FRIZQT__.TTF", true, false, "3d"]), "Polestar's own: the band, the progress line, the 3D arrow");
+	assert_eq!(row("halo"), json!(["halo", "FiraSans-SemiBold.ttf", false, false, "halo"]), "Halo: Fira Sans, no band, its own arrow");
+	for id in ["hearth", "forever", "blizzard", "classic"] {
+		assert_eq!(row(id), json!([id, "FRIZQT__.TTF", false, true, "hearth"]), "{id}: its own window paint, the game's status bar and arrow");
+	}
+	assert_eq!(row("moonlit"), json!(["moonlit/polestar", "FiraSans-SemiBold.ttf", true, false, "halo"]), "a skin from another addon: its font and arrow");
+	assert_eq!((out["polestar"]["ground"].clone(), out["moonlit"]["ground"].clone()), (json!("181d2d"), json!("12142a")), "each on its own ground");
+	for (id, ground) in [("dusk", "181d2d"), ("night", "0a0d16"), ("graphite", "212325"), ("moonlit", "12142a")] {
+		let k = format!("scheme {id}");
+		assert_eq!((out[&k]["look"].clone(), out[&k]["ground"].clone()), (json!("polestar"), json!(ground)), "{k}: Polestar's own look in it");
+	}
+	assert_eq!(out["live"], json!(["polestar", "polestar", "FRIZQT__.TTF", true]), "the live skin, guide window, font and arrow untouched");
+}
+
+// A variant's card draws its skin in that variant, from the look the variant is drawn from (WoW Forever's paint and
+// status bar); the skin's own card shows the variant in use and follows a new pick, the variant cards staying as
+// they are.
+#[test]
+fn a_variant_s_card_draws_the_variant_and_the_skin_s_card_follows_the_variant_in_use() {
+	let out = run_cards(
+		r##"
+		local ok, why = T.RegisterSkin("duo", { name = "Duo", addon = "Test_Duo", defaultVariant = "flat", variants = {
+			{ id = "flat", name = "Flat", tokens = { accent = "#ff00ff" } },
+			{ id = "forever", name = "On WoW Forever", base = "forever" },
+		} })
+		Polestar.Set("ui.skin", "duo")
+		UI.ShowOptions("theme")
+		local function look(by, id)
+			local p = by[id].Art.psSkinCard
+			return { p.win.psSkin.skin, p.foot.Status:IsShown(), hexOf({ p.accent:GetVertexColor() }) }
+		end
+		local out = { ok = ok, why = why or false, flat = look(cards("Variant"), "flat"), forever = look(cards("Variant"), "forever"),
+			skin = look(cards("ui.skin"), "duo"), live = { T.SkinVariant("duo"), T.SkinKey(), PolestarGuideFrame.psSkin.skin } }
+		Polestar.Set("ui.skinVariants.duo", "forever")
+		out.picked = { skin = look(cards("ui.skin"), "duo"), flat = look(cards("Variant"), "flat"), live = { T.SkinKey(), PolestarGuideFrame.psSkin.skin } }
+		emit(out)"##,
+	);
+	assert_eq!(out["ok"], true, "registered: {}", out["why"]);
+	assert_eq!(out["flat"], json!(["duo/polestar", false, "ff00ff"]), "the flat variant: Polestar's own look in its accent");
+	assert_eq!(out["forever"], json!(["duo/forever", true, "ffd100"]), "the other: WoW Forever's paint and status bar");
+	assert_eq!(out["skin"], out["flat"], "the skin's card: the variant in use");
+	assert_eq!(out["live"], json!(["flat", "polestar", "duo/polestar"]), "the cards leave the live variant alone");
+	assert_eq!(out["picked"]["skin"], out["forever"], "the skin's card follows the pick");
+	assert_eq!(out["picked"]["flat"], out["flat"], "a variant's card stays that variant");
+	assert_eq!(out["picked"]["live"], json!(["forever", "duo/forever"]));
+}
+
+// A skin from another addon paints its card with its own painters (the window, the tick boxes) while another skin
+// is in use. A painter that raises there leaves that card in the base look's paint and the skin on (it is judged
+// where it is in use: picked, it raises and Polestar's own look stands in).
+#[test]
+fn a_skin_s_own_painters_paint_its_card_and_one_that_raises_there_leaves_the_skin_on() {
+	let out = run_cards(
+		r##"
+		local painted, raised = {}, 0
+		local function mark(frame, base) base(frame); painted[frame] = true end
+		local ok1, why1 = T.RegisterSkin("own", { name = "Own", addon = "Test_Own", base = "polestar", paint = { window = mark, checkbox = mark } })
+		local ok2, why2 = T.RegisterSkin("boom", { name = "Boom", addon = "Test_Boom", base = "polestar",
+			paint = { window = function() raised = raised + 1; error("boom") end } })
+		UI.ShowOptions("theme")
+		local own, boom = cards("ui.skin").own.Art.psSkinCard, cards("ui.skin").boom.Art.psSkinCard
+		local out = { ok = { ok1, ok2, why1 or false, why2 or false },
+			own = { own.win.psSkin.skin, painted[own.win] or false, painted[own.rows[1].Check] or false },
+			boom = { boom.win.psSkin.skin, hexOf({ boom.win.psSkin.bg:GetVertexColor() }), raised > 0, T.SkinInfo("boom").failed or false },
+			live = T.SkinId() }
+		Polestar.Set("ui.skin", "boom")
+		out.picked = { T.SkinId(), T.SkinInfo("boom").failed and true or false }
+		emit(out)"##,
+	);
+	assert_eq!(out["ok"], json!([true, true, false, false]));
+	assert_eq!(out["own"], json!(["own/polestar", true, true]), "its window and tick box painters ran on its card");
+	assert_eq!(out["boom"], json!(["boom/polestar", "181d2d", true, false]), "the base paint on the card, the skin not failed");
+	assert_eq!(out["live"], "polestar");
+	assert_eq!(out["picked"], json!(["polestar", true]), "in use, its painter fails it");
+}
+
 // The picker's variant cards tell the variants apart at card size: a skin's own second accent and glow sit as
-// swatches after the accent bar (Moonlit's two variants differ there and nowhere else on the card), also under the
-// player's own accent. A card whose palette only derives them (Polestar's own skins, a scheme) keeps the accent bar
-// alone.
+// swatches beside the accent under the arrow (Moonlit's two variants differ there and nowhere else on the card),
+// also under the player's own accent, which the cards on screen take at once. A card whose palette only derives
+// them (Polestar's own skins, a scheme) shows the accent alone.
 #[test]
 fn a_variant_s_card_shows_its_own_second_accent_and_glow_beside_the_accent() {
-	let out = run(r##"
-		local function swatches(id, variant, scheme)
-			local card = CreateFrame("Frame")
-			card:SetSize(154, 88)
-			if scheme then T.DrawSchemeCard(card, id) else T.DrawSkinCard(card, id, variant) end
-			local p = card.psSkinCard
-			local function shown(t) return t and t:IsShown() and hexOf({ t:GetVertexColor() }) or false end
+	let out = run_cards(
+		r##"
+		Polestar.Set("ui.skin", "moonlit")
+		UI.ShowOptions("theme")
+		local function swatches(by, id)
+			local p = by[id].Art.psSkinCard
+			local function shown(t) return t:IsShown() and hexOf({ t:GetVertexColor() }) or false end
 			return { accent = shown(p.accent), accent2 = shown(p.accent2), glow = shown(p.glow) }
 		end
-		local out = { full = swatches("moonlit", "full"), new = swatches("moonlit", "new"), halo = swatches("halo"),
-			polestar = swatches("polestar"), forever = swatches("forever"), scheme = swatches("moonlit", nil, true) }
+		local function all()
+			local variants, skins = cards("Variant"), cards("ui.skin")
+			return { full = swatches(variants, "full"), new = swatches(variants, "new"), halo = swatches(skins, "halo"),
+				polestar = swatches(skins, "polestar"), forever = swatches(skins, "forever"), scheme = swatches(cards("ui.scheme"), "moonlit") }
+		end
+		local out = all()
 		Polestar.Set("ui.accent", { 1, 0, 0 })
-		out.fullOwn, out.newOwn = swatches("moonlit", "full"), swatches("moonlit", "new")
-		emit(out)"##);
+		local own = all()
+		out.fullOwn, out.newOwn = own.full, own.new
+		emit(out)"##,
+	);
 	assert_eq!(out["full"], json!({ "accent": "afc0ff", "accent2": "d8e0ff", "glow": "c8d4ff" }), "Full moon: silver");
 	assert_eq!(out["new"], json!({ "accent": "afc0ff", "accent2": "7f9cff", "glow": "6f8dff" }), "New moon: blue");
 	assert_eq!(out["fullOwn"], json!({ "accent": "ff0000", "accent2": "d8e0ff", "glow": "c8d4ff" }), "the player's accent, the variant's own swatches");
 	assert_eq!(out["newOwn"], json!({ "accent": "ff0000", "accent2": "7f9cff", "glow": "6f8dff" }));
 	for k in ["halo", "polestar", "forever", "scheme"] {
-		assert_eq!((out[k]["accent2"].clone(), out[k]["glow"].clone()), (json!(false), json!(false)), "{k}: the accent bar alone");
+		assert_eq!((out[k]["accent2"].clone(), out[k]["glow"].clone()), (json!(false), json!(false)), "{k}: the accent alone");
 	}
 }
 

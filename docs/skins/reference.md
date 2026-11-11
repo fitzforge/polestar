@@ -236,8 +236,15 @@ assert(#Theme.SkinSurfaces().hooks == 14 and #Theme.SkinSurfaces().paint == 14)
 
 | | |
 |---|---|
-| `DrawSkinCard(frame, id, variant?)` | Draws skin `id`'s preview (its ground, band, a title and a line in its font, an accent bar and a button, edged by its window border) on `frame`, four units in from its edges, without touching the live look. A skin that gives its own `accent2` or `glow` shows each as a swatch after the accent bar, so variants that differ only there tell apart on their cards. `variant`: one of the skin's [variants](#variants), else the one in use. Creates its textures on the first call (`frame.psSkinCard`); call it again on every redraw. Nothing happens for an unknown id. |
-| `DrawSchemeCard(frame, id)` | The same for a scheme, in Polestar's own style with the accent in use. |
+| `DrawSkinCard(frame, id, variant?)` | Draws skin `id` on `frame` as it draws itself, whatever skin is in use: a small guide window (its window paint and band, a tab, the step bar, the person to talk to, two goals with their tick boxes, the progress) beside the arrow, painted by the skin's own painters, sizes, palette, fonts and media (the game's looks draw the client's own art there), the player's own colours over them. Under the arrow the accent, then the skin's own `accent2` and `glow` as swatches when it gives them, so variants that differ only there tell apart on their cards. `variant`: one of the skin's [variants](#variants), else the one in use. Builds its frames on `frame` on the first call (`frame.psSkinCard`; `frame` is your own frame, best 220 by 124) and draws the card again by itself after every repaint; the live look is left alone. Nothing happens for an unknown id. |
+| `DrawSchemeCard(frame, id)` | The same for a scheme: Polestar's own look in it. |
+
+Your [painters](#surfaces-painters) run on the cards too: a card's guide
+window is a `window` marked `psGuide` like the guide window, its tick boxes
+are `checkbox` frames. Keep what a painter makes in `kit.store(frame)`, as
+for any frame. A painter that raises on a card leaves that card in the base
+look's paint and your skin on; your [hooks](#surfaces-hooks) are for the
+live surfaces and do not run there.
 
 Polestar's settings use these, and they load with the settings window (its
 folder `Polestar_Options`, loaded the first time the settings open), not at
@@ -249,7 +256,7 @@ local Theme = Polestar.Theme
 if not Theme.DrawSkinCard and not InCombatLockdown() then C_AddOns.LoadAddOn("Polestar_Options") end
 if Theme.DrawSkinCard then
 	local card = CreateFrame("Frame")
-	card:SetSize(120, 72)
+	card:SetSize(220, 124)
 	Theme.DrawSkinCard(card, "halo")
 end
 ```
