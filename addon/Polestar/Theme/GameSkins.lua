@@ -78,6 +78,9 @@ local function settingsParts(k)
 	k.dropdown, k.dropdownLit, k.dropdownArrow = "common-dropdown-c-button", "common-dropdown-c-button-hover-1", "common-dropdown-c-button-hover-arrow"
 	k.menu = "common-dropdown-bg"
 	k.close, k.closeDown, k.closeLit = "RedButton-Exit", "RedButton-exit-pressed", "RedButton-Highlight"
+	-- A guide window tab's close (Theme.KitIconButton): the red button whole
+	-- inside its 16 unit target, clear of the tab's title and level range.
+	k.tabClose = 14
 	k.plate, k.plateHover = "common-button-tertiary-square-normal", "common-button-tertiary-square-hover"
 	k.navLit, k.navHover = "Options_List_Active", "Options_List_Hover"
 	k.streaks = "_UI-Frame-TopTileStreaks"
@@ -849,6 +852,11 @@ local function scrollbar(bar, kit)
 	end
 end
 
+-- What the big windows' paint (BIG) puts round a frame; the guide window's
+-- (GUIDE) hides it, so a frame painted as a big window before its psGuide or
+-- psLight was set keeps no title bar or drag strip over its neighbours (#1802).
+local BIG_KEYS = { "dialog", "frame", "metal", "streaks" }
+
 local function paints(name)
 	local kit = KITS[name]
 	return {
@@ -860,7 +868,12 @@ local function paints(name)
 			end
 			P.hideBorder(f)
 			if f.psShadow then f.psShadow:Hide() end
-			if f.psGuide or f.psLight then GUIDE[name](f, kit) else BIG[name](f, kit) end
+			if f.psGuide or f.psLight then
+				for _, key in ipairs(BIG_KEYS) do hideKey(f, key) end
+				GUIDE[name](f, kit)
+			else
+				BIG[name](f, kit)
+			end
 		end,
 		panel = function(f) panel(f, kit) end,
 		sidebar = function(f) inset(f, kit) end,
@@ -914,7 +927,10 @@ function Theme.KitIconButton(b)
 		return false
 	end
 	if isClose then
-		closeArt(b, kit, min(32, b:GetWidth() + 2))
+		-- A guide window tab's close (b.psTabClose) at the kit's tabClose;
+		-- every other close at its target's width and 2.
+		local size = rawget(b, "psTabClose") and kit.tabClose or b:GetWidth() + 2
+		closeArt(b, kit, min(32, size))
 		veil(b.Icon, true)
 		return true
 	end
