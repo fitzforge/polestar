@@ -860,6 +860,10 @@ L["Your Hearthstone in the action button set, beside the quest item and target b
 L["Under the arrow, while the route's next leg is your Hearthstone, a teleport or a portal: a button that casts it. Right-click the arrow to skip the leg. The Hearthstone in the button set is a switch of its own: turning this one off leaves that one on."] = "Bajo la flecha, cuando el siguiente tramo de la ruta es tu piedra de hogar, un teletransporte o un portal: un botón que lo lanza. Clic derecho en la flecha para omitir el tramo. La piedra de hogar de los botones de acción tiene su propio interruptor: apagar este deja aquel encendido."
 L["Hearthstone in the button set"] = "Piedra de hogar en los botones de acción"
 L["Travel button under the arrow"] = "Botón de viaje bajo la flecha"
+-- L["Game"] = ""
+-- L["Game options"] = ""
+-- L["Increase game image quality"] = ""
+-- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
 
 -- QoL/QoL.lua
 L["%dh %02dm"] = "%dh %02dm"

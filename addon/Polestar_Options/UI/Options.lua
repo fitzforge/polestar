@@ -485,6 +485,8 @@ for _, list in ipairs({
 		{ L["Social"], { L["Requests"], L["Blocking"] } },
 		{ L["Vendors"], { L["Merchants"], L["Restock"], L["Bags"], L["Trainers"] } },
 		{ L["Trackers & map"], { L["Experience"], L["Instances"], L["Minimap and coordinates"] } },
+		-- The game's own options (QoL/Options.lua): image quality, no Polestar setting behind it, and second homes.
+		{ L["Game"], { L["Game options"] } },
 	}),
 }) do
 	for _, spec in ipairs(list) do BUILTIN[#BUILTIN + 1] = spec end

@@ -1684,6 +1684,10 @@ L["Your Hearthstone in the action button set, beside the quest item and target b
 L["Under the arrow, while the route's next leg is your Hearthstone, a teleport or a portal: a button that casts it. Right-click the arrow to skip the leg. The Hearthstone in the button set is a switch of its own: turning this one off leaves that one on."] = "Unter dem Pfeil, solange die nächste Etappe der Route dein Ruhestein, ein Teleport oder ein Portal ist: ein Button, der ihn wirkt. Rechtsklick auf den Pfeil überspringt die Etappe. Der Ruhestein bei den Aktions-Buttons hat einen eigenen Schalter: Schaltest du diesen hier aus, bleibt jener an."
 L["Hearthstone in the button set"] = "Ruhestein bei den Aktions-Buttons"
 L["Travel button under the arrow"] = "Reise-Button unter dem Pfeil"
+-- L["Game"] = ""
+-- L["Game options"] = ""
+-- L["Increase game image quality"] = ""
+-- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
 
 -- Rares/View.lua, Rares/Options.lua
 L["Seen"] = "Gesehen"

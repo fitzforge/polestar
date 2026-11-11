@@ -18,8 +18,10 @@
 //! more of tests/lua's stubs after its own: `-- env: world stub_rares.lua`), optionally a Codex pack the client
 //! loads when asked (`-- codex: sample.json`, a tests/fixtures/codex file) and the quest database built from
 //! tests/fixtures/questdb (`-- questdb: fixture`, with stub_quests.lua), and returns { setup = fn?, settle =
-//! seconds?, probes = { [id] = probe | { probe, value?, with?, prepare?, cleanup?, press?, bind?, login? } } } where
-//! id is the control's setting key, "action:<binding action>" or "label:<English label>" for a control with neither.
+//! seconds?, probes = { [id] = probe | { probe, value?, with?, prepare?, cleanup?, press?, bind?, login?, restore? } } }
+//! where id is the control's setting key, "action:<binding action>" or "<page>:<English label>" for a control with
+//! neither. `restore`: a control of the game's own state that no reset touches (its set(nil) does nothing: the game's
+//! image sharpening) is put back by writing the value it had, not nil.
 
 use forge_addontest::codex::{fixture, write_codex_pack, CodexOpts, CodexPack};
 use forge_addontest::questdb::{build_db, fixture_dir as questdb_fixture, QuestDb};
@@ -207,10 +209,11 @@ for _, id in ipairs(ids) do
 			local v = e.value
 			if v == nil then v = other(c) end
 			if v == nil then return "no other value to write" end
+			local had = current(c)
 			write(c, v)
 			wait()
 			local after = e.probe()
-			write(c, nil)
+			if e.restore then write(c, had) else write(c, nil) end
 			wait()
 			local back = e.probe()
 			if same(before, after) then return "changing it to " .. show(v) .. " changes nothing: " .. show(before) end

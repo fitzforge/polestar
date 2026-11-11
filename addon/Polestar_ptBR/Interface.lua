@@ -1048,6 +1048,10 @@ L["Your Hearthstone in the action button set, beside the quest item and target b
 L["Under the arrow, while the route's next leg is your Hearthstone, a teleport or a portal: a button that casts it. Right-click the arrow to skip the leg. The Hearthstone in the button set is a switch of its own: turning this one off leaves that one on."] = "Sob a seta, quando o próximo trecho da rota for sua Pedra de Regresso, um teleporte ou um portal: um botão que o lança. Clique direito na seta para pular o trecho. A Pedra de Regresso dos botões de ação tem seu próprio interruptor: desligar este deixa aquele ligado."
 L["Hearthstone in the button set"] = "Pedra de Regresso nos botões de ação"
 L["Travel button under the arrow"] = "Botão de viagem sob a seta"
+-- L["Game"] = ""
+-- L["Game options"] = ""
+-- L["Increase game image quality"] = ""
+-- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Só Aliança"

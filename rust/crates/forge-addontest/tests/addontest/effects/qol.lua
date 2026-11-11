@@ -243,5 +243,8 @@ return {
 		end,
 		["Quality of Life:Reset session"] = { press = true, prepare = function() q.gainXP(50); stub.advance(0.2) end,
 			probe = function() local st = QoL.GetXPStats(); return st and st.sessionXP or false end },
+		-- The game's own setting (no Polestar key): the client's CVar as the row leaves it; put back as it was (a
+		-- reset does not touch it).
+		["Quality of Life:Increase game image quality"] = { restore = true, probe = function() return GetCVar("ResampleAlwaysSharpen") end },
 	},
 }

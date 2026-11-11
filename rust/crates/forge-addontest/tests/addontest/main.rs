@@ -342,6 +342,8 @@ mod settings_coverage;
 mod settings_effects;
 #[path = "settings-essentials.rs"]
 mod settings_essentials;
+#[path = "settings-game.rs"]
+mod settings_game;
 #[path = "settings-migration.rs"]
 mod settings_migration;
 #[path = "skins-sweep.rs"]

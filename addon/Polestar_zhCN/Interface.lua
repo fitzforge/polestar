@@ -1048,6 +1048,10 @@ L["Your Hearthstone in the action button set, beside the quest item and target b
 L["Under the arrow, while the route's next leg is your Hearthstone, a teleport or a portal: a button that casts it. Right-click the arrow to skip the leg. The Hearthstone in the button set is a switch of its own: turning this one off leaves that one on."] = "当路线的下一段是炉石、传送或传送门时，箭头下方出现一个按钮来施放它。右键点击箭头可跳过这一段。动作按钮中的炉石有自己的开关：关闭这个不会关闭那个。"
 L["Hearthstone in the button set"] = "动作按钮中的炉石"
 L["Travel button under the arrow"] = "箭头下方的旅行按钮"
+-- L["Game"] = ""
+-- L["Game options"] = ""
+-- L["Increase game image quality"] = ""
+-- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "仅限联盟"

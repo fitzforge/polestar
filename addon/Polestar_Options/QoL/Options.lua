@@ -354,3 +354,51 @@ register(QOL, L["Trackers & map"], L["Experience"], {
 	{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset session"], help = L["Start this session's XP per hour from zero."], search = "xp, experience",
 		onClick = function() if QoL.XP then QoL.XP.ResetSession() end end },
 })
+
+-- The game's own sharpening of its resampled image (the client CVar
+-- ResampleAlwaysSharpen; most visible with Render Scale under 100%). No
+-- Polestar setting holds it: the row reads the game's value and writes it
+-- only when the player clicks it, and the client keeps it. Nothing writes it
+-- at login, on a profile load, a reset or an import (set(nil), which a reset
+-- and a right-click send, does nothing). In combat the write waits for the
+-- fight to end. A client without the CVar has no row. Its section holds the
+-- other rows that set the game's own client too (second homes: Instant quest
+-- text, Forever's CVar; Hide combat errors; Hide the game's quest tracker).
+local SHARPEN = "ResampleAlwaysSharpen"
+local function readCVar(name)
+	if C_CVar and C_CVar.GetCVar then return C_CVar.GetCVar(name) end
+	return GetCVar and GetCVar(name) or nil
+end
+local function writeCVar(name, value)
+	if C_CVar and C_CVar.SetCVar then return C_CVar.SetCVar(name, value) end
+	if SetCVar then return SetCVar(name, value) end
+end
+local sharpenLater -- "1" | "0": the player's click, waiting for the end of the fight
+local function afterCombat()
+	local v = sharpenLater
+	sharpenLater = nil
+	if v ~= nil and readCVar(SHARPEN) ~= nil then writeCVar(SHARPEN, v) end
+end
+local function setSharpen(on)
+	if on == nil then return end
+	local v = on and "1" or "0"
+	if InCombatLockdown and InCombatLockdown() then
+		sharpenLater = v
+		ns.RegisterEvent("PLAYER_REGEN_ENABLED", afterCombat)
+		return
+	end
+	sharpenLater = nil
+	writeCVar(SHARPEN, v)
+end
+register(QOL, L["Game"], L["Game options"], {
+	{ kind = "toggle", label = L["Increase game image quality"], new = "0.3.8",
+		help = L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."],
+		search = "sharpen, sharpening, image quality, clarity, crisp, sharp, render scale, resample, blurry, blur, fsr, graphics",
+		needs = function() return readCVar(SHARPEN) ~= nil end,
+		get = function()
+			if sharpenLater ~= nil then return sharpenLater == "1" end
+			return readCVar(SHARPEN) == "1"
+		end,
+		set = setSharpen },
+	C.instantQuestText(), C.hideErrors(), C.hideQuestTracker(),
+})

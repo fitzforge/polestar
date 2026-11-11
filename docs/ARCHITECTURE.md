@@ -6542,9 +6542,18 @@ reads and writes through them, right-click and Reset page call `set(nil)`.
 Discovery → Dungeons → "Dungeons in leveling guides" is one: a toggle per
 Classic dungeon (`Dungeons.ROUTE`, Map id and English name, from the Codex's
 instances), all off, writing `Engine.ChooseDungeon`. Registered toggles are
-fixed, so the list is not built from the dungeons the loaded guides name. Pages sort by `order`; Recorder and
+fixed, so the list is not built from the dungeons the loaded guides name.
+Quality of Life → Game → Game options leads with the other kind: the game's
+own state. "Increase game image quality" (`QoL/Options.lua`) reads the client
+CVar `ResampleAlwaysSharpen` and writes it only on a click (in combat, at
+`PLAYER_REGEN_ENABLED`); its `set(nil)` does nothing, so no login, profile
+switch, import, right-click or reset ever writes it, and the client keeps it.
+`needs` hides it on a client without the CVar. The section's other rows are
+second homes of the client options on Quests (Instant quest text, Hide combat
+errors, Hide the game's quest tracker). Its effect check puts it back with
+`restore` (`settings-effects.rs`). Pages sort by `order`; Recorder and
 About always close the list. A page or tab with no available control is left
-out of the sidebar and tab row. Every row resets to its default on right-click.
+out of the sidebar and tab row. Every row resets to its default on right-click (but the game's own, above).
 
 **New settings.** A setting's `new` puts a New pill in its section's header
 (nothing on the row: its gutter is the changed dot's), and its page's sidebar row counts the
@@ -6668,7 +6677,7 @@ The built-in pages are grouped by what the player is doing: **Guide** (10:
 Window, Arrow & routes, Automation), **Map** (30: Guide & quests, Rares, travel & zones), **Questing**
 (40: Quests, Rewards & gear, Buttons), **Discovery** (50: Lookup, Dungeons, Rares, Group quests; Dungeons
 and Group quests while this character's guides have dungeon or group steps to choose), **Quality of Life** (60:
-Quests, Travel, Social, Vendors, Trackers & map), **Community guides** (70, a custom page:
+Quests, Travel, Social, Vendors, Trackers & map, Game), **Community guides** (70, a custom page:
 `UI/Packs.lua`), **Gamepad** (75, registered by `UI/GamepadGuide.lua`:
 Navigation, Key bindings), **Guiding Stars** (80, key `thanks`, a custom page:
 `UI/Thanks.lua`: three columns, the top supporter, the top contributor and the

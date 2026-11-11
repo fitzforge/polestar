@@ -34,7 +34,9 @@ stub = {
 	now = 0,
 	epoch = 1791000000,
 	messages = {},
-	cvars = {},
+	-- The client's CVars a test reads; ResampleAlwaysSharpen as the client has it (off), for Quality of Life >
+	-- Game's row (Polestar_Options/QoL/Options.lua). A test clears it for a client without it.
+	cvars = { ResampleAlwaysSharpen = "0" },
 	keys = { shift = false, ctrl = false, alt = false },
 	sounds = {},
 	popups = {},
