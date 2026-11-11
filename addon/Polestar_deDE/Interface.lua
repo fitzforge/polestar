@@ -590,7 +590,7 @@ L["Turn on Polestar Guides and reload"] = "Polestar Guides einschalten und neu l
 L["Keep these, a later guide hands them in: %s"] = "Behalte diese Quests, ein späterer Guide gibt sie ab: %s"
 L["Press %s, or right-click the minimap button and pick Guide window, to show it."] = "Drücke %s oder wähle im Rechtsklick-Menü des Minikarten-Buttons „Guide-Fenster“, um das Fenster anzuzeigen."
 L["Right-click the minimap button and pick Guide window to show it."] = "Wähle im Rechtsklick-Menü des Minikarten-Buttons „Guide-Fenster“, um das Fenster anzuzeigen."
--- L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."] = ""
+L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."] = "Löscht deine manuell abgehakten Ziele und übersprungenen Schritte in diesem Guide ab deinem letzten Questfortschritt. Der Guide bleibt dort, wo deine Quests dich hingebracht haben."
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"
@@ -1319,9 +1319,9 @@ L["Flight paths you pass"] = "Flugrouten an deinem Weg"
 L["Also a friendly flight master near you whose flight path you haven't learned yet. Learning it ticks the guide's later step for it too."] = "Auch ein freundlicher Flugmeister in deiner Nähe, dessen Flugroute du noch nicht kennst. Lernst du sie, wird auch der spätere Schritt des Guides dafür abgehakt."
 L["Detour captions"] = "Umweg-Hinweise"
 L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."] = "Unter einem Fußweg der Reise sagen, wenn er um eine Stadt der anderen Fraktion herumführt: „Umweg um Southshore“. Es ist nur ein Hinweis: Route und Pfeil bleiben, wie sie sind."
--- L["Manual check-offs and skips, current guide, from your last quest progress on."] = ""
--- L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = ""
--- L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = ""
+L["Manual check-offs and skips, current guide, from your last quest progress on."] = "Manuelle Haken und übersprungene Schritte, aktueller Guide, ab deinem letzten Questfortschritt."
+L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Deine manuellen Häkchen und übersprungenen Schritte in %s werden ab deinem letzten Questfortschritt gelöscht. Erledigte Quests bleiben erledigt, und der Guide bleibt dort, wo sie dich hingebracht haben."
+L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Deine manuellen Häkchen und übersprungenen Schritte im aktuellen Guide werden ab deinem letzten Questfortschritt gelöscht. Erledigte Quests bleiben erledigt, und der Guide bleibt dort, wo sie dich hingebracht haben."
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"

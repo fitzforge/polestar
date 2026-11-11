@@ -53,9 +53,9 @@ return {
 	-- Step 13: Rebel Camp
 	-- {npc:738} Private Thorsen · {quest:215} Jungle Secrets · {quest:200} Bookie Herod
 	-- plural, as words: Kurzen's Agents = {npc:775} Kurzen's Agent
-	["Take the road north; the camp sits in the hills to the west.\n{npc:738} offers {quest:215} only while he is out of the camp: about every half hour he walks down the path to the road, where two Kurzen's Agents ambush him. Help him kill them and take the quest at once, before he walks back up. He isn't there? Leave it: the guide passes {quest:200}, which follows from it, as well."] = "",
+	["Take the road north; the camp sits in the hills to the west.\n{npc:738} offers {quest:215} only while he is out of the camp: about every half hour he walks down the path to the road, where two Kurzen's Agents ambush him. Help him kill them and take the quest at once, before he walks back up. He isn't there? Leave it: the guide passes {quest:200}, which follows from it, as well."] = "Prenez la route vers le nord ; le camp se trouve dans les collines à l'ouest.\n{npc:738} ne propose {quest:215} que lorsqu'il est hors du camp : environ toutes les demi-heures, il descend le chemin jusqu'à la route, où deux Agents de Kurzen lui tendent une embuscade. Aidez-le à les tuer et prenez la quête aussitôt, avant qu'il ne remonte. Il n'est pas là ? Laissez-la : le guide passe aussi {quest:200}, qui en découle.",
 	-- {npc:738} Private Thorsen
-	["{npc:738}, at the foot of the path"] = "",
+	["{npc:738}, at the foot of the path"] = "{npc:738}, au pied du chemin",
 	-- {npc:469} Lieutenant Doren
 	["{npc:469}, in the hut"] = "{npc:469}, dans la hutte",
 	-- {npc:469} Lieutenant Doren · {quest:200} Bookie Herod · {area:101} Kurzen's Compound
