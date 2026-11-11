@@ -1836,6 +1836,20 @@ fn add_sides(entries: &mut Vec<V>, by_side: &V, tag_of: impl Fn(&str) -> V) {
 	}
 }
 
+/// Leaves out the trainers who don't train at `skill` yet: professions.json's `trainerSkill`
+/// (creature -> the skill its "Train me." option asks for; Doctor Herbert Halsey trains Alchemy from
+/// 125, so Journeyman, taken at 50, is Doctor Marsh's: #1708).
+fn trains_at(prof: &V, entries: &mut Vec<V>, skill: f64) {
+	let gates = prof.get("trainerSkill");
+	if !gates.truthy() {
+		return;
+	}
+	entries.retain(|e| {
+		let gate = gates.get(&num_str(e.get("npc").num()));
+		gate.is_undef() || gate.num() <= skill
+	});
+}
+
 /// `train <Profession> [Rank]`.
 fn train_profession(g: &V, goal: &V, r: &mut R, sm: &Smart) {
 	let data = r.data;
@@ -1938,6 +1952,7 @@ fn train_profession(g: &V, goal: &V, r: &mut R, sm: &Smart) {
 	let mut what = format!("{pname} {rname} trainer");
 	if rk.get("trainers").truthy() {
 		add_sides(&mut entries, &rk.get("trainers"), tag);
+		trains_at(&full, &mut entries, min_skill(rank));
 	} else if rk.get("book").truthy() && rk.get("book").get("vendors").truthy() {
 		add_sides(&mut entries, &rk.get("book").get("vendors"), tag);
 		what = format!("vendor of the {pname} {rname} book");
@@ -1946,6 +1961,7 @@ fn train_profession(g: &V, goal: &V, r: &mut R, sm: &Smart) {
 		what = format!("{pname} {rname} quest giver");
 	} else {
 		add_sides(&mut entries, &full.get("trainers"), tag);
+		trains_at(&full, &mut entries, min_skill(rank));
 	}
 	let what = format!("{}{}", what, if data.has_professions { "" } else { " (professions.json missing)" });
 	smart(sm, r, goal, &entries, &what);
@@ -2538,6 +2554,7 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 							"Horde" => "H".into(),
 							_ => V::Undef,
 						});
+						trains_at(&prof, &mut entries, at);
 						let rn = if rank.truthy() && rank.get("name").truthy() { format!(" {}", rank.get("name")) } else { String::new() };
 						smart(&sm, r, &goal, &entries, &format!("{}{} trainer", prof.get("name"), rn));
 					} else if g.get("nearest").truthy() && !recipe_item.is_undef() {

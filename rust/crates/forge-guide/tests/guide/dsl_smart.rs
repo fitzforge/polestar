@@ -117,6 +117,29 @@ fn train_profession_the_default_rank_follows_earlier_skill_targets_and_never_rep
 	assert_eq!(done.errors, ["test.guide:9: `train Mining`: Artisan is already trained earlier in this guide"]);
 }
 
+// Oli's report (#1708): Doctor Herbert Halsey only trains Alchemy from 125, so Journeyman (taken at 50)
+// pointed at him was refused. professions.json's `trainerSkill` (the skill a trainer's "Train me." option
+// asks for) leaves a trainer out of a rank whose skill is below it, and out of a recipe learned below it.
+#[test]
+fn train_and_learn_point_only_at_trainers_who_train_at_that_skill_1708() {
+	let data = data_with("trainer-skill", |raw| {
+		raw.get_mut("professions.json").unwrap()["129"]["trainerSkill"] = json!({ "5150": 50 });
+	});
+	let body = ["step S", "  train First Aid", "  learn 3275", "  train First Aid Journeyman", "  learn 3276"];
+	let (r, g) = goals(&text(head(Some("Alliance"), &[]), &body), Some(&data));
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let npcs = |i: usize| cands(&g[i], |c| c["npc"].clone());
+	// Apprentice (from 0) and Linen Bandage (learned at 1): not Nissa Firestone, who trains from 50.
+	assert_eq!(npcs(0), [json!(2329)]);
+	assert_eq!(npcs(1), [json!(2329)]);
+	// Journeyman (from 50): both; Heavy Linen Bandage (learned at 40): still not her.
+	assert_eq!(npcs(2), [json!(2329), json!(5150)]);
+	assert_eq!(npcs(3), [json!(2329)]);
+	// Without the gates every trainer is a candidate, as before.
+	let plain = goals(&text(head(Some("Alliance"), &[]), &body), None).1;
+	assert_eq!(cands(&plain[0], |c| c["npc"].clone()), [json!(2329), json!(5150)]);
+}
+
 #[test]
 fn train_profession_npc_id_keeps_the_trainer_errors_for_unknown_professions_and_coordinates() {
 	let g = goals(&text(head(Some("Alliance"), &[]), &["step S", "  train Mining npc 1681"]), None).1;
