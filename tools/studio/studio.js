@@ -66,12 +66,17 @@ function withClientFonts(L) {
 	const faces = [];
 	const file = art.font('FRIZQT__.TTF');
 	if (file) faces.push(['FRIZQT__.TTF', file]);
-	// A skin addon's own fonts (addon/Polestar_Skin_*/Fonts, the Skin API's
-	// `font = { regular = path, ... }`), by file name, as the preview does.
+	// Polestar's own faces beyond the playground's three Inter weights (Open
+	// Sans, Fira Sans: the skins' and the ui.font choices) and a skin addon's
+	// own fonts (addon/Polestar_Skin_*/Fonts, the Skin API's `font = { regular
+	// = path, ... }`), by file name, as the preview does: else they are
+	// measured and drawn in the fallback face.
 	const addons = L.ADDONS;
+	const fontDirs = [path.join(addons, 'Polestar', 'Media', 'Fonts')];
 	for (const folder of fs.existsSync(addons) ? fs.readdirSync(addons) : []) {
-		if (!folder.startsWith('Polestar_Skin_')) continue;
-		const dir = path.join(addons, folder, 'Fonts');
+		if (folder.startsWith('Polestar_Skin_')) fontDirs.push(path.join(addons, folder, 'Fonts'));
+	}
+	for (const dir of fontDirs) {
 		if (!fs.existsSync(dir)) continue;
 		for (const f of fs.readdirSync(dir)) if (/\.ttf$/i.test(f)) faces.push([f, path.join(dir, f)]);
 	}
