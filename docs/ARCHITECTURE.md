@@ -5826,16 +5826,25 @@ one of those settings changes. The tab last opened on each page is kept in
 and resets leave it) and the page opens there again; a first visit lands on
 the lead tab.
 
-**Preview hotspots.** A preview may make its parts lead to their settings:
-`host:Hotspot(region, key)` while it is built (or
+**Preview hotspots and lights.** A preview may make its parts lead to their
+settings: `s:Hot(region, key)` on its stage (or `host:Hotspot(region, key)`,
 `Polestar.UI.Options.PreviewHotspot(frame, region, key)`) lays a button over
 `region`; under the cursor a 1px accent outline goes round it and the tooltip
 names the setting; a click opens its row (`O.Jump`, the tab on screen first)
 and lights it. The first preview with hotspots says "Click a part of the
 preview to find its settings" in a foot row under it until the first click
 (`PolestarDB.optionsPreviewHint`). The other way round, the pointer on a row
-(or its extras or cog) calls the preview frame's optional `f:Focus(key)`
-(`O.PreviewFocus`), so a preview can show the part that setting draws.
+(or its extras or cog) lights every hotspot of that setting and every part a
+page lights for it, `s:Light(key, region, ...)`, an accent outline and a soft
+wash, until it leaves (`O.PreviewFocus` -> `P.Focus` -> `P.LightUp`); a light's
+frame is made the first time it lights. `s:LightEdge` lights with the outline
+alone: a big part, or one outside the stage (the Theme page lights the
+settings window's own sidebar, border, header band, haze and rim). Every
+setting on a Look page lights at least one part of its tab's preview (a test
+walks them all; the game menu's button, drawn in the game's own menu, is the
+one exemption). The pointer on a row also calls the preview frame's optional
+`f:Focus(key)`, so a preview can show the part that setting draws (the Guide
+window page scrolls its cropped window there).
 
 Controls read and write `Polestar.Get/Set`; `disabled = function() return bool end` is optional;
 registered labels and help are searchable (below, "Settings search"). A `label` may be a function, asked
@@ -5862,35 +5871,54 @@ it was when the window first opened), and go the next.
 **The pinned preview** (`Polestar_Options/UI/Preview.lua`, `UI.Preview`). A
 tab's `preview(host)` is called the first time the tab shows, with a host
 frame in the shell's preview slot (`W.ShellPreview`, between the tab band and
-the scrolling rows); it returns a frame `f` with `f:Layout(width) -> height`,
-laid out across the whole main column and pinned there: the rows scroll under
-it, and the scroll area is anchored anew when its height changes (`Layout`
-runs again after every setting change while the window is shown, and on a new
-size or font). It is at most 45% of the body's height and never cut off: past
-that it is shown whole at the scale that fits, laid out for the width that
-scale gives, and its caption says by how much ("Shown at 81% to fit"). The
-window draws its chrome over it: "Preview" and the frame's `f.caption` (a
-string or a function) at the top left, the Live mark and the backdrop's chip
-at the top right. A preview draws the real element with the current values in
-a sandbox of its own (the module's own builder or paint code, never the live
-instance) and repaints itself only while shown.
+the scrolling rows); it returns a frame `f` with `f:Layout(width, height) ->
+height`, laid out across the whole main column and pinned there: the rows
+scroll under it, and the scroll area is anchored anew when its height changes
+(`Layout` runs again after every setting change while the window is shown,
+and on a new size or font). The preview is the page's hero: its stage stands
+on a backdrop at least 40% of the window's height (`height`, the room the
+page lays its scene out in), at most 55% of the body's; the stage is as tall
+as the height its page returns, centred on the hero. It is never cut off:
+past 55% it is shown whole at the scale that fits, laid out for the width
+that scale gives, and its caption says by how much ("Shown at 81% to fit").
+The window draws its chrome over it: "Preview" and the frame's `f.caption`
+(a string or a function) at the top left, the Live mark and the backdrop's
+chip at the top right. A preview draws the real elements with the current
+values in a sandbox of its own (the module's own builder or paint code, never
+the live instance) at their true size, and repaints itself only while shown.
 
 Every page draws its preview on the one stage, `P.Stage(parent, opts)`: a
 backdrop under the page's parts (`s.Content`), the player's pick for every
 preview through the chip (`PolestarDB.optionsBackdrop`, not a setting): the
-zone they stand in, painted from their own client's world map art (dimmed,
-cooled and half desaturated, a soft dark edge, so its lettering sits back),
-the night sky, or the plain ground; `opts.backdrop` is the page's own when
-none is picked, and `opts.fixed` keeps it for a scene that is a painting of
-its own (the map pins', the route lines': no chip there). `opts.watch` lists
-the setting prefixes that repaint it (`s:Paint()`) at once while it shows and
-on its next show otherwise; a theme change repaints every stage. `s:Fit`
-places a part as large as the stage holds below the chrome, `s:Snap` and
-`P.Snap` put a point on a whole physical pixel, `s:Hot` makes a hotspot, and
-`s:Animate(fn)` runs only while the stage shows. A page that crops its scene
-(the Guide window page's window, scrolled to the part a hovered row edits)
-calls `s:SetCut(true)` while the scene runs past the stage's foot, and the
-stage fades it out over its last 28 px.
+zone they stand in (the default), painted from their own client's world map
+art (dimmed, cooled and half desaturated, a vignette on all four edges, so
+its lettering sits back), the night sky, or the plain ground; `opts.fixed`
+keeps the page's `opts.backdrop` for a scene that is a painting of its own
+(the map pins', the route lines': no chip there). `opts.watch` lists the
+setting prefixes that repaint it (`s:Paint()`) at once while it shows and on
+its next show otherwise; a theme change repaints every stage. A stage's
+helpers: `s:TrueScale()` (a part at its true size on screen, whatever the
+window's Menu scale; the stage's own scale-to-fit still applies),
+`s:SideBySide(items)` (surfaces at their true size in rows, centred on the
+hero, each row's feet on one line, each surface on a soft floor shadow with
+its caption under it, all smaller alike only where they would not fit),
+`s:Floor(frame)` / `s:NoFloor(frame)` (that shadow alone), `s:Fit` (one part
+as large as the stage holds below the chrome), `s:Snap` and `P.Snap` (a point
+on a whole physical pixel), `s:Hot`, `s:Light`, and `s:Animate(fn)` (runs
+only while the stage shows). A page that crops its scene (the Guide window
+page's window, scrolled to the part a hovered row edits) calls
+`s:SetCut(true)` while the scene runs past the stage's foot, and the stage
+fades it out over its last 28 px.
+
+The Look pages' scenes: Theme, the guide window (drawn by the Guide window
+page's own code, `UI.GuideWindowScene`) with the heads-up card on its top
+edge, a rare alert, the arrow and the two kinds of button (the Names tab: a
+card of every subject's name in its colour); Guide window, the window alone;
+Arrow, its three states; Map pins and Route lines, their paintings and a
+minimap; Buttons, the whole set, the floating and the minimap button; Alerts
+& toasts and Trackers, each tab's own surface, every one together on
+Essentials (the alerts in their line while they line up; the journey and the
+XP bar's mark with the trackers).
 
 One setting may show on two pages: a convenience on its home page and on
 Quality of Life, where players look for it (the quest automation toggles,
