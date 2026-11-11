@@ -2069,8 +2069,10 @@ local function pickFor(goal)
 		end
 	end
 	-- `train class`: the step's zone first, unless a trainer stands by the
-	-- player (cost: straight-line seconds here, before the planner's).
-	local home = goal.zone
+	-- player (cost: straight-line seconds here, before the planner's). A
+	-- community pack's or an imported guide's goal goes to the nearest
+	-- trainer instead (Guides.AnyTrainer).
+	local home = not Guides.AnyTrainer[goal] and goal.zone
 	if home then
 		local has = false
 		for _, c in ipairs(list) do
