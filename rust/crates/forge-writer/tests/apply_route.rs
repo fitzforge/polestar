@@ -1947,10 +1947,56 @@ fn inserted_grind_top_up_is_a_step_of_its_own_at_the_camp_before_the_hand_ins() 
 	assert!(
 		m(
 			&text,
-			r#"step Camp\n {2}kill 20 quest 1\.1\n\nstep Level 12\.4\n( {2}zone Durotar\n)? {2}when level<12\.4\n {2}tip Top up here to level 12\.4 before the hand-ins at Razor Hill: they take you to level 13\.\n {2}goto 75\.0,75\.0 map 1411 "Mottled Boar"\n {2}level 12\.4 grind 20 +-- grind on Mottled Boar\n\nstep Hub again"#
+			r#"step Camp\n {2}kill 20 quest 1\.1\n\nstep Level 12\.4\n( {2}zone Durotar\n)? {2}when level<12\.4\n {2}tip Top up here to level 12\.4 before the hand-ins at Razor Hill\.\n {2}goto 75\.0,75\.0 map 1411 "Mottled Boar"\n {2}level 12\.4 grind 20 +-- grind on Mottled Boar\n\nstep Hub again"#
 		),
 		"{text}"
 	);
+}
+
+// GrindVsHandin (Fix 2): a top-up before the town keeps the target the route needs after the town's
+// hand-ins, less their XP; one they cover whole is not written; "they take you to level N" is the
+// hand-ins' XP reckoned, not the target's next level.
+#[test]
+fn a_grind_top_up_takes_the_hand_ins_before_the_level_is_needed_off_its_target() {
+	let c = |xp1: f64, order: Vec<Value>| Case {
+		files: vec![(
+			"a",
+			vec!["guide t/a", "title A", "levels 10-20", "zone Durotar", "", "step Hub", "  accept 1", "", "step Camp", "  kill 20 quest 1.1", "", "step Hub again", "  turnin 1", "  accept 2", "  turnin 2", ""],
+		)],
+		route: json!({ "diff": {}, "order": order }),
+		world: json!({ "points": [[1, 1, 0, 0, 1411], [1, 1, -500, 500, 1411]], "zones": { "1411": "Durotar" }, "quests": [{ "id": 1, "objs": [{ "oi": 0, "type": "kill", "id": 20, "task": 0 }] }, { "id": 2, "objs": [] }] }),
+		quests: json!({
+			"1": { "title": "One", "level": 12, "xp": xp1, "start": { "npc": [8] }, "end": { "npc": [8] }, "objectives": [{ "type": "kill", "id": 20 }] },
+			"2": { "title": "Two", "level": 13, "minLevel": 13, "xp": 12000, "start": { "npc": [8] }, "end": { "npc": [8] } },
+		}),
+		npcs: json!({ "8": { "name": "Eight", "spawns": { "1411": { "f": "e", "pts": [[50, 50]] } } }, "20": { "name": "Mottled Boar", "spawns": { "1411": { "f": "e", "pts": [[75, 75]] } } } }),
+		..Case::default()
+	};
+	let head = |target: f64| {
+		vec![
+			json!({ "t": "accept", "q": 1, "pt": 0, "from": f("a", 7) }),
+			json!({ "t": "task", "q": 1, "task": 0, "pt": 1, "from": f("a", 10) }),
+			json!({ "t": "level", "lvl": 12.2, "target": target, "pt": 1, "from": "inserted" }),
+			json!({ "t": "turnin", "q": 1, "pt": 0, "from": f("a", 13) }),
+		]
+	};
+	let tip = |text: &str| text.lines().find(|l| l.starts_with("  tip Top up here")).unwrap_or_default().to_string();
+	let razor = area("Razor Hill", "Durotar", 1411);
+	// (12.2 to 12.4 is 2,020 XP; One gives 1,010: the grind is to 12.3, and One takes the player to 12.4,
+	// not to 13.)
+	let text = run(&c(1010.0, head(12.4)), Some(&razor)).text("a");
+	assert!(m(&text, r"step Level 12\.3\n( {2}zone Durotar\n)? {2}when level<12\.3\n"), "{text}");
+	assert_eq!(tip(&text), "  tip Top up here to level 12.3 before the hand-ins at Razor Hill.", "{text}");
+	// (One's 3,000 cover it whole: no top-up.)
+	let text = run(&c(3000.0, head(12.4)), Some(&razor)).text("a");
+	assert!(!text.contains("step Level"), "{text}");
+	// (Two needs 13: the hand-ins before it count, the grind is to 13; One and Two take a player at 13
+	// to 14.)
+	let mut order = head(13.1);
+	order.push(json!({ "t": "accept", "q": 2, "pt": 0, "from": f("a", 14) }));
+	order.push(json!({ "t": "turnin", "q": 2, "pt": 0, "from": f("a", 15) }));
+	let text = run(&c(1140.0, order), Some(&razor)).text("a");
+	assert_eq!(tip(&text), "  tip Top up here to level 13 before the hand-ins at Razor Hill: they take you to level 14.", "{text}");
 }
 
 // Fitz's grind policy (2026-11-08, final route review): every written grind step keeps its gate and says
@@ -1981,14 +2027,14 @@ fn a_grind_top_up_names_the_dungeons_of_its_level_for_the_routes_faction() {
 		r.read("a").into_iter().find(|l| l.starts_with("  tip Top up here")).unwrap_or_default()
 	};
 	let horde = tip(Some("Horde"), 21.4);
-	assert!(horde.ends_with("they take you to level 22. Or, with a group, run the Wailing Caverns dungeon instead."), "{horde}");
+	assert!(horde.ends_with("before the hand-ins at Razor Hill. Or, with a group, run the Wailing Caverns dungeon instead."), "{horde}");
 	let alliance = tip(Some("Alliance"), 21.4);
 	assert!(alliance.ends_with(" Or, with a group, run the Wailing Caverns dungeon or the Deadmines dungeon instead."), "{alliance}");
 	let high = tip(Some("Horde"), 28.9);
 	assert!(high.ends_with(" Or, with a group, run the Blackfathom Deeps dungeon or the Razorfen Kraul dungeon instead."), "{high}");
 	// Below every dungeon's band: no sentence.
 	let low = tip(Some("Horde"), 12.4);
-	assert!(low.ends_with("they take you to level 13."), "{low}");
+	assert!(low.ends_with("before the hand-ins at Razor Hill."), "{low}");
 }
 
 #[test]

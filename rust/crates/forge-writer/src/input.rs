@@ -493,6 +493,9 @@ pub struct Quest {
 	pub repeatable: Option<Value>,
 	#[serde(default, rename = "minLevel", deserialize_with = "lenient_num")]
 	pub min_level: Option<f64>,
+	/// The quest's full XP reward (none: estimated from its level).
+	#[serde(default, deserialize_with = "lenient_num")]
+	pub xp: Option<f64>,
 	/// The races that may take it (race bits; Skyborne past 32 bits), None or 0: any.
 	#[serde(default, deserialize_with = "lenient_num")]
 	pub races: Option<f64>,
