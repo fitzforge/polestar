@@ -283,10 +283,12 @@ local skinShown
 -- looks: their kit's tab art.
 function GF.PaintTab(b)
 	-- The close button inside a tab outline that stands in from the sides;
-	-- the game's looks set it on the middle of their tab's art.
+	-- the game's looks set it, the glyph and the title after it on the
+	-- middle of their tab's art.
 	b.Close:ClearAllPoints()
 	b.Close:SetPoint("RIGHT", b, "RIGHT", -3 - Theme.Metric("guideTabInset", 0), 0)
-	local kit = Theme.KitTab(b, b.psActive, nil, true, b.Close)
+	local kit, mid = Theme.KitTab(b, b.psActive, nil, true, b.Close)
+	b.Icon:SetPoint("LEFT", b, "LEFT", 9, kit and mid or 0)
 	local hearth = Theme.SkinKey() == "hearth"
 	local f = rawget(b, "psFrameTex")
 	if hearth and not f then

@@ -1304,7 +1304,9 @@ end
 
 -- A tab in the kit's art (MinimalTabTemplate: Options_Tab_* along its
 -- bottom, the active one 3 higher; the vanilla option tabs in Classic) with
--- its label on the art: BOTTOM 0,6 when active, 0,4 otherwise. -> true
+-- its label on the art: BOTTOM 0,6 when active, 0,4 otherwise. -> true and
+-- how far the middle of the tab's art lies from the tab's middle (0 for art
+-- the tab's own height, or none; negative: lower).
 -- `flush`: the tab's top lies on the window's edge (the guide window's
 -- strip). The Settings tab art is an outline: with its top on that edge
 -- its right side stood as a lone line by the rest of the strip (#312). A
@@ -1315,7 +1317,8 @@ end
 -- selected row too, and the resting tabs their label alone (kit.flushBare).
 -- `close` (the guide window's tab close button) goes on the middle of the
 -- tab's art, 3 in from its right side: a tab art that stops under the
--- strip's top (or rises from its foot) is lower than the strip's middle.
+-- strip's top (or rises from its foot) is lower than the strip's middle;
+-- the guide window sets its glyph and title there too.
 function Theme.KitTab(b, active, label, flush, close)
 	local kit = Theme.Kit()
 	if not kit then
@@ -1332,6 +1335,9 @@ function Theme.KitTab(b, active, label, flush, close)
 	host:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", gap, 0)
 	host:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -gap, 0)
 	host:SetAlpha(1)
+	-- How far the middle of the tab's art lies from the tab's own middle (0:
+	-- art the tab's height, or none).
+	local mid = 0
 	if lit then
 		host:SetPoint("TOP", b, "TOP", 0, 0)
 		hideKey(b, "tabArt")
@@ -1345,6 +1351,7 @@ function Theme.KitTab(b, active, label, flush, close)
 		hideKey(b, "tabLit")
 		host:SetHeight(active and 24 or 21)
 		host:SetAlpha(active and 1 or 0.55)
+		mid = ((active and 24 or 21) - b:GetHeight()) / 2
 		three(b, "tabArt", kit, kit.chatTab, host, 10, 10 / 58, "BACKGROUND", 0)
 	elseif flush and kit.flushBare then
 		hideKey(b, "tabLit")
@@ -1357,6 +1364,7 @@ function Theme.KitTab(b, active, label, flush, close)
 			h = min(h, max(12, b:GetHeight() - clear - (active and 0 or 3)))
 		end
 		host:SetHeight(h)
+		mid = (h - b:GetHeight()) / 2
 		three(b, "tabArt", kit, active and kit.tabActive or kit.tab, host, isFile and 14 or 7, isFile and 16 / 112 or nil, "BACKGROUND", 0)
 	end
 	if label then
@@ -1368,7 +1376,7 @@ function Theme.KitTab(b, active, label, flush, close)
 		close:ClearAllPoints()
 		close:SetPoint("RIGHT", host, "RIGHT", -3, 0)
 	end
-	return true
+	return true, mid
 end
 
 -- The highlight under the guide window's current goal and a selected

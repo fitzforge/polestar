@@ -1279,7 +1279,8 @@ fn a_skin_s_art_tint_dims_the_guide_window_s_lit_goal_and_progress_bar_in_every_
 
 // A guide window tab's close button: the red button 14 high in every game look (Classic's art, whose button fills
 // 19 of its 32 units, drawn bigger to match), on the middle of the tab's art where the tab has art: WoW Forever's
-// outline and Classic's chat tab stand lower than the strip's middle. Blizzard's resting tab is its label alone.
+// outline and Classic's chat tab stand lower than the strip's middle, and the tab's glyph (with the title and range
+// after it) moves down with them. Blizzard's resting tab is its label alone.
 #[test]
 fn a_tab_s_close_button_is_the_same_size_in_every_game_look_on_the_middle_of_the_tab_s_art() {
 	let out = run_with(
@@ -1293,7 +1294,8 @@ fn a_tab_s_close_button_is_the_same_size_in_every_game_look_on_the_middle_of_the
 				local art = b.Close.psSkin.kit.closeN
 				local ink = look == "classic" and 19 / 32 or 1
 				local _, rel = b.Close:GetPoint(1)
-				return { button = math.floor(art:GetHeight() * ink * 100 + 0.5) / 100, onArt = rel == b.psSkin.kit.tab }
+				return { button = math.floor(art:GetHeight() * ink * 100 + 0.5) / 100, onArt = rel == b.psSkin.kit.tab,
+					glyph = select(5, b.Icon:GetPoint(1)) }
 			end
 			out[look] = { active = tab(GF.tabs[1]), rest = tab(GF.tabs[2]) }
 		end
@@ -1302,10 +1304,10 @@ fn a_tab_s_close_button_is_the_same_size_in_every_game_look_on_the_middle_of_the
 			return { file = "atlas:" .. name, leftTexCoord = 0, rightTexCoord = 1, topTexCoord = 0, bottomTexCoord = 1, width = 18, height = 19 }
 		end }"#,
 	);
-	let on = |art: bool| json!({ "button": 14, "onArt": art });
-	assert_eq!(out["forever"], json!({ "active": on(true), "rest": on(true) }), "Forever");
-	assert_eq!(out["blizzard"], json!({ "active": on(true), "rest": on(false) }), "Blizzard");
-	assert_eq!(out["classic"], json!({ "active": on(true), "rest": on(true) }), "Classic");
+	let on = |art: bool, glyph: Value| json!({ "button": 14, "onArt": art, "glyph": glyph });
+	assert_eq!(out["forever"], json!({ "active": on(true, json!(-3)), "rest": on(true, json!(-4.5)) }), "Forever: a 30 strip, outlines 24 and 21 high");
+	assert_eq!(out["blizzard"], json!({ "active": on(true, json!(0)), "rest": on(false, json!(0)) }), "Blizzard");
+	assert_eq!(out["classic"], json!({ "active": on(true, json!(-2)), "rest": on(true, json!(-3.5)) }), "Classic: a 28 strip, chat tabs 24 and 21 high");
 }
 
 // Blizzard is the game's own damage meter, not WoW Forever in grey: the guide window's ground is the meter's window
